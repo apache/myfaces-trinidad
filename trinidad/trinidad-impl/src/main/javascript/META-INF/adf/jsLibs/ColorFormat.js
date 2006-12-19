@@ -21,14 +21,12 @@ function TrColorConverter(
   pattern,
   allowsTransparent,
   patternsString,
-  summary,
   detail)
 {
   // for debugging
   this._class = "TrColorConverter";
   this._allowsTransparent = allowsTransparent;  
   this._patternsString = patternsString;     
-  this._summary = summary;
   this._detail = detail;
   
   if (pattern != null)
@@ -97,21 +95,22 @@ TrColorConverter.prototype.getAsObject  = function(
     return new TrColor(0,0,0,0);
      
   var facesMessage;
-  
-  if(this._summary == undefined)
+  var key = "org.apache.myfaces.trinidad.convert.ColorConverter.CONVERT";
+  if(this._detail == undefined)
   {
-    facesMessage = _createFacesMessage("org.apache.myfaces.trinidad.convert.ColorConverter.CONVERT",
-                                            label,
-                                            parseString,
-                                            this._patternsString);
+    facesMessage = _createFacesMessage(key,
+                                       label,
+                                       parseString,
+                                       this._patternsString);
   }
   else
   {
-    facesMessage = _createCustomFacesMessage(this._summary,
-                                            this._detail,
-                                            label,
-                                            parseString,
-                                            this._patternsString);
+    facesMessage = _createCustomFacesMessage(
+                                       TrMessageFactory.getSummaryString(key),
+                                       this._detail,
+                                       label,
+                                       parseString,
+                                       this._patternsString);
   }
   
   
