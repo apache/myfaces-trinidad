@@ -108,8 +108,7 @@ public class LengthValidator extends org.apache.myfaces.trinidad.validator.Lengt
         outBuffer.append("null");
       }
     }
-      
-    outBuffer.append(")");
+    outBuffer.append(')');
 
     return outBuffer.toString();
   }
