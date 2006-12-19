@@ -149,8 +149,6 @@ public class ByteLengthValidator
           params);
       
       constr.append(",'");
-      constr.append(XhtmlLafUtils.escapeJS(msg.getSummary()));
-      constr.append("','");
       constr.append(XhtmlLafUtils.escapeJS(msg.getDetail()));
       constr.append("'");
       
