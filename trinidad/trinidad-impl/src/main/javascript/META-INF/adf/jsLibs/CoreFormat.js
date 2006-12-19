@@ -697,12 +697,10 @@ function _decimalParse(
 
 function TrRegExpValidator(
   pattern,
-  summary,
   detail
   )
 {  
   this._pattern  = pattern;
-  this._summary = summary;
   this._detail = detail;
   this._class = "TrRegExpValidator";
 }
@@ -737,21 +735,23 @@ TrRegExpValidator.prototype.validate  = function(
   }
   else
   {
+  	var key = "org.apache.myfaces.trinidad.validator.RegExpValidator.NO_MATCH";
     var facesMessage;
-    if(this._summary == undefined)
+    if(this._detail)
     {
-      facesMessage = _createFacesMessage( "org.apache.myfaces.trinidad.validator.RegExpValidator.NO_MATCH",
-                                              label,
-                                              parseString,
-                                              this._pattern);                                          
+      facesMessage = _createCustomFacesMessage(
+                                         TrMessageFactory.getSummaryString(key),
+                                         this._detail,
+                                         label,
+                                         parseString,
+                                         this._pattern);                                          
     }
     else
     {
-      facesMessage = _createCustomFacesMessage(this._summary,
-                                          this._detail,
-                                          label,
-                                          parseString,
-                                          this._pattern);                                          
+      facesMessage = _createFacesMessage(key,
+                                         label,
+                                         parseString,
+                                         this._pattern);                                          
     }
     throw new TrValidatorException(facesMessage); 
   }
