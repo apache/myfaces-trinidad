@@ -178,12 +178,9 @@ public class ColorConverter extends org.apache.myfaces.trinidad.convert.ColorCon
                                              convMsgDet, params);
       
       sb.append("','");
-      sb.append(XhtmlLafUtils.escapeJS(msg.getSummary())); 
-      sb.append("','");
       sb.append(XhtmlLafUtils.escapeJS(msg.getDetail())); 
     }
-    
-    
+
     sb.append("')");
 
     return sb.toString();
