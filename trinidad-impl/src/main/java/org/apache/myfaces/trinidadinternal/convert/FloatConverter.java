@@ -94,7 +94,7 @@ public class FloatConverter extends javax.faces.convert.FloatConverter
       FacesContext context,
       UIComponent component)
     {
-      StringBuffer outBuffer = new StringBuffer(250);
+      StringBuilder outBuffer = new StringBuilder(250);
 
       outBuffer.append("new TrFloatConverter(");
       outBuffer.append("'");

@@ -128,7 +128,7 @@ public class LongConverter extends javax.faces.convert.LongConverter
       String maxVal,
       String minVal)
     {
-      StringBuffer outBuffer = new StringBuffer(250);
+      StringBuilder outBuffer = new StringBuilder(250);
 
       outBuffer.append("new TrLongConverter(");
 

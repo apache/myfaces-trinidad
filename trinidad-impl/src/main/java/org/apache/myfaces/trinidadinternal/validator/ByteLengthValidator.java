@@ -75,7 +75,7 @@ public class ByteLengthValidator
     int encodingType = _getType(getEncoding());
 
     //to create the constructor.
-    StringBuffer constr = new StringBuffer(150);
+    StringBuilder constr = new StringBuilder(150);
     switch(encodingType)
     {
       case _SINGLE_BYTE_TYPE :
@@ -136,7 +136,7 @@ public class ByteLengthValidator
     }
   }
   
-  private void _applyCustomMessage(FacesContext context, StringBuffer constr, String maxLength)
+  private void _applyCustomMessage(FacesContext context, StringBuilder constr, String maxLength)
   {
     String maxMsgDetail = getMessageDetailMaximum();
     if(maxMsgDetail != null)

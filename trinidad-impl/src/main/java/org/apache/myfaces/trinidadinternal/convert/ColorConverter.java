@@ -70,7 +70,7 @@ public class ColorConverter extends org.apache.myfaces.trinidad.convert.ColorCon
     if (clientId != null)
     {
       // FIX - figure out size!!!
-      StringBuffer buff = new StringBuffer();
+      StringBuilder buff = new StringBuilder();
 
       Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
       // =-=JRF Only if Javascript...
@@ -142,9 +142,9 @@ public class ColorConverter extends org.apache.myfaces.trinidad.convert.ColorCon
     int patternsArgSize = _getPatternsArgSize();
 
     int size = 19 + patternsArgSize + 19;
-    StringBuffer sb = new StringBuffer(size);
+    StringBuilder sb = new StringBuilder(size);
 
-    StringBuffer patterns = new StringBuffer();
+    StringBuilder patterns = new StringBuilder();
     String[] setPatterns = getPatterns();
     for (int i = 0; i < setPatterns.length ; i++)
     {
@@ -225,8 +225,8 @@ public class ColorConverter extends org.apache.myfaces.trinidad.convert.ColorCon
     return size;
   }
 
-  // Appends the patterns argument to the StringBuffer
-  private void _appendPatternsArg(StringBuffer buffer)
+  // Appends the patterns argument to the StringBuilder
+  private void _appendPatternsArg(StringBuilder buffer)
   {
     String[] patterns = getPatterns();
     int count = patterns.length;

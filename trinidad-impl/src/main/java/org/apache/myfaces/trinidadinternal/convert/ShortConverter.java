@@ -127,7 +127,7 @@ public class ShortConverter extends javax.faces.convert.ShortConverter
       String maxVal,
       String minVal)
     {
-      StringBuffer outBuffer = new StringBuffer(250);
+      StringBuilder outBuffer = new StringBuilder(250);
 
       outBuffer.append("new TrShortConverter(");
 

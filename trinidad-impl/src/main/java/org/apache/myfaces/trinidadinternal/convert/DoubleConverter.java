@@ -94,7 +94,7 @@ public class DoubleConverter extends javax.faces.convert.DoubleConverter
       FacesContext context,
       UIComponent component)
     {
-      StringBuffer outBuffer = new StringBuffer(250);
+      StringBuilder outBuffer = new StringBuilder(250);
 
       outBuffer.append("new TrDoubleConverter(");
       outBuffer.append("'");
