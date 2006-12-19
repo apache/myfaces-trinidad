@@ -110,6 +110,8 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
   public double getMaximum()
   {
     Object maxLong = _facesBean.getProperty(_MAXIMUM_KEY);
+    if(maxLong == null)
+      maxLong = Double.MAX_VALUE;
     return ComponentUtils.resolveDouble(maxLong);
   }
 
@@ -134,6 +136,8 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
   public double getMinimum()
   {
     Object minLong = _facesBean.getProperty(_MINIMUM_KEY);
+    if(minLong == null)
+      minLong = Double.MIN_VALUE;
     return ComponentUtils.resolveDouble(minLong);
   }
 
@@ -406,10 +410,10 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
   private static final FacesBean.Type _TYPE = new FacesBean.Type();
 
   private static final PropertyKey _MINIMUM_KEY =
-    _TYPE.registerKey("minimum", Double.class, Double.MIN_VALUE);
+    _TYPE.registerKey("minimum", Double.class);
 
   private static final PropertyKey _MAXIMUM_KEY =
-    _TYPE.registerKey("maximum", Double.class, Double.MAX_VALUE );
+    _TYPE.registerKey("maximum", Double.class);
 
   private static final PropertyKey _MAXIMUM_MESSAGE_DETAIL_KEY =
     _TYPE.registerKey("messageDetailMaximum", String.class);

@@ -112,6 +112,8 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
   public long getMaximum()
   {
     Object maxLong = _facesBean.getProperty(_MAXIMUM_KEY);
+    if(maxLong == null)
+      maxLong = Long.MAX_VALUE;
     return ComponentUtils.resolveLong(maxLong);
   }
 
@@ -136,6 +138,8 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
   public long getMinimum()
   {
     Object minLong = _facesBean.getProperty(_MINIMUM_KEY);
+    if(minLong == null)
+      minLong = Long.MIN_VALUE;
     return ComponentUtils.resolveLong(minLong);
   }
 
@@ -408,10 +412,10 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
   private static final FacesBean.Type _TYPE = new FacesBean.Type();
 
   private static final PropertyKey _MINIMUM_KEY =
-    _TYPE.registerKey("minimum", Long.class, Long.MIN_VALUE);
+    _TYPE.registerKey("minimum", Long.class);
 
   private static final PropertyKey _MAXIMUM_KEY =
-    _TYPE.registerKey("maximum", Long.class, Long.MAX_VALUE );
+    _TYPE.registerKey("maximum", Long.class);
 
   private static final PropertyKey _MAXIMUM_MESSAGE_DETAIL_KEY =
     _TYPE.registerKey("messageDetailMaximum", String.class);
