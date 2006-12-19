@@ -346,7 +346,6 @@ TrRangeValidator.prototype.validate  = function(
   string = "" + value;
   numberValue = parseFloat(string);
   var facesMessage;
-  
   if(this._minValue && this._maxValue)
   {
   	//range
@@ -525,12 +524,12 @@ TrLengthValidator.prototype.validate  = function(
 
 function TrDateTimeRangeValidator(
   maxValue,
-  minValue)
+  minValue,
+  messages)
 {
- 
   this._maxValue = maxValue;
   this._minValue = minValue;
-
+  this._messages = messages;
   // for debugging
   this._class = "TrDateTimeRangeValidator";
 }
@@ -554,23 +553,98 @@ TrDateTimeRangeValidator.prototype.validate  = function(
 )
 {
   dateTime = value.getTime();
-  minDate = parseInt(this._minValue);
-  maxDate = parseInt(this._maxValue);
-  
-  if(dateTime >= minDate && dateTime <= maxDate)
+  var facesMessage;
+  //range
+  if(this._minValue && this._maxValue)
   {
-    return value;
-  }
-  else
-  {
-    facesMessage = _createFacesMessage("org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.NOT_IN_RANGE",
+    minDate = parseInt(this._minValue);
+    maxDate = parseInt(this._maxValue);
+    if(dateTime >= minDate && dateTime <= maxDate)
+    {
+      return value;
+    }
+    else
+    {
+    	var key = "org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.NOT_IN_RANGE";
+    	if(this._messages && this._messages["range"])
+        {
+          facesMessage = _createCustomFacesMessage(TrMessageFactory.getSummaryString(key),
+                                        this._messages["range"],
                                         label,
                                         ""+converter.getAsString(value),
                                         ""+converter.getAsString(new Date(this._minValue)),
                                         ""+converter.getAsString(new Date(this._maxValue)));
-    throw new TrConverterException(facesMessage);
+        }
+    	else
+    	{
+          facesMessage = _createFacesMessage(key,
+                                        label,
+                                        string,
+                                        ""+this._minValue,
+                                        ""+this._maxValue);
+    	}
+    }
   }
-  
+  else
+  {
+    //only min
+    if(this._minValue)
+    {
+      minDate = parseInt(this._minValue);
+      if(dateTime >= minDate)
+      {
+        return value;
+      }
+      else
+      {
+        var key = "org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MINIMUM";
+    	if(this._messages && this._messages["min"])
+        {
+          facesMessage = _createCustomFacesMessage(TrMessageFactory.getSummaryString(key),
+                                        this._messages["min"],
+                                        label,
+                                        ""+converter.getAsString(value),
+                                        ""+converter.getAsString(new Date(this._minValue)));
+        }
+    	else
+    	{
+          facesMessage = _createFacesMessage(key,
+                                        label,
+                                        ""+converter.getAsString(value),
+                                        ""+converter.getAsString(new Date(this._minValue)));
+    	}
+      }
+    }
+    //max only
+    else
+    {
+      maxDate = parseInt(this._maxValue);
+      if(dateTime <= maxDate)
+      {
+        return value;
+      }
+      else
+      {
+        var key = "org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MAXIMUM";
+    	if(this._messages && this._messages["max"])
+        {
+          facesMessage = _createCustomFacesMessage(TrMessageFactory.getSummaryString(key),
+                                        this._messages["max"],
+                                        label,
+                                        ""+converter.getAsString(value),
+                                        ""+converter.getAsString(new Date(this._maxValue)));
+        }
+    	else
+    	{
+          facesMessage = _createFacesMessage(key,
+                                        label,
+                                        ""+converter.getAsString(value),
+                                        ""+converter.getAsString(new Date(this._maxValue)));
+    	}
+      }
+    }
+  }
+  throw new TrConverterException(facesMessage);
 }
 
 function TrDateRestrictionValidator(

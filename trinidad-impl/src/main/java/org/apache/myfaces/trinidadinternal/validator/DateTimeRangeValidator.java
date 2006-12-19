@@ -14,9 +14,12 @@
 * limitations under the License.
 */
 package org.apache.myfaces.trinidadinternal.validator;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -24,6 +27,7 @@ import javax.faces.validator.ValidatorException;
 
 import org.apache.myfaces.trinidad.validator.ClientValidator;
 import org.apache.myfaces.trinidadinternal.convert.GenericConverterFactory;
+import org.apache.myfaces.trinidadinternal.util.JsonUtils;
 
 public class DateTimeRangeValidator extends org.apache.myfaces.trinidad.validator.DateTimeRangeValidator
                                        implements ClientValidator
@@ -73,10 +77,24 @@ public class DateTimeRangeValidator extends org.apache.myfaces.trinidad.validato
   {
     Date max = getMaximum();
     Date min = getMinimum();
-    String maxStr = (max == null) ? null : Long.toString(max.getTime());
-    String minStr = (min == null) ? null : Long.toString(min.getTime());
+    String maxStr = (max == null) ? "null" : Long.toString(max.getTime());
+    String minStr = (min == null) ? "null" : Long.toString(min.getTime());
     
-    return _getTrDateTimeRangeValidator(context, component, maxStr, minStr);
+    String messageDetailMax = this.getMessageDetailMaximum();
+    String messageDetailMin = this.getMessageDetailMinimum();
+    String messageDetailRange = this.getMessageDetailNotInRange();
+    
+    Map<String, String> cMessages = null;
+    if(messageDetailMax != null || messageDetailMin != null || messageDetailRange != null)
+    {
+      cMessages = new HashMap<String, String>();
+      cMessages.put("max", messageDetailMax);
+      cMessages.put("min", messageDetailMin);
+      cMessages.put("range", messageDetailRange);
+    }
+
+    
+    return _getTrDateTimeRangeValidator(context, component, maxStr, minStr, cMessages);
     
   }
   
@@ -91,14 +109,31 @@ public class DateTimeRangeValidator extends org.apache.myfaces.trinidad.validato
       FacesContext context,
       UIComponent component,
       String max,
-      String min)
+      String min,
+      Map messages)
   {
     StringBuilder outBuffer = new StringBuilder(31 + min.length() + max.length());
     outBuffer.append("new TrDateTimeRangeValidator(");
     outBuffer.append(max);
     outBuffer.append(',');
     outBuffer.append(min);
-    outBuffer.append(")");
+    outBuffer.append(',');
+    if(messages == null)
+    {
+      outBuffer.append("null");
+    }
+    else
+    {
+      try
+      {
+        JsonUtils.writeMap(outBuffer, messages, false);
+      }
+      catch (IOException e)
+      {
+        outBuffer.append("null");
+      }
+    }
+    outBuffer.append(')');
 
     return outBuffer.toString();
   }
