@@ -307,10 +307,12 @@ TrFloatConverter.prototype.getAsObject = function(
 
 function TrRangeValidator(
   maxValue,
-  minValue)
+  minValue,
+  messages)
 {
   this._maxValue = maxValue;
   this._minValue = minValue;
+  this._messages = messages;
 
   // for debugging
   this._class = "TrRangeValidator";
@@ -341,32 +343,97 @@ TrRangeValidator.prototype.validate  = function(
   converter
 )
 {
-	
   string = "" + value;
   numberValue = parseFloat(string);
+  var facesMessage;
   
-  if(numberValue >= this._minValue && numberValue <= this._maxValue)
+  if(this._minValue && this._maxValue)
   {
-    return string;
-  }
-  else
-  {
-    if(numberValue>this._maxValue)
+  	//range
+    if(numberValue >= this._minValue && numberValue <= this._maxValue)
     {
-      facesMessage = _createFacesMessage("org.apache.myfaces.trinidad.validator.LongRangeValidator.MAXIMUM",
-                                        label,
-                                        string,
-                                        ""+this._maxValue);
+      return string;
     }
     else
     {
-      facesMessage = _createFacesMessage("org.apache.myfaces.trinidad.validator.LongRangeValidator.MINIMUM",
+    	var key = "org.apache.myfaces.trinidad.validator.LongRangeValidator.NOT_IN_RANGE";
+    	if(this._messages && this._messages["range"])
+    	{
+        facesMessage = _createCustomFacesMessage(TrMessageFactory.getSummaryString(key),
+                                        this._messages["range"],
+                                        label,
+                                        string,
+                                        ""+this._minValue,
+                                        ""+this._maxValue);
+    	}
+    	else
+    	{
+        facesMessage = _createFacesMessage(key,
+                                        label,
+                                        string,
+                                        ""+this._minValue,
+                                        ""+this._maxValue);
+    	}
+    }
+  }
+  else
+  {
+  	//only min
+  	if(this._minValue)
+  	{
+  		if(numberValue >= this._minValue)
+  		{
+  			return string;
+  		}
+  		else
+  		{
+        var key = "org.apache.myfaces.trinidad.validator.LongRangeValidator.MINIMUM";
+        if(this._messages && this._messages["min"])
+        {
+          facesMessage = _createCustomFacesMessage(TrMessageFactory.getSummaryString(key),
+                                        this._messages["min"],
                                         label,
                                         string,
                                         ""+this._minValue);
-    }
-    throw new TrConverterException(facesMessage);
+        }
+        else
+        {
+          facesMessage = _createFacesMessage(key,
+                                        label,
+                                        string,
+                                        ""+this._minValue);
+        }
+  		}
+  	}
+  	//max only
+  	else
+  	{
+  		if(numberValue <= this._maxValue)
+  		{
+  			return string;
+  		}
+  		else
+  		{
+        var key = "org.apache.myfaces.trinidad.validator.LongRangeValidator.MAXIMUM";
+        if(this._messages && this._messages["max"])
+        {
+          facesMessage = _createCustomFacesMessage(TrMessageFactory.getSummaryString(key),
+                                        this._messages["max"],
+                                        label,
+                                        string,
+                                        ""+this._maxValue);
+        }
+        else
+        {
+          facesMessage = _createFacesMessage(key,
+                                        label,
+                                        string,
+                                        ""+this._maxValue);
+        }
+  		}
+  	}
   }
+  throw new TrConverterException(facesMessage);
 }
 
 function TrLengthValidator(

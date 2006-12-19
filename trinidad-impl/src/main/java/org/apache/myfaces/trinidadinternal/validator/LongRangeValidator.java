@@ -16,14 +16,18 @@
 
 package org.apache.myfaces.trinidadinternal.validator;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.util.IntegerUtils;
 import org.apache.myfaces.trinidad.validator.ClientValidator;
+import org.apache.myfaces.trinidadinternal.util.JsonUtils;
 
 /**
  * <p>Implementation for <code>java.lang.Long</code> values.</p>
@@ -55,10 +59,25 @@ public class LongRangeValidator extends org.apache.myfaces.trinidad.validator.Lo
     FacesContext context,
     UIComponent component)
   {
-    String maxStr = IntegerUtils.getString(getMaximum());
-    String minStr = IntegerUtils.getString(getMinimum());
+    long max = getMaximum();
+    long min = getMinimum();
+    String maxStr = max == Long.MAX_VALUE ? "null" : IntegerUtils.getString(max);
+    String minStr = min == Long.MIN_VALUE ? "null" : IntegerUtils.getString(min);
     
-    return _getTrRangeValidator(context, component, maxStr, minStr);
+    String messageDetailMax = this.getMessageDetailMaximum();
+    String messageDetailMin = this.getMessageDetailMinimum();
+    String messageDetailRange = this.getMessageDetailNotInRange();
+    
+    Map<String, String> cMessages = null;
+    if(messageDetailMax != null || messageDetailMin != null || messageDetailRange != null)
+    {
+      cMessages = new HashMap<String, String>();
+      cMessages.put("max", messageDetailMax);
+      cMessages.put("min", messageDetailMin);
+      cMessages.put("range", messageDetailRange);
+    }
+    
+    return _getTrRangeValidator(context, component, maxStr, minStr, cMessages);
 
   }
   
@@ -72,13 +91,30 @@ public class LongRangeValidator extends org.apache.myfaces.trinidad.validator.Lo
       FacesContext context,
       UIComponent component,
       String max,
-      String min)
+      String min,
+      Map messages)
   {
     StringBuilder outBuffer = new StringBuilder();
     outBuffer.append("new TrRangeValidator(");
     outBuffer.append(max);
     outBuffer.append(',');
     outBuffer.append(min);
+    outBuffer.append(',');
+    if(messages == null)
+    {
+      outBuffer.append("null");
+    }
+    else
+    {
+      try
+      {
+        JsonUtils.writeMap(outBuffer, messages, false);
+      }
+      catch (IOException e)
+      {
+        outBuffer.append("null");
+      }
+    }
     outBuffer.append(")");
 
     return outBuffer.toString();
