@@ -224,21 +224,19 @@ public class DateTimeConverter extends
 
       FacesMessage msg = null;
       String detailMessage = null;
-      String summaryMessage = null;
       int customMessages = 0;
       if (msgPattern != null)
       {
         msg = MessageFactory.getMessage(context, key, msgPattern, params,
             component);
         detailMessage = XhtmlLafUtils.escapeJS(msg.getDetail());
-        summaryMessage = XhtmlLafUtils.escapeJS(msg.getSummary());
-        customMessages = 6 + detailMessage.length() + summaryMessage.length();
+        customMessages = 6 + detailMessage.length();
 
       }
       String exampleString = XhtmlLafUtils.escapeJS(getExample(context));
       String escapedType = XhtmlLafUtils.escapeJS(getType().toUpperCase());
 
-      StringBuffer outBuffer = new StringBuffer(36 + jsPattern.length()
+      StringBuilder outBuffer = new StringBuilder(33 + jsPattern.length()
           + exampleString.length() + escapedType.length() + customMessages);
       outBuffer.append("new TrDateTimeConverter("); // 21
       outBuffer.append(jsPattern); // jsPattern.length
@@ -249,8 +247,6 @@ public class DateTimeConverter extends
 
       if (msgPattern != null)
       {
-        outBuffer.append("','"); // 3
-        outBuffer.append(summaryMessage); // summary message.length
         outBuffer.append("','"); // 3
         outBuffer.append(detailMessage); // detail message.length/
       }
