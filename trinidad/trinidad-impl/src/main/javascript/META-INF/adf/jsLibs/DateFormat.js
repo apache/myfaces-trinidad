@@ -1021,7 +1021,6 @@ function TrDateTimeConverter(
   locale,
   exampleString,
   type,
-  summary,
   detail
   )
 {
@@ -1030,7 +1029,6 @@ function TrDateTimeConverter(
   this._class = "TrDateTimeConverter";
   this._exampleString = exampleString;
   this._type = type;
-  this._summary = summary;
   this._detail = detail;
   this._offset = null;
   
@@ -1128,16 +1126,17 @@ TrDateTimeConverter.prototype.getAsObject  = function(
   var pattern = this._pattern;
   
   var facesMessage;
-  if(this._summary == undefined)
+  var key = "org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_"+this._type;
+  if(this._detail == undefined)
   {
-    facesMessage = _createFacesMessage( "org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_"+this._type,
+    facesMessage = _createFacesMessage( key,
                                           label,
                                           parseString,
                                           this._exampleString);
   }
   else
   {
-    facesMessage = _createCustomFacesMessage( this._summary,
+    facesMessage = _createCustomFacesMessage(TrMessageFactory.getSummaryString(key),
                                           this._detail,
                                           label,
                                           parseString,
