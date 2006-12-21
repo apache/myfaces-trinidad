@@ -33,12 +33,52 @@ import org.apache.myfaces.trinidad.event.AttributeChangeListener;
  */
 abstract public class UIXComponent extends UIComponent
 {
+  /**
+   * Returns the FacesBean used for storing the component's state.
+   */
   abstract public FacesBean getFacesBean();
+
+  /**
+   * Adds an AttributeChangeListener.  Attribute change events are not
+   * delivered for any programmatic change to a property.  They are only
+   * delivered when a renderer changes a property without the application's
+   * specific request.  An example of an attribute change events might
+   * include the width of a column that supported client-side resizing.
+   */
   abstract public void addAttributeChangeListener(AttributeChangeListener acl);
+
+  /**
+   * Removes an AttributeChangeListener.  Attribute change events are not
+   * delivered for any programmatic change to a property.  They are only
+   * delivered when a renderer changes a property without the application's
+   * specific request.  An example of an attribute change events might
+   * include the width of a column that supported client-side resizing.
+   */
   abstract public void removeAttributeChangeListener(AttributeChangeListener acl);
+
+  /**
+   * Gets the registered AttributeChangeListeners.
+   */ 
   abstract public AttributeChangeListener[] getAttributeChangeListeners();
 
+  /**
+   * Sets a method binding to an AttributeChangeListener.  Attribute
+   * change events are not
+   * delivered for any programmatic change to a property.  They are only
+   * delivered when a renderer changes a property without the application's
+   * specific request.  An example of an attribute change events might
+   * include the width of a column that supported client-side resizing.
+   */
   abstract public void setAttributeChangeListener(MethodBinding mb);
+
+  /**
+   * Gets the method binding to an AttributeChangeListener.  Attribute
+   * change events are not
+   * delivered for any programmatic change to a property.  They are only
+   * delivered when a renderer changes a property without the application's
+   * specific request.  An example of an attribute change events might
+   * include the width of a column that supported client-side resizing.
+   */
   abstract public MethodBinding getAttributeChangeListener();
 
   abstract public void markInitialState();
