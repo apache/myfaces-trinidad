@@ -51,6 +51,31 @@ import org.apache.myfaces.trinidad.render.LifecycleRenderer;
 
 
 /**
+ * Base implementation of components for all of Trinidad.  UIXComponentBase
+ * offers a number of features not supplied by the standard UIComponentBase
+ * class:
+ * <ul>
+ * <li>Use of FacesBean for better and easier state saving</li>
+ * <li>Support of the LifecycleRenderer class for greater Renderer
+ *  control over the lifecycle</li>
+ * <li>Built-in support for both the "partialTriggers" attribute 
+ *   (declarative support for being a PPR target) and for triggering
+ *   such components (for being a the source of a PPR-causing event).</li>
+ * </ul>
+ * <h3>FacesBean and UIXComponentBase</h3>
+ * <p>
+ * UIXComponentBase differs from UIXComponent most particularly
+ * in its use of FacesBeans to store all state.  This offers
+ * a number of advantages:
+ * <ul>
+ * <li>Subclassers - if they use FacesBean for their state as well -
+ *   do not need to write overrides of saveState() and restoreState().
+ *   </li>
+ * <li>State is optimized by default</li>
+ * <li>Future optimizations - partly exposed today with
+ *    markInitialState() - can offer major state saving improvements.
+ * </ul>
+ * </p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/component/UIXComponentBase.java#0 $) $Date: 11-nov-2005.13:43:35 $
  * @author The Oracle ADF Faces Team
  * @todo Write Class Javadoc
