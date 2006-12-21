@@ -84,7 +84,6 @@ public class StateManagerImpl extends StateManager
   static public final String USE_APPLICATION_VIEW_CACHE_INIT_PARAM =
     "org.apache.myfaces.trinidad.USE_APPLICATION_VIEW_CACHE";
 
-  // =-=AEW Should this really be public?
   static public final String CACHE_VIEW_ROOT_INIT_PARAM =
     "org.apache.myfaces.trinidad.CACHE_VIEW_ROOT";
 
@@ -270,8 +269,6 @@ public class StateManagerImpl extends StateManager
         // Sadly, we can't save just a SerializedView, because we should
         // save a serialized object, and SerializedView is a *non*-static
         // inner class of StateManager
-        // -= Simon Lessard =-
-        // FIXME: pageState is never read
         PageState pageState = new PageState(
             context,
             structure,
@@ -280,7 +277,7 @@ public class StateManagerImpl extends StateManager
             // if this feature has not been disabled
             _useViewRootCache(context) ? root : null);
 
-        token = cache.addNewEntry(new PageState(context, structure, state, root),
+        token = cache.addNewEntry(pageState,
                                   stateMap);
       }
       // If we got the "applicationViewCache", we're using it.
