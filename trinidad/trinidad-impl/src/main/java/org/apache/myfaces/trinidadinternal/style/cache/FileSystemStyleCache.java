@@ -667,6 +667,12 @@ public class FileSystemStyleCache implements StyleProvider
 
     try
     {
+      // Make sure the output directory exists in case it's been
+      // blown away since the creation of the cache
+      File outputDir = outputFile.getParentFile();
+      if (!outputDir.exists())
+        outputDir.mkdirs();
+
       // If we can't create the new file, bail
       created = outputFile.createNewFile();
     }
