@@ -21,7 +21,12 @@
               xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
-    <description><![CDATA[UIXIterator is a component that does iteration.]]></description>
+    <description><![CDATA[UIXIterator is a component that performs iteration
+over its child components.  It is like a UIXTable without any chrome.
+While functionally similar to a forEach tag, an iterator is a component
+that does its processing during rendering, while forEach runs during
+the assembly of the component tree, and doesn't leave behind a component in the
+heirarchy. ]]></description>
     <icon>
       <small-icon>/org/apache/myfaces/trinidad/metadata/icons/iterator.png</small-icon>
     </icon>
@@ -112,22 +117,47 @@ which range of rows to display to the user.]]>
       <mfp:component-superclass>UIXCollection</mfp:component-superclass>
       <mfp:tag-name>tr:iterator</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.UIXIteratorTag</mfp:tag-class>
-      <mfp:long-description><![CDATA[UIXIterator is a component that does iteration. It is similar to UIXTable
+      <mfp:long-description><![CDATA[<p>UIXIterator is a component that performs iteration over its child components. It is similar to UIXTable
 but has no chrome.
  Each child is repeatedly stamped as many times as necessary.
  Iteration is done starting at the index given by the &quot;first&quot; attribute,
  for as many indices as specified by the &quot;rows&quot; attribute.
  If &quot;rows&quot; returns 0, then the iteration continues until 
  there are no more elements in the underlying data.
- <html:br/>
- 
+ </p>
+ <p> 
   While the &lt;tr:forEach&gt;
 will be sufficient for most user's needs, it does not work with a JSF
 DataModel, or CollectionModel. It also cannot be bound to EL expressions that
 use component-managed EL variables
-(such as the &quot;var&quot; variable on an &lt;tr:table&gt;).
+(such as the &quot;var&quot; variable on an &lt;tr:table&gt;), because
+a forEach tag runs during
 The &lt;tr:iterator&gt; tag was created to
-address these issues.]]>
+address these issues.
+</p>
+<p>
+To list all, the benefits of UIXIterator over forEach:
+<ul>
+<li>Access to component-managed EL variables</li>
+<li>Full support for CollectionModel and DataModel</li>
+<li>Does not require creating multiple copies of children,
+so more memory efficient</li>
+<li>Much better at dealing with adding and deleting children,
+at least when used with a CollectionModel with a good
+implementation of getRowKey()</li>
+<li>Supports "binding", and all other forms of JSF component
+manipulation</li>
+</ul>
+and the negative aspects:
+<ul>
+<li>Leaves behind a component in the hierarchy, which causes
+problems with components like panelFormLayout that try to handle each child
+individually.</li>
+<li>Because there's only one of each child, the same limitations
+on "binding", etc., as apply inside a table also apply to iterator.</li>
+</ul>
+</p>
+]]>
       </mfp:long-description>
       <mfp:author>Arjuna Wijeyekoon</mfp:author>
     </component-extension>
