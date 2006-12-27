@@ -63,8 +63,8 @@ public final class HierarchyUtils
         // having to count all over again:
         TableUtils.__doSafeExpandAll(comp.getTreeModel(), state, 100);
       }
-      //pu: Implicitly record a Change for 'expandedRowKeys' attribute
-      comp.addAttributeChange("expandedRowKeys", state);
+      //pu: Implicitly record a Change for 'disclosedRowKeys' attribute
+      comp.addAttributeChange("disclosedRowKeys", state);
       comp.broadcastToMethodBinding(event, disclosureListener);
     }
   }
