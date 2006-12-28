@@ -19,6 +19,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import javax.faces.FactoryFinder;
+import javax.faces.application.ApplicationFactory;
 import javax.faces.context.FacesContext;
 import javax.faces.el.PropertyResolver;
 import javax.faces.model.DataModel;
@@ -145,8 +147,7 @@ public class SortableModel extends CollectionModel
       Object data = _model.getRowData();
       try
       {
-        FacesContext context = FacesContext.getCurrentInstance();
-        PropertyResolver resolver = context.getApplication().getPropertyResolver();
+        PropertyResolver resolver = __getPropertyResolver();
         Object propertyValue = resolver.getValue(data, property);
 
         // when the value is null, we don't know if we can sort it.
@@ -246,9 +247,8 @@ public class SortableModel extends CollectionModel
     // Make sure the model has that row 0! (It could be empty.)
     if (_model.isRowAvailable())
     {
-      FacesContext context = FacesContext.getCurrentInstance();
       Comparator<Integer> comp =
-        new Comp(context. getApplication().getPropertyResolver(), property);
+        new Comp(__getPropertyResolver(), property);
       if (!isAscending)
         comp = new Inverter<Integer>(comp);
 
@@ -386,6 +386,22 @@ public class SortableModel extends CollectionModel
     }
 
     private final Comparator<T> _comp;
+  }
+
+  static PropertyResolver __getPropertyResolver()
+  {
+    // First try the FacesContext, which is a faster way to
+    // get the PropertyResolver (and the 99.9% scenario)
+    FacesContext context = FacesContext.getCurrentInstance();
+    if (context != null)
+      return context.getApplication().getPropertyResolver();
+    
+    // If that fails, then we're likely outside of the JSF lifecycle.
+    // Look to the ApplicationFactory.
+    ApplicationFactory factory = (ApplicationFactory)
+      FactoryFinder.getFactory(FactoryFinder.APPLICATION_FACTORY);
+    return factory.getApplication().getPropertyResolver();
+    
   }
 
   private SortCriterion _sortCriterion = null;
