@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.context.FacesContext;
+import javax.faces.el.PropertyResolver;
 
 /**
  * Creates a TreeModel from a List of beans.
@@ -312,9 +313,8 @@ public class ChildPropertyTreeModel extends TreeModel
     if (prop == null)
       return null;
     
-    FacesContext context = FacesContext.getCurrentInstance();
-    return 
-      context.getApplication().getPropertyResolver().getValue(parentData, prop);
+    PropertyResolver resolver = SortableModel.__getPropertyResolver();
+    return resolver.getValue(parentData, prop);
   }
 
   /**
