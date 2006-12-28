@@ -98,11 +98,29 @@ public class PropertyNodeParser extends BaseNodeParser
     )
   {
     String moreText = new String(text, start, length);
+    if (_whitespace != null)
+    {
+      moreText = _whitespace + moreText;
+      _whitespace = null;
+    }
 
     if (_value == null)
       _value = moreText;
     else
       _value = _value + moreText;
+  }
+
+  public void addWhitespace(
+    ParseContext context,
+    char[]       text,
+    int          start,
+    int          length) throws SAXParseException
+  {
+    String whitespace = new String(text, start, length);
+    if (_whitespace == null)
+      _whitespace = whitespace;
+    else
+      _whitespace = _whitespace + whitespace;
   }
 
   // Validates the value using a PropertyValidater.  Returns an error
@@ -126,6 +144,7 @@ public class PropertyNodeParser extends BaseNodeParser
 
   private String _name;
   private String _value;
+  private String _whitespace;
 
   private static final String _DEPRECATED_ERROR =
     "The <colorProperty> element is deprecated.  Colors must be explicitly specified using <property> elements.";
