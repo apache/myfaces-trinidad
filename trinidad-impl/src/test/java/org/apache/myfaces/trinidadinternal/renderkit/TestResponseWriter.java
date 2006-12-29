@@ -19,9 +19,14 @@ import java.io.IOException;
 import java.io.Writer;
 import java.io.UnsupportedEncodingException;
 
+import java.util.regex.Pattern;
+
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 
@@ -68,14 +73,15 @@ public class TestResponseWriter extends ResponseWriter
       throw new NullPointerException();
 
     _out = out;
-    // -= Simon Lessard =-
-    // TODO: Never read locally as of 2006-08-09. Remove for good if no problem 
-    //       show up.
-    //_contentType = contentType;
     _encoding = encoding;
     _test = test;
     _result = result;
     CaboHttpUtils.validateEncoding(encoding);
+
+    _onlyValidIds = "true".equals(
+       System.getProperty("org.apache.myfaces.trinidad.TestIdValidity"));
+    _testBlockLevel = "true".equals(
+       System.getProperty("org.apache.myfaces.trinidad.TestBlockElementNesting"));
   }
 
   @Override
@@ -177,6 +183,7 @@ public class TestResponseWriter extends ResponseWriter
                     element);
       }
 
+      _elementStack.removeFirst();
       Writer out = _out;
 
       // always turn escaping back on once an element ends
@@ -212,6 +219,12 @@ public class TestResponseWriter extends ResponseWriter
       if ("src".equals(name))
         _isCachedImage = true;
 
+    }
+
+    if (_onlyValidIds && "id".equals(name))
+    {
+      if (!_VALID_ID_PATTERN.matcher(value.toString()).matches())
+        _LOG.severe("ID \"" + value + "\" is not a valid ID.");
     }
 
     if (_attributes.containsKey(name))
@@ -406,6 +419,17 @@ public class TestResponseWriter extends ResponseWriter
 
     // note that we started a non-skipped element
     _pushOutputtedElement(name);
+
+    if (_testBlockLevel &&
+        !_elementStack.isEmpty() &&
+        _BLOCK_LEVEL_ELEMENTS.contains(name) &&
+        _isInline(_elementStack.getFirst()))
+    {
+      _LOG.severe("The block level element " + name + " may not be used " +
+                  "inside of the inline element " + _elementStack.getFirst());
+    }
+
+    _elementStack.addFirst(name);
 
     int depth = _depth++;
     _writeIndent(depth);
@@ -660,6 +684,14 @@ public class TestResponseWriter extends ResponseWriter
 
   }
 
+  static private boolean _isInline(String name)
+  {
+    return (!_BLOCK_LEVEL_ELEMENTS.contains(name) &&
+            !_NEUTRAL_ELEMENTS.contains(name));
+  }
+
+  private boolean     _testBlockLevel;
+  private boolean     _onlyValidIds;
 
   private boolean     _closeStart;
   private boolean     _dontEscape;
@@ -667,13 +699,10 @@ public class TestResponseWriter extends ResponseWriter
   private boolean _isCachedImage;
   private Map<String, Object> _attributes = new TreeMap<String, Object>();
   private Map<String, Object> _uriAttributes = new TreeMap<String, Object>();
+  private LinkedList<String> _elementStack = new LinkedList<String>();
   private int     _depth;
 
   private Writer       _out;
-  // -= Simon Lessard =-
-  // TODO: Never read locally as of 2006-08-09. Remove for good if no problem 
-  //       show up.
-  //private String       _contentType;
   private String       _encoding;
 
   // holds an element that will only be started if it has attributes
@@ -686,6 +715,9 @@ public class TestResponseWriter extends ResponseWriter
   // to suppress the end tag of a skipped element
   private final ArrayList<String> _skippedElements = new ArrayList<String>(20);
 
+
+  private static final Pattern _VALID_ID_PATTERN  =
+    Pattern.compile("[A-Za-z][A-Za-z0-9:_.-]*");
 
   private static final Class<?> _CHAR_ARRAY_CLASS = (new char[0]).getClass();
   private static final Class<Boolean> _BOOLEAN_CLASS = Boolean.class;
@@ -707,6 +739,57 @@ public class TestResponseWriter extends ResponseWriter
     }
   }
 
+  static private final Set<String> _BLOCK_LEVEL_ELEMENTS =
+    new HashSet<String>();
+  static private final Set<String> _NEUTRAL_ELEMENTS =
+    new HashSet<String>();
+  {
+    _BLOCK_LEVEL_ELEMENTS.add("address");
+    _BLOCK_LEVEL_ELEMENTS.add("blockquote");
+    _BLOCK_LEVEL_ELEMENTS.add("center");
+    _BLOCK_LEVEL_ELEMENTS.add("dir");
+    _BLOCK_LEVEL_ELEMENTS.add("div");
+    _BLOCK_LEVEL_ELEMENTS.add("dl");
+    _BLOCK_LEVEL_ELEMENTS.add("fieldset");
+    _BLOCK_LEVEL_ELEMENTS.add("form");
+    _BLOCK_LEVEL_ELEMENTS.add("h1");
+    _BLOCK_LEVEL_ELEMENTS.add("h2");
+    _BLOCK_LEVEL_ELEMENTS.add("h3");
+    _BLOCK_LEVEL_ELEMENTS.add("h4");
+    _BLOCK_LEVEL_ELEMENTS.add("h5");
+    _BLOCK_LEVEL_ELEMENTS.add("h6");
+    _BLOCK_LEVEL_ELEMENTS.add("hr");
+    _BLOCK_LEVEL_ELEMENTS.add("isindex");
+    _BLOCK_LEVEL_ELEMENTS.add("menu");
+    _BLOCK_LEVEL_ELEMENTS.add("noframes");
+    _BLOCK_LEVEL_ELEMENTS.add("noscript");
+    _BLOCK_LEVEL_ELEMENTS.add("ol");
+    _BLOCK_LEVEL_ELEMENTS.add("p");
+    _BLOCK_LEVEL_ELEMENTS.add("pre");
+    _BLOCK_LEVEL_ELEMENTS.add("table");
+    _BLOCK_LEVEL_ELEMENTS.add("ul");
+    // These technically aren't block-level, but are allowed
+    // to contain block-level elements
+    _BLOCK_LEVEL_ELEMENTS.add("dd");
+    _BLOCK_LEVEL_ELEMENTS.add("dt");
+    _BLOCK_LEVEL_ELEMENTS.add("frameset");
+    _BLOCK_LEVEL_ELEMENTS.add("li");
+    _BLOCK_LEVEL_ELEMENTS.add("tbody");
+    _BLOCK_LEVEL_ELEMENTS.add("tfoot");
+    _BLOCK_LEVEL_ELEMENTS.add("th");
+    _BLOCK_LEVEL_ELEMENTS.add("thead");
+    _BLOCK_LEVEL_ELEMENTS.add("tr");
+    _BLOCK_LEVEL_ELEMENTS.add("td");
+    _NEUTRAL_ELEMENTS.add("applet");
+    _NEUTRAL_ELEMENTS.add("body");
+    _NEUTRAL_ELEMENTS.add("button");
+    _NEUTRAL_ELEMENTS.add("del");
+    _NEUTRAL_ELEMENTS.add("iframe");
+    _NEUTRAL_ELEMENTS.add("ins");
+    _NEUTRAL_ELEMENTS.add("map");
+    _NEUTRAL_ELEMENTS.add("object");
+    _NEUTRAL_ELEMENTS.add("script");
+  }
   static private final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(TestResponseWriter.class);
 }
