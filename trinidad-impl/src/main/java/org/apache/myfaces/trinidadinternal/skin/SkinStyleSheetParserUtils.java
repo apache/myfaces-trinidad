@@ -543,9 +543,10 @@ class SkinStyleSheetParserUtils
   /**
    * Create an IconNode and add it to the iconNodeList.
    * @param selectorName
-   * @param propertyNodeList
-   * @param trTextAntialias
+   * @param noTrPropertyNodeList
    * @param iconNodeList
+   * @return boolean true if this "icon" does not contain an image url or text icon as the
+   * property value of 'content:'. That means it is only css styles.
    */
   private static boolean _addIconNode(
     String             selectorName,
@@ -626,7 +627,8 @@ class SkinStyleSheetParserUtils
       else
       {
         // create an inlineStyle with all the extraneous style properties
-        inlineStyle = new CSSStyle();
+        if (inlineStyle == null)
+          inlineStyle = new CSSStyle();
         inlineStyle.setProperty(propertyName, propertyValue);
       }
 
@@ -642,7 +644,7 @@ class SkinStyleSheetParserUtils
         // don't allow styleClass from the css parsing file. We can handle
         // this when we have style includes
         // put back the width/height properties if there were some
-        if (heightValue != null || widthValue != null)
+        if ((heightValue != null || widthValue != null) && inlineStyle == null)
           inlineStyle = new CSSStyle();
         if (heightValue != null)
          inlineStyle.setProperty("height", heightValue);

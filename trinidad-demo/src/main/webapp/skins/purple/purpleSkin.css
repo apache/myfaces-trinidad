@@ -374,10 +374,17 @@ af|train::visited af|train::link
 af|selectBooleanCheckbox::read-only-unchecked-icon
 {
   content:url(/skins/purple/images/checkrn.gif);
+  border-width: 3px;
+  border-style: dashed;
+  border-color: purple;
 }
 af|selectBooleanCheckbox::read-only-checked-icon
 {
-  content:url(/skins/purple/images/checkrc.gif);
+  /*content:url(/skins/purple/images/checkrc.gif);*/
+  content: "X";
+  border-width: 3px;
+  border-style: dashed;
+  border-color: aqua;
 }
 
 af|selectBooleanCheckbox::disabled-only-unchecked-icon
