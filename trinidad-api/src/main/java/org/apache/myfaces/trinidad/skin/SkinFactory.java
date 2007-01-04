@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidad.skin;
 
-import java.util.HashMap;
+import java.util.WeakHashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -117,5 +117,5 @@ abstract public class SkinFactory
   }
 
   static private final Map<ClassLoader, SkinFactory> _FACTORIES = 
-    new HashMap<ClassLoader, SkinFactory>();
+    new WeakHashMap<ClassLoader, SkinFactory>();
 }

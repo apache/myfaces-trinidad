@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidad.context;
 
-import java.util.HashMap;
+import java.util.WeakHashMap;
 import java.util.Map;
 
 /**
@@ -68,5 +68,5 @@ abstract public class RequestContextFactory
   }
 
   static private final Map<ClassLoader, RequestContextFactory> _FACTORIES = 
-    new HashMap<ClassLoader, RequestContextFactory>();
+    new WeakHashMap<ClassLoader, RequestContextFactory>();
 }
