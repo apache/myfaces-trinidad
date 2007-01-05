@@ -2218,6 +2218,12 @@
     </navigation-case>
 
     <navigation-case>
+      <from-outcome>guide.panelPartialRoot</from-outcome>
+      <to-view-id>/components/panelPartialRoot.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
       <from-outcome>guide.panelPage</from-outcome>
       <to-view-id>/components/panelPage.jspx</to-view-id>
       <redirect/>
