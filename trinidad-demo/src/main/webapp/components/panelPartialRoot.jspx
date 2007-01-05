@@ -37,15 +37,16 @@
       <trh:tableLayout width="80%">
        <trh:rowLayout>
         <tr:inputText autoSubmit="true"
-                      value="Change this text"
+                      id="input1"
+                      value="#{sessionScope['pprTest']}"
                       label="Enter text here and tab out: "
                       valueChangeListener="#{partialDemoUtil.valueChanged}"/>
         <tr:panelLabelAndMessage label="You entered: ">
          <tr:outputFormatted id="itTarget"
                              styleUsage="instruction"
-                             binding="#{partialDemoUtil.textUpdate}"
-                             value="nothing yet"/>
-        </tr:panelLabelAndMessage>
+                             partialTriggers="input1"
+                             value="#{sessionScope['pprTest']}" />
+       </tr:panelLabelAndMessage>
        </trh:rowLayout>
       </trh:tableLayout>
      </tr:panelGroupLayout>
