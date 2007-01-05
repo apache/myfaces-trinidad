@@ -823,6 +823,7 @@
         <value>panelList.jspx</value>
         <value>panelPage.jspx</value>
         <value>panelPageHeader.jspx</value>
+        <value>panelPartialRoot.jspx</value>
         <value>panelSideBar.jspx</value>
         <value>panelTip.jspx</value>
         <value>poll.jspx</value>
