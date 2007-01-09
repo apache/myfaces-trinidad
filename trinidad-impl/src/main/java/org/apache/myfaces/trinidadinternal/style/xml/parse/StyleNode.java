@@ -130,8 +130,6 @@ public class StyleNode
         if(_INHIBIT_ALL_VALUE.equalsIgnoreCase(property))
         { // Case insensitivity for "all" value
           _inhibitAll = true;
-          _inhibitedProperties = null;
-          break;
         }
         else
         {
@@ -161,7 +159,7 @@ public class StyleNode
   {
     return _selector;
   }
-  
+
   /**
    * Returns true if the style node has no properties. 
    */
@@ -278,7 +276,7 @@ public class StyleNode
     return _resetProperties;
   }
 
-  private boolean                _inhibitAll;
+
   private String                 _name;
   private String                 _selector;
   private PropertyNode[]         _properties;          // The property nodes
@@ -287,9 +285,12 @@ public class StyleNode
   private IncludePropertyNode[]  _includedProperties;  // Included properties
   private List<String>           _inhibitedProperties; // Inhibited properties
   
-  // This flag checks whether the style should inherit properties
+  // These flags checks whether the style should inherit properties
   // from equivalent styles defined in earlier style sheets.
+  // This is xss-formatted skin files when resetProperties="true".
   private boolean                _resetProperties;
+  // This is css-formatted skin files when -tr-inhibit: all.
+  private boolean                _inhibitAll;
 
   private static final String _INHIBIT_ALL_VALUE = "all";
 }

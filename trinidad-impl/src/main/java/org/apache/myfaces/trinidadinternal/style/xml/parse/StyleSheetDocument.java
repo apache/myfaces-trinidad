@@ -515,7 +515,7 @@ public class StyleSheetDocument
             //        end.
             
             // 0. Reset properties?
-            if (node.__getResetProperties())
+            if (node.__getResetProperties() || node.isInhibitingAll())
               entry.resetProperties();
 
             // 1. Resolve included styles
@@ -666,18 +666,12 @@ public class StyleSheetDocument
             }
 
             // 4. Check inhibited properties
-            if(node.isInhibitingAll())
+            Iterator<String> inhibitedProperties = node.getInhibitedProperties();
+            while (inhibitedProperties.hasNext())
             {
-              entry.resetProperties();
+              entry.removeProperty(inhibitedProperties.next());
             }
-            else
-            {
-              Iterator<String> properties = node.getInhibitedProperties();
-              while (properties.hasNext())
-              {
-                entry.removeProperty(properties.next());
-              }
-            }
+            
 
             // 5. Add non-included properties
             Iterator<PropertyNode> properties = node.getProperties();

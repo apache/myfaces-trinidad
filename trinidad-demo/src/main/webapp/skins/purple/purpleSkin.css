@@ -578,3 +578,24 @@ windows, macos, linux, solaris, ppc */
     af|inputText::content {background-color:pink}
   }
 }
+
+/* Test -tr-inhibit: all and -tr-inhibit a specific css property */
+
+/* this should end up with  .portlet-form-input-field {padding: 8px} */
+.portlet-form-input-field {
+/* This should first inhibit all inherited styles. Then everything else
+   should be included.*/
+  -tr-inhibit: all;
+  padding: 8px;
+  /* This should inhibit the background-color that is inherited and/or included, 
+  like in .AFLightAccentBackground:alias
+  The order of this does not matter. */
+  -tr-inhibit: background-color;
+  -tr-rule-ref: selector(".AFLightAccentBackground:alias");
+}
+
+/* This test inhibits the text-decoration property that is defined in the base skin */
+.PortletHeaderLink {
+  -tr-inhibit: text-decoration;
+  color: pink;
+}
