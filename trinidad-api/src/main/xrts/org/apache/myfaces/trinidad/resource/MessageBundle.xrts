@@ -296,22 +296,22 @@
   
   <!-- hints for converters -->
 
-  <!-- default format for DateTimeConverter-->
+  <!-- default hint for DateTimeConverter-->
   <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.FORMAT_HINT">The date to enter must follow a format like "{0}".</resource>
-  <!-- default format for ColorConverter-->
+  <!-- default hint for ColorConverter-->
   <resource key="org.apache.myfaces.trinidad.convert.ColorConverter.FORMAT_HINT">The color to enter must follow a format like "{0}".</resource>
 
-  <!-- default format for IntegerConverter-->
+  <!-- default hint for IntegerConverter-->
   <resource key="org.apache.myfaces.trinidad.convert.IntegerConverter.FORMAT_HINT">The entered value must be a integer</resource>
-  <!-- default format for LongConverter-->
+  <!-- default hint for LongConverter-->
   <resource key="org.apache.myfaces.trinidad.convert.LongConverter.FORMAT_HINT">The entered value must be a long</resource>
-  <!-- default format for ShortConverter-->
+  <!-- default hint for ShortConverter-->
   <resource key="org.apache.myfaces.trinidad.convert.ShortConverter.FORMAT_HINT">The entered value must be a short</resource>
-  <!-- default format for ByteConverter-->
+  <!-- default hint for ByteConverter-->
   <resource key="org.apache.myfaces.trinidad.convert.ByteConverter.FORMAT_HINT">The entered value must be a byte</resource>
-  <!-- default format for DoubleConverter-->
+  <!-- default hint for DoubleConverter-->
   <resource key="org.apache.myfaces.trinidad.convert.DoubleConverter.FORMAT_HINT">The entered value must be a double</resource>
-  <!-- default format for FloatConverter-->
+  <!-- default hint for FloatConverter-->
   <resource key="org.apache.myfaces.trinidad.convert.FloatConverter.FORMAT_HINT">The entered value must be a float</resource>
   
   <!-- messages for converters -->
