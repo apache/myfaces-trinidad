@@ -579,9 +579,9 @@ TrDateTimeRangeValidator.prototype.validate  = function(
     	{
           facesMessage = _createFacesMessage(key,
                                         label,
-                                        string,
-                                        ""+this._minValue,
-                                        ""+this._maxValue);
+                                        ""+converter.getAsString(value),
+                                        ""+converter.getAsString(new Date(this._minValue)),
+                                        ""+converter.getAsString(new Date(this._maxValue)));
     	}
     }
   }
