@@ -140,6 +140,14 @@ public class IndentingResponseWriter extends ResponseWriterDecorator
     super.write(text);
   }
 
+  @Override
+  public void write(String str, int off, int len)
+    throws IOException
+  {
+    _seeIfJustEndedElement();
+    super.write(str, off, len);
+  }
+
   /**
    * Writes a character array, without performing any escaping.
    */
@@ -152,6 +160,18 @@ public class IndentingResponseWriter extends ResponseWriterDecorator
     _seeIfJustEndedElement();
     super.write(text, start, length);
   }
+
+
+  /**
+   * Writes a character array, without performing any escaping.
+   */
+  @Override
+  public void write(char[] text) throws IOException
+  {
+    _seeIfJustEndedElement();
+    super.write(text);
+  }
+
 
   /**
    * Writes a character, without performing any escaping.
