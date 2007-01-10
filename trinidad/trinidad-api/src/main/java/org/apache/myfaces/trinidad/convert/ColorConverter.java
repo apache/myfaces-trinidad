@@ -454,7 +454,28 @@ public class ColorConverter implements Converter, StateHolder
   {
     return ComponentUtils.resolveString(_facesBean.getProperty(_CONVERT_MESSAGE_DETAIL_KEY));
   }
-  
+
+  /**
+   * <p>Custom hint message.</p>
+   * Overrides default hint message
+   * @param hintFormat Custom hint message.
+   */
+  public void setHintFormat(String hintFormat)
+  {
+    _facesBean.setProperty(_HINT_FORMAT_KEY, hintFormat);
+  }
+
+  /**
+   * <p>Return custom hint message.</p>
+   * @return Custom hint message.
+   * @see  #setHintFormat(String)
+   */
+  public String getHintFormat()
+  {
+    Object obj = _facesBean.getProperty(_HINT_FORMAT_KEY);
+    return ComponentUtils.resolveString(obj);
+  }
+
   protected String getTransparentString(FacesContext context)
   {
     String msg = MessageFactory.getString(context, TRANSPARENT);
@@ -609,6 +630,9 @@ public class ColorConverter implements Converter, StateHolder
 
   private static final PropertyKey _CONVERT_MESSAGE_DETAIL_KEY
     = _TYPE.registerKey("messageDetailConvert", String.class);
+
+  private static final PropertyKey  _HINT_FORMAT_KEY =
+    _TYPE.registerKey("hintFormat", String.class);
 
   private FacesBean _facesBean = ConverterUtils.getFacesBean(_TYPE);
 
