@@ -155,6 +155,48 @@ public class DateRestrictionValidator implements Validator, StateHolder {
   }
 
   /**
+   * <p>Custom hint week message.</p>
+   * Overrides default hint message
+   * @param hintWeek Custom hint message.
+   */
+  public void setHintWeek(String hintWeek)
+  {
+    _facesBean.setProperty(_HINT_WEEK_KEY, hintWeek);
+  }
+
+  /**
+   * <p>Return custom hint Week message.</p>
+   * @return Custom hint message.
+   * @see  #setHintWeek(String)
+   */
+  public String getHintWeek()
+  {
+    Object obj = _facesBean.getProperty(_HINT_WEEK_KEY);
+    return ComponentUtils.resolveString(obj);
+  }
+
+  /**
+   * <p>Custom hint month message.</p>
+   * Overrides default hint message
+   * @param hintMonth Custom hint message.
+   */
+  public void setHintMonth(String hintMonth)
+  {
+    _facesBean.setProperty(_HINT_MONTH_KEY, hintMonth);
+  }
+
+  /**
+   * <p>Return custom hint month message.</p>
+   * @return Custom hint message.
+   * @see  #setHintMonth(String)
+   */
+  public String getHintMonth()
+  {
+    Object obj = _facesBean.getProperty(_HINT_MONTH_KEY);
+    return ComponentUtils.resolveString(obj);
+  }
+
+  /**
    * @exception NullPointerException {@inheritDoc}
    * @exception ValidatorException {@inheritDoc}
    * @exception IllegalArgumentException if <code>value</code> is not of type
@@ -532,6 +574,12 @@ public class DateRestrictionValidator implements Validator, StateHolder {
 
   private static final PropertyKey _INVALID_DAYS_MESSAGE_DETAIL_KEY =
     _TYPE.registerKey("messageDetailInvalidDays", String.class);
+
+  private static final PropertyKey  _HINT_WEEK_KEY =
+    _TYPE.registerKey("hintWeek", String.class);
+
+  private static final PropertyKey  _HINT_MONTH_KEY =
+    _TYPE.registerKey("hintMonth", String.class);
 
   private FacesBean _facesBean = ValidatorUtils.getFacesBean(_TYPE);
 
