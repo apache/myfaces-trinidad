@@ -21,13 +21,13 @@ function TrColorConverter(
   pattern,
   allowsTransparent,
   patternsString,
-  detail)
+  messages)
 {
   // for debugging
   this._class = "TrColorConverter";
   this._allowsTransparent = allowsTransparent;  
   this._patternsString = patternsString;     
-  this._detail = detail;
+  this._messages = messages;
   
   if (pattern != null)
   {
@@ -42,9 +42,18 @@ TrColorConverter.prototype = new TrConverter();
 
 TrColorConverter.prototype.getFormatHint = function()
 {
-	return TrMessageFactory.createMessage(
-    "org.apache.myfaces.trinidad.convert.ColorConverter.FORMAT_HINT",
-	  this._pattern);
+	if(this._messages && this._messages["hint"])
+	{
+    return TrMessageFactory.createCustomMessage(
+      this._messages["hint"],
+      this._pattern);
+	}
+	else
+	{
+    return TrMessageFactory.createMessage(
+      "org.apache.myfaces.trinidad.convert.ColorConverter.FORMAT_HINT",
+      this._pattern);
+	}
 }
 TrColorConverter.prototype.getAsString = function(
   formatColor)
@@ -96,18 +105,18 @@ TrColorConverter.prototype.getAsObject  = function(
      
   var facesMessage;
   var key = "org.apache.myfaces.trinidad.convert.ColorConverter.CONVERT";
-  if(this._detail == undefined)
+  if(this._messages && this._messages["detail"])
   {
-    facesMessage = _createFacesMessage(key,
+    facesMessage = _createCustomFacesMessage(
+                                       TrMessageFactory.getSummaryString(key),
+                                       this._messages["detail"],
                                        label,
                                        parseString,
                                        this._patternsString);
   }
   else
   {
-    facesMessage = _createCustomFacesMessage(
-                                       TrMessageFactory.getSummaryString(key),
-                                       this._detail,
+    facesMessage = _createFacesMessage(key,
                                        label,
                                        parseString,
                                        this._patternsString);
