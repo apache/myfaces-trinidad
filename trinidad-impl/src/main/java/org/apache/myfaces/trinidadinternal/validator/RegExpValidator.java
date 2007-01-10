@@ -15,16 +15,18 @@
  */
 package org.apache.myfaces.trinidadinternal.validator;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.util.MessageFactory;
 import org.apache.myfaces.trinidad.validator.ClientValidator;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
+import org.apache.myfaces.trinidadinternal.util.JsonUtils;
 
 public class RegExpValidator
                        extends org.apache.myfaces.trinidad.validator.RegExpValidator
@@ -69,27 +71,36 @@ public class RegExpValidator
     outBuffer.append("new TrRegExpValidator('"); // 21
     outBuffer.append(jsPattern);
     _applyCustomMessage(context, outBuffer);
-    outBuffer.append("')");                // 1
+    outBuffer.append(')');                // 1
 
     return outBuffer.toString();
   }
   
   private void _applyCustomMessage(FacesContext context, StringBuilder outBuffer)
   {
+    Map<String, String> messages = new HashMap<String, String>();
+    
     String noMatchMsg = getMessageDetailNoMatch();
     if(noMatchMsg != null)
     {
-      Object[] params = new Object[] {"{0}", "{1}", "{2}"};
-
-      FacesMessage message = MessageFactory.getMessage(context,
-                                  RegExpValidator.NO_MATCH_MESSAGE_ID,
-                                  noMatchMsg,
-                                  params);
-      String esNoMatchMsgPattern = XhtmlUtils.escapeJS(message.getDetail());
-      outBuffer.append("','");
-      outBuffer.append(esNoMatchMsgPattern);
-    }    
-
+      messages.put("detail", noMatchMsg);
+    }
+    
+    String hintPattern = getHintPattern();
+    if(hintPattern != null)
+    {
+      messages.put("hint", hintPattern);
+    }
+    
+    outBuffer.append("',");
+    try
+    {
+      JsonUtils.writeMap(outBuffer, messages, false);
+    }
+    catch (IOException e)
+    {
+      outBuffer.append("null");
+    }
   }
   
   public Collection<String> getClientImportNames()

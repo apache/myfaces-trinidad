@@ -16,21 +16,22 @@
 
 package org.apache.myfaces.trinidadinternal.validator;
 
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.IllegalCharsetNameException;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-import org.apache.myfaces.trinidad.util.MessageFactory;
 import org.apache.myfaces.trinidad.validator.ClientValidator;
-import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
+import org.apache.myfaces.trinidadinternal.util.JsonUtils;
 
 /**
  * <p>Enables byte length validation at the client side. </p>
@@ -108,8 +109,8 @@ public class ByteLengthValidator
     String maxLength = String.valueOf(getMaximum());
     constr.append(maxLength);
     
-    _applyCustomMessage(context, constr, maxLength);
-    
+    _applyCustomMessages(context, constr, maxLength);
+        
     constr.append(")");
 
     return constr.toString();
@@ -136,25 +137,31 @@ public class ByteLengthValidator
     }
   }
   
-  private void _applyCustomMessage(FacesContext context, StringBuilder constr, String maxLength)
+  private void _applyCustomMessages(FacesContext context, StringBuilder constr, String maxLength)
   {
+    Map<String, String> messages = new HashMap<String, String>();
+    
     String maxMsgDetail = getMessageDetailMaximum();
     if(maxMsgDetail != null)
     {
-      String label = "{0}";    // this will get substituted on the client
-      Object[] params = new Object[] {label, "{1}", maxLength};
-      FacesMessage msg = MessageFactory.getMessage(context,
-          ByteLengthValidator.MAXIMUM_MESSAGE_ID,
-          maxMsgDetail,
-          params);
-      
-      constr.append(",'");
-      constr.append(XhtmlLafUtils.escapeJS(msg.getDetail()));
-      constr.append("'");
-      
+      messages.put("detail", maxMsgDetail);
     }
     
+    String hintMax = getHintMaximum();
+    if(hintMax != null)
+    {
+      messages.put("hint", hintMax);
+    }
     
+    constr.append(',');
+    try
+    {
+      JsonUtils.writeMap(constr, messages, false);
+    }
+    catch (IOException e)
+    {
+      constr.append("null");
+    }
   }
 
   static private int _getType(String encoding)
