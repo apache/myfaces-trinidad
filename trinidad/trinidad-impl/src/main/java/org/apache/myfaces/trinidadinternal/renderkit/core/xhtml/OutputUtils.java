@@ -262,7 +262,7 @@ public class OutputUtils
     boolean             embedded
     ) throws IOException
   {
-    if (icon.isNull())
+    if ((icon == null) || icon.isNull())
       return;
 
     Map<String, Object> attrs = null;
