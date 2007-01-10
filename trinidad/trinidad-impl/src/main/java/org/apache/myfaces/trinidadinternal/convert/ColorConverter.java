@@ -15,20 +15,21 @@
  */
 package org.apache.myfaces.trinidadinternal.convert;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.convert.ClientConverter;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-import org.apache.myfaces.trinidad.util.MessageFactory;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 import org.apache.myfaces.trinidadinternal.share.text.RGBColorFormat;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
+import org.apache.myfaces.trinidadinternal.util.JsonUtils;
 
 /**
  * @author The Oracle ADF Faces Team
@@ -139,10 +140,7 @@ public class ColorConverter extends org.apache.myfaces.trinidad.convert.ColorCon
    */
   public String getClientConversion(FacesContext context, UIComponent component)
   {
-    int patternsArgSize = _getPatternsArgSize();
-
-    int size = 19 + patternsArgSize + 19;
-    StringBuilder sb = new StringBuilder(size);
+    StringBuilder sb = new StringBuilder();
 
     StringBuilder patterns = new StringBuilder();
     String[] setPatterns = getPatterns();
@@ -168,24 +166,34 @@ public class ColorConverter extends org.apache.myfaces.trinidad.convert.ColorCon
     
     sb.append(XhtmlLafUtils.escapeJS(patternsString));
     
+    Map<String, String> messages = new HashMap<String, String>();
     
     String convMsgDet = getMessageDetailConvert();
     if(convMsgDet != null)
     {
-      Object[] params = new Object[] {"{0}", "{1}", "{2}"};
-
-      FacesMessage msg = MessageFactory.getMessage(context, CONVERT_MESSAGE_ID,
-                                             convMsgDet, params);
-      
-      sb.append("','");
-      sb.append(XhtmlLafUtils.escapeJS(msg.getDetail())); 
+      messages.put("detail", convMsgDet);
     }
+    
+    String hint = getHintFormat();
 
-    sb.append("')");
+    if(hint != null)
+    {
+      messages.put("hint", hint);
+    }
+    
+    sb.append("',");
+    try
+    {
+      JsonUtils.writeMap(sb, messages, false);
+    }
+    catch (IOException e)
+    {
+      sb.append("null");
+    }
+    sb.append(')');
 
     return sb.toString();
   }
-
 
   public int getColumns(
     FacesContext context)
@@ -200,26 +208,6 @@ public class ColorConverter extends org.apache.myfaces.trinidad.convert.ColorCon
       columns = Math.max(columns, new RGBColorFormat(patterns[i]).length());
 
     return columns;
-  }
-
-  // Returns the length of the patterns argument
-  private int _getPatternsArgSize()
-  {
-    String[] patterns = this.getPatterns();
-    int count = patterns.length;
-
-    if (count == 1)
-      return patterns[0].length();
-
-    int size = 11; // Leave room for "new Array()"
-
-    for (int i = 0; i < count; i++)
-    {
-      // Include room for the pattern, comma, and quotes
-      size += (patterns[i].length() + 3);
-    }
-
-    return size;
   }
 
   // Appends the patterns argument to the StringBuilder

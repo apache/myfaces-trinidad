@@ -15,11 +15,13 @@
  */
 package org.apache.myfaces.trinidadinternal.convert;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
@@ -38,6 +40,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.MessageFactory;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
+import org.apache.myfaces.trinidadinternal.util.JsonUtils;
 
 /**
  * <p>
@@ -206,7 +209,7 @@ public class DateTimeConverter extends
     }
 
     String jsPattern = getJSPattern(context);
-
+    Map<String, String> messages = new HashMap<String, String>();
     if (jsPattern != null)
     {
       String pattern = getPattern();
@@ -221,37 +224,47 @@ public class DateTimeConverter extends
           "{0}", "{1}", "{2}"
       };
       Object msgPattern = getMessagePattern(context, key, params, component);
+      String hintFormat = getHintFormat();
 
       FacesMessage msg = null;
       String detailMessage = null;
-      int customMessages = 0;
+
       if (msgPattern != null)
       {
         msg = MessageFactory.getMessage(context, key, msgPattern, params,
             component);
         detailMessage = XhtmlLafUtils.escapeJS(msg.getDetail());
-        customMessages = 6 + detailMessage.length();
-
       }
+      
       String exampleString = XhtmlLafUtils.escapeJS(getExample(context));
       String escapedType = XhtmlLafUtils.escapeJS(getType().toUpperCase());
 
-      StringBuilder outBuffer = new StringBuilder(33 + jsPattern.length()
-          + exampleString.length() + escapedType.length() + customMessages);
-      outBuffer.append("new TrDateTimeConverter("); // 21
-      outBuffer.append(jsPattern); // jsPattern.length
-      outBuffer.append(",null,'"); // 7
-      outBuffer.append(exampleString); // exampleString.length
-      outBuffer.append("','"); // 3
-      outBuffer.append(escapedType); // escapedKey.length
+      StringBuilder outBuffer = new StringBuilder();
+      outBuffer.append("new TrDateTimeConverter(");
+      outBuffer.append(jsPattern);
+      outBuffer.append(",null,'");
+      outBuffer.append(exampleString);
+      outBuffer.append("','");
+      outBuffer.append(escapedType);
+      outBuffer.append("'");
 
-      if (msgPattern != null)
+      if (msgPattern != null || hintFormat != null)
       {
-        outBuffer.append("','"); // 3
-        outBuffer.append(detailMessage); // detail message.length/
+        messages.put("detail", detailMessage);
+        messages.put("hint", hintFormat);
+        outBuffer.append(','); 
+        
+        try
+        {
+          JsonUtils.writeMap(outBuffer, messages, false);
+        }
+        catch (IOException e)
+        {
+          outBuffer.append("null");
+        }
       }
 
-      outBuffer.append("')"); // 2
+      outBuffer.append(')'); // 2
 
       return outBuffer.toString();
     } else

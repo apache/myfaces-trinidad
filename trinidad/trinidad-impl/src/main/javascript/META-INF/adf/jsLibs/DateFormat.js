@@ -1021,7 +1021,7 @@ function TrDateTimeConverter(
   locale,
   exampleString,
   type,
-  detail
+  messages
   )
 {
 
@@ -1029,7 +1029,7 @@ function TrDateTimeConverter(
   this._class = "TrDateTimeConverter";
   this._exampleString = exampleString;
   this._type = type;
-  this._detail = detail;
+  this._messages = messages;
   this._offset = null;
   
   // save the Locale elements for the specified locale, or client locale
@@ -1050,9 +1050,19 @@ TrDateTimeConverter.prototype = new TrConverter();
 
 TrDateTimeConverter.prototype.getFormatHint = function()
 {
-	return TrMessageFactory.createMessage(
-    "org.apache.myfaces.trinidad.convert.DateTimeConverter.FORMAT_HINT",
-    this._pattern);
+	if(this._messages && this._messages["hint"])
+	{
+    return TrMessageFactory.createCustomMessage(
+      this._messages["hint"],
+      this._pattern);
+		
+	}
+	else
+	{
+    return TrMessageFactory.createMessage(
+      "org.apache.myfaces.trinidad.convert.DateTimeConverter.FORMAT_HINT",
+      this._pattern);
+	}
 }
 
 TrDateTimeConverter.prototype.getAsString = function(
@@ -1112,7 +1122,6 @@ TrDateTimeConverter.prototype.getAsObject  = function(
   label
   )
 {
-
   // The following are from the javadoc for DateTimeConverter
   // If the specified String is null, return a null. Otherwise, trim leading and trailing whitespace before proceeding.
   // If the specified String - after trimming - has a zero length, return null.
@@ -1127,17 +1136,17 @@ TrDateTimeConverter.prototype.getAsObject  = function(
   
   var facesMessage;
   var key = "org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_"+this._type;
-  if(this._detail == undefined)
+  if(this._messages && this._messages["detail"])
   {
-    facesMessage = _createFacesMessage( key,
+    facesMessage = _createCustomFacesMessage(TrMessageFactory.getSummaryString(key),
+                                          this._messages["detail"],
                                           label,
                                           parseString,
                                           this._exampleString);
   }
   else
   {
-    facesMessage = _createCustomFacesMessage(TrMessageFactory.getSummaryString(key),
-                                          this._detail,
+    facesMessage = _createFacesMessage( key,
                                           label,
                                           parseString,
                                           this._exampleString);
