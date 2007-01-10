@@ -15,6 +15,7 @@
  */
 
 package org.apache.myfaces.trinidad.validator;
+
 import java.io.UnsupportedEncodingException;
 
 import java.nio.charset.IllegalCharsetNameException;
@@ -173,6 +174,27 @@ public class ByteLengthValidator  implements StateHolder, Validator
   public String getMessageDetailMaximum()
   {
     Object obj = _facesBean.getProperty(_MAXIMUM_MESSAGE_DETAIL_KEY);
+    return ComponentUtils.resolveString(obj);
+  }
+
+  /**
+   * <p>Custom hint message.</p>
+   * Overrides default hint message
+   * @param hintMaximum Custom hint message.
+   */
+  public void setHintMaximum(String hintMaximum)
+  {
+    _facesBean.setProperty(_HINT_MAXIMUM_KEY, hintMaximum);
+  }
+
+  /**
+   * <p>Return custom hint message.</p>
+   * @return Custom hint message.
+   * @see  #setHintMaximum(String)
+   */
+  public String getHintMaximum()
+  {
+    Object obj = _facesBean.getProperty(_HINT_MAXIMUM_KEY);
     return ComponentUtils.resolveString(obj);
   }
 
@@ -370,6 +392,9 @@ public class ByteLengthValidator  implements StateHolder, Validator
 
   private static final PropertyKey  _MAXIMUM_MESSAGE_DETAIL_KEY =
     _TYPE.registerKey("messageDetailMaximum", String.class);
+
+  private static final PropertyKey  _HINT_MAXIMUM_KEY =
+    _TYPE.registerKey("hintMaximum", String.class);
 
   private FacesBean _facesBean = ValidatorUtils.getFacesBean(_TYPE);
 

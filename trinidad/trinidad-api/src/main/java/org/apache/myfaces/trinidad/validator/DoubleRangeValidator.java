@@ -225,6 +225,48 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
     return ComponentUtils.resolveString(notInRngMsg);
   }
 
+  /**
+   * <p>Custom hint maximum message.</p>
+   * Overrides default hint message
+   * @param hintMaximum Custom hint message.
+   */
+  public void setHintMaximum(String hintMaximum)
+  {
+    _facesBean.setProperty(_HINT_MAXIMUM_KEY, hintMaximum);
+  }
+
+  /**
+   * <p>Return custom hint maximum message.</p>
+   * @return Custom hint message.
+   * @see  #setHintMaximum(String)
+   */
+  public String getHintMaximum()
+  {
+    Object obj = _facesBean.getProperty(_HINT_MAXIMUM_KEY);
+    return ComponentUtils.resolveString(obj);
+  }
+
+  /**
+   * <p>Custom hint minimum message.</p>
+   * Overrides default hint message
+   * @param hintMinimum Custom hint message.
+   */
+  public void setHintMinimum(String hintMinimum)
+  {
+    _facesBean.setProperty(_HINT_MINIMUM_KEY, hintMinimum);
+  }
+
+  /**
+   * <p>Return custom hint minimum message.</p>
+   * @return Custom hint message.
+   * @see  #setHintMinimum(String)
+   */
+  public String getHintMinimum()
+  {
+    Object obj = _facesBean.getProperty(_HINT_MINIMUM_KEY);
+    return ComponentUtils.resolveString(obj);
+  }
+
   @Override
   public void validate(
     FacesContext context,
@@ -423,6 +465,12 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
 
   private static final PropertyKey _NOT_IN_RANGE_MESSAGE_DETAIL_KEY =
     _TYPE.registerKey("messageDetailNotInRange", String.class);
+
+  private static final PropertyKey  _HINT_MAXIMUM_KEY =
+    _TYPE.registerKey("hintMaximum", String.class);
+
+  private static final PropertyKey  _HINT_MINIMUM_KEY =
+    _TYPE.registerKey("hintMinimum", String.class);
 
   private FacesBean _facesBean = ValidatorUtils.getFacesBean(_TYPE);
 
