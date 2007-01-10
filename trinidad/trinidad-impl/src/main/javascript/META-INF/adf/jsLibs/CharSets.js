@@ -18,11 +18,11 @@ var _byteLenKey = "org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAX
 
 function TrByteLengthValidator(
   length,
-  detail
+  messages
   )
 {
   this._length   = length;
-  this._detail = detail;
+  this._messages = messages;
   this._class    = "TrByteLengthValidator";
 }
 
@@ -30,11 +30,11 @@ TrByteLengthValidator.prototype = new TrValidator();
 
 function CjkFormat(
   length,
-  detail
+  messages
   )
 {
   this._base = TrByteLengthValidator;
-  this._base(length, detail);
+  this._base(length, messages);
   this._class = "CjkFormat";
   
 }
@@ -45,10 +45,21 @@ CjkFormat.prototype.getHints = function(
   )
 {
   var messages = new Array();
-  messages.push(TrMessageFactory.createMessage(
-    "org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM_HINT",
-	  this._length)
-	);
+  
+  if(this._messages["hint"])
+  {
+    messages.push(TrMessageFactory.createCustomMessage(
+      this._messages["hint"],
+	    this._length)
+	  );
+  }
+  else
+  {
+    messages.push(TrMessageFactory.createMessage(
+      "org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM_HINT",
+	    this._length)
+	  );
+  }
 	return messages;
 }
 CjkFormat.prototype.validate  = function(
@@ -69,7 +80,7 @@ CjkFormat.prototype.validate  = function(
     if (length < 0)
     {
       var facesMessage;
-      if(this._detail == undefined)
+      if(!this._messages["detail"])
       {
         facesMessage = _createFacesMessage(_byteLenKey,
                                            label,
@@ -79,7 +90,7 @@ CjkFormat.prototype.validate  = function(
       {
         facesMessage = _createCustomFacesMessage(
                                            TrMessageFactory.getSummaryString(_byteLenKey),
-                                           this._detail,
+                                           this._messages["detail"],
                                            label,
                                            parseString);
       }
@@ -97,11 +108,11 @@ CjkFormat.prototype.validate  = function(
 
 function Utf8Format(
   length,
-  detail
+  messages
   )
 {
   this._base = TrByteLengthValidator;
-  this._base(length, detail);
+  this._base(length, messages);
   this._class = "Utf8Format";
 }
 
@@ -112,10 +123,21 @@ Utf8Format.prototype.getHints = function(
   )
 {
   var messages = new Array();
-  messages.push(TrMessageFactory.createMessage(
-    "org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM_HINT",
-	  this._length)
-	);
+  
+  if(this._messages["hint"])
+  {
+    messages.push(TrMessageFactory.createCustomMessage(
+      this._messages["hint"],
+	    this._length)
+	  );
+  }
+  else
+  {
+    messages.push(TrMessageFactory.createMessage(
+      "org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM_HINT",
+	    this._length)
+	  );
+  }
 	return messages;
 }
 Utf8Format.prototype.validate  = function(
@@ -144,7 +166,7 @@ Utf8Format.prototype.validate  = function(
     if (length < 0)
     {
       var facesMessage;
-      if(this._detail == undefined)
+      if(!this._messages["detail"])
       {
         facesMessage = _createFacesMessage(_byteLenKey,
                                            label,
@@ -154,7 +176,7 @@ Utf8Format.prototype.validate  = function(
       {
         facesMessage = _createCustomFacesMessage(
                                             TrMessageFactory.getSummaryString(_byteLenKey),
-                                            this._detail,
+                                            this._messages["detail"],
                                             label,
                                             parseString);
       }
@@ -169,11 +191,11 @@ Utf8Format.prototype.validate  = function(
 
 function SBFormat(
   length,
-  detail
+  messages
   )
 {
   this._base = TrByteLengthValidator;
-  this._base(length, detail);
+  this._base(length, messages);
   this._class = "SBFormat";
   
 }
@@ -185,10 +207,21 @@ SBFormat.prototype.getHints = function(
   )
 {
   var messages = new Array();
-  messages.push(TrMessageFactory.createMessage(
-    "org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM_HINT",
-	  this._length)
-	);
+  
+  if(this._messages["hint"])
+  {
+    messages.push(TrMessageFactory.createCustomMessage(
+      this._messages["hint"],
+	    this._length)
+	  );
+  }
+  else
+  {
+    messages.push(TrMessageFactory.createMessage(
+      "org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM_HINT",
+	    this._length)
+	  );
+  }
 	return messages;
 }
 SBFormat.prototype.validate  = function(
@@ -200,7 +233,7 @@ SBFormat.prototype.validate  = function(
   if (this._length < parseString.length)
   {
       var facesMessage;
-      if(this._detail == undefined)
+      if(!this._messages["detail"])
       {
         facesMessage = _createFacesMessage(_byteLenKey,
                                            label,
@@ -210,7 +243,7 @@ SBFormat.prototype.validate  = function(
       {
         facesMessage = _createCustomFacesMessage(
                                             TrMessageFactory.getSummaryString(_byteLenKey),
-                                            this._detail,
+                                            this._messages["detail"],
                                             label,
                                             parseString);
       }

@@ -918,3 +918,19 @@ TrMessageFactory.createMessage = function(
     
   return message;
 }
+TrMessageFactory.createCustomMessage = function(
+  customMessage,
+  parameters
+  )
+{  
+  // the strings to create a facesMessage to use have been sent down
+  var message;
+  if ( customMessage != null )
+  {
+    if ( parameters != null )
+    {
+      message = TrFastMessageFormatUtils.format(customMessage,parameters);
+    }
+  }
+  return message;
+}

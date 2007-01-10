@@ -323,19 +323,15 @@ TrRangeValidator.prototype.getHints = function(
   converter
   )
 {
-	var hints = new Array();
-	hints.push(
-  	TrMessageFactory.createMessage(
-      "org.apache.myfaces.trinidad.validator.RangeValidator.MAXIMUM_HINT",
-	    ""+this._maxValue)
-   );
-	hints.push(
-  	TrMessageFactory.createMessage(
-      "org.apache.myfaces.trinidad.validator.RangeValidator.MINIMUM_HINT",
-	    ""+this._minValue)
-   );
-
-  return hints;
+  return _returnHints(
+    this._messages,
+    this._maxValue,
+    this._minValue,
+    "org.apache.myfaces.trinidad.validator.RangeValidator.MAXIMUM_HINT",
+    "org.apache.myfaces.trinidad.validator.RangeValidator.MINIMUM_HINT",
+    "hintMax",
+    "hintMin"
+  );
 }
 TrRangeValidator.prototype.validate  = function(
   value,
@@ -455,10 +451,13 @@ TrLengthValidator.prototype.getHints = function(
   )
 {
   return _returnHints(
+    this._messages,
     this._maxValue,
     this._minValue,
     "org.apache.myfaces.trinidad.validator.LengthValidator.MAXIMUM_HINT",
-    "org.apache.myfaces.trinidad.validator.LengthValidator.MINIMUM_HINT"
+    "org.apache.myfaces.trinidad.validator.LengthValidator.MINIMUM_HINT",
+    "hintMax",
+    "hintMin"
   );
 }
 TrLengthValidator.prototype.validate  = function(
@@ -540,10 +539,13 @@ TrDateTimeRangeValidator.prototype.getHints = function(
   )
 {
   return _returnHints(
+    this._messages,
     converter.getAsString(new Date(this._maxValue)),
     converter.getAsString(new Date(this._minValue)),
     "org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MAXIMUM_HINT",
-    "org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MINIMUM_HINT"
+    "org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MINIMUM_HINT",
+    "hintMax",
+    "hintMin"
   );
 }
 TrDateTimeRangeValidator.prototype.validate  = function(
@@ -669,10 +671,13 @@ TrDateRestrictionValidator.prototype.getHints = function(
   )
 {
   return _returnHints(
+    this._messages,
     this._weekdaysValue,
     this._monthValue,
     "org.apache.myfaces.trinidad.validator.DateRestrictionValidator.WEEKDAY_HINT",
-    "org.apache.myfaces.trinidad.validator.DateRestrictionValidator.MONTH_HINT"
+    "org.apache.myfaces.trinidad.validator.DateRestrictionValidator.MONTH_HINT",
+    "hintWeek",
+    "hintMonth"
   );
 }
 TrDateRestrictionValidator.prototype.validate  = function(
@@ -867,11 +872,11 @@ function _decimalParse(
 
 function TrRegExpValidator(
   pattern,
-  detail
+  messages
   )
 {  
   this._pattern  = pattern;
-  this._detail = detail;
+  this._messages = messages;
   this._class = "TrRegExpValidator";
 }
 
@@ -881,11 +886,21 @@ TrRegExpValidator.prototype.getHints = function(
   )
 {
   var hints = new Array();
-  hints.push(TrMessageFactory.createMessage(
+  if(this._messages["hint"])
+  {
+    hints.push(TrMessageFactory.createCustomMessage(
+      this._messages["hint"],
+	    ""+this._pattern)
+	  );
+  }
+  else
+  {
+    hints.push(TrMessageFactory.createMessage(
       "org.apache.myfaces.trinidad.validator.RegExpValidator.NO_MATCH_HINT",
-      ""+this._pattern)
-  );
-  return hints;
+	    ""+this._pattern)
+	  );
+  }
+	return hints;
 }
 TrRegExpValidator.prototype.validate  = function(
   parseString,
@@ -907,14 +922,14 @@ TrRegExpValidator.prototype.validate  = function(
   {
   	var key = "org.apache.myfaces.trinidad.validator.RegExpValidator.NO_MATCH";
     var facesMessage;
-    if(this._detail)
+    if(this._messages && this._messages["detail"])
     {
       facesMessage = _createCustomFacesMessage(
                                          TrMessageFactory.getSummaryString(key),
-                                         this._detail,
+                                         this._messages["detail"],
                                          label,
                                          parseString,
-                                         this._pattern);                                          
+                                         this._pattern);
     }
     else
     {
@@ -928,21 +943,36 @@ TrRegExpValidator.prototype.validate  = function(
 }
 
 function _returnHints(
+  messages,
   max,
   min,
   maxKey,
-  minKey
+  minKey,
+  maxHint,
+  minHint
 )
 {
-  var hints = null;
+  var hints;
   if(max)
   {
     hints = new Array();
-    hints.push(
-      TrMessageFactory.createMessage(
-        maxKey,
-	      ""+max)
-	  );
+    if(messages && messages[maxHint])
+    {
+      hints.push(
+        TrMessageFactory.createCustomMessage(
+          messages[maxHint],
+	        ""+max)
+	    );
+    }
+    else
+    {
+      hints.push(
+        TrMessageFactory.createMessage(
+          maxKey,
+	        ""+max)
+	    );
+    }
+    
   }
   if(min)
   {
@@ -950,11 +980,22 @@ function _returnHints(
     {
       hints = new Array();
     }
-    hints.push(
-      TrMessageFactory.createMessage(
-        minKey,
-	      ""+min)
-     );
+    if(messages && messages[minHint])
+    {
+      hints.push(
+        TrMessageFactory.createCustomMessage(
+          messages[minHint],
+	        ""+min)
+       );
+    }
+    else
+    {
+      hints.push(
+        TrMessageFactory.createMessage(
+          minKey,
+	        ""+min)
+       );
+    }
   }
   return hints;
 }

@@ -105,13 +105,18 @@ public class DateRestrictionValidator extends org.apache.myfaces.trinidad.valida
     
     String messageDetailDaysOfWeek = this.getMessageDetailInvalidDaysOfWeek();
     String messageDetailMonth = this.getMessageDetailInvalidMonths();
+    String hintWeek = this.getHintWeek();
+    String hintMonth = this.getHintMonth();
+
     
     Map<String, String> cMessages = null;
-    if(messageDetailDaysOfWeek != null || messageDetailMonth != null)
+    if(messageDetailDaysOfWeek != null || messageDetailMonth != null || hintWeek != null || hintMonth != null)
     {
       cMessages = new HashMap<String, String>();
       cMessages.put("days", messageDetailDaysOfWeek);
       cMessages.put("month", messageDetailMonth);
+      cMessages.put("hintWeek", hintWeek);
+      cMessages.put("hintMonth", hintMonth);
     }
 
     return _getTrDateRestrictionValidator(context, component, weekdaysValues, monthValues, cMessages);
