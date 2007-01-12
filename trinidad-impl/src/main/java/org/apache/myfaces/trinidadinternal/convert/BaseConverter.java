@@ -15,6 +15,7 @@
 */
 package org.apache.myfaces.trinidadinternal.convert;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -57,6 +58,9 @@ class BaseConverter extends GenericConverter
       return new Long(num.longValue());
     if ((targetType == Short.class) || (targetType == Short.TYPE))
       return new Short(num.shortValue());
+    if (targetType == BigDecimal.class)
+      return new BigDecimal(num.doubleValue());
+    
     
     throw new IllegalArgumentException("Unsupported conversion from:"+
       source.getClass() + " to:"+targetType);
@@ -77,13 +81,14 @@ class BaseConverter extends GenericConverter
     }
     else if (Number.class.isAssignableFrom(sourceType))
     {
-      list.ensureCapacity(12);
+      list.ensureCapacity(13);
       list.add(Byte.class);
       list.add(Double.class);
       list.add(Float.class);
       list.add(Integer.class);
       list.add(Long.class);
       list.add(Short.class);
+      list.add(BigDecimal.class);      
       list.add(Byte.TYPE);
       list.add(Double.TYPE);
       list.add(Float.TYPE); // bug 4891181
