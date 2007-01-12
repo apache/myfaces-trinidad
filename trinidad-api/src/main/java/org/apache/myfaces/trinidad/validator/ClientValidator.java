@@ -48,7 +48,7 @@ import javax.faces.context.FacesContext;
  * * Perform the correctness checks implemented by this Validator.
  * * If any violations are found, a ValidatorException will be thrown.
  * * /
- * Validator.prototype.validate = function(value){}
+ * Validator.prototype.validate = function(value, label, converter){}
  *
  * </code></pre>
  * Validators can throw a ValidatorException, here is the signature:
