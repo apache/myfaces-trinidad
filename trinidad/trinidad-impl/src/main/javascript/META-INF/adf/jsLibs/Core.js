@@ -572,28 +572,62 @@ function _getContentWidth(
   return maxWidth + offsetLeft;
 }
 
-
-function _getTop(
-  element
-  )
+/**
+ * Safely returns the parent window of a window, or undefined if security doesn't allow us to
+ * retrieve the parent
+ */
+function _getParentWindow(currWindow)
 {
-  if (!(_agent.isGecko || _agent.isSafari))
+  var parentWindow = currWindow.parent;
+
+  try
   {
-    return top;
+    // dummy read to test security error
+    parentWindow.name;
+    
+    return parentWindow;
+  }
+  catch (e)
+  {
+    return undefined;
+  }
+}
+
+/**
+ * Returns the window for the document
+ */
+function _getWindowForDocument(document)
+{
+  if (_agent.isIE)
+  {
+    return document.parentWindow;
   }
   else
   {
-    var currWindow = (element)
-                       ? element.window
-                       : window;
-
-    while (currWindow.parent && (currWindow.parent != currWindow))
-    {
-      currWindow = currWindow.parent;
-    }
-
-    return currWindow;
+    return document.defaultView;
   }
+}
+
+/**
+ * Safely retrieve the top accessible window
+ */
+function _getTop(element)
+{  
+  var initialDocument = (element)
+                          ? element.ownerDocument
+                          : document;
+                       
+  // since top might be in another domain, crawl up as high as possible manually
+  var currWindow = _getWindowForDocument(initialDocument);
+  var currParentWindow = _getParentWindow(currWindow);
+  
+  while (currParentWindow && (currParentWindow != currWindow))
+  {
+    currWindow = currParentWindow;
+    currParentWindow = _getParentWindow(currWindow);
+  }
+
+  return currWindow;
 }
 
 
@@ -963,6 +997,7 @@ function _isModalAbandoned()
   // within a frame.  So, we check for the _abandoned property
   // on the "top" window.
   var topWindow = _getTop();
+  
   return topWindow._abandoned;
 }
 
@@ -3589,8 +3624,7 @@ function _doPartialSubmit()
 function _submitPartialChange(
   form,
   doValidate,
-  parameters
-  )
+  parameters)
 {
   // If there's no PPR iframe, then just perform a normal,
   // full-page submission.
@@ -3610,9 +3644,11 @@ function _submitPartialChange(
   // We need to set the target of the form to be the PPR iframe.
   // Save the old target and set the new one.
   var oldTarget = form.target;
-  if(!_agent.isPIE){
-  form.target = _pprIframeName;
+  if(!_agent.isPIE)
+  {
+    form.target = _pprIframeName;
   }
+  
   // Before we fire, update the request count
   _pprRequestCount++;
 
@@ -3621,13 +3657,13 @@ function _submitPartialChange(
   // IE only adds to the history list if something has already been done on
   // this page, so until there has been some action, we don't
   // increment/decrement at all.
-  if ((!_agent.isIE) || parent._pprSomeAction)
+  if (!_agent.isIE || window._pprSomeAction)
   {
     delta = 1;
   }
   _pprSubmitCount += delta;
 
-  parent._pprSomeAction = true;
+  window._pprSomeAction = true;
 
   // block all mouse clicks until the submit is done
   if (!_agent.isPIE)
@@ -3694,7 +3730,7 @@ function _createToLoadArray()
   var toLoadArray = new Array();
   var toLoadIndex = 0;
 
-  if (window["_pprLibraries"] != (void 0))
+  if (window["_pprLibraries"] != undefined)
   {
     // loop through each library in _pprLibraries
     // if it is not in the cached libraries list, then
@@ -4635,7 +4671,9 @@ function _checkLoad(
   // If we're inside a frameset, and the top frame wants
   // reloads blocked, install a _noReload handler.
   // chain _monitor also if that is already set.
-  if ((self != top) && top["_blockReload"])
+  var topWindow = _getTop();
+  
+  if ((self != topWindow) && topWindow["_blockReload"])
   {
     // If _monitor is already set on document.onkeydown, then
     // chain _noReload and _monitor by calling another function which
