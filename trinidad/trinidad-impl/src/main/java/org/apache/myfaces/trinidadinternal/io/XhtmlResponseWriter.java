@@ -87,6 +87,7 @@ public class XhtmlResponseWriter extends ResponseWriter
   public void flush() throws IOException
   {
     _closeStartIfNecessary();
+    _out.flush();
   }
 
 
