@@ -109,6 +109,16 @@
       <timezone>-8</timezone>
     </developer>
     <developer>
+      <id>gcrawford</id>
+      <name>Gabrielle Crawford</name>
+      <organization>Oracle Corp</organization>
+      <email>gcrawford@apache.org</email>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>-8</timezone>
+    </developer>
+    <developer>
       <id>jfallows</id>
       <name>John Fallows</name>
       <organization/>
@@ -157,16 +167,6 @@
         <role>Developer</role>
       </roles>
       <timezone>-5</timezone>
-    </developer>
-    <developer>
-      <id>TDB</id>
-      <name>Jonas Jacobi</name>
-      <organization>Oracle Corp</organization>
-      <email>TDB</email>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>-8</timezone>
     </developer>
   </developers>
 
