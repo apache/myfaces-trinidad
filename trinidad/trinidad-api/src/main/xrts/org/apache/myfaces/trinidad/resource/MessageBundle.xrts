@@ -172,30 +172,26 @@
 
   <resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.NOT_IN_RANGE_detail">The date entered, "{1}", is not within the range of valid dates {2} and {3}.</resource>
 
-  <!-- Date exceeds date range error               -->
+  <!-- The validator has a list with dates, which are not allowed. In case of that the entered date is part of the list, this message will be shown -->
   <!-- {0} the label that identifies the component -->
-  <!-- {1} value entered by the user               -->
-  <!-- {2} represents the maximum allowed date     -->
+  <!-- {1} date value entered by the user          -->
   <resource
     key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.DAY">Date is not allowed.</resource>
 
   <resource
     key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.DAY_detail">The date entered, "{1}" is not allowed.</resource>
 
-  <!-- Date preceeds date range error                -->
-  <!-- {0} the label that identifies the component   -->
-  <!-- {1} represent Date which the user has set     -->
-  <!-- {2} represents the minimum allowed date       -->
+  <!-- Validator can check if a date is in an invalid month  -->
+  <!-- {0} the label that identifies the component           -->
+  <!-- {1} represent Date which the user has set             -->
   <resource
      key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.MONTH">Date is not in a valid month.</resource>
   <resource
     key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.MONTH_detail">The date entered, "{1}", is in an invalid month.</resource>
 
-  <!-- Date outside date range error               -->
-  <!-- {0} the label that identifies the component -->
-  <!-- {1} value entered by the user               -->
-  <!-- {2} represents the minimum allowed date     -->
-  <!-- {3} represents the maximum allowed date     -->
+  <!-- Validator can check if a date is an invalid weekday    -->
+  <!-- {0} the label that identifies the component            -->
+  <!-- {1} date value entered by the user                     -->
   <resource key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.WEEKDAY">Date is not within a valid weekday.</resource>
 
   <resource key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.WEEKDAY_detail">The date entered, "{1}", is an invalid day of the week.</resource>
