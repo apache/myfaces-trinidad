@@ -168,6 +168,24 @@
     </developer>
   </developers>
   
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>sign-artifacts</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>sign</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
   <scm>
     <connection>
       scm:svn:http://svn.apache.org/repos/asf/incubator/adffaces/trunk/plugins/
