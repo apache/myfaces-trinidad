@@ -168,6 +168,25 @@
     </developer>
   </developers>
   
+  <!-- use this only for deploy to ASF servers -->
+  <!--build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>sign-artifacts</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>sign</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build-->
+
   <scm>
     <connection>
       scm:svn:http://svn.apache.org/repos/asf/incubator/adffaces/trunk/plugins/
@@ -188,9 +207,9 @@
   <distributionManagement>
     <snapshotRepository>
       <uniqueVersion>false</uniqueVersion>
-      <id>apache-maven-snapshots</id>
+      <id>apache.snapshots</id>
       <name>Apache Maven Snapshot Repository</name>
-      <url>scpexe://minotaur.apache.org/www/people.apache.org/repo/m2-snapshot-repository</url>
+      <url>scpexe://people.apache.org/www/people.apache.org/repo/m2-incubating-repository</url>
     </snapshotRepository>
 <!--
     <repository>
