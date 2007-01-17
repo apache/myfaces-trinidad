@@ -1113,6 +1113,12 @@ TrDateTimeConverter.prototype.getDiffInMins = function()
   return this._offset;
 }
 
+TrDateTimeConverter.prototype.getLocaleSymbols = function()
+{
+  return this._localeSymbols;
+}
+
+
 /**
  * Parses a String into a Date using the current object's pattern.  If the
  * parsing fails, undefined will be returned.
