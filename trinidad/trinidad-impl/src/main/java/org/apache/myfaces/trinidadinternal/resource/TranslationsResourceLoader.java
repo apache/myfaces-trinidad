@@ -88,6 +88,9 @@ abstract public class TranslationsResourceLoader
   {
     FacesContext context = FacesContext.getCurrentInstance();
     String localeStr = getLocaleString(context);
+    // Make sure it's in IANA format
+    if (localeStr != null)
+      localeStr = localeStr.replace('_', '-');
 
     Locale locale = LocaleUtils.getLocaleForIANAString(localeStr);
     if (locale == null)
