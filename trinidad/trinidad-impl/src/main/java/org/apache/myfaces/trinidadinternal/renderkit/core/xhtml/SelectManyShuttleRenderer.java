@@ -17,6 +17,7 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -117,10 +118,6 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
     return list.toArray(new String[list.size()]);
   }
 
-  protected boolean isReorderable()
-  {
-    return false;
-  }
 
   protected Integer getSize(FacesBean bean)
   {
@@ -237,14 +234,41 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
     if (!valuePassThru)
       _convertSelectItemListToIndices(selectItems);
 
+    // Start the leading list off with everything, and the trailing list
+    // off with nothing
     List<SelectItem> leadingSelectItems = new ArrayList<SelectItem>(selectItems);    
     List<SelectItem> trailingSelectItems =
        new ArrayList<SelectItem>(selectedIndices.length);
-    for (int i = selectedIndices.length - 1; i >=0; i--)
+
+    // Now, for every selected index, add an item over
+    for (int i = 0; i < selectedIndices.length; i++)
     {
-      trailingSelectItems.add(0,
-                              leadingSelectItems.remove(selectedIndices[i]));
+      int selectedIndex = selectedIndices[i];
+      // -1 means a value couldn't be matched up to
+      // a SelectItem.  That's programmer error, but we've
+      // already logged a warning
+      if (selectedIndex < 0)
+        continue;
+
+      trailingSelectItems.add(selectItems.get(selectedIndex));
     }
+
+    // Now, sort the list
+    Arrays.sort(selectedIndices);
+    // And, in reverse order, remove those indices (reverse order
+    // so we don't affect the indices of the items at the end)
+    for (int i = selectedIndices.length - 1; i >= 0; i--)
+    {
+      int selectedIndex = selectedIndices[i];
+      // -1 means a value couldn't be matched up to
+      // a SelectItem.  That's programmer error, but we've
+      // already logged a warning
+      if (selectedIndex < 0)
+        break;
+
+      leadingSelectItems.remove(selectedIndex);
+    }
+
     
     // Initialize global info
     ShuttleInfo info = _createAndSetShuttleInfo(rc,
