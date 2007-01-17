@@ -468,8 +468,16 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
 
 
   /**
+   * Returns true if the renderer cares about order.
+   */
+  protected boolean isReorderable()
+  {
+    return false;
+  }
+
+  /**
    * Return all the selected indices, in sorted order.  (There
-   * may be trailing -1's in case of an error)
+   * may be included -1's in case of an error)
    */
   @SuppressWarnings("unchecked")
   protected int[] getSelectedIndices(
@@ -494,8 +502,9 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
         indices[i] = SimpleSelectOneRenderer.__getIndex(values[i], selectItems);
       }
 
-      // And sort it to make sure.
-      Arrays.sort(indices);
+      // And sort it, but only if it's not reorderable
+      if (!isReorderable())
+        Arrays.sort(indices);
       return indices;
     }
 
@@ -555,10 +564,18 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
     }
 
     // Now figure out what's selected or not
-    int[] indices = new int[valueList.size()];
-    int itemCount = selectItems.size();
+    int valueListSize = valueList.size();
+    int[] indices = new int[valueListSize];
+    // Pre-mark each item as -1 to indicate it as
+    // not-found
+    for (int i = 0; i < valueListSize; i++)
+    {
+      indices[i] = -1;
+    }
 
-    int lastEntry = 0;
+    int itemCount = selectItems.size();
+    int foundCount = 0;
+
     for (int i = 0; i < itemCount; i++)
     {
       SelectItem item = selectItems.get(i);
@@ -571,11 +588,13 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
       {
         // Remove it from the valueList so that if the same
         // value appears multiple times, that'll (more-or-less)
-        // work
-        valueList.remove(index);
+        // work - but remove it by replacing it with an object
+        // that won't be .equals() anything else, so the
+        // indices all match up
+        valueList.set(index, _ALREADY_FOUND);
         // Remember that this item is selected
-        indices[lastEntry] = i;
-        lastEntry++;
+        indices[index] = i;
+        foundCount++;
       }
     }
 
@@ -585,13 +604,8 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
     // appear anywhere among our selectItems, so clear
     // out the remainder of the indices (which otherwise would
     // be zero) and log a warning
-    if (!valueList.isEmpty())
+    if (foundCount < valueListSize)
     {
-      for (; lastEntry < indices.length; lastEntry++)
-      {
-        indices[lastEntry] = -1;
-      }
-
       if (_LOG.isWarning())
       {
         _LOG.warning(
@@ -599,6 +613,10 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
           new Object[]{component, valueList});
       }
     }
+
+    Integer[] indicesObj = new Integer[indices.length];
+    for (int foo = 0; foo < indices.length; foo++)
+      indicesObj[foo] = indices[foo];
 
     return indices;
   }
@@ -629,7 +647,7 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
 
   static private final int[] _EMPTY_INT_ARRAY = new int[0];
   static private final String[] _EMPTY_ARRAY = new String[0];
-
+  static private final Object _ALREADY_FOUND = new Object();
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     EditableValueRenderer.class);
 }
