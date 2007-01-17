@@ -113,6 +113,16 @@ public class ListTestBean implements java.io.Serializable
     return _selectedCars;
   }
     
+  public void setSelectedCars2(List<?> selectedCars)
+  {
+    _selectedCars2 = selectedCars;
+  }
+
+  public List<?> getSelectedCars2()
+  {
+    return _selectedCars2;
+  }
+
   public List<SelectItem> getMakes()
   {
     return _MAKE_ITEMS;
@@ -236,6 +246,7 @@ public class ListTestBean implements java.io.Serializable
   }   
   
   private List<?> _selectedCars;
+  private List<?> _selectedCars2;
   private List<?> _selectedSelectItems;
     
   private Integer _int = 1;
