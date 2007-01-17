@@ -11,7 +11,7 @@ Maven 2 JavaCC plugin
 
  This plugin is for processing javacc files into java sources.
 
- http://www.javacc.org
+ https://javacc.dev.java.net
 
  This plugin will process all *.jj files in the sourceDirectory into a 
  common generated sources output directory.  This will occur during the 
