@@ -41,7 +41,7 @@
 </column>]]></mfp:source-code>
         </mfp:example>
         <mfp:facet-metadata>
-          <mfp:preferred-children>tr:sortableHeader tr:outputText</mfp:preferred-children>
+          <mfp:preferred-children>tr:outputText</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
