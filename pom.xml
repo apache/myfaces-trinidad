@@ -17,6 +17,12 @@
 <project>
   <modelVersion>4.0.0</modelVersion>
 
+  <parent>
+    <groupId>org.apache</groupId>
+    <artifactId>apache</artifactId>
+    <version>3</version>
+  </parent>
+
   <groupId>org.apache.myfaces.trinidadbuild</groupId>
   <artifactId>maven-plugin-parent</artifactId> 
   <version>incubator-m1-SNAPSHOT</version>
@@ -169,7 +175,22 @@
   </developers>
   
   <build>
-    <plugins>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+      </resource>
+      <!-- also include license and notice files in all the jars -->
+      <resource>
+        <directory>${basedir}/</directory>
+        <includes>
+          <include>NOTICE.txt</include>
+          <include>LICENSE.txt</include>
+          <include>INCUBATOR_NOTICE.txt</include>
+        </includes>
+        <targetPath>META-INF</targetPath>
+      </resource>
+    </resources>
+    <!--plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-gpg-plugin</artifactId>
@@ -183,7 +204,7 @@
           </execution>
         </executions>
       </plugin>
-    </plugins>
+    </plugins-->
   </build>
 
   <scm>
