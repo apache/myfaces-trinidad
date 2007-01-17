@@ -78,8 +78,8 @@
   <resource key="org.apache.myfaces.trinidad.validator.LengthValidator.MINIMUM_HINT">The allowed minimum for this value is {0}.</resource>
   <resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MAXIMUM_HINT">The date can not be after {0}.</resource>
   <resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MINIMUM_HINT">The date can not be before {0}.</resource>
-  <resource key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.WEEKDAY_HINT">The picked date is one of the following weekdays: {0}.</resource>
-  <resource key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.MONTH_HINT">The picked date is in one of the following month: {0}.</resource>
+  <resource key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.WEEKDAY_HINT">The picked date can not be one of the following weekdays: {0}.</resource>
+  <resource key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.MONTH_HINT">The picked date can not be in one of the following month: {0}.</resource>
   <resource key="org.apache.myfaces.trinidad.validator.RegExpValidator.NO_MATCH_HINT">The value must match this pattern: {0}.</resource>
 
   <!-- messages for validators -->
