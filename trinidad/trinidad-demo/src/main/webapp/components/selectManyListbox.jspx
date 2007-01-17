@@ -82,7 +82,7 @@
 
             <tr:selectManyListbox label="Cars"
                                   valueChangeListener="#{list.valueChanged}"
-                                  value="#{list.selectedCars}">
+                                  value="#{list.selectedCars2}">
                <tr:selectItem  value="#{list.firstSelectItemCar}"/>
                <tr:selectItem  value="#{list.secondSelectItemCar}"/>
                <tr:selectItem  value="#{list.thirdSelectItemCar}"/>
