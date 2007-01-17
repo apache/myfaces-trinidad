@@ -1054,14 +1054,14 @@ TrDateTimeConverter.prototype.getFormatHint = function()
 	{
     return TrMessageFactory.createCustomMessage(
       this._messages["hint"],
-      this._pattern);
+      ""+this._exampleString);
 		
 	}
 	else
 	{
     return TrMessageFactory.createMessage(
       "org.apache.myfaces.trinidad.convert.DateTimeConverter.FORMAT_HINT",
-      this._pattern);
+      ""+this._exampleString);
 	}
 }
 
