@@ -659,7 +659,9 @@ function TrDateRestrictionValidator(
   this._monthValue = monthValue;
   this._messages = messages;
   this._weekdaysMap = {'2':'tue','4':'thu','6':'sat','1':'mon','3':'wed','5':'fri','0':'sun'};
+  this._translatedWeekdaysMap = {'sun':'0','mon':'1','tue':'2','wed':'3','thu':'4','fri':'5','sat':'6'};
   this._monthMap = {'2':'mar','4':'may','9':'oct','8':'sep','11':'dec','6':'jul','1':'feb','3':'apr','10':'nov','7':'aug','5':'jun','0':'jan'};
+  this._translatedMonthMap = {'jan':'0','feb':'1','mar':'2','apr':'3','may':'4','jun':'5','jul':'6','aug':'7','sep':'8','oct':'9','nov':'10','dec':'11'};
 
   // for debugging
   this._class = "TrDateRestrictionValidator";
@@ -670,15 +672,38 @@ TrDateRestrictionValidator.prototype.getHints = function(
   converter
   )
 {
+	
+	
   return _returnHints(
     this._messages,
-    this._weekdaysValue,
-    this._monthValue,
+    this._translate(this._weekdaysValue, this._translatedWeekdaysMap, converter.getLocaleSymbols().getWeekdays()),
+    this._translate(this._monthValue, this._translatedMonthMap, converter.getLocaleSymbols().getMonths()),
     "org.apache.myfaces.trinidad.validator.DateRestrictionValidator.WEEKDAY_HINT",
     "org.apache.myfaces.trinidad.validator.DateRestrictionValidator.MONTH_HINT",
     "hintWeek",
     "hintMonth"
   );
+}
+TrDateRestrictionValidator.prototype._translate = function(
+  values,
+  map,
+  valueArray
+  )
+{
+	if(values)
+	{
+    var translatedValues = new Array();
+    var valuesAsArray = eval(values);
+    for(i = 0; i<valuesAsArray.length; i++)
+    {
+      translatedValues.push(valueArray[map[valuesAsArray[i].toLowerCase()]]);
+    }
+    return eval(translatedValues);
+	}
+	else
+	{
+    return values;
+	}
 }
 TrDateRestrictionValidator.prototype.validate  = function(
   value,
