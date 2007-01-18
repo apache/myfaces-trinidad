@@ -105,8 +105,8 @@ public class DateRestrictionValidator extends org.apache.myfaces.trinidad.valida
     
     String messageDetailDaysOfWeek = this.getMessageDetailInvalidDaysOfWeek();
     String messageDetailMonth = this.getMessageDetailInvalidMonths();
-    String hintWeek = this.getHintWeek();
-    String hintMonth = this.getHintMonth();
+    String hintWeek = this.getHintInvalidDaysOfWeek();
+    String hintMonth = this.getHintInvalidMonths();
 
     
     Map<String, String> cMessages = null;
