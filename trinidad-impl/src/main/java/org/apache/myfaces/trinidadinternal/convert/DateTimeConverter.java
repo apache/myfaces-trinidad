@@ -224,7 +224,8 @@ public class DateTimeConverter extends
           "{0}", "{1}", "{2}"
       };
       Object msgPattern = getMessagePattern(context, key, params, component);
-      String hintFormat = getHint();
+      //if hintFormat is null, no custom hint for date, time or both has been specified
+      String hintFormat = _getHint();
 
       FacesMessage msg = null;
       String detailMessage = null;
@@ -479,6 +480,23 @@ public class DateTimeConverter extends
     buffer.append('\'');
     XhtmlUtils.escapeJS(buffer, pattern);
     buffer.append('\'');
+  }
+  
+  private String _getHint()
+  {
+    String type = getType();
+    if(type.equals("date"))
+    {
+      return getHintDate();
+    }
+    else if (type.equals("both"))
+    {
+      return getHintBoth();
+    }
+    else 
+    {
+      return getHintTime();
+    }
   }
 
   private static String _getEscapedPattern(StringBuffer buffer, String pattern,
