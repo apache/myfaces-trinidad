@@ -132,10 +132,10 @@
               <tr:inputText value="#{clientValidation.date}"
                             label="date range validator">
                 <f:facet name="help">
-                  <tr:outputText value="examples of values that will fail validation: 11-11-11"/>
+                  <tr:outputText value="examples of values that will fail validation: any date which is not in 2007"/>
                 </f:facet>
-                <tr:validateDateTimeRange minimum="2004-11-16"
-                                          maximum="2004-12-16"/>
+                <tr:validateDateTimeRange minimum="2007-01-01"
+                                          maximum="2007-12-31"/>
               </tr:inputText>
             </tr:panelFormLayout>
             <tr:panelHeader text="Required"/>
