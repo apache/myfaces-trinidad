@@ -28,9 +28,12 @@ import javax.faces.context.FacesContext;
 abstract public class UIXGoTemplate extends UIXComponentBase
 {
 	
-	@Override
+  /* See ADFFACES-42: switching decode on and off should
+   * not be done up here.
+  @Override
   void __rendererDecode(FacesContext context)
   {
     // do nothing. we have no behaviour
   }
+  */
 }

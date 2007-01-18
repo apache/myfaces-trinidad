@@ -109,9 +109,10 @@ public class CoreOutputTextTest extends UIComponentTestCase
   {
     CoreOutputText component = new CoreOutputText();
     // we don't use renderers for decode for this component:
-    setRendererUsed(false);
+    // Or, we didn't.  But see ADFFACES-42
+    //    setRendererUsed(false);
     doTestApplyRequestValues(component);
-    setRendererUsed(true);
+    // setRendererUsed(true);
 
     component = new CoreOutputText();
     component.setRendered(false);
