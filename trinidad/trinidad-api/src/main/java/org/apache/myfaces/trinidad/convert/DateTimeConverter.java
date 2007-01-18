@@ -423,23 +423,65 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
   }
 
   /**
-   * <p>Custom hint message.</p>
+   * <p>Custom hintDate message.</p>
    * Overrides default hint message
-   * @param hintFormat Custom hint message.
+   * @param hintDate Custom hint message.
    */
-  public void setHint(String hintFormat)
+  public void setHintDate(String hintDate)
   {
-    _facesBean.setProperty(_HINT_FORMAT_KEY, hintFormat);
+    _facesBean.setProperty(_HINT_DATE_KEY, hintDate);
   }
 
   /**
-   * <p>Return custom hint message.</p>
+   * <p>Return custom hintDate message.</p>
    * @return Custom hint message.
-   * @see  #setHintFormat(String)
+   * @see  #setHintDate(String)
    */
-  public String getHint()
+  public String getHintDate()
   {
-    Object obj = _facesBean.getProperty(_HINT_FORMAT_KEY);
+    Object obj = _facesBean.getProperty(_HINT_DATE_KEY);
+    return ComponentUtils.resolveString(obj);
+  }
+
+  /**
+   * <p>Custom hintTime message.</p>
+   * Overrides default hint message
+   * @param hintTime Custom hint message.
+   */
+  public void setHintTime(String hintTime)
+  {
+    _facesBean.setProperty(_HINT_TIME_KEY, hintTime);
+  }
+
+  /**
+   * <p>Return custom hintTime message.</p>
+   * @return Custom hint message.
+   * @see  #setHintTime(String)
+   */
+  public String getHintTime()
+  {
+    Object obj = _facesBean.getProperty(_HINT_TIME_KEY);
+    return ComponentUtils.resolveString(obj);
+  }
+
+  /**
+   * <p>Custom hintBoth message.</p>
+   * Overrides default hint message
+   * @param hintBotht Custom hint message.
+   */
+  public void setHintBoth(String hintBoth)
+  {
+    _facesBean.setProperty(_HINT_BOTH_KEY, hintBoth);
+  }
+
+  /**
+   * <p>Return custom hintBoth message.</p>
+   * @return Custom hint message.
+   * @see  #setHintBoth(String)
+   */
+  public String getHintBoth()
+  {
+    Object obj = _facesBean.getProperty(_HINT_BOTH_KEY);
     return ComponentUtils.resolveString(obj);
   }
 
@@ -1746,8 +1788,14 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
   private static final PropertyKey _CONVERT_BOTH_MESSAGE_DETAIL_KEY
     = _TYPE.registerKey("messageDetailConvertBoth", String.class);
   
-  private static final PropertyKey  _HINT_FORMAT_KEY =
-    _TYPE.registerKey("hintFormat", String.class);
+  private static final PropertyKey  _HINT_DATE_KEY =
+    _TYPE.registerKey("hintDate", String.class);
+
+  private static final PropertyKey  _HINT_TIME_KEY =
+    _TYPE.registerKey("hintTime", String.class);
+
+  private static final PropertyKey  _HINT_BOTH_KEY =
+    _TYPE.registerKey("hintBoth", String.class);
 
   private FacesBean _facesBean = ConverterUtils.getFacesBean(_TYPE);
 
