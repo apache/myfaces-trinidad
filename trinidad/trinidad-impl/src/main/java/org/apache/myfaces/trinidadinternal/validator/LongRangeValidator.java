@@ -69,9 +69,10 @@ public class LongRangeValidator extends org.apache.myfaces.trinidad.validator.Lo
     String messageDetailRange = this.getMessageDetailNotInRange();
     String hintMax = this.getHintMaximum();
     String hintMin = this.getHintMinimum();
+    String hintRange = this.getHintNotInRange();
     
     Map<String, String> cMessages = null;
-    if(messageDetailMax != null || messageDetailMin != null || messageDetailRange != null || hintMax != null || hintMin != null)
+    if(messageDetailMax != null || messageDetailMin != null || messageDetailRange != null || hintMax != null || hintMin != null|| hintRange != null)
     {
       cMessages = new HashMap<String, String>();
       cMessages.put("max", messageDetailMax);
@@ -79,6 +80,7 @@ public class LongRangeValidator extends org.apache.myfaces.trinidad.validator.Lo
       cMessages.put("range", messageDetailRange);
       cMessages.put("hintMax", hintMax);
       cMessages.put("hintMin", hintMin);
+      cMessages.put("hintRange", hintRange);
     }
     
     return _getTrRangeValidator(context, component, maxStr, minStr, cMessages);

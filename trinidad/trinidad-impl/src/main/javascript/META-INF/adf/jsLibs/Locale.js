@@ -825,7 +825,7 @@ TrFastMessageFormatUtils.format = function(
   formatString, // error format string with embedded indexes to be replaced
   parameters    // {any...:undefined} Varargs objects to substitute for positional parameters.
   )
-{  
+{
   // I need to create an array here because I have to strip the first arg
   var tempArray = new Array();
   
@@ -920,17 +920,15 @@ TrMessageFactory.createMessage = function(
 }
 TrMessageFactory.createCustomMessage = function(
   customMessage,
-  parameters
+  param1,
+  param2
   )
-{  
+{
   // the strings to create a facesMessage to use have been sent down
   var message;
   if ( customMessage != null )
   {
-    if ( parameters != null )
-    {
-      message = TrFastMessageFormatUtils.format(customMessage,parameters);
-    }
+  	message = TrFastMessageFormatUtils.format(customMessage, param1, param2);
   }
   return message;
 }

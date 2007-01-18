@@ -323,14 +323,16 @@ TrRangeValidator.prototype.getHints = function(
   converter
   )
 {
-  return _returnHints(
+  return _returnRangeHints(
     this._messages,
     this._maxValue,
     this._minValue,
     "org.apache.myfaces.trinidad.validator.RangeValidator.MAXIMUM_HINT",
     "org.apache.myfaces.trinidad.validator.RangeValidator.MINIMUM_HINT",
+    "org.apache.myfaces.trinidad.validator.RangeValidator.RANGE_HINT",
     "hintMax",
-    "hintMin"
+    "hintMin",
+    "hintRange"
   );
 }
 TrRangeValidator.prototype.validate  = function(
@@ -450,14 +452,16 @@ TrLengthValidator.prototype.getHints = function(
   converter
   )
 {
-  return _returnHints(
+  return _returnRangeHints(
     this._messages,
     this._maxValue,
     this._minValue,
     "org.apache.myfaces.trinidad.validator.LengthValidator.MAXIMUM_HINT",
     "org.apache.myfaces.trinidad.validator.LengthValidator.MINIMUM_HINT",
+    "org.apache.myfaces.trinidad.validator.LengthValidator.RANGE_HINT",
     "hintMax",
-    "hintMin"
+    "hintMin",
+    "hintRange"
   );
 }
 TrLengthValidator.prototype.validate  = function(
@@ -538,14 +542,16 @@ TrDateTimeRangeValidator.prototype.getHints = function(
   converter
   )
 {
-  return _returnHints(
+  return _returnRangeHints(
     this._messages,
     converter.getAsString(new Date(this._maxValue)),
     converter.getAsString(new Date(this._minValue)),
     "org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MAXIMUM_HINT",
     "org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MINIMUM_HINT",
+    "org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.RANGE_HINT",
     "hintMax",
-    "hintMin"
+    "hintMin",
+    "hintRange"
   );
 }
 TrDateTimeRangeValidator.prototype.validate  = function(
@@ -672,8 +678,6 @@ TrDateRestrictionValidator.prototype.getHints = function(
   converter
   )
 {
-	
-	
   return _returnHints(
     this._messages,
     this._translate(this._weekdaysValue, this._translatedWeekdaysMap, converter.getLocaleSymbols().getWeekdays()),
@@ -967,6 +971,91 @@ TrRegExpValidator.prototype.validate  = function(
   }
 }
 
+function _returnRangeHints(
+  messages,
+  max,
+  min,
+  maxKey,
+  minKey,
+  rangeKey,
+  maxHint,
+  minHint,
+  rangeHint
+)
+{
+  var hints;
+  //we have both, max and min, so we only use the range Hint
+  if(max && min)
+  {
+  	hints = new Array();
+    if(messages && messages[rangeHint])
+    {
+      hints.push(
+        TrMessageFactory.createCustomMessage(
+        messages[rangeHint],
+        ""+min,
+        ""+max)
+  	  );
+    }
+    else
+    {
+      hints.push(
+        TrMessageFactory.createMessage(
+        rangeKey,
+        ""+min,
+	      ""+max)
+	    );
+    }
+    return hints;
+  }
+  
+  //only max
+  if(max)
+  {
+    hints = new Array();
+    if(messages && messages[maxHint])
+    {
+      hints.push(
+        TrMessageFactory.createCustomMessage(
+          messages[maxHint],
+	        ""+max)
+	    );
+    }
+    else
+    {
+      hints.push(
+        TrMessageFactory.createMessage(
+          maxKey,
+	        ""+max)
+	    );
+    }
+  }
+  //only min
+  if(min)
+  {
+    if(!hints)
+    {
+      hints = new Array();
+    }
+    if(messages && messages[minHint])
+    {
+      hints.push(
+        TrMessageFactory.createCustomMessage(
+          messages[minHint],
+	        ""+min)
+       );
+    }
+    else
+    {
+      hints.push(
+        TrMessageFactory.createMessage(
+          minKey,
+	        ""+min)
+       );
+    }
+  }
+  return hints;
+}
 function _returnHints(
   messages,
   max,

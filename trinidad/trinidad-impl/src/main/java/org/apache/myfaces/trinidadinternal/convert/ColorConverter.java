@@ -174,7 +174,7 @@ public class ColorConverter extends org.apache.myfaces.trinidad.convert.ColorCon
       messages.put("detail", convMsgDet);
     }
     
-    String hint = getHintFormat();
+    String hint = getHint();
 
     if(hint != null)
     {
