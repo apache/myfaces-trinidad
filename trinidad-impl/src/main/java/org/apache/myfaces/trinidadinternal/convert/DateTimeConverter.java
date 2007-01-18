@@ -224,7 +224,7 @@ public class DateTimeConverter extends
           "{0}", "{1}", "{2}"
       };
       Object msgPattern = getMessagePattern(context, key, params, component);
-      String hintFormat = getHintFormat();
+      String hintFormat = getHint();
 
       FacesMessage msg = null;
       String detailMessage = null;
