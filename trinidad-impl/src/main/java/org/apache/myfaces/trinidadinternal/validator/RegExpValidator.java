@@ -86,7 +86,7 @@ public class RegExpValidator
       messages.put("detail", noMatchMsg);
     }
     
-    String hintPattern = getHintPattern();
+    String hintPattern = getHint();
     if(hintPattern != null)
     {
       messages.put("hint", hintPattern);

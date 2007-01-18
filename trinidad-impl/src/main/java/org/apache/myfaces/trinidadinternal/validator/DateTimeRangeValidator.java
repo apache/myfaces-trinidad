@@ -83,11 +83,12 @@ public class DateTimeRangeValidator extends org.apache.myfaces.trinidad.validato
     String messageDetailMax = this.getMessageDetailMaximum();
     String messageDetailMin = this.getMessageDetailMinimum();
     String messageDetailRange = this.getMessageDetailNotInRange();
-    String hintMax = this.getHintMaximum();
+    String hintMax = "max YEAH {0} !!!"; //this.getHintMaximum();
     String hintMin = this.getHintMinimum();
+    String hintRange = this.getHintNotInRange();
     
     Map<String, String> cMessages = null;
-    if(messageDetailMax != null || messageDetailMin != null || messageDetailRange != null || hintMax != null || hintMin != null)
+    if(messageDetailMax != null || messageDetailMin != null || messageDetailRange != null || hintMax != null || hintMin != null|| hintRange != null)
     {
       cMessages = new HashMap<String, String>();
       cMessages.put("max", messageDetailMax);
@@ -95,6 +96,7 @@ public class DateTimeRangeValidator extends org.apache.myfaces.trinidad.validato
       cMessages.put("range", messageDetailRange);
       cMessages.put("hintMax", hintMax);
       cMessages.put("hintMin", hintMin);
+      cMessages.put("hintRange", hintRange);
     }
     
     return _getTrDateTimeRangeValidator(context, component, maxStr, minStr, cMessages);
