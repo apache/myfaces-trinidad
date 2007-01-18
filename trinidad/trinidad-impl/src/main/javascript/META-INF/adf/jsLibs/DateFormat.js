@@ -1050,6 +1050,7 @@ TrDateTimeConverter.prototype = new TrConverter();
 
 TrDateTimeConverter.prototype.getFormatHint = function()
 {
+	//customized hint
 	if(this._messages && this._messages["hint"])
 	{
     return TrMessageFactory.createCustomMessage(
@@ -1059,8 +1060,10 @@ TrDateTimeConverter.prototype.getFormatHint = function()
 	}
 	else
 	{
+		//no customized hint
+		var key = "org.apache.myfaces.trinidad.convert.DateTimeConverter." + this._type + "_HINT";
     return TrMessageFactory.createMessage(
-      "org.apache.myfaces.trinidad.convert.DateTimeConverter.FORMAT_HINT",
+      key,
       ""+this._exampleString);
 	}
 }
