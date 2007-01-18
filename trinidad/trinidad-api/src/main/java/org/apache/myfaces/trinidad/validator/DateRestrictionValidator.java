@@ -157,42 +157,42 @@ public class DateRestrictionValidator implements Validator, StateHolder {
   }
 
   /**
-   * <p>Custom hint week message.</p>
+   * <p>Custom hint invalidDaysOfWeek message.</p>
    * Overrides default hint message
-   * @param hintWeek Custom hint message.
+   * @param hintInvalidDaysOfWeek Custom hint message.
    */
-  public void setHintWeek(String hintWeek)
+  public void setHintInvalidDaysOfWeek(String hintWeek)
   {
     _facesBean.setProperty(_HINT_WEEK_KEY, hintWeek);
   }
 
   /**
-   * <p>Return custom hint Week message.</p>
+   * <p>Return custom hint invalidDaysOfWeek message.</p>
    * @return Custom hint message.
-   * @see  #setHintWeek(String)
+   * @see  #setHintInvalidDaysOfWeek(String)
    */
-  public String getHintWeek()
+  public String getHintInvalidDaysOfWeek()
   {
     Object obj = _facesBean.getProperty(_HINT_WEEK_KEY);
     return ComponentUtils.resolveString(obj);
   }
 
   /**
-   * <p>Custom hint month message.</p>
+   * <p>Custom hint invalidMonths message.</p>
    * Overrides default hint message
-   * @param hintMonth Custom hint message.
+   * @param hintInvalidMonths Custom hint message.
    */
-  public void setHintMonth(String hintMonth)
+  public void setHintInvalidMonths(String hintMonth)
   {
     _facesBean.setProperty(_HINT_MONTH_KEY, hintMonth);
   }
 
   /**
-   * <p>Return custom hint month message.</p>
+   * <p>Return custom hint invalidMonths message.</p>
    * @return Custom hint message.
-   * @see  #setHintMonth(String)
+   * @see  #setHintInvalidMonths(String)
    */
-  public String getHintMonth()
+  public String getHintInvalidMonths()
   {
     Object obj = _facesBean.getProperty(_HINT_MONTH_KEY);
     return ComponentUtils.resolveString(obj);
