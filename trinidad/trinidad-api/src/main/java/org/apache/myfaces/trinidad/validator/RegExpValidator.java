@@ -252,7 +252,7 @@ public class RegExpValidator implements StateHolder, Validator
    * Overrides default hint message
    * @param hintPattern Custom hint message.
    */
-  public void setHintPattern(String hintPattern)
+  public void setHint(String hintPattern)
   {
     _facesBean.setProperty(_HINT_PATTERN_KEY, hintPattern);
   }
@@ -262,7 +262,7 @@ public class RegExpValidator implements StateHolder, Validator
    * @return Custom hint message.
    * @see  #setHintPattern(String)
    */
-  public String getHintPattern()
+  public String getHint()
   {
     Object obj = _facesBean.getProperty(_HINT_PATTERN_KEY);
     return ComponentUtils.resolveString(obj);
