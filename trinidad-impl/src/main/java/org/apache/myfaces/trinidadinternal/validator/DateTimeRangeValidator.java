@@ -83,7 +83,7 @@ public class DateTimeRangeValidator extends org.apache.myfaces.trinidad.validato
     String messageDetailMax = this.getMessageDetailMaximum();
     String messageDetailMin = this.getMessageDetailMinimum();
     String messageDetailRange = this.getMessageDetailNotInRange();
-    String hintMax = "max YEAH {0} !!!"; //this.getHintMaximum();
+    String hintMax = this.getHintMaximum();
     String hintMin = this.getHintMinimum();
     String hintRange = this.getHintNotInRange();
     
