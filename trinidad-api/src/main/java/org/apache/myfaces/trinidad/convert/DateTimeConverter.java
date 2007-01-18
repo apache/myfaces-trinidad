@@ -427,7 +427,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    * Overrides default hint message
    * @param hintFormat Custom hint message.
    */
-  public void setHintFormat(String hintFormat)
+  public void setHint(String hintFormat)
   {
     _facesBean.setProperty(_HINT_FORMAT_KEY, hintFormat);
   }
@@ -437,7 +437,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    * @return Custom hint message.
    * @see  #setHintFormat(String)
    */
-  public String getHintFormat()
+  public String getHint()
   {
     Object obj = _facesBean.getProperty(_HINT_FORMAT_KEY);
     return ComponentUtils.resolveString(obj);
