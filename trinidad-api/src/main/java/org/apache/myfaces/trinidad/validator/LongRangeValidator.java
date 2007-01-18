@@ -271,6 +271,27 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
     return ComponentUtils.resolveString(obj);
   }
 
+  /**
+   * <p>Custom hint notInRange message.</p>
+   * Overrides default hint message
+   * @param hintNotInRange Custom hint message.
+   */
+  public void setHintNotInRange(String hintNotInRange)
+  {
+    _facesBean.setProperty(_HINT_NOT_IN_RANGE, hintNotInRange);
+  }
+
+  /**
+   * <p>Return custom hint notInRange message.</p>
+   * @return Custom hint message.
+   * @see  #setHintNotInRangeString)
+   */
+  public String getHintNotInRange()
+  {
+    Object obj = _facesBean.getProperty(_HINT_NOT_IN_RANGE);
+    return ComponentUtils.resolveString(obj);
+  }
+  
   @Override
   public void validate(
     FacesContext context,
@@ -475,6 +496,9 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
 
   private static final PropertyKey  _HINT_MINIMUM_KEY =
     _TYPE.registerKey("hintMinimum", String.class);
+
+  private static final PropertyKey  _HINT_NOT_IN_RANGE =
+    _TYPE.registerKey("hintNotInRange", String.class);
 
   private FacesBean _facesBean = ValidatorUtils.getFacesBean(_TYPE);
 
