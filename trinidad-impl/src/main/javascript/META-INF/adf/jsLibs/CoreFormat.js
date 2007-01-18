@@ -545,7 +545,7 @@ TrDateTimeRangeValidator.prototype.getHints = function(
   return _returnRangeHints(
     this._messages,
     converter.getAsString(new Date(this._maxValue)),
-    converter.getAsString(new Date(this._minValue)),
+    null,//converter.getAsString(new Date(this._minValue)),
     "org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MAXIMUM_HINT",
     "org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MINIMUM_HINT",
     "org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.RANGE_HINT",
@@ -983,11 +983,11 @@ function _returnRangeHints(
   rangeHint
 )
 {
-  var hints;
+  
   //we have both, max and min, so we only use the range Hint
   if(max && min)
   {
-  	hints = new Array();
+  	var hints = new Array();
     if(messages && messages[rangeHint])
     {
       hints.push(
@@ -1009,52 +1009,16 @@ function _returnRangeHints(
     return hints;
   }
   
-  //only max
-  if(max)
-  {
-    hints = new Array();
-    if(messages && messages[maxHint])
-    {
-      hints.push(
-        TrMessageFactory.createCustomMessage(
-          messages[maxHint],
-	        ""+max)
-	    );
-    }
-    else
-    {
-      hints.push(
-        TrMessageFactory.createMessage(
-          maxKey,
-	        ""+max)
-	    );
-    }
-  }
-  //only min
-  if(min)
-  {
-    if(!hints)
-    {
-      hints = new Array();
-    }
-    if(messages && messages[minHint])
-    {
-      hints.push(
-        TrMessageFactory.createCustomMessage(
-          messages[minHint],
-	        ""+min)
-       );
-    }
-    else
-    {
-      hints.push(
-        TrMessageFactory.createMessage(
-          minKey,
-	        ""+min)
-       );
-    }
-  }
-  return hints;
+  return _returnHints(
+    messages,
+    max,
+    min,
+    maxKey,
+    minKey,
+    maxHint,
+    minHint
+  );
+  
 }
 function _returnHints(
   messages,
