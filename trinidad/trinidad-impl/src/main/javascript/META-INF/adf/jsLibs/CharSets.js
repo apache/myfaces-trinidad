@@ -47,19 +47,13 @@ CjkFormat.prototype.getHints = function(
   converter
   )
 {
-  var messages = new Array();
+  var messages = null;
   
   if(this._messages["hint"])
   {
+  	messages = new Array();
     messages.push(TrMessageFactory.createCustomMessage(
       this._messages["hint"],
-	    this._length)
-	  );
-  }
-  else
-  {
-    messages.push(TrMessageFactory.createMessage(
-      "org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM_HINT",
 	    this._length)
 	  );
   }
@@ -125,19 +119,13 @@ Utf8Format.prototype.getHints = function(
   converter
   )
 {
-  var messages = new Array();
+  var messages = null;
   
   if(this._messages["hint"])
   {
+  	messages = new Array();
     messages.push(TrMessageFactory.createCustomMessage(
       this._messages["hint"],
-	    this._length)
-	  );
-  }
-  else
-  {
-    messages.push(TrMessageFactory.createMessage(
-      "org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM_HINT",
 	    this._length)
 	  );
   }
@@ -209,19 +197,13 @@ SBFormat.prototype.getHints = function(
   converter
   )
 {
-  var messages = new Array();
+  var messages = null;
   
   if(this._messages["hint"])
   {
+  	messages = new Array();
     messages.push(TrMessageFactory.createCustomMessage(
       this._messages["hint"],
-	    this._length)
-	  );
-  }
-  else
-  {
-    messages.push(TrMessageFactory.createMessage(
-      "org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM_HINT",
 	    this._length)
 	  );
   }
