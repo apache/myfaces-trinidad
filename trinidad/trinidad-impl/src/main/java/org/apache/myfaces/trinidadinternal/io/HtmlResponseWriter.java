@@ -289,9 +289,9 @@ public class HtmlResponseWriter extends ResponseWriter
     if (comment != null)
     {
       _closeStartIfNecessary();
-      _out.write("<!-- ");
+      _out.write("<!--");
       _out.write(comment.toString());
-      _out.write(" -->");
+      _out.write("-->");
     }
   }
 
