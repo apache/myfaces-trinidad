@@ -615,11 +615,12 @@ function _getWindowForDocument(document)
  * Safely retrieve the top accessible window
  */
 function _getTop(element)
-{  
-  var initialDocument = (element)
+{
+	
+  var initialDocument = (element && element.ownerDocument)
                           ? element.ownerDocument
                           : document;
-                       
+  
   // since top might be in another domain, crawl up as high as possible manually
   var currWindow = _getWindowForDocument(initialDocument);
   var currParentWindow = _getParentWindow(currWindow);
