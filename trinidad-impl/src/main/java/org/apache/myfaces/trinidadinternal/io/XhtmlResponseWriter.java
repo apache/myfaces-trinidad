@@ -233,9 +233,9 @@ public class XhtmlResponseWriter extends ResponseWriter
     if (comment != null)
     {
       _closeStartIfNecessary();
-      _out.write("<!-- ");
+      _out.write("<!--");
       _out.write(comment.toString());
-      _out.write(" -->");
+      _out.write("-->");
     }
   }
 
