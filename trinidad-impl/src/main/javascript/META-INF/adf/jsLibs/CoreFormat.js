@@ -37,9 +37,7 @@ TrIntegerConverter.prototype = new TrConverter();
 
 TrIntegerConverter.prototype.getFormatHint = function()
 {
-	return TrMessageFactory.createMessage(
-    "org.apache.myfaces.trinidad.convert.IntegerConverter.FORMAT_HINT",
-	  null);
+	return null;
 }
 
 TrIntegerConverter.prototype.getAsString = function(
@@ -85,9 +83,7 @@ TrLongConverter.prototype = new TrConverter();
 
 TrLongConverter.prototype.getFormatHint = function()
 {
-	return TrMessageFactory.createMessage(
-    "org.apache.myfaces.trinidad.convert.LongConverter.FORMAT_HINT",
-	  null);
+	return null;
 }
 
 TrLongConverter.prototype.getAsString = function(
@@ -133,9 +129,7 @@ TrShortConverter.prototype = new TrConverter();
 
 TrShortConverter.prototype.getFormatHint = function()
 {
-	return TrMessageFactory.createMessage(
-    "org.apache.myfaces.trinidad.convert.ShortConverter.FORMAT_HINT",
-	  null);
+	return null;
 }
 
 TrShortConverter.prototype.getAsString = function(
@@ -181,9 +175,7 @@ TrByteConverter.prototype = new TrConverter();
 
 TrByteConverter.prototype.getFormatHint = function()
 {
-	return TrMessageFactory.createMessage(
-    "org.apache.myfaces.trinidad.convert.ByteConverter.FORMAT_HINT",
-	  null);
+	return null;
 }
 
 TrByteConverter.prototype.getAsString = function(
@@ -230,9 +222,7 @@ TrDoubleConverter.prototype = new TrConverter();
 
 TrDoubleConverter.prototype.getFormatHint = function()
 {
-	return TrMessageFactory.createMessage(
-    "org.apache.myfaces.trinidad.convert.DoubleConverter.FORMAT_HINT",
-	  null);
+	return null;
 }
 
 TrDoubleConverter.prototype.getAsString = function(
@@ -278,9 +268,7 @@ TrFloatConverter.prototype = new TrConverter();
 
 TrFloatConverter.prototype.getFormatHint = function()
 {
-	return TrMessageFactory.createMessage(
-    "org.apache.myfaces.trinidad.convert.FloatConverter.FORMAT_HINT",
-	  null);
+	return null;
 }
 
 TrFloatConverter.prototype.getAsString = function(
@@ -916,18 +904,12 @@ TrRegExpValidator.prototype.getHints = function(
   converter
   )
 {
-  var hints = new Array();
+  var hints = null;
   if(this._messages["hint"])
   {
+  	hints = new Array();
     hints.push(TrMessageFactory.createCustomMessage(
       this._messages["hint"],
-	    ""+this._pattern)
-	  );
-  }
-  else
-  {
-    hints.push(TrMessageFactory.createMessage(
-      "org.apache.myfaces.trinidad.validator.RegExpValidator.NO_MATCH_HINT",
 	    ""+this._pattern)
 	  );
   }
