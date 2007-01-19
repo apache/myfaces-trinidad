@@ -81,7 +81,8 @@ CjkFormat.prototype.validate  = function(
       {
         facesMessage = _createFacesMessage(_byteLenKey,
                                            label,
-                                           parseString);
+                                           parseString,
+                                           this._length);
       }
       else
       {
@@ -89,7 +90,8 @@ CjkFormat.prototype.validate  = function(
                                            TrMessageFactory.getSummaryString(_byteLenKey),
                                            this._messages["detail"],
                                            label,
-                                           parseString);
+                                           parseString,
+                                           this._length);
       }
       throw new TrValidatorException(facesMessage);     
     }
@@ -161,7 +163,8 @@ Utf8Format.prototype.validate  = function(
       {
         facesMessage = _createFacesMessage(_byteLenKey,
                                            label,
-                                           parseString);
+                                           parseString,
+                                           this._length);
       }
       else
       {
@@ -169,7 +172,8 @@ Utf8Format.prototype.validate  = function(
                                             TrMessageFactory.getSummaryString(_byteLenKey),
                                             this._messages["detail"],
                                             label,
-                                            parseString);
+                                            parseString,
+                                            this._length);
       }
       throw new TrValidatorException(facesMessage);              
     }
@@ -222,7 +226,8 @@ SBFormat.prototype.validate  = function(
       {
         facesMessage = _createFacesMessage(_byteLenKey,
                                            label,
-                                           parseString);
+                                           parseString,
+                                           this._length);
       }
       else
       {
@@ -230,7 +235,8 @@ SBFormat.prototype.validate  = function(
                                             TrMessageFactory.getSummaryString(_byteLenKey),
                                             this._messages["detail"],
                                             label,
-                                            parseString);
+                                            parseString,
+                                            this._length);
       }
     throw new TrValidatorException(facesMessage);      
   }
