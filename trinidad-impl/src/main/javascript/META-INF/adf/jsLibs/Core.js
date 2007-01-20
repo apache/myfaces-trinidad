@@ -2295,7 +2295,8 @@ function _setFocus(currInput)
   // but cannot receive focus.
   if (_isShowing(currInput))
   {
-    currInput.focus();
+    if (currInput.focus)
+      currInput.focus();
 
     //PH:element["value"] is not supported for PIE,IEM and BB. Therefore 
     //use element.value which is supported by all
@@ -2697,14 +2698,13 @@ function _getGlobalErrorString(
      // node and all parents are showing
      return true;
    }
-   // TODO: Write correct version for Safari
-   //PH: I don't know if this code is Firefox specific, if it is then one might
-   //want to change the if condition to if(_agent.isGecko) instead of doing 
-   //!_agent.isNav and !_agent.isSafari because with the existing condition
-   //Black Berry,IE Mobile and Pocket IE all enter into this fragment.
-   //To prevent this use !_agent.isPIE and !_agent.isBlackBerry.  
-   if (!_agent.isNav && !_agent.isSafari && !_agent.isPIE && !_agent.isBlackBerry)
+
+   if (_agent.isGecko || _agent.isSafari)
    {
+     // Radio buttons:  it'll be an array
+     if (!input.ownerDocument && input.length)
+       input = input[0];
+
      var computedStyle = input.ownerDocument.defaultView.getComputedStyle(input,
                                                                           null);
      
