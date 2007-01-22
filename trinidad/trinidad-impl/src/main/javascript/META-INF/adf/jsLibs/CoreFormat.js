@@ -461,8 +461,8 @@ TrLengthValidator.prototype.validate  = function(
 )
 {
 
-  string = "" + value;
-  length = string.length;
+  var string = "" + value;
+  var length = string.length;
   
   if(length >= this._minValue && length <= this._maxValue)
   {
