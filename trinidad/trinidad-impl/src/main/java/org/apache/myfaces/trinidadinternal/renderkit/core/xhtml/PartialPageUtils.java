@@ -44,7 +44,10 @@ public final class PartialPageUtils
 
   public static boolean isPartialRequest(FacesContext context)
   {
-    return RequestContext.getCurrentInstance().isPartialRequest(context);
+    RequestContext rc = RequestContext.getCurrentInstance();
+    if (rc == null)
+      return false;
+    return rc.isPartialRequest(context);
   }
 
 
