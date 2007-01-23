@@ -79,9 +79,10 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     renderId(context, component);
 
     int renderedItemCount = _getItemCount((UIXHierarchy)component);
+    int renderedRowCount = ((UIXHierarchy)component).getRowCount();
 
     // no kids, no NavigationLevel -- but you still get the span.
-    if (renderedItemCount > 0)
+    if (renderedItemCount > 0 || renderedRowCount > 0)
     {
       renderContent(context, arc,
                     (UIXHierarchy)component, bean);
@@ -124,7 +125,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
           if (navItem.isRendered())
           {
             // collect the information needed to render this nav item:
-            _collectNavItemData(navItemData, navItem);
+            _collectNavItemData(navItemData, navItem, -1);
           }
         }
         catch (ClassCastException cce)
@@ -154,7 +155,8 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       _setStartDepthPath(component,
                          ((UIXNavigationLevel) component).getLevel());
 
-      if (component.getRowCount() != 0)
+      int componentRowCount = component.getRowCount();
+      if (componentRowCount != 0)
       {
         int startIndex = component.getFirst();
         int endIndex = TableUtils.getLast(component, startIndex);
@@ -166,7 +168,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
           if (navStamp.isRendered())
           {
             // collect the information needed to render this nav item:
-            _collectNavItemData(navItemData, navStamp);
+            _collectNavItemData(navItemData, navStamp, i);
           }
         }
       }
@@ -210,6 +212,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       int lastRowIndex = visibleItemCount - 1;
       boolean previousActive = false;
       int nextActiveIndex = navItemData.getEffectiveActiveIndex() - 1;
+      Object oldPath = component.getRowKey();
       for (int i=0; i<visibleItemCount; i++)
       {
         Map<String, Object> currentItemData = navItemData.getItemData(i);
@@ -217,6 +220,10 @@ public class NavigationPaneRenderer extends XhtmlRenderer
         currentItemData.put("isLast", (i == lastRowIndex));
         currentItemData.put("previousActive", previousActive);
         currentItemData.put("nextActive", (i == nextActiveIndex));
+        Integer rowIndex = (Integer) currentItemData.get("rowIndex");
+        if (rowIndex != null)
+          component.setRowIndex(rowIndex.intValue());
+
         _renderNavigationItem(
           context,
           arc,
@@ -226,6 +233,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
           isRtl);
         previousActive = getBooleanFromProperty(currentItemData.get("isActive"));
       }
+      component.setRowKey(oldPath);
 
       // Close up any opened choice tags:
       if (isChoiceHint)
@@ -340,7 +348,8 @@ public class NavigationPaneRenderer extends XhtmlRenderer
 
   private void _collectNavItemData(
     NavItemData navItemData,
-    UIXCommand commandChild)
+    UIXCommand commandChild,
+    int        rowIndex)
   {
     int itemDataIndex = navItemData.getItemCount();
     boolean isActive = getBooleanFromProperty(_getCommandChildProperty(commandChild, "selected"));
@@ -370,6 +379,11 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     itemDataMap.put("styleClass", _getCommandChildProperty(commandChild, "styleClass"));
     itemDataMap.put("targetFrame", _getCommandChildProperty(commandChild, "targetFrame"));
     itemDataMap.put("text", _getCommandChildProperty(commandChild, "text"));
+    // Store the row index for this iteration so it can be re-set
+    // when rendering
+    if (rowIndex >= 0)
+      itemDataMap.put("rowIndex", rowIndex);
+
     navItemData.addItemData(itemDataMap);
   }
 
