@@ -389,7 +389,7 @@
     </xsl:element>
   </xsl:template>
   
-  <xsl:template match="//javaee:property-extension[mfp:property-values|mfp:group|mfp:property-editor|mfp:expert|mfp:unsupported-agents]" >
+  <xsl:template match="//javaee:property-extension[mfp:property-values|mfp:group|mfp:property-editor|mfp:expert|mfp:unsupported-agents|*[namespace-uri() != 'http://java.sun.com/xml/ns/javaee' and namespace-uri() !='http://myfaces.apache.org/maven-faces-plugin']]" >
     <xsl:element name="property-extension" >
       <xsl:element name="property-metadata" >
         <xsl:apply-templates/>
@@ -822,6 +822,16 @@
     <xsl:element name="unsupported-agents" >
       <xsl:value-of select="text()" />
     </xsl:element>
+  </xsl:template>
+
+  <!-- Handle metadata we do not know about by letting it through.  Currently,
+    just for property-extension, but should be global.  See JIRA issues
+    ADFFACES-358 and ADFFACES-361 -->
+  <xsl:template match="javaee:property-extension/*[namespace-uri() != 'http://java.sun.com/xml/ns/javaee' and namespace-uri() !='http://myfaces.apache.org/maven-faces-plugin']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*|node()"/>
+      <xsl:value-of select="text()"/>
+    </xsl:copy> 
   </xsl:template>
 
 
