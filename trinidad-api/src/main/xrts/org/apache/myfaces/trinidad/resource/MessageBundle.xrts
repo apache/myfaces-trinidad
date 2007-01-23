@@ -300,11 +300,11 @@
   <!-- hints for converters -->
 
   <!-- default hint for DateTimeConverter-->
-  <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.DATE_HINT">Example: "{0}".</resource>
-  <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.TIME_HINT">Example: "{0}".</resource>
-  <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.BOTH_HINT">Example: "{0}".</resource>
+  <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.DATE_HINT">Example format: "{0}".</resource>
+  <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.TIME_HINT">Example format: "{0}".</resource>
+  <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.BOTH_HINT">Example format: "{0}".</resource>
   <!-- default hint for ColorConverter-->
-  <resource key="org.apache.myfaces.trinidad.convert.ColorConverter.FORMAT_HINT">Example: "{0}".</resource>
+  <resource key="org.apache.myfaces.trinidad.convert.ColorConverter.FORMAT_HINT">Example format: "{0}".</resource>
 
   <!-- default hint for IntegerConverter-->
   <!-- resource key="org.apache.myfaces.trinidad.convert.IntegerConverter.FORMAT_HINT">The entered value must be a integer</resource-->
