@@ -39,7 +39,7 @@
       <facet-name>rangeLabel</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>f:selectItem</mfp:preferred-children>
+          <mfp:preferred-children>f:selectItem tr:selectItem</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
