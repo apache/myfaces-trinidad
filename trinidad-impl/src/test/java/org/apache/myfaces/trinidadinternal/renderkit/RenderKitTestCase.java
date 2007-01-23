@@ -62,6 +62,16 @@ abstract public class RenderKitTestCase extends TestSuite
   public RenderKitTestCase(String testName) throws IOException, SAXException
   {
     super(testName);
+
+    try
+    {
+      _initGlobal();
+    }
+    catch (Exception e)
+    {
+      e.printStackTrace();
+    }
+
     _initTests();
   }
 
@@ -583,18 +593,6 @@ abstract public class RenderKitTestCase extends TestSuite
     private RequestContext.Accessibility _accessibilityMode;
     private Agent _agent;
     private boolean _rightToLeft;
-  }
-
-  static
-  {
-    try
-    {
-      _initGlobal();
-  }
-    catch (Exception e)
-    {
-      e.printStackTrace();
-    }
   }
 
   static private ExtendedRenderKitService _getExtendedRenderKitService(
