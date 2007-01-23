@@ -1822,7 +1822,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
   static
   {
     Calendar dateFactory = Calendar.getInstance();
-    dateFactory.set(2007, 10, 29, 15, 45);
+    dateFactory.set(1998, 10, 29, 15, 45);
     _EXAMPLE_DATE = dateFactory.getTime();
   }
 }
