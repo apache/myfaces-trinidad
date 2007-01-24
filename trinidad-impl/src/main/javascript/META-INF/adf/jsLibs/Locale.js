@@ -620,6 +620,16 @@ TrConverter.prototype.getAsString = function(value, label){}
  */
 TrConverter.prototype.getAsObject = function(value, label){}
 
+/**
+ * This should only be false if there is an only server side converter but no
+ * client side converter. But still it is possible to send down the format hint.
+ * 
+ * By default this function returns true.
+ */
+TrConverter.prototype.isConvertible = function()
+{
+	return true;
+}
 
 /**
  * Validator "interface" similar to javax.faces.validator.Validator,

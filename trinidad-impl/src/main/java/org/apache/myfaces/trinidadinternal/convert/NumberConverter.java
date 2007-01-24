@@ -18,11 +18,20 @@
  */
 package org.apache.myfaces.trinidadinternal.convert;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 
+import org.apache.myfaces.trinidad.convert.ClientConverter;
+import org.apache.myfaces.trinidadinternal.util.JsonUtils;
+
 public final class NumberConverter extends org.apache.myfaces.trinidad.convert.NumberConverter
+                   implements ClientConverter
 {
   public NumberConverter()
   {
@@ -64,4 +73,73 @@ public final class NumberConverter extends org.apache.myfaces.trinidad.convert.N
     // bug 4214147:
     return super.getAsString(context, component, value);
   }
+
+  public String getClientConversion(FacesContext context, UIComponent component)
+  {
+    String hintPattern = this.getHintPattern();
+    Map<String, String> cMessages = null;
+    if(hintPattern != null)
+    {
+      cMessages = new HashMap<String, String>();
+      cMessages.put("hintPattern", hintPattern);
+    }
+    
+    return _getTrNumberConverter(context, component, cMessages);
+  }
+
+  public Collection<String> getClientImportNames()
+  {
+    return _IMPORT_NAMES;
+  }
+
+  public String getClientLibrarySource(FacesContext context)
+  {
+    return null;
+  }
+
+  public String getClientScript(FacesContext context, UIComponent component)
+  {
+    return null;
+  }
+  
+  private String _getTrNumberConverter(
+      FacesContext context,
+      UIComponent component,
+      Map messages)
+    {
+      StringBuilder outBuffer = new StringBuilder(250);
+
+      outBuffer.append("new TrNumberConverter(");
+
+      String pattern = this.getPattern();
+      String type = this.getType();
+
+      try
+      {
+        JsonUtils.writeString(outBuffer, pattern, false); 
+      } catch (Exception e)
+      {
+        outBuffer.append("null");
+      }
+      outBuffer.append(',');
+      try
+      {
+        JsonUtils.writeString(outBuffer, type, false);
+      } catch (Exception e)
+      {
+        outBuffer.append("null");
+      }
+      outBuffer.append(',');
+      try
+      {
+        JsonUtils.writeMap(outBuffer, messages, false); 
+      } catch (Exception e)
+      {
+        outBuffer.append("null");
+      }
+      outBuffer.append(')');
+
+      return outBuffer.toString();
+    }
+  private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "TrNumberConverter()" );
 }
