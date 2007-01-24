@@ -462,6 +462,29 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     Object msg = _facesBean.getProperty(_CONVERT_PERCENT_MESSAGE_DETAIL_KEY);
     return ComponentUtils.resolveString(msg);
   }
+  
+  /**
+   * <p>Custom hintPattern message.</p>
+   * Overrides default hint message
+   * @param hintPattern Custom hint message.
+   */
+  public void setHintPattern(String hintPattern)
+  {
+    _facesBean.setProperty(_HINT_PATTERN_KEY, hintPattern);
+  }
+
+  /**
+   * <p>Return custom hintPattern message.</p>
+   * @return Custom hint message.
+   * @see  #setHintPattern(String)
+   */
+  public String getHintPattern()
+  {
+    Object obj = _facesBean.getProperty(_HINT_PATTERN_KEY);
+    return ComponentUtils.resolveString(obj);
+  }
+
+  
 
   @Override
   public void setCurrencyCode(String currencyCode)
@@ -1141,6 +1164,9 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
 
   private static final PropertyKey _CONVERT_PERCENT_MESSAGE_DETAIL_KEY
    = _TYPE.registerKey("messageDetailConvertPercent", String.class);
+  
+  private static final PropertyKey  _HINT_PATTERN_KEY =
+    _TYPE.registerKey("hintPattern", String.class);
 
   private static final PropertyKey _CURRENCY_CODE_KEY
    = _TYPE.registerKey("currencyCode", String.class);
