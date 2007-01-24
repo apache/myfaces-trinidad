@@ -599,3 +599,18 @@ windows, macos, linux, solaris, ppc */
   -tr-inhibit: text-decoration;
   color: pink;
 }
+
+/* this tests what happens when we add :rtl to the end of a style class. */
+
+/* When the browser's language is set to a left-to-right language like English,
+then we will use this style. We generate .testRightToLeft {color: blue;} when the browser's language
+is a left-to-right language. */
+.testRightToLeft {
+  color: blue;
+}
+/* If the language is right-to-left, then add this rtl specific css definition to the one
+above. We generate .testRightToLeft {color: blue; font-size: 24em} when the browser's language
+is a right-to-left language. */
+.testRightToLeft:rtl {
+  font-size: 24em;
+}
