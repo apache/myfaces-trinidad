@@ -16,6 +16,85 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
+function TrNumberConverter(
+  pattern,  
+  type,
+  messages)
+{
+	this._pattern = pattern;
+  this._type = type;
+  this._messages = messages;
+	
+  // for debugging
+  this._class = "TrNumberConverter";
+}
+
+TrNumberConverter.prototype = new TrConverter();
+
+TrNumberConverter.prototype.isConvertible = function()
+{
+	if(this._pattern == null && this._type=="number")
+	{
+    return true;
+	}
+	else
+	{
+    return false;
+	}
+}
+
+TrNumberConverter.prototype.getFormatHint = function()
+{
+	if(this._messages && this._messages["hintPattern"])
+	{
+    return TrMessageFactory.createCustomMessage(
+      this._messages["hintPattern"],
+      this._pattern);
+	}
+	else
+	{
+    if(this._pattern)
+    {
+      return TrMessageFactory.createMessage(
+      "org.apache.myfaces.trinidad.convert.NumberConverter.FORMAT_HINT",
+      this._pattern);
+    }
+    else
+    {
+      return null;
+    }
+  }
+}
+
+TrNumberConverter.prototype.getAsString = function(
+  number,
+  label
+  )
+{
+  return "" + number;
+}
+
+TrNumberConverter.prototype.getAsObject = function(
+  numberString,
+  label
+  )
+{
+	if(this.isConvertible())
+	{
+    return _decimalParse(numberString, 
+                       this._messages,
+                       "org.apache.myfaces.trinidad.convert.NumberConverter",
+                       null,
+                       null,
+                       null,
+                       null,
+                       label);
+	}
+	else
+	{
+    return numberString;
+	}
+}
 function TrIntegerConverter(
   message,
   maxPrecision,
@@ -882,8 +961,16 @@ function _decimalParse(
       return result;
     }
   }
-
-  facesMessage = _createFacesMessage( standardKey+".CONVERT",
+  var usedKey = null;
+  if(standardKey.indexOf("NumberConverter")==-1)
+  {
+    usedKey = standardKey+".CONVERT";
+  }
+  else
+  {
+    usedKey = standardKey+".CONVERT_NUMBER";
+  }
+  facesMessage = _createFacesMessage( usedKey,
                                         label,
                                         numberString);
   throw new TrConverterException(facesMessage);
