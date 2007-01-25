@@ -131,10 +131,20 @@ final class StampState implements Externalizable
     List<UIComponent> kids = column.getChildren();
     int sz = kids.size();
     Object[] state = new Object[sz];
+    boolean wasAllTransient = true;
     for(int i=0; i<sz; i++)
     {
-      state[i] = table.saveStampState(context, kids.get(i));
+      Object childState = table.saveStampState(context, kids.get(i));
+      state[i] = childState;
+      if (childState != UIXCollection.Transient.TRUE)
+        wasAllTransient = false;
     }
+    
+    // If all we found were transient components, just use
+    // an empty array
+    if (wasAllTransient)
+      return _EMPTY_ARRAY;
+
     return state;
   }
 
@@ -150,9 +160,18 @@ final class StampState implements Externalizable
   {
     List<UIComponent> kids = column.getChildren();
     Object[] state = (Object[]) stampState;
+
+    int childIndex = 0;
     for(int i=0; i<state.length; i++)
     {
-      table.restoreStampState(context, kids.get(i), state[i]);
+      Object childState = state[i];
+      // Skip over any saved state that corresponds to transient
+      // components
+      if (childState == UIXCollection.Transient.TRUE)
+        continue;
+
+      table.restoreStampState(context, kids.get(childIndex), childState);
+      childIndex++;
     }
   }
 
@@ -432,4 +451,5 @@ final class StampState implements Externalizable
      TrinidadLogger.createTrinidadLogger(StampState.class);
 
   private Map<DualKey, Object> _rows;
+  private static final Object[] _EMPTY_ARRAY = new Object[0];
 }
