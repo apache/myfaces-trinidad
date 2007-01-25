@@ -1315,5 +1315,5 @@ public abstract class UIXCollection extends UIXComponentBase
   // TODO: is this really better than just, say, using null for 
   // transient components?  It's certainly better at not papering
   // over error cases
-  private enum Transient { TRUE };
+  enum Transient { TRUE };
 }
