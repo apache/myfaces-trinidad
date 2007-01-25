@@ -840,6 +840,20 @@ public abstract class UIXCollection extends UIXComponentBase
         restoreStampState(context, children.get(childIndex), childState);
         childIndex++;
       }
+      // The component may or may not still be there;  if it
+      // is, then we'd better skip over it
+      else
+      {
+        if (childIndex < children.size())
+        {
+          UIComponent child = children.get(childIndex);
+          // If the child isn't transient, then it must be
+          // something that we want to look at on the next
+          // iteration.
+          if (child.isTransient())
+            childIndex++;
+        }
+      }
     }
   }
 
