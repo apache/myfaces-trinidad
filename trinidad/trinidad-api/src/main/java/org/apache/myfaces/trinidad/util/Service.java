@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidad.util;
 
 import javax.faces.context.FacesContext;
+import javax.faces.render.RenderKit;
 
 /**
  * <p>
@@ -106,6 +107,16 @@ public class Service
   static public <T> T getRenderKitService(FacesContext context,
                                           Class<T> serviceClass)
   {
-    return getService(context.getRenderKit(), serviceClass);
+    // Provide a better exception than an NPE from inside of
+    // Service.getService().
+    RenderKit rk = context.getRenderKit();
+    if (rk == null)
+      throw new NullPointerException(
+        "FacesContext.getRenderKit() returned null while trying to "+
+        "get the " + serviceClass.getName() + " service;  please check " +
+        "your configuration.");
+ 
+
+    return getService(rk, serviceClass);
   }
 }
