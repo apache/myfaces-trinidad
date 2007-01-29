@@ -47,6 +47,9 @@ function TrConverter()
  *
  * @param value Model object value to be converted 
  * @param label label to identify the editableValueHolder to the user 
+ * 
+ * @return the value as a string or undefined in case of no converter mechanism is
+ * available (see TrNumberConverter).
  */
 TrConverter.prototype.getAsString = function(value, label){}
 
@@ -56,6 +59,9 @@ TrConverter.prototype.getAsString = function(value, label){}
  *
  * @param value String value to be converted 
  * @param label label to identify the editableValueHolder to the user 
+ * 
+ * @return the converted value or undefined in case of no converter mechanism is
+ * available (see TrNumberConverter).
  */
 TrConverter.prototype.getAsObject = function(value, label){}
 
@@ -307,12 +313,13 @@ function TrValidator()
 
 /**
  * Perform the correctness checks implemented by this Validator. 
- * If any violations are found, a ValidatorException will be thrown 
- * containing the FacesMessage describing the failure. 
+ * If any violations are found, a TrValidatorException will be thrown 
+ * containing the TrFacesMessage describing the failure. 
  * @param value value to be validated 
  * @param label label to identify the editableValueHolder to the user
+ * @param converter converter to format error string properly
  */
-TrValidator.prototype.validate = function(value, label){}
+TrValidator.prototype.validate = function(value, label, converter){}
       </source>
       
       The validator can throw javascript TrValidatorException objects:
