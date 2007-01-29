@@ -608,6 +608,9 @@ function TrConverter()
  *
  * @param value Model object value to be converted 
  * @param label label to identify the editableValueHolder to the user 
+ * 
+ * @return the value as a string or undefined in case of no converter mechanism is
+ * available (see TrNumberConverter).
  */
 TrConverter.prototype.getAsString = function(value, label){}
 
@@ -617,6 +620,9 @@ TrConverter.prototype.getAsString = function(value, label){}
  *
  * @param value String value to be converted 
  * @param label label to identify the editableValueHolder to the user 
+ * 
+ * @return the converted value or undefined in case of no converter mechanism is
+ * available (see TrNumberConverter).
  */
 TrConverter.prototype.getAsObject = function(value, label){}
 

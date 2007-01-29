@@ -31,6 +31,10 @@ function TrNumberConverter(
 
 TrNumberConverter.prototype = new TrConverter();
 
+/**
+ * Checks if this converter can convert the value, which
+ * is only true, if no pattern is set and the type is a number
+ */
 TrNumberConverter.prototype._isConvertible = function()
 {
 	if(this._pattern == null && this._type=="number")
@@ -66,6 +70,9 @@ TrNumberConverter.prototype.getFormatHint = function()
   }
 }
 
+/**
+ * Returns the number value as string or undefined (see also _isConvertible).
+ */
 TrNumberConverter.prototype.getAsString = function(
   number,
   label
@@ -81,6 +88,9 @@ TrNumberConverter.prototype.getAsString = function(
   }
 }
 
+/**
+ * Returns the number value for the submitted string or undefined (see also _isConvertible).
+ */
 TrNumberConverter.prototype.getAsObject = function(
   numberString,
   label
