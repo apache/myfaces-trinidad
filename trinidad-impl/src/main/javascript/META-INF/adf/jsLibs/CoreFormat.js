@@ -31,7 +31,7 @@ function TrNumberConverter(
 
 TrNumberConverter.prototype = new TrConverter();
 
-TrNumberConverter.prototype.isConvertible = function()
+TrNumberConverter.prototype._isConvertible = function()
 {
 	if(this._pattern == null && this._type=="number")
 	{
@@ -71,7 +71,14 @@ TrNumberConverter.prototype.getAsString = function(
   label
   )
 {
-  return "" + number;
+  if(this._isConvertible())
+  {
+    return "" + number;
+  }
+  else
+  {
+    return undefined;
+  }
 }
 
 TrNumberConverter.prototype.getAsObject = function(
@@ -79,7 +86,7 @@ TrNumberConverter.prototype.getAsObject = function(
   label
   )
 {
-	if(this.isConvertible())
+	if(this._isConvertible())
 	{
     return _decimalParse(numberString, 
                        this._messages,
@@ -92,7 +99,7 @@ TrNumberConverter.prototype.getAsObject = function(
 	}
 	else
 	{
-    return numberString;
+    return undefined;
 	}
 }
 function TrIntegerConverter(
