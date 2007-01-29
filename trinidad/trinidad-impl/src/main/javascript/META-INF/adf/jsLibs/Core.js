@@ -2429,7 +2429,7 @@ function _multiValidate(
 
       var value = _getValue(currInput);
       var required = validators[i+1];
-      if ( required && ((value == "" ) || (value == (void 0))))
+      if ( required && ((value == "" ) || (value == null)))
       {
 
         // move the focus back to the first failed field
@@ -2468,7 +2468,7 @@ function _multiValidate(
         {
 
           // do the conversion if this element has a value
-          if ((value != (void 0)) &&
+          if ((value != null) &&
               !((typeof value == "string") && (value == "")))
           {
             // evaluate the converter
@@ -2507,26 +2507,22 @@ function _multiValidate(
             }
           }
         }
-
-
+        
         if ( converterError == false)
         {
           var validatorInfo = validators[i+4];
-
           for ( var j = 0; j < validatorInfo.length; j = j + 1)
           {
             // do the validation if this element has a value
             // Don't just compare against "", since the value has
             // already been converted to a non-string type
-            if ((value != (void 0)) &&
+            if ((value !== null) &&
                  !((typeof value == "string") && value == ""))
             {
               // evaluate the validator
               var validatorConstructor = validations[validatorInfo[j]];
-
-              if (validatorConstructor)
+              if (validatorConstructor && value !== undefined)
               {
-
                 var validator = eval(validatorConstructor);
 
                 try {
