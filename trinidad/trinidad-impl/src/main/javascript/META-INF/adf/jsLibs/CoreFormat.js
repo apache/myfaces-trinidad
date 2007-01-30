@@ -105,7 +105,8 @@ TrNumberConverter.prototype.getAsObject = function(
                        null,
                        null,
                        null,
-                       label);
+                       label,
+                       null);
 	}
 	else
 	{
@@ -156,7 +157,8 @@ TrIntegerConverter.prototype.getAsObject = function(
                        this._maxScale,
                        this._maxValue,
                        this._minValue,
-                       label);
+                       label,
+                       null);
 }
 function TrLongConverter(
   message,
@@ -202,7 +204,8 @@ TrLongConverter.prototype.getAsObject = function(
                        this._maxScale,
                        this._maxValue,
                        this._minValue,
-                       label);
+                       label,
+                       null);
 }
 function TrShortConverter(
   message,
@@ -248,7 +251,8 @@ TrShortConverter.prototype.getAsObject = function(
                        this._maxScale,
                        this._maxValue,
                        this._minValue,
-                       label);
+                       label,
+                       null);
 }
 function TrByteConverter(
   message,
@@ -294,7 +298,8 @@ TrByteConverter.prototype.getAsObject = function(
                        this._maxScale,
                        this._maxValue,
                        this._minValue,
-                       label);
+                       label,
+                       null);
 }
 
 function TrDoubleConverter(
@@ -341,7 +346,8 @@ TrDoubleConverter.prototype.getAsObject = function(
                        this._maxScale,
                        this._maxValue,
                        this._minValue,
-                       label);
+                       label,
+                       true);
 }
 function TrFloatConverter(
   message,
@@ -387,7 +393,8 @@ TrFloatConverter.prototype.getAsObject = function(
                        this._maxScale,
                        this._maxValue,
                        this._minValue,
-                       label);
+                       label,
+                       true);
 }
 
 
@@ -869,12 +876,14 @@ function _decimalParse(
   numberString,
   message,
   standardKey,
+  maxPrecision,
+  maxScale,
   maxValue,
   minValue,
-  label
+  label,
+  parsefloat
   )
 {
-
   // The following are from the javadoc for TrNumberConverter
   // If the specified String is null, return a null. Otherwise, trim leading and trailing whitespace before proceeding.
   // If the specified String - after trimming - has a zero length, return null.
@@ -935,10 +944,23 @@ function _decimalParse(
       (((numberString * numberString) == 0) ||
        ((numberString / numberString) == 1)))
   {
-    var result = parseFloat(numberString);
-    if (!isNaN(result))
+    var result = null;
+    var floater = false;
+    if(parsefloat != null)
     {
-      var integerDigits = numberString.length;
+      result = parseFloat(numberString);
+    }
+    else
+    {
+      result = parseInt(numberString);
+      if(result<parseFloat(numberString))
+      {
+      	//a non-floating converter was the caller;
+      	floater = true;
+      }
+    }
+    if (!floater && !isNaN(result))
+    {      var integerDigits = numberString.length;
       var fractionDigits = 0;
 
       var sepIndex = numberString.lastIndexOf('.');
