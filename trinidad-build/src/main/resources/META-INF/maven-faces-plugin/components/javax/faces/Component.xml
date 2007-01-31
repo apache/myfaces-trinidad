@@ -34,8 +34,8 @@
       </property-extension>
     </property>
     <property>
-      <description>whether the bean is rendered. When set to false, no output
-                   will be delivered for this bean.
+      <description>whether the component is rendered. When set to false, no output
+                   will be delivered for this component.
       </description>
       <property-name>rendered</property-name>
       <property-class>boolean</property-class>
