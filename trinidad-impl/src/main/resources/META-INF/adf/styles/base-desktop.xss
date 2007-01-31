@@ -347,6 +347,14 @@
   <style name="AFEndTextAlign">
     <property name="text-align">right</property>
   </style>
+
+  <style name="AFFloatStart">
+    <property name="float">left</property>    
+  </style>
+  
+  <style name="AFFloatEnd">
+    <property name="float">right</property>    
+  </style>
   
   <!-- TODO New for Fusion Doc -->
   <style name="AFEndPadding">
@@ -2706,14 +2714,6 @@
     if so, these could be made public.
   --> 
 
-  <style name="FloatStart">
-    <property name="float">left</property>    
-  </style>
-  
-  <style name="FloatEnd">
-    <property name="float">right</property>    
-  </style>
-
   <style name="LTROverride">
   </style>
 
@@ -3009,11 +3009,11 @@
   </style>    
 
   <style selector=".p_OraContentFooterStart">
-    <includeStyle name="FloatStart"/> 
+    <includeStyle name="AFFloatStart"/> 
   </style>    
 
   <style selector=".p_OraContentFooterChildren">
-    <includeStyle name="FloatEnd"/> 
+    <includeStyle name="AFFloatEnd"/> 
   </style>    
     
   <style selector=".p_OraContentFooterBottom">
@@ -3956,14 +3956,6 @@
     <property name="margin-right">25px</property>
   </style>
 
-  <style name="FloatStart">
-    <property name="float">right</property>    
-  </style>
-  
-  <style name="FloatEnd">
-    <property name="float">left</property>    
-  </style>
-  
   <style selector=".OraShuttleHeader">
     <property name="padding">0px 18px 0px 0px</property>
   </style>
@@ -3983,7 +3975,15 @@
   <style name="AFEndTextAlign">
     <property name="text-align">left</property>
   </style>
-
+  
+  <style name="AFFloatStart">
+    <property name="float">right</property>    
+  </style>
+  
+  <style name="AFFloatEnd">
+    <property name="float">left</property>    
+  </style>
+  
   <style name="AFEndPadding">
   	<property name="padding">0px 0px 0px 8px</property>
   </style>
@@ -4081,7 +4081,7 @@
     <property name="margin">5px 0px 0px 0px</property>
     <property name="width">97%</property>
     <property name="clear">both</property>
-    <includeStyle name="FloatEnd"/>
+    <includeStyle name="AFFloatEnd"/>
   </style>  
 
   <style selector="af|column::sortable-header-text">
@@ -4153,7 +4153,7 @@
     <property name="margin">5px 0px 0px 0px</property>
     <property name="width">97%</property>
     <property name="clear">both</property>
-    <includeStyle name="FloatEnd"/>
+    <includeStyle name="AFFloatEnd"/>
   </style>  
 
   <style selector="af|column::sortable-header-text">
@@ -4216,7 +4216,7 @@
     <property name="margin">5px 0px 0px 0px</property>
     <property name="width">97%</property>
     <property name="clear">both</property>
-    <includeStyle name="FloatEnd"/>
+    <includeStyle name="AFFloatEnd"/>
   </style>  
 
   <style selector="af|column::sortable-header-text">
