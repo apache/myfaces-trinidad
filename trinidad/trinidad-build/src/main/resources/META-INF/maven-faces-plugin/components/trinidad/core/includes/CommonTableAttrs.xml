@@ -42,7 +42,7 @@
       </facet-extension>
     </facet>
     <facet>
-      <description><![CDATA[Content to be rendered inline with the navigation bar.]]>
+      <description><![CDATA[content to be rendered inline with the navigation bar.]]>
       </description>
       <facet-name>actions</facet-name>
       <facet-extension>
@@ -52,7 +52,7 @@
       </facet-extension>
     </facet>
     <property>
-      <description>Specifies if the Horizontal GridLines are to be drawn.</description>
+      <description>if the horizontal grid lines will be drawn.</description>
       <property-name>horizontalGridVisible</property-name>
       <property-class>boolean</property-class>
       <default-value>true</default-value>
@@ -61,7 +61,7 @@
       </property-extension>
     </property>
     <property>
-      <description>Specifies if the vertical GridLines are to be drawn.</description>
+      <description>if the vertical grid lines will be drawn.</description>
       <property-name>verticalGridVisible</property-name>
       <property-class>boolean</property-class>
       <default-value>true</default-value>
@@ -70,7 +70,7 @@
       </property-extension>
     </property>
     <property>
-      <description>Specifies the text of an ampty table.</description>
+      <description>text displayed when a table is empty.</description>
       <property-name>emptyText</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
@@ -78,7 +78,7 @@
       </property-extension>
     </property>
     <property>
-      <description>The interval between which the column banding occurs. This value controls the displayof the column banding in the table. For e.g, columnBandingInterval=1 would display alternately banded columns in the Grid.
+      <description>the interval between which the column banding alternates.  For example, a columnBandingInterval of 1 would display alternately banded columns.
       </description>
       <property-name>columnBandingInterval</property-name>
       <property-class>int</property-class>
@@ -88,7 +88,7 @@
       </property-extension>
     </property>
     <property>
-      <description>The interval between which the row banding occurs. This value controls the displayof the row banding in the table. For e.g, rowBandingInterval=1 would displayalternately banded rows in the Grid.
+      <description>the interval between which the row banding alternates.  For example, rowBandingInterval=1 would displayalternately banded rows in the Grid.
       </description>
       <property-name>rowBandingInterval</property-name>
       <property-class>int</property-class>
@@ -98,7 +98,7 @@
       </property-extension>
     </property>
     <property>
-      <description>Makes rows in this table selectable. Valid values are "none", "single", "multiple"</description>
+      <description>whether rows in this table selectable. Valid values are "none", "single", "multiple"</description>
       <property-name>rowSelection</property-name>
       <property-class>java.lang.String</property-class>
       <default-value>none</default-value>
@@ -108,7 +108,7 @@
       </property-extension>
     </property>
     <property>
-      <description><![CDATA[the width of this component.]]></description>
+      <description><![CDATA[the width of the table.  The value must either be a number of pixels or a percentage - it is not a CSS width.]]></description>
       <property-name>width</property-name>
       <property-class>java.lang.String</property-class>
     </property>
