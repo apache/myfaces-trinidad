@@ -129,7 +129,7 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
     if (hasLink)
     {
       writer.startElement("a", component);
-      renderEncodedURIAttribute(context, "href", destination);
+      renderEncodedActionURI(context, "href", destination);
       renderAttribute(context, node, "target", TARGET_FRAME_ATTR);
 
       // Don't render access key on Netscape... Netscape doesn't

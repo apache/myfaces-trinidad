@@ -215,8 +215,8 @@
                alt="Read only Checkbox Not Checked"
                border="0"
                height="12"
-               src="/test-context-path/adf/images/checkrn.gif"
                width="12"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/checkrn.gif"
               >
             
           </img>

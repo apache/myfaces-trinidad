@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -54,6 +54,7 @@ import org.apache.myfaces.trinidadinternal.skin.SkinNotAvailable;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.share.nls.MutableDecimalFormatContext;
 import org.apache.myfaces.trinidadinternal.share.nls.MutableLocaleContext;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
@@ -72,7 +73,7 @@ public class CoreRenderingContext extends RenderingContext
     RequestContext afContext = RequestContext.getCurrentInstance();
 
     _properties = new HashMap<Object, Object>();
-    
+
     _outputMode = afContext.getOutputMode();
     _agent = _initializeAgent(context,
                               afContext.getAgent(),
@@ -80,7 +81,7 @@ public class CoreRenderingContext extends RenderingContext
                               // in case anyone has overidden getOutputMode()
                               getOutputMode());
 
-    _initializeSkin(afContext);
+    _initializeSkin(context, afContext);
     _initializePPR(context, afContext);
     // Get and cache (since it can be EL-bound)
     _accessibilityMode = afContext.getAccessibilityMode();
@@ -253,6 +254,8 @@ public class CoreRenderingContext extends RenderingContext
     if (styleClass == null) return null;
 
     styleClass = getSkinResourceMappedKey(styleClass);
+    // Most likely the _styleMap is a shortened style class map. In the case of portlets,
+    // it is a full name-> portlet style class map.
     String shortenedStyle = null;
     if (_styleMap != null)
     {
@@ -272,7 +275,7 @@ public class CoreRenderingContext extends RenderingContext
       // namespace character '|' is not in the name.
       // we do the same thing in CSSUtils when we write the full selector
       // to the CSS file.
-      styleClass = StyleUtils.convertToValidSelector(styleClass.toString());
+      styleClass = StyleUtils.convertToValidSelector(styleClass);
     }
     return styleClass;
   }
@@ -374,21 +377,29 @@ public class CoreRenderingContext extends RenderingContext
    * Set the local variable _skin to be the Skin from the
    * SkinFactory that best matches
    * the <skin-family> and current render-kit-id.
-   * @param fContext FacesContext
-   * @param context  RequestContext
+   * @param context    FacesContext
+   * @param afContext  RequestContext
    */
-  private void _initializeSkin(RequestContext afContext)
+  private void _initializeSkin(
+    FacesContext   context,
+    RequestContext afContext)
   {
+    // get skinFamily
     String skinFamily = afContext.getSkinFamily();
     if (skinFamily == null)
       skinFamily = getDefaultSkinFamily();
-    String renderKitId = "org.apache.myfaces.trinidad.desktop";
 
-    // =-=jmw @todo when we have proper renderKitId switching, I can
-    // get rid of this bit of code.
-    if (TrinidadAgent.TYPE_PDA == getTrinidadAgent().getAgentType())
+    // get renderKitId, default is desktop renderKit
+    String renderKitId = XhtmlConstants.APACHE_TRINIDAD_DESKTOP;
+    if (CoreRenderKit.OUTPUT_MODE_PORTLET.equals(getOutputMode()))
     {
-      renderKitId = "org.apache.myfaces.trinidad.pda";
+      renderKitId = XhtmlConstants.APACHE_TRINIDAD_PORTLET;
+    }
+    else if (TrinidadAgent.TYPE_PDA == _agent.getAgentType())
+    {
+      // =-=jmw @todo when we have proper renderKitId switching, I can
+      // get rid of this bit of code. Should we use getViewRoot().getRenderKitId() instead?
+      renderKitId = XhtmlConstants.APACHE_TRINIDAD_PDA;
     }
 
 
@@ -400,7 +411,24 @@ public class CoreRenderingContext extends RenderingContext
       return;
     }
 
-    Skin skin = factory.getSkin(null, skinFamily, renderKitId);
+    Skin skin = null;
+
+    // see if there is a skinID on the requestParameterMap. If there is, then
+    // we want to use that skin. Otherwise, use find the skin as usual, using the portlet
+    // renderKitId.
+    if (CoreRenderKit.OUTPUT_MODE_PORTLET.equals(getOutputMode()))
+    {
+      Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
+      Object skinId = requestMap.get(_SKIN_ID_PARAM);
+      if (skinId != null)
+      {
+        skin = factory.getSkin(context, skinId.toString());
+      }
+
+    }
+
+    if (skin == null)
+      skin = factory.getSkin(null, skinFamily, renderKitId);
 
     if (skin == null)
     {
@@ -439,6 +467,10 @@ public class CoreRenderingContext extends RenderingContext
     {
       return AgentUtil.mergeCapabilities(agent, _EMAIL_CAPABILITIES);
     }
+    else if (CoreRenderKit.OUTPUT_MODE_PORTLET.equals(outputMode))
+    {
+      return AgentUtil.mergeCapabilities(agent, _PORTLET_CAPABILITIES);
+    }
     else
     {
       return agent;
@@ -472,9 +504,9 @@ public class CoreRenderingContext extends RenderingContext
   {
     String path = null;
 
-    Map<String, Object> applicationMap = 
+    Map<String, Object> applicationMap =
       fContext.getExternalContext().getApplicationMap();
-    
+
     if (applicationMap != null)
     {
       // In general, write to the Servlet spec'd temporary directory
@@ -556,18 +588,22 @@ public class CoreRenderingContext extends RenderingContext
   private int                 _linkStyleDisabledCount = 0;
   private boolean             _isLinkDisabled = false;
 
+  static private final String _SKIN_ID_PARAM = "oracle.apache.myfaces.trinidad.skin.id";
   // Maps describing the capabilities of our output modes
   // -= Simon Lessard =-
-  // FIXME: Cannot use CapabilityKey in the generic definition because 
-  //        CapabilityKey is not in the public API and those map are 
-  //        used as a parameter in an API call receiving a 
+  // FIXME: Cannot use CapabilityKey in the generic definition because
+  //        CapabilityKey is not in the public API and those map are
+  //        used as a parameter in an API call receiving a
   //        Map<Object, Object> argument
-  static private final Map<Object, Object> _PRINTABLE_CAPABILITIES = 
+  static private final Map<Object, Object> _PRINTABLE_CAPABILITIES =
     new HashMap<Object, Object>();
-  
-  static private final Map<Object, Object> _EMAIL_CAPABILITIES = 
+
+  static private final Map<Object, Object> _EMAIL_CAPABILITIES =
     new HashMap<Object, Object>();
-  
+
+  static private final Map<Object, Object> _PORTLET_CAPABILITIES =
+    new HashMap<Object, Object>();
+
   static
   {
     _PRINTABLE_CAPABILITIES.put(TrinidadAgent.CAP_INTRINSIC_EVENTS,
@@ -591,6 +627,11 @@ public class CoreRenderingContext extends RenderingContext
     _EMAIL_CAPABILITIES.put(TrinidadAgent.CAP_STYLE_ATTRIBUTES,
                             TrinidadAgent.STYLES_INTERNAL);
     _EMAIL_CAPABILITIES.put(TrinidadAgent.CAP_PARTIAL_RENDERING,
+                            Boolean.FALSE);
+
+    _PORTLET_CAPABILITIES.put(TrinidadAgent.CAP_PARTIAL_RENDERING,
+                            Boolean.FALSE);
+    _PORTLET_CAPABILITIES.put(TrinidadAgent.CAP_MULTIPLE_WINDOWS,
                             Boolean.FALSE);
   }
 

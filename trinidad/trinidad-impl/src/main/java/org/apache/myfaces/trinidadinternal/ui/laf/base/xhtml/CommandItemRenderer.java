@@ -88,7 +88,7 @@ public class CommandItemRenderer extends SelectOptionRenderer
       
       if ( destination != null)
       {
-        value = '#' + encodeURL(context, destination);
+        value = '#' + encodeActionURL(context, destination);
       }
       else if ( value != null)
       {

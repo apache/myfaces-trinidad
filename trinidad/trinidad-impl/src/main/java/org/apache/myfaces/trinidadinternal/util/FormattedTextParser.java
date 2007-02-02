@@ -726,7 +726,10 @@ public class FormattedTextParser
       RenderingContext arc = RenderingContext.getCurrentInstance();
       if (!Boolean.FALSE.equals(arc.getAgent().getCapabilities().get(
                TrinidadAgent.CAP_NAVIGATION)))
+      {  
+        href = context.getExternalContext().encodeActionURL(href);
         context.getResponseWriter().writeURIAttribute("href", href, null);
+      }
     }
 
     @Override

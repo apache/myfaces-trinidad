@@ -21,7 +21,6 @@ package org.apache.myfaces.trinidadinternal.renderkit.core;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,8 +28,8 @@ import java.util.Map;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.ViewHandler;
-import javax.faces.component.UIComponent;
 import javax.faces.component.UICommand;
+import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
 import javax.faces.component.UIForm;
 import javax.faces.component.UIGraphic;
@@ -46,45 +45,38 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseStream;
 import javax.faces.context.ResponseWriter;
-import javax.faces.render.Renderer;
 import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
+import javax.faces.render.Renderer;
 import javax.faces.render.ResponseStateManager;
-
 import javax.servlet.ServletResponse;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
-import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.context.Agent;
-
+import org.apache.myfaces.trinidad.context.PartialPageContext;
+import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.render.DialogRenderKitService;
 import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
-
+import org.apache.myfaces.trinidad.render.RenderUtils;
+import org.apache.myfaces.trinidadinternal.agent.AgentUtil;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
+import org.apache.myfaces.trinidadinternal.config.dispatch.DispatchResponseConfiguratorImpl;
 import org.apache.myfaces.trinidadinternal.context.TrinidadPhaseListener;
-
-import org.apache.myfaces.trinidadinternal.io.DebugResponseWriter;
 import org.apache.myfaces.trinidadinternal.io.DebugHtmlResponseWriter;
+import org.apache.myfaces.trinidadinternal.io.DebugResponseWriter;
 import org.apache.myfaces.trinidadinternal.io.HtmlResponseWriter;
 import org.apache.myfaces.trinidadinternal.io.IndentingResponseWriter;
 import org.apache.myfaces.trinidadinternal.io.XhtmlResponseWriter;
-
-import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderKitBase;
-import org.apache.myfaces.trinidad.render.RenderUtils;
-import org.apache.myfaces.trinidad.context.PartialPageContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContextImpl;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.htmlBasic.HtmlCommandButtonRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.htmlBasic.HtmlCommandLinkRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.htmlBasic.HtmlFormRenderer;
-
-import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
-import org.apache.myfaces.trinidadinternal.agent.AgentUtil;
-import org.apache.myfaces.trinidadinternal.renderkit.htmlBasic.HtmlCommandButtonRenderer;
 import org.apache.myfaces.trinidadinternal.share.util.CaboHttpUtils;
-import org.apache.myfaces.trinidadinternal.webapp.DispatchServletResponse;
 
 /**
  * RenderKit based on UIX.
@@ -508,7 +500,7 @@ public class CoreRenderKit extends RenderKitBase
       if (contentTypeList == null)
       {
         // default to content type captured by ServletFilter
-        contentTypeList = DispatchServletResponse.getContentType(fContext);
+        contentTypeList = DispatchResponseConfiguratorImpl.getContentType(fContext);
       }
 
       String[] acceptedTypes = (contentTypeList == null)

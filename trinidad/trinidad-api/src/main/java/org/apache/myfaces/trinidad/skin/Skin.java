@@ -18,9 +18,11 @@
  */
 package org.apache.myfaces.trinidad.skin;
 
+import java.util.Map;
 import java.util.MissingResourceException;
 
 import org.apache.myfaces.trinidad.context.LocaleContext;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 
 /**
  * Defines the components (icons, styles, etc)
@@ -39,7 +41,7 @@ abstract public class Skin
    * Returns an string identifier which uniquely identies
    * this Skin implementation.  Skin implementations
    * can be retrieved by id via SkinFactory.getSkin().
-   * @see org.apache.myfaces.trinidadinternal.skin.SkinFactory#getSkin
+   * @see org.apache.myfaces.trinidad.skin.SkinFactory#getSkin
    */
   abstract public String getId();
 
@@ -58,6 +60,15 @@ abstract public class Skin
    * Returns the renderKitId for the Skin.
    */
   abstract public String getRenderKitId();
+
+  /**
+   * Returns the style class map, or null if there is no map.
+   * It should be a map that contains the full style class name as 
+   * the key, and the value could be a shortened style class name,
+   * or a portlet style class name, etc.
+   */
+  abstract public Map<String, String> getStyleClassMap(
+    RenderingContext arc);
 
   /**
    * Returns the name of the XSS style sheet for this Skin.

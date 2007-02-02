@@ -31,6 +31,7 @@ import java.util.TimeZone;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import javax.servlet.http.HttpServletRequest;
@@ -66,9 +67,11 @@ import org.apache.myfaces.trinidadinternal.metadata.RegionMetadata;
 import org.apache.myfaces.trinidad.context.PartialPageContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 import org.apache.myfaces.trinidadinternal.share.config.UIXCookie;
 
 import org.apache.myfaces.trinidadinternal.ui.expl.ColorPaletteUtils;
+import org.apache.myfaces.trinidadinternal.util.ExternalContextUtils;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 import org.apache.myfaces.trinidadinternal.webapp.TrinidadFilterImpl;
@@ -92,7 +95,7 @@ public class RequestContextImpl extends RequestContext
     _partialTargets = new HashSet<String>();
   }
 
-  public void init(Object request)
+  public void init(ExternalContext request)
   {
     attach();
   }
@@ -224,6 +227,17 @@ public class RequestContextImpl extends RequestContext
   @Override
   public String getOutputMode()
   {
+    //=-= Scott O'Bryan =-=
+    // FIXME: Not real happy with this.  We should find a way to get this into
+    // the bean.  The bean is cached by the RequestContextFactory, and the 
+    // Portlet mode needs to be assigned per request since it's possible to run
+    // a trinidad application from a servlet container and a portlet container
+    // at the same time.  For now?  Hey, it works.
+    
+    if(ExternalContextUtils.isPortlet(__getFacesContext().getExternalContext()))
+    {
+      return CoreRenderKit.OUTPUT_MODE_PORTLET;
+    }
     return (String) _bean.getProperty(RequestContextBean.OUTPUT_MODE_KEY);
   }
 

@@ -79,7 +79,7 @@ abstract public class IconButtonRenderer extends HtmlLafRenderer
 
       Object destination = getDestination(context, node);
       if (destination != null)
-        renderEncodedURIAttribute(context, HREF_ATTRIBUTE, destination);
+        renderEncodedActionURI(context, HREF_ATTRIBUTE, destination);
     }
   }
 
@@ -95,7 +95,7 @@ abstract public class IconButtonRenderer extends HtmlLafRenderer
     {
       ResponseWriter writer = context.getResponseWriter();
       writer.startElement("img", null);
-      writer.writeURIAttribute("src", source, null);
+      renderEncodedResourceURI(context, "src", source);
       writer.writeAttribute("border", "0", null);
       renderAltAndTooltipForImage(context, getShortDesc(context, node));
       writer.writeAttribute("align", getVAlign(context, node), null);

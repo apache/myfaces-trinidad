@@ -75,7 +75,7 @@ public class GlobalButtonRenderer extends HtmlLafRenderer
 
     if (isLink)
     {
-      renderEncodedURIAttribute(context, HREF_ATTRIBUTE, destination);
+      renderEncodedActionURI(context, HREF_ATTRIBUTE, destination);
       renderAttribute(context, node,
                       TARGET_FRAME_ATTRIBUTE, TARGET_FRAME_ATTR);
 
@@ -86,7 +86,7 @@ public class GlobalButtonRenderer extends HtmlLafRenderer
     {
       writer.startElement(IMAGE_ELEMENT, null);
       renderStyleClassAttribute(context, AF_MENU_BUTTONS_IMAGE_STYLE_CLASS);
-      renderURIAttribute(context, SOURCE_ATTRIBUTE, iconURI);
+      renderEncodedResourceURI(context, SOURCE_ATTRIBUTE, iconURI);
       renderAltAndTooltipForImage(context, shortDesc);
       renderAttribute(context, BORDER_ATTRIBUTE, 0);
       renderAttribute(context, node, WIDTH_ATTRIBUTE, WIDTH_ATTR);

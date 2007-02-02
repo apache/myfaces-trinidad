@@ -214,8 +214,8 @@
                alt="Read only Radio Button Not Selected"
                border="0"
                height="10"
-               src="/test-context-path/adf/images/radiorn.gif"
                width="10"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/radiorn.gif"
               >
             
           </img>

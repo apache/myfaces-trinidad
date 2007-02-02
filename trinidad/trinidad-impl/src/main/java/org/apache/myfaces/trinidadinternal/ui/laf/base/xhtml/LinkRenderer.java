@@ -198,7 +198,7 @@ public class LinkRenderer extends XhtmlLafRenderer
       if (!isJavascript ||
           supportsScripting(context))
       {
-        renderEncodedURIAttribute(context, "href", destination);
+        renderEncodedActionURI(context, "href", destination);
       }
     }
 

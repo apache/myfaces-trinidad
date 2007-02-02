@@ -22,6 +22,8 @@ import java.io.IOException;
 import java.util.Iterator;
 
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 import javax.faces.validator.Validator;
@@ -470,7 +472,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
   {
     return true;
   }
-
+  
   public static void renderStyleAndClass(
     UIXRenderingContext context,
     String           inlineStyle,
@@ -1434,7 +1436,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
         if (supportsNavigation(context))
         {
           writer.startElement("a", null);
-          renderEncodedURIAttribute(context, HREF_ATTRIBUTE, destination);
+          renderEncodedActionURI(context, HREF_ATTRIBUTE, destination);
           writer.writeAttribute("onclick", onClick, null);
           writer.writeAttribute("target", targetFrame, null);
 
@@ -1461,7 +1463,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
       // get the correct alignment to use for the agent
       writer.writeAttribute("align", imgAlign, null);
 
-      writer.writeAttribute("src", iconAbsoluteURI, null);
+      renderEncodedResourceURI(context, "src", iconAbsoluteURI);
       writer.writeAttribute("border", "0", null);
       if (isBlock)
       {
@@ -1507,9 +1509,11 @@ public class XhtmlLafRenderer extends BaseLafRenderer
 
     ResponseWriter writer = context.getResponseWriter();
 
-    writer.writeAttribute(attribute,
-                          getBaseImageURI(context) + uri,
-                                                  null);
+    String encodedUri = getBaseImageURI(context) + uri;
+    FacesContext facesContext = context.getFacesContext();
+    if (facesContext != null)
+      encodedUri = facesContext.getExternalContext().encodeResourceURL(encodedUri);
+    writer.writeURIAttribute(attribute, encodedUri, null);
   }
 
 

@@ -1174,16 +1174,16 @@
     <property name="cursor">pointer</property>
   </style>
   <style selector="af|navigationPane::bar-active-enabled af|navigationPane::bar-content">
-    <property name="color">black</property>
+    <includeStyle name="AFTextForeground"/>
   </style>
   <style selector="af|navigationPane::bar-inactive-enabled af|navigationPane::bar-content">
-    <property name="color">black</property>
+    <includeStyle name="AFTextForeground"/>  
   </style>
   <style selector="af|navigationPane::bar-active-enabled af|navigationPane::bar-content a">
-    <property name="color">black</property>
+    <includeStyle name="AFTextForeground"/>  
   </style>
   <style selector="af|navigationPane::bar-inactive-enabled af|navigationPane::bar-content a">
-    <property name="color">black</property>
+    <includeStyle name="AFTextForeground"/>
   </style>
   <style selector="af|navigationPane::bar-active-enabled af|navigationPane::bar-content a:hover">
     <property name="text-decoration">underline</property>
@@ -1349,11 +1349,13 @@
   <style selector="af|navigationPane::tabs-inactive">
     <property name="cursor">pointer</property>
   </style>
-  <style selector="af|navigationPane af|navigationPane::tabs-active:disabled">
+  <style selector="af|navigationPane::tabs-active:disabled">
     <property name="cursor">default</property>
+    <property name="color">gray</property>
   </style>
-  <style selector="af|navigationPane af|navigationPane::tabs-inactive:disabled">
+  <style selector="af|navigationPane::tabs-inactive:disabled">
     <property name="cursor">default</property>
+    <property name="color">gray</property>
   </style>
   <style selector="af|navigationPane::tabs-start">
     <includeStyle name=".p_AFOverlappingTabTopHeight"/>
@@ -1426,18 +1428,18 @@
   <style selector="af|navigationPane::tabs-mid">
     <includeStyle name="AFDefaultFont"/>
     <property name="padding-left">3px</property>
-    <property name="color">#000000</property>
+    <includeStyle name="AFTextForeground"/>
     <property name="white-space">nowrap</property>
   </style>
   <style selector="af|navigationPane::tabs-mid A">
     <includeStyle name="AFDefaultFont"/>
-    <property name="color">#000000</property>
+    <includeStyle name="AFTextForeground"/>
     <property name="text-decoration">none</property>
   </style>
-  <style selector="af|navigationPane af|navigationPane::tabs-active:disabled af|navigationPane::tabs-mid">
+  <style selector="af|navigationPane::tabs-active:disabled af|navigationPane::tabs-mid">
     <property name="color">gray</property>
   </style>
-  <style selector="af|navigationPane af|navigationPane::tabs-inactive:disabled af|navigationPane::tabs-mid">
+  <style selector="af|navigationPane::tabs-inactive:disabled af|navigationPane::tabs-mid">
     <property name="color">gray</property>
   </style>
   <style selector="af|navigationPane::tabs-bottom-mid">
@@ -1474,11 +1476,9 @@
   <style selector="af|navigationPane::tabs-active af|navigationPane::tabs-mid">
     <property name="background-image">url('../../images/tab3-mid-selected.gif')</property>
     <property name="font-weight">bold</property>
-    <property name="color">#585955</property>
   </style>
   <style selector="af|navigationPane::tabs-active af|navigationPane::tabs-mid A">
     <property name="font-weight">bold</property>
-    <property name="color">#585955</property>
   </style>
   <style selector="af|navigationPane::tabs-active af|navigationPane::tabs-bottom-mid">
     <property name="background-image">url('../../images/tab3-bot-mid-selected.gif')</property>
@@ -1515,10 +1515,10 @@
   </style>
   <style selector="af|navigationPane::tabs-inactive af|navigationPane::tabs-mid">
     <property name="background-image">url('../../images/tab3-mid-deselected.gif')</property>
-    <property name="color">#000000</property>
+    <includeStyle name="AFTextForeground"/>
   </style>
   <style selector="af|navigationPane::tabs-inactive af|navigationPane::tabs-mid A">
-    <property name="color">#000000</property>
+    <includeStyle name="AFTextForeground"/>
   </style>
   <style selector="af|navigationPane::tabs-inactive af|navigationPane::tabs-bottom-mid">
     <property name="background-image">url('../../images/tab3-bot-deselected.gif')</property>

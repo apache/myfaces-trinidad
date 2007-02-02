@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
@@ -34,10 +35,9 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.StyleProvider;
-import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
 
 /**
- * Renderer for meta data section of the document--a.k.a <head>.
+ * Renderer for meta data section of the document--a.k.a &lt;head&gt;.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/xhtml/StyleSheetRenderer.java#0 $) $Date: 10-nov-2005.19:02:29 $
  * @author The Oracle ADF Faces Team
@@ -91,7 +91,8 @@ public class StyleSheetRenderer extends XhtmlRenderer
       String href = provider.getStyleSheetURI(sContext);
       if (href != null)
       {
-        String contextUri = context.getExternalContext().getRequestContextPath();
+        ExternalContext externalContext = context.getExternalContext();
+        String contextUri = externalContext.getRequestContextPath();
         String baseURL = contextUri + XhtmlConstants.STYLES_CACHE_DIRECTORY;
         
         String outputMode = arc.getOutputMode();
@@ -105,8 +106,8 @@ public class StyleSheetRenderer extends XhtmlRenderer
                         "charset=\\\"UTF-8\\\" type=\\\"text/css\\\" " +
                         "href=\\\"",
 						null);
-          writer.writeText(baseURL, null);
-          writer.writeText(href, null);
+          String uri = context.getExternalContext().encodeResourceURL(baseURL+href);
+          writer.writeText(uri, null);
           writer.writeText("\\\">\")}", null);
           writer.endElement("script");
         }
@@ -138,17 +139,10 @@ public class StyleSheetRenderer extends XhtmlRenderer
       // Hand the Faces-major renderers the style Map for compressing.
       // Oddly enough, this code has to be after provider.getStyleSheetURI(),
       // because that call boostraps up the style provider in general.
-      if (!"true".equals(
-          context.getExternalContext().getInitParameter(
-                                 DISABLE_CONTENT_COMPRESSION)))
+      if (arc instanceof CoreRenderingContext)
       {
-        if (arc instanceof CoreRenderingContext)
-        {
-          Map<String, String> shortStyles = 
-            StyleUtils.getShortStyleClasses(sContext, provider);
-          
-          ((CoreRenderingContext) arc).setStyleMap(shortStyles);
-        }
+        Map<String, String> shortStyles = arc.getSkin().getStyleClassMap(arc);        
+        ((CoreRenderingContext) arc).setStyleMap(shortStyles);
       }
     }
   }

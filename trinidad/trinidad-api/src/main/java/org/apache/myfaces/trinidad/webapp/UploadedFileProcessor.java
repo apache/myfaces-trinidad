@@ -81,7 +81,8 @@ public interface UploadedFileProcessor
   /**
    * Initialize the UploadedFileProcessor with access to the current
    * web application context. 
-   * @param context the current ServletContext, if in a servlet environment
+   * 
+   * @param context the current ServletContext or PortletContext
    */
   public void init(Object context);
 
@@ -107,7 +108,7 @@ public interface UploadedFileProcessor
    *  guarantees that {@link UploadedFile#dispose}</code> will be called before
    *  the request completes.
    *  </p>
-   * @param request the current servlet request, if in a servlet environment
+   * @param request the current servlet or portlet request
    * @param file a temporary file object
    * @return a new instance of UploadedFile.  It is legal to return null,
    *   in which case the file will not be available later in the request.

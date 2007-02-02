@@ -18,6 +18,8 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core;
 
+import java.util.Map;
+
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -127,7 +129,12 @@ class StyleContextImpl implements StyleContext
     {
       return null;
     }
-
+    
+    public Map<String, String> getShortStyleClasses(StyleContext context)
+    {
+      return null;
+    }
+    
     public String getStyleSheetURI(StyleContext context)
     {
       return null;

@@ -19,7 +19,6 @@
 package org.apache.myfaces.trinidadinternal.context;
 
 import java.io.IOException;
-
 import java.util.Iterator;
 
 import javax.faces.application.Application;
@@ -33,8 +32,9 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.lifecycle.Lifecycle;
 import javax.faces.render.RenderKit;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.context.ExternalContextDecorator;
 import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidadinternal.config.GlobalConfiguratorImpl;
 
 /**
  * Internal class that optimizes retrieval of the RenderKit by caching it
@@ -52,16 +52,45 @@ public class FacesContextFactoryImpl
   }
 
   @Override
+  @SuppressWarnings ("unchecked")
   public FacesContext getFacesContext(
       Object context,
       Object request,
       Object response, 
       Lifecycle lifecycle)
   {
-    return new CacheRenderKit(_factory.getFacesContext(context,
-                                                       request,
-                                                       response,
-                                                       lifecycle));
+    FacesContext fc = _factory.getFacesContext(context, request, response, lifecycle);
+    ExternalContext ec = fc.getExternalContext();
+
+    GlobalConfiguratorImpl config = GlobalConfiguratorImpl.getInstance();    
+
+    //This should be done only if the filter or other logic was not done before this
+    //we try to retrieve the FacesContext.  If this is the case then we'll need to handle
+    //cleanup on the release of the FacesContext.  Otherwise the endRequest should be
+    //called by whatever did he origional beginRequest.
+    
+    if(!GlobalConfiguratorImpl.isRequestStarted(ec))
+    {
+      config.beginRequest(ec);
+      ec.getApplicationMap().put(_CONFIG_IN_CONTEXT, Boolean.TRUE);
+    }
+    
+    return new CacheRenderKit(fc);
+  }
+  
+  /**
+   * Sets the configurator up to execute an endRequest when it is destroyed
+   * 
+   * @param fc
+   */
+  @SuppressWarnings("unchecked")
+  static void endRequestIfNecessary(FacesContext fc)
+  {
+    ExternalContext ec = fc.getExternalContext();
+    if(Boolean.TRUE.equals(ec.getApplicationMap().remove(_CONFIG_IN_CONTEXT)))
+    {
+      ec.getApplicationMap().put(_READY_FOR_CLEANUP, Boolean.TRUE);      
+    }
   }
 
   static public class CacheRenderKit extends FacesContext
@@ -69,7 +98,12 @@ public class FacesContextFactoryImpl
     public CacheRenderKit(FacesContext base)
     {
       _base = base;
-      _external = new OverrideDispatch(base.getExternalContext());
+      
+      //SMO: TODO: is this still needed?
+      ExternalContext baseExternal = base.getExternalContext();
+      ExternalContext external = 
+        GlobalConfiguratorImpl.getInstance().getExternalContext(baseExternal);
+      _external = new OverrideDispatch(external);
       setCurrentInstance(this);
     }
 
@@ -196,12 +230,6 @@ public class FacesContextFactoryImpl
     }
 
     @Override
-    public void release()
-    {
-      _base.release();
-    }
-
-    @Override
     public void renderResponse()
     {
       _base.renderResponse();
@@ -213,6 +241,22 @@ public class FacesContextFactoryImpl
       _base.responseComplete();
     }
 
+    @Override
+    public void release()
+    {
+      //=- Scott O'Bryan -=
+      // JSR-301 should allow us to call the cleanup.  So this and all logic
+      // pertaining to creation and cleanup of the configurator per request
+      // could probably go away.
+      ExternalContext ec = getExternalContext();
+      if(Boolean.TRUE.equals(ec.getApplicationMap().remove(_READY_FOR_CLEANUP)))
+      {
+        GlobalConfiguratorImpl.getInstance().endRequest(ec);
+      }
+      
+      _base.release();
+    }
+    
     private final FacesContext    _base;
     private final ExternalContext _external;
     private String    _renderKitId;
@@ -248,11 +292,7 @@ public class FacesContextFactoryImpl
     private final ExternalContext _decorated;
   }
 
+  static private final String _CONFIG_IN_CONTEXT = FacesContextFactoryImpl.class.getName()+".CONFIG_IN_CONTEXT";
+  static private final String _READY_FOR_CLEANUP = FacesContextFactoryImpl.class.getName()+".CONFIG_READY_FOR_CLEANUP";
   private final FacesContextFactory _factory;
-
-  // 2006-08-02; -= Simon Lessard =-
-  // There's nothing logged in this class at this time.
-  @SuppressWarnings("unused")
-  static private final TrinidadLogger _LOG =
-    TrinidadLogger.createTrinidadLogger(FacesContextFactoryImpl.class);
 }

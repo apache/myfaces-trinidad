@@ -8,7 +8,7 @@
         
         <param
              name="filename"
-             value="uri-attr:/test-context-path/components/images/seattle.wmv"
+             value="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </param>
@@ -36,7 +36,7 @@
         
         <param
              name="filename"
-             value="uri-attr:/test-context-path/components/images/seattle.wmv"
+             value="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </param>
@@ -64,7 +64,7 @@
         
         <param
              name="filename"
-             value="uri-attr:/test-context-path/components/images/seattle.wmv"
+             value="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </param>
@@ -95,7 +95,7 @@
         
         <param
              name="filename"
-             value="uri-attr:/test-context-path/components/images/seattle.wmv"
+             value="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </param>
@@ -129,7 +129,7 @@
         
         <param
              name="filename"
-             value="uri-attr:/test-context-path/components/images/seattle.wmv"
+             value="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </param>
@@ -165,7 +165,7 @@
         
         <param
              name="filename"
-             value="uri-attr:/test-context-path/components/images/seattle.wmv"
+             value="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </param>
@@ -217,7 +217,7 @@
         
         <param
              name="filename"
-             value="uri-attr:/test-context-path/components/images/seattle.wmv"
+             value="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </param>
@@ -245,7 +245,7 @@
         
         <param
              name="filename"
-             value="uri-attr:/test-context-path/components/images/seattle.wmv"
+             value="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </param>
@@ -292,7 +292,7 @@
         
         <param
              name="filename"
-             value="uri-attr:/test-context-path/components/images/seattle.wmv"
+             value="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </param>
@@ -321,7 +321,7 @@
         
         <param
              name="filename"
-             value="uri-attr:/test-context-path/components/images/seattle.wmv"
+             value="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </param>
@@ -350,7 +350,7 @@
         
         <param
              name="filename"
-             value="uri-attr:/test-context-path/components/images/seattle.wmv"
+             value="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </param>
@@ -379,7 +379,7 @@
         
         <param
              name="filename"
-             value="uri-attr:/test-context-path/components/images/seattle.wmv"
+             value="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </param>
@@ -408,7 +408,7 @@
         
         <param
              name="src"
-             value="uri-attr:/test-context-path/components/images/seattle.wmv"
+             value="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </param>
@@ -471,7 +471,7 @@
         
         <param
              name="filename"
-             value="uri-attr:/test-context-path/components/images/seattle.wmv"
+             value="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </param>
@@ -501,7 +501,7 @@
         
         <param
              name="filename"
-             value="uri-attr:/test-context-path/components/images/seattle.wmv"
+             value="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </param>
@@ -530,7 +530,7 @@
         
         <param
              name="filename"
-             value="uri-attr:/test-context-path/components/images/seattle.wmv"
+             value="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </param>
@@ -559,7 +559,7 @@
         
         <param
              name="filename"
-             value="uri-attr:/test-context-path/components/images/seattle.wmv"
+             value="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </param>
@@ -588,7 +588,7 @@
         
         <param
              name="filename"
-             value="uri-attr:/test-context-path/components/images/seattle.wmv"
+             value="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </param>
@@ -617,7 +617,7 @@
         
         <param
              name="filename"
-             value="uri-attr:/test-context-path/components/images/seattle.wmv"
+             value="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </param>
@@ -646,7 +646,7 @@
         
         <param
              name="filename"
-             value="uri-attr:/test-context-path/components/images/seattle.wmv"
+             value="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </param>
@@ -675,7 +675,7 @@
         
         <param
              name="filename"
-             value="uri-attr:/test-context-path/components/images/seattle.wmv"
+             value="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </param>
@@ -704,7 +704,7 @@
         
         <param
              name="filename"
-             value="uri-attr:/test-context-path/components/images/seattle.wmv"
+             value="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </param>
@@ -733,7 +733,7 @@
         
         <param
              name="filename"
-             value="uri-attr:/test-context-path/components/images/seattle.wmv"
+             value="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </param>
@@ -762,7 +762,7 @@
         
         <param
              name="filename"
-             value="uri-attr:/test-context-path/components/images/seattle.wmv"
+             value="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </param>
@@ -791,7 +791,7 @@
         
         <param
              name="filename"
-             value="uri-attr:/test-context-path/components/images/seattle.wmv"
+             value="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </param>
@@ -820,7 +820,7 @@
         
         <param
              name="filename"
-             value="uri-attr:/test-context-path/components/images/seattle.wmv"
+             value="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </param>

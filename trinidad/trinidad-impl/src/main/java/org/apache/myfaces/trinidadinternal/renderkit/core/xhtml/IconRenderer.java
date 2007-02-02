@@ -68,11 +68,11 @@ public class IconRenderer extends XhtmlRenderer
       renderId(context, comp);
       renderAllAttributes(context, arc, bean, false);
       renderStyleAttributes(context, arc, bean, "AFLogo");
-      rw.writeAttribute(
+      renderEncodedResourceURI(
+        context,
         "src",
         context.getExternalContext().getRequestContextPath() +
-        "/adf/images/t.gif",
-        null);
+        "/adf/images/t.gif");
       rw.endElement("img");
     }
     else

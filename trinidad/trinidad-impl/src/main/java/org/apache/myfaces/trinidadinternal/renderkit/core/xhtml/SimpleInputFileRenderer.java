@@ -26,7 +26,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.core.input.CoreInputFile;
 
 import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidadinternal.webapp.UploadedFiles;
+import org.apache.myfaces.trinidadinternal.config.upload.UploadedFiles;
 
 /**
  */

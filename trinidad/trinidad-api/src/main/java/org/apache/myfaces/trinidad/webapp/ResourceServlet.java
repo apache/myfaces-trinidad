@@ -26,38 +26,35 @@ import java.io.InputStreamReader;
 import java.io.InterruptedIOException;
 import java.io.OutputStream;
 import java.io.Reader;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-
 import java.net.SocketException;
 import java.net.URL;
 import java.net.URLConnection;
-
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.faces.FacesException;
 import javax.faces.FactoryFinder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.FacesContextFactory;
+import javax.faces.event.PhaseListener;
 import javax.faces.lifecycle.Lifecycle;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.myfaces.trinidad.config.Configurator;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.resource.CachingResourceLoader;
 import org.apache.myfaces.trinidad.resource.DirectoryResourceLoader;
 import org.apache.myfaces.trinidad.resource.ResourceLoader;
 import org.apache.myfaces.trinidad.resource.ServletContextResourceLoader;
-
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.faces.event.PhaseListener;
 
 /**
  * A Servlet which serves up web application resources (images, style sheets,
@@ -82,6 +79,11 @@ import javax.faces.event.PhaseListener;
  */
 public class ResourceServlet extends HttpServlet
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 4547362994406585148L;
+  
   /**
    * Override of Servlet.destroy();
    */
@@ -137,11 +139,15 @@ public class ResourceServlet extends HttpServlet
     ServletResponse response
     ) throws ServletException, IOException
   {
-    FacesContext context = _facesContextFactory.getFacesContext
-            ( getServletContext(), request, response, _lifecycle);
+    Configurator.disableConfiguratorServices(request);
+    
+    //=-= Scott O'Bryan =-=
+    // Be careful.  This can be wrapped by other things even though it's meant to be a
+    // Trinidad only resource call.
+    FacesContext context = _facesContextFactory.getFacesContext(getServletContext(), request, response, _lifecycle);
+    
     try
     {
-
       super.service(request, response);
     }
     catch (ServletException e)
@@ -157,6 +163,11 @@ public class ResourceServlet extends HttpServlet
     }
     finally
     {
+      //=-= Scott O'Bryan =-=
+      // HACK: This never actually goes through the lifecycle like it should.  
+      // So we'll need to set response complete so configurator does its 
+      // cleanup.
+      context.responseComplete();
       context.release();
     }
   }

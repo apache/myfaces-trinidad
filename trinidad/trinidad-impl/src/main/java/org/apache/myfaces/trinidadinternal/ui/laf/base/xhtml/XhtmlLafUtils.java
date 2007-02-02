@@ -27,7 +27,6 @@ import java.util.NoSuchElementException;
 import java.util.Stack;
 
 import javax.faces.component.UIComponent;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
@@ -46,9 +45,7 @@ import org.apache.myfaces.trinidadinternal.share.data.ServletRequestParameters;
 import org.apache.myfaces.trinidadinternal.share.url.FormEncoder;
 import org.apache.myfaces.trinidadinternal.style.ParsedPropertyKey;
 import org.apache.myfaces.trinidadinternal.style.Style;
-import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.StyleMap;
-import org.apache.myfaces.trinidadinternal.style.StyleProvider;
 import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
 import org.apache.myfaces.trinidadinternal.ui.MutableUINode;
@@ -313,18 +310,8 @@ public class XhtmlLafUtils extends BaseLafUtils
     // try to get it now
     if (styleClasses == null)
     {
-      ExternalContext external =
-        context.getFacesContext().getExternalContext();
-
-      if (!"true".equals(
-           external.getInitParameter(
-             Configuration.DISABLE_CONTENT_COMPRESSION)))
-      {
-        StyleContext styleContext = context.getStyleContext();
-        StyleProvider provider = context.getStyleContext().getStyleProvider();
-        styleClasses = StyleUtils.getShortStyleClasses(styleContext, provider);
-
-      }
+      RenderingContext arc = RenderingContext.getCurrentInstance();
+      styleClasses = context.getSkin().getStyleClassMap(arc);
 
       if (styleClasses == null)
         styleClasses = _NULL_STYLE_CLASSES;

@@ -20,6 +20,9 @@ package org.apache.myfaces.trinidadinternal.ui.action;
 
 import java.io.IOException;
 
+import javax.faces.context.FacesContext;
+
+import org.apache.myfaces.trinidadinternal.share.url.FacesURLEncoder;
 import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
@@ -280,21 +283,28 @@ public class FireAction extends ClientAction
 
     // Create the buffer
     StringBuffer buffer = new StringBuffer(length);
-
-    // Add the start script and destination
+    StringBuffer urlBuffer = new StringBuffer(length);
+    // Add the start script
     buffer.append(startScript);
-    buffer.append(destination);
+
+    urlBuffer.append(destination);
 
     // Make sure we are in the query string portion of the URL
     if (destination.indexOf('?') == -1)
-      buffer.append("?");
+      urlBuffer.append("?");
 
-    appendURLParameter(buffer, eventKey, event);
-    appendURLParameter(buffer, sourceKey, source);
+    appendURLParameter(urlBuffer, eventKey, event);
+    appendURLParameter(urlBuffer, sourceKey, source);
     if ((extraKey != null) && (extraValue != null))
-      appendURLParameter(buffer, extraKey, extraValue);
-    appendClientParameters(context, buffer, parameters);
+      appendURLParameter(urlBuffer, extraKey, extraValue);
+    appendClientParameters(context, urlBuffer, parameters);
+    
+    String url = urlBuffer.toString();
+    FacesContext facesContext = context.getFacesContext();
+    if(facesContext != null)
+      url = facesContext.getExternalContext().encodeActionURL(url);
 
+    buffer.append(url);
     buffer.append(endScript);
     buffer.append(returnScript);
 

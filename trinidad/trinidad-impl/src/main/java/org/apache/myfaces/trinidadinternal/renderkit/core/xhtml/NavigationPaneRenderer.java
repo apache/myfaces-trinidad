@@ -541,7 +541,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     Application application = context.getApplication();
     ViewHandler handler = application.getViewHandler();
     String resolvedIconUri = handler.getResourceURL(context, iconUri);
-    rw.writeAttribute("src", resolvedIconUri, null);
+    renderEncodedResourceURI(context, "src", resolvedIconUri);
     rw.endElement("img");
   }
 

@@ -11,8 +11,8 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
@@ -182,8 +182,8 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
@@ -354,8 +354,8 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
@@ -526,8 +526,8 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
@@ -698,8 +698,8 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
@@ -870,8 +870,8 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
@@ -1042,8 +1042,8 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
@@ -1214,8 +1214,8 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
@@ -1386,8 +1386,8 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
@@ -1558,8 +1558,8 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
@@ -1730,8 +1730,8 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
@@ -1902,8 +1902,8 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
@@ -2074,8 +2074,8 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
@@ -2246,8 +2246,8 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>

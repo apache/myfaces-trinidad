@@ -21,6 +21,8 @@ package org.apache.myfaces.trinidad.context;
 import java.util.WeakHashMap;
 import java.util.Map;
 
+import javax.faces.context.ExternalContext;
+
 /**
  * Factory for creating RequestContext objects.
  * 
@@ -56,15 +58,29 @@ abstract public class RequestContextFactory
       _FACTORIES.put(cl, factory);
     }
   }
-
+  
   /**
-   * Create a RequestContext.
-   * @todo do we need to pass the servlet objects, or can we rely
-   * on their being available via the FacesContext?
+   * Create a RequestContext from a ServletContext and ServletRequest.
+   * 
+   * @param context an object which must be a ServletContext
+   * @param request an object which must be a ServletRequest
+   * 
+   * @deprecated This method does not work in a Portal environment.  It will
+   *             only work with a ServletRequest.  Please use 
+   *             {@link #createContext(ExternalContext)} which is container
+   *             agnostic.
    */
+  @Deprecated
   abstract public RequestContext createContext(Object context,
                                                 Object request);
-
+  
+  /**
+   * Creates a RequestContext.
+   * 
+   * @param ec The current ExternalContext.
+   */
+  abstract public RequestContext createContext(ExternalContext ec);
+  
   static private ClassLoader _getClassLoader()
   {
     return Thread.currentThread().getContextClassLoader();
