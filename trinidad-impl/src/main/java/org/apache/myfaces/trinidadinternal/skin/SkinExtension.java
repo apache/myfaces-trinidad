@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -58,9 +58,7 @@ public class SkinExtension extends SkinImpl
    *        Skin "extends". If it is a Skin designed for "org.apache.myfaces.trinidad.desktop"
    *        render-kit-id, then its base skin should be SimpleDesktopSkin.
    *        If it is a Skin designed for "org.apache.myfaces.trinidad.pda" render-kit-id,
-   *        then its base skin should be SimplePdaSkin. Currently, we
-   *        do not allow one SkinExtension to extend another, but we may
-   *        someday.
+   *        then its base skin should be SimplePdaSkin.
    *        Must be non-null.
    * @param id A string which can be used to uniquely identify the
    *           Skin .
@@ -186,6 +184,19 @@ public class SkinExtension extends SkinImpl
       icon = _NULL_ICON;
 
     super.registerIcon(iconName, icon);
+  }
+
+  /**
+   * Returns the styleClassMap for this extension
+   */
+    @Override
+  public Map<String, String> getStyleClassMap(
+       RenderingContext arc
+     )
+  {
+    if (_styleClassMap != null)
+      return _styleClassMap;
+    return _baseSkin.getStyleClassMap(arc);
   }
 
   /**
@@ -476,7 +487,7 @@ public class SkinExtension extends SkinImpl
     )
   {
    // We store the translation keys map in the translation cache
-    Map<String, Boolean> keys = 
+    Map<String, Boolean> keys =
       (Map<String, Boolean>)_getCachedTranslatedValue(lContext,
                                               _TRANSLATION_KEYS_KEY);
 
@@ -546,10 +557,10 @@ public class SkinExtension extends SkinImpl
         _LOG.warning(_CIRCULAR_INCLUDE_ERROR + refName);
       return null;
     }
-    
+
     if (referencedIconStack == null)
     {
-      // -= Simon Lessard =- 
+      // -= Simon Lessard =-
       // TODO: Check if something better than Stack can be used
       referencedIconStack = new Stack<String>();
     }
@@ -594,7 +605,7 @@ public class SkinExtension extends SkinImpl
 
     // Tests whether the value is present in the (possibly null) stack.
   private static boolean _stackContains(
-      Stack<String> stack, 
+      Stack<String> stack,
       Object value)
   {
     if (stack == null)
@@ -626,6 +637,7 @@ public class SkinExtension extends SkinImpl
   private SkinImpl    _baseSkin;
   private String      _styleSheetName;
   private String      _bundleName;
+  private Map<String, String> _styleClassMap;
 
   // Now that we look into possibly multiple ResourceBundles
   // to find a translation (eg. the local bundle, a component
@@ -640,7 +652,7 @@ public class SkinExtension extends SkinImpl
   //
   // This HashMap hashes Locales -> HashMaps.
   // The HashMaps map translation key to message.
-  private OptimisticHashMap<Locale, Map<String, Object>> _translations = 
+  private OptimisticHashMap<Locale, Map<String, Object>> _translations =
     new OptimisticHashMap<Locale, Map<String, Object>>(13);
 
   // The StyleSheetDocument for the base LookAndFeel's style sheet

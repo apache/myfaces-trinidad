@@ -1,0 +1,172 @@
+/** Table portlet styles */
+.portlet-table-header {
+  border-color:#999999;
+  border-style:solid;
+  border-width:1px 1px 0px;
+  font-family:Helvetica;
+  font-size:10pt;
+  font-weight:bold;
+  background-color: lightgray;
+  color:#000000;
+  padding:1px 2px}
+
+.portlet-table-body {
+  border-color:red;
+  white-space:nowrap;
+  border-style:solid;
+  border-width:1px;
+  font-family:Helvetica;
+  font-size:10pt;
+  text-align:left;
+  background-color:#DFE0FD;
+  color:#000000;
+  vertical-align:baseline}
+
+.portlet-table-alternate {
+  border-color:red;
+  white-space:nowrap;
+  border-style:solid;
+  border-width:1px;
+  font-family:Helvetica;
+  font-size:10pt;
+  text-align:left;
+  background-color:#FFFFC0;
+  color:#000000;
+  vertical-align:baseline}
+
+.portlet-table-footer {
+  border-color:#999999;
+  border-style:solid;
+  border-width:1px 1px 0px;
+  font-family:Helvetica;
+  font-size:10pt;
+  font-weight:bold;
+  text-align:left;
+  background-color:#FF40FF;
+  color:#000000;
+  padding:1px 2px}
+
+.portlet-table-text {
+  border-color:#999999;
+  border-style:solid;
+  border-width:1px 1px 0px;
+  font-family:Helvetica;
+  font-size:10pt;
+  background-color:#e9e8e8;
+  color:#000000;
+  padding:1px 2px}
+
+.portlet-form-label {
+  font-size: 10pt;
+  font-weight: bold;
+  font-family:Helvetica;
+  color:blue;
+  text-align:right;
+}
+
+.portlet-form-field-label {
+  font-family:Helvetica;
+  font-size: 10pt;
+  color:Navy;
+}
+
+.portlet-form-field {
+  font-family:Helvetica;
+  font-size: 10pt;
+  color:aqua;   
+}
+
+.portlet-form-input-field {
+  font-family:Helvetica;
+  font-size: 10pt;
+  color:red;  
+}
+
+.portlet-msg-error {
+  font-family:Helvetica;
+  font-size: 18pt;
+  color:red;
+}
+
+.portlet-msg-alert {
+  font-family:Helvetica;
+  font-size: 10pt;
+  color:Fuchsia;
+}
+
+.portlet-msg-info {
+  font-family:Helvetica;
+  font-size: 10pt;
+  color:gray;
+}
+
+.portlet-font {
+  font-family:Helvetica;
+  font-size: 10pt;
+  color:blue;
+}
+
+.portlet-font-dim {
+  font-family:Helvetica;
+  font-size: 10pt;
+  color:lightgray;
+}
+
+.portlet-section-header {
+ font-family:Helvetica;
+ color:purple;
+ font-size:14pt;
+}
+.portlet-section-subheader {
+ font-family:Helvetica;
+ color:purple;
+ font-size: 12pt;
+}
+.portlet-menu {
+  font-family:Helvetica;
+  font-size: 10pt;
+  font-weight: normal; 
+}
+.portlet-menu-item-selected {
+ background-color:pink;
+}
+.portlet-menu-item {
+  background-color:#C0FFFF;
+}
+.portlet-menu-cascade {
+  font-family:Helvetica;
+  font-size: 10pt;
+  font-weight: normal; 
+  background-color:pink;
+  color:#ffffff;
+  min-height:4px;
+  padding:2px;
+}
+/* nothing */
+.portlet-menu-cascade-item  {
+}
+
+.portlet-menu-cascade-item-selected {
+  font-weight:bold;
+}
+/* color doesn't show up on links unless I do this */
+.portlet-menu-cascade-item-selected A {
+  color:purple;
+}
+
+.portlet-menu-cascade-separator
+{
+  color:#ffffff;
+}
+
+.portlet-menu-separator
+{
+  width:0px;
+}
+
+A
+{
+  font-family:Helvetica;
+  font-size: 10pt;
+}
+

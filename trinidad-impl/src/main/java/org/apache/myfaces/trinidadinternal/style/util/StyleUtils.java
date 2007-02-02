@@ -18,12 +18,7 @@
  */
 package org.apache.myfaces.trinidadinternal.style.util;
 
-import java.util.Map;
 import java.util.regex.Pattern;
-
-import org.apache.myfaces.trinidadinternal.style.StyleContext;
-import org.apache.myfaces.trinidadinternal.style.StyleProvider;
-import org.apache.myfaces.trinidadinternal.style.cache.FileSystemStyleCache;
 
 /**
  * Generic style utilities.
@@ -37,48 +32,6 @@ public class StyleUtils
   public static final String RTL_CSS_SUFFIX = ":rtl";
   public static final String LTR_CSS_SUFFIX = ":ltr";
 
-  /**
-   * Returns a Map which maps style class names to
-   * equivalent shorter names.
-   * <p>
-   * Some StyleProvider implementations, such as the FileSystemStyleCache,
-   * automatically provide compressed versions style class names.  The
-   * short style classes can be used instead of the full style class
-   * names to reduce the overall size of generated content.
-   * <p>
-   * <p>
-   * Note: The returned Map uses String keys to represent
-   * the full class names.  However, the short style class values
-   * may not necessarily be type java.lang.String.  Clients must
-   * avoid explicitly casting the values contained in the Map
-   * to type String.  Instead, such values should be passed directly
-   * to the ResponseWriter API to be rendered.  Or, if the String
-   * representation is required, toString() should be called on
-   * the value.
-   *
-   * @param context The StyleContext
-   * @param provider The StyleProvider
-   *
-   * @return A Map which maps the full style class names to
-   *   the shorter equivalents.
-   */
-  public static Map<String, String> getShortStyleClasses(
-    StyleContext  context,
-    StyleProvider provider)
-  {
-    // =-=ags For now, we explicilty cast to FileSystemStyleCache!
-    //        It would be better if we could add a method to
-    //        StyleProvider, but it is too late for that now.
-    //        Alternatively, we could add a new StyleProvider
-    //        sub-interface, but we won't pollute our public
-    //        API until that proves necessary.
-    if (provider instanceof FileSystemStyleCache)
-    {
-      return ((FileSystemStyleCache)provider).getShortStyleClasses(context);
-    }
-
-    return null;
-  }
 
   /**
    * Convert the characters that should not be in a selector

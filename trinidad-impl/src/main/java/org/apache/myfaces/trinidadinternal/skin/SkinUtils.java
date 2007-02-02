@@ -30,9 +30,9 @@ import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import javax.servlet.ServletContext;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.myfaces.trinidad.skin.SkinFactory;
@@ -42,8 +42,11 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.MinimalDesktopSkinExtension;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.MinimalPdaSkinExtension;
+import org.apache.myfaces.trinidadinternal.renderkit.core.skin.MinimalPortletSkinExtension;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.SimpleDesktopSkin;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.SimplePdaSkin;
+import org.apache.myfaces.trinidadinternal.renderkit.core.skin.SimplePortletSkin;
+
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
@@ -100,7 +103,7 @@ public class SkinUtils
    * @param context ServletContext, used to get the trinidad-skins.xml file.
    */
   static public void registerSkinExtensions(
-    ServletContext context)
+    ExternalContext context)
   {
 
     SkinFactory skinFactory = SkinFactory.getFactory();
@@ -259,7 +262,12 @@ public class SkinUtils
 
     SimplePdaSkin simplePdaSkin = new SimplePdaSkin();
     skinFactory.addSkin(simplePdaSkin.getId(), simplePdaSkin);
-
+    //portlet skin maps most of our style classes to portlet style classes,
+    // so we output portlet style classes.
+    // It also clears out the portlet style class definitions.
+    SimplePortletSkin simplePortletSkin = new SimplePortletSkin();
+    skinFactory.addSkin(simplePortletSkin.getId(), simplePortletSkin);
+    
     MinimalDesktopSkinExtension minimalDesktopSkin =
       new MinimalDesktopSkinExtension(simpleDesktopSkin);
     skinFactory.addSkin(minimalDesktopSkin.getId(), minimalDesktopSkin);
@@ -267,6 +275,10 @@ public class SkinUtils
     MinimalPdaSkinExtension minimalPdaSkin =
       new MinimalPdaSkinExtension(simplePdaSkin);
     skinFactory.addSkin(minimalPdaSkin.getId(), minimalPdaSkin);
+    
+    MinimalPortletSkinExtension minimalPortletSkin = 
+      new MinimalPortletSkinExtension(simplePortletSkin);
+    skinFactory.addSkin(minimalPortletSkin.getId(), minimalPortletSkin);
   }
 
   /**
@@ -281,7 +293,7 @@ public class SkinUtils
    * @param skinFactory
    */
   private static void _registerSkinExtensions(
-    ServletContext context,
+    ExternalContext context,
     SkinFactory skinFactory)
   {
     if (context == null)
@@ -514,7 +526,7 @@ public class SkinUtils
    * @return List of SkinNodes (skin elements) found in trinidad-skins.xml
    */
   private static SkinsNode _getWebInfSkinsNode(
-    ServletContext context)
+    ExternalContext context)
   {
     InputStream in = context.getResourceAsStream(_CONFIG_FILE);
     if (in != null)

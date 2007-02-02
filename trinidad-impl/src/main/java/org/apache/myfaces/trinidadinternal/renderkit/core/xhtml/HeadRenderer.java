@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.util.TimeZone;
 
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
@@ -149,17 +150,20 @@ public class HeadRenderer extends XhtmlRenderer
     FacesContext context,
     RenderingContext arc)
   {
+    ExternalContext externalContext = context.getExternalContext();
+    
     // Disable the Cookie script for portlets
     // =-=AEW Right or wrong?
-    if (XhtmlConstants.OUTPUT_MODE_PORTLET.equals(arc.getOutputMode()))
+    String outputMode = arc.getOutputMode();
+    if (XhtmlConstants.OUTPUT_MODE_PORTLET.equals(outputMode))
       return false;
 
     // Do not need the cookie script when we have a PartialPageContext
     if (arc.getPartialPageContext() != null)
       return false;
     
-    Object request = context.getExternalContext().getRequest();
-    Object response = context.getExternalContext().getResponse();
+    Object request = externalContext.getRequest();
+    Object response = externalContext.getResponse();
     if ((request instanceof HttpServletRequest) &&
         (response instanceof HttpServletResponse))
     {

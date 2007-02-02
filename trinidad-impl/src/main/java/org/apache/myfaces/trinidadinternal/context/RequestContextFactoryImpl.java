@@ -20,7 +20,10 @@ package org.apache.myfaces.trinidadinternal.context;
 
 import java.util.List;
 
+import javax.faces.context.ExternalContext;
 import javax.servlet.ServletContext;
+
+import javax.servlet.ServletRequest;
 
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.context.RequestContextFactory;
@@ -29,7 +32,8 @@ import org.apache.myfaces.trinidad.context.PageResolver;
 
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 
-import org.apache.myfaces.trinidadinternal.webapp.ConfigParser;
+import org.apache.myfaces.trinidadinternal.config.ConfigParser;
+import org.apache.myfaces.trinidadinternal.context.external.ServletExternalContext;
 
 /**
  * @author The Oracle ADF Faces Team
@@ -41,25 +45,31 @@ public class RequestContextFactoryImpl extends RequestContextFactory
   }
 
   @Override
-  public RequestContext createContext(Object context,
-                                       Object request)
+  @Deprecated
+  public RequestContext createContext(Object context, Object request)
   {
-    RequestContextImpl impl =  new RequestContextImpl(_getBean(context));
-    impl.init(request);
+    return createContext(new ServletExternalContext((ServletContext)context, (ServletRequest)request, null));
+  }
+
+  @Override
+  public RequestContext createContext(ExternalContext externalContext)
+  {
+    RequestContextImpl impl =  new RequestContextImpl(_getBean(externalContext));
+    impl.init(externalContext);
     impl.__setPageResolver(_pageResolver);
     impl.__setPageFlowScopeProvider(_pageFlowScopeProvider);
     return impl;
   }
 
-  private RequestContextBean _getBean(Object context)
+  private RequestContextBean _getBean(ExternalContext externalContext)
   {
     if (_bean == null)
     {
       synchronized (this)
       {
-        if (context instanceof ServletContext)
+        if(externalContext != null)
         {
-          _bean = ConfigParser.parseConfigFile((ServletContext) context);
+          _bean = ConfigParser.parseConfigFile(externalContext);
         }
         else
         {
@@ -86,7 +96,7 @@ public class RequestContextFactoryImpl extends RequestContextFactory
         {
           _pageFlowScopeProvider = PageFlowScopeProviderImpl.sharedInstance();
         }
-      }
+      }      
     }
 
     return _bean;
@@ -100,4 +110,5 @@ public class RequestContextFactoryImpl extends RequestContextFactory
     "org.apache.myfaces.trinidad.context.PageResolver";
   static private final String _PAGE_FLOW_SCOPE_PROVIDER_URL =
     "org.apache.myfaces.trinidad.context.PageFlowScopeProvider";
+
 }

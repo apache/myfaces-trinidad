@@ -11,7 +11,7 @@
            id="mainId"
            language="javascript"
            type="text/javascript"
-           src="uri-attr:myScriptSource"
+           src="uri-attr:encoded-resource-url:myScriptSource"
           >
         
       </script>

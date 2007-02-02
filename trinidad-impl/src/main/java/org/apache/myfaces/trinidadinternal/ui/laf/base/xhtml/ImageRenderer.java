@@ -184,7 +184,7 @@ public class ImageRenderer extends XhtmlLafRenderer
   {
     Object source = _getLocalSource(context, node);
 
-    renderURIAttribute(context, SOURCE_ATTRIBUTE, source);
+    renderEncodedResourceURI(context, SOURCE_ATTRIBUTE, source);
     renderAltAndTooltipForImage(context, getShortDesc(context, node));
     renderAttribute(context, node, WIDTH_ATTRIBUTE,  WIDTH_ATTR);
     renderAttribute(context, node, HEIGHT_ATTRIBUTE, HEIGHT_ATTR);
@@ -277,7 +277,7 @@ public class ImageRenderer extends XhtmlLafRenderer
 
     if (hasLink)
     {
-      renderEncodedURIAttribute(context, HREF_ATTRIBUTE, destination);
+      renderEncodedActionURI(context, HREF_ATTRIBUTE, destination);
 
       if (supportsAccessKeys(context))
       {

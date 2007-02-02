@@ -254,14 +254,14 @@
               >
             
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move selected items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               Move
             </a>
@@ -271,14 +271,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move all items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               Move All
             </a>
@@ -288,14 +288,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove selected items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               Remove
             </a>
@@ -305,14 +305,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove all items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               Remove All
             </a>
@@ -764,14 +764,14 @@
               >
             
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move selected items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               Move
             </a>
@@ -781,14 +781,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move all items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               Move All
             </a>
@@ -798,14 +798,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove selected items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               Remove
             </a>
@@ -815,14 +815,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove all items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               Remove All
             </a>
@@ -1778,14 +1778,14 @@
               >
             
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move selected items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               Move
             </a>
@@ -1795,14 +1795,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move all items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               Move All
             </a>
@@ -1812,14 +1812,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove selected items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               Remove
             </a>
@@ -1829,14 +1829,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove all items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               Remove All
             </a>
@@ -2359,14 +2359,14 @@
               >
             
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move selected items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               Move
             </a>
@@ -2376,14 +2376,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move all items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               Move All
             </a>
@@ -2393,14 +2393,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove selected items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               Remove
             </a>
@@ -2410,14 +2410,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove all items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               Remove All
             </a>
@@ -2946,14 +2946,14 @@
               >
             
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move selected items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               Move
             </a>
@@ -2963,14 +2963,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move all items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               Move All
             </a>
@@ -2980,14 +2980,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove selected items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               Remove
             </a>
@@ -2997,14 +2997,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove all items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               Remove All
             </a>
@@ -3456,14 +3456,14 @@
               >
             
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move selected items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               Move
             </a>
@@ -3473,14 +3473,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move all items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               Move All
             </a>
@@ -3490,14 +3490,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove selected items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               Remove
             </a>
@@ -3507,14 +3507,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove all items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               Remove All
             </a>
@@ -4470,14 +4470,14 @@
               >
             
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move selected items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               Move
             </a>
@@ -4487,14 +4487,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move all items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               Move All
             </a>
@@ -4504,14 +4504,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove selected items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               Remove
             </a>
@@ -4521,14 +4521,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove all items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               Remove All
             </a>
@@ -4994,14 +4994,14 @@
               >
             
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move selected items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               Move
             </a>
@@ -5011,14 +5011,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move all items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               Move All
             </a>
@@ -5028,14 +5028,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove selected items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               Remove
             </a>
@@ -5045,14 +5045,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove all items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               Remove All
             </a>
@@ -5504,14 +5504,14 @@
               >
             
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move selected items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               Move
             </a>
@@ -5521,14 +5521,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move all items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               Move All
             </a>
@@ -5538,14 +5538,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove selected items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               Remove
             </a>
@@ -5555,14 +5555,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove all items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               Remove All
             </a>
@@ -6014,14 +6014,14 @@
               >
             
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move selected items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               Move
             </a>
@@ -6031,14 +6031,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move all items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               Move All
             </a>
@@ -6048,14 +6048,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove selected items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               Remove
             </a>
@@ -6065,14 +6065,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove all items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               Remove All
             </a>
@@ -6594,14 +6594,14 @@
               >
             
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move selected items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               Move
             </a>
@@ -6611,14 +6611,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move all items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               Move All
             </a>
@@ -6628,14 +6628,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove selected items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               Remove
             </a>
@@ -6645,14 +6645,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove all items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               Remove All
             </a>
@@ -7175,14 +7175,14 @@
               >
             
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move selected items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               Move
             </a>
@@ -7192,14 +7192,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move all items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               Move All
             </a>
@@ -7209,14 +7209,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove selected items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               Remove
             </a>
@@ -7226,14 +7226,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove all items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               Remove All
             </a>
@@ -7692,14 +7692,14 @@
               >
             
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('test-id:leading','test-id:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('test-id:leading','test-id:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move selected items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('test-id:leading','test-id:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('test-id:leading','test-id:trailing');"
                 >
               Move
             </a>
@@ -7709,14 +7709,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('test-id:leading','test-id:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('test-id:leading','test-id:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move all items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('test-id:leading','test-id:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('test-id:leading','test-id:trailing');"
                 >
               Move All
             </a>
@@ -7726,14 +7726,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('test-id:trailing','test-id:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('test-id:trailing','test-id:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove selected items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('test-id:trailing','test-id:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('test-id:trailing','test-id:leading');"
                 >
               Remove
             </a>
@@ -7743,14 +7743,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('test-id:trailing','test-id:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('test-id:trailing','test-id:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove all items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('test-id:trailing','test-id:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('test-id:trailing','test-id:leading');"
                 >
               Remove All
             </a>
@@ -8203,14 +8203,14 @@
               >
             
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move selected items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               Move
             </a>
@@ -8220,14 +8220,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move all items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               Move All
             </a>
@@ -8237,14 +8237,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove selected items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               Remove
             </a>
@@ -8254,14 +8254,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove all items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               Remove All
             </a>
@@ -8714,14 +8714,14 @@
               >
             
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move selected items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               Move
             </a>
@@ -8731,14 +8731,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move all items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               Move All
             </a>
@@ -8748,14 +8748,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove selected items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               Remove
             </a>
@@ -8765,14 +8765,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove all items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               Remove All
             </a>
@@ -9230,14 +9230,14 @@
               >
             
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move selected items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               Move
             </a>
@@ -9247,14 +9247,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move all items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               Move All
             </a>
@@ -9264,14 +9264,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove selected items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               Remove
             </a>
@@ -9281,14 +9281,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove all items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               Remove All
             </a>
@@ -9742,14 +9742,14 @@
               >
             
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move selected items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               Move
             </a>
@@ -9759,14 +9759,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move all items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               Move All
             </a>
@@ -9776,14 +9776,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove selected items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               Remove
             </a>
@@ -9793,14 +9793,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove all items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               Remove All
             </a>
@@ -10254,14 +10254,14 @@
               >
             
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move selected items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               Move
             </a>
@@ -10271,14 +10271,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move all items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               Move All
             </a>
@@ -10288,14 +10288,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove selected items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               Remove
             </a>
@@ -10305,14 +10305,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove all items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               Remove All
             </a>
@@ -10767,14 +10767,14 @@
               >
             
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move selected items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               Move
             </a>
@@ -10784,14 +10784,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move all items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               Move All
             </a>
@@ -10801,14 +10801,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove selected items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               Remove
             </a>
@@ -10818,14 +10818,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove all items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               Remove All
             </a>
@@ -11281,14 +11281,14 @@
               >
             
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move selected items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               Move
             </a>
@@ -11298,14 +11298,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move all items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               Move All
             </a>
@@ -11315,14 +11315,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove selected items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               Remove
             </a>
@@ -11332,14 +11332,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove all items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               Remove All
             </a>
@@ -11794,14 +11794,14 @@
               >
             
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move selected items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               Move
             </a>
@@ -11811,14 +11811,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move all items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               Move All
             </a>
@@ -11828,14 +11828,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove selected items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               Remove
             </a>
@@ -11845,14 +11845,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove all items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               Remove All
             </a>
@@ -12308,14 +12308,14 @@
               >
             
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move selected items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               Move
             </a>
@@ -12325,14 +12325,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move all items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               Move All
             </a>
@@ -12342,14 +12342,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove selected items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               Remove
             </a>
@@ -12359,14 +12359,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove all items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               Remove All
             </a>
@@ -12823,14 +12823,14 @@
               >
             
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move selected items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               Move
             </a>
@@ -12840,14 +12840,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move all items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               Move All
             </a>
@@ -12857,14 +12857,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove selected items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               Remove
             </a>
@@ -12874,14 +12874,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove all items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               Remove All
             </a>
@@ -13338,14 +13338,14 @@
               >
             
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move selected items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               Move
             </a>
@@ -13355,14 +13355,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move all items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               Move All
             </a>
@@ -13372,14 +13372,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove selected items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               Remove
             </a>
@@ -13389,14 +13389,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove all items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               Remove All
             </a>
@@ -13853,14 +13853,14 @@
               >
             
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move selected items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               Move
             </a>
@@ -13870,14 +13870,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move all items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               Move All
             </a>
@@ -13887,14 +13887,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove selected items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               Remove
             </a>
@@ -13904,14 +13904,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove all items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               Remove All
             </a>
@@ -14368,14 +14368,14 @@
               >
             
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move selected items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               Move
             </a>
@@ -14385,14 +14385,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move all items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               Move All
             </a>
@@ -14402,14 +14402,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove selected items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               Remove
             </a>
@@ -14419,14 +14419,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove all items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               Remove All
             </a>
@@ -14883,14 +14883,14 @@
               >
             
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move selected items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               Move
             </a>
@@ -14900,14 +14900,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move all items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               Move All
             </a>
@@ -14917,14 +14917,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove selected items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               Remove
             </a>
@@ -14934,14 +14934,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove all items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               Remove All
             </a>
@@ -15398,14 +15398,14 @@
               >
             
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move selected items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               Move
             </a>
@@ -15415,14 +15415,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move all items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               Move All
             </a>
@@ -15432,14 +15432,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove selected items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               Remove
             </a>
@@ -15449,14 +15449,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove all items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               Remove All
             </a>
@@ -15913,14 +15913,14 @@
               >
             
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move selected items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:leading','mainId:trailing');"
                 >
               Move
             </a>
@@ -15930,14 +15930,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Move all items to other list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:leading','mainId:trailing');"
                 >
               Move All
             </a>
@@ -15947,14 +15947,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove selected items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveItems('mainId:trailing','mainId:leading');"
                 >
               Remove
             </a>
@@ -15964,14 +15964,14 @@
               
             </div>
             <a
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               
             </a>
             <a
                  class="OraLink"
                  title="Remove all items from list"
-                 href="uri-attr:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
+                 href="uri-attr:encoded-action-url:javascript:TrShuttleProxy._moveAllItems('mainId:trailing','mainId:leading');"
                 >
               Remove All
             </a>

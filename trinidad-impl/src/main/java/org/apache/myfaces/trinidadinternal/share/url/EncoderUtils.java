@@ -764,5 +764,6 @@ public class EncoderUtils
     _DONT_ENCODE_SET.set('!');
     _DONT_ENCODE_SET.set('(');
     _DONT_ENCODE_SET.set(')');
+    _DONT_ENCODE_SET.set(';'); //ADFFACES-235 ";" are valid chars in querystrings
   }
 }

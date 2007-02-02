@@ -18,9 +18,11 @@
  */
 package org.apache.myfaces.trinidadinternal.style;
 
+import java.util.Map;
+
 /**
- * The StyleProvider API is used to access context-dependent style 
- * information.  Style information is exposed in two ways - as 
+ * The StyleProvider API is used to access context-dependent style
+ * information.  Style information is exposed in two ways - as
  * CSS style sheet URIs (via getStyleSheetURI()), or as Style objects
  * (via getStyleMap()).  Both methods take a StyleContext object,
  * which describes the target end user environment.
@@ -39,6 +41,16 @@ public interface StyleProvider
    * defined by the StyleProvider.
    */
   public String getContentStyleType(StyleContext context);
+  
+  /**
+   * Returns a Map which maps style class names to
+   * equivalent shorter names.
+   * @param context The StyleContext
+   *
+   * @return A Map which maps the full style class names to
+   *   the shorter equivalents.
+   */
+  public Map<String, String> getShortStyleClasses(StyleContext context);
 
   /**
    * Returns the URI of the CSS style sheet to use for the

@@ -21,14 +21,12 @@ package org.apache.myfaces.trinidadinternal.context;
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
-
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.context.RequestContextFactory;
-
 import org.apache.myfaces.trinidadinternal.webapp.TrinidadFilterImpl;
 
 /**
@@ -39,6 +37,11 @@ import org.apache.myfaces.trinidadinternal.webapp.TrinidadFilterImpl;
  */
 public class TrinidadPhaseListener implements PhaseListener
 {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = -1249678874100309402L;
+
   static public final String CACHED_REQUEST_CONTEXT =
     "org.apache.myfaces.trinidadinternal.context.CachedRequestContext";
 
@@ -64,11 +67,12 @@ public class TrinidadPhaseListener implements PhaseListener
   @SuppressWarnings("unchecked")
   public void afterPhase(PhaseEvent event)
   {
+    FacesContext context = event.getFacesContext();
+
     if (event.getPhaseId() == PhaseId.RESTORE_VIEW)
     {
       // Store off the current ViewRoot so we can check for a full page
       // render in response to a partial event.
-      FacesContext context = event.getFacesContext();
       context.getExternalContext().getRequestMap().put(INITIAL_VIEW_ROOT_KEY,
                                                        context.getViewRoot());
     }
@@ -84,7 +88,9 @@ public class TrinidadPhaseListener implements PhaseListener
         (event.getFacesContext().getResponseComplete()))
     {
       _releaseContextIfNecessary(event.getFacesContext());
+      FacesContextFactoryImpl.endRequestIfNecessary(context);
     }
+        
   }
 
   @SuppressWarnings("unchecked")
@@ -103,7 +109,9 @@ public class TrinidadPhaseListener implements PhaseListener
         // Assume it's not a postback request
         context.getExternalContext().getRequestMap().put(_POSTBACK_KEY,
                                                          Boolean.FALSE);
-        TrinidadFilterImpl.verifyFilterIsInstalled(context);
+        
+        //This check doesn't make sense here
+        //TrinidadFilterImpl.verifyFilterIsInstalled(context);
       }
 
       _createContextIfNecessary(event.getFacesContext());
@@ -131,6 +139,7 @@ public class TrinidadPhaseListener implements PhaseListener
   @SuppressWarnings("unchecked")
   static private void _createContextIfNecessary(FacesContext fContext)
   {
+    
     Map<String, Object> requestMap = fContext.getExternalContext().getRequestMap();
     Boolean createdContext = (Boolean)
       requestMap.get(_CREATED_CONTEXT_KEY);
@@ -162,9 +171,7 @@ public class TrinidadPhaseListener implements PhaseListener
           }
 
           assert(factory != null);
-          context = factory.createContext(
-                             fContext.getExternalContext().getContext(),
-                             fContext.getExternalContext().getRequest());
+          context = factory.createContext(fContext.getExternalContext());
           requestMap.put(CACHED_REQUEST_CONTEXT, context);
         }
       }
@@ -184,9 +191,8 @@ public class TrinidadPhaseListener implements PhaseListener
       if (context != null)
         context.release();
     }
-
   }
-
+  
   static public final String INITIAL_VIEW_ROOT_KEY =
     "org.apache.myfaces.trinidadinternal.InitialViewRoot";
 
@@ -195,5 +201,6 @@ public class TrinidadPhaseListener implements PhaseListener
 
   static private final String _POSTBACK_KEY =
     "org.apache.myfaces.trinidadinternal.context.AdfFacesPhaseListener.POSTBACK";
+  
     
 }

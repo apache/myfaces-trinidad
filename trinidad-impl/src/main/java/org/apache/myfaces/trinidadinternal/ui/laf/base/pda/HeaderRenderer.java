@@ -150,7 +150,7 @@ public class HeaderRenderer
         {
             writer.startElement(IMAGE_ELEMENT, null);
             writer.writeAttribute(ALT_ATTRIBUTE, EMPTY_STRING_ATTRIBUTE_VALUE, null);
-            renderURIAttribute(context, SOURCE_ATTRIBUTE, iconURI);
+            renderEncodedResourceURI(context, SOURCE_ATTRIBUTE, iconURI);
             writer.endElement(IMAGE_ELEMENT);
         }
 

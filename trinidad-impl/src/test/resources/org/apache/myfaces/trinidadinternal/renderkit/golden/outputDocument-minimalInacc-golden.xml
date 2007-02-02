@@ -172,7 +172,7 @@
             >
           
           <a
-               href="uri-attr:foo"
+               href="uri-attr:encoded-action-url:foo"
               >
             a with href
           </a>

@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -23,9 +23,14 @@ import java.util.Iterator;
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
+
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.SkinFactory;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+
 
 /**
  * Factory for creating Skin objects.
@@ -98,7 +103,9 @@ public class SkinFactoryImpl extends SkinFactory
    * @param context FacesContext for the request currently being
    * processed, or <code>null</code> if none is available.
    * @param family skin family of the requested {@link Skin} instance
-   * @param renderKitId RenderKit identifier of the requested
+   * @param renderKitId RenderKit identifier of the requested:
+   * XhtmlConstants.APACHE_TRINIDAD_DESKTOP, XhtmlConstants.APACHE_TRINIDAD_PDA, or
+   * XhtmlConstants.APACHE_TRINIDAD_PORTLET
    *  {@link Skin} instance
    */
   @Override
@@ -114,13 +121,13 @@ public class SkinFactoryImpl extends SkinFactory
    if (family == null)
      throw new NullPointerException("Null skin family");
 
-    // if there isn't a specific renderKitId specified, get the skin
-    // with the default render kit.
-    if (renderKitId == null) renderKitId = _RENDER_KIT_ID_CORE;
+    // default render-kit-id, if needed.
+    if (renderKitId == null)
+      renderKitId = XhtmlConstants.APACHE_TRINIDAD_DESKTOP;
 
     // loop through each skin in the SkinFactory
     // and see if the family and the renderKitId match
-    
+
     for(Skin skin : _skins.values())
     {
       if (family.equalsIgnoreCase(skin.getFamily()) &&
@@ -136,19 +143,20 @@ public class SkinFactoryImpl extends SkinFactory
     // that matches the renderkitid.
      if (_LOG.isWarning())
      {
-       _LOG.warning("Can't find a skin that matches family " + family + 
+       _LOG.warning("Can't find a skin that matches family " + family +
                     " and renderkit " + renderKitId + ", so we will" +
                     " use the simple skin");
      }
 
-    if (renderKitId.equals(_RENDER_KIT_ID_PDA))
-    {
+    // if we get here, that means we couldn't find an exact
+    // family/renderKitId match, so return the simple skin
+    // that matches the renderkitid.
+    if (renderKitId.equals(XhtmlConstants.APACHE_TRINIDAD_PORTLET))
+      return getSkin(context, _SIMPLE_PORTLET);
+    else if (renderKitId.equals(XhtmlConstants.APACHE_TRINIDAD_PDA))
       return getSkin(context, _SIMPLE_PDA);
-    }
     else
-    {
       return getSkin(context, _SIMPLE_DESKTOP);
-    }
 
   }
 
@@ -164,9 +172,11 @@ public class SkinFactoryImpl extends SkinFactory
 
   static private final String _RENDER_KIT_ID_CORE = "org.apache.myfaces.trinidad.desktop";
   static private final String _RENDER_KIT_ID_PDA = "org.apache.myfaces.trinidad.pda";
+  static private final String _RENDER_KIT_ID_PORTLET = CoreRenderKit.OUTPUT_MODE_PORTLET;
+
   static private final String _SIMPLE_PDA = "simple.pda";
   static private final String _SIMPLE_DESKTOP = "simple.desktop";
-
+  static private final String _SIMPLE_PORTLET = "simple.portlet";
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(SkinFactoryImpl.class);
 
 }

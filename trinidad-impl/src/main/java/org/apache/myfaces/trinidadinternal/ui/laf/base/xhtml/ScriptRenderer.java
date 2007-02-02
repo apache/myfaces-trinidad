@@ -75,7 +75,7 @@ public class ScriptRenderer extends BaseLafRenderer
       }
 
       writer.writeAttribute("language", "javascript", null);
-      writer.writeURIAttribute("src", source, null);
+      renderEncodedResourceURI(context, "src", source);
       _renderDeferAttribute(context, node);
       // Bug #3426092:
       // render the type="text/javascript" attribute in accessibility mode

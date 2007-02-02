@@ -142,11 +142,12 @@ abstract public class BaseImageIcon extends Icon
     // Write out the src attr
     String baseURI = _getBaseURI(context, arc);
     String uri = getRelativeURI(context, arc);
-
+    
     if (baseURI == null)
-      writer.writeAttribute("src", uri, null);
+      writer.writeURIAttribute("src", context.getExternalContext().encodeResourceURL(uri), null);
     else
-      writer.writeAttribute("src", baseURI + uri, null);
+      writer.writeURIAttribute("src", 
+                            context.getExternalContext().encodeResourceURL(baseURI + uri), null);
 
     // Write out the width/height attrs
     Object width = _getWidth(arc, attrs);

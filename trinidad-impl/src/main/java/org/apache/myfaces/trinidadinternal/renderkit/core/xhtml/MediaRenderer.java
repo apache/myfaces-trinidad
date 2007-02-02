@@ -544,7 +544,7 @@ public class MediaRenderer extends XhtmlRenderer
 
       if (isURL)
       {
-        writer.writeURIAttribute("value", paramValue, null);
+        renderEncodedResourceURI(context, "value", paramValue);
       }
       else
       {

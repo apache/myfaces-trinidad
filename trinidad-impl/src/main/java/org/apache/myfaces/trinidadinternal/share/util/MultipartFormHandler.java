@@ -26,9 +26,9 @@ import java.io.UnsupportedEncodingException;
 
 import java.util.StringTokenizer;
 
-import javax.servlet.ServletRequest;
+import javax.faces.context.ExternalContext;
 
-
+import org.apache.myfaces.trinidadinternal.util.ExternalContextUtils;
 
 /**
  * MultipartFormHandler - parses an incoming file upload post.
@@ -45,6 +45,7 @@ import javax.servlet.ServletRequest;
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/util/MultipartFormHandler.java#1 $) $Date: 11-nov-2005.14:59:39 $
  * @author The Oracle ADF Faces Team
+ * @author Scott O'Bryan
  */
 public class MultipartFormHandler
 {
@@ -52,28 +53,30 @@ public class MultipartFormHandler
   /**
    * Returns true if the servlet request is a multipart request.
    */
-  static public boolean isMultipartRequest(ServletRequest request)
+  static public boolean isMultipartRequest(final ExternalContext externalContext)
   {
-    String contentType = request.getContentType();
+    final String contentType =   ExternalContextUtils.getContentType(externalContext);
+    
     if (contentType == null)
+    {
       return false;
+    }
 
-    return (contentType.startsWith(_MULTIPART_REQUEST_TYPE) &&
-            (request.getAttribute(_HANDLED) == null));
+    return contentType.startsWith(_MULTIPART_REQUEST_TYPE) && externalContext.getRequestMap().get(_HANDLED) == null;
   }
 
   /**
    * Create a MultipartFormHandler for the given servlet request.
    */
-  public MultipartFormHandler(ServletRequest request)
-    throws IOException
+  public MultipartFormHandler(final ExternalContext externalContext) throws IOException
   {
-    this(request.getContentType(), request.getInputStream());
+    
+    this(ExternalContextUtils.getContentType(externalContext), ExternalContextUtils.getRequestInputStream(externalContext));
 
     // make sure that we don't try to decode this multi part request at a
     // later time; ie: if we do a forward.
-    request.setAttribute(_HANDLED, Boolean.TRUE);
-    _contentStreamSize = request.getContentLength();
+    externalContext.getRequestMap().put(_HANDLED, Boolean.TRUE);
+    _contentStreamSize = ExternalContextUtils.getContentLength(externalContext);
   }
 
   /**
@@ -84,19 +87,17 @@ public class MultipartFormHandler
    *             must define the multipart boundary value.
    * @param in The InputStream which provides the multipart/form-data content
    */
-  public MultipartFormHandler(String type, InputStream in)
-    throws IOException
+  public MultipartFormHandler(final String type, final InputStream in) throws IOException
   {
     if (!type.startsWith(_MULTIPART_REQUEST_TYPE))
+    {
       throw new IllegalStateException("Content is not multipart form data");
+    }
 
     _boundary = _parseBoundary(type);
-
     _in = in;
-
     _skipBoundary();
   }
-
 
   /**
    * Gets the character enocoding.
@@ -106,7 +107,6 @@ public class MultipartFormHandler
     return _characterEncoding;
   }
 
-
   /**
    * Sets the character encoding.  If left to default,
    * Strings will be decoded for ISO-8859-1.  Clients
@@ -114,8 +114,7 @@ public class MultipartFormHandler
    * expect another part of their processing to decode
    * the strings for them.
    */
-  public void setCharacterEncoding(String characterEncoding)
-    throws UnsupportedEncodingException
+  public void setCharacterEncoding(final String characterEncoding) throws UnsupportedEncodingException
   {
     CaboHttpUtils.validateEncoding(characterEncoding);
     _characterEncoding = characterEncoding;
@@ -140,7 +139,6 @@ public class MultipartFormHandler
     return _contentStreamSize;
   }
 
-
   /**
    * Sets the maximum number of bytes that MultipartFormItem.writeFile()
    * will be allowed to write.  This value may be set immediately
@@ -153,7 +151,7 @@ public class MultipartFormHandler
    * to 128MB.
    * @see org.apache.myfaces.trinidadinternal.share.util.MultipartFormItem#writeFile
    */
-  public void setMaximumAllowedBytes(long maxAllowedBytes)
+  public void setMaximumAllowedBytes(final long maxAllowedBytes)
   {
     _maxAllowedBytes = Math.max(0L, maxAllowedBytes);
   }
@@ -171,22 +169,27 @@ public class MultipartFormHandler
    * Returns the next MultipartStreamItem from the request, or null if no
    * more are present.
    */
-  public MultipartFormItem getNextPart()
-    throws IOException
+  public MultipartFormItem getNextPart() throws IOException
   {
-    MultipartFormItemImpl previous = _currentItem;
+    final MultipartFormItemImpl previous = _currentItem;
     if (previous != null)
+    {
       previous.finish();
+    }
 
     //The first line is content-disposition
-    String dispositionText = _readLine(false);
+    final String dispositionText = _readLine(false);
     if (dispositionText == null)
+    {
       return null;
-    Disposition disposition = new Disposition(dispositionText);
+    }
+    final Disposition disposition = new Disposition(dispositionText);
 
-    String contentTypeText = _readLine(false);
+    final String contentTypeText = _readLine(false);
     if (contentTypeText == null)
+    {
       return null;
+    }
     String contentType = _parseContentType(contentTypeText);
 
     if (contentType == null)
@@ -196,10 +199,12 @@ public class MultipartFormHandler
     else
     {
       //Eat empty line
-      String emptyLine = _readLine(true);
+      final String emptyLine = _readLine(true);
       if (emptyLine.length() > 0)
+      {
         // =-=AEW Better exception?
         throw new IOException();
+      }
     }
 
     // Create the MultipartFormItem using the previously created
@@ -208,13 +213,11 @@ public class MultipartFormHandler
     return _currentItem;
   }
 
-
   //Reads a line and makes sure it is a boundary.  Throws an exception
   //if the line is not a boundary
-  private void _skipBoundary()
-    throws IOException
+  private void _skipBoundary() throws IOException
   {
-    String line = _readLine(true);
+    final String line = _readLine(true);
 
     //A boundary must be a boundary, otherwise the stream is corrupt
     if (!line.startsWith(_boundary))
@@ -224,30 +227,28 @@ public class MultipartFormHandler
     }
   }
 
-
   //Reads a line from the stream.  If required is true then throws an
   //Exception if the line cannot be read.
-  private String _readLine(boolean required)
-    throws IOException
+  private String _readLine(final boolean required) throws IOException
   {
     return _readLine(required, false, true);
   }
 
   //Reads a line from the stream.  If required is true then throws an
   //Exception if the line cannot be read.
-  private String _readLine(boolean required,
-                           boolean decodeEncoding,
-                           boolean stripNewLines)
-    throws IOException
+  private String _readLine(final boolean required, final boolean decodeEncoding, final boolean stripNewLines)
+  throws IOException
   {
-    byte[] data  = _lineBuffer;
-    int    bytes = _readLine(data, 0, data.length);
+    final byte[] data = _lineBuffer;
+    final int bytes = _readLine(data, 0, data.length);
 
     String line = null;
     if (bytes < 0)
     {
       if (required)
+      {
         throw new EOFException();
+      }
     }
     else
     {
@@ -258,14 +259,12 @@ public class MultipartFormHandler
 
   // This is a replacement for ServletInputStream.readLine().  We use
   // this utility method instead as we don't always have a ServletInputStream.
-  private int _readLine(
-    byte[]      buffer,
-    int         offset,
-    int         length
-    ) throws IOException
+  private int _readLine(final byte[] buffer, int offset, final int length) throws IOException
   {
     if (length <= 0)
+    {
       return 0;
+    }
 
     int count = 0;
     int c;
@@ -277,24 +276,26 @@ public class MultipartFormHandler
     // be of doubtful value.
     while ((c = _in.read()) != -1)
     {
-      buffer[offset++] = (byte)c;
+      buffer[offset++] = (byte) c;
       count++;
 
       // Found a newline;  we're done.
       if (c == '\n')
+      {
         break;
+      }
 
       // Out of space; we're done too.
       // Read one character less so that we can account for CR
-      if (count == length-1)
+      if (count == length - 1)
       {
         // If we've found a CR, then we're not quite done;  we'd
         // better read over the next character (which might be a LF);
         // othewise, the LF gets processed as a bonus newline.
         if (c == '\r')
         {
-          int nextchar = _in.read();
-          buffer[offset++] = (byte)nextchar;
+          final int nextchar = _in.read();
+          buffer[offset++] = (byte) nextchar;
           count++;
         }
 
@@ -303,28 +304,28 @@ public class MultipartFormHandler
     }
 
     _totalBytesRead += count;
-    return (count > 0) ? count : -1;
+    return count > 0 ? count : -1;
   }
 
-  private String _dataToString(
-    byte[]  data,
-    int     start,
-    int     bytes,
-    boolean decodeEncoding,
-    boolean stripNewLines)
+  private String _dataToString(final byte[] data, final int start, int bytes, final boolean decodeEncoding,
+      boolean stripNewLines)
   {
     if (bytes > 0)
     {
       int i = 0;
 
       // Strip off up to the last two CR/LF's automatically
-      while ((i < 2) && (bytes > 0))
+      while (i < 2 && bytes > 0)
       {
-        byte lastChar = data[start + bytes - 1];
-        if ((lastChar == '\r') || (lastChar == '\n'))
+        final byte lastChar = data[start + bytes - 1];
+        if (lastChar == '\r' || lastChar == '\n')
+        {
           bytes--;
+        }
         else
+        {
           break;
+        }
 
         i++;
       }
@@ -332,7 +333,7 @@ public class MultipartFormHandler
       // If we *don't* want to strip new lines, but we just did,
       // then put back a '\n' (doing it this way means that
       // we force any combo of CR/LF/etc. into '\n', which is our intention.)
-      if (!stripNewLines && (i > 0))
+      if (!stripNewLines && i > 0)
       {
         bytes++;
         data[start + bytes - 1] = '\n';
@@ -346,13 +347,13 @@ public class MultipartFormHandler
       // platform byte converter.  Whereas we explicitly want
       // to do _no_ byte conversion whatsoever, which is what
       // this constructor does.
-      if (decodeEncoding && (_characterEncoding != null))
+      if (decodeEncoding && _characterEncoding != null)
       {
         try
         {
           return new String(data, start, bytes, _characterEncoding);
         }
-        catch (UnsupportedEncodingException uee)
+        catch (final UnsupportedEncodingException uee)
         {
           // Shouldn't happen - we trap unsupported encodings
           // in setCharacterEncoding()... but fall through anyway
@@ -365,7 +366,7 @@ public class MultipartFormHandler
         {
           return new String(data, start, bytes, "ISO-8859-1");
         }
-        catch (UnsupportedEncodingException uee)
+        catch (final UnsupportedEncodingException uee)
         {
           // Shouldn't happen - we trap unsupported encodings
           // in setCharacterEncoding()... but fall through anyway
@@ -378,22 +379,20 @@ public class MultipartFormHandler
   }
 
   // Parse out the boundary text from the content type
-  static private String _parseBoundary(String contentType)
+  static private String _parseBoundary(final String contentType)
   {
-    int boundaryStart = contentType.indexOf(_BOUNDARY_PARAMETER);
+    final int boundaryStart = contentType.indexOf(_BOUNDARY_PARAMETER);
     if (boundaryStart < 0)
+    {
       return null;
+    }
 
     // Boundary always starts with "--"
-    return "--" +
-           contentType.substring(boundaryStart +
-                                 _BOUNDARY_PARAMETER.length());
+    return "--" + contentType.substring(boundaryStart + _BOUNDARY_PARAMETER.length());
   }
 
-
   //Reads the ContentType string out of a line of the incoming request
-  private String _parseContentType(String line)
-    throws IOException
+  private String _parseContentType(String line) throws IOException
   {
     String contentType = null;
 
@@ -401,7 +400,7 @@ public class MultipartFormHandler
 
     if (line.startsWith(_CONTENT_TYPE_PARAMETER))
     {
-      int start = line.indexOf(" ");
+      final int start = line.indexOf(" ");
 
       if (start == -1)
       {
@@ -422,29 +421,25 @@ public class MultipartFormHandler
     return contentType;
   }
 
-
-
   // Implementation of MultipartFormItem
-  private class MultipartFormItemImpl
-    implements MultipartFormItem
+  private class MultipartFormItemImpl implements MultipartFormItem
   {
-    MultipartFormItemImpl(
-      Disposition disposition,
-      String contentType) throws IOException
+    MultipartFormItemImpl(final Disposition disposition, final String contentType) throws IOException
     {
       _disposition = disposition;
       _contentType = contentType;
 
       // This is a parameter
       if (disposition.getFilename() == null)
+      {
         _parameterValue = _readParameter();
+      }
 
     }
 
     public void finish() throws IOException
     {
-      if ((_parameterValue == null) &&
-          !_finished)
+      if (_parameterValue == null && !_finished)
       {
         if (_inputStream == null)
         {
@@ -479,54 +474,58 @@ public class MultipartFormHandler
       return _contentType;
     }
 
-    public long writeFile(OutputStream out)
-      throws IOException
+    public long writeFile(final OutputStream out) throws IOException
     {
       // This isn't a file!
       if (_parameterValue != null)
+      {
         // =-=AEW Better exception?  We could just write
         // the value out to their output stream instead
         // of complaining, but this is probably not what
         // they really want.
         throw new IOException("Item is not a file");
-
+      }
 
       // The file's already been written, or at least
       // skipped over.
       if (_finished)
+      {
         // =-=AEW Better exception?
         throw new IOException("Item has already been read past.");
+      }
 
       if (_inputStream != null)
+      {
         // =-=AEW Better exception?
         throw new IOException("Input stream has already been requested.");
+      }
 
-      long   totalBytesWritten = 0;
+      long totalBytesWritten = 0;
 
       // ServletInputStream.readLine() has the annoying habit of adding a \r\n
       // to the end of the last line.
       // Since we want a byte-for-byte transfer, don't write the \r\n from the
       // end of a line until we have verified that we have another line.
-      boolean addCRLF     = false;
-      int  numbuf  = 0;
-      byte[] buffer     = __getStreamBuffer();
-      int    bufferSize = buffer.length;
-      while((numbuf = _readLine(buffer, 0, bufferSize)) != -1)
+      boolean addCRLF = false;
+      int numbuf = 0;
+      final byte[] buffer = __getStreamBuffer();
+      final int bufferSize = buffer.length;
+      while ((numbuf = _readLine(buffer, 0, bufferSize)) != -1)
       {
         // Check for boundary
-        if(numbuf > 2 && buffer[0] == '-' && buffer[1] == '-')   // quick pre-check
+        if (numbuf > 2 && buffer[0] == '-' && buffer[1] == '-') // quick pre-check
         {
-          String line = _dataToString(buffer, 0, numbuf, false, true);
-          if(line.startsWith(_boundary))
+          final String line = _dataToString(buffer, 0, numbuf, false, true);
+          if (line.startsWith(_boundary))
           {
-              break;
+            break;
           }
         }
 
         // Are we supposed to write \r\n from the last iteration?
-        if(addCRLF)
+        if (addCRLF)
         {
-          if(out != null)
+          if (out != null)
           {
             out.write('\r');
             out.write('\n');
@@ -535,69 +534,75 @@ public class MultipartFormHandler
           addCRLF = false;
         }
         // Postpone any ending \r\n until the next iteration
-        if(numbuf >= 2 &&
-           buffer[numbuf - 2] == '\r' &&
-           buffer[numbuf - 1] == '\n')
+        if (numbuf >= 2 && buffer[numbuf - 2] == '\r' && buffer[numbuf - 1] == '\n')
         {
-            numbuf -= 2;    // skip the last 2 chars
-            addCRLF = true;     // make a note to write them on the next iteration
+          numbuf -= 2; // skip the last 2 chars
+          addCRLF = true; // make a note to write them on the next iteration
         }
-        if(out != null)
+        if (out != null)
         {
           totalBytesWritten += numbuf;
           if (totalBytesWritten <= _maxAllowedBytes)
+          {
             out.write(buffer, 0, numbuf);
+          }
         }
       }
-      
+
       _finished = true;
 
       if (totalBytesWritten >= _maxAllowedBytes)
-        throw new EOFException("Uploaded file of length " + totalBytesWritten +
-                               " bytes exceeded maximum allowed length ("
-                               + _maxAllowedBytes + " bytes)");
+      {
+        throw new EOFException("Uploaded file of length " + totalBytesWritten
+            + " bytes exceeded maximum allowed length (" + _maxAllowedBytes + " bytes)");
+      }
       return totalBytesWritten;
     }
 
-    public InputStream getInputStream()
-      throws IOException
+    public InputStream getInputStream() throws IOException
     {
       if (_parameterValue != null)
+      {
         // =-=AEW Better exception?  We could just give
         // them a StringInputStream, but this probably
         // isn't what they want
         throw new IOException("Item is not a file");
+      }
 
       if (_finished)
+      {
         // =-=AEW Better exception?
         throw new IOException("Item has already been read past.");
+      }
 
       if (_inputStream != null)
+      {
         // =-=AEW Better exception?
         throw new IOException("Input stream has already been requested.");
+      }
 
       _inputStream = new MultipartInputStream();
       return _inputStream;
     }
 
-    private String _readParameter()
-      throws IOException
+    private String _readParameter() throws IOException
     {
       // Create the buffer.  It's no use reusing the buffer,
       // since the String object sent out will end up "owning"
       // the storage of the StringBuffer
-      StringBuffer buffer = new StringBuffer(200);
-      for (String line = _readLine(false, true, false);
-           (line != null) && !line.startsWith(_boundary);
-           line = _readLine(false, true, false))
+      final StringBuffer buffer = new StringBuffer(200);
+      for (String line = _readLine(false, true, false); line != null
+      && !line.startsWith(_boundary); line = _readLine(false, true, false))
       {
         buffer.append(line);
       }
 
       // Trim the final newline
-      int length = buffer.length();
+      final int length = buffer.length();
       if (buffer.charAt(length - 1) == '\n')
+      {
         buffer.deleteCharAt(length - 1);
+      }
 
       // =-=AEW Trim the buffer before toString()'ing?  The
       // usual time/space tradeoff.
@@ -606,35 +611,36 @@ public class MultipartFormHandler
 
     private MultipartInputStream _inputStream;
 
-    private Disposition _disposition;
+    private Disposition          _disposition;
 
-    private String _contentType;
+    private String               _contentType;
 
-    private String _parameterValue;
+    private String               _parameterValue;
 
     // For a file item, has the file been read?
-    private boolean _finished;
-
+    private boolean              _finished;
 
     private class MultipartInputStream extends InputStream
     {
-      MultipartInputStream()
-        throws IOException
+      MultipartInputStream() throws IOException
       {
         // This isn't a file!
         if (_parameterValue != null)
+        {
           // =-=AEW Better exception?  We could just write
           // the value out to their output stream instead
           // of complaining, but this is probably not what
           // they really want.
           throw new IOException("Item is not a file");
-
+        }
 
         // The file's already been written, or at least
         // skipped over.
         if (_finished)
+        {
           // =-=AEW Better exception?
           throw new IOException("Item has already been read past.");
+        }
 
         _begin = 0;
         _end = 0;
@@ -653,7 +659,7 @@ public class MultipartFormHandler
             ;
           }
         }
-        catch (IOException e)
+        catch (final IOException e)
         {
           // Don't care...
           ;
@@ -662,8 +668,7 @@ public class MultipartFormHandler
 
       //Fills up the _buffer parameter with
       //Returns false on EOF
-      private void readLine()
-        throws IOException
+      private void readLine() throws IOException
       {
         if (_finished)
         {
@@ -677,39 +682,36 @@ public class MultipartFormHandler
           _addCRLF = false;
         }
 
-        int  bufferSize = _buffer.length;
-        int  numbuf  = _readLine(_buffer, _end, (bufferSize-_end));
+        final int bufferSize = _buffer.length;
+        int numbuf = _readLine(_buffer, _end, (bufferSize - _end));
         if (numbuf < 0)
         {
           _finished = true;
           return;
         }
-        
-        if(numbuf > 2 && _buffer[_end] == '-' && _buffer[_end+1] == '-')   // quick pre-check
+
+        if (numbuf > 2 && _buffer[_end] == '-' && _buffer[_end + 1] == '-') // quick pre-check
         {
           // Check for boundary
-          String line = _dataToString(_buffer, _end, numbuf, false, true);
-          if(line.startsWith(_boundary))
+          final String line = _dataToString(_buffer, _end, numbuf, false, true);
+          if (line.startsWith(_boundary))
           {
-            _finished = true; 
+            _finished = true;
             return;
           }
-        } 
-        
-        if(numbuf >= 2 &&
-           _buffer[_end+numbuf - 2] == '\r' &&
-           _buffer[_end+numbuf - 1] == '\n')
+        }
+
+        if (numbuf >= 2 && _buffer[_end + numbuf - 2] == '\r' && _buffer[_end + numbuf - 1] == '\n')
         {
           // Postpone any ending \r\n until the next iteration
-          numbuf -= 2;     // skip the last 2 chars
+          numbuf -= 2; // skip the last 2 chars
           _addCRLF = true; // make a note to write them on the next iteration
         }
         _end += numbuf;
       }
 
       @Override
-      public int read(byte[] buffer, int offset, int length)
-        throws IOException
+      public int read(final byte[] buffer, final int offset, final int length) throws IOException
       {
         int bytes = -1; // default to EOF
 
@@ -724,15 +726,15 @@ public class MultipartFormHandler
           {
             readLine();
           }
-          if(!_finished)
+          if (!_finished)
           {
             cachedBytes = _end - _begin;
-  
-            bytes = (length > cachedBytes) ? cachedBytes : length;
-  
+
+            bytes = length > cachedBytes ? cachedBytes : length;
+
             System.arraycopy(_buffer, _begin, buffer, offset, bytes);
             _begin += bytes;
-  
+
             //If we've written all the data out of the array, then reset
             //to the beginning of the array
             if (_begin == _end)
@@ -745,17 +747,15 @@ public class MultipartFormHandler
       }
 
       @Override
-      public int read(byte[] buffer)
-        throws IOException
+      public int read(final byte[] buffer) throws IOException
       {
         return read(buffer, 0, buffer.length);
       }
 
       @Override
-      public int read()
-        throws IOException
+      public int read() throws IOException
       {
-        byte[] temp = new byte[1];
+        final byte[] temp = new byte[1];
         int value;
 
         value = read(temp, 0, 1);
@@ -770,28 +770,29 @@ public class MultipartFormHandler
     }
 
     //Where data begins in the buffer
-    private int _begin;
+    private int     _begin;
+
     //Where date ends in the buffer
-    private int _end;
+    private int     _end;
 
     //Data read from the servlet
-    private byte[] _buffer;
+    private byte[]  _buffer;
 
     //If true then no more bytes can be read
     private boolean _addCRLF;
   }
 
-
   private class Disposition
   {
-    Disposition(String line)
-      throws IOException // =-=AEW Better exception?
+    Disposition(final String line) throws IOException // =-=AEW Better exception?
     {
       // =-=AEW This could be more efficient
-      StringTokenizer tokenizer = new StringTokenizer(line, ";");
+      final StringTokenizer tokenizer = new StringTokenizer(line, ";");
 
       if (!tokenizer.hasMoreTokens())
+      {
         throw new IOException();
+      }
 
       // The first token has to be "content-disposition: something"
       String disposition = tokenizer.nextToken().toLowerCase();
@@ -801,17 +802,18 @@ public class MultipartFormHandler
       }
 
       // Get everything after content-disposition, lose the white space...
-      disposition = disposition.substring(
-                     _CONTENT_DISPOSITION_PARAMETER.length()).trim();
+      disposition = disposition.substring(_CONTENT_DISPOSITION_PARAMETER.length()).trim();
 
       // ... and then make sure it's form-data.
       if (!disposition.equals(_FORM_DATA_DISPOSITION))
+      {
         throw new IOException();
+      }
 
       String filenameBuffer = null;
       while (tokenizer.hasMoreTokens())
       {
-        String keyValue = tokenizer.nextToken().trim();
+        final String keyValue = tokenizer.nextToken().trim();
         if (_name == null)
         {
           _name = _extractName(keyValue);
@@ -819,15 +821,21 @@ public class MultipartFormHandler
         else
         {
           if (filenameBuffer == null)
+          {
             filenameBuffer = keyValue;
           // Don't quit on the first semicolon - keep appending
+          }
           else
+          {
             filenameBuffer = filenameBuffer + ";" + keyValue;
+          }
         }
       }
 
       if (filenameBuffer != null)
+      {
         _filename = _extractFilename(filenameBuffer);
+      }
     }
 
     public final String getName()
@@ -840,21 +848,19 @@ public class MultipartFormHandler
       return _filename;
     }
 
-    private String _extractName(String keyValue)
+    private String _extractName(final String keyValue)
     {
       return _extractValue(keyValue, _NAME_PARAMETER);
     }
 
-    private String _extractFilename(String keyValue)
+    private String _extractFilename(final String keyValue)
     {
       String fileName = _extractValue(keyValue, _FILENAME_PARAMETER);
       try
       {
-        fileName = CaboHttpUtils.decodeRequestParameter(fileName,
-                                                        getCharacterEncoding(),
-                                                        null);
+        fileName = CaboHttpUtils.decodeRequestParameter(fileName, getCharacterEncoding(), null);
       }
-      catch (UnsupportedEncodingException uee)
+      catch (final UnsupportedEncodingException uee)
       {
         // Must never happen, because we always check the validity
         // of the encoding before it gets set
@@ -864,8 +870,7 @@ public class MultipartFormHandler
       // Strip off anything that corresponds to a path.
       if (fileName != null)
       {
-        int index =
-          Math.max(fileName.lastIndexOf('/'), fileName.lastIndexOf('\\'));
+        final int index = Math.max(fileName.lastIndexOf('/'), fileName.lastIndexOf('\\'));
 
         if (index != -1)
         {
@@ -876,20 +881,22 @@ public class MultipartFormHandler
       return fileName;
     }
 
-    private String _extractValue(
-      String keyValue,
-      String param)
+    private String _extractValue(final String keyValue, final String param)
     {
-      int length = param.length();
+      final int length = param.length();
       if (keyValue.regionMatches(true, 0, param, 0, length))
       {
         // Remove the leading and trailing quotes
         int start = length;
         if (keyValue.charAt(start) == '"')
+        {
           start++;
+        }
         int end = keyValue.length();
         if (keyValue.charAt(end - 1) == '"')
+        {
           end--;
+        }
         return keyValue.substring(start, end);
       }
 
@@ -897,57 +904,62 @@ public class MultipartFormHandler
     }
 
     private String _name;
+
     private String _filename;
   }
 
   byte[] __getStreamBuffer()
   {
     if (_streamBuffer == null)
+    {
       _streamBuffer = new byte[_STREAM_BUFFER_SIZE];
+    }
     return _streamBuffer;
   }
 
+  private static final String   _MULTIPART_REQUEST_TYPE        = "multipart/form-data";
 
-  private static final String _MULTIPART_REQUEST_TYPE = "multipart/form-data";
-
-  private static final String _DEFAULT_CONTENT_TYPE =
-      "application/octet-stream";
+  private static final String   _DEFAULT_CONTENT_TYPE          = "application/octet-stream";
 
   //Parameter of the content type used to identify the boundary string
-  private static final String _BOUNDARY_PARAMETER = "boundary=";
+  private static final String   _BOUNDARY_PARAMETER            = "boundary=";
 
-  private static final String _NAME_PARAMETER = "name=";
+  private static final String   _NAME_PARAMETER                = "name=";
 
-  private static final String _FILENAME_PARAMETER = "filename=";
+  private static final String   _FILENAME_PARAMETER            = "filename=";
 
-  private static final String _CONTENT_TYPE_PARAMETER = "content-type";
+  private static final String   _CONTENT_TYPE_PARAMETER        = "content-type";
 
-  private static final String _CONTENT_DISPOSITION_PARAMETER =
-    "content-disposition:";
+  private static final String   _CONTENT_DISPOSITION_PARAMETER = "content-disposition:";
 
-  private static final String _FORM_DATA_DISPOSITION =
-    "form-data";
+  private static final String   _FORM_DATA_DISPOSITION         = "form-data";
 
-  private static final String _HANDLED =
-    "org.apache.myfaces.trinidadinternal.share.util.MultipartFormHandler.handled";
+  private static final String   _HANDLED                       = "org.apache.myfaces.trinidadinternal.share.util.MultipartFormHandler.handled";
 
-  private static final int _STREAM_BUFFER_SIZE = 65000;
-  private static final int _LINE_BUFFER_SIZE = 8000;
+  private static final int      _STREAM_BUFFER_SIZE            = 65000;
+
+  private static final int      _LINE_BUFFER_SIZE              = 8000;
 
   // Use one buffer for each of file streaming and line reading.
   // Not multithread
   // safe, but this class explicitly _can't_ multithread anyway.
-  private byte[]             _lineBuffer   = new byte[_LINE_BUFFER_SIZE];
-  private byte[]             _streamBuffer;
+  private final byte[]                _lineBuffer                    = new byte[_LINE_BUFFER_SIZE];
 
-  private InputStream        _in;
-  private String             _boundary;
+  private byte[]                _streamBuffer;
 
-  private MultipartFormItemImpl  _currentItem;
-  private String                 _characterEncoding;
+  private InputStream           _in;
 
-  private long _maxAllowedBytes = 1L << 27;
-  private int _totalBytesRead;
-  private int _contentStreamSize = -1;
+  private String                _boundary;
+
+  private MultipartFormItemImpl _currentItem;
+
+  private String                _characterEncoding;
+
+  private long                  _maxAllowedBytes               = 1L << 27;
+
+  private int                   _totalBytesRead;
+
+  private int                   _contentStreamSize             = -1;
 }
+
 

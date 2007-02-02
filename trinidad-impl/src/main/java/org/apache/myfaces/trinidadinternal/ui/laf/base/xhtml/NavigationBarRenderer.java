@@ -514,7 +514,8 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
         // First, non-formSubmitted mode.
         if (formName == null)
         {
-          onChange = _getChoiceOnChange(_getDestinationString(context, navBar),
+          onChange = _getChoiceOnChange(context,
+                                        _getDestinationString(context, navBar),
                                         sourceKey,
                                         eventKey,
                                         name,
@@ -565,6 +566,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
   }
 
   private String _getChoiceOnChange(
+    UIXRenderingContext context,
     String destination,
     String sourceKey,
     String eventKey,
@@ -608,13 +610,20 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
       startScript = _CHOICE_ON_CHANGE_START;
       endScript = _CHOICE_ON_CHANGE_END;
     }
-
-    StringBuffer buffer = new StringBuffer(initialSize          +
-                                           startScript.length() +
-                                           endScript.length());
+    
+    int bufferlength = initialSize + startScript.length() + endScript.length();
+    StringBuffer buffer = new StringBuffer(bufferlength);
+    StringBuffer urlBuffer = new StringBuffer(initialSize);
 
     buffer.append(startScript);
-    appendURLArguments(buffer, destination, keysAndValues);
+    
+    appendURLArguments(urlBuffer, destination, keysAndValues);
+    String url = urlBuffer.toString();
+    FacesContext facesContext = context.getFacesContext();
+    if(facesContext != null)
+      url = facesContext.getExternalContext().encodeActionURL(url);
+    
+    buffer.append(url);
     buffer.append(endScript);
 
     return buffer.toString();
@@ -1339,7 +1348,8 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
         int count = choice.getIndexedChildCount(context);
         if (count > 1)
         {
-          onChange = _getChoiceOnChange(destination,
+          onChange = _getChoiceOnChange(context, 
+                                        destination,
                                         sourceKey,
                                         eventKey,
                                         name,

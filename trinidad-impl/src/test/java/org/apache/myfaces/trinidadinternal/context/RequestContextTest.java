@@ -125,6 +125,6 @@ public class RequestContextTest extends FacesTestCase
   {
     // =-=AEW Would be better to create it with a mock context so we
     // can test parsing
-    return (new RequestContextFactoryImpl()).createContext(null, null);
+    return (new RequestContextFactoryImpl()).createContext(null);
   }
 }

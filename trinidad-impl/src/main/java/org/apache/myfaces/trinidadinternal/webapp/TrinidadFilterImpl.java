@@ -19,14 +19,11 @@
 package org.apache.myfaces.trinidadinternal.webapp;
 
 import java.io.IOException;
-import java.io.InputStream;
-
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -40,19 +37,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-import org.apache.myfaces.trinidad.context.RequestContext;
-import org.apache.myfaces.trinidad.context.RequestContextFactory;
-import org.apache.myfaces.trinidad.model.UploadedFile;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
-
-import org.apache.myfaces.trinidadinternal.context.RequestContextFactoryImpl;
+import org.apache.myfaces.trinidadinternal.config.GlobalConfiguratorImpl;
+import org.apache.myfaces.trinidadinternal.config.dispatch.DispatchResponseConfiguratorImpl;
+import org.apache.myfaces.trinidadinternal.config.dispatch.DispatchServletResponse;
+import org.apache.myfaces.trinidadinternal.config.upload.FileUploadConfiguratorImpl;
+import org.apache.myfaces.trinidadinternal.config.upload.UploadRequestWrapper;
 import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
-import org.apache.myfaces.trinidadinternal.context.TrinidadPhaseListener;
-import org.apache.myfaces.trinidadinternal.share.util.MultipartFormHandler;
-import org.apache.myfaces.trinidadinternal.share.util.MultipartFormItem;
-import org.apache.myfaces.trinidad.skin.SkinFactory;
-import org.apache.myfaces.trinidadinternal.skin.SkinFactoryImpl;
-import org.apache.myfaces.trinidadinternal.skin.SkinUtils;
+import org.apache.myfaces.trinidadinternal.context.external.ServletExternalContext;
 
 /**
  * Actual implementation of the Trinidad servlet filter.
@@ -91,68 +83,26 @@ public class TrinidadFilterImpl implements Filter
       context.getExternalContext().getRequestMap().get(_IS_RETURNING_KEY));
   }
 
-
-
-  /**
-   * Sets the maximum number of bytes that MultipartFormItem.writeFile()
-   * will be allowed to write.  This value may be set immediately
-   * before or between calls to MultipartFormItem.writeFile().  If
-   * any call to writeFile() exceeds this value, an EOFException
-   * will be thrown.
-   * <p>
-   * @param maxAllowedBytes the maximum number of bytes that
-   * MultipartFormItem.writeFile() will be allowed to write.  Defaults
-   * to 128MB.
-   * @see org.apache.myfaces.trinidadinternal.share.util.MultipartFormItem#writeFile
-   */
-  public void setMaximumAllowedBytes(long maxAllowedBytes)
+  public void init(FilterConfig filterConfig) throws ServletException
   {
-    _maxAllowedBytes = Math.max(0L, maxAllowedBytes);
-  }
-
-  /**
-   * Gets the maximum number of bytes that MultipartFormItem.writeFile()
-   * will be allowed to write.
-   */
-  public long getMaximumAllowedBytes()
-  {
-    return _maxAllowedBytes;
-  }
-
-  public void init(
-    FilterConfig filterConfig) throws ServletException
-  {
-    if (RequestContextFactory.getFactory() == null)
-      RequestContextFactory.setFactory(new RequestContextFactoryImpl());
-
     _servletContext = filterConfig.getServletContext();
-
-    // Create a new SkinFactory if needed.
-    if (SkinFactory.getFactory() == null)
-      SkinFactory.setFactory(new SkinFactoryImpl());
-
-    // register the base skins
-    SkinUtils.registerBaseSkins();
-    
+            
+    //There is some functionality that still might require servlet-only filter services.
     _filters = ClassLoaderUtils.getServices(TrinidadFilterImpl.class.getName());
     for(Filter f:_filters)
     {
       f.init(filterConfig);
     }
-    // after the 'services' filters are initialized, then register
-    // the skin extensions & skin additions found in trinidad-skins.xml. 
-    // This gives a chance to the 'services' filters to create more base
-    // skins that the skins in trinidad-skins.xml can extend.
-    SkinUtils.registerSkinExtensions(_servletContext);
-
   }
 
   public void destroy()
   {
+    //Destroy filter services
     for(Filter f:_filters)
     {
       f.destroy();
     }
+
     _filters = null;
   }
 
@@ -162,6 +112,7 @@ public class TrinidadFilterImpl implements Filter
     ServletResponse response,
     FilterChain     chain) throws IOException, ServletException
   {
+    //Execute the filter services
     if (!_filters.isEmpty())
       chain = new FilterListChain(_filters, chain);
 
@@ -169,110 +120,28 @@ public class TrinidadFilterImpl implements Filter
     // properly installed.
     request.setAttribute(_FILTER_EXECUTED_KEY, Boolean.TRUE);
 
-
-    // If someone didn't release the RequestContext on an earlier request,
-    // then it'd still be around, and trying to create a new one
-    // would trigger an exception.  We don't want to take down
-    // this thread for all eternity, so clean up after poorly-behaved code.
-    RequestContext context = RequestContext.getCurrentInstance();
-    if (context != null)
+    ExternalContext externalContext = new ServletExternalContext(_servletContext, request, response);    
+    GlobalConfiguratorImpl config = GlobalConfiguratorImpl.getInstance();
+    config.beginRequest(externalContext);
+    
+    //To maintain backward compatibilty, wrap the request at the filter level
+    Map<String, String[]> addedParams = (Map<String, String[]>) externalContext.getRequestMap().
+      get(FileUploadConfiguratorImpl._PARAMS);
+    
+    if(addedParams != null)
     {
-      if (_LOG.isWarning())
-        _LOG.warning("RequestContext had not been properly released on earlier " +
-                     "request.");
-      context.release();
+      FileUploadConfiguratorImpl.apply(externalContext);
+      request = new UploadRequestWrapper((HttpServletRequest)request, addedParams);
     }
-
-    RequestContextFactory factory = RequestContextFactory.getFactory();
-    assert(factory != null);
-
-    // See if we've got a cached RequestContext instance;  if so,
-    // reattach it
-    Object cachedRequestContext = 
-      request.getAttribute(TrinidadPhaseListener.CACHED_REQUEST_CONTEXT);
-
-    // Catch both the null scenario and the 
-    // RequestContext-from-a-different-classloader scenario
-    if (cachedRequestContext instanceof RequestContext)
-    {
-      context = (RequestContext) cachedRequestContext;
-      context.attach();
-    }
-    else
-    {
-      context = factory.createContext(_servletContext, request);
-      request.setAttribute(TrinidadPhaseListener.CACHED_REQUEST_CONTEXT,
-                           context);
-    }
-
-    assert(RequestContext.getCurrentInstance() == context);
-
+    
     try
     {
-      // Only handle multipart and HTTP requests
-      if (!MultipartFormHandler.isMultipartRequest(request) ||
-          !(request instanceof HttpServletRequest))
-      {
-        _doFilterImpl(request, response, chain);
-      }
-      else
-      {
-        MultipartFormHandler mfh = new MultipartFormHandler(request);
-        mfh.setMaximumAllowedBytes(getMaximumAllowedBytes());
-        mfh.setCharacterEncoding(request.getCharacterEncoding());
-
-        HashMap<String, String[]> parameters = new HashMap<String, String[]>();
-
-        // Copy over all parameters that were already present (for example,
-        // query parameters)
-        parameters.putAll(request.getParameterMap());
-
-        MultipartFormItem item;
-        UploadedFiles files = new UploadedFiles(request);
-        while ((item = mfh.getNextPart()) != null)
-        {
-          String name = item.getName();
-          String value = null;
-          // No filename - it's not a file uploaded field
-          if (item.getFilename() == null)
-          {
-            value = item.getValue();
-            Object oldValue = parameters.get(name);
-            if (oldValue == null)
-            {
-              parameters.put(name, new String[]{value});
-            }
-            else
-            {
-              String[] oldArray = (String[]) oldValue;
-              String[] newArray = new String[oldArray.length + 1];
-              System.arraycopy(oldArray, 0, newArray, 1, oldArray.length);
-              newArray[0] = value;
-              parameters.put(name, newArray);
-            }
-          }
-          // Upload a file
-          else if (item.getFilename().length() > 0)
-          {
-            _doUploadFile(context, request, files, item);
-          }
-        }
-
-        request = new UploadRequestWrapper((HttpServletRequest) request,
-                                           parameters);
-
-        _doFilterImpl(request, response, chain);
-
-        files.dispose();
-      }
+      
+      _doFilterImpl(request, response, chain);
     }
     finally
     {
-      if (context != null)
-      {
-        context.release();
-        assert(RequestContext.getCurrentInstance() == null);
-      }
+      config.endRequest(externalContext);
     }
   }
 
@@ -283,12 +152,17 @@ public class TrinidadFilterImpl implements Filter
     ServletResponse response,
     FilterChain     chain) throws IOException, ServletException
   {
+    // -= Scott O'Bryan =-
+    // This is used for PPR.  Not needed in Portal Environment at the moment
+    // At some point we may want to make this a configurator
     HttpServletResponse monitor
-      = new MonitorRedirectServletResponse((HttpServletResponse) response,
-                                           request);
-
-    ServletResponse dispatch
-      = new DispatchServletResponse(monitor, (HttpServletRequest)request);
+      = new MonitorRedirectServletResponse((HttpServletResponse) response, request);
+    
+    // -= Scott O'Bryan =-
+    // Added for backward compatibility
+    ExternalContext ec = new ServletExternalContext(_servletContext, request, monitor);
+    HttpServletResponse dispatch = new DispatchServletResponse(ec);
+    DispatchResponseConfiguratorImpl.apply(ec);
 
     _invokeDoFilter(request, dispatch, chain);
 
@@ -301,6 +175,12 @@ public class TrinidadFilterImpl implements Filter
     //        However, the Servlet specification suggest <String, Object> so this 
     //        could lead to some nasty problems one day. Especially if JEE spec includes 
     //        generics for its Servlet API soon.
+    //
+    // -= Scott O'Bryan =- 
+    // TODO: The following should be made available to the Portal.  This is not trivial 
+    //       because this just re-invokes the filter chain with a new set of parameters.
+    //       In the portal environment, this must rerun the portlet without the use of 
+    //       filters until Portlet 2.0.
     Map<String, String[]> launchParameters = (Map<String, String[]>)
       request.getAttribute(RequestContextImpl.LAUNCH_PARAMETERS);
     if (launchParameters != null)
@@ -322,7 +202,8 @@ public class TrinidadFilterImpl implements Filter
     // Set up a PseudoFacesContext with the actual request and response
     // so that RequestContext can be more functional in the interval
     // between now and when the FacesServlet starts.
-    PseudoFacesContext pfc = new PseudoFacesContext(request, response);
+    PseudoFacesContext pfc = new PseudoFacesContext(
+      new ServletExternalContext(_servletContext, request, response));
     _PSEUDO_FACES_CONTEXT.set(pfc);
     try
     {
@@ -331,28 +212,6 @@ public class TrinidadFilterImpl implements Filter
     finally
     {
       _PSEUDO_FACES_CONTEXT.remove();
-    }
-  }
-
-  private void _doUploadFile(
-    RequestContext   context,
-    ServletRequest    request,
-    UploadedFiles     files,
-    MultipartFormItem item) throws IOException
-  {
-    UploadedFile temp = new TempUploadedFile(item);
-
-    UploadedFile file =
-      context.getUploadedFileProcessor().processFile(request, temp);
-
-    if (file != null)
-    {
-      // Store the file.
-      files.__put(item.getName(), file);
-
-      if (_LOG.isFine())
-        _LOG.fine("Uploaded file " + file.getFilename() + "(" +
-                  file.getLength() + " bytes) for ID " + item.getName());
     }
   }
 
@@ -428,50 +287,6 @@ public class TrinidadFilterImpl implements Filter
     }
   }
 
-  static private class TempUploadedFile implements UploadedFile
-  {
-    public TempUploadedFile(MultipartFormItem item)
-    {
-      _item = item;
-      assert(item.getValue() == null);
-    }
-
-    public String getFilename()
-    {
-      return _item.getFilename();
-    }
-
-    public String getContentType()
-    {
-      return _item.getContentType();
-    }
-
-    public long getLength()
-    {
-      // The length is not known yet.
-      return -1L;
-    }
-
-    public Object getOpaqueData()
-    {
-      return null;
-    }
-
-    public InputStream getInputStream() throws IOException
-    {
-      return _item.getInputStream();
-    }
-
-    public void dispose()
-    {
-      throw new UnsupportedOperationException();
-    }
-
-    private MultipartFormItem _item;
-  }
-
-  private long _maxAllowedBytes = 1L << 27;
-
   private ServletContext _servletContext;
   private List<Filter> _filters = null;
 
@@ -493,5 +308,6 @@ public class TrinidadFilterImpl implements Filter
     protected PseudoFacesContext initialValue() { return null; }
   };
 
-  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(TrinidadFilterImpl.class);
+  private static final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(TrinidadFilterImpl.class);
 }

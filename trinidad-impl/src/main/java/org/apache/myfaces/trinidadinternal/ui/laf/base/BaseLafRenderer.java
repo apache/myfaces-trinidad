@@ -22,6 +22,8 @@ import java.io.IOException;
 
 import javax.faces.component.UIComponent;
 
+import javax.faces.context.FacesContext;
+
 import org.apache.myfaces.trinidad.context.RequestContext;
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
@@ -673,24 +675,6 @@ public class BaseLafRenderer extends ElementRenderer
   }
 
 
-  /**
-   * encodes a given URL
-   * @param context the context from which to get the URLEncoder
-   * @param url the URL to encode. this must be a String object
-   * @return the encoded form of the URL, by calling the encodeURL method
-   *  in the URLEncoder
-   * @see UIXRenderingContext#getURLEncoder()
-   * @see org.apache.myfaces.trinidadinternal.share.url.URLEncoder#encodeURL(String)
-   */
-  protected static String encodeURL(
-          UIXRenderingContext context,
-          Object           url
-          )
-  {
-    return context.getURLEncoder().encodeURL((url != null)
-            ? url.toString()
-            : null);
-  }
 
   protected static String appendURLArgument(
           String baseURL,
@@ -719,18 +703,61 @@ public class BaseLafRenderer extends ElementRenderer
     return BaseLafUtils.appendURLArguments( baseURL, keysAndValues);
   }
 
-  protected void renderEncodedURIAttribute(
-          UIXRenderingContext context,
-          String           name,
-          Object           value) throws IOException
+  protected String encodeActionURL(
+   UIXRenderingContext context,
+   Object       value) throws IOException
   {
     if (value != null)
     {
-      value = encodeURL(context, value);
-      context.getResponseWriter().writeURIAttribute(name, value, null);
+      FacesContext facesContext = context.getFacesContext();
+      if(facesContext != null)
+      {
+        return facesContext.getExternalContext().encodeActionURL(value.toString());
+      }
+      return value.toString();
+    }
+    return null;
+  }
+  
+  protected String encodeResourceURL(
+   UIXRenderingContext context,
+   Object       value) throws IOException
+  {
+    if (value != null)
+    {
+      FacesContext facesContext = context.getFacesContext();
+      if(facesContext != null)
+      {
+        return facesContext.getExternalContext().encodeResourceURL(value.toString());
+      }
+      return value.toString();
+    }
+    return null;
+  }  
+  
+  protected void renderEncodedActionURI(
+   UIXRenderingContext context,
+   String       name,
+   Object       value) throws IOException
+  {
+    if (value != null)
+    {
+      String encodedURL = encodeActionURL(context, value);
+      context.getResponseWriter().writeURIAttribute(name, encodedURL, null);
     }
   }
 
+  protected void renderEncodedResourceURI(
+   UIXRenderingContext context,
+   String       name,
+   Object       value) throws IOException
+  {
+    if (value != null)
+    {
+      String encodedURL = encodeResourceURL(context, value);
+      context.getResponseWriter().writeURIAttribute(name, encodedURL, null);
+    }
+  }
 
   /**
    * Returns the Agent capability specified by the key

@@ -741,7 +741,7 @@ public class TreeRenderer extends HtmlLafRenderer
 
       // Convert iconURL to an absolute uri
       if (isIconAbsoluteURI)
-        renderURIAttribute(context, SOURCE_ATTRIBUTE, icon);
+        renderEncodedResourceURI(context, SOURCE_ATTRIBUTE, icon);
       else
         writeAbsoluteImageURI(context, SOURCE_ATTRIBUTE, icon);
         

@@ -162,6 +162,8 @@ public class XhtmlUtils
     // each script once.  Employ document.write() to achieve this
     // effect.  (Note that on Netscape 4.x this caused major
     // problems when resizing windows - but we're done with Netscape 4)
+    libURL = context.getExternalContext().encodeResourceURL(libURL.toString());
+
     if (XhtmlConstants.FACET_PORTLET.equals(arc.getOutputMode()))
     {
       if (arc.getProperties().get(_PORTLET_LIB_TABLE_KEY) == null)
@@ -189,8 +191,7 @@ public class XhtmlUtils
     else
     {
       // The "safe" case: just write out the source
-      libURL = context.getExternalContext().encodeResourceURL(libURL.toString());
-      writer.writeAttribute("src", libURL, null);
+      writer.writeURIAttribute("src", libURL, null);
     }
 
     writer.endElement("script");

@@ -756,7 +756,7 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
     // Write out Javascript
     // FIXME: this would be far better just written as Javascript
     // with onclick
-    rw.writeURIAttribute("href", href, null);
+    renderEncodedActionURI(context, "href", href);
     Icon icon = rc.getIcon(iconName);
 
     // FIXME: the icon previously had "p_OraDisplayBlock" rendered on it.
@@ -780,7 +780,7 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
   {
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement("a", null);
-    rw.writeURIAttribute("href", href, null);
+    renderEncodedActionURI(context, "href", href);
     renderStyleClass(context,
                      rc,
                      href == null

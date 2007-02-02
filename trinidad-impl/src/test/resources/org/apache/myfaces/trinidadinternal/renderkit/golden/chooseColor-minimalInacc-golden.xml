@@ -26,10 +26,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ff0000"
                      title="#FF0000"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -46,10 +46,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#0000ff"
                      title="#0000FF"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -71,10 +71,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ffff00"
                      title="#FFFF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -91,10 +91,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#00ff00"
                      title="#00FF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -104,7 +104,7 @@
         </table>
         <img
              height="8"
-             src="/test-context-path/adf/images/t.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
@@ -130,10 +130,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ff0000"
                      title="#FF0000"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -150,10 +150,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#0000ff"
                      title="#0000FF"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -175,10 +175,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ffff00"
                      title="#FFFF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -195,10 +195,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#00ff00"
                      title="#00FF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -236,10 +236,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ff0000"
                      title="#FF0000"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -256,10 +256,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#0000ff"
                      title="#0000FF"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -276,10 +276,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ffff00"
                      title="#FFFF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -296,10 +296,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#00ff00"
                      title="#00FF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -315,7 +315,7 @@
         </table>
         <img
              height="8"
-             src="/test-context-path/adf/images/t.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
@@ -341,10 +341,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ff0000"
                      title="#FF0000"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -361,10 +361,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#0000ff"
                      title="#0000FF"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -381,10 +381,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ffff00"
                      title="#FFFF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -401,10 +401,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#00ff00"
                      title="#00FF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -448,10 +448,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ff0000"
                      title="#FF0000"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -468,10 +468,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#0000ff"
                      title="#0000FF"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -493,10 +493,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ffff00"
                      title="#FFFF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -513,10 +513,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#00ff00"
                      title="#00FF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -526,7 +526,7 @@
         </table>
         <img
              height="8"
-             src="/test-context-path/adf/images/t.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
@@ -552,10 +552,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ff0000"
                      title="#FF0000"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -572,10 +572,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#0000ff"
                      title="#0000FF"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -597,10 +597,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ffff00"
                      title="#FFFF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -617,10 +617,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#00ff00"
                      title="#00FF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -659,10 +659,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ff0000"
                      title="#FF0000"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -679,10 +679,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#0000ff"
                      title="#0000FF"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -704,10 +704,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ffff00"
                      title="#FFFF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -724,10 +724,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#00ff00"
                      title="#00FF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -737,7 +737,7 @@
         </table>
         <img
              height="8"
-             src="/test-context-path/adf/images/t.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
@@ -763,10 +763,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ff0000"
                      title="#FF0000"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -783,10 +783,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#0000ff"
                      title="#0000FF"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -808,10 +808,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ffff00"
                      title="#FFFF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -828,10 +828,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#00ff00"
                      title="#00FF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -870,10 +870,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ff0000"
                      title="#FF0000"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -890,10 +890,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#0000ff"
                      title="#0000FF"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -915,10 +915,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ffff00"
                      title="#FFFF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -935,10 +935,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#00ff00"
                      title="#00FF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -948,7 +948,7 @@
         </table>
         <img
              height="8"
-             src="/test-context-path/adf/images/t.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
@@ -974,10 +974,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ff0000"
                      title="#FF0000"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -994,10 +994,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#0000ff"
                      title="#0000FF"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1019,10 +1019,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ffff00"
                      title="#FFFF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1039,10 +1039,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#00ff00"
                      title="#00FF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1081,10 +1081,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ff0000"
                      title="#FF0000"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1101,10 +1101,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#0000ff"
                      title="#0000FF"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1126,10 +1126,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ffff00"
                      title="#FFFF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1146,10 +1146,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#00ff00"
                      title="#00FF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1159,7 +1159,7 @@
         </table>
         <img
              height="8"
-             src="/test-context-path/adf/images/t.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
@@ -1185,10 +1185,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ff0000"
                      title="#FF0000"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1205,10 +1205,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#0000ff"
                      title="#0000FF"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1230,10 +1230,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ffff00"
                      title="#FFFF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1250,10 +1250,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#00ff00"
                      title="#00FF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1291,10 +1291,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ff0000"
                      title="#FF0000"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1311,10 +1311,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#0000ff"
                      title="#0000FF"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1336,10 +1336,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ffff00"
                      title="#FFFF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1356,10 +1356,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#00ff00"
                      title="#00FF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1369,7 +1369,7 @@
         </table>
         <img
              height="8"
-             src="/test-context-path/adf/images/t.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
@@ -1395,10 +1395,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ff0000"
                      title="#FF0000"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1415,10 +1415,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#0000ff"
                      title="#0000FF"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1440,10 +1440,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ffff00"
                      title="#FFFF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1460,10 +1460,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#00ff00"
                      title="#00FF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1502,10 +1502,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ff0000"
                      title="#FF0000"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1522,10 +1522,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#0000ff"
                      title="#0000FF"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1547,10 +1547,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ffff00"
                      title="#FFFF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1567,10 +1567,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#00ff00"
                      title="#00FF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1580,7 +1580,7 @@
         </table>
         <img
              height="8"
-             src="/test-context-path/adf/images/t.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
@@ -1606,10 +1606,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ff0000"
                      title="#FF0000"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1626,10 +1626,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#0000ff"
                      title="#0000FF"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1651,10 +1651,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ffff00"
                      title="#FFFF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1671,10 +1671,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#00ff00"
                      title="#00FF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1713,10 +1713,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ff0000"
                      title="#FF0000"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1733,10 +1733,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#0000ff"
                      title="#0000FF"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1758,10 +1758,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ffff00"
                      title="#FFFF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1778,10 +1778,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#00ff00"
                      title="#00FF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1791,7 +1791,7 @@
         </table>
         <img
              height="8"
-             src="/test-context-path/adf/images/t.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
@@ -1817,10 +1817,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ff0000"
                      title="#FF0000"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1837,10 +1837,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#0000ff"
                      title="#0000FF"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1862,10 +1862,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ffff00"
                      title="#FFFF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1882,10 +1882,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#00ff00"
                      title="#00FF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1924,10 +1924,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ff0000"
                      title="#FF0000"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1944,10 +1944,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#0000ff"
                      title="#0000FF"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1969,10 +1969,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ffff00"
                      title="#FFFF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -1989,10 +1989,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#00ff00"
                      title="#00FF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2002,7 +2002,7 @@
         </table>
         <img
              height="8"
-             src="/test-context-path/adf/images/t.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
@@ -2028,10 +2028,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ff0000"
                      title="#FF0000"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2048,10 +2048,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#0000ff"
                      title="#0000FF"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2073,10 +2073,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ffff00"
                      title="#FFFF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2093,10 +2093,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#00ff00"
                      title="#00FF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2135,10 +2135,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ff0000"
                      title="#FF0000"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2155,10 +2155,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#0000ff"
                      title="#0000FF"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2180,10 +2180,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ffff00"
                      title="#FFFF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2200,10 +2200,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#00ff00"
                      title="#00FF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2213,7 +2213,7 @@
         </table>
         <img
              height="8"
-             src="/test-context-path/adf/images/t.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
@@ -2239,10 +2239,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ff0000"
                      title="#FF0000"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2259,10 +2259,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#0000ff"
                      title="#0000FF"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2284,10 +2284,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ffff00"
                      title="#FFFF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2304,10 +2304,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#00ff00"
                      title="#00FF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2346,10 +2346,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ff0000"
                      title="#FF0000"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2366,10 +2366,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#0000ff"
                      title="#0000FF"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2391,10 +2391,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ffff00"
                      title="#FFFF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2411,10 +2411,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#00ff00"
                      title="#00FF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2424,7 +2424,7 @@
         </table>
         <img
              height="8"
-             src="/test-context-path/adf/images/t.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
@@ -2450,10 +2450,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ff0000"
                      title="#FF0000"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2470,10 +2470,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#0000ff"
                      title="#0000FF"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2495,10 +2495,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ffff00"
                      title="#FFFF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2515,10 +2515,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#00ff00"
                      title="#00FF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2557,10 +2557,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ff0000"
                      title="#FF0000"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2577,10 +2577,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#0000ff"
                      title="#0000FF"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2602,10 +2602,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ffff00"
                      title="#FFFF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2622,10 +2622,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#00ff00"
                      title="#00FF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2635,7 +2635,7 @@
         </table>
         <img
              height="8"
-             src="/test-context-path/adf/images/t.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
@@ -2661,10 +2661,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ff0000"
                      title="#FF0000"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2681,10 +2681,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#0000ff"
                      title="#0000FF"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2706,10 +2706,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ffff00"
                      title="#FFFF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2726,10 +2726,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#00ff00"
                      title="#00FF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2768,10 +2768,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ff0000"
                      title="#FF0000"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2788,10 +2788,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#0000ff"
                      title="#0000FF"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2813,10 +2813,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ffff00"
                      title="#FFFF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2833,10 +2833,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#00ff00"
                      title="#00FF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2846,7 +2846,7 @@
         </table>
         <img
              height="8"
-             src="/test-context-path/adf/images/t.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
@@ -2872,10 +2872,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ff0000"
                      title="#FF0000"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2892,10 +2892,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#0000ff"
                      title="#0000FF"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2917,10 +2917,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ffff00"
                      title="#FFFF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2937,10 +2937,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#00ff00"
                      title="#00FF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2979,10 +2979,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ff0000"
                      title="#FF0000"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -2999,10 +2999,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#0000ff"
                      title="#0000FF"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -3024,10 +3024,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ffff00"
                      title="#FFFF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -3044,10 +3044,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#00ff00"
                      title="#00FF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -3057,7 +3057,7 @@
         </table>
         <img
              height="8"
-             src="/test-context-path/adf/images/t.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
@@ -3083,10 +3083,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ff0000"
                      title="#FF0000"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -3103,10 +3103,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#0000ff"
                      title="#0000FF"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -3128,10 +3128,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ffff00"
                      title="#FFFF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -3148,10 +3148,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#00ff00"
                      title="#00FF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -3190,10 +3190,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ff0000"
                      title="#FF0000"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -3210,10 +3210,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#0000ff"
                      title="#0000FF"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -3235,10 +3235,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ffff00"
                      title="#FFFF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -3255,10 +3255,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#00ff00"
                      title="#00FF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -3268,7 +3268,7 @@
         </table>
         <img
              height="8"
-             src="/test-context-path/adf/images/t.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
@@ -3294,10 +3294,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ff0000"
                      title="#FF0000"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -3314,10 +3314,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#0000ff"
                      title="#0000FF"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -3339,10 +3339,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#ffff00"
                      title="#FFFF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>
@@ -3359,10 +3359,10 @@
                      border="0"
                      class="p_OraDisplayBlock"
                      height="11"
-                     src="/test-context-path/adf/images/t.gif"
                      style="background-color:#00ff00"
                      title="#00FF00"
                      width="11"
+                     src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                     >
                   
                 </img>

@@ -25,15 +25,23 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.Stack;
 
+import javax.faces.context.ExternalContext;
+
+import javax.faces.context.FacesContext;
+
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.context.LocaleContext;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
 
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinProperties;
+import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadinternal.share.expl.Coercions;
 import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
+import org.apache.myfaces.trinidadinternal.style.StyleProvider;
 import org.apache.myfaces.trinidadinternal.style.xml.StyleSheetDocumentUtils;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
 import org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.IconNode;
@@ -325,6 +333,41 @@ abstract public class SkinImpl extends Skin
     _extensionStyleSheetNames.add(styleSheetName);
   }
 
+  /**
+   * Returns the style class map, or null if there is no map.
+   * @param arc RenderingContext
+   * @return Map<String, String> It should be a map that contains the full style class name as 
+   * the key, and the value could be a shortened style class name,
+   * or a portlet style class name, etc.
+   */
+   
+
+   /**
+    * Returns the style class map, or null if there is no map.
+    * Some StyleProvider implementations, such as the FileSystemStyleCache,
+    * automatically provide compressed versions style class names.  The
+    * short style classes can be used instead of the full style class
+    * names to reduce the overall size of generated content.
+    * @param arc RenderingContext
+    * @return Map&lt;String, String&gt; The default implemention returns a map of full
+    * style class names to shortened style classes.
+    */
+   public Map<String, String> getStyleClassMap(
+     RenderingContext arc
+     )
+   {
+     ExternalContext external  = FacesContext.getCurrentInstance().getExternalContext();
+     if (!"true".equals(
+          external.getInitParameter(
+            Configuration.DISABLE_CONTENT_COMPRESSION)))
+     {
+       StyleContext sContext = ((CoreRenderingContext)arc).getStyleContext();
+       StyleProvider sProvider = sContext.getStyleProvider();
+       return sProvider.getShortStyleClasses(sContext);   
+     }
+     return null;
+   }
+  
   /**
    * Returns the StyleSheetDocument object which defines all of the
    * styles for this Skin, including any styles that are

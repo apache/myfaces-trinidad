@@ -400,7 +400,7 @@ public class PanelPartialRootRenderer extends XhtmlRenderer
       }
       else
       {
-        writer.writeAttribute("src", "about:blank", null);
+        writer.writeURIAttribute("src", "about:blank", null);
       }
 
       Object width = "0";

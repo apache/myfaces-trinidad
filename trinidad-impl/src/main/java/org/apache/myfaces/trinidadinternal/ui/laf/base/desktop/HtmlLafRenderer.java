@@ -226,9 +226,12 @@ public class HtmlLafRenderer extends XhtmlLafRenderer
       return;
 
     ResponseWriter writer = context.getResponseWriter();
-
-    writer.writeAttribute(attribute,
-                          LafIconProvider.getCacheImageURI(context) + uri,
+    String cachedImgURI = LafIconProvider.getCacheImageURI(context) + uri;
+    FacesContext facesContext = context.getFacesContext();
+    if(facesContext != null)
+      cachedImgURI = facesContext.getExternalContext().encodeResourceURL(cachedImgURI);
+    writer.writeURIAttribute(attribute,
+                          cachedImgURI,
 						  null);
   }
 }

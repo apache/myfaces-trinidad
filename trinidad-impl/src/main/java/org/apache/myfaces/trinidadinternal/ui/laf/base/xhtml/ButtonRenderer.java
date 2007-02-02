@@ -22,6 +22,8 @@ import java.io.IOException;
 
 import javax.faces.component.UIComponent;
 
+import javax.faces.context.FacesContext;
+
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.ui.NodeUtils;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
@@ -270,7 +272,11 @@ public class ButtonRenderer extends LinkRenderer
 
         if (destination != null)
         {
-          destination = encodeURL(context, destination);
+          String destinationBeforeEncode = destination;
+          FacesContext facesContext = context.getFacesContext();
+          if(facesContext != null)
+            destination = facesContext.getExternalContext().encodeActionURL(destination);
+
           Object targetFrame = getTargetFrame(context, node);
 
           // if destination starts with "javascript:",
@@ -286,8 +292,8 @@ public class ButtonRenderer extends LinkRenderer
                         destination    +
                         "'";
           }
-          else if ( destination.length() < 11 ||
-                    !"javascript:".equalsIgnoreCase(destination.substring(0,11)))
+          else if ( destinationBeforeEncode.length() < 11 ||
+                    !"javascript:".equalsIgnoreCase(destinationBeforeEncode.substring(0,11)))
           {
             onClickJS = "document.location='" + destination + "'";
           }
