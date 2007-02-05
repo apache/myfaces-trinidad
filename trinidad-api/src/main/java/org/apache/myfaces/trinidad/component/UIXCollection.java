@@ -815,6 +815,9 @@ public abstract class UIXCollection extends UIXComponentBase
   protected void restoreStampState(FacesContext context, UIComponent stamp,
                                    Object stampState)
   {
+    if (stampState == Transient.TRUE)
+      return;
+    
     Object[] state = (Object[]) stampState;
     StampState.restoreStampState(context, stamp, state[0]);
 
