@@ -911,17 +911,15 @@ TrMessageFactory.getString = function(
 
 TrMessageFactory.createMessage = function(
   key,
-  parameters
+  param1,
+  param2
   )
 {  
   // the strings to create a facesMessage to use have been sent down
   var message = TrMessageFactory.getSummaryString(key);       
   if ( message != null )
   {
-    if ( parameters != null )
-    {
-      message = TrFastMessageFormatUtils.format(message,parameters);
-    }
+    message = TrFastMessageFormatUtils.format(message, param1, param2);
   }
     
   return message;
