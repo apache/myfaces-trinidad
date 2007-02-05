@@ -635,10 +635,17 @@ TrDateTimeRangeValidator.prototype.getHints = function(
   converter
   )
 {
+	var max = null;
+	var min = null;
+	if(this._maxValue)
+    max = converter.getAsString(new Date(this._maxValue));
+	if(this._minValue)
+    min = converter.getAsString(new Date(this._minValue));
+
   return _returnRangeHints(
     this._messages,
-    converter.getAsString(new Date(this._maxValue)),
-    converter.getAsString(new Date(this._minValue)),
+    max,
+    min,
     "org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MAXIMUM_HINT",
     "org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MINIMUM_HINT",
     "org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.RANGE_HINT",
