@@ -341,6 +341,32 @@ af|panelBox::header
   padding:5px;
 }
 
+/* shuttle */
+/** Icons unique to the selectOrderShuttle for re-ordering user selections **/
+af|selectOrderShuttle::reorder-top-icon {
+	content: url(/skins/purple/images/reordertop_enabled.png);
+	width: 16px;
+	height: 16px;
+}
+
+af|selectOrderShuttle::reorder-up-icon {
+	content: url(/skins/purple/images/reorderup_enabled.png);
+	width: 16px;
+	height: 16px;
+}
+
+af|selectOrderShuttle::reorder-down-icon {
+	content: url(/skins/purple/images/reorderdown_enabled.png);
+	width: 16px;
+	height: 16px;
+}
+
+af|selectOrderShuttle::reorder-bottom-icon {
+	content: url(/skins/purple/images/reorderbottom_enabled.png);
+	width: 16px;
+	height: 16px;
+}
+
 /** panelHeader **/
 /** ----------- **/
 af|panelHeader
