@@ -184,8 +184,11 @@ public abstract class UIXCollection extends UIXComponentBase
     InternalState iState = _getInternalState(true);
     // TODO: this is over kill. for eg, It clears out any toggled showDetails.
     Object initKey = _getCurrencyKeyForInitialStampState();
-    // do not clear the initial stamp state: bug 4862103:
-    iState._stampState.clear(initKey);
+    // do not clear the initial stamp state: a subtle bug could
+    // result where the initial state of each component is gone, so we
+    // fail to roll back to the initial default values
+    if (iState._stampState != null)
+      iState._stampState.clear(initKey);
   }
 
   @Override
