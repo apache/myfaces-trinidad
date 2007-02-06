@@ -85,7 +85,6 @@ public class SelectOrderShuttleRenderer extends SelectManyShuttleRenderer
                   "af_selectOrderShuttle.REORDER_UP_ALL_TIP",
                   disabled ? null :
                   "javascript:TrShuttleProxy._orderTopBottomList(0,'" + listId + "');");
-    renderSpacer(context, rc, "1", "5");
     rw.startElement("br", null);
     rw.endElement("br");
     
@@ -95,7 +94,8 @@ public class SelectOrderShuttleRenderer extends SelectManyShuttleRenderer
                   "af_selectOrderShuttle.REORDER_UP_TIP",
                   disabled ? null :
                   "javascript:TrShuttleProxy._orderList(0,'" + listId + "');");
-    renderSpacer(context, rc, "30", "15");
+    // we render 15 vertical spaces to separate the up from the down icons.
+    renderSpacer(context, rc, "1", "15");
     rw.startElement("br", null);
     rw.endElement("br");
     
@@ -105,7 +105,6 @@ public class SelectOrderShuttleRenderer extends SelectManyShuttleRenderer
                   "af_selectOrderShuttle.REORDER_DOWN_TIP",
                   disabled ? null :
                   "javascript:TrShuttleProxy._orderList(1,'" + listId + "');");
-    renderSpacer(context, rc, "1", "5");
     rw.startElement("br", null);
     rw.endElement("br");
     
