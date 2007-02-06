@@ -80,6 +80,11 @@ class StyleContextImpl implements StyleContext
     return ((CoreRenderingContext) _arc).getTrinidadAgent();
   }
 
+  public Skin getSkin()
+  {
+    return ((CoreRenderingContext) _arc).getSkin();
+  }
+
   public boolean checkStylesModified()
   {
     // =-=AEW Expose a configuration option if this

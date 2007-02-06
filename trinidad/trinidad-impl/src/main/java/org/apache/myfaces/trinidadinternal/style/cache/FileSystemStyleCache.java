@@ -38,6 +38,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 
+import javax.faces.context.FacesContext;
+
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
@@ -47,6 +49,8 @@ import org.apache.myfaces.trinidadinternal.share.io.DefaultNameResolver;
 import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
 import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
 import org.apache.myfaces.trinidad.context.LocaleContext;
+import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.StyleSheetRenderer;
 import org.apache.myfaces.trinidadinternal.share.xml.JaxpXMLProvider;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLProvider;
 import org.apache.myfaces.trinidadinternal.style.CSSStyle;
@@ -700,9 +704,22 @@ public class FileSystemStyleCache implements StyleProvider
       return null;
 
     // Write out the style sheet
+    // First figure out whether or not we need to compress the style classes.
+    // We don't compress the style classes if the content compression flag is disabled or
+    // if the skin's styleClassMap does not match our shortStyleClassMap.
+    
+    Map skinsStyleClassMap = context.getSkin().getStyleClassMap(
+                                RenderingContext.getCurrentInstance());
+    String disableContentCompression = 
+      FacesContext.getCurrentInstance().getExternalContext().
+      getInitParameter(StyleSheetRenderer.DISABLE_CONTENT_COMPRESSION);
+    boolean compressStyles = (skinsStyleClassMap == shortStyleClassMap) && 
+                             !"true".equals(disableContentCompression);
+
     CSSGenerationUtils.writeCSS(context,
                                 styles,
                                 out,
+                                compressStyles,
                                 shortStyleClassMap,
                                 namespacePrefixes,
                                 _STYLE_KEY_MAP

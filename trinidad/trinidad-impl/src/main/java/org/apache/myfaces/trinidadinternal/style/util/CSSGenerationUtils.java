@@ -32,6 +32,7 @@ import java.util.Set;
 import java.util.Vector;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.PropertyNode;
@@ -50,11 +51,13 @@ public class CSSGenerationUtils
 
 
   /**
-   * Converts the specified set of StyleNodes to CSS.
+    * Converts the specified set of StyleNodes to CSS. We output either full styleclass names or 
+    * compressed styleclass names.
    *
    * @param context The current StyleContext
    * @param styles The style nodes to convert
    * @param out The PrintWriter to write to
+   * @param compressStyles This tells us whether or not we want to output the short names.
    * @param shortStyleClassMap A Map which maps style
    *   class names to short names.
    * @param namespacePrefixArray an array with the namespace prefixes of our
@@ -66,6 +69,7 @@ public class CSSGenerationUtils
     StyleContext        context,
     StyleNode[]         styles,
     PrintWriter         out,
+    boolean             compressStyles,
     Map<String, String> shortStyleClassMap,
     String[]            namespacePrefixArray,
     Map<String, String> afSelectorMap
@@ -103,6 +107,9 @@ public class CSSGenerationUtils
     // during this pass, since we need these strings during the second
     // pass to find matching StyleNodes.
     String[] propertyStrings = new String[styles.length];
+     // Keep track of the number of selectors written out. The reason? IE has a 4095 limit, 
+     // and we want to warn when we get to that limit.
+     int numberSelectorsWritten = 0;
 
     for (int i = 0; i < styles.length; i++)
     {
@@ -188,11 +195,22 @@ public class CSSGenerationUtils
                                                        selector,
                                                        false);
 
-          // write out the full selector
-          String validFullNameSelector =
-            _getValidFullNameSelector(mappedSelector, namespacePrefixArray);
-          if (validFullNameSelector != null)
-            out.print(validFullNameSelector);
+          String validFullNameSelector = null;
+
+          if (!compressStyles || (mappedSelector.indexOf('|') == -1))
+          {
+            // write out the full selector if we aren't compressing styles or
+            // it doesn't have a '|' in the name which means it may be a user's public styleclass
+            // and we don't want to compress those.
+            validFullNameSelector =
+              _getValidFullNameSelector(mappedSelector, namespacePrefixArray);
+             
+            if (validFullNameSelector != null)
+            {
+              out.print(validFullNameSelector);
+              numberSelectorsWritten++;
+            }
+          }
 
 
           // shorten all the css-2 style class selectors (those that start with 
@@ -204,29 +222,47 @@ public class CSSGenerationUtils
           // e.g., selector of af|foo.Bar will shorten the '.Bar' piece 
           // af|foo.xz
           // e.g., .Foo:hover -> .x0:hover
-          String shortenedSelector = _getShortSelector(mappedSelector,
-                                                       shortStyleClassMap);
+          if (compressStyles)
+          {
+            String shortenedSelector = _getShortSelector(mappedSelector,
+                                                        shortStyleClassMap);
 
-          // run it through a shortener one more time to shorten any
-          // of the af component selectors.
-          // e.g., 'af|menuPath' is shortened to '.x11'
-          String shortSelector =
-            _getMappedNSSelector(shortStyleClassMap,
-                                 namespacePrefixArray,
-                                 shortenedSelector,
-                                 true);
+            // run it through a shortener one more time to shorten any
+            // of the af component selectors.
+            // e.g., 'af|menuPath' is shortened to '.x11'
+            String shortSelector =
+              _getMappedNSSelector(shortStyleClassMap,
+                                   namespacePrefixArray,
+                                   shortenedSelector,
+                                   true);
 
-          // if the transformed full name is different than the shortSelector
-          // then write out the shortSelector, too.
-          if (shortSelector != null)
-          {          
-            String validShortSelector =
-              _getValidFullNameSelector(shortSelector, namespacePrefixArray);
-            if (!validFullNameSelector.equals(validShortSelector))
-            {
-              out.print(",");
-              out.print(validShortSelector);
-  
+            // if the transformed full name is different than the shortSelector
+            // then write out the shortSelector, too.
+            if (shortSelector != null)
+            {          
+              String validShortSelector =
+                _getValidFullNameSelector(shortSelector, namespacePrefixArray);
+                    
+              // if we wrote out a full style, check to see if we need to write out the short, too.
+              // if it is something different, write out the short, too.
+              if (validFullNameSelector != null)
+              {
+                //Since validFullNameSelector is not null, we know we wrote out a full style
+                // we write out a short style too in this case if it is different
+                // example: .PublicStyleClass is written out fully even in compressed mode, but
+                // it is different in compressed mode, so we write that out, too.
+                if (!validFullNameSelector.equals(validShortSelector))
+                {
+                  out.print(',');
+                  out.print(validShortSelector);
+                  numberSelectorsWritten++;
+                }
+              }
+              else
+              {
+                out.print(validShortSelector);
+                numberSelectorsWritten++;
+              }
             }
           }
 
@@ -272,6 +308,21 @@ public class CSSGenerationUtils
         out.println("}");
       }
     }
+    out.println("/* The number of CSS selectors in this file is " + numberSelectorsWritten + " */");
+    if (numberSelectorsWritten > 4095 && 
+      (TrinidadAgent.APPLICATION_IEXPLORER == context.getAgent().getAgentApplication()))
+    {
+      
+      out.println("/* ERROR: The number of CSS selectors is more than IE's limit of 4095. " +
+      "The selectors after that will be ignored. */");
+      if (_LOG.isWarning())
+      {
+        _LOG.warning("The css file has hit IE's limit of 4095 CSS selectors. It has " +
+        numberSelectorsWritten + " selectors. " +
+        "The selectors after that will be ignored. ");
+      }
+    }
+
   }
 
   /**
