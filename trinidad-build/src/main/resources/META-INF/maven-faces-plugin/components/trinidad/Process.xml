@@ -56,20 +56,6 @@
       </property-extension>
     </property>
     <property>
-      <description><![CDATA[Name of the EL variable used to reference each element of this collection.
-          Once this component has completed rendering, this variable is
-          removed (or reverted back to its previous value).]]>
-      </description>
-      <property-name>var</property-name>
-      <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:literal-only>true</mfp:literal-only>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
-      </property-extension>
-    </property>
-    <property>
       <description><![CDATA[<html>
  Name of the EL variable used to reference the varStatus information.
           Once this component has completed rendering, this variable is
@@ -91,7 +77,7 @@
     </property>
     <component-extension>
       <mfp:component-family>org.apache.myfaces.trinidad.Process</mfp:component-family>
-      <mfp:component-supertype>org.apache.myfaces.trinidad.ComponentBase</mfp:component-supertype>
+      <mfp:component-supertype>org.apache.myfaces.trinidad.CollectionBase</mfp:component-supertype>
       <mfp:component-superclass>org.apache.myfaces.trinidad.component.UIXNavigationHierarchy</mfp:component-superclass>
       <mfp:renderer-type>org.apache.myfaces.trinidad.ChoiceBar</mfp:renderer-type>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.UIXProcessTag</mfp:tag-class>

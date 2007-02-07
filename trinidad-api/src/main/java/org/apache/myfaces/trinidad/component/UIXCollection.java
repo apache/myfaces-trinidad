@@ -35,12 +35,15 @@ import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.render.Renderer;
 
+import org.apache.myfaces.trinidad.bean.FacesBean;
+import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.event.SelectionEvent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.CollectionModel;
 import org.apache.myfaces.trinidad.model.SortCriterion;
 import org.apache.myfaces.trinidad.render.ClientRowKeyManager;
 import org.apache.myfaces.trinidad.render.ClientRowKeyManagerFactory;
+import org.apache.myfaces.trinidad.util.ComponentUtils;
 
 
 /**
@@ -53,6 +56,11 @@ import org.apache.myfaces.trinidad.render.ClientRowKeyManagerFactory;
 public abstract class UIXCollection extends UIXComponentBase
   implements NamingContainer
 {
+  static public final FacesBean.Type TYPE = new FacesBean.Type(
+    UIXComponentBase.TYPE);
+  static public final PropertyKey VAR_KEY =
+    TYPE.registerKey("var", String.class, PropertyKey.CAP_NOT_BOUND);
+
   protected UIXCollection(String rendererType)
   {
     super(rendererType);
@@ -63,6 +71,30 @@ public abstract class UIXCollection extends UIXComponentBase
     this(null);
   }
 
+  /**
+   * Gets the name of the EL variable used to reference each element of
+   * this collection.  Once this component has completed rendering, this
+   * variable is removed (or reverted back to its previous value).
+   */
+  final public String getVar()
+  {
+    return ComponentUtils.resolveString(getProperty(VAR_KEY));
+  }
+
+  /**
+   * Sets the name of the EL variable used to reference each element of
+   * this collection.  Once this component has completed rendering, this
+   * variable is removed (or reverted back to its previous value).
+   */
+  final public void setVar(String var)
+  {
+    setProperty(VAR_KEY, (var));
+    InternalState iState = _getInternalState(false);
+    if (iState != null)
+    {
+      iState._var = var;
+    }
+  }
 
   /**
    * Queues an event. If there is a currency set on this table, then
@@ -368,11 +400,6 @@ public abstract class UIXCollection extends UIXComponentBase
   {
     return getCollectionModel().getRowData(rowIndex);
   }
-
-  /**
-   * Gets the EL variable name to use when iterating through the collection's data.
-   */
-  public abstract String getVar();
 
   /**
    * Gets the EL variable name to use to expose the varStatusMap.
