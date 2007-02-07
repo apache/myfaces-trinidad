@@ -11,6 +11,8 @@
     <component id="separate-id" tr:type="org.apache.myfaces.trinidad.CoreColumn" sortable="true" sortProperty="int">
       <attribute-test name="separateRows" value="true"/>
       <attribute-test name="separateRows" value="false" matchesBase="true"/>
+      <attribute-test name="styleClass"/>
+      <attribute-test name="inlineStyle"/>
       <component tr:facet="header" tr:type="org.apache.myfaces.trinidad.CoreOutputText" value="IntHeader"/>
       <component tr:type="org.apache.myfaces.trinidad.CoreOutputText" value="#{row.int}"/>
       <component tr:type="org.apache.myfaces.trinidad.CoreOutputText" value="Introduced for separateRows attribute check"/>
