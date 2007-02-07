@@ -286,6 +286,7 @@ public class ColumnRenderer extends ColumnGroupRenderer
 
     final String cellClass;
     final String borderStyleClass;
+
     if (isRowHeader)
     {
       writer.startElement(XhtmlConstants.TABLE_HEADER_ELEMENT, column);
@@ -313,11 +314,13 @@ public class ColumnRenderer extends ColumnGroupRenderer
       borderStyleClass = CellUtils.getDataBorderStyle(arc, tContext);
     } // endif (isRowHeader)
 
-    renderStyleClasses(context, arc, new String[]{cellClass,  borderStyleClass});
+    FacesBean bean = getFacesBean(column);
+    String userStyleClass = getStyleClass(bean);
+    String userInlineStyle = getInlineStyle(bean);
 
-    // =-=AEW Hook for BIBeans, likely will not be used in the future
-    String inlineStyle = getTableDataInlineStyle(null);
-    writer.writeAttribute("style", inlineStyle, null);
+    renderStyleClasses(context, arc, new String[]{userStyleClass, cellClass, borderStyleClass});
+
+    writer.writeAttribute("style", userInlineStyle, null);
 
     if (colData.getNoWrap(physicalIndex))
       writer.writeAttribute(XhtmlConstants.NOWRAP_ATTRIBUTE, Boolean.TRUE, null);
@@ -339,15 +342,6 @@ public class ColumnRenderer extends ColumnGroupRenderer
                                   int index)
   {
     return tContext.getColumnWidth(index);
-  }
-
-  // needed for BIBeans. Contact: Max Starets
-  /**
-   * @todo Are they going to keep using this?
-   */
-  protected String getTableDataInlineStyle(String defaultInlineStyle)
-  {
-    return defaultInlineStyle;
   }
 
   /**
