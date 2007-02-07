@@ -348,6 +348,16 @@ public class FileSystemStyleCache implements StyleProvider
 
     return buffer.toString();
   }
+  
+  /**
+   * Returns a boolean to say whether or not we should compress the styles that are
+   * written to the generated css file. The default implementation returns false.
+   * 
+   */  
+  protected boolean isCompressGeneratedStyles(Map<String, String> shortStyleClassMap)
+  {
+    return false;
+  }
 
   // Returns the current StyleSheetDocument - used by StyleMapImpl only
   StyleSheetDocument __getStyleSheetDocument()
@@ -707,14 +717,7 @@ public class FileSystemStyleCache implements StyleProvider
     // First figure out whether or not we need to compress the style classes.
     // We don't compress the style classes if the content compression flag is disabled or
     // if the skin's styleClassMap does not match our shortStyleClassMap.
-    
-    Map skinsStyleClassMap = context.getSkin().getStyleClassMap(
-                                RenderingContext.getCurrentInstance());
-    String disableContentCompression = 
-      FacesContext.getCurrentInstance().getExternalContext().
-      getInitParameter(StyleSheetRenderer.DISABLE_CONTENT_COMPRESSION);
-    boolean compressStyles = (skinsStyleClassMap == shortStyleClassMap) && 
-                             !"true".equals(disableContentCompression);
+    boolean compressStyles = isCompressGeneratedStyles(shortStyleClassMap);
 
     CSSGenerationUtils.writeCSS(context,
                                 styles,
