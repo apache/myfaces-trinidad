@@ -41,7 +41,6 @@ public interface StyleContext
    * Returns the end user's Agent.
    */
   public TrinidadAgent getAgent();
-  public Skin getSkin();
 
   public String getGeneratedFilesPath();
   public boolean checkStylesModified();
