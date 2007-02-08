@@ -285,27 +285,34 @@ public class ResourceServlet extends HttpServlet
         {
           Reader r = new InputStreamReader(url.openStream());
           BufferedReader br = new BufferedReader(r);
-          String className = br.readLine().trim();
-          Class<?> clazz = cl.loadClass(className);
           try
           {
-            Constructor<?> decorator = clazz.getConstructor(_DECORATOR_SIGNATURE);
-            ServletContext context = getServletContext();
-            File tempdir = (File)
-                      context.getAttribute("javax.servlet.context.tempdir");
-            ResourceLoader delegate = new DirectoryResourceLoader(tempdir);
-            loader = (ResourceLoader)
-                      decorator.newInstance(new Object[]{delegate});
+            String className = br.readLine().trim();
+            Class<?> clazz = cl.loadClass(className);
+            try
+            {
+              Constructor<?> decorator = clazz.getConstructor(_DECORATOR_SIGNATURE);
+              ServletContext context = getServletContext();
+              File tempdir = (File)
+                context.getAttribute("javax.servlet.context.tempdir");
+              ResourceLoader delegate = new DirectoryResourceLoader(tempdir);
+              loader = (ResourceLoader)
+                decorator.newInstance(new Object[]{delegate});
+            }
+            catch (InvocationTargetException e)
+            {
+              // by default, create new instance with no-args constructor
+              loader = (ResourceLoader) clazz.newInstance();
+            }
+            catch (NoSuchMethodException e)
+            {
+              // by default, create new instance with no-args constructor
+              loader = (ResourceLoader) clazz.newInstance();
+            }
           }
-          catch (InvocationTargetException e)
+          finally
           {
-            // by default, create new instance with no-args constructor
-            loader = (ResourceLoader) clazz.newInstance();
-          }
-          catch (NoSuchMethodException e)
-          {
-            // by default, create new instance with no-args constructor
-            loader = (ResourceLoader) clazz.newInstance();
+            br.close();
           }
         }
         else

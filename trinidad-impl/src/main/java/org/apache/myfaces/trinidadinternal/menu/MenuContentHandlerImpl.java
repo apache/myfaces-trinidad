@@ -452,6 +452,8 @@ public class MenuContentHandlerImpl extends DefaultHandler
 
       // Parse the metadata
       parser.parse(inStream, this);
+
+      inStream.close();
     }
     catch (SAXException saxex)
     {
