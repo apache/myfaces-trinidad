@@ -210,27 +210,6 @@ public class SkinStyleProvider extends FileSystemStyleCache
     return name;
   }
   
-
-  /**
-   * Returns a boolean to say whether or not we should compress the styles that are
-   * written to the generated css file. We look at the skin to decide.
-   * @param shortStyleClassMap
-   * @return true if we want to compress styles; i.e., if the shortStyleClassMap we are using
-   * to output to the generated CSS matches the styleClassMap of the skin and the disable content
-   * compression flag is not turned on.
-   */
-  protected boolean isCompressGeneratedStyles(Map<String, String> shortStyleClassMap)
-  {
-    Map skinsStyleClassMap = _skin.getStyleClassMap(
-                                RenderingContext.getCurrentInstance());
-    String disableContentCompression = 
-      FacesContext.getCurrentInstance().getExternalContext().
-      getInitParameter(StyleSheetRenderer.DISABLE_CONTENT_COMPRESSION);
-    boolean compressStyles = (skinsStyleClassMap == shortStyleClassMap) && 
-                             !"true".equals(disableContentCompression);
-    return compressStyles;
-  }
-
   // Returns a Map which hashes ProviderKeys to shared instances
   // of SkinStyleProviders.
   private static Map<ProviderKey, StyleProvider> _getProviders()
