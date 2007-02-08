@@ -18,6 +18,7 @@
  */
 package org.apache.myfaces.trinidad.component;
 
+import java.io.InputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -1337,10 +1338,18 @@ abstract public class UIXComponentBase extends UIXComponent
       if (url != null)
       {
         Properties properties = new Properties();
-        properties.load(url.openStream());
-        String className = (String)
-          properties.get(UIXComponentBase.class.getName());
-        return (FacesBean.Type) cl.loadClass(className).newInstance();
+        InputStream is = url.openStream();
+        try
+        {
+          properties.load(is);
+          String className = (String)
+            properties.get(UIXComponentBase.class.getName());
+          return (FacesBean.Type) cl.loadClass(className).newInstance();
+        }
+        finally
+        {
+          is.close();
+        }
       }
     }
     catch (Exception e)

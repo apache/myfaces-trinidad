@@ -575,6 +575,7 @@ public class SkinUtils
                                            _META_INF_CONFIG_FILE);
               
             allSkinsNodes.add(metaInfSkinsNode);
+            in.close();
           }
         }
         catch (Exception e)

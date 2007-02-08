@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidadinternal.application;
 
 import java.io.File;
+import java.io.InputStream;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.net.URL;
@@ -475,7 +476,15 @@ public class ViewHandlerImpl extends ViewHandler
       {
         Properties properties = new Properties();
         _LOG.fine("Loading internal views from {0}",  url);
-        properties.load(url.openStream());
+        InputStream is = url.openStream();
+        try
+        {
+          properties.load(is);
+        }
+        finally
+        {
+          is.close();
+        }
 
         for (Map.Entry<Object, Object> entry : properties.entrySet())
         {
