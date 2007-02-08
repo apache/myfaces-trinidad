@@ -50,6 +50,8 @@ import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
 import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
 import org.apache.myfaces.trinidad.context.LocaleContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.skin.Skin;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.StyleSheetRenderer;
 import org.apache.myfaces.trinidadinternal.share.xml.JaxpXMLProvider;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLProvider;
@@ -349,16 +351,6 @@ public class FileSystemStyleCache implements StyleProvider
     return buffer.toString();
   }
   
-  /**
-   * Returns a boolean to say whether or not we should compress the styles that are
-   * written to the generated css file. The default implementation returns false.
-   * 
-   */  
-  protected boolean isCompressGeneratedStyles(Map<String, String> shortStyleClassMap)
-  {
-    return false;
-  }
-
   // Returns the current StyleSheetDocument - used by StyleMapImpl only
   StyleSheetDocument __getStyleSheetDocument()
   {
@@ -448,6 +440,7 @@ public class FileSystemStyleCache implements StyleProvider
       return entry;
 
     // If we didn't find an entry in the cache, create a new entry
+    // This generates the CSS file.
     return _createEntry(context,
                         document,
                         cache,
@@ -716,8 +709,18 @@ public class FileSystemStyleCache implements StyleProvider
     // Write out the style sheet
     // First figure out whether or not we need to compress the style classes.
     // We don't compress the style classes if the content compression flag is disabled or
-    // if the skin's styleClassMap does not match our shortStyleClassMap.
-    boolean compressStyles = isCompressGeneratedStyles(shortStyleClassMap);
+    // if the skin is a portlet skin.
+     String disableContentCompression =
+       FacesContext.getCurrentInstance().getExternalContext().
+       getInitParameter(StyleSheetRenderer.DISABLE_CONTENT_COMPRESSION);
+     // we do not compress if it is a portlet skin
+     Skin skin = RenderingContext.getCurrentInstance().getSkin();
+     boolean isPortletSkin =
+     CoreRenderKit.OUTPUT_MODE_PORTLET.equals(skin.getRenderKitId());
+
+     boolean compressStyles = (!"true".equals(disableContentCompression)) &&
+                                              !isPortletSkin;
+
 
     CSSGenerationUtils.writeCSS(context,
                                 styles,
