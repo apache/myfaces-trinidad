@@ -25,6 +25,7 @@ import javax.faces.context.ExternalContext;
 import javax.portlet.ActionRequest;
 import javax.servlet.ServletRequest;
 
+import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
@@ -241,10 +242,8 @@ public class ExternalContextUtils
     Class actionRequest;
     try
     {
-      ClassLoader loader = Thread.currentThread().getContextClassLoader();
-      context = Class.forName("javax.portlet.PortletContext", true, loader);
-      actionRequest = Class.forName("javax.portlet.ActionRequest",
-                                    true, loader);
+      context = ClassLoaderUtils.loadClass("javax.portlet.PortletContext");
+      actionRequest = ClassLoaderUtils.loadClass("javax.portlet.ActionRequest");
     }
     catch (final ClassNotFoundException e)
     {
