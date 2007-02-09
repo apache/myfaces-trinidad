@@ -29,6 +29,7 @@ import javax.portlet.PortletRequest;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
 
+import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.UploadedFile;
 import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
@@ -241,9 +242,8 @@ public class UploadedFileProcessorImpl implements UploadedFileProcessor
     Class request;
     try
     {
-      ClassLoader loader = Thread.currentThread().getContextClassLoader();
-      context = Class.forName("javax.portlet.PortletContext", true, loader);
-      request = Class.forName("javax.portlet.PortletRequest", true, loader);
+      context = ClassLoaderUtils.loadClass("javax.portlet.PortletContext");
+      request = ClassLoaderUtils.loadClass("javax.portlet.PortletRequest");
     }
     catch (final ClassNotFoundException e)
     {

@@ -21,6 +21,7 @@ package org.apache.myfaces.trinidadinternal.image.xml.parse;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXParseException;
 
+import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
@@ -73,8 +74,7 @@ public class ColorizedIconParser extends BaseImageProviderRequestParser
     Class<?> laf = null;
     try
     {
-      laf = Class.forName(lafString, true,
-                          Thread.currentThread().getContextClassLoader());
+      laf = ClassLoaderUtils.loadClass(lafString);
     }
     catch ( ClassNotFoundException e )
     {
