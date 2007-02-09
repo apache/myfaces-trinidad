@@ -73,7 +73,8 @@ public class ColorizedIconParser extends BaseImageProviderRequestParser
     Class<?> laf = null;
     try
     {
-      laf = Class.forName(lafString);
+      laf = Class.forName(lafString, true,
+                          Thread.currentThread().getContextClassLoader());
     }
     catch ( ClassNotFoundException e )
     {
