@@ -241,8 +241,10 @@ public class ExternalContextUtils
     Class actionRequest;
     try
     {
-      context = Class.forName("javax.portlet.PortletContext");
-      actionRequest = Class.forName("javax.portlet.ActionRequest");
+      ClassLoader loader = Thread.currentThread().getContextClassLoader();
+      context = Class.forName("javax.portlet.PortletContext", true, loader);
+      actionRequest = Class.forName("javax.portlet.ActionRequest",
+                                    true, loader);
     }
     catch (final ClassNotFoundException e)
     {

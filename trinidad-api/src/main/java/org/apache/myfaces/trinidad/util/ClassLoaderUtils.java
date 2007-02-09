@@ -129,7 +129,8 @@ public class ClassLoaderUtils
       if (callerClassLoader != null)
         clazz = callerClassLoader.loadClass(name);
       else
-        clazz = Class.forName(name);
+        clazz = Class.forName(name, true,
+                              Thread.currentThread().getContextClassLoader());
     }
 
     return clazz;

@@ -241,8 +241,9 @@ public class UploadedFileProcessorImpl implements UploadedFileProcessor
     Class request;
     try
     {
-      context = Class.forName("javax.portlet.PortletContext");
-      request = Class.forName("javax.portlet.PortletRequest");
+      ClassLoader loader = Thread.currentThread().getContextClassLoader();
+      context = Class.forName("javax.portlet.PortletContext", true, loader);
+      request = Class.forName("javax.portlet.PortletRequest", true, loader);
     }
     catch (final ClassNotFoundException e)
     {
