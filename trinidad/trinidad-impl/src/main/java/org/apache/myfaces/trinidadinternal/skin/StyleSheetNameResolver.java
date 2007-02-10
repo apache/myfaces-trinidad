@@ -168,15 +168,27 @@ class StyleSheetNameResolver implements NameResolver
   // Gets an URL for the specified name
   private URL _resolveURL(String name)
   {
+    if (name == null)
+      return null;
+      
     FacesContext fContext = FacesContext.getCurrentInstance();
     if (fContext != null)
     {
       try
       {
-        String rootName = _getRootName(name);
-        URL url = fContext.getExternalContext().getResource(rootName);
-        if (url != null)
-          return url;
+        if (name.startsWith("http:"))
+        {
+          URL url = new URL(name);
+          if (url != null)
+            return url;
+        }
+        else
+        {
+          String rootName = _getRootName(name);
+          URL url = fContext.getExternalContext().getResource(rootName);
+          if (url != null)
+            return url;
+        }
       }
       catch (MalformedURLException e)
       {
