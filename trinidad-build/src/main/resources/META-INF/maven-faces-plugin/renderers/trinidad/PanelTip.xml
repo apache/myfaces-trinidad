@@ -25,7 +25,7 @@
     <renderer>
       <component-family>org.apache.myfaces.trinidad.Panel</component-family>
       <renderer-type>org.apache.myfaces.trinidad.Tip</renderer-type>
-      <renderer-class>org.apache.myfaces.trinidadinternal.uinode.UINodeRendererBase</renderer-class>
+      <renderer-class>org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PanelTipRenderer</renderer-class>
       <renderer-extension>
         <mfp:component-type>org.apache.myfaces.trinidad.CorePanelTip</mfp:component-type>
       </renderer-extension>

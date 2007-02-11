@@ -1984,6 +1984,33 @@
           </tr>
         </table>
       </subsection>
+      <subsection name="tr:panelTip Component">
+        <p>The tr:panelTip has two regions - a label and the main content.</p>
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|panelTip</td>
+            <td>This style class is rendered on the outer content of the
+panelTip.</td>
+          </tr>
+          <tr>
+            <td>af|panelTip::label</td>
+            <td>This style class is rendered on the label of the panelTip.</td>
+          </tr>
+          <tr>
+            <td>af|panelTip::content</td>
+            <td>This style class is rendered on the content of the panelTip.</td>
+          </tr>
+        </table>
+      </subsection>
       <subsection name="tr:selectBooleanCheckbox Component">
         <table>
           <tr>

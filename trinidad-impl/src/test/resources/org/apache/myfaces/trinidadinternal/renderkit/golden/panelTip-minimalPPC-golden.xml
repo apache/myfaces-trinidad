@@ -1,431 +1,302 @@
 <results>
       <div
+           class="af_panelTip"
            id="mainId"
           >
         
-        <img
-             alt=""
-             height="13"
-             width="15"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/tip.gif"
-            >
-          
-        </img>
         <span
-             class="OraTipLabel"
-             nowrap="nowrap"
+             class="af_panelTip_label"
             >
           TIP&#xa0;
         </span>
         <span
-             class="OraTipText"
+             class="af_panelTip_content"
             >
-          Tip content
-        </span>
+          
+        </span>Tip content
       </div>
 <!--AttributeTest[id,null]-->
 
       <div
+           class="af_panelTip"
            id="test-id"
           >
         
-        <img
-             alt=""
-             height="13"
-             width="15"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/tip.gif"
-            >
-          
-        </img>
         <span
-             class="OraTipLabel"
-             nowrap="nowrap"
+             class="af_panelTip_label"
             >
           TIP&#xa0;
         </span>
         <span
-             class="OraTipText"
+             class="af_panelTip_content"
             >
-          Tip content
-        </span>
+          
+        </span>Tip content
       </div>
 <!--AttributeTest[inlineStyle,null]-->
 
       <div
+           class="af_panelTip"
            id="mainId"
            style="test-inlineStyle"
           >
         
-        <img
-             alt=""
-             height="13"
-             width="15"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/tip.gif"
-            >
-          
-        </img>
         <span
-             class="OraTipLabel"
-             nowrap="nowrap"
+             class="af_panelTip_label"
             >
           TIP&#xa0;
         </span>
         <span
-             class="OraTipText"
+             class="af_panelTip_content"
             >
-          Tip content
-        </span>
+          
+        </span>Tip content
       </div>
 <!--AttributeTest[rendered,false]-->
 
 <!--AttributeTest[rendered,true]-->
 
       <div
+           class="af_panelTip"
            id="mainId"
           >
         
-        <img
-             alt=""
-             height="13"
-             width="15"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/tip.gif"
-            >
-          
-        </img>
         <span
-             class="OraTipLabel"
-             nowrap="nowrap"
+             class="af_panelTip_label"
             >
           TIP&#xa0;
         </span>
         <span
-             class="OraTipText"
+             class="af_panelTip_content"
             >
-          Tip content
-        </span>
+          
+        </span>Tip content
       </div>
 <!--AttributeTest[shortDesc,null]-->
 
       <div
+           class="af_panelTip"
            id="mainId"
            title="test-shortDesc"
           >
         
-        <img
-             alt=""
-             height="13"
-             width="15"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/tip.gif"
-            >
-          
-        </img>
         <span
-             class="OraTipLabel"
-             nowrap="nowrap"
+             class="af_panelTip_label"
             >
           TIP&#xa0;
         </span>
         <span
-             class="OraTipText"
+             class="af_panelTip_content"
             >
-          Tip content
-        </span>
+          
+        </span>Tip content
       </div>
 <!--AttributeTest[styleClass,null]-->
 
       <div
-           class="test-styleClass"
+           class="test-styleClass af_panelTip"
            id="mainId"
           >
         
-        <img
-             alt=""
-             height="13"
-             width="15"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/tip.gif"
-            >
-          
-        </img>
         <span
-             class="OraTipLabel"
-             nowrap="nowrap"
+             class="af_panelTip_label"
             >
           TIP&#xa0;
         </span>
         <span
-             class="OraTipText"
+             class="af_panelTip_content"
             >
-          Tip content
-        </span>
+          
+        </span>Tip content
       </div>
 <!--AttributeTest[onclick,null]-->
 
       <div
+           class="af_panelTip"
            id="mainId"
            onclick="test-onclick"
           >
         
-        <img
-             alt=""
-             height="13"
-             width="15"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/tip.gif"
-            >
-          
-        </img>
         <span
-             class="OraTipLabel"
-             nowrap="nowrap"
+             class="af_panelTip_label"
             >
           TIP&#xa0;
         </span>
         <span
-             class="OraTipText"
+             class="af_panelTip_content"
             >
-          Tip content
-        </span>
+          
+        </span>Tip content
       </div>
 <!--AttributeTest[ondblclick,null]-->
 
       <div
+           class="af_panelTip"
            id="mainId"
            ondblclick="test-ondblclick"
           >
         
-        <img
-             alt=""
-             height="13"
-             width="15"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/tip.gif"
-            >
-          
-        </img>
         <span
-             class="OraTipLabel"
-             nowrap="nowrap"
+             class="af_panelTip_label"
             >
           TIP&#xa0;
         </span>
         <span
-             class="OraTipText"
+             class="af_panelTip_content"
             >
-          Tip content
-        </span>
+          
+        </span>Tip content
       </div>
 <!--AttributeTest[onkeydown,null]-->
 
       <div
+           class="af_panelTip"
            id="mainId"
            onkeydown="test-onkeydown"
           >
         
-        <img
-             alt=""
-             height="13"
-             width="15"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/tip.gif"
-            >
-          
-        </img>
         <span
-             class="OraTipLabel"
-             nowrap="nowrap"
+             class="af_panelTip_label"
             >
           TIP&#xa0;
         </span>
         <span
-             class="OraTipText"
+             class="af_panelTip_content"
             >
-          Tip content
-        </span>
+          
+        </span>Tip content
       </div>
 <!--AttributeTest[onkeypress,null]-->
 
       <div
+           class="af_panelTip"
            id="mainId"
            onkeypress="test-onkeypress"
           >
         
-        <img
-             alt=""
-             height="13"
-             width="15"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/tip.gif"
-            >
-          
-        </img>
         <span
-             class="OraTipLabel"
-             nowrap="nowrap"
+             class="af_panelTip_label"
             >
           TIP&#xa0;
         </span>
         <span
-             class="OraTipText"
+             class="af_panelTip_content"
             >
-          Tip content
-        </span>
+          
+        </span>Tip content
       </div>
 <!--AttributeTest[onkeyup,null]-->
 
       <div
+           class="af_panelTip"
            id="mainId"
            onkeyup="test-onkeyup"
           >
         
-        <img
-             alt=""
-             height="13"
-             width="15"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/tip.gif"
-            >
-          
-        </img>
         <span
-             class="OraTipLabel"
-             nowrap="nowrap"
+             class="af_panelTip_label"
             >
           TIP&#xa0;
         </span>
         <span
-             class="OraTipText"
+             class="af_panelTip_content"
             >
-          Tip content
-        </span>
+          
+        </span>Tip content
       </div>
 <!--AttributeTest[onmousedown,null]-->
 
       <div
+           class="af_panelTip"
            id="mainId"
            onmousedown="test-onmousedown"
           >
         
-        <img
-             alt=""
-             height="13"
-             width="15"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/tip.gif"
-            >
-          
-        </img>
         <span
-             class="OraTipLabel"
-             nowrap="nowrap"
+             class="af_panelTip_label"
             >
           TIP&#xa0;
         </span>
         <span
-             class="OraTipText"
+             class="af_panelTip_content"
             >
-          Tip content
-        </span>
+          
+        </span>Tip content
       </div>
 <!--AttributeTest[onmousemove,null]-->
 
       <div
+           class="af_panelTip"
            id="mainId"
            onmousemove="test-onmousemove"
           >
         
-        <img
-             alt=""
-             height="13"
-             width="15"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/tip.gif"
-            >
-          
-        </img>
         <span
-             class="OraTipLabel"
-             nowrap="nowrap"
+             class="af_panelTip_label"
             >
           TIP&#xa0;
         </span>
         <span
-             class="OraTipText"
+             class="af_panelTip_content"
             >
-          Tip content
-        </span>
+          
+        </span>Tip content
       </div>
 <!--AttributeTest[onmouseout,null]-->
 
       <div
+           class="af_panelTip"
            id="mainId"
            onmouseout="test-onmouseout"
           >
         
-        <img
-             alt=""
-             height="13"
-             width="15"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/tip.gif"
-            >
-          
-        </img>
         <span
-             class="OraTipLabel"
-             nowrap="nowrap"
+             class="af_panelTip_label"
             >
           TIP&#xa0;
         </span>
         <span
-             class="OraTipText"
+             class="af_panelTip_content"
             >
-          Tip content
-        </span>
+          
+        </span>Tip content
       </div>
 <!--AttributeTest[onmouseover,null]-->
 
       <div
+           class="af_panelTip"
            id="mainId"
            onmouseover="test-onmouseover"
           >
         
-        <img
-             alt=""
-             height="13"
-             width="15"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/tip.gif"
-            >
-          
-        </img>
         <span
-             class="OraTipLabel"
-             nowrap="nowrap"
+             class="af_panelTip_label"
             >
           TIP&#xa0;
         </span>
         <span
-             class="OraTipText"
+             class="af_panelTip_content"
             >
-          Tip content
-        </span>
+          
+        </span>Tip content
       </div>
 <!--AttributeTest[onmouseup,null]-->
 
       <div
+           class="af_panelTip"
            id="mainId"
            onmouseup="test-onmouseup"
           >
         
-        <img
-             alt=""
-             height="13"
-             width="15"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/tip.gif"
-            >
-          
-        </img>
         <span
-             class="OraTipLabel"
-             nowrap="nowrap"
+             class="af_panelTip_label"
             >
           TIP&#xa0;
         </span>
         <span
-             class="OraTipText"
+             class="af_panelTip_content"
             >
-          Tip content
-        </span>
+          
+        </span>Tip content
       </div>
 </results>
