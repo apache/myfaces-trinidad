@@ -32,8 +32,7 @@
       </facet-extension>
     </facet>
     <property>
-      <description><![CDATA[Style the content piece of the component. You can style width by setting this attribute like this: 
-      width: 100px.]]> </description>
+      <description><![CDATA[the CSS styles to attach to the content of the component.  For example, you can set the width of that portion to 100 pixels by setting this attribute to "width: 100px".]]> </description>
       <property-name>contentStyle</property-name> 
       <property-class>java.lang.String</property-class>
       <property-extension>

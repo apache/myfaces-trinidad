@@ -331,6 +331,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
         renderId(context, component);
 
       renderStyleClass(context, arc, getContentStyleClass(bean));
+      renderInlineStyleAttribute(context, arc, getContentStyle(bean));
       rw.writeAttribute("title", getShortDesc(bean), "shortDesc");
       /* renderAsElement == false, isTextArea == false */
       renderContent(context, arc, component, bean, false, false);

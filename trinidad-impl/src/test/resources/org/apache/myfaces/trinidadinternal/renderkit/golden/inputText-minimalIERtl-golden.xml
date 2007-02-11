@@ -1013,6 +1013,240 @@
           </td>
         </tr>
       </table>
+<!--AttributeTest[readOnly,false]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputText"
+           id="mainId__xc_"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputText_label"
+               nowrap="nowrap"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               nowrap="nowrap"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputText_content"
+                 id="mainId"
+                 name="mainId"
+                 size="30"
+                 type="text"
+                 value="Text"
+                >
+              
+            </input>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[contentStyle,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputText"
+           id="mainId__xc_"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputText_label"
+               nowrap="nowrap"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               nowrap="nowrap"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputText_content"
+                 id="mainId"
+                 name="mainId"
+                 size="30"
+                 style="test-contentStyle"
+                 type="text"
+                 value="Text"
+                >
+              
+            </input>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[shortDesc,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputText"
+           id="mainId__xc_"
+           summary=""
+           title="test-shortDesc"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputText_label"
+               nowrap="nowrap"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               nowrap="nowrap"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputText_content"
+                 id="mainId"
+                 name="mainId"
+                 size="30"
+                 title="test-shortDesc"
+                 type="text"
+                 value="Text"
+                >
+              
+            </input>
+            <label
+                 class="p_OraHiddenLabel"
+                 for="mainId"
+                >
+              test-shortDesc
+            </label>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[readOnly,true]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputText p_AFReadOnly"
+           id="mainId__xc_"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputText_label"
+               nowrap="nowrap"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               nowrap="nowrap"
+               valign="top"
+              >
+            
+            <div
+                 class="af_inputText_content"
+                 id="mainId"
+                >
+              Text
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[readOnly,true,AttributeTest[contentStyle,null]]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputText p_AFReadOnly"
+           id="mainId__xc_"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputText_label"
+               nowrap="nowrap"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               nowrap="nowrap"
+               valign="top"
+              >
+            
+            <div
+                 class="af_inputText_content"
+                 id="mainId"
+                 style="test-contentStyle"
+                >
+              Text
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[readOnly,true,AttributeTest[shortDesc,null]]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputText p_AFReadOnly"
+           id="mainId__xc_"
+           summary=""
+           title="test-shortDesc"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputText_label"
+               nowrap="nowrap"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               nowrap="nowrap"
+               valign="top"
+              >
+            
+            <div
+                 class="af_inputText_content"
+                 id="mainId"
+                 title="test-shortDesc"
+                >
+              Text
+            </div>
+          </td>
+        </tr>
+      </table>
 <!--AttributeTest[autoSubmit,false]-->
 
       <table

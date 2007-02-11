@@ -1276,6 +1276,300 @@
           </td>
         </tr>
       </table>
+<!--AttributeTest[readOnly,false]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputText"
+           id="mainId__xc_"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputText_label"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               nowrap="nowrap"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputText_content"
+                 id="mainId"
+                 name="mainId"
+                 size="11"
+                 type="text"
+                 value="Text"
+                >
+              
+            </input>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[contentStyle,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputText"
+           id="mainId__xc_"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputText_label"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               nowrap="nowrap"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputText_content"
+                 id="mainId"
+                 name="mainId"
+                 size="11"
+                 style="test-contentStyle"
+                 type="text"
+                 value="Text"
+                >
+              
+            </input>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[shortDesc,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputText"
+           id="mainId__xc_"
+           summary=""
+           title="test-shortDesc"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputText_label"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               nowrap="nowrap"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputText_content"
+                 id="mainId"
+                 name="mainId"
+                 size="11"
+                 title="test-shortDesc"
+                 type="text"
+                 value="Text"
+                >
+              
+            </input>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[readOnly,true]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputText p_AFReadOnly"
+           id="mainId__xc_"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputText_label"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               nowrap="nowrap"
+               valign="top"
+              >
+            
+            <div
+                 class="af_inputText_content"
+                 id="mainId"
+                >
+              Text
+            </div>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[readOnly,true,AttributeTest[contentStyle,null]]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputText p_AFReadOnly"
+           id="mainId__xc_"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputText_label"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               nowrap="nowrap"
+               valign="top"
+              >
+            
+            <div
+                 class="af_inputText_content"
+                 id="mainId"
+                 style="test-contentStyle"
+                >
+              Text
+            </div>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[readOnly,true,AttributeTest[shortDesc,null]]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputText p_AFReadOnly"
+           id="mainId__xc_"
+           summary=""
+           title="test-shortDesc"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputText_label"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               nowrap="nowrap"
+               valign="top"
+              >
+            
+            <div
+                 class="af_inputText_content"
+                 id="mainId"
+                 title="test-shortDesc"
+                >
+              Text
+            </div>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
 <!--AttributeTest[autoSubmit,false]-->
 
       <table
