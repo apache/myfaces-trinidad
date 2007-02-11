@@ -24,9 +24,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-
 import java.net.URL;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -35,7 +33,9 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
@@ -45,7 +45,6 @@ import org.apache.maven.model.Resource;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
-
 import org.codehaus.plexus.util.DirectoryScanner;
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.IOUtil;
@@ -707,6 +706,9 @@ public class JDeveloperMojo extends AbstractMojo
       }
     }
 
+
+    Map sourceMap = new TreeMap();
+
     for (Iterator i = artifacts.iterator(); i.hasNext();)
     {
       Artifact artifact = (Artifact)i.next();
@@ -722,20 +724,47 @@ public class JDeveloperMojo extends AbstractMojo
           String name = jarEntry.getName();
           if (name.startsWith("META-INF/") && name.endsWith(".tld"))
           {
-            File sourceFile = new File(name);
-            File targetFile = new File(targetDir, sourceFile.getName());
-            URL jarURL = file.toURL();
-            URL sourceURL = new URL("jar:" + jarURL.toExternalForm() + "!/" + name);
-            if (targetFile.exists())
-              targetFile.delete();
-            FileUtils.copyURLToFile(sourceURL, targetFile);
-            targetFile.setReadOnly();
+             List taglibs = (List) sourceMap.get(name);
+             if (taglibs == null)
+             {
+                taglibs = new ArrayList();
+                sourceMap.put(name, taglibs);
+             }
+
+             taglibs.add(file);
           }
         }
       }
     }
-  }
 
+    for (Iterator i = sourceMap.entrySet().iterator(); i.hasNext();)
+    {
+      Map.Entry e = (Map.Entry) i.next();
+      List taglibs = (List) e.getValue();
+      String name = (String) e.getKey();
+      
+      for (Iterator ti = taglibs.iterator(); ti.hasNext();)
+      {
+        File file = (File) ti.next();
+        File sourceFile = new File(name);
+        StringBuffer buff = new StringBuffer(sourceFile.getName());
+        if (taglibs.size() > 1)
+        {
+          String jarName = file.getName().substring(0, file.getName().length() - ".jar".length());
+          buff.insert(buff.length() - ".tld".length(), "-" + jarName);
+        }
+
+        URL jarURL = file.toURL();
+        URL sourceURL = new URL("jar:" + jarURL.toExternalForm() + "!/" + name);
+        File targetFile = new File(targetDir, buff.toString());
+        if (targetFile.exists())
+          targetFile.delete();
+        FileUtils.copyURLToFile(sourceURL, targetFile);
+        targetFile.setReadOnly();
+      }
+    }
+  }
+  
   private void replaceOutputDirectory(
     File    projectDir,
     File    outputDir,
