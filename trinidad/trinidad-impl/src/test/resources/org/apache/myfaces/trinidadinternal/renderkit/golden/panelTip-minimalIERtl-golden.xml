@@ -1,287 +1,302 @@
 <results>
       <div
+           class="af_panelTip"
            id="mainId"
           >
         
         <span
-             class="OraTipLabel"
+             class="af_panelTip_label"
             >
           &#xa0;TIP
         </span>
         <span
-             class="OraTipText"
+             class="af_panelTip_content"
             >
-          Tip content
-        </span>
+          
+        </span>Tip content
       </div>
 <!--AttributeTest[id,null]-->
 
       <div
+           class="af_panelTip"
            id="test-id"
           >
         
         <span
-             class="OraTipLabel"
+             class="af_panelTip_label"
             >
           &#xa0;TIP
         </span>
         <span
-             class="OraTipText"
+             class="af_panelTip_content"
             >
-          Tip content
-        </span>
+          
+        </span>Tip content
       </div>
 <!--AttributeTest[inlineStyle,null]-->
 
       <div
+           class="af_panelTip"
            id="mainId"
            style="test-inlineStyle"
           >
         
         <span
-             class="OraTipLabel"
+             class="af_panelTip_label"
             >
           &#xa0;TIP
         </span>
         <span
-             class="OraTipText"
+             class="af_panelTip_content"
             >
-          Tip content
-        </span>
+          
+        </span>Tip content
       </div>
 <!--AttributeTest[rendered,false]-->
 
 <!--AttributeTest[rendered,true]-->
 
       <div
+           class="af_panelTip"
            id="mainId"
           >
         
         <span
-             class="OraTipLabel"
+             class="af_panelTip_label"
             >
           &#xa0;TIP
         </span>
         <span
-             class="OraTipText"
+             class="af_panelTip_content"
             >
-          Tip content
-        </span>
+          
+        </span>Tip content
       </div>
 <!--AttributeTest[shortDesc,null]-->
 
       <div
+           class="af_panelTip"
            id="mainId"
            title="test-shortDesc"
           >
         
         <span
-             class="OraTipLabel"
+             class="af_panelTip_label"
             >
           &#xa0;TIP
         </span>
         <span
-             class="OraTipText"
+             class="af_panelTip_content"
             >
-          Tip content
-        </span>
+          
+        </span>Tip content
       </div>
 <!--AttributeTest[styleClass,null]-->
 
       <div
-           class="test-styleClass"
+           class="test-styleClass af_panelTip"
            id="mainId"
           >
         
         <span
-             class="OraTipLabel"
+             class="af_panelTip_label"
             >
           &#xa0;TIP
         </span>
         <span
-             class="OraTipText"
+             class="af_panelTip_content"
             >
-          Tip content
-        </span>
+          
+        </span>Tip content
       </div>
 <!--AttributeTest[onclick,null]-->
 
       <div
+           class="af_panelTip"
            id="mainId"
            onclick="test-onclick"
           >
         
         <span
-             class="OraTipLabel"
+             class="af_panelTip_label"
             >
           &#xa0;TIP
         </span>
         <span
-             class="OraTipText"
+             class="af_panelTip_content"
             >
-          Tip content
-        </span>
+          
+        </span>Tip content
       </div>
 <!--AttributeTest[ondblclick,null]-->
 
       <div
+           class="af_panelTip"
            id="mainId"
            ondblclick="test-ondblclick"
           >
         
         <span
-             class="OraTipLabel"
+             class="af_panelTip_label"
             >
           &#xa0;TIP
         </span>
         <span
-             class="OraTipText"
+             class="af_panelTip_content"
             >
-          Tip content
-        </span>
+          
+        </span>Tip content
       </div>
 <!--AttributeTest[onkeydown,null]-->
 
       <div
+           class="af_panelTip"
            id="mainId"
            onkeydown="test-onkeydown"
           >
         
         <span
-             class="OraTipLabel"
+             class="af_panelTip_label"
             >
           &#xa0;TIP
         </span>
         <span
-             class="OraTipText"
+             class="af_panelTip_content"
             >
-          Tip content
-        </span>
+          
+        </span>Tip content
       </div>
 <!--AttributeTest[onkeypress,null]-->
 
       <div
+           class="af_panelTip"
            id="mainId"
            onkeypress="test-onkeypress"
           >
         
         <span
-             class="OraTipLabel"
+             class="af_panelTip_label"
             >
           &#xa0;TIP
         </span>
         <span
-             class="OraTipText"
+             class="af_panelTip_content"
             >
-          Tip content
-        </span>
+          
+        </span>Tip content
       </div>
 <!--AttributeTest[onkeyup,null]-->
 
       <div
+           class="af_panelTip"
            id="mainId"
            onkeyup="test-onkeyup"
           >
         
         <span
-             class="OraTipLabel"
+             class="af_panelTip_label"
             >
           &#xa0;TIP
         </span>
         <span
-             class="OraTipText"
+             class="af_panelTip_content"
             >
-          Tip content
-        </span>
+          
+        </span>Tip content
       </div>
 <!--AttributeTest[onmousedown,null]-->
 
       <div
+           class="af_panelTip"
            id="mainId"
            onmousedown="test-onmousedown"
           >
         
         <span
-             class="OraTipLabel"
+             class="af_panelTip_label"
             >
           &#xa0;TIP
         </span>
         <span
-             class="OraTipText"
+             class="af_panelTip_content"
             >
-          Tip content
-        </span>
+          
+        </span>Tip content
       </div>
 <!--AttributeTest[onmousemove,null]-->
 
       <div
+           class="af_panelTip"
            id="mainId"
            onmousemove="test-onmousemove"
           >
         
         <span
-             class="OraTipLabel"
+             class="af_panelTip_label"
             >
           &#xa0;TIP
         </span>
         <span
-             class="OraTipText"
+             class="af_panelTip_content"
             >
-          Tip content
-        </span>
+          
+        </span>Tip content
       </div>
 <!--AttributeTest[onmouseout,null]-->
 
       <div
+           class="af_panelTip"
            id="mainId"
            onmouseout="test-onmouseout"
           >
         
         <span
-             class="OraTipLabel"
+             class="af_panelTip_label"
             >
           &#xa0;TIP
         </span>
         <span
-             class="OraTipText"
+             class="af_panelTip_content"
             >
-          Tip content
-        </span>
+          
+        </span>Tip content
       </div>
 <!--AttributeTest[onmouseover,null]-->
 
       <div
+           class="af_panelTip"
            id="mainId"
            onmouseover="test-onmouseover"
           >
         
         <span
-             class="OraTipLabel"
+             class="af_panelTip_label"
             >
           &#xa0;TIP
         </span>
         <span
-             class="OraTipText"
+             class="af_panelTip_content"
             >
-          Tip content
-        </span>
+          
+        </span>Tip content
       </div>
 <!--AttributeTest[onmouseup,null]-->
 
       <div
+           class="af_panelTip"
            id="mainId"
            onmouseup="test-onmouseup"
           >
         
         <span
-             class="OraTipLabel"
+             class="af_panelTip_label"
             >
           &#xa0;TIP
         </span>
         <span
-             class="OraTipText"
+             class="af_panelTip_content"
             >
-          Tip content
-        </span>
+          
+        </span>Tip content
       </div>
 </results>

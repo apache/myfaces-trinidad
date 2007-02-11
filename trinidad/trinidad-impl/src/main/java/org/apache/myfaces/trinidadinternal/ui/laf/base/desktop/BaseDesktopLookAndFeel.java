@@ -272,7 +272,6 @@ public class BaseDesktopLookAndFeel extends XhtmlLookAndFeel
     TAB_BAR_NAME,
     TABLE_FOOTER_NAME,
     TABLE_NAME,
-    TIP_NAME,
     TREE_NAME
   };
 

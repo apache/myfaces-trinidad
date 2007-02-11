@@ -194,7 +194,6 @@ section level hints to the user.
         <mfp:group>${md:getTranslatedString("PALETTE_LAYOUT")}</mfp:group>
         <mfp:preferred-children>tr:outputText tr:outputFormatted tr:goLink</mfp:preferred-children>
       </mfp:component-metadata>
-      <mfp:uix2-local-name>tip</mfp:uix2-local-name>
     </component-extension>
   </component>
 </faces-config>

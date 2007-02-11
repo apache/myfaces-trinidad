@@ -758,7 +758,16 @@ public final class SkinSelectors
    public static final String AF_SELECT_ONE_TAB_SEPARATOR_ICON_NAME =
      "af|panelTabbed::separator-icon";
 
-   
+   //                                                                         //
+   //                                                                         //
+   // =========================== tr:panelTip ============================ //
+   //                                                                         //
+   //                                                                         //
+
+  public static final String AF_PANEL_TIP_STYLE_CLASS = "af|panelTip";
+  public static final String AF_PANEL_TIP_LABEL_STYLE_CLASS = "af|panelTip::label";
+  public static final String AF_PANEL_TIP_CONTENT_STYLE_CLASS = "af|panelTip::content";
+
    //                                                                         //
    //                                                                         //
    // ======================== tr:progressIndicator ========================= //

@@ -102,7 +102,6 @@ public class PdaHtmlLookAndFeel extends XhtmlLookAndFeel
     SUBMIT_BUTTON_NAME,
     SUB_TAB_BAR_NAME,       //support ?
     TAB_BAR_NAME,
-    TIP_NAME,                  // Support
     TREE_NAME,
 
   };

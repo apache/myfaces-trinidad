@@ -456,7 +456,6 @@
     <includeStyle name="AFEndPadding"/>   
   </style>  
   
-  <!-- NEW for Fusion. -->
   <!-- This allows server-side labels to have the same color -->
   <style name="AFLabelTextForeground">
     <includeStyle name="AFTextForeground"/>
@@ -464,7 +463,7 @@
   <style name="AFLabelTextForegroundDisabled">
     <includeStyle name="AFTextForeground"/>
   </style>
-  <!-- NEW for Fusion. -->
+
   <style name="AFLabel">
     <includeStyle name="AFDefaultFont"/>
     <includeStyle name="AFEndTextAlign"/>
@@ -474,7 +473,7 @@
   </style>
   
   <!-- This is a convenience for people that want all disabled labels to look the same -->
-  <!-- TODO New for Fusion  -->
+
   <style name="AFLabelDisabled">
     <includeStyle name="AFLabelTextForegroundDisabled"/>
   </style>
@@ -546,8 +545,6 @@
   <style selector=".OraLinkDisabled">
     <includeStyle name="AFDefaultFont"/>
   </style>
-  
-  <!-- New for Fusion. TODO Doc these keys and a changes doc -->
   
 
   <style selector="af|outputText">
@@ -637,6 +634,18 @@
   <style selector="af|panelLabelAndMessage::label">
     <includeStyle name="AFLabel"/>
   </style>
+
+  <style selector="af|panelTip">
+    <includeStyle name="AFDefaultFont"/>
+    <includeStyle name="AFDarkForeground"/>
+  </style>
+
+  <style selector="af|panelTip::label">
+    <includeStyle name="AFDefaultBoldFont"/>
+  </style>
+
+  <style selector="af|panelTip::content">
+  </style>
   
   <!-- Required label selectors -->
   
@@ -685,8 +694,6 @@
     <includeStyle name="AFRequiredLabel"/>
   </style>
   
-  <!-- New for Fusion. No need to doc these, this is a convenience -->
-  <!-- we will doc AFLabelDisabled. -->
   <style selector="af|inputChoice:disabled::label">
     <includeStyle name="AFLabelDisabled"/>
   </style>
@@ -3437,16 +3444,6 @@
   <!-- 
     Private Tip Styles: These can probably be made public.
   -->
-
-  <style selector=".OraTipLabel">
-    <includeStyle name="AFDefaultBoldFont"/>
-    <includeStyle name="AFDarkForeground"/>
-  </style>
-
-  <style selector=".OraTipText">
-    <includeStyle name="AFDefaultFont"/>
-    <includeStyle name="AFDarkForeground"/>
-  </style>
 
 
   <!-- 

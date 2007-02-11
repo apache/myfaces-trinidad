@@ -472,7 +472,6 @@ public interface UIConstants
   public static final String TABLE_NAME = "table";
   public static final String TABLE_LAYOUT_NAME = "tableLayout";
   public static final String TEXT_NAME = "text";
-  public static final String TIP_NAME = "tip";
   public static final String TREE_NAME = "tree";
 
 
