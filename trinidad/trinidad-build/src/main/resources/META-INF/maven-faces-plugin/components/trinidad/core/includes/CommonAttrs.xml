@@ -23,7 +23,7 @@
               xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin">
   <component>
     <property>
-      <description><![CDATA[Specifies CSS styles to use for this component.]]></description>
+      <description><![CDATA[the CSS styles to use for this component.]]></description>
       <property-name>inlineStyle</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>

@@ -205,14 +205,13 @@ abstract public class FormElementRenderer extends EditableValueRenderer
     return toString(bean.getProperty(_labelKey));
   }
 
-    protected String getContentStyle(FacesBean bean)
-    {
-      
-      if (_contentStyleKey == null)
-        return null;
-
-      return toString(bean.getProperty(_contentStyleKey));
-    }
+  protected String getContentStyle(FacesBean bean)
+  {
+    if (_contentStyleKey == null)
+      return null;
+    
+    return toString(bean.getProperty(_contentStyleKey));
+  }
   
 
   protected String getOnblur(FacesBean bean)

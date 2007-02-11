@@ -24,6 +24,11 @@
   <attribute-test name="shortDesc" value="shortDesc_val"/>
   <attribute-test name="styleClass" value="styleClass_val"/>
   <attribute-test name="contentStyle" value="contentStyle_val"/>
+  
+  <boolean-test name="readOnly">
+    <attribute-test name="contentStyle"/>
+    <attribute-test name="shortDesc"/>
+  </boolean-test>
 
   <boolean-test name="autoSubmit"/>
 
