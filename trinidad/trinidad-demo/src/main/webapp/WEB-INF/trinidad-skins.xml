@@ -20,6 +20,14 @@
 -->
 <skins xmlns="http://myfaces.apache.org/trinidad/skin">
     <skin>
+      <id>uni.desktop</id>
+      <family>uni</family>
+      <render-kit-id>org.apache.myfaces.trinidad.desktop</render-kit-id>
+      <style-sheet-name>http://bali:8888/faces-11/adf/styles/cache/richdemo-desktop-unknown-version-rtl-gecko.css</style-sheet-name>
+    </skin> 
+
+
+    <skin>
         <id>
             purple.desktop
         </id>
