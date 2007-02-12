@@ -176,7 +176,11 @@ class StyleSheetNameResolver implements NameResolver
     {
       try
       {
-        if (name.startsWith("http:"))
+        if (name.startsWith("http:") ||
+            name.startsWith("https:") ||
+            name.startsWith("file:") ||
+            name.startsWith("ftp:") ||
+            name.startsWith("jar:"))
         {
           URL url = new URL(name);
           if (url != null)
