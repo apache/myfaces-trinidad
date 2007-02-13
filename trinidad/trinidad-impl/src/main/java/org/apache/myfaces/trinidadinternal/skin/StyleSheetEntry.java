@@ -350,6 +350,12 @@ class StyleSheetEntry
         {
           String name = getStyleSheetName();
 
+          // Recreate the StyleSheetEntry for the styleSheet using the new NameResolver
+          // (e.g., if purpleSkin.css
+          // has changed, create the SkinStyleSheetEntry for purpleSkin.css)
+          // Using a new NameResolver like we do ensures that we don't get a 
+          // cached result from the provider 
+          // (see SkinStyleSheetParserUtils.parseCSSSource's getCachedResult)
           StyleSheetEntry skinStyleSheet = _createSkinStyleSheet(resolver,
                                                                  name);
 

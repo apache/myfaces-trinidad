@@ -100,11 +100,6 @@ class SkinStyleSheetParserUtils
     try
     {
 
-      // Store a resolver relative to the file we're about to parse
-      // =-=jmw TODO are these two lines needed?
-      XMLUtils.setResolver(context, resolver.getResolver(sourceName));
-      XMLUtils.setInputStreamProvider(context, provider);
-
       // PARSE!
       // create a SkinStyleSheetNode
       // (contains a namespaceMap and a List of SkinSelectorPropertiesNodes
