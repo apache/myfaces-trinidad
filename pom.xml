@@ -162,16 +162,6 @@
       </roles>
       <timezone>-5</timezone>
     </developer>
-    <developer>
-      <id>TDB</id>
-      <name>Jonas Jacobi</name>
-      <organization>Oracle Corp</organization>
-      <email>TDB</email>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>-8</timezone>
-    </developer>
   </developers>
   
   <build>
@@ -209,7 +199,7 @@
 
   <scm>
     <connection>
-      scm:svn:http://svn.apache.org/repos/asf/incubator/adffaces/trunk/plugins/
+      scm:svn:http://svn.apache.org/repos/asf/incubator/adffaces/branches/matzew-m1-plugins/
     </connection>
   </scm>
 
