@@ -24,7 +24,7 @@
   <parent>
     <groupId>org.apache.myfaces.trinidadbuild</groupId>
     <artifactId>maven-plugin-parent</artifactId> 
-    <version>incubator-m1-SNAPSHOT</version>
+    <version>1.0.0-incubating-SNAPSHOT</version>
   </parent>
 
   <groupId>org.apache.myfaces.trinidadbuild</groupId>

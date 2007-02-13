@@ -28,7 +28,7 @@
 
   <groupId>org.apache.myfaces.trinidadbuild</groupId>
   <artifactId>maven-faces-plugin</artifactId> 
-  <version>incubator-m1-SNAPSHOT</version>
+  <version>1.0.0-incubating-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
   <name>Maven Faces Plugin</name>
 
