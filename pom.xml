@@ -203,13 +203,13 @@
   </scm>
 
   <modules>
-    <module>maven-javacc-plugin</module>
     <module>maven-faces-plugin</module>
-    <module>maven-tagdoc-plugin</module>
+    <module>maven-javacc-plugin</module>
     <module>maven-i18n-plugin</module>
     <module>maven-jdev-plugin</module>
     <module>maven-javascript-plugin</module>
     <module>maven-xrts-plugin</module>
+    <module>maven-tagdoc-plugin</module>
     <module>myfaces-archetype-trinidad</module>
   </modules>
 
