@@ -248,6 +248,7 @@
 -->
   </distributionManagement>
 
+  <profiles>
     <profile>
       <id>staging</id>
       <build>
@@ -326,5 +327,5 @@
         </plugins>
       </build>
     </profile>
-
+   </profiles>
 </project>
