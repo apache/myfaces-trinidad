@@ -74,12 +74,9 @@ import org.xml.sax.SAXException;
 /**
  * The FileSystemStyleCache is a StyleProvider implementation which
  * caches generated CSS style sheets on the file system.
- * FileSystemStyleCache instances are shared across applications
- * running in the same VM.  getSharedCache() can be used to obtain
- * a shared FileSystemStyleCache instance for a particular source
- * XSS document.
  *
  * @see org.apache.myfaces.trinidadinternal.style.StyleProvider
+ * @see org.apache.myfaces.trinidadinternal.skin.SkinStyleProvider
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/cache/FileSystemStyleCache.java#0 $) $Date: 10-nov-2005.18:58:54 $
  * @author The Oracle ADF Faces Team
@@ -99,62 +96,6 @@ public class FileSystemStyleCache implements StyleProvider
     return "text/css";
   }
 
-  /**
-   * Returns a shared ImageProvider instance for the specified
-   * XSS document and target cache directory.
-   *
-   * @param source The path of the source XSS document.  The
-   *   specified file must be a valid XSS document.  If the specified
-   *   file does not exists, an IllegalArgumentException is thrown.
-   * @param target The path of the target directory.  Generated
-   *   CSS files are stored in this directory.  If the directory
-   *   does not exist and can not be created, an IllegalArgumentException
-   *   is thrown.
-   */
-  public static StyleProvider getSharedCache(
-    String source,
-    String target
-    )
-  {
-    // Make sure we have some source/target.
-    if (source == null)
-      throw new IllegalArgumentException("No source specified.");
-    if (target == null)
-      throw new IllegalArgumentException("No target specified.");
-
-    // First, get the key to use to look up the cache
-    String key = _getSharedCacheKey(source, target);
-
-    // See if we've got a shared cache
-    StyleProvider cache = _sSharedCaches.get(key);
-
-    // If we didn't find a shared cache, create a new cache
-    // and cache it in the shared cache cache.  :-)
-    if (cache == null)
-    {
-      // Create the new cache
-      cache = new FileSystemStyleCache(source, target);
-
-      // Before we save the new cache, make sure another thread hasn't
-      // already cached a different instance.  Synchronize to lock up
-      // _sSharedCaches.
-      synchronized (_sSharedCaches)
-      {
-        StyleProvider tmp = _sSharedCaches.get(key);
-        if (tmp != null)
-        {
-          // Stick with tmp
-          cache = tmp;
-        }
-        else
-        {
-          _sSharedCaches.put(key, cache);
-        }
-      }
-    }
-
-    return cache;
-  }
 
   /**
    * Creates a FileSystemStyleCache.
@@ -429,7 +370,7 @@ public class FileSystemStyleCache implements StyleProvider
     if (entry != null)
       return entry;
 
-    // Next see if we an entry which is compatible with this request
+    // Next see if this is an entry which is compatible with this request
     entry = _getCompatibleEntry( context,
                                  document,
                                  cache,
@@ -867,21 +808,6 @@ public class FileSystemStyleCache implements StyleProvider
     return v;
   }
 
-  // Return a key which we can use to look up the cache with
-  // the specifeid properties
-  private static String _getSharedCacheKey(String source, String target)
-  {
-    // Make sure we used canonical paths when looking up the cache.
-    // Otherwise, slight difference in how the paths are specified might
-    // cause us to create multiple FileSystemStyleCache instances even
-    // when referring to the same canonical directory.
-    source = _getCanonicalPath(source);
-    target = _getCanonicalPath(target);
-
-    // Just combine the source and path to form the key
-    return source + target;
-  }
-
   // Create an array of all the namespace prefixes in the xss/css file. E.g., "af|" or "tr|"
   private static String[] _getNamespacePrefixes(
     StyleContext       context,
@@ -1032,37 +958,6 @@ public class FileSystemStyleCache implements StyleProvider
     return _SHORT_CLASS_PREFIX + Integer.toString(count, Character.MAX_RADIX);
   }
 
-
-
-  // Utility method for getting canonical paths.  File.getCanonicalPath()
-  // can be slow, so we cache canonical paths to avoid calling
-  // getCanonicalPath() each time we need to get a shared FileSystemStyleCache
-  // instance.
-  // =-=ags This code is copied from FileSystemImageCache.  Might want to
-  //        add this as a generic utility method somewhere, but where?
-  private static String _getCanonicalPath(String path)
-  {
-    String canonicalPath = _sCanonicalPaths.get(path);
-    if (canonicalPath != null)
-      return canonicalPath;
-
-    File file = new File(path);
-
-    try
-    {
-      canonicalPath =  file.getCanonicalPath();
-    }
-    catch (IOException e)
-    {
-      throw new IllegalArgumentException("Could not get directory path: " +
-                                         path);
-    }
-
-    if (canonicalPath != null)
-      _sCanonicalPaths.put(path, canonicalPath);
-
-    return canonicalPath;
-  }
 
   // Key class used for hashing style sheet URIs
   private static class Key
@@ -1418,12 +1313,6 @@ public class FileSystemStyleCache implements StyleProvider
   // Extension for CSS files
   private static final String _CSS_EXTENSION = ".css";
 
-  // Table of shared FileSystemStyleCaches, hashed by path.
-  // Note on table size: We don't expect to have very many instances
-  // running in a single VM - table can be small.
-  private static final Hashtable<String, StyleProvider> _sSharedCaches =
-    new Hashtable<String, StyleProvider>(19);
-
   // Java name for UTF8 encoding
   private static String _UTF8_ENCODING = "UTF8";
 
@@ -1438,9 +1327,6 @@ public class FileSystemStyleCache implements StyleProvider
   // Prefix to use for short style classes
   private static final String _SHORT_CLASS_PREFIX = "x";
 
-  // -= Simon Lessard =-
-  // TODO: Check if synchronization is truly needed
-  private static final Hashtable<String, String> _sCanonicalPaths = new Hashtable<String, String>(19);
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(FileSystemStyleCache.class);
 
 
