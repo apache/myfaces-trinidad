@@ -163,11 +163,6 @@ public class ResourceServlet extends HttpServlet
     }
     finally
     {
-      //=-= Scott O'Bryan =-=
-      // HACK: This never actually goes through the lifecycle like it should.  
-      // So we'll need to set response complete so configurator does its 
-      // cleanup.
-      context.responseComplete();
       context.release();
     }
   }
