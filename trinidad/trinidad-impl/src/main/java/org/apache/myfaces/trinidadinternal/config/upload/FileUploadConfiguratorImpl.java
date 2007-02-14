@@ -165,13 +165,6 @@ public class FileUploadConfiguratorImpl extends Configurator
 
     if(addedParams != null)
     {
-      @SuppressWarnings("unchecked")
-      Map<String, String[]> parameters = new HashMap<String, String[]>(externalContext.getRequestParameterValuesMap());
-      parameters.putAll(addedParams);
-
-      // TODO sobryan (dependency = JSF 1.2)
-      // For JSF 1.2, we can probably simply wrap the request objects and set them on
-      // the existing ExternalContext.
       return _getExternalContextWrapper(externalContext, addedParams);
     }
 

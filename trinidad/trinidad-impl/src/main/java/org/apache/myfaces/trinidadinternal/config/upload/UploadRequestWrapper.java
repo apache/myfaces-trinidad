@@ -16,10 +16,10 @@ import org.apache.myfaces.trinidadinternal.share.util.CaboHttpUtils;
  * Request wrapper class that hooks in parameters identified in
  * the servlet request.
  *
- * @todo Stop going String -> bytes -> String;  change MultipartFormHandler
- *  to simply extract byte arrays, and do all the type conversion here.
  * @author The Oracle ADF Faces Team
  */
+// TODO Stop going String -> bytes -> String;  change MultipartFormHandler
+//    to simply extract byte arrays, and do all the type conversion here.
 @SuppressWarnings("deprecation")
 public class UploadRequestWrapper extends HttpServletRequestWrapper
 {
@@ -30,10 +30,12 @@ public class UploadRequestWrapper extends HttpServletRequestWrapper
     super(request);
     
     @SuppressWarnings("unchecked")
-    Map<String, String[]> origionalMap = super.getParameterMap();
+    // Merge in all the original parameters
+    Map<String, String[]> originalMap = super.getParameterMap();
     
-    _extractedParams = new HashMap<String, String[]>(origionalMap);
+    _extractedParams = new HashMap<String, String[]>(originalMap);
     _extractedParams.putAll(params);
+    _encoding = super.getCharacterEncoding();
   }
   
   /**
@@ -46,6 +48,12 @@ public class UploadRequestWrapper extends HttpServletRequestWrapper
     return _WWW_FORM_URLENCODED_TYPE;
   }
 
+  @Override
+  public String getCharacterEncoding()
+  {
+    return _encoding;
+  }
+
   /**
    * Trap calls to setCharacterEncoding() to decode parameters correctly
    */
@@ -53,7 +61,24 @@ public class UploadRequestWrapper extends HttpServletRequestWrapper
   public void setCharacterEncoding(String encoding)
     throws UnsupportedEncodingException
   {
-    super.setCharacterEncoding(encoding);
+    // It is illegal to set the character encoding after parameters
+    // have been retrieved.  This is an annoying restriction,
+    // but we shouldn't break it
+    if (_parametersRetrieved)
+    {
+      _LOG.warning("Unable to set request character encoding to {0}, " + 
+                   "because request parameters have already been read.",
+                   encoding);
+      return;
+    }
+
+    // If the encoding is already right, we can bail
+    if (encoding.equals(_encoding))
+      return;
+    
+    // Don't call super.setCharacterEncoding() - it's too late
+    // and we'll get a warning
+    _encoding = encoding;
     if (_LOG.isFine())
       _LOG.fine("Switching encoding of wrapper to " + encoding);
 
@@ -62,6 +87,9 @@ public class UploadRequestWrapper extends HttpServletRequestWrapper
       
     byte[] buffer = new byte[256];
     
+    // FIXME: decodeRequestParameter() assumes the incoming
+    // character set is ISO-8859-1 - but this is not
+    // necessarily true!
     for(Map.Entry<String, String[]> entry : _extractedParams.entrySet())
     {
       String key = entry.getKey();
@@ -130,6 +158,9 @@ public class UploadRequestWrapper extends HttpServletRequestWrapper
    */
   private Map<String, String[]> _getMap()
   {
+    // Mark that parameters have been retrieved so we 
+    // can log a proper warning
+    _parametersRetrieved = true;
     if (_extractedAndDecodedParams != null)
       return _extractedAndDecodedParams;
 
@@ -138,6 +169,8 @@ public class UploadRequestWrapper extends HttpServletRequestWrapper
 
   private Map<String, String[]> _extractedAndDecodedParams;
   private Map<String, String[]> _extractedParams;
+  private String                _encoding;
+  private boolean               _parametersRetrieved;
 
   private static final String _WWW_FORM_URLENCODED_TYPE =
     "application/x-www-form-urlencoded";
