@@ -278,7 +278,7 @@
               </execution>
             </executions>
           </plugin>
-          <plugin>
+          <!--plugin>
             <artifactId>maven-source-plugin</artifactId>
             <version>2.0.2</version>
             <executions>
@@ -289,7 +289,37 @@
                 </goals>
               </execution>
             </executions>
-          </plugin>
+          </plugin-->
+          <plugin>
+	    <!-- This should possibly better be done by using a resource
+		     definition. However, if we declare a resource with
+		     ${basedir} as the base directory, then the
+		     maven-source-plugin will add the whole directory to
+		     its contents.
+	    -->
+         <artifactId>maven-antrun-plugin</artifactId>
+         <executions>
+
+           <execution>
+             <phase>generate-resources</phase>
+             <configuration>
+              <tasks>
+                <copy todir="${project.build.outputDirectory}/META-INF">
+                  <fileset dir="${basedir}">
+                    <include name="LICENSE.txt" />
+                    <include name="NOTICE.txt" />
+
+                  </fileset>
+                </copy>
+              </tasks>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+
+        </executions>
+      </plugin>
           <plugin>
             <artifactId>maven-javadoc-plugin</artifactId>
             <version>2.2</version>
