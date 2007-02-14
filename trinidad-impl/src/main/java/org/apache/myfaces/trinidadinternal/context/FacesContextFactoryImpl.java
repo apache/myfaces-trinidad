@@ -59,51 +59,27 @@ public class FacesContextFactoryImpl
       Object response, 
       Lifecycle lifecycle)
   {
-    FacesContext fc = _factory.getFacesContext(context, request, response, lifecycle);
-    ExternalContext ec = fc.getExternalContext();
-
-    GlobalConfiguratorImpl config = GlobalConfiguratorImpl.getInstance();    
-
-    //This should be done only if the filter or other logic was not done before this
-    //we try to retrieve the FacesContext.  If this is the case then we'll need to handle
-    //cleanup on the release of the FacesContext.  Otherwise the endRequest should be
-    //called by whatever did he origional beginRequest.
-    
-    if(!GlobalConfiguratorImpl.isRequestStarted(ec))
-    {
-      config.beginRequest(ec);
-      ec.getApplicationMap().put(_CONFIG_IN_CONTEXT, Boolean.TRUE);
-    }
-    
-    return new CacheRenderKit(fc);
+    return new CacheRenderKit(_factory.getFacesContext(context, request, response, lifecycle));
   }
   
-  /**
-   * Sets the configurator up to execute an endRequest when it is destroyed
-   * 
-   * @param fc
-   */
-  @SuppressWarnings("unchecked")
-  static void endRequestIfNecessary(FacesContext fc)
-  {
-    ExternalContext ec = fc.getExternalContext();
-    if(Boolean.TRUE.equals(ec.getApplicationMap().remove(_CONFIG_IN_CONTEXT)))
-    {
-      ec.getApplicationMap().put(_READY_FOR_CLEANUP, Boolean.TRUE);      
-    }
-  }
-
   static public class CacheRenderKit extends FacesContext
   {
     public CacheRenderKit(FacesContext base)
     {
       _base = base;
-      
-      //SMO: TODO: is this still needed?
       ExternalContext baseExternal = base.getExternalContext();
-      ExternalContext external = 
-        GlobalConfiguratorImpl.getInstance().getExternalContext(baseExternal);
-      _external = new OverrideDispatch(external);
+      GlobalConfiguratorImpl config = GlobalConfiguratorImpl.getInstance();
+
+      //This should be done only if beginRequest was not called on the configurator
+      //before we retrieve the FacesContext.  If this is the case then we'll need to handle
+      //cleanup on the release of the FacesContext.  Otherwise the endRequest should be
+      //called by whatever did he origional beginRequest.
+      if(!GlobalConfiguratorImpl.isRequestStarted(baseExternal))
+      {
+        baseExternal.getRequestMap().put(_CONFIG_IN_CONTEXT, Boolean.TRUE);
+      }
+
+      _external = new OverrideDispatch(config.getExternalContext(baseExternal));
       setCurrentInstance(this);
     }
 
@@ -244,12 +220,8 @@ public class FacesContextFactoryImpl
     @Override
     public void release()
     {
-      //=- Scott O'Bryan -=
-      // JSR-301 should allow us to call the cleanup.  So this and all logic
-      // pertaining to creation and cleanup of the configurator per request
-      // could probably go away.
       ExternalContext ec = getExternalContext();
-      if(Boolean.TRUE.equals(ec.getApplicationMap().remove(_READY_FOR_CLEANUP)))
+      if(Boolean.TRUE.equals(ec.getRequestMap().get(_CONFIG_IN_CONTEXT)))
       {
         GlobalConfiguratorImpl.getInstance().endRequest(ec);
       }
@@ -261,6 +233,8 @@ public class FacesContextFactoryImpl
     private final ExternalContext _external;
     private String    _renderKitId;
     private RenderKit _kit;
+    
+    static private final String _CONFIG_IN_CONTEXT = FacesContextFactoryImpl.class.getName()+".CONFIG_IN_CONTEXT";
   }
 
   static public class OverrideDispatch extends ExternalContextDecorator
@@ -292,7 +266,5 @@ public class FacesContextFactoryImpl
     private final ExternalContext _decorated;
   }
 
-  static private final String _CONFIG_IN_CONTEXT = FacesContextFactoryImpl.class.getName()+".CONFIG_IN_CONTEXT";
-  static private final String _READY_FOR_CLEANUP = FacesContextFactoryImpl.class.getName()+".CONFIG_READY_FOR_CLEANUP";
   private final FacesContextFactory _factory;
 }

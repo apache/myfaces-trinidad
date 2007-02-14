@@ -182,12 +182,12 @@ public class GlobalConfiguratorImpl extends Configurator
       // the contract.
       if (!_isDisabled(externalContext))
       {
+        // If this hasn't been initialized then please initialize
         if (!_initialized)
         {
           init(externalContext);
         }
 
-        // If this hasn't been initialized then please initialize
         _attachRequestContext(externalContext);
 
         if (externalContext.getRequestMap().get(_IN_REQUEST) == null)
@@ -266,13 +266,8 @@ public class GlobalConfiguratorImpl extends Configurator
         {
           _endConfiguratorServiceRequest(externalContext);
         }
-
-        final RequestContext context = RequestContext.getCurrentInstance();
-        if (context != null)
-        {
-          context.release();
-          assert RequestContext.getCurrentInstance() == null;
-        }
+        
+        _releaseRequestContext(externalContext);
       }
       RequestType.clearType(externalContext);
     }
@@ -389,7 +384,7 @@ public class GlobalConfiguratorImpl extends Configurator
     // See if we've got a cached RequestContext instance; if so,
     // reattach it
     final Object cachedRequestContext = externalContext.getRequestMap().get(
-        TrinidadPhaseListener.CACHED_REQUEST_CONTEXT);
+        _REQUEST_CONTEXT);
 
     // Catch both the null scenario and the
     // RequestContext-from-a-different-classloader scenario
@@ -403,10 +398,27 @@ public class GlobalConfiguratorImpl extends Configurator
       final RequestContextFactory factory = RequestContextFactory.getFactory();
       assert factory != null;
       context = factory.createContext(externalContext);
-      externalContext.getRequestMap().put(TrinidadPhaseListener.CACHED_REQUEST_CONTEXT, context);
+      externalContext.getRequestMap().put(_REQUEST_CONTEXT, context);
     }
 
     assert RequestContext.getCurrentInstance() == context;
+  }
+  
+  private void _releaseRequestContext(final ExternalContext ec)
+  {
+    //If it's not a portal action, we should remove the cached request because
+    //well want to create a new one next request
+    if(RequestType.getType(ec) != RequestType.PORTAL_ACTION)
+    {
+      ec.getRequestMap().remove(_REQUEST_CONTEXT);
+    }
+    
+    final RequestContext context = RequestContext.getCurrentInstance();
+    if (context != null)
+    {
+      context.release();
+      assert RequestContext.getCurrentInstance() == null;
+    }    
   }
 
   private void _endConfiguratorServiceRequest(final ExternalContext ec)
@@ -436,18 +448,15 @@ public class GlobalConfiguratorImpl extends Configurator
     }
   }
 
-  private boolean                                               _initialized;
-
-  private List<Configurator>                                    _services;
-
+  private boolean            _initialized;
+  private List<Configurator> _services;
   static private final Map<ClassLoader, GlobalConfiguratorImpl> _CONFIGURATORS = new HashMap<ClassLoader, GlobalConfiguratorImpl>();
-
-  static private final String                                   _IN_REQUEST    = GlobalConfiguratorImpl.class
-                                                                                   .getName()
-                                                                                   + ".IN_REQUEST";
-
-  static private final TrinidadLogger                           _LOG           = TrinidadLogger
-                                                                                   .createTrinidadLogger(GlobalConfiguratorImpl.class);
+  static private final String _IN_REQUEST    = GlobalConfiguratorImpl.class
+                                                         .getName()
+                                                         + ".IN_REQUEST";
+  static private final String _REQUEST_CONTEXT = GlobalConfiguratorImpl.class.getName()
+                                                         +".REQUEST_CONTEXT";
+  static private final TrinidadLogger _LOG  = TrinidadLogger.createTrinidadLogger(GlobalConfiguratorImpl.class);
 
   private enum RequestType
   {
