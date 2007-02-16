@@ -915,6 +915,8 @@ public class NavigationPaneRenderer extends XhtmlRenderer
         String destination = toString(itemData.get("destination"));
         boolean immediate = false;
         boolean partialSubmit = false;
+        // -= Simon =-
+        // FIXME: _EXTRA_SUBMIT_PARAMS_KEY is never restored to its old value
         Object old = null;
         if (destination == null)
         {

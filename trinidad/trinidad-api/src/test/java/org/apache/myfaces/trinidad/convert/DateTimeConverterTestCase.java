@@ -244,7 +244,6 @@ public abstract class DateTimeConverterTestCase extends ConverterTestCase
 
       Mock mock = mock(UIComponent.class);
       UIComponent component = (UIComponent) mock.proxy();
-      MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
       
       setFacesContext(facesContext);
       try
@@ -264,7 +263,6 @@ public abstract class DateTimeConverterTestCase extends ConverterTestCase
   protected void checkConversionOnLongPatternWithTimeZone()
   {
     String pattern    = "yyyy.MM.dd G 'at' HH:mm:ss z";
-    String timeZoneId = TimeZone.getDefault().getDisplayName();
     String inputValue = "2001.07.04 AD at 12:08:56 " + "UTC";
 
     javax.faces.convert.DateTimeConverter dtConv = getDateTimeConverter();
@@ -273,11 +271,9 @@ public abstract class DateTimeConverterTestCase extends ConverterTestCase
 
     Mock mock = mock(UIComponent.class);
     UIComponent component = (UIComponent) mock.proxy();
-    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
 
     facesContext.getViewRoot().setLocale(Locale.ENGLISH);
 
-    TimeZone tz = TimeZone.getDefault();
     TimeZone.setDefault(getTzone("UTC"));
 
     GregorianCalendar gcal = new GregorianCalendar(getTzone("UTC"));
@@ -327,7 +323,6 @@ public abstract class DateTimeConverterTestCase extends ConverterTestCase
 
       Mock mock = mock(UIComponent.class);
       UIComponent component = (UIComponent) mock.proxy();
-      MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
 
       javax.faces.convert.DateTimeConverter fdtConv
         = getDateTimeConverter();
@@ -388,7 +383,6 @@ public abstract class DateTimeConverterTestCase extends ConverterTestCase
       javax.faces.convert.DateTimeConverter dtConv = getDateTimeConverter();
       Mock mock = mock(UIComponent.class);
       UIComponent component = (UIComponent) mock.proxy();
-      MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
 
       _setStyleOnConverter(dtConv, styleType, styles[i]);
 
@@ -417,7 +411,7 @@ public abstract class DateTimeConverterTestCase extends ConverterTestCase
           javax.faces.convert.DateTimeConverter extDtConv = getDateTimeConverter();
           extDtConv.setLocale(Locale.ENGLISH);
           _setStyleOnConverter(extDtConv, styleType, styles[i].toUpperCase());
-          String outPut = extDtConv.getAsString(facesContext, cmp, dt);
+          extDtConv.getAsString(facesContext, cmp, dt);
           fail("Upper case not accepted for styles");
         }
         catch (RuntimeException ce)

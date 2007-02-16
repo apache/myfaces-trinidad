@@ -29,6 +29,7 @@ import javax.faces.context.FacesContext;
  * @author The Oracle ADF Faces Team
  * @deprecated use public API
  */
+@Deprecated
 public class RenderUtils
 {
   private RenderUtils()

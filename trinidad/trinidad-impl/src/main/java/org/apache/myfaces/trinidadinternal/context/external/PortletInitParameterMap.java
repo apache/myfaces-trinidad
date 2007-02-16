@@ -29,7 +29,7 @@ import javax.portlet.PortletContext;
  * @author  Stan Silvert (latest modification by $Author: oros $)
  * @version $Revision: 278654 $ $Date: 2005-09-04 18:32:35 -0600 (Sun, 04 Sep 2005) $
  */
-public class PortletInitParameterMap extends AbstractAttributeMap
+public class PortletInitParameterMap extends AbstractAttributeMap<String, String>
 {
   public PortletInitParameterMap(final PortletContext portletContext)
   {
@@ -37,7 +37,7 @@ public class PortletInitParameterMap extends AbstractAttributeMap
   }
 
   @Override
-  protected Object getAttribute(final Object key)
+  protected String getAttribute(final Object key)
   {
     if (key.toString().equals(key))
     {
@@ -47,7 +47,8 @@ public class PortletInitParameterMap extends AbstractAttributeMap
   }
 
   @Override
-  protected Enumeration getAttributeNames()
+  @SuppressWarnings("unchecked")
+  protected Enumeration<String> getAttributeNames()
   {
     return _portletContext.getInitParameterNames();
   }

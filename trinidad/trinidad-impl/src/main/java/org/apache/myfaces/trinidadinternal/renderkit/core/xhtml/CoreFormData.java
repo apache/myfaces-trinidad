@@ -71,11 +71,13 @@ public class CoreFormData extends FormData
     return _hasImmediateComponent;
   }
 
+  @Override
   public String getName()
   {
     return _formName;
   }
 
+  @Override
   public void addLabel(
     String targetId,
     String label
@@ -90,6 +92,7 @@ public class CoreFormData extends FormData
     labelMap.put(targetId, label);
   }
 
+  @Override
   public Integer addGlobalMessageFormat(
     RenderingContext rc)
   {
@@ -116,6 +119,7 @@ public class CoreFormData extends FormData
    *
    * @todo get rid of servletRequestParameters reference
    */
+  @Override
   public void addNeededValue(String name)
   {
     if (name == null)
@@ -132,6 +136,7 @@ public class CoreFormData extends FormData
   }
 
 
+  @Override
   public void addRenderedValue(String name)
   {
     Set<String> renderedSet = getRenderedValues(true);

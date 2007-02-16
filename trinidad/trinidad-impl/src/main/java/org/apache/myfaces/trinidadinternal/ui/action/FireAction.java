@@ -22,7 +22,6 @@ import java.io.IOException;
 
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidadinternal.share.url.FacesURLEncoder;
 import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;

@@ -57,8 +57,6 @@ public class PdaFrameBorderLayoutRenderer extends XhtmlRenderer
       RenderingContext arc,
       FacesBean           bean) throws IOException
   {
-    ResponseWriter writer = context.getResponseWriter();
-    
     renderShortDescAttribute(context, arc, bean);
     renderStyleAttributes(context, arc, bean);
   }

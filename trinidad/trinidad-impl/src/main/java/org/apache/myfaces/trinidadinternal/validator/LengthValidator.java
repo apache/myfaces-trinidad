@@ -94,7 +94,7 @@ public class LengthValidator extends org.apache.myfaces.trinidad.validator.Lengt
       UIComponent component,
       String max,
       String min,
-      Map messages)
+      Map<String, String> messages)
   {
     StringBuilder outBuffer = new StringBuilder();
     outBuffer.append("new TrLengthValidator(");

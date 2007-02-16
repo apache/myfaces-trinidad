@@ -70,6 +70,7 @@ abstract public class SkinImpl extends Skin
    * can be retrieved by id via SkinFactory.getSkin().
    * @see org.apache.myfaces.trinidadinternal.skin.SkinFactory#getSkin
    */
+  @Override
   public String getId()
   {
     return null;
@@ -84,6 +85,7 @@ abstract public class SkinImpl extends Skin
    * particular skin instance to be selected based on the
    * current render-kit-id.
    */
+  @Override
   public String getFamily()
   {
     return null;
@@ -92,6 +94,7 @@ abstract public class SkinImpl extends Skin
   /**
    * Returns the renderKitId for the Skin.
    */
+  @Override
   public String getRenderKitId()
   {
     return null;
@@ -100,11 +103,13 @@ abstract public class SkinImpl extends Skin
   /**
    * Returns the name of the XSS style sheet for this Skin.
    */
+  @Override
   abstract public String getStyleSheetName();
 
   /**
    * Returns a translated String in the LocaleContext's translation Locale.
    */
+  @Override
   public String getTranslatedString(
     LocaleContext lContext,
     String        key
@@ -126,6 +131,7 @@ abstract public class SkinImpl extends Skin
    * @param key The key of the translation to retrieve. Cannot be null.
    * @throws NullPointerException if lContext or key is null.
    */
+  @Override
   public Object getTranslatedValue(
     LocaleContext lContext,
     String        key
@@ -204,6 +210,7 @@ abstract public class SkinImpl extends Skin
    * icon. (ReferenceIcons are resolved -- the real icon they point to is
    * returned)
    */
+  @Override
   public Icon getIcon(
     String  iconName
     )
@@ -216,6 +223,7 @@ abstract public class SkinImpl extends Skin
    * @param iconName  The name of the icon to retrieve. Cannot be null
    * @throws NullPointerException if iconName is null.
    */
+  @Override
   public Icon getIcon(
     String  iconName,
     boolean resolveIcon
@@ -294,6 +302,7 @@ abstract public class SkinImpl extends Skin
    * @param icon      The Icon to register.
    * @throws NullPointerException if iconName is null.
    */
+  @Override
   synchronized public void registerIcon(
     String  iconName,
     Icon    icon
@@ -318,6 +327,7 @@ abstract public class SkinImpl extends Skin
    * @see #getStyleSheetDocument
    * @throws NullPointerException if styleSheetName is null.
    */
+  @Override
   public void registerStyleSheet(
     String styleSheetName
     )
@@ -352,6 +362,7 @@ abstract public class SkinImpl extends Skin
     * @return Map&lt;String, String&gt; The default implemention returns a map of full
     * style class names to shortened style classes.
     */
+  @Override
    public Map<String, String> getStyleClassMap(
      RenderingContext arc
      )
@@ -400,6 +411,7 @@ abstract public class SkinImpl extends Skin
    * Skin instance to avoid having to re-compute Skin-specific
    * values on each render.
    */
+  @Override
   public Object getProperty(Object key)
   {
     if (_properties == null)
@@ -411,6 +423,7 @@ abstract public class SkinImpl extends Skin
   /**
    * Sets a value for the specified property key.
    */
+  @Override
   synchronized public void setProperty(
     Object key,
     Object value

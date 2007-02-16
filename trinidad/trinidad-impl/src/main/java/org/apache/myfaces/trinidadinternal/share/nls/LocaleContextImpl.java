@@ -95,6 +95,7 @@ public class LocaleContextImpl extends LocaleContext
   /**
    * Returns the locale that should be used for translations.
    */
+  @Override
   public Locale getTranslationLocale()
   {
     return _transLocale;
@@ -103,6 +104,7 @@ public class LocaleContextImpl extends LocaleContext
   /**
    * Returns the locale that should be used for formatting.
    */
+  @Override
   public Locale getFormattingLocale()
   {
     return _formattingLocale;
@@ -112,6 +114,7 @@ public class LocaleContextImpl extends LocaleContext
   /**
    * Returns the Locale in IANA String format.
    */
+  @Override
   public String getFormattingIANALocaleString()
   {
     if (_formattingIanaLocale == null)
@@ -128,6 +131,7 @@ public class LocaleContextImpl extends LocaleContext
   /**
    * Returns the translation Locale in IANA String format.
    */
+  @Override
   public String getTranslationIANALocaleString()
   {
     if (_transIanaLocale == null)
@@ -140,6 +144,7 @@ public class LocaleContextImpl extends LocaleContext
     return _transIanaLocale;
   }
 
+  @Override
   public boolean isRightToLeft()
   {
     return (getReadingDirection() == LocaleUtils.DIRECTION_RIGHTTOLEFT);
@@ -195,6 +200,7 @@ public class LocaleContextImpl extends LocaleContext
   /**
    * Returns the TimeZone that the user is running in.
    */
+  @Override
   public TimeZone getTimeZone()
   {
     return _timeZone;
@@ -257,6 +263,7 @@ public class LocaleContextImpl extends LocaleContext
    * <p>
    * @see java.util.ResourceBundle#getBundle
    */
+  @Override
   public ResourceBundle getBundle(
     String baseBundleName
     ) throws MissingResourceException
@@ -296,6 +303,7 @@ public class LocaleContextImpl extends LocaleContext
   /**
    * Returns the year offset for parsing years with only two digits.
    */
+  @Override
   public int getTwoDigitYearStart()
   {
     return getDateFormatContext().getTwoDigitYearStart();
@@ -306,6 +314,7 @@ public class LocaleContextImpl extends LocaleContext
    * If zero (NUL), the default separator for the Locale
    * will be used.
    */
+  @Override
   public char getGroupingSeparator()
   {
     return getDecimalFormatContext().getGroupingSeparator();
@@ -316,6 +325,7 @@ public class LocaleContextImpl extends LocaleContext
    * If zero (NUL), the default separator for the Locale
    * will be used.
    */
+  @Override
   public char getDecimalSeparator()
   {
     return getDecimalFormatContext().getDecimalSeparator();

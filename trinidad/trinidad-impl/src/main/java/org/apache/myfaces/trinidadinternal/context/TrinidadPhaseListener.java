@@ -18,16 +18,10 @@
  */
 package org.apache.myfaces.trinidadinternal.context;
 
-import java.util.Map;
-
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
-
-import org.apache.myfaces.trinidad.context.RequestContext;
-import org.apache.myfaces.trinidad.context.RequestContextFactory;
-import org.apache.myfaces.trinidadinternal.webapp.TrinidadFilterImpl;
 
 /**
  * Performs some trinidad logic and provides some hooks.

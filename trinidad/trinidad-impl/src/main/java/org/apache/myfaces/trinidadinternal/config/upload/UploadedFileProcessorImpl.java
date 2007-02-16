@@ -233,13 +233,13 @@ public class UploadedFileProcessorImpl implements UploadedFileProcessor
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(UploadedFileProcessorImpl.class);
 
-  private static final Class          _PORTLET_CONTEXT_CLASS;
-  private static final Class          _PORTLET_REQUEST_CLASS;
+  private static final Class<?>        _PORTLET_CONTEXT_CLASS;
+  private static final Class<?>       _PORTLET_REQUEST_CLASS;
 
   static
   {
-    Class context;
-    Class request;
+    Class<?> context;
+    Class<?> request;
     try
     {
       context = ClassLoaderUtils.loadClass("javax.portlet.PortletContext");

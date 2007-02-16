@@ -380,6 +380,7 @@ public class CoreRenderingContext extends RenderingContext
    * @param context    FacesContext
    * @param afContext  RequestContext
    */
+  @SuppressWarnings("unchecked")
   private void _initializeSkin(
     FacesContext   context,
     RequestContext afContext)

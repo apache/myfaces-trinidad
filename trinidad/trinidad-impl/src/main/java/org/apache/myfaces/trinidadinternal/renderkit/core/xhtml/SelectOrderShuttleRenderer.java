@@ -66,7 +66,7 @@ public class SelectOrderShuttleRenderer extends SelectManyShuttleRenderer
     return _SELECT_ORDER_KEY_MAP;
   }
 
-
+  @Override
   protected void renderReorderButtons(
     FacesContext     context,
     RenderingContext rc,

@@ -1252,6 +1252,10 @@ public abstract class UIXCollection extends UIXComponentBase
       _currencyCache.clear();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Object getRowKey(FacesContext context, UIComponent component, String clientRowKey)
     {
       if (_isOptimizedKey(clientRowKey))
@@ -1262,6 +1266,10 @@ public abstract class UIXCollection extends UIXComponentBase
       return rowkey;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public String getClientRowKey(FacesContext context, UIComponent component, Object rowKey)
     {
       assert rowKey != null;

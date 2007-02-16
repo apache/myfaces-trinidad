@@ -126,6 +126,7 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
     return false;
   }
 
+  @Override
   protected String getDefaultStyleClass(FacesBean bean)
   {
     return SkinSelectors.AF_LABEL_TEXT_STYLE_CLASS;

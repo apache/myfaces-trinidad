@@ -38,6 +38,7 @@ public class SimplePortletSkin  extends BaseDesktopSkin
   /**
    * Returns the name of the XSS style sheet for this Skin.
    */
+  @Override
   public String getStyleSheetName()
   {
     return "META-INF/adf/styles/simple-portlet.xss";
@@ -47,6 +48,7 @@ public class SimplePortletSkin  extends BaseDesktopSkin
    * Returns the id for the portlet implementation of the Simple
    * Skin: "simple.portlet".
    */
+  @Override
   public String getId()
   {
     return "simple.portlet";
@@ -56,6 +58,7 @@ public class SimplePortletSkin  extends BaseDesktopSkin
    * Returns the family for the portlet implementation of the Simple
    * Skin: "simple.portlet".
    */
+  @Override
   public String getFamily()
   {
     return "simple";
@@ -65,6 +68,7 @@ public class SimplePortletSkin  extends BaseDesktopSkin
    * Returns the renderKitId for the portlet implementation of the Simple
    * Skin.
    */
+  @Override
   public String getRenderKitId()
   {
     return CoreRenderKit.OUTPUT_MODE_PORTLET;
@@ -79,6 +83,7 @@ public class SimplePortletSkin  extends BaseDesktopSkin
   * @return Map&lt;String, String&gt; It should be a map that contains the full style class name as
   * the key, and the value is a portlet style class.
   */
+  @Override
   public Map<String, String> getStyleClassMap(
     RenderingContext arc
     )

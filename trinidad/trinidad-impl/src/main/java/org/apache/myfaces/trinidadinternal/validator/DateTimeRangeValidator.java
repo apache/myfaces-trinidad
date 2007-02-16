@@ -117,7 +117,7 @@ public class DateTimeRangeValidator extends org.apache.myfaces.trinidad.validato
       UIComponent component,
       String max,
       String min,
-      Map messages)
+      Map<String, String> messages)
   {
     StringBuilder outBuffer = new StringBuilder(31 + min.length() + max.length());
     outBuffer.append("new TrDateTimeRangeValidator(");

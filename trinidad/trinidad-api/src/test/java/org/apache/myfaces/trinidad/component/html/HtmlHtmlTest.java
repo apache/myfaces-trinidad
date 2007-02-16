@@ -68,7 +68,7 @@ public class HtmlHtmlTest extends UIComponentTestCase
    */
   public void testAttributeTransparency()
   {
-    HtmlHtml component = new HtmlHtml();
+    //HtmlHtml component = new HtmlHtml();
 
     // remaining attributes here
   }

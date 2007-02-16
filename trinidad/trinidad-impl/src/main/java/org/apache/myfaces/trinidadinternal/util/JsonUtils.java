@@ -39,7 +39,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.myfaces.trinidadinternal.convert.GenericConverterFactory;
 
@@ -67,7 +66,7 @@ public final class JsonUtils
           return;
         }
 
-        Class valueClass = attrValue.getClass();
+        Class<?> valueClass = attrValue.getClass();
         if (Boolean.class == valueClass)
         {
           writeBoolean(out, ((Boolean)attrValue).booleanValue());
@@ -198,8 +197,8 @@ public final class JsonUtils
      */
     static public void writeCollection(
       StringBuilder out,
-      Collection   value,
-      boolean      escapeXML) throws IOException
+      Collection<?> value,
+      boolean       escapeXML) throws IOException
     {
       if (value == null)
       {
@@ -212,7 +211,7 @@ public final class JsonUtils
       else
       {
         out.append("[");
-        for (Iterator iter = value.iterator();
+        for (Iterator<?> iter = value.iterator();
              iter.hasNext();)
         {
           Object item = iter.next();
@@ -351,8 +350,8 @@ public final class JsonUtils
      */
     static public void writeMap(
       StringBuilder out,
-      Map          map,
-      boolean      escapeXML) throws IOException
+      Map<?, ?>     map,
+      boolean       escapeXML) throws IOException
     {
       if (map == null)
       {
@@ -365,11 +364,10 @@ public final class JsonUtils
       else
       {
         out.append('{');
-        Set entries = map.entrySet();
-        for (Iterator iter = entries.iterator();
-             iter.hasNext();)
+        
+        for (Iterator<?> iter = map.entrySet().iterator(); iter.hasNext();)
         {
-          Map.Entry entry = (Map.Entry)iter.next();
+          Map.Entry<?, ?> entry = (Map.Entry<?, ?>)iter.next();
           Object rawKey = entry.getKey();
           if(rawKey == null)
             throw new IllegalArgumentException("Javascript does not support null keys");

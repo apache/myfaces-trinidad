@@ -66,6 +66,7 @@ public class SeparatorRenderer extends XhtmlRenderer
       rw.writeAttribute("size", "1", null);
   }
 
+  @Override
   protected String getDefaultStyleClass(FacesBean bean)
   {
     return SkinSelectors.AF_SEPARATOR_STYLE_CLASS;

@@ -42,6 +42,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.xml.XMLConstants;
  */
 public class RendererNodeParser extends BaseNodeParser implements XMLConstants
 {
+  @SuppressWarnings("deprecation")
   @Override
   public void startElement(
     ParseContext context,

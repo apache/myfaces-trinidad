@@ -244,6 +244,7 @@ public class XhtmlRenderer extends CoreRenderer
   //
 
 
+  @Override
   protected boolean skipDecode(FacesContext context)
   {
     // =-=AEW HACK!  When executing a "dialog return" from the filter,

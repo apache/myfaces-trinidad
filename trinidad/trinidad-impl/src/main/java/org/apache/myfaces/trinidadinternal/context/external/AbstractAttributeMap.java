@@ -53,7 +53,7 @@ abstract class AbstractAttributeMap<K, V> implements Map<K, V>
       return false;
     }
 
-    for (final Enumeration e = getAttributeNames(); e.hasMoreElements();)
+    for (final Enumeration<K> e = getAttributeNames(); e.hasMoreElements();)
     {
       final Object value = getAttribute(e.nextElement());
       if (findValue.equals(value))
@@ -103,7 +103,7 @@ abstract class AbstractAttributeMap<K, V> implements Map<K, V>
   public int size()
   {
     int size = 0;
-    for (final Enumeration e = getAttributeNames(); e.hasMoreElements();)
+    for (final Enumeration<K> e = getAttributeNames(); e.hasMoreElements();)
     {
       size++;
       e.nextElement();
@@ -202,7 +202,7 @@ abstract class AbstractAttributeMap<K, V> implements Map<K, V>
         return false;
       }
 
-      final Entry entry = (Entry) o;
+      final Entry<?, ?> entry = (Entry<?, ?>) o;
       final Object key = entry.getKey();
       final Object value = entry.getValue();
       if (key == null || value == null)
@@ -227,7 +227,7 @@ abstract class AbstractAttributeMap<K, V> implements Map<K, V>
         return false;
       }
 
-      final Entry entry = (Entry) o;
+      final Entry<?, ?> entry = (Entry<?, ?>) o;
       final Object key = entry.getKey();
       final Object value = entry.getValue();
       if (key == null || value == null || !value.equals(AbstractAttributeMap.this.get(key)))
@@ -317,7 +317,7 @@ abstract class AbstractAttributeMap<K, V> implements Map<K, V>
         return false;
       }
 
-      for (final Iterator it = iterator(); it.hasNext();)
+      for (final Iterator<V> it = iterator(); it.hasNext();)
       {
         if (o.equals(it.next()))
         {

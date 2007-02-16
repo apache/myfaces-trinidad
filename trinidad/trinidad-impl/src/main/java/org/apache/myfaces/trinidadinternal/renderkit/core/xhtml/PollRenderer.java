@@ -339,8 +339,6 @@ public class PollRenderer extends XhtmlRenderer
     boolean          isPartial
     )
   {
-
-    String argumentString = null;
     StringBuilder buffer = new StringBuilder(60);
     buffer.append("'");
     buffer.append(formName);

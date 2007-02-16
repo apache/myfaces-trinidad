@@ -380,6 +380,7 @@ public class XMLMenuModel extends BaseMenuModel
    * 
    * @return Object value of propName for Object node.
    */
+  @SuppressWarnings("unchecked")
   public Object getCustomProperty(Object node, String propName)
   {
     if (node == null)

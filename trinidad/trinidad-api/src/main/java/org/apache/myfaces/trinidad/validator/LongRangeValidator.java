@@ -111,6 +111,7 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
    * Validator} or null if it has not been
    * set.
    */
+  @Override
   public long getMaximum()
   {
     Object maxLong = _facesBean.getProperty(_MAXIMUM_KEY);
@@ -125,6 +126,7 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
    * @param maximum The new maximum value
    *
    */
+  @Override
   public void setMaximum(long maximum)
   {
     super.setMaximum(maximum);
@@ -137,6 +139,7 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
    * Validator}, or null if it has not been
    * set.
    */
+  @Override
   public long getMinimum()
   {
     Object minLong = _facesBean.getProperty(_MINIMUM_KEY);
@@ -151,6 +154,7 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
    * @param minimum The new minimum value
    *
    */
+  @Override
   public void setMinimum(long minimum)
   {
     super.setMinimum(minimum);
@@ -349,12 +353,14 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
   }
 
   //  StateHolder Methods
+  @Override
   public Object saveState(FacesContext context)
   {
     return _facesBean.saveState(context);
   }
 
 
+  @Override
   public void restoreState(FacesContext context, Object state)
   {
     _facesBean.restoreState(context, state);
@@ -395,12 +401,14 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
     return ValidatorUtils.getValueBinding(_facesBean, name);
   }
   
+  @Override
   public boolean isTransient()
   {
     return (_transientValue);
   }
 
 
+  @Override
   public void setTransient(boolean transientValue)
   {
     _transientValue = transientValue;

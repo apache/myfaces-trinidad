@@ -80,6 +80,7 @@ public interface Agent
    * Constant for Mac platform
    * @deprecated
    */
+  @Deprecated
   public static final String  PLATFORM_MAC = PLATFORM_MACOS;
 
   /**

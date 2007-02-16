@@ -796,6 +796,7 @@ public class StateManagerImpl extends StateManager
       return _state;
     }
 
+    @SuppressWarnings("unchecked")
     public UIViewRoot popRoot(FacesContext fc)
     {
       UIViewRoot root = null;
@@ -839,7 +840,7 @@ public class StateManagerImpl extends StateManager
         // because "root"'s child List is being mutated as the List
         // is traversed.
         List<UIComponent> temp = new ArrayList<UIComponent>(root.getChildCount());
-        temp.addAll(((List<UIComponent>) root.getChildren()));
+        temp.addAll(root.getChildren());
         newRoot.getChildren().addAll(temp);
         return newRoot;
       }

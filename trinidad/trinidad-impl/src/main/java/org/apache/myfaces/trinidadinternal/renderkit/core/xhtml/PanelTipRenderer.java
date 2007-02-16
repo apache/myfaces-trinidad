@@ -47,6 +47,7 @@ public class PanelTipRenderer extends XhtmlRenderer
     return true;
   }
 
+  @Override
   protected String getDefaultStyleClass(FacesBean bean)
   {
     return "af|panelTip";

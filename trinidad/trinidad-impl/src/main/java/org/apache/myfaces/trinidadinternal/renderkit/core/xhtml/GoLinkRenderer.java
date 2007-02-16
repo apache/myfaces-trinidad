@@ -208,6 +208,7 @@ public class GoLinkRenderer extends XhtmlRenderer
     return toString(bean.getProperty(_textKey));
   }
 
+  @Override
   protected String getDefaultStyleClass(FacesBean bean)
   {
     RenderingContext arc = RenderingContext.getCurrentInstance();

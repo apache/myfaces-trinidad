@@ -78,7 +78,11 @@ public class ActionResponseWrapper extends PortletResponseWrapper implements Act
 
   /* (non-Javadoc)
    * @see javax.portlet.ActionResponse#setRenderParameters(java.util.Map)
+   * -= Simon =-
+   * TODO: When portlet is made generic, fix this signature to fit with 
+   *       ActionResponse.setRenderParameters
    */
+  @SuppressWarnings("unchecked")
   public void setRenderParameters(Map arg0)
   {
     _resp.setRenderParameters(arg0);

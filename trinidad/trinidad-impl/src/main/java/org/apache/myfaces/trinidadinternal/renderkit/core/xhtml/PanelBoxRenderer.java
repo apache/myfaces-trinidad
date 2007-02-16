@@ -52,6 +52,7 @@ public class PanelBoxRenderer
     _contentStyleKey = type.findKey("contentStyle");
   }
   
+  @Override
   public String getDefaultStyleClass(FacesBean bean)
   {
     String background = getBackground(bean);

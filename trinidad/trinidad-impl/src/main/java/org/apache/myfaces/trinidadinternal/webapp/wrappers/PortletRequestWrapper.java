@@ -59,7 +59,10 @@ public class PortletRequestWrapper implements PortletRequest
   /**
    * @return
    * @see javax.portlet.PortletRequest#getAttributeNames()
+   * -= Simon =-
+   * TODO: Once portlet spec supports generics, change this signature to match it.
    */
+  @SuppressWarnings("unchecked")
   public Enumeration getAttributeNames()
   {
     return _req.getAttributeNames();
@@ -95,7 +98,10 @@ public class PortletRequestWrapper implements PortletRequest
   /**
    * @return
    * @see javax.portlet.PortletRequest#getLocales()
+   * -= Simon =-
+   * TODO: Once portlet spec supports generics, change this signature to match it.
    */
+  @SuppressWarnings("unchecked")
   public Enumeration getLocales()
   {
     return _req.getLocales();
@@ -114,7 +120,10 @@ public class PortletRequestWrapper implements PortletRequest
   /**
    * @return
    * @see javax.portlet.PortletRequest#getParameterMap()
+   * -= Simon =-
+   * TODO: Once portlet spec supports generics, change this signature to match it.
    */
+  @SuppressWarnings("unchecked")
   public Map getParameterMap()
   {
     return _req.getParameterMap();
@@ -123,7 +132,10 @@ public class PortletRequestWrapper implements PortletRequest
   /**
    * @return
    * @see javax.portlet.PortletRequest#getParameterNames()
+   * -= Simon =-
+   * TODO: Once portlet spec supports generics, change this signature to match it.
    */
+  @SuppressWarnings("unchecked")
   public Enumeration getParameterNames()
   {
     return _req.getParameterNames();
@@ -189,7 +201,10 @@ public class PortletRequestWrapper implements PortletRequest
    * @param arg0
    * @return
    * @see javax.portlet.PortletRequest#getProperties(java.lang.String)
+   * -= Simon =-
+   * TODO: Once portlet spec supports generics, change this signature to match it.
    */
+  @SuppressWarnings("unchecked")
   public Enumeration getProperties(String arg0)
   {
     return _req.getProperties(arg0);
@@ -208,7 +223,10 @@ public class PortletRequestWrapper implements PortletRequest
   /**
    * @return
    * @see javax.portlet.PortletRequest#getPropertyNames()
+   * -= Simon =-
+   * TODO: Once portlet spec supports generics, change this signature to match it.
    */
+  @SuppressWarnings("unchecked")
   public Enumeration getPropertyNames()
   {
     return _req.getPropertyNames();
@@ -244,7 +262,10 @@ public class PortletRequestWrapper implements PortletRequest
   /**
    * @return
    * @see javax.portlet.PortletRequest#getResponseContentTypes()
+   * -= Simon =-
+   * TODO: Once portlet spec supports generics, change this signature to match it.
    */
+  @SuppressWarnings("unchecked")
   public Enumeration getResponseContentTypes()
   {
     return _req.getResponseContentTypes();

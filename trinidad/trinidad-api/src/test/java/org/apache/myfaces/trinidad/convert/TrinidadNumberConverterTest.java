@@ -124,7 +124,7 @@ public class TrinidadNumberConverterTest extends NumberConverterTestCase
      try
      {
        // Trinidad Converter is not lenient.
-       Object obj = converter.getAsObject(context, wrapper.getUIComponent(), inputValue);
+       converter.getAsObject(context, wrapper.getUIComponent(), inputValue);
        fail("Expected converter exception");
      }
      catch (ConverterException ce)
@@ -144,7 +144,6 @@ public class TrinidadNumberConverterTest extends NumberConverterTestCase
       MockFacesContext context  = new MockFacesContext();
       Mock mock = buildMockUIComponent(3);
       UIComponent component = (UIComponent) mock.proxy();
-      MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
 
 
       org.apache.myfaces.trinidad.convert.NumberConverter converter =
@@ -172,7 +171,7 @@ public class TrinidadNumberConverterTest extends NumberConverterTestCase
          else
           converter.setType(types[i]);
 
-         Object obj = converter.getAsObject(context, component, failingValues[i]);
+         converter.getAsObject(context, component, failingValues[i]);
          fail("Expected converter exception");
       }
       catch (ConverterException ce)

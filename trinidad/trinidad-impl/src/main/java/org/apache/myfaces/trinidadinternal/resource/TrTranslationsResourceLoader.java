@@ -43,11 +43,13 @@ public class TrTranslationsResourceLoader extends TranslationsResourceLoader
     return 20000;
   }
   
+  @Override
   protected String getJSVarName()
   {
     return "TrMessageFactory._TRANSLATIONS";
   }
 
+  @Override
   protected String getBundleName()
   {
     return "org.apache.myfaces.trinidad.resource.MessageBundle";

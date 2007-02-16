@@ -278,6 +278,7 @@ public class OutputLabelRenderer extends ValueRenderer
   //
   // OVERRIDES
   //
+  @Override
   protected String getDefaultStyleClass(FacesBean bean)
   {
     return "af|outputLabel";

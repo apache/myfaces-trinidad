@@ -109,6 +109,7 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
    * Validator} or null if it has not been
    * set.
    */
+  @Override
   public double getMaximum()
   {
     Object maxLong = _facesBean.getProperty(_MAXIMUM_KEY);
@@ -123,6 +124,7 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
    * @param maximum The new maximum value
    *
    */
+  @Override
   public void setMaximum(double maximum)
   {
     super.setMaximum(maximum);
@@ -135,6 +137,7 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
    * Validator}, or null if it has not been
    * set.
    */
+  @Override
   public double getMinimum()
   {
     Object minLong = _facesBean.getProperty(_MINIMUM_KEY);
@@ -149,6 +152,7 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
    * @param minimum The new minimum value
    *
    */
+  @Override
   public void setMinimum(double minimum)
   {
     super.setMinimum(minimum);
@@ -347,12 +351,14 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
   }
 
   //  StateHolder Methods
+  @Override
   public Object saveState(FacesContext context)
   {
     return _facesBean.saveState(context);
   }
 
 
+  @Override
   public void restoreState(FacesContext context, Object state)
   {
     _facesBean.restoreState(context, state);
@@ -393,12 +399,14 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
     return ValidatorUtils.getValueBinding(_facesBean, name);
   }
   
+  @Override
   public boolean isTransient()
   {
     return (_transientValue);
   }
 
 
+  @Override
   public void setTransient(boolean transientValue)
   {
     _transientValue = transientValue;

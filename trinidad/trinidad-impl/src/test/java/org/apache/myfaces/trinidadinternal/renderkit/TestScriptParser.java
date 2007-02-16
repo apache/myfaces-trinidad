@@ -208,7 +208,6 @@ class TestScriptParser extends BaseNodeParser
       {
         return new ComponentDefinitionParser(_definition, _info);
       }
-      int i=0;
 
       String id = (String) _definition.getAttributes().get("id");
       

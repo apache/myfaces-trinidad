@@ -39,6 +39,7 @@ public class PanelButtonBarRenderer extends PanelGroupLayoutRenderer
     super(CorePanelButtonBar.TYPE);
   }
 
+  @Override
   protected Object getLayout(FacesBean bean)
   {
     return null;

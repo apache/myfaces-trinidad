@@ -88,14 +88,9 @@ public class SimpleInputColorRenderer
     else
     {
       Object submittedValue = getSubmittedValue(bean);
-      Color color = null;
       try
       {
-        Object converted = getConvertedValue(context,
-                                             component,
-                                             submittedValue);
-        if (converted instanceof Color)
-          color = (Color) converted;
+        getConvertedValue(context, component, submittedValue);
       }
       // Not a big deal;  just means that an invalid value was entered,
       // so we'll launch the dialog showing nothing

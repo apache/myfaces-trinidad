@@ -602,7 +602,7 @@ public class MediaRenderer extends XhtmlRenderer
               if (mimeType != null)
               {
                 // check that the format is supported by this player
-                if (!((PlayerData)playerData).isSupportedMimeType(mimeType))
+                if (!playerData.isSupportedMimeType(mimeType))
                 {
                   playerData = null;
                 }
@@ -2002,9 +2002,6 @@ public class MediaRenderer extends XhtmlRenderer
   private static final int _DEFAULT_INNER_WIDTH_INDEX  = 0;
   private static final int _DEFAULT_INNER_HEIGHT_INDEX = 1;
 
-
-  // local property for the player identification information
-  private static final Object _PLAYER_DATA_KEY = new Object();
 
   // map of mime types to preferred players
   private static HashMap<Object, Object> _sPreferredMimePlayers;

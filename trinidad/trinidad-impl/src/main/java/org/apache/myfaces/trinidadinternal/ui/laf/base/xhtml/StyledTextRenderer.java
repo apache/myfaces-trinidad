@@ -273,6 +273,7 @@ public class StyledTextRenderer extends XhtmlLafRenderer
    * @param node The UINode which is being rendered
    * @throws IOException
    */
+  @SuppressWarnings("deprecation")
   private void _renderDescription(
     UIXRenderingContext context,
     UINode           node
