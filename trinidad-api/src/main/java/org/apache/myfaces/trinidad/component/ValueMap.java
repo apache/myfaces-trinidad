@@ -121,6 +121,7 @@ final class ValueMap<K, V> extends AbstractMap<K, V> implements Externalizable
       out.writeObject(_cache);
   }
 
+  @SuppressWarnings("unchecked")
   public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException
   {
     Map<K, V> cache = (Map<K, V>) in.readObject();

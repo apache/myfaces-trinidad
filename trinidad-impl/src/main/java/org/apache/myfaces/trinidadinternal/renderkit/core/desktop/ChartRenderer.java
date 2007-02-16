@@ -589,8 +589,8 @@ public class ChartRenderer extends XhtmlRenderer
    * @param value        the List value
    */
   static private void _writeJSCollection(
-    StringWriter sw,
-    Collection   value) throws IOException
+    StringWriter  sw,
+    Collection<?> value) throws IOException
   {
     if (value == null)
     {
@@ -603,13 +603,14 @@ public class ChartRenderer extends XhtmlRenderer
     else
     {
       sw.append("[");
-      for (Iterator iter = value.iterator();
-           iter.hasNext();)
+      for (Iterator<?> iter = value.iterator(); iter.hasNext();)
       {
         Object item = iter.next();
         _writeJSObject(sw, item);
         if (iter.hasNext())
+        {
           sw.append(',');
+        }
       }
       sw.append(']');
     }

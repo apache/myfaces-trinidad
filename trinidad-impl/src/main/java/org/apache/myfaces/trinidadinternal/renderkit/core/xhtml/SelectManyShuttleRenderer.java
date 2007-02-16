@@ -1124,7 +1124,7 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
       boolean hasLeadingDesc = getLeadingDescShown(bean);
       boolean hasTrailingDesc = getTrailingDescShown(bean);
       boolean hasDescArea = hasLeadingDesc || hasTrailingDesc;
-      boolean hasDescHere = _isLeading ? hasLeadingDesc : hasTrailingDesc;
+      
       _endRow(context, rc, 0);
 
       if (hasDescArea)
@@ -1252,15 +1252,11 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
   private final static int _DEFAULT_FOOTER_HEIGHT    = 36;
 
 
-  private final static String _DEFAULT_SHUTTLE_NAME = "theShuttle";
   private final static String _LEADING_COMPLETE     = ":leading";
   private final static String _TRAILING_COMPLETE    = ":trailing";
   private final static String _ITEMS_COMPLETE       = ":items";
   private final static String _DESC_FIELD_COMPLETE       = ":desc";
   private final static String _DESCRIPTION_COMPLETE = "_desc";
-  private final static String _SELECTION_COMPLETE   = "_sel";
-  private final static String _VAR                  = "var ";
-  private final static String _NEW_ARRAY            = "=new Array();";
 
   private final static String _TRANSLATED_JS_FEEDBACK_NO_ITEMS
                                  = "var _shuttle_no_items='";
@@ -1270,8 +1266,6 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
                                                              new Object();
 
   private final static Object _SHUTTLE_INFO_KEY = new Object();
-  private final static Object _LEADING_INFO_KEY = new Object();
-  private final static Object _TRAILING_INFO_KEY = new Object();
 
 
   static private final int[] _EMPTY_INT_ARRAY = new int[0];

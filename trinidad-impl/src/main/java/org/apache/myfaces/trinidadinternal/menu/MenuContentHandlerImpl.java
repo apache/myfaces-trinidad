@@ -135,7 +135,7 @@ public class MenuContentHandlerImpl extends DefaultHandler
     _menuList  = null;
    
     // Handler Id will have to change also to be unique 
-    _handlerId = Integer.toString(System.identityHashCode((Object) _menuNodes));
+    _handlerId = Integer.toString(System.identityHashCode(_menuNodes));
   }
   
   /**
@@ -340,8 +340,8 @@ public class MenuContentHandlerImpl extends DefaultHandler
       if (_nodeDepth > 0)
       {
         // The parent menu item is the last menu item at the previous depth
-        List      parentList = _menuNodes.get(_nodeDepth-1);
-        MenuNode  parentNode = (MenuNode)parentList.get(parentList.size()-1);
+        List<MenuNode> parentList = _menuNodes.get(_nodeDepth-1);
+        MenuNode       parentNode = parentList.get(parentList.size()-1);
         
         parentNode.setChildren(_menuNodes.get(_nodeDepth));
       }
@@ -871,7 +871,7 @@ public class MenuContentHandlerImpl extends DefaultHandler
       if (viewIdObject != null)
       {          
         // Put this entry in the nodeFocusPathMap
-        nodeFocusPathMap.put(node, (Object)focusPath);
+        nodeFocusPathMap.put(node, focusPath);
 
         // Does this viewId already exist in the _viewIdFocusPathMap?
         List<Object> existingFpArrayList = 
@@ -885,7 +885,7 @@ public class MenuContentHandlerImpl extends DefaultHandler
           // ArrayList in the focusPath HashMap.
           List<Object> fpArrayList = new ArrayList<Object>();
           fpArrayList.add(focusPath);
-          viewIdFocusPathMap.put(viewIdObject, (Object)fpArrayList);
+          viewIdFocusPathMap.put(viewIdObject, fpArrayList);
         }
         else
         {
@@ -900,11 +900,11 @@ public class MenuContentHandlerImpl extends DefaultHandler
           
           if (defFocusPath)
           {
-            existingFpArrayList.add(0, (Object)focusPath);
+            existingFpArrayList.add(0, focusPath);
           }
           else
           {
-            existingFpArrayList.add((Object)focusPath);
+            existingFpArrayList.add(focusPath);
           }              
         }
       }

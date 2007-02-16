@@ -142,7 +142,7 @@ public class Base64OutputStreamTest extends FacesTestCase
     b64_out.write(b, 320, 2);
     
     // remember to add padding characters (if necessary)
-    b64_out.finish();
+    b64_out.close();
     
     // compare the contents of the outputstream with the expected encoded string
     assertEquals(strwriter.toString(), str_encoded);	
@@ -170,7 +170,7 @@ public class Base64OutputStreamTest extends FacesTestCase
     zip.write(bytes, 0, bytes.length);
     zip.finish();
     buffwriter.flush();
-    b64_out.finish();
+    b64_out.close();
     
     assertEquals(str_encoded, strwriter.toString());
     
@@ -202,7 +202,7 @@ public class Base64OutputStreamTest extends FacesTestCase
       b64_out.write(str.charAt(i));
     }
     // remember to add padding characters (if necessary)
-    b64_out.finish();
+    b64_out.close();
         
     // compare the contents of the outputstream with the expected encoded string
     assertEquals(strwriter.toString(), str_encoded);	
@@ -231,7 +231,7 @@ public class Base64OutputStreamTest extends FacesTestCase
     // write out the array to the output stream
     b64_out.write(b, 0, b.length);
     // append padding chars if necessary
-    b64_out.finish();
+    b64_out.close();
     
     // 		System.out.println("testwriteArray,  expected encoding:" + str_encoded);    
     //       	System.out.println("testwriteArray, output of encoding:" + strwriter.toString());

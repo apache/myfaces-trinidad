@@ -193,6 +193,7 @@ public class Base64OutputStream extends OutputStream
    * Subsequent calls to the write method will result in incorrect encoding.
    * 
    */
+  @Override
   public void close() throws IOException
   {
     if (_numLeftoverBytes==1) 

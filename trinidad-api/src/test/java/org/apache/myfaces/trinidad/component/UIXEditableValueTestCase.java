@@ -84,7 +84,7 @@ abstract public class UIXEditableValueTestCase extends UIComponentTestCase
    */
   public void testAttributeTransparency()
   {
-    UIXEditableValue component = createEditableValue();
+    //UIXEditableValue component = createEditableValue();
     // remaining attributes here
   }
 

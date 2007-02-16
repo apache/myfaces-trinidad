@@ -238,6 +238,7 @@ abstract public class FormElementRenderer extends EditableValueRenderer
     return toString(bean.getProperty(_onchangeKey));
   }
 
+  @Override
   protected String getDefaultStyleClass(FacesBean bean)
   {
     return SkinSelectors.AF_FIELD_TEXT_STYLE_CLASS;

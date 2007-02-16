@@ -27,7 +27,7 @@ import java.util.Enumeration;
  * @author Scott O'Bryan (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-final class NullEnumeration implements Enumeration
+final class NullEnumeration implements Enumeration<Object>
 {
   static final NullEnumeration instance()
   {

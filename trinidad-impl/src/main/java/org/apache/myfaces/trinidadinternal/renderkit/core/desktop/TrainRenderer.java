@@ -1783,7 +1783,6 @@ public class TrainRenderer
   private static final String _SUFFIX_ICON_CELL  = "-icon-cell";
 
   private static final String _SUFFIX_ACTIVE     = ":selected";
-  private static final String _SUFFIX_DISABLED   = ":disabled";
   private static final String _SUFFIX_READ_ONLY  = ":read-only";
   private static final String _SUFFIX_UNVISITED  = ":unvisited";
   private static final String _SUFFIX_VISITED    = ":visited";

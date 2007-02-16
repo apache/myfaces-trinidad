@@ -129,7 +129,8 @@ public class TreeRenderer extends XhtmlRenderer
       tree.setRowKey(oldPath);
     }
   }
-
+  
+  @Override
   protected boolean shouldRenderId(FacesContext context,
                                    UIComponent component)
   {
@@ -812,7 +813,6 @@ public class TreeRenderer extends XhtmlRenderer
 
   private static final String _ICON_WIDTH = "16";
   private static final String _ICON_HEIGHT = "22";
-  private static final String _NODE_ICON_HEIGHT = "16";
   private static final String _NODE_SPACER = "6";
 
 
@@ -841,7 +841,6 @@ public class TreeRenderer extends XhtmlRenderer
     "af_tree.DISABLED_COLLAPSE_TIP";
   private static final String _COLLAPSE_TIP_KEY = "af_tree.COLLAPSE_TIP";
   private static final String _EXPAND_TIP_KEY = "af_tree.EXPAND_TIP";
-  private static final String _FOLDER_TIP_KEY = "af_tree.FOLDER_TIP";
   private static final String _NODE_LEVEL_TEXT_KEY = "af_tree.NODE_LEVEL";
 
   private static final String _PATH_PARAM = "path";

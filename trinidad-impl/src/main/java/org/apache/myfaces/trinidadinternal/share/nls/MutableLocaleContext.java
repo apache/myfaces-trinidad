@@ -41,7 +41,8 @@ import org.apache.myfaces.trinidad.context.LocaleContext;
  * @author The Oracle ADF Faces Team
  */
 // -= Simon Lessard =-
-// FIXME: Deprecation within this class is strange...
+// FIXME: Should we make LocaleContextImpl.setReadingDirection and
+//        LocaleContextImpl.setTimeZone protected instead of deprecated?
 public final class MutableLocaleContext extends LocaleContextImpl
 {
   /**
@@ -99,6 +100,7 @@ public final class MutableLocaleContext extends LocaleContextImpl
    * @see org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils
    */
   @Override
+  @SuppressWarnings("deprecation")
   public void setReadingDirection(
     int newReadingDirection
     )
@@ -111,6 +113,7 @@ public final class MutableLocaleContext extends LocaleContextImpl
    * to null will set the TimeZone to the default TimeZone.
    */
   @Override
+  @SuppressWarnings("deprecation")
   public void setTimeZone(
     TimeZone newTimeZone
     )

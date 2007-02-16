@@ -131,6 +131,7 @@ public class ChartBean implements java.io.Serializable
 
   private class MyChartModel extends ChartModel
   {
+    @Override
     public List<String> getSeriesLabels()
     {
       if(_largerDataSet)
@@ -139,6 +140,7 @@ public class ChartBean implements java.io.Serializable
         return _seriesLabels;
     }
 
+    @Override
     public List<String> getGroupLabels()
     {
       CoreChart chart = (CoreChart)_editorBean.getComponent();
@@ -150,6 +152,7 @@ public class ChartBean implements java.io.Serializable
         return _largeGroupLabels;
     }
         
+    @Override
     public List<List<Double>> getXValues()
     {
       CoreChart chart = (CoreChart)_editorBean.getComponent();
@@ -170,6 +173,7 @@ public class ChartBean implements java.io.Serializable
         return null;
     }
   
+    @Override
     public List<List<Double>> getYValues()
     {
       CoreChart chart = (CoreChart)_editorBean.getComponent();
@@ -222,7 +226,7 @@ public class ChartBean implements java.io.Serializable
       }
     }
 
-
+    @Override
     public Double getMaxYValue()
     {
       CoreChart chart = (CoreChart)_editorBean.getComponent();
@@ -247,7 +251,7 @@ public class ChartBean implements java.io.Serializable
       }  
     }
   
-  
+    @Override
     public Double getMinYValue()
     {
       CoreChart chart = (CoreChart)_editorBean.getComponent();
@@ -263,7 +267,7 @@ public class ChartBean implements java.io.Serializable
       return 0.0; 
     }
   
-  
+    @Override
     public Double getMaxXValue()
     {
       if(_largerDataSet)
@@ -272,7 +276,7 @@ public class ChartBean implements java.io.Serializable
         return 10.0; 
     }
   
-  
+    @Override
     public Double getMinXValue()
     {
       if(_largerDataSet)
@@ -281,7 +285,7 @@ public class ChartBean implements java.io.Serializable
         return 6.0; 
     }
   
-  
+    @Override
     public String getTitle()
     {
       CoreChart chart = (CoreChart)_editorBean.getComponent();
@@ -297,6 +301,7 @@ public class ChartBean implements java.io.Serializable
       }
     }
   
+    @Override
     public String getSubTitle()
     {
       CoreChart chart = (CoreChart)_editorBean.getComponent();
@@ -307,7 +312,7 @@ public class ChartBean implements java.io.Serializable
         return "SubTitle"; 
     }
   
-  
+    @Override
     public String getFootNote()
     {
       CoreChart chart = (CoreChart)_editorBean.getComponent();

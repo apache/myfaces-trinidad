@@ -464,7 +464,10 @@ public class FacesBeanImplTest extends TestCase
     assertNull(newBean.saveState(null));
     
     // Now, we'll set a value, so we should get a non-null state
-    String oldFirst = newBean.getFirst();
+    
+    // Our current delta support *does not* keep track of the original value.
+    // If it does, add this test
+    // String oldFirst = newBean.getFirst();
     newBean.setFirst("foo");
     assertNotNull(newBean.saveState(null));
   

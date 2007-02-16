@@ -233,8 +233,8 @@ public class TrinidadDateTimeConverterTest extends DateTimeConverterTestCase
       Date fdtConvDate = (Date)fdtConv.getAsObject(facesContext, component, inputValue);
       //      assertEquals(dtConvDate, fdtConvDate);
 
-      String dtConvPattern  = dtConv.getAsString(facesContext, component, dtConvDate);
-      String fdtConvPattern = fdtConv.getAsString(facesContext, component, dtConvDate);
+      dtConv.getAsString(facesContext, component, dtConvDate);
+      fdtConv.getAsString(facesContext, component, fdtConvDate);
       //      assertEquals(dtConvPattern, fdtConvPattern);
     }
   }
@@ -308,7 +308,7 @@ public class TrinidadDateTimeConverterTest extends DateTimeConverterTestCase
         else
           converter.setType(types[i]);
 
-        Object obj = converter.getAsObject(facesContext, component, failingValues[i]);
+        converter.getAsObject(facesContext, component, failingValues[i]);
         fail("Expected converter exception");
       }
       catch (ConverterException ce)

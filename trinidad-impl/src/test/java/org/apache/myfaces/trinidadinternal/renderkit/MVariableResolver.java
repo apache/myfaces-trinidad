@@ -22,11 +22,6 @@ import java.awt.Color;
 
 import java.beans.IntrospectionException;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,7 +33,6 @@ import java.util.Map;
 import javax.faces.context.FacesContext;
 import javax.faces.el.VariableResolver;
 
-import org.apache.myfaces.trinidad.component.core.data.CoreChart;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.ChartModel;
 import org.apache.myfaces.trinidad.model.ChildPropertyTreeModel;
@@ -57,7 +51,6 @@ public class MVariableResolver extends VariableResolver
   public Object resolveVariable(FacesContext context, String name)
   {
     Object o =  context.getExternalContext().getRequestMap().get(name);
-    TreeModel modelTree = null;
     if (o != null)
       return o;
 
@@ -416,61 +409,72 @@ public class MVariableResolver extends VariableResolver
 
   private class MyChartModel extends ChartModel
   {
+    @Override
     public List<String> getSeriesLabels()
     {
       return _seriesLabels;
     }
 
+    @Override
     public List<String> getGroupLabels()
     {
       return _groupLabels;
     }
         
+    @Override
     public List<List<Double>> getXValues()
     {
       return _chartXValues;
     }
   
+    @Override
     public List<List<Double>> getYValues()
     {
       return _chartYValues;
     }
   
+    @Override
     public Double getMaxYValue()
     {
       return 500000.0;
     }
   
   
+    @Override
     public Double getMinYValue()
     {        
       return 0.0; 
     }
   
   
+    @Override
     public Double getMaxXValue()
     {
       return 10.0; 
     }
   
   
+    @Override
     public Double getMinXValue()
     {
       return 6.0; 
     }
   
   
+    @Override
     public String getTitle()
     {
       return "Title";
     }
   
+    @Override
     public String getSubTitle()
     {
       return "SubTitle"; 
     }
   
   
+    @Override
     public String getFootNote()
     {
       return "FootNote"; 
@@ -479,15 +483,9 @@ public class MVariableResolver extends VariableResolver
     private final List<String> _groupLabels = 
       Arrays.asList(new String[]{"June", "July", "August", "September","October"});
 
-    private final List<String> _largeGroupLabels = 
-      Arrays.asList(new String[]{"Q4-2005", "Q1-2006", "Q2-2006", "Q3-2006"});
-  
     private final List<String> _seriesLabels = 
       Arrays.asList(new String[]{"Previous", "Target", "Actual"});
     
-    private final List<String> _largeSeriesLabels = 
-      Arrays.asList(new String[]{"Opening", "Low", "High"});
-      
     private final ArrayList<List<Double>> _chartYValues;
     private final ArrayList<List<Double>> _chartXValues; 
     {

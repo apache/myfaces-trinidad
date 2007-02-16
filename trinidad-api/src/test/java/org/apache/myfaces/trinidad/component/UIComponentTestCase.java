@@ -27,7 +27,6 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
-import javax.faces.application.ViewHandler;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
@@ -263,8 +262,7 @@ public class UIComponentTestCase extends FacesTestCase
   {
     
     Mock mockRenderKitFactory = mock(RenderKitFactory.class);
-    RenderKitFactory factory = (RenderKitFactory) mockRenderKitFactory.proxy();
-
+    
     Mock mockRenderkit = getMockRenderKitWrapper().getMock();
     RenderKit renderkit = getMockRenderKitWrapper().getRenderKit();
 
@@ -368,7 +366,6 @@ public class UIComponentTestCase extends FacesTestCase
   {
     
     Mock mockRenderKit = getMockRenderKitWrapper().getMock();
-    RenderKit renderKit = getMockRenderKitWrapper().getRenderKit();
     
     Mock mockRenderer = mock(Renderer.class);
     Renderer renderer = (Renderer) mockRenderer.proxy();
@@ -471,7 +468,6 @@ public class UIComponentTestCase extends FacesTestCase
   {
 
     Mock mockRenderkit = getMockRenderKitWrapper().getMock();
-    RenderKit renderkit = getMockRenderKitWrapper().getRenderKit();
     
     Mock mockRenderer = mock(Renderer.class);
     Renderer renderer = (Renderer) mockRenderer.proxy();
@@ -589,7 +585,6 @@ public class UIComponentTestCase extends FacesTestCase
 //    MockRenderKitFactory factory = setupMockRenderKitFactory();
     
     Mock mockRenderkit = getMockRenderKitWrapper().getMock();
-    RenderKit renderkit = getMockRenderKitWrapper().getRenderKit();
     
     Mock mockRenderer = mock(Renderer.class);
     Renderer renderer = (Renderer) mockRenderer.proxy();
@@ -629,7 +624,6 @@ public class UIComponentTestCase extends FacesTestCase
     mockChild.expects(never()).method("processValidators");
     mockChild.expects(never()).method("processUpdates");
     mockChild.expects(once()).method("processSaveState");
-    int encodeCalls = willChildrenBeRendered(component) ? 1 : 0;
     
     //fix this!
     mockChild.expects(once()).method("encodeBegin");
@@ -658,17 +652,19 @@ public class UIComponentTestCase extends FacesTestCase
   protected void doTestValidateFailure(
     UIViewRoot root)
   {
-    
-    Mock mockRenderkit = getMockRenderKitWrapper().getMock();
+    // -= Simon =-
+    // All those variables do not seem to be used and do not seem 
+    // to test anything either
+    /*Mock mockRenderkit = getMockRenderKitWrapper().getMock();
     RenderKit renderkit = getMockRenderKitWrapper().getRenderKit();
-    
+    */
     Mock mockRenderer = mock(Renderer.class);
-    Renderer renderer = (Renderer) mockRenderer.proxy();
+    /*Renderer renderer = (Renderer) mockRenderer.proxy();
     
     Mock mockValidator = mock(Validator.class);
     Validator validator = (Validator) mockValidator.proxy();
     
-    ViewHandler viewhandler = this.facesContext.getApplication().getViewHandler();
+    ViewHandler viewhandler = this.facesContext.getApplication().getViewHandler();*/
 
     setCurrentContext(facesContext);
     

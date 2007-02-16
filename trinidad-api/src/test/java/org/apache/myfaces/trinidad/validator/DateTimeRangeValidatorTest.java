@@ -113,8 +113,7 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
 
     Mock mock = buildMockUIComponent();
     UIComponent component = (UIComponent) mock.proxy();
-    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
-
+    
     mock.stubs().method("getId").will(returnValue("test"));
     try
     {
@@ -146,7 +145,6 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
 
     Mock mock = buildMockUIComponent();
     UIComponent component = (UIComponent) mock.proxy();
-    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
 
     try
     {

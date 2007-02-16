@@ -32,7 +32,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.SkinFactory;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidadinternal.context.RequestContextFactoryImpl;
-import org.apache.myfaces.trinidadinternal.context.TrinidadPhaseListener;
 import org.apache.myfaces.trinidadinternal.skin.SkinFactoryImpl;
 import org.apache.myfaces.trinidadinternal.skin.SkinUtils;
 import org.apache.myfaces.trinidadinternal.util.ExternalContextUtils;

@@ -104,8 +104,8 @@ public final class NumberConverter extends org.apache.myfaces.trinidad.convert.N
   
   private String _getTrNumberConverter(
       FacesContext context,
-      UIComponent component,
-      Map messages)
+      UIComponent  component,
+      Map<?, ?>    messages)
     {
       StringBuilder outBuffer = new StringBuilder(250);
 

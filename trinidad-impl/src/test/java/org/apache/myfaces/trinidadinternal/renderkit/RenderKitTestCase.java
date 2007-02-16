@@ -83,6 +83,7 @@ abstract public class RenderKitTestCase extends TestSuite
   {
   }
 
+  @Override
   public void run(TestResult result)
   {
     try

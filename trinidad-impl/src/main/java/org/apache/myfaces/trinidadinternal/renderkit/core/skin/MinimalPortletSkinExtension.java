@@ -19,9 +19,6 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.skin;
 
 
-import java.util.Map;
-
-import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.skin.SkinExtension;

@@ -367,8 +367,10 @@ public class SkinUtils
     List<SkinNode> sortedSkinNodes = new ArrayList<SkinNode>();
     List<String>   skinNodesAdded = new ArrayList<String>();
     List<String>   baseSkinIds = new ArrayList<String>();
-    for (Iterator i=skinFactory.getSkinIds(); i.hasNext(); ) 
-       baseSkinIds.add((String)i.next());
+    for (Iterator<String> i = skinFactory.getSkinIds(); i.hasNext();)
+    {
+       baseSkinIds.add(i.next());
+    }
    
     // first, the skins that don't extend anything
     for (SkinNode skinNode : skinNodes)

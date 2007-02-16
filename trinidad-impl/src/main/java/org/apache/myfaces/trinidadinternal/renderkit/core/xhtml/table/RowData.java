@@ -96,12 +96,12 @@ public final class RowData
   public void setCurrentRowSpan(int rowSpan)
   {
 
-    // -= Simon Lessard =-
+    // -= Simon =-
     //    I really dislike to see assert used like that. It's much like
     //    #ifdef __DEBUG, but it has a performance cost as well since 
     //    assertEnabled get instanciated for nothing and this add one 
-    //    if to the coding path. This basically break the purpose of 
-    //    the assert to not polute the execution when not enabled.
+    //    if to the code path. This basically break the purpose of 
+    //    assert to not polute the execution when not enabled.
     boolean assertEnabled = false;
     assert assertEnabled = true;
 

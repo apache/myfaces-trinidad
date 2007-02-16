@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
-
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import javax.faces.context.ExternalContext;
@@ -68,6 +68,7 @@ public class MultipartFormHandler
   /**
    * Create a MultipartFormHandler for the given servlet request.
    */
+  @SuppressWarnings("unchecked")
   public MultipartFormHandler(final ExternalContext externalContext) throws IOException
   {
     
@@ -75,7 +76,8 @@ public class MultipartFormHandler
 
     // make sure that we don't try to decode this multi part request at a
     // later time; ie: if we do a forward.
-    externalContext.getRequestMap().put(_HANDLED, Boolean.TRUE);
+    Map<String, Object> requestMap = externalContext.getRequestMap();
+    requestMap.put(_HANDLED, Boolean.TRUE);
     _contentStreamSize = ExternalContextUtils.getContentLength(externalContext);
   }
 
@@ -652,8 +654,7 @@ public class MultipartFormHandler
       {
         try
         {
-          int bytes;
-          while ((bytes = read(_buffer)) > 0)
+          while (read(_buffer) > 0)
           {
             // do nothing
             ;

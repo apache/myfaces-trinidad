@@ -412,6 +412,7 @@ public class RequestContextImpl extends RequestContext
     return false;
   }
 
+  @Override
   public Locale getFormattingLocale()
   {
     Object o = _bean.getProperty(RequestContextBean.FORMATTING_LOCALE_KEY);
@@ -613,12 +614,14 @@ public class RequestContextImpl extends RequestContext
     return _agent;
   }
 
+  @Override
   public Object saveComponent(UIComponent component)
   {
     return StateManagerImpl.saveComponentTree(__getFacesContext(),
                                               component);
   }
 
+  @Override
   public UIComponent restoreComponent(Object state)
                             throws ClassNotFoundException,
                                    InstantiationException,

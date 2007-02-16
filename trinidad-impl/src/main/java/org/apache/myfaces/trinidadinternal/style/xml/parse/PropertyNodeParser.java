@@ -112,6 +112,7 @@ public class PropertyNodeParser extends BaseNodeParser
       _value = _value + moreText;
   }
 
+  @Override
   public void addWhitespace(
     ParseContext context,
     char[]       text,

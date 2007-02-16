@@ -24,11 +24,9 @@ import java.util.Map;
 
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.SkinFactory;
-import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 
 
@@ -169,10 +167,6 @@ public class SkinFactoryImpl extends SkinFactory
 
   // Stores all the Skins in this SkinFactory
   private Map<String, Skin> _skins = null;
-
-  static private final String _RENDER_KIT_ID_CORE = "org.apache.myfaces.trinidad.desktop";
-  static private final String _RENDER_KIT_ID_PDA = "org.apache.myfaces.trinidad.pda";
-  static private final String _RENDER_KIT_ID_PORTLET = CoreRenderKit.OUTPUT_MODE_PORTLET;
 
   static private final String _SIMPLE_PDA = "simple.pda";
   static private final String _SIMPLE_DESKTOP = "simple.desktop";

@@ -181,6 +181,7 @@ public class ConverterUtils
   /**
    * @deprecated method needs to an overhaul
    */
+  @Deprecated
   public static String getClientValidation(
     FacesContext context,
     UIComponent component,
@@ -273,6 +274,7 @@ public class ConverterUtils
    * @param defaultId
    * @return
    */
+  @Deprecated
   public static String getClientConversion(
     FacesContext context,
     UIComponent component,

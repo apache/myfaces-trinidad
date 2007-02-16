@@ -20,6 +20,7 @@ package org.apache.myfaces.trinidadinternal.context;
 
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.Map;
 
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
@@ -64,6 +65,7 @@ public class FacesContextFactoryImpl
   
   static public class CacheRenderKit extends FacesContext
   {
+    @SuppressWarnings("unchecked")
     public CacheRenderKit(FacesContext base)
     {
       _base = base;
@@ -76,7 +78,8 @@ public class FacesContextFactoryImpl
       //called by whatever did he origional beginRequest.
       if(!GlobalConfiguratorImpl.isRequestStarted(baseExternal))
       {
-        baseExternal.getRequestMap().put(_CONFIG_IN_CONTEXT, Boolean.TRUE);
+        Map<String, Object> requestMap = baseExternal.getRequestMap();
+        requestMap.put(_CONFIG_IN_CONTEXT, Boolean.TRUE);
       }
 
       _external = new OverrideDispatch(config.getExternalContext(baseExternal));

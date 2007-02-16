@@ -114,7 +114,6 @@ public class GoButtonRenderer extends GoLinkRenderer
     }
 
     // Write the text and access key
-    String text = getText(bean);
     char accessKey;
     if (supportsAccessKeys(arc))
     {
@@ -169,6 +168,7 @@ public class GoButtonRenderer extends GoLinkRenderer
   }
 
   // FIXME: move this implementation to XhtmlRenderer
+  @Override
   protected void renderStyleAttributes(
     FacesContext        context,
     RenderingContext    arc,
@@ -176,7 +176,9 @@ public class GoButtonRenderer extends GoLinkRenderer
     String              defaultStyleClass) throws IOException
   {
     String styleClass = getStyleClass(bean);
-    String inlineStyle = getInlineStyle(bean);
+    // -= Simon =-
+    // FIXME: How come inlineStyle is never read
+    //String inlineStyle = getInlineStyle(bean);
     List<String> stateStyleClasses = getStateStyleClasses(context, arc, bean);
 
     if ((styleClass==null) && 
@@ -285,6 +287,7 @@ public class GoButtonRenderer extends GoLinkRenderer
     return XhtmlUtils.getChainedJS(base, onclickJS, true);
   }
 
+  @Override
   protected String getDefaultStyleClass(FacesBean bean)
   {
     return SkinSelectors.AF_GO_BUTTON_STYLE_CLASS;

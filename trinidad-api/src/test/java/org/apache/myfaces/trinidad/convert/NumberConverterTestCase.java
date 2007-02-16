@@ -262,8 +262,10 @@ public abstract class NumberConverterTestCase extends ConverterTestCase
       assertEquals("DEM99.00", outPut);
       try
       {
-        Number outValue = (Number)converter.getAsObject(facesContext, component, "DEM99.00");
-        fail("Exception should occur - since currency should not be considered while formatting");
+        if(converter.getAsObject(facesContext, component, "DEM99.00") instanceof Number)
+        {
+          fail("Exception should occur - since currency should not be considered while formatting");
+        }
       }
       catch(Exception e)
       {

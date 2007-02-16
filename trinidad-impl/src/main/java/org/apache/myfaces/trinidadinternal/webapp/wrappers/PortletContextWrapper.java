@@ -57,7 +57,7 @@ public class PortletContextWrapper implements PortletContext
    * @return
    * @see javax.portlet.PortletContext#getAttributeNames()
    */
-  public Enumeration getAttributeNames()
+  public Enumeration<?> getAttributeNames()
   {
     return _context.getAttributeNames();
   }
@@ -76,7 +76,7 @@ public class PortletContextWrapper implements PortletContext
    * @return
    * @see javax.portlet.PortletContext#getInitParameterNames()
    */
-  public Enumeration getInitParameterNames()
+  public Enumeration<?> getInitParameterNames()
   {
     return _context.getInitParameterNames();
   }
@@ -173,7 +173,10 @@ public class PortletContextWrapper implements PortletContext
    * @param arg0
    * @return
    * @see javax.portlet.PortletContext#getResourcePaths(java.lang.String)
+   * -= Simon =-
+   * TODO: Once portlet spec supports generics, change this signature to match it.
    */
+  @SuppressWarnings("unchecked")
   public Set getResourcePaths(String arg0)
   {
     return _context.getResourcePaths(arg0);

@@ -23,7 +23,6 @@ import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 import org.apache.myfaces.trinidad.component.UIComponentTestCase;
-import org.apache.myfaces.trinidad.component.core.nav.CoreTrain;
 
 /**
  * Unit tests for CoreTrain
@@ -65,7 +64,8 @@ public class CoreTrainTest extends UIComponentTestCase
    */
   public void testInitialAttributeValues()
   {
-    CoreTrain component = new CoreTrain();
+    //CoreTrain component = new CoreTrain();
+    // TODO: testInitialAttributeValues
   }
 
   /**
@@ -75,8 +75,8 @@ public class CoreTrainTest extends UIComponentTestCase
    */
   public void testAttributeTransparency()
   {
-    CoreTrain component = new CoreTrain();
-
+    //CoreTrain component = new CoreTrain();
+    // TODO: testAttributeTransparency
   }
 
 

@@ -51,6 +51,7 @@ abstract public class LocaleContext
    * Returns the locale that should be used for formatting.
    * @deprecated use getFormattingLocale()
    */
+  @Deprecated
   public Locale getLocale()
   {
     return getFormattingLocale();
@@ -60,6 +61,7 @@ abstract public class LocaleContext
    * Returns the Locale in IANA String format.
    * @deprecated use getFormattingIANALocaleString()
    */
+  @Deprecated
   public String getIANALocaleString()
   {
     return getFormattingIANALocaleString();

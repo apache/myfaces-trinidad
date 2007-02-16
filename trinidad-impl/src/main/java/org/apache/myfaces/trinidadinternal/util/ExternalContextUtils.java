@@ -233,13 +233,13 @@ public class ExternalContextUtils
 
   // =-= Scott O'Bryan =-=
   // Performance enhancement. These will be needed anyway, let's not get them every time.
-  private static final Class          _PORTLET_ACTION_REQUEST_CLASS;
-  private static final Class          _PORTLET_CONTEXT_CLASS;
+  private static final Class<?>       _PORTLET_ACTION_REQUEST_CLASS;
+  private static final Class<?>       _PORTLET_CONTEXT_CLASS;
 
   static
   {
-    Class context;
-    Class actionRequest;
+    Class<?> context;
+    Class<?> actionRequest;
     try
     {
       context = ClassLoaderUtils.loadClass("javax.portlet.PortletContext");

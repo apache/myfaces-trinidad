@@ -141,6 +141,7 @@ public class ConfigParser
 
   static private class Handler extends DefaultHandler
   {
+    @SuppressWarnings("unchecked")
     public Handler(RequestContextBean bean, ExternalContext context)
     {
         _applicationMap = context.getApplicationMap();
@@ -253,9 +254,9 @@ public class ConfigParser
   }
 
 
-    private RequestContextBean _bean;
+    private RequestContextBean  _bean;
     private String              _currentText;
-    private Map                _applicationMap;
+    private Map<String, Object> _applicationMap;
   }
 
   static private final String _CONFIG_FILE = "/WEB-INF/trinidad-config.xml";

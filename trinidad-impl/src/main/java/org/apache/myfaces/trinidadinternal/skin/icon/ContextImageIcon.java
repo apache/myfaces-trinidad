@@ -109,6 +109,7 @@ public class ContextImageIcon extends BaseImageIcon
   /**
    * Override of Icon.getImageIcon().
    */
+  @Override
   public InputStream openStream(
     FacesContext        context,
     RenderingContext arc

@@ -88,6 +88,7 @@ public class PartialPageContextImpl extends PartialPageContext
   /**
    * Returns the set of partial targets for this rendering pass.
    */
+  @Override
   public Iterator<String> getPartialTargets()
   {
     return _targets.keySet().iterator();
@@ -99,6 +100,7 @@ public class PartialPageContextImpl extends PartialPageContext
    * Tests whether the specified id is the client id of a UIComponent that
    * should be rendered as part of the partial rendering pass.
    */
+  @Override
   public boolean isPartialTarget(String id)
   {
     return (id != null) && _targets.containsKey(id);
@@ -107,6 +109,7 @@ public class PartialPageContextImpl extends PartialPageContext
   /**
    * Tests whether the specified partial target has been rendered.
    */
+  @Override
   public boolean isPartialTargetRendered(String id)
   {
     return _renderedTargets.contains(id);
@@ -124,6 +127,7 @@ public class PartialPageContextImpl extends PartialPageContext
    * @param id The id of the partial target to render
    * @see #isPartialPassComplete
    */
+  @Override
   public void addPartialTarget(String id)
   {
     _targets.put(id, Boolean.FALSE);
@@ -132,6 +136,7 @@ public class PartialPageContextImpl extends PartialPageContext
   /**
    * Returns true if we are inside of a partial target.
    */
+  @Override
   public boolean isInsidePartialTarget()
   {
     return _getCurrentPartialTarget() != null;
@@ -142,11 +147,13 @@ public class PartialPageContextImpl extends PartialPageContext
    * is needed if the "clientId" of a component does not match
    * up to the top element (or elements).
    */
+  @Override
   public void addRenderedPartialTarget(String id)
   {
     _renderedTargets.add(id);
   }
 
+  @Override
   public Iterator<String> getRenderedPartialTargets()
   {
     return _renderedTargets.iterator();

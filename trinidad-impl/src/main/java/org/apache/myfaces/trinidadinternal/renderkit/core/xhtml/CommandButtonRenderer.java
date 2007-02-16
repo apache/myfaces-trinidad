@@ -178,6 +178,7 @@ public class CommandButtonRenderer extends CommandLinkRenderer
   }
 
   // FIXME: move this implementation to XhtmlRenderer
+  @Override
   protected void renderStyleAttributes(
     FacesContext        context,
     RenderingContext    arc,
@@ -185,7 +186,9 @@ public class CommandButtonRenderer extends CommandLinkRenderer
     String              defaultStyleClass) throws IOException
   {
     String styleClass = getStyleClass(bean);
-    String inlineStyle = getInlineStyle(bean);
+    // -= Simon =-
+    // FIXME: How come inline style is never read locally?
+    // String inlineStyle = getInlineStyle(bean);
     List<String> stateStyleClasses = getStateStyleClasses(context, arc, bean);
 
     if ((styleClass==null) && 
@@ -248,6 +251,7 @@ public class CommandButtonRenderer extends CommandLinkRenderer
     }
   }
 
+  @Override
   protected String getDefaultStyleClass(FacesBean bean)
   {
     return SkinSelectors.AF_COMMAND_BUTTON_STYLE_CLASS;

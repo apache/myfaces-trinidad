@@ -223,13 +223,14 @@ public class ServletExternalContext extends ExternalContext
   }
 
   @Override
-  public Map getInitParameterMap()
+  @SuppressWarnings("unchecked")
+  public Map<String, String> getInitParameterMap()
   {
     if (_initParameterMap == null)
     {
       // We cache it as an attribute in ServletContext itself (is this circular reference a
       // problem?)
-      if ((_initParameterMap = (Map) _servletContext.getAttribute(_INIT_PARAMETER_MAP_ATTRIBUTE)) == null)
+      if ((_initParameterMap = (Map<String, String>)_servletContext.getAttribute(_INIT_PARAMETER_MAP_ATTRIBUTE)) == null)
       {
         _initParameterMap = new ServletInitParameterMap(_servletContext);
         _servletContext.setAttribute(_INIT_PARAMETER_MAP_ATTRIBUTE, _initParameterMap);
@@ -581,7 +582,7 @@ public class ServletExternalContext extends ExternalContext
   private Map<String, Object>         _applicationMap;
   private HttpServletRequest          _httpServletRequest;
   private HttpServletResponse         _httpServletResponse;
-  private Map                         _initParameterMap;
+  private Map<String, String>         _initParameterMap;
   private Map<String, Object>         _requestCookieMap;
   private Map<String, String>         _requestHeaderMap;
   private Map<String, String[]>       _requestHeaderValuesMap;

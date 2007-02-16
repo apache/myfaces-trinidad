@@ -99,7 +99,7 @@ public class DoubleRangeValidator extends org.apache.myfaces.trinidad.validator.
       UIComponent component,
       String max,
       String min,
-      Map messages)
+      Map<String, String> messages)
   {
     StringBuilder outBuffer = new StringBuilder();
     outBuffer.append("new TrRangeValidator(");

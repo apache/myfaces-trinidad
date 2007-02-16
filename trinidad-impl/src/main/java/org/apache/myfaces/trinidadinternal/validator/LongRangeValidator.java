@@ -100,7 +100,7 @@ public class LongRangeValidator extends org.apache.myfaces.trinidad.validator.Lo
       UIComponent component,
       String max,
       String min,
-      Map messages)
+      Map<String, String> messages)
   {
     StringBuilder outBuffer = new StringBuilder();
     outBuffer.append("new TrRangeValidator(");

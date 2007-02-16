@@ -24,7 +24,6 @@ import java.util.Iterator;
 import java.util.Map;
 
 import javax.faces.event.FacesEvent;
-import javax.faces.render.RenderKit;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
@@ -140,7 +139,6 @@ public class TableSelectOneRendererTest extends FacesTestCase
   {
     //this.facesContext.setViewRoot(new UIViewRoot());
     Mock mockRenderKit = getMockRenderKitWrapper().getMock();
-    RenderKit renderKit = getMockRenderKitWrapper().getRenderKit();
     TableSelectOneRenderer renderer = new TableSelectOneRenderer();
     mockRenderKit.expects(atLeastOnce()).method("getRenderer").will(returnValue(renderer));
 

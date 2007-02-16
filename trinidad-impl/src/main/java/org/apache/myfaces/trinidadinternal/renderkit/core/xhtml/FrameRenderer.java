@@ -68,6 +68,7 @@ public class FrameRenderer extends XhtmlRenderer
     return true;
   }
 
+  @Override
   protected void renderAllAttributes(
     FacesContext        context,
     RenderingContext arc,

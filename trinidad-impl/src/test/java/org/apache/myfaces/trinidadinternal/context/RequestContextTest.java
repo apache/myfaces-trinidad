@@ -85,6 +85,7 @@ public class RequestContextTest extends FacesTestCase
     }
   }
 
+  @SuppressWarnings("unchecked")
   public void testComponentState() throws Exception
   {
     RequestContext context = _createContext();

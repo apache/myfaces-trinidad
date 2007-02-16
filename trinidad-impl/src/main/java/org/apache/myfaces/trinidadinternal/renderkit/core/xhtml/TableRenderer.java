@@ -483,9 +483,7 @@ abstract public class TableRenderer extends XhtmlRenderer
     {
       if (hidden[i] != TableRenderingContext.NORMAL_COLUMN)
         continue;
-      String selection = (String)
-        treeTable.getAttributes().get(CoreTable.ROW_SELECTION_KEY.getName());
-
+      
       UIComponent child = children.get(i);
       if (!(child instanceof UIXColumn))
         continue;
