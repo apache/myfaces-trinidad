@@ -176,25 +176,17 @@ should be allowed to wrap]]></description>
               The Column component supports the following attributes related to
               formatting:
               <dl>
-                <dt>formatType</dt>
+                <dt>align</dt>
     
-                <dd>The type of formatting to use for this column. This
-                atribute controls left, right or center justification of the
+                <dd>The type of alignment to use for this column. This
+                atribute controls left/start, right/end, or center justification of the
                 column data.
                 </dd>
-    
-                <dt>gridVisible</dt>
-                <dd>Controls the display of a grid line on the left of the column.
-                </dd>
-    
+        
                 <dt>width</dt>
                 <dd>The width of this column.
                 </dd>
-    
-                <dt>bandingShade</dt>
-                <dd>Determines what background color to use for this column.
-                </dd>
-    
+        
                 <dt>noWrap</dt>
                 <dd>Controls whether long lines of text in the column data should
                 be wrapped.</dd>
