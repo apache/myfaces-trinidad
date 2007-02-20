@@ -26,7 +26,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
 
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 
@@ -66,14 +65,7 @@ class StyleSheetNameResolver implements NameResolver
       return null;
     }
 
-    // Load the ServletContext so we can try getRealPath();  but
-    // we also use ExternalContext to get URLs
-    // =-=AEW This is a holdover from ancient days;  it should
-    // be sufficient to use URL-based access
-    ServletContext servletContext = _getServletContext();
-
-    return new StyleSheetNameResolver(localStylesDir,
-                                      servletContext);
+    return new StyleSheetNameResolver(localStylesDir);
   }
 
   /**
@@ -81,11 +73,9 @@ class StyleSheetNameResolver implements NameResolver
    * styles directories.  Note that the constructor is private since
    * StyleSheetEntry always calls createResolver().
    * @param localStylesDirectory The location of the local styles directory
-   * @param sharedStylesDirectory The location of the shared styles directory
    */
   private StyleSheetNameResolver(
-    File localStylesDirectory,
-    ServletContext servletContext
+    File localStylesDirectory
     )
   {
     // We should always have some directory
@@ -93,21 +83,36 @@ class StyleSheetNameResolver implements NameResolver
 
     _localStylesDir = localStylesDirectory;
 
-    _servletContext = servletContext;
   }
 
   /**
    * Implementation of NameResolver.getProvider().
+   * Given the name of the file, create an InputStreamProvider. I
    */
   public InputStreamProvider getProvider(String name) throws IOException
   {
-    File file = _resolveFile(name);
+    File file = _resolveLocalFile(name);
     if (file != null)
       return new FileInputStreamProvider(file);
-
-    URL url = _resolveURL(name);
+      
+    // Gets an URL for the specified name. 
+    // Try a few different means to get the file as an url and then create the appropriate
+    // InputStreamProvider from that URL.
+    URL url = _resolveNonStaticURL(name);
     if (url != null)
-      return new StaticURLInputStreamProvider(url);
+      return new URLInputStreamProvider(url);
+    else
+    {
+      // see if it is an URL that can be loaded by the ClassLoader. 
+      // We create a StaticURLInputStreamProvider from the url because we consider the
+      // url static because it can't be changed without restarting the server, so we don't
+      // need to check if the source has changed.
+      url = _resolveClassLoaderURL(name);
+      if (url != null)
+        return new StaticURLInputStreamProvider(url);
+    }
+      
+
 
     // If we couldn't locate the file, throw an IOException
     throw new FileNotFoundException(_getFileNotFoundMessage(name));
@@ -119,58 +124,49 @@ class StyleSheetNameResolver implements NameResolver
   public NameResolver getResolver(String name)
   {
     URL url = null;
-    File file = _resolveFile(name);
+    File file = _resolveLocalFile(name);
     if (file == null)
-      url = _resolveURL(name);
+    {
+      // Gets an URL for the specified name. 
+      // Try a few different means to get the file as an url: 
+      // new URL, ExternalContext's getResource, ClassLoaderUtils getResource
+      
+      url = _resolveNonStaticURL(name);
+      if (url == null)
+        url =_resolveClassLoaderURL(name);
+    }
 
     // Just use a DefaultNameResolver to resolve relative files
     return new DefaultNameResolver(file, url);
   }
 
   // Gets a File for the specified name, or returns null if no file exists
-  private File _resolveFile(String name)
+  // Try the local styles directory.
+  private File _resolveLocalFile(String name)
   {
-    // First try to local styles directory
-    File file = _createFile(_localStylesDir, name);
-    if (file != null)
-      return file;
-
-
-    // Finally, try relative to the context root
-    if (_servletContext != null)
-    {
-      // Use ServletContext.getRealPath() to locate the file.
-      String rootName = _getRootName(name);
-      String realPath = _servletContext.getRealPath(rootName);
-
-      if (realPath != null)
-      {
-        File realFile = new File(realPath);
-        if (realFile.exists())
-          return realFile;
-      }
-    }
-
-    return null;
-  }
-
-  // Creates the File for the specified base directory/file name,
-  // assuming the file exists.  Otherwise, returns null;
-  private File _createFile(File baseDir, String name)
-  {
-    File file = new File(baseDir, name);
+    // Try the local styles directory
+    File file = new File(_localStylesDir, name);
     if (file.exists())
       return file;
 
     return null;
   }
 
-  // Gets an URL for the specified name
-  private URL _resolveURL(String name)
+  // Gets an URL for the specified name using ClassLoaderUtils.getResource
+  private URL _resolveClassLoaderURL(String name)
   {
     if (name == null)
       return null;
-      
+    return ClassLoaderUtils.getResource(name);
+    
+  }
+  
+  // Gets an URL for the non static urls -- that is, urls that could change after the 
+  // server has started.
+  private URL _resolveNonStaticURL(String name)
+  {
+    if (name == null)
+      return null;
     FacesContext fContext = FacesContext.getCurrentInstance();
     if (fContext != null)
     {
@@ -189,6 +185,8 @@ class StyleSheetNameResolver implements NameResolver
         else
         {
           String rootName = _getRootName(name);
+          // Return a URL for the application resource mapped to the specified path, 
+          // if it exists; otherwise, return null.
           URL url = fContext.getExternalContext().getResource(rootName);
           if (url != null)
             return url;
@@ -200,9 +198,7 @@ class StyleSheetNameResolver implements NameResolver
         ;
       }
     }
-
-
-    return ClassLoaderUtils.getResource(name);
+    return null;
   }
 
   // Construct error message for the specified file name
@@ -217,14 +213,6 @@ class StyleSheetNameResolver implements NameResolver
     {
       buffer.append("local styles directory (");
       buffer.append(_localStylesDir.getPath());
-      buffer.append("), ");
-    }
-
-
-    if (_servletContext != null)
-    {
-      buffer.append("or in context root (");
-      buffer.append(_servletContext.getRealPath("/"));
       buffer.append("), ");
     }
 
@@ -261,18 +249,6 @@ class StyleSheetNameResolver implements NameResolver
     return null;
   }
 
-  // Private utility method for retrieving a ServletContext from
-  // a StyleContext
-  private static ServletContext _getServletContext()
-  {
-    FacesContext fContext = FacesContext.getCurrentInstance();
-    Object app = fContext.getExternalContext().getContext();
-    if (app instanceof ServletContext)
-      return (ServletContext) app;
-
-    return null;
-  }
-
   // Returns a name which can be resolved relative to the
   // ServletContext root.
   private static String _getRootName(String name)
@@ -304,10 +280,6 @@ class StyleSheetNameResolver implements NameResolver
 
 
   private File _localStylesDir;
-
-  // We use the ServletContext to search for context-relative
-  // style sheets.
-  private ServletContext _servletContext;
 
   // Error messages
   private static final String _STYLES_DIR_ERROR =
