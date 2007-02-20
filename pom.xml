@@ -163,24 +163,6 @@
       <timezone>-5</timezone>
     </developer>
   </developers>
-  
-  <build>
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-      </resource>
-      <!-- also include license and notice files in all the jars -->
-      <resource>
-        <directory>${basedir}/</directory>
-        <includes>
-          <include>NOTICE.txt</include>
-          <include>LICENSE.txt</include>
-          <include>INCUBATOR_NOTICE.txt</include>
-        </includes>
-        <targetPath>META-INF</targetPath>
-      </resource>
-    </resources>
-  </build>
 
   <scm>
     <connection>scm:svn:http://svn.apache.org/repos/asf/incubator/adffaces/tags/maven-plugin-parent-1.0.0-incubating</connection>
@@ -226,21 +208,6 @@
     <profile>
       <id>staging</id>
       <build>
-        <resources>
-          <resource>
-            <directory>src/main/resources</directory>
-          </resource>
-          <!-- also include license and notice files in all the jars -->
-          <resource>
-            <directory>${basedir}/</directory>
-            <includes>
-              <include>NOTICE.txt</include>
-              <include>LICENSE.txt</include>
-              <include>INCUBATOR_NOTICE.txt</include>
-            </includes>
-            <targetPath>META-INF</targetPath>
-          </resource>
-        </resources>
       
         <plugins>
           <!-- We want to deploy the artifact to a staging location for perusal
