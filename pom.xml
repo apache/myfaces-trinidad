@@ -163,6 +163,31 @@
       <timezone>-5</timezone>
     </developer>
   </developers>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-remote-resources-plugin</artifactId>
+        <version>1.0-alpha-2</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>process</goal>
+            </goals>
+            <configuration>
+            <resourceBundles>
+              <resourceBundle>org.apache:apache-jar-resource-bundle:1.1</resourceBundle>
+              <resourceBundle>org.apache:apache-incubator-disclaimer-resource-bundle:1.0</resourceBundle>
+            </resourceBundles>
+            <properties>
+              <addLicense>true</addLicense>
+            </properties>
+          </configuration>
+        </execution>
+      </executions>
+    </plugin>
+  </plugins>
+  </build>
 
   <scm>
     <connection>scm:svn:http://svn.apache.org/repos/asf/incubator/adffaces/tags/maven-plugin-parent-1.0.0-incubating</connection>
