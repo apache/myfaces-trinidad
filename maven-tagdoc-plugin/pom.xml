@@ -30,7 +30,7 @@
   <artifactId>maven-tagdoc-plugin</artifactId> 
   <version>1.0.0-incubating</version>
   <packaging>maven-plugin</packaging>
-  <name>Maven Tag Documentation Report</name>
+  <name>Apache Trinidad Maven Tag Documentation Report</name>
 
   <build>
     <plugins>

@@ -30,7 +30,7 @@
   <artifactId>maven-faces-plugin</artifactId> 
   <version>1.0.0-incubating</version>
   <packaging>maven-plugin</packaging>
-  <name>Maven Faces Plugin</name>
+  <name>Apache Trinidad Maven Faces Plugin</name>
 
   <build>
     <plugins>

@@ -30,7 +30,7 @@
   <artifactId>maven-i18n-plugin</artifactId> 
   <version>1.0.0-incubating</version>
   <packaging>maven-plugin</packaging>
-  <name>Maven i18n Plugin</name>
+  <name>Apache Trinidad Maven i18n Plugin</name>
 
   <build>
     <plugins>

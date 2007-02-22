@@ -30,7 +30,7 @@
   <artifactId>maven-javascript-plugin</artifactId> 
   <version>1.0.0-incubating</version>
   <packaging>maven-plugin</packaging>
-  <name>Maven Javascript Plugin</name>
+  <name>Apache Trinidad Maven Javascript Plugin</name>
 
   <build>
     <plugins>

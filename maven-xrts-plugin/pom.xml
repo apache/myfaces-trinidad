@@ -30,7 +30,7 @@
   <artifactId>maven-xrts-plugin</artifactId> 
   <version>1.0.0-incubating</version>
   <packaging>maven-plugin</packaging>
-  <name>Maven XRTS Plugin</name>
+  <name>Apache Trinidad Maven XRTS Plugin</name>
 
   <dependencies>
     <dependency>

@@ -30,7 +30,7 @@
   <artifactId>maven-jdev-plugin</artifactId> 
   <version>1.0.0-incubating</version>
   <packaging>maven-plugin</packaging>
-  <name>Maven JDev Plugin</name>
+  <name>Apache Trinidad Maven JDev Plugin</name>
 
   <dependencies>
     <dependency>

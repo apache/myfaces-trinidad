@@ -27,7 +27,7 @@
   <artifactId>maven-plugin-parent</artifactId> 
   <version>1.0.0-incubating</version>
   <packaging>pom</packaging>
-  <name>Maven Apache Plugin Parent</name>
+  <name>Apache Trinidad Maven Plugin Parent</name>
 
   <issueManagement>
     <system>jira</system>
