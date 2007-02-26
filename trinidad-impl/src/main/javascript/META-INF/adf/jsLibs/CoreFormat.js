@@ -933,6 +933,11 @@ function _decimalParse(
       throw new TrConverterException(facesMessage);
     }
 
+    if (grouping == "\xa0"){
+      var normalSpace = new RegExp("\\ " , "g");
+      numberString = numberString.replace(normalSpace, "\xa0");
+    }
+    
     // Remove the thousands separator - which Javascript doesn't want to see
     var thousands = new RegExp("\\" + grouping, "g");
     numberString = numberString.replace(thousands, "");
