@@ -221,6 +221,12 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     Locale locale = _getLocale(reqCtx, context);
 
     NumberFormat fmt = _getNumberFormat(pattern, type, locale, reqCtx);
+    
+    DecimalFormat df = (DecimalFormat)fmt;
+    DecimalFormatSymbols dfs = df.getDecimalFormatSymbols();
+    if (dfs.getGroupingSeparator() == '\u00a0')
+      value = value.replace(' ', '\u00a0');
+         
 
     ParsePosition pp = new ParsePosition(0);
     Number num = (Number) fmt.parseObject(value,pp);
