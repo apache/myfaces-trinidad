@@ -35,11 +35,10 @@
     <component-type>org.apache.myfaces.trinidad.EditableValue</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXEditableValue</component-class>
     <property>
-      <description><![CDATA[whether the value is converted and validated immediately in the Apply Request Values phase, or in the Process Validators phase.]]>
+      <description><![CDATA[whether the value is converted and validated immediately in the Apply Request Values phase, or is handled in the Process Validators phase, the default.  By default, values are converted and validated together in the Process Validators phase.  However, if you need access to the value of a component during Apply Request Values - for example, if you need to get the value from an actionListener on an immediate commandButton - then setting this to "immediate" makes that possible.]]>
       </description>
       <property-name>immediate</property-name>
       <property-class>boolean</property-class>
-      <property-extension/>
     </property>
     <property>
       <description><![CDATA[whether the component's value is currently valid]]></description>
