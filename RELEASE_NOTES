@@ -1,0 +1,23 @@
+Trinidad Podling Plugins (1.0.0-incubating) (for JSF 1.1)
+
+This file contains informations for the 1.0.0-incubating release of the Plugins for the Apache Trinidad Podling solved Jira issue:
+
+Issues:
+ADFFACES-25  - Typo in maven-i18n-plugin
+ADFFACES-112 - JavaScript Parsing errors in Obfuscator 
+ADFFACES-114 - writing release notes
+ADFFACES-150 - tagdoc generator ignores components that have a tag-name but no tag-class
+ADFFACES-161 - notice and license txt are missing
+ADFFACES-212 - JavaScript Obfuscator plugin should support multiple input paths
+ADFFACES-296 - plugins: add hooks for custom code to GenerateJspTaglibsMojo
+ADFFACES-320 - Obfuscation of addition statement where one of the items being added is an increment statement
+ADFFACES-355 - Update ASF license headers in trinidad
+
+Note:
+This is the first release of the Apache Trinidad Maven2 Plugins.
+Apache Trinidad is an effort undergoing incubation at The Apache Software Foundation (ASF),
+sponsored by the Apache MyFaces PMC. Incubation is required of all newly accepted projects until
+a further review indicates that the infrastructure, communications, and decision making process
+have stabilized in a manner consistent with other successful ASF projects. While incubation status
+is not necessarily a reflection of the completeness or stability of the code, it does indicate that
+the project has yet to be fully endorsed by the ASF.
