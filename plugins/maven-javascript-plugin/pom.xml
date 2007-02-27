@@ -17,20 +17,20 @@
     under the License.
 	   
 -->
-<project> 
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"> 
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
     <groupId>org.apache.myfaces.trinidadbuild</groupId>
     <artifactId>maven-plugin-parent</artifactId> 
-    <version>incubator-m1-SNAPSHOT</version>
+    <version>1.0.1-incubating-SNAPSHOT</version>
   </parent>
 
   <groupId>org.apache.myfaces.trinidadbuild</groupId>
   <artifactId>maven-javascript-plugin</artifactId> 
-  <version>incubator-m1-SNAPSHOT</version>
+  <version>1.0.1-incubating-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
-  <name>Maven Javascript Plugin</name>
+  <name>Apache Trinidad Maven Javascript Plugin</name>
 
   <build>
     <plugins>
@@ -46,7 +46,7 @@
       <plugin>
 	<groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-javacc-plugin</artifactId>
-        <version>incubator-m1-SNAPSHOT</version>
+        <version>1.0.1-incubating-SNAPSHOT</version>
         <configuration>
           <sourceDirectory>src/main/java</sourceDirectory>
           <sourcePath>org/apache/myfaces/trinidadbuild/plugin/javascript/obfuscator/javascript15parser</sourcePath>
