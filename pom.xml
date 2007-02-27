@@ -14,15 +14,20 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<project>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
+  <parent>
+    <groupId>org.apache</groupId>
+    <artifactId>apache</artifactId>
+    <version>3</version>
+  </parent>
 
   <groupId>org.apache.myfaces.trinidad</groupId>
   <artifactId>trinidad</artifactId>
   <packaging>pom</packaging>
   <name>Apache Incubator Trinidad Podling</name>
-  <version>incubator-m1-SNAPSHOT</version>
+  <version>1.0.1-incubating-SNAPSHOT</version>
   <description>Apache Incubator Trinidad Podling</description>
 
   <issueManagement>
@@ -170,14 +175,6 @@
     </developer>
   </developers>
 
-  <licenses>
-    <license>
-      <name>Apache License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
-    </license>
-  </licenses>
-
-
   <scm>
     <connection>
       scm:svn:http://svn.apache.org/repos/asf/incubator/adffaces/trunk/trinidad/
@@ -186,12 +183,6 @@
       scm:svn:https://svn.apache.org/repos/asf/incubator/adffaces/trunk/trinidad/
     </developerConnection>
   </scm>
-
-  <organization>
-    <name>Apache Trinidad (undergoing Incubator)</name>
-  </organization>
-
-
 
   <build>
     <pluginManagement>
@@ -215,28 +206,28 @@
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-xrts-plugin</artifactId>
-          <version>incubator-m1-SNAPSHOT</version>
+          <version>1.0.1-incubating-SNAPSHOT</version>
           <inherited>true</inherited>
         </plugin>
 
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-faces-plugin</artifactId>
-          <version>incubator-m1-SNAPSHOT</version>
+          <version>1.0.1-incubating-SNAPSHOT</version>
           <inherited>true</inherited>
         </plugin>
 
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-i18n-plugin</artifactId>
-          <version>incubator-m1-SNAPSHOT</version>
+          <version>1.0.1-incubating-SNAPSHOT</version>
           <inherited>true</inherited>
         </plugin>
 
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-javascript-plugin</artifactId>
-          <version>incubator-m1-SNAPSHOT</version>
+          <version>1.0.1-incubating-SNAPSHOT</version>
           <inherited>true</inherited>
         </plugin>
 
@@ -382,20 +373,20 @@
       <dependency>
         <groupId>org.apache.myfaces.trinidad</groupId>
         <artifactId>trinidad-build</artifactId>
-        <version>incubator-m1-SNAPSHOT</version>
+        <version>1.0.1-incubating-SNAPSHOT</version>
         <scope>provided</scope>
       </dependency>
 
       <dependency>
         <groupId>org.apache.myfaces.trinidad</groupId>
         <artifactId>trinidad-api</artifactId>
-        <version>incubator-m1-SNAPSHOT</version>
+        <version>1.0.1-incubating-SNAPSHOT</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.myfaces.trinidad</groupId>
         <artifactId>trinidad-api</artifactId>
-        <version>incubator-m1-SNAPSHOT</version>
+        <version>1.0.1-incubating-SNAPSHOT</version>
         <type>test-jar</type>
         <scope>test</scope>
       </dependency>
@@ -403,7 +394,7 @@
       <dependency>
         <groupId>org.apache.myfaces.trinidad</groupId>
         <artifactId>trinidad-impl</artifactId>
-        <version>incubator-m1-SNAPSHOT</version>
+        <version>1.0.1-incubating-SNAPSHOT</version>
       </dependency>
 
 
