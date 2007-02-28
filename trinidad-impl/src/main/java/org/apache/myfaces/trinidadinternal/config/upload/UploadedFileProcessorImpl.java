@@ -248,7 +248,7 @@ public class UploadedFileProcessorImpl implements UploadedFileProcessor
     catch (final ClassNotFoundException e)
     {
       _LOG
-          .info("Portlet API is not available on the classpath.  Portlet configurations are disabled.");
+          .fine("Portlet API is not available on the classpath.  Portlet configurations are disabled.");
       context = null;
       request = null;
     }
