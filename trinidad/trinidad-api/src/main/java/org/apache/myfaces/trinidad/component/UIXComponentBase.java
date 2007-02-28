@@ -474,6 +474,9 @@ abstract public class UIXComponentBase extends UIXComponent
     // and then ask it to find the rest of the expression.
     else
     {
+      if (from == null)
+        return null;
+
       if (!(from instanceof NamingContainer))
         throw new IllegalArgumentException();
       return from.findComponent(id.substring(separatorIndex + 1));
