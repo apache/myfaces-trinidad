@@ -101,7 +101,7 @@
         </exclusion>
       </exclusions>
     </dependency>
-    <dependency>
+    <!--dependency>
       <groupId>org.apache.myfaces.trinidad</groupId>
       <artifactId>trinidad-demo</artifactId>
       <version>${project.version}</version>
@@ -115,7 +115,7 @@
           <artifactId>servlet-api</artifactId>
         </exclusion>
       </exclusions>
-    </dependency>
+    </dependency-->
   </dependencies>
 
   <profiles>
@@ -147,63 +147,16 @@
                       <version>${project.version}</version>
                       <classifier>javadoc</classifier>
                     </artifactItem>
-                    <artifactItem>
+                    <!--artifactItem>
                       <groupId>${project.groupId}</groupId>
                       <artifactId>trinidad-demo</artifactId>
                       <version>${project.version}</version>
                       <classifier>javadoc</classifier>
-                    </artifactItem>
+                    </artifactItem-->
                   </artifactItems>
                   <outputDirectory>${project.build.directory}/javadoc
                   </outputDirectory>
                   <unpackMarkersDirectory>${project.build.directory}/javadoc
-                  </unpackMarkersDirectory>
-                </configuration>
-              </execution>
-
-              <execution>
-                <id>copy-tlddoc</id>
-                <phase>package</phase>
-                <goals>
-                  <goal>unpack</goal>
-                </goals>
-                <configuration>
-                  <artifactItems>
-
-                    <artifactItem>
-                      <groupId>${project.groupId}</groupId>
-                      <artifactId>trinidad-impl</artifactId>
-                      <version>${project.version}</version>
-                      <classifier>tlddoc</classifier>
-                    </artifactItem>
-
-                  </artifactItems>
-                  <outputDirectory>${project.build.directory}/tlddoc
-                  </outputDirectory>
-                  <unpackMarkersDirectory>${project.build.directory}/tlddoc
-                  </unpackMarkersDirectory>
-                </configuration>
-              </execution>
-
-               <execution>
-                <id>copy-tld</id>
-                <phase>package</phase>
-                <goals>
-                  <goal>unpack</goal>
-                </goals>
-                <configuration>
-                  <artifactItems>
-
-                    <artifactItem>
-                      <groupId>${project.groupId}</groupId>
-                      <artifactId>trinidad-impl</artifactId>
-                      <version>${project.version}</version>
-                    </artifactItem>
-
-                  </artifactItems>
-                  <outputDirectory>${project.build.directory}/tld
-                  </outputDirectory>
-                  <unpackMarkersDirectory>${project.build.directory}/tld
                   </unpackMarkersDirectory>
                 </configuration>
               </execution>
@@ -234,12 +187,12 @@
                       <version>${project.version}</version>
                       <classifier>sources</classifier>
                     </artifactItem>
-                    <artifactItem>
+                    <!--artifactItem>
                       <groupId>${project.groupId}</groupId>
                       <artifactId>trinidad-demo</artifactId>
                       <version>${project.version}</version>
                       <classifier>sources</classifier>
-                    </artifactItem>
+                    </artifactItem-->
                   </artifactItems>
                   <outputDirectory>${project.build.directory}/src
                   </outputDirectory>
