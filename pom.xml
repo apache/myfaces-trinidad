@@ -187,6 +187,7 @@
   <build>
     <pluginManagement>
       <plugins>
+
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-site-plugin</artifactId>
@@ -329,7 +330,7 @@
 
       <id>apache.stage</id>
       <name>Apache Stage Repository</name>
-      <url>http://people.apache.org/~matzew/stage</url>
+      <url>http://people.apache.org/repo/m2-incubating-repository/</url>
       <layout>default</layout>
     </pluginRepository>
   </pluginRepositories>
@@ -487,6 +488,16 @@
   </distributionManagement>
   
   <profiles>
+    <profile>
+      <id>generate-assembly</id>
+      <modules>
+        <module>trinidad-assembly</module>
+        <module>trinidad-api</module>
+        <module>trinidad-build</module>
+        <module>trinidad-impl</module>
+        <module>trinidad-demo</module>
+      </modules>
+    </profile>
     <profile>
       <id>staging</id>
       <build>
