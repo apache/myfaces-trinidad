@@ -42,6 +42,10 @@ import org.apache.shale.test.base.AbstractJsfTestCase;
 
 /**
  * Test for the RowKeySetImpl class.
+ * 
+ * There is a hardcoded dependency between this test and the SortableModel implementation that 
+ * happens to be used by ModelUtils.toCollectionModel().
+ * 
  * @author Arjuna Wijeyekoon
  */
 public final class RowKeySetImplTest extends AbstractJsfTestCase
@@ -315,7 +319,7 @@ public final class RowKeySetImplTest extends AbstractJsfTestCase
 
       bytes = bos.toByteArray();
       // test to make sure that the serialized size is reasonable:
-     assertTrue(bytes.length <= 100);
+     assertTrue(bytes.length <= 200);
      assertTrue(bytes.length >= 80);
     }
 
@@ -389,7 +393,7 @@ public final class RowKeySetImplTest extends AbstractJsfTestCase
 
     for(int i=0; i<sz; i++)
     {
-      String rowKey = (String) selectedList.get(i);
+      Object rowKey = selectedList.get(i);
       table.setRowKey(rowKey);
       Entry val = (Entry) table.getRowData();
 
@@ -468,9 +472,9 @@ public final class RowKeySetImplTest extends AbstractJsfTestCase
     }
   }
 
-  private static String _getKey(int index)
+  private static Object _getKey(int index)
   {
-    return String.valueOf(index);
+    return index;
   }
 
 //  private static int _getIndex(String key)

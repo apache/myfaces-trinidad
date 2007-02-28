@@ -119,7 +119,7 @@ public class SortableModel extends CollectionModel
   public Object getRowKey()
   {
     return isRowAvailable()
-      ? String.valueOf(getRowIndex())
+      ? _model.getRowIndex()
       : null;
   }
 
@@ -130,7 +130,7 @@ public class SortableModel extends CollectionModel
   @Override
   public void setRowKey(Object key)
   {
-    setRowIndex(_toRowIndex((String) key));
+    _model.setRowIndex(_toRowIndex(key));
   }
 
   /**
@@ -271,7 +271,7 @@ public class SortableModel extends CollectionModel
       for(int i=0; i<_baseIndicesList.size(); i++)
       {
         Integer base = _baseIndicesList.get(i);
-        _sortedIndicesList.set(base.intValue(), new Integer(i));
+        _sortedIndicesList.set(base.intValue(), i);
       }
     }
 
@@ -295,18 +295,18 @@ public class SortableModel extends CollectionModel
     return index;
   }
 
-  private int _toRowIndex(String rowKey)
+  private int _toRowIndex(Object rowKey)
   {
     if (rowKey == null)
       return -1;
 
     try
     {
-      return Integer.parseInt(rowKey);
+      return ((Integer)rowKey).intValue();
     }
-    catch (NumberFormatException nfe)
+    catch (ClassCastException e)
     {
-      _LOG.warning("Illegal rowKey:" + rowKey, nfe);
+      _LOG.warning("Invalid rowkey:" + rowKey + " type:" + rowKey.getClass(), e);
       return -1;
     }
   }
@@ -324,7 +324,7 @@ public class SortableModel extends CollectionModel
     {
       for(int i=0; i<desiredSize; i++)
       {
-        add(new Integer(i));
+        add(i);
       }
     }
   }
