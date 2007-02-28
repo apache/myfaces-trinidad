@@ -37,7 +37,7 @@
 
   <ciManagement>
     <system>continuum</system>
-    <url>http://myfaces.zones.apache.org:8080/continuum</url>
+    <url>http://myfaces.zones.apache.org:8081/continuum</url>
     <notifiers>
       <notifier>
         <type>mail</type>
@@ -177,10 +177,10 @@
 
   <scm>
     <connection>
-      scm:svn:http://svn.apache.org/repos/asf/incubator/adffaces/trunk/trinidad/
+      scm:svn:http://svn.apache.org/repos/asf/incubator/adffaces/branches/matzew-core-1.0.0-incubation/
     </connection>
     <developerConnection>
-      scm:svn:https://svn.apache.org/repos/asf/incubator/adffaces/trunk/trinidad/
+      scm:svn:https://svn.apache.org/repos/asf/incubator/adffaces/branches/matzew-core-1.0.0-incubation/
     </developerConnection>
   </scm>
 
@@ -261,7 +261,28 @@
           </configuration>
         </plugin>
 
-      </plugins>
+        <plugin>
+          <artifactId>maven-remote-resources-plugin</artifactId>
+          <version>1.0-alpha-2</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>process</goal>
+              </goals>
+              <configuration>
+              <resourceBundles>
+                <resourceBundle>org.apache:apache-jar-resource-bundle:1.1</resourceBundle>
+                <resourceBundle>org.apache:apache-incubator-disclaimer-resource-bundle:1.0</resourceBundle>
+              </resourceBundles>
+              <properties>
+                <addLicense>true</addLicense>
+              </properties>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    
+    </plugins>
     </pluginManagement>
   </build>
 
@@ -450,30 +471,101 @@
     <site>
       <id>apache-site</id>
       <name>Apache Website</name>
-      <url>scpexe://minotaur.apache.org/www/incubator.apache.org/adffaces</url>
+      <url>scpexe://people.apache.org/www/incubator.apache.org/adffaces</url>
     </site>
     <snapshotRepository>
       <uniqueVersion>false</uniqueVersion>
       <id>apache-maven-snapshots</id>
       <name>Apache Maven Snapshot Repository</name>
-      <url>scpexe://minotaur.apache.org/www/people.apache.org/repo/m2-snapshot-repository</url>
+      <url>scpexe://people.apache.org/www/people.apache.org/repo/m2-snapshot-repository</url>
     </snapshotRepository>
-<!--
     <repository>
-      <id>incubator</id>
-      <name>Maven2 Incubator Repository</name>
-      <url>TBD</url>
-      <layout>default</layout>
+      <id>apache-maven</id>
+      <name>Apache Maven Repository</name>
+      <url>scpexe://people.apache.org/www/people.apache.org/repo/m2-incubating-repository</url>
     </repository>
-    <snapshotRepository>
-      <uniqueVersion>false</uniqueVersion>
-      <id>incubator-snapshots</id>
-      <name>Maven2 Incubator Snapshots Repository</name>
-      <url>TBD</url>
-      <layout>default</layout>
-    </snapshotRepository>
--->
   </distributionManagement>
-
+  
+  <profiles>
+    <profile>
+      <id>staging</id>
+      <build>
+      
+        <plugins>
+          <!-- We want to deploy the artifact to a staging location for perusal
+           mvn -Pstaging -Ddeploy.altRepository=scpexe://people.apache.org/www/people.apache.org/builds/myfaces/m2-staging-repository
+          -->
+          <plugin>
+            <inherited>true</inherited>
+            <artifactId>maven-deploy-plugin</artifactId>
+            <version>2.3</version>
+            <configuration>
+              <altDeploymentRepository>${deploy.altRepository}</altDeploymentRepository>
+              <updateReleaseInfo>true</updateReleaseInfo>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>release</id>
+      <!--
+      NOTE: To use you need to enable this profile and pass in the passphrase:
+            mvn -Prelease -Dpassphrase=thephrase
+       -->
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>2.0.2</version>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>2.2</version>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-scm-plugin</artifactId>
+            <executions>
+              <execution>
+                <phase>validate</phase>
+                <id>getting-scm.revision</id>
+                <goals><goal>update</goal></goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
 </project>
