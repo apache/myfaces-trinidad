@@ -37,7 +37,10 @@ import org.apache.myfaces.trinidad.model.RowKeySetTreeImpl;
 import org.apache.myfaces.trinidad.model.TreeModel;
 import org.apache.shale.test.base.AbstractJsfTestCase;
 
-
+/**
+ * There is a hardcoded dependency between this test and the SortableModel implementation that 
+ * happens to be used by ModelUtils.toCollectionModel().
+ */
 public class RowKeySetTreeImplTest extends AbstractJsfTestCase
 {
   public RowKeySetTreeImplTest(String name)
@@ -280,7 +283,7 @@ public class RowKeySetTreeImplTest extends AbstractJsfTestCase
     // we're doing a test here to warn the developer if the
     // serialized size changes significantly. If the size changes are
     // expected, then change the expected range for these tests:
-    assertTrue(bytes.length < 650);
+    assertTrue(bytes.length < 1000);
     assertTrue(bytes.length > 615);
 
     ObjectInputStream in =
@@ -345,8 +348,8 @@ public class RowKeySetTreeImplTest extends AbstractJsfTestCase
     private final TreeModel _model;
   }
 
-  private static final List<Object> _0 = _createPath("0");
-  private static final List<Object> _011 = _createPath("0", "1", "1");
-  private static final List<Object> _2 = _createPath("2");
-  private static final List<Object> _20 = _createPath("2", "0");
+  private static final List<Object> _0 = _createPath(0);
+  private static final List<Object> _011 = _createPath(0, 1, 1);
+  private static final List<Object> _2 = _createPath(2);
+  private static final List<Object> _20 = _createPath(2, 0);
 }
