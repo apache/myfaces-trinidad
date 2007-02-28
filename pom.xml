@@ -206,28 +206,28 @@
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-xrts-plugin</artifactId>
-          <version>1.0.1-incubating-SNAPSHOT</version>
+          <version>1.0.0-incubating</version>
           <inherited>true</inherited>
         </plugin>
 
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-faces-plugin</artifactId>
-          <version>1.0.1-incubating-SNAPSHOT</version>
+          <version>1.0.0-incubating</version>
           <inherited>true</inherited>
         </plugin>
 
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-i18n-plugin</artifactId>
-          <version>1.0.1-incubating-SNAPSHOT</version>
+          <version>1.0.0-incubating</version>
           <inherited>true</inherited>
         </plugin>
 
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-javascript-plugin</artifactId>
-          <version>1.0.1-incubating-SNAPSHOT</version>
+          <version>1.0.0-incubating</version>
           <inherited>true</inherited>
         </plugin>
 
@@ -302,6 +302,16 @@
     </repository>
 
   </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+
+      <id>apache.stage</id>
+      <name>Apache Stage Repository</name>
+      <url>http://people.apache.org/repo/m2-incubating-repository</url>
+      <layout>default</layout>
+    </pluginRepository>
+  </pluginRepositories>
 
 <!--  I'm not having any luck getting checkstyle to actually
       pick up the checkstyle.xml from inside adf-faces-build,
