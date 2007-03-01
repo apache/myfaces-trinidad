@@ -206,6 +206,46 @@ public class XMLMenuModel extends BaseMenuModel
     String currentViewId    = _getCurrentViewId();
     FacesContext context    = FacesContext.getCurrentInstance();
     
+    // getFocusRowKey() is called multiple times during the Process Validations
+    // Phase and again during the Render Response Phase during each Request.
+    // During each phase, as described below, the same viewId is passed in. To
+    // prevent unnecessary looking up of the focus path each time, the previous
+    // focus path is returned after the first call in each phase, as described
+    // below.
+    //
+    // ** Process Validations Phase:
+    // During the Process Validations Phase, the prevViewId is initially 
+    // null (gets set to this at the start of each Request). The first time
+    // getFocusRowKey is called, the currentViewId is that of the node we are
+    // navigating "from" during the Request.  This is stored in prevViewId.
+    // Because the currentViewId is not equal to the prevViewId,
+    // the node is looked up, its focus path stored in prevFocusPath, and the
+    // focus path is returned. On subsequent calls during the Process 
+    // Validations Phase, the currentViewId is always that of the "from" node,
+    // the currentViewId is equal to the prevViewId, and so we simply 
+    // return prevFocusPath.
+    //
+    // ** Render Response Phase:
+    // During the Render Response Phase, the prevViewId is initially 
+    // that of the "from" node. The first time getFocusRowKey is called 
+    // the currentViewId is that of the node we are navigating "to" during 
+    // the Request.  This is stored in prevViewId.
+    // Because the currentViewId is not equal to the prevViewId,
+    // the node is looked up, its focus path stored in prevFocusPath, and the
+    // focus path is returned. On subsequent calls during the Render 
+    // Response Phase, the currentViewId is always that of the "to" node,
+    // the currentViewId is equal to the prevViewId, and so we simply 
+    // return prevFocusPath.
+    //
+    // IMPORTANT: Code that returns the correct focus path for duplicate nodes
+    // in the node tree actually depends on this optimization.
+    //
+    if (currentViewId == _prevViewId)
+      return _prevFocusPath;
+    
+    // Initializations
+    _prevViewId    = currentViewId;
+    
     // How did we get to this page?
     // 1) Clicked on a menu item with its action attribute set.  This does
     //    a POST.
@@ -272,7 +312,18 @@ public class XMLMenuModel extends BaseMenuModel
         focusPath = _nodeFocusPathMap.get(currentNode);
       }
     }
+
+    // Save all pertinent information
+    _prevFocusPath = focusPath;
     
+    // Reset this to _METHOD_NONE so we will know when 
+    // Navigation to a viewId within our model has been
+    // done from outside the model, e.g. link, button.
+    // If this is not done, the current request method
+    // will be from the previous navigation and could
+    // be incorrrect.  We always reset it to _METHOD_NONE
+    // so that the correct navigation method (see comment at top
+    // of getFocusRowKey() ) is determined each time.    
     _setRequestMethod(_METHOD_NONE);
 
     return focusPath;
@@ -687,6 +738,8 @@ public class XMLMenuModel extends BaseMenuModel
   }
      
   private Object  _currentNode       = null;
+  private Object  _prevFocusPath     = null;
+  private String  _prevViewId        = null;
   private String  _requestMethod     = _METHOD_NONE;
   private String  _mdSource          = null;
   private boolean _createHiddenNodes = false;
