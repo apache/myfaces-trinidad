@@ -125,7 +125,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
           if (navItem.isRendered())
           {
             // collect the information needed to render this nav item:
-            _collectNavItemData(navItemData, navItem, -1);
+            _collectNavItemData(navItemData, navItem, -1, component);
           }
         }
         catch (ClassCastException cce)
@@ -168,7 +168,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
           if (navStamp.isRendered())
           {
             // collect the information needed to render this nav item:
-            _collectNavItemData(navItemData, navStamp, i);
+            _collectNavItemData(navItemData, navStamp, i, component);
           }
         }
       }
@@ -213,6 +213,10 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       boolean previousActive = false;
       int nextActiveIndex = navItemData.getEffectiveActiveIndex() - 1;
       Object oldPath = component.getRowKey();
+      
+      _setStartDepthPath(component, 
+                           ((UIXNavigationLevel)component).getLevel());
+
       for (int i=0; i<visibleItemCount; i++)
       {
         Map<String, Object> currentItemData = navItemData.getItemData(i);
@@ -349,10 +353,25 @@ public class NavigationPaneRenderer extends XhtmlRenderer
   private void _collectNavItemData(
     NavItemData navItemData,
     UIXCommand commandChild,
-    int        rowIndex)
+    int        rowIndex,
+    UIXHierarchy component)
   {
     int itemDataIndex = navItemData.getItemCount();
-    boolean isActive = getBooleanFromProperty(_getCommandChildProperty(commandChild, "selected"));
+    boolean isActive;
+
+    // If we're stamping, "active" is based on the model's focus row key
+    if (rowIndex >= 0)
+    {
+      isActive = _isOnFocusPath(component);
+    }
+    // But if we're not stamping, "active" is just based on the
+    // "selected" property of the command component
+    else
+    {
+      isActive = getBooleanFromProperty(
+                   _getCommandChildProperty(commandChild,"selected"));
+    }
+
     if (isActive)
     {
       if (navItemData.getEffectiveActiveIndex() == -1)
@@ -1313,6 +1332,76 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     rw.endElement("table");
   }
 
+
+  // sets the currency to the row or container that we want to start rendering
+  // from.  (COPIED FROM HierarchyUtils, which is package-private)
+  static private boolean _setStartDepthPath(
+    UIXHierarchy component,
+    int          startDepth
+  )
+  {
+    boolean isNewPath = false;
+    Object focusKey = component.getFocusRowKey();
+    
+    if (focusKey != null )  
+    {
+      List<Object> focusPath = component.getAllAncestorContainerRowKeys(focusKey);
+      focusPath = new ArrayList<Object>(focusPath);
+      focusPath.add(focusKey);
+      int focusSize =  focusPath.size();
+      if ( focusSize > startDepth )
+      {
+        isNewPath = true;
+        component.setRowKey(focusPath.get(startDepth));  
+      }
+      else if ( focusSize == startDepth )
+      {
+        isNewPath = true;
+        component.setRowKey(focusKey);  
+        component.enterContainer();
+      }
+    }      
+    else  
+    {      
+      if (startDepth  == 0)
+      {
+        isNewPath = true;
+        component.setRowKey(null); 
+      }
+    }
+    
+    return isNewPath;
+  }  
+
+  /**
+   * Check if a component is on a focus path 
+   */
+  private static boolean _isOnFocusPath(UIXHierarchy component)
+  {
+    boolean isOnFocusPath = false;
+    Object focusKey = component.getFocusRowKey();
+    Object currentRowKey = component.getRowKey();
+    if (focusKey != null)
+    {
+      List<Object> focusPath = 
+                component.getAllAncestorContainerRowKeys(focusKey);
+      focusPath = new ArrayList<Object>(focusPath);
+      focusPath.add(focusKey);
+      int focusSize = focusPath.size();
+      for (int i = 0; i < focusSize; i++)
+      {
+        Object rowKey = focusPath.get(i);
+        if (rowKey.equals(currentRowKey))
+        {
+          isOnFocusPath = true;
+          break;
+        }
+      }
+    }
+
+    return isOnFocusPath;
+  }
+
   private class NavItemData
   {
     NavItemData()
@@ -1367,46 +1456,6 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     "af_menuChoice.GO";
 
   static private final Object _EXTRA_SUBMIT_PARAMS_KEY = new Object();
-
-  // sets the currency to the row or container that we want to start rendering
-  // from.  (COPIED FROM HierarchyUtils, which is package-private)
-  static private boolean _setStartDepthPath(
-    UIXHierarchy component,
-    int          startDepth
-  )
-  {
-    boolean isNewPath = false;
-    Object focusKey = component.getFocusRowKey();
-    
-    if (focusKey != null )  
-    {
-      List<Object> focusPath = component.getAllAncestorContainerRowKeys(focusKey);
-      focusPath = new ArrayList<Object>(focusPath);
-      focusPath.add(focusKey);
-      int focusSize =  focusPath.size();
-      if ( focusSize > startDepth )
-      {
-        isNewPath = true;
-        component.setRowKey(focusPath.get(startDepth));  
-      }
-      else if ( focusSize == startDepth )
-      {
-        isNewPath = true;
-        component.setRowKey(focusKey);  
-        component.enterContainer();
-      }
-    }      
-    else  
-    {      
-      if (startDepth  == 0)
-      {
-        isNewPath = true;
-        component.setRowKey(null); 
-      }
-    }
-    
-    return isNewPath;
-  }  
 
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(NavigationPaneRenderer.class);
