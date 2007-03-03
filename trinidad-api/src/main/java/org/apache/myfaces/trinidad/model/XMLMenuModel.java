@@ -295,21 +295,47 @@ public class XMLMenuModel extends BaseMenuModel
     
     if (fpArrayList != null)
     {
-      // Get the currently selected node
-      Object currentNode = _getCurrentlySelectedNode();
-      
-      if (fpArrayList.size() == 1  || currentNode == null)
+      if (_prevRequestNode != null)
       {
-        // For fpArrayLists with multiple focusPaths,
-        // the 0th entry in the fpArrayList carries the 
-        // focusPath of the node with its defaultFocusPath
-        // attribute set to "true", if there is one.  If
-        // not, the 0th element is the default.
-        focusPath = fpArrayList.get(0);
+        // _prevRequestNode will only be non-null when the previous
+        // request's node (AKA the "from" node) was a duplicate.
+        // We need to return the correct focus path, so we must
+        // use the node.  If we don't do this, the wrong focus path
+        // could be returned from the _viewIdFocusPathMap.
+        focusPath = _nodeFocusPathMap.get(_prevRequestNode);
+        
+        // Reset it to null
+        _prevRequestNode = null;
       }
       else
       {
-        focusPath = _nodeFocusPathMap.get(currentNode);
+        // Get the currently selected node
+        Object currentNode = _getCurrentlySelectedNode();
+        
+        if (fpArrayList.size() == 1 || currentNode == null)
+        {
+          // For fpArrayLists with multiple focusPaths,
+          // the 0th entry in the fpArrayList carries the 
+          // focusPath of the node with its defaultFocusPath
+          // attribute set to "true", if there is one.  If
+          // not, the 0th element is the default.
+          focusPath = fpArrayList.get(0);
+          
+          // Not a duplicate node so set this to null
+          _prevRequestNode = null;
+        }
+        else
+        {
+          // This will be a duplicate node, meaning it navigates to the
+          // the same page as at least one other node in the tree.
+          focusPath = _nodeFocusPathMap.get(currentNode);
+          
+          // Save this node for the next request.  Otherwise, the
+          // next Request will go into previous part of this conditional
+          // and return (possibly) the wrong focus path during the
+          // Process Validations Phase.
+          _prevRequestNode = currentNode;
+        }
       }
     }
 
@@ -323,7 +349,7 @@ public class XMLMenuModel extends BaseMenuModel
     // will be from the previous navigation and could
     // be incorrrect.  We always reset it to _METHOD_NONE
     // so that the correct navigation method (see comment at top
-    // of getFocusRowKey() ) is determined each time.    
+    // of getFocusRowKey() ) is determined each time.
     _setRequestMethod(_METHOD_NONE);
 
     return focusPath;
@@ -748,9 +774,13 @@ public class XMLMenuModel extends BaseMenuModel
   private Map<Object, List<Object>> _nodeFocusPathMap;
   private Map<String, Object>       _idNodeMap;
 
-  static private MenuContentHandler _contentHandler = null;
+  static private MenuContentHandler _contentHandler  = null;
   
-  static private final String _ROOT_MODEL_KEY = "org.apache.myfaces.trinidad.model.XMLMenuModel.__root_menu__";
+  // Only set this if _currentNode is a duplicate
+  static private Object             _prevRequestNode = null;
+  
+  static private final String _ROOT_MODEL_KEY = 
+    "org.apache.myfaces.trinidad.model.XMLMenuModel.__root_menu__";
   
   static private final String _NODE_ID_PROPERTY     = "nodeId";
   static private final String _METHOD_GET           = "get";
