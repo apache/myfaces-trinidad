@@ -102,41 +102,12 @@
   <resource key="javax.faces.validator.LongRangeValidator.MAXIMUM">Value is too large.</resource>
   <resource key="javax.faces.validator.LongRangeValidator.MAXIMUM_detail">The value "{1}" is larger than the maximum value of {2}.</resource>
 
-
-  <!-- {0} the label that identifies the component  -->
-  <!-- {1} value entered by the user                -->
-  <!-- NOTE: The format of this message must match the format of the    -->
-  <!-- general javascript messages (see  VALIDATION_ALERT_FORMAT below) -->
-  <resource key="javax.faces.Length">Wrong length.</resource>
-  <resource key="javax.faces.Length_detail">Value "{1}" has the wrong length.</resource>
-
   <!-- {0} the label that identifies the component  -->
   <!-- {1} value entered by the user                -->
   <!-- NOTE: The format of this message must match the format of the    -->
   <!-- general javascript messages (see  VALIDATION_ALERT_FORMAT below) -->
   <resource key="javax.faces.LongRange">Not an integer.</resource>
   <resource key="javax.faces.LongRange_detail">Value "{1}" is not an integer.</resource>
-
-  <!-- {0} the label that identifies the component  -->
-  <!-- {1} value entered by the user                -->
-  <!-- NOTE: The format of this message must match the format of the    -->
-  <!-- general javascript messages (see  VALIDATION_ALERT_FORMAT below) -->
-  <resource key="javax.faces.DoubleRange">Not a float.</resource>
-  <resource key="javax.faces.DoubleRange_detail">Value "{1}" is not a float.</resource>
-
-  <!-- {0} the label that identifies the component  -->
-  <!-- {1} value entered by the user                -->
-  <!-- NOTE: The format of this message must match the format of the    -->
-  <!-- general javascript messages (see  VALIDATION_ALERT_FORMAT below) -->
-  <resource key="org.apache.myfaces.trinidad.DateTimeRange">Wrong date.</resource>
-  <resource key="org.apache.myfaces.trinidad.DateTimeRange_detail">Value "{1}" fit's not into the desired date range.</resource>
-
-  <!-- {0} the label that identifies the component  -->
-  <!-- {1} value entered by the user                -->
-  <!-- NOTE: The format of this message must match the format of the    -->
-  <!-- general javascript messages (see  VALIDATION_ALERT_FORMAT below) -->
-  <resource key="org.apache.myfaces.trinidad.DateRestriction">Wrong date.</resource>
-  <resource key="org.apache.myfaces.trinidad.DateRestriction_detail">Value "{1}" is not a valid date. Check the given restrictions.</resource>
 
   <!-- E.g. for input value "test" and maximum value set to "3" -->
   <!--      the message would be:                               -->
