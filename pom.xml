@@ -189,6 +189,15 @@
   </scm>
 
   <build>
+
+    <plugins>
+      <!--plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>rat-maven-plugin</artifactId>
+        <version>1.0-alpha-1</version>
+      </plugin-->
+    </plugins>
+
     <pluginManagement>
       <plugins>
 
