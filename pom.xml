@@ -499,7 +499,7 @@
         <module>trinidad-api</module>
         <module>trinidad-build</module>
         <module>trinidad-impl</module>
-        <module>trinidad-demo</module>
+        <module>trinidad-examples</module>
       </modules>
     </profile>
     <profile>
