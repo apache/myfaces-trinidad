@@ -296,6 +296,7 @@
     <module>trinidad-build</module>
     <module>trinidad-impl</module>
     <module>trinidad-demo</module>
+    <module>examples</module>
   </modules>
 
   <repositories>
