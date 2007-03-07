@@ -31,7 +31,7 @@
   <artifactId>trinidad</artifactId>
   <packaging>pom</packaging>
   <name>Apache Incubator Trinidad Podling</name>
-  <version>1.0.0-incubating-SNAPSHOT</version>
+  <version>1.0.0-incubating</version>
   <description>Apache Incubator Trinidad Podling</description>
 
   <issueManagement>
@@ -100,7 +100,7 @@
     <developer>
       <id>baranda</id>
       <name>Bruno Aranda</name>
-      <organization/>
+      <organization />
       <email>baranda@apache.org</email>
       <roles>
         <role>Developer</role>
@@ -110,7 +110,7 @@
     <developer>
       <id>craigmcc</id>
       <name>Craig McClanahan</name>
-      <organization/>
+      <organization />
       <email>craigmcc@apache.org</email>
       <roles>
         <role>Developer</role>
@@ -130,7 +130,7 @@
     <developer>
       <id>jfallows</id>
       <name>John Fallows</name>
-      <organization/>
+      <organization />
       <email>jfallows@apache.org</email>
       <roles>
         <role>Developer</role>
@@ -180,12 +180,8 @@
   </developers>
 
   <scm>
-    <connection>
-      scm:svn:http://svn.apache.org/repos/asf/incubator/adffaces/branches/matzew-core-1.0.0-incubation/
-    </connection>
-    <developerConnection>
-      scm:svn:https://svn.apache.org/repos/asf/incubator/adffaces/branches/matzew-core-1.0.0-incubation/
-    </developerConnection>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/incubator/adffaces/tags/trinidad-1.0.0-incubating</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/incubator/adffaces/tags/trinidad-1.0.0-incubating</developerConnection>
   </scm>
 
   <build>
@@ -418,14 +414,14 @@
       <dependency>
         <groupId>org.apache.myfaces.trinidad</groupId>
         <artifactId>trinidad-build</artifactId>
-        <version>1.0.0-incubating-SNAPSHOT</version>
+        <version>1.0.0-incubating</version>
         <scope>provided</scope>
       </dependency>
 
       <dependency>
         <groupId>org.apache.myfaces.trinidad</groupId>
         <artifactId>trinidad-api</artifactId>
-        <version>1.0.0-incubating-SNAPSHOT</version>
+        <version>1.0.0-incubating</version>
       </dependency>
 
       <dependency>
@@ -439,7 +435,7 @@
       <dependency>
         <groupId>org.apache.myfaces.trinidad</groupId>
         <artifactId>trinidad-impl</artifactId>
-        <version>1.0.0-incubating-SNAPSHOT</version>
+        <version>1.0.0-incubating</version>
       </dependency>
 
 
