@@ -49,6 +49,7 @@
       <modules>
         <module>blank</module>
         <module>trinidad-demo</module>
+        <module>trinidad-example-assembly</module>
       </modules>
     </profile>
     <profile>
