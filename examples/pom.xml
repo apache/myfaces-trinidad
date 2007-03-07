@@ -38,6 +38,7 @@
 
   <modules>
     <module>blank</module>
+    <module>trinidad-demo</module>
   </modules>
 
 
@@ -47,6 +48,7 @@
       <id>generate-assembly</id>
       <modules>
         <module>blank</module>
+        <module>trinidad-demo</module>
       </modules>
     </profile>
     <profile>
