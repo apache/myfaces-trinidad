@@ -264,7 +264,7 @@ function _agentInit()
   }
   else if (agentString.indexOf("opera") != -1)
   {
-    isOpera = true
+    isOpera = true;
     kind = "opera";
   }
   else if ((agentString.indexOf("applewebkit") != -1) ||
