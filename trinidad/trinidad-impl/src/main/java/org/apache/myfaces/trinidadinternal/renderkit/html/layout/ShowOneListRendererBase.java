@@ -158,7 +158,7 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
 
     out.startElement("table", component);
     out.writeAttribute("id", component.getClientId(context), null);
-    String shortDesc = (String) component.getAttributes().get("shorDesc");
+    String shortDesc = (String) component.getAttributes().get("shortDesc");
     if (shortDesc != null)
     {
       out.writeAttribute("summary", shortDesc, null);

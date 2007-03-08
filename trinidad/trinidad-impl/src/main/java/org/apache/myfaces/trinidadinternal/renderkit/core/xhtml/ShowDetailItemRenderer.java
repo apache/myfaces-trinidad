@@ -28,6 +28,7 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.component.UIXShowOne;
 import org.apache.myfaces.trinidad.component.core.layout.CoreShowDetailItem;
 
 import org.apache.myfaces.trinidad.context.RenderingContext;
@@ -71,7 +72,16 @@ public class ShowDetailItemRenderer extends XhtmlRenderer
       {
         boolean isDisclosed = XhtmlConstants.SHOW_EVENT.equals(event);
         (new DisclosureEvent(component, isDisclosed)).queue();
-        RequestContext.getCurrentInstance().addPartialTarget(component);
+        // Add ourselves as a PPR target - except, if we're in a 
+        // ShowOne, then really the whole parent has to get
+        // repainted
+        UIComponent pprComponent;
+        if (component.getParent() instanceof UIXShowOne)
+          pprComponent = component.getParent();
+        else
+          pprComponent = component;
+
+        RequestContext.getCurrentInstance().addPartialTarget(pprComponent);
       }
     }
   }
