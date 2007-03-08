@@ -100,7 +100,7 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
+                             onclick="_submitPartialChange('formId',1, {event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
@@ -135,7 +135,7 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
+                             onclick="_submitPartialChange('formId',1, {event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
@@ -280,7 +280,7 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
+                             onclick="_submitPartialChange('formId',1, {event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
@@ -315,7 +315,7 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
+                             onclick="_submitPartialChange('formId',1, {event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
@@ -460,7 +460,7 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
+                             onclick="_submitPartialChange('formId',1, {event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
@@ -495,7 +495,7 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
+                             onclick="_submitPartialChange('formId',1, {event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
@@ -640,7 +640,7 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
+                             onclick="_submitPartialChange('formId',1, {event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
@@ -675,7 +675,7 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
+                             onclick="_submitPartialChange('formId',1, {event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
@@ -820,7 +820,7 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
+                             onclick="_submitPartialChange('formId',1, {event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
@@ -855,7 +855,7 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
+                             onclick="_submitPartialChange('formId',1, {event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
@@ -1000,7 +1000,7 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
+                             onclick="_submitPartialChange('formId',1, {event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
@@ -1035,7 +1035,7 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
+                             onclick="_submitPartialChange('formId',1, {event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
@@ -1180,7 +1180,7 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
+                             onclick="_submitPartialChange('formId',1, {event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
@@ -1215,7 +1215,7 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
+                             onclick="_submitPartialChange('formId',1, {event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
@@ -1360,7 +1360,7 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
+                             onclick="_submitPartialChange('formId',1, {event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
@@ -1395,7 +1395,7 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
+                             onclick="_submitPartialChange('formId',1, {event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
@@ -1540,7 +1540,7 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
+                             onclick="_submitPartialChange('formId',1, {event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
@@ -1575,7 +1575,7 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
+                             onclick="_submitPartialChange('formId',1, {event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
@@ -1720,7 +1720,7 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
+                             onclick="_submitPartialChange('formId',1, {event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
@@ -1755,7 +1755,7 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
+                             onclick="_submitPartialChange('formId',1, {event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
@@ -1900,7 +1900,7 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
+                             onclick="_submitPartialChange('formId',1, {event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
@@ -1935,7 +1935,7 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
+                             onclick="_submitPartialChange('formId',1, {event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
@@ -2079,7 +2079,7 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'sDetailId', event:'show',source:'_idXXX'});return true;"
+                             onclick="_submitPartialChange('formId',1, {event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
@@ -2114,7 +2114,7 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'sDetailId', event:'show',source:'_idXXX'});return true;"
+                             onclick="_submitPartialChange('formId',1, {event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
@@ -2162,7 +2162,7 @@
            cellpadding="0"
            cellspacing="0"
            id="mainId"
-           summary=""
+           summary="myDetail"
            title="myDetail"
           >
         
@@ -2259,7 +2259,7 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
+                             onclick="_submitPartialChange('formId',1, {event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
@@ -2294,7 +2294,7 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
+                             onclick="_submitPartialChange('formId',1, {event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
@@ -2439,7 +2439,7 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
+                             onclick="_submitPartialChange('formId',1, {event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
@@ -2474,7 +2474,7 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
+                             onclick="_submitPartialChange('formId',1, {event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
@@ -2618,7 +2618,7 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
+                             onclick="_submitPartialChange('formId',1, {event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
@@ -2653,7 +2653,7 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
+                             onclick="_submitPartialChange('formId',1, {event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
@@ -2797,7 +2797,7 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
+                             onclick="_submitPartialChange('formId',1, {event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
@@ -2832,7 +2832,7 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
+                             onclick="_submitPartialChange('formId',1, {event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
@@ -2983,7 +2983,7 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
+                             onclick="_submitPartialChange('formId',1, {event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
@@ -3018,7 +3018,7 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
+                             onclick="_submitPartialChange('formId',1, {event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
@@ -3163,7 +3163,7 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
+                             onclick="_submitPartialChange('formId',1, {event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
@@ -3198,7 +3198,7 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
+                             onclick="_submitPartialChange('formId',1, {event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input

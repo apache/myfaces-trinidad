@@ -68,7 +68,7 @@ public class CorePanelRadioRenderer extends ShowOneListRendererBase
 
     // draw table to contain the select UI control
     out.startElement("table", component);
-    out.writeAttribute("id", compId + _RADIO_TABLE_SUFFIEX_ID_CONST, null);
+    out.writeAttribute("id", compId + _RADIO_TABLE_SUFFIX_ID_CONST, null);
     out.writeAttribute("border", "0", null);
     out.writeAttribute("cellspacing", "0", null);
     out.writeAttribute("cellpadding", "0", null);
@@ -172,7 +172,7 @@ public class CorePanelRadioRenderer extends ShowOneListRendererBase
 
       out.startElement("span", component);
       out.writeAttribute("id",
-                         childClientId + _RADIO_SPAN_SUFFIEX_ID_CONST,
+                         childClientId + _RADIO_SPAN_SUFFIX_ID_CONST,
                          null);
 
       Boolean disabledObj =
@@ -305,7 +305,7 @@ public class CorePanelRadioRenderer extends ShowOneListRendererBase
       //pprEnabled is true for PIE and IE Mobile
       if(CoreRenderer.isPDA(RenderingContext.getCurrentInstance())) 
       {
-        StringBuffer jsBuff = new StringBuffer(135);
+        StringBuilder jsBuff = new StringBuilder(135);
         jsBuff.append("submitForm('")
               .append(formName)
               .append("',")
@@ -318,16 +318,12 @@ public class CorePanelRadioRenderer extends ShowOneListRendererBase
       }
       else
       {
-        String encodedPartialTargets =
-          ShowOneUtils.getEncodedPartialTargets(component, compId);
-        StringBuffer jsBuff = new StringBuffer(220);
+        StringBuilder jsBuff = new StringBuilder(220);
         jsBuff.append("_submitPartialChange('")
               .append(formName)
               .append("',")
               .append(validate)
-              .append(", {partialTargets:'")
-              .append(encodedPartialTargets)
-              .append("', event:'show',source:'")
+              .append(", {event:'show',source:'")
               .append(detailChildId)
               .append("'});return true;");
     
@@ -336,7 +332,7 @@ public class CorePanelRadioRenderer extends ShowOneListRendererBase
     }
     else
     {
-      StringBuffer jsBuff = new StringBuffer(135);
+      StringBuilder jsBuff = new StringBuilder(135);
       jsBuff.append("submitForm('")
             .append(formName)
             .append("',")
@@ -349,9 +345,9 @@ public class CorePanelRadioRenderer extends ShowOneListRendererBase
     return onClickHandler;
   }
 
-  private static final String _RADIO_TABLE_SUFFIEX_ID_CONST = "_sor_tbl";
-  private static final String _RADIO_SPAN_SUFFIEX_ID_CONST =
-    _RADIO_TABLE_SUFFIEX_ID_CONST + "_span";
+  private static final String _RADIO_TABLE_SUFFIX_ID_CONST = "_sor_tbl";
+  private static final String _RADIO_SPAN_SUFFIX_ID_CONST =
+    _RADIO_TABLE_SUFFIX_ID_CONST + "_span";
 
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(CorePanelRadioRenderer.class);
