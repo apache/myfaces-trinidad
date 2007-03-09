@@ -96,7 +96,7 @@
     <developer>
       <id>baranda</id>
       <name>Bruno Aranda</name>
-      <organization/>
+      <organization>EMBL-EBI (European Bioinformatics Institute), UK</organization>
       <email>baranda@apache.org</email>
       <roles>
         <role>Developer</role>
