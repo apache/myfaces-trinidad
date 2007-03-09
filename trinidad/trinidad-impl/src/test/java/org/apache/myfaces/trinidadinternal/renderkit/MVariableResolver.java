@@ -125,6 +125,15 @@ public class MVariableResolver extends VariableResolver
 
       return _simpleList;
     }
+    else if ("numberList".equals(name))
+    {
+      // A simple out-of-order list of numeric strings,
+      // for use in the selectManyListbox test
+      List<String> list = new ArrayList<String>(2);
+      list.add("8");
+      list.add("2");
+      return list;
+    }
     else if("iteratorList".equals(name))
     {
       if (_iteratorList == null)

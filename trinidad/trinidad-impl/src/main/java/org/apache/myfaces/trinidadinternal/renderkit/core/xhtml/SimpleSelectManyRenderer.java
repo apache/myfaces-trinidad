@@ -479,8 +479,10 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
   }
 
   /**
-   * Return all the selected indices, in sorted order.  (There
+   * Return all the selected indices.  (There
    * may be included -1's in case of an error)
+   * The list will be sorted, unless isReorderable()
+   * returns true.
    */
   @SuppressWarnings("unchecked")
   protected int[] getSelectedIndices(
@@ -616,6 +618,10 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
           new Object[]{component, valueList});
       }
     }
+
+    // And sort it, but only if it's not reorderable
+    if (!isReorderable())
+      Arrays.sort(indices);
 
     Integer[] indicesObj = new Integer[indices.length];
     for (int foo = 0; foo < indices.length; foo++)
