@@ -137,13 +137,15 @@ class SkinStyleSheetParserUtils
    * */
   public static String trimQuotes(String in)
   {
+    int length = in.length();
+    if (length <= 1)
+      return in;
     // strip off the starting/ending quotes if there are any
     char firstChar = in.charAt(0);
     int firstCharIndex = 0;
     if ((firstChar == '\'') || (firstChar == '"'))
       firstCharIndex = 1;
 
-    int length = in.length();
     char lastChar = in.charAt(length-1);
     if ((lastChar == '\'') || (lastChar == '"'))
       length--;
@@ -447,7 +449,11 @@ class SkinStyleSheetParserUtils
     int endIndex = -1;
     int index = url.indexOf("url(");
     StringBuilder builder = new StringBuilder();
-    builder.append(url, 0 , index);
+    // this loops takes care of the usecase where there can be more than
+    // one url, like this: 
+    // background-image: url("/skins/purple/images/btns.gif"), 
+    // url("/skins/purple/images/checkdn.gif");
+
     while(index >= 0)
     {
       // Appends values before url()
@@ -526,6 +532,12 @@ class SkinStyleSheetParserUtils
         // relative values will be resolved relative to the
         // generated style sheet, not the source CSS file.
         builder.append(_getAbsoluteURLValue(baseUrl, uri, sourceName, selectorName));
+      }
+      else if (uri.startsWith("http:"))
+      {
+        builder.append("url(");
+        builder.append(uri);
+        builder.append(')');
       }
       
       index = url.indexOf("url(", endIndex);

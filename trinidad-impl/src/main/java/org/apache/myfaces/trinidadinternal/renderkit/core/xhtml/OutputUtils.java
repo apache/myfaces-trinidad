@@ -312,7 +312,7 @@ public class OutputUtils
     ) throws IOException
   {
     renderImage(context, arc, absoluteUri,
-                width, height, id, altText, comp, null);
+                width, height, id, altText, comp, null, null);
   }
 
   static public void renderImage(
@@ -325,6 +325,23 @@ public class OutputUtils
     Object           altText,
     UIComponent      comp,
     String           inlineStyle
+    ) throws IOException
+  {
+    renderImage(context, arc, absoluteUri,
+                width, height, id, altText, comp, inlineStyle, null);
+  }
+    
+  static public void renderImage(
+    FacesContext     context,
+    RenderingContext arc,
+    Object           absoluteUri,
+    Object           width,
+    Object           height,
+    Object           id,
+    Object           altText,
+    UIComponent      comp,
+    String           inlineStyle,
+    String           styleClass
     ) throws IOException
   {
     if (absoluteUri == null)
@@ -354,6 +371,11 @@ public class OutputUtils
     if (inlineStyle != null)
     {
       writer.writeAttribute("style", inlineStyle, null);
+    }
+    
+    if (styleClass != null)
+    {
+      writer.writeAttribute("class", styleClass, null);
     }
 
     writer.endElement("img");
