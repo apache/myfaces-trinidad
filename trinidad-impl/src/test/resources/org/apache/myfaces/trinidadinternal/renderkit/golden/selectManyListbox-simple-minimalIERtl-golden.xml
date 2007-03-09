@@ -60,6 +60,18 @@
           </option>
         </select>
       </span>
+<!--AttributeTest[value,#{numberList}]-->
+
+      <span
+           class="AFFieldText"
+           id="mainId"
+          >
+        item2
+        <br
+            >
+          
+        </br>item8
+      </span>
 <!--AttributeTest[valuePassThru,false]-->
 
       <span

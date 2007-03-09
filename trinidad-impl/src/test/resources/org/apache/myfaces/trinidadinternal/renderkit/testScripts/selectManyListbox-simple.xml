@@ -7,6 +7,9 @@
   </base-component>
 
   <attribute-test name="value" value="4"/>
+  <!-- A test of out-of-order number lists, as per ADFFACES-405,
+      albeit readOnly given limitations of the framework -->
+  <attribute-test name="value" value="#{numberList}"/>
   <boolean-test name="valuePassThru"/>
 
   <!--attribute-test name="accessKey" /-->

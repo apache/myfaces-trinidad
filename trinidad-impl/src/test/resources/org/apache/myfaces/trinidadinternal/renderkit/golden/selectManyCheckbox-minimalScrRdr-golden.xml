@@ -164,6 +164,46 @@
           </td>
         </tr>
       </table>
+<!--AttributeTest[value,#{numberList}]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_selectManyCheckbox"
+           id="mainId__xc_"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_selectManyCheckbox_label"
+               nowrap="nowrap"
+               valign="top"
+              >
+            Label
+          </td>
+          <td
+               class="AFContentCell"
+               nowrap="nowrap"
+               valign="top"
+              >
+            
+            <span
+                 class="AFFieldText"
+                 id="mainId"
+                >
+              item2
+              <br
+                  >
+                
+              </br>item8
+            </span>
+          </td>
+        </tr>
+      </table>
 <!--AttributeTest[valuePassThru,false]-->
 
       <table
