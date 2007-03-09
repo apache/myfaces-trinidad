@@ -431,6 +431,15 @@ public class XMLMenuModel extends BaseMenuModel
   {
     _setCurrentlySelectedNode(currentNode);
     _setRequestMethod(_METHOD_POST);
+
+    
+    // Do this in the case where a menu item is selected
+    // that has the same viewId as the previous menu item
+    // that is selected.  If not, the test at the beginning
+    // of getFocusRowKey() (currentViewId == _prevViewId)
+    // is true and just returns, even though we have selected
+    // a new node and the focus path should change.
+    _prevViewId = null;
   }
 
   /**
