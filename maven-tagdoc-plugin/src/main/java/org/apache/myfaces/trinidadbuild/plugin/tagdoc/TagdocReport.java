@@ -321,7 +321,6 @@ public class TagdocReport extends AbstractMavenMultiPageReport
     {
       return null;
     }
-
     String pageName = _toPageName(component.getTagName());
 
     File targetDir = new File(outputDirectory.getParentFile(), 
@@ -779,12 +778,35 @@ public class TagdocReport extends AbstractMavenMultiPageReport
 
       if (attr.getDescription()  != null)
       {
+        String[] values = attr.getPropertyValues();
+        String valStr = null;
+
+        if ((values != null) && (values.length > 0))
+        {
+          // Don't know how long this will be, but 100 should be plenty.
+          StringBuffer sb = new StringBuffer(100);
+          sb.append("\n<p><b>Valid Values: </b>");
+
+          for (int arrInd = 0; arrInd < values.length; arrInd++)
+          {
+            if (arrInd != 0)
+            {
+              sb.append(", ");
+            }
+            sb.append(values[arrInd]);
+          }
+          sb.append("</p>\n");
+          valStr = sb.toString();
+        }
+
         if (_attrDocSpansColumns)
         {
           out.write("</tr>\n");
           out.write("<tr>\n");
           out.write("<td colspan=\"3\">\n");
           //        out.write(EscapeUtils.escapeElementValue(doc.doc));
+          if (valStr != null)
+            out.write(valStr);
           out.write(attr.getDescription());
           //out.write(EscapeUtils.escapeAmpersands(doc.doc));
           out.write("</td>\n");
@@ -792,6 +814,8 @@ public class TagdocReport extends AbstractMavenMultiPageReport
         else
         {
           out.write("<td>\n");
+          if (valStr != null)
+            out.write(valStr);
           out.write(attr.getDescription());
           //out.write(EscapeUtils.escapeAmpersands(doc.doc));
           out.write("</td>\n");
@@ -987,7 +1011,7 @@ public class TagdocReport extends AbstractMavenMultiPageReport
       List urls = new ArrayList();
       while (e.hasMoreElements())
       {
-		URL url = (URL)e.nextElement();
+        URL url = (URL)e.nextElement();
         urls.add(url);
       }
       return Collections.unmodifiableList(urls);
