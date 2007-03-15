@@ -18,13 +18,7 @@
  */
 package org.apache.myfaces.trinidadbuild.plugin.xrts;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.Dictionary;
-import java.util.Enumeration;
-import java.util.StringTokenizer;
-import java.util.Vector;
+import java.util.Map;
 
 import javax.xml.parsers.SAXParser;
 
@@ -52,32 +46,14 @@ public final class XRTSGenerator
    * @param parser see class description.
    * @param is the XML-based RTS source file.
    * @param rtsw an <code>RTSWriter</code> implementation.
-   * @param parms a <code>Dictionary</code> of command line parameters.
+   * @param parms a <code>Map</code> of command line parameters.
    *
    */
   public static void generate(SAXParser parser, InputSource is, RTSWriter rtsw,
-    Dictionary parms) throws Throwable
+    Map parms) throws Throwable
   {
     XRTSParser rtsp = new XRTSParser(rtsw, parms);
-
-    try
-    {
-      parser.parse(is, rtsp);
-    }
-    catch (IOException ioe)
-    {
-      System.err.println(ioe);
-      System.exit(1);
-    }
-    catch (SAXParseException spe)
-    {
-      System.exit(1);
-    }
-    catch (SAXException se)
-    {
-      System.err.println(se);
-      System.exit(1);
-    }
+    parser.parse(is, rtsp);
   }
 
   //

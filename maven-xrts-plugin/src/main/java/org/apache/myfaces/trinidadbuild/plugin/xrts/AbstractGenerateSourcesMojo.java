@@ -24,8 +24,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import java.util.Arrays;
-import java.util.Dictionary;
-import java.util.Hashtable;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -93,7 +93,7 @@ abstract public class AbstractGenerateSourcesMojo extends AbstractMojo
       if (xrtsFiles.length > 0)
       {
         RTSWriter writer = getRTSWriter();
-        Dictionary params = new Hashtable();
+        Map params = new HashMap();
 
         List dirtyXRTS = new LinkedList(Arrays.asList(xrtsFiles));
         SAXParserFactory factory = SAXParserFactory.newInstance();
