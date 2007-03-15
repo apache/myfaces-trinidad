@@ -18,6 +18,9 @@
  */
 package org.apache.myfaces.trinidadinternal.style.xml.parse;
 
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXParseException;
 
@@ -79,7 +82,11 @@ public class PropertyNodeParser extends BaseNodeParser
         _LOG.warning(error);
         return null;
       }
-
+      // resolve urls in the xss
+      if (_value!= null  && _isURLValue(_value))
+      {
+        _value = _resolveURL(_value);
+      }
       return new PropertyNode(_name, _value);
     }
     if (localName.equals(COLOR_PROPERTY_NAME))
@@ -125,6 +132,110 @@ public class PropertyNodeParser extends BaseNodeParser
     else
       _whitespace = _whitespace + whitespace;
   }
+
+  private static String _resolveURL(
+      String url)
+  {
+    int endIndex = -1;
+    int index = url.indexOf("url(");
+    StringBuilder builder = new StringBuilder();
+    // this loop takes care of the usecase where there can be more than
+    // one url, like this: 
+    // background-image: url("/skins/purple/images/btns.gif"), 
+    // url("/skins/purple/images/checkdn.gif");
+    while(index >= 0)
+    {
+      // Appends values before url()
+      builder.append(url, endIndex + 1, index);
+      
+      endIndex = url.indexOf(')', index + 3);
+      String uri = url.substring(index + 4, endIndex);
+
+      // Trim off 
+      int uriLength = uri.length();
+      if (uriLength > 0)
+      {
+        if ((uri.charAt(0) == '\'' && uri.charAt(uriLength - 1) == '\'') ||
+            (uri.charAt(0) == '"' && uri.charAt(uriLength - 1) == '"'))
+        {
+          uri = uri.substring(1, uriLength - 1);
+          uriLength = uriLength - 2;
+        }
+      }
+
+      if(uriLength == 0)
+      {
+        // url() or url('') found, should not happen.
+        _LOG.warning("An empty URL was found in selector in xss file");
+      }
+      
+      builder.append("url(");
+
+      String resolvedURI = _resolveCSSURI(uri);
+      builder.append(resolvedURI);
+      builder.append(')');      
+
+      
+      index = url.indexOf("url(", endIndex);
+    }
+    
+    builder.append(url, endIndex + 1, url.length());
+
+    // Don't change anything
+    return builder.toString();
+  }
+  // this is called to resolve the uri that is used in the generated CSS file
+  // do not call this method if the selector is an icon selector, since the icon url
+  // resolution happens in the ImageIcon classes.
+  private static String _resolveCSSURI (
+  String uri)
+  {
+    // defaults to not converting the uri
+    // this handles the case where the uri starts with http:
+    String resolvedURI = uri;
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    assert(facesContext != null);
+    ExternalContext externalContext = facesContext.getExternalContext();
+    
+    if(uri.charAt(0) == '/')
+    {
+      int uriLength = uri.length();
+      // A transformation is required
+      if(uriLength > 1 && uri.charAt(1) == '/')
+      {
+        // Double slashes, trim one and do not add context root before
+        resolvedURI = uri.substring(1, uriLength);
+      }
+      else
+      {
+        // Single slash, add context path.
+        String contextPath = externalContext.getRequestContextPath();
+        assert contextPath.charAt(0) == '/';       
+        assert contextPath.charAt(contextPath.length() - 1) != '/';
+
+        StringBuilder builder = new StringBuilder(contextPath.length() + uri.length());
+        builder.append(contextPath);
+
+        builder.append(uri);
+        resolvedURI = builder.toString();
+      }
+    }
+    // now encode the resolved url and return that
+    return externalContext.encodeResourceURL(resolvedURI);
+  }
+
+
+  
+
+  // Tests whether the specified property value is an "url" property.
+  private static boolean _isURLValue(String propertyValue)
+  {
+    // URL property values start with "url("
+    return propertyValue.startsWith("url(");
+  }
+
+
+
 
   // Validates the value using a PropertyValidater.  Returns an error
   // message if there are validation errors.  Otherwise, returns null

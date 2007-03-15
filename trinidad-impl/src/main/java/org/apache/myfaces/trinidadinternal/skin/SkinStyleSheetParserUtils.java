@@ -217,18 +217,7 @@ class SkinStyleSheetParserUtils
         List<PropertyNode> noTrPropertyList = 
           resolvedProperties.getNoTrPropertyList();
   
-        // =-=jmw There is no good way to tell if this is an icon.
-        // for now, I look at the selector name.
-        // we do have some styles that have -icon- in the name, but it's
-        // not at the end which is how icons are determined.
-        // our icon names look like .AFWarningIcon:alias
-        // AFErrorIconStyle is a style.
-        // This supports pseudo-classes on icon definitions (e.g.,
-        // foo-icon:hover- or FooIcon:alias:hover)
-        // -icon: is a condition because it could be -icon:hover.
-        if (selectorName.endsWith("-icon")  ||
-            (selectorName.indexOf("-icon:") > -1) ||
-            selectorName.indexOf("Icon:alias") > -1)
+        if (_isIcon(selectorName))
         {
           // knock off the '.' if it is the first character.
           if (selectorName.charAt(0) == '.')
@@ -402,9 +391,10 @@ class SkinStyleSheetParserUtils
           if (_containsURL(propertyValue))
           {
             String resolvedUrl = _resolveURL(baseURI,
-                                             propertyValue,
-                                             sourceName,
-                                             selectorName);
+                                            propertyValue,
+                                            sourceName,
+                                            selectorName,
+                                            propertyName);
             
             propertyNode = new PropertyNode(propertyName, resolvedUrl);
           }
@@ -438,115 +428,6 @@ class SkinStyleSheetParserUtils
       inhibitedPropertySet,
       skinPropertyNodeList,
       trTextAntialias);
-  }
-  
-  private static String _resolveURL(
-      String baseUrl,
-      String url,
-      String sourceName,
-      String selectorName)
-  {
-    int endIndex = -1;
-    int index = url.indexOf("url(");
-    StringBuilder builder = new StringBuilder();
-    // this loops takes care of the usecase where there can be more than
-    // one url, like this: 
-    // background-image: url("/skins/purple/images/btns.gif"), 
-    // url("/skins/purple/images/checkdn.gif");
-
-    while(index >= 0)
-    {
-      // Appends values before url()
-      builder.append(url, endIndex + 1, index);
-      
-      endIndex = url.indexOf(')', index + 3);
-      String uri = url.substring(index + 4, endIndex);
-
-      // Trim off 
-      int uriLength = uri.length();
-      if (uriLength > 0)
-      {
-        if ((uri.charAt(0) == '\'' && uri.charAt(uriLength - 1) == '\'') ||
-            (uri.charAt(0) == '"' && uri.charAt(uriLength - 1) == '"'))
-        {
-          uri = uri.substring(1, uriLength - 1);
-          uriLength = uriLength - 2;
-        }
-      }
-
-
-      if(uriLength == 0)
-      {
-        // url() or url('') found, should not happen.
-        _LOG.warning("An empty URL was found in selector '" +
-                     selectorName +
-                     "' in style sheet '" +
-                     sourceName + "'.");
-      }
-      
-      if(uri.charAt(0) == '/')
-      {
-        // A transformation is required
-        if(uriLength > 1 && uri.charAt(1) == '/')
-        {
-          // Double slashes, trim one and do not add context root before
-          builder.append("url(");
-          builder.append(uri, 1, uriLength);
-          builder.append(')');
-        }
-        else
-        {
-          // Single slash, add context path.
-          FacesContext facesContext = FacesContext.getCurrentInstance();
-          assert(facesContext != null);
-
-          ExternalContext externalContext = facesContext.getExternalContext();
-          String contextPath = externalContext.getRequestContextPath();
-          builder.append("url(");
-          
-          assert contextPath.charAt(0) == '/';
-          //if(contextPath.charAt(0) != '/')
-          //{
-          //  // Should not happen, but never too prudent
-          //  builder.append('/');
-          //}
-          
-          assert contextPath.charAt(contextPath.length() - 1) != '/';
-          //if(contextPath.charAt(contextPath.length() - 1) == '/')
-          //{
-          //  // Should not happen, but better safe than sorry.
-          //  builder.append(contextPath, 0, contextPath.length() - 1);
-          //}
-          //else
-          //{
-          builder.append(contextPath);
-          //}
-          
-          builder.append(uri);
-          builder.append(')');
-        }
-      }
-      else if(_isRelativeURI(uri))
-      {
-        // Convert relative URL values to absolute, since
-        // relative values will be resolved relative to the
-        // generated style sheet, not the source CSS file.
-        builder.append(_getAbsoluteURLValue(baseUrl, uri, sourceName, selectorName));
-      }
-      else if (uri.startsWith("http:"))
-      {
-        builder.append("url(");
-        builder.append(uri);
-        builder.append(')');
-      }
-      
-      index = url.indexOf("url(", endIndex);
-    }
-    
-    builder.append(url, endIndex + 1, url.length());
-
-    // Don't change anything
-    return builder.toString();
   }
 
   /**
@@ -673,23 +554,8 @@ class SkinStyleSheetParserUtils
         boolean startsWithTwoSlashes = uri.startsWith("//");
         if (!startsWithTwoSlashes && uri.startsWith("/"))
         {
-          // -= Simon Lessard =-
-          // Hack: URL at this point might already have been resolved.
-          //       It will be resolved if the content was specified using 
-          //       url(). If so, it need to be unresolved.
-          FacesContext    context     = FacesContext.getCurrentInstance();
-          ExternalContext eContext    = context.getExternalContext();
-          String          contextPath = eContext.getRequestContextPath();
-          assert contextPath.charAt(0) == '/';
-          assert contextPath.charAt(contextPath.length() - 1) != '/';
-          if(uri.startsWith(contextPath))
-          {
-            uri = uri.substring(contextPath.length() + 1);
-          }
-          else
-          {
-            uri = uri.substring(1);
-          }
+        
+          uri = uri.substring(1);
           
           icon =
             new ContextImageIcon(uri, uri, width, height, null, inlineStyle);
@@ -975,7 +841,7 @@ class SkinStyleSheetParserUtils
     // images are accessed via <contextPath>/adf/images.  As such,
     // we also need to strip off the bonus "/META_INF" prefix from
     // the source name.  Otherwise, image requests won't be
-    // resovled since /META-INF is not exposed via HTTP.
+    // resolved since /META-INF is not exposed via HTTP.
     if (sourceName.startsWith("META-INF/"))
       sourceName = sourceName.substring(9);
 
@@ -995,6 +861,139 @@ class SkinStyleSheetParserUtils
       return buffer.toString();
     }
   }
+  
+  private static String _resolveURL(
+      String baseURI,
+      String url,
+      String sourceName,
+      String selectorName,
+      String propertyName)
+  {
+    int endIndex = -1;
+    int index = url.indexOf("url(");
+    StringBuilder builder = new StringBuilder();
+    // this loop takes care of the usecase where there can be more than
+    // one url, like this: 
+    // background-image: url("/skins/purple/images/btns.gif"), 
+    // url("/skins/purple/images/checkdn.gif");
+    while(index >= 0)
+    {
+      // Appends values before url()
+      builder.append(url, endIndex + 1, index);
+      
+      endIndex = url.indexOf(')', index + 3);
+      String uri = url.substring(index + 4, endIndex);
+
+      // Trim off 
+      int uriLength = uri.length();
+      if (uriLength > 0)
+      {
+        if ((uri.charAt(0) == '\'' && uri.charAt(uriLength - 1) == '\'') ||
+            (uri.charAt(0) == '"' && uri.charAt(uriLength - 1) == '"'))
+        {
+          uri = uri.substring(1, uriLength - 1);
+          uriLength = uriLength - 2;
+        }
+      }
+
+      if(uriLength == 0)
+      {
+        // url() or url('') found, should not happen.
+        _LOG.warning("An empty URL was found in selector '" +
+                     selectorName +
+                     "' in style sheet '" +
+                     sourceName + "'.");
+      }
+      
+      builder.append("url(");
+      // At this point we have the uri -- the part within the url().
+      // resolve just that part, and put it back within the url()
+      // don't do this for icons; resolve their css properties, but
+      // not their content urls, since these are resolved in the ImageIcon classes.
+      if (!(_isIcon(selectorName) && "content".equals(propertyName)))
+      {
+        String resolvedURI = _resolveCSSURI(baseURI, uri, sourceName, selectorName);
+        builder.append(resolvedURI);
+      }
+      else
+        builder.append(uri);
+      builder.append(')');      
+
+      
+      index = url.indexOf("url(", endIndex);
+    }
+    
+    builder.append(url, endIndex + 1, url.length());
+
+    // Don't change anything
+    return builder.toString();
+  }
+  
+  // this is called to resolve the uri that is used in the generated CSS file
+  // do not call this method if the selector is an icon selector, since the icon url
+  // resolution happens in the ImageIcon classes.
+  private static String _resolveCSSURI (
+  String baseURI,
+  String uri,
+  String sourceName,
+  String selectorName)
+  {
+    // defaults to not converting the uri
+    // this handles the case where the uri starts with http:
+    String resolvedURI = uri;
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    assert(facesContext != null);
+    ExternalContext externalContext = facesContext.getExternalContext();
+    
+    if(uri.charAt(0) == '/')
+    {
+      int uriLength = uri.length();
+      // A transformation is required
+      if(uriLength > 1 && uri.charAt(1) == '/')
+      {
+        // Double slashes, trim one and do not add context root before
+        resolvedURI = uri.substring(1, uriLength);
+      }
+      else
+      {
+        // Single slash, add context path.
+        String contextPath = externalContext.getRequestContextPath();
+        
+        assert contextPath.charAt(0) == '/';
+        //if(contextPath.charAt(0) != '/')
+        //{
+        //  // Should not happen, but never too prudent
+        //  builder.append('/');
+        //}
+        
+        assert contextPath.charAt(contextPath.length() - 1) != '/';
+        //if(contextPath.charAt(contextPath.length() - 1) == '/')
+        //{
+        //  // Should not happen, but better safe than sorry.
+        //  builder.append(contextPath, 0, contextPath.length() - 1);
+        //}
+        //else
+        //{
+        StringBuilder builder = new StringBuilder(contextPath.length() + uri.length());
+        builder.append(contextPath);
+        //}
+        builder.append(uri);
+        resolvedURI = builder.toString();
+      }
+    }
+    else if(_isRelativeURI(uri))
+    {
+      // Convert relative URI values to absolute, since
+      // relative values will be resolved relative to the
+      // generated style sheet, not the source CSS file.
+      resolvedURI = _getAbsoluteURIValue(baseURI, uri, sourceName, selectorName);
+    }
+    return externalContext.encodeResourceURL(resolvedURI);
+
+  }
+
+
+  
 
   // Tests whether the specified property value is an "url" property.
   private static boolean _isURLValue(String propertyValue)
@@ -1014,15 +1013,16 @@ class SkinStyleSheetParserUtils
     return trimQuotes(uri);
   }
 
-
   // Tests whether the specified uri is relative
   private static boolean _isRelativeURI(String uri)
   {
     return ((uri.charAt(0) != '/') && (uri.indexOf(':') < 0));
   }
 
-  // Returns an absolute "url()" property value for the specified uri
-  private static String _getAbsoluteURLValue(
+
+  // Returns an absolute url value.
+  // this strips off any ../
+  private static String _getAbsoluteURIValue(
     String baseURI,
     String uri,
     String sourceName,
@@ -1051,17 +1051,14 @@ class SkinStyleSheetParserUtils
       strippedBaseURI = strippedBaseURI.substring(0, lastSepIndex);
     }
 
-    StringBuilder buffer = new StringBuilder(strippedBaseURI.length() +
+    StringBuilder builder = new StringBuilder(strippedBaseURI.length() +
                                              strippedURI.length() +
-                                             8);
+                                             2);
+    builder.append(strippedBaseURI);
+    builder.append("/");
+    builder.append(strippedURI);
 
-    buffer.append("url('");
-    buffer.append(strippedBaseURI);
-    buffer.append("/");
-    buffer.append(strippedURI);
-    buffer.append("')");
-
-    return buffer.toString();
+    return builder.toString();
   }
   
   /**
@@ -1081,6 +1078,23 @@ class SkinStyleSheetParserUtils
     }
     
     return value.indexOf("url(") >= 0;
+  }
+  
+  // returns true if the selectorName indicates that it is an icon.
+  private static boolean _isIcon(String selectorName)
+  {
+    // =-=jmw There is no good way to tell if this is an icon.
+    // for now, I look at the selector name.
+    // we do have some styles that have -icon- in the name, but it's
+    // not at the end which is how icons are determined.
+    // our icon names look like .AFWarningIcon:alias
+    // AFErrorIconStyle is a style.
+    // This supports pseudo-classes on icon definitions (e.g.,
+    // foo-icon:hover- or FooIcon:alias:hover)
+    // -icon: is a condition because it could be -icon:hover.
+    return  (selectorName.endsWith("-icon")  ||
+            (selectorName.indexOf("-icon:") > -1) ||
+            selectorName.indexOf("Icon:alias") > -1);    
   }
 
   /**
