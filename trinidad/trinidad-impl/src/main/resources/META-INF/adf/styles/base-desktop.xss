@@ -1336,7 +1336,7 @@
     <includeStyle name="AFDefaultFont"/>
     <property name="vertical-align">middle</property>
     <property name="width">17px</property>
-    <property name="background-image">url('../../images/list-bullet.gif')</property>
+    <property name="background-image">url('/adf/images/list-bullet.gif')</property>
     <property name="background-position">center</property>
     <property name="background-repeat">no-repeat</property>
   </style>
@@ -1466,81 +1466,81 @@
     <property name="background-repeat">no-repeat</property>
   </style>
   <style selector="af|navigationPane::tabs-active af|navigationPane::tabs-start">
-    <property name="background-image">url('../../images/tab3-start-selected.gif')</property>
+    <property name="background-image">url('/adf/images/tab3-start-selected.gif')</property>
   </style>
   <style selector="af|navigationPane::tabs-active af|navigationPane::tabs-start-join">
-    <property name="background-image">url('../../images/tab3-start-join-selected.gif')</property>
+    <property name="background-image">url('/adf/images/tab3-start-join-selected.gif')</property>
   </style>
   <style selector="af|navigationPane::tabs-active af|navigationPane::tabs-start-join">
-    <property name="background-image">url('../../images/tab3-start-join-selected.gif')</property>
+    <property name="background-image">url('/adf/images/tab3-start-join-selected.gif')</property>
   </style>
   <style selector="af|navigationPane::tabs-active af|navigationPane::tabs-bottom-start">
-    <property name="background-image">url('../../images/tab3-bot-mid-selected.gif')</property>
+    <property name="background-image">url('/adf/images/tab3-bot-mid-selected.gif')</property>
   </style>
   <style selector="af|navigationPane::tabs-active af|navigationPane::tabs-bottom-start-content">
-    <property name="background-image">url('../../images/tab3-bot-start-selected.gif')</property>
+    <property name="background-image">url('/adf/images/tab3-bot-start-selected.gif')</property>
   </style>
   <style selector="af|navigationPane::tabs-active af|navigationPane::tabs-mid">
-    <property name="background-image">url('../../images/tab3-mid-selected.gif')</property>
+    <property name="background-image">url('/adf/images/tab3-mid-selected.gif')</property>
     <property name="font-weight">bold</property>
   </style>
   <style selector="af|navigationPane::tabs-active af|navigationPane::tabs-mid A">
     <property name="font-weight">bold</property>
   </style>
   <style selector="af|navigationPane::tabs-active af|navigationPane::tabs-bottom-mid">
-    <property name="background-image">url('../../images/tab3-bot-mid-selected.gif')</property>
+    <property name="background-image">url('/adf/images/tab3-bot-mid-selected.gif')</property>
   </style>
   <style selector="af|navigationPane::tabs-active af|navigationPane::tabs-end-join-to-inactive">
-    <property name="background-image">url('../../images/tab3-end-join-selected-to-deselected.gif')</property>
+    <property name="background-image">url('/adf/images/tab3-end-join-selected-to-deselected.gif')</property>
   </style>
   <style selector="af|navigationPane::tabs-active af|navigationPane::tabs-end">
-    <property name="background-image">url('../../images/tab3-end-selected.gif')</property>
+    <property name="background-image">url('/adf/images/tab3-end-selected.gif')</property>
   </style>
   <style selector="af|navigationPane::tabs-active af|navigationPane::tabs-bottom-end">
-    <property name="background-image">url('../../images/tab3-bot-mid-selected.gif')</property>
+    <property name="background-image">url('/adf/images/tab3-bot-mid-selected.gif')</property>
   </style>
   <style selector="af|navigationPane::tabs-active af|navigationPane::tabs-bottom-end-join">
-    <property name="background-image">url('../../images/tab3-bot-deselected.gif')</property>
+    <property name="background-image">url('/adf/images/tab3-bot-deselected.gif')</property>
   </style>
   <style selector="af|navigationPane::tabs-active af|navigationPane::tabs-bottom-end-content">
-    <property name="background-image">url('../../images/tab3-bot-end-selected.gif')</property>
+    <property name="background-image">url('/adf/images/tab3-bot-end-selected.gif')</property>
   </style>
   <style selector="af|navigationPane::tabs-inactive af|navigationPane::tabs-start">
-    <property name="background-image">url('../../images/tab3-start-deselected.gif')</property>
+    <property name="background-image">url('/adf/images/tab3-start-deselected.gif')</property>
   </style>
   <style selector="af|navigationPane::tabs-inactive af|navigationPane::tabs-bottom-start">
-    <property name="background-image">url('../../images/tab3-bot-deselected.gif')</property>
+    <property name="background-image">url('/adf/images/tab3-bot-deselected.gif')</property>
   </style>
   <style selector="af|navigationPane::tabs-inactive af|navigationPane::tabs-bottom-start-content">
     <property name="background-image">none</property>
   </style>
   <style selector="af|navigationPane::tabs-inactive af|navigationPane::tabs-start-join-from-active">
-    <property name="background-image">url('../../images/tab3-start-join-selected-to-deselected.gif')</property>
+    <property name="background-image">url('/adf/images/tab3-start-join-selected-to-deselected.gif')</property>
   </style>
   <style selector="af|navigationPane::tabs-inactive af|navigationPane::tabs-start-join-from-inactive">
-    <property name="background-image">url('../../images/tab3-start-join-deselected-to-deselected.gif')</property>
+    <property name="background-image">url('/adf/images/tab3-start-join-deselected-to-deselected.gif')</property>
   </style>
   <style selector="af|navigationPane::tabs-inactive af|navigationPane::tabs-mid">
-    <property name="background-image">url('../../images/tab3-mid-deselected.gif')</property>
+    <property name="background-image">url('/adf/images/tab3-mid-deselected.gif')</property>
     <includeStyle name="AFTextForeground"/>
   </style>
   <style selector="af|navigationPane::tabs-inactive af|navigationPane::tabs-mid A">
     <includeStyle name="AFTextForeground"/>
   </style>
   <style selector="af|navigationPane::tabs-inactive af|navigationPane::tabs-bottom-mid">
-    <property name="background-image">url('../../images/tab3-bot-deselected.gif')</property>
+    <property name="background-image">url('/adf/images/tab3-bot-deselected.gif')</property>
   </style>
   <style selector="af|navigationPane::tabs-inactive af|navigationPane::tabs-end-join-to-inactive">
-    <property name="background-image">url('../../images/tab3-end-join-deselected-to-deselected.gif')</property>
+    <property name="background-image">url('/adf/images/tab3-end-join-deselected-to-deselected.gif')</property>
   </style>
   <style selector="af|navigationPane::tabs-inactive af|navigationPane::tabs-end">
-    <property name="background-image">url('../../images/tab3-end-deselected.gif')</property>
+    <property name="background-image">url('/adf/images/tab3-end-deselected.gif')</property>
   </style>
   <style selector="af|navigationPane::tabs-inactive af|navigationPane::tabs-bottom-end">
-    <property name="background-image">url('../../images/tab3-bot-deselected.gif')</property>
+    <property name="background-image">url('/adf/images/tab3-bot-deselected.gif')</property>
   </style>
   <style selector="af|navigationPane::tabs-inactive af|navigationPane::tabs-bottom-end-join">
-    <property name="background-image">url('../../images/tab3-bot-deselected.gif')</property>
+    <property name="background-image">url('/adf/images/tab3-bot-deselected.gif')</property>
   </style>
   <style selector="af|navigationPane::tabs-inactive af|navigationPane::tabs-bottom-end-content">
     <property name="background-image">none</property>
