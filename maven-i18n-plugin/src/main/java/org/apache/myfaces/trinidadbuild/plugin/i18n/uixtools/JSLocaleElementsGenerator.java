@@ -693,7 +693,7 @@ public class JSLocaleElementsGenerator
   // Array of DateFormatZoneData key names to retrieve.
   // Only keys from this list are used to generate locale information
   //
-  private static final String[] LOCALE_ELEMENTS_GET_KEYS = new String[]
+  private static final String[] LOCALE_ELEMENTS_GET_KEYS = 
   {
     "MonthNames",
     "MonthAbbreviations",
@@ -710,7 +710,7 @@ public class JSLocaleElementsGenerator
   // Array of DateFormatZoneData key names to retrieve.
   // Only keys from this list are used to generate locale information
   //
-  private static final String[] LOCALE_ELEMENTS_MAPPINGS = new String[]
+  private static final String[] LOCALE_ELEMENTS_MAPPINGS = 
   {
     "MonthNames", "getMonths",
     "MonthAbbreviations", "getShortMonths",
@@ -727,10 +727,7 @@ public class JSLocaleElementsGenerator
   // Array of LocaleElements key names to retrieve.
   // Only keys from this list are used to generate locale information
   //
-  private static final String[] DATE_FORMAT_ZONE_GET_KEYS= new String[]
-  {
-    // none currently
-  };
+  private static final String[] DATE_FORMAT_ZONE_GET_KEYS = {};
 
   // J2SE 1.3:
   // private static String _RESOURCES_PACKAGE = "java.text.resources";
