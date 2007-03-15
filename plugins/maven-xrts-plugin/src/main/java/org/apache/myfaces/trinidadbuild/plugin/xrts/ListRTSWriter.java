@@ -22,7 +22,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.util.Dictionary;
+import java.util.Map;
 //import java.util.StringTokenizer;
 
 
@@ -50,11 +50,11 @@ public class ListRTSWriter implements RTSWriter
    * <code>RTSWriter</code> method implementation to write the header of the
    * <code>ListResourceBundle</code> file.
    *
-   * @param parms a <code>Dictionary</code> of command line parameters.
-   * @param meta a <code>Dictionary</code> of parsed non-resource data
+   * @param parms a <code>Map</code> of command line parameters.
+   * @param meta a <code>Map</code> of parsed non-resource data
    * (e.g., authors).
    */
-  public void startBundle(Dictionary parms, Dictionary meta)
+  public void startBundle(Map parms, Map meta)
     throws Throwable
   {
     File outFile = (File)parms.get("outFile");
@@ -107,55 +107,18 @@ public class ListRTSWriter implements RTSWriter
     _pw.println("  static final Object[][] contents = {");
   }
 
-  protected void writeImports(Dictionary parms, Dictionary meta)
+  protected void writeImports(Map parms, Map meta)
      throws Throwable
   {
   }
 
-  public void writeString(Dictionary parms, Dictionary meta, String key,
-    String value, Dictionary attr) throws Throwable
+  public void writeString(Map parms, Map meta, String key,
+    String value) throws Throwable
   {
     _pw.println("    {\"" + UnicodeEscapes.convert(key) + "\", \"" +
                 UnicodeEscapes.convert(value) + "\"},");
-
-// Comments can be preserved with RTS.  The commented out code below
-// was for demonstrating that this worked properly.  As comments are
-// not required in the ListResourceBundle, this code is here only to guide
-// developers in their RTSWriter interface implementation.
-//      String comments = rts.getComment(key);
-//      if (comments.length() > 0 )
-//      {
-//        StringTokenizer st = new StringTokenizer(comments, "\n");
-//        while (st.hasMoreTokens())
-//          _pw.println("// " + st.nextToken());
-//      }
-
   }
 
-
-  public void writeStringArray(Dictionary parms, Dictionary meta, String key,
-   String[] strArr, Dictionary[] attrs) throws Throwable
-  {
-    _pw.println("    {\"" + key + "\",");
-    _pw.println("       new String[] {");
-
-    for (int i = 0; i < (strArr.length - 1); i++)
-      _pw.println("           \"" + UnicodeEscapes.convert(strArr[i]) + "\",");
-    // the last line of the string array shouldn't have a comma
-
-    _pw.println("           \"" +
-                UnicodeEscapes.convert(strArr[strArr.length-1]) + "\"");
-    _pw.println("       }");
-    _pw.println("    },");
-  }
-
-  public void writeDictionary(Dictionary parms, Dictionary meta, String key,
-    Dictionary kvps, Dictionary attrs) throws Throwable
-  {
-    System.err.println("Dictionary \'" + key + "\' was found in XML-based " +
-      "RTS, but is not supported by ListResourceBundle.  Use XRTSMakeBundle " +
-      "subkey instead.");
-  }
 
   /**
    * <code>RTSWriter</code> method implementation to close the file stream
@@ -163,10 +126,10 @@ public class ListRTSWriter implements RTSWriter
    * method also writes the footer portions of the file.  The footer portions
    * consist of little more than closing braces.
    *
-   * @param meta a <code>Dictionary</code> of parsed non-resource data
+   * @param meta a <code>Map</code> of parsed non-resource data
    * (e.g., authors).
    */
-  public void endBundle(Dictionary parms, Dictionary meta) throws Throwable
+  public void endBundle(Map parms, Map meta) throws Throwable
   {
     _pw.println("  };");
     _pw.println("}");

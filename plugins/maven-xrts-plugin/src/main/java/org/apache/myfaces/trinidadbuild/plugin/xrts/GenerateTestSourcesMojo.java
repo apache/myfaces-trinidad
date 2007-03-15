@@ -63,7 +63,7 @@ public class GenerateTestSourcesMojo extends AbstractGenerateSourcesMojo
 
   protected String[] getExcludes()
   {
-	return testExcludes;
+    return testExcludes;
   }
 
   protected void addCompileSourceRoot() throws IOException

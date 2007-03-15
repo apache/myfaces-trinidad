@@ -32,6 +32,25 @@
   <packaging>maven-plugin</packaging>
   <name>Apache Trinidad Maven XRTS Plugin</name>
 
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <inherited>true</inherited>
+          <configuration>
+            <source>1.5</source>
+            <target>1.5</target>
+            <showWarnings>true</showWarnings>
+            <compilerArgument>-Xlint:all,-serial,-fallthrough</compilerArgument>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
   <dependencies>
     <dependency>
       <groupId>org.apache.maven</groupId>
