@@ -205,7 +205,7 @@ function _supportsDOM()
   {
     retVal = false;
   }
-  else if (_agent.isGecko || _agent.isSafari)
+  else if (_agent.isGecko || _agent.isSafari || _agent.isOpera)
   {
     retVal = true;
   }
@@ -262,7 +262,7 @@ function _agentInit()
       kind = "ie";
     }
   }
-  else if (agentString.indexOf("opera") != -1)
+  else if (agentString.indexOf("Opera") != -1)
   {
     isOpera = true;
     kind = "opera";
