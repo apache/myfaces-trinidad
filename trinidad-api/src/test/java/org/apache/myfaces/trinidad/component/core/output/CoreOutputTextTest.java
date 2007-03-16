@@ -28,7 +28,6 @@ import org.apache.myfaces.trinidad.component.UIComponentTestCase;
 /**
  * Unit tests for CoreOutputText.
  *
- * @author Gabrielle Crawford
  */
 public class CoreOutputTextTest extends UIComponentTestCase
 {

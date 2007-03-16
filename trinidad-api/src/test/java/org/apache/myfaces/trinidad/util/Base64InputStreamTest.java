@@ -31,7 +31,6 @@ import org.apache.myfaces.trinidadbuild.test.FacesTestCase;
 /**
  * Unit tests for Base64InputStream.
  * 
- * @author Matthew Lee
  */
 
 public class Base64InputStreamTest extends FacesTestCase 

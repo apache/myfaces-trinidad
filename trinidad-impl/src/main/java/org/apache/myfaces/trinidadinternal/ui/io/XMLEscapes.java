@@ -25,7 +25,6 @@ import java.io.Writer;
  * Utility class for escaping XML text.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/io/XMLEscapes.java#0 $) $Date: 10-nov-2005.18:56:24 $
- * @author The Oracle ADF Faces Team
  */
 public class XMLEscapes
 {

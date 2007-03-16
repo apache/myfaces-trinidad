@@ -27,7 +27,6 @@ import org.apache.myfaces.trinidad.component.CollectionComponent;
 import org.apache.myfaces.trinidad.component.UIXTable;
 
 /**
- * @author The Oracle ADF Faces Team
  */
 public final class TableUtils 
 {

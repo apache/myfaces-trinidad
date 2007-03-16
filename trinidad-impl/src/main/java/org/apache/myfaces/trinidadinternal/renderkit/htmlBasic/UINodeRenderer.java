@@ -38,7 +38,6 @@ import org.apache.myfaces.trinidadinternal.uinode.FacesRenderingContext;
  * @todo There's no pushing or popping of the UINode stack here.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/htmlBasic/UINodeRenderer.java#1 $) $Date: 11-nov-2005.14:59:42 $
- * @author The Oracle ADF Faces Team
  */
 abstract public class UINodeRenderer extends javax.faces.render.Renderer
 {

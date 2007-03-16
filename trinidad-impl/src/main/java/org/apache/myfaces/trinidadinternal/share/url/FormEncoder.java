@@ -23,7 +23,6 @@ package org.apache.myfaces.trinidadinternal.share.url;
  * server during postback.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/url/FormEncoder.java#0 $) $Date: 10-nov-2005.18:59:26 $
- * @author The Oracle ADF Faces Team
  */
 abstract public class FormEncoder
 {

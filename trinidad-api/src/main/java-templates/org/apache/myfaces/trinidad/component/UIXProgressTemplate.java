@@ -31,7 +31,6 @@ import javax.faces.event.PhaseId;
  * Base class for progress components
  *
  * @version $Name:  $ ($Revision$) $Date$
- * @author The Oracle ADF Faces Team
  */
 abstract public class UIXProgressTemplate
                 extends UIXComponentBase

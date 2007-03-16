@@ -46,7 +46,6 @@ import org.apache.myfaces.trinidadinternal.util.JavaIntrospector;
  * properties after they've been set.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/xml/beans/IntrospectionBeanDef.java#0 $) $Date: 10-nov-2005.18:59:20 $
- * @author The Oracle ADF Faces Team
  */
 public class IntrospectionBeanDef extends BeanDef
 {

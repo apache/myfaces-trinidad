@@ -27,7 +27,6 @@ import javax.faces.component.UIComponent;
  * While applying this Change, the child component is re-created and added to
  *  the list of children.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/change/AddChildComponentChange.java#0 $) $Date: 10-nov-2005.19:09:54 $
- * @author The Oracle ADF Faces Team
  */
 public class AddChildComponentChange extends AddComponentChange 
 {

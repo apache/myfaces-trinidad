@@ -25,7 +25,6 @@ import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
  * BoundValue that returns a Boolean based on the Agent Application.
  * <p>
  *@version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/data/bind/IsAgentApplicationBoundValue.java#0 $) $Date: 10-nov-2005.18:56:40 $
- *@author The Oracle ADF Faces Team
  *@see org.apache.myfaces.trinidadinternal.share.agent.Agent
  */
 public class IsAgentApplicationBoundValue implements BoundValue

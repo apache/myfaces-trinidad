@@ -71,7 +71,6 @@ import org.apache.myfaces.trinidad.resource.ServletContextResourceLoader;
  * to implement an interface in the public API and be used by the public API
  * but reside in a private implementation JAR.
  *
- * @author The Oracle ADF Faces Team
  *
  * @todo use ClassLoader.getResources() and make hierarchical
  * @todo verify request headers and (cached) response headers

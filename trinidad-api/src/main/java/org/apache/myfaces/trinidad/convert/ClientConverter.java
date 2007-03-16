@@ -85,7 +85,6 @@ import javax.faces.context.FacesContext;
  * </p>
  * <p>
  * @see javax.faces.convert.Converter
- * @author The Oracle ADF Faces Team
  */
 public interface ClientConverter
 {

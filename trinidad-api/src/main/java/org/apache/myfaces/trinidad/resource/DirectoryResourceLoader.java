@@ -29,7 +29,6 @@ import java.net.URL;
  * for file resources that do not exist, or for relative paths 
  * that attempt to access paths outside the root directory.
  *
- * @author The Oracle ADF Faces Team
  */
 public class DirectoryResourceLoader extends ResourceLoader
 {

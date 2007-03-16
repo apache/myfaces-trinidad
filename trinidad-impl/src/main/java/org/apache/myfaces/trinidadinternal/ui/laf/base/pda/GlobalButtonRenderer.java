@@ -28,7 +28,6 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.LinkRenderer;
  * Renderer for GlobalButton nodes.
  * 
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/pda/GlobalButtonRenderer.java#0 $) $Date: 10-nov-2005.18:54:55 $
- * @author The Oracle ADF Faces Team
  */
 public class GlobalButtonRenderer extends LinkRenderer
 {

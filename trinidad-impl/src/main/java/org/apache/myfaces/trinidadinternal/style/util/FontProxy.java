@@ -29,7 +29,6 @@ import java.awt.Font;
  * an AWT Font.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/util/FontProxy.java#0 $) $Date: 10-nov-2005.18:58:50 $
- * @author The Oracle ADF Faces Team
  */
 public class FontProxy
 {

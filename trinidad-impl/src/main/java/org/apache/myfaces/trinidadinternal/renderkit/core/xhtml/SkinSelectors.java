@@ -22,7 +22,6 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
  * This class contains all skin selectors used by the various Trinidad 
  * components.
  * 
- * @author Simon Lessard, Fujitsu Consulting
  */
 public final class SkinSelectors
 {

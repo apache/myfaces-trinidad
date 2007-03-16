@@ -40,7 +40,6 @@ import org.apache.myfaces.trinidad.model.ModelUtils;
  * for as many indices as specified by {@link #getRows()}.
  * If {@link #getRows()} returns 0, then the iteration continues until 
  * there are no more elements in the underlying data.
- * @author The Oracle ADF Faces Team
  */
 public abstract class UIXIteratorTemplate extends UIXCollection
 {

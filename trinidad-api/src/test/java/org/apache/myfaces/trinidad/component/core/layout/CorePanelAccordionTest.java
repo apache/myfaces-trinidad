@@ -28,7 +28,6 @@ import org.apache.myfaces.trinidad.component.UIComponentTestCase;
 /**
  * Unit tests for CorePanelAccordion
  *
- * @author Nidhi Shrotriya
  */
 
 public class CorePanelAccordionTest extends UIComponentTestCase

@@ -24,7 +24,6 @@ import javax.faces.event.FacesListener;
 
 /**
  * The Event generated when a Collection is to be sorted.
- * @author The Oracle ADF Faces Team
  */
 public final class ChartDrillDownEvent extends FacesEvent
 {

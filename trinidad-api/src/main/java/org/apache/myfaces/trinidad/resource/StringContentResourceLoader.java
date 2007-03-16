@@ -54,7 +54,6 @@ public abstract class StringContentResourceLoader extends DynamicResourceLoader
    * This is a stream handler that can be used to construct a URL whose connection will return content
    * specified in a String.
    * 
-   * @author The Oracle ADF Faces Team
    */
   private class StringContentURLStreamHandler extends URLStreamHandler
   { 

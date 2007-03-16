@@ -30,7 +30,6 @@ import org.w3c.dom.Node;
 /**
  * Utility functions for use by Changes.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/change/ChangeUtils.java#0 $) $Date: 10-nov-2005.19:09:58 $
- * @author The Oracle ADF Faces Team
  */
 class ChangeUtils 
 {

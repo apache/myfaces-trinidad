@@ -34,7 +34,6 @@ import org.apache.myfaces.trinidadinternal.ui.partial.PartialPageRendererUtils;
  *  Utility class for showOne category of components.
  *
  *  @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/html/layout/ShowOneUtils.java#0 $) $Date: 10-nov-2005.19:01:15 $
- *  @author The Oracle ADF Faces Team
  */
 public class ShowOneUtils
 {

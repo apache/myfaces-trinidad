@@ -33,7 +33,6 @@ import org.apache.myfaces.trinidad.util.IntegerUtils;
 /**
  * <p>Implementation for <code>java.lang.Long</code> values.</p>
  *
- * @author The Oracle ADF Faces Team
  */
 public class LongConverter extends javax.faces.convert.LongConverter
                            implements ClientConverter

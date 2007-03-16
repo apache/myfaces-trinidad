@@ -29,7 +29,6 @@ import org.apache.myfaces.trinidad.component.UIComponentTestCase;
  * Unit tests for CorePanelRadio
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/test/java/oracle/adf/view/faces/component/core/layout/CoreShowOneRadioTest.java#1 $) $Date: 16-aug-2005.15:12:21 $
- * @author Nidhi Shrotriya
  */
 
 public class CorePanelRadioTest extends UIComponentTestCase

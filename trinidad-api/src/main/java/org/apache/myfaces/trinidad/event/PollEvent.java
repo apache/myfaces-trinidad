@@ -26,7 +26,6 @@ import javax.faces.event.FacesListener;
  * Event delivered when the poll component polls the server. 
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/event/PollEvent.java#0 $) $Date: 10-nov-2005.19:09:03 $
- * @author The Oracle ADF Faces Team
  */
 public class PollEvent extends FacesEvent
 {

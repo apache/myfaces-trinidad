@@ -31,7 +31,6 @@ import java.util.Iterator;
  * <p>
  * @see InputStreamProvider#setCachedResult
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/io/CachingNameResolver.java#0 $) $Date: 10-nov-2005.19:00:06 $
- * @author The Oracle ADF Faces Team
  */
 public class CachingNameResolver implements NameResolver
 {

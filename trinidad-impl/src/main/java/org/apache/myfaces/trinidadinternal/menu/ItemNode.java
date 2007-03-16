@@ -25,7 +25,6 @@ import javax.faces.webapp.UIComponentTag;
 /**
  * Code specific to a Menu Model's ItemNode.
  *     
- * @author Gary Kind
  */
 
 public class ItemNode extends MenuNode

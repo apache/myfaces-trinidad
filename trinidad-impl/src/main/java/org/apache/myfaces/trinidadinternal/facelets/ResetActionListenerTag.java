@@ -34,7 +34,6 @@ import com.sun.facelets.tag.TagHandler;
 import com.sun.facelets.tag.jsf.ComponentSupport;
 
 /**
- * @author Matthias Wessendorf
  *
  */
 public class ResetActionListenerTag extends TagHandler

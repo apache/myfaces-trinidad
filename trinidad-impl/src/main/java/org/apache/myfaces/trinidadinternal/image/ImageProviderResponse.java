@@ -31,7 +31,6 @@ import org.apache.myfaces.trinidadinternal.image.util.MapArea;
  *
  * @see ImageProvider
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/ImageProviderResponse.java#0 $) $Date: 10-nov-2005.19:03:55 $
- * @author The Oracle ADF Faces Team
  */
 public interface ImageProviderResponse
 {

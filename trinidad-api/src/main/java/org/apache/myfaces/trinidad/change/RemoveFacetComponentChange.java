@@ -30,7 +30,6 @@ import org.w3c.dom.Node;
  * While applying this Change, if there were to be a facet with the specified
  *  name, it will be removed.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/change/RemoveFacetComponentChange.java#0 $) $Date: 10-nov-2005.19:10:01 $
- * @author The Oracle ADF Faces Team
  */
 public class RemoveFacetComponentChange extends ComponentChange
                                         implements DocumentChange

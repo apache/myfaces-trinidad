@@ -37,7 +37,6 @@ import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
  * The node parser for UIX Beans.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/xml/beans/BeanParser.java#0 $) $Date: 10-nov-2005.18:59:18 $
- * @author The Oracle ADF Faces Team
  */
 public class BeanParser extends BaseNodeParser
 {

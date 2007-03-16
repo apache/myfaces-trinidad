@@ -58,7 +58,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  *     MenuModel menuModel = new ViewIdPropertyMenuModel(treeModel, "viewId");
  * </code></pre>
  *
- * @author The Oracle ADF Faces Team
  * @todo - support for mutable trees?
  */
 public class ViewIdPropertyMenuModel extends BaseMenuModel

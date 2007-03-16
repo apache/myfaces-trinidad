@@ -26,7 +26,6 @@ import java.util.Set;
 /**
  * Map which wraps Map.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/cache/WrappingMap.java#0 $) $Date: 10-nov-2005.19:06:16 $
- * @author The Oracle ADF Faces Team
  */
 class WrappingMap<K, V> implements Map<K, V>
 {

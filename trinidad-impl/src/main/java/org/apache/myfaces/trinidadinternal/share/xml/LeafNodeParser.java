@@ -27,7 +27,6 @@ import org.xml.sax.SAXParseException;
  * all of their contents.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/xml/LeafNodeParser.java#0 $) $Date: 10-nov-2005.18:59:09 $
- * @author The Oracle ADF Faces Team
  */
 abstract public class LeafNodeParser extends BaseNodeParser
 {

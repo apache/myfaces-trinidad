@@ -71,7 +71,6 @@ import org.apache.myfaces.trinidad.util.MessageFactory;
  * @see #setMaximumMessageDetail(String)
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/validator/ByteLengthValidator.java#0 $) $Date: 10-nov-2005.19:08:32 $
- * @author The Oracle ADF Faces Team
  */
 public class ByteLengthValidator  implements StateHolder, Validator
 {

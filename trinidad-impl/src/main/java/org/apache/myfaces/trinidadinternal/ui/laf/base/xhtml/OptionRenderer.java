@@ -25,7 +25,6 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/xhtml/OptionRenderer.java#0 $) $Date: 10-nov-2005.18:54:05 $
- * @author The Oracle ADF Faces Team
  */
 public class OptionRenderer extends OptionContainerRenderer.OptionRenderer
 {

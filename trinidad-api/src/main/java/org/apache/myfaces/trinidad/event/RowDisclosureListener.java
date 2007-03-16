@@ -23,7 +23,6 @@ import javax.faces.event.FacesListener;
 
 /**
  * Listener for ExpansionEvents.
- * @author The Oracle ADF Faces Team
  */
 public interface RowDisclosureListener extends FacesListener
 {

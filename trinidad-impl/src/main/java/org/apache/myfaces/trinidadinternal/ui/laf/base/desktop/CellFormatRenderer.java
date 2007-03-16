@@ -26,7 +26,6 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/desktop/CellFormatRenderer.java#0 $) $Date: 10-nov-2005.18:55:11 $
- * @author The Oracle ADF Faces Team
  */
 public class CellFormatRenderer 
                      extends org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.CellFormatRenderer

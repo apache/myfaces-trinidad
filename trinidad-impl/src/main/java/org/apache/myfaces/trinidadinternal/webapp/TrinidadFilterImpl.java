@@ -50,7 +50,6 @@ import org.apache.myfaces.trinidadinternal.context.external.ServletExternalConte
  * Actual implementation of the Trinidad servlet filter.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/webapp/AdfFacesFilterImpl.java#0 $) $Date: 10-nov-2005.18:48:59 $
- * @author The Oracle ADF Faces Team
  * @todo Allow configuration of the maximum allowed number of bytes in
  *   an entire request
  */

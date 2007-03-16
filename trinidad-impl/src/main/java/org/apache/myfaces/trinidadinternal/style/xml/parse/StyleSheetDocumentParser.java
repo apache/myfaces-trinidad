@@ -48,7 +48,6 @@ import org.apache.myfaces.trinidadinternal.style.xml.XMLConstants;
  * NodeParser for style sheet document nodes
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/xml/parse/StyleSheetDocumentParser.java#0 $) $Date: 10-nov-2005.18:58:46 $
- * @author The Oracle ADF Faces Team
  */
 public class StyleSheetDocumentParser extends BaseNodeParser
   implements XMLConstants, StyleConstants

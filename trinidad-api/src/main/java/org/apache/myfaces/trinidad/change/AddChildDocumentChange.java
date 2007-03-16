@@ -26,7 +26,6 @@ import org.w3c.dom.Node;
  * Change specialization for adding a child component using document mark up.
  * While applying this Change, the child component is created and added to
  * the document.
- * @author The Oracle ADF Faces Team
  */
 public class AddChildDocumentChange extends AddComponentDocumentChange 
 {

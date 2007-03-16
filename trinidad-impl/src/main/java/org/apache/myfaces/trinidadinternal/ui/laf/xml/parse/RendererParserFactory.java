@@ -28,7 +28,6 @@ import org.apache.myfaces.trinidadinternal.ui.laf.xml.XMLConstants;
  * ParserFactory for Renderer parsers.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/xml/parse/RendererParserFactory.java#0 $) $Date: 10-nov-2005.18:50:42 $
- * @author The Oracle ADF Faces Team
  */
 public class RendererParserFactory implements ParserFactory
 {

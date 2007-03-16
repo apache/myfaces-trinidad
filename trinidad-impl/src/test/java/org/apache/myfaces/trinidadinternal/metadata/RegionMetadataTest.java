@@ -40,7 +40,6 @@ import org.apache.myfaces.trinidadinternal.metadata.RegionMetadata.ComponentMeta
 
 /**
  * Test for parsing region-metadata.xml
- * @author Arjuna Wijeyekoon
  */
 public class RegionMetadataTest extends FacesTestCase
 {

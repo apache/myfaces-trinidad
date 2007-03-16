@@ -38,7 +38,6 @@ import org.apache.myfaces.trinidad.model.TreeModel;
 
 /**
  * utility methods for dealing with tables.
- * @author The Oracle ADF Faces Team
  */
 public final class TableUtils 
 {

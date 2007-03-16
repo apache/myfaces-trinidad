@@ -35,7 +35,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  * uploads.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/webapp/AdfFacesFilter.java#0 $) $Date: 10-nov-2005.19:08:29 $
- * @author The Oracle ADF Faces Team
  */
 public class TrinidadFilter implements Filter
 {

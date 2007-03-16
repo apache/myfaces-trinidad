@@ -42,7 +42,6 @@ import org.apache.myfaces.trinidadinternal.config.GlobalConfiguratorImpl;
  * on the FacesContext, and hooks ExternalContext.dispatch()
  * to use the PageResolver.
  * <p>
- * @author The Oracle ADF Faces Team
  */
 public class FacesContextFactoryImpl
   extends FacesContextFactory

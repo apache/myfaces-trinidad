@@ -27,7 +27,6 @@ import org.apache.myfaces.trinidad.context.LocaleContext;
  * common direction and alignment constants.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/util/nls/LocaleUtils.java#0 $) $Date: 10-nov-2005.18:49:13 $
- * @author The Oracle ADF Faces Team
  */
 public final class LocaleUtils
 {

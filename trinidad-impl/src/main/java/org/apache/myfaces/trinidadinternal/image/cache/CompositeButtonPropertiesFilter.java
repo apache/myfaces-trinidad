@@ -32,7 +32,6 @@ import org.apache.myfaces.trinidadinternal.image.laf.browser.ButtonPainter;
  * PropertiesFilter implementation for composite buttons
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/cache/CompositeButtonPropertiesFilter.java#0 $) $Date: 10-nov-2005.19:06:04 $
- * @author The Oracle ADF Faces Team
  */
 public class CompositeButtonPropertiesFilter implements PropertiesFilter
 {

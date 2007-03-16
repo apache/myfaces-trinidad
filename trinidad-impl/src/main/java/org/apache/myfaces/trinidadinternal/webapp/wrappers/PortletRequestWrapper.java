@@ -33,7 +33,6 @@ import javax.portlet.WindowState;
 /**
  * TODO: Document this
  *
- * @author Scott O'Bryan (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
 

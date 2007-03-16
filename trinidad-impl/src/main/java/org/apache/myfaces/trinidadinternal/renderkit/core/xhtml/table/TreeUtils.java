@@ -50,7 +50,6 @@ import org.apache.myfaces.trinidad.util.IntegerUtils;
 
 /**
  * Class that handles all tree related events
- * @author The Oracle ADF Faces Team
  */
 public final class TreeUtils
 {

@@ -80,7 +80,6 @@ import com.sun.facelets.FaceletViewHandler;
  * are minimal.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/application/StateManagerImpl.java#2 $) $Date: 18-nov-2005.16:12:04 $
- * @author The Oracle ADF Faces Team
  */
 public class StateManagerImpl extends StateManager
 {

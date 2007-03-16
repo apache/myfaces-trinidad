@@ -38,7 +38,6 @@ import org.w3c.dom.Document;
  * <code>getDocument</code> must be implemented.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/change/BaseChangeManager.java#1 $) $Date: 11-nov-2005.14:59:41 $
- * @author The Oracle ADF Faces Team
  */
 abstract class BaseChangeManager extends ChangeManager
 {

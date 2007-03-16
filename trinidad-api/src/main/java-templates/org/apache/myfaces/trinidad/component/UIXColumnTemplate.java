@@ -24,7 +24,6 @@ import javax.faces.context.FacesContext;
  * Base class for UIXColumns.
  * The facets of this component are not processed during decode,validate and
  * update.
- * @author The Oracle ADF Faces Team
  */
 public abstract class UIXColumnTemplate extends UIXComponentBase
 {

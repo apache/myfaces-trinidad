@@ -30,7 +30,6 @@ import javax.faces.event.FacesListener;
  * It contains the old start and end values and the new start and end values.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/event/RangeChangeEvent.java#0 $) $Date: 10-nov-2005.19:09:04 $
- * @author The Oracle ADF Faces Team
  */
 public class RangeChangeEvent extends FacesEvent
 {

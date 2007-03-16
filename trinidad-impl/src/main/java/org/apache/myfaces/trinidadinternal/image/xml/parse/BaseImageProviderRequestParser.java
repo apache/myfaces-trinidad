@@ -62,7 +62,6 @@ import org.apache.myfaces.trinidadinternal.image.xml.XMLConstants;
  * </ul>
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/xml/parse/BaseImageProviderRequestParser.java#0 $) $Date: 15-nov-2005.18:02:54 $
- * @author The Oracle ADF Faces Team
  */
 public class BaseImageProviderRequestParser extends BaseNodeParser
 {

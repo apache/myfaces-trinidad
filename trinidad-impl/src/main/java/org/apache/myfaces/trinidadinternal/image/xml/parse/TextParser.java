@@ -37,7 +37,6 @@ import org.apache.myfaces.trinidadinternal.image.xml.XMLConstants;
 /**
  * NodeParser for text and translatedText elements
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/xml/parse/TextParser.java#0 $) $Date: 10-nov-2005.19:04:43 $
- * @author The Oracle ADF Faces Team
  */
 public class TextParser extends BaseNodeParser
 {

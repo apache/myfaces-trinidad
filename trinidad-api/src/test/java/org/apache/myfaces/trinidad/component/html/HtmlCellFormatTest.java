@@ -28,7 +28,6 @@ import org.apache.myfaces.trinidad.component.UIComponentTestCase;
 /**
  * Unit tests for HtmlCellFormat.
  *
- * @author John Fallows
  */
 public class HtmlCellFormatTest extends UIComponentTestCase
 {

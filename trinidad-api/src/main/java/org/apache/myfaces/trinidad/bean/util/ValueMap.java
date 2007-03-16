@@ -36,7 +36,6 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
  * Strings or {@link PropertyKey}s, but all Map.Entry objects
  * will return String keys.
  *
- * @author The Oracle ADF Faces Team
  */
 public class ValueMap extends AbstractMap<String, Object>
 {

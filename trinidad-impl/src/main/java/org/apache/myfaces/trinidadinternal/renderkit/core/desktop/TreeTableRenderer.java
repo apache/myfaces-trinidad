@@ -63,7 +63,6 @@ import org.apache.myfaces.trinidad.util.IntegerUtils;
  * Renderer for treeTable
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/desktop/TreeTableRenderer.java#0 $) $Date: 10-nov-2005.19:03:37 $
- * @author The Oracle ADF Faces Team
  */
 public class TreeTableRenderer extends DesktopTableRenderer
 {

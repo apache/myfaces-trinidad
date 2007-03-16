@@ -50,7 +50,6 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
  * </ul>
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/pages/ColorPickerJSP.java#0 $) $Date: 10-nov-2005.19:03:33 $
- * @author The Oracle ADF Faces Team
  */
 class ColorPickerJSP
 {

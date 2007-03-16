@@ -24,7 +24,6 @@ import org.jmock.Mock;
 
 /**
  * 
- * @author Apache Trinidad Team
  *
  */
 public class MockUIComponentWrapper

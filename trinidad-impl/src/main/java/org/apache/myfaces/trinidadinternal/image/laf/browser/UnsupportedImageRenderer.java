@@ -32,7 +32,6 @@ import org.apache.myfaces.trinidadinternal.image.ImageRenderer;
  * UnsupportedImageRenderer is a simple image renderer
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/laf/browser/UnsupportedImageRenderer.java#0 $) $Date: 10-nov-2005.19:05:14 $
- * @author The Oracle ADF Faces Team
  */
 class UnsupportedImageRenderer implements ImageRenderer
 {

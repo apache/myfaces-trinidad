@@ -28,7 +28,6 @@ import org.apache.myfaces.trinidad.component.UIComponentTestCase;
 /**
  * Unit tests for HtmlRowLayout.
  *
- * @author John Fallows
  */
 public class HtmlRowLayoutTest extends UIComponentTestCase
 {

@@ -34,7 +34,6 @@ import org.apache.myfaces.trinidad.model.ModelUtils;
  * Base class for SelectRange
  *
  * @version $Name:  $ ($Revision$) $Date$
- * @author The Oracle ADF Faces Team
  */
 public abstract class UIXSelectRangeTemplate extends UIXComponentBase
 {

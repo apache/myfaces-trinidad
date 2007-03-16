@@ -34,7 +34,6 @@ import org.apache.myfaces.trinidad.webapp.ELContextTag;
 
 /**
  * creates a ReturnActionListener on the parent ActionSource component.
- * @author The Oracle ADF Faces Team
  */
 public class ReturnActionListenerTag extends TagSupport
 {

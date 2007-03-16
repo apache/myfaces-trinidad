@@ -35,7 +35,6 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
 /**
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/xhtml/jsLibs/AliasedScriptlet.java#0 $) $Date: 10-nov-2005.19:02:43 $
- * @author The Oracle ADF Faces Team
  */
 public class AliasedScriptlet extends Scriptlet
 {

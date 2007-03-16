@@ -22,7 +22,6 @@ package org.apache.myfaces.trinidadinternal.ui.laf;
  * The Score subclass which is used to wrap another Score.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/ScoreProxy.java#0 $) $Date: 10-nov-2005.18:50:34 $
- * @author The Oracle ADF Faces Team
  */
 public class ScoreProxy extends Score
 {

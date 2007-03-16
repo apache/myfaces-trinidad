@@ -26,7 +26,6 @@ import java.awt.Graphics;
  * state passed to their wrapped painters.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/painter/ColorChange.java#0 $) $Date: 10-nov-2005.19:04:54 $
- * @author The Oracle ADF Faces Team
  */
 public abstract class ColorChange extends AbstractWrappingPainter
 {

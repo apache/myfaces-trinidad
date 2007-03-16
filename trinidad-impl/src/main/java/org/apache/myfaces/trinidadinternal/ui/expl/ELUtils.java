@@ -22,7 +22,6 @@ import java.util.List;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/expl/ELUtils.java#0 $) $Date: 10-nov-2005.18:56:27 $
- * @author The Oracle ADF Faces Team
  */
 class ELUtils
 {

@@ -33,7 +33,6 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormRenderer;
  * Renderer for h:commandLink.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/htmlBasic/FormRenderer.java#0 $) $Date: 10-nov-2005.19:00:39 $
- * @author The Oracle ADF Faces Team
  */
 public class HtmlFormRenderer extends Renderer
 {

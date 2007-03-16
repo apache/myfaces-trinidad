@@ -54,7 +54,6 @@ import org.jmock.core.Constraint;
 /**
  * Base class for JavaServer Faces UIComponent unit tests.
  *
- * @author John Fallows
  */
 public class UIComponentTestCase extends FacesTestCase
 {

@@ -25,7 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * HttpServletRequest headers as Map.
  *
- * @author Anton Koinov (latest modification by $Author: oros $)
  * @version $Revision: 278654 $ $Date: 2005-09-04 18:32:35 -0600 (Sun, 04 Sep 2005) $
  */
 class ServletRequestHeaderMap extends AbstractAttributeMap<String, String>

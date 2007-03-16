@@ -46,7 +46,6 @@ import org.apache.shale.test.base.AbstractJsfTestCase;
  * There is a hardcoded dependency between this test and the SortableModel implementation that 
  * happens to be used by ModelUtils.toCollectionModel().
  * 
- * @author Arjuna Wijeyekoon
  */
 public final class RowKeySetImplTest extends AbstractJsfTestCase
 {

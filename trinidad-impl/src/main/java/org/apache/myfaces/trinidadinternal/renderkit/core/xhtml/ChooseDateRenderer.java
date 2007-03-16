@@ -44,7 +44,6 @@ import org.apache.myfaces.trinidad.util.IntegerUtils;
  * Renders the calendar.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/xhtml/ChooseDateRenderer.java#0 $) $Date: 15-nov-2005.19:27:02 $
- * @author The Oracle ADF Faces Team
  */
 public class ChooseDateRenderer extends XhtmlRenderer
 {

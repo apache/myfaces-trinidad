@@ -44,7 +44,6 @@ import javax.faces.model.DataModel;
  * the row keys, but a better version could use a unique ID
  * in the row.
  * <p>
- * @author The Oracle ADF Faces Team
  */
 public abstract class CollectionModel extends DataModel
   implements RowKeyIndex

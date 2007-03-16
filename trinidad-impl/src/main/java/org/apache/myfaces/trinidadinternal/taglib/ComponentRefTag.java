@@ -47,7 +47,6 @@ import org.apache.myfaces.trinidadinternal.share.expl.Coercions;
  * into the current page. The "id" attribute is required on this
  * tag.
  *
- * @author The Oracle ADF Faces Team
  */
 public class ComponentRefTag extends UIXComponentRefTag
 {

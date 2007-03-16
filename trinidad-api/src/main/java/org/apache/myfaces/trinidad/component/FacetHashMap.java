@@ -27,7 +27,6 @@ import org.apache.myfaces.trinidad.util.ArrayMap;
 /**
  * HashMap used for storing facets.
  *
- * @author The Oracle ADF Faces Team
  */
 class FacetHashMap extends ArrayMap<String, UIComponent>
 {

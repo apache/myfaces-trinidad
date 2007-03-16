@@ -29,7 +29,6 @@ import org.apache.myfaces.trinidadinternal.ui.path.Path;
 /**
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/NodeRoleUtils.java#0 $) $Date: 10-nov-2005.18:53:05 $
- * @author The Oracle ADF Faces Team
  */
 public class NodeRoleUtils implements UIConstants
 {

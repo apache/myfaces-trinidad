@@ -35,7 +35,6 @@ import org.apache.myfaces.trinidad.model.RowKeySetTreeImpl;
 
 /**
  * Creates a tree of components from a flat list of jspx files in a folder.
- * @author Arjuna Wijeyekoon
  */
 public class ComponentTree 
 {

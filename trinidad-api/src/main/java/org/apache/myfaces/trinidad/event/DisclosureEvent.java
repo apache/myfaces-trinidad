@@ -28,7 +28,6 @@ import javax.faces.event.FacesListener;
  * Event delivered when expanding or collapsing a component.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/event/DisclosureEvent.java#0 $) $Date: 10-nov-2005.19:09:00 $
- * @author The Oracle ADF Faces Team
  */
 public class DisclosureEvent extends FacesEvent
 {

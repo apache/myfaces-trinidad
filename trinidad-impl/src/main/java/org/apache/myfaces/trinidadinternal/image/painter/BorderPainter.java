@@ -23,7 +23,6 @@ package org.apache.myfaces.trinidadinternal.image.painter;
  * painter.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/painter/BorderPainter.java#0 $) $Date: 10-nov-2005.19:04:53 $
- * @author The Oracle ADF Faces Team
  */
 public interface BorderPainter extends Painter
 {

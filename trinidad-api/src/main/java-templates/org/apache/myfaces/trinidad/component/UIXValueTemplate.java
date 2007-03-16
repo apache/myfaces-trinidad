@@ -26,7 +26,6 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
  * Base class for components that have a value.
  * <p>
  * @version $Name:  $ ($Revision$) $Date$
- * @author The Oracle ADF Faces Team
  */
 abstract public class UIXValueTemplate extends UIXComponentBase
   implements ValueHolder

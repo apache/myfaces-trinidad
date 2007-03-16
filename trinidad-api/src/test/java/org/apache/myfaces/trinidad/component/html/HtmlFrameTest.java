@@ -28,7 +28,6 @@ import org.apache.myfaces.trinidad.component.UIComponentTestCase;
 /**
  * Unit tests for HtmlFrame.
  *
- * @author John Fallows
  */
 public class HtmlFrameTest extends UIComponentTestCase
 {

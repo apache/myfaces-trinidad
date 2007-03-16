@@ -51,7 +51,6 @@ import org.apache.myfaces.trinidad.util.ComponentUtils;
  * This class set the EL 'var' variable correctly when the rowData changes.
  * And it wraps events that are queued, so that the correct rowData can be
  * restored on this component when the event is broadcast.
- * @author The Oracle ADF Faces Team
  */
 public abstract class UIXCollection extends UIXComponentBase
   implements NamingContainer

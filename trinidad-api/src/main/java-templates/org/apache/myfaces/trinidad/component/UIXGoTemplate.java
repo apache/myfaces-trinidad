@@ -23,7 +23,6 @@ import javax.faces.context.FacesContext;
 /**
  * Base class for the components with no decode behaviour.
  * <p>
- * @author The Oracle ADF Faces Team
  */
 abstract public class UIXGoTemplate extends UIXComponentBase
 {

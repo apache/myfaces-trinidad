@@ -34,7 +34,6 @@ import org.apache.myfaces.trinidadinternal.ui.data.bind.FixedBoundValue;
 /**
  * Node that sets a property on the context.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/composite/ContextPropertyUINode.java#0 $) $Date: 10-nov-2005.18:56:51 $
- * @author The Oracle ADF Faces Team
  */
 
 public class ContextPropertyUINode extends BaseMutableUINode

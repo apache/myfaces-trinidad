@@ -46,7 +46,6 @@ import org.apache.myfaces.trinidadinternal.style.StyleContext;
  * in both the local and the shared "styles" directory.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/skin/StyleSheetNameResolver.java#0 $) $Date: 10-nov-2005.18:59:02 $
- * @author The Oracle ADF Faces Team
  */
 class StyleSheetNameResolver implements NameResolver
 {

@@ -22,7 +22,6 @@ package org.apache.myfaces.trinidadinternal.share.nls;
  * The DateFormatContext class contains all date format parameters.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/nls/DateFormatContext.java#0 $) $Date: 10-nov-2005.19:00:01 $
- * @author The Oracle ADF Faces Team
  */
 abstract public class DateFormatContext implements Cloneable
 {

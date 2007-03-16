@@ -29,7 +29,6 @@ import org.apache.myfaces.trinidadinternal.image.PropertyInstantiator;
  * to obtain a reference to the single, shared ImageEncoderManager.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/encode/ImageEncoderManager.java#0 $) $Date: 10-nov-2005.19:05:18 $
- * @author The Oracle ADF Faces Team
  */
 public class ImageEncoderManager
 {

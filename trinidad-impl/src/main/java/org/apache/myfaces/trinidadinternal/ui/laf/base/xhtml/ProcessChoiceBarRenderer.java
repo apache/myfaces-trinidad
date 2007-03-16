@@ -43,7 +43,6 @@ import org.apache.myfaces.trinidadinternal.ui.partial.PartialPageRendererUtils;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/xhtml/ProcessChoiceBarRenderer.java#0 $) $Date: 10-nov-2005.18:54:08 $
- * @author The Oracle ADF Faces Team
  */
 public class ProcessChoiceBarRenderer extends ChoiceRenderer
 {

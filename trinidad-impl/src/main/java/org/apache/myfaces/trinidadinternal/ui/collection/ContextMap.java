@@ -31,7 +31,6 @@ import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
  * enables developers to data bind the named children nodes.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/collection/ContextMap.java#0 $) $Date: 10-nov-2005.18:57:32 $
- * @author The Oracle ADF Faces Team
  * <p>
  * @see org.apache.myfaces.trinidadinternal.ui.BaseMutableUINode#setNamedChildMap
  */

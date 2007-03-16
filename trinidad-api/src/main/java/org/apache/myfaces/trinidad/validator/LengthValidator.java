@@ -35,7 +35,6 @@ import org.apache.myfaces.trinidad.util.MessageFactory;
 /**
  * <p>Implementation for <code>java.lang.Integer</code> values.</p>
  *
- * @author Apache Trinidad Podling
  */
 public class LengthValidator extends javax.faces.validator.LengthValidator
 {

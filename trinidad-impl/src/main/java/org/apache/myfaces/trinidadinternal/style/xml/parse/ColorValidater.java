@@ -24,7 +24,6 @@ import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
 /**
  * PropertyValidater for color values
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/xml/parse/ColorValidater.java#0 $) $Date: 10-nov-2005.18:58:03 $
- * @author The Oracle ADF Faces Team
  */
 class ColorValidater implements PropertyValidater
 {

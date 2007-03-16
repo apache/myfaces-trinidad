@@ -59,7 +59,6 @@ import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/skin/SkinStyleSheetParserUtils.java#0 $) $Date: 10-nov-2005.18:59:00 $
- * @author The Oracle ADF Faces Team
  */
 class SkinStyleSheetParserUtils
 {

@@ -33,7 +33,6 @@ import javax.faces.model.ScalarDataModel;
 /**
  * Provides convenience methods for converting objects into models, and
  * working with models.
- * @author The Oracle ADF Faces Team
  */
 public final class ModelUtils
 {

@@ -39,7 +39,6 @@ import javax.faces.context.FacesContext;
  *    service.addScript(facesContext, "alert('foo');");
  * </pre>
  * </p>
- * @author The Oracle ADF Faces Team
  */
 public interface ExtendedRenderKitService
 {

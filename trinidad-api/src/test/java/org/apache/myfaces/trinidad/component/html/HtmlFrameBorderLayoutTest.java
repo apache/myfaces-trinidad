@@ -28,7 +28,6 @@ import org.apache.myfaces.trinidad.component.UIComponentTestCase;
 /**
  * Unit tests for HtmlFrameBorderLayout.
  *
- * @author John Fallows
  */
 public class HtmlFrameBorderLayoutTest extends UIComponentTestCase
 {

@@ -30,7 +30,6 @@ import javax.faces.el.ValueBinding;
 /**
  * Base interface for FacesBean storage objects.
  * 
- * @author The Oracle ADF Faces Team
  */
 public interface FacesBean
 {

@@ -33,7 +33,6 @@ import org.apache.myfaces.trinidad.model.XMLMenuModel;
  * IMPORTANT NOTE: even internally, values that support EL expressions
  * should use the "get" methods to obtain values.
  *
- * @author Kris McQueen and Gary Kind
  */
 
 public class MenuNode

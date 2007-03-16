@@ -26,7 +26,6 @@ import org.apache.myfaces.trinidadinternal.config.GlobalConfiguratorImpl;
 /**
  * Implementation of the Trinidad Context Listener
  *
- * @author Scott O'Bryan (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
 

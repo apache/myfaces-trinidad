@@ -33,7 +33,6 @@ import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
  * is not supported.
  * 
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/data/DictionaryData.java#0 $) $Date: 10-nov-2005.18:56:32 $
- * @author The Oracle ADF Faces Team
  */
 public class DictionaryData implements KeyedDataObject, MutableDataObject
 {

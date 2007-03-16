@@ -21,7 +21,6 @@ package org.apache.myfaces.trinidad.config;
 /**
  * This class represents the metadata of a component definition in
  * a faces-config type file.
- * @author The Oracle ADF Faces Team
  */
 public abstract class ComponentConfig 
 {

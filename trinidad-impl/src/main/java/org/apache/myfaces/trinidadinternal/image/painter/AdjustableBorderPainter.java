@@ -43,7 +43,6 @@ import org.apache.myfaces.trinidadinternal.image.ImageContext;
  * and "padding-right".
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/painter/AdjustableBorderPainter.java#0 $) $Date: 10-nov-2005.19:04:53 $
- * @author The Oracle ADF Faces Team
  */
 public class AdjustableBorderPainter extends AbstractBorderPainter
 {

@@ -21,7 +21,6 @@ package org.apache.myfaces.trinidadinternal.style.xml.parse;
 /**
  * Little interface we use for performing validation of property values
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/xml/parse/PropertyValidater.java#0 $) $Date: 10-nov-2005.18:58:10 $
- * @author The Oracle ADF Faces Team
  */
 interface PropertyValidater
 {

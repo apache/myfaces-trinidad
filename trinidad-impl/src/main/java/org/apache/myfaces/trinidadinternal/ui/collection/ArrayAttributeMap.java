@@ -36,7 +36,6 @@ import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
  * purpose AttributeMap implementation for use as UINode storage.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/collection/ArrayAttributeMap.java#0 $) $Date: 10-nov-2005.18:56:56 $
- * @author The Oracle ADF Faces Team
  * @see FlaggedAttributeMap
  * @see IndexedAttributeMap
  */

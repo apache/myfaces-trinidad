@@ -26,7 +26,6 @@ import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
  * DataObject whose set of available selectors is enumerable.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/data/KeyedDataObject.java#0 $) $Date: 10-nov-2005.18:56:32 $
- * @author The Oracle ADF Faces Team
  */
 public interface KeyedDataObject extends DataObject
 {

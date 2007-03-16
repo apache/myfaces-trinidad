@@ -51,7 +51,6 @@ import org.apache.myfaces.trinidadinternal.ui.action.FireAction;
  * Renderer for button nodes.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/oracle/desktop/ButtonRenderer.java#1 $) $Date: 11-nov-2005.14:59:41 $
- * @author The Oracle ADF Faces Team
  */
 abstract public class ButtonRenderer extends GeneratedImageRenderer
 {

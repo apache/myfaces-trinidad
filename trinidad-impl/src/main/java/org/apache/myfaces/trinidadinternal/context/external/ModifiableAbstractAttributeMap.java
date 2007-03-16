@@ -28,7 +28,6 @@ import java.util.Map;
  * Attribute Maps.
  * This was origionally taken from MyFaces.
  *
- * @author Scott O'Bryan (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
 

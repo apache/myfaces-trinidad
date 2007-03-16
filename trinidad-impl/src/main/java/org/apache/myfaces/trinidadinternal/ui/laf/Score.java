@@ -23,7 +23,6 @@ package org.apache.myfaces.trinidadinternal.ui.laf;
  * the look and feel scoring process.
  * 
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/Score.java#0 $) $Date: 10-nov-2005.18:50:33 $
- * @author The Oracle ADF Faces Team
  */
 abstract public class Score
 {

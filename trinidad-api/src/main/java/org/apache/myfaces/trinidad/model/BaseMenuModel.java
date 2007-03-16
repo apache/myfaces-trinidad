@@ -23,7 +23,6 @@ package org.apache.myfaces.trinidad.model;
  * A base class which takes a TreeModel. Developers can extend this class and
  * just override the getFocusRowKey() method.
  *
- * @author The Oracle ADF Faces Team
  */
 public abstract class BaseMenuModel extends MenuModel
 {

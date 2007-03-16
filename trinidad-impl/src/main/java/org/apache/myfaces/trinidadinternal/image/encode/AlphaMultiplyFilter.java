@@ -25,7 +25,6 @@ import java.awt.image.RGBImageFilter;
  * which incorporates alpha values without a discrete alpha channel.
  * The background color must be presumed beforehand.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/encode/AlphaMultiplyFilter.java#0 $) $Date: 10-nov-2005.19:05:15 $
- * @author The Oracle ADF Faces Team
  * @since 0.1.4
  */
 class AlphaMultiplyFilter extends RGBImageFilter

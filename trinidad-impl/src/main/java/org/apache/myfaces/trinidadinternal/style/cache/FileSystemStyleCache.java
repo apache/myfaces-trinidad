@@ -79,7 +79,6 @@ import org.xml.sax.SAXException;
  * @see org.apache.myfaces.trinidadinternal.skin.SkinStyleProvider
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/cache/FileSystemStyleCache.java#0 $) $Date: 10-nov-2005.18:58:54 $
- * @author The Oracle ADF Faces Team
  */
 // -= Simon Lessard =-
 // TODO: Synchronization does not seem to be needed since there's

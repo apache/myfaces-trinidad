@@ -40,7 +40,6 @@ import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
  * Clients should never subclass this class.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/nls/LocaleContext.java#0 $) $Date: 10-nov-2005.19:00:03 $
- * @author The Oracle ADF Faces Team
  */
 public class LocaleContextImpl extends LocaleContext
 {

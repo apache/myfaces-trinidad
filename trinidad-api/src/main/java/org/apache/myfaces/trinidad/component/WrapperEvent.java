@@ -25,7 +25,6 @@ import javax.faces.event.PhaseId;
 
 /**
  * This class wraps a FacesEvent
- * @author The Oracle ADF Faces Team
  */
 class WrapperEvent extends FacesEvent
 {

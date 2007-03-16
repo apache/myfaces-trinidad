@@ -34,7 +34,6 @@ import org.apache.myfaces.trinidadinternal.share.xml.ParserManager;
  * @see org.apache.myfaces.trinidadinternal.uix22.servlet.ui.BaseUIPageBroker#registerUIExtension
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/UIExtension.java#0 $) $Date: 10-nov-2005.18:50:24 $
- * @author The Oracle ADF Faces Team
  */
 public interface UIExtension
 {

@@ -42,7 +42,6 @@ import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
  * UINode to be set by a call to <code>setAttributeMap</code>.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/collection/AttributeMap.java#0 $) $Date: 10-nov-2005.18:57:31 $
- * @author The Oracle ADF Faces Team
  * @see AttributeKey
  * @see org.apache.myfaces.trinidadinternal.ui.BaseMutableUINode#setAttributeMap
  */

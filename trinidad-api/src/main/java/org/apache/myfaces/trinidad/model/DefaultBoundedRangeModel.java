@@ -28,7 +28,6 @@ import java.io.Serializable;
  *  components.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/model/DefaultBoundedRangeModel.java#0 $) $Date: 10-nov-2005.19:08:52 $
- * @author The Oracle ADF Faces Team
  */
 public class DefaultBoundedRangeModel extends BoundedRangeModel implements Serializable {
   /**

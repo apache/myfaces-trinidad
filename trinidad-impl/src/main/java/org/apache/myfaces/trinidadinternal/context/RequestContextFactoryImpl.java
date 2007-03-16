@@ -36,7 +36,6 @@ import org.apache.myfaces.trinidadinternal.config.ConfigParser;
 import org.apache.myfaces.trinidadinternal.context.external.ServletExternalContext;
 
 /**
- * @author The Oracle ADF Faces Team
  */
 public class RequestContextFactoryImpl extends RequestContextFactory
 {

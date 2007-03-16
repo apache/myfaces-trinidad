@@ -22,7 +22,6 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
  * This class contains all valid predefined skin properties used by Trinidad.
  * The properties are sorted alphabetically.
  * 
- * @author Simon Lessard, Fujitsu Consulting
  */
 public final class SkinProperties
 {

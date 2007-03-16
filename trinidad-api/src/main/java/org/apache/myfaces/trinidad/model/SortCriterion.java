@@ -24,7 +24,6 @@ import java.io.Serializable;
  * This class pairs together a property and a direction by which a 
  * CollectionModel can be sorted.
  * @see CollectionModel#getSortCriteria
- * @author The Oracle ADF Faces Team
  */
 public class SortCriterion implements Serializable
 {

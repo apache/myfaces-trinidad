@@ -39,7 +39,6 @@ import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
  * Base class for audio and video rendering.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/xhtml/MediaRenderer.java#0 $) $Date: 15-nov-2005.19:26:37 $
- * @author The Oracle ADF Faces Team
  */
 public class MediaRenderer extends XhtmlRenderer
 {

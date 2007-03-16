@@ -29,7 +29,6 @@ import java.io.IOException;
  * before passing it to an encoder.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/encode/AlphaMultiplyEncoder.java#0 $) $Date: 10-nov-2005.19:05:14 $
- * @author The Oracle ADF Faces Team
  * @since 0.1.4
  */
 public class AlphaMultiplyEncoder implements ImageEncoder

@@ -33,7 +33,6 @@ import com.sun.facelets.tag.TagAttributeException;
 
 /**
  * 
- * @author Adam Winer
  * @version $Id: StringArrayPropertyTagRule.java,v 1.1 2005/08/23 05:54:54 adamwiner Exp $
  */
 final class StringArrayPropertyTagRule extends MetaRule

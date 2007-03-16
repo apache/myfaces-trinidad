@@ -39,7 +39,6 @@ import org.apache.myfaces.trinidadinternal.webapp.wrappers.PortletContextWrapper
 /**
  * TODO: Document this
  *
- * @author Scott O'Bryan (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
 

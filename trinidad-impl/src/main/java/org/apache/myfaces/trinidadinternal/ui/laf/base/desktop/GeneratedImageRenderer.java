@@ -50,7 +50,6 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
  * Base class for Renderers that generate images.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/oracle/desktop/TecateRenderer.java#1 $) $Date: 11-nov-2005.14:59:38 $
- * @author The Oracle ADF Faces Team
  */
 abstract class GeneratedImageRenderer extends HtmlLafRenderer
   implements ImageConstants

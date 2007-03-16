@@ -27,7 +27,6 @@ import org.apache.myfaces.trinidad.component.UIComponentTestCase;
 /**
  * Unit tests for CoreTrain
  *
- * @author Jeanne Waldman
  */
 public class CoreTrainTest extends UIComponentTestCase
 {

@@ -27,7 +27,6 @@ import org.apache.myfaces.trinidad.component.UIXPanel;
 /**
  * Unit tests for CorePanelBorderLayout.
  *
- * @author John Fallows
  */
 public class CorePanelBorderLayoutTest extends UIXPanelTestCase
 {

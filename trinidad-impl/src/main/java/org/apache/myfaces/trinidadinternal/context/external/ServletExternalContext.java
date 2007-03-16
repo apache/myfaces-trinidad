@@ -49,9 +49,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  * Trinidad {@link org.apache.myfaces.Trinidad.config.Configurator} object. <br>
  * This code was origionally taken from MyFaces.
  *
- * @author Manfred Geiler (Origional MyFaces Code)
- * @author Anton Koinov
- * @author Scott O'Bryan (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
 public class ServletExternalContext extends ExternalContext

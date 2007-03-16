@@ -26,7 +26,6 @@ import org.apache.myfaces.trinidad.component.UIXPanel;
 /**
  * Unit tests for CorePanelSideBar.
  *
- * @author Gabrielle Crawford
  */
 public class CorePanelSideBarTest extends UIXPanelTestCase
 {

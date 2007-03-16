@@ -77,7 +77,6 @@ import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 import org.apache.myfaces.trinidadinternal.webapp.TrinidadFilterImpl;
 
 /**
- * @author The Oracle ADF Faces Team
  */
 public class RequestContextImpl extends RequestContext
 {

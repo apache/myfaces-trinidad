@@ -36,7 +36,6 @@ import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
  * Scriptlet for adding color field information.
 
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/xhtml/jsLibs/ColorFieldInfoScriptlet.java#0 $) $Date: 10-nov-2005.19:02:43 $
- * @author The Oracle ADF Faces Team
  */
 public class ColorFieldInfoScriptlet extends Scriptlet
 {

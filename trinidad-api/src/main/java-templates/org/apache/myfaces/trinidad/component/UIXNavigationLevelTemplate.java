@@ -26,7 +26,6 @@ import javax.faces.event.PhaseId;
  * Base class for the NavigationLevel component.
  *
  * @version $Name:  $ ($Revision$) $Date$
- * @author The Oracle ADF Faces Team
  */
 abstract public class UIXNavigationLevelTemplate extends UIXNavigationHierarchy
 {

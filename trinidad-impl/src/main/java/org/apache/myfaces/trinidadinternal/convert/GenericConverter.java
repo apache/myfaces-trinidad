@@ -25,7 +25,6 @@ import java.util.List;
  * one Object into another.
  * A converter may be capable of converting a single Object into
  * many different types.
- * @author The Oracle ADF Faces Team
  */
 public abstract class GenericConverter
 {

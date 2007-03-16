@@ -28,7 +28,6 @@ package org.apache.myfaces.trinidadinternal.image;
  *
  * @see org.apache.myfaces.trinidadinternal.image.ImageTypeManager
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/ImageType.java#0 $) $Date: 10-nov-2005.19:03:56 $
- * @author The Oracle ADF Faces Team
  */
 public interface ImageType
 {

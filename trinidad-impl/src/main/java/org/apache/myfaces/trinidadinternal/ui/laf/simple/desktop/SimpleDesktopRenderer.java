@@ -24,7 +24,6 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.HtmlLafRenderer;
  * Base Rendering class for simple.desktop renderers
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/simple/desktop/SimpleDesktopRenderer.java#0 $) $Date: 10-nov-2005.18:51:27 $
- * @author The Oracle ADF Faces Team
  */
 public class SimpleDesktopRenderer extends HtmlLafRenderer
   implements SimpleDesktopConstants

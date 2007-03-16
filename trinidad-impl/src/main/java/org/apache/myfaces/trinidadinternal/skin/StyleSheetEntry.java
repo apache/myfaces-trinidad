@@ -47,7 +47,6 @@ import org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.SkinPropertyNode;
  * Skin.java.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/skin/StyleSheetEntry.java#0 $) $Date: 10-nov-2005.18:59:01 $
- * @author The Oracle ADF Faces Team
  */
 class StyleSheetEntry
 {

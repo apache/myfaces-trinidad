@@ -53,7 +53,6 @@ import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
  * Private implementation of StyleSheetDocument.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/xml/parse/StyleSheetDocument.java#0 $) $Date: 10-nov-2005.18:58:12 $
- * @author The Oracle ADF Faces Team
  */
 public class StyleSheetDocument
 {

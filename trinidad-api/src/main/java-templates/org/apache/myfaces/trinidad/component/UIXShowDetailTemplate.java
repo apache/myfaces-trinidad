@@ -31,7 +31,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 /**
  * Base class for ShowDetail component.
  * @version $Name:  $ ($Revision$) $Date$
- * @author The Oracle ADF Faces Team
  */
 abstract public class UIXShowDetailTemplate extends UIXComponentBase
 {

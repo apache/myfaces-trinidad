@@ -38,7 +38,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  *   class part of our public API, but the FacesBean API
  *   would otherwise require a private subclass of FacesBeanImpl.
  *   We need a better way out.
- * @author The Oracle ADF Faces Team
  */
 public class SetActionListener extends FacesBeanImpl
   implements ActionListener, StateHolder

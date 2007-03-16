@@ -23,7 +23,6 @@ package org.apache.myfaces.trinidadinternal.style.xml.parse;
  * in a parsed XML Style Sheet Language document.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/xml/parse/IncludePropertyNode.java#0 $) $Date: 10-nov-2005.18:58:07 $
- * @author The Oracle ADF Faces Team
  */
 public class IncludePropertyNode
 {

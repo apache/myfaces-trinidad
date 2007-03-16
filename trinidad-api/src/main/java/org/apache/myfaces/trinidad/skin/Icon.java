@@ -42,7 +42,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  * not make use of images (ie. for text-based Icon implementations).
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/skin/icon/Icon.java#0 $) $Date: 10-nov-2005.18:59:03 $
- * @author The Oracle ADF Faces Team
  */
 abstract public class Icon
 {

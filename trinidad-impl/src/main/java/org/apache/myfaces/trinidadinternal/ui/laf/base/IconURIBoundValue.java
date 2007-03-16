@@ -25,7 +25,6 @@ import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
  * BoundValue implementation that returns the URI of a Cabo
  * icon.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/IconURIBoundValue.java#0 $) $Date: 10-nov-2005.18:53:01 $
- * @author The Oracle ADF Faces Team
  */
 public final class IconURIBoundValue implements BoundValue
 {

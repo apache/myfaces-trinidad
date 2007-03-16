@@ -35,7 +35,6 @@ import org.apache.myfaces.trinidad.event.ReturnEvent;
  * Base class for command components.
  *
  * @version $Name:  $ ($Revision$) $Date$
- * @author The Oracle ADF Faces Team
  */
 abstract public class UIXCommandTemplate extends UIXComponentBase
                                   implements ActionSource, DialogSource

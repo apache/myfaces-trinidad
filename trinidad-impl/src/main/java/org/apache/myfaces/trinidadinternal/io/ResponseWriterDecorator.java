@@ -27,7 +27,6 @@ import javax.faces.context.ResponseWriter;
 /**
  * ResponseWriter abstract base used to decorate another ResponseWriter.
  * 
- * @author The Oracle ADF Faces Team
  */
 abstract public class ResponseWriterDecorator extends ResponseWriter
 {

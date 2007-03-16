@@ -41,7 +41,6 @@ package org.apache.myfaces.trinidadinternal.share.util;
  * </pre>
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/util/FastMessageFormat.java#0 $) $Date: 10-nov-2005.18:59:22 $
- * @author The Oracle ADF Faces Team
  */
 public class FastMessageFormat
 {

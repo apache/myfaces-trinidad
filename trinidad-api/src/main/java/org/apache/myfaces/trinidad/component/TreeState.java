@@ -35,7 +35,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 /**
  * Strongly-typed object for storing UIX Tree State.
  * <p>
- * @author The Oracle ADF Faces Team
  * @todo All warnings in here map to missing features in our state management
  *   system.
  * @todo Add a decent toString() implementation to improve debugging.

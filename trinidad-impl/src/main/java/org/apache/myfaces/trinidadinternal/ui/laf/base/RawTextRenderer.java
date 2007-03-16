@@ -43,7 +43,6 @@ import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
  * <code>PRE_TEXT_ATTR</code>.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/RawTextRenderer.java#0 $) $Date: 10-nov-2005.18:53:06 $
- * @author The Oracle ADF Faces Team
  */
 public class RawTextRenderer extends BaseRenderer implements UIConstants
 {

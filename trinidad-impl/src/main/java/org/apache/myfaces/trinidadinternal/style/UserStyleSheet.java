@@ -31,7 +31,6 @@ import org.apache.myfaces.trinidad.util.ArrayMap;
  * which are merged with the styles defined by a StyleProvider.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/UserStyleSheet.java#0 $) $Date: 10-nov-2005.18:57:59 $
- * @author The Oracle ADF Faces Team
  */
 public class UserStyleSheet
 {

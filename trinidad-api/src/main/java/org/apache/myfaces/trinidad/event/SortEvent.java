@@ -28,7 +28,6 @@ import org.apache.myfaces.trinidad.model.SortCriterion;
 
 /**
  * The Event generated when a Collection is to be sorted.
- * @author The Oracle ADF Faces Team
  */
 public final class SortEvent extends FacesEvent
 {

@@ -28,7 +28,6 @@ import java.net.URLConnection;
  * Base class for resource loaders.  Resource loaders can lookup resources 
  * as URLs from arbitrary locations, including JAR files.
  *
- * @author The Oracle ADF Faces Team
  */
 public class ResourceLoader
 {

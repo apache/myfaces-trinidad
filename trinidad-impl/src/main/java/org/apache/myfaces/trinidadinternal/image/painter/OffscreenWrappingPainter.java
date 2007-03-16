@@ -49,7 +49,6 @@ import org.apache.myfaces.trinidadinternal.image.ImageConstants;
  * render since any wrapped rendering is double buffered.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/painter/OffscreenWrappingPainter.java#0 $) $Date: 10-nov-2005.19:04:59 $
- * @author The Oracle ADF Faces Team
  */
 public class OffscreenWrappingPainter extends AbstractWrappingPainter
   implements ImageObserver

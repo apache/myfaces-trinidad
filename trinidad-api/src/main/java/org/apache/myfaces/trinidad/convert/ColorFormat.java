@@ -29,7 +29,6 @@ import java.text.ParsePosition;
  * Format for colors.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/convert/ColorFormat.java#0 $) $Date: 10-nov-2005.19:09:10 $
- * @author The Oracle ADF Faces Team
  * @todo This class needs to be part of the public API - need to move it to 
  *        place where our public API exists, once we have figured it out.
  */

@@ -24,7 +24,6 @@ package org.apache.myfaces.trinidadinternal.image.encode;
  * constructor that we need for deferred instantiation.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/encode/DefaultPNGEncoder.java#0 $) $Date: 10-nov-2005.19:05:16 $
- * @author The Oracle ADF Faces Team
  */
 public class DefaultPNGEncoder extends AlphaMultiplyEncoder
 {

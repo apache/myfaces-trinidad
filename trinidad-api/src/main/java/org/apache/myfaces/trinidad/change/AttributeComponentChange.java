@@ -24,7 +24,6 @@ import javax.faces.component.UIComponent;
  * Change specialization for change in attributes.
  * While applying this Change, the specified attribute state is  restored.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/change/AttributeComponentChange.java#0 $) $Date: 10-nov-2005.19:09:56 $
- * @author The Oracle ADF Faces Team
  */
 public class AttributeComponentChange extends ComponentChange
 {

@@ -41,7 +41,6 @@ import org.apache.myfaces.trinidad.skin.Skin;
  * Renderer for the panelPartialRoot.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/xhtml/BodyRenderer.java#1 $) $Date: 11-nov-2005.14:59:41 $
- * @author The Oracle ADF Faces Team
  */
 public class BodyRenderer extends PanelPartialRootRenderer
 {

@@ -30,7 +30,6 @@ import org.apache.myfaces.trinidad.model.ModelUtils;
  * will change in a future release.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/component/UIXNavigationHierarchy.java#0 $) $Date: 10-nov-2005.19:09:52 $
- * @author The Oracle ADF Faces Team
  * @todo these base classes need to be completely refactored
  */
 abstract public class UIXNavigationHierarchy extends UIXHierarchy

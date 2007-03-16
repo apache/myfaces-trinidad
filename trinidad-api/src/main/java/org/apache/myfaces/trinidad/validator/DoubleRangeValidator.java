@@ -33,7 +33,6 @@ import org.apache.myfaces.trinidad.util.MessageFactory;
 /**
  * <p>Implementation for <code>java.lang.Long</code> values.</p>
  *
- * @author Apache Trinidad Podling
  */
 public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValidator
 {

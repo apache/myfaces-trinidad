@@ -53,7 +53,6 @@ import java.util.Set;
  * as required by the language specification.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/util/ArrayMap.java#0 $) $Date: 10-nov-2005.19:08:36 $
- * @author The Oracle ADF Faces Team
  */
 // -= Simon Lessard =-
 //        Using a single array for both the key and the value leads to many 

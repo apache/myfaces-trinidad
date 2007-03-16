@@ -28,7 +28,6 @@ import org.apache.myfaces.trinidad.component.UIComponentTestCase;
 /**
  * Unit tests for CoreBreadCrumbs.
  *
- * @author Gabrielle Crawford
  */
 public class CoreBreadCrumbsTest extends UIComponentTestCase
 {

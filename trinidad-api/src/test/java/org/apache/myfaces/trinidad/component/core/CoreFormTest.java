@@ -31,8 +31,6 @@ import org.apache.myfaces.trinidad.component.UIComponentTestCase;
 /**
  * Unit tests for CoreForm.
  *
- * @author Adam Winer
- * @author John Fallows
  */
 public class CoreFormTest extends UIComponentTestCase
 {

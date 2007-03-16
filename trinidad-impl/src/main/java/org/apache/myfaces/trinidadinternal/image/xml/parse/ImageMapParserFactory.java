@@ -29,7 +29,6 @@ import org.apache.myfaces.trinidadinternal.image.util.MapArea;
 /**
  * Factory for creating ImageMapParsers
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/xml/parse/ImageMapParserFactory.java#0 $) $Date: 10-nov-2005.19:04:07 $
- * @author The Oracle ADF Faces Team
  */
 public class ImageMapParserFactory implements ParserFactory
 {

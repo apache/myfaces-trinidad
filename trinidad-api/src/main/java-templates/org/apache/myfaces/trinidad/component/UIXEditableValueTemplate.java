@@ -46,7 +46,6 @@ import org.apache.myfaces.trinidad.util.LabeledFacesMessage;
  * Base class for components that have a value.
  * <p>
  * @version $Name:  $ ($Revision$) $Date$
- * @author The Oracle ADF Faces Team
  * @todo Autogen more of the properties, getters and setters
  */
 abstract public class UIXEditableValueTemplate

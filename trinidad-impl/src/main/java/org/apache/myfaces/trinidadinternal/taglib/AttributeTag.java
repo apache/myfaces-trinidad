@@ -27,7 +27,6 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
 /**
- * @author The Oracle ADF Faces Team
  * 
  * <p>Tag implementation that adds an attribute with a specified name
  * and value to the component whose tag it is nested inside,

@@ -26,7 +26,6 @@ import java.io.OutputStream;
  * ImageEncoder implementation for the Oracle PNG encoder.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/encode/OraclePNGEncoder.java#0 $) $Date: 10-nov-2005.19:05:21 $
- * @author The Oracle ADF Faces Team
  */
 class OraclePNGEncoder implements ImageEncoder
 {

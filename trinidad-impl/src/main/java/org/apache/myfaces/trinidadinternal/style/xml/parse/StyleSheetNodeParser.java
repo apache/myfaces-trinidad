@@ -37,7 +37,6 @@ import org.xml.sax.SAXParseException;
 /**
  * NodeParser for style sheet nodes
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/xml/parse/StyleSheetNodeParser.java#0 $) $Date: 10-nov-2005.18:58:47 $
- * @author The Oracle ADF Faces Team
  */
 public class StyleSheetNodeParser extends BaseNodeParser
   implements XMLConstants, StyleConstants

@@ -23,8 +23,6 @@ import java.util.Enumeration;
 /**
  * Enumeration without elements. This was origionally taken from MyFaces.
  *
- * @author Anton Koinov
- * @author Scott O'Bryan (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
 final class NullEnumeration implements Enumeration<Object>

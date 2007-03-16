@@ -35,7 +35,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 /**
  * Base class for referencing declarative components.
  *
- * @author The Oracle ADF Faces Team
  */
 public abstract class UIXComponentRefTemplate extends UIXComponentBase
 {

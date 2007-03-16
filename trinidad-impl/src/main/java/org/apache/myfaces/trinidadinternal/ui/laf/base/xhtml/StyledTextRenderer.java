@@ -34,7 +34,6 @@ import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
  * and can act as a label for another control.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/xhtml/StyledTextRenderer.java#0 $) $Date: 10-nov-2005.18:54:14 $
- * @author The Oracle ADF Faces Team
  */
 public class StyledTextRenderer extends XhtmlLafRenderer
 {

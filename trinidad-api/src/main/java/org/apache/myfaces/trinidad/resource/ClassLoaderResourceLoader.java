@@ -27,7 +27,6 @@ import java.net.URL;
  * A resource loader implementation which loads resources
  * using the context class loader.
  *
- * @author The Oracle ADF Faces Team
  */
 public class ClassLoaderResourceLoader extends ResourceLoader
 {

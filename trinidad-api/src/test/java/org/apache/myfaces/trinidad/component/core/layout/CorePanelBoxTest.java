@@ -27,7 +27,6 @@ import org.apache.myfaces.trinidad.component.UIXPanel;
 /**
  * Unit tests for CorePanelBox.
  *
- * @author Gabrielle Crawford
  */
 public class CorePanelBoxTest extends UIXPanelTestCase
 {

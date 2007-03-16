@@ -29,7 +29,6 @@ package org.apache.myfaces.trinidad.util;
  * <p>
  * @since Inspector 0.2
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/util/IntegerUtils.java#0 $) $Date: 10-nov-2005.18:49:09 $
- * @author The Oracle ADF Faces Team
  */
 public final class IntegerUtils
 {

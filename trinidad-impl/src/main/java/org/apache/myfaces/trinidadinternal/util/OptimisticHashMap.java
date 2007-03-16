@@ -40,7 +40,6 @@ import java.util.Set;
  * </ol>
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/util/OptimisticHashMap.java#0 $) $Date: 10-nov-2005.19:56:01 $
- * @author The Oracle ADF Faces Team
  */
 public class OptimisticHashMap<K, V> extends AbstractMap<K, V> implements Cloneable
 {

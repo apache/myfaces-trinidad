@@ -31,7 +31,6 @@ import org.apache.myfaces.trinidad.convert.ClientConverter;
  * <p>Implementation for <code>java.lang.Short</code> values.</p>
  *
  *
- * @author The Oracle ADF Faces Team
  */
 public class ShortConverter extends javax.faces.convert.ShortConverter
                             implements ClientConverter

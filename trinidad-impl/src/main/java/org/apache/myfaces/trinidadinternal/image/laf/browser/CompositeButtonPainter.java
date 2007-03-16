@@ -56,7 +56,6 @@ import org.apache.myfaces.trinidadinternal.style.util.FontProxy;
  * </ul>
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/laf/browser/CompositeButtonPainter.java#0 $) $Date: 10-nov-2005.19:05:08 $
- * @author The Oracle ADF Faces Team
  */
 public class CompositeButtonPainter extends AbstractBorderPainter
   implements ImageConstants

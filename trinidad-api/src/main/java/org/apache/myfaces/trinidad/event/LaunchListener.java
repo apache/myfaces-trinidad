@@ -26,7 +26,6 @@ import javax.faces.event.FacesListener;
  * Listener for LaunchEvents.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/event/LaunchListener.java#0 $) $Date: 10-nov-2005.19:09:03 $
- * @author The Oracle ADF Faces Team
  * @mock
  */
 public interface LaunchListener extends FacesListener

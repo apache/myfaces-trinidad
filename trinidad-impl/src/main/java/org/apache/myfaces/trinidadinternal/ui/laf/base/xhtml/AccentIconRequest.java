@@ -36,7 +36,6 @@ import org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeel;
  * by adding support for obtaining an InputStreamProvider for the source
  * icon.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/xhtml/AccentIconRequest.java#0 $) $Date: 10-nov-2005.18:53:11 $
- * @author The Oracle ADF Faces Team
  */
 public final class AccentIconRequest extends AccentColorizedIconKey
 {

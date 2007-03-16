@@ -25,7 +25,6 @@ import javax.servlet.ServletRequest;
 /**
  * ServletRequest attributes Map.
  *
- * @author Anton Koinov (latest modification by $Author: oros $)
  * @version $Revision: 278654 $ $Date: 2005-09-04 18:32:35 -0600 (Sun, 04 Sep 2005) $
  */
 public class ServletRequestMap extends ModifiableAbstractAttributeMap<String, Object>

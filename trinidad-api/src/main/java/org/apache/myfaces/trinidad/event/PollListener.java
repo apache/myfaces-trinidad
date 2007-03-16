@@ -25,7 +25,6 @@ import javax.faces.event.FacesListener;
  * Listener for PollEvent.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/event/PollListener.java#0 $) $Date: 10-nov-2005.19:09:04 $
- * @author The Oracle ADF Faces Team
  */
 public interface PollListener extends FacesListener
 {

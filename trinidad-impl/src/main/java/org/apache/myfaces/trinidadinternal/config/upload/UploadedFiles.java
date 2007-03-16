@@ -41,7 +41,6 @@ import org.apache.myfaces.trinidadinternal.share.util.CaboHttpUtils;
  * to the server.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/webapp/UploadedFiles.java#0 $) $Date: 10-nov-2005.18:49:05 $
- * @author The Oracle ADF Faces Team
  */
 final public class UploadedFiles
 {

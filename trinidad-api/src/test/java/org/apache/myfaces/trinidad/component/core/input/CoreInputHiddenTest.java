@@ -27,8 +27,6 @@ import org.apache.myfaces.trinidad.component.UIXEditableValueTestCase;
 /**
  * Unit tests for CoreInputHidden.
  *
- * @author Adam Winer
- * @author John Fallows
  */
 public class CoreInputHiddenTest extends UIXEditableValueTestCase
 {

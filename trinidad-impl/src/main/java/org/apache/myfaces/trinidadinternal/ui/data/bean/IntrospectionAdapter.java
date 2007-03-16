@@ -64,7 +64,6 @@ import org.apache.myfaces.trinidadinternal.ui.data.MutableDataObject;
  * @see org.apache.myfaces.trinidadinternal.ui.data.bean.BeanAdapterUtils
  * @see org.apache.myfaces.trinidadinternal.ui.tools.BuildBeanDOAdapter
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/data/bean/IntrospectionAdapter.java#0 $) $Date: 10-nov-2005.18:56:49 $
- * @author The Oracle ADF Faces Team
  */
 public class IntrospectionAdapter implements BeanDOAdapter
 {

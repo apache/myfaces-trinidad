@@ -27,7 +27,6 @@ import org.apache.myfaces.trinidad.resource.ResourceLoader;
 
 /**
  *
- * @author The Oracle ADF Faces Team
  */
 public class CoreClassLoaderResourceLoader extends ClassLoaderResourceLoader
 {

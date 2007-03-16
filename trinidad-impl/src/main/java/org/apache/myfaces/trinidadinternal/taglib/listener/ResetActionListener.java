@@ -38,7 +38,6 @@ import org.apache.myfaces.trinidad.context.RequestContext;
  * An action listener that will reset all the editable values
  * in the enclosing form.
  *
- * @author The Oracle ADF Faces Team
  */
 public class ResetActionListener
   implements ActionListener, Serializable

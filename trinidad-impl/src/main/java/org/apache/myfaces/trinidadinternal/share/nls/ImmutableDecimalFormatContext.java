@@ -23,7 +23,6 @@ package org.apache.myfaces.trinidadinternal.share.nls;
  * format parameters, and cannot be changed once initialised.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/nls/ImmutableDecimalFormatContext.java#0 $) $Date: 10-nov-2005.19:00:02 $
- * @author The Oracle ADF Faces Team
  */
 public final class ImmutableDecimalFormatContext extends DecimalFormatContext
 {

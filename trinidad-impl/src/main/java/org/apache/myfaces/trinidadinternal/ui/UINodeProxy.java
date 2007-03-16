@@ -26,7 +26,6 @@ import javax.faces.component.UIComponent;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/UINodeProxy.java#0 $) $Date: 10-nov-2005.18:50:25 $
- * @author The Oracle ADF Faces Team
  */
 public abstract class UINodeProxy implements UINode
 {

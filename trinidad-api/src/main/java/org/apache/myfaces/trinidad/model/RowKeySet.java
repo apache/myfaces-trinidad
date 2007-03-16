@@ -34,7 +34,6 @@ import java.util.AbstractSet;
  * <P>
  * Note that the {@link #size()} method on the this Set might be expensive to
  * compute. Use the {@link #getSize()} method on this class for an inexpensive size.
- * @author The Oracle ADF Faces Team
  */
 public abstract class RowKeySet extends AbstractSet<Object> implements Cloneable
 {

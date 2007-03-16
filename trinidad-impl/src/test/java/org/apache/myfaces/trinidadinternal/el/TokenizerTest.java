@@ -25,7 +25,6 @@ import junit.framework.TestCase;
 /**
  * Unit tests for Tokenizer
  *
- * @author Arjuna Wijeyekoon
  */
 public class TokenizerTest extends TestCase
 {

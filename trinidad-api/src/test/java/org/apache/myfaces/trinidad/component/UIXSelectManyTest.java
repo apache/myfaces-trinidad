@@ -30,8 +30,6 @@ import junit.framework.TestSuite;
 /**
  * Unit tests for UIXSelectMany.
  *
- * @author Adam Winer
- * @author John Fallows
  */
 public class UIXSelectManyTest extends UIXEditableValueTestCase
 {

@@ -46,7 +46,6 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeUtils;
 /**
  * Renderer for trees. 
  *
- * @author The Oracle ADF Faces Team
  */
 public class TreeRenderer extends XhtmlRenderer
 {

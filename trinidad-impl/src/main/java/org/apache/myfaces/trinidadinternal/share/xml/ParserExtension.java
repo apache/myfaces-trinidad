@@ -30,7 +30,6 @@ import java.util.Map;
  * per object Class, but this would require NodeParser API changes.)
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/xml/ParserExtension.java#0 $) $Date: 10-nov-2005.18:59:13 $
- * @author The Oracle ADF Faces Team
  */
 public interface ParserExtension
 {

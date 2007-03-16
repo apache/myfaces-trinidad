@@ -34,7 +34,6 @@ import org.apache.myfaces.trinidad.component.UIXComponent;
 
 /**
  * TagLibrary implementation for Apache Trinidad core library.
- * @author Adam Winer
  * @version
  */
 public class TrinidadComponentHandler extends ComponentHandler

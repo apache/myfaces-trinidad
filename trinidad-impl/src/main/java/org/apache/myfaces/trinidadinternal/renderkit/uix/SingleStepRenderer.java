@@ -35,7 +35,6 @@ import org.apache.myfaces.trinidadinternal.uinode.UINodeRendererBase;
  * Renderer for singleStep components
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/uix/SingleStepRenderer.java#0 $) $Date: 10-nov-2005.19:00:37 $
- * @author The Oracle ADF Faces Team
  * @todo do I need to worry about possible exceptions thrown here?
  */
 public class SingleStepRenderer extends UINodeRendererBase

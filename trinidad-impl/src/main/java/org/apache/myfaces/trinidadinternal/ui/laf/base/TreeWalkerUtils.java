@@ -42,7 +42,6 @@ import org.apache.myfaces.trinidadinternal.ui.BaseRenderer;
  * </ol>
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/TreeWalkerUtils.java#0 $) $Date: 10-nov-2005.18:53:09 $
- * @author The Oracle ADF Faces Team
  */
 // =-AEW We also currently don't skip over non-rendered trees;  there
 // are some components that need this behavior, like table, so

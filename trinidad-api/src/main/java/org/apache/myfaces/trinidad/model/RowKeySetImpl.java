@@ -41,7 +41,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  * <p>
  * This class has very efficient implementations for addAll, clear and
  * invertAll.
- * @author The Oracle ADF Faces Team
  */
 public final class RowKeySetImpl extends RowKeySet implements Externalizable
 {

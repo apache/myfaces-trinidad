@@ -35,7 +35,6 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
 import org.apache.myfaces.trinidadinternal.util.JsonUtils;
 
 /**
- * @author The Oracle ADF Faces Team
  */
 public class ColorConverter extends org.apache.myfaces.trinidad.convert.ColorConverter
                             implements ClientConverter

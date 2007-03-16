@@ -32,7 +32,6 @@ import org.apache.myfaces.trinidadinternal.context.external.ServletRequestParame
 /**
  * TODO: Document this
  *
- * @author Scott O'Bryan (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
 

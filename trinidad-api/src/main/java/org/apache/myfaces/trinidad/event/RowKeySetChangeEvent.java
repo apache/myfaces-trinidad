@@ -25,7 +25,6 @@ import org.apache.myfaces.trinidad.model.RowKeySet;
 
 /**
  * Event that is generated when the contents of a RowKeySet changes.
- * @author The Oracle ADF Faces Team
  */
 public abstract class RowKeySetChangeEvent extends FacesEvent
 {

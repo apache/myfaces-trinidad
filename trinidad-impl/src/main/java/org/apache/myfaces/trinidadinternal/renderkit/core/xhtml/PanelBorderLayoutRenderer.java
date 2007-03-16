@@ -30,7 +30,6 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
 
 /**
  * @version $Name:  $ $
- * @author Adam Winer
  */
 public class PanelBorderLayoutRenderer extends XhtmlRenderer
 {

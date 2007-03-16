@@ -23,7 +23,6 @@ import org.apache.myfaces.trinidadinternal.style.StyleContext;
 /**
  * Utils class for styleSheet mode support
  * 
- * @author The Oracle ADF Faces Team
  * 
  */
 public class ModeUtils

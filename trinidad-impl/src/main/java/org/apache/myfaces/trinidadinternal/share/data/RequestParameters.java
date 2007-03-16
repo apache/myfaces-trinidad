@@ -29,7 +29,6 @@ import java.util.Iterator;
  * class to wrap access to the ServletRequests's parameters.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/data/RequestParameters.java#0 $) $Date: 10-nov-2005.19:00:16 $
- * @author The Oracle ADF Faces Team
  */
 public abstract class RequestParameters
 {

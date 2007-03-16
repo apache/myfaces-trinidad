@@ -26,7 +26,6 @@ import org.apache.myfaces.trinidad.component.UIXPanel;
 /**
  * Unit tests for UIXPanel Components
  *
- * @author Arjuna Wijeyekoon
  */
 public abstract class UIXPanelTestCase extends UIComponentTestCase
 {

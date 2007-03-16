@@ -33,7 +33,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  * this implementation means that errors in the syntax of the EL
  * expression won't get detected until use.
  *
- * @author The Oracle ADF Faces Team
  */
 class LazyValueBinding extends ValueBinding
 {

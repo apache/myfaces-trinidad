@@ -61,7 +61,6 @@ import org.xml.sax.SAXException;
  * which is available to and used by the XMLMenuModel to create the
  * TreeModel and internal Maps.
  * 
- * @author Kris McQueen and Gary Kind
  */
  /* 
   * IMPORTANT NOTE: Much of the work and data structures used by the 

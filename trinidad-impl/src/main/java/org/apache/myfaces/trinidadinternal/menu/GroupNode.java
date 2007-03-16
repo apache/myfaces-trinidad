@@ -28,7 +28,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 /**
  * Code specific to a Menu Model's GroupNode.
  *     
- * @author Gary Kind 
  */
 
 public class GroupNode extends MenuNode

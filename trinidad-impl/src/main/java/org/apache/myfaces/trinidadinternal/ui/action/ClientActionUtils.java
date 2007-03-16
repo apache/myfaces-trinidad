@@ -28,7 +28,6 @@ import org.apache.myfaces.trinidadinternal.ui.collection.Parameter;
  * Public utility methods useful for working with ClientActions
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/action/ClientActionUtils.java#0 $) $Date: 10-nov-2005.18:57:42 $
- * @author The Oracle ADF Faces Team
  */
 public class ClientActionUtils
 {

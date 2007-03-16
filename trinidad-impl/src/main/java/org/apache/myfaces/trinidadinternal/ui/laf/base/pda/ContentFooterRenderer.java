@@ -28,7 +28,6 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
  * Renderer for content footers and their children
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/pda/ContentFooterRenderer.java#0 $) $Date: 10-nov-2005.18:54:23 $
- * @author The Oracle ADF Faces Team
  */
 public class ContentFooterRenderer extends XhtmlLafRenderer
 {

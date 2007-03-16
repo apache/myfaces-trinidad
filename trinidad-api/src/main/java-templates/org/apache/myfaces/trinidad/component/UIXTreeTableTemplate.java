@@ -41,7 +41,6 @@ import org.apache.myfaces.trinidad.model.TreeModel;
  * Base class for TreeTable component. The behaviours implemented by the
  * TreeTable include expanding/collapsing subtrees and focusing into subtrees.
  * @version $Name:  $ ($Revision$) $Date$
- * @author The Oracle ADF Faces Team
  * @todo document new default value for formSubmitted
  */
 abstract public class UIXTreeTableTemplate extends UIXTree

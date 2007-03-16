@@ -31,7 +31,6 @@ import org.apache.myfaces.trinidad.util.ArrayMap;
  * This unsynchronized class is optimized for a small number of
  * namespaces.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/util/NamespaceMap.java#0 $) $Date: 10-nov-2005.18:59:24 $
- * @author The Oracle ADF Faces Team
  */
 public class NamespaceMap implements Cloneable
 {

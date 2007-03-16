@@ -29,7 +29,6 @@ package org.apache.myfaces.trinidadinternal.ui;
  * List and Collection classes respectively.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/MutableUINode.java#0 $) $Date: 10-nov-2005.18:50:14 $
- * @author The Oracle ADF Faces Team
  */
 public interface MutableUINode extends UINode
 {

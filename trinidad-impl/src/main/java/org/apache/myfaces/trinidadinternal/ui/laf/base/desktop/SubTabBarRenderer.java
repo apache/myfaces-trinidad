@@ -32,7 +32,6 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.LinkUtils;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/desktop/SubTabBarRenderer.java#0 $) $Date: 10-nov-2005.18:56:18 $
- * @author The Oracle ADF Faces Team
  */
 public class SubTabBarRenderer extends HtmlLafRenderer
 {

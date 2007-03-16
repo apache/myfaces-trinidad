@@ -24,7 +24,6 @@ import org.xml.sax.Attributes;
  * Class for defining a bean to the parser engine.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/xml/beans/BeanDef.java#0 $) $Date: 10-nov-2005.18:59:18 $
- * @author The Oracle ADF Faces Team
  */
 public abstract class BeanDef
 {

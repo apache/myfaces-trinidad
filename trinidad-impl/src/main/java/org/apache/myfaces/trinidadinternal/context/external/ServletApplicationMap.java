@@ -26,7 +26,6 @@ import javax.servlet.ServletContext;
 /**
  * ServletContext attributes as a Map.
  *
- * @author Anton Koinov (latest modification by $Author: oros $)
  * @version $Revision: 278654 $ $Date: 2005-09-04 18:32:35 -0600 (Sun, 04 Sep 2005) $
  */
 public class ServletApplicationMap extends ModifiableAbstractAttributeMap<String, Object>

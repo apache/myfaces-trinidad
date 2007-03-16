@@ -110,7 +110,6 @@ import org.apache.myfaces.trinidad.util.MessageFactory;
  *
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/convert/ColorConverter.java#0 $) $Date: 10-nov-2005.19:09:09 $
- * @author The Oracle ADF Faces Team
  */
 public class ColorConverter implements Converter, StateHolder
 {

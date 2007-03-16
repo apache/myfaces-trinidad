@@ -34,7 +34,6 @@ import org.jmock.Mock;
 /**
  * Base class for unit tests for Validators
  *
- * @author vijay venkatarman
  */
 public abstract class ValidatorTestCase extends AbstractBaseTestCase
 {

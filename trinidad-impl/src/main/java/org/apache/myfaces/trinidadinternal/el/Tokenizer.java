@@ -24,7 +24,6 @@ import java.util.NoSuchElementException;
 
 /**
  * converts a EL expression into tokens.
- * @author The Oracle ADF Faces Team
  */
 public class Tokenizer implements Iterator<Tokenizer.Token>
 {

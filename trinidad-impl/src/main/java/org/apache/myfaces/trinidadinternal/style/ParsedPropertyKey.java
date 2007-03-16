@@ -22,7 +22,6 @@ package org.apache.myfaces.trinidadinternal.style;
  * Class for keys used by Style.getParsedProperty()
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/ParsedPropertyKey.java#0 $) $Date: 10-nov-2005.18:57:55 $
- * @author The Oracle ADF Faces Team
  */
 public final class ParsedPropertyKey
 {

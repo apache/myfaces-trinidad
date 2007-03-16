@@ -57,7 +57,6 @@ import org.apache.myfaces.trinidadinternal.el.Tokenizer.Token;
 
 /**
  *
- * @author The Oracle ADF Faces Team
  */
 public class ForEachTag extends TagSupport implements ELContextTag
 {

@@ -26,7 +26,6 @@ import javax.faces.event.PhaseListener;
 /**
  * Performs some trinidad logic and provides some hooks.
  *
- * @author The Oracle ADF Faces Team
  */
 public class TrinidadPhaseListener implements PhaseListener
 {

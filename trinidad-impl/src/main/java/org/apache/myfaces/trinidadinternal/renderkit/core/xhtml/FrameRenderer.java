@@ -36,7 +36,6 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
  * Renders a frame.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/xhtml/FrameRenderer.java#0 $) $Date: 10-nov-2005.18:53:54 $
- * @author The Oracle ADF Faces Team
  */
 public class FrameRenderer extends XhtmlRenderer
 {

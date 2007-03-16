@@ -60,7 +60,6 @@ import java.text.ParsePosition;
  * </blockquote>
  * 
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/text/RGBColorFormat.java#0 $) $Date: 10-nov-2005.19:00:00 $
- * @author The Oracle ADF Faces Team
  */
 public class RGBColorFormat extends ColorFormat
 {

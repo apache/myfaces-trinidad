@@ -24,7 +24,6 @@ import org.apache.myfaces.trinidad.model.RowKeyIndex;
  * Identifies a Paging component.
  * Components that page, have a starting index (see {@link #getFirst})
  * and the number of rows to show on a single page (see {@link #getRows}).
- * @author The Oracle ADF Faces Team
  */
 public interface CollectionComponent extends RowKeyIndex
 {

@@ -46,7 +46,6 @@ import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
  * A Skin which extends another Skin, possibly adding
  * customizations.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/skin/SkinExtension.java#0 $) $Date: 10-nov-2005.18:58:55 $
- * @author The Oracle ADF Faces Team
  */
 public class SkinExtension extends SkinImpl
 {

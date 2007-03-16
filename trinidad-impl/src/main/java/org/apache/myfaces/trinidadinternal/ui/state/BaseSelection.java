@@ -23,7 +23,6 @@ package org.apache.myfaces.trinidadinternal.ui.state;
  * implementations, allowing the Selection interface to evolve over time.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/state/BaseSelection.java#0 $) $Date: 10-nov-2005.18:50:26 $
- * @author The Oracle ADF Faces Team
  */
 abstract public class BaseSelection implements Selection
 {

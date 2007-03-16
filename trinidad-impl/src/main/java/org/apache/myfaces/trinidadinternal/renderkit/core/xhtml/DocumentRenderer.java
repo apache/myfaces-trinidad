@@ -34,7 +34,6 @@ import org.apache.myfaces.trinidad.render.CoreRenderer;
  * Renderer for the panelPartialRoot.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/xhtml/DocumentRenderer.java#0 $) $Date: 10-nov-2005.19:01:25 $
- * @author The Oracle ADF Faces Team
  */
 public class DocumentRenderer extends XhtmlRenderer
 {

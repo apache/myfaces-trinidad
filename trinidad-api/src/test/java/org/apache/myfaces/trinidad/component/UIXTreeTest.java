@@ -30,7 +30,6 @@ import org.apache.myfaces.trinidad.component.UIXTableTest.DoNotCallBinding;
 /**
  * Unit tests for UIXTree
  *
- * @author Arjuna Wijeyekoon
  */
 public class UIXTreeTest extends UIComponentTestCase
 {

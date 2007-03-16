@@ -40,7 +40,6 @@ import org.apache.myfaces.trinidadinternal.ui.io.XMLEscapes;
 /**
  * Implementation of ResponseWriter for outputting XHTML.
  *
- * @author The Oracle ADF Faces Team
  */
 public class XhtmlResponseWriter extends ResponseWriter
 {

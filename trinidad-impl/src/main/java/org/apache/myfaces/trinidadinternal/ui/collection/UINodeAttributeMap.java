@@ -30,7 +30,6 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
  * AttributeMap that treats a UINode as an attribute map.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/collection/UINodeAttributeMap.java#0 $) $Date: 10-nov-2005.18:57:35 $
- * @author The Oracle ADF Faces Team
  */
 public abstract class UINodeAttributeMap implements AttributeMap
 {

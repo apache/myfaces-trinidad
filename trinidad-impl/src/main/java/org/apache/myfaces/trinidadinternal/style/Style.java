@@ -32,7 +32,6 @@ import java.util.Iterator;
  * For BACKGROUND_KEY, a java.awt.Color is returned.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/Style.java#0 $) $Date: 10-nov-2005.18:57:56 $
- * @author The Oracle ADF Faces Team
  */
 public interface Style
 {

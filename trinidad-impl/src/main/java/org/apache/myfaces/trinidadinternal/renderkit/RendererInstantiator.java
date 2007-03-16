@@ -24,7 +24,6 @@ import javax.faces.render.Renderer;
  * Implements deferred loading of Renderer implementations.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/RendererInstantiator.java#0 $) $Date: 10-nov-2005.19:00:25 $
- * @author The Oracle ADF Faces Team
  */
 interface RendererInstantiator
 {

@@ -23,7 +23,6 @@ import javax.faces.application.FacesMessage;
  * Extension to FacesMessage which keeps track of the label on the component
  * that generated the message.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/util/LabeledFacesMessage.java#0 $) $Date: 10-nov-2005.19:08:38 $
- * @author The Oracle ADF Faces Team
  */
 public class LabeledFacesMessage extends FacesMessage
 {

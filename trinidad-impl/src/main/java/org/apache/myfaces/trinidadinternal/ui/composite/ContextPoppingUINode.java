@@ -36,7 +36,6 @@ import org.apache.myfaces.trinidadinternal.ui.data.DataObject;
  * Renderer used by composite UINode renderers to render content.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/composite/ContextPoppingUINode.java#0 $) $Date: 10-nov-2005.18:56:51 $
- * @author The Oracle ADF Faces Team
  */
 public class ContextPoppingUINode extends BaseUINode
 {

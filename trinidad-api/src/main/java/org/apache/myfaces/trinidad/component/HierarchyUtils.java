@@ -31,7 +31,6 @@ import org.apache.myfaces.trinidad.model.RowKeySet;
 
 /**
  * utility methods for dealing with tree structures that do disclosure.
- * @author The Oracle ADF Faces Team
  */
 public final class HierarchyUtils 
 {

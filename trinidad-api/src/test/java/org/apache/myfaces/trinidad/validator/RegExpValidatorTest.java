@@ -31,7 +31,6 @@ import org.jmock.Mock;
 /**
  * Unit tests for RegExpValidator
  *
- * @author vijay venkataraman
  */
 public class RegExpValidatorTest extends ValidatorTestCase
 {

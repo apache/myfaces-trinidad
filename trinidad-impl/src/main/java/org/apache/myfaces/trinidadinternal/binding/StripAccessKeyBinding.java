@@ -28,7 +28,6 @@ import org.apache.myfaces.trinidadinternal.util.nls.StringUtils;
  * ValueBinding that wraps a second value binding to strip
  * the mnemonic.
  *
- * @author The Oracle ADF Faces Team
  */
 public class StripAccessKeyBinding extends ValueBindingAdapter
 {

@@ -28,7 +28,6 @@ import org.apache.myfaces.trinidadinternal.image.util.MapArea;
 /**
  * Cache entry data structure which contains an image map
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/cache/MapCacheEntry.java#0 $) $Date: 10-nov-2005.19:06:10 $
- * @author The Oracle ADF Faces Team
  */
 class MapCacheEntry extends CacheEntry
 {

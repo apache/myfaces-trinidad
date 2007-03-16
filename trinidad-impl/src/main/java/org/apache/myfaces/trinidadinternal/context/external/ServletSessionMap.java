@@ -27,7 +27,6 @@ import java.util.Enumeration;
 /**
  * HttpSession attibutes as Map.
  *
- * @author Anton Koinov (latest modification by $Author: schof $)
  * @version $Revision: 382015 $ $Date: 2006-03-01 06:47:11 -0700 (Wed, 01 Mar 2006) $
  */
 class ServletSessionMap extends ModifiableAbstractAttributeMap<String, Object>

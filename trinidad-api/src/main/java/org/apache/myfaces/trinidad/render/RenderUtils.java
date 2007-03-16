@@ -32,7 +32,6 @@ import org.apache.myfaces.trinidad.component.UIXForm;
 /**
  * Generic utilities for rendering.
  *
- * @author The Oracle ADF Faces Team
  */
 public class RenderUtils
 {

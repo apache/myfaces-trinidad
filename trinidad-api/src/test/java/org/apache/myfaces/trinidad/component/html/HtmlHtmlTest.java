@@ -28,8 +28,6 @@ import org.apache.myfaces.trinidad.component.UIComponentTestCase;
 /**
  * Unit tests for HtmlHtml.
  *
- * @author Adam Winer
- * @author John Fallows
  */
 public class HtmlHtmlTest extends UIComponentTestCase
 {

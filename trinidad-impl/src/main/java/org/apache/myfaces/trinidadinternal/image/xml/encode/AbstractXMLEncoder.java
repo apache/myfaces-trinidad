@@ -40,7 +40,6 @@ import org.apache.myfaces.trinidadinternal.style.util.FontProxy;
  * Base class for XMLEncoders
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/xml/encode/AbstractXMLEncoder.java#0 $) $Date: 10-nov-2005.19:04:44 $
- * @author The Oracle ADF Faces Team
  */
 abstract public class AbstractXMLEncoder
   implements XMLEncoder, ImageConstants, XMLConstants

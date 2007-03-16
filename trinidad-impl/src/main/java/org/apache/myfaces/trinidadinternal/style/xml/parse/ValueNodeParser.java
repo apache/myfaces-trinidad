@@ -29,7 +29,6 @@ import org.apache.myfaces.trinidadinternal.style.xml.XMLConstants;
 /**
  * NodeParser for value nodes
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/xml/parse/ValueNodeParser.java#0 $) $Date: 10-nov-2005.18:58:48 $
- * @author The Oracle ADF Faces Team
  */
 public class ValueNodeParser extends BaseNodeParser
   implements XMLConstants, StyleConstants

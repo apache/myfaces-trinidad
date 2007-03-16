@@ -41,7 +41,6 @@ import org.apache.myfaces.trinidadinternal.ui.io.HTMLEscapes;
 /**
  * Implementation of ResponseWriter for outputting HTML.
  *
- * @author The Oracle ADF Faces Team
  */
 public class HtmlResponseWriter extends ResponseWriter
 {

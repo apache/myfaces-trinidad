@@ -26,7 +26,6 @@ import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
  * Abstracts out the retrieval of colorized icons given icon keys
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/ColorizedIconProvider.java#0 $) $Date: 10-nov-2005.18:52:59 $
- * @author The Oracle ADF Faces Team
  */
 public interface ColorizedIconProvider 
 {

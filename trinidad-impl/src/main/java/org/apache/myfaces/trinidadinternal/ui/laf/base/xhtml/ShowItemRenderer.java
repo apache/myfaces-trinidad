@@ -30,7 +30,6 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.SubTabBarUtils;
  * Renderer for ShowItem
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/xhtml/ShowItemRenderer.java#0 $) $Date: 10-nov-2005.18:54:13 $
- * @author The Oracle ADF Faces Team
  */
 public class ShowItemRenderer extends LinkRenderer 
 {

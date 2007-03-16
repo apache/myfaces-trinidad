@@ -39,7 +39,6 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
  * Renderer for tab bars
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/pda/TabBarRenderer.java#0 $) $Date: 10-nov-2005.18:55:06 $
- * @author The Oracle ADF Faces Team
  */
 public class TabBarRenderer extends XhtmlLafRenderer
 {

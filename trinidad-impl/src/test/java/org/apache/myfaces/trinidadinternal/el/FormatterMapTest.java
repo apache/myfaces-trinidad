@@ -26,7 +26,6 @@ import junit.framework.TestCase;
  * Unit tests for FormatterMap.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/test/java/oracle/adfinternal/view/faces/el/FormatterMapTest.java#1 $) $Date: 16-aug-2005.15:15:39 $
- * @author Adam Winer
  */
 public class FormatterMapTest extends TestCase
 {

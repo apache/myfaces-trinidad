@@ -29,7 +29,6 @@ import org.apache.myfaces.trinidadinternal.image.ImageContext;
  * set of requested properties.  Type-specific name providers are stored
  * on the ImageType using the NAME_PROVIDER_PROPERTY key.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/cache/NameProvider.java#0 $) $Date: 10-nov-2005.19:06:11 $
- * @author The Oracle ADF Faces Team
  */
 public interface NameProvider
 {

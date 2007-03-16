@@ -29,7 +29,6 @@ import org.apache.myfaces.trinidad.component.UIComponentTestCase;
 /**
  * Unit tests for UIXProcess
  *
- * @author Jeanne Waldman
  */
 public class UIXProcessTest extends UIComponentTestCase
 {

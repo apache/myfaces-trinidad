@@ -36,7 +36,6 @@ import java.util.Set;
  * to add/remove all the rowkeys in a subtree in constant time.
  * <P>
  * The generic type E is the type of a rowKey.
- * @author The Oracle ADF Faces Team
  */
 public class RowKeySetTreeImpl extends RowKeySet implements Serializable 
 {

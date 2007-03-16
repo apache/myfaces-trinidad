@@ -58,7 +58,6 @@ import org.apache.myfaces.trinidad.util.MessageFactory;
  * @see #setNoMatchMessageDetail(String)
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/validator/RegExpValidator.java#0 $) $Date: 10-nov-2005.19:08:34 $
- * @author The Oracle ADF Faces Team
  */
 public class RegExpValidator implements StateHolder, Validator
 {

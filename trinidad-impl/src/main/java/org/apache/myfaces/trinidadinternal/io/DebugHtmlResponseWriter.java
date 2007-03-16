@@ -39,7 +39,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  * mistakes in HTML output.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/io/DebugHtmlResponseWriter.java#1 $) $Date: 11-nov-2005.14:59:40 $
- * @author The Oracle ADF Faces Team
  */
 public class DebugHtmlResponseWriter extends ResponseWriterDecorator
 {

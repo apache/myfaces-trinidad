@@ -32,7 +32,6 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.ModelRendererUtils;
 /**
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/desktop/NavigationTreeRenderer.java#0 $) $Date: 10-nov-2005.18:55:25 $
- * @author The Oracle ADF Faces Team
  */
 public class NavigationTreeRenderer extends TreeRenderer
 {

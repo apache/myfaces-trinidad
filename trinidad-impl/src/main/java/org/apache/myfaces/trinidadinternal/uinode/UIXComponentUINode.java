@@ -47,7 +47,6 @@ import org.apache.myfaces.trinidad.component.UIXComponent;
  * Subclass for UIX components.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/uinode/UIXComponentUINode.java#0 $) $Date: 10-nov-2005.18:49:20 $
- * @author The Oracle ADF Faces Team
  */
 public class UIXComponentUINode extends UIComponentUINode
 {

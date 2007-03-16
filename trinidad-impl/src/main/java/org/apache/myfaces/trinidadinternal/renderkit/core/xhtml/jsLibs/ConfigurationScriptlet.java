@@ -29,7 +29,6 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
  * Scriptlet which hands off configuration information
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/xhtml/jsLibs/ConfigurationScriptlet.java#0 $) $Date: 10-nov-2005.19:02:44 $
- * @author The Oracle ADF Faces Team
  */
 public class ConfigurationScriptlet extends Scriptlet
 {

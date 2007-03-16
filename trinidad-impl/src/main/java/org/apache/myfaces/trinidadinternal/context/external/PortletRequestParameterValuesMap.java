@@ -24,7 +24,6 @@ import javax.portlet.PortletRequest;
 /**
  * PortletRequest multi-value parameters as Map.
  *
- * @author  Stan Silvert (latest modification by $Author: grantsmith $)
  * @version $Revision: 169649 $ $Date: 2005-05-11 09:47:12 -0600 (Wed, 11 May 2005) $
  */
 public class PortletRequestParameterValuesMap extends AbstractAttributeMap<String, String[]>

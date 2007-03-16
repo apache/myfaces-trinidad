@@ -39,7 +39,6 @@ import javax.faces.context.FacesContext;
  *      Service.getService(rk, DialogRenderKitService.class);
  * </pre>
  *
- * @author The Oracle ADF Faces Team
  */
 public interface DialogRenderKitService
 {

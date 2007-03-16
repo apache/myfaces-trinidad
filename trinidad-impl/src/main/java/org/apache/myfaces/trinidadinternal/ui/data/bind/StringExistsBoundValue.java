@@ -29,7 +29,6 @@ import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
  * and non-empty String;  otherwise, returns <CODE>Boolean.FALSE</CODE>.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/data/bind/StringExistsBoundValue.java#0 $) $Date: 10-nov-2005.18:56:42 $
- * @author The Oracle ADF Faces Team
  */
 public class StringExistsBoundValue implements BoundValue
 {

@@ -25,7 +25,6 @@ import javax.faces.context.FacesContext;
  * Base class for specialized Change that when applied will add a component
  *  instance to the component tree.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/change/AddComponentChange.java#0 $) $Date: 10-nov-2005.19:09:55 $
- * @author The Oracle ADF Faces Team
  */
 abstract public class AddComponentChange extends ComponentChange
 {

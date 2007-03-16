@@ -42,7 +42,6 @@ import org.apache.myfaces.trinidad.render.CoreRenderer;
  * Renderer for meta data section of the document--a.k.a <head>.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/xhtml/HeadRenderer.java#0 $) $Date: 10-nov-2005.19:01:29 $
- * @author The Oracle ADF Faces Team
  */
 public class HeadRenderer extends XhtmlRenderer
 { 

@@ -55,7 +55,6 @@ import org.apache.myfaces.trinidadinternal.util.JsonUtils;
  * @version $Name: $ ($Revision:
  *          adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/convert/DateTimeConverter.java#0 $)
  *          $Date: 10-nov-2005.19:06:22 $
- * @author The Oracle ADF Faces Team
  */
 public class DateTimeConverter extends
     org.apache.myfaces.trinidad.convert.DateTimeConverter implements

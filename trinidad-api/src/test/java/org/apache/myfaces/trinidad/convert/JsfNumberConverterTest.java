@@ -32,7 +32,6 @@ import org.apache.shale.test.mock.MockFacesContext;
 
 /**
  * Test JSF NumberConverter
- * @author Vijay Venaktaraman (vijay.venkataraman@oracle.com)
  * @version $Name: $ ($version: $) $Date: 16-aug-2005.15:12:23 $
  */
 public class JsfNumberConverterTest extends NumberConverterTestCase

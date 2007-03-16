@@ -86,7 +86,6 @@ import javax.faces.el.PropertyResolver;
  * <pre>
  * TreeModel model = new ChildPropertyTreeModel(people, "kids");
  * </pre>
- * @author The Oracle ADF Faces Team
  */
 public class ChildPropertyTreeModel extends TreeModel
 {

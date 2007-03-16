@@ -34,7 +34,6 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
  * reuse existing rendering code to render on a non-FacesBean-based
  * component.  It's also completely immutable.
  * 
- * @author The Oracle ADF Faces Team
  */
 public class ComponentFacesBean implements FacesBean
 {

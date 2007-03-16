@@ -36,7 +36,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 /**
  * Base interface for FacesBean storage.
  *
- * @author The Oracle ADF Faces Team
  */
 public class FacesBeanFactory
 {

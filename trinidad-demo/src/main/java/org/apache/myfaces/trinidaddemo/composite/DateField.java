@@ -57,7 +57,6 @@ import org.apache.myfaces.trinidad.component.core.input.CoreInputText;
  * <li>Apply Request Values and Update Model don't need to do anything special
  *  for the children;  they just run as needed.
  * </ul>
- * @author Adam Winer
  */
 public class DateField extends UIXEditableValue implements NamingContainer
 {

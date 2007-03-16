@@ -37,7 +37,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  * bundle.&nbsp; If not found checks for the resource in faces bundle.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/util/LocaleUtils.java#0 $) $Date: 10-nov-2005.19:08:38 $
- * @author The Oracle ADF Faces Team
  */
 class LocaleUtils
 {

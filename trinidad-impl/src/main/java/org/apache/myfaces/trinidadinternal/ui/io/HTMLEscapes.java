@@ -25,7 +25,6 @@ import java.io.Writer;
  * Utility class for escaping HTML text.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/io/HTMLEscapes.java#0 $) $Date: 15-nov-2005.19:26:39 $
- * @author The Oracle ADF Faces Team
  */
 public class HTMLEscapes
 {

@@ -72,7 +72,6 @@ import org.apache.myfaces.trinidad.util.MessageFactory;
  *  when validation fails based on the above-mentioned algorithm
 
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/validator/DateTimeRangeValidator.java#0 $) $Date: 10-nov-2005.19:08:33 $
- * @author The Oracle ADF Faces Team
  * @todo The error message date/time reads
  * "Date cannot be before Mon Feb 16 16:11:13 PST 2004", in a perfect the
  * date should probably be in the format of the converter....

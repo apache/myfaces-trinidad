@@ -28,7 +28,6 @@ import java.util.StringTokenizer;
  * Utilities for working with HTTP.
  * <P>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/util/CaboHttpUtils.java#0 $) $Date: 10-nov-2005.18:59:22 $
- * @author The Oracle ADF Faces Team
  */
 public class CaboHttpUtils
 {

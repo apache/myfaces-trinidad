@@ -29,7 +29,6 @@ import org.apache.myfaces.trinidad.event.DisclosureEvent;
 /**
  * Base class for ShowOne component.
  * @version $Name:  $ ($Revision$) $Date$
- * @author The Oracle ADF Faces Team
  */
 abstract public class UIXShowOneTemplate extends UIXComponentBase
 {

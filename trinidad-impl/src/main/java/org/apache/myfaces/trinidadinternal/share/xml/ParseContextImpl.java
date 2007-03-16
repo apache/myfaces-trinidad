@@ -32,7 +32,6 @@ import org.apache.myfaces.trinidadinternal.share.util.NamespaceMap;
  * use is simply creating a ParseContext so you can set properties.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/xml/ParseContextImpl.java#0 $) $Date: 10-nov-2005.18:59:12 $
- * @author The Oracle ADF Faces Team
  */
 public class ParseContextImpl implements ParseContext, Cloneable
 {

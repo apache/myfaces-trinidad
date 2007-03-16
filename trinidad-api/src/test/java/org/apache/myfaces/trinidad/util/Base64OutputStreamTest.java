@@ -32,7 +32,6 @@ import org.apache.myfaces.trinidadbuild.test.FacesTestCase;
 /**
  * Unit tests for Base64OutputStream.
  * 
- * @author Matthew Lee
  */
 public class Base64OutputStreamTest extends FacesTestCase 
 {   

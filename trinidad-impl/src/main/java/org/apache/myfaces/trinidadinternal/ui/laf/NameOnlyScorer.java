@@ -32,7 +32,6 @@ import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
  * so that the result will match the LookAndFeelExtension's family name.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/NameOnlyScorer.java#0 $) $Date: 10-nov-2005.18:50:33 $
- * @author The Oracle ADF Faces Team
  */
 public class NameOnlyScorer extends LookAndFeelScorer
 {

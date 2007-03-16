@@ -24,7 +24,6 @@ import junit.framework.TestCase;
  * Unit tests for XhtmlLafUtils.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/test/java/oracle/adfinternal/view/faces/ui/laf/base/xhtml/XhtmlLafUtilsTest.java#1 $) $Date: 16-aug-2005.15:15:42 $
- * @author John Fallows
  */
 public class XhtmlLafUtilsTest extends TestCase
 {

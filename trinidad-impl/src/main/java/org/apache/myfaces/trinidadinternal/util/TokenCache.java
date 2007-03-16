@@ -34,7 +34,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * A simple tokenized cache
- * @author The Oracle ADF Faces Team
  */
 public class TokenCache implements Serializable
 {

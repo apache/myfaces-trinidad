@@ -38,7 +38,6 @@ import org.apache.myfaces.trinidad.util.ArrayMap;
  * Renderer for the icon component.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/xhtml/IconRenderer.java#0 $) $Date: 10-nov-2005.18:53:57 $
- * @author The Oracle ADF Faces Team
  */
 public class IconRenderer implements Renderer
 {

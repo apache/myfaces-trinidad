@@ -36,7 +36,6 @@ import org.apache.myfaces.trinidadinternal.style.util.FontProxy;
  * Cache key for buttons.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/cache/CompositeButtonKey.java#0 $) $Date: 10-nov-2005.19:06:03 $
- * @author The Oracle ADF Faces Team
  */
 public class CompositeButtonKey
   implements ImageProviderRequest, CacheKey, ImageConstants

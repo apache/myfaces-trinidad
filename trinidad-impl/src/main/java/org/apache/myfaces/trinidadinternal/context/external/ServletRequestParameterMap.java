@@ -26,7 +26,6 @@ import javax.servlet.ServletRequest;
 /**
  * ServletRequest parameters as Map.
  *
- * @author Anton Koinov (latest modification by $Author: matze $)
  * @version $Revision: 167257 $ $Date: 2004-10-13 05:51:02 -0600 (Wed, 13 Oct 2004) $
  */
 public class ServletRequestParameterMap extends AbstractAttributeMap<String, String>

@@ -23,7 +23,6 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.resource;
  * appear as English even on non-English systems.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/xrts/oracle/adfinternal/view/faces/renderkit/core/resource/CoreBundle_en.java#0 $) $Date: 22-nov-2005.14:35:36 $
- * @author The Oracle ADF Faces Team
  */
 public class CoreBundle_en extends CoreBundle
 {

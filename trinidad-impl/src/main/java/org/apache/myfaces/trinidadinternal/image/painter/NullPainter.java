@@ -27,7 +27,6 @@ import java.awt.Graphics;
  * This is useful as a default value and as a transparent painter.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/painter/NullPainter.java#0 $) $Date: 10-nov-2005.19:04:59 $
- * @author The Oracle ADF Faces Team
  */
 public class NullPainter extends AbstractPainter implements BorderPainter
 {
