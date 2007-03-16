@@ -194,6 +194,12 @@ public class AgentFactoryImpl implements AgentFactory
       _populateMozillaAgentImpl(userAgent,agent);
       return;
     }
+
+    if (userAgent.startsWith("Opera")) 
+    {
+        _populateOperaAgentImpl(userAgent,agent);
+        return;
+    }
     
     if(userAgent.startsWith("BlackBerry"))
     {
@@ -612,6 +618,46 @@ public class AgentFactoryImpl implements AgentFactory
 
     //int start = agent.indexOf("rv:");
     //entry._agentVersion = _getVersion(agent, start + 2);
+
+    int paren = agent.indexOf('(');
+
+    if (paren >= 0)
+    {
+      // try to determine the OS
+      if (agent.indexOf("Win", paren) > 0)
+      {
+        agentObj.setPlatform(Agent.PLATFORM_WINDOWS);
+      }
+      else if (agent.indexOf("Mac", paren) > 0)
+      {
+        agentObj.setPlatform(Agent.PLATFORM_MACOS);
+      }
+      else if (agent.indexOf("Linux", paren) > 0)
+      {
+        agentObj.setPlatform(Agent.PLATFORM_LINUX);
+      }
+      else if (agent.indexOf("Sun", paren) > 0)
+      {
+        agentObj.setPlatform(Agent.PLATFORM_SOLARIS);
+      }
+    }
+  }
+  
+  /**
+   * Returns an AgentEntry for the Opera browser.
+   */
+  
+  private void _populateOperaAgentImpl(String agent,AgentImpl agentObj)
+  {
+    agentObj.setType(Agent.TYPE_DESKTOP);
+    agentObj.setAgent(Agent.AGENT_GECKO);
+    
+    int operaIndex = agent.indexOf("Opera/");
+    int firstSpace = agent.indexOf(" ");
+    if (operaIndex >= 0 && firstSpace >=0 )
+    {
+        agentObj.setAgentVersion(agent.substring(operaIndex + 6,firstSpace));
+    }
 
     int paren = agent.indexOf('(');
 
