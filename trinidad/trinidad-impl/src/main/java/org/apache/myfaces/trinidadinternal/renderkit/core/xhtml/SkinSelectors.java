@@ -49,6 +49,8 @@ public final class SkinSelectors
     "AFComponentMessageCell";
   public static final String AF_CONTENT_CELL_STYLE_CLASS =
     "AFContentCell";
+  public static final String AF_DATA_TEXT_STYLE_CLASS =
+    "AFDataText";
   public static final String AF_FIELD_TEXT_DISABLED_STYLE_CLASS =
     "AFFieldTextDisabled";
   public static final String AF_FIELD_TEXT_STYLE_CLASS =
@@ -93,6 +95,8 @@ public final class SkinSelectors
     "OraLinkDisabled";
   public static final String LINK_STYLE_CLASS =
     "OraLink";
+  public static final String LINK_TEXT_STYLE_CLASS =
+    "OraLinkText";
   public static final String NAV_BAR_ALINK_STYLE_CLASS =
     "OraNavBarActiveLink";
   public static final String NAV_BAR_ILINK_STYLE_CLASS =
@@ -137,10 +141,17 @@ public final class SkinSelectors
     "OraTableBorder1111";
   public static final String TABLE_SELECT_CELL_STYLE =
     "OraTableCellSelect";
+  public static final String TIP_TEXT_STYLE_CLASS = 
+    "OraTipText";
+  public static final String TIP_LABEL_STYLE_CLASS  = 
+    "OraTipLabel";
 
-  // ========================= Other ctyle classes ========================= //
+
+  // ========================= Other private style classes ========================= //
   public static final String COLOR_FIELD_SWATCH_STYLE_CLASS =
     "p_OraColorFieldSwatch";
+  public static final String DISABLED_STYLE_CLASS =
+    "p_OraDisabled";
   public static final String HEADER_NEST_STYLE_CLASS = 
     "p_OraHeaderNest";
   public static final String HIDDEN_LABEL_STYLE_CLASS =
@@ -149,6 +160,8 @@ public final class SkinSelectors
     "p_OraHideShowDisclosedSymbol";
   public static final String IN_CONTEXT_TEXT_STYLE_CLASS =
     "p_InContextBrandingText";
+  public static final String PROCESS_STATUS_STYLE_CLASS =
+    "p_OraProcessingStatus";
   public static final String QUICK_SEARCH_BOX_STYLE_CLASS =
     "p_OraQuickSearchBox";
   public static final String STATE_DISABLED = 
@@ -449,8 +462,73 @@ public final class SkinSelectors
    // menuBar is not customizable for pda or for oracle.desktop.
    // From the renderered output it looks like oracle.desktop can be
    // simulated by customizing simple.desktops renderer.
+   public static final String AF_MENU_BAR_STYLE_CLASS =
+     "af|menuBar";
+   public static final String AF_MENU_BAR_DISABLED_STYLE_CLASS =
+     "af|menuBar::disabled";
+   public static final String AF_MENU_BAR_ENABLED_STYLE_CLASS =
+     "af|menuBar::enabled";
+   public static final String AF_MENU_BAR_EMPTY_STYLE_CLASS = 
+     "af|menuBar::empty";
+   public static final String AF_MENU_BAR_BODY_STYLE_CLASS = 
+     "af|menuBar::body";
+   public static final String AF_MENU_BAR_TITLE_STYLE_CLASS = 
+     "af|menuBar::title";
+   public static final String AF_MENU_BAR_SELECTED_STYLE_CLASS =
+     "af|menuBar::selected";
+   public static final String AF_MENU_BAR_SEPARATOR_STYLE_CLASS =
+     "af|menuBar::separator";
+   
+   // ================================ Icons ================================ //
    public static final String AF_MENU_BAR_SEPARATOR_ICON_NAME =
      "af|menuBar::separator-icon";
+
+   
+   //                                                                         //
+   //                                                                         //
+   // ============================ tr:menuButtons =========================== //
+   //                                                                         //
+   //                                                                         //
+   
+   // ============================ Style classes ============================ //
+   public static final String AF_MENU_BUTTONS_IMAGE_STYLE_CLASS =
+     "af|menuButtons::icon-style";
+   public static final String AF_MENU_BUTTONS_TEXT_STYLE_CLASS =
+     "af|menuButtons::text";
+   public static final String AF_MENU_BUTTONS_TEXT_SELECTED_STYLE_CLASS =
+     "af|menuButtons::text-selected";
+   public static final String AF_MENU_BUTTONS_TEXT_DISABLED_STYLE_CLASS =
+     "af|menuButtons::text-disabled";
+
+   
+   //                                                                         //
+   //                                                                         //
+   // ============================ tr:menuChoice ============================ //
+   //                                                                         //
+   //                                                                         //
+   
+   // ============================ Style classes ============================ //
+   public static final String AF_MENU_CHOICE_LABEL_STYLE_CLASS =
+     "af|menuChoice::label";
+
+   
+   //                                                                         //
+   //                                                                         //
+   // ============================= tr:menuTabs ============================= //
+   //                                                                         //
+   //                                                                         //
+   
+   // ============================ Style classes ============================ //
+   public static final String AF_MENU_TABS_STYLE_CLASS =
+     "af|menuTabs";
+   public static final String AF_MENU_TABS_SELECTED_STYLE_CLASS =
+     "af|menuTabs::selected";
+   public static final String AF_MENU_TABS_ENABLED_STYLE_CLASS =
+     "af|menuTabs::enabled";
+   public static final String AF_MENU_TABS_DISABLED_STYLE_CLASS =
+     "af|menuTabs::disabled";
+   public static final String AF_MENU_TABS_SEPARATOR_STYLE_CLASS =
+     "af|menuTabs::separator";
 
    //                                                                         //
    //                                                                         //
@@ -459,6 +537,18 @@ public final class SkinSelectors
    //                                                                         //
    
    // ============================ Style classes ============================ //
+   public static final String AF_MESSAGES_STYLE_CLASS =
+     "af|messages";
+   public static final String AF_MESSAGES_BODY_STYLE_CLASS = 
+     "af|messages::body";
+   public static final String AF_MESSAGES_ERROR_STYLE_CLASS =
+     "af|messages::error";
+   public static final String AF_MESSAGES_HEADER_STYLE_CLASS =
+     "af|messages::header";
+   public static final String AF_MESSAGES_MESSAGE_TEXT_STYLE_CLASS =
+     "af|messages::message-text";
+   public static final String AF_MESSAGES_LIST_STYLE_CLASS =
+     "af|messages::list";
    
    // ================================ Icons ================================ //
    public static final String AF_MESSAGES_ERROR_ICON_NAME =
@@ -744,6 +834,33 @@ public final class SkinSelectors
    public static final String AF_PANEL_LIST_STYLE_CLASS =
      "af|panelList";
    
+   
+   //                                                                         //
+   //                                                                         //
+   // ============================ tr:panelPage ============================= //
+   //                                                                         //
+   //                                                                         //
+   
+   // ============================ Style classes ============================ //
+   public static final String AF_PANEL_PAGE_COPYRIGHT_STYLE_CLASS =
+     "af|panelPage::copyright";
+   public static final String AF_PANEL_PAGE_PRIVACY_STYLE_CLASS =
+     "af|panelPage::privacy";
+   public static final String AF_PANEL_PAGE_ABOUT_STYLE_CLASS =
+     "af|panelPage::about";
+   
+   
+   //                                                                         //
+   //                                                                         //
+   // =========================== tr:panelSideBar =========================== //
+   //                                                                         //
+   //                                                                         //
+   
+   // ============================ Style classes ============================ //
+   public static final String AF_PANEL_SIDE_BAR_STYLE_CLASS =
+     "af|panelSideBar";
+   public static final String AF_PANEL_SIDE_BAR_BODY_STYLE_CLASS = 
+     "af|panelSideBar::body";
    
    //                                                                         //
    //                                                                         //

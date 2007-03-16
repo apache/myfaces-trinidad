@@ -27,8 +27,6 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.BaseDesktopSkin;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
-import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafConstants;
-import org.apache.myfaces.trinidadinternal.ui.laf.simple.desktop.SimpleDesktopConstants;
 
 /**
  * Skin implementation for simple portlet
@@ -117,7 +115,7 @@ public class SimplePortletSkin  extends BaseDesktopSkin
     "af|selectOneChoice::label",
     "af|selectOneListbox::label",
     "af|selectOneRadio::label",
-    XhtmlLafConstants.AF_MENU_CHOICE_LABEL_STYLE_CLASS,
+    SkinSelectors.AF_MENU_CHOICE_LABEL_STYLE_CLASS,
     SkinSelectors.SHUTTLE_HEADER_STYLE_CLASS,
   };
 
@@ -170,9 +168,9 @@ public class SimplePortletSkin  extends BaseDesktopSkin
     SkinSelectors.AF_TABLE_SUB_CONTROL_BAR_STYLE,
     SkinSelectors.AF_TREE_TABLE_SUB_CONTROL_BAR_STYLE,
     "OraHGridLocatorHeader",
-    SimpleDesktopConstants.AF_MENU_TABS_STYLE_CLASS,
-    SimpleDesktopConstants.AF_MENU_BAR_STYLE_CLASS,
-    SimpleDesktopConstants.AF_PANEL_SIDE_BAR_STYLE_CLASS,
+    SkinSelectors.AF_MENU_TABS_STYLE_CLASS,
+    SkinSelectors.AF_MENU_BAR_STYLE_CLASS,
+    SkinSelectors.AF_PANEL_SIDE_BAR_STYLE_CLASS,
   };
 
   // These map to 'portlet-table-body' + itself (add portlet-table-body to the style class )
@@ -245,7 +243,7 @@ public class SimplePortletSkin  extends BaseDesktopSkin
     for (int i=0; i < _PORTLET_FORM_BUTTON.length; i++)
       _STYLES_MAP.put(_PORTLET_FORM_BUTTON[i], "portlet-form-button");
 
-    _STYLES_MAP.put(XhtmlLafConstants.AF_PANEL_FORM_LABEL_CELL_STYLE_CLASS, _NULL_STYLE);
+    _STYLES_MAP.put(SkinSelectors.AF_PANEL_FORM_LABEL_CELL_STYLE_CLASS, _NULL_STYLE);
 
     // End form control mappings
     // -------------------------
@@ -255,20 +253,20 @@ public class SimplePortletSkin  extends BaseDesktopSkin
     // ------------------------- //
     _STYLES_MAP.put(SkinSelectors.INLINE_ERROR_TEXT_STYLE_CLASS, "portlet-msg-error");
     _STYLES_MAP.put(SkinSelectors.INLINE_INFO_TEXT_STYLE_CLASS, "portlet-msg-info");
-    _STYLES_MAP.put(XhtmlLafConstants.PROCESS_STATUS_STYLE_CLASS, "portlet-msg-status");
-    _STYLES_MAP.put(XhtmlLafConstants.TIP_TEXT_STYLE_CLASS, "portlet-msg-info");
-    _STYLES_MAP.put(XhtmlLafConstants.TIP_LABEL_STYLE_CLASS, "portlet-msg-info");
-    _STYLES_MAP.put(SimpleDesktopConstants.AF_MESSAGES_MESSAGE_TEXT_STYLE_CLASS,"portlet-msg-error");
-    _STYLES_MAP.put(XhtmlLafConstants.ERROR_ICON_STYLE_CLASS, "portlet-msg-error");
-    _STYLES_MAP.put(XhtmlLafConstants.INFO_ICON_STYLE_CLASS, "portlet-msg-info");
-    _STYLES_MAP.put(XhtmlLafConstants.WARNING_ICON_STYLE_CLASS, "portlet-msg-alert");
-    _STYLES_MAP.put(XhtmlLafConstants.AF_MESSAGES_HEADER_STYLE_CLASS, "portlet-msg-error" );
-    _STYLES_MAP.put(SimpleDesktopConstants.AF_MESSAGES_MESSAGE_TEXT_STYLE_CLASS,"portlet-msg-error");
-    _STYLES_MAP.put(SimpleDesktopConstants.AF_MESSAGES_LIST_STYLE_CLASS, "portlet-msg-error");
-    _STYLES_MAP.put(SimpleDesktopConstants.AF_MESSAGES_BODY_STYLE_CLASS, _NULL_STYLE);
-    _STYLES_MAP.put(XhtmlLafConstants.AF_MESSAGES_ERROR_STYLE_CLASS,"portlet-msg-error");
+    _STYLES_MAP.put(SkinSelectors.PROCESS_STATUS_STYLE_CLASS, "portlet-msg-status");
+    _STYLES_MAP.put(SkinSelectors.TIP_TEXT_STYLE_CLASS, "portlet-msg-info");
+    _STYLES_MAP.put(SkinSelectors.TIP_LABEL_STYLE_CLASS, "portlet-msg-info");
+    _STYLES_MAP.put(SkinSelectors.AF_MESSAGES_MESSAGE_TEXT_STYLE_CLASS,"portlet-msg-error");
+    _STYLES_MAP.put(SkinSelectors.ERROR_ICON_STYLE_CLASS, "portlet-msg-error");
+    _STYLES_MAP.put(SkinSelectors.INFO_ICON_STYLE_CLASS, "portlet-msg-info");
+    _STYLES_MAP.put(SkinSelectors.WARNING_ICON_STYLE_CLASS, "portlet-msg-alert");
+    _STYLES_MAP.put(SkinSelectors.AF_MESSAGES_HEADER_STYLE_CLASS, "portlet-msg-error" );
+    _STYLES_MAP.put(SkinSelectors.AF_MESSAGES_MESSAGE_TEXT_STYLE_CLASS,"portlet-msg-error");
+    _STYLES_MAP.put(SkinSelectors.AF_MESSAGES_LIST_STYLE_CLASS, "portlet-msg-error");
+    _STYLES_MAP.put(SkinSelectors.AF_MESSAGES_BODY_STYLE_CLASS, _NULL_STYLE);
+    _STYLES_MAP.put(SkinSelectors.AF_MESSAGES_ERROR_STYLE_CLASS,"portlet-msg-error");
     // just to give it the same background color as table's header.
-    _STYLES_MAP.put(SimpleDesktopConstants.AF_MESSAGES_STYLE_CLASS, "portlet-table-header");
+    _STYLES_MAP.put(SkinSelectors.AF_MESSAGES_STYLE_CLASS, "portlet-table-header");
     // End message mappings      //
     // ------------------------- //
 
@@ -326,7 +324,7 @@ public class SimplePortletSkin  extends BaseDesktopSkin
     _STYLES_MAP.put(SkinSelectors.TABLE_BORDER_1101_STYLE, _NULL_STYLE);
     _STYLES_MAP.put(SkinSelectors.TABLE_BORDER_1110_STYLE, _NULL_STYLE);
     _STYLES_MAP.put(SkinSelectors.TABLE_BORDER_1111_STYLE, _NULL_STYLE);
-    _STYLES_MAP.put(SimpleDesktopConstants.AF_PANEL_SIDE_BAR_BODY_STYLE_CLASS, _NULL_STYLE);
+    _STYLES_MAP.put(SkinSelectors.AF_PANEL_SIDE_BAR_BODY_STYLE_CLASS, _NULL_STYLE);
     // End table mappings
     // -------------------
 
@@ -345,7 +343,7 @@ public class SimplePortletSkin  extends BaseDesktopSkin
 
     _STYLES_MAP.put(SkinSelectors.IN_CONTEXT_TEXT_STYLE_CLASS, _PORTLET_FONT_DIM);
     _STYLES_MAP.put(SkinSelectors.LINK_DISABLED_STYLE_CLASS, _PORTLET_FONT_DIM);
-    _STYLES_MAP.put(XhtmlLafConstants.DISABLED_STYLE_CLASS, _PORTLET_FONT_DIM);
+    _STYLES_MAP.put(SkinSelectors.DISABLED_STYLE_CLASS, _PORTLET_FONT_DIM);
     _STYLES_MAP.put(SkinSelectors.AF_SELECT_INPUT_DATE_DISABLED_STYLE_CLASS, _PORTLET_FONT_DIM);
     _STYLES_MAP.put(SkinSelectors.AF_CHOOSE_DATE_DISABLED_STYLE_CLASS, _PORTLET_FONT_DIM);
 
@@ -356,8 +354,8 @@ public class SimplePortletSkin  extends BaseDesktopSkin
     // keep boldness and alignment
     _STYLES_MAP.put("AFDataNumberDisabled", "portlet-font-dim AFDataNumberDisabled");
     _STYLES_MAP.put("AFFieldNumberDisabled", "portlet-font-dim AFFieldNumberDisabled");
-    _STYLES_MAP.put(XhtmlLafConstants.AF_MENU_BUTTONS_TEXT_DISABLED_STYLE_CLASS,"portlet-font-dim " +
-    StyleUtils.convertToValidSelector(XhtmlLafConstants.AF_MENU_BUTTONS_TEXT_DISABLED_STYLE_CLASS));
+    _STYLES_MAP.put(SkinSelectors.AF_MENU_BUTTONS_TEXT_DISABLED_STYLE_CLASS,"portlet-font-dim " +
+    StyleUtils.convertToValidSelector(SkinSelectors.AF_MENU_BUTTONS_TEXT_DISABLED_STYLE_CLASS));
 
 
     // end portlet-font-dim mappings
@@ -374,8 +372,8 @@ public class SimplePortletSkin  extends BaseDesktopSkin
     _STYLES_MAP.put("AFAddressFieldText", _PORTLET_FONT);
     // We want to keep certain aspects of these styles:
     // keep boldness
-    _STYLES_MAP.put(XhtmlLafConstants.DATA_TEXT_STYLE_CLASS,
-        "portlet-font " + XhtmlLafConstants.DATA_TEXT_STYLE_CLASS);
+    _STYLES_MAP.put(SkinSelectors.AF_DATA_TEXT_STYLE_CLASS,
+        "portlet-font " + SkinSelectors.AF_DATA_TEXT_STYLE_CLASS);
     // keep boldness and alignment
     _STYLES_MAP.put("AFDataNumber", "portlet-font AFDataNumber");
     _STYLES_MAP.put("AFFieldNumber", "portlet-font AFFieldNumber");
@@ -397,7 +395,7 @@ public class SimplePortletSkin  extends BaseDesktopSkin
     _STYLES_MAP.put(SkinSelectors.AF_PANEL_LIST_STYLE_CLASS, _PORTLET_FONT);
     _STYLES_MAP.put(SkinSelectors.AF_TRAIN_LINK_STYLE_CLASS, _PORTLET_FONT);
     _STYLES_MAP.put(SkinSelectors.LINK_STYLE_CLASS, _PORTLET_FONT);
-    _STYLES_MAP.put(XhtmlLafConstants.LINK_TEXT_STYLE_CLASS, _PORTLET_FONT);
+    _STYLES_MAP.put(SkinSelectors.LINK_TEXT_STYLE_CLASS, _PORTLET_FONT);
     _STYLES_MAP.put(SkinSelectors.AF_CHOOSE_DATE_ENABLED_STYLE_CLASS, _PORTLET_FONT);
 
     // keep boldness
@@ -421,17 +419,17 @@ public class SimplePortletSkin  extends BaseDesktopSkin
     _STYLES_MAP.put(SkinSelectors.AF_NAVIGATION_LEVEL_BAR_CONTENT_STYLE_CLASS, "portlet-font " +
     StyleUtils.convertToValidSelector(SkinSelectors.AF_NAVIGATION_LEVEL_BAR_CONTENT_STYLE_CLASS));
     // may need padding + nowrap, so we keep the style
-    _STYLES_MAP.put(XhtmlLafConstants.AF_PANEL_PAGE_PRIVACY_STYLE_CLASS, "portlet-font " +
-    StyleUtils.convertToValidSelector(XhtmlLafConstants.AF_PANEL_PAGE_PRIVACY_STYLE_CLASS));
-    _STYLES_MAP.put(XhtmlLafConstants.AF_PANEL_PAGE_ABOUT_STYLE_CLASS, "portlet-font " +
-    StyleUtils.convertToValidSelector(XhtmlLafConstants.AF_PANEL_PAGE_ABOUT_STYLE_CLASS));
-    _STYLES_MAP.put(XhtmlLafConstants.AF_PANEL_PAGE_COPYRIGHT_STYLE_CLASS, "portlet-font " +
-    StyleUtils.convertToValidSelector(XhtmlLafConstants.AF_PANEL_PAGE_COPYRIGHT_STYLE_CLASS));
+    _STYLES_MAP.put(SkinSelectors.AF_PANEL_PAGE_PRIVACY_STYLE_CLASS, "portlet-font " +
+    StyleUtils.convertToValidSelector(SkinSelectors.AF_PANEL_PAGE_PRIVACY_STYLE_CLASS));
+    _STYLES_MAP.put(SkinSelectors.AF_PANEL_PAGE_ABOUT_STYLE_CLASS, "portlet-font " +
+    StyleUtils.convertToValidSelector(SkinSelectors.AF_PANEL_PAGE_ABOUT_STYLE_CLASS));
+    _STYLES_MAP.put(SkinSelectors.AF_PANEL_PAGE_COPYRIGHT_STYLE_CLASS, "portlet-font " +
+    StyleUtils.convertToValidSelector(SkinSelectors.AF_PANEL_PAGE_COPYRIGHT_STYLE_CLASS));
     // keep padding; delete color
-    _STYLES_MAP.put(XhtmlLafConstants.AF_MENU_BUTTONS_TEXT_DISABLED_STYLE_CLASS,"portlet-font " +
-    StyleUtils.convertToValidSelector(XhtmlLafConstants.AF_MENU_BUTTONS_TEXT_DISABLED_STYLE_CLASS));
-    _STYLES_MAP.put(XhtmlLafConstants.AF_MENU_BUTTONS_TEXT_DISABLED_STYLE_CLASS,"portlet-font " +
-    StyleUtils.convertToValidSelector(XhtmlLafConstants.AF_MENU_BUTTONS_TEXT_DISABLED_STYLE_CLASS));
+    _STYLES_MAP.put(SkinSelectors.AF_MENU_BUTTONS_TEXT_DISABLED_STYLE_CLASS,"portlet-font " +
+    StyleUtils.convertToValidSelector(SkinSelectors.AF_MENU_BUTTONS_TEXT_DISABLED_STYLE_CLASS));
+    _STYLES_MAP.put(SkinSelectors.AF_MENU_BUTTONS_TEXT_DISABLED_STYLE_CLASS,"portlet-font " +
+    StyleUtils.convertToValidSelector(SkinSelectors.AF_MENU_BUTTONS_TEXT_DISABLED_STYLE_CLASS));
 
     // end portlet-font
     // -------------------
@@ -452,9 +450,9 @@ public class SimplePortletSkin  extends BaseDesktopSkin
     _STYLES_MAP.put(SkinSelectors.AF_PANEL_HEADER_STYLE_CLASS, "portlet-section-header");
     _STYLES_MAP.put(SkinSelectors.AF_PANEL_HEADER_ERROR_STYLE_CLASS, "portlet-section-header");
     _STYLES_MAP.put(SkinSelectors.AF_SHOW_DETAIL_HEADER_STYLE_CLASS, "portlet-section-header");
-    _STYLES_MAP.put(SimpleDesktopConstants.AF_PANEL_BOX_HEADER_STYLE_CLASS,
+    _STYLES_MAP.put(SkinSelectors.AF_PANEL_BOX_HEADER_STYLE_CLASS,
       "portlet-section-subheader " +
-      StyleUtils.convertToValidSelector(SimpleDesktopConstants.AF_PANEL_BOX_HEADER_STYLE_CLASS));
+      StyleUtils.convertToValidSelector(SkinSelectors.AF_PANEL_BOX_HEADER_STYLE_CLASS));
     _STYLES_MAP.put(SkinSelectors.AF_PANELACCORDION_TITLE_LINK_STYLE_CLASS,
       "portlet-section-header");
 
@@ -468,35 +466,35 @@ public class SimplePortletSkin  extends BaseDesktopSkin
      // was requested by the portal team
      //
      // tabs might be styled, so leave them alone for padding and such.
-     _STYLES_MAP.put(SimpleDesktopConstants.AF_MENU_TABS_SELECTED_STYLE_CLASS,
+     _STYLES_MAP.put(SkinSelectors.AF_MENU_TABS_SELECTED_STYLE_CLASS,
       "portlet-table-selected " +
-         StyleUtils.convertToValidSelector(SimpleDesktopConstants.AF_MENU_TABS_SELECTED_STYLE_CLASS));
-     _STYLES_MAP.put(SimpleDesktopConstants.AF_MENU_TABS_ENABLED_STYLE_CLASS,
+         StyleUtils.convertToValidSelector(SkinSelectors.AF_MENU_TABS_SELECTED_STYLE_CLASS));
+     _STYLES_MAP.put(SkinSelectors.AF_MENU_TABS_ENABLED_STYLE_CLASS,
        "portlet-table-alternate "+
-       StyleUtils.convertToValidSelector(SimpleDesktopConstants.AF_MENU_TABS_ENABLED_STYLE_CLASS));
-     _STYLES_MAP.put(SimpleDesktopConstants.AF_MENU_TABS_DISABLED_STYLE_CLASS,
+       StyleUtils.convertToValidSelector(SkinSelectors.AF_MENU_TABS_ENABLED_STYLE_CLASS));
+     _STYLES_MAP.put(SkinSelectors.AF_MENU_TABS_DISABLED_STYLE_CLASS,
        "portlet-table-alternate " +
-       StyleUtils.convertToValidSelector(SimpleDesktopConstants.AF_MENU_TABS_DISABLED_STYLE_CLASS));
-     _STYLES_MAP.put(SimpleDesktopConstants.AF_MENU_TABS_SEPARATOR_STYLE_CLASS,
+       StyleUtils.convertToValidSelector(SkinSelectors.AF_MENU_TABS_DISABLED_STYLE_CLASS));
+     _STYLES_MAP.put(SkinSelectors.AF_MENU_TABS_SEPARATOR_STYLE_CLASS,
        "portlet-table-alternate");
 
 
-     _STYLES_MAP.put(SimpleDesktopConstants.AF_MENU_BAR_BODY_STYLE_CLASS,
+     _STYLES_MAP.put(SkinSelectors.AF_MENU_BAR_BODY_STYLE_CLASS,
        _NULL_STYLE);
-     _STYLES_MAP.put(SimpleDesktopConstants.AF_MENU_BAR_TITLE_STYLE_CLASS,
+     _STYLES_MAP.put(SkinSelectors.AF_MENU_BAR_TITLE_STYLE_CLASS,
        _NULL_STYLE);
-     _STYLES_MAP.put(SimpleDesktopConstants.AF_MENU_BAR_EMPTY_STYLE_CLASS,
+     _STYLES_MAP.put(SkinSelectors.AF_MENU_BAR_EMPTY_STYLE_CLASS,
        _NULL_STYLE);
-     _STYLES_MAP.put(SimpleDesktopConstants.AF_MENU_BAR_SELECTED_STYLE_CLASS,
+     _STYLES_MAP.put(SkinSelectors.AF_MENU_BAR_SELECTED_STYLE_CLASS,
        "portlet-table-selected " +
-       StyleUtils.convertToValidSelector(SimpleDesktopConstants.AF_MENU_BAR_SELECTED_STYLE_CLASS));
-     _STYLES_MAP.put(SimpleDesktopConstants.AF_MENU_BAR_ENABLED_STYLE_CLASS,
+       StyleUtils.convertToValidSelector(SkinSelectors.AF_MENU_BAR_SELECTED_STYLE_CLASS));
+     _STYLES_MAP.put(SkinSelectors.AF_MENU_BAR_ENABLED_STYLE_CLASS,
        "portlet-table-alternate "+
-       StyleUtils.convertToValidSelector(SimpleDesktopConstants.AF_MENU_BAR_ENABLED_STYLE_CLASS));
-     _STYLES_MAP.put(SimpleDesktopConstants.AF_MENU_BAR_DISABLED_STYLE_CLASS,
+       StyleUtils.convertToValidSelector(SkinSelectors.AF_MENU_BAR_ENABLED_STYLE_CLASS));
+     _STYLES_MAP.put(SkinSelectors.AF_MENU_BAR_DISABLED_STYLE_CLASS,
        "portlet-table-alternate " +
-       StyleUtils.convertToValidSelector(SimpleDesktopConstants.AF_MENU_BAR_DISABLED_STYLE_CLASS));
-     _STYLES_MAP.put(SimpleDesktopConstants.AF_MENU_BAR_SEPARATOR_STYLE_CLASS,
+       StyleUtils.convertToValidSelector(SkinSelectors.AF_MENU_BAR_DISABLED_STYLE_CLASS));
+     _STYLES_MAP.put(SkinSelectors.AF_MENU_BAR_SEPARATOR_STYLE_CLASS,
        "portlet-table-alternate");
 
 

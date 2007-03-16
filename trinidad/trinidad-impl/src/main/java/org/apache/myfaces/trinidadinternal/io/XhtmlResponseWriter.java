@@ -19,22 +19,18 @@
 package org.apache.myfaces.trinidadinternal.io;
 
 import java.io.IOException;
-import java.io.Writer;
 import java.io.UnsupportedEncodingException;
-
+import java.io.Writer;
 import java.util.ArrayList;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidad.util.IntegerUtils;
-
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
+import org.apache.myfaces.trinidad.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.MimeTypes;
 import org.apache.myfaces.trinidadinternal.share.util.CaboHttpUtils;
-
 import org.apache.myfaces.trinidadinternal.ui.io.EscapedText;
-import org.apache.myfaces.trinidadinternal.ui.io.EscapedTextFactory;
 import org.apache.myfaces.trinidadinternal.ui.io.XMLEscapes;
 
 /**
@@ -361,7 +357,7 @@ public class XhtmlResponseWriter extends ResponseWriter
     {
       EscapedText escapedText = (EscapedText)value;
 
-      if (EscapedTextFactory.HTML_MIME_TYPE == escapedText.getMimeType())
+      if (MimeTypes.HTML.equals(escapedText.getMimeType()))
       {
         if (isAttribute)
         {
