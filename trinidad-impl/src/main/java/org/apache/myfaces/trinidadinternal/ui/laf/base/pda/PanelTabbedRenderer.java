@@ -28,7 +28,9 @@ import org.apache.myfaces.trinidadinternal.ui.partial.PartialPageRendererUtils;
 import java.io.IOException;
 
 /**
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class PanelTabbedRenderer extends org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafRenderer
 {
   @Override

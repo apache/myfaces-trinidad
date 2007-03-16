@@ -29,7 +29,9 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/desktop/PageHeaderLayoutRenderer.java#0 $) $Date: 15-nov-2005.19:26:38 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class PageHeaderLayoutRenderer extends HtmlLafRenderer
 {
   @Override

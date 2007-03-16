@@ -22,7 +22,10 @@ import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.collection.AttributeMap;
 import org.apache.myfaces.trinidadinternal.uinode.bind.ClientIdBoundValue;
 
-
+/**
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
+ */
+@Deprecated
 public class CommandNavigationItemFacesBean extends CommandLinkFacesBean
 {
   @Override

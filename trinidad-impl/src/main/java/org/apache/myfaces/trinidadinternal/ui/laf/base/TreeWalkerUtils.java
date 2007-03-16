@@ -42,11 +42,13 @@ import org.apache.myfaces.trinidadinternal.ui.BaseRenderer;
  * </ol>
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/TreeWalkerUtils.java#0 $) $Date: 10-nov-2005.18:53:09 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
 // =-AEW We also currently don't skip over non-rendered trees;  there
 // are some components that need this behavior, like table, so
 // a standard TreeWalker base class might be the best idea for
 // other components.
+@Deprecated
 public class TreeWalkerUtils
 {
   /**

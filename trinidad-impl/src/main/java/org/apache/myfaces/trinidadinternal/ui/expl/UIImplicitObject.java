@@ -38,7 +38,9 @@ import org.apache.myfaces.trinidadinternal.ui.data.bean.BeanDOAdapter;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/expl/UIImplicitObject.java#0 $) $Date: 10-nov-2005.18:56:28 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class UIImplicitObject
 {
   protected UIImplicitObject(UIVariableResolver varResolver)
@@ -194,6 +196,10 @@ public class UIImplicitObject
       }
     };
 
+  /**
+   * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
+   */
+  @Deprecated
   private final class DOLList extends AbstractList<DataObjectMap> implements DataObjectList
   {
     public DOLList(DataObjectList lst)
@@ -230,6 +236,10 @@ public class UIImplicitObject
     private final DataObjectList _lst;
   }
 
+  /**
+   * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
+   */
+  @Deprecated
   private class DataObjectMap extends AbstractMap<Object, Object> implements MutableDataObject
   {
     public DataObjectMap(DataObject dob)
@@ -290,6 +300,10 @@ public class UIImplicitObject
     private final DataObject _dob;
   }
 
+  /**
+   * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
+   */
+  @Deprecated
   private final class DataSetMap extends DataObjectMap implements DataSet
   {
     public DataSetMap(DataSet ds)
@@ -333,6 +347,10 @@ public class UIImplicitObject
     private final DataSet _ds;
   }
 
+  /**
+   * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
+   */
+  @Deprecated
   private static class DataSetImpl implements DataSet
   {
     public DataSetImpl(DataObject dob, DataObjectList dol)

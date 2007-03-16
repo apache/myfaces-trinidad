@@ -29,7 +29,9 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafUtils;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/xhtml/SelectOptionRenderer.java#0 $) $Date: 10-nov-2005.18:54:12 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class SelectOptionRenderer
        extends OptionContainerRenderer.OptionRenderer
 {

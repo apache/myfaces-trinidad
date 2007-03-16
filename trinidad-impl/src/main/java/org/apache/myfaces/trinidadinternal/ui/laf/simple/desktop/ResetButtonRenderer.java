@@ -31,7 +31,9 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
  * ResetButtonRenderer for Simple Look And Feel.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/simple/desktop/ResetButtonRenderer.java#0 $) $Date: 10-nov-2005.18:51:24 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class ResetButtonRenderer 
   extends org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.ResetButtonRenderer
 {

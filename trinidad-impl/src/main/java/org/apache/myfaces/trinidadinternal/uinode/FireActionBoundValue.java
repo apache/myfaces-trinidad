@@ -34,6 +34,10 @@ import org.apache.myfaces.trinidadinternal.ui.action.FireAction;
 
 import org.apache.myfaces.trinidad.component.UIXComponent;
 
+/**
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
+ */
+@Deprecated
 public class FireActionBoundValue implements BoundValue
 {
   public FireActionBoundValue(

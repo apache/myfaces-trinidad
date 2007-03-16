@@ -27,7 +27,9 @@ import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
  * Renderer for processChoiceBar
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/pda/ProcessChoiceBarRenderer.java#0 $) $Date: 10-nov-2005.18:55:03 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class ProcessChoiceBarRenderer extends
   org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.ProcessChoiceBarRenderer
 

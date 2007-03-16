@@ -25,7 +25,9 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
  * Unmodifiable UINodeList that merges the results of two other node lists.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/collection/UnmodifiableCompoundNodeList.java#0 $) $Date: 10-nov-2005.18:57:38 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class UnmodifiableCompoundNodeList implements UINodeList
 {
   public UnmodifiableCompoundNodeList(

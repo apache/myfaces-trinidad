@@ -26,7 +26,9 @@ import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
  * Scores a LAF based on the Laf name and the agent information.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/NameAndAgentScorer.java#0 $) $Date: 10-nov-2005.18:50:32 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class NameAndAgentScorer extends LookAndFeelScorer
 {
   /**

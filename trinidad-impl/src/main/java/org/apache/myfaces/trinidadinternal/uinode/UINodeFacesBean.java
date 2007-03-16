@@ -64,6 +64,10 @@ import org.apache.myfaces.trinidadinternal.uinode.bind.ClientIdBoundValue;
 import org.apache.myfaces.trinidadinternal.uinode.bind.PropertyBoundValue;
 import org.apache.myfaces.trinidadinternal.uinode.bind.URLBoundValue;
 
+/**
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
+ */
+@Deprecated
 public class UINodeFacesBean extends FacesBeanImpl
                              implements UIXFacesBean
 {

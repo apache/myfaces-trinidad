@@ -47,7 +47,9 @@ import org.apache.myfaces.trinidadinternal.ui.path.Path;
  *
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/desktop/PageLayoutRenderer.java#0 $) $Date: 10-nov-2005.18:55:29 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class PageLayoutRenderer extends UINodeRenderer
                   implements UIConstants, BaseDesktopConstants
 {
@@ -598,8 +600,10 @@ public class PageLayoutRenderer extends UINodeRenderer
     return locatorUserLayout;
   }
 
-
-
+  /**
+   * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
+   */
+  @Deprecated
   private static final class NetscapeBoundValue implements BoundValue
   {
     public NetscapeBoundValue(Object ifNetscapeValue, Object ifNotValue)
@@ -629,7 +633,9 @@ public class PageLayoutRenderer extends UINodeRenderer
   * and the local name passed in and returnsBoolean.TRUE if it finds such
   * a node
   *
+  * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
   */
+  @Deprecated
   private static class TreeWalkerBoundValue implements BoundValue, TreeWalker
   {
 

@@ -23,7 +23,9 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 /**
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class LinkRenderer extends org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.LinkRenderer
 {
   @Override

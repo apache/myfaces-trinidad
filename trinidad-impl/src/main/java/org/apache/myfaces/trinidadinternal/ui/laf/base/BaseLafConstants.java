@@ -23,7 +23,9 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base;
  * Constants used throughout the laf Rendering.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/BaseLafConstants.java#0 $) $Date: 10-nov-2005.18:52:56 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public interface BaseLafConstants
 {
   /** Unicode character for non-breaking space */

@@ -33,7 +33,9 @@ import org.apache.myfaces.trinidadinternal.ui.laf.simple.pda.SimplePdaUtils;
  * @see LookAndFeel
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/LookAndFeelManager.java#1 $) $Date: 07-dec-2005.15:27:47 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class LookAndFeelManager
 {
   /**

@@ -59,7 +59,9 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.MutableProperty;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/xhtml/XhtmlLafUtils.java#0 $) $Date: 10-nov-2005.18:54:20 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class XhtmlLafUtils extends BaseLafUtils
 {
   protected XhtmlLafUtils()
@@ -1377,6 +1379,10 @@ public class XhtmlLafUtils extends BaseLafUtils
   //
   // MutableProperty implementation that wraps up the array-of-stacks
   //
+  /**
+   * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
+   */
+  @Deprecated
   private final static class StyleInfo implements MutableProperty
   {
     public StyleInfo()

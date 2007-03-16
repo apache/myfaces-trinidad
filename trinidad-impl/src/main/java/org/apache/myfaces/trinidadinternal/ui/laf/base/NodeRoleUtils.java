@@ -29,7 +29,9 @@ import org.apache.myfaces.trinidadinternal.ui.path.Path;
 /**
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/NodeRoleUtils.java#0 $) $Date: 10-nov-2005.18:53:05 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class NodeRoleUtils implements UIConstants
 {
   /**
@@ -100,6 +102,10 @@ public class NodeRoleUtils implements UIConstants
             role.satisfiesRole(STRUCTURAL_ROLE);
   }
 
+  /**
+   * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
+   */
+  @Deprecated
   static private class FindRole implements TreeWalker
   {
     public Object walkNode(

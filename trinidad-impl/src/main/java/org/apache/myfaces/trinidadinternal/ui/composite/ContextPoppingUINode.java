@@ -36,7 +36,9 @@ import org.apache.myfaces.trinidadinternal.ui.data.DataObject;
  * Renderer used by composite UINode renderers to render content.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/composite/ContextPoppingUINode.java#0 $) $Date: 10-nov-2005.18:56:51 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class ContextPoppingUINode extends BaseUINode
 {
   public static ContextPoppingUINode getUINode(
@@ -204,6 +206,10 @@ public class ContextPoppingUINode extends BaseUINode
       return text + "[index=" + _childIndex + "]";
   }
 
+  /**
+   * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
+   */
+  @Deprecated
   private static class ContextPoppingRenderer implements RoledRenderer
   {
     public void render(

@@ -43,7 +43,9 @@ import org.apache.myfaces.trinidadinternal.ui.data.bind.OrBoundValue;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/xhtml/PageRenderer.java#0 $) $Date: 10-nov-2005.18:54:07 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class PageRenderer extends UINodeRenderer
 {
   @Override
@@ -210,6 +212,10 @@ public class PageRenderer extends UINodeRenderer
   }
   private static UINode _compositeNode = _createCompositeUINode();
 
+  /**
+   * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
+   */
+  @Deprecated
   private static class HasDataBoundValue implements BoundValue
   {
     public HasDataBoundValue(

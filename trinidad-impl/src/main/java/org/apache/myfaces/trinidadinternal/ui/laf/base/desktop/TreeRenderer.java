@@ -55,7 +55,9 @@ import org.apache.myfaces.trinidadinternal.uinode.UIComponentUINode;
  * specify different values of node properties at render time.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/desktop/TreeRenderer.java#0 $) $Date: 10-nov-2005.18:56:22 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class TreeRenderer extends HtmlLafRenderer
 {
   @Override
@@ -956,6 +958,10 @@ public class TreeRenderer extends HtmlLafRenderer
   // Key used by StyledTextBean to query style class
   static final String _STYLE_CLASS_KEY = "_styleClass";
 
+  /**
+   * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
+   */
+  @Deprecated
   public static class TreeImageURIBoundValue implements BoundValue
   {
     public TreeImageURIBoundValue(String imageName)

@@ -30,7 +30,9 @@ import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
  * prepended, but URLs beginning with one slash are treated
  * as server-relative (and have the first slash removed).
  * <p>
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class URLBoundValue implements BoundValue
 {
   public URLBoundValue(BoundValue base)

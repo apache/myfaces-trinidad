@@ -24,6 +24,10 @@ import javax.faces.el.ValueBinding;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
 
+/**
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
+ */
+@Deprecated
 class ValueBindingBoundValue implements BoundValue
 {
   public ValueBindingBoundValue(ValueBinding binding)

@@ -31,7 +31,9 @@ import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
  *
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/uinode/UINodeRendererBase.java#1 $) $Date: 11-nov-2005.14:59:37 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class UINodeRendererBase extends Renderer
 {
   @Override

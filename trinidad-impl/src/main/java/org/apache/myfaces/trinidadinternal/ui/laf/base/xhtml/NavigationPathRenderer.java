@@ -44,7 +44,9 @@ import org.apache.myfaces.trinidad.skin.Icon;
  * Renders the breadcrumbs UI element. (this doesn't seem to be called. Use the core one instead)
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/xhtml/NavigationPathRenderer.java#0 $) $Date: 10-nov-2005.18:54:02 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class NavigationPathRenderer extends XhtmlLafRenderer
 {
   @Override
@@ -368,6 +370,10 @@ public class NavigationPathRenderer extends XhtmlLafRenderer
   // links.  Really, it gets called _before_ each link, so we have to specially
   // handle the first time it gets called.
   //
+  /**
+   * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
+   */
+  @Deprecated
   private class BetweenRenderer implements Renderer
   {
     public BetweenRenderer(

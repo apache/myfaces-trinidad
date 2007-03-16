@@ -32,7 +32,9 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
  * Private utility methods shared by org.apache.myfaces.trinidadinternal.ui.action implementations.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/action/ActionUtils.java#0 $) $Date: 10-nov-2005.18:57:41 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 class ActionUtils
 {
   /**

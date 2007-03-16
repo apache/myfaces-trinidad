@@ -34,7 +34,9 @@ import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
  * This BoundValue is typically used to implement UINodeRenderers.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/composite/RootAttributeBoundValue.java#0 $) $Date: 10-nov-2005.18:56:52 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class RootAttributeBoundValue implements BoundValue
 {
   /**
