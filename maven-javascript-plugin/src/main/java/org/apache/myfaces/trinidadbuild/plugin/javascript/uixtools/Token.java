@@ -21,7 +21,6 @@ package org.apache.myfaces.trinidadbuild.plugin.javascript.uixtools;
 /**
  * Tokens for JavaScript source code
  * @version $Name:  $ ($Revision$) $Date$
- * @author Arjuna Wijeyekoon - arjuna.wijeyekoon@oracle.com
  */
 public class Token
 {

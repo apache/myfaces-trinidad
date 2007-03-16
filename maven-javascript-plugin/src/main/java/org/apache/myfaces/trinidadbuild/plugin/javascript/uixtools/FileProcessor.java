@@ -26,7 +26,7 @@ import java.io.FilenameFilter;
  * and write the results to corresponding output files. It supports recursing
  * into subdirectories.
  * @version $Name:  $ ($Revision$) $Date$
- * @author Arjuna Wijeyekoon (arjuna.wijeyekoon@oracle.com) */
+ */
 public abstract class FileProcessor
 {
   /**

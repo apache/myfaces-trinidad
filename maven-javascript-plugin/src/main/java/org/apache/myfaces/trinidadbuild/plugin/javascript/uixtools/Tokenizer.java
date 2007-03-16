@@ -24,7 +24,6 @@ import java.io.IOException;
 /**
  * A Tokenizer for JavaScript source files.
  * @version $Name:  $ ($Revision$) $Date$
- * @author Arjuna Wijeyekoon - arjuna.wijeyekoon@oracle.com
  */
 public class Tokenizer implements TokenReader
 {

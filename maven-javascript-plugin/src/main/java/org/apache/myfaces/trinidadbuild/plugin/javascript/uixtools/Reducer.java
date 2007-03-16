@@ -29,7 +29,6 @@ import java.io.PrintWriter;
  * Reduces JavaScript files by stripping comments and redundant whitespace
  * and renaming local variable names to shorter ones.
  * @version $Name:  $ ($Revision$) $Date$
- * @author Arjuna Wijeyekoon - arjuna.wijeyekoon@oracle.com
  */
 public class Reducer extends FileProcessor
 {

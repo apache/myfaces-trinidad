@@ -33,8 +33,6 @@ import java.util.ResourceBundle;
  * Generates JavaScript libraries containing the Locale information from
  * Java.
  * @version $Name:  $ ($Revision: 1.3 $) $Date: 2004/03/25 22:36:42 $
- * @author Blake Sullivan
- * @author Bud Osterberg
  */
 public class JSLocaleElementsGenerator
 {
@@ -783,7 +781,6 @@ public class JSLocaleElementsGenerator
 "\n" +
 "/**\n" +
 " * List of supported locales.  Automatically generated - do not modify!\n" +
-" * @author Adam Winer\n" +
 " */\n" +
 "public class LocaleList\n" +
 "{\n" +

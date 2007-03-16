@@ -25,7 +25,6 @@ import java.io.PrintWriter;
 /**
  * Converts Token Objects into a JavaScript file
  * @version $Name:  $ ($Revision$) $Date$
- * @author Arjuna Wijeyekoon - arjuna.wijeyekoon@oracle.com
  */
 public class Detokenizer
 {

@@ -20,7 +20,6 @@ package org.apache.myfaces.trinidadbuild.plugin.javascript.uixtools;
 
 /**
  * @version $Name:  $ ($Revision$) $Date$
- * @author Arjuna Wijeyekoon - arjuna.wijeyekoon@oracle.com
  */
 public class TokenException extends RuntimeException
 {
