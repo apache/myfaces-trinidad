@@ -41,7 +41,6 @@ import javax.faces.event.FacesListener;
  * such as <code>ValueChangeEvent</code> or {@link DisclosureEvent}.
  * 
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/event/AttributeChangeEvent.java#0 $) $Date: 10-nov-2005.19:08:59 $
- * @author The Oracle ADF Faces Team
  */
 public class AttributeChangeEvent extends FacesEvent
 {

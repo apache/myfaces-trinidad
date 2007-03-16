@@ -25,7 +25,6 @@ import org.apache.myfaces.trinidadinternal.image.cache.FileSystemImageCache;
 /**
  * Configuration class that works off of a RequestContext.
  *
- * @author The Oracle ADF Faces Team
  * @todo Support context-relative and server-relative URLs
  *  for the OHW servlet.
  */

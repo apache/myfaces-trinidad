@@ -28,7 +28,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  * ImageEncoder implementation for the Oracle GIF encoder.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/encode/OracleGIFEncoder.java#0 $) $Date: 10-nov-2005.19:05:20 $
- * @author The Oracle ADF Faces Team
  */
 public class OracleGIFEncoder implements ImageEncoder
 {

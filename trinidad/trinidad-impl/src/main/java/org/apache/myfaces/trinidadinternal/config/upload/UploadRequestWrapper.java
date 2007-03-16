@@ -16,7 +16,6 @@ import org.apache.myfaces.trinidadinternal.share.util.CaboHttpUtils;
  * Request wrapper class that hooks in parameters identified in
  * the servlet request.
  *
- * @author The Oracle ADF Faces Team
  */
 // TODO Stop going String -> bytes -> String;  change MultipartFormHandler
 //    to simply extract byte arrays, and do all the type conversion here.

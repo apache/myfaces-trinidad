@@ -30,7 +30,6 @@ import org.apache.myfaces.trinidad.component.core.output.CoreOutputDocument;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 
 /**
- * @author Simon Lessard, Fujitsu Consulting
  */
 public class OutputDocumentRenderer extends ValueRenderer
 {

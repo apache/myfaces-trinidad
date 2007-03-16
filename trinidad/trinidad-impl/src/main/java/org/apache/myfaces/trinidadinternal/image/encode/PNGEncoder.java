@@ -37,7 +37,6 @@ import org.apache.myfaces.trinidadinternal.image.painter.ImageLoader;
  * Generates a PNG graphics file given pixel data.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/encode/PNGEncoder.java#0 $) $Date: 10-nov-2005.19:05:21 $
- * @author The Oracle ADF Faces Team
  * @since 0.1.4
  */
 final class PNGEncoder

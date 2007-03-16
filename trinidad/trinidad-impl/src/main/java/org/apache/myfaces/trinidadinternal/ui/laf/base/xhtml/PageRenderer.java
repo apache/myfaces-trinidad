@@ -43,7 +43,6 @@ import org.apache.myfaces.trinidadinternal.ui.data.bind.OrBoundValue;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/xhtml/PageRenderer.java#0 $) $Date: 10-nov-2005.18:54:07 $
- * @author The Oracle ADF Faces Team
  */
 public class PageRenderer extends UINodeRenderer
 {

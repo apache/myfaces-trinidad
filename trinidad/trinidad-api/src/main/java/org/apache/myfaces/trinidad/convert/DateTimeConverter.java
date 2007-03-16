@@ -166,7 +166,6 @@ import org.apache.myfaces.trinidad.util.MessageFactory;
  * @see java.text.SimpleDateFormat
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/convert/DateTimeConverter.java#0 $) $Date: 10-nov-2005.19:09:11 $
- * @author The Oracle ADF Faces Team
  */
 public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
                                implements Converter, StateHolder

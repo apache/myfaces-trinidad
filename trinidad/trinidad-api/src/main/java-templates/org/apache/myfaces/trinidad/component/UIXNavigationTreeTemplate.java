@@ -36,7 +36,6 @@ import org.apache.myfaces.trinidad.model.TreeModel;
  * Base class for the NavigationTree component.
  *
  * @version $Name:  $ ($Revision$) $Date$
- * @author The Oracle ADF Faces Team
  */
 abstract public class UIXNavigationTreeTemplate extends UIXNavigationHierarchy
 {

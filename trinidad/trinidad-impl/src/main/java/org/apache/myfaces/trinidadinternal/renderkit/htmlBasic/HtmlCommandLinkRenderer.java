@@ -34,7 +34,6 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.CommandLinkRende
  * Renderer for h:commandLink.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/htmlBasic/CommandLinkRenderer.java#0 $) $Date: 10-nov-2005.19:00:39 $
- * @author The Oracle ADF Faces Team
  */
 public class HtmlCommandLinkRenderer extends Renderer
 {

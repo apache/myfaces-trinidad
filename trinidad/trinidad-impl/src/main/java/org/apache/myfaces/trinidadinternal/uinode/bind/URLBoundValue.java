@@ -30,7 +30,6 @@ import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
  * prepended, but URLs beginning with one slash are treated
  * as server-relative (and have the first slash removed).
  * <p>
- * @author The Oracle ADF Faces Team
  */
 public class URLBoundValue implements BoundValue
 {

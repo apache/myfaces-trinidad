@@ -62,7 +62,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  * </blockquote>
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/convert/RGBColorFormat.java#0 $) $Date: 10-nov-2005.19:09:13 $
- * @author The Oracle ADF Faces Team
  * @todo This class needs to be part of the public API - need to move it to
  *        place where our public API exists, once we have figured it out.
  */

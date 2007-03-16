@@ -31,7 +31,6 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/xhtml/table/ColumnData.java#0 $) $Date: 10-nov-2005.19:02:34 $
- * @author The Oracle ADF Faces Team
  */
 public final class ColumnData
 {

@@ -31,7 +31,6 @@ import org.w3c.dom.Document;
  *  persisting the added Changes at the session. This means
  *  the lifetime of Changes added such is within the session scope.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/change/SessionChangeManager.java#0 $) $Date: 10-nov-2005.19:06:35 $
- * @author The Oracle ADF Faces Team
  */
 public class SessionChangeManager extends BaseChangeManager
 {

@@ -24,7 +24,6 @@ import java.awt.Image;
 /**
  * A filter which reduces the number of colors in an image according to an Octree reduction scheme.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/encode/OctreeFilter.java#0 $) $Date: 10-nov-2005.19:05:18 $
- * @author The Oracle ADF Faces Team
  * @since 0.1.4
  * @see OctreeQuantizer 
 */

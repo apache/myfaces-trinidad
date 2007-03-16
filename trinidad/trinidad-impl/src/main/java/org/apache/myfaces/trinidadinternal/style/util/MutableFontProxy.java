@@ -28,7 +28,6 @@ package org.apache.myfaces.trinidadinternal.style.util;
  *
  * @see org.apache.myfaces.trinidadinternal.style.util.FontProxy
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/util/MutableFontProxy.java#0 $) $Date: 10-nov-2005.18:58:51 $
- * @author The Oracle ADF Faces Team
  */
 public class MutableFontProxy extends FontProxy
 {

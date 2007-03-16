@@ -26,7 +26,6 @@ import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
  * Scores a LAF based on the Laf name and the agent information.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/NameAndAgentScorer.java#0 $) $Date: 10-nov-2005.18:50:32 $
- * @author The Oracle ADF Faces Team
  */
 public class NameAndAgentScorer extends LookAndFeelScorer
 {

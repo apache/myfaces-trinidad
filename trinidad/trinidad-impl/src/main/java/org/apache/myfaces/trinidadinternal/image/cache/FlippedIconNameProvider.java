@@ -30,7 +30,6 @@ import org.apache.myfaces.trinidadinternal.image.ImageContext;
  * NameProvider implementation for colorized icons
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/cache/FlippedIconNameProvider.java#0 $) $Date: 10-nov-2005.19:06:08 $
- * @author The Oracle ADF Faces Team
  */
 public class FlippedIconNameProvider implements NameProvider
 {

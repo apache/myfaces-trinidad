@@ -35,8 +35,6 @@ import junit.framework.TestSuite;
 /**
  * Unit tests for ColorConverter
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/test/java/oracle/adf/view/faces/convert/ColorConverterTest.java#1 $) $Date: 16-aug-2005.15:12:23 $
- * @author vijay venkataraman (vijay.venkataraman@oracle.com)
- * @author Matthias Wessendorf
  */
 public class ColorConverterTest extends ConverterTestCase
 {

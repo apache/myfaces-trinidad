@@ -47,7 +47,6 @@ import org.apache.myfaces.trinidad.util.Base64OutputStream;
 /**
  * ResponseStateManager implementation for the Core RenderKit.
  * <p>
- * @author The Oracle ADF Faces Team
  */
 public class CoreResponseStateManager extends ResponseStateManager
 {

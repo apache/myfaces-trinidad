@@ -32,7 +32,6 @@ import org.apache.myfaces.trinidadinternal.ui.composite.ContextPropertyUINode;
  * Node that extends ContextPropertyUINode and renders a suffix on its
  * 'id' and 'for' attributes.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/xhtml/RepeatIdContextPropertyUINode.java#0 $) $Date: 10-nov-2005.18:54:10 $
- * @author The Oracle ADF Faces Team
  */
 
 public final class RepeatIdContextPropertyUINode extends ContextPropertyUINode

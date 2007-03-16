@@ -28,7 +28,6 @@ import org.w3c.dom.Node;
  * mark up. While applying this Change, the child component is created and added to
  * the document.  If the facet doesn't exist, it will be created.  If the facet
  * does exist, all of its content will be removed and the new content added.
- * @author The Oracle ADF Faces Team
  */
 public class SetFacetChildDocumentChange extends AddComponentDocumentChange 
 {  

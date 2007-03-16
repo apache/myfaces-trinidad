@@ -30,7 +30,6 @@ import java.util.ArrayList;
  * may only be used from one thread at a time.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/FullyBufferedWriter.java#0 $) $Date: 10-nov-2005.18:53:00 $
- * @author The Oracle ADF Faces Team
  */
 class FullyBufferedWriter extends Writer
 {

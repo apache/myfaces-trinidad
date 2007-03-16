@@ -31,7 +31,6 @@ import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
  * <p>
  * @see org.apache.myfaces.trinidadinternal.share.nls.LocaleContext
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/SkinTranslatedBoundValue.java#0 $) $Date: 10-nov-2005.18:53:07 $
- * @author The Oracle ADF Faces Team
  */
 public class SkinTranslatedBoundValue implements BoundValue
 {

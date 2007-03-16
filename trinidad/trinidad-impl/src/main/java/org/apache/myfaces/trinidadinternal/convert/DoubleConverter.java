@@ -30,7 +30,6 @@ import org.apache.myfaces.trinidad.convert.ClientConverter;
 /**
  * <p>Implementation for <code>java.lang.Double</code> values.</p>
  *
- * @author The Oracle ADF Faces Team
  */
 public class DoubleConverter extends javax.faces.convert.DoubleConverter
                              implements ClientConverter

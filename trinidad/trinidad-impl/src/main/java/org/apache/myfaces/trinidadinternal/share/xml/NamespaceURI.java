@@ -27,7 +27,6 @@ import org.apache.myfaces.trinidadinternal.share.expl.ExpressionContext;
  * Utility class to parse a string of the form
  * <CODE>namespacePrefix:name</CODE>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/xml/NamespaceURI.java#0 $) $Date: 10-nov-2005.18:59:10 $
- * @author The Oracle ADF Faces Team
  */
 public final class NamespaceURI
 {

@@ -38,7 +38,6 @@ import org.apache.myfaces.trinidadinternal.util.JsonUtils;
 /**
  * <p>Enables byte length validation at the client side. </p>
  *
- * @author The Oracle ADF Faces Team
  */
 public class ByteLengthValidator
               extends org.apache.myfaces.trinidad.validator.ByteLengthValidator

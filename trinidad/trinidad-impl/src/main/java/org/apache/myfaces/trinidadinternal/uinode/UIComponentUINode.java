@@ -50,7 +50,6 @@ import org.apache.myfaces.trinidad.component.UIXComponentBase;
  * Implements UINode and setAttributeValue().
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/uinode/UIComponentUINode.java#1 $) $Date: 11-nov-2005.14:59:38 $
- * @author The Oracle ADF Faces Team
  * @todo Thoroughly investigate performance of this class.
  */
 public class UIComponentUINode implements UINode

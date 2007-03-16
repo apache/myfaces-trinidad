@@ -22,7 +22,6 @@ package org.apache.myfaces.trinidadinternal.ui.laf.xml.parse;
  * Object which represents a single <property> element.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/xml/parse/SkinPropertyNode.java#0 $) $Date: 10-nov-2005.18:50:45 $
- * @author The Oracle ADF Faces Team
  */
 public class SkinPropertyNode
 {

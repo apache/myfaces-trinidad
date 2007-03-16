@@ -82,7 +82,6 @@ import org.apache.myfaces.trinidadinternal.share.util.CaboHttpUtils;
  * RenderKit based on UIX.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/CoreRenderKit.java#0 $) $Date: 10-nov-2005.19:01:18 $
- * @author The Oracle ADF Faces Team
  */
 public class CoreRenderKit extends RenderKitBase
                           implements DialogRenderKitService,

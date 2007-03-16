@@ -27,7 +27,6 @@ import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
 /**
  * Factory for creating TextParsers
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/xml/parse/TextParserFactory.java#0 $) $Date: 10-nov-2005.19:04:43 $
- * @author The Oracle ADF Faces Team
  */
 public class TextParserFactory implements ParserFactory
 {

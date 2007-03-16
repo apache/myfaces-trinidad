@@ -29,7 +29,6 @@ import org.apache.myfaces.trinidadinternal.ui.collection.UINodeAttributeMap;
  * to the root of the composite.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/composite/RootAttributeMap.java#0 $) $Date: 10-nov-2005.18:56:53 $
- * @author The Oracle ADF Faces Team
  */
 public class RootAttributeMap extends UINodeAttributeMap
 {

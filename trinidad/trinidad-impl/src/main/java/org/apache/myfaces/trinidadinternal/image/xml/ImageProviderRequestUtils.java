@@ -51,7 +51,6 @@ import org.apache.myfaces.trinidadinternal.image.xml.parse.TextParserFactory;
 /**
  * Utility methods for parsing and encoding ImageProviderRequest XML elements.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/xml/ImageProviderRequestUtils.java#0 $) $Date: 10-nov-2005.19:03:59 $
- * @author The Oracle ADF Faces Team
  */
 public class ImageProviderRequestUtils
 {

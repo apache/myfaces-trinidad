@@ -24,7 +24,6 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafConstants;
  * Constants used throughout the HTML Laf rendering.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/pda/PdaHtmlLafConstants.java#0 $) $Date: 10-nov-2005.18:55:01 $
- * @author The Oracle ADF Faces Team
  */
 public interface PdaHtmlLafConstants extends XhtmlLafConstants
 {

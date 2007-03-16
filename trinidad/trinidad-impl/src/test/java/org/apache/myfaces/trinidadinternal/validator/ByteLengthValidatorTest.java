@@ -33,7 +33,6 @@ import junit.framework.TestSuite;
 /**
  * Tests for ByteLenghtValidator which renderes the client side scripts.
  * the ByteLengthValidator class.
- * @author Vijay Venkataraman (vijay.venkataraman@oracle.com)
  */
 public class ByteLengthValidatorTest extends AbstractBaseTestCase
 {

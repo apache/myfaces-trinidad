@@ -33,7 +33,6 @@ import org.xml.sax.SAXParseException;
  * XML-based RTS files to the given implementation output. <p>
  *
  * @version $Name:  $ ($Revision: 1.1 $) $Date: 2001/07/09 18:15:53 $
- * @author Craig R. Cummings
  * @since RTS 2.0
  */
 public final class XRTSGenerator

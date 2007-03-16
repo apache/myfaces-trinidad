@@ -33,7 +33,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  * Base implementation of RenderKit.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/RenderKitBase.java#0 $) $Date: 10-nov-2005.19:00:26 $
- * @author The Oracle ADF Faces Team
  */
 abstract public class RenderKitBase extends RenderKit
 {

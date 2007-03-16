@@ -26,7 +26,6 @@ import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
  * results of a list of other BoundValues.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/data/bind/ConcatBoundValue.java#0 $) $Date: 10-nov-2005.18:56:37 $
- * @author The Oracle ADF Faces Team
  */
 public class ConcatBoundValue implements BoundValue
 {

@@ -26,7 +26,6 @@ import java.io.OutputStream;
  * Interface for classes which encode images.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/encode/ImageEncoder.java#0 $) $Date: 10-nov-2005.19:05:17 $
- * @author The Oracle ADF Faces Team
  */
 public interface ImageEncoder
 {

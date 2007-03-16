@@ -35,7 +35,6 @@ import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
  * Simple Look And Feel.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/simple/desktop/MessageBoxRenderer.java#0 $) $Date: 10-nov-2005.18:51:23 $
- * @author The Oracle ADF Faces Team
  */
 public class MessageBoxRenderer
   extends org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.MessageBoxRenderer

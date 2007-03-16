@@ -25,7 +25,6 @@ import java.awt.image.ImageFilter;
  * ImageFilter which produces the mirror image.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/laf/browser/MirrorImageFilter.java#0 $) $Date: 10-nov-2005.19:05:11 $
- * @author The Oracle ADF Faces Team
  */
 class MirrorImageFilter extends ImageFilter
 {

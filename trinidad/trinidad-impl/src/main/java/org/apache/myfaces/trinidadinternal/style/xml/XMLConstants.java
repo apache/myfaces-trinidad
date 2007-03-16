@@ -21,7 +21,6 @@ package org.apache.myfaces.trinidadinternal.style.xml;
 /**
  * Constants for org.apache.myfaces.trinidadinternal.style.xml.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/xml/XMLConstants.java#0 $) $Date: 10-nov-2005.18:58:00 $
- * @author The Oracle ADF Faces Team
  */
 public interface XMLConstants
 {

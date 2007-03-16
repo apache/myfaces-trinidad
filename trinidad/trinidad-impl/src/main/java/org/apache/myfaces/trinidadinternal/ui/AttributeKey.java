@@ -44,7 +44,6 @@ import java.util.Hashtable;
  *   </li>
  * </ol>  
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/AttributeKey.java#0 $) $Date: 10-nov-2005.18:50:10 $
- * @author The Oracle ADF Faces Team
  * @see org.apache.myfaces.trinidadinternal.ui.collection.AttributeMap
  * @see UINode#getAttributeValue
  * @see MutableUINode#setAttributeValue

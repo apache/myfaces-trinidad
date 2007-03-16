@@ -22,7 +22,6 @@ package org.apache.myfaces.trinidadinternal.image.encode;
  * The node elements that make up an OctreeQuantizer.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/encode/OctreeNode.java#0 $) $Date: 15-nov-2005.17:46:01 $
- * @author The Oracle ADF Faces Team
  * @since 0.1.4
  * @see OctreeQuantizer
  */

@@ -33,7 +33,6 @@ import java.security.Permission;
  * A resource loader implementation that proxies another
  * resource loader, controlling the URLConnection.
  *
- * @author The Oracle ADF Faces Team
  */
 public class ProxyResourceLoader extends ResourceLoader
 {

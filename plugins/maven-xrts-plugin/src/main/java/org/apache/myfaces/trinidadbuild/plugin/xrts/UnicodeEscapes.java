@@ -24,7 +24,6 @@ package org.apache.myfaces.trinidadbuild.plugin.xrts;
  * is a runtime version of native2ascii more or less.
  *
  * @version $Name:  $ ($Revision: 1.5 $) $Date: 2002/02/27 17:18:16 $
- * @author Craig R. Cummings
  */
 public final class UnicodeEscapes
 {

@@ -22,7 +22,6 @@ package org.apache.myfaces.trinidadinternal.share.url;
  * Interface for the encoding of URLs.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/url/URLEncoder.java#0 $) $Date: 10-nov-2005.18:59:28 $
- * @author The Oracle ADF Faces Team
  */
 public interface URLEncoder
 {

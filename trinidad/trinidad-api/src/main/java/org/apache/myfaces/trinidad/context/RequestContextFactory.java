@@ -26,7 +26,6 @@ import javax.faces.context.ExternalContext;
 /**
  * Factory for creating RequestContext objects.
  * 
- * @author The Oracle ADF Faces Team
  */
 abstract public class RequestContextFactory
 {

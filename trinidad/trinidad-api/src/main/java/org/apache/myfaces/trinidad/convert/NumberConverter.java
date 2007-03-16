@@ -110,7 +110,6 @@ import org.apache.myfaces.trinidad.util.MessageFactory;
  * @see org.apache.myfaces.trinidad.context.RequestContext
  *
  * <p>
- * @author The Oracle ADF Faces Team
  */
 public class NumberConverter extends javax.faces.convert.NumberConverter
 {

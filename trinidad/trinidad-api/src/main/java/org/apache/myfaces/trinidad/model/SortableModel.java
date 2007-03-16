@@ -35,7 +35,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 /**
  * Creates a CollectionModel that is sortable.
  * All properties that implement java.lang.Comparable are deemed sortable.
- * @author The Oracle ADF Faces Team
  */
 public class SortableModel extends CollectionModel
 {

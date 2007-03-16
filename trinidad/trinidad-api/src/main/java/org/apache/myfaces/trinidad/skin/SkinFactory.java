@@ -28,7 +28,6 @@ import javax.faces.context.FacesContext;
 /**
  * Factory for creating Skin objects.
  * 
- * @author The Oracle ADF Faces Team
  */
 abstract public class SkinFactory
 {

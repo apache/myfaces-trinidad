@@ -25,7 +25,6 @@ import org.apache.myfaces.trinidad.model.RowKeySet;
 
 /**
  * Event that is generated when the selection of a component changes.
- * @author The Oracle ADF Faces Team
  */
 public class SelectionEvent extends RowKeySetChangeEvent
 {

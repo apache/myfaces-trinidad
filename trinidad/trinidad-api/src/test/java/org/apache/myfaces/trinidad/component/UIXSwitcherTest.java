@@ -33,7 +33,6 @@ import org.jmock.Mock;
 /**
  * Unit tests for UIXSwitcher.
  *
- * @author John Fallows
  */
 public class UIXSwitcherTest extends UIComponentTestCase
 {

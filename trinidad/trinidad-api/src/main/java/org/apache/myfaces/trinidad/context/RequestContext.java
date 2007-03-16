@@ -49,7 +49,6 @@ import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
  * @todo There's some values in here that seem to affect only output (e.g.,
  *  right-to-left); that's not great, since ideally that detail would be
  *  buried in something more renderer-specific.
- * @author The Oracle ADF Faces Team
  * @mock
  */
 abstract public class RequestContext

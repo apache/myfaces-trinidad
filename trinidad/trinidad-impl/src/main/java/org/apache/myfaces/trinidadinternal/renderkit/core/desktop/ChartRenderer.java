@@ -56,7 +56,6 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.Scriptlet
  * Renderer for Chart component
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/desktop/TreeTableRenderer.java#0 $) $Date: 10-nov-2005.19:03:37 $
- * @author Venkata Guddanti
  */
 public class ChartRenderer extends XhtmlRenderer
 {

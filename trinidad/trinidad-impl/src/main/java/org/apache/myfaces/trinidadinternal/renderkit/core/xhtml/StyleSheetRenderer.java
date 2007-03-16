@@ -40,7 +40,6 @@ import org.apache.myfaces.trinidadinternal.style.StyleProvider;
  * Renderer for meta data section of the document--a.k.a &lt;head&gt;.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/xhtml/StyleSheetRenderer.java#0 $) $Date: 10-nov-2005.19:02:29 $
- * @author The Oracle ADF Faces Team
  */
 public class StyleSheetRenderer extends XhtmlRenderer
 { 

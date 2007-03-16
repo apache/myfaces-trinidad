@@ -36,7 +36,6 @@ import org.apache.myfaces.trinidadinternal.uinode.UINodeRendererBase;
  * Renderer for tree
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/uix/TreeRenderer.java#0 $) $Date: 10-nov-2005.19:00:38 $
- * @author The Oracle ADF Faces Team
  */
 public class TreeRenderer extends UINodeRendererBase
 {

@@ -31,7 +31,6 @@ import org.xml.sax.XMLReader;
  * differences between XML parsers.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/xml/XMLProvider.java#0 $) $Date: 10-nov-2005.18:59:16 $
- * @author The Oracle ADF Faces Team
  */
 public interface XMLProvider
 {

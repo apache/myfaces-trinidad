@@ -26,7 +26,6 @@ import javax.faces.context.FacesContext;
 /**
  * Stub for temporary backwards compatibility.
  *
- * @author The Oracle ADF Faces Team
  * @deprecated use public API
  */
 @Deprecated

@@ -43,7 +43,6 @@ import org.apache.myfaces.trinidad.model.SortCriterion;
  * include record navigation, sorting, selection and detail-disclosure.
  * <p>
  * @version $Name:  $ ($Revision$) $Date$
- * @author The Oracle ADF Faces Team
  */
 abstract public class UIXTableTemplate extends UIXIteratorTemplate
   implements CollectionComponent

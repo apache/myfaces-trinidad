@@ -27,7 +27,6 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 /**
  *
- * @author The Oracle ADF Faces Team
  */
 public class ResetActionListenerTag extends TagSupport
 {

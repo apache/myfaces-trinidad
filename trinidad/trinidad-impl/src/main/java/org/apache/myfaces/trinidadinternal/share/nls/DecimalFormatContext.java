@@ -22,7 +22,6 @@ package org.apache.myfaces.trinidadinternal.share.nls;
  * The DecimalFormatContext class contains all number format parameters.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/nls/DecimalFormatContext.java#0 $) $Date: 10-nov-2005.19:00:01 $
- * @author The Oracle ADF Faces Team
  */
 abstract public class DecimalFormatContext implements Cloneable
 {

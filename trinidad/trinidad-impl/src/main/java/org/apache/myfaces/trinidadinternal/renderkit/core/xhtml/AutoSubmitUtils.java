@@ -36,7 +36,6 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.XhtmlScri
  * Public utility methods useful for working with AutoSubmits
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/xhtml/AutoSubmitUtils.java#0 $) $Date: 10-nov-2005.19:01:20 $
- * @author The Oracle ADF Faces Team
  */
 public class AutoSubmitUtils
 {

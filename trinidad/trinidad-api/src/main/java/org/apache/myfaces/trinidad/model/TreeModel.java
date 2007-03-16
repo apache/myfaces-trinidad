@@ -125,7 +125,6 @@ import java.util.List;
  * setRowKey("r1f1n3");
  * getRowData();
  * </pre>
- * @author The Oracle ADF Faces Team
  */
 public abstract class TreeModel extends CollectionModel
 {

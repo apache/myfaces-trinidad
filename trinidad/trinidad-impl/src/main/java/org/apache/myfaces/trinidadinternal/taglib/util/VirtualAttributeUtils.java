@@ -30,7 +30,6 @@ import org.apache.myfaces.trinidadinternal.binding.StripAccessKeyBinding;
 
 /**
  *
- * @author The Oracle ADF Faces Team
  */
 public class VirtualAttributeUtils
 {

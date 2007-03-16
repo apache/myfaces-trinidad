@@ -40,7 +40,6 @@ import org.apache.myfaces.trinidad.model.TreeModel;
  * Base class for the Page component.
  *
  * @version $Name:  $ ($Revision$) $Date$
- * @author The Oracle ADF Faces Team
  */
 abstract public class UIXPageTemplate extends UIXMenuHierarchy
 {

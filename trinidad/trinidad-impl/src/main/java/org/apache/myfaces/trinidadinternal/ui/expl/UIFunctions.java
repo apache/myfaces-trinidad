@@ -38,7 +38,6 @@ import org.apache.myfaces.trinidad.skin.Icon;
  * In the examples in this javaDoc assume that the prefix 'ui' is bound to
  * { @link UIConstants#MARLIN_NAMESPACE }.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/expl/UIFunctions.java#0 $) $Date: 10-nov-2005.18:56:28 $
- * @author The Oracle ADF Faces Team
  */
 public final class UIFunctions
 {

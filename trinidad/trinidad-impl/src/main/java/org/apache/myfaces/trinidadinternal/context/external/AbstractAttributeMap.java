@@ -30,8 +30,6 @@ import java.util.Set;
  * Helper Map implementation for use with different Attribute Maps.
  * This was origionally taken from MyFaces.
  *
- * @author Anton Koinov
- * @author Scott O'Bryan  (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
 abstract class AbstractAttributeMap<K, V> implements Map<K, V>

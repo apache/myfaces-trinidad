@@ -25,7 +25,6 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
  * Skin implementation for simple desktop
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/skin/SimpleDesktopSkin.java#0 $) $Date: 10-nov-2005.19:02:55 $
- * @author The Oracle ADF Faces Team
  */
 public class SimpleDesktopSkin extends BaseDesktopSkin
 {

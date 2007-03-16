@@ -35,7 +35,6 @@ import javax.faces.event.FacesListener;
  * @see org.apache.myfaces.trinidad.component.DialogSource
  * @see org.apache.myfaces.trinidad.component.UIXCommand
  * @see org.apache.myfaces.trinidad.event.ReturnListener
- * @author The Oracle ADF Faces Team
  */
 public class ReturnEvent extends FacesEvent
 {

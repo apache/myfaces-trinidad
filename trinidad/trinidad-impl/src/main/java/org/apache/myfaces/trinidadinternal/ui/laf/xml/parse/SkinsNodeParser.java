@@ -34,7 +34,6 @@ import org.apache.myfaces.trinidadinternal.ui.laf.xml.XMLConstants;
  * NodeParser for &lt;skins&gt; element in trinidad-skins.xml
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/xml/parse/SkinsNodeParser.java#0 $) $Date: 10-nov-2005.18:50:46 $
- * @author The Oracle ADF Faces Team
  */
 public class SkinsNodeParser extends BaseNodeParser
   implements XMLConstants

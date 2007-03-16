@@ -27,7 +27,6 @@ import org.apache.myfaces.trinidad.util.LabeledFacesMessage;
  * LabeledFacesMessages.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/component/FacesMessageWrapper.java#0 $) $Date: 10-nov-2005.19:09:45 $
- * @author The Oracle ADF Faces Team
  */
 class FacesMessageWrapper extends LabeledFacesMessage
 {

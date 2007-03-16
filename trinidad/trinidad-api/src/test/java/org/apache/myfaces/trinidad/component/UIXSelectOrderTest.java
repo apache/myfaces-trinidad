@@ -25,8 +25,6 @@ import java.util.List;
 /**
  * Unit tests for UIXSelectOrder.
  *
- * @author Adam Winer
- * @author John Fallows
  */
 public class UIXSelectOrderTest extends UIXSelectManyTest
 {

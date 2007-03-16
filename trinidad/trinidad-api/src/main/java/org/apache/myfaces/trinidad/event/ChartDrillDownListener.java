@@ -26,7 +26,6 @@ import javax.faces.event.FacesListener;
  * Listener for ChartDrillDownEvents.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/event/ChartDrillDownListener.java#0 $) $Date: 17-sep-2006.19:09:08 $
- * @author The Oracle ADF Faces Team
  */
 public interface ChartDrillDownListener extends FacesListener
 {

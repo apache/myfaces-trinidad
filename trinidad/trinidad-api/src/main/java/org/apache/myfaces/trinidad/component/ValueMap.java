@@ -35,7 +35,6 @@ import java.io.ObjectInput;
  * 
  * it is illegal for two keys to be paired with the same value. 
  * 
- * @author The Oracle ADF Faces Team
  */
 final class ValueMap<K, V> extends AbstractMap<K, V> implements Externalizable 
 {

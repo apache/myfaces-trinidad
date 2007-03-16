@@ -40,7 +40,6 @@ import org.apache.myfaces.trinidadinternal.image.laf.browser.BlafImageUtils;
  * @see org.apache.myfaces.trinidadinternal.image.ImageType
  * @see org.apache.myfaces.trinidadinternal.image.ImageConstants
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/ImageTypeManager.java#0 $) $Date: 10-nov-2005.19:03:57 $
- * @author The Oracle ADF Faces Team
  */
 public class ImageTypeManager
 {

@@ -33,7 +33,6 @@ import javax.portlet.ActionRequest;
  * aware of the wrapping and will deploy the underlying PortletRequest/Response
  * implementations.
  *
- * @author Scott O'Bryan (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
 public class ActionRequestWrapper extends PortletRequestWrapper implements ActionRequest

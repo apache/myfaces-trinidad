@@ -35,7 +35,6 @@ import javax.faces.render.RenderKit;
  * access to servlet objects.  This object is only available
  * inside the filter.
  * 
- * @author The Oracle ADF Faces Team
  */
 class PseudoFacesContext extends FacesContext
 {

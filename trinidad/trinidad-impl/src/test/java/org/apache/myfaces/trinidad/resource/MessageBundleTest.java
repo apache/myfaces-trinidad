@@ -39,7 +39,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 /**
  * Class For testing MessageBundle
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/test/java/oracle/adf/view/faces/resource/MessageBundleTest.java#0 $) $Date: 14-oct-2005.14:49:17 $
- * @author vijay venkataraman (vijay.venkataraman@oracle.com)
  */
 public class MessageBundleTest extends TestCase
 {

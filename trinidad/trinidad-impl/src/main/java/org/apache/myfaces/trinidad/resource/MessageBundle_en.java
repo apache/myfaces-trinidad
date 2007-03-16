@@ -23,7 +23,6 @@ package org.apache.myfaces.trinidad.resource;
  * appear as English even on non-English systems.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adf/view/faces/resource/MessageBundle_en.java#0 $) $Date: 10-nov-2005.19:07:15 $
- * @author The Oracle ADF Faces Team
  */
 public class MessageBundle_en extends MessageBundle
 {

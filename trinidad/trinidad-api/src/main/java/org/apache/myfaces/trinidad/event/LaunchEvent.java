@@ -39,7 +39,6 @@ import org.apache.myfaces.trinidad.context.RequestContext;
  * using the {@link #getWindowProperties} map.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/event/LaunchEvent.java#0 $) $Date: 10-nov-2005.19:09:02 $
- * @author The Oracle ADF Faces Team
  */
 public class LaunchEvent extends FacesEvent
 {

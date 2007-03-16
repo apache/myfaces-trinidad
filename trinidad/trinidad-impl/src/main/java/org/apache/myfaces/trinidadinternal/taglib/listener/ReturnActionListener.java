@@ -29,7 +29,6 @@ import org.apache.myfaces.trinidad.context.RequestContext;
 
 /**
  * This action listener returns a value from a dialog or process.
- * @author The Oracle ADF Faces Team
  */
 public class ReturnActionListener extends FacesBeanImpl
   implements ActionListener, StateHolder

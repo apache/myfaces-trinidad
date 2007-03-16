@@ -33,7 +33,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  * @see org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser#logError
  * @see org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser#logUnexpectedElement
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/xml/ParseErrorUtils.java#0 $) $Date: 10-nov-2005.18:59:13 $
- * @author The Oracle ADF Faces Team
  */
 public class ParseErrorUtils
 {

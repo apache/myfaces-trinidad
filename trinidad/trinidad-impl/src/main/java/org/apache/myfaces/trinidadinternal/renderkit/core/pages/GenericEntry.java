@@ -43,7 +43,6 @@ import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
  * Generic entry point for all UIX JSPs.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/pages/GenericEntry.java#0 $) $Date: 05-jan-2006.13:18:09 $
- * @author The Oracle ADF Faces Team
  */
 public class GenericEntry extends InternalView
 {

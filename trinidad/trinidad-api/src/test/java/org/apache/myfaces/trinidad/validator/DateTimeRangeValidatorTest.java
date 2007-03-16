@@ -34,7 +34,6 @@ import org.jmock.Mock;
 /**
  * Unit tests for DateTimeRangeValidator.
  *
- * @author John Fallows
  */
 public class DateTimeRangeValidatorTest extends ValidatorTestCase
 {

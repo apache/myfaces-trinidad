@@ -38,7 +38,6 @@ import javax.xml.parsers.SAXParserFactory;
  * Implementation of XMLProvider that uses JAXP to access a parser.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/xml/JaxpXMLProvider.java#0 $) $Date: 10-nov-2005.18:59:08 $
- * @author The Oracle ADF Faces Team
  */
 public class JaxpXMLProvider implements XMLProvider
 {

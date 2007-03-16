@@ -24,7 +24,6 @@ package org.apache.myfaces.trinidad.model;
  * This model is used by the 'progress' components.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/model/BoundedRangeModel.java#0 $) $Date: 10-nov-2005.19:08:49 $
- * @author The Oracle ADF Faces Team
  */
 
 public abstract class BoundedRangeModel 

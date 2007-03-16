@@ -44,8 +44,6 @@ import javax.servlet.ServletRequest;
  * run in a portal and should therefore be considered optional to the run of
  * the renderkit or application if Portal compatibility is important.
  *
- * @author Scott O'Bryan (latest modification by $Author$)
- * @author Adam Winer
  *
  * @version $Revision$ $Date$
  */

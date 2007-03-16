@@ -22,7 +22,6 @@ package org.apache.myfaces.trinidadinternal.ui.io;
  * Text that is pre-escaped for output to a particular MimeType.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/io/EscapedTextFactory.java#0 $) $Date: 10-nov-2005.18:56:23 $
- * @author The Oracle ADF Faces Team
  */
 public final class EscapedTextFactory
 {

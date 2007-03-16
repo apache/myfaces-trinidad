@@ -29,7 +29,6 @@ import junit.textui.TestRunner;
 /**
  * Unit tests for UIXInput
  *
- * @author Arjuna Wijeyekoon
  */
 public class UIXInputTest extends UIComponentTestCase
 {

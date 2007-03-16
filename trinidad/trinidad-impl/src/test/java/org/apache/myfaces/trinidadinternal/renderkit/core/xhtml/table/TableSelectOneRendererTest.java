@@ -38,7 +38,6 @@ import org.jmock.Mock;
 
 
 /**
- * @author Arjuna Wijeyekoon
  */
 public class TableSelectOneRendererTest extends FacesTestCase
 {

@@ -26,7 +26,6 @@ import org.apache.myfaces.trinidad.component.UIXPanel;
 /**
  * Unit tests for CorePanelGroupLayout.
  *
- * @author John Fallows
  */
 public class CorePanelGroupLayoutTest extends UIXPanelTestCase
 {

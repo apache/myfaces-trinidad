@@ -33,7 +33,6 @@ import org.apache.myfaces.trinidad.model.TreeModel;
  * Base class for components that take a TreeModel, which is a hierarchical model.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/component/UIXHierarchy.java#0 $) $Date: 10-nov-2005.19:09:52 $
- * @author The Oracle ADF Faces Team
  */
 abstract public class UIXHierarchy extends UIXCollection implements CollectionComponent
 {

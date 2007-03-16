@@ -22,7 +22,6 @@ package org.apache.myfaces.trinidadinternal.share.expl;
  * ExpressionParser is the abstraction for parsing expressions and literal
  * values.  <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/expl/ExpressionParser.java#0 $) $Date: 10-nov-2005.19:00:13 $
- * @author The Oracle ADF Faces Team
  */
 public abstract class ExpressionParser
 {

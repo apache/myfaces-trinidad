@@ -26,7 +26,6 @@ import javax.faces.event.PhaseId;
  * Base class for the Process component, which shows the steps of a process.
  *
  * @version $Name:  $ ($Revision$) $Date$
- * @author The Oracle ADF Faces Team
  */
 abstract public class UIXProcessTemplate extends UIXMenuHierarchy
 {

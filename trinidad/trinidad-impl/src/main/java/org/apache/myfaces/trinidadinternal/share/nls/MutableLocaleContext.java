@@ -38,7 +38,6 @@ import org.apache.myfaces.trinidad.context.LocaleContext;
  * subsequent call to setDateFormatContext.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/nls/MutableLocaleContext.java#0 $) $Date: 10-nov-2005.19:00:05 $
- * @author The Oracle ADF Faces Team
  */
 // -= Simon Lessard =-
 // FIXME: Should we make LocaleContextImpl.setReadingDirection and

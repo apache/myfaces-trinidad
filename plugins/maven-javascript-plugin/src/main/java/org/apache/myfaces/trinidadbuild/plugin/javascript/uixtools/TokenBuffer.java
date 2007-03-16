@@ -25,7 +25,6 @@ import java.io.IOException;
  * buffer as if it were a queue. it is thread safe. Best if a single thread is
  * reading and a single thread is writing.
  * @version $Name:  $ ($Revision$) $Date$
- * @author Arjuna Wijeyekoon - arjuna.wijeyekoon@oracle.com
  */
 public class TokenBuffer extends Queue implements TokenReader
 {

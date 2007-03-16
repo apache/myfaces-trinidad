@@ -25,7 +25,6 @@ import java.awt.Graphics;
  * Interface implemented by objects that paint something.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/painter/Painter.java#0 $) $Date: 10-nov-2005.19:05:02 $
- * @author The Oracle ADF Faces Team
  */
 public interface Painter
 {

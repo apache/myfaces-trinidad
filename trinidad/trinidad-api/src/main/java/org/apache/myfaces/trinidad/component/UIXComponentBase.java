@@ -80,7 +80,6 @@ import org.apache.myfaces.trinidad.render.LifecycleRenderer;
  * </ul>
  * </p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/component/UIXComponentBase.java#0 $) $Date: 11-nov-2005.13:43:35 $
- * @author The Oracle ADF Faces Team
  * @todo Write Class Javadoc
  * @todo Thorough review against UIComponentBase
  */

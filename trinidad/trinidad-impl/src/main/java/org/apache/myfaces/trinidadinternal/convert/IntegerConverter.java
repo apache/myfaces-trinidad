@@ -32,7 +32,6 @@ import org.apache.myfaces.trinidad.util.IntegerUtils;
  * <p>Implementation for <code>java.lang.Integer</code> values.</p>
  *
  *
- * @author The Oracle ADF Faces Team
  */
 public class IntegerConverter extends javax.faces.convert.IntegerConverter
                               implements ClientConverter

@@ -30,7 +30,6 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
  * Renderer for rendering spacers.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/xhtml/SpacerRenderer.java#0 $) $Date: 10-nov-2005.18:54:13 $
- * @author The Oracle ADF Faces Team
  */
 public class SpacerRenderer extends XhtmlLafRenderer
 {

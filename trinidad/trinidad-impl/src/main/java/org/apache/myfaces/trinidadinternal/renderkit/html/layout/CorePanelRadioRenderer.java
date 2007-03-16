@@ -42,7 +42,6 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
  * Renderer for PanelRadio
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/html/layout/CoreShowOneRadioRenderer.java#0 $) $Date: 10-nov-2005.19:01:13 $
- * @author The Oracle ADF Faces Team
  */
 public class CorePanelRadioRenderer extends ShowOneListRendererBase
 {

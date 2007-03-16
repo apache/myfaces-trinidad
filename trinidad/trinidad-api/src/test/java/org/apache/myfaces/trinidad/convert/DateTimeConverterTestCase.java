@@ -33,7 +33,6 @@ import org.jmock.Mock;
 
 /**
  * Test DateTimeConverter
- * @author Vijay Venaktaraman (vijay.venkataraman@oracle.com)
  * @version $Name: $ ($version: $) $Date: 16-aug-2005.15:12:23 $
  */
 public abstract class DateTimeConverterTestCase extends ConverterTestCase

@@ -29,7 +29,6 @@ import org.apache.myfaces.trinidadinternal.image.ImageContext;
  * Colorized icon key class for core-color colorized icons.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/cache/CoreColorizedIconKey.java#0 $) $Date: 10-nov-2005.19:06:05 $
- * @author The Oracle ADF Faces Team
  */
 public class CoreColorizedIconKey extends BaseColorizedIconKey
 {

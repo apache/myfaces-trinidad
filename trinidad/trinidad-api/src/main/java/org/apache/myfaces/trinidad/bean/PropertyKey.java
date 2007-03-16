@@ -29,7 +29,6 @@ import org.apache.myfaces.trinidad.bean.util.StateUtils;
 /**
  * Key for an entry in a FacesBean.
  * 
- * @author The Oracle ADF Faces Team
  * 
  * @todo default values?
  * @todo some deeper concept of type?

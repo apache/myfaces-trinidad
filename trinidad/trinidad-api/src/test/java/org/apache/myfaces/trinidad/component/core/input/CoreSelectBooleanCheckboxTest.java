@@ -27,8 +27,6 @@ import org.apache.myfaces.trinidad.component.UIXEditableValueTestCase;
 /**
  * Unit tests for CoreSelectBooleanCheckbox.
  *
- * @author Adam Winer
- * @author John Fallows
  */
 public class CoreSelectBooleanCheckboxTest extends UIXEditableValueTestCase
 {

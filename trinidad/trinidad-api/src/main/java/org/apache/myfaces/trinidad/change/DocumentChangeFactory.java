@@ -22,7 +22,6 @@ package org.apache.myfaces.trinidad.change;
  * Strategy Object for converting converting ComponentChanges to
  * DocumentChanges.
  * 
- * @author The Oracle ADF Faces Team
  */
 public abstract class DocumentChangeFactory
 {

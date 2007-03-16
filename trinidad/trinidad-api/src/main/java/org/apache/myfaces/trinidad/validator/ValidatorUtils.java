@@ -28,7 +28,6 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
  * Utility class for Validators. 
  * 
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/validator/ValidatorUtils.java#0 $) $Date: 10-nov-2005.19:08:35 $
- * @author The Oracle ADF Faces Team
  */
 class ValidatorUtils 
 {

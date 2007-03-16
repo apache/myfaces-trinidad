@@ -22,7 +22,6 @@ import java.io.IOException;
 
 /**
  * @version $Name:  $ ($Revision$) $Date$
- * @author Arjuna Wijeyekoon - arjuna.wijeyekoon@oracle.com
  */
 public interface TokenReader
 {

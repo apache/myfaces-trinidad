@@ -25,7 +25,6 @@ import org.w3c.dom.Node;
  * to the underlying JSP DOM document, implement this interface to avoid requiring
  * a converter class be registered with the ChangeMananger
  * 
- * @author The Oracle ADF Faces Team
  */
 public interface DocumentChange
 {

@@ -27,7 +27,6 @@ import org.apache.myfaces.trinidadinternal.image.ImageConstants;
  * CacheKeyFactory implementation for colorized icon keys
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/cache/ColorizedIconKeyFactory.java#0 $) $Date: 10-nov-2005.19:06:02 $
- * @author The Oracle ADF Faces Team
  */
 public class ColorizedIconKeyFactory implements CacheKeyFactory
 {

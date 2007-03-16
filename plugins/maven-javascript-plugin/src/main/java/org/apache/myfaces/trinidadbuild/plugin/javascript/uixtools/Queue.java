@@ -25,7 +25,6 @@ import java.util.List;
  * elements to this queue, and another will remove elements from this queue.
  * This class is thread safe.
  * @version $Name:  $ ($Revision$) $Date$
- * @author Arjuna Wijeyekoon (arjuna.wijeyekoon@oracle.com)
  */
 public class Queue
 {

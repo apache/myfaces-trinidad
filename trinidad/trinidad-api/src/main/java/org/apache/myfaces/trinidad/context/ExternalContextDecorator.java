@@ -34,7 +34,6 @@ import javax.faces.context.ExternalContext;
 /**
  * Base class for decorating ExternalContexts.
  *
- * @author The Oracle ADF Faces Team
  */
 abstract public class ExternalContextDecorator extends ExternalContext
 {

@@ -29,7 +29,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  * 'state' here means the state as served by saveState() method in interface
  * javax.faces.component.StateHolder.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/change/ChangeComponentProxy.java#0 $) $Date: 10-nov-2005.19:09:57 $
- * @author The Oracle ADF Faces Team
  * @todo =-=pu: saveState() just saves the state of this component, what if we
  *    were to represent a component subtree in ChangeComponentProxy. We would
  *    need to do things similar to UIComponent.processSaveState() does with the

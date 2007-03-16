@@ -26,7 +26,6 @@ import org.apache.myfaces.trinidad.component.UIXObject;
 /**
  * Unit tests for CoreSpacer.
  *
- * @author John Fallows
  */
 public class CoreSpacerTest extends UIXObjectTestCase
 {

@@ -26,7 +26,6 @@ import java.util.Map;
  * an instance of this object.
  * All resources with the name "/META-INF/region-metadata.xml" will be searched.
  * /WEB-INF/region-metadata.xml will also be searched.
- * @author The Oracle ADF Faces Team
  */
 public abstract class RegionManager 
 {

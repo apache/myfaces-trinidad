@@ -27,7 +27,6 @@ import org.apache.myfaces.trinidad.model.RowKeySet;
 /**
  * Event that is generated when nodes are expanded or collapsed in a tree
  * component.
- * @author The Oracle ADF Faces Team
  */
 public class RowDisclosureEvent extends RowKeySetChangeEvent
 {

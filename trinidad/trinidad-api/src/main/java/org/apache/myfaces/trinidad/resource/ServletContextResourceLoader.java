@@ -27,7 +27,6 @@ import javax.servlet.ServletContext;
  * A resource loader implementation which loads resources
  * using the servlet context.
  *
- * @author The Oracle ADF Faces Team
  */
 public class ServletContextResourceLoader extends ResourceLoader
 {

@@ -32,7 +32,6 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
  * Base class for Java code that is capable of adding scripts to a page.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/xhtml/jsLibs/Scriptlet.java#1 $) $Date: 11-nov-2005.14:59:39 $
- * @author The Oracle ADF Faces Team
  */
 abstract public class Scriptlet
 {

@@ -32,7 +32,6 @@ import org.jmock.Mock;
  * Base class for unit tests of Converters
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/test/java/oracle/adf/view/faces/convert/ConverterTestCase.java#0 $) $Date: 17-oct-2005.16:28:54 $
- * @author vijay venkatarman (vijay.venkataraman@oracle.com)
  *
  */
 public abstract class ConverterTestCase extends AbstractBaseTestCase

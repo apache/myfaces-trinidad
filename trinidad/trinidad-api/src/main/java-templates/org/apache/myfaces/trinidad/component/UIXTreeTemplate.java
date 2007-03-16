@@ -35,7 +35,6 @@ import org.apache.myfaces.trinidad.event.SelectionEvent;
 /**
  * Base class for Tree component.
  * @version $Name:  $ ($Revision$) $Date$
- * @author The Oracle ADF Faces Team
  */
 abstract public class UIXTreeTemplate extends UIXHierarchy
 {

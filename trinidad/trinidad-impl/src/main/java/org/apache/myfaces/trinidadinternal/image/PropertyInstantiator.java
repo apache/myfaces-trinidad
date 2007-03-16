@@ -27,7 +27,6 @@ import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
  * loading of type-specific properties.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/PropertyInstantiator.java#0 $) $Date: 10-nov-2005.19:03:58 $
- * @author The Oracle ADF Faces Team
  */
 public class PropertyInstantiator
 {

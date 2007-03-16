@@ -33,7 +33,6 @@ import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
  * its results to the specified java type.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/data/bind/ConvertBoundValue.java#0 $) $Date: 10-nov-2005.18:56:38 $
- * @author The Oracle ADF Faces Team
  */
 public class ConvertBoundValue implements BoundValue
 {

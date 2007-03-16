@@ -34,7 +34,6 @@ package org.apache.myfaces.trinidad.config;
  * </pre>
  * The regionType of a region is defined to be the 
  * componentType of that component.  
- * @author The Oracle ADF Faces Team
  */
 public abstract class RegionConfig extends ComponentConfig
 {

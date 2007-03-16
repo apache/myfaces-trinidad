@@ -26,7 +26,6 @@ import org.apache.myfaces.trinidad.context.RequestContext;
 /**
  * VariableResolver decorator used by Trinidad.
  * <p>
- * @author The Oracle ADF Faces Team
  */
 public class TrinidadVariableResolver extends VariableResolver
 {

@@ -38,7 +38,6 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
  * Renderer for global headers
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/pda/GlobalHeaderRenderer.java#0 $) $Date: 10-nov-2005.18:54:56 $
- * @author The Oracle ADF Faces Team
  */
 public class GlobalHeaderRenderer extends XhtmlLafRenderer
 {

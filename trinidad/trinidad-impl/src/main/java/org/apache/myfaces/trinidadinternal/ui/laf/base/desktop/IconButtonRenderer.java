@@ -35,7 +35,6 @@ import org.apache.myfaces.trinidad.skin.Icon;
  * to specify the name of the button's Icon.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/desktop/IconButtonRenderer.java#0 $) $Date: 10-nov-2005.18:55:23 $
- * @author The Oracle ADF Faces Team
  */
 abstract public class IconButtonRenderer extends HtmlLafRenderer
 {

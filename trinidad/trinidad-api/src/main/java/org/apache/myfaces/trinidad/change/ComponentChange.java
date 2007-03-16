@@ -29,7 +29,6 @@ import javax.faces.component.UIComponent;
  *  creation of the view, in the 
  *  same order in which they were added.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/change/ComponentChange.java#0 $) $Date: 10-nov-2005.19:09:59 $
- * @author The Oracle ADF Faces Team
  */
 abstract public class ComponentChange implements Serializable
 {

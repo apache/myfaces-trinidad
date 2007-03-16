@@ -35,7 +35,6 @@ import org.apache.myfaces.trinidadinternal.uinode.UINodeRendererBase;
  * Renderer for process components: processTrain and processChoiceBar
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/uix/ProcessRenderer.java#0 $) $Date: 10-nov-2005.19:00:32 $
- * @author The Oracle ADF Faces Team
  */
 public class ProcessRenderer extends UINodeRendererBase
 {

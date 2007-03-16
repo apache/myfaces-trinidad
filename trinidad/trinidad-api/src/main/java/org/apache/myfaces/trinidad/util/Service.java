@@ -45,7 +45,6 @@ import javax.faces.render.RenderKit;
  *      ServiceUtils.getService(rk, DialogService.class);
  * </pre>
  * </p>
- * @author The Oracle ADF Faces Team
  */
 public class Service
 {

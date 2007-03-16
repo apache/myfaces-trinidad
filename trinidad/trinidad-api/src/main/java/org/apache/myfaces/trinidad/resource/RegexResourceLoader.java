@@ -38,7 +38,6 @@ import java.util.regex.Pattern;
  *             one to add more type safety with minimal memory overhaul
  *             and get a really small performance gain. 
  *
- * @author The Oracle ADF Faces Team
  */
 public class RegexResourceLoader extends ResourceLoader
 {

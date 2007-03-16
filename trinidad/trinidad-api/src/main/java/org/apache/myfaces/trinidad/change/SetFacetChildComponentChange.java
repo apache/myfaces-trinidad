@@ -26,7 +26,6 @@ import javax.faces.component.UIComponent;
  *  as a facet. If there were to be a facet by the specified name already, it 
  *  will be replaced.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/change/SetFacetChildComponentChange.java#0 $) $Date: 10-nov-2005.19:10:02 $
- * @author The Oracle ADF Faces Team
  */
 public class SetFacetChildComponentChange extends AddComponentChange 
 {

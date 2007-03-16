@@ -25,7 +25,6 @@ import org.w3c.dom.Node;
 /**
  * Change specialization for change in attributes.
  * While applying this Change, the specified attribute state is  restored.
- * @author The Oracle ADF Faces Team
  */
 public class AttributeDocumentChange implements DocumentChange 
 {

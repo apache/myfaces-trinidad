@@ -24,7 +24,6 @@ import javax.faces.context.FacesContext;
  * Base class for Form component.
  * <p>
  * @version $Name:  $ ($Revision$) $Date$
- * @author The Oracle ADF Faces Team
  */
 abstract public class UIXFormTemplate extends UIXComponentBase
 {

@@ -34,7 +34,6 @@ import org.apache.myfaces.trinidadinternal.ui.UIConstants;
  * A LookAndFeel which extends another LookAndFeel, possibly adding
  * customizations.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/LookAndFeelExtension.java#0 $) $Date: 10-nov-2005.18:50:30 $
- * @author The Oracle ADF Faces Team
  */
 public class LookAndFeelExtension extends LookAndFeel
 {

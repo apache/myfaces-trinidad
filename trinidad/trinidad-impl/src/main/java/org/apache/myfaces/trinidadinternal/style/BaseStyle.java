@@ -28,7 +28,6 @@ import org.apache.myfaces.trinidad.util.ArrayMap;
 /**
  * Base class for Style implementations
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/BaseStyle.java#0 $) $Date: 10-nov-2005.18:57:54 $
- * @author The Oracle ADF Faces Team
  */
 abstract public class BaseStyle implements Style, Serializable
 {

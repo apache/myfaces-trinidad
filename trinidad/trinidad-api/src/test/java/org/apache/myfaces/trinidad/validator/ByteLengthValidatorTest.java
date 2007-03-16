@@ -31,7 +31,6 @@ import junit.framework.TestSuite;
 /**
  * Unit tests for ByteLengthValidator
  *
- * @author vijay venkataraman
  */
 public class ByteLengthValidatorTest extends ValidatorTestCase
 {

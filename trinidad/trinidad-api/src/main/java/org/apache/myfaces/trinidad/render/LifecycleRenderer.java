@@ -29,7 +29,6 @@ import javax.faces.context.FacesContext;
  * UIComponent.processValidators(), processDecode(), and processUpdates().
  * (This requires that the component be a subclass of UIXComponentBase.)
  *
- * @author The Oracle ADF Faces Team
  */
 public interface LifecycleRenderer
 {

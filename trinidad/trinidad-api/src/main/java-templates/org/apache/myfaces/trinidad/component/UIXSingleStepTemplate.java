@@ -31,7 +31,6 @@ import javax.faces.event.PhaseId;
  * Base class for singleStep components
  *
  * @version $Name:  $ ($Revision$) $Date$
- * @author The Oracle ADF Faces Team
  * @todo =-=jmw should the text attribute be on the
  * base component?
  */

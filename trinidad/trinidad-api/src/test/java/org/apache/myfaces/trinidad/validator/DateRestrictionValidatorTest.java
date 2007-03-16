@@ -37,7 +37,6 @@ import org.jmock.Mock;
 /**
  * Unit tests for DateRestrictionValidator.
  *
- * @author Matthias Wessendorf
  */
 public class DateRestrictionValidatorTest extends ValidatorTestCase
 {

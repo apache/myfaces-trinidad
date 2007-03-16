@@ -35,7 +35,6 @@ import org.apache.myfaces.trinidadinternal.util.TokenCache;
 
 /**
  *
- * @author The Oracle ADF Faces Team
  */
 class PageFlowScopeMap implements Map<String, Object>, Serializable
 {

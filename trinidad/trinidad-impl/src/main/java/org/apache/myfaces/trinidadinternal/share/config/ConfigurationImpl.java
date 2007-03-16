@@ -29,7 +29,6 @@ import java.util.Hashtable;
  * for information on the configuration architecture.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/config/ConfigurationImpl.java#0 $) $Date: 10-nov-2005.19:00:19 $
- * @author The Oracle ADF Faces Team
  */
 public class ConfigurationImpl extends Configuration
 {

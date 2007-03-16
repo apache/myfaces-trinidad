@@ -26,7 +26,6 @@ import java.util.HashMap;
 /**
  * Renames local variable names to short ones
  * @version $Name:  $ ($Revision$) $Date$
- * @author Arjuna Wijeyekoon - arjuna.wijeyekoon@oracle.com
  */
 public class Filter2 implements TokenReader
 {

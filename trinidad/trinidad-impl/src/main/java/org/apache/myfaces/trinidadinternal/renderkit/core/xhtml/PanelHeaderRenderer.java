@@ -33,7 +33,6 @@ import org.apache.myfaces.trinidad.skin.Icon;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/desktop/HeaderRenderer.java#0 $) $Date: 10-nov-2005.18:55:17 $
- * @author The Oracle ADF Faces Team
  */
 public class PanelHeaderRenderer extends XhtmlRenderer
 {

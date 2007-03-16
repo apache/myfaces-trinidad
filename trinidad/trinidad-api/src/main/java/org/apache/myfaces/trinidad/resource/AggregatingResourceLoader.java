@@ -36,7 +36,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  * A resource loader implementation which combines multiple resources
  * into a single stream.  This version leverages the DynamicResourceLoader.
  *
- * @author The Oracle ADF Faces Team
  */
 public class AggregatingResourceLoader extends DynamicResourceLoader
 {

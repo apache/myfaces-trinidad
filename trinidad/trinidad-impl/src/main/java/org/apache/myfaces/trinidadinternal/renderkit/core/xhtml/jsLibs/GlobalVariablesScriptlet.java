@@ -31,7 +31,6 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
  * Scriptlet which defines global variable needed by Common.js
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/xhtml/jsLibs/GlobalVariablesScriptlet.java#0 $) $Date: 10-nov-2005.19:02:46 $
- * @author The Oracle ADF Faces Team
  */
 public class GlobalVariablesScriptlet extends Scriptlet
 {

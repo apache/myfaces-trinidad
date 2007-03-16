@@ -38,7 +38,6 @@ import org.apache.myfaces.trinidadinternal.util.ExternalContextUtils;
 /**
  * This configurator will handle the FileUploads for Trinidad.
  *
- * @author Scott O'Bryan (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
 public class FileUploadConfiguratorImpl extends Configurator

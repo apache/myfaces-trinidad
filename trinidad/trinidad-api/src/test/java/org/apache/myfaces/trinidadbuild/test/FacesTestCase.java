@@ -37,8 +37,6 @@ import org.jmock.Mock;
  * Base class for JavaServer Faces unit tests.
  * Acts as a wrapper class to <code>AbstractJsfTestCase</code>
  * 
- * @author John Fallows
- * @author Matthias Wessendorf
  */
 public class FacesTestCase extends AbstractJmockJsfTestCase
 {

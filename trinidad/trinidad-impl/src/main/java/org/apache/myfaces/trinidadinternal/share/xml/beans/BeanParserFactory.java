@@ -29,7 +29,6 @@ import java.util.Map;
  * A ParserFactory that uses BeanDefs to define how to parse
  * elements.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/xml/beans/BeanParserFactory.java#0 $) $Date: 10-nov-2005.18:59:19 $
- * @author The Oracle ADF Faces Team
  */
 public class BeanParserFactory implements ParserFactory
 {

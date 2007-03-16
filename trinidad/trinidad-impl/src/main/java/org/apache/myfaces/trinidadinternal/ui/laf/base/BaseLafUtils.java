@@ -58,7 +58,6 @@ import org.apache.myfaces.trinidad.util.IntegerUtils;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/BaseLafUtils.java#0 $) $Date: 10-nov-2005.18:52:57 $
- * @author The Oracle ADF Faces Team
  */
 public class BaseLafUtils implements UIConstants
 {

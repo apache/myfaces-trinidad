@@ -30,7 +30,6 @@ import javax.faces.context.ResponseWriter;
  * get repeating ids on the page.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/io/RepeatIdResponseWriter.java#0 $) $Date: 10-nov-2005.19:03:50 $
- * @author The Oracle ADF Faces Team
  * @todo Move to renderkit.core
  */
 public class RepeatIdResponseWriter extends ResponseWriterDecorator

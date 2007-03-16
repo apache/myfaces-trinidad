@@ -24,7 +24,6 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base;
  * objects to protect changed values from 'escaping' out of the try block.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/MutableProperty.java#0 $) $Date: 10-nov-2005.18:53:04 $
- * @author The Oracle ADF Faces Team
  */
 // =-=AEW This interface might move outside of laf.base if it is deemed
 // necessary.  Keep it here unless there's an important reason to expose

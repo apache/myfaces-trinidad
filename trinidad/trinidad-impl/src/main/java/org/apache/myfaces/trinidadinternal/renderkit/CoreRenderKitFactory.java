@@ -30,7 +30,6 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 /**
  * RenderKitFactory that implements CoreRenderKit switching.
  * 
- * @author The Oracle ADF Faces Team
  */
 public class CoreRenderKitFactory extends RenderKitFactory
 {

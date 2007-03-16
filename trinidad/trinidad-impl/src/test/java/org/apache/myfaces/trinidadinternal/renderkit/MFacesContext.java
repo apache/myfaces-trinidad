@@ -46,7 +46,6 @@ import org.apache.shale.test.mock.MockFacesContext;
 
 /**
  * Mock faces context for use with unit tests
- * @author Arjuna Wijeyekoon
  */
 public class MFacesContext extends MockFacesContext
 {

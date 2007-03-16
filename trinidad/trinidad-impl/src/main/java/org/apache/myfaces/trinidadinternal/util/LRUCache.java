@@ -27,7 +27,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 /**
  * A VERY simple LRU cache.
  * <p>
- * @author The Oracle ADF Faces Team
  */
 public class LRUCache<K, V> extends LinkedHashMap<K, V>
 {

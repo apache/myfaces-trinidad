@@ -28,7 +28,6 @@ import org.apache.myfaces.trinidadinternal.share.util.FastMessageFormat;
 /**
  * Map implementation that provides a functor for message formatting.
  * <p>
- * @author The Oracle ADF Faces Team
  */
 public class FormatterMap extends AbstractMap<Object, Map<Object,String>>
 {

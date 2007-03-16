@@ -33,7 +33,6 @@ import java.util.Map;
  * similar with styles.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/skin/SkinStyleSheetNode.java#0 $) $Date: 10-nov-2005.18:58:59 $
 
- * @author The Oracle ADF Faces Team
  */
 class SkinStyleSheetNode
 {

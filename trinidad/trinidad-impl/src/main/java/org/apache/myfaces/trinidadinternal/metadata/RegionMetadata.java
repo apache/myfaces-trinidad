@@ -51,7 +51,6 @@ import org.xml.sax.helpers.DefaultHandler;
 
 /**
  * This class contains metadata for region components.
- * @author The Oracle ADF Faces Team
  */
 public final class RegionMetadata extends RegionManager
 {

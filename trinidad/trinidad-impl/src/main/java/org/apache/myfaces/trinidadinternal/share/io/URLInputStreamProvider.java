@@ -29,7 +29,6 @@ import java.net.URLConnection;
  * An InputStreamProvider for opening URLs.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/io/URLInputStreamProvider.java#0 $) $Date: 10-nov-2005.19:00:10 $
- * @author The Oracle ADF Faces Team
  */
 public class URLInputStreamProvider implements InputStreamProvider
 {

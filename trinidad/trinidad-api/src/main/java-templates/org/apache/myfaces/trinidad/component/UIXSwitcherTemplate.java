@@ -28,7 +28,6 @@ import javax.faces.context.FacesContext;
  * Base class for the switcher componnet.
  * <p>
  * @version $Name:  $ ($Revision$) $Date$
- * @author The Oracle ADF Faces Team
  */
 abstract public class UIXSwitcherTemplate extends UIXComponentBase
 {

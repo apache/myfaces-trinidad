@@ -44,7 +44,6 @@ import org.apache.myfaces.trinidad.skin.Icon;
  * Renders the breadcrumbs UI element. (this doesn't seem to be called. Use the core one instead)
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/xhtml/NavigationPathRenderer.java#0 $) $Date: 10-nov-2005.18:54:02 $
- * @author The Oracle ADF Faces Team
  */
 public class NavigationPathRenderer extends XhtmlLafRenderer
 {

@@ -82,7 +82,6 @@ import org.xml.sax.SAXException;
  * @see org.apache.myfaces.trinidadinternal.image.ImageProvider
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/cache/FileSystemImageCache.java#0 $) $Date: 10-nov-2005.19:06:06 $
- * @author The Oracle ADF Faces Team
  */
 public class FileSystemImageCache implements ImageProvider, ImageConstants
 {

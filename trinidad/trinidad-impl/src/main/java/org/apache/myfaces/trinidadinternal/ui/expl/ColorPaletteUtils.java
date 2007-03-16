@@ -34,7 +34,6 @@ import org.apache.myfaces.trinidad.util.ArrayMap;
 /**
  * Utility class which defines built-in color palettes
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/expl/ColorPaletteUtils.java#0 $) $Date: 10-nov-2005.18:56:26 $
- * @author The Oracle ADF Faces Team
  */
 public class ColorPaletteUtils
 {

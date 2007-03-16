@@ -40,7 +40,6 @@ import java.io.IOException;
  * </ul>
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/BaseRenderer.java#0 $) $Date: 10-nov-2005.18:50:11 $
- * @author The Oracle ADF Faces Team
  */
 public class BaseRenderer implements Renderer
 {

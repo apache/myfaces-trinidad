@@ -44,7 +44,6 @@ import java.util.List;
  * 
  * The chart title, sub-title and the footnote can be specified using 
  * {@link #getTitle} method, {@link #getSubTitle} method and {@link #getFootNote} method
- * @author Venkata Guddanti
  */
 public abstract class ChartModel
 {

@@ -40,7 +40,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  * Menu Utilities used by the Menu Model internal code.
  * All classes are package private.
  * 
- * @author Gary Kind
  */
 class MenuUtils
 {

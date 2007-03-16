@@ -28,7 +28,6 @@ import java.awt.Graphics;
  * of this class.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/painter/AbstractBorderPainter.java#0 $) $Date: 10-nov-2005.19:04:51 $
- * @author The Oracle ADF Faces Team
  */
 public abstract class AbstractBorderPainter extends AbstractWrappingPainter
                                             implements BorderPainter

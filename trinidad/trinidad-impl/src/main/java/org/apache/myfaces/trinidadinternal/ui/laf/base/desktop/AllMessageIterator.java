@@ -30,7 +30,6 @@ import javax.faces.context.FacesContext;
  * or global messages followed by all per-component messages).
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/desktop/AllMessageIterator.java#0 $) $Date: 10-nov-2005.18:55:07 $
- * @author The Oracle ADF Faces Team
  * @todo Iterate through global messages then messages that don't have labels,
  *       finally messages with labels.
  */

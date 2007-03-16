@@ -34,7 +34,6 @@ import junit.textui.TestRunner;
 /**
  * Unit tests for CoreSelectRangeChoiceBar
  *
- * @author Jeanne Waldman
  */
 public class CoreSelectRangeChoiceBarTest extends UIComponentTestCase
 {

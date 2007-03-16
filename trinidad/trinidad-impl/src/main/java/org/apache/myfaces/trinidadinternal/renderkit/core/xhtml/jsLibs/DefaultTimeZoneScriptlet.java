@@ -27,7 +27,6 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
  * Scriptlet for defaulting the time zone.
 
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/xhtml/jsLibs/DefaultTimeZoneScriptlet.java#0 $) $Date: 10-nov-2005.19:02:45 $
- * @author The Oracle ADF Faces Team
  */
 class DefaultTimeZoneScriptlet extends Scriptlet
 {

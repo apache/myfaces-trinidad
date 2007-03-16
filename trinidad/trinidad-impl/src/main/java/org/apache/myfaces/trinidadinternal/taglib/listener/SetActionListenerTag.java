@@ -35,7 +35,6 @@ import org.apache.myfaces.trinidad.webapp.ELContextTag;
  * JavaServer Faces version 1.2 a <code>setPropertyActionListener</code>, which provides the 
  * same functionality. In JSF 1.2 days this class should be <code>deprecated</code>.
  *
- * @author The Oracle ADF Faces Team
  */
 public class SetActionListenerTag extends TagSupport
 {

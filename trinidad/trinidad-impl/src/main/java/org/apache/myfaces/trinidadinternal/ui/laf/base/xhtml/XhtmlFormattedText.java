@@ -29,7 +29,6 @@ import org.apache.myfaces.trinidadinternal.util.FormattedTextParser;
  * Utility class for working with formatted text.
  * 
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/xhtml/XhtmlFormattedText.java#0 $) $Date: 10-nov-2005.18:54:17 $
- * @author The Oracle ADF Faces Team
  */
 class XhtmlFormattedText
 {

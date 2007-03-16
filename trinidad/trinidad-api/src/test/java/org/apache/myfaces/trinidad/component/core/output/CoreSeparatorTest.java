@@ -27,7 +27,6 @@ import org.apache.myfaces.trinidad.component.UIXObject;
 /**
  * Unit tests for CoreSeparator.
  *
- * @author John Fallows
  */
 public class CoreSeparatorTest extends UIXObjectTestCase
 {

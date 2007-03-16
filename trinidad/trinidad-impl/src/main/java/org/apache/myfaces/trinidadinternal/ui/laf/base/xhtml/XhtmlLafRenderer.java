@@ -60,7 +60,6 @@ import org.apache.myfaces.trinidad.util.IntegerUtils;
  * Base Rendering class for HTML renderers
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/xhtml/XhtmlLafRenderer.java#1 $) $Date: 11-nov-2005.14:59:38 $
- * @author The Oracle ADF Faces Team
  */
 public class XhtmlLafRenderer extends BaseLafRenderer
                                    implements XhtmlLafConstants

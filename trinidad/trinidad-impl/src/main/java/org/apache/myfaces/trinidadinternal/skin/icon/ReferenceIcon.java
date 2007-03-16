@@ -29,7 +29,6 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
  * An Icon implementation that references another icon by name.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/skin/icon/ReferenceIcon.java#0 $) $Date: 10-nov-2005.18:59:04 $
- * @author The Oracle ADF Faces Team
  */
 public class ReferenceIcon extends Icon
 {

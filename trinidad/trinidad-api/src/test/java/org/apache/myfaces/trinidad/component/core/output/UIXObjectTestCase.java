@@ -26,7 +26,6 @@ import org.apache.myfaces.trinidad.component.UIXObject;
 /**
  * Unit tests for UIXObject components
  *
- * @author Arjuna Wijeyekoon
  */
 public abstract class UIXObjectTestCase extends UIComponentTestCase
 {

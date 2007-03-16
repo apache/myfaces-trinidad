@@ -36,7 +36,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * This class saves the state of stamp components.
- * @author The Oracle ADF Faces Team
  */
 final class StampState implements Externalizable
 {

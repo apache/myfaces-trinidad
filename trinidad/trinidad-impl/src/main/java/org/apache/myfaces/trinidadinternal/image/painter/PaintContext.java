@@ -38,7 +38,6 @@ import org.apache.myfaces.trinidadinternal.image.ImageContext;
  * @see Painter
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/painter/PaintContext.java#0 $) $Date: 10-nov-2005.19:05:00 $
- * @author The Oracle ADF Faces Team
  */
 public interface PaintContext
 {

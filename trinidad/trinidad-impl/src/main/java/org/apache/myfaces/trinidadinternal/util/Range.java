@@ -23,7 +23,6 @@ package org.apache.myfaces.trinidadinternal.util;
  * Used for SelectRangeChoiceBar to allow the app developer to customize
  * the labels to not use numbers, but to use the data model.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/util/Range.java#0 $) $Date: 10-nov-2005.18:49:12 $
- * @author The Oracle ADF Faces Team
  */
 public final class Range
 {

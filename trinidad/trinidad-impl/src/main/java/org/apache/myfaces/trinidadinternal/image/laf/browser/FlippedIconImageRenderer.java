@@ -41,7 +41,6 @@ import java.awt.image.BufferedImage;
  * ImageRenderer for flipped icons
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/laf/browser/FlippedIconImageRenderer.java#0 $) $Date: 10-nov-2005.19:05:09 $
- * @author The Oracle ADF Faces Team
  */
 public class FlippedIconImageRenderer implements ImageRenderer
 {

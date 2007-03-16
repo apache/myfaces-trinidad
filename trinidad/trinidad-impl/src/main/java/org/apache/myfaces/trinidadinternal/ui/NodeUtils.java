@@ -29,7 +29,6 @@ import org.apache.myfaces.trinidadinternal.util.nls.StringUtils;
  * Utility methods for working with UINodes.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/NodeUtils.java#0 $) $Date: 10-nov-2005.18:50:15 $
- * @author The Oracle ADF Faces Team
  */
 public class NodeUtils implements UIConstants
 {

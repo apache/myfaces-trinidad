@@ -37,8 +37,6 @@ import org.apache.myfaces.trinidad.event.ReturnListener;
  * Base class for command components.
  *
  * @version $Name:  $ ($Revision: 1.3 $) $Date: 2004/07/19 18:25:17 $
- * @author Gabrielle Crawford
- * @author Adam Winer
  */
 abstract public class UIXCommandTemplate extends UIXComponentBase
                                   implements ActionSource, DialogSource

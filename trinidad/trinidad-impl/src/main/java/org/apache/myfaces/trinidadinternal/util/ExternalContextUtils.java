@@ -32,7 +32,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  * This provides some functionality for determining some things about the
  * native request object that is not provided by the base utils.
  *
- * @author Scott O'Bryan (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
 public class ExternalContextUtils

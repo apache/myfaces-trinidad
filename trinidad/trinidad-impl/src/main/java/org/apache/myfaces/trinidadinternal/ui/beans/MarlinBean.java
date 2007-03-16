@@ -29,7 +29,6 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
  * components in your group's own namespaces.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/beans/MarlinBean.java#0 $) $Date: 10-nov-2005.18:57:39 $
- * @author The Oracle ADF Faces Team
  */
 public class MarlinBean extends BaseWebBean
 {

@@ -32,7 +32,6 @@ import org.apache.myfaces.trinidadinternal.style.CSSStyle;
  * Skin implementation for XHTML
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/skin/XhtmlSkin.java#0 $) $Date: 22-nov-2005.14:42:24 $
- * @author The Oracle ADF Faces Team
  */
 public class XhtmlSkin extends BaseSkin
 {

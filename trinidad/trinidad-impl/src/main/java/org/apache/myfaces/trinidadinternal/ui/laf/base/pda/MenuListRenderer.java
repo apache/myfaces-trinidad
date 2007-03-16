@@ -36,7 +36,6 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
  * Menu List
  * <p>
  * @version   Mar 23, 2005 6:36:14 PM
- * @author The Oracle ADF Faces Team
  *
  */
 public class MenuListRenderer extends XhtmlLafRenderer

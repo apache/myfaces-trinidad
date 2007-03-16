@@ -31,7 +31,6 @@ import org.apache.myfaces.trinidad.event.ReturnListener;
  * dialogs, and need to be notified when the dialog
  * begins launching and completes.
  * 
- * @author The Oracle ADF Faces Team
  */
 public interface DialogSource extends ActionSource
 {

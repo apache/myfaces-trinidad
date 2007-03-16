@@ -28,7 +28,6 @@ import org.apache.myfaces.trinidad.event.PollEvent;
 /**
  * Base class for Poll component.
  * @version $Name:  $ ($Revision$) $Date$
- * @author The Oracle ADF Faces Team
  */
 abstract public class UIXPollTemplate extends UIXComponentBase
 {

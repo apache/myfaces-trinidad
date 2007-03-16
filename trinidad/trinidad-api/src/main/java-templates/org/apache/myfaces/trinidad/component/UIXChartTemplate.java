@@ -33,7 +33,6 @@ import org.apache.myfaces.trinidad.event.ChartDrillDownListener;
  * include record navigation, sorting, selection and detail-disclosure.
  * <p>
  * @version $Name:  $ ($Revision: 431848 $) $Date: 2006-08-16 01:00:16 -0600 (Wed, 16 Aug 2006) $
- * @author The Oracle ADF Faces Team
  */
 abstract public class UIXChartTemplate extends UIXComponentBase
 {

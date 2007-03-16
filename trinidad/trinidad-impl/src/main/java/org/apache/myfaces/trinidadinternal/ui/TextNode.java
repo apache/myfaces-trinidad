@@ -22,7 +22,6 @@ package org.apache.myfaces.trinidadinternal.ui;
  * Node implementation for text.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/TextNode.java#0 $) $Date: 10-nov-2005.18:50:22 $
- * @author The Oracle ADF Faces Team
  */
 public class TextNode extends AbstractTextNode
 {

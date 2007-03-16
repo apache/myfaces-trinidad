@@ -33,7 +33,6 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 /**
  * Factory for creating Skin objects.
  *
- * @author The Oracle ADF Faces Team
  */
 public class SkinFactoryImpl extends SkinFactory
 {

@@ -36,7 +36,6 @@ import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
  * <p>
  * @see IndexedAttributeMap 
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/collection/FlaggedAttributeMap.java#0 $) $Date: 10-nov-2005.18:57:34 $
- * @author The Oracle ADF Faces Team
  */
 public final class FlaggedAttributeMap extends ArrayAttributeMap
 {

@@ -27,7 +27,6 @@ import org.apache.myfaces.trinidad.component.UIXShowDetailTest;
 /**
  * Unit tests for CoreShowDetailHeader.
  *
- * @author John Fallows
  */
 public class CoreShowDetailHeaderTest extends UIXShowDetailTest
 {

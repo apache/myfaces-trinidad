@@ -44,8 +44,6 @@ import org.apache.myfaces.trinidadinternal.util.ExternalContextUtils;
  * any returned parameters.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/util/MultipartFormHandler.java#1 $) $Date: 11-nov-2005.14:59:39 $
- * @author The Oracle ADF Faces Team
- * @author Scott O'Bryan
  */
 public class MultipartFormHandler
 {

@@ -60,7 +60,6 @@ import org.apache.myfaces.trinidadinternal.util.OptimisticHashMap;
  * @see org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext#getSkinFactory
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/skin/Skin.java#0 $) $Date: 10-nov-2005.18:58:54 $
- * @author The Oracle ADF Faces Team
  */
 abstract public class SkinImpl extends Skin
 {

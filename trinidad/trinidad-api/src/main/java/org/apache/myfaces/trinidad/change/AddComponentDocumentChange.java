@@ -25,7 +25,6 @@ import org.w3c.dom.Node;
 /**
  * Base class for specialized DocumentChanges that when applied will add a component
  * instance to the component tree.
- * @author The Oracle ADF Faces Team
  */
 abstract public class AddComponentDocumentChange implements DocumentChange
 {

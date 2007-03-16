@@ -26,7 +26,6 @@ import org.apache.myfaces.trinidadinternal.share.expl.Coercions;
  * Base implementation of PropertyDef.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/xml/beans/BasePropertyDef.java#0 $) $Date: 10-nov-2005.18:59:17 $
- * @author The Oracle ADF Faces Team
  */
 abstract public class BasePropertyDef extends PropertyDef
 {

@@ -44,7 +44,6 @@ import org.apache.myfaces.trinidadinternal.uinode.UINodeRendererBase;
  *  Base Renderer for ShowOneChoice and PanelRadio
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/html/layout/ShowOneListRendererBase.java#0 $) $Date: 10-nov-2005.19:01:14 $
- * @author The Oracle ADF Faces Team
  */
 abstract class ShowOneListRendererBase extends UINodeRendererBase
 {

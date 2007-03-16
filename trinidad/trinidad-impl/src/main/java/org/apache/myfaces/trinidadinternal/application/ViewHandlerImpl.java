@@ -53,7 +53,6 @@ import org.apache.myfaces.trinidadinternal.context.TrinidadPhaseListener;
  * And now also supports inserting URLs tokens to preserve PageFlowScope.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/application/ViewHandlerImpl.java#0 $) $Date: 05-jan-2006.13:19:09 $
- * @author The Oracle ADF Faces Team
  * @todo Rename something less generic
  * @todo Support extension mapping (*.faces)
  * @todo The modification detection only works for a single user.  That's

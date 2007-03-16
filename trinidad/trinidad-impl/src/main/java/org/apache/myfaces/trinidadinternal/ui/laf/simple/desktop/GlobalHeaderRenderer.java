@@ -53,7 +53,6 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.ModelRendererUtils;
  * </ul>
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/simple/desktop/GlobalHeaderRenderer.java#0 $) $Date: 10-nov-2005.18:51:22 $
- * @author The Oracle ADF Faces Team
  */
 public class GlobalHeaderRenderer extends SimpleDesktopRenderer
 {

@@ -29,7 +29,6 @@ import org.apache.myfaces.trinidad.component.UIComponentTestCase;
 /**
  * Unit tests for CoreColumn.
  *
- * @author John Fallows
  */
 public class CoreColumnTest extends UIComponentTestCase
 {

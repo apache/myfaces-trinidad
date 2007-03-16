@@ -31,7 +31,6 @@ import org.apache.myfaces.trinidad.skin.Icon;
  * An Icon implementation which switches between a Mac OS-specific
  * Icon and a default Icon.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/skin/MacOSSwitcherIcon.java#0 $) $Date: 10-nov-2005.19:02:51 $
- * @author The Oracle ADF Faces Team
  */
 class MacOSSwitcherIcon extends Icon
 {

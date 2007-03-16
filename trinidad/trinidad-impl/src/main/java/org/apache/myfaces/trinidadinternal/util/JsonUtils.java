@@ -44,7 +44,6 @@ import org.apache.myfaces.trinidadinternal.convert.GenericConverterFactory;
 
 /**
  * Utilities for writing out JSON notation strings inside XML attribute or text.
- * @author Apache Trinidad team
  */
 public final class JsonUtils
 {

@@ -32,7 +32,6 @@ import javax.faces.event.FacesListener;
  * This will provide more useful information in a later release.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/event/FocusEvent.java#0 $) $Date: 10-nov-2005.19:09:01 $
- * @author The Oracle ADF Faces Team
  */
 public class FocusEvent extends FacesEvent
 {

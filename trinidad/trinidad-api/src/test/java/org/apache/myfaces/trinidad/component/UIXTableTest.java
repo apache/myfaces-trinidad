@@ -44,7 +44,6 @@ import org.apache.myfaces.trinidad.model.SortableModel;
 /**
  * Unit tests for UIXTable
  *
- * @author Arjuna Wijeyekoon
  */
 public class UIXTableTest extends UIComponentTestCase
 {

@@ -24,8 +24,6 @@ import java.util.Iterator;
 /**
  * This was origionally taken from MyFaces
  *
- * @author Manfred Geiler
- * @author Scott O'Bryan (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
 class EnumerationIterator<T> implements Iterator<T>

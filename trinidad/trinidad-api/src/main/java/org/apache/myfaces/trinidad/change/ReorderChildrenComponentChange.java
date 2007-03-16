@@ -32,7 +32,6 @@ import org.w3c.dom.NamedNodeMap;
  * Change specialization for re-ordering of children.
  * While applying this Change, the specified order of children is  restored.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/change/ReorderChildrenComponentChange.java#0 $) $Date: 10-nov-2005.19:10:01 $
- * @author The Oracle ADF Faces Team
  */
 public class ReorderChildrenComponentChange extends ComponentChange
                                             implements DocumentChange

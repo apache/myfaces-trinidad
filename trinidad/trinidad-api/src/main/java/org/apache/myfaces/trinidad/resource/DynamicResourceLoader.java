@@ -25,7 +25,6 @@ import java.net.URL;
  * A Dynamic Resource Loader that is capable of agregation and dynamic content via custom
  * URLConnection objects.
  * 
- * @author The Oracle ADF Faces Team
  */
 public abstract class DynamicResourceLoader extends ResourceLoader
 {  

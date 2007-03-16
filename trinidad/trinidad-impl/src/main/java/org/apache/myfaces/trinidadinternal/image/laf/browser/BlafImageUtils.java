@@ -49,7 +49,6 @@ import org.apache.myfaces.trinidadinternal.style.StyleMap;
  * Utilities for Browser Look And Feel support.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/laf/browser/BlafImageUtils.java#0 $) $Date: 10-nov-2005.19:05:04 $
- * @author The Oracle ADF Faces Team
  */
 public class BlafImageUtils implements ImageConstants
 {

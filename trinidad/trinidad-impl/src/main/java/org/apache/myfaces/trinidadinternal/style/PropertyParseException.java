@@ -22,7 +22,6 @@ package org.apache.myfaces.trinidadinternal.style;
  * Exception thrown by PropertyParser.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/PropertyParseException.java#0 $) $Date: 10-nov-2005.18:57:56 $
- * @author The Oracle ADF Faces Team
  */
 public class PropertyParseException extends IllegalArgumentException
 {

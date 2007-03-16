@@ -37,7 +37,6 @@ import org.apache.myfaces.trinidadinternal.io.ResponseWriterDecorator;
  * ResponseWriter which buffers up/filters out any deferred scripts.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/ppr/ScriptBufferingResponseWriter.java#0 $) $Date: 10-nov-2005.19:03:31 $
- * @author The Oracle ADF Faces Team
  */
 public class ScriptBufferingResponseWriter extends ResponseWriterDecorator
 {

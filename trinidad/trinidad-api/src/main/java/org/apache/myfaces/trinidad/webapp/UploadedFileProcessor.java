@@ -44,7 +44,6 @@ import org.apache.myfaces.trinidad.model.UploadedFile;
  * </ul>
  * 
  * @see org.apache.myfaces.trinidad.model.UploadedFile
- * @author The Oracle ADF Faces Team
  */
 public interface UploadedFileProcessor
 {

@@ -32,7 +32,6 @@ import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
  * Renderer for form reset buttons.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/xhtml/ResetButtonRenderer.java#1 $) $Date: 11-nov-2005.14:59:41 $
- * @author The Oracle ADF Faces Team
  */
 public class ResetButtonRenderer extends ButtonRenderer
 {

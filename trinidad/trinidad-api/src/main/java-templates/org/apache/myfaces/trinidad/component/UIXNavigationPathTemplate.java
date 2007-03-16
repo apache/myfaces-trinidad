@@ -30,7 +30,6 @@ import javax.faces.event.PhaseId;
  * Base class for the NavigationPath component.
  *
  * @version $Name:  $ ($Revision$) $Date$
- * @author The Oracle ADF Faces Team
  */
 abstract public class UIXNavigationPathTemplate extends UIXNavigationHierarchy
 {

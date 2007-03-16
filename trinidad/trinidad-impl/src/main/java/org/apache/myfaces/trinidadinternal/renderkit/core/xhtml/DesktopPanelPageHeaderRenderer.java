@@ -33,7 +33,6 @@ import org.apache.myfaces.trinidad.render.CoreRenderer;
 
 /**
  *  @version $Header: DesktopPanelPageHeaderRenderer.java 15-nov-2005.19:26:45 dosterbe Exp $
- *  @author The Oracle ADF Faces Team
  *  made jsf major by gcrawfor
  */
 

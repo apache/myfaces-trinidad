@@ -31,7 +31,6 @@ import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
  *
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/uinode/UINodeRendererBase.java#1 $) $Date: 11-nov-2005.14:59:37 $
- * @author The Oracle ADF Faces Team
  */
 public class UINodeRendererBase extends Renderer
 {

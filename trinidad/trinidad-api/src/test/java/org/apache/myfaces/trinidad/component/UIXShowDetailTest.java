@@ -31,7 +31,6 @@ import org.apache.myfaces.trinidad.component.UIComponentTestCase;
 /**
  * Unit tests for UIXShowDetail.
  *
- * @author John Fallows
  */
 public class UIXShowDetailTest extends UIComponentTestCase
 {

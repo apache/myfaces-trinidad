@@ -25,7 +25,6 @@ import javax.faces.component.NamingContainer;
  * table, treeTable and tree
  * <p>
  * @version $Name:  $ ($Revision$) $Date$
- * @author The Oracle ADF Faces Team
  */
 public abstract class UIXDecorateCollectionTemplate extends UIXComponentBase 
         implements NamingContainer

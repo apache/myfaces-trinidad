@@ -43,7 +43,6 @@ import org.apache.myfaces.trinidadinternal.uinode.UINodeRendererBase;
  * Renderer for PanelAccordion
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/html/layout/CoreShowOneAccordionRenderer.java#0 $) $Date: 10-nov-2005.19:01:13 $
- * @author The Oracle ADF Faces Team
  */
 public class CorePanelAccordionRenderer extends UINodeRendererBase
 {

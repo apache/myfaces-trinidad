@@ -29,7 +29,6 @@ import javax.faces.context.FacesContext;
  * Base class for the group componnet.
  * <p>
  * @version $Name:  $ ($Revision: 429530 $) $Date: 2006-08-07 18:44:54 -0600 (Mon, 07 Aug 2006) $
- * @author The Oracle ADF Faces Team
  */
 abstract public class UIXGroupTemplate extends UIXComponentBase
 {

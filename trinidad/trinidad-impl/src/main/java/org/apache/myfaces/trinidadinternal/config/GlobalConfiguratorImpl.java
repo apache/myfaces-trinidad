@@ -45,7 +45,6 @@ import org.apache.myfaces.trinidadinternal.util.ExternalContextUtils;
  * the Trindad developer.
  *
  * @see org.apache.myfaces.trinidad.config.Configurator
- * @author Scott O'Bryan (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
 public class GlobalConfiguratorImpl extends Configurator

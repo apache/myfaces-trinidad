@@ -28,7 +28,6 @@ import javax.faces.event.PhaseId;
  * Base class for Subform component.
  * <p>
  * @version $Name:  $ ($Revision$) $Date$
- * @author The Oracle ADF Faces Team
  */
 abstract public class UIXSubformTemplate extends UIXComponentBase
                                         implements NamingContainer

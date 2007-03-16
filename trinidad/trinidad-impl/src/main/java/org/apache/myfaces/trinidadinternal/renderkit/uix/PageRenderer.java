@@ -35,7 +35,6 @@ import org.apache.myfaces.trinidadinternal.uinode.UINodeRendererBase;
  * Renderer for page
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/uix/PageRenderer.java#0 $) $Date: 10-nov-2005.19:00:31 $
- * @author The Oracle ADF Faces Team
  */
 public class PageRenderer extends UINodeRendererBase
 {

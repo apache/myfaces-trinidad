@@ -26,7 +26,6 @@ import java.util.Locale;
  * as utilities for processing mnemonics in strings.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/painter/StringUtils.java#0 $) $Date: 10-nov-2005.19:05:03 $
- * @author The Oracle ADF Faces Team
  */
 class StringUtils
 {

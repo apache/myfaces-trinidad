@@ -31,7 +31,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  * A ChangeManager should manage accumulation of Changes and also
  *  take care of their persistence.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/change/ChangeManager.java#0 $) $Date: 10-nov-2005.19:09:58 $
- * @author The Oracle ADF Faces Team
  */
 public abstract class ChangeManager
 {

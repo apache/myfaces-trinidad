@@ -26,7 +26,6 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
  * UINodeList that retrieves its list of children from a UINode.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/collection/UINodeUINodeList.java#0 $) $Date: 10-nov-2005.18:57:37 $
- * @author The Oracle ADF Faces Team
  */
 public abstract class UINodeUINodeList implements UINodeList
 {

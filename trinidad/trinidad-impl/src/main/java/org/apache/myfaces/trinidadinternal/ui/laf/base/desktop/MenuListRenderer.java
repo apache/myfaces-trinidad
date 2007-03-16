@@ -37,7 +37,6 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
  * of each child. Works in conjuntion with styledItem.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/desktop/MenuListRenderer.java#0 $) $Date: 10-nov-2005.18:55:24 $
- * @author The Oracle ADF Faces Team
  */
 public class MenuListRenderer extends HtmlLafRenderer
 {

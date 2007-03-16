@@ -29,7 +29,6 @@ import org.apache.myfaces.trinidad.change.ComponentChange;
 /**
  * An ChangeManager implementation that is all a no-op.
  *
- * @author The Oracle ADF Faces Team
  */
 public class NullChangeManager extends ChangeManager
 {

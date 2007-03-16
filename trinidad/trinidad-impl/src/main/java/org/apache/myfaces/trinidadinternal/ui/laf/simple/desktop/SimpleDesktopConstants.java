@@ -25,7 +25,6 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.BaseDesktopConsta
  * Skin
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/simple/desktop/SimpleDesktopConstants.java#0 $) $Date: 10-nov-2005.18:51:26 $
- * @author The Oracle ADF Faces Team
  */
 public interface SimpleDesktopConstants extends BaseDesktopConstants
 {

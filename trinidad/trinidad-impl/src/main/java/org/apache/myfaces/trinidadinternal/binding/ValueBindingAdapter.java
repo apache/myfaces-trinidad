@@ -29,7 +29,6 @@ import org.apache.myfaces.trinidad.bean.util.StateUtils;
  * Base implementation of a ValueBinding that wraps a second binding.
  * ValueBindingAdapters are always read-only.
  *
- * @author The Oracle ADF Faces Team
  */
 abstract public class ValueBindingAdapter extends ValueBinding
   implements StateHolder

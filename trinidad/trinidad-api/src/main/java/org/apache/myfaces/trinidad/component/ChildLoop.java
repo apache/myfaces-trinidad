@@ -23,7 +23,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 /**
- * @author The Oracle ADF Faces Team
  */
 abstract class ChildLoop 
 {

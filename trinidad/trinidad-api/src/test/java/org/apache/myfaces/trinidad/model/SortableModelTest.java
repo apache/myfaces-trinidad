@@ -33,7 +33,6 @@ import org.apache.myfaces.trinidad.model.SortableModel;
 import org.apache.shale.test.base.AbstractJsfTestCase;
 
 /**
- * @author Arjuna Wijeyekoon
  */
 public class SortableModelTest extends AbstractJsfTestCase
 {

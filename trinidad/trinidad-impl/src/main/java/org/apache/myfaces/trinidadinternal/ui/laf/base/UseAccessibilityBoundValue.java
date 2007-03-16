@@ -26,7 +26,6 @@ import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
  * BoundValue used to determine if rendering is in inaccessible mode.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/UseAccessibilityBoundValue.java#0 $) $Date: 10-nov-2005.18:53:10 $
- * @author The Oracle ADF Faces Team
  */
 public class UseAccessibilityBoundValue implements BoundValue
 {

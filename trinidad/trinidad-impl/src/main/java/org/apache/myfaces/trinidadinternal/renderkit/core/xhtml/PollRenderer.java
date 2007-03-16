@@ -38,7 +38,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/desktop/PollRenderer.java#0 $) $Date: 10-nov-2005.18:55:33 $
- * @author The Oracle ADF Faces Team
  */
 public class PollRenderer extends XhtmlRenderer
 {

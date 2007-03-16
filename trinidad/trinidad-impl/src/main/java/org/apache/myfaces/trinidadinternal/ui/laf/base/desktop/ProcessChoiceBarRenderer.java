@@ -26,7 +26,6 @@ import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
  * Renderer for processChoiceBar
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/desktop/ProcessChoiceBarRenderer.java#0 $) $Date: 10-nov-2005.18:55:35 $
- * @author The Oracle ADF Faces Team
  * @todo copied from NavigationBarRenderer. will need to refactor to share
  * code.
  */

@@ -39,7 +39,6 @@ import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
  * A resource loader implementation which loads resources
  * for the rich renderkit.
  *
- * @author The Oracle ADF Faces Team
  *
  * @todo Dynamic version number
  */

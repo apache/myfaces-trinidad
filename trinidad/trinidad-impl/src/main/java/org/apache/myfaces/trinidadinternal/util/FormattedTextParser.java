@@ -39,7 +39,6 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
  * has been used.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/util/FormattedTextParser.java#0 $) $Date: 10-nov-2005.18:49:08 $
- * @author The Oracle ADF Faces Team
  */
 public class FormattedTextParser
 {

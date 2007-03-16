@@ -35,7 +35,6 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafRenderer;
  * accessibility support.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/xhtml/HiddenLabelUtils.java#0 $) $Date: 10-nov-2005.18:53:55 $
- * @author The Oracle ADF Faces Team
  */
 public class HiddenLabelUtils
 {

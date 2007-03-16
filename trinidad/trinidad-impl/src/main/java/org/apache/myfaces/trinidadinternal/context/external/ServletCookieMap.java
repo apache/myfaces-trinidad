@@ -26,8 +26,6 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * HttpServletRequest Cookies as Map.
  *
- * @author Dimitry D'hondt
- * @author Anton Koinov
  * @version $Revision: 278654 $ $Date: 2005-09-04 18:32:35 -0600 (Sun, 04 Sep 2005) $
  */
 class ServletCookieMap extends AbstractAttributeMap<String, Object>

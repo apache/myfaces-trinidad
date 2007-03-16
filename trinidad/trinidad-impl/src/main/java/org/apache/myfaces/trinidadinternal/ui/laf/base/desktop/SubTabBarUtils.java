@@ -27,7 +27,6 @@ import org.apache.myfaces.trinidadinternal.ui.UIConstants;
  * Normally used by showOneTab to communicate with subTabBar
  * 
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/desktop/SubTabBarUtils.java#0 $) $Date: 10-nov-2005.18:56:18 $
- * @author The Oracle ADF Faces Team
  */
 public class SubTabBarUtils implements UIConstants
 {

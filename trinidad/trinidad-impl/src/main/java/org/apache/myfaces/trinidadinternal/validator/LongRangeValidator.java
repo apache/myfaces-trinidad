@@ -34,7 +34,6 @@ import org.apache.myfaces.trinidadinternal.util.JsonUtils;
 /**
  * <p>Implementation for <code>java.lang.Long</code> values.</p>
  *
- * @author The Oracle ADF Faces Team
  */
 public class LongRangeValidator extends org.apache.myfaces.trinidad.validator.LongRangeValidator
                                 implements ClientValidator

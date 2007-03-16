@@ -38,7 +38,6 @@ import org.apache.myfaces.trinidadinternal.ui.data.bean.BeanDOAdapter;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/expl/UIImplicitObject.java#0 $) $Date: 10-nov-2005.18:56:28 $
- * @author The Oracle ADF Faces Team
  */
 public class UIImplicitObject
 {

@@ -31,7 +31,6 @@ import org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeel;
  * @see org.apache.myfaces.trinidadinternal.ui.laf.xhtml.IconArrayLafIconProvider
  * @see org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeel
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/Icon.java#0 $) $Date: 10-nov-2005.18:53:00 $
- * @author The Oracle ADF Faces Team
  */
 public class Icon
 {

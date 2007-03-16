@@ -53,8 +53,6 @@ import org.apache.myfaces.trinidadinternal.ui.io.XMLEscapes;
 /**
  * Implementation of ResponseWriter for outputting XHTML.
  *
- * @author John Fallows
- * @author Adam Winer
  */
 public class TestResponseWriter extends ResponseWriter
 {

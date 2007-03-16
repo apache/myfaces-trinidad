@@ -29,7 +29,6 @@ import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
  * BoundValue that returns the clientId of the component.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/uinode/bind/MenuSelectedValueBoundValue.java#0 $) $Date: 10-nov-2005.18:50:06 $
- * @author The Oracle ADF Faces Team
  * @todo if menu and process end up same component family this can be simplified
  */
 abstract public class MenuSelectedValueBoundValue implements BoundValue

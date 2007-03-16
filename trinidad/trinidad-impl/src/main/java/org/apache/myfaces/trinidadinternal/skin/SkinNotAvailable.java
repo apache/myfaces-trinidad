@@ -24,7 +24,6 @@ import org.apache.myfaces.trinidad.context.LocaleContext;
  * A  Skin class used when no skin is available, to avoid
  * null pointer exceptions, etc. (make this a singleton)
  *
- * @author The Oracle ADF Faces Team
  */
 public class SkinNotAvailable extends SkinImpl
 {

@@ -30,7 +30,6 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * HttpServletRequest header values (multi-value headers) as Map of String[].
  *
- * @author Anton Koinov (latest modification by $Author: matze $)
  * @version $Revision: 167257 $ $Date: 2004-10-13 05:51:02 -0600 (Wed, 13 Oct 2004) $
  */
 class ServletRequestHeaderValuesMap extends AbstractAttributeMap<String, String[]>

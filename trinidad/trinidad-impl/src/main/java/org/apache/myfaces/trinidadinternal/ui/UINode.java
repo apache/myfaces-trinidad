@@ -41,7 +41,6 @@ import javax.faces.component.UIComponent;
  * in the UINode tree.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/UINode.java#0 $) $Date: 10-nov-2005.18:50:24 $
- * @author The Oracle ADF Faces Team
  */
 public interface UINode
 {

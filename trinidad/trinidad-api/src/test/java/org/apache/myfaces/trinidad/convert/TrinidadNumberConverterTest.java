@@ -37,7 +37,6 @@ import junit.framework.TestSuite;
 
 /**
  * Test Trinidad NumberConverter
- * @author Vijay Venaktaraman
  * @version $Name: $ ($version: $) $Date: 16-aug-2005.15:12:23 $
  */
 public class TrinidadNumberConverterTest extends NumberConverterTestCase

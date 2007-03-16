@@ -23,7 +23,6 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * @author The Oracle ADF Faces Team
  */
 class PathHelper 
 {

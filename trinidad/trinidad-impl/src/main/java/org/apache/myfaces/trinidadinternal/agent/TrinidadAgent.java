@@ -25,7 +25,6 @@ import org.apache.myfaces.trinidad.context.Agent;
  * Keeping this Interace as is (from before), but extends the public
  * the current (internal) code base uses this heavily.
  *
- * @author The Oracle ADF Faces Team
  */
 public interface TrinidadAgent extends Agent
 {

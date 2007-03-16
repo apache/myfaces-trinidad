@@ -31,7 +31,6 @@ import javax.faces.context.ResponseWriter;
  * Output method that decorates another to pretty-print HTML.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/io/IndentingResponseWriter.java#0 $) $Date: 10-nov-2005.19:03:49 $
- * @author The Oracle ADF Faces Team
  */
 public class IndentingResponseWriter extends ResponseWriterDecorator
 {  

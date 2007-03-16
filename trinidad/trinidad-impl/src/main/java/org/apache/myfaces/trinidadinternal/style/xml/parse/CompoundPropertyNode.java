@@ -26,7 +26,6 @@ import java.util.Iterator;
  * PropertyNode subclass for compound properties.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/xml/parse/CompoundPropertyNode.java#0 $) $Date: 10-nov-2005.18:58:04 $
- * @author The Oracle ADF Faces Team
  */
 public class CompoundPropertyNode
 {

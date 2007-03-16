@@ -80,7 +80,6 @@ import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
  *  &lt;/managed-bean&gt;
  * </pre>
  *
- * @author Gary Kind
  * 
  */
 

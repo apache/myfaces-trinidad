@@ -28,7 +28,6 @@ package org.apache.myfaces.trinidad.model;
  * Work on modeling menus continues and it is very possible that this class
  * will change in a future release.
  *
- * @author The Oracle ADF Faces Team
  */
 public abstract class MenuModel extends TreeModel
 {

@@ -27,7 +27,6 @@ import java.io.IOException;
  * at the target location).
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/io/InputStreamProvider.java#0 $) $Date: 10-nov-2005.19:00:08 $
- * @author The Oracle ADF Faces Team
  */
 public interface InputStreamProvider
 {

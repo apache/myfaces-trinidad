@@ -24,7 +24,6 @@ import java.util.regex.Pattern;
  * Generic style utilities.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/util/StyleUtils.java#0 $) $Date: 10-nov-2005.18:58:52 $
- * @author The Oracle ADF Faces Team
  */
 public class StyleUtils
 {

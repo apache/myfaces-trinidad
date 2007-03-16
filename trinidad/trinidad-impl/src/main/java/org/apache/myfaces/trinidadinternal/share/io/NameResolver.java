@@ -39,7 +39,6 @@ import java.io.IOException;
  * @see org.apache.myfaces.trinidadinternal.share.xml.XMLUtils#setResolver
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/io/NameResolver.java#0 $) $Date: 10-nov-2005.19:00:09 $
- * @author The Oracle ADF Faces Team
  */
 public interface NameResolver
 {

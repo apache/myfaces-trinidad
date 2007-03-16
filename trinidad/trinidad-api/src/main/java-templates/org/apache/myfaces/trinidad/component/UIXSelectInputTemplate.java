@@ -36,7 +36,6 @@ import org.apache.myfaces.trinidad.event.ReturnEvent;
  * Base class for selectInput components.
  *
  * @version $Name:  $ ($Revision$) $Date$
- * @author The Oracle ADF Faces Team
  */
 abstract public class UIXSelectInputTemplate extends UIXEditableValue
                                       implements ActionSource

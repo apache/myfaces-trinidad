@@ -35,7 +35,6 @@ import com.sun.facelets.tag.TagAttributeException;
 
 /**
  * 
- * @author Adam Winer
  * =-=AEW REWRITE USING BEANINFO
  */
 final class TrinidadListenersTagRule extends MetaRule

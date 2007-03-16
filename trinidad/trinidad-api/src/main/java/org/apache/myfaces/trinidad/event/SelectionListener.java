@@ -23,7 +23,6 @@ import javax.faces.event.FacesListener;
 
 /**
  * Listener for SelectEvents.
- * @author The Oracle ADF Faces Team
  */
 public interface SelectionListener extends FacesListener
 {

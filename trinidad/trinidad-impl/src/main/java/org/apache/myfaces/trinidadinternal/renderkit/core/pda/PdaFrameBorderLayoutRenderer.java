@@ -31,7 +31,6 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/xhtml/FrameBorderLayoutRenderer.java#0 $) $Date: 10-nov-2005.18:53:53 $
- * @author The Oracle ADF Faces Team
  */
 public class PdaFrameBorderLayoutRenderer extends XhtmlRenderer
 {

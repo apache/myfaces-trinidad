@@ -28,7 +28,6 @@ import java.util.List;
 /**
  * List for storing children.
  *
- * @author The Oracle ADF Faces Team
  */
 class ChildArrayList extends ArrayList<UIComponent>
 {

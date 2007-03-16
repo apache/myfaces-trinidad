@@ -34,7 +34,6 @@ import javax.servlet.http.HttpServletResponse;
  * the page.  Most useful for getting JSP Faces pages to work correctly.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-demo/src/main/java/oracle/adfdemo/view/faces/webapp/RedirectFilter.java#1 $) $Date: 16-aug-2005.15:12:33 $
- * @author John Fallows
  */
 public class RedirectFilter implements Filter 
 {

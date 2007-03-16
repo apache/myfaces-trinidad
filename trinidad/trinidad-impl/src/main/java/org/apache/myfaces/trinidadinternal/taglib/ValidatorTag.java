@@ -33,7 +33,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  *
  * @todo it should be removed after we consume JSF1.2.
  *
- * @author The Oracle ADF Faces Team
  */
 public final class ValidatorTag extends TagSupport
 {

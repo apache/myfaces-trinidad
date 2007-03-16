@@ -25,7 +25,6 @@ import org.apache.myfaces.trinidadinternal.skin.icon.TextIcon;
  * Translated text Icon used by simple skin.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/skin/TranslatedTextIcon.java#0 $) $Date: 10-nov-2005.19:02:57 $
- * @author The Oracle ADF Faces Team
  */
 class TranslatedTextIcon extends TextIcon
 {

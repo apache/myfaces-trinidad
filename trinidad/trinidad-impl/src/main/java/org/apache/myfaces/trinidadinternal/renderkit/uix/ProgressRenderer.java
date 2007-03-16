@@ -37,7 +37,6 @@ import org.apache.myfaces.trinidadinternal.uinode.UINodeRendererBase;
  * Renderer for progress components
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/uix/ProgressRenderer.java#0 $) $Date: 10-nov-2005.19:00:33 $
- * @author The Oracle ADF Faces Team
  */
 public class ProgressRenderer extends UINodeRendererBase
 {

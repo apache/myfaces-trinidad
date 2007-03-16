@@ -30,7 +30,6 @@ import org.apache.myfaces.trinidad.convert.ClientConverter;
 /**
  * <p>Implementation for <code>java.lang.Float</code> values.</p>
  *
- * @author The Oracle ADF Faces Team
  */
 public class FloatConverter extends javax.faces.convert.FloatConverter
                             implements ClientConverter

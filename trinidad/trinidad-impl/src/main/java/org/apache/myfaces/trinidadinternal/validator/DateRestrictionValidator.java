@@ -35,7 +35,6 @@ import org.apache.myfaces.trinidadinternal.convert.GenericConverterFactory;
 import org.apache.myfaces.trinidadinternal.util.JsonUtils;
 
 /**
- * @author Matthias Wessendorf
  *
  */
 public class DateRestrictionValidator extends org.apache.myfaces.trinidad.validator.DateRestrictionValidator

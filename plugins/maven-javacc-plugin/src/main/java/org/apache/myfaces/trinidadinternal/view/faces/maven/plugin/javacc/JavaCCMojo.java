@@ -40,8 +40,6 @@ import org.codehaus.plexus.util.FileUtils;
  * @goal generate
  * @phase generate-sources
  * @description Goal which parse a JJ file and transform it to Java Source Files.
- * @author jruiz@exist.com
- * @author jesse <jesse.mcconnell@gmail.com>
  * @version $Id$
  */
 public class JavaCCMojo

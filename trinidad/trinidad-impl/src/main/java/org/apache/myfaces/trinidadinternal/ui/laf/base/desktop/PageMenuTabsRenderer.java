@@ -29,7 +29,6 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.PageRendererUtils;
  * Renderer for page component tab bars
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/desktop/PageMenuTabsRenderer.java#0 $) $Date: 10-nov-2005.18:55:32 $
- * @author The Oracle ADF Faces Team
  */
 public class PageMenuTabsRenderer extends
   org.apache.myfaces.trinidadinternal.ui.laf.simple.desktop.TabBarRenderer

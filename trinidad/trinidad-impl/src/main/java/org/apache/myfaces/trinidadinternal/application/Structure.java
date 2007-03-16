@@ -36,7 +36,6 @@ import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 /**
  * Utility class for storing the structure of a UIComponent tree.
  * <p>
- * @author The Oracle ADF Faces Team
  */
 // -= Simon Lessard =-
 //     Why using an ArrayList as a map again? It is not type-safe.

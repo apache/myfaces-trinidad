@@ -32,7 +32,6 @@ import org.apache.myfaces.trinidadinternal.style.xml.XMLConstants;
 /**
  * NodeParser for includeProperty nodes
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/xml/parse/IncludePropertyNodeParser.java#0 $) $Date: 10-nov-2005.18:58:08 $
- * @author The Oracle ADF Faces Team
  */
 public class IncludePropertyNodeParser extends LeafNodeParser
   implements XMLConstants, StyleConstants

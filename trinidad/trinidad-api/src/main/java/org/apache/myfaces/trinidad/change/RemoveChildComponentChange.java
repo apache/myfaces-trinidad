@@ -30,7 +30,6 @@ import org.w3c.dom.Node;
  * While applying this Change, if there were to be a child with the specified
  *  identifier, it will be removed.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/change/RemoveChildComponentChange.java#0 $) $Date: 10-nov-2005.19:10:00 $
- * @author The Oracle ADF Faces Team
  */
 public class RemoveChildComponentChange extends ComponentChange
                                          implements DocumentChange

@@ -26,7 +26,6 @@ import java.awt.Insets;
  *
  * @see java.awt.Insets
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/painter/ImmInsets.java#0 $) $Date: 10-nov-2005.19:04:58 $
- * @author The Oracle ADF Faces Team
  */
 public class ImmInsets implements Cloneable
 {

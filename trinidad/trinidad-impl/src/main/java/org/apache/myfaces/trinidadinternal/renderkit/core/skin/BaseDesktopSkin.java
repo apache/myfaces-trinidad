@@ -30,7 +30,6 @@ import org.apache.myfaces.trinidadinternal.skin.icon.TextIcon;
  * Skin implementation for HTML browsers
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/skin/BaseDesktopSkin.java#0 $) $Date: 10-nov-2005.19:02:49 $
- * @author The Oracle ADF Faces Team
  */
 public class BaseDesktopSkin extends XhtmlSkin
 {

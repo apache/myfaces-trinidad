@@ -28,7 +28,6 @@ import java.util.List;
  * keys that will be requested by the tree renderer.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-demo/src/main/java/oracle/adfdemo/view/faces/TreeNodeImpl.java#1 $) $Date: 16-aug-2005.15:12:29 $
- * @author Adam Winer
  */
 public class TreeNodeImpl implements Serializable
 {

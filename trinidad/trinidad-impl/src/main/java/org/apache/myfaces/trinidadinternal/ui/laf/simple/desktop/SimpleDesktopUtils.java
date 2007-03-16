@@ -37,7 +37,6 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.BaseDesktopUtils;
  * LookAndFeel code altogether.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/simple/desktop/SimpleDesktopUtils.java#0 $) $Date: 10-nov-2005.18:51:27 $
- * @author The Oracle ADF Faces Team
  */
 public class SimpleDesktopUtils extends BaseDesktopUtils
   implements SimpleDesktopConstants

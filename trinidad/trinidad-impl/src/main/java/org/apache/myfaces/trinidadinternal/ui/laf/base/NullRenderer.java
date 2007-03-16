@@ -31,7 +31,6 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
  * for another component.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/NullRenderer.java#0 $) $Date: 10-nov-2005.18:53:05 $
- * @author The Oracle ADF Faces Team
  */
 public class NullRenderer implements Renderer, PreAndPostRenderer
 {

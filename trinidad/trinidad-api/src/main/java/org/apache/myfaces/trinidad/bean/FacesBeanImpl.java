@@ -37,7 +37,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 /**
  * Base implementation of FacesBean.
  *
- * @author The Oracle ADF Faces Team
  */
 abstract public class FacesBeanImpl implements FacesBean
 {

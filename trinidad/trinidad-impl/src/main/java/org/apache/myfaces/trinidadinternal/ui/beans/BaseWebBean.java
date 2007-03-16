@@ -29,7 +29,6 @@ import org.apache.myfaces.trinidadinternal.ui.MutableUINode;
  * could, in fact, use nothing but instances of this class.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/beans/BaseWebBean.java#0 $) $Date: 10-nov-2005.18:57:39 $
- * @author The Oracle ADF Faces Team
  */
 public class BaseWebBean extends BaseMutableUINode
 {

@@ -23,7 +23,6 @@ import java.io.IOException;
 /**
  * Removes all comments and redundant whitespace
  * @version $Name:  $ ($Revision$) $Date$
- * @author Arjuna Wijeyekoon - arjuna.wijeyekoon@oracle.com
  */
 public class Filter1 implements TokenReader
 {

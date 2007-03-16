@@ -22,7 +22,6 @@ package org.apache.myfaces.trinidadinternal.share.config;
  * Exception thrown when a directory is entirely unavailable.
  * 
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/config/DirectoryUnavailableException.java#0 $) $Date: 10-nov-2005.19:00:20 $
- * @author The Oracle ADF Faces Team
  */
 public class DirectoryUnavailableException extends RuntimeException
 {

@@ -80,7 +80,6 @@ import java.util.BitSet;
  * writing their own HTTP code.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/url/EncoderUtils.java#0 $) $Date: 15-nov-2005.19:26:40 $
- * @author The Oracle ADF Faces Team
  */
 public class EncoderUtils
 {

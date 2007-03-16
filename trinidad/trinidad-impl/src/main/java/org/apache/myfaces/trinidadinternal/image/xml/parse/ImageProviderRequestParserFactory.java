@@ -30,7 +30,6 @@ import org.apache.myfaces.trinidadinternal.image.xml.XMLConstants;
 /**
  * Factory for creating ImageProviderRequestParsers.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/xml/parse/ImageProviderRequestParserFactory.java#0 $) $Date: 10-nov-2005.19:04:40 $
- * @author The Oracle ADF Faces Team
  */
 public class ImageProviderRequestParserFactory implements ParserFactory
 {

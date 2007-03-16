@@ -24,7 +24,6 @@ import org.apache.myfaces.trinidadinternal.skin.SkinExtension;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/skin/MinimalDesktopSkinExtension.java#0 $) $Date: 10-nov-2005.19:02:52 $
- * @author The Oracle ADF Faces Team
  */
 public class MinimalDesktopSkinExtension extends SkinExtension
 {

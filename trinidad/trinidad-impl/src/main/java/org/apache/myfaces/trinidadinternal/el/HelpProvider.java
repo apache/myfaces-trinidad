@@ -58,7 +58,6 @@ import java.util.Set;
  *
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/el/HelpProvider.java#0 $) $Date: 10-nov-2005.19:06:18 $
- * @author The Oracle ADF Faces Team
  */
 public abstract class HelpProvider
 {

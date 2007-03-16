@@ -27,8 +27,6 @@ import org.apache.myfaces.trinidad.component.UIXComponent;
 /**
  * Base class for unit tests for UIXEditableValue components.
  *
- * @author Adam Winer
- * @author John Fallows
  */
 abstract public class UIXEditableValueTestCase extends UIComponentTestCase
 {

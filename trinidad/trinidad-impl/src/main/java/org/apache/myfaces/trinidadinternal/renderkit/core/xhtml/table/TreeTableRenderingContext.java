@@ -32,7 +32,6 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 
 /**
  * Context for caching TreeTable data.
- * @author The Oracle ADF Faces Team
  */
 public final class TreeTableRenderingContext extends TableRenderingContext
 {

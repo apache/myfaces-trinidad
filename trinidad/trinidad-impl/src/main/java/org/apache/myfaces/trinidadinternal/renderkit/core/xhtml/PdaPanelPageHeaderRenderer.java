@@ -32,7 +32,6 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
 
 /**
  *  @version $Header: PdaPanelPageHeaderRenderer.java 10-nov-2005.19:01:41 dosterbe Exp $
- *  @author The Oracle ADF Faces Team
  *  made jsf major by gcrawfor
  */
 

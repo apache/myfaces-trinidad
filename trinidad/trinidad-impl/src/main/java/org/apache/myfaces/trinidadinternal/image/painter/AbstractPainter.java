@@ -26,7 +26,6 @@ import java.awt.Dimension;
  * making writing Painters easier.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/painter/AbstractPainter.java#0 $) $Date: 10-nov-2005.19:04:52 $
- * @author The Oracle ADF Faces Team
  */
 public abstract class AbstractPainter implements Painter
 {

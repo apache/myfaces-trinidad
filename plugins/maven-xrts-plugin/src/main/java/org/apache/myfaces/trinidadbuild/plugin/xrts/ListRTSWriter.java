@@ -32,7 +32,6 @@ import java.util.Map;
  * <code>ListResourceBundle</code> file.
  *
  * @version $Name:  $ ($Revision: 1.11 $) $Date: 2002/02/27 17:18:47 $
- * @author Craig R. Cummings
  * @since RTS 2.0
  */
 public class ListRTSWriter implements RTSWriter

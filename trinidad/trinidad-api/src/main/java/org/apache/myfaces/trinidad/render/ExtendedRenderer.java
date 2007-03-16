@@ -27,7 +27,6 @@ import javax.faces.render.Renderer;
  * control all child component hierarchy traversal and local client id
  * generation.
  *
- * @author The Oracle ADF Faces Team
  */
 abstract public class ExtendedRenderer extends Renderer
                                        implements LifecycleRenderer

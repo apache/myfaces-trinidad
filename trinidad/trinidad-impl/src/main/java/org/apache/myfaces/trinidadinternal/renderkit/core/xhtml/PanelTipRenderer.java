@@ -31,7 +31,6 @@ import org.apache.myfaces.trinidad.component.core.layout.CorePanelTip;
  * Renders the page or section level tip UI element.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/desktop/TipRenderer.java#0 $) $Date: 10-nov-2005.18:56:21 $
- * @author The Oracle ADF Faces Team
  */
 public class PanelTipRenderer extends XhtmlRenderer
 {

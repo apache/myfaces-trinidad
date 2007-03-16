@@ -53,7 +53,6 @@ import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetNode;
  * Utility class for parsing an XSS document into a StyleSheetDocument.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/xml/StyleSheetDocumentUtils.java#0 $) $Date: 10-nov-2005.18:58:00 $
- * @author The Oracle ADF Faces Team
  */
 public class StyleSheetDocumentUtils
 {

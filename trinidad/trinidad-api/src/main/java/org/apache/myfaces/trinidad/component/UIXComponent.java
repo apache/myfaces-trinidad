@@ -32,7 +32,6 @@ import org.apache.myfaces.trinidad.event.AttributeChangeListener;
 
 /**
  * Pure abstract base class for all UIX components.
- * @author The Oracle ADF Faces Team
  */
 abstract public class UIXComponent extends UIComponent
 {

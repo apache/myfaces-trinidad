@@ -34,7 +34,6 @@ import java.util.Set;
  * by each individual converter. The factory also supports converting
  * between types supported by combining individual converters.
  * 
- * @author The Oracle ADF Faces Team
  */
 public class GenericConverterFactory
 {

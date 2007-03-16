@@ -27,7 +27,6 @@ import org.apache.myfaces.trinidadinternal.image.painter.ImageLoader;
  * Reduces an image's color palette by means of an octree quantization method.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/encode/OctreeQuantizer.java#0 $) $Date: 10-nov-2005.19:05:19 $
- * @author The Oracle ADF Faces Team
  * @since 0.1.4
  * @see OctreeNode
  */

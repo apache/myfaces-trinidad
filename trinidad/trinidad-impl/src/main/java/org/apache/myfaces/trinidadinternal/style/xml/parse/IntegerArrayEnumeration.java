@@ -26,7 +26,6 @@ import java.util.Enumeration;
  * array do not change during the enumeration - it avoids
  * making a copy of the array.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/xml/parse/IntegerArrayEnumeration.java#0 $) $Date: 10-nov-2005.18:58:09 $
- * @author The Oracle ADF Faces Team
  */
 class IntegerArrayEnumeration implements Enumeration<Integer>
 {

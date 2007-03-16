@@ -25,7 +25,6 @@ import java.util.List;
 import javax.faces.event.ActionEvent;
 
 /**
- * @author asghosh
  */
 public class EmployeeTableBean implements Serializable
 {

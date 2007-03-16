@@ -28,7 +28,6 @@ import org.apache.myfaces.trinidad.component.core.data.CoreTable;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/xhtml/table/BandingData.java#0 $) $Date: 10-nov-2005.19:02:33 $
- * @author The Oracle ADF Faces Team
  */
 public final class BandingData
 {
