@@ -29,7 +29,9 @@ import java.util.Iterator;
  * Object which represents a single <renderers> element.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/xml/parse/RenderersNode.java#0 $) $Date: 10-nov-2005.18:50:42 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class RenderersNode
 {
   /**

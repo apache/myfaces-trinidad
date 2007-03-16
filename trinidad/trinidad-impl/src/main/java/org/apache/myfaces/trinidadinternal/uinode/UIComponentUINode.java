@@ -51,7 +51,9 @@ import org.apache.myfaces.trinidad.component.UIXComponentBase;
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/uinode/UIComponentUINode.java#1 $) $Date: 11-nov-2005.14:59:38 $
  * @todo Thoroughly investigate performance of this class.
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class UIComponentUINode implements UINode
 {
   protected UIComponentUINode(

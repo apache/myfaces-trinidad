@@ -33,7 +33,9 @@ import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
  * its results to the specified java type.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/data/bind/ConvertBoundValue.java#0 $) $Date: 10-nov-2005.18:56:38 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class ConvertBoundValue implements BoundValue
 {
   /**

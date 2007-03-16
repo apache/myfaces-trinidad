@@ -28,7 +28,10 @@ import org.apache.myfaces.trinidadinternal.uinode.FireActionBoundValue;
 import org.apache.myfaces.trinidadinternal.uinode.UINodeFacesBean;
 import org.apache.myfaces.trinidadinternal.uinode.bind.PropertyBoundValue;
 
-
+/**
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
+ */
+@Deprecated
 public class CommandLinkFacesBean extends UINodeFacesBean
 {
   @Override

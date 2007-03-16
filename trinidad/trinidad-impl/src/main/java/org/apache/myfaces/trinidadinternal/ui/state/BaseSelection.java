@@ -18,12 +18,14 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.state;
 
-/*
+/**
  * The BaseSingleSelection abstract class is the parent of all Selection
  * implementations, allowing the Selection interface to evolve over time.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/state/BaseSelection.java#0 $) $Date: 10-nov-2005.18:50:26 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 abstract public class BaseSelection implements Selection
 {
 }

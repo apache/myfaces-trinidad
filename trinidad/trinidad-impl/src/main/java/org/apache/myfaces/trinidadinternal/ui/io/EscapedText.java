@@ -22,7 +22,9 @@ package org.apache.myfaces.trinidadinternal.ui.io;
  * Text that is pre-escaped for output in the specified MimeType.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/io/EscapedText.java#0 $) $Date: 10-nov-2005.18:56:22 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public final class EscapedText
 {
   /**

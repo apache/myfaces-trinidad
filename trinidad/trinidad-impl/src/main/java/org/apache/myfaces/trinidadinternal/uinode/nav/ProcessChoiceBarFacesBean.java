@@ -29,6 +29,10 @@ import org.apache.myfaces.trinidadinternal.uinode.UINodeFacesBean;
 import org.apache.myfaces.trinidadinternal.uinode.bind.ClientIdBoundValue;
 import org.apache.myfaces.trinidadinternal.uinode.bind.MenuSelectedValueBoundValue;
 
+/**
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
+ */
+@Deprecated
 public class ProcessChoiceBarFacesBean extends UINodeFacesBean
 {
   @Override
@@ -44,6 +48,10 @@ public class ProcessChoiceBarFacesBean extends UINodeFacesBean
     return attrMap;
   }  
   
+  /**
+   * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
+   */
+  @Deprecated
   private static class ProcessChoiceSelectedValueBoundValue 
                  extends MenuSelectedValueBoundValue
   {

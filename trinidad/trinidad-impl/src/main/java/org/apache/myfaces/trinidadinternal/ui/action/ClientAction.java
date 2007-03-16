@@ -35,7 +35,9 @@ import org.apache.myfaces.trinidadinternal.ui.collection.Parameter;
  * to clicking on a link or button or selecting an item from a choice.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/action/ClientAction.java#0 $) $Date: 10-nov-2005.18:57:41 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 abstract public class ClientAction
 {
   /**

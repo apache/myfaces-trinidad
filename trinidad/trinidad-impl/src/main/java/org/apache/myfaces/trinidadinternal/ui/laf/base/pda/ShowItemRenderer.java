@@ -28,7 +28,9 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.FormValueRenderer;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.LinkRenderer;
 
 /**
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class ShowItemRenderer extends LinkRenderer
 {
   @Override

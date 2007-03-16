@@ -51,7 +51,9 @@ import org.apache.myfaces.trinidadinternal.ui.action.FireAction;
  * Renderer for button nodes.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/oracle/desktop/ButtonRenderer.java#1 $) $Date: 11-nov-2005.14:59:41 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 abstract public class ButtonRenderer extends GeneratedImageRenderer
 {
   /**
@@ -615,6 +617,10 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
   // not contained within a form.  We use this instead of the standard
   // fallback, since Netscape does not support <input type="button">
   // outside of a form.
+  /**
+   * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
+   */
+  @Deprecated
   private class AlternateRenderer implements Renderer
   {
    /**

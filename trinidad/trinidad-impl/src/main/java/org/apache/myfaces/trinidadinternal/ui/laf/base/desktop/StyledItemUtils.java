@@ -28,7 +28,9 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
  * Utility class to pass selected information to a styledItem.
  * Normally used by a styledList to tell a styledItem it is selected.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/desktop/StyledItemUtils.java#0 $) $Date: 10-nov-2005.18:56:17 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class StyledItemUtils implements UIConstants
 {
   private StyledItemUtils()

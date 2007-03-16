@@ -30,7 +30,9 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
  * AttributeMap that treats a UINode as an attribute map.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/collection/UINodeAttributeMap.java#0 $) $Date: 10-nov-2005.18:57:35 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public abstract class UINodeAttributeMap implements AttributeMap
 {
   protected abstract UINode getUINode(UIXRenderingContext context);

@@ -25,7 +25,9 @@ import org.apache.myfaces.trinidadinternal.util.OptimisticHashMap;
  * A default implementation of a RendererFactory.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/RendererFactoryImpl.java#0 $) $Date: 10-nov-2005.18:50:18 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class RendererFactoryImpl implements RendererFactory
 {
   /**

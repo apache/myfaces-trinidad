@@ -22,7 +22,9 @@ import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 
 /**
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class SubTabBarUtils implements UIConstants
 {
   public static Object getSelectedIndex(

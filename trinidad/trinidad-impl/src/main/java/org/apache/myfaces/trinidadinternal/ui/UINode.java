@@ -41,7 +41,9 @@ import javax.faces.component.UIComponent;
  * in the UINode tree.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/UINode.java#0 $) $Date: 10-nov-2005.18:50:24 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public interface UINode
 {
   /**

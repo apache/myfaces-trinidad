@@ -30,6 +30,10 @@ import org.apache.myfaces.trinidadinternal.ui.RoledRenderer;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
+/**
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
+ */
+@Deprecated
 abstract public class AliasRenderer implements Renderer, RoledRenderer
 {
   public void render(

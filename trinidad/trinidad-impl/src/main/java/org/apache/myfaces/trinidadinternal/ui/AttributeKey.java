@@ -47,7 +47,9 @@ import java.util.Hashtable;
  * @see org.apache.myfaces.trinidadinternal.ui.collection.AttributeMap
  * @see UINode#getAttributeValue
  * @see MutableUINode#setAttributeValue
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public final class AttributeKey
 {
   /**

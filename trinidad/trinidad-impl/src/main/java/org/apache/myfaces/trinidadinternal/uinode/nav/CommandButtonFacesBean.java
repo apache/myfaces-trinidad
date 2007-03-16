@@ -29,6 +29,10 @@ import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.collection.AttributeMap;
 
 
+/**
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
+ */
+@Deprecated
 public class CommandButtonFacesBean extends UINodeFacesBean
 {
   @Override

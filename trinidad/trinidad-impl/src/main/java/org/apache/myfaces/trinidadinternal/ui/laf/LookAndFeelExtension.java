@@ -34,7 +34,9 @@ import org.apache.myfaces.trinidadinternal.ui.UIConstants;
  * A LookAndFeel which extends another LookAndFeel, possibly adding
  * customizations.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/LookAndFeelExtension.java#0 $) $Date: 10-nov-2005.18:50:30 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class LookAndFeelExtension extends LookAndFeel
 {
   /**
@@ -272,6 +274,10 @@ public class LookAndFeelExtension extends LookAndFeel
   private LookAndFeelExtension() {}
 
   // Proxy RendererManager implementation
+  /**
+   * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
+   */
+  @Deprecated
   private class RendererManagerProxy extends RendererManager
   {
     public RendererManagerProxy(
@@ -349,6 +355,10 @@ public class LookAndFeelExtension extends LookAndFeel
   }
 
   // Proxy RendererFactory implementation.
+  /**
+   * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
+   */
+  @Deprecated
   private class RendererFactoryProxy implements RendererFactory
   {
     // Note: It might make sense for RendererFactoryProxy to

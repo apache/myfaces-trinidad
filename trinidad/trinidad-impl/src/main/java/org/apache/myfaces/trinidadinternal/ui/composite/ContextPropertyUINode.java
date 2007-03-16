@@ -34,8 +34,9 @@ import org.apache.myfaces.trinidadinternal.ui.data.bind.FixedBoundValue;
 /**
  * Node that sets a property on the context.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/composite/ContextPropertyUINode.java#0 $) $Date: 10-nov-2005.18:56:51 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
-
+@Deprecated
 public class ContextPropertyUINode extends BaseMutableUINode
 {
   public ContextPropertyUINode(
@@ -74,7 +75,11 @@ public class ContextPropertyUINode extends BaseMutableUINode
   {
     return _renderer;
   }
-
+  
+  /**
+   * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
+   */
+  @Deprecated
   private class Rndr extends BaseRenderer
   {
     @Override

@@ -27,7 +27,9 @@ import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
  * that BoundValue as a String, if possible.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/data/bind/ToStringBoundValue.java#0 $) $Date: 10-nov-2005.18:56:42 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class ToStringBoundValue implements BoundValue
 {
   /**

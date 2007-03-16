@@ -25,7 +25,9 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
  * Renders the breadcrumbs UI element.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/desktop/PageNavigationPathRenderer.java#0 $) $Date: 10-nov-2005.18:55:31 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class PageNavigationPathRenderer 
        extends org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.PageNavigationPathRenderer
 {

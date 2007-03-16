@@ -26,7 +26,9 @@ import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
  * Renderer for Navigation Bars showing either single or multiple records.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/desktop/NavigationBarRenderer.java#0 $) $Date: 10-nov-2005.18:55:28 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class NavigationBarRenderer extends
    org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.NavigationBarRenderer
 {

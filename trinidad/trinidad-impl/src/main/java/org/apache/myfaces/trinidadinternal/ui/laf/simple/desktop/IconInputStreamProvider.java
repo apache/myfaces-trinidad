@@ -27,6 +27,10 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
 import org.apache.myfaces.trinidad.skin.Icon;
 
+/**
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
+ */
+@Deprecated
 class IconInputStreamProvider implements InputStreamProvider
 {
   IconInputStreamProvider(Icon icon)

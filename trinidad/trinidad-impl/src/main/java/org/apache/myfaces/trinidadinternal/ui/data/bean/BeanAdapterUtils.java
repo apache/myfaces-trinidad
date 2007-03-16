@@ -58,7 +58,9 @@ import org.apache.myfaces.trinidadinternal.ui.data.MutableDataObject;
  * <p>
  * @see org.apache.myfaces.trinidadinternal.ui.tools.BuildBeanDOAdapter
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/data/bean/BeanAdapterUtils.java#0 $) $Date: 10-nov-2005.18:56:48 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class BeanAdapterUtils
 {
   /**
@@ -178,6 +180,10 @@ public class BeanAdapterUtils
     _sAdapters.put(beanClass, adapterClass);
   }
 
+  /**
+   * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
+   */
+  @Deprecated
   static private final class MapDataObject implements MutableDataObject
   {
     public MapDataObject(Map<Object, Object> map)

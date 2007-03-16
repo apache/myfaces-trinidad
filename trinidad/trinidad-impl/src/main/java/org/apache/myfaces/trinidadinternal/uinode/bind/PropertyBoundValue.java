@@ -29,7 +29,9 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
  * a bean.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/uinode/bind/PropertyBoundValue.java#0 $) $Date: 10-nov-2005.18:50:07 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class PropertyBoundValue implements BoundValue
 {
   /**

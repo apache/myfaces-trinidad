@@ -32,7 +32,9 @@ import javax.faces.context.FacesContext;
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/desktop/AllMessageIterator.java#0 $) $Date: 10-nov-2005.18:55:07 $
  * @todo Iterate through global messages then messages that don't have labels,
  *       finally messages with labels.
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 class AllMessageIterator implements Iterator<MessageWrapper>
 {
   /**

@@ -26,7 +26,9 @@ import javax.faces.component.UIComponent;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/UINodeProxy.java#0 $) $Date: 10-nov-2005.18:50:25 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public abstract class UINodeProxy implements UINode
 {
   protected abstract UINode getUINode();

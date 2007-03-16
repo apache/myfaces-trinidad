@@ -31,7 +31,9 @@ import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
  * boolean into value uix expects
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/uinode/bind/RequiredBoundValue.java#0 $) $Date: 10-nov-2005.18:50:08 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class RequiredBoundValue implements BoundValue
 {
   public RequiredBoundValue(UIXComponent ev)

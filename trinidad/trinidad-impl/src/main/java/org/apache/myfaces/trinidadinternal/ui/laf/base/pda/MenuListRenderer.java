@@ -37,7 +37,9 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
  * <p>
  * @version   Mar 23, 2005 6:36:14 PM
  *
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class MenuListRenderer extends XhtmlLafRenderer
 {
   @Override

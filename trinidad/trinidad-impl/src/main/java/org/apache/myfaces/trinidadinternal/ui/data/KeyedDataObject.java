@@ -26,7 +26,9 @@ import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
  * DataObject whose set of available selectors is enumerable.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/data/KeyedDataObject.java#0 $) $Date: 10-nov-2005.18:56:32 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public interface KeyedDataObject extends DataObject
 {
   public Iterator<Object> keys(UIXRenderingContext context);

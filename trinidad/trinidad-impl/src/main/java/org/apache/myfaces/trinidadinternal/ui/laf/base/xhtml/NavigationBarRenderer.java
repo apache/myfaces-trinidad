@@ -53,7 +53,9 @@ import org.apache.myfaces.trinidadinternal.ui.partial.PartialPageRendererUtils;
  * Renderer for Navigation Bars showing either single or multiple records.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/xhtml/NavigationBarRenderer.java#0 $) $Date: 10-nov-2005.18:54:04 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public abstract class NavigationBarRenderer extends XhtmlLafRenderer
 {
 

@@ -39,7 +39,9 @@ import org.apache.myfaces.trinidad.skin.Icon;
  * Base Rendering class for HTML renderers
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/desktop/HtmlLafRenderer.java#0 $) $Date: 10-nov-2005.18:55:21 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class HtmlLafRenderer extends XhtmlLafRenderer
                              implements BaseDesktopConstants
 {

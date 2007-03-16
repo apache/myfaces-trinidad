@@ -28,7 +28,9 @@ import org.apache.myfaces.trinidadinternal.ui.collection.Parameter;
  * Public utility methods useful for working with ClientActions
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/action/ClientActionUtils.java#0 $) $Date: 10-nov-2005.18:57:42 $
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class ClientActionUtils
 {
 

@@ -35,7 +35,9 @@ import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 
 /**
  * PropertyKey subclass that knows about AttributeKeys.
+ * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
+@Deprecated
 public class UINodePropertyKey extends PropertyKey
 {
   public AttributeKey getAttributeKey()
