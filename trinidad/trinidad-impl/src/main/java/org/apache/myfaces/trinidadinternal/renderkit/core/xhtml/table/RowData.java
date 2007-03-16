@@ -83,8 +83,6 @@ public final class RowData
    */
   public int getCurrentRowSpan()
   {
-      // indicate that we have read the rowspan:
-      _currentRowSpanState = 2;
     return _currRowSpan;
   }
 
@@ -94,43 +92,16 @@ public final class RowData
    */
   public void setCurrentRowSpan(int rowSpan)
   {
-
-    // -= Simon =-
-    //    I really dislike to see assert used like that. It's much like
-    //    #ifdef __DEBUG, but it has a performance cost as well since 
-    //    assertEnabled get instanciated for nothing and this add one 
-    //    if to the code path. This basically break the purpose of 
-    //    assert to not polute the execution when not enabled.
-    boolean assertEnabled = false;
-    assert assertEnabled = true;
-
     if (rowSpan < 0)
     {
       // preform a reset
       _currRowSpan = 1;
       _currSpanRow = 0;
-
-
-      if (assertEnabled)
-      {
-        // make sure prev operation was get:
-        assert (_currentRowSpanState == 2);
-        _currentRowSpanState = 0; // indicate that we have reset the rowspan
-      }
     }
     else
     {
       if (rowSpan > _currRowSpan)
         _currRowSpan = rowSpan;
-
-      if (assertEnabled)
-      {
-        // make sure that the previous operation was a set or reset:
-        assert (_currentRowSpanState <= 1);
-
-        // indicate that we have set the rowSpan:
-        _currentRowSpanState = 1;
-      }
     }
   }
 
@@ -159,18 +130,4 @@ public final class RowData
   private int _currRowSpan = 1, _currSpanRow = 0;
 
   private final CollectionComponent _tableBase;
-
-  // the following constants are used in Assert.DEBUG mode only:
-
-  // currentRowSpanState
-  // Get = G = 2
-  // Set = S = 1
-  // Reset=R = 0
-  // FSM:
-  //      GSR
-  //     G101
-  //     S110
-  //     R110
-  private byte _currentRowSpanState = 2; // initialize to get
-
 }
