@@ -77,11 +77,12 @@ abstract public class UIXNavigationHierarchy extends UIXHierarchy
     MenuModel model = getMenuModel();
     if (model != null)
     {
-      Object currPath = null;
-      assert((currPath = model.getRowKey()) != null);
+      Object currPath  = model.getRowKey();      
       Object focusPath = model.getFocusRowKey();
-      // the path better have been reset after you call getFocusPath
-      assert(currPath.equals(model.getRowKey()));
+
+      // The row key should not change as a result of calling getFocusRowKey()
+      assert(((currPath == null) && (model.getRowKey() == null)) ||
+             ((currPath != null) && currPath.equals(model.getRowKey())));
       return focusPath;
     }
 
