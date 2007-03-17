@@ -91,7 +91,10 @@ public class MApplication extends Application
   @Override
   public String getMessageBundle()
   {
-    throw new UnsupportedOperationException("Not implemented yet");
+    // The spec prevents throwing a UnsupportedOperationException and we have class 
+    // reading that property. Therefore it's better to return null which is a valid 
+    // return value.
+    return null;
   }
 
   @Override
