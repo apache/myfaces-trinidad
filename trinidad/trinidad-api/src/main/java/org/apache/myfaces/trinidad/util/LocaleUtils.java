@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
@@ -122,32 +123,44 @@ class LocaleUtils
   {
     _assertContextNotNull(context);
 
-    if (null == resourceId)
+    if (resourceId == null)
+    {
       throw new NullPointerException("resourceId is null");
+    }
 
     Locale locale = _getLocale(context);
     ClassLoader loader = _getClassLoader();
 
-    ResourceBundle bundle = _getAdfFacesMessageBundle(locale, loader);
-    String summary = null;
-
-    // unable to find adf faces app level bundle
-    if (null != bundle)
+    // First we look in the application specific bundle
+    ResourceBundle bundle = _getApplicationFacesMessageBundle(context, locale, loader);
+    BundleSummaryInfo summary = _getBundleSummaryInfo(bundle, resourceId);
+    if(summary == null)
     {
-      summary = _getBundleString(bundle, resourceId);
+      // The application did not override the resource, let look in the 
+      // private Trinidad bundle
+      bundle = _getTrinidadMessageBundle(locale, loader);
+      summary = _getBundleSummaryInfo(bundle, resourceId);
+      
+      if(summary == null)
+      {
+        // The internal bundle does not know of the requested resource either,
+        // let check the default JSF IMPL message bundle
+        bundle = _getDefaultFacesMessageBundle(locale, loader);
+        if(bundle == null)
+        {
+          // That bundle is from the spec, it should never be null
+          throw new NullPointerException("The default FacesMessage.FACES_MESSAGES cannot be found");
+        }
+        
+        summary = _getBundleSummaryInfo(bundle, resourceId);
+        if(summary == null)
+        {
+          summary = new BundleSummaryInfo(null, "???" + resourceId + "???");
+        }
+      }
     }
-
-    // Lookup in faces bundle
-    if (null == summary)
-    {
-      bundle = _getFacesMessageBundle(locale, loader);
-
-      if (null == bundle)
-        throw new NullPointerException("faces bundle not available ");
-      summary = _getBundleString(bundle, resourceId);
-    }
-
-    return new BundleSummaryInfo(bundle, summary);
+    
+    return summary;
   }
 
   /**
@@ -160,7 +173,7 @@ class LocaleUtils
    * @param loader ClassLoader to pickup the bundle
    * @return Resource bundle for the given locale.
    */
-  private static ResourceBundle _getAdfFacesMessageBundle(
+  private static ResourceBundle _getTrinidadMessageBundle(
     Locale locale,
     ClassLoader loader
     )
@@ -186,8 +199,64 @@ class LocaleUtils
 
     return bundle;
   }
+  
+  private static BundleSummaryInfo _getBundleSummaryInfo(
+    ResourceBundle bundle,
+    String resourceId)
+  {
+    assert resourceId != null;
+    
+    if(bundle != null)
+    {
+      // The bundle exists
+      String summary = _getBundleString(bundle, resourceId);
+      if(summary != null)
+      {
+        // The resource exists
+        return new BundleSummaryInfo(bundle, summary);
+      }
+    }
+    
+    return null;
+  }
 
-  private static ResourceBundle _getFacesMessageBundle(
+  private static ResourceBundle _getApplicationFacesMessageBundle(
+    FacesContext context,
+    Locale locale,
+    ClassLoader loader
+    )
+  {
+    assert context != null;
+    assert locale  != null;
+    assert loader  != null;
+    
+    Application application = context.getApplication();
+    if(application == null)
+    {
+      // Should not happen, but better check than a NullPointerException
+      return null;
+    }
+    
+    String bundleName = application.getMessageBundle();
+    if(bundleName == null)
+    {
+      // There's no specified message bundle in faces-config.xml
+      return null;
+    }
+    
+    try
+    {
+      return ResourceBundle.getBundle(bundleName, locale, loader);
+    }
+    catch (MissingResourceException missingResource)
+    {
+      _LOG.warning("Unable to load faces-config.xml defined message bundle {0}", bundleName);
+      _LOG.warning(missingResource);
+      return null;
+    }
+  }
+
+  private static ResourceBundle _getDefaultFacesMessageBundle(
     Locale locale,
     ClassLoader loader
     )
@@ -241,19 +310,16 @@ class LocaleUtils
    */
   private static String _getBundleString(ResourceBundle bundle, String key)
   {
-    Object localeStr = null;
     try
     {
-      localeStr =  bundle.getObject(key);
-      if (null != localeStr )
-        localeStr = localeStr.toString();
+      Object localeStr = bundle.getObject(key);
+      return localeStr == null ? null : localeStr.toString();
     }
     catch (MissingResourceException mre)
     {
-      _LOG.warning("Key " + key + " not found in " + bundle);
+      _LOG.finer("Key {0} not found in {1}", new Object[]{key, bundle});
+      return null;
     }
-
-    return (String)localeStr;
   }
 
 
