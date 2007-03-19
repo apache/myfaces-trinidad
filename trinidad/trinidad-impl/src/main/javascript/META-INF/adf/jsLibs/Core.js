@@ -262,7 +262,7 @@ function _agentInit()
       kind = "ie";
     }
   }
-  else if (agentString.indexOf("Opera") != -1)
+  else if (agentString.indexOf("opera") != -1)
   {
     isOpera = true;
     kind = "opera";
