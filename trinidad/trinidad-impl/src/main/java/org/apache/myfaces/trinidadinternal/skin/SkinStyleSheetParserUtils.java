@@ -25,6 +25,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+
+import java.net.URL;
+import java.net.URLConnection;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashSet;
@@ -99,6 +103,12 @@ class SkinStyleSheetParserUtils
     try
     {
 
+      // Store a resolver relative to the file we're about to parse
+      // Store the inputStreamProvider on the context; 
+      // this will be used to get the document's timestamp later on
+      XMLUtils.setResolver(context, resolver.getResolver(sourceName));
+      XMLUtils.setInputStreamProvider(context, provider);
+      
       // PARSE!
       // create a SkinStyleSheetNode
       // (contains a namespaceMap and a List of SkinSelectorPropertiesNodes
@@ -749,10 +759,24 @@ class SkinStyleSheetParserUtils
 
     if (provider != null)
     {
-      // And this only works if we are using a File-based InputStream
+      // And this only works if we are using a File-based or URL-based InputStream
       Object identifier = provider.getIdentifier();
       if (identifier instanceof File)
         timestamp = ((File)identifier).lastModified();
+      else if (identifier instanceof URL)
+      {
+        try
+        {
+          URLConnection connection = ((URL)identifier).openConnection();
+          timestamp = connection.getLastModified();
+        }
+        catch (IOException io)
+        {
+          _LOG.warning("Could not get the stylesheet document's timestamp because we couldn't " +
+          "open the connection.");
+        }
+
+      }
     }
 
     return timestamp;

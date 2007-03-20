@@ -21,6 +21,9 @@ package org.apache.myfaces.trinidadinternal.style.xml.parse;
 import java.io.File;
 import java.io.IOException;
 
+import java.net.URL;
+import java.net.URLConnection;
+
 import java.util.Map;
 import java.util.Hashtable;
 import java.util.Vector;
@@ -502,10 +505,26 @@ public class StyleSheetDocumentParser extends BaseNodeParser
 
     if (provider != null)
     {
-      // And this only works if we are using a File-based InputStream
+      // And this only works if we are using a File-based or URL-based InputStream
       Object identifier = provider.getIdentifier();
       if (identifier instanceof File)
+      {
         timestamp = ((File)identifier).lastModified();
+      }
+      else if (identifier instanceof URL)
+      {
+        try
+        {
+          URLConnection connection = ((URL)identifier).openConnection();
+          timestamp = connection.getLastModified();
+        }
+        catch (IOException io)
+        {
+          _LOG.warning("Could not get the stylesheet document's timestamp because we couldn't " +
+          "open the connection.");
+        }
+
+      }
     }
 
     // Merge in timestamps of imported style sheets

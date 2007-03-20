@@ -320,8 +320,8 @@ public class FileSystemStyleCache implements StyleProvider
       // here, we know they will always be available to other code.
       _initResolver();
 
-      // If checking for modified files, then check to see if the XSS
-      // doc has been modified.  If so, we dump our in-memory style cache.
+      // If checking for modified files, then check to see if the XSS or CSS
+      // document has been modified.  If so, we dump our in-memory style cache.
       if (checkModified && hasSourceDocumentChanged(context))
       {
         _cache = null;
@@ -592,7 +592,6 @@ public class FileSystemStyleCache implements StyleProvider
     String name = outputFile.getName();
 
     // If the output file already exists, check the last modified time.
-    // This isn't really
     if (outputFile.exists())
     {
       if (checkModified)
