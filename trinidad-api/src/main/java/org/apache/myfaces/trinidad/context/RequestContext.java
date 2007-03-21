@@ -356,7 +356,11 @@ abstract public class RequestContext
   //
   /**
    * Add a component as a partial target. In response to a partial event, only
-   * components registered as partial targets are re-rendered.
+   * components registered as partial targets are re-rendered.  For
+   * a component to be successfully re-rendered when it is manually
+   * added with this API, it should have an explictly set "id".  If
+   * not, partial re-rendering may or may not work depending on the
+   * component.
    */
   public abstract void addPartialTarget(UIComponent newTarget);
 
