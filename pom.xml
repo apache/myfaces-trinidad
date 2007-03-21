@@ -273,7 +273,7 @@
 
         <plugin>
           <artifactId>maven-remote-resources-plugin</artifactId>
-          <version>1.0-alpha-2</version>
+          <version>1.0-alpha-3</version>
           <executions>
             <execution>
               <goals>
@@ -529,15 +529,12 @@
     </profile>
     <profile>
       <id>release</id>
-      <!--
-      NOTE: To use you need to enable this profile and pass in the passphrase:
-            mvn -Prelease -Dpassphrase=thephrase
-       -->
       <build>
         <plugins>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.0-alpha-3</version>
             <executions>
               <execution>
                 <id>sign-artifacts</id>
@@ -569,6 +566,26 @@
                 <goals>
                   <goal>jar</goal>
                 </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-remote-resources-plugin</artifactId>
+            <version>1.0-alpha-3</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>process</goal>
+                </goals>
+                <configuration>
+                  <resourceBundles>
+                    <resourceBundle>org.apache:apache-jar-resource-bundle:1.1</resourceBundle>
+                    <resourceBundle>org.apache:apache-incubator-disclaimer-resource-bundle:1.0</resourceBundle>
+                  </resourceBundles>
+                  <properties>
+                    <addLicense>true</addLicense>
+                  </properties>
+                </configuration>
               </execution>
             </executions>
           </plugin>
