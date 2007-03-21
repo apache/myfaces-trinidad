@@ -469,7 +469,7 @@ TrRangeValidator.prototype.validate  = function(
   else
   {
   	//only min
-  	if(this._minValue)
+  	if(this._minValue != null)
   	{
   		if(numberValue >= this._minValue)
   		{
