@@ -34,6 +34,7 @@ import org.apache.myfaces.trinidad.util.ArrayMap;
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.render.CoreRenderer;
 import org.apache.myfaces.trinidad.skin.Icon;
 
 /**
@@ -375,7 +376,7 @@ public class OutputUtils
     
     if (styleClass != null)
     {
-      writer.writeAttribute("class", styleClass, null);
+      CoreRenderer.renderStyleClass(context, arc, styleClass);
     }
 
     writer.endElement("img");
