@@ -1,0 +1,108 @@
+ ~~ Licensed to the Apache Software Foundation (ASF) under one or more
+ ~~ contributor license agreements.  See the NOTICE file distributed with
+ ~~ this work for additional information regarding copyright ownership.
+ ~~ The ASF licenses this file to You under the Apache License, Version 2.0
+ ~~ (the "License"); you may not use this file except in compliance with
+ ~~ the License.  You may obtain a copy of the License at
+ ~~
+ ~~      http://www.apache.org/licenses/LICENSE-2.0
+ ~~
+ ~~ Unless required by applicable law or agreed to in writing, software
+ ~~ distributed under the License is distributed on an "AS IS" BASIS,
+ ~~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ ~~ See the License for the specific language governing permissions and
+ ~~ limitations under the License.
+ 
+ ------
+Download Apache Trinidad
+ ------
+
+Download Apache Trinidad
+
+
+  Use the links below to download a distribution of Apache Trinidad from
+  one of our mirrors. It is good practice to verify the integrity of the
+  distribution files.
+
+  You will be prompted for a mirror - if the file is not found on yours, please be patient, as it may take 24
+  hours to reach all mirrors.
+
+  Apache Trinidad is distributed as a <<<zip>>> archive (for Windows) and
+  as a <<<tar.gz>>> archive (for UNIX). The content is the same. Please note
+  that the <<<tar.gz>>> archives contain file names longer than 100 characters and have been
+  created using GNU tar extensions. Thus they must be untarred with a GNU compatible
+  version of tar.
+
+    << Apache Trinidad 1.0.0-incubating Distribution >>
+
+    Release notes can be found
+  {{{http://}here}}.
+
+*-------------------------+---------+----------+-----------+
+|                         | Mirrors | Checksum | Signature |
+*-------------------------+---------+----------+-----------+
+| Apache Trinidad 1.0.0-incubating (tar.gz)     | {{{http://people.apache.org/~matzew/dist_trin_core/trinidad-1.0.0-incubating-dist.tar.gz} trinidad-1.0.0-incubating-dist.tar.gz}} | {{{http://people.apache.org/~matzew/dist_trin_core/trinidad-1.0.0-incubating-dist.tar.gz.md5} trinidad-1.0.0-incubating-dist.tar.gz.md5}} | {{{http://people.apache.org/~matzew/dist_trin_core/trinidad-1.0.0-incubating-dist.tar.gz.asc} trinidad-1.0.0-incubating-dist.tar.gz.asc}} |
+*-------------------------+---------+----------+-----------+
+| Apache Trinidad 1.0.0-incubating (zip)      | {{{http://people.apache.org/~matzew/dist_trin_core/trinidad-1.0.0-incubating-dist.zip} trinidad-1.0.0-incubating-dist.zip}} | {{{http://people.apache.org/~matzew/dist_trin_core/trinidad-1.0.0-incubating-dist.zip.md5} trinidad-1.0.0-incubating-dist.zip.md5}} | {{{http://people.apache.org/~matzew/dist_trin_core/trinidad-1.0.0-incubating-dist.zip.asc} trinidad-1.0.0-incubating-dist.zip.asc}} |
+*-------------------------+---------+----------+-----------+
+| Apache Trinidad 1.0.0-incubating Example (tar.gz)     | {{{http://people.apache.org/~matzew/dist_trin_core/trinidad-1.0.0-incubating-example.tar.gz} trinidad-1.0.0-incubating-example.tar.gz}} | {{{http://people.apache.org/~matzew/dist_trin_core/trinidad-1.0.0-incubating-example.tar.gz.md5} trinidad-1.0.0-incubating-example.tar.gz.md5}} | {{{http://people.apache.org/~matzew/dist_trin_core/trinidad-1.0.0-incubating-example.tar.gz.asc} trinidad-1.0.0-incubating-example.tar.gz.asc}} |
+*-------------------------+---------+----------+-----------+
+| Apache Trinidad 1.0.0-incubating  Example (zip)      | {{{http://people.apache.org/~matzew/dist_trin_core/trinidad-1.0.0-incubating-example.zip} trinidad-1.0.0-incubating-example.zip}} | {{{http://people.apache.org/~matzew/dist_trin_core/trinidad-1.0.0-incubating-example.zip.md5} trinidad-1.0.0-incubating-example.zip.md5}} | {{{http://people.apache.org/~matzew/dist_trin_core/trinidad-1.0.0-incubating-example.zip.asc} trinidad-1.0.0-incubating-example.zip.asc}} |
+*-------------------------+---------+----------+-----------+
+
+Latest source code from SVN repository
+
+    If you want to use the latest Apache Trinidad features, the source code is under
+    version control with SVN.  Click {{{source-repository.html} here }}
+    for information on how to use the ASF Trinidad SVN Repository.
+
+Nightly builds from SVN repository
+
+     There are also {{{http://people.apache.org/repo/m2-snapshot-repository/} nightly builds}}
+     available every 24 hours (11:00 PM EST).
+
+Verifying checksums
+
+    It is essential that you verify the integrity of the downloaded
+    files using the PGP and MD5 signatures. MD5 verification ensures the
+    file was not corrupted during the download process. PGP verification
+    ensures that the file came from a certain person.
+
+    To verify the MD5 signature on the files, you need to use a program
+    called <<<md5>>> or <<<md5sum>>>, which is
+    included in many UNIX distributions.  It is also available as part of
+    {{{http://www.gnu.org/software/textutils/textutils.html}GNU Textutils}}.
+    Windows users can get binary md5 programs from {{{http://www.fourmilab.ch/md5/}here}},
+    {{{http://www.pc-tools.net/win32/freeware/console/}here}}, or
+    {{{http://www.slavasoft.com/fsum/}here}}.
+
+Verifying signatures
+
+  	PGP verification ensures that the file came from a certain person.  We strongly recommend
+	  you verify your downloads with both PGP and MD5.
+
+	  The PGP signatures can be verified using {{{http://www.pgpi.org/}PGP}} or
+	  {{{http://www.gnupg.org/}GPG}}.  First download the Apache Trinidad
+	  {{http://svn.apache.org/viewvc/incubator/adffaces/trunk/KEYS?view=co}KEYS}}	as well as the <<<asc>>> signature file
+	  for the particular distribution. It is important that you get these files from the ultimate
+	  trusted source - the main ASF distribution site, rather than from a mirror.
+	  Then verify the signatures using ...
+
+	  <<<
+	  % pgpk -a KEYS
+	  % pgpv trinidad-1.0.0-incubating-dist.tar.gz.asc
+	  >>>
+
+	  <or>
+
+	  <<<
+	  % pgp -ka KEYS
+	  % pgp trinidad-1.0.0-incubating-dist.tar.gz.asc
+	  >>>
+
+	  <or>
+
+	  <<<
+  	% gpg --import KEYS
+	  % gpg --verify trinidad-1.0.0-incubating-dist.tar.gz.asc
+	  >>>
