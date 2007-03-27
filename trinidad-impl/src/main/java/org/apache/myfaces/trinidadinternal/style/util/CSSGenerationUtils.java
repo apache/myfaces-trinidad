@@ -31,6 +31,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
@@ -54,6 +57,8 @@ public class CSSGenerationUtils
     * compressed styleclass names.
    *
    * @param context The current StyleContext
+   * @param styleSheetName The stylesheet name that is registered with the skin. 
+   *     e.g. skins/purple/purpleSkin.css
    * @param styles The style nodes to convert
    * @param out The PrintWriter to write to
    * @param compressStyles This tells us whether or not we want to output the short names.
@@ -66,6 +71,7 @@ public class CSSGenerationUtils
    */
   public static void writeCSS(
     StyleContext        context,
+    String              styleSheetName,
     StyleNode[]         styles,
     PrintWriter         out,
     boolean             compressStyles,
@@ -158,6 +164,9 @@ public class CSSGenerationUtils
     out.println("/* CSS file generated on " + date + " */");
 
     // This is the second pass in which we write out the style rules
+    // Get the baseURI up front so we don't have to recalculate it every time we find 
+    // a property value that contains url() and need to resolve the uri.
+    String baseURI = CSSUtils.getBaseSkinStyleSheetURI(styleSheetName);
     for (int i = 0; i < styles.length; i++)
     {
       StyleNode style = styles[i];
@@ -300,7 +309,10 @@ public class CSSGenerationUtils
 
             out.print(propName);
             out.print(":");
-            out.print(propValue);
+            String resolvedPropValue = 
+              CSSUtils.resolvePropertyValue(styleSheetName, baseURI, propName, propValue);
+            out.print(resolvedPropValue);
+
           }
         }
 

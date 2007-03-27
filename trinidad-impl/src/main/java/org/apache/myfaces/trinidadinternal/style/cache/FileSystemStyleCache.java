@@ -354,6 +354,7 @@ public class FileSystemStyleCache implements StyleProvider
       entryCache = _entryCache;
 
       // Get the document up front too.
+      // Returns the StyleSheetDocument, parsing the source file if necessary
       // this sets up _shortStyleClassMap and _namespacePrefixes
       document = _getStyleSheetDocument(context);
       if (document == null)
@@ -364,6 +365,8 @@ public class FileSystemStyleCache implements StyleProvider
     }
 
     // Look up the style sheet
+    // The Key class is a private static class that is used for hashing. It implements
+    // hashCode and equals which are based on locale, direction, browser, version, platform.
     Key key = new Key(context);
     Entry entry = _getEntry(cache, key, checkModified);
     if (entry != null)
@@ -422,6 +425,8 @@ public class FileSystemStyleCache implements StyleProvider
   // Creates and caches an Entry for the specified StyleContext
   // This generates a style sheet for the specific StyleContext
   // (locale, direction, etc), and puts that style sheet's uri in the Entry.
+  // It also caches it in the "normal" cache (the one that is based on the StyleContext),
+  // and the entry cache (the one that is based on the StyleSheetNodes)
   private Entry _createEntry(
     StyleContext             context,
     StyleSheetDocument       document,
@@ -436,7 +441,7 @@ public class FileSystemStyleCache implements StyleProvider
     // Next, get the fully resolved styles for this context. This will be
     // those StyleNodes that match the locale, direction, browser, etc -- the
     // info that is in the StyleContext.
-    StyleNode[] styles = _getStyles(context, document);
+    StyleNode[] styles = _getStyleContextResolvedStyles(context, document);
     if (styles == null)
       return null;
 
@@ -451,7 +456,9 @@ public class FileSystemStyleCache implements StyleProvider
 
     _LOG.fine("Finished processing stylesheet {0}", uri);
 
-    // Create a new entry and cache it
+    // Create a new entry and cache it in the "normal" cache. The "normal" cache is one
+    // where the key is the Key object which is built based on information from the StyleContext,
+    // like browser, agent, locale, direction.
     Entry entry = new Entry(uri, new StyleMapImpl());
     cache.put(key, entry);
 
@@ -463,6 +470,8 @@ public class FileSystemStyleCache implements StyleProvider
   }
 
   // Look in the entry cache for a compatible entry.
+  // A compatible entry is one with the same DerivationKey, which is essentially the 
+  // same StyleSheetNodes.
   private Entry _getCompatibleEntry(
     StyleContext             context,
     StyleSheetDocument       document,
@@ -556,8 +565,10 @@ public class FileSystemStyleCache implements StyleProvider
   }
 
   // Returns an array of fully resolved StyleNodes for the
-  // specified context and document.
-  private StyleNode[] _getStyles(
+  // specified StyleContext  and StyleSheetDocument.
+  // This will be those StyleNodes that match the locale, direction, browser, etc -- the
+  // info that is in the StyleContext.
+  private StyleNode[] _getStyleContextResolvedStyles(
     StyleContext context,
     StyleSheetDocument document
     )
@@ -662,6 +673,7 @@ public class FileSystemStyleCache implements StyleProvider
 
 
     CSSGenerationUtils.writeCSS(context,
+                                skin.getStyleSheetName(),
                                 styles,
                                 out,
                                 compressStyles,
