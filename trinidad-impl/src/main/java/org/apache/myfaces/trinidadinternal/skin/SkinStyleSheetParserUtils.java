@@ -181,13 +181,6 @@ class SkinStyleSheetParserUtils
     )
   {
 
-    // Retrieve the base URI for the source style sheet.
-    // We need this information so that we can convert relative
-    // URLs in the source style sheet (eg. background-image URLs)
-    // to absolute URLs.  Otherwise, the relative URLs would
-    // be resolved relative to the generated style sheet,
-    // which is not the desired behavior.
-    String baseURI = _getBaseURI(sourceName);    
     
     // Get each SkinStyleSheetNode, and for each SkinStyleSheetNode get a
     // styleNodeList. Also, build one iconNodeList and one skinPropertyNodeList.
@@ -217,9 +210,7 @@ class SkinStyleSheetParserUtils
   
         ResolvedSkinProperties resolvedProperties =
           _resolveProperties(selectorName,
-                             propertyList,
-                             baseURI,
-                             sourceName);
+                             propertyList);
   
         skinPropertyNodeList.addAll(resolvedProperties.getSkinPropertyNodeList());
   
@@ -327,9 +318,7 @@ class SkinStyleSheetParserUtils
    */
   private static ResolvedSkinProperties _resolveProperties(
     String selectorName,
-    List<PropertyNode> propertyNodeList,
-    String baseURI,
-    String sourceName)
+    List<PropertyNode> propertyNodeList)
   {
 
     List<PropertyNode> noTrPropertyList = new ArrayList<PropertyNode>();
@@ -787,76 +776,6 @@ class SkinStyleSheetParserUtils
       parser.parseCSSDocument(reader, documentHandler);
       return documentHandler.getSkinStyleSheetNodes();
   }
-
-  // Given the sourceName of the style sheet that is being
-  // parsed, return an absolute base URI pointing to the
-  // directory which contains the style sheet.  We will use this
-  // base URI to ensure that URLs specified in the style sheet
-  // (eg. background-image URLs) are resolved appropriately
-  // (ie. not relative to the generated style sheet).
-  private static String _getBaseURI(String sourceName)
-  {
-    // The sourceName is actually a context-relative URI.
-    // We need to strip off the file name and prepend the
-    // context path.
-
-    // First, get the context path.
-    // Note that our options for obtaining the context path at
-    // this point are somewhat limited.  We could require that
-    // the caller pass this in, though this would require
-    // passing this information through many layers for non-obvious
-    // reasons.  Instead, we rely on the fact that we can obtain
-    // this information through the FacesContext (actually,
-    // through the ExternalContext), which we have access to here.
-    // This is slightly ugly, since this introduces a dependency
-    // from our CSS parsing code on JavaServer Faces, but until
-    // we find use cases where our skinning architecture will be
-    // applied in a non-Faces environment, this dependency seems
-    // accpetable.
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    assert(facesContext != null);
-
-    ExternalContext externalContext = facesContext.getExternalContext();
-    String contextPath = externalContext.getRequestContextPath();
-    assert(contextPath != null);
-
-    int contextPathLength = contextPath.length();
-
-    // Before we combine the context path and source name to
-    // produce the base URI, make sure that these values are
-    // in the expected form
-    assert(contextPathLength > 0);
-    assert(contextPath.charAt(0) == '/');
-    assert(contextPath.charAt(contextPathLength - 1) != '/');
-    assert(sourceName.length() > 0);
-    assert(sourceName.charAt(0) != '/');
-
-    // Our internal css files are under /META-INF/adf/styles, though
-    // images are accessed via <contextPath>/adf/images.  As such,
-    // we also need to strip off the bonus "/META_INF" prefix from
-    // the source name.  Otherwise, image requests won't be
-    // resolved since /META-INF is not exposed via HTTP.
-    if (sourceName.startsWith("META-INF/"))
-      sourceName = sourceName.substring(9);
-
-    // Find the start of the file name part of the source name - we don't
-    // need this as part of the base URI
-    int lastSepIndex = sourceName.lastIndexOf('/');
-    
-    if (lastSepIndex == -1)
-      return contextPath;
-    else
-    {
-      StringBuilder buffer = new StringBuilder(
-                                    contextPathLength + lastSepIndex + 1);
-      buffer.append(contextPath);
-      buffer.append("/");
-      buffer.append(sourceName.substring(0, lastSepIndex));
-      return buffer.toString();
-    }
-  }
-  
-
 
 
   // Tests whether the specified property value is an "url" property.
