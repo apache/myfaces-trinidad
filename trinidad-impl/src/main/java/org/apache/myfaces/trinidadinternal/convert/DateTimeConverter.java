@@ -320,7 +320,7 @@ public class DateTimeConverter extends
       {
         FacesContext context = FacesContext.getCurrentInstance();
         // this the pattern obtained by applying the styles
-        Object format = getDateFormat(context, null);
+        Object format = getDateFormat(context, null, false);
         if (format instanceof SimpleDateFormat)
         {
           applyPattern = ((SimpleDateFormat) format).toPattern();
@@ -430,7 +430,7 @@ public class DateTimeConverter extends
     {
       try
       {
-        DateFormat format = getDateFormat(context, datePattern);
+        DateFormat format = getDateFormat(context, datePattern, false);
         if ((format != null) && (format instanceof SimpleDateFormat))
         {
           datePattern = ((SimpleDateFormat) format).toPattern();
