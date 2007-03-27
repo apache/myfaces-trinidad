@@ -338,7 +338,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
         "value:\""+value+"\" is not of type java.util.Date," +
         " it is "+value.getClass());
 
-    DateFormat format = _getDateFormat(context, getPattern());
+    DateFormat format = _getDateFormat(context, getPattern(), false);
     return format.format(value);
   }
 
@@ -530,7 +530,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
       if (pattern == null)
       {
         // get the pattern based on the style and type that has been set.
-        DateFormat format = getDateFormat(context, null);
+        DateFormat format = getDateFormat(context, null, true);
         if (format instanceof SimpleDateFormat)
         {
           pattern = ((SimpleDateFormat)format).toPattern();
@@ -674,7 +674,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
     String pattern
     )
   {
-    DateFormat fmt = getDateFormat(context, pattern);
+    DateFormat fmt = getDateFormat(context, pattern, true);
     try
     {
       return fmt.parse(value);
@@ -1044,13 +1044,14 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
 
   protected final DateFormat getDateFormat(
     FacesContext context,
-    String pattern
+    String pattern,
+    boolean forParsing
     ) throws ConverterException
   {
     ConverterException exception = null;
     try
     {
-      DateFormat format = _getDateFormat(context, pattern);
+      DateFormat format = _getDateFormat(context, pattern, forParsing);
       return format;
     }
     catch (ConverterException ce)
@@ -1091,7 +1092,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
 
       try
       {
-        DateFormat format  = getDateFormat(context, null);
+        DateFormat format  = getDateFormat(context, null,false);
         if ((format != null) && (format instanceof SimpleDateFormat))
         {
           datePattern = ((SimpleDateFormat)format).toPattern();
@@ -1341,7 +1342,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
   
   private String _getExample(FacesContext context, String pattern)
   {
-    DateFormat format = _getDateFormat(context, pattern);
+    DateFormat format = _getDateFormat(context, pattern, false);
     return format.format(_EXAMPLE_DATE);
   }
 
@@ -1577,7 +1578,8 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
 
   private DateFormat _getDateFormat(
     FacesContext context,
-    String pattern
+    String pattern,
+    boolean forParsing
     )
   {
     RequestContext reqContext = RequestContext.getCurrentInstance();
@@ -1638,7 +1640,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
         format = _getSimpleDateFormat(pattern, locale);
       }
 
-      if (format instanceof SimpleDateFormat)
+      if (format instanceof SimpleDateFormat && !forParsing)
       {
         SimpleDateFormat simpleFormat = (SimpleDateFormat)format;
 
