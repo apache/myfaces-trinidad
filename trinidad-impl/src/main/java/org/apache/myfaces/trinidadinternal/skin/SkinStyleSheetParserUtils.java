@@ -56,6 +56,7 @@ import org.apache.myfaces.trinidadinternal.skin.icon.ContextImageIcon;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidadinternal.skin.icon.TextIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.URIImageIcon;
+import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
 import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
 import org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.IconNode;
 import org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.SkinPropertyNode;
@@ -189,6 +190,7 @@ class SkinStyleSheetParserUtils
     List<IconNode> iconNodeList = new ArrayList<IconNode>();
     List<SkinPropertyNode> skinPropertyNodeList = new ArrayList<SkinPropertyNode>();
     List<StyleSheetNode> ssNodeList = new ArrayList<StyleSheetNode>();
+    String baseSourceURI = CSSUtils.getBaseSkinStyleSheetURI(sourceName);
     
     for (SkinStyleSheetNode skinSSNode : skinSSNodeList) 
     {
@@ -229,7 +231,9 @@ class SkinStyleSheetParserUtils
             selectorName = selectorName.concat(StyleUtils.RTL_CSS_SUFFIX);
   
           // create an IconNode object and add it ot the iconNodeList
-          boolean addStyleNode = _addIconNode(selectorName,
+          boolean addStyleNode = _addIconNode(sourceName,
+                                              baseSourceURI,
+                                              selectorName,
                                               noTrPropertyList,
                                               iconNodeList);
           if (addStyleNode)
@@ -401,6 +405,8 @@ class SkinStyleSheetParserUtils
 
   /**
    * Create an IconNode and add it to the iconNodeList.
+   * @param sourceName
+   * @param baseSourceURI
    * @param selectorName
    * @param noTrPropertyNodeList
    * @param iconNodeList
@@ -408,6 +414,8 @@ class SkinStyleSheetParserUtils
    * property value of 'content:'. That means it is only css styles.
    */
   private static boolean _addIconNode(
+    String             sourceName,
+    String             baseSourceURI,
     String             selectorName,
     List<PropertyNode> noTrPropertyNodeList,
     List<IconNode>     iconNodeList)
@@ -531,8 +539,14 @@ class SkinStyleSheetParserUtils
         }
         else
         {
+          // a. if it has two slashes, strip off one.
+          // b. if it starts with http: don't do anything to the uri
+          // c. if it an absolute url, then it should be relative to
+          // the skin file since they wrote the absolute url in the skin file.
           if (startsWithTwoSlashes)
             uri = uri.substring(1);
+          else if (!(uri.startsWith("http:")))
+            uri = CSSUtils.getAbsoluteURIValue(sourceName, baseSourceURI, uri);
           icon =
             new URIImageIcon(uri, uri, width, height, null, inlineStyle);
         }
