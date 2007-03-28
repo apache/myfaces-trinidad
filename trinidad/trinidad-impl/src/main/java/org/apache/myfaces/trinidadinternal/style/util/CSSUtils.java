@@ -168,6 +168,56 @@ public class CSSUtils
       return buffer.toString();
     }
   }
+  
+  /**
+   * Convert a relative URI values to an absolute URI value.
+   * For example, if the baseURI is "/trinidad-context/skins/purple" and 
+   * the uri is "../../skins/purple/xyz.gif", we return 
+   * @param styleSheetName - the name of the Skin's stylesheet. We use this in any warning 
+   * messages.
+   * @param baseURI - absolute base URI pointing to the directory 
+   * which contains the skin style sheet. This is used to figure out the absolute uri of the uri
+   * parameter.
+   * @param uri - a uri. If this is an uri that begins with "../", then
+   * we convert it to be an absolute url that has no "../" at the start.
+
+   * @return An uri that does not begin with one or more "../" strings.
+   */
+  public static String getAbsoluteURIValue(
+    String styleSheetName,
+    String baseURI,
+    String uri)
+  {
+    String strippedURI = uri;
+    String strippedBaseURI = baseURI;
+
+    // Strip off leading "../" segments from the uri
+    while (strippedURI.startsWith("../"))
+    {
+      int lastSepIndex = strippedBaseURI.lastIndexOf('/');
+      if (lastSepIndex < 0)
+      {
+        _LOG.warning("Invalid image uri '" +
+                     uri +
+                     "' in style sheet '" +
+                     styleSheetName);
+
+        break;
+      }
+
+      strippedURI = strippedURI.substring(3);
+      strippedBaseURI = strippedBaseURI.substring(0, lastSepIndex);
+    }
+
+    StringBuilder builder = new StringBuilder(strippedBaseURI.length() +
+                                             strippedURI.length() +
+                                             2);
+    builder.append(strippedBaseURI);
+    builder.append("/");
+    builder.append(strippedURI);
+
+    return builder.toString();
+  }
 
   /**
    * Parse an inline style into a CSSStyle object.
@@ -863,7 +913,7 @@ public class CSSUtils
       // e.g., if uri is "../../skins/purple/xyz.gif" and baseURI is /trinidad-context/skins/purple 
       // we get "/trinidad-context/skins/purple/xyz.gif"
       // 
-      resolvedURI = _getAbsoluteURIValue(styleSheetName, baseURI, uri);
+      resolvedURI = getAbsoluteURIValue(styleSheetName, baseURI, uri);
     }
     return externalContext.encodeResourceURL(resolvedURI);
 
@@ -880,56 +930,7 @@ public class CSSUtils
     return ((uri.charAt(0) != '/') && (uri.indexOf(':') < 0));
   }
 
-  /**
-   * Convert a relative URI values to an absolute URI value.
-   * For example, if the baseURI is "/trinidad-context/skins/purple" and 
-   * the uri is "../../skins/purple/xyz.gif", we return 
-   * @param styleSheetName - the name of the Skin's stylesheet. We use this in any warning 
-   * messages.
-   * @param baseURI - absolute base URI pointing to the directory 
-   * which contains the skin style sheet. This is used to figure out the absolute uri of the uri
-   * parameter.
-   * @param uri - a uri. If this is an uri that begins with "../", then
-   * we convert it to be an absolute url that has no "../" at the start.
 
-   * @return An uri that does not begin with one or more "../" strings.
-   */
-  private static String _getAbsoluteURIValue(
-    String styleSheetName,
-    String baseURI,
-    String uri)
-  {
-    String strippedURI = uri;
-    String strippedBaseURI = baseURI;
-
-    // Strip off leading "../" segments from the uri
-    while (strippedURI.startsWith("../"))
-    {
-      int lastSepIndex = strippedBaseURI.lastIndexOf('/');
-      if (lastSepIndex < 0)
-      {
-        _LOG.warning("Invalid image uri '" +
-                     uri +
-                     "' in style sheet '" +
-                     styleSheetName);
-
-        break;
-      }
-
-      strippedURI = strippedURI.substring(3);
-      strippedBaseURI = strippedBaseURI.substring(0, lastSepIndex);
-    }
-
-    StringBuilder builder = new StringBuilder(strippedBaseURI.length() +
-                                             strippedURI.length() +
-                                             2);
-    builder.append(strippedBaseURI);
-    builder.append("/");
-    builder.append(strippedURI);
-
-    return builder.toString();
-  }
-  
   /**
    * Determines if the specified value contains a CSS url. The URLs are
    * detected by finding usage of url() function.
