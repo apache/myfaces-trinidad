@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -82,14 +82,6 @@ public class StyleNodeParser extends BaseNodeParser
       _properties.copyInto(properties);
     }
 
-    CompoundPropertyNode[] compoundProperties = null;
-    if (_compoundProperties != null)
-    {
-      compoundProperties =
-        new CompoundPropertyNode[_compoundProperties.size()];
-      _compoundProperties.copyInto(compoundProperties);
-    }
-
     IncludeStyleNode[] includedStyles = null;
     if (_includedStyles != null)
     {
@@ -107,7 +99,6 @@ public class StyleNodeParser extends BaseNodeParser
     return new StyleNode(_name,
                          _selector,
                          properties,
-                         compoundProperties,
                          includedStyles,
                          includedProperties,
                          null,
@@ -131,12 +122,6 @@ public class StyleNodeParser extends BaseNodeParser
         localName.equals(COLOR_PROPERTY_NAME))
     {
       return context.getParser(PropertyNode.class, namespaceURI, localName);
-    }
-    else if (localName.equals(COMPOUND_PROPERTY_NAME))
-    {
-      return context.getParser(CompoundPropertyNode.class,
-                               namespaceURI,
-                               localName);
     }
     else if (localName.equals(INCLUDE_PROPERTY_NAME))
     {
@@ -197,22 +182,6 @@ public class StyleNodeParser extends BaseNodeParser
           _properties.addElement((PropertyNode)child);
       }
     }
-    else if (localName.equals(COMPOUND_PROPERTY_NAME))
-    {
-      if (!(child instanceof CompoundPropertyNode))
-      {
-        throw new IllegalArgumentException("child not instance of CompoundPropertyNode");
-      }
-
-      if (child instanceof CompoundPropertyNode)
-      {
-        if (_compoundProperties == null)
-          _compoundProperties = new Vector<CompoundPropertyNode>();
-
-        _compoundProperties.addElement((CompoundPropertyNode)child);
-      }
-
-    }
     else if (localName.equals(INCLUDE_PROPERTY_NAME))
     {
       if (!(child instanceof IncludePropertyNode))
@@ -236,7 +205,6 @@ public class StyleNodeParser extends BaseNodeParser
   // -= Simon Lessard =-
   // TODO: Check if synchronization is truly required
   private Vector<PropertyNode>  _properties;
-  private Vector<CompoundPropertyNode>  _compoundProperties;
   private Vector<IncludeStyleNode>  _includedStyles;
   private Vector<IncludePropertyNode>  _includedProperties;
 

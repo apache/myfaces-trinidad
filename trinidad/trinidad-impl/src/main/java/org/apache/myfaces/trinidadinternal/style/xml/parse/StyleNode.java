@@ -43,7 +43,6 @@ public class StyleNode
     this(style._name,
          style._selector,
          properties,
-         style._compoundProperties,
          style._includedStyles,
          style._includedProperties,
          null);
@@ -56,7 +55,6 @@ public class StyleNode
     String                 name,
     String                 selector,
     PropertyNode[]         properties,
-    CompoundPropertyNode[] compoundProperties,
     IncludeStyleNode[]     includedStyles,
     IncludePropertyNode[]  includedProperties,
     Set<String>            inhibitedProperties
@@ -65,7 +63,6 @@ public class StyleNode
     this(name,
          selector,
          properties,
-         compoundProperties,
          includedStyles,
          includedProperties,
          inhibitedProperties,
@@ -79,7 +76,6 @@ public class StyleNode
     String                 name,
     String                 selector,
     PropertyNode[]         properties,
-    CompoundPropertyNode[] compoundProperties,
     IncludeStyleNode[]     includedStyles,
     IncludePropertyNode[]  includedProperties,
     Set<String>            inhibitedProperties,
@@ -95,15 +91,6 @@ public class StyleNode
     {
       _properties = new PropertyNode[properties.length];
       System.arraycopy(properties, 0, _properties, 0, properties.length);
-    }
-
-    if (compoundProperties != null)
-    {
-      _compoundProperties =
-        new CompoundPropertyNode[compoundProperties.length];
-      System.arraycopy(compoundProperties, 0,
-                       _compoundProperties, 0,
-                       compoundProperties.length);
     }
 
     if (includedStyles != null)
@@ -168,8 +155,6 @@ public class StyleNode
   {
     if (_properties != null && _properties.length > 0)
       return false;
-    if (_compoundProperties != null && _compoundProperties.length > 0)
-      return false;
     if (_includedStyles != null && _includedStyles.length > 0)
       return false;
     if (_includedProperties != null && _includedProperties.length > 0)
@@ -189,20 +174,6 @@ public class StyleNode
   }
   else
     return (Arrays.asList(_properties)).iterator();
-  }
-
-  /**
-   * Returns an Iterator containing Strings and IncludePropertyNodes.
-   */
-  public Iterator<CompoundPropertyNode> getCompoundProperties()
-  {
-    if (_compoundProperties == null) 
-    {
-      List<CompoundPropertyNode> list = Collections.emptyList();
-      return list.iterator();
-    }
-    else
-      return (Arrays.asList(_compoundProperties)).iterator();
   }
 
   /**
@@ -281,7 +252,6 @@ public class StyleNode
   private String                 _name;
   private String                 _selector;
   private PropertyNode[]         _properties;          // The property nodes
-  private CompoundPropertyNode[] _compoundProperties;  // Compound properties
   private IncludeStyleNode[]     _includedStyles;      // Included styles
   private IncludePropertyNode[]  _includedProperties;  // Included properties
   private List<String>           _inhibitedProperties; // Inhibited properties

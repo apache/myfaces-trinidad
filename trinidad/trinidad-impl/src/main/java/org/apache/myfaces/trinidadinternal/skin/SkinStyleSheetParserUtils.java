@@ -642,7 +642,6 @@ class SkinStyleSheetParserUtils
       new StyleNode(name,
                     selector,
                     propertyArray,
-                    null,
                     includeStyleNodes.toArray(new IncludeStyleNode[0]),
                     null,
                     inhibitedProperties);
