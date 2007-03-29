@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
+  <jsp:directive.page contentType="text/html;charset=iso-8859-1"/>
+  <f:view>
+    <trh:html>
+      <trh:head title="Enter Shipping Information"/>
+      <trh:body>
+       <tr:form>
+       
+        <tr:panelPage>
+          <tr:messages/>
+          <tr:panelHeader text="Shipping Address">
+            <tr:panelFormLayout>
+              <tr:inputText label="First Name"  value="#{order.shippingAddress.firstName}"/>   
+              <tr:inputText label="Last Name"  value="#{order.shippingAddress.lastName}"/>    
+              <tr:inputText label="Street Address" value="#{order.shippingAddress.streetAddress}"/>   
+              <tr:inputText label="City" value="#{order.shippingAddress.city}"/>   
+              <tr:inputText label="State" value="#{order.shippingAddress.state}"/>   
+              <tr:inputText label="Zip Code" value="#{order.shippingAddress.zip}"/>   
+            </tr:panelFormLayout>
+            <tr:panelButtonBar>        
+             <tr:singleStepButtonBar selectedStep="4" maxStep="5"
+                                nextActionListener="#{order.processNext}" 
+                                nextAction="#{order.getNextAction}"
+                                previousActionListener="#{order.processPrevious}" 
+                                previousAction="#{order.getPreviousAction}"
+                                />
+            </tr:panelButtonBar>
+          </tr:panelHeader>
+        </tr:panelPage>
+    
+       </tr:form>
+      </trh:body>
+    </trh:html>
+  </f:view>
+</jsp:root>
