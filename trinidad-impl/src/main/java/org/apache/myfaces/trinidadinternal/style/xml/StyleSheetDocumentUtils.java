@@ -43,7 +43,6 @@ import org.apache.myfaces.trinidadinternal.style.StyleConstants;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.ColorNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.ColorSchemeNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.IncludePropertyNode;
-import org.apache.myfaces.trinidadinternal.style.xml.parse.CompoundPropertyNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.PropertyNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
@@ -208,9 +207,6 @@ public class StyleSheetDocumentUtils
       _registerFactory(manager, PropertyNode.class, "PropertyNode");
       _registerFactory(manager, ColorNode.class, "ColorNode");
       _registerFactory(manager, ColorSchemeNode.class, "ColorSchemeNode");
-      _registerFactory(manager,
-                       CompoundPropertyNode.class,
-                       "CompoundPropertyNode");
       _registerFactory(manager,
                        IncludePropertyNode.class,
                        "IncludePropertyNode");

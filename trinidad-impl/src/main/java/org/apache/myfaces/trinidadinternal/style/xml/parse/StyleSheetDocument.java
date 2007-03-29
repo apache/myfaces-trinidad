@@ -500,10 +500,8 @@ public class StyleSheetDocument
             //    into our StyleEntry.
             // 2. Resolve any included properties, and shove those properties
             //    into our StyleEntry.
-            // 3. Resolve all compound properites, and shove those properties
-            //    into the StyleEntry
-            // 4. Remove all properties that were inhibited.
-            // 5. Shove all properties from the matching StyleNode into our
+            // 3. Remove all properties that were inhibited.
+            // 4. Shove all properties from the matching StyleNode into our
             //    StyleEntry, overwriting included values
             // -= Simon Lessard =-
             // FIXME: That sequence looks buggy. If more than 1 matching node 
@@ -593,80 +591,7 @@ public class StyleSheetDocument
               }
             }
 
-            // 3. Add compound properties
-            Iterator<CompoundPropertyNode> compoundProperties = 
-              node.getCompoundProperties();
-            
-            if (compoundProperties != null)
-            {
-              while (compoundProperties.hasNext())
-              {
-                CompoundPropertyNode compoundProperty = compoundProperties.next();
-
-                // Build up the value String for the compound property
-                StringBuffer buffer = new StringBuffer();
-                Iterator<Object> values = compoundProperty.getValues();
-                if (values != null)
-                {
-                  while (values.hasNext())
-                  {
-                    Object o = values.next();
-
-                    if (buffer.length() != 0)
-                      buffer.append(' ');
-
-                    if (o instanceof String)
-                      buffer.append((String)o);
-                    else if (o instanceof IncludePropertyNode)
-                    {
-                      IncludePropertyNode includeProperty =
-                        (IncludePropertyNode)o;
-
-                      String includeID = null;
-                      boolean includeIsNamed = false;
-
-                      if (includeProperty.getName() != null)
-                      {
-                        includeID = includeProperty.getName();
-                        includeIsNamed = true;
-                      }
-                      else
-                      {
-                        includeID = includeProperty.getSelector();
-                      }
-
-                      StyleNode resolvedStyle =
-                        _resolveStyle(context,
-                                      styleSheets,
-                                      resolvedStyles,
-                                      resolvedNamedStyles,
-                                      includesStack,
-                                      namedIncludesStack,
-                                      includeID,
-                                      includeIsNamed);
-
-                      if (resolvedStyle != null)
-                      {
-                        String value = _getPropertyValue(resolvedStyle,
-                                            includeProperty.getPropertyName());
-                        if (value != null)
-                          buffer.append(value);
-                      }
-
-                    }
-                    else
-                    {
-                      assert false;
-                    }
-                  }
-                }
-
-                entry.addProperty(new PropertyNode(compoundProperty.getName(),
-                                                   buffer.toString()));
-              }
-            }
-
-            // 4. Check inhibited properties
+            // 3. Check inhibited properties
             Iterator<String> inhibitedProperties = node.getInhibitedProperties();
             while (inhibitedProperties.hasNext())
             {
@@ -674,7 +599,7 @@ public class StyleSheetDocument
             }
             
 
-            // 5. Add non-included properties
+            // 4. Add non-included properties
             Iterator<PropertyNode> properties = node.getProperties();
             if (properties != null)
             {
@@ -890,10 +815,10 @@ public class StyleSheetDocument
 
     if (isNamed)
     {
-      return new StyleNode(key, null, nodes, null, null, null, null);
+      return new StyleNode(key, null, nodes, null, null, null);
     }
     
-    return new StyleNode(null, key, nodes, null, null, null, null);
+    return new StyleNode(null, key, nodes, null, null, null);
   }
 
   // Tests whether the value is present in the (possibly null) stack.
@@ -1147,7 +1072,7 @@ public class StyleSheetDocument
 
       // Create and return our StyleNode.  We don't need to specify
       // a name or included styles, as they have already been resolved.
-      return new StyleNode(name, selector, properties, null, null, null, null);
+      return new StyleNode(name, selector, properties, null, null, null);
     }
 
     // Tests whether a property with the specified name is
@@ -1532,7 +1457,6 @@ public class StyleSheetDocument
   // A StyleNode used as a placeholder for a style which couldn't be resolved
   private static final StyleNode _ERROR_STYLE_NODE = new StyleNode("error",
                                                                    "error",
-                                                                   null,
                                                                    null,
                                                                    null,
                                                                    null,
