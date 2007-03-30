@@ -34,17 +34,21 @@
           <tr:commandLink immediate="true" text="Component Guide"
               action="guide"/>
           <tr:outputFormatted styleUsage="instruction" value="&lt;b>Chart&lt;/b>"/>
-          <tr:chart chartDrillDownListener="#{chart.drillDown}" id="chart" YMajorGridLineCount="7" value="#{chart.value}" inlineStyle="width:680px; height:400px;" 
+          <tr:chart chartDrillDownListener="#{chart.drillDown}" id="chart" 
+            YMajorGridLineCount="7" value="#{chart.value}" 
+            inlineStyle="width:680px; height:400px;" 
+            partialTriggers="nextChartType"
             binding="#{chart.editor.component}"/>
           <tr:panelGroupLayout layout="horizontal">
+            <tr:commandButton id="nextChartType" partialSubmit="true" text="Next Chart Type"
+                              action="#{chart.nextChartType}"/>
             <tr:commandButton  text="Update"
                               action="#{chart.editor.update}"/>
             <tr:commandButton id="partialButton" partialSubmit="true" text="Update Partial"
                               action="#{chart.updatePartial}"/>
             
             <tr:selectBooleanCheckbox immediate="true" label="Larger Data Set"
-                value="#{chart.largerDataSet}"/>
-
+                value="#{chart.largerDataSet}"/>            
           </tr:panelGroupLayout>
           <tr:table var="row" rows="100" value="#{chart.editor.attributes}" 
                     summary="Attributes">

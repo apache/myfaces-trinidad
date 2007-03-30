@@ -62,6 +62,16 @@ public class ChartBean implements java.io.Serializable
     return null;
   }
   
+  public String nextChartType()
+  {
+    _currentTypeIndex++;
+    if(_currentTypeIndex >= _chartTypes.length)
+      _currentTypeIndex = 0;
+    CoreChart chart = (CoreChart)_editorBean.getComponent();
+    chart.setType(_chartTypes[_currentTypeIndex]);
+    return null;
+  }
+  
   public boolean isLargerDataSet()
   {
     return _largerDataSet;
@@ -363,6 +373,12 @@ public class ChartBean implements java.io.Serializable
   } 
   
   private boolean _largerDataSet = false;
+  private int     _currentTypeIndex = 0;
+  private static final String[] _chartTypes = 
+        new String[]{"verticalBar", "horizontalBar", "stackedVerticalBar","stackedHorizontalBar", 
+        "pie", "area", "stackedArea", "line", "barLine", "XYLine", "scatterPlot", "radar",
+        "radarArea", "funnel", "circularGauge", "semiCircularGauge"};
+
   private final ChartModel _chartModel = new MyChartModel(); 
   private final ComponentEditorHandler _editorBean = new ComponentEditorHandler();
 }
