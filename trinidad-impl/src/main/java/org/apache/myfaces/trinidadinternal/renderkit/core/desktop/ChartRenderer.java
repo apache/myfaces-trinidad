@@ -48,6 +48,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.LibraryScriptlet;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.Scriptlet;
 
@@ -187,6 +188,8 @@ public class ChartRenderer extends XhtmlRenderer
     rw.startElement(XhtmlConstants.DIV_ELEMENT, component); 
     renderId(context, component);
     renderStyleAttributes(context, arc, bean, SkinSelectors.AF_CHART_STYLE_CLASS);
+    // We need the number convertor so that we can format numbers on the client
+    XhtmlUtils.addLib(context, arc, _NUMBER_CONVERTER_SCRIPTLET);
     // output the chart javascript library
     chartLib.outputScriptlet(context, arc);
 
@@ -708,6 +711,7 @@ public class ChartRenderer extends XhtmlRenderer
   private static final String _DELIMITER = "\\$adf\\$";
   private static final String _TEMPLATE_DOC = "/adf/svg/chart.svg";
   private static final String _TEMPLATE_DOC_NOGRADIENT = "/adf/svg/chartNoGradient.svg";
+  private static final String _NUMBER_CONVERTER_SCRIPTLET = "TrNumberConverter()";
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ChartRenderer.class);
 
   private static final Map<String, Integer>_typeToJSTypeMap = new HashMap<String, Integer>();

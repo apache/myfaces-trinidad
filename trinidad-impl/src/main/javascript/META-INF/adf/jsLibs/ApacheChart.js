@@ -78,21 +78,21 @@ ApacheChartObj.Assert = function(arg, msg)
 */
 function ApacheChartBuffer(size)
 {
-	this.maxStreamLength = document.all?5000:100000;	
-	this.data = new Array(size?size:100);
-	this.iStr = 0;
+  this.maxStreamLength = document.all?5000:100000;	
+  this.data = new Array(size?size:100);
+  this.iStr = 0;
 }
 
 ApacheChartBuffer.prototype.append = function(obj)
 {
-	this.data[this.iStr++] = obj;
-	if (this.data.length > this.maxStreamLength)
-	{
-		this.data = [this.data.join("")];
-		this.data.length = 100;
-		this.iStr = 1;
-	}
-	return this;  
+  this.data[this.iStr++] = obj;
+  if (this.data.length > this.maxStreamLength)
+  {
+    this.data = [this.data.join("")];
+    this.data.length = 100;
+    this.iStr = 1;
+  }
+  return this;  
 }
 
 ApacheChartBuffer.prototype.toString = function()
@@ -118,18 +118,18 @@ function ApacheChartModel(seriesLabels, groupLabels, yValues, xValues, seriesCol
   this._seriesColors = seriesColors;
   
   // the maximum value used to display the y-axis. 
-  // Default is 20% of maximum of the yValues
+  // Default is 120% of maximum of the yValues
   //this._maxYValue = undefined;
   
-  // the minimum value used to display the y-axis. Default is 0
-  this._minYValue = 0;
+  // the minimum value used to display the y-axis. Default is 80% of minimum of values
+  //this._minYValue = undefined;
 
   // the maximum value used to display the X-axis. 
-  // Default is 20% of maximum of the xValues
+  // Default is 120% of maximum of the xValues
   //this._maxXValue = undefined;
   
-  // the minimum value used to display the y-axis. Default is 0
-  this._minXValue = 0;
+  // the minimum value used to display the y-axis. Default is 80% of minimum of values 
+  //this._minXValue = undefined;
     
   // The title for the graph
   //this._title = undefined;
@@ -421,7 +421,7 @@ ApacheChart.prototype.Init = function(type, model, svgEmbedId,
     this._errorHtml = "<H4>This component needs an SVG enabled browser like Internet Explorer, Firefox 1.5+ or Opera 9.0+<H4>";
   
   this._statusHtml = "<H4>Please Wait. Attempting to load SVG document...</H4>";
-  this.ComputeMaxValues();
+  this.ComputeMinMaxValues();
 }
 
 /**
@@ -503,22 +503,34 @@ ApacheChart.prototype.setToolTip = function(tt)
   this._toolTip = tt;
 }
 
-ApacheChart.prototype.ComputeMaxValues = function()
+ApacheChart.prototype.ComputeMinMaxValues = function()
 {
   var model = this._model, yValues = model.getYValues(), xValues = model.getXValues(),
       maxYValue = model.getMaxYValue(), maxXValue = model.getMaxXValue(),
+      minYValue = model.getMinYValue(), minXValue = model.getMinXValue(),
       seriesLabels = model.getSeriesLabels();
-  if(yValues != null && maxYValue == null)
-    model.setMaxYValue(this._computeAxisMaxValues(yValues, seriesLabels.length));
-  
-  if(xValues != null && maxXValue == null)
-    model.setMaxXValue(this._computeAxisMaxValues(xValues, seriesLabels.length));
+  if(yValues != null && (maxYValue == null || minYValue == null))
+  {
+    var minMax = this._computeAxisMinMaxValues(yValues, seriesLabels.length);
+    if(maxYValue == null)
+      model.setMaxYValue(minMax.max);
+    if(minYValue == null)
+      model.setMinYValue(minMax.min);
+  }
+  if(xValues != null && (maxXValue == null || minXValue == null))
+  {
+    var minMax = this._computeAxisMinMaxValues(xValues, seriesLabels.length);
+    if(maxXValue == null)
+      model.setMaxXValue(minMax.max);
+    if(minXValue == null)
+      model.setMinXValue(minMax.min);
+  }
 }
 
-ApacheChart.prototype._computeAxisMaxValues = function(values, seriesSize)
+ApacheChart.prototype._computeAxisMinMaxValues = function(values, seriesSize)
 {
-  var stackedTotal, maxValue = 0, type = this._type, 
-      isStacked = false, groupsCount = values.length;
+  var stackedTotal, value, maxValue = Number.NEGATIVE_INFINITY, minValue = Number.POSITIVE_INFINITY, 
+      type = this._type, isStacked = false, groupsCount = values.length;
   
   if(type == ApacheChart.TYPE_VBAR_STACKED || type == ApacheChart.TYPE_HBAR_STACKED || 
      type == ApacheChart.TYPE_AREA_STACKED)
@@ -530,15 +542,24 @@ ApacheChart.prototype._computeAxisMaxValues = function(values, seriesSize)
     stackedTotal = 0;
     for (var j = 0; j < seriesSize; ++j)
     {
+      value = values[i][j];
       if (isStacked)
-        stackedTotal += values[i][j];
+        stackedTotal += value;
       else
-        maxValue = Math.max(maxValue, values[i][j]);
+      {
+        maxValue = Math.max(maxValue, value);
+        minValue = Math.min(minValue, value);
+      }
     }
     if (isStacked)
+    {
       maxValue = Math.max(maxValue, stackedTotal);
+      minValue = Math.min(minValue, stackedTotal);
+    }
   }
-  return maxValue*ApacheChart._MAX_MULTIPLIER;
+  var maxMult = maxValue>0?ApacheChart._MAX_MULTIPLIER:ApacheChart._MIN_MULTIPLIER,
+      minMult = minValue>0?ApacheChart._MIN_MULTIPLIER:ApacheChart._MAX_MULTIPLIER;
+  return {max: maxValue*maxMult, min: minValue*minMult};
 }
 
 ApacheChart.TYPE_VBAR = 1;
@@ -565,6 +586,7 @@ ApacheChart.LEGEND_LOCATION_BOTTOM = "bottom";
 ApacheChart.LEGEND_LOCATION_START = "start";
 
 ApacheChart._MAX_MULTIPLIER = 1.2;
+ApacheChart._MIN_MULTIPLIER = .8;
 ApacheChart._XOFFSET_PERSPECTIVE = 10;
 ApacheChart._YOFFSET_PERSPECTIVE = 5;
 // margin generally used around text
@@ -2346,7 +2368,7 @@ ApachePieChart.prototype.DrawChartData = function()
   }  
 }
 
-ApachePieChart.prototype.ComputeMaxValues = function()
+ApachePieChart.prototype.ComputeMinMaxValues = function()
 {
 
 }
@@ -4662,7 +4684,7 @@ ApacheFunnelChart.prototype.DrawChartData = function()
   }  
 }
 
-ApacheFunnelChart.prototype.ComputeMaxValues = function()
+ApacheFunnelChart.prototype.ComputeMinMaxValues = function()
 {
 
 }
@@ -4991,7 +5013,7 @@ ApacheGaugeChart.prototype.DrawLegend = function()
   // Legend does not make sense for a gauge
 }
 
-ApacheGaugeChart.prototype.ComputeMaxValues = function()
+ApacheGaugeChart.prototype.ComputeMinMaxValues = function()
 {
 
 }
