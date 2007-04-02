@@ -33,20 +33,6 @@ import java.util.Set;
  */
 public class StyleNode
 {
-  // A private constructor that we are temporarily using while
-  // resolving the now-deprecated color properties
-  StyleNode(
-    StyleNode style,
-    PropertyNode[] properties
-    )
-  {
-    this(style._name,
-         style._selector,
-         properties,
-         style._includedStyles,
-         style._includedProperties,
-         null);
-  }
 
   /**
    * Creates a Style with the specified properties

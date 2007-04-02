@@ -41,7 +41,6 @@ import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
 
 import org.apache.myfaces.trinidadinternal.style.StyleConstants;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.ColorNode;
-import org.apache.myfaces.trinidadinternal.style.xml.parse.ColorSchemeNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.IncludePropertyNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.PropertyNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleNode;
@@ -156,8 +155,6 @@ public class StyleSheetDocumentUtils
     StyleSheetNode[] styleSheetsArray = new StyleSheetNode[styleSheetsCount];
     styleSheetsList.toArray(styleSheetsArray);
 
-    // We are blowing off ColorSchemes (which should already be
-    // obsolete anyway) - so we are ready to create the new document.
     return new StyleSheetDocument(styleSheetsArray,
                                   documentVersion,
                                   documentTimestamp);
@@ -206,7 +203,6 @@ public class StyleSheetDocumentUtils
       _registerFactory(manager, StyleNode.class, "StyleNode");
       _registerFactory(manager, PropertyNode.class, "PropertyNode");
       _registerFactory(manager, ColorNode.class, "ColorNode");
-      _registerFactory(manager, ColorSchemeNode.class, "ColorSchemeNode");
       _registerFactory(manager,
                        IncludePropertyNode.class,
                        "IncludePropertyNode");

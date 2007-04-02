@@ -48,12 +48,6 @@ public class PropertyNode
     return _value;
   }
 
-  // Package-level accessor necessary to support deprecated color properties
-  boolean __isColorProperty()
-  {
-    return false;
-  }
-
   private String _name;
   private String _value;
 }

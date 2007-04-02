@@ -63,12 +63,10 @@ public class StyleSheetDocument
 
   /**
    * Creates a StyleSheetDocument
-   * @deprecated colorScheme elements are no longer supported
    */
   @Deprecated
   public StyleSheetDocument(
-    StyleSheetNode[] styleSheets,
-    ColorSchemeNode[] colorSchemes
+    StyleSheetNode[] styleSheets
     )
   {
     this (styleSheets, null, UNKNOWN_TIMESTAMP);
@@ -76,12 +74,10 @@ public class StyleSheetDocument
 
   /**
    * Creates a StyleSheetDocument
-   * @deprecated colorScheme elements are no longer supported
    */
   @Deprecated
   public StyleSheetDocument(
     StyleSheetNode[] styleSheets,
-    ColorSchemeNode[] colorSchemes,
     String documentVersion
     )
   {
@@ -150,16 +146,6 @@ public class StyleSheetDocument
     {
       return (Arrays.asList(_styleSheets)).iterator();
     }
-  }
-
-  /**
-   * Implementation of StyleSheetDocument.getColorSchemes();
-   */
-  public Iterator<ColorSchemeNode> getColorSchemes()
-  {
-    // -= Simon Lessard =- 
-    // TODO: Wouldn't Collections.emptyList() be better?
-    return (Arrays.asList(new ColorSchemeNode[0])).iterator();
   }
 
   /**
