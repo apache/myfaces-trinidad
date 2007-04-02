@@ -40,18 +40,6 @@ import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
  */
 public class StyleSheetNode
 {
-  // A private constructor that we are temporarily using while
-  // resolving the now-deprecated color properties
-  StyleSheetNode(StyleSheetNode styleSheet, StyleNode[] styles)
-  {
-    this (styles,
-          styleSheet._locales,
-          styleSheet._direction,
-          styleSheet._browsers,
-          styleSheet._versions,
-          styleSheet._platforms,
-          styleSheet._mode);
-  }
 
   /**
    * Creates a StyleSheetNode with the specified attributes.

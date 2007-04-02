@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -56,8 +56,6 @@ public class PropertyNodeParser extends BaseNodeParser
   {
     _name = getRequiredAttribute(context, attrs, NAME_ATTR);
 
-    if (XMLConstants.COLOR_PROPERTY_NAME.equals(localName))
-      _LOG.warning(_DEPRECATED_ERROR);
   }
 
   /**
@@ -83,8 +81,6 @@ public class PropertyNodeParser extends BaseNodeParser
       }
       return new PropertyNode(_name, _value);
     }
-    if (localName.equals(COLOR_PROPERTY_NAME))
-      return new ColorPropertyNode(_name, _value);
 
     return null;
   }
@@ -150,8 +146,6 @@ public class PropertyNodeParser extends BaseNodeParser
   private String _value;
   private String _whitespace;
 
-  private static final String _DEPRECATED_ERROR =
-    "The <colorProperty> element is deprecated.  Colors must be explicitly specified using <property> elements.";
 
   // PropertyValidater instances, hashed by property name
   private static final Object[] _VALIDATERS =

@@ -26,8 +26,6 @@ public interface XMLConstants
 {
   // Element names
   public static final String COLOR_NAME          = "color";
-  public static final String COLOR_PROPERTY_NAME = "colorProperty";
-  public static final String COLOR_SCHEME_NAME   = "colorScheme";
   public static final String IMPORT_NAME         = "import";
   public static final String INCLUDE_STYLE_NAME  = "includeStyle";
   public static final String INCLUDE_PROPERTY_NAME  = "includeProperty";

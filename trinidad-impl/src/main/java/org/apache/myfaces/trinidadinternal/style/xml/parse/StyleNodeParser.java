@@ -116,10 +116,9 @@ public class StyleNodeParser extends BaseNodeParser
     Attributes   attrs
     )
   {
-    // Delegate property/color property nodes to the appropriate parser
+    // Delegate property nodes to the appropriate parser
     // We handle included styles ourself
-    if (localName.equals(PROPERTY_NAME) ||
-        localName.equals(COLOR_PROPERTY_NAME))
+    if (localName.equals(PROPERTY_NAME))
     {
       return context.getParser(PropertyNode.class, namespaceURI, localName);
     }
@@ -165,8 +164,7 @@ public class StyleNodeParser extends BaseNodeParser
     Object       child
     )
   {
-    if (localName.equals(PROPERTY_NAME)       ||
-        localName.equals(COLOR_PROPERTY_NAME))
+    if (localName.equals(PROPERTY_NAME))
     {
       if (child != null)
       {
