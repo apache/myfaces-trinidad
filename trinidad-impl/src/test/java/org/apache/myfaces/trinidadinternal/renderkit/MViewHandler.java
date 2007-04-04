@@ -51,13 +51,19 @@ public class MViewHandler extends ViewHandler
   @Override
   public String getActionURL(FacesContext context, String viewId)
   {
-    return "/test-context-path" + viewId;
+    if(viewId == null)
+        return null;
+
+    if(viewId.charAt(0)=='/')
+        return "/test-context-path" + viewId;
+    else
+        return viewId;
   }
 
   @Override
   public String getResourceURL(FacesContext context, String viewId)
   {
-    return "/test-context-path" + viewId;
+    return getActionURL(context, viewId);
   }
 
   @Override
