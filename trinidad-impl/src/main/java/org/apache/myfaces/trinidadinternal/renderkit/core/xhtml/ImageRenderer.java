@@ -99,12 +99,12 @@ public class ImageRenderer extends XhtmlRenderer
 
   protected String getLongDescURL(FacesBean bean)
   {
-    return toUri(bean.getProperty(_longDescURLKey));
+    return toActionUri(FacesContext.getCurrentInstance(),bean.getProperty(_longDescURLKey));
   }
 
   protected String getSource(FacesBean bean)
   {
-    return toUri(bean.getProperty(_sourceKey));
+    return toResourceUri(FacesContext.getCurrentInstance(),bean.getProperty(_sourceKey));
   }
 
   protected void renderId(
