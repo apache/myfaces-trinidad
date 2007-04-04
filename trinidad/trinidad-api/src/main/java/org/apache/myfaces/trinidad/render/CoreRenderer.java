@@ -66,6 +66,9 @@ public class CoreRenderer extends Renderer
     return o.toString();
   }
 
+  /**
+   * Coerces an object into a resource URI, calling the view-handler.
+   */
   static public String toResourceUri(FacesContext fc, Object o)
   {
       if (o == null)
@@ -82,6 +85,9 @@ public class CoreRenderer extends Renderer
       return fc.getApplication().getViewHandler().getResourceURL(fc, uri);
   }
 
+  /**
+   * Coerces an object into an action URI, calling the view-handler.
+   */
   static public String toActionUri(FacesContext fc, Object o)
   {
       if (o == null)
@@ -100,31 +106,11 @@ public class CoreRenderer extends Renderer
 
 
   /**
-   * Coerces an object into a URI, accounting for JSF rules
-   * with initial slashes.
+   * Coerces an object into a resource URI, calling the view-handler.
    */
-
   static public String toUri(Object o)
   {
-    if (o == null)
-      return null;
-    
-    String uri = o.toString();
-    if (uri.startsWith("/"))
-    {
-      // Treat two slashes as server-relative
-      if (uri.startsWith("//"))
-      {
-        uri = uri.substring(1);
-      }
-      else
-      {
-        FacesContext fContext = FacesContext.getCurrentInstance();
-        uri = fContext.getExternalContext().getRequestContextPath() + uri;
-      }
-    }
-
-    return uri;
+      return toResourceUri(FacesContext.getCurrentInstance(),o);
   }
 
 
