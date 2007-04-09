@@ -7,6 +7,26 @@
           >
         Text
       </a>
+<!--AttributeTest[destination,/foo.html]-->
+
+      <a
+           class="OraLink"
+           href="uri-attr:encoded-action-url:/test-context-path/foo.html"
+           id="uri-attr:mainId"
+           name="uri-attr:mainId"
+          >
+        Text
+      </a>
+<!--AttributeTest[destination,//foo.html]-->
+
+      <a
+           class="OraLink"
+           href="uri-attr:encoded-action-url:/foo.html"
+           id="uri-attr:mainId"
+           name="uri-attr:mainId"
+          >
+        Text
+      </a>
 <!--AttributeTest[accessKey,e]-->
 
       <a

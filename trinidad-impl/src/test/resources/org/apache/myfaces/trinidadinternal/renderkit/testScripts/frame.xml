@@ -5,6 +5,9 @@
     
     <component id="centerId" tr:facet="center" tr:type="org.apache.myfaces.trinidad.HtmlFrame" source="http://www.oracle.com">
     
+      <attribute-test name="source" value="/foo.html"/>
+      <attribute-test name="source" value="//foo.html"/>
+
       <!-- ungrouped attributes -->
       <attribute-test name="longDescURL" value="http://bali.us.oracle.com"/>
       <attribute-test name="marginHeight" value="50"/>

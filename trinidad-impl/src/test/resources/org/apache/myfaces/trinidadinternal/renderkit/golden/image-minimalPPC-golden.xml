@@ -35,6 +35,24 @@
           >
         
       </img>
+<!--AttributeTest[source,http://jakarta.apache.org/foo.gif]-->
+
+      <img
+           id="mainId"
+           name="mainId"
+           src="uri-attr:encoded-resource-url:http://jakarta.apache.org/foo.gif"
+          >
+        
+      </img>
+<!--AttributeTest[source,//foo.gif]-->
+
+      <img
+           id="mainId"
+           name="mainId"
+           src="uri-attr:encoded-resource-url:/foo.gif"
+          >
+        
+      </img>
 <!--AttributeTest[id,null]-->
 
       <img
