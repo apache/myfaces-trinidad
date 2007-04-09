@@ -44,6 +44,100 @@
       </frameset>
     </frameset>
   </frameset>
+<!--AttributeTest[source,/foo.html]-->
+
+  <frameset
+       id="mainId"
+       rows="100%,*"
+      >
+    
+    <frameset
+         rows="30pt,*"
+         title="Container for top and bottom frames"
+        >
+      
+      <frame
+           frameborder="0"
+           id="topId"
+           name="topId"
+           noresize="noresize"
+           src="uri-attr:encoded-action-url:http://www.oracle.com"
+          >
+        
+      </frame>
+      <frameset
+           cols="30%,*"
+           title="Container for left, center and right frames"
+          >
+        
+        <frame
+             frameborder="0"
+             id="bottomId"
+             name="bottomId"
+             noresize="noresize"
+             src="uri-attr:encoded-action-url:http://www.oracle.com"
+            >
+          
+        </frame>
+        <frame
+             frameborder="0"
+             id="centerId"
+             name="centerId"
+             noresize="noresize"
+             src="uri-attr:encoded-action-url:/test-context-path/foo.html"
+            >
+          
+        </frame>
+      </frameset>
+    </frameset>
+  </frameset>
+<!--AttributeTest[source,//foo.html]-->
+
+  <frameset
+       id="mainId"
+       rows="100%,*"
+      >
+    
+    <frameset
+         rows="30pt,*"
+         title="Container for top and bottom frames"
+        >
+      
+      <frame
+           frameborder="0"
+           id="topId"
+           name="topId"
+           noresize="noresize"
+           src="uri-attr:encoded-action-url:http://www.oracle.com"
+          >
+        
+      </frame>
+      <frameset
+           cols="30%,*"
+           title="Container for left, center and right frames"
+          >
+        
+        <frame
+             frameborder="0"
+             id="bottomId"
+             name="bottomId"
+             noresize="noresize"
+             src="uri-attr:encoded-action-url:http://www.oracle.com"
+            >
+          
+        </frame>
+        <frame
+             frameborder="0"
+             id="centerId"
+             name="centerId"
+             noresize="noresize"
+             src="uri-attr:encoded-action-url:/foo.html"
+            >
+          
+        </frame>
+      </frameset>
+    </frameset>
+  </frameset>
 <!--AttributeTest[longDescURL,http://bali.us.oracle.com]-->
 
   <frameset

@@ -5,6 +5,9 @@
   <attribute-test name="imageMapType" value="none" matchesBase="true"/>
   <attribute-test name="longDescURL" value="/bogus/longdesc/uri"/>
   
+  <attribute-test name="source" value="http://jakarta.apache.org/foo.gif"/>
+  <attribute-test name="source" value="//foo.gif"/>
+
    <!-- Core attribute tests -->
   <attribute-test name="id"/>
   <attribute-test name="inlineStyle"/>

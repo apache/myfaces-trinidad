@@ -5,6 +5,9 @@
                   destination="http://www.oracle.com"/>
 
   <!-- ungrouped -->
+  <attribute-test name="destination" value="/foo.html"/>
+  <attribute-test name="destination" value="//foo.html"/>
+
   <attribute-test name="accessKey" value="e"/>
   <boolean-test name="disabled"/>
   <attribute-test name="longDesc" value="my long desc"  matchesBase="true"/>
