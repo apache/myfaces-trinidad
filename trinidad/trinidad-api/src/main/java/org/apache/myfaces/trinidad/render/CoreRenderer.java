@@ -71,18 +71,20 @@ public class CoreRenderer extends Renderer
    */
   static public String toResourceUri(FacesContext fc, Object o)
   {
-      if (o == null)
-        return null;
-
-      String uri = o.toString();
-
-      // Treat two slashes as server-relative
-      if (uri.startsWith("//"))
-      {
-          uri = uri.substring(1);
-      }
-
+    if (o == null)
+      return null;
+    
+    String uri = o.toString();
+    
+    // Treat two slashes as server-relative
+    if (uri.startsWith("//"))
+    {
+      return uri.substring(1);
+    }
+    else
+    {
       return fc.getApplication().getViewHandler().getResourceURL(fc, uri);
+    }
   }
 
   /**
@@ -90,18 +92,20 @@ public class CoreRenderer extends Renderer
    */
   static public String toActionUri(FacesContext fc, Object o)
   {
-      if (o == null)
-        return null;
-
-      String uri = o.toString();
-
-      // Treat two slashes as server-relative
-      if (uri.startsWith("//"))
-      {
-          uri = uri.substring(1);
-      }
-
+    if (o == null)
+      return null;
+    
+    String uri = o.toString();
+    
+    // Treat two slashes as server-relative
+    if (uri.startsWith("//"))
+    {
+      return uri.substring(1);
+    }
+    else
+    {
       return fc.getApplication().getViewHandler().getActionURL(fc, uri);
+    }
   }
 
 
@@ -110,7 +114,7 @@ public class CoreRenderer extends Renderer
    */
   static public String toUri(Object o)
   {
-      return toResourceUri(FacesContext.getCurrentInstance(),o);
+    return toResourceUri(FacesContext.getCurrentInstance(),o);
   }
 
 
@@ -564,7 +568,6 @@ public class CoreRenderer extends Renderer
   {
     if (value != null)
     {
-      
       value = context.getExternalContext().encodeActionURL(value.toString());
       context.getResponseWriter().writeURIAttribute(name, value, null);
     }
