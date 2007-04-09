@@ -237,8 +237,10 @@ public class CoreRenderKit extends RenderKitBase
       // with cross frame XmlHttpRequest invocation
       Writer out = _getHtmlWriter(context);
       out.write("<script>");
-      out.write("var callback = 'ADFDialogReturn[" + returnId + "]()';");
-      out.write("top.opener.setTimeout(callback, 1);");
+      // http://issues.apache.org/jira/browse/ADFFACES-191 - handling alt-f4 
+      // Following code is now called from onunload JS function - see FredJSP
+      // out.write("var callback = 'ADFDialogReturn[" + returnId + "]()';");
+      // out.write("top.opener.setTimeout(callback, 1);");
       out.write("top.close()");
       out.write("</script>");
       out.close();
