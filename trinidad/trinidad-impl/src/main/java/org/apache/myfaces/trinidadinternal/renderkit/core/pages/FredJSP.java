@@ -165,6 +165,7 @@ public class FredJSP
       // Prepend an extra slash to avoid re-prepending the context path
       String redirectString = "/" + vh.getActionURL(context,
                                                     viewIdRedirect);
+
       // if redirectString contains ?, append queryString with &,
       // otherwise append queryString with &
       char sep = (redirectString.indexOf('?') != -1) ? '&' : '?';
@@ -200,7 +201,7 @@ public class FredJSP
     // would be good...
 
     // Bug #2464627: Allow support for forcing a minimum size
-    StringBuffer onload = new StringBuffer(_FRAMESET_ONLOAD_TEXT.length()
+    StringBuilder onload = new StringBuilder(_FRAMESET_ONLOAD_TEXT.length()
                                            // space for the param plus the 'W:'
                                            + (gotWidth
                                               ? widthParam.length() + 2
@@ -239,7 +240,16 @@ public class FredJSP
     onload.append(")");
 
     frameSet.setOnload(onload.toString());
-    frameSet.setOnunload(_FRAMESET_ONUNLOAD_TEXT);
+    
+    // http://issues.apache.org/jira/browse/ADFFACES-191    
+    // Following code was once in CoreRenderKit.launchDialog.
+    StringBuilder onunload = new StringBuilder(53 + returnId.length());
+    onunload.append(_FRAMESET_ONUNLOAD_TEXT);
+    onunload.append(";window.opener.setTimeout(");
+    onunload.append("'ADFDialogReturn[").append(returnId).append("]();'");
+    onunload.append(",1)");
+    frameSet.setOnunload(onunload.toString());
+
     root.getChildren().add(frameSet);
   }
 

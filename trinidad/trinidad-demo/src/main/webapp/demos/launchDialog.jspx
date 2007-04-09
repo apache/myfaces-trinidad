@@ -61,6 +61,9 @@
              </tr:panelBorderLayout>
            </tr:column>
          </tr:table>
+	 <!-- A dummy UIXCommand component, used purely for a launch event -->
+         <tr:commandLink inlineStyle="display:none" useWindow="true"
+                         binding="#{launchDialog.dummyCommand}"/>
          <tr:goLink text="Demo of launching a dialog from &lt;tr:poll&gt;"
                     destination="launchFromPoll.jspx"/>
         </tr:panelHeader>
