@@ -283,12 +283,6 @@ public class TableSelectOneRenderer extends XhtmlRenderer
     }
 
     @Override
-    protected boolean isAutoSubmit(FacesBean bean)
-    {
-      return false;
-    }
-
-    @Override
     protected boolean isImmediate(FacesBean bean)
     {
       TableRenderingContext tContext =

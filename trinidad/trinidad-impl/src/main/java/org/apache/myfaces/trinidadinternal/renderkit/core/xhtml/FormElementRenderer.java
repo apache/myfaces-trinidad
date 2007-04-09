@@ -257,6 +257,9 @@ abstract public class FormElementRenderer extends EditableValueRenderer
    */
   protected boolean isAutoSubmit(FacesBean bean)
   {
+    if (_autoSubmitKey == null)
+      return false;
+
     return Boolean.TRUE.equals(bean.getProperty(_autoSubmitKey));
   }
 
