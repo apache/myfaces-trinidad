@@ -108,6 +108,15 @@
       </property-extension>
     </property>
     <property>
+      <description><![CDATA[If set to TRUE on a form element, the component will automatically submit
+     the enclosing form when an appropriate action takes place (a click, text
+     change, etc.).  This only takes effect if rowSelection attribute enabled.]]>
+      </description>
+      <property-name>autoSubmit</property-name>
+      <property-class>boolean</property-class>
+      <default-value>false</default-value>
+    </property>
+    <property>
       <description><![CDATA[the width of the table.  The value must either be a number of pixels or a percentage - it is not a CSS width.]]></description>
       <property-name>width</property-name>
       <property-class>java.lang.String</property-class>
