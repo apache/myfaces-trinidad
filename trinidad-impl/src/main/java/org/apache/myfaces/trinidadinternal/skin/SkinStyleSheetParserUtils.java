@@ -31,12 +31,8 @@ import java.net.URLConnection;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
-
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 

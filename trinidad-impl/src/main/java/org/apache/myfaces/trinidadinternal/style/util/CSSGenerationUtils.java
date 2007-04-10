@@ -31,9 +31,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
@@ -289,12 +286,11 @@ public class CSSGenerationUtils
         // of the properties as specified in the XSS document.  So,
         // we get the properties from the StyleNode object instead of
         // using the propertyString
-        Iterator<PropertyNode> properties = style.getProperties();
+        Iterable<PropertyNode> properties = style.getProperties();
         boolean first = true;
 
-        while (properties.hasNext())
+        for (PropertyNode property : properties)
         {
-          PropertyNode property = properties.next();
           String propName = property.getName();
           String propValue = property.getValue();
 
@@ -1098,9 +1094,9 @@ public class CSSGenerationUtils
     //       Collections.synchronizedList(ArrayList) would probably be
     //       a better choice.
     Vector<PropertyNode> v = new Vector<PropertyNode>();
-    Iterator<PropertyNode> e = style.getProperties();
-    while (e.hasNext())
-      v.addElement(e.next());
+    Iterable<PropertyNode> propertyNodeList = style.getProperties();
+    for (PropertyNode propertyNode : propertyNodeList)
+      v.addElement(propertyNode);
 
     PropertyNode[] properties = new PropertyNode[v.size()];
     v.copyInto(properties);

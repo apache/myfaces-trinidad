@@ -285,6 +285,12 @@ public class FileSystemStyleCache implements StyleProvider
 
       buffer.append(contextName);
     }
+    if (_isCompressStyles(null))
+    {
+      if (baseName != null || contextName != null)
+        buffer.append(_NAME_SEPARATOR);
+      buffer.append(_COMPRESSED);
+    }
 
     buffer.append(_CSS_EXTENSION);
 
@@ -660,17 +666,8 @@ public class FileSystemStyleCache implements StyleProvider
     // First figure out whether or not we need to compress the style classes.
     // We don't compress the style classes if the content compression flag is disabled or
     // if the skin is a portlet skin.
-     String disableContentCompression =
-       FacesContext.getCurrentInstance().getExternalContext().
-       getInitParameter(StyleSheetRenderer.DISABLE_CONTENT_COMPRESSION);
-     // we do not compress if it is a portlet skin
-     Skin skin = RenderingContext.getCurrentInstance().getSkin();
-     boolean isPortletSkin =
-     CoreRenderKit.OUTPUT_MODE_PORTLET.equals(skin.getRenderKitId());
-
-     boolean compressStyles = (!"true".equals(disableContentCompression)) &&
-                                              !isPortletSkin;
-
+    Skin skin = RenderingContext.getCurrentInstance().getSkin();
+    boolean compressStyles = _isCompressStyles(skin);
 
     CSSGenerationUtils.writeCSS(context,
                                 skin.getStyleSheetName(),
@@ -686,6 +683,26 @@ public class FileSystemStyleCache implements StyleProvider
 
     // Return the name of the new style sheet
     return name;
+  }
+  
+  // First figure out whether or not we need to compress the style classes.
+  // We don't compress the style classes if the content compression flag is disabled or
+  // if the skin is a portlet skin.
+  private boolean _isCompressStyles(Skin skin)
+  {
+    if (skin == null)
+      skin = RenderingContext.getCurrentInstance().getSkin();
+      
+
+    String disableContentCompression =
+      FacesContext.getCurrentInstance().getExternalContext().
+      getInitParameter(StyleSheetRenderer.DISABLE_CONTENT_COMPRESSION);
+    // we do not compress if it is a portlet skin
+    boolean isPortletSkin =
+    CoreRenderKit.OUTPUT_MODE_PORTLET.equals(skin.getRenderKitId());
+
+    return (!"true".equals(disableContentCompression)) &&
+                                             !isPortletSkin;    
   }
 
   // Returns the name of the output file to use for the
@@ -831,11 +848,10 @@ public class FileSystemStyleCache implements StyleProvider
     while (styleSheets.hasNext())
     {
       StyleSheetNode styleSheet = styleSheets.next();
-      Iterator<StyleNode> styles = styleSheet.getStyles();
+      Iterable<StyleNode> styles = styleSheet.getStyles();
       assert (styles != null);
-      while (styles.hasNext())
+      for (StyleNode style : styles)
       {
-        StyleNode style = styles.next();
         String selector = style.getSelector();
 
         if (selector != null)
@@ -867,11 +883,10 @@ public class FileSystemStyleCache implements StyleProvider
     while (styleSheets.hasNext())
     {
       StyleSheetNode styleSheet = styleSheets.next();
-      Iterator<StyleNode> styles = styleSheet.getStyles();
+      Iterable<StyleNode> styles = styleSheet.getStyles();
       assert (styles != null);
-      while (styles.hasNext())
+      for (StyleNode style : styles)
       {
-        StyleNode style = styles.next();
         String selector = style.getSelector();
 
         if (selector != null)
@@ -1262,10 +1277,9 @@ public class FileSystemStyleCache implements StyleProvider
       style = new CSSStyle();
 
       // Add in the properties for the style
-      Iterator<PropertyNode> e = styleNode.getProperties();
-      while (e.hasNext())
+      Iterable<PropertyNode> propertyNodeList = styleNode.getProperties();
+      for (PropertyNode property : propertyNodeList)
       {
-        PropertyNode property = e.next();
         String name = property.getName();
         String value = property.getValue();
 
@@ -1319,6 +1333,7 @@ public class FileSystemStyleCache implements StyleProvider
 
   // Separator for variants in file names
   private static final char _NAME_SEPARATOR = '-';
+  private static final String _COMPRESSED = "cmp";
 
   // Extension for CSS files
   private static final String _CSS_EXTENSION = ".css";

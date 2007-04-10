@@ -24,8 +24,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 
-import java.util.Map;
-import java.util.Hashtable;
 import java.util.Vector;
 import java.util.Iterator;
 import java.util.ArrayList;

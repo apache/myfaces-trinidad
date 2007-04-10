@@ -33,6 +33,7 @@ import java.util.List;
 
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 import java.util.Comparator;
+
 import org.apache.myfaces.trinidad.util.IntegerUtils;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -108,6 +109,28 @@ public class StyleSheetDocument
   }
 
   /**
+   * Returns the StyleSheetDocument's id.
+   * StyleSheetDocument contains one or more StyleSheetNodes. 
+   * StyleSheetNodes contain StyleNodes & locale, browser, direction, etc.
+   * We compute the hashcode of the StyleSheetDocument's styleSheetNodes(StyleContext) and
+   * return that as a document id. One use of this id is to use it in the Skin's generated
+   * CSS filename so the filename will change if the Skin's StyleSheetNodes change.
+   * @param sContext The current StyleContext which is used to get the stylesheets that match,
+   * and then we create an id based on those stylesheets
+   * @return String The document Id as a String.
+   */
+  public String getDocumentId(StyleContext sContext)
+  {
+    int hashCode = 17;
+    Iterator<StyleSheetNode> styleSheetNodes = getStyleSheets(sContext);
+    while (styleSheetNodes.hasNext())
+    {
+      hashCode = hashCode*37 +  styleSheetNodes.next().hashCode();      
+    }
+    return String.valueOf(Math.abs(hashCode));
+  }
+
+  /**
    * Returns the version identifier for this style sheet document.
    */
   public String getDocumentVersion()
@@ -155,10 +178,11 @@ public class StyleSheetDocument
   public Iterator<StyleSheetNode> getStyleSheets(StyleContext context)
   {
     // =-=ags Should this include the UserStyleSheet?
-    if(_getStyleSheets(context,false)==null)
+     StyleSheetNode[] styleSheets = _getStyleSheets(context,false);
+    if(styleSheets == null)
       return (Arrays.asList(new StyleSheetNode[0])).iterator();
     else
-      return (Arrays.asList(_getStyleSheets(context, false))).iterator();
+      return (Arrays.asList(styleSheets)).iterator();
   }
 
   /**
@@ -200,60 +224,58 @@ public class StyleSheetDocument
     for (int i = 0; i < styleSheets.length; i++)
     {
       StyleSheetNode styleSheet = styleSheets[i];
-      Iterator<StyleNode> e = styleSheet.getStyles();
-      if (e != null)
+      Iterable<StyleNode> styleNodeList = styleSheet.getStyles();
+
+      for (StyleNode node : styleNodeList)
       {
-        while (e.hasNext())
+        String id = null;
+        boolean isNamed = false;
+
+        if (node.getName() != null)
         {
-          StyleNode node = e.next();
-          String id = null;
-          boolean isNamed = false;
+          id = node.getName();
+          isNamed = true;
+        }
+        else
+        {
+          id = node.getSelector();
+        }
 
-          if (node.getName() != null)
+        StyleNode resolvedNode = _resolveStyle(context,
+                                               styleSheets,
+                                               resolvedStyles,
+                                               resolvedNamedStyles,
+                                               null,
+                                               null,
+                                               id,
+                                               isNamed);
+
+        // If we got a node, add it in to our list
+        if (resolvedNode != null)
+        {
+
+          // cache already resolved styles so we don't
+          // resolve them again. This saves time.
+
+          String namedStyle = resolvedNode.getName();
+          String selectorStyle = resolvedNode.getSelector();
+          if (namedStyle != null)
           {
-            id = node.getName();
-            isNamed = true;
+            resolvedNamedStyles.put(namedStyle, resolvedNode);
           }
-          else
+          else if (selectorStyle != null)
           {
-            id = node.getSelector();
+            resolvedStyles.put(selectorStyle, resolvedNode);
           }
 
-          StyleNode resolvedNode = _resolveStyle(context,
-                                                 styleSheets,
-                                                 resolvedStyles,
-                                                 resolvedNamedStyles,
-                                                 null,
-                                                 null,
-                                                 id,
-                                                 isNamed);
 
-          // If we got a node, add it in to our list
-          if (resolvedNode != null)
-          {
+          // add it to our list
 
-            // cache already resolved styles so we don't
-            // resolve them again. This saves time.
-
-            String namedStyle = resolvedNode.getName();
-            String selectorStyle = resolvedNode.getSelector();
-            if (namedStyle != null)
-            {
-              resolvedNamedStyles.put(namedStyle, resolvedNode);
-            }
-            else if (selectorStyle != null)
-            {
-              resolvedStyles.put(selectorStyle, resolvedNode);
-            }
-
-
-            // add it to our list
-
-            if (!_containsStyle(styles, resolvedNode))
-              styles.add(resolvedNode);
-          }
+          if (!_containsStyle(styles, resolvedNode))
+            styles.add(resolvedNode);
         }
       }
+
     }
 
     return styles.iterator();
@@ -283,7 +305,7 @@ public class StyleSheetDocument
     return _getStyle(context, name, true);
   }
 
-  // Returns array of matching style sheets
+  // Returns array of matching style sheets sorted by specificity
   private StyleSheetNode[] _getStyleSheets(
     StyleContext context,
     boolean      includeUserStyleSheet
@@ -470,128 +492,116 @@ public class StyleSheetDocument
     // included styles along the way.
     for (int i = 0; i < styleSheets.length; i++)
     {
-      Iterator<StyleNode> nodes = styleSheets[i].getStyles();
-      if (nodes != null)
+      Iterable<StyleNode> nodes = styleSheets[i].getStyles();
+
+      for (StyleNode node : nodes)
       {
-        while (nodes.hasNext())
+
+        if ((isNamed && name.equals(node.getName())) ||
+             (!isNamed && selector.equals(node.getSelector())))
         {
-          StyleNode node = nodes.next();
+          // We've got a match!  We need to do the following:
+          // 0. Check to see whether we need to reset our properties.
+          // 1. Resolve any included styles, and shove those properties
+          //    into our StyleEntry.
+          // 2. Resolve any included properties, and shove those properties
+          //    into our StyleEntry.
+          // 3. Remove all properties that were inhibited.
+          // 4. Shove all properties from the matching StyleNode into our
+          //    StyleEntry, overwriting included values
+          // -= Simon Lessard =-
+          // FIXME: That sequence looks buggy. If more than 1 matching node 
+          //        is found, then the included properties of the second will
+          //        have priority over the properties found at step 5 on the
+          //        first node, which is most likely incorrect.
+          //
+          //        A possible fix would be to put entries from the 5 steps 
+          //        into 5 different lists then resolve all priorities at the 
+          //        end.
+          
+          // 0. Reset properties?
+          if (node.__getResetProperties() || node.isInhibitingAll())
+            entry.resetProperties();
 
-          if ((isNamed && name.equals(node.getName())) ||
-               (!isNamed && selector.equals(node.getSelector())))
+          // 1. Resolve included styles
+          Iterable<IncludeStyleNode> includedStyles = node.getIncludedStyles();
+          for (IncludeStyleNode includeStyle : includedStyles)
           {
-            // We've got a match!  We need to do the following:
-            // 0. Check to see whether we need to reset our properties.
-            // 1. Resolve any included styles, and shove those properties
-            //    into our StyleEntry.
-            // 2. Resolve any included properties, and shove those properties
-            //    into our StyleEntry.
-            // 3. Remove all properties that were inhibited.
-            // 4. Shove all properties from the matching StyleNode into our
-            //    StyleEntry, overwriting included values
-            // -= Simon Lessard =-
-            // FIXME: That sequence looks buggy. If more than 1 matching node 
-            //        is found, then the included properties of the second will
-            //        have priority over the properties found at step 5 on the
-            //        first node, which is most likely incorrect.
-            //
-            //        A possible fix would be to put entries from the 5 steps 
-            //        into 5 different lists then resolve all priorities at the 
-            //        end.
-            
-            // 0. Reset properties?
-            if (node.__getResetProperties() || node.isInhibitingAll())
-              entry.resetProperties();
+              String includeID = null;
+              boolean includeIsNamed = false;
 
-            // 1. Resolve included styles
-            Iterator<IncludeStyleNode> includedStyles = node.getIncludedStyles();
-            if (includedStyles != null)
-            {
-              while (includedStyles.hasNext())
+              if (includeStyle.getName() != null)
               {
-                IncludeStyleNode includeStyle = includedStyles.next();
-                String includeID = null;
-                boolean includeIsNamed = false;
-
-                if (includeStyle.getName() != null)
-                {
-                  includeID = includeStyle.getName();
-                  includeIsNamed = true;
-                }
-                else
-                {
-                  includeID = includeStyle.getSelector();
-                }
-
-                StyleNode resolvedNode = _resolveStyle(context,
-                                                       styleSheets,
-                                                       resolvedStyles,
-                                                       resolvedNamedStyles,
-                                                       includesStack,
-                                                       namedIncludesStack,
-                                                       includeID,
-                                                       includeIsNamed);
-
-                if (resolvedNode != null)
-                  _addIncludedProperties(entry, resolvedNode);
+                includeID = includeStyle.getName();
+                includeIsNamed = true;
               }
-            }
-
-            // 2. Resolve included properties
-            Iterator<IncludePropertyNode> includedProperties = 
-              node.getIncludedProperties();
-            if (includedProperties != null)
-            {
-              while (includedProperties.hasNext())
+              else
               {
-                IncludePropertyNode includeProperty = includedProperties.next();
-                String includeID = null;
-                boolean includeIsNamed = false;
-
-                if (includeProperty.getName() != null)
-                {
-                  includeID = includeProperty.getName();
-                  includeIsNamed = true;
-                }
-                else
-                {
-                  includeID = includeProperty.getSelector();
-                }
-
-                StyleNode resolvedNode = _resolveStyle(context,
-                                                       styleSheets,
-                                                       resolvedStyles,
-                                                       resolvedNamedStyles,
-                                                       includesStack,
-                                                       namedIncludesStack,
-                                                       includeID,
-                                                       includeIsNamed);
-
-                if (resolvedNode != null)
-                {
-                  _addIncludedProperty(entry,
-                                       resolvedNode,
-                                       includeProperty.getPropertyName(),
-                                       includeProperty.getLocalPropertyName());
-                }
+                includeID = includeStyle.getSelector();
               }
+
+              StyleNode resolvedNode = _resolveStyle(context,
+                                                     styleSheets,
+                                                     resolvedStyles,
+                                                     resolvedNamedStyles,
+                                                     includesStack,
+                                                     namedIncludesStack,
+                                                     includeID,
+                                                     includeIsNamed);
+
+              if (resolvedNode != null)
+                _addIncludedProperties(entry, resolvedNode);
+          }
+
+
+          // 2. Resolve included properties
+          Iterable<IncludePropertyNode> includedProperties = node.getIncludedProperties();
+          for (IncludePropertyNode includeProperty : includedProperties)
+          {
+            String includeID = null;
+            boolean includeIsNamed = false;
+
+            if (includeProperty.getName() != null)
+            {
+              includeID = includeProperty.getName();
+              includeIsNamed = true;
+            }
+            else
+            {
+              includeID = includeProperty.getSelector();
             }
 
-            // 3. Check inhibited properties
-            Iterator<String> inhibitedProperties = node.getInhibitedProperties();
-            while (inhibitedProperties.hasNext())
-            {
-              entry.removeProperty(inhibitedProperties.next());
-            }
-            
+            StyleNode resolvedNode = _resolveStyle(context,
+                                                   styleSheets,
+                                                   resolvedStyles,
+                                                   resolvedNamedStyles,
+                                                   includesStack,
+                                                   namedIncludesStack,
+                                                   includeID,
+                                                   includeIsNamed);
 
-            // 4. Add non-included properties
-            Iterator<PropertyNode> properties = node.getProperties();
-            if (properties != null)
+            if (resolvedNode != null)
             {
-              while (properties.hasNext())
-                entry.addProperty(properties.next());
+              _addIncludedProperty(entry,
+                                   resolvedNode,
+                                   includeProperty.getPropertyName(),
+                                   includeProperty.getLocalPropertyName());
             }
+          }
+
+          // 3. Check inhibited properties
+          Iterable<String> inhibitedProperties = node.getInhibitedProperties();
+          for (String inhibitedPropertyName : inhibitedProperties)
+          {
+            entry.removeProperty(inhibitedPropertyName);
+          }
+          
+
+          // 4. Add non-included properties
+          Iterable<PropertyNode> properties = node.getProperties();
+          for (PropertyNode propertyNode : properties)
+          {
+            entry.addProperty(propertyNode);
           }
         }
       }
@@ -621,11 +631,10 @@ public class StyleSheetDocument
     if (node == null)
       return;
 
-    Iterator<PropertyNode> properties = node.getProperties();
-    if (properties != null)
+    Iterable<PropertyNode> properties = node.getProperties();
+    for (PropertyNode propertyNode : properties)
     {
-      while (properties.hasNext())
-        entry.addIncludedProperty(properties.next());
+      entry.addIncludedProperty(propertyNode);
     }
   }
 
@@ -640,24 +649,21 @@ public class StyleSheetDocument
     if (node == null)
       return;
 
-    Iterator<PropertyNode> properties = node.getProperties();
-    if (properties != null)
+    Iterable<PropertyNode> properties = node.getProperties();
+    for (PropertyNode property : properties)
     {
-      while (properties.hasNext())
+      if (propertyName.equals(property.getName()))
       {
-        PropertyNode property = properties.next();
-        if (propertyName.equals(property.getName()))
+        if (!propertyName.equals(localPropertyName))
         {
-          if (!propertyName.equals(localPropertyName))
-          {
-            property = new PropertyNode(localPropertyName,
-                                        property.getValue());
-          }
-
-          entry.addIncludedProperty(property);
+          property = new PropertyNode(localPropertyName,
+                                      property.getValue());
         }
+
+        entry.addIncludedProperty(property);
       }
     }
+
   }
 
   // Returns a count of the non-null items in the Vector
@@ -724,15 +730,11 @@ public class StyleSheetDocument
   // Returns the value of the property with the specified name
   private String _getPropertyValue(StyleNode style, String propertyName)
   {
-    Iterator<PropertyNode> properties = style.getProperties();
-    if (properties != null)
+    Iterable<PropertyNode> properties = style.getProperties();
+    for (PropertyNode property : properties)
     {
-      while (properties.hasNext())
-      {
-        PropertyNode property = properties.next();
-        if (propertyName.equals(property.getName()))
-          return property.getValue();
-      }
+      if (propertyName.equals(property.getName()))
+        return property.getValue();      
     }
 
     return null;
@@ -1430,8 +1432,8 @@ public class StyleSheetDocument
   }
 
   private StyleSheetNode[] _styleSheets;
-  private String           _documentVersion;
-  private long             _documentTimestamp;
+  private final String     _documentVersion;
+  private final long       _documentTimestamp;
 
   static final String _FONT_SIZE_NAME = "font-size";
 

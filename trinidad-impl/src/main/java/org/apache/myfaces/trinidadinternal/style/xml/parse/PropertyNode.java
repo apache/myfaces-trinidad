@@ -1,12 +1,12 @@
 /*
  * Copyright  2000-2006 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,11 +23,19 @@ package org.apache.myfaces.trinidadinternal.style.xml.parse;
  */
 public class PropertyNode
 {
+
   /**
-   * Creates a PropertyNode with the specified name and value
+   * Creates a PropertyNode with the specified name and value.
+   * @param name name of the propertyNode. Examples are 'font-size', 'background-color'.
+   * @param value value of the propertyNode. Examples are '12px', 'red', '0xeaeaea'
+   * If name is null or the empty string, an IllegalArgumentException is thrown.
    */
   public PropertyNode(String name, String value)
   {
+
+    if (name == null || name == "")
+      throw new IllegalArgumentException("PropertyNode's name cannot be null or the empty string." +
+      "name is '" + name + "' and value is '"+ value + "'");
     _name = name;
     _value = value;
   }
@@ -47,7 +55,40 @@ public class PropertyNode
   {
     return _value;
   }
+  
+  @Override
+  public boolean equals(Object obj)
+  {
+    if (this == obj)
+      return true;
+    if (!(obj instanceof PropertyNode))
+      return false;
 
-  private String _name;
-  private String _value;
+    // obj at this point must be an PropertyNode
+    PropertyNode test = (PropertyNode)obj;
+
+    return
+      (_value == test._value || (_value != null && _value.equals(test._value))) &&
+      (_name == test._name || (_name != null && _name.equals(test._name)));
+  }
+
+  @Override
+  public int hashCode()
+  {
+    int hash = 17;
+    hash = 37*hash + ((null == _name) ? 0 : _name.hashCode());
+    hash = 37*hash + ((null == _value) ? 0 : _value.hashCode());
+    return hash;
+  }
+
+  @Override
+  public String toString()
+  {
+    return 
+      "[name="   + _name   + ", " +
+      "value=" + _value + "]";
+  }
+  
+  private final String _name;
+  private final String _value;
 }

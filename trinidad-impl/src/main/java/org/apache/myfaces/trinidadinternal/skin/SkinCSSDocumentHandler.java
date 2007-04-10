@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
 import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
@@ -120,16 +121,27 @@ public class SkinCSSDocumentHandler
     * .AFDefaultFont, af|breadCrumbs::font 
     * {font-family:Arial,Helvetica; font-size:small}
     * One property name/value pair is "font-family"/"Arial,Helvetica"
-    * @param name 
+    * If the name and value are both non-null and we are in a style rule,
+    * then a PropertyNode will be created and added to the _propertyNodeList.
+    * @param name  
     * @param value 
+    * 
     */
   public void property(String name, String value)
   {
 
     if (_inStyleRule && (_propertyNodeList != null))
     {
-      _propertyNodeList.add(new PropertyNode(name, value));
+      if (name == null || "".equals(name))
+      {
+        _LOG.severe("Error when parsing the skin css file. The property's name " +
+        "cannot be null or the empty string. The parser will ignore it. " +
+        "name is '" + name + "' and value is '"+ value + "'");
+      }
+      else
+        _propertyNodeList.add(new PropertyNode(name, value));
     }
+
   }
 
  /**
@@ -466,6 +478,8 @@ public class SkinCSSDocumentHandler
   private int[] _selectorPlatforms = null;
   private int[] _selectorAgents = null;
   private Map<String, String> _namespaceMap = new HashMap<String, String>();
+  private static final TrinidadLogger _LOG = 
+    TrinidadLogger.createTrinidadLogger(SkinCSSDocumentHandler.class);
   
 }  
    

@@ -19,11 +19,14 @@
 package org.apache.myfaces.trinidadinternal.style.xml.parse;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 
+
+import java.util.Set;
 
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
@@ -34,7 +37,8 @@ import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
 
 
 /**
- * Private implementation of StyleSheetNode.
+ * Private implementation of StyleSheetNode. A StyleSheetNode has StyleNodes for particular
+ * browsers, direction, versions, platforms and mode.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/xml/parse/StyleSheetNode.java#0 $) $Date: 10-nov-2005.18:58:46 $
  */
@@ -54,39 +58,57 @@ public class StyleSheetNode
     int mode
     )
   {
+    // StyleNodes order might matter so this is a List
     if (styles != null)
-    {
-      _styles = new StyleNode[styles.length];
-      System.arraycopy(styles, 0, _styles, 0, styles.length);
-    }
+      _styles = Collections.unmodifiableList(Arrays.asList(styles));
+    else
+      _styles = Collections.emptyList();
 
+    // locales, browsers, versions, platforms order does not matter, so these are Sets.
     if (locales != null)
     {
-      _locales = new Locale[locales.length];
-      System.arraycopy(locales, 0, _locales, 0, locales.length);
+      Set localesSet = _copyLocaleArrayToSet(locales);
+      _locales = Collections.unmodifiableSet(localesSet);
     }
+    else
+      _locales = Collections.emptySet();
 
-    _browsers = _copyIntArray(browsers);
-    _direction = direction;
-    _versions = _copyIntArray(versions);
-    _platforms = _copyIntArray(platforms);
+    if (browsers != null)
+    {
+      Set browsersSet = _copyIntArrayToSet(browsers);
+      _browsers = Collections.unmodifiableSet(browsersSet);
+    }
+    else
+      _browsers = Collections.emptySet();
+
+
+    if (versions != null)
+    {
+      Set versionsSet = _copyIntArrayToSet(versions);
+      _versions = Collections.unmodifiableSet(versionsSet);
+    }
+    else
+      _versions = Collections.emptySet();
+    
+    if (platforms != null)
+    {
+      Set platformsSet = _copyIntArrayToSet(platforms);
+      _platforms = Collections.unmodifiableSet(platformsSet); 
+    }
+    else
+      _platforms = Collections.emptySet();
+      
     _mode = mode;
+    _direction = direction;
+    _hashCode = _getHashCode();
   }
 
   /**
    * Implementation of StyleSheetNode.getStyles().
    */
-  public Iterator<StyleNode> getStyles()
+  public Collection<StyleNode> getStyles()
   {
-    if(_styles!=null)
-    {
-      return (Arrays.asList(_styles)).iterator();
-    }
-    else
-    {
-      List<StyleNode> list = Collections.emptyList();
-      return list.iterator();
-    }
+    return _styles;
   }
 
   /**
@@ -105,41 +127,33 @@ public class StyleSheetNode
   /**
    * Implementation of StyleSheetNode.getLocales().
    */
-  public Iterator<Locale> getLocales()
+  public Collection<Locale> getLocales()
   {
-    if (_locales == null) 
-    {
-      List<Locale> list = Collections.emptyList();
-      return list.iterator();
-    }
-    else
-    {
-      return (Arrays.asList(_locales)).iterator();
-    }
+    return _locales;
   }
 
   /**
-   * Implementation of StyleSheetNode.getBrowsers().
+   * Implementation of StyleSheetNode.getBrowsers(). 
    */
-  public Iterator<Integer> getBrowsers()
+  public Collection<Integer> getBrowsers()
   {
-    return Collections.list(new IntegerArrayEnumeration(_browsers)).iterator();
+    return _browsers;
   }
 
   /**
    * Implementation of StyleSheetNode.getVersions().
    */
-  public Iterator<Integer> getVersions()
+  public Collection<Integer> getVersions()
   {
-    return Collections.list(new IntegerArrayEnumeration(_versions)).iterator();
+    return _versions;
   }
 
   /**
    * Implementation of StyleSheetNode.getPlatforms().
    */
-  public Iterator<Integer> getPlatforms()
+  public Collection<Integer> getPlatforms()
   {
-    return Collections.list(new IntegerArrayEnumeration(_platforms)).iterator();
+    return _platforms;
   }
 
 
@@ -192,22 +206,68 @@ public class StyleSheetNode
     return (localeMatch | browserMatch | versionMatch | osMatch);
   }
 
+  @Override  
+  public boolean equals(Object obj)
+  {
+    if (this == obj)
+      return true;
+    if (!(obj instanceof StyleSheetNode))
+      return false;
+      
+    // obj at this point must be a StyleSheetNode
+    StyleSheetNode test = (StyleSheetNode)obj;
+    // look for equality in the order of what is most likely to be different and what
+    // is easiest to check for.  
+    return
+      (_mode == test._mode) &&
+      (_direction == test._direction) &&
+      (_locales.equals(test._locales)) &&
+      (_browsers.equals(test._browsers)) &&
+      (_platforms.equals(test._platforms)) &&
+      (_versions.equals(test._versions)) &&
+      (_styles.equals(test._styles));
+
+  }
+  
+  @Override
+  public int hashCode()
+  {
+    // return the cached hashCode that is computed in the constructor
+    return _hashCode;
+  }
+  
   @Override
   public String toString()
   {
     return getClass().getName() + "[" +
-      "locales="   + _getLocalesString()   + ", " +
+      "locales="   + _locales.toString()   + ", " +
       "direction=" + _getDirectionString() + ", " +
-      "browsers="  + _getBrowsersString()  + ", " +
-      "versions="  + _getVersionsString()  + ", " +
-      "platforms=" + _getPlatformsString() + "]";
+      "browsers="  + _browsers.toString()  + ", " +
+      "versions="  + _versions.toString()  + ", " +
+      "platforms=" + _platforms.toString()  + ", " +
+      "styles="    + _styles.toString() + "]";
   }
+  
+  // Compute the hashCode and return it.  
+  private int _getHashCode()
+  {
+    int hash = 17;
+    hash = 37*hash + _mode;
+    hash = 37*hash + _direction;
+    hash = 37*hash + _locales.hashCode();
+    hash = 37*hash + _browsers.hashCode();
+    hash = 37*hash + _platforms.hashCode();
+    hash = 37*hash + _versions.hashCode();
+    hash = 37*hash + _styles.hashCode();
+    
+    return hash;
+  }  
 
   // Compares the specified locale against the supported variants
   private int _compareLocale(Locale locale)
   {
     // If we don't have any locales specified, anything matches
-    if (_locales == null)
+    if (_locales.isEmpty())
       return _LOCALE_UNKNOWN_MATCH;
 
     // On the other hand, if the client-locale is not specified,
@@ -217,10 +277,8 @@ public class StyleSheetNode
 
     int match = 0;
 
-    for (int i = 0; i < _locales.length; i++)
+    for (Locale tmpLocale : _locales)
     {
-      Locale tmpLocale = _locales[i];
-
       if (tmpLocale.getLanguage().equals(locale.getLanguage()))
       {
         if (tmpLocale.getCountry().equals(locale.getCountry()))
@@ -268,15 +326,14 @@ public class StyleSheetNode
   private int _compareBrowser(int browser)
   {
     // If we don't have a browser specified, we match anything
-    if (_browsers == null)
+    if (_browsers.isEmpty())
       return _BROWSER_UNKNOWN_MATCH;
 
     // On the other hand, if we do have a browser specified, but
     // the client browser is not known, we don't have a match
     if (browser == TrinidadAgent.APPLICATION_UNKNOWN)
       return 0;
-
-    if (_containsInt(browser, _browsers))
+    if (_browsers.contains(Integer.valueOf(browser)))
       return _BROWSER_EXACT_MATCH;
 
     return 0;
@@ -285,10 +342,10 @@ public class StyleSheetNode
   // Compares the specified version against the supported variants
   private int _compareVersion(int version)
   {
-    if (_versions == null)
+    if (_versions.isEmpty())
       return _VERSION_UNKNOWN_MATCH;
 
-    if (_containsInt(version, _versions))
+    if (_versions.contains(Integer.valueOf(version)))
       return _VERSION_EXACT_MATCH;
 
     return 0;
@@ -298,44 +355,21 @@ public class StyleSheetNode
   private int _compareOS(int os)
   {
     // If we don't have a platform specified, we match anything
-    if (_platforms == null)
+    if (_platforms.isEmpty())
       return _OS_UNKNOWN_MATCH;
 
     // On the other hand, if we do have a platform specified, but
     // the client platform is unknown, we don't have a match.
     if (os == TrinidadAgent.OS_UNKNOWN)
       return 0;
-
-    if (_containsInt(os, _platforms))
+      
+    if (_platforms.contains(Integer.valueOf(os)))
       return _OS_EXACT_MATCH;
 
-    if (_isUnixPlatform(os) && (_containsInt(__OS_UNIX, _platforms)))
+    if (_isUnixPlatform(os) && (_platforms.contains(Integer.valueOf(__OS_UNIX))))
       return _OS_PARTIAL_MATCH;
 
     return 0;
-  }
-
-  // Get a String representing the locales
-  private String _getLocalesString()
-  {
-    if (_locales == null)
-      return _EMPTY_STRING;
-
-    StringBuffer buffer = new StringBuffer();
-    buffer.append("\"");
-
-    for (int i = 0; i < _locales.length; i++)
-    {
-      buffer.append(_locales[i].toString());
-
-      if (i < (_locales.length - 1))
-        buffer.append(" ");
-    }
-
-    buffer.append("\"");
-
-    return buffer.toString();
-
   }
 
   // Get a String representing the direction
@@ -344,75 +378,6 @@ public class StyleSheetNode
     if (_direction == LocaleUtils.DIRECTION_DEFAULT)
       return _EMPTY_STRING;
     return NameUtils.getDirectionName(_direction);
-  }
-
-  // Get a String representing the browsers
-  private String _getBrowsersString()
-  {
-    if (_browsers == null)
-      return _EMPTY_STRING;
-
-    StringBuffer buffer = new StringBuffer();
-    buffer.append("\"");
-
-    for (int i = 0; i < _browsers.length; i++)
-    {
-      String name = NameUtils.getBrowserName(_browsers[i]);
-      buffer.append(name);
-
-      if (i < (_browsers.length - 1))
-        buffer.append(" ");
-    }
-
-    buffer.append("\"");
-
-    return buffer.toString();
-  }
-
-  // Get a String representing the versions
-  private String _getVersionsString()
-  {
-    if (_versions == null)
-      return _EMPTY_STRING;
-
-    StringBuffer buffer = new StringBuffer();
-    buffer.append("\"");
-
-    for (int i = 0; i < _versions.length; i++)
-    {
-      String name = Integer.toString(_versions[i]);
-      buffer.append(name);
-
-      if (i < (_versions.length - 1))
-        buffer.append(" ");
-    }
-
-    buffer.append("\"");
-
-    return buffer.toString();
-  }
-
-  // Get a String representing the platforms
-  private String _getPlatformsString()
-  {
-    if (_platforms == null)
-      return _EMPTY_STRING;
-
-    StringBuffer buffer = new StringBuffer();
-    buffer.append("\"");
-
-    for (int i = 0; i < _platforms.length; i++)
-    {
-      String name = NameUtils.getPlatformName(_platforms[i]);
-      buffer.append(name);
-
-      if (i < (_platforms.length - 1))
-        buffer.append(" ");
-    }
-
-    buffer.append("\"");
-
-    return buffer.toString();
   }
 
   // Tests whether the int n is contained within the int array
@@ -429,18 +394,36 @@ public class StyleSheetNode
 
     return false;
   }
-
-  // Returns a copy of the int array
-  private static int[] _copyIntArray(int[] array)
+  
+  // Returns a copy of the int array into a Set<Integer>
+  private static Set<Integer> _copyIntArrayToSet(int[] array)
   {
-    if (array == null)
-      return null;
+   int arrayCount = (array != null)
+                      ? array.length
+                      : 0;
 
-    int[] copy = new int[array.length];
-    System.arraycopy(array, 0, copy, 0, array.length);
+   Set<Integer> set = new HashSet<Integer>(arrayCount);
 
-    return copy;
-  }
+   for (int i=0; i < arrayCount ; i++)
+     set.add(array[i]);
+
+   return set;
+  } 
+  
+  // Returns a copy of the Locale array into a Set<Locale>
+  private static Set<Locale> _copyLocaleArrayToSet(Locale[] array)
+  {
+   int arrayCount = (array != null)
+                      ? array.length
+                      : 0;
+
+   Set<Locale> set = new HashSet<Locale>(arrayCount);
+
+   for (int i=0; i < arrayCount ; i++)
+     set.add(array[i]);
+
+   return set;
+  }   
 
   // Tests whether the specified Agent.OS value is a Unix platform
   private static boolean _isUnixPlatform(int os)
@@ -448,13 +431,15 @@ public class StyleSheetNode
     return (_containsInt(os, _UNIX_PLATFORMS));
   }
 
-  private StyleNode[] _styles;         // The styles contained within this node
-  private Locale[]    _locales;        // The locale variants
-  private int         _direction;      // The reading direction
-  private int[]       _browsers;       // The browser variants
-  private int[]       _versions;       // The version variants
-  private int[]       _platforms;      // The platform variants
-  private int         _mode;           // The mode  
+  private final List<StyleNode> _styles;     // The styles contained within this node
+  // Order does not matter for locales, browsers, versions, platforms
+  private final Set<Locale>     _locales;    // The locale variants
+  private final int             _direction;  // The reading direction
+  private final Set<Integer>    _browsers;   // The browsers
+  private final Set<Integer>    _versions;   // The version variants
+  private final Set<Integer>    _platforms;  // The platform variants
+  private final int             _mode;       // The mode  
+  private final int             _hashCode;   // The cached hashCode
 
   // Constants for locale matches - 0x000f0000 bits
   private static final int _LOCALE_EXACT_MATCH      = 0x00040000;
@@ -469,7 +454,6 @@ public class StyleSheetNode
   private static final int _MODE_UNKNOWN_MATCH      = 0x00100000;
   
   
-
   // Constants for browser matches - 0x00000f00 bits
   private static final int _BROWSER_EXACT_MATCH     = 0x00000200;
   private static final int _BROWSER_UNKNOWN_MATCH   = 0x00000100;
@@ -499,5 +483,5 @@ public class StyleSheetNode
   // creating the int[] platforms array that gets passed in to StyleSheetNode.
   // Agent.OS constants start from 0.  We use Integer.MAX_VALUE to avoid
   // collisions
-          static final int    __OS_UNIX = Integer.MAX_VALUE;
+  static final int __OS_UNIX = Integer.MAX_VALUE;
 }

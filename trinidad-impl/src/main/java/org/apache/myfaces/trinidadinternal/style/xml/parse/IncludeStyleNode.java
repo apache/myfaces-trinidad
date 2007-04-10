@@ -51,7 +51,39 @@ public class IncludeStyleNode
   {
     return _selector;
   }
+ 
+  @Override
+  public boolean equals(Object obj)
+  {
+    if (this == obj)
+      return true;
+    if (!(obj instanceof IncludeStyleNode))
+      return false;
+      
+    // obj at this point must be an IncludeStyleNode
+    IncludeStyleNode test = (IncludeStyleNode)obj;
+    return
+      (_selector == test._selector || (_selector != null && _selector.equals(test._selector))) &&
+      (_name == test._name || (_name != null && _name.equals(test._name)));
+  }
+  
+  @Override
+  public int hashCode()
+  {
+    int hash = 17;
+    hash = 37*hash + ((null == _name) ? 0 : _name.hashCode());
+    hash = 37*hash + ((null == _selector) ? 0 : _selector.hashCode());
+    return hash; 
+  }
+  
+  @Override
+  public String toString()
+  {
+    return 
+      "[name="   + _name   + ", " +
+      "selector=" + _selector + "]";
+  }
 
-  private String _name;
-  private String _selector;
+  private final String _name;
+  private final String _selector;
 }
