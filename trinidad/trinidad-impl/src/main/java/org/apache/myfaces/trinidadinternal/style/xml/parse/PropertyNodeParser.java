@@ -18,9 +18,6 @@
  */
 package org.apache.myfaces.trinidadinternal.style.xml.parse;
 
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXParseException;
 

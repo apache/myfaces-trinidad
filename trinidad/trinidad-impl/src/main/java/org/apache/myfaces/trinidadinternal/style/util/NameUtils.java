@@ -293,8 +293,7 @@ public class NameUtils
    * 
    * @param context The context for which a name is generated.
    */
-  public static String getContextName(StyleContext context,
-      StyleSheetDocument document)
+  public static String getContextName(StyleContext context, StyleSheetDocument document)
   {
     // Copy the matching style sheets into an array
     Iterator<StyleSheetNode> e = document.getStyleSheets(context);
@@ -318,14 +317,12 @@ public class NameUtils
 
     StringBuffer buffer = new StringBuffer();
 
-    // Start with the document version
+    // Start with the document id
 
-    String documentVersion = _getDocumentVersion(document);
-    if (documentVersion != null)
+    String documentId = _getDocumentId(context, document);
+    if (documentId != null)
     {
-      // We use periods in version numbers, but want underscores in the path
-      documentVersion = documentVersion.replace('.', '_');
-      buffer.append(documentVersion);
+      buffer.append(documentId);
       needSeparator = true;
     }
 
@@ -451,11 +448,10 @@ public class NameUtils
     return name;
   }
 
-  private static String _getDocumentVersion(
-      StyleSheetDocument document
-      )
+  // get the StyleSheetDocument's id.
+  private static String _getDocumentId(StyleContext context, StyleSheetDocument document)
   {
-    return document.getDocumentVersion();
+    return document.getDocumentId(context);
   }
 
   // Get the version as a String
@@ -515,11 +511,9 @@ public class NameUtils
 
     for (int i = 0; i < styleSheets.length; i++)
     {
-      Iterator<Locale> e = styleSheets[i].getLocales();
-      while (e.hasNext())
+      Iterable<Locale> localeList = styleSheets[i].getLocales();
+      for (Locale tmpLocale : localeList)
       {
-        Locale tmpLocale = e.next();
-
         if (language.equals(tmpLocale.getLanguage()))
         {
           languageMatch = true;
@@ -586,7 +580,7 @@ public class NameUtils
     // have a browser match.
     for (int i = 0; i < styleSheets.length; i++)
     {
-      if (!_isIteratorEmpty(styleSheets[i].getBrowsers()))
+      if (!(styleSheets[i].getBrowsers().isEmpty()))
         return true;
     }
 
@@ -606,7 +600,7 @@ public class NameUtils
     // have a version match.
     for (int i = 0; i < styleSheets.length; i++)
     {
-      if (!_isIteratorEmpty(styleSheets[i].getVersions()))
+      if (!(styleSheets[i].getVersions().isEmpty()))
         return true;
     }
 
@@ -626,20 +620,11 @@ public class NameUtils
     // have a platform match.
     for (int i = 0; i < styleSheets.length; i++)
     {
-      if (!_isIteratorEmpty(styleSheets[i].getPlatforms()))
+      if (!(styleSheets[i].getPlatforms().isEmpty()))
         return true;
     }
 
     return false;
-  }
-
-  // Tests whether the enumeration is empty.
-  private static final boolean _isIteratorEmpty(Iterator<?> e)
-  {
-    if (e == null)
-      return true;
-
-    return !e.hasNext();
   }
 
   // Direction constants

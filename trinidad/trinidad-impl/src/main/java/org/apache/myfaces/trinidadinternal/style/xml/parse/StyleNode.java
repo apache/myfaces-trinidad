@@ -20,8 +20,8 @@ package org.apache.myfaces.trinidadinternal.style.xml.parse;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -68,54 +68,80 @@ public class StyleNode
     boolean                resetProperties
     )
   {
+    // Initialize _name, _selector, _resetProperties
+    // ---------------------------------------------
     _name = name;
     _selector = selector;
-
     _resetProperties = resetProperties;
 
+    // Initialize _properties
+    // ------------------------------
     if (properties != null)
-    {
-      _properties = new PropertyNode[properties.length];
-      System.arraycopy(properties, 0, _properties, 0, properties.length);
-    }
+      _properties = Collections.unmodifiableList(Arrays.asList(properties));
+    else
+      _properties = Collections.emptyList();
 
+
+    // Initialize _includedStyles
+    // ------------------------------
     if (includedStyles != null)
-    {
-      _includedStyles = new IncludeStyleNode[includedStyles.length];
-      System.arraycopy(includedStyles, 0,
-                       _includedStyles, 0,
-                       _includedStyles.length);
-    }
+      _includedStyles = Collections.unmodifiableList(Arrays.asList(includedStyles));
+    else
+      _includedStyles = Collections.emptyList();
 
+
+    // Initialize _includedProperties
+    // ------------------------------
     if (includedProperties != null)
-    {
-      _includedProperties = new IncludePropertyNode[includedProperties.length];
-      System.arraycopy(includedProperties, 0,
-                       _includedProperties, 0,
-                       _includedProperties.length);
-    }
-    
-    _inhibitAll = false;
+      _includedProperties = Collections.unmodifiableList(Arrays.asList(includedProperties));
+    else
+      _includedProperties = Collections.emptyList();
+      
+      
+    // Initialize _inhibitAll and _inhibitedProperties
+    // -----------------------------------------------    
+    boolean inhibitAll = false;
+    // Convert inhibitedProperties Set to an unmodifiableList
+
     if(inhibitedProperties != null)
     {
-      _inhibitedProperties = new ArrayList<String>(inhibitedProperties.size());
+      List<String> inhibitedPropertiesList = new ArrayList<String>(inhibitedProperties.size());
       for(String property : inhibitedProperties)
       {
         if(_INHIBIT_ALL_VALUE.equalsIgnoreCase(property))
         { // Case insensitivity for "all" value
-          _inhibitAll = true;
+        
+          // we don't want to break when we find inhibitAll because all the inhibitedProperties
+          // are needed
+          // e.g., 
+          /* this should end up with  .foo {padding: 8px} */
+          // 
+          // This should first inhibit all inherited styles. Then everything else
+          // should be included.
+          // .foo {
+          //   -tr-inhibit: all;
+          //   padding: 8px;
+          //This should inhibit the background-color that is inherited and/or included,
+          //like in .AFLightAccentBackground:alias
+          //The order of this does not matter.
+          //   -tr-inhibit: background-color;
+          //   -tr-rule-ref: selector(".AFLightAccentBackground:alias");
+          // }
+          inhibitAll = true;
         }
         else
         {
-          _inhibitedProperties.add(property);
+          inhibitedPropertiesList.add(property);
         }
       }
-      
-      if(_inhibitedProperties != null)
-      {
-        _inhibitedProperties = Collections.unmodifiableList(_inhibitedProperties);
-      }
+
+      _inhibitedProperties = Collections.unmodifiableList(inhibitedPropertiesList);
+
     }
+    else
+      _inhibitedProperties = Collections.emptyList();
+    _inhibitAll = inhibitAll;
+
   }
 
   /**
@@ -139,11 +165,11 @@ public class StyleNode
    */
   public boolean isEmpty()
   {
-    if (_properties != null && _properties.length > 0)
+    if (!_properties.isEmpty())
       return false;
-    if (_includedStyles != null && _includedStyles.length > 0)
+    if (!_includedStyles.isEmpty())
       return false;
-    if (_includedProperties != null && _includedProperties.length > 0)
+    if (!_includedProperties.isEmpty())
       return false;
     return true;
   }
@@ -151,66 +177,48 @@ public class StyleNode
   /**
    * Implementation of StyleNode.getProperties().
    */
-  public Iterator<PropertyNode> getProperties()
+  public Collection<PropertyNode> getProperties()
   {
-  if (_properties == null) 
-  {
-    List<PropertyNode> list = Collections.emptyList();
-    return list.iterator();
-  }
-  else
-    return (Arrays.asList(_properties)).iterator();
+    return _properties;
   }
 
   /**
-   * Returns an Iterator of IncludeStyleNodes.
+   * Return a Collection of IncludeStyleNode objects for the StyleNode. 
+   * This method will return a Collections.emptyList this StyleNode does
+   * not have any IncludeStyleNode.
+   * 
+   * @return a Collection of the IncludeStyleNode Objects, a Collections.emptyList 
+   *         if there are no IncludeStyleNode Objects in this StyleNode.
    */
-  public Iterator<IncludeStyleNode> getIncludedStyles()
+  public Collection<IncludeStyleNode> getIncludedStyles()
   {
-    if (_includedStyles == null) 
-    {
-      List<IncludeStyleNode> list = Collections.emptyList();
-      return list.iterator();
-    }
-    else
-    {
-      return (Arrays.asList(_includedStyles)).iterator();
-    }
+    return _includedStyles;
   }
 
   /**
-   * Returns an Iterator of IncludePropertyNodes.
+   * Return a Collection of IncludePropertyNode objects for the StyleNode. 
+   * This method will return a Collections.emptyList this StyleNode does
+   * not have any IncludePropertyNodes.
+   * 
+   * @return a Collection of the IncludePropertyNode Objects, a Collections.emptyList 
+   *         if there are no IncludePropertyNode Objects in this StyleNode.
    */
-  public Iterator<IncludePropertyNode> getIncludedProperties()
+  public Collection<IncludePropertyNode> getIncludedProperties()
   {
-    if(_includedProperties == null) 
-    {
-      List<IncludePropertyNode> list = Collections.emptyList();
-      return list.iterator();
-    }
-    else
-      return (Arrays.asList(_includedProperties)).iterator();
+    return _includedProperties;
   }
   
   /**
    * Gets the properties specified by this node's parent that should be
-   * ignored. This method will return an empty iterator if 
+   * ignored. This method will return a Collections.emptyList if 
    * {@link #isInhibitingAll()} returns <code>true</code>
    * 
-   * @return an iterator over the properties that should be ignored, an 
-   *         empty iterator if all properties should be.
+   * @return a Collection of the properties that should be ignored, an 
+   *         Collection.emptyList if all properties should be.
    */
-  public Iterator<String> getInhibitedProperties()
+  public Collection<String> getInhibitedProperties()
   {
-    if(_inhibitedProperties == null) 
-    {
-      List<String> list = Collections.emptyList();
-      return list.iterator();
-    }
-    else
-    {
-      return _inhibitedProperties.iterator();
-    }
+    return _inhibitedProperties;
   }
   
   /**
@@ -223,7 +231,59 @@ public class StyleNode
   {
     return _inhibitAll;
   }
+  
+  @Override  
+  public boolean equals(Object obj)
+  {
+    if (this == obj)
+      return true;
+    if (!(obj instanceof StyleNode))
+      return false;
+      
+    // obj at this point must be a StyleNode
+    StyleNode test = (StyleNode)obj;
+    // look for equality in the order of what is most likely to be different and what
+    // is easiest to check for.
+    return
+      (_name == test._name || (_name != null && _name.equals(test._name))) &&
+      (_selector == test._selector || (_selector != null && _selector.equals(test._selector))) &&
+      (_resetProperties == test._resetProperties) &&
+      (_inhibitAll == test._inhibitAll) &&
+      (_inhibitedProperties.equals(test._inhibitedProperties)) &&
+      (_includedStyles.equals(test._includedStyles)) &&
+      (_includedProperties.equals(test._includedProperties)) &&
+      (_properties.equals(test._properties));
+  }
+  
+  @Override
+  public int hashCode()
+  {
+    int hash = 17;
+    hash = 37*hash + ((null == _name) ? 0 : _name.hashCode());
+    hash = 37*hash + ((null == _selector) ? 0 : _selector.hashCode());
+    hash = 37*hash + (_resetProperties ? 0 : 1);
+    hash = 37*hash + (_inhibitAll ? 0 : 1);
+    hash = 37*hash + _inhibitedProperties.hashCode();
+    hash = 37*hash + _includedStyles.hashCode();
+    hash = 37*hash + _includedProperties.hashCode();
+    hash = 37*hash + _properties.hashCode();
+    
+    return hash;
+  }
 
+  @Override
+  public String toString()
+  {
+    return getClass().getName() + "[" +
+      "name="   + _name   + ", " +
+      "selector=" + _selector + ", " +
+      "properties="  + _properties.toString()  + ", " +
+      "includeStyles="  + _includedStyles.toString()  + ", " +
+      "includeProperties="  + _includedProperties.toString()  + ", " + 
+      "inhibitedProperties="  + _inhibitedProperties.toString()  + ", " + 
+      "resetProperties="  + _resetProperties  + ", " +
+      "inhibitAll=" + _inhibitAll + "]";
+  }
 
   // Just leaving this package-private, since only
   // StyleSheetDocument really needs to know about this.
@@ -234,20 +294,20 @@ public class StyleNode
     return _resetProperties;
   }
 
-
-  private String                 _name;
-  private String                 _selector;
-  private PropertyNode[]         _properties;          // The property nodes
-  private IncludeStyleNode[]     _includedStyles;      // Included styles
-  private IncludePropertyNode[]  _includedProperties;  // Included properties
-  private List<String>           _inhibitedProperties; // Inhibited properties
+  private final String                     _name;
+  private final String                     _selector;
+  private final List<PropertyNode>         _properties;          // The property nodes
+  private final List<IncludeStyleNode>     _includedStyles;      // Included styles
+  private final List<IncludePropertyNode>  _includedProperties;  // Included properties
+  private final List<String>               _inhibitedProperties; // Inhibited properties
   
   // These flags checks whether the style should inherit properties
   // from equivalent styles defined in earlier style sheets.
   // This is xss-formatted skin files when resetProperties="true".
-  private boolean                _resetProperties;
+  private final boolean                _resetProperties;
   // This is css-formatted skin files when -tr-inhibit: all.
-  private boolean                _inhibitAll;
+  private final boolean                _inhibitAll;
 
   private static final String _INHIBIT_ALL_VALUE = "all";
+
 }
