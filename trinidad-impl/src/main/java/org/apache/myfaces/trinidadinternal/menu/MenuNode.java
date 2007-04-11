@@ -740,27 +740,10 @@ public class MenuNode
    */
   private String _evalElStr(String str)
   {
-    // Check to see if EL expression gets its value from a
-    // resource bundle.      
-    String elVar = str.substring(2, str.indexOf('.'));
-    
-    if (   _bundleKey != null
-        && _bundleKey.equals(elVar)
-       )
-    {
-      // we have an EL expression to get a value from a 
-      // resource bundle
-      elVar = str.substring(0, str.indexOf('.'));
-      String elKey = str.substring(str.indexOf('.'));
-      String elStr = elVar + getHandlerId() + elKey;
-      String elVal = (String)MenuUtils.getBoundValue(elStr);
-      return elVal;       
-    }
-    else
-    {
-      // We have some other EL expression
-      return (String)MenuUtils.getBoundValue(str);
-    }
+   String keystr = 
+     str.trim().replaceFirst(_bundleKey, _bundleKey + getHandlerId());
+   String elVal = (String) MenuUtils.getBoundValue(keystr);
+   return elVal;       
   }
   
   private String         _label       = null;
