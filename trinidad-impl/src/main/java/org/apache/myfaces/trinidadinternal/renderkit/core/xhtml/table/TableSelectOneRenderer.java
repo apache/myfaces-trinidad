@@ -47,9 +47,9 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 public class TableSelectOneRenderer extends XhtmlRenderer
 {
 
-  public TableSelectOneRenderer()
+  public TableSelectOneRenderer(FacesBean.Type type)
   {
-    super(CoreTable.TYPE);
+    super(type);
   }
 
   @Override

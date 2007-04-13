@@ -75,9 +75,12 @@ abstract public class TableRenderer extends XhtmlRenderer
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
-    _navBarRenderer = new NavBar(type);
     _widthKey  = type.findKey("width");
     _emptyTextKey  = type.findKey("emptyText");
+    _navBarRenderer = new NavBar(type);
+    _selectRenderer = new SelectionColumnRenderer(type);
+    _selectOne = new TableSelectOneRenderer(type);
+    _selectMany = new TableSelectManyRenderer(type);
   }
 
   @Override
@@ -924,12 +927,12 @@ abstract public class TableRenderer extends XhtmlRenderer
 
   private static final String _VALUE_FIELD_NAME      = "_value";
 
-  private CoreRenderer _navBarRenderer;
-
-  private final SpecialColumnRenderer _selectRenderer = new SelectionColumnRenderer();
   private final SpecialColumnRenderer _detailRenderer = new DetailColumnRenderer();
-  private final CoreRenderer _selectOne = new TableSelectOneRenderer();
-  private final CoreRenderer _selectMany = new TableSelectManyRenderer();
+
+  private SpecialColumnRenderer _selectRenderer;
+  private CoreRenderer _navBarRenderer;
+  private CoreRenderer _selectOne;
+  private CoreRenderer _selectMany;
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(TableRenderer.class);
 }

@@ -48,8 +48,9 @@ public class TableSelectManyRenderer extends TableSelectOneRenderer
   public static final String SELECTED_KEY = "_s";
   public static final String SELECTED_MODE_KEY = "_sm";
 
-  public TableSelectManyRenderer()
+  public TableSelectManyRenderer(FacesBean.Type type)
   {
+    super(type);
   }
 
   //
