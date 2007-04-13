@@ -243,12 +243,20 @@ public class FredJSP
     
     // http://issues.apache.org/jira/browse/ADFFACES-191    
     // Following code was once in CoreRenderKit.launchDialog.
-    StringBuilder onunload = new StringBuilder(53 + returnId.length());
-    onunload.append(_FRAMESET_ONUNLOAD_TEXT);
-    onunload.append(";window.opener.setTimeout(");
-    onunload.append("'ADFDialogReturn[").append(returnId).append("]();'");
-    onunload.append(",1)");
-    frameSet.setOnunload(onunload.toString());
+
+    if (returnId != null)
+    {
+      StringBuilder onunload = new StringBuilder(53 + returnId.length());
+      onunload.append(_FRAMESET_ONUNLOAD_TEXT);
+      onunload.append(";window.opener.setTimeout(");
+      onunload.append("'ADFDialogReturn[").append(returnId).append("]();'");
+      onunload.append(",1)");
+      frameSet.setOnunload(onunload.toString());
+    }
+    else
+    {
+      frameSet.setOnunload(_FRAMESET_ONUNLOAD_TEXT);
+    }
 
     root.getChildren().add(frameSet);
   }
