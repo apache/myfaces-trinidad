@@ -32,6 +32,11 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 
 public class SelectionColumnRenderer extends SpecialColumnRenderer
 {
+  public SelectionColumnRenderer(FacesBean.Type tableType)
+  {
+    _singleRenderer = new TableSelectOneRenderer(tableType);
+    _multiRenderer = new TableSelectManyRenderer(tableType);
+  }
 
   @Override
   protected void renderKids(FacesContext          context,
@@ -84,6 +89,6 @@ public class SelectionColumnRenderer extends SpecialColumnRenderer
     return tContext.hasSelectAll();
   }
   
-  private CoreRenderer _singleRenderer = new TableSelectOneRenderer();
-  private CoreRenderer _multiRenderer = new TableSelectManyRenderer();
+  private final CoreRenderer _singleRenderer;
+  private final CoreRenderer _multiRenderer;
 }

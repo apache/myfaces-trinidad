@@ -138,7 +138,7 @@ public class TableSelectOneRendererTest extends FacesTestCase
   {
     //this.facesContext.setViewRoot(new UIViewRoot());
     Mock mockRenderKit = getMockRenderKitWrapper().getMock();
-    TableSelectOneRenderer renderer = new TableSelectOneRenderer();
+    TableSelectOneRenderer renderer = new TableSelectOneRenderer(CoreTable.TYPE);
     mockRenderKit.expects(atLeastOnce()).method("getRenderer").will(returnValue(renderer));
 
     
