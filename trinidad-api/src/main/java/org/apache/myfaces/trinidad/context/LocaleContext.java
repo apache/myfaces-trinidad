@@ -82,7 +82,8 @@ abstract public class LocaleContext
   abstract public boolean isRightToLeft();
 
   /**
-   * Returns the TimeZone that the user is running in.
+   * Returns the TimeZone of the application, as specified in 
+   * trinidad-config.xml. If unspecified, defaults to the server timezone.
    */
   abstract public TimeZone getTimeZone();
 
