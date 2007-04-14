@@ -27,6 +27,7 @@ import java.util.Date;
 import java.util.Iterator;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
 import javax.faces.el.ValueBinding;
@@ -129,8 +130,15 @@ abstract public class UIXComponentTag extends UIComponentTag
   @Override
   protected final void setProperties(UIComponent component)
   {
-    super.setProperties(component);
+    if (component instanceof UIViewRoot)
+    {
+      throw new IllegalStateException(
+         "<f:view> was not present on this page; tag " + this +
+         "encountered without an <f:view> being processed.");
+    }
 
+    super.setProperties(component);
+    
     UIXComponent uixComponent = (UIXComponent) component;
 
     if (_attributeChangeListener != null)
