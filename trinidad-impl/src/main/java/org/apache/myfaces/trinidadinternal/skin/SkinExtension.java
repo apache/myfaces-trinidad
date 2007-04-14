@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.Stack;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -36,7 +37,6 @@ import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.Icon;
 
 import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
-import org.apache.myfaces.trinidadinternal.util.OptimisticHashMap;
 
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.xml.StyleSheetDocumentUtils;
@@ -450,7 +450,7 @@ public class SkinExtension extends SkinImpl
     {
       // If we didn't previously have any translations for this
       // Locale, create storage for translations now...
-      localeTranslations = new OptimisticHashMap<String, Object>();
+      localeTranslations = new ConcurrentHashMap<String, Object>();
       _translations.put(locale, localeTranslations);
     }
 
@@ -651,8 +651,8 @@ public class SkinExtension extends SkinImpl
   //
   // This HashMap hashes Locales -> HashMaps.
   // The HashMaps map translation key to message.
-  private OptimisticHashMap<Locale, Map<String, Object>> _translations =
-    new OptimisticHashMap<Locale, Map<String, Object>>(13);
+  private ConcurrentHashMap<Locale, Map<String, Object>> _translations =
+    new ConcurrentHashMap<Locale, Map<String, Object>>(13);
 
   // The StyleSheetDocument for the base LookAndFeel's style sheet
   private StyleSheetDocument _baseStyleSheetDocument;
