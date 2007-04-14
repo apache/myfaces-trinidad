@@ -6,7 +6,6 @@
         
         <div
              class="af_panelAccordion_header-expanded"
-             id="mainId_idXXX"
             >
           
           <a
@@ -40,14 +39,13 @@
         </table>
         <div
              class="af_panelAccordion_header-collapsed"
-             id="mainId_idXXX"
             >
           
           <a
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="_submitPartialChange('formId',1, {event:'show',source:'mainId',targetItem:'_idXXX'});return false;"
               >
             
             <span
@@ -60,14 +58,13 @@
         </div>
         <div
              class="af_panelAccordion_header-collapsed"
-             id="mainId_idXXX"
             >
           
           <a
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="_submitPartialChange('formId',1, {event:'show',source:'mainId',targetItem:'_idXXX'});return false;"
               >
             
             <span
@@ -89,7 +86,6 @@
         
         <div
              class="af_panelAccordion_header-expanded"
-             id="mainId_idXXX"
             >
           
           <a
@@ -123,14 +119,13 @@
         </table>
         <div
              class="af_panelAccordion_header-collapsed"
-             id="mainId_idXXX"
             >
           
           <a
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="_submitPartialChange('formId',1, {event:'show',source:'mainId',targetItem:'_idXXX'});return false;"
               >
             
             <span
@@ -143,14 +138,13 @@
         </div>
         <div
              class="af_panelAccordion_header-collapsed"
-             id="mainId_idXXX"
             >
           
           <a
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="_submitPartialChange('formId',1, {event:'show',source:'mainId',targetItem:'_idXXX'});return false;"
               >
             
             <span
@@ -172,7 +166,6 @@
         
         <div
              class="af_panelAccordion_header-expanded"
-             id="mainId_idXXX"
             >
           
           <a
@@ -206,14 +199,13 @@
         </table>
         <div
              class="af_panelAccordion_header-collapsed"
-             id="mainId_idXXX"
             >
           
           <a
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="_submitPartialChange('formId',1, {event:'show',source:'mainId',targetItem:'_idXXX'});return false;"
               >
             
             <span
@@ -226,14 +218,13 @@
         </div>
         <div
              class="af_panelAccordion_header-collapsed"
-             id="mainId_idXXX"
             >
           
           <a
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="_submitPartialChange('formId',1, {event:'show',source:'mainId',targetItem:'_idXXX'});return false;"
               >
             
             <span
@@ -255,7 +246,6 @@
         
         <div
              class="af_panelAccordion_header-expanded"
-             id="mainId_idXXX"
             >
           
           <a
@@ -289,14 +279,13 @@
         </table>
         <div
              class="af_panelAccordion_header-collapsed"
-             id="mainId_idXXX"
             >
           
           <a
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="_submitPartialChange('formId',1, {event:'show',source:'mainId',targetItem:'_idXXX'});return false;"
               >
             
             <span
@@ -309,14 +298,13 @@
         </div>
         <div
              class="af_panelAccordion_header-collapsed"
-             id="mainId_idXXX"
             >
           
           <a
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="_submitPartialChange('formId',1, {event:'show',source:'mainId',targetItem:'_idXXX'});return false;"
               >
             
             <span
@@ -338,7 +326,6 @@
         
         <div
              class="af_panelAccordion_header-expanded"
-             id="mainId_idXXX"
             >
           
           <a
@@ -372,14 +359,13 @@
         </table>
         <div
              class="af_panelAccordion_header-collapsed"
-             id="mainId_idXXX"
             >
           
           <a
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="_submitPartialChange('formId',1, {event:'show',source:'mainId',targetItem:'_idXXX'});return false;"
               >
             
             <span
@@ -392,14 +378,13 @@
         </div>
         <div
              class="af_panelAccordion_header-collapsed"
-             id="mainId_idXXX"
             >
           
           <a
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="_submitPartialChange('formId',1, {event:'show',source:'mainId',targetItem:'_idXXX'});return false;"
               >
             
             <span
@@ -421,7 +406,6 @@
         
         <div
              class="af_panelAccordion_header-expanded"
-             id="mainId_idXXX"
             >
           
           <a
@@ -455,14 +439,13 @@
         </table>
         <div
              class="af_panelAccordion_header-collapsed"
-             id="mainId_idXXX"
             >
           
           <a
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="_submitPartialChange('formId',1, {event:'show',source:'mainId',targetItem:'_idXXX'});return false;"
               >
             
             <span
@@ -475,14 +458,13 @@
         </div>
         <div
              class="af_panelAccordion_header-collapsed"
-             id="mainId_idXXX"
             >
           
           <a
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="_submitPartialChange('formId',1, {event:'show',source:'mainId',targetItem:'_idXXX'});return false;"
               >
             
             <span
@@ -504,7 +486,6 @@
         
         <div
              class="af_panelAccordion_header-expanded"
-             id="mainId_idXXX"
             >
           
           <a
@@ -538,14 +519,13 @@
         </table>
         <div
              class="af_panelAccordion_header-collapsed"
-             id="mainId_idXXX"
             >
           
           <a
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="_submitPartialChange('formId',1, {event:'show',source:'mainId',targetItem:'_idXXX'});return false;"
               >
             
             <span
@@ -558,14 +538,13 @@
         </div>
         <div
              class="af_panelAccordion_header-collapsed"
-             id="mainId_idXXX"
             >
           
           <a
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="_submitPartialChange('formId',1, {event:'show',source:'mainId',targetItem:'_idXXX'});return false;"
               >
             
             <span
@@ -587,7 +566,6 @@
         
         <div
              class="af_panelAccordion_header-expanded"
-             id="mainId_idXXX"
             >
           
           <a
@@ -621,14 +599,13 @@
         </table>
         <div
              class="af_panelAccordion_header-collapsed"
-             id="mainId_idXXX"
             >
           
           <a
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="_submitPartialChange('formId',1, {event:'show',source:'mainId',targetItem:'_idXXX'});return false;"
               >
             
             <span
@@ -641,14 +618,13 @@
         </div>
         <div
              class="af_panelAccordion_header-collapsed"
-             id="mainId_idXXX"
             >
           
           <a
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="_submitPartialChange('formId',1, {event:'show',source:'mainId',targetItem:'_idXXX'});return false;"
               >
             
             <span
@@ -670,7 +646,6 @@
         
         <div
              class="af_panelAccordion_header-expanded"
-             id="mainId_idXXX"
             >
           
           <a
@@ -704,14 +679,13 @@
         </table>
         <div
              class="af_panelAccordion_header-collapsed"
-             id="mainId_idXXX"
             >
           
           <a
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="_submitPartialChange('formId',1, {event:'show',source:'mainId',targetItem:'_idXXX'});return false;"
               >
             
             <span
@@ -724,14 +698,13 @@
         </div>
         <div
              class="af_panelAccordion_header-collapsed"
-             id="mainId_idXXX"
             >
           
           <a
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="_submitPartialChange('formId',1, {event:'show',source:'mainId',targetItem:'_idXXX'});return false;"
               >
             
             <span
@@ -753,7 +726,6 @@
         
         <div
              class="af_panelAccordion_header-expanded"
-             id="mainId_idXXX"
             >
           
           <a
@@ -787,14 +759,13 @@
         </table>
         <div
              class="af_panelAccordion_header-collapsed"
-             id="mainId_idXXX"
             >
           
           <a
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="_submitPartialChange('formId',1, {event:'show',source:'mainId',targetItem:'_idXXX'});return false;"
               >
             
             <span
@@ -807,14 +778,13 @@
         </div>
         <div
              class="af_panelAccordion_header-collapsed"
-             id="mainId_idXXX"
             >
           
           <a
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="_submitPartialChange('formId',1, {event:'show',source:'mainId',targetItem:'_idXXX'});return false;"
               >
             
             <span
@@ -836,7 +806,6 @@
         
         <div
              class="af_panelAccordion_header-expanded"
-             id="mainId_idXXX"
             >
           
           <a
@@ -870,14 +839,13 @@
         </table>
         <div
              class="af_panelAccordion_header-collapsed"
-             id="mainId_idXXX"
             >
           
           <a
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="_submitPartialChange('formId',1, {event:'show',source:'mainId',targetItem:'_idXXX'});return false;"
               >
             
             <span
@@ -890,14 +858,13 @@
         </div>
         <div
              class="af_panelAccordion_header-collapsed"
-             id="mainId_idXXX"
             >
           
           <a
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="_submitPartialChange('formId',1, {event:'show',source:'mainId',targetItem:'_idXXX'});return false;"
               >
             
             <span
@@ -918,7 +885,6 @@
         
         <div
              class="af_panelAccordion_header-expanded"
-             id="test-id_idXXX"
             >
           
           <a
@@ -952,14 +918,13 @@
         </table>
         <div
              class="af_panelAccordion_header-collapsed"
-             id="test-id_idXXX"
             >
           
           <a
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'test-id', event:'show',source:'_idXXX'});return false;"
+               onclick="_submitPartialChange('formId',1, {event:'show',source:'test-id',targetItem:'_idXXX'});return false;"
               >
             
             <span
@@ -972,14 +937,13 @@
         </div>
         <div
              class="af_panelAccordion_header-collapsed"
-             id="test-id_idXXX"
             >
           
           <a
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'test-id', event:'show',source:'_idXXX'});return false;"
+               onclick="_submitPartialChange('formId',1, {event:'show',source:'test-id',targetItem:'_idXXX'});return false;"
               >
             
             <span
@@ -1001,7 +965,6 @@
         
         <div
              class="af_panelAccordion_header-expanded"
-             id="mainId_idXXX"
             >
           
           <a
@@ -1035,14 +998,13 @@
         </table>
         <div
              class="af_panelAccordion_header-collapsed"
-             id="mainId_idXXX"
             >
           
           <a
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="_submitPartialChange('formId',1, {event:'show',source:'mainId',targetItem:'_idXXX'});return false;"
               >
             
             <span
@@ -1055,14 +1017,13 @@
         </div>
         <div
              class="af_panelAccordion_header-collapsed"
-             id="mainId_idXXX"
             >
           
           <a
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="_submitPartialChange('formId',1, {event:'show',source:'mainId',targetItem:'_idXXX'});return false;"
               >
             
             <span
@@ -1077,13 +1038,12 @@
 <!--AttributeTest[styleClass,myStyleClass]-->
 
       <div
-           class="af_panelAccordion_container myStyleClass"
+           class="myStyleClass af_panelAccordion_container"
            id="mainId"
           >
         
         <div
              class="af_panelAccordion_header-expanded"
-             id="mainId_idXXX"
             >
           
           <a
@@ -1117,14 +1077,13 @@
         </table>
         <div
              class="af_panelAccordion_header-collapsed"
-             id="mainId_idXXX"
             >
           
           <a
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="_submitPartialChange('formId',1, {event:'show',source:'mainId',targetItem:'_idXXX'});return false;"
               >
             
             <span
@@ -1137,14 +1096,13 @@
         </div>
         <div
              class="af_panelAccordion_header-collapsed"
-             id="mainId_idXXX"
             >
           
           <a
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="_submitPartialChange('formId',1, {event:'show',source:'mainId',targetItem:'_idXXX'});return false;"
               >
             
             <span
@@ -1166,7 +1124,6 @@
         
         <div
              class="af_panelAccordion_header-expanded"
-             id="mainId_idXXX"
             >
           
           <a
@@ -1200,14 +1157,13 @@
         </table>
         <div
              class="af_panelAccordion_header-collapsed"
-             id="mainId_idXXX"
             >
           
           <a
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="_submitPartialChange('formId',1, {event:'show',source:'mainId',targetItem:'_idXXX'});return false;"
               >
             
             <span
@@ -1220,14 +1176,13 @@
         </div>
         <div
              class="af_panelAccordion_header-collapsed"
-             id="mainId_idXXX"
             >
           
           <a
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="_submitPartialChange('formId',1, {event:'show',source:'mainId',targetItem:'_idXXX'});return false;"
               >
             
             <span
