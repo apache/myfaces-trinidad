@@ -240,13 +240,6 @@ public class TagUtils
     if (tokenComposite == null || "".equals(tokenComposite))
       return null;
 
-    //pu: ',' is the only character considered as illegal in a token composite.
-    int commaIndex = tokenComposite.indexOf(',');
-    if (commaIndex != -1)
-      throw new ParseException(
-        "Invalid character ',' in attribute value '" + tokenComposite + "'",
-        commaIndex);
-
     return XMLUtils.parseNameTokens(tokenComposite);
   }
 
