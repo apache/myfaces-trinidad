@@ -168,8 +168,17 @@ final class StampState implements Externalizable
       // components
       if (childState != UIXCollection.Transient.TRUE)
       {
-        table.restoreStampState(context, kids.get(childIndex), childState);
-        childIndex++;
+        while (childIndex < kids.size())
+        {
+          UIComponent kid = kids.get(childIndex);
+          childIndex++;
+          // Skip over any transient components before restoring state
+          if (!kid.isTransient())
+          {
+            table.restoreStampState(context, kid, childState);
+            break;
+          }
+        }
       }
       // The component may or may not still be there;  if it
       // is, then we'd better skip over it

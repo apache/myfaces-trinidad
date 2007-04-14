@@ -869,8 +869,17 @@ public abstract class UIXCollection extends UIXComponentBase
       // components
       if (childState != Transient.TRUE)
       {
-        restoreStampState(context, children.get(childIndex), childState);
-        childIndex++;
+        while (childIndex < children.size())
+        {
+          UIComponent child = children.get(childIndex);
+          childIndex++;
+          // Skip over any transient components before restoring state
+          if (!child.isTransient())
+          {
+            restoreStampState(context, child, childState);
+            break;
+          }
+        }
       }
       // The component may or may not still be there;  if it
       // is, then we'd better skip over it
@@ -1150,6 +1159,7 @@ public abstract class UIXCollection extends UIXComponentBase
           " and stampId:"+stampId);
     }
   }
+
 
   /**
    * Restores the state of all the stamps of this component.
