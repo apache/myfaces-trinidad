@@ -25,6 +25,8 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.Stack;
 
+import java.util.concurrent.ConcurrentHashMap;
+
 import javax.faces.context.ExternalContext;
 
 import javax.faces.context.FacesContext;
@@ -46,7 +48,6 @@ import org.apache.myfaces.trinidadinternal.style.xml.StyleSheetDocumentUtils;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
 import org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.IconNode;
 import org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.SkinPropertyNode;
-import org.apache.myfaces.trinidadinternal.util.OptimisticHashMap;
 
 /**
  * Defines the components (icons, styles, etc)
@@ -429,7 +430,7 @@ abstract public class SkinImpl extends Skin
     )
   {
     if (_properties == null)
-      _properties = new OptimisticHashMap<Object, Object>();
+      _properties = new ConcurrentHashMap<Object, Object>();
 
     _properties.put(key, value);
   }
@@ -625,7 +626,7 @@ abstract public class SkinImpl extends Skin
   }
 
   // HashMap that maps icon name to Icons
-  private OptimisticHashMap<String, Icon> _icons = new OptimisticHashMap<String, Icon>();
+  private ConcurrentHashMap<String, Icon> _icons = new ConcurrentHashMap<String, Icon>();
 
   // The StyleSheetDocument which contains all of the styles
   // for this Skin - including styles contributed by UIExtensions.
@@ -643,7 +644,7 @@ abstract public class SkinImpl extends Skin
   private StyleSheetEntry[] _extensionStyleSheets;
 
   // HashMap of Skin properties
-  private OptimisticHashMap<Object, Object> _properties;
+  private ConcurrentHashMap<Object, Object> _properties;
 
   // Map of property to class type
   private static final Map<String, Class<?>> _PROPERTY_CLASS_TYPE_MAP;

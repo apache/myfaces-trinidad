@@ -22,7 +22,7 @@ import java.util.Hashtable;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
-import org.apache.myfaces.trinidadinternal.util.OptimisticHashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 
@@ -38,7 +38,7 @@ class Cache
 {
   public Cache()
   {
-    _cache = new OptimisticHashMap<Object, CacheEntry>(_CACHE_SIZE);
+    _cache = new ConcurrentHashMap<Object, CacheEntry>(_CACHE_SIZE);
   }
 
   public CacheEntry get(ImageContext context, Object key)
@@ -313,7 +313,7 @@ class Cache
   }
 
   // Hashtable of CacheKeys to CacheEntrys
-  private OptimisticHashMap<Object, CacheEntry> _cache;
+  private ConcurrentHashMap<Object, CacheEntry> _cache;
 
   // List of base names.
   // =-=ags We use a Hashtable so that lookups are quick.  However,

@@ -41,6 +41,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Hashtable;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
@@ -65,7 +66,6 @@ import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLProvider;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
 import org.apache.myfaces.trinidadinternal.style.util.GraphicsUtils;
-import org.apache.myfaces.trinidadinternal.util.OptimisticHashMap;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 import org.xml.sax.InputSource;
@@ -156,7 +156,7 @@ public class FileSystemImageCache implements ImageProvider, ImageConstants
     // Initialize our table of per-Locale caches.  Note on table size:
     // We don't expect a single FileSystemImageCache to be serving up images
     // for a huge number of different locales - using a small table size.
-     _caches = new OptimisticHashMap<String, Cache>(19);
+     _caches = new ConcurrentHashMap<String, Cache>(19);
   }
 
   /**
@@ -1732,7 +1732,7 @@ public class FileSystemImageCache implements ImageProvider, ImageConstants
   // Hashtable containing caches (ie. Hashtables) hashed by Locale.
   // Each cache stores mappings from PropertiesKeys to the "base name"
   // of the image/metadata/map.
-  private OptimisticHashMap<String, Cache> _caches;
+  private ConcurrentHashMap<String, Cache> _caches;
 
   // The locale-independent cache
   private Cache _globalCache;

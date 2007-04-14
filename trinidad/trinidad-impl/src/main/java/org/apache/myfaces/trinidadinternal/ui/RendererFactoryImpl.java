@@ -18,7 +18,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui;
 
-import org.apache.myfaces.trinidadinternal.util.OptimisticHashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 /**
@@ -129,6 +129,6 @@ public class RendererFactoryImpl implements RendererFactory
   }
 
 
-  private OptimisticHashMap<String, Object> _renderers = 
-    new OptimisticHashMap<String, Object>(101);
+  private ConcurrentHashMap<String, Object> _renderers = 
+    new ConcurrentHashMap<String, Object>(101);
 }

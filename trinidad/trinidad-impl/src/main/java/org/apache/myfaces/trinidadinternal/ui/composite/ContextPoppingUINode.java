@@ -20,7 +20,7 @@ package org.apache.myfaces.trinidadinternal.ui.composite;
 
 import java.io.IOException;
 
-import org.apache.myfaces.trinidadinternal.util.OptimisticHashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
 import org.apache.myfaces.trinidadinternal.ui.BaseUINode;
@@ -257,8 +257,8 @@ public class ContextPoppingUINode extends BaseUINode
 
   private static final Renderer _RENDERER = new ContextPoppingRenderer();
 
-  private static OptimisticHashMap<Object, ContextPoppingUINode> _sContextPoppers = 
-    new OptimisticHashMap<Object, ContextPoppingUINode>(203);
+  private static ConcurrentHashMap<Object, ContextPoppingUINode> _sContextPoppers = 
+    new ConcurrentHashMap<Object, ContextPoppingUINode>(203);
 
   private String _childName;
   private int    _childIndex;

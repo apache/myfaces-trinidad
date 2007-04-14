@@ -18,7 +18,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.composite;
 
-import org.apache.myfaces.trinidadinternal.util.OptimisticHashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
@@ -103,8 +103,8 @@ public class RootAttributeBoundValue implements BoundValue
     return null;
   }
 
-  private static OptimisticHashMap<AttributeKey, RootAttributeBoundValue> _boundValues = 
-    new OptimisticHashMap<AttributeKey, RootAttributeBoundValue>();
+  private static ConcurrentHashMap<AttributeKey, RootAttributeBoundValue> _boundValues = 
+    new ConcurrentHashMap<AttributeKey, RootAttributeBoundValue>();
 
   private AttributeKey _attrKey;
 }

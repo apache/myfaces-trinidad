@@ -20,8 +20,7 @@ package org.apache.myfaces.trinidadinternal.ui.data.bean;
 
 import java.util.Collection;
 import java.util.Map;
-
-import org.apache.myfaces.trinidadinternal.util.OptimisticHashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
@@ -207,7 +206,7 @@ public class BeanAdapterUtils
     private final Map<Object, Object> _map;
   }
 
-  static private final OptimisticHashMap<Class<?>, Class<?>> _sAdapters =
-    new OptimisticHashMap<Class<?>, Class<?>>(101);
+  static private final ConcurrentHashMap<Class<?>, Class<?>> _sAdapters =
+    new ConcurrentHashMap<Class<?>, Class<?>>(101);
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(BeanAdapterUtils.class);
 }

@@ -20,7 +20,7 @@ package org.apache.myfaces.trinidadinternal.el;
 
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidadinternal.util.OptimisticHashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 import java.util.Locale;
 
@@ -69,7 +69,7 @@ public class OracleHelpProvider extends SecondaryWindowHelpProvider
     }
 
     _defaultOHWServletLocation = ohwServletLocation;
-    _localeSpecificServlets = new OptimisticHashMap<Locale, String>(13);
+    _localeSpecificServlets = new ConcurrentHashMap<Locale, String>(13);
   }
 
   /**
@@ -201,6 +201,6 @@ public class OracleHelpProvider extends SecondaryWindowHelpProvider
   private static final String _TOPIC_PARAM = "topic";
   private static final String _LOCALE_PARAM = "locale";
   private String _defaultOHWServletLocation = null;
-  private OptimisticHashMap<Locale, String> _localeSpecificServlets = null;
+  private ConcurrentHashMap<Locale, String> _localeSpecificServlets = null;
 }
 
