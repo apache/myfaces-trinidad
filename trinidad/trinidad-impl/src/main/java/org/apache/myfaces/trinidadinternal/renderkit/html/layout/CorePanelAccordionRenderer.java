@@ -21,47 +21,153 @@ package org.apache.myfaces.trinidadinternal.renderkit.html.layout;
 import java.io.IOException;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
+import org.apache.myfaces.trinidad.bean.FacesBean;
+import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.UIXShowDetail;
+import org.apache.myfaces.trinidad.component.core.layout.CorePanelAccordion;
+import org.apache.myfaces.trinidad.component.core.layout.CoreShowDetailItem;
+import org.apache.myfaces.trinidad.context.Agent;
+import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidad.event.DisclosureEvent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.render.RenderUtils;
-import org.apache.myfaces.trinidad.context.RenderingContext;
+
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.ShowDetailRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
-import org.apache.myfaces.trinidadinternal.ui.UIConstants;
-import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
-import org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.HideShowUtils;
-import org.apache.myfaces.trinidadinternal.ui.partial.PartialPageRendererUtils;
-import org.apache.myfaces.trinidadinternal.uinode.UINodeRendererBase;
 
 /**
  * Renderer for PanelAccordion
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/html/layout/CoreShowOneAccordionRenderer.java#0 $) $Date: 10-nov-2005.19:01:13 $
  */
-public class CorePanelAccordionRenderer extends UINodeRendererBase
+public class CorePanelAccordionRenderer extends XhtmlRenderer
 {
+  public CorePanelAccordionRenderer()
+  {
+    super(CorePanelAccordion.TYPE);
+  }
+
+  @Override
+  protected void findTypeConstants(FacesBean.Type type)
+  {
+    super.findTypeConstants(type);
+    _discloseNoneKey = type.findKey("discloseNone");
+    _discloseManyKey = type.findKey("discloseMany");
+  }
+
+  @SuppressWarnings("unchecked")
+  @Override
+  public void decode(FacesContext context, UIComponent component)
+  {
+    Map<String, String> parameters = 
+      context.getExternalContext().getRequestParameterMap();
+    
+    Object event = parameters.get(XhtmlConstants.EVENT_PARAM);
+    if (XhtmlConstants.HIDE_EVENT.equals(event) ||
+        XhtmlConstants.SHOW_EVENT.equals(event))
+    {
+      Object source = parameters.get(XhtmlConstants.SOURCE_PARAM);
+      String id = component.getClientId(context);
+      
+      if (id.equals(source))
+      {
+        boolean isDisclosed = XhtmlConstants.SHOW_EVENT.equals(event);
+        String itemId = parameters.get("targetItem");
+        if (itemId != null)
+        {
+          List<UIComponent> children = component.getChildren();
+          for (UIComponent child : children)
+          {
+            if (!(child instanceof UIXShowDetail))
+              continue;
+
+            // Don't even bother with disabled showDetailItems -
+            // a malicious user should not be able to force
+            // a disabled item open by dummying up an event
+            if (!child.isRendered() || _isItemDisabled(child))
+              continue;
+
+            if (itemId.equals(child.getClientId(context)))
+            {
+              (new DisclosureEvent(child, isDisclosed)).queue();
+              RequestContext rc = RequestContext.getCurrentInstance();
+              // We're not using PPR on PDAs, even if they support it,
+              // so don't force PPR on!
+              if (!rc.getAgent().getType().equals(Agent.TYPE_PDA))
+              {
+                RequestContext.getCurrentInstance().addPartialTarget(component);
+                PartialPageUtils.forcePartialRendering(context);
+              }
+
+              break;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @Override
+  public boolean getRendersChildren()
+  {
+    return true;
+  }
+
+  @Override
+  protected boolean shouldRenderId(
+    FacesContext context,
+    UIComponent  component)
+  {
+    return true;
+  }
+  
   /**
-   *  If nothing is disclosed, makes the first child disclosed.
+   *  First: If nothing is disclosed, makes the first child disclosed.
    *
    *  Makes sure that the child being disclosed has rendered = true
    *  and is not disabled.
    *
+   *  Second: Renders a vertical panel bar and children in individual panels.
+   *
+   *  For the panel bar, draws a DIV that forms the outline of panels.
+   *  Within the DIV, iteratively calls the encodeBegin, encodeChildren and
+   *  encodeEnd on the panel children (if they have rendered and disclosed
+   *  set to true).
+   *
+   *  Non UIXShowDetail children are ignored.
+   *  The title of each of the panels is the same as the text assigned to
+   *  UIXShowDetail child. When text attribute is not specified,
+   *  title remains blank.
    * @param context the faces context object
    * @param component the UIComponent object
    * @throws IOException when some issues while writing output
    */
   @SuppressWarnings("unchecked")
   @Override
-  public void encodeBegin(FacesContext context, UIComponent component)
-    throws IOException
+  protected void encodeAll(
+    FacesContext        context,
+    RenderingContext    arc,
+    UIComponent         component,
+    FacesBean           bean) throws IOException
   {
-    _LOG.finer("Entering CorePanelAccordionRenderer.encodeBegin()");
+    String formName = arc.getFormData().getName();
+    if (formName == null)
+    {
+      _LOG.warning("PanelAccordion must be used inside of a form");
+      return;
+    }
+
     List<UIComponent> children = component.getChildren();
     int numChildren = children.size();
     UIComponent disclosedChild = null;
@@ -80,10 +186,7 @@ public class CorePanelAccordionRenderer extends UINodeRendererBase
       if (detailChild.isRendered())
       {
         // Mark the first renderable child
-        Object disabled =
-          detailChild.getAttributes().get(
-            UIConstants.DISABLED_ATTR.getAttributeName());
-        if (Boolean.TRUE.equals(disabled))
+        if (_isItemDisabled(detailChild))
         {
           continue;
         }
@@ -102,92 +205,35 @@ public class CorePanelAccordionRenderer extends UINodeRendererBase
 
     // If we have a minimum of 1 disclosed child and none have been disclosed
     // yet, disclose the first rendered one:
-    if ( (disclosedChild == null) && !_isDiscloseNone(component) &&
+    if ( (disclosedChild == null) && !getDiscloseNone(bean) &&
       (renderableChild != null) )
     {
       renderableChild.setDisclosed(true);
     }
 
-    _LOG.finer("Exiting CorePanelAccordionRenderer.encodeBegin()");
-  }
-
-  /**
-   *  Renders a vertical panel bar and children in individual panels.
-   *
-   *  For the panel bar, draws a DIV that forms the outline of panels.
-   *  Within the DIV, iteratively calls the encodeBegin, encodeChildren and
-   *  encodeEnd on the panel children (if they have rendered and disclosed
-   *  set to true).
-   *
-   *  Non UIXShowDetail children are ignored.
-   *  The title of each of the panels is the same as the text assigned to
-   *  UIXShowDetail child. When text attribute is not specified,
-   *  title remains blank.
-   *
-   * @param context the faces context object
-   * @param component the UIComponent object
-   * @throws IOException when some issues while writing output
-   */
-  @SuppressWarnings("unchecked")
-  @Override
-  public void encodeChildren(FacesContext context, UIComponent component)
-    throws IOException
-  {
-    if (! component.isRendered())
-    {
-      return;
-    }
-
     ResponseWriter out = context.getResponseWriter();
-
-    ListIterator<UIComponent> iter = component.getChildren().listIterator();
-
-    if (iter == null)
-    {
-      return;
-    }
-
     String compId = component.getClientId(context);
 
-    // This will only render UIXShowDetail children.
-    // Non UIXShowDetail children are ignored.
-    _LOG.finest("CorePanelAccordionRenderer.encodeChildren: compId: {0}",
-                compId);
-
     out.startElement("div", component);
-    out.writeAttribute("id", compId, null);
 
-    UIXRenderingContext rCtx = getRenderingContext(context, component);
+    renderId(context, component);
+    renderAllAttributes(context, arc, bean);
 
-    String styleClass = (String) component.getAttributes().get("styleClass");
-    RenderingContext arc = RenderingContext.getCurrentInstance();
-    if (styleClass != null)
-    {
-      XhtmlRenderer.renderStyleClasses(context, arc, new String [] {
-        getContainerStyleClass(), styleClass});
-    }
-    else
-      XhtmlRenderer.renderStyleClass(context, arc, getContainerStyleClass());
-
-    ShowOneUtils.renderGenericAttributes(rCtx, component, out);
-
-    String formName = RenderUtils.getFormId(context, component);
-
-    boolean discloseMany = _isDiscloseMany(component);
-    boolean discloseNone = _isDiscloseNone(component);
+    boolean discloseMany = getDiscloseMany(bean);
+    boolean discloseNone = getDiscloseNone(bean);
     boolean disclosedFixed = false;
     if (discloseMany && !discloseNone) // must keep at least one item disclosed
     {
       // This is a special case where we must determine if we have to fix the
       // disclosure state of one of the items.
       int disclosedCount = 0;
-      while (iter.hasNext())
+      for (UIComponent child : (List<UIComponent>) component.getChildren())
       {
-        UIXShowDetail detailItem = _getNextShowDetailChild(iter);
-        if (detailItem == null)
-        {
+        if (!(child instanceof UIXShowDetail) ||
+            !child.isRendered())
           continue;
-        }
+
+        UIXShowDetail detailItem = (UIXShowDetail) child;
         if (detailItem.isDisclosed())
         {
           disclosedCount++;
@@ -201,30 +247,19 @@ public class CorePanelAccordionRenderer extends UINodeRendererBase
       {
         disclosedFixed = true;
       }
-
-      // Reset the iterator for the 2nd pass
-      iter = component.getChildren().listIterator();
     }
 
     boolean childAlreadyRendered = false;
-    while (iter.hasNext())
+    for (UIComponent child : (List<UIComponent>) component.getChildren())
     {
-      UIXShowDetail detailItem = _getNextShowDetailChild(iter);
-      if (detailItem == null)
-      {
+      if (!(child instanceof UIXShowDetail) ||
+          !child.isRendered())
         continue;
-      }
-
-      Boolean disabledObj =
-        (Boolean) detailItem.getAttributes().get(
-          UIConstants.DISABLED_ATTR.getAttributeName());
-      boolean disabled = false; // by default is enabled.
-      if (disabledObj != null)
-      {
-        disabled = disabledObj.booleanValue();
-      }
-
-      String titleText = (String) detailItem.getAttributes().get("text");
+      
+      UIXShowDetail detailItem = (UIXShowDetail) child;
+      boolean disabled = _isItemDisabled(detailItem);
+      String titleText = (String)
+        detailItem.getAttributes().get(CoreShowDetailItem.TEXT_KEY.getName());
       boolean disclosed = detailItem.isDisclosed();
 
       if (childAlreadyRendered)
@@ -240,71 +275,39 @@ public class CorePanelAccordionRenderer extends UINodeRendererBase
       // Header renderer section.
       out.startElement("div", component);
       String detailItemId = detailItem.getClientId(context);
-      out.writeAttribute("id", compId + detailItemId, null);
-
+      String itemStyleClass;
       if (disabled)
-      {
-        XhtmlRenderer.renderStyleClass(context, arc,
-          getHeaderDisabledStyleClass());
-      }
+        itemStyleClass = getHeaderDisabledStyleClass();
       else if (disclosed)
-      {
-        XhtmlRenderer.renderStyleClass(context, arc,
-          getHeaderExpanedStyleClass());
-      }
+        itemStyleClass = getHeaderExpandedStyleClass();
       else
-      {
-        XhtmlRenderer.renderStyleClass(context, arc,
-            getHeaderCollapsedStyleClass());
-      }
+        itemStyleClass = getHeaderCollapsedStyleClass();
+        
+      renderStyleClass(context, arc, itemStyleClass);
 
       out.startElement("a", null);
       out.writeAttribute("name", detailItemId, null);
 
-      if (disabled)
-      {
-        XhtmlRenderer.renderStyleClass(context, arc,
-          getLinkDisabledStyleClass());
-      }
-      else
-      {
-        XhtmlRenderer.renderStyleClass(context, arc,
-          getLinkEnabledStyleClass());
-      }
+      renderStyleClass(context, arc,
+                       disabled
+                         ? getLinkDisabledStyleClass()
+                         : getLinkEnabledStyleClass());
 
       // If the child is disclosable and enabled...
       boolean disclosable =
         discloseNone || (! disclosed) || (discloseMany && !disclosedFixed);
       if ( disclosable && (! disabled) )
       {
-        if (formName == null)
-        {
-          // =-=rbaranwa: Do we need to handle this case any other way?
-          _LOG.warning("Page does not contain any form element." +
-                       "Page will not behave properly.");
-        }
-        else
-        {
-          boolean isImmediate = detailItem.isImmediate();
-          String event;
-          if (disclosed)
-          {
-            event = "hide";
-          }
-          else
-          {
-            event = "show";
-          }
-          String onClickHandler = _getFormSubmitScript(component,
-                                                       rCtx,
-                                                       event,
-                                                       detailItemId,
-                                                       formName,
-                                                       compId,
-                                                       isImmediate);
-          out.writeAttribute("onclick", onClickHandler, null);
-        }
-
+        boolean isImmediate = detailItem.isImmediate();
+        String event = disclosed ? "hide" : "show";
+        String onClickHandler = _getFormSubmitScript(component,
+                                                     arc,
+                                                     event,
+                                                     detailItemId,
+                                                     formName,
+                                                     compId,
+                                                     isImmediate);
+        out.writeAttribute("onclick", onClickHandler, null);
         out.writeAttribute("href", "#", null);
       }
 
@@ -312,10 +315,11 @@ public class CorePanelAccordionRenderer extends UINodeRendererBase
       // panel is disabled.
       if (! disabled)
       {
-        HideShowUtils.renderDisclosedStateSymbol(rCtx,
-                                                 disclosed,
-                                                 getDisclosedTipKey(),
-                                                 getUndisclosedTipKey());
+        ShowDetailRenderer.renderDisclosureIcon(context,
+                                                arc,
+                                                disclosed,
+                                                getDisclosedTipKey(),
+                                                getUndisclosedTipKey());
       }
 
       out.writeText(titleText, null);
@@ -330,7 +334,7 @@ public class CorePanelAccordionRenderer extends UINodeRendererBase
       //    one showDetail child has it's disclosed property set to true.
       if (disclosed && (! disabled) && (! childAlreadyRendered) )
       {
-        _encodeDetailItem(context, component, detailItem, out);
+        _encodeDetailItem(context, arc, component, detailItem, out);
         if (!discloseMany)
         {
           childAlreadyRendered = true;
@@ -338,66 +342,50 @@ public class CorePanelAccordionRenderer extends UINodeRendererBase
       }
     }
     out.endElement("div");
-    _LOG.finest("Exited CorePanelAccordionRenderer.encodeChildren");
   }
 
-  /**
-   *  Dummy method to prevent base class call.
-   *
-   * @param context the faces context object
-   * @param component the UIComponent object
-   * @throws IOException when some issues while writing output
-   */
   @Override
-  public void encodeEnd(FacesContext context,
-                        UIComponent component)
-    throws IOException
-  {
-    // This is done so that the UIXComponentUINode does not
-    // go looking for a UIX 22 style renderer for this component
-  }
-
-  String getContainerStyleClass()
+  protected String getDefaultStyleClass(FacesBean bean)
   {
     return SkinSelectors.AF_PANELACCORDION_CONTAINER_STYLE_CLASS;
   }
 
-  String getContentStyleClass()
+  protected String getContentStyleClass()
   {
     return SkinSelectors.AF_PANELACCORDION_CONTENT_STYLE_CLASS;
   }
 
-  String getHeaderDisabledStyleClass()
+  protected String getHeaderDisabledStyleClass()
   {
     return SkinSelectors.AF_PANELACCORDION_HEADER_DISABLED_STYLE_CLASS;
   }
 
-  String getHeaderExpanedStyleClass()
+  protected String getHeaderExpandedStyleClass()
   {
     return SkinSelectors.AF_PANELACCORDION_HEADER_EXPANDED_STYLE_CLASS;
   }
 
-  String getHeaderCollapsedStyleClass()
+  protected String getHeaderCollapsedStyleClass()
   {
     return SkinSelectors.AF_PANELACCORDION_HEADER_COLLAPSED_STYLE_CLASS;
   }
 
-  String getLinkDisabledStyleClass()
+  protected String getLinkDisabledStyleClass()
   {
     return SkinSelectors.AF_PANELACCORDION_TITLE_LINK_DISABLED_STYLE_CLASS;
   }
 
-  String getLinkEnabledStyleClass()
+  protected String getLinkEnabledStyleClass()
   {
     return SkinSelectors.AF_PANELACCORDION_TITLE_LINK_STYLE_CLASS;
   }
 
-  String getDisclosedTipKey()
+  protected String getDisclosedTipKey()
   {
     return _DISCLOSED_TIP_KEY;
   }
 
-  String getUndisclosedTipKey()
+  protected String getUndisclosedTipKey()
   {
     return _UNDISCLOSED_TIP_KEY;
   }
@@ -414,6 +402,7 @@ public class CorePanelAccordionRenderer extends UINodeRendererBase
    * @throws IOException when some issues while writing output
    */
   private void _encodeDetailItem(FacesContext context,
+                                 RenderingContext arc,
                                  UIComponent component,
                                  UIXShowDetail detailItem,
                                  ResponseWriter out)
@@ -424,13 +413,12 @@ public class CorePanelAccordionRenderer extends UINodeRendererBase
     out.writeAttribute("cellPadding", "0", null);
     out.writeAttribute("summary", "", null);
 
-    RenderingContext arc = RenderingContext.getCurrentInstance();
-    XhtmlRenderer.renderStyleClass(context, arc, getContentStyleClass());
+    renderStyleClass(context, arc, getContentStyleClass());
 
     out.startElement("tr", component);
     out.startElement("td", component);
 
-    RenderUtils.encodeRecursive(context, detailItem);
+    encodeChild(context, detailItem);
 
     out.endElement("td");
     out.endElement("tr");
@@ -441,16 +429,9 @@ public class CorePanelAccordionRenderer extends UINodeRendererBase
 
   /**
    *  Creates javascript used to submit the page.
-   *
-   * @param component the UIComponent object
-   * @param rCtx the Trinidad UIX rendering context object
-   * @param detailItemId Id of the item that will be disclosed
-   * @param formName id of the containing form
-   * @param compId id of the panelAccordion component
-   * @param isImmediate the value of immediate attribute on child component
    */
   private String _getFormSubmitScript(UIComponent component,
-                                      UIXRenderingContext rCtx,
+                                      RenderingContext arc,
                                       String event,
                                       String detailItemId,
                                       String formName,
@@ -460,7 +441,7 @@ public class CorePanelAccordionRenderer extends UINodeRendererBase
     // Check if PPR enabled, do a _submitPartialChange, else do a formSubmit.
     String onClickHandler = "";
     boolean pprEnabled =
-      PartialPageRendererUtils.supportsPartialRendering(rCtx);
+      PartialPageUtils.supportsPartialRendering(arc);
 
     String validate = "1";
     if (isImmediate)
@@ -468,62 +449,38 @@ public class CorePanelAccordionRenderer extends UINodeRendererBase
       validate = "0";
     }
 
-    if (pprEnabled)
-    {
+    if (pprEnabled && 
         //PPR on PocketIE and IE Mobile does not work properly. Therefore, 
-        //do a full page submission. Note that BlackBerry does not get into
-        //this piece of code because it is not pprEnabled.
-        if(CoreRenderer.isPDA(RenderingContext.getCurrentInstance())) 
-        {
-          //PH: Previous Code had event set to 'show' (event:'show')
-          //at all times. As a result a showDetail item will 'show'
-          //but won't 'hide'. Therefore, I changed it to event:event.
-          StringBuilder onClickHandlerBuff = new StringBuilder("submitForm('")
-                                      .append(formName)
-                                      .append("',")
-                                      .append(validate)
-                                      .append(", {event:'")
-                                      .append(event)
-                                      .append("',source:'")
-                                      .append(detailItemId)
-                                      .append("'});return false;");
-          onClickHandler = onClickHandlerBuff.toString();
-        }
-        else
-        {
-          // encode PPR targets first.
-          String encodedPartialTargets =
-            ShowOneUtils.getEncodedPartialTargets(component, compId);
+        //do a full page submission.
+        !isPDA(arc))
+    {
+      StringBuilder onClickHandlerBuff =
+            new StringBuilder("_submitPartialChange('")
+            .append(formName)
+            .append("',")
+            .append(validate)
+            .append(", {event:'")
+            .append(event)
+            .append("',source:'")
+            .append(compId)
+            .append("',targetItem:'")
+            .append(detailItemId)
+            .append("'});return false;");
 
-          StringBuilder onClickHandlerBuff =
-              new StringBuilder("_submitPartialChange('")
-              .append(formName)
-              .append("',")
-              .append(validate)
-              .append(", {partialTargets:'")
-              .append(encodedPartialTargets)
-              .append("', event:'")
-              .append(event)
-              .append("',source:'")
-              .append(detailItemId)
-              .append("'});return false;");
-
-          onClickHandler = onClickHandlerBuff.toString();            
-        }     
+      onClickHandler = onClickHandlerBuff.toString();            
     }
     else
     {
-      //PH: Previous Code had event set to 'show' (event:'show')
-      //at all times. As a result a showDetail item will 'show'
-      //but won't 'hide'. Therefore, I changed it to event:event.
       StringBuilder onClickHandlerBuff = new StringBuilder("submitForm('")
                                   .append(formName)
                                   .append("',")
                                   .append(validate)
                                   .append(", {event:'")
-	                           .append(event)
-	                           .append("',source:'")
-	                           .append(detailItemId)
+	                          .append(event)
+	                          .append("',source:'")
+	                          .append(compId)
+	                          .append("',targetItem:'")
+	                          .append(detailItemId)
                                   .append("'});return false;");
 
       onClickHandler = onClickHandlerBuff.toString();
@@ -531,51 +488,37 @@ public class CorePanelAccordionRenderer extends UINodeRendererBase
     return onClickHandler;
   }
 
-  private boolean _isDiscloseNone(UIComponent component)
+
+  protected boolean getDiscloseMany(FacesBean bean)
   {
-    Boolean discloseNoneObj =
-      (Boolean) component.getAttributes().get(
-        UIConstants.DISCLOSE_NONE_ATTR.getAttributeName());
-    boolean discloseNone = false; // default is that at least 1 is disclosed.
-    if (discloseNoneObj != null)
-    {
-      discloseNone = discloseNoneObj.booleanValue();
-    }
-    return discloseNone;
+    Object o = bean.getProperty(_discloseManyKey);
+    if (o == null)
+      o = _discloseManyKey.getDefault();
+
+    return Boolean.TRUE.equals(o);
   }
 
-  private boolean _isDiscloseMany(UIComponent component)
+  protected boolean getDiscloseNone(FacesBean bean)
   {
-    Boolean discloseNoneObj =
-      (Boolean) component.getAttributes().get(
-        UIConstants.DISCLOSE_MANY_ATTR.getAttributeName());
-    boolean discloseNone = false; // default is that at least 1 is disclosed.
-    if (discloseNoneObj != null)
-    {
-      discloseNone = discloseNoneObj.booleanValue();
-    }
-    return discloseNone;
+    Object o = bean.getProperty(_discloseNoneKey);
+    if (o == null)
+      o = _discloseNoneKey.getDefault();
+
+    return Boolean.TRUE.equals(o);
   }
 
-  private UIXShowDetail _getNextShowDetailChild(ListIterator<UIComponent> iter)
+  private boolean _isItemDisabled(UIComponent component)
   {
-    UIComponent child = iter.next();
-    if (! child.isRendered() )
-    {
-      return null;
-    }
-
-    if (! (child instanceof UIXShowDetail) )
-    {
-      return null;
-    }
-
-    return (UIXShowDetail)child;
+    Object isDisabled = component.getAttributes().get(
+      CoreShowDetailItem.DISABLED_KEY.getName());
+    return Boolean.TRUE.equals(isDisabled);
   }
-
 
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(CorePanelAccordionRenderer.class);
+
+  private PropertyKey _discloseNoneKey;
+  private PropertyKey _discloseManyKey;
 
   private static final String _DISCLOSED_TIP_KEY =
     "af_panelAccordion.DISCLOSED_TIP";

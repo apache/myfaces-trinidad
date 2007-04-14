@@ -29,7 +29,6 @@ import java.util.List;
 import org.apache.myfaces.trinidad.event.DisclosureEvent;
 import org.apache.myfaces.trinidad.component.UIXShowDetail;
 
-
 abstract public class CorePanelAccordion extends UIXPanel
 {
     /**
@@ -37,22 +36,33 @@ abstract public class CorePanelAccordion extends UIXPanel
    * @param event
    * @throws javax.faces.event.AbortProcessingException
    */
-	@Override
+  @Override
   public void queueEvent(FacesEvent event)
     throws AbortProcessingException
   {
+    // For a "show-one" panel accordion, handle an "expanding"
+    // DisclosureEvent specifically, only if the source
+    // is one of its immediate children
+    if ((event instanceof DisclosureEvent) &&
+        !isDiscloseMany() &&
+        (this == event.getComponent().getParent()) &&
+        ((DisclosureEvent) event).isExpanded())
 
-    // Handle the DisclosureEvent specifically
-    if (event instanceof DisclosureEvent && !this.isDiscloseMany())
     {
-          List li = this.getChildren();
+      for (UIComponent comp : ((List<UIComponent>) getChildren()))
+      {
+        // Skip over the show detail that is the source of this event
+        if (comp == event.getComponent())
+          continue;
 
-          for(int i=0; i<li.size(); i++) {
-            UIComponent comp = (UIComponent) li.get(i);
-            if(comp instanceof UIXShowDetail) {
-                ((UIXShowDetail) comp).setDisclosed(false);
-            }
-          }
+        if (comp instanceof UIXShowDetail)
+        {
+          UIXShowDetail showDetail = (UIXShowDetail) comp;
+          // Queue an event to hide the currently expanded showDetail
+          if (showDetail.isDisclosed())
+            (new DisclosureEvent(showDetail, false)).queue();
+        }
+      }
     }
     super.queueEvent(event);
   }
