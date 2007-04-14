@@ -25,7 +25,7 @@
     <renderer>
       <component-family>org.apache.myfaces.trinidad.Panel</component-family>
       <renderer-type>org.apache.myfaces.trinidad.Accordion</renderer-type>
-      <renderer-class>org.apache.myfaces.trinidadinternal.renderkit.html.layout.CorePanelAccordionRenderer</renderer-class>
+      <renderer-class>org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PanelAccordionRenderer</renderer-class>
       <renderer-extension>
         <mfp:component-type>org.apache.myfaces.trinidad.CorePanelAccordion</mfp:component-type>
         <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>

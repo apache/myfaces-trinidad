@@ -16,11 +16,10 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.apache.myfaces.trinidadinternal.renderkit.html.layout;
+package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
@@ -37,23 +36,15 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.DisclosureEvent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-import org.apache.myfaces.trinidad.render.RenderUtils;
-
-import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.ShowDetailRenderer;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 
 /**
  * Renderer for PanelAccordion
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/html/layout/CoreShowOneAccordionRenderer.java#0 $) $Date: 10-nov-2005.19:01:13 $
  */
-public class CorePanelAccordionRenderer extends XhtmlRenderer
+public class PanelAccordionRenderer extends XhtmlRenderer
 {
-  public CorePanelAccordionRenderer()
+  public PanelAccordionRenderer()
   {
     super(CorePanelAccordion.TYPE);
   }
@@ -515,7 +506,7 @@ public class CorePanelAccordionRenderer extends XhtmlRenderer
   }
 
   private static final TrinidadLogger _LOG =
-    TrinidadLogger.createTrinidadLogger(CorePanelAccordionRenderer.class);
+    TrinidadLogger.createTrinidadLogger(PanelAccordionRenderer.class);
 
   private PropertyKey _discloseNoneKey;
   private PropertyKey _discloseManyKey;
