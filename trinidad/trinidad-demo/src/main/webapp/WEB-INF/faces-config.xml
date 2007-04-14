@@ -816,6 +816,8 @@
         <value>outputLabel.jspx</value>
         <value>outputText.jspx</value>
         <value>page.jspx</value>
+        <value>panelAccordion.jspx</value>
+        <value>panelAccordion_discloseMany.jspx</value>
         <value>panelBorderLayout.jspx</value>
         <value>panelBox.jspx</value>
         <value>panelButtonBar.jspx</value>
@@ -853,8 +855,6 @@
         <value>showDetail.jspx</value>
         <value>showDetailHeader.jspx</value>
         <value>showDetailItem.jspx</value>
-        <value>showManyAccordion.jspx</value>
-        <value>showOneAccordion.jspx</value>
         <value>panelChoice.jspx</value>
         <value>panelRadio.jspx</value>
         <value>panelTabbed.jspx</value>
@@ -2437,14 +2437,14 @@
     </navigation-case>
 
     <navigation-case>
-      <from-outcome>guide.showManyAccordion</from-outcome>
-      <to-view-id>/components/showManyAccordion.jspx</to-view-id>
+      <from-outcome>guide.panelAccordion_discloseMany</from-outcome>
+      <to-view-id>/components/panelAccordion_discloseMany.jspx</to-view-id>
       <redirect/>
     </navigation-case>
 
     <navigation-case>
-      <from-outcome>guide.showOneAccordion</from-outcome>
-      <to-view-id>/components/showOneAccordion.jspx</to-view-id>
+      <from-outcome>guide.panelAccordion</from-outcome>
+      <to-view-id>/components/panelAccordion.jspx</to-view-id>
       <redirect/>
     </navigation-case>
 
