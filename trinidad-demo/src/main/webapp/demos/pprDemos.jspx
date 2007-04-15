@@ -278,6 +278,15 @@
          <tr:resetActionListener/>
         </tr:commandButton>
        </tr:panelHeader>
+       <tr:panelHeader text="Changing the value of this selectOneChoice will navigate to another page.">
+         <tr:selectOneChoice autoSubmit="true"
+                             label="Navigate"
+                             unselectedLabel="Nowhere"
+                             valueChangeListener="#{partialDemoUtil.navigate}">
+          <tr:selectItem label="Index" value="/index.jspx"/>
+          <tr:selectItem label="Component Demos" value="/componentDemos.jspx"/>
+         </tr:selectOneChoice>
+       </tr:panelHeader>
       </tr:panelGroupLayout>
      </tr:panelHeader>
      </tr:panelPage>
