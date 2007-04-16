@@ -98,17 +98,17 @@ TrNumberConverter.prototype.getAsObject = function(
 {
 	if(this._isConvertible())
 	{
-    return _decimalParse(numberString, 
-                       this._messages,
-                       "org.apache.myfaces.trinidad.convert.NumberConverter",
-                       null,
-                       null,
-                       null,
-                       null,
-                       label,
-                       null);
-	}
-	else
+		return _decimalParse(numberString, 
+                         this._messages,
+                         "org.apache.myfaces.trinidad.convert.NumberConverter",
+                         null,
+                         null,
+                         null,
+                         null,
+                         label,
+                         null);
+  }
+  else
 	{
     return undefined;
 	}
@@ -1013,6 +1013,7 @@ function _decimalParse(
     }
   }
   var usedKey = null;
+  var custom = false;
   if(standardKey.indexOf("NumberConverter")==-1)
   {
     usedKey = standardKey+".CONVERT";
@@ -1020,10 +1021,22 @@ function _decimalParse(
   else
   {
     usedKey = standardKey+".CONVERT_NUMBER";
-  }
-  facesMessage = _createFacesMessage( usedKey,
+    if(message && message["number"])
+    {
+      facesMessage = _createCustomFacesMessage(TrMessageFactory.getSummaryString(usedKey),
+                                        message["number"],
                                         label,
                                         numberString);
+      custom = true;
+    }
+  }
+  if(!custom)
+  {
+    facesMessage = _createFacesMessage( usedKey,
+                                        label,
+                                        numberString);
+  }
+
   throw new TrConverterException(facesMessage);
 }
 
