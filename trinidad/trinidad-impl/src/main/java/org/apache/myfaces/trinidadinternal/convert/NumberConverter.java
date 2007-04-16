@@ -77,11 +77,13 @@ public final class NumberConverter extends org.apache.myfaces.trinidad.convert.N
   public String getClientConversion(FacesContext context, UIComponent component)
   {
     String hintPattern = this.getHintPattern();
+    String messageDetailConvertNumber = this.getMessageDetailConvertNumber();
     Map<String, String> cMessages = null;
-    if(hintPattern != null)
+    if(hintPattern != null || messageDetailConvertNumber != null)
     {
       cMessages = new HashMap<String, String>();
       cMessages.put("hintPattern", hintPattern);
+      cMessages.put("number", messageDetailConvertNumber);
     }
     
     return _getTrNumberConverter(context, component, cMessages);
