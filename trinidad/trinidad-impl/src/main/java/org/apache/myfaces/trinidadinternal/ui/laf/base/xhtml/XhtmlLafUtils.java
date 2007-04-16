@@ -249,47 +249,6 @@ public class XhtmlLafUtils extends BaseLafUtils
   }
 
   /**
-   * Resolves the class name to the appropriate Style object
-   */
-  public static Style getStyleSelector(
-    UIXRenderingContext context,
-    Object           styleSelector
-    )
-  {
-    if (styleSelector != null)
-    {
-      StyleMap map = context.getStyleContext().getStyleMap();
-      if (map != null)
-      {
-        return map.getStyleBySelector(context.getStyleContext(),
-                                      styleSelector.toString());
-      }
-    }
-
-    return null;
-  }
-
-  /**
-   * Resolves the class name to the appropriate Style object,
-   * then get a property from the Style
-   */
-  public static String getStyleSelectorProperty(
-    UIXRenderingContext context,
-    Object           selectorName,
-    String           propertyName
-    )
-  {
-      Style styleSelector = getStyleSelector(context,
-                                             selectorName);
-      if (styleSelector != null)
-      {
-        return styleSelector.getProperty(propertyName);
-      }
-
-      return null;
-  }
-
-  /**
    * Returns the short version of the specified style class.
    */
   public static Object getShortStyleClass(
