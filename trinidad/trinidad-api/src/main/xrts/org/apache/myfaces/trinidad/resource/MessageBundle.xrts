@@ -60,6 +60,7 @@
 
   <!-- SelectManyRenderer ConversionException messages -->
   <!-- {0} modelClass                                  -->
+  <!-- used by SimpleSelectManyRenderer to identify an unsupported model for a selectMany component -->
   <resource key="org.apache.myfaces.trinidad.UIXSelectMany.UNSUPPORTED_MODEL_TYPE">Unsupported model type.</resource>
   <resource key="org.apache.myfaces.trinidad.UIXSelectMany.UNSUPPORTED_MODEL_TYPE_detail">SelectMany does not support a model of type {0}.</resource>
 
