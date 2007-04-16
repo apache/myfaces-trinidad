@@ -152,25 +152,6 @@ abstract public class Configuration
   static public final Object IMAGE_SERVLET_URL = "imageServletURL";
 
 
-  /**
-   * Key used to specify the URL location of the ImageServlet to use
-   * for image generation.
-   *
-   * @deprecated Use IMAGE_SERVLET_URL
-   */
-  @Deprecated
-  static public final Object TECATE_SERVLET_URL = IMAGE_SERVLET_URL;
-
-  /**
-   * Key for the UserStyleSheetProperty.  The styles defined by the
-   * UserStyleSheet instance stored are merged with styles defined
-   * by the UIX Styles StyleProvider when generating a new style sheet.
-   *
-   * @see org.apache.myfaces.trinidadinternal.style.UserStyleSheet
-   * @see org.apache.myfaces.trinidadinternal.style.StyleProvider
-   */
-  static public final Object USER_STYLE_SHEET = "userStyleSheet";
-
   public static final Object DISABLE_STANDARDS_MODE =
     "disableStandardsMode";
 

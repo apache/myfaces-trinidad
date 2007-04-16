@@ -26,7 +26,6 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.Stack;
-import java.util.Vector;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +43,6 @@ import org.apache.myfaces.trinidad.context.LocaleContext;
 import org.apache.myfaces.trinidadinternal.style.PropertyParseException;
 import org.apache.myfaces.trinidadinternal.style.Style;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
-import org.apache.myfaces.trinidadinternal.style.UserStyleSheet;
 import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
 import org.apache.myfaces.trinidadinternal.style.util.ModeUtils;
 import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
@@ -177,8 +175,7 @@ public class StyleSheetDocument
    */
   public Iterator<StyleSheetNode> getStyleSheets(StyleContext context)
   {
-    // =-=ags Should this include the UserStyleSheet?
-     StyleSheetNode[] styleSheets = _getStyleSheets(context,false);
+     StyleSheetNode[] styleSheets = _getStyleSheets(context);
     if(styleSheets == null)
       return (Arrays.asList(new StyleSheetNode[0])).iterator();
     else
@@ -192,13 +189,13 @@ public class StyleSheetDocument
   public Iterator<StyleNode> getStyles(StyleContext context)
   {
     // Get the matching style sheets, including the UserStyleSheet
-    StyleSheetNode[] styleSheets = _getStyleSheets(context, true);
+    StyleSheetNode[] styleSheets = _getStyleSheets(context);
     if (styleSheets == null)
       return EmptyIterator.getInstance();
 
     // We are going to loop through every StyleNode in every StyleSheetNode,
     // resolving each one along the way.  We store resolved StyleNodes in
-    // a Vector, so that the generated CSS somewhat matches the order that
+    // a List, so that the generated CSS somewhat matches the order that
     // the style elements appear in the XSS document.
     ArrayList<StyleNode> styles = new ArrayList<StyleNode>();
 
@@ -307,8 +304,7 @@ public class StyleSheetDocument
 
   // Returns array of matching style sheets sorted by specificity
   private StyleSheetNode[] _getStyleSheets(
-    StyleContext context,
-    boolean      includeUserStyleSheet
+    StyleContext context
     )
   {
     LocaleContext localeContext = context.getLocaleContext();
@@ -317,18 +313,16 @@ public class StyleSheetDocument
     int mode = NameUtils.getMode(ModeUtils.getCurrentMode(context));
     TrinidadAgent agent = context.getAgent();
 
-    // -= Simon Lessard =- 
-    // TODO: Check if synchronization is truly required    
-    Vector<StyleSheetNode> v = new Vector<StyleSheetNode>(); // Vector of matching style sheets
-    Iterator<StyleSheetNode> e = getStyleSheets();  // Enum of all style sheets
+    List<StyleSheetNode> v = new ArrayList<StyleSheetNode>(); // List of matching style sheets
+    Iterator<StyleSheetNode> e = getStyleSheets();  // Iterator of all style sheets
 
-    // Loop through the style sheets, storing matches in the Vector
+    // Loop through the style sheets, storing matches in the List
     while (e.hasNext())
     {
       StyleSheetNode styleSheet = e.next();
 
       if (styleSheet.compareVariants(locale, direction, agent, mode) > 0)
-        v.addElement(styleSheet);
+        v.add(styleSheet);
     }
 
     int count = v.size();
@@ -336,8 +330,7 @@ public class StyleSheetDocument
       return null;
 
     // Sort the matching style sheets by specificity
-    StyleSheetNode[] styleSheets = new StyleSheetNode[count];
-    v.copyInto(styleSheets);
+    StyleSheetNode[] styleSheets = v.toArray(new StyleSheetNode[count]);
     Comparator<StyleSheetNode> comparator = 
       new StyleSheetComparator(locale,
                                direction,
@@ -346,25 +339,6 @@ public class StyleSheetDocument
                                _styleSheets);
 
     Arrays.sort(styleSheets, comparator);
-
-
-    // If we've got a UserStyleSheet, convert it to a StyleSheetNode and
-    // add it to the end of the list (highest precedence)
-    if (includeUserStyleSheet)
-    {
-      UserStyleSheet userStyleSheet =
-        UserStyleSheet.getUserStyleSheet(context);
-      if (userStyleSheet != null)
-      {
-        StyleSheetNode[] tmpSheets =
-          new StyleSheetNode[styleSheets.length + 1];
-        System.arraycopy(styleSheets, 0, tmpSheets, 0, styleSheets.length);
-        tmpSheets[tmpSheets.length - 1] =
-          _createStyleSheetNode(userStyleSheet);
-
-        styleSheets = tmpSheets;
-      }
-    }
 
     return styleSheets;
   }
@@ -376,7 +350,7 @@ public class StyleSheetDocument
     boolean      isNamed
     )
   {
-    StyleSheetNode[] styleSheets = _getStyleSheets(context, true);
+    StyleSheetNode[] styleSheets = _getStyleSheets(context);
     if (styleSheets == null)
       return null;
 
@@ -666,8 +640,8 @@ public class StyleSheetDocument
 
   }
 
-  // Returns a count of the non-null items in the Vector
-  private static int _getNonNullCount(ArrayList<?> list)
+  // Returns a count of the non-null items in the List
+  private static int _getNonNullCount(List<?> list)
   {
     if (list == null)
       return 0;
@@ -740,54 +714,13 @@ public class StyleSheetDocument
     return null;
   }
 
-  // Coverts a UserStyleSheet into a StyleSheetNode
-  private StyleSheetNode _createStyleSheetNode(UserStyleSheet userStyleSheet)
-  {
-    // Convert each Style in the userStyleSheet to a StyleNode
-    // -= Simon Lessard =- 
-    // TODO: Check if synchronization is truly required
-    Vector<StyleNode> v = new Vector<StyleNode>();
-
-    // First, add the selector-based styles
-    Iterator<Object> selectors = userStyleSheet.getSelectors();
-    while (selectors.hasNext())
-    {
-      String selector = (String)selectors.next();
-      Style style = userStyleSheet.getStyle(selector);
-
-      v.addElement(_createStyleNode(selector, style, false));
-    }
-
-    // Now, add in the named styles
-    Iterator<Object> names = userStyleSheet.getNames();
-    while (names.hasNext())
-    {
-      String name = (String)names.next();
-      Style style = userStyleSheet.getNamedStyle(name);
-
-      v.addElement(_createStyleNode(name, style, true));
-    }
-
-    StyleNode[] nodes = new StyleNode[v.size()];
-    v.copyInto(nodes);
-
-    return new StyleSheetNode(nodes, // The StyleNodes
-                              null,  // locales - we don't care
-                              LocaleUtils.DIRECTION_DEFAULT,  // direction
-                              null,  // browsers - we don't care
-                              null,  // versions - we don't care
-                              null,   // platforms - we don't care
-                              ModeUtils.MODE_DEFAULT);
-  }
 
   // Creates a StyleNode for the specified Style.  The key is either a
   // selector or a name, depending on the value of the isNamed parameter.
   private StyleNode _createStyleNode(String key, Style style, boolean isNamed)
   {
     // Covert the properties into PropertyNodes
-    // -= Simon Lessard =- 
-    // TODO: Check if synchronization is truly required
-    Vector<PropertyNode> v = new Vector<PropertyNode>();
+    List<PropertyNode> v = new ArrayList<PropertyNode>();
     Iterator<Object> names = style.getPropertyNames();
 
     while (names.hasNext())
@@ -795,11 +728,10 @@ public class StyleSheetDocument
       String name = (String)names.next();
       String value = style.getProperty(name);
 
-      v.addElement(new PropertyNode(name, value));
+      v.add(new PropertyNode(name, value));
     }
 
-    PropertyNode[] nodes = new PropertyNode[v.size()];
-    v.copyInto(nodes);
+    PropertyNode[] nodes = v.toArray(new PropertyNode[v.size()]);
 
     if (isNamed)
     {
@@ -1064,7 +996,7 @@ public class StyleSheetDocument
     }
 
     // Tests whether a property with the specified name is
-    // contained within the Vector of PropertyNodes
+    // contained within the List of PropertyNodes
     // -= Simon Lessard =-
     // FIXME: Never used locally as of 2006-08-04
     @SuppressWarnings("unused")
@@ -1085,8 +1017,8 @@ public class StyleSheetDocument
     }
 
     // Removes the PropertyNode with the specified name from the
-    // Vector of properties.  Note - we assume that the properties
-    // Vector will contain at most one property with the specified
+    // List of properties.  Note - we assume that the properties
+    // List will contain at most one property with the specified
     // name.  Returns a boolean indicating whether the specified
     // property was found (and thus removed).
     private boolean _removeProperty(

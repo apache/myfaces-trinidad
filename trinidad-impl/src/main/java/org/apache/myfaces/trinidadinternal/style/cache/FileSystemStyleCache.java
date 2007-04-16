@@ -60,7 +60,6 @@ import org.apache.myfaces.trinidadinternal.style.Style;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.StyleMap;
 import org.apache.myfaces.trinidadinternal.style.StyleProvider;
-import org.apache.myfaces.trinidadinternal.style.UserStyleSheet;
 import org.apache.myfaces.trinidadinternal.style.util.CSSGenerationUtils;
 import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
 import org.apache.myfaces.trinidadinternal.style.xml.StyleSheetDocumentUtils;
@@ -993,31 +992,18 @@ public class FileSystemStyleCache implements StyleProvider
 
       LocaleContext localeContext = context.getLocaleContext();
 
-      UserStyleSheet styleSheet = UserStyleSheet.getUserStyleSheet(context);
-
       _init(
        localeContext.getTranslationLocale(),
        LocaleUtils.getReadingDirection(localeContext),
        agent.getAgentApplication(),
        agent.getAgentMajorVersion(),
        agent.getAgentOS(),
-       styleSheet,
        true);
     }
 
     @Override
     public int hashCode()
     {
-      // We treat the UserStyleSheet specially.  We want to have one and
-      // only one entry for a particular user style sheet ID.  So, we avoid
-      // hashing directly on the UserStyleSheet object.  That way, if the
-      // styles for a particular UserStyleSheet ID changes, we can still find
-      // the same old entry in the FileSystemStyleCache, and re-generate the
-      // CSS/StyleMap as necessary.
-      int userStyleSheetHashCode = 0;
-      if (_userStyleSheet != null)
-        userStyleSheetHashCode = _userStyleSheet.getID().hashCode();
-
       int shortHash = (_short ? 1 : 0);
 
       return (_locale.hashCode()           ^
@@ -1025,18 +1011,12 @@ public class FileSystemStyleCache implements StyleProvider
                (_browser  << 2)            ^
                (_version  << 4)            ^
                (_platform << 8)            ^
-               shortHash                   ^
-               userStyleSheetHashCode);
+               shortHash);
     }
 
     @Override
     public boolean equals(Object o)
     {
-      // As documented in our hashCode() implementation, we treat
-      // UserStyleSheets specially.  Two keys are equals if they have the
-      // UserStyleSheet ID.  Later on we can actually check to see if the
-      // styles have changed, but we still want to use the same Key even if
-      // that is the case.
       if (this == o)
         return true;
 
@@ -1054,18 +1034,6 @@ public class FileSystemStyleCache implements StyleProvider
         {
           return false;
         }
-
-        // Check for matching UserStyleSheets IDs
-        if (_userStyleSheet == null)
-        {
-          if (key._userStyleSheet != null)
-            return false;
-        }
-        else if ((key._userStyleSheet == null) ||
-                 !_userStyleSheet.getID().equals(key._userStyleSheet.getID()))
-        {
-          return false;
-        }
       }
 
       return true;
@@ -1077,7 +1045,6 @@ public class FileSystemStyleCache implements StyleProvider
       int browser,
       int version,
       int platform,
-      UserStyleSheet userStyleSheet,
       boolean useShort
       )
     {
@@ -1093,7 +1060,6 @@ public class FileSystemStyleCache implements StyleProvider
       _browser = browser;
       _version = version;
       _platform = platform;
-      _userStyleSheet = userStyleSheet;
       _short = useShort;
     }
 
@@ -1102,7 +1068,6 @@ public class FileSystemStyleCache implements StyleProvider
     private int            _browser;
     private int            _version;
     private int            _platform;
-    private UserStyleSheet _userStyleSheet;
     private boolean        _short;  // Do we use short style classes?
   }
 
@@ -1127,7 +1092,6 @@ public class FileSystemStyleCache implements StyleProvider
   {
     public DerivationKey(StyleContext context, StyleSheetNode[] styleSheets)
     {
-      _userStyleSheet = UserStyleSheet.getUserStyleSheet(context);
       _styleSheets = new StyleSheetNode[styleSheets.length];
       System.arraycopy(styleSheets, 0, _styleSheets, 0, styleSheets.length);
       _short = true;
@@ -1148,18 +1112,6 @@ public class FileSystemStyleCache implements StyleProvider
           (_styleSheets.length != key._styleSheets.length))
         return false;
 
-      // Check for matching UserStyleSheets IDs
-      if (_userStyleSheet == null)
-      {
-        if (key._userStyleSheet != null)
-          return false;
-      }
-      else if ((key._userStyleSheet == null) ||
-               !_userStyleSheet.getID().equals(key._userStyleSheet.getID()))
-      {
-        return false;
-      }
-
       // Test each StyleSheetNode for equality.  We start
       // at the end of the list, as the last style sheet
       // is more likely to be different.  (The first entry
@@ -1178,11 +1130,6 @@ public class FileSystemStyleCache implements StyleProvider
     {
       int hashCode = 0;
 
-      // Only hash on the UserStyleSheet ID.  We don't hash on the styles as
-      // any two UserStyleSheets with the same ID should use the same key.
-      if (_userStyleSheet != null)
-        hashCode ^= _userStyleSheet.getID().hashCode();
-
       for (int i = 0; i < _styleSheets.length; i++)
         hashCode ^= _styleSheets[i].hashCode();
 
@@ -1192,7 +1139,6 @@ public class FileSystemStyleCache implements StyleProvider
     }
 
     private StyleSheetNode[] _styleSheets;
-    private UserStyleSheet   _userStyleSheet;
     private boolean          _short;   // Do we use short style classes?
   }
 

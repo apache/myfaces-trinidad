@@ -28,7 +28,6 @@ import org.apache.myfaces.trinidad.util.IntegerUtils;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
-import org.apache.myfaces.trinidadinternal.style.UserStyleSheet;
 
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetNode;
@@ -261,12 +260,6 @@ public class NameUtils
     buffer.append(_getPlatformString(context));
     buffer.append(_getModeString(context));
     buffer.append(_VARIANT_SEPARATOR);   
-    String userStyleSheetString = _getUserStyleSheetString(context);
-    if (userStyleSheetString != null)
-    {
-      buffer.append(_VARIANT_SEPARATOR);
-      buffer.append(userStyleSheetString);
-    }
 
     return buffer.toString();
   }
@@ -382,14 +375,6 @@ public class NameUtils
       needSeparator = true;
     }
 
-    String userStyleSheetString = _getUserStyleSheetString(context);
-    if (userStyleSheetString != null)
-    {
-      if (needSeparator)
-        buffer.append(_VARIANT_SEPARATOR);
-      buffer.append(userStyleSheetString);
-    }
-
     return buffer.toString();
   }
 
@@ -477,16 +462,6 @@ public class NameUtils
       return _UNKNOWN_NAME;
 
     return name;
-  }
-
-  // Get the name of the UserStyleSheet for this context
-  private static String _getUserStyleSheetString(StyleContext context)
-  {
-    UserStyleSheet userStyleSheet = UserStyleSheet.getUserStyleSheet(context);
-    if (userStyleSheet == null)
-      return null;
-
-    return userStyleSheet.getID();
   }
 
   // Tests whether the locale specified in the context match the
