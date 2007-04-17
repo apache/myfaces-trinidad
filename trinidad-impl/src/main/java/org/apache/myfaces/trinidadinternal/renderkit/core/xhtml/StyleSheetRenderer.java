@@ -31,6 +31,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.core.CoreStyleSheet;
 
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
@@ -88,50 +89,59 @@ public class StyleSheetRenderer extends XhtmlRenderer
     if (provider != null)
     {
       String href = provider.getStyleSheetURI(sContext);
-      if (href != null)
+      
+      // If the requestMap has a skin-id, a skin's stylesheet's id and suppressStylesheet
+      // is true, and the skin information matches our current skin, then it is safe
+      // to not write out the css. This means that it will be written out by the external
+      // source, like the portal container.
+      boolean suppressStylesheet = _isSuppressStylesheet(context, arc);
+      if (!suppressStylesheet)
       {
-        ExternalContext externalContext = context.getExternalContext();
-        String contextUri = externalContext.getRequestContextPath();
-        String baseURL = contextUri + XhtmlConstants.STYLES_CACHE_DIRECTORY;
-        
-        String outputMode = arc.getOutputMode();
-        // =-=AEW Don't like hardcoding facet names...
-        if (XhtmlConstants.OUTPUT_MODE_PORTLET.equals(outputMode) &&
-            supportsScripting(arc))
+        if (href != null)
         {
-          writer.startElement("script", null);
-          writer.writeText("var _adfSS;if(!_adfSS){_adfSS=1;document.write(\"" +
-                        "<link rel=\\\"stylesheet\\\" "+
-                        "charset=\\\"UTF-8\\\" type=\\\"text/css\\\" " +
-                        "href=\\\"",
-						null);
-          String uri = context.getExternalContext().encodeResourceURL(baseURL+href);
-          writer.writeText(uri, null);
-          writer.writeText("\\\">\")}", null);
-          writer.endElement("script");
+          ExternalContext externalContext = context.getExternalContext();
+          String contextUri = externalContext.getRequestContextPath();
+          String baseURL = contextUri + XhtmlConstants.STYLES_CACHE_DIRECTORY;
+          
+          String outputMode = arc.getOutputMode();
+          // =-=AEW Don't like hardcoding facet names...
+          if (XhtmlConstants.OUTPUT_MODE_PORTLET.equals(outputMode) &&
+              supportsScripting(arc))
+          {
+            writer.startElement("script", null);
+            writer.writeText("var _adfSS;if(!_adfSS){_adfSS=1;document.write(\"" +
+                          "<link rel=\\\"stylesheet\\\" "+
+                          "charset=\\\"UTF-8\\\" type=\\\"text/css\\\" " +
+                          "href=\\\"",
+              null);
+            String uri = context.getExternalContext().encodeResourceURL(baseURL+href);
+            writer.writeText(uri, null);
+            writer.writeText("\\\">\")}", null);
+            writer.endElement("script");
+          }
+          else
+          {
+            writer.startElement("link", null);
+            renderId(context, comp);
+            writer.writeAttribute("rel", "stylesheet", null);
+            writer.writeAttribute("charset", "UTF-8", null);
+            
+            String type = provider.getContentStyleType(sContext);
+            writer.writeAttribute("type", type, null);
+            
+            renderEncodedResourceURI(context, "href", baseURL + href);
+            writer.endElement("link");
+          }
         }
         else
         {
-          writer.startElement("link", null);
-          renderId(context, comp);
-          writer.writeAttribute("rel", "stylesheet", null);
-          writer.writeAttribute("charset", "UTF-8", null);
-          
-          String type = provider.getContentStyleType(sContext);
-          writer.writeAttribute("type", type, null);
-          
-          renderEncodedResourceURI(context, "href", baseURL + href);
-          writer.endElement("link");
+          if (arc.getSkin() == null)
+            writer.writeComment("ERROR: Could not create stylesheet, because " +
+                                "no skin is available");
+          else
+            writer.writeComment("ERROR: could not create stylesheet for " +
+                                arc.getSkin().getStyleSheetName());
         }
-      }
-      else
-      {
-        if (arc.getSkin() == null)
-          writer.writeComment("ERROR: Could not create stylesheet, because " +
-                              "no skin is available");
-        else
-          writer.writeComment("ERROR: could not create stylesheet for " +
-                              arc.getSkin().getStyleSheetName());
       }
 
 
@@ -146,4 +156,22 @@ public class StyleSheetRenderer extends XhtmlRenderer
     }
   }
 
+  // returns true if we want to suppress the stylesheet.
+  private boolean _isSuppressStylesheet(FacesContext context,  RenderingContext arc)
+  {
+
+    Map<String, Object> requestMap = context.getExternalContext().getRequestMap();   
+     
+    boolean suppressStylesheet = "true".equals(requestMap.get(_SUPPRESS_STYLESHEET_ID_PARAM));
+    if (suppressStylesheet)
+    {
+      Skin requestMapSkin = ((CoreRenderingContext) arc).getRequestMapSkin();
+      return (requestMapSkin != null) ? true : false;
+    }
+    return false;
+  }
+  
+  static private final String _SUPPRESS_STYLESHEET_ID_PARAM = 
+    "oracle.apache.myfaces.trinidad.skin.suppressStylesheet";
+  
 }

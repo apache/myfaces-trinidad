@@ -208,6 +208,13 @@ public class CoreRenderingContext extends RenderingContext
   @Override
   public Skin getSkin()
   {
+    if(!_checkedRequestMapSkin)
+    {
+      Skin requestedSkin = getRequestMapSkin();
+      _checkedRequestMapSkin = true;
+      if (requestedSkin != null)
+        _skin = requestedSkin;
+    }
     return _skin;
   }
 
@@ -372,6 +379,104 @@ public class CoreRenderingContext extends RenderingContext
   {
     return "minimal";
   }
+  
+ 
+  /**
+   * Returns the skin that is requested on the request map if the exact skin exists.
+   * <p>
+   * If we are in a portlet, then we might need to recalculate the skin.
+   * The portal container might have its own skin that it wants us to use instead
+   * of what we picked based on the skin-family and render-kit-id.
+   * If it does, it will send the skin-id and the skin's styleSheetDocument id
+   * in the request map.
+   * </p>
+   * <p>
+   * If we have the skin with that id and the stylesheetdocument's id match,
+   * then we return that skin; else we return null, indicating that there is no
+   * requestMap skin.
+   * </p>
+   * @return null if there is no local skin that matches the requestMap skin, if any.
+   *         skin that is requested to be used on the requestMap if we can find that
+   *         exact skin with the same stylesheetdocument id locally.
+   */
+  public Skin getRequestMapSkin()
+  {
+    // protect against rechecking this more than once.
+    // if we already checked for the _requestMapSkin and it's null,
+    // then we'll return it anyway because that means we have no request map skin. 
+    if (_checkedRequestMapSkin)
+      return _requestMapSkin;
+    _checkedRequestMapSkin = true;
+    
+    if (CoreRenderKit.OUTPUT_MODE_PORTLET.equals(getOutputMode()))
+    {
+      FacesContext context = FacesContext.getCurrentInstance();
+      Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
+      
+      // Get the requested Skin Id from the request Map
+      Object requestedSkinId = requestMap.get(_SKIN_ID_PARAM);
+      if (requestedSkinId != null)
+      {
+        SkinFactory factory = SkinFactory.getFactory();
+        if (factory == null)
+        {
+          _LOG.warning("There is no SkinFactory");
+          return null;
+        }
+        
+        Skin requestedSkin = factory.getSkin(context, requestedSkinId.toString());
+        if (requestedSkin != null)
+        {
+          // Get the skin's stylesheet id from the request Map and then compare it 
+          // to the local skin's stylesheet id to make sure they match.
+          Object requestMapStyleSheetId = requestMap.get(_SKIN_STYLESHEET_ID_PARAM);
+          if (requestMapStyleSheetId != null)
+          {
+            String skinForPortalStyleSheetId = requestedSkin.getStyleSheetDocumentId(this);
+            if (skinForPortalStyleSheetId != null && 
+                skinForPortalStyleSheetId.equals(requestMapStyleSheetId))
+            {
+              // it is ok to use this skin
+              // Switch the _skin here to be the tmpRequestedSkin
+              if (_LOG.isFine())
+                _LOG.fine("The skin " +requestedSkinId+ 
+                  " specified on the requestMap will be used.");
+              _requestMapSkin = requestedSkin;
+              return requestedSkin;
+            }
+            else
+            {
+              if (_LOG.isWarning())
+                _LOG.warning("The skin " +requestedSkinId+ 
+                            " specified on the requestMap will not be used because" + 
+                             " the styleSheetDocument id on the requestMap" +
+                             " does not match the local skin's styleSheetDocument's id.");
+            }                
+          }
+          else
+          {
+            if (_LOG.isSevere())
+              _LOG.severe("The skin " +requestedSkinId+ 
+                          " specified on the requestMap will not be used because" + 
+                           " its styleSheetDocument id was not in the requestMap" +
+                           " and it is needed to compare with the local" +
+                           " skin's styleSheetDocument's id to make sure the skins are the same.");              
+          }
+        }// end requestedSkin != null
+        else
+        {
+          if (_LOG.isWarning())
+          {
+            _LOG.warning("The skin " +requestedSkinId+ 
+                        " specified on the requestMap will not be used because" + 
+                         " it does not exist.");
+          }
+        }     
+      }
+      
+    } // end outputMode == portlet
+    return null;
+  }  
 
   /**
    * Set the local variable _skin to be the Skin from the
@@ -407,29 +512,11 @@ public class CoreRenderingContext extends RenderingContext
     SkinFactory factory = SkinFactory.getFactory();
     if (factory == null)
     {
-      if (_LOG.isWarning())
-        _LOG.warning("There is no SkinFactory");
+      _LOG.warning("There is no SkinFactory");
       return;
     }
 
-    Skin skin = null;
-
-    // see if there is a skinID on the requestParameterMap. If there is, then
-    // we want to use that skin. Otherwise, use find the skin as usual, using the portlet
-    // renderKitId.
-    if (CoreRenderKit.OUTPUT_MODE_PORTLET.equals(getOutputMode()))
-    {
-      Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
-      Object skinId = requestMap.get(_SKIN_ID_PARAM);
-      if (skinId != null)
-      {
-        skin = factory.getSkin(context, skinId.toString());
-      }
-
-    }
-
-    if (skin == null)
-      skin = factory.getSkin(null, skinFamily, renderKitId);
+    Skin skin = factory.getSkin(null, skinFamily, renderKitId);
 
     if (skin == null)
     {
@@ -443,6 +530,8 @@ public class CoreRenderingContext extends RenderingContext
 
     _skin = skin;
   }
+  
+
 
   private TrinidadAgent _initializeAgent(
     FacesContext context,
@@ -576,6 +665,8 @@ public class CoreRenderingContext extends RenderingContext
 
 
   private Skin                _skin;
+  private boolean             _checkedRequestMapSkin = false;
+  private Skin                _requestMapSkin;
   private FormData            _formData;
   private TrinidadAgent       _agent;
   private Map<String, String> _styleMap;
@@ -589,7 +680,11 @@ public class CoreRenderingContext extends RenderingContext
   private int                 _linkStyleDisabledCount = 0;
   private boolean             _isLinkDisabled = false;
 
-  static private final String _SKIN_ID_PARAM = "oracle.apache.myfaces.trinidad.skin.id";
+  static private final String _SKIN_ID_PARAM = 
+    "oracle.apache.myfaces.trinidad.skin.id";
+  static private final String _SKIN_STYLESHEET_ID_PARAM = 
+    "oracle.apache.myfaces.trinidad.skin.stylesheet.id";
+
   // Maps describing the capabilities of our output modes
   // -= Simon Lessard =-
   // FIXME: Cannot use CapabilityKey in the generic definition because

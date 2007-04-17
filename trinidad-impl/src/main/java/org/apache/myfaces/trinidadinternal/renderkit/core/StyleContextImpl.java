@@ -42,18 +42,20 @@ class StyleContextImpl implements StyleContext
   {
     _arc = arc;
     _generatedFilesPath = generatedFilesPath;
-    _styleProvider = _getDefaultStyleProvider(arc.getSkin());
-    _styleMap = _styleProvider.getStyleMap(this);
   }
 
 
   public StyleProvider getStyleProvider()
   {
+    if (_styleProvider == null)
+      _styleProvider = _getDefaultStyleProvider(((CoreRenderingContext) _arc).getSkin());
     return _styleProvider;
   }
 
   public StyleMap getStyleMap()
   {
+    if (_styleMap == null)
+      _styleMap = getStyleProvider().getStyleMap(this);
     return _styleMap;
   }
 

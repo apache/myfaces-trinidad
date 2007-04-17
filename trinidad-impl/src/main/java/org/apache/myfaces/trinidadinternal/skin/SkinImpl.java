@@ -99,6 +99,17 @@ abstract public class SkinImpl extends Skin
   {
     return null;
   }
+  
+  /**
+   * Returns the id of the Skin's stylesheet document. This is the StyleSheetDocument's 
+   * id for the StyleContext.
+   */
+   @Override
+  public String getStyleSheetDocumentId(RenderingContext arc)
+  {
+    StyleContext sContext = ((CoreRenderingContext)arc).getStyleContext();
+    return getStyleSheetDocument(sContext).getDocumentId(sContext);
+  }
 
   /**
    * Returns the name of the XSS style sheet for this Skin.
