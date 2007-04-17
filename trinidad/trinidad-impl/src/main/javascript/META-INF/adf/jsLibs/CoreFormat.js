@@ -19,10 +19,12 @@
 function TrNumberConverter(
   pattern,  
   type,
+  locale,
   messages)
 {
 	this._pattern = pattern;
   this._type = type;
+  this._locale = locale;
   this._messages = messages;
 	
   // for debugging
@@ -37,7 +39,7 @@ TrNumberConverter.prototype = new TrConverter();
  */
 TrNumberConverter.prototype._isConvertible = function()
 {
-	if(this._pattern == null && this._type=="number")
+	if(this._pattern == null && this._locale == null && this._type=="number")
 	{
     return true;
 	}
