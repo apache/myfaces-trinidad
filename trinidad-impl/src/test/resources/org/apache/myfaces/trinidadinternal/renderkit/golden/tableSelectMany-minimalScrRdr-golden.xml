@@ -171,14 +171,14 @@
                     
                     <a
                          class="OraNavBarActiveLink"
-                         onclick="_uixt_mainId.multiSelect(true)"
+                         onclick="_uixt_mainId.multiSelect(true);return false;"
                          href="uri-attr:#"
                         >
                       Select All
                     </a>&#xa0;|&#xa0;
                     <a
                          class="OraNavBarActiveLink"
-                         onclick="_uixt_mainId.multiSelect(false)"
+                         onclick="_uixt_mainId.multiSelect(false);return false;"
                          href="uri-attr:#"
                         >
                       Select None
@@ -519,14 +519,14 @@
                     
                     <a
                          class="OraNavBarActiveLink"
-                         onclick="_uixt_mainId.multiSelect(true)"
+                         onclick="_uixt_mainId.multiSelect(true);return false;"
                          href="uri-attr:#"
                         >
                       Select All
                     </a>&#xa0;|&#xa0;
                     <a
                          class="OraNavBarActiveLink"
-                         onclick="_uixt_mainId.multiSelect(false)"
+                         onclick="_uixt_mainId.multiSelect(false);return false;"
                          href="uri-attr:#"
                         >
                       Select None
@@ -867,14 +867,14 @@
                     
                     <a
                          class="OraNavBarActiveLink"
-                         onclick="_uixt_mainId.multiSelect(true)"
+                         onclick="_uixt_mainId.multiSelect(true);return false;"
                          href="uri-attr:#"
                         >
                       Select All
                     </a>&#xa0;|&#xa0;
                     <a
                          class="OraNavBarActiveLink"
-                         onclick="_uixt_mainId.multiSelect(false)"
+                         onclick="_uixt_mainId.multiSelect(false);return false;"
                          href="uri-attr:#"
                         >
                       Select None

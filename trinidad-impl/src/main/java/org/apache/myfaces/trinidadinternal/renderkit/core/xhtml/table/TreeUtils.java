@@ -242,7 +242,7 @@ public final class TreeUtils
 
   public static String callJSSelectAll(String jsVarName, boolean isSelectAll)
   {
-    return jsVarName+".multiSelect("+(isSelectAll ? "true" : "false")+")";
+    return jsVarName+".multiSelect("+(isSelectAll ? "true" : "false")+");return false;";
   }
 
   public static void decodeGotoEvent(final Map<String, String> parameters,

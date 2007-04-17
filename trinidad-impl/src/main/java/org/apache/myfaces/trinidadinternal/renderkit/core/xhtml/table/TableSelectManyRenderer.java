@@ -183,9 +183,10 @@ public class TableSelectManyRenderer extends TableSelectOneRenderer
   }
 
   public static void renderScripts(
-    FacesContext        context,
-    RenderingContext arc,
-    TableRenderingContext trc) throws IOException
+    FacesContext          context,
+    RenderingContext      arc,
+    TableRenderingContext trc,
+    boolean               autoSubmit) throws IOException
   {
     if (arc.getProperties().put(_JS_RENDERED_KEY, Boolean.TRUE) == null)
     {
@@ -196,7 +197,7 @@ public class TableSelectManyRenderer extends TableSelectOneRenderer
 
       String jsCall =
       TreeUtils.setupJSMultiSelectCollectionComponent(
-        SELECTED_KEY, SELECTED_MODE_KEY, false);
+        SELECTED_KEY, SELECTED_MODE_KEY, autoSubmit);
       writer.writeText(jsCall, null);
       writer.writeText(";", null);
       writer.endElement("script");
