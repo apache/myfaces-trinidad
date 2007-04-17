@@ -579,7 +579,7 @@ public class FileSystemStyleCache implements StyleProvider
     )
   {
     Iterator<StyleNode> e = document.getStyles(context);
-    if (e == null)
+    if ((e == null) || !e.hasNext())
     {
       if (_LOG.isWarning())
         _LOG.warning("No styles found context - " + context);
