@@ -79,6 +79,7 @@ public class DesktopTableRenderer extends TableRenderer
     _allDetailsEnabledKey = type.findKey("allDetailsEnabled");
     _allDisclosed = new AllDetail(type, true);
     _allUndisclosed = new AllDetail(type, false);
+    _autoSubmitKey = type.findKey("autoSubmit");
   }
 
   public DesktopTableRenderer()
@@ -193,7 +194,7 @@ public class DesktopTableRenderer extends TableRenderer
                            _SELECT_NONE_TEXT_KEY, null, hasAllDetails);
       needsDivider = true;
 
-      TableSelectManyRenderer.renderScripts(context, arc, trc);
+      TableSelectManyRenderer.renderScripts(context, arc, trc, isAutoSubmit(bean));
     }
 
     ResponseWriter writer = context.getResponseWriter();
@@ -1101,6 +1102,19 @@ public class DesktopTableRenderer extends TableRenderer
     return toString(bean.getProperty(_heightKey));
   }
 
+  /**
+   * Tells whether or not the autoSubmit attribute is set on the bean
+   *
+   * @param bean the bean
+   */
+  protected boolean isAutoSubmit(FacesBean bean)
+  {
+    if (_autoSubmitKey == null)
+      return false;
+
+    return Boolean.TRUE.equals(bean.getProperty(_autoSubmitKey));
+  }
+
   protected boolean getAllDetailsEnabled(FacesBean bean)
   {
     Object o = bean.getProperty(_allDetailsEnabledKey);
@@ -1202,6 +1216,7 @@ public class DesktopTableRenderer extends TableRenderer
 
   private static final Object _IE_SCROLL_KEY = new Object();
 
+  private PropertyKey _autoSubmitKey;
   private PropertyKey _summaryKey;
   private PropertyKey _heightKey;
   private PropertyKey _allDetailsEnabledKey;
