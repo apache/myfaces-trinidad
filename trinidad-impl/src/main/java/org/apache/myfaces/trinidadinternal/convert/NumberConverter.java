@@ -21,6 +21,7 @@ package org.apache.myfaces.trinidadinternal.convert;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
@@ -115,6 +116,10 @@ public final class NumberConverter extends org.apache.myfaces.trinidad.convert.N
 
       String pattern = this.getPattern();
       String type = this.getType();
+      String localeString = "null";
+      Locale locale = this.getLocale();
+      if(locale != null)
+    	localeString = locale.toString();
 
       try
       {
@@ -127,6 +132,14 @@ public final class NumberConverter extends org.apache.myfaces.trinidad.convert.N
       try
       {
         JsonUtils.writeString(outBuffer, type, false);
+      } catch (Exception e)
+      {
+        outBuffer.append("null");
+      }
+      outBuffer.append(',');
+      try
+      {
+        JsonUtils.writeString(outBuffer, localeString, false);
       } catch (Exception e)
       {
         outBuffer.append("null");
