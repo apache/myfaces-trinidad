@@ -131,17 +131,14 @@ detail-disclosure.
         <section name="Selection">
           <p>
             The selection feature of a Table lets the user select one
-            or more rows in the list. The user can then perform some operation on
+            or more rows in the list.  The user can then perform some operation on
             the selected rows by activating an appropriate ActionSource component (e.g.,
-            by clicking on a commandButton). Use the &quot;selection&quot; facet on the Table
-      to enable the selection feature.
+            by clicking on a commandButton).
           </p>
           <p>
             There are two types of selection - single and multiple. The type of
-            selection is determined by the component defined as the &quot;selection&quot; facet.
-            Use the <code>&lt;tr:tableSelectOne&gt;</code> component to enable
-            single selection, and <code>&lt;tr:tableSelectMany&gt;</code> for
-            multiple selection.
+            selection is determined by the "rowSelection" attribute, which
+            can be set to "single" or "multiple".
           </p>
         </section>
 
