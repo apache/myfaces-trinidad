@@ -3670,7 +3670,7 @@
   </style>    
   
   <style selector=".portlet-section-body">
-    <includeStyle selector="af|body"/>
+    <includeStyle selector="BODY"/>
   </style>   
   
   <style selector=".portlet-section-alternate">
@@ -3697,8 +3697,9 @@
     <includeStyle selector=".AFHeaderLevelOne"/>
   </style> 
   
+  <!-- TODO: AdamWiner: This can't be correct -->
   <style selector=".portlet-table-body">
-    <includeStyle selector="af|body"/>
+    <includeStyle selector="BODY"/>
   </style>  
   
   <style selector=".portlet-table-alternate">
