@@ -59,6 +59,11 @@ abstract public class Skin
    * Returns the renderKitId for the Skin.
    */
   abstract public String getRenderKitId();
+  
+  /**
+   * Returns the id of the Skin's stylesheet document.
+   */
+  abstract public String getStyleSheetDocumentId(RenderingContext arc);
 
   /**
    * Returns the style class map, or null if there is no map.
@@ -66,8 +71,7 @@ abstract public class Skin
    * the key, and the value could be a shortened style class name,
    * or a portlet style class name, etc.
    */
-  abstract public Map<String, String> getStyleClassMap(
-    RenderingContext arc);
+  abstract public Map<String, String> getStyleClassMap(RenderingContext arc);
 
   /**
    * Returns the name of the XSS style sheet for this Skin.
