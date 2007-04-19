@@ -305,7 +305,7 @@
     </xsl:element>
   </xsl:template>
 
-  <xsl:template match="//javaee:facet-extension[mfp:facet-metadata|mfp:preferred-children|mfp:preferred|mfp:unsupported-agents]" >
+  <xsl:template match="//javaee:facet-extension[mfp:facet-metadata|mfp:preferred-children|mfp:preferred|mfp:unsupported-agents|mfp:deprecated]" >
     <xsl:element name="facet-extension" >
       <xsl:element name="facet-metadata" >
         <xsl:apply-templates/>
@@ -876,6 +876,12 @@
 
   <xsl:template match="//mfp:preferred" >
     <xsl:element name="preferred" >
+      <xsl:value-of select="text()" />
+    </xsl:element>
+  </xsl:template>
+
+  <xsl:template match="//mfp:deprecated" >
+    <xsl:element name="deprecated" >
       <xsl:value-of select="text()" />
     </xsl:element>
   </xsl:template>
