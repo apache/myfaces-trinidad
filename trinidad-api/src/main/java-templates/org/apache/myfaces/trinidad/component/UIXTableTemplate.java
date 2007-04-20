@@ -193,7 +193,8 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
       try
       {
         model.setRowKey(key);
-        return model.getRowData();
+        if (isRowAvailable())
+          return model.getRowData();
       }
       finally
       {
