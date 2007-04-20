@@ -617,9 +617,12 @@ function _getWindowForDocument(document)
 function _getTop(element)
 {
 	
-  var initialDocument = (element && element.ownerDocument)
-                          ? element.ownerDocument
-                          : document;
+var initialDocument = (element)
+                      ? element.ownerDocument
+                        ? element.ownerDocument
+                          // ownerDocument null if element is Document
+                        : element
+                      : document;
   
   // since top might be in another domain, crawl up as high as possible manually
   var currWindow = _getWindowForDocument(initialDocument);

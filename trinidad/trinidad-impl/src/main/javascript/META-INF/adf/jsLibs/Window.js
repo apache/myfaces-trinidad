@@ -521,7 +521,7 @@ function _getValidModalDependent(
  * Sizes the window to its preferred size.
  */
 function _sizeWin(
-  element,
+  theWindow,
   extraWidth,
   extraHeight,
   params
@@ -540,11 +540,11 @@ function _sizeWin(
   //         but the implementation appears to be sub-optimal for our case
   if (isGecko)
   {
-    element.window.sizeToContent();
+    theWindow.sizeToContent();
     return;
   }
   */
-  var body =  element.window.document.body;
+  var body =  theWindow.document.body;
 
   if (body)
   {
@@ -613,7 +613,7 @@ function _sizeWin(
       }
     }
 
-    var newWin = _getTop(element);
+    var newWin = _getTop(theWindow.document);
 
     // keep a bottom/right pad of at least 5% of the available screen
     var avLeft = isIE ? 0 : newWin.screen.availLeft;
@@ -627,7 +627,7 @@ function _sizeWin(
       newWidth = maxSWidth;
 
     // Finally, we can resize the window.
-    // element.window.parent.resizeTo(newWidth, newHeight);
+    // theWindow.parent.resizeTo(newWidth, newHeight);
     newWin.resizeTo(newWidth, newHeight);
 
     // Check to make sure that our resize hasn't put the
