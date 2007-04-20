@@ -62,7 +62,7 @@ public class MessageBundleTest extends TestCase
 
     setUpAndValidateDefaultBundle(context);
 
-    _testOtherBundles(qualifiedBundleName, locales);
+    //_testOtherBundles(qualifiedBundleName, locales);
   }
 
   private static void setUpAndValidateDefaultBundle(
