@@ -29,6 +29,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 
 import org.apache.myfaces.trinidad.convert.ClientConverter;
+import org.apache.myfaces.trinidad.util.IntegerUtils;
 import org.apache.myfaces.trinidadinternal.util.JsonUtils;
 
 public final class NumberConverter extends org.apache.myfaces.trinidad.convert.NumberConverter
@@ -110,49 +111,62 @@ public final class NumberConverter extends org.apache.myfaces.trinidad.convert.N
       UIComponent  component,
       Map<?, ?>    messages)
     {
-      StringBuilder outBuffer = new StringBuilder(250);
-
-      outBuffer.append("new TrNumberConverter(");
-
+  
       String pattern = this.getPattern();
-      String type = this.getType();
-      String localeString = "null";
-      Locale locale = this.getLocale();
-      if(locale != null)
-    	localeString = locale.toString();
+      StringBuilder outBuffer = new StringBuilder(250);
+      
+      if(this.isIntegerOnly() && pattern == null)
+      {
+        outBuffer.append("new TrIntegerConverter(");
+        outBuffer.append("null,null,0,");
+        outBuffer.append(IntegerUtils.getString(Integer.MAX_VALUE));
+        outBuffer.append(',');
+        outBuffer.append(IntegerUtils.getString(Integer.MIN_VALUE));
+        outBuffer.append(")");
+      }
+      else
+      {
+        outBuffer.append("new TrNumberConverter(");
 
-      try
-      {
-        JsonUtils.writeString(outBuffer, pattern, false); 
-      } catch (Exception e)
-      {
-        outBuffer.append("null");
+        String type = this.getType();
+        String localeString = null;
+        Locale locale = this.getLocale();
+        if(locale != null)
+        localeString = locale.toString();
+
+        try
+        {
+          JsonUtils.writeString(outBuffer, pattern, false); 
+        } catch (Exception e)
+        {
+          outBuffer.append("null");
+        }
+        outBuffer.append(',');
+        try
+        {
+          JsonUtils.writeString(outBuffer, type, false);
+        } catch (Exception e)
+        {
+          outBuffer.append("null");
+        }
+        outBuffer.append(',');
+        try
+        {
+          JsonUtils.writeString(outBuffer, localeString, false);
+        } catch (Exception e)
+        {
+          outBuffer.append("null");
+        }
+        outBuffer.append(',');
+        try
+        {
+          JsonUtils.writeMap(outBuffer, messages, false); 
+        } catch (Exception e)
+        {
+          outBuffer.append("null");
+        }
+        outBuffer.append(')');
       }
-      outBuffer.append(',');
-      try
-      {
-        JsonUtils.writeString(outBuffer, type, false);
-      } catch (Exception e)
-      {
-        outBuffer.append("null");
-      }
-      outBuffer.append(',');
-      try
-      {
-        JsonUtils.writeString(outBuffer, localeString, false);
-      } catch (Exception e)
-      {
-        outBuffer.append("null");
-      }
-      outBuffer.append(',');
-      try
-      {
-        JsonUtils.writeMap(outBuffer, messages, false); 
-      } catch (Exception e)
-      {
-        outBuffer.append("null");
-      }
-      outBuffer.append(')');
 
       return outBuffer.toString();
     }
