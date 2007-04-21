@@ -41,7 +41,8 @@
         <plugins>
           <plugin>
             <groupId>org.mortbay.jetty</groupId>
-            <artifactId>maven-jetty6-plugin</artifactId>
+            <artifactId>maven-jetty-plugin</artifactId>
+            <version>6.1.0</version>
             <configuration>
               <scanIntervalSeconds>10</scanIntervalSeconds>
             </configuration>
@@ -94,13 +95,13 @@
   <repositories>
     <repository>
       <releases>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
       </releases>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
       <id>apache-maven-snapshots</id>
-      <url>http://people.apache.org/repo/m2-snapshot-repository/</url>
+      <url>http://people.apache.org/repo/m2-incubating-repository/</url>
     </repository>
   </repositories>
 
@@ -109,14 +110,14 @@
     <dependency>
       <groupId>org.apache.myfaces.core</groupId>
       <artifactId>myfaces-api</artifactId>
-      <version>1.1.5-SNAPSHOT</version>
+      <version>1.1.5</version>
       <scope>compile</scope>
     </dependency>
 
     <dependency>
       <groupId>org.apache.myfaces.core</groupId>
       <artifactId>myfaces-impl</artifactId>
-      <version>1.1.5-SNAPSHOT</version>
+      <version>1.1.5</version>
       <scope>compile</scope>
     </dependency>
 
@@ -124,14 +125,14 @@
     <dependency>
       <groupId>org.apache.myfaces.trinidad</groupId>
       <artifactId>trinidad-api</artifactId>
-      <version>incubator-m1-SNAPSHOT</version>
+      <version>1.0.0-incubating</version>
       <scope>compile</scope>
     </dependency>
 
     <dependency>
       <groupId>org.apache.myfaces.trinidad</groupId>
       <artifactId>trinidad-impl</artifactId>
-      <version>incubator-m1-SNAPSHOT</version>
+      <version>1.0.0-incubating</version>
       <scope>compile</scope>
     </dependency>
 
