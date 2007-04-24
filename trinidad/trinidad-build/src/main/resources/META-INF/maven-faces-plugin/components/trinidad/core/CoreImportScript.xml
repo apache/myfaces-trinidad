@@ -37,7 +37,6 @@
       <property-name>names</property-name>
       <property-class>java.lang.String[]</property-class>
       <property-extension>
-        <mfp:alternate-class>java.lang.String</mfp:alternate-class>
         <mfp:property-metadata>
           <mfp:initial-value>{localName} {0}</mfp:initial-value>
           <mfp:preferred>true</mfp:preferred>
@@ -64,7 +63,6 @@
         <mfp:favorite-property>names</mfp:favorite-property>
         <mfp:group>${md:getTranslatedString("PALETTE_OTHER")}</mfp:group>
       </mfp:component-metadata>
-      <mfp:uix2-local-name>importScript</mfp:uix2-local-name>
       <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
     </component-extension>
   </component>

@@ -25,7 +25,7 @@
     <renderer>
       <component-family>org.apache.myfaces.trinidad.ImportScript</component-family>
       <renderer-type>org.apache.myfaces.trinidad.ImportScript</renderer-type>
-      <renderer-class>org.apache.myfaces.trinidadinternal.uinode.UINodeRendererBase</renderer-class>
+      <renderer-class>org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.ImportScriptRenderer</renderer-class>
       <renderer-extension>
         <mfp:component-type>org.apache.myfaces.trinidad.CoreImportScript</mfp:component-type>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>

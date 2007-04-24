@@ -107,7 +107,6 @@ public class XhtmlLookAndFeel extends BaseLookAndFeel
     ICON_NAME,
     ICON_KEY_NAME,
     IMAGE_NAME,
-    IMPORT_SCRIPT_NAME,
     LINK_NAME,
     NAVIGATION_PATH_NAME,
     OPTION_NAME,

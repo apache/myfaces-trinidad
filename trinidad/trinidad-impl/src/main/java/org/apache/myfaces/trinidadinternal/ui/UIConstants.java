@@ -423,7 +423,6 @@ public interface UIConstants
   public static final String ICON_NAME  = "icon";
   public static final String ICON_KEY_NAME  = "iconKey";
   public static final String IMAGE_NAME  = "image";
-  public static final String IMPORT_SCRIPT_NAME  = "importScript";
   public static final String INCLUDE_NAME = "include";
   public static final String INSERTED_NODE_LIST_NAME = "insertedNodeList";
   public static final String INLINE_DATE_PICKER_NAME = "inlineDatePicker";

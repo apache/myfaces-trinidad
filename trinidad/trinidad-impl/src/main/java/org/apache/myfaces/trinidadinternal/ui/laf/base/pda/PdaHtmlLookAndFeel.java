@@ -146,7 +146,6 @@ public class PdaHtmlLookAndFeel extends XhtmlLookAndFeel
   private static final String[] _UNSUPPORTED_NAMES =
   {
 //    APPLICATION_SWITCHER_NAME,
-    //IMPORT_SCRIPT_NAME,
     SIDE_NAV_NAME,
     //SUB_TAB_BAR_NAME,
     //TREE_NAME,                // Support?
