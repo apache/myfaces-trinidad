@@ -58,7 +58,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
   /**
    * Sets the phaseID of UI events depending on the "immediate" property.
    */
-	@Override
+  @Override
   public void queueEvent(FacesEvent event)
   {
     TableUtils.__handleQueueEvent(this, event);
@@ -70,7 +70,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
    * @param event
    * @throws javax.faces.event.AbortProcessingException
    */
-	@Override
+  @Override
   public void broadcast(FacesEvent event)
     throws AbortProcessingException
   {
@@ -145,8 +145,8 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
 /**/  public abstract MethodBinding getSelectionListener();
 /**/  public abstract boolean isImmediate();
 
-	@Override
-	@SuppressWarnings("unchecked")
+  @Override
+  @SuppressWarnings("unchecked")
   public Object saveState(FacesContext context)
   {
     Object o = super.saveState(context);
@@ -157,8 +157,8 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
     return new Object[]{o, _sortCriteria};
   }
 
-	@Override
-	@SuppressWarnings("unchecked")
+  @Override
+  @SuppressWarnings("unchecked")
   public void restoreState(FacesContext context, Object state)
   {
     Object[] array = (Object[]) state;
