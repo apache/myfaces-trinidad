@@ -67,7 +67,7 @@ public final class TreeTableRenderingContext extends TableRenderingContext
     }
     else
     {
-      _LOG.warning("nodeStamp facet on treeTable:{0} is missing or not of type UIXColumn", getTableId());
+      _LOG.warning("NODESTAMP_FACET_ON_TREETABLE_MISSING_OR_NOT_UIXCOLUMN_TYPE", getTableId());
       _nodeStamp = null;
     }
 

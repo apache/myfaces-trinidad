@@ -506,8 +506,8 @@ public class XMLMenuModel extends BaseMenuModel
        }
        catch (Exception ex)
        {
-         _LOG.warning("EL Expression " + value + 
-                      " is invalid or returned a bad value", ex);
+         _LOG.warning("INVALID_EL_EXPRESSION", value);
+         _LOG.warning(ex);
          return null;
        }
        return elValue;
@@ -536,7 +536,8 @@ public class XMLMenuModel extends BaseMenuModel
     }
     catch (Exception ex)
     {
-      _LOG.severe("Exception opening URI " + uri, ex);
+      _LOG.severe("OPEN_URI_EXCEPTION", uri);
+      _LOG.severe(ex);
       return null;
     }    
   }
@@ -595,7 +596,8 @@ public class XMLMenuModel extends BaseMenuModel
     }
     catch (Exception ex)
     {
-      _LOG.severe(  "Exception creating menu model " + _mdSource, ex);
+      _LOG.severe("ERR_CREATE_MENU_MODEL", _mdSource);
+      _LOG.severe(ex);
       return;
     }
   }

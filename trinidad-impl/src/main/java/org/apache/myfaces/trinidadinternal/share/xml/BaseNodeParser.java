@@ -136,7 +136,7 @@ public class BaseNodeParser implements NodeParser
     String       localName)
   {
     if (_LOG.isWarning())
-      _LOG.warning(localName + " is not an understood child element");
+      _LOG.warning("NOT_UNDERSTOOD_CHILD_NAME", localName);
   }
 
   protected void logUnexpectedAttribute(

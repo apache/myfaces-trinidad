@@ -61,7 +61,7 @@ public class PanelTabbedRenderer extends UINodeRendererBase
         }
       } else
       {
-        _LOG.warning("Only tr:showDetailItem is allowed as child of tr:panelTabbed.");
+        _LOG.warning("ONLY_SHOWDETAILITEM_ALLOWED_AS_PANELTABBED_CHILD");
       }
     }
 

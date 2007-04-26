@@ -71,10 +71,8 @@ class ClassRendererInstantiator implements RendererInstantiator
     Throwable e
     )
   {
-    _LOG.severe("Instantiation of Renderer " +
-                _className                   +
-                " failed.",
-                e);
+    _LOG.severe("RENDERER_INSTANTIATION_FAILED", _className);
+    _LOG.severe(e);
   }
 
   private String _className;

@@ -111,8 +111,7 @@ public class AggregatingResourceLoader extends DynamicResourceLoader
       }
       else
       {
-        _LOG.warning("Resource \"" + _paths[i] +
-                     "\" at path \"" + path + "\" not found");
+        _LOG.warning("RESOURCE_NOT_FOUND", new Object[]{_paths[i], path});
       }
     }
 

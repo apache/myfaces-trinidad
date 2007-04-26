@@ -68,7 +68,7 @@ class CapabilitiesNodeParser extends BaseNodeParser implements XMLConstants
       }
       catch (ParseException pe)
       {
-        _LOG.warning("Unable to parse agent string");
+        _LOG.warning("UNABLE_PARSE_AGENT_STRING");
       }
     }
 
@@ -81,13 +81,12 @@ class CapabilitiesNodeParser extends BaseNodeParser implements XMLConstants
       }
       catch (ParseException pe)
       {
-        _LOG.warning("Unable to parse agent string");
+        _LOG.warning("UNABLE_PARSE_AGENT_STRING");
       }
     }
 
     if ((_id == null) && (_agent == null))
-      _LOG.warning("Element " + ELEMENT_CAPABILITIES +
-                   " has missing (or empty) attributes");
+      _LOG.warning("ELEMENT_MISSING_ATTRIBUTES", ELEMENT_CAPABILITIES);
 
   }
 

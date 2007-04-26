@@ -422,7 +422,7 @@ public final class ColumnData
       data.dataFormat = ICON_FORMAT;
     else
     {
-      _LOG.warning("Unknown value for align:" + format);
+      _LOG.warning("UNKNOWN_VALUE_FOR_ALIGN", format);
     }
   }
 

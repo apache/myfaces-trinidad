@@ -456,15 +456,18 @@ public class MenuContentHandlerImpl extends DefaultHandler
     }
     catch (SAXException saxex)
     {
-      _LOG.severe ( "Exception creating model " + uri, saxex);
+      _LOG.severe ("CREATE_MODEL_EXCEPTION", uri);
+      _LOG.severe(saxex);
     }
     catch (IOException ioe)
     {
-      _LOG.severe ( "Exception creating model " + uri, ioe);
+      _LOG.severe ("CREATE_MODEL_EXCEPTION", uri);
+      _LOG.severe(ioe);
     }
     catch (ParserConfigurationException pce)
     {
-      _LOG.severe ( "Exception creating model " + uri, pce);
+      _LOG.severe ("CREATE_MODEL_EXCEPTION", uri);
+      _LOG.severe(pce);
     }
 
     return _treeModelMap.get(uri);

@@ -284,7 +284,7 @@ public class CorePanelRadioRenderer extends ShowOneListRendererBase
   {
     if (formName == null)
     {
-      _LOG.warning("Page contains no form, it will not work properly");
+      _LOG.warning("PAGE_NOT_CONTAIN_FORM_ELEMENT");
       return null;
     }
 

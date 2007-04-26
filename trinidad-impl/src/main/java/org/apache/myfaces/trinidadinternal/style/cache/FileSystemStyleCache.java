@@ -233,7 +233,8 @@ public class FileSystemStyleCache implements StyleProvider
     catch (IOException e)
     {
       if (_LOG.isWarning())
-        _LOG.warning("IOException during parse of " + _sourceFile, e);
+        _LOG.warning("IOEXCEPTION_IN_PHASE", _sourceFile);
+        _LOG.warning(e);
     }
 
     return document;
@@ -582,7 +583,7 @@ public class FileSystemStyleCache implements StyleProvider
     if ((e == null) || !e.hasNext())
     {
       if (_LOG.isWarning())
-        _LOG.warning("No styles found context - " + context);
+        _LOG.warning("NO_STYLES_FOUND_CONTEXT", context);
       return null;
     }
 
@@ -642,7 +643,8 @@ public class FileSystemStyleCache implements StyleProvider
     catch (IOException e)
     {
       if (_LOG.isWarning())
-        _LOG.warning("IOException while creating file: " + outputFile, e);
+        _LOG.warning("IOEXCEPTION_CREATING_FILE", outputFile);
+        _LOG.warning(e);
     }
 
     if (!created)
@@ -750,7 +752,8 @@ public class FileSystemStyleCache implements StyleProvider
     catch (IOException e)
     {
       if (_LOG.isWarning())
-        _LOG.warning("IOException while opening file for writing: " + file, e);
+        _LOG.warning("IOEXCEPTION_OPENNING_FILE", file);
+        _LOG.warning(e);
     }
 
     return out;

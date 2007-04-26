@@ -51,8 +51,7 @@ public class OracleGIFEncoder implements ImageEncoder
     {
       // System.out.println(Timing.getElapsedString(_lastTime) +
       //                    " secs to encode gif");
-      _LOG.info("Elapsed time:" + (System.currentTimeMillis()-_lastTime) / 1000.0 + " seconds" +
-                " secs to encode gif");
+      _LOG.info("ELAPSED_TIME_ENCODING_GIF", (System.currentTimeMillis()-_lastTime) / 1000.0);
 
     }
   }

@@ -127,9 +127,7 @@ abstract public class Icon
   {
     // This operation is not supported by default.  Log a warning.
     if (_LOG.isWarning())
-      _LOG.warning("Unable to retrieve image data for icon of type "
-                   + getClass().getName()
-                   + ". Try using ContextImageIcon.");
+      _LOG.warning("UNABLE_RETRIEVE_IMAGE_DATA", getClass().getName());
 
     return null;
   }

@@ -331,8 +331,7 @@ public final class TreeUtils
         {
           if (focusRowKey == null)
           {
-            _LOG.severe("Unexpected tree state: focus rowKey is empty on an " +
-                        "expand/collapse all request.");
+            _LOG.severe("UNEXPECTED_TREE_STATE");
             return;
           }
           else

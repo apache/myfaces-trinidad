@@ -438,7 +438,7 @@ public class CoreRenderKit extends RenderKitBase
     }
     else
     {
-      _LOG.warning("No AdfRenderingContext available");
+      _LOG.warning("ADFRENDERINGCONTEXT_NOT_AVAILABLE");
     }
   }
 
@@ -563,7 +563,7 @@ public class CoreRenderKit extends RenderKitBase
                                        RenderKitFactory.HTML_BASIC_RENDER_KIT);
     if (basic == null)
     {
-      _LOG.warning("Basic HTMLRenderKit could not be located");
+      _LOG.warning("CANNOT_LOCATE_HTMLRENDERKIT");
     }
     else
     {
@@ -574,8 +574,7 @@ public class CoreRenderKit extends RenderKitBase
         Renderer renderer = basic.getRenderer(componentFamily, rendererType);
         if (renderer == null)
         {
-          _LOG.warning("Could not find basic HTML renderer for " +
-                       "family " + componentFamily + ", type=" + rendererType);
+          _LOG.warning("CANNOT_FIND_HTML_RENDERER", new Object[]{componentFamily, rendererType});
         }
         else
         {

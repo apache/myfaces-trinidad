@@ -193,9 +193,7 @@ public class ByteLengthValidator
     */
     if (_LOG.isWarning())
     {
-      _LOG.warning("Encoding " + encoding +
-                   " is not supported at the client side. " +
-                   "This will skip client side validation." );
+      _LOG.warning("CLIENT_SIDE_ENCODING_NOT_SUPPORTED", encoding);
     }
     return _UNSUPPORTED_TYPE;
   }

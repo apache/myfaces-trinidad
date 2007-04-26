@@ -153,9 +153,7 @@ public class BeanAdapterUtils
 
     if (_LOG.isInfo())
     {
-      _LOG.info("Cannot convert " + listInstance
-                + " of class:"+ listInstance.getClass()
-                + " into DataObjectList");
+      _LOG.info("CANNOT_CONVERT_INTO_DATAOBJECTLIST", new Object[]{listInstance, listInstance.getClass()});
     }
 
     return null;

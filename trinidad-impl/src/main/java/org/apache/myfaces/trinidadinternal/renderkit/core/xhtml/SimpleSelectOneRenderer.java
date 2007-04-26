@@ -503,8 +503,7 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
       if ((value != null) && (index < 0))
       {
         if (_LOG.isWarning())
-          _LOG.warning("Could not find selected item matching value \"{0}\" " +
-                       "in {1}", new Object[]{value, component});
+          _LOG.warning("CANNOT_FIND_SELECTED_ITEM_MATCHING_VALUE", new Object[]{value, component});
       }
 
       return index;

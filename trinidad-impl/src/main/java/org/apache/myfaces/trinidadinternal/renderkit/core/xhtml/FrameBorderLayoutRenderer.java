@@ -289,8 +289,7 @@ public class FrameBorderLayoutRenderer extends XhtmlRenderer
     if ((val==null))
     {
       if (_LOG.isWarning())
-        _LOG.warning("frame:" + frame.getId()
-                     + " is missing attribute:" + attr);
+        _LOG.warning("FRAME_MISSING_ATTRIBUTE", new Object[]{frame.getId(), attr});
       val="0";
     }
     result.append(val);

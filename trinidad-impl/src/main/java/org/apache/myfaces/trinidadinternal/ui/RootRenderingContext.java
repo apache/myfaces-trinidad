@@ -690,7 +690,7 @@ abstract public class RootRenderingContext extends RenderedNodeRenderingContext
     }
     catch (Exception e)
     {
-      _LOG.severe("Could not get image cache", e);
+      _LOG.severe("CANNOT_GET_IMAGE_CACHE", e);
     }
 
     if (provider == null)

@@ -111,7 +111,7 @@ abstract public class ResetButtonRenderer extends ButtonRenderer
     {
 
         if (_LOG.isWarning())
-          _LOG.warning("No form found for " + node);
+          _LOG.warning("NO_FORM_FOUND", node);
 
 
       return null;

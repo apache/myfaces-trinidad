@@ -84,8 +84,7 @@ abstract public class UIXShowDetailTemplate extends UIXComponentBase
       // problems.  So in either case, warn the developer.
       if (isDisclosed == isDisclosed())
       {
-        _LOG.warning("Event {0} was delivered to a showDetail "+
-                     "already in that disclosure state.", event);
+        _LOG.warning("EVENT_DELIVERED_ALREADY_IN_DISCLOSURE_STATE", event);
       }
       else
       {

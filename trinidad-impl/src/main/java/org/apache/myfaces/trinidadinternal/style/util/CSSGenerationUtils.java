@@ -324,9 +324,7 @@ public class CSSGenerationUtils
       "The selectors after that will be ignored. */");
       if (_LOG.isWarning())
       {
-        _LOG.warning("The css file has hit IE's limit of 4095 CSS selectors. It has " +
-        numberSelectorsWritten + " selectors. " +
-        "The selectors after that will be ignored. ");
+        _LOG.warning("CSS_FILE_HIT_IE_LIMIT_OF_CSS_SELECTOR", numberSelectorsWritten);
       }
     }
 
@@ -821,8 +819,7 @@ public class CSSGenerationUtils
       if (_LOG.isWarning() &&
           (wholeAfSelector.lastIndexOf("::") != colonIndex))
       {
-        _LOG.warning("Consecutive sub-element (::) syntax used in selector " +
-                     selector + ".  This is not supported.");
+        _LOG.warning("UNSUPPORTED_CONSECUTIVE_SUB_ELEMENT_SYNTAX", selector);
       }
 
       colonIndex += 2;

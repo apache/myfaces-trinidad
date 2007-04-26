@@ -255,7 +255,8 @@ class StyleSheetEntry
      catch (Exception e)
      {
        if (_LOG.isSevere())
-         _LOG.severe("Could not load style sheet: " + styleSheetName, e);
+         _LOG.severe("CANNOT_LOAD_STYLESHEET", styleSheetName);
+         _LOG.severe(e);
 
      }
       return null;
@@ -279,7 +280,8 @@ class StyleSheetEntry
     catch (Exception e)
     {
       if (_LOG.isSevere())
-        _LOG.severe("Could not load style sheet: " + styleSheetName, e);
+        _LOG.severe("CANNOT_LOAD_STYLESHEET", styleSheetName);
+        _LOG.severe(e);
     }
 
     return null;

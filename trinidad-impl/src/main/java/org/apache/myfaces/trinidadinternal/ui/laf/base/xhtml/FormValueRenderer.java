@@ -152,8 +152,7 @@ public class FormValueRenderer extends XhtmlLafRenderer
       if (formName == null)
       {
         if (_LOG.isWarning())
-          _LOG.warning("Could not locate parent form for "
-                       + " formValue " + name);
+          _LOG.warning("CANNOT_LOCATE_PARENT_FORM", name);
         return;
       }
 

@@ -644,7 +644,7 @@ public abstract class UIXCollection extends UIXComponentBase
 
     if (rowkey == null)
     {
-      _LOG.severe("Could not find rowKey for clientRowKey:"+clientRowKey);
+      _LOG.severe("CANNOT_FIND_ROWKEY",clientRowKey);
     }
     else
       setRowKey(rowkey);
@@ -1188,9 +1188,7 @@ public abstract class UIXCollection extends UIXComponentBase
         state = stampState.get(iniStateObj, stampId);
         if (state==null)
         {
-          _LOG.severe("There was no initial stamp state for currencyKey:"+
-                      currencyObj+" and currencyKeyForInitialStampState:"+
-                      iniStateObj+" and stampId:"+stampId);
+          _LOG.severe("NO_INITIAL_STAMP_STATE", new Object[]{currencyObj,iniStateObj,stampId});
           continue;
         }
       }

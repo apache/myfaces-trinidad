@@ -613,9 +613,7 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
     {
       if (_LOG.isWarning())
       {
-        _LOG.warning(
-          "Some entries in value of {0} not found in SelectItems: {1}",
-          new Object[]{component, valueList});
+        _LOG.warning("SOME_ENTRIES_NOT_FOUND_IN_SELECTITEMS", new Object[]{component, valueList});
       }
     }
 
@@ -660,4 +658,5 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     EditableValueRenderer.class);
 }
+
 

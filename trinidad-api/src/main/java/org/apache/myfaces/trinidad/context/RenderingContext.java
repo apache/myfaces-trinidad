@@ -78,8 +78,7 @@ abstract public class RenderingContext
     {
       // Instead of halting execution, return "???<key>???",
       // just like JSF and JSTL will do, and log a severe error
-      _LOG.severe("Could not get resource key {0} from skin {1}",
-                  new String[]{key, getSkin().getId()});
+      _LOG.severe("CANNOT_GET_RESOURCE_KEY", new String[]{key, getSkin().getId()});
       return "???" + key + "???";
     }
   }
@@ -143,8 +142,7 @@ abstract public class RenderingContext
     // this scenario from #1.
     if (o != null)
     {
-      _LOG.warning("Trying to attach RenderingContext " +
-                   "to a thread that already had one.");
+      _LOG.warning("TRYING_ATTACH_RENDERERINGCONTEXT");
     }
 
     _CURRENT_CONTEXT.set(this);

@@ -71,6 +71,7 @@ class MenuUtils
     {
       _LOG.severe("EL Expression " + elExpression + 
                   " is invalid or returned a bad value.\n", ex);
+      _LOG.severe(ex);
       return null;
     }
     return retVal;
@@ -220,7 +221,8 @@ class MenuUtils
     }
     catch (MissingResourceException e)
     {
-      _LOG.severe("Resource bundle " + bundleName + " could not be found.", e);
+      _LOG.severe("RESOURCE_BUNDLE_NOT_FOUND", bundleName);
+      _LOG.severe(e);
       return;
     }
  
@@ -402,4 +404,5 @@ class MenuUtils
   private final static TrinidadLogger _LOG = 
                         TrinidadLogger.createTrinidadLogger(MenuUtils.class);
 }
+
 

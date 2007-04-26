@@ -260,7 +260,7 @@ public class TrinidadAgentImpl implements TrinidadAgent, Cloneable
     {
       URL url = _getCapabilitiesFile();
       if (url == null)
-          _LOG.severe ("Could not locate Capabilities document");
+          _LOG.severe ("CANNOT_LOCATE_CAPABILITIES_DOCUMENT");
 
       CapabilitiesProvider capProvider = 
          CapabilitiesProvider.getCapabilitiesProvider(url);
@@ -310,7 +310,7 @@ public class TrinidadAgentImpl implements TrinidadAgent, Cloneable
       
       if (path == null)
       {
-        _LOG.severe("Cannot resolve capabilities file");
+        _LOG.severe("CANNOT_RESOLVE_CAPABILITIES_FILE");
       }
       
       _capUrl = path;

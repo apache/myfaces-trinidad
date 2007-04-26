@@ -80,8 +80,7 @@ public class SkinCSSParser
           {
             if (_LOG.isWarning())
             {
-              _LOG.warning("Ignoring properties " + properties +
-               " because there is no corresponding selector.");
+              _LOG.warning("IGNORING_PROPERTIES_WITHOUT_SELECTOR", properties);
             }
           }
           _documentHandler.endSelector(selectorList);
@@ -398,7 +397,7 @@ public class SkinCSSParser
       {
         if (_LOG.isSevere())
         {
-          _LOG.severe("Error reading from the skin css file", e);
+          _LOG.severe("ERR_READING_SKIN_CSS_FILE", e);
         }
         _currentChar = -1;
         return;

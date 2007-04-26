@@ -47,10 +47,7 @@ public class UnsupportedRenderer implements Renderer
   {
     // not supported so kick out warning
     if (_LOG.isSevere())
-      _LOG.severe("Unsupported UINode:"
-                  + node.getLocalName()
-                  + ", path = "
-                  + context.getPath());
+      _LOG.severe("UNSUPPORTED_UINODE", new Object[]{node.getLocalName(), context.getPath()});
   }
 
   public static Renderer getInstance()

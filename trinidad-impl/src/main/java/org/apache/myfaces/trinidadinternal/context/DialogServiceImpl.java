@@ -161,8 +161,7 @@ public class DialogServiceImpl extends DialogService
     Object usedRenderKit = _getPageFlowScope().get(_USED_RENDER_KIT_KEY);
     if (usedRenderKit == null)
     {
-      _LOG.warning("No 'DialogUsedRK' key available for returnFromDialog to " +
-                   "do the right thing!");
+      _LOG.warning("RETURNFROMDIALOG_KEY_NOT_AVAILABLE");
     }
 
 
@@ -276,7 +275,7 @@ public class DialogServiceImpl extends DialogService
     UIComponent source = getCurrentLaunchSource();
     if (source == null)
     {
-      _LOG.warning("Could not queue return event: no launch source");
+      _LOG.warning("CANNOT_QUEUE_RETURN_EVENT");
     }
     else
     {
@@ -397,9 +396,7 @@ public class DialogServiceImpl extends DialogService
 
     if (service == null)
     {
-      _LOG.info("RenderKit {0} does not support DialogRenderKitService, and " +
-                "cannot be used to launch dialogs;  using a single window " +
-                "instead.", rk);
+      _LOG.info("RENDERKIT_NOT_SUPPORT_DIALOGRENDERKITSERVICE", rk);
     }
 
     return service;

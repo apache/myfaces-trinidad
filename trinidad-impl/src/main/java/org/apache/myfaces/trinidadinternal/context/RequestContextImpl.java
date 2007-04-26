@@ -338,7 +338,7 @@ public class RequestContextImpl extends RequestContext
       // Support the "session" token
       if ("session".equalsIgnoreCase(changeManager))
       {
-        _LOG.info("Apache Trinidad is using HTTPSession for change persistence");
+        _LOG.info("HTTPSESSION_USED_FOR_CHANGE_PERSISTENCE");
         return new SessionChangeManager();
       }
       // Otherwise, just assume its a class name.
@@ -366,8 +366,8 @@ public class RequestContextImpl extends RequestContext
     }
     catch (Throwable throwable)
     {
-      _LOG.warning("Unable to create ChangeManager:" + className,
-                   throwable);
+      _LOG.warning("CHANGE_MANAGER_CREATION_FAILED", className);
+      _LOG.warning(throwable);
       return new NullChangeManager();
     }
   }
@@ -520,8 +520,7 @@ public class RequestContextImpl extends RequestContext
       //listener.getParent().findComponent(trigger);
       if (master == null)
       {
-        _LOG.warning("Could not find partial trigger " + trigger +
-                     " from " + listener);
+        _LOG.warning("CANNOT_FIND_PARTIAL_TRIGGER", new Object[] {trigger, listener});
       }
       else
       {

@@ -102,12 +102,13 @@ public abstract class ChangeManager
           else
           {
             // log warning because class isn't correct type
-            _LOG.warning("Conversion class:" + converterClass + " not of type " + DocumentChangeFactory.class); // NOTRANS
+            _LOG.warning("CONVERSION_CLASS_TYPE", new Object[] {converterClass, DocumentChangeFactory.class}); // NOTRANS
           }
         }
         catch (Throwable e)
         {
-          _LOG.warning("Unable to instantiate converterClass:" + converterName, e); // NOTRANS
+          _LOG.warning("UNABLE_INSTANTIATE_CONVERTERCLASS", converterName); // NOTRANS
+          _LOG.warning(e);
         }
 
 	// if the registered converter class name doesn't work remove

@@ -305,7 +305,8 @@ public class SortableModel extends CollectionModel
     }
     catch (ClassCastException e)
     {
-      _LOG.warning("Invalid rowkey:" + rowKey + " type:" + rowKey.getClass(), e);
+      _LOG.warning("INVALID_ROWKEY", new Object[]{rowKey , rowKey.getClass()});
+      _LOG.warning(e);
       return -1;
     }
   }

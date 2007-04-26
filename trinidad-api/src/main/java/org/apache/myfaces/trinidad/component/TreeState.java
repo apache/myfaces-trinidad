@@ -77,10 +77,7 @@ class TreeState implements Externalizable
     if (arrayCount + transientCount != childCount)
     {
       if (_LOG.isWarning())
-        _LOG.warning(
-            "Saved child count does not match current count " +
-            "(was " + arrayCount + ", now " + childCount + "); " +
-            "discarding saved children state for " + component);
+        _LOG.warning("SAVED_CHILD_COUNT_NOT_MATCH", new Object[] {arrayCount, childCount});
     }
 
     else
@@ -112,8 +109,7 @@ class TreeState implements Externalizable
       if (facetCount < component.getFacetCount())
       {
         if (_LOG.isWarning())
-          _LOG.warning("State for some facets of " + component +
-                       "is missing, and will not be restored.");
+          _LOG.warning("FACETS_STATE_MISSING_WILLNOT_RESTORE", component);
       }
 
 
@@ -131,10 +127,7 @@ class TreeState implements Externalizable
         if (facet == null)
         {
           if (_LOG.isWarning())
-            _LOG.warning("Saved facet state includes state for " +
-                         "facet \"" + facetName + "\" which is not " +
-                         "present in restored tree; discarding this " +
-                         "state.");
+            _LOG.warning("DISCARDING_SAVED_STATE", facetName);
         }
         else
         {
@@ -143,8 +136,7 @@ class TreeState implements Externalizable
             if (facetState != null)
             {
               if (_LOG.isWarning())
-                _LOG.warning("Saved state includes state for a " +
-                             "transient component: " + facet);
+                _LOG.warning("SAVED_STATE_INCLUDE_TRANSIENT_COMPONENT_STATE", facet);
             }
           }
           else

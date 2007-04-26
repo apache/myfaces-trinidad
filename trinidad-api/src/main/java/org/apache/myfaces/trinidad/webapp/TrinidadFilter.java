@@ -43,7 +43,7 @@ public class TrinidadFilter implements Filter
   {
     ClassLoader loader = Thread.currentThread().getContextClassLoader();
     if (loader == null)
-      _LOG.severe("Could not find context class loader.");
+      _LOG.severe("CANNOT_FIND_CONTEXT_CLASS_LOADER");
     else
     {
       try

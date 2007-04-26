@@ -103,7 +103,7 @@ public class TreeRenderer extends HtmlLafRenderer
     String formName = getParentFormName(context);
     if (formName == null)
     {
-      _LOG.warning("The tree component must be used inside of a form.");
+      _LOG.warning("TREE_COMPONENT_MUST_INSIDE_FORM");
       return;
     }
 

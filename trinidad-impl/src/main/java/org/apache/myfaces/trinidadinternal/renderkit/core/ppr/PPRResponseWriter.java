@@ -319,9 +319,7 @@ public class PPRResponseWriter extends ResponseWriterDecorator
       {
         if (_enteringPPR != null)
         {
-          _LOG.warning("No PPR-capable 'id' found for elements of {0}."+
-                       " This component has not written-out an 'id' attribute.",
-                       _enteringPPR);
+          _LOG.warning("NO_PPR_CAPABLE_ID_FOUND_FOR_COMPONENT",_enteringPPR);
           _enteringPPR = null;
         }
 

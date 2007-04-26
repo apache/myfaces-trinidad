@@ -77,12 +77,12 @@ public class CapabilitiesDocumentParser extends BaseNodeParser
     catch (SAXException saxe)
     {
       //Logging handled by tree builder
-      //_LOG.severe("Failed to parse capabilities document", saxe);
+      //_LOG.severe("FAIL_PARSE_CAPABILITIES_DOCUMENT", saxe);
       ;
     }
     catch (IOException ioe)
     {
-      _LOG.severe("Failed to parse capabilities document", ioe);
+      _LOG.severe("FAIL_PARSE_CAPABILITIES_DOCUMENT", ioe);
     }
     finally
     {

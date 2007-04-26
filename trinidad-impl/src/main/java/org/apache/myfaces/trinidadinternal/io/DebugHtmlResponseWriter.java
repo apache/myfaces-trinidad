@@ -141,8 +141,7 @@ public class DebugHtmlResponseWriter extends ResponseWriterDecorator
       // And "target" causes problems too - see bug 2693457
       else if ("target".equals(value))
       {
-        _LOG.warning("\"name\" attribute set to \"target\", which will cause " +
-               "Javascript errors.");
+        _LOG.warning("NAME_ATTRIBUTE_OF_TARGET_WILL_CAUSE_JAVASCRIPT_ERROR");
       }
     }
     // Javascript "onXXXX" handlers never need to start with
@@ -154,9 +153,7 @@ public class DebugHtmlResponseWriter extends ResponseWriterDecorator
       if (valueStr.startsWith("javascript:") ||
           valueStr.startsWith("Javascript:"))
       {
-        _LOG.info("The value of the \"" + name + "\" attribute starts with " +
-                  "\"javascript:\"; this is unnecessary, and in fact can " +
-                  "lead to Javascript errors.");
+        _LOG.info("UNNECESSARY_NAME_ATTRIBUTE_START_WITH_JAVASCRIPT", name);
       }
     }
 

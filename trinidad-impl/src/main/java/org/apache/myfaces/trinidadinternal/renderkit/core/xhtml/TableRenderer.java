@@ -432,9 +432,7 @@ abstract public class TableRenderer extends XhtmlRenderer
     {
       // see bug 2633464
       if (_LOG.isWarning())
-        _LOG.warning("Table with id: "
-                     + tContext.getTableId()
-                     + " has no visible columns!");
+        _LOG.warning("TABLE_HAS_NO_VISIABLE_COLUMN", tContext.getTableId());
 
       ResponseWriter writer = context.getResponseWriter();
 

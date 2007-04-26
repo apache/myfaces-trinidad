@@ -197,7 +197,7 @@ public class CapabilitiesDocument
     {
       if (includedByRefs.contains(matchNode.__getId()))
       {
-        _LOG.warning("Invalid dependency found in include by reference");
+        _LOG.warning("INVALID_DEPENDENCY");
         return new Object[0][0];
       }
 
@@ -299,7 +299,7 @@ public class CapabilitiesDocument
       }
     }
 
-    _LOG.warning("Reference to id: " + refId + " not found");
+    _LOG.warning("REFERENCE_ID_NOT_FOUND", refId);
     return new Object[0][0];
   }
 

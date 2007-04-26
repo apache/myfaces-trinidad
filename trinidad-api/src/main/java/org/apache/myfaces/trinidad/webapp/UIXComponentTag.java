@@ -407,7 +407,8 @@ abstract public class UIXComponentTag extends UIComponentTag
         }
         catch (NumberFormatException e)
         {
-          _LOG.severe("Could not convert:"+value+" into int[]", e);
+          _LOG.severe("CANNOT_CONVERT_INTO_INT_ARRAY",value);
+          _LOG.severe(e);
           return;
         }
       }
@@ -498,8 +499,7 @@ abstract public class UIXComponentTag extends UIComponentTag
     }
     catch (ParseException pe)
     {
-      _LOG.info("Could not parse value {0} into a Date using " +
-                "pattern \"yyyy-MM-dd\";  ignoring.", stringValue);
+      _LOG.info("CANNOT_PARSE_VALUE_INTO_DATE", stringValue);
       return null;
     }
   }

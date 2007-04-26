@@ -84,8 +84,7 @@ public class ConvertBoundValue implements BoundValue
     catch (NumberFormatException nfe)
     {
       if (_LOG.isWarning())
-        _LOG.warning("Could not convert " + value
-                     + " into a " + _getTargetType());
+        _LOG.warning("CANNOT_CONVERT", new Object[]{value, _getTargetType()});
     }
     catch (IllegalArgumentException e)
     {

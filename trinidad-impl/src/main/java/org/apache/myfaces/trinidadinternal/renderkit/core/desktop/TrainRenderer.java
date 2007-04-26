@@ -171,7 +171,7 @@ public class TrainRenderer
 
     if (arc.getFormData() == null)
     {
-      _LOG.warning("Trains must be used inside of a form");
+      _LOG.warning("TRAIN_MUST_INSIDE_FORM");
       return;
     }
 
@@ -219,8 +219,7 @@ public class TrainRenderer
     }
     else
     {
-      _LOG.warning("Train expect a nodeStamp facet, " +
-          "no such facet was found for train " + component);
+      _LOG.warning("NODESTAMP_FACET_NOT_FOUND_FOR_TRAIN", component);
     }
     /*
       _encodeChildren(context, arc, process, stamp, trainState, length);
@@ -1004,7 +1003,7 @@ public class TrainRenderer
         int count = Integer.parseInt(propValue.toString());
         if(count <= 0)
         {
-          _LOG.warning("Visible stop count must be > 0, found " + count);
+          _LOG.warning("VISIBLE_STOP_COUNT_MUST_ABOVE_ZERO", count);
           return DEFAULT_MAX_VISIBLE_STOP_COUNT;
         }
         
@@ -1012,7 +1011,7 @@ public class TrainRenderer
       }
       catch(NumberFormatException e)
       {
-        _LOG.warning("Visible stop count must be an integer, found " + propValue);
+        _LOG.warning("VISIBLE_STOP_COUNT_MYST_INTEGER", propValue);
         return DEFAULT_MAX_VISIBLE_STOP_COUNT;
       }
     }

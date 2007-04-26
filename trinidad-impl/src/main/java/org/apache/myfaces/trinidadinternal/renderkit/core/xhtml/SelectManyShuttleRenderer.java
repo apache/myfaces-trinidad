@@ -102,10 +102,7 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
       numItems++;
       if (numItems > availableItems)
       {
-        _LOG.severe("The number of items selected for shuttle '" +
-                   clientId +
-                   "' exceeds the total number of items in the shuttle." +
-                   " No selected items will be returned.");
+        _LOG.severe("SELECTED_SHUTTLE_ITEMS_EXCEEDED_TOTAL_NUMBER", clientId);
         return new String[0];
       }
 

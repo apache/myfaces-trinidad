@@ -403,7 +403,7 @@ private void _setTranslationKeyTest(
           String localName = (String) entry.getValue();
           int indexOfBar = key.indexOf('|');
           if (indexOfBar < 0)
-            _LOG.severe("Malformed property entry: " + key +"=" + localName);
+            _LOG.severe("MALFORMED_PROPERTY_ENTRY", new Object[]{key, localName});
           else
           {
             String family = key.substring(0, indexOfBar);
@@ -415,7 +415,7 @@ private void _setTranslationKeyTest(
     }
     catch (Exception e)
     {
-      _LOG.severe("Could not load  renderer type to local name mapping.", e);
+      _LOG.severe("CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING", e);
     }
   }
 

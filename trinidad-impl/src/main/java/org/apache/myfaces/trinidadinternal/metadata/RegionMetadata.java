@@ -106,7 +106,8 @@ public final class RegionMetadata extends RegionManager
           }
           catch (IOException e)
           {
-            _LOG.severe("error closing file:"+_CONFIG_FILE_2, e);
+            _LOG.severe("ERR_CLOSING_FILE",_CONFIG_FILE_2);
+            _LOG.severe(e);
           }
         }
       }
@@ -156,13 +157,15 @@ public final class RegionMetadata extends RegionManager
     }
     catch (IOException e)
     {
-      _LOG.warning("Error getting region-metadata files:"+__CONFIG_FILE_OTHER, e);
+      _LOG.warning("ERR_GET_REGION_METADATA_FILE",__CONFIG_FILE_OTHER);
+      _LOG.warning(e);
     }
   }
 
   private static void _error(String publicId, Throwable t)
   {
-    _LOG.warning("Error reading region-metadata file:"+publicId, t);
+    _LOG.warning("ERR_READ_REGION_METADATA_FILE", publicId);
+    _LOG.warning(t);
   }
 
   private static void _readRegionMetadata(
@@ -214,8 +217,7 @@ public final class RegionMetadata extends RegionManager
     RegionConfig old = _map.put(componentType, comp);
     if (old != null)
     {
-      _LOG.warning("Replaced jspUri {0} with {1} for componentType:{2}",
-        new Object[] {old.getJspUIDef(), comp.getJspUIDef(), componentType});
+      _LOG.warning("REPLACE_COMPONENTTYPE_JSPURI", new Object[] {old.getJspUIDef(), comp.getJspUIDef(), componentType});
     }
   }
 
@@ -445,23 +447,20 @@ public final class RegionMetadata extends RegionManager
     {
       if (_LOG.isWarning())
       {
-        _LOG.warning("Unknown element:{0} at {1}",
-          new Object[] {localName,
-                        _getLocation()});
+        _LOG.warning("UNKNOWN_ELEMENT", new Object[] {localName, _getLocation()});
       }
       _skip(localName);
     }
 
     private void _missing(String tag)
     {
-      _LOG.severe("<{0}> is missing at {1}",
-          new Object[] {tag,
-                        _getLocation()});
+      _LOG.severe("MISSING_AT", new Object[] {tag,_getLocation()});
     }
 
     private void _log(Throwable t)
     {
-      _LOG.severe("Exception at "+_getLocation(), t);
+      _LOG.severe("EXCEPTION_AT",_getLocation());
+      _LOG.severe(t);
     }
 
     private String _getLocation()

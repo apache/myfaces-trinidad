@@ -115,7 +115,7 @@ public abstract class AccentedLafIconProvider extends ColorizedLafIconProvider
     if (provider == null)
     {
       if (_LOG.isWarning())
-        _LOG.warning("Could not get image provider for icon: " + iconName);
+        _LOG.warning("CANNOT_GET_IMAGE_PROVIDER_FOR_ICON", iconName);
 
       return null;
     }
@@ -131,7 +131,7 @@ public abstract class AccentedLafIconProvider extends ColorizedLafIconProvider
     if (response == null)
     {
       if (_LOG.isWarning())
-        _LOG.warning("Could not get colorized icon for: " + iconName);
+        _LOG.warning("CANNOT_GET_COLORIZED_ICON", iconName);
     }
 
     return response;
@@ -166,7 +166,7 @@ public abstract class AccentedLafIconProvider extends ColorizedLafIconProvider
 
     if ( source == null )
     {
-      _LOG.warning("Could not find icon with key given");
+      _LOG.warning("CANNOT_FIND_ICON_WITH_GIVEN_KEY");
       return null;
     }
 

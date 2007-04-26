@@ -56,7 +56,7 @@ public class TrainRenderer
   {
     if (arc.getFormData() == null)
     {
-      _LOG.warning("Trains must be used inside of a form");
+      _LOG.warning("TRAIN_MUST_INSIDE_FORM");
       return;
     }
 

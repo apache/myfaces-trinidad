@@ -70,12 +70,12 @@ public class InstanceIconParser extends LeafNodeParser implements XMLConstants
       catch (ClassNotFoundException cnfe)
       {
         if (_LOG.isWarning())
-          _LOG.warning("Could not find class " + className);
+          _LOG.warning("CANNOT_FIND_CLASS", className);
       }
       catch (Error error)
       {
         if (_LOG.isWarning())
-          _LOG.warning("Could not load class " + className + ": " + error);
+          _LOG.warning("CANNOT_LOAD_CLASS", new Object[]{className, error});
       }
     }
 
@@ -103,7 +103,7 @@ public class InstanceIconParser extends LeafNodeParser implements XMLConstants
                   instanceMethod.getReturnType()))
           {
             if (_LOG.isWarning())
-              _LOG.warning("Method " + methodName + " does not return an Icon");
+              _LOG.warning("METHOD_NOT_RETURN_ICON", methodName);
           }
           else
           {
@@ -117,8 +117,7 @@ public class InstanceIconParser extends LeafNodeParser implements XMLConstants
             return (Icon) handlerClass.newInstance();
 
           if (_LOG.isWarning())
-            _LOG.warning("Could not find method " + methodName + " in " +
-                         handlerClass.getName());
+            _LOG.warning("CANNOT_FIND_METHOD", new Object[]{methodName, handlerClass.getName()});
         }
       }
       catch (InstantiationException ie)
@@ -128,8 +127,7 @@ public class InstanceIconParser extends LeafNodeParser implements XMLConstants
       catch (IllegalAccessException iacce)
       {
         if (_LOG.isWarning())
-          _LOG.warning("Could not find access " + methodName + " in " +
-                       handlerClass.getName());
+          _LOG.warning("CANNOT_FIND_ACCESS_METHOD", new Object[]{methodName, handlerClass.getName()});
       }
       catch (IllegalArgumentException iarge)
       {
@@ -151,4 +149,5 @@ public class InstanceIconParser extends LeafNodeParser implements XMLConstants
     "sharedInstance";
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(InstanceIconParser.class);
 }
+
 

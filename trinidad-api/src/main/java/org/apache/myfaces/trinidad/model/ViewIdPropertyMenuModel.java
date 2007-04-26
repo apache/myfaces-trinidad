@@ -203,7 +203,7 @@ public class ViewIdPropertyMenuModel extends BaseMenuModel
       }
       else
       {
-        _LOG.warning("The viewId property in ViewIdPropertyMenuModel is null. The viewId property is needed to find the focus rowKey." );
+        _LOG.warning("NULL_VIEWID");
       }
 
       if (tree.isContainer() && !tree.isContainerEmpty())

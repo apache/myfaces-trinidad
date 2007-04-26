@@ -116,7 +116,7 @@ public class BeanParser extends BaseNodeParser
     {
       if (_currentPropDefUsed)
       {
-        _LOG.warning("Only one child element is allowed here.");
+        _LOG.warning("ONLY_ONE_CHILD_ELEMENT_ALLOWED");
         return null;
       }
 
@@ -501,16 +501,13 @@ public class BeanParser extends BaseNodeParser
             {
               if (defaultNamespace)
               {
-                _LOG.warning("Could not parse value of attribute: "
-                             + attrLocalName,
-                             iae);
+                _LOG.warning("CANNOT_PARSE_ATTRIBUTE_VALUE", attrLocalName);
+                _LOG.warning(iae);
               }
               else
               {
-                _LOG.warning("Could not parse value of attribute: "
-                             + attrLocalName +
-                             ", namespace=" + attrNamespace,
-                             iae);
+                _LOG.warning("CANNOT_PARSE_ATTRIBUTE_VALUE_NAMESPACE", new Object[] {attrLocalName, attrNamespace});
+                _LOG.warning(iae);
               }
             }
           }
@@ -545,10 +542,9 @@ public class BeanParser extends BaseNodeParser
     if (_LOG.isWarning())
     {
       if ("".equals(namespaceURI))
-        _LOG.warning("Unknown attribute: " + localName);
+        _LOG.warning("UNKNOWN_ATTRIBUTE", localName);
       else
-        _LOG.warning("Unknown attribute: " + localName +
-                     ", namespace=" + namespaceURI);
+        _LOG.warning("UNKNOWN_ATTRIBUTE_NAMESPACE", new Object[]{localName, namespaceURI});
     }
   }
 

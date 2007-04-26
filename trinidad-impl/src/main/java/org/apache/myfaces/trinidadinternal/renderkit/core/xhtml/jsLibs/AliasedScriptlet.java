@@ -170,8 +170,7 @@ public class AliasedScriptlet extends Scriptlet
       // Failure to get an InputStream here indicates a
       // serious problem - likely in the UIX build system -
       // so make some noise
-      _LOG.severe("Unable to get resource {0}",
-                  _JAVASCRIPT_ALIAS_FILE);
+      _LOG.severe("UNABLE_GET_RESOURCE",_JAVASCRIPT_ALIAS_FILE);
       throw new AssertionError();
     }
     else

@@ -61,8 +61,7 @@ public class TrinidadFilterImpl implements Filter
       context.getExternalContext().getRequestMap().get(_FILTER_EXECUTED_KEY);
     if (!Boolean.TRUE.equals(isInstalled))
     {
-      _LOG.warning("The TrinidadFilter has not been installed.  Apache Trinidad " +
-                   "requires this filter for proper execution.");
+      _LOG.warning("REQUIRED_TRINIDADFILTER_NOT_INSTALLED");
 
     }
   }

@@ -130,9 +130,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
         }
         catch (ClassCastException cce)
         {
-          _LOG.severe(
-            "Warning: illegal component hierarchy detected, expected UIXCommand but found another type of component instead.",
-            cce);
+          _LOG.severe("ILLEGAL_COMPONENT_HIERARCHY_UIXCOMMAND_EXPECTED", cce);
         }
       }
     }
@@ -140,8 +138,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     {
       if (!(nodeStamp instanceof UIXCommand))
       {
-        _LOG.severe(
-           "Warning: illegal component hierarchy detected, expected UIXCommand but found another type of component instead.");
+        _LOG.severe("ILLEGAL_COMPONENT_HIERARCHY_UIXCOMMAND_EXPECTED");
         return;
 
       }
@@ -428,10 +425,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     {
       if (_LOG.isSevere())
       {
-        _LOG.severe(
-          "Warning: NavigationLevelRenderer was looking for child property \"" +
-          propertyName +
-          "\" but none was found, it is likely that an unexpected child component was found (expected CommandNavigationItem).");
+        _LOG.severe("NAVIGATIONLEVELRENDERER_NOT_FOUND_CHILD_PROPERTY", propertyName);
       }
       return null;
     }

@@ -390,10 +390,7 @@ public class ResourceServlet extends HttpServlet
     _debug = "true".equalsIgnoreCase(debug);
     if (_debug)
     {
-      _LOG.info("Trinidad ResourceServlet is running in debug mode."+
-                " Do not use in a production environment."+
-                " See the "+DEBUG_INIT_PARAM+" parameter" +
-                " in /WEB-INF/web.xml");
+      _LOG.info("RESOURCESERVLET_IN_DEBUG_MODE",DEBUG_INIT_PARAM);
     }
   }
 

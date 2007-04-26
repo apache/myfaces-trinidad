@@ -132,7 +132,7 @@ public class XhtmlUtils
       if (scriptlet == null)
       {
         if (_LOG.isWarning())
-          _LOG.warning("Couldn't find scriptlet: " + libKey);
+          _LOG.warning("CANNOT_FIND_SCRIPTLET", libKey);
       }
       else
       {

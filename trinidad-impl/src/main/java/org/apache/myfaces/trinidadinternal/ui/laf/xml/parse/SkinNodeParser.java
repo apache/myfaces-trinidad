@@ -60,9 +60,9 @@ public class SkinNodeParser extends BaseNodeParser
 
     // id and family are required. log a severe error if they are null.
     if ((_id == null) && (_LOG.isWarning()))
-      _LOG.severe("Required element 'id' not found.");
+      _LOG.severe("REQUIRED_ELEMENT_ID_NOT_FOUND");
     if ((_family == null) && (_LOG.isWarning()))
-      _LOG.severe("Required element 'family' not found.");
+      _LOG.severe("REQURIED_ELEMENT_FAMILY_NOT_FOUND");
 
       
     return new SkinNode(_id, _family, _renderKitId, _extends, _styleSheetName, _bundleName);

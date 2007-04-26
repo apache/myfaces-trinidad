@@ -248,7 +248,7 @@ public final class RowKeySetImpl extends RowKeySet implements Externalizable
   {
     _model = model;
     if (model == null)
-      _LOG.warning("CollectionModel was set to null");
+      _LOG.warning("COLLECTIONMODEL_SET_NULL");
   }
 
   /**

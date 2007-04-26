@@ -159,7 +159,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
     // we cannot render without a nodeStamp:
     if (((UIXTreeTable) component).getNodeStamp() == null)
     {
-      _LOG.warning("'nodeStamp' facet missing!");
+      _LOG.warning("NODESTAMP_FACET_MISSING");
       return;
     }
 

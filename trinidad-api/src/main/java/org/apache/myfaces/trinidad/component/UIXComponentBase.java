@@ -1067,8 +1067,7 @@ abstract public class UIXComponentBase extends UIXComponent
       Renderer renderer = renderKit.getRenderer(getFamily(), rendererType);
       if (renderer == null)
       {
-        _LOG.warning("Could not find renderer for " + this +
-                     ", rendererType = " + rendererType);
+        _LOG.warning("CANNOT_FIND_RENDERER", new Object[]{this, rendererType});
       }
 
       return renderer;
@@ -1356,7 +1355,7 @@ abstract public class UIXComponentBase extends UIXComponent
     }
     catch (Exception e)
     {
-      _LOG.severe("Could not load type properties", e);
+      _LOG.severe("CANNOT_LOAD_TYPE_PROPERTIES", e);
     }
 
     // For testing purposes, return a valid Type

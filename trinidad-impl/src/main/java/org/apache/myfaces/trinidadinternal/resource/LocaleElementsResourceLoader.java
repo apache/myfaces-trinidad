@@ -77,8 +77,7 @@ public class LocaleElementsResourceLoader extends AggregatingResourceLoader
       }
       else
       {
-        _LOG.warning("Resource \"" + _LIBRARIES[i] +
-                     "\" at path \"" + path + "\" not found");
+        _LOG.warning("RESOURCE_NOT_FOUND", new Object[]{_LIBRARIES[i], path});
       }
     }
 

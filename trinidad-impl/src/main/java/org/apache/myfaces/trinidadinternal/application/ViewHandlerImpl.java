@@ -322,8 +322,8 @@ public class ViewHandlerImpl extends ViewHandler
         }
         catch (Exception e)
         {
-          _LOG.warning("Could not load ViewHandler " + alternateViewHandler,
-                       e);
+          _LOG.warning("CANNOT_LOAD_VIEWHANDLER", alternateViewHandler);
+          _LOG.warning(e);
         }
 
         if (viewHandlerInstance != null)
@@ -352,10 +352,7 @@ public class ViewHandlerImpl extends ViewHandler
       _checkTimestamp = Boolean.valueOf(performCheck);
       if (_LOG.isInfo() && _checkTimestamp.booleanValue())
       {
-        _LOG.info("Apache Trinidad is running with time-stamp checking enabled. "+
-                  "This should not be used in a production environment. "+
-                  "See the "+_CHECK_TIMESTAMP_PARAM+
-                  " property in WEB-INF/web.xml");
+        _LOG.info("TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION", _CHECK_TIMESTAMP_PARAM);
       }
     }
 
@@ -496,19 +493,23 @@ public class ViewHandlerImpl extends ViewHandler
       }
       catch (IllegalAccessException iae)
       {
-        _LOG.severe("Could not load " + url, iae);
+        _LOG.severe("CANNOT_LOAD_URL", url);
+        _LOG.severe(iae);
       }
       catch (InstantiationException ie)
       {
-        _LOG.severe("Could not load " + url, ie);
+        _LOG.severe("CANNOT_LOAD_URL", url);
+        _LOG.severe(ie);
       }
       catch (ClassNotFoundException cnfe)
       {
-        _LOG.severe("Could not load " + url, cnfe);
+        _LOG.severe("CANNOT_LOAD_URL", url);
+        _LOG.severe(cnfe);
       }
       catch (IOException ioe)
       {
-        _LOG.severe("Could not load " + url, ioe);
+        _LOG.severe("CANNOT_LOAD_URL", url);
+        _LOG.severe(ioe);
       }
     }
   }

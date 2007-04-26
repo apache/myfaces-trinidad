@@ -140,7 +140,7 @@ public class ComponentRefTag extends UIXComponentRefTag
 
     if (regionType == null)
     {
-      _LOG.severe("'componentType' attribute is required");
+      _LOG.severe("REQUIRE_COMPONENTTYPE_ATTRIBUTE");
     }
     else
 processRegion:
@@ -151,8 +151,7 @@ processRegion:
       ComponentMetaData cmd = (ComponentMetaData) rmd.getRegionConfig(regionType);
       if (cmd == null)
       {
-        _LOG.severe("Could not find metadata for componentType:{0} in region-metadata",
-          regionType);
+        _LOG.severe("CANNOT_FIND_COMPONENTTYPE_METADATA_IN_REGION_METADATA", regionType);
         break processRegion;
       }
 
@@ -178,7 +177,7 @@ processRegion:
             pageContext.getRequest(), pageContext.getResponse());
         }
         else
-          _LOG.severe("There was no jspUri for componentType:"+regionType);
+          _LOG.severe("NO_COMPONENTTYPE_JSPURI",regionType);
       }
       catch (IOException e)
       {
@@ -226,8 +225,7 @@ processRegion:
         // required:
         else if (attr.isRequired())
         {
-          _LOG.severe("attribute:{0} is missing on componentType:{1}",
-                      new Object[] {name, regionType});
+          _LOG.severe("COMPONENTTYPE_MISSING_ATTRIBUTE", new Object[] {name, regionType});
           hasErrors = true;
         }
       }

@@ -220,8 +220,7 @@ public class PollRenderer extends XhtmlRenderer
     
     if (rc.getFormData() == null)
     {
-      _LOG.warning("The poll component must be inside of a form;  " +
-                   "disabling poll " + elementID);
+      _LOG.warning("POLL_COMPOENT_MUST_INSIDE_FORM", elementID);
       return null;
     }
 
