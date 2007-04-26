@@ -106,7 +106,7 @@ class StyleContextImpl implements StyleContext
     }
     catch (RuntimeException e)
     {
-      _LOG.severe("Could not get stylesheet cache", e);
+      _LOG.severe("CANNOT_GET_STYLESHEET_CACHE", e);
     }
 
     // Return a non-null StyleProvider instance

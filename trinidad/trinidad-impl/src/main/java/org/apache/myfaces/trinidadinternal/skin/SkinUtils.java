@@ -490,10 +490,7 @@ public class SkinUtils
       
       if (skinExtends != null)
       {
-        _LOG.severe("Unable to locate base skin \"{0}\" for " +
-                    "use in defining skin of id \"{1}\", family " +
-                    "\"{2}\", renderkit ID \"{3}\". Using the default base skin \"{4}\".",
-                    new String[]{skinExtends, id, family, renderKitId, baseSkin.getId()});
+        _LOG.severe("UNABLE_LOCATE_BASE_SKIN", new String[]{skinExtends, id, family, renderKitId, baseSkin.getId()});
       }
 
     }
@@ -581,13 +578,15 @@ public class SkinUtils
         }
         catch (Exception e)
         {
-         _LOG.warning("Error parsing:"+url, e);
+         _LOG.warning("ERR_PARSING", url);
+         _LOG.warning(e);
         }
       }
     }
     catch (IOException e)
     {
-      _LOG.severe("error loading file:"+ _META_INF_CONFIG_FILE, e);
+      _LOG.severe("ERR_LOADING_FILE", _META_INF_CONFIG_FILE);
+      _LOG.severe(e);
     }
     
     return allSkinsNodes;

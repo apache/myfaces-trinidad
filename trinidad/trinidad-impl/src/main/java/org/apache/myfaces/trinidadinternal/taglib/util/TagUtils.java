@@ -257,8 +257,7 @@ public class TagUtils
     }
     catch (ParseException pe)
     {
-      _LOG.info("Could not parse value {0} into a Date using " +
-                "pattern \"yyyy-MM-dd\";  ignoring.", stringValue);
+      _LOG.info("CANNOT_PARSE_VALUE_INTO_DATE_WITH_YYYY_MM_DD_PATTERN", stringValue);
       return null;
     }
   }

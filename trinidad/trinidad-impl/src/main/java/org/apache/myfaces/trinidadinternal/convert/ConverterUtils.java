@@ -171,9 +171,7 @@ public class ConverterUtils
     }
     catch (FacesException e)
     {
-      _LOG.warning("Tried to create converter for type {0}, but " +
-                   "could not, likely because no converter is registered.",
-                   converterType.toString());
+      _LOG.warning("CANNOT_CREATE_CONVERTER_LIKELY_BECAUSE_NO_CONVERTER_REGISTERED", converterType.toString());
       return null;
     }
   }

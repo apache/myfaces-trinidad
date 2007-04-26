@@ -52,8 +52,7 @@ class IncludeNodeParser extends BaseNodeParser implements XMLConstants
         ((refId != null) && (refId.length() <= 0)) ||
         ((src != null) && (src.length() <= 0)))
     {
-      _LOG.warning("Element " + ELEMENT_INCLUDE +
-                   " has missing (or empty) attributes");
+      _LOG.warning("ELEMENT_MISSING_ATTRIBUTES", ELEMENT_INCLUDE);
       return;
     }
 
@@ -90,7 +89,7 @@ class IncludeNodeParser extends BaseNodeParser implements XMLConstants
     }
     catch (MalformedURLException mue)
     {
-       _LOG.warning("Capability data url " + _src + " is invalid");
+       _LOG.warning("INVALID_CAPABILITY_DATA_URL", _src);
     }
 
     return null;

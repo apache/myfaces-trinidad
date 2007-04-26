@@ -59,8 +59,7 @@ class DeviceNodeParser extends BaseNodeParser implements XMLConstants
         ((id != null) && (id.trim().length() <= 0)) ||
         ((model != null) && (model.trim().length() <= 0)))
     {
-      _LOG.warning("Element " + ELEMENT_DEVICE +
-                   " has missing (or empty) attributes");
+      _LOG.warning("ELEMENT_MISSING_ATTRIBUTES", ELEMENT_DEVICE);
     }
 
     _id = id;
@@ -74,7 +73,7 @@ class DeviceNodeParser extends BaseNodeParser implements XMLConstants
       }
       catch (ParseException pe)
       {
-        _LOG.warning("Unable to parse model string");
+        _LOG.warning("UNABLE_PARSE_MODEL_STRING");
       }
     }
   }
@@ -130,5 +129,6 @@ class DeviceNodeParser extends BaseNodeParser implements XMLConstants
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(DeviceNodeParser.class);
 }
+
 
 

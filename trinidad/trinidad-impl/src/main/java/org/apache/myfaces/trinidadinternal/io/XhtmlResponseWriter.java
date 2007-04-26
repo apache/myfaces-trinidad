@@ -149,10 +149,7 @@ public class XhtmlResponseWriter extends ResponseWriter
     {
       if (!element.equals(name))
       {
-        _LOG.severe("Element End name:"           +
-                    name                          +
-                    " does not match start name:" +
-                    element);
+        _LOG.severe("ELEMENT_END_NAME_NOT_MATCH_START_NAME", new Object[]{name, element});
       }
 
       Writer out = _out;

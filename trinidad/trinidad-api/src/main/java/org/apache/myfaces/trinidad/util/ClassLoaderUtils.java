@@ -261,7 +261,8 @@ public class ClassLoaderUtils
           }
           catch (Exception e)
           {
-            _LOG.warning("Error parsing:"+url, e);
+            _LOG.warning("ERR_PARSING_URL",url);
+            _LOG.warning(e);
           }
         } 
         while(urls.hasMoreElements());
@@ -274,7 +275,8 @@ public class ClassLoaderUtils
     }
     catch (IOException e)
     {
-      _LOG.severe("error loading resource:"+serviceUri, e);
+      _LOG.severe("ERR_LOADING_RESROUCE",serviceUri);
+      _LOG.severe(e);
     }
 
     return Collections.emptyList();
@@ -303,8 +305,7 @@ public class ClassLoaderUtils
   {
     if ((name != null) && name.startsWith("/"))
     {
-      _LOG.warning("Resource name \"" + name + "\" begins with a slash, " +
-                   "which is not portable.");
+      _LOG.warning("RESOURCE_NAME_NOT_PORTABLE", name);
                    
     }
   }

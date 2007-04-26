@@ -361,13 +361,11 @@ public class UIXComponentUINode extends UIComponentUINode
 
       if (factory == null)
       {
-        _LOG.warning("No RendererFactory registered for components in namespace"
-                     + getNamespaceURI());
+        _LOG.warning("NO_RENDERERFACTORY_REGISTERED_COMPONENT", getNamespaceURI());
       }
       else
       {
-       _LOG.warning("No Renderer registered for "
-                    + this);
+       _LOG.warning("NO_RENDERER_REGISTERED", this);
       }
     }
   }

@@ -119,8 +119,7 @@ abstract public class RenderKitBase extends RenderKit
     if (renderer == null)
     {
       if (_LOG.isWarning())
-        _LOG.warning("Renderer ''{0}'' not found for component family ''{1}''",
-                     new String[]{rendererType, family});
+        _LOG.warning("RENDERER_NOT_FOUND", new String[]{rendererType, family});
     }
 
     return renderer;

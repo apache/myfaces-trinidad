@@ -1666,7 +1666,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
           cal = null;
           if(_LOG.isWarning())
           {
-            _LOG.warning("Cannot find RequestContext; two-digit-year-start will be defaulted");
+            _LOG.warning("NO_REQUESTCONTEXT_TWO_DIGIT_YEAR_START_DEFAULT");
           }
         }
         else
@@ -1739,7 +1739,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
       RequestContext context = RequestContext.getCurrentInstance();
       if (context == null)
       {
-        _LOG.warning("Cannot find RequestContext;  TimeZone will default.");
+        _LOG.warning("NO_REQUESTCONTEXT_TIMEZONE_DEFAULT");
       }
       else
       {

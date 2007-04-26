@@ -54,7 +54,7 @@ public final class BandingData
     int interval = (num != null) ? num.intValue() : 0;
     if (interval < 0)
     {
-      _LOG.warning("Illegal value:{0} for {1}", new Object[] {interval, key});
+      _LOG.warning("ILLEGAL_VALUE", new Object[] {interval, key});
       interval = 0;
     }
     return interval;

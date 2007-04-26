@@ -155,7 +155,7 @@ public class PanelAccordionRenderer extends XhtmlRenderer
     String formName = arc.getFormData().getName();
     if (formName == null)
     {
-      _LOG.warning("PanelAccordion must be used inside of a form");
+      _LOG.warning("PANELACCORDION_MUST_INSIDE_FORM");
       return;
     }
 

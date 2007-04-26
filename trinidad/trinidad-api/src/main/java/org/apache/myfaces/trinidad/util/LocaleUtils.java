@@ -192,7 +192,7 @@ class LocaleUtils
       }
       catch (MissingResourceException missingResource)
       {
-        _LOG.severe("unable to load bundle " +_APACHE_TRINIDAD_MESSAGE_BUNDLE);
+        _LOG.severe("UNABLE_LOAD_MESSAGE_BUNDLE",_APACHE_TRINIDAD_MESSAGE_BUNDLE);
         _LOG.severe(missingResource);
       }
     }
@@ -269,7 +269,7 @@ class LocaleUtils
     }
     catch (MissingResourceException missingResource)
     {
-      _LOG.severe("Unable to load faces bundle " + FacesMessage.FACES_MESSAGES);
+      _LOG.severe("UNABLE_LOAD_FACES_BUNDLE", FacesMessage.FACES_MESSAGES);
       _LOG.severe(missingResource);
     }
     return bundle;

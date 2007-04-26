@@ -1139,8 +1139,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
         }
         catch (Exception e)
         {
-          _LOG.warning("Invalid string attribute for chooseDate: {0}",
-                       value);
+          _LOG.warning("INVALID_STRING_ATTRIBUTE", value);
         }
       }
       else if (value instanceof Calendar)
@@ -1455,9 +1454,8 @@ public class ChooseDateRenderer extends XhtmlRenderer
     catch (Exception e)
     {
       if (_LOG.isWarning())
-        _LOG.warning("Unable to encode URL '" + url
-                     + "' using encoding '" + encoding + "'",
-                     e);
+        _LOG.warning("UNABLE_ENCODE_URL", new Object[]{url, encoding});
+        _LOG.warning(e);
     }
 
     // Finally, escape any characters that cause problems for JS

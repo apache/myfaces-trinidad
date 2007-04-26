@@ -267,8 +267,7 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
     FormData fData = arc.getFormData();
     if (fData == null)
     {
-      _LOG.warning("showDetail is not in a form, and " +
-                   "will not function correctly");
+      _LOG.warning("SHOWDETAIL_NOT_IN_FORM_WILLNOT_FUNCTION_PROPERLY");
       return;
     }
 

@@ -146,7 +146,7 @@ public class FrameRenderer extends XhtmlRenderer
     if ((parent == null) ||
         !HtmlFrameBorderLayout.COMPONENT_FAMILY.equals(parent.getFamily()))
     {
-      _LOG.warning("Frames must appear inside FrameBorderLayouts");
+      _LOG.warning("FRAMES_MUST_INSIDE_FRAMEBORDERLAYOUTS");
     }
     else
     {

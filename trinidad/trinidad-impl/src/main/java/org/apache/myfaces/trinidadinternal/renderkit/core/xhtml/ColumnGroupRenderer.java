@@ -490,7 +490,7 @@ public class ColumnGroupRenderer extends XhtmlRenderer
 
     if (arc.getFormData() == null)
     {
-      _LOG.warning("Sorting disabled;  table is not in a form");
+      _LOG.warning("SORTING_DISABLED_TABLE_NOT_IN_FORM");
       return onclick;
     }
 

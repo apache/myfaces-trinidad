@@ -66,7 +66,7 @@ public class GlobalConfiguratorImpl extends Configurator
 
     if (loader == null)
     {
-      _LOG.severe("Could not find context class loader.");
+      _LOG.severe("CANNOT_FIND_CONTEXT_CLASS_LOADER");
     }
     else
     {
@@ -354,7 +354,7 @@ public class GlobalConfiguratorImpl extends Configurator
     }
     else
     {
-      _LOG.warning("Configurator services already initialized.");
+      _LOG.warning("CONFIGURATOR_SERVICES_INITIALIZED");
     }
   }
 
@@ -374,7 +374,7 @@ public class GlobalConfiguratorImpl extends Configurator
     {
       if (_LOG.isWarning())
       {
-        _LOG.warning("RequestContext had not been properly released on earlier " + "request.");
+        _LOG.warning("REQUESTCONTEXT_NOT_PROPERLY_RELEASED");
       }
       context.release();
     }

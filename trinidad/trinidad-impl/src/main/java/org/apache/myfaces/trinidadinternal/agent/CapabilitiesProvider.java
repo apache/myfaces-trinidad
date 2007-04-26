@@ -97,7 +97,7 @@ public class CapabilitiesProvider
       }
       catch (RuntimeException re)
       {
-        _LOG.severe("could not get capabilities from capabilities document", re);
+        _LOG.severe("CANNOT_GET_CAPABILITIES", re);
       }
     }
 

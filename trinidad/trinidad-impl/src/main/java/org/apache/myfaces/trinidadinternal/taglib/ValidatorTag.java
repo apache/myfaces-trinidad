@@ -67,7 +67,7 @@ public final class ValidatorTag extends TagSupport
         UIComponentTag.getParentUIComponentTag(pageContext);
     if (tag == null)
     {
-      _LOG.severe("validator tag is not inside a UIComponent.");
+      _LOG.severe("VALIDATOR_NOT_INSIDE_UICOMPONENT");
       return SKIP_BODY;
     }
 
@@ -83,8 +83,7 @@ public final class ValidatorTag extends TagSupport
       }
       else
       {
-        _LOG.warning("could not create validator for validatorId:{0} and binding:{1}",
-          new String[] {_validatorId, _binding});
+        _LOG.warning("CANNOT_CREATE_VALIDATOR", new String[] {_validatorId, _binding});
       }
     }
 
@@ -131,7 +130,7 @@ public final class ValidatorTag extends TagSupport
       return validator;
     }
     else
-      _LOG.severe("attribute 'validatorId' is missing");
+      _LOG.severe("MISSING_VALIDATORID");
 
     return null;
   }

@@ -73,9 +73,22 @@ public class TrinidadLogger
   {
     if (name == null)
       throw new IllegalArgumentException("Logger Name required");
-   
-    Logger log = Logger.getLogger(name);
+    
+    Logger log;
 
+    if (name.startsWith("org.apache.myfaces.trinidad."))
+    {
+      log = Logger.getLogger(name, _API_LOGGER_BUNDLE);
+    }
+    else if (name.startsWith("org.apache.myfaces.trinidadinternal."))
+    {
+      log = Logger.getLogger(name, _IMPL_LOGGER_BUNDLE);
+    }
+    else
+    {
+      log = Logger.getLogger(name);
+    }
+    
     return new TrinidadLogger(log);
   }
 
@@ -1702,4 +1715,8 @@ public class TrinidadLogger
   }
 
   private Logger _log;
+  
+  private static final String _API_LOGGER_BUNDLE = "org.apache.myfaces.trinidad.resource.LoggerBundle";
+
+  private static final String _IMPL_LOGGER_BUNDLE = "org.apache.myfaces.trinidadinternal.resource.LoggerBundle";
 }

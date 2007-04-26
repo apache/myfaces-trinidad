@@ -49,8 +49,7 @@ public class AgentImpl extends DefaultAgent
   {
     if (nullAgentEntry)
     {
-      _LOG.warning(
-      "The agent type is unknown; creating an agent with null agent attributes.");
+      _LOG.warning("UNKNOWN_AGENT_TYPE_CREATE_WITH_NULL");
       _entry = _NULL_AGENT_ENTRY;
     }
     else

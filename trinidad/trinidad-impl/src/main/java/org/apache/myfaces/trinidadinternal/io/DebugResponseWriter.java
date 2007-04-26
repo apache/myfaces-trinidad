@@ -70,7 +70,7 @@
      super.endDocument();
      if (!_elementStack.empty())
      {
-       _LOG.warning("Elements not closed:");
+       _LOG.warning("ELEMENTS_NOT_CLOSED");
        for (int i = _elementStack.size() - 1; i >=0; i--)
          _LOG.warning(_elementStack.elementAt(i).toString());
      }
@@ -185,8 +185,7 @@
      {
        if (_LOG.isWarning())
        {
-         _LOG.warning("Ending " + name + " when " +
-                       topElement + " expected. Passes:"+_endElementCount);
+         _LOG.warning("ENDING_WHEN_OTHER_EXPECTED", new Object[]{name, topElement, _endElementCount});
        }
 
        for (int i = _elementStack.size() - 1; i >=0; i--)
@@ -215,7 +214,7 @@
    {
      if (!_inElement)
      {
-       _LOG.warning("Writing attribute outside of element");
+       _LOG.warning("ATTRIBUTE_OUTSIDE_ELEMENT");
      }
 
      if ("id".equals(name))
@@ -244,7 +243,7 @@
    {
      if (!_inElement)
      {
-       _LOG.warning("Writing attribute outside of element");
+       _LOG.warning("ATTRIBUTE_OUTSIDE_ELEMENT");
      }
 
      if (value != null)
@@ -262,8 +261,7 @@
    {
      if (_attributes.contains(name))
      {
-       _LOG.warning("Attribute \"" + name + "\" output twice;  " +
-          "writing attribute as \"duplicate_" + name + "\" instead.");
+       _LOG.warning("DUPLICATE_ATTRIBUTE_OUTPUT", new Object[]{name, name});
        return "duplicate_" + name;
      }
      else
@@ -329,4 +327,5 @@
 
    static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(DebugResponseWriter.class);
  }
+
 

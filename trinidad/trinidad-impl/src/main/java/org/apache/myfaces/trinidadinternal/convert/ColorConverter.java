@@ -57,7 +57,7 @@ public class ColorConverter extends org.apache.myfaces.trinidad.convert.ColorCon
 
     if ( component == null)
     {
-      _LOG.severe("The component is null, but it is needed for the client id, so no script written");
+      _LOG.severe("NEEDED_COMPONENT_NULL_NO_SCRIPT_WRITTEN");
       return null;
     }
 
@@ -130,7 +130,7 @@ public class ColorConverter extends org.apache.myfaces.trinidad.convert.ColorCon
     }
     else
     {
-      _LOG.severe("Client id is null, no script rendered");
+      _LOG.severe("NULL_CLIENT_ID_NO_SCRIPT_RENDERED");
     }
 
     return null;

@@ -213,9 +213,7 @@ public class AgentFactoryImpl implements AgentFactory
   private void _populateNullAgentImpl(String userAgent, AgentImpl agent)
   {
     // Log warning message that we are setting the agent entry to null
-    _LOG.warning(
-      "The User-Agent \"{0}\" is unknown;"+
-      " creating an agent with null agent attributes.", userAgent);
+    _LOG.warning("UNKNOWN_AGENT_ATTRIBUTES_CREATE_WITH_NULL", userAgent);
     agent.setAgentEntryToNULL();
   }
 

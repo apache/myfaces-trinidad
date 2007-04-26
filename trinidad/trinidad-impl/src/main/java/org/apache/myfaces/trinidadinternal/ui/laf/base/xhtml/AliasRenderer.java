@@ -64,7 +64,7 @@ abstract public class AliasRenderer implements Renderer, RoledRenderer
     String localName = getLocalName(context, node);
     Renderer renderer = manager.getRenderer(node.getNamespaceURI(), localName);
     if (renderer == null)
-      _LOG.severe("Could not find renderer for alias " + localName);
+      _LOG.severe("CANNOT_FIND_RENDERER", localName);
 
     return renderer;
   }

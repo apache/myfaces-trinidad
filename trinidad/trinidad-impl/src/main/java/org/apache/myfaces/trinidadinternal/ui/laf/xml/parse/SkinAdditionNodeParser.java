@@ -59,9 +59,9 @@ public class SkinAdditionNodeParser extends BaseNodeParser
 
     // id and family are required. log a severe error if they are null.
     if ((_skinId == null) && (_LOG.isWarning()))
-      _LOG.severe("Required element 'skin-id' not found.");
+      _LOG.severe("REQUIRED_ELEMENT_SKINID_NOT_FOUND");
     if ((_styleSheetName == null) && (_LOG.isWarning()))
-      _LOG.severe("Required element 'style-sheet-name' not found.");
+      _LOG.severe("REQUIRED_ELEMENT_STYLE_SHEET_NAME_NOT_FOUND");
 
       
     return new SkinAdditionNode(_skinId, _styleSheetName);

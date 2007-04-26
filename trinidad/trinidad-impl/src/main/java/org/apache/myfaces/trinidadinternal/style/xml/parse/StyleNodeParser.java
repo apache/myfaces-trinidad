@@ -58,8 +58,7 @@ public class StyleNodeParser extends BaseNodeParser
 
     // Name or selector should be specified
     if ((_name == null) && (_selector == null) && _LOG.isWarning())
-      _LOG.warning("<style> elements must have either a name " +
-                   "or a selector attribute");
+      _LOG.warning("ELEMENT_MUST_HAVE_NAME_ATTRIBUTE");
   }
 
   /**

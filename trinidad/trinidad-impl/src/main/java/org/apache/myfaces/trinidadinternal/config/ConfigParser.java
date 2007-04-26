@@ -113,7 +113,7 @@ public class ConfigParser
       }
       catch (Exception e)
       {
-        _LOG.severe("Could not instantiate UploadedFileProcessor", e);
+        _LOG.severe("CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR", e);
         bean.setProperty(RequestContextBean.UPLOADED_FILE_PROCESSOR_KEY,
                          new UploadedFileProcessorImpl());
       }
@@ -133,8 +133,7 @@ public class ConfigParser
     {
       Object debug = bean.getProperty(RequestContextBean.DEBUG_OUTPUT_KEY);
       if (Boolean.TRUE.equals(debug))
-        _LOG.info("Trinidad is running in debug mode. "+
-                  "Do not use in a production environment. See:"+_CONFIG_FILE);
+        _LOG.info("RUNNING_IN_DEBUG_MODE",_CONFIG_FILE);
     }
     return bean;
   }
@@ -175,7 +174,7 @@ public class ConfigParser
         if (key == null)
         {
           if (_LOG.isWarning())
-            _LOG.warning("Element {0} is not understood", qName);
+            _LOG.warning("ELEMENT_NOT_UNDERSTOOD", qName);
         }
         else
         {
@@ -185,8 +184,7 @@ public class ConfigParser
             if (!key.getSupportsBinding())
             {
               if (_LOG.isWarning())
-                _LOG.warning("Element {0} does not support EL expressions.",
-                             qName);
+                _LOG.warning("NOT_SUPPORT_EL_EXPRESSION", qName);
             }
             else
             {
@@ -246,8 +244,7 @@ public class ConfigParser
     {
       if (_LOG.isWarning())
       {
-        _LOG.warning("Element {0} only accepts integer values",
-                     qName);
+        _LOG.warning("ELEMENT_ONLY_ACCEPT_INTEGER", qName);
       }
     }
     return value;

@@ -83,9 +83,7 @@ public class UploadRequestWrapper extends HttpServletRequestWrapper
     // but we shouldn't break it
     if (_parametersRetrieved)
     {
-      _LOG.warning("Unable to set request character encoding to {0}, " + 
-                   "because request parameters have already been read.",
-                   encoding);
+      _LOG.warning("UNABLE_SET_REQUEST_CHARACTER", encoding);
       return;
     }
 

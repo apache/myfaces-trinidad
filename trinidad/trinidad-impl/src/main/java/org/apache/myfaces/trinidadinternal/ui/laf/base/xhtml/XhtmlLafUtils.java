@@ -753,8 +753,7 @@ public class XhtmlLafUtils extends BaseLafUtils
 
           if (component == null)
           {
-            _LOG.warning("The component is null for node with local name " +
-                             node.getLocalName() );
+            _LOG.warning("NULL_COMPONENT_FOR_NODE", node.getLocalName());
           }
 
           boolean unvalidated =
@@ -770,9 +769,7 @@ public class XhtmlLafUtils extends BaseLafUtils
                                                       requiredMessageKey);
         }
         else
-          _LOG.warning("The node name is null and therefore no client side " +
-                       "required validator added for node with local name "+
-                       node.getLocalName());
+          _LOG.warning("NULL_NODE_NAME_NO_VALIDATOR_ADDED", node.getLocalName());
       }
     }
   }

@@ -73,11 +73,11 @@ public class CapabilityDataDocumentParser  extends BaseNodeParser
     }
     catch (SAXException saxe)
     {
-      _LOG.severe("Failed to parse capabilities data document", saxe);
+      _LOG.severe("FAIL_PARSE_CAPABILITIES_DATA_DOCUMENT", saxe);
     }
     catch (IOException ioe)
     {
-      _LOG.severe("Failed to parse capabilities data document", ioe);
+      _LOG.severe("FAIL_PARSE_CAPABILITIES_DATA_DOCUMENT", ioe);
     }
     finally
     {
@@ -131,8 +131,7 @@ public class CapabilityDataDocumentParser  extends BaseNodeParser
       if ((name == null) || (name.length() <= 0) ||
           (value == null) || (value.length() <= 0))
       {
-        _LOG.warning("Element " + ELEMENT_CAPABILITIES +
-                     " has missing (or empty) attributes");
+        _LOG.warning("ELEMENT_MISSING_ATTRIBUTES", ELEMENT_CAPABILITIES);
       }
 
       CapabilityKey key =

@@ -70,10 +70,8 @@ public class PropertyInstantiator
     Throwable e
     )
   {
-    _LOG.severe("Instantiation of Property " +
-                _className                  +
-                " failed.",
-                e);
+    _LOG.severe("FAIL_INSTANTIATE_PROPERTY", _className);
+    _LOG.severe(e);
   }
 
   private String _className;

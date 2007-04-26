@@ -139,10 +139,7 @@ final class FlippedIconRequest extends FlippedIconKey
       else
       {
         if (_LOG.isWarning())
-          _LOG.warning("Unable to flip icon '" + name
-                       + "' because it is not under the current request "
-                       + "context, which is '"
-                       + contextPath + "'.");
+          _LOG.warning("UNABLE_FLIP_ICON", new Object[]{name, contextPath});
       }
     }
     // otherwise it must be a relative path and needs to be converted to

@@ -54,7 +54,7 @@ public class SkinFactoryImpl extends SkinFactory
   {
     if (skinId == null || skin == null)
     {
-      _LOG.warning("Can't add Skin with null skinId or null skin");
+      _LOG.warning("CANNOT_ADD_SKIN");
       return;
     }
 
@@ -79,7 +79,7 @@ public class SkinFactoryImpl extends SkinFactory
 
     if (skinId == null)
     {
-      _LOG.warning("Can't get Skin with null skinId");
+      _LOG.warning("CANNOT_GET_SKIN_WITH_NULL_SKINID");
       return null;
     }
 
@@ -140,9 +140,7 @@ public class SkinFactoryImpl extends SkinFactory
     // that matches the renderkitid.
      if (_LOG.isWarning())
      {
-       _LOG.warning("Can't find a skin that matches family " + family +
-                    " and renderkit " + renderKitId + ", so we will" +
-                    " use the simple skin");
+       _LOG.warning("CANNOT_FIND_MATCHING_SKIN", new Object[]{family, renderKitId});
      }
 
     // if we get here, that means we couldn't find an exact

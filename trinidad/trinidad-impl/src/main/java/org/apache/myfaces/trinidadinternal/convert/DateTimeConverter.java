@@ -195,7 +195,7 @@ public class DateTimeConverter extends
       return buff.toString();
     } else
     {
-      _LOG.severe("Client id is null, no script rendered");
+      _LOG.severe("NULL_CLINET_ID_NO_SCRIPT_RENDERED");
     }
 
     return null;

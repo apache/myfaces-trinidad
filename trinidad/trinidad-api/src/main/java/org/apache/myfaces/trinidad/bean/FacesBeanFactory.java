@@ -80,15 +80,18 @@ public class FacesBeanFactory
     }
     catch (ClassNotFoundException cnfe)
     {
-      _LOG.severe("Could not find FacesBean class " + className, cnfe);
+      _LOG.severe("CANNOT_FIND_FACESBEAN", className);
+      _LOG.severe(cnfe);
     }
     catch (IllegalAccessException iae)
     {
-      _LOG.severe("Could not create instance of FacesBean " + className, iae);
+      _LOG.severe("CANNOT_CREATE_FACESBEAN_INSTANCE", className);
+      _LOG.severe(iae);
     }
     catch (InstantiationException ie)
     {
-      _LOG.severe("Could not create instance of FacesBean " + className, ie);
+      _LOG.severe("CANNOT_CREATE_FACESBEAN_INSTANCE", className);
+      _LOG.severe(ie);
     }
 
     return null;
@@ -119,7 +122,7 @@ public class FacesBeanFactory
     if (list.isEmpty())
     {
       if (_LOG.isInfo())
-        _LOG.info("No faces-bean.properties files located");
+        _LOG.info("NO_FACES_BEAN_PROPERTIES_FILES_LOCATED");
     }
 
     for(URL url : list)
@@ -149,7 +152,8 @@ public class FacesBeanFactory
     }
     catch (IOException ioe)
     {
-      _LOG.severe("Could not load " + url, ioe);
+      _LOG.severe("CANNOT_LOAD_URL", url);
+      _LOG.severe(ioe);
     }
   }
 

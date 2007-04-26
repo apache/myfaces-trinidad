@@ -116,12 +116,12 @@ public class PanelPartialRootRenderer extends XhtmlRenderer
       // as a cause (at least in OC4J 9.0.4 and Tomcat 5.0)
       catch (RuntimeException re)
       {
-        _LOG.severe("Error during partial-page rendering", re);
+        _LOG.severe("ERR_PARTIAL_PAGE_RENDERING", re);
         throw re;
       }
       catch (Error error)
       {
-        _LOG.severe("Error during partial-page rendering", error);
+        _LOG.severe("ERR_PARTIAL_PAGE_RENDERING", error);
         throw error;
       }
       finally

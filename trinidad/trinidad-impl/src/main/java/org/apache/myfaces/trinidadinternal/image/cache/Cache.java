@@ -189,7 +189,7 @@ class Cache
     }
 
     // We should never get here - we should always get a unique name above!
-    _LOG.severe("Couldn't get unique name!");
+    _LOG.severe("CANNOT_GET_UNIQUE_NAME");
 
     return null;
   }

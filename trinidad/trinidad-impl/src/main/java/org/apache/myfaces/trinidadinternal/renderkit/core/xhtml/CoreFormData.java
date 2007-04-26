@@ -285,7 +285,7 @@ public class CoreFormData extends FormData
   {
     if (clientId == null)
     {
-      _LOG.warning("Cannot add client side converter & validators as the node name is null");
+      _LOG.warning("NULL_NODE_NAME_CANNOT_ADD_CONVERTER_AND_VALIDATOR");
       return;
     }
 
@@ -332,7 +332,7 @@ public class CoreFormData extends FormData
     if (validators == null)
     {
       //=-=AEW This seems to be OK right now
-      //_LOG.warning("Null validators iterator for {0}", component);
+      //_LOG.warning("NULL_VALIDATORS_ITERATOR", component);
       ;
     }
     else
@@ -376,9 +376,7 @@ public class CoreFormData extends FormData
       if (convertValidate.converter == null)
         convertValidate.converter = new Object[2];
       else
-        _LOG.warning("There is already a converter on \"" +
-                     convertValidate.clientId +
-                     "\". There should only be one converter per component.");
+        _LOG.warning("DUPLICATE_CONVERTER_ONE_PER_COMPONENT", convertValidate.clientId);
 
 
       // add the converter

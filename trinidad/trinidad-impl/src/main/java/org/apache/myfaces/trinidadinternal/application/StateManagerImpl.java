@@ -399,7 +399,7 @@ public class StateManagerImpl extends StateManager
 
       if (viewState == null)
       {
-        _LOG.severe("Could not find saved view state for token {0}", token);
+        _LOG.severe("CANNOT_FIND_SAVED_VIEW_STATE", token);
         return null;
       }
 
@@ -427,7 +427,7 @@ public class StateManagerImpl extends StateManager
       UIViewRoot root = context.getViewRoot();
       if (root == null && _needStructure(context))
       {
-        _LOG.severe("No structure available and no root available");
+        _LOG.severe("NO_STRUCTURE_ROOT_AVAILABLE");
         return null;
       }
 
@@ -440,7 +440,7 @@ public class StateManagerImpl extends StateManager
     {
       if (!(structure instanceof Structure))
       {
-        _LOG.severe("No structure available");
+        _LOG.severe("NO_STRUCTURE_AVAILABLE");
         return null;
       }
 
@@ -550,6 +550,7 @@ public class StateManagerImpl extends StateManager
       {
         _LOG.warning("Ignoring servlet init parameter:"+CLIENT_STATE_MAX_TOKENS_PARAM_NAME+
           "\n unable to parse:"+maxTokens, nfe);
+        _LOG.warning(nfe);
       }
     }
 

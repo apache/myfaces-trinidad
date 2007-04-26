@@ -895,11 +895,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     {
       if (_LOG.isWarning())
       {
-        _LOG.warning("RequestContext is null:"    +
-                     " decimal separator,"         +
-                     " number grouping separator," +
-                     " currency code"              +
-                     " will be defaulted based on locale " + locale.toString());
+        _LOG.warning("NULL_REQUESTCONTEXT", locale.toString());
         }
     }
   }
@@ -1088,7 +1084,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
       }
       else
       {
-        _LOG.warning("RequestContext is null, unable to get currency code");
+        _LOG.warning("NULL_REQUEST_CONTEXT_UNABLE_GET_CURRENCY_CODE");
       }
     }
 
@@ -1113,8 +1109,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     }
     else
     {  //string cat at compile time.
-      _LOG.warning("Number format was not instance of DecimalFormat: " +
-                   "ignoring currency information while formatting.");
+      _LOG.warning("NUMBER_NOT_DECIMALFORMAT_IGNORE_CURRENCY");
     }
   }
 
@@ -1241,4 +1236,5 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
 
   private static final int _PATTERN_TYPE  = 4;
 }
+
 

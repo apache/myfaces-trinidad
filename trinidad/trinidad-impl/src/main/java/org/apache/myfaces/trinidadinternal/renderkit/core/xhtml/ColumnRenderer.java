@@ -60,7 +60,7 @@ public class ColumnRenderer extends ColumnGroupRenderer
 
     if (tContext == null)
     {
-      _LOG.warning("{0}: Column used outside of a Table", component);
+      _LOG.warning("COMPONENT_COLUMN_OUTSIDE_TABLE", component);
       return;
     }
 

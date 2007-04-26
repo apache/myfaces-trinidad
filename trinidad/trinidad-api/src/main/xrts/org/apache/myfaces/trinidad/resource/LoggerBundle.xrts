@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<!DOCTYPE resources SYSTEM "rts.dtd">
+<resources xmlns="http://myfaces.apache.org/trinidad/rts" package="org.apache.myfaces.trinidad.resource">
+
+<!-- CANNOT_FIND_FACESBEAN -->
+<resource key="CANNOT_FIND_FACESBEAN">Could not find FacesBean class {0}</resource>
+
+<!-- CANNOT_CREATE_FACESBEAN_INSTANCE -->
+<resource key="CANNOT_CREATE_FACESBEAN_INSTANCE">Could not create instance of FacesBean {0}</resource>
+
+<!-- NO_FACES_BEAN_PROPERTIES_FILES_LOCATED -->
+<resource key="NO_FACES_BEAN_PROPERTIES_FILES_LOCATED">No faces-bean.properties files located</resource>
+
+<!-- CANNOT_LOAD_URL -->
+<resource key="CANNOT_LOAD_URL">Could not load {0}</resource>
+
+<!-- ERR_CREATE_NEW_COMPONENT_INSTANCE -->
+<resource key="ERR_CREATE_NEW_COMPONENT_INSTANCE">Error on trying to create new component instance for {0}</resource>
+
+<!-- CONVERSION_CLASS_TYPE -->
+<resource key="CONVERSION_CLASS_TYPE">Conversion class: {0} not of type {1}</resource>
+
+<!-- UNABLE_INSTANTIATE_CONVERTERCLASS -->
+<resource key="UNABLE_INSTANTIATE_CONVERTERCLASS">Unable to instantiate converterClass: {0}</resource>
+
+<!-- SAVED_CHILD_COUNT_NOT_MATCH -->
+<resource key="SAVED_CHILD_COUNT_NOT_MATCH">Saved child count does not match current count (was {0}, now {1})</resource>
+
+<!-- FACETS_STATE_MISSING_WILLNOT_RESTORE -->
+<resource key="FACETS_STATE_MISSING_WILLNOT_RESTORE">State for some facets of {0} is missing, and will not be restored.</resource>
+
+<!-- DISCARDING_SAVED_STATE -->
+<resource key="DISCARDING_SAVED_STATE">Saved facet state includes state for facet "{0}" which is not present in restored tree; discarding this state.</resource>
+
+<!-- SAVED_STATE_INCLUDE_TRANSIENT_COMPONENT_STATE -->
+<resource key="SAVED_STATE_INCLUDE_TRANSIENT_COMPONENT_STATE">Saved state includes state for a transient component: {0}</resource>
+
+<!-- CANNOT_FIND_ROWKEY -->
+<resource key="CANNOT_FIND_ROWKEY">Could not find rowKey for clientRowKey:{0}</resource>
+
+<!-- NO_INITIAL_STAMP_STATE -->
+<resource key="NO_INITIAL_STAMP_STATE">There was no initial stamp state for currencyKey:{0} and currencyKeyForInitialStampState:{1} and stampId:{2}</resource>
+
+<!-- CANNOT_FIND_RENDERER -->
+<resource key="CANNOT_FIND_RENDERER">Could not find renderer for {0} rendererType = {1}</resource>
+
+<!-- CANNOT_LOAD_TYPE_PROPERTIES -->
+<resource key="CANNOT_LOAD_TYPE_PROPERTIES">Could not load type properties</resource>
+
+<!-- CANNOT_GET_RESOURCE_KEY -->
+<resource key="CANNOT_GET_RESOURCE_KEY">Could not get resource key {0} from skin {1}</resource>
+
+<!-- TRYING_ATTACH_RENDERERINGCONTEXT -->
+<resource key="TRYING_ATTACH_RENDERERINGCONTEXT">Trying to attach RenderingContext to a thread that already had one.</resource>
+
+<!-- NO_REQUESTCONTEXT_TWO_DIGIT_YEAR_START_DEFAULT -->
+<resource key="NO_REQUESTCONTEXT_TWO_DIGIT_YEAR_START_DEFAULT">Cannot find RequestContext; two-digit-year-start will be defaulted</resource>
+
+<!-- NO_REQUESTCONTEXT_TIMEZONE_DEFAULT -->
+<resource key="NO_REQUESTCONTEXT_TIMEZONE_DEFAULT">Cannot find RequestContext;  TimeZone will default.</resource>
+
+<!-- FAIL_HOLD_DECIMALFORMAT -->
+<resource key="FAIL_HOLD_DECIMALFORMAT">Failed to get hold of DecimalFormat for type: {0} decimal separator, number grouping separator, currency code will be defaulted based on locale {1}</resource>
+
+<!-- NULL_REQUESTCONTEXT -->
+<resource key="NULL_REQUESTCONTEXT">RequestContext is null: decimal separator, number grouping separator, currency code will be defaulted based on locale</resource>
+
+<!-- NULL_REQUEST_CONTEXT_UNABLE_GET_CURRENCY_CODE -->
+<resource key="NULL_REQUEST_CONTEXT_UNABLE_GET_CURRENCY_CODE">RequestContext is null, unable to get currency code</resource>
+
+<!-- NUMBER_NOT_DECIMALFORMAT_IGNORE_CURRENCY -->
+<resource key="NUMBER_NOT_DECIMALFORMAT_IGNORE_CURRENCY">Number format was not instance of DecimalFormat: ignoring currency information while formatting.</resource>
+
+<!-- COLLECTIONMODEL_SET_NULL -->
+<resource key="COLLECTIONMODEL_SET_NULL">CollectionModel was set to null</resource>
+
+<!-- INVALID_ROWKEY -->
+<resource key="INVALID_ROWKEY">Invalid rowkey:{0} type:{1}</resource>
+
+<!-- NULL_VIEWID -->
+<resource key="NULL_VIEWID">The viewId property in ViewIdPropertyMenuModel is null. The viewId property is needed to find the focus rowKey.</resource>
+
+<!-- INVALID_EL_EXPRESSION -->
+<resource key="INVALID_EL_EXPRESSION">EL Expression {0} is invalid or returned a bad value</resource>
+
+<!-- OPEN_URI_EXCEPTION -->
+<resource key="OPEN_URI_EXCEPTION">Exception opening URI {0}</resource>
+
+<!-- ERR_CREATE_MENU_MODEL -->
+<resource key="ERR_CREATE_MENU_MODEL">Exception creating menu model {0}</resource>
+
+<!-- RESOURCE_NOT_FOUND -->
+<resource key="RESOURCE_NOT_FOUND">Resource "{0}" at path "{1}" not found</resource>
+
+<!-- UNABLE_RETRIEVE_IMAGE_DATA -->
+<resource key="UNABLE_RETRIEVE_IMAGE_DATA">Unable to retrieve image data for icon of type {0}. Try using ContextImageIcon.</resource>
+
+<!-- ERR_PARSING_URL -->
+<resource key="ERR_PARSING_URL">Error parsing:{0}</resource>
+
+<!-- ERR_LOADING_RESROUCE -->
+<resource key="ERR_LOADING_RESROUCE">error loading resource:{0}</resource>
+
+<!-- RESOURCE_NAME_NOT_PORTABLE -->
+<resource key="RESOURCE_NAME_NOT_PORTABLE">Resource name "{0}" begins with a slash, which is not portable.</resource>
+
+<!-- UNABLE_LOAD_MESSAGE_BUNDLE -->
+<resource key="UNABLE_LOAD_MESSAGE_BUNDLE">unable to load bundle {0}</resource>
+
+<!-- UNABLE_LOAD_FACES_BUNDLE -->
+<resource key="UNABLE_LOAD_FACES_BUNDLE">Unable to load faces bundle {0}</resource>
+
+<!-- RESOURCESERVLET_UNABLE_FIND_RESOURCELOADER -->
+<resource key="RESOURCESERVLET_UNABLE_FIND_RESOURCELOADER">Unable to find ResourceLoader for ResourceServlet at servlet path:{0} Cause: Could not find resource:{1}</resource>
+
+<!-- RESOURCESERVLET_IN_DEBUG_MODE -->
+<resource key="RESOURCESERVLET_IN_DEBUG_MODE">Trinidad ResourceServlet is running in debug mode. Do not use in a production environment. See the {0} parameter in /WEB-INF/web.xml</resource>
+
+<!-- CANNOT_FIND_CONTEXT_CLASS_LOADER -->
+<resource key="CANNOT_FIND_CONTEXT_CLASS_LOADER">Could not find context class loader.</resource>
+
+<!-- CANNOT_CONVERT_INTO_INT_ARRAY -->
+<resource key="CANNOT_CONVERT_INTO_INT_ARRAY">Could not convert:{0} into int[]</resource>
+
+<!-- CANNOT_PARSE_VALUE_INTO_DATE -->
+<resource key="CANNOT_PARSE_VALUE_INTO_DATE">Could not parse value {0} into a Date using pattern "yyyy-MM-dd";  ignoring.</resource>
+
+<!-- NO_PARENT_COMPONENTREF_FOUND -->
+<resource key="NO_PARENT_COMPONENTREF_FOUND">no parent &lt;tr:componentRef&gt; found!</resource>
+
+<!-- EVENT_DELIVERED_ALREADY_IN_DISCLOSURE_STATE -->
+<resource key="EVENT_DELIVERED_ALREADY_IN_DISCLOSURE_STATE">Event {0} was delivered to a showDetail already in that disclosure state.</resource>
+
+</resources>

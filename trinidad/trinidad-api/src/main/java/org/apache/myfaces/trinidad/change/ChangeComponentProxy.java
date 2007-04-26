@@ -73,17 +73,13 @@ class ChangeComponentProxy implements Serializable
     }
     catch (InstantiationException ie)
     {
-      _LOG.warning(
-        "Error on trying to create new component instance for " +
-          clazz.getName(),
-        ie);
+      _LOG.warning("ERR_CREATE_NEW_COMPONENT_INSTANCE", clazz.getName());
+      _LOG.warning(ie);
     }
     catch (IllegalAccessException iae)
     {
-      _LOG.warning(
-        "Error on trying to create new component instance for " +
-          clazz.getName(),
-        iae);
+      _LOG.warning("ERR_CREATE_NEW_COMPONENT_INSTANCE", clazz.getName());
+      _LOG.warning(iae);
     }
     return uic;
   }

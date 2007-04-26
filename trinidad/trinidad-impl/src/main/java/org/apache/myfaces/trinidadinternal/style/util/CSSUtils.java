@@ -81,13 +81,7 @@ public class CSSUtils
         {
           // TODO: Add a list of property names expecting an URL here, 
           // "content" maybe?
-          _LOG.warning("An url value delimited by url() is expected for " +
-                       "the property '" +
-                       propertyName + 
-                       "' in style sheet '" +
-                       styleSheetName + 
-                       "'. Found: '" + 
-                       propertyValue + "'.");
+          _LOG.warning("URL_VALUE_EXPECTED_FOR_PROPERTY_IN_STYLE_SHEET", new Object[]{propertyName, styleSheetName, propertyValue});
         }
       }
       return propertyValue;
@@ -197,10 +191,7 @@ public class CSSUtils
       int lastSepIndex = strippedBaseURI.lastIndexOf('/');
       if (lastSepIndex < 0)
       {
-        _LOG.warning("Invalid image uri '" +
-                     uri +
-                     "' in style sheet '" +
-                     styleSheetName);
+        _LOG.warning("INVALID_IMAGE_URI_IN_STYLE_SHEET", new Object[]{uri, styleSheetName});
 
         break;
       }
@@ -825,8 +816,7 @@ public class CSSUtils
       if(uriLength == 0)
       {
         // url() or url('') found, should not happen.
-        _LOG.warning("An empty URL was found in style sheet'" +
-                     styleSheetName + "'.");
+        _LOG.warning("EMPTY_URL_IN_STYLE_SHEET", styleSheetName);
       }
       
       builder.append("url(");

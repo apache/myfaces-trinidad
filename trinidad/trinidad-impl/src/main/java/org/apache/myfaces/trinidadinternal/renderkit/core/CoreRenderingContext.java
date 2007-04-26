@@ -420,7 +420,7 @@ public class CoreRenderingContext extends RenderingContext
         SkinFactory factory = SkinFactory.getFactory();
         if (factory == null)
         {
-          _LOG.warning("There is no SkinFactory");
+          _LOG.warning("NO_SKIN_FACTORY");
           return null;
         }
         
@@ -447,29 +447,20 @@ public class CoreRenderingContext extends RenderingContext
             else
             {
               if (_LOG.isWarning())
-                _LOG.warning("The skin " +requestedSkinId+ 
-                            " specified on the requestMap will not be used because" + 
-                             " the styleSheetDocument id on the requestMap" +
-                             " does not match the local skin's styleSheetDocument's id.");
+                _LOG.warning("REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN",requestedSkinId);
             }                
           }
           else
           {
             if (_LOG.isSevere())
-              _LOG.severe("The skin " +requestedSkinId+ 
-                          " specified on the requestMap will not be used because" + 
-                           " its styleSheetDocument id was not in the requestMap" +
-                           " and it is needed to compare with the local" +
-                           " skin's styleSheetDocument's id to make sure the skins are the same.");              
+              _LOG.severe("REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP",requestedSkinId);              
           }
         }// end requestedSkin != null
         else
         {
           if (_LOG.isWarning())
           {
-            _LOG.warning("The skin " +requestedSkinId+ 
-                        " specified on the requestMap will not be used because" + 
-                         " it does not exist.");
+            _LOG.warning("REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST",requestedSkinId);
           }
         }     
       }
@@ -512,7 +503,7 @@ public class CoreRenderingContext extends RenderingContext
     SkinFactory factory = SkinFactory.getFactory();
     if (factory == null)
     {
-      _LOG.warning("There is no SkinFactory");
+      _LOG.warning("NO_SKIN_FACTORY");
       return;
     }
 
@@ -521,8 +512,7 @@ public class CoreRenderingContext extends RenderingContext
     if (skin == null)
     {
       if (_LOG.isWarning())
-        _LOG.warning("Could not get skin " + skinFamily +
-                     " from the SkinFactory");
+        _LOG.warning("CANNOT_GET_SKIN_FROM_SKINFACTORY", skinFamily);
     }
 
     if (skin == null)

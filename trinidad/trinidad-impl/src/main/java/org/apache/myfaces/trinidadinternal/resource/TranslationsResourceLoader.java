@@ -105,7 +105,8 @@ abstract public class TranslationsResourceLoader
     }
     catch (MissingResourceException mre)
     {
-      _LOG.severe("Could not find bundle " + getBundleName(), mre);
+      _LOG.severe("CANNOT_FIND_BUNDLE", getBundleName());
+      _LOG.severe(mre);
       return "/* COULD NOT FIND BUNDLE " + getBundleName() + " */";
     }
 

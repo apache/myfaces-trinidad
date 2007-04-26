@@ -135,8 +135,7 @@ public class TableSelectOneRenderer extends XhtmlRenderer
 
     if (tContext == null)
     {
-      _LOG.severe("tableSelect components may only be used inside table and " +
-                  "treeTable");
+      _LOG.severe("TABLESELECT_COMPONENT_MAY_ONLY_INSIDE_TABLE_AND_TREETABLE");
       return;
     }
 

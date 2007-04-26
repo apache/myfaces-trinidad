@@ -52,7 +52,7 @@ public class FacetRefTag extends TagSupport
     UIComponentTag tag = UIComponentTag.getParentUIComponentTag(pageContext);
     if (tag == null)
     {
-      _LOG.warning("facetRef must be inside of a UIComponent tag.");
+      _LOG.warning("FACETREF_MUST_INSIDE_UICOMPONENT");
       return SKIP_BODY;
     }
 
@@ -60,7 +60,7 @@ public class FacetRefTag extends TagSupport
     UIComponent region = _getRegionComponent(component);
     if (region == null)
     {
-      _LOG.warning("Cannot find parent <tr:componentRef>");
+      _LOG.warning("CANNOT_FIND_PARENT_COMPONENTREF");
       return SKIP_BODY;
     }
     if (_facet != null)
@@ -78,7 +78,7 @@ public class FacetRefTag extends TagSupport
     }
     else
     {
-      _LOG.warning("facetName is required on facetRef");
+      _LOG.warning("FACETNAME_REQUIRED");
     }
 
     return SKIP_BODY;

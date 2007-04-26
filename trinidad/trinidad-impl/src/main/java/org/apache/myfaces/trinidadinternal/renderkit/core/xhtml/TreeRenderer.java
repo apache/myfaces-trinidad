@@ -145,7 +145,7 @@ public class TreeRenderer extends XhtmlRenderer
     FormData fd = rc.getFormData();
     if (fd == null)
     {
-      _LOG.warning("The tree component must be used inside of a form.");
+      _LOG.warning("TREE_COMPONENT_MUST_INSIDE_FORM");
       return;
     }
 

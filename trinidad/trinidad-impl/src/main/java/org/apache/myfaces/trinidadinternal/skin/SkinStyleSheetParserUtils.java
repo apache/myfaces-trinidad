@@ -741,8 +741,7 @@ class SkinStyleSheetParserUtils
         }
         catch (IOException io)
         {
-          _LOG.warning("Could not get the stylesheet document's timestamp because we couldn't " +
-          "open the connection.");
+          _LOG.warning("CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP");
         }
 
       }

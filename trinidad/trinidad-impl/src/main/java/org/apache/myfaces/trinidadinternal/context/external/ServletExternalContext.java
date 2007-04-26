@@ -112,7 +112,7 @@ public class ServletExternalContext extends ExternalContext
       {
         if (_LOG.isWarning())
         {
-          _LOG.warning("Failed to set character encoding " + e);
+          _LOG.warning("FAIL_SET_CHARACTER_ENCODING", e);
         }
       }
     }
@@ -606,8 +606,8 @@ public class ServletExternalContext extends ExternalContext
     }
     catch (final Exception e)
     {
-      _LOG.warning("Detecting request character encoding is disable.");
-      _LOG.warning("Failed to obtain ServletRequest#setCharacterEncoding() method: " + e);
+      _LOG.warning("REQUEST_CHARACTER_ENCODING_DIABLED");
+      _LOG.warning("FAIL_OBTAIN_SERVLETREQUEST_METHOD", e);
     }
   }
 }

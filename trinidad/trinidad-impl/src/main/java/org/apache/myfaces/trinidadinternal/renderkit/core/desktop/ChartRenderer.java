@@ -234,7 +234,7 @@ public class ChartRenderer extends XhtmlRenderer
     ChartModel model = (ChartModel)chart.getValue();
     if(model==null)
     {
-      _LOG.severe("Model not specified for the chart component.");
+      _LOG.severe("MODEL_NOT_SPECIFIED_FOR_CHART_COMPONENT");
       return;
     }
     sw.append("var seriesLabels = ");

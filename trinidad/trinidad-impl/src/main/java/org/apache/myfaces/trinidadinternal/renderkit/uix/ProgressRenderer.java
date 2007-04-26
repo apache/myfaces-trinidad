@@ -74,9 +74,7 @@ public class ProgressRenderer extends UINodeRendererBase
     Object modelObject = attrs.get(UIConstants.VALUE_PARAM);
     if (modelObject == null || !(modelObject instanceof BoundedRangeModel))
     {
-      _LOG.warning("Value for component with id '" +
-        component.getId() +
-        "' is not a valid BoundedRangeModel instance");
+      _LOG.warning("COMPONENT_VALUE_IS_NOT_VALID_BOUNDEDRANGEMODEL_INSTANCE", component.getId());
     }
     super.encodeBegin(context, component);
   }

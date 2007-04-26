@@ -87,7 +87,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
     {
       // not supported so kick out warning
       if (_LOG.isWarning())
-        _LOG.warning("Unsupported UINode:" + node.getLocalName());
+        _LOG.warning("UNSUPPORTED_UINODE", node.getLocalName());
     }
   }
 
@@ -2080,8 +2080,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
 
         if (component == null)
         {
-          _LOG.warning("The component is null for node with local name " +
-                           node.getLocalName() );
+          _LOG.warning("NULL_COMPONENT_FOR_NODE", node.getLocalName());
         }
 
         boolean unvalidated =
@@ -2206,7 +2205,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
     if (response == null)
     {
       if (_LOG.isWarning())
-        _LOG.warning("Could not get flipped icon for: " + sourceURI);
+        _LOG.warning("CANNOT_FLIP_ICON", sourceURI);
     }
 
     return response;

@@ -134,9 +134,7 @@ public class SkinCSSDocumentHandler
     {
       if (name == null || "".equals(name))
       {
-        _LOG.severe("Error when parsing the skin css file. The property's name " +
-        "cannot be null or the empty string. The parser will ignore it. " +
-        "name is '" + name + "' and value is '"+ value + "'");
+        _LOG.severe("ERR_PARSING_SKIN_CSS_FILE", new Object[] {name, value});
       }
       else
         _propertyNodeList.add(new PropertyNode(name, value));

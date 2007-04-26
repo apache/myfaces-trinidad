@@ -129,7 +129,8 @@ public class StyleSheetDocumentParser extends BaseNodeParser
       catch (IOException e)
       {
         if (_LOG.isWarning())
-          _LOG.warning("Could not parse import: " + href, e);
+          _LOG.warning("CANNOT_PARSE_IMPORT", href);
+          _LOG.warning(e);
       }
 
       return this;
@@ -214,7 +215,7 @@ public class StyleSheetDocumentParser extends BaseNodeParser
   {
     if (href == null)
     {
-      _LOG.warning("Import missing required href attribute");
+      _LOG.warning("MISSING_REQUIRED_HREF");
       return;
     }
 
@@ -298,8 +299,7 @@ public class StyleSheetDocumentParser extends BaseNodeParser
         }
         catch (IOException io)
         {
-          _LOG.warning("Could not get the stylesheet document's timestamp because we couldn't " +
-          "open the connection.");
+          _LOG.warning("CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP");
         }
 
       }
