@@ -95,7 +95,8 @@ public class GlobalButtonRenderer extends HtmlLafRenderer
       writer.endElement(IMAGE_ELEMENT);
     }
 
-    writer.writeText(text, TEXT_ATTR.getAttributeName());
+    if (text != null)
+      writer.writeText(text, TEXT_ATTR.getAttributeName());
 
     writer.endElement(LINK_ELEMENT);
   }

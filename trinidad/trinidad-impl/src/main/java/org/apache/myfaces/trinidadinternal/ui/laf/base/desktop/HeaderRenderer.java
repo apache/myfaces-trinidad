@@ -180,7 +180,8 @@ public class HeaderRenderer
       renderStyleClassAttribute(context, AF_PANEL_HEADER_ERROR_STYLE_CLASS);
     }
     
-    writer.writeText(label, TEXT_ATTR.getAttributeName());
+    if (label != null)
+      writer.writeText(label, TEXT_ATTR.getAttributeName());
 
     if (isError)
     {

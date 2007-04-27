@@ -517,7 +517,9 @@ public class MediaRenderer extends XhtmlRenderer
         writer.endElement("img");
       }
 
-      writer.writeText(getShortDesc(bean), "shortDesc");
+      String shortDesc = getShortDesc(bean);
+      if (shortDesc != null)
+        writer.writeText(shortDesc, "shortDesc");
 
       writer.endElement("a");
     }

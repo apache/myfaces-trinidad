@@ -33,7 +33,6 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.render.RenderUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 
-import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
 
@@ -123,7 +122,6 @@ public class CorePanelChoiceRenderer extends ShowOneListRendererBase
 
     String compId = component.getClientId(context);
 
-    URLEncoder encoder = rCtx.getURLEncoder();
     ResponseWriter out = context.getResponseWriter();
 
     // draw table to contain the select UI control
@@ -140,7 +138,7 @@ public class CorePanelChoiceRenderer extends ShowOneListRendererBase
 
     out.startElement("tr", component);
 
-    renderSelectLabel(rCtx, component, out, encoder, compId);
+    renderSelectLabel(rCtx, component, out, compId);
 
     // Render filler / separator between label and select control
     renderSpacerTD(out, component, getLabelControlSeparatorSize());
@@ -194,7 +192,6 @@ public class CorePanelChoiceRenderer extends ShowOneListRendererBase
       out.writeAttribute("onchange", onChangeJS, null);
     }
 
-    URLEncoder encoder = rCtx.getURLEncoder();
     // Render options now.
     ListIterator<UIComponent> children = component.getChildren().listIterator();
     while (children.hasNext())
@@ -222,10 +219,6 @@ public class CorePanelChoiceRenderer extends ShowOneListRendererBase
         }
 
         String childTitle = (String) detailItem.getAttributes().get("text");
-        if (childTitle != null)
-        {
-          childTitle = encoder.encodeParameter(childTitle);
-        }
         String childClientId = child.getClientId(context);
 
         out.startElement("option", component);
@@ -235,7 +228,9 @@ public class CorePanelChoiceRenderer extends ShowOneListRendererBase
           out.writeAttribute("selected", Boolean.TRUE, null);
         }
 
-        out.writeText(childTitle, null);
+        if (childTitle != null)
+          out.writeText(childTitle, null);
+
         out.endElement("option");
       }
     }

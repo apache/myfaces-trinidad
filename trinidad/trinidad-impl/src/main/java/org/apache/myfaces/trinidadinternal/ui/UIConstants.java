@@ -446,7 +446,6 @@ public interface UIConstants
   public static final String PROCESS_TRAIN_NAME = "processTrain";
   public static final String PROCESSING_NAME = "processing";
   public static final String PROCESS_STEPS_NAME = "processSteps";
-  public static final String PRODUCT_BRANDING_NAME = "productBranding";
   public static final String RAW_TEXT_NAME = "rawText";
   public static final String ROW_LAYOUT_NAME = "rowLayout";
   public static final String SCRIPT_NAME = "script";

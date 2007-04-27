@@ -89,7 +89,8 @@ public class AccessKeyUtils
     else
     {
       // output the text directly since we have no access key
-      writer.writeText(textValue, null);
+      if (textValue != null)
+        writer.writeText(textValue, null);
     }
   }
 

@@ -120,7 +120,8 @@ public class HeaderRenderer
    
         renderIcon(context, node);
 
-        writer.writeText(label, CorePanelHeader.TEXT_KEY.getName());
+        if (label != null)
+          writer.writeText(label, CorePanelHeader.TEXT_KEY.getName());
 
         if (renderStyleElements(context))
             XhtmlLafUtils.endRenderingStyleElements(context);

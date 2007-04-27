@@ -312,8 +312,9 @@ public class PanelAccordionRenderer extends XhtmlRenderer
                                                 getDisclosedTipKey(),
                                                 getUndisclosedTipKey());
       }
-
-      out.writeText(titleText, null);
+      
+      if (titleText != null)
+        out.writeText(titleText, null);
       out.endElement("a");
 
       out.endElement("div"); // Ending div for an individual panel

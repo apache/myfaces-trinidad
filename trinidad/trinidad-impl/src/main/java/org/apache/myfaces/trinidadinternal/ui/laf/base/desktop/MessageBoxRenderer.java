@@ -147,7 +147,8 @@ public class MessageBoxRenderer extends HtmlLafRenderer
 
     writer.startElement(DIV_ELEMENT, null);
     renderStyleClassAttribute(context, AF_MESSAGES_MESSAGE_TEXT_STYLE_CLASS);
-    writer.writeText(message, CoreMessages.MESSAGE_KEY.getName());
+    if (message != null)
+      writer.writeText(message, CoreMessages.MESSAGE_KEY.getName());
     writer.endElement(DIV_ELEMENT);
 
     if (useList)
@@ -227,7 +228,7 @@ public class MessageBoxRenderer extends HtmlLafRenderer
     String text = MessageUtils.getGlobalMessage(context, summary, detail);
     if (isTextFormatted(text))
       renderFormattedText(context, text);
-    else
+    else if (text != null)
       writer.writeText(text, null);
   }
 
@@ -262,7 +263,7 @@ public class MessageBoxRenderer extends HtmlLafRenderer
 
     if (isTextFormatted(summary))
       renderFormattedText(context, description);
-    else
+    else if (description != null)
       writer.writeText(description, null);
 
     return currentChild;

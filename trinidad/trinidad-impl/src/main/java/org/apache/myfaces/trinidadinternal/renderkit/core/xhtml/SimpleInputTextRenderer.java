@@ -439,7 +439,8 @@ public class SimpleInputTextRenderer extends FormInputRenderer
       } // endif !renderAsElement
       else
       {
-        rw.writeText(textValue, "value");
+        if (textValue != null)
+          rw.writeText(textValue, "value");
       }
     }  // endif isTextArea()
     else
@@ -447,7 +448,8 @@ public class SimpleInputTextRenderer extends FormInputRenderer
       // Don't render anything for disabled password fields
       if (!getSecret(bean))
       {
-        rw.writeText(textValue, "value");
+        if (textValue != null)
+          rw.writeText(textValue, "value");
       }
     }
   }

@@ -127,7 +127,8 @@ class DialogRequest
     out.writeText("},\"" , null);
     out.writeText(formName, null);
     out.writeText("\",\"", null);
-    out.writeText(_clientId, null);
+    if (_clientId != null)
+      out.writeText(_clientId, null);
     out.writeText("\",", null);
     boolean isPPR = PartialPageUtils.supportsPartialRendering(arc);
     out.writeText(isPPR ? "1" : "0", null);

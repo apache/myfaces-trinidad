@@ -524,7 +524,9 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
       rw.startElement("td", null);
       renderStyleClass(context, rc, SkinSelectors.SHUTTLE_HEADER_STYLE_CLASS);
       rw.writeAttribute("valign", "bottom", null);
-      rw.writeText(getLeadingHeader(bean), "leadingHeader");
+      String leadingHeader = getLeadingHeader(bean);
+      if (leadingHeader != null)
+        rw.writeText(leadingHeader, "leadingHeader");
       rw.endElement("td");
 
       rw.startElement("td", null);
@@ -547,7 +549,9 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
       }
     }
 
-    rw.writeText(getTrailingHeader(bean), "trailingHeader");
+    String trailingHeader = getTrailingHeader(bean);
+    if (trailingHeader != null)
+      rw.writeText(trailingHeader, "trailingHeader");
     rw.endElement("td");
     rw.endElement("tr");
   }

@@ -434,7 +434,7 @@ public class GlobalHeaderRenderer extends SimpleDesktopRenderer
     Object           text
     ) throws IOException
   {
- context.getResponseWriter().writeText(text, null);
+    context.getResponseWriter().writeText(text, null);
   }
 
   // Gets the style class for the inner content

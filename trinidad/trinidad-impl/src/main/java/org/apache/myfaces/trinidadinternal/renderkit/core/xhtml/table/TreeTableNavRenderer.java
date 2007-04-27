@@ -244,7 +244,8 @@ public class TreeTableNavRenderer extends XhtmlRenderer
     }   
     
     renderStyleClass(context, arc, styleClass);
-    writer.writeText(text, null);
+    if (text != null)
+      writer.writeText(text, null);
     writer.endElement(XhtmlConstants.LINK_ELEMENT);
     
     writer.endElement("div");
