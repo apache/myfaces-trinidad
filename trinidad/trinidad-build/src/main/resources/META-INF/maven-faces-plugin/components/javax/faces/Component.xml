@@ -47,8 +47,9 @@
       </property-extension>
     </property>
     <property>
-      <description>a binding reference to store the component instance
-      </description>
+      <description>an EL reference that will store the component instance on a
+bean.  This can be used to give programmatic access to a component
+from a backing bean, or to move creation of the component to a backing bean.</description>
       <property-name>binding</property-name>
       <property-class>javax.faces.el.ValueBinding</property-class>
     </property>
