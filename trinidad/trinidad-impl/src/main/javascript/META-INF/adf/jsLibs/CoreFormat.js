@@ -48,7 +48,6 @@ TrNumberConverter.prototype._isConvertible = function()
     return false;
 	}
 }
-
 TrNumberConverter.prototype.getFormatHint = function()
 {
 	if(this._messages && this._messages["hintPattern"])
@@ -108,7 +107,7 @@ TrNumberConverter.prototype.getAsObject = function(
                          null,
                          null,
                          label,
-                         null);
+                         true);
   }
   else
 	{
