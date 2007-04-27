@@ -22,6 +22,8 @@ import java.util.List;
 
 import javax.faces.component.UIComponent;
 
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+
 /**
  * Change specialization for adding a child component.
  * While applying this Change, the child component is re-created and added to
@@ -88,7 +90,9 @@ public class AddChildComponentChange extends AddComponentChange
     UIComponent removableChild = ChangeUtils.getChildForId(uiComponent, newChildId);
   
     if (removableChild != null)
-      children.remove(removableChild);
+    {
+      throw new IllegalStateException("Attempt to add a duplicate ID " + newChildId);
+    }
     
     if (_insertBeforeId == null)
     {
@@ -97,26 +101,19 @@ public class AddChildComponentChange extends AddComponentChange
     }
     else
     {
-      int index = _getChildIndex(uiComponent, _insertBeforeId);
-      children.add(index, child);
+      int index = ChangeUtils.getChildIndexForId(uiComponent, _insertBeforeId);
+      if(index == -1)
+      {
+        children.add(child);
+      }
+      else
+      {
+        children.add(index, child);
+      }
     }
   }
   
-  private static int _getChildIndex(UIComponent parent, String childId)
-  {
-    int numChildren = parent.getChildCount();
-    if (childId == null)
-      return numChildren;
-    UIComponent child = ChangeUtils.getChildForId(parent, childId);
-    if (child == null)
-    {
-      return numChildren;
-    }
-    else
-    {
-      return parent.getChildren().indexOf(child);
-    }
-  }
-
   private final String _insertBeforeId;
+  static private final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(AddChildComponentChange.class);
 }

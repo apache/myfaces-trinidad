@@ -18,9 +18,9 @@
  */
 package org.apache.myfaces.trinidad.change;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.faces.context.FacesContext;
 
@@ -42,7 +42,7 @@ public class SessionChangeManager extends BaseChangeManager
    * @param viewId viewID for request
    * @param createIfNecessary <code>true</code> if Map should be created if not
    *        already present
-   * @return Map of componentID tokens to Lists of Changes
+   * @return Synchronized Map of componentID tokens to Lists of Changes
    */
   @SuppressWarnings("unchecked")
   @Override
@@ -59,7 +59,7 @@ public class SessionChangeManager extends BaseChangeManager
     {
       if (!createIfNecessary)
         return null;
-      viewToChangesMap = new HashMap<String, Map<String, List<ComponentChange>>>();
+      viewToChangesMap = new ConcurrentHashMap<String, Map<String, List<ComponentChange>>>();
       sessMap.put(_CHANGE_KEY, viewToChangesMap);
     }
     
@@ -69,7 +69,7 @@ public class SessionChangeManager extends BaseChangeManager
     {
       if (!createIfNecessary)
         return null;
-      componentToChangesMap = new HashMap<String, List<ComponentChange>>();
+      componentToChangesMap = new ConcurrentHashMap<String, List<ComponentChange>>();
       viewToChangesMap.put(viewId, componentToChangesMap);
     }
     return componentToChangesMap;

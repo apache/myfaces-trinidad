@@ -64,6 +64,36 @@ class ChangeUtils
   }
   
   /**
+   * Given a parent component and the identifier for the child, looks up among
+   * the children for a child with the specified identifier and returns the index
+   * of the child
+   * Returns -1 if there were to be no such child
+   * @param parent
+   * @param childId the identifier of child to be searched in the parent's 
+   * children
+   */
+  @SuppressWarnings("unchecked")
+  public static int getChildIndexForId(UIComponent parent, String childId)
+  {
+    if (parent == null)
+      throw new NullPointerException("Parent cannot be null");
+
+    int numChildren = parent.getChildCount();
+    if (numChildren == 0)
+      return -1;
+
+    List<UIComponent> children = parent.getChildren();      
+    UIComponent child;    
+    for (int i=0; i<numChildren; i++)
+    {
+      child = children.get(i);
+      if ( childId.equals(child.getId()) )
+        return i;
+    }
+    return -1;
+  }
+  
+  /**
    * Given a node representing a component, returns the named facet's Element.
    * @param componentNode The node to search for a facet contained in it.
    * @param facetName The name of the facet to search for.

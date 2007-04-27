@@ -19,9 +19,9 @@
 package org.apache.myfaces.trinidad.change;
 
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
@@ -161,7 +161,7 @@ abstract class BaseChangeManager extends ChangeManager
 
     if (changeListForComponent == null)
     {
-      changeListForComponent = new LinkedList<ComponentChange>();
+      changeListForComponent = new CopyOnWriteArrayList<ComponentChange>();
       componentToChangesMap.put(uniqueIdForComponent, changeListForComponent);
     }
 
@@ -181,17 +181,18 @@ abstract class BaseChangeManager extends ChangeManager
     //  own closest ancestor that is a NamingContainer. Matches algorithm of
     //  UIComponent.findComponent().
     UIComponent ancestor = uiComponent;
+    StringBuffer uniqueIdBuffer = new StringBuffer();
+    uniqueIdBuffer.append(uiComponent.getId());
     while (ancestor != null)
     {
       if (ancestor instanceof NamingContainer)
-        break;
+      {
+        uniqueIdBuffer.insert(0,new StringBuffer().append(ancestor.getId()).
+          append(NamingContainer.SEPARATOR_CHAR));
+      }
       ancestor = ancestor.getParent();
     }
-    String namingContainerId = (ancestor == null) ? "":ancestor.getId();
-
-    return namingContainerId +
-           NamingContainer.SEPARATOR_CHAR +
-           uiComponent.getId();
+    return uniqueIdBuffer.toString();
   }
 
   /**

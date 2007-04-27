@@ -113,8 +113,8 @@ abstract public class UIXComponentTag extends UIComponentTag
   public int doEndTag() throws JspException
   {
     UIComponent component = getComponentInstance();
-    if (isSuppressed())
-      _applyChanges(getFacesContext(), component, getCreated());
+    if (isSuppressed() && getCreated())
+      _applyChanges(getFacesContext(), component);
     return super.doEndTag();
   }
 
@@ -122,8 +122,8 @@ abstract public class UIXComponentTag extends UIComponentTag
   protected void encodeBegin() throws java.io.IOException
   {
     UIComponent component = getComponentInstance();
-    if (!isSuppressed())
-      _applyChanges(getFacesContext(), component, getCreated());
+    if (!isSuppressed() && getCreated())
+      _applyChanges(getFacesContext(), component);
     super.encodeBegin();
   }
 
@@ -563,8 +563,7 @@ abstract public class UIXComponentTag extends UIComponentTag
 
   private static void _applyChanges(
     FacesContext facesContext,
-    UIComponent uiComponent,
-    boolean isCreated)
+    UIComponent uiComponent)
   {
     RequestContext afc = RequestContext.getCurrentInstance();
     Iterator<ComponentChange> changeIter =
@@ -575,19 +574,9 @@ abstract public class UIXComponentTag extends UIComponentTag
     while (changeIter.hasNext())
     {
       ComponentChange change = changeIter.next();
-
-      //pu: If we did not create the component during tag execution, do not
-      //  apply any AttributeChange. This is because we do not have enough
-      //  mechanism to take care of such cases for now. Users could always apply
-      //  such Changes explicitly in their backing bean after creating component.
-      boolean isChangeApplicable =
-        ( (change instanceof AttributeComponentChange) && !isCreated) ? false:true;
-
-      if (isChangeApplicable)
-      {
-        change.changeComponent(uiComponent);
-      }
-
+      
+      change.changeComponent(uiComponent);
+      
       //pu: In case this Change has added a new component/facet, the added
       //  component could have its own Changes, that may need to be applied here.
       if (change instanceof AddComponentChange)
@@ -597,7 +586,7 @@ abstract public class UIXComponentTag extends UIComponentTag
 
         if (newAddedComponent != null)
         {
-          _applyChanges(facesContext, newAddedComponent, true);
+          _applyChanges(facesContext, newAddedComponent);
         }
       }
     }
