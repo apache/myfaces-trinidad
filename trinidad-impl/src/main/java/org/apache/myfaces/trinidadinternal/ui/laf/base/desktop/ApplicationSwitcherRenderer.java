@@ -213,7 +213,8 @@ public class ApplicationSwitcherRenderer extends
     writer.startElement(TABLE_DATA_ELEMENT, null);
     writer.writeAttribute(ALIGN_ATTRIBUTE, RIGHT_ATTRIBUTE_VALUE, null);
     renderStyleClassAttribute(context, AF_MENU_CHOICE_LABEL_STYLE_CLASS );
-    writer.writeText(title, "title");
+    if (title != null)
+      writer.writeText(title, "title");
     writer.endElement(TABLE_DATA_ELEMENT);
 
     // add cell with space in it

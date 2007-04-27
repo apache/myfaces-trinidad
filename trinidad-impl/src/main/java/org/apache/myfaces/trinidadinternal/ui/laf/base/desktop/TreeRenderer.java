@@ -330,7 +330,8 @@ public class TreeRenderer extends HtmlLafRenderer
       writer.writeAttribute(ONCLICK_ATTRIBUTE, onclick, null);
     }
 
-    writer.writeText(text, null);
+    if (text != null)
+      writer.writeText(text, null);
 
     if (onclick != null)
     {

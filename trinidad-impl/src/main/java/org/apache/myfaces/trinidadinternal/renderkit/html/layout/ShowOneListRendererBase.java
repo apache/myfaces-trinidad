@@ -34,7 +34,6 @@ import org.apache.myfaces.trinidad.render.RenderUtils;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
-import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
@@ -311,7 +310,6 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
   protected void renderSelectLabel(UIXRenderingContext rCtx,
                                    UIComponent component,
                                    ResponseWriter out,
-                                   URLEncoder encoder,
                                    String compId)
    throws IOException
   {
@@ -337,7 +335,6 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
 
     writeLabel(out,
               component,
-              encoder,
               (String) component.getAttributes().get("label"));
 
     out.endElement("label");
@@ -353,10 +350,10 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
    */
   protected void writeLabel(ResponseWriter out,
                             UIComponent component,
-                            URLEncoder encoder,
                             String label)
     throws IOException
   {
+    // AdamWiner: TODO: replace this with a call to AccessKeyUtils
     Character accessChar =
       (Character) component.getAttributes().get("accessKey");
 
@@ -364,14 +361,14 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
     {
       if (accessChar == null)
       {
-        out.writeText(encoder.encodeParameter(label), null);
+        out.writeText(label, null);
       }
       else
       {
         int accessKeyIndex = label.indexOf(accessChar.charValue());
         if (accessKeyIndex < 0)
         {
-          out.writeText(encoder.encodeParameter(label), null);
+          out.writeText(label, null);
         }
         else
         {
@@ -379,7 +376,7 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
           String strBefAccessKey = label.substring(0, accessKeyIndex);
           String strAfterAccessKey = label.substring(accessKeyIndex + 1,
                                                      label.length());
-          out.writeText(encoder.encodeParameter(strBefAccessKey), null);
+          out.writeText(strBefAccessKey, null);
 
           //ADFFACES-153: use default style (underline) for access key
           out.startElement ("span", null);
@@ -389,7 +386,7 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
           out.writeText (accessChar.toString(), null);
           out.endElement ("span");
           
-          out.writeText(encoder.encodeParameter(strAfterAccessKey), null);
+          out.writeText(strAfterAccessKey, null);
         }
       }
     }

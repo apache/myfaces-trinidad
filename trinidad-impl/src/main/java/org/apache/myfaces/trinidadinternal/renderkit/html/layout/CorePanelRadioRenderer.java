@@ -32,7 +32,6 @@ import org.apache.myfaces.trinidad.render.CoreRenderer;
 import org.apache.myfaces.trinidad.render.RenderUtils;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
-import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafUtils;
@@ -62,7 +61,6 @@ public class CorePanelRadioRenderer extends ShowOneListRendererBase
 
     String compId = component.getClientId(context);
 
-    URLEncoder encoder = rCtx.getURLEncoder();
     ResponseWriter out = context.getResponseWriter();
 
     // draw table to contain the select UI control
@@ -90,7 +88,8 @@ public class CorePanelRadioRenderer extends ShowOneListRendererBase
       renderStyleClassAttribute(rCtx,
                                 SkinSelectors.AF_LABEL_TEXT_STYLE_CLASS);
 
-    out.writeText(encoder.encodeParameter(label), null);
+    if (label != null)
+      out.writeText(label, null);
 
     out.endElement("span");
     out.endElement("td");
@@ -139,8 +138,6 @@ public class CorePanelRadioRenderer extends ShowOneListRendererBase
     out.writeAttribute("border", "0", null);
     out.writeAttribute("cellspacing", "0", null);
     out.writeAttribute("cellpadding", "0", null);
-
-    URLEncoder encoder = rCtx.getURLEncoder();
 
     ListIterator<UIComponent> children = component.getChildren().listIterator();
     while (children.hasNext())
@@ -254,7 +251,6 @@ public class CorePanelRadioRenderer extends ShowOneListRendererBase
 
       writeLabel(out,
                  detailItem,
-                 encoder,
                  (String) detailItem.getAttributes().get("text"));
 
       out.endElement("span");

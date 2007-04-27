@@ -139,10 +139,10 @@ public class MessageBoxRenderer extends XhtmlLafRenderer
     text.setAttributeValue(TEXT_ATTR, getTranslatedString(context, messageKey) );
 
     //PH: Create BODY Styling for the entire MessageBox.
-	writer.startElement("table", null);
-	renderStyleClassAttribute(context, "af|messages::body");
-	writer.startElement("tr", null);
-	writer.startElement("td", null);
+    writer.startElement("table", null);
+    renderStyleClassAttribute(context, "af|messages::body");
+    writer.startElement("tr", null);
+    writer.startElement("td", null);
 
 
     writer.startElement("b", node.getUIComponent());
@@ -252,7 +252,7 @@ public class MessageBoxRenderer extends XhtmlLafRenderer
     String text = MessageUtils.getGlobalMessage(context, summary, detail);
     if (isTextFormatted(text))
       renderFormattedText(context, text);
-    else
+    else if (text != null)
       writer.writeText(text, null);
   }
 
@@ -286,7 +286,7 @@ public class MessageBoxRenderer extends XhtmlLafRenderer
 
     if (isTextFormatted(summary))
       renderFormattedText(context, description);
-    else
+    else if (description != null)
       writer.writeText(description, null);
 
     return currentChild;

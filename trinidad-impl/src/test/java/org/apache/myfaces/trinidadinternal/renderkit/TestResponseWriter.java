@@ -337,6 +337,8 @@ public class TestResponseWriter extends ResponseWriter
   public void writeText(Object text, String componentPropertyName)
      throws IOException
   {
+    _checkText(text);
+
     if (text != null)
     {
       _closeStartIfNecessary();
@@ -357,6 +359,7 @@ public class TestResponseWriter extends ResponseWriter
   public void writeText(char text[], int off, int len)
         throws IOException
   {
+    _checkText(text);
     // Hardly efficient, but easier to write the one bottleneck.
     writeText(new String(text, off, len), null);
   }
@@ -486,6 +489,12 @@ public class TestResponseWriter extends ResponseWriter
     {
       XMLEscapes.writeText(_out, value.toString().toCharArray());
     }
+  }
+
+  private void _checkText(Object text)
+  {
+    if (text == null)
+      throw new NullPointerException();
   }
 
 

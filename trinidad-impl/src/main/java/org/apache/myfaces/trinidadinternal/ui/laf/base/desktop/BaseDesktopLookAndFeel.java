@@ -264,7 +264,6 @@ public class BaseDesktopLookAndFeel extends XhtmlLookAndFeel
     PROCESS_CHOICE_BAR_NAME,
     PROCESS_TRAIN_NAME,
     PROCESSING_NAME,
-    PRODUCT_BRANDING_NAME,
     SEPARATOR_NAME,
     SHOW_ONE_TAB_NAME,
     SIDE_BAR_NAME,

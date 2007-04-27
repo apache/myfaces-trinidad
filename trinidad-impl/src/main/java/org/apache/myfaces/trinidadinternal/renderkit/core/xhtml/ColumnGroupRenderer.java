@@ -555,7 +555,9 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     String                sortOnclick) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
-    rw.writeText(getHeaderText(getFacesBean(column)), "headerText");
+    String headerText = getHeaderText(getFacesBean(column));
+    if (headerText != null)
+      rw.writeText(headerText, "headerText");
 
     UIComponent header = getFacet(column, CoreColumn.HEADER_FACET);
     if (header != null)

@@ -336,7 +336,8 @@ public class TreeRenderer extends XhtmlRenderer
       writer.writeAttribute(XhtmlConstants.ONCLICK_ATTRIBUTE, onclick, null);
     }
 
-    writer.writeText(text, null);
+    if (text != null)
+      writer.writeText(text, null);
 
     if (onclick != null)
     {

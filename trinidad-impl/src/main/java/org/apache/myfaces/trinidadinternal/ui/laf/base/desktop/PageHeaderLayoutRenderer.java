@@ -155,20 +155,6 @@ public class PageHeaderLayoutRenderer extends HtmlLafRenderer
       ((inContextBranding != null) || isCompact);
 
 
-    if ((productBranding != null))
-    {
-      if (inContextOrCompact)
-      {
-        // The ProductBrandingBean changes look depending upon if the
-        // inContextBranding named child exists. So, set the property
-        // on the rendering context to communicate this with the
-        // ProductBrandingRenderer
-        setRenderingProperty(context,
-                             COMPACT_PRODUCT_BRANDING_PROPERTY,
-                             Boolean.TRUE);
-      }
-    }
-
     //
     // Create the middle table, if necessary.
     // brandingCount counts corporateBranding,
@@ -705,11 +691,6 @@ public class PageHeaderLayoutRenderer extends HtmlLafRenderer
     }
     return colSpan;
   }
-
-  // context property to indicate that the compact Product Branding needs to be
-  // rendered -- either because inContextBranding exists or pageLayout's
-  // chromeType is compact.
-  public static final Object COMPACT_PRODUCT_BRANDING_PROPERTY = new Object();
 
   private static final int _TAB_SPACER_SIZE = 10;
 

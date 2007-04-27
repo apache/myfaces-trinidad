@@ -98,7 +98,7 @@ public class FrameRenderer extends XhtmlRenderer
       renderEncodedActionURI(context, "href", source);
       if (shortDesc != null)
         writer.writeText(shortDesc, "shortDesc");
-      else
+      else if (source != null)
         writer.writeText(source, null);
 
       writer.endElement("a");

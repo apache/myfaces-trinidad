@@ -113,7 +113,8 @@ public class PanelHeaderRenderer extends XhtmlRenderer
                        SkinSelectors.AF_PANEL_HEADER_ERROR_STYLE_CLASS);
     }
     
-    writer.writeText(text, "text");
+    if (text != null)
+      writer.writeText(text, "text");
 
     if (isError)
     {
