@@ -171,7 +171,8 @@ public abstract class ChangeManager
 
   /**
   * Retrieve the identifiers of all components on this request that have Changes
-  *  associated with them.
+  *  associated with them for the viewId specified in the facesContext.
+  * @param facesContext
   * @return An Iterator that can be used to access the collection of component
   *          identifiers. Returns null if there are no such components.
   */
