@@ -347,12 +347,14 @@ public class ViewHandlerImpl extends ViewHandler
         context.getExternalContext().getInitParameter(_CHECK_TIMESTAMP_PARAM);
       // Detect when we're running inside of the JDeveloper embedded OC4J
       // environment - and there, always use timestamp checking
+      // TODO: come up with a non-proprietary way of checking this?
       boolean performCheck = "true".equals(checkTimestamp) ||
-        "development".equals(System.getProperty("oracle.application.environment")); // bug 4564938
+        "development".equals(System.getProperty("oracle.application.environment"));
       _checkTimestamp = Boolean.valueOf(performCheck);
-      if (_LOG.isInfo() && _checkTimestamp.booleanValue())
+      if ("true".equals(checkTimestamp))
       {
-        _LOG.info("TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION", _CHECK_TIMESTAMP_PARAM);
+        _LOG.info("TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION",
+                  _CHECK_TIMESTAMP_PARAM);
       }
     }
 
