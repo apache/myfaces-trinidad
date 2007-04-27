@@ -226,7 +226,7 @@
 <resource key="RENDERER_INSTANTIATION_FAILED">Instantiation of Renderer {0} failed</resource>
 
 <!-- RENDERER_NOT_FOUND -->
-<resource key="RENDERER_NOT_FOUND">Renderer '{0}' not found for component family '{1}'</resource>
+<resource key="RENDERER_NOT_FOUND">Renderer ''{0}'' not found for component family ''{1}''</resource>
 
 <!-- NO_SKIN_FACTORY -->
 <resource key="NO_SKIN_FACTORY">There is no SkinFactory</resource>
@@ -286,7 +286,7 @@
 <resource key="INVALID_STRING_ATTRIBUTE">Invalid string attribute for chooseDate: {0}</resource>
 
 <!-- UNABLE_ENCODE_URL -->
-<resource key="UNABLE_ENCODE_URL">Unable to encode URL '{0}' using encoding '{1}'</resource>
+<resource key="UNABLE_ENCODE_URL">Unable to encode URL ''{0}'' using encoding ''{1}''</resource>
 
 <!-- SORTING_DISABLED_TABLE_NOT_IN_FORM -->
 <resource key="SORTING_DISABLED_TABLE_NOT_IN_FORM">Sorting disabled;  table is not in a form</resource>
@@ -322,7 +322,7 @@
 <resource key="POLL_COMPOENT_MUST_INSIDE_FORM">The poll component must be inside of a form;  disabling poll {0}</resource>
 
 <!-- SELECTED_SHUTTLE_ITEMS_EXCEEDED_TOTAL_NUMBER -->
-<resource key="SELECTED_SHUTTLE_ITEMS_EXCEEDED_TOTAL_NUMBER">The number of items selected for shuttle '{0}' exceeds the total number of items in the shuttle. No selected items will be returned.</resource>
+<resource key="SELECTED_SHUTTLE_ITEMS_EXCEEDED_TOTAL_NUMBER">The number of items selected for shuttle ''{0}'' exceeds the total number of items in the shuttle. No selected items will be returned.</resource>
 
 <!-- SHOWDETAIL_NOT_IN_FORM_WILLNOT_FUNCTION_PROPERLY -->
 <resource key="SHOWDETAIL_NOT_IN_FORM_WILLNOT_FUNCTION_PROPERLY">showDetail is not in a form, and will not function correctly</resource>
@@ -370,7 +370,7 @@
 <resource key="ONLY_SHOWDETAILITEM_ALLOWED_AS_PANELTABBED_CHILD">Only tr:showDetailItem is allowed as child of tr:panelTabbed.</resource>
 
 <!-- COMPONENT_VALUE_IS_NOT_VALID_BOUNDEDRANGEMODEL_INSTANCE -->
-<resource key="COMPONENT_VALUE_IS_NOT_VALID_BOUNDEDRANGEMODEL_INSTANCE">Value for component with id '{0}' is not a valid BoundedRangeModel instance</resource>
+<resource key="COMPONENT_VALUE_IS_NOT_VALID_BOUNDEDRANGEMODEL_INSTANCE">Value for component with id ''{0}'' is not a valid BoundedRangeModel instance</resource>
 
 <!-- RESOURCE_NOT_FOUND -->
 <resource key="RESOURCE_NOT_FOUND">Resource "{0}" at path "{1}" not found</resource>
@@ -403,7 +403,7 @@
 <resource key="UNKNOWN_ATTRIBUTE_NAMESPACE">Unknown attribute: {0}, namespace={1}</resource>
 
 <!-- ERR_PARSING_SKIN_CSS_FILE -->
-<resource key="ERR_PARSING_SKIN_CSS_FILE">Error when parsing the skin css file. The property's name cannot be null or the empty string. The parser will ignore it. name is '{0}' and value is '{1}'</resource>
+<resource key="ERR_PARSING_SKIN_CSS_FILE">Error when parsing the skin css file. The property's name cannot be null or the empty string. The parser will ignore it. name is ''{0}'' and value is ''{1}''</resource>
 
 <!-- IGNORING_PROPERTIES_WITHOUT_SELECTOR -->
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR">Ignoring properties {0} because there is no corresponding selector.</resource>
@@ -460,13 +460,13 @@
 <resource key="UNSUPPORTED_CONSECUTIVE_SUB_ELEMENT_SYNTAX">Consecutive sub-element (::) syntax used in selector {0}. This is not supported.</resource>
 
 <!-- URL_VALUE_EXPECTED_FOR_PROPERTY_IN_STYLE_SHEET -->
-<resource key="URL_VALUE_EXPECTED_FOR_PROPERTY_IN_STYLE_SHEET">An url value delimited by url() is expected for the property '{0}' in style sheet '{1}'. Found: '{2}'.</resource>
+<resource key="URL_VALUE_EXPECTED_FOR_PROPERTY_IN_STYLE_SHEET">An url value delimited by url() is expected for the property ''{0}'' in style sheet ''{1}''. Found: ''{2}''.</resource>
 
 <!-- INVALID_IMAGE_URI_IN_STYLE_SHEET -->
-<resource key="INVALID_IMAGE_URI_IN_STYLE_SHEET">Invalid image uri '{0}' in style sheet '{1}'</resource>
+<resource key="INVALID_IMAGE_URI_IN_STYLE_SHEET">Invalid image uri ''{0}'' in style sheet ''{1}''</resource>
 
 <!-- EMPTY_URL_IN_STYLE_SHEET -->
-<resource key="EMPTY_URL_IN_STYLE_SHEET">An empty URL was found in style sheet'{0}'</resource>
+<resource key="EMPTY_URL_IN_STYLE_SHEET">An empty URL was found in style sheet ''{0}''</resource>
 
 <!-- ELEMENT_MUST_HAVE_NAME_ATTRIBUTE -->
 <resource key="ELEMENT_MUST_HAVE_NAME_ATTRIBUTE">"&lt;style&gt; elements must have either a name or a selector attribute</resource>
@@ -529,7 +529,7 @@
 <resource key="UNSUPPORTED_UINODE">Unsupported UINode:{0}, path = {1}</resource>
 
 <!-- DEFAULT_COMPONENT_TO_INDETERMINDATE_MODE -->
-<resource key="DEFAULT_COMPONENT_TO_INDETERMINDATE_MODE">Invalid value. Defaulting component with id '{0}' to indeterminate mode</resource>
+<resource key="DEFAULT_COMPONENT_TO_INDETERMINDATE_MODE">Invalid value. Defaulting component with id ''{0}'' to indeterminate mode</resource>
 
 <!-- NO_FORM_FOUND -->
 <resource key="NO_FORM_FOUND">No form found for {0}</resource>
@@ -547,7 +547,7 @@
 <resource key="CANNOT_FIND_RENDERER">Could not find renderer for alias {0}</resource>
 
 <!-- UNABLE_FLIP_ICON -->
-<resource key="UNABLE_FLIP_ICON">Unable to flip icon '{0}' because it is not under the current request context, which is '{1}'</resource>
+<resource key="UNABLE_FLIP_ICON">Unable to flip icon ''{0}'' because it is not under the current request context, which is ''{1}''</resource>
 
 <!-- CANNOT_LOCATE_PARENT_FORM -->
 <resource key="CANNOT_LOCATE_PARENT_FORM">Could not locate parent form for formValue {0}</resource>
