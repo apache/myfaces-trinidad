@@ -526,6 +526,15 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     }
 
     @Override
+    protected boolean needComponentInStartElement()
+    {
+      // Because we're not rendering the ID on the label (at this time)
+      // there's no point in passing the component to startElement() - it
+      // just makes PPR unhappy to do so
+      return false;
+    }
+
+    @Override
     protected void renderAllAttributes(
       FacesContext        context,
       RenderingContext arc,
