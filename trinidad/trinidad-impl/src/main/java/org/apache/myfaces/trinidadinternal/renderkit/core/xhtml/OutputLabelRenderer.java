@@ -97,7 +97,7 @@ public class OutputLabelRenderer extends ValueRenderer
 
     if (!noSpanNeeded)
     {
-      rw.startElement("span", component);
+      rw.startElement("span", needComponentInStartElement() ? component : null);
       renderId(context, component);
       renderAllAttributes(context, arc, bean);
     }
@@ -128,7 +128,7 @@ public class OutputLabelRenderer extends ValueRenderer
       
       if (needsLabel)
       {
-        rw.startElement("label", component);
+        rw.startElement("label", needComponentInStartElement() ? component : null);
         if (forId != null)
         {
           rw.writeAttribute("for", forId, "for");
@@ -161,6 +161,11 @@ public class OutputLabelRenderer extends ValueRenderer
     {
       rw.endElement("span");
     }
+  }
+
+  protected boolean needComponentInStartElement()
+  {
+    return true;
   }
 
   protected boolean encodeIcons(
