@@ -505,11 +505,11 @@ function _getContentWidth(
   var children = element.childNodes;
 
   // XXXSafari: what to do here?
-  var isGecko = _agent.isGecko;
+  var isIE = _agent.isIE;
 
-  var hasContentProp = (isGecko)
-                         ? "tagName"
-                         : "canHaveHTML"
+  var hasContentProp = (isIE)
+                         ? "canHaveHTML"
+                         : "tagName";
   var maxWidth = 0;
 
   for (var i = 0; i < children.length; i++)
@@ -521,7 +521,7 @@ function _getContentWidth(
       var currWidth = 0;
       var currOffsetWidth = currChild["offsetWidth"];
 
-      if (isGecko)
+      if (!isIE)
       {
         if ((currOffsetWidth == offsetWidth) ||
             (currOffsetWidth <= 1))
@@ -597,37 +597,13 @@ function _getParentWindow(currWindow)
 }
 
 /**
- * Returns the window for the document
- */
-function _getWindowForDocument(document)
-{
-  if (_agent.isIE)
-  {
-    return document.parentWindow;
-  }
-  else
-  {
-    return document.defaultView;
-  }
-}
-
-/**
  * Safely retrieve the top accessible window
  */
-function _getTop(element)
+function _getTop(currWindow)
 {
-	
-var initialDocument = (element)
-                      ? element.ownerDocument
-                        ? element.ownerDocument
-                          // ownerDocument null if element is Document
-                        : element
-                      : document;
-  
   // since top might be in another domain, crawl up as high as possible manually
-  var currWindow = _getWindowForDocument(initialDocument);
   var currParentWindow = _getParentWindow(currWindow);
-  
+
   while (currParentWindow && (currParentWindow != currWindow))
   {
     currWindow = currParentWindow;
@@ -832,7 +808,7 @@ function _checkUnload(
 
   _pprUnloaded = true;
 
-  var topWindow = _getTop();
+  var topWindow = _getTop(self);
 
   if (!topWindow)
     return;
@@ -1003,7 +979,7 @@ function _isModalAbandoned()
   // the actual contents of the LOV window which are nested
   // within a frame.  So, we check for the _abandoned property
   // on the "top" window.
-  var topWindow = _getTop();
+  var topWindow = _getTop(self);
   
   return topWindow._abandoned;
 }
@@ -4674,7 +4650,7 @@ function _checkLoad(
   // If we're inside a frameset, and the top frame wants
   // reloads blocked, install a _noReload handler.
   // chain _monitor also if that is already set.
-  var topWindow = _getTop();
+  var topWindow = _getTop(self);
   
   if ((self != topWindow) && topWindow["_blockReload"])
   {
