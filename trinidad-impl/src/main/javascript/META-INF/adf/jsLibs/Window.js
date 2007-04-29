@@ -613,7 +613,7 @@ function _sizeWin(
       }
     }
 
-    var newWin = _getTop(theWindow.document);
+    var newWin = _getTop(theWindow);
 
     // keep a bottom/right pad of at least 5% of the available screen
     var avLeft = isIE ? 0 : newWin.screen.availLeft;
