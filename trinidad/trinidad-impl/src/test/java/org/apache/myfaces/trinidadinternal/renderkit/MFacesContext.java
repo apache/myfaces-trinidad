@@ -252,11 +252,22 @@ public class MFacesContext extends MockFacesContext
     @Override
     public String encodeNamespace(String in) { return in; }
 
+
     @Override
-    public String encodeResourceURL(String url) { return "encoded-resource-url:" + url; }
+    public String encodeResourceURL(String url)
+    {
+      if (url == null)
+        return null;
+      return "encoded-resource-url:" + url;
+    }
     
     @Override
-    public String encodeActionURL(String url) { return "encoded-action-url:" + url; }
+    public String encodeActionURL(String url)
+    {
+      if (url == null)
+        return null;
+      return "encoded-action-url:" + url;
+    }
 
     @SuppressWarnings("unchecked")
     @Override
