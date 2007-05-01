@@ -825,9 +825,16 @@
   </xsl:template>
 
   <!-- Handle metadata we do not know about by letting it through.  Currently,
-    just for property-extension, but should be global.  See JIRA issues
-    ADFFACES-358 and ADFFACES-361 -->
+   just for property-extension and component-metadata, but should be global.
+   See JIRA issues ADFFACES-358, ADFFACES-361 and ADFFACES-472 -->
   <xsl:template match="javaee:property-extension/*[namespace-uri() != 'http://java.sun.com/xml/ns/javaee' and namespace-uri() !='http://myfaces.apache.org/maven-faces-plugin']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*|node()"/>
+      <xsl:value-of select="text()"/>
+    </xsl:copy> 
+  </xsl:template>
+
+  <xsl:template match="mfp:component-metadata/*[namespace-uri() != 'http://java.sun.com/xml/ns/javaee' and namespace-uri() !='http://myfaces.apache.org/maven-faces-plugin']">
     <xsl:copy>
       <xsl:apply-templates select="@*|node()"/>
       <xsl:value-of select="text()"/>
