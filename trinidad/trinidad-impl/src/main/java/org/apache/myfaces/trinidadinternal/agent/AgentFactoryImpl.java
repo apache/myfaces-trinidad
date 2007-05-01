@@ -49,6 +49,7 @@ public class AgentFactoryImpl implements AgentFactory
   {
     AgentImpl agent = new AgentImpl();
 
+    // Get the RequestHeaderMap to help populate the agent
     Map<String, String> headerMap;
     if (facesContext != null)
     {
@@ -60,12 +61,14 @@ public class AgentFactoryImpl implements AgentFactory
     }
 
     //TODO: Add declarative and extensible means for populating AgentImpl object
+    // the RequestHeaderMap helps populate the agent
     _populateAgentImpl(headerMap, agent);
 
     return agent;
   }
 
-
+  // The headerMap is the RequestHeaderMap from the externalContext. It is 
+  // consulted to correctly populate the agent
   private void _populateAgentImpl(Map<String, String> headerMap, AgentImpl agent)
   {
     
@@ -90,7 +93,7 @@ public class AgentFactoryImpl implements AgentFactory
 
     if (userAgent == null)
     {
-      _populateNullAgentImpl(userAgent, agent);
+      _populateUnknownAgentImpl(userAgent, agent);
       return;
     }
     
@@ -207,14 +210,20 @@ public class AgentFactoryImpl implements AgentFactory
         return;
     }
 
-    _populateNullAgentImpl(userAgent, agent);
+    _populateUnknownAgentImpl(userAgent, agent);
   }
 
-  private void _populateNullAgentImpl(String userAgent, AgentImpl agent)
+  private void _populateUnknownAgentImpl(String userAgent, AgentImpl agent)
   {
-    // Log warning message that we are setting the agent entry to null
-    _LOG.warning("UNKNOWN_AGENT_ATTRIBUTES_CREATE_WITH_NULL", userAgent);
+    // Log warning message that we are setting the agent entry to unknown attributes
+    _LOG.warning("UNKNOWN_AGENT_ATTRIBUTES_CREATE_WITH_UNKNOWN", userAgent);
     agent.setAgentEntryToNULL();
+    agent.setAgent(_UNKNOWN);
+    agent.setType(_UNKNOWN);
+    agent.setAgentVersion(_UNKNOWN);
+    agent.setPlatform(_UNKNOWN);
+    agent.setPlatformVersion(_UNKNOWN);
+    agent.setMakeModel(_UNKNOWN);
   }
 
   //populates the agent entry for DT access for either Telnet or PDA
@@ -226,7 +235,7 @@ public class AgentFactoryImpl implements AgentFactory
     //the form of JDEVMobile user agent string will be:
     //OracleJDevMobile_[PDA or ITS]/[version](DeviceName:[device name];[capability1]:[capability 1 value];...)
 
-    boolean returnNullAgentObj = false;
+    boolean returnUnknownAgentObj = false;
     int itsIndex = agent.indexOf("ITS");
     int pdaIndex = agent.indexOf("PDA");
     int versionStartIndex = -1;
@@ -235,8 +244,7 @@ public class AgentFactoryImpl implements AgentFactory
       agentObj.setType(Agent.TYPE_TELNET);
       versionStartIndex = "OracleJDevMobile_ITS".length()+1;
     }
-    else
-      if (pdaIndex > -1)
+    else if (pdaIndex > -1)
     {
 
       agentObj.setType(Agent.TYPE_PDA);
@@ -244,10 +252,10 @@ public class AgentFactoryImpl implements AgentFactory
     }
     else
     {
-      returnNullAgentObj = true;
+      returnUnknownAgentObj = true;
     }
     //Now find the name of the device
-    if (!returnNullAgentObj){
+    if (!returnUnknownAgentObj){
       int versionEndIndex = agent.indexOf("(");
       String version = agent.substring(versionStartIndex,versionEndIndex);
       agentObj.setAgentVersion(version);
@@ -282,9 +290,9 @@ public class AgentFactoryImpl implements AgentFactory
         agentObj.__addRequestCapability(CapabilityKey.getCapabilityKey(capabilityName,true),capabilityValue);
       }
     }
-    if (returnNullAgentObj)
+    if (returnUnknownAgentObj)
     {
-      _populateNullAgentImpl(agent, agentObj);
+      _populateUnknownAgentImpl(agent, agentObj);
     }
   }
 
@@ -517,7 +525,7 @@ public class AgentFactoryImpl implements AgentFactory
     // map device hint to agent type
     if (wirelessType == null)
     {
-      _populateNullAgentImpl(agent, agentObj);
+      _populateUnknownAgentImpl(agent, agentObj);
       return;
     }
 
@@ -852,6 +860,7 @@ public class AgentFactoryImpl implements AgentFactory
   }
 
   static final private String _IASW_DEVICE_HINT_PARAM = "X-Oracle-Device.Class";
+  static final private String _UNKNOWN = "unknown";
   static final private TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(AgentFactoryImpl.class);
 
 }
