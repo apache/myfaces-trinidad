@@ -44,13 +44,11 @@ import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
  * as extending <code>FacesContext</code> requires taking over the
  * <code>FacesContextFactory</code>.
  * <p>
- *
- * @todo Refactor this class after everything gets added to it.
- * @todo There's some values in here that seem to affect only output (e.g.,
- *  right-to-left); that's not great, since ideally that detail would be
- *  buried in something more renderer-specific.
- * @mock
  */
+// TODO Refactor this class after everything gets added to it.
+// TODO There's some values in here that seem to affect only output (e.g.,
+//  right-to-left); that's not great, since ideally that detail would be
+//  buried in something more renderer-specific.
 abstract public class RequestContext
 {
   /**
@@ -123,9 +121,9 @@ abstract public class RequestContext
    * <p>
    * @see org.apache.myfaces.trinidad.event.ReturnEvent
    * @param returnValue the value to be delivered in the the ReturnEvent
-   * @todo Do I need an explicit "cancelled" concept, or
-   * is a null returnValue good enough?
    */
+  // TODO Do we need an explicit "cancelled" concept, or
+  // is a null returnValue good enough?
   public abstract void returnFromDialog(
     Object returnValue,
     Map<Object, Object> returnParameters);
@@ -282,9 +280,8 @@ abstract public class RequestContext
    * currency fields when those fields do not specify an explicit
    * currency field via their converter.  If this returns null, the default
    * code for the current locale will be used.
-   *
-   * @todo Investigate if we need to provide getCurrencySymbol() as well.
    */
+  // TODO do we need to provide getCurrencySymbol() as well?
   public abstract String getCurrencyCode();
 
   //
@@ -304,9 +301,8 @@ abstract public class RequestContext
 
   /**
    * Return the URL to an Oracle Help for the Web servlet.
-   * @todo Do we need to support non-OHW help systems as first-class
-   *  help providers?
    */
+  // TODO Add support for non-OHW help systems
   public abstract String getOracleHelpServletUrl();
 
   /**
@@ -411,7 +407,7 @@ abstract public class RequestContext
    * Object will be serializable, unless a UIComponent
    * in this tree contains a non-serializable property.  This
    * method does not check that condition.
-   * @param UIComponent the component 
+   * @param component the component 
    * @return an Object that can be passed to restoreComponent()
    *  to reinstantiate the state
    */

@@ -28,10 +28,8 @@ import org.apache.myfaces.trinidad.model.ModelUtils;
  * <p>
  * Work on modeling navigation continues and it is very possible that this class
  * will change in a future release.
- *
- * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/component/UIXNavigationHierarchy.java#0 $) $Date: 10-nov-2005.19:09:52 $
- * @todo these base classes need to be completely refactored
  */
+// TODO these base classes need to be completely refactored
 abstract public class UIXNavigationHierarchy extends UIXHierarchy
 {
 

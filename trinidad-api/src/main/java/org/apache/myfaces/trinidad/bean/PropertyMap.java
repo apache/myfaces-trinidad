@@ -22,10 +22,8 @@ import java.util.Map;
 import javax.faces.context.FacesContext;
 
 
-/**
- * @todo Make "stateHolder" a generic property of all PropertyMaps?
- *     If so, tweak StateUtils accordingly
- */
+// TODO Make "stateHolder" a generic property of all PropertyMaps?
+//     If so, tweak StateUtils accordingly
 public interface PropertyMap extends Map<PropertyKey,Object>
 {
   public void markInitialState();

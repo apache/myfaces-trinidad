@@ -26,10 +26,8 @@ abstract public class UIXSelectOneTemplate extends UIXEditableValue
   static public final String REQUIRED_MESSAGE_ID =
     "org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED";
 
-  /**
-   * @todo walk through UIXSelectItem values to determine that the new
-   *       value is permitted
-   */
+  // TODO walk through UIXSelectItem values to determine that the new
+  //       value is permitted
   @Override
   public void validateValue(FacesContext context, Object newValue)
   {

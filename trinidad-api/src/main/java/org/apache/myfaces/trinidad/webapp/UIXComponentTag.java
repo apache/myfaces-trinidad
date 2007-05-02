@@ -444,9 +444,7 @@ abstract public class UIXComponentTag extends UIComponentTag
   }
 
 
-  /**
-   * @todo Handle syntax exceptions gracefully?
-   */
+  // TODO Handle syntax exceptions gracefully?
   protected final ValueBinding createValueBinding(String string)
   {
     if (_parentELContext != null)
@@ -455,9 +453,7 @@ abstract public class UIXComponentTag extends UIComponentTag
     return getFacesContext().getApplication().createValueBinding(string);
   }
 
-  /**
-   * @todo Handle syntax exceptions gracefully?
-   */
+  // TODO Handle syntax exceptions gracefully?
   protected final MethodBinding createMethodBinding(
     String   string,
     Class [] types)
@@ -510,8 +506,8 @@ abstract public class UIXComponentTag extends UIComponentTag
    * @return an array of each constituent value, or null
    *  if there are no tokens (that is, the string is empty or
    *  all whitespace)
-   * @todo Move to utility function somewhere 
    */
+  // TODO Move to utility function somewhere 
   static private final String[] _parseNameTokens(String stringValue)
   {
     if (stringValue == null)

@@ -41,9 +41,7 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
  */
 public class CoreRenderer extends Renderer
 {
-  /**
-   * @todo Move elsewhere?
-   */
+  // TODO Move elsewhere?
   static public final char CHAR_UNDEFINED = (char) -1;  
   static public final int NO_CHILD_INDEX = -1;    
 
@@ -305,9 +303,6 @@ public class CoreRenderer extends Renderer
     }
   }
 
-  /**
-   * @todo Fix reference to CoreRenderer
-   */
   protected void delegateRenderer(
     FacesContext        context,
     RenderingContext arc,
@@ -325,9 +320,6 @@ public class CoreRenderer extends Renderer
     }
   }
     
-  /**
-   * @todo Fix reference to CoreRenderer
-   */
   protected void delegateRendererBegin(
     FacesContext        context,
     RenderingContext arc,
@@ -345,9 +337,6 @@ public class CoreRenderer extends Renderer
     }
   }
 
-  /**
-   * @todo Fix reference to CoreRenderer
-   */
   protected void delegateRendererEnd(
     FacesContext        context,
     RenderingContext arc,
@@ -393,8 +382,8 @@ public class CoreRenderer extends Renderer
   /**
    * Returns true if the component should render an ID.  Components
    * that deliver events should always return "true".
-   * @todo Is this a bottleneck?  If so, optimize!
    */
+  // TODO Is this a bottleneck?  If so, optimize!
   protected boolean shouldRenderId(
     FacesContext context,
     UIComponent  component)
@@ -612,7 +601,7 @@ public class CoreRenderer extends Renderer
    * be reused!  Each styleclass will be passed through the RenderingContext
    * getStyleClass() API.
    * @param context  the FacesContext
-   * @param styleClass the style class
+   * @param styleClasses the style classes
    */
   static public void renderStyleClasses(
     FacesContext        context,

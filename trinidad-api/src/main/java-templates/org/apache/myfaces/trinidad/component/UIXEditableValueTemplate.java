@@ -182,7 +182,6 @@ abstract public class UIXEditableValueTemplate
    * property is true.  Iif the component is invalid afterwards or
    * a <code>RuntimeException</code> is thrown, calls
    * {@link FacesContext#renderResponse}.
-   * @exception NullPointerException {@inheritDoc}
    */
   @Override
   public void processDecodes(FacesContext context)
@@ -230,9 +229,7 @@ abstract public class UIXEditableValueTemplate
       _executeValidate(context);
   }
 
-  /**
-   * @todo Better error messages when update model fails.
-   */
+  // TODO Better error messages when update model fails.
   public void updateModel(FacesContext context)
   {
     if (context == null)

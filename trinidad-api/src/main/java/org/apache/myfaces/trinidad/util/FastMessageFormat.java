@@ -41,9 +41,9 @@ package org.apache.myfaces.trinidad.util;
  * </pre>
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/util/FastMessageFormat.java#0 $) $Date: 10-nov-2005.19:08:37 $
- * @todo This class to be made public once we figure out a way to do so.
- * This class is also availble in impl for laf strings.
  */
+// TODO This class to be made public once we figure out whether we should
+// This class is also availble in impl for laf strings.
 class FastMessageFormat
 {
   /**

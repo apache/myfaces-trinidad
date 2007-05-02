@@ -21,11 +21,13 @@ package org.apache.myfaces.trinidad.component;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 
 /**
- * @todo Strongly consider merging this into FacesBean!
+ * Subinterface for FacesBeans that are used for the storage
+ * of a UIXComponent.
  */
 public interface UIXFacesBean extends FacesBean
 {
   /**
+   * Initialize a UIXFacesBean with a specific component and type.
    */
   public void init(
     UIXComponent   component,

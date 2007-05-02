@@ -40,9 +40,9 @@ abstract public class UIXSelectManyTemplate extends UIXEditableValue
 
   /**
    * Compares two values, disregarding the order of the elements.
-   * @todo walk through UIXSelectItem values to determine that new
-   *       values are permitted
    */
+  // TODO walk through UIXSelectItem values to determine that new
+  //       values are permitted
   @Override
   protected void validateValue(FacesContext context, Object newValue)
   {
@@ -71,10 +71,9 @@ abstract public class UIXSelectManyTemplate extends UIXEditableValue
   }
 
   /**
-   *
-   * @todo improve efficiency
    * @return true if the values are different
    */
+  // TODO improve efficiency
   @Override
   protected boolean compareValues(Object previous, Object value)
   {

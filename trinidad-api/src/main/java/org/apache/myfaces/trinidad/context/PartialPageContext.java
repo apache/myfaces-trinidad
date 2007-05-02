@@ -63,12 +63,8 @@ abstract public class PartialPageContext
    * <p>
    * This method may be called during the partial rendering pass to
    * add to the set of partial targets, but only if the pass has
-   * not yet been completed.  Clients should first check to see
-   * whether the partial rendering pass has finished by calling
-   * isPartialPassComplete() before calling this method.
-   *
+   * not yet been completed.
    * @param id The id of the partial target to render
-   * @see #isPartialPassComplete
    */
   abstract public void addPartialTarget(String id);
 

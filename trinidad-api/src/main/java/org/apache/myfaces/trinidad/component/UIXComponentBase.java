@@ -79,10 +79,9 @@ import org.apache.myfaces.trinidad.render.LifecycleRenderer;
  *    markInitialState() - can offer major state saving improvements.
  * </ul>
  * </p>
- * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/component/UIXComponentBase.java#0 $) $Date: 11-nov-2005.13:43:35 $
- * @todo Write Class Javadoc
- * @todo Thorough review against UIComponentBase
  */
+// TODO Write Class Javadoc
+// TODO Thorough review against UIComponentBase
 abstract public class UIXComponentBase extends UIXComponent
 {
   // Created up top to ensure it's present while we're processing
@@ -389,9 +388,6 @@ abstract public class UIXComponentBase extends UIXComponent
   }
 
 
-  /**
-   * @todo Pass through to Renderer
-   */
   @Override
   public boolean getRendersChildren()
   {
@@ -409,9 +405,6 @@ abstract public class UIXComponentBase extends UIXComponent
 
 
 
-  /**
-   * @exception NullPointerException {@inheritDoc}
-   */
   @Override
   public UIComponent findComponent(String id)
   {
@@ -549,9 +542,7 @@ abstract public class UIXComponentBase extends UIXComponent
   }
 
 
-  /**
-   * @todo optimize to a compound iterator
-   */
+  // TODO: Optimize to a compound iterator
   @SuppressWarnings("unchecked")
   @Override
   public Iterator getFacetsAndChildren()
@@ -723,10 +714,6 @@ abstract public class UIXComponentBase extends UIXComponent
     __encodeRecursive(context, this);
   }
 
-  /**
-   * @exception IllegalStateException {@inheritDoc}
-   * @exception NullPointerException {@inheritDoc}
-   */
   @Override
   public void queueEvent(FacesEvent event)
   {
@@ -810,13 +797,10 @@ abstract public class UIXComponentBase extends UIXComponent
     }
   }
 
-  /**
-   *
-   * @todo will have deep problems if UIComponent.saveState() ever
-   *   returns a String.
-   * @todo crashes and burns if there are fewer children or missing
-   *  facets from when state was saved.
-   */
+  // TODO  will have deep problems if UIComponent.saveState() ever
+  //   returns a String.
+  // TODO crashes and burns if there are fewer children or missing
+  //  facets from when state was saved.
   @Override
   public void processRestoreState(FacesContext context, Object state)
   {

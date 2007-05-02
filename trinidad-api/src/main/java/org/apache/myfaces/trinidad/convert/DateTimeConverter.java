@@ -100,9 +100,9 @@ import org.apache.myfaces.trinidad.util.MessageFactory;
  * <p>The methods used for customizing the detail message associated with each id
  * is given below:</p>
  * <ol>
- * <li>{@link #CONVERT_DATE_MESSAGE_ID} - {@link #setConvertDateMessageDetail(String)}</li>
- * <li>{@link #CONVERT_TIME_MESSAGE_ID} - {@link #setConvertTimeMessageDetail(String) }</li>
- * <li>{@link #CONVERT_BOTH_MESSAGE_ID} - {@link #setConvertBothMessageDetail(String) }</li>
+ * <li>{@link #CONVERT_DATE_MESSAGE_ID} - {@link #setMessageDetailConvertDate(String)}</li>
+ * <li>{@link #CONVERT_TIME_MESSAGE_ID} - {@link #setMessageDetailConvertTime(String) }</li>
+ * <li>{@link #CONVERT_BOTH_MESSAGE_ID} - {@link #setMessageDetailConvertBoth(String) }</li>
  * </ol> The custom messages can contain placeholders, which will be replaced with
  * values as specified in its corresponding message id.
  *
@@ -362,7 +362,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    * <code>pattern / secondary pattern</code> is set or
    * when <code>type</code> is set to <code>'date'</code>.</p>
    * @return custom error message that was set.
-   * @see #setConvertDateMessageDetail(String)
+   * @see #setMessageDetailConvertDate(String)
    */
   public String getMessageDetailConvertDate()
   {
@@ -387,7 +387,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    * for values that cannot be converted to {@link java.util.Date}
    * when <code>type</code> is set to <code>'time'</code>.
    * @return custom error message that was set.</p>
-   * @see #setConvertTimeMessageDetail(java.lang.String)
+   * @see #setMessageDetailConvertTime(java.lang.String)
    */
   public String getMessageDetailConvertTime()
   {
@@ -413,7 +413,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    * for values that cannot be converted to {@link java.util.Date}
    * when <code>type</code> is set to <code>'both'</code>.
    * @return custom error message that was set.
-   * @see #setConvertBothMessageDetail(java.lang.String)
+   * @see #setMessageDetailConvertBoth(java.lang.String)
    */
   public String getMessageDetailConvertBoth()
   {
@@ -466,7 +466,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
   /**
    * <p>Custom hintBoth message.</p>
    * Overrides default hint message
-   * @param hintBotht Custom hint message.
+   * @param hintBoth Custom hint message.
    */
   public void setHintBoth(String hintBoth)
   {

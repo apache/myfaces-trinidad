@@ -93,7 +93,7 @@ import org.apache.myfaces.trinidad.util.MessageFactory;
  *     {@link ConverterException} containing a {@link #CONVERT_MESSAGE_ID} message.
  *     The detail message of {@link #CONVERT_MESSAGE_ID} can be overridden
  *     by setting a custom error message, by calling
- *     method <code>setConvertMessageDetail()</code>. The custom message
+ *     method <code>setMessageDetailConvert()</code>. The custom message
  *     can contain placeholders as specified in {@link #CONVERT_MESSAGE_ID}.
  *     The placeholders will be replaced by appropriate values as mentioned
  *     in {@link #CONVERT_MESSAGE_ID}</li>
@@ -450,7 +450,7 @@ public class ColorConverter implements Converter, StateHolder
    * Return custom detail error message that was set for creating faces message,
    * for values that cannot be converted to {@link java.awt.Color}
    * @return Custom error message.
-   * @see #setConvertMessageDetail(String)
+   * @see #setMessageDetailConvert(String)
    */
   public String getMessageDetailConvert()
   {
@@ -470,7 +470,7 @@ public class ColorConverter implements Converter, StateHolder
   /**
    * <p>Return custom hint message.</p>
    * @return Custom hint message.
-   * @see  #setHintFormat(String)
+   * @see  #setHint(String)
    */
   public String getHint()
   {

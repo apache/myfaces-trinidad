@@ -55,7 +55,7 @@ import org.apache.myfaces.trinidad.util.MessageFactory;
  *     message. The message can contain placeholders which will be replaced as
  *     specified in {@link #NO_MATCH_MESSAGE_ID}</li>
  * </ul>
- * @see #setNoMatchMessageDetail(String)
+ * @see #setMessageDetailNoMatch(String)
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/validator/RegExpValidator.java#0 $) $Date: 10-nov-2005.19:08:34 $
  */
@@ -259,7 +259,7 @@ public class RegExpValidator implements StateHolder, Validator
   /**
    * <p>Return custom hint message.</p>
    * @return Custom hint message.
-   * @see  #setHintPattern(String)
+   * @see  #setHint(String)
    */
   public String getHint()
   {
@@ -309,7 +309,7 @@ public class RegExpValidator implements StateHolder, Validator
    * <p>Return custom detail error message that was set for creating faces message,
    * for values that do not match the specified pattern.</p>
    * @return Custom error message
-   * @see #setNoMatchMessageDetail(String)
+   * @see #setMessageDetailNoMatch(String)
    */
   public String getMessageDetailNoMatch()
   {

@@ -28,11 +28,6 @@ import org.apache.myfaces.trinidad.bean.util.StateUtils;
 
 /**
  * Key for an entry in a FacesBean.
- * 
- * 
- * @todo default values?
- * @todo some deeper concept of type?
- * @todo can list entries ensure that 
  */
 public class PropertyKey
 {

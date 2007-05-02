@@ -26,7 +26,7 @@ import java.util.AbstractSet;
  * This class is meant to be used with models that have a current rowKey concept.
  * Therefore, the {@link #add()}, {@link #remove()} and {@link #isContained} methods
  * do not need to take the rowKey as an argument, since the rowKey is implied.
- * The implied key is obtained by calling {@link #getCollectionModel.getRowKey()}
+ * The implied key is obtained by calling {@link #getCollectionModel}.getRowKey()
  * <P>
  * Because this Set has a reference to the underlying model, operations like
  * {@link #addAll()}, {@link #removeAll()} and {@link #invertAll()} may

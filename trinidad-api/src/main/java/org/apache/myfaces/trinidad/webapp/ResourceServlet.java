@@ -70,12 +70,10 @@ import org.apache.myfaces.trinidad.resource.ServletContextResourceLoader;
  * similar to "/META-INF/services" lookup that allows the implementation object
  * to implement an interface in the public API and be used by the public API
  * but reside in a private implementation JAR.
- *
- *
- * @todo use ClassLoader.getResources() and make hierarchical
- * @todo verify request headers and (cached) response headers
- * @todo set "private" cache headers in debug mode?
  */
+// TODO use ClassLoader.getResources() and make hierarchical
+// TODO verify request headers and (cached) response headers
+// TODO set "private" cache headers in debug mode?
 public class ResourceServlet extends HttpServlet
 {
   /**

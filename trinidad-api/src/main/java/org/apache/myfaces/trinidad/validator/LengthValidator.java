@@ -173,7 +173,7 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
    *  <p>Return custom detail error message that was set for creating {@link FacesMessage},
    *  for cases where input value exceeds the <code>maximum</code> value set.</p>
    * @return Custom error message.
-   * @see #setMaximumMessageDetail(String)
+   * @see #setMessageDetailMaximum(String)
    */
   public String getMessageDetailMaximum()
   {
@@ -197,7 +197,7 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
    * <p>Return custom detail error message that was set for creating {@link FacesMessage},
    * for cases where, input value is less than the <code>minimum</code> value set.</p>
    * @return Custom error message.
-   * @see #setMinimumMessageDetail(String)
+   * @see #setMessageDetailMinimum(String)
    */
   public String getMessageDetailMinimum()
   {
@@ -222,7 +222,7 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
    * for cases where, input value exceeds the <code>maximum</code> value and is
    * less than the <code>minimum</code> value set.</p>
    * @return Custom error message.
-   * @see #setNotInRangeMessageDetail(String)
+   * @see #setMessageDetailNotInRange(String)
    */
   public String getMessageDetailNotInRange()
   {
@@ -285,7 +285,7 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
   /**
    * <p>Return custom hint notInRange message.</p>
    * @return Custom hint message.
-   * @see  #setHintNotInRangeString)
+   * @see  #setHintNotInRange
    */
   public String getHintNotInRange()
   {

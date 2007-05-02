@@ -86,7 +86,7 @@ import org.apache.myfaces.trinidad.util.MessageFactory;
  * //  appropriately as specified in the documentation for the corresponding
  * //  message id.
  *
- * <code>setConvertNumberMessageDetail(convertNumberMessageDetail);</code>
+ * <code>setMessageDetailConvertNumber(convertNumberMessageDetail);</code>
  *
  * This way user can override detail part of the {@link FacesMessage} for
  * different conversion errors that occur for wrong values, that arise
@@ -95,10 +95,10 @@ import org.apache.myfaces.trinidad.util.MessageFactory;
  * There is a one to one mapping for message customization which is as given below. <p>The methods used for customizing the detail message associated with each id
  * is given below:</p>
  * <ol><code>
- * <li>{@link #CONVERT_PATTERN_MESSAGE_ID} - {@link #setConvertPatternMessageDetail(String)}</li>
- * <li>{@link #CONVERT_NUMBER_MESSAGE_ID} -  {@link #setConvertNumberMessageDetail(String)}</li>
- * <li>{@link #CONVERT_CURRENCY_MESSAGE_ID} - {@link #setConvertCurrencyMessageDetail(String)}</li>
- * <li>{@link #CONVERT_PERCENT_MESSAGE_ID} - {@link #setConvertPercentMessageDetail(String)}</li>
+ * <li>{@link #CONVERT_PATTERN_MESSAGE_ID} - {@link #setMessageDetailConvertPattern(String)}</li>
+ * <li>{@link #CONVERT_NUMBER_MESSAGE_ID} -  {@link #setMessageDetailConvertNumber(String)}</li>
+ * <li>{@link #CONVERT_CURRENCY_MESSAGE_ID} - {@link #setMessageDetailConvertCurrency(String)}</li>
+ * <li>{@link #CONVERT_PERCENT_MESSAGE_ID} - {@link #setMessageDetailConvertPercent(String)}</li>
  * </code></ol>The custom messages can contain placeholders, which will be replaced with
  * values as specified in its corresponding message id.
  *
@@ -183,10 +183,6 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
    * Values having more than one decimal seprator like <code>22.22.22</code>
    * and values of the form <code>22ABC, 22%ABC</code> will result in
    * {@link javax.faces.convert.ConverterException}.
-   *
-   * @exception NullPointerException {@inheritDoc}
-   * @exception ConverterException {@inheritDoc}
-   *
    */
   @Override
   public Object getAsObject(
@@ -379,7 +375,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
    * Custom detail error message that was set for creation of {@link FacesMessage}
    * when conversion fails for values that does not match the pattern set.
    * @return Custom error message.
-   * @see #setConvertPatternMessageDetail(String)
+   * @see #setMessageDetailConvertPattern(String)
    *
    */
   public String getMessageDetailConvertPattern()
@@ -406,7 +402,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
    * when conversion fails for values, when <code>type</code> is set to <code>'number'</code> and
    * <code>pattern</code> is null or not set.</p>
    * @return Custom error message.
-   * @see #setConvertNumberMessageDetail(String)
+   * @see #setMessageDetailConvertNumber(String)
    */
   public String getMessageDetailConvertNumber()
   {
@@ -433,7 +429,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
    * when conversion fails for values, when <code>type</code> is set to
    * <code>'currency'</code> and <code>pattern</code> is null or not set.</p>
    * @return Custom error message.
-   * @see #setConvertCurrencyMessageDetail(String)
+   * @see #setMessageDetailConvertCurrency(String)
    */
   public String getMessageDetailConvertCurrency()
   {
@@ -460,7 +456,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
    * number, when <code>type</code> is set to <code>'percent'</code>
    * and <code>pattern</code> is null or not set.</p>
    * @return Custom error message.
-   * @see #setConvertPercentMessageDetail(String)
+   * @see #setMessageDetailConvertPercent(String)
    */
   public String getMessageDetailConvertPercent()
   {

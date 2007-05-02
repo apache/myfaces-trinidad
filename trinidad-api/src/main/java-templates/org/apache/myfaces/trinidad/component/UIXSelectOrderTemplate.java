@@ -25,9 +25,9 @@ abstract public class UIXSelectOrderTemplate extends UIXSelectMany
 	
   /**
    * Compares two values, paying attention to the order of the elements.
-   * @todo improve efficiency
    * @return true if the values are different
    */
+  // TODO improve efficiency for the array case?
   @Override
   @SuppressWarnings("unchecked")
   protected boolean compareValues(Object previous, Object value)

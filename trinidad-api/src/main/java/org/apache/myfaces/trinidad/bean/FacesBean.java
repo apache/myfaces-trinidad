@@ -44,9 +44,9 @@ public interface FacesBean
    * been set for this key, that ValueBinding will be evaluated.
    * 
    * @param key the property key
-   * @todo Additional version that takes a FacesContext?
    * @exception IllegalArgumentException if key is a list key
    */
+  // TODO Additional version that takes a FacesContext?
   public Object getProperty(PropertyKey key);
 
   /**
@@ -133,11 +133,11 @@ public interface FacesBean
    * Return as an array all elements of this key that 
    * are instances of the specified class.
    * @return an array whose instance type is the class
-   * @todo This can, of course, be implemented on top of entries();
-   *   consider moving to a utility function;  however, it's
-   *   universally needed by all consumers, so...
    * @exception IllegalArgumentException if the key is not a list key.
    */
+  // TODO This can, of course, be implemented on top of entries();
+  // consider moving to a utility function;  however, it's
+  // universally needed by all consumers, so...
   public Object[] getEntries(PropertyKey listKey, Class<?> clazz);
 
   /**
@@ -149,9 +149,9 @@ public interface FacesBean
 
   /**
    * Returns an iterator over all entries at this key.
-   * @todo is this iterator read-only or read-write?
    * @exception IllegalArgumentException if the key is not a list key.
    */
+  // TODO is this iterator read-only or read-write?
   public Iterator<? extends Object> entries(PropertyKey listKey);
 
   /**
@@ -188,8 +188,10 @@ public interface FacesBean
   public void restoreState(FacesContext context, Object state);
 
   /**
-   * @todo Extract as interface?
+   * Type of a FacesBean, encapsulating the set of registered
+   * PropertyKeys.
    */
+  // TODO Extract as interface?
   public static class Type
   {
     public Type()

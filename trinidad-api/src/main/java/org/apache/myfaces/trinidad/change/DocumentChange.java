@@ -30,7 +30,7 @@ public interface DocumentChange
 {
   /**
    * Apply this change to the specied root DOM Node of the component
-   * @param Root DOM node of the component to apply the change to
+   * @param componentNode DOM node of the component to apply the change to
    */
   public void changeDocument(Node componentNode);
   

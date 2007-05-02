@@ -62,7 +62,6 @@ abstract public class AddComponentDocumentChange implements DocumentChange
    * Given the target Node, return the DocumentFragment, imported into the
    * target Document
    * @param targetNode 
-   * @return 
    */
   protected final DocumentFragment getImportedComponentFragment(Node targetNode)
   {

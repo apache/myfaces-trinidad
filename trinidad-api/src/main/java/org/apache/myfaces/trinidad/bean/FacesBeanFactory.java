@@ -40,8 +40,9 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 public class FacesBeanFactory
 {
   /**
-   * @todo change from ownerClass to componentFamily
+   * Create a FacesBean for a component class.
    */
+  // TODO change from ownerClass to componentFamily?
   static public FacesBean createFacesBean(
     Class<?> ownerClass,
     String   rendererType)

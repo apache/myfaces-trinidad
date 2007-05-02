@@ -31,8 +31,6 @@ import javax.faces.event.PhaseId;
  * Base class for singleStep components
  *
  * @version $Name:  $ ($Revision$) $Date$
- * @todo =-=jmw should the text attribute be on the
- * base component?
  */
 abstract public class UIXSingleStepTemplate
                 extends UIXComponentBase
@@ -62,9 +60,7 @@ abstract public class UIXSingleStepTemplate
     super.queueEvent(e);
   }
 
-  /**
-   * @todo Store as transient PropertyKey
-   */
+  // TODO Store as transient PropertyKey
   public Object getActionType()
   {
     return _actionType;
@@ -76,11 +72,10 @@ abstract public class UIXSingleStepTemplate
     _actionType = actionType;
   }
 
-  /**
-    * @todo if I have default listeners, then should
-    * remove (then restore) default Listeners before saving state -
-    * this note copied from form.submitButtonBase.saveState....
-   */
+
+  // TODO if I have default listeners, then should
+  // remove (then restore) default Listeners before saving state -
+  // this note copied from form.submitButtonBase.saveState....
   @Override
   public Object saveState(FacesContext context)
   {
@@ -124,10 +119,8 @@ abstract public class UIXSingleStepTemplate
     return getNextAction();
   }
 
-  /**
-   * @todo Either make this throw an exception, or make it
-   *   execute on both back and next.
-   */
+  // TODO  Either make this throw an exception, or make it
+  //  execute on both back and next.
   public void setAction(MethodBinding action)
   {
     if ( getActionType() == PREVIOUS_ACTION_TYPE)
@@ -144,10 +137,8 @@ abstract public class UIXSingleStepTemplate
     return getNextActionListener();
   }
 
-  /**
-   * @todo Either make this throw an exception, or make it
-   *   execute on both back and next.
-   */
+  // TODO  Either make this throw an exception, or make it
+  //  execute on both back and next.
   public void setActionListener(MethodBinding listener)
   {
     if ( getActionType() == PREVIOUS_ACTION_TYPE)
