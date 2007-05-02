@@ -207,8 +207,6 @@ public class ProcessMenuModel extends ViewIdPropertyMenuModel
    * For the Plus One case, a stop is considered visited if, 
    *   - it's before the current or,
    *   - is the current stop itself
-   *   
-   * @return
    */
   public boolean isVisited()
   {

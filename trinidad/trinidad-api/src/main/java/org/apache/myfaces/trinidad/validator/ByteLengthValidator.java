@@ -68,7 +68,7 @@ import org.apache.myfaces.trinidad.util.MessageFactory;
  *     which will be replaced as specified in {@link #MAXIMUM_MESSAGE_ID}
  * </li>
  * </ul>
- * @see #setMaximumMessageDetail(String)
+ * @see #setMessageDetailMaximum(String)
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/validator/ByteLengthValidator.java#0 $) $Date: 10-nov-2005.19:08:32 $
  */
@@ -170,7 +170,7 @@ public class ByteLengthValidator  implements StateHolder, Validator
    * <p>Return custom detail error message that was set for creating {@link FacesMessage},
    * for values that exceeds the maximum byte length.</p>
    * @return Custom error message.
-   * @see  #setMaximumMessageDetail(String)
+   * @see  #setMessageDetailMaximum(String)
    */
   public String getMessageDetailMaximum()
   {

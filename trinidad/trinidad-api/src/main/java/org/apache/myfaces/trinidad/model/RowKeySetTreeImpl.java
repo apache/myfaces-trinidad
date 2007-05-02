@@ -99,7 +99,7 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
   /**
    * Removes the given rowKey from this Set.
    * @return false if the given rowKey was already not in this Set.
-   * @see #add(E)
+   * @see #add
    * @see #removeAll()
    */
   @Override
@@ -111,7 +111,7 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
   /**
    * Adds the current rowKey and all rowKeys beneath the current rowKey to this Set.
    * This method executes in constant time.
-   * @see #add(E)
+   * @see #add
    * @see #removeAll()
    */
   @Override

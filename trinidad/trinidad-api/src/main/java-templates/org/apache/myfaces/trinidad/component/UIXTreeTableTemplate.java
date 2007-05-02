@@ -41,7 +41,6 @@ import org.apache.myfaces.trinidad.model.TreeModel;
  * Base class for TreeTable component. The behaviours implemented by the
  * TreeTable include expanding/collapsing subtrees and focusing into subtrees.
  * @version $Name:  $ ($Revision$) $Date$
- * @todo document new default value for formSubmitted
  */
 abstract public class UIXTreeTableTemplate extends UIXTree
 {
@@ -203,8 +202,8 @@ abstract public class UIXTreeTableTemplate extends UIXTree
   /**
    * Gets the stamps. This returns the children of this component plus
    * the nodeStamp stamp (if any).
-   * @todo cache the result.
    */
+  // TODO cache the result.
   @Override
   @SuppressWarnings("unchecked")
   protected final List getStamps()

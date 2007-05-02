@@ -26,7 +26,6 @@ import javax.faces.event.FacesListener;
  * Listener for AttributeChangeEvents.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/event/AttributeChangeListener.java#0 $) $Date: 10-nov-2005.19:08:59 $
- * @mock
  */
 public interface AttributeChangeListener extends FacesListener
 {

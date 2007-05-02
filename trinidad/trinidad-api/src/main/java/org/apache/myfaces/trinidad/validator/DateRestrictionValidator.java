@@ -158,7 +158,7 @@ public class DateRestrictionValidator implements Validator, StateHolder {
   /**
    * <p>Custom hint invalidDaysOfWeek message.</p>
    * Overrides default hint message
-   * @param hintInvalidDaysOfWeek Custom hint message.
+   * @param hintWeek Custom hint message.
    */
   public void setHintInvalidDaysOfWeek(String hintWeek)
   {
@@ -179,7 +179,7 @@ public class DateRestrictionValidator implements Validator, StateHolder {
   /**
    * <p>Custom hint invalidMonths message.</p>
    * Overrides default hint message
-   * @param hintInvalidMonths Custom hint message.
+   * @param hintMonth Custom hint message.
    */
   public void setHintInvalidMonths(String hintMonth)
   {
@@ -198,8 +198,6 @@ public class DateRestrictionValidator implements Validator, StateHolder {
   }
 
   /**
-   * @exception NullPointerException {@inheritDoc}
-   * @exception ValidatorException {@inheritDoc}
    * @exception IllegalArgumentException if <code>value</code> is not of type
    * {@link java.util.Date}
    */

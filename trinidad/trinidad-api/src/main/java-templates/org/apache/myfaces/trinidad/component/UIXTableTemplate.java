@@ -225,8 +225,8 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
   /**
    * Gets the stamps. This returns the children of this component plus
    * the detail stamp (if any).
-   * @todo cache the result.
    */
+  // TODO cache the result
   @Override
   protected final List<UIComponent> getStamps()
   {

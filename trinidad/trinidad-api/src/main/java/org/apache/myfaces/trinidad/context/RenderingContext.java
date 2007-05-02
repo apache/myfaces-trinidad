@@ -93,10 +93,8 @@ abstract public class RenderingContext
   abstract public String getOutputMode();
   abstract public RequestContext.Accessibility getAccessibilityMode();
 
-  /**
-   * @TODO This is a hack API to enable caching of the client ID.
-   *  All fine, but we should have a more general mechanism.
-   */
+  // TODO This is a hack API to enable caching of the client ID.
+  // All fine, but we should have a more general mechanism.
   public String getCurrentClientId() { return _currentClientId; }
   public void setCurrentClientId(String currentClientId)
   {

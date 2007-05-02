@@ -134,7 +134,7 @@ abstract public class DialogService
    * This method should only be used by controller framework
    * code;  all others should use
    * {@link RequestContext#launchDialog RequestContext.launchDialog()}.
-   * The process scope must be {@link #pushPageFlowScope pushed}
+   * The process scope must be {@link PageFlowScopeProvider#pushPageFlowScope pushed}
    * <em>before</em> calling this method.
    */
   public abstract void launchDialog(
@@ -150,7 +150,7 @@ abstract public class DialogService
    * This method should only be used by controller framework
    * code;  all others should use
    * {@link RequestContext#returnFromDialog RequestContext.returnFromDialog()}.
-   * The process scope must be {@link #popPageFlowScope popped}
+   * The process scope must be {@link PageFlowScopeProvider#popPageFlowScope popped}
    * <em>after</em> calling this method.
    *
    * @return true if pages accessing that dialog are necessarily permanently
@@ -166,7 +166,7 @@ abstract public class DialogService
    * Queues a LaunchEvent that will result in a dialog being started, using
    * {@link #getCurrentLaunchSource current launch source} as the source
    * for launching the dialogRoot parameter.
-   * The process scope must be {@link #pushPageFlowScope pushed}
+   * The process scope must be {@link PageFlowScopeProvider#pushPageFlowScope pushed}
    * <em>before</em> calling this method.  If {@link #getCurrentLaunchSource}
    * returns <code>null</code>, a basic dialog will be started without
    * using a window or passing any additional parameters.  Developers

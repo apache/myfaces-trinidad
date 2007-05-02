@@ -77,9 +77,7 @@ public class ValueMap extends AbstractMap<String, Object>
     return _putInternal(_getPropertyKey(key), value);
   }
   
-  /**
-   * @todo Should remove just remove values, or also remove bindings?
-   */
+  // TODO Should remove just remove values, or also remove bindings?
   @Override
   public Object remove(Object key)
   {

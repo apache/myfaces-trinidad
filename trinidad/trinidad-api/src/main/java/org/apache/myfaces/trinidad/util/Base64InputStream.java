@@ -30,8 +30,6 @@ import java.io.Reader;
  * It takes a Reader as its single argument to its constructor and base64 
  * characters read in from the Reader are correspondingly made available to be 
  * read out in the corresponding binary format via the read() method.
- * 
- * @version
  */
 public class Base64InputStream extends InputStream
 {

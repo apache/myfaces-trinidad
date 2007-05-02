@@ -35,7 +35,7 @@ public class SetFacetChildDocumentChange extends AddComponentDocumentChange
    * Constructs an AddFacetDocumentChange with the specified child component mark up and
    *  the name of the facet.
    * @param facetName Name of facet to create the child component in
-   * @param componentFragment DOM mark up for child component to be inserted.
+   * @param fragment DOM mark up for child component to be inserted.
    * @throws IllegalArgumentException if facetName or componentFragment is
    *         <code>null</code>
    */

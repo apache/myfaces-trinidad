@@ -54,7 +54,7 @@ public abstract class Configurator
    * any other method within this Configurator and will be called only once
    * per webapp context.  This init is guaranteed to be executed before
    * completion of the first call to the
-   * {@link javax.faces.FacesContextFactory#getFacesContext(Object, Object, Object,javax.faces.lifecycle.Lifecycle)}
+   * {@link javax.faces.context.FacesContextFactory#getFacesContext}
    * is completed.
    *
    * <strong>Note:</strong>the ExternalContext provided to this method may not
@@ -79,7 +79,7 @@ public abstract class Configurator
   /**
    * This is called at the beginning of each "physical" request, sometime
    * before {@link #getExternalContext(ExternalContext)} or
-   * {@link #endRequestRequest(ExternalContext)}.  When using the
+   * {@link #endRequest(ExternalContext)}.  When using the
    * TrinidadFilter, this will be called during filter execution, but
    * is not guaranteed to happen until just before the creation of the
    * Trinidad FacesContext wrapper.

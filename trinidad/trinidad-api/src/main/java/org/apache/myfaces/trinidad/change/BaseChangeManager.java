@@ -43,10 +43,8 @@ abstract class BaseChangeManager extends ChangeManager
 {
   /**
    * {@inheritDoc}
-   *
-   * @todo =-=pu : Maybe we need to allow adding Changes for specific viewId's -
-   *  BIBeans req. - external customizer dialog
    */
+  // TODO : Maybe we need to allow adding Changes for specific viewId's
   @Override
   public void addComponentChange(
     FacesContext facesContext,

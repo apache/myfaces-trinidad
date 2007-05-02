@@ -59,10 +59,10 @@ abstract public class UIXHierarchy extends UIXCollection implements CollectionCo
   }
 
   /**
-   * @todo implement this
    * Gets the index of the first visible row in this tree
    * @return zero-based index. not implemented yet.
    */
+  // TODO implement this
   public int getFirst()
   {
     return 0;
@@ -71,8 +71,8 @@ abstract public class UIXHierarchy extends UIXCollection implements CollectionCo
   /**
    * Gets the maximum number of rows that this tree should show at a time.
    * @return not implemented yet.
-   * @todo implement this
    */
+  // TODO implement this
   public int getRows()
   {
     return 0;

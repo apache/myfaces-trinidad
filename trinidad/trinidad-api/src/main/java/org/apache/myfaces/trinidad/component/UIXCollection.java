@@ -945,8 +945,8 @@ public abstract class UIXCollection extends UIXComponentBase
 
   /**
    * Gets the ClientRowKeyManager that is used to handle the
-   * @{link #getClientRowKey} and  
-   * @{link #setClientRowKey} methods.
+   * {@link #getClientRowKey} and  
+   * {@link #setClientRowKey} methods.
    * If the manager does not already exist a new one is created.
    * In order to create your own manager, your Renderer (for this component)
    * must implement

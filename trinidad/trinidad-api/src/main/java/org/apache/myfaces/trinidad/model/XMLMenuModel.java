@@ -155,7 +155,7 @@ public class XMLMenuModel extends BaseMenuModel
    * Makes the TreeModel part of the menu model.  Also creates the
    * _viewIdFocusPathMap, _nodeFocusPathMap, and idNodeMaps.
    * 
-   * @param data.  The Tree Model instance
+   * @param data The Tree Model instance
    */
   @Override  
   public void setWrappedData(Object data)

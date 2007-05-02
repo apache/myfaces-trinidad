@@ -45,8 +45,9 @@ abstract public class FacesBeanImpl implements FacesBean
   }
 
   /**
-   * @todo Use auto "TYPE" detection?
+   * Get the type of a FacesBean
    */
+  // TODO Use auto "TYPE" detection?
   abstract public Type getType();
 
   final public Object getProperty(PropertyKey key)
@@ -89,12 +90,10 @@ abstract public class FacesBeanImpl implements FacesBean
   }
 
 
-  /**
-   * @todo Need *good* way of hooking property-sets;  it's
-   * currently not called from state restoring, so really, it shouldn't
-   * be used as a hook, but EditableValueBase currently
-   * requires hooking this method.
-   */
+  // TODO Need *good* way of hooking property-sets;  it's
+  // currently not called from state restoring, so really, it shouldn't
+  // be used as a hook, but EditableValueBase currently
+  // requires hooking this method.
   public void setProperty(PropertyKey key, Object value)
   {
     _checkNotListKey(key);
@@ -234,10 +233,8 @@ abstract public class FacesBeanImpl implements FacesBean
     return l.iterator();
   }
 
-  /**
-   * @todo provide more efficient implementation for copying
-   * from other FacesBeanImpl instances
-   */
+  // TODO provide more efficient implementation for copying
+  // from other FacesBeanImpl instances
   public void addAll(FacesBean from)
   {
     if (from == this)

@@ -58,8 +58,8 @@ abstract public class Icon
   /**
    * Renders the Icon.
    *
-   * @param FacesContext context
-   * @param RenderingContext arc The RenderingContext for the
+   * @param context FacesContext 
+   * @param arc The RenderingContext for the
    *                                 current request.
    * @param attrs A Map which which provides access to
    *             values that might be useful to Icon implementations,
@@ -76,8 +76,8 @@ abstract public class Icon
    * The default implementation of this method simply returns null,
    * which indicates to the caller that no image representation of
    * the Icon is available.
-   * @param FacesContext context
-   * @param RenderingContext arc The RenderingContext for the
+   * @param context FacesContext
+   * @param arc The RenderingContext for the
    *                                 current request.
    */
   public Object getImageURI(
@@ -92,7 +92,7 @@ abstract public class Icon
    * The default implementation of this method simply returns null,
    * which indicates to the caller the width of the image is not
    * known - or that the Icon does not provide an image representation.
-   * @param RenderingContext arc
+   * @param arc RenderingContext 
    */
   public Integer getImageWidth(RenderingContext arc)
   {
@@ -104,7 +104,7 @@ abstract public class Icon
    * The default implementation of this method simply returns null,
    * which indicates to the caller the height of the image is not
    * known - or that the Icon does not provide an image representation.
-   * @param RenderingContext arc
+   * @param arc RenderingContext 
    *
    */
   public Integer getImageHeight(RenderingContext arc)
@@ -115,11 +115,11 @@ abstract public class Icon
   /**
    * Returns an InputStream which provides access to the
    * image data for image-based Icons.
-   * @param FacesContext context
-   * @param RenderingContext arc The RenderingContext for the
+   * @param context FacesContext 
+   * @param arc The RenderingContext for the
    *                                 current request.
-   * @todo Is this still necessary?
    */
+  // TODO: Delete if unnecessary
   public InputStream openStream(
     FacesContext        context,
     RenderingContext arc

@@ -65,17 +65,17 @@ import org.apache.myfaces.trinidad.util.MessageFactory;
  * <p>The methods used for customizing the detail message associated with each id
  * is given below:</p>
  * <ul>
- * <li>{@link #MAXIMUM_MESSAGE_ID} - {@link #setMaximumMessageDetail(String)}</li>
- * <li>{@link #MINIMUM_MESSAGE_ID} - {@link #setMinimumMessageDetail(String)}</li>
- * <li>{@link #NOT_IN_RANGE_MESSAGE_ID} - {@link #setNotInRangeMessageDetail(String)} - </li></ul>
+ * <li>{@link #MAXIMUM_MESSAGE_ID} - {@link #setMessageDetailMaximum(String)}</li>
+ * <li>{@link #MINIMUM_MESSAGE_ID} - {@link #setMessageDetailMinimum(String)}</li>
+ * <li>{@link #NOT_IN_RANGE_MESSAGE_ID} - {@link #setMessageDetailNotInRange(String)} - </li></ul>
  *  Then this message will be used to construct faces message
  *  when validation fails based on the above-mentioned algorithm
 
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/validator/DateTimeRangeValidator.java#0 $) $Date: 10-nov-2005.19:08:33 $
- * @todo The error message date/time reads
- * "Date cannot be before Mon Feb 16 16:11:13 PST 2004", in a perfect the
- * date should probably be in the format of the converter....
  */
+// TODO The error message date/time reads
+// "Date cannot be before Mon Feb 16 16:11:13 PST 2004", but the
+// date should probably be in the format of the converter....
 public class DateTimeRangeValidator implements Validator, StateHolder {
 
 
@@ -212,7 +212,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
    *  <p>Return custom detail error message that was set for creating {@link FacesMessage},
    *  for cases where input value exceeds the <code>maximum</code> value set.</p>
    * @return Custom error message.
-   * @see #setMaximumMessageDetail(String)
+   * @see #setMessageDetailMaximum(String)
    */
   public String getMessageDetailMaximum()
   {
@@ -236,7 +236,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
    * <p>Return custom detail error message that was set for creating {@link FacesMessage},
    * for cases where, input value is less than the <code>minimum</code> value set.</p>
    * @return Custom error message.
-   * @see #setMinimumMessageDetail(String)
+   * @see #setMessageDetailMinimum(String)
    */
   public String getMessageDetailMinimum()
   {
@@ -261,7 +261,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
    * for cases where, input value exceeds the <code>maximum</code> value and is
    * less than the <code>minimum</code> value set.</p>
    * @return Custom error message.
-   * @see #setNotInRangeMessageDetail(String)
+   * @see #setMessageDetailNotInRange(String)
    */
   public String getMessageDetailNotInRange()
   {
@@ -324,7 +324,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
   /**
    * <p>Return custom hint notInRange message.</p>
    * @return Custom hint message.
-   * @see  #setHintNotInRangeString)
+   * @see  #setHintNotInRange(String)
    */
   public String getHintNotInRange()
   {
@@ -333,8 +333,6 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
   }
 
   /**
-   * @exception NullPointerException {@inheritDoc}
-   * @exception ValidatorException {@inheritDoc}
    * @exception IllegalArgumentException if <code>value</code> is not of type
    * {@link java.util.Date}
    */

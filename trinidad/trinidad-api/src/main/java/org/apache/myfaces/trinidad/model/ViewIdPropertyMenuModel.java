@@ -57,9 +57,8 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  *     TreeModel treeModel = new ChildPropertyTreeModel(collectionModel, "children");
  *     MenuModel menuModel = new ViewIdPropertyMenuModel(treeModel, "viewId");
  * </code></pre>
- *
- * @todo - support for mutable trees?
  */
+// TODO - support for mutable trees?
 public class ViewIdPropertyMenuModel extends BaseMenuModel
 {
   /**

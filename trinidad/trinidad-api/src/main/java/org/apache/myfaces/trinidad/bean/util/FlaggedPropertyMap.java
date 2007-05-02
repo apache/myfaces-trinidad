@@ -148,9 +148,7 @@ public class FlaggedPropertyMap extends AbstractMap<PropertyKey,Object>
     return map.entrySet();
   }
 
-  /**
-   * @todo Optimize to take advantage of flags.
-   */
+  // TODO Optimize to take advantage of flags.
   @Override
   public Set<PropertyKey> keySet()
   {

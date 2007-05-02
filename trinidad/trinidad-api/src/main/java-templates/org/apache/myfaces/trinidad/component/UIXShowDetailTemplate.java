@@ -102,11 +102,6 @@ abstract public class UIXShowDetailTemplate extends UIXComponentBase
     }
   }
 
-  /**
-   * @todo Should a non-immediate ShowDetail fire after UPDATE_MODEL_VALUES,
-   * or INVOKE_APPLICATION?  Or should we only support non-immediate
-   * ShowDetails?
-   */
   @Override
   public void queueEvent(FacesEvent e)
   {
