@@ -60,19 +60,19 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
   }
 
   @Override
-  public Object getSubmittedValue(
+  protected Object getSubmittedValue(
     FacesContext context,
-    UIComponent  component)
+    UIComponent  component,
+    String       clientId)
   {
-    String clientId = component.getClientId(context);
-    Object submittedValue = context.getExternalContext().
-                                getRequestParameterMap().get(clientId);
-     if (submittedValue == null)
+    Object submittedValue = super.getSubmittedValue(context,
+                                                    component,
+                                                    clientId);
+    if (submittedValue == null)
       submittedValue = "";
 
     return submittedValue;
   }
-
 
   /**
    * Return the value to output for an item.
@@ -448,7 +448,7 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
   {
     String source = LabelAndMessageRenderer.__getCachedClientId(arc);
     boolean immediate = isImmediate(bean);
-    return AutoSubmitUtils.getSubmitScript(arc, source, immediate);
+    return AutoSubmitUtils.getSubmitScript(arc, source, XhtmlConstants.AUTOSUBMIT_EVENT, immediate);
   }
 
 

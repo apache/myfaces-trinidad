@@ -46,16 +46,20 @@ public class SimpleInputFileRenderer extends SimpleInputTextRenderer
   // DECODE BEHAVIOR
   // 
   @Override
-  public Object getSubmittedValue(
+  protected Object getSubmittedValue(
     FacesContext context,
-    UIComponent  component)
+    UIComponent  component,
+    String       clientId)
   {
+    // Since we override getSubmittedValue() entirely,
+    // detect auto submit manually
+    detectAutoSubmit(context, component, clientId);
+
     Object result = null;
 
     UploadedFiles files = UploadedFiles.getUploadedFiles(context);
     if (files != null)
     {
-      String clientId = component.getClientId(context);
       result = files.getUploadedFile(clientId);
     }
 

@@ -476,14 +476,14 @@
             
             <script
                 >
-              var _pprUpdateMode=false;function _adfspu(f,v,e,s,o){_pprUpdateMode=true;if(!o)o=new Object();o.event=(e)?e:'update';if(s)o.source=s;_submitPartialChange(f,v,o);}
+              var _pprUpDatemode=false;function _adfspu(f,v,e,s,o){_pprUpdateMode=true;if(!o)o=new Object();if(e)o.event=e;if(s)o.source=s;_submitPartialChange(f,v,o);}
             </script>
             <textarea
                  class="af_inputText_content"
                  cols="30"
                  id="mainId"
                  name="mainId"
-                 onchange="_adfspu('formId',1,'mainId','mainId');return true;"
+                 onchange="_adfspu('formId',1,'autosub','mainId');return true;"
                  rows="5"
                 >
               Text

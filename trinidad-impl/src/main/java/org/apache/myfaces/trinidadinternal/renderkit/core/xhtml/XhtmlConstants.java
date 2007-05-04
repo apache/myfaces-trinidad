@@ -39,6 +39,9 @@ public final class XhtmlConstants
   
   public static final String SCRIPT_NAME = "script";
 
+  // Input components
+  public static final String AUTOSUBMIT_EVENT = "autosub";
+
   // Mobile dateField and LovField
   // "picker" events and types
   public static final String DATE_EVENT   = "date";

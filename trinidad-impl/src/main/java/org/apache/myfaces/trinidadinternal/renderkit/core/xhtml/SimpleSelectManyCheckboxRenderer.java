@@ -310,7 +310,7 @@ public class SimpleSelectManyCheckboxRenderer extends SimpleSelectManyRenderer
 
 
   /**
-   * Get the onclick for the individual radio buttons.
+   * Get the onclick for the individual checkboxes
    */
   protected String getItemOnclick(RenderingContext arc, FacesBean bean)
   {
@@ -322,8 +322,8 @@ public class SimpleSelectManyCheckboxRenderer extends SimpleSelectManyRenderer
       boolean immediate = isImmediate(bean);
       String auto = AutoSubmitUtils.getSubmitScript(arc,
                                                     source,
-                                                    immediate,
-                                                    false);
+                                                    XhtmlConstants.AUTOSUBMIT_EVENT,
+                                                    immediate);
       onclick = XhtmlUtils.getChainedJS(onclick, auto, true);
     }
 

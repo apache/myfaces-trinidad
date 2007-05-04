@@ -44,11 +44,12 @@ public class SimpleSelectBooleanCheckboxRenderer extends SimpleSelectBooleanRend
   //**********************
   
   @Override
-  public Object getSubmittedValue(
+  protected Object getSubmittedValue(
     FacesContext context,
-    UIComponent  component)
+    UIComponent  component,
+    String       clientId)
   {
-    if (super.getSubmittedValue(context, component) == null)
+    if (super.getSubmittedValue(context, component, clientId) == null)
       return Boolean.FALSE;
 
     return Boolean.TRUE;

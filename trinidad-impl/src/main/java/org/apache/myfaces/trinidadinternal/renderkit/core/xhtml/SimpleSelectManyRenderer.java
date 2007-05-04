@@ -122,11 +122,15 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
   }
 
   @Override
-  public Object getSubmittedValue(
+  protected Object getSubmittedValue(
     FacesContext context,
-    UIComponent  component)
+    UIComponent  component,
+    String       clientId)
   {
-    String clientId = component.getClientId(context);
+    // Since we override getSubmittedValue() entirely,
+    // detect auto submit manually
+    detectAutoSubmit(context, component, clientId);
+
     Object o = context.getExternalContext().
        getRequestParameterValuesMap().get(clientId);
     // Never return null (here, anyway);  null means no

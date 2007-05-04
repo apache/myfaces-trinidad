@@ -64,11 +64,12 @@ public class SimpleInputTextRenderer extends FormInputRenderer
   }
 
   @Override
-  public Object getSubmittedValue(
+  protected Object getSubmittedValue(
     FacesContext context,
-    UIComponent  component)
+    UIComponent  component,
+    String       clientId)
   {
-    Object submitted = super.getSubmittedValue(context, component);
+    Object submitted = super.getSubmittedValue(context, component, clientId);
     if ((submitted == null) || "".equals(submitted))
       return submitted;
 
@@ -648,7 +649,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
       RenderingContext arc = RenderingContext.getCurrentInstance();
       String source = LabelAndMessageRenderer.__getCachedClientId(arc);
       boolean immediate = isImmediate(bean);
-      String auto = AutoSubmitUtils.getSubmitScript(arc, source, immediate);
+      String auto = AutoSubmitUtils.getSubmitScript(arc, source, XhtmlConstants.AUTOSUBMIT_EVENT, immediate);
       if (onchange == null)
         onchange = auto;
       else if (auto != null)

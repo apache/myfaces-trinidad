@@ -312,8 +312,8 @@ public class SimpleSelectOneRadioRenderer extends SimpleSelectOneRenderer
       boolean immediate = isImmediate(bean);
       String auto = AutoSubmitUtils.getSubmitScript(arc,
                                                     source,
-                                                    immediate,
-                                                    false);
+                                                    XhtmlConstants.AUTOSUBMIT_EVENT,
+                                                    immediate);
       onclick = XhtmlUtils.getChainedJS(onclick, auto, true);
     }
 

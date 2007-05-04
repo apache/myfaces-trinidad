@@ -79,11 +79,15 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
 
 
   @Override
-  public Object getSubmittedValue(
+  protected Object getSubmittedValue(
     FacesContext context,
-    UIComponent  component)
+    UIComponent  component,
+    String       clientId)
   {
-    String clientId = component.getClientId(context);
+    // Since we override getSubmittedValue() entirely,
+    // detect auto submit manually
+    detectAutoSubmit(context, component, clientId);
+
     String trailingId = clientId + ":trailing:items";
     String paramValue = (String) context.getExternalContext().
                                 getRequestParameterMap().get(trailingId);

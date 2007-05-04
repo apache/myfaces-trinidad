@@ -640,7 +640,7 @@
             <script
                  type="text/javascript"
                 >
-              var _pprUpdateMode=false;function _adfspu(f,v,e,s,o){_pprUpdateMode=true;if(!o)o=new Object();o.event=(e)?e:'update';if(s)o.source=s;_submitPartialChange(f,v,o);}
+              var _pprUpDatemode=false;function _adfspu(f,v,e,s,o){_pprUpdateMode=true;if(!o)o=new Object();if(e)o.event=e;if(s)o.source=s;_submitPartialChange(f,v,o);}
             </script>
             <span
                  class="af_selectManyCheckbox_content"
@@ -650,7 +650,7 @@
               <input
                    id="mainId:_0"
                    name="mainId"
-                   onclick="_adfspu('formId',1,'mainId','mainId');return true;"
+                   onclick="_adfspu('formId',1,'autosub','mainId');return true;"
                    type="checkbox"
                    value="0"
                   >
@@ -668,7 +668,7 @@
               <input
                    id="mainId:_1"
                    name="mainId"
-                   onclick="_adfspu('formId',1,'mainId','mainId');return true;"
+                   onclick="_adfspu('formId',1,'autosub','mainId');return true;"
                    type="checkbox"
                    value="1"
                   >
@@ -686,7 +686,7 @@
               <input
                    id="mainId:_2"
                    name="mainId"
-                   onclick="_adfspu('formId',1,'mainId','mainId');return true;"
+                   onclick="_adfspu('formId',1,'autosub','mainId');return true;"
                    type="checkbox"
                    value="2"
                   >
