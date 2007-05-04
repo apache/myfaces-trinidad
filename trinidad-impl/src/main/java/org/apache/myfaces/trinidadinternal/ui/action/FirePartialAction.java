@@ -203,7 +203,7 @@ public class FirePartialAction extends FireAction
                                parameters);
 
     // Create the buffer
-    StringBuffer buffer = new StringBuffer(length);
+    StringBuilder buffer = new StringBuilder(length);
 
     // Build up the script
     buffer.append(startScript);
@@ -449,7 +449,7 @@ public class FirePartialAction extends FireAction
 
   // Appends a parameter to our buffer
   private static void _appendBooleanParameter(
-    StringBuffer buffer,
+    StringBuilder buffer,
     boolean      value
     )
   {

@@ -108,7 +108,7 @@ class ActionUtils
    */
   public static void appendClientParameters(
     UIXRenderingContext context,
-    StringBuffer     buffer,
+    StringBuilder     buffer,
     Parameter[]      parameters
     )
   {
@@ -121,7 +121,7 @@ class ActionUtils
    */
   public static void appendClientParameters(
     UIXRenderingContext context,
-    StringBuffer     buffer,
+    StringBuilder     buffer,
     Parameter[]      parameters,
     String           event,
     String           source
@@ -135,7 +135,7 @@ class ActionUtils
    */
   public static void appendClientParameters(
     UIXRenderingContext context,
-    StringBuffer     buffer,
+    StringBuilder     buffer,
     Parameter[]      parameters,
     String           event,
     String           source,
@@ -246,7 +246,7 @@ class ActionUtils
     )
   {
     int bufLen = 1 + base.length() + getClientParametersSize(context, params);
-    StringBuffer buffer = new StringBuffer(bufLen);
+    StringBuilder buffer = new StringBuilder(bufLen);
     buffer.append(base);
     if (base.indexOf('?') < 0)
       buffer.append('?');
@@ -255,7 +255,7 @@ class ActionUtils
   }
 
   static void appendURLParameters(
-    StringBuffer buffer,
+    StringBuilder buffer,
     Parameter[]  params
     )
   {
@@ -266,7 +266,7 @@ class ActionUtils
   }
 
   static void appendURLParameter(
-    StringBuffer buffer,
+    StringBuilder buffer,
     Parameter    param
     )
   {
@@ -275,7 +275,7 @@ class ActionUtils
 
   // Append a parameter to a URL buffer
   static void appendURLParameter(
-    StringBuffer buffer,
+    StringBuilder buffer,
     String       name,
     String       value
     )

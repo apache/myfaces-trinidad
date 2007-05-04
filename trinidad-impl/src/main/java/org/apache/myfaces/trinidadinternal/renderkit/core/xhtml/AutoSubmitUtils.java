@@ -59,7 +59,7 @@ public class AutoSubmitUtils
     if (childCount == 0)
       return null;
       
-    StringBuffer buffer = null;
+    StringBuilder builder = null;
     for(UIComponent child : (List<UIComponent>)comp.getChildren())
     {
       if (child instanceof UIParameter)
@@ -70,28 +70,28 @@ public class AutoSubmitUtils
         if ((value == null) || (name == null))
           continue;
 
-        if (buffer == null)
-          buffer = new StringBuffer();
+        if (builder == null)
+          builder = new StringBuilder();
           
         // Add a comma if needed
-        if (buffer.length() > 0)
-          buffer.append(',');
+        if (builder.length() > 0)
+          builder.append(',');
         
         // Add the name and value, and in both cases
         // wrap in single quotes and escape it - we don't
         // know for sure if the name will be a legit JS identifier
-        buffer.append('\'');
-        buffer.append(XhtmlUtils.escapeJS(name));
-        buffer.append("':'");
-        buffer.append(XhtmlUtils.escapeJS(value.toString()));
-        buffer.append('\'');
+        builder.append('\'');
+        builder.append(XhtmlUtils.escapeJS(name));
+        builder.append("':'");
+        builder.append(XhtmlUtils.escapeJS(value.toString()));
+        builder.append('\'');
       }
     }
     
-    if (buffer == null)
+    if (builder == null)
       return null;
       
-    return buffer.toString();
+    return builder.toString();
   }
     
   public static String getFullPageSubmitScript(
@@ -126,30 +126,30 @@ public class AutoSubmitUtils
       length += (1 + extraParams.length());
     }
 
-    StringBuffer buffer = new StringBuffer(length);
-    buffer.append(startString);
-    buffer.append(formName);
-    buffer.append(immediate ? "',0," : "',1,");
+    StringBuilder builder = new StringBuilder(length);
+    builder.append(startString);
+    builder.append(formName);
+    builder.append(immediate ? "',0," : "',1,");
 
-    buffer.append("{source:");
-    _appendJSParameter(buffer, source);
+    builder.append("{source:");
+    _appendJSParameter(builder, source);
 
     if (event != null)
     {
-      buffer.append(",event:");
-      _appendJSParameter(buffer, event);
+      builder.append(",event:");
+      _appendJSParameter(builder, event);
     }
 
     if (extraParams != null)
     {
-      buffer.append(",");
-      buffer.append(extraParams);
+      builder.append(",");
+      builder.append(extraParams);
     }
 
-    buffer.append('}');
-    buffer.append(endString);
+    builder.append('}');
+    builder.append(endString);
 
-    return buffer.toString();
+    return builder.toString();
   }
 
   /**
@@ -161,17 +161,17 @@ public class AutoSubmitUtils
    */
   public static String getPartialGetScript(String destination)
   {
-    // Pre-compute StringBuffer size
+    // Pre-compute StringBuilder size
     int length = _FIRE_PARTIAL_CHANGE_START.length() +
                  _FIRE_PARTIAL_CHANGE_END.length()   +
                  destination.length();
 
-    StringBuffer buffer = new StringBuffer(length);
-    buffer.append(_FIRE_PARTIAL_CHANGE_START);
-    buffer.append(destination);
-    buffer.append(_FIRE_PARTIAL_CHANGE_END);
+    StringBuilder builder = new StringBuilder(length);
+    builder.append(_FIRE_PARTIAL_CHANGE_START);
+    builder.append(destination);
+    builder.append(_FIRE_PARTIAL_CHANGE_END);
 
-    return buffer.toString();
+    return builder.toString();
   }
 
   public static String getSubmitScript(
@@ -231,48 +231,48 @@ public class AutoSubmitUtils
       length += (3 + extraParams.length());
     }
 
-    // Create the buffer
-    StringBuffer buffer = new StringBuffer(length);
+    // Create the builder
+    StringBuilder builder = new StringBuilder(length);
 
     // Build up the script
-    buffer.append(startString);
-    buffer.append(formName);
-    buffer.append("\',");
-    buffer.append(immediate ? "0" : "1");
+    builder.append(startString);
+    builder.append(formName);
+    builder.append("\',");
+    builder.append(immediate ? "0" : "1");
 
-    buffer.append(",");
-    _appendJSParameter(buffer, event); // eventName
-    buffer.append(",");
-    _appendJSParameter(buffer, source); // source
+    builder.append(",");
+    _appendJSParameter(builder, event); // eventName
+    builder.append(",");
+    _appendJSParameter(builder, source); // source
 
     if (extraParams != null)
     {
-      buffer.append(",{");
-      buffer.append(extraParams);
-      buffer.append("}");
+      builder.append(",{");
+      builder.append(extraParams);
+      builder.append("}");
     }
 
-    buffer.append(endString);
-    return buffer.toString();
+    builder.append(endString);
+    return builder.toString();
   }
 
-  // Appends a parameter to a JavaScript function call buffer
+  // Appends a parameter to a JavaScript function call builder
   private static void _appendJSParameter(
-    StringBuffer buffer,
+    StringBuilder builder,
     String value
     )
   {
     if (value == null)
     {
-      buffer.append("0");
+      builder.append("0");
     }
     else
     {
       // double escape in-quotes string
       // e.g. "\'" + escapeJS("a'b") + "\'" -> "\'a\\\'b\'"
-      buffer.append("\'");
-      XhtmlUtils.escapeJS(buffer, value, true, 2);
-      buffer.append("\'");
+      builder.append("\'");
+      XhtmlUtils.escapeJS(builder, value, true, 2);
+      builder.append("\'");
     }
   }
 

@@ -101,8 +101,8 @@ public class XhtmlUtils
                  XhtmlConstants.COMPOSITE_ID_EXTENSION.length();
     if (suffix != null)
       length += suffix.length();
-    StringBuffer compID
-      = new StringBuffer(length);
+    StringBuilder compID
+      = new StringBuilder(length);
     compID.append(baseid);
     compID.append(XhtmlConstants.COMPOSITE_ID_EXTENSION);
     if (suffix != null)
@@ -233,23 +233,23 @@ public class XhtmlUtils
     // allocate enough room for the constants plus double the length
     // of the possible-escaped strings
     //
-    StringBuffer outBuffer = new StringBuffer(15 +
+    StringBuilder outBuilder = new StringBuilder(15 +
                                               evh1Length * 2 +
                                               3 +
                                               evh2Length * 2 +
                                               18);
 
-    outBuffer.append("return _chain('");
-    _escapeSingleQuotes(outBuffer, evh1);
-    outBuffer.append("','");
-    _escapeSingleQuotes(outBuffer, evh2);
+    outBuilder.append("return _chain('");
+    _escapeSingleQuotes(outBuilder, evh1);
+    outBuilder.append("','");
+    _escapeSingleQuotes(outBuilder, evh2);
 
     if ( shortCircuit )
-      outBuffer.append("',this,event,true)");
+      outBuilder.append("',this,event,true)");
     else
-      outBuffer.append("',this,event)");
+      outBuilder.append("',this,event)");
 
-    return outBuffer.toString();
+    return outBuilder.toString();
   }
 
 
@@ -281,16 +281,16 @@ public class XhtmlUtils
   {
     int charCount = inString.length();
 
-    StringBuffer outBuffer = new StringBuffer(charCount * 2);
+    StringBuilder outBuilder = new StringBuilder(charCount * 2);
 
-    escapeJS(outBuffer, inString, inQuotes);
+    escapeJS(outBuilder, inString, inQuotes);
 
     // since we only add characters, if the character count is different, we
     // will have a different output string, otherwise, reuse the input string,
     // as it is unchanged
-    if (charCount != outBuffer.length())
+    if (charCount != outBuilder.length())
     {
-      return outBuffer.toString();
+      return outBuilder.toString();
     }
     else
     {
@@ -304,11 +304,11 @@ public class XhtmlUtils
    * quotes.
    */
   public static void escapeJS(
-    StringBuffer outBuffer,
+    StringBuilder outBuilder,
     String       inString
     )
   {
-    escapeJS(outBuffer, inString, false /* inQuotes */);
+    escapeJS(outBuilder, inString, false /* inQuotes */);
   }
 
 
@@ -317,11 +317,11 @@ public class XhtmlUtils
    * quotes.
    */
   public static void escapeJS(
-    StringBuffer outBuffer,
+    StringBuilder outBuilder,
     String       inString,
     boolean      inQuotes)
   {
-    escapeJS(outBuffer, inString, inQuotes, 1 /* escapeCount */);
+    escapeJS(outBuilder, inString, inQuotes, 1 /* escapeCount */);
   }
 
   /**
@@ -329,7 +329,7 @@ public class XhtmlUtils
    * quotes.
    */
   public static void escapeJS(
-    StringBuffer outBuffer,
+    StringBuilder outBuilder,
     String       inString,
     boolean      inQuotes,
     int          escapeCount
@@ -357,17 +357,17 @@ public class XhtmlUtils
         }
 
         // handle double-escaping case
-        // eg. "\'" + escapeJS(buffer,"a'b",true,2) + "\'" -> "\'a\\\'b\'"
+        // eg. "\'" + escapeJS(builder,"a'b",true,2) + "\'" -> "\'a\\\'b\'"
         for (int j=0; j < leadSlashCount; j++)
         {
-          outBuffer.append('\\');
+          outBuilder.append('\\');
         }
 
         // always escape quotes
-        outBuffer.append('\\');
+        outBuilder.append('\\');
 
         // output the current character
-        outBuffer.append(currChar);
+        outBuilder.append(currChar);
       }
       else
       {
@@ -375,8 +375,8 @@ public class XhtmlUtils
         {
           if (currChar > 255)
           {
-            outBuffer.append("\\u");
-            _appendHexString(outBuffer, currChar, 4);
+            outBuilder.append("\\u");
+            _appendHexString(outBuilder, currChar, 4);
           }
           else
           {
@@ -386,16 +386,16 @@ public class XhtmlUtils
               if (currChar == '\\')
               {
                 // escape all \'s in strings
-                outBuffer.append('\\');
+                outBuilder.append('\\');
               }
 
               // output the current character
-              outBuffer.append(currChar);
+              outBuilder.append(currChar);
             }
             else
             {
-              outBuffer.append("\\x");
-              _appendHexString(outBuffer, currChar, 2);
+              outBuilder.append("\\x");
+              _appendHexString(outBuilder, currChar, 2);
             }
           }
         }
@@ -403,10 +403,10 @@ public class XhtmlUtils
         {
           // Double up backslashes (see bug 1676002)
           if (currChar == '\\')
-            outBuffer.append('\\');
+            outBuilder.append('\\');
 
           // output the current character
-          outBuffer.append(currChar);
+          outBuilder.append(currChar);
         }
       }
 
@@ -417,7 +417,7 @@ public class XhtmlUtils
   }
 
   private static void _appendHexString(
-    StringBuffer buffer,
+    StringBuilder builder,
     int          number,
     int          minDigits
     )
@@ -430,11 +430,11 @@ public class XhtmlUtils
 
     if (zeroPadding > 0)
     {
-      buffer.append('0');
+      builder.append('0');
 
       while (zeroPadding > 1)
       {
-        buffer.append('0');
+        builder.append('0');
         zeroPadding--;
       }
     }
@@ -446,12 +446,12 @@ public class XhtmlUtils
       }
     }
 
-    buffer.append(hexString);
+    builder.append(hexString);
   }
 
 
   private static void _escapeSingleQuotes(
-    StringBuffer outBuffer,
+    StringBuilder outBuilder,
     String       inString
     )
   {
@@ -476,16 +476,16 @@ public class XhtmlUtils
         }
 
         // always escape quotes
-        outBuffer.append('\\');
+        outBuilder.append('\\');
       }
       else if ((currChar == '\\') && inQuotes)
       {
         // escape all \'s in strings
-        outBuffer.append('\\');
+        outBuilder.append('\\');
       }
 
       // output the current character
-      outBuffer.append(currChar);
+      outBuilder.append(currChar);
 
       // keep track of the previous character to determine whether
       // single quotes are escaped

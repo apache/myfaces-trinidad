@@ -215,7 +215,7 @@ public class FireAction extends ClientAction
                                parameters);
 
     // Create the buffer
-    StringBuffer buffer = new StringBuffer(length);
+    StringBuilder buffer = new StringBuilder(length);
 
     // Build up the script
     buffer.append(startScript);
@@ -282,8 +282,8 @@ public class FireAction extends ClientAction
                                parameters);
 
     // Create the buffer
-    StringBuffer buffer = new StringBuffer(length);
-    StringBuffer urlBuffer = new StringBuffer(length);
+    StringBuilder buffer = new StringBuilder(length);
+    StringBuilder urlBuffer = new StringBuilder(length);
     // Add the start script
     buffer.append(startScript);
 
@@ -524,7 +524,7 @@ public class FireAction extends ClientAction
 
   // Appends a parameter to a JavaScript function call buffer
   protected static void appendJSParameter(
-    StringBuffer buffer,
+    StringBuilder buffer,
     String value
     )
   {
@@ -547,7 +547,7 @@ public class FireAction extends ClientAction
 
   // Append a parameter to a URL buffer
   protected static void appendURLParameter(
-    StringBuffer buffer,
+    StringBuilder buffer,
     String       name,
     String       value
     )
@@ -558,7 +558,7 @@ public class FireAction extends ClientAction
 
   protected static void appendClientParameters(
     UIXRenderingContext context,
-    StringBuffer     buffer,
+    StringBuilder     buffer,
     Parameter[]      parameters
     )
   {

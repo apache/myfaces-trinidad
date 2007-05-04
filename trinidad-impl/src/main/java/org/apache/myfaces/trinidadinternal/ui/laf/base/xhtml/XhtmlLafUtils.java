@@ -113,7 +113,7 @@ public class XhtmlLafUtils extends BaseLafUtils
       keyValueSize = 20;
 
     // add 2 for starting and ending curly quotes
-    StringBuffer jsObject = new StringBuffer(keyValueSize + 2);
+    StringBuilder jsObject = new StringBuilder(keyValueSize + 2);
 
     // append start of javascript property
     jsObject.append('{');
@@ -691,7 +691,7 @@ public class XhtmlLafUtils extends BaseLafUtils
    * quotes.
    */
   public static void escapeJS(
-    StringBuffer outBuffer,
+    StringBuilder outBuffer,
     String       inString
     )
   {
@@ -704,7 +704,7 @@ public class XhtmlLafUtils extends BaseLafUtils
    * quotes.
    */
   public static void escapeJS(
-    StringBuffer outBuffer,
+    StringBuilder outBuffer,
     String       inString,
     boolean      inQuotes)
   {
@@ -716,7 +716,7 @@ public class XhtmlLafUtils extends BaseLafUtils
    * quotes.
    */
   public static void escapeJS(
-    StringBuffer outBuffer,
+    StringBuilder outBuffer,
     String       inString,
     boolean      inQuotes,
     int          escapeCount
@@ -1012,13 +1012,13 @@ public class XhtmlLafUtils extends BaseLafUtils
   // Note: This method is only called by BodyRenderer and
   // ScriptBufferingResponseWriter, so we're leaving in
   // package-private.
-  static StringBuffer __stripJSComments(StringBuffer buffer)
+  static StringBuilder __stripJSComments(StringBuilder buffer)
   {
     // We avoid reallocating the buffer until we actually
     // find a comment.  Actually, we should never find any
     // comments in production code.  This method really shouldn't
     // be needed, but we do all of this work just to be extra safe.
-    StringBuffer strippedBuffer = null;
+    StringBuilder strippedBuffer = null;
 
     // We use a simple state machine to track whether or not
     // we are inside a comment or opening/closing a comment.
@@ -1052,7 +1052,7 @@ public class XhtmlLafUtils extends BaseLafUtils
             // Copy the contents up to the start of the
             // comment into the strippedBuffer.
             if (strippedBuffer == null)
-              strippedBuffer = new StringBuffer(length);
+              strippedBuffer = new StringBuilder(length);
 
             strippedBuffer.append(buffer.substring(startIndex, i - 1));
           }

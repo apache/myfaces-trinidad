@@ -172,7 +172,7 @@ public class ColorPaletteRenderer extends HtmlLafRenderer
       writer.endElement("script");
     }
 
-    StringBuffer onCellClick = null;
+    StringBuilder onCellClick = null;
     int onCellClickLength = 0;
 
     if (isNetscape)
@@ -180,7 +180,7 @@ public class ColorPaletteRenderer extends HtmlLafRenderer
       Object id = getID(context, node);
       if (id == null)
         id = "null";
-      onCellClick = new StringBuffer(id.toString().length() +
+      onCellClick = new StringBuilder(id.toString().length() +
                                      onColorSelect.toString().length() +
                                      16);
       onCellClick.append("_onCPSel('");
@@ -376,7 +376,7 @@ public class ColorPaletteRenderer extends HtmlLafRenderer
           Object id = getID(context, node);
           if (id == null)
             id = "null";
-          StringBuffer sb = new StringBuffer(id.toString().length() +
+          StringBuilder sb = new StringBuilder(id.toString().length() +
                                              onColorSelect.toString().length() +
                                              21);
           sb.append("_onCPSel('");
