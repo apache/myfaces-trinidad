@@ -56,14 +56,18 @@ public class SimpleSelectBooleanRadioRenderer extends SimpleSelectBooleanRendere
   @Override
   public Object getSubmittedValue(
     FacesContext context,
-    UIComponent  component)
+    UIComponent  component,
+    String       clientId)
   {
+    // Since we override getSubmittedValue() entirely,
+    // detect auto submit manually
+    detectAutoSubmit(context, component, clientId);
+
     String group = getGroup(getFacesBean(component));
     if (group != null)
     {
       Object newValue = (context.getExternalContext().
                          getRequestParameterMap().get(group));
-      String clientId = component.getClientId(context);
       if (clientId.equals(newValue))
         return Boolean.TRUE;
     }

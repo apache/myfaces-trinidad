@@ -312,7 +312,8 @@ public abstract class SimpleSelectBooleanRenderer extends FormInputRenderer
     boolean immediate = isImmediate(bean);
     boolean isRadio = isRadio();
     return AutoSubmitUtils.getSubmitScript(arc, source, 
-                                                  immediate, isRadio);
+                                           immediate, isRadio,
+                                           XhtmlConstants.AUTOSUBMIT_EVENT, null, true);
   }                     
 
   protected boolean isRadio()

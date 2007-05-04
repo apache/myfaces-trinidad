@@ -70,7 +70,9 @@ abstract public class EditableValueRenderer extends ValueRenderer
     if (!wasSubmitted(context, component))
       submittedValue = null;
     else
-      submittedValue = getSubmittedValue(context, component);
+      submittedValue = getSubmittedValue(context,
+                                         component,
+                                         component.getClientId(context));
 
     if (_LOG.isFinest())
     {
@@ -83,11 +85,11 @@ abstract public class EditableValueRenderer extends ValueRenderer
     evh.setSubmittedValue(submittedValue);
   }
 
-  public Object getSubmittedValue(
+  protected Object getSubmittedValue(
     FacesContext context,
-    UIComponent  component)
+    UIComponent  component,
+    String       clientId)
   {
-    String clientId = component.getClientId(context);
     return context.getExternalContext().
                                 getRequestParameterMap().get(clientId);
   }

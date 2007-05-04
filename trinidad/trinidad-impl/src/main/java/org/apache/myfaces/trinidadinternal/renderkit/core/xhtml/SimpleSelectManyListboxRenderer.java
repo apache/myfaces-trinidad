@@ -117,7 +117,8 @@ public class SimpleSelectManyListboxRenderer extends SimpleSelectManyRenderer
       RenderingContext arc = RenderingContext.getCurrentInstance();
       String source = LabelAndMessageRenderer.__getCachedClientId(arc);
       boolean immediate = isImmediate(bean);
-      String auto = AutoSubmitUtils.getSubmitScript(arc, source, immediate);
+      String auto = AutoSubmitUtils.getSubmitScript(arc, source,
+               XhtmlConstants.AUTOSUBMIT_EVENT, immediate);
       onchange = XhtmlUtils.getChainedJS(onchange, auto, true);
     }
 

@@ -19,10 +19,14 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.faces.event.FacesEvent;
+import javax.faces.event.FacesListener;
+import javax.faces.event.PhaseId;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
@@ -46,11 +50,47 @@ abstract public class FormElementRenderer extends EditableValueRenderer
     _labelKey = type.findKey("label");
     _contentStyleKey = type.findKey("contentStyle");
   }
+  
 
   @Override
   public boolean getRendersChildren()
   {
     return true;
+  }
+
+  @Override
+  protected Object getSubmittedValue(
+    FacesContext context,
+    UIComponent  component,
+    String       clientId)
+  {
+    if (_autoSubmitKey != null)
+      detectAutoSubmit(context, component, clientId);
+
+    return super.getSubmittedValue(context,
+                                   component,
+                                   clientId);
+  }
+
+  @SuppressWarnings("unchecked")
+  protected final void detectAutoSubmit(
+    FacesContext context,
+    UIComponent  component,
+    String       clientId)
+  {
+      Map<String, String> parameterMap = 
+        context.getExternalContext().getRequestParameterMap();
+      
+      String source = parameterMap.get("source");
+      if (clientId.equals(source))
+      {
+        String event = parameterMap.get("event");
+        if (XhtmlConstants.AUTOSUBMIT_EVENT.equals(event) &&
+            isAutoSubmit(getFacesBean(component)))
+        {
+          (new AutoSubmitEvent(component)).queue();
+        }
+      }
   }
 
   @Override
@@ -274,6 +314,31 @@ abstract public class FormElementRenderer extends EditableValueRenderer
       hiddenLabel = getLabel(bean);
 
     return hiddenLabel;
+  }
+
+
+  /**
+   * Dummy class purely to get subforms to recognize that
+   * an event has occurred
+   */
+  static private final class AutoSubmitEvent extends FacesEvent
+  {
+    public AutoSubmitEvent(UIComponent source)
+    {
+      super(source);
+      setPhaseId(PhaseId.INVOKE_APPLICATION);
+    }
+
+    @Override
+    public void processListener(FacesListener listener)
+    {
+    }
+
+    @Override
+    public boolean isAppropriateListener(FacesListener listener)
+    {
+      return false;
+    }
   }
 
   private PropertyKey _autoSubmitKey;

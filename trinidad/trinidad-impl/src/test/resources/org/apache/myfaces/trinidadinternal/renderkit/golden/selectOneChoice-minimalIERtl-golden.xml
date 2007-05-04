@@ -301,15 +301,15 @@
             
             <script
                 >
-              var _pprUpdateMode=false;function _adfspu(f,v,e,s,o){_pprUpdateMode=true;if(!o)o=new Object();o.event=(e)?e:'update';if(s)o.source=s;_submitPartialChange(f,v,o);}
+              var _pprUpDatemode=false;function _adfspu(f,v,e,s,o){_pprUpdateMode=true;if(!o)o=new Object();if(e)o.event=e;if(s)o.source=s;_submitPartialChange(f,v,o);}
             </script>
             <select
                  class="af_selectOneChoice_content"
                  id="mainId"
                  name="mainId"
-                 onblur="if(!_pprChoiceAction(event))return true;_adfspu('formId',1,'mainId','mainId');return true;"
+                 onblur="if(!_pprChoiceAction(event))return true;_adfspu('formId',1,'autosub','mainId');return true;"
                  onchange="return _pprChoiceChangeEvent(event);"
-                 onclick="if(!_pprChoiceAction(event))return true;_adfspu('formId',1,'mainId','mainId');return true;"
+                 onclick="if(!_pprChoiceAction(event))return true;_adfspu('formId',1,'autosub','mainId');return true;"
                 >
               
               <option

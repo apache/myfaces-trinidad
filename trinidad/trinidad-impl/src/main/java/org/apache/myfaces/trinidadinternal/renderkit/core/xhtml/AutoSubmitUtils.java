@@ -116,7 +116,6 @@ public class AutoSubmitUtils
 
     int length = (startString.length()
                   + formName.length()
-                  + 4 // close quote, comma, validated flag, and one more comma
                   + (event == null ? 0 : event.length() + 9)
                   + (source.length() + 11)
                   + endString.length());
@@ -175,28 +174,38 @@ public class AutoSubmitUtils
   }
 
   public static String getSubmitScript(
-     RenderingContext arc,
+     RenderingContext    arc,
      String              source,
      boolean             immediate
      )
   {
-    return getSubmitScript(arc, source, immediate, false);
+    return getSubmitScript(arc, source, null, immediate);
   }
 
   public static String getSubmitScript(
-     RenderingContext arc,
+     RenderingContext    arc,
+     String              source,
+     String              event,
+     boolean             immediate
+     )
+  {
+    return getSubmitScript(arc, source, immediate, false, event, null, true);
+  }
+
+  public static String getSubmitScript(
+     RenderingContext    arc,
      String              source,
      boolean             immediate,
      boolean             isRadio)
   {
-    return getSubmitScript(arc, source, immediate, isRadio, source, null, true);
+    return getSubmitScript(arc, source, immediate, isRadio, null, null, true);
   }
 
   /**
    * TODO: remove "isRadio", which shouldn't be necessary
    */
   public static String getSubmitScript(
-     RenderingContext arc,
+     RenderingContext    arc,
      String              source,
      boolean             immediate,
      boolean             isRadio,
@@ -308,7 +317,7 @@ public class AutoSubmitUtils
       // which takes the following arguments:
       // - f:  The form name
       // - v:  The validation flag
-      // - e:  The event name (defaults to "update")
+      // - e:  The event name
       // - s:  The source parameter
       // - o:  Object containing client-defined parameters
 
@@ -321,15 +330,12 @@ public class AutoSubmitUtils
       // be invalid, or will be initialized to false.
 
       ResponseWriter writer = context.getResponseWriter();
-      writer.writeText("var _pprUpdateMode=false;", null);
+      writer.writeText("var _pprUpDatemode=false;", null);
       writer.writeText("function _adfspu(f,v,e,s,o){", null);
       writer.writeText("_pprUpdateMode=true;", null);
-      writer.writeText("if(!o)o=new Object();", null);
-      writer.writeText("o.", null);
+      writer.writeText("if(!o)o=new Object();if(e)o.", null);
       writer.writeText(XhtmlConstants.EVENT_PARAM, null);
-      // Should this 'update' value be formEncoded?
-      writer.writeText("=(e)?e:\'update\';", null);
-      writer.writeText("if(s)o.", null);
+      writer.writeText("=e;if(s)o.", null);
       writer.writeText(XhtmlConstants.SOURCE_PARAM, null);
       writer.writeText("=s;_submitPartialChange(f,v,o);}", null);
     }
