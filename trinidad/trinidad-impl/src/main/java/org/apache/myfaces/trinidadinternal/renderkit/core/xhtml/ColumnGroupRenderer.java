@@ -555,13 +555,17 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     String                sortOnclick) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
-    String headerText = getHeaderText(getFacesBean(column));
-    if (headerText != null)
-      rw.writeText(headerText, "headerText");
-
     UIComponent header = getFacet(column, CoreColumn.HEADER_FACET);
     if (header != null)
+    {
       encodeChild(context, header);
+    }
+    else
+    {
+      String headerText = getHeaderText(getFacesBean(column));
+      if (headerText != null)
+        rw.writeText(headerText, "headerText");
+    }
 
     renderSortOrderSymbol(context, arc, sortability, sortIcon, sortOnclick);
   }
