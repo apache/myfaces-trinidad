@@ -168,13 +168,13 @@ public class DateTimeConverter extends
           .getRequestMap();
 
       // this fetch could be at the place where we append, but has been
-      // moved ahead to optimize use of StringBuffer
+      // moved ahead to optimize use of StringBuilder
       String jsPattern = getJSPattern(context);
 
       // FIX - figure out size!!!
       // 65 chars for javascript + length of jspattern + 12 chars for
       // tranforming to name in the worst case.
-      StringBuffer buff = new StringBuffer(77 + jsPattern.length());
+      StringBuilder buff = new StringBuilder(77 + jsPattern.length());
 
       if (requestMap.get(_PATTERN_WRITTEN_KEY) == null)
       {
@@ -387,7 +387,7 @@ public class DateTimeConverter extends
     TimeZone zone = (TimeZone) tZone.clone();
 
     // set the id as "GMT Sign Hours : Minutes"
-    StringBuffer zoneId = new StringBuffer(9);
+    StringBuilder zoneId = new StringBuilder(9);
     int rawOffset = zone.getRawOffset();
 
     if (rawOffset < 0)
@@ -451,7 +451,7 @@ public class DateTimeConverter extends
         && getSecondaryPattern() != null)
     {
       int length = getSecondaryPattern().length() * 2 + 2;
-      StringBuffer outBuffer = new StringBuffer(length);
+      StringBuilder outBuffer = new StringBuilder(length);
       _escapePattern(outBuffer, getSecondaryPattern());
       return outBuffer.toString();
     }
@@ -466,7 +466,7 @@ public class DateTimeConverter extends
         if (secondaryPattern != null)
           length = length + 3 + secondaryPattern.length() * 2;
 
-        StringBuffer outBuffer = new StringBuffer(length);
+        StringBuilder outBuffer = new StringBuilder(length);
         jsPattern = _getEscapedPattern(outBuffer, datePattern, secondaryPattern);
       } else
       {
@@ -477,7 +477,7 @@ public class DateTimeConverter extends
   }
 
   // get the escaped form of the pattern
-  private static void _escapePattern(StringBuffer buffer, String pattern)
+  private static void _escapePattern(StringBuilder buffer, String pattern)
   {
     buffer.append('\'');
     XhtmlUtils.escapeJS(buffer, pattern);
@@ -501,7 +501,7 @@ public class DateTimeConverter extends
     }
   }
 
-  private static String _getEscapedPattern(StringBuffer buffer, String pattern,
+  private static String _getEscapedPattern(StringBuilder buffer, String pattern,
       String secondaryPattern)
   {
     if (secondaryPattern != null)

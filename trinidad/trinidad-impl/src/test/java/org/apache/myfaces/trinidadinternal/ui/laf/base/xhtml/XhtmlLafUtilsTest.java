@@ -39,7 +39,7 @@ public class XhtmlLafUtilsTest extends TestCase
   public void testEscapeInQuoteJS()
   {
     String raw = "a'b";
-    StringBuffer escaped = new StringBuffer();
+    StringBuilder escaped = new StringBuilder();
     XhtmlLafUtils.escapeJS(escaped, raw, true);
     assertEquals("a\\\'b", escaped.toString());
   }
@@ -50,7 +50,7 @@ public class XhtmlLafUtilsTest extends TestCase
   public void testDoubleEscapeInQuoteJS()
   {
     String raw = "a'b";
-    StringBuffer escaped = new StringBuffer();
+    StringBuilder escaped = new StringBuilder();
     XhtmlLafUtils.escapeJS(escaped, raw, true, 2);
     assertEquals("a\\\\\\\'b", escaped.toString());
   }
