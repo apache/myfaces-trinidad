@@ -17,6 +17,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
+  <!-- TODO: Need new parent (MyFaces, instead of Apache) -->
   <parent>
     <groupId>org.apache</groupId>
     <artifactId>apache</artifactId>
@@ -26,9 +27,9 @@
   <groupId>org.apache.myfaces.trinidad</groupId>
   <artifactId>trinidad</artifactId>
   <packaging>pom</packaging>
-  <name>Apache Incubator Trinidad Podling</name>
-  <version>1.0.1-incubating-SNAPSHOT</version>
-  <description>Apache Incubator Trinidad Podling</description>
+  <name>Apache MyFaces Trinidad</name>
+  <version>1.0.1-SNAPSHOT</version>
+  <description>Apache MyFaces Trinidad</description>
 
   <issueManagement>
     <system>jira</system>
@@ -43,7 +44,7 @@
         <type>mail</type>
         <sendOnSuccess>true</sendOnSuccess>
         <configuration>
-          <address>adffaces-commits@incubator.apache.org</address>
+          <address>commits@myfaces.apache.org</address>
         </configuration>
       </notifier>
     </notifiers>
@@ -53,32 +54,32 @@
 
   <mailingLists>
     <mailingList>
-      <name>Trinidad Incubator Users</name>
-      <post>adffaces-user@incubator.apache.org</post>
-      <subscribe>adffaces-user-subscribe@incubator.apache.org</subscribe>
-      <unsubscribe>adffaces-user-unsubscribe@incubator.apache.org</unsubscribe>
-      <archive>http://mail-archives.apache.org/mod_mbox/incubator-adffaces-user/</archive>
+      <name>MyFaces Users (use [Trinidad] prefix)</name>
+      <post>user@myfaces.apache.org</post>
+      <subscribe>user-subscribe@myfaces.apache.org</subscribe>
+      <unsubscribe>user-unsubscribe@myfaces.apache.org</unsubscribe>
+      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-user/</archive>
     </mailingList>
     <mailingList>
-      <name>Trinidad Incubator Developers</name>
-      <post>adffaces-dev@incubator.apache.org</post>
-      <subscribe>adffaces-dev-subscribe@incubator.apache.org</subscribe>
-      <unsubscribe>adffaces-dev-unsubscribe@incubator.apache.org</unsubscribe>
-      <archive>http://mail-archives.apache.org/mod_mbox/incubator-adffaces-dev/</archive>
+      <name>MyFaces Developers (use [Trinidad] prefix)</name>
+      <post>dev@myfaces.apache.org</post>
+      <subscribe>dev-subscribe@myfaces.apache.org</subscribe>
+      <unsubscribe>dev-unsubscribe@myfaces.apache.org</unsubscribe>
+      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-dev/</archive>
     </mailingList>
     <mailingList>
-      <name>Trinidad Incubator issues</name>
+      <name>MyFaces issues</name>
       <post>Do not post</post>
-      <subscribe>adffaces-issues-subscribe@incubator.apache.org</subscribe>
-      <unsubscribe>adffaces-issues-unsubscribe@incubator.apache.org</unsubscribe>
-      <archive>http://mail-archives.apache.org/mod_mbox/incubator-adffaces-issues/</archive>
+      <subscribe>issues-subscribe@myfaces.apache.org</subscribe>
+      <unsubscribe>issues-unsubscribe@myfaces.apache.org</unsubscribe>
+      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-issues/</archive>
     </mailingList>
     <mailingList>
-      <name>Trinidad Incubator commits</name>
+      <name>MyFaces commits</name>
       <post>Do not post</post>
-      <subscribe>adffaces-commits-subscribe@incubator.apache.org</subscribe>
-      <unsubscribe>adffaces-commits-unsubscribe@incubator.apache.org</unsubscribe>
-      <archive>http://mail-archives.apache.org/mod_mbox/incubator-adffaces-commits/</archive>
+      <subscribe>commits-subscribe@myfaces.apache.org</subscribe>
+      <unsubscribe>commits-unsubscribe@myfaces.apache.org</unsubscribe>
+      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-commits/</archive>
     </mailingList>
   </mailingLists>
 
@@ -177,10 +178,10 @@
 
   <scm>
     <connection>
-      scm:svn:http://svn.apache.org/repos/asf/incubator/adffaces/trunk/trinidad/
+      scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad/trunk/trinidad/
     </connection>
     <developerConnection>
-      scm:svn:https://svn.apache.org/repos/asf/incubator/adffaces/trunk/trinidad/
+      scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad/trunk/trinidad/
     </developerConnection>
   </scm>
 
@@ -383,20 +384,20 @@
       <dependency>
         <groupId>org.apache.myfaces.trinidad</groupId>
         <artifactId>trinidad-build</artifactId>
-        <version>1.0.1-incubating-SNAPSHOT</version>
+        <version>1.0.1-SNAPSHOT</version>
         <scope>provided</scope>
       </dependency>
 
       <dependency>
         <groupId>org.apache.myfaces.trinidad</groupId>
         <artifactId>trinidad-api</artifactId>
-        <version>1.0.1-incubating-SNAPSHOT</version>
+        <version>1.0.1-SNAPSHOT</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.myfaces.trinidad</groupId>
         <artifactId>trinidad-api</artifactId>
-        <version>1.0.1-incubating-SNAPSHOT</version>
+        <version>1.0.1-SNAPSHOT</version>
         <type>test-jar</type>
         <scope>test</scope>
       </dependency>
@@ -404,7 +405,7 @@
       <dependency>
         <groupId>org.apache.myfaces.trinidad</groupId>
         <artifactId>trinidad-impl</artifactId>
-        <version>1.0.1-incubating-SNAPSHOT</version>
+        <version>1.0.1-SNAPSHOT</version>
       </dependency>
 
 
@@ -450,7 +451,7 @@
     <site>
       <id>apache-site</id>
       <name>Apache Website</name>
-      <url>scpexe://minotaur.apache.org/www/incubator.apache.org/adffaces</url>
+      <url>scpexe://minotaur.apache.org/www/myfaces.apache.org/trinidad</url>
     </site>
     <snapshotRepository>
       <uniqueVersion>false</uniqueVersion>
