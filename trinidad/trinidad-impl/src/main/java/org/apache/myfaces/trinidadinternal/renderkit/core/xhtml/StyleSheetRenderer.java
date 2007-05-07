@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -43,7 +43,7 @@ import org.apache.myfaces.trinidadinternal.style.StyleProvider;
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/xhtml/StyleSheetRenderer.java#0 $) $Date: 10-nov-2005.19:02:29 $
  */
 public class StyleSheetRenderer extends XhtmlRenderer
-{ 
+{
   /**
    * Disables optimizations that are normally performed by the
    * Trinidad Renderers to reduce content size.
@@ -89,7 +89,7 @@ public class StyleSheetRenderer extends XhtmlRenderer
     if (provider != null)
     {
       String href = provider.getStyleSheetURI(sContext);
-      
+
       // If the requestMap has a skin-id, a skin's stylesheet's id and suppressStylesheet
       // is true, and the skin information matches our current skin, then it is safe
       // to not write out the css. This means that it will be written out by the external
@@ -102,7 +102,7 @@ public class StyleSheetRenderer extends XhtmlRenderer
           ExternalContext externalContext = context.getExternalContext();
           String contextUri = externalContext.getRequestContextPath();
           String baseURL = contextUri + XhtmlConstants.STYLES_CACHE_DIRECTORY;
-          
+
           String outputMode = arc.getOutputMode();
           // =-=AEW Don't like hardcoding facet names...
           if (XhtmlConstants.OUTPUT_MODE_PORTLET.equals(outputMode) &&
@@ -125,10 +125,10 @@ public class StyleSheetRenderer extends XhtmlRenderer
             renderId(context, comp);
             writer.writeAttribute("rel", "stylesheet", null);
             writer.writeAttribute("charset", "UTF-8", null);
-            
+
             String type = provider.getContentStyleType(sContext);
             writer.writeAttribute("type", type, null);
-            
+
             renderEncodedResourceURI(context, "href", baseURL + href);
             writer.endElement("link");
           }
@@ -150,7 +150,7 @@ public class StyleSheetRenderer extends XhtmlRenderer
       // because that call boostraps up the style provider in general.
       if (arc instanceof CoreRenderingContext)
       {
-        Map<String, String> shortStyles = arc.getSkin().getStyleClassMap(arc);        
+        Map<String, String> shortStyles = arc.getSkin().getStyleClassMap(arc);
         ((CoreRenderingContext) arc).setStyleMap(shortStyles);
       }
     }
@@ -160,8 +160,8 @@ public class StyleSheetRenderer extends XhtmlRenderer
   private boolean _isSuppressStylesheet(FacesContext context,  RenderingContext arc)
   {
 
-    Map<String, Object> requestMap = context.getExternalContext().getRequestMap();   
-     
+    Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
+
     boolean suppressStylesheet = "true".equals(requestMap.get(_SUPPRESS_STYLESHEET_ID_PARAM));
     if (suppressStylesheet)
     {
@@ -170,8 +170,8 @@ public class StyleSheetRenderer extends XhtmlRenderer
     }
     return false;
   }
-  
-  static private final String _SUPPRESS_STYLESHEET_ID_PARAM = 
-    "oracle.apache.myfaces.trinidad.skin.suppressStylesheet";
-  
+
+  static private final String _SUPPRESS_STYLESHEET_ID_PARAM =
+    "org.apache.myfaces.trinidad.skin.suppressStylesheet";
+
 }

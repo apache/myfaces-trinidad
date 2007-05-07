@@ -379,8 +379,8 @@ public class CoreRenderingContext extends RenderingContext
   {
     return "minimal";
   }
-  
- 
+
+
   /**
    * Returns the skin that is requested on the request map if the exact skin exists.
    * <p>
@@ -403,16 +403,16 @@ public class CoreRenderingContext extends RenderingContext
   {
     // protect against rechecking this more than once.
     // if we already checked for the _requestMapSkin and it's null,
-    // then we'll return it anyway because that means we have no request map skin. 
+    // then we'll return it anyway because that means we have no request map skin.
     if (_checkedRequestMapSkin)
       return _requestMapSkin;
     _checkedRequestMapSkin = true;
-    
+
     if (CoreRenderKit.OUTPUT_MODE_PORTLET.equals(getOutputMode()))
     {
       FacesContext context = FacesContext.getCurrentInstance();
       Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
-      
+
       // Get the requested Skin Id from the request Map
       Object requestedSkinId = requestMap.get(_SKIN_ID_PARAM);
       if (requestedSkinId != null)
@@ -423,23 +423,23 @@ public class CoreRenderingContext extends RenderingContext
           _LOG.warning("NO_SKIN_FACTORY");
           return null;
         }
-        
+
         Skin requestedSkin = factory.getSkin(context, requestedSkinId.toString());
         if (requestedSkin != null)
         {
-          // Get the skin's stylesheet id from the request Map and then compare it 
+          // Get the skin's stylesheet id from the request Map and then compare it
           // to the local skin's stylesheet id to make sure they match.
           Object requestMapStyleSheetId = requestMap.get(_SKIN_STYLESHEET_ID_PARAM);
           if (requestMapStyleSheetId != null)
           {
             String skinForPortalStyleSheetId = requestedSkin.getStyleSheetDocumentId(this);
-            if (skinForPortalStyleSheetId != null && 
+            if (skinForPortalStyleSheetId != null &&
                 skinForPortalStyleSheetId.equals(requestMapStyleSheetId))
             {
               // it is ok to use this skin
               // Switch the _skin here to be the tmpRequestedSkin
               if (_LOG.isFine())
-                _LOG.fine("The skin " +requestedSkinId+ 
+                _LOG.fine("The skin " +requestedSkinId+
                   " specified on the requestMap will be used.");
               _requestMapSkin = requestedSkin;
               return requestedSkin;
@@ -448,12 +448,12 @@ public class CoreRenderingContext extends RenderingContext
             {
               if (_LOG.isWarning())
                 _LOG.warning("REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN",requestedSkinId);
-            }                
+            }
           }
           else
           {
             if (_LOG.isSevere())
-              _LOG.severe("REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP",requestedSkinId);              
+              _LOG.severe("REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP",requestedSkinId);
           }
         }// end requestedSkin != null
         else
@@ -462,12 +462,12 @@ public class CoreRenderingContext extends RenderingContext
           {
             _LOG.warning("REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST",requestedSkinId);
           }
-        }     
+        }
       }
-      
+
     } // end outputMode == portlet
     return null;
-  }  
+  }
 
   /**
    * Set the local variable _skin to be the Skin from the
@@ -520,7 +520,7 @@ public class CoreRenderingContext extends RenderingContext
 
     _skin = skin;
   }
-  
+
 
 
   private TrinidadAgent _initializeAgent(
@@ -670,10 +670,10 @@ public class CoreRenderingContext extends RenderingContext
   private int                 _linkStyleDisabledCount = 0;
   private boolean             _isLinkDisabled = false;
 
-  static private final String _SKIN_ID_PARAM = 
-    "oracle.apache.myfaces.trinidad.skin.id";
-  static private final String _SKIN_STYLESHEET_ID_PARAM = 
-    "oracle.apache.myfaces.trinidad.skin.stylesheet.id";
+  static private final String _SKIN_ID_PARAM =
+    "org.apache.myfaces.trinidad.skin.id";
+  static private final String _SKIN_STYLESHEET_ID_PARAM =
+    "org.apache.myfaces.trinidad.skin.stylesheet.id";
 
   // Maps describing the capabilities of our output modes
   // -= Simon Lessard =-
