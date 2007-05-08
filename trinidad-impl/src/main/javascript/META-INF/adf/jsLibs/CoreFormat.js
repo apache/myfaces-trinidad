@@ -22,11 +22,11 @@ function TrNumberConverter(
   locale,
   messages)
 {
-	this._pattern = pattern;
+  this._pattern = pattern;
   this._type = type;
   this._locale = locale;
   this._messages = messages;
-	
+  
   // for debugging
   this._class = "TrNumberConverter";
 }
@@ -39,25 +39,25 @@ TrNumberConverter.prototype = new TrConverter();
  */
 TrNumberConverter.prototype._isConvertible = function()
 {
-	if(this._pattern == null && this._locale == null && this._type=="number")
-	{
+  if(this._pattern == null && this._locale == null && this._type=="number")
+  {
     return true;
-	}
-	else
-	{
+  }
+  else
+  {
     return false;
-	}
+  }
 }
 TrNumberConverter.prototype.getFormatHint = function()
 {
-	if(this._messages && this._messages["hintPattern"])
-	{
+  if(this._messages && this._messages["hintPattern"])
+  {
     return TrMessageFactory.createCustomMessage(
       this._messages["hintPattern"],
       this._pattern);
-	}
-	else
-	{
+  }
+  else
+  {
     if(this._pattern)
     {
       return TrMessageFactory.createMessage(
@@ -97,9 +97,9 @@ TrNumberConverter.prototype.getAsObject = function(
   label
   )
 {
-	if(this._isConvertible())
-	{
-		return _decimalParse(numberString, 
+  if(this._isConvertible())
+  {
+    return _decimalParse(numberString, 
                          this._messages,
                          "org.apache.myfaces.trinidad.convert.NumberConverter",
                          null,
@@ -110,9 +110,9 @@ TrNumberConverter.prototype.getAsObject = function(
                          true);
   }
   else
-	{
+  {
     return undefined;
-	}
+  }
 }
 function TrIntegerConverter(
   message,
@@ -135,7 +135,7 @@ TrIntegerConverter.prototype = new TrConverter();
 
 TrIntegerConverter.prototype.getFormatHint = function()
 {
-	return null;
+  return null;
 }
 
 TrIntegerConverter.prototype.getAsString = function(
@@ -182,7 +182,7 @@ TrLongConverter.prototype = new TrConverter();
 
 TrLongConverter.prototype.getFormatHint = function()
 {
-	return null;
+  return null;
 }
 
 TrLongConverter.prototype.getAsString = function(
@@ -229,7 +229,7 @@ TrShortConverter.prototype = new TrConverter();
 
 TrShortConverter.prototype.getFormatHint = function()
 {
-	return null;
+  return null;
 }
 
 TrShortConverter.prototype.getAsString = function(
@@ -276,7 +276,7 @@ TrByteConverter.prototype = new TrConverter();
 
 TrByteConverter.prototype.getFormatHint = function()
 {
-	return null;
+  return null;
 }
 
 TrByteConverter.prototype.getAsString = function(
@@ -324,7 +324,7 @@ TrDoubleConverter.prototype = new TrConverter();
 
 TrDoubleConverter.prototype.getFormatHint = function()
 {
-	return null;
+  return null;
 }
 
 TrDoubleConverter.prototype.getAsString = function(
@@ -371,7 +371,7 @@ TrFloatConverter.prototype = new TrConverter();
 
 TrFloatConverter.prototype.getFormatHint = function()
 {
-	return null;
+  return null;
 }
 
 TrFloatConverter.prototype.getAsString = function(
@@ -440,44 +440,44 @@ TrRangeValidator.prototype.validate  = function(
   var facesMessage;
   if(this._minValue && this._maxValue)
   {
-  	//range
+    //range
     if(numberValue >= this._minValue && numberValue <= this._maxValue)
     {
       return string;
     }
     else
     {
-    	var key = "org.apache.myfaces.trinidad.validator.LongRangeValidator.NOT_IN_RANGE";
-    	if(this._messages && this._messages["range"])
-    	{
+      var key = "org.apache.myfaces.trinidad.validator.LongRangeValidator.NOT_IN_RANGE";
+      if(this._messages && this._messages["range"])
+      {
         facesMessage = _createCustomFacesMessage(TrMessageFactory.getSummaryString(key),
                                         this._messages["range"],
                                         label,
                                         string,
                                         ""+this._minValue,
                                         ""+this._maxValue);
-    	}
-    	else
-    	{
+      }
+      else
+      {
         facesMessage = _createFacesMessage(key,
                                         label,
                                         string,
                                         ""+this._minValue,
                                         ""+this._maxValue);
-    	}
+      }
     }
   }
   else
   {
-  	//only min
-  	if(this._minValue != null)
-  	{
-  		if(numberValue >= this._minValue)
-  		{
-  			return string;
-  		}
-  		else
-  		{
+    //only min
+    if(this._minValue != null)
+    {
+      if(numberValue >= this._minValue)
+      {
+        return string;
+      }
+      else
+      {
         var key = "org.apache.myfaces.trinidad.validator.LongRangeValidator.MINIMUM";
         if(this._messages && this._messages["min"])
         {
@@ -494,17 +494,17 @@ TrRangeValidator.prototype.validate  = function(
                                         string,
                                         ""+this._minValue);
         }
-  		}
-  	}
-  	//max only
-  	else
-  	{
-  		if(numberValue <= this._maxValue)
-  		{
-  			return string;
-  		}
-  		else
-  		{
+      }
+    }
+    //max only
+    else
+    {
+      if(this._maxValue  == null || numberValue <= this._maxValue)
+      {
+        return string;
+      }
+      else
+      {
         var key = "org.apache.myfaces.trinidad.validator.LongRangeValidator.MAXIMUM";
         if(this._messages && this._messages["max"])
         {
@@ -521,8 +521,8 @@ TrRangeValidator.prototype.validate  = function(
                                         string,
                                         ""+this._maxValue);
         }
-  		}
-  	}
+      }
+    }
   }
   throw new TrConverterException(facesMessage);
 }
@@ -576,23 +576,23 @@ TrLengthValidator.prototype.validate  = function(
   {
     if(length < this._minValue) //to short
     {
-    	var key = "org.apache.myfaces.trinidad.validator.LengthValidator.MINIMUM";
-    	var facesMessage;
-    	if(this._messages && this._messages["min"])
-    	{
+      var key = "org.apache.myfaces.trinidad.validator.LengthValidator.MINIMUM";
+      var facesMessage;
+      if(this._messages && this._messages["min"])
+      {
         facesMessage = _createCustomFacesMessage(TrMessageFactory.getSummaryString(key),
                                         this._messages["min"],
                                         label,
                                         string,
                                         ""+this._minValue);
-    	}
-    	else
-    	{
+      }
+      else
+      {
         facesMessage = _createFacesMessage(key,
                                         label,
                                         string,
                                         ""+this._minValue);
-    	}
+      }
       throw new TrConverterException(facesMessage);
     }
     if(length > this._maxValue) //to long
@@ -636,11 +636,11 @@ TrDateTimeRangeValidator.prototype.getHints = function(
   converter
   )
 {
-	var max = null;
-	var min = null;
-	if(this._maxValue)
+  var max = null;
+  var min = null;
+  if(this._maxValue)
     max = converter.getAsString(new Date(this._maxValue));
-	if(this._minValue)
+  if(this._minValue)
     min = converter.getAsString(new Date(this._minValue));
 
   return _returnRangeHints(
@@ -674,8 +674,8 @@ TrDateTimeRangeValidator.prototype.validate  = function(
     }
     else
     {
-    	var key = "org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.NOT_IN_RANGE";
-    	if(this._messages && this._messages["range"])
+      var key = "org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.NOT_IN_RANGE";
+      if(this._messages && this._messages["range"])
         {
           facesMessage = _createCustomFacesMessage(TrMessageFactory.getSummaryString(key),
                                         this._messages["range"],
@@ -684,14 +684,14 @@ TrDateTimeRangeValidator.prototype.validate  = function(
                                         ""+converter.getAsString(new Date(this._minValue)),
                                         ""+converter.getAsString(new Date(this._maxValue)));
         }
-    	else
-    	{
+      else
+      {
           facesMessage = _createFacesMessage(key,
                                         label,
                                         ""+converter.getAsString(value),
                                         ""+converter.getAsString(new Date(this._minValue)),
                                         ""+converter.getAsString(new Date(this._maxValue)));
-    	}
+      }
     }
   }
   else
@@ -707,7 +707,7 @@ TrDateTimeRangeValidator.prototype.validate  = function(
       else
       {
         var key = "org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MINIMUM";
-    	if(this._messages && this._messages["min"])
+      if(this._messages && this._messages["min"])
         {
           facesMessage = _createCustomFacesMessage(TrMessageFactory.getSummaryString(key),
                                         this._messages["min"],
@@ -715,13 +715,13 @@ TrDateTimeRangeValidator.prototype.validate  = function(
                                         ""+converter.getAsString(value),
                                         ""+converter.getAsString(new Date(this._minValue)));
         }
-    	else
-    	{
+      else
+      {
           facesMessage = _createFacesMessage(key,
                                         label,
                                         ""+converter.getAsString(value),
                                         ""+converter.getAsString(new Date(this._minValue)));
-    	}
+      }
       }
     }
     //max only
@@ -735,7 +735,7 @@ TrDateTimeRangeValidator.prototype.validate  = function(
       else
       {
         var key = "org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MAXIMUM";
-    	if(this._messages && this._messages["max"])
+      if(this._messages && this._messages["max"])
         {
           facesMessage = _createCustomFacesMessage(TrMessageFactory.getSummaryString(key),
                                         this._messages["max"],
@@ -743,13 +743,13 @@ TrDateTimeRangeValidator.prototype.validate  = function(
                                         ""+converter.getAsString(value),
                                         ""+converter.getAsString(new Date(this._maxValue)));
         }
-    	else
-    	{
+      else
+      {
           facesMessage = _createFacesMessage(key,
                                         label,
                                         ""+converter.getAsString(value),
                                         ""+converter.getAsString(new Date(this._maxValue)));
-    	}
+      }
       }
     }
   }
@@ -795,8 +795,8 @@ TrDateRestrictionValidator.prototype._translate = function(
   valueArray
   )
 {
-	if(values)
-	{
+  if(values)
+  {
     var translatedValues = new Array();
     var valuesAsArray = eval(values);
     for(i = 0; i<valuesAsArray.length; i++)
@@ -804,11 +804,11 @@ TrDateRestrictionValidator.prototype._translate = function(
       translatedValues.push(valueArray[map[valuesAsArray[i].toLowerCase()]]);
     }
     return eval(translatedValues);
-	}
-	else
-	{
+  }
+  else
+  {
     return values;
-	}
+  }
 }
 TrDateRestrictionValidator.prototype.validate  = function(
   value,
@@ -820,64 +820,64 @@ TrDateRestrictionValidator.prototype.validate  = function(
   weekDaysArray = eval(this._weekdaysValue);
   if(weekDaysArray)
   {
-  	var dayString = this._weekdaysMap[submittedDay];
-  	for(var i = 0; i < weekDaysArray.length; ++i)
-  	{
-  		if(weekDaysArray[i].toLowerCase() == dayString)
-  		{
-  			var facesMessage;
-  			var key = "org.apache.myfaces.trinidad.validator.DateRestrictionValidator.WEEKDAY";
-  			if(this._messages && this._messages["days"])
-  			{
+    var dayString = this._weekdaysMap[submittedDay];
+    for(var i = 0; i < weekDaysArray.length; ++i)
+    {
+      if(weekDaysArray[i].toLowerCase() == dayString)
+      {
+        var facesMessage;
+        var key = "org.apache.myfaces.trinidad.validator.DateRestrictionValidator.WEEKDAY";
+        if(this._messages && this._messages["days"])
+        {
           facesMessage = _createCustomFacesMessage(TrMessageFactory.getSummaryString(key),
                                         this._messages["days"],
                                         label,
                                         ""+converter.getAsString(value),
                                         dayString);
-  			}
-  			else
-  			{
+        }
+        else
+        {
           facesMessage = _createFacesMessage(key,
                                         label,
                                         ""+converter.getAsString(value),
                                         dayString);
-  			}
+        }
         throw new TrConverterException(facesMessage);
-  		}
-  	}
+      }
+    }
   }
   
   submittedMonth = value.getMonth();
   monthArray = eval(this._monthValue);
   if(monthArray)
   {
-  	var monthString = this._monthMap[submittedMonth];
-  	for(var i = 0; i < monthArray.length; ++i)
-  	{
-  		if(monthArray[i].toLowerCase() == monthString)
-  		{
-  			var facesMessage;
-  			var key = "org.apache.myfaces.trinidad.validator.DateRestrictionValidator.MONTH";
-  			if(this._messages && this._messages["month"])
-  			{
+    var monthString = this._monthMap[submittedMonth];
+    for(var i = 0; i < monthArray.length; ++i)
+    {
+      if(monthArray[i].toLowerCase() == monthString)
+      {
+        var facesMessage;
+        var key = "org.apache.myfaces.trinidad.validator.DateRestrictionValidator.MONTH";
+        if(this._messages && this._messages["month"])
+        {
           facesMessage = _createCustomFacesMessage(TrMessageFactory.getSummaryString(key),
                                         this._messages["month"],
                                         label,
                                         ""+converter.getAsString(value),
                                         monthString);
-  			}
-  			else
-  			{
+        }
+        else
+        {
           facesMessage = _createFacesMessage(key,
                                         label,
                                         ""+converter.getAsString(value),
                                         monthString);
-  			}
+        }
         throw new TrConverterException(facesMessage);
-  		}
-  	}
+      }
+    }
   }
-	return value;
+  return value;
 }
 
 function _decimalParse(
@@ -968,8 +968,8 @@ function _decimalParse(
       result = parseInt(numberString);
       if(result<parseFloat(numberString))
       {
-      	//a non-floating converter was the caller;
-      	floater = true;
+        //a non-floating converter was the caller;
+        floater = true;
       }
     }
     if (!floater && !isNaN(result))
@@ -1059,13 +1059,13 @@ TrRegExpValidator.prototype.getHints = function(
   var hints = null;
   if(this._messages["hint"])
   {
-  	hints = new Array();
+    hints = new Array();
     hints.push(TrMessageFactory.createCustomMessage(
       this._messages["hint"],
-	    ""+this._pattern)
-	  );
+      ""+this._pattern)
+    );
   }
-	return hints;
+  return hints;
 }
 TrRegExpValidator.prototype.validate  = function(
   parseString,
@@ -1085,7 +1085,7 @@ TrRegExpValidator.prototype.validate  = function(
   }
   else
   {
-  	var key = "org.apache.myfaces.trinidad.validator.RegExpValidator.NO_MATCH";
+    var key = "org.apache.myfaces.trinidad.validator.RegExpValidator.NO_MATCH";
     var facesMessage;
     if(this._messages && this._messages["detail"])
     {
@@ -1123,7 +1123,7 @@ function _returnRangeHints(
   //we have both, max and min, so we only use the range Hint
   if(max && min)
   {
-  	var hints = new Array();
+    var hints = new Array();
     if(messages && messages[rangeHint])
     {
       hints.push(
@@ -1131,7 +1131,7 @@ function _returnRangeHints(
         messages[rangeHint],
         ""+min,
         ""+max)
-  	  );
+      );
     }
     else
     {
@@ -1139,8 +1139,8 @@ function _returnRangeHints(
         TrMessageFactory.createMessage(
         rangeKey,
         ""+min,
-	      ""+max)
-	    );
+        ""+max)
+      );
     }
     return hints;
   }
@@ -1175,16 +1175,16 @@ function _returnHints(
       hints.push(
         TrMessageFactory.createCustomMessage(
           messages[maxHint],
-	        ""+max)
-	    );
+          ""+max)
+      );
     }
     else
     {
       hints.push(
         TrMessageFactory.createMessage(
           maxKey,
-	        ""+max)
-	    );
+          ""+max)
+      );
     }
     
   }
@@ -1199,7 +1199,7 @@ function _returnHints(
       hints.push(
         TrMessageFactory.createCustomMessage(
           messages[minHint],
-	        ""+min)
+          ""+min)
        );
     }
     else
@@ -1207,7 +1207,7 @@ function _returnHints(
       hints.push(
         TrMessageFactory.createMessage(
           minKey,
-	        ""+min)
+          ""+min)
        );
     }
   }
