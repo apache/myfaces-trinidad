@@ -260,7 +260,6 @@
       <mfp:java-constructor>
         <mfp:property-name>width</mfp:property-name>
       </mfp:java-constructor>
-      <mfp:uix2-local-name>tableLayout</mfp:uix2-local-name>
     </component-extension>
   </component>
 </faces-config>

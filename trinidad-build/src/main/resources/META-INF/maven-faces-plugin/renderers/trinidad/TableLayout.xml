@@ -25,7 +25,7 @@
     <renderer>
       <component-family>org.apache.myfaces.trinidad.TableLayout</component-family>
       <renderer-type>org.apache.myfaces.trinidad.TableLayout</renderer-type>
-      <renderer-class>org.apache.myfaces.trinidadinternal.uinode.UINodeRendererBase</renderer-class>
+      <renderer-class>org.apache.myfaces.trinidadinternal.renderkit.html.TableLayoutRenderer</renderer-class>
       <renderer-extension>
         <mfp:component-type>org.apache.myfaces.trinidad.HtmlTableLayout</mfp:component-type>
       </renderer-extension>

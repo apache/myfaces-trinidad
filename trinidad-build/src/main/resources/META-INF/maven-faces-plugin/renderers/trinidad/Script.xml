@@ -25,7 +25,7 @@
     <renderer>
       <component-family>org.apache.myfaces.trinidad.Script</component-family>
       <renderer-type>org.apache.myfaces.trinidad.Script</renderer-type>
-      <renderer-class>org.apache.myfaces.trinidadinternal.renderkit.html.DontRenderChildrenRenderer</renderer-class>
+      <renderer-class>org.apache.myfaces.trinidadinternal.renderkit.html.ScriptRenderer</renderer-class>
       <renderer-extension>
         <mfp:component-type>org.apache.myfaces.trinidad.HtmlScript</mfp:component-type>
       </renderer-extension>

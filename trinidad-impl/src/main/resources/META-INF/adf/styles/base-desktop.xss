@@ -3115,6 +3115,13 @@
   </style>
 
 
+  <style selector="af|singleStepButtonBar"/>
+
+  <style selector="af|singleStepButtonBar::label">
+    <includeStyle name="AFDefaultFont"/>
+    <includeStyle name="AFDarkForeground"/>
+  </style>
+
   <!-- 
     Private NavigationBar Styles: These styles should probably be
     public, but should they be renamed "OraNavigationBar..." first

@@ -70,7 +70,7 @@ public class CommandButtonRenderer extends CommandLinkRenderer
       AutoSubmitUtils.writeDependencies(context, arc);
     }
 
-    String clientId = component.getClientId(context);
+    String clientId = getClientId(context, component);
     // Make sure we don't have anything to save
     assert(arc.getCurrentClientId() == null);
     arc.setCurrentClientId(clientId);
