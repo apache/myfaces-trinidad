@@ -21,6 +21,7 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 import java.io.IOException;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -31,6 +32,7 @@ import org.apache.myfaces.trinidad.component.core.output.CoreOutputLabel;
 
 import org.apache.myfaces.trinidad.context.FormData;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidadinternal.util.MessageUtils;
 import org.apache.myfaces.trinidad.skin.Icon;
 
@@ -189,6 +191,30 @@ public class OutputLabelRenderer extends ValueRenderer
       encodedIcons = renderMessageSymbol(context, arc, messageType,
                                          destination, anchor, 
                                          targetFrame, vAlign);
+    }
+    else if ((forId != null) &&
+             (RequestContext.getCurrentInstance().getClientValidation() ==
+                RequestContext.ClientValidation.INLINE))
+    {
+      // Render a hidden message icon that will be used by inline validation
+      ResponseWriter rw = context.getResponseWriter();
+      rw.startElement(XhtmlConstants.SPAN_ELEMENT, component);
+      rw.writeAttribute(XhtmlConstants.ID_ATTRIBUTE, 
+          forId + "::icon", null);
+      rw.writeAttribute(XhtmlConstants.STYLE_ATTRIBUTE, 
+          "display:none;", null);
+ 
+      String vAlign = getDefaultValign(bean);
+      String destination  = getMessageDescUrl(bean);
+      String targetFrame = getMessageTargetFrame(bean);
+      String anchor       = MessageUtils.getAnchor(forId);
+
+      encodedIcons = renderMessageSymbol(context, arc, 
+                                         XhtmlConstants.MESSAGE_TYPE_ERROR,
+                                         destination, anchor, 
+                                         targetFrame, vAlign);
+      
+      rw.endElement(XhtmlConstants.SPAN_ELEMENT);
     }
 
     if (getShowRequired(bean))
