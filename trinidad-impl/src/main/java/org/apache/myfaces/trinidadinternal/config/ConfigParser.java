@@ -30,6 +30,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
@@ -218,14 +219,40 @@ public class ConfigParser
             {
               value = LocaleUtils.getLocaleForIANAString(_currentText);
             }
+            else if (key.getType().isEnum())
+            {
+              // TODO: warn when value is not OK
+              try
+              {
+                value = Enum.valueOf((Class<? extends Enum>) key.getType(),
+                                     _currentText.trim());
+              }
+              catch (IllegalArgumentException iae)
+              {
+                _LOG.warning("INVALID_ENUM_IN_CONFIG",
+                             new Object[]{_currentText, qName});
+                return;
+              }
+            }
             else
             {
               value = _currentText;
             }
-            if (key == RequestContextBean.REMOTE_DEVICE_REPOSITORY_URI){
-                _applicationMap.put("remote-device-repository-uri",value);
+
+            if (key == RequestContextBean.REMOTE_DEVICE_REPOSITORY_URI)
+            {
+              _applicationMap.put("remote-device-repository-uri",value);
             }
-            _bean.setProperty(key, value);
+            else if (key == RequestContextBean.CLIENT_VALIDATION_DISABLED_KEY)
+            {
+              if (Boolean.TRUE.equals(value))
+                _bean.setProperty(RequestContextBean.CLIENT_VALIDATION_KEY,
+                                  RequestContext.ClientValidation.DISABLED);
+            }
+            else
+            {
+              _bean.setProperty(key, value);
+            }
           }
         }
       }

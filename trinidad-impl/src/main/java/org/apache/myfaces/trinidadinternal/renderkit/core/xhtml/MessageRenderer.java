@@ -30,6 +30,7 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.output.CoreMessage;
 
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidadinternal.util.MessageUtils;
 
 /**
@@ -161,9 +162,7 @@ public class MessageRenderer extends ValueRenderer
     // 2. Only message exists
     // 3. Both exist and messageType not error
     else if (hasHelp || hasMessage)
-    {
-      
-
+    {  
       // if there's a help facet the styleclass should not be error
       if (hasHelp)
         styleClass = SkinSelectors.INLINE_INFO_TEXT_STYLE_CLASS;
@@ -183,7 +182,6 @@ public class MessageRenderer extends ValueRenderer
       else
         renderStyleClass(context, arc, styleClass);
       
-
       if ( hasHelp )        
       encodeChild(context, help); 
 
@@ -198,7 +196,49 @@ public class MessageRenderer extends ValueRenderer
         renderPossiblyFormattedText(context, message);
       }
 
-
+    }
+    
+    // Render a hidden container for client-side messages
+    RequestContext rc = RequestContext.getCurrentInstance();
+    boolean isInline = (rc.getClientValidation() ==
+                        RequestContext.ClientValidation.INLINE);
+    if (isInline)
+    {
+      String forId = getForId(context, component, bean);
+      
+      if (forId != null)
+      {
+        if (hasHelp && hasMessage)
+          writer.startElement(XhtmlConstants.DIV_ELEMENT, null);
+        else 
+        {
+          if (hasHelp || hasMessage)
+          {
+            writer.startElement("br", null);
+            writer.endElement("br");
+          }
+          else
+          {
+            // Add style to outer span
+            renderStyleClass(context, arc, SkinSelectors.INLINE_INFO_TEXT_STYLE_CLASS); 
+          }
+          
+          writer.startElement(XhtmlConstants.SPAN_ELEMENT, null);
+        }
+        
+        writer.writeAttribute(XhtmlConstants.ID_ATTRIBUTE, 
+                              forId + "::msg", null);
+        writer.writeAttribute(XhtmlConstants.STYLE_ATTRIBUTE, 
+                              "display:none;", null);
+        renderStyleClass(context, arc, 
+                         SkinSelectors.INLINE_ERROR_TEXT_STYLE_CLASS);
+        if (hasHelp && hasMessage)
+          writer.endElement(XhtmlConstants.DIV_ELEMENT);
+        else
+        {
+          writer.endElement(XhtmlConstants.SPAN_ELEMENT);
+        }
+      }
     }
 
     if (useDiv)

@@ -219,8 +219,7 @@ public class RequestContextImpl extends RequestContext
   @Override
   public boolean isClientValidationDisabled()
   {
-    return Boolean.TRUE.equals(
-       _bean.getProperty(RequestContextBean.CLIENT_VALIDATION_DISABLED_KEY));
+    return (ClientValidation.DISABLED == getClientValidation());
   }
 
   @Override
@@ -262,6 +261,18 @@ public class RequestContextImpl extends RequestContext
     }
 
     return _ACCESSIBILITY_NAMES.get(name);
+  }
+
+  @Override
+  public ClientValidation getClientValidation()
+  { 
+    ClientValidation clientValidation = (ClientValidation)
+      _bean.getProperty(RequestContextBean.CLIENT_VALIDATION_KEY);
+
+    if (clientValidation == null)
+      return ClientValidation.ALERT;
+
+    return clientValidation;
   }
 
   @Override

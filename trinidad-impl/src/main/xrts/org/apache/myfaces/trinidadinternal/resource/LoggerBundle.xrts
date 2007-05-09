@@ -276,6 +276,9 @@
 <!-- NODESTAMP_FACET_MISSING -->
 <resource key="NODESTAMP_FACET_MISSING">'nodeStamp' facet missing!</resource>
 
+<!-- SINGLE_STEP_MUST_INSIDE_FORM -->
+<resource key="SINGLE_STEP_MUST_INSIDE_FORM">SingleSteps must be used inside of a form</resource>
+
 <!-- FRAMES_MUST_INSIDE_FRAMEBORDERLAYOUTS -->
 <resource key="FRAMES_MUST_INSIDE_FRAMEBORDERLAYOUTS">Frames must appear inside FrameBorderLayouts</resource>
 
@@ -599,5 +602,7 @@
 
 <!-- REQUIRED_TRINIDADFILTER_NOT_INSTALLED -->
 <resource key="REQUIRED_TRINIDADFILTER_NOT_INSTALLED">The TrinidadFilter has not been installed.  Apache Trinidad requires this filter for proper execution.</resource>
+
+<resource key="INVALID_ENUM_IN_CONFIG">The value ''{0}'' is not a legal value for &lt;''{1}''&gt;</resource>
 
 </resources>

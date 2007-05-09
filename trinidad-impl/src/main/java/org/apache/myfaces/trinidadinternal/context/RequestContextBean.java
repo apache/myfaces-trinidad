@@ -24,6 +24,8 @@ import java.util.TimeZone;
 import org.apache.myfaces.trinidad.bean.FacesBeanImpl;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 
+import org.apache.myfaces.trinidad.context.RequestContext;
+
 public class RequestContextBean extends FacesBeanImpl
 {
   static public Type TYPE = new Type();
@@ -33,8 +35,12 @@ public class RequestContextBean extends FacesBeanImpl
                      PropertyKey.CAP_NOT_BOUND);
   static public final PropertyKey DEBUG_OUTPUT_KEY =
     TYPE.registerKey("debug-output", Boolean.class);
+  static public final PropertyKey CLIENT_VALIDATION_KEY =
+    TYPE.registerKey("client-validation", RequestContext.ClientValidation.class);
   static public final PropertyKey CLIENT_VALIDATION_DISABLED_KEY =
-    TYPE.registerKey("client-validation-disabled", Boolean.class);
+    TYPE.registerKey("client-validation-disabled",
+                     Boolean.class,
+                     PropertyKey.CAP_NOT_BOUND);
   static public final PropertyKey OUTPUT_MODE_KEY =
     TYPE.registerKey("output-mode");
   static public final PropertyKey LOOK_AND_FEEL_KEY =

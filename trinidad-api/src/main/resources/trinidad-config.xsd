@@ -57,11 +57,20 @@ does not support EL expressions - it must be configured statically.
             </documentation>
           </annotation>
         </element> 
+
+        
+        <element name="client-validation" minOccurs="0" maxOccurs="1"
+                 type="config:clientValidationExpressionType">
+          <annotation>
+            <documentation>The &lt;client-validation&gt; element controls how client side validation functions - ALERT (the default) to show Javascript alerts, INLINE (using DHTML to insert messages), or DISABLED (disabling client-side validation).  The requested value may be ignored if not supported on the current platform or renderkit.
+            </documentation>
+          </annotation>
+        </element>
         
         <element name="client-validation-disabled" minOccurs="0" maxOccurs="1"
                  type="config:booleanExpressionType">
           <annotation>
-            <documentation>The &lt;client-validation-disabled&gt; element controls whether client side converters and validators are run.
+            <documentation>The &lt;client-validation-disabled&gt; element controls whether client side converters and validators are run.  (Deprecated:  use client-validation).
             </documentation>
           </annotation>
         </element>
@@ -188,6 +197,14 @@ API.  The class must have a no-arg constructor.
     </restriction>
   </simpleType>
 
+  <simpleType name="clientValidationType">
+    <restriction base="string">
+      <enumeration value="ALERT"/>
+      <enumeration value="INLINE"/>
+      <enumeration value="DISABLED"/>
+    </restriction>
+  </simpleType>
+
   <simpleType name="stringExpressionType">
     <union memberTypes="string config:expressionType" />
   </simpleType>
@@ -206,6 +223,10 @@ API.  The class must have a no-arg constructor.
 
   <simpleType name="accessibilityModeExpressionType">
     <union memberTypes="config:accessibilityModeType config:expressionType" />
+  </simpleType>
+
+  <simpleType name="clientValidationExpressionType">
+    <union memberTypes="config:clientValidationType config:expressionType" />
   </simpleType>
 
   <simpleType name="anyURIExpressionType">
