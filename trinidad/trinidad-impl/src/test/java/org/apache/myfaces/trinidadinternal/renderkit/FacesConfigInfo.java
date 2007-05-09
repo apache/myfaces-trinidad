@@ -131,8 +131,9 @@ public class FacesConfigInfo
     XMLValidityTestCase.ER er = new XMLValidityTestCase.ER();
     String publicID = 
       "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN";
-    URL dtdSource = getClass().getResource(
-       "/oracle/adfinternal/view/faces/web-facesconfig_1_1.dtd");
+    // TODO: fall back on RI location if MyFaces can't be found
+    URL dtdSource = getClass().getClassLoader().getResource(
+       "org/apache/myfaces/resource/web-facesconfig_1_1.dtd");
     er.registerPublicId(publicID, dtdSource);
     builder.setEntityResolver(er);
 
