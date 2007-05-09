@@ -148,7 +148,7 @@
   <!-- {3} represents the maximum allowed date     -->
   <resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.NOT_IN_RANGE">Date Outside Valid Range</resource>
 
-  <resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.NOT_IN_RANGE_detail">Enter a date on or between (2) and (3).</resource>
+  <resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.NOT_IN_RANGE_detail">Enter a date on or between {2} and {3}.</resource>
 
   <!-- The validator has a list with dates, which are not allowed. In case of that the entered date is part of the list, this message will be shown -->
   <!-- {0} the label that identifies the component -->
