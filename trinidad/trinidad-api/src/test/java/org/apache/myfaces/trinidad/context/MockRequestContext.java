@@ -118,6 +118,12 @@ public class MockRequestContext extends RequestContext
   }
 
   @Override
+  public ClientValidation getClientValidation()
+  {
+    return ClientValidation.ALERT;
+  }
+
+  @Override
   public boolean isClientValidationDisabled()
   {
     return false;

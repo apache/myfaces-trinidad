@@ -157,6 +157,17 @@ public class MRequestContext extends RequestContext
   }
 
   @Override
+  public ClientValidation getClientValidation()
+  {
+    return _clientValidation;
+  }
+
+  public void setClientValidation(ClientValidation clientValidation)
+  {
+    _clientValidation = clientValidation;
+  }
+
+  @Override
   public boolean isRightToLeft()
   {
     return _rtl;
@@ -284,6 +295,7 @@ public class MRequestContext extends RequestContext
 
   private String _skin;
   private Accessibility _accMode;
+  private ClientValidation _clientValidation = ClientValidation.ALERT;
   private Agent _agent;
   private boolean _rtl = false;
   static private TimeZone _FIXED_TIME_ZONE =

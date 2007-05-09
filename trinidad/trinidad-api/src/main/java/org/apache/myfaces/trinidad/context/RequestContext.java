@@ -221,9 +221,30 @@ abstract public class RequestContext
   {
     DEFAULT("default"),
     INACCESSIBLE("inaccessible"),
-    SCREEN_READER("screnReader");
+    SCREEN_READER("screenReader");
     
     Accessibility(String name)
+    {
+      _name = name;
+    }
+
+    @Override
+    public String toString()
+    {
+      return _name;
+    }
+
+    private final String _name;
+  };
+
+
+  public enum ClientValidation
+  {
+    ALERT("alert"),
+    INLINE("inline"),
+    DISABLED("disabled");
+    
+    ClientValidation(String name)
     {
       _name = name;
     }
@@ -241,6 +262,11 @@ abstract public class RequestContext
    * Returns the name of the current accessibility mode.
    */
   public abstract Accessibility getAccessibilityMode();
+
+  /**
+   * Returns the name of the current client validation mode.
+   */
+  public abstract ClientValidation getClientValidation();
 
   //
   //  General localization

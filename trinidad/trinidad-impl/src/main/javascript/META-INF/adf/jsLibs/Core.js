@@ -1203,15 +1203,175 @@ function _valField(
   }
 }
 
-function _validationAlert(errorString)
+function _validateAlert(
+  form,
+  source,
+  validators,
+  globalMessageIndex,
+  errorTitle
+  )
 {
+  var failureArray = _multiValidate(form, source,  validators, globalMessageIndex);
+  
+  if (failureArray.length == 0)
+    return;
+    
+  var firstFailure = true;
+  var failureString = errorTitle + '\n';
+
+  for (var j=0; j < failureArray.length; j = j+2)
+  {
+    var currInput = form.elements[failureArray[j]];
+    
+    if (!currInput)
+      continue;
+    
+    failureString += _getLabel(form, currInput) + ": " + failureArray[j+1] + '\n';
+
+    // Move the focus back to the first failed field
+    if (firstFailure)
+    {
+      _setFocus(currInput);
+    
+      firstFailure = false;
+    }
+  }
+
   // Show the error and note the time we finished this validation.
   // Record the validation both before and after the alert so that we
   // halt any validations caused by events triggered along with this
   // one, or by the closing of this alert.
   _recordValidation(true, 0);
-  alert(errorString);
+  alert(failureString);
   _recordValidation(true, 0);
+  
+  return (failureArray.length == 0);
+}
+
+function _validateInline(
+  form,
+  source,
+  validators,
+  globalMessageIndex,
+  errorTitle
+  )
+{
+  var failureArray = _multiValidate(form, source,  validators, globalMessageIndex);
+  
+  var firstFailure = true;
+
+  // TODO - Check if we really need this with inline validation
+  _recordValidation(true, 0);
+
+  var failureString = "";
+  for (var i = 0; i < validators.length; i += 5)
+  {
+  
+    var currId = validators[i];
+    var foundMsg = false;
+
+    // Get the icon if any
+    var iconElem = document.getElementById(validators[i] + "::icon");
+
+    // If component hasn't got a message element, then skip
+    var msgElem = document.getElementById(validators[i] + "::msg");
+    if (!msgElem)
+      continue;
+      
+    // Clear any existing messages from the component
+    msgElem.innerHTML = "";
+    
+    // Find messages for currId
+    for (var j=0; j < failureArray.length; j = j+2)
+    {
+      if (currId != failureArray[j])
+        continue;
+        
+      var currInput = form.elements[failureArray[j]];
+      if (!currInput)
+        continue;
+
+      // Move the focus back to the first failed field
+      if (firstFailure)
+      {
+        _setFocus(currInput);
+        firstFailure = false;
+      }
+
+      msgElem.innerHTML = failureArray[j+1];
+  
+      foundMsg = true;
+      
+      failureString += currId + "=" + failureArray[j+1] + '\n';
+    }
+    
+    // Decide if we show or hide the message element
+    if (foundMsg)
+    {
+      msgElem.style.display = "inline";
+      if (iconElem)
+        iconElem.style.display = 'inline';
+    }
+    else 
+    {
+      msgElem.style.display = "none";
+      if (iconElem)
+        iconElem.style.display = 'none';
+    }
+
+  }
+
+  // TODO - Check if we really need this with inline validation
+  _recordValidation(true, 0);
+
+  return (failureArray.length == 0);
+}
+
+/**
+ * Performs validation on the supplied input element.  If validation fails
+ * the appropriate message will be displayed in the message component for this
+ * input field.
+ * <p>
+ * The simplest usage of this method is from the onblur attribute of the 
+ * input component. e.g. onblur="_validateInput(this);"
+ * <p>
+ * @param input The input element to validate.
+ * @return boolean, false if validation failed, otherwise true. 
+ */
+// TODO: make this a public function only after hanging it on
+// a namespaced object, *and* making it not specific to inline
+// validation
+function _validateInput(input)
+{
+  if (input == (void 0))
+    return true;
+  
+  var form = _getForm(input);
+  if (form == (void 0))
+    return true;
+
+  var validators = _getValidators(form);
+  if (validators == (void 0))
+    return true;
+    
+  var validatorsToRun = new Array();
+
+  for (i=0; i < validators.length; i += 5)
+  {
+    // Find any entries that match this element
+    if (validators[i] == input.id)
+    {
+      validatorsToRun[validatorsToRun.length] = validators[i];
+      validatorsToRun[validatorsToRun.length] = validators[i+1];
+      validatorsToRun[validatorsToRun.length] = validators[i+2];
+      validatorsToRun[validatorsToRun.length] = validators[i+3];
+      validatorsToRun[validatorsToRun.length] = validators[i+4];
+    }
+  }
+
+  // Call inline validation using only the appropriate validators
+  var retVal = _validateInline(form, (void 0), validatorsToRun, 1, (void 0));
+  return retVal;
 }
 
 // Records the time of this validation event.
@@ -2304,6 +2464,8 @@ function _multiValidate(
   globalMessageIndex
   )
 {
+  // 2d Array to hold the id and the associated error for each component
+  var failureArray = new Array();
   var failures = "";
 
   var subforms = window[form.name + "_SF"];
@@ -2342,8 +2504,6 @@ function _multiValidate(
   {
     // get the list of different validations
     var validations = _getValidations(form);
-
-    var firstFailure = true;
 
     // loop through the validations, building up the error string
     for (var i = 0; i < validators.length; i += 5)
@@ -2411,14 +2571,6 @@ function _multiValidate(
       if ( required && ((value == "" ) || (value == null)))
       {
 
-        // move the focus back to the first failed field
-        if (firstFailure)
-        {
-          _setFocus(currInput);
-
-          firstFailure = false;
-        }
-
         // get the formatted error string for the current input and
         // formatIndex
         requiredFormatIndex = validators[i+2];
@@ -2427,6 +2579,9 @@ function _multiValidate(
 
         if (requiredErrorString)
         {
+          failureArray[failureArray.length] = currInput.id;
+          failureArray[failureArray.length] = requiredErrorString;
+
           requiredErrorString = _getGlobalErrorString(currInput, 
                                               globalMessageIndex, 
                                               requiredErrorString,
@@ -2462,20 +2617,15 @@ function _multiValidate(
               catch (e)
               {
                 converterError = true; 
-                // move the focus back to the first failed field
-                if (firstFailure)
-                {
-  
-                  _setFocus(currInput);
-  
-                  firstFailure = false;
-                }
   
                 // get the formatted error string for the current input
                 var errorString1 = e.getFacesMessage().getDetail();
   
                 if (errorString1)
                 {                         
+                  failureArray[failureArray.length] = currInput.id;
+                  failureArray[failureArray.length] = errorString1;
+ 
                   errorString1 = _getGlobalErrorString(currInput, 
                                                        globalMessageIndex, 
                                                        errorString1,
@@ -2508,22 +2658,16 @@ function _multiValidate(
                   validator.validate(value, label, converter);
                 }
                 catch (e)
-                {
-                  // move the focus back to the first failed field
-                  if (firstFailure)
-                  {
-  
-                    _setFocus(currInput);
-  
-                    firstFailure = false;
-                  }
-  
+                {  
                   // get the formatted error string for the current input and
                   // formatIndex
                   var errorString = e.getFacesMessage().getDetail();
   
                   if (errorString)
                   {     
+                    failureArray[failureArray.length] = currInput.id;
+                    failureArray[failureArray.length] = errorString;
+ 
                     errorString = _getGlobalErrorString(currInput, 
                                                         globalMessageIndex, 
                                                         errorString,
@@ -2540,8 +2684,8 @@ function _multiValidate(
 
     _recordValidation((failures.length > 0), 0);
   }
-
-  return failures;
+  
+  return failureArray;
 }
 
 /**
@@ -2915,6 +3059,15 @@ function _getValidations(
   return window["_" + _getJavascriptId(form.name) + "_Validations"];
 }
 
+/**
+ * Returns the array of form validators.
+ */
+function _getValidators(
+  form
+  )
+{
+  return window["_" + _getJavascriptId(form.name) + "_Validators"];
+}
 
 /**
  * Perform the error validation and return true if there is an error.

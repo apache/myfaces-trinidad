@@ -496,8 +496,9 @@ public class FormRenderer extends XhtmlRenderer
     //                 EDITABLEVALUEHOLDER IMMEDIATE INCORRECTLY
     boolean hasImmediateComponent = fData.hasImmediateComponent();
 
-    boolean isClientValidationDisabled =
-      RequestContext.getCurrentInstance().isClientValidationDisabled();
+    RequestContext rc = RequestContext.getCurrentInstance();
+    boolean isClientValidationDisabled = 
+      rc.getClientValidation() == RequestContext.ClientValidation.DISABLED;
 
     if (isClientValidationDisabled || hasImmediateComponent)
     {
@@ -552,24 +553,17 @@ public class FormRenderer extends XhtmlRenderer
 
 
     //
-    // write the validation function for this form
+    // Write the array of form validators
     //
-    writer.writeText("function _", null);
-    writer.writeText(jsID, null);
-
-    // get the form validators
     List<CoreFormData.ConvertValidate> validatorInfoList =
       fData.getFormValidatorsInfo(false);
-
-    if (validatorInfoList == null)
+    
+    if (validatorInfoList != null)
     {
-      // no validation, so validation always succeeds
-      writer.writeText("Validator(){return true;}", null);
-    }
-    else
-    {
-      writer.writeText("Validator(f,s){var fl = _multiValidate(f,s,[", null);
-
+      writer.writeText("var _", null);
+      writer.writeText(jsID, null);
+      writer.writeText("_Validators=[", null);
+  
       boolean firstFormInfo = true;
 
       for (int j = 0; j < validatorInfoList.size(); j++)
@@ -644,16 +638,37 @@ public class FormRenderer extends XhtmlRenderer
           }
         }
       }
+  
+      writer.writeText("]];", null);
+    }
+    //
+    // write the validation function for this form
+    //
+    writer.writeText("function _", null);
+    writer.writeText(jsID, null);
 
+    if (validatorInfoList == null)
+    {
+      // no validation, so validation always succeeds
+      writer.writeText("Validator(){return true;}", null);
+    }
+    else
+    {
+      writer.writeText("Validator(f,s){return ", null);
+      
+      if (rc.getClientValidation() == RequestContext.ClientValidation.INLINE)
+        writer.writeText("_validateInline(f,s,_", null);
+      else
+        writer.writeText("_validateAlert(f,s,_", null);
+          
+      writer.writeText(jsID, null);
+      writer.writeText("_Validators,", null);
       Integer globalFormatIndex = fData.addGlobalMessageFormat(arc);
-
-      writer.writeText("]],", null);
       writer.writeText(globalFormatIndex, null);
-      writer.writeText(");if(fl.length>0){_validationAlert('", null);
+      writer.writeText(",\"", null);
       writer.writeText(XhtmlUtils.escapeJS(
-                          arc.getTranslatedString("af_form.SUBMIT_ERRORS")),
-                       null);
-        writer.writeText("'+fl);return false;}else{return true;}}", null);
+          arc.getTranslatedString("af_form.SUBMIT_ERRORS")), null);
+      writer.writeText("\");}", null);
     }
 
     //

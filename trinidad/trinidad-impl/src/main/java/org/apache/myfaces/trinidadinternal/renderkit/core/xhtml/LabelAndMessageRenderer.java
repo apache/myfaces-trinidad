@@ -32,6 +32,7 @@ import org.apache.myfaces.trinidad.component.UIXPanel;
 import org.apache.myfaces.trinidad.component.html.HtmlTableLayout;
 import org.apache.myfaces.trinidad.context.FormData;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TableRenderingContext;
 
 
@@ -183,13 +184,16 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
         fd.addLabel(component.getClientId(context), value);
     }
 
+    RequestContext rc = RequestContext.getCurrentInstance();
+    boolean isInline = (rc.getClientValidation() ==
+                        RequestContext.ClientValidation.INLINE);
     if (isInTable)
     {
       ResponseWriter rw = context.getResponseWriter();
       delegateRenderer(context, arc, component, bean, _labelInTable);
       renderFieldCellContents(context, arc, component, bean);
 
-      if (hasMessage(context, arc, component, bean))
+      if (isInline || hasMessage(context, arc, component, bean))
       {
         rw.startElement("div", component);
         rw.endElement("div");
@@ -264,14 +268,14 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
       }
       
       _renderFieldCell(context, arc, component, bean, labelExists,
-        needsPanelFormLayout);
+                       needsPanelFormLayout, isInline);
       
       if (!needsPanelFormLayout)
       {
         // End encoding of the non-panelForm-friendly wrappers:
         rw.endElement("tr");
 
-        if (hasMessage(context, arc, component, bean))
+        if (isInline || hasMessage(context, arc, component, bean))
         {
           // =-=AEW PPR PROBLEM!!!  We should always be
           // rendering the "tr", and always rendering an ID, if we ever
@@ -288,7 +292,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
           
           rw.endElement("tr");
         }
-        
+
         if (needsTableTag)
           rw.endElement("table");
       }
@@ -352,7 +356,8 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     UIComponent         component,
     FacesBean           bean,
     boolean             labelExists,
-    boolean             needsPanelFormLayout) throws IOException
+    boolean             needsPanelFormLayout,
+    boolean             isInline) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement("td", null);
@@ -371,16 +376,19 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
 
     // The panelForm places messages below the fields, not on a separate
     // row:
-    if (needsPanelFormLayout && hasMessage(context, arc, component, bean))
+    if (needsPanelFormLayout)
     {
       // =-= mcc PPR PROBLEM!!!  We should always be rendering the "div",
       //     and always rendering an ID, if we ever want it to be PPR
       //     replaceable:
-      rw.startElement("div", null);
-      renderStyleClass(context, arc,
-                       SkinSelectors.AF_COMPONENT_MESSAGE_CELL_STYLE_CLASS);
-      _renderMessageCellContents(context, arc, component, bean);
-      rw.endElement("div");
+      if (isInline || hasMessage(context, arc, component, bean))
+      {
+        rw.startElement("div", null);
+        renderStyleClass(context, arc,
+                         SkinSelectors.AF_COMPONENT_MESSAGE_CELL_STYLE_CLASS);
+        _renderMessageCellContents(context, arc, component, bean);
+        rw.endElement("div");
+      }
     }
 
     // bug 2484841: PDA: TOO MUCH WHITESPACE BETWEEN
