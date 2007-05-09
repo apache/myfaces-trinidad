@@ -25,7 +25,7 @@
 
   <groupId>org.apache.myfaces.trinidadbuild</groupId>
   <artifactId>maven-plugin-parent</artifactId> 
-  <version>1.0.1-incubating-SNAPSHOT</version>
+  <version>1.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Apache Trinidad Maven Plugin Parent</name>
 
@@ -42,7 +42,7 @@
         <type>mail</type>
         <sendOnSuccess>true</sendOnSuccess>
         <configuration>
-          <address>adffaces-commits@incubator.apache.org</address>
+          <address>commits@myfaces.apache.org</address>
         </configuration>
       </notifier>
     </notifiers>
@@ -52,32 +52,32 @@
 
   <mailingLists>
     <mailingList>
-      <name>Trinidad Incubator Users</name>
-      <post>adffaces-user@incubator.apache.org</post>
-      <subscribe>adffaces-user-subscribe@incubator.apache.org</subscribe>
-      <unsubscribe>adffaces-user-unsubscribe@incubator.apache.org</unsubscribe>
-      <archive>http://mail-archives.apache.org/mod_mbox/incubator-adffaces-user/</archive>
+      <name>MyFaces Users (use [Trinidad] prefix)</name>
+      <post>user@myfaces.apache.org</post>
+      <subscribe>user-subscribe@myfaces.apache.org</subscribe>
+      <unsubscribe>user-unsubscribe@myfaces.apache.org</unsubscribe>
+      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-user/</archive>
     </mailingList>
     <mailingList>
-      <name>Trinidad Incubator Developers</name>
-      <post>adffaces-dev@incubator.apache.org</post>
-      <subscribe>adffaces-dev-subscribe@incubator.apache.org</subscribe>
-      <unsubscribe>adffaces-dev-unsubscribe@incubator.apache.org</unsubscribe>
-      <archive>http://mail-archives.apache.org/mod_mbox/incubator-adffaces-dev/</archive>
+      <name>MyFaces Developers (use [Trinidad] prefix)</name>
+      <post>dev@myfaces.apache.org</post>
+      <subscribe>dev-subscribe@myfaces.apache.org</subscribe>
+      <unsubscribe>dev-unsubscribe@myfaces.apache.org</unsubscribe>
+      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-dev/</archive>
     </mailingList>
     <mailingList>
-      <name>Trinidad Incubator issues</name>
+      <name>MyFaces issues</name>
       <post>Do not post</post>
-      <subscribe>adffaces-issues-subscribe@incubator.apache.org</subscribe>
-      <unsubscribe>adffaces-issues-unsubscribe@incubator.apache.org</unsubscribe>
-      <archive>http://mail-archives.apache.org/mod_mbox/incubator-adffaces-issues/</archive>
+      <subscribe>issues-subscribe@myfaces.apache.org</subscribe>
+      <unsubscribe>issues-unsubscribe@myfaces.apache.org</unsubscribe>
+      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-issues/</archive>
     </mailingList>
     <mailingList>
-      <name>Trinidad Incubator commits</name>
+      <name>MyFaces commits</name>
       <post>Do not post</post>
-      <subscribe>adffaces-commits-subscribe@incubator.apache.org</subscribe>
-      <unsubscribe>adffaces-commits-unsubscribe@incubator.apache.org</unsubscribe>
-      <archive>http://mail-archives.apache.org/mod_mbox/incubator-adffaces-commits/</archive>
+      <subscribe>commits-subscribe@myfaces.apache.org</subscribe>
+      <unsubscribe>commits-unsubscribe@myfaces.apache.org</unsubscribe>
+      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-commits/</archive>
     </mailingList>
   </mailingLists>
 
@@ -190,8 +190,12 @@
   </build>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/incubator/adffaces/trunk/plugins/</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/incubator/adffaces/trunk/plugins/</developerConnection>
+    <connection>
+      scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad/trunk/plugins/
+    </connection>
+    <developerConnection>
+      scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad/trunk/plugins/
+    </developerConnection>
   </scm>
 
   <modules>
