@@ -20,7 +20,7 @@
 -->
 <trinidad-config xmlns="http://myfaces.apache.org/trinidad/config">
   <debug-output>true</debug-output>
-  <!--client-validation-disabled>true</client-validation-disabled-->
+  <client-validation>INLINE</client-validation>
 
   <accessibility-mode>#{prefs.proxy.accessibilityMode}</accessibility-mode>
   <!-- you can use EL to get the skin. This allows the skin to change between
