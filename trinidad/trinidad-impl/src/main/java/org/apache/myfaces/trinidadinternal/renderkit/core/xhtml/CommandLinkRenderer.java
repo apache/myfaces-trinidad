@@ -97,7 +97,7 @@ public class CommandLinkRenderer extends GoLinkRenderer
       AutoSubmitUtils.writeDependencies(context, arc);
     }
  
-    String clientId = comp.getClientId(context);
+    String clientId = getClientId(context, comp);
     // Make sure we don't have anything to save
     assert(arc.getCurrentClientId() == null);
     arc.setCurrentClientId(clientId);
@@ -128,15 +128,6 @@ public class CommandLinkRenderer extends GoLinkRenderer
   }
 
   @Override
-  protected String getClientId(
-    FacesContext context,
-    UIComponent  component)
-  {
-    // Use the cached version
-    return RenderingContext.getCurrentInstance().getCurrentClientId();
-  }
-
-  @Override
   protected String getDestination(FacesBean bean)
   {
     return null;
@@ -158,7 +149,7 @@ public class CommandLinkRenderer extends GoLinkRenderer
   /**
    * Returns the component's onclick
    */
-  final protected String getComponentOnclick(FacesBean bean)
+  protected String getComponentOnclick(FacesBean bean)
   {
     return super.getOnclick(bean);
   }

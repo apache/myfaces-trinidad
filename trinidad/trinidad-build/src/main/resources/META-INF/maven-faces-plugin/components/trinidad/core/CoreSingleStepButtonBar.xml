@@ -33,146 +33,16 @@
     <component-type>org.apache.myfaces.trinidad.CoreSingleStepButtonBar</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.nav.CoreSingleStepButtonBar</component-class>
     <property>
-      <description><![CDATA[the short description of the bean.  This text
-         is commonly used by user agents to display tooltip help text.]]>
-      </description>
-      <property-name>shortDesc</property-name>
+      <description><![CDATA[the text description of items being navigated.
+            The default is "Step".]]></description>
+      <property-name>text</property-name>
       <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("CORE_GROUP")}</mfp:group>
-        </mfp:property-metadata>
-      </property-extension>
+      <property-extension/>
     </property>
-    <property>
-      <description><![CDATA[the IDs of the components that should trigger a partial update.
-         This component will listen on the trigger components. If one of the
-         trigger components receives an event that will cause it to update
-         in some way, this component will request to be updated too.]]>
-      </description>
-      <property-name>partialTriggers</property-name>
-      <property-class>java.lang.String[]</property-class>
-    </property>
-    <property>
-      <description><![CDATA[an onclick Javascript handler.]]></description>
-      <property-name>onclick</property-name>
-      <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
-        </mfp:property-metadata>
-      </property-extension>
-    </property>
-    <property>
-      <description><![CDATA[an ondblclick Javascript handler.]]></description>
-      <property-name>ondblclick</property-name>
-      <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
-        </mfp:property-metadata>
-      </property-extension>
-    </property>
-    <property>
-      <description><![CDATA[an onmousedown Javascript handler.]]></description>
-      <property-name>onmousedown</property-name>
-      <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
-        </mfp:property-metadata>
-      </property-extension>
-    </property>
-    <property>
-      <description><![CDATA[an onmouseup Javascript handler.]]></description>
-      <property-name>onmouseup</property-name>
-      <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
-        </mfp:property-metadata>
-      </property-extension>
-    </property>
-    <property>
-      <description><![CDATA[an onmouseover Javascript handler.]]></description>
-      <property-name>onmouseover</property-name>
-      <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
-        </mfp:property-metadata>
-      </property-extension>
-    </property>
-    <property>
-      <description><![CDATA[an onmousemove Javascript handler.]]></description>
-      <property-name>onmousemove</property-name>
-      <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
-        </mfp:property-metadata>
-      </property-extension>
-    </property>
-    <property>
-      <description><![CDATA[an onmouseout Javascript handler.]]></description>
-      <property-name>onmouseout</property-name>
-      <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
-        </mfp:property-metadata>
-      </property-extension>
-    </property>
-    <property>
-      <description><![CDATA[an onkeypress Javascript handler.]]></description>
-      <property-name>onkeypress</property-name>
-      <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
-        </mfp:property-metadata>
-      </property-extension>
-    </property>
-    <property>
-      <description><![CDATA[an onkeydown Javascript handler.]]></description>
-      <property-name>onkeydown</property-name>
-      <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
-        </mfp:property-metadata>
-      </property-extension>
-    </property>
-    <property>
-      <description><![CDATA[an onkeyup Javascript handler.]]></description>
-      <property-name>onkeyup</property-name>
-      <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
-        </mfp:property-metadata>
-      </property-extension>
-    </property>
-    <property>
-      <description><![CDATA[the CSS style class of the bean.]]></description>
-      <property-name>styleClass</property-name>
-      <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("CORE_GROUP")}</mfp:group>
-        </mfp:property-metadata>
-      </property-extension>
-    </property>
-    <property>
-      <description><![CDATA[the inline CSS style for this element]]></description>
-      <property-name>inlineStyle</property-name>
-      <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("CORE_GROUP")}</mfp:group>
-        </mfp:property-metadata>
-      </property-extension>
-    </property>
+
+    <xi:include href="includes/CommonAttrs.xml" xpointer="/faces-config/component/*"/>
+    <xi:include href="includes/CoreJSEvents.xml" xpointer="/faces-config/component/*"/>
+
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.SingleStep</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.ButtonBar</mfp:renderer-type>
@@ -225,7 +95,6 @@
         <mfp:favorite-property>selectedStep</mfp:favorite-property>
         <mfp:group>${md:getTranslatedString("PALETTE_NAVIGATION")}</mfp:group>
       </mfp:component-metadata>
-      <mfp:uix2-local-name>navigationBar</mfp:uix2-local-name>
     </component-extension>
   </component>
 </faces-config>

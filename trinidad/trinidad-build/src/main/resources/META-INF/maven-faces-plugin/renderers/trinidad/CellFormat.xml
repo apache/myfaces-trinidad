@@ -25,7 +25,7 @@
     <renderer>
       <component-family>org.apache.myfaces.trinidad.CellFormat</component-family>
       <renderer-type>org.apache.myfaces.trinidad.CellFormat</renderer-type>
-      <renderer-class>org.apache.myfaces.trinidadinternal.uinode.UINodeRendererBase</renderer-class>
+      <renderer-class>org.apache.myfaces.trinidadinternal.renderkit.html.CellFormatRenderer</renderer-class>
       <renderer-extension>
         <mfp:component-type>org.apache.myfaces.trinidad.HtmlCellFormat</mfp:component-type>
       </renderer-extension>

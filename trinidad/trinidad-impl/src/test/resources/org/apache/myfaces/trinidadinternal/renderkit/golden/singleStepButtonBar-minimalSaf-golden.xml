@@ -3,6 +3,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
+           class="af_singleStepButtonBar"
            id="mainId"
            summary=""
           >
@@ -32,9 +33,11 @@
             
             <button
                  accesskey="x"
-                 class="OraLink"
-                 onclick="_navBarSubmit('formId','goto','mainId',1,'2');return false"
+                 class="af_commandButton"
+                 onclick="submitForm('formId',1,{source:'mainId::next'});return false;"
                  type="button"
+                 id="uri-attr:mainId::next"
+                 name="uri-attr:mainId::next"
                 >
               Ne
               <span
@@ -52,6 +55,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
+           class="af_singleStepButtonBar"
            id="mainId"
            summary=""
           >
@@ -64,7 +68,7 @@
               >
             
             <span
-                 class="OraNavBarViewOnly"
+                 class="af_singleStepButtonBar_label"
                 >
               Step 1 of 10
             </span>
@@ -86,9 +90,11 @@
             
             <button
                  accesskey="x"
-                 class="OraLink"
-                 onclick="_navBarSubmit('formId','goto','mainId',1,'2');return false"
+                 class="af_commandButton"
+                 onclick="submitForm('formId',1,{source:'mainId::next'});return false;"
                  type="button"
+                 id="uri-attr:mainId::next"
+                 name="uri-attr:mainId::next"
                 >
               Ne
               <span
@@ -106,6 +112,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
+           class="af_singleStepButtonBar"
            id="mainId"
            summary=""
           >
@@ -118,9 +125,11 @@
             
             <button
                  accesskey="k"
-                 class="OraLink"
-                 onclick="_navBarSubmit('formId','goto','mainId',0,'4');return false"
+                 class="af_commandButton"
+                 onclick="submitForm('formId',0,{source:'mainId::back'});return false;"
                  type="button"
+                 id="uri-attr:mainId::back"
+                 name="uri-attr:mainId::back"
                 >
               Bac
               <span
@@ -164,9 +173,11 @@
             
             <button
                  accesskey="x"
-                 class="OraLink"
-                 onclick="_navBarSubmit('formId','goto','mainId',1,'6');return false"
+                 class="af_commandButton"
+                 onclick="submitForm('formId',1,{source:'mainId::next'});return false;"
                  type="button"
+                 id="uri-attr:mainId::next"
+                 name="uri-attr:mainId::next"
                 >
               Ne
               <span
@@ -184,6 +195,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
+           class="af_singleStepButtonBar"
            id="test-id"
            summary=""
           >
@@ -213,9 +225,11 @@
             
             <button
                  accesskey="x"
-                 class="OraLink"
-                 onclick="_navBarSubmit('formId','goto','test-id',1,'2');return false"
+                 class="af_commandButton"
+                 onclick="submitForm('formId',1,{source:'test-id::next'});return false;"
                  type="button"
+                 id="uri-attr:test-id::next"
+                 name="uri-attr:test-id::next"
                 >
               Ne
               <span

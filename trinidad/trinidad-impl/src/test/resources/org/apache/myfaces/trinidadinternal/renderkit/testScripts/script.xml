@@ -9,5 +9,5 @@
 
   <!-- core attributes -->
   <attribute-test name="id" value="myScriptId"/>
-     
+  
 </test>

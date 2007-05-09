@@ -25,7 +25,7 @@
     <renderer>
       <component-family>org.apache.myfaces.trinidad.SingleStep</component-family>
       <renderer-type>org.apache.myfaces.trinidad.ButtonBar</renderer-type>
-      <renderer-class>org.apache.myfaces.trinidadinternal.renderkit.uix.SingleStepRenderer</renderer-class>
+      <renderer-class>org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SingleStepButtonBarRenderer</renderer-class>
       <renderer-extension>
         <mfp:component-type>org.apache.myfaces.trinidad.CoreSingleStepButtonBar</mfp:component-type>
       </renderer-extension>

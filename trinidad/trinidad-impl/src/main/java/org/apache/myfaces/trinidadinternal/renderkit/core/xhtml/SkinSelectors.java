@@ -97,6 +97,8 @@ public final class SkinSelectors
     "OraLink";
   public static final String LINK_TEXT_STYLE_CLASS =
     "OraLinkText";
+
+  // FIXME: get rid of these!
   public static final String NAV_BAR_ALINK_STYLE_CLASS =
     "OraNavBarActiveLink";
   public static final String NAV_BAR_ILINK_STYLE_CLASS =
@@ -1091,6 +1093,17 @@ public final class SkinSelectors
    public static final String AF_SHOW_DETAIL_HEADER_SD_UNDISCLOSED_ICON_NAME =
      "af|showDetailHeader::undisclosed-icon";
 
+
+  
+   //                                                                         //
+   //                                                                         //
+   // ======================== tr:singleStepButtonBar ========================= //
+   //                                                                         //
+   //                                                                         //
+   public static final String AF_SINGLE_STEP_BUTTON_BAR =
+    "af|singleStepButtonBar";
+   public static final String AF_SINGLE_STEP_BUTTON_BAR_LABEL =
+    "af|singleStepButtonBar::label";
 
    //                                                                         //
    //                                                                         //

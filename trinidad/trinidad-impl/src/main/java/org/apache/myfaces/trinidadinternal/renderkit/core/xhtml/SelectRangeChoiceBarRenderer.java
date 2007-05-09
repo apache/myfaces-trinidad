@@ -424,7 +424,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
 
       // ready to render
       ResponseWriter writer = context.getResponseWriter();
-      boolean renderAsTable = _renderAsTable(component);
+      boolean renderAsTable = __renderAsTable(component);
 
 
       // The following strange code is part of the work around for
@@ -1232,11 +1232,11 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
 
 
   // don't render as a table in certain locations like a page button bar
-  private boolean _renderAsTable(
+  static boolean __renderAsTable(
     UIComponent component
     )
   {
-    UIComponent parent = component.getParent();
+    UIComponent parent = XhtmlUtils.getStructuralParent(component);
     if ((parent instanceof UIXPanel) &&
         ("org.apache.myfaces.trinidad.ButtonBar".equals(parent.getRendererType()) ||
          "org.apache.myfaces.trinidad.rich.ButtonBar".equals(parent.getRendererType())))

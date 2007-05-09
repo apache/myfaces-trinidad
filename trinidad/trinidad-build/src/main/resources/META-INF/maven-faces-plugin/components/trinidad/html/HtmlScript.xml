@@ -98,7 +98,6 @@
         <mfp:favorite-property>source</mfp:favorite-property>
         <mfp:hidden>true</mfp:hidden>
       </mfp:component-metadata>
-      <mfp:uix2-local-name>script</mfp:uix2-local-name>
     </component-extension>
   </component>
 </faces-config>

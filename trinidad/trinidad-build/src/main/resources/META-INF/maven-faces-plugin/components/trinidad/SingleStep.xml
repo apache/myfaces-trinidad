@@ -67,14 +67,6 @@
       </property-extension>
     </property>
     <property>
-      <description><![CDATA[the text description of items being navigated.
-            The default is "Step".]]></description>
-      <property-name>text</property-name>
-      <property-class>java.lang.String</property-class>
-      <default-value>Step</default-value>
-      <property-extension/>
-    </property>
-    <property>
       <description><![CDATA[a method reference to an action listener 
              that will be called when the singleStep component navigates
              to the previous step.]]>
