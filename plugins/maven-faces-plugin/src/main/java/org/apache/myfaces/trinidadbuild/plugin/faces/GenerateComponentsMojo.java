@@ -656,34 +656,80 @@ public class GenerateComponentsMojo extends AbstractFacesMojo
     }
     else if ("char".equals(className))
     {
-      return "new Character('" + value.replaceAll("\'", "\\'") + "')";
+      return "Character.valueOf('" + value.replaceAll("\'", "\\'") + "')";
     }
     else if ("int".equals(className))
     {
-      return "new Integer(" + value + ")";
+      return "Integer.valueOf(" + value + ")";
+    }
+    else if ("short".equals(className))
+    {
+      return "Short.valueOf(" + value + ")";
+    }
+    else if ("long".equals(className))
+    {
+      return "Long.valueOf(" + value + ")";
     }
     else if ("double".equals(className))
     {
-      return "new Double(" + value + ")";
+      return "Double.valueOf(" + value + ")";
     }
     else if ("float".equals(className))
     {
-      return "new Float(" + value + ")";
+      return "Float.valueOf(" + value + ")";
     }
     else if ("Number".equals(className))
     {
       if(value.indexOf(".") == -1)
       {
-        return "new Integer(" + value + ")";
+        return "Integer.valueOf(" + value + ")";
       }
       else
       {
-        return "new Double(" + value + ")";
+        return "Double.valueOf(" + value + ")";
       }
     }
     else
     {
-      throw new IllegalStateException("property-class " + className + " not supported for default-value");
+      throw new IllegalStateException("property-class " + className + " not supported for auto-boxing");
+    }
+  }
+
+  private String _convertVariableToBoxedForm(
+    String  className,
+    String  varName)
+  {
+    if ("boolean".equals(className))
+    {
+      return varName + " ? Boolean.TRUE : Boolean.FALSE";
+    }
+    else if ("char".equals(className))
+    {
+      return "Character.valueOf(" + varName + ")";
+    }
+    else if ("int".equals(className))
+    {
+      return "Integer.valueOf(" + varName + ")";
+    }
+    else if ("short".equals(className))
+    {
+      return "Short.valueOf(" + varName + ")";
+    }
+    else if ("long".equals(className))
+    {
+      return "Long.valueOf(" + varName + ")";
+    }
+    else if ("double".equals(className))
+    {
+      return "Double.valueOf(" + varName + ")";
+    }
+    else if ("float".equals(className))
+    {
+      return "Float.valueOf(" + varName + ")";
+    }
+    else
+    {
+      throw new IllegalStateException("property-class " + className + " not supported for auto-boxing");
     }
   }
 
@@ -941,17 +987,9 @@ public class GenerateComponentsMojo extends AbstractFacesMojo
     out.indent();
     if (Util.isPrimitiveClass(propertyClass))
     {
-      // TODO: use UIXComponentBase setXXXProperty methods when possible
-      if (propertyClass.equals("boolean"))
-      {
-        // TODO: add back space before ternary operator
-        out.println("setProperty(" + propKey + ", " + propVar + "? Boolean.TRUE : Boolean.FALSE);");
-      }
-      else
-      {
-        String boxedClass = Util.getBoxedClass(propertyClass);
-        out.println("setProperty(" + propKey + ", new " + boxedClass + "(" + propVar + "));");
-      }
+      out.println("setProperty(" + propKey + ", " +
+                  _convertVariableToBoxedForm(propertyClass, propVar) +
+                  ");");
     }
     else
     {
