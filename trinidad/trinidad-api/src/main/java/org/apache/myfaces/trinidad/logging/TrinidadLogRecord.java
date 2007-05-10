@@ -28,7 +28,7 @@ class TrinidadLogRecord extends LogRecord
 {
   public TrinidadLogRecord(Level level, String msg)
   {
-    super(level, msg);
+    super(level, (msg == null) ? "" : msg);
   }
 
 
