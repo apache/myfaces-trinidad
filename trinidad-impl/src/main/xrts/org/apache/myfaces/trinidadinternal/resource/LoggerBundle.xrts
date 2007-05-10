@@ -496,7 +496,7 @@
 <resource key="FACETREF_MUST_INSIDE_UICOMPONENT">facetRef must be inside of a UIComponent tag.</resource>
 
 <!-- CANNOT_FIND_PARENT_COMPONENTREF -->
-<resource key="CANNOT_FIND_PARENT_COMPONENTREF">Cannot find parent &lt;tr:componentRef&rt;</resource>
+<resource key="CANNOT_FIND_PARENT_COMPONENTREF">Cannot find parent &lt;tr:componentRef&gt;</resource>
 
 <!-- FACETNAME_REQUIRED -->
 <resource key="FACETNAME_REQUIRED">facetName is required on facetRef</resource>
