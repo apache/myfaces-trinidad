@@ -90,7 +90,7 @@ public class HtmlResponseWriter extends ResponseWriter
   public void close()throws IOException
   {
     flush();
-    // =-=AEW And anything else?
+    _out.close();
   }
 
   @Override
