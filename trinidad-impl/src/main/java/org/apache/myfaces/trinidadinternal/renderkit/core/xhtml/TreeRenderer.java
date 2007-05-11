@@ -287,24 +287,40 @@ public class TreeRenderer extends XhtmlRenderer
           // single arrow left
           text = 
             rc.isRightToLeft()? "\u2190": "\u2192"; // single arrow right
+        else if(isPDA(rc)) 
+          //for PDAs use a simple "+" or "-" since miscellaneous unicode characters
+          //are not supported 
+                 text = "[+]"; //plus sign
         else // triangle left
           text = 
             rc.isRightToLeft()? "\u25C4": "\u25BA"; // triangle right
-        altText = rc.getTranslatedString(_EXPAND_TIP_KEY);
+     
+        altText = rc.getTranslatedString(_EXPAND_TIP_KEY);        
         break;
       case EXPAND_OPEN:
         //"\u21D3"; // double arrow down
         if (isMacOS)
           text = "\u2193"; // single arrow down
+        else  if(isPDA(rc))
+          //for PDAs use a simple "+" or "-" since miscellaneous unicode characters
+          //are not supported 
+            text = "[-]"; //plus sign 
         else
           text = "\u25BC"; // triangle down
+
+      
         altText = rc.getTranslatedString(_COLLAPSE_TIP_KEY);
         break;
       case EXPAND_ALWAYS:
         if (isMacOS)
           text = "\u2193"; // single arrow down
+        else if(isPDA(rc))
+          text = "[-]"; //plus sign  
         else
           text = "\u25BC"; // triangle down
+        //for PDAs use a simple "+" or "-" since miscellaneous unicode character
+        //s are not supported 
+      
         altText = rc.getTranslatedString(_DISABLED_COLLAPSE_TIP_KEY);
         break;
     }

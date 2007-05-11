@@ -7,8 +7,20 @@
       </span>
 <!--AttributeTest[name,info]-->
 
+      <span
+           class="AFInfoIconStyle"
+           id="mainId"
+          >
+        i
+      </span>
 <!--AttributeTest[name,warning]-->
 
+      <span
+           class="AFWarningIconStyle"
+           id="mainId"
+          >
+        !
+      </span>
 <!--AttributeTest[name,error]-->
 
       <span

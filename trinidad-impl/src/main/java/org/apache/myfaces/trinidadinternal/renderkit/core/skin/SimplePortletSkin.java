@@ -91,7 +91,7 @@ public class SimplePortletSkin  extends BaseDesktopSkin
 
 
   private static final Map<String, String> _STYLES_MAP = new HashMap<String, String>(350);
-  private static final String _NULL_STYLE = new String();
+  private static final String _NULL_STYLE = "";
   private static final String _PORTLET_FONT = "portlet-font";
   private static final String _PORTLET_FONT_DIM = "portlet-font-dim";
 

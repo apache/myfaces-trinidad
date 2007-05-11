@@ -21,7 +21,6 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.skin;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinProperties;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.skin.icon.ContextImageIcon;
-import org.apache.myfaces.trinidadinternal.skin.icon.NullIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.TextIcon;
 
@@ -54,12 +53,6 @@ public class PdaHtmlSkin extends XhtmlSkin
   // and subclasses of PdaHtmlSkin.
   private static final Object[] _CUSTOMIZABLE_ICONS = new Object[]
   {
-    // null out icons that have an undesirable default in base skin
-    SkinSelectors.WARNING_ICON_ALIAS_NAME,
-    NullIcon.sharedInstance(),
-    SkinSelectors.INFO_ICON_ALIAS_NAME,
-    NullIcon.sharedInstance(),
-
     // Path separator: &nbsp;>&nbsp;
     SkinSelectors.PATH_SEPARATOR_ICON_ALIAS_NAME,
       new TextIcon("\u00a0>\u00a0"),
