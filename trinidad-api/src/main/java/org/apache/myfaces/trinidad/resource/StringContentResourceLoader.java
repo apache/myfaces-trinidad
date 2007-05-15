@@ -55,7 +55,7 @@ public abstract class StringContentResourceLoader extends DynamicResourceLoader
    * specified in a String.
    * 
    */
-  private class StringContentURLStreamHandler extends URLStreamHandler
+  static private class StringContentURLStreamHandler extends URLStreamHandler
   { 
     /**
      * Created a StringContentURLStreamHandler which will provide the specified content on the
@@ -87,7 +87,7 @@ public abstract class StringContentResourceLoader extends DynamicResourceLoader
     private String _contentType;
   }
   
-  private class StringContentURLConnection extends URLConnection 
+  static private class StringContentURLConnection extends URLConnection 
   {
     public StringContentURLConnection(URL url, byte[] buff, String contentType)
     {

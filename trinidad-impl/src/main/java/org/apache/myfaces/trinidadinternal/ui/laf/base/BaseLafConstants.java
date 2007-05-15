@@ -37,13 +37,13 @@ public interface BaseLafConstants
   public static final char URI_DELIMITER = '/';
 
   /** The Integer 0 */
-  public static final Number ZERO = new Integer(0);
+  public static final Number ZERO = Integer.valueOf(0);
 
   /** The Integer 1 */
-  public static final Number ONE  = new Integer(1);
+  public static final Number ONE  = Integer.valueOf(1);
 
   /** The Integer 2 */
-  public static final Number TWO  = new Integer(2);
+  public static final Number TWO  = Integer.valueOf(2);
 
   /** Value indicating the value was not found in the collection */
   public static final Object NOT_FOUND = new Object();

@@ -693,4 +693,5 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
   
   private Node<Object> _root;
   private transient TreeModel _model = null;
+  private static final long serialVersionUID = 1L;
 }

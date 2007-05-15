@@ -1117,7 +1117,7 @@ abstract public class UIXComponentBase extends UIXComponent
 
   protected void setIntProperty(PropertyKey key, int value)
   {
-    getFacesBean().setProperty(key, new Integer(value));
+    getFacesBean().setProperty(key, Integer.valueOf(value));
   }
 
   protected int getIntProperty(PropertyKey key, int defaultValue)

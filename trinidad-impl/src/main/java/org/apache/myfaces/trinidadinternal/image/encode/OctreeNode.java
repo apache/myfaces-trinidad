@@ -156,7 +156,6 @@ class OctreeNode
   private OctreeNode(OctreeNode p)
   {
     this(p._getTree());
-    _parent=p;
     _level = p._getLevel()+1;
     p._incChildren();
   }
@@ -213,10 +212,6 @@ class OctreeNode
   private int _children;  // how many leaves are filled
   private OctreeNode[] _leaf; // 8 children of node
   private int _pixels; // how many pixels have passed through this node
-  // -= Simon Lessard =-
-  // FIXME: Never read locally
-  @SuppressWarnings("unused")
-  private OctreeNode _parent; // parent node in tree
   private int _level; // where does this node lie in the tree?
   private OctreeNode _next; // next node at this level
   private int _maxLevel; // lowest permissible depth at this node

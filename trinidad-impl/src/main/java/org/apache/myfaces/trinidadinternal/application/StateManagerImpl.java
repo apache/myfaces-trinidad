@@ -769,6 +769,8 @@ public class StateManagerImpl extends StateManager
 
   private static final class PageState implements Serializable
   {
+    private static final long serialVersionUID = 1L;
+
     private final Object _structure, _state;
     // use transient since UIViewRoots are not Serializable.
     private transient UIViewRoot _root;
@@ -918,6 +920,8 @@ public class StateManagerImpl extends StateManager
 
 
   private static final String _APPLICATION_CACHE_TOKEN = "_a_";
+
+  private static final long serialVersionUID = 1L;
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(StateManagerImpl.class);
 }

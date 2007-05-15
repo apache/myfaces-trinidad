@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidad.component;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 
 import java.util.AbstractMap;
@@ -1043,7 +1044,7 @@ public abstract class UIXCollection extends UIXComponentBase
         if ("rowKey".equals(key))
           return getRowKey();
         if ("index".equals(key)) // from jstl
-          return new Integer(getRowIndex());
+          return Integer.valueOf(getRowIndex());
         if ("current".equals(key)) // from jstl
           return getRowData();
         return null;
@@ -1357,6 +1358,20 @@ public abstract class UIXCollection extends UIXComponentBase
 
     private ClientRowKeyManager _clientKeyMgr = null;
     private StampState _stampState = null;
+
+    private void readObject(ObjectInputStream in)
+       throws IOException, ClassNotFoundException
+    {
+      in.defaultReadObject();
+      // Set values of all transients to their defaults
+      _prevVarValue = _NULL;
+      _prevVarStatus = _NULL;
+      _currentRowKey = _NULL;
+      _isInitialized = true;
+      _initialStampStateKey = _NULL;
+    }
+
+    private static final long serialVersionUID = 1L;
   }
 
   // do not assign a non-null value. values should be assigned lazily. this is

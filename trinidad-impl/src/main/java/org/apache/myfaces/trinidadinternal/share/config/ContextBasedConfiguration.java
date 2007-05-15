@@ -24,18 +24,13 @@ import org.apache.myfaces.trinidadinternal.image.cache.FileSystemImageCache;
 
 /**
  * Configuration class that works off of a RequestContext.
- *
- * @todo Support context-relative and server-relative URLs
- *  for the OHW servlet.
  */
 public class ContextBasedConfiguration extends ConfigurationImpl
 {
-  static public final String CONFIGURATION_NAME = "_CBC";
-
   public ContextBasedConfiguration(FacesContext fContext,
                                    RequestContext context)
   {
-    super(CONFIGURATION_NAME);
+    super();
     putProperty(SKIN_FAMILY,
                 context.getSkinFamily());
 

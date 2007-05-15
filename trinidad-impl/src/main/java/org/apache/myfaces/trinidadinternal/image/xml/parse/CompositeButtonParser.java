@@ -77,7 +77,7 @@ public class CompositeButtonParser extends BaseImageProviderRequestParser
 
         if (index != -1)
         {
-          accessKey = new Character(text.charAt(index));
+          accessKey = Character.valueOf(text.charAt(index));
           setProperty(ImageConstants.ACCESS_KEY_KEY, accessKey);
         }
       }
@@ -140,7 +140,7 @@ public class CompositeButtonParser extends BaseImageProviderRequestParser
     if ((value == null) || (value.length() == 0))
       return null;
 
-    return new Character(value.charAt(0));
+    return Character.valueOf(value.charAt(0));
   }
 
   /**

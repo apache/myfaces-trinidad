@@ -155,23 +155,6 @@ abstract public class Configuration
   public static final Object DISABLE_STANDARDS_MODE =
     "disableStandardsMode";
 
-
-  /**
-   * Create a Configuration with a name.  The name must be
-   * non-null.  The Configuration must be registered (with
-   * the <code>register()</code> method) before it is used.
-   * <p>
-   * @see #register
-   */
-  public Configuration(String name)
-  {
-    if (name == null)
-      throw new NullPointerException();
-
-    _name = name;
-  }
-
-
   /**
    * Return a URI for a UIX directory.
    * @param key the key used to identify the directory
@@ -220,9 +203,4 @@ abstract public class Configuration
   Configuration()
   {
   }
-
-  // -= Simon Lessard =-
-  // FIXME: Never read locally
-  @SuppressWarnings("unused")
-  private String _name;
 }

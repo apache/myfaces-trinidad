@@ -175,11 +175,11 @@ public class ForEachTag extends TagSupport implements ELContextTag
     {
       _updateLoopStatus();
       _propertyReplacementMap = new HashMap<String, Object>(9, 1);
-      _propertyReplacementMap.put("begin", new Integer(_currentBegin));
-      _propertyReplacementMap.put("end", new Integer(_currentEnd));
-      _propertyReplacementMap.put("step", new Integer(_currentStep));
-      _propertyReplacementMap.put("count", new Integer(_currentCount));
-      _propertyReplacementMap.put("index", new Integer(_currentIndex));
+      _propertyReplacementMap.put("begin", Integer.valueOf(_currentBegin));
+      _propertyReplacementMap.put("end", Integer.valueOf(_currentEnd));
+      _propertyReplacementMap.put("step", Integer.valueOf(_currentStep));
+      _propertyReplacementMap.put("count", Integer.valueOf(_currentCount));
+      _propertyReplacementMap.put("index", Integer.valueOf(_currentIndex));
       _propertyReplacementMap.put("current", _varReplacement);
       _propertyReplacementMap.put(
         "first",
@@ -230,8 +230,8 @@ public class ForEachTag extends TagSupport implements ELContextTag
           "last",
           (_isLast)? Boolean.TRUE:Boolean.FALSE);
       }
-      _propertyReplacementMap.put("count", new Integer(_currentCount));
-      _propertyReplacementMap.put("index", new Integer(_currentIndex));
+      _propertyReplacementMap.put("count", Integer.valueOf(_currentCount));
+      _propertyReplacementMap.put("index", Integer.valueOf(_currentIndex));
       _propertyReplacementMap.put("current", _varReplacement);
     }
 
@@ -337,10 +337,11 @@ public class ForEachTag extends TagSupport implements ELContextTag
       }
     }
     //pu: This is our own check - c:forEach behavior un-defined & unpredictable.
-    if (_var == _varStatus)
+    if ((_var != null) &&
+        _var.equals(_varStatus))
     {
       throw new JspTagException(
-        "'var' and 'varStatus' must not have same value");
+        "'var' and 'varStatus' should not have same value");
     }
   }
 

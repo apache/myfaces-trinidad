@@ -20,6 +20,8 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
 
+import java.util.List;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -77,10 +79,9 @@ public class PanelHeaderRenderer extends XhtmlRenderer
     String messageType = getMessageType(bean);
     String text = getText(arc, bean, messageType);
 
-    String[] headerElementArray = XhtmlConstants.HEADER_ELEMENT;
-    String headerElement = (size < headerElementArray.length)
-                                ? headerElementArray[size] 
-                                : headerElementArray[headerElementArray.length-1];
+    List<String> headerElementList = XhtmlConstants.HEADER_ELEMENTS;
+    String headerElement = headerElementList.get(
+                                 Math.min(size, headerElementList.size() - 1));
     
     ResponseWriter writer = context.getResponseWriter();    
     writer.startElement("div", component);  
@@ -303,7 +304,7 @@ public class PanelHeaderRenderer extends XhtmlRenderer
     )throws IOException
   {
     arc.getProperties().put(HEADER_NEST_LEVEL,
-                            new Integer(getHeaderNestLevel(arc) + 1));
+                            Integer.valueOf(getHeaderNestLevel(arc) + 1));
   }
 
   protected static void decrementHeaderNestLevel(
@@ -314,7 +315,7 @@ public class PanelHeaderRenderer extends XhtmlRenderer
 
     assert (headerNestLevel > 0):"cannot decrement header nest level";
     arc.getProperties().put(HEADER_NEST_LEVEL,
-                            new Integer(headerNestLevel - 1));
+                            Integer.valueOf(headerNestLevel - 1));
   }
 
 

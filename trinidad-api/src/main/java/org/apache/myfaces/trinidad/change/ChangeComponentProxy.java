@@ -108,7 +108,11 @@ class ChangeComponentProxy implements Serializable
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(ChangeComponentProxy.class);
 
+  // FindBugs claims this as "Transient field that isn't set
+  // by deserialization", but _getComponentClass() lazily restores it
   private transient Class<? extends UIComponent> _class;
   private String _className;
   private Object _state;
+
+  private static final long serialVersionUID = 1L;
 }

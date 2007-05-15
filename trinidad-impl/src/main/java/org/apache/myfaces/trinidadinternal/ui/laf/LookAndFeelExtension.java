@@ -278,7 +278,7 @@ public class LookAndFeelExtension extends LookAndFeel
    * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
    */
   @Deprecated
-  private class RendererManagerProxy extends RendererManager
+  static private class RendererManagerProxy extends RendererManager
   {
     public RendererManagerProxy(
       RendererManager rendererManager,
@@ -359,7 +359,7 @@ public class LookAndFeelExtension extends LookAndFeel
    * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
    */
   @Deprecated
-  private class RendererFactoryProxy implements RendererFactory
+  static private class RendererFactoryProxy implements RendererFactory
   {
     // Note: It might make sense for RendererFactoryProxy to
     // extend RendererFactoryImpl, rather than creating a

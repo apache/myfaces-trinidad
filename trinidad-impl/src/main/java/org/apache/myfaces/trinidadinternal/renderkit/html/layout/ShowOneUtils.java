@@ -144,7 +144,7 @@ public class ShowOneUtils
     if ( (pprTargets != null) && (pprTargets.length > 0)  )
     {
       String[] pprTargetsNew = new String[pprTargets.length + 1];
-      pprTargetsNew = pprTargets;
+      System.arraycopy(pprTargets, 0, pprTargetsNew, 0, pprTargets.length);
       pprTargetsNew[pprTargets.length] = compId;
       encodedPartialTargets =
         PartialPageRendererUtils.encodePartialTargets(pprTargetsNew);

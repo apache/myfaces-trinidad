@@ -140,9 +140,8 @@ public class ValueMap extends AbstractMap<String, Object>
       if (!(o instanceof EntryImpl))
         return false;
 
-      Object key = ((EntryImpl) o).getKey();
-      _keys.remove(key);
-      return (ValueMap.this.remove(key) != null);
+      String keyName = ((EntryImpl) o).getKey();
+      return (ValueMap.this.remove(keyName) != null);
     }
 
     @Override

@@ -45,7 +45,7 @@ public class VirtualAttributeUtils
     if (accessKeyIndex != StringUtils.MNEMONIC_INDEX_NONE)
     {
       bean.setProperty(accessKeyKey,
-                       new Character(text.charAt(accessKeyIndex + 1)));
+                       Character.valueOf(text.charAt(accessKeyIndex + 1)));
     }
 
     // set the stripped text on the node using the appropriate attribute name

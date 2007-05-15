@@ -51,7 +51,7 @@ abstract public class DateFormatContext implements Cloneable
     if (obj == this)
       return true;
         
-    if (obj == null)
+    if (!(obj instanceof DateFormatContext))
       return false;
 
     DateFormatContext dfc = (DateFormatContext) obj;

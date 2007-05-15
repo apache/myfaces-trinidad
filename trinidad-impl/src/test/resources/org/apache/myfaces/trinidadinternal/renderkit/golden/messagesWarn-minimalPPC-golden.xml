@@ -1,4 +1,4 @@
-<results>&nbsp;
+<results>&#xa0;
       <table
            class="af_messages_body"
           >
@@ -28,14 +28,14 @@
               </li>
               <li
                   >
-                 - message summary
+                - message summary
               </li>
             </ol>
           </td>
         </tr>
       </table>
 <!-- MessageTest[ id:null,WARN ]-->
-&nbsp;
+&#xa0;
       <table
            class="af_messages_body"
           >
@@ -65,14 +65,14 @@
               </li>
               <li
                   >
-                 - message summary
+                - message summary
               </li>
             </ol>
           </td>
         </tr>
       </table>
 <!--AttributeTest[id,id_val]-->
-&nbsp;
+&#xa0;
       <table
            class="af_messages_body"
           >
@@ -102,14 +102,14 @@
               </li>
               <li
                   >
-                 - message summary
+                - message summary
               </li>
             </ol>
           </td>
         </tr>
       </table>
 <!--AttributeTest[inlineStyle,background-color:red]-->
-&nbsp;
+&#xa0;
       <table
            class="af_messages_body"
           >
@@ -139,14 +139,14 @@
               </li>
               <li
                   >
-                 - message summary
+                - message summary
               </li>
             </ol>
           </td>
         </tr>
       </table>
 <!--AttributeTest[message,message_val]-->
-&nbsp;
+&#xa0;
       <table
            class="af_messages_body"
           >
@@ -180,14 +180,14 @@
               </li>
               <li
                   >
-                 - message summary
+                - message summary
               </li>
             </ol>
           </td>
         </tr>
       </table>
 <!--AttributeTest[messageType,error]-->
-&nbsp;
+&#xa0;
       <table
            class="af_messages_body"
           >
@@ -217,14 +217,14 @@
               </li>
               <li
                   >
-                 - message summary
+                - message summary
               </li>
             </ol>
           </td>
         </tr>
       </table>
 <!--AttributeTest[shortDesc,shortDesc_val]-->
-&nbsp;
+&#xa0;
       <table
            class="af_messages_body"
           >
@@ -254,14 +254,14 @@
               </li>
               <li
                   >
-                 - message summary
+                - message summary
               </li>
             </ol>
           </td>
         </tr>
       </table>
 <!--AttributeTest[styleClass,styleClass_val]-->
-&nbsp;
+&#xa0;
       <table
            class="af_messages_body"
           >
@@ -291,14 +291,14 @@
               </li>
               <li
                   >
-                 - message summary
+                - message summary
               </li>
             </ol>
           </td>
         </tr>
       </table>
 <!--AttributeTest[text,text_val]-->
-&nbsp;
+&#xa0;
       <table
            class="af_messages_body"
           >
@@ -328,7 +328,7 @@
               </li>
               <li
                   >
-                 - message summary
+                - message summary
               </li>
             </ol>
           </td>

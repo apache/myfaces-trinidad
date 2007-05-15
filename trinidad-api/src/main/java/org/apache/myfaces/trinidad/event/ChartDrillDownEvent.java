@@ -35,10 +35,10 @@ public final class ChartDrillDownEvent extends FacesEvent
     double[] xValues)
   {
     super(source);
-    _seriesIndices = seriesIndices;
-    _yValueIndices = yValueIndices;
-    _yValues = yValues;
-    _xValues = xValues;
+    _seriesIndices = (seriesIndices == null) ? null : seriesIndices.clone();
+    _yValueIndices = (yValueIndices == null) ? null : yValueIndices.clone();
+    _yValues = (yValues == null) ? null : yValues.clone();
+    _xValues = (xValues == null) ? null : xValues.clone();
   }
 
 
@@ -63,7 +63,10 @@ public final class ChartDrillDownEvent extends FacesEvent
    */
   public int[] getSeriesIndices()
   {
-    return _seriesIndices;
+    if (_seriesIndices == null)
+      return null;
+
+    return _seriesIndices.clone();
   }
 
   /**
@@ -77,7 +80,10 @@ public final class ChartDrillDownEvent extends FacesEvent
    */
   public int[] getYValueIndices()
   {
-    return _yValueIndices;
+    if (_yValueIndices == null)
+      return null;
+
+    return _yValueIndices.clone();
   }
 
   /**
@@ -90,7 +96,10 @@ public final class ChartDrillDownEvent extends FacesEvent
    */
   public double[] getYValues()
   {
-    return _yValues;
+    if (_yValues == null)
+      return null;
+
+    return _yValues.clone();
   }
 
   /**
@@ -104,7 +113,9 @@ public final class ChartDrillDownEvent extends FacesEvent
    */
   public double[] getXValues()
   {
-    return _xValues;
+    if (_xValues == null)
+      return null;
+    return _xValues.clone();
   }
   
   private final int[] _seriesIndices;

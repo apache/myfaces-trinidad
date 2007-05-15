@@ -81,7 +81,7 @@ public class DispatchResponseConfiguratorImpl extends Configurator
     return (String) requestMap.get(__CONTENT_TYPE_KEY);
   }
 
-  private class ServletExternalContext extends ExternalContextDecorator
+  static private class ServletExternalContext extends ExternalContextDecorator
   {
     public ServletExternalContext(ExternalContext ec)
     {
@@ -109,7 +109,7 @@ public class DispatchResponseConfiguratorImpl extends Configurator
     private ExternalContext _ec;
   }
 
-  private class PortletExternalContext extends ExternalContextDecorator
+  static private class PortletExternalContext extends ExternalContextDecorator
   {
     public PortletExternalContext(ExternalContext ec)
     {

@@ -42,7 +42,7 @@ public class MenuNode
     */
   public MenuNode()
   {
-    _nodeSysId = (new Integer(System.identityHashCode(this))).toString();
+    _nodeSysId = Integer.valueOf(System.identityHashCode(this)).toString();
   }
   
   /**

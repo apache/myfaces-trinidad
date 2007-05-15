@@ -894,14 +894,14 @@ public class MediaRenderer extends XhtmlRenderer
       }
       else if ( intHeight < Integer.MAX_VALUE )
       {
-        return IntegerUtils.getString(intHeight - controlData.height).toString();
+        return IntegerUtils.getString(intHeight - controlData.height);
       }
     }
 
     if (useMinHeight)
     {
       return IntegerUtils.getString(playerData.minHeight.intValue() -
-                                     controlData.height).toString();
+                                     controlData.height);
     }
 
     return height;
@@ -1568,7 +1568,7 @@ public class MediaRenderer extends XhtmlRenderer
      new MediaRenderer.ControlData(null,                  // all controls is the default
                      false,                 // no autosize
                      _QT_CONTROL_HEIGHT,    // extra height
-                     new Integer(275));     // preferred width
+                     Integer.valueOf(275));     // preferred width
 
   private static final MediaRenderer.PlayerData _QUICKTIME_PLAYER_DATA =
     new MediaRenderer.PlayerData(
@@ -1612,7 +1612,7 @@ public class MediaRenderer extends XhtmlRenderer
         CoreMedia.CONTROLS_MINIMAL,      new MediaRenderer.ControlData(null, // all controls default
                                                false, // no autosize
                                                _QT_CONTROL_HEIGHT,
-                                               new Integer(18)),  // play button only
+                                               Integer.valueOf(18)),  // play button only
         CoreMedia.CONTROLS_TYPICAL,      _QUICKTIME_ALL_CONTROL_DATA,
         CoreMedia.CONTROLS_ALL,          _QUICKTIME_ALL_CONTROL_DATA,
       }),
@@ -1656,7 +1656,7 @@ public class MediaRenderer extends XhtmlRenderer
   //
 
   // preferred width of WMP showing all controls
-  private static final Number _WMP_ALL_CONTROLS_WIDTH = new Integer(275);
+  private static final Number _WMP_ALL_CONTROLS_WIDTH = Integer.valueOf(275);
 
   private static final Number _WMP_MINIMAL_CONTROLS_WIDTH =
                                                 72;
@@ -1749,13 +1749,13 @@ public class MediaRenderer extends XhtmlRenderer
   //
   // Meta Data for the Real Player
   //
-  private static final Number _REAL_MINIMAL_WIDTH  = new Integer(44);
+  private static final Number _REAL_MINIMAL_WIDTH  = Integer.valueOf(44);
   private static final int    _REAL_MINIMAL_HEIGHT = 26;
 
-  private static final Number _REAL_TYPICAL_WIDTH  = new Integer(220);
+  private static final Number _REAL_TYPICAL_WIDTH  = Integer.valueOf(220);
   private static final int    _REAL_TYPICAL_HEIGHT = 36;
 
-  private static final Number _REAL_ALL_WIDTH  = new Integer(375);
+  private static final Number _REAL_ALL_WIDTH  = Integer.valueOf(375);
   private static final int    _REAL_ALL_HEIGHT = 100;
 
 

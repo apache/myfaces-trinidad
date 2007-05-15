@@ -77,7 +77,8 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
   /**
    * Construct a {@link Validator} with no preconfigured limits.
    */
-  public DoubleRangeValidator() {
+  public DoubleRangeValidator()
+  {
     super();
   }
 
@@ -87,8 +88,9 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
    *
    * @param maximum Maximum value to allow
    */
-  public DoubleRangeValidator(long maximum) {
-    super(new Long(maximum));
+  public DoubleRangeValidator(long maximum) 
+  {
+    super();
   }
 
   /**
@@ -99,8 +101,9 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
    * @param minimum Minimum value to allow
    *
    */
-  public DoubleRangeValidator(long maximum, long minimum) {
-    super(new Long(minimum), new Long(maximum));
+  public DoubleRangeValidator(long maximum, long minimum)
+  {
+    super(minimum, maximum);
   }
   
   /**
@@ -127,7 +130,7 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
   public void setMaximum(double maximum)
   {
     super.setMaximum(maximum);
-    _facesBean.setProperty(_MAXIMUM_KEY, new Double(maximum));
+    _facesBean.setProperty(_MAXIMUM_KEY, Double.valueOf(maximum));
   }
 
 
@@ -155,7 +158,7 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
   public void setMinimum(double minimum)
   {
     super.setMinimum(minimum);
-    _facesBean.setProperty(_MINIMUM_KEY, new Double(minimum));
+    _facesBean.setProperty(_MINIMUM_KEY, Double.valueOf(minimum));
   }
 
   /**

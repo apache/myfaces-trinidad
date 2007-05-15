@@ -826,7 +826,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
       // return immediately if the start of the next range is not available.
       if (maxUnknown)
       {
-        if (!isRowAvailable(component, (int)blockStart - 1));
+        if (!isRowAvailable(component, (int)blockStart - 1))
           return selectedIndex;
       }
 
@@ -1317,9 +1317,9 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
     {
       // make up an id to use for the initial focus.
       String focus = "-focus";
-      StringBuffer buffer = new StringBuffer(baseId.length()+
-                                             focus.length());
-      buffer.append(baseId.toString());
+      StringBuilder buffer = new StringBuilder(baseId.length()+
+                                               focus.length());
+      buffer.append(baseId);
       buffer.append(focus);
       id = buffer.toString();
       // set the new id on the rendering context so that the body

@@ -239,7 +239,7 @@ public class XMLMenuModel extends BaseMenuModel
     // IMPORTANT: Code that returns the correct focus path for duplicate nodes
     // in the node tree actually depends on this optimization.
     //
-    if (currentViewId == _prevViewId)
+    if ((_prevViewId != null) && _prevViewId.equals(currentViewId))
       return _prevFocusPath;
     
     // Initializations

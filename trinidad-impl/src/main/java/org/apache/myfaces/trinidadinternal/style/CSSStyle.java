@@ -188,4 +188,5 @@ public class CSSStyle extends BaseStyle
 
   // Default length for inline string buffer
   private static final int _DEFAULT_BUFFER_SIZE = 100;
+  private static final long serialVersionUID = 1L;
 }

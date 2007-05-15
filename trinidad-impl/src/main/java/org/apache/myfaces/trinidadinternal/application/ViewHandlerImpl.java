@@ -389,12 +389,12 @@ public class ViewHandlerImpl extends ViewHandler
       // Remove the "file:"
       File file = new File(externalForm.substring(5));
 
-      return new Long(file.lastModified());
+      return Long.valueOf(file.lastModified());
     }
     else
     {
       long modified = url.openConnection().getLastModified();
-      return new Long(modified);
+      return Long.valueOf(modified);
     }
   }
 
@@ -537,5 +537,5 @@ public class ViewHandlerImpl extends ViewHandler
   "org.apache.myfaces.trinidad.CHECK_FILE_MODIFICATION";
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ViewHandlerImpl.class);
-  private static final Long   _NOT_FOUND = new Long(0);
+  private static final Long   _NOT_FOUND = Long.valueOf(0);
 }

@@ -109,7 +109,7 @@ public class FireAction extends ClientAction
   {
     if (BaseLafRenderer.supportsScripting(context))
     {
-      String returnScript = ((Boolean.TRUE == returnVal)
+      String returnScript = (Boolean.TRUE.equals(returnVal)
                              ? TRUE_RETURN_SCRIPT
                              : FALSE_RETURN_SCRIPT);
 
@@ -466,7 +466,7 @@ public class FireAction extends ClientAction
    */
   public void setParameters(Parameter[] parameters)
   {
-    _parameters = parameters;
+    _parameters = parameters == null ? null : parameters.clone();
   }
 
   /**

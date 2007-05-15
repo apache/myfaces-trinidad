@@ -89,7 +89,7 @@ public class CoreRenderKitResourceLoader extends RegexResourceLoader
   static public String getLocale()
   {
     String path = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getPathInfo();
-    String locStr = new String();
+    String locStr = "";
 
     int locIndex = path.indexOf("LocaleElements")+ "LocaleElements_".length();
     int index = path.indexOf(_VERSION);
@@ -128,12 +128,11 @@ public class CoreRenderKitResourceLoader extends RegexResourceLoader
         ClassLoaderUtils.getResource("META-INF/adf-faces-version.txt");
       if (resource != null)
       {
-        InputStream in = null;
-
+        BufferedReader br = null;
         try
         {
-          in = resource.openStream();
-          BufferedReader br = new BufferedReader(new InputStreamReader(in));
+          InputStream in = resource.openStream();
+          br = new BufferedReader(new InputStreamReader(in));
           version = br.readLine();
         }
         catch (IOException e)
@@ -142,8 +141,8 @@ public class CoreRenderKitResourceLoader extends RegexResourceLoader
         }
         finally
         {
-          if (in != null)
-            in.close();
+          if (br != null)
+            br.close();
         }
       }
     }

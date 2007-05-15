@@ -60,7 +60,7 @@ public class AggregatingResourceLoader extends DynamicResourceLoader
     if (target == null)
       throw new NullPointerException();
 
-    _paths = paths;
+    _paths = paths.clone();
     _target = target;
   }
 
@@ -158,7 +158,7 @@ public class AggregatingResourceLoader extends DynamicResourceLoader
       {
         throw new NullPointerException();
       }
-      _urls = urls;
+      _urls = urls.clone();
       _separator = separator;
     }
 
@@ -188,7 +188,7 @@ public class AggregatingResourceLoader extends DynamicResourceLoader
 
   }
 
-  private class AggregatingURLConnection extends URLConnection
+  static private class AggregatingURLConnection extends URLConnection
   {
     public AggregatingURLConnection(URL url, URLConnection[] connections, String separator)
     {
@@ -231,7 +231,7 @@ public class AggregatingResourceLoader extends DynamicResourceLoader
         //Add the separator if needed
         if(hasseparator && (i < sublen))
         {
-          streams[++streamCounter] = new separatorInputStream(_separator);
+          streams[++streamCounter] = new SeparatorInputStream(_separator);
         }
       }
       return new SequenceInputStream(new ArrayEnumeration<InputStream>(streams));
@@ -330,11 +330,8 @@ public class AggregatingResourceLoader extends DynamicResourceLoader
 
   }
 
-  private class ArrayEnumeration<T> implements Enumeration<T>
+  static private class ArrayEnumeration<T> implements Enumeration<T>
   {
-    private T[] _array;
-    private int _len;
-    private int _pointer = 0;
     public ArrayEnumeration(T[] array)
     {
       _array = array;
@@ -362,14 +359,15 @@ public class AggregatingResourceLoader extends DynamicResourceLoader
     {
       return hasNext();
     }
+
+    private T[] _array;
+    private int _len;
+    private int _pointer = 0;
   }
 
-  private class separatorInputStream extends InputStream
+  static private class SeparatorInputStream extends InputStream
   {
-    private byte[] _separator;
-    private int    _length;
-    private int    _index = 0;
-    public separatorInputStream (byte[] separatorBytes)
+    public SeparatorInputStream (byte[] separatorBytes)
     {
       _separator = separatorBytes;
       _length = _separator.length;
@@ -431,5 +429,9 @@ public class AggregatingResourceLoader extends DynamicResourceLoader
     {
       return _length - _index;
     }
+
+    private byte[] _separator;
+    private int    _length;
+    private int    _index = 0;
   }
 }

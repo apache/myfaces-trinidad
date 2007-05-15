@@ -425,9 +425,6 @@ abstract public class SkinImpl extends Skin
   @Override
   public Object getProperty(Object key)
   {
-    if (_properties == null)
-      return null;
-
     return _properties.get(key);
   }
 
@@ -435,14 +432,11 @@ abstract public class SkinImpl extends Skin
    * Sets a value for the specified property key.
    */
   @Override
-  synchronized public void setProperty(
+  public void setProperty(
     Object key,
     Object value
     )
   {
-    if (_properties == null)
-      _properties = new ConcurrentHashMap<Object, Object>();
-
     _properties.put(key, value);
   }
 
@@ -655,7 +649,7 @@ abstract public class SkinImpl extends Skin
   private StyleSheetEntry[] _extensionStyleSheets;
 
   // HashMap of Skin properties
-  private ConcurrentHashMap<Object, Object> _properties;
+  private ConcurrentHashMap<Object, Object> _properties= new ConcurrentHashMap<Object, Object>();
 
   // Map of property to class type
   private static final Map<String, Class<?>> _PROPERTY_CLASS_TYPE_MAP;

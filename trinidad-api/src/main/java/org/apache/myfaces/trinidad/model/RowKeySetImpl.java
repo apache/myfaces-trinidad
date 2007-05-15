@@ -508,4 +508,5 @@ public final class RowKeySetImpl extends RowKeySet implements Externalizable
   private boolean _default;
   private Set<Object> _set;
   private transient CollectionModel _model;
+  private static final long serialVersionUID = 1L;
 }

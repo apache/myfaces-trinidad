@@ -522,7 +522,12 @@ public class BaseLafUtils implements UIConstants
     if (UIConstants.FACET_PORTLET.equals(
            context.getRendererManager().getFacet()) ||
         (context.getPartialPageContext() != null))
-      return (((Math.abs((new Random()).nextInt())) % 90) + 1) * 100;
+    {
+      synchronized (_STARTING_ID_COUNT)
+      {
+        return (Math.abs(_STARTING_ID_COUNT.nextInt() % 90) + 1) * 100;
+      }
+    }
 
     return 0;
   }
@@ -538,7 +543,7 @@ public class BaseLafUtils implements UIConstants
     return getCharacter(charObj);
   }
 
-  static public char CHAR_UNDEFINED = (char) -1;
+  static public final char CHAR_UNDEFINED = (char) -1;
 
   static public char getCharacter(Object charObj)
   {
@@ -1132,5 +1137,6 @@ public class BaseLafUtils implements UIConstants
   // the resources under this directory.
   private static final String _BASE_DIRECTORY = "META-INF";
 
+  private static final Random _STARTING_ID_COUNT = new Random();
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(BaseLafUtils.class);
 }

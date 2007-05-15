@@ -91,33 +91,33 @@ public class CoreRenderKit extends RenderKitBase
    * The default output mode;  if no output mode is set, or the requested
    * output mode is not available, this output mode will be used.
    */
-  static public String OUTPUT_MODE_DEFAULT = "default";
+  static public final String OUTPUT_MODE_DEFAULT = "default";
 
   /**
    * A portlet output mode;  when supported, this output mode should
    * result in a version of page content optimized for use in portlets.
    */
-  static public String OUTPUT_MODE_PORTLET = "portlet";
+  static public final String OUTPUT_MODE_PORTLET = "portlet";
 
   /**
    * A printable output mode;  when supported, this output mode should
    * result in a version of a page designed for printouts.
    */
-  static public String OUTPUT_MODE_PRINTABLE = "printable";
+  static public final String OUTPUT_MODE_PRINTABLE = "printable";
 
   /**
    * An e-mail output mode;  when supported, this output mode should
    * result in a version of page content optimized for use in e-mail.
    */
-  static public String OUTPUT_MODE_EMAIL = "email";
+  static public final String OUTPUT_MODE_EMAIL = "email";
 
-  static public String RETURN_PARAM = "rtrn";
+  static public final String RETURN_PARAM = "rtrn";
 
   /**
    * RenderKit ID for an internal and not-fully-functional kit
    * that contains a base set of renderers.
    */
-  static public String BASE_RENDER_KIT_ID = "org.apache.myfaces.trinidadinternal.core";
+  static public final String BASE_RENDER_KIT_ID = "org.apache.myfaces.trinidadinternal.core";
 
   static public String getId()
   {

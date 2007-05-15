@@ -1546,7 +1546,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
   private static final int _HALF_MAX_CHOICE_ITEMS = _MAX_CHOICE_ITEMS / 2;
 
 
-  private static final int _MILLIS_IN_DAY = 1000 * 60 * 60 * 24;
+  private static final long _MILLIS_IN_DAY = 1000L * 60 * 60 * 24;
 
   private static final long _MIN_TIME;
 

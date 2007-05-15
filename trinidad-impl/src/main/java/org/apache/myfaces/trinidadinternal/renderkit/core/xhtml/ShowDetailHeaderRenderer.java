@@ -110,7 +110,7 @@ public class ShowDetailHeaderRenderer
   }
 
 
-  private class DetailRenderer extends ShowDetailRenderer
+  static private class DetailRenderer extends ShowDetailRenderer
   {
     public DetailRenderer(FacesBean.Type type)  
     {

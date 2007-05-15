@@ -86,7 +86,7 @@ public class BaseDesktopLookAndFeel extends XhtmlLookAndFeel
     {
       return _getEmailRendererManager();
     }
-    else if (_EDITABLE_FACET == facet)
+    else if (_EDITABLE_FACET.equals(facet))
     {
       return _getEditableRendererManager();
     }
@@ -159,7 +159,7 @@ public class BaseDesktopLookAndFeel extends XhtmlLookAndFeel
     {
       return _createEmailFactory();
     }
-    else if (_EDITABLE_FACET == facet)
+    else if (_EDITABLE_FACET.equals(facet))
     {
       return getDefaultFactory();
     }

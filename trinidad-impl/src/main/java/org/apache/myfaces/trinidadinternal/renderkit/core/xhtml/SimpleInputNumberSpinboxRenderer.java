@@ -318,5 +318,5 @@ public class SimpleInputNumberSpinboxRenderer extends SimpleInputListOfValuesRen
   private static String _SPINBOX_REPEAT_JS = "_spinboxRepeat";
   private static String _CLEAR_SPINBOX_JS = "_clearSpinbox();";
   
-  private static Integer _DEFAULT_COLUMNS = new Integer(1);
+  private static Integer _DEFAULT_COLUMNS = Integer.valueOf(1);
 }

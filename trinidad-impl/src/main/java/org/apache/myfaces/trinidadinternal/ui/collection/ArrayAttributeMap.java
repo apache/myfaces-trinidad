@@ -144,7 +144,7 @@ public class ArrayAttributeMap implements AttributeMap
     catch (CloneNotSupportedException cnse)
     {
       // Should never reach here
-      return null;
+      throw new IllegalStateException();
     }
   }
 

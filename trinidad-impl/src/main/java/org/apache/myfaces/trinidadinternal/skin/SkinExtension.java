@@ -193,8 +193,6 @@ public class SkinExtension extends SkinImpl
        RenderingContext arc
      )
   {
-    if (_styleClassMap != null)
-      return _styleClassMap;
     return _baseSkin.getStyleClassMap(arc);
   }
 
@@ -636,7 +634,6 @@ public class SkinExtension extends SkinImpl
   private SkinImpl    _baseSkin;
   private String      _styleSheetName;
   private String      _bundleName;
-  private Map<String, String> _styleClassMap;
 
   // Now that we look into possibly multiple ResourceBundles
   // to find a translation (eg. the local bundle, a component

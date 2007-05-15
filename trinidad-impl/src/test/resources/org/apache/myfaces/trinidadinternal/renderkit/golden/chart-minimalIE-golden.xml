@@ -32,8 +32,8 @@ apacheChart.setAnimationDuration(1000);
 apacheChart.setTooltipsVisible(true);
 apacheChart.setMaxPrecision(0);
 apacheChart.setFormName('formId');
-apacheChart.setErrorHtml('<H4>Unable to load SVG plugin. Please install the plugin from <a href=\'#\' onclick=\"window.open(\'http://www.adobe.com/svg/viewer/install/main.html\')\">Adobe</a><H4>\n  ');
-apacheChart.setStatusHtml('<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>\n  ');
+apacheChart.setErrorHtml('<H4>Unable to load SVG plugin. Please install the plugin from <a href=\'#\' onclick=\"window.open(\'http://www.adobe.com/svg/viewer/install/main.html\')\">Adobe</a><H4>');
+apacheChart.setStatusHtml('<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>');
 apacheChart.draw();
 
         </script>
@@ -73,8 +73,8 @@ apacheChart.setAnimationDuration(1000);
 apacheChart.setTooltipsVisible(true);
 apacheChart.setMaxPrecision(0);
 apacheChart.setFormName('formId');
-apacheChart.setErrorHtml('<H4>Unable to load SVG plugin. Please install the plugin from <a href=\'#\' onclick=\"window.open(\'http://www.adobe.com/svg/viewer/install/main.html\')\">Adobe</a><H4>\n  ');
-apacheChart.setStatusHtml('<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>\n  ');
+apacheChart.setErrorHtml('<H4>Unable to load SVG plugin. Please install the plugin from <a href=\'#\' onclick=\"window.open(\'http://www.adobe.com/svg/viewer/install/main.html\')\">Adobe</a><H4>');
+apacheChart.setStatusHtml('<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>');
 apacheChart.draw();
 
         </script>
@@ -114,8 +114,8 @@ apacheChart.setAnimationDuration(1000);
 apacheChart.setTooltipsVisible(true);
 apacheChart.setMaxPrecision(0);
 apacheChart.setFormName('formId');
-apacheChart.setErrorHtml('<H4>Unable to load SVG plugin. Please install the plugin from <a href=\'#\' onclick=\"window.open(\'http://www.adobe.com/svg/viewer/install/main.html\')\">Adobe</a><H4>\n  ');
-apacheChart.setStatusHtml('<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>\n  ');
+apacheChart.setErrorHtml('<H4>Unable to load SVG plugin. Please install the plugin from <a href=\'#\' onclick=\"window.open(\'http://www.adobe.com/svg/viewer/install/main.html\')\">Adobe</a><H4>');
+apacheChart.setStatusHtml('<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>');
 apacheChart.draw();
 
         </script>
@@ -155,8 +155,8 @@ apacheChart.setAnimationDuration(1000);
 apacheChart.setTooltipsVisible(true);
 apacheChart.setMaxPrecision(0);
 apacheChart.setFormName('formId');
-apacheChart.setErrorHtml('<H4>Unable to load SVG plugin. Please install the plugin from <a href=\'#\' onclick=\"window.open(\'http://www.adobe.com/svg/viewer/install/main.html\')\">Adobe</a><H4>\n  ');
-apacheChart.setStatusHtml('<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>\n  ');
+apacheChart.setErrorHtml('<H4>Unable to load SVG plugin. Please install the plugin from <a href=\'#\' onclick=\"window.open(\'http://www.adobe.com/svg/viewer/install/main.html\')\">Adobe</a><H4>');
+apacheChart.setStatusHtml('<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>');
 apacheChart.draw();
 
         </script>
@@ -196,8 +196,8 @@ apacheChart.setAnimationDuration(1500);
 apacheChart.setTooltipsVisible(true);
 apacheChart.setMaxPrecision(0);
 apacheChart.setFormName('formId');
-apacheChart.setErrorHtml('<H4>Unable to load SVG plugin. Please install the plugin from <a href=\'#\' onclick=\"window.open(\'http://www.adobe.com/svg/viewer/install/main.html\')\">Adobe</a><H4>\n  ');
-apacheChart.setStatusHtml('<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>\n  ');
+apacheChart.setErrorHtml('<H4>Unable to load SVG plugin. Please install the plugin from <a href=\'#\' onclick=\"window.open(\'http://www.adobe.com/svg/viewer/install/main.html\')\">Adobe</a><H4>');
+apacheChart.setStatusHtml('<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>');
 apacheChart.draw();
 
         </script>
@@ -237,8 +237,8 @@ apacheChart.setAnimationDuration(1000);
 apacheChart.setTooltipsVisible(true);
 apacheChart.setMaxPrecision(0);
 apacheChart.setFormName('formId');
-apacheChart.setErrorHtml('<H4>Unable to load SVG plugin. Please install the plugin from <a href=\'#\' onclick=\"window.open(\'http://www.adobe.com/svg/viewer/install/main.html\')\">Adobe</a><H4>\n  ');
-apacheChart.setStatusHtml('<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>\n  ');
+apacheChart.setErrorHtml('<H4>Unable to load SVG plugin. Please install the plugin from <a href=\'#\' onclick=\"window.open(\'http://www.adobe.com/svg/viewer/install/main.html\')\">Adobe</a><H4>');
+apacheChart.setStatusHtml('<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>');
 apacheChart.draw();
 
         </script>
@@ -278,8 +278,8 @@ apacheChart.setAnimationDuration(1000);
 apacheChart.setTooltipsVisible(true);
 apacheChart.setMaxPrecision(0);
 apacheChart.setFormName('formId');
-apacheChart.setErrorHtml('<H4>Unable to load SVG plugin. Please install the plugin from <a href=\'#\' onclick=\"window.open(\'http://www.adobe.com/svg/viewer/install/main.html\')\">Adobe</a><H4>\n  ');
-apacheChart.setStatusHtml('<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>\n  ');
+apacheChart.setErrorHtml('<H4>Unable to load SVG plugin. Please install the plugin from <a href=\'#\' onclick=\"window.open(\'http://www.adobe.com/svg/viewer/install/main.html\')\">Adobe</a><H4>');
+apacheChart.setStatusHtml('<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>');
 apacheChart.draw();
 
         </script>
@@ -319,8 +319,8 @@ apacheChart.setAnimationDuration(1000);
 apacheChart.setTooltipsVisible(true);
 apacheChart.setMaxPrecision(0);
 apacheChart.setFormName('formId');
-apacheChart.setErrorHtml('<H4>Unable to load SVG plugin. Please install the plugin from <a href=\'#\' onclick=\"window.open(\'http://www.adobe.com/svg/viewer/install/main.html\')\">Adobe</a><H4>\n  ');
-apacheChart.setStatusHtml('<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>\n  ');
+apacheChart.setErrorHtml('<H4>Unable to load SVG plugin. Please install the plugin from <a href=\'#\' onclick=\"window.open(\'http://www.adobe.com/svg/viewer/install/main.html\')\">Adobe</a><H4>');
+apacheChart.setStatusHtml('<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>');
 apacheChart.draw();
 
         </script>
@@ -360,8 +360,8 @@ apacheChart.setAnimationDuration(1000);
 apacheChart.setTooltipsVisible(true);
 apacheChart.setMaxPrecision(1);
 apacheChart.setFormName('formId');
-apacheChart.setErrorHtml('<H4>Unable to load SVG plugin. Please install the plugin from <a href=\'#\' onclick=\"window.open(\'http://www.adobe.com/svg/viewer/install/main.html\')\">Adobe</a><H4>\n  ');
-apacheChart.setStatusHtml('<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>\n  ');
+apacheChart.setErrorHtml('<H4>Unable to load SVG plugin. Please install the plugin from <a href=\'#\' onclick=\"window.open(\'http://www.adobe.com/svg/viewer/install/main.html\')\">Adobe</a><H4>');
+apacheChart.setStatusHtml('<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>');
 apacheChart.draw();
 
         </script>
@@ -401,8 +401,8 @@ apacheChart.setAnimationDuration(1000);
 apacheChart.setTooltipsVisible(true);
 apacheChart.setMaxPrecision(0);
 apacheChart.setFormName('formId');
-apacheChart.setErrorHtml('<H4>Unable to load SVG plugin. Please install the plugin from <a href=\'#\' onclick=\"window.open(\'http://www.adobe.com/svg/viewer/install/main.html\')\">Adobe</a><H4>\n  ');
-apacheChart.setStatusHtml('<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>\n  ');
+apacheChart.setErrorHtml('<H4>Unable to load SVG plugin. Please install the plugin from <a href=\'#\' onclick=\"window.open(\'http://www.adobe.com/svg/viewer/install/main.html\')\">Adobe</a><H4>');
+apacheChart.setStatusHtml('<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>');
 apacheChart.draw();
 
         </script>
@@ -442,8 +442,8 @@ apacheChart.setAnimationDuration(1000);
 apacheChart.setTooltipsVisible(true);
 apacheChart.setMaxPrecision(0);
 apacheChart.setFormName('formId');
-apacheChart.setErrorHtml('<H4>Unable to load SVG plugin. Please install the plugin from <a href=\'#\' onclick=\"window.open(\'http://www.adobe.com/svg/viewer/install/main.html\')\">Adobe</a><H4>\n  ');
-apacheChart.setStatusHtml('<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>\n  ');
+apacheChart.setErrorHtml('<H4>Unable to load SVG plugin. Please install the plugin from <a href=\'#\' onclick=\"window.open(\'http://www.adobe.com/svg/viewer/install/main.html\')\">Adobe</a><H4>');
+apacheChart.setStatusHtml('<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>');
 apacheChart.draw();
 
         </script>
@@ -484,8 +484,8 @@ apacheChart.setAnimationDuration(1000);
 apacheChart.setTooltipsVisible(true);
 apacheChart.setMaxPrecision(0);
 apacheChart.setFormName('formId');
-apacheChart.setErrorHtml('<H4>Unable to load SVG plugin. Please install the plugin from <a href=\'#\' onclick=\"window.open(\'http://www.adobe.com/svg/viewer/install/main.html\')\">Adobe</a><H4>\n  ');
-apacheChart.setStatusHtml('<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>\n  ');
+apacheChart.setErrorHtml('<H4>Unable to load SVG plugin. Please install the plugin from <a href=\'#\' onclick=\"window.open(\'http://www.adobe.com/svg/viewer/install/main.html\')\">Adobe</a><H4>');
+apacheChart.setStatusHtml('<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>');
 apacheChart.draw();
 
         </script>

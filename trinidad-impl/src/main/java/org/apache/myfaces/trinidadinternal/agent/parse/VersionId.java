@@ -151,7 +151,7 @@ public class VersionId
     return head;
   }
 
-  private class Entry
+  static private class Entry
   {
     String text;
     Entry next;

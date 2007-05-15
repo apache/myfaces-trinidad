@@ -137,18 +137,31 @@ public class ColorConverter implements Converter, StateHolder
     private static final String TRANSPARENT =
         "org.apache.myfaces.trinidad.convert.ColorConverter.TRANSPARENT";
 
+  // Deprecated array:  arrays should never be public constants,
+  // as they are mutable
   /**
-   * <p>Default pattern to be used if pattern if not supplied.
+   * @deprecated use getDefaultColorFormatPatterns()
+   */
+  @Deprecated
+  public static final String[] DEFAULT_COLOR_FORMAT_PATTERNS = 
+    getDefaultColorFormatPatterns();
+
+
+  /**
+   * <p>Returns the default patterns to be used if the pattern if not supplied.
    * The default patterns is <code>"#RRGGBB", "r,g,b"</code>
    * The first pattern is special, it is always used for formatting color
    * values</p>
    */
-  public static final String[] DEFAULT_COLOR_FORMAT_PATTERNS = new String[]
-                                                               {
-                                                                 "#RRGGBB",
-                                                                 "r,g,b"
-                                                               };
-
+  public static final String[] getDefaultColorFormatPatterns()
+  {
+    return new String[]
+    {
+      "#RRGGBB",
+      "r,g,b"
+    };
+  }
+ 
   /**
    * <p>Construct a ColorConverter with preconfigured values.</p>
    * @param patterns The set of R,G,B format patterns that
@@ -165,7 +178,7 @@ public class ColorConverter implements Converter, StateHolder
   {
     if (patterns == null)
     {
-      _facesBean.setProperty(_PATTERNS_KEY, DEFAULT_COLOR_FORMAT_PATTERNS);
+      _facesBean.setProperty(_PATTERNS_KEY, getDefaultColorFormatPatterns());
     }
     else
     {
@@ -628,7 +641,8 @@ public class ColorConverter implements Converter, StateHolder
     = _TYPE.registerKey("transparentAllowed", Boolean.class, Boolean.FALSE);
 
   private static final PropertyKey _PATTERNS_KEY
-    = _TYPE.registerKey("patterns", String[].class, DEFAULT_COLOR_FORMAT_PATTERNS);
+    = _TYPE.registerKey("patterns", String[].class,
+                        getDefaultColorFormatPatterns());
 
   private static final PropertyKey _CONVERT_MESSAGE_DETAIL_KEY
     = _TYPE.registerKey("messageDetailConvert", String.class);

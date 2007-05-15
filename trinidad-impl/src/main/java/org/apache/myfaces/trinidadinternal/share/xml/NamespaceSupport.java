@@ -135,10 +135,10 @@ class NamespaceSupport
     _contextPos++;
 
     // Extend the array if necessary
-    if (_contextPos >= max) {
+    if (_contextPos >= max)
+    {
       Context newContexts[] = new Context[max*2];
       System.arraycopy(_contexts, 0, newContexts, 0, max);
-      max *= 2;
       _contexts = newContexts;
     }
 

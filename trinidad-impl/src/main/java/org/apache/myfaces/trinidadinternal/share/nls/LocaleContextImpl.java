@@ -379,7 +379,7 @@ public class LocaleContextImpl extends LocaleContext
     if (obj == this)
       return true;
 
-    if (obj == null)
+    if (!(obj instanceof LocaleContextImpl))
       return false;
 
     LocaleContextImpl that = (LocaleContextImpl)obj;

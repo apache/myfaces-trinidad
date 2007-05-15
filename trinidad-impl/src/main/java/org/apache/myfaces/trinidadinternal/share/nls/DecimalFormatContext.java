@@ -60,8 +60,8 @@ abstract public class DecimalFormatContext implements Cloneable
   {
     if (obj == this)
       return true;
-        
-    if (obj == null)
+
+    if (!(obj instanceof DecimalFormatContext))
       return false;
 
     DecimalFormatContext dfc = (DecimalFormatContext) obj;

@@ -72,7 +72,7 @@
      {
        _LOG.warning("ELEMENTS_NOT_CLOSED");
        for (int i = _elementStack.size() - 1; i >=0; i--)
-         _LOG.warning(_elementStack.elementAt(i).toString());
+         _LOG.warning(_elementStack.elementAt(i));
      }
    }
 
@@ -222,7 +222,7 @@
       // For non HTML mark up, do not check for duplicate ids Bug#4340857
           if (_elementStack.size() > 0)
           {
-            if(_elementStack.peek().toString().indexOf(":") == -1)
+            if(_elementStack.peek().indexOf(":") == -1)
              _checkDuplicateIds(value);
           }
           else

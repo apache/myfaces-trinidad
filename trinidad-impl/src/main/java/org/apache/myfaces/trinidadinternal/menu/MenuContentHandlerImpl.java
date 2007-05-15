@@ -110,17 +110,10 @@ public class MenuContentHandlerImpl extends DefaultHandler
     super();
     
     // Init the essential maps
-    if (_treeModelMap == null)
-      _treeModelMap = new HashMap<String, TreeModel>();
-
-    if (_viewIdFocusPathMapMap == null)
-      _viewIdFocusPathMapMap = new HashMap<Object, Map<String, List<Object>>>();
-
-    if (_nodeFocusPathMapMap == null)
-      _nodeFocusPathMapMap = new HashMap<Object, Map<Object, List<Object>>>();
-
-    if (_idNodeMapMap == null)
-      _idNodeMapMap = new HashMap<Object, Map<String, Object>>();
+    _treeModelMap = new HashMap<String, TreeModel>();
+    _viewIdFocusPathMapMap = new HashMap<Object, Map<String, List<Object>>>();
+    _nodeFocusPathMapMap = new HashMap<Object, Map<Object, List<Object>>>();
+    _idNodeMapMap = new HashMap<Object, Map<String, Object>>();
   }
   
   /**
@@ -957,6 +950,7 @@ public class MenuContentHandlerImpl extends DefaultHandler
   private String _localModelUri = null;
   
   // Root Menu model's Session map key
+  // FIXME: this is static, but written to from instances!
   private static String _rootModelKey  = null;
 
   // Nodes

@@ -20,6 +20,9 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 
+import java.util.Arrays;
+import java.util.List;
+
 public final class XhtmlConstants
 {
   private XhtmlConstants(){}
@@ -218,13 +221,14 @@ public final class XhtmlConstants
 
   // ===================== End of copy from UIConstants =======================
 
-  public static String STYLES_CACHE_DIRECTORY = "/adf/styles/cache/";
-  public static String OUTPUT_MODE_PORTLET = FACET_PORTLET;
+  public static final String STYLES_CACHE_DIRECTORY = "/adf/styles/cache/";
+  public static final String OUTPUT_MODE_PORTLET = FACET_PORTLET;
   
   // ============= Html elements ================
   public static final String DIV_ELEMENT          = "div";
-  public static final String[] HEADER_ELEMENT     = {"h1", "h2", "h3",
-                                                     "h4", "h5", "h6"};
+  public static final List<String> HEADER_ELEMENTS =
+    Arrays.asList(new String[]{"h1", "h2", "h3",
+                               "h4", "h5", "h6"});
   public static final String LINK_ELEMENT         = "a";
   public static final String PARAGRAPH_ELEMENT = "p";
   public static final String SCRIPT_ELEMENT       = "script";

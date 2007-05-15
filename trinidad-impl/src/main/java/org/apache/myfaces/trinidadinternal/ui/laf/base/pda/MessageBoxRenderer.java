@@ -128,10 +128,11 @@ public class MessageBoxRenderer extends XhtmlLafRenderer
     MarlinBean text = new MarlinBean(STYLED_TEXT_NAME);
     RenderingContext arc = RenderingContext.getCurrentInstance();
     FacesContext fContext = context.getFacesContext();
-    icon.renderIcon(fContext, arc, null);
-
     if (icon != null)
-      writer.write("&nbsp;");
+    {
+      icon.renderIcon(fContext, arc, null);
+      writer.writeText(NBSP_STRING, null);
+    }
 
     String messageKey = _MESSAGE_TYPE_KEYS[messageType];
 

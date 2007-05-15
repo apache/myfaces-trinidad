@@ -81,7 +81,7 @@ public class DocumentRenderer extends XhtmlRenderer
     delegateRendererEnd(context, arc, component, bean, _html);
   }
 
-  private class Head extends HeadRenderer
+  static private class Head extends HeadRenderer
   {
     public Head(FacesBean.Type type)
     {

@@ -103,8 +103,8 @@ public class FontProxy
       return (
         (_style == stub._style) &&
         (_size == stub._size)   &&
-        ((_name == stub._name) ||          // _name maybe null
-         ((_name != null) && _name.equalsIgnoreCase(stub._name))) 
+        (((_name == null) && (stub._name == null)) || // _name maybe null
+         ((_name != null) && _name.equalsIgnoreCase(stub._name)))
         );
     }
 

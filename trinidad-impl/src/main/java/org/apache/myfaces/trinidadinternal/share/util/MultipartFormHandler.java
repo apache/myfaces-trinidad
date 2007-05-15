@@ -809,7 +809,7 @@ public class MultipartFormHandler
         throw new IOException();
       }
 
-      String filenameBuffer = null;
+      StringBuilder filenameBuffer = null;
       while (tokenizer.hasMoreTokens())
       {
         final String keyValue = tokenizer.nextToken().trim();
@@ -821,19 +821,19 @@ public class MultipartFormHandler
         {
           if (filenameBuffer == null)
           {
-            filenameBuffer = keyValue;
+            filenameBuffer = new StringBuilder(keyValue);
           // Don't quit on the first semicolon - keep appending
           }
           else
           {
-            filenameBuffer = filenameBuffer + ";" + keyValue;
+            filenameBuffer.append(";").append(keyValue);
           }
         }
       }
 
       if (filenameBuffer != null)
       {
-        _filename = _extractFilename(filenameBuffer);
+        _filename = _extractFilename(filenameBuffer.toString());
       }
     }
 

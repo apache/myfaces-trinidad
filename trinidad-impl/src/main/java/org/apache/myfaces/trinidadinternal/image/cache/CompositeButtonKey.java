@@ -420,7 +420,7 @@ public class CompositeButtonKey
     )
   {
     if (value != ACCESS_KEY_UNDEFINED)
-      properties.put(key, new Character(value));
+      properties.put(key, Character.valueOf(value));
   }
 
   // Returns the default Foreground

@@ -242,7 +242,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     // to integer only. We will return the long value from the number object
     // we have in hand.
     if (isIntegerOnly())
-      return new Long(num.longValue());
+      return Long.valueOf(num.longValue());
 
     return num;
 
@@ -761,7 +761,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
 
   private static Integer _getIntValue(int value)
   {
-    return new Integer(value);
+    return Integer.valueOf(value);
   }
 
   private NumberFormat _getCachedNumberFormat(

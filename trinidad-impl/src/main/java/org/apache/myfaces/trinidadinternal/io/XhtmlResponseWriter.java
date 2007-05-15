@@ -52,7 +52,8 @@ public class XhtmlResponseWriter extends ResponseWriter
     String encoding) throws UnsupportedEncodingException
   {
     _out = out;
-    _contentType = contentType;
+    // Ignored: getContentType() always identifies this as XHTML
+    //_contentType = contentType;
     _encoding = encoding;
     CaboHttpUtils.validateEncoding(encoding);
   }
@@ -469,10 +470,6 @@ public class XhtmlResponseWriter extends ResponseWriter
   private boolean     _dontEscape;
 
   private Writer       _out;
-  // -= Simon Lessard =-
-  // FIXME: Never read locally
-  @SuppressWarnings("unused")
-  private String       _contentType;
   private String       _encoding;
 
   // holds an element that will only be started if it has attributes

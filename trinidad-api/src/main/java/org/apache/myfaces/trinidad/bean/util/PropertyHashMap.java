@@ -175,4 +175,6 @@ public class PropertyHashMap extends HashMap<PropertyKey,Object>
   private transient boolean _initialStateMarked;
   private transient PropertyMap _deltas;
   private boolean      _useStateHolder;
+
+  private static final long serialVersionUID = 1L;
 }

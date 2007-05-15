@@ -262,17 +262,16 @@ public class CapabilityMap extends AbstractMap<Object, Object> implements Clonea
 
   private Object[] _getMapAsArray(Map<Object, Object> capabilities)
   {
-    Iterator<Object> iter = capabilities.keySet().iterator();
     Object[] caps = new Object[capabilities.size() * 2];
     int i = 0;
-    while (iter.hasNext())
+    for (Map.Entry<Object, Object> entry : capabilities.entrySet())
     {
-      Object key = iter.next();
+      Object key = entry.getKey();
       CapabilityKey capKey = key instanceof CapabilityKey
                              ? (CapabilityKey) key
                              : CapabilityKey.getCapabilityKey((String) key);
       caps[i++] = capKey;
-      caps[i++] = capabilities.get(key);
+      caps[i++] = entry.getValue();
     }
     return caps;
   }
@@ -334,7 +333,7 @@ public class CapabilityMap extends AbstractMap<Object, Object> implements Clonea
 
 
   //Map Entry
-  private class CEntry implements Entry<Object, Object>
+  static private class CEntry implements Entry<Object, Object>
   {
 
     private Object key;

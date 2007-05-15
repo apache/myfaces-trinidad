@@ -33,37 +33,6 @@ import java.util.Hashtable;
 public class ConfigurationImpl extends Configuration
 {
   /**
-   * Creates a default ConfigurationImpl.  The configuration
-   * must be registered (with register()) before being used.
-   */
-  public ConfigurationImpl(String name)
-  {
-    super(name);
-  }
-
-
-  /**
-   * Creates a default ConfigurationImpl.  The configuration
-   * must be registered (with register()) before being used.
-   */
-  public ConfigurationImpl(String name, ConfigurationImpl base)
-  {
-    super(name);
-
-    if (base != null)
-    {
-      _paths.putAll(base._paths);
-      _uris.putAll(base._uris);
-      _resolvedURIs.putAll(base._resolvedURIs);
-      _resolvedPaths.putAll(base._resolvedPaths);
-      _properties.putAll(base._properties);
-      _debug     = base._debug;
-    }
-  }
-
-
-
-  /**
    * Returns whether the configuration is in debug mode.
    */
   @Override

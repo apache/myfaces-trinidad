@@ -133,6 +133,4 @@ final class ValueMap<K, V> extends AbstractMap<K, V> implements Externalizable
 
   private Map<K, V> _cache;
   private transient Map<V, K> _valueMap;
-
-  //private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(InvertibleMap.class);
 }

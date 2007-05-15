@@ -1993,8 +1993,8 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
       String endParam;
       if (indexNames != null)
       {
-        Long startNum = new Long(start);
-        Long endNum = new Long(start + currVisible - 1);
+        Long startNum = Long.valueOf(start);
+        Long endNum = Long.valueOf(start + currVisible - 1);
         Object o = indexNames.selectValue(context, startNum);
         if (o != null)
           startParam = o.toString();

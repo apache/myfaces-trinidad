@@ -310,7 +310,7 @@ public final class Coercions
         String valueText = value.toString();
         if (valueText.length() != 0)
         {
-          return new Character(valueText.charAt(0));
+          return Character.valueOf(valueText.charAt(0));
         }
       }
     }
@@ -329,12 +329,12 @@ public final class Coercions
       }
       else if (value instanceof Number)
       {
-        return new Byte(((Number)value).byteValue());
+        return Byte.valueOf(((Number)value).byteValue());
       }
       else
       {
         byte byteValue = Byte.parseByte(value.toString());
-        return new Byte(byteValue);
+        return Byte.valueOf(byteValue);
       }
     }
 
@@ -352,12 +352,12 @@ public final class Coercions
       }
       else if (value instanceof Number)
       {
-        return new Short(((Number)value).shortValue());
+        return Short.valueOf(((Number)value).shortValue());
       }
       else
       {
         short shortValue = Short.parseShort(value.toString());
-        return new Short(shortValue);
+        return Short.valueOf(shortValue);
       }
     }
 
@@ -408,12 +408,12 @@ public final class Coercions
       }
       else if (value instanceof Number)
       {
-        return new Long(((Number)value).longValue());
+        return Long.valueOf(((Number)value).longValue());
       }
       else
       {
         long longValue = Long.parseLong(value.toString());
-        return new Long(longValue);
+        return Long.valueOf(longValue);
       }
     }
 
@@ -431,12 +431,12 @@ public final class Coercions
       }
       else if (value instanceof Number)
       {
-        return new Float(((Number)value).floatValue());
+        return Float.valueOf(((Number)value).floatValue());
       }
       else
       {
         float floatValue = Float.parseFloat(value.toString());
-        return new Float(floatValue);
+        return Float.valueOf(floatValue);
       }
     }
 
@@ -454,12 +454,12 @@ public final class Coercions
       }
       else if (value instanceof Number)
       {
-        return new Double(((Number)value).doubleValue());
+        return Double.valueOf(((Number)value).doubleValue());
       }
       else
       {
         double doubleValue = Double.parseDouble(value.toString());
-        return new Double(doubleValue);
+        return Double.valueOf(doubleValue);
       }
     }
 

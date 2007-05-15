@@ -68,7 +68,7 @@ public class PanelTabbedRenderer extends HtmlLafRenderer
     int resolvedSelectedIndex = _getResolvedSelectedIndex(context, node);
     SubTabBarUtils.setSelectedIndex(
       context, 
-      new Integer(resolvedSelectedIndex));
+      Integer.valueOf(resolvedSelectedIndex));
       
     if (-1 != resolvedSelectedIndex)
     {

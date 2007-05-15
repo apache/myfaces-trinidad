@@ -28,7 +28,7 @@ import org.apache.myfaces.trinidad.context.RequestContext;
 
 public class RequestContextBean extends FacesBeanImpl
 {
-  static public Type TYPE = new Type();
+  static public final Type TYPE = new Type();
   static public final PropertyKey PAGE_FLOW_SCOPE_LIFETIME_KEY =
     TYPE.registerKey("process-scope-lifetime",
                      Integer.class,

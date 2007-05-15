@@ -279,27 +279,31 @@ public class ResourceServlet extends HttpServlet
           BufferedReader br = new BufferedReader(r);
           try
           {
-            String className = br.readLine().trim();
-            Class<?> clazz = cl.loadClass(className);
-            try
+            String className = br.readLine();
+            if (className != null)
             {
-              Constructor<?> decorator = clazz.getConstructor(_DECORATOR_SIGNATURE);
-              ServletContext context = getServletContext();
-              File tempdir = (File)
+              className = className.trim();
+              Class<?> clazz = cl.loadClass(className);
+              try
+              {
+                Constructor<?> decorator = clazz.getConstructor(_DECORATOR_SIGNATURE);
+                ServletContext context = getServletContext();
+                File tempdir = (File)
                 context.getAttribute("javax.servlet.context.tempdir");
-              ResourceLoader delegate = new DirectoryResourceLoader(tempdir);
-              loader = (ResourceLoader)
+                ResourceLoader delegate = new DirectoryResourceLoader(tempdir);
+                loader = (ResourceLoader)
                 decorator.newInstance(new Object[]{delegate});
-            }
-            catch (InvocationTargetException e)
-            {
-              // by default, create new instance with no-args constructor
-              loader = (ResourceLoader) clazz.newInstance();
-            }
-            catch (NoSuchMethodException e)
-            {
-              // by default, create new instance with no-args constructor
-              loader = (ResourceLoader) clazz.newInstance();
+              }
+              catch (InvocationTargetException e)
+              {
+                // by default, create new instance with no-args constructor
+                loader = (ResourceLoader) clazz.newInstance();
+              }
+              catch (NoSuchMethodException e)
+              {
+                // by default, create new instance with no-args constructor
+                loader = (ResourceLoader) clazz.newInstance();
+              }
             }
           }
           finally
@@ -465,7 +469,7 @@ public class ResourceServlet extends HttpServlet
     return false;
   }
 
-  private class _ResourceLifecycle extends Lifecycle
+  static private class _ResourceLifecycle extends Lifecycle
   {
     @Override
     public void execute(FacesContext p0) throws FacesException

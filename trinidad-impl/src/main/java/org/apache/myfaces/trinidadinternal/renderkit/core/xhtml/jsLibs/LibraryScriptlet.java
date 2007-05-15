@@ -43,8 +43,8 @@ public class LibraryScriptlet extends Scriptlet
                           Object[] dependencies)
   {
     _libraryName  = libraryName;
-    _functions    = functions;
-    _dependencies = dependencies;
+    _functions = (functions == null) ? null : functions.clone();
+    _dependencies = (dependencies == null) ? null : dependencies.clone();
   }
 
   @Override

@@ -74,7 +74,7 @@ class SimpleButtonUtils implements SimpleDesktopConstants
       value = (Boolean)skin.getProperty(_IMAGE_BUTTON_KEY);
 
     if (value != null)
-      return (Boolean.TRUE == value);
+      return (Boolean.TRUE.equals(value));
 
     // we fetch different icons if we are in the
     // right-to-left reading direction. context.getIcon takes care of

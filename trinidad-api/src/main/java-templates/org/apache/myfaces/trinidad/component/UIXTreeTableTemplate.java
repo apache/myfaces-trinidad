@@ -116,7 +116,7 @@ abstract public class UIXTreeTableTemplate extends UIXTree
     if (index <= 0)
       _firstMap.remove(container);
     else
-      _firstMap.put(container, new Integer(index));
+      _firstMap.put(container, Integer.valueOf(index));
   }
 
   /**
@@ -190,7 +190,7 @@ abstract public class UIXTreeTableTemplate extends UIXTree
       //pu: Implicitly record a Change for 'first' attribute
       //=-=pu: This ain't getting restored. Check with Arj or file a bug.
       addAttributeChange("first",
-                         new Integer(rce.getNewStart()));
+                         Integer.valueOf(rce.getNewStart()));
       broadcastToMethodBinding(event, getRangeChangeListener());
     }
 

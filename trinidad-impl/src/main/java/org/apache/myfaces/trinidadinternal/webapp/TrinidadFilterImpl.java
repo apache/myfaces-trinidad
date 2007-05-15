@@ -218,7 +218,7 @@ public class TrinidadFilterImpl implements Filter
    * and handle them correctly.
    */
   @SuppressWarnings("deprecation")
-  private class MonitorRedirectServletResponse
+  static private class MonitorRedirectServletResponse
              extends HttpServletResponseWrapper
   {
     public MonitorRedirectServletResponse(HttpServletResponse response,

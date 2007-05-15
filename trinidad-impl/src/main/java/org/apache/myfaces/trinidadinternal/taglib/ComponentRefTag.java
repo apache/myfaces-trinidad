@@ -304,6 +304,7 @@ processRegion:
     // must be transient because UIComponent is not Serializable.
     private transient final UIComponent _facet;
     private final String _findId;
+    private static final long serialVersionUID = 1L;
   }
 
   private static final String _REGION_TYPE_ATTRIBUTE =
@@ -311,4 +312,5 @@ processRegion:
   private static final String _RELOCATED_FACETS_ATTRIBUTE =
     "org.apache.myfaces.trinidadinternal.taglib.RegionTag.facets.relocated";
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ComponentRefTag.class);
+
 }

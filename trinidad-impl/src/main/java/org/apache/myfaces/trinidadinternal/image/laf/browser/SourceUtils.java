@@ -115,7 +115,7 @@ class SourceUtils
       String source = (String) properties.get(ImageConstants.SOURCE_KEY);
 
       if (source != null)
-        source += ("for source icon " + source);
+        message += ("for source icon " + source);
 
       _LOG.warning(message, t);
     }

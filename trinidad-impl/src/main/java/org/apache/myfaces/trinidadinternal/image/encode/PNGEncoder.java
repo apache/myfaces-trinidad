@@ -285,12 +285,10 @@ final class PNGEncoder
     int count = colors.size();
     byte[] data = new byte[count * 3];
 
-    Iterator<Color> e = colors.keySet().iterator();
-
-    while (e.hasNext())
+    for (Map.Entry<Color, Integer> entry : colors.entrySet())
     {
-      Color color = e.next();
-      int index = colors.get(color).intValue() * 3;
+      Color color = entry.getKey();
+      int index = entry.getValue().intValue() * 3;
 
       int rgb = color.getRGB();
       data[index]     = _getRed(rgb);
