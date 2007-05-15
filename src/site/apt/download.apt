@@ -58,7 +58,7 @@ Latest source code from SVN repository
 
 Nightly builds from SVN repository
 
-     There are also {{{http://people.apache.org/repo/m2-snapshot-repository/} nightly builds}}
+     There are also {{{http://people.apache.org/repo/m2-snapshot-repository/org/apache/myfaces/trinidad} nightly builds}}
      available every 24 hours (11:00 PM EST).
 
 Verifying checksums
@@ -83,7 +83,7 @@ Verifying signatures
 
 	  The PGP signatures can be verified using {{{http://www.pgpi.org/}PGP}} or
 	  {{{http://www.gnupg.org/}GPG}}.  First download the Apache Trinidad
-	  {{http://svn.apache.org/viewvc/incubator/adffaces/trunk/KEYS?view=co}KEYS}}	as well as the <<<asc>>> signature file
+	  {{http://svn.apache.org/viewvc/myfaces/trinidad/trunk/KEYS?view=co}KEYS}}	as well as the <<<asc>>> signature file
 	  for the particular distribution. It is important that you get these files from the ultimate
 	  trusted source - the main ASF distribution site, rather than from a mirror.
 	  Then verify the signatures using ...

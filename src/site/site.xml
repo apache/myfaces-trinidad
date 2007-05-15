@@ -18,9 +18,9 @@
     under the License.
 	   
 -->
-<project name="Apache MyFaces Trinidad Podling">
+<project name="Apache MyFaces Trinidad">
   <bannerLeft>
-    <name>Apache MyFaces Trinidad Podling</name>
+    <name>Apache MyFaces Trinidad</name>
   </bannerLeft>
   <body>
     <links>
