@@ -109,7 +109,7 @@ variable.
     <tr>
       <td>headerNoWrap</td>
       <td></td>
-      <td>removed. not in blaf+</td>
+      <td>removed</td>
     </tr>
     <tr>
       <td>gridVisible</td>
@@ -124,7 +124,7 @@ variable.
     <tr>
       <td>separateRows</td>
       <td></td>
-      <td>removed. not in blaf+</td>
+      <td>removed</td>
     </tr>
   </table>
 
@@ -775,7 +775,6 @@ The children of the group will not be displayed unless the parent of the group h
   <p>
     <b>Additional Notes:</b>
     <ul>
-      <li>Not all of the backgrounds may be skinned properly for Tier 1.</li>
       <li>The default width of the panelBox (which used to be 33%) has been removed.  PanelBox will now
       grow with its content unless it is in a geometry managed component or the width in inlineStyle
       is set.</li>
@@ -2025,31 +2024,6 @@ to turn off banding.
     </ul>
   </p>
 
-  <p><b>Changed Attributes:</b></p>
-
-  <table border="1" width="90%">
-    <tr>
-      <td><b>ADF</b></td>
-      <td><b>Trinidad</b></td>
-      <td><b>Notes</b></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td>text</td>
-      <td>no longer in blaf</td>
-    </tr>
-  </table>
-
-  <p><b>Changed Facets:</b></p>
-
-  <table border="1" width="90%">
-    <tr>
-      <td><b>ADF</b></td>
-      <td><b>Trinidad</b></td>
-      <td><b>Notes</b></td>
-    </tr>
-  </table>
-
   <p>
     <b>Additional Notes:</b>
     <ul>
@@ -2073,31 +2047,6 @@ to turn off banding.
       <li><b>Trinidad:</b> component removed</li>
     </ul>
   </p>
-
-  <p><b>Changed Attributes:</b></p>
-
-  <table border="1" width="90%">
-    <tr>
-      <td><b>ADF</b></td>
-      <td><b>Trinidad</b></td>
-      <td><b>Notes</b></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td>text</td>
-      <td>no longer in blaf</td>
-    </tr>
-  </table>
-
-  <p><b>Changed Facets:</b></p>
-
-  <table border="1" width="90%">
-    <tr>
-      <td><b>ADF</b></td>
-      <td><b>Trinidad</b></td>
-      <td><b>Notes</b></td>
-    </tr>
-  </table>
 
   <p>
     <b>Additional Notes:</b>
@@ -2235,11 +2184,6 @@ to turn off banding.
       <td><b>ADF</b></td>
       <td><b>Trinidad</b></td>
       <td><b>Notes</b></td>
-    </tr>
-    <tr>
-      <td>actions</td>
-      <td> </td>
-      <td>This facet was removed. The components in this facet should be moved to the "toolbar" facet on the new decorateCollection component.</td>
     </tr>
     <tr>
       <td>selection</td>

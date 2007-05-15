@@ -103,9 +103,19 @@ used in illegal locations, etc.)</li>
 </ul>
 </p>
         </subsection>
+        <subsection name="client-validation">
+<p>
+The <code>&lt;client-validation&gt;</code> element controls how client-side converters and validators are run.  Three values are supported:
+<ul>
+<li>"ALERT": validation is shown in an Javascript alert</li>
+<li>"INLINE": validation is shown inline in a page</li>
+<li>"DISABLED": validation is only handled on the server</li>
+</ul>
+</p>
+        </subsection>
         <subsection name="client-validation-disabled">
 <p>
-The <code>&lt;client-validation-disabled&gt;</code> element controls whether client side converters and validators are run.  
+The <code>&lt;client-validation-disabled&gt;</code> element controls whether client side converters and validators are run.   This element is deprecated - please use &lt;client-validation&gt;.
 </p>
         </subsection>
         <subsection name="output-mode">

@@ -18,9 +18,9 @@
     under the License.
 	   
 -->
-<project name="Apache Incubator Trinidad Podling">
+<project name="Apache MyFaces Trinidad Podling">
   <bannerLeft>
-    <name>Apache Incubator Trinidad Podling</name>
+    <name>Apache MyFaces Trinidad Podling</name>
   </bannerLeft>
   <body>
     <links>
@@ -30,7 +30,6 @@
     <menu name="">
       <item name="Download" href="download.html"/>
       <item name="Overview" href="release.html"/>
-      <item name="Disclaimer" href="disclaimer.html"/>
       <item name="Release Notes" href="release.html#Release Notes" />
       <item name="Javadoc" href="trinidad-api/apidocs/index.html" />
       <item name="Tag Documentation" href="trinidad-api/tagdoc.html" />

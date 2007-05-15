@@ -89,12 +89,12 @@ Please see the <a href="FAQ.html" >FAQ</a> for help.
 
         </p>
         <p>
-If the FAQ is insufficient, please send e-mail to the <a href="mailto:adffaces_user@incubator.apache.org">adffaces_user</a> mailing list.
+If the FAQ is insufficient, please send e-mail to the <a href="mail-lists.html">users</a> mailing list.
 </p>
       </section>
       <section name="Filing Bugs">
         <p>
-Please file bugs in the <a href="http://issues.apache.org/jira/browse/ADFFACES">JIRA issue tracker</a>.
+Please file bugs in the <a href="http://issues.apache.org/jira/browse/TRINIDAD">JIRA issue tracker</a>.
         </p>
       </section>
   </body>

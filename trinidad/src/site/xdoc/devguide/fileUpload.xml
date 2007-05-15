@@ -49,7 +49,7 @@
       <p>
 The JavaServer Faces (JSF) 1.1 specification provides no direct support for
 file uploads.  (And, unfortunately, nothing else in the J2EE
-technology stack does either.)  Apache Trinidad provides integrated support
+technology stack does either.)  MyFaces Trinidad provides integrated support
 for processing file uploads in a manner natural to JSF applications,
 by providing  a component that delivers standard
 <code>ValueChangeEvents</code> as files are uploaded, and managing
@@ -58,8 +58,8 @@ processing of the uploaded content transparently.
     </section>
     <section name="Setup">
       <p>
-File upload processing requires the installation of the Apache Trinidad Filter.
-This filter is required for all Apache Trinidad applications.  One of its features
+File upload processing requires the installation of the MyFaces Trinidad Filter.
+This filter is required for all MyFaces Trinidad applications.  One of its features
 is handling file uploads.  To install the filter,
 first add the following entry to your <code>WEB-INF/web.xml</code> file:
       </p>
@@ -92,7 +92,7 @@ requests.  For example, if you've named the <code>FacesServlet</code> "faces":
 To support uploading a file on your page, use the <a
 href="../trinidad-api/tags/core/inputFile.html"><code>&lt;tr:inputFile&gt;
 component</code></a>.  Like all other input components, <code>&lt;tr:inputFile&gt;</code> sends
-<code>ValueChangeEvents</code>.  And like all Apache Trinidad input components,
+<code>ValueChangeEvents</code>.  And like all MyFaces Trinidad input components,
 it has built-in support for accessibility, labels, and messages.
 <source>
        &lt;tr:inputFile label="Upload:"
@@ -105,7 +105,7 @@ it has built-in support for accessibility, labels, and messages.
 <code>&lt;h:form&gt;</code> tag or an <code>&lt;tr:form&gt;</code>
 tag, but in either case you have to set it to support file
 upload.  For the JSF Basic HTML form, that involves setting
-the "enctype" to the correct magic value;  for the Apache Trinidad
+the "enctype" to the correct magic value;  for the MyFaces Trinidad
 form, just set "usesUpload" to true:
 
 <source>
@@ -215,7 +215,7 @@ public class AManagedBean
     </section>
     <section name="Configuration">
       <p>
-Because Apache Trinidad will temporarily store incoming files (either on
+Because MyFaces Trinidad will temporarily store incoming files (either on
 disk or in memory), by default it limits the size of acceptable
 incoming requests to avoid denial-of-service attacks that might
 attempt to fill a hard drive or flood memory with uploaded files.  By
