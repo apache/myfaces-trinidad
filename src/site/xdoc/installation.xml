@@ -58,8 +58,8 @@ Dependencies of Apache Trinidad include:
         <p>
 The Apache Trinidad deliverables are:
           <ul>
-            <li>trinidad-api-incubator-m1.jar: public APIs of Apache Trinidad, all in the org.apache.myfaces.trinidad package</li>
-            <li>trinidad-impl-incubator-m1.jar: private APIs of Apache Trinidad, all in the org.apache.myfaces.trinidadinternal package</li>
+            <li>trinidad-api-1.0.1-SNAPSHOT.jar: public APIs of Apache Trinidad, all in the org.apache.myfaces.trinidad package</li>
+            <li>trinidad-impl-1.0.1-SNAPSHOT.jar: private APIs of Apache Trinidad, all in the org.apache.myfaces.trinidadinternal package</li>
           </ul>
         </p>
         <p>

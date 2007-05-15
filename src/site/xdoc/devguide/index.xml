@@ -24,7 +24,7 @@
   </properties>
 
   <body>
-    <section name="Development Guidelines for Apache Trinidad Podling">
+    <section name="Development Guidelines for Apache MyFaces Trinidad">
       <p>
         <ul>        
             <li><a href="configuration.html">Configuring Apache Trinidad</a></li>

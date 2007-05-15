@@ -49,60 +49,53 @@
 <subsection name="1.1. Does Apache Trinidad depend on any particular implementation of JSF?">
 
 <p>
-No. If there is an Oracle-specific implementation
-of JSF, Apache Trinidad will be optimized to run best on that implementation,
-but we believe it is important that Apache Trinidad run on any implementation
+No.   Apache MyFaces Trinidad runs on any implementation
 of the JSF 1.1 specification (or later).  Apache Trinidad can be used
-with either the Sun Reference Implementation 1.1_01 or MyFaces 1.0.8
-(or later).
+with either the Sun Reference Implementation or MyFaces.  Apache Trinidad
+offers a JSF 1.2-based branch that requires a JavaEE 5 engine.  As
+of the current date (May 14, 2007) it has not yet been tested with
+the MyFaces 1.2 implementation.
 </p>
 </subsection>
 <subsection name="1.2. What runtime or design time tools can I use to run the demo WAR?">
 
 <p>
-Please see the platform section on the <a href="installation.html#Platform Information">installation</a> page for information on how to deploy to JDeveloper, standalone OC4J, and Tomcat.
-</p>
-<p>
-Although Apache Trinidad is "vanilla" JSF we have not been able to run with Java Studio Creator Build 04.06.2. We are working with Sun to resolve the issues in Java Studio Creator.
-</p>
-<p>We have done some limited testing on IBM WebSphere Studio Application Developer 5.1.2. We have been able to run using .jsp, but not .jspx. If you are running the demo WAR please make sure the file names in faces-config.xml reflect any updated file names. 
+Please see the platform section on the <a href="installation.html#Platform Information">installation</a> page for information on how to deploy to JDeveloper, standalone OC4J, and Tomcat.  We'd appreciate any contributions of information on
+deployment to other servlet engines (as best as we know, all are supported).
+
 </p>
 </subsection>
 </section>
 <section name="2. Architecture">
-<subsection name="2.1. Can I use standard Faces tags with Apache Trinidad?">
+<subsection name="2.1. Can I use standard Faces or MyFaces Tomahawk tags with Apache Trinidad?">
 
 <p>
-Yes; all standard Faces tags can be used with Apache Trinidad.  You can even use &lt;h:form&gt; instead of &lt;af:form&gt; without losing any Apache Trinidad functionality.
+Yes; standard Faces tags and Tomahawk tags can be used with MyFaces Trinidad.  You can even use &lt;h:form&gt; instead of &lt;tr:form&gt; without losing any MyFaces Trinidad functionality.
 </p>
 
 
 </subsection>
-<subsection name="2.2. Why would I use Apache Trinidad instead of standard Faces?">
+<subsection name="2.2. Why would I use MyFaces Trinidad instead of standard Faces?">
 
 <p>
 Good question. Here's a list of some of the advantages 
 </p>
-<p>
-<b>Note:</b> <i>The items in italics are either not yet available or only partially implemented</i>
-</p>
 
   <ol>
-   <li>Rich DHTML/AJAX client-side renderers </li>
+   <li>Rich DHTML client-side renderers </li>
    <li>Provide more efficient implementations of client-side state saving (reduced per-component size) </li>
    <li>Rich set of components, validators, and converters</li>
-   <li>Apache Trinidad tags often offer more features than the standard tags;  for example,
+   <li>MyFaces Trinidad tags often offer more features than the standard tags;  for example,
  all input components offer built-in label and message display support (
- For more information on the differences between the Apache Trinidad tags and the
+ For more information on the differences between the MyFaces Trinidad tags and the
  standard Faces tags, please see the <a href="spec-diff.html">following
  document</a>).</li>
    <li>Client-side converters/validators - JavaScript enabled converters and validators that attempt to catch and display errors on the client</li>
-   <li>Apache Trinidad tags can be used inside of the &lt;af:forEach&gt; tag (it is, unfortunately, not possible to support standard tags inside &lt;af:forEach&gt;).</li>
-   <li><i>Accessibility - support similar to <a href="http://helponline.oracle.com/jdeveloper/help/state/content/vtTopicId./navSetId.jdeveloper/vtTopicFile.jdeveloper%7Cuixhelp%7Cuixdevguide%7Caccessibility%7Ehtml/navId.4/">ADF UIX Accessibility</a></i> </li>
-   <li><i>Bidirectional language support - Apache Trinidad components automatically render themselves appropriately for bidirectional languages. Users can also use the "start" and "end" constants described in <a href="http://helponline.oracle.com/jdeveloper/help/state/content/vtTopicId./navSetId.jdeveloper/vtTopicFile.jdeveloper%7Cuixhelp%7Cuixdevguide%7Cinternational%7Ehtml/navId.4/">ADF UIX Bidirectional Language Support</a></i></li>
-   <li>Partial Page Rendering (PPR) - support similar to <a href="http://helponline.oracle.com/jdeveloper/help/state/content/vtTopicId./navSetId.jdeveloper/vtTopicFile.jdeveloper%7Cuixapps%7Chtmlhelp%7Ccreateui%7Cadd%7Ctable%7Cuix_atabppr%7Ehtml/navId.4/">ADF UIX PPR overview</a></li>
-   <li><i>Skinning - support similar to <a href="http://helponline.oracle.com/jdeveloper/help/state/content/navSetId.jdeveloper/navId.4/vtAnchor.laf/vtTopicFile.jdeveloper%7Cuixhelp%7Cuixdevguide%7Ccustomization%7Ehtml/">ADF UIX Look and Feel</a> </i></li>   
-   <li><i>ADF integration </i>- including support for JSR227 (Data binding)</li>
+   <li>MyFaces Trinidad tags can be used inside of the &lt;tr:forEach&gt; tag (it is, unfortunately, not possible to support standard tags inside &lt;tr:forEach&gt;).  (This limitation does not apply in JSF 1.2.)</li>
+   <li><i>Accessibility</i> - support for Section 508 </li>
+   <li><i>Bidirectional language support</i> - Apache Trinidad components automatically render themselves appropriately for bidirectional languages. Users can also use the "start" and "end" constants instead of "left" and "right"</li>
+   <li><i>Partial Page Rendering (PPR)</i> - Javascript-free support for rerendering any of the Trinidad components</li>
+   <li><i>Skinning</i> - support for adjusting the look-and-feel of components with an extended CSS format</li>
   </ol>
 
 </subsection>
@@ -131,7 +124,8 @@ You cannot directly point to a JSF JSP file; you either need to add "/faces" aft
 <subsection name="3.2. I'm getting a java.lang.ClassCastException in UIXComponentTag.setProperties()">
 
 <p>
-JSF requires the &lt;f:view&gt; JSP tag around all JSF JSP tags; this obscure error is the result of failing to include &lt;f:view&gt;.
+JSF requires the &lt;f:view&gt; JSP tag around all JSF JSP tags; this obscure error is the result of failing to include &lt;f:view&gt;.  (As of May 2007, a
+better error message is given.)
 </p>
 </subsection>
 <subsection name="3.3. I'm having a problem seeing dialog windows">
@@ -140,28 +134,15 @@ JSF requires the &lt;f:view&gt; JSP tag around all JSF JSP tags; this obscure er
 You may have trouble seeing dialogs if you have popup blockers installed.
 </p>
 </subsection>
-<subsection name="3.4. I'm seeing the error '&quot;af:commandButton&quot; must have value or image attributes.'">
 
-<p>
-You are using JSF 1.0 (this is a bug in the JSF 1.0 RI) and Apache Trinidad requires JSF 1.1. 
-</p>
-</subsection>
-<subsection name="3.5. I'm seeing the error 'method assert(boolean) not found in class [XXX]'">
-
-<p>
-You need to enable J2SE 1.4 Assertions. In jdev this can be done in project properties (Select Tools -> Project Properties -> Profiles -> Development -> Compiler -> Enable J2SE 1.4 Assertions.) 
-
-</p>
-</subsection>
-
-<subsection name="3.6. My page looks really bad, as if it was totally unstyled">
+<subsection name="3.4. My page looks really bad, as if it was totally unstyled">
 
 <p>
 You may have not have configured your Resources Servlet in your web.xml. Please refer to installation instructions to configure the ResourceServlet.
 </p>
 </subsection>
 
-<subsection name="3.6. My input field is just showing as plain text when not in read-only mode.">
+<subsection name="3.5. My input field is just showing as plain text when not in read-only mode.">
 
 <p>
 You may be missing the "setXyz()" function matching the
@@ -182,7 +163,7 @@ to the server and it couldn't write the new value into the model.
 <subsection name="4.1. What is the status of the Apache Trinidad Podling?'">
 
 <p>
-Apache Trinidad is an effort undergoing incubation at The Apache Software Foundation (ASF), sponsored by the Apache MyFaces PMC. Incubation is required of all newly accepted projects until a further review indicates that the infrastructure, communications, and decision making process have stabilized in a manner consistent with other successful ASF projects. While incubation status is not necessarily a reflection of the completeness or stability of the code, it does indicate that the project has yet to be fully endorsed by the ASF.
+Apache Trinidad graduated from the Incubator in April, 2007.
 </p>
 </subsection>
 </section>      

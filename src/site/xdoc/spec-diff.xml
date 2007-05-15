@@ -360,7 +360,7 @@ not the entire page)</li>
 <li>Support for sorting</li>
 <li>"Single" and "multiple" selection columns</li>
 </ul>
-For more information, see <a href="devguide/table.html">Using Apache Trinidad Tables</a> in <em>Development Guidelines for Oracle Apache Trinidad Applications</em>.
+For more information, see <a href="devguide/table.html">Using Apache Trinidad Tables</a> in <em>Development Guidelines for Apache MyFaces Trinidad Applications</em>.
 </p>
 </subsection>
 <subsection name="Message customization">
@@ -376,7 +376,7 @@ For more information, see <a href="devguide/table.html">Using Apache Trinidad Ta
     &lt;tr:convertDateTime 
            secondaryPattern="d/M/yyyy" pattern="yyyy/M/d" 
            convertDateMessageDetail="&amp;quot;{0}&amp;quot; in &amp;quot;{1}&amp;quot;
-                                  is not a valid date. Example: &amp;quot;{4}&amp;quot;/&gt;
+                                  is not a valid date. Example: &amp;quot;{4}&amp;quot;"/&gt;
                                       
    &lt;/tr:selectInputDate&gt;
  </source>

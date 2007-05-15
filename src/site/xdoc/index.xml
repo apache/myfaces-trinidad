@@ -45,20 +45,22 @@
 
       <section name="Overview">
         <p>
-      Apache Trinidad is based on Java Server Faces (JSF).
-      Apache Trinidad is an effort undergoing incubation at The Apache Software Foundation (ASF), sponsored by the Apache MyFaces PMC. Incubation is required of all newly accepted projects until a further review indicates that the infrastructure, communications, and decision making process have stabilized in a manner consistent with other successful ASF projects. While incubation status is not necessarily a reflection of the completeness or stability of the code, it does indicate that the project has yet to be fully endorsed by the ASF.
-      </p>
-      <p>
-      <img src="http://incubator.apache.org/images/apache-incubator-logo.png"/>
+      Apache MyFaces Trinidad is a JSF framework including a large, enterprise quality component library, supporting critical features such as accessibility (e.g. Section 508), right-to-left languages, etc.  It also includes a set of framework features, including :
+<ul>
+<li>Partial-page rendering support for the entire component set</li>
+<li>Integrated client-side validation</li>
+<li>A dialog framework</li>
+<li>pageFlowScope, for communicating between pages</li>
+</ul>
       </p>
       </section>
 
       <section name="FAQ and Support">
         <p>
-Please see the <a href="FAQ.html" >Apache Trinidad FAQ</a> for help.
+Please see the <a href="FAQ.html" >Apache MyFaces Trinidad FAQ</a> for help.
         </p>
         <p>
-If the FAQ is insufficient, please send e-mail to the <a href="mail-lists.html">adffaces_user</a> mailing list.
+If the FAQ is insufficient, please send e-mail to the <a href="mail-lists.html">users</a> mailing list.
         </p>
       </section>
   </body>
