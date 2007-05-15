@@ -120,7 +120,7 @@ public abstract class UIXIteratorTemplate extends UIXCollection
         // javax.servlet.jsp.jstl.core.LoopTagStatus 
         if ("begin".equals(key)) // from jstl
         {
-          return new Integer(getFirst());
+          return Integer.valueOf(getFirst());
         }
         if ("first".equals(key)) // from jstl
         {
@@ -130,11 +130,11 @@ public abstract class UIXIteratorTemplate extends UIXCollection
         if ("count".equals(key)) // from jstl
         {
           int count = getRowIndex() - getFirst() + 1;
-          return new Integer(count);
+          return Integer.valueOf(count);
         }
         if ("step".equals(key)) // from jstl
         {
-          return new Integer(1);
+          return Integer.valueOf(1);
         }
         return map.get(key);
       }

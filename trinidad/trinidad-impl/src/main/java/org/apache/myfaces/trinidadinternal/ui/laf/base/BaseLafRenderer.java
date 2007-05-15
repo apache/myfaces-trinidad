@@ -1093,5 +1093,5 @@ public class BaseLafRenderer extends ElementRenderer
 
   private static final String _BASE_IMAGE_URI_PROPERTY = "baseImageURI";
 
-  private static final Integer _UNSELECTED_INDEX = new Integer(-1);
+  private static final Integer _UNSELECTED_INDEX = Integer.valueOf(-1);
 }

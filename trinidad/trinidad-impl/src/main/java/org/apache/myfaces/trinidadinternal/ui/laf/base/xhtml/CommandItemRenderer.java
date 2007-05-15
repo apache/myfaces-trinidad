@@ -93,8 +93,8 @@ public class CommandItemRenderer extends SelectOptionRenderer
       }
       else if ( value != null)
       {
-        boolean immediate = Boolean.TRUE.equals( 
-                                    attributes.get(UIXCommand.IMMEDIATE_KEY)); 
+        boolean immediate = Boolean.TRUE.equals(
+                                    attributes.get("immediate")); 
         String validate = immediate?"0":"1";
         value = value.toString() + '[' + validate + ']';
       }

@@ -101,7 +101,7 @@ class PathHelper
   
       for(int i=0; i<lastIndex; i++)
       {
-        setRowKey(path.get(i).toString());
+        setRowKey(path.get(i));
         pushPath();
       }
       setRowKey(path.get(lastIndex));

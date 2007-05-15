@@ -79,7 +79,8 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
   /**
    * Construct a {@link Validator} with no preconfigured limits.
    */
-  public LongRangeValidator() {
+  public LongRangeValidator()
+  {
     super();
   }
 
@@ -89,8 +90,9 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
    *
    * @param maximum Maximum value to allow
    */
-  public LongRangeValidator(long maximum) {
-    super(new Long(maximum));
+  public LongRangeValidator(long maximum)
+  {
+    super(maximum);
   }
 
   /**
@@ -101,8 +103,9 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
    * @param minimum Minimum value to allow
    *
    */
-  public LongRangeValidator(long maximum, long minimum) {
-    super(new Long(minimum), new Long(maximum));
+  public LongRangeValidator(long maximum, long minimum)
+  {
+    super(minimum, maximum);
   }
   
   /**
@@ -129,7 +132,7 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
   public void setMaximum(long maximum)
   {
     super.setMaximum(maximum);
-    _facesBean.setProperty(_MAXIMUM_KEY, new Long(maximum));
+    _facesBean.setProperty(_MAXIMUM_KEY, Long.valueOf(maximum));
   }
 
 
@@ -157,7 +160,7 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
   public void setMinimum(long minimum)
   {
     super.setMinimum(minimum);
-    _facesBean.setProperty(_MINIMUM_KEY, new Long(minimum));
+    _facesBean.setProperty(_MINIMUM_KEY, Long.valueOf(minimum));
   }
 
   /**

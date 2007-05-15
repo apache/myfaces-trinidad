@@ -101,7 +101,7 @@ public class RequestContextFactoryImpl extends RequestContextFactory
     return _bean;
   }
 
-  private RequestContextBean _bean;
+  private volatile RequestContextBean _bean;
   private PageResolver        _pageResolver;
   private PageFlowScopeProvider _pageFlowScopeProvider;
 

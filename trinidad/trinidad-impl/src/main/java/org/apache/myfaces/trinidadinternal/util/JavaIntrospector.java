@@ -257,7 +257,10 @@ public class JavaIntrospector
    */
   public static String[] getBeanInfoSearchPath()
   {
-    return _sSearchPath;
+    if (_sSearchPath == null)
+      return null;
+
+    return _sSearchPath.clone();
   }
 
 
@@ -270,7 +273,7 @@ public class JavaIntrospector
     String path[]
     )
   {
-    _sSearchPath = path;
+    _sSearchPath = path == null ? null : path.clone();
   }
 
 

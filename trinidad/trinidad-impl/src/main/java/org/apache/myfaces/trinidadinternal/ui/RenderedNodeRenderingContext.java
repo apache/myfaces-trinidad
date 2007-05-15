@@ -147,7 +147,7 @@ public abstract class RenderedNodeRenderingContext extends
     Object key
     )
   {
-    if (namespace != UIConstants.MARLIN_NAMESPACE)
+    if (!UIConstants.MARLIN_NAMESPACE.equals(namespace))
     {
       return _properties.get(namespace, key);
     }
@@ -167,7 +167,7 @@ public abstract class RenderedNodeRenderingContext extends
     Object value
     )
   {
-    if (namespace != UIConstants.MARLIN_NAMESPACE)
+    if (!UIConstants.MARLIN_NAMESPACE.equals(namespace))
     {
       _properties.put(namespace, key, value);
     }

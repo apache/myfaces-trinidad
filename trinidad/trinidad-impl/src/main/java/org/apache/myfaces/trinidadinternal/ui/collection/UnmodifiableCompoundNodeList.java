@@ -49,7 +49,7 @@ public class UnmodifiableCompoundNodeList implements UINodeList
       total = _first.size(context);
     
     if (_second != null)
-      return total += _second.size(context);
+      return total + _second.size(context);
     
     return total;
   }

@@ -95,7 +95,7 @@ public class OutputTextRenderer extends ValueRenderer
     else
     {
       if (value != null)
-        rw.write(value.toString());
+        rw.write(value);
     }
   }
 

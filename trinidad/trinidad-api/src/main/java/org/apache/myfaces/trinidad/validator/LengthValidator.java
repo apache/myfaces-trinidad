@@ -79,7 +79,8 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
   /**
    * Construct a {@link Validator} with no preconfigured limits.
    */
-  public LengthValidator() {
+  public LengthValidator()
+  {
     super();
   }
 
@@ -89,8 +90,9 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
    *
    * @param maximum Maximum value to allow
    */
-  public LengthValidator(int maximum) {
-    super(new Integer(maximum));
+  public LengthValidator(int maximum)
+  {
+    super(maximum);
   }
 
   /**
@@ -101,8 +103,9 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
    * @param minimum Minimum value to allow
    *
    */
-  public LengthValidator(int maximum, int minimum) {
-    super(new Integer(minimum), new Integer(maximum));
+  public LengthValidator(int maximum, int minimum)
+  {
+    super(minimum, maximum);
   }
   
   /**
@@ -129,7 +132,7 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
   public void setMaximum(int maximum)
   {
     super.setMaximum(maximum);
-    _facesBean.setProperty(_MAXIMUM_KEY, new Integer(maximum));
+    _facesBean.setProperty(_MAXIMUM_KEY, Integer.valueOf(maximum));
   }
 
 
@@ -155,7 +158,7 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
   public void setMinimum(int minimum)
   {
     super.setMinimum(minimum);
-    _facesBean.setProperty(_MINIMUM_KEY, new Integer(minimum));
+    _facesBean.setProperty(_MINIMUM_KEY, Integer.valueOf(minimum));
   }
 
   /**

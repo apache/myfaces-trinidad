@@ -1809,8 +1809,8 @@ public class FileSystemImageCache implements ImageProvider, ImageConstants
   private static final String _SIMPLIFIED_CHINESE_DIRECTORY  = "zhs";
   private static final String _TRADITIONAL_CHINESE_DIRECTORY = "zht";
 
-  private static final Integer _TEST_WIDTH = new Integer(23);
-  private static final Integer _TEST_HEIGHT = new Integer(32);
+  private static final Integer _TEST_WIDTH = Integer.valueOf(23);
+  private static final Integer _TEST_HEIGHT = Integer.valueOf(32);
 
   // Configuration property to test whether GIF support is enabled.
   private static final String _GIF_ENABLED = "gifEnabled";

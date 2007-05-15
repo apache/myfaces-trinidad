@@ -94,7 +94,7 @@ class DataObjectUINodeProxy extends UINodeProxy
 
     if (context == null)
     {
-      value = super.getAttributeValue(context, attrKey);
+      value = super.getAttributeValue(null, attrKey);
     }
     else
     {
@@ -122,7 +122,7 @@ class DataObjectUINodeProxy extends UINodeProxy
 
     if (context == null)
     {
-      count = super.getIndexedChildCount(context);
+      count = super.getIndexedChildCount(null);
     }
     else
     {
@@ -169,7 +169,7 @@ class DataObjectUINodeProxy extends UINodeProxy
 
     if (context == null)
     {
-      child = createWrappedNode(super.getIndexedChild(context, childIndex),
+      child = createWrappedNode(super.getIndexedChild(null, childIndex),
                                 _data,
                                 _current);
     }
@@ -203,7 +203,7 @@ class DataObjectUINodeProxy extends UINodeProxy
 
     if (context == null)
     {
-      child = createWrappedNode(super.getNamedChild(context, childName),
+      child = createWrappedNode(super.getNamedChild(null, childName),
                                 _data,
                                 _current);
     }

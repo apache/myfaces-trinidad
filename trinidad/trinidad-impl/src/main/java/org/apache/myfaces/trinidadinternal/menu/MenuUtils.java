@@ -263,7 +263,6 @@ class MenuUtils
     private ResourceBundle _bundle;
     private Locale _locale;
     private List<String> _values;
-    Object retVal = null;
 
     public _BundleMap(ResourceBundle bundle)
     {

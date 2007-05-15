@@ -459,14 +459,14 @@ public class TrainRenderer
       String           stateStyleClass,
       boolean          overflow) throws IOException
   {
-    if(stateStyleClass == _STATE_PARENT)
+    if (_STATE_PARENT.equals(stateStyleClass))
     {
       _renderJoin(context,
                   arc,
                   SkinSelectors.AF_TRAIN_PARENT_JOIN_STYLE_CLASS,
                   null);
     }
-    else if(overflow)
+    else if (overflow)
     {
       _renderJoin(context,
                   arc,
@@ -506,7 +506,7 @@ public class TrainRenderer
       String           stateStyleClass,
       boolean          overflow) throws IOException
   {
-    if(stateStyleClass == _STATE_PARENT)
+    if (_STATE_PARENT.equals(stateStyleClass))
     {
       _renderJoinIconBlock(context,
                            arc,

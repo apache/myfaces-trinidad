@@ -91,8 +91,8 @@ public class AliasedScriptlet extends Scriptlet
     Object[] dependencies)
   {
     _name = name;
-    _functions = functions;
-    _dependencies = dependencies;
+    _functions = (functions == null) ? null : functions.clone();
+    _dependencies = (dependencies == null) ? null : dependencies.clone();
     _actualLibrary = _getAlias(name);
   }
 

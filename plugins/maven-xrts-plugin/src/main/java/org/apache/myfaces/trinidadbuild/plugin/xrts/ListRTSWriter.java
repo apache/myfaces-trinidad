@@ -100,10 +100,7 @@ public class ListRTSWriter implements RTSWriter
     _pw.println("public class " + outName + " extends ListResourceBundle {");
     _pw.println("  @Override");
     _pw.println("  public Object[][] getContents() {");
-    _pw.println("    return contents;");
-    _pw.println("  }");
-    _pw.println("");
-    _pw.println("  static final Object[][] contents = {");
+    _pw.println("    return new Object[][] {");
   }
 
   protected void writeImports(Map parms, Map meta)
@@ -130,7 +127,8 @@ public class ListRTSWriter implements RTSWriter
    */
   public void endBundle(Map parms, Map meta) throws Throwable
   {
-    _pw.println("  };");
+    _pw.println("    };");
+    _pw.println("  }");
     _pw.println("}");
     _pw.close();
   }

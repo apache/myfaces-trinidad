@@ -122,7 +122,7 @@ public class CompositeButtonPainter extends AbstractBorderPainter
       bottomInset += halfInsets;
 
       // If we've got an extra pixel, tack it on the top
-      if ((vertInsets % 2) == 1)
+      if ((vertInsets % 2) != 0)
         topInset++;
     }
 

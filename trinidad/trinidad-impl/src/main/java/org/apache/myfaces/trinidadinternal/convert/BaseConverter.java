@@ -50,17 +50,17 @@ class BaseConverter extends GenericConverter
     
     // identity-equality is used since these are all final classes:
     if ((targetType == Integer.class) || (targetType == Integer.TYPE))
-      return new Integer(num.intValue());
+      return Integer.valueOf(num.intValue());
     if ((targetType == Byte.class) || (targetType == Byte.TYPE))
-      return new Byte(num.byteValue());
+      return Byte.valueOf(num.byteValue());
     if ((targetType == Double.class) || (targetType == Double.TYPE))
-      return new Double(num.doubleValue());
+      return Double.valueOf(num.doubleValue());
     if ((targetType == Float.class) || (targetType == Float.TYPE))
-      return new Float(num.floatValue());
+      return Float.valueOf(num.floatValue());
     if ((targetType == Long.class) || (targetType == Long.TYPE))
-      return new Long(num.longValue());
+      return Long.valueOf(num.longValue());
     if ((targetType == Short.class) || (targetType == Short.TYPE))
-      return new Short(num.shortValue());
+      return Short.valueOf(num.shortValue());
     if (targetType == BigDecimal.class)
       return new BigDecimal(num.doubleValue());
     

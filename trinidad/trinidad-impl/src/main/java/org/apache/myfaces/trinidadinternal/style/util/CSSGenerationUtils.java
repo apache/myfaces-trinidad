@@ -443,10 +443,13 @@ public class CSSGenerationUtils
     String              namespace,
     Map<String, String> afSelectorMap)
   {
+    if (selector == null)
+      return null;
+
     int afIndex = selector.indexOf(namespace);
 
-    // null or no namespace in the selector, so just return null
-    if ((selector == null) || (afIndex == -1))
+    // no namespace in the selector, so just return null
+    if (afIndex == -1)
       return null;
 
     ArrayList<String> afUnmappedSelectorList = new ArrayList<String>();

@@ -142,9 +142,9 @@ public class FacesContextFactoryImpl
           // be sufficient, and behavior will still be correct even
           // if it was somehow not (we'll just spend more time re-getting the
           // RenderKit)
-          if (renderKitId != _renderKitId)
+          if (renderKitId != _cachedRenderKitId)
           {
-            _renderKitId = renderKitId;
+            _cachedRenderKitId = renderKitId;
             _kit = _base.getRenderKit();
           }
         }
@@ -233,7 +233,9 @@ public class FacesContextFactoryImpl
     
     private final FacesContext    _base;
     private final ExternalContext _external;
-    private String    _renderKitId;
+    // An Object, not a String, so that FindBugs won't complain
+    // about this usage of instance equality
+    private Object    _cachedRenderKitId;
     private RenderKit _kit;
     
     static private final String _CONFIG_IN_CONTEXT = FacesContextFactoryImpl.class.getName()+".CONFIG_IN_CONTEXT";

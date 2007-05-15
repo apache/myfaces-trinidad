@@ -210,7 +210,7 @@
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-xrts-plugin</artifactId>
-          <version>1.0.0-incubating</version>
+          <version>1.0.1-SNAPSHOT</version>
           <inherited>true</inherited>
         </plugin>
 

@@ -40,7 +40,7 @@ public class TokenCache implements Serializable
   /**
    * Character guaranteed to not be used in tokens
    */
-  static public char SEPARATOR_CHAR = '.';
+  static public final char SEPARATOR_CHAR = '.';
 
   /**
    * Gets a TokenCache from the session, creating it if needed.
@@ -124,11 +124,15 @@ public class TokenCache implements Serializable
       token = _getNextToken();
 
       assert(_removed == null);
+      // NOTE: this put() has a side-effect that can result
+      // in _removed being non-null afterwards
       _cache.put(token, token);
       remove = _removed;
       _removed = null;
     }
 
+    // This looks like "remove" must be null - given the
+    // assert above.
     if (remove != null)
       targetStore.remove(remove);
 
@@ -224,6 +228,7 @@ public class TokenCache implements Serializable
   static private final boolean _USE_SESSION_TO_SEED_ID = true;
 
   static private final int _DEFAULT_SIZE = 15;
+  static private final long serialVersionUID = 1L;
   static private final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(TokenCache.class);
 }

@@ -118,7 +118,7 @@ public class SimpleSelectBooleanCheckboxRenderer extends SimpleSelectBooleanRend
       if (onClick == null)
         onClick = auto;
       else if (auto != null)
-        onClick = XhtmlUtils.getChainedJS(onClick, auto, true).toString();
+        onClick = XhtmlUtils.getChainedJS(onClick, auto, true);
     }
 
     return onClick;

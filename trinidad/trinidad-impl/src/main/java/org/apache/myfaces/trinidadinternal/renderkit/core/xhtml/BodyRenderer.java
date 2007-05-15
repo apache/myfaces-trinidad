@@ -452,7 +452,7 @@ public class BodyRenderer extends PanelPartialRootRenderer
       RequestContext requestContext = RequestContext.getCurrentInstance();
       String preferredSkin = requestContext.getSkinFamily();
       if (preferredSkin != null)
-        comment += (" (" + preferredSkin.toString() + ")");
+        comment += (" (" + preferredSkin + ")");
     }
 
     context.getResponseWriter().writeComment(comment);

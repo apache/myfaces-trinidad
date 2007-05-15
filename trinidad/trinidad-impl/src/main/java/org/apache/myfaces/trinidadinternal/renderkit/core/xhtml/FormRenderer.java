@@ -1100,7 +1100,7 @@ public class FormRenderer extends XhtmlRenderer
 
             // generate the hidden form field for this needed item
             _renderHiddenField(writer, currName, neededValue);
-            fData.addRenderedValue(currName.toString());
+            fData.addRenderedValue(currName);
           }
         }
 
@@ -1121,12 +1121,12 @@ public class FormRenderer extends XhtmlRenderer
             writer.writeText(XhtmlUtils.getJSIdentifier(fData.getName()),
                              null);
             writer.writeText("Names=[\"", null);
-            writer.writeText(neededValues.get(0).toString(), null);
+            writer.writeText(neededValues.get(0), null);
 
             for (int i = 1; i < realNeededIndex; i++)
             {
               writer.writeText("\",\"", null);
-              writer.writeText(neededValues.get(i).toString(), null);
+              writer.writeText(neededValues.get(i), null);
             }
 
             writer.writeText("\"];", null);

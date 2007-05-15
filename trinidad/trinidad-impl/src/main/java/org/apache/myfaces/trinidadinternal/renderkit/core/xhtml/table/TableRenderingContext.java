@@ -346,7 +346,7 @@ public class TableRenderingContext
    */
   public final boolean hasSelectAll()
   {
-    return (_rowSelection == Boolean.TRUE);
+    return (Boolean.TRUE.equals(_rowSelection));
   }
 
   public final boolean hasSelection()

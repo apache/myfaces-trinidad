@@ -663,7 +663,7 @@ public class SimpleInputDateRenderer
 
   private PropertyKey _chooseIdKey;
 
-  private static final Integer _DEFAULT_COLUMNS = new Integer(10);
+  private static final Integer _DEFAULT_COLUMNS = Integer.valueOf(10);
   private static final String _BLUR_PREFIX = "_dfb(this";
   private static final String _FOCUS_PREFIX = "_dff(this";
 

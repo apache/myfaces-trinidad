@@ -59,7 +59,7 @@ public class PanelTabbedRenderer extends org.apache.myfaces.trinidadinternal.ui.
     {
       SubTabBarUtils.setSelectedIndex(
                         context,
-                        new Integer(_getResolvedSelectedIndex(context, node)));
+                        Integer.valueOf(_getResolvedSelectedIndex(context, node)));
       Renderer subTabBarRenderer =
           context.getRendererManager().getRenderer(
                                MARLIN_NAMESPACE, SUB_TAB_BAR_NAME);

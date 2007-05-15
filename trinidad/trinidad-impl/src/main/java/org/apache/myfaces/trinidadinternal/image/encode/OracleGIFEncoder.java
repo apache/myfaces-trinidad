@@ -22,8 +22,6 @@ import java.awt.Image;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
 /**
  * ImageEncoder implementation for the Oracle GIF encoder.
  *
@@ -38,25 +36,6 @@ public class OracleGIFEncoder implements ImageEncoder
   public void encodeImage(Image image, OutputStream out)
     throws IOException
   {
-    // We need to create a new GIFEncoder instance for each encoding
-    if(_REPORT_TIMING)
-    {
-	   System.gc();
-      _lastTime = System.currentTimeMillis();
-    }
-
     GifEncoder.encode(image, out); // pass through the encoder
-
-    if (_REPORT_TIMING && _LOG.isInfo())
-    {
-      // System.out.println(Timing.getElapsedString(_lastTime) +
-      //                    " secs to encode gif");
-      _LOG.info("ELAPSED_TIME_ENCODING_GIF", (System.currentTimeMillis()-_lastTime) / 1000.0);
-
-    }
   }
-
-  private static final boolean _REPORT_TIMING = false;
-  private long _lastTime=0;
-  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(OracleGIFEncoder.class);
 }

@@ -142,7 +142,7 @@ public class ByteLengthValidator  implements StateHolder, Validator
    */
   public void setMaximum(int maximum)
   {
-    _facesBean.setProperty(_MAXIMUM_KEY, new Integer(maximum));
+    _facesBean.setProperty(_MAXIMUM_KEY, Integer.valueOf(maximum));
   }
 
   /**

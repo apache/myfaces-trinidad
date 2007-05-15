@@ -341,7 +341,7 @@ abstract public class RootRenderingContext extends RenderedNodeRenderingContext
 
     if (o == null)
     {
-      if (ImageConstants.TECATE_NAMESPACE == namespace)
+      if (ImageConstants.TECATE_NAMESPACE.equals(namespace))
       {
         if (ImageConstants.IMAGE_PROVIDER_PROPERTY == key)
         {

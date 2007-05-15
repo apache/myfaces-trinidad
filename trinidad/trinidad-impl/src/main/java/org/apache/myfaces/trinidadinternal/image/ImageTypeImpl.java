@@ -60,7 +60,7 @@ class ImageTypeImpl implements ImageType
   /**
    * Implementation of ImageType.getProperty().
    */
-  public Object getProperty(Object key)
+  synchronized public Object getProperty(Object key)
   {
     Object value = _properties.get(key);
 

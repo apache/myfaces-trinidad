@@ -1355,15 +1355,15 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
       )
   {
     Object msgPattern;
-    if (key == CONVERT_DATE_MESSAGE_ID)
+    if (CONVERT_DATE_MESSAGE_ID.equals(key))
     {
       msgPattern = _getRawConvertDateMessageDetail();
     }
-    else if (key == CONVERT_TIME_MESSAGE_ID)
+    else if (CONVERT_TIME_MESSAGE_ID.equals(key))
     {
       msgPattern = _getRawConvertTimeMessageDetail();
     }
-    else if (key == CONVERT_BOTH_MESSAGE_ID)
+    else if (CONVERT_BOTH_MESSAGE_ID.equals(key))
     {
       msgPattern = _getRawConvertBothMessageDetail();
     }
@@ -1532,10 +1532,14 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
         default:
         {
           // we only replace the first set of years
+          // FIXME: this break does nothing, so commenting out;  is
+          // it really logic that needs to be fixed?
+          /*
           if ((yCount > 0) && (yCount < 4))
           {
             break;
           }
+          */
         }
       }
     }

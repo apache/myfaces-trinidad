@@ -49,9 +49,9 @@ public class StateUtils
       return key.getName();
 
     if (index < 128)
-      return new Byte((byte) index);
+      return Byte.valueOf((byte) index);
 
-    return new Integer(index);
+    return Integer.valueOf(index);
   }
 
 

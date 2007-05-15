@@ -192,7 +192,8 @@ public class OracleHelpProvider extends SecondaryWindowHelpProvider
       }
 
       //cache the result of the search
-      _localeSpecificServlets.put(desiredLocale, servletLocation);
+      if (servletLocation != null)
+        _localeSpecificServlets.put(desiredLocale, servletLocation);
     }
 
     return servletLocation;

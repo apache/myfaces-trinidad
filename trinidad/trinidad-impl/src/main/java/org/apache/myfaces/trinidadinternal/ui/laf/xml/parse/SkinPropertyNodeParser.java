@@ -68,7 +68,8 @@ public class SkinPropertyNodeParser extends BaseNodeParser implements XMLConstan
     if (_name == null || _value == null)
       return null;
 
-    return new SkinPropertyNode(_selector, _name, _value);
+    // _selector was never set: a bug?
+    return new SkinPropertyNode(/*_selector*/null, _name, _value);
   }
 
   @Override
@@ -100,7 +101,7 @@ public class SkinPropertyNodeParser extends BaseNodeParser implements XMLConstan
   }
 
   // Name/value of the property
-  private String _selector;
+  //  private String _selector;
   private String _name;
   private String _value;
 }

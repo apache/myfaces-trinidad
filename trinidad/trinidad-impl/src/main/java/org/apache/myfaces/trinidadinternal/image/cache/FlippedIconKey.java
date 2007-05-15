@@ -86,6 +86,9 @@ public class FlippedIconKey
     if (this == o)
       return true;
 
+    if (!(o instanceof FlippedIconKey))
+      return false;
+
     FlippedIconKey key = (FlippedIconKey)o;
 
     return (_source.equals(key._source) );

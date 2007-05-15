@@ -232,6 +232,12 @@ public class SkinStyleProvider extends FileSystemStyleCache
     @Override
     public boolean equals(Object o)
     {
+      if (o == this)
+        return true;
+      
+      if (!(o instanceof ProviderKey))
+        return false;
+
       ProviderKey key = (ProviderKey)o;
 
       return (_equals(_skin, key._skin)                                   &&

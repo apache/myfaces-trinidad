@@ -430,7 +430,7 @@ public class DateTimeConverter extends
     {
       try
       {
-        DateFormat format = getDateFormat(context, datePattern, false);
+        DateFormat format = getDateFormat(context, null, false);
         if ((format != null) && (format instanceof SimpleDateFormat))
         {
           datePattern = ((SimpleDateFormat) format).toPattern();

@@ -57,23 +57,26 @@ public class AgentUtil
             new DefaultAgent ()
             {
               @Override
-              public Object getType() {
+              public Object getType()
+              {
                 return AgentNameUtil.getAgentName(fType);
               }
 
               @Override
-              public String getAgentName() {
+              public String getAgentName()
+              {
                 return AgentNameUtil.getAgentName(fBrowser);
               }
 
               @Override
-              public String getAgentVersion() {
+              public String getAgentVersion()
+              {
                 return fAgentVersion;
               }
 
-              // FIXME: This method is never used locally, should it be removed?
-              @SuppressWarnings("unused")
-              public String getPlatFormName() {
+              @Override
+              public String getPlatformName()
+              {
                 return AgentNameUtil.getPlatformName(fPlatform);
               }
             };

@@ -78,11 +78,11 @@ public final class BandingData
     boolean band = false;
     if (_rowBanding > 0)
     {
-      band = ((row / _rowBanding) % 2) == 1;
+      band = ((row / _rowBanding) % 2) != 0;
     }
     if (_colBanding > 0)
     {
-      band |= (((physicalColumn / _colBanding) % 2) == 1);
+      band |= (((physicalColumn / _colBanding) % 2) != 0);
     }
     return band;
   }

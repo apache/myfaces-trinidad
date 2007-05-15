@@ -29,6 +29,7 @@ class TrinidadLogRecord extends LogRecord
   public TrinidadLogRecord(Level level, String msg)
   {
     super(level, (msg == null) ? "" : msg);
+    _needToInferCaller = true;
   }
 
 
@@ -118,7 +119,7 @@ class TrinidadLogRecord extends LogRecord
     setSourceMethodName(null);
   }
 
-  transient private boolean _needToInferCaller = true;
+  transient private boolean _needToInferCaller;
 
 
   private static final String _JDK_LOG_CLASS = 
@@ -126,5 +127,7 @@ class TrinidadLogRecord extends LogRecord
   
   private static final String _TRINIDAD_LOG_CLASS =
     "org.apache.myfaces.trinidad.logging.TrinidadLogger";
+
+  private static final long serialVersionUID = 1L;
 }
 

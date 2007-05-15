@@ -127,7 +127,7 @@ public class ScriptRenderer extends XhtmlRenderer
     
     // TODO: change the default, as very few scripts actually
     // write content
-    return Boolean.TRUE.equals(bean);
+    return Boolean.TRUE.equals(o);
   }
 
   private PropertyKey _sourceKey;

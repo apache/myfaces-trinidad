@@ -125,7 +125,7 @@ public class CaboHttpUtils
           if (qSepIndex < tokenLength)
           {
             String qString = currToken.substring(qSepIndex, tokenLength);
-            qString.trim();
+            qString = qString.trim();
 
             if (qString.length() > 0)
             {

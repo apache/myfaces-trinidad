@@ -152,7 +152,7 @@ public class ReorderChildrenComponentChange extends ComponentChange
       if (currKey == null)
       {
         // =-= bts What about insignificant whitespace?
-        currKey = new Integer(fakeIndex++).toString();
+        currKey = Integer.valueOf(fakeIndex++).toString();
       }
 
       currChildrenMap.put(currKey, currChild);

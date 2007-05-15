@@ -308,13 +308,13 @@ public class PropertyKey
   {
     Map<Class<?>, Object> map = new HashMap<Class<?>, Object>();
     map.put(Boolean.TYPE, Boolean.FALSE);
-    map.put(Byte.TYPE, new Byte((byte)0));
-    map.put(Character.TYPE, new Character('\0'));
-    map.put(Double.TYPE, new Double(0.0));
-    map.put(Float.TYPE, new Float(0.0f));
-    map.put(Integer.TYPE, new Integer(0));
-    map.put(Long.TYPE, new Long(0L));
-    map.put(Short.TYPE, new Short((short)0));
+    map.put(Byte.TYPE, Byte.valueOf((byte)0));
+    map.put(Character.TYPE, Character.valueOf('\0'));
+    map.put(Double.TYPE, Double.valueOf(0.0));
+    map.put(Float.TYPE, Float.valueOf(0.0f));
+    map.put(Integer.TYPE, Integer.valueOf(0));
+    map.put(Long.TYPE, Long.valueOf(0L));
+    map.put(Short.TYPE, Short.valueOf((short)0));
 
     return Collections.unmodifiableMap(map);
   }

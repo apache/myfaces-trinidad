@@ -33,7 +33,7 @@ public class PropertyNode
   public PropertyNode(String name, String value)
   {
 
-    if (name == null || name == "")
+    if (name == null || "".equals(name))
       throw new IllegalArgumentException("PropertyNode's name cannot be null or the empty string." +
       "name is '" + name + "' and value is '"+ value + "'");
     _name = name;

@@ -487,13 +487,13 @@ class NameVersion
 
 
   //structure to store the parsed parts of a name
-  private class NameEntry
+  static private class NameEntry
   {
     String text;
     NameEntry next;
   }
 
-  private class VersionEntry
+  static private class VersionEntry
   {
     static final int EXACT_TYPE = 0;
     static final int PLUS_TYPE = 1;

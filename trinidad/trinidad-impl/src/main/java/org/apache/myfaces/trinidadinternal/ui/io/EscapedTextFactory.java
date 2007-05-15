@@ -39,7 +39,7 @@ public final class EscapedTextFactory
     String baseText
     )
   {
-    if (HTML_MIME_TYPE == mimeType)
+    if (HTML_MIME_TYPE.equals(mimeType))
     {
       String escapedText = HTMLEscapes.escapeText(baseText);
       

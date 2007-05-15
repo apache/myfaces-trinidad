@@ -576,7 +576,6 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     String destination = toString(itemData.get("destination"));
     boolean immediate = false;
     boolean partialSubmit = false;
-    Object old = null;
     if (destination == null)
     {
       immediate = getBooleanFromProperty(itemData.get("immediate"));
@@ -593,7 +592,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       // Find the params up front, and save them off - 
       // getOnClick() doesn't have access to the UIComponent
       String extraParams = AutoSubmitUtils.getParameters(commandChild);
-      old = arc.getProperties().put(_EXTRA_SUBMIT_PARAMS_KEY, extraParams);
+      arc.getProperties().put(_EXTRA_SUBMIT_PARAMS_KEY, extraParams);
     }
 
     rw.startElement("a", commandChild); // linkElement
@@ -643,10 +642,8 @@ public class NavigationPaneRenderer extends XhtmlRenderer
 
     if (destination == null)
     {
-      // Restore any old params, though really, how could that happen??
-      arc.getProperties().put(_EXTRA_SUBMIT_PARAMS_KEY, old);
-
       arc.setCurrentClientId(null);
+      arc.getProperties().remove(_EXTRA_SUBMIT_PARAMS_KEY);
     }
   }
 
@@ -928,9 +925,6 @@ public class NavigationPaneRenderer extends XhtmlRenderer
         String destination = toString(itemData.get("destination"));
         boolean immediate = false;
         boolean partialSubmit = false;
-        // -= Simon =-
-        // FIXME: _EXTRA_SUBMIT_PARAMS_KEY is never restored to its old value
-        Object old = null;
         if (destination == null)
         {
           immediate = getBooleanFromProperty(itemData.get("immediate"));
@@ -947,7 +941,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
           // Find the params up front, and save them off - 
           // getOnClick() doesn't have access to the UIComponent
           String extraParams = AutoSubmitUtils.getParameters(commandChild);
-          old = arc.getProperties().put(_EXTRA_SUBMIT_PARAMS_KEY, extraParams);
+          arc.getProperties().put(_EXTRA_SUBMIT_PARAMS_KEY, extraParams);
         }
         _renderCommandChildId(context, commandChild);
         String selectionScript;
@@ -963,7 +957,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
         else
         {
           String encodedDestination =
-            context.getExternalContext().encodeActionURL(destination.toString());
+            context.getExternalContext().encodeActionURL(destination);
           String targetFrame = toString(itemData.get("targetFrame"));
           StringBuilder sb = new StringBuilder();
           if ( (targetFrame != null) && !Boolean.FALSE.equals(
@@ -984,6 +978,11 @@ public class NavigationPaneRenderer extends XhtmlRenderer
           selectionScript = sb.toString();
         }
         rw.writeAttribute("value", selectionScript, null);
+
+        if (destination == null)
+        {
+          arc.getProperties().remove(_EXTRA_SUBMIT_PARAMS_KEY);
+        }
       }
 
       rw.write(toString(itemData.get("text")));
@@ -1396,7 +1395,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     return isOnFocusPath;
   }
 
-  private class NavItemData
+  static private class NavItemData
   {
     NavItemData()
     {

@@ -127,7 +127,7 @@ class PortletUploadedExternalContext extends ExternalContextDecorator
     return _externalContext;
   }
 
-  private class PortletUploadRequestWrapper extends ActionRequestWrapper
+  static private class PortletUploadRequestWrapper extends ActionRequestWrapper
   {
     public PortletUploadRequestWrapper(
         ActionRequest request,

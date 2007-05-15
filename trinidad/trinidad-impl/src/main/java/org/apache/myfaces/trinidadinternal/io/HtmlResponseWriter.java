@@ -199,10 +199,12 @@ public class HtmlResponseWriter extends ResponseWriter
     Class<?> valueClass = value.getClass();
 
     // See what attribute we were involved in
+    // FIXME: delete the _currAttr code, which is unused and contrary
+    // to the JSF spec
     String currAttr = _currAttr;
     if (currAttr != null)
     {
-      if (currAttr == name)
+      if (currAttr.equals(name))
       {
         _writeValue(valueClass, value, true);
         return;

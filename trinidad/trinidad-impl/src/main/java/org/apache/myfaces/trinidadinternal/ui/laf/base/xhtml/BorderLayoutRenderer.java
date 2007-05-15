@@ -643,6 +643,6 @@ public class BorderLayoutRenderer extends XhtmlLafRenderer
             hasRenderedNamedChild(context, node, INNER_END_CHILD));
   }
 
-  private static final Integer _ZERO = new Integer(0);
+  private static final Integer _ZERO = Integer.valueOf(0);
   private static final Object _HAS_SIDE_NODES = new Object();
 }

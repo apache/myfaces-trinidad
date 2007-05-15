@@ -809,16 +809,14 @@ public class FileSystemStyleCache implements StyleProvider
         // We explicitly wrap the NameResolver in a CachingNameResolver
         // since that conveniently handles checking for modifications to
         // dependent (imported) files.
-        if (!(resolver instanceof CachingNameResolver))
-        {
-          // The default storage for cached files is a bit large,
-          // so we use a smaller hash table.  Also, always enable
-          // modification checking.
-          resolver = new CachingNameResolver(resolver,
-                                             new Hashtable<Object, InputStreamProvider>(17),
-                                             true);
-        }
-
+        // The default storage for cached files is a bit large,
+        // so we use a smaller hash table.  Also, always enable
+        // modification checking.
+        // FIXME: Should probably be a ConcurrentHashMap
+        resolver = new CachingNameResolver(resolver,
+                                           new Hashtable<Object, InputStreamProvider>(17),
+                                           true);
+      
         _resolver = resolver;
       }
     }

@@ -99,7 +99,7 @@ public class UniqueCompositeId
         newCount = globalCount.intValue();
         compID.append(newCount++);
       }
-      countHash.put(baseid, new Integer(newCount));
+      countHash.put(baseid, Integer.valueOf(newCount));
       context.setProperty(UIConstants.MARLIN_NAMESPACE, _EXT_KEY, countHash);
       idExt = compID.toString();
       context.setLocalProperty(_EXT_KEY, idExt);

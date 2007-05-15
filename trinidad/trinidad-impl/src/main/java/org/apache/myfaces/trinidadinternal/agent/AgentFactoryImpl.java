@@ -93,7 +93,7 @@ public class AgentFactoryImpl implements AgentFactory
 
     if (userAgent == null)
     {
-      _populateUnknownAgentImpl(userAgent, agent);
+      _populateUnknownAgentImpl(null, agent);
       return;
     }
     

@@ -107,8 +107,6 @@ public class SingleStepButtonBarRenderer extends XhtmlRenderer
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
-    ResponseWriter rw = context.getResponseWriter();
-
     long currentValue = getSelectedStep(bean);
 
     // get max value

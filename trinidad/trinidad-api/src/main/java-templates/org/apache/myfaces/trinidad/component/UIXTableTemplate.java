@@ -86,7 +86,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
       int first = rEvent.getNewStart();
       setFirst(first);
       //pu: Implicitly record a Change for 'first' attribute
-      addAttributeChange("first", new Integer(first));
+      addAttributeChange("first", Integer.valueOf(first));
       
       if ((first == 0) && (rEvent.getNewEnd() == getRowCount()))
       {
@@ -305,7 +305,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
     Object[] state = new Object[6];
     state[0] = _sortCriteria;
     state[1] = super.__getMyStampState();
-    state[2] = new Integer(getFirst());
+    state[2] = Integer.valueOf(getFirst());
     state[3] = Boolean.valueOf(isShowAll());
     state[4] = getSelectedRowKeys();
     state[5] = getDisclosedRowKeys();

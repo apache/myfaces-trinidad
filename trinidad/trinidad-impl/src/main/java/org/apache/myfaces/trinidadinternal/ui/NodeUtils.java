@@ -120,7 +120,7 @@ public class NodeUtils implements UIConstants
       // set the acesskey on the node
       node.setAttributeValue(
                         ACCESS_KEY_ATTR,
-                        new Character(embeddedText.charAt(accessKeyIndex + 1)));
+                        Character.valueOf(embeddedText.charAt(accessKeyIndex + 1)));
     }
 
     // set the stripped text on the node using the appropriate attribute name

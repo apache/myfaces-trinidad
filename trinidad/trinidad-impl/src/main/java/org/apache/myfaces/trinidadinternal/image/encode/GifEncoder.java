@@ -333,7 +333,7 @@ final class GifEncoder
     int sqnc = 0; // the prefix string of colors
     int newcol = 0; // the new color
     int sqnc_newcol = 0; // concatenation of the above
-    Integer fsqnc_newcol = new Integer(0);
+    Integer fsqnc_newcol = null;
 
 
 
@@ -516,7 +516,7 @@ final class GifEncoder
   private static final int _MAXIMUM_COLOR_TABLE_SIZE = 256;
   private static final int _NO_COLOR = -2;
   private static final int _TRANSPARENT_COLOR = -1;
-  private static final byte[] _HEADER = new String("GIF89a").getBytes();
+  private static final byte[] _HEADER = "GIF89a".getBytes();
 
   // under this alpha value, pixels are taken to be transparent
   private static final int _TRANSPARENCY_THRESHHOLD = 1;

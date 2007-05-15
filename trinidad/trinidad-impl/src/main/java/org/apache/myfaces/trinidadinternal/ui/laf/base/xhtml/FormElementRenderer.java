@@ -381,7 +381,7 @@ abstract public class FormElementRenderer extends XhtmlLafRenderer
    * @deprecated
    */
    @Deprecated
-  public static MutableUINode PDA_SPACE = new HTMLWebBean("div");
+  public static final MutableUINode PDA_SPACE = new HTMLWebBean("div");
    static{
      MarlinBean spacer = new MarlinBean(SPACER_NAME);
      spacer.setAttributeValue(WIDTH_ATTR, "1");

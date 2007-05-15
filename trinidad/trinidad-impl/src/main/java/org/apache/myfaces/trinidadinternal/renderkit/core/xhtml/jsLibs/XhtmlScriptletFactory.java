@@ -92,9 +92,6 @@ public class XhtmlScriptletFactory
   static private Scriptlet _sCharSetsScriptlet;
   static private Scriptlet _sShuttleScriptlet;
   static private Scriptlet _sTableProxyScriptlet;
-  // FIXME: Never read
-  @SuppressWarnings("unused")
-  static private Scriptlet _sDiagrammerScriptlet;
   static private Scriptlet _sColorFormatScriptlet;
   static private Scriptlet _sColorFieldFormatScriptlet;
   static private Scriptlet _sDateFieldFormatScriptlet;

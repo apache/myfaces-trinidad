@@ -37,7 +37,7 @@ public class CapabilitiesProvider
 {
 
   /**
-   * @param capUrl URL to the capabilities document defining the
+   * @param capUrl URI to the capabilities document defining the
    * capabilities for various clients/agents
    * //TODO: Right now all capabilities get an Key. Do we really need to that?
    * //--why should we create a key for capabilities we don't care?
@@ -48,7 +48,7 @@ public class CapabilitiesProvider
   }
 
   /**
-   * @param capUrl URL to the capabilities document defining the
+   * @param capUrl URI to the capabilities document defining the
    * capabilities for various clients/agents
    * @return A provider of Capabilities based on the context Agent
    */
@@ -215,7 +215,7 @@ public class CapabilitiesProvider
 
 
   private URL _capUrl;
-  private CapabilitiesDocument _document;
+  private volatile CapabilitiesDocument _document;
 
   static private CapabilityMap _EMPTY_MAP = new CapabilityMap(new Object[0][0]);
 

@@ -216,18 +216,18 @@ public class SkinCSSDocumentHandler
     int[]  targetTypes)
   {
     
-    if (type == _AT_AGENT)
+    if (_AT_AGENT.equals(type))
       _selectorAgents = targetTypes;
-    else if (type == _AT_PLATFORM)
+    else if (_AT_PLATFORM.equals(type))
       _selectorPlatforms = targetTypes;
   }
   
   private void _resetAtRuleTargetTypes(
     String type)
   {
-    if (type == _AT_AGENT)
+    if (_AT_AGENT.equals(type))
       _selectorAgents = null;
-    else if (type == _AT_PLATFORM)
+    else if (_AT_PLATFORM.equals(type))
       _selectorPlatforms = null;
   }
   
@@ -336,7 +336,7 @@ public class SkinCSSDocumentHandler
       String[] typeArray = types.split(",");
       List<Integer> list = new ArrayList<Integer>();
       
-      if (type == _AT_AGENT)
+      if (_AT_AGENT.equals(type))
       {
         for (int i=0; i < typeArray.length; i++)
         {
@@ -346,7 +346,7 @@ public class SkinCSSDocumentHandler
             list.add(agentInt);
         }
       }
-      else if (type == _AT_PLATFORM)
+      else if (_AT_PLATFORM.equals(type))
       {
         for (int i=0; i < typeArray.length; i++)
         {

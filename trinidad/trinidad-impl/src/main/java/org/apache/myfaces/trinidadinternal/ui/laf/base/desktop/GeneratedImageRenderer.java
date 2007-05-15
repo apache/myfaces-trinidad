@@ -119,6 +119,8 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
     )
     throws IOException
   {
+    assert node != null;
+
     boolean hasLink     = (destination != null);
     Object  longDesc    = getLongDesc(context, node);
     String  imageStyle  = getImageStyle(context, node);

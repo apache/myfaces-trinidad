@@ -717,12 +717,12 @@ public class CSSUtils
 
   private static Color _getSharedColor(int rgb)
   {
-    Color sharedColor = _sColorCache.get(new Integer(rgb));
+    Color sharedColor = _sColorCache.get(Integer.valueOf(rgb));
 
     if (sharedColor == null)
     {
       sharedColor = new Color(rgb);
-      _sColorCache.put(new Integer(rgb), sharedColor);
+      _sColorCache.put(Integer.valueOf(rgb), sharedColor);
     }
 
     return sharedColor;

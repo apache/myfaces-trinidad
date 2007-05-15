@@ -71,7 +71,7 @@ public class AccessKeyBoundValue implements BoundValue
       if (accessKeyIndex == StringUtils.MNEMONIC_INDEX_NONE)
         return null;
 
-      return new Character(embeddedTextString.charAt(accessKeyIndex + 1));
+      return Character.valueOf(embeddedTextString.charAt(accessKeyIndex + 1));
     }
     else
     {

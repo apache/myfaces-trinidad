@@ -396,7 +396,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
         // the text to the number of columns
         if (textValue != null)
         {
-          String textString = textValue.toString();
+          String textString = textValue;
           int textLength = textString.length();
 
           if (textLength > 0)
@@ -653,7 +653,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
       if (onchange == null)
         onchange = auto;
       else if (auto != null)
-        onchange = XhtmlUtils.getChainedJS(onchange, auto, true).toString();
+        onchange = XhtmlUtils.getChainedJS(onchange, auto, true);
     }
 
     if (isTextArea(bean))
@@ -858,8 +858,8 @@ public class SimpleInputTextRenderer extends FormInputRenderer
   private PropertyKey _maximumLengthKey;
   private PropertyKey _onselectKey;
 
-  static private final Integer _DEFAULT_PDA_COLUMNS = new Integer(11);
-  static private final Integer _DEFAULT_COLUMNS = new Integer(30);
+  static private final Integer _DEFAULT_PDA_COLUMNS = Integer.valueOf(11);
+  static private final Integer _DEFAULT_COLUMNS = Integer.valueOf(30);
   static private final String _SECRET_KEYDOWN_SCRIPT = 
     "return _clearPassword(this, event);";
   static private final int _MAX_COLUMNS = 500;

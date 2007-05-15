@@ -319,7 +319,7 @@ public class FirePartialAction extends FireAction
    */
   public final void setTargets(String[] partialTargets)
   {
-    _targets = partialTargets;
+    _targets = (partialTargets == null) ? null : partialTargets.clone();
   }
 
   /**

@@ -99,7 +99,7 @@ public class GoLinkRenderer extends XhtmlRenderer
       if (accessKey != CHAR_UNDEFINED)
       {
         rw.writeAttribute("accesskey",
-                          new Character(accessKey),
+                          Character.valueOf(accessKey),
                           "accessKey");
       }                   
     }

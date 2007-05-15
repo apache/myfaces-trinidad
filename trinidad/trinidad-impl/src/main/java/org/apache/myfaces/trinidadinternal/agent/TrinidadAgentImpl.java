@@ -380,7 +380,7 @@ public class TrinidadAgentImpl implements TrinidadAgent, Cloneable
     _capMap = _capMap.merge(capabilities);
   }
 
-  private static URL _capUrl;
+  private static volatile URL _capUrl;
 
   //@todo: Get this from the Configuration Object
   static final private String _CAPABILITIES_FILE = "META-INF/agent/capabilities.xml";

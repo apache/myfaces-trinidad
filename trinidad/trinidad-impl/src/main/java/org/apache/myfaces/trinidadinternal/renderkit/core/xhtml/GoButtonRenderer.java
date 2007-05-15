@@ -121,7 +121,7 @@ public class GoButtonRenderer extends GoLinkRenderer
       if (accessKey != CHAR_UNDEFINED)
       {
         rw.writeAttribute("accesskey",
-                          new Character(accessKey),
+                          Character.valueOf(accessKey),
                           "accessKey");
       }                   
     }

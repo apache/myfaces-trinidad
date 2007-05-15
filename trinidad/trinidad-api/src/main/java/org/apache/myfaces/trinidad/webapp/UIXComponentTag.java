@@ -268,7 +268,7 @@ abstract public class UIXComponentTag extends UIComponentTag
     else
     {
       if (value.length() >= 1)
-        bean.setProperty(key, new Character(value.charAt(0)));
+        bean.setProperty(key, Character.valueOf(value.charAt(0)));
     }
   }
 

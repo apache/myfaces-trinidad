@@ -275,13 +275,13 @@ public class RegExpValidator implements StateHolder, Validator
   public void setPattern(String pattern)
   {
     String prevPattern = getPattern();
-    if (! (prevPattern != null  && prevPattern.equals(pattern) ||
-            (prevPattern == pattern)
-          ))
-    {
-      _facesBean.setProperty(_PATTERN_KEY, pattern);
-      _compiled = null;
-    }
+    if ((prevPattern != null) && prevPattern.equals(pattern))
+      return;
+    if ((prevPattern == null) && (pattern == null))
+      return;
+
+    _facesBean.setProperty(_PATTERN_KEY, pattern);
+    _compiled = null;
   }
 
   /**

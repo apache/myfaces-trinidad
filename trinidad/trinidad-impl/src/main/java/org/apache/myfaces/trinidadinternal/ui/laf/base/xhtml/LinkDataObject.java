@@ -209,7 +209,7 @@ public final class LinkDataObject implements DataObject
                         boolean isDisabled)
   {
     this(id, text, shortDesc, destination, onClick,
-         targetFrame, accessKey, isSelected, isDisabled, new Integer(0), null);
+         targetFrame, accessKey, isSelected, isDisabled, Integer.valueOf(0), null);
   }
 
   public LinkDataObject(Object id,

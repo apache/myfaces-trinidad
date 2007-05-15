@@ -418,7 +418,8 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
     // (note the page developer can specify a rows value higher than is actually
     // needed so we must take that into account)
     actualRows =
-      (int)Math.max(actualRows, Math.ceil(totalFormItemCount / actualColumns));
+      (int)Math.max(actualRows, Math.ceil(
+                         ((double) totalFormItemCount) / actualColumns));
 
     // test the first guess and keep trying more rows until it fits:
     int visibleItemsLength = visibleItems.size();
@@ -595,7 +596,7 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
     rw.startElement("tr", null); // the outer row
     int currentItemIndex = 0;
     int visibleItemsLength = visibleItems.size();
-    String outerColumnWidth = Math.floor(100 / actualColumns) + "%";
+    String outerColumnWidth = Math.floor(((double) 100) / actualColumns) + "%";
     for (int col=0; col<actualColumns; col++)
     {
       rw.startElement("td", null); // the outer column
@@ -850,7 +851,7 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
     rw.endElement("tr"); // form item row
   }
 
-  private class FormWidths
+  static private class FormWidths
   {
     FormWidths(
       String mainLabelWidth,
@@ -898,7 +899,7 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
     String _overallWidth;
   }
 
-  private class FormItem
+  static private class FormItem
   {
     FormItem(UIComponent child, int size, boolean group)
     {
@@ -927,7 +928,7 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
     private boolean _group;
   }
   
-  private class FormItemInfo
+  static private class FormItemInfo
   {
     FormItemInfo()
     {

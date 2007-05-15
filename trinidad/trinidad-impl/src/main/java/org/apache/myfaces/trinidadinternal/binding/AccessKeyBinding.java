@@ -56,7 +56,7 @@ public class AccessKeyBinding extends ValueBindingAdapter
     if (accessKeyIndex == StringUtils.MNEMONIC_INDEX_NONE)
       return null;
 
-    return new Character(text.charAt(accessKeyIndex + 1));
+    return Character.valueOf(text.charAt(accessKeyIndex + 1));
   }
 
   @Override
