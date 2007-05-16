@@ -218,26 +218,8 @@ public class IndentingResponseWriter extends ResponseWriterDecorator
       return false;
 
     String name = element.toLowerCase();
-    return ("img".equals(name)    ||
-            "a".equals(name)      ||
-            "br".equals(name)     ||
-            "span".equals(name)   ||
-            "div".equals(name)    ||
-            "area".equals(name)   ||
-            "u".equals(name)      ||
-            "i".equals(name)      ||
-            "b".equals(name)      ||
-            "em".equals(name)     ||
-            "strong".equals(name) ||
-            "map".equals(name)    ||
-            "label".equals(name)  ||
-            "font".equals(name)   ||
-            "table".equals(name)  ||
-            "tbody".equals(name)  ||
-            "tr".equals(name)     ||
-            "nobr".equals(name)   ||
-            "wbr".equals(name)   ||
-            "script".equals(name));
+    
+    return _WHITESPACE_SENSITIVE_ELEMENTS.contains(name);
   }
 
   private boolean _justEndedElement;
@@ -265,5 +247,31 @@ public class IndentingResponseWriter extends ResponseWriterDecorator
   {
     _HTML_TYPES.add(HtmlResponseWriter.HTML_CONTENT_TYPE);
     _HTML_TYPES.add(XhtmlResponseWriter.XHTML_CONTENT_TYPE);
+  }
+  static private final Set<String> _WHITESPACE_SENSITIVE_ELEMENTS = new HashSet<String>();
+  static
+  {
+    _WHITESPACE_SENSITIVE_ELEMENTS.add("img");
+    _WHITESPACE_SENSITIVE_ELEMENTS.add("a");
+    _WHITESPACE_SENSITIVE_ELEMENTS.add("br");
+    _WHITESPACE_SENSITIVE_ELEMENTS.add("span");
+    _WHITESPACE_SENSITIVE_ELEMENTS.add("div");
+    _WHITESPACE_SENSITIVE_ELEMENTS.add("area");
+    _WHITESPACE_SENSITIVE_ELEMENTS.add("u");
+    _WHITESPACE_SENSITIVE_ELEMENTS.add("i");
+    _WHITESPACE_SENSITIVE_ELEMENTS.add("input");   
+    _WHITESPACE_SENSITIVE_ELEMENTS.add("b");
+    _WHITESPACE_SENSITIVE_ELEMENTS.add("em");
+    _WHITESPACE_SENSITIVE_ELEMENTS.add("strong");
+    _WHITESPACE_SENSITIVE_ELEMENTS.add("map");
+    _WHITESPACE_SENSITIVE_ELEMENTS.add("label");
+    _WHITESPACE_SENSITIVE_ELEMENTS.add("font");
+    _WHITESPACE_SENSITIVE_ELEMENTS.add("table");
+    _WHITESPACE_SENSITIVE_ELEMENTS.add("tbody");    
+    _WHITESPACE_SENSITIVE_ELEMENTS.add("tr");
+    _WHITESPACE_SENSITIVE_ELEMENTS.add("nobr");
+    _WHITESPACE_SENSITIVE_ELEMENTS.add("wbr");
+    _WHITESPACE_SENSITIVE_ELEMENTS.add("script");
+
   }
 }
