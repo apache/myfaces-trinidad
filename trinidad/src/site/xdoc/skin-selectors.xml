@@ -292,10 +292,16 @@
           </tr>
           <tr>
             <td>.AFEndPadding:alias</td>
-            <td>Sets the padding property to pad on the left-to-right
+            <td>Sets the padding property to pad on the "right" for the left-to-right
                 reading direction and "left" for right-to-left reading direction.  
                 e.g,: padding: 0px 8px 0px 0px; (for 'right' padding).</td>
-          </tr>          
+          </tr> 
+          <tr>
+            <td>.AFStartPadding:alias</td>
+            <td>Sets the padding property to pad on the "left" left-to-right
+                reading direction and "right" for right-to-left reading direction.  
+                e.g,: padding: 0px 0px 0px 8px; (for 'left' padding).</td>
+          </tr>           
           
           <tr>
             <td>.AFLeftTextAlign:alias</td>
