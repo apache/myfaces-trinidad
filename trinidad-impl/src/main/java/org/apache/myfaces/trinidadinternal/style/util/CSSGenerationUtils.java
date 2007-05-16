@@ -202,11 +202,12 @@ public class CSSGenerationUtils
 
           String validFullNameSelector = null;
 
+          // write out the full selector if we aren't compressing styles or
+          // it doesn't have a '|' in the name which means it may be a user's public styleclass
+          // and we don't want to compress those; we will also write out the compressed
+          // version the public styleclasses in the next step.
           if (!compressStyles || (mappedSelector.indexOf('|') == -1))
           {
-            // write out the full selector if we aren't compressing styles or
-            // it doesn't have a '|' in the name which means it may be a user's public styleclass
-            // and we don't want to compress those.
             validFullNameSelector =
               _getValidFullNameSelector(mappedSelector, namespacePrefixArray);
              
@@ -685,7 +686,7 @@ public class CSSGenerationUtils
           // do this in another step.
           if (styleClass.indexOf('|') == -1)
             shortStyleClass = shortStyleClassMap.get(styleClass);
-
+ 
 
           if (shortStyleClass == null)
           {
@@ -908,6 +909,12 @@ public class CSSGenerationUtils
     else
       buffer.append(pieces.getMain());
     
+    // Convert the pseudo-classes if they aren't CSS2 pseudo-classes.
+    // We never want to shorten the converted pseudo-classes.
+    // pseudo-classes represent state and the state can be added or removed
+    // on the client with javascript and it is easiest if the states
+    // converted styleclass is not shortened, otherwise we'd have to
+    // send the shortened styleclass map for the states to the client.
     List <String> pseudoClasses = pieces.getPseudoClasses();
     for (String pseudoClass : pseudoClasses )
     {

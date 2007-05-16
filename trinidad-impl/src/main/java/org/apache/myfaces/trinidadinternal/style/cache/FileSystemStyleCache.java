@@ -864,6 +864,7 @@ public class FileSystemStyleCache implements StyleProvider
   }
 
   // Create the map of full style classes to short style classes
+  // Do not shorten styleclasses that start with SkinSelectors.STATE_PREFIX
   private static Map<String, String> _getShortStyleClassMap(
     StyleContext       context,
     StyleSheetDocument document,
@@ -897,8 +898,12 @@ public class FileSystemStyleCache implements StyleProvider
           if (CSSGenerationUtils.isSingleStyleClassSelector(selector))
           {
             String styleClass = selector.substring(1);
-            if (!map.containsKey(styleClass))
-              map.put(styleClass, _getShortStyleClass(map.size()));
+            _putStyleClassInShortMap(styleClass, map);
+            // don't shorten styleclasses that are states since they are likely to be added
+            // and removed on the client.
+            if (styleClass != null && !styleClass.startsWith(SkinSelectors.STATE_PREFIX))
+              if (!map.containsKey(styleClass))
+                map.put(styleClass, _getShortStyleClass(map.size()));
             
             if (style.isEmpty())
               emptySelectors.add(styleClass);
@@ -915,15 +920,14 @@ public class FileSystemStyleCache implements StyleProvider
               while (styleClasses.hasNext())
               {
                 String styleClass = styleClasses.next();
-                
-                if (!map.containsKey(styleClass))
-                  map.put(styleClass, _getShortStyleClass(map.size()));
+                _putStyleClassInShortMap(styleClass, map);
                 
                 // Don't remove any styleclass that is referred to
                 nonEmptySelectors.add(styleClass);
               }
             }
             
+            // now search for the selectors that have namespaces and add those to the map
             int length = namespacePrefixes.length;
             
             for (int i=0; i < length; i++)
@@ -939,9 +943,8 @@ public class FileSystemStyleCache implements StyleProvider
                 while (afSelectors.hasNext())
                 {
                   String styleClass = afSelectors.next();
-                  
-                  if (!map.containsKey(styleClass))
-                    map.put(styleClass, _getShortStyleClass(map.size()));
+                  _putStyleClassInShortMap(styleClass, map);
+
                   if (isFirst && !afSelectors.hasNext() && style.isEmpty())
                   {
                     emptySelectors.add(styleClass);
@@ -971,6 +974,21 @@ public class FileSystemStyleCache implements StyleProvider
     // or else we would need to create a new copy of the Map
     // each time it is requested.
     return Collections.unmodifiableMap(map);
+  }
+  
+  // Method to put styleclasses in the shortened map.
+  // We don't put 'state' styleclasses in the shortened map. Those are styleclasses
+  // that start with SkinSelectors.STATE_PREFIX. The reason is that those
+  // are likely to be added and removed on the client as the state changes, and 
+  // we don't want to require the shortened map on the client.
+  private static void _putStyleClassInShortMap(String styleClass, Map map)
+  {
+    if (styleClass != null &&
+        !styleClass.startsWith(SkinSelectors.STATE_PREFIX) &&
+        !map.containsKey(styleClass))
+    {
+      map.put(styleClass, _getShortStyleClass(map.size())); 
+    } 
   }
 
   // Helper method used by _getShortStyleClassMap().  Returns a new
