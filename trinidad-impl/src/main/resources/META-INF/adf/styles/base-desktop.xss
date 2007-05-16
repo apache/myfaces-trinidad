@@ -365,6 +365,10 @@
   	<property name="padding">0px 8px 0px 0px</property>
   </style> 
 
+  <style name="AFStartPadding">
+  	<property name="padding">0px 0px 0px 8px</property>
+  </style>
+
   <!-- Additional named styles for alignment;  not strictly necessary,
        since these aren't actually ever overridden, but it
        does make alignment in our XSS more obvious -->
@@ -3870,6 +3874,10 @@
   
   <style name="AFEndPadding">
   	<property name="padding">0px 0px 0px 8px</property>
+  </style>
+  
+  <style name="AFStartPadding">
+  	<property name="padding">0px 8px 0px 0px</property>
   </style>
   
   <style name="nestedList">    
