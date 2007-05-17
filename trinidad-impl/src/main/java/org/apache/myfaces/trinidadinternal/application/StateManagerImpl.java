@@ -279,8 +279,13 @@ public class StateManagerImpl extends StateManager
             // if this feature has not been disabled
             _useViewRootCache(context) ? root : null);
 
+        // See if we should pin this new state to any old state
+        String pinnedToken = (String)
+          context.getExternalContext().getRequestMap().get(_PINNED_STATE_TOKEN_KEY);
+
         token = cache.addNewEntry(pageState,
-                                  stateMap);
+                                  stateMap,
+                                  pinnedToken);
       }
       // If we got the "applicationViewCache", we're using it.
       else
@@ -307,6 +312,10 @@ public class StateManagerImpl extends StateManager
       // Create a "tokenView" which abuses SerializedView to store
       // our token only
       view = new SerializedView(token, null);
+      
+      // And store the token for this request
+      context.getExternalContext().getRequestMap().put(_REQUEST_STATE_TOKEN_KEY,
+                                                       token);
     }
     else
     {
@@ -319,6 +328,29 @@ public class StateManagerImpl extends StateManager
     return view;
   }
 
+  /**
+   * Requests that an old state token be "pinned" to the state of
+   * the current request.  This means that the view state corresponding
+   * to the token will not be released before the state for this request
+   * is released.
+   */
+  static public void pinStateToRequest(FacesContext context, String stateToken)
+  {
+    context.getExternalContext().getRequestMap().put(
+            _PINNED_STATE_TOKEN_KEY, stateToken);
+    
+  }
+  
+  /**
+   * @return the state token for the current request
+   */
+  static public String getStateToken(FacesContext context)
+  {
+    return (String) context.getExternalContext().getRequestMap().get(
+            _REQUEST_STATE_TOKEN_KEY);
+  }
+  
+  
   @Override
   public void writeState(FacesContext context,
                          SerializedView state) throws IOException
@@ -917,6 +949,11 @@ public class StateManagerImpl extends StateManager
   private static final String _CACHED_SERIALIZED_VIEW =
     "org.apache.myfaces.trinidadinternal.application.CachedSerializedView";
 
+  private static final String _REQUEST_STATE_TOKEN_KEY =
+    "org.apache.myfaces.trinidadinternal.application.REQUEST_STATE_TOKEN";
+
+  private static final String _PINNED_STATE_TOKEN_KEY =
+    "org.apache.myfaces.trinidadinternal.application.PINNED_STATE_TOKEN";
 
 
   private static final String _APPLICATION_CACHE_TOKEN = "_a_";

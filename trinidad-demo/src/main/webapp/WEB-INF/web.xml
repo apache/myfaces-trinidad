@@ -31,6 +31,14 @@
     <!--param-value>server</param-value-->
   </context-param>
 
+  <!-- Parameter to set the maximum number of client view state tokens.
+       Uncomment this to test low-token-count scenarios.
+  <context-param>
+    <param-name>org.apache.myfaces.trinidad.CLIENT_STATE_MAX_TOKENS</param-name>
+    <param-value>3</param-value>
+  </context-param>
+  -->
+
   <!-- Trinidad by default uses an optimized client-side state saving
        mechanism. To disable that, uncomment the following -->
   <!--context-param>
@@ -121,16 +129,6 @@
     <servlet-name>source</servlet-name>
     <servlet-class>org.apache.myfaces.trinidaddemo.webapp.SourceCodeServlet</servlet-class>
   </servlet>
-
-  <!-- On some version of OC4J, the following is needed when using jsf 1.0 -->
-  <!--servlet>
-    <servlet-name>jsp</servlet-name>
-    <servlet-class>oracle.jsp.runtimev2.JspServlet</servlet-class>
-    <init-param>
-      <param-name>tags_reuse_default</param-name>
-      <param-value>none</param-value>
-    </init-param>
-  </servlet-->
 
   <!-- Faces Servlet Mappings -->
   <servlet-mapping>

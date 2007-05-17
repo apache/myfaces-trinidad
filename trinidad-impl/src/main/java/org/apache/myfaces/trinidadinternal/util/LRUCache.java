@@ -36,7 +36,7 @@ public class LRUCache<K, V> extends LinkedHashMap<K, V>
     _maxSize = maxSize;
   }
 
-  protected void removing(Object key)
+  protected void removing(K key)
   {
   }
 
@@ -45,7 +45,7 @@ public class LRUCache<K, V> extends LinkedHashMap<K, V>
   {
     if (size() > _maxSize)
     {
-      Object key = eldest.getKey();
+      K key = eldest.getKey();
       removing(key);
 
       _LOG.finer("Discarding cached value for key {0}", key);

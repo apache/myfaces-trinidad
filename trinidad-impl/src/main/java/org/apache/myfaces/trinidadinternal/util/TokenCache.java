@@ -24,6 +24,8 @@ import java.io.Serializable;
 
 import java.util.Map;
 
+import java.util.concurrent.ConcurrentHashMap;
+
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
@@ -33,7 +35,21 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
 /**
- * A simple tokenized cache
+ * A simple LRU tokenized cache.  The cache is responsible for storing tokens,
+ * but the storage of the values referred to by those tokens is not handled
+ * by this class.  Instead, the user of this class has to provide a Map
+ * instance to each call.
+ * <p>
+ * The design seems odd, but is intentional - this way, a session Map can be used
+ * directly as the storage target for values, while the TokenCache simply maintains
+ * the logic of which tokens should still be available.  Storing values
+ * directly in the cache object (instead of directly on the session) causes
+ * HttpSession failover difficulties.
+ * <p>
+ * TokenCache also supports the concept of "pinning", whereby one token
+ * can be pinned to another.  The pinned token will not be removed from
+ * the cache until all tokens that it is pinned to are also out of the
+ * cache.
  */
 public class TokenCache implements Serializable
 {
@@ -103,26 +119,59 @@ public class TokenCache implements Serializable
     this(size, 0);
   }
 
+  /**
+   * Create a TokenCache that will store the last "size" entries,
+   * and begins its tokens based on the seed (instead of always
+   * starting at "0").
+   */
   public TokenCache(int size, int seed)
   {
     _cache = new LRU(size);
+    _pinned = new ConcurrentHashMap<String, String>(size);
     _count = seed;
   }
 
   /**
    * Create a new token;  and use that token to store a value into
-   * a target Map.
+   * a target Map.  The least recently used values from the
+   * cache may be removed.
+   * @param value the value being added to the target store
+   * @param targetStore the map used for storing the value
+   * @return the token used to store the value
    */
   public String addNewEntry(
       Object value, 
       Map<String, Object> targetStore)
   {
-    Object remove = null;
+    return addNewEntry(value, targetStore, null);
+  }
+  
+  /**
+   * Create a new token;  and use that token to store a value into
+   * a target Map.  The least recently used values from the
+   * cache may be removed.
+   * @param value the value being added to the target store
+   * @param targetStore the map used for storing the value
+   * @param pinnedToken a token, that if still in the cache,
+   *    will not be freed until this current token is also freed
+   * @return the token used to store the value
+   */
+  public String addNewEntry(
+      Object value, 
+      Map<String, Object> targetStore,
+      String pinnedToken)
+  {
+    String remove = null;
     String token = null;
     synchronized (this)
     {
       token = _getNextToken();
 
+      // If there is a request to pin one token to another, 
+      // store that:  the pinnedToken is the value
+      if (pinnedToken != null)
+        _pinned.put(token, pinnedToken);
+      
       assert(_removed == null);
       // NOTE: this put() has a side-effect that can result
       // in _removed being non-null afterwards
@@ -134,8 +183,10 @@ public class TokenCache implements Serializable
     // This looks like "remove" must be null - given the
     // assert above.
     if (remove != null)
-      targetStore.remove(remove);
-
+    {
+      _removeTokenIfReady(targetStore, remove);
+    }
+    
     targetStore.put(token, value);
 
     return token;
@@ -143,15 +194,59 @@ public class TokenCache implements Serializable
 
 
   /**
-   * Returns true if an entry is still available.
+   * Returns true if an entry is still available.  This
+   * method has a side-effect:  by virtue of accessing the token,
+   * it is now at the top of the most-recently-used list.
    */
   public boolean isAvailable(String token)
   {
     synchronized (this)
     {
-      return _cache.get(token) != null;
+      // If the token is in the LRU cache, then it's available
+      if (_cache.get(token) != null)
+        return true;
+      
+      // And if the token is a value in "pinned", then it's also available
+      if (_pinned.containsValue(token))
+        return true;
+      
+      return false;
     }
   }
+
+  /**
+   * Remove a token if is ready:  there are no pinned references to it.
+   * Note that it will be absent from the LRUCache.
+   */
+  synchronized private Object _removeTokenIfReady(
+      Map<String, Object> targetStore, 
+      String              token)
+  {
+    Object removedValue;
+    
+    // See if it's pinned to something still in memory
+    if (!_pinned.containsValue(token))
+    {
+      _LOG.finest("Removing token ''{0}''", token);
+      // Remove it from the target store
+      removedValue = targetStore.remove(token);
+      // Now, see if that key was pinning anything else
+      String wasPinned = _pinned.remove(token);
+      if (wasPinned != null)
+        // Yup, so see if we can remove that token
+        _removeTokenIfReady(targetStore, wasPinned);
+    }
+    else
+    {
+      _LOG.finest("Not removing pinned token ''{0}''", token);
+      // TODO: is this correct?  We're not really removing
+      // the target value.
+      removedValue = targetStore.get(token);
+    }
+    
+    return removedValue;
+  }
+
 
   /**
    * Removes a value from the cache.
@@ -165,7 +260,9 @@ public class TokenCache implements Serializable
     {
       _LOG.finest("Removing token {0} from cache", token);
       _cache.remove(token);
-      return targetStore.remove(token);
+      // TODO: should removing a value that is "pinned" take?
+      // Or should it stay in memory?
+      return _removeTokenIfReady(targetStore, token);
     }
   }
 
@@ -211,19 +308,24 @@ public class TokenCache implements Serializable
     }
 
     @Override
-    protected void removing(Object key)
+    protected void removing(String key)
     {
       _removed = key;
     }
   }
 
   private final Map<String, String> _cache;
+  
+  // Map from String to String, where the keys represent tokens that are
+  // stored, and the values are the tokens that are pinned.  This is 
+  // an N->1 ratio:  the values may appear multiple times.
+  private final Map<String, String> _pinned;
   private int      _count;
   private transient Object   _lock = new Object();
 
   // Hack instance parameter used to communicate between the LRU cache's
   // removing() method, and the addNewEntry() method that may trigger it
-  private transient Object _removed;
+  private transient String _removed;
 
   static private final boolean _USE_SESSION_TO_SEED_ID = true;
 
