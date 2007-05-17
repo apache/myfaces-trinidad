@@ -232,7 +232,7 @@
 <resource key="NO_SKIN_FACTORY">There is no SkinFactory</resource>
 
 <!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN">The skin {0} specified on the requestMap will not be used because the styleSheetDocument id on the requestMap does not match the local skin's styleSheetDocument's id.</resource>
+<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN">The skin {0} specified on the requestMap will not be used because the styleSheetDocument id on the requestMap does not match the local skin's styleSheetDocument's id. It could mean the jars are not identical. For example, one might have trinidad-skins.xml's skin-additions in a jar file on the class path that the other does not have.</resource>
 
 <!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
 <resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP">The skin {0} specified on the requestMap will not be used because its styleSheetDocument id was not in the requestMap and it is needed to compare with the local skin's styleSheetDocument's id to make sure the skins are the same.</resource>
