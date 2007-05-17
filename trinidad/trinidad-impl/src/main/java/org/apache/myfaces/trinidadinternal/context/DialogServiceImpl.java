@@ -283,7 +283,47 @@ public class DialogServiceImpl extends DialogService
     }
   }
 
+  /**
+   * Store the current state token (if a dialog has been launched).
+   */
+  static public void writeCurrentStateToken(FacesContext context, String token)
+  {
+    if (token == null)
+      return;
 
+    // Locate the String array on the request map, and store the token in
+    // there if it exists.  The String array is also going to be on the
+    // page flow scope map for the dialog
+    Object o =
+      context.getExternalContext().getRequestMap().get(_TARGET_FOR_STATE_TOKEN);
+    if (o instanceof String[])
+    {
+      String[] targetForToken = (String[]) o;
+      if (targetForToken.length == 1)
+        targetForToken[0] = token;
+    }
+  }
+
+  /**
+   * Store the current state token (if a dialog has been launched).
+   */
+  static public void pinPriorState(FacesContext context)
+  {
+    RequestContext rc = RequestContext.getCurrentInstance();
+    Object o = rc.getPageFlowScope().get(_TARGET_FOR_STATE_TOKEN);
+    if (o instanceof String[])
+    {
+      String[] targetForToken = (String[]) o;
+      if (targetForToken.length == 1)
+      {
+        String token = targetForToken[0];
+        if (token != null)
+          StateManagerImpl.pinStateToRequest(context, token);
+      }
+    }
+  }
+  
+  
   /**
    * Launch a dialog.
    * @todo Don't save parameters for state-saving, page-flow scope, etc.
@@ -308,6 +348,13 @@ public class DialogServiceImpl extends DialogService
     // the renderkit to launch the dialog;  which means
     // we'll need to use the renderkit to close the dialog
     dialogParameters.put(_USED_RENDER_KIT_KEY, Boolean.TRUE);
+    
+    // We also need to pin down the current state token when we're
+    // inside the dialog.  But we don't actually know what the token
+    // will be until we're done rendering.  So leave a one-element
+    // String array that we can write to later.
+    String[] targetForToken = new String[1];
+    dialogParameters.put(_TARGET_FOR_STATE_TOKEN, targetForToken);
 
     // Try to launch a window using the render kit. If that
     // fails (or isn't needed), fall through to the same-window
@@ -327,6 +374,12 @@ public class DialogServiceImpl extends DialogService
       // And we must pop the pageFlow scope immediately;  it'll
       // be restored later.
       _context.getPageFlowScopeProvider().popPageFlowScope(context, false);
+
+      // We only need to pin the existing state when we're using the renderkit
+      // to launch the dialog - so only bother putting anything on the
+      // request in that case
+      context.getExternalContext().getRequestMap().put(_TARGET_FOR_STATE_TOKEN,
+                                                       targetForToken);
     }
     else
     {
@@ -454,6 +507,8 @@ public class DialogServiceImpl extends DialogService
     "org.apache.myfaces.trinidadinternal.DialogUsedRK";
   static private final String _RETURN_PARAM =
     "org.apache.myfaces.trinidadinternal.ReturnParam";
+  static private final String _TARGET_FOR_STATE_TOKEN =
+    "org.apache.myfaces.trinidadinternal.StateToken";
 
   static private final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(DialogServiceImpl.class);

@@ -61,7 +61,9 @@ import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
 import org.apache.myfaces.trinidad.render.RenderUtils;
 import org.apache.myfaces.trinidadinternal.agent.AgentUtil;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
+import org.apache.myfaces.trinidadinternal.application.StateManagerImpl;
 import org.apache.myfaces.trinidadinternal.config.dispatch.DispatchResponseConfiguratorImpl;
+import org.apache.myfaces.trinidadinternal.context.DialogServiceImpl;
 import org.apache.myfaces.trinidadinternal.context.TrinidadPhaseListener;
 import org.apache.myfaces.trinidadinternal.io.DebugHtmlResponseWriter;
 import org.apache.myfaces.trinidadinternal.io.DebugResponseWriter;
@@ -415,6 +417,8 @@ public class CoreRenderKit extends RenderKitBase
   public void encodeBegin(FacesContext context)
   {
     /*CoreAdfRenderingContext arc = */new CoreRenderingContext();
+    // If there's any prior state, make sure our current "add" doesn't drop it
+    DialogServiceImpl.pinPriorState(context);
   }
 
 
@@ -431,6 +435,11 @@ public class CoreRenderKit extends RenderKitBase
    */
   public void encodeFinally(FacesContext context)
   {
+    // Get the state token from the StateManager (if one is available)
+    String stateToken = StateManagerImpl.getStateToken(context);
+    // And push it onto the DialogService (in case we launched anything)
+    DialogServiceImpl.writeCurrentStateToken(context, stateToken);
+    
     RenderingContext arc = RenderingContext.getCurrentInstance();
     if (arc != null)
     {
