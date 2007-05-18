@@ -67,6 +67,7 @@ public class TrinidadComponentHandler extends ComponentHandler
     
     m.addRule(StringArrayPropertyTagRule.Instance);
     m.addRule(TrinidadListenersTagRule.Instance);
+    m.addRule(AccessKeyPropertyTagRule.Instance);
            
     return m;
   }
