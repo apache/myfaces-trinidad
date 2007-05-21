@@ -61,8 +61,19 @@ class JspUtils
    */
   static public String getEncoding(FacesContext context)
   {
-    return (String) 
-      context.getExternalContext().getRequestParameterMap().get("enc");
+    String encoding = (String)context.getExternalContext().getRequestParameterMap().get("enc");
+    
+    // verify that the encoding doesn't contain CRLF header delimiters as this could
+    // allow additional headers to per attached to a request on Servlet Engines
+    // that do not correctly validate the input to Response.setContentType();
+    if (encoding != null)
+    {      
+      if ((encoding.indexOf('\r') >= 0) ||
+          (encoding.indexOf('\n') >= 0))
+        throw new IllegalArgumentException("Encoding parameter contains line/header delimiters");
+    }
+    
+    return encoding;
   }
 
   static private char _getMnemonic(String text)
