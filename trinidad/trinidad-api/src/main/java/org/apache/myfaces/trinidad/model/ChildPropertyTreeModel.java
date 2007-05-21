@@ -184,7 +184,9 @@ public class ChildPropertyTreeModel extends TreeModel
     List<Object> path = (List<Object>) childKey;
     if ((path == null) || (path.size() <= 1))
       return null;
-    return path.subList(0, path.size() - 1);
+    // Make a copy of the sublist - subList does not return
+    // a serializable object
+    return new ArrayList<Object>(path.subList(0, path.size() - 1));
   }
 
   @Override
