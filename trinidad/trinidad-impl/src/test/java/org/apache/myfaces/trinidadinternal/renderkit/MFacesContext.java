@@ -256,16 +256,21 @@ public class MFacesContext extends MockFacesContext
     @Override
     public String encodeResourceURL(String url)
     {
+      // The spec requires encodeResourceURL() to throw NPE here,
+      // though not all impls do
       if (url == null)
-        return null;
+        throw new NullPointerException("encodeResourceURL called with null URL");
       return "encoded-resource-url:" + url;
     }
     
     @Override
     public String encodeActionURL(String url)
     {
+      // The spec requires encodeActionURL() to throw NPE here,
+      // though not all impls do
       if (url == null)
-        return null;
+        throw new NullPointerException("encodeActionURL called with null URL");
+
       return "encoded-action-url:" + url;
     }
 
