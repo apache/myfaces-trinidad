@@ -170,6 +170,7 @@ public class XhtmlScriptletFactory
                            new String[]
                            {
                              "TrNumberConverter()",
+                             "TrLengthValidator()",
                              "TrRegExpValidator()",
                            },
                            new String[]

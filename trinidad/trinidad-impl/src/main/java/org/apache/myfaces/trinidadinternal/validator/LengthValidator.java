@@ -32,7 +32,7 @@ import org.apache.myfaces.trinidad.validator.ClientValidator;
 import org.apache.myfaces.trinidadinternal.util.JsonUtils;
 
 /**
- * <p>Implementation for <code>java.lang.Long</code> values.</p>
+ * <p>Implementation for length of <code>java.lang.String</code> values.</p>
  *
  */
 public class LengthValidator extends org.apache.myfaces.trinidad.validator.LengthValidator
@@ -53,32 +53,65 @@ public class LengthValidator extends org.apache.myfaces.trinidad.validator.Lengt
 
 
   /**
-   * @todo this should have not_in_range messages, not just max and min!
    * @todo Format these numbers properly.
    */
   public String getClientValidation(
     FacesContext context,
     UIComponent component)
   {
-    String maxStr = IntegerUtils.getString(getMaximum());
-    String minStr = IntegerUtils.getString(getMinimum());
-    String messageDetailMax = this.getMessageDetailMaximum();
-    String messageDetailMin = this.getMessageDetailMinimum();
-    String hintMax = this.getHintMaximum();
-    String hintMin = this.getHintMinimum();
-    String hintRange = this.getHintNotInRange();
+    int max = getMaximum();
+    int min = getMinimum();
+
+    // Only pass down the messages that are relevant to this
+    // validator instance, based on the min and max
+    String detailKey = null;
+    String hintKey = null;
+    String detail = null;
+    String hint = null;
+    if (min > 0)
+    {
+      if (max != Integer.MAX_VALUE)
+      {
+        detailKey = "range";
+        hintKey = "hintRange";
+        if (min == max)
+        {
+          detail  = getMessageDetailExact();
+          hint = getHintExact();
+        }
+        else
+        {
+          detail  = getMessageDetailNotInRange();
+          hint = getHintNotInRange();
+        }
+      }
+      else
+      {
+        detailKey = "min";
+        hintKey = "hintMin";
+        detail = getMessageDetailMinimum();
+        hint = getHintMinimum();
+      }
+    }
+    else
+    {
+      detailKey = "max";
+      hintKey = "hintMax";
+      detail = getMessageDetailMaximum();
+      hint = getHintMaximum();
+    }
     
     Map<String, String> cMessages = null;
-    if(messageDetailMax != null || messageDetailMin != null || hintMax != null || hintMin != null || hintRange != null)
+    if ((detail != null) || (hint != null))
     {
       cMessages = new HashMap<String, String>();
-      cMessages.put("max", messageDetailMax);
-      cMessages.put("min", messageDetailMin);
-      cMessages.put("hintMax", hintMax);
-      cMessages.put("hintMin", hintMin);
-      cMessages.put("hintRange", hintRange);
+      if (detail != null)
+        cMessages.put(detailKey, detail);
+      if (hint != null)
+        cMessages.put(hintKey, hint);
     }
-    return _getTrLengthValidator(context, component, maxStr, minStr, cMessages);
+
+    return _getTrLengthValidator(context, component, max, min, cMessages);
 
   }
   
@@ -89,17 +122,20 @@ public class LengthValidator extends org.apache.myfaces.trinidad.validator.Lengt
   }
   
   private static String _getTrLengthValidator(
-      FacesContext context,
-      UIComponent component,
-      String max,
-      String min,
-      Map<String, String> messages)
+    FacesContext context,
+    UIComponent component,
+    int         max,
+    int         min,
+    Map<String, String> messages)
   {
     StringBuilder outBuffer = new StringBuilder();
     outBuffer.append("new TrLengthValidator(");
-    outBuffer.append(max);
+    if (max == Integer.MAX_VALUE)
+      outBuffer.append("null");
+    else
+      outBuffer.append(IntegerUtils.getString(max));
     outBuffer.append(',');
-    outBuffer.append(min);
+    outBuffer.append(IntegerUtils.getString(min));
     outBuffer.append(',');
     if(messages == null)
     {
@@ -121,6 +157,6 @@ public class LengthValidator extends org.apache.myfaces.trinidad.validator.Lengt
     return outBuffer.toString();
   }
 
-  private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "TrNumberConverter()" );
+  private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "TrLengthValidator()" );
 
 }

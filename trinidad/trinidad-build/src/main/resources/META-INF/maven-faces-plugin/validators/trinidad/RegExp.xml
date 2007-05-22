@@ -22,7 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin">
   <validator>
-    <description><![CDATA[Validate expression using java regular expression syntax.]]></description>
+    <description><![CDATA[Validate expression using Java regular expression syntax.]]></description>
     <display-name>validateRegularExpression</display-name>
     <validator-id>org.apache.myfaces.trinidad.RegExp</validator-id>
     <validator-class>org.apache.myfaces.trinidadinternal.validator.RegExpValidator</validator-class>
@@ -61,11 +61,6 @@
       </description>
       <property-name>messageDetailNoMatch</property-name>
       <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
-      </property-extension>
     </property>
     <validator-extension>
       <mfp:tag-name>tr:validateRegExp</mfp:tag-name>
@@ -81,7 +76,6 @@
       <mfp:validator-metadata>
         <mfp:favorite-property>pattern</mfp:favorite-property>
       </mfp:validator-metadata>
-      <mfp:uix2-local-name>validateRegExp</mfp:uix2-local-name>
     </validator-extension>
   </validator>
 </faces-config>

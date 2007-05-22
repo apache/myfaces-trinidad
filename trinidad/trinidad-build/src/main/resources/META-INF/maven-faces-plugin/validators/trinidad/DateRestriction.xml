@@ -33,7 +33,11 @@
       </description>
       <property-name>invalidMonths</property-name>
       <property-class>java.lang.String[]</property-class>
-      <property-extension/>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:preferred>true</mfp:preferred>
+        </mfp:property-metadata>
+      </property-extension>
     </property>
     
     <property>
@@ -43,7 +47,11 @@
       </description>
       <property-name>invalidDaysOfWeek</property-name>
       <property-class>java.lang.String[]</property-class>
-      <property-extension/>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:preferred>true</mfp:preferred>
+        </mfp:property-metadata>
+      </property-extension>
     </property>
     
     <property>
@@ -84,11 +92,6 @@
       </description>
       <property-name>messageDetailInvalidMonths</property-name>
       <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
-      </property-extension>
     </property>
 
     <property>
@@ -116,11 +119,6 @@
       </description>
       <property-name>messageDetailInvalidDaysOfWeek</property-name>
       <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
-      </property-extension>
     </property>
     
     <property>
@@ -148,11 +146,6 @@
       </description>
       <property-name>messageDetailInvalidDays</property-name>
       <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
-      </property-extension>
     </property>
     
     <validator-extension>
@@ -184,7 +177,6 @@
      </mfp:source-code>
       </mfp:example>
       <mfp:author>Matthias Wessendorf</mfp:author>
-      <mfp:uix2-local-name>validateDateTimeRange</mfp:uix2-local-name>
     </validator-extension>
   </validator>
 </faces-config>

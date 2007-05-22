@@ -30,7 +30,11 @@
       </description>
       <property-name>maximum</property-name>
       <property-class>long</property-class>
-      <property-extension/>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:preferred>true</mfp:preferred>
+        </mfp:property-metadata>
+      </property-extension>
     </property>
     <property>
       <description><![CDATA[The minimum long value of the entered value..]]>
@@ -68,11 +72,6 @@
       </description>
       <property-name>messageDetailMaximum</property-name>
       <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
-      </property-extension>
     </property>
     <property>
       <description><![CDATA[<p>
@@ -99,11 +98,6 @@
       </description>
       <property-name>messageDetailMinimum</property-name>
       <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
-      </property-extension>
     </property>
         <property>
       <description><![CDATA[<p>
@@ -134,11 +128,6 @@
       </description>
       <property-name>messageDetailNotInRange</property-name>
       <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
-      </property-extension>
     </property>
     <validator-extension>
       <mfp:tag-name>tr:validateLongRange</mfp:tag-name>

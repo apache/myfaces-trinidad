@@ -364,6 +364,7 @@ public final class JsonUtils
       {
         out.append('{');
         
+        boolean needComma = false;
         for (Iterator<?> iter = map.entrySet().iterator(); iter.hasNext();)
         {
           Map.Entry<?, ?> entry = (Map.Entry<?, ?>)iter.next();
@@ -372,11 +373,16 @@ public final class JsonUtils
             throw new IllegalArgumentException("Javascript does not support null keys");
           String key = rawKey.toString(); 
           Object value = entry.getValue();
+          if (value == null)
+            continue;
+          if (needComma)
+            out.append(',');
+          else
+            needComma = true;
+
           writeString(out, key, escapeXML);
           out.append(':');
           writeObject(out, value, escapeXML);
-          if (iter.hasNext())
-            out.append(',');
         }
         out.append('}');
       }

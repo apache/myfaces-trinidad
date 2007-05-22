@@ -21,19 +21,23 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin">
   <validator>
-    <description><![CDATA[Validate that the date entered is within a given range.]]></description>
+    <description><![CDATA[Validate that the string entered is of a given length.]]></description>
     <display-name>validateLength</display-name>
     <validator-id>org.apache.myfaces.trinidad.Length</validator-id>
     <validator-class>org.apache.myfaces.trinidadinternal.validator.LengthValidator</validator-class>
     <property>
-      <description><![CDATA[The maximum length value of the entered value.]]>
+      <description><![CDATA[the maximum length of the entered value.]]>
       </description>
       <property-name>maximum</property-name>
       <property-class>int</property-class>
-      <property-extension/>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:preferred>true</mfp:preferred>
+        </mfp:property-metadata>
+      </property-extension>
     </property>
     <property>
-      <description><![CDATA[The minimum length value of the entered value.]]>
+      <description><![CDATA[the minimum length of the entered value.]]>
       </description>
       <property-name>minimum</property-name>
       <property-class>int</property-class>
@@ -46,7 +50,7 @@
     <property>
       <description><![CDATA[<p>
            The detail error message to be used for constructing faces messages,
-           when input value exceeds the <code>maximum</code> value
+           when input value exceeds the <code>maximum</code> length
            set.
           </p>
           <p>
@@ -61,24 +65,19 @@
              {1} value entered by the user
             </li>
             <li>
-             {2} the maximum allowed value
+             {2} the maximum allowed length
             </li>
            </ul>
           </p>]]>
       </description>
       <property-name>messageDetailMaximum</property-name>
       <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
-      </property-extension>
     </property>
     <property>
       <description><![CDATA[<p>
            The detail error message to be used for constructing faces messages,
            when input value is less than the set <code>minimum</code>
-           value.
+           length.
           </p>
           <p>
            <strong>
@@ -92,24 +91,19 @@
              {1} value entered by the user
             </li>
             <li>
-             {2} the minimum allowed value
+             {2} the minimum allowed length
             </li>
            </ul>
           </p>]]>
       </description>
       <property-name>messageDetailMinimum</property-name>
       <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
-      </property-extension>
     </property>
         <property>
       <description><![CDATA[<p>
            The detail error message to be used for constructing faces messages,
-           if input value is not with in the range, when
-           <code>minimum</code> and <code>maximum</code> is
+           if input value is not of an acceptable length, when both
+           <code>minimum</code> and <code>maximum</code> are
            set.
           </p>
           <p>
@@ -124,21 +118,43 @@
              {1} value entered by the user
             </li>
             <li>
-             {2} the minimum allowed value
+             {2} the minimum allowed length
             </li>
             <li>
-             {3} the maximum allowed value
+             {3} the maximum allowed length
             </li>
            </ul>
           </p>]]>
       </description>
       <property-name>messageDetailNotInRange</property-name>
       <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
-      </property-extension>
+    </property>
+        <property>
+      <description><![CDATA[<p>
+           The detail error message to be used for constructing faces messages,
+           if input value is not of an acceptable length, when both
+           <code>minimum</code> and <code>maximum</code> are
+           set to the same value.
+          </p>
+          <p>
+           <strong>
+            Parameters:
+           </strong>
+           <ul>
+            <li>
+             {0} the label that identifies the component
+            </li>
+            <li>
+             {1} value entered by the user
+            </li>
+            <li>
+             {2} the allowed length
+            </li>
+           </ul>
+          </p>]]>
+      </description>
+      <property-name>messageDetailExact</property-name>
+      <property-class>java.lang.String</property-class>
     </property>
     <validator-extension>
       <mfp:tag-name>tr:validateLength</mfp:tag-name>
@@ -155,7 +171,7 @@
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Matthias Wessendorf</mfp:author>
-      <mfp:uix2-local-name>validateLength</mfp:uix2-local-name>
+      <mfp:author>Adam Winer</mfp:author>
     </validator-extension>
   </validator>
 </faces-config>
