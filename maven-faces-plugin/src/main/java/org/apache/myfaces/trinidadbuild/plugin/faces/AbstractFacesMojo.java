@@ -1,74 +1,47 @@
 /*
-*            Licensed to the Apache Software Foundation (ASF) under one
-*            or more contributor license agreements.  See the NOTICE file
-*            distributed with this work for additional information
-*            regarding copyright ownership.  The ASF licenses this file
-*            to you under the Apache License, Version 2.0 (the
-*            "License"); you may not use this file except in compliance
-*            with the License.  You may obtain a copy of the License at
-* 
-*              http://www.apache.org/licenses/LICENSE-2.0
-* 
-*            Unless required by applicable law or agreed to in writing,
-*            software distributed under the License is distributed on an
-*            "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-*            KIND, either express or implied.  See the License for the
-*            specific language governing permissions and limitations
-*            under the License.
+* Copyright 2006 The Apache Software Foundation.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
 */
 package org.apache.myfaces.trinidadbuild.plugin.faces;
 
-import java.io.File;
-import java.io.IOException;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
-
-import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-
-import javax.xml.namespace.QName;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParserFactory;
-
-
-import org.apache.myfaces.trinidadbuild.plugin.faces.io.PrettyWriter;
-import org.apache.myfaces.trinidadbuild.plugin.faces.parse.AttributeBean;
-import org.apache.myfaces.trinidadbuild.plugin.faces.parse.ComponentBean;
-import org.apache.myfaces.trinidadbuild.plugin.faces.parse.ConverterBean;
-import org.apache.myfaces.trinidadbuild.plugin.faces.parse.FacesConfigBean;
-import org.apache.myfaces.trinidadbuild.plugin.faces.parse.FacesConfigParser;
-import org.apache.myfaces.trinidadbuild.plugin.faces.parse.PropertyBean;
-import org.apache.myfaces.trinidadbuild.plugin.faces.parse.ValidatorBean;
-import org.apache.myfaces.trinidadbuild.plugin.faces.util.AttributeFilter;
-import org.apache.myfaces.trinidadbuild.plugin.faces.util.ComponentFilter;
-import org.apache.myfaces.trinidadbuild.plugin.faces.util.ConverterFilter;
-import org.apache.myfaces.trinidadbuild.plugin.faces.util.Filter;
-import org.apache.myfaces.trinidadbuild.plugin.faces.util.FilteredIterator;
-import org.apache.myfaces.trinidadbuild.plugin.faces.util.PropertyFilter;
-import org.apache.myfaces.trinidadbuild.plugin.faces.util.Util;
-import org.apache.myfaces.trinidadbuild.plugin.faces.util.ValidatorFilter;
-import org.apache.myfaces.trinidadbuild.plugin.faces.util.XIncludeFilter;
 import org.apache.commons.digester.AbstractObjectCreationFactory;
 import org.apache.commons.digester.Digester;
-
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.model.Resource;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
-
+import org.apache.myfaces.trinidadbuild.plugin.faces.generator.GeneratorHelper;
+import org.apache.myfaces.trinidadbuild.plugin.faces.io.PrettyWriter;
+import org.apache.myfaces.trinidadbuild.plugin.faces.parse.*;
+import org.apache.myfaces.trinidadbuild.plugin.faces.util.*;
 import org.codehaus.plexus.util.FileUtils;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
+
+import javax.xml.namespace.QName;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParserFactory;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.net.URLConnection;
+import java.util.*;
 
 abstract public class AbstractFacesMojo extends AbstractMojo
 {
@@ -193,25 +166,69 @@ abstract public class AbstractFacesMojo extends AbstractMojo
     return false;
   }
 
+  /**
+  * @deprecated call Util.convertStringToLiteral instead
+  */
   protected String convertStringToLiteral(String value)
   {
-    return convertStringToLiteral("String", value);
+    return Util.convertStringToLiteral("String", value);
   }
 
+ /**
+  * @deprecated call Util.convertStringToLiteral instead
+  */
   protected String convertStringToLiteral(String className, String value)
   {
-    if (value == null)
+    return Util.convertStringToLiteral(className, value);
+  }
+
+  protected String readLicenseHeader() throws MojoExecutionException
+  {
+    if (licenseHeaderFile == null)
     {
-      return null;
+      return _DEFAULT_LICENSE_HEADER;
     }
-    else if ("String".equals(className))
+    
+    if (!licenseHeaderFile.exists())
     {
-      return "\"" + value.replaceAll("\'", "\\'") + "\"";
+      throw new MojoExecutionException("License header file not found: "
+                                       +licenseHeaderFile.getName());
     }
-    else
+
+    if (licenseHeaderFile.isDirectory())
     {
-      return value;
+       throw new MojoExecutionException("Expecting a file and found a directory: "
+               +licenseHeaderFile.getName());
     }
+
+    StringBuffer sb = new StringBuffer();
+    
+    try
+    {
+      BufferedReader reader = new BufferedReader(new FileReader(licenseHeaderFile));
+      String line;
+      
+      while ((line = reader.readLine()) != null)
+      {
+        sb.append(line+"\n");
+      }
+    }
+    catch (IOException e)
+    {
+      throw new MojoExecutionException("Exception reading license header file", e);
+    }
+    
+    return sb.toString();
+  }
+  
+  protected String getLicenseHeader() throws MojoExecutionException
+  {
+    if (_licenseHeader == null)
+    {
+      _licenseHeader = readLicenseHeader();
+    }
+    
+    return _licenseHeader;
   }
 
   static public class URLCreationFactory extends AbstractObjectCreationFactory
@@ -261,10 +278,10 @@ abstract public class AbstractFacesMojo extends AbstractMojo
   }
 
   protected void writePreamble(
-    PrettyWriter out)
+    PrettyWriter out) throws MojoExecutionException
   {
     out.write(_AUTO_GENERATE_WARNING);
-    out.write(_COPYRIGHT);
+    out.write(getLicenseHeader());
   }
 
   protected void copyFile(
@@ -293,27 +310,15 @@ abstract public class AbstractFacesMojo extends AbstractMojo
     }
   }
 
+ /**
+  * @deprecated use Util.writeImports instead
+  */
   protected void writeImports(
     PrettyWriter out,
     String       packageName,
     Set          imports)
   {
-    Iterator iterator = imports.iterator();
-    iterator = new FilteredIterator(iterator,
-                                    new PackageImportsFilter(packageName));
-    while (iterator.hasNext())
-    {
-      String className = (String)iterator.next();
-      out.println("import " + className + ";");
-    }
-
-    out.println();
-  }
-
-  protected String convertMultilineComment(
-    String commentBody)
-  {
-    return commentBody.replaceAll("\n", "\n * ");
+    GeneratorHelper.writeImports(out,packageName,imports);
   }
 
   private ClassLoader createCompileClassLoader(
@@ -348,16 +353,17 @@ abstract public class AbstractFacesMojo extends AbstractMojo
     return cl;
   }
 
-  static protected class SkipFilter extends ComponentFilter
+  protected class SkipFilter extends ComponentFilter
   {
     protected boolean accept(
       ComponentBean component)
     {
       String componentType = component.getComponentType();
 
-      // always skip API and base class generation
-      return (!componentType.startsWith("javax") &&
-              !componentType.endsWith("Base"));
+      // skip API and base class generation?
+      return !skipApiOrBaseClasses || (!componentType.startsWith("javax") &&
+                !componentType.endsWith("Base"));
+
     }
   }
 
@@ -372,7 +378,7 @@ abstract public class AbstractFacesMojo extends AbstractMojo
     protected boolean accept(
       ComponentBean component)
     {
-      String componentType = component.getComponentType();
+      String componentType = component.getComponentType();        
       return (componentType.startsWith(_typePrefix));
     }
      private final String _typePrefix;
@@ -462,14 +468,7 @@ abstract public class AbstractFacesMojo extends AbstractMojo
     private final String _packageContains;
   }
 
-  static final protected class TagAttributeFilter extends PropertyFilter
-  {
-    protected boolean accept(
-      PropertyBean property)
-    {
-      return (!property.isTagAttributeExcluded());
-    }
-  }
+  
 
   static final protected class ComponentTagFilter extends ComponentFilter
   {
@@ -576,49 +575,42 @@ abstract public class AbstractFacesMojo extends AbstractMojo
     }
   }
 
-  static private class PackageImportsFilter implements Filter
-  {
-    public PackageImportsFilter(
-      String packageName)
-    {
-      _packageName = packageName;
-    }
+ /**
+  * @parameter
+  */
+  private File licenseHeaderFile;
 
-    public boolean accept(
-      Object object)
-    {
-      String className = (String)object;
-      String packageName = Util.getPackageFromFullClass(className);
-      return (!packageName.equals(_packageName) &&
-              !packageName.equals("java.lang"));
-    }
-
-    private final String _packageName;
-  }
+  /**
+  * @parameter default-value = "true"
+  */
+  private boolean skipApiOrBaseClasses;
 
   private FacesConfigBean _facesConfig;
+  private String _licenseHeader;
 
   static final private String _AUTO_GENERATE_WARNING =
 "// WARNING: This file was automatically generated. Do not edit it directly,\n"+
 "//          or you will lose your changes.\n\n";
 
-  static private final String _COPYRIGHT =
-                  "/*\n" +
-                  " * Licensed to the Apache Software Foundation (ASF) under one\n" +
-                  " * or more contributor license agreements.  See the NOTICE file\n" +
-                  " * distributed with this work for additional information\n" +
-                  " * regarding copyright ownership.  The ASF licenses this file\n" +
-                  " * to you under the Apache License, Version 2.0 (the\n" +
-                  " * \"License\"); you may not use this file except in compliance\n" +
-                  " * with the License.  You may obtain a copy of the License at\n" +
-                  " *\n" +
-                  " *   http://www.apache.org/licenses/LICENSE-2.0\n" +
-                  " *\n" +
-                  " * Unless required by applicable law or agreed to in writing,\n" +
-                  " * software distributed under the License is distributed on an\n" +
-                  " * \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\n" +
-                  " * KIND, either express or implied.  See the License for the\n" +
-                  " * specific language governing permissions and limitations\n" +
-                  " * under the License.\n" +
-                  "*/\n";
+
+  static final private String _DEFAULT_LICENSE_HEADER =
+    "/*\n" +
+    " * Licensed to the Apache Software Foundation (ASF) under one\n" +
+    " * or more contributor license agreements.  See the NOTICE file\n" +
+    " * distributed with this work for additional information\n" +
+    " * regarding copyright ownership.  The ASF licenses this file\n" +
+    " * to you under the Apache License, Version 2.0 (the\n" +
+    " * \"License\"); you may not use this file except in compliance\n" +
+    " * with the License.  You may obtain a copy of the License at\n" +
+    " *\n" +
+    " *   http://www.apache.org/licenses/LICENSE-2.0\n" +
+    " *\n" +
+    " * Unless required by applicable law or agreed to in writing,\n" +
+    " * software distributed under the License is distributed on an\n" +
+    " * \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\n" +
+    " * KIND, either express or implied.  See the License for the\n" +
+    " * specific language governing permissions and limitations\n" +
+    " * under the License.\n" +
+    "*/\n";
 }
+  

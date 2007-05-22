@@ -18,16 +18,14 @@
  */
 package org.apache.myfaces.trinidadbuild.plugin.faces.parse;
 
-import java.lang.reflect.Modifier;
+import org.apache.myfaces.trinidadbuild.plugin.faces.util.CompoundIterator;
 
+import javax.xml.namespace.QName;
+import java.lang.reflect.Modifier;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Logger;
-
-import javax.xml.namespace.QName;
-
-import org.apache.myfaces.trinidadbuild.plugin.faces.util.CompoundIterator;
 
 /**
  * ComponentBean is a Java representation of the faces-config component
@@ -228,6 +226,27 @@ public class ComponentBean extends ObjectBean
     return _tagClass;
   }
 
+   /**
+   * Sets the JSP tag handler superclass for this component.
+   *
+   * @param tagSuperclass  the JSP tag handler superclass
+   */
+  public void setTagSuperclass(
+    String tagSuperclass)
+  {
+    _tagSuperclass = tagSuperclass;
+  }
+
+  /**
+   * Returns the JSP tag handler superclass for this component.
+   *
+   * @return  the JSP tag handler superclass
+   */
+  public String getTagSuperclass()
+  {
+    return _tagSuperclass;
+  }
+
   /**
    * Returns the JSP tag name for this component.
    *
@@ -334,27 +353,6 @@ public class ComponentBean extends ObjectBean
   }
 
   /**
-   * Sets the peer type for this component.
-   *
-   * @param peerType  the peer type
-   */
-  public void setPeerType(
-    String peerType)
-  {
-    _peerType = peerType;
-  }
-
-  /**
-   * Returns the peer type for this component.
-   *
-   * @return  the peer type
-   */
-  public String getPeerType()
-  {
-    return _peerType;
-  }
-
-  /**
    * Returns the default renderer type for this component.
    *
    * @return  the default renderer type
@@ -365,16 +363,16 @@ public class ComponentBean extends ObjectBean
     return (parent != null) ? parent.findRendererType() : null;
   }
 
-  /**
-   * Returns the default peer type for this component.
-   *
-   * @return  the default peer type
-   */
-  public String getDefaultPeerType()
+  public String getImplementationType()
   {
-    ComponentBean parent = resolveSupertype();
-    return (parent != null) ? parent.findPeerType() : null;
+    return _implementationType;
   }
+
+  public void setImplementationType(String implementationType)
+  {
+    _implementationType = implementationType;
+  }
+
 
   /**
    * Adds a property to this component.
@@ -482,6 +480,15 @@ public class ComponentBean extends ObjectBean
         properties = new CompoundIterator(parent.properties(true), properties);
     }
     return properties;
+  }
+
+ /**
+  * Number of properties for this component
+  * @return num of properties
+  */
+  public int propertiesSize()
+  {
+    return _properties.size();
   }
 
   /**
@@ -858,20 +865,6 @@ public class ComponentBean extends ObjectBean
     return (parent != null) ? parent.findRendererType() : null;
   }
 
-  /**
-   * Finds the peer type in the component inheritance
-   * hierarchy.
-   *
-   * @return  the peer type
-   */
-  public String findPeerType()
-  {
-    if (_peerType != null)
-      return _peerType;
-
-    ComponentBean parent = resolveSupertype();
-    return (parent != null) ? parent.findPeerType() : null;
-  }
 
   /**
    * Finds the component superclass in the component inheritance
@@ -917,6 +910,31 @@ public class ComponentBean extends ObjectBean
 
     FacesConfigBean owner = getOwner();
     return (owner != null) ? owner.findComponent(_componentSupertype) : null;
+  }
+
+  /**
+   * Checks if any of the component superclasses is UIXComponentBase
+   */
+  public boolean isTrinidadComponent()
+  {
+    String implementationType = getImplementationType();
+    if (implementationType != null)
+      return "trinidad".equals(implementationType);
+
+    ComponentBean componentSupertype = resolveSupertype();
+    if (componentSupertype != null)
+    {
+      if (_TRINIDAD_COMPONENT_BASE.equals(componentSupertype.getComponentClass()))
+      {
+        return true;
+      }
+      else
+      {
+        return componentSupertype.isTrinidadComponent();
+      }
+    }
+    
+    return false;
   }
 
   /**
@@ -974,7 +992,7 @@ public class ComponentBean extends ObjectBean
   private String  _componentSupertype;
   private String  _componentSuperclass;
   private String  _rendererType;
-  private String  _peerType;
+  private String  _implementationType;
   private QName   _tagName;
   private String  _tagClass;
   private String  _tagSuperclass;

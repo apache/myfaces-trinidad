@@ -779,12 +779,12 @@ public class JSLocaleElementsGenerator
 "\n" +
 "import java.util.HashMap;\n" +
 "\n" +
-"/**\n" +
+"/*\n" +
 " * List of supported locales.  Automatically generated - do not modify!\n" +
 " */\n" +
 "public class LocaleList\n" +
 "{\n" +
-"  /**\n" +
+"  /*\n" +
 "   * Returns the list of supported locales.\n" +
 "   */\n" +
 "  static public HashMap<Locale, Locale> getSupportedLocales()\n" +
@@ -851,7 +851,4 @@ public class JSLocaleElementsGenerator
 
     private static final Object[] _EMPTY_ARRAY = new Object[0];
   }
-
 }
-
-

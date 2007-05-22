@@ -23,12 +23,12 @@
   <parent>
     <groupId>org.apache.myfaces.trinidadbuild</groupId>
     <artifactId>maven-plugin-parent</artifactId> 
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.2-07-may-SNAPSHOT</version>
   </parent>
 
   <groupId>org.apache.myfaces.trinidadbuild</groupId>
   <artifactId>maven-tagdoc-plugin</artifactId> 
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.2-07-may-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
   <name>Apache Trinidad Maven Tag Documentation Report</name>
 
@@ -92,7 +92,7 @@
     <dependency>
       <groupId>org.apache.myfaces.trinidadbuild</groupId>
       <artifactId>maven-faces-plugin</artifactId>
-      <version>1.0.1-SNAPSHOT</version>
+      <version>1.2-07-may-SNAPSHOT</version>
     </dependency>
       <dependency>
         <groupId>org.apache.maven</groupId>

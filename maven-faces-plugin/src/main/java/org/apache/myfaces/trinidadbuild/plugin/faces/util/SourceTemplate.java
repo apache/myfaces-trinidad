@@ -18,19 +18,8 @@
  */
 package org.apache.myfaces.trinidadbuild.plugin.faces.util;
 
-import java.io.BufferedReader;
-import java.io.EOFException;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Writer;
-
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.io.*;
+import java.util.*;
 
 public class SourceTemplate
 {
@@ -104,8 +93,15 @@ public class SourceTemplate
       if (line == null)
         throw new EOFException("File " + _file + " ended prematurely");
 
-      if (line.startsWith(_IGNORE_PREFIX))
-        continue;
+      if (line.trim().startsWith(_IGNORE_PREFIX)){
+		  if (line.trim().startsWith(_IGNORE_PREFIX2)){
+			  String method = line.trim().substring(_IGNORE_PREFIX2.length()).trim();
+			  if (method.length() > 0 ){
+				  _ignoreMethods.add(method);
+			  }
+		  }
+		  continue;
+	  }
 
       if (line.equals("}"))
         break;
@@ -150,13 +146,19 @@ public class SourceTemplate
     return buffer.toString();
   }
 
-  private File           _file;
+	public Collection getIgnoreMethods() {
+		return _ignoreMethods;
+	}
+
+	private File           _file;
   private BufferedReader _reader;
   private Set            _imports = new HashSet();
   private Map            _fqcnMap = new HashMap();
   private Set            _implements = new HashSet();
   private Map            _substitutions = new HashMap();
+  private Set            _ignoreMethods = new HashSet();
 
   // Magic syntax indicating "please ignore this line"
   static private final String _IGNORE_PREFIX = "/**/";
+  static private final String _IGNORE_PREFIX2 = "/**///";
 }

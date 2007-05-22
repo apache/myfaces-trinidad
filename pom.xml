@@ -25,7 +25,7 @@
 
   <groupId>org.apache.myfaces.trinidadbuild</groupId>
   <artifactId>maven-plugin-parent</artifactId> 
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.2-07-may-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Apache Trinidad Maven Plugin Parent</name>
 
@@ -177,7 +177,6 @@
             <configuration>
             <resourceBundles>
               <resourceBundle>org.apache:apache-jar-resource-bundle:1.1</resourceBundle>
-              <resourceBundle>org.apache:apache-incubator-disclaimer-resource-bundle:1.0</resourceBundle>
             </resourceBundles>
             <properties>
               <addLicense>true</addLicense>
@@ -191,10 +190,10 @@
 
   <scm>
     <connection>
-      scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad/trunk/plugins/
+      scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad/branches/faces-1_2-070427/plugins/
     </connection>
     <developerConnection>
-      scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad/trunk/plugins/
+      scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad/branches/faces-1_2-070427/plugins/
     </developerConnection>
   </scm>
 

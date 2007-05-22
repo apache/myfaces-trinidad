@@ -23,12 +23,12 @@
   <parent>
     <groupId>org.apache.myfaces.trinidadbuild</groupId>
     <artifactId>maven-plugin-parent</artifactId> 
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.2-07-may-SNAPSHOT</version>
   </parent>
 
   <groupId>org.apache.myfaces.trinidadbuild</groupId>
   <artifactId>maven-javascript-plugin</artifactId> 
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.2-07-may-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
   <name>Apache Trinidad Maven Javascript Plugin</name>
 
@@ -46,7 +46,7 @@
       <plugin>
 	<groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-javacc-plugin</artifactId>
-        <version>1.0.1-SNAPSHOT</version>
+        <version>1.2-07-may-SNAPSHOT</version>
         <configuration>
           <sourceDirectory>src/main/java</sourceDirectory>
           <sourcePath>org/apache/myfaces/trinidadbuild/plugin/javascript/obfuscator/javascript15parser</sourcePath>
