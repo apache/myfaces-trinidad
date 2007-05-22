@@ -319,7 +319,7 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
         
         if (doubleValue > max)
         {
-          if (min == Double.MIN_VALUE)//the default...
+          if (min != Double.MIN_VALUE)//the default...
           {
              throw new ValidatorException
                         (_getNotInRangeMessage(context, component, value, min, max));
@@ -333,7 +333,7 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
 
         if (doubleValue < min)
         {
-          if (max == Double.MAX_VALUE)//the default...
+          if (max != Double.MAX_VALUE)//the default...
           {
             throw new ValidatorException
                         (_getNotInRangeMessage(context, component, value, min, max));

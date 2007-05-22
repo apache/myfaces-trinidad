@@ -321,7 +321,7 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
         
         if (longValue > max)
         {
-          if (min == Long.MIN_VALUE)//the default...
+          if (min != Long.MIN_VALUE)//the default...
           {
              throw new ValidatorException
                         (_getNotInRangeMessage(context, component, value, IntegerUtils.getString(min), IntegerUtils.getString(max)));
@@ -335,7 +335,7 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
 
         if (longValue < min)
         {
-          if (max == Long.MAX_VALUE)//the default...
+          if (max != Long.MAX_VALUE)//the default...
           {
             throw new ValidatorException
                         (_getNotInRangeMessage(context, component, value, IntegerUtils.getString(min), IntegerUtils.getString(max)));
