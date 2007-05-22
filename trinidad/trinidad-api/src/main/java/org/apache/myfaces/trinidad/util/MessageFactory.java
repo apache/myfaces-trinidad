@@ -566,30 +566,19 @@ public class MessageFactory
     public String getMessage()
     {
       String pattern = super.getMessage();
-      _resolveBindings();
-      return _getFormattedString(pattern, _resolvedParameters);
+      return _getFormattedString(pattern, getResolvedParameters());
     }
 
     @Override
     public String getDetailMessage()
     {
       String pattern = super.getDetailMessage();
-      _resolveBindings();
-      return _getFormattedString(pattern, _resolvedParameters);
-    }
-
-    private void _resolveBindings()
-    {
-      if (_resolvedParameters == null)
-      {
-        _resolvedParameters = _getProcessedBindings(null, _parameters);
-      }
+      return _getFormattedString(pattern, getResolvedParameters());
     }
 
     protected final Object[] getResolvedParameters()
     {
-      _resolveBindings();
-      return _resolvedParameters;
+      return _getProcessedBindings(null, _parameters);
     }
 
     protected final Object[] getParameters()
@@ -598,7 +587,6 @@ public class MessageFactory
     }
 
     private Object[] _parameters;
-    private Object[] _resolvedParameters;
   }
 
   // Though it may not be exactly correct to extend BindingErrorMessages
