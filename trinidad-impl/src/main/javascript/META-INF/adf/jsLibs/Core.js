@@ -1260,9 +1260,6 @@ function _validateInline(
   
   var firstFailure = true;
 
-  // TODO - Check if we really need this with inline validation
-  _recordValidation(true, 0);
-
   var failureString = "";
   for (var i = 0; i < validators.length; i += 5)
   {
@@ -1320,9 +1317,6 @@ function _validateInline(
     }
 
   }
-
-  // TODO - Check if we really need this with inline validation
-  _recordValidation(true, 0);
 
   return (failureArray.length == 0);
 }
@@ -2654,7 +2648,8 @@ function _multiValidate(
               {
                 var validator = eval(validatorConstructor);
 
-                try {
+                try 
+                {
                   validator.validate(value, label, converter);
                 }
                 catch (e)
@@ -2681,8 +2676,6 @@ function _multiValidate(
         }
       }
     }
-
-    _recordValidation((failures.length > 0), 0);
   }
   
   return failureArray;
