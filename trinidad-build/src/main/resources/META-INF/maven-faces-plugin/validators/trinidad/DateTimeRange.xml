@@ -1,4 +1,4 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" ?> 
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
@@ -33,7 +33,11 @@
       </description>
       <property-name>maximum</property-name>
       <property-class>java.util.Date</property-class>
-      <property-extension/>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:preferred>true</mfp:preferred>
+        </mfp:property-metadata>
+      </property-extension>
     </property>
     <property>
       <description><![CDATA[The minimum java.util.Date.
@@ -74,11 +78,6 @@
       </description>
       <property-name>messageDetailMaximum</property-name>
       <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
-      </property-extension>
     </property>
     <property>
       <description><![CDATA[<p>
@@ -105,11 +104,6 @@
       </description>
       <property-name>messageDetailMinimum</property-name>
       <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
-      </property-extension>
     </property>
         <property>
       <description><![CDATA[<p>
@@ -140,11 +134,6 @@
       </description>
       <property-name>messageDetailNotInRange</property-name>
       <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
-      </property-extension>
     </property>
     <validator-extension>
       <mfp:tag-name>tr:validateDateTimeRange</mfp:tag-name>
@@ -173,7 +162,6 @@
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Gabrielle Crawford</mfp:author>
-      <mfp:uix2-local-name>validateDateTimeRange</mfp:uix2-local-name>
     </validator-extension>
   </validator>
 </faces-config>

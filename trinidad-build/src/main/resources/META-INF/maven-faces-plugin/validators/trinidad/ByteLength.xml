@@ -801,7 +801,6 @@
       <mfp:validator-metadata>
         <mfp:favorite-property>maximum</mfp:favorite-property>
       </mfp:validator-metadata>
-      <mfp:uix2-local-name>validateByteLength</mfp:uix2-local-name>
     </validator-extension>
   </validator>
 </faces-config>

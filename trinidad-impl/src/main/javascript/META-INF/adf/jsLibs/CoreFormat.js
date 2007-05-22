@@ -552,9 +552,12 @@ TrLengthValidator.prototype.getHints = function(
     this._minValue,
     "org.apache.myfaces.trinidad.validator.LengthValidator.MAXIMUM_HINT",
     "org.apache.myfaces.trinidad.validator.LengthValidator.MINIMUM_HINT",
-    "org.apache.myfaces.trinidad.validator.LengthValidator.RANGE_HINT",
+    (this._minValue == this._maxValue)
+      ? "org.apache.myfaces.trinidad.validator.LengthValidator.EXACT_HINT"
+      : "org.apache.myfaces.trinidad.validator.LengthValidator.RANGE_HINT",
     "hintMax",
     "hintMin",
+    // The server always sends down "hintRange" for exact or non-exact
     "hintRange"
   );
 }
@@ -568,13 +571,43 @@ TrLengthValidator.prototype.validate  = function(
   var string = "" + value;
   var length = string.length;
   
-  if(length >= this._minValue && length <= this._maxValue)
+  // If validation succeeds, return
+  if (length >= this._minValue &&
+     ((this._maxValue == null) || (length <= this._maxValue)))
   {
     return string;
   }
   else
   {
-    if(length < this._minValue) //to short
+    if ((this._minValue > 0) && (this._maxValue != null))
+    {
+      var exact = (this._minValue == this._maxValue);
+      var key = exact
+        ? "org.apache.myfaces.trinidad.validator.LengthValidator.EXACT"
+        : "org.apache.myfaces.trinidad.validator.LengthValidator.NOT_IN_RANGE";
+      var facesMessage;
+      var customKey = "range";
+
+      if(this._messages && this._messages[customKey])
+      {
+        facesMessage = _createCustomFacesMessage(TrMessageFactory.getSummaryString(key),
+                                        this._messages[customKey],
+                                        label,
+                                        string,
+                                        ""+this._minValue,
+                                        ""+this._maxValue);
+      }
+      else
+      {
+        facesMessage = _createFacesMessage(key,
+                                        label,
+                                        string,
+                                        ""+this._minValue,
+                                        ""+this._maxValue);
+      }
+      throw new TrConverterException(facesMessage);
+    }
+    else if (length < this._minValue) //too short
     {
       var key = "org.apache.myfaces.trinidad.validator.LengthValidator.MINIMUM";
       var facesMessage;
@@ -595,7 +628,7 @@ TrLengthValidator.prototype.validate  = function(
       }
       throw new TrConverterException(facesMessage);
     }
-    if(length > this._maxValue) //to long
+    else // too long
     {
       var key = "org.apache.myfaces.trinidad.validator.LengthValidator.MAXIMUM";
       var facesMessage;

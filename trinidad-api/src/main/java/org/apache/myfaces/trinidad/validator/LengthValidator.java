@@ -33,7 +33,7 @@ import org.apache.myfaces.trinidad.util.IntegerUtils;
 import org.apache.myfaces.trinidad.util.MessageFactory;
 
 /**
- * <p>Implementation for <code>java.lang.Integer</code> values.</p>
+ * <p>Implementation for length of <code>java.lang.String</code> values.</p>
  *
  */
 public class LengthValidator extends javax.faces.validator.LengthValidator
@@ -43,21 +43,21 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
 
   /**
    * <p>The message identifier of the {@link javax.faces.application.FacesMessage}
-   * to be created if the maximum value check fails.  The message format
+   * to be created if the maximum length check fails.  The message format
    * string for this message may optionally include <code>{0}</code>,
    * <code>{1}</code> and <code>{3}</code> placeholders,
    * which will be replaced by user input, component label and configured
-   * maximum value.</p>
+   * maximum length.</p>
    */
   public static final String MAXIMUM_MESSAGE_ID =
       "org.apache.myfaces.trinidad.validator.LengthValidator.MAXIMUM";
 
   /**
    * <p>The message identifier of the {@link javax.faces.application.FacesMessage}
-   * to be created if the minimum value check fails.  The message format
+   * to be created if the minimum length check fails.  The message format
    * string for this message may optionally include <code>{0}</code>,
    * <code>{1}</code> and <code>{2}</code> placeholders, which will be replaced
-   * by user input, component label and configured minimum value.</p>
+   * by user input, component label and configured minimum length.</p>
    */
   public static final String MINIMUM_MESSAGE_ID =
       "org.apache.myfaces.trinidad.validator.LengthValidator.MINIMUM";
@@ -65,15 +65,28 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
 
   /**
    * <p>The message identifier of the {@link javax.faces.application.FacesMessage}
-   * to be created if the maximum or minimum value check fails, and both
-   * the maximum and minimum values for this validator have been set.
+   * to be created if the maximum or minimum length check fails, and both
+   * the maximum and minimum lengths for this validator have been set.
    * The message format string for this message may optionally include
    * <code>{0}</code>, <code>{1}</code>, <code>{2}</code> and <code>{3}</code>
    * placeholders, which will be replaced by user input, component label,
-   * configured minimum value and configured maximum value.</p>
+   * configured minimum length and configured maximum length.</p>
    */
   public static final String NOT_IN_RANGE_MESSAGE_ID =
       "org.apache.myfaces.trinidad.validator.LengthValidator.NOT_IN_RANGE";
+
+  /**
+   * <p>The message identifier of the {@link javax.faces.application.FacesMessage}
+   * to be created if the maximum and minimum lengths are the same,
+   * and the length check fails, and both
+   * the maximum and minimum values for this validator have been set.
+   * The message format string for this message may optionally include
+   * <code>{0}</code>, <code>{1}</code>, <code>{2}</code>
+   * placeholders, which will be replaced by user input, component label,
+   * configured minimum/maximum length.</p>
+   */
+  public static final String EXACT_MESSAGE_ID =
+      "org.apache.myfaces.trinidad.validator.LengthValidator.EXACT";
 
   
   /**
@@ -88,7 +101,7 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
    * Construct a {@link Validator} with the specified preconfigured
    * limit.
    *
-   * @param maximum Maximum value to allow
+   * @param maximum Maximum length to allow
    */
   public LengthValidator(int maximum)
   {
@@ -99,8 +112,8 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
    * Construct a {@link Validator} with the specified preconfigured
    * limits.
    *
-   * @param maximum Maximum value to allow
-   * @param minimum Minimum value to allow
+   * @param maximum Maximum length to allow
+   * @param minimum Minimum length to allow
    *
    */
   public LengthValidator(int maximum, int minimum)
@@ -109,7 +122,7 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
   }
   
   /**
-   * Return the maximum value to be enforced by this {@link
+   * Return the maximum length to be enforced by this {@link
    * Validator} or null if it has not been
    * set.
    */
@@ -117,15 +130,15 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
   public int getMaximum()
   {
     Object maxInt = _facesBean.getProperty(_MAXIMUM_KEY);
-    if(maxInt == null)
-      maxInt = Integer.MAX_VALUE;
+    if (maxInt == null)
+      maxInt = _MAXIMUM_KEY.getDefault();
     return ComponentUtils.resolveInteger(maxInt);
   }
 
   /**
-   * Set the maximum value to be enforced by this {@link Validator}.
+   * Set the maximum length to be enforced by this {@link Validator}.
    *
-   * @param maximum The new maximum value
+   * @param maximum The new maximum length
    *
    */
   @Override
@@ -137,7 +150,7 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
 
 
   /**
-   * Return the minimum value to be enforced by this {@link
+   * Return the minimum length to be enforced by this {@link
    * Validator}, or null if it has not been
    * set.
    */
@@ -145,13 +158,15 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
   public int getMinimum()
   {
     Object minInt = _facesBean.getProperty(_MINIMUM_KEY);
+    if (minInt == null)
+      minInt = _MINIMUM_KEY.getDefault();
     return ComponentUtils.resolveInteger(minInt);
   }
 
   /**
-   * Set the minimum value to be enforced by this {@link Validator}.
+   * Set the minimum length to be enforced by this {@link Validator}.
    *
-   * @param minimum The new minimum value
+   * @param minimum The new minimum length
    *
    */
   @Override
@@ -163,7 +178,7 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
 
   /**
    * <p>Custom error message to be used, for creating detail part of the
-   * {@link FacesMessage}, when input value exceeds the maximum value set.</p>
+   * {@link FacesMessage}, when input length exceeds the maximum length set.</p>
    * Overrides detail message identified by message id {@link #MAXIMUM_MESSAGE_ID}
    * @param maximumMessageDetail Custom error message.
    */
@@ -174,7 +189,7 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
 
   /**
    *  <p>Return custom detail error message that was set for creating {@link FacesMessage},
-   *  for cases where input value exceeds the <code>maximum</code> value set.</p>
+   *  for cases where input length exceeds the <code>maximum</code> length set.</p>
    * @return Custom error message.
    * @see #setMessageDetailMaximum(String)
    */
@@ -186,8 +201,8 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
 
   /**
    * <p>Custom error message to be used, for creating detail part of the
-   * {@link FacesMessage}, when input value is less the set
-   * <code>minimum</code> value.</p>
+   * {@link FacesMessage}, when input length is less the set
+   * <code>minimum</code> length.</p>
    * Overrides detail message identified by message id {@link #MINIMUM_MESSAGE_ID}
    * @param minimumMessageDetail Custom error message.
    */
@@ -198,7 +213,7 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
 
   /**
    * <p>Return custom detail error message that was set for creating {@link FacesMessage},
-   * for cases where, input value is less than the <code>minimum</code> value set.</p>
+   * for cases where, input length is less than the <code>minimum</code> length set.</p>
    * @return Custom error message.
    * @see #setMessageDetailMinimum(String)
    */
@@ -210,7 +225,7 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
 
   /**
    * <p>Custom error message to be used, for creating detail part of the
-   * {@link FacesMessage}, when input value is not with in the range,
+   * {@link FacesMessage}, when input length is not with in the range,
    * when <code>minimum</code> and <code>maximum</code> is set.</p>
    * Overrides detail message identified by message id {@link #NOT_IN_RANGE_MESSAGE_ID}
    * @param notInRangeMessageDetail Custom error message.
@@ -222,8 +237,8 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
 
   /**
    * <p>Return custom detail error message that was set for creating {@link FacesMessage},
-   * for cases where, input value exceeds the <code>maximum</code> value and is
-   * less than the <code>minimum</code> value set.</p>
+   * for cases where, input length exceeds the <code>maximum</code> length and is
+   * less than the <code>minimum</code> length set.</p>
    * @return Custom error message.
    * @see #setMessageDetailNotInRange(String)
    */
@@ -232,6 +247,34 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
     Object notInRngMsg = _facesBean.getProperty(_NOT_IN_RANGE_MESSAGE_DETAIL_KEY);
     return ComponentUtils.resolveString(notInRngMsg);
   }
+
+
+  /**
+   * <p>Custom error message to be used, for creating detail part of the
+   * {@link FacesMessage}, 
+   * for cases where the maximum and minimum lengths are the same, and
+   * the input length does not match.
+   * Overrides detail message identified by message id {@link #EXACT_MESSAGE_ID}
+   * @param exactMessageDetail Custom error message.
+   */
+  public void setMessageDetailExact(String exactMessageDetail)
+  {
+    _facesBean.setProperty(_EXACT_MESSAGE_DETAIL_KEY, exactMessageDetail);
+  }
+
+  /**
+   * <p>Return custom detail error message that was set for creating {@link FacesMessage},
+   * for cases where the maximum and minimum lengths are the same, and
+   * the input length does not match.</p>
+   * @return Custom error message.
+   * @see #setMessageDetailExact(String)
+   */
+  public String getMessageDetailExact()
+  {
+    Object msg = _facesBean.getProperty(_EXACT_MESSAGE_DETAIL_KEY);
+    return ComponentUtils.resolveString(msg);
+  }
+
   
   /**
    * <p>Custom hint maximum message.</p>
@@ -295,6 +338,28 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
     Object obj = _facesBean.getProperty(_HINT_NOT_IN_RANGE);
     return ComponentUtils.resolveString(obj);
   }
+
+
+  /**
+   * <p>Custom hint exact message.</p>
+   * Overrides default hint message
+   * @param hintExact Custom hint message.
+   */
+  public void setHintExact(String hintExact)
+  {
+    _facesBean.setProperty(_HINT_EXACT, hintExact);
+  }
+
+  /**
+   * <p>Return custom hint exact message.</p>
+   * @return Custom hint message.
+   * @see  #setHintExact
+   */
+  public String getHintExact()
+  {
+    Object obj = _facesBean.getProperty(_HINT_EXACT);
+    return ComponentUtils.resolveString(obj);
+  }
   
   @Override
   public void validate(
@@ -309,45 +374,31 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
     }
     catch (ValidatorException ve)
     {
-         
-      if (value != null && value instanceof Number)
+      // We don't really care about the value.  It
+      // failed validation in the superclass, so we just
+      // care about what sort of message to show
+      int min = getMinimum();
+      int max = getMaximum();
+      
+      // FIXME: the default of max should be zero, not MAX_VALUE,
+      // at least according to the superclass
+      if (max != Integer.MAX_VALUE)
       {
-        int intValue = ((Number)value).intValue(); 
-        
-        long min = getMinimum();
-        long max = getMaximum();
-        
-        if (intValue > max)
+        if (min > 0)
         {
-          if (min == Integer.MIN_VALUE)//the default...
-          {
-             throw new ValidatorException
-                        (_getNotInRangeMessage(context, component, value, IntegerUtils.getString(min), IntegerUtils.getString(max)));
-          }
-          else
-          {
-             throw new ValidatorException
-                        (_getMaximumMessage(context, component, value, IntegerUtils.getString(max)));
-          }
+          throw new ValidatorException(
+            _getNotInRangeMessage(context, component, value, min, max));
         }
-
-        if (intValue < min)
+        else
         {
-          if (max == Integer.MAX_VALUE)//the default...
-          {
-            throw new ValidatorException
-                        (_getNotInRangeMessage(context, component, value, IntegerUtils.getString(min), IntegerUtils.getString(max)));
-          }
-          else
-          {
-            FacesMessage msg = _getMinimumMessage(context, component, value, IntegerUtils.getString(min));
-            throw new ValidatorException(msg);
-          }
+          throw new ValidatorException(
+            _getMaximumMessage(context, component, value, max));
         }
       }
       else
       {
-        throw ve;
+        throw new ValidatorException(
+          _getMinimumMessage(context, component, value, min));
       }
     }     
   }
@@ -414,81 +465,113 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
     _transientValue = transientValue;
   }
 
+
   private FacesMessage _getNotInRangeMessage(
       FacesContext context,
       UIComponent component,
       Object value,
       Object min,
       Object max)
-    {
-      Object msg   = _getRawNotInRangeMessageDetail();
-      Object label = ValidatorUtils.getComponentLabel(component);
+  {
+    if (min.equals(max))
+      return _getExactMessage(context, component, value, min);
 
-      Object[] params = {label, value, min, max};
-
-      return MessageFactory.getMessage(context, NOT_IN_RANGE_MESSAGE_ID,
-                                        msg, params, component);
-    }
-
-
+    Object msg   = _getRawNotInRangeMessageDetail();
+    Object label = ValidatorUtils.getComponentLabel(component);
     
-    private Object _getRawNotInRangeMessageDetail()
-    {
-      return _facesBean.getRawProperty(_NOT_IN_RANGE_MESSAGE_DETAIL_KEY);
-    }
+    Object[] params = {label, value, min, max};
+    
+    return MessageFactory.getMessage(context, NOT_IN_RANGE_MESSAGE_ID,
+                                     msg, params, component);
+  }
+
+  
+  private Object _getRawNotInRangeMessageDetail()
+  {
+    return _facesBean.getRawProperty(_NOT_IN_RANGE_MESSAGE_DETAIL_KEY);
+  }
 
 
-    private FacesMessage _getMaximumMessage(
+  private FacesMessage _getExactMessage(
       FacesContext context,
       UIComponent component,
       Object value,
-      Object max)
-    {
+      Object minMax)
+  {
+    Object msg   = _getRawExactMessageDetail();
+    Object label = ValidatorUtils.getComponentLabel(component);
+    
+    Object[] params = {label, value, minMax};
+    
+    return MessageFactory.getMessage(context, EXACT_MESSAGE_ID,
+                                     msg, params, component);
+  }
+  
 
-      Object msg   = _getRawMaximumMessageDetail();
-      Object label = ValidatorUtils.getComponentLabel(component);
-
-      Object[] params = {label, value, max};
-
-      return MessageFactory.getMessage(context,
-                                       MAXIMUM_MESSAGE_ID,
-                                       msg,
-                                       params,
-                                       component);
-    }
-
-    private Object _getRawMaximumMessageDetail()
-    {
-      return _facesBean.getRawProperty(_MAXIMUM_MESSAGE_DETAIL_KEY);
-    }
-
-    private FacesMessage _getMinimumMessage(
-      FacesContext context,
-      UIComponent component,
-      Object value,
-      Object min)
-    {
-      Object msg      = _getRawMinimumMessageDetail();
-      Object label    = ValidatorUtils.getComponentLabel(component);
-
-      Object[] params = {label, value, min};
-
-      return MessageFactory.getMessage(context, MINIMUM_MESSAGE_ID,
-                                       msg, params, component);
-    }
-
-    private Object _getRawMinimumMessageDetail()
-    {
-      return _facesBean.getRawProperty(_MINIMUM_MESSAGE_DETAIL_KEY);
-    }
-
+  private Object _getRawExactMessageDetail()
+  {
+    return _facesBean.getRawProperty(_EXACT_MESSAGE_DETAIL_KEY);
+  }
+  
+  
+  private FacesMessage _getMaximumMessage(
+    FacesContext context,
+    UIComponent component,
+    Object value,
+    Object max)
+  {
+    
+    Object msg   = _getRawMaximumMessageDetail();
+    Object label = ValidatorUtils.getComponentLabel(component);
+    
+    Object[] params = {label, value, max};
+    
+    return MessageFactory.getMessage(context,
+                                     MAXIMUM_MESSAGE_ID,
+                                     msg,
+                                     params,
+                                     component);
+  }
+  
+  private Object _getRawMaximumMessageDetail()
+  {
+    return _facesBean.getRawProperty(_MAXIMUM_MESSAGE_DETAIL_KEY);
+  }
+  
+  private FacesMessage _getMinimumMessage(
+    FacesContext context,
+    UIComponent component,
+    Object value,
+    Object min)
+  {
+    Object msg      = _getRawMinimumMessageDetail();
+    Object label    = ValidatorUtils.getComponentLabel(component);
+    
+    Object[] params = {label, value, min};
+    
+    return MessageFactory.getMessage(context, MINIMUM_MESSAGE_ID,
+                                     msg, params, component);
+  }
+  
+  private Object _getRawMinimumMessageDetail()
+  {
+    return _facesBean.getRawProperty(_MINIMUM_MESSAGE_DETAIL_KEY);
+  }
+  
   private static final FacesBean.Type _TYPE = new FacesBean.Type();
-
+  
+  // Default is zero, not MIN_VALUE
   private static final PropertyKey _MINIMUM_KEY =
-    _TYPE.registerKey("minimum", Integer.class);
+    _TYPE.registerKey("minimum",
+                      Integer.class,
+                      // Don't rely on autoboxing: there's a method overload
+                      Integer.valueOf(0));
 
+  // FIXME: the default of the superclass is 0, not MAX_VALUE
   private static final PropertyKey _MAXIMUM_KEY =
-    _TYPE.registerKey("maximum", Integer.class);
+    _TYPE.registerKey("maximum", Integer.class,
+                      // Don't rely on autoboxing: there's a method overload
+                      Integer.valueOf(Integer.MAX_VALUE));
 
   private static final PropertyKey _MAXIMUM_MESSAGE_DETAIL_KEY =
     _TYPE.registerKey("messageDetailMaximum", String.class);
@@ -499,6 +582,9 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
   private static final PropertyKey _NOT_IN_RANGE_MESSAGE_DETAIL_KEY =
     _TYPE.registerKey("messageDetailNotInRange", String.class);
 
+  private static final PropertyKey _EXACT_MESSAGE_DETAIL_KEY =
+    _TYPE.registerKey("messageDetailExact", String.class);
+
   private static final PropertyKey  _HINT_MAXIMUM_KEY =
     _TYPE.registerKey("hintMaximum", String.class);
 
@@ -507,6 +593,9 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
 
   private static final PropertyKey  _HINT_NOT_IN_RANGE =
     _TYPE.registerKey("hintNotInRange", String.class);
+
+  private static final PropertyKey  _HINT_EXACT =
+    _TYPE.registerKey("hintExact", String.class);
 
   private FacesBean _facesBean = ValidatorUtils.getFacesBean(_TYPE);
 
