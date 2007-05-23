@@ -240,6 +240,10 @@ public final class Coercions
       {
         return toString(value);
       }
+      else if ((type == Number.class))
+      {
+        return toNumber(toString(value));
+      }
       else if (type.isArray()) // see bug 3234064.
       {
         // we support three types of array coercions.
