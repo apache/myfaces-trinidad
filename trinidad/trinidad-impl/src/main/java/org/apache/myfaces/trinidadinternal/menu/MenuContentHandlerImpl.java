@@ -488,7 +488,7 @@ public class MenuContentHandlerImpl extends DefaultHandler
    * 
    * @return root, top-level XMLMenuModel's Request Map Key.
    */
-  public static String getRootModelKey()
+  public String getRootModelKey()
   {
     return _rootModelKey;
   }
@@ -950,8 +950,7 @@ public class MenuContentHandlerImpl extends DefaultHandler
   private String _localModelUri = null;
   
   // Root Menu model's Session map key
-  // FIXME: this is static, but written to from instances!
-  private static String _rootModelKey  = null;
+  private String _rootModelKey  = null;
 
   // Nodes
   private final static String _GROUP_NODE        = "groupNode";
