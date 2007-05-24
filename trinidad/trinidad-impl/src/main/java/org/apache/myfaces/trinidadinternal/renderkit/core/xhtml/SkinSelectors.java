@@ -695,7 +695,7 @@ public final class SkinSelectors
    
    //                                                                         //
    //                                                                         //
-   // ========================== tr:panelAccordion ========================== //
+   // ========================== tr:Accordion ========================== //
    //                                                                         //
    //                                                                         //
    
@@ -825,6 +825,17 @@ public final class SkinSelectors
    public static final String AF_PANEL_HEADER_PROCESSING_ICON_NAME =
      "af|panelHeader::processing-icon";
 
+  //                                                                         //
+  //                                                                         //
+  // =========================== tr:panelAndLabelMessage ====================//
+  //                                                                         //
+  //
+  // ============================ Style classes ============================ //
+  public static final String AF_PANEL_LABEL_AND_MESSAGE_HELP_FACET_STYLE_CLASS =
+    "af|panelLabelAndMessage::help-facet";
+  //
+  //                                                                        //
+  //                                                                         //
    
    //                                                                         //
    //                                                                         //

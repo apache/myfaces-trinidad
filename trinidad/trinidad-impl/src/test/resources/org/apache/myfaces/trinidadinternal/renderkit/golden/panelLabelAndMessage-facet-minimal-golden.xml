@@ -173,6 +173,7 @@
                   >
                 
                 <td
+                     class="af_panelLabelAndMessage_help-facet"
                      colspan="2"
                     >
                   help text
