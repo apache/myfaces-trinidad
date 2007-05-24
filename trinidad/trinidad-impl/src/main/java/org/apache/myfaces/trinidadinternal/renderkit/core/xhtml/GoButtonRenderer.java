@@ -31,6 +31,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.nav.CoreGoButton;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafConstants;
 
 /**
  * FIXME: the inheritance hierarchy is a bit annoying:  should
@@ -74,14 +75,35 @@ public class GoButtonRenderer extends GoLinkRenderer
     // Make sure we don't have anything to save
     assert(arc.getCurrentClientId() == null);
     arc.setCurrentClientId(clientId);
- 
-    boolean useButtonTag = useButtonTags(arc);
-    String element = useButtonTag ? "button" : "a";
+
+    String element;
+    boolean useButton;
+    boolean isFormElement = false;	
+    if ((supportsScripting(arc) && supportsIntrinsicEvents(arc)))
+    {
+       if (supportsAdvancedForms(arc))
+       {
+          element = XhtmlLafConstants.BUTTON_ELEMENT;
+       }
+       else
+       {
+          element = XhtmlLafConstants.INPUT_ELEMENT;
+          isFormElement  = true;
+        }
+
+        useButton = true;
+    }
+    else
+    {
+       element = XhtmlLafConstants.LINK_ELEMENT;
+       useButton = false;
+    }
+
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement(element, component);
     renderId(context, component);
     boolean disabled = getDisabled(bean);
-    if (useButtonTag)
+    if (useButton)
     {
       rw.writeAttribute("type", "button", null);
       if (disabled)
@@ -100,7 +122,7 @@ public class GoButtonRenderer extends GoLinkRenderer
     else
     {
       renderAllAttributes(context, arc, bean);
-      if (useButtonTag)
+      if (useButton)
       {
         rw.writeAttribute("onclick", getButtonOnclick(bean), null);
       }
@@ -114,6 +136,7 @@ public class GoButtonRenderer extends GoLinkRenderer
     }
 
     // Write the text and access key
+
     char accessKey;
     if (supportsAccessKeys(arc))
     {
@@ -123,33 +146,36 @@ public class GoButtonRenderer extends GoLinkRenderer
         rw.writeAttribute("accesskey",
                           Character.valueOf(accessKey),
                           "accessKey");
-      }                   
+      }
     }
     else
     {
       accessKey = CHAR_UNDEFINED;
     }
 
-    AccessKeyUtils.renderAccessKeyText(context,
-                                       getText(bean),
-                                       accessKey,
-                                       SkinSelectors.AF_ACCESSKEY_STYLE_CLASS);
-
+    String text = getText(bean);
     String icon = getIcon(bean);
-    if (icon != null)
-      OutputUtils.renderImage(context, arc, icon, null, null, null,
-                              getShortDesc(bean));
+
+    if(!isFormElement){
+        AccessKeyUtils.renderAccessKeyText(context,
+                                           text,
+                                           accessKey,
+                                           SkinSelectors.AF_ACCESSKEY_STYLE_CLASS);
+
+        if (icon != null)
+          OutputUtils.renderImage(context, arc, icon, null, null, null,
+                                  getShortDesc(bean));
+    }
+    else {
+        if (icon != null && text == null){
+            renderEncodedResourceURI(context, "src", icon);
+        }
+        else{
+            rw.writeAttribute("value", text, "text");
+        }
+    }
 
     rw.endElement(element);
-  }
-
-    
-  protected boolean useButtonTags(RenderingContext arc)
-  {
-    return (supportsScripting(arc) &&
-            supportsAdvancedForms(arc) &&
-            supportsIntrinsicEvents(arc));
-            
   }
 
   /**
@@ -181,37 +207,37 @@ public class GoButtonRenderer extends GoLinkRenderer
     //String inlineStyle = getInlineStyle(bean);
     List<String> stateStyleClasses = getStateStyleClasses(context, arc, bean);
 
-    if ((styleClass==null) && 
-        (defaultStyleClass != null) && 
+    if ((styleClass==null) &&
+        (defaultStyleClass != null) &&
         (stateStyleClasses == null))
     {
       renderStyleClass(context, arc, defaultStyleClass);
     }
     else
     {
-      int numStates =   ((stateStyleClasses != null) ? 
+      int numStates =   ((stateStyleClasses != null) ?
                          stateStyleClasses.size() : 0);
       int numClasses = ((styleClass != null) ? 1 : 0) +
                         ((defaultStyleClass != null) ? 1 : 0) +
                         numStates;
       if (numClasses > 0)
       {
-        // set all the styleClasses in one array so we can pass it to 
+        // set all the styleClasses in one array so we can pass it to
         // renderStyleClasses
         String[] styleClasses = new String[numClasses];
-        
+
         int i=0;
         if (styleClass != null)
           styleClasses[i++] = styleClass;
         if (defaultStyleClass != null)
           styleClasses[i++] = defaultStyleClass;
-         
+
         for (int j=0; j < numStates; j++, i++)
         {
           styleClasses[i] = stateStyleClasses.get(j);
-        }        
+        }
 
-        renderStyleClasses(context, arc, styleClasses);         
+        renderStyleClasses(context, arc, styleClasses);
       }
     }
 
@@ -236,7 +262,7 @@ public class GoButtonRenderer extends GoLinkRenderer
     String destination = getDestination(bean);
     if (destination == null)
       return base;
-    
+
     destination = FacesContext.getCurrentInstance().
       getExternalContext().encodeActionURL(destination);
     String onclickJS = null;
@@ -244,7 +270,7 @@ public class GoButtonRenderer extends GoLinkRenderer
     if ((destination.length()) > 11 &&
         "javascript:".equalsIgnoreCase(destination.substring(0,11)))
     {
-      onclickJS = destination.substring(11);      
+      onclickJS = destination.substring(11);
     }
     else
     {
