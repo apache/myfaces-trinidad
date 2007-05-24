@@ -1725,6 +1725,24 @@
           </tr>
         </table>
       </subsection>
+       <subsection name="tr:panelLabelAndMessage Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|panelLabelAndMessage::help-facet</td>
+            <td>Specifies the style information for the help-facet text of a 
+            panelLabelAndMessage.</td>
+          </tr>
+        </table>
+      </subsection>
       <subsection name="tr:panelList Component">
         <table>
           <tr>

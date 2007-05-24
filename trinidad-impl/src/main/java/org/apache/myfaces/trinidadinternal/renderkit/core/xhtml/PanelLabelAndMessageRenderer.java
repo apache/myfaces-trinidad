@@ -110,6 +110,7 @@ public class PanelLabelAndMessageRenderer extends LabelAndMessageRenderer
       rw.startElement("td", null);
       // =-= mcc TODO apply className for "af|panelLabelAndMessage::end-facet"
       // renderStyleClass(context, arc, ...);
+      //apply className for "af|panelLabelAndMessage::help-facet"     
       encodeChild(context, end);
       rw.endElement("td");
     }
@@ -120,9 +121,8 @@ public class PanelLabelAndMessageRenderer extends LabelAndMessageRenderer
       rw.endElement("tr");
       rw.startElement("tr", null);
       rw.startElement("td", null);
-      rw.writeAttribute("colspan", helpColSpan, null);
-      // =-= mcc TODO apply className for "af|panelLabelAndMessage::help-facet"
-      // renderStyleClass(context, arc, ...);
+      rw.writeAttribute("colspan", helpColSpan, null);      
+      renderStyleClass(context, arc, SkinSelectors.AF_PANEL_LABEL_AND_MESSAGE_HELP_FACET_STYLE_CLASS);
       encodeChild(context, help);
       rw.endElement("td");
     }
