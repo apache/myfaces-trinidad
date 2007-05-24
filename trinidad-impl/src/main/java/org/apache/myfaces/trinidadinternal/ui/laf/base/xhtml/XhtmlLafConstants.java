@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -93,6 +93,7 @@ public interface XhtmlLafConstants extends BaseLafConstants
   //
   public static final String BREAK_ELEMENT        = "br";
   public static final String DIV_ELEMENT          = "div";
+  public static final String BUTTON_ELEMENT       = "button";
   public static final String FORM_ELEMENT         = "form";
   public static final String IMAGE_ELEMENT        = "img";
   public static final String INPUT_ELEMENT        = "input";
@@ -240,7 +241,7 @@ public interface XhtmlLafConstants extends BaseLafConstants
   // outputLabel's styles
   public static final String AF_OUTPUT_LABEL_STYLE_CLASS =
     "af|outputLabel";
-  
+
   public static final String AF_PANEL_PAGE_MB_TEXT_STYLE_CLASS =
     "af|panelPage::menu-buttons-text";
   public static final String AF_PANEL_PAGE_MB_TEXT_SELECTED_STYLE_CLASS =
@@ -263,7 +264,7 @@ public interface XhtmlLafConstants extends BaseLafConstants
     "af|panelFormLayout::content-cell";
   public static final String AF_PANEL_FORM_MESSAGE_CELL_STYLE_CLASS =
     "af|panelFormLayout::message-cell";
-    
+
   // Link style classes
   public static final String LINK_STYLE_CLASS =
     "OraLink";
@@ -521,7 +522,7 @@ public interface XhtmlLafConstants extends BaseLafConstants
 
   // processTrain styles
    public static final String AF_PROCESS_TRAIN_STYLE_CLASS =
-     "af|train";  
+     "af|train";
   public static final String AF_PROCESS_TRAIN_ACTIVE_STYLE_CLASS =
     "af|train::step-active";
   public static final String AF_PROCESS_TRAIN_VISITED_STYLE_CLASS  =
@@ -529,7 +530,7 @@ public interface XhtmlLafConstants extends BaseLafConstants
   public static final String AF_PROCESS_TRAIN_UNVISITED_STYLE_CLASS =
     "af|train::step-unvisited";
   public static final String AF_PROCESS_TRAIN_LINK_STYLE_CLASS =
-    "af|train::link";    
+    "af|train::link";
   public static final String AF_PROCESS_TRAIN_DISABLED_STYLE_CLASS =
     "af|train::step-disabled";
   public static final String AF_PROCESS_TRAIN_SUB_START_STYLE_CLASS =
@@ -647,7 +648,7 @@ public interface XhtmlLafConstants extends BaseLafConstants
   public static final String AF_TREE_TABLE_MP_SELECTED_STYLE_CLASS =
     "af|treeTable::path-selected-step";
   public static final String AF_TREE_TABLE_MP_STEP_STYLE_CLASS =
-    "af|treeTable::path-step";    
+    "af|treeTable::path-step";
 
   // ERROR/INFO STYLES
   public static final String TIP_TEXT_STYLE_CLASS = "OraTipText";
@@ -1124,7 +1125,7 @@ public interface XhtmlLafConstants extends BaseLafConstants
    "af|treeTable::prev-disabled-icon";
   public static final String AF_TREE_TABLE_NB_NEXT_DISABLED_ICON_NAME =
    "af|treeTable::next-disabled-icon";
-   
+
   // ChooseDate icons (chooseDate)
   // Defined in OracleDesktopSkinExtension (same as SelectRange's) and XhtmlSkin
   // (not the same as SelectRange's which is null)
