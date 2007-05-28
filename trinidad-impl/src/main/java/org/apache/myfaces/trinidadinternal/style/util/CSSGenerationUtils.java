@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -44,17 +44,17 @@ import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleNode;
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/util/CSSUtils.java#0 $) $Date: 10-nov-2005.18:58:49 $
  */
- 
+
 public class CSSGenerationUtils
 {
 
 
   /**
-    * Converts the specified set of StyleNodes to CSS. We output either full styleclass names or 
+    * Converts the specified set of StyleNodes to CSS. We output either full styleclass names or
     * compressed styleclass names.
    *
    * @param context The current StyleContext
-   * @param styleSheetName The stylesheet name that is registered with the skin. 
+   * @param styleSheetName The stylesheet name that is registered with the skin.
    *     e.g. skins/purple/purpleSkin.css
    * @param styles The style nodes to convert
    * @param out The PrintWriter to write to
@@ -102,14 +102,14 @@ public class CSSGenerationUtils
 
     // We track styles with matching properties in the following HashMap
     // which maps property strings to StyleNode[]s.
-    HashMap<String, StyleNode[]> matchingStylesMap = 
+    HashMap<String, StyleNode[]> matchingStylesMap =
       new HashMap<String, StyleNode[]>(101);
 
     // We also keep an array of the property strings that we generate
     // during this pass, since we need these strings during the second
     // pass to find matching StyleNodes.
     String[] propertyStrings = new String[styles.length];
-     // Keep track of the number of selectors written out. The reason? IE has a 4095 limit, 
+     // Keep track of the number of selectors written out. The reason? IE has a 4095 limit,
      // and we want to warn when we get to that limit.
      int numberSelectorsWritten = 0;
 
@@ -158,10 +158,10 @@ public class CSSGenerationUtils
     // We'll start writing the CSS file now.  First
     // write out the header with a time stamp
     Date date = new Date();
-    out.println("/* CSS file generated on " + date + " */");
+    out.println("/* This CSS file generated on " + date + " */");
 
     // This is the second pass in which we write out the style rules
-    // Get the baseURI up front so we don't have to recalculate it every time we find 
+    // Get the baseURI up front so we don't have to recalculate it every time we find
     // a property value that contains url() and need to resolve the uri.
     String baseURI = CSSUtils.getBaseSkinStyleSheetURI(styleSheetName);
     for (int i = 0; i < styles.length; i++)
@@ -189,16 +189,9 @@ public class CSSGenerationUtils
           // We should always have a selector at this point
           assert (selector != null);
 
-          // map selectors, if needed
-          // any of the selectors that start with a namespace prefix will
-          // be mapped.
-          // e.g., "af|menuPath::step" maps to "af|menuPath A"
-          // if the selector does not need to be 'mapped', it will be returned
-          // untouched. e.g., .AFInstructionText maps to .AFInstructionText
-          String mappedSelector = _getMappedNSSelector(afSelectorMap,
-                                                       namespacePrefixArray,
-                                                       selector,
-                                                       false);
+          String mappedSelector = _getMappedSelector(afSelectorMap,
+                                                     namespacePrefixArray,
+                                                     selector);
 
           String validFullNameSelector = null;
 
@@ -210,7 +203,7 @@ public class CSSGenerationUtils
           {
             validFullNameSelector =
               _getValidFullNameSelector(mappedSelector, namespacePrefixArray);
-             
+
             if (validFullNameSelector != null)
             {
               out.print(validFullNameSelector);
@@ -219,36 +212,43 @@ public class CSSGenerationUtils
           }
 
 
-          // shorten all the css-2 style class selectors (those that start with 
+          // shorten all the css-2 style class selectors (those that start with
           // '.' and don't have a namespace prefix in it)
           // and return the shortened string.
           // e.g., selector of '.OraBulletedList A' is shortened to '.xj A'
           // e.g., selector of af|inputText::content is not shortened since
           // it has no css-2 style class selector piece that starts with '.'.
-          // e.g., selector of af|foo.Bar will shorten the '.Bar' piece 
+          // e.g., selector of af|foo.Bar will shorten the '.Bar' piece
           // af|foo.xz
           // e.g., .Foo:hover -> .x0:hover
           if (compressStyles)
           {
-            String shortenedSelector = _getShortSelector(mappedSelector,
-                                                        shortStyleClassMap);
+            String shortSelector = _getShortSelector(mappedSelector,
+                                                     shortStyleClassMap);
 
             // run it through a shortener one more time to shorten any
             // of the af component selectors.
             // e.g., 'af|menuPath' is shortened to '.x11'
-            String shortSelector =
-              _getMappedNSSelector(shortStyleClassMap,
-                                   namespacePrefixArray,
-                                   shortenedSelector,
-                                   true);
+
+            if (_hasNamespacePrefix(shortSelector, namespacePrefixArray))
+            {
+              String[] shortSelectorArray  = shortSelector.split("\\s");
+
+              shortSelector =
+                _getMappedNSSelector(shortStyleClassMap,
+                                     namespacePrefixArray,
+                                     shortSelector,
+                                     shortSelectorArray,
+                                     true);
+            }
 
             // if the transformed full name is different than the shortSelector
             // then write out the shortSelector, too.
             if (shortSelector != null)
-            {          
+            {
               String validShortSelector =
                 _getValidFullNameSelector(shortSelector, namespacePrefixArray);
-                    
+
               // if we wrote out a full style, check to see if we need to write out the short, too.
               // if it is something different, write out the short, too.
               if (validFullNameSelector != null)
@@ -306,7 +306,7 @@ public class CSSGenerationUtils
 
             out.print(propName);
             out.print(":");
-            String resolvedPropValue = 
+            String resolvedPropValue =
               CSSUtils.resolvePropertyValue(styleSheetName, baseURI, propName, propValue);
             out.print(resolvedPropValue);
 
@@ -317,10 +317,10 @@ public class CSSGenerationUtils
       }
     }
     out.println("/* The number of CSS selectors in this file is " + numberSelectorsWritten + " */");
-    if (numberSelectorsWritten > 4095 && 
+    if (numberSelectorsWritten > 4095 &&
       (TrinidadAgent.APPLICATION_IEXPLORER == context.getAgent().getAgentApplication()))
     {
-      
+
       out.println("/* ERROR: The number of CSS selectors is more than IE's limit of 4095. " +
       "The selectors after that will be ignored. */");
       if (_LOG.isWarning())
@@ -333,8 +333,8 @@ public class CSSGenerationUtils
 
   /**
    * Tests whether the specified selector is a single style class
-   * selector. A single style class selector is something like 
-   * ".AFInstructionText". Examples that are not single style class 
+   * selector. A single style class selector is something like
+   * ".AFInstructionText". Examples that are not single style class
    * selectors are "af|inputText" or ".AFFoo .AFBar" or ".foo:hover"
    */
   public static boolean isSingleStyleClassSelector(String selector)
@@ -444,9 +444,8 @@ public class CSSGenerationUtils
     String              namespace,
     Map<String, String> afSelectorMap)
   {
-    if (selector == null)
+	if (selector == null)
       return null;
-
     int afIndex = selector.indexOf(namespace);
 
     // no namespace in the selector, so just return null
@@ -460,11 +459,9 @@ public class CSSGenerationUtils
 
     // split the string into the spaces
     String base = selector.substring(afIndex);
-    String[] afSelectors;
-    String[] spacerArray = base.split("\\s");
-    afSelectors = 
-        _orderPseudoElementsAndClasses(spacerArray);
-        
+    String[] afSelectors =
+        _orderPseudoElementsAndClasses(base);
+
     // loop through each of the af| parts.
     for (int i=0; i < afSelectors.length; i++)
     {
@@ -472,7 +469,7 @@ public class CSSGenerationUtils
       {
         // get the component selector, which is just the main part, nothing
         // that includes a '.' ':', or a ' '.
-        String afComponentSelector = 
+        String afComponentSelector =
           _getNSComponentSelector(afSelectors[i], false);
         afUnmappedSelectorList.add(afComponentSelector);
       }
@@ -518,7 +515,7 @@ public class CSSGenerationUtils
     return afSelectorList.iterator();
 
   }
-  
+
   /**
    * Add to the namespacePrefixes Set any namespace prefixes found in this selector.
    * @param namespacePrefixes
@@ -526,10 +523,10 @@ public class CSSGenerationUtils
    */
   public static void getNamespacePrefixes(
     Set<String> namespacePrefixes,
-    String selector) 
+    String selector)
   {
 
-    int length = selector.length();  
+    int length = selector.length();
     int startSubstringIndex = 0;
     // Loop through each character of the selector looking for namespace prefixes.
     for (int i = 0; i < length; i++)
@@ -541,7 +538,7 @@ public class CSSGenerationUtils
         startSubstringIndex = i+1;
         // protect against just | in the prefix by checking length.
         if (prefix.length() > 1)
-          namespacePrefixes.add(prefix); 
+          namespacePrefixes.add(prefix);
       }
       else if(!_isStyleClassTerminator(c))
       {
@@ -557,7 +554,7 @@ public class CSSGenerationUtils
   }
 
   /**
-   * Called from getNamespacedSelectors. 
+   * Called from getNamespacedSelectors.
    * Given a single selector that begins with a namespace prefix (most likely
    * af|), return the main portion -- the prefix+component+pseudo-element.
    * Styleclasses and pseudo-classes and anything after a space will be ignored,
@@ -623,11 +620,11 @@ public class CSSGenerationUtils
   {
     if (shortStyleClassMap == null)
       return null;
-          
+
     // This will see if the selector is a single styleClass, and if so,
     // it will run it through the shortStyleClassMap and return the shortened
-    // style class. A single style class selector is something like 
-    // ".AFInstructionText". Examples that are not single style class 
+    // style class. A single style class selector is something like
+    // ".AFInstructionText". Examples that are not single style class
     // selectors are "af|inputText" or ".AFFoo .AFBar" or ".foo:hover"
     if (isSingleStyleClassSelector(selector))
     {
@@ -637,7 +634,7 @@ public class CSSGenerationUtils
     }
 
     // This will run if we do not have a one class selector definition
-    // but a af|XXX class or a command class like .AFXYZ .AFzzz or 
+    // but a af|XXX class or a command class like .AFXYZ .AFzzz or
     // ".foo:hover" It shortens all the .xxx pieces.
     boolean isShorter = false;
     int length = selector.length();
@@ -674,7 +671,7 @@ public class CSSGenerationUtils
             end = true;
           }
         }
-        
+
         if (end)
         {
 
@@ -682,11 +679,11 @@ public class CSSGenerationUtils
           // see if we've got a shorter version
           String styleClass = selector.substring(styleClassStartIndex + 1, i);
           String shortStyleClass = null;
-          // don't shorten the styles that contain a namespace, because we 
+          // don't shorten the styles that contain a namespace, because we
           // do this in another step.
           if (styleClass.indexOf('|') == -1)
             shortStyleClass = shortStyleClassMap.get(styleClass);
- 
+
 
           if (shortStyleClass == null)
           {
@@ -701,7 +698,7 @@ public class CSSGenerationUtils
           // Don't forget the terminator character
           if (i < (length - 1))
             buffer.append(c);
-          // if c is ., then this means we've found another styleclass            
+          // if c is ., then this means we've found another styleclass
           if (c == '.')
             styleClassStartIndex = i;
           else
@@ -713,9 +710,8 @@ public class CSSGenerationUtils
     // return the original selector if this isn't shorter.
     return isShorter ? buffer.toString() : selector;
   }
-
   /**
-   * Runs a selector through a map. It returns the selector unchanged if 
+   * Runs a selector through a map. It returns the selector unchanged if
    * there is no namespace in the selector.
    * This could be a map to convert the
    * public no-html selector to an internal selector that has html-specifics
@@ -734,35 +730,66 @@ public class CSSGenerationUtils
    * @param shorten     if true, then we'll add the "." to the mapped selector.
    * @return            the selector, mapped.
    */
-  private static String _getMappedNSSelector (
-    Map<String, String> map,
-    String[]            nsPrefixArray,
-    String              selector,
-    boolean             shorten)
+  private static String _getMappedSelector (
+    Map<String, String> afSelectorMap,
+    String[]            namespacePrefixArray,
+    String              selector)
   {
-    // break apart by spaces; map each piece;
-    // if a namespace is not in the piece, it will remain unchanged
-    // piece back together.
-    
-    
-    // quick check; null or no namespace in the selector,
-    // return the selector unchanged.
-     if ((selector == null) || (!_hasNamespacePrefix(selector, nsPrefixArray)))
-       return selector;
-
-    // split the string into the spaces
-    String[] selectorArray;
-    if (!shorten)
+    String mappedSelector;
+    if (_hasNamespacePrefix(selector, namespacePrefixArray))
     {
-      String[] spacerArray = selector.split("\\s");
-      selectorArray = 
-        _orderPseudoElementsAndClasses(spacerArray);
+      String[] selectorArray =
+        _orderPseudoElementsAndClasses(selector);
+
+      // map selectors, if needed
+      // any of the selectors that start with a namespace prefix will
+      // be mapped.
+      // e.g., "af|menuPath::step" maps to "af|menuPath A"
+      // if the selector does not need to be 'mapped', it will be returned
+      // untouched. e.g., .AFInstructionText maps to .AFInstructionText
+      mappedSelector = _getMappedNSSelector(afSelectorMap,
+                                            namespacePrefixArray,
+                                            selector,
+                                            selectorArray,
+                                            false);
 
     }
     else
     {
-      selectorArray = selector.split("\\s"); 
+      // there are no namespaces in this selector. TODO We still need to convert the pseudo-classes
+      mappedSelector = _convertPseudoClassesInSelector(selector);
     }
+    return mappedSelector;
+  }
+  /**
+   * Runs a namespaced selector through a map.
+   * This could be a map to convert the
+   * public no-html selector to an internal selector that has html-specifics
+   * (e.g., 'af|menuPath::step:hover' -> 'af|menuPath A:hover')
+   * or it could be a map to shorten the selector
+   * (e.g., 'af|menuPath A:hover' -> '.x11 A:hover')
+   * We call this method first with the public->internal map, and then
+   * to shorten it.
+   * Only the pieces of the selector that start with the namespace are mapped.
+   * @param map         if shortenPass is true, then this map shortens the
+   *                    af| selector. else, it maps the public af| selector
+   *                    to the internal selector.
+   * @param namespace   most likely, "af|". The selectors with this namespace
+   *                    are the ones we map.
+   * @param selector    selector to map.
+   * @param selectorArray selectorArray is the selector split into pieces based on the ' '
+   * @param shorten     if true, then we'll add the "." to the mapped selector.
+   * @return            the selector, mapped.
+   */
+  private static String _getMappedNSSelector (
+    Map<String, String> map,
+    String[]            nsPrefixArray,
+    String              selector,
+    String[]            selectorArray,
+    boolean             shorten)
+  {
+    // selectorArray is the selector broken into pieces.
+    // Map each piece, then put back together.
 
     for (int i=0; i < selectorArray.length; i++)
     {
@@ -775,7 +802,7 @@ public class CSSGenerationUtils
       {
        nsIndex = selectorArray[i].indexOf(nsPrefixArray[j]);
       }
-      
+
       if (nsIndex > -1)
       {
         selectorArray[i] = _getEachMappedSelector(map,
@@ -795,24 +822,20 @@ public class CSSGenerationUtils
     String              selector,
     boolean             shorten)
   {
-    // break apart the selector into 3 parts:
-    // main
-    // pseudo-classes (e.g., :hover, :disabled, :readOnly)
-    // end (anything including and after '.')
-    // map the main and the pseudo-classes cuz the pseudo-classes could be
-    // our internal pseudo-classes.
+    // break apart the selector into 2 parts:
+    // main (af|foo::pseudo-element)
+    // end (anything after, ':' or including and after '.')
+    // map the main and the ending (pseudo-classes could be mapped to private
+    // styleclasses, :disabled -> .p_AFDisabled
     // piece  back together.
-    // should I bother mapping pseudo-classes if shorten=true, since they
-    // won't be in the map anyway? TODO
     if (indexOfNSPrefix == -1)
      return selector;
     if (map == null)
       return selector;
-    
-    
-    String wholeAfSelector = selector.substring(indexOfNSPrefix);    
-    SelectorPieces pieces = new SelectorPieces();
-    
+
+
+    String wholeAfSelector = selector.substring(indexOfNSPrefix);
+
     // get main piece
     int colonIndex = wholeAfSelector.indexOf("::");
 
@@ -843,49 +866,27 @@ public class CSSGenerationUtils
       c = afterDoubleColon.charAt(endIndex);
       end = (Character.isWhitespace(c)) || (c == '.') || (c == ':');
     }
+
+    // Set the main piece in the pieces object
+    String mainSelector;
     if (endIndex == afterLength)
     {
-      String mainSelector = wholeAfSelector.substring(0, colonIndex + endIndex);
-      pieces.setMain(mainSelector);
+      mainSelector = wholeAfSelector.substring(0, colonIndex + endIndex);
     }
     else
     {
+      mainSelector = wholeAfSelector.substring(0, colonIndex + endIndex-1);
+    }
+    String afterMain = null;
+    if (endIndex != afterLength)
+    {
       // If I got here, that means there are characters after the 'main' part
       // of the selector.
-      String mainSelector = wholeAfSelector.substring(0, colonIndex + endIndex-1);
-      pieces.setMain(mainSelector);    
-      String afterMain = wholeAfSelector.substring(colonIndex + endIndex-1);
-      // afterMain includes the : or the .
-      // if I get a :, I know I'm in a pseudo-class. Keep getting characters
-      // until I'm at the end, or I get another : or .
-      boolean inPseudoClass = false;
-      StringBuffer pseudoClassBuffer = new StringBuffer();
-      for (int i=0; i < afterMain.length(); i++)
-      {
-        char x = afterMain.charAt(i);
-        if (x == '.')
-        {
-          inPseudoClass = false;
-          pieces.setEnd(afterMain.substring(i));
-          break;
-        }
-        else if (x == ':')
-        {
-          if (inPseudoClass)
-          {
-            // if I'm in a pseudo-class already, and I get a ':', that means
-            // i've got another pseudo-class. End the first one.
-            pieces.addPseudoClass(pseudoClassBuffer.toString());
-            pseudoClassBuffer = new StringBuffer();           
-          }
-          inPseudoClass = true;
-          pseudoClassBuffer.append(x);
-        }
-        else
-          pseudoClassBuffer.append(x);
-      }
-      if (pseudoClassBuffer.length() > 0)
-        pieces.addPseudoClass(pseudoClassBuffer.toString());
+      afterMain = wholeAfSelector.substring(colonIndex + endIndex-1);
+      // map the afterMain part. It includes styleclasses and pseudo-classes.
+      // we don't need to convert the pseudo-classes if we are shortening.
+      if (!shorten)
+        afterMain = _convertPseudoClassesInSelector(afterMain);
     }
 
     // piece back together the string
@@ -900,41 +901,18 @@ public class CSSGenerationUtils
     }
     else if (shorten)
       buffer.append('.');
-      
-    // now I have the pieces of the selector. I'll need to map each piece,
-    // then piece back together.
-    String mappedMain = map.get(pieces.getMain());
-    if (mappedMain != null)
-      buffer.append(mappedMain);
-    else
-      buffer.append(pieces.getMain());
-    
-    // Convert the pseudo-classes if they aren't CSS2 pseudo-classes.
-    // We never want to shorten the converted pseudo-classes.
-    // pseudo-classes represent state and the state can be added or removed
-    // on the client with javascript and it is easiest if the states
-    // converted styleclass is not shortened, otherwise we'd have to
-    // send the shortened styleclass map for the states to the client.
-    List <String> pseudoClasses = pieces.getPseudoClasses();
-    for (String pseudoClass : pseudoClasses )
-    {
-      String mappedPseudoClass = _convertPseudoClass(pseudoClass);
-      buffer.append(mappedPseudoClass);
-    }
 
-    String endPiece = pieces.getEnd();
-    // don't map end piece. (the piece that starts with '.')
-    if(endPiece != null)
-    {
-      buffer.append(endPiece);
-    }
+    // map the mainSelector, and append the afterMain part.
+    buffer.append(_runThroughMap(map, mainSelector));
+    if (afterMain != null)
+      buffer.append(afterMain);
 
-    
-    return buffer.toString(); 
+
+    return buffer.toString();
   }
-  
+
   private static boolean _hasNamespacePrefix(
-    String   selector, 
+    String   selector,
     String[] nsPrefixArray)
   {
     boolean hasNamespacePrefix = false;
@@ -944,7 +922,7 @@ public class CSSGenerationUtils
         hasNamespacePrefix = true;
     return hasNamespacePrefix;
   }
-  
+
   /*
    * Returns a string representation of the contents of the specified array
    * where adjacent elements are separated a space (" ").
@@ -956,7 +934,7 @@ public class CSSGenerationUtils
     int length = stringArray.length;
     // if only one thing in the array, just return it to save some time.
     if (stringArray.length == 1) return stringArray[0];
-    
+
     // get the bufferSize
     int bufferSize = 0;
     for (int i=0; i < length; i++)
@@ -973,7 +951,7 @@ public class CSSGenerationUtils
     }
     return returnString.toString();
   }
-  
+
   /*
    * if I see this: af|foo:class:class::element, return this
    * af|foo:class:class and af|foo::element in a String array.
@@ -984,13 +962,15 @@ public class CSSGenerationUtils
    * af|foo::p-element.StyleClass (leave alone).
    */
   private static String[]  _orderPseudoElementsAndClasses(
-    String[] input)
+    String selector)
   {
+    String[] input = selector.split("\\s");
+
     List<String> output = new ArrayList<String>();
     for (int i=0; i < input.length; i++)
     {
 
-      int indexOfDoubleColon = input[i].indexOf("::");         
+      int indexOfDoubleColon = input[i].indexOf("::");
       if (indexOfDoubleColon == -1)
       {
         // no double colon (aka pseudo-element)
@@ -998,21 +978,21 @@ public class CSSGenerationUtils
       }
       else
       {
-        // you have a double colon index. Now look to see if we need to 
+        // you have a double colon index. Now look to see if we need to
         // reorder. We have to reorder if the pseudo-element comes after
         // the pseudo-class or composite style classes.
         int indexOfFirstColon = input[i].indexOf(':');
         int indexOfDot = input[i].indexOf('.');
 
-        boolean pseudoClassBeforePseudoElement = 
+        boolean pseudoClassBeforePseudoElement =
           (indexOfFirstColon < indexOfDoubleColon);
         boolean styleClassBeforePseudoElement =
           (indexOfDot != -1 && indexOfDot < indexOfDoubleColon);
-          
+
         if (!(pseudoClassBeforePseudoElement ||
               styleClassBeforePseudoElement))
         {
-          output.add(input[i]);  
+          output.add(input[i]);
         }
         else
         {
@@ -1037,13 +1017,13 @@ public class CSSGenerationUtils
           output.add(main + end);
         }
       }
-     
-    }  
+
+    }
     return output.toArray(new String[output.size()]);
   }
 
-  
-  
+
+
   /**
    * get rid of the | and :: that browsers don't like, and add the
    * '.' where needed to make the af| component selector
@@ -1057,7 +1037,7 @@ public class CSSGenerationUtils
   {
     if (selector.indexOf('|') == -1)
       return selector;
-      
+
     // split on spaces.
     String[] spacerArray = selector.split("\\s");
 
@@ -1073,7 +1053,7 @@ public class CSSGenerationUtils
           {
             spacerArray[i] = ".".concat(spacerArray[i]);
             break;
-          }       
+          }
         }
       }
     }
@@ -1095,9 +1075,9 @@ public class CSSGenerationUtils
   private static String _getSortedPropertyString(StyleNode style)
   {
     // First, pull the properties out of the StyleNode
-    // -= Simon Lessard =- 
+    // -= Simon Lessard =-
     // TODO: Check if synchronization is needed, otherwise uses
-    //       an ArrayList instead. Even if synchronization is needed 
+    //       an ArrayList instead. Even if synchronization is needed
     //       Collections.synchronizedList(ArrayList) would probably be
     //       a better choice.
     Vector<PropertyNode> v = new Vector<PropertyNode>();
@@ -1154,41 +1134,76 @@ public class CSSGenerationUtils
 
     return buffer.toString();
   }
-  /* inner class used to store the pieces of a selector:
-   * the main piece, the pseudo-classes, and anything after the pseudo-classes
+
+  /**
+   * Given a selector, convert the pseudo-classes. Non css-2 pseudo-classes
+   * get converted to styleclasses so they don't get passed through to the generated css.
+   * @param selector String input selector. The assumption is there are no spaces.
+   * If the original selector has spaces, then break the selector up into the pieces before
+   * calling this method.
+   * @return String the selector with the pseudo-classes converted, if needed.
+   * e.g., .StyleClass:error:active -> .StyleClass.p_AFError:active
    */
-  private static class SelectorPieces
+  private static String _convertPseudoClassesInSelector(String selector)
   {
-    private String _main;
-    private List<String>  _pseudo_classes = new ArrayList<String>();
-    private String _end;
-    
-    public void setMain(String main)
+    if (selector == null) return selector;
+
+    StringBuffer completeBuffer = new StringBuffer();
+    StringBuffer pseudoClassBuffer = new StringBuffer();
+    boolean inPseudoClass = false;
+
+    for (int i=0; i < selector.length(); i++)
     {
-      _main = main;
+      char x = selector.charAt(i);
+
+      if ((x == ':') || (x == '.'))
+      {
+        if (inPseudoClass)
+        {
+          // if we are in a pseudo-class already, and we get a ':' or '.' that means
+          // this pseudo-class is complete. Get ready for another one.
+          String convertedPseudoClass = _convertPseudoClass(pseudoClassBuffer.toString());
+          completeBuffer.append(convertedPseudoClass);
+          pseudoClassBuffer = new StringBuffer();
+          inPseudoClass = false;
+        }
+        if (x == ':')
+        {
+          inPseudoClass = true;
+          pseudoClassBuffer.append(x);
+        }
+        else if (x == '.')
+        {
+          completeBuffer.append(x);
+        }
+
+      }
+      else
+      {
+        if (!inPseudoClass)
+          completeBuffer.append(x);
+        else
+          pseudoClassBuffer.append(x);
+      }
+
     }
-    public String getMain()
+    if (inPseudoClass)
     {
-      return _main;
-    }  
-    public void addPseudoClass(String pseudoClass)
-    {
-      _pseudo_classes.add(pseudoClass);
+      String mappedPseudoClass = _convertPseudoClass(pseudoClassBuffer.toString());
+      completeBuffer.append(mappedPseudoClass);
+
     }
-    public List <String> getPseudoClasses()
-    {
-      return _pseudo_classes;
-    }  
-    public void setEnd(String end)
-    {
-      _end = end;
-    }
-    public String getEnd()
-    {
-      return _end;
-    }  
+    return completeBuffer.toString();
   }
-  
+
+  // run through the map. If it's not in the map, return the selector unchanged.
+  private static String _runThroughMap(Map<String, String> map, String selector)
+  {
+    String mappedSelector = map.get(selector);
+    return (mappedSelector != null) ? mappedSelector : selector;
+  }
+
+
   // Comparator that sorts PropertyNodes by name
   private static class PropertyNodeComparator implements Comparator<PropertyNode>
   {
@@ -1217,10 +1232,10 @@ public class CSSGenerationUtils
 
     private PropertyNodeComparator() {}
 
-    private static final Comparator<PropertyNode> _sInstance = 
+    private static final Comparator<PropertyNode> _sInstance =
       new PropertyNodeComparator();
   }
-  
+
   static private String _convertPseudoClass(String pseudoClass)
   {
     if (_BUILT_IN_PSEUDO_CLASSES.contains(pseudoClass))
