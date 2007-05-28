@@ -29,6 +29,8 @@
 
   <xsl:output method="xml" indent="yes"/>
   <xsl:param name="packageContains" />
+  <xsl:param name="converterPackageContains" />
+  <xsl:param name="validatorPackageContains" />
   <xsl:param name="typePrefix" />
 
 
@@ -53,7 +55,7 @@
       <xsl:apply-templates select="javaee:factory" />
       <xsl:apply-templates select="javaee:component[not(contains(javaee:component-extension/mfp:component-class-modifier/text(), 'abstract')) and
                                                     starts-with(javaee:component-type, $typePrefix)]" />
-      <xsl:apply-templates select="javaee:converter[contains(javaee:converter-class, $packageContains)]" />
+      <xsl:apply-templates select="javaee:converter[contains(javaee:converter-class, $converterPackageContains)]" />
       <xsl:apply-templates select="javaee:managed-bean[contains(javaee:managed-bean-class, $packageContains)]" />
       <xsl:apply-templates select="javaee:navigation-rule" />
       <xsl:apply-templates select="javaee:referenced-bean" />
@@ -71,7 +73,7 @@
         </xsl:element>
       </xsl:for-each>
       <xsl:apply-templates select="javaee:lifecycle[contains(javaee:phase-listener, $packageContains)]" />
-      <xsl:apply-templates select="javaee:validator[contains(javaee:validator-class, $packageContains)]" />
+      <xsl:apply-templates select="javaee:validator[contains(javaee:validator-class, $validatorPackageContains)]" />
     </xsl:element>
   </xsl:template>
 

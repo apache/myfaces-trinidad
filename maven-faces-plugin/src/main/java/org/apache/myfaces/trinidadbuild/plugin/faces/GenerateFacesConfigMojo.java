@@ -155,6 +155,8 @@ public class GenerateFacesConfigMojo extends AbstractFacesMojo
           Transformer transformer = transFactory.newTransformer(xslSource);
           transformer.setParameter("packageContains", packageContains);
           transformer.setParameter("typePrefix", typePrefix);
+          transformer.setParameter("converterPackageContains", getParameter(converterPackageContains, packageContains));
+          transformer.setParameter("validatorPackageContains", getParameter(validatorPackageContains, packageContains));
           transformer.transform(mergedSource, mergedResult);
           resultStream.close();
 
@@ -212,6 +214,20 @@ public class GenerateFacesConfigMojo extends AbstractFacesMojo
     return "1.2".equals(jsfVersion) || "12".equals(jsfVersion);
   }
 
+  private String getParameter(String paramName, String defaultValue)
+  {
+    String param;
+
+    if (paramName.length() > 0)
+    {
+       param = paramName;
+    }
+    else
+    {
+        param = defaultValue;
+    }
+    return param;
+  }
 
   /**
    * @parameter expression="${project}"
@@ -234,6 +250,16 @@ public class GenerateFacesConfigMojo extends AbstractFacesMojo
    * @parameter
    */
   private String packageContains = "";
+
+  /**
+   * @parameter
+   */
+  private String converterPackageContains = "";
+
+  /**
+   * @parameter
+   */
+  private String validatorPackageContains = "";
 
 
   /**
