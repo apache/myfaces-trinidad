@@ -225,6 +225,8 @@ public class CSSGenerationUtils
           {
             String shortSelector = _getShortSelector(mappedSelector,
                                                      shortStyleClassMap);
+            if (shortSelector == null)
+              shortSelector = mappedSelector;
 
             // run it through a shortener one more time to shorten any
             // of the af component selectors.
@@ -614,6 +616,7 @@ public class CSSGenerationUtils
   // to the short version if
   // there is a short version. does not shorten styles that start with the
   // namespace
+  // returns null if it can't shorten the selector
   private static String _getShortSelector(
     String              selector,
     Map<String, String> shortStyleClassMap)
