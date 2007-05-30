@@ -47,6 +47,11 @@
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
+<!-- Uncomment the following to run with assertions;  however,
+     do not do so with maven 2.0.6, as you get a LinkageError
+          <argLine>-enableassertions</argLine>
+          <forkMode>once</forkMode>
+-->
           <systemProperties>
             <!-- Trinidad currently fails proper HTML ID validity,
 		 and rather badly - so turn that test off -->

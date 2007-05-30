@@ -79,6 +79,11 @@
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
+<!-- Uncomment the following to run with assertions;  however,
+     do not do so with maven 2.0.6, as you get a LinkageError
+          <argLine>-enableassertions</argLine>
+          <forkMode>once</forkMode>
+-->
           <includes implementation="java.util.ArrayList" >
             <include implementation="java.lang.String">**/*Test.java</include>
           </includes>
