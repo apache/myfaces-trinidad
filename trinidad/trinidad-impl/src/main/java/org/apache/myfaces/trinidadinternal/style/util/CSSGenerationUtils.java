@@ -31,8 +31,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 
+import java.util.regex.Pattern;
+
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.PropertyNode;
@@ -234,7 +237,7 @@ public class CSSGenerationUtils
 
             if (_hasNamespacePrefix(shortSelector, namespacePrefixArray))
             {
-              String[] shortSelectorArray  = shortSelector.split("\\s");
+              String[] shortSelectorArray  = _splitStringByWhitespace(shortSelector);
 
               shortSelector =
                 _getMappedNSSelector(shortStyleClassMap,
@@ -459,7 +462,7 @@ public class CSSGenerationUtils
     // now find each af| component selector and map
     // e.g., af|menuPath::step maps to af|menuPath A
 
-    // split the string into the spaces
+    // order the pseudo elements and classes
     String base = selector.substring(afIndex);
     String[] afSelectors =
         _orderPseudoElementsAndClasses(base);
@@ -502,8 +505,7 @@ public class CSSGenerationUtils
         if (namespaceIndex > -1)
         {
           // get the selector up until the space.
-          String[] baseSelector =
-            (mappedSelector.substring(namespaceIndex)).split("\\s");
+          String[] baseSelector = _splitStringByWhitespace(mappedSelector.substring(namespaceIndex));
           afComponentSelector = baseSelector[0];
           afSelectorList.add(afComponentSelector);
         }
@@ -759,11 +761,12 @@ public class CSSGenerationUtils
     }
     else
     {
-      // there are no namespaces in this selector. TODO We still need to convert the pseudo-classes
+      // there are no namespaces in this selector.
       mappedSelector = _convertPseudoClassesInSelector(selector);
     }
     return mappedSelector;
   }
+
   /**
    * Runs a namespaced selector through a map.
    * This could be a map to convert the
@@ -918,6 +921,7 @@ public class CSSGenerationUtils
     String   selector,
     String[] nsPrefixArray)
   {
+    if (selector == null) return false;
     boolean hasNamespacePrefix = false;
     int numNamespaces = nsPrefixArray.length;
     for (int i=0; (i <  numNamespaces )&& !hasNamespacePrefix; i++)
@@ -967,7 +971,7 @@ public class CSSGenerationUtils
   private static String[]  _orderPseudoElementsAndClasses(
     String selector)
   {
-    String[] input = selector.split("\\s");
+    String[] input = _splitStringByWhitespace(selector);
 
     List<String> output = new ArrayList<String>();
     for (int i=0; i < input.length; i++)
@@ -1042,7 +1046,7 @@ public class CSSGenerationUtils
       return selector;
 
     // split on spaces.
-    String[] spacerArray = selector.split("\\s");
+    String[] spacerArray = _splitStringByWhitespace(selector);
 
     for (int i=0; i < spacerArray.length; i++)
     {
@@ -1199,6 +1203,59 @@ public class CSSGenerationUtils
     return completeBuffer.toString();
   }
 
+  /**
+   * return the array of strings computed by splitting this string
+   * around one or more whitespaces This calls Character.isWhitespace to determine if it is
+   * whitespace. This is important because tabs, newlines, etc count as whitespace
+   * in the selector strings. This is faster than String's split("\\s")
+   * @param selector
+   * @return String[] The array of Strings computed by splitting the input String
+   * around one or more spaces. e.g, "af|foo    af|bar" returns "af|foo" and "af|bar" in
+   * a String Array.
+   */
+  private static String[] _splitStringByWhitespace (
+    String  selector)
+  {
+    // return a String[] with each piece that is deliminated by the inChar.
+    int length = selector.length();
+    StringBuffer buffer = new StringBuffer(length);
+    List<String> splitList = new ArrayList<String>();
+    boolean inWhitespace = false;
+
+    for (int i=0; i < length; i++)
+    {
+      char c = selector.charAt(i);
+      if (Character.isWhitespace(c))
+      {
+        // we hit the whitespace delimiter, so put it in the splitList and start a new buffer.
+        // ignore spaces that are in a row
+        if (!inWhitespace)
+        {
+          String bufferString = buffer.toString();
+          if (bufferString.length() > 0)
+          {
+            splitList.add(bufferString);
+            buffer = new StringBuffer(length);
+            inWhitespace = true;
+          }
+        }
+      }
+      else
+      {
+        buffer.append(c);
+        if (inWhitespace)
+          inWhitespace = false;
+      }
+    }
+    // we are done with all the characters
+    String lastString = buffer.toString();
+    if (lastString.length() > 0)
+      splitList.add(lastString);
+
+    return splitList.toArray(_EMPTY_STRING_ARRAY);      
+
+  }
+
   // run through the map. If it's not in the map, return the selector unchanged.
   private static String _runThroughMap(Map<String, String> map, String selector)
   {
@@ -1247,7 +1304,7 @@ public class CSSGenerationUtils
     builder.append(".");
     builder.append(SkinSelectors.STATE_PREFIX);
 
-    for (String content : pseudoClass.substring(1).split("-"))
+    for (String content : _DASH_PATTERN.split(pseudoClass.substring(1)))
     {
       if (content.length() > 0)
       {
@@ -1273,6 +1330,9 @@ public class CSSGenerationUtils
     _BUILT_IN_PSEUDO_CLASSES.add(":focus");
   }
 
+  private static final Pattern _SPACE_PATTERN = Pattern.compile("\\s");
+  private static final Pattern _DASH_PATTERN =  Pattern.compile("-");
+  private static final String[] _EMPTY_STRING_ARRAY = new String[0];
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(CSSGenerationUtils.class);
 }
