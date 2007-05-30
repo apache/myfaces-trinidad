@@ -981,6 +981,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
 
         if (destination == null)
         {
+          arc.setCurrentClientId(null);
           arc.getProperties().remove(_EXTRA_SUBMIT_PARAMS_KEY);
         }
       }
