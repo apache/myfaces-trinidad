@@ -109,9 +109,10 @@ public class SkinCSSParser
 
     List<String> selectorList = new ArrayList<String>();
 
-    // pull apart by the regexp that means
-    // (zero or more whitespace) then (comma) then (zero or more whitespace)
-    String[] selector = selectors.split("\\s*,\\s*");
+    // pull apart by commas
+    // don't skip whitespace since whitespace means descendant selectors in css
+    String[] selector = _splitString(selectors, ',', false);
+
     String trimmedSelector;
     for (int i=0; i < selector.length; i++)
     {
@@ -146,9 +147,9 @@ public class SkinCSSParser
     // first, parse out any comments
     Matcher matcher = _COMMENT_PATTERN.matcher(properties);
     properties = matcher.replaceAll("");
-       
-    String[] property = properties.split("\\s*;\\s*");
-
+    // split into name and value (skip whitespace)
+    String[] property = _splitString(properties, ';', true);    
+    
     for (int i=0; i < property.length; i++)
     {
       int indexOfColon = property[i].indexOf(':');
@@ -156,15 +157,58 @@ public class SkinCSSParser
       {
         String name = property[i].substring(0, indexOfColon);
         String value = property[i].substring(indexOfColon+1);
-        _documentHandler.property((name.trim()), value.trim());
+        _documentHandler.property((name), value);
 
       }
     }
-
-
   }
 
-  private static String _trimChar(
+  /**
+   * return the array of strings computed by splitting this string
+   * around matches of the given character
+   * @param in
+   * @param charDelimiter
+   * @param skipWhitespace if true, whitespace is skipped and not included in the return Strings
+   * in the String array.
+   * @return String[] The array of Strings computed by splitting the input String
+   * around matches of the charDelimiter
+   */
+  private static String[] _splitString (
+    String  in, 
+    char    charDelimiter,
+    boolean skipWhitespace)
+  {   
+    // return a String[] with each piece that is deliminated by the inChar.
+    int length = in.length();
+    StringBuffer buffer = new StringBuffer(length);
+    List<String> splitList = new ArrayList<String>();
+    
+    for (int i=0; i < length; i++)
+    {
+      char c = in.charAt(i);
+      if (c == charDelimiter)
+      {
+        // we hit the delimiter, so put it in the splitList and start a new buffer.
+        splitList.add(buffer.toString());
+        buffer = new StringBuffer(length);
+      }
+      else 
+      {
+        // it's ok to put the character in the buffer if we don't want to skip whitespace
+        // or if it isn't whitespace to begin with.
+        if (!skipWhitespace || !(Character.isWhitespace(c)))
+          buffer.append(c);
+      }
+      
+    }
+    // we are done with all the characters
+    String lastString = buffer.toString();
+    if (lastString.length() > 0)
+      splitList.add(lastString);
+    return splitList.toArray(_EMPTY_STRING_ARRAY);
+  }
+  
+  private static String _trimChar (
     String in,
     char   c)
   {
@@ -451,6 +495,9 @@ public class SkinCSSParser
   // comments from the properties, and we use this pattern to do it.
   private static final Pattern  _COMMENT_PATTERN = 
      Pattern.compile("(?s)/\\*.*?\\*/"); 
+     
+  private static final String[] _EMPTY_STRING_ARRAY = new String[0];
+
      
   private static final TrinidadLogger _LOG = 
     TrinidadLogger.createTrinidadLogger(SkinCSSParser.class);
