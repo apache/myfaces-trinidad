@@ -343,7 +343,7 @@
 <resource key="TREE_COMPONENT_MUST_INSIDE_FORM">The tree component must be used inside of a form.</resource>
 
 <!-- CANNOT_FIND_SCRIPTLET -->
-<resource key="CANNOT_FIND_SCRIPTLET">Couldn't find scriptlet: {0}</resource>
+<resource key="CANNOT_FIND_SCRIPTLET">Couldn''t find scriptlet: {0}</resource>
 
 <!-- UNABLE_GET_RESOURCE -->
 <resource key="UNABLE_GET_RESOURCE">Unable to get resource {0}</resource>
