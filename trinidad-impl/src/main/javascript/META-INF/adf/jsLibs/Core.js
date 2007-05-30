@@ -1214,7 +1214,7 @@ function _validateAlert(
   var failureArray = _multiValidate(form, source,  validators, globalMessageIndex);
   
   if (failureArray.length == 0)
-    return;
+    return true;
     
   var firstFailure = true;
   var failureString = errorTitle + '\n';
@@ -1245,7 +1245,7 @@ function _validateAlert(
   alert(failureString);
   _recordValidation(true, 0);
   
-  return (failureArray.length == 0);
+  return false;
 }
 
 function _validateInline(
