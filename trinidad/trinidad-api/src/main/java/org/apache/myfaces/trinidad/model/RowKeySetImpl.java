@@ -498,7 +498,10 @@ public final class RowKeySetImpl extends RowKeySet implements Externalizable
   @Override
   protected CollectionModel getCollectionModel()
   {
-    assert _model != null : "There is no CollectionModel associated with this set";
+    // This code used to contain an assertion that the collection model
+    // was non-null - but a null collection model is a perfectly
+    // legitimate state.  Users of a row key set might want to assert
+    // the collection model is non-null.
     return _model;
   }
 
