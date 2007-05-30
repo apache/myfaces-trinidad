@@ -147,8 +147,9 @@ public class SkinCSSParser
     // first, parse out any comments
     Matcher matcher = _COMMENT_PATTERN.matcher(properties);
     properties = matcher.replaceAll("");
-    // split into name and value (skip whitespace)
-    String[] property = _splitString(properties, ';', true);    
+    // split into name and value (don't skip whitespace since properties like padding: 0px 5px 
+    // need the spaces)
+    String[] property = _splitString(properties, ';', false);    
     
     for (int i=0; i < property.length; i++)
     {
@@ -157,7 +158,7 @@ public class SkinCSSParser
       {
         String name = property[i].substring(0, indexOfColon);
         String value = property[i].substring(indexOfColon+1);
-        _documentHandler.property((name), value);
+        _documentHandler.property(name.trim(), value.trim());
 
       }
     }
