@@ -176,6 +176,8 @@ public class GoButtonRenderer extends GoLinkRenderer
     }
 
     rw.endElement(element);
+
+    arc.setCurrentClientId(null);
   }
 
   /**

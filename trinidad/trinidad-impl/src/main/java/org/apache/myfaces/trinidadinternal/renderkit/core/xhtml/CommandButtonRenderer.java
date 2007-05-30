@@ -142,6 +142,8 @@ public class CommandButtonRenderer extends CommandLinkRenderer
     }
 
     rw.endElement(element);
+
+    arc.setCurrentClientId(null);
   }
 
   protected String getButtonType()
