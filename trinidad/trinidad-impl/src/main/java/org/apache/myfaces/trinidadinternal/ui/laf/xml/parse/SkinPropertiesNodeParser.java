@@ -30,6 +30,7 @@ import org.apache.myfaces.trinidadinternal.share.xml.NodeParser;
 import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
 
 import org.apache.myfaces.trinidadinternal.ui.laf.xml.XMLConstants;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * NodeParser for <properties> elements
@@ -62,8 +63,8 @@ public class SkinPropertiesNodeParser extends BaseNodeParser
   {
     if (!(child == null) && !(child instanceof SkinPropertyNode))
     {
-      throw new IllegalArgumentException(
-        "Non Null child and child not an instance of SkinPropertyNode");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "NON_NULL_CHILD_NOT_SKINPROPERTYNODE_INSTANCE"));
     }
 
     if (child instanceof SkinPropertyNode)
@@ -86,4 +87,6 @@ public class SkinPropertiesNodeParser extends BaseNodeParser
   }
 
   private ArrayList<SkinPropertyNode> _properties = new ArrayList<SkinPropertyNode>();
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    SkinPropertiesNodeParser.class);
 }

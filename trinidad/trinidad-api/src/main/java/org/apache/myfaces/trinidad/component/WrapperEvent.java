@@ -22,6 +22,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.FacesListener;
 import javax.faces.event.PhaseId;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * This class wraps a FacesEvent
@@ -33,7 +34,8 @@ class WrapperEvent extends FacesEvent
     super(source);
     // Event can't be null 
     if (wrappedEvent == null)
-      throw new NullPointerException("wrappedEvent");
+      throw new NullPointerException(_LOG.getMessage(
+        "WRAPPEDEVENT"));
 
     _event = wrappedEvent;
   }
@@ -70,4 +72,6 @@ class WrapperEvent extends FacesEvent
   }
   
   private final FacesEvent _event;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    WrapperEvent.class);
 }

@@ -26,6 +26,7 @@ import org.xml.sax.SAXParseException;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Node parser for component nodes in the capabilities file
@@ -46,8 +47,8 @@ class ComponentNodeParser extends BaseNodeParser implements XMLConstants
   {
     if (!NS_URI.equals(namespaceURI))
     {
-      throw new SAXParseException("Invalid Namespace: " +
-                                  namespaceURI, context.getLocator());
+      throw new SAXParseException(_LOG.getMessage(
+        "INVALID_NAMESPACE", namespaceURI), context.getLocator());
     }
 
     _type = attrs.getValue(ATTRIBUTE_TYPE);
@@ -106,4 +107,6 @@ class ComponentNodeParser extends BaseNodeParser implements XMLConstants
 
   private List<IncludeNode> _includeNodes;
   private String _type;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    ComponentNodeParser.class);
 }

@@ -24,6 +24,7 @@ import javax.faces.component.UIComponent;
 
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Change specialization for removal of a child.
@@ -43,8 +44,8 @@ public class RemoveChildComponentChange extends ComponentChange
   public RemoveChildComponentChange(String childId)
   {
     if ((childId == null) || (childId.length() == 0))
-      throw new IllegalArgumentException(
-        "Cannot construct a RemoveChildChange with null childId.");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "CANNOT_CONSTRUCT_REMOVECHILDCHANGE_WITH_NULL_ID"));
     _childId = childId;
   }
   
@@ -109,4 +110,6 @@ public class RemoveChildComponentChange extends ComponentChange
   }
 
   private final String _childId;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    RemoveChildComponentChange.class);
 }

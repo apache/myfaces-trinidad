@@ -154,9 +154,11 @@ public class SkinUtils
   {
   
     if (inputStream == null)
-      throw new NullPointerException("Null inputStream");
+      throw new NullPointerException(_LOG.getMessage(
+        "NO_INPUTSTREAM"));
     if (parserManager == null)
-      throw new NullPointerException("Null parserManager");
+      throw new NullPointerException(_LOG.getMessage(
+        "NULL_PARSEMANAGER"));
     SkinsNode skinsNode = null;
     try
     {

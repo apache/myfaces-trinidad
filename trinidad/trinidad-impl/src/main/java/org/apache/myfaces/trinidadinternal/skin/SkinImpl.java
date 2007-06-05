@@ -151,7 +151,8 @@ abstract public class SkinImpl extends Skin
     //testTranslationKey(key); //jmw test
 
     if (lContext == null)
-      throw new NullPointerException("Null lContext");
+      throw new NullPointerException(_LOG.getMessage(
+        "NULL_LOCALE_CONTEXT"));
     if (key == null)
       throw new NullPointerException("Null key");
 
@@ -241,7 +242,8 @@ abstract public class SkinImpl extends Skin
     )
   {
     if (iconName == null)
-      throw new NullPointerException("Null iconName");
+      throw new NullPointerException(_LOG.getMessage(
+        "NULL_ICONNAME"));
 
     Icon icon = _icons.get(iconName);
     if (resolveIcon)
@@ -320,7 +322,8 @@ abstract public class SkinImpl extends Skin
     )
   {
     if (iconName == null)
-      throw new NullPointerException("Null iconName");
+      throw new NullPointerException(_LOG.getMessage(
+        "NULL_ICONNAME"));
 
     _icons.put(iconName, icon);
   }
@@ -344,7 +347,8 @@ abstract public class SkinImpl extends Skin
     )
   {
     if (styleSheetName == null)
-      throw new NullPointerException("Null styleSheetName");
+      throw new NullPointerException(_LOG.getMessage(
+        "NULL_STYLESHEETNAME"));
 
     if (_extensionStyleSheetNames == null)
     {

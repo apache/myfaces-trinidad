@@ -409,8 +409,8 @@ class RGBColorFormat extends ColorFormat
       case 'A':
         return 2;
       default:
-        throw new IllegalArgumentException("Illegal pattern character " +
-                                           "'" + ch + "'");
+        throw new IllegalArgumentException(_LOG.getMessage(
+          "ILLEGAL_PATTERN_CHARACTER", ch));
     }
   }
 
@@ -441,8 +441,8 @@ class RGBColorFormat extends ColorFormat
       case 'A':
         return _subParseHex(rgba, _ALPHA_FIELD, text, start, count);
       default:
-        throw new IllegalArgumentException("Illegal pattern character " +
-                                           "'" + ch + "'");
+        throw new IllegalArgumentException(_LOG.getMessage(
+          "ILLEGAL_PATTERN_CHARACTER", ch));
     }
   }
 
@@ -534,8 +534,8 @@ class RGBColorFormat extends ColorFormat
       case 'A':
         return _subFormatHex(color.getAlpha(), count, toAppendTo);
       default:
-        throw new IllegalArgumentException("Illegal pattern character " +
-                                           "'" + ch + "'");
+        throw new IllegalArgumentException(_LOG.getMessage(
+          "ILLEGAL_PATTERN_CHARACTER", ch));
     }
   }
 

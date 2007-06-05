@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidad.change;
 
 import javax.faces.component.UIComponent;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Change specialization for adding a facet.
@@ -44,9 +45,8 @@ public class SetFacetChildComponentChange extends AddComponentChange
     super(facetComponent);
     
     if ((facetName == null) || (facetName.length() == 0))
-      throw new IllegalArgumentException(
-        "Cannot construct an AddFacetChange with either of facetName or " + 
-        "facetComponent being null.");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "CANNOT_CONSTRUCT_ADDFACETCHANGE_WITH_NULL_FACETNAME_FACETCOMPONENT"));
 
     _facetName = facetName;
   }
@@ -77,4 +77,6 @@ public class SetFacetChildComponentChange extends AddComponentChange
   }
   
   private final String _facetName;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    SetFacetChildComponentChange.class);
 }

@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidadinternal.ui.laf.xml.parse;
 
 import org.apache.myfaces.trinidadinternal.ui.Renderer;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Object which represents a single <renderer> element.
@@ -44,7 +45,7 @@ public class RendererNode
   {
     if ((namespace == null)||(name == null)||(renderer == null))
     {
-      throw new NullPointerException("Null argument");
+      throw new NullPointerException();
     }
 
     _namespace = namespace;
@@ -81,4 +82,6 @@ public class RendererNode
   private String      _namespace;
   private String      _name;
   private Renderer    _renderer;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    RendererNode.class);
 }

@@ -95,9 +95,8 @@ public class IntrospectionAdapter implements BeanDOAdapter
   public void setInstance(Object instance)
   {
     if ((instance != null) && !_class.isInstance(instance))
-      throw new IllegalArgumentException(instance.toString() +
-                                         " is not an instance of " +
-                                         _class);
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "NOT_AN_INSTANCE", new Object[]{instance.toString(), _class}));
     _instance = instance;
   }
 

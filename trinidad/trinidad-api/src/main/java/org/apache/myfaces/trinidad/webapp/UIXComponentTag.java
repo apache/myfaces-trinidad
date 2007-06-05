@@ -132,9 +132,8 @@ abstract public class UIXComponentTag extends UIComponentTag
   {
     if (component instanceof UIViewRoot)
     {
-      throw new IllegalStateException(
-         "<f:view> was not present on this page; tag " + this +
-         "encountered without an <f:view> being processed.");
+      throw new IllegalStateException(_LOG.getMessage(
+        "VIEW_TAG_NOT_PRESENT", this));
     }
 
     super.setProperties(component);

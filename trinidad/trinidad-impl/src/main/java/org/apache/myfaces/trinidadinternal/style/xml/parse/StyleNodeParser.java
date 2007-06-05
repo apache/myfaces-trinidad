@@ -172,7 +172,8 @@ public class StyleNodeParser extends BaseNodeParser
 
         if (!(child instanceof PropertyNode))
         {
-          throw new IllegalArgumentException("child not instance of PropertyNode");
+          throw new IllegalArgumentException(_LOG.getMessage(
+            "CHILD_NOT_PROPERTYNODE_INSTANCE"));
         }
 
         if (child instanceof PropertyNode)
@@ -183,7 +184,8 @@ public class StyleNodeParser extends BaseNodeParser
     {
       if (!(child instanceof IncludePropertyNode))
       {
-        throw new IllegalArgumentException("child not an instance of IncludePropertyNode");
+        throw new IllegalArgumentException(_LOG.getMessage(
+          "CHIL_NOT_INCLUDEPROEPRTYNODE_INSTANCE"));
       }
 
       if (child instanceof IncludePropertyNode)

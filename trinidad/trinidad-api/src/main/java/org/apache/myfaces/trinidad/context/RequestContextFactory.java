@@ -22,6 +22,7 @@ import java.util.WeakHashMap;
 import java.util.Map;
 
 import javax.faces.context.ExternalContext;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Factory for creating RequestContext objects.
@@ -50,8 +51,8 @@ abstract public class RequestContextFactory
       ClassLoader cl = _getClassLoader();
       if (_FACTORIES.get(cl) != null)
       {
-        throw new IllegalStateException(
-          "Factory already available for this class loader.");
+        throw new IllegalStateException(_LOG.getMessage(
+          "FACTORY_ALREADY_AVAILABLE_FOR_CLASS_LOADER"));
       }
 
       _FACTORIES.put(cl, factory);
@@ -87,4 +88,6 @@ abstract public class RequestContextFactory
 
   static private final Map<ClassLoader, RequestContextFactory> _FACTORIES = 
     new WeakHashMap<ClassLoader, RequestContextFactory>();
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    RequestContextFactory.class);
 }

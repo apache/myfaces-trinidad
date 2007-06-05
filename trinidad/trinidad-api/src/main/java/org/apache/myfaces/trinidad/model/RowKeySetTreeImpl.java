@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.NoSuchElementException;
 import java.util.Set;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Implements a collection of rowKeys from a TreeModel.
@@ -321,7 +322,7 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
   public void invertAll()
   {
     // TODO
-    throw new UnsupportedOperationException("todo");
+    throw new UnsupportedOperationException();
   }
 
   /**
@@ -694,4 +695,6 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
   private Node<Object> _root;
   private transient TreeModel _model = null;
   private static final long serialVersionUID = 1L;
+  private static final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(RowKeySetTreeImpl.class);
 }

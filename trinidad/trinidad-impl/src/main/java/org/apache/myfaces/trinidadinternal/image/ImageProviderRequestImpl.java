@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidadinternal.image;
 
 import java.util.Map;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
 
@@ -48,7 +49,8 @@ public class ImageProviderRequestImpl implements ImageProviderRequest
     
     if (name == null) 
     {
-      throw new NullPointerException("Null name");
+      throw new NullPointerException(_LOG.getMessage(
+        "NULL_NAME"));
     }
 
     _namespace = namespaceURI;
@@ -83,4 +85,6 @@ public class ImageProviderRequestImpl implements ImageProviderRequest
   private String     _namespace;
   private String     _name;
   private Map<Object, Object> _properties;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    ImageProviderRequestImpl.class);
 }

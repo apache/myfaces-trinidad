@@ -26,6 +26,7 @@ import java.util.Set;
 
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Base interface for FacesBean storage objects.
@@ -399,8 +400,8 @@ public interface FacesBean
       if (oldValue != null)
       {
         _keyMap.put(key.getName(), oldValue);
-        throw new IllegalStateException(
-            "Name \"" + key.getName() + "\" had already been registered.");
+        throw new IllegalStateException(_LOG.getMessage(
+          "NAME_ALREADY_REGISTERED", key.getName()));
       }
       
       int index = key.getIndex();
@@ -411,8 +412,8 @@ public interface FacesBean
         if (oldValue != null)
           {
             _keyList.set(index, oldValue);
-            throw new IllegalStateException(
-              "Index \"" + index + "\" had already been registered.");
+            throw new IllegalStateException(_LOG.getMessage(
+              "INDEX_ALREADY_REGISTERED", index));
           }
       }
       
@@ -451,15 +452,16 @@ public interface FacesBean
     private void _checkLocked()
     {
       if (_isLocked)
-        throw new IllegalStateException("Type is already locked");
+        throw new IllegalStateException(_LOG.getMessage(
+          "TYPE_ALREADY_LOCKED"));
     }
 
     private void _checkName(String name)
     {
       if (findKey(name) != null)
       {
-        throw new IllegalStateException(
-          "Name \"" + name + "\" has already been registered.");
+        throw new IllegalStateException(_LOG.getMessage(
+          "NAME_ALREADY_REGISTERED", name));
       }
     }
 
@@ -468,6 +470,6 @@ public interface FacesBean
     private boolean   _isLocked;
     private int       _index;
     private Type      _superType;
+    static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(Type.class); 
   }
-  
 }

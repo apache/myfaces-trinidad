@@ -30,6 +30,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.webapp.UIComponentTag;
 
 import org.apache.myfaces.trinidad.webapp.ELContextTag;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * JavaServer Faces version 1.2 a <code>setPropertyActionListener</code>, which provides the 
@@ -54,8 +55,8 @@ public class SetActionListenerTag extends TagSupport
     UIComponentTag tag = UIComponentTag.getParentUIComponentTag(pageContext);
     if (tag == null)
     {
-      throw new JspException(
-        "setActionListener must be inside of a UIComponent tag.");
+      throw new JspException(_LOG.getMessage(
+        "SETACTIONLISTENER_MUST_INSIDE_UICOMPONENT_TAG"));
     }
 
     // Only run on the first time the tag executes
@@ -65,8 +66,8 @@ public class SetActionListenerTag extends TagSupport
     UIComponent component = tag.getComponentInstance();
     if (!(component instanceof ActionSource))
     {
-      throw new JspException(
-        "setActionListener must be inside of a ActionSource component.");
+      throw new JspException(_LOG.getMessage(
+        "SETACTIONLISTENER_MUST_INSIDE_UICOMPONENT_TAG"));
     }
 
     ELContextTag parentELContext = (ELContextTag)
@@ -103,8 +104,8 @@ public class SetActionListenerTag extends TagSupport
       }
       else
       {
-        throw new JspException("setActionListener's 'to' attribute must " +
-                               "be an EL expression.");
+        throw new JspException(_LOG.getMessage(
+          "SETACTIONLISTENERS_TO_MUST_BE_EL_EXPRESSION"));
       }
     }
 
@@ -123,4 +124,6 @@ public class SetActionListenerTag extends TagSupport
 
   private String _from;
   private String _to;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    SetActionListenerTag.class);
 }

@@ -20,6 +20,7 @@ package org.apache.myfaces.trinidadinternal.ui.data.bind;
 
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * BoundValue that uses a Boolean BoundValue to determine which of two values
@@ -72,7 +73,8 @@ public class IfBoundValue implements BoundValue
     )
   {
     if (testBoundValue == null)
-      throw new IllegalArgumentException("test BoundValue required");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "TEST_BOUNDVALUE_REQUIRED"));
 
     if (trueBoundValue == null)
       trueBoundValue = FixedBoundValue.NULL_VALUE;
@@ -101,4 +103,6 @@ public class IfBoundValue implements BoundValue
   private BoundValue _testValue;  
   private BoundValue _trueValue;
   private BoundValue _falseValue;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    IfBoundValue.class);
 }

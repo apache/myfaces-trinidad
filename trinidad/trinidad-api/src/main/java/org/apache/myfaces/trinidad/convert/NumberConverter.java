@@ -193,7 +193,8 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
 
     if ( null == context || null == component )
     {
-      throw new NullPointerException("FacesContext or Component is null");
+      throw new NullPointerException(_LOG.getMessage(
+        "NULL_FACESCONTEXT_OR_UICOMPONENT"));
     }
 
     if (null == value)
@@ -208,8 +209,8 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
 
     if (null == pattern && null == type)
     {
-      throw new IllegalArgumentException("Either 'pattern' or 'type' must" +
-                                         " be specified");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "EITHER_PATTERN_OR_TYPE_MUST_SPECIFIED"));
     }
 
     RequestContext reqCtx = RequestContext.getCurrentInstance();
@@ -273,7 +274,8 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
   {
     if ( null == context || null == component )
     {
-      throw new NullPointerException("FacesContext or Component is null");
+      throw new NullPointerException(_LOG.getMessage(
+        "NULL_FACESCONTEXT_OR_UICOMPONENT"));
     }
 
     if(value == null)
@@ -283,15 +285,16 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
       return (String)value;
 
     if (!(value instanceof Number))
-      throw new IllegalArgumentException("'value' is not of type java.lang.Number'");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "VALUE_NOT_JAVA_LANG_NUMBER_TYPE"));
 
     String pattern = getPattern();
     String type    = getType();
 
     if (null == pattern && null == type)
     {
-      throw new IllegalArgumentException("Either 'pattern' or 'type' must" +
-                                         " be specified");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "EITHER_PATTERN_OR_TYPE_MUST_SPECIFIED"));
     }
 
 
@@ -1124,7 +1127,8 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     else if ("percent".equals(type))
      return _PERCENT_TYPE;
     else
-      throw new IllegalArgumentException(type + " is not a valid type");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "NOT_VALID_TYPE", type));
   }
 
   private boolean _maxFractionDigitsSpecified()

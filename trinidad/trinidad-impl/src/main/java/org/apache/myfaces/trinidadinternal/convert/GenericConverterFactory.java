@@ -26,6 +26,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * A factory of GenericConverters.
@@ -327,7 +328,8 @@ public class GenericConverterFactory
         return _chain.convert(source);
       }
       else
-        throw new IllegalArgumentException("Cannot convert to:"+targetType);
+        throw new IllegalArgumentException(_LOG.getMessage(
+          "CANNOT_CONVERT",targetType));
     }
 
     @Override
@@ -352,4 +354,6 @@ public class GenericConverterFactory
   
   private static final GenericConverterFactory _INSTANCE = 
     new GenericConverterFactory();
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    GenericConverterFactory.class);
 }

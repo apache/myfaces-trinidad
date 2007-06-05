@@ -18,6 +18,8 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.laf.xml.parse;
 
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+
 /**
  * Object which represents a single &lt;skin&gt; element in trinidad-skins.xml.
  *
@@ -41,11 +43,13 @@ public class SkinNode
     
     if (id==null)
     {
-      throw new NullPointerException("Null id");
+      throw new NullPointerException(_LOG.getMessage(
+        "NULL_ID"));
     }    
     if (family==null)
     {
-      throw new NullPointerException("Null family");
+      throw new NullPointerException(_LOG.getMessage(
+        "NULL_FAMILY"));
     }
 
     _id = id;
@@ -113,5 +117,6 @@ public class SkinNode
   private String _styleSheetName;
   private String _bundleName;
 
-
+  private static final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger( SkinNode.class);
 }

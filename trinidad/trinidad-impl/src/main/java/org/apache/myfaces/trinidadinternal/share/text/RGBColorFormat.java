@@ -22,6 +22,7 @@ import java.awt.Color;
 
 import java.text.FieldPosition;
 import java.text.ParsePosition;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Format for colors.
@@ -394,8 +395,8 @@ public class RGBColorFormat extends ColorFormat
       case 'A':
         return 2;
       default:
-        throw new IllegalArgumentException("Illegal pattern character " +
-                                           "'" + ch + "'");
+        throw new IllegalArgumentException(_LOG.getMessage(
+          "ILLEGAL_PATTERN_CHARACTER", ch));
     }
   }
   
@@ -426,8 +427,8 @@ public class RGBColorFormat extends ColorFormat
       case 'A':
         return _subParseHex(rgba, _ALPHA_FIELD, text, start, count);
       default:
-        throw new IllegalArgumentException("Illegal pattern character " +
-                                           "'" + ch + "'");
+        throw new IllegalArgumentException(_LOG.getMessage(
+          ">ILLEGAL_PATTERN_CHARACTER", ch));
     }
   }
   
@@ -519,8 +520,8 @@ public class RGBColorFormat extends ColorFormat
       case 'A':
         return _subFormatHex(color.getAlpha(), count, toAppendTo);
       default:
-        throw new IllegalArgumentException("Illegal pattern character " +
-                                           "'" + ch + "'");
+        throw new IllegalArgumentException(_LOG.getMessage(
+          ">ILLEGAL_PATTERN_CHARACTER", ch));
     }
   }
 
@@ -571,4 +572,6 @@ public class RGBColorFormat extends ColorFormat
   private static final int _BLUE_FIELD  = 2;
   private static final int _ALPHA_FIELD = 3;
   private static final int _FIELD_COUNT = 4;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    RGBColorFormat.class);
 }

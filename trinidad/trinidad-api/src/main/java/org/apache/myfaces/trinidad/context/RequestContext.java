@@ -469,8 +469,8 @@ abstract public class RequestContext
               _addHelp("RequestContext was already released or " +
                        "had never been attached."));
     if (o != this)
-      throw new IllegalStateException("Trying to release a different " +
-                     "RequestContext than the current context.");
+      throw new IllegalStateException(_LOG.getMessage(
+        "RELEASE_DIFFERENT_REQUESTCONTEXT_THAN_CURRENT_ONE"));
     
     _CURRENT_CONTEXT.remove();
   }
@@ -486,7 +486,8 @@ abstract public class RequestContext
     if (_LOG.isFinest())
     {
       _LOG.finest("RequestContext attached.", 
-                  new RuntimeException("This is not an error. This trace is for debugging."));
+                  new RuntimeException(_LOG.getMessage(
+                    "DEBUGGING_TRACE_NOT_ERROR")));
     }
 
     Object o = _CURRENT_CONTEXT.get();

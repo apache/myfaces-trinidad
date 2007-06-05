@@ -21,6 +21,7 @@ package org.apache.myfaces.trinidadinternal.share.config;
 import java.io.File;
 
 import java.util.Hashtable;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
 /**
@@ -76,11 +77,13 @@ public class ConfigurationImpl extends Configuration
     if (_isContextURI(uri))
     {
       if (contextURI == null)
-        throw new DirectoryUnavailableException("contextURI is null", key);
+        throw new DirectoryUnavailableException(_LOG.getMessage(
+          "NULL_CONTEXT_URL"), key);
 
       if (contextURI.endsWith(_URI_DELIMITER))
       {
-        throw new IllegalArgumentException("context URI for " + key + " ends with a slash");
+        throw new IllegalArgumentException(_LOG.getMessage(
+          "CONTEXT_URI_ENDS_WITH_SLASH", key));
       }
 
       return contextURI + uri;
@@ -113,7 +116,8 @@ public class ConfigurationImpl extends Configuration
     }
 
     if (contextPath == null)
-      throw new DirectoryUnavailableException("contextPath is null", key);
+      throw new DirectoryUnavailableException(_LOG.getMessage(
+        "NULL_CONTEXTPATH"), key);
 
     // =-=AEW Or should we require one set of behavior?
     if (contextPath.endsWith(File.separator))
@@ -150,7 +154,8 @@ public class ConfigurationImpl extends Configuration
     String path)
   {
     if (uri == null)
-      throw new NullPointerException("Registered null URI");
+      throw new NullPointerException(_LOG.getMessage(
+        "REGISTERED_NULL_URI"));
 
     uri = _endWithDelimiter(uri);
     if (uri.startsWith(_URI_DELIMITER))
@@ -184,7 +189,8 @@ public class ConfigurationImpl extends Configuration
     String uri)
   {
     if (uri == null)
-      throw new NullPointerException("Registered null URI");
+      throw new NullPointerException(_LOG.getMessage(
+        "REGISTERED_NULL_URI"));
 
     uri = _endWithDelimiter(uri);
     if ((uri.indexOf(':') < 0) &&
@@ -289,7 +295,8 @@ public class ConfigurationImpl extends Configuration
 
     Object o = _paths.get(key);
     if (o == _NULL_PATH)
-      throw new IllegalStateException("A null path was registered for " + key);
+      throw new IllegalStateException(_LOG.getMessage(
+        "NULL_PATH_REGISTERED", key));
 
     path = (String) o;
     if (path == null)
@@ -298,7 +305,8 @@ public class ConfigurationImpl extends Configuration
       {
         // This case differs from directories.  There is no
         // default.
-        throw new IllegalStateException("No base path registered");
+        throw new IllegalStateException(_LOG.getMessage(
+          "NO_BASE_PATH_REGISTERED"));
       }
       else if (IMAGES_DIRECTORY.equals(key))
       {
@@ -374,4 +382,6 @@ public class ConfigurationImpl extends Configuration
                                          File.separatorChar);
 
   private static final Object _NULL_PATH = new Object();
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    ConfigurationImpl.class);
 }

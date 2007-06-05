@@ -23,6 +23,7 @@ import org.apache.myfaces.trinidad.util.ArrayMap;
 import org.apache.myfaces.trinidadinternal.share.expl.ExpressionParser;
 import org.apache.myfaces.trinidadinternal.share.expl.Function;
 import org.apache.myfaces.trinidadinternal.share.util.NamespaceMap;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * ParserManager maintains a table of ParserFactories, keyed
@@ -199,7 +200,8 @@ public class ParserManager implements Cloneable
   public final void setDefaultExpressionParser(ExpressionParser parser)
   {
     if (parser==null)
-      throw new NullPointerException("parser is null");
+      throw new NullPointerException(_LOG.getMessage(
+        "NULL_PARSER"));
     _defaultExpressionParser = parser;
   }
 
@@ -277,4 +279,6 @@ public class ParserManager implements Cloneable
 
   static private final ParserManager _sDefaultInstance =
     new ParserManager();
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    ParserManager.class);
 }

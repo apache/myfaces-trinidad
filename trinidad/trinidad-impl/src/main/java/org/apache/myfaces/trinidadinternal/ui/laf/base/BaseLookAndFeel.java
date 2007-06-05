@@ -24,6 +24,7 @@ import org.apache.myfaces.trinidadinternal.ui.RendererFactoryImpl;
 import org.apache.myfaces.trinidadinternal.ui.RendererManager;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeel;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Abstract Base LookAndFeel implementation
@@ -68,9 +69,8 @@ public abstract class BaseLookAndFeel extends LookAndFeel
     if (FACET_DEFAULT.equals(facet))
       return getDefaultFactory();
 
-    throw new IllegalArgumentException("Facet " + facet +
-                                       " is not supported on " +
-                                       getClass().getName());
+    throw new IllegalArgumentException(_LOG.getMessage(
+      "FACET_NOT_SUPPORTED", new Object[]{facet, getClass().getName()}));
   }
 
 
@@ -213,4 +213,6 @@ public abstract class BaseLookAndFeel extends LookAndFeel
   };
 
   private RendererManager _rendererManager;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    BaseLookAndFeel.class);
 }

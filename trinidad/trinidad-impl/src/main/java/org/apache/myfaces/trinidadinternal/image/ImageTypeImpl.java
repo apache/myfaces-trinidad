@@ -21,6 +21,7 @@ package org.apache.myfaces.trinidadinternal.image;
 import java.util.Map;
 
 import org.apache.myfaces.trinidad.util.ArrayMap;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * ImageType implementation used by the ImageTypeManager.
@@ -94,7 +95,8 @@ class ImageTypeImpl implements ImageType
   {
     if (value == null)
     {
-      throw new NullPointerException("Null value");
+      throw new NullPointerException(_LOG.getMessage(
+        "NULL_VALUE"));
     }
 
     _properties.put(key, value);
@@ -125,4 +127,6 @@ class ImageTypeImpl implements ImageType
   private String   _namespace;
   private String   _name;
   private ArrayMap<Object, Object> _properties;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    ImageTypeImpl.class);
 }

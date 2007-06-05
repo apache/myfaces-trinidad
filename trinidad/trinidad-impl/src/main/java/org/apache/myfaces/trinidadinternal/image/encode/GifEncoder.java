@@ -27,6 +27,7 @@ import java.io.InterruptedIOException;
 import java.util.Hashtable;
 
 import org.apache.myfaces.trinidadinternal.image.painter.ImageLoader;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Generates a Gif89a graphics file given pixel data.
@@ -53,7 +54,8 @@ final class GifEncoder
     ImageLoader il = new ImageLoader(image);
     il.start();
     if(!il.waitFor()){
-      throw new IllegalArgumentException("Problem loading...");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "PROBLEM_LOADING"));
     }
     int width = image.getWidth(il);
     int height = image.getHeight(il);
@@ -68,14 +70,13 @@ final class GifEncoder
     }
     catch (InterruptedException e)
     {
-      throw new InterruptedIOException("While grabbing pixels:");
+      throw new InterruptedIOException(_LOG.getMessage(
+        "GRABBING_PIXELS"));
     }
     if ((grabber.getStatus() & ImageObserver.ABORT) != 0)
     {
-      throw new IllegalArgumentException("Error while fetching image."+
-                                         " grabbed "+pixels.length+
-                                         " pixel values of the "+width+
-                                         " x "+height+" image.");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "ERROR_FETCHING_IMAGE", new Object[]{pixels.length,width,height}));
     }
 
     // Read the pixels to determine the color table
@@ -141,7 +142,8 @@ final class GifEncoder
         {
           // We've got a new color! Make sure we've got room for it
           if (colorIndex >= _MAXIMUM_COLOR_TABLE_SIZE)
-            throw new IllegalArgumentException("Exceeded gif color limit.");
+            throw new IllegalArgumentException(_LOG.getMessage(
+              "EXCEEDED_GIF_COLOR_LIMIT"));
 
           // Store the new color in the color table
           int off = 3 * colorIndex; // offset for table
@@ -175,7 +177,8 @@ final class GifEncoder
     {
       if (colorIndex >= _MAXIMUM_COLOR_TABLE_SIZE)
       {
-        throw new IllegalArgumentException("No space left for transparency");
+        throw new IllegalArgumentException(_LOG.getMessage(
+          "NO_SPACE_LEFT_FOR_TRANSPARENCY"));
       }
       else
       { // start at the pink historically used for transparency
@@ -530,4 +533,6 @@ final class GifEncoder
     public byte theByte;
     public byte[] byteData;
   }
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    GifEncoder.class);
 }

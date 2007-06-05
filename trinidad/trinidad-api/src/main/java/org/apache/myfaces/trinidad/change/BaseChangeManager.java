@@ -28,6 +28,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.w3c.dom.Document;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
 /**
@@ -52,9 +53,8 @@ abstract class BaseChangeManager extends ChangeManager
     ComponentChange change)
   {
     if (facesContext == null || uiComponent == null || change == null)
-      throw new IllegalArgumentException(
-        "Cannot add a Change with either of facesContext, uiComponent or " +
-        "Change being null.");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "CANNOT_ADD_CHANGE_WITH_FACECONTEXT_OR_UICOMPONENT_OR_NULL"));
 
     // add the change to the component
     _addComponentChangeImpl(facesContext, uiComponent, change);
@@ -216,4 +216,6 @@ abstract class BaseChangeManager extends ChangeManager
     // correct, but potentially slow implementation
     return getDocument(context) != null;
   }
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    BaseChangeManager.class);
 }

@@ -34,6 +34,7 @@ import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.RequestContext;
 
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Basic implementation of the core rendering functionality
@@ -177,7 +178,8 @@ public class CoreRenderer extends Renderer
     {
       RenderingContext arc = RenderingContext.getCurrentInstance();
       if (arc == null)
-        throw new IllegalStateException("No RenderingContext");
+        throw new IllegalStateException(_LOG.getMessage(
+          "NO_RENDERINGCONTEXT"));
       
       FacesBean bean = getFacesBean(component);
       encodeBegin(context, arc, component, bean);
@@ -197,7 +199,8 @@ public class CoreRenderer extends Renderer
   {
     RenderingContext arc = RenderingContext.getCurrentInstance();
     if (arc == null)
-      throw new IllegalStateException("No RenderingContext");
+      throw new IllegalStateException(_LOG.getMessage(
+        "NO_RENDERINGCONTEXT"));
 
     FacesBean bean = getFacesBean(component);
     if (getRendersChildren())
@@ -633,4 +636,6 @@ public class CoreRenderer extends Renderer
 
     context.getResponseWriter().writeAttribute("class", builder.toString(), null);
   }
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    CoreRenderer.class);
 }

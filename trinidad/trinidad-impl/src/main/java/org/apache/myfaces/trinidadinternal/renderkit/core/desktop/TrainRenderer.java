@@ -163,10 +163,8 @@ public class TrainRenderer
   {
     if(!(component instanceof UIXProcess))
     {
-      throw new ClassCastException("TrainRenderer can only renders instances of " + 
-                                   UIXProcess.class.getName() + 
-                                   ", found " + 
-                                   component.getClass().getName());
+      throw new ClassCastException(_LOG.getMessage(
+        "TRAINRENDERER_ONLY_RENDERS_INSTANCE", new Object[]{UIXProcess.class.getName(), component.getClass().getName()}));
     }
 
     if (arc.getFormData() == null)

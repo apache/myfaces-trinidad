@@ -21,6 +21,7 @@ package org.apache.myfaces.trinidad.change;
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentFragment;
 import org.w3c.dom.Node;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Base class for specialized DocumentChanges that when applied will add a component
@@ -32,7 +33,8 @@ abstract public class AddComponentDocumentChange implements DocumentChange
     DocumentFragment fragment)
   {
     if (fragment == null)
-      throw new IllegalArgumentException("DocumentFragment required");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "DOCUMENTFRAGMENT_REQUIRED"));
       
     _fragment = fragment;
   }
@@ -72,4 +74,6 @@ abstract public class AddComponentDocumentChange implements DocumentChange
   }
   
   private final DocumentFragment _fragment;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    AddComponentDocumentChange.class);
 }

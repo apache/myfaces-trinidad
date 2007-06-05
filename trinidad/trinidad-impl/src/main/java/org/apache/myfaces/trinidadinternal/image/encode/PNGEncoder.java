@@ -32,6 +32,7 @@ import java.util.zip.CRC32;
 import java.util.zip.DeflaterOutputStream;
 
 import org.apache.myfaces.trinidadinternal.image.painter.ImageLoader;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Generates a PNG graphics file given pixel data.
@@ -55,7 +56,8 @@ final class PNGEncoder
     loader.start();
     if(!loader.waitFor())
     {
-      throw new IllegalArgumentException("Problem loading...");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "PROBLEM_LOADING"));
     }
 
     int width = image.getWidth(loader);
@@ -74,15 +76,14 @@ final class PNGEncoder
     }
     catch (InterruptedException e)
     {
-      throw new IllegalArgumentException("While grabbing pixels:");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "GRABBING_PIXELS"));
     }
 
     if ((grabber.getStatus() & ImageObserver.ABORT) != 0)
     {
-      throw new IllegalArgumentException("Error while fetching image."+
-                                         " grabbed "+pixels.length+
-                                         " pixel values of the "+width+
-                                         " x "+height+" image.");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "ERROR_FETCHING_IMAGE", new Object[]{pixels.length, width, height}));
     }
 
     // -= Simon Lessard =-
@@ -526,4 +527,6 @@ final class PNGEncoder
   private static final int _tRNS = 0x74524e53;
 
   private static final byte[] _TRANSPARENT_DATA = new byte[] { (byte)0 };
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    PNGEncoder.class);
 }

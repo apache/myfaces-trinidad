@@ -18,6 +18,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui;
 
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 /**
  * A NodeRole defines the role a single UINode plays in the rendering
  * process.
@@ -155,7 +156,8 @@ public class NodeRole
     synchronized(NodeRole.class)
     {
       if ((_sBits & _bits) != 0)
-        throw new IllegalArgumentException("Reusing role index");
+        throw new IllegalArgumentException(_LOG.getMessage(
+          "REUSING_ROLE_INDEX"));
       _sBits = _sBits | _bits;
     }
   }
@@ -166,4 +168,6 @@ public class NodeRole
   private boolean    _base;
 
   static private int _sBits = 0;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    NodeRole.class);
 }

@@ -20,6 +20,7 @@ package org.apache.myfaces.trinidad.util;
 
 import javax.faces.context.FacesContext;
 import javax.faces.render.RenderKit;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * <p>
@@ -86,9 +87,8 @@ public class Service
       if (o != null)
       {
         if (!serviceClass.isAssignableFrom(o.getClass()))
-          throw new IllegalStateException(
-            "Provider " + from + " did not return an object implementing " +
-            serviceClass.getName());
+          throw new IllegalStateException(_LOG.getMessage(
+            "PROVIDER_NOT_RETURN_IMPLEMENTING_OBJECT", new Object[]{from, serviceClass.getName()}));
 
         return o;
       }
@@ -110,12 +110,12 @@ public class Service
     // Service.getService().
     RenderKit rk = context.getRenderKit();
     if (rk == null)
-      throw new NullPointerException(
-        "FacesContext.getRenderKit() returned null while trying to "+
-        "get the " + serviceClass.getName() + " service;  please check " +
-        "your configuration.");
+      throw new NullPointerException(_LOG.getMessage(
+        "OBTAIN_NULL_RENDERKIT_WHILE_GETTING_SERVICE", serviceClass.getName()));
  
 
     return getService(rk, serviceClass);
   }
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    Service.class);
 }

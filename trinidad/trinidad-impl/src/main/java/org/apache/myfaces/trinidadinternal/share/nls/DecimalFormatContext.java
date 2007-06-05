@@ -18,6 +18,7 @@
  */
 package org.apache.myfaces.trinidadinternal.share.nls;
 
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 /**
  * The DecimalFormatContext class contains all number format parameters.
  *
@@ -86,7 +87,8 @@ abstract public class DecimalFormatContext implements Cloneable
     catch (CloneNotSupportedException e)
     {
       // should never happen
-      throw new IllegalStateException("DecimalFormatContext is not cloneable!");
+      throw new IllegalStateException(_LOG.getMessage(
+        "DECIMALFORMATCONTEXT_NOT_CLONEABLE"));
     }
   }
 
@@ -122,5 +124,7 @@ abstract public class DecimalFormatContext implements Cloneable
     return buffer.toString();
   }
 
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    DecimalFormatContext.class);
 }
 

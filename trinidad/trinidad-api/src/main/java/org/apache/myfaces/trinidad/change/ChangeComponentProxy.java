@@ -45,8 +45,8 @@ class ChangeComponentProxy implements Serializable
     UIComponent uiComponent)
   {
     if (uiComponent == null)
-      throw new IllegalArgumentException(
-        "Cannot construct an ChangeComponentProxy with null uiComponent.");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "CANNOT_CONSTRUCT_CHANGECOMPONENTPROXY_WITH_NULL_UICOMPONENT"));
     _class = uiComponent.getClass();
     _className = _class.getName();
     _state = uiComponent.saveState(facesContext);

@@ -85,8 +85,8 @@ public class FacesRenderingContext extends RootRenderingContext
     FacesContext fContext) throws IOException
   {
     if (UINodeRendererBase.__getRenderingContext(fContext) != null)
-      throw new IllegalStateException("RenderingContext has already been " +
-                                      "created!");
+      throw new IllegalStateException(_LOG.getMessage(
+        "RENDERINGCONTEXT_HAS_BEEN_CREATED"));
 
     FacesRenderingContext rContext = new FacesRenderingContext(fContext);
 

@@ -34,6 +34,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.util.ComponentUtils;
 import org.apache.myfaces.trinidad.util.MessageFactory;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
 <p><strong>RegExpValidator</strong> is a {@link javax.faces.validator.Validator} that checks
@@ -108,7 +109,8 @@ public class RegExpValidator implements StateHolder, Validator
 
     if ((context == null) || (component == null))
     {
-      throw new NullPointerException("FacesContext or Component is null");
+      throw new NullPointerException(_LOG.getMessage(
+        "NULL_FACESCONTEXT_OR_UICOMPONENT"));
     }
 
     if ( value != null)
@@ -117,7 +119,8 @@ public class RegExpValidator implements StateHolder, Validator
                                     "'value' is not of type java.lang.String.");
 
       if (getPattern() == null)
-        throw new NullPointerException("Pattern null");
+        throw new NullPointerException(_LOG.getMessage(
+          "NULL_REGEXP_PATTERN"));
 
       // compile the regular expression if we haven't already.
       // we cache the compiled regular expression because we can't cache
@@ -359,4 +362,6 @@ public class RegExpValidator implements StateHolder, Validator
 
   private boolean _isTransient = false;
 
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    RegExpValidator.class);
 }

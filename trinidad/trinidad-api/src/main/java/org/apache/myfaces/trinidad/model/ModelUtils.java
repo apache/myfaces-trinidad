@@ -29,6 +29,7 @@ import javax.faces.model.ArrayDataModel;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.ScalarDataModel;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Provides convenience methods for converting objects into models, and
@@ -200,8 +201,8 @@ public final class ModelUtils
       catch (IntrospectionException e)
       {
         IllegalArgumentException re =
-          new IllegalArgumentException("Could not convert:"+value+
-                                       " into a MenuModel");
+          new IllegalArgumentException(_LOG.getMessage(
+            "CANNOT_CONVERT_INTO_MENUMODEL",value));
         re.initCause(e);
         throw re;
       }
@@ -254,4 +255,6 @@ public final class ModelUtils
   private ModelUtils()
   {
   }
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    ModelUtils.class);
 }

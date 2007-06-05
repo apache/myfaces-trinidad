@@ -27,6 +27,7 @@ import org.apache.myfaces.trinidadinternal.ui.RendererFactory;
 import org.apache.myfaces.trinidadinternal.ui.RendererFactoryImpl;
 import org.apache.myfaces.trinidadinternal.ui.RendererManager;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
 
@@ -58,7 +59,8 @@ public class LookAndFeelExtension extends LookAndFeel
   {
     if ((baseLookAndFeel == null)||(id == null)||(family == null))
     {
-      throw new NullPointerException("Null argument");
+      throw new NullPointerException(_LOG.getMessage(
+        "NULL_ARGUMENT"));
     }
 
     _baseLAF = baseLookAndFeel;
@@ -239,8 +241,8 @@ public class LookAndFeelExtension extends LookAndFeel
 
     if (factory == null)
     {
-      throw new IllegalArgumentException("No factory registered for " +
-                                         namespace);
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "NO_FACTORY_REGISTERED", namespace));
     }
 
     factory.__getLocalFactory().registerRenderer(name, renderer);
@@ -264,8 +266,8 @@ public class LookAndFeelExtension extends LookAndFeel
 
     if (factory == null)
     {
-      throw new IllegalArgumentException("No factory registered for " +
-                                         namespace);
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "NO_FACTORY_REGISTERED", namespace));
     }
 
     factory.__getLocalFactory().registerRenderer(name, className);
@@ -423,4 +425,6 @@ public class LookAndFeelExtension extends LookAndFeel
   // Proxy RendererManagers hashed by facet
   private Object[] _rendererManagers;
 
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    LookAndFeelExtension.class);
 }

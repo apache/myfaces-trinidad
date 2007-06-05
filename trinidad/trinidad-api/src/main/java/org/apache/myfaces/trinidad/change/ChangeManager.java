@@ -39,10 +39,12 @@ public abstract class ChangeManager
     String converterClassName)
   {
     if ((targetClassName == null) || (targetClassName.length() == 0))
-      throw new IllegalArgumentException("target class name must be provided");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "TARGET_CLASS_NAME_MUST_BE_PROVIDED"));
 
     if ((converterClassName == null) || (converterClassName.length() == 0))
-      throw new IllegalArgumentException("converter class name must be provided");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "CONVERTER_CLASS_NAME_MUST_BE_PROVIDED"));
 
     synchronized (_CLASSNAME_TO_CONVERTER_NAME_MAP)
     {
@@ -153,9 +155,8 @@ public abstract class ChangeManager
       DocumentChange change)
   {
     if (facesContext == null || uiComponent == null || change == null)
-      throw new IllegalArgumentException(
-        "Cannot add a Change with either of facesContext, uiComponent or " +
-        "Change being null.");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "CANNOT_ADD_CHANGE_WITH_FACECONTEXT_OR_UICOMPONENT_OR_NULL"));
   }
 
   /**

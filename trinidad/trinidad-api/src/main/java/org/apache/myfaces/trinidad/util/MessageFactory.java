@@ -498,7 +498,8 @@ public class MessageFactory
   {
     if (!(customMessagePattern instanceof ValueBinding ||
          customMessagePattern instanceof String))
-         throw new IllegalArgumentException("custom message should be of type ValueBinding or String");
+         throw new IllegalArgumentException(_LOG.getMessage(
+           "CUSTOM_MESSAGE_SHOULD_BE_VALUEBINDING_OR_STRING_TYPE"));
   }
 
   private static ErrorMessages _getBindingOrFormattedErrorMessages(

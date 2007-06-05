@@ -920,7 +920,8 @@ public abstract class UIXCollection extends UIXComponentBase
       else if (phaseId == PhaseId.UPDATE_MODEL_VALUES)
         component.processUpdates(context);
       else
-        throw new IllegalArgumentException("Bad PhaseId:"+phaseId);
+        throw new IllegalArgumentException(_LOG.getMessage(
+          "BAD_PHASEID",phaseId));
     }
   }
 

@@ -30,6 +30,7 @@ import org.apache.myfaces.trinidadinternal.share.xml.NodeParser;
 import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
 
 import org.apache.myfaces.trinidadinternal.ui.laf.xml.XMLConstants;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * NodeParser for <icons> elements
@@ -62,7 +63,8 @@ public class IconsNodeParser extends BaseNodeParser
   {
     if ((child != null) && !(child instanceof IconNode)) 
     {
-      throw new IllegalArgumentException("child is not null and not an instance of IconNode");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "CHILD_NOT_NULL_NOT_ICONNODE_INSTANCE"));
     }
 
     if (child instanceof IconNode)
@@ -85,4 +87,6 @@ public class IconsNodeParser extends BaseNodeParser
   }
 
   private ArrayList<IconNode> _icons = new ArrayList<IconNode>();
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    IconsNodeParser.class);
 }

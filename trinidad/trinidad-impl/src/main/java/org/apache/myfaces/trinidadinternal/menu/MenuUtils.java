@@ -346,8 +346,7 @@ class MenuUtils
 
           public String setValue(String value)
           {
-            throw new UnsupportedOperationException(
-                 this.getClass().getName() + " UnsupportedOperationException");
+            throw new UnsupportedOperationException();
           }
         });
       }
@@ -367,26 +366,22 @@ class MenuUtils
     //Unsupported methods
     public String remove(Object key)
     {
-      throw new UnsupportedOperationException(this.getClass().getName()
-                                            + " UnsupportedOperationException");
+      throw new UnsupportedOperationException();
     }
 
     public void putAll(Map<? extends String, ? extends String> t)
     {
-      throw new UnsupportedOperationException(this.getClass().getName() 
-                                            + " UnsupportedOperationException");
+      throw new UnsupportedOperationException();
     }
 
     public String put(String key, String value)
     {
-      throw new UnsupportedOperationException(this.getClass().getName()
-                                            + " UnsupportedOperationException");
+      throw new UnsupportedOperationException();
     }
 
     public void clear()
     {
-      throw new UnsupportedOperationException(this.getClass().getName()
-                                            + " UnsupportedOperationException");
+      throw new UnsupportedOperationException();
     }
     
     public ResourceBundle getBundle()

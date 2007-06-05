@@ -24,6 +24,7 @@ import java.io.IOException;
 
 import java.net.URL;
 import java.net.MalformedURLException;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Default implementation of NameResolver.  This class
@@ -94,7 +95,8 @@ public class DefaultNameResolver implements NameResolver
     if (url != null)
       return __getProvider(url);
 
-    throw new FileNotFoundException("Could not find " + name);
+    throw new FileNotFoundException(_LOG.getMessage(
+      "CANNOT_FIND_FILE", name));
   }
 
   /**
@@ -336,4 +338,6 @@ public class DefaultNameResolver implements NameResolver
 
   private File _baseFile;
   private URL  _baseURL;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    DefaultNameResolver.class);
 }

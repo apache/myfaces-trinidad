@@ -82,7 +82,8 @@ public class DialogServiceImpl extends DialogService
     {
       UIViewRoot poppedView = peekView();
       if (poppedView == null)
-        throw new IllegalStateException("popView(): No view has been pushed.");
+        throw new IllegalStateException(_LOG.getMessage(
+          "POPVIEW_NO_VIEW_PUSHED"));
 
       // Set the view root
       context.setViewRoot(poppedView);
@@ -99,7 +100,8 @@ public class DialogServiceImpl extends DialogService
       // For starters, this should only happen if we weren't navigating
       assert(!navigateToPoppedView);
       // But even then, it's an illegal state
-      throw new IllegalStateException("popView(): No view has been pushed.");
+      throw new IllegalStateException(_LOG.getMessage(
+        ">POPVIEW_NO_VIEW_PUSHED"));
     }
     else if (list.size() == 1)
     {

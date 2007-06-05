@@ -570,7 +570,8 @@ public class XMLMenuModel extends BaseMenuModel
          
         if (services.isEmpty())
         {
-          throw new IllegalStateException("No MenuContentHandler was registered.");
+          throw new IllegalStateException(_LOG.getMessage(
+            "NO_MENUCONTENTHANDLER_REGISTERED"));
         }
         
         _contentHandler = services.get(0);

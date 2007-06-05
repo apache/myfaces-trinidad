@@ -21,6 +21,7 @@ package org.apache.myfaces.trinidad.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  */
@@ -139,7 +140,8 @@ class PathHelper
   public final void pushPath()
   {
     if (_rowKey == null)
-      throw new IllegalStateException("rowKey");
+      throw new IllegalStateException(_LOG.getMessage(
+        "NULL_ROWKEY"));
   
     Object parentData = getLastPathData();
     Object data = pushPath(parentData, _rowKey);
@@ -178,7 +180,8 @@ class PathHelper
       _rowKey = lastPath.rowKey;
     }
     else
-      throw new IllegalStateException("No Path element to pop");
+      throw new IllegalStateException(_LOG.getMessage(
+        "NO_PATH_ELEMENT_TO_POP"));
   }
 
   private PathHelper.PathElement _getPathElement(int index)
@@ -200,4 +203,6 @@ class PathHelper
       this.node = data;
     }
   }
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    PathHelper.class);
 }

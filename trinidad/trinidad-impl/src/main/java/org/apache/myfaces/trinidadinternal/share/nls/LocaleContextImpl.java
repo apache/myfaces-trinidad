@@ -28,6 +28,7 @@ import org.apache.myfaces.trinidad.context.LocaleContext;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Context for locale-specific operations and properties.  All of the properties
@@ -73,7 +74,8 @@ public class LocaleContextImpl extends LocaleContext
     )
   {
     if (!getClass().getName().startsWith("org.apache.myfaces.trinidadinternal.share.nls."))
-      throw new IllegalStateException("User-defined subclasses not supported.");
+      throw new IllegalStateException(_LOG.getMessage(
+        "USER_DEFINED_SUBCLASSES_NOT_SUPOORTED"));
 
     if (formattingLocale == null)
     {
@@ -188,8 +190,8 @@ public class LocaleContextImpl extends LocaleContext
         (newReadingDirection != LocaleUtils.DIRECTION_LEFTTORIGHT) &&
         (newReadingDirection != LocaleUtils.DIRECTION_RIGHTTOLEFT))
     {
-      throw new IllegalArgumentException("Unknown reading direction:" +
-                                         newReadingDirection);
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "UNKNOWN_READING_DIRECTION", newReadingDirection));
     }
 
     _readingDirection = newReadingDirection;
@@ -454,4 +456,6 @@ public class LocaleContextImpl extends LocaleContext
   private TimeZone _timeZone;
 
   private int _readingDirection = LocaleUtils.DIRECTION_DEFAULT;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    LocaleContextImpl.class);
 }

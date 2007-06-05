@@ -145,7 +145,8 @@ public class StateManagerImpl extends StateManager
       throw new NullPointerException();
 
     if (!(savedState instanceof PageState))
-      throw new IllegalArgumentException("Invalid saved state object");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "INVALID_SAVED_STATE_OBJECT"));
 
     PageState viewState = (PageState) savedState;
 

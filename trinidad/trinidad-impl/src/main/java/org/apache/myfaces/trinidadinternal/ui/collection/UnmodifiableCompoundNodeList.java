@@ -20,6 +20,7 @@ package org.apache.myfaces.trinidadinternal.ui.collection;
 
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Unmodifiable UINodeList that merges the results of two other node lists.
@@ -85,8 +86,8 @@ public class UnmodifiableCompoundNodeList implements UINodeList
     UINode node
     )
   {
-    throw new UnsupportedOperationException(
-      "It is illegal to set children on an UnmodifiableCompoundNodeList");
+    throw new UnsupportedOperationException(_LOG.getMessage(
+      "ILLEGAL_TO_SET_CHILDREN_ON_UNMODIFIABLECOMPOUNDNODELIST"));
   }
   
   
@@ -95,8 +96,8 @@ public class UnmodifiableCompoundNodeList implements UINodeList
     UINode node
     )
   {
-    throw new UnsupportedOperationException(
-      "It is illegal to add children to an UnmodifiableCompoundNodeList");
+    throw new UnsupportedOperationException(_LOG.getMessage(
+      "ILLEGAL_TO_ADD_CHILDREN_ON_UNMODIFIABLECOMPOUNDNODELIST"));
   }
   
   
@@ -104,22 +105,22 @@ public class UnmodifiableCompoundNodeList implements UINodeList
     UINode node
     )
   {
-    throw new UnsupportedOperationException(
-      "It is illegal to add children to an UnmodifiableCompoundNodeList");
+    throw new UnsupportedOperationException(_LOG.getMessage(
+      "ILLEGAL_TO_ADD_CHILDREN_ON_UNMODIFIABLECOMPOUNDNODELIST"));
   }
   
   public UINode removeUINode(
     int index
     )
   {
-    throw new UnsupportedOperationException(
-      "It is illegal to remove children from an UnmodifiableCompoundNodeList");
+    throw new UnsupportedOperationException(_LOG.getMessage(
+      "ILLEGAL_TO_REMOVE_CHILDREN_ON_UNMODIFIABLECOMPOUNDNODELIST"));
   }
   
   public void clearUINodes()
   {
-    throw new UnsupportedOperationException(
-      "It is illegal to clear children from an UnmodifiableCompoundNodeList");
+    throw new UnsupportedOperationException(_LOG.getMessage(
+      "ILLEGAL_TO_REMOVE_CHILDREN_ON_UNMODIFIABLECOMPOUNDNODELIST"));
   }
   
   @Override
@@ -138,4 +139,6 @@ public class UnmodifiableCompoundNodeList implements UINodeList
   
   private UINodeList _first;
   private UINodeList _second;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    UnmodifiableCompoundNodeList.class);
 }

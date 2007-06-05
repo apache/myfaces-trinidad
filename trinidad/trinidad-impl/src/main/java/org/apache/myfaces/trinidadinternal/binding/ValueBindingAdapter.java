@@ -75,7 +75,7 @@ abstract public class ValueBindingAdapter extends ValueBinding
   public void setTransient(boolean isTransient)
   {
     if (isTransient)
-      throw new IllegalStateException("Don't support transient here");
+      throw new UnsupportedOperationException();
   }
 
   public boolean isTransient()

@@ -111,14 +111,14 @@ public class CapabilitiesDocumentParser extends BaseNodeParser
   {
     if (!NS_URI.equals(namespaceURI))
     {
-      throw new SAXParseException("Invalid Namespace: " +
-                                  namespaceURI, context.getLocator());
+      throw new SAXParseException(_LOG.getMessage(
+        "INVALID_NAMESPACE", namespaceURI), context.getLocator());
     }
 
     if (!ELEMENT_ROOT.equals(localName))
     {
-      throw new SAXParseException("Invalid Root Element: " +
-                                  localName, context.getLocator());
+      throw new SAXParseException(_LOG.getMessage(
+        "INVALID_ROOT_ELEMENT", localName), context.getLocator());
     }
   }
 

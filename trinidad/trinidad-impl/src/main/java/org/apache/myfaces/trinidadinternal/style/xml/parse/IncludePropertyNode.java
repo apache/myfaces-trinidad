@@ -18,6 +18,7 @@
  */
 package org.apache.myfaces.trinidadinternal.style.xml.parse;
 
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 /**
  * IncludePropertyNode is used to represent a single &lt;includeProperty%gt; element
  * in a parsed XML Style Sheet Language document.
@@ -47,7 +48,8 @@ public class IncludePropertyNode
 
     if (propertyName == null)
     {
-      throw new NullPointerException("Null propertyName");
+      throw new NullPointerException(_LOG.getMessage(
+        "NULL_PROPERTYNAME"));
     }
 
     _name = name;
@@ -138,4 +140,6 @@ public class IncludePropertyNode
   private final String _selector;
   private final String _propertyName;
   private final String _localPropertyName;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    IncludePropertyNode.class);
 }

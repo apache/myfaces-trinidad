@@ -23,6 +23,7 @@ import javax.faces.component.UIComponent;
 import java.util.Collection;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
 /**
@@ -43,7 +44,8 @@ class ChildArrayList extends ArrayList<UIComponent>
       throw new NullPointerException();
 
     if ((index < 0) || (index > size()))
-      throw new IndexOutOfBoundsException("index:"+index+" size:"+size());
+      throw new IndexOutOfBoundsException(_LOG.getMessage(
+        "INDEX_SIZE", new Object[]{index, size()}));
 
     UIComponent oldParent = element.getParent();
     if (oldParent != null)
@@ -192,4 +194,6 @@ class ChildArrayList extends ArrayList<UIComponent>
 
 
   private final UIComponent _parent;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    ChildArrayList.class);
 }

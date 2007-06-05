@@ -1277,7 +1277,8 @@ abstract public class UIXComponentBase extends UIXComponent
 
   private void _throwBadId(String id)
   {
-    throw new IllegalArgumentException("Illegal id: " + id);
+    throw new IllegalArgumentException(_LOG.getMessage(
+      "ILLEGAL_ID", id));
   }
 
   private void _init(

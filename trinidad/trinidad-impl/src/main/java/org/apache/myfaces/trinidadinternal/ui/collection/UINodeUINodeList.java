@@ -21,6 +21,7 @@ package org.apache.myfaces.trinidadinternal.ui.collection;
 import org.apache.myfaces.trinidadinternal.ui.MutableUINode;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * UINodeList that retrieves its list of children from a UINode.
@@ -104,8 +105,8 @@ public abstract class UINodeUINodeList implements UINodeList
     }
     else
     {
-      throw new UnsupportedOperationException(
-       "It is illegal to set children on a " + _getClassName());
+      throw new UnsupportedOperationException(_LOG.getMessage(
+        "ILLEGAL_TO_SET_CHILDREN", _getClassName()));
     }
   }
  
@@ -123,8 +124,8 @@ public abstract class UINodeUINodeList implements UINodeList
     }
     else
     {
-      throw new UnsupportedOperationException(
-       "It is illegal to add children to a " + _getClassName());
+      throw new UnsupportedOperationException(_LOG.getMessage(
+        "ILLEGAL_TO_ADD_CHILDREN", _getClassName()));
     }
   }
   
@@ -141,8 +142,8 @@ public abstract class UINodeUINodeList implements UINodeList
     }
     else
     {
-      throw new UnsupportedOperationException(
-       "It is illegal to add children to a " + _getClassName());
+      throw new UnsupportedOperationException(_LOG.getMessage(
+        "ILLEGAL_TO_ADD_CHILDREN", _getClassName()));
     }
   }
   
@@ -159,8 +160,8 @@ public abstract class UINodeUINodeList implements UINodeList
     }
     else
     {
-      throw new UnsupportedOperationException(
-       "It is illegal to remove children from a " + _getClassName());
+      throw new UnsupportedOperationException(_LOG.getMessage(
+        "ILLEGAL_TO_REMOVE_CHILDREN", _getClassName()));
     }
   }
   
@@ -174,8 +175,8 @@ public abstract class UINodeUINodeList implements UINodeList
     }
     else
     {
-      throw new UnsupportedOperationException(
-       "It is illegal to remove all children from a " + _getClassName());
+      throw new UnsupportedOperationException(_LOG.getMessage(
+        "ILLEGAL_TO_REMOVE_CHILDREN", _getClassName()));
     }
   }
   
@@ -201,4 +202,6 @@ public abstract class UINodeUINodeList implements UINodeList
       return name;
     return name.substring(indexOfPeriod + 1);
   }
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    UINodeUINodeList.class);
 } 

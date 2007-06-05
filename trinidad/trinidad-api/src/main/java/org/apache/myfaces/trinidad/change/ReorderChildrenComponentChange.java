@@ -27,6 +27,7 @@ import java.util.Map;
 import javax.faces.component.UIComponent;
 import org.w3c.dom.Node;
 import org.w3c.dom.NamedNodeMap;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Change specialization for re-ordering of children.
@@ -49,8 +50,8 @@ public class ReorderChildrenComponentChange extends ComponentChange
     )
   {
     if (childIds == null)
-      throw new IllegalArgumentException(
-        "Cannot construct a ReorderChange with null childIds.");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "CANNOT_CONSTRUCT_REORDERCHANGE_WITH_NULL_ID"));
   
     // make serializable copy of list        
     _childIds = Collections.unmodifiableList(new ArrayList<String>(childIds));
@@ -194,4 +195,6 @@ public class ReorderChildrenComponentChange extends ComponentChange
   }
 
   private final List<String> _childIds;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    ReorderChildrenComponentChange.class);
 }

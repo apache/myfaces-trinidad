@@ -121,7 +121,8 @@ abstract public class RootRenderingContext extends RenderedNodeRenderingContext
     if ((config != null) &&
         !(config instanceof ContextBasedConfiguration))
     {
-      throw new IllegalStateException("Only ContextBasedConfiguration is supported");
+      throw new IllegalStateException(_LOG.getMessage(
+        "ONLY_CONTEXTBASEDCONFIGURATION_SUPPORTED"));
     }
   }
 
@@ -154,8 +155,8 @@ abstract public class RootRenderingContext extends RenderedNodeRenderingContext
   public void setFacet(String facet)
   {
     if (_manager != null)
-      throw new IllegalStateException("The facet may not be set after the " +
-                                      "RendererManager has been assigned.");
+      throw new IllegalStateException(_LOG.getMessage(
+        "FACET_MAY_NOT_BE_SET_AFTER_RENDERERMANAGER_HAS_BEEN_ASSIGNED"));
     if (facet == null)
       facet = UIConstants.FACET_DEFAULT;
 

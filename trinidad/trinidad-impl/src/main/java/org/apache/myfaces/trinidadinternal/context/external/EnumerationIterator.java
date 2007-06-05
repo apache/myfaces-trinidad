@@ -45,8 +45,7 @@ class EnumerationIterator<T> implements Iterator<T>
 
   public void remove()
   {
-    throw new UnsupportedOperationException(this.getClass().getName()
-        + " UnsupportedOperationException");
+    throw new UnsupportedOperationException();
   }
 
   private Enumeration<T> _enumeration;

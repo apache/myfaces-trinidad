@@ -25,6 +25,7 @@ import javax.faces.webapp.UIComponentTag;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * 
@@ -87,19 +88,22 @@ public class AttributeTag extends TagSupport
         UIComponentTag.getParentUIComponentTag(pageContext);
     if (tag == null) 
     { // PENDING - i18n
-      throw new JspException("Not nested in a UIComponentTag");
+      throw new JspException(_LOG.getMessage(
+        "NOT_NESTED_IN_UICOMPONENTTAG"));
     }
 
     // Add this attribute if it is not already defined
     UIComponent component = tag.getComponentInstance();
     if (component == null) 
     { // PENDING - i18n
-      throw new JspException("No component associated with UIComponentTag");
+      throw new JspException(_LOG.getMessage(
+        "NO_COMPONENT_ASSOCIATED_WITH_UICOMPONENTTAG"));
     }
     String nameVal = _name;
     if (UIComponentTag.isValueReference(_name)) 
     {
-      throw new JspException("Name attribute cannot be EL bound");
+      throw new JspException(_LOG.getMessage(
+        "NAME_ATTRIBUTE_CANNOT_BE_EL_BOUND"));
     }
     
     if (component.getAttributes().get(nameVal) == null) 
@@ -149,4 +153,6 @@ public class AttributeTag extends TagSupport
   private String _name = null;
   // The value to be associated with this attribute, if it is created.
   private String _value = null;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    AttributeTag.class);
 }

@@ -206,7 +206,8 @@ public class UIImplicitObject
     {
       if (lst == null)
       {
-        throw new NullPointerException("Null list argument");
+        throw new NullPointerException(_LOG.getMessage(
+          "NULL_LIST_ARGUMENT"));
       }
       _lst = lst;
     }
@@ -246,7 +247,8 @@ public class UIImplicitObject
     {
       if (dob == null)
       {
-        throw new NullPointerException("Null data object argument");
+        throw new NullPointerException(_LOG.getMessage(
+          "NULL_DATA_OBJECT_ARGUMENT"));
       }
 
       _dob = dob;

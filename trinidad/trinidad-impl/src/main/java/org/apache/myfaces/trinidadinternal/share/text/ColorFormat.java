@@ -24,6 +24,7 @@ import java.text.FieldPosition;
 import java.text.Format;
 import java.text.ParseException;
 import java.text.ParsePosition;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Format for colors.
@@ -66,8 +67,8 @@ public abstract class ColorFormat extends Format
     if (index == 0 ||
         (source != null && index < source.length())) 
     {
-        throw new ParseException("Format.parseObject(String) failed",
-            status.getErrorIndex());
+        throw new ParseException(_LOG.getMessage(
+          "FORMAT_PARSEOBJECT_FAIL"), status.getErrorIndex());
     }
     return result;
   }
@@ -111,7 +112,8 @@ public abstract class ColorFormat extends Format
     else 
     {
       throw 
-        new IllegalArgumentException("Cannot format given Object as a Color");
+        new IllegalArgumentException(_LOG.getMessage(
+          "CANNOT_FORMAT_GIVEN_OBJECT_AS_A_COLOR"));
     }
   }
   
@@ -119,4 +121,6 @@ public abstract class ColorFormat extends Format
     Color color,
     StringBuffer toAppendTo,
     FieldPosition pos);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    ColorFormat.class);
 }

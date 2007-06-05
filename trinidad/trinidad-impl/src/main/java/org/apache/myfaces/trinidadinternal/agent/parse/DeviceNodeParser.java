@@ -48,8 +48,8 @@ class DeviceNodeParser extends BaseNodeParser implements XMLConstants
   {
     if (!NS_URI.equals(namespaceURI))
     {
-      throw new SAXParseException("Invalid Namespace: " +
-                                  namespaceURI, context.getLocator());
+      throw new SAXParseException(_LOG.getMessage(
+        "INVALID_NAMESPACE", namespaceURI), context.getLocator());
     }
 
     String id = attrs.getValue(ATTRIBUTE_ID);

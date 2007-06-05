@@ -21,6 +21,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.xml.parse;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
 
@@ -47,7 +48,8 @@ public class RenderersNode
       // creating the RenderersNode.
       if ((renderers == null) || (renderers.length <= 0))
       {
-        throw new IllegalArgumentException("Null renderers or no renderers passed");
+        throw new IllegalArgumentException(_LOG.getMessage(
+          "NULL_RENDERERS_NO_RENDERERS_PASSED"));
       }
 
 
@@ -93,4 +95,6 @@ public class RenderersNode
 
   private RendererNode[] _renderers;
   private String[]       _facets;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    RenderersNode.class);
 }

@@ -85,7 +85,8 @@ public class SkinExtension extends SkinImpl
     if (baseSkin == null)
       throw new NullPointerException("Null baseSkin");
     if (id == null)
-      throw new NullPointerException("Null id");
+      throw new NullPointerException(_LOG.getMessage(
+        "NULL_SKIN_ID"));
     if (family == null)
       throw new NullPointerException("Null family");
     if (renderKitId == null)

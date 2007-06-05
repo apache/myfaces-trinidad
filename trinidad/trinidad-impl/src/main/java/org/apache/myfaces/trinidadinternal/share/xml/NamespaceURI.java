@@ -109,7 +109,8 @@ public final class NamespaceURI
       uri = pmapper.getNamespaceURI(prefix);
 
       if (uri == null)
-        throw new IllegalArgumentException("Undeclared prefix: " + prefix);
+        throw new IllegalArgumentException(_LOG.getMessage(
+          "UNDECLARED_PREFIX", prefix));
 
       name = qname.substring(colonIndex + 1);
     }

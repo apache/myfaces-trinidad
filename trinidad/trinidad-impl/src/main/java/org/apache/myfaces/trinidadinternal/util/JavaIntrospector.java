@@ -343,9 +343,8 @@ public class JavaIntrospector
 
       if (!isSuper)
       {
-        throw new IntrospectionException(stopClass.getName() +
-                                         " not superclass of " +
-                                         beanClass.getName());
+        throw new IntrospectionException(_LOG.getMessage(
+          "NOT_SUPERCLASS_OF", new Object[]{stopClass.getName(), beanClass.getName()}));
       }
     }
 
@@ -2022,6 +2021,7 @@ public class JavaIntrospector
   private static boolean _sDeclaredAccessOK = true;
 
   private static String[] _sSearchPath = { "sun.beans.infos" };
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(JavaIntrospector.class);
 }
 
 
@@ -2418,6 +2418,6 @@ class GenericBeanInfo extends SimpleBeanInfo
   private MethodDescriptor[]   _methods;
   private BeanInfo             _targetBeanInfo;
 
-  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(JavaIntrospector.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(GenericBeanInfo.class);
 }
 

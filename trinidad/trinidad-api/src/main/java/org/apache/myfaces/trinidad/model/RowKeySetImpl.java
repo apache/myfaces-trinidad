@@ -363,7 +363,8 @@ public final class RowKeySetImpl extends RowKeySet implements Externalizable
       public void remove()
       {
         if (_current == null)
-          throw new IllegalStateException("No element to remove");
+          throw new IllegalStateException(_LOG.getMessage(
+            "NO_ELEMENT_TO_REMOVE"));
         Set<Object> mutable = _getSet(true);
         // since this is the not-in-set iterator, we "remove" the element
         // by adding it to the Set:

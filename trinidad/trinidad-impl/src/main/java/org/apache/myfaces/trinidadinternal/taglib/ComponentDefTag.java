@@ -27,6 +27,7 @@ import org.apache.myfaces.trinidad.component.UIXComponentRef;
 import javax.servlet.jsp.JspException;
 import org.apache.myfaces.trinidadinternal.taglib.util.TagUtils;
 import javax.faces.webapp.UIComponentTag;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 public class ComponentDefTag extends TagSupport
 {
@@ -47,8 +48,8 @@ public class ComponentDefTag extends TagSupport
     UIComponentTag tag = UIComponentTag.getParentUIComponentTag(pageContext);
     if (tag == null)
     {
-      throw new JspException(
-        "componentDef cannot be run as a stand-alone. It must be included inside a JSF component tree.");
+      throw new JspException(_LOG.getMessage(
+        "COMPOENENTDEF_CANNOT_RUN_AS_STANDALONE"));
     }
 
     // Only run on the first time the tag executes
@@ -57,14 +58,15 @@ public class ComponentDefTag extends TagSupport
       UIComponent component = tag.getComponentInstance();
       if (!(component instanceof UIXComponentRef))
       {
-        throw new JspException(
-          "componentDef must be included as a child of an <tr:componentRef>.");
+        throw new JspException(_LOG.getMessage(
+          "COMPONENTDEF_MUST_BE_INCLUDED_AS_CHILD_OF"));
       }
 
       if (_var != null)
       {
         if (TagUtils.isValueReference(_var))
-          throw new JspException("tr:componentDef does not support EL on 'var'");
+          throw new JspException(_LOG.getMessage(
+            "COMPONENTDEF_NOT_SUPPORT_EL"));
           
         ((UIXComponentRef) component).setVar(_var);
       }
@@ -79,4 +81,6 @@ public class ComponentDefTag extends TagSupport
     super.release();
     _var = null;
   }
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    ComponentDefTag.class);
 }
