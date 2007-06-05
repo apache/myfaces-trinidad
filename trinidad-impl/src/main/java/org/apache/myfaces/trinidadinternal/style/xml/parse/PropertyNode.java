@@ -16,6 +16,7 @@
 
 package org.apache.myfaces.trinidadinternal.style.xml.parse;
 
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 /**
  * Private implementation of PropertyNode.
  *
@@ -34,8 +35,8 @@ public class PropertyNode
   {
 
     if (name == null || "".equals(name))
-      throw new IllegalArgumentException("PropertyNode's name cannot be null or the empty string." +
-      "name is '" + name + "' and value is '"+ value + "'");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "PROPERTYNODE_NAME_CANNOT_BE_NULL_OR_EMPTY", new Object[]{name, value}));
     _name = name;
     _value = value;
   }
@@ -91,4 +92,6 @@ public class PropertyNode
   
   private final String _name;
   private final String _value;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    PropertyNode.class);
 }

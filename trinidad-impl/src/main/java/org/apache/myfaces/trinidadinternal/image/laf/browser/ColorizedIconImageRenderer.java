@@ -37,6 +37,7 @@ import org.apache.myfaces.trinidadinternal.image.painter.ImageLoader;
 import org.apache.myfaces.trinidadinternal.image.painter.ImageUtils;
 
 import org.apache.myfaces.trinidadinternal.style.util.GraphicsUtils;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * ImageRenderer for colorized icons
@@ -203,7 +204,8 @@ public class ColorizedIconImageRenderer implements ImageRenderer
     {
       if (sourceColors.length != targetColors.length)
       {
-        throw new IllegalArgumentException("Different lengths - sourceColors and targetColors");
+        throw new IllegalArgumentException(_LOG.getMessage(
+          "DIFFERENT_LENGTHS_SOURCECOLORS_TARGETCOLORS"));
       }
 
       _sourceColors = new int[sourceColors.length];
@@ -271,4 +273,6 @@ public class ColorizedIconImageRenderer implements ImageRenderer
     0xffffcc, // MediumAccent
     0xf7f7e7, // LightAccent
   };
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    ColorizedIconImageRenderer.class);
 }

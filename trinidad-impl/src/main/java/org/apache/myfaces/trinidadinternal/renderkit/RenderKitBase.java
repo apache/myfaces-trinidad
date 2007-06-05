@@ -65,10 +65,8 @@ abstract public class RenderKitBase extends RenderKit
   {
     /* =-=AEW No: it is legal to override a renderer.
     if ( _get(family, rendererType) != null )
-      throw new IllegalArgumentException("Duplicate renderer type \"" +
-                                         rendererType +
-                                         "\" for family \"" +
-                                         family + "\"");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "DUPLICATE_RENDERER_TYPE", new Object[]{rendererType, family}));
     */
     _put(family, rendererType, renderer);
   }
@@ -85,10 +83,8 @@ abstract public class RenderKitBase extends RenderKit
   {
     /* =-=AEW No: it is legal to override a renderer.
     if ( _get(family, rendererType) != null )
-      throw new IllegalArgumentException("Duplicate renderer type \"" +
-                                         rendererType +
-                                         "\" for family \"" +
-                                         family + "\"");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "DUPLICATE_RENDERER_TYPE", new Object[]{rendererType, family}));
     */
 
     _put(family, rendererType,

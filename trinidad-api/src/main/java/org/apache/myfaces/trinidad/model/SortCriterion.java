@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidad.model;
 
 import java.io.Serializable;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * This class pairs together a property and a direction by which a 
@@ -30,7 +31,8 @@ public class SortCriterion implements Serializable
   public SortCriterion(String property, boolean isAscending)
   {
     if (property == null)
-      throw new NullPointerException("property is null");
+      throw new NullPointerException(_LOG.getMessage(
+        "NULL_PROPERTY"));
 
     _property = property;
     _sortOrder = isAscending;
@@ -84,4 +86,6 @@ public class SortCriterion implements Serializable
   
   private final String _property;
   private final boolean _sortOrder;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    SortCriterion.class);
 }

@@ -96,13 +96,16 @@ public class ComparisonBoundValue implements BoundValue
     )
   {
     if (leftSideValue == null)
-      throw new IllegalArgumentException("leftSideValue is null");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "NULL_LEFTSIDEVALUE"));
     if (rightSideValue == null)
-      throw new IllegalArgumentException("rightSideValue is null");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "NULL_RIGHTSIDEVALUE"));
 
     if ((comparison < COMPARISON_LESS_THAN) ||
         (comparison > COMPARISON_GREATER_THAN_OR_EQUALS))
-      throw new IllegalArgumentException("Unknown comparison");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "UNKNOWN_COMPARISON"));
 
     _comparison = comparison;
 

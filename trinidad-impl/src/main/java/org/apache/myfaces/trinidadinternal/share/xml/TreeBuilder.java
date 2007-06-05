@@ -143,7 +143,8 @@ public class TreeBuilder
     NodeParser       rootParser) throws IOException, SAXException
   {
     if ((_rootClass == null) && (rootParser == null))
-      throw new NullPointerException("Both rootClass and rootParser are null");
+      throw new NullPointerException(_LOG.getMessage(
+        "NULL_ROOTCLASS_ROOTPARSER"));
 
     if (provider == null)
       provider = new JaxpXMLProvider();

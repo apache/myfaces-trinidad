@@ -396,18 +396,15 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
       else
       {
         // TODO Don't throw exception: message!
-        throw new IndexOutOfBoundsException(
-          "SelectOne submittedValue's index " +
-          index + " is out of bounds. It should be between 0 and " +
-          (selectItems.size() - 1));
+        throw new IndexOutOfBoundsException(_LOG.getMessage(
+          "SELECTONE_SUBMITTEDVALUE_INDEX_OUTSIDE_BOUNDS", new Object[]{index, (selectItems.size() - 1)}));
       }
     }
     catch (NumberFormatException ne)
     {
       // TODO Don't throw exception: message!
-      throw new NumberFormatException(
-        "SelectOne could not convert submittedValue's index " +
-        submittedValue.toString() + " into int " + ne);
+      throw new NumberFormatException(_LOG.getMessage(
+        "SELECTONE_CANNOT_CONVERT_SUBMITTEDVALUE_INDEX_INTO_INTEGER", new Object[]{submittedValue.toString(), ne}));
     }
   }
 

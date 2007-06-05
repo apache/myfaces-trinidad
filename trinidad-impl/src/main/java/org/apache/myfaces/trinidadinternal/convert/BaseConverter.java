@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 class BaseConverter extends GenericConverter
 {
@@ -65,8 +66,8 @@ class BaseConverter extends GenericConverter
       return new BigDecimal(num.doubleValue());
     
     
-    throw new IllegalArgumentException("Unsupported conversion from:"+
-      source.getClass() + " to:"+targetType);
+    throw new IllegalArgumentException(_LOG.getMessage(
+      "UNSUPPORTED_CONVERSION", new Object[]{source.getClass(), targetType}));
   }
 
   @SuppressWarnings("unchecked")
@@ -102,4 +103,6 @@ class BaseConverter extends GenericConverter
     
     return list;
   }
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    BaseConverter.class);
 }

@@ -21,6 +21,7 @@ package org.apache.myfaces.trinidad.change;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Change specialization for change in attributes.
@@ -42,8 +43,8 @@ public class AttributeDocumentChange implements DocumentChange
     String attributeValueString)
   {
     if ((attributeName == null) || (attributeName.length() == 0))
-      throw new IllegalArgumentException(
-        "Cannot construct an AttributeChange with null attribute name.");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "CANNOT_CONSTRUCT_ATTRIBUTECHANGE_WITH_NULL_NAME"));
         
     _attributeName = attributeName;
     _attributeValueString = attributeValueString;
@@ -97,4 +98,6 @@ public class AttributeDocumentChange implements DocumentChange
     
   private final String _attributeName;  
   private final  String _attributeValueString;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    AttributeDocumentChange.class);
 }

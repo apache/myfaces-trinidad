@@ -180,7 +180,8 @@ public class ServletExternalContext extends ExternalContext
     _checkRequest();
     if (_httpServletRequest == null)
     {
-      throw new IllegalArgumentException("Only HttpServletRequest supported");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "ONLY_HTTPSERVLETREQUEST_SUPPORTED"));
     }
     return _httpServletResponse.encodeURL(s);
   }
@@ -202,7 +203,8 @@ public class ServletExternalContext extends ExternalContext
 
     if (_httpServletRequest == null)
     {
-      throw new IllegalArgumentException("Only HttpServletRequest supported");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "ONLY_HTTPSERVLETREQUEST_SUPPORTED"));
     }
     return _httpServletRequest.getAuthType();
   }
@@ -242,7 +244,8 @@ public class ServletExternalContext extends ExternalContext
     _checkRequest();
     if (_httpServletRequest == null)
     {
-      throw new IllegalArgumentException("Only HttpServletRequest supported");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "ONLY_HTTPSERVLETREQUEST_SUPPORTED"));
     }
     return _httpServletRequest.getRemoteUser();
   }
@@ -259,7 +262,8 @@ public class ServletExternalContext extends ExternalContext
     _checkRequest();
     if (_httpServletRequest == null)
     {
-      throw new IllegalArgumentException("Only HttpServletRequest supported");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "ONLY_HTTPSERVLETREQUEST_SUPPORTED"));
     }
     return _httpServletRequest.getContextPath();
   }
@@ -272,7 +276,8 @@ public class ServletExternalContext extends ExternalContext
     {
       if (_httpServletRequest == null)
       {
-        throw new IllegalArgumentException("Only HttpServletRequest supported");
+        throw new IllegalArgumentException(_LOG.getMessage(
+          "ONLY_HTTPSERVLETREQUEST_SUPPORTED"));
       }
       _requestCookieMap = new ServletCookieMap(_httpServletRequest);
     }
@@ -287,7 +292,8 @@ public class ServletExternalContext extends ExternalContext
     {
       if (_httpServletRequest == null)
       {
-        throw new IllegalArgumentException("Only HttpServletRequest supported");
+        throw new IllegalArgumentException(_LOG.getMessage(
+          "ONLY_HTTPSERVLETREQUEST_SUPPORTED"));
       }
       _requestHeaderMap = new ServletRequestHeaderMap(_httpServletRequest);
     }
@@ -302,7 +308,8 @@ public class ServletExternalContext extends ExternalContext
     {
       if (_httpServletRequest == null)
       {
-        throw new IllegalArgumentException("Only HttpServletRequest supported");
+        throw new IllegalArgumentException(_LOG.getMessage(
+          "ONLY_HTTPSERVLETREQUEST_SUPPORTED"));
       }
       _requestHeaderValuesMap = new ServletRequestHeaderValuesMap(_httpServletRequest);
     }
@@ -323,7 +330,8 @@ public class ServletExternalContext extends ExternalContext
     _checkRequest();
     if (_httpServletRequest == null)
     {
-      throw new IllegalArgumentException("Only HttpServletRequest supported");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "ONLY_HTTPSERVLETREQUEST_SUPPORTED"));
     }
     return new EnumerationIterator<Locale>(_httpServletRequest.getLocales());
   }
@@ -376,7 +384,8 @@ public class ServletExternalContext extends ExternalContext
     _checkRequest();
     if (_httpServletRequest == null)
     {
-      throw new IllegalArgumentException("Only HttpServletRequest supported");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "ONLY_HTTPSERVLETREQUEST_SUPPORTED"));
     }
     return _requestPathInfo;
   }
@@ -387,7 +396,8 @@ public class ServletExternalContext extends ExternalContext
     _checkRequest();
     if (_httpServletRequest == null)
     {
-      throw new IllegalArgumentException("Only HttpServletRequest supported");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "ONLY_HTTPSERVLETREQUEST_SUPPORTED"));
     }
     // return ((HttpServletRequest)_servletRequest).getServletPath();
     // HACK: see constructor
@@ -425,7 +435,8 @@ public class ServletExternalContext extends ExternalContext
     _checkRequest();
     if (_httpServletRequest == null)
     {
-      throw new IllegalArgumentException("Only HttpServletRequest supported");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "ONLY_HTTPSERVLETREQUEST_SUPPORTED"));
     }
     return _httpServletRequest.getSession(create);
   }
@@ -438,7 +449,8 @@ public class ServletExternalContext extends ExternalContext
     {
       if (_httpServletRequest == null)
       {
-        throw new IllegalArgumentException("Only HttpServletRequest supported");
+        throw new IllegalArgumentException(_LOG.getMessage(
+          "ONLY_HTTPSERVLETREQUEST_SUPPORTED"));
       }
       _sessionMap = new ServletSessionMap(_httpServletRequest);
     }
@@ -451,7 +463,8 @@ public class ServletExternalContext extends ExternalContext
     _checkRequest();
     if (_httpServletRequest == null)
     {
-      throw new IllegalArgumentException("Only HttpServletRequest supported");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "ONLY_HTTPSERVLETREQUEST_SUPPORTED"));
     }
     return _httpServletRequest.getUserPrincipal();
   }
@@ -462,7 +475,8 @@ public class ServletExternalContext extends ExternalContext
     _checkRequest();
     if (_httpServletRequest == null)
     {
-      throw new IllegalArgumentException("Only HttpServletRequest supported");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "ONLY_HTTPSERVLETREQUEST_SUPPORTED"));
     }
     return _httpServletRequest.isUserInRole(role);
   }
@@ -491,7 +505,8 @@ public class ServletExternalContext extends ExternalContext
     }
     else
     {
-      throw new IllegalArgumentException("Only HttpServletResponse supported");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "ONLY_HTTPSERVLETRESPONSE_SUPPORTED"));
     }
   }
 
@@ -515,7 +530,8 @@ public class ServletExternalContext extends ExternalContext
   {
     if (o == null)
     {
-      throw new NullPointerException(param + " can not be null.");
+      throw new NullPointerException(_LOG.getMessage(
+        "CANNOT_BE_NULL", param));
     }
   }
 
@@ -523,7 +539,8 @@ public class ServletExternalContext extends ExternalContext
   {
     if(_servletRequest == null)
     {
-      throw new UnsupportedOperationException("Request is null on this context.");
+      throw new UnsupportedOperationException(_LOG.getMessage(
+        "NULL_REQUEST_ON_THIS_CONTEXT"));
     }
   }
 
@@ -531,7 +548,8 @@ public class ServletExternalContext extends ExternalContext
   {
     if(_servletResponse == null)
     {
-      throw new UnsupportedOperationException("Response is null on this context.");
+      throw new UnsupportedOperationException(_LOG.getMessage(
+        "NULL_RESPONSE_ON_THIS_CONTEXT"));
     }
   }
 

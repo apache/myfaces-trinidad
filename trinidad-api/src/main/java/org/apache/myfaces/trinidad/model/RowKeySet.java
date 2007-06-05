@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidad.model;
 
 import java.util.AbstractSet;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * This Set is a mutable collection
@@ -203,7 +204,10 @@ public abstract class RowKeySet extends AbstractSet<Object> implements Cloneable
     catch (CloneNotSupportedException e)
     {
       // should not happen:
-      throw new UnsupportedOperationException("Could not clone", e);
+      throw new UnsupportedOperationException(_LOG.getMessage(
+        "CANNOT_CLONE", e), e);
     }
   }
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    RowKeySet.class);
 }

@@ -213,9 +213,8 @@ public class TagUtils
 
       //pu: If we do not have correct starter, stop here
       if (!colorCode.startsWith("#"))
-        throw new ParseException(
-          "Color code " + colorCode + " in '" + value + "' does not start with a '#'",
-          value.indexOf(colorCode));
+        throw new ParseException(_LOG.getMessage(
+          "COLOR_CODE_DOES_NOT_START_WITH_POUNDSIGN", new Object[]{colorCode, value}), value.indexOf(colorCode));
 
       //pu: Allow NumberFormatException (RTE) to propogate as is, or transform to JspException ?.
       int rgb = Integer.parseInt(colorCode.substring(1), 16);

@@ -18,6 +18,7 @@
  */
 package org.apache.myfaces.trinidad.util;
 
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * The FastMessageFormat class is a greatly reduced version
@@ -42,9 +43,7 @@ package org.apache.myfaces.trinidad.util;
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/util/FastMessageFormat.java#0 $) $Date: 10-nov-2005.19:08:37 $
  */
-// TODO This class to be made public once we figure out whether we should
-// This class is also availble in impl for laf strings.
-class FastMessageFormat
+public class FastMessageFormat
 {
   /**
    * Creates a FastMessageFormat based on the given format string.
@@ -133,18 +132,18 @@ class FastMessageFormat
             {
               if ((patternChar < '0') ||
                   (patternChar > '9'))
-                throw new IllegalArgumentException(
-                   "FastMessageFormat only supports numeric arguments");
+                throw new IllegalArgumentException(_LOG.getLogger().getResourceBundle().getString(
+                  "FASTMESSAGEFORMAT_ONLY_SUPPORT_NUMERIC_ARGUMENTS"));
               sourceIndex = (sourceIndex * 10) + (patternChar - '0');
             }
           }
 
           if (j == formatLength)
-            throw new IllegalArgumentException(
-                   "End of pattern not found");
+            throw new IllegalArgumentException(_LOG.getLogger().getResourceBundle().getString(
+              "END_OF_PATTERN_NOT_FOUND"));
           if (j == i + 1)
-            throw new IllegalArgumentException(
-                   "FastMessageFormat: empty argument - {} - found");
+            throw new IllegalArgumentException(_LOG.getLogger().getResourceBundle().getString(
+              "FASTMESSAGEFORMAT_FIND_EMPTY_ARGUMENT"));
           if (sourceIndex < sourceCount)
           {
             Object sourceString = source[sourceIndex];
@@ -169,6 +168,8 @@ class FastMessageFormat
   }
 
   private final char[] _formatText;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    FastMessageFormat.class);
 }
 
 

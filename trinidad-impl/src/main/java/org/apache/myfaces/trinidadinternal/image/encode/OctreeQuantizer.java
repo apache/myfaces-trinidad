@@ -22,6 +22,7 @@ import java.awt.Image;
 import java.awt.image.ImageObserver;
 import java.awt.image.PixelGrabber;
 import org.apache.myfaces.trinidadinternal.image.painter.ImageLoader;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Reduces an image's color palette by means of an octree quantization method.
@@ -98,7 +99,8 @@ class OctreeQuantizer
     ImageLoader il = new ImageLoader(im);
     il.start();
     if(!il.waitFor()){
-      throw new IllegalArgumentException("Problem loading...");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "PROBLEM_LOADING"));
     }
     int width = im.getWidth(il);
     int height = im.getHeight(il);
@@ -114,14 +116,13 @@ class OctreeQuantizer
     } 
     catch (InterruptedException e) 
     {
-      throw new IllegalArgumentException("While grabbing pixels:");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "GRABBING_PIXELS"));
     } 
     if ((grabber.getStatus() & ImageObserver.ABORT) != 0) 
     {
-      throw new IllegalArgumentException("Error while fetching image."+
-                                         " grabbed "+pixels.length+
-                                         " pixel values of the "+width+
-                                         " x "+height+" image.");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "ERROR_FETCHING_IMAGE", new Object[]{pixels.length,width,height}));
     }
 
     // add all pixels to the tree.
@@ -311,6 +312,8 @@ class OctreeQuantizer
 
 
   private OctreeNode _root;   // root node of the tree
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    OctreeQuantizer.class);
 }
 
 

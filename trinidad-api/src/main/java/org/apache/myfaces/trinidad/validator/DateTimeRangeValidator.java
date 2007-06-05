@@ -35,6 +35,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.util.ComponentUtils;
 import org.apache.myfaces.trinidad.util.MessageFactory;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
 /**
@@ -343,7 +344,8 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
   {
     if ((context == null) || (component == null))
     {
-      throw new NullPointerException("FacesContext or Component is null");
+      throw new NullPointerException(_LOG.getMessage(
+        "NULL_FACESCONTEXT_OR_UICOMPONENT"));
     }
 
     if (value != null)
@@ -496,7 +498,8 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
       return ( (Date)value );
     }
 
-    throw new IllegalArgumentException("'value' is not of type java.util.Date");
+    throw new IllegalArgumentException(_LOG.getMessage(
+      "VALUE_IS_NOT_DATE_TYPE"));
   }
 
   private FacesMessage _getNotInRangeMessage(
@@ -647,4 +650,6 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
 
   private boolean _transientValue = false;
 
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    DateTimeRangeValidator.class);
 }

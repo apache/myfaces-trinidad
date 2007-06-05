@@ -29,6 +29,7 @@ import java.util.StringTokenizer;
 import javax.faces.context.ExternalContext;
 
 import org.apache.myfaces.trinidadinternal.util.ExternalContextUtils;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * MultipartFormHandler - parses an incoming file upload post.
@@ -91,7 +92,8 @@ public class MultipartFormHandler
   {
     if (!type.startsWith(_MULTIPART_REQUEST_TYPE))
     {
-      throw new IllegalStateException("Content is not multipart form data");
+      throw new IllegalStateException(_LOG.getMessage(
+        "CONTENT_NOT_MULTIPART_FORM_DATA"));
     }
 
     _boundary = _parseBoundary(type);
@@ -483,7 +485,8 @@ public class MultipartFormHandler
         // the value out to their output stream instead
         // of complaining, but this is probably not what
         // they really want.
-        throw new IOException("Item is not a file");
+        throw new IOException(_LOG.getMessage(
+          "ITEM_NOT_A_FILE"));
       }
 
       // The file's already been written, or at least
@@ -491,13 +494,15 @@ public class MultipartFormHandler
       if (_finished)
       {
         // =-=AEW Better exception?
-        throw new IOException("Item has already been read past.");
+        throw new IOException(_LOG.getMessage(
+          "ITEM_ALREADY_BEEN_READ_PAST"));
       }
 
       if (_inputStream != null)
       {
         // =-=AEW Better exception?
-        throw new IOException("Input stream has already been requested.");
+        throw new IOException(_LOG.getMessage(
+          "INPUT_STREAM_ALREADY_REQUESTED"));
       }
 
       long totalBytesWritten = 0;
@@ -553,8 +558,8 @@ public class MultipartFormHandler
 
       if (totalBytesWritten >= _maxAllowedBytes)
       {
-        throw new EOFException("Uploaded file of length " + totalBytesWritten
-            + " bytes exceeded maximum allowed length (" + _maxAllowedBytes + " bytes)");
+        throw new EOFException(_LOG.getMessage(
+          "UPLOADED_FILE_EXCEEDED_MAXIMUM_ALLOWED_LENGTH", new Object[]{totalBytesWritten, _maxAllowedBytes}));
       }
       return totalBytesWritten;
     }
@@ -566,19 +571,22 @@ public class MultipartFormHandler
         // =-=AEW Better exception?  We could just give
         // them a StringInputStream, but this probably
         // isn't what they want
-        throw new IOException("Item is not a file");
+        throw new IOException(_LOG.getMessage(
+          "ITEM_NOT_A_FILE"));
       }
 
       if (_finished)
       {
         // =-=AEW Better exception?
-        throw new IOException("Item has already been read past.");
+        throw new IOException(_LOG.getMessage(
+          "ITEM_ALREADY_BEEN_READ_PAST"));
       }
 
       if (_inputStream != null)
       {
         // =-=AEW Better exception?
-        throw new IOException("Input stream has already been requested.");
+        throw new IOException(_LOG.getMessage(
+          "INPUT_STREAM_ALREADY_REQUESTED"));
       }
 
       _inputStream = new MultipartInputStream();
@@ -631,7 +639,8 @@ public class MultipartFormHandler
           // the value out to their output stream instead
           // of complaining, but this is probably not what
           // they really want.
-          throw new IOException("Item is not a file");
+          throw new IOException(_LOG.getMessage(
+            "ITEM_NOT_A_FILE"));
         }
 
         // The file's already been written, or at least
@@ -639,7 +648,8 @@ public class MultipartFormHandler
         if (_finished)
         {
           // =-=AEW Better exception?
-          throw new IOException("Item has already been read past.");
+          throw new IOException(_LOG.getMessage(
+            "ITEM_ALREDY_BEEN_READ_PAST"));
         }
 
         _begin = 0;
@@ -671,7 +681,8 @@ public class MultipartFormHandler
       {
         if (_finished)
         {
-          throw new IOException("End Of File");
+          throw new IOException(_LOG.getMessage(
+            "END_OF_FILE"));
         }
 
         if (_addCRLF)
@@ -959,6 +970,8 @@ public class MultipartFormHandler
   private int                   _totalBytesRead;
 
   private int                   _contentStreamSize             = -1;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    MultipartFormHandler.class);
 }
 
 

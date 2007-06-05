@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidadinternal.ui;
 
 import java.util.concurrent.ConcurrentHashMap;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
 /**
@@ -83,9 +84,8 @@ public class RendererFactoryImpl implements RendererFactory
   {
     if (renderer == null)
     {
-      throw new IllegalArgumentException(
-                                     "Attempt to register a null renderer for "+
-                                     name);
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "ATTEMP_TO_REGISTER_NULL_RENDERER", name));
     }
     _renderers.put(name, renderer);
   }
@@ -131,4 +131,6 @@ public class RendererFactoryImpl implements RendererFactory
 
   private ConcurrentHashMap<String, Object> _renderers = 
     new ConcurrentHashMap<String, Object>(101);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    RendererFactoryImpl.class);
 }

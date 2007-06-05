@@ -407,8 +407,8 @@ public class BaseUINode implements UINode, UIConstants
     UIXRenderingContext context
     )
   {
-    throw new IllegalStateException(
-      "This method changed to getRenderer(RenderingContext, UINode)");
+    throw new IllegalStateException(_LOG.getMessage(
+      "METHOD_CHANGED_TO_GETRENDERER"));
   }
 
 
@@ -472,7 +472,8 @@ public class BaseUINode implements UINode, UIConstants
   protected final UINode[] getChildArray()
   {
     // =-= bts FIX ME remove since replaced by getIndexedNodeList()
-    throw new IllegalStateException("Replaced in 2.0 by getIndexedNodeList()");
+    throw new IllegalStateException(_LOG.getMessage(
+      "REPLACED_BY_GETINDEXEDNODELIST"));
   }
 
 

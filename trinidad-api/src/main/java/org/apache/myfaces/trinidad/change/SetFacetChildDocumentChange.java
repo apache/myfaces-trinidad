@@ -22,6 +22,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.DocumentFragment;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Change specialization for adding a child component to a facet using document
@@ -46,7 +47,8 @@ public class SetFacetChildDocumentChange extends AddComponentDocumentChange
     super(fragment);
     
     if ((facetName == null) || (facetName.length() == 0))
-      throw new IllegalArgumentException("Facet name must be specified");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "FACET_NAME_MUST_SPECIFIED"));
       
     _facetName = facetName;
   }
@@ -70,7 +72,8 @@ public class SetFacetChildDocumentChange extends AddComponentDocumentChange
   public void changeDocument(Node componentNode)
   {
     if (componentNode == null)
-      throw new IllegalArgumentException("No node specified");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "NO_NODE_SPECIFIED"));
     
     // get the fragement, imported into the target document
     DocumentFragment targetFragment = getImportedComponentFragment(componentNode);
@@ -117,4 +120,6 @@ public class SetFacetChildDocumentChange extends AddComponentDocumentChange
   private static final String _XMLNS_NAMESPACE = "http://www.w3.org/2000/xmlns/";
 
   private final String _facetName;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    SetFacetChildDocumentChange.class);
 }

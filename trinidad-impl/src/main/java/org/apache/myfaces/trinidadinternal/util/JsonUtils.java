@@ -40,6 +40,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.convert.GenericConverterFactory;
 
 /**
@@ -370,7 +371,8 @@ public final class JsonUtils
           Map.Entry<?, ?> entry = (Map.Entry<?, ?>)iter.next();
           Object rawKey = entry.getKey();
           if(rawKey == null)
-            throw new IllegalArgumentException("Javascript does not support null keys");
+            throw new IllegalArgumentException(_LOG.getMessage(
+              "JAVASCRIPT_NOT_SUPPORT_NULL_KEYS"));
           String key = rawKey.toString(); 
           Object value = entry.getValue();
           if (value == null)
@@ -491,4 +493,7 @@ public final class JsonUtils
         break;
     }
   }
+
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    JsonUtils.class);
 }

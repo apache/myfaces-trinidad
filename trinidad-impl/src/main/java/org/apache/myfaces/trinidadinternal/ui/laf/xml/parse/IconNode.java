@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidadinternal.ui.laf.xml.parse;
 
 import org.apache.myfaces.trinidad.skin.Icon;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Object which represents a single <icon> element.
@@ -42,7 +43,8 @@ public class IconNode
   {
     if (name == null)
     {
-      throw new NullPointerException("Null name");
+      throw new NullPointerException(_LOG.getMessage(
+        "NULL_NAME"));
     }
 
     _name = name;
@@ -69,4 +71,6 @@ public class IconNode
 
   private String      _name;
   private Icon        _icon;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    IconNode.class);
 }

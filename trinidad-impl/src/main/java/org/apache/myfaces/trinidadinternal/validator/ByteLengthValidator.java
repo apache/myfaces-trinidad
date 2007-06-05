@@ -173,8 +173,8 @@ public class ByteLengthValidator
     // as being part of _cjkEncodings and singlByteEncodings might not be
     // supported by the JVM
     if ( !Charset.isSupported(encoding))
-      throw new IllegalCharsetNameException("Encoding: " + encoding +
-                                         " is unsupported by JVM");
+      throw new IllegalCharsetNameException(_LOG.getMessage(
+        "ENCODING_UNSUPPORTED_BY_JVM", encoding));
 
     encoding = encoding.toLowerCase();
 

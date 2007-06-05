@@ -46,6 +46,7 @@ import org.apache.myfaces.trinidadinternal.style.xml.parse.PropertyNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetNode;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Utility class for parsing an XSS document into a StyleSheetDocument.
@@ -71,7 +72,8 @@ public class StyleSheetDocumentUtils
     String sourceName = source.getSystemId();
     if ((sourceName == null)) 
     {
-      throw new IllegalArgumentException("Null sourceName");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "NULL_SOURCENAME"));
     }
 
     return createStyleSheetDocument(
@@ -99,7 +101,8 @@ public class StyleSheetDocumentUtils
     // We always require a source name and a resolver
     if ((sourceName == null)||(resolver == null)) 
     {
-      throw new NullPointerException("Null argument");
+      throw new NullPointerException(_LOG.getMessage(
+        "NULL_ARGUMENT"));
     }
 
     // Gather all of the the objects that we need for the parse
@@ -230,4 +233,6 @@ public class StyleSheetDocumentUtils
   }
 
   private static ParserManager _sDefaultParserManager;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    StyleSheetDocumentUtils.class);
 }

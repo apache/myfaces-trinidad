@@ -64,8 +64,8 @@ public class ForEachTag extends TagSupport implements ELContextTag
   {
     if (!items.startsWith("#{") ||
         !items.endsWith("}"))
-      throw new IllegalArgumentException(
-        "\"items\" must be a simple JSF EL expression");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "MUST_BE_SIMPLE_JSF_EL_EXPRESSION"));
     _items = items;
   }
 
@@ -87,7 +87,8 @@ public class ForEachTag extends TagSupport implements ELContextTag
   public void setVar(String var)
   {
     if (UIComponentTag.isValueReference(var))
-      throw new IllegalArgumentException("\"var\" cannot be an expression");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "VAR_CANNOT_BE_EXPRESSION"));
 
     _var = var;
   }
@@ -95,7 +96,8 @@ public class ForEachTag extends TagSupport implements ELContextTag
   public void setVarStatus(String varStatus)
   {
     if (UIComponentTag.isValueReference(varStatus))
-      throw new IllegalArgumentException("\"varStatus\" cannot be an expression");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "VARSTATUS_CANNOT_BE_EXPRESSION"));
 
     _varStatus = varStatus;
   }
@@ -128,7 +130,8 @@ public class ForEachTag extends TagSupport implements ELContextTag
       else if (items.getClass().isArray())
         length = Array.getLength(items);
       else
-        throw new JspException("\"items\" must point to a List or array");
+        throw new JspException(_LOG.getMessage(
+          "MUST_POINT_TO_LIST_OR_ARRAY"));
       if (length == 0)
       {
         if (_LOG.isFine())

@@ -25,6 +25,7 @@ import org.apache.myfaces.trinidadinternal.ui.UIExtension;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.BaseDesktopUtils;
 import org.apache.myfaces.trinidadinternal.ui.laf.simple.desktop.SimpleDesktopUtils;
 import org.apache.myfaces.trinidadinternal.ui.laf.simple.pda.SimplePdaUtils;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Manages the set of LookAndFeel instances.  LookAndFeel instances can
@@ -157,7 +158,8 @@ public class LookAndFeelManager
   {
     if (id == null) 
     {
-      throw new NullPointerException("Null id");
+      throw new NullPointerException(_LOG.getMessage(
+        "NULL_ID"));
     }
 
     synchronized (_scorersAndLafs)
@@ -319,4 +321,6 @@ public class LookAndFeelManager
   private ArrayList<LookAndFeel> _lafs           = new ArrayList<LookAndFeel>();
 
   private static LookAndFeelManager _sDefaultInstance;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    LookAndFeelManager.class);
 }

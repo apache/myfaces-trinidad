@@ -91,7 +91,8 @@ public class AddChildComponentChange extends AddComponentChange
   
     if (removableChild != null)
     {
-      throw new IllegalStateException("Attempt to add a duplicate ID " + newChildId);
+      throw new IllegalStateException(_LOG.getMessage(
+        "ATTEMP_ADD_DUPLICATE_ID", newChildId));
     }
     
     if (_insertBeforeId == null)

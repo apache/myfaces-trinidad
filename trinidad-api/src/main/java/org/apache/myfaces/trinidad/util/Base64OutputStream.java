@@ -21,6 +21,7 @@ package org.apache.myfaces.trinidad.util;
 import java.io.OutputStream;
 import java.io.Writer;
 import java.io.IOException;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * An OutputStream that encodes data in a base64 representation.
@@ -76,13 +77,14 @@ public class Base64OutputStream extends OutputStream
   {
     if (b==null) 
     {
-      throw new NullPointerException("byte[] cannot be null");
+      throw new NullPointerException(_LOG.getMessage(
+        "BYTE_ARRAY_CANNOT_BE_NULL"));
     }
       
     if (off<0 || len<0 || off+len>b.length) 
     {
-      throw new IndexOutOfBoundsException("Actual Length:"+b.length+" offset:"+off+
-                                          " length:"+len);
+      throw new IndexOutOfBoundsException(_LOG.getMessage(
+        "ACTUAL_LENGTH_OFFSET", new Object[]{b.length,off,len}));
     }
     
     int lengthToProcess = len;
@@ -354,4 +356,6 @@ public class Base64OutputStream extends OutputStream
 
   // Writer that will receive all completed character output
   private final Writer      _out;  
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    Base64OutputStream.class);
 }

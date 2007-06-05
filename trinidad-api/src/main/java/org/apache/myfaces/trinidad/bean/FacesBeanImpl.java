@@ -124,8 +124,8 @@ abstract public class FacesBeanImpl implements FacesBean
 
     if (!key.getSupportsBinding())
     {
-      throw new IllegalArgumentException(
-         "Property \"" + key.getName() + "\" cannot be bound.");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "CANNOT_FIND_PROPERTY", key.getName()));
     }
 
     if (binding == null)
@@ -462,14 +462,16 @@ abstract public class FacesBeanImpl implements FacesBean
     throws IllegalArgumentException
   {
     if (!listKey.isList())
-      throw new IllegalArgumentException("Key " + listKey + " cannot be used for lists");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        ">KEY_CANNOT_BE_USED_FOR_LISTS", listKey));
   }
 
   static private void _checkNotListKey(PropertyKey key)
     throws IllegalArgumentException
   {
     if (key.isList())
-      throw new IllegalArgumentException("Key " + key + " is a list key");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "KEY_IS_LIST_KEY", key));
   }
 
   private PropertyMap  _properties;

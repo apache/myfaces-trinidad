@@ -324,8 +324,8 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
     )
   {
     if (context == null || component == null)
-      throw new NullPointerException(
-        "Supplied FacesContext or UIComponent is null");
+      throw new NullPointerException(_LOG.getMessage(
+        "NULL_FACESCONTEXT_OR_UICOMPONENT"));
 
     if (null == value)
       return "";
@@ -334,9 +334,8 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
       return (String)value;
 
     if (!(value instanceof Date))
-      throw new ClassCastException(
-        "value:\""+value+"\" is not of type java.util.Date," +
-        " it is "+value.getClass());
+      throw new ClassCastException(_LOG.getMessage(
+        "VALUE_IS_NOT_DATE_TYPE_IT_IS", new Object[]{value,value.getClass()}));
 
     DateFormat format = _getDateFormat(context, getPattern(), false);
     return format.format(value);
@@ -513,8 +512,8 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
                               String value)
   {
     if (context == null || component == null)
-      throw new NullPointerException(
-        "Supplied FacesContext or UIComponent is null");
+      throw new NullPointerException(_LOG.getMessage(
+        "NULL_FACESCONTEXT_OR_UICOMPONENT"));
 
     if (null == value)
       return null;
@@ -1197,7 +1196,8 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
       return (DateFormat.FULL);
     }
     else
-      throw new IllegalStateException("Invalid date style '" + dateStyle + "'");
+      throw new IllegalStateException(_LOG.getMessage(
+        "INVALID_DATE_STYLE", dateStyle));
   }
 
   private static final int _getTimeStyle(String timeStyle)
@@ -1223,7 +1223,8 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
       return (DateFormat.FULL);
     }
     else
-      throw new IllegalStateException("Invalid time style '" + timeStyle + "'");
+      throw new IllegalStateException(_LOG.getMessage(
+        "INVALID_TIME_STYLE", timeStyle));
   }
 
   /**
@@ -1240,7 +1241,8 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
     else if ("both".equals(type))
       return _TYPE_BOTH;
     else
-      throw new IllegalStateException("Invalid type '" + type + "'");
+      throw new IllegalStateException(_LOG.getMessage(
+        "INVALID_TYPE", type));
   }
 
   // Don't use this for Array Object and other objects which don't implement
@@ -1370,8 +1372,8 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
     else
     {
       // THIS CAN NEVER HAPPEN!
-      throw new IllegalArgumentException("Illegal message id "
-                                        + "unexpected value " + key );
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "ILLEGAL_MESSAGE_ID", key));
     }
       
     return msgPattern;
@@ -1400,8 +1402,8 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
       {
         // The chances of this happening is remote. If this was the case..
         // it should have happend during early stages of processing.
-        throw new IllegalArgumentException("Illegal value for attribute 'type' "
-                                          + "unexpected value " + type );
+        throw new IllegalArgumentException(_LOG.getMessage(
+          "ILLEGAL_ATTRIBUTE_TYPE_VALUE", type));
       }
     }
 

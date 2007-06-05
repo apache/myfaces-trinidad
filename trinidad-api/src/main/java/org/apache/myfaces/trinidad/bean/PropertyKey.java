@@ -25,6 +25,7 @@ import java.util.Map;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.bean.util.StateUtils;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Key for an entry in a FacesBean.
@@ -110,9 +111,8 @@ public class PropertyKey
       Class<?> boxedType = _getBoxedType(type);
       if (!boxedType.isAssignableFrom(defaultValue.getClass()))
       {
-        throw new IllegalStateException(
-            "Default value " + defaultValue +
-            " is not assignable to type " + type);
+        throw new IllegalStateException(_LOG.getMessage(
+          "DEFAULT_VALUE_IS_NOT_ASSIGNED_TO_TYPE", new Object[]{defaultValue, type}));
       }
     }
     else
@@ -126,9 +126,8 @@ public class PropertyKey
     }
         
     if ((capabilities & ~_CAPS_ALL) != 0)
-      throw new IllegalStateException(
-          "Capability mask " + (capabilities & ~_CAPS_ALL) +
-          " not understood");
+      throw new IllegalStateException(_LOG.getMessage(
+        "CAPABILITY_MASK_NOT_UNDERSTOOD", (capabilities & ~_CAPS_ALL)));
 
     // Lists cannot be bound
     if ((capabilities & CAP_LIST) != 0)
@@ -357,5 +356,7 @@ public class PropertyKey
   static private final Class<Object> _TYPE_DEFAULT = Object.class;
 
   static private final Object _OBJECT_NULL = new Object();
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    PropertyKey.class);
 }
 

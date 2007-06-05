@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.el.PropertyResolver;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Creates a TreeModel from a List of beans.
@@ -220,7 +221,8 @@ public class ChildPropertyTreeModel extends TreeModel
   {
     Object rowData = getRowData();
     if (rowData == null)
-      throw new IllegalStateException("rowData is null");
+      throw new IllegalStateException(_LOG.getMessage(
+        "NULL_ROWDATA"));
     Node node = new Node(rowData);
     _path.add(node);
   }
@@ -232,7 +234,8 @@ public class ChildPropertyTreeModel extends TreeModel
     if (sz > 1)
       _path.remove(sz - 1);
     else
-      throw new IllegalStateException("Cannot exit the root container");
+      throw new IllegalStateException(_LOG.getMessage(
+        "CANNOT_EXIT_ROOT_CONTAINER"));
   }
   
   /**
@@ -381,4 +384,6 @@ public class ChildPropertyTreeModel extends TreeModel
   private final List<Node> _path = new ArrayList<Node>(5);
   private String _childProperty = null;
   private Object _wrappedData = null;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    ChildPropertyTreeModel.class);
 }

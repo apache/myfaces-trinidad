@@ -34,6 +34,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.util.ComponentUtils;
 import org.apache.myfaces.trinidad.util.MessageFactory;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * <p>Converters string to Color object and vice versa based on
@@ -222,8 +223,8 @@ public class ColorConverter implements Converter, StateHolder
     String value)
   {
     if (context == null || component == null)
-      throw new NullPointerException(
-        "Supplied FacesContext or UIComponent is null");
+      throw new NullPointerException(_LOG.getMessage(
+        "NULL_FACESCONTEXT_OR_UICOMPONENT"));
 
     if (value == null)
       return null;
@@ -273,8 +274,8 @@ public class ColorConverter implements Converter, StateHolder
     Object       value)
   {
     if (context == null || component == null)
-      throw new NullPointerException(
-        "FacesContext or UIComponent is null");
+      throw new NullPointerException(_LOG.getMessage(
+        "NULL_FACESCONTEXT_OR_UICOMPONENT"));
 
     if (value == null)
       return "";
@@ -317,8 +318,8 @@ public class ColorConverter implements Converter, StateHolder
   {
      if (null == patterns || patterns.length == 0)
      {
-       throw new IllegalArgumentException("Patterns should contain atleast one"
-                                          + " value and cannot be null");
+       throw new IllegalArgumentException(_LOG.getMessage(
+         "PATTERN_MUST_HAVE_VALUE"));
      }
      String[] newPatterns = new String[patterns.length];
      System.arraycopy(patterns, 0, newPatterns, 0, patterns.length);
@@ -652,4 +653,6 @@ public class ColorConverter implements Converter, StateHolder
 
   private FacesBean _facesBean = ConverterUtils.getFacesBean(_TYPE);
 
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    ColorConverter.class);
 }

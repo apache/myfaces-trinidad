@@ -154,9 +154,8 @@ public class XMLUtils
       // =-=AEW Just logging an error isn't really enough - the include
       // will fail, but parsing continues.  So, instead, we throw
       // an exception...
-      throw new SAXParseException("Circular include of " +
-                                  sourceName + " detected!",
-                                  context.getLocator());
+      throw new SAXParseException(_LOG.getMessage(
+        "CIRCULAR_INCLUDE_DETECTED", sourceName), context.getLocator());
     }
 
     // Step 4. Try to get a cached version

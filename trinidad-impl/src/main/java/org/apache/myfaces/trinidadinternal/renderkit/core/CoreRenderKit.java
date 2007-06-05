@@ -232,7 +232,8 @@ public class CoreRenderKit extends RenderKitBase
       String returnId = (String) afC.getPageFlowScope().get(_RETURN_ID);
 
       if (returnId == null)
-        throw new IllegalStateException("No returnId is available for returning from the dialog;  this usually means that you aren't in a dialog in the first place.");
+        throw new IllegalStateException(_LOG.getMessage(
+          "NO_RETURNID_AVAILABLE_FOR_RETURNING_FROM_DIALOG"));
 
       // Deliver callback in the context of the launching window
       // This is required to work around problems in Mozilla

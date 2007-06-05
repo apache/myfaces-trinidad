@@ -171,8 +171,8 @@ public class BeanAdapterUtils
     // =-=AEW This forces classes to be loaded.  Should we allow
     // registration by string name?
     if (!BeanDOAdapter.class.isAssignableFrom(adapterClass))
-      throw new IllegalArgumentException(
-         "Adapter class doesn't implement BeanDOAdapter");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "ADAPTER_CLASS_NOT_IMPLEMENT_BEANDOADAPTER"));
 
     _sAdapters.put(beanClass, adapterClass);
   }

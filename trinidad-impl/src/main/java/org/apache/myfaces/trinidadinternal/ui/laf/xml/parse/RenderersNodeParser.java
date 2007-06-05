@@ -31,6 +31,7 @@ import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
 
 import org.apache.myfaces.trinidadinternal.ui.laf.xml.XMLConstants;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * NodeParser for <renderers> elements
@@ -77,7 +78,8 @@ public class RenderersNodeParser extends BaseNodeParser
   {
     if ((child != null) && !(child instanceof RendererNode))
     {
-      throw new IllegalArgumentException("Null child or child not an instance of RendererNode");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "NULL_CHILD_NOT_REDNERERNODE_INSTANCE"));
     }
 
     if (child instanceof RendererNode)
@@ -102,4 +104,6 @@ public class RenderersNodeParser extends BaseNodeParser
 
   private ArrayList<RendererNode> _renderers = new ArrayList<RendererNode>();
   private String[]  _facets;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    RenderersNodeParser.class);
 }

@@ -30,6 +30,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.webapp.UIComponentTag;
 
 import org.apache.myfaces.trinidad.webapp.ELContextTag;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
 /**
@@ -48,8 +49,8 @@ public class ReturnActionListenerTag extends TagSupport
     UIComponentTag tag = UIComponentTag.getParentUIComponentTag(pageContext);
     if (tag == null)
     {
-      throw new JspException(
-        "returnActionListener must be inside of a UIComponent tag.");
+      throw new JspException(_LOG.getMessage(
+        "RETURNACTIONLISTENER_MUST_INSIDE_UICOMPONENT_TAG"));
     }
 
     // Only run on the first time the tag executes
@@ -59,8 +60,8 @@ public class ReturnActionListenerTag extends TagSupport
     UIComponent component = tag.getComponentInstance();
     if (!(component instanceof ActionSource))
     {
-      throw new JspException(
-        "returnActionListener must be inside of an ActionSource component.");
+      throw new JspException(_LOG.getMessage(
+        "RETURNACTIONLISTENER_MUST_INSIDE_UICOMPONENT_TAG"));
     }
 
     ELContextTag parentELContext = (ELContextTag)
@@ -99,4 +100,6 @@ public class ReturnActionListenerTag extends TagSupport
   }
 
   private String _value;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    ReturnActionListenerTag.class);
 }

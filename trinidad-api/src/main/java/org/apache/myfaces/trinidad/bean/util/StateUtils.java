@@ -65,7 +65,8 @@ public class StateUtils
     {
       key = type.findKey(((Number) value).intValue());
       if (key == null)
-        throw new IllegalStateException("Invalid index");
+        throw new IllegalStateException(_LOG.getMessage(
+          "INVALID_INDEX"));
     }
     else
     {

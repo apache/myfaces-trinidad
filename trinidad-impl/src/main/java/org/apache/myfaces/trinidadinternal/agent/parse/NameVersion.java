@@ -21,6 +21,7 @@ package org.apache.myfaces.trinidadinternal.agent.parse;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.text.ParseException;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * An implementation that encapsulates "Name/Version Name/version ..." string and
@@ -127,7 +128,7 @@ class NameVersion
           {
             inQuote = false;
             if (start != i)
-              throw new ParseException("Unexpected '\\'.", i);
+              throw new ParseException(_LOG.getMessage("UNEXPECTED_BACKSLASH"), i);
           }
 
           ch = data[++i];
@@ -137,7 +138,7 @@ class NameVersion
           //Since we only support '.*', throw error
           ch = data[++i];
           if ((ch != '.') || (ch != '\\'))
-            throw new ParseException("Unexpected character. Expecting '.' or '\\' ", i);
+            throw new ParseException(_LOG.getMessage("EXPECTED_PERIOD_OR_BACKSLASH"), i);
           ch = data[++i];
           break;
         case '.':
@@ -151,7 +152,7 @@ class NameVersion
           //We only support '.*'
           ch = data[++i];
           if (ch != '*')
-            throw new ParseException("Unexpected character. Expecting '*'", i);
+            throw new ParseException(_LOG.getMessage("EXPECTED_ASTERISK"), i);
 
           curr.next.text = _WILD_CHAR_STRING;
           curr = curr.next;
@@ -183,14 +184,16 @@ class NameVersion
           }
 
           if (i - start <= 0)
-            throw new ParseException("Expecting char", i);
+            throw new ParseException(_LOG.getMessage(
+              "EXPECTING_CHAR"), i);
 
           vEntry = _parseVersion(new String(data, start, i - start), i);
           start = i;
           break;
         case ((char) 0x1000000):
           if (inQuote)
-            throw new ParseException("Unterminated quote.", i);
+            throw new ParseException(_LOG.getMessage(
+              "UNTERMINATED_QUOTE"), i);
 
           if (start != i)
           {
@@ -292,7 +295,8 @@ class NameVersion
             // 2006-08-02: -= Simon Lessard =-
             //if (!Character.isSpace(ch))
             if (!Character.isWhitespace(ch))
-              throw new ParseException("Unexpected char.", offset + i);
+              throw new ParseException(_LOG.getMessage(
+                "UNEXPECTED_CHAR"), offset + i);
           }
           //if the version string was simpley "*" or "+"
           if (version.length() == 0)
@@ -525,4 +529,6 @@ class NameVersion
 
   public final static double NO_MATCH = 0x0000;
 
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    NameVersion.class);
 }

@@ -33,6 +33,7 @@ import org.apache.myfaces.trinidadinternal.share.xml.NamespaceURI;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
 import org.apache.myfaces.trinidadinternal.style.Style;
 import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Coercions is a utility class to coerce values to their target type.
@@ -96,8 +97,8 @@ public final class Coercions
 
         if (text != null && c == null)
         {
-          throw new IllegalArgumentException(
-            text + " is not a character");
+          throw new IllegalArgumentException(_LOG.getMessage(
+            "NOT_A_CHARACTER"));
         }
 
         return c;
@@ -171,18 +172,20 @@ public final class Coercions
         }
         catch (ClassNotFoundException cnfe)
         {
-          throw new IllegalArgumentException("Could not find class " + text);
+          throw new IllegalArgumentException(_LOG.getMessage(
+            "CANNOT_FIND_CLASS", text));
         }
       }
       else if (type == Object.class)
       {
         return text;
       }
-      throw new IllegalArgumentException(text + " cannot be parsed into a " +
-                                         type.getName());
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "CANNOT_BE_PARSED", new Object[]{text, type.getName()}));
     }
 
-    throw new NullPointerException("type is null");
+    throw new NullPointerException(_LOG.getMessage(
+      "NULL_TYPE"));
   }
 
   /**
@@ -274,12 +277,12 @@ public final class Coercions
         return res;
       }
 
-      throw new IllegalArgumentException("Could not coerce value of type " +
-                                         value.getClass() +
-                                         " into type " + type.getName());
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "CANNOT_COERCE_VALUE_OF_TYPE", new Object[]{value.getClass(), type.getName()}));
     }
 
-    throw new NullPointerException("type is null");
+    throw new NullPointerException(_LOG.getMessage(
+      "NULL_TYPE"));
   }
 
   public static Boolean toBoolean(
@@ -528,8 +531,8 @@ public final class Coercions
         }
       }
 
-      throw new IllegalArgumentException(value + " cannot be coerced into a " +
-                                         "java.awt.Color");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "CANNOT_BE_COERCED", value));
     }
 
     return null;
@@ -569,4 +572,6 @@ public final class Coercions
   // We rely strictly on ISO 8601 formats
   private static DateFormat  _ISO_DATE_FORMAT =
     new SimpleDateFormat("yyyy-MM-dd");
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    Coercions.class);
 }

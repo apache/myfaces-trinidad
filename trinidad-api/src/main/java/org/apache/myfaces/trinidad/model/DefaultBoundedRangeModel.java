@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidad.model;
 
 import java.io.Serializable;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
 /**
@@ -51,8 +52,8 @@ public class DefaultBoundedRangeModel extends BoundedRangeModel implements Seria
   {
     if (value > maximum || value < -1)
     {
-      throw new IllegalArgumentException(
-        "Illegal value being set - value should be between -1 and maximum");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "SETTING_ILLEGAL_VALUE"));
     }
     _maximum = maximum;
     _value = value;
@@ -91,12 +92,14 @@ public class DefaultBoundedRangeModel extends BoundedRangeModel implements Seria
   {
     if (value > _maximum || value < -1)
     {
-      throw new IllegalArgumentException(
-        "Illegal value being set - value should be between -1 and maximum");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "SETTING_ILLEGAL_VALUE"));
     }
     _value = value;
   }
   
   private long _value;
   private long _maximum;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    DefaultBoundedRangeModel.class);
 }

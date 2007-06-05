@@ -18,6 +18,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.laf.xml.parse;
 
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 /**
  * Object which represents a single <property> element.
  *
@@ -43,12 +44,14 @@ public class SkinPropertyNode
   
     if (name==null)
     {
-      throw new NullPointerException("Null name");
+      throw new NullPointerException(_LOG.getMessage(
+        "NULL_NAME"));
     }
     
     if (value==null)
     {
-      throw new NullPointerException("Null value");
+      throw new NullPointerException(_LOG.getMessage(
+        "NULL_VALUE"));
     }
     
     _selector = selector;
@@ -85,4 +88,6 @@ public class SkinPropertyNode
   private String      _selector;
   private String      _name;
   private String      _value;  
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    SkinPropertyNode.class);
 }

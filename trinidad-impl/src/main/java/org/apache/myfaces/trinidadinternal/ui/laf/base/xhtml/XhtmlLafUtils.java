@@ -170,7 +170,8 @@ public class XhtmlLafUtils extends BaseLafUtils
     }
     catch (NoSuchElementException e)
     {
-      throw new IllegalArgumentException("# of keys and values much match");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "NUMBER_OF_KEYS_AND_VALUES_MUCH_MATCH"));
     }
 
     // append end of javascript property

@@ -24,6 +24,7 @@ import javax.faces.component.UIComponent;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Change specialization for removal of a facet.
@@ -43,8 +44,8 @@ public class RemoveFacetComponentChange extends ComponentChange
   public RemoveFacetComponentChange(String facetName)
   {
     if ((facetName == null) || (facetName.length() == 0))
-      throw new IllegalArgumentException(
-        "Cannot construct a RemoveFacetChange with null facetName.");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "CANNOT_CONSTRUCT_REMOVEFACETCHANGE_WITH_NULL_FACETNAME"));
     _facetName = facetName;
   }
   
@@ -90,4 +91,6 @@ public class RemoveFacetComponentChange extends ComponentChange
   }
 
   private final String _facetName;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    RemoveFacetComponentChange.class);
 }

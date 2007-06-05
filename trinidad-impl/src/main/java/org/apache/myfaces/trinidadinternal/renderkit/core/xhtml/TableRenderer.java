@@ -710,7 +710,8 @@ abstract public class TableRenderer extends XhtmlRenderer
                                             boolean isColumnHeader)
   {
     if (isColumnHeader)
-      throw new IllegalStateException("Don't call this for column headers");
+      throw new IllegalStateException(_LOG.getMessage(
+        "DONOT_CALL_THIS_FOR_COLUMN_HEADERS"));
 
     return SkinSelectors.AF_COLUMN_ROW_HEADER_TEXT_STYLE;
   }

@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Class wrapping up access to parameters.  This allows
@@ -577,7 +578,8 @@ public class ServletRequestParameters extends RequestParameters
       }
       catch (NoSuchElementException e)
       {
-        throw new IllegalArgumentException("# of keys and values must match");
+        throw new IllegalArgumentException(_LOG.getMessage(
+          "KEYS_AND_VALUES_MUST_MATCH"));
       }
     }
   }
@@ -711,4 +713,6 @@ public class ServletRequestParameters extends RequestParameters
 
   // whether the String arrays returned need to be cloned
   private boolean _cloneArrays;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    ServletRequestParameters.class);
 }

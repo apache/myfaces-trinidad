@@ -19,11 +19,13 @@
 package org.apache.myfaces.trinidad.logging;
 
 import java.util.Locale;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
+import org.apache.myfaces.trinidad.util.FastMessageFormat;
 
 /**
  * TrinidadLogger wraps JDK 1.4 logging to provided a large number of 
@@ -38,7 +40,8 @@ public class TrinidadLogger
   private TrinidadLogger(Logger log)
   {
     if (log == null)
-      throw new IllegalArgumentException("Logger required");    
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "LOGGER_REQUIRED"));    
     _log = log;
   }
 
@@ -62,17 +65,18 @@ public class TrinidadLogger
    * to also send logging output to its parent's handlers.  It will
    * be registered in the LogManager global namespace.
    * 
-   * @param	name		A name for the logger.  This should
-   *				be a dot-separated name and should normally
-   *				be based on the package name or class name
-   *				of the subsystem, such as java.net
-   *				or javax.swing
+   * @param name        A name for the logger.  This should
+   *                be a dot-separated name and should normally
+   *                be based on the package name or class name
+   *                of the subsystem, such as java.net
+   *                or javax.swing
    * @return a suitable Logger
    */
   private static TrinidadLogger createTrinidadLogger(String name) 
   {
     if (name == null)
-      throw new IllegalArgumentException("Logger Name required");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "LOGGER_NAME_REQUIRED"));
     
     Logger log;
 
@@ -108,22 +112,23 @@ public class TrinidadLogger
    * a different resource bundle name then an IllegalArgumentException
    * is thrown.
    * <p>
-   * @param	name	A name for the logger.  This should
-   *				be a dot-separated name and should normally
-   *				be based on the package name or class name
-   *				of the subsystem, such as java.net
-   *				or javax.swing
-   * @param 	resourceBundleName  name of ResourceBundle to be used for localizing
-   *				messages for this logger.
+   * @param name    A name for the logger.  This should
+   *                be a dot-separated name and should normally
+   *                be based on the package name or class name
+   *                of the subsystem, such as java.net
+   *                or javax.swing
+   * @param     resourceBundleName  name of ResourceBundle to be used for localizing
+   *                messages for this logger.
    * @return a suitable Logger
    * @throws MissingResourceException if the named ResourceBundle cannot be found.
    * @throws IllegalArgumentException if the Logger already exists and uses
-   *		   a different resource bundle name.
+   *           a different resource bundle name.
    */
   private static TrinidadLogger createTrinidadLogger(String name, String resourceBundleName) 
   {
     if (name == null)
-      throw new IllegalArgumentException("Logger Name required");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "LOGGER_NAME_REQUIRED"));
    
     Logger log = Logger.getLogger(name, resourceBundleName);
 
@@ -141,13 +146,14 @@ public class TrinidadLogger
    * to also send logging output to its parent's handlers.  It will
    * be registered in the LogManager global namespace.
    * 
-   * @param	c		A class instance for the logger.  
+   * @param c       A class instance for the logger.  
    * @return a suitable Logger
    */
   public static TrinidadLogger createTrinidadLogger(Class<?> c) 
   {
     if (c == null)
-      throw new IllegalArgumentException("Class required");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "CLASS_REQUIRED"));
     String name = c.getName();
     return createTrinidadLogger(name);
   }
@@ -162,16 +168,17 @@ public class TrinidadLogger
    * to also send logging output to its parent's handlers.  It will
    * be registered in the LogManager global namespace.
    * 
-   * @param	c		A class instance for the logger.  
-   * @param 	resourceBundleName  name of ResourceBundle to be used for localizing
-   *				messages for this logger.
+   * @param c       A class instance for the logger.  
+   * @param     resourceBundleName  name of ResourceBundle to be used for localizing
+   *                messages for this logger.
    *        
    * @return a suitable Logger
    */
   public static TrinidadLogger createTrinidadLogger(Class<?> c, String resourceBundleName) 
   {
     if (c == null)
-      throw new IllegalArgumentException("Class required");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "CLASS_REQUIRED"));
     String name = c.getName();
     return createTrinidadLogger(name, resourceBundleName);
   }
@@ -186,14 +193,15 @@ public class TrinidadLogger
    * to also send logging output to its parent's handlers.  It will
    * be registered in the LogManager global namespace.
    * 
-   * @param	p		A Package instance for the logger.  
+   * @param p       A Package instance for the logger.  
    * @return a suitable Logger
    */
 
   public static TrinidadLogger createTrinidadLogger(Package p)
   {
     if (p == null)
-      throw new IllegalArgumentException("Package required");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "PACKAGE_REQUIRED"));
     String name = p.getName();
     return createTrinidadLogger(name);
   }
@@ -208,9 +216,9 @@ public class TrinidadLogger
    * to also send logging output to its parent's handlers.  It will
    * be registered in the LogManager global namespace.
    * 
-   * @param	p		A Package instance for the logger.  
-   * @param 	resourceBundleName  name of ResourceBundle to be used for localizing
-   *				messages for this logger.
+   * @param p       A Package instance for the logger.  
+   * @param     resourceBundleName  name of ResourceBundle to be used for localizing
+   *                messages for this logger.
    *        
    * @return a suitable Logger
    */
@@ -218,7 +226,8 @@ public class TrinidadLogger
   public static TrinidadLogger createTrinidadLogger(Package p, String resourceBundleName)
   {
     if (p == null)
-      throw new IllegalArgumentException("Package required");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "PACKAGE_REQUIRED"));
     String name = p.getName();
     return createTrinidadLogger(name, resourceBundleName);
   }
@@ -265,8 +274,8 @@ public class TrinidadLogger
    * by default it inherits its effective level and handlers
    * from the root logger.
    * <p>
-   * @param 	resourceBundleName  name of ResourceBundle to be used for localizing
-   *				messages for this logger.
+   * @param     resourceBundleName  name of ResourceBundle to be used for localizing
+   *                messages for this logger.
    * @return a newly created private Logger
    * @throws MissingResourceException if the named ResourceBundle cannot be found.
    */
@@ -302,7 +311,7 @@ public class TrinidadLogger
    * level then the given message is forwarded to all the
    * registered output Handler objects.
    * <p>
-   * @param   msg	The string message (or a key in the message catalog)
+   * @param   msg   The string message (or a key in the message catalog)
    */
   public void log(String msg) 
   {
@@ -316,8 +325,8 @@ public class TrinidadLogger
    * level then the given message is forwarded to all the
    * registered output Handler objects.
    * <p>
-   * @param	level	One of the message level identifiers, e.g. SEVERE
-   * @param   msg	The string message (or a key in the message catalog)
+   * @param level   One of the message level identifiers, e.g. SEVERE
+   * @param   msg   The string message (or a key in the message catalog)
    */
   public void log(Level level, String msg) 
   {
@@ -335,9 +344,9 @@ public class TrinidadLogger
    * level then a corresponding LogRecord is created and forwarded 
    * to all the registered output Handler objects.
    * <p>
-   * @param	level   One of the message level identifiers, e.g. SEVERE
-   * @param   msg	The string message (or a key in the message catalog)
-   * @param   param1	parameter to the message
+   * @param level   One of the message level identifiers, e.g. SEVERE
+   * @param   msg   The string message (or a key in the message catalog)
+   * @param   param1    parameter to the message
    */
   public void log(Level level, String msg, Object param1) 
   {
@@ -357,9 +366,9 @@ public class TrinidadLogger
    * level then a corresponding LogRecord is created and forwarded 
    * to all the registered output Handler objects.
    * <p>
-   * @param	level   One of the message level identifiers, e.g. SEVERE
-   * @param   msg	The string message (or a key in the message catalog)
-   * @param   params	array of parameters to the message
+   * @param level   One of the message level identifiers, e.g. SEVERE
+   * @param   msg   The string message (or a key in the message catalog)
+   * @param   params    array of parameters to the message
    */
   public void log(Level level, String msg, Object params[]) 
   {
@@ -383,8 +392,8 @@ public class TrinidadLogger
    * processed specially by output Formatters and is not treated
    * as a formatting parameter to the LogRecord message property.
    * <p>
-   * @param	level   One of the message level identifiers, e.g. SEVERE
-   * @param   msg	The string message (or a key in the message catalog)
+   * @param level   One of the message level identifiers, e.g. SEVERE
+   * @param   msg   The string message (or a key in the message catalog)
    * @param   thrown  Throwable associated with log message.
    */
   public void log(Level level, String msg, Throwable thrown) 
@@ -409,10 +418,10 @@ public class TrinidadLogger
    * level then the given message is forwarded to all the
    * registered output Handler objects.
    * <p>
-   * @param	level	One of the message level identifiers, e.g. SEVERE
+   * @param level   One of the message level identifiers, e.g. SEVERE
    * @param   sourceClass    name of class that issued the logging request
    * @param   sourceMethod   name of method that issued the logging request
-   * @param   msg	The string message (or a key in the message catalog)
+   * @param   msg   The string message (or a key in the message catalog)
    */
   public void logp(Level level, String sourceClass, String sourceMethod, String msg) 
   {
@@ -433,10 +442,10 @@ public class TrinidadLogger
    * level then a corresponding LogRecord is created and forwarded 
    * to all the registered output Handler objects.
    * <p>
-   * @param	level   One of the message level identifiers, e.g. SEVERE
+   * @param level   One of the message level identifiers, e.g. SEVERE
    * @param   sourceClass    name of class that issued the logging request
    * @param   sourceMethod   name of method that issued the logging request
-   * @param   msg	 The string message (or a key in the message catalog)
+   * @param   msg    The string message (or a key in the message catalog)
    * @param   param1    Parameter to the log message.
    */
   public void logp(Level level, String sourceClass, String sourceMethod,
@@ -461,11 +470,11 @@ public class TrinidadLogger
    * level then a corresponding LogRecord is created and forwarded 
    * to all the registered output Handler objects.
    * <p>
-   * @param	level   One of the message level identifiers, e.g. SEVERE
+   * @param level   One of the message level identifiers, e.g. SEVERE
    * @param   sourceClass    name of class that issued the logging request
    * @param   sourceMethod   name of method that issued the logging request
-   * @param   msg	The string message (or a key in the message catalog)
-   * @param   params	Array of parameters to the message
+   * @param   msg   The string message (or a key in the message catalog)
+   * @param   params    Array of parameters to the message
    */
   public void logp(Level level, String sourceClass, String sourceMethod,
                    String msg, Object params[]) 
@@ -493,10 +502,10 @@ public class TrinidadLogger
    * processed specially by output Formatters and is not treated
    * as a formatting parameter to the LogRecord message property.
    * <p>
-   * @param	level   One of the message level identifiers, e.g. SEVERE
+   * @param level   One of the message level identifiers, e.g. SEVERE
    * @param   sourceClass    name of class that issued the logging request
    * @param   sourceMethod   name of method that issued the logging request
-   * @param   msg	The string message (or a key in the message catalog)
+   * @param   msg   The string message (or a key in the message catalog)
    * @param   thrown  Throwable associated with log message.
    */
   public void logp(Level level, String sourceClass, String sourceMethod,
@@ -524,13 +533,13 @@ public class TrinidadLogger
    * The msg string is localized using the named resource bundle.  If the
    * resource bundle name is null, then the msg string is not localized.
    * <p>
-   * @param	level	One of the message level identifiers, e.g. SEVERE
+   * @param level   One of the message level identifiers, e.g. SEVERE
    * @param   sourceClass    name of class that issued the logging request
    * @param   sourceMethod   name of method that issued the logging request
    * @param   bundleName     name of resource bundle to localize msg
-   * @param   msg	The string message (or a key in the message catalog)
+   * @param   msg   The string message (or a key in the message catalog)
    * @throws  MissingResourceException if no suitable ResourceBundle can
-   *		be found.
+   *        be found.
    */
 
   public void logrb(Level level, String sourceClass, String sourceMethod, 
@@ -556,14 +565,14 @@ public class TrinidadLogger
    * The msg string is localized using the named resource bundle.  If the
    * resource bundle name is null, then the msg string is not localized.
    * <p>
-   * @param	level   One of the message level identifiers, e.g. SEVERE
+   * @param level   One of the message level identifiers, e.g. SEVERE
    * @param   sourceClass    name of class that issued the logging request
    * @param   sourceMethod   name of method that issued the logging request
    * @param   bundleName     name of resource bundle to localize msg
-   * @param   msg	 The string message (or a key in the message catalog)
+   * @param   msg    The string message (or a key in the message catalog)
    * @param   param1    Parameter to the log message.
    * @throws  MissingResourceException if no suitable ResourceBundle can
-   *		be found.
+   *        be found.
    */
   public void logrb(Level level, String sourceClass, String sourceMethod,
                     String bundleName, String msg, Object param1) 
@@ -590,14 +599,14 @@ public class TrinidadLogger
    * The msg string is localized using the named resource bundle.  If the
    * resource bundle name is null, then the msg string is not localized.
    * <p>
-   * @param	level   One of the message level identifiers, e.g. SEVERE
+   * @param level   One of the message level identifiers, e.g. SEVERE
    * @param   sourceClass    name of class that issued the logging request
    * @param   sourceMethod   name of method that issued the logging request
    * @param   bundleName     name of resource bundle to localize msg
-   * @param   msg	The string message (or a key in the message catalog)
-   * @param   params	Array of parameters to the message
+   * @param   msg   The string message (or a key in the message catalog)
+   * @param   params    Array of parameters to the message
    * @throws  MissingResourceException if no suitable ResourceBundle can
-   *		be found.
+   *        be found.
    */
   public void logrb(Level level, String sourceClass, String sourceMethod,
                     String bundleName, String msg, Object params[]) 
@@ -628,14 +637,14 @@ public class TrinidadLogger
    * processed specially by output Formatters and is not treated
    * as a formatting parameter to the LogRecord message property.
    * <p>
-   * @param	level   One of the message level identifiers, e.g. SEVERE
+   * @param level   One of the message level identifiers, e.g. SEVERE
    * @param   sourceClass    name of class that issued the logging request
    * @param   sourceMethod   name of method that issued the logging request
    * @param   bundleName     name of resource bundle to localize msg
-   * @param   msg	The string message (or a key in the message catalog)
+   * @param   msg   The string message (or a key in the message catalog)
    * @param   thrown  Throwable associated with log message.
    * @throws  MissingResourceException if no suitable ResourceBundle can
-   *		be found.
+   *        be found.
    */
   public void logrb(Level level, String sourceClass, String sourceMethod,
                     String bundleName, String msg, Throwable thrown) 
@@ -680,7 +689,7 @@ public class TrinidadLogger
    * <p>
    * @param   sourceClass    name of class that issued the logging request
    * @param   sourceMethod   name of method that is being entered
-   * @param   param1	       parameter to the method being entered
+   * @param   param1           parameter to the method being entered
    */
   public void entering(String sourceClass, String sourceMethod, Object param1) 
   {
@@ -698,7 +707,7 @@ public class TrinidadLogger
    * <p>
    * @param   sourceClass    name of class that issued the logging request
    * @param   sourceMethod   name of method that is being entered
-   * @param   params	       array of parameters to the method being entered
+   * @param   params           array of parameters to the method being entered
    */
   public void entering(String sourceClass, String sourceMethod, Object params[]) 
   {
@@ -775,7 +784,7 @@ public class TrinidadLogger
    * level then the given message is forwarded to all the
    * registered output Handler objects.
    * <p>
-   * @param   msg	The string message (or a key in the message catalog)
+   * @param   msg   The string message (or a key in the message catalog)
    */
   public void severe(String msg) 
   {
@@ -790,7 +799,7 @@ public class TrinidadLogger
    * level then the given message is forwarded to all the
    * registered output Handler objects.
    * <p>
-   * @param   msg	The string message (or a key in the message catalog)
+   * @param   msg   The string message (or a key in the message catalog)
    */
   public void warning(String msg) 
   {
@@ -805,7 +814,7 @@ public class TrinidadLogger
    * level then the given message is forwarded to all the
    * registered output Handler objects.
    * <p>
-   * @param   msg	The string message (or a key in the message catalog)
+   * @param   msg   The string message (or a key in the message catalog)
    */
   public void info(String msg) 
   {
@@ -820,7 +829,7 @@ public class TrinidadLogger
    * level then the given message is forwarded to all the
    * registered output Handler objects.
    * <p>
-   * @param   msg	The string message (or a key in the message catalog)
+   * @param   msg   The string message (or a key in the message catalog)
    */
   public void config(String msg) 
   {
@@ -835,7 +844,7 @@ public class TrinidadLogger
    * level then the given message is forwarded to all the
    * registered output Handler objects.
    * <p>
-   * @param   msg	The string message (or a key in the message catalog)
+   * @param   msg   The string message (or a key in the message catalog)
    */
   public void fine(String msg) 
   {
@@ -850,7 +859,7 @@ public class TrinidadLogger
    * level then the given message is forwarded to all the
    * registered output Handler objects.
    * <p>
-   * @param   msg	The string message (or a key in the message catalog)
+   * @param   msg   The string message (or a key in the message catalog)
    */
   public void finer(String msg) 
   {
@@ -865,7 +874,7 @@ public class TrinidadLogger
    * level then the given message is forwarded to all the
    * registered output Handler objects.
    * <p>
-   * @param   msg	The string message (or a key in the message catalog)
+   * @param   msg   The string message (or a key in the message catalog)
    */
   public void finest(String msg) 
   {
@@ -913,7 +922,7 @@ public class TrinidadLogger
    * <p>
    * @param sourceClass  the name of the class that issued the logging request 
    * @param sourceMethod the name of the method that issued the logging request 
-   * @param msg	         the string message (or a key in the resource bundle)
+   * @param msg          the string message (or a key in the resource bundle)
    */
   public void severe(
                     String sourceClass,
@@ -931,8 +940,8 @@ public class TrinidadLogger
    * <p>
    * @param sourceClass  the name of the class that issued the logging request 
    * @param sourceMethod the name of the method that issued the logging request 
-   * @param msg	         the string message (or a key in the resource bundle)
-   * @param param1	     a parameter to the message
+   * @param msg          the string message (or a key in the resource bundle)
+   * @param param1       a parameter to the message
    */
   public void severe(
                     String sourceClass,
@@ -951,8 +960,8 @@ public class TrinidadLogger
    * <p>
    * @param sourceClass  the name of the class that issued the logging request 
    * @param sourceMethod the name of the method that issued the logging request 
-   * @param msg	         the string message (or a key in the resource bundle)
-   * @param params	     an array of parameters to the message
+   * @param msg          the string message (or a key in the resource bundle)
+   * @param params       an array of parameters to the message
    */
   public void severe(
                     String sourceClass,
@@ -971,7 +980,7 @@ public class TrinidadLogger
    * <p>
    * @param sourceClass  the name of the class that issued the logging request 
    * @param sourceMethod the name of the method that issued the logging request 
-   * @param msg	         the string message (or a key in the resource bundle)
+   * @param msg          the string message (or a key in the resource bundle)
    */
   public void warning(
                      String sourceClass,
@@ -989,8 +998,8 @@ public class TrinidadLogger
    * <p>
    * @param sourceClass  the name of the class that issued the logging request 
    * @param sourceMethod the name of the method that issued the logging request 
-   * @param msg	         the string message (or a key in the resource bundle)
-   * @param param1	     a parameter to the message
+   * @param msg          the string message (or a key in the resource bundle)
+   * @param param1       a parameter to the message
    */
   public void warning(
                      String sourceClass,
@@ -1009,8 +1018,8 @@ public class TrinidadLogger
    * <p>
    * @param sourceClass  the name of the class that issued the logging request 
    * @param sourceMethod the name of the method that issued the logging request 
-   * @param msg	         the string message (or a key in the resource bundle)
-   * @param params	     an array of parameters to the message
+   * @param msg          the string message (or a key in the resource bundle)
+   * @param params       an array of parameters to the message
    */
   public void warning(
                      String sourceClass,
@@ -1029,7 +1038,7 @@ public class TrinidadLogger
    * <p>
    * @param sourceClass  the name of the class that issued the logging request 
    * @param sourceMethod the name of the method that issued the logging request 
-   * @param msg	         the string message (or a key in the resource bundle)
+   * @param msg          the string message (or a key in the resource bundle)
    */
   public void info(
                   String sourceClass,
@@ -1047,8 +1056,8 @@ public class TrinidadLogger
    * <p>
    * @param sourceClass  the name of the class that issued the logging request 
    * @param sourceMethod the name of the method that issued the logging request 
-   * @param msg	         the string message (or a key in the resource bundle)
-   * @param param1	     a parameter to the message
+   * @param msg          the string message (or a key in the resource bundle)
+   * @param param1       a parameter to the message
    */
   public void info(
                   String sourceClass,
@@ -1067,8 +1076,8 @@ public class TrinidadLogger
    * <p>
    * @param sourceClass  the name of the class that issued the logging request 
    * @param sourceMethod the name of the method that issued the logging request 
-   * @param msg	         the string message (or a key in the resource bundle)
-   * @param params	     an array of parameters to the message
+   * @param msg          the string message (or a key in the resource bundle)
+   * @param params       an array of parameters to the message
    */
   public void info(
                   String sourceClass,
@@ -1087,7 +1096,7 @@ public class TrinidadLogger
    * <p>
    * @param sourceClass  the name of the class that issued the logging request 
    * @param sourceMethod the name of the method that issued the logging request 
-   * @param msg	         the string message (or a key in the resource bundle)
+   * @param msg          the string message (or a key in the resource bundle)
    */
   public void config(
                     String sourceClass,
@@ -1105,8 +1114,8 @@ public class TrinidadLogger
    * <p>
    * @param sourceClass  the name of the class that issued the logging request 
    * @param sourceMethod the name of the method that issued the logging request 
-   * @param msg	         the string message (or a key in the resource bundle)
-   * @param param1	     a parameter to the message
+   * @param msg          the string message (or a key in the resource bundle)
+   * @param param1       a parameter to the message
    */
   public void config(
                     String sourceClass,
@@ -1125,8 +1134,8 @@ public class TrinidadLogger
    * <p>
    * @param sourceClass  the name of the class that issued the logging request 
    * @param sourceMethod the name of the method that issued the logging request 
-   * @param msg	         the string message (or a key in the resource bundle)
-   * @param params	     an array of parameters to the message
+   * @param msg          the string message (or a key in the resource bundle)
+   * @param params       an array of parameters to the message
    */
   public void config(
                     String sourceClass,
@@ -1145,7 +1154,7 @@ public class TrinidadLogger
    * <p>
    * @param sourceClass  the name of the class that issued the logging request 
    * @param sourceMethod the name of the method that issued the logging request 
-   * @param msg	         the string message (or a key in the resource bundle)
+   * @param msg          the string message (or a key in the resource bundle)
    */
   public void fine(
                   String sourceClass,
@@ -1163,8 +1172,8 @@ public class TrinidadLogger
    * <p>
    * @param sourceClass  the name of the class that issued the logging request 
    * @param sourceMethod the name of the method that issued the logging request 
-   * @param msg	         the string message (or a key in the resource bundle)
-   * @param param1	     a parameter to the message
+   * @param msg          the string message (or a key in the resource bundle)
+   * @param param1       a parameter to the message
    */
   public void fine(
                   String sourceClass,
@@ -1183,8 +1192,8 @@ public class TrinidadLogger
    * <p>
    * @param sourceClass  the name of the class that issued the logging request 
    * @param sourceMethod the name of the method that issued the logging request 
-   * @param msg	         the string message (or a key in the resource bundle)
-   * @param params	     an array of parameters to the message
+   * @param msg          the string message (or a key in the resource bundle)
+   * @param params       an array of parameters to the message
    */
   public void fine(
                   String sourceClass,
@@ -1203,7 +1212,7 @@ public class TrinidadLogger
    * <p>
    * @param sourceClass  the name of the class that issued the logging request 
    * @param sourceMethod the name of the method that issued the logging request 
-   * @param msg	         the string message (or a key in the resource bundle)
+   * @param msg          the string message (or a key in the resource bundle)
    */
   public void finer(
                    String sourceClass,
@@ -1221,8 +1230,8 @@ public class TrinidadLogger
    * <p>
    * @param sourceClass  the name of the class that issued the logging request 
    * @param sourceMethod the name of the method that issued the logging request 
-   * @param msg	         the string message (or a key in the resource bundle)
-   * @param param1	     a parameter to the message
+   * @param msg          the string message (or a key in the resource bundle)
+   * @param param1       a parameter to the message
    */
   public void finer(
                    String sourceClass,
@@ -1241,8 +1250,8 @@ public class TrinidadLogger
    * <p>
    * @param sourceClass  the name of the class that issued the logging request 
    * @param sourceMethod the name of the method that issued the logging request 
-   * @param msg	         the string message (or a key in the resource bundle)
-   * @param params	     an array of parameters to the message
+   * @param msg          the string message (or a key in the resource bundle)
+   * @param params       an array of parameters to the message
    */
   public void finer(
                    String sourceClass,
@@ -1261,7 +1270,7 @@ public class TrinidadLogger
    * <p>
    * @param sourceClass  the name of the class that issued the logging request 
    * @param sourceMethod the name of the method that issued the logging request 
-   * @param msg	         the string message (or a key in the resource bundle)
+   * @param msg          the string message (or a key in the resource bundle)
    */
   public void finest(
                     String sourceClass,
@@ -1279,8 +1288,8 @@ public class TrinidadLogger
    * <p>
    * @param sourceClass  the name of the class that issued the logging request 
    * @param sourceMethod the name of the method that issued the logging request 
-   * @param msg	         the string message (or a key in the resource bundle)
-   * @param param1	     a parameter to the message
+   * @param msg          the string message (or a key in the resource bundle)
+   * @param param1       a parameter to the message
    */
   public void finest(
                     String sourceClass,
@@ -1299,8 +1308,8 @@ public class TrinidadLogger
    * <p>
    * @param sourceClass  the name of the class that issued the logging request 
    * @param sourceMethod the name of the method that issued the logging request 
-   * @param msg	         the string message (or a key in the resource bundle)
-   * @param params	     an array of parameters to the message
+   * @param msg          the string message (or a key in the resource bundle)
+   * @param params       an array of parameters to the message
    */
   public void finest(
                     String sourceClass,
@@ -1319,10 +1328,10 @@ public class TrinidadLogger
    * <p>
    * @param sourceClass  the name of the class that issued the logging request 
    * @param sourceMethod the name of the method that issued the logging request 
-   * @param msg	         the string message (or a key in the resource bundle)
-   * @param params1	     Parameter 1 to the log message
-   * @param params2	     Parameter 2 to the log message
-   * @param params3	     Parameter 3 to the log message
+   * @param msg          the string message (or a key in the resource bundle)
+   * @param params1      Parameter 1 to the log message
+   * @param params2      Parameter 2 to the log message
+   * @param params3      Parameter 3 to the log message
    */
   public void logp(Level level,
                    String sourceClass,
@@ -1364,7 +1373,7 @@ public class TrinidadLogger
    * The result may be null, which means that this logger's
    * effective level will be inherited from its parent.
    *
-   * @return	this Logger's level
+   * @return    this Logger's level
    */
   public Level getLevel() 
   {
@@ -1376,8 +1385,8 @@ public class TrinidadLogger
    * by this logger.  This check is based on the Loggers effective level,
    * which may be inherited from its parent.
    *
-   * @param	level	a message logging level
-   * @return	true if the given message level is currently being logged.
+   * @param level   a message logging level
+   * @return    true if the given message level is currently being logged.
    */
   public boolean isLoggable(Level level) 
   {
@@ -1400,7 +1409,7 @@ public class TrinidadLogger
    * Typically the root Logger is configured with a set of Handlers
    * that essentially act as default handlers for all loggers.
    *
-   * @param	handler	a logging Handler
+   * @param handler a logging Handler
    * @exception  SecurityException  if a security manager exists and if
    *             the caller does not have LoggingPermission("control").
    */
@@ -1414,7 +1423,7 @@ public class TrinidadLogger
    * <P>
    * Returns silently if the given Handler is not found.
    * 
-   * @param	handler	a logging Handler
+   * @param handler a logging Handler
    * @exception  SecurityException  if a security manager exists and if
    *             the caller does not have LoggingPermission("control").
    */
@@ -1440,7 +1449,7 @@ public class TrinidadLogger
    * to its parent, recursively up the namespace.
    *
    * @param useParentHandlers   true if output is to be sent to the
-   *		logger's parent.
+   *        logger's parent.
    * @exception  SecurityException  if a security manager exists and if
    *             the caller does not have LoggingPermission("control").
    */
@@ -1705,7 +1714,6 @@ public class TrinidadLogger
     return isLoggable(Level.FINER);
   }
 
-
   /**
    * Returns true if finest messages should be logged.
    */
@@ -1714,9 +1722,70 @@ public class TrinidadLogger
     return isLoggable(Level.FINEST);
   }
 
+  /**
+   * Returns message string in default locale
+   */
+  public String getMessage(String key)
+  {
+    try
+    {
+      return _log.getResourceBundle().getString(key);
+    }
+    catch (MissingResourceException mre)
+    {
+      return key;
+    }
+  }
+
+  /**
+   * Returns formated string in default locale
+   */
+  public String getMessage(String key, Object[] params)
+  {
+    String message = getMessage(key);
+    FastMessageFormat fmt = new FastMessageFormat(message);  
+    return fmt.format(params);  
+  }
+
+  /**
+   * Returns formated string in default locale
+   */
+  public String getMessage(String key, Object param)
+  {
+    if (param == null)
+      System.out.println("null param");
+    return getMessage(key, new Object[]{param});
+  }
+ 
+  /**
+   * Returns formated string in default locale
+   */ 
+  public String getMessage(String key, String param)
+  {
+    return getMessage(key, new Object[]{param});
+  }
+    
+  /**
+   * Returns formated string in default locale
+   */
+  public String getMessage(String key, char c)
+  {
+    return getMessage(key, String.valueOf(c));
+  }
+  
+  /**
+   * Returns formated string in default locale
+   */
+  public String getMessage(String key, int i)
+  {
+    return getMessage(key, String.valueOf(i));
+  }
+
   private Logger _log;
   
   private static final String _API_LOGGER_BUNDLE = "org.apache.myfaces.trinidad.resource.LoggerBundle";
 
   private static final String _IMPL_LOGGER_BUNDLE = "org.apache.myfaces.trinidadinternal.resource.LoggerBundle";
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    TrinidadLogger.class);
 }

@@ -26,6 +26,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * A resource loader implementation which loads resources
@@ -118,9 +119,8 @@ public class RegexResourceLoader extends ResourceLoader
     if (!regex.startsWith("/")  &&
         !regex.startsWith("(/"))
     {
-      throw new IllegalArgumentException("Resource path regular expression \"" +
-                                         regex + 
-                                         "\" does not have leading slash");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "RESOURCE_PATH_REGULAR_EXPRESSION_HAS_NO_LEADING_SLASH", regex));
     }
   }
   
@@ -147,4 +147,6 @@ public class RegexResourceLoader extends ResourceLoader
   }
 
   private final List<RegexResourceNode> _loaders;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    RegexResourceLoader.class);
 }

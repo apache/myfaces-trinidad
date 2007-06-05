@@ -138,7 +138,7 @@ abstract class AbstractAttributeMap<K, V> implements Map<K, V>
       //   allows one call to remove() to succeed
       if (_currentKey == null)
       {
-        throw new NoSuchElementException("You must call next() at least once");
+        throw new NoSuchElementException();
       }
       AbstractAttributeMap.this.remove(_currentKey);
     }

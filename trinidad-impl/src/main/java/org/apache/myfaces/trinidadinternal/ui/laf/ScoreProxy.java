@@ -18,6 +18,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.laf;
 
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 /**
  * The Score subclass which is used to wrap another Score.
  *
@@ -37,7 +38,8 @@ public class ScoreProxy extends Score
   {
     if (baseScore == null) 
     {
-      throw new NullPointerException("Null baseScore");
+      throw new NullPointerException(_LOG.getMessage(
+        "NULL_BASESCORE"));
     }
 
     _baseScore = baseScore;
@@ -99,5 +101,7 @@ public class ScoreProxy extends Score
   }
 
   private Score _baseScore;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    ScoreProxy.class);
 }
 

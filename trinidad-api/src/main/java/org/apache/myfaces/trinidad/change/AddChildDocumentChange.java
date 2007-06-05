@@ -21,6 +21,7 @@ package org.apache.myfaces.trinidad.change;
 import org.w3c.dom.DocumentFragment;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Change specialization for adding a child component using document mark up.
@@ -75,7 +76,8 @@ public class AddChildDocumentChange extends AddComponentDocumentChange
   public void changeDocument(Node componentNode)
   {
     if (componentNode == null)
-      throw new IllegalArgumentException("No node specified");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "NO_NODE_SPECIFIED"));
     
     // get the fragement, imported into the target document
     DocumentFragment targetFragment = 
@@ -114,4 +116,6 @@ public class AddChildDocumentChange extends AddComponentDocumentChange
   }
   
   private final String _insertBeforeId;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    AddChildDocumentChange.class);
 }

@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidad.change;
 
 import javax.faces.component.UIComponent;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Change specialization for change in attributes.
@@ -43,8 +44,8 @@ public class AttributeComponentChange extends ComponentChange
     )
   {
     if ((attributeName == null) || (attributeName.length() == 0))
-      throw new IllegalArgumentException(
-        "Cannot construct an AttributeChange with null attribute name.");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "CANNOT_CONSTRUCT_ATTRIBUTECHANGE_WITH_NULL_NAME"));
     _attributeName = attributeName;
     _attributeValue = attributeValue;
   }
@@ -87,4 +88,6 @@ public class AttributeComponentChange extends ComponentChange
   //  selectionState of a table is org.apache.myfaces.trinidad.model.RowKeySet that
   //    implements externalizable. (+ve)
   private final Object _attributeValue;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    AttributeComponentChange.class);
 }

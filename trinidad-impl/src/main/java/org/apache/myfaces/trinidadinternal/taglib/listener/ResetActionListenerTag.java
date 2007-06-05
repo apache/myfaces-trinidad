@@ -24,6 +24,7 @@ import javax.faces.webapp.UIComponentTag;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  *
@@ -36,8 +37,8 @@ public class ResetActionListenerTag extends TagSupport
     UIComponentTag tag = UIComponentTag.getParentUIComponentTag(pageContext);
     if (tag == null)
     {
-      throw new JspException(
-        "ResetActionListener must be inside of a UIComponent tag.");
+      throw new JspException(_LOG.getMessage(
+        "RESETACTIONLISTENER_MUST_INSIDE_UICOMPONENT_TAG"));
     }
 
     // Only run on the first time the tag executes
@@ -47,8 +48,8 @@ public class ResetActionListenerTag extends TagSupport
     UIComponent component = tag.getComponentInstance();
     if (!(component instanceof ActionSource))
     {
-      throw new JspException(
-        "ResetActionListener must be inside of a ActionSource component.");
+      throw new JspException(_LOG.getMessage(
+        "RESETACTIONlISTENER_MUST_INSIDE_UICOMPONENT_TAG"));
     }
 
     ResetActionListener listener = new ResetActionListener();
@@ -63,4 +64,6 @@ public class ResetActionListenerTag extends TagSupport
   {
     super.release();
   }
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    ResetActionListenerTag.class);
 }

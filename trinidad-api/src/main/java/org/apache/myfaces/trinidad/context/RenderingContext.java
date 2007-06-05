@@ -116,11 +116,11 @@ abstract public class RenderingContext
 
     // Then see if there's a problem, and scream if there is one
     if (o == null)
-      throw new IllegalStateException("RenderingContext was already " +
-                                      "released or had never been attached.");
+      throw new IllegalStateException(_LOG.getMessage(
+        "RENDERINGCONTEXT_ALREADY_RELEASED_OR_NEVER_ATTACHED"));
     if (o != this)
-      throw new IllegalStateException("Trying to release a different " +
-                     "RenderingContext than the current context.");
+      throw new IllegalStateException(_LOG.getMessage(
+        "TRY_RELEASING_DIFFERENT_RENDERINGCONTEXT"));
   }
 
   /**

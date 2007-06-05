@@ -22,6 +22,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Iterator;
 import java.util.Set;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Map which wraps Map.
@@ -61,7 +62,8 @@ class WrappingMap<K, V> implements Map<K, V>
 
   public void putAll(Map<? extends K, ? extends V> map)
   {
-    throw new UnsupportedOperationException("putAll operation not supported for WrappingMap");
+    throw new UnsupportedOperationException(_LOG.getMessage(
+      "PUTALL_OPERATION_NOT_SUPPORTED_FOR_WRAPPING"));
   }
 
   public Collection<V> values()
@@ -81,7 +83,8 @@ class WrappingMap<K, V> implements Map<K, V>
 
   public void clear()
   {
-    throw new UnsupportedOperationException("clear operation not supported for WrappingMap");
+    throw new UnsupportedOperationException(_LOG.getMessage(
+      "CLEAROPERATION"));
   }
 
   public Iterator<V> elements()
@@ -110,4 +113,6 @@ class WrappingMap<K, V> implements Map<K, V>
   }
 
   private Map<K, V> _wrappedMap;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    WrappingMap.class);
 }

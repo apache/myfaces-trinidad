@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidadinternal.ui.laf;
 
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * NameScoreProxyr delegates to another LookAndFeelScorer instance
@@ -46,7 +47,8 @@ public class NameOnlyScorer extends LookAndFeelScorer
   {
     if (baseScorer == null) 
     {
-      throw new NullPointerException("Null baseScorer");
+      throw new NullPointerException(_LOG.getMessage(
+        "NULL_BASESCORER"));
     }
 
     _lafName           = requiredLafName;
@@ -111,4 +113,6 @@ public class NameOnlyScorer extends LookAndFeelScorer
 
   private String            _lafName;
   private LookAndFeelScorer _baseScorer;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    NameOnlyScorer.class);
 }

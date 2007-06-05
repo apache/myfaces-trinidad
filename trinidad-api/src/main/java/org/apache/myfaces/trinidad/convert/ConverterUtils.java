@@ -24,6 +24,7 @@ import javax.faces.el.ValueBinding;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.FacesBeanImpl;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 class ConverterUtils 
 {
@@ -79,7 +80,8 @@ class ConverterUtils
     FacesBean.Type type = bean.getType();
     PropertyKey key = type.findKey(name);
     if (isStrict && key == null)
-      throw new IllegalArgumentException("Invalid attribute name " + name);
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "INVALID_ATTRIBUTE_NAME", name));
     else 
      return key;
   }
@@ -95,4 +97,6 @@ class ConverterUtils
     }
   }
   
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    ConverterUtils.class);
 }

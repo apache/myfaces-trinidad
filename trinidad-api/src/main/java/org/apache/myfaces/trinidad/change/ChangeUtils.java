@@ -25,6 +25,7 @@ import javax.faces.component.UIComponent;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
 /**
@@ -76,7 +77,8 @@ class ChangeUtils
   public static int getChildIndexForId(UIComponent parent, String childId)
   {
     if (parent == null)
-      throw new NullPointerException("Parent cannot be null");
+      throw new NullPointerException(_LOG.getMessage(
+        "PARENT_CANNOT_BE_NULL"));
 
     int numChildren = parent.getChildCount();
     if (numChildren == 0)
@@ -147,4 +149,6 @@ class ChangeUtils
   }
 
   static final String __JSF_CORE_NAMESPACE = "http://java.sun.com/jsf/core";
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    ChangeUtils.class);
 }

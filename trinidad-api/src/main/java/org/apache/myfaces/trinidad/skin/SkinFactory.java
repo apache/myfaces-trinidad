@@ -23,6 +23,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
 /**
@@ -52,8 +53,8 @@ abstract public class SkinFactory
       ClassLoader cl = _getClassLoader();
       if (_FACTORIES.get(cl) != null)
       {
-        throw new IllegalStateException(
-          "Factory already available for this class loader.");
+        throw new IllegalStateException(_LOG.getMessage(
+          "FACTORY_ALREADY_AVAILABlE_FOR_THIS_CLASS_LOADER"));
       }
 
       _FACTORIES.put(cl, factory);
@@ -120,4 +121,6 @@ abstract public class SkinFactory
 
   static private final Map<ClassLoader, SkinFactory> _FACTORIES = 
     new WeakHashMap<ClassLoader, SkinFactory>();
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    SkinFactory.class);
 }

@@ -42,8 +42,8 @@ class IncludeNodeParser extends BaseNodeParser implements XMLConstants
   {
     if (!NS_URI.equals(namespaceURI))
     {
-      throw new SAXParseException("Invalid Namespace: " +
-                                  namespaceURI, context.getLocator());
+      throw new SAXParseException(_LOG.getMessage(
+        "INVALID_NAMESPACE", namespaceURI), context.getLocator());
     }
 
     String refId = attrs.getValue(ATTRIBUTE_REFID);

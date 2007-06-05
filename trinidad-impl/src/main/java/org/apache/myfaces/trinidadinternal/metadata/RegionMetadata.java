@@ -309,7 +309,8 @@ public final class RegionMetadata extends RegionManager
         case _STATE_SKIP:
           if (localName.equals(_skipElement))
           {
-            throw new UnsupportedOperationException("Cannot yet nest:"+localName+" elements");
+            throw new UnsupportedOperationException(_LOG.getMessage(
+              "REGION_METADATA_CANNOT_NEST",localName));
           }
           break;
       }

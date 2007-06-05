@@ -20,6 +20,7 @@ package org.apache.myfaces.trinidad.change;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Base class for specialized Change that when applied will add a component
@@ -32,7 +33,8 @@ abstract public class AddComponentChange extends ComponentChange
     UIComponent component)
   {
     if (component == null)
-      throw new IllegalArgumentException("component required");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "COMPONENT_REQUIRED"));
     
     _proxy = new ChangeComponentProxy(FacesContext.getCurrentInstance(), 
                                       component);
@@ -49,4 +51,6 @@ abstract public class AddComponentChange extends ComponentChange
   }
 
   private final ChangeComponentProxy _proxy;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    AddComponentChange.class);
 }

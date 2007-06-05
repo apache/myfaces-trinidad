@@ -24,6 +24,7 @@ import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.RequestContext;
 
 import javax.faces.context.FacesContext;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * agent util class
@@ -130,9 +131,8 @@ public class AgentUtil
       Map<Object, Object> capabilities)
   {
     if (!(agent instanceof TrinidadAgentImpl))
-      throw new IllegalArgumentException("mergeCapabilities() may only be " +
-                                         "used with Agents created by this " +
-                                         "class.");
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS"));
     // Make a copy of the agent first
     agent = (TrinidadAgent) agent.clone();
 
@@ -144,4 +144,6 @@ public class AgentUtil
     return agent;
   }
 
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    AgentUtil.class);
 }

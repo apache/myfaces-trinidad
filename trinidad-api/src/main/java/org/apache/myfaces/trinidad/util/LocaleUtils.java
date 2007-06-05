@@ -62,7 +62,8 @@ class LocaleUtils
     ResourceBundle bundle  = info.getBundle();
     if (null == bundle)
     {
-      throw new NullPointerException("bundle not found");
+      throw new NullPointerException(_LOG.getMessage(
+        "BUNDLE_NOT_FOUND"));
     }
 
     // Look up for key_detail now
@@ -92,7 +93,8 @@ class LocaleUtils
     ResourceBundle bundle  = info.getBundle();
     if (null == bundle)
     {
-      throw new NullPointerException("bundle not found");
+      throw new NullPointerException(_LOG.getMessage(
+        "BUNDLE_NOT_FOUND"));
     }
 
     // Look up for key_detail now
@@ -125,7 +127,8 @@ class LocaleUtils
 
     if (resourceId == null)
     {
-      throw new NullPointerException("resourceId is null");
+      throw new NullPointerException(_LOG.getMessage(
+        "NULL_RESOURCEID"));
     }
 
     Locale locale = _getLocale(context);
@@ -149,7 +152,8 @@ class LocaleUtils
         if(bundle == null)
         {
           // That bundle is from the spec, it should never be null
-          throw new NullPointerException("The default FacesMessage.FACES_MESSAGES cannot be found");
+          throw new NullPointerException(_LOG.getMessage(
+            "CANNOT_FIND_DEFAULT_FACESMESSAGE"));
         }
         
         summary = _getBundleSummaryInfo(bundle, resourceId);
@@ -300,7 +304,8 @@ class LocaleUtils
   private static void _assertContextNotNull(FacesContext context)
   {
     if (null == context)
-      throw new NullPointerException("FacesContext is null");
+      throw new NullPointerException(_LOG.getMessage(
+        "NULL_FACESCONTEXT"));
   }
 
   /**

@@ -34,6 +34,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.util.ComponentUtils;
 import org.apache.myfaces.trinidad.util.MessageFactory;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
 /**
@@ -219,7 +220,8 @@ public class ByteLengthValidator  implements StateHolder, Validator
 
     if ((context == null) || (component == null))
     {
-      throw new NullPointerException("FacesContext or Component is null");
+      throw new NullPointerException(_LOG.getMessage(
+        "NULL_FACESCONTEXT_OR_UICOMPONENT"));
     }
 
     if (value != null)
@@ -239,8 +241,8 @@ public class ByteLengthValidator  implements StateHolder, Validator
       }
       catch (UnsupportedEncodingException uee)
       {
-        throw new IllegalCharsetNameException("Encoding: " + getEncoding() +
-                                         " is unsupported by JVM");
+        throw new IllegalCharsetNameException(_LOG.getMessage(
+          "ENCODING_NOT_SUPPORTED_BY_JVM", getEncoding()));
       }
     }
   }
@@ -402,4 +404,6 @@ public class ByteLengthValidator  implements StateHolder, Validator
   private boolean _isTransient = false;
 
 
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    ByteLengthValidator.class);
 }
