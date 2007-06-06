@@ -157,6 +157,12 @@ public class StyleSheetRenderer extends XhtmlRenderer
   }
 
   // returns true if we want to suppress the stylesheet.
+  // It checks for suppressStylesheet flag on the request map and 
+  // for the skin-id on the request map to exist identically on the server.
+  //
+  // This is usually called in a portal environment when we want to suppress the
+  // producer (portlet)'s stylesheet and use the consumer (portal container)'s 
+  // instead for performance enhancements.
   private boolean _isSuppressStylesheet(FacesContext context,  RenderingContext arc)
   {
 
@@ -165,6 +171,10 @@ public class StyleSheetRenderer extends XhtmlRenderer
     boolean suppressStylesheet = "true".equals(requestMap.get(_SUPPRESS_STYLESHEET_ID_PARAM));
     if (suppressStylesheet)
     {
+      // getRequestMapSkin --
+      // See if a skin-id is requested on the requestMap. If so, then see if the Skin
+      // with that id exists on the server, and if it does, and if it is an exact match
+      // (styleSheetDocumentIds match), then it returns the Skin. Otherwise, it returns null
       Skin requestMapSkin = ((CoreRenderingContext) arc).getRequestMapSkin();
       return (requestMapSkin != null) ? true : false;
     }

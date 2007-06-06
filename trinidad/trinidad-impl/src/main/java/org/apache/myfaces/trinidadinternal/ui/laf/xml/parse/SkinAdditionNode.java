@@ -25,7 +25,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.xml.parse;
  * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
 @Deprecated
-public class SkinAdditionNode
+public class SkinAdditionNode implements Comparable<SkinAdditionNode>
 {
 
   /**
@@ -58,6 +58,12 @@ public class SkinAdditionNode
   public void setStyleSheetName(String ssName)
   {
     _styleSheetName = ssName;
+  }
+  
+  // Sort by the name of the stylesheet
+  public int compareTo(SkinAdditionNode node)
+  {
+    return getStyleSheetName().compareTo(node.getStyleSheetName());
   }
   
   private String _skinId;
