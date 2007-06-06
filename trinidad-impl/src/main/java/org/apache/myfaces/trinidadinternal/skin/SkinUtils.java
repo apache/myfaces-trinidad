@@ -25,6 +25,7 @@ import java.io.InputStream;
 import java.net.URL;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 
 import java.util.Iterator;
@@ -339,11 +340,8 @@ public class SkinUtils
     // webInfSkinsNode object
     FacesContext fContext = FacesContext.getCurrentInstance();
     // register skin-additions from META-INF/trinidad-skins.xml files
-    for (SkinsNode skinsNode : metaInfSkinsNodeList)
-    {
-      List<SkinAdditionNode> skinAdditionNodeList = skinsNode.getSkinAdditionNodes();
-      _registerSkinAdditions(fContext, skinFactory, skinAdditionNodeList, true);    
-    } 
+    _registerMetaInfSkinAdditions(fContext, skinFactory, metaInfSkinsNodeList);
+
     // register skin-additions from WEB-INF/trinidad-skins.xml file
     if (webInfSkinsNode != null)
     {
@@ -610,6 +608,28 @@ public class SkinUtils
       _LOG.severe(_UNKNOWN_BASE_SKIN_ERROR + baseSkinId);
 
     return baseSkin;
+  }
+  
+  // register the META-INF skin additions. 
+  // It should not matter what order we process skin-additions since they should not 
+  // depend upon one another.
+  // We sort them by style-sheet-name so the StyleSheetDocumentId will be the same regardless
+  // of order. Portals are using the styleSheetDocumentId to determine if the producer's skin
+  // matches the consumer's skin, and the order of the skin-additions should not change this.
+  private static void _registerMetaInfSkinAdditions(
+    FacesContext    fContext,
+    SkinFactory     skinFactory,
+    List<SkinsNode> metaInfSkinsNodeList)
+  {
+    List<SkinAdditionNode> skinAdditionNodeList = new ArrayList<SkinAdditionNode>();
+    
+    for (SkinsNode skinsNode : metaInfSkinsNodeList)
+    {
+      skinAdditionNodeList.addAll(skinsNode.getSkinAdditionNodes());
+    } 
+    
+    Collections.sort(skinAdditionNodeList);
+    _registerSkinAdditions(fContext, skinFactory, skinAdditionNodeList, true);
   }
   
   /**
