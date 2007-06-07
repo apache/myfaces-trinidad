@@ -329,7 +329,7 @@ public class GenericConverterFactory
       }
       else
         throw new IllegalArgumentException(_LOG.getMessage(
-          "CANNOT_CONVERT",targetType));
+          "CANNOT_CONVERT", new Object[]{source, targetType.getName()}));
     }
 
     @Override

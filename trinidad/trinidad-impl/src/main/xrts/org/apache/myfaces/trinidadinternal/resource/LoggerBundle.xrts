@@ -663,10 +663,7 @@
  
  <!-- UNSUPPORTED_CONVERSION -->
  <resource key="UNSUPPORTED_CONVERSION">Unsupported conversion from:{0} to:{1}</resource>
- 
- <!-- CANNOT_CONVERT -->
- <resource key="CANNOT_CONVERT">Cannot convert to:{0}</resource>
- 
+  
  <!-- NULL_NAME -->
  <resource key="NULL_NAME">Null name</resource>
  
@@ -741,9 +738,6 @@
  
  <!-- NOT_A_CHARACTER -->
  <resource key="NOT_A_CHARACTER">{0} is not a character</resource>
- 
- <!-- CANNOT_FIND_CLASS -->
- <resource key="CANNOT_FIND_CLASS">Could not find class {0}</resource>
  
  <!-- CANNOT_BE_PARSED -->
  <resource key="CANNOT_BE_PARSED">{0} cannot be parsed into a {1}</resource>
