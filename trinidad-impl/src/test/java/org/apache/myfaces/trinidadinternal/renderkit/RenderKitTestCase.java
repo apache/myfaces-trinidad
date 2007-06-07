@@ -282,13 +282,15 @@ abstract public class RenderKitTestCase extends TestSuite
       if (lenient)
         _testCaseCount = 1;
       else
-      _testCaseCount = (_script.getTests().size() * 3) + 1;
+        _testCaseCount = (_script.getTests().size() * 3) + 1;
     }
 
     @Override
     public int countTestCases()
     {
-      return _testCaseCount;
+      // See TRINIDAD-48: reporting anything other than the number
+      // of actual JUnit testcases makes JUnit confused
+      return 1;//_testCaseCount;
     }
 
     @Override
@@ -507,8 +509,6 @@ abstract public class RenderKitTestCase extends TestSuite
     // We can run the full test suite in two modes:  strict, and lenient.
     // We should go to "strict" all the time, but "lenient" simply
     // diffs against the golden files
-    boolean runAllTests = ("lenient".equals(fulltests) ||
-                           "strict".equals(fulltests));
     boolean lenient = "lenient".equals(fulltests);
 
     String[] scriptArray = _scriptDir.list();
