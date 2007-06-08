@@ -25,7 +25,7 @@
 
   <groupId>org.apache.myfaces.trinidadbuild</groupId>
   <artifactId>maven-plugin-parent</artifactId> 
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.0.1</version>
   <packaging>pom</packaging>
   <name>Apache Trinidad Maven Plugin Parent</name>
 
@@ -103,20 +103,10 @@
       <timezone>0</timezone>
     </developer>
     <developer>
-      <id>craigmcc</id>
-      <name>Craig McClanahan</name>
-      <organization />
-      <email>craigmcc@apache.org</email>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>-8</timezone>
-    </developer>
-    <developer>
-      <id>jfallows</id>
-      <name>John Fallows</name>
-      <organization />
-      <email>jfallows@apache.org</email>
+      <id>gcrawford</id>
+      <name>Gabrielle Crawford</name>
+      <organization>Oracle Corp</organization>
+      <email>gcrawford@apache.org</email>
       <roles>
         <role>Developer</role>
       </roles>
@@ -137,6 +127,16 @@
       <name>Matthias Wessendorf</name>
       <organization>Oracle Deutschland GmbH, Germany</organization>
       <email>matzew@apache.org</email>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>-8</timezone>
+    </developer>
+    <developer>
+      <id>mcooper</id>
+      <name>Matthew Cooper</name>
+      <organization>Oracle Corp</organization>
+      <email>mcooper@apache.org</email>
       <roles>
         <role>Developer</role>
       </roles>
@@ -177,7 +177,6 @@
             <configuration>
             <resourceBundles>
               <resourceBundle>org.apache:apache-jar-resource-bundle:1.1</resourceBundle>
-              <resourceBundle>org.apache:apache-incubator-disclaimer-resource-bundle:1.0</resourceBundle>
             </resourceBundles>
             <properties>
               <addLicense>true</addLicense>
@@ -190,12 +189,8 @@
   </build>
 
   <scm>
-    <connection>
-      scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad/trunk/plugins/
-    </connection>
-    <developerConnection>
-      scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad/trunk/plugins/
-    </developerConnection>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad/tags/maven-plugin-parent-1.0.1</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad/tags/maven-plugin-parent-1.0.1</developerConnection>
   </scm>
 
   <modules>
