@@ -125,7 +125,7 @@ public class CoreRenderKitResourceLoader extends RegexResourceLoader
     try
     {
       URL resource =
-        ClassLoaderUtils.getResource("META-INF/adf-faces-version.txt");
+        ClassLoaderUtils.getResource("META-INF/trinidad-version.txt");
       if (resource != null)
       {
         BufferedReader br = null;
