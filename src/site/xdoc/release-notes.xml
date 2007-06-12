@@ -24,7 +24,7 @@
   </properties>
 
   <body>
-    <section name="Apache Trinidad Release Notes">
+    <section name="Apache MyFaces Trinidad 1.0.1 Release Notes">
       <p>
         <ul>
           <li>
@@ -41,17 +41,206 @@
       </section>
 
       <section name="Overview">
-        <p>This is the Milestone 1 release of Apache Trinidad. 
+        <p>This is the first release of Apache MyFaces Trinidad since
+leaving the incubator.  The highlight of this release is greatly
+improved client-side validation, now using inline DHTML instead of
+Javascript alerts, as provided by Danny Robinson.  Many bugs
+have been fixed.  See below for the full list.
        </p>
       </section>
       <section name="Release Notes">
 <subsection name="Features">
+
+<ul>
+<li>Client-side validation no longer shows Javascript alerts.  Instead,
+error messages are shown inline on the components.  This can
+be overridden (to use alerts or disable altogether) using a
+new &lt;client-validation&gt; element in trinidad-config.xml.
+Thanks to Danny Robinson for this feature.
+</li>
+
+<li>A new "autoSubmit" attribute on table and treeTable will send
+PPR submissions to the server any time a row is selected.</li>
+
+<li>"autoSubmit" now works inside of a subform.</li>
+
+<li>.css skinning files can now be edited live without rebooting the server.</li>
+
+<li>The labelAndAccessKey and textAndAccessKey attribute are supported in Facelets</li>
+</ul>
+
 </subsection>
 
 <subsection name="Changes from previous release">
   <ul>
-    <li><a href="api-changes.html">API Changes from Oracle ADF Faces</a></li>
+  <li>When tr:column has both a "header" facet and "headerText", the "headerText" is ignored.  Previously, both would be rendered.</li>
   </ul>
+</subsection>
+
+        
+<subsection name="Bugs">
+<ul>
+<li>[<a href='https://issues.apache.org/jira/browse/TRINIDAD-18'>TRINIDAD-18</a>] -         wild-carded skinning pseudo classes incorrectly transformed to CSS-2
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/TRINIDAD-21'>TRINIDAD-21</a>] -         dialog framework does not pin view state of launching page
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/TRINIDAD-24'>TRINIDAD-24</a>] -         JspUtils.getEncoding() blindly returns the results of the &quot;enc&quot; parameter, which could have been maliciously tampered with to include additional header values
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/TRINIDAD-25'>TRINIDAD-25</a>] -         Facelets: labelAndAccessKey and textAndAccessKey don't work
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/TRINIDAD-27'>TRINIDAD-27</a>] -         ChildPropertyTreeModel state is not serializable:  List.subList()
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/TRINIDAD-30'>TRINIDAD-30</a>] -         tr:validateLength does not send range message to client
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/TRINIDAD-31'>TRINIDAD-31</a>] -         Custom messages on tr:validateLength are not used
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/TRINIDAD-32'>TRINIDAD-32</a>] -         tr:validateLength messages are poor:  don't refer to length
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/TRINIDAD-34'>TRINIDAD-34</a>] -         tr:longRangeValidator/tr:doubleRangeValidator: Logic for showing NOT_IN_RANGE is wrong
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/TRINIDAD-36'>TRINIDAD-36</a>] -         XMLMenuModel: MenuContentHandlerImpl.setRootModelRowKey() writes to static variable
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/TRINIDAD-42'>TRINIDAD-42</a>] -         If styleclass begins with .p_AF and styleclass compression is on, then nullptr exception
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/TRINIDAD-44'>TRINIDAD-44</a>] -         Fix assertion failures in Trinidad
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/TRINIDAD-50'>TRINIDAD-50</a>] -         ClassCastException in ExternalContextUtils
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-186'>ADFFACES-186</a>] -         autoSubmit functionality in tr:table is missing after removing tableSelectMany and tableSelectOne
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-246'>ADFFACES-246</a>] -         actual Trinidad demo does not work with opera 9.02
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-382'>ADFFACES-382</a>] -         SortableModel.getRowKey() returns sortedIndex
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-392'>ADFFACES-392</a>] -         CLONE -Performance optimization in XMLMenuModel.getFocusRowKey() breaks menu model when called before the RenderResponse Phase of the request lifecycle.
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-393'>ADFFACES-393</a>] -         ADFFACES-189 causes duplicate menu items to display the incorrect focus path.  New optimization mentioned in that issue is needed.
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-397'>ADFFACES-397</a>] -         panelRadio PPR is broken
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-398'>ADFFACES-398</a>] -         panelAccordion is broken
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-401'>ADFFACES-401</a>] -         Missing semicolon in Core.js
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-403'>ADFFACES-403</a>] -         need new method outputUtils.renderImage that takes a style class
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-404'>ADFFACES-404</a>] -         absolute urls do not work in skinning
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-405'>ADFFACES-405</a>] -         selectManyListbox fails to render values when value list and item list are in different orders
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-410'>ADFFACES-410</a>] -         DateTimeConverter does not use 2DigitYearStart() when parsing strings with year less than 4-digit
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-413'>ADFFACES-413</a>] -         assert fires incorrectly in UIXNavigationHierarchy.getFocusRowKey() 
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-418'>ADFFACES-418</a>] -         Broken Opera support
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-423'>ADFFACES-423</a>] -         TrRangeValidator
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-424'>ADFFACES-424</a>] -         UIData preceded by transient component in tr:table's detailStamp facet causes index out of bounds exception
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-425'>ADFFACES-425</a>] -         tr:table detailStamp containing tr:table - ClassCastException when showing details 
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-432'>ADFFACES-432</a>] -         XMLMenuModel does not correctly parse Resource Bundle EL expressions for menu item labels.
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-435'>ADFFACES-435</a>] -         Problem with inputListOfValues demo
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-437'>ADFFACES-437</a>] -         both showOneAccordion and showManyAccordion demos don't work in the upper half of the page
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-438'>ADFFACES-438</a>] -         Trinidad components don't use ViewHandler.getResourceUrl - custom ViewHandlers can fail due to this
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-442'>ADFFACES-442</a>] -         Incorrect JavaDoc for Configurator
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-444'>ADFFACES-444</a>] -         Autosubmit not working on CoreTreeTable
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-447'>ADFFACES-447</a>] -         JavaDoc for getTimeZone() in LocaleContext is misleading.
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-449'>ADFFACES-449</a>] -         Table TagDocs still mentions tr:tableSelectOne/Many
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-450'>ADFFACES-450</a>] -         messageDetailConvertNumber not used for numberConverter
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-452'>ADFFACES-452</a>] -         select-all/none links on table don't support autoSubmit
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-454'>ADFFACES-454</a>] -         Client side number converter not working, when locale is set
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-460'>ADFFACES-460</a>] -         CONVERTNUMBER ERROR MESSAGE MISLEADING WHEN INTEGERONLY IS TRUE
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-461'>ADFFACES-461</a>] -         NumberConverter renders &quot;null&quot;, when locale is null
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-463'>ADFFACES-463</a>] -         UIXTable.getSelectedRowData() does not check if selected row is still available
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-466'>ADFFACES-466</a>] -         Issues in change persistence framework code
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-469'>ADFFACES-469</a>] -         ResponseWriter.writeText() can throw NPE if text is null - protect against this
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-471'>ADFFACES-471</a>] -         PPR in a panelFormLayout
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-474'>ADFFACES-474</a>] -         Safari: dialog windows do not size correctly, and errors show in Javascript console
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-478'>ADFFACES-478</a>] -         unknown agent yields ServletException
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-479'>ADFFACES-479</a>] -         Column headerText attribute should not be rendered if column header facet is present
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-485'>ADFFACES-485</a>] -         autoSubmit doesn't deliver value change events when inside of a subform
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-488'>ADFFACES-488</a>] -         TrinidadLogger.warning(Throwable) NPEs if t.getMessage() is null
+</li>
+</ul>
+</subsection>
+
+<subsection name="Improvements">
+<ul>
+<li>[<a href='https://issues.apache.org/jira/browse/TRINIDAD-23'>TRINIDAD-23</a>] -         goButton on PDAs should be rendererd as a linked button and not a button
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/TRINIDAD-28'>TRINIDAD-28</a>] -         MessageFactory.BindingFacesMessage resolves parameters only once
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/TRINIDAD-47'>TRINIDAD-47</a>] -         Localize exception string
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/TRINIDAD-48'>TRINIDAD-48</a>] -         Created property that allows RenderKitTestCase to return a testCaseCount that only includes the actual test cases.
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-105'>ADFFACES-105</a>] -         update facelets in trinidad demo app
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-191'>ADFFACES-191</a>] -         Handle alt-f4 in dialogs
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-391'>ADFFACES-391</a>] -         Client-side validation - enhance to match server-side
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-417'>ADFFACES-417</a>] -         Load text resources from application specific bundle before falling back to the embedded ResourceBundle
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-420'>ADFFACES-420</a>] -         Give better error message when UIXComponentTag is used without &lt;f:view&gt;
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-422'>ADFFACES-422</a>] -         Shouldn't have to stop/start the server if the skin's css file has changed
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-439'>ADFFACES-439</a>] -         use hashcode in generated css file instead of version #
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-441'>ADFFACES-441</a>] -         Adding localization to logging message and exception
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-481'>ADFFACES-481</a>] -         Warning and Info icons don't display on PDAs
+</li>
+</ul>
+</subsection>
+    
+<subsection name="New Features">
+<ul>
+<li>[<a href='https://issues.apache.org/jira/browse/TRINIDAD-33'>TRINIDAD-33</a>] -         tr:lengthValidator: provide better error message when min==max
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-448'>ADFFACES-448</a>] -         portal+skinning: suppress stylesheet if requested skin-id+skin's stylesheetid are found
+</li>
+</ul>
+</subsection>
+
+<subsection name="Tasks">
+<ul>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-415'>ADFFACES-415</a>] -         Mark ui and uinode packages as deprecated
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/ADFFACES-416'>ADFFACES-416</a>] -         Remove usages of assert as a #ifdef C macro
+</li>
+</ul>
+</subsection>            
+
+<subsection name="Tests">
+<ul>
+<li>[<a href='https://issues.apache.org/jira/browse/TRINIDAD-15'>TRINIDAD-15</a>] -         RenderKit test framework should catch ExternalContext.encodeAction/ResourceURL(null)
+</li>
+</ul>
 </subsection>
 <subsection name="Help">
         <p>
@@ -61,36 +250,39 @@ Please see the <a href="FAQ.html" >FAQ</a> for help.
       </section>
 
 <section name="Supported Platforms">
-Apache Trinidad is currently supported in the following user agents (i.e. browsing platforms):
 
+
+<p>Trinidad is currently supported on the following user agents.  We'd very
+much like to add additional platforms to this list -  omission doesn't
+mean it that it doesn't work, just that it hasn't been tested.
+(NOTE: PDA support is definitely longer than just this list -
+Blackberry support was recently added.  A separate table of 
+PDA support should be added once that's been gathered.) </p>
 
 <table summary="" border="1" cellspacing="0" cellpadding="5">
+<!--
   <tr>
     <td colspan="2" rowspan="2"></td>
     <td align="center" colspan="6">Operating Systems</td>
 
   </tr>
+-->
   <tr>
-    <td>Windows</td>
+    <td>User Agents</td>
 
-    <td>Solaris</td>
+    <td>Windows</td>
 
     <td>Mac OS X</td>
 
     <td>Red Hat Linux</td>
-
 
     <td>Windows Mobile</td>
 
     <td>Palm OS</td>
   </tr>
   <tr>
-    <td valign="middle" rowspan="9">User Agents</td>
-
     <td>Internet Explorer</td>
     <td align="center">6.0<span style="vertical-align:super;">*</span></td>
-    <td align="center">-</td>
-
     <td align="center">-</td>
     <td align="center">-</td>
 
@@ -105,10 +297,7 @@ Apache Trinidad is currently supported in the following user agents (i.e. browsi
 
     <td align="center">1.7.x</td>
 
-    <td align="center">-</td>
-
-
-    <td align="center">-</td>
+    <td align="center">1.7.x</td>
 
     <td align="center">1.7.x</td>
 
@@ -123,10 +312,7 @@ Apache Trinidad is currently supported in the following user agents (i.e. browsi
 
     <td align="center">1.0.x</td>
 
-
-    <td align="center">-</td>
-
-    <td align="center">-</td>
+    <td align="center">1.0.x</td>
 
     <td align="center">1.0.x</td>
 
@@ -139,8 +325,6 @@ Apache Trinidad is currently supported in the following user agents (i.e. browsi
   <tr>
     <td>Safari</td>
 
-
-    <td align="center">-</td>
 
     <td align="center">-</td>
 
@@ -159,9 +343,6 @@ Apache Trinidad is currently supported in the following user agents (i.e. browsi
     <td>WebPro (Mobile)</td>
 
     <td align="center">-</td>
-
-    <td align="center">-</td>
-
 
     <td align="center">-</td>
 
