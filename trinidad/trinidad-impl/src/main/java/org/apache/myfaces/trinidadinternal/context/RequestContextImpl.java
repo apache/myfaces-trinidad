@@ -270,7 +270,7 @@ public class RequestContextImpl extends RequestContext
       _bean.getProperty(RequestContextBean.CLIENT_VALIDATION_KEY);
 
     if (clientValidation == null)
-      return ClientValidation.ALERT;
+      return ClientValidation.INLINE;
 
     return clientValidation;
   }
