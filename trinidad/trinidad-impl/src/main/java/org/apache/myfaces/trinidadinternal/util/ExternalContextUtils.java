@@ -205,16 +205,25 @@ public class ExternalContextUtils
 
   private static final String _getPortletCharacterEncoding(final Object request)
   {
+    if (!(request instanceof ActionRequest))
+      return null;
+
     return ((ActionRequest) request).getCharacterEncoding();
   }
 
   private static final int _getPortletContentLength(final Object request)
   {
+    if (!(request instanceof ActionRequest))
+      return -1;
+
     return ((ActionRequest) request).getContentLength();
   }
 
   private static final String _getPortletContentType(final Object request)
   {
+    if (!(request instanceof ActionRequest))
+      return null;
+
     return ((ActionRequest) request).getContentType();
   }
 
