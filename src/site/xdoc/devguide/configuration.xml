@@ -107,8 +107,8 @@ used in illegal locations, etc.)</li>
 <p>
 The <code>&lt;client-validation&gt;</code> element controls how client-side converters and validators are run.  Three values are supported:
 <ul>
+<li>"INLINE": validation is shown inline in a page (the default)</li>
 <li>"ALERT": validation is shown in an Javascript alert</li>
-<li>"INLINE": validation is shown inline in a page</li>
 <li>"DISABLED": validation is only handled on the server</li>
 </ul>
 </p>
