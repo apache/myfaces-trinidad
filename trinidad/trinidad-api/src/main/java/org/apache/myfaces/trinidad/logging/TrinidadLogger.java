@@ -1756,30 +1756,6 @@ public class TrinidadLogger
       System.out.println("null param");
     return getMessage(key, new Object[]{param});
   }
- 
-  /**
-   * Returns formated string in default locale
-   */ 
-  public String getMessage(String key, String param)
-  {
-    return getMessage(key, new Object[]{param});
-  }
-    
-  /**
-   * Returns formated string in default locale
-   */
-  public String getMessage(String key, char c)
-  {
-    return getMessage(key, String.valueOf(c));
-  }
-  
-  /**
-   * Returns formated string in default locale
-   */
-  public String getMessage(String key, int i)
-  {
-    return getMessage(key, String.valueOf(i));
-  }
 
   private Logger _log;
   
