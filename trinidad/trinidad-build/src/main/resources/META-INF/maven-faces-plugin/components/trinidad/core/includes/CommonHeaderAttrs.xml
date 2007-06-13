@@ -27,7 +27,6 @@
       <property-name>text</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:required>true</mfp:required>
         <mfp:property-metadata>
           <mfp:initial-value>{localName} {0}</mfp:initial-value>
           <mfp:preferred>true</mfp:preferred>
@@ -41,7 +40,6 @@
       <property-name>icon</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:required>false</mfp:required>
         <mfp:property-metadata>
           <mfp:property-editor>IMAGE_URI</mfp:property-editor>
         </mfp:property-metadata>
@@ -55,7 +53,6 @@
       <property-class>java.lang.String</property-class>
       <default-value>none</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
         <mfp:property-values>info confirmation warning none error</mfp:property-values>
       </property-extension>
     </property>
@@ -70,9 +67,6 @@
       <property-name>size</property-name>
       <property-class>int</property-class>
       <default-value>-1</default-value>
-      <property-extension>
-        <mfp:required>false</mfp:required>
-      </property-extension>
     </property>
   </component>
 </faces-config>
