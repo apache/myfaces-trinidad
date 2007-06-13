@@ -542,19 +542,19 @@ method:
    *   should receive the ReturnEvent when the dialog is complete.
    * @param dialogParameters a set of parameters to populate the
    *   newly created pageFlowScope
+   * @param useWindow if true, use a popup window for the dialog
+   *    if available on the current user agent device
    * @param windowProperties the set of UI parameters used to
    *   modify a popup window.  The set of properties that are 
    *   supported will depend on the RenderKit, but
    *   common examples include "width" and "height".
-   * @param useWindow if true, use a popup window for the dialog
-   *    if available on the current user agent device
    */
   public abstract void launchDialog(
     UIViewRoot  dialogRoot,
     UIComponent source,
     Map         dialogParameters,
-    Map         windowProperties,
-    boolean     useWindow);
+    boolean     useWindow,
+    Map         windowProperties);
 </source>
 
  You can call this method from an action listener, or from a
@@ -574,7 +574,7 @@ to expire:
     FacesContext context = FacesContext.getCurrentInstance();
     // Create the dialog UIViewRoot
     ViewHandler viewHandler = context.getApplication().getViewHandler();
-    UIViewRoot dialog = context.createView(context, "/sessionExpiring.jspx");
+    UIViewRoot dialog = viewHandler.createView(context, "/sessionExpiring.jspx");
     
     HashMap properties = new HashMap();
     properties.put("width", new Integer(250));
@@ -584,8 +584,8 @@ to expire:
     requestContext.launchDialog(dialog,
                             null, // not launched from any component
                             null, // no particular parameters
-                            properties,
-                            true); // show it in a dialog
+                            true, // show it in a dialog
+                            properties);
     }
   }
 </source>
@@ -883,8 +883,8 @@ from a dialog:
         requestContext.launchDialog(viewRoot,
                                 this,
                                 dialogParameters,
-                                windowProperties,
-                                true);
+                                true,
+                                windowProperties);
       }
       else
       {
