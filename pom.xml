@@ -25,7 +25,7 @@
 
   <groupId>org.apache.myfaces.trinidadbuild</groupId>
   <artifactId>maven-plugin-parent</artifactId> 
-  <version>1.2-07-may-SNAPSHOT</version>
+  <version>1.2.0</version>
   <packaging>pom</packaging>
   <name>Apache Trinidad Maven Plugin Parent</name>
 
@@ -53,10 +53,10 @@
   <mailingLists>
     <mailingList>
       <name>MyFaces Users (use [Trinidad] prefix)</name>
-      <post>user@myfaces.apache.org</post>
-      <subscribe>user-subscribe@myfaces.apache.org</subscribe>
-      <unsubscribe>user-unsubscribe@myfaces.apache.org</unsubscribe>
-      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-user/</archive>
+      <post>users@myfaces.apache.org</post>
+      <subscribe>users-subscribe@myfaces.apache.org</subscribe>
+      <unsubscribe>users-unsubscribe@myfaces.apache.org</unsubscribe>
+      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-users/</archive>
     </mailingList>
     <mailingList>
       <name>MyFaces Developers (use [Trinidad] prefix)</name>
@@ -103,20 +103,10 @@
       <timezone>0</timezone>
     </developer>
     <developer>
-      <id>craigmcc</id>
-      <name>Craig McClanahan</name>
-      <organization />
-      <email>craigmcc@apache.org</email>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>-8</timezone>
-    </developer>
-    <developer>
-      <id>jfallows</id>
-      <name>John Fallows</name>
-      <organization />
-      <email>jfallows@apache.org</email>
+      <id>gcrawford</id>
+      <name>Gabrielle Crawford</name>
+      <organization>Oracle Corp</organization>
+      <email>gcrawford@apache.org</email>
       <roles>
         <role>Developer</role>
       </roles>
@@ -137,6 +127,16 @@
       <name>Matthias Wessendorf</name>
       <organization>Oracle Deutschland GmbH, Germany</organization>
       <email>matzew@apache.org</email>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>-8</timezone>
+    </developer>
+    <developer>
+      <id>mcooper</id>
+      <name>Matthew Cooper</name>
+      <organization>Oracle Corp</organization>
+      <email>mcooper@apache.org</email>
       <roles>
         <role>Developer</role>
       </roles>
@@ -189,12 +189,8 @@
   </build>
 
   <scm>
-    <connection>
-      scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad/branches/faces-1_2-070427/plugins/
-    </connection>
-    <developerConnection>
-      scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad/branches/faces-1_2-070427/plugins/
-    </developerConnection>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad/tags/maven-plugin-parent-1.2.0</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad/tags/maven-plugin-parent-1.2.0</developerConnection>
   </scm>
 
   <modules>
