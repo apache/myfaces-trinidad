@@ -287,13 +287,10 @@ public class NavigationPaneRenderer extends XhtmlRenderer
   private String _getHint(FacesBean bean)
   {
     String renderingHint = toString(bean.getProperty(_hintKey));
+
     if (renderingHint == null)
     {
-      // automated hints are only used if the hint attribute was not set
       // =-= mcc TODO pull from arc, e.g. when placed by Page, PanelPage
-    }
-    if (renderingHint == null)
-    {
       renderingHint = _HINT_DEFAULT;
     }
     return renderingHint;

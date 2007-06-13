@@ -79,4 +79,6 @@ public class SetFacetChildComponentChange extends AddComponentChange
   private final String _facetName;
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     SetFacetChildComponentChange.class);
+
+  private static final long serialVersionUID = 1L;
 }

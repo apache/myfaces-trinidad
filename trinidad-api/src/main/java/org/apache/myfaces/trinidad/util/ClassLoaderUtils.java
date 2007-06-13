@@ -247,17 +247,23 @@ public class ClassLoaderUtils
           try
           {
             BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
-            while(true)
+            try
             {
-              String line = in.readLine();
-              if (line == null)
-                break;
-  
-              T instance = (T) _parseLine(loader, line);
-              if (instance != null)
-                services.add(instance);
+              while(true)
+              {
+                String line = in.readLine();
+                if (line == null)
+                  break;
+                
+                T instance = (T) _parseLine(loader, line);
+                if (instance != null)
+                  services.add(instance);
+              }
             }
-            in.close();
+            finally
+            {
+              in.close();
+            }
           }
           catch (Exception e)
           {

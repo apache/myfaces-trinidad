@@ -594,4 +594,5 @@ class RGBColorFormat extends ColorFormat
   private static final int _FIELD_COUNT = 4;
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(RGBColorFormat.class);
+  private static final long serialVersionUID = 1L;
 }

@@ -389,8 +389,7 @@ public class LookAndFeelExtension extends LookAndFeel
 
       // If we still don't have Renderer, try to get one
       // from the proxied RendererFactory
-      if (renderer == null)
-        renderer = _factory.getRenderer(name);
+      renderer = _factory.getRenderer(name);
 
       // If we found a Renderer, store a reference to it
       // in our local cache.

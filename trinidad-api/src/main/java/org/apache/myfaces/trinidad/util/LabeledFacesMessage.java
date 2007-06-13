@@ -59,4 +59,5 @@ public class LabeledFacesMessage extends FacesMessage
   }
 
   private Object _label;
+  private static final long serialVersionUID = 1L;
 }

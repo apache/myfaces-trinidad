@@ -102,4 +102,6 @@ public class DefaultBoundedRangeModel extends BoundedRangeModel implements Seria
   private long _maximum;
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     DefaultBoundedRangeModel.class);
+
+  private static final long serialVersionUID = 1L;
 }

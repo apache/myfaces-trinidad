@@ -117,4 +117,5 @@ public class AddChildComponentChange extends AddComponentChange
   private final String _insertBeforeId;
   static private final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(AddChildComponentChange.class);
+  private static final long serialVersionUID = 1L;
 }

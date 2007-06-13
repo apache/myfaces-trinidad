@@ -93,4 +93,5 @@ public class RemoveFacetComponentChange extends ComponentChange
   private final String _facetName;
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     RemoveFacetComponentChange.class);
+  private static final long serialVersionUID = 1L;
 }

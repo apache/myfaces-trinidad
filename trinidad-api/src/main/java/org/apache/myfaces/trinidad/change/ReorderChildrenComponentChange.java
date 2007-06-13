@@ -197,4 +197,5 @@ public class ReorderChildrenComponentChange extends ComponentChange
   private final List<String> _childIds;
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     ReorderChildrenComponentChange.class);
+  private static final long serialVersionUID = 1L;
 }

@@ -90,4 +90,5 @@ public class AttributeComponentChange extends ComponentChange
   private final Object _attributeValue;
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     AttributeComponentChange.class);
+  private static final long serialVersionUID = 1L;
 }

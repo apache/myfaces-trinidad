@@ -44,4 +44,5 @@ final class TableRowEvent extends WrapperEvent
   }
 
   private final Object _currencyKey;
+  private static final long serialVersionUID = 1L;
 }

@@ -312,7 +312,8 @@ public class SortableModel extends CollectionModel
   }
 
 
-  private static final class IntList extends ArrayList<Integer> implements Cloneable
+  
+  private static final class IntList extends ArrayList<Integer>
   {
     public IntList(int size)
     {
@@ -327,6 +328,8 @@ public class SortableModel extends CollectionModel
         add(i);
       }
     }
+
+    private static final long serialVersionUID = 1L;
   }
 
   private final class Comp implements Comparator<Integer>

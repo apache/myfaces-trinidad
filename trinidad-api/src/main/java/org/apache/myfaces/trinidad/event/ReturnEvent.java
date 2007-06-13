@@ -50,9 +50,6 @@ public class ReturnEvent extends FacesEvent
   {
     super(source);
     _returnValue = returnValue;
-    // -= Simon Lessard =- 
-    // Useless and expensive instanciation 
-    //_returnParams = new HashMap<Object, Object>();
     if (returnParams == null)
       _returnParams = Collections.emptyMap();
     else
@@ -153,5 +150,6 @@ public class ReturnEvent extends FacesEvent
 
   private Object _returnValue;
   private Map<Object, Object> _returnParams;
+  private static final long serialVersionUID = 1L;
 }
 

@@ -803,4 +803,5 @@ public class XMLMenuModel extends BaseMenuModel
             
   static private final TrinidadLogger _LOG = 
          TrinidadLogger.createTrinidadLogger(XMLMenuModel.class);
+  private static final long serialVersionUID = 1L;
 }
