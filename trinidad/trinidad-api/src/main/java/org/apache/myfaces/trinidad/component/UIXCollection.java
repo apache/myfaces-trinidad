@@ -1332,6 +1332,7 @@ public abstract class UIXCollection extends UIXComponentBase
     }
 
     private ValueMap<Object,String> _currencyCache = new ValueMap<Object,String>();
+    private static final long serialVersionUID = 1L;
   }
 
   // this component's internal state is stored in an inner class

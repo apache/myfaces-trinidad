@@ -392,7 +392,7 @@ public class ChoiceRenderer extends FormSelectRenderer
     // allow the action script to follow, then the fall through will call it
     // only when there has been a change.
 
-    if ((needsChangeTracker(context, node)) && (actionScript != null))
+    if (needsChangeTracker(context, node))
       actionScript = _ACTION_HANDLER_PREFIX + actionScript;
 
     if (handlerObject != null )

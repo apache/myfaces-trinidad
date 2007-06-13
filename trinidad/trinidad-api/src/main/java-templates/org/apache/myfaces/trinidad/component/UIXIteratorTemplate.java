@@ -93,7 +93,9 @@ public abstract class UIXIteratorTemplate extends UIXCollection
         if (exp instanceof RuntimeException)
           throw (RuntimeException) exp;
 
-        throw (IOException) exp;
+        if (exp instanceof IOException)
+          throw (IOException) exp;
+        throw new IllegalStateException(exp);
       }
     }
   }

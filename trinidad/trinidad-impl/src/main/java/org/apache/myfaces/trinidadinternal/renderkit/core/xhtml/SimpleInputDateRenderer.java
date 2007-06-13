@@ -319,18 +319,14 @@ public class SimpleInputDateRenderer
     if (chooseId != null)
     {
       int length = _FOCUS_PREFIX.length() + 4;
-      if (chooseId != null)
-        length += chooseId.length();
+      length += chooseId.length();
 
       StringBuilder buffer = new StringBuilder(length);
       buffer.append(_FOCUS_PREFIX);
 
-      if (chooseId != null)
-      {
-        buffer.append(",'");
-        buffer.append(chooseId);
-        buffer.append("'");
-      }
+      buffer.append(",'");
+      buffer.append(chooseId);
+      buffer.append("'");
 
       buffer.append(")");
 

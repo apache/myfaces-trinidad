@@ -426,7 +426,7 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
       {
         Object itemValue = item.getValue();
         // =-=AEW Treat the empty string as if it were null
-        if ((item == null) || (itemValue == null) || "".equals(itemValue))
+        if ((itemValue == null) || "".equals(itemValue))
           return i;
       }
       else

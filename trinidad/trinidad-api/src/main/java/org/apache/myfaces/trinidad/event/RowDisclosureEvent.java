@@ -68,4 +68,5 @@ public class RowDisclosureEvent extends RowKeySetChangeEvent
     return (listener instanceof RowDisclosureListener);
   }
   
+  private static final long serialVersionUID = 1L;
 }

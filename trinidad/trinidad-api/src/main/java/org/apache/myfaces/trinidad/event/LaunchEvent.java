@@ -176,7 +176,10 @@ public class LaunchEvent extends FacesEvent
     return sb.toString();
   }
 
-  private UIViewRoot          _viewRoot;
+  // UIViewRoot is not serializable, so must be transient
+  transient private UIViewRoot          _viewRoot;
+
   private Map<String, Object> _dialogParameters;
   private Map<String, Object> _windowProperties;
+  private static final long serialVersionUID = 1L;
 }

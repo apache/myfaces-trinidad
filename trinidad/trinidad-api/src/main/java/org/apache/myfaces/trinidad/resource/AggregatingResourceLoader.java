@@ -116,7 +116,7 @@ public class AggregatingResourceLoader extends DynamicResourceLoader
     }
 
     urls.trimToSize();
-    URL[] urlArray = urls.toArray(new URL[0]);
+    URL[] urlArray = urls.toArray(new URL[urls.size()]);
 
     AggregatingURLStreamHandler handler = new AggregatingURLStreamHandler(urlArray, _separator);
     return new URL("aggregating", null, -1, path, handler);

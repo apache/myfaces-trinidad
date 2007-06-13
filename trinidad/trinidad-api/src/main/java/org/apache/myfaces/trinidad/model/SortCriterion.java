@@ -88,4 +88,6 @@ public class SortCriterion implements Serializable
   private final boolean _sortOrder;
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     SortCriterion.class);
+
+  private static final long serialVersionUID = 1L;
 }

@@ -112,4 +112,5 @@ public class RemoveChildComponentChange extends ComponentChange
   private final String _childId;
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     RemoveChildComponentChange.class);
+  private static final long serialVersionUID = 1L;
 }

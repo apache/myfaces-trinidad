@@ -550,6 +550,7 @@ public class MessageFactory
     }
 
     private final ErrorMessages _messageStrings;
+    private static final long serialVersionUID = 1L;
   }
 
   private static class BindingErrorMessages extends ErrorMessages
@@ -588,6 +589,7 @@ public class MessageFactory
     }
 
     private Object[] _parameters;
+    private static final long serialVersionUID = 1L;
   }
 
   // Though it may not be exactly correct to extend BindingErrorMessages
@@ -641,6 +643,7 @@ public class MessageFactory
 
     private ValueBinding _customDetailErrorMessage;
     private boolean _hasBoundParameters;
+    private static final long serialVersionUID = 1L;
   }
 
   private static class FormattedErrorMessages extends ErrorMessages
@@ -664,6 +667,7 @@ public class MessageFactory
     }
 
     Object[] _parameters;
+    private static final long serialVersionUID = 1L;
   }
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(MessageFactory.class);

@@ -940,7 +940,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
       return;
     }
 
-    if (currencyCode == null && getCurrencySymbol() != null)
+    if (getCurrencySymbol() != null)
     {
       symbols.setCurrencySymbol(getCurrencySymbol());
 

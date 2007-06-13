@@ -59,4 +59,5 @@ public class LRUCache<K, V> extends LinkedHashMap<K, V>
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(LRUCache.class);
 
+  private static final long serialVersionUID = 1L;
 }

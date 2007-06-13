@@ -328,10 +328,10 @@ abstract public class UIXEditableValueTemplate
         }
         catch (EvaluationException ee)
         {
-          if (ee.getCause() instanceof ValidatorException)
+          Throwable cause = ee.getCause();
+          if (cause instanceof ValidatorException)
           {
-            ValidatorException ve =
-              (ValidatorException) ee.getCause();
+            ValidatorException ve = (ValidatorException) cause;
 
             // If the validator throws an exception, we're
             // invalid, and we need to add a message

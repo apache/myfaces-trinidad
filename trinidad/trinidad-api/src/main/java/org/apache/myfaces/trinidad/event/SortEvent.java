@@ -65,4 +65,6 @@ public final class SortEvent extends FacesEvent
   
   
   private final List<SortCriterion> _criteria;
+
+  private static final long serialVersionUID = 1L;
 }

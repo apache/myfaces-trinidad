@@ -66,4 +66,6 @@ public class SelectionEvent extends RowKeySetChangeEvent
   {
     return (listener instanceof SelectionListener);
   }
+
+  private static final long serialVersionUID = 1L;
 }

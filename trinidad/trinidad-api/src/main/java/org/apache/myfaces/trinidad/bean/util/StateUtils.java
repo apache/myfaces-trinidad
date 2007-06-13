@@ -293,6 +293,7 @@ public class StateUtils
     }
 
     private String _name;
+    private static final long serialVersionUID = 1L;
   }
 
 
@@ -319,6 +320,7 @@ public class StateUtils
     }
 
     private Object _save;
+    private static final long serialVersionUID = 1L;
   }
 
 

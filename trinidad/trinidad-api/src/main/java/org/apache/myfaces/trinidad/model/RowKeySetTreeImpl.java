@@ -299,6 +299,9 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
   @Override
   public final void setCollectionModel(CollectionModel model)
   {
+    if (!(model instanceof TreeModel))
+      throw new IllegalArgumentException();
+
     _model = (TreeModel) model;
   }
 
@@ -534,8 +537,9 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
     }
   }
 
+  // Needs to be Serializable and Cloneable - but HashMap already is
   private static final class Node<K> extends HashMap<K, Node<K>>
-    implements Serializable, Cloneable
+     /* implements Serializable, Cloneable */
   {
     public boolean isDifferent = false;
     public boolean isDefaultContained = false;
@@ -570,6 +574,8 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
       _deepClone(clone);
       return clone;
     }
+
+    private static final long serialVersionUID = 1L;
   }
 
   private class Search

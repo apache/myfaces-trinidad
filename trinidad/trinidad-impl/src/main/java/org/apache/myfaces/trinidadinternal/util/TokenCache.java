@@ -312,6 +312,8 @@ public class TokenCache implements Serializable
     {
       _removed = key;
     }
+
+    private static final long serialVersionUID = 1L;
   }
 
   private final Map<String, String> _cache;

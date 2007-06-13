@@ -51,6 +51,10 @@ public final class HierarchyUtils
       // only do an unbounded expandAll if the number of new nodes is not
       // too large:
       // FIXME: Wouldn't .size() do the work instead of looping 100 times...
+      // FIXME RESPONSE: .size() can be expensive for RowKeySets.
+      // However, getSize() can be called, and will return -1 if it's
+      // expensive.  We should likely use getSize() first, see if it's
+      // >= 0 and < 100, then otherwise go into this code
       for(Object key : added)
       {
         if (++size > 100)

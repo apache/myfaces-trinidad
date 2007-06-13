@@ -122,5 +122,5 @@ public final class ChartDrillDownEvent extends FacesEvent
   private final int[] _yValueIndices; 
   private final double[] _yValues; 
   private final double[] _xValues;
-
+  private static final long serialVersionUID = 1L;
 }

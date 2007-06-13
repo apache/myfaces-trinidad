@@ -73,4 +73,5 @@ class FacesMessageWrapper extends LabeledFacesMessage
   }
 
   private FacesMessage _wrapped;
+  private static final long serialVersionUID = 1L;
 }

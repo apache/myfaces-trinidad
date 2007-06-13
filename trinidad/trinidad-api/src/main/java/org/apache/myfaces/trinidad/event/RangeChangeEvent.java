@@ -159,4 +159,6 @@ public class RangeChangeEvent extends FacesEvent
   private final int _oldEnd;  
   private final int _newStart;
   private final int _newEnd;  
+
+  private static final long serialVersionUID = 1L;
 }
