@@ -18,45 +18,27 @@
  */
 package org.apache.myfaces.trinidadbuild.plugin.faces;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URL;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-import javax.xml.transform.Result;
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.sax.SAXSource;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
-
-import org.apache.myfaces.trinidadbuild.plugin.faces.util.XIncludeFilter;
-
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
-
+import org.apache.myfaces.trinidadbuild.plugin.faces.util.XIncludeFilter;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
+
+import javax.xml.parsers.*;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.sax.SAXSource;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+import java.io.*;
+import java.net.URL;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @version $Id$
@@ -162,12 +144,19 @@ public class GenerateFacesConfigMojo extends AbstractFacesMojo
 
           Result mergedResult = new StreamResult(resultStream);
 
-          URL xslURL = getClass().getResource("resources/transform.xsl");
+          URL xslURL;
+          if (_is12())
+            xslURL = getClass().getResource("resources/transform12.xsl");
+          else
+            xslURL = getClass().getResource("resources/transform.xsl");
+
           InputStream xsl = xslURL.openStream();
           StreamSource xslSource = new StreamSource(xsl);
           Transformer transformer = transFactory.newTransformer(xslSource);
           transformer.setParameter("packageContains", packageContains);
           transformer.setParameter("typePrefix", typePrefix);
+          transformer.setParameter("converterPackageContains", getParameter(converterPackageContains, packageContains));
+          transformer.setParameter("validatorPackageContains", getParameter(validatorPackageContains, packageContains));
           transformer.transform(mergedSource, mergedResult);
           resultStream.close();
 
@@ -220,6 +209,26 @@ public class GenerateFacesConfigMojo extends AbstractFacesMojo
     }
   }
 
+  private boolean _is12()
+  {
+    return "1.2".equals(jsfVersion) || "12".equals(jsfVersion);
+  }
+
+  private String getParameter(String paramName, String defaultValue)
+  {
+    String param;
+
+    if (paramName.length() > 0)
+    {
+       param = paramName;
+    }
+    else
+    {
+        param = defaultValue;
+    }
+    return param;
+  }
+
   /**
    * @parameter expression="${project}"
    * @readonly
@@ -243,6 +252,17 @@ public class GenerateFacesConfigMojo extends AbstractFacesMojo
   private String packageContains = "";
 
   /**
+   * @parameter
+   */
+  private String converterPackageContains = "";
+
+  /**
+   * @parameter
+   */
+  private String validatorPackageContains = "";
+
+
+  /**
    * @parameter expression="${project.build.directory}/maven-faces-plugin/main/resources"
    * @required
    */
@@ -260,9 +280,8 @@ public class GenerateFacesConfigMojo extends AbstractFacesMojo
 
   /**
    * @parameter
-   * @required
    */
-  private String typePrefix;
+  private String typePrefix = "";
 
   /**
    * Name of an XSLT stylesheet in src/main/conf that will be applied
@@ -271,4 +290,9 @@ public class GenerateFacesConfigMojo extends AbstractFacesMojo
    * @parameter
    */
   private String transformStylesheet;
+
+  /**
+   * @parameter
+   */
+  private String jsfVersion;
 }

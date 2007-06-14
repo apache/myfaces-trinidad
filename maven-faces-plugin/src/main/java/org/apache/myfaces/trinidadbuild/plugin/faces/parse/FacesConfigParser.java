@@ -18,26 +18,20 @@
  */
 package org.apache.myfaces.trinidadbuild.plugin.faces.parse;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-import java.net.URL;
-import java.net.URLConnection;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParserFactory;
-
-import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.AbstractObjectCreationFactory;
-
+import org.apache.commons.digester.Digester;
 import org.apache.maven.plugin.MojoExecutionException;
-
+import org.apache.myfaces.trinidadbuild.plugin.faces.parse.rules.BeanPropertySetterRule;
+import org.apache.myfaces.trinidadbuild.plugin.faces.util.XIncludeFilter;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
-
-import org.apache.myfaces.trinidadbuild.plugin.faces.parse.rules.BeanPropertySetterRule;
-import org.apache.myfaces.trinidadbuild.plugin.faces.util.XIncludeFilter;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParserFactory;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 
 public class FacesConfigParser
 {
@@ -147,14 +141,16 @@ public class FacesConfigParser
                                    "componentSuperclass");
     digester.addBeanPropertySetter("faces-config/component/component-extension/renderer-type",
                                    "rendererType");
-    digester.addBeanPropertySetter("faces-config/component/component-extension/peer-type",
-                                   "peerType");
     digester.addBeanPropertySetter("faces-config/component/component-extension/naming-container",
                                    "namingContainer");
     digester.addBeanPropertySetter("faces-config/component/component-extension/accepts-child-components",
                                    "children");
     digester.addBeanPropertySetter("faces-config/component/component-extension/tag-class",
                                    "tagClass");
+    digester.addBeanPropertySetter("faces-config/component/component-extension/tag-superclass",
+                                   "tagSuperclass");
+    digester.addBeanPropertySetter("faces-config/component/component-extension/implementation-type",
+                                   "implementationType");
     digester.addCallMethod("faces-config/component/component-extension/tag-class-modifier",
                            "parseTagClassModifier", 1);
     digester.addCallParam("faces-config/component/component-extension/tag-class-modifier", 0);
@@ -182,6 +178,8 @@ public class FacesConfigParser
     // faces-config/component/property/property-extension
     digester.addBeanPropertySetter("faces-config/component/property/property-extension/state-holder",
                                    "stateHolder");
+    digester.addBeanPropertySetter("faces-config/component/property/property-extension/jsp-property-name",
+                                   "jspPropertyName");
     // faces-config/component/property/property-extension
     digester.addBeanPropertySetter("faces-config/component/property/property-extension/list",
                                    "list");
@@ -192,6 +190,8 @@ public class FacesConfigParser
     digester.addBeanPropertySetter("faces-config/component/property/property-extension/transient");
     digester.addBeanPropertySetter("faces-config/component/property/property-extension/literal-only",
                                    "literalOnly");
+    digester.addBeanPropertySetter("faces-config/component/property/property-extension/enum",
+                                   "enum");
     digester.addBeanPropertySetter("faces-config/component/property/property-extension/alternate-class",
                                    "alternateClass");
     digester.addBeanPropertySetter("faces-config/component/property/property-extension/tag-attribute-excluded",

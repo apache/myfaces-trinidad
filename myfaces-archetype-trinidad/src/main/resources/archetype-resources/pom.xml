@@ -108,31 +108,24 @@
   <!-- Project dependencies -->
   <dependencies>
     <dependency>
-      <groupId>org.apache.myfaces.core</groupId>
-      <artifactId>myfaces-api</artifactId>
-      <version>1.1.5</version>
-      <scope>compile</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.myfaces.core</groupId>
-      <artifactId>myfaces-impl</artifactId>
-      <version>1.1.5</version>
-      <scope>compile</scope>
+      <groupId>javax.faces</groupId>
+      <artifactId>jsf-api</artifactId>
+      <version>1.2-b19</version>
+      <scope>provided</scope>
     </dependency>
 
     <!-- Apache Trinidad -->
     <dependency>
       <groupId>org.apache.myfaces.trinidad</groupId>
       <artifactId>trinidad-api</artifactId>
-      <version>1.0.0-incubating</version>
+      <version>1.2-07-may-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
 
     <dependency>
       <groupId>org.apache.myfaces.trinidad</groupId>
       <artifactId>trinidad-impl</artifactId>
-      <version>1.0.0-incubating</version>
+      <version>1.2-07-may-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
 
