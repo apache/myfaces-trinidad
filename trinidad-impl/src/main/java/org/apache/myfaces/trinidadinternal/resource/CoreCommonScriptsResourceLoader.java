@@ -62,13 +62,20 @@ public class CoreCommonScriptsResourceLoader extends AggregatingResourceLoader
     "META-INF/adf/jsLibs/Locale.js",
     "META-INF/adf/jsLibs/Core.js",
     "META-INF/adf/jsLibs/Window.js",
-    "META-INF/adf/jsLibs/PPR.js",
+    //    "META-INF/adf/jsLibs/PPR.js",
     "META-INF/adf/jsLibs/TableProxy.js",
     "META-INF/adf/jsLibs/Poll.js",
     "META-INF/adf/jsLibs/ColorField.js",
     "META-INF/adf/jsLibs/ColorFieldFormat.js",
     "META-INF/adf/jsLibs/ColorFormat.js",
     "META-INF/adf/jsLibs/Shuttle.js",
+
+    "META-INF/adf/jsLibs/Page.js",
+    // XMMLHttp libraries
+    "META-INF/adf/jsLibs/xhr/RequestQueue.js",
+    "META-INF/adf/jsLibs/xhr/XMLRequest.js",
+    "META-INF/adf/jsLibs/xhr/XMLRequestEvent.js",
+    "META-INF/adf/jsLibs/xhr/IFrameXMLRequestEvent.js",
   };
 
   // List of all libraries
@@ -82,13 +89,20 @@ public class CoreCommonScriptsResourceLoader extends AggregatingResourceLoader
     "META-INF/adf/jsLibsDebug/Locale.js",
     "META-INF/adf/jsLibsDebug/Core.js",
     "META-INF/adf/jsLibsDebug/Window.js",
-    "META-INF/adf/jsLibsDebug/PPR.js",
+    //    "META-INF/adf/jsLibsDebug/PPR.js",
     "META-INF/adf/jsLibsDebug/TableProxy.js",
     "META-INF/adf/jsLibsDebug/Poll.js",
     "META-INF/adf/jsLibsDebug/ColorField.js",
     "META-INF/adf/jsLibsDebug/ColorFieldFormat.js",
     "META-INF/adf/jsLibsDebug/ColorFormat.js",
     "META-INF/adf/jsLibsDebug/Shuttle.js",
+
+    "META-INF/adf/jsLibsDebug/Page.js",
+    // XMMLHttp libraries
+    "META-INF/adf/jsLibsDebug/xhr/RequestQueue.js",
+    "META-INF/adf/jsLibsDebug/xhr/XMLRequest.js",
+    "META-INF/adf/jsLibsDebug/xhr/XMLRequestEvent.js",
+    "META-INF/adf/jsLibsDebug/xhr/IFrameXMLRequestEvent.js",
   };
 
   static private final String _NEWLINE_SEPARATOR = "\n";

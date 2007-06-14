@@ -18,67 +18,116 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.ppr;
 
+
 import java.io.IOException;
 import java.io.Writer;
-import java.util.List;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
 import org.apache.myfaces.trinidad.context.PartialPageContext;
-import org.apache.myfaces.trinidadinternal.io.ResponseWriterDecorator;
+import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
+import org.apache.myfaces.trinidad.util.Service;
 
-public class PPRResponseWriter extends ResponseWriterDecorator
+
+/**
+ * Write out a PPR response in the following form:
+ * <content action="http://new-action-url">
+ *   <fragment><![CDATA[....html....]]></fragment>
+ *   <fragment><![CDATA[....more html....]]></fragment
+ * </content>
+ *
+ * =-=AEW Need to write out new client components
+ */
+public class PPRResponseWriter extends ScriptBufferingResponseWriter
 {
   public PPRResponseWriter(ResponseWriter     out,
-                           PartialPageContext pprContext,
-                           boolean            useXMLDom)
+                           RenderingContext   rc)
   {
     super(out);
+    PartialPageContext pprContext = rc.getPartialPageContext();
     if (!(pprContext instanceof PartialPageContextImpl))
         throw new IllegalArgumentException();
 
     _pprContext = (PartialPageContextImpl) pprContext;
-    _useXMLDom = useXMLDom;
-    _componentStack = new ArrayList<PPRTag>(50);
-    _facesContext = FacesContext.getCurrentInstance();
+    _xml        = new XmlResponseWriter(out, out.getCharacterEncoding());
   }
 
-  @Override
+  /**
+   * Constructor for use when cloning.
+   */
+  PPRResponseWriter(ResponseWriter out,
+                    PPRResponseWriter base)
+  {
+    super(out, base);
+    // New XmlResponseWriter
+    _xml        = new XmlResponseWriter(out, out.getCharacterEncoding());
+    // But same ppr context
+    _pprContext = base._pprContext;
+  }
+  
+  
   public ResponseWriter cloneWithWriter(Writer writer)
   {
-    return new PPRResponseWriter(
+    PPRResponseWriter ppr = new PPRResponseWriter(
       getResponseWriter().cloneWithWriter(writer),
-      _pprContext,
-      _useXMLDom);
+      this);
+
+    // BIG HACK: ViewTag is going to clone the ResponseWriter so that
+    // it can write its BodyContent out.  But that'll clone a
+    // PPRResponseWriter, which then will adamantly refuse to write
+    // out any content!  To "fix" this, we make the lousy assumption
+    // that if we're being cloned, and our element depth is zero,
+    // then we're probably being used in this way, and we should just
+    // let everything through.
+    ppr._forceInsideTarget = ppr._elementDepth == 0;
+    return ppr;
   }
 
-  @Override
   public void startDocument() throws IOException
   {
-    if (_isInsideTarget())
-      super.startDocument();
+    // We force the encoding to be text/xml in XmlHttpServletResponse
+    // because setContentType is ignored when inside an included page (bug 5591124)
+    _xml.startDocument();
+    
+    // Stick another PI indicating that this is a rich reponse
+    // Used for an Iframe based communication channel, since it cannot 
+    // read response headers
+    super.write("<?Tr-XHR-Response-Type ?>\n");
+    
+    _xml.startElement("content", null);
+    String viewId = _facesContext.getViewRoot().getViewId();
+    String actionURL = _facesContext.getApplication().
+           getViewHandler().getActionURL(_facesContext, viewId);
+    ExternalContext external = _facesContext.getExternalContext();
+
+    _xml.writeURIAttribute("action", external.encodeActionURL(actionURL), null);
+
+    // TODO: Portlet support for PPR?
+
+    _xml.writeText(" ", null);
   }
 
-  @Override
   public void endDocument() throws IOException
   {
-    if (_isInsideTarget())
-      super.endDocument();
+    // Write out any buffered <script src=""> or inline scripts
+    writeBufferedScripts();
+    
+    // Write out all of the framework-level scripts
+    writeFrameworkScripts();
+    
+    _xml.endElement("content");
+    _xml.endDocument();
   }
 
-  @Override
-  public void flush() throws IOException
-  {
-    if (_isInsideTarget())
-      super.flush();
-  }
 
-  @Override
   public void writeComment(Object text) throws IOException
   {
     if (_isInsideTarget())
@@ -86,31 +135,28 @@ public class PPRResponseWriter extends ResponseWriterDecorator
   }
 
 
-  @Override
   public void writeText(Object text, String property) throws IOException
   {
     if (_isInsideTarget())
       super.writeText(text, property);
   }
 
-  @Override
   public void writeText(
-      char[]      text,
-      int         start,
-      int         length) throws IOException
+                        char[]      text,
+                        int         start,
+                        int         length) throws IOException
   {
     if (_isInsideTarget())
       super.writeText(text, start, length);
   }
 
-  @Override
+
   public void write(String text) throws IOException
   {
     if (_isInsideTarget())
       super.write(text);
   }
 
-  @Override
   public void write(
                     char[]      text,
                     int         start,
@@ -120,7 +166,6 @@ public class PPRResponseWriter extends ResponseWriterDecorator
       super.write(text, start, length);
   }
 
-  @Override
   public void write(int ch) throws IOException
   {
     if (_isInsideTarget())
@@ -128,14 +173,39 @@ public class PPRResponseWriter extends ResponseWriterDecorator
   }
 
   @Override
+  public void write(char[] c) throws IOException
+  {
+    if (_isInsideTarget())
+      super.write(c);
+  }
+
+  @Override
+  public void write(String text, int off, int len) throws IOException
+  {
+    if (_isInsideTarget())
+      super.write(text, off, len);
+  }
+
+  /* Needed in JSF 1.2
+  @Override
+  public void writeText(Object      text,
+                        UIComponent component,
+                        String      propertyName) throws IOException
+  {
+    if (_isInsideTarget() && (text != null))
+      super.writeText(text, component, propertyName);
+  }
+  */
+
   public void startElement(String name, UIComponent component)
      throws IOException
   {
-    if (_pushPartialTarget(name, component))
+    _elementDepth++;
+    if (_pushPartialTarget(component, name))
     {
       _enteringPPR = component;
     }
-
+    
     if (_isInsideTarget())
     {
       if (_LOG.isFinest())
@@ -156,18 +226,16 @@ public class PPRResponseWriter extends ResponseWriterDecorator
     }
   }
 
-  @Override
+
   public void endElement(String name) throws IOException
   {
+    _elementDepth--;
     if (_isInsideTarget())
-    {
       super.endElement(name);
-    }
 
-    _popPartialTarget();
+    _popPartialTarget(name);
   }
 
-  @Override
   public void writeAttribute(String     name,
                              Object     value,
                              String     property) throws IOException
@@ -176,25 +244,23 @@ public class PPRResponseWriter extends ResponseWriterDecorator
       return;
 
     // Write out attributes when we're inside a target and outputting
-    // normally - or if we're writing out a form at all, because
-    // the action attribute is important
-    if (_isInsideTarget() || _writingForm)
+    // normally
+    if (_isInsideTarget())
     {
       _handleIdAttribute(name, value);
+
       super.writeAttribute(name, value, property);
     }
   }
 
-  @Override
   public void writeURIAttribute(
                                 String     name,
                                 Object     value,
                                 String     property) throws IOException
   {
     // Write out attributes when we're inside a target and outputting
-    // normally - or if we're writing out a form at all, because
-    // the action attribute is important
-    if (_isInsideTarget() || _writingForm)
+    // normally
+    if (_isInsideTarget())
     {
       // We actually use writeURIAttribute() to write out the "id"
       // of our links, because "name" is actually kind of a URI
@@ -202,14 +268,82 @@ public class PPRResponseWriter extends ResponseWriterDecorator
       // A strange decision that should be revisited, but for now,
       // trap writeURIAttribute() too
       _handleIdAttribute(name, value);
+
       super.writeURIAttribute(name, value, property);
     }
   }
+  
+  /*
+   * Allows subclasses to retrieve the underlying response writer and bypass PPR logic
+   * allowing content to be written only by partial targets
+   * @return underlying ResponseWriter
+   */
+  protected ResponseWriter getXmlResponseWriter()
+  {
+    return _xml;
+  }
+  
+  /*
+   * Writes out buffered inline scripts and script libraries
+   */
+  protected void writeBufferedScripts() throws IOException
+  {
+    List<String> libraries = getBufferedLibraries();
+    if (libraries != null)
+    {
+      for (String library : libraries)
+      {
+        _xml.startElement("script-library", null);
+        _xml.writeText(library, null);
+        _xml.endElement("script-library");
+      }
+    }
 
-  private boolean _pushPartialTarget(String element, UIComponent component)
+    List<String> scripts = getBufferedScripts();
+    if (scripts != null)
+    {
+      for (String script : scripts)
+      {
+        _xml.startElement("script", null);
+        _xml.write("<![CDATA[");
+        _xml.write(script);
+        _xml.write("]]>");
+        _xml.endElement("script");
+      }
+    }
+
+    // Clear out any buffered scripts/libraries
+    clearBufferedContents();
+  }
+  
+  /*
+   * Writes out framework-level scripts
+   */
+  protected void writeFrameworkScripts() throws IOException
+  {
+    ResponseWriter old = _facesContext.getResponseWriter();
+    _facesContext.setResponseWriter(_xml);
+    try
+    {
+      // And also encode ExtendedRenderKitService scripts.  (ERKS
+      // renders its own script wrapper element.)
+      ExtendedRenderKitService erks =
+        Service.getService(_facesContext.getRenderKit(),
+                           ExtendedRenderKitService.class);
+      if (erks != null)
+        erks.encodeScripts(_facesContext);
+    }
+    finally
+    {
+      _facesContext.setResponseWriter(old);
+    }
+  }
+
+  private boolean _pushPartialTarget(
+    UIComponent component,
+    String      elementName)
     throws IOException
   {
-    _writingForm = false;
     boolean enteringPPR = false;
 
     PPRTag tag = null;
@@ -222,40 +356,31 @@ public class PPRResponseWriter extends ResponseWriterDecorator
         String clientId = component.getClientId(_facesContext);
         if (_pprContext.isPartialTarget(clientId))
         {
-          if ("td".equals(element))
-            tag = new AddTags(clientId, _ADD_TABLE_AND_TR);
-          else if ("tr".equals(element))
-            tag = new AddTags(clientId, _ADD_TABLE);
-          else
-            tag = new PPRTag(clientId);
+          tag = new PPRTag(clientId);
           enteringPPR = true;
         }
-      }
-
-      if ((tag == null) && "form".equals(element))
-      {
-        // Remember when we're writing out a form that isn't a true target
-        _writingForm = true;
-        tag = new AddTags(null, _ADD_FORM);
       }
     }
 
     if (tag != null)
-      tag.start(_pprContext);
+    {
+      super.flush();
+      tag.start(_pprContext, elementName);
+    }
 
     _componentStack.add(tag);
 
     return enteringPPR;
   }
 
-  private void _popPartialTarget() throws IOException
+  private void _popPartialTarget(String elementName) throws IOException
   {
     int pos = _componentStack.size() - 1;
-    PPRTag tag = _componentStack.get(pos);
+    PPRTag tag = (PPRTag) _componentStack.get(pos);
     _componentStack.remove(pos);
 
     if (tag != null)
-      tag.finish(_pprContext);
+      tag.finish(_pprContext, elementName);
   }
 
   private boolean _isInsideTarget()
@@ -263,7 +388,7 @@ public class PPRResponseWriter extends ResponseWriterDecorator
     // Only use the real ResponseWriter when we are rendering
     // a partial target subtree.  Otherwise, we discard all
     // output.
-    return _pprContext.isInsidePartialTarget();
+    return _pprContext.isInsidePartialTarget() || _forceInsideTarget;
   }
 
   private void _handleIdAttribute(String name, Object value)
@@ -281,6 +406,7 @@ public class PPRResponseWriter extends ResponseWriterDecorator
     }
   }
 
+
   //
   // Class representing PPR behavior associated with a tag.  The
   // base class simply tells PPR when it's working with a partial target
@@ -292,103 +418,101 @@ public class PPRResponseWriter extends ResponseWriterDecorator
       _id = id;
     }
 
-    public void start(PartialPageContextImpl pprContext) throws IOException
+    public void start(
+      PartialPageContextImpl pprContext,
+      String             elementName) throws IOException
     {
       if (_id != null)
       {
         pprContext.pushRenderedPartialTarget(_id);
-
-        if (_useXMLDom)
-        {
-          PPRResponseWriter.super.startElement("ppr",null);
-          PPRResponseWriter.super.writeAttribute("target_id", _id,null);
-          PPRResponseWriter.super.write("<![CDATA[");
-        }
+        _xml.startElement("fragment",null);
+        _xml.write("<![CDATA[");
+        _xml.flush(); // NEW
 
         if (_LOG.isFine())
         {
           _LOG.fine("Entering partial target id {0}", _id);
         }
 
+        // Write out wrapper elements needed to ensure valid HTML
+        _startWrapperElements(elementName);
       }
     }
 
-    public void finish(PartialPageContextImpl pprContext) throws IOException
+    public void finish(
+      PartialPageContextImpl pprContext,
+      String             elementName) throws IOException
     {
       if (_id != null)
       {
         if (_enteringPPR != null)
         {
-          _LOG.warning("NO_PPR_CAPABLE_ID_FOUND_FOR_COMPONENT",_enteringPPR);
+          _LOG.warning("NO_PPR_CAPABLE_ID", _enteringPPR);
           _enteringPPR = null;
         }
 
-        if (_useXMLDom)
-        {
-          PPRResponseWriter.super.write("]]>");
-          PPRResponseWriter.super.endElement("ppr");
-        }
-
+        // Close up wrapper elements needed to ensure valid HTML
+        _endWrapperElements(elementName);
+        
+        PPRResponseWriter.super.flush();
+      
+        _xml.write("]]>");
+        _xml.endElement("fragment");
+        _xml.flush();
+        
         pprContext.popRenderedPartialTarget();
         _LOG.finer("Leaving partial target id {0}", _id);
       }
     }
 
+    // Write out wrapper elements needed to generate valid HTML content
+    private void _startWrapperElements(String elementName) throws IOException
+    {
+      // If the partial target has <tr>/<td> as its root element, we
+      // need to wrap these contents such that the root element is
+      // a <table>.  This allows us to shove this content into a
+      // div as innerHTML on the client to produce the DOM tree.  Without
+      // this, the resulting HTML is invalid and the DOM tree is not
+      // produced.
+      boolean isTR = "tr".equalsIgnoreCase(elementName);
+      boolean isTD = "td".equalsIgnoreCase(elementName);
+      
+      if (isTR || isTD)
+      {
+        PPRResponseWriter.super.startElement("table", null);
+
+        if (isTD)
+          PPRResponseWriter.super.startElement("tr", null);
+      }      
+    }
+    
+    // Close up wrapper elements needed to generate valid HTML content
+    private void _endWrapperElements(String elementName) throws IOException
+    {
+      // Close up <table>/<tr> tags if necessary.
+      boolean isTR = "tr".equalsIgnoreCase(elementName);
+      boolean isTD = "td".equalsIgnoreCase(elementName);
+      if (isTR || isTD)
+      {
+        if (isTD)
+          PPRResponseWriter.super.endElement("tr");
+
+        PPRResponseWriter.super.endElement("table");
+      }
+    }
+    
     private String _id;
   }
 
-  //
-  // Subclass adding support for automatic output of tags
-  //
-  private class AddTags extends PPRTag
-  {
-    public AddTags(String id, String[] tags)
-    {
-      super(id);
-      _tags = tags;
-    }
-
-    @Override
-    public void start(PartialPageContextImpl pprContext) throws IOException
-    {
-      super.start(pprContext);
-
-      // Start the elements in order...
-      for (int i = 0; i < _tags.length; i++)
-      {
-        PPRResponseWriter.super.startElement(_tags[i], null);
-      }
-    }
-
-    @Override
-    public void finish(PartialPageContextImpl pprContext) throws IOException
-    {
-      // And then end them in reverse order...
-      for (int i = _tags.length - 1; i >= 0; i--)
-      {
-        PPRResponseWriter.super.endElement(_tags[i]);
-      }
-
-      super.finish(pprContext);
-    }
-
-    private String[] _tags;
-  }
-
   private UIComponent _enteringPPR;
-
-  private boolean _writingForm;
-  private final boolean _useXMLDom;
-  private final List<PPRTag> _componentStack;
+  private ResponseWriter _xml;
+  private boolean _forceInsideTarget;
+  private int _elementDepth;
+  
+  private final List<PPRTag> _componentStack = new ArrayList<PPRTag>(50);
   private final PartialPageContextImpl _pprContext;
-  private final FacesContext _facesContext;
-
-  static private final String[] _ADD_TABLE_AND_TR =
-     new String[]{"table", "tr"};
-  static private final String[] _ADD_TABLE =
-     new String[]{"table"};
-  static private final String[] _ADD_FORM =
-     new String[]{"form"};
+  private final FacesContext _facesContext =
+     FacesContext.getCurrentInstance();
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(PPRResponseWriter.class);
 }

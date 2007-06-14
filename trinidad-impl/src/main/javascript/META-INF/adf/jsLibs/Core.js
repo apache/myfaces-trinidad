@@ -17,25 +17,7 @@
  *  under the License.
  */
 
-// Number of submits done on this page. This gives an accurate
-// value of the depth of the history list (or distance to the page
-// that preceeded this one).
-var _pprSubmitCount = 0;
-
-// IE doesn't add the first partial refresh into the history list.
-// Doesn't matter if it's a partialSubmit or a partialChange. However,
-// subsequent submits are counted. This variable keeps track of whether we've
-// done any action on this page.
-var _pprSomeAction = false;
-
-// Number of outstanding partial page request.  Partial
-// page rendering keeps this ref count to distinguish
-// between real partial page activity and back/refresh.
-var _pprRequestCount = 0;
-
-// Flag used by partial page rendering to mark whether the
-// parent window has been unloaded.
-var _pprUnloaded = false;
+var _pprUnsupported = false;
 
 // Flag used by partial page rendering and the back issue
 // to indicate whether or not we need to restore the saved inline scripts.
@@ -47,23 +29,21 @@ var _pprBlocking = false;
 // ER 4014884: block on every submit if requested.
 var _blockOnEverySubmit = false;
 
-// The name attached to the iFrame from which we do PPR updates
-var _pprIframeName = "_pprIFrame";
-
 // Controls whether or not Trinidad will allow the first click to go through in
 // certain instances. When a PPR event occurs, we block all subsequent user
 // input until it completes. However, there may be instances where the client
 // wants to receive the very first click. For example, If the user has entered
-// text in a textInput field with a firePartialAction attached, then
+// text in a textInput field with autoSubmit attached, then
 // immediately clicked a submit button two events will be triggered - an
-// onChange followed by an onClick. The onChange will trigger the client action
+// onChange followed by an onClick. The onChange will trigger the autoSubmit
 // which will immediately start the PPR blocking, so the onClick will get
 // consumed by the blocking code and no submit will occur. Setting this value
 // to true will allow the click to go through. This value can be controlled by
 // the firstClickPassed attribute on the body element.
+// TODO: Because PPR is now queued, is this still relevant?
 var _pprFirstClickPass = false;
 
-// We block using a special DIV element. This is it's name
+// We block using a special DIV element. This is its name
 var _pprdivElementName = '_pprBlockingDiv';
 
 // stores the variables needed to load the libraries for IE
@@ -106,13 +86,7 @@ var _lastValidationFailure  = 0;
 
 
 // Keeps track of arguments that will be needed for a delayed event
-_delayedEventParams = new Object();
-
-// Object containing the initial state of a chosen form
-var _initialFormState;
-var _initialFormExclude = new Object();
-var _initialFormStateName;
-var _navDirty;
+var _delayedEventParams = new Object();
 
 // this is the id of the component which gets the initial focus when the
 // page loads.
@@ -121,9 +95,9 @@ var _initialFocusID = null;
 // Certain Trinidad facilities can request that focus be set to a particular node,
 // or the node AFTER a particular node following a PPR update. These three
 // variables store the values needed to track down that node.
-var _AdfFocusRequestDoc = null;
-var _AdfFocusRequestID = null;
-var _AdfFocusRequestNext = false;
+var _TrFocusRequestDoc = null;
+var _TrFocusRequestID = null;
+var _TrFocusRequestNext = false;
 
 // _checkUnload is set on our body tag and is called when the window
 // unloads. In our dialog windows, we call _checkUnload via an intermediary
@@ -621,17 +595,17 @@ function t(width,height)
 {
 
   // if the transparent url is not null render img tag
-  if ( _tURL != void 0 )
+  if (_tURL)
   {
     document.write('<img src="' + _tURL + '"');
 
-    if (width!=void 0)
+    if (width)
       document.write(' width="' + width + '"');
-    if (height!=void 0)
+    if (height)
       document.write(' height="' + height + '"');
 
     // if accessibility mode is not null, render alt attribute
-    if (_axm != void 0)
+    if (_axm)
       document.write(' alt=""');
 
     document.write('>');
@@ -654,7 +628,7 @@ function _getDependents(
   {
     depends = parentWindow["_dependents"];
 
-    if (depends == (void 0))
+    if (!depends)
     {
       if (createIfNecessary)
       {
@@ -805,8 +779,6 @@ function _checkUnload(
     // Now we can safely close the modal window
     modalWindow.close();
   }
-
-  _pprUnloaded = true;
 
   var topWindow = _getTop(self);
 
@@ -1639,7 +1611,8 @@ function _commandChoice(
 function submitForm(
   form,
   doValidate,
-  parameters
+  parameters,
+  isPartial
   )
 {
   // If we've delayed any sort of event submission, we won't want to do it at
@@ -1771,245 +1744,110 @@ function submitForm(
     // reset any hidden form values before submitting
     _resetHiddenValues(form);
 
-    //
-    // assign any dynamic values before submitting
-    //
-    var isDOM = _supportsDOM();
-    var tempParams = new Object();
-
-    if (parameters)
+    if (isPartial)
     {
-      for (var paramName in parameters)
+      TrPage.getInstance().sendFormPost(form, parameters);
+    }
+    else
+    {
+      //
+      // assign any dynamic values before submitting
+      //
+      var isDOM = _supportsDOM();
+      var tempParams = new Object();
+
+      if (parameters)
       {
-        var paramValue = parameters[paramName];
-        if (paramValue != (void 0))
+        for (var paramName in parameters)
         {
-          // do not try to get properties from the form element directly.
-          // Some code somewhere was setting an htmlInputElement as
-          // a property on the formElement, but not as a child.
-          // This was causing bug 4536656.
-          // I can't yet figure out who is setting the htmlInputElement as
-          // a property (instead of a child).
-          // As a workaround get them from the elements array instead.
-          // In any case it is always safe to get the element from the
-          // elements array.
-          //var hiddenField = form[paramName];
-          var hiddenField = form.elements[paramName];
-          if (_agent.isPIE)
+          var paramValue = parameters[paramName];
+          if (paramValue != (void 0))
           {
-            var element = form.elements[paramName];
-            element.value = paramValue;
-          }
-          else
-          {
-            var hiddenFieldCreated = false;
-            // See if the hidden field exists.  And, because
-            // of some rather strange IE behavior w/regards to
-            // form.elements['id'], make sure we haven't accidentally
-            // grabbed a string
-            if (hiddenField && (typeof(hiddenField) != "string"))
+            // do not try to get properties from the form element directly.
+            // Some code somewhere was setting an htmlInputElement as
+            // a property on the formElement, but not as a child.
+            // This was causing bug 4536656.
+            // I can't yet figure out who is setting the htmlInputElement as
+            // a property (instead of a child).
+            // As a workaround get them from the elements array instead.
+            // In any case it is always safe to get the element from the
+            // elements array.
+            //var hiddenField = form[paramName];
+            var hiddenField = form.elements[paramName];
+            if (_agent.isPIE)
             {
-              // This condition was added to support enter key
-              // on forms for hcommandButton
-              if (hiddenField.type == 'submit')
-              {
-                var tmpField = document.createElement("input");
-                tmpField.type = "hidden";
-                tmpField.name = paramName;
-                tmpField.value = parameters[paramName];
-                form.appendChild(tmpField);
-                tempParams[paramName] = tmpField;
-                hiddenFieldCreated = true;
-              }
-              else
-                hiddenField.value = paramValue;
+              var element = form.elements[paramName];
+              element.value = paramValue;
             }
-            //VAC- added so that PDA's do not enter this flow. Since no PDA currently
-            //supports createElement function on the document.  Furthermore, if the
-            //hidden field exists there should be no reason to create a new hidden field
-            //with the same name and attach it to the form.
             else
             {
-            if (isDOM)
-            {
-              if (! hiddenFieldCreated)
+              var hiddenFieldCreated = false;
+              // See if the hidden field exists.  And, because
+              // of some rather strange IE behavior w/regards to
+              // form.elements['id'], make sure we haven't accidentally
+              // grabbed a string
+              if (hiddenField && (typeof(hiddenField) != "string"))
               {
-                // as a convenience to the client, build a hidden field to hold
-                // this parameter.
-                var tmpField = document.createElement("input");
-                tmpField.type = "hidden";
-                tmpField.name = paramName;
-                tmpField.value = parameters[paramName];
-                form.appendChild(tmpField);
-                tempParams[paramName] = tmpField;
+                // This condition was added to support enter key
+                // on forms for hcommandButton
+                if (hiddenField.type == 'submit')
+                {
+                  var tmpField = document.createElement("input");
+                  tmpField.type = "hidden";
+                  tmpField.name = paramName;
+                  tmpField.value = parameters[paramName];
+                  form.appendChild(tmpField);
+                  tempParams[paramName] = tmpField;
+                  hiddenFieldCreated = true;
+                }
+                else
+                  hiddenField.value = paramValue;
               }
-            }
-          }
-        }
-      }
-    }
-    }
-
-    // finally submit the form
-    if (_agent.isPIE)
-    {
-      var isPartialForPIE = false;
-      var partialTargets = parameters["partialTargets"];
-      var partial = parameters["partial"];
-      if ((partialTargets != (void 0)) || (partial != (void 0)))
-      {
-        var data = "";
-        data = createNameValueString(form);
-        var useragent = navigator.userAgent;
-        try
-        {
-          XmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        catch(e)
-        {
-          XmlHttp = null;
-          XmlRequest = null;
-          var errnum = e.number &amp; 0xFFFFFF;
-          if (errnum == 655789)
-          {
-            alert("\"Run ActiveX controls and plug-ins\" and \"Script ActiveX controls marked safe for scripting\" must be enabled!");
-          }
-        }
-        if( XmlHttp == null)
-        {
-          form.target="_self";
-          form.submit();
-          return doSubmit;
-        }
-        else
-        {
-          var urlenc = "application/x-www-form-urlencoded; charset=utf-8";
-          XmlHttp.open (form.method.toUpperCase(), form.action, false);
-          XmlHttp.setRequestHeader ("Content-Type", urlenc);
-          XmlHttp.setRequestHeader ("User-Agent", useragent);
-          try
-          {
-            XmlHttp.send(data);
-          }
-          catch (e)
-          {
-            XmlHttp.open (form.method.toUpperCase(), form.action, false);
-            XmlHttp.setRequestHeader ("Content-Type", urlenc);
-            XmlHttp.setRequestHeader ("User-Agent", useragent);
-            XmlHttp.send(data);
-          }
-          var responseString = new String(XmlHttp.responseText);
-          try
-          {
-            xmlDOC = new ActiveXObject("Microsoft.XMLDOM");
-            xmlDOC.loadXML(responseString.toString());
-          }
-          catch (e)
-          {
-            form.target="_self";
-            form.submit();
-            return doSubmit;
-          }
-          try
-          {
-            var root = xmlDOC.documentElement;
-            var pprscriptnodes = root.selectNodes("//pprscripts");
-            var pprscript =
-              pprscriptnodes.item(0).childNodes.item(0).nodeTypedValue;
-            var pprtargetnodes = root.selectNodes("//pprtargets/pprtarget");
-            for (var i = 0; i < pprtargetnodes.length; i++)
-            {
-              var origpprtargetid = pprtargetnodes.item(i).attributes(0).text;
-              var tructargetid;
-              var ind = origpprtargetid.indexOf("__xc");
-              if (ind > -1 )
-              {
-                tructargetid = origpprtargetid.substring(0,ind);
-              }
+              //VAC- added so that PDA's do not enter this flow. Since no PDA currently
+              //supports createElement function on the document.  Furthermore, if the
+              //hidden field exists there should be no reason to create a new hidden field
+              //with the same name and attach it to the form.
               else
               {
-                tructargetid = origpprtargetid;
-              }
-              var pprnode = root.selectNodes("//ppr[@target_id='"
-                                             + tructargetid
-                                             + "']");
-              if ((pprnode != null) && (pprnode != (void 0)))
-              {
-                try
+                if (isDOM)
                 {
-                  var pprtext =
-                    pprnode.item(0).childNodes.item(0).nodeTypedValue;
-                  var newpprtext = pprtext.toString();
-                  if ((pprtext.indexOf("span") > -1)
-                      || (pprtext.indexOf("div") > -1))
+                  if (! hiddenFieldCreated)
                   {
-                    var re = new RegExp ('\\s*id\\s*=\\s*"'
-                                         + origpprtargetid
-                                         + '"\\s*', "gi");
-                    //var re =new RegExp('span\\s*id\\s*=\\s*"(.*?)"\\s*',"gi");
-                    newpprtext = pprtext.replace(re,' id="'
-                                                 + origpprtargetid
-                                                 + '_ppr_" ');
-                    // newpprtext = pprtext.replace(re,'span id="$1_ppr_" ');
+                    // as a convenience to the client, build a hidden field to hold
+                    // this parameter.
+                    var tmpField = document.createElement("input");
+                    tmpField.type = "hidden";
+                    tmpField.name = paramName;
+                    tmpField.value = parameters[paramName];
+                    form.appendChild(tmpField);
+                    tempParams[paramName] = tmpField;
                   }
-                  // alert(origpprtargetid + " " + tructargetid + " "
-                  //       + i + " " +newpprtext);
-                  eval("window['"
-                       + origpprtargetid
-                       + "'].innerHTML=newpprtext+'<script>'+pprscript+'</script>'");
-                }
-                catch(e)
-                {
-                  // alert("exception here" + e.message);
                 }
               }
             }
           }
-          catch (e)
-          {
-
-            var elem = form.elements["partial"];
-            elem.value="";
-            form.target="_self";
-            form.submit();
-            return doSubmit;
-          }
-          finally
-          {
-            xmlHttp = null;
-            xmlDoc = null;
-            responseString = null;
-            root = null;
-          }
         }
       }
-      else
-      {
-        form.target="_self";
-        form.submit();
-        return doSubmit;
-      }
-    }
-    else // ! (_agent.isPIE)
-    {
+
       form.submit();
       if (_blockOnEverySubmit)
         _pprStartBlocking(window);
-    }
 
-    // Remove any dynamically added form parameters. We do this for two
-    // reasons:
-    // 1. IE6 does not return dynamically-added form elements in the form map,
-    // so we end up re-adding the same form elements again.
-    // 2. If we don't remove them, then subsequent form submits behave like
-    // they are PPR requests (because the dynamically added "partial" and
-    // "partialTargets" parameters will be on the request).
-    // (Bug #3623890. This seems to break on a few Apps pages with bad form
-    // setups)
-    if (isDOM)
-    {
-      for (var paramName in tempParams)
-        form.removeChild(tempParams[paramName]);
+
+      // Remove any dynamically added form parameters. We do this for two
+      // reasons:
+      // 1. IE6 does not return dynamically-added form elements in the form map,
+      // so we end up re-adding the same form elements again.
+      // 2. If we don't remove them, then subsequent form submits behave like
+      // they are PPR requests (because the dynamically added "partial" and
+      // "partialTargets" parameters will be on the request).
+      // (Bug #3623890. This seems to break on a few Apps pages with bad form
+      // setups)
+      if (isDOM)
+      {
+        for (var paramName in tempParams)
+          form.removeChild(tempParams[paramName]);
+      }
     }
   }
 
@@ -2067,14 +1905,11 @@ function _submitOnEnter(e, frm,src)
  */
 function _saveFormForLaterSubmit(form, val, params)
 {
-    _saveForm = form;
-    _saveDoValidate = val;
-    _saveParameters = params;
-    if (form.target == _pprIframeName)
-    {
-      _inPartialSubmit = true;
-    }
-    _submitRejected = true;
+  // TODO: fix for PPR
+  _saveForm = form;
+  _saveDoValidate = val;
+  _saveParameters = params;
+  _submitRejected = true;
 }
 
 /**
@@ -3538,23 +3373,27 @@ function _pprInstallBlockingHandlers(win, install)
   }
 }
 
-/**
- * function used to store the global variables
- * needed to load the libraries for IE
- */
-function _pprLibraryStore(numberOfLibraries)
+//
+// _pprConsumeClick: Helps implement blocking. This function just consumes
+//                   every click that falls within the body.
+//
+function _pprConsumeClick(event)
 {
-  // keep track of which libraries are loaded
-  this.loadedStatus = new Array(numberOfLibraries);
+  if (_agent.isIE)
+  {
+    var body = document.body;
+    if ((event.x < body.offsetLeft) || (event.y < body.offsetTop)
+        || (event.x > body.offsetWidth) || (event.y > body.offsetHeight))
+    {
+      // OK, we've caught an event outside the body of the document. Assume
+      // that the user is clicking somewhere on the menu bar, or another
+      // window. At this point, we release the mouse and continue (that's
+      // better than keeping the user in limbo).
 
-  for (var i=0; i < numberOfLibraries; i++)
-    this.loadedStatus[i] = false;
-
-  // keep track of the total number of libraries to load
-  this.total = numberOfLibraries;
-
-  // an array to store each library script
-  this.allLibraries = new Array(numberOfLibraries);
+      _pprStopBlocking(window);
+    }
+  }
+  return false;
 }
 
 
@@ -3655,6 +3494,82 @@ function _pprFocus(node, doc)
 }
 
 //
+// _pprConsumeBlockedEvent: Helps implement blocking. This function attached
+//                          as the event handler. It just consumes every event
+//                          it gets.
+//
+//                          This function is used on standards based browsers.
+//
+function _pprConsumeBlockedEvent(evt)
+{
+  var rv = true;
+
+  if (_pprBlocking)
+  {
+    var blockTheEvent = true;
+
+    if (window._pprFirstClickPass)
+    {
+      var newDate = new Date();
+      var diff = newDate - _pprBlockStartTime;
+
+      // If we've got a click on a button (or an image within a link that does
+      // a submit), less than 150ms after the beginning of a PPR update, assume
+      // the user has started an onChange type event with a click on a button.
+      // This addresses the problems that people were seeing, but could cause
+      // overlapping PPR events in rare cases.
+      var delay = 150;
+      if ((diff < delay) && (evt.type == 'click'))
+      {
+        // To try to further limit the overlaps, we only allow clicks on
+        // buttons, or images that will cause a submit to go through.
+        // get the target of the click
+        var orig = evt.explicitOriginalTarget;
+        // this function is never called on IE, but if it were, this would be:
+        // var orig = (_agent.isIE
+        //            ? evt.srcElement
+        //            : evt.explicitOriginalTarget);
+        blockTheEvent = ! _isSubmittingElement(orig);
+      }
+    }
+    if (blockTheEvent)
+    {
+      // just swallow the event
+      evt.stopPropagation();
+      evt.preventDefault();
+      rv = false;
+    }
+  }
+  return rv;
+}
+
+
+//
+// _pprConsumeFirstClick: Helps implement blocking.
+//
+// On IE, the capture doesn't allow us to hand off the first click - we can
+// only eat it, but attachEvent only allows us to do something with the event
+// AFTER it's been delivered to the element. There's no way to make a decision
+// whether or not to deliver a particular event. Therefore, since we want to
+// deliver the first click, and block everything else, we attachEvent using
+// this handler. This handler then just immediately switches over the the
+// capture. This function is only used on IE.
+//
+function _pprConsumeFirstClick(event)
+{
+  // This is an IE only function
+  if (_agent.isIE)
+  {
+    // switch over to capture
+    _pprControlCapture(window, true);
+    // and remove this one-time function
+    window.document.detachEvent('onclick', _pprConsumeFirstClick);
+  }
+  return false;
+}
+
+
+//
 // _pprControlCapture: Set up the pprDivElement to capture all
 //                     mouse events. It will then ignore them.
 //
@@ -3732,14 +3647,10 @@ function _pprChoiceChangeEvent(event)
 
 
 // Tests whether a partial submit should be performed
-function _doPartialSubmit()
+function _supportsPPR()
 {
-  //VAC added because Pocket IE does not use Iframes for PPR, but it does
-  //do PPR.
-  if (_agent.isPIE){
-    return true;
-  }
-  return (_getElementById(document, _pprIframeName) != null);
+  // TODO: handle platforms that do not support PPR
+  return !_pprUnsupported;
 }
 
 
@@ -3753,7 +3664,7 @@ function _submitPartialChange(
 {
   // If there's no PPR iframe, then just perform a normal,
   // full-page submission.
-  if (!_doPartialSubmit())
+  if (!_supportsPPR())
     return submitForm(form, doValidate, parameters);
 
   // Get the actual form object
@@ -3764,31 +3675,7 @@ function _submitPartialChange(
     return false;
 
   // Tack on the "partial" event parameter parameter
-  parameters = _addFormParameter(parameters, _getPartialParameter(), "true");
-
-  // We need to set the target of the form to be the PPR iframe.
-  // Save the old target and set the new one.
-  var oldTarget = form.target;
-  if(!_agent.isPIE)
-  {
-    form.target = _pprIframeName;
-  }
-  
-  // Before we fire, update the request count
-  _pprRequestCount++;
-
-  var delta = 0;
-
-  // IE only adds to the history list if something has already been done on
-  // this page, so until there has been some action, we don't
-  // increment/decrement at all.
-  if (!_agent.isIE || window._pprSomeAction)
-  {
-    delta = 1;
-  }
-  _pprSubmitCount += delta;
-
-  window._pprSomeAction = true;
+  parameters = _addFormParameter(parameters, "partial", "true");
 
   // block all mouse clicks until the submit is done
   if (!_agent.isPIE)
@@ -3797,7 +3684,7 @@ function _submitPartialChange(
   }
 
   // Submit the form
-  var submitted = submitForm(form, doValidate, parameters);
+  var submitted = submitForm(form, doValidate, parameters, true);
 
   // If the form wasn't actually submitted, update the ref count
   if (!submitted)
@@ -3806,185 +3693,10 @@ function _submitPartialChange(
     {
       _pprStopBlocking(window);
     }
-    _pprRequestCount--;
-    _pprSubmitCount -= delta;
-  }
-
-  // Reset the form target
-  form.target = oldTarget;
-}
-
-/**
- * Returns the value of the "partial" event
- * parameter.
- */
-function _getPartialParameter()
-{
-  return "partial";
-}
-
-
-function _partialRedirect(URL)
-{
-  // ER #2603173
-  // If an error occurred during a partial operation, the client
-  // can call the method PartialPageUtils.forceRedirectURL(context, url)
-  // with an URL to which we can redirect to show the error.
-  if (URL && (parent._pprRequestCount > 0))
-  {
-    if (((typeof URL) == "string") && (URL.length > 0))
-    {
-      // We're going to an error page, make sure we clear all
-      // tracking variables before the onUnload gets called.
-      parent._pprRequestCount--;
-      parent._pprSubmitCount = 0;
-      parent._pprSomeAction = false;
-      parent.location.href = URL;
-      _pprStopBlocking(parent);
-    }
   }
 }
 
-
-/**
- * returns an array with the libraries that need to be loaded due to the
- * PPR request and are not already cached.
- */
-function _createToLoadArray()
-{
-  var toLoadArray = new Array();
-  var toLoadIndex = 0;
-
-  if (window["_pprLibraries"] != undefined)
-  {
-    // loop through each library in _pprLibraries
-    // if it is not in the cached libraries list, then
-    // add it to an array which indicates that the library needs to be loaded.
-    for (var i=0; i < _pprLibraries.length; i++)
-    {
-
-      if ((parent._cachedLibs == null)
-          || (parent._cachedLibs.indexOf(_pprLibraries[i]) == -1))
-      {
-        toLoadArray[toLoadIndex++] = _pprLibraries[i];
-      }
-    }
-  }
-
-  return toLoadArray;
-}
-
-function _addLibraryToCache(libraryName)
-{
-  // always load ScriptEval, so don't put it in the _cachedLibs list.
-  if ((libraryName.indexOf("ScriptEval")) == -1)
-  {
-    if (parent._cachedLibs == null)
-      //=-=jmw does not work in some cases in IE for some unknown reason
-      // parent._cachedLibs = new String(libraryName);
-      parent._cachedLibs = "" + libraryName;
-    else
-      parent._cachedLibs += "," + libraryName;
-  }
-}
-
-// Given the targetDocument and the array of libraries to load,
-// download the libraries using IE's startDownload function.
-function _loadScriptLibrariesIE(targetDocument, toLoadArray)
-{
-  if (toLoadArray == null) return;
-
-  var downloadElement   = _getElementById(targetDocument, "_adfDownload");
-
-  if (downloadElement == null) return;
-
-  var numLibraries = toLoadArray.length;
-
-  // initialize the global variables that are needed to load the libraries
-  // in the callback.
-  _pprLibStore = new _pprLibraryStore(numLibraries);
-
-  // For each library, start the download and set up the callback
-  // which will get called when the download is complete.
-  for (var i = 0; i < numLibraries; i++)
-  {
-    var scriptStatement = "_pprExecScript(" + i + ", s);"
-    // create a callback function that takes "s" as an argument
-    // (this will be the script's content in string form) and
-    // takes the scriptStatement as its body. This callback
-    // function will then turn around and call _pprExecScript(i,s),
-    // where i is the library index and s is the library string
-    var downloadCallback = new Function("s",scriptStatement );
-    downloadElement.startDownload(toLoadArray[i], downloadCallback);
-
-    _addLibraryToCache(toLoadArray[i]);
-
-  }
-}
-
-/**
- * Download the libraries that are defined in the iframe
- * into the targetDocument. The method for Gecko is
- * to create a script element in the targetDocument for
- * each library.
- */
-function _loadScriptLibrariesGecko(targetDocument, toLoadArray)
-{
-  // we first walk through the list of library paths that are stored in
-  // the _pprLibraries variable in the iframe.
-  // As we get each path, we create a script element
-  // with the library path as the src and add it to the target document.
-
-  var iFrameElement   = _getElementById(targetDocument, _pprIframeName);
-
-  if (iFrameElement)
-  {
-    for (var i = 0; (i < toLoadArray.length); i++)
-    {
-      // first check to see if this library is already loaded.
-      // if so, don't bother to load it again. However, always load
-      // ScriptEval
-
-       var newScriptElement= targetDocument.createElement("script");
-       newScriptElement.setAttribute('src', toLoadArray[i]);
-
-       iFrameElement.parentNode.insertBefore(newScriptElement, iFrameElement);
-
-      _addLibraryToCache(toLoadArray[i]);
-    }
-  }
-}
-
-
-/**
- * Download the libraries that are defined in the iframe
- * into the targetDocument. The last library will
- * always be ScriptEval.js, which will evaluate the
- * scripts defined in the _pprScripts variable.
- */
-function _loadScriptLibraries(targetDocument)
-{
-  if (window["_pprLibraries"] != (void 0))
-  {
-    var toLoadArray = _createToLoadArray();
-
-    if (toLoadArray.length > 0)
-    {
-      if (_agent.isIE)
-      {
-        _loadScriptLibrariesIE(targetDocument, toLoadArray);
-      }
-      else
-      {
-        _loadScriptLibrariesGecko(targetDocument, toLoadArray);
-      }
-    }
-  }
-}
-
-
-
-/* If the Trinidad facility needs to set focus to a particualr node after a PPR
+/* If the Trinidad facility needs to set focus to a particular node after a PPR
  * update, calling this function saves off the data needed to find that node
  *
  * Args:
@@ -3996,13 +3708,13 @@ function _loadScriptLibraries(targetDocument)
 function _setRequestedFocusNode(doc, nodeid, next, win)
 {
   // degenerate case - default to something that won't cause an error
-  if (win == (void 0))
+  if (!win)
     win = window;
 
   // we only allow one outstanding focus request
-  win._AdfFocusRequestDoc = doc;
-  win._AdfFocusRequestID = nodeid;
-  win._AdfFocusRequestNext = (next == true);
+  win._TrFocusRequestDoc = doc;
+  win._TrFocusRequestID = nodeid;
+  win._TrFocusRequestNext = (next == true);
 }
 
 
@@ -4015,15 +3727,15 @@ function _getRequestedFocusNode(win)
   if (win == (void 0))
     win = window;
 
-  if ((win._AdfFocusRequestDoc != null)
-      && (win._AdfFocusRequestID != null))
+  if ((win._TrFocusRequestDoc != null)
+      && (win._TrFocusRequestID != null))
   {
-    var element = _getElementById(win._AdfFocusRequestDoc,
-                                  win._AdfFocusRequestID);
+    var element = _getElementById(win._TrFocusRequestDoc,
+                                  win._TrFocusRequestID);
     if (!element)
       return null;
 
-    if (win._AdfFocusRequestNext)
+    if (win._TrFocusRequestNext)
     {
       // If "next" was set, the caller doesn't want this node, but the next
       // one. Try to find something that'll accept focus.
@@ -4043,86 +3755,6 @@ function _getRequestedFocusNode(win)
     return element;
   }
   return null;
-}
-
-/**
- * Onload event handler for the partial iframe for full page response.
- * Takes two parameters: the onload and onunload handlers for the
- * full page.
- */
-function _fullChange()
-{
-  // Update the request count
-  if (parent._pprRequestCount > 0)
-  {
-
-    parent._pprRequestCount--;
-
-    // Before we get the contents, insert a script which disables
-    // document.write().  That way, when we write out the contents
-    // to the parent window, we won't duplicate calls to document.write()
-    // that have already been performed.
-    var disableWriteItem = _getElementById(document, "_pprDisableWrite");
-    disableWriteItem.text = "var _pprDocumentWrite = document.write;" +
-                            "var _pprDocumentWriteln = document.writeln;" +
-                            "document.write = new Function('return;');" +
-                            "document.writeln = new Function('return;');";
-
-    // Insert a script which re-enables document.write() after we've
-    // finished writing out the contents to the parent window.
-    var enableWriteItem = _getElementById(document, "_pprEnableWrite");
-    enableWriteItem.text = "document.write = _pprDocumentWrite;" +
-                           "document.writeln = _pprDocumentWriteln";
-
-    // We also need to replace the onload/onunload event handlers
-    // before we get the contents for the parent window.
-    var bodyItem = document.body;
-
-    // Save the old event handlers
-    var iframeOnload = bodyItem.getAttribute("onload");
-    var iframeOnunload = bodyItem.getAttribute("onunload");
-
-    // Set up the new event handlers
-    bodyItem.setAttribute("onload",
-      _getCommentedScript(document, ("_pprFullOnload")));
-    bodyItem.setAttribute("onunload",
-      _getCommentedScript(document, ("_pprFullOnunload")));
-
-
-    // Get the full content of the iframe document.  This should now have
-    // the correct uncommented version of our partial page scripts, plus
-    // scripts to disable and re-enable document.write().
-    var content = _getDocumentContent();
-
-    // We do not want the _fullChange script to be called again.
-    // It will cause a javascript error if it is. Therefore,
-    // we need to clear it out.
-    var pattern =
-      new RegExp("<script id=[\"]*_pprFullChange.*>_fullChange\\(\\)</script>","i");
-    content = content.replace(pattern, "");
-
-    // Reset the event handlers
-    bodyItem.setAttribute("onload", iframeOnload);
-    bodyItem.setAttribute("onunload", iframeOnunload);
-
-    // Write the full content to the parent window
-    var targetDocument = parent.document;
-
-    if (_agent.isIE)
-    {
-       // Explicitly set the charset on the target document
-       // before writing contents - see bug 3296281
-       var sourceCharset = document.charset;
-       targetDocument.open();
-       targetDocument.charset = sourceCharset;
-    }
-
-    targetDocument.write(content);
-    targetDocument.close();
-
-    // the scripts for the page will be loaded onLoad, see _checkLoad
-
-  }
 }
 
 
@@ -4286,53 +3918,6 @@ function _isFocusable(node)
           ('textarea' == name));
 }
 
-// The partial page response includes a single script element
-// which contains all of the code that needs to be executed when
-// the partial page changes are applied.  Oddly enough, the code
-// is actually commented out to prevent execution within the
-// iframe context.  We need to pull the code out from the comment
-// braces (/* */) and execute the code in the parent window's
-// context.  This function returns the uncommented script code
-// that needs to be executed in the parent window.
-function _getCommentedScript(doc, id)
-{
-  var scriptItem = _getElementById(doc, id);
-
-  if (scriptItem != null)
-  {
-    var scriptContents;
-    if (_agent.isSafari)
-      scriptContents = scriptItem.innerHTML;
-    else
-      scriptContents = scriptItem.text;
-
-    // Strip off the start/end comments
-    var start = 0;
-    var end = scriptContents.length - 1;
-
-    while (start < end)
-    {
-      if (scriptContents.charAt(start) == '*')
-        break;
-
-      start++;
-    }
-
-    while (end > start)
-    {
-      if (scriptContents.charAt(end) == '*')
-        break;
-
-      end--;
-    }
-
-    // Rip out the actual script contents from within the comments
-    return scriptContents.substring(start + 1, end);
-  }
-
-  return null;
-}
-
 // Evaluates the specified code in the target window
 function _eval(targetWindow, code)
 {
@@ -4349,241 +3934,6 @@ function _eval(targetWindow, code)
   else
     targetWindow.eval(code);
 }
-
-// Returns the full content (outer HTML) of the current document
-function _getDocumentContent()
-{
-  // Would be nice if we could also include the doctype!
-
-  if (_agent.isIE)
-    return document.documentElement.outerHTML;
-
-  // We use innerHTML to get the content on Mozilla, so we
-  // need to build up the <html> element manually
-  var content = "<html"
-
-  // We need to explicitly add in any attrs
-  var attrs = document.documentElement.attributes;
-  for (var i = 0; i < attrs.length; i++)
-  {
-    content += " ";
-    content += attrs[i].name;
-    content += "=\""
-    content += attrs[i].value;
-    content += "\"";
-  }
-
-  content += ">";
-
-  // Add in the inner content
-  content += document.documentElement.innerHTML;
-
-  // Close up the content
-  content += "</html>";
-
-  return content;
-}
-
-//
-// Transform all links on a page to (conditionally)
-// perform a form submit (using the given form).
-// The targetWindow is the window in which the links
-// will appear.  If this is called in response to a
-// partial page update, the targetWindow is the
-// parent window - and not the current (iframe's)
-// window.
-//
-function _fixAllLinks(formName, targetWindow, exclude)
-{
-  // Save off the initial state of this form.
-  _initialFormState = _getFormState(formName, exclude);
-  _initialFormStateName = formName;
-  if (exclude != (void 0))
-    _initialFormExclude = exclude;
-
-  // If we are collecting state for a different window,
-  // copy the state over to the target window
-  if (window != targetWindow)
-  {
-    if (targetWindow._initialFormState == null)
-      targetWindow._initialFormState = new Object();
-
-    var sourceWindowState = _initialFormState;
-    var targetWindowState = targetWindow._initialFormState;
-
-    for (var key in sourceWindowState)
-      targetWindowState[key] = sourceWindowState[key];
-  }
-
-  var links = document.links;
-  var currHrefWithAnchor = targetWindow.location.href + '#';
-  var iframeWithAnchor = location.href + '#';
-
-  // Look through all of the links
-  for (var i = 0; i < links.length; i++)
-  {
-    var href = links[i].href;
-    // If the link is actually pointing to anchor on this page, or
-    // to javascript: or mailto:, don't mess with it!
-    // Bug #3369822: A destination of '#' in the iFrame comes back as the full
-    // submitted URL, so have to check against it too.
-    if (!href
-        || (href.substr(0, iframeWithAnchor.length) == iframeWithAnchor)
-        || (href.substr(0, currHrefWithAnchor.length) == currHrefWithAnchor)
-        || (href.substr(0, 11).toLowerCase() == "javascript:")
-        || (href.substr(0, 7).toLowerCase() == "mailto:")
-        || (href.indexOf("_noSv=M") >= 0))
-    {
-      continue;
-    }
-
-    // Similarly, any link with a target frame should be ignored
-    if (links[i].target)
-    {
-      continue;
-    }
-
-    // Encode single-quotes correctly
-    var hrefArr = href.split("'");
-    href = hrefArr[0];
-    for (var j = 1; j < hrefArr.length; j++)
-      href = href + "\\'" + hrefArr[j];
-
-    // Bug 2807885: setting "href" actually decodes the href -
-    // at least it does on Mozilla and IE.  (It doesn't on Netscape 4.)
-    if (!_agent.isNav)
-      href = escape(href);
-
-    links[i].href = "javascript:_submitNav('" + formName + "','" + href + "')";
-  }
-}
-
-
-//
-// Determines if a field is excluded;  we exclude a field
-// if:
-//  (1) its name is specifically excluded, or
-//  (2) its name is of the form "XYZ:foo", and "XYZ" is excluded
-//
-function _isInExclude(exclude, elementName)
-{
-  if (exclude != (void 0))
-  {
-    if (exclude[elementName] != (void 0))
-      return true;
-    var lastColon = elementName.lastIndexOf(':');
-    if (lastColon < 0)
-      return false;
-
-    return _isInExclude(exclude, elementName.substring(0, lastColon));
-  }
-
-  return false;
-}
-
-
-//
-// Store the current value of all elements in a form.
-// Ignores all hidden fields.
-//
-function _getFormState(formName, exclude)
-{
-  var state = new Object();
-  var frm = document[formName];
-
-  for (var i = 0; i < frm.length; i++)
-  {
-    var name = frm.elements[i].name;
-    if (name)
-    {
-      var element = frm[name];
-      if (element)
-      {
-        if ((exclude != (void 0)) && _isInExclude(exclude, name))
-          continue;
-
-        // Skip over hidden values
-        if (!element.type || (element.type != 'hidden'))
-          state[name] = _getValue(element);
-      }
-    }
-  }
-
-  return state;
-}
-
-/**
- * Determines if the "navigation form" is dirty, returning true if
- * the form is dirty.  This function can only be called if
- * the "navigationFormName" attribute was set on the Trinidad body component.
- *
- * @return true if the navigation form is dirty
- */
-function isNavDirty()
-{
-  var dirty    = false;
-
-  if (_navDirty)
-    dirty = true;
-  else
-  {
-    // Get the current state of the form
-    var newState = _getFormState(_initialFormStateName, _initialFormExclude);
-    // Compare it to the old state
-    for (var key in newState)
-    {
-      if (newState[key] != _initialFormState[key])
-      {
-        dirty = true;
-        break;
-      }
-    }
-  }
-
-  return dirty;
-}
-
-
-//
-// Add a name to the list of excluded names
-//
-function _addNavExclude(exclude)
-{
-  if (_initialFormExclude != (void 0))
-    _initialFormExclude[exclude] = 1;
-  else
-  {
-    _initialFormExclude = new Object();
-    _initialFormExclude[exclude] = 1;
-  }
-}
-
-//
-// Submit a form navigation.  Note that we only bother submitting if
-// the form is "dirty"; this relies on fixAllLinks() having been called
-// to store the state of that form.
-//
-//
-function _submitNav(formName, uri)
-{
-  // The form is "dirty": send a "navigate" event, and store
-  // off the URL that we would have navigated to
-  if (isNavDirty())
-  {
-    var onNav = window["_onNavigate"];
-    if ((onNav == (void 0)) || !(onNav(formName, uri) == false))
-    {
-      var navigate = window['_navEvent'];
-      if (navigate == (void 0))
-        navigate = 'navigate';
-      submitForm(formName, 0, {'event':navigate,'uri':uri});
-    }
-  }
-  // Nope, not dirty: just navigate to the page
-  else
-    document.location.href = uri;
-}
-
 
 /**
  * Called to identify the input field from an event
@@ -4720,17 +4070,14 @@ function _checkLoadNoPPR()
 {
   if(_initialFocusID != null)
     _setFocus(_getElementById(document,_initialFocusID)); 
+  _pprUnsupported = true;
 }
 
 /**
  * Called by the load handler of each document body to prepare event handlers
- * for forms and fix links to submit the navigation form.
+ * for forms, etc.
  */
-function _checkLoad(
-  event,
-  navFormName,
-  excludeList
-  )
+function _checkLoad()
 {
   // set focus to the window if a dialog. This fixes the bug where our dialog
   // windows don't have focus, so the first keystroke is ignored. 3544304
@@ -4752,8 +4099,13 @@ function _checkLoad(
   }
   */
 
-  // first restore page state
-  restorePartialPageState();
+  // IE has a document.activeElement property. Most other
+  // browsers do not (though Firefox 3.0 will).
+  if (!_agent.isIE && document.addEventListener)
+  {
+    document.addEventListener("keyup", _trTrackActiveElement, false);
+    document.addEventListener("mousedown", _trTrackActiveElement, false);
+  }
 
   if (document.forms)
   {
@@ -4776,44 +4128,13 @@ function _checkLoad(
     }
   }
 
-  if (navFormName != (void 0))
-  {
-    var exclude;
-    if (_initialFormExclude != (void 0))
-      exclude = _initialFormExclude;
-    else
-      exclude = new Object();
-
-    if (excludeList != (void 0))
-    {
-      for (var j = 0; j < excludeList.length; j++)
-        exclude[excludeList[j]] = 1;
-    }
-
-    _fixAllLinks(navFormName, window, exclude);
-  }
-
   // If we're inside a frameset, and the top frame wants
   // reloads blocked, install a _noReload handler.
-  // chain _monitor also if that is already set.
   var topWindow = _getTop(self);
   
   if ((self != topWindow) && topWindow["_blockReload"])
   {
-    // If _monitor is already set on document.onkeydown, then
-    // chain _noReload and _monitor by calling another function which
-    // calls both: _monitorNoReload.
-    // _monitor is set on IE only.
-    if ((_agent.isIE)
-        && (document.onkeydown != null)
-        && (((document.onkeydown).toString().indexOf('_monitor')) > 0))
-    {
-      document.onkeydown = _monitorNoReload;
-    }
-    else
-    {
-      document.onkeydown = _noReload;
-    }
+    document.onkeydown = _noReload;
   }
 
   // Set initialFocus if necessary
@@ -4825,9 +4146,19 @@ function _checkLoad(
     if(myElement)
       _setFocus(myElement);
   }  
-  
-  if (!_agent.isNav)
-    _loadScriptLibraries(document);
+}
+
+
+function _getActiveElement()
+{
+  if (document.activeElement)
+    return document.activeElement;
+  return window._trActiveElement;
+}
+
+function _trTrackActiveElement(e)
+{
+  window._trActiveElement = e.target;
 }
 
 //
@@ -4844,18 +4175,6 @@ function _noReload(e)
     e.keyCode=0;
     return false;
   }
-}
-
-//
-// Event handle that monitors access keys and
-// blocks keys that lead to a page reloading.
-// used for our dialogs.
-//
-function _monitorNoReload(e)
-{
-  if (_agent.isIE)
-    _monitor(e);
-  return _noReload(e);
 }
 
 
@@ -4963,9 +4282,9 @@ function _setCookie(name, value)
 //
 // Set a single value in the Trinidad cookie
 //
-function _setAdfCookie(index, value)
+function _setTrCookie(index, value)
 {
-  var arry = _getAdfCookie();
+  var arry = _getTrCookie();
   arry[index] = value;
 
   // Rebuild the encoded value
@@ -4982,7 +4301,7 @@ function _setAdfCookie(index, value)
 //
 // Extract the decoded form of the Trinidad cookie
 //
-function _getAdfCookie()
+function _getTrCookie()
 {
   var encodedValue = _getCookie("oracle.uix");
   var arry;
@@ -5000,7 +4319,7 @@ function _getAdfCookie()
 //
 function _defaultTZ()
 {
-  var tz = _getAdfCookie()[2];
+  var tz = _getTrCookie()[2];
 
   // If the time zone has already been set, then bail:  however,
   // time zones that start with "GMT" are inherently unreliable,
@@ -5012,7 +4331,7 @@ function _defaultTZ()
   }
 
   // Set the correct time zone.
-  _setAdfCookie(2, _getTimeZoneID());
+  _setTrCookie(2, _getTimeZoneID());
 }
 
 
@@ -5041,202 +4360,6 @@ function _getTimeZoneID()
   return (newTZ + (Math.floor(tzOffset / 60)) + ":" + minutes);
 }
 
-
-/**
- * _monitor: monitor the document's onkeydown presses.
- * Activate the uix button that has the access key that matches the
- * key that is pressed along with the ALT key (ALT+accessKey).
- * This is called for IE, not on Mac, only.
- *
- * Background: we want the accesskey to work on our Trinidad
- * buttons (which are links wrapped around an image)
- * like it does for a <button> html element, and that is
- * it activates the button rather than sets focus like it does for a link.
- * (This already works as expected in Mozilla)
- * This javascript code must know that the element is our uix button.
- * In ButtonRenderer, we render a bogus attribute for this purpose,
- * called "uixbtn".
- * We also register document.onkeydown=_monitor on the page.
- */
-function _monitor(e)
-{
-
-  // when the user holds down only the accessKey, this triggers a mouse
-  // down event over and over with a keyCode of 18. So...
-  // we make sure not to call the _findAccessKey function if
-  // the user is holding down just the access key.
-
-  var windowEvent = window.event;
-
-  if ((windowEvent.altKey == true) && (windowEvent.ctrlKey == false) &&
-      (windowEvent.keyCode != null) && (windowEvent.keyCode != 18 )
-      && (!windowEvent.repeat) )
-  {
-    var keyPressed = String.fromCharCode(window.event.keyCode);
-
-    var accessKeyNode = _getNodeWithAccessKey(document, keyPressed);
-
-    // if the element is a Trinidad Button, make it act like an accelerator
-
-    if (accessKeyNode != null && (accessKeyNode.getAttribute("adfbtn") != null))
-    {
-
-      // now I need to find the node to click...
-
-      // if label, get the "for" attribute value.
-      // That is the id of the element to click
-      if (accessKeyNode.htmlFor)
-      {
-          var id=accessKeyNode.htmlFor;
-          accessKeyNode = (id != null)
-                          ? window.document.getElementById(id)
-                          : null;
-      }
-
-      if (accessKeyNode != null)
-      {
-        // IE acts like it sets the focus before it triggers the access key,
-        // so we will do the same.
-
-        accessKeyNode.focus();
-        accessKeyNode.click();
-      }
-
-    } // end if (accessKeyNode != null)
-  }
-  return true;
-}
-
-/**
- * This function is passed a DOM Node object and a keyboard key
- * that was pressed at the same time as the ALT key.
- * return the node with the access key, otherwise null.
- */
-function _getNodeWithAccessKey(node, keyPressed)
-{
-  var keyPressedUpper = keyPressed.toUpperCase();
-  var keyPressedLower = keyPressed.toLowerCase();
-
-  var accessKeyObject =
-  {
-    activeFound:false,
-    firstAccessKeyNode:null,
-    accessKeyNode:null
-  }
-
-  // start looking through the DOM Node tree from the beginning
-  // for the access key the user pressed.
-  // The node returned will be the first one
-  // found starting from the current active element, otherwise we will use the
-  // first one found in the DOM tree regardless of the current active element.
-
-  accessKeyObject = _findAccessKey(document,
-                                   accessKeyObject,
-                                   keyPressedUpper,
-                                   keyPressedLower);
-
-  var accessKeyNode = accessKeyObject.accessKeyNode;
-  var firstAccessKeyNode = accessKeyObject.firstAccessKeyNode;
-
-  // if we didn't find accessKeyNode in the tree from the active node
-  // to the end of the tree,
-  // just use the first element we found with the correct access key.
-
-  if ( (accessKeyNode == null) && (firstAccessKeyNode != null) )
-  {
-    accessKeyNode = firstAccessKeyNode;
-  }
-  return accessKeyNode;
-}
-
-/**
- * This function is passed a DOM Node object, a local accessKeyObject,
- * and the keyPressed in upper and lower cases.
- * This function checks to see if the node
- * represents an HTML tag; i.e., if the node is an Element object. It
- * recursively calls itself on each of the children of the node, testing
- * them in the same way. If you invoke this function by passing it the
- * Document object, it traverses the entire DOM tree.
-
- * Find the element with the access key.
- * first, store the first element with the access key encountered in
- * the accessKeyObject.firstAccessKeyNode.
- * Then, find the first element with the access key
- * that is found after the focus element,
- * since this is how it works on IE for <button></button>
- * return accessKeyObject if the access key node found, otherwise return null.
- */
-function _findAccessKey(node, accessKeyObject, keyPressedUpper, keyPressedLower)
-{
-  // check all nodes of type ELEMENT_NODE
-  if (node.nodeType == 1 /*Node.ELEMENT_NODE*/)
-  {
-    // check if the _keyPressed  is the access key
-    if ( (node.accessKey == keyPressedUpper) ||
-          (node.accessKey == keyPressedLower))
-    {
-      if (accessKeyObject.activeFound == true)
-      {
-        // Great! Found accessKey on an element after the focus, so return
-        // the node. The recursion will unwind and pass out this node to
-        // the original call.
-        accessKeyObject.accessKeyNode = node;
-        return accessKeyObject;
-      }
-      else if (accessKeyObject.firstAccessKeyNode == null)
-      {
-        // the focus hasn't been found yet, but store away this node
-        // in the global variable, since it is the first one found
-        accessKeyObject.firstAccessKeyNode = node;
-      }
-    }
-    // If the focus is on an element with the access key, IE activates the NEXT
-    // element, which is why I set the _activeFound flag after checking the
-    // access key.
-    if (node == document.activeElement)
-    {
-      accessKeyObject.activeFound = true;
-    }
-  } // end check if it is an element node
-
-  // Now get all children of n
-  // Loop through the children
-  // Recurse on each one
-
-  var children = node.childNodes;
-  for(var i=0; i < children.length; i++)
-  {
-    var accessKeyObject =
-    _findAccessKey( children[i],
-                    accessKeyObject,
-                    keyPressedUpper,
-                    keyPressedLower);
-
-     if (accessKeyObject.accessKeyNode != null)
-     {
-      return accessKeyObject; // stop looping.
-     }
-  }
-  return accessKeyObject;
-}
-
-
-//
-// Returns true if the value contains nothing but strings
-//
-function _isEmpty(value)
-{
-  var s = "" + value;
-  var i = 0;
-  while (i < s.length)
-  {
-    if (s.charAt(i) != ' ')
-      return false;
-    i++;
-  }
-
-  return true;
-}
 
 //
 // Returns true if the current document reads left to right.
@@ -5317,141 +4440,6 @@ function _recentReset(newDate)
       return true;
   }
   return false;
-}
-
-
-// For PPR Back issue:
-// save the page's contents into a hidden, disabled field.
-// This function gets called when the beforeunload event fires, which is
-// an IE-only event.
-function _savePageStateIE()
-{
-  // the PPR Back Button support only works for IE.
-  if (!_agent.isIE)
-    return;
-
-  var theSpan = _getElementById(document, "_pprPageContent");
-  if (theSpan == null)
-    return;
-
-  // we do not want to save off the entire page if
-  // there was never a ppr update to the page.
-  //
-  // To implement this feature, I check if the _pprSaveLib has
-  // a value in it. I know it will if I had a PPR event on the
-  // page at any time. If it is null or blank, then I do not
-  // need to save the page state.
-  var saveLibrariesElement = _getElementById(document, "_pprSaveLib");
-
-  if (!(saveLibrariesElement != null && saveLibrariesElement.value != ""))
-  {
-     // don't bother saving page since
-     // no ppr page ever happened on this page.
-     return;
-  }
-
-  var savePageField = _getElementById(document, "_pprSavePage");
-  if (savePageField == null)
-    return;
-
-  savePageField.value = theSpan.outerHTML;
-
-}
-
-
-
-// For PPR Back issue:
-// restore the page state when the user comes back to the page
-// after navigating off of it.
-// This includes copying the saved html, loading the saved libraries,
-// and eval'ing the inline scripts (done from ScriptEval.js).
-// This function is called from _checkLoad
-function restorePartialPageState()
-{
-  // the PPR Back Button support only works for IE.
-  if (!_agent.isIE)
-    return;
-
-  // get the saved page state from the hidden, disabled field
-  // and write it to the page
-  var savePageField   = _getElementById(document, "_pprSavePage");
-
-  // if the field doesn't exist or if there was nothing saved in it, return.
-  if (savePageField == null || savePageField.value == "")
-    return;
-
-  var theSpan = _getElementById(document, "_pprPageContent");
-
-  if (theSpan == null)
-    return;
-
-  theSpan.outerHTML = savePageField.value;
-
-  // support the form submit method if the _pprSaveFormAction field is
-  // present
-  var lastAction = _getElementById(document, "_pprSaveFormAction");
-  // lastFormAction is only defined if we are submitting an event,
-  // instead of running scripts
-  if(lastAction==null)
-  {
-    // Note: The inline javascript is eval'd in ScriptEval.js, so that it
-    // is guaranteed that the libraries are all loaded first.
-    // set this variable so that the saved script will be loaded, as opposed
-    // to the script that is in _pprScripts, which gets loaded with every
-    // ppr response.
-    _pprBackRestoreInlineScripts = true;
-
-    // next, get the libraries out of the saved field, and parse each one,
-    // and reload.
-    var saveLibrariesElement = _getElementById(document, "_pprSaveLib");
-    if (saveLibrariesElement != null && saveLibrariesElement.value != "")
-    {
-      var libraries = saveLibrariesElement.value.split(",");
-      _loadScriptLibrariesIE(document, libraries);
-    }
-  }
-  else
-  {
-    if(lastAction.value)
-      document.forms[0].action = lastAction.value;
-    submitForm(0,0,{'event':'stateSynch','source':'__unknown__'});
-  }
-
-
-
-
-}
-
-// Sets the _navDirty flag for the given window.
-//
-// Inputs: win:  The window in which to set the _navDirty flag.
-//               (defaults to the current window)
-//         name: The name of the form element that is forcing this change.
-//               We'll check the exclude list for this name, and only set
-//               _navDirty if this element is NOT on the list. If name
-//               is undefined or 0, we WILL set _navDirty.
-//
-// NOTE: !!!! all of Common.js has been converted to set the _navDirty
-//       flag through this function. However, because this change could
-//       be destabilizing, Uncommon.js still sets _navDirty directly. !!!!
-function _setNavDirty(win, name)
-{
-  var theWin = win;
-  if (theWin == (void 0) || !theWin)
-  {
-    theWin = window;
-  }
-
-  var excludes = theWin._initialFormExclude;
-
-  // Only set the _navDirty if this element is NOT on the exclude list.
-  // However, a null name means set no matter what (sent from BodyRenderer).
-  if ((name == (void 0))
-      || !name
-      || !_isInExclude(excludes, name))
-  {
-    theWin._navDirty = true;
-  }
 }
 
 function _radioSet_uixspu(f,v,e,s,pt,p,o)
@@ -5724,3 +4712,24 @@ data)
 
 // regular expression to gather whitespace at beginning and end of line
 TrUIUtils._TRIM_ALL_RE = /^\s*|\s*$/g;
+
+
+/**
+ * Creates a function instance that will callback the passed in function
+ * with "thisObj" as "this".  This is extremely useful for creating callbacks
+ */
+TrUIUtils.createCallback = function(thisObj, func)
+{
+  // create a function that sets up "this" and delegates all of the parameters
+  // to the passed in function
+  var proxyFunction = new Function(
+    "var f=arguments.callee; return f._func.apply(f._owner, arguments);");
+
+  // attach ourselves as "this" to the created function
+  proxyFunction._owner = thisObj;
+
+  // attach function to delegate to
+  proxyFunction._func = func;
+
+  return proxyFunction;
+}

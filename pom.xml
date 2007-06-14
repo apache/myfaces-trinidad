@@ -221,7 +221,7 @@
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-javascript-plugin</artifactId>
-          <version>1.0.1</version>
+          <version>1.0.2-SNAPSHOT</version>
           <inherited>true</inherited>
         </plugin>
 
