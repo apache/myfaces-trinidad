@@ -18,7 +18,10 @@
  */
 package org.apache.myfaces.trinidad.component;
 
+import javax.el.MethodExpression;
+
 import javax.faces.component.ActionSource;
+import javax.faces.component.ActionSource2;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
 import javax.faces.event.AbortProcessingException;
@@ -38,12 +41,40 @@ import org.apache.myfaces.trinidad.event.ReturnEvent;
  * @version $Name:  $ ($Revision$) $Date$
  */
 abstract public class UIXSelectInputTemplate extends UIXEditableValue
-                                      implements ActionSource
+  implements ActionSource, ActionSource2
 {
 	
 /**/ // Abstract methods implemented by code gen
+/**/  abstract public MethodExpression getActionExpression();
+/**/  abstract public MethodExpression setActionExpression();
 /**/  abstract public MethodBinding getActionListener();
-/**/  abstract public MethodBinding getReturnListener();
+/**/  abstract public MethodExpression getReturnListener();
+
+  @Deprecated
+  public void setReturnListener(MethodBinding binding)
+  {
+    setReturnListener(adaptMethodBinding(binding));
+  }
+
+  public MethodBinding getAction()
+  {
+    MethodExpression me = getActionExpression();
+    if (me == null)
+      return null;
+
+    if (me instanceof MethodBindingMethodExpression)
+      return ((MethodBindingMethodExpression) me).getMethodBinding();
+
+    return new MethodExpressionMethodBinding(me);
+  }
+
+  public void setAction(MethodBinding binding)
+  {
+    if (binding instanceof MethodExpressionMethodBinding)
+      setActionExpression(((MethodExpressionMethodBinding) binding).getMethodExpression());
+    else
+      setActionExpression(new MethodBindingMethodExpression(binding));
+  }
 
   /**
    * <p>Intercept <code>queueEvent</code> and mark the phaseId for any
@@ -115,7 +146,7 @@ abstract public class UIXSelectInputTemplate extends UIXEditableValue
     {
       super.broadcast(event);
 
-      broadcastToMethodBinding(event, getReturnListener());
+      broadcastToMethodExpression(event, getReturnListener());
       Object returnValue = ((ReturnEvent) event).getReturnValue();
       if (returnValue != null)
       {

@@ -18,7 +18,7 @@
   <parent>
     <groupId>org.apache.myfaces.trinidad</groupId>
     <artifactId>trinidad</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.2.1-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
@@ -62,7 +62,7 @@
       <artifactId>mail</artifactId>
       <version>1.4</version>
     </dependency>
-    
+   
     <dependency>
       <groupId>javax.activation</groupId>
       <artifactId>activation</artifactId>
@@ -73,38 +73,14 @@
       <groupId>javax.servlet</groupId>
       <artifactId>jstl</artifactId>
       <version>1.1.2</version>
-      <scope>runtime</scope>
-    </dependency>
-
-<!-- Dependencies pulled in via myfaces/ri pom
-    <dependency>
-      <groupId>commons-beanutils</groupId>
-      <artifactId>commons-beanutils</artifactId>
-      <version>1.6</version>
-      <scope>runtime</scope>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
-      <groupId>commons-digester</groupId>
-      <artifactId>commons-digester</artifactId>
-      <version>1.5</version>
-      <scope>runtime</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>commons-logging</groupId>
-      <artifactId>commons-logging</artifactId>
-      <version>1.0.4</version>
-      <scope>runtime</scope>
-    </dependency>
-    
-    <dependency>
-      <groupId>commons-collections</groupId>
-      <artifactId>commons-collections</artifactId>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
       <version>2.1</version>
-      <scope>runtime</scope>
     </dependency>
--->
 
     <dependency>
       <groupId>javax.servlet</groupId>
@@ -118,6 +94,22 @@
   </dependencies>
 
   <profiles>
+    <profile>
+       <id>jettyConfig</id>
+       <build>
+         <plugins>
+           <plugin>
+             <groupId>org.mortbay.jetty</groupId>
+             <artifactId>maven-jetty-plugin</artifactId>
+             <version>6.1.2rc0</version>
+             <configuration>
+               <scanIntervalSeconds>10</scanIntervalSeconds>
+             </configuration>
+           </plugin>
+        </plugins>
+      </build>
+    </profile>
+      
     <!-- By default the war examples use myfaces! :) -->
     <profile>
       <id>myfaces</id>
@@ -140,7 +132,7 @@
           <scope>runtime</scope>
         </dependency>
       </dependencies>
-      
+
       <properties>
         <jsf_implementation>MyFaces</jsf_implementation>
       </properties>
@@ -159,29 +151,12 @@
         <dependency>
           <groupId>javax.faces</groupId>
           <artifactId>jsf-api</artifactId>
-          <version>1.1_02</version>
         </dependency>
         <dependency>
           <groupId>javax.faces</groupId>
           <artifactId>jsf-impl</artifactId>
-          <version>1.1_02</version>
           <scope>runtime</scope>
         </dependency>
-
-        <dependency>
-          <groupId>jstl</groupId>
-          <artifactId>jstl</artifactId>
-          <version>1.1.0</version>
-          <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-          <groupId>commons-digester</groupId>
-          <artifactId>commons-digester</artifactId>
-          <version>1.5</version>
-          <scope>runtime</scope>
-        </dependency>
-
       </dependencies>
 
       <repositories>

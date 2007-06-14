@@ -18,6 +18,8 @@
  */
 package org.apache.myfaces.trinidadinternal.taglib.listener;
 
+import javax.el.ValueExpression;
+
 import javax.faces.component.StateHolder;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
@@ -47,19 +49,17 @@ public class ReturnActionListener extends FacesBeanImpl
 
   public void processAction(ActionEvent event)
   {
-    Object value = getValue();
+    Object value = getProperty(VALUE_KEY);
     RequestContext adf = RequestContext.getCurrentInstance();
     adf.returnFromDialog(value, null);
   }
 
-  public Object getValue()
+  public void setValue(ValueExpression value)
   {
-    return getProperty(VALUE_KEY);
-  }
-
-  public void setValue(Object value)
-  {
-    setProperty(VALUE_KEY, value);
+    if (value.isLiteralText())
+      setProperty(VALUE_KEY, value.getValue(null));
+    else
+      setValueExpression(VALUE_KEY, value);
   }
 
   @Override

@@ -29,9 +29,9 @@
   <groupId>org.apache.myfaces.trinidad</groupId>
   <artifactId>trinidad</artifactId>
   <packaging>pom</packaging>
-  <name>Apache MyFaces Trinidad</name>
-  <version>1.0.1-SNAPSHOT</version>
-  <description>Apache MyFaces Trinidad</description>
+  <name>Apache MyFaces Trinidad 1.2</name>
+  <version>1.2.1-SNAPSHOT</version>
+  <description>JSF 1.2 branch of Apache MyFaces Trinidad</description>
 
   <issueManagement>
     <system>jira</system>
@@ -170,12 +170,12 @@
 
   <scm>
     <connection>
-      scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad/trunk/trinidad/
+      scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad/branches/1.2.1-branch/trinidad/
     </connection>
     <developerConnection>
-      scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad/trunk/trinidad/
+      scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad/branches/1.2.1-branch/trinidad/
     </developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/myfaces/trinidad/trunk/trinidad</url>
+    <url>http://svn.apache.org/viewcvs.cgi/myfaces/trinidad/branches/1.2.1-branch/trinidad</url>
   </scm>
 
   <build>
@@ -200,28 +200,28 @@
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-xrts-plugin</artifactId>
-          <version>1.0.1</version>
+          <version>1.2.1-SNAPSHOT</version>
           <inherited>true</inherited>
         </plugin>
 
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-faces-plugin</artifactId>
-          <version>1.0.1</version>
+          <version>1.2.1-SNAPSHOT</version>
           <inherited>true</inherited>
         </plugin>
 
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-i18n-plugin</artifactId>
-          <version>1.0.1</version>
+          <version>1.2.1-SNAPSHOT</version>
           <inherited>true</inherited>
         </plugin>
 
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-javascript-plugin</artifactId>
-          <version>1.0.1</version>
+          <version>1.2.1-SNAPSHOT</version>
           <inherited>true</inherited>
         </plugin>
 
@@ -232,8 +232,10 @@
           <configuration>
             <source>1.5</source>
             <target>1.5</target>
+<!--
             <showWarnings>true</showWarnings>
-            <compilerArgument>-Xlint:all,-serial,-fallthrough</compilerArgument>
+            <compilerArgument>-Xlint:all,-serial,-fallthrough,-deprecation</compilerArgument>
+-->
           </configuration>
         </plugin>
 
@@ -352,24 +354,39 @@
       </dependency>
 
       <dependency>
+        <groupId>javax.faces</groupId>
+        <artifactId>jsf-api</artifactId>
+        <version>1.2_04</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>javax.faces</groupId>
+        <artifactId>jsf-impl</artifactId>
+        <version>1.2_04</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <dependency>
         <groupId>org.apache.myfaces.core</groupId>
         <artifactId>myfaces-api</artifactId>
-        <version>1.1.5</version>
+        <version>1.2.0-SNAPSHOT</version>
         <scope>provided</scope>
       </dependency>
 
       <dependency>
         <groupId>org.apache.myfaces.core</groupId>
         <artifactId>myfaces-impl</artifactId>
-        <version>1.1.5</version>
+        <version>1.2.0-SNAPSHOT</version>
         <scope>provided</scope>
       </dependency>
 
       <dependency>
         <groupId>org.apache.shale</groupId>
         <artifactId>shale-test</artifactId>
-        <version>1.0.3</version>
+        <version>1.0.4</version>
         <scope>test</scope>
+
       </dependency>
 
       <dependency>
@@ -389,20 +406,20 @@
       <dependency>
         <groupId>org.apache.myfaces.trinidad</groupId>
         <artifactId>trinidad-build</artifactId>
-        <version>1.0.1-SNAPSHOT</version>
+        <version>${pom.version}</version>
         <scope>provided</scope>
       </dependency>
 
       <dependency>
         <groupId>org.apache.myfaces.trinidad</groupId>
         <artifactId>trinidad-api</artifactId>
-        <version>1.0.1-SNAPSHOT</version>
+        <version>${pom.version}</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.myfaces.trinidad</groupId>
         <artifactId>trinidad-api</artifactId>
-        <version>1.0.1-SNAPSHOT</version>
+        <version>${pom.version}</version>
         <type>test-jar</type>
         <scope>test</scope>
       </dependency>
@@ -410,7 +427,7 @@
       <dependency>
         <groupId>org.apache.myfaces.trinidad</groupId>
         <artifactId>trinidad-impl</artifactId>
-        <version>1.0.1-SNAPSHOT</version>
+        <version>${pom.version}</version>
       </dependency>
 
 
@@ -419,6 +436,13 @@
         <artifactId>jsp-api</artifactId>
         <!-- Use 2.1 so we have access to the EL APIs -->
         <version>2.1</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>jstl</groupId>
+        <artifactId>jstl</artifactId>
+        <version>1.2</version>
         <scope>provided</scope>
       </dependency>
 
@@ -457,7 +481,7 @@
     <site>
       <id>apache-site</id>
       <name>Apache Website</name>
-      <url>scpexe://minotaur.apache.org/www/myfaces.apache.org/trinidad</url>
+      <url>scpexe://minotaur.apache.org/www/incubator.apache.org/trinidad-1_2</url>
     </site>
     <snapshotRepository>
       <uniqueVersion>false</uniqueVersion>
@@ -481,5 +505,4 @@
     </snapshotRepository>
 -->
   </distributionManagement>
-
 </project>

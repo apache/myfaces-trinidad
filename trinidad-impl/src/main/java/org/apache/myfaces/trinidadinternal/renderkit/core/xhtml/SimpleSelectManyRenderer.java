@@ -26,13 +26,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.el.ValueExpression;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
-
-import javax.faces.el.ValueBinding;
 
 import javax.faces.model.SelectItem;
 
@@ -95,10 +95,10 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
       converter = getDefaultConverter(context, bean);
 
     Class<?> modelClass = null;
-    ValueBinding binding = getValueBinding(bean);
-    if (binding != null)
+    ValueExpression expression = getValueExpression(bean);
+    if (expression != null)
     {
-      modelClass = binding.getType(context);
+      modelClass = expression.getType(context.getELContext());
     }
 
     boolean valuePassThru = getValuePassThru(getFacesBean(component));
@@ -151,11 +151,11 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
     FacesContext context,
     FacesBean    bean)
   {
-    ValueBinding binding = getValueBinding(bean);
-    if (binding == null)
+    ValueExpression expression = getValueExpression(bean);
+    if (expression == null)
       return null;
 
-    Class<?> type = binding.getType(context);
+    Class<?> type = expression.getType(context.getELContext());
     if ((type == null) || type.isAssignableFrom(List.class))
       return null;
 

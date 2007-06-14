@@ -21,7 +21,8 @@ package org.apache.myfaces.trinidad.util;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.el.ValueBinding;
+
+import javax.el.ValueExpression;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
@@ -413,11 +414,11 @@ public class MessageFactory
     for (int i = 0; i < parameters.length; i++)
     {
       Object o = parameters[i];
-      if (o instanceof ValueBinding)
+      if (o instanceof ValueExpression)
       {
         if (context == null)
           context = FacesContext.getCurrentInstance();
-        o = ((ValueBinding) o).getValue(context);
+        o = ((ValueExpression) o).getValue(context.getELContext());
       }
       
       resolvedParameters[i] = o;
@@ -442,7 +443,7 @@ public class MessageFactory
 
     for (int i = 0; i < parameters.length; i++)
     {
-      if (parameters[i] instanceof ValueBinding)
+      if (parameters[i] instanceof ValueExpression)
         return true;
     }
 
@@ -456,7 +457,7 @@ public class MessageFactory
     Object[] parameters)
   {
     _assertIsValidCustomMessageType(customMessagePattern);
-    boolean isCustomMsgValueBound = (customMessagePattern instanceof ValueBinding);
+    boolean isCustomMsgValueBound = (customMessagePattern instanceof ValueExpression);
     boolean containsBinding = _containsBinding(parameters);
     if (isCustomMsgValueBound || containsBinding)
     {
@@ -467,7 +468,7 @@ public class MessageFactory
       }
       else
       {
-        ValueBinding customMessage = (ValueBinding)customMessagePattern;
+        ValueExpression customMessage = (ValueExpression)customMessagePattern;
         return new CustomDetailErrorMessage(summary, customMessage,
                                             parameters, containsBinding);
       }
@@ -489,14 +490,14 @@ public class MessageFactory
     {
       o = component.getAttributes().get("label");
       if (o == null)
-        o = component.getValueBinding("label");
+        o = component.getValueExpression ("label");
     }
     return o;
   }
 
   private static void _assertIsValidCustomMessageType(Object customMessagePattern)
   {
-    if (!(customMessagePattern instanceof ValueBinding ||
+    if (!(customMessagePattern instanceof ValueExpression  ||
          customMessagePattern instanceof String))
          throw new IllegalArgumentException(_LOG.getMessage(
            "CUSTOM_MESSAGE_SHOULD_BE_VALUEBINDING_OR_STRING_TYPE"));
@@ -598,7 +599,7 @@ public class MessageFactory
 
     CustomDetailErrorMessage(
       String messageFormat,
-      ValueBinding customDetailErrorMessage,
+      ValueExpression customDetailErrorMessage,
       Object[] parameters,
       boolean hasBoundParameters
     )
@@ -615,7 +616,7 @@ public class MessageFactory
     public String getDetailMessage()
     {
       FacesContext context    = FacesContext.getCurrentInstance();
-      String detailMsgPattern = (String)_customDetailErrorMessage.getValue(context);
+      String detailMsgPattern = (String)_customDetailErrorMessage.getValue(context.getELContext());
       if(detailMsgPattern == null)
       {
         // Set a default message that might get used by FacesException 
@@ -639,7 +640,7 @@ public class MessageFactory
       return _getFormattedString(detailMsgPattern, params);
     }
 
-    private ValueBinding _customDetailErrorMessage;
+    private ValueExpression _customDetailErrorMessage;
     private boolean _hasBoundParameters;
   }
 

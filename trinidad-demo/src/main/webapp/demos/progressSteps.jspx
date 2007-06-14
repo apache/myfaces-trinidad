@@ -21,6 +21,7 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:trh="http://myfaces.apache.org/trinidad/html" 
           xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
@@ -39,7 +40,7 @@
              </tr:navigationPane>
             </f:facet>
           <tr:panelHeader
-             text="Progress steps demo using tr:forEach and BoundedRangeModel">
+             text="Progress steps demo using c:forEach and BoundedRangeModel">
 
             <tr:poll 
               binding="#{editor.component}" 
@@ -51,7 +52,7 @@
               value="&lt;b>The steps completed in a background task could be 
               shown as a check list or a growing list as shown below.&lt;br>
               This could be achieved using suitable output components and the
-              'tr:forEach' tag in conjunction with bindings to a 
+              'c:forEach' tag in conjunction with bindings to a 
               BoundedRangeModel&lt;/b>"/>
 
             <!--Represents a check list-->
@@ -59,7 +60,7 @@
             <tr:panelGroupLayout layout="horizontal">
               <tr:spacer width="30"/>
               <tr:panelGroupLayout layout="vertical" partialTriggers="pollid" id="pg1">
-                <tr:forEach 
+                <c:forEach 
                   var="progressStep" 
                   varStatus="vs" 
                   begin="0" 
@@ -77,7 +78,7 @@
                       value="#{progressStep}" 
                       styleClass="AFFieldText"/>
                   </tr:panelGroupLayout>
-                </tr:forEach>
+                </c:forEach>
               </tr:panelGroupLayout>
             </tr:panelGroupLayout>
 
@@ -86,7 +87,7 @@
             <tr:panelGroupLayout layout="horizontal">
               <tr:spacer width="30"/>
               <tr:panelGroupLayout layout="vertical" partialTriggers="pollid" id="pg2">
-                <tr:forEach 
+                <c:forEach 
                   var="progressStep" 
                   varStatus="vs" 
                   begin="0" 
@@ -98,7 +99,7 @@
                       styleClass="AFFieldText"
                       rendered="#{progressSteps.progressModel.value >= vs.index}"/>
                   </tr:panelGroupLayout>
-                </tr:forEach>
+                </c:forEach>
               </tr:panelGroupLayout>
             </tr:panelGroupLayout>
 

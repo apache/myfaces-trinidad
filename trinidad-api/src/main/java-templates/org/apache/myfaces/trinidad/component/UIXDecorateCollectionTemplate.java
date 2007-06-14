@@ -18,6 +18,7 @@
  */
 package org.apache.myfaces.trinidad.component;
 
+import javax.faces.context.FacesContext;
 import javax.faces.component.NamingContainer;
 
 /**
@@ -63,9 +64,9 @@ public abstract class UIXDecorateCollectionTemplate extends UIXComponentBase
    * @return the local clientId
    */
   @Override
-  protected final String getLocalClientId()
+  public final String getContainerClientId(FacesContext context)
   {
-    String id = super.getLocalClientId();
+    String id = getClientId(context);
     String key = getCurrencyString();
     if (key != null)
     {

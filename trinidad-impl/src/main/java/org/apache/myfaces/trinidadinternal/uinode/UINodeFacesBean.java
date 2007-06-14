@@ -21,7 +21,7 @@ package org.apache.myfaces.trinidadinternal.uinode;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.faces.el.ValueBinding;
+import javax.el.ValueExpression;
 
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
@@ -174,14 +174,14 @@ public class UINodeFacesBean extends FacesBeanImpl
         AttributeKey attrKey = getAttributeKey(key);
         if (attrKey != null)
         {
-          // We're no longer shadowing a ValueBinding (if one's present);
+          // We're no longer shadowing a ValueExpression (if one's present);
           // re-establish that binding, or reset to null
           Object attrValue;
-          ValueBinding binding = getValueBinding(key);
-          if (binding == null)
+          ValueExpression expression = getValueExpression(key);
+          if (expression == null)
             attrValue = null;
           else
-            attrValue = new ValueBindingBoundValue(binding);
+            attrValue = new ValueExpressionBoundValue(expression);
 
           _node.setAttributeValue(attrKey, attrValue);
         }
@@ -193,9 +193,9 @@ public class UINodeFacesBean extends FacesBeanImpl
   }
 
   @Override
-  protected PropertyMap createBindingsMap()
+  protected PropertyMap createExpressionsMap()
   {
-    FlaggedPropertyMap bindings = new FlaggedPropertyMap()
+    FlaggedPropertyMap expressions = new FlaggedPropertyMap()
     {
       @Override
       public Object put(PropertyKey key, Object value)
@@ -211,12 +211,12 @@ public class UINodeFacesBean extends FacesBeanImpl
           if (attrKey != null)
           {
             // If there's no local value, then we're not shadowing;
-            // set up a new ValueBindingBoundValue
+            // set up a new ValueExpressionBoundValue
             if (getLocalProperty(key) == null)
             {
-              ValueBinding binding = (ValueBinding) value;
+              ValueExpression expression = (ValueExpression) value;
               _node.setAttributeValue(attrKey,
-                                      new ValueBindingBoundValue(binding));
+                                      new ValueExpressionBoundValue(expression));
             }
           }
 
@@ -243,8 +243,7 @@ public class UINodeFacesBean extends FacesBeanImpl
       }
     };
 
-    bindings.setUseStateHolder(true);
-    return bindings;
+    return expressions;
   }
 
 

@@ -21,6 +21,7 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           version="1.2"
           xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:h="http://java.sun.com/jsf/html"
           xmlns:trh="http://myfaces.apache.org/trinidad/html"
           xmlns:tr="http://myfaces.apache.org/trinidad">
@@ -58,9 +59,9 @@
                   </f:facet>
                 </tr:selectRangeChoiceBar>
                 <tr:panelGroupLayout partialTriggers="selectRangeCBId1">
-                   <tr:forEach items="#{animals.namesInRange}" var="animalName">
+                   <c:forEach items="#{animals.namesInRange}" var="animalName">
                     <tr:outputText value="#{animalName}, "/>
-                  </tr:forEach>
+                  </c:forEach>
                 </tr:panelGroupLayout>
               </tr:panelGroupLayout>
 

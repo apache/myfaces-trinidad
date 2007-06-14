@@ -742,7 +742,7 @@ public class MenuNode
   {
    String keystr = 
      str.trim().replaceFirst(_bundleKey, _bundleKey + getHandlerId());
-   String elVal = (String) MenuUtils.getBoundValue(keystr);
+   String elVal = MenuUtils.getBoundValue(keystr, String.class);
    return elVal;       
   }
   

@@ -33,9 +33,8 @@
                    parameter and returns void.</description -->
       <description>a method reference to an attribute change listener.  Attribute change events are not delivered for any programmatic change to a property.  They are only delivered when a renderer changes a property without the application's specific request.  An example of an attribute change events might include the width of a column that supported client-side resizing.</description>
       <property-name>attributeChangeListener</property-name>
-      <property-class>javax.faces.el.MethodBinding</property-class>
+      <property-class>javax.el.MethodExpression</property-class>
       <property-extension>
-        <mfp:state-holder>true</mfp:state-holder>
         <mfp:property-metadata>
           <mfp:expert>true</mfp:expert>
         </mfp:property-metadata>
@@ -47,7 +46,7 @@
     </property>
     <component-extension>
       <mfp:component-supertype>javax.faces.Component</mfp:component-supertype>
-      <mfp:tag-class>org.apache.myfaces.trinidad.webapp.UIXComponentTag</mfp:tag-class>
+      <mfp:tag-class>org.apache.myfaces.trinidad.webapp.UIXComponentELTag</mfp:tag-class>
       <mfp:component-class-modifier>abstract</mfp:component-class-modifier>
       <mfp:event>
         <mfp:event-type>org.apache.myfaces.trinidad.AttributeChange</mfp:event-type>
@@ -57,4 +56,3 @@
     </component-extension>
   </component>
 </faces-config>
-

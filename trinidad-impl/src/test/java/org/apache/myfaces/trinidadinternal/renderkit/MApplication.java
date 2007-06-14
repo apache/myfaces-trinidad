@@ -18,11 +18,21 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
+
+import javax.el.ELResolver;
+import javax.el.ExpressionFactory;
+import javax.el.ELContext;
+import javax.el.MapELResolver;
+import javax.el.MethodExpression;
+import javax.el.MethodInfo;
+import javax.el.ValueExpression;
+
 import javax.faces.FacesException;
 import javax.faces.application.Application;
 import javax.faces.application.NavigationHandler;
@@ -296,7 +306,7 @@ public class MApplication extends Application
   }
 
   @Override
-  public Iterator<Class<?>> getConverterTypes()
+  public Iterator<Class> getConverterTypes()
   {
     throw new UnsupportedOperationException("Should not be called during rendering");
   }
@@ -345,6 +355,109 @@ public class MApplication extends Application
         !expression.endsWith("}"))
       throw new UnsupportedOperationException("Haven't implemented that much yet!");
     return new MValueBinding(expression);
+  }
+
+ public Object evaluateExpressionGet(FacesContext context, String expression, Class expectedType) 
+  {
+      // TODO handle coercion
+    return createValueBinding(expression).getValue(context);
+  }
+
+  public ExpressionFactory getExpressionFactory()
+  {
+    return _exprFactory;
+  }
+
+  @Override
+  public ELResolver getELResolver()
+  {
+    return new MELResolver(
+      getVariableResolver(), getPropertyResolver());
+  }
+
+  private ExpressionFactory _exprFactory = new ExpressionFactory()
+  {
+    public Object coerceToType(Object obj, Class<?> targetType)
+    {
+      return obj;
+    }
+
+    public MethodExpression createMethodExpression(
+      ELContext context,
+      String expression,
+      Class<?> expectedReturnType,
+      Class<?>[] expectedParamTypes) 
+    {
+      return new NotSupportedMethodExpression(expression);
+    }
+
+    public ValueExpression createValueExpression(
+       ELContext context, String expression, Class<?> expectedType)
+    {
+      // TODO handle coercion
+      ValueBinding vb = MApplication.this.createValueBinding(expression);
+      return new ValueBindingValueExpression(vb);
+    }
+    
+    
+    public ValueExpression createValueExpression(
+      Object instance, Class<?> expectedType)
+    {
+      throw new UnsupportedOperationException("Not implemented yet");
+    }
+  };
+
+
+  /**
+   * A very rudimentary implementation, to support
+   * renderers that might create (but not evaluate) MethodExpressions
+   */
+  private class NotSupportedMethodExpression extends MethodExpression
+    implements Serializable
+  {
+    public NotSupportedMethodExpression(String expression)
+    {
+      _expression = expression;
+    }
+
+    @Override
+    public MethodInfo getMethodInfo(ELContext elContext)
+    {
+      throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+    @Override
+    public Object invoke(ELContext elContext, Object[] objects)
+    {
+      throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+    @Override
+    public String getExpressionString()
+    {
+      return _expression;
+    }
+
+    @Override
+    public boolean isLiteralText()
+    {
+      return false;
+    }
+
+
+    @Override
+    public boolean equals(Object object)
+    {
+      return (object == this);
+    }
+
+    @Override
+    public int hashCode()
+    {
+      return System.identityHashCode(this);
+    }
+
+    private final String _expression;
   }
 
   private Map<String, String> _components = new HashMap<String, String>();

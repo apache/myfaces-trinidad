@@ -34,6 +34,7 @@ import java.util.Properties;
 
 import javax.faces.FacesException;
 import javax.faces.application.ViewHandler;
+import javax.faces.application.ViewHandlerWrapper;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -56,10 +57,9 @@ import org.apache.myfaces.trinidadinternal.context.TrinidadPhaseListener;
  * @todo Rename something less generic
  * @todo Support extension mapping (*.faces)
  * @todo The modification detection only works for a single user.  That's
- *   OK for now, because it's intended for use while developing, not while
- *   deployed - yet it's on all the time.  Hrm.
+ *   OK for now, because it's intended for use while developing
  */
-public class ViewHandlerImpl extends ViewHandler
+public class ViewHandlerImpl extends ViewHandlerWrapper
 {
   static public final String ALTERNATE_VIEW_HANDLER =
     "org.apache.myfaces.trinidad.ALTERNATE_VIEW_HANDLER";
@@ -72,16 +72,9 @@ public class ViewHandlerImpl extends ViewHandler
     _loadInternalViews();
   }
 
-  @Override
-  public Locale calculateLocale(FacesContext context)
+  protected ViewHandler getWrapped()
   {
-    return _delegate.calculateLocale(context);
-  }
-
-  @Override
-  public String calculateRenderKitId(FacesContext context)
-  {
-    return _delegate.calculateRenderKitId(context);
+    return _delegate;
   }
 
   @Override
@@ -120,13 +113,13 @@ public class ViewHandlerImpl extends ViewHandler
       }
     }
 
-    return _delegate.createView(context, viewId);
+    return super.createView(context, viewId);
   }
 
   @Override
   public String getActionURL(FacesContext context, String viewId)
   {
-    String actionURL = _delegate.getActionURL(context, viewId);
+    String actionURL = super.getActionURL(context, viewId);
     RequestContext afContext = RequestContext.getCurrentInstance();
     if (afContext != null)
     {
@@ -143,7 +136,7 @@ public class ViewHandlerImpl extends ViewHandler
     FacesContext context,
     String       path)
   {
-    return _delegate.getResourceURL(context, path);
+    return super.getResourceURL(context, path);
   }
 
 
@@ -178,7 +171,7 @@ public class ViewHandlerImpl extends ViewHandler
         }
         else
         {
-          _delegate.renderView(context, viewToRender);
+          super.renderView(context, viewToRender);
         }
 
         if (service != null)
@@ -262,7 +255,7 @@ public class ViewHandlerImpl extends ViewHandler
       return null;
     }
 
-    UIViewRoot result = _delegate.restoreView(context, viewId);
+    UIViewRoot result = super.restoreView(context, viewId);
     // If we've successfully restored a view, then assume that
     // this is a postback request.
     if (result != null)
@@ -291,7 +284,7 @@ public class ViewHandlerImpl extends ViewHandler
         service.isStateless(context))
       return;
 
-    _delegate.writeState(context);
+    super.writeState(context);
   }
 
   synchronized private void _initIfNeeded(FacesContext context)

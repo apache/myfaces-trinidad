@@ -26,7 +26,7 @@ import org.apache.myfaces.trinidad.component.UIXComponentRef;
 
 import javax.servlet.jsp.JspException;
 import org.apache.myfaces.trinidadinternal.taglib.util.TagUtils;
-import javax.faces.webapp.UIComponentTag;
+import javax.faces.webapp.UIComponentClassicTagBase;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 public class ComponentDefTag extends TagSupport
@@ -45,7 +45,7 @@ public class ComponentDefTag extends TagSupport
   @Override
   public int doStartTag() throws JspException
   {
-    UIComponentTag tag = UIComponentTag.getParentUIComponentTag(pageContext);
+    UIComponentClassicTagBase tag = UIComponentClassicTagBase.getParentUIComponentClassicTagBase(pageContext);
     if (tag == null)
     {
       throw new JspException(_LOG.getMessage(
@@ -64,10 +64,6 @@ public class ComponentDefTag extends TagSupport
 
       if (_var != null)
       {
-        if (TagUtils.isValueReference(_var))
-          throw new JspException(_LOG.getMessage(
-            "COMPONENTDEF_NOT_SUPPORT_EL"));
-          
         ((UIXComponentRef) component).setVar(_var);
       }
     }

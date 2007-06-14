@@ -126,6 +126,15 @@ abstract public class ResponseWriterDecorator extends ResponseWriter
     getResponseWriter().writeComment(comment);
   }
 
+
+
+  @Override
+  public void writeText(Object text, UIComponent component, 
+                        String propertyName)
+    throws IOException
+  {
+    getResponseWriter().writeText(text, component, propertyName);
+  }
   
   @Override
   public void writeText(Object text, String componentPropertyName) throws IOException

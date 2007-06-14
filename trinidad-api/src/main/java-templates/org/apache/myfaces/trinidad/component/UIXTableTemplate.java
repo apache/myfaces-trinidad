@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.el.MethodExpression;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
@@ -103,7 +105,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
       // since the range is now different we can clear the currency cache:
       clearCurrencyStringCache();
       
-      broadcastToMethodBinding(event, getRangeChangeListener());
+      broadcastToMethodExpression(event, getRangeChangeListener());
     }
     else if (event instanceof RowDisclosureEvent)
     {
@@ -111,20 +113,20 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
       RowKeySet set = getDisclosedRowKeys();
       set.addAll(eEvent.getAddedSet());
       set.removeAll(eEvent.getRemovedSet());
-      broadcastToMethodBinding(event, getRowDisclosureListener());
+      broadcastToMethodExpression(event, getRowDisclosureListener());
     }
     else if (event instanceof SortEvent)
     {
       SortEvent sEvent = (SortEvent) event;
       setSortCriteria(sEvent.getSortCriteria());
-      broadcastToMethodBinding(event, getSortListener());
+      broadcastToMethodExpression(event, getSortListener());
     }
     else if (event instanceof SelectionEvent)
     {
       //pu: Implicitly record a Change for 'selectionState' attribute
       addAttributeChange("selectedRowKeys",
                          getSelectedRowKeys());
-      broadcastToMethodBinding(event, getSelectionListener());
+      broadcastToMethodExpression(event, getSelectionListener());
     }
 
     super.broadcast(event);
@@ -139,11 +141,35 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
 /**/  abstract public void setShowAll(boolean showAll);
 /**/  abstract public boolean isShowAll();
 /**/  abstract public UIComponent getDetailStamp();
-/**/  public abstract MethodBinding getRangeChangeListener();
-/**/  public abstract MethodBinding getSortListener();
-/**/  public abstract MethodBinding getRowDisclosureListener();
-/**/  public abstract MethodBinding getSelectionListener();
+/**/  public abstract MethodExpression getRangeChangeListener();
+/**/  public abstract MethodExpression getSortListener();
+/**/  public abstract MethodExpression getRowDisclosureListener();
+/**/  public abstract MethodExpression getSelectionListener();
 /**/  public abstract boolean isImmediate();
+
+  @Deprecated
+  public void setRangeChangeListener(MethodBinding binding)
+  {
+    setRangeChangeListener(adaptMethodBinding(binding));
+  }
+
+  @Deprecated
+  public void setSortListener(MethodBinding binding)
+  {
+    setSortListener(adaptMethodBinding(binding));
+  }
+
+  @Deprecated
+  public void setRowDisclosureListener(MethodBinding binding)
+  {
+    setRowDisclosureListener(adaptMethodBinding(binding));
+  }
+
+  @Deprecated
+  public void setSelectionListener(MethodBinding binding)
+  {
+    setSelectionListener(adaptMethodBinding(binding));
+  }
 
   @Override
   @SuppressWarnings("unchecked")

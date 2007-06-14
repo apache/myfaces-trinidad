@@ -28,6 +28,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.faces.FacesException;
+import javax.faces.component.ContextCallback;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -661,9 +663,9 @@ public abstract class UIXCollection extends UIXComponentBase
      * @return the local clientId
      */
   @Override
-  protected final String getLocalClientId()
+  public final String getContainerClientId(FacesContext context)
   {
-    String id = super.getLocalClientId();
+    String id = getClientId(context);
     String key = getClientRowKey();
     if (key != null)
     {
@@ -969,6 +971,46 @@ public abstract class UIXCollection extends UIXComponentBase
         : new DefaultClientKeyManager();
     }
     return iState._clientKeyMgr;
+  }
+
+  public boolean invokeOnComponent(FacesContext context,
+                                   String clientId, 
+                                   ContextCallback callback)
+    throws FacesException
+  {
+    String thisClientId = getClientId(context);
+    if (clientId.equals(thisClientId))
+    {
+      callback.invokeContextCallback(context, this);
+      return true;
+    }
+    // If we're on a row, set the currency, and invoke
+    // inside
+    int thisClientIdLength = thisClientId.length();
+    if (clientId.startsWith(thisClientId) &&
+        (clientId.charAt(thisClientIdLength) == NamingContainer.SEPARATOR_CHAR))
+    {
+      String postId = clientId.substring(thisClientIdLength + 1);
+      int sepIndex = postId.indexOf(NamingContainer.SEPARATOR_CHAR);
+      // If there's no separator character afterwards, then this
+      // isn't a row key
+      if (sepIndex < 0)
+        return super.invokeOnComponent(context, clientId, callback);
+      String currencyString = postId.substring(0, sepIndex);
+      Object oldRowKey = getRowKey();
+      try
+      {
+        setCurrencyString(currencyString);
+        return super.invokeOnComponent(context, clientId, callback);        
+      }
+      finally
+      {
+        // And restore the currency
+        setRowKey(oldRowKey);
+      }
+    }
+    
+    return false;
   }
 
   /**

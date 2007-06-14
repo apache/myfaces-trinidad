@@ -24,7 +24,7 @@
     <view-handler>org.apache.myfaces.trinidadinternal.application.ViewHandlerImpl</view-handler>
     <state-manager>org.apache.myfaces.trinidadinternal.application.StateManagerImpl</state-manager>
     <navigation-handler>org.apache.myfaces.trinidadinternal.application.NavigationHandlerImpl</navigation-handler>
-    <variable-resolver>org.apache.myfaces.trinidadinternal.el.TrinidadVariableResolver</variable-resolver>
+    <el-resolver>org.apache.myfaces.trinidadinternal.el.TrinidadELResolver</el-resolver>
   </application>
 
   <factory>

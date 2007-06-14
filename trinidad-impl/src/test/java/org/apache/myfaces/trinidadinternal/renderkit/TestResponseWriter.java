@@ -582,6 +582,11 @@ public class TestResponseWriter extends ResponseWriter
   // spurious diffs
   private String _fixId(String valueStr)
   {
+    // All our golden files were produced with "_id" in JSF 1.1;
+    // and now in 1.2, that's "j_id".  Eliminate this diff.
+    if (valueStr.indexOf("j_id") >= 0)
+      valueStr = valueStr.replaceAll("j_id", "_id");
+
     if (valueStr.indexOf("_id") >= 0)
     {
       String re = "_id[0-9]+";

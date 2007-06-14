@@ -24,6 +24,7 @@ import java.util.List;
 
 import javax.faces.FactoryFinder;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
@@ -55,6 +56,15 @@ public class FacesTestCase extends AbstractJmockJsfTestCase
   protected void setUp() throws Exception
   {
     super.setUp();
+    FacesContext oldFacesContext = facesContext;
+    UIViewRoot oldViewRoot = oldFacesContext.getViewRoot();
+    oldFacesContext.release();
+    facesContext = new MockFacesContext12(externalContext,
+                                          lifecycle,
+                                          application);
+    facesContext.setViewRoot(oldViewRoot);
+    facesContext.setApplication(application);
+
     facesContext.getViewRoot().setRenderKitId("org.apache.myfaces.trinidad.core"); 
     RenderKitFactory renderKitFactory = (RenderKitFactory)
     FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);

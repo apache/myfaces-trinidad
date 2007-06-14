@@ -49,7 +49,7 @@ detail facet will automatically cause the detail column to be displayed.]]>
     <property>
       <description><![CDATA[a method reference to a sort listener]]></description>
       <property-name>sortListener</property-name>
-      <property-class>javax.faces.el.MethodBinding</property-class>
+      <property-class>javax.el.MethodExpression</property-class>
       <property-extension>
         <mfp:method-binding-signature>
           <mfp:parameter-type>org.apache.myfaces.trinidad.event.SortEvent</mfp:parameter-type>
@@ -58,7 +58,6 @@ detail facet will automatically cause the detail column to be displayed.]]>
         <mfp:property-metadata>
           <mfp:preferred>true</mfp:preferred>
         </mfp:property-metadata>
-        <mfp:state-holder>yes</mfp:state-holder>
       </property-extension>
     </property>
     <property>
@@ -66,7 +65,7 @@ detail facet will automatically cause the detail column to be displayed.]]>
          will be called when a new range is selected.]]>
       </description>
       <property-name>rangeChangeListener</property-name>
-      <property-class>javax.faces.el.MethodBinding</property-class>
+      <property-class>javax.el.MethodExpression</property-class>
       <property-extension>
         <mfp:method-binding-signature>
           <mfp:parameter-type>org.apache.myfaces.trinidad.event.RangeChangeEvent</mfp:parameter-type>
@@ -75,7 +74,6 @@ detail facet will automatically cause the detail column to be displayed.]]>
         <mfp:property-metadata>
           <mfp:preferred>true</mfp:preferred>
         </mfp:property-metadata>
-        <mfp:state-holder>yes</mfp:state-holder>
       </property-extension>
     </property>
     <property>

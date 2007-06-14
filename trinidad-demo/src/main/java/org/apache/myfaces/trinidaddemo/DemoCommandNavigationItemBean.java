@@ -23,9 +23,6 @@ import java.util.List;
 import javax.faces.component.UIComponent;
 import javax.faces.event.ActionEvent;
 
-import org.apache.myfaces.trinidad.bean.FacesBean;
-import org.apache.myfaces.trinidad.bean.PropertyKey;
-import org.apache.myfaces.trinidad.component.UIXCommand;
 import org.apache.myfaces.trinidad.component.UIXNavigationHierarchy;
 import org.apache.myfaces.trinidad.context.RequestContext;
 
@@ -53,16 +50,11 @@ public class DemoCommandNavigationItemBean
       }
     }
 
-    List<UIXCommand> children = parent.getChildren();
-    for (UIXCommand child : children)
+    List<UIComponent> children = parent.getChildren();
+    for (UIComponent child : children)
     {
-      FacesBean childFacesBean = child.getFacesBean();
-      FacesBean.Type type = childFacesBean.getType();
-      PropertyKey selectedKey = type.findKey("selected");
-      if (selectedKey != null)
-      {
-        childFacesBean.setProperty(selectedKey, (child == actionItem));
-      }
+      child.getAttributes().put("selected",
+                                child == actionItem);
     }
 
     RequestContext adfContext = RequestContext.getCurrentInstance();

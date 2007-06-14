@@ -126,15 +126,6 @@
 <!-- CANNOT_FIND_PARTIAL_TRIGGER -->
 <resource key="CANNOT_FIND_PARTIAL_TRIGGER">Could not find partial trigger {0} from {1}</resource>
 
-<!-- FAIL_SET_CHARACTER_ENCODING -->
-<resource key="FAIL_SET_CHARACTER_ENCODING">Failed to set character encoding {0}</resource>
-
-<!-- REQUEST_CHARACTER_ENCODING_DIABLED -->
-<resource key="REQUEST_CHARACTER_ENCODING_DIABLED">Detecting request character encoding is disable.</resource>
-
-<!-- FAIL_OBTAIN_SERVLETREQUEST_METHOD -->
-<resource key="FAIL_OBTAIN_SERVLETREQUEST_METHOD">Failed to obtain ServletRequest#setCharacterEncoding() method: {0}</resource>
-
 <!-- NEEDED_COMPONENT_NULL_NO_SCRIPT_WRITTEN -->
 <resource key="NEEDED_COMPONENT_NULL_NO_SCRIPT_WRITTEN">The component is null, but it is needed for the client id, so no script written</resource>
 

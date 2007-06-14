@@ -25,34 +25,17 @@
    <br/>
 <p>
         The forEach tag is a replacement for the JSTL
-&lt;c:forEach&gt; tag that works with ADF Faces components.  In JSF
-1.1, &lt;c:forEach&gt; cannot be used with any JSF components or tags.
+&lt;c:forEach&gt; tag.  Though as of JSF 1.2/JSP 2.1/JSTL 1.2,
+&lt;c:forEach&gt; can be used with any JSF components or tags,
+it does not support "varStatus".  This tag adds support for varStatus
+(other than "current" which is not supported).
 (<b>Note</b>: this tag is not supported in Facelets, because c:forEach
-is functional in Facelets.  It will also be removed in JSF 1.2/JSP
-2.1, because c:forEach will become functional there too.)  This tag
-brings that functionality to JSF, but it is limited to ADF Faces tags.
-This tag also has several limitations not found in &lt;c:forEach&gt;:
-
-<ul>
-
-<li>&lt;tr:forEach&gt; does not currently support scenarios where the
-size of the "items" list or array changes from one request to the
-next. It may be possible to work around this in specific scenarios by
-manually deleting all children of the parent component
-(&lt;tr:selectOneListbox&gt; in the above example), but this has not
-yet been tested.</li>
-
-<li>&lt;tr:forEach&gt; does not support arbitrary
+is fully functional in Facelets.)  Unlike the old Trinidad tr:forEach
+built with JSF 1.1, however, this tag can be used with any JSP 2.1-based
+tag, JSF or non-JSF.  This tag also has a limitation not found in &lt;c:forEach&gt;:  &lt;tr:forEach&gt; does not currently support arbitrary
 java.util.Collections; it can only iterate over java.util.Lists or
-arrays.</li>
-
-<li>&lt;tr:forEach&gt; executes at the time the JSP tag executes. So
-it does not have access to any EL variables that are created by JSF
-components.  For example, the &lt;tr:table&gt; creates an EL variable
-using the value of the "var" attribute. However, this EL variable is
-not available to &lt;tr:forEach&gt;</li>
-
-</ul></p><h4>Example:</h4><source>
+arrays.</p>
+<h4>Example:</h4><source>
             &lt;tr:selectOneListbox value="#{someValue}"&gt;
               &lt;tr:forEach var="item" items="#{model.listOfItems}"&gt;
                 &lt;tr:selectItem value="#{item.value}" text="#{item.text}"/&gt;
@@ -105,7 +88,7 @@ not available to &lt;tr:forEach&gt;</li>
 <td>varStatus</td><td>String</td><td>No</td><td>
 
           name of the loop status exposed when iterating. The properties
-		'index','count','begin','end','step','current','first','last'
+		'index','count','begin','end','step','first','last'
 		are available through this
         </td>
 </tr>

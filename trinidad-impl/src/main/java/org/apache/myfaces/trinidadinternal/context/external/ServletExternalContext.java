@@ -20,7 +20,8 @@ package org.apache.myfaces.trinidadinternal.context.external;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Method;
+import java.io.UnsupportedEncodingException;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.Principal;
@@ -73,48 +74,8 @@ public class ServletExternalContext extends ExternalContext
     }
 
     if (_httpServletRequest != null)
-    {
-      // HACK: MultipartWrapper scrambles the servletPath for some reason in Tomcat 4.1.29 embedded
-      // in JBoss 3.2.3!?
-      // (this was reported by frederic.auge [frederic.auge@laposte.net])
-      _requestServletPath = _httpServletRequest.getServletPath();
-      _requestPathInfo = _httpServletRequest.getPathInfo();
-
-      // try to set character encoding as described in section 2.5.2.2 of JSF 1.1 spec
-      // we have to use reflection as method setCharacterEncoding is not supported Servlet API <=
-      // 2.3
-      try
-      {
-        if (_setCharacterEncodingMethod != null)
-        {
-          final String contentType = _httpServletRequest.getHeader("Content-Type");
-
-          String characterEncoding = _lookupCharacterEncoding(contentType);
-
-          if (characterEncoding == null)
-          {
-            final HttpSession session = _httpServletRequest.getSession(false);
-
-            if (session != null)
-            {
-              characterEncoding = (String) session.getAttribute(ViewHandler.CHARACTER_ENCODING_KEY);
-            }
-
-            if (characterEncoding != null)
-            {
-              _setCharacterEncodingMethod
-                  .invoke(servletRequest, new Object[] { characterEncoding });
-            }
-          }
-        }
-      }
-      catch (final Exception e)
-      {
-        if (_LOG.isWarning())
-        {
-          _LOG.warning("FAIL_SET_CHARACTER_ENCODING", e);
-        }
-      }
+    {      
+      _initHttpServletRequest();
     }
   }
 
@@ -510,6 +471,83 @@ public class ServletExternalContext extends ExternalContext
     }
   }
 
+  @Override
+  public String getRequestCharacterEncoding()
+  {
+    _checkRequest();
+    return _servletRequest.getCharacterEncoding();
+  }
+
+  @Override
+  public String getRequestContentType()
+  {
+    _checkRequest();
+    return _servletRequest.getContentType();
+  }
+
+  @Override
+  public String getResponseCharacterEncoding()
+  {
+    _checkResponse();
+    return _servletResponse.getCharacterEncoding();
+  }
+
+  @Override
+  public String getResponseContentType()
+  {
+    _checkResponse();
+    return _servletResponse.getContentType();
+  }
+
+  @Override
+  public void setRequest(Object object)
+  {
+    _servletRequest = (ServletRequest) object;
+    if (object instanceof HttpServletRequest)
+    {
+      _httpServletRequest = (HttpServletRequest) object;
+      _initHttpServletRequest();
+    }
+    else
+    {
+      _httpServletRequest = null;
+    }
+    
+    // And clear out any of the cached maps, since we should 
+    // go back and look in the map
+    _requestCookieMap = null;
+    _requestHeaderMap = null;
+    _requestHeaderValuesMap = null;
+    _requestMap = null;
+    _requestParameterMap = null;
+    _requestParameterValuesMap = null;
+  }
+
+  @Override
+  public void setRequestCharacterEncoding(String string) throws UnsupportedEncodingException
+  {
+    _checkRequest();
+    _servletRequest.setCharacterEncoding(string);
+  }
+
+  @Override
+  public void setResponse(Object object)
+  {
+    _servletResponse = (ServletResponse) object;
+    if (_servletResponse instanceof HttpServletResponse)
+      _httpServletResponse = (HttpServletResponse) object;
+    else
+      _httpServletResponse = null;
+  }
+
+  @Override
+  public void setResponseCharacterEncoding(String string)
+  {
+    _checkResponse();
+    _servletResponse.setCharacterEncoding(string);
+  }
+
+  
   public void release()
   {
     _servletContext = null;
@@ -594,6 +632,41 @@ public class ServletExternalContext extends ExternalContext
     return characterEncoding;
   }
 
+  private void _initHttpServletRequest()
+  {
+    // HACK: MultipartWrapper scrambles the servletPath for some reason in Tomcat 4.1.29 embedded
+    // in JBoss 3.2.3!?
+    // (this was reported by frederic.auge [frederic.auge@laposte.net])
+    _requestServletPath = _httpServletRequest.getServletPath();
+    _requestPathInfo = _httpServletRequest.getPathInfo();
+
+    final String contentType = _httpServletRequest.getHeader("Content-Type");
+
+    String characterEncoding = _lookupCharacterEncoding(contentType);
+
+    if (characterEncoding == null)
+    {
+      final HttpSession session = _httpServletRequest.getSession(false);
+      if (session != null)
+      {
+        characterEncoding = (String) session.getAttribute(ViewHandler.CHARACTER_ENCODING_KEY);
+      }
+
+      if (characterEncoding != null)
+      {
+        try
+        {
+          _servletRequest.setCharacterEncoding(characterEncoding);
+        }
+        catch (UnsupportedEncodingException uee)
+        {
+          _LOG.warning(uee);
+        }
+      }
+    }
+    
+  }
+
   private Map<String, Object>         _applicationMap;
   private HttpServletRequest          _httpServletRequest;
   private HttpServletResponse         _httpServletResponse;
@@ -610,22 +683,8 @@ public class ServletExternalContext extends ExternalContext
   private ServletRequest              _servletRequest;
   private ServletResponse             _servletResponse;
   private Map<String, Object>         _sessionMap;
-  private static final String         _INIT_PARAMETER_MAP_ATTRIBUTE = ServletInitParameterMap.class
-                                                                       .getName();
-  private static final TrinidadLogger _LOG                          = TrinidadLogger
-                                                                       .createTrinidadLogger(ServletExternalContext.class);
-  private static Method               _setCharacterEncodingMethod   = null;
-  static
-  {
-    try
-    {
-      _setCharacterEncodingMethod = ServletRequest.class.getMethod("setCharacterEncoding",
-          new Class[] { String.class });
-    }
-    catch (final Exception e)
-    {
-      _LOG.warning("REQUEST_CHARACTER_ENCODING_DIABLED");
-      _LOG.warning("FAIL_OBTAIN_SERVLETREQUEST_METHOD", e);
-    }
-  }
+  private static final String         _INIT_PARAMETER_MAP_ATTRIBUTE =
+      ServletInitParameterMap.class.getName();
+  private static final TrinidadLogger _LOG
+      = TrinidadLogger.createTrinidadLogger(ServletExternalContext.class);
 }

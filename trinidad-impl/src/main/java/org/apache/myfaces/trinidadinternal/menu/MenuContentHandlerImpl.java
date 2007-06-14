@@ -252,7 +252,8 @@ public class MenuContentHandlerImpl extends DefaultHandler
         // into another menu model.
         _saveModelData();        
 
-        XMLMenuModel menuModel = (XMLMenuModel)MenuUtils.getBoundValue(expr);
+        XMLMenuModel menuModel = (XMLMenuModel)MenuUtils.getBoundValue(expr,
+                                                              Object.class);
         
         // Now must pop the values cause we are back to the parent
         // model.

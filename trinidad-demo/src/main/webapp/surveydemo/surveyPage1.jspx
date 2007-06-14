@@ -20,6 +20,7 @@
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
@@ -28,7 +29,7 @@
        
         <tr:panelPage>
       
-        <tr:panelHeader text="Question 5 of 5">
+        <tr:panelHeader text="Question 1 of 5">
           <tr:panelFormLayout>
           
             <tr:selectOneRadio label="#{survey.q0.prompt}" 

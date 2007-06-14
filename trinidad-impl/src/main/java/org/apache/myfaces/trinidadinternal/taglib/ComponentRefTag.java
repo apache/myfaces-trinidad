@@ -209,7 +209,7 @@ processRegion:
       AttributeMetaData attr = attrs.get(i);
       String name = attr.getAttrName();
       Class<?> klass = attr.getAttrClass();
-      if (region.getValueBinding(name) != null)
+      if (region.getValueExpression(name) != null)
         continue;
 
       Object compValue = compAttrs.get(name);

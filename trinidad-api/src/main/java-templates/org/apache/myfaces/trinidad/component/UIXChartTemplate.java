@@ -18,6 +18,8 @@
  */
 package org.apache.myfaces.trinidad.component;
 
+import javax.el.MethodExpression;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
@@ -42,7 +44,7 @@ abstract public class UIXChartTemplate extends UIXComponentBase
    * @param event
    * @throws javax.faces.event.AbortProcessingException
    */
-	@Override
+  @Override
   public void broadcast(FacesEvent event)
     throws AbortProcessingException
   {
@@ -50,7 +52,7 @@ abstract public class UIXChartTemplate extends UIXComponentBase
     // Deliver to the default ChartDrillDownEvent
     if (event instanceof ChartDrillDownEvent)
     {
-      broadcastToMethodBinding(event, getChartDrillDownListener());
+      broadcastToMethodExpression(event, getChartDrillDownListener());
     }
     super.broadcast(event);
   }

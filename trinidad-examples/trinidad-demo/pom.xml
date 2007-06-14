@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.apache.myfaces.trinidad</groupId>
     <artifactId>trinidad</artifactId>
-    <version>1.0.0-incubating</version>
+    <version>1.2.1-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
@@ -121,6 +121,22 @@
   </dependencies>
 
   <profiles>
+     <profile>
+       <id>jettyConfig</id>
+       <build>
+         <plugins>
+           <plugin>
+             <groupId>org.mortbay.jetty</groupId>
+             <artifactId>maven-jetty-plugin</artifactId>
+             <version>6.1.2rc0</version>
+             <configuration>
+               <scanIntervalSeconds>10</scanIntervalSeconds>
+             </configuration>
+           </plugin>
+        </plugins>
+      </build>
+    </profile>
+
     <!-- By default the war examples use myfaces! :) -->
     <profile>
       <id>myfaces</id>
@@ -134,19 +150,17 @@
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-api</artifactId>
+          <version>1.2.0-SNAPSHOT</version>
           <scope>compile</scope>
         </dependency>
 
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-impl</artifactId>
+          <version>1.2.0-SNAPSHOT</version>
           <scope>runtime</scope>
         </dependency>
       </dependencies>
-      
-      <properties>
-        <jsf_implementation>MyFaces</jsf_implementation>
-      </properties>
     </profile>
 
     <!-- To use the examples using the Sun's JSF Reference Implementation: -Djsf=ri -->
@@ -162,29 +176,14 @@
         <dependency>
           <groupId>javax.faces</groupId>
           <artifactId>jsf-api</artifactId>
-          <version>1.1_02</version>
+          <version>1.2_04</version>
         </dependency>
         <dependency>
           <groupId>javax.faces</groupId>
           <artifactId>jsf-impl</artifactId>
-          <version>1.1_02</version>
+          <version>1.2_04</version>
           <scope>runtime</scope>
         </dependency>
-
-        <dependency>
-          <groupId>jstl</groupId>
-          <artifactId>jstl</artifactId>
-          <version>1.1.0</version>
-          <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-          <groupId>commons-digester</groupId>
-          <artifactId>commons-digester</artifactId>
-          <version>1.5</version>
-          <scope>runtime</scope>
-        </dependency>
-
       </dependencies>
 
       <repositories>

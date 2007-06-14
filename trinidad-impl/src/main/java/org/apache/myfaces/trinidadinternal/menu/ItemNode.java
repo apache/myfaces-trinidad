@@ -73,7 +73,7 @@ public class ItemNode extends MenuNode
     {
       // Value of action is EL method binding, so we 
       // need to evaluate it
-      value = (String)MenuUtils.getBoundValue(value);
+      value = MenuUtils.getBoundValue(value, String.class);
     }
 
     // Post me as the selected Node for the request
@@ -112,7 +112,7 @@ public class ItemNode extends MenuNode
     {
       // Value of action is EL method binding, so we 
       // need to evaluate it
-      value = (String)MenuUtils.getBoundValue(value);
+      value = MenuUtils.getBoundValue(value, String.class);
       setActionListener(value);
     }
 
@@ -149,7 +149,7 @@ public class ItemNode extends MenuNode
     {
       // Value of action is EL method binding, so we 
       // need to evaluate it
-      value = (String)MenuUtils.getBoundValue(value);
+      value = MenuUtils.getBoundValue(value, String.class);
       setLaunchListener(value);
     }
 
@@ -186,7 +186,7 @@ public class ItemNode extends MenuNode
     {
       // Value of action is EL method binding, so we 
       // need to evaluate it
-      value = (String)MenuUtils.getBoundValue(value);
+      value = MenuUtils.getBoundValue(value, String.class);
       setReturnListener(value);
     }
 
@@ -372,7 +372,7 @@ public class ItemNode extends MenuNode
     {
       // Value of action is EL method binding, so we 
       // need to evaluate it
-      value = (String)MenuUtils.getBoundValue(value);
+      value = MenuUtils.getBoundValue(value, String.class);
     }
 
     // Appending nodeId to URL so that we can identify the node
@@ -408,7 +408,7 @@ public class ItemNode extends MenuNode
     {
       // Value of destination is EL value binding, so we 
       // need to evaluate it
-      value = (String)MenuUtils.getBoundValue(value);
+      value = MenuUtils.getBoundValue(value, String.class);
       setTargetFrame(value);
     }
      

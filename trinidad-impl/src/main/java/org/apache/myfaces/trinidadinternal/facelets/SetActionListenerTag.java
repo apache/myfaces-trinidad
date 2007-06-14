@@ -27,14 +27,12 @@ import org.apache.myfaces.trinidadinternal.taglib.listener.SetActionListener;
 
 import com.sun.facelets.FaceletContext;
 import com.sun.facelets.FaceletException;
-import com.sun.facelets.el.LegacyValueBinding;
 import com.sun.facelets.tag.TagAttribute;
 import com.sun.facelets.tag.TagConfig;
 import com.sun.facelets.tag.TagHandler;
 import com.sun.facelets.tag.jsf.ComponentSupport;
 
 /**
- * @todo it should be removed after we consume JSF1.2.
  */
 public class SetActionListenerTag extends TagHandler
 {
@@ -59,10 +57,10 @@ public class SetActionListenerTag extends TagHandler
                                                             Object.class);
       ActionSource actionSource= (ActionSource) parent;
       SetActionListener listener = new SetActionListener();
-      listener.setValueBinding(SetActionListener.FROM_KEY,
-                               new LegacyValueBinding(fromExpression));
-      listener.setValueBinding(SetActionListener.TO_KEY,
-                               new LegacyValueBinding(toExpression));
+      listener.setValueExpression(SetActionListener.FROM_KEY,
+                                  fromExpression);
+      listener.setValueExpression(SetActionListener.TO_KEY,
+                                  toExpression);
       actionSource.addActionListener(listener);
     }
   }

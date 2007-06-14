@@ -18,9 +18,10 @@
  */
 package org.apache.myfaces.trinidadinternal.taglib.listener;
 
+import javax.el.ValueExpression;
+
 import javax.faces.component.StateHolder;
 import javax.faces.context.FacesContext;
-import javax.faces.el.ValueBinding;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
 
@@ -45,7 +46,7 @@ public class SetActionListener extends FacesBeanImpl
   static public final FacesBean.Type TYPE = new FacesBean.Type();
   static public final PropertyKey FROM_KEY =
     TYPE.registerKey("from");
-  // Must be a ValueBinding
+  // Must be a ValueExpression
   static public final PropertyKey TO_KEY =
     TYPE.registerKey("to");
 
@@ -60,23 +61,23 @@ public class SetActionListener extends FacesBeanImpl
 
   public void processAction(ActionEvent event)
   {
-    ValueBinding to = getValueBinding(TO_KEY);
+    ValueExpression to = getValueExpression(TO_KEY);
     if (to != null)
     {
-      Object from = getFrom();
+      Object from = getProperty(FROM_KEY);
       try
       {
-        to.setValue(FacesContext.getCurrentInstance(), from);
+        to.setValue(FacesContext.getCurrentInstance().getELContext(), from);
       }
       catch (RuntimeException e)
       {
         if (_LOG.isWarning())
         {
-          ValueBinding fromBinding = getValueBinding(FROM_KEY);
+          ValueExpression fromExpression = getValueExpression(FROM_KEY);
           String mes = "Error setting:'"+to.getExpressionString() +
             "' to value:"+from;
-          if (fromBinding != null)
-            mes += " from:'"+fromBinding.getExpressionString()+"'";
+          if (fromExpression != null)
+            mes += " from:'"+fromExpression.getExpressionString()+"'";
             
           _LOG.warning(mes, e);
         }
@@ -85,14 +86,20 @@ public class SetActionListener extends FacesBeanImpl
     }
   }
 
-  public Object getFrom()
+  public void setFrom(ValueExpression from)
   {
-    return getProperty(FROM_KEY);
+    if (from.isLiteralText())
+      setProperty(FROM_KEY, from.getValue(null));
+    else
+      setValueExpression(FROM_KEY, from);
   }
 
-  public void setFrom(Object from)
+  public void setTo(ValueExpression to)
   {
-    setProperty(FROM_KEY, from);
+    if (to.isLiteralText())
+      throw new IllegalArgumentException("setActionListener's 'to' must be an EL expression");
+    
+    setValueExpression(TO_KEY, to);
   }
 
   @Override

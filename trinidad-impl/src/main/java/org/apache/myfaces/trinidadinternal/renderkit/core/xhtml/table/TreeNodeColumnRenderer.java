@@ -138,7 +138,7 @@ public class TreeNodeColumnRenderer extends ColumnRenderer
   {
     // we need to render a unique ID for the expand/collapse link, so that
     // PPR can restore the focus correctly after a PPR request:
-    String tableName = tContext.getTable().getClientId(fc);
+    String tableName = tContext.getTable().getContainerClientId(fc);
     String id = tableName + NamingContainer.SEPARATOR_CHAR + _ICON_ID; 
     fc.getResponseWriter().writeAttribute("id", id, null);
   }

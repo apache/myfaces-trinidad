@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidad.component;
 
 import java.io.IOException;
+import javax.el.MethodExpression;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
 import javax.faces.event.AbortProcessingException;
@@ -38,10 +39,16 @@ import org.apache.myfaces.trinidad.model.ModelUtils;
 public abstract class UIXSelectRangeTemplate extends UIXComponentBase
 {
 /**/ // Abstract methods implemented by code gen
-/**/  abstract public MethodBinding getRangeChangeListener();
+/**/  abstract public MethodExpression getRangeChangeListener();
 /**/  abstract public void setFirst(int first);
 /**/  abstract public boolean isImmediate();
 /**/  abstract public Object getValue();
+
+  @Deprecated
+  public void setRangeChangeListener(MethodBinding binding)
+  {
+    setRangeChangeListener(adaptMethodBinding(binding));
+  }
 
   @Override
   public void encodeBegin(FacesContext context) throws IOException
@@ -60,7 +67,7 @@ public abstract class UIXSelectRangeTemplate extends UIXComponentBase
       // update first when the event is delivered
       setFirst(gtEvent.getNewStart());
 
-      broadcastToMethodBinding(event, getRangeChangeListener());
+      broadcastToMethodExpression(event, getRangeChangeListener());
     }
 
     // Perform standard superclass processing

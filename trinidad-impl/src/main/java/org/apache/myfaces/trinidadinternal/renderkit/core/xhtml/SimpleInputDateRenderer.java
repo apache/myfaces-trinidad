@@ -77,7 +77,7 @@ public class SimpleInputDateRenderer
   {
     FacesBean bean = getFacesBean(component);
     // If there's a non-default action, then just launch away
-    if (getAction(bean) != null)
+    if (getActionExpression(bean) != null)
     {
       super.queueActionEvent(context, component);
     }
@@ -352,7 +352,7 @@ public class SimpleInputDateRenderer
     // If the field has an action, use the default behavior.  Or,
     // if the field doesn't support launching a window at all,
     // use the default behavior.
-    if ((getAction(bean) != null) ||
+    if ((getActionExpression(bean) != null) ||
         !Boolean.TRUE.equals(
             arc.getAgent().getCapabilities().get(TrinidadAgent.CAP_MULTIPLE_WINDOWS)))
       return super.getLaunchOnclick(context, arc, component, bean);

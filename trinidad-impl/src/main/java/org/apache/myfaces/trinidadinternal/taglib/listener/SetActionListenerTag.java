@@ -20,6 +20,8 @@ package org.apache.myfaces.trinidadinternal.taglib.listener;
 
 import org.apache.myfaces.trinidadinternal.taglib.util.TagUtils;
 
+import javax.el.ValueExpression;
+
 import javax.servlet.jsp.tagext.TagSupport;
 import javax.servlet.jsp.JspException;
 
@@ -27,7 +29,7 @@ import javax.faces.application.Application;
 import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.webapp.UIComponentTag;
+import javax.faces.webapp.UIComponentClassicTagBase;
 
 import org.apache.myfaces.trinidad.webapp.ELContextTag;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -39,12 +41,12 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  */
 public class SetActionListenerTag extends TagSupport
 {
-  public void setFrom(String from)
+  public void setFrom(ValueExpression from)
   {
     _from = from;
   }
 
-  public void setTo(String to)
+  public void setTo(ValueExpression to)
   {
     _to = to;
   }
@@ -52,7 +54,7 @@ public class SetActionListenerTag extends TagSupport
   @Override
   public int doStartTag() throws JspException
   {
-    UIComponentTag tag = UIComponentTag.getParentUIComponentTag(pageContext);
+   UIComponentClassicTagBase tag = UIComponentClassicTagBase.getParentUIComponentClassicTagBase(pageContext);
     if (tag == null)
     {
       throw new JspException(_LOG.getMessage(
@@ -79,34 +81,13 @@ public class SetActionListenerTag extends TagSupport
     SetActionListener listener = new SetActionListener();
     if (_from != null)
     {
-      if (TagUtils.isValueReference(_from))
-      {
-        String from = _from;
-        if (parentELContext != null)
-          from = parentELContext.transformExpression(from);
-
-        listener.setValueBinding(SetActionListener.FROM_KEY,
-                                 application.createValueBinding(from));
-      }
-      else
-      {
-        listener.setFrom(_from);
-      }
-
-      if (TagUtils.isValueReference(_to))
-      {
-        String to = _to;
-        if (parentELContext != null)
-          to = parentELContext.transformExpression(to);
-
-        listener.setValueBinding(SetActionListener.TO_KEY,
-                                 application.createValueBinding(to));
-      }
-      else
-      {
+      listener.setFrom(_from);
+      if (_to.isLiteralText())
         throw new JspException(_LOG.getMessage(
           "SETACTIONLISTENERS_TO_MUST_BE_EL_EXPRESSION"));
-      }
+
+      if (_to != null)
+        listener.setTo(_to);
     }
 
     ((ActionSource) component).addActionListener(listener);
@@ -122,8 +103,8 @@ public class SetActionListenerTag extends TagSupport
     _to = null;
   }
 
-  private String _from;
-  private String _to;
+  private ValueExpression _from;
+  private ValueExpression _to;
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     SetActionListenerTag.class);
 }

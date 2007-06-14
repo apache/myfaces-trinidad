@@ -41,9 +41,9 @@ final class TrinidadListenersTagRule extends MetaRule
 {
   public static final MetaRule Instance = new TrinidadListenersTagRule();
 
-  private static class ListenerPropertyMetadata extends Metadata
+  private static class ListenerMBPropertyMetadata extends Metadata
   {
-    public ListenerPropertyMetadata(Method method, TagAttribute attribute, Class[] paramList)
+    public ListenerMBPropertyMetadata(Method method, TagAttribute attribute, Class[] paramList)
     {
       _method = method;
       _attribute = attribute;
@@ -76,6 +76,42 @@ final class TrinidadListenersTagRule extends MetaRule
     private final TagAttribute _attribute;
     private       Class[]      _paramList;
   }
+
+  private static class ListenerMEPropertyMetadata extends Metadata
+  {
+    public ListenerMEPropertyMetadata(Method method, TagAttribute attribute, Class[] paramList)
+    {
+      _method = method;
+      _attribute = attribute;
+      _paramList = paramList;
+    }
+    
+    @Override
+    @SuppressWarnings("deprecation")
+    public void applyMetadata(FaceletContext ctx, Object instance)
+    {
+      MethodExpression expr =
+        _attribute.getMethodExpression(ctx, null, _paramList);
+      
+      try
+      {
+        _method.invoke(instance,
+                       new Object[]{expr});
+      }
+      catch (InvocationTargetException e)
+      {
+        throw new TagAttributeException(_attribute, e.getCause());
+      }
+      catch (Exception e)
+      {
+        throw new TagAttributeException(_attribute, e);
+      }
+    }
+
+    private final Method       _method;
+    private final TagAttribute _attribute;
+    private       Class[]      _paramList;
+  }
    
 
   @Override
@@ -84,7 +120,11 @@ final class TrinidadListenersTagRule extends MetaRule
      TagAttribute attribute,
      MetadataTarget meta)
   {
-    if ((meta.getPropertyType(name) == MethodBinding.class) &&
+    Class metaType = meta.getPropertyType(name);
+    boolean isMethodBinding = (metaType == MethodBinding.class);
+    boolean isMethodExpression = (metaType == MethodExpression.class);
+
+    if ((isMethodBinding || isMethodExpression) &&
         name.endsWith("Listener"))
     {
       // OK, we're trying to call setFooListener()
@@ -112,8 +152,12 @@ final class TrinidadListenersTagRule extends MetaRule
           return null;
 
         // And go
-        return new ListenerPropertyMetadata(m, attribute,
-                                            new Class[]{eventClass});
+        if (isMethodBinding)
+          return new ListenerMBPropertyMetadata(m, attribute,
+                                                new Class[]{eventClass});
+        else
+          return new ListenerMEPropertyMetadata(m, attribute,
+                                                new Class[]{eventClass});
       }
     }
     return null;

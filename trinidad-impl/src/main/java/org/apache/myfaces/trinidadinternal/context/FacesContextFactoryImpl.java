@@ -22,6 +22,8 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.el.ELContext;
+
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIViewRoot;
@@ -231,6 +233,11 @@ public class FacesContextFactoryImpl
       _base.release();
     }
     
+    public ELContext getELContext()
+    {
+      return _base.getELContext();
+    }
+
     private final FacesContext    _base;
     private final ExternalContext _external;
     // An Object, not a String, so that FindBugs won't complain

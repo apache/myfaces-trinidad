@@ -34,7 +34,9 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-public class FacesBeanImplTest extends TestCase
+import org.apache.myfaces.trinidadbuild.test.FacesTestCase;
+
+public class FacesBeanImplTest extends FacesTestCase
 {
   public static final Test suite()
   {
@@ -53,13 +55,15 @@ public class FacesBeanImplTest extends TestCase
   }
 
   @Override
-  public void setUp()
+  protected void setUp() throws Exception
   {
+    super.setUp();
   }
 
   @Override
-  public void tearDown()
+  protected void tearDown() throws Exception
   {
+    super.tearDown();
   }
 
   public void testInitialValues()

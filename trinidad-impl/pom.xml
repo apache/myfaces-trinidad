@@ -14,11 +14,11 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"> 
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <parent>
     <groupId>org.apache.myfaces.trinidad</groupId>
     <artifactId>trinidad</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.2.1-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
@@ -121,6 +121,7 @@
           <faceletHandlerClass>org.apache.myfaces.trinidadinternal.facelets.TrinidadComponentHandler</faceletHandlerClass>
           <typePrefix>org.apache</typePrefix>
           <packageContains>org.apache</packageContains>
+          <jsfVersion>1.2</jsfVersion>
           <force>true</force>
         </configuration>
         <executions>
@@ -200,10 +201,15 @@
     </dependency>
 
     <dependency>
+      <groupId>jstl</groupId>
+      <artifactId>jstl</artifactId>
+    </dependency>
+
+    <dependency>
       <groupId>org.apache.myfaces.trinidad</groupId>
       <artifactId>trinidad-build</artifactId>
     </dependency>
-    
+
     <dependency>
       <groupId>org.apache.myfaces.trinidad</groupId>
       <artifactId>trinidad-api</artifactId>
@@ -221,7 +227,7 @@
       <type>test-jar</type>
       <scope>test</scope>
     </dependency>
- 
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -247,12 +253,6 @@
     </dependency>
 
     <dependency>
-      <groupId>org.apache.myfaces.core</groupId>
-      <artifactId>myfaces-impl</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
       <groupId>commons-beanutils</groupId>
       <artifactId>commons-beanutils</artifactId>
       <version>1.6</version>
@@ -270,13 +270,6 @@
       <groupId>com.sun.facelets</groupId>
       <artifactId>jsf-facelets</artifactId>
     </dependency>
-
-<!--
-    <dependency>
-      <groupId>javax.el</groupId>
-      <artifactId>el-api</artifactId>
-    </dependency>
--->
 
   </dependencies>
 
