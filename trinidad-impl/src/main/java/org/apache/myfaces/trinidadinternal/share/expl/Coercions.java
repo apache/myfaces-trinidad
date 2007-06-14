@@ -141,7 +141,7 @@ public final class Coercions
       {
         try
         {
-          return _ISO_DATE_FORMAT.parse(text);
+          return _getDateFormat().parse(text);
         }
         catch (ParseException pe)
         {
@@ -570,8 +570,11 @@ public final class Coercions
   private static final Color _TRANSPARENT_COLOR = new Color(0,0,0,0);
 
   // We rely strictly on ISO 8601 formats
-  private static DateFormat  _ISO_DATE_FORMAT =
-    new SimpleDateFormat("yyyy-MM-dd");
+  private static DateFormat _getDateFormat()
+  {
+    return new SimpleDateFormat("yyyy-MM-dd");
+  }
+
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     Coercions.class);
 }
