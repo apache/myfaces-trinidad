@@ -290,7 +290,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     String stringValue = o.toString();
     try
     {
-      return _ISO_DATE_FORMAT.parse(stringValue);
+      return _getDateFormat().parse(stringValue);
     }
     catch (ParseException pe)
     {
@@ -391,8 +391,10 @@ abstract public class UIXComponentELTag extends UIComponentELTag
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(UIXComponentTag.class);
 
   // We rely strictly on ISO 8601 formats
-  private static DateFormat  _ISO_DATE_FORMAT =
-    new SimpleDateFormat("yyyy-MM-dd");
+  private static DateFormat _getDateFormat()
+  {
+    return new SimpleDateFormat("yyyy-MM-dd");
+  }
 
   private MethodExpression  _attributeChangeListener;
   private String            _validationError;
