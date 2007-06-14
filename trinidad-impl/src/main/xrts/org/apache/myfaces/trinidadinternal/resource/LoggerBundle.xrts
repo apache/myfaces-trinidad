@@ -246,8 +246,8 @@
 <!-- FILE_HANDLER_NOT_SET_IN_SERVLETCONTEXT -->
 <resource key="FILE_HANDLER_NOT_SET_IN_SERVLETCONTEXT">The java.io.File handle ("javax.servlet.context.tempdir") is not set in the ServletContext</resource>
 
-<!-- ADFRENDERINGCONTEXT_NOT_AVAILABLE -->
-<resource key="ADFRENDERINGCONTEXT_NOT_AVAILABLE">No AdfRenderingContext available</resource>
+<!-- RENDERINGCONTEXT_NOT_AVAILABLE -->
+<resource key="RENDERINGCONTEXT_NOT_AVAILABLE">No RenderingContext available</resource>
 
 <!-- CANNOT_LOCATE_HTMLRENDERKIT -->
 <resource key="CANNOT_LOCATE_HTMLRENDERKIT">Basic HTMLRenderKit could not be located</resource>
