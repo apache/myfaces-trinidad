@@ -448,7 +448,7 @@ public class CoreRenderKit extends RenderKitBase
     }
     else
     {
-      _LOG.warning("ADFRENDERINGCONTEXT_NOT_AVAILABLE");
+      _LOG.warning("RENDERINGCONTEXT_NOT_AVAILABLE");
     }
   }
 
