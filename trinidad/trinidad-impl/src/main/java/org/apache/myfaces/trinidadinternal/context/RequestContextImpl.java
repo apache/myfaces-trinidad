@@ -262,7 +262,13 @@ public class RequestContextImpl extends RequestContext
       _bean.getProperty(RequestContextBean.CLIENT_VALIDATION_KEY);
 
     if (clientValidation == null)
-      return ClientValidation.INLINE;
+      clientValidation = ClientValidation.INLINE;
+
+    // Force use of ALERT validation (instead of INLINE) if using
+    // screen reader mode
+    if ((clientValidation == ClientValidation.INLINE) &&
+        (getAccessibilityMode() == RequestContext.Accessibility.SCREEN_READER))
+      clientValidation = ClientValidation.ALERT;
 
     return clientValidation;
   }
