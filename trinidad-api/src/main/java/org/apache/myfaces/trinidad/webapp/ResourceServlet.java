@@ -136,13 +136,26 @@ public class ResourceServlet extends HttpServlet
     ServletResponse response
     ) throws ServletException, IOException
   {
-    Configurator.disableConfiguratorServices(request);
+    boolean hasFacesContext = false;
+    FacesContext context = FacesContext.getCurrentInstance();
+    // If we happen to invoke the ResourceServlet *via* the
+    // FacesServlet, you get a lot of fun from the recursive
+    // attempt to create a FacesContext.  Developers should not
+    // do this, but it's easy to check
+    if (context != null)
+    {
+      hasFacesContext = true;
+    }
+    else
+    {
+      Configurator.disableConfiguratorServices(request);
     
-    //=-= Scott O'Bryan =-=
-    // Be careful.  This can be wrapped by other things even though it's meant to be a
-    // Trinidad only resource call.
-    FacesContext context = _facesContextFactory.getFacesContext(getServletContext(), request, response, _lifecycle);
-    
+      //=-= Scott O'Bryan =-=
+      // Be careful.  This can be wrapped by other things even though it's meant to be a
+      // Trinidad only resource call.
+      context = _facesContextFactory.getFacesContext(getServletContext(), request, response, _lifecycle);
+    }
+
     try
     {
       super.service(request, response);
@@ -160,7 +173,8 @@ public class ResourceServlet extends HttpServlet
     }
     finally
     {
-      context.release();
+      if (!hasFacesContext)
+        context.release();
     }
   }
 
