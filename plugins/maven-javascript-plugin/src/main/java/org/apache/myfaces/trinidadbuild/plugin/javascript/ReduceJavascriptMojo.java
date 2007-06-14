@@ -68,15 +68,7 @@ public class ReduceJavascriptMojo extends AbstractMojo
         File sourceDirectory = new File(sourceRoot, sourcePath);
         if (sourceDirectory.exists())
         {
-          Collection jsFiles = FileUtils.listFiles(sourceDirectory,
-                                                   new String[]{"js"},
-                                                   false);
-          for (Iterator iter = jsFiles.iterator(); iter.hasNext();)
-          {
-            File jsFile = (File)iter.next();
-            // TODO: incremental check
-            FileUtils.copyFileToDirectory(jsFile, outputDirectory);
-          }
+          _copyJavascript(sourceDirectory, outputDirectory);
         }
       }
     }
@@ -109,6 +101,29 @@ public class ReduceJavascriptMojo extends AbstractMojo
     catch (IOException e)
     {
       throw new MojoExecutionException("Error compiling Javascript files", e);
+    }
+  }
+
+  static private void _copyJavascript(File sourceDir, File targetDir)
+    throws IOException
+  {
+    File[] sourceFiles = sourceDir.listFiles();
+    if (sourceFiles != null)
+    {
+      for (File sourceFile : sourceFiles)
+      {
+        if (sourceFile.isDirectory())
+        {
+          File targetSubdir = new File(targetDir, sourceFile.getName());
+          if (!targetSubdir.exists())
+            targetSubdir.mkdir();
+          _copyJavascript(sourceFile, targetSubdir);
+        }
+        else if (sourceFile.getName().endsWith(".js"))
+        {
+          FileUtils.copyFileToDirectory(sourceFile, targetDir);
+        }
+      }
     }
   }
 

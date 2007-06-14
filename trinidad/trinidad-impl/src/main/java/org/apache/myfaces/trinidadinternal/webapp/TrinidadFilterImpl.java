@@ -43,8 +43,10 @@ import org.apache.myfaces.trinidadinternal.config.dispatch.DispatchResponseConfi
 import org.apache.myfaces.trinidadinternal.config.dispatch.DispatchServletResponse;
 import org.apache.myfaces.trinidadinternal.config.upload.FileUploadConfiguratorImpl;
 import org.apache.myfaces.trinidadinternal.config.upload.UploadRequestWrapper;
+import org.apache.myfaces.trinidadinternal.config.xmlHttp.XmlHttpConfigurator;
 import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
 import org.apache.myfaces.trinidadinternal.context.external.ServletExternalContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 
 /**
  * Actual implementation of the Trinidad servlet filter.
@@ -126,16 +128,50 @@ public class TrinidadFilterImpl implements Filter
     Map<String, String[]> addedParams = (Map<String, String[]>) externalContext.getRequestMap().
       get(FileUploadConfiguratorImpl._PARAMS);
     
+    boolean isPartialRequest;
     if(addedParams != null)
     {
       FileUploadConfiguratorImpl.apply(externalContext);
       request = new UploadRequestWrapper((HttpServletRequest)request, addedParams);
+      isPartialRequest = CoreRenderKit.isPartialRequest(addedParams);
     }
-    
+    else
+    {
+      isPartialRequest = CoreRenderKit.isPartialRequest(externalContext);
+    }
+
+    if (isPartialRequest)
+      response = XmlHttpConfigurator.getWrappedServletResponse(response);
+
     try
     {
       
       _doFilterImpl(request, response, chain);
+    }
+    catch (Throwable t)
+    {
+      if (isPartialRequest)
+      {
+        XmlHttpConfigurator.handleError(externalContext, t);
+      }
+      else
+      {
+        // For non-partial requests, just re-throw.  It is not
+        // our responsibility to catch these
+        if (t instanceof RuntimeException)
+          throw ((RuntimeException) t);
+        if (t instanceof Error)
+          throw ((Error) t);
+        if (t instanceof IOException)
+          throw ((IOException) t);
+        if (t instanceof ServletException)
+          throw ((ServletException) t);
+
+        // Should always be one of those four types to have
+        // gotten here.
+        _LOG.severe(t);
+      }
+
     }
     finally
     {
@@ -151,14 +187,8 @@ public class TrinidadFilterImpl implements Filter
     FilterChain     chain) throws IOException, ServletException
   {
     // -= Scott O'Bryan =-
-    // This is used for PPR.  Not needed in Portal Environment at the moment
-    // At some point we may want to make this a configurator
-    HttpServletResponse monitor
-      = new MonitorRedirectServletResponse((HttpServletResponse) response, request);
-    
-    // -= Scott O'Bryan =-
     // Added for backward compatibility
-    ExternalContext ec = new ServletExternalContext(_servletContext, request, monitor);
+    ExternalContext ec = new ServletExternalContext(_servletContext, request, response);
     HttpServletResponse dispatch = new DispatchServletResponse(ec);
     DispatchResponseConfiguratorImpl.apply(ec);
 
@@ -187,7 +217,7 @@ public class TrinidadFilterImpl implements Filter
       request.setAttribute(_IS_RETURNING_KEY, Boolean.TRUE);
       request = new ReplaceParametersRequestWrapper(
                (HttpServletRequest) request, launchParameters);
-      _invokeDoFilter(request, monitor, chain);
+      _invokeDoFilter(request, dispatch, chain);
       request.removeAttribute(_IS_RETURNING_KEY);
     }
   }
@@ -213,42 +243,6 @@ public class TrinidadFilterImpl implements Filter
     }
   }
 
-  /**
-   * A ServletResponseWrapper that will catch partial page redirects
-   * and handle them correctly.
-   */
-  @SuppressWarnings("deprecation")
-  static private class MonitorRedirectServletResponse
-             extends HttpServletResponseWrapper
-  {
-    public MonitorRedirectServletResponse(HttpServletResponse response,
-                                          ServletRequest request)
-    {
-      super(response);
-      _request = request;
-    }
-
-    @Override
-    public void sendRedirect(String location)
-      throws IOException
-    {
-      // We're only interested in redirects from partial events
-      Object partial = _request.getParameter("partial");
-      if ((partial != null) && ("true".equals(partial)))
-      {
-        ServletOutputStream out = getOutputStream();
-        // set up to take the script
-        setContentType("text/html");
-        // send down a redirect script to the IFrame
-        out.print(_IFRAME_REDIRECT_START + location + _IFRAME_REDIRECT_FINISH);
-        // done
-        out.flush();
-      }
-      else
-        super.sendRedirect(location);
-    }
-    private ServletRequest _request;
-  }
 
   private static final class FilterListChain implements FilterChain
   {
@@ -292,12 +286,6 @@ public class TrinidadFilterImpl implements Filter
     "org.apache.myfaces.trinidadinternal.webapp.AdfacesFilterImpl.IS_RETURNING";
   private static final String _FILTER_EXECUTED_KEY =
     "org.apache.myfaces.trinidadinternal.webapp.AdfacesFilterImpl.EXECUTED";
-
-  // two parts of a script that will redirect the main page from the IFrame.
-  private static final String _IFRAME_REDIRECT_START
-    = "<html><script>if(parent._pprUpdateMode)parent.location.href='";
-  private static final String _IFRAME_REDIRECT_FINISH
-    = "';</script></html>";
 
   private static ThreadLocal<PseudoFacesContext> _PSEUDO_FACES_CONTEXT = 
     new ThreadLocal<PseudoFacesContext>()

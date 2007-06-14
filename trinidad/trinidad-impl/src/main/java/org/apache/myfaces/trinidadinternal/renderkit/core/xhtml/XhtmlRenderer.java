@@ -833,33 +833,8 @@ public class XhtmlRenderer extends CoreRenderer
     // inside the body content - and writing content to the
     // ScriptBufferingResponseWriter.  Otherwise, we run into bug
     // 2466017.
-    if (getRenderingProperty(arc, _DEFER_SCRIPTS_KEY) != null)
+    if (false)
       context.getResponseWriter().writeAttribute("defer", Boolean.TRUE, null);
-  }
-
-  public static void enableScriptDeferring(RenderingContext arc, boolean isEnabled)
-  {
-    // This property is used to control whether or not scripts should
-    // be deferred.  We only defer scripts if we are rendering a
-    // partial page response (or full page response in response to
-    // a partial page request).  We could just check for a PartialPageContext,
-    // but we actually need to know whether or not we are currently buffering
-    // scripts.  We don't want to defer scripts which are rendered before
-    // the ScriptBufferingResponseWriter kicks in - such as Core.js -
-    // since IE has problems with deferred scripts.  This property is
-    // enabled by PanelPartialRootRenderer when rendering the contents
-    // of the body.
-    Map<Object, Object> props = arc.getProperties();
-    if (isEnabled)
-    {
-      // Turn script deferring on
-      props.put(XhtmlRenderer._DEFER_SCRIPTS_KEY, Boolean.TRUE);
-    }
-    else
-    {
-      // Turn script deferring off
-      props.remove(XhtmlRenderer._DEFER_SCRIPTS_KEY);
-    }
   }
 
   /**
@@ -1011,9 +986,6 @@ public class XhtmlRenderer extends CoreRenderer
   // This MUST REMAIN THE SAME VALUE as
   //                 XhtmlLafRenderer.__TRANSPARENT_URL_KEY = "_t.gif";
   private static final String _TRANSPARENT_FUNCTION_WRITTEN_KEY = "_t.gif";
-
-  // =-=AEW THIS MUST BE THE SAME AS THE VALUE IN XhtmlLafRenderer!!!
-  private static final String _DEFER_SCRIPTS_KEY = "_defer";
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(XhtmlRenderer.class);
 }

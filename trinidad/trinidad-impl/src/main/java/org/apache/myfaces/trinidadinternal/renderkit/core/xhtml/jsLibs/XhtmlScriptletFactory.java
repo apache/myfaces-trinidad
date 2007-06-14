@@ -44,9 +44,9 @@ public class XhtmlScriptletFactory
   static final String POLL_LIB                     = "Poll";
 
 
-  static public Scriptlet getMarlinCoreScriptlet()
+  static public Scriptlet getCoreScriptlet()
   {
-    return _sMarlinCoreScriptlet;
+    return _sCoreScriptlet;
   }
 
   static synchronized public void registerAllScriptlets()
@@ -59,8 +59,8 @@ public class XhtmlScriptletFactory
     _sAlreadyRegistered = true;
     AliasedScriptlet.registerAliases();
     _sLocaleScriptlet.registerSelf();
-    _sMarlinCoreScriptlet.registerSelf();
-    _sMarlinCoreScriptlet.registerSelfWithKey(COOKIES_LIB);
+    _sCoreScriptlet.registerSelf();
+    _sCoreScriptlet.registerSelfWithKey(COOKIES_LIB);
     _sDateFormatScriptlet.registerSelf();
     _sCoreFormatScriptlet.registerSelf();
     _sCharSetsScriptlet.registerSelf();
@@ -86,7 +86,7 @@ public class XhtmlScriptletFactory
   }
 
   static private Scriptlet _sLocaleScriptlet;
-  static private Scriptlet _sMarlinCoreScriptlet;
+  static private Scriptlet _sCoreScriptlet;
   static private Scriptlet _sDateFormatScriptlet;
   static private Scriptlet _sCoreFormatScriptlet;
   static private Scriptlet _sCharSetsScriptlet;
@@ -122,7 +122,7 @@ public class XhtmlScriptletFactory
 
     //    new LocaleInfoScriptlet();
     //new DateFormatInfoScriptlet();
-    _sMarlinCoreScriptlet =
+    _sCoreScriptlet =
       new AliasedScriptlet(CORE_LIB,
                            new String[]
                            {
@@ -143,7 +143,7 @@ public class XhtmlScriptletFactory
                              GlobalVariablesScriptlet.GLOBAL_VARIABLES_KEY
                            })
       {
-        // =-=AEW  The MarlinCore library needs to be rendered even
+        // =-=AEW  The Core library needs to be rendered even
         // when it's outside of a partial page request, since the
         // partial page library itself needs it.
         @Override

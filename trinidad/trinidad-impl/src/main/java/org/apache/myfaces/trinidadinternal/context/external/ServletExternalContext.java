@@ -85,8 +85,12 @@ public class ServletExternalContext extends ExternalContext
       // 2.3
       try
       {
-        if (_setCharacterEncodingMethod != null)
+        if (_setCharacterEncodingMethod != null &&
+            !Boolean.TRUE.equals(_httpServletRequest.getAttribute(_CHAR_ENCODING_CALLED)))
         {
+          // Only invoke this once, no matter how many times we create
+          // the ServletExternalContext
+          _httpServletRequest.setAttribute(_CHAR_ENCODING_CALLED, Boolean.TRUE);
           final String contentType = _httpServletRequest.getHeader("Content-Type");
 
           String characterEncoding = _lookupCharacterEncoding(contentType);
@@ -612,6 +616,8 @@ public class ServletExternalContext extends ExternalContext
   private Map<String, Object>         _sessionMap;
   private static final String         _INIT_PARAMETER_MAP_ATTRIBUTE = ServletInitParameterMap.class
                                                                        .getName();
+  private static final String         _CHAR_ENCODING_CALLED = 
+    ServletExternalContext.class.getName() + ".CHAR_ENCODING_CALLED";
   private static final TrinidadLogger _LOG                          = TrinidadLogger
                                                                        .createTrinidadLogger(ServletExternalContext.class);
   private static Method               _setCharacterEncodingMethod   = null;

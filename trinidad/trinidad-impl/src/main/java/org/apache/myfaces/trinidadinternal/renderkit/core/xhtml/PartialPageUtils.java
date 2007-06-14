@@ -61,10 +61,7 @@ public final class PartialPageUtils
   @SuppressWarnings("unchecked")
   public static void forcePartialRendering(FacesContext context)
   {
-    Map<String, Object> requestMap = 
-      context.getExternalContext().getRequestMap();
-    
-    requestMap.put(RequestContextImpl.FORCED_PARTIAL_KEY, Boolean.TRUE);
+    // FIXME: unused
   }
 
   public static PartialPageContext createPartialPageContext(

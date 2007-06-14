@@ -1,6 +1,0 @@
-<test xmlns="http://myfaces.apache.org/trinidad/test"
-       xmlns:tr="http://myfaces.apache.org/trinidad">
-  <base-component tr:type="org.apache.myfaces.trinidad.CorePanelPartialRoot"/>
-  <!-- This will not have any visible effect -->
-  <!-- boolean-test name="blockOnEverySubmit" matchesBase="true"/ -->
-</test>

@@ -197,15 +197,7 @@ public class RequestContextImpl extends RequestContext
   @Override
   public boolean isPartialRequest(FacesContext context)
   {
-    Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
-    if (Boolean.TRUE.equals(requestMap.get(FORCED_PARTIAL_KEY)))
-      return true;
-    
-    Map<String, Object> parameters = context.getExternalContext().getRequestParameterMap();
-    if ("true".equals(parameters.get(XhtmlConstants.PARTIAL_PARAM)))
-      return true;
-
-    return false;
+    return CoreRenderKit.isPartialRequest(context.getExternalContext());
   }
 
 
@@ -813,9 +805,6 @@ public class RequestContextImpl extends RequestContext
     "org.apache.myfaces.trinidadinternal.ChangeManager";
   static private final String _CHANGE_PERSISTENCE_INIT_PARAM =
     "org.apache.myfaces.trinidad.CHANGE_PERSISTENCE";
-
-  static public final String FORCED_PARTIAL_KEY =
-    "org.apache.myfaces.trinidadinternal.ForcedPartialRequest";
 
   // A mapping from string names (as used in the config file)
   // to accessibility objects

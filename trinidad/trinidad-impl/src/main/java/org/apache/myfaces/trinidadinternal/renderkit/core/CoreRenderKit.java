@@ -42,6 +42,7 @@ import javax.faces.component.UISelectBoolean;
 import javax.faces.component.UISelectMany;
 import javax.faces.component.UISelectOne;
 import javax.faces.component.UIViewRoot;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseStream;
 import javax.faces.context.ResponseWriter;
@@ -71,6 +72,7 @@ import org.apache.myfaces.trinidadinternal.io.HtmlResponseWriter;
 import org.apache.myfaces.trinidadinternal.io.IndentingResponseWriter;
 import org.apache.myfaces.trinidadinternal.io.XhtmlResponseWriter;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderKitBase;
+import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PPRResponseWriter;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContextImpl;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
@@ -145,6 +147,20 @@ public class CoreRenderKit extends RenderKitBase
     return "org.apache.myfaces.trinidad.core.desktop";
   }
 
+  static public boolean isPartialRequest(Map<String, String[]> parameters)
+  {
+    String[] array = parameters.get(_PPR_REQUEST_HEADER);
+    if ((array == null) || (array.length != 1))
+      return false;
+    return "true".equals(array[0]);
+  }
+
+  static public boolean isPartialRequest(ExternalContext ec)
+  {
+    return "true".equals(ec.getRequestHeaderMap().get(_PPR_REQUEST_HEADER)) ||
+           "true".equals(ec.getRequestParameterMap().get(_PPR_REQUEST_HEADER));    
+  }
+  
   public CoreRenderKit()
   {
     _addBasicHTMLRenderKit();
@@ -288,10 +304,10 @@ public class CoreRenderKit extends RenderKitBase
   public boolean shortCircuitRenderView(
     FacesContext context) throws IOException
   {
-    if (PartialPageUtils.isPartialRequest(context))
+    ExternalContext ec = context.getExternalContext();
+    if (isPartialRequest(ec))
     {
-      Map<String, Object> requestMap = 
-        context.getExternalContext().getRequestMap();
+      Map<String, Object> requestMap = ec.getRequestMap();
 
       UIViewRoot originalRoot = (UIViewRoot) requestMap.get(
                          TrinidadPhaseListener.INITIAL_VIEW_ROOT_KEY);
@@ -303,7 +319,7 @@ public class CoreRenderKit extends RenderKitBase
 
         String viewId = context.getViewRoot().getViewId();
         String redirect = vh.getActionURL(context, viewId);
-        context.getExternalContext().redirect(redirect);
+        ec.redirect(redirect);
         if (_LOG.isFine())
         {
           _LOG.fine("Page navigation to {0} happened during a PPR request " +
@@ -417,7 +433,7 @@ public class CoreRenderKit extends RenderKitBase
    */
   public void encodeBegin(FacesContext context)
   {
-    /*CoreAdfRenderingContext arc = */new CoreRenderingContext();
+    /*CoreRenderingContext arc = */new CoreRenderingContext();
     // If there's any prior state, make sure our current "add" doesn't drop it
     DialogServiceImpl.pinPriorState(context);
   }
@@ -534,7 +550,20 @@ public class CoreRenderKit extends RenderKitBase
         assert _HTML_MIME_TYPE.equals(contentType);
         rw = new HtmlResponseWriter(writer, characterEncoding);
       }
-
+      
+      RenderingContext rc = RenderingContext.getCurrentInstance();
+      if (rc == null)
+      {
+        // TODO: is this always indicative of something being very wrong?
+        _LOG.severe("No RenderingContext has been created.");
+      }
+      else
+      {
+        PartialPageContext ppc = rc.getPartialPageContext();
+        if (ppc != null)
+          rw = new PPRResponseWriter(rw, rc);
+      }
+      
       return _addDebugResponseWriters(rw);
     }
     catch (IOException ioe)
@@ -761,6 +790,8 @@ public class CoreRenderKit extends RenderKitBase
     "org.apache.myfaces.trinidadinternal.renderkit.DialogList";
   static private final String _SCRIPT_LIST_KEY =
     "org.apache.myfaces.trinidadinternal.renderkit.ScriptList";
+  static private final String _PPR_REQUEST_HEADER = "Tr-XHR-Message";
+
 
   static private final TrinidadLogger _LOG =
      TrinidadLogger.createTrinidadLogger(CoreRenderKit.class);

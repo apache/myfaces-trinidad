@@ -203,21 +203,8 @@ public class FormRenderer extends XhtmlRenderer
   {
     ResponseWriter writer = context.getResponseWriter();
 
-    //VAC isPIE variable added for bug 4526850
-    boolean isPIE = Agent.PLATFORM_PPC.equalsIgnoreCase(
-                        arc.getAgent().getPlatformName());
-
     String formName = arc.getFormData().getName();
     PartialPageContext pprContext = arc.getPartialPageContext();
-    // Downcast to pprContext to have access to push and pop
-    // TODO: Create the span with a bogus component where
-    // getClientId() returns the postscriptId;  this avoids
-    // the need for push and pop calls - you just need to
-    // call addPartialTarget().  Or, come up with a better
-    // PPR api to make it simpler
-    PartialPageContextImpl pprImpl = (PartialPageContextImpl) pprContext;
-
-    boolean isXMLDOM = supportsXMLDOM(arc);
 
     // Write out the hidden form field that identifies which
     // form is the one being submitted
@@ -229,15 +216,12 @@ public class FormRenderer extends XhtmlRenderer
 
     // Check to see if this is a partial page render.  If so, we need
     // to push the ID of the postscript onto the partial target stack
-    String postscriptId = _getPostscriptId(arc, formName);
-    if (pprImpl != null)
+    final String postscriptId = _getPostscriptId(arc, formName);
+    if (pprContext != null)
     {
-      _startPartialPostscriptRender(pprImpl, postscriptId);
-      if (isXMLDOM)
+      if (!pprContext.isInsidePartialTarget())
       {
-        writer.startElement("ppr",null);
-        writer.writeAttribute("target_id", postscriptId,null);
-        writer.write("<![CDATA[");
+        pprContext.addPartialTarget(postscriptId);
       }
     }
 
@@ -248,7 +232,13 @@ public class FormRenderer extends XhtmlRenderer
       // Note: it is essential that we call context.getResponseWriter()
       // *after* calling _startPartialPostscriptRender().  Otherwise,
       // we'll end up writing to the null output method.
-      writer.startElement("span", null);
+      writer.startElement("span", new CoreForm()
+      {
+        public String getClientId(FacesContext context)
+        {
+          return postscriptId;
+        }
+      });
       writer.writeAttribute("id", postscriptId, null);
     }
 
@@ -280,7 +270,7 @@ public class FormRenderer extends XhtmlRenderer
     //state token and form name parameters are overwritten when there is
     //a partial page submission.
     // (also include blackberry browser in this condition)
-    if (isPDA(arc) && pprImpl == null)
+    if (isPDA(arc) && pprContext == null)
     {
       //Add hidden elements in the form for enabling PPR on IE Mobile.
 
@@ -295,10 +285,13 @@ public class FormRenderer extends XhtmlRenderer
         FormData formData = arc.getFormData();
         if(formData != null)
         {
-          // =-=AdamWiner: this isn't really correct - these
+          boolean isPIE = Agent.PLATFORM_PPC.equalsIgnoreCase(
+                       arc.getAgent().getPlatformName());
+
+          // =-=AdamWiner: this isn't correct - these
           // parameters should be added by the components that need
           // them, not globally by the form control
-          if(isPIE)
+          if (isPIE)
           {
             formData.addNeededValue(XhtmlConstants.SOURCE_PARAM);
             formData.addNeededValue(XhtmlConstants.EVENT_PARAM);
@@ -314,17 +307,6 @@ public class FormRenderer extends XhtmlRenderer
       }
 
       _renderNeededValues(context, arc);
-    }
-
-    // Pop the partial target stack if this is a partial page render
-    if (pprImpl != null)
-    {
-      if (isXMLDOM)
-      {
-        writer.write("]]>");
-        writer.endElement("ppr");
-      }
-      _endPartialPostscriptRender(pprImpl, postscriptId);
     }
 
     // Render submitFormCheck js function --
@@ -917,30 +899,6 @@ public class FormRenderer extends XhtmlRenderer
       return "_" + formName + "_Postscript";
 
     return null;
-  }
-
-  // Starts rendering the postscript partial target
-  private static void _startPartialPostscriptRender(
-    PartialPageContextImpl pprContext,
-    String             postscriptId
-    )
-  {
-    // Notify the PartialPageContext that we are about to
-    // start rendering our postscript target
-    pprContext.pushRenderedPartialTarget(postscriptId);
-    pprContext.addRenderedPartialTarget(postscriptId);
-  }
-
-  // Ends rendering the postscript partial target
-  private static void _endPartialPostscriptRender(
-    PartialPageContextImpl pprContext,
-    String             postscriptId
-    )
-  {
-    // Pop the PartialPageContext targets stack when we are
-    // done rendering the postscript
-    if (pprContext.isPartialTarget(postscriptId))
-      pprContext.popRenderedPartialTarget();
   }
 
   protected String getDefaultCommand(FacesBean bean)
