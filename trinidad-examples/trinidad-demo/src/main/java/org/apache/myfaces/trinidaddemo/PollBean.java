@@ -24,7 +24,7 @@ import org.apache.myfaces.trinidad.event.PollEvent;
 /**
  * Bean for poll component demos.
  *
- * @version $Name:  $ ($Revision$) $Date$
+ * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-demo/src/main/java/oracle/adfdemo/view/faces/PollBean.java#1 $) $Date: 16-aug-2005.15:12:28 $
  */
 
 public class PollBean implements java.io.Serializable

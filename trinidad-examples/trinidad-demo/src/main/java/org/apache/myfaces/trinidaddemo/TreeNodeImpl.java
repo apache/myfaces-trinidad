@@ -27,8 +27,7 @@ import java.util.List;
  * A basic implementation of TreeNode that exposes the extra magic
  * keys that will be requested by the tree renderer.
  * <p>
- * @version $Name:  $ ($Revision$) $Date$
- * @author Adam Winer
+ * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-demo/src/main/java/oracle/adfdemo/view/faces/TreeNodeImpl.java#1 $) $Date: 16-aug-2005.15:12:29 $
  */
 public class TreeNodeImpl implements Serializable
 {

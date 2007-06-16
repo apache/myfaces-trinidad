@@ -52,7 +52,6 @@ import org.apache.myfaces.trinidad.component.core.input.CoreInputText;
  *   since the transfer wouldn't happen 'til Update Model, which is
  *   too late to preserve the semantics of an editable value component in JSF.
  * </ul>
- * @author Adam Winer
  */
 public class DateFieldAsRenderer extends Renderer
 {

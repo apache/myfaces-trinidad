@@ -34,7 +34,7 @@ import org.apache.myfaces.trinidad.model.DefaultBoundedRangeModel;
 /**
  * Bean for progress steps demos.
  *
- * @version $Name:  $ ($Revision$) $Date$
+ * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-demo/src/main/java/oracle/adfdemo/view/faces/ProgressStepsBean.java#1 $) $Date: 16-aug-2005.15:12:28 $
  */
 public class ProgressStepsBean extends ProgressBean 
 {

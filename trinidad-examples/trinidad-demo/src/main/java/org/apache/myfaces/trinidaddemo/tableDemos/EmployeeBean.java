@@ -21,7 +21,6 @@ package org.apache.myfaces.trinidaddemo.tableDemos;
 import java.io.Serializable;
 
 /**
- * @author asghosh
  */
 public class EmployeeBean implements Serializable
 {

@@ -335,7 +335,7 @@ public final class AccountData implements java.io.Serializable
   private void _initializeFromProperties()
   {
     String home = System.getProperty("user.home");
-    File file = new File(home, "adf-email-demo.properties");
+    File file = new File(home, "trinidad-email-demo.properties");
     _LOG.log(Level.FINE, "Loading properties from {0}", file);
     try
     {

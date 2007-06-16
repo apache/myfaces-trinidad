@@ -19,13 +19,13 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>trinidad-example-assembly</artifactId>
   <packaging>pom</packaging>
-  <name>Apache Trinidad Example Assembly</name>
+  <name>Apache MyFaces Trinidad Example Assembly</name>
   <description>This is the Apache MyFaces Trinidad Example Assembly</description>
 
   <parent>
     <groupId>org.apache.myfaces.trinidad</groupId>
     <artifactId>trinidad-example</artifactId>
-    <version>1.0.0-incubating</version>
+    <version>1.0.1-SNAPSHOT</version>
   </parent>
 
   <build>

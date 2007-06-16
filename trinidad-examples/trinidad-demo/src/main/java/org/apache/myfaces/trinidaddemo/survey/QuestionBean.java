@@ -19,7 +19,6 @@
 package org.apache.myfaces.trinidaddemo.survey;
 
 /**
- * @author Simon Lessard, Fujitsu Consulting
  */
 public interface QuestionBean
 {
