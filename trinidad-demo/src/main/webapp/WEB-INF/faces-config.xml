@@ -2676,6 +2676,13 @@
     <managed-bean-scope>request</managed-bean-scope>  
   </managed-bean>
 
+  <managed-bean>
+    <managed-bean-name>csv</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.tableDemos.CSVBean</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>  
+  </managed-bean>
+
+
   <!-- Navigation rules for all cases -->
   <navigation-rule>
       <from-view-id>/email/*</from-view-id>

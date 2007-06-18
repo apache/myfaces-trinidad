@@ -183,6 +183,44 @@ to &amp;lt;tr:forEach&amp;gt;
       </attribute>
    </tag>
 
+
+   <tag>
+      <name>fileDownloadActionListener</name>
+      <tag-class>org.apache.myfaces.trinidadinternal.taglib.listener.FileDownloadActionListenerTag</tag-class>
+      <body-content>empty</body-content>
+      <description>
+        The fileDownloadActionListener tag provides a declarative syntax for downloading files to a user from a command component.
+      </description>
+
+      <attribute>
+        <name>contentType</name>
+        <required>false</required>
+        <rtexprvalue>false</rtexprvalue>
+        <description>
+          the content or mime type of the file - e.g., text/html or application/pdf
+        </description>
+      </attribute>
+
+      <attribute>
+        <name>filename</name>
+        <required>false</required>
+        <rtexprvalue>false</rtexprvalue>
+        <description>
+          the desired or proposed filename.  If set, the user will typically be presented with a "Save File" dialog, though this is ultimately at the descretion of the user agent.
+        </description>
+      </attribute>
+
+      <attribute>
+        <name>method</name>
+        <required>true</required>
+        <rtexprvalue>false</rtexprvalue>
+        <description>
+          an EL binding to the method that will deliver the file contents.  The method must take two parameters, a FacesContext and an OutputStream.
+        </description>
+      </attribute>
+   </tag>
+
+
    <tag>
       <name>returnActionListener</name>
       <tag-class>org.apache.myfaces.trinidadinternal.taglib.listener.ReturnActionListenerTag</tag-class>

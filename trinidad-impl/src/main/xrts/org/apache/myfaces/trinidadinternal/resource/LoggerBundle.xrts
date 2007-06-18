@@ -1008,6 +1008,14 @@
  
  <!-- ENCODING_UNSUPPORTED_BY_JVM -->
  <resource key="ENCODING_UNSUPPORTED_BY_JVM">Encoding: {0} is unsupported by JVM</resource>
+
+ <!-- FILE_DOWNLOAD_LISTENER_REQUIRES_SERVLET -->
+ <resource key="FILE_DOWNLOAD_LISTENER_REQUIRES_SERVLET">The fileDownloadActionListener only supports the Servlet API.</resource>
  
+ <!-- FILEDOWNLOADACTIONLISTENER_MUST_INSIDE_UICOMPONENT_TAG -->
+ <resource key="FILEDOWNLOADACTIONLISTENER_MUST_INSIDE_UICOMPONENT_TAG">fileDownloadActionListener must be inside of a UIComponent tag for a "command" component.</resource>
+ 
+ <!-- FILEDOWNLOADACTIONLISTENERS_METHOD_MUST_BE_EL_EXPRESSION -->
+ <resource key="FILEDOWNLOADACTIONLISTENERS_METHOD_MUST_BE_EL_EXPRESSION">fileDownloadActionListener's 'method' attribute must be an EL expression.</resource>
 
 </resources>

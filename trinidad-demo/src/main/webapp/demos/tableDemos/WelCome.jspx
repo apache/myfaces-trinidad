@@ -25,7 +25,7 @@
   xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <tr:document title="Welcome to AddRow and TotalRow demos">
+    <tr:document title="Table Feature Demos">
       <tr:form >
         <tr:panelPage>
           <f:facet name="navigationGlobal">
@@ -51,6 +51,12 @@
                 a particular column in your table."/>
               <tr:commandButton id="TotalRowButton" text="go to TotalRow Demo" 
                 action="totalRow"/>
+            </tr:panelHeader>
+            <tr:panelHeader text="Export to CSV Demo">
+              <tr:outputFormatted styleUsage="instruction" 
+                value="This demo shows you how to export the contents of
+a table as CSV."/>
+              <tr:goButton text="Go to CSV Demo" destination="/demos/tableDemos/exportAsCSV.jspx"/>
             </tr:panelHeader>
           </tr:panelGroupLayout>
         </tr:panelPage>
