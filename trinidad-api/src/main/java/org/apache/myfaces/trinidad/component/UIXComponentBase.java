@@ -299,7 +299,11 @@ abstract public class UIXComponentBase extends UIXComponent
     // =-=AEW Currently, setId() assumes that resetting to
     // the same value *is not* short-circuited.
     _validateId(id);
-    setProperty(_GENERATED_ID_KEY, null);
+    // If we're setting the ID to null, don't discard
+    // the _GENERATED_ID
+    if (id != null)
+      setProperty(_GENERATED_ID_KEY, null);
+
     setProperty(ID_KEY, id);
   }
 
