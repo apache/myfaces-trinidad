@@ -3546,6 +3546,43 @@ panelTip.</td>
           </tr>
         </table>
       </subsection>
+
+      <subsection name="tr:statusIndicator Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|statusIndicator</td>
+            <td>Styles the status indicator as a whole.</td>
+          </tr>
+          <tr>
+            <th colspan="2">
+              <i>Icon Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|statusIndicator::busy-icon</td>
+            <td>The icon that is displayed when the page is busy.</td>
+          </tr>
+          <tr>
+            <td>af|statusIndicator::ready-icon</td>
+            <td>The icon that is displayed when the page is not busy.</td>
+          </tr>
+        </table>
+      </subsection>
+
+
       <subsection name="tr:tableSelectMany Component">
         <table>
           <tr>

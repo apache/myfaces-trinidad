@@ -3013,6 +3013,8 @@
     <includeStyle name="AFDatePickerContentLink"/>
   </style>
 
+  <style selector="af|statusIndicator"/>
+
   <!-- 
     Private ContentFooter Styles:  Not sure whether any of these
     styles need to be exposed, but if so, they need to be renamed

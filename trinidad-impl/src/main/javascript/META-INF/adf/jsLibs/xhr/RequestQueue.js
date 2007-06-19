@@ -547,8 +547,7 @@ TrRequestQueue.prototype._handleIFrameLoad = function()
   catch(e)
   {
     TrRequestQueue._alertError();
-    TrRequestQueue._logError("Error (" + e.message + 
-                                ") while performing request");
+    TrRequestQueue._logError("Error while performing request", e);
 
     this._htmlForm.action = this._savedActionUrl;
     this._htmlForm.target = this._savedTarget;
@@ -750,21 +749,14 @@ TrRequestQueue.prototype._broadcastStateChangeEvent = function(state)
         i++;
         var currInstance = stateChangeListeners[i];
         
-        var result;
-        
         if (currInstance != null)
-          result = currListener.call(currInstance, state);
+          currListener.call(currInstance, state);
         else
-          result = currListener(state);
-
-        if(false == result)
-        {
-          break; // break out if a listener wants to prevent bubbling
-        }
+          currListener(state);
       }
       catch (e)
       {
-        TrRequestQueue._logError("Error on DTS State Change Listener");
+        TrRequestQueue._logError("Error on DTS State Change Listener", e);
       }
     }
   }

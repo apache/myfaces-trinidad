@@ -1147,6 +1147,21 @@ public final class SkinSelectors
    
    //                                                                         //
    //                                                                         //
+   // ============== ===== tr:statusIndicator =============================== //
+   //                                                                         //
+   //                                                                         //
+   public static final String AF_STATUS_INDICATOR_STYLE =
+     "af|statusIndicator";
+
+   // ================================ Icons ================================ //
+   public static final String AF_STATUS_INDICATOR_BUSY_ICON =
+     "af|statusIndicator::busy-icon";
+   public static final String AF_STATUS_INDICATOR_READY_ICON =
+     "af|statusIndicator::ready-icon";
+
+
+   //                                                                         //
+   //                                                                         //
    // ============================== tr:table =============================== //
    //                                                                         //
    //                                                                         //

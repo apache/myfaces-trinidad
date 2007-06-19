@@ -71,6 +71,7 @@ public class CoreCommonScriptsResourceLoader extends AggregatingResourceLoader
     "META-INF/adf/jsLibs/Shuttle.js",
 
     "META-INF/adf/jsLibs/Page.js",
+    "META-INF/adf/jsLibs/StatusIndicator.js",
     // XMMLHttp libraries
     "META-INF/adf/jsLibs/xhr/RequestQueue.js",
     "META-INF/adf/jsLibs/xhr/XMLRequest.js",
@@ -98,6 +99,7 @@ public class CoreCommonScriptsResourceLoader extends AggregatingResourceLoader
     "META-INF/adf/jsLibsDebug/Shuttle.js",
 
     "META-INF/adf/jsLibsDebug/Page.js",
+    "META-INF/adf/jsLibsDebug/StatusIndicator.js",
     // XMMLHttp libraries
     "META-INF/adf/jsLibsDebug/xhr/RequestQueue.js",
     "META-INF/adf/jsLibsDebug/xhr/XMLRequest.js",

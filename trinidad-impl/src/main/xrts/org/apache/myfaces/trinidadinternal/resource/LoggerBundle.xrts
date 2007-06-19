@@ -1018,4 +1018,7 @@
  <!-- FILEDOWNLOADACTIONLISTENERS_METHOD_MUST_BE_EL_EXPRESSION -->
  <resource key="FILEDOWNLOADACTIONLISTENERS_METHOD_MUST_BE_EL_EXPRESSION">fileDownloadActionListener's 'method' attribute must be an EL expression.</resource>
 
+<!-- STATUS_INDICATOR_MISSING_ICONS -->
+<resource key="STATUS_INDICATOR_MISSING_ICONS">The statusIndicator component requires both a 'ready' and 'busy' icon;  one is missing.</resource>
+
 </resources>

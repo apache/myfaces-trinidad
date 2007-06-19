@@ -356,5 +356,16 @@ public class XhtmlSkin extends BaseSkin
     SkinSelectors.AF_SELECT_INPUT_DATE_NEXT_DISABLED_ICON_NAME,
     new TextIcon(">"),
 
+    // StatusIndicator Icons
+    SkinSelectors.AF_STATUS_INDICATOR_BUSY_ICON,
+      new ContextImageIcon("adf/images/sibusy.gif",
+                          "adf/images/sibusy.gif",
+                          16,
+                          16),
+    SkinSelectors.AF_STATUS_INDICATOR_READY_ICON,
+      new ContextImageIcon("adf/images/siready.gif",
+                          "adf/images/siready.gif",
+                          16,
+                          16),
   };
 }
