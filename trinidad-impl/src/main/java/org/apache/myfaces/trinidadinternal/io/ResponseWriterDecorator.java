@@ -179,5 +179,11 @@ abstract public class ResponseWriterDecorator extends ResponseWriter
     return getResponseWriter().cloneWithWriter(writer);
   }
 
+  public String toString()
+  {
+    return super.toString() + "[" + _decorated.toString() + "]";
+    
+  }
+
   private final ResponseWriter _decorated;
 }
