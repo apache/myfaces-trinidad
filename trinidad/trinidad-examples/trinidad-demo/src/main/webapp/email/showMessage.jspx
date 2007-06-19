@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <!-- 
+  Load a resource bundle localized for the Locale of the current view, 
+  and expose it (as a Map) in the request attributes of the current request. 
+  Please note that we are not localizing every string in this demo. We want
+  to show you an example of how to do this, but also make the demo an
+  example that is easy to follow.
+  -->
+  <f:loadBundle var="nls"
+                basename="org.apache.myfaces.trinidaddemo.email.resource.EmailDemoBundle"/>  
+  <f:view>
+    <tr:document title="Message">
+       <tr:form>
+        <tr:panelPage>
+          <tr:messages/>
+          
+          <f:facet name="branding">
+            <tr:panelGroupLayout layout="vertical">
+              <tr:panelGroupLayout>
+                <tr:outputFormatted value="#{nls.EMAIL_DEMO_TITLE}" styleClass="AFHeaderLevelOne"/>
+                <tr:image source="/email/images/pbs.gif"/>
+              </tr:panelGroupLayout>
+              <tr:outputFormatted value="Customer &lt;b&gt;Foo - Anywhere, U.S.A. &lt;/b&gt;"
+                                 styleUsage="inContextBranding"/>
+            </tr:panelGroupLayout>
+          </f:facet>
+          
+          <f:facet name="navigationGlobal">
+            <tr:navigationPane hint="buttons">
+              <tr:commandNavigationItem text="Return to Index"
+                  immediate="true"
+                  action="home"/>
+              <tr:commandNavigationItem text="Logout" 
+                                action="#{email.logout}"/>
+              <tr:commandNavigationItem text="Preferences"
+                                action="preferences"/>
+              <tr:commandNavigationItem text="Help"
+                                action="action.none"/>
+            </tr:navigationPane>
+           </f:facet>
+              
+          <f:facet name="infoUser">
+            <tr:outputFormatted value="Logged in as #{email.username}"
+                           styleUsage="pageStamp"/>
+          </f:facet>
+          
+        <tr:panelHeader text="Message">
+          <tr:panelBorderLayout>
+            <!-- Top section: include the headers -->
+            <f:facet name="innerTop">
+              <tr:panelFormLayout inlineStyle="width: 100%" labelWidth="15%" fieldWidth="85%">
+                <tr:panelLabelAndMessage label="From:">
+                  <tr:outputText value="#{showMessageBacking.message.sender}"/>
+                </tr:panelLabelAndMessage>
+                <tr:panelLabelAndMessage label="To:">
+                  <tr:panelGroupLayout layout="vertical">
+                    <tr:forEach items="#{showMessageBacking.message.tos}"
+                                var="address">  
+                      <tr:outputText value="#{address}"/>
+                    </tr:forEach>
+                 </tr:panelGroupLayout>
+                </tr:panelLabelAndMessage>
+                <tr:panelLabelAndMessage label="Cc:"
+                  labelStyle="vertical-align: top;">
+                  <tr:panelGroupLayout layout="vertical">
+                    <tr:forEach items="#{showMessageBacking.message.ccs}"
+                                var="address">
+                      <tr:outputText value="#{address}"/>
+                    </tr:forEach>
+                  </tr:panelGroupLayout>
+                </tr:panelLabelAndMessage>
+                <tr:inputText label="Subject:" readOnly="true"
+                              value="#{showMessageBacking.message.subject}"/>
+                <tr:inputText label="Sent:" readOnly="true"
+                              value="#{showMessageBacking.message.sentDate}"/>
+                <!-- Commented out: content type
+                <tr:inputText label="Content type:" readOnly="true"
+                              value="#{showMessageBacking.message.contentType}"/>
+                -->
+              </tr:panelFormLayout>
+
+            </f:facet>
+
+            <!-- Main content -->
+            <tr:panelHeader text="Content:">
+              <!-- For plain text, show in a readOnly inputText -->
+              <tr:inputText rendered="#{showMessageBacking.message.contentType == 'TEXT/PLAIN'}"
+                            readOnly="true" columns="80"
+                            rows="#{showMessageBacking.message.lineCount &gt; 30
+                                ? 30 : showMessageBacking.message.lineCount}"
+                            value="#{showMessageBacking.message.content}"/>
+              <!-- HTML content: run through our "outputFormatted" filter -->
+              <trh:rowLayout rendered="#{showMessageBacking.message.contentType != 'TEXT/PLAIN'}"
+                          width="75%">
+                <tr:outputFormatted
+                          value="#{showMessageBacking.message.content}"/>
+              </trh:rowLayout>
+            </tr:panelHeader>
+  
+            <!-- Side content for the secondary layer: show attachments -->
+            <f:facet name="auxiliary2">
+              <tr:panelBox text="Attachments"
+                    rendered="#{showMessageBacking.message.attachmentPresent}">
+                <tr:panelGroupLayout layout="vertical">
+                  <tr:forEach items="#{showMessageBacking.message.attachments}"
+                              var="attachment">
+                    <tr:commandLink text="#{attachment.fileName}"
+                        action="#{showMessageBacking.downloadAttachment}">
+                      <tr:setActionListener from="#{attachment}"
+                         to="#{showMessageBacking.attachmentToDownload}"/>
+                    </tr:commandLink>
+                  </tr:forEach>
+                </tr:panelGroupLayout>
+              </tr:panelBox>
+            </f:facet>
+          </tr:panelBorderLayout>
+        </tr:panelHeader>
+          <!--
+          <f:facet name="infoReturn">
+            <tr:commandLink text="Return to #{email.currentFolder.name}"
+                            action="messages"/>
+          </f:facet>
+          -->
+          <tr:panelButtonBar>
+            <tr:commandButton textAndAccessKey="&amp;Reply" 
+                              action="reply">
+              <tr:setActionListener from="#{'false'}"
+                                    to="#{pageFlowScope.replyToAll}"/>
+            </tr:commandButton>  
+            <tr:commandButton textAndAccessKey="&amp;Reply to &amp;All" 
+                              action="reply">
+              <tr:setActionListener from="#{'true'}"
+                                    to="#{pageFlowScope.replyToAll}"/>
+            </tr:commandButton>                   
+            <tr:commandButton textAndAccessKey="Cance&amp;l" immediate="true"
+                              action="messages"/>                                
+          </tr:panelButtonBar>
+        </tr:panelPage>
+    
+       </tr:form>
+    </tr:document>
+  </f:view>
+</jsp:root>

@@ -23,7 +23,7 @@
     <version>1.0.2-SNAPSHOT</version>
   </parent>
   <packaging>pom</packaging>
-  <name>Apache Trinidad Examples</name>
+  <name>Apache MyFaces Trinidad Examples</name>
   <artifactId>trinidad-example</artifactId>
 
   <!-- FIXME: These connections are wrong for a SNAPSHOT

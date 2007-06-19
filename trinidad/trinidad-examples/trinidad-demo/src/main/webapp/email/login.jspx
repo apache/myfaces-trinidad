@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <!-- 
+  Load a resource bundle localized for the Locale of the current view, 
+  and expose it (as a Map) in the request attributes of the current request. 
+  Please note that we are not localizing every string in this demo. We want
+  to show you an example of how to do this, but also make the demo an
+  example that is easy to follow.
+  -->
+  <f:loadBundle var="nls"
+                basename="org.apache.myfaces.trinidaddemo.email.resource.EmailDemoBundle"/>
+  <f:view>
+    <tr:document title="Email Log In">
+        <tr:form>
+          <tr:panelPage>
+            <tr:messages/>
+            <f:facet name="branding">
+              <tr:panelGroupLayout layout="vertical">
+                <tr:panelGroupLayout>
+                  <tr:outputFormatted value="#{nls.EMAIL_DEMO_TITLE}"
+                                      styleClass="AFHeaderLevelOne"/>
+                  <tr:image source="/email/images/pbs.gif"
+                                  shortDesc="Email demo"/>
+                </tr:panelGroupLayout>
+                <tr:outputFormatted value="Customer &lt;b>Foo - Anywhere, U.S.A. &lt;/b>"
+                                    styleUsage="inContextBranding"/>
+              </tr:panelGroupLayout>
+            </f:facet>
+            <f:facet name="navigationGlobal">
+              <tr:navigationPane hint="buttons">
+                <tr:commandNavigationItem text="Return to Index" immediate="true"
+                                    action="home"/>
+                <tr:commandNavigationItem text="Help" action="action.none"/>
+              </tr:navigationPane>
+            </f:facet>
+            <f:facet name="infoStatus">
+              <tr:outputText styleClass="AFErrorText"
+                             value="Note: The Trinidad Email Demo application is not                  configured to use a secure communication channel between                  the browser and the application server - or between the                  application server and the IMAP server.                   This means that your data (including your user name/password                  and email contents) are transmitted in a non-secure manner.                   Thus, this sample application should only be used in environments                 that are known to be secure."/>
+            </f:facet>
+           <tr:panelHeader text="Email Log In">
+            <tr:panelFormLayout>
+              <tr:inputText required="true" labelAndAccessKey="&amp;Username"
+                            value="#{email.username}">
+                <f:facet name="help">
+                  <tr:outputFormatted value="The part that comes &lt;b>before&lt;/b> the @ in your email address"/>
+                </f:facet>
+              </tr:inputText>
+              <tr:inputText labelAndAccessKey="&amp;Password"
+                            value="#{email.password}" secret="true"/>
+              <tr:inputText required="true" label="Domain"
+                            value="#{email.domain}">
+                <f:facet name="help">
+                  <tr:outputFormatted value="The part that comes &lt;b>after&lt;/b> the @ in your email address"/>
+                </f:facet>
+                </tr:inputText>
+              <tr:inputText required="true" label="IMAP Server"
+                            value="#{email.server}"/>
+              <tr:inputText required="true" label="SMTP Server"
+                            value="#{email.smtpServer}"/>
+            </tr:panelFormLayout>
+           </tr:panelHeader>
+            <tr:panelButtonBar>
+              <tr:commandButton textAndAccessKey="&amp;Log In"
+                                action="#{email.login}"/>
+            </tr:panelButtonBar>
+          </tr:panelPage>
+        </tr:form>
+    </tr:document>
+  </f:view>
+</jsp:root>

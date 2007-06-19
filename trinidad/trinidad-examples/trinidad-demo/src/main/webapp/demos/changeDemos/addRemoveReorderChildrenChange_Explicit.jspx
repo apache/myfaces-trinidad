@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <tr:document 
+      title="Explicit AddChildChange/RemoveChildChange/ReorderChildrenChange 
+        Persistence Feature Demo">
+      <tr:form>
+
+        <tr:panelPage >
+         <f:facet name="navigationGlobal">
+          <tr:navigationPane hint="buttons">
+            <tr:commandNavigationItem 
+              text="Return to Change Persistence demo index page"
+              immediate="true"
+              action="demos.changePersistence"/>
+           </tr:navigationPane>
+          </f:facet>
+        <tr:panelHeader text="Explicit AddChildChange/RemoveChildChange/ReorderChildrenChange 
+          Persistence Feature Demo">
+          <tr:panelGroupLayout layout="vertical">
+            <f:facet name="separator">
+              <tr:separator/>
+            </f:facet>
+            <tr:panelGroupLayout id="pg1">
+              <tr:image 
+                id="oi1" 
+  shortDesc="Corporate Brand"
+                source="/components/images/corporateBrand.gif"/>
+              <tr:panelBox id="pb1" text="PanelBoxText"/>
+              <tr:inputText id="it1" label="Label"/>
+              <tr:inputColor 
+                id="sic1" 
+                chooseId="cc1"
+                label="Color:"
+                value="#{color.colorValue2}">
+                <f:facet name="help">
+                  <tr:outputText value="Use format (#RRGGBB) or (r,g,b)"/>
+                </f:facet>
+              </tr:inputColor>
+              <tr:chooseColor 
+                id="cc1" 
+                colorData="#{requestContext.colorPalette.default49}"/>
+              <tr:chooseDate id="cd1"/>
+              <tr:inputDate label="Date:" id="sid1" chooseId="cd1"/>
+            </tr:panelGroupLayout>
+            <tr:panelGroupLayout>
+              <tr:commandButton 
+                id="cb1" 
+                text="Reorder children" 
+                actionListener="#{change.reorderChildren}"/>
+              <tr:spacer width="10"/>
+              <tr:commandButton 
+                id="cb2" 
+                text="Remove color child components" 
+                actionListener="#{change.removeChildren}"/>
+              <tr:spacer width="10"/>
+              <tr:commandButton 
+                id="cb3" 
+                text="Remove date child components" 
+                actionListener="#{change.removeChildren}"/>
+              <tr:spacer width="10"/>
+              <tr:commandButton 
+                id="cb4" 
+                text="Add an object image child" 
+                actionListener="#{change.appendChild}"/>
+              <tr:spacer width="10" rendered="false"/>
+              <tr:commandButton 
+                id="cb5" 
+                text="Add an object image child to document" 
+                actionListener="#{change.appendChildToDocument}"
+                rendered="false"/>
+            </tr:panelGroupLayout>
+          </tr:panelGroupLayout>
+         </tr:panelHeader>
+        </tr:panelPage>
+
+      </tr:form>
+    </tr:document>
+  </f:view>
+</jsp:root>
