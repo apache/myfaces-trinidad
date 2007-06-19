@@ -689,5 +689,8 @@
   <!-- {0} = message summary                                        -->
   <!-- {1} = message detail                                         -->
   <resource key="af_messages.GLOBAL_MESSAGE_FORMAT">{0} - {1}</resource>
+
+  <resource key="af_statusIndicator.BUSY">Page is busy processing</resource>
+  <resource key="af_statusIndicator.READY">Page is ready</resource>
     
 </resources>

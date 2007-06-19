@@ -1,0 +1,542 @@
+<results>
+      <span
+           class="af_statusIndicator"
+           id="mainId"
+          >
+        
+        <img
+             border="0"
+             height="16"
+             id="mainId::ready"
+             title="Page is ready"
+             width="16"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+            >
+          
+        </img>
+        <img
+             border="0"
+             height="16"
+             id="mainId::busy"
+             style="display:none"
+             title="Page is busy processing"
+             width="16"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+            >
+          
+        </img>
+        <script
+            >
+          TrStatusIndicator._register("mainId");
+        </script>
+      </span>
+<!--AttributeTest[id,null]-->
+
+      <span
+           class="af_statusIndicator"
+           id="test-id"
+          >
+        
+        <img
+             border="0"
+             height="16"
+             id="test-id::ready"
+             title="Page is ready"
+             width="16"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+            >
+          
+        </img>
+        <img
+             border="0"
+             height="16"
+             id="test-id::busy"
+             style="display:none"
+             title="Page is busy processing"
+             width="16"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+            >
+          
+        </img>
+        <script
+            >
+          TrStatusIndicator._register("test-id");
+        </script>
+      </span>
+<!--AttributeTest[inlineStyle,null]-->
+
+      <span
+           class="af_statusIndicator"
+           id="mainId"
+           style="test-inlineStyle"
+          >
+        
+        <img
+             border="0"
+             height="16"
+             id="mainId::ready"
+             title="Page is ready"
+             width="16"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+            >
+          
+        </img>
+        <img
+             border="0"
+             height="16"
+             id="mainId::busy"
+             style="display:none"
+             title="Page is busy processing"
+             width="16"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+            >
+          
+        </img>
+        <script
+            >
+          TrStatusIndicator._register("mainId");
+        </script>
+      </span>
+<!--AttributeTest[rendered,false]-->
+
+<!--AttributeTest[rendered,true]-->
+
+      <span
+           class="af_statusIndicator"
+           id="mainId"
+          >
+        
+        <img
+             border="0"
+             height="16"
+             id="mainId::ready"
+             title="Page is ready"
+             width="16"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+            >
+          
+        </img>
+        <img
+             border="0"
+             height="16"
+             id="mainId::busy"
+             style="display:none"
+             title="Page is busy processing"
+             width="16"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+            >
+          
+        </img>
+        <script
+            >
+          TrStatusIndicator._register("mainId");
+        </script>
+      </span>
+<!--AttributeTest[shortDesc,null]-->
+
+      <span
+           class="af_statusIndicator"
+           id="mainId"
+           title="test-shortDesc"
+          >
+        
+        <img
+             border="0"
+             height="16"
+             id="mainId::ready"
+             title="Page is ready"
+             width="16"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+            >
+          
+        </img>
+        <img
+             border="0"
+             height="16"
+             id="mainId::busy"
+             style="display:none"
+             title="Page is busy processing"
+             width="16"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+            >
+          
+        </img>
+        <script
+            >
+          TrStatusIndicator._register("mainId");
+        </script>
+      </span>
+<!--AttributeTest[styleClass,null]-->
+
+      <span
+           class="test-styleClass af_statusIndicator"
+           id="mainId"
+          >
+        
+        <img
+             border="0"
+             height="16"
+             id="mainId::ready"
+             title="Page is ready"
+             width="16"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+            >
+          
+        </img>
+        <img
+             border="0"
+             height="16"
+             id="mainId::busy"
+             style="display:none"
+             title="Page is busy processing"
+             width="16"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+            >
+          
+        </img>
+        <script
+            >
+          TrStatusIndicator._register("mainId");
+        </script>
+      </span>
+<!--AttributeTest[onclick,null]-->
+
+      <span
+           class="af_statusIndicator"
+           id="mainId"
+           onclick="test-onclick"
+          >
+        
+        <img
+             border="0"
+             height="16"
+             id="mainId::ready"
+             title="Page is ready"
+             width="16"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+            >
+          
+        </img>
+        <img
+             border="0"
+             height="16"
+             id="mainId::busy"
+             style="display:none"
+             title="Page is busy processing"
+             width="16"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+            >
+          
+        </img>
+        <script
+            >
+          TrStatusIndicator._register("mainId");
+        </script>
+      </span>
+<!--AttributeTest[ondblclick,null]-->
+
+      <span
+           class="af_statusIndicator"
+           id="mainId"
+           ondblclick="test-ondblclick"
+          >
+        
+        <img
+             border="0"
+             height="16"
+             id="mainId::ready"
+             title="Page is ready"
+             width="16"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+            >
+          
+        </img>
+        <img
+             border="0"
+             height="16"
+             id="mainId::busy"
+             style="display:none"
+             title="Page is busy processing"
+             width="16"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+            >
+          
+        </img>
+        <script
+            >
+          TrStatusIndicator._register("mainId");
+        </script>
+      </span>
+<!--AttributeTest[onkeydown,null]-->
+
+      <span
+           class="af_statusIndicator"
+           id="mainId"
+           onkeydown="test-onkeydown"
+          >
+        
+        <img
+             border="0"
+             height="16"
+             id="mainId::ready"
+             title="Page is ready"
+             width="16"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+            >
+          
+        </img>
+        <img
+             border="0"
+             height="16"
+             id="mainId::busy"
+             style="display:none"
+             title="Page is busy processing"
+             width="16"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+            >
+          
+        </img>
+        <script
+            >
+          TrStatusIndicator._register("mainId");
+        </script>
+      </span>
+<!--AttributeTest[onkeypress,null]-->
+
+      <span
+           class="af_statusIndicator"
+           id="mainId"
+           onkeypress="test-onkeypress"
+          >
+        
+        <img
+             border="0"
+             height="16"
+             id="mainId::ready"
+             title="Page is ready"
+             width="16"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+            >
+          
+        </img>
+        <img
+             border="0"
+             height="16"
+             id="mainId::busy"
+             style="display:none"
+             title="Page is busy processing"
+             width="16"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+            >
+          
+        </img>
+        <script
+            >
+          TrStatusIndicator._register("mainId");
+        </script>
+      </span>
+<!--AttributeTest[onkeyup,null]-->
+
+      <span
+           class="af_statusIndicator"
+           id="mainId"
+           onkeyup="test-onkeyup"
+          >
+        
+        <img
+             border="0"
+             height="16"
+             id="mainId::ready"
+             title="Page is ready"
+             width="16"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+            >
+          
+        </img>
+        <img
+             border="0"
+             height="16"
+             id="mainId::busy"
+             style="display:none"
+             title="Page is busy processing"
+             width="16"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+            >
+          
+        </img>
+        <script
+            >
+          TrStatusIndicator._register("mainId");
+        </script>
+      </span>
+<!--AttributeTest[onmousedown,null]-->
+
+      <span
+           class="af_statusIndicator"
+           id="mainId"
+           onmousedown="test-onmousedown"
+          >
+        
+        <img
+             border="0"
+             height="16"
+             id="mainId::ready"
+             title="Page is ready"
+             width="16"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+            >
+          
+        </img>
+        <img
+             border="0"
+             height="16"
+             id="mainId::busy"
+             style="display:none"
+             title="Page is busy processing"
+             width="16"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+            >
+          
+        </img>
+        <script
+            >
+          TrStatusIndicator._register("mainId");
+        </script>
+      </span>
+<!--AttributeTest[onmousemove,null]-->
+
+      <span
+           class="af_statusIndicator"
+           id="mainId"
+           onmousemove="test-onmousemove"
+          >
+        
+        <img
+             border="0"
+             height="16"
+             id="mainId::ready"
+             title="Page is ready"
+             width="16"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+            >
+          
+        </img>
+        <img
+             border="0"
+             height="16"
+             id="mainId::busy"
+             style="display:none"
+             title="Page is busy processing"
+             width="16"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+            >
+          
+        </img>
+        <script
+            >
+          TrStatusIndicator._register("mainId");
+        </script>
+      </span>
+<!--AttributeTest[onmouseout,null]-->
+
+      <span
+           class="af_statusIndicator"
+           id="mainId"
+           onmouseout="test-onmouseout"
+          >
+        
+        <img
+             border="0"
+             height="16"
+             id="mainId::ready"
+             title="Page is ready"
+             width="16"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+            >
+          
+        </img>
+        <img
+             border="0"
+             height="16"
+             id="mainId::busy"
+             style="display:none"
+             title="Page is busy processing"
+             width="16"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+            >
+          
+        </img>
+        <script
+            >
+          TrStatusIndicator._register("mainId");
+        </script>
+      </span>
+<!--AttributeTest[onmouseover,null]-->
+
+      <span
+           class="af_statusIndicator"
+           id="mainId"
+           onmouseover="test-onmouseover"
+          >
+        
+        <img
+             border="0"
+             height="16"
+             id="mainId::ready"
+             title="Page is ready"
+             width="16"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+            >
+          
+        </img>
+        <img
+             border="0"
+             height="16"
+             id="mainId::busy"
+             style="display:none"
+             title="Page is busy processing"
+             width="16"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+            >
+          
+        </img>
+        <script
+            >
+          TrStatusIndicator._register("mainId");
+        </script>
+      </span>
+<!--AttributeTest[onmouseup,null]-->
+
+      <span
+           class="af_statusIndicator"
+           id="mainId"
+           onmouseup="test-onmouseup"
+          >
+        
+        <img
+             border="0"
+             height="16"
+             id="mainId::ready"
+             title="Page is ready"
+             width="16"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+            >
+          
+        </img>
+        <img
+             border="0"
+             height="16"
+             id="mainId::busy"
+             style="display:none"
+             title="Page is busy processing"
+             width="16"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+            >
+          
+        </img>
+        <script
+            >
+          TrStatusIndicator._register("mainId");
+        </script>
+      </span>
+</results>

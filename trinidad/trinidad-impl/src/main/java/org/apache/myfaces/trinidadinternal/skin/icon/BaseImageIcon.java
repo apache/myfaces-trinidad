@@ -202,11 +202,20 @@ abstract public class BaseImageIcon extends Icon
       writer.writeAttribute("class", convertedStyleClass, null);
     }
 
+    String inlineStyle = null;
     if (_inlineStyle != null)
     {
-      String inlineStyleString = _inlineStyle.toInlineString();
-      if (!("".equals(inlineStyleString)))
-        writer.writeAttribute("style", inlineStyleString, null);
+      inlineStyle = _inlineStyle.toInlineString();
+    }
+    else if (attrs != null)
+    {
+      inlineStyle = (String) attrs.get(Icon.INLINE_STYLE_KEY);
+    }
+
+    if (inlineStyle != null)
+    {
+      if (!("".equals(inlineStyle)))
+        writer.writeAttribute("style", inlineStyle, null);
     }
 
     // Write out alt/title attrs
