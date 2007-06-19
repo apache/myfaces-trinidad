@@ -54,10 +54,15 @@ public class ReturnActionListenerTag extends TagHandler
   {
     if(ComponentSupport.isNew(parent))
     {
-      ValueExpression valueExp = _value.getValueExpression(faceletContext, Object.class);
       ActionSource actionSource = (ActionSource)parent;
       ReturnActionListener listener = new ReturnActionListener();
-      listener.setValueBinding(ReturnActionListener.VALUE_KEY, new LegacyValueBinding(valueExp));
+      if (_value != null)
+      {
+        ValueExpression valueExp = _value.getValueExpression(faceletContext, Object.class);
+        listener.setValueBinding(ReturnActionListener.VALUE_KEY, new LegacyValueBinding(valueExp));
+      }
+
+
       actionSource.addActionListener(listener);
     }
   }
