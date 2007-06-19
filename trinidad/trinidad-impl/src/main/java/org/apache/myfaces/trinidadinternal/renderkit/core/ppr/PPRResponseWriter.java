@@ -56,7 +56,7 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
     if (!(pprContext instanceof PartialPageContextImpl))
         throw new IllegalArgumentException();
 
-    _pprContext = (PartialPageContextImpl) pprContext;
+    _state = new State((PartialPageContextImpl) pprContext);
     _xml        = new XmlResponseWriter(out, out.getCharacterEncoding());
   }
 
@@ -69,8 +69,8 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
     super(out, base);
     // New XmlResponseWriter
     _xml        = new XmlResponseWriter(out, out.getCharacterEncoding());
-    // But same ppr context
-    _pprContext = base._pprContext;
+    // But the rest of the state is shared
+    _state = base._state;
   }
   
   
@@ -80,19 +80,33 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
       getResponseWriter().cloneWithWriter(writer),
       this);
 
-    // BIG HACK: ViewTag is going to clone the ResponseWriter so that
+    // BIG HACK: The JSF 1.1
+    // ViewTag is going to clone the ResponseWriter so that
     // it can write its BodyContent out.  But that'll clone a
     // PPRResponseWriter, which then will adamantly refuse to write
     // out any content!  To "fix" this, we make the lousy assumption
     // that if we're being cloned, and our element depth is zero,
     // then we're probably being used in this way, and we should just
     // let everything through.
-    ppr._forceInsideTarget = ppr._elementDepth == 0;
+    // HOWEVER, in Facelets, cloneWithWriter() is called eaaaaarly.
+    // Catch that by ignoring this unless we've at least had a call
+    // to startDocument()
+    _state.forceInsideTarget = (_state.documentStarted &&
+                                 (_state.elementDepth == 0));
     return ppr;
   }
 
   public void startDocument() throws IOException
   {
+    // Mark that we've started the document, so cloneWithWriter()
+    // can start activating "forceInsideTarget" correctly
+    _state.documentStarted = true;
+
+    // Mark that we're in the middle of starting the document,
+    // so that _disableIfNeeded() can do its thing - see that
+    // function for more info
+    _state.documentStarting = true;
+
     // We force the encoding to be text/xml in XmlHttpServletResponse
     // because setContentType is ignored when inside an included page (bug 5591124)
     _xml.startDocument();
@@ -101,7 +115,7 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
     // Used for an Iframe based communication channel, since it cannot 
     // read response headers
     super.write("<?Tr-XHR-Response-Type ?>\n");
-    
+
     _xml.startElement("content", null);
     String viewId = _facesContext.getViewRoot().getViewId();
     String actionURL = _facesContext.getApplication().
@@ -113,6 +127,8 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
     // TODO: Portlet support for PPR?
 
     _xml.writeText(" ", null);
+
+    _state.documentStarting = false;
   }
 
   public void endDocument() throws IOException
@@ -125,8 +141,11 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
     
     _xml.endElement("content");
     _xml.endDocument();
-  }
 
+    // Force "inside target mode" - this is for Facelets,
+    // where the state is rendered after endDocument() is called
+    _state.forceInsideTarget = true;
+  }
 
   public void writeComment(Object text) throws IOException
   {
@@ -153,6 +172,7 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
 
   public void write(String text) throws IOException
   {
+    _disableIfNeeded();
     if (_isInsideTarget())
       super.write(text);
   }
@@ -162,6 +182,7 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
                     int         start,
                     int         length) throws IOException
   {
+    _disableIfNeeded();
     if (_isInsideTarget())
       super.write(text, start, length);
   }
@@ -175,6 +196,7 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
   @Override
   public void write(char[] c) throws IOException
   {
+    _disableIfNeeded();
     if (_isInsideTarget())
       super.write(c);
   }
@@ -182,6 +204,7 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
   @Override
   public void write(String text, int off, int len) throws IOException
   {
+    _disableIfNeeded();
     if (_isInsideTarget())
       super.write(text, off, len);
   }
@@ -200,10 +223,10 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
   public void startElement(String name, UIComponent component)
      throws IOException
   {
-    _elementDepth++;
-    if (_pushPartialTarget(component, name))
+    _state.elementDepth++;
+    _pushPartialTarget(component, name);
     {
-      _enteringPPR = component;
+      _state.enteringPPR = component;
     }
     
     if (_isInsideTarget())
@@ -229,11 +252,12 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
 
   public void endElement(String name) throws IOException
   {
-    _elementDepth--;
+    _state.elementDepth--;
     if (_isInsideTarget())
       super.endElement(name);
 
     _popPartialTarget(name);
+    super.flush();
   }
 
   public void writeAttribute(String     name,
@@ -339,13 +363,11 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
     }
   }
 
-  private boolean _pushPartialTarget(
+  private void _pushPartialTarget(
     UIComponent component,
     String      elementName)
     throws IOException
   {
-    boolean enteringPPR = false;
-
     PPRTag tag = null;
 
     // If we're already inside a target, don't bother
@@ -354,10 +376,10 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
       if (component != null)
       {
         String clientId = component.getClientId(_facesContext);
-        if (_pprContext.isPartialTarget(clientId))
+        if (_state.pprContext.isPartialTarget(clientId))
         {
           tag = new PPRTag(clientId);
-          enteringPPR = true;
+          _state.enteringPPR = component;
         }
       }
     }
@@ -365,22 +387,21 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
     if (tag != null)
     {
       super.flush();
-      tag.start(_pprContext, elementName);
+      tag.start(_state.pprContext, elementName);
     }
 
-    _componentStack.add(tag);
-
-    return enteringPPR;
+    _state.componentStack.add(tag);
   }
 
   private void _popPartialTarget(String elementName) throws IOException
   {
-    int pos = _componentStack.size() - 1;
-    PPRTag tag = (PPRTag) _componentStack.get(pos);
-    _componentStack.remove(pos);
+    List<PPRTag> componentStack = _state.componentStack;
+    int pos = componentStack.size() - 1;
+    PPRTag tag = (PPRTag) componentStack.get(pos);
+    componentStack.remove(pos);
 
     if (tag != null)
-      tag.finish(_pprContext, elementName);
+      tag.finish(_state.pprContext, elementName);
   }
 
   private boolean _isInsideTarget()
@@ -388,21 +409,58 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
     // Only use the real ResponseWriter when we are rendering
     // a partial target subtree.  Otherwise, we discard all
     // output.
-    return _pprContext.isInsidePartialTarget() || _forceInsideTarget;
+    return _state.forceInsideTarget ||
+           _state.pprContext.isInsidePartialTarget();
+           
+  }
+
+  
+  //
+  // Facelets - as of version 1.1.11 - does something
+  // very strange with its ResponseWriter stack.
+  // It starts with an ordinary stack (which will have 
+  // a PPRResponseWriter around an HtmlResponseWriter).
+  // Then it treats that *as an ordinary Writer*, and
+  // wraps it in a "StateWriter" class, which merely
+  // is used to switch between passing output through
+  // and buffering it.  Then it takes that StateWriter
+  // and uses it to cloneWithWriter() a new ResponseWriter
+  // stack!  As a result, we have the following stack
+  // outermost to innermost:
+  //   PPRResponseWriter
+  //   HtmlResponseWriter
+  //   StateWriter
+  //   PPRResponseWriter
+  //   HtmlResponseWriter
+  //   ServletResponse's Writer
+  // In the end, we have to get that "inner" PPRResponseWriter
+  // to just cut it out and pass everything through.  Hence,
+  // this hack!  So If I get a "write" call while we're
+  // inside of startDocument(), assume that I must be an
+  // abused PPRResponseWriter, and just put myself in
+  // pass-everything-through mode
+  //
+  private void _disableIfNeeded()
+  {
+    if (_state.documentStarting)
+    {
+      _state = new State(_state.pprContext);
+      _state.forceInsideTarget = true;
+    }
   }
 
   private void _handleIdAttribute(String name, Object value)
   {
-    if ((_enteringPPR != null) && "id".equals(name))
+    if ((_state.enteringPPR != null) && "id".equals(name))
     {
       if (_LOG.isFine())
       {
         _LOG.fine("Using id {1} for element of {0}",
-                  new Object[]{_enteringPPR, value});
+                  new Object[]{_state.enteringPPR, value});
       }
 
-      _pprContext.addRenderedPartialTarget(value.toString());
-      _enteringPPR = null;
+      _state.pprContext.addRenderedPartialTarget(value.toString());
+      _state.enteringPPR = null;
     }
   }
 
@@ -445,10 +503,10 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
     {
       if (_id != null)
       {
-        if (_enteringPPR != null)
+        if (_state.enteringPPR != null)
         {
-          _LOG.warning("NO_PPR_CAPABLE_ID", _enteringPPR);
-          _enteringPPR = null;
+          _LOG.warning("NO_PPR_CAPABLE_ID", _state.enteringPPR);
+          _state.enteringPPR = null;
         }
 
         // Close up wrapper elements needed to ensure valid HTML
@@ -504,15 +562,27 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
     private String _id;
   }
 
-  private UIComponent _enteringPPR;
-  private ResponseWriter _xml;
-  private boolean _forceInsideTarget;
-  private int _elementDepth;
   
-  private final List<PPRTag> _componentStack = new ArrayList<PPRTag>(50);
-  private final PartialPageContextImpl _pprContext;
+  private State _state;
+  private ResponseWriter _xml;
   private final FacesContext _facesContext =
-     FacesContext.getCurrentInstance();
+   FacesContext.getCurrentInstance();
+
+  static private class State
+  {
+    public State(PartialPageContextImpl pprContext)
+    {
+      this.pprContext = pprContext;
+    }
+
+    public UIComponent    enteringPPR;
+    public boolean       forceInsideTarget;
+    public int           elementDepth;
+    public boolean       documentStarted;
+    public boolean       documentStarting;
+    public final List<PPRTag> componentStack = new ArrayList<PPRTag>(50);
+    public final PartialPageContextImpl pprContext;
+  }
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(PPRResponseWriter.class);
 }

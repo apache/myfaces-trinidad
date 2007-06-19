@@ -366,6 +366,11 @@ public class HtmlResponseWriter extends ResponseWriter
     }
   }
 
+  public String toString()
+  {
+    return "HtmlResponseWriter[" + _out + "]";
+  }
+
   //
   // Private methods
   //
