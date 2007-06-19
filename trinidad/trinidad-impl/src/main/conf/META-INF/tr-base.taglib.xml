@@ -36,4 +36,9 @@
     <tag-name>returnActionListener</tag-name>
     <handler-class>org.apache.myfaces.trinidadinternal.facelets.ReturnActionListenerTag</handler-class>
   </tag>
+
+  <tag>
+    <tag-name>fileDownloadActionListener</tag-name>
+    <handler-class>org.apache.myfaces.trinidadinternal.facelets.FileDownloadActionListenerTag</handler-class>
+  </tag>
 </facelet-taglib>
