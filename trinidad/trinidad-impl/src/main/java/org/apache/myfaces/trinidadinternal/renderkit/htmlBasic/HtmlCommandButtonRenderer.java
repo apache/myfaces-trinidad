@@ -71,7 +71,8 @@ public class HtmlCommandButtonRenderer extends Renderer
     String id = component.getClientId(context);
     writer.writeAttribute("id", id, "id");
     writer.writeAttribute("name", id, null);
-    if (imageSrc != null) 
+    boolean isImage = (imageSrc != null);
+    if (isImage) 
     {
       imageSrc = context.getExternalContext().encodeResourceURL(imageSrc);
       writer.writeAttribute("type", "image", "type");
@@ -84,11 +85,23 @@ public class HtmlCommandButtonRenderer extends Renderer
     }
     
     RenderingContext arc = RenderingContext.getCurrentInstance();
-    String script = AutoSubmitUtils.getFullPageSubmitScript(
+    String script;
+    // If it's an image, we can't really go through the full-page submit
+    // code - we need to preserve the x/y coordinates.  However,
+    // we do need the "source" parameter to be set
+    if (isImage)
+    {
+      script =  "this.form.source.value='" + id + "';";
+    }
+    else
+    {
+      script = AutoSubmitUtils.getFullPageSubmitScript(
               arc, id, false,
               null/*no event*/,
               null,
               false/* return false*/);
+    }
+
     String onclick = CoreRenderer.toString(attrs.get("onclick"));
     script = XhtmlUtils.getChainedJS(onclick, script, true);
 
