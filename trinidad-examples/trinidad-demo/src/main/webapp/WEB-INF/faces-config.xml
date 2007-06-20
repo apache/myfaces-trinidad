@@ -829,7 +829,6 @@
         <value>panelList.jspx</value>
         <value>panelPage.jspx</value>
         <value>panelPageHeader.jspx</value>
-        <value>panelPartialRoot.jspx</value>
         <value>panelSideBar.jspx</value>
         <value>panelTip.jspx</value>
         <value>poll.jspx</value>
@@ -2218,12 +2217,6 @@
     <navigation-case>
       <from-outcome>guide.panelPageHeader</from-outcome>
       <to-view-id>/components/panelPageHeader.jspx</to-view-id>
-      <redirect/>
-    </navigation-case>
-
-    <navigation-case>
-      <from-outcome>guide.panelPartialRoot</from-outcome>
-      <to-view-id>/components/panelPartialRoot.jspx</to-view-id>
       <redirect/>
     </navigation-case>
 
