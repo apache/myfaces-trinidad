@@ -797,11 +797,13 @@
           </tr>
           <tr>
             <td>af|column::sortable-header-text</td>
-            <td>Styles the sortable column headers.</td>
+            <td>Styles the sortable column headers. 
+            You can style the borders with this selector as well.</td>
           </tr>
           <tr>
             <td>af|column::sortable-header-number</td>
-            <td>Styles the numeric sortable column headers.</td>
+            <td>Styles the numeric sortable column headers. 
+            This includes the af|column::sortable-header-text selector.</td>
           </tr>
           <tr>
             <td style="white-space: nowrap">af|column::sortable-header-icon-format</td>

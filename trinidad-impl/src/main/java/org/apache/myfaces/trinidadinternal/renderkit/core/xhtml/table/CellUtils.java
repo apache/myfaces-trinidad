@@ -102,55 +102,48 @@ public class CellUtils
       int physicalIndex = colData.getPhysicalColumnIndex();
       
       // sortable column headers get the 3D border
-      if (isSortable)
+
+      final boolean right, left, bottom;
+      if (colData.isColumnGroupHeader())
       {
-        // for Mozilla we want an inset border. For IE we want an outset
-        // border. see bug 2543411
-        style = tContext.getSortableHeaderBorderStyle();
-      }
-      else
-      {
-        final boolean right, left, bottom;
-        if (colData.isColumnGroupHeader())
+        if (physicalIndex == 0)
         {
-          if (physicalIndex == 0)
-          {
-            bottom = true;
-            right = left = false;            
-          }
-          else
-          {
-            left = bottom = true;
-            right = false;
-          }
+          bottom = true;
+          right = left = false;            
         }
         else
         {
-          bottom = false;
-          if (afContext.isRightToLeft())
+          left = bottom = true;
+          right = false;
+        }
+      }
+      else
+      {
+        bottom = false;
+        if (afContext.isRightToLeft())
+        {
+          if(physicalIndex == tContext.getActualColumnCount()-1) 
           {
-            if(physicalIndex == tContext.getActualColumnCount()-1) 
-            {
-              right = false;
-            }
-            else
-              right = tContext.hasGrid(physicalIndex, true);
-           
-            left = false;
-          }
-          else
-          {
-            // non-sortable column headers get a left border iff
-            // it's not the first column and the format calls for a grid
-            left = ((physicalIndex>0) &&
-                    tContext.hasGrid(physicalIndex, true));
             right = false;
           }
+          else
+            right = tContext.hasGrid(physicalIndex, true);
+         
+          left = false;
         }
-        
-        style = getBorderClass(false /*top*/, left,
-                               bottom, right);
+        else
+        {
+          // non-sortable column headers get a left border iff
+          // it's not the first column and the format calls for a grid
+          left = ((physicalIndex>0) &&
+                  tContext.hasGrid(physicalIndex, true));
+          right = false;
+        }
       }
+      
+      style = getBorderClass(false /*top*/, left,
+                             bottom, right);
+      
     }
     else // isColumnHeader==false
     {

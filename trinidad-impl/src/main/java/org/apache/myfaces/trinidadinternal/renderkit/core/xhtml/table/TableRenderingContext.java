@@ -445,14 +445,6 @@ public class TableRenderingContext
   }
 
   /**
-   * @todo Why do we need this method here???
-   */
-  public String getSortableHeaderBorderStyle()
-  {
-    return SkinSelectors.SORTABLE_HEADER_BORDER_STYLE_CLASS ;
-  }
-
-  /**
    * Returns the opaque nodeList object used by column groups
    * to store the header structure.
    */

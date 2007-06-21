@@ -572,6 +572,17 @@ af|inputNumberSpinbox::increment-cell, af|inputNumberSpinbox::decrement-cell
   background-color:pink;
 }
 
+/* change borders for the header on table */
+/* Specify this contextual selector to make it more specific than the OraTableBorder* style selector */
+  af|table::content af|column::sortable-header-text {
+    border-style: solid;
+    border-color: red;
+    border-width: 1px;
+    background-color: aqua;
+    border-width: 1px 1px 1px 1px;
+  }
+
+
 /* test @agent and @platform styles */
 /* right now @agent/@platform work with style selectors, but they have no
    effect on icon selectors. */

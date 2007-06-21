@@ -107,8 +107,6 @@ public final class SkinSelectors
     "OraNavBarViewOnly";
   public static final String PAGE_STAMP_TEXT_STYLE_CLASS =
     "OraPageStampText";
-  public static final String SORTABLE_HEADER_BORDER_STYLE_CLASS =
-    "OraSortableHeaderBorder";
   public static final String TABLE_BAND_SELECT_CELL_STYLE =
     "OraTableCellSelectBand";
   public static final String TABLE_BORDER_0001_STYLE = 
