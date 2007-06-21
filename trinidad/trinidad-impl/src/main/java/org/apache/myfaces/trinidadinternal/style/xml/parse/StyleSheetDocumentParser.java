@@ -45,6 +45,8 @@ import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
 import org.apache.myfaces.trinidadinternal.style.StyleConstants;
 import org.apache.myfaces.trinidadinternal.style.xml.XMLConstants;
 
+import org.apache.myfaces.trinidadinternal.util.URLUtils;
+
 /**
  * NodeParser for style sheet document nodes
  *
@@ -294,8 +296,7 @@ public class StyleSheetDocumentParser extends BaseNodeParser
       {
         try
         {
-          URLConnection connection = ((URL)identifier).openConnection();
-          timestamp = connection.getLastModified();
+          timestamp = URLUtils.getLastModified((URL)identifier);
         }
         catch (IOException io)
         {

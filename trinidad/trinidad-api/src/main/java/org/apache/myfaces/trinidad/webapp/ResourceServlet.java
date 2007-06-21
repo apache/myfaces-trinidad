@@ -245,7 +245,20 @@ public class ResourceServlet extends HttpServlet
       URLConnection connection = url.openConnection();
       connection.setDoInput(false);
       connection.setDoOutput(false);
-      return connection.getLastModified();
+
+      long lastModified = connection.getLastModified();
+      // Make sure the connection is closed
+      try
+      {
+        InputStream is = connection.getInputStream();
+        if (is != null)
+          is.close();
+      }
+      catch (UnknownServiceException use)
+      {
+      }
+
+      return lastModified;
     }
     catch (IOException e)
     {
