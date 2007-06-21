@@ -31,10 +31,10 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.html.HtmlBody;
 import org.apache.myfaces.trinidad.context.RequestContext;
-
-
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
 import org.apache.myfaces.trinidad.skin.Skin;
+import org.apache.myfaces.trinidad.util.Service;
 
 
 /**
@@ -86,6 +86,8 @@ public class BodyRenderer extends PanelPartialRootRenderer
     FacesContext context,
     RenderingContext arc) throws IOException
   {
+    _encodeServiceScripts(context);
+
     context.getResponseWriter().endElement("body");
 
     _renderInitialFocusScript(context, arc);
@@ -459,7 +461,18 @@ public class BodyRenderer extends PanelPartialRootRenderer
   }
 
 
-  private static String _getVersionInfo(Package apiPackage, Package implPackage)
+  static private void _encodeServiceScripts(FacesContext context)
+    throws IOException
+  {
+    ExtendedRenderKitService service =
+      Service.getRenderKitService(context, ExtendedRenderKitService.class);
+    if (service != null)
+    {
+      service.encodeScripts(context);
+    }
+  }
+
+  static private String _getVersionInfo(Package apiPackage, Package implPackage)
   {
 
     String versionInfo    = "";
