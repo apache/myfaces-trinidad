@@ -171,14 +171,14 @@
                     Details
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text OraTableBorder0001"
                        id="mainId:test-id"
                        onclick="return _tableSort('formId',1,'mainId','string');"
                       >
                     StringHeader
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text OraTableBorder0001"
                        id="mainId:separate-id"
                        onclick="return _tableSort('formId',1,'mainId','int');"
                       >
@@ -622,7 +622,7 @@
                     >
                   
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text"
                        id="mainId:test-id"
                        onclick="return _tableSort('formId',1,'mainId','string');"
                       >
@@ -637,7 +637,7 @@
                     Details
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text OraTableBorder0001"
                        id="mainId:separate-id"
                        onclick="return _tableSort('formId',1,'mainId','int');"
                       >
@@ -1089,7 +1089,7 @@
                     Details
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text OraTableBorder0001"
                        id="mainId:test-id"
                        onclick="return _tableSort('formId',1,'mainId','string');"
                        width="30%"
@@ -1097,7 +1097,7 @@
                     StringHeader
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text OraTableBorder0001"
                        id="mainId:separate-id"
                        onclick="return _tableSort('formId',1,'mainId','int');"
                       >
@@ -1549,14 +1549,14 @@
                     Details
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text OraTableBorder0001"
                        id="mainId:test-id"
                        onclick="return _tableSort('formId',1,'mainId','string');"
                       >
                     StringHeader
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text OraTableBorder0001"
                        id="mainId:separate-id"
                        onclick="return _tableSort('formId',1,'mainId','int');"
                       >
@@ -2048,14 +2048,14 @@
                     Details
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text OraTableBorder0001"
                        id="mainId:test-id"
                        onclick="return _tableSort('formId',1,'mainId','string');"
                       >
                     StringHeader
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text OraTableBorder0001"
                        id="mainId:separate-id"
                        onclick="return _tableSort('formId',1,'mainId','int');"
                       >
@@ -2507,14 +2507,14 @@
                     Details
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text OraTableBorder0001"
                        id="mainId:test-id"
                        onclick="return _tableSort('formId',1,'mainId','string');"
                       >
                     StringHeader
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text OraTableBorder0001"
                        id="mainId:separate-id"
                        onclick="return _tableSort('formId',1,'mainId','int');"
                       >
@@ -2966,14 +2966,14 @@
                     Details
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text OraTableBorder0001"
                        id="mainId:test-id"
                        onclick="return _tableSort('formId',1,'mainId','string');"
                       >
                     StringHeader
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text OraTableBorder0001"
                        id="mainId:separate-id"
                        onclick="return _tableSort('formId',1,'mainId','int');"
                       >
@@ -3430,14 +3430,14 @@
                     Details
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text OraTableBorder0001"
                        id="mainId:test-id"
                        onclick="return _tableSort('formId',1,'mainId','string');"
                       >
                     StringHeader
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text OraTableBorder0001"
                        id="mainId:separate-id"
                        onclick="return _tableSort('formId',1,'mainId','int');"
                       >
@@ -3933,14 +3933,14 @@
                     Details
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text OraTableBorder0001"
                        id="mainId:test-id"
                        onclick="return _tableSort('formId',1,'mainId','string');"
                       >
                     StringHeader
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text OraTableBorder0001"
                        id="mainId:separate-id"
                        onclick="return _tableSort('formId',1,'mainId','int');"
                       >
@@ -4392,14 +4392,14 @@
                     Details
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text OraTableBorder0001"
                        id="mainId:test-id"
                        onclick="return _tableSort('formId',1,'mainId','string');"
                       >
                     StringHeader
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text OraTableBorder0001"
                        id="mainId:separate-id"
                        onclick="return _tableSort('formId',1,'mainId','int');"
                       >
@@ -4946,14 +4946,14 @@
                     Details
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text OraTableBorder0001"
                        id="mainId:test-id"
                        onclick="return _tableSort('formId',1,'mainId','string');"
                       >
                     StringHeader
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text OraTableBorder0001"
                        id="mainId:separate-id"
                        onclick="return _tableSort('formId',1,'mainId','int');"
                       >
@@ -5405,14 +5405,14 @@
                     Details
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text OraTableBorder0001"
                        id="mainId:test-id"
                        onclick="return _tableSort('formId',1,'mainId','string');"
                       >
                     StringHeader
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text OraTableBorder0001"
                        id="mainId:separate-id"
                        onclick="return _tableSort('formId',1,'mainId','int');"
                       >
@@ -5864,14 +5864,14 @@
                     Details
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text OraTableBorder0001"
                        id="mainId:test-id"
                        onclick="return _tableSort('formId',1,'mainId','string');"
                       >
                     StringHeader
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text OraTableBorder0001"
                        id="mainId:separate-id"
                        onclick="return _tableSort('formId',1,'mainId','int');"
                       >
@@ -6323,14 +6323,14 @@
                     Details
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text OraTableBorder0001"
                        id="mainId:test-id"
                        onclick="return _tableSort('formId',1,'mainId','string');"
                       >
                     StringHeader
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text OraTableBorder0001"
                        id="mainId:separate-id"
                        onclick="return _tableSort('formId',1,'mainId','int');"
                       >
@@ -6782,14 +6782,14 @@
                     Details
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text"
                        id="mainId:test-id"
                        onclick="return _tableSort('formId',1,'mainId','string');"
                       >
                     StringHeader
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text"
                        id="mainId:separate-id"
                        onclick="return _tableSort('formId',1,'mainId','int');"
                       >
@@ -7241,14 +7241,14 @@
                     Details
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text"
                        id="mainId:test-id"
                        onclick="return _tableSort('formId',1,'mainId','string');"
                       >
                     StringHeader
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text"
                        id="mainId:separate-id"
                        onclick="return _tableSort('formId',1,'mainId','int');"
                       >
@@ -7701,14 +7701,14 @@
                     Details
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text OraTableBorder0001"
                        id="mainId:test-id"
                        onclick="return _tableSort('formId',1,'mainId','string');"
                       >
                     StringHeader
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text OraTableBorder0001"
                        id="mainId:separate-id"
                        onclick="return _tableSort('formId',1,'mainId','int');"
                       >
@@ -8161,14 +8161,14 @@
                     Details
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text OraTableBorder0001"
                        id="mainId:test-id"
                        onclick="return _tableSort('formId',1,'mainId','string');"
                       >
                     StringHeader
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text OraTableBorder0001"
                        id="mainId:separate-id"
                        onclick="return _tableSort('formId',1,'mainId','int');"
                       >
@@ -8620,14 +8620,14 @@
                     Details
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text OraTableBorder0001"
                        id="mainId:test-id"
                        onclick="return _tableSort('formId',1,'mainId','string');"
                       >
                     StringHeader
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text OraTableBorder0001"
                        id="mainId:separate-id"
                        nowrap="nowrap"
                        onclick="return _tableSort('formId',1,'mainId','int','ascending');"
@@ -9088,7 +9088,7 @@
                     Details
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text OraTableBorder0001"
                        id="mainId:test-id"
                        nowrap="nowrap"
                        onclick="return _tableSort('formId',1,'mainId','string','descending');"
@@ -9104,7 +9104,7 @@
                     </a>
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraSortableHeaderBorder"
+                       class="af_column_sortable-header-text OraTableBorder0001"
                        id="mainId:separate-id"
                        onclick="return _tableSort('formId',1,'mainId','int');"
                       >

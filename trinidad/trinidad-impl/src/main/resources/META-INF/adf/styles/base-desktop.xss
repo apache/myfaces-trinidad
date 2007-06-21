@@ -2458,6 +2458,8 @@
   <style selector="af|column::sortable-header-text">
     <includeStyle selector="af|column::header-text"/>
     <property name="cursor">pointer</property>
+    <property name="border-width">2px</property>
+    <property name="border-style">outset</property>
   </style>
 
   <style selector="af|column::sortable-header-number">
@@ -3444,15 +3446,7 @@
     <includeStyle name="AFCenterTextAlign"/>
   </style>
 
-  <!-- Need to confirm that we really do want a separate
-       style class for this.  Seems like this should be
-       a named styles that is included by all of the 
-       OraTableSortableHeader* style classes instead of
-       its own style.  -->
-  <style selector=".OraSortableHeaderBorder">
-     <property name="border-width">2px</property>
-     <property name="border-style">outset</property>
-   </style>
+
 
   <!-- 
     Private Tip Styles: These can probably be made public.
@@ -4142,7 +4136,7 @@
     <includeStyle name="AFDarkBackground"/>
   </style>    
 
-  <style selector=".OraSortableHeaderBorder">
+  <style selector="af|column::sortable-header-text">
      <property name="border-style">inset</property>
   </style>
 

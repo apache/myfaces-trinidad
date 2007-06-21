@@ -371,7 +371,7 @@
       <property name="padding"/>
     </style>
     
-    <style selector=".OraSortableHeaderBorder">
+    <style selector="af|column::sortable-header-text">
       <property name="border-width">1px</property>
     </style>    
     <!-- @todo maybe have desktop and pda have the same keys for button -->

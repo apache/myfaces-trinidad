@@ -294,7 +294,7 @@
         <property name="padding"/>
       </style>
       
-      <style selector=".OraSortableHeaderBorder">
+      <style selector="af|column::sortable-header-text">
         <property name="border-width">1px</property>
       </style>    
       <!-- used only in pda mode. private for now -->

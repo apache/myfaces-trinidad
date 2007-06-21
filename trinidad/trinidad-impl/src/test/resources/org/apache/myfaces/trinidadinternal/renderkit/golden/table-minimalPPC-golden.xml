@@ -130,7 +130,7 @@
               Details
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text OraTableBorder0001"
                  id="mainId:test-id"
                  nowrap="nowrap"
                 >
@@ -154,7 +154,7 @@
               </a>
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text OraTableBorder0001"
                  id="mainId:separate-id"
                  nowrap="nowrap"
                 >
@@ -540,7 +540,7 @@
               >
             
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text"
                  id="mainId:test-id"
                  nowrap="nowrap"
                 >
@@ -573,7 +573,7 @@
               Details
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text OraTableBorder0001"
                  id="mainId:separate-id"
                  nowrap="nowrap"
                 >
@@ -968,7 +968,7 @@
               Details
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text OraTableBorder0001"
                  id="mainId:test-id"
                  nowrap="nowrap"
                  width="30%"
@@ -993,7 +993,7 @@
               </a>
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text OraTableBorder0001"
                  id="mainId:separate-id"
                  nowrap="nowrap"
                 >
@@ -1388,7 +1388,7 @@
               Details
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text OraTableBorder0001"
                  id="mainId:test-id"
                  nowrap="nowrap"
                 >
@@ -1412,7 +1412,7 @@
               </a>
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text OraTableBorder0001"
                  id="mainId:separate-id"
                  nowrap="nowrap"
                 >
@@ -1847,7 +1847,7 @@
               Details
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text OraTableBorder0001"
                  id="mainId:test-id"
                  nowrap="nowrap"
                 >
@@ -1871,7 +1871,7 @@
               </a>
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text OraTableBorder0001"
                  id="mainId:separate-id"
                  nowrap="nowrap"
                 >
@@ -2266,7 +2266,7 @@
               Details
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text OraTableBorder0001"
                  id="mainId:test-id"
                  nowrap="nowrap"
                 >
@@ -2290,7 +2290,7 @@
               </a>
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text OraTableBorder0001"
                  id="mainId:separate-id"
                  nowrap="nowrap"
                 >
@@ -2685,7 +2685,7 @@
               Details
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text OraTableBorder0001"
                  id="mainId:test-id"
                  nowrap="nowrap"
                 >
@@ -2709,7 +2709,7 @@
               </a>
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text OraTableBorder0001"
                  id="mainId:separate-id"
                  nowrap="nowrap"
                 >
@@ -3109,7 +3109,7 @@
               Details
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text OraTableBorder0001"
                  id="mainId:test-id"
                  nowrap="nowrap"
                 >
@@ -3133,7 +3133,7 @@
               </a>
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text OraTableBorder0001"
                  id="mainId:separate-id"
                  nowrap="nowrap"
                 >
@@ -3528,7 +3528,7 @@
               Details
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text OraTableBorder0001"
                  id="mainId:test-id"
                  nowrap="nowrap"
                 >
@@ -3552,7 +3552,7 @@
               </a>
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text OraTableBorder0001"
                  id="mainId:separate-id"
                  nowrap="nowrap"
                 >
@@ -3947,7 +3947,7 @@
               Details
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text OraTableBorder0001"
                  id="mainId:test-id"
                  nowrap="nowrap"
                 >
@@ -3971,7 +3971,7 @@
               </a>
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text OraTableBorder0001"
                  id="mainId:separate-id"
                  nowrap="nowrap"
                 >
@@ -4451,7 +4451,7 @@
               Details
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text OraTableBorder0001"
                  id="mainId:test-id"
                  nowrap="nowrap"
                 >
@@ -4475,7 +4475,7 @@
               </a>
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text OraTableBorder0001"
                  id="mainId:separate-id"
                  nowrap="nowrap"
                 >
@@ -4870,7 +4870,7 @@
               Details
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text OraTableBorder0001"
                  id="mainId:test-id"
                  nowrap="nowrap"
                 >
@@ -4894,7 +4894,7 @@
               </a>
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text OraTableBorder0001"
                  id="mainId:separate-id"
                  nowrap="nowrap"
                 >
@@ -5289,7 +5289,7 @@
               Details
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text OraTableBorder0001"
                  id="mainId:test-id"
                  nowrap="nowrap"
                 >
@@ -5313,7 +5313,7 @@
               </a>
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text OraTableBorder0001"
                  id="mainId:separate-id"
                  nowrap="nowrap"
                 >
@@ -5708,7 +5708,7 @@
               Details
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text OraTableBorder0001"
                  id="mainId:test-id"
                  nowrap="nowrap"
                 >
@@ -5732,7 +5732,7 @@
               </a>
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text OraTableBorder0001"
                  id="mainId:separate-id"
                  nowrap="nowrap"
                 >
@@ -6127,7 +6127,7 @@
               Details
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text"
                  id="mainId:test-id"
                  nowrap="nowrap"
                 >
@@ -6151,7 +6151,7 @@
               </a>
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text"
                  id="mainId:separate-id"
                  nowrap="nowrap"
                 >
@@ -6546,7 +6546,7 @@
               Details
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text"
                  id="mainId:test-id"
                  nowrap="nowrap"
                 >
@@ -6570,7 +6570,7 @@
               </a>
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text"
                  id="mainId:separate-id"
                  nowrap="nowrap"
                 >
@@ -6965,7 +6965,7 @@
               Details
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text OraTableBorder0001"
                  id="mainId:test-id"
                  nowrap="nowrap"
                 >
@@ -6989,7 +6989,7 @@
               </a>
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text OraTableBorder0001"
                  id="mainId:separate-id"
                  nowrap="nowrap"
                 >
@@ -7386,7 +7386,7 @@
               Details
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text OraTableBorder0001"
                  id="mainId:test-id"
                  nowrap="nowrap"
                 >
@@ -7410,7 +7410,7 @@
               </a>
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text OraTableBorder0001"
                  id="mainId:separate-id"
                  nowrap="nowrap"
                 >
@@ -7805,7 +7805,7 @@
               Details
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text OraTableBorder0001"
                  id="mainId:test-id"
                  nowrap="nowrap"
                 >
@@ -7829,7 +7829,7 @@
               </a>
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text OraTableBorder0001"
                  id="mainId:separate-id"
                  nowrap="nowrap"
                 >
@@ -8224,7 +8224,7 @@
               Details
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text OraTableBorder0001"
                  id="mainId:test-id"
                  nowrap="nowrap"
                 >
@@ -8248,7 +8248,7 @@
               </a>
             </th>
             <th
-                 class="af_column_sortable-header-text OraSortableHeaderBorder"
+                 class="af_column_sortable-header-text OraTableBorder0001"
                  id="mainId:separate-id"
                  nowrap="nowrap"
                 >
