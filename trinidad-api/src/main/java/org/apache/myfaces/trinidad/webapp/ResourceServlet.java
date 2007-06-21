@@ -29,6 +29,7 @@ import java.io.Reader;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.net.SocketException;
+import java.net.UnknownServiceException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
