@@ -573,14 +573,20 @@ af|inputNumberSpinbox::increment-cell, af|inputNumberSpinbox::decrement-cell
 }
 
 /* change borders for the header on table */
-/* Specify this contextual selector to make it more specific than the OraTableBorder* style selector */
-  af|table::content af|column::sortable-header-text {
+af|column::sortable-header-text {
     border-style: solid;
     border-color: red;
     border-width: 1px;
-    background-color: aqua;
+    background-color: yellow;
     border-width: 1px 1px 1px 1px;
-  }
+}
+/* The base style had a special style set for gecko, and so we need to override it here. 
+Is this a bug? It seems like it */
+@agent gecko {
+af|column::sortable-header-text {
+    border-style: solid;
+}  
+}
 
 
 /* test @agent and @platform styles */

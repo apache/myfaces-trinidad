@@ -164,7 +164,7 @@
                     Details
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraTableBorder0100"
+                       class="af_column_sortable-header-text"
                        id="mainId:test-id"
                        onclick="return _tableSort('formId',1,'mainId','string');"
                       >
@@ -607,7 +607,7 @@
                     >
                   
                   <th
-                       class="af_column_sortable-header-text OraTableBorder0100"
+                       class="af_column_sortable-header-text"
                        id="mainId:test-id"
                        onclick="return _tableSort('formId',1,'mainId','string');"
                       >
@@ -1068,7 +1068,7 @@
                     Details
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraTableBorder0100"
+                       class="af_column_sortable-header-text"
                        id="mainId:test-id"
                        onclick="return _tableSort('formId',1,'mainId','string');"
                        width="30%"
@@ -1521,7 +1521,7 @@
                     Details
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraTableBorder0100"
+                       class="af_column_sortable-header-text"
                        id="mainId:test-id"
                        onclick="return _tableSort('formId',1,'mainId','string');"
                       >
@@ -2013,7 +2013,7 @@
                     Details
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraTableBorder0100"
+                       class="af_column_sortable-header-text"
                        id="mainId:test-id"
                        onclick="return _tableSort('formId',1,'mainId','string');"
                       >
@@ -2465,7 +2465,7 @@
                     Details
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraTableBorder0100"
+                       class="af_column_sortable-header-text"
                        id="mainId:test-id"
                        onclick="return _tableSort('formId',1,'mainId','string');"
                       >
@@ -2917,7 +2917,7 @@
                     Details
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraTableBorder0100"
+                       class="af_column_sortable-header-text"
                        id="mainId:test-id"
                        onclick="return _tableSort('formId',1,'mainId','string');"
                       >
@@ -3374,7 +3374,7 @@
                     Details
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraTableBorder0100"
+                       class="af_column_sortable-header-text"
                        id="mainId:test-id"
                        onclick="return _tableSort('formId',1,'mainId','string');"
                       >
@@ -3870,7 +3870,7 @@
                     Details
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraTableBorder0100"
+                       class="af_column_sortable-header-text"
                        id="mainId:test-id"
                        onclick="return _tableSort('formId',1,'mainId','string');"
                       >
@@ -4322,7 +4322,7 @@
                     Details
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraTableBorder0100"
+                       class="af_column_sortable-header-text"
                        id="mainId:test-id"
                        onclick="return _tableSort('formId',1,'mainId','string');"
                       >
@@ -4869,7 +4869,7 @@
                     Details
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraTableBorder0100"
+                       class="af_column_sortable-header-text"
                        id="mainId:test-id"
                        onclick="return _tableSort('formId',1,'mainId','string');"
                       >
@@ -5321,7 +5321,7 @@
                     Details
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraTableBorder0100"
+                       class="af_column_sortable-header-text"
                        id="mainId:test-id"
                        onclick="return _tableSort('formId',1,'mainId','string');"
                       >
@@ -5773,7 +5773,7 @@
                     Details
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraTableBorder0100"
+                       class="af_column_sortable-header-text"
                        id="mainId:test-id"
                        onclick="return _tableSort('formId',1,'mainId','string');"
                       >
@@ -6225,7 +6225,7 @@
                     Details
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraTableBorder0100"
+                       class="af_column_sortable-header-text"
                        id="mainId:test-id"
                        onclick="return _tableSort('formId',1,'mainId','string');"
                       >
@@ -7582,7 +7582,7 @@
                     Details
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraTableBorder0100"
+                       class="af_column_sortable-header-text"
                        id="mainId:test-id"
                        onclick="return _tableSort('formId',1,'mainId','string');"
                       >
@@ -8035,7 +8035,7 @@
                     Details
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraTableBorder0100"
+                       class="af_column_sortable-header-text"
                        id="mainId:test-id"
                        onclick="return _tableSort('formId',1,'mainId','string');"
                       >
@@ -8487,7 +8487,7 @@
                     Details
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraTableBorder0100"
+                       class="af_column_sortable-header-text"
                        id="mainId:test-id"
                        onclick="return _tableSort('formId',1,'mainId','string');"
                       >
@@ -8948,7 +8948,7 @@
                     Details
                   </th>
                   <th
-                       class="af_column_sortable-header-text OraTableBorder0100"
+                       class="af_column_sortable-header-text"
                        id="mainId:test-id"
                        nowrap="nowrap"
                        onclick="return _tableSort('formId',1,'mainId','string','descending');"
