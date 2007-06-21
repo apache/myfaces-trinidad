@@ -263,18 +263,21 @@ TrRequestQueue.prototype._getPostbackContent = function(actionForm, params)
   for (var key in formParams)
   {
     var paramValue = formParams[key];
-    // If it's an array...
-    if (paramValue.join)
+    if (paramValue != null)
     {
-      var array = paramValue;
-      for(var i=0; i < array.length; i++)
+      // If it's an array...
+      if (paramValue.join)
       {
-        content = TrRequestQueue._appendUrlFormEncoded(content, key, array[i]);
+        var array = paramValue;
+        for(var i=0; i < array.length; i++)
+        {
+          content = TrRequestQueue._appendUrlFormEncoded(content, key, array[i]);
+        }
       }
-    }
-    else
-    {
-      content = TrRequestQueue._appendUrlFormEncoded(content, key, paramValue);
+      else
+      {
+        content = TrRequestQueue._appendUrlFormEncoded(content, key, paramValue);
+      }
     }
   }
   return content;
