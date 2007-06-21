@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 
+import org.apache.myfaces.trinidadinternal.util.URLUtils;
+
 /**
  * An InputStreamProvider for opening URLs.
  * <p>
@@ -49,6 +51,7 @@ public class URLInputStreamProvider implements InputStreamProvider
     // to URL.openConnection
     URLConnection connection = _url.openConnection();
     _lastModifiedTime = connection.getLastModified();
+    // In theory, should not need to close
     InputStream base = connection.getInputStream();
     
     if (base instanceof BufferedInputStream)
@@ -75,8 +78,7 @@ public class URLInputStreamProvider implements InputStreamProvider
   {
     try
     {
-      URLConnection connection = _url.openConnection();
-      long currentModifiedTime = connection.getLastModified();
+      long currentModifiedTime = URLUtils.getLastModified(_url);
       return currentModifiedTime != _lastModifiedTime;
     }
     catch (IOException ioe)

@@ -45,6 +45,7 @@ import org.apache.myfaces.trinidad.render.InternalView;
 import org.apache.myfaces.trinidad.util.Service;
 import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
 import org.apache.myfaces.trinidadinternal.context.TrinidadPhaseListener;
+import org.apache.myfaces.trinidadinternal.util.URLUtils;
 
 /**
  * ViewHandler that adds modification detection to the existing ViewHandler,
@@ -383,19 +384,7 @@ public class ViewHandlerImpl extends ViewHandler
     if (url == null)
       return _NOT_FOUND;
 
-    if ("file".equals(url.getProtocol()))
-    {
-      String externalForm = url.toExternalForm();
-      // Remove the "file:"
-      File file = new File(externalForm.substring(5));
-
-      return Long.valueOf(file.lastModified());
-    }
-    else
-    {
-      long modified = url.openConnection().getLastModified();
-      return Long.valueOf(modified);
-    }
+    return Long.valueOf(URLUtils.getLastModified(url));
   }
 
 

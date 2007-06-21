@@ -20,11 +20,13 @@ package org.apache.myfaces.trinidad.resource;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 
 import java.io.InputStream;
 import java.net.URL;
 
+import java.net.UnknownServiceException;
 import java.net.URLConnection;
 import java.net.URLStreamHandler;
 import java.util.Map;
@@ -107,7 +109,7 @@ public class CachingResourceLoader extends ResourceLoader
     protected InputStream getInputStream(
       URLConnection conn) throws IOException
     {
-      long lastModified = conn.getLastModified();
+      long lastModified = _getLastModified(_delegate);
 
       if (_contents == null || _contentsModified < lastModified)
       {
@@ -198,5 +200,33 @@ public class CachingResourceLoader extends ResourceLoader
 
     private final URLConnection        _conn;
     private final URLStreamHandlerImpl _handler;
+  }
+
+  static private long _getLastModified(URL url) throws IOException
+  {
+    if ("file".equals(url.getProtocol()))
+    {
+      String externalForm = url.toExternalForm();
+      // Remove the "file:"
+      File file = new File(externalForm.substring(5));
+
+      return file.lastModified();
+    }
+    else
+    {
+      URLConnection connection = url.openConnection();
+      long modified = connection.getLastModified();
+      try
+      {
+        InputStream is = connection.getInputStream();
+        if (is != null)
+          is.close();
+      }
+      catch (UnknownServiceException use)
+      {
+      }
+
+      return modified;
+    }
   }
 }

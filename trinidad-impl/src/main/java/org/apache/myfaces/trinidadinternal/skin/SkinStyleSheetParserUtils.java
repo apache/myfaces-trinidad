@@ -59,6 +59,7 @@ import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
 import org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.IconNode;
 import org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.SkinPropertyNode;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
+import org.apache.myfaces.trinidadinternal.util.URLUtils;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/skin/SkinStyleSheetParserUtils.java#0 $) $Date: 10-nov-2005.18:59:00 $
@@ -739,8 +740,7 @@ class SkinStyleSheetParserUtils
       {
         try
         {
-          URLConnection connection = ((URL)identifier).openConnection();
-          timestamp = connection.getLastModified();
+          timestamp = URLUtils.getLastModified((URL) identifier);
         }
         catch (IOException io)
         {
