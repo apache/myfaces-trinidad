@@ -3654,6 +3654,16 @@ function _supportsPPR()
 }
 
 
+// Fires a PPR request entirely as a GET operation
+function _firePartialChange(url)
+{
+  // FIXME: shouldn't be using a private method on TrPage - this should
+  // really be made into a public API on TrPage
+  var page = TrPage.getInstance();
+  TrRequestQueue.getInstance().sendRequest(
+    page, page._requestStatusChanged, url);
+}
+
 // Fires a partial page request via form submission.
 // The args are the same as submitForm().  The
 // partialTargets are passed in as parameters

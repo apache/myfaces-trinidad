@@ -31,14 +31,15 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.input.CoreChooseDate;
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.skin.Icon;
+import org.apache.myfaces.trinidad.util.IntegerUtils;
+import org.apache.myfaces.trinidad.util.FastMessageFormat;
+
 import org.apache.myfaces.trinidadinternal.renderkit.core.pages.GenericEntry;
 import org.apache.myfaces.trinidad.context.LocaleContext;
 import org.apache.myfaces.trinidadinternal.share.url.EncoderUtils;
-import org.apache.myfaces.trinidadinternal.share.util.FastMessageFormat;
-import org.apache.myfaces.trinidad.skin.Icon;
-import org.apache.myfaces.trinidad.util.IntegerUtils;
 
 /**
  * Renders the calendar.
@@ -473,7 +474,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
     ResponseWriter writer = context.getResponseWriter();
     if (isDesktop)
     {
-      StringBuffer clickRef = new StringBuffer(30);
+      StringBuilder clickRef = new StringBuilder(30);
       writer.writeURIAttribute("href", "#", null);
 
       if (isInline)
@@ -695,10 +696,6 @@ public class ChooseDateRenderer extends XhtmlRenderer
     String           id
     )
   {
-    destinationString += (destinationString.indexOf('?') != -1)
-                       ? '&'
-                       : '?';
-
     StringBuffer buffer = new StringBuffer();
 
 
@@ -755,7 +752,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
 
     int length = prefix.length() + suffix.length() + baseNavURL.length() + 2;
 
-    StringBuffer buffer = new StringBuffer(length);
+    StringBuilder buffer = new StringBuilder(length);
     buffer.append(prefix);
     buffer.append(baseNavURL);
     buffer.append("',");
