@@ -23,8 +23,7 @@ import java.util.Map;
 
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.component.html.HtmlBody;
-import org.apache.myfaces.trinidad.component.html.HtmlHtml;
+import org.apache.myfaces.trinidad.component.core.CoreDocument;
 
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
@@ -58,13 +57,8 @@ class InlineDatePickerJSP
     arc.getPartialPageContext().addPartialTarget(
               requestParams.get(XhtmlConstants.SOURCE_PARAM));
 
-    // Use Html and Body to avoid the cost of the stylesheet
-    HtmlHtml html = new HtmlHtml();
-    context.getViewRoot().getChildren().add(html);
-
-    HtmlBody body = new HtmlBody();
-    html.getChildren().add(body);
-
-    body.getChildren().add(CalendarUtils.createChooseDate(context));
+    CoreDocument doc = new CoreDocument();
+    context.getViewRoot().getChildren().add(doc);
+    doc.getChildren().add(CalendarUtils.createChooseDate(context));
   }
 }

@@ -248,7 +248,10 @@ public class GenericEntry extends InternalView
     }
 
     // And render
+    ResponseWriter rw = context.getResponseWriter();
+    rw.startDocument();
     RenderUtils.encodeRecursive(context, context.getViewRoot());
+    rw.endDocument();
   }
 
   static private boolean _processReturnDialog(

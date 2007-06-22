@@ -36,6 +36,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
 import org.apache.myfaces.trinidad.util.Service;
 
+import org.apache.myfaces.trinidadinternal.renderkit.core.pages.GenericEntry;
 
 /**
  * Write out a PPR response in the following form:
@@ -119,11 +120,16 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
 
     _xml.startElement("content", null);
     String viewId = _facesContext.getViewRoot().getViewId();
-    String actionURL = _facesContext.getApplication().
-           getViewHandler().getActionURL(_facesContext, viewId);
-    ExternalContext external = _facesContext.getExternalContext();
-
-    _xml.writeURIAttribute("action", external.encodeActionURL(actionURL), null);
+    // HACK: don't write out an "action" for PPR on a GenericEntry page
+    // (basically entirely for the InlineDatePicker case)
+    if (!GenericEntry.getViewId().equals(viewId))
+    {
+      String actionURL = _facesContext.getApplication().
+        getViewHandler().getActionURL(_facesContext, viewId);
+      ExternalContext external = _facesContext.getExternalContext();
+      
+      _xml.writeURIAttribute("action", external.encodeActionURL(actionURL), null);
+    }
 
     // TODO: Portlet support for PPR?
 
