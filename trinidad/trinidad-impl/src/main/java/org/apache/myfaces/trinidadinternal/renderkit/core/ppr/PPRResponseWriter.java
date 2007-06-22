@@ -44,7 +44,8 @@ import org.apache.myfaces.trinidad.util.Service;
  *   <fragment><![CDATA[....more html....]]></fragment
  * </content>
  *
- * =-=AEW Need to write out new client components
+ * TODO: write out fragments only once we've detected the
+ * ID, to avoid sending unnecessary fragments
  */
 public class PPRResponseWriter extends ScriptBufferingResponseWriter
 {
