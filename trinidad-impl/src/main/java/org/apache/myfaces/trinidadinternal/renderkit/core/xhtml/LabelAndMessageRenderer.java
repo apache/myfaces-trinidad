@@ -195,7 +195,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
 
       if (isInline || hasMessage(context, arc, component, bean))
       {
-        rw.startElement("div", component);
+        rw.startElement("div", null);
         rw.endElement("div");
         _renderMessageCellContents(context, arc, component, bean);
       }

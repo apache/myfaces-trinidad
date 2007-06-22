@@ -187,9 +187,25 @@ TrPage.prototype._handlePprResponseFragment = function(fragmentNode)
   // Convert the content of the fragment node into an HTML node that
   // we can insert into the document
   var sourceNode = this._getFirstElementFromFragment(fragmentNode);
+
+  // In theory, all fragments should have one element with an ID.
+  // Unfortunately, the PPRResponseWriter isn't that smart.  If
+  // someone calls startElement() with the write component, but never
+  // passed an ID, we get an element with no ID.  And, even
+  // worse, if someone calls startElement() with a <span> that
+  // never gets any attributes on it, we actually strip that
+  // span, so we can get something that has no elements at all!
+  if (!sourceNode)
+     return;
+
   // Grab the id of the source node - we need this to locate the
   // target node that will be replaced
   var id = sourceNode.getAttribute("id");
+  // As above, we might get a node with no ID.  So don't crash
+  // and burn, just return.
+  if (!id)
+    return;
+
   // assert((id != null), "null id in response fragment"); 
 
   // Find the target node
