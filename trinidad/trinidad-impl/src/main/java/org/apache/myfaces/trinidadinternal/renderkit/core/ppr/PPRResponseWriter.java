@@ -225,9 +225,6 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
   {
     _state.elementDepth++;
     _pushPartialTarget(component, name);
-    {
-      _state.enteringPPR = component;
-    }
     
     if (_isInsideTarget())
     {
