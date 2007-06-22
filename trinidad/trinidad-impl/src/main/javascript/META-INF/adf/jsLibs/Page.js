@@ -398,7 +398,8 @@ TrPage._getTextContent = function(element)
     var currChild = element.firstChild;
     while (currChild)
     {
-      if (currChild.nodeType == 3)
+      var nodeType = currChild.nodeType;
+      if ((nodeType == 3) || (nodeType == 4))
         text = text + currChild.data;
       currChild = currChild.nextSibling;
     }
