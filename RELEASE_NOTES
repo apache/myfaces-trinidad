@@ -1,0 +1,49 @@
+TRINIDAD-71  	 javascript error in sortable table when click on header
+TRINIDAD-50 	ClassCastException in ExternalContextUtils
+TRINIDAD-42 	If styleclass begins with .p_AF and styleclass compression is on, then nullptr exception
+TRINIDAD-28 	MessageFactory.BindingFacesMessage resolves parameters only once
+TRINIDAD-27 	ChildPropertyTreeModel state is not serializable: List.subList()
+TRINIDAD-25 	Facelets: labelAndAccessKey and textAndAccessKey don't work
+TRINIDAD-24 	JspUtils.getEncoding() blindly returns the results of the "enc" parameter, which could have been maliciously tampered with to include additional header values
+TRINIDAD-21 	dialog framework does not pin view state of launching page
+TRINIDAD-18 	wild-carded skinning pseudo classes incorrectly transformed to CSS-2
+TRINIDAD-15 	RenderKit test framework should catch ExternalContext.encodeAction/ResourceURL(null)
+ADFFACES-488  	 TrinidadLogger.warning(Throwable) NPEs if t.getMessage() is null
+ADFFACES-485 	autoSubmit doesn't deliver value change events when inside of a subform
+ADFFACES-474 	Safari: dialog windows do not size correctly, and errors show in Javascript console
+ADFFACES-469 	ResponseWriter.writeText() can throw NPE if text is null - protect against this
+ADFFACES-466 	Issues in change persistence framework code
+ADFFACES-461 	NumberConverter renders "null", when locale is null
+ADFFACES-460 	CONVERTNUMBER ERROR MESSAGE MISLEADING WHEN INTEGERONLY IS TRUE
+ADFFACES-454 	Client side number converter not working, when locale is set
+ADFFACES-452 	select-all/none links on table don't support autoSubmit
+ADFFACES-450 	messageDetailConvertNumber not used for numberConverter
+ADFFACES-449 	Table TagDocs still mentions tr:tableSelectOne/Many
+ADFFACES-448 	portal+skinning: suppress stylesheet if requested skin-id+skin's stylesheetid are found
+ADFFACES-447 	JavaDoc for getTimeZone() in LocaleContext is misleading.
+ADFFACES-444 	Autosubmit not working on CoreTreeTable
+ADFFACES-441 	Adding localization to logging message and exception
+ADFFACES-439 	use hashcode in generated css file instead of version #
+ADFFACES-438 	Trinidad components don't use ViewHandler.getResourceUrl - custom ViewHandlers can fail due to this
+ADFFACES-437 	both showOneAccordion and showManyAccordion demos don't work in the upper half of the page
+ADFFACES-423 	TrRangeValidator
+ADFFACES-422 	Shouldn't have to stop/start the server if the skin's css file has changed
+ADFFACES-420 	Give better error message when UIXComponentTag is used without <f:view>
+ADFFACES-418 	Broken Opera support
+ADFFACES-417 	Load text resources from application specific bundle before falling back to the embedded ResourceBundle
+ADFFACES-416 	Remove usages of assert as a #ifdef C macro
+ADFFACES-415 	Mark ui and uinode packages as deprecated
+ADFFACES-410 	DateTimeConverter does not use 2DigitYearStart() when parsing strings with year less than 4-digit
+ADFFACES-405 	selectManyListbox fails to render values when value list and item list are in different orders
+ADFFACES-404 	absolute urls do not work in skinning
+ADFFACES-403 	need new method outputUtils.renderImage that takes a style class
+ADFFACES-401 	Missing semicolon in Core.js
+ADFFACES-398 	panelAccordion is broken
+ADFFACES-397 	panelRadio PPR is broken
+ADFFACES-393 	ADFFACES-189 causes duplicate menu items to display the incorrect focus path. New optimization mentioned in that issue is needed.
+ADFFACES-392 	CLONE -Performance optimization in XMLMenuModel.getFocusRowKey() breaks menu model when called before the RenderResponse Phase of the request lifecycle.
+ADFFACES-391 	Client-side validation - enhance to match server-side
+ADFFACES-382 	SortableModel.getRowKey() returns sortedIndex
+ADFFACES-246 	actual Trinidad demo does not work with opera 9.02
+ADFFACES-186 	autoSubmit functionality in tr:table is missing after removing tableSelectMany and tableSelectOne
+ADFFACES-105 	update facelets in trinidad demo app
