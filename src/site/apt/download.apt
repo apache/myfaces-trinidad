@@ -33,7 +33,7 @@ Download Apache Trinidad
   created using GNU tar extensions. Thus they must be untarred with a GNU compatible
   version of tar.
 
-    << Apache Trinidad 1.0.0-incubating Distribution >>
+    << Apache Trinidad 1.0.1 Distribution >>
 
     Release notes can be found
   {{{http://}here}}.
@@ -41,13 +41,13 @@ Download Apache Trinidad
 *-------------------------+---------+----------+-----------+
 |                         | Mirrors | Checksum | Signature |
 *-------------------------+---------+----------+-----------+
-| Apache Trinidad 1.0.0-incubating (tar.gz)     | {{{http://people.apache.org/dist/incubator/trinidad/1.0.0-incubating/trinidad-1.0.0-incubating-dist.tar.gz} trinidad-1.0.0-incubating-dist.tar.gz}} | {{{http://people.apache.org/dist/incubator/trinidad/1.0.0-incubating/trinidad-1.0.0-incubating-dist.tar.gz.md5} trinidad-1.0.0-incubating-dist.tar.gz.md5}} | {{{http://people.apache.org/dist/incubator/trinidad/1.0.0-incubating/trinidad-1.0.0-incubating-dist.tar.gz.asc} trinidad-1.0.0-incubating-dist.tar.gz.asc}} |
+| Apache Trinidad 1.0.1 (tar.gz)     | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.1-dist.tar.gz} trinidad-1.0.1-dist.tar.gz}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.1-dist.tar.gz.md5} trinidad-1.0.1-dist.tar.gz.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.1-dist.tar.gz.asc} trinidad-1.0.1-dist.tar.gz.asc}} |
 *-------------------------+---------+----------+-----------+
-| Apache Trinidad 1.0.0-incubating (zip)      | {{{http://people.apache.org/dist/incubator/trinidad/1.0.0-incubating/trinidad-1.0.0-incubating-dist.zip} trinidad-1.0.0-incubating-dist.zip}} | {{{http://people.apache.org/dist/incubator/trinidad/1.0.0-incubating/trinidad-1.0.0-incubating-dist.zip.md5} trinidad-1.0.0-incubating-dist.zip.md5}} | {{{http://people.apache.org/dist/incubator/trinidad/1.0.0-incubating/trinidad-1.0.0-incubating-dist.zip.asc} trinidad-1.0.0-incubating-dist.zip.asc}} |
+| Apache Trinidad 1.0.1 (zip)      | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.1-dist.zip} trinidad-1.0.1-dist.zip}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.1-dist.zip.md5} trinidad-1.0.1-dist.zip.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.1-dist.zip.asc} trinidad-1.0.1-dist.zip.asc}} |
 *-------------------------+---------+----------+-----------+
-| Apache Trinidad 1.0.0-incubating Example (tar.gz)     | {{{http://people.apache.org/dist/incubator/trinidad/1.0.0-incubating/trinidad-1.0.0-incubating-example.tar.gz} trinidad-1.0.0-incubating-example.tar.gz}} | {{{http://people.apache.org/dist/incubator/trinidad/1.0.0-incubating/trinidad-1.0.0-incubating-example.tar.gz.md5} trinidad-1.0.0-incubating-example.tar.gz.md5}} | {{{http://people.apache.org/dist/incubator/trinidad/1.0.0-incubating/trinidad-1.0.0-incubating-example.tar.gz.asc} trinidad-1.0.0-incubating-example.tar.gz.asc}} |
+| Apache Trinidad 1.0.1 Example (tar.gz)     | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.1-example.tar.gz} trinidad-1.0.1-example.tar.gz}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.1-example.tar.gz.md5} trinidad-1.0.1-example.tar.gz.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.1-example.tar.gz.asc} trinidad-1.0.1-example.tar.gz.asc}} |
 *-------------------------+---------+----------+-----------+
-| Apache Trinidad 1.0.0-incubating  Example (zip)      | {{{http://people.apache.org/dist/incubator/trinidad/1.0.0-incubating/trinidad-1.0.0-incubating-example.zip} trinidad-1.0.0-incubating-example.zip}} | {{{http://people.apache.org/dist/incubator/trinidad/1.0.0-incubating/trinidad-1.0.0-incubating-example.zip.md5} trinidad-1.0.0-incubating-example.zip.md5}} | {{{http://people.apache.org/dist/incubator/trinidad/1.0.0-incubating/trinidad-1.0.0-incubating-example.zip.asc} trinidad-1.0.0-incubating-example.zip.asc}} |
+| Apache Trinidad 1.0.1  Example (zip)      | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.1-example.zip} trinidad-1.0.1-example.zip}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.1-example.zip.md5} trinidad-1.0.1-example.zip.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.1-example.zip.asc} trinidad-1.0.1-example.zip.asc}} |
 *-------------------------+---------+----------+-----------+
 
 Latest source code from SVN repository
@@ -90,19 +90,19 @@ Verifying signatures
 
 	  <<<
 	  % pgpk -a KEYS
-	  % pgpv trinidad-1.0.0-incubating-dist.tar.gz.asc
+	  % pgpv trinidad-1.0.1-dist.tar.gz.asc
 	  >>>
 
 	  <or>
 
 	  <<<
 	  % pgp -ka KEYS
-	  % pgp trinidad-1.0.0-incubating-dist.tar.gz.asc
+	  % pgp trinidad-1.0.1-dist.tar.gz.asc
 	  >>>
 
 	  <or>
 
 	  <<<
   	% gpg --import KEYS
-	  % gpg --verify trinidad-1.0.0-incubating-dist.tar.gz.asc
+	  % gpg --verify trinidad-1.0.1-dist.tar.gz.asc
 	  >>>
