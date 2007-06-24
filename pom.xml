@@ -201,9 +201,6 @@
     <module>maven-javascript-plugin</module>
     <module>maven-xrts-plugin</module>
     <module>maven-tagdoc-plugin</module>
-    <!-- TODO: matzew separate the archetype -->
-    <!-- commented out, because it depends on the version, that we are releasing next ... -->
-    <!--module>myfaces-archetype-trinidad</module-->
   </modules>
 
   <distributionManagement>
