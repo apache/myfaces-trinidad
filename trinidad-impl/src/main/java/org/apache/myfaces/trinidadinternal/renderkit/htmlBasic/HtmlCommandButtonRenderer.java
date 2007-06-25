@@ -92,6 +92,7 @@ public class HtmlCommandButtonRenderer extends Renderer
     if (isImage)
     {
       script =  "this.form.source.value='" + id + "';";
+      arc.getFormData().addNeededValue("source");
     }
     else
     {
