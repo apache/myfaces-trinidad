@@ -53,7 +53,13 @@ public class URLUtils
         if (is != null)
           is.close();
       }
+      // If the connection doesn't support getInputStream(),
+      // or there's an IOException (Tomcat throws an exception
+      // on directory views, for example), that's OK.
       catch (UnknownServiceException use)
+      {
+      }
+      catch (IOException ioe)
       {
       }
 
