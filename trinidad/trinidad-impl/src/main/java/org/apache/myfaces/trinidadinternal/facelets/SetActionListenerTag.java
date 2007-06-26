@@ -23,7 +23,7 @@ import javax.el.ValueExpression;
 import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
 
-import org.apache.myfaces.trinidadinternal.taglib.listener.SetActionListener;
+import org.apache.myfaces.trinidad.event.SetActionListener;
 
 import com.sun.facelets.FaceletContext;
 import com.sun.facelets.FaceletException;
@@ -59,9 +59,9 @@ public class SetActionListenerTag extends TagHandler
                                                             Object.class);
       ActionSource actionSource= (ActionSource) parent;
       SetActionListener listener = new SetActionListener();
-      listener.setValueBinding(SetActionListener.FROM_KEY,
+      listener.setValueBinding("from",
                                new LegacyValueBinding(fromExpression));
-      listener.setValueBinding(SetActionListener.TO_KEY,
+      listener.setValueBinding("to",
                                new LegacyValueBinding(toExpression));
       actionSource.addActionListener(listener);
     }
