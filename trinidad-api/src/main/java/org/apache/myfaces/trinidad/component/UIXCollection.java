@@ -1369,8 +1369,10 @@ public abstract class UIXCollection extends UIXComponentBase
       _prevVarValue = _NULL;
       _prevVarStatus = _NULL;
       _currentRowKey = _NULL;
-      _isInitialized = true;
       _initialStampStateKey = _NULL;
+      // However, leave _isFirstRender set to false - since that's
+      // necessarily the state we'd be in if we're reconstituting this
+      _isFirstRender = false;
     }
 
     private static final long serialVersionUID = 1L;
