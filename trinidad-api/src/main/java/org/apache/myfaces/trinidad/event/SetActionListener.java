@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.apache.myfaces.trinidadinternal.taglib.listener;
+package org.apache.myfaces.trinidad.event;
 
 import javax.faces.component.StateHolder;
 import javax.faces.context.FacesContext;
@@ -30,37 +30,27 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
- * JavaServer Faces version 1.2 a <code>setPropertyActionListener</code>, which provides the 
- * same functionality. In JSF 1.2 days this class should be <code>deprecated</code>.
- *
- * @todo Look at moving to org.apache.myfaces.trinidad.event
- * @todo Extending FacesBean is very lame if we make this
- *   class part of our public API, but the FacesBean API
- *   would otherwise require a private subclass of FacesBeanImpl.
- *   We need a better way out.
+ * ActionListener that supports getting a value from
+ * one binding and setting it on another.
  */
-public class SetActionListener extends FacesBeanImpl
-  implements ActionListener, StateHolder
+public class SetActionListener implements ActionListener, StateHolder
 {
-  static public final FacesBean.Type TYPE = new FacesBean.Type();
-  static public final PropertyKey FROM_KEY =
-    TYPE.registerKey("from");
-  // Must be a ValueBinding
-  static public final PropertyKey TO_KEY =
-    TYPE.registerKey("to");
-
-  static
-  {
-    TYPE.lock();
-  }
-
+  
+  /**
+   * Creates a SetActionListener.
+   */
   public SetActionListener()
   {
+    _bean = new Bean();
   }
 
+  /**
+   * Gets the value from the "from" property and sets it on 
+   * the ValueBinding for the "to" property
+   */
   public void processAction(ActionEvent event)
   {
-    ValueBinding to = getValueBinding(TO_KEY);
+    ValueBinding to = _bean.getValueBinding(Bean.TO_KEY);
     if (to != null)
     {
       Object from = getFrom();
@@ -72,7 +62,7 @@ public class SetActionListener extends FacesBeanImpl
       {
         if (_LOG.isWarning())
         {
-          ValueBinding fromBinding = getValueBinding(FROM_KEY);
+          ValueBinding fromBinding = _bean.getValueBinding(Bean.FROM_KEY);
           String mes = "Error setting:'"+to.getExpressionString() +
             "' to value:"+from;
           if (fromBinding != null)
@@ -85,20 +75,41 @@ public class SetActionListener extends FacesBeanImpl
     }
   }
 
+  public ValueBinding getValueBinding(String name)
+  {
+    PropertyKey key = Bean.TYPE.findKey(name);
+    if (key == null)
+      return null;
+
+    return _bean.getValueBinding(key);
+  }
+
+  public void setValueBinding(String name, ValueBinding binding)
+  {
+    PropertyKey key = Bean.TYPE.findKey(name);
+    if (key == null)
+      throw new IllegalArgumentException();
+    _bean.setValueBinding(key, binding);
+  }
+
   public Object getFrom()
   {
-    return getProperty(FROM_KEY);
+    return _bean.getProperty(Bean.FROM_KEY);
   }
 
   public void setFrom(Object from)
   {
-    setProperty(FROM_KEY, from);
+    _bean.setProperty(Bean.FROM_KEY, from);
   }
 
-  @Override
-  public Type getType()
+  public Object saveState(FacesContext context)
   {
-    return TYPE;
+    return _bean.saveState(context);
+  }
+
+  public void restoreState(FacesContext context, Object state)
+  {
+    _bean.restoreState(context, state);
   }
 
   public boolean isTransient()
@@ -112,6 +123,29 @@ public class SetActionListener extends FacesBeanImpl
   }
 
   // saveState() and restoreState() come from FacesBeanImpl
-  
+  static private class Bean extends FacesBeanImpl
+  {
+    static public final FacesBean.Type TYPE = new FacesBean.Type();
+    static public final PropertyKey FROM_KEY =
+      TYPE.registerKey("from");
+    // Must be a ValueBinding
+    static public final PropertyKey TO_KEY =
+      TYPE.registerKey("to");
+
+
+    @Override
+    public Type getType()
+    {
+      return TYPE;
+    }
+
+    static
+    {
+      TYPE.lock();
+    }
+  }
+
+  private Bean _bean;
+
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(SetActionListener.class);
 }

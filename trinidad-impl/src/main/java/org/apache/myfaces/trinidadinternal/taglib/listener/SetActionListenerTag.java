@@ -29,8 +29,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.webapp.UIComponentTag;
 
-import org.apache.myfaces.trinidad.webapp.ELContextTag;
+import org.apache.myfaces.trinidad.event.SetActionListener;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.webapp.ELContextTag;
 
 /**
  * JavaServer Faces version 1.2 a <code>setPropertyActionListener</code>, which provides the 
@@ -85,7 +86,7 @@ public class SetActionListenerTag extends TagSupport
         if (parentELContext != null)
           from = parentELContext.transformExpression(from);
 
-        listener.setValueBinding(SetActionListener.FROM_KEY,
+        listener.setValueBinding("from",
                                  application.createValueBinding(from));
       }
       else
@@ -99,7 +100,7 @@ public class SetActionListenerTag extends TagSupport
         if (parentELContext != null)
           to = parentELContext.transformExpression(to);
 
-        listener.setValueBinding(SetActionListener.TO_KEY,
+        listener.setValueBinding("to",
                                  application.createValueBinding(to));
       }
       else
