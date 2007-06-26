@@ -237,11 +237,10 @@ public class SimpleInputTextRenderer extends FormInputRenderer
           rw.writeAttribute("autocomplete", "off", null);
         }
       }
-
-
-      rw.writeAttribute("maxlength",
-                        getMaximumLength(bean),
-                        "maximumLength");
+      
+      Number maximumLength = getMaximumLength(bean);
+      if(maximumLength != null && maximumLength.intValue()> 0)
+        rw.writeAttribute("maxlength", maximumLength, "maximumLength");
     }
 
   }
