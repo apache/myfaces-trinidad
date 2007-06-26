@@ -325,7 +325,8 @@ tip), and may use simpler layout primitives]]>
     <property>
       <description><![CDATA[the maximum number of characters that
           can be entered into the text control. Note that
-          this value is independent of the "cols" displayed.]]>
+          this value is independent of the "cols" displayed.
+          If set to 0 or less, the maximumLength is ignored.]]>
       </description>
       <property-name>maximumLength</property-name>
       <property-class>int</property-class>
