@@ -64,10 +64,23 @@ abstract class ColorFormat extends Format
     String source) throws ParseException 
   {
     ParsePosition status = new ParsePosition(0);
-    Object result = parseObject(source, status);
+    Object result = null;
+    boolean illegalArgument = false;
     
+    // We expect a IllegalArgumentException in case either of
+    // R/G/B color comps were to be out of range.
+    try
+    {
+      result = parseObject(source, status);
+    }
+    catch(IllegalArgumentException ie)
+    {
+      _LOG.warning(ie);
+      illegalArgument = true;
+    }
+
     int index = status.getIndex();
-    if (index == 0 ||
+    if (illegalArgument || index == 0 ||
         (source != null && index < source.length())) 
     {
         throw new ParseException("Format.parseObject(String) failed",
