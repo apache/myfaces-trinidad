@@ -256,20 +256,10 @@ class RGBColorFormat extends ColorFormat
 
     pos.setIndex(start);
 
-    try
-    {
       return new Color(rgba[_RED_FIELD],
                        rgba[_GREEN_FIELD],
                        rgba[_BLUE_FIELD],
                        rgba[_ALPHA_FIELD]);
-    }
-    // Fix for 4621681. We expect a IllegalArgumentException in case either of
-    //  R/G/B color comps were to be out of range.
-    catch(IllegalArgumentException ie)
-    {
-      _LOG.warning(ie);
-      return null;
-    }
 
   }
 
