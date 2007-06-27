@@ -39,7 +39,14 @@ public class DispatchServletResponse extends HttpServletResponseWrapper
   public void setContentType(
     String contentTypeAndCharset)
   {
-    if(contentTypeAndCharset != null)
+    // Ignore all calls to setContentType() if they come in the scope
+    // of a Servlet include (generally a jsp:include).  The JSP
+    // engine will ignore them, and in a .jspx, the default contentType
+    // is text/xml!  So as a result, the absence of a contentType
+    // in included jspx files was sometimes leading us to turn on
+    // XHTML!
+    if ((_request.getAttribute("javax.servlet.include.request_uri") == null) &&
+        (contentTypeAndCharset != null))
     {
       Matcher matcher = _CONTENT_TYPE_PATTERN.matcher(contentTypeAndCharset);
       if (matcher.matches())
