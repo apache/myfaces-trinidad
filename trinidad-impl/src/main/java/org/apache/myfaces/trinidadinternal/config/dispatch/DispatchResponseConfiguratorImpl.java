@@ -47,6 +47,7 @@ public class DispatchResponseConfiguratorImpl extends Configurator
   @Override
   public ExternalContext getExternalContext(ExternalContext externalContext)
   {
+    if(!isApplied(externalContext))
     {
       if(ExternalContextUtils.isPortlet(externalContext))
       {
