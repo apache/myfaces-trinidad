@@ -1,6 +1,6 @@
-Apache MyFaces Trinidad Plugins (version 1.0.1) (for JSF 1.1)
+Apache MyFaces Trinidad Plugins (version 1.2.1) (for JSF 1.2)
 
-This file contains informations for the 1.0.1 release of the Plugins for the Apache MyFaces Trinidad solved Jira issue:
+This file contains informations for the 1.2.1 release of the Plugins for the Apache MyFaces Trinidad solved Jira issue:
 
 Issues:
 ADFFACES-487 - Change Component generator to us XXX.valueOf(x) instead of new XXX(x) when converting between primitives to Objects in components
