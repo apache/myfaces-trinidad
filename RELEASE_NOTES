@@ -1,0 +1,11 @@
+Apache MyFaces Trinidad Plugins (version 1.0.1) (for JSF 1.1)
+
+This file contains informations for the 1.0.1 release of the Plugins for the Apache MyFaces Trinidad solved Jira issue:
+
+Issues:
+ADFFACES-487 - Change Component generator to us XXX.valueOf(x) instead of new XXX(x) when converting between primitives to Objects in components
+ADFFACES-459 - maven-faces-plugin doesn't support deprecated element in facet-metadata element
+ADFFACES-412 - JSLocaleElementsGenerator cannot be parsed by latest version of Qdox
+ADFFACES-411 - xrts plugin should support metadata content
+ADFFACES-406 - Tagdoc should list appropriate values if enumerated.
+ADFFACES-372 - The Trinidad Maven JDeveloper plugin is not able to handle multiple TLD files having the same name.
