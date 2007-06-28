@@ -226,14 +226,32 @@ public class CoreRenderKit extends RenderKitBase
     if (processParameters != null)
       pageFlowScope.putAll(processParameters);
 
+    RequestContext rc = RequestContext.getCurrentInstance();
     DialogRequest request = new DialogRequest(targetRoot,
                                               sourceId,
                                               formId,
-                                              windowProperties);
+                                              windowProperties,
+                                              usePopupForDialog(context, rc));
     _getDialogList(context, true).add(request);
     return true;
   }
 
+  //
+  // Returns true if popups should be used to display dialogs
+  // (Currently defaults to off)
+  //
+  static public boolean usePopupForDialog(FacesContext context, RequestContext rc)
+  {
+    // This mode of dialogs isn't accessible - don't use it no 
+    // matter what configuration we're in
+    if (rc != null &&
+        rc.getAccessibilityMode() == RequestContext.Accessibility.SCREEN_READER)
+      return false;
+
+    String usePopup = context.getExternalContext().getInitParameter(
+       _USE_DIALOG_POPUP_INIT_PARAM);
+    return "true".equalsIgnoreCase(usePopup);
+  }
 
   public boolean returnFromDialog(
     FacesContext context,
@@ -242,30 +260,43 @@ public class CoreRenderKit extends RenderKitBase
     if (!_supportsSeparateWindow(context))
       return false;
 
-    RequestContext afC = RequestContext.getCurrentInstance();
     try
     {
-      String returnId = (String) afC.getPageFlowScope().get(_RETURN_ID);
-
-      if (returnId == null)
-        throw new IllegalStateException(_LOG.getMessage(
-          "NO_RETURNID_AVAILABLE_FOR_RETURNING_FROM_DIALOG"));
+      boolean usePopup = usePopupForDialog(context, RequestContext.getCurrentInstance());
 
       // Deliver callback in the context of the launching window
       // This is required to work around problems in Mozilla
       // with cross frame XmlHttpRequest invocation
       Writer out = _getHtmlWriter(context);
-      out.write("<script>");
-      // http://issues.apache.org/jira/browse/ADFFACES-191 - handling alt-f4 
-      // Following code is now called from onunload JS function - see FredJSP
-      // out.write("var callback = 'ADFDialogReturn[" + returnId + "]()';");
-      // out.write("top.opener.setTimeout(callback, 1);");
-      out.write("top.close()");
-      out.write("</script>");
+
+      if (usePopup)
+      {
+        out.write("<script>");
+        out.write("parent.TrPopupDialog._returnFromDialog();");
+        out.write("</script>");
+      }
+      else
+      {
+        RequestContext afC = RequestContext.getCurrentInstance();
+
+        String returnId = (String) afC.getPageFlowScope().get(_RETURN_ID);
+
+        if (returnId == null)
+          throw new IllegalStateException(_LOG.getMessage(
+            "NO_RETURNID_AVAILABLE_FOR_RETURNING_FROM_DIALOG"));
+
+        // http://issues.apache.org/jira/browse/ADFFACES-191 - handling alt-f4 
+        // Following code is now called from onunload JS function - see FredJSP
+        // out.write("var callback = 'ADFDialogReturn[" + returnId + "]()';");
+        // out.write("top.opener.setTimeout(callback, 1);");
+        out.write("<script>");
+        out.write("top.close()");
+        out.write("</script>");
+        _LOG.fine("Returning from dialog using return ID {0}", returnId);
+      }
+
       out.close();
       context.responseComplete();
-
-      _LOG.fine("Returning from dialog using return ID {0}", returnId);
     }
     catch (IOException ioe)
     {
@@ -779,7 +810,6 @@ public class CoreRenderKit extends RenderKitBase
     return _HTML_MIME_TYPE;
   }
 
-
   private static final String _XHTML_MIME_TYPE = "application/xhtml+xml";
   private static final String _APPLICATION_XML_MIME_TYPE = "application/xml";
   private static final String _XML_MIME_TYPE = "text/xml";
@@ -792,7 +822,9 @@ public class CoreRenderKit extends RenderKitBase
     "org.apache.myfaces.trinidadinternal.renderkit.ScriptList";
   static private final String _PPR_REQUEST_HEADER = "Tr-XHR-Message";
 
+  static private final String _USE_DIALOG_POPUP_INIT_PARAM =
+    "org.apache.myfaces.trinidadinternal.renderkit.USE_DIALOG_POPUP";
 
   static private final TrinidadLogger _LOG =
-     TrinidadLogger.createTrinidadLogger(CoreRenderKit.class);
+    TrinidadLogger.createTrinidadLogger(CoreRenderKit.class);
 }

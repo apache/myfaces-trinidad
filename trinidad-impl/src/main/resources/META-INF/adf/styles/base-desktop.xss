@@ -1876,6 +1876,51 @@
   </style>
 
   <!--
+    tr:panelPopup Styles
+  -->
+
+  <style selector="af|panelPopup::link">
+    <includeStyle name="AFDefaultFont"/>
+    <includeStyle name="AFLinkForeground"/>
+  </style>
+
+  <style selector="af|panelPopup::trigger">
+    <includeStyle name="AFDefaultFont"/>
+    <includeStyle name="AFLinkForeground"/>
+    <property name="text-decoration">none</property>
+    <property name="white-space">nowrap</property>
+  </style>
+
+  <style selector="af|panelPopup::container">
+    <includeStyle name="AFVeryDarkBorder"/>
+    <property name="border">1px solid</property>
+    <property name="background-color">white</property>
+  </style>
+
+  <style selector="af|panelPopup::title-bar">
+    <includeStyle name="AFDarkAccentBackground"/>
+    <includeStyle name="AFVeryDarkBorder"/>
+    <property name="border-bottom">1px solid</property>
+    <property name="padding">2px 2px 2px 2px</property>
+  </style>
+
+  <style selector="af|panelPopup::title-text">
+    <includeStyle name="AFDefaultFont"/>
+    <includeStyle name="AFMediumFont"/>
+  </style>
+
+  <style selector="af|panelPopup::close-icon">
+    <includeStyle name="AFDefaultFont"/>
+    <includeStyle name="AFMediumFont"/>
+    <property name="text-align">right</property>
+  </style>
+
+  <style selector="af|panelPopup::content">
+    <includeStyle name="AFLightAccentBackground"/>
+    <property name="border">0px</property>
+  </style>
+
+  <!--
      tr:menuButtons Styles
    -->
    <!-- this style is included in all three styles below -->

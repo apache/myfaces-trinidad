@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -30,6 +30,7 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.pages.FredJSP;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 
 /**
@@ -42,11 +43,13 @@ class DialogRequest
     UIViewRoot         targetRoot,
     String             clientId,
     String             formId,
-    Map<String,Object> dialogProperties
+    Map<String,Object> dialogProperties,
+    boolean            usePopup
     )
   {
     _clientId = clientId;
     _formId   = formId;
+    _usePopup = usePopup;
 
     if (dialogProperties == null)
       dialogProperties = Collections.emptyMap();
@@ -54,11 +57,19 @@ class DialogRequest
     Object width = dialogProperties.get("width");
     Object height = dialogProperties.get("height");
 
-    _url = FredJSP.getRedirectURL(FacesContext.getCurrentInstance(),
+    FacesContext context = FacesContext.getCurrentInstance();
+
+    if (usePopup)
+    {
+      _url = context.getApplication().getViewHandler().getActionURL(context, targetRoot.getViewId());
+    }
+    else
+    {
+      _url = FredJSP.getRedirectURL(context,
                                   targetRoot,
                                   CoreRenderer.toString(width),
                                   CoreRenderer.toString(height));
-    
+    }
     _dialogProperties  = dialogProperties;
   }
 
@@ -77,31 +88,59 @@ class DialogRequest
 
     String formName = _formId;
 
-    out.writeText("_launchDialog(\"", null);
-    out.writeText(_url, null);
-    out.writeText("\", '", null);
-    out.writeText(_getDialogWindowName(), null);
-    out.writeText("',{", null);
-
-    // Get some default widths and heights out there in
-    // case they're omitted
-    boolean writtenOne = false;
-    if (!_dialogProperties.containsKey("width"))
+    if (_usePopup)
     {
-      out.writeText("width:", null);
-      out.writeText(_DEFAULT_WIDTH, null);
-      writtenOne = true;
+      // Output the style classes to the styleClassMap
+      out.writeText("TrPage.getInstance().addStyleClassMap( {'", null);
+      out.writeText(SkinSelectors.AF_PANEL_POPUP_CONTAINER_STYLE_CLASS + "':'", null);
+      out.writeText(arc.getStyleClass(SkinSelectors.AF_PANEL_POPUP_CONTAINER_STYLE_CLASS), null);
+      out.writeText("','" + SkinSelectors.AF_PANEL_POPUP_CONTENT_STYLE_CLASS + "':'", null);
+      out.writeText(arc.getStyleClass(SkinSelectors.AF_PANEL_POPUP_CONTENT_STYLE_CLASS), null);
+      out.writeText("','" + SkinSelectors.AF_PANEL_POPUP_TITLE_STYLE_CLASS + "':'", null);
+      out.writeText(arc.getStyleClass(SkinSelectors.AF_PANEL_POPUP_TITLE_STYLE_CLASS), null);
+      out.writeText("','" + SkinSelectors.AF_PANEL_POPUP_TITLEBAR_STYLE_CLASS + "':'", null);
+      out.writeText(arc.getStyleClass(SkinSelectors.AF_PANEL_POPUP_TITLEBAR_STYLE_CLASS), null);
+      out.writeText("'} ); ", null);
+      
+      // Finally output the call to launch the dialog
+      out.writeText("TrPopupDialog._launchDialog(\"", null);
+    }
+    else
+    {
+      out.writeText("_launchDialog(\"", null);
     }
 
-    if (!_dialogProperties.containsKey("height"))
+    out.writeText(_url, null);
+    if (!_usePopup)
     {
-      if (writtenOne)
-        out.writeText(",", null);
-      else
-        writtenOne = true;
+      out.writeText("\", \"", null);
+      out.writeText(_getDialogWindowName(), null);
+    }
+    out.writeText("\",{", null);
 
-      out.writeText("height:", null);
-      out.writeText(_DEFAULT_HEIGHT, null);
+    boolean writtenOne = false;
+
+    if (!_usePopup)
+    {
+      // Get some default widths and heights out there in
+      // case they're omitted
+      if (!_dialogProperties.containsKey("width"))
+      {
+        out.writeText("width:", null);
+        out.writeText(_DEFAULT_WIDTH, null);
+        writtenOne = true;
+      }
+
+      if (!_dialogProperties.containsKey("height"))
+      {
+        if (writtenOne)
+          out.writeText(",", null);
+        else
+          writtenOne = true;
+
+        out.writeText("height:", null);
+        out.writeText(_DEFAULT_HEIGHT, null);
+      }
     }
 
     Iterator<String> propertiesIter = _dialogProperties.keySet().iterator();
@@ -129,9 +168,12 @@ class DialogRequest
     out.writeText("\",\"", null);
     if (_clientId != null)
       out.writeText(_clientId, null);
-    out.writeText("\",", null);
-    boolean isPPR = PartialPageUtils.supportsPartialRendering(arc);
-    out.writeText(isPPR ? "1" : "0", null);
+    out.writeText("\"", null);
+    if (!_usePopup)
+    {
+      boolean isPPR = PartialPageUtils.supportsPartialRendering(arc);
+      out.writeText(isPPR ? ",1" : ",0", null);
+    }
     out.writeText(");", null);
   }
 
@@ -152,6 +194,7 @@ class DialogRequest
   private final String             _clientId;
   private final String             _formId;
   private final String             _url;
+  private final boolean            _usePopup;
   private final Map<String,Object> _dialogProperties;
 
 

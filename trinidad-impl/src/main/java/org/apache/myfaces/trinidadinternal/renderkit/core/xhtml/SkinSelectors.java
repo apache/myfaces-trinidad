@@ -887,13 +887,35 @@ public final class SkinSelectors
 
    //                                                                         //
    //                                                                         //
-   // =========================== tr:panelTip ============================ //
+   // =========================== tr:panelTip =============================== //
    //                                                                         //
    //                                                                         //
 
   public static final String AF_PANEL_TIP_STYLE_CLASS = "af|panelTip";
   public static final String AF_PANEL_TIP_LABEL_STYLE_CLASS = "af|panelTip::label";
   public static final String AF_PANEL_TIP_CONTENT_STYLE_CLASS = "af|panelTip::content";
+
+  //                                                                         //
+  //                                                                         //
+  // =========================== tr:panelPopup ============================= //
+  //                                                                         //
+  //                                                                         //
+  private static final String AF_PANEL_POPUP_ROOT_STYLE_CLASS = "af|panelPopup";
+
+  public static final String AF_PANEL_POPUP_LINK_STYLE_CLASS = 
+    AF_PANEL_POPUP_ROOT_STYLE_CLASS + "::link";
+  public static final String AF_PANEL_POPUP_TRIGGER_STYLE_CLASS = 
+    AF_PANEL_POPUP_ROOT_STYLE_CLASS + "::trigger";
+  public static final String AF_PANEL_POPUP_CONTAINER_STYLE_CLASS = 
+    AF_PANEL_POPUP_ROOT_STYLE_CLASS + "::container";
+  public static final String AF_PANEL_POPUP_CONTENT_STYLE_CLASS = 
+    AF_PANEL_POPUP_ROOT_STYLE_CLASS + "::content";
+  public static final String AF_PANEL_POPUP_TITLEBAR_STYLE_CLASS = 
+    AF_PANEL_POPUP_ROOT_STYLE_CLASS + "::title-bar";
+  public static final String AF_PANEL_POPUP_TITLE_STYLE_CLASS = 
+    AF_PANEL_POPUP_ROOT_STYLE_CLASS + "::title-text";
+  public static final String AF_PANEL_POPUP_CLOSE_ICON_STYLE_CLASS = 
+    AF_PANEL_POPUP_ROOT_STYLE_CLASS + "::close-icon";
 
    //                                                                         //
    //                                                                         //

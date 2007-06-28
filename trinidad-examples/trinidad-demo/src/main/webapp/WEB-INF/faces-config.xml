@@ -829,6 +829,7 @@
         <value>panelList.jspx</value>
         <value>panelPage.jspx</value>
         <value>panelPageHeader.jspx</value>
+        <value>panelPopup.jspx</value>
         <value>panelSideBar.jspx</value>
         <value>panelTip.jspx</value>
         <value>poll.jspx</value>
@@ -2030,6 +2031,13 @@
       <redirect/>
     </navigation-case>
 
+
+    <navigation-case>
+      <from-outcome>guide.panelPopup</from-outcome>
+      <to-view-id>/components/panelPopup.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+  
 
     <navigation-case>
       <from-outcome>guide.form</from-outcome>

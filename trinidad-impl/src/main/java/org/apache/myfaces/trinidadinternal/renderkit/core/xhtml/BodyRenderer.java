@@ -33,6 +33,7 @@ import org.apache.myfaces.trinidad.component.html.HtmlBody;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.util.Service;
 
@@ -200,23 +201,38 @@ public class BodyRenderer extends PanelPartialRootRenderer
       onload = null;
     else
       onload = toString(bean.getProperty(_onloadKey));
+
+    StringBuilder js = new StringBuilder(60);
+
+    // FIXME: call this from _checkLoad() instead of rendering
+    // it into every onload
+    if (CoreRenderKit.usePopupForDialog(FacesContext.getCurrentInstance(),
+                                        RequestContext.getCurrentInstance()))
+    {
+      js.append("TrPopupDialog._initDialogPage();");
+    }
+
+    //PH: Currently, if a browser supports PPR, _checkLoad function is called
+    //that sets initialFocus if set.For non-PPR browsers like blackBerry 4.0,
+    //no body onload function is called. hence, initialFocus cannot is not set.
+    //Therefore, created another function _checkLoadNoPPR() This function is
+    //called by the onLoad JS handler of body tag when device does not support
+    //PPR
     if (PartialPageUtils.supportsPartialRendering(arc))
-	{
-	  // Don't short circuit...
-	  //PH:_checkLoad(event) is replaced by _checkLoad() because on certain
-	  //devices like IE Mobile , event object is not defined. Moreover,
-	  //_checkLoad function does not use event object. So, remove it altogether
-	  //for all PPR devices
-	  onload = XhtmlUtils.getChainedJS("_checkLoad()", onload, false);
-	}
-	//PH: Currently, if a browser supports PPR, _checkLoad function is called
-	//that sets initialFocus if set.For non-PPR browsers like blackBerry 4.0,
-	//no body onload function is called. hence, initialFocus cannot is not set.
-	//Therefore, created another function _checkLoadNoPPR() This function is
-	//called by the onLoad JS handler of body tag when device does not support
-	//PPR
-	else
-	  onload = XhtmlUtils.getChainedJS("_checkLoadNoPPR()", onload, false);
+    {
+      // Don't short circuit...
+      //PH:_checkLoad(event) is replaced by _checkLoad() because on certain
+      //devices like IE Mobile , event object is not defined. Moreover,
+      //_checkLoad function does not use event object. So, remove it altogether
+      //for all PPR devices
+      js.append("_checkLoad()");
+    }
+    else
+    {
+      js.append("_checkLoadNoPPR()");
+    }
+    
+    onload = XhtmlUtils.getChainedJS(js.toString(), onload, false);
 
     return onload;
   }
