@@ -69,6 +69,8 @@ public class CoreCommonScriptsResourceLoader extends AggregatingResourceLoader
     "META-INF/adf/jsLibs/ColorFieldFormat.js",
     "META-INF/adf/jsLibs/ColorFormat.js",
     "META-INF/adf/jsLibs/Shuttle.js",
+    "META-INF/adf/jsLibs/PanelPopup.js",
+    "META-INF/adf/jsLibs/PopupDialog.js",
 
     "META-INF/adf/jsLibs/Page.js",
     "META-INF/adf/jsLibs/StatusIndicator.js",
@@ -97,6 +99,8 @@ public class CoreCommonScriptsResourceLoader extends AggregatingResourceLoader
     "META-INF/adf/jsLibsDebug/ColorFieldFormat.js",
     "META-INF/adf/jsLibsDebug/ColorFormat.js",
     "META-INF/adf/jsLibsDebug/Shuttle.js",
+    "META-INF/adf/jsLibsDebug/PanelPopup.js",
+    "META-INF/adf/jsLibsDebug/PopupDialog.js",
 
     "META-INF/adf/jsLibsDebug/Page.js",
     "META-INF/adf/jsLibsDebug/StatusIndicator.js",

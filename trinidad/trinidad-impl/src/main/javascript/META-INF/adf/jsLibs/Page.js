@@ -439,3 +439,40 @@ TrPage._collectLoadedLibraries = function()
   
   return loadedLibraries;  
 }
+
+ 
+/**
+ * Adds the styleClassMap entries to the existing internal
+ * styleClassMap. Styles can then be accessed via the 
+ * getStyleClass function.
+ * @param styleClassMap() {key: styleClass, ...}
+ */
+TrPage.prototype.addStyleClassMap = function(styleClassMap)
+{
+  if (!styleClassMap)
+    return;
+
+  if (!this._styleClassMap)
+    this._styleClassMap = new Object();
+
+  // Copy key:styleClass pairs to internal map
+  for (var key in styleClassMap)
+    this._styleClassMap[key] = styleClassMap[key];
+}
+ 
+/**
+ * Return the styleClass for the given key.
+ * @param key(String) Unique key to retrieve the styleClass
+ * @return (String) The styleClass, or undefined if not exist
+ */
+TrPage.prototype.getStyleClass = function(key)
+{
+  if (key && this._styleClassMap)
+  {
+    var mapped = this._styleClassMap[key];
+    if (mapped)
+      return mapped;
+  }
+
+  return key;
+}
