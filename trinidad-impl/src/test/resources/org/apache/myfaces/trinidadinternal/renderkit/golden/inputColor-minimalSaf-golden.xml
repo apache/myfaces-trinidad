@@ -130,6 +130,7 @@
               
             </img>
             <script
+                 type="text/javascript"
                 >
               _cfBus['test-chooseId']=document.forms['formId']['mainId'];
             </script>

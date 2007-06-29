@@ -1,6 +1,7 @@
 <results>
       <script
            id="mainId"
+           type="text/javascript"
           >
         
       </script>
@@ -8,6 +9,7 @@
 
       <script
            id="mainId"
+           type="text/javascript"
            src="uri-attr:encoded-resource-url:myScriptSource"
           >
         
@@ -16,6 +18,7 @@
 
       <script
            id="mainId"
+           type="text/javascript"
           >
         myScriptText
       </script>
@@ -23,6 +26,7 @@
 
       <script
            id="myScriptId"
+           type="text/javascript"
           >
         
       </script>

@@ -4,6 +4,7 @@
           >
         
         <script
+             type="text/javascript"
             >
           var _adftreemainId = new _adfTreeSelector('mainId:_selected',new CollectionComponent('formId','mainId'));
         </script>
@@ -15,6 +16,7 @@
           >
         
         <script
+             type="text/javascript"
             >
           var _adftreetest-id = new _adfTreeSelector('test-id:_selected',new CollectionComponent('formId','test-id'));
         </script>
@@ -27,6 +29,7 @@
           >
         
         <script
+             type="text/javascript"
             >
           var _adftreemainId = new _adfTreeSelector('mainId:_selected',new CollectionComponent('formId','mainId'));
         </script>
@@ -39,6 +42,7 @@
           >
         
         <script
+             type="text/javascript"
             >
           var _adftreemainId = new _adfTreeSelector('mainId:_selected',new CollectionComponent('formId','mainId'));
         </script>
@@ -51,6 +55,7 @@
           >
         
         <script
+             type="text/javascript"
             >
           var _adftreemainId = new _adfTreeSelector('mainId:_selected',new CollectionComponent('formId','mainId'));
         </script>
@@ -63,6 +68,7 @@
           >
         
         <script
+             type="text/javascript"
             >
           var _adftreemainId = new _adfTreeSelector('mainId:_selected',new CollectionComponent('formId','mainId'));
         </script>
@@ -75,6 +81,7 @@
           >
         
         <script
+             type="text/javascript"
             >
           var _adftreemainId = new _adfTreeSelector('mainId:_selected',new CollectionComponent('formId','mainId'));
         </script>
@@ -87,6 +94,7 @@
           >
         
         <script
+             type="text/javascript"
             >
           var _adftreemainId = new _adfTreeSelector('mainId:_selected',new CollectionComponent('formId','mainId'));
         </script>
@@ -99,6 +107,7 @@
           >
         
         <script
+             type="text/javascript"
             >
           var _adftreemainId = new _adfTreeSelector('mainId:_selected',new CollectionComponent('formId','mainId'));
         </script>
@@ -111,6 +120,7 @@
           >
         
         <script
+             type="text/javascript"
             >
           var _adftreemainId = new _adfTreeSelector('mainId:_selected',new CollectionComponent('formId','mainId'));
         </script>
@@ -123,6 +133,7 @@
           >
         
         <script
+             type="text/javascript"
             >
           var _adftreemainId = new _adfTreeSelector('mainId:_selected',new CollectionComponent('formId','mainId'));
         </script>
@@ -135,6 +146,7 @@
           >
         
         <script
+             type="text/javascript"
             >
           var _adftreemainId = new _adfTreeSelector('mainId:_selected',new CollectionComponent('formId','mainId'));
         </script>
@@ -147,6 +159,7 @@
           >
         
         <script
+             type="text/javascript"
             >
           var _adftreemainId = new _adfTreeSelector('mainId:_selected',new CollectionComponent('formId','mainId'));
         </script>
@@ -159,6 +172,7 @@
           >
         
         <script
+             type="text/javascript"
             >
           var _adftreemainId = new _adfTreeSelector('mainId:_selected',new CollectionComponent('formId','mainId'));
         </script>

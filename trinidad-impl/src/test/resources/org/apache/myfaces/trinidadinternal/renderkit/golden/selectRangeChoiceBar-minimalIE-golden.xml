@@ -25,6 +25,7 @@
               >
             
             <script
+                 type="text/javascript"
                 >
               t(5,1)
             </script>
@@ -44,6 +45,7 @@
               >
             
             <script
+                 type="text/javascript"
                 >
               t(5,1)
             </script>
@@ -64,10 +66,12 @@
 <!--AttributeTest[first,1]-->
 
       <script
+           type="text/javascript"
           >
         function _navSubmit(formName, event, id, vld, val){return _submitPartialChange(formName,vld,{event:event,source:id,value:val});}
       </script>
       <script
+           type="text/javascript"
           >
         function _navChoiceSubmit(choice, formName, event, id, vld){if (!_navSubmit(formName, event, id, vld, choice.options[choice.selectedIndex].value)){choice.selectedIndex = choice._lastValue;}}
       </script>
@@ -99,6 +103,7 @@
               >
             
             <script
+                 type="text/javascript"
                 >
               t(5,1)
             </script>
@@ -140,6 +145,7 @@
               Select record set
             </label>
             <script
+                 type="text/javascript"
                 >
               _setSelectIndexById("mainId__xc_c",2)
             </script>
@@ -148,6 +154,7 @@
               >
             
             <script
+                 type="text/javascript"
                 >
               t(5,1)
             </script>
@@ -193,6 +200,7 @@
               >
             
             <script
+                 type="text/javascript"
                 >
               t(5,1)
             </script>
@@ -207,6 +215,7 @@
               >
             
             <script
+                 type="text/javascript"
                 >
               t(5,1)
             </script>
@@ -252,6 +261,7 @@
               >
             
             <script
+                 type="text/javascript"
                 >
               t(5,1)
             </script>
@@ -271,6 +281,7 @@
               >
             
             <script
+                 type="text/javascript"
                 >
               t(5,1)
             </script>
@@ -317,6 +328,7 @@
               >
             
             <script
+                 type="text/javascript"
                 >
               t(5,1)
             </script>
@@ -336,6 +348,7 @@
               >
             
             <script
+                 type="text/javascript"
                 >
               t(5,1)
             </script>

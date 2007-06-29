@@ -205,6 +205,7 @@
               Select record set
             </label>
             <script
+                 type="text/javascript"
                 >
               _setSelectIndexById("mainId__xc_c",0)
             </script>
@@ -444,6 +445,7 @@
               Select record set
             </label>
             <script
+                 type="text/javascript"
                 >
               _setSelectIndexById("mainId__xc_c",0)
             </script>
@@ -685,6 +687,7 @@
               Select record set
             </label>
             <script
+                 type="text/javascript"
                 >
               _setSelectIndexById("mainId__xc_c",3)
             </script>
@@ -926,6 +929,7 @@
               Select record set
             </label>
             <script
+                 type="text/javascript"
                 >
               _setSelectIndexById("mainId__xc_c",26)
             </script>
@@ -1137,6 +1141,7 @@
               Select record set
             </label>
             <script
+                 type="text/javascript"
                 >
               _setSelectIndexById("mainId__xc_c",23)
             </script>
