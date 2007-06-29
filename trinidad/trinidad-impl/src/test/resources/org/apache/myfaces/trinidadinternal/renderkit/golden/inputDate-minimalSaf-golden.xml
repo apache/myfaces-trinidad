@@ -99,6 +99,7 @@
               
             </input>
             <script
+                 type="text/javascript"
                 >
               _dfa('mainId','test-chooseId');
             </script>

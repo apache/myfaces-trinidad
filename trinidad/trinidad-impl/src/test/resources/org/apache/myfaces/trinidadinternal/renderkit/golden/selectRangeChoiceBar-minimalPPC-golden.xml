@@ -56,10 +56,12 @@
 <!--AttributeTest[first,1]-->
 
       <script
+           type="text/javascript"
           >
         function _navSubmit(formName, event, id, vld, val){return _submitPartialChange(formName,vld,{event:event,source:id,value:val});}
       </script>
       <script
+           type="text/javascript"
           >
         function _navChoiceSubmit(choice, formName, event, id, vld){if (!_navSubmit(formName, event, id, vld, choice.options[choice.selectedIndex].value)){choice.selectedIndex = choice._lastValue;}}
       </script>
@@ -122,6 +124,7 @@
               </option>
             </select>
             <script
+                 type="text/javascript"
                 >
               _setSelectIndexById("mainId__xc_c",2)
             </script>

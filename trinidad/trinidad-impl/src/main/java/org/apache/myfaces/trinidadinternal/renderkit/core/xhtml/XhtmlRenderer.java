@@ -827,21 +827,18 @@ public class XhtmlRenderer extends CoreRenderer
   }
 
   /**
-   * Checks whether in screen reader mode, and if so, renders "type" attribute
+   * Checks whether in inaccessible mode, and if not, renders "type" attribute
    * for a script element.
    * <p>
    *
    * Note: ResponseWriter.startElement("script", null) must be called
    * before calling this method.
-   *
-   * [ =-= mll added 20-Apr-04 to address bug 3426092 ]
-   *
    */
   public static void renderScriptTypeAttribute(
     FacesContext        context,
     RenderingContext arc) throws IOException
   {
-    if (isScreenReaderMode(arc))
+    if (!isInaccessibleMode(arc))
     {
       context.getResponseWriter().writeAttribute("type",
                                                  _ACCESSIBILITY_SCRIPT_TYPE,

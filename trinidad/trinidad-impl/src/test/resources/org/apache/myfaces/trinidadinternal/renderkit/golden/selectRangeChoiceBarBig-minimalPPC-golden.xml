@@ -191,6 +191,7 @@
               </option>
             </select>
             <script
+                 type="text/javascript"
                 >
               _setSelectIndexById("mainId__xc_c",0)
             </script>
@@ -408,6 +409,7 @@
               </option>
             </select>
             <script
+                 type="text/javascript"
                 >
               _setSelectIndexById("mainId__xc_c",0)
             </script>
@@ -627,6 +629,7 @@
               </option>
             </select>
             <script
+                 type="text/javascript"
                 >
               _setSelectIndexById("mainId__xc_c",3)
             </script>
@@ -846,6 +849,7 @@
               </option>
             </select>
             <script
+                 type="text/javascript"
                 >
               _setSelectIndexById("mainId__xc_c",26)
             </script>
@@ -1035,6 +1039,7 @@
               </option>
             </select>
             <script
+                 type="text/javascript"
                 >
               _setSelectIndexById("mainId__xc_c",23)
             </script>

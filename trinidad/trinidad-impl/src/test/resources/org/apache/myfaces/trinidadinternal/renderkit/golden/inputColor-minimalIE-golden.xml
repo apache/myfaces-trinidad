@@ -34,6 +34,7 @@
               
             </input>
             <script
+                 type="text/javascript"
                 >
               t(8,1)
             </script>
@@ -106,6 +107,7 @@
               
             </input>
             <script
+                 type="text/javascript"
                 >
               t(8,1)
             </script>
@@ -121,6 +123,7 @@
               
             </img>
             <script
+                 type="text/javascript"
                 >
               _cfBus['test-chooseId']=document.forms['formId']['mainId'];
             </script>
@@ -164,6 +167,7 @@
               
             </input>
             <script
+                 type="text/javascript"
                 >
               t(8,1)
             </script>
@@ -299,6 +303,7 @@
               
             </input>
             <script
+                 type="text/javascript"
                 >
               t(8,1)
             </script>
@@ -371,6 +376,7 @@
               
             </input>
             <script
+                 type="text/javascript"
                 >
               t(8,1)
             </script>
@@ -430,6 +436,7 @@
               
             </input>
             <script
+                 type="text/javascript"
                 >
               t(8,1)
             </script>
@@ -501,6 +508,7 @@
               
             </input>
             <script
+                 type="text/javascript"
                 >
               t(8,1)
             </script>
@@ -567,6 +575,7 @@
                 >
               
               <script
+                   type="text/javascript"
                   >
                 t(8,1)
               </script>
@@ -622,6 +631,7 @@
               
             </input>
             <script
+                 type="text/javascript"
                 >
               t(8,1)
             </script>
@@ -699,6 +709,7 @@
               
             </input>
             <script
+                 type="text/javascript"
                 >
               t(8,1)
             </script>
@@ -770,6 +781,7 @@
               
             </input>
             <script
+                 type="text/javascript"
                 >
               t(8,1)
             </script>
@@ -841,6 +853,7 @@
               
             </input>
             <script
+                 type="text/javascript"
                 >
               t(8,1)
             </script>
@@ -918,6 +931,7 @@
               
             </input>
             <script
+                 type="text/javascript"
                 >
               t(8,1)
             </script>
@@ -995,6 +1009,7 @@
               
             </input>
             <script
+                 type="text/javascript"
                 >
               t(8,1)
             </script>
@@ -1072,6 +1087,7 @@
               
             </input>
             <script
+                 type="text/javascript"
                 >
               t(8,1)
             </script>
@@ -1149,6 +1165,7 @@
               
             </input>
             <script
+                 type="text/javascript"
                 >
               t(8,1)
             </script>
@@ -1220,6 +1237,7 @@
               
             </input>
             <script
+                 type="text/javascript"
                 >
               t(8,1)
             </script>
@@ -1292,6 +1310,7 @@
               
             </input>
             <script
+                 type="text/javascript"
                 >
               t(8,1)
             </script>
@@ -1371,6 +1390,7 @@
               test-shortDesc
             </label>
             <script
+                 type="text/javascript"
                 >
               t(8,1)
             </script>
@@ -1442,6 +1462,7 @@
               
             </input>
             <script
+                 type="text/javascript"
                 >
               t(8,1)
             </script>
@@ -1514,6 +1535,7 @@
               
             </input>
             <script
+                 type="text/javascript"
                 >
               t(8,1)
             </script>
@@ -1586,6 +1608,7 @@
               
             </input>
             <script
+                 type="text/javascript"
                 >
               t(8,1)
             </script>
@@ -1658,6 +1681,7 @@
               
             </input>
             <script
+                 type="text/javascript"
                 >
               t(8,1)
             </script>
@@ -1730,6 +1754,7 @@
               
             </input>
             <script
+                 type="text/javascript"
                 >
               t(8,1)
             </script>
@@ -1802,6 +1827,7 @@
               
             </input>
             <script
+                 type="text/javascript"
                 >
               t(8,1)
             </script>
@@ -1874,6 +1900,7 @@
               
             </input>
             <script
+                 type="text/javascript"
                 >
               t(8,1)
             </script>
@@ -1946,6 +1973,7 @@
               
             </input>
             <script
+                 type="text/javascript"
                 >
               t(8,1)
             </script>
@@ -2018,6 +2046,7 @@
               
             </input>
             <script
+                 type="text/javascript"
                 >
               t(8,1)
             </script>

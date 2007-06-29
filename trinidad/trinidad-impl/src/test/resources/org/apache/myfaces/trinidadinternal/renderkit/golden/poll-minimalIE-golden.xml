@@ -4,6 +4,7 @@
           >
         
         <script
+             type="text/javascript"
             >
            if (!self._trPollManager) _trPollManager = new _TrPollManager(); _trPollManager.addAndActivate("mainId", "_submitPartialChange(\'formId\',0,{event:\'poll\',source:\'mainId\'})", 5000);
         </script>
@@ -15,6 +16,7 @@
           >
         
         <script
+             type="text/javascript"
             >
            if (!self._trPollManager) _trPollManager = new _TrPollManager(); _trPollManager.addAndActivate("test-id", "_submitPartialChange(\'formId\',0,{event:\'poll\',source:\'test-id\'})", 5000);
         </script>
@@ -26,6 +28,7 @@
           >
         
         <script
+             type="text/javascript"
             >
            if (!self._trPollManager) _trPollManager = new _TrPollManager(); _trPollManager.addAndActivate("mainId", "_submitPartialChange(\'formId\',0,{event:\'poll\',source:\'mainId\'})", 5000);
         </script>
@@ -37,6 +40,7 @@
           >
         
         <script
+             type="text/javascript"
             >
            if (!self._trPollManager) _trPollManager = new _TrPollManager(); _trPollManager.addAndActivate("mainId", "_submitPartialChange(\'formId\',0,{event:\'poll\',source:\'mainId\'})", 7000);
         </script>

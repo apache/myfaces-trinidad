@@ -90,6 +90,7 @@
                             </option>
                           </select>
                           <script
+                               type="text/javascript"
                               >
                             _setSelectIndexById("mainId-nb__xc_c",0)
                           </script>
@@ -372,6 +373,7 @@
           </tr>
         </table>
         <script
+             type="text/javascript"
             >
           _uixt_mainId=new CollectionComponent('formId','mainId');
         </script>
@@ -476,6 +478,7 @@
                             </option>
                           </select>
                           <script
+                               type="text/javascript"
                               >
                             _setSelectIndexById("mainId-nb__xc_c",0)
                           </script>
@@ -758,6 +761,7 @@
           </tr>
         </table>
         <script
+             type="text/javascript"
             >
           _uixt_mainId=new CollectionComponent('formId','mainId');
         </script>
@@ -862,6 +866,7 @@
                             </option>
                           </select>
                           <script
+                               type="text/javascript"
                               >
                             _setSelectIndexById("mainId-nb__xc_c",0)
                           </script>
@@ -1144,6 +1149,7 @@
           </tr>
         </table>
         <script
+             type="text/javascript"
             >
           _uixt_mainId=new CollectionComponent('formId','mainId');
         </script>
@@ -1248,6 +1254,7 @@
                             </option>
                           </select>
                           <script
+                               type="text/javascript"
                               >
                             _setSelectIndexById("mainId-nb__xc_c",0)
                           </script>
@@ -1530,6 +1537,7 @@
           </tr>
         </table>
         <script
+             type="text/javascript"
             >
           _uixt_mainId=new CollectionComponent('formId','mainId');
         </script>
@@ -1634,6 +1642,7 @@
                             </option>
                           </select>
                           <script
+                               type="text/javascript"
                               >
                             _setSelectIndexById("test-id-nb__xc_c",0)
                           </script>
@@ -1916,6 +1925,7 @@
           </tr>
         </table>
         <script
+             type="text/javascript"
             >
           _uixt_test-id=new CollectionComponent('formId','test-id');
         </script>
@@ -2021,6 +2031,7 @@
                             </option>
                           </select>
                           <script
+                               type="text/javascript"
                               >
                             _setSelectIndexById("mainId-nb__xc_c",0)
                           </script>
@@ -2303,6 +2314,7 @@
           </tr>
         </table>
         <script
+             type="text/javascript"
             >
           _uixt_mainId=new CollectionComponent('formId','mainId');
         </script>
@@ -2408,6 +2420,7 @@
                             </option>
                           </select>
                           <script
+                               type="text/javascript"
                               >
                             _setSelectIndexById("mainId-nb__xc_c",0)
                           </script>
@@ -2690,6 +2703,7 @@
           </tr>
         </table>
         <script
+             type="text/javascript"
             >
           _uixt_mainId=new CollectionComponent('formId','mainId');
         </script>
@@ -2794,6 +2808,7 @@
                             </option>
                           </select>
                           <script
+                               type="text/javascript"
                               >
                             _setSelectIndexById("mainId-nb__xc_c",0)
                           </script>
@@ -3076,6 +3091,7 @@
           </tr>
         </table>
         <script
+             type="text/javascript"
             >
           _uixt_mainId=new CollectionComponent('formId','mainId');
         </script>
@@ -3180,6 +3196,7 @@
                             </option>
                           </select>
                           <script
+                               type="text/javascript"
                               >
                             _setSelectIndexById("mainId-nb__xc_c",0)
                           </script>
@@ -3503,6 +3520,7 @@
           </tr>
         </table>
         <script
+             type="text/javascript"
             >
           _uixt_mainId=new CollectionComponent('formId','mainId');
         </script>
@@ -3607,6 +3625,7 @@
                             </option>
                           </select>
                           <script
+                               type="text/javascript"
                               >
                             _setSelectIndexById("mainId-nb__xc_c",0)
                           </script>
@@ -3930,6 +3949,7 @@
           </tr>
         </table>
         <script
+             type="text/javascript"
             >
           _uixt_mainId=new CollectionComponent('formId','mainId');
         </script>
@@ -4034,6 +4054,7 @@
                             </option>
                           </select>
                           <script
+                               type="text/javascript"
                               >
                             _setSelectIndexById("mainId-nb__xc_c",0)
                           </script>
@@ -4272,6 +4293,7 @@
           </tr>
         </table>
         <script
+             type="text/javascript"
             >
           _uixt_mainId=new CollectionComponent('formId','mainId');
         </script>
@@ -4376,6 +4398,7 @@
                             </option>
                           </select>
                           <script
+                               type="text/javascript"
                               >
                             _setSelectIndexById("mainId-nb__xc_c",0)
                           </script>
@@ -4658,6 +4681,7 @@
           </tr>
         </table>
         <script
+             type="text/javascript"
             >
           _uixt_mainId=new CollectionComponent('formId','mainId');
         </script>
@@ -4763,6 +4787,7 @@
                             </option>
                           </select>
                           <script
+                               type="text/javascript"
                               >
                             _setSelectIndexById("mainId-nb__xc_c",0)
                           </script>
@@ -5045,6 +5070,7 @@
           </tr>
         </table>
         <script
+             type="text/javascript"
             >
           _uixt_mainId=new CollectionComponent('formId','mainId');
         </script>
@@ -5150,6 +5176,7 @@
                             </option>
                           </select>
                           <script
+                               type="text/javascript"
                               >
                             _setSelectIndexById("mainId-nb__xc_c",0)
                           </script>
@@ -5432,6 +5459,7 @@
           </tr>
         </table>
         <script
+             type="text/javascript"
             >
           _uixt_mainId=new CollectionComponent('formId','mainId');
         </script>
@@ -5537,6 +5565,7 @@
                             </option>
                           </select>
                           <script
+                               type="text/javascript"
                               >
                             _setSelectIndexById("mainId-nb__xc_c",0)
                           </script>
@@ -5819,6 +5848,7 @@
           </tr>
         </table>
         <script
+             type="text/javascript"
             >
           _uixt_mainId=new CollectionComponent('formId','mainId');
         </script>
@@ -5924,6 +5954,7 @@
                             </option>
                           </select>
                           <script
+                               type="text/javascript"
                               >
                             _setSelectIndexById("mainId-nb__xc_c",0)
                           </script>
@@ -6206,6 +6237,7 @@
           </tr>
         </table>
         <script
+             type="text/javascript"
             >
           _uixt_mainId=new CollectionComponent('formId','mainId');
         </script>
@@ -6311,6 +6343,7 @@
                             </option>
                           </select>
                           <script
+                               type="text/javascript"
                               >
                             _setSelectIndexById("mainId-nb__xc_c",0)
                           </script>
@@ -6593,6 +6626,7 @@
           </tr>
         </table>
         <script
+             type="text/javascript"
             >
           _uixt_mainId=new CollectionComponent('formId','mainId');
         </script>
@@ -6698,6 +6732,7 @@
                             </option>
                           </select>
                           <script
+                               type="text/javascript"
                               >
                             _setSelectIndexById("mainId-nb__xc_c",0)
                           </script>
@@ -6980,6 +7015,7 @@
           </tr>
         </table>
         <script
+             type="text/javascript"
             >
           _uixt_mainId=new CollectionComponent('formId','mainId');
         </script>
@@ -7085,6 +7121,7 @@
                             </option>
                           </select>
                           <script
+                               type="text/javascript"
                               >
                             _setSelectIndexById("mainId-nb__xc_c",0)
                           </script>
@@ -7367,6 +7404,7 @@
           </tr>
         </table>
         <script
+             type="text/javascript"
             >
           _uixt_mainId=new CollectionComponent('formId','mainId');
         </script>
@@ -7472,6 +7510,7 @@
                             </option>
                           </select>
                           <script
+                               type="text/javascript"
                               >
                             _setSelectIndexById("mainId-nb__xc_c",0)
                           </script>
@@ -7754,6 +7793,7 @@
           </tr>
         </table>
         <script
+             type="text/javascript"
             >
           _uixt_mainId=new CollectionComponent('formId','mainId');
         </script>
@@ -7859,6 +7899,7 @@
                             </option>
                           </select>
                           <script
+                               type="text/javascript"
                               >
                             _setSelectIndexById("mainId-nb__xc_c",0)
                           </script>
@@ -8141,6 +8182,7 @@
           </tr>
         </table>
         <script
+             type="text/javascript"
             >
           _uixt_mainId=new CollectionComponent('formId','mainId');
         </script>
@@ -8246,6 +8288,7 @@
                             </option>
                           </select>
                           <script
+                               type="text/javascript"
                               >
                             _setSelectIndexById("mainId-nb__xc_c",0)
                           </script>
@@ -8528,6 +8571,7 @@
           </tr>
         </table>
         <script
+             type="text/javascript"
             >
           _uixt_mainId=new CollectionComponent('formId','mainId');
         </script>

@@ -64,6 +64,7 @@
                             >
                           
                           <script
+                               type="text/javascript"
                               >
                             t(5,1)
                           </script>
@@ -105,6 +106,7 @@
                             Select record set
                           </label>
                           <script
+                               type="text/javascript"
                               >
                             _setSelectIndexById("mainId-nb__xc_c",1)
                           </script>
@@ -113,6 +115,7 @@
                             >
                           
                           <script
+                               type="text/javascript"
                               >
                             t(5,1)
                           </script>
@@ -325,6 +328,7 @@
           </tr>
         </table>
         <script
+             type="text/javascript"
             >
           _uixt_mainId=new CollectionComponent('formId','mainId');
         </script>
@@ -403,6 +407,7 @@
                             >
                           
                           <script
+                               type="text/javascript"
                               >
                             t(5,1)
                           </script>
@@ -444,6 +449,7 @@
                             Select record set
                           </label>
                           <script
+                               type="text/javascript"
                               >
                             _setSelectIndexById("mainId-nb__xc_c",1)
                           </script>
@@ -452,6 +458,7 @@
                             >
                           
                           <script
+                               type="text/javascript"
                               >
                             t(5,1)
                           </script>
@@ -664,6 +671,7 @@
           </tr>
         </table>
         <script
+             type="text/javascript"
             >
           _uixt_mainId=new CollectionComponent('formId','mainId');
         </script>
@@ -742,6 +750,7 @@
                             >
                           
                           <script
+                               type="text/javascript"
                               >
                             t(5,1)
                           </script>
@@ -783,6 +792,7 @@
                             Select record set
                           </label>
                           <script
+                               type="text/javascript"
                               >
                             _setSelectIndexById("mainId-nb__xc_c",1)
                           </script>
@@ -791,6 +801,7 @@
                             >
                           
                           <script
+                               type="text/javascript"
                               >
                             t(5,1)
                           </script>
@@ -898,6 +909,7 @@
                       >
                     
                     <script
+                         type="text/javascript"
                         >
                       var _pprUpDatemode=false;function _adfspu(f,v,e,s,o){_pprUpdateMode=true;if(!o)o=new Object();if(e)o.event=e;if(s)o.source=s;_submitPartialChange(f,v,o);}
                     </script>
@@ -1010,6 +1022,7 @@
           </tr>
         </table>
         <script
+             type="text/javascript"
             >
           _uixt_mainId=new CollectionComponent('formId','mainId');
         </script>

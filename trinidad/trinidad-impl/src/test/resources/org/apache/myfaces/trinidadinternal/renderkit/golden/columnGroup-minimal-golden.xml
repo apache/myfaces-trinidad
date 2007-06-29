@@ -109,6 +109,7 @@
                             Select record set
                           </label>
                           <script
+                               type="text/javascript"
                               >
                             _setSelectIndexById("mainId-nb__xc_c",1)
                           </script>
@@ -355,6 +356,7 @@
           </tr>
         </table>
         <script
+             type="text/javascript"
             >
           _uixt_mainId=new CollectionComponent('formId','mainId');
         </script>
