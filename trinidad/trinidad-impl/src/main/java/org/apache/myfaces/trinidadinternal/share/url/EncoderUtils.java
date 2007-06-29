@@ -153,8 +153,22 @@ public class EncoderUtils
     String      queryEncoding,
     boolean     useISOForBody) throws IOException, UnsupportedEncodingException
   {
-    _writeURL(out, text, queryEncoding, useISOForBody, 0, false);
+    _writeURL(out, text, queryEncoding, useISOForBody, 0, false, false);
   }
+
+  /**
+   * A clone of writeURL(), but applying rules knowing that it
+   * is outputting HTML.
+   */
+  static public void writeURLForHTML(
+    Writer      out,
+    String      text,
+    String      queryEncoding,
+    boolean     useISOForBody) throws IOException, UnsupportedEncodingException
+  {
+    _writeURL(out, text, queryEncoding, useISOForBody, 0, false, true);
+  }
+
 
   /**
    * Writes a query parameter.  Very few clients will
@@ -165,9 +179,10 @@ public class EncoderUtils
     Writer       out,
     String       text,
     String       encoding,
-    int          start)  throws IOException, UnsupportedEncodingException
+    int          start,
+    boolean      forHtml)  throws IOException, UnsupportedEncodingException
   {
-    _encodeString(out, text, encoding, start, _DONT_ENCODE_SET, true);
+    _encodeString(out, text, encoding, start, _DONT_ENCODE_SET, true, forHtml);
   }
 
 
@@ -306,7 +321,8 @@ public class EncoderUtils
     String      queryEncoding,
     boolean     useISOForBody,
     int         start,
-    boolean     inAnchor) throws IOException, UnsupportedEncodingException
+    boolean     inAnchor,
+    boolean     forHtml) throws IOException, UnsupportedEncodingException
   {
     int length = text.length();
 
@@ -429,9 +445,16 @@ public class EncoderUtils
           // as if it were in the request's character set.  So use
           // the real encoding for those!
           out.write('?');
-          writeQueryParameters(out, text, queryEncoding, i + 1);
+          writeQueryParameters(out, text, queryEncoding, i + 1, forHtml);
           return;
         }
+      }
+      else if (ch == '&')
+      {
+        if (forHtml)
+          out.write("&amp;");
+        else
+          out.write(ch);
       }
       else
       {
@@ -493,7 +516,7 @@ public class EncoderUtils
     StringWriter sw = new StringWriter(text.length());
     try
     {
-      _encodeString(sw, text, encoding, 0, _DONT_ENCODE_SET_SMALL, false);
+      _encodeString(sw, text, encoding, 0, _DONT_ENCODE_SET_SMALL, false, false);
     }
     catch (UnsupportedEncodingException uee)
     {
@@ -614,7 +637,8 @@ public class EncoderUtils
     String       encoding,
     int          start,
     BitSet       dontEncodeSet,
-    boolean      lookForAnchor)
+    boolean      lookForAnchor,
+    boolean      forHtml)
       throws IOException, UnsupportedEncodingException
   {
     ByteArrayOutputStream buf    = null;
@@ -631,12 +655,19 @@ public class EncoderUtils
       if (lookForAnchor && ('#' == ch))
       {
         out.write(ch);
-        _writeURL(out, text, encoding, false, i + 1, true);
+        _writeURL(out, text, encoding, false, i + 1, true, forHtml);
         return;
       }
       else if (dontEncodeSet.get(ch))
       {
-        out.write(ch);
+        if (forHtml && (ch == '&'))
+        {
+          out.write("&amp;");
+        }
+        else
+        {
+          out.write(ch);
+        }
       }
       else
       {
