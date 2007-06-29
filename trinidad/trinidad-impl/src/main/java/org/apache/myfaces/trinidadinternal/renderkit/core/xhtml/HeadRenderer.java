@@ -69,9 +69,6 @@ public class HeadRenderer extends XhtmlRenderer
     UIComponent         comp,
     FacesBean           bean) throws IOException
   {
-    if (_skipRendering(arc))
-      return;
-
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement("head", comp);
     renderId(context, comp);
@@ -99,9 +96,6 @@ public class HeadRenderer extends XhtmlRenderer
     UIComponent         comp,
     FacesBean           bean) throws IOException
   {
-    if (_skipRendering(arc))
-      return;
-
     ResponseWriter rw = context.getResponseWriter();
     rw.endElement("head");
   }
@@ -109,13 +103,6 @@ public class HeadRenderer extends XhtmlRenderer
   protected String getTitle(FacesBean bean)
   {
     return toString(bean.getProperty(_titleKey));
-  }
-
-  private boolean _skipRendering(RenderingContext arc)
-  {
-    return (PartialPageUtils.isPartialRenderingPass(arc) &&
-            PartialPageUtils.supportsPartialRendering(arc) &&
-            supportsXMLDOM(arc));
   }
 
   /**

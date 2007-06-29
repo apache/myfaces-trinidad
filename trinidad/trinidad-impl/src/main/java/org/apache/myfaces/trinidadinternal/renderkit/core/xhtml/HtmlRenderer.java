@@ -73,19 +73,7 @@ public class HtmlRenderer extends XhtmlRenderer
 
     String docType = getDocType(context, comp);
     if (docType != null)
-    {
-      if ( PartialPageUtils.isPartialRenderingPass(arc) &&
-           PartialPageUtils.supportsPartialRendering(arc) &&
-           supportsXMLDOM(arc))
-      {
-        // don't write a doctype during XMLDOM PPR
-        ;
-      }
-      else
-      {
-        writer.write(docType);
-      }
-    }
+      writer.write(docType);
 
     writer.startElement("html", comp);
 
