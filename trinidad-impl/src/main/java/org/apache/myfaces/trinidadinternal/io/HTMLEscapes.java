@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.apache.myfaces.trinidadinternal.ui.io;
+package org.apache.myfaces.trinidadinternal.io;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -24,10 +24,7 @@ import java.io.Writer;
 /**
  * Utility class for escaping HTML text.
  * <p>
- * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/io/HTMLEscapes.java#0 $) $Date: 15-nov-2005.19:26:39 $
- * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
-@Deprecated
 public class HTMLEscapes
 {
   /**
