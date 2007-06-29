@@ -146,12 +146,30 @@ function _returnCalendarValue(
   }
 }
 
+function _returnPopupCalendarValue(
+  props,
+  value
+  )
+{
+  // Callback method registered with the popup
+  // 'props' contains the name of the target form & field to populate
+  if (value != (void 0))
+  {
+    var formName = props['formName'];
+    var fieldName = props['fieldName'];
+    var dateField = document.forms[formName][fieldName];
+    _dfsv(dateField, value);
+  }
+}
+
+
 /**
- * Provate function for launching the date picker
+ * Private function for launching the date picker
  */
 function _ldp(
   formName,
   nameInForm,
+  usePopup,
   minValue,
   maxValue,
   destination
@@ -166,12 +184,16 @@ function _ldp(
     oldValue = new Date();
   }
 
-
   // default the destination to the calendar dialog destination
   if (!destination)
   {
     destination = _jspDir + _getQuerySeparator(_jspDir);
-    destination += "_t=fred&_red=cd";
+
+    if (usePopup)
+      //don't use frame redirect
+      destination += "_t=cd";
+    else
+      destination += "_t=fred&_red=cd";
   }
   else
   {
@@ -232,24 +254,36 @@ function _ldp(
     destination += "&maxValue=" + maxValue; 
   }
 
-  // Open the window;  we used to name it "calendar", but
-  // that's a common enough name that we hit bug 2807778
-  var calWindow = openWindow(self,
-                             destination,
-                             'uix_2807778',
-                             {width:350, height:370},
-                             true,
-                             void 0,
-                             _returnCalendarValue);
+  if (usePopup)
+  {
+    // Open the dialog passing callback details
+    TrPopupDialog._launchDialog(
+      destination,
+      {},
+      _returnPopupCalendarValue,
+      { 'formName':formName, 'fieldName':nameInForm });
+  }
+  else
+  {
+    // Open the window;  we used to name it "calendar", but
+    // that's a common enough name that we hit bug 2807778
+    var calWindow = openWindow(self,
+                               destination,
+                               'uix_2807778',
+                               {width:350, height:370},
+                               true,
+                               void 0,
+                               _returnCalendarValue);
+    
+    // save the date field on the calendar window for access
+    // from event handler
+    calWindow._dateField = dateField;
   
-  // save the date field on the calendar window for access
-  // from event handler
-  calWindow._dateField = dateField;
-
-  // And, for bug 1879034, stash it on a JS variable.  It
-  // seems that IE sometimes has already blown away the values
-  // on "calWindow"!
-  _savedField1879034 = dateField;  
+    // And, for bug 1879034, stash it on a JS variable.  It
+    // seems that IE sometimes has already blown away the values
+    // on "calWindow"!
+    _savedField1879034 = dateField;  
+  }
 }
 
 // _dfgv(): Date Field Get Value function
@@ -416,17 +450,40 @@ function _updateCal(choice,url,p)
 
 function _doCancel()
 {
-  top.returnValue = (void 0);
-  top.close();
+  var dialog = parent.TrPopupDialog.getInstance();
+  if (dialog)
+  {
+    dialog.returnValue = (void 0);
+    //TODO - Need Cleaner way to close dialogs using via getInstance()
+    parent.TrPopupDialog._returnFromDialog();
+  }
+  else
+  {
+    top.returnValue = (void 0);
+    top.close();
+  }
   return false;
 }
 
 function _selectDate(dateTime)
 {
-  top.returnValue = dateTime;
-  top._unloadADFDialog(window.event);
-  top.close();return false;
+  var dialog = parent.TrPopupDialog.getInstance();
+  if (dialog)
+  {
+    dialog.returnValue = dateTime;
+    //TODO - Need Cleaner way to close dialogs using via getInstance()
+    parent.TrPopupDialog._returnFromDialog();
+  }
+  else
+  {
+    top.returnValue = dateTime;
+    top._unloadADFDialog(window.event);
+    top.close();
+  }
+  return false;
 }
 
+// Holds the date dialog box when open
+var _DATE_DIALOG;
 
 var _savedField1879034;

@@ -163,21 +163,37 @@ class DialogRequest
       }
     }
 
-    out.writeText("},\"" , null);
-    out.writeText(formName, null);
-    out.writeText("\",\"", null);
-    if (_clientId != null)
-      out.writeText(_clientId, null);
-    out.writeText("\"", null);
-    if (!_usePopup)
+    out.writeText("}," , null);
+
+    if (_usePopup)
     {
+      // Ouptut the callback function, and any properties that will 
+      // pass to the callback when invoked
+      out.writeText("TrPopupDialog._returnFromDialogAndSubmit, {'formName':'" , null);
+      out.writeText(formName, null);
+      out.writeText("'", null);
+      
+      if (_clientId != null)
+      {
+        out.writeText(",'postback':'", null);
+        out.writeText(_clientId, null);
+        out.writeText("'", null);
+      }
+      out.writeText("}", null);
+    }
+    else
+    {
+      out.writeText("\"" , null);
+      out.writeText(formName, null);
+      out.writeText("\",\"", null);
+      if (_clientId != null)
+        out.writeText(_clientId, null);
+      out.writeText("\"", null);
       boolean isPPR = PartialPageUtils.supportsPartialRendering(arc);
       out.writeText(isPPR ? ",1" : ",0", null);
     }
     out.writeText(");", null);
   }
-
-
 
   //
   // Return a new name for every dialog we ever raise.

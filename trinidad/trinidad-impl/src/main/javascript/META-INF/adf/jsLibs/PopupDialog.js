@@ -83,6 +83,11 @@ TrPopupDialog.prototype.setSize = function(width, height)
   }
 }
 
+TrPopupDialog.getInstance = function()
+{
+  return TrPopupDialog.DIALOG;
+}
+
 /**
  * Resize the content area of the dialog
  **/
@@ -105,32 +110,31 @@ TrPopupDialog._initDialogPage = function()
   {
     dialog = parent.TrPopupDialog.DIALOG;
 
-    if (!dialog)
-      return;
-
-    dialog.setTitle(document.title);
-    
-    // Resize the dialog to the page content
-/*
-    if (_agent.isIE)
-    {
-      this._resizeIFrame(
-        this._iframe.Document.body.scrollWidth+40, 
-        this._iframe.Document.body.scrollHeight+40);
-    }
-    else
-    {
-      this._resizeIFrame(
-        this._iframe.contentDocument.body.offsetWidth+40, 
-        this._iframe.contentDocument.body.offsetHeight+40);
-    }
-*/
-    dialog.show();
   }
   catch(err)
   {
   }
-  
+
+  if (!dialog)
+    return;
+
+  dialog.setTitle(document.title);
+    
+  // Resize the dialog to the page content
+  if (_agent.isIE)
+  {
+    dialog._resizeIFrame(
+      dialog._iframe.Document.body.scrollWidth+40, 
+      dialog._iframe.Document.body.scrollHeight+40);
+  }
+  else
+  {
+    dialog._resizeIFrame(
+      dialog._iframe.contentDocument.body.offsetWidth+40, 
+      dialog._iframe.contentDocument.body.offsetHeight+40);
+  }
+
+  dialog.show();
 }
 
 /*
@@ -156,13 +160,14 @@ TrPopupDialog._returnFromDialog = function()
 /*
  * Callback function, invoked on close of dialog.  If necessary, this
  * function will make a submit to cause the return event to fire.
+ * TODO - Move this function to another library - TrPage perhaps?
  */
-TrPopupDialog._returnFromDialogAndSubmit = function(props, value)
+TrPopupDialog._returnFromDialogAndSubmit = function(callbackProps, value)
 {
-  if (props)
+  if (callbackProps)
   {
-    var formName = props['formNameKey'];
-    var postbackId = props['postbackKey'];
+    var formName = callbackProps['formName'];
+    var postbackId = callbackProps['postback'];
 
     _submitPartialChange(formName, 0, {rtrn:postbackId});
   }
@@ -170,27 +175,25 @@ TrPopupDialog._returnFromDialogAndSubmit = function(props, value)
 
 TrPopupDialog._launchDialog = function(
   srcURL,
-  props,
-  formName,
-  postbackId)
+  dialogProps,
+  callbackFunction,
+  callbackProps)
 {
   var dialog = TrPopupDialog.DIALOG;
   if (!dialog)
   {
     dialog = TrPopupDialog.DIALOG = new TrPopupDialog();
-    // Register callback on close of dialog
-    dialog.callback = TrPopupDialog._returnFromDialogAndSubmit;
   }
-  
-  dialog.callbackProps = { formNameKey:formName, postbackKey:postbackId};
-  if (props && props['width'] && props['height'])
-    dialog.setSize(props['width'], props['height']);
-  else
-    // Default the size for now until we have auto-resize working
-    dialog.setSize(300, 200);
 
+  // Register callback on close of dialog
+  dialog.callback = callbackFunction;
+  dialog.callbackProps = callbackProps;
+
+  // Dialog will auto-size to fit content unless specified
+  if (dialogProps && dialogProps['width'] && dialogProps['height'])
+    dialog.setSize(dialogProps['width'], dialogProps['height']);
+
+  // Dialog will be opened by _initDialogPage() once dialog page has loaded
+  // to prevent lots of up/down sizing when auto-sized.
   dialog.setDestination(srcURL);
-
-  //dialog will be opened by _initDialogPage() once dialog page has loaded
-  //this prevents lots of up/down sizing of popup if not specifically sized.
 }

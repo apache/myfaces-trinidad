@@ -45,6 +45,7 @@ import org.apache.myfaces.trinidad.render.RenderUtils;
 import org.apache.myfaces.trinidad.validator.DateTimeRangeValidator;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.convert.GenericConverterFactory;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 import org.apache.myfaces.trinidadinternal.renderkit.core.pages.GenericEntry;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.ConfigurationScriptlet;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.Scriptlet;
@@ -109,7 +110,6 @@ public class SimpleInputDateRenderer
       {
         _LOG.fine(ce);
       }
-
 
       RequestContext afContext = RequestContext.getCurrentInstance();
       DateTimeRangeValidator dtrv = _findDateTimeRangeValidator(bean);
@@ -366,6 +366,11 @@ public class SimpleInputDateRenderer
 
     onClickBuffer.append(id);
     onClickBuffer.append('\'');
+    
+    // Decide if we should display the picker in a popup or window
+    onClickBuffer.append(',');
+    onClickBuffer.append(CoreRenderKit.usePopupForDialog(context, 
+        RequestContext.getCurrentInstance()));    
 
     DateTimeRangeValidator dtrv = _findDateTimeRangeValidator(bean);
     if (dtrv != null)
