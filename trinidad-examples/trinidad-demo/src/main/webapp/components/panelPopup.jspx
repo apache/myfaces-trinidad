@@ -58,14 +58,6 @@
 
             <tr:outputFormatted styleUsage="instruction" value="&lt;b>PopupPanel containing Date Picker&lt;/b>"/>
 
-            <tr:panelLabelAndMessage label="Date of Birth">
-              <tr:inputDate chooseId="picker" simple="true" onchange="TrPanelPopup.hidePopup();" />
-              <tr:spacer width="8" />
-              <tr:panelPopup title="Select Date" text="Select a date">
-                <tr:chooseDate id="picker" />
-              </tr:panelPopup>
-            </tr:panelLabelAndMessage>
-
             <tr:outputFormatted styleUsage="instruction" value="&lt;b>PopupPanel as modal dialog&lt;/b>"/>
 
             <tr:panelPopup text="Modal Centered Test" title="Centered Panel" alignment="center" modal="true">
