@@ -275,7 +275,7 @@ public class HtmlResponseWriter extends ResponseWriter
     if (stringValue.startsWith("javascript:"))
       HTMLEscapes.writeAttribute(out, _buffer, stringValue);
     else
-      EncoderUtils.writeURL(out, stringValue, _encoding, false);
+      EncoderUtils.writeURLForHTML(out, stringValue, _encoding, false);
 
     out.write('"');
   }
