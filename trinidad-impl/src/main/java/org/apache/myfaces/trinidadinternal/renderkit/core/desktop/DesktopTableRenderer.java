@@ -775,21 +775,26 @@ public class DesktopTableRenderer extends TableRenderer
     int objectNameColumnIndex = colData.getObjectNameColumnIndex();
     for (int i = 0, sz = Math.max(specialColumnCount, objectNameColumnIndex);  i < sz;  i++)
     {
-      _renderEmptyCell(context, arc, tContext, physicalColumn++, null);
+      _renderEmptyCell(context, arc, tContext, physicalColumn++, null, 1);
     }
+
+    int totalCols = tContext.getActualColumnCount();
+    UIComponent table = tContext.getTable();
+    FacesBean bean = getFacesBean(table);
+
     if (emptyTextRenderer == null)
     {
-      _renderEmptyCell(context, arc, tContext, physicalColumn++,
-                       getEmptyText(getFacesBean(tContext.getTable())));
+      _renderEmptyCell(context, arc, tContext, physicalColumn,
+                       getEmptyText(bean), totalCols - physicalColumn);
+      physicalColumn++;
     }
     else
     {
-      UIComponent table = tContext.getTable();
-      delegateRenderer(context, arc, table, getFacesBean(table),  emptyTextRenderer);
-    }
-    for (int totalCols = tContext.getActualColumnCount();  physicalColumn < totalCols;  )
-    {
-      _renderEmptyCell(context, arc, tContext, physicalColumn++, null);
+      delegateRenderer(context, arc, table, bean,  emptyTextRenderer);
+      while (physicalColumn < totalCols)
+      {
+        _renderEmptyCell(context, arc, tContext, physicalColumn++, null, 1);
+      }
     }
     // clear the current header id
     colData.setCurrentHeaderID(null);
@@ -801,7 +806,8 @@ public class DesktopTableRenderer extends TableRenderer
     RenderingContext arc,
     TableRenderingContext tContext,
     int physicalColumn,
-    String text) throws IOException
+    String text,
+    int    colspan) throws IOException
   {
     ColumnData colData = tContext.getColumnData();
     ResponseWriter writer = context.getResponseWriter();
@@ -812,6 +818,8 @@ public class DesktopTableRenderer extends TableRenderer
     colData.setColumnIndex(physicalColumn, ColumnData.SPECIAL_COLUMN_INDEX);
     writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
     renderCellFormatAttributes(context, arc, tContext);
+    if (colspan > 1)
+      writer.writeAttribute(XhtmlConstants.COLSPAN_ATTRIBUTE, colspan, null);
     if (text != null)
       writer.writeText(text, null);
     writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
