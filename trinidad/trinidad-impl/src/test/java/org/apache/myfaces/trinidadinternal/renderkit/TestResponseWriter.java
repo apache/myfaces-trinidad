@@ -41,8 +41,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.MimeTypes;
 import org.apache.myfaces.trinidadinternal.share.util.CaboHttpUtils;
-import org.apache.myfaces.trinidadinternal.ui.io.EscapedText;
-import org.apache.myfaces.trinidadinternal.ui.io.XMLEscapes;
+import org.apache.myfaces.trinidadinternal.io.XMLEscapes;
 
 /**
  * Implementation of ResponseWriter for outputting XHTML.
@@ -462,25 +461,6 @@ public class TestResponseWriter extends ResponseWriter
       return;
     }
 
-    if (valueClass == _ESCAPED_TEXT_CLASS)
-    {
-      EscapedText escapedText = (EscapedText)value;
-
-      if (MimeTypes.HTML.equals(escapedText.getMimeType()))
-      {
-        if (isAttribute)
-        {
-          _out.write(escapedText.getAttributeText());
-        }
-        else
-        {
-          _out.write(escapedText.getContentText());
-        }
-
-        return;
-      }
-    }
-
     if (isAttribute)
     {
       XMLEscapes.writeAttribute(_out, value.toString().toCharArray());
@@ -726,7 +706,6 @@ public class TestResponseWriter extends ResponseWriter
   private static final Class<?> _CHAR_ARRAY_CLASS = (new char[0]).getClass();
   private static final Class<Boolean> _BOOLEAN_CLASS = Boolean.class;
   private static final Class<Integer> _INTEGER_CLASS = Integer.class;
-  private static final Class<EscapedText> _ESCAPED_TEXT_CLASS = EscapedText.class;
 
   static private final int _MAX_INDENT = 50;
   static private final int _SPACES_PER_LEVEL = 2;

@@ -30,8 +30,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.MimeTypes;
 import org.apache.myfaces.trinidadinternal.share.util.CaboHttpUtils;
-import org.apache.myfaces.trinidadinternal.ui.io.EscapedText;
-import org.apache.myfaces.trinidadinternal.ui.io.XMLEscapes;
 
 /**
  * Implementation of ResponseWriter for outputting XHTML.
@@ -351,25 +349,6 @@ public class XhtmlResponseWriter extends ResponseWriter
       return;
     }
 
-    if (valueClass == _ESCAPED_TEXT_CLASS)
-    {
-      EscapedText escapedText = (EscapedText)value;
-
-      if (MimeTypes.HTML.equals(escapedText.getMimeType()))
-      {
-        if (isAttribute)
-        {
-          _out.write(escapedText.getAttributeText());
-        }
-        else
-        {
-          _out.write(escapedText.getContentText());
-        }
-
-        return;
-      }
-    }
-
     if (isAttribute)
     {
       XMLEscapes.writeAttribute(_out, value.toString().toCharArray());
@@ -483,7 +462,6 @@ public class XhtmlResponseWriter extends ResponseWriter
   private static final Class<?> _CHAR_ARRAY_CLASS = (new char[0]).getClass();
   private static final Class<?> _BOOLEAN_CLASS = Boolean.class;
   private static final Class<?> _INTEGER_CLASS = Integer.class;
-  private static final Class<?> _ESCAPED_TEXT_CLASS = EscapedText.class;
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(XhtmlResponseWriter.class);
 }
