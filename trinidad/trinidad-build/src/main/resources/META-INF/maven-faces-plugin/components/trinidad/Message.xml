@@ -34,8 +34,7 @@ that display a single message on behalf of a component.]]>
     <component-type>org.apache.myfaces.trinidad.Message</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXMessage</component-class>
     <property>
-      <description><![CDATA[the ID of the component that this component
-refers to]]></description>
+      <description><![CDATA[the relative ID from this component to the component whose messages will be displayed]]></description>
       <property-name>for</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
