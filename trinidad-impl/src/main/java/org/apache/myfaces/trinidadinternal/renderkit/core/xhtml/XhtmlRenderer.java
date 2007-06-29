@@ -228,17 +228,6 @@ public class XhtmlRenderer extends CoreRenderer
 
 
 
-  /**
-   * Returns true if the agent supports the xmldom
-   */
-  public static boolean supportsXMLDOM(
-    RenderingContext arc)
-  {
-    Object cap = arc.getAgent().getCapabilities().get(
-                    TrinidadAgent.CAP_XMLDOM);
-    return Boolean.TRUE.equals(cap);
-  }
-
   //
   // END OF AGENT CAPABILITY CONVENIENCE METHODS
   //
