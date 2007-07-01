@@ -257,6 +257,27 @@
 
       </plugins>
     </pluginManagement>
+    <plugins>
+      <plugin>
+        <artifactId>maven-remote-resources-plugin</artifactId>
+        <version>1.0-alpha-5</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>process</goal>
+            </goals>
+            <configuration>
+            <resourceBundles>
+              <resourceBundle>org.apache:apache-jar-resource-bundle:1.1</resourceBundle>
+            </resourceBundles>
+            <properties>
+              <addLicense>true</addLicense>
+            </properties>
+          </configuration>
+        </execution>
+      </executions>
+    </plugin>
+  </plugins>
   </build>
 
   <modules>
