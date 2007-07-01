@@ -40,7 +40,7 @@ import org.apache.myfaces.trinidad.util.Service;
 
 /**
  * Managed bean for chat component demos.
- * @version $Name:  $ ($Revision$) $Date$
+ * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-demo/src/main/java/oracle/adfdemo/view/faces/ChartBean.java#1 $) $Date: 16-aug-2005.15:12:27 $
  */
 public class ChartBean implements java.io.Serializable
 {
@@ -59,6 +59,16 @@ public class ChartBean implements java.io.Serializable
     _editorBean.update();
     RequestContext afContext = RequestContext.getCurrentInstance();
     afContext.addPartialTarget(_editorBean.getComponent());
+    return null;
+  }
+  
+  public String nextChartType()
+  {
+    _currentTypeIndex++;
+    if(_currentTypeIndex >= _chartTypes.length)
+      _currentTypeIndex = 0;
+    CoreChart chart = (CoreChart)_editorBean.getComponent();
+    chart.setType(_chartTypes[_currentTypeIndex]);
     return null;
   }
   
@@ -363,6 +373,12 @@ public class ChartBean implements java.io.Serializable
   } 
   
   private boolean _largerDataSet = false;
+  private int     _currentTypeIndex = 0;
+  private static final String[] _chartTypes = 
+        new String[]{"verticalBar", "horizontalBar", "stackedVerticalBar","stackedHorizontalBar", 
+        "pie", "area", "stackedArea", "line", "barLine", "XYLine", "scatterPlot", "radar",
+        "radarArea", "funnel", "circularGauge", "semiCircularGauge"};
+
   private final ChartModel _chartModel = new MyChartModel(); 
   private final ComponentEditorHandler _editorBean = new ComponentEditorHandler();
 }

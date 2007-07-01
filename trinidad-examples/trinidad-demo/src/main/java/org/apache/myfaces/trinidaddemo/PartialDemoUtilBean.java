@@ -18,7 +18,10 @@
  */
 package org.apache.myfaces.trinidaddemo;
 
+import javax.faces.application.ViewHandler;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 
@@ -104,6 +107,18 @@ public class PartialDemoUtilBean
   public void setStatus(PartialDemoStatusBean status)
   {
     _status = status;
+  }
+
+  public void navigate(ValueChangeEvent vce)
+  {
+    Object newValue = vce.getNewValue();
+    if ((newValue != null) && !"".equals(newValue))
+    {
+      FacesContext fContext = FacesContext.getCurrentInstance(); 
+      ViewHandler vh = fContext.getApplication().getViewHandler(); 
+      UIViewRoot root = vh.createView(fContext, newValue.toString()); 
+      fContext.setViewRoot(root); 
+    }
   }
 
   private void _resetList()

@@ -60,7 +60,7 @@ import java.io.ByteArrayInputStream;
 
 /**
  * Managed bean for Change persistence demos.
- * @version $Name:  $ ($Revision$) $Date$
+ * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-demo/src/main/java/oracle/adfdemo/view/faces/change/ChangeBean.java#1 $) $Date: 16-aug-2005.15:12:29 $
  */
 public class ChangeBean 
 {

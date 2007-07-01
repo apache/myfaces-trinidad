@@ -1,34 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"> 
 <!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
+  Copyright 2006 The Apache Software Foundation.
 
-    http://www.apache.org/licenses/LICENSE-2.0
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
-	   
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"> 
   <parent>
     <groupId>org.apache.myfaces.trinidad</groupId>
     <artifactId>trinidad</artifactId>
-    <version>1.2.1-SNAPSHOT</version>
+    <version>1.2.1</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
 
-  <name>Apache Trinidad Demo</name>
-  <description>Apache Trinidad Demo</description>
+  <name>Apache MyFaces Trinidad Demo</name>
+  <description>Apache MyFaces Trinidad Demo</description>
 
   <artifactId>trinidad-demo</artifactId>
   <packaging>war</packaging>
@@ -38,6 +34,7 @@
       <plugin>
         <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-jdev-plugin</artifactId>
+        <version>1.2.1</version>
         <configuration>
           <libraries>
             <library>JSP Runtime</library>
@@ -65,7 +62,7 @@
       <artifactId>mail</artifactId>
       <version>1.4</version>
     </dependency>
-    
+   
     <dependency>
       <groupId>javax.activation</groupId>
       <artifactId>activation</artifactId>
@@ -76,38 +73,14 @@
       <groupId>javax.servlet</groupId>
       <artifactId>jstl</artifactId>
       <version>1.1.2</version>
-      <scope>runtime</scope>
-    </dependency>
-
-<!-- Dependencies pulled in via myfaces/ri pom
-    <dependency>
-      <groupId>commons-beanutils</groupId>
-      <artifactId>commons-beanutils</artifactId>
-      <version>1.6</version>
-      <scope>runtime</scope>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
-      <groupId>commons-digester</groupId>
-      <artifactId>commons-digester</artifactId>
-      <version>1.5</version>
-      <scope>runtime</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>commons-logging</groupId>
-      <artifactId>commons-logging</artifactId>
-      <version>1.0.4</version>
-      <scope>runtime</scope>
-    </dependency>
-    
-    <dependency>
-      <groupId>commons-collections</groupId>
-      <artifactId>commons-collections</artifactId>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
       <version>2.1</version>
-      <scope>runtime</scope>
     </dependency>
--->
 
     <dependency>
       <groupId>javax.servlet</groupId>
@@ -121,7 +94,7 @@
   </dependencies>
 
   <profiles>
-     <profile>
+    <profile>
        <id>jettyConfig</id>
        <build>
          <plugins>
@@ -136,8 +109,7 @@
         </plugins>
       </build>
     </profile>
-
-    <!-- By default the war examples use myfaces! :) -->
+      
     <profile>
       <id>myfaces</id>
       <activation>
@@ -148,19 +120,20 @@
       <dependencies>
 
         <dependency>
-          <groupId>org.apache.myfaces.core</groupId>
-          <artifactId>myfaces-api</artifactId>
-          <version>1.2.0-SNAPSHOT</version>
-          <scope>compile</scope>
+          <groupId>javax.faces</groupId>
+          <artifactId>jsf-api</artifactId>
+          <scope>provided</scope>
         </dependency>
-
         <dependency>
-          <groupId>org.apache.myfaces.core</groupId>
-          <artifactId>myfaces-impl</artifactId>
-          <version>1.2.0-SNAPSHOT</version>
-          <scope>runtime</scope>
+          <groupId>javax.faces</groupId>
+          <artifactId>jsf-impl</artifactId>
+          <scope>provided</scope>
         </dependency>
       </dependencies>
+
+      <properties>
+        <jsf_implementation>JSF-RI</jsf_implementation>
+      </properties>
     </profile>
 
     <!-- To use the examples using the Sun's JSF Reference Implementation: -Djsf=ri -->
@@ -176,13 +149,12 @@
         <dependency>
           <groupId>javax.faces</groupId>
           <artifactId>jsf-api</artifactId>
-          <version>1.2_04</version>
+          <scope>provided</scope>
         </dependency>
         <dependency>
           <groupId>javax.faces</groupId>
           <artifactId>jsf-impl</artifactId>
-          <version>1.2_04</version>
-          <scope>runtime</scope>
+          <scope>provided</scope>
         </dependency>
       </dependencies>
 

@@ -22,8 +22,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @version $Name:  $ ($Revision$) $Date$
- * @author ADF Faces Team
+ * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-demo/src/main/java/oracle/adfdemo/view/faces/DemoTreeData.java#1 $) $Date: 16-aug-2005.15:12:27 $
  */
 
 public class DemoTreeData extends ArrayList<TreeNodeImpl>

@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * Managed bean for color component demos.
- * @version $Name:  $ ($Revision$) $Date$
+ * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-demo/src/main/java/oracle/adfdemo/view/faces/ColorBean.java#1 $) $Date: 16-aug-2005.15:12:27 $
  */
 public class ColorBean implements java.io.Serializable
 {

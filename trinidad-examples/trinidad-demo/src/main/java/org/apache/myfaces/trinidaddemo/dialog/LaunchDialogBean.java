@@ -23,6 +23,7 @@ import java.util.Map;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
+import org.apache.myfaces.trinidad.component.UIXCommand;
 import org.apache.myfaces.trinidad.component.UIXInput;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.ReturnEvent;
@@ -70,6 +71,7 @@ public class LaunchDialogBean
 
   public void returned(ReturnEvent event)
   {
+    String dialogViewId;
     if (event.getReturnValue() != null)
     {
       getInput().setSubmittedValue(null);
@@ -77,17 +79,26 @@ public class LaunchDialogBean
 
       RequestContext afContext = RequestContext.getCurrentInstance();
       afContext.addPartialTarget(getInput());
-
-      FacesContext context = FacesContext.getCurrentInstance();
-      UIViewRoot root = context.getApplication().getViewHandler().createView(
-                           context, "/demos/successDialog.jspx");
-      // Launch a new, success dialog with a different width and height;
-      // this shows how to do so by queueing a LaunchEvent.
-      LaunchEvent launchEvent = new LaunchEvent(event.getComponent(), root);
-      launchEvent.getWindowProperties().put("width", "200");
-      launchEvent.getWindowProperties().put("height", "100");
-      launchEvent.queue();
+      dialogViewId =  "/demos/successDialog.jspx";
     }
+    else
+    {
+      dialogViewId =  "/demos/cancelledDialog.jspx";
+    }
+
+
+    // Launch a new, success dialog with a different width and height;
+    // this shows how to do so by queueing a LaunchEvent.
+    // (Here, we queue it to a dummy UIXCommand just so we don't
+    // get in a fun infinite loop of ReturnEvents!)
+    FacesContext context = FacesContext.getCurrentInstance();
+    UIViewRoot root = context.getApplication().getViewHandler().createView(
+                                    context, dialogViewId);
+    LaunchEvent launchEvent = new LaunchEvent(getDummyCommand(), root);
+    launchEvent.getWindowProperties().put("width", "200");
+    launchEvent.getWindowProperties().put("height", "100");
+    addParameter(launchEvent);
+    launchEvent.queue();
   }
 
 
@@ -124,6 +135,18 @@ public class LaunchDialogBean
     }
   }
 
+
+  public UIXCommand getDummyCommand()
+  {
+    return _dummyCommand;
+  }
+
+  public void setDummyCommand(UIXCommand dummyCommand)
+  {
+    _dummyCommand = dummyCommand;
+  }
+
   private UIXInput _input;
   private UIXInput _tableInput;
+  private UIXCommand _dummyCommand;
 }

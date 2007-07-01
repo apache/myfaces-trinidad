@@ -52,7 +52,7 @@ public class PeriodicDialogBean
     // be a selected row - an exception will result here if there
     // isn't.  Is there some better code?
     Iterator<Object> iterator = _table.getSelectedRowKeys().iterator();
-    String rowKey = (String) iterator.next();
+    Object rowKey = iterator.next();
     Object oldRowKey = _table.getRowKey();
     _table.setRowKey(rowKey);
     ValueBinding binding = context.getApplication().
