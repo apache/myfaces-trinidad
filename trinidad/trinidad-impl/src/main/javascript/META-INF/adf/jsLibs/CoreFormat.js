@@ -812,16 +812,46 @@ TrDateRestrictionValidator.prototype.getHints = function(
   converter
   )
 {
+  var allWeekdays = ['mon','tue','wed','thu','fri','sat','sun'];
+  var allMonth = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
+  
+  //remove the submitted values, which are invalid, to display only the valid ones
+  this._removeInvalidValues(this._weekdaysValue, allWeekdays);
+  this._removeInvalidValues(this._monthValue, allMonth);
+  
   return _returnHints(
     this._messages,
-    this._translate(this._weekdaysValue, this._translatedWeekdaysMap, converter.getLocaleSymbols().getWeekdays()),
-    this._translate(this._monthValue, this._translatedMonthMap, converter.getLocaleSymbols().getMonths()),
+    this._translate(allWeekdays, this._translatedWeekdaysMap, converter.getLocaleSymbols().getWeekdays()),
+    this._translate(allMonth, this._translatedMonthMap, converter.getLocaleSymbols().getMonths()),
     "org.apache.myfaces.trinidad.validator.DateRestrictionValidator.WEEKDAY_HINT",
     "org.apache.myfaces.trinidad.validator.DateRestrictionValidator.MONTH_HINT",
     "hintWeek",
     "hintMonth"
   );
 }
+
+/**
+ * Removes invalidValues from the allValues array
+ * TODO matzew: move this to a "CollectionUtil.js" ?
+ */
+TrDateRestrictionValidator.prototype._removeInvalidValues = function(
+  invalidValues,
+  allValues
+  )
+{
+  for(i=0; i<invalidValues.length; i++)
+  {
+    var value = invalidValues[i];
+    for(j=0;j<allValues.length; j++)
+    {
+      if(allValues[j] == value)
+      {
+        allValues.splice(j,1);
+      }
+    }
+  }
+}
+
 TrDateRestrictionValidator.prototype._translate = function(
   values,
   map,
@@ -858,6 +888,10 @@ TrDateRestrictionValidator.prototype.validate  = function(
     {
       if(weekDaysArray[i].toLowerCase() == dayString)
       {
+        var allWeekdays = ['mon','tue','wed','thu','fri','sat','sun'];
+        this._removeInvalidValues(this._weekdaysValue, allWeekdays);
+        var days = this._translate(allWeekdays, this._translatedWeekdaysMap, converter.getLocaleSymbols().getWeekdays());
+
         var facesMessage;
         var key = "org.apache.myfaces.trinidad.validator.DateRestrictionValidator.WEEKDAY";
         if(this._messages && this._messages["days"])
@@ -866,14 +900,14 @@ TrDateRestrictionValidator.prototype.validate  = function(
                                         this._messages["days"],
                                         label,
                                         ""+converter.getAsString(value),
-                                        dayString);
+                                        days);
         }
         else
         {
           facesMessage = _createFacesMessage(key,
                                         label,
                                         ""+converter.getAsString(value),
-                                        dayString);
+                                        days);
         }
         throw new TrConverterException(facesMessage);
       }
@@ -889,6 +923,10 @@ TrDateRestrictionValidator.prototype.validate  = function(
     {
       if(monthArray[i].toLowerCase() == monthString)
       {
+        var allMonth = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
+        this._removeInvalidValues(this._monthValue, allMonth);
+        var month = this._translate(allMonth, this._translatedMonthMap, converter.getLocaleSymbols().getMonths());
+        
         var facesMessage;
         var key = "org.apache.myfaces.trinidad.validator.DateRestrictionValidator.MONTH";
         if(this._messages && this._messages["month"])
@@ -897,14 +935,14 @@ TrDateRestrictionValidator.prototype.validate  = function(
                                         this._messages["month"],
                                         label,
                                         ""+converter.getAsString(value),
-                                        monthString);
+                                        month);
         }
         else
         {
           facesMessage = _createFacesMessage(key,
                                         label,
                                         ""+converter.getAsString(value),
-                                        monthString);
+                                        month);
         }
         throw new TrConverterException(facesMessage);
       }
