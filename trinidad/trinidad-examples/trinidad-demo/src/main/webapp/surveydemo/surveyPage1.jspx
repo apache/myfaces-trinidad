@@ -28,7 +28,7 @@
        
         <tr:panelPage>
       
-        <tr:panelHeader text="Question 5 of 5">
+        <tr:panelHeader text="Question 1 of 5">
           <tr:panelFormLayout>
           
             <tr:selectOneRadio label="#{survey.q0.prompt}" 
