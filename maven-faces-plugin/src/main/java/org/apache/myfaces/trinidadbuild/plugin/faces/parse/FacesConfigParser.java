@@ -154,6 +154,9 @@ public class FacesConfigParser
     digester.addCallMethod("faces-config/component/component-extension/tag-class-modifier",
                            "parseTagClassModifier", 1);
     digester.addCallParam("faces-config/component/component-extension/tag-class-modifier", 0);
+    digester.addCallMethod("faces-config/component/component-extension/unsupported-agents",
+                           "parseUnsupportedAgents", 1);
+    digester.addCallParam("faces-config/component/component-extension/unsupported-agents", 0);
     digester.addCallMethod("faces-config/component/component-extension/component-class-modifier",
                            "parseComponentClassModifier", 1);
     digester.addCallParam("faces-config/component/component-extension/component-class-modifier", 0);
@@ -202,6 +205,9 @@ public class FacesConfigParser
     digester.addCallMethod("faces-config/component/property/property-extension/unsupported-agents",
                            "parseUnsupportedAgents", 1);
     digester.addCallParam("faces-config/component/property/property-extension/unsupported-agents", 0);
+    digester.addCallMethod("faces-config/component/property/property-extension/unsupported-render-kits",
+                           "parseUnsupportedRenderKits", 1);
+    digester.addCallParam("faces-config/component/property/property-extension/unsupported-render-kits", 0);
     digester.addObjectCreate("faces-config/component/property/property-extension/method-binding-signature",
                              MethodSignatureBean.class);
     digester.addBeanPropertySetter("faces-config/component/property/property-extension/method-binding-signature/return-type",

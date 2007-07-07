@@ -217,6 +217,31 @@ public class ComponentBean extends ObjectBean
   }
 
   /**
+   * Sets the unsupported agents for this component.
+   *
+   * @param unsupportedAgents  the unsupported agents
+   */
+  public void setUnsupportedAgents(
+    String[] unsupportedAgents)
+  {
+    if (unsupportedAgents == null)
+      throw new NullPointerException("unsupportedAgents");
+
+    _unsupportedAgents = unsupportedAgents;
+  }
+
+  /**
+   * Returns unsupported agents for this component.
+   *
+   * @return  the unsupported agents
+   */
+  public String[] getUnsupportedAgents()
+  {
+    return _unsupportedAgents;
+  }
+
+
+  /**
    * Returns the JSP tag handler class for this component.
    *
    * @return  the JSP tag handler class
@@ -226,7 +251,7 @@ public class ComponentBean extends ObjectBean
     return _tagClass;
   }
 
-   /**
+  /**
    * Sets the JSP tag handler superclass for this component.
    *
    * @param tagSuperclass  the JSP tag handler superclass
@@ -679,6 +704,18 @@ public class ComponentBean extends ObjectBean
   }
 
   /**
+   * Parses the unsupported agents for this component into a String array
+   * using space as the separator between values.
+   *
+   * @param unsupportedAgents  the unsupported agents
+   */
+  public void parseUnsupportedAgents(
+    String unsupportedAgents)
+  {
+    setUnsupportedAgents(unsupportedAgents.split(" "));
+  }
+  
+  /**
    * Adds a Java Language class modifier to the tag class.
    *
    * @param modifier  the modifier to be added
@@ -1005,7 +1042,7 @@ public class ComponentBean extends ObjectBean
   private Map     _events;
   private int     _componentClassModifiers;
   private int     _tagClassModifiers;
-
+  private String[] _unsupportedAgents = new String[0];
 
   static private final String _TRINIDAD_COMPONENT_BASE =
                          "org.apache.myfaces.trinidad.component.UIXComponentBase";

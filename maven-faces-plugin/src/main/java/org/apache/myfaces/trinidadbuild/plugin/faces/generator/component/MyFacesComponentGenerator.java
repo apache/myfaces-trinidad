@@ -338,6 +338,10 @@ public class MyFacesComponentGenerator extends AbstractComponentGenerator
           out.println(arrayName + "[" + propIndex + "] = saveAttachedState(facesContext, " + varName + ");");
         }
       }
+      else if (GeneratorHelper.isConverter(property.getPropertyClass()))
+      {
+        out.println(arrayName + "[" + propIndex + "] = saveAttachedState(facesContext, " + varName + ");");
+      }
       else
       {
         out.println(arrayName + "[" + propIndex + "] = " + varName + ";");
@@ -400,6 +404,11 @@ public class MyFacesComponentGenerator extends AbstractComponentGenerator
               + arrayName + "[" + propIndex + "]);");
         }
 
+      }
+      else if (GeneratorHelper.isConverter(property.getPropertyClass()))
+      {
+        out.println(varName + " = (Converter) restoreAttachedState(facesContext, "
+            + arrayName + "[" + propIndex + "]);");
       }
       else
       {

@@ -243,11 +243,65 @@ public class TagdocReport extends AbstractMavenMultiPageReport
     return set;
   }
 
+  private String _formatPropList(
+    String[] pList, 
+    String   header)
+  {
+    String[] nullList = {};
+    return _formatPropList(pList, header, nullList);
+  }
+
+  private String _formatPropList(
+    String[] pList, 
+    String   header,
+    String[] ignores)
+  {
+    String formatted = null;
+    if ((pList != null) && (pList.length > 0))
+    {
+      // Don't know how long this will be, but 100 should be plenty.
+      StringBuffer sb = new StringBuffer(100);
+      sb.append("\n");
+      sb.append("<b>");
+      sb.append(header);
+      sb.append(":</b> ");
+
+      boolean gotOne = false;
+
+      for (int arrInd = 0; arrInd < pList.length; arrInd++)
+      {
+        String curStr = pList[arrInd];
+        outer:
+        if (curStr != null)
+        {
+          for (int i = 0; i < ignores.length; i++)
+          {
+            String s = ignores[i];
+            if ((s != null) && (s.equalsIgnoreCase(curStr)))
+              break outer;
+          }
+
+          if (gotOne)
+          {
+            sb.append(", ");
+          }
+          gotOne = true;
+          sb.append(curStr);
+        }
+      }
+      if (gotOne)
+      {
+        sb.append("<br/>\n");
+        formatted = sb.toString();
+      }
+    }
+    return formatted;
+  }
+
   private void _writeIndexSection(Sink sink, Set pages, String title)
   {
     if (pages.isEmpty())
       return;
-    
     sink.sectionTitle1();
     sink.text(title);
     sink.sectionTitle1_();
@@ -492,6 +546,14 @@ public class TagdocReport extends AbstractMavenMultiPageReport
     out.write("   <br/>\n");
     out.write("   <b>Component type:</b> " + bean.getComponentType() +  "\n");
     out.write("   <br/>\n");
+
+    String fmtd = _formatPropList(bean.getUnsupportedAgents(),
+                                  "Unsupported agents",
+                                  _NON_DOCUMENTED_AGENTS);
+    if (fmtd != null)
+    {
+      out.write("   " + fmtd);
+    }
 
     String doc = bean.getLongDescription();
     if (doc == null)
@@ -786,48 +848,46 @@ public class TagdocReport extends AbstractMavenMultiPageReport
 
       if (attr.getDescription()  != null)
       {
-        String[] values = attr.getPropertyValues();
-        String valStr = null;
-
-        if ((values != null) && (values.length > 0))
-        {
-          // Don't know how long this will be, but 100 should be plenty.
-          StringBuffer sb = new StringBuffer(100);
-          sb.append("\n<p><b>Valid Values: </b>");
-
-          for (int arrInd = 0; arrInd < values.length; arrInd++)
-          {
-            if (arrInd != 0)
-            {
-              sb.append(", ");
-            }
-            sb.append(values[arrInd]);
-          }
-          sb.append("</p>\n");
-          valStr = sb.toString();
-        }
+        String valStr = _formatPropList(attr.getPropertyValues(),
+                                        "Valid Values");
+        String unsupAgentsStr =
+          _formatPropList(attr.getUnsupportedAgents(),
+                          "Not supported on the following agents",
+                          _NON_DOCUMENTED_AGENTS);
+        String unsupRkStr =
+          _formatPropList(attr.getUnsupportedRenderKits(),
+                          "Not supported on the following renderkits");
 
         if (_attrDocSpansColumns)
         {
           out.write("</tr>\n");
           out.write("<tr>\n");
           out.write("<td colspan=\"3\">\n");
-          //        out.write(EscapeUtils.escapeElementValue(doc.doc));
-          if (valStr != null)
-            out.write(valStr);
-          out.write(attr.getDescription());
-          //out.write(EscapeUtils.escapeAmpersands(doc.doc));
-          out.write("</td>\n");
         }
         else
         {
           out.write("<td>\n");
-          if (valStr != null)
-            out.write(valStr);
-          out.write(attr.getDescription());
-          //out.write(EscapeUtils.escapeAmpersands(doc.doc));
-          out.write("</td>\n");
         }
+        
+        //        out.write(EscapeUtils.escapeElementValue(doc.doc));
+        if (valStr != null)
+        {
+          out.write(valStr);
+          out.write("<br/>");
+        }
+        out.write(attr.getDescription());
+        if (unsupAgentsStr != null)
+        {
+          out.write("<br/>");
+          out.write(unsupAgentsStr);
+        }
+        if (unsupRkStr != null)
+        {
+          out.write("<br/>");
+          out.write(unsupRkStr);
+        }
+        //out.write(EscapeUtils.escapeAmpersands(doc.doc));
+        out.write("</td>\n");
       }
 
       out.write("</tr>\n");
@@ -1295,4 +1355,6 @@ public class TagdocReport extends AbstractMavenMultiPageReport
   private SiteRenderer siteRenderer;
 
   static private final String _DOC_SUBDIRECTORY = "tagdoc";
+  static private final String[] _NON_DOCUMENTED_AGENTS = {"phone", "voice"};
+
 }

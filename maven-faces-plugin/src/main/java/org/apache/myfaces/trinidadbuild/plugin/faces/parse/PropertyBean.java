@@ -250,6 +250,30 @@ public class PropertyBean extends AttributeBean
   }
 
   /**
+   * Sets the unsupported RenderKits for this property.
+   *
+   * @param unsupportedRenderKits  the unsupported RenderKits
+   */
+  public void setUnsupportedRenderKits(
+    String[] unsupportedRenderKits)
+  {
+    if (unsupportedRenderKits == null)
+      throw new NullPointerException("unsupportedRenderKits");
+
+    _unsupportedRenderKits = unsupportedRenderKits;
+  }
+
+  /**
+   * Returns unsupported RenderKits for this property.
+   *
+   * @return  the unsupported RenderKits
+   */
+  public String[] getUnsupportedRenderKits()
+  {
+    return _unsupportedRenderKits;
+  }
+
+  /**
    * Sets the tag attribute excluded flag for this property.
    *
    * @param excluded  true,  if the tag attribute should be excluded;
@@ -336,6 +360,18 @@ public class PropertyBean extends AttributeBean
   }
 
   /**
+   * Parses the unsupported RenderKits for this property into a String array
+   * using space as the separator between values.
+   *
+   * @param unsupportedRenderKits  the unsupported RenderKits
+   */
+  public void parseUnsupportedRenderKits(
+    String unsupportedRenderKits)
+  {
+    setUnsupportedRenderKits(unsupportedRenderKits.split(" "));
+  }
+
+  /**
    * Sets the JSP name of this property.
    *
    * @param jspPropertyName  the JSP property name
@@ -395,6 +431,7 @@ public class PropertyBean extends AttributeBean
   private boolean _enum;
   private String[] _propertyValues;
   private String[] _unsupportedAgents = _EMPTY_ARRAY;
+  private String[] _unsupportedRenderKits = _EMPTY_ARRAY;
 
   static private String[] _EMPTY_ARRAY = new String[0];
 }
