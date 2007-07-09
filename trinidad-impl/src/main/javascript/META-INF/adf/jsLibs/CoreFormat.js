@@ -758,7 +758,7 @@ TrDateTimeRangeValidator.prototype.validate  = function(
       }
     }
     //max only
-    else
+    else if(this._maxValue)
     {
       maxDate = parseInt(this._maxValue);
       if(dateTime <= maxDate)
@@ -768,7 +768,7 @@ TrDateTimeRangeValidator.prototype.validate  = function(
       else
       {
         var key = "org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MAXIMUM";
-      if(this._messages && this._messages["max"])
+        if(this._messages && this._messages["max"])
         {
           facesMessage = _createCustomFacesMessage(TrMessageFactory.getSummaryString(key),
                                         this._messages["max"],
@@ -776,14 +776,19 @@ TrDateTimeRangeValidator.prototype.validate  = function(
                                         ""+converter.getAsString(value),
                                         ""+converter.getAsString(new Date(this._maxValue)));
         }
-      else
-      {
+        else
+        {
           facesMessage = _createFacesMessage(key,
                                         label,
                                         ""+converter.getAsString(value),
                                         ""+converter.getAsString(new Date(this._maxValue)));
+        }
       }
-      }
+    }
+    else
+    {
+      //no min/max specified
+      return value;
     }
   }
   throw new TrConverterException(facesMessage);
