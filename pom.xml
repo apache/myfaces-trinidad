@@ -338,6 +338,10 @@
           <threshold>Low</threshold>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>rat-maven-plugin</artifactId>
+      </plugin>
     </plugins>
   </reporting>
 <!--  I'm not having any luck getting checkstyle to actually
