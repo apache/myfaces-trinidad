@@ -342,6 +342,17 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>rat-maven-plugin</artifactId>
       </plugin>
+      <!--plugin>
+        <inherited>false</inherited>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-doap-plugin</artifactId>
+        <configuration>
+          <category>web-framework</category>
+          <language>Java</language>
+          <shortdesc>Set of user interface components based on JSF.</shortdesc>
+          <pmc>http://myfaces.apache.org</pmc>
+        </configuration>
+      </plugin-->
     </plugins>
   </reporting>
 <!--  I'm not having any luck getting checkstyle to actually
