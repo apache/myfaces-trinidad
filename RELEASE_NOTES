@@ -1,0 +1,2 @@
+TRINIDAD-90      Tagdoc: Unsupported Agents in component summary
+TRINIDAD-91      UIOutput puts Converter as element of object arrays (holding component state), w/o calling to its saveState() method. It causes NotSerializableException
