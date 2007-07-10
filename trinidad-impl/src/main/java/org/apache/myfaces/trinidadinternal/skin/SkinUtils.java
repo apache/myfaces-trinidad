@@ -66,7 +66,9 @@ import org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.SkinNode;
 import org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.SkinsNode;
 
 /**
- * Utility functions for creating Skins from the trinidad-skins.xml file
+ * Utility functions for creating Skin objects and SkinExtension objects 
+ * from the trinidad-skins.xml file and
+ * adding them to the SkinFactory. It also adds SkinAdditions to the Skin objects.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/skin/SkinUtils.java#0 $) $Date: 10-nov-2005.18:59:00 $
  */
 public class SkinUtils
