@@ -1149,6 +1149,9 @@ function _valField(
 
     if (blurFunc)
     {
+      // FIXME: this is *NOT* portable.  Safari, for example,
+      // does not implement toString() on functions this way,
+      // and nothing requires that it does
       var valFunc = blurFunc.toString();
 
       // whack off the beginning and end of the function, leaving the content
