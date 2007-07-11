@@ -250,6 +250,30 @@ public class PropertyBean extends AttributeBean
   }
 
   /**
+   * Sets the unsupported RenderKits for this property.
+   *
+   * @param unsupportedRenderKits  the unsupported RenderKits
+   */
+  public void setUnsupportedRenderKits(
+    String[] unsupportedRenderKits)
+  {
+    if (unsupportedRenderKits == null)
+      throw new NullPointerException("unsupportedRenderKits");
+
+    _unsupportedRenderKits = unsupportedRenderKits;
+  }
+
+  /**
+   * Returns unsupported RenderKits for this property.
+   *
+   * @return  the unsupported RenderKits
+   */
+  public String[] getUnsupportedRenderKits()
+  {
+    return _unsupportedRenderKits;
+  }
+
+  /**
    * Sets the tag attribute excluded flag for this property.
    *
    * @param excluded  true,  if the tag attribute should be excluded;
@@ -283,6 +307,7 @@ public class PropertyBean extends AttributeBean
     return ("javax.faces.el.MethodBinding".equals(getPropertyClass()));
   }
 
+
   /**
    * Parses the possible values for this property into a String array
    * using space as the separator between values.
@@ -307,6 +332,17 @@ public class PropertyBean extends AttributeBean
     setUnsupportedAgents(unsupportedAgents.split(" "));
   }
 
+  /**
+   * Parses the unsupported RenderKits for this property into a String array
+   * using space as the separator between values.
+   *
+   * @param unsupportedRenderKits  the unsupported RenderKits
+   */
+  public void parseUnsupportedRenderKits(
+    String unsupportedRenderKits)
+  {
+    setUnsupportedRenderKits(unsupportedRenderKits.split(" "));
+  }
 
   private String  _aliasOf;
   private boolean _required;
@@ -317,6 +353,7 @@ public class PropertyBean extends AttributeBean
   private boolean _tagAttributeExcluded;
   private String[] _propertyValues;
   private String[] _unsupportedAgents = _EMPTY_ARRAY;
+  private String[] _unsupportedRenderKits = _EMPTY_ARRAY;
 
   static private String[] _EMPTY_ARRAY = new String[0];
 }
