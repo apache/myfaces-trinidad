@@ -241,14 +241,14 @@ public class CoreFormData extends FormData
     return errorFormatMap.keySet().iterator();
   }
 
-  public List<ConvertValidate> getFormValidatorsInfo(
+  public Map<String, List<ConvertValidate>> getFormValidatorsInfo(
     boolean createIfNecessary
     )
   {
     // create the validators if they don't already exist
     if ((_formValidatorsInfo == null) && createIfNecessary)
     {
-      _formValidatorsInfo = new ArrayList<ConvertValidate>();
+      _formValidatorsInfo = new HashMap<String, List<ConvertValidate>>();
     }
 
     return _formValidatorsInfo;
@@ -368,7 +368,8 @@ public class CoreFormData extends FormData
    */
   private void _addFormConverterInfo(
     String                    converter,
-    CoreFormData.ConvertValidate  convertValidate
+    CoreFormData.ConvertValidate  convertValidate,
+    String                    clientId
    )
   {
     if (converter != null && convertValidate != null)
@@ -376,7 +377,7 @@ public class CoreFormData extends FormData
       if (convertValidate.converter == null)
         convertValidate.converter = new Object[2];
       else
-        _LOG.warning("DUPLICATE_CONVERTER_ONE_PER_COMPONENT", convertValidate.clientId);
+        _LOG.warning("DUPLICATE_CONVERTER_ONE_PER_COMPONENT", clientId);
 
 
       // add the converter
@@ -438,7 +439,7 @@ public class CoreFormData extends FormData
     if (converter != null)
     {
 
-      _addFormConverterInfo( converter, convertValidate);
+      _addFormConverterInfo( converter, convertValidate, clientId);
       _addValidatedInput(clientId);
     }
   }
@@ -578,13 +579,16 @@ public class CoreFormData extends FormData
       // create
       ConvertValidate convertValidateInfo = new ConvertValidate();
 
-      // set name
-      convertValidateInfo.clientId = clientId;
-
       // add to list
-      List<ConvertValidate> convertValidateList = getFormValidatorsInfo(true);
-      convertValidateList.add(convertValidateInfo);
+      Map<String, List<ConvertValidate>> map = getFormValidatorsInfo(true);
+      List<ConvertValidate> convertValidateList = map.get(clientId);
+      if (convertValidateList == null)
+      {
+        convertValidateList = new ArrayList<ConvertValidate>();
+        map.put(clientId, convertValidateList);
+      }
 
+      convertValidateList.add(convertValidateInfo);
       return convertValidateInfo;
   }
 
@@ -736,7 +740,7 @@ public class CoreFormData extends FormData
   private Map<String, Integer> _errorFormatMap = null;
 
   // List of ConvertValidate objects
-  private List<ConvertValidate> _formValidatorsInfo;
+  private Map<String, List<ConvertValidate>> _formValidatorsInfo;
 
   // javascript needed for client validations
   private List<String> _clientDependencies;
@@ -766,7 +770,6 @@ public class CoreFormData extends FormData
 
  public static final class ConvertValidate
   {
-    public String             clientId;
     public boolean            required = false;
     public Integer            requiredFormatIndex;
     public ArrayList<Integer> validators;

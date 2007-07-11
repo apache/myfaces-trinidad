@@ -537,99 +537,107 @@ public class FormRenderer extends XhtmlRenderer
     //
     // Write the array of form validators
     //
-    List<CoreFormData.ConvertValidate> validatorInfoList =
+    Map<String, List<CoreFormData.ConvertValidate>> validatorInfoMap =
       fData.getFormValidatorsInfo(false);
     
-    if (validatorInfoList != null)
+    if (validatorInfoMap != null)
     {
       writer.writeText("var _", null);
       writer.writeText(jsID, null);
       writer.writeText("_Validators=[", null);
   
+
       boolean firstFormInfo = true;
-
-      for (int j = 0; j < validatorInfoList.size(); j++)
+      for (Map.Entry<String, List<CoreFormData.ConvertValidate>> validatorEntry  :
+           validatorInfoMap.entrySet())
       {
-
-        if (firstFormInfo)
+        String clientId = validatorEntry.getKey();
+        List<CoreFormData.ConvertValidate> validatorInfoList =
+          validatorEntry.getValue();
+      
+        for (CoreFormData.ConvertValidate convertValidate : validatorInfoList)
         {
-          firstFormInfo = false;
-        }
-        else
-        {
-          // write the separator every time except the first time
-          writer.writeText("],", null);
-        }
-
-        CoreFormData.ConvertValidate convertValidate = validatorInfoList.get(j);
-
-        writer.writeText("\"", null);
-
-        // write the element name of the element to be validated
-        writer.writeText(convertValidate.clientId, null);
-        writer.writeText("\",", null);
-
-        // write out whether or not this element is required
-        writer.writeText(convertValidate.required? "1" : "0", null);
-        writer.writeText(",", null);
-
-        if (convertValidate.requiredFormatIndex != null)
-        {
-          // write out the index of the required error message
-          writer.writeText(convertValidate.requiredFormatIndex, null);
-        }
-
-        writer.writeText(",", null);
-
-        Object converterInfo = convertValidate.converter;
-
-        if (converterInfo != null)
-        {
-          writer.writeText(converterInfo, null);
-        }
-        else
-        {
-          writer.writeText("(void 0)", null);
-        }
-
-        writer.writeText(",[", null);
-
-        ArrayList<Integer> validatorInfo = convertValidate.validators;
-
-        if (validatorInfo != null)
-        {
-          boolean firstValidator = true;
-
-          int i = 0;
-          while (i < validatorInfo.size())
+          
+          if (firstFormInfo)
           {
-            if (firstValidator)
-            {
-              firstValidator = false;
-            }
-            else
-            {
-              // write the separator every time except the first time
-              writer.writeText(",", null);
-            }
+            firstFormInfo = false;
+          }
+          else
+          {
+            // write the separator every time except the first time
+            writer.writeText("],", null);
+          }
+          
+          writer.writeText("\"", null);
+          
+          // write the element name of the element to be validated
+          writer.writeText(clientId, null);
+          writer.writeText("\",", null);
 
-            // write the validation string for the validater
-            writer.writeText(validatorInfo.get(i).toString(), null);
+          // write out whether or not this element is required
+          writer.writeText(convertValidate.required? "1" : "0", null);
+          writer.writeText(",", null);
+          
+          if (convertValidate.requiredFormatIndex != null)
+          {
+            // write out the index of the required error message
+            writer.writeText(convertValidate.requiredFormatIndex, null);
+          }
+          
+          writer.writeText(",", null);
+          
+          Object converterInfo = convertValidate.converter;
+          
+          if (converterInfo != null)
+          {
+            writer.writeText(converterInfo, null);
+          }
+          else
+          {
+            writer.writeText("(void 0)", null);
+          }
+          
+          writer.writeText(",[", null);
+          
+          ArrayList<Integer> validatorInfo = convertValidate.validators;
 
-            i = i + 1;
+          if (validatorInfo != null)
+          {
+            boolean firstValidator = true;
+            
+            int i = 0;
+            while (i < validatorInfo.size())
+            {
+              if (firstValidator)
+              {
+                firstValidator = false;
+              }
+              else
+              {
+                // write the separator every time except the first time
+                writer.writeText(",", null);
+              }
+              
+              // write the validation string for the validater
+              writer.writeText(validatorInfo.get(i).toString(), null);
+              
+              i = i + 1;
+            }
           }
         }
       }
-  
+
       writer.writeText("]];", null);
     }
+
     //
     // write the validation function for this form
     //
+    // FIXME: hoist this out of the PPR block
     writer.writeText("function _", null);
     writer.writeText(jsID, null);
 
-    if (validatorInfoList == null)
+    if (validatorInfoMap == null)
     {
       // no validation, so validation always succeeds
       writer.writeText("Validator(){return true;}", null);
