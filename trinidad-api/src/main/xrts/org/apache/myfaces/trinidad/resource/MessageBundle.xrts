@@ -121,7 +121,7 @@
   <resource key="org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM">Value Too long</resource>
 
   <resource
-    key="org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM_detail">The length of the value entered, "{1}", exceeds the maximum allowed byte length of {2}.</resource>
+    key="org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM_detail">The length of the value entered exceeds the maximum allowed byte length of {2}.</resource>
 
   <!-- Date exceeds date range error               -->
   <!-- {0} the label that identifies the component -->
@@ -158,7 +158,7 @@
     key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.DAY">Date is not allowed.</resource>
 
   <resource
-    key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.DAY_detail">The date entered, "{1}" is not allowed.</resource>
+    key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.DAY_detail">The date you entered is not allowed.</resource>
 
   <!-- Validator can check if a date is in an invalid month  -->
   <!-- {0} the label that identifies the component           -->
@@ -276,7 +276,7 @@
   <!--  9912 does not match patern [9]*                                     -->
   <resource key="org.apache.myfaces.trinidad.validator.RegExpValidator.NO_MATCH">Value does not match pattern.</resource>
 
-  <resource key="org.apache.myfaces.trinidad.validator.RegExpValidator.NO_MATCH_detail">The value "{1}" does not match the regular expression pattern "{2}".</resource>
+  <resource key="org.apache.myfaces.trinidad.validator.RegExpValidator.NO_MATCH_detail">The value you entered does not match the regular expression pattern "{2}".</resource>
   
   <!-- hints for converters -->
 
@@ -372,7 +372,7 @@
   <!-- {1} value entered by the user               -->
   <!-- {2} the specified conversion pattern        -->
   <resource key="org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_PATTERN">Not a number</resource>
-  <resource key="org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_PATTERN_detail">The value "{1}" is not a number that matches the pattern "{2}".</resource>
+  <resource key="org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_PATTERN_detail">The value you entered is not a number that matches the pattern "{2}".</resource>
 
   <!-- {0} the label that identifies the component -->
   <!-- {1} value entered by the user               -->
@@ -431,7 +431,7 @@
   <!-- {0} the label that identifies the component -->
   <!-- {1} value entered by the user               -->
   <resource key="org.apache.myfaces.trinidad.convert.FloatConverter.CONVERT">Not a number.</resource>
-  <resource key="org.apache.myfaces.trinidad.convert.FloatConverter.CONVERT_detail">The value "{1}" is not a number.</resource>
+  <resource key="org.apache.myfaces.trinidad.convert.FloatConverter.CONVERT_detail">The value you entered is not a number.</resource>
 
   
   <!-- format for message in a javascript alert window                 -->
