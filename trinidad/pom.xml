@@ -19,7 +19,7 @@
 
   <!-- TODO: Need new parent (MyFaces, instead of Apache), but
        when I do this, the compiler plugin goes back to 1.3, ignoring
-       the local override of 5.0 -->
+       the local override of 5.0 (see TRINIDAD-99) -->
   <parent>
     <groupId>org.apache</groupId>
     <artifactId>apache</artifactId>
