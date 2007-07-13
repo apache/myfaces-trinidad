@@ -261,7 +261,7 @@
           file. If it is not set in the configuration file then it is defaulted based on the locale.</html:p>
 
 
-         <html:p>Since ADF Faces is compatible with JDK 1.4 and higher versions,
+         <html:p>Since Apache MyFaces Trinidad is compatible with JDK 1.4 and higher versions,
          the <html:code>currencyCode</html:code> gets preference over <html:code>currencySymbol.</html:code>
          See JSF's javax.faces.convert.NumberConverter for the way in which
          <html:code>currencyCode</html:code> and <html:code>currencySymbol</html:code> gets preference for
