@@ -612,42 +612,60 @@ public class CoreRenderer extends Renderer
 
   /**
    * Render an array of CSS styleClasses as space-separated values.
-   * NOTE: the array is mutated during this method, and cannot
-   * be reused!  Each styleclass will be passed through the RenderingContext
-   * getStyleClass() API.
    * @param context  the FacesContext
    * @param styleClasses the style classes
    */
   static public void renderStyleClasses(
     FacesContext        context,
-    RenderingContext arc,
+    RenderingContext    rc,
     String[]            styleClasses) throws IOException
   {
-    int length = 0;
-    for (int i = 0; i < styleClasses.length; i++)
+    int length = styleClasses.length;
+    if (length == 0)
+      return;
+    
+    String value;
+    // Optimize one-element arrays
+    if (length == 1)
     {
-      if (styleClasses[i] != null)
+      value = rc.getStyleClass(styleClasses[0]);
+    }
+    // Otherwise, build up the array of mutated style classes.
+    else
+    {
+      // Assume that styleclass compression is active in terms of sizing
+      // this buffer - this is not true for portlets, but this isn't a
+      // huge optimizations, and the relatively smaller content delivered
+      // to portlets makes this still less important
+      StringBuilder builder =
+        new StringBuilder((_COMPRESSED_LENGTH + 1) * length);
+      for (int i = 0; i < length; i++)
       {
-        String styleClass = arc.getStyleClass(styleClasses[i]);
-        if (styleClass != null)
-          length += styleClass.length() + 1;
-        styleClasses[i] = styleClass;
+        if (styleClasses[i] != null)
+        {
+          String styleClass = rc.getStyleClass(styleClasses[i]);
+          if (styleClass != null)
+          {
+            if (builder.length() != 0)
+              builder.append(' ');
+            builder.append(styleClass);
+          }
+        }
       }
+      
+      if (builder.length() == 0)
+        value = null;
+      else
+        value = builder.toString();
     }
 
-    StringBuilder builder = new StringBuilder(length);
-    for (int i = 0; i < styleClasses.length; i++)
-    {
-      if (styleClasses[i] != null)
-      {
-        if (builder.length() != 0)
-          builder.append(' ');
-        builder.append(styleClasses[i]);
-      }
-    }
-
-    context.getResponseWriter().writeAttribute("class", builder.toString(), null);
+    context.getResponseWriter().writeAttribute("class", value, null);
   }
+
+
+  // Heuristic guess of the maximum length of a typical compressed style
+  private static final int _COMPRESSED_LENGTH = 4;
+
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     CoreRenderer.class);
 }
