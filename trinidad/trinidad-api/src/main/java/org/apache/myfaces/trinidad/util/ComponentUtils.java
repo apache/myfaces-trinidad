@@ -126,7 +126,7 @@ public class ComponentUtils
 
   /**
    * Utility method for component code that transforms an Object
-   * (which must be a java.lang.Number) into a long.
+   * (which must be a java.lang.Number) into a double.
    */
   public static double resolveDouble(
     Object value
@@ -137,7 +137,7 @@ public class ComponentUtils
 
   /**
    * Utility method for component code that transforms an Object
-   * (which must be a java.lang.Number) into a long.
+   * (which must be a java.lang.Number) into a double.
    */
   public static double resolveDouble(
     Object value,
@@ -161,7 +161,7 @@ public class ComponentUtils
   }
 
   /**
-   * Utility method for component code that transforms Long->long.
+   * Utility method for component code that transforms Character->character.
    */
   public static char resolveCharacter(
     Character  value,
