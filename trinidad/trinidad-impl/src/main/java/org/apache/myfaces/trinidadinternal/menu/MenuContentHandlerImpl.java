@@ -347,39 +347,54 @@ public class MenuContentHandlerImpl extends DefaultHandler
   @Override
   public void endDocument()
   {
-    _menuList = _menuNodes.get(0);
-    
-    // Create the treeModel
-    ChildPropertyTreeModel treeModel = 
-                  new ChildPropertyTreeModel(_menuList, "children");
-                  
-    // Put it in the map
-    _treeModelMap.put(_currentTreeModelMapKey, treeModel);
-    
-    // If Model is the Root, then build Model's hashmaps 
-    // and set them on the Root Model.
-    XMLMenuModel rootModel = getRootModel();
-    
-    if (rootModel == getModel())
+    if (_menuNodes.isEmpty())
     {
-      _viewIdFocusPathMap = new HashMap<String,List<Object>>();
-      _nodeFocusPathMap   = new HashMap<Object, List<Object>>();
-      _idNodeMap          = new HashMap<String, Object>();
-      Object oldPath      = treeModel.getRowKey(); 
-
-      treeModel.setRowKey(null);
-
-      // Populate the maps
-      _addToMaps(treeModel, _viewIdFocusPathMap, _nodeFocusPathMap, _idNodeMap);
+      // Empty tree is created to prevent
+      // later NPEs if menu model methods are called.
+      _LOG.warning ("CREATE_TREE_WARNING: Empty Tree!");
       
-      // Cache the maps.  There is a possibility of multiple
-      // root models so we must cache the maps on a per root model
-      // basis.
-      _viewIdFocusPathMapMap.put(_currentTreeModelMapKey, _viewIdFocusPathMap);
-      _nodeFocusPathMapMap.put(_currentTreeModelMapKey, _nodeFocusPathMap);
-      _idNodeMapMap.put(_currentTreeModelMapKey, _idNodeMap);
+      // Create empty treeModel
+      ChildPropertyTreeModel treeModel = new ChildPropertyTreeModel();
+                    
+      // Put it in the map
+      _treeModelMap.put(_currentTreeModelMapKey, treeModel);     
+    }
+    else
+    {
+      _menuList = _menuNodes.get(0);
       
-      treeModel.setRowKey(oldPath);
+      // Create the treeModel
+      ChildPropertyTreeModel treeModel = 
+                    new ChildPropertyTreeModel(_menuList, "children");
+                    
+      // Put it in the map
+      _treeModelMap.put(_currentTreeModelMapKey, treeModel);
+      
+      // If Model is the Root, then build Model's hashmaps 
+      // and set them on the Root Model.
+      XMLMenuModel rootModel = getRootModel();
+      
+      if (rootModel == getModel())
+      {
+        _viewIdFocusPathMap = new HashMap<String,List<Object>>();
+        _nodeFocusPathMap   = new HashMap<Object, List<Object>>();
+        _idNodeMap          = new HashMap<String, Object>();
+        Object oldPath      = treeModel.getRowKey(); 
+     
+        treeModel.setRowKey(null);
+     
+        // Populate the maps
+        _addToMaps(treeModel, _viewIdFocusPathMap, _nodeFocusPathMap, _idNodeMap);
+        
+        // Cache the maps.  There is a possibility of multiple
+        // root models so we must cache the maps on a per root model
+        // basis.
+        _viewIdFocusPathMapMap.put(_currentTreeModelMapKey, _viewIdFocusPathMap);
+        _nodeFocusPathMapMap.put(_currentTreeModelMapKey, _nodeFocusPathMap);
+        _idNodeMapMap.put(_currentTreeModelMapKey, _idNodeMap);
+        
+        treeModel.setRowKey(oldPath);
+      }
     }
   }
   
