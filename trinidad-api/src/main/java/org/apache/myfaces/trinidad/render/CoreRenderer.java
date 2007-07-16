@@ -147,26 +147,38 @@ public class CoreRenderer extends Renderer
   {
     if (o == null)
       return CHAR_UNDEFINED;
-
+    
+    char c;
     if (o instanceof Character)
-      return ((Character) o).charValue();
-
-    // If it's not a Character object, then let's turn it into
-    // a CharSequence and grab the first character
-    CharSequence cs;
-    if (o instanceof CharSequence)
     {
-      cs = (CharSequence) o;
+      c = ((Character) o).charValue();
     }
     else
     {
-      cs = o.toString();
-    }
-    
-    if (cs.length() == 0)
-      return CHAR_UNDEFINED;
+      // If it's not a Character object, then let's turn it into
+      // a CharSequence and grab the first character
+      CharSequence cs;
+      if (o instanceof CharSequence)
+      {
+        cs = (CharSequence) o;
+      }
+      else
+      {
+        cs = o.toString();
+      }
 
-    return cs.charAt(0);
+      if (cs.length() == 0)
+        c = CHAR_UNDEFINED;
+      else
+        c = cs.charAt(0);
+    }
+
+    // Handle the occasional odd bit of code that likes
+    // returning null, and treat it identically to UNDEFINED.
+    if (c == '\u0000')
+      c = CHAR_UNDEFINED;
+
+    return c;
   }
 
 
