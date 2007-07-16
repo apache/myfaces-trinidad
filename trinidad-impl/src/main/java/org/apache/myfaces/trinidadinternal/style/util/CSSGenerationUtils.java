@@ -716,8 +716,8 @@ public class CSSGenerationUtils
     return isShorter ? buffer.toString() : selector;
   }
   /**
-   * Runs a selector through a map. It returns the selector unchanged if
-   * there is no namespace in the selector.
+   * Runs a selector through a map. It returns the selector unchanged (except for converted
+   * pseudo-classes) if there is no namespace in the selector.
    * This could be a map to convert the
    * public no-html selector to an internal selector that has html-specifics
    * (e.g., 'af|menuPath::step:hover' -> 'af|menuPath A:hover')
@@ -761,8 +761,50 @@ public class CSSGenerationUtils
     }
     else
     {
-      // there are no namespaces in this selector.
-      mappedSelector = _convertPseudoClassesInSelector(selector);
+      // there are no namespaces in this selector, but we still need to convert pseudo-classes.
+      /************************ TODO
+      //Separate pseudoclasses and then call it
+      int start = 0;
+      StringBuilder b = new StringBuilder();
+      for(int i = 0; i < selector.length(); i++)
+      {
+        char c = selector.charAt(i); 
+        if (c == ' ' )
+        {
+          if (start == i)
+          {
+            //group of spaces
+            start = i+1; //Skip space                       
+          } 
+          else
+          {
+            String subSelector = selector.substring(start,i);
+            subSelector = _convertPseudoClassesInSelector(subSelector);
+            start = i+1; //Skip space
+            b.append(subSelector);
+            b.append(' ');
+          }
+        }
+      } // end for loop
+      
+      // We reached the end of the selector, now convert the last bit
+      if (start == 0)
+      {
+        //there is no space in selector, but we still need to map pseudo-classes.
+        mappedSelector = _convertPseudoClassesInSelector(selector);
+      }
+      else
+      {
+        String subSelector = selector.substring(start);
+        subSelector = _convertPseudoClassesInSelector(subSelector);
+        b.append(subSelector);
+        mappedSelector = b.toString();
+      }
+       mappedSelector = _convertPseudoClassesInSelector(selector);
+
+      *****************/
+       mappedSelector = _convertPseudoClassesInSelector(selector);
+
     }
     return mappedSelector;
   }
