@@ -46,10 +46,6 @@
   The panelHeader control places a label and optional icon at the top of a 
   section.
 </html:p>
-<html:p>
-  On mobile devices the panelHeader renders nothing itself, but does renders 
-  its children.
-</html:p>
 
 <section name="panelHeader and Messaging Information">
   <html:p>
