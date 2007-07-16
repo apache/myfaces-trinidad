@@ -480,6 +480,12 @@ public class XMLMenuModel extends BaseMenuModel
       Map<String, String> propMap = 
         (Map<String, String>) resolver.getValue(node, _CUSTOM_ATTR_LIST);
         
+      // Need to check to see if propMap is null.  If there are
+      // no custom properties for this itemNode, there will be
+      // no propMap.  See MenuContentHandler._createItemNode().
+      if (propMap == null)
+        return null;
+
       value = propMap.get(propName);
     }
     catch (PropertyNotFoundException ex)
