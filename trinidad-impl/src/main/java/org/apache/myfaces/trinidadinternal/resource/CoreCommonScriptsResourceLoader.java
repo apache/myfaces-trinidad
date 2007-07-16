@@ -23,9 +23,8 @@ import org.apache.myfaces.trinidad.resource.AggregatingResourceLoader;
 import org.apache.myfaces.trinidad.resource.ClassLoaderResourceLoader;
 
 /**
- * A resource loader implementation which serves up the rich
- * client framework JavaScript library.
- *
+ * A resource loader implementation which serves up Trinidad's
+ * JavaScript library.
  */
 public class CoreCommonScriptsResourceLoader extends AggregatingResourceLoader
 {
