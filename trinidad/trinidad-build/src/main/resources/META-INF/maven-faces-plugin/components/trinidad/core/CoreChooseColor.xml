@@ -60,50 +60,10 @@
         </mfp:property-metadata>
       </property-extension>
     </property>
-    <property>
-      <description><![CDATA[the short description of the bean.  This text
-         is commonly used by user agents to display tooltip help text.]]>
-      </description>
-      <property-name>shortDesc</property-name>
-      <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("CORE_GROUP")}</mfp:group>
-        </mfp:property-metadata>
-      </property-extension>
-    </property>
-    <property>
-      <description><![CDATA[the IDs of the components that should trigger a partial update.
-         This component will listen on the trigger components. If one of the
-         trigger components receives an event that will cause it to update
-         in some way, this component will request to be updated too.]]>
-      </description>
-      <property-name>partialTriggers</property-name>
-      <property-class>java.lang.String[]</property-class>
-    </property>
 
+    <xi:include href="includes/CommonAttrs.xml" xpointer="/faces-config/component/*"/>
     <xi:include href="includes/CoreJSEvents.xml" xpointer="/faces-config/component/*"/>
 
-    <property>
-      <description><![CDATA[the CSS style class of the bean.]]></description>
-      <property-name>styleClass</property-name>
-      <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("CORE_GROUP")}</mfp:group>
-        </mfp:property-metadata>
-      </property-extension>
-    </property>
-    <property>
-      <description><![CDATA[the inline CSS style for this element]]></description>
-      <property-name>inlineStyle</property-name>
-      <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("CORE_GROUP")}</mfp:group>
-        </mfp:property-metadata>
-      </property-extension>
-    </property>
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Choose</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Color</mfp:renderer-type>
