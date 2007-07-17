@@ -51,6 +51,7 @@
     <component-extension>
       <mfp:component-family>org.apache.myfaces.trinidad.Collection</mfp:component-family>
       <mfp:component-supertype>org.apache.myfaces.trinidad.ComponentBase</mfp:component-supertype>
+      <mfp:naming-container>true</mfp:naming-container>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.UIXCollectionTag</mfp:tag-class>
       <mfp:author>Adam Winer</mfp:author>
       <mfp:component-class-modifier>abstract</mfp:component-class-modifier>
