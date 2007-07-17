@@ -435,27 +435,25 @@ function _getCurrencySymbol()
 {
   return this.getLocaleElements()["CurrencyElements"][0];
 }
-
-function _getInternationalCurrencySymbol()
+function _getCurrencyCode()
 {
   return this.getLocaleElements()["CurrencyElements"][1];
 }
-
-function _getMonetaryDecimalSeparator()
+function _getPositivePrefix()
 {
-  var separator = this.getLocaleElements()["CurrencyElements"][2];
-
-  // if the resource data specified the empty string as the monetary decimal
-  // separator, that means we should just use the regular separator as the
-  // monetary separator
-  if (separator.length != 0)
-  {
-    return separator;
-  }
-  else
-  {
-    return this.getDecimalSeparator();
-  }
+  return this.getLocaleElements()["CurrencyElements"][2];
+}
+function _getPositiveSuffix()
+{
+  return this.getLocaleElements()["CurrencyElements"][3];
+}
+function _getNegativePrefix()
+{
+  return this.getLocaleElements()["CurrencyElements"][4];
+}
+function _getNegativeSuffix()
+{
+  return this.getLocaleElements()["CurrencyElements"][5];
 }
 
 function _getLocaleElements()
@@ -547,8 +545,11 @@ LocaleSymbols.prototype.getPerMill = _getPerMill;
 LocaleSymbols.prototype.getInfinity = _getInfinity;
 LocaleSymbols.prototype.getNaN = _getNaN;
 LocaleSymbols.prototype.getCurrencySymbol = _getCurrencySymbol;
-LocaleSymbols.prototype.getInternationalCurrencySymbol = _getInternationalCurrencySymbol;
-LocaleSymbols.prototype.getMonetaryDecimalSeparator = _getMonetaryDecimalSeparator;
+LocaleSymbols.prototype.getCurrencyCode   = _getCurrencyCode;
+LocaleSymbols.prototype.getPositivePrefix = _getPositivePrefix;
+LocaleSymbols.prototype.getPositiveSuffix = _getPositiveSuffix;
+LocaleSymbols.prototype.getNegativePrefix = _getNegativePrefix;
+LocaleSymbols.prototype.getNegativeSuffix = _getNegativeSuffix;
 LocaleSymbols.prototype.getLocaleElements = _getLocaleElements;
 
 /**
