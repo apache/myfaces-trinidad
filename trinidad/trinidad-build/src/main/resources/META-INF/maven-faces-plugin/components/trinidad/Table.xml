@@ -95,7 +95,6 @@ detail facet will automatically cause the detail column to be displayed.]]>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Iterator</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Table</mfp:renderer-type>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.UIXTableTag</mfp:tag-class>
-      <mfp:naming-container>true</mfp:naming-container>
       <mfp:author>Brian Albers</mfp:author>
       <mfp:author>Arjuna Wijeyekoon</mfp:author>
       <mfp:tag-class-modifier>abstract</mfp:tag-class-modifier>

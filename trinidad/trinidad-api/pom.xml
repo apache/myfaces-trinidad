@@ -190,7 +190,7 @@
       <plugin>
         <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-tagdoc-plugin</artifactId>
-        <version>1.0.1</version>
+        <version>1.0.2-SNAPSHOT</version>
         <configuration>
           <taglibs>
             <tr>http://myfaces.apache.org/trinidad</tr>
