@@ -28,7 +28,7 @@ function isDigit(
   digitChar
   )
 {  
-  return (_getDigits()[digitChar] != (void 0));
+  return (_getDigits()[digitChar] != null);
 }
 
 
@@ -38,7 +38,7 @@ function isDigit(
  */
 function _getDigits()
 {
-  if (_digits == (void 0))
+  if (_digits == null)
   {
     // starts of 10 digit unicode ranges
     var digitStarts = [
@@ -89,7 +89,7 @@ function parseDigit(
 {  
   var value = _getDigits()[digitChar];
   
-  if (value == (void 0))
+  if (value == null)
   {
     return NaN;
   }
@@ -227,12 +227,12 @@ function getUserLanguage()
 {
   var language = _locale;
 
-  if (language == (void 0))
+  if (language == null)
   {
     // try this the IE way
     language =  window.navigator.userLanguage;
     
-    if (language == (void 0))
+    if (language == null)
     {
       // try this the Netscape way
       language = window.navigator.language;
@@ -249,7 +249,7 @@ function getJavaLanguage(
   )
 {
   // default to the user language if no language is passed in
-  if (javascriptLang == (void 0))
+  if (javascriptLang == null)
   {
     javascriptLang = getUserLanguage();
   }
@@ -308,7 +308,7 @@ function getLocaleSymbols(
   {    
     var localeSymbols = window["LocaleSymbols_" + suffix];
     
-    if (localeSymbols != (void 0))
+    if (localeSymbols != null)
     {
       return localeSymbols;
     }
@@ -372,7 +372,7 @@ function _getLocalPatternChars()
 
 function _getDecimalSeparator()
 {
-  if (_decimalSep != (void 0))
+  if (_decimalSep != null)
     return _decimalSep;
 
   return this.getLocaleElements()["NumberElements"][0];
