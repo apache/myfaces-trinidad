@@ -548,6 +548,13 @@ public class TagdocReport extends AbstractMavenMultiPageReport
     out.write("   <b>Component type:</b> " + bean.getComponentType() +  "\n");
     out.write("   <br/>\n");
 
+    if (_isNamingContainer(bean))
+    {
+      out.write("   <p><b>Naming container:</b>  Yes.  When referring to children of this " +
+                "component (\"partialTriggers\", <code>findComponent()</code>, etc.), " +
+                "you must prefix the child's ID with this component's ID and a colon (':').</p>");
+    }
+      
     String fmtd = _formatPropList(bean.getUnsupportedAgents(),
                                   "Unsupported agents",
                                   _NON_DOCUMENTED_AGENTS);
@@ -564,6 +571,17 @@ public class TagdocReport extends AbstractMavenMultiPageReport
     out.write("\n");
   }
 
+
+  private boolean _isNamingContainer(ComponentBean bean)
+  {
+    if (bean.isNamingContainer())
+      return true;
+
+    ComponentBean parent = bean.resolveSupertype();
+    if (parent == null)
+      return false;
+    return _isNamingContainer(parent);
+  }
 
   private void _writeValidatorSummary(Writer out, ValidatorBean bean) throws IOException
   {
