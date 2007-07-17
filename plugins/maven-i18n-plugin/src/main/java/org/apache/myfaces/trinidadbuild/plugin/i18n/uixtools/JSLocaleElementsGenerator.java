@@ -24,6 +24,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.util.Enumeration;
 import java.util.Locale;
 import java.util.MissingResourceException;
@@ -425,7 +428,13 @@ public class JSLocaleElementsGenerator
       {
         String currKey = (String)keys.nextElement();
 
-        Object data = _getElementData(currKey, elementsData, targetLocale);
+        Object data = null;
+
+        if("CurrencyElements".equals(currKey))
+          data = _getCurrencyData(targetLocale);
+        else
+          data = _getElementData(currKey, elementsData, targetLocale);
+
         boolean wroteElement = _writeResourceElement(
                                     output,
                                     currKey,
@@ -443,6 +452,22 @@ public class JSLocaleElementsGenerator
     {
       System.err.println(e);
     }
+  }
+
+  private static Object _getCurrencyData(
+    Locale targetLocale)
+  {
+    DecimalFormat df = (DecimalFormat) NumberFormat.getCurrencyInstance(targetLocale);
+    DecimalFormatSymbols decimalFormatSymbols = df.getDecimalFormatSymbols();
+    Object[] currencyData = new Object[6];
+    currencyData[0] = decimalFormatSymbols.getCurrencySymbol(); 
+    currencyData[1] = decimalFormatSymbols.getCurrency().getCurrencyCode();
+    currencyData[2] = df.getPositivePrefix();
+    currencyData[3] = df.getPositiveSuffix();
+    currencyData[4] = df.getNegativePrefix();
+    currencyData[5] = df.getNegativeSuffix();
+
+    return currencyData;
   }
 
   private static Object _getElementData(
@@ -702,6 +727,7 @@ public class JSLocaleElementsGenerator
     "DateTimePatterns",
     "DateTimeElements",
     "NumberElements",
+    "CurrencyElements",
   };
 
   //
