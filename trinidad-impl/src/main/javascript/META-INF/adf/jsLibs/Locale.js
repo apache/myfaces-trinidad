@@ -934,7 +934,7 @@ TrMessageFactory.createCustomMessage = function(
   var message;
   if ( customMessage != null )
   {
-  	message = TrFastMessageFormatUtils.format(customMessage, param1, param2);
+    message = TrFastMessageFormatUtils.format(customMessage, param1, param2);
   }
   return message;
 }
