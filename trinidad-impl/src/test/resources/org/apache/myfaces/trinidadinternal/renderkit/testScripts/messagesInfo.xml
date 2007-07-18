@@ -15,7 +15,7 @@
   <!-- attribute-test name="messageType" value="info"/-->
   <!-- attribute-test name="messageType" value="none"/-->
   <attribute-test name="shortDesc" value="shortDesc_val"/>
-  <attribute-test name="styleClass" value="styleClass_val" matchesBase="true"/>
+  <attribute-test name="styleClass" value="styleClass_val"/>
   <attribute-test name="text" value="text_val"/>
   <!-- boolean-test name="automatic"/ -->
   <!-- The globalOnly attribute will always match base because -->

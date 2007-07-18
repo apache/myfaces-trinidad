@@ -163,7 +163,7 @@ public class PanelHeaderRenderer extends XhtmlRenderer
         !XhtmlConstants.MESSAGE_TYPE_NONE.equals(messageType))
     {
       // If we've got a message type, get the Icon
-      String iconName = _getMessageIconName(messageType);
+      String iconName = getMessageIconName(messageType);
       if (iconName != null)
       {
         Icon icon = arc.getIcon(iconName);
@@ -197,8 +197,6 @@ public class PanelHeaderRenderer extends XhtmlRenderer
       }
     }
   }
-
-
 
   /**
   * Returns text of header
@@ -240,17 +238,23 @@ public class PanelHeaderRenderer extends XhtmlRenderer
   protected String getIconUri(
     FacesBean           bean)
   {
+    if (_iconKey == null)
+      return null;
     return toUri(bean.getProperty(_iconKey));
   }
 
   protected Number getSize(FacesBean bean)
   {
+    if (_sizeKey == null)
+      return null;
     return (Number) bean.getProperty(_sizeKey);
   }
 
 
   protected String getMessageType(FacesBean bean)
   {
+    if (_messageTypeKey == null)
+      return null;
     return toString(bean.getProperty(_messageTypeKey));
   }
 
@@ -318,9 +322,16 @@ public class PanelHeaderRenderer extends XhtmlRenderer
                             Integer.valueOf(headerNestLevel - 1));
   }
 
-
-  // Returns the icon name for the specfied messageType
-  private String _getMessageIconName(String messageType)
+  /**
+   * This method compares the messageType to a number of
+   * possible message types (e.g. SkinSelectors.MESSAGE_TYPE_ERROR)
+   * and returns an icon name for the appropriate type.
+   * This method should be overridden to change the standard
+   * icons used for this component.
+   * @param messageType
+   * @return The icon name for the specfied messageType.
+   */
+  protected String getMessageIconName(String messageType)
   {
     String iconName = null;
 

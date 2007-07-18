@@ -2176,6 +2176,7 @@
     <includeStyle name="AFDefaultFont"/>
     <!--includeStyle name="AFMediumAccentBackground"/-->
     <includeStyle name="AFVeryDarkForeground"/>
+    <property name="width">100%</property>  
   </style>
   <!-- since we render in standards mode, images don't take up the entire 
        table cell unless we use vertical-align:bottom.-->  
@@ -3156,7 +3157,8 @@
   -->
 
   <style name="MessageBoxMargin">
-    <property name="margin-left">25px</property>
+    <property name="margin">0px 0px 0px 0px</property>
+    <property name="padding">5px 30px 5px 30px</property>
   </style>
   
   <!--style selector=".OraMessageBoxList"-->
@@ -3164,9 +3166,12 @@
     <includeStyle name="AFDefaultFont"/>
     <includeStyle name="AFDarkForeground"/>
     <includeStyle name="MessageBoxMargin"/>
-    <property name="margin-top">5px</property>
   </style>
 
+	<!-- List with only one entry -->
+  <style selector="af|messages::list-single">
+    <property name="list-style-type">none</property>
+  </style>
 
   <style selector="af|singleStepButtonBar"/>
 

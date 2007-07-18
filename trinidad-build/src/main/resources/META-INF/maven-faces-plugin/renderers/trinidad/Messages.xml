@@ -25,7 +25,8 @@
     <renderer>
       <component-family>org.apache.myfaces.trinidad.Messages</component-family>
       <renderer-type>org.apache.myfaces.trinidad.Messages</renderer-type>
-      <renderer-class>org.apache.myfaces.trinidadinternal.renderkit.uix.MessageBoxRenderer</renderer-class>
+      <!--renderer-class>org.apache.myfaces.trinidadinternal.renderkit.uix.MessageBoxRenderer</renderer-class-->
+      <renderer-class>org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.MessageBoxRenderer</renderer-class>
       <renderer-extension>
         <mfp:component-type>org.apache.myfaces.trinidad.CoreMessages</mfp:component-type>
       </renderer-extension>
