@@ -549,6 +549,8 @@ public final class SkinSelectors
      "af|messages::message-text";
    public static final String AF_MESSAGES_LIST_STYLE_CLASS =
      "af|messages::list";
+   public static final String AF_MESSAGES_LIST_SINGLE_STYLE_CLASS =
+     "af|messages::list-single";
    
    // ================================ Icons ================================ //
    public static final String AF_MESSAGES_ERROR_ICON_NAME =
@@ -560,6 +562,23 @@ public final class SkinSelectors
    public static final String AF_MESSAGES_CONFIRMATION_ICON_NAME =
      "af|messages::confirmation-icon";
 
+   // ================================ Frame ================================ //
+   public static final String AF_MESSAGES_TOP_START_STYLE_CLASS =
+     AF_MESSAGES_STYLE_CLASS + "::top-start";
+   public static final String AF_MESSAGES_TOP_STYLE_CLASS =
+     AF_MESSAGES_STYLE_CLASS + "::top";
+   public static final String AF_MESSAGES_TOP_END_STYLE_CLASS =
+     AF_MESSAGES_STYLE_CLASS + "::top-end";
+   public static final String AF_MESSAGES_START_STYLE_CLASS =
+     AF_MESSAGES_STYLE_CLASS + "::start";
+   public static final String AF_MESSAGES_END_STYLE_CLASS =
+     AF_MESSAGES_STYLE_CLASS + "::end";
+   public static final String AF_MESSAGES_BOTTOM_START_STYLE_CLASS =
+     AF_MESSAGES_STYLE_CLASS + "::bottom-start";
+   public static final String AF_MESSAGES_BOTTOM_STYLE_CLASS =
+     AF_MESSAGES_STYLE_CLASS + "::bottom";
+   public static final String AF_MESSAGES_BOTTOM_END_STYLE_CLASS =
+     AF_MESSAGES_STYLE_CLASS + "::bottom-end";
     
    //                                                                         //
    //                                                                         //

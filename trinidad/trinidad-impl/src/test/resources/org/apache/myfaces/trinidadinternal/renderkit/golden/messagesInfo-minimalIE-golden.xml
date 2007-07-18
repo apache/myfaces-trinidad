@@ -6,50 +6,95 @@
            class="af_messages"
            id="mainId"
            summary=""
-           width="100%"
           >
         
-        <tr
+        <tbody
             >
           
-          <td
-               class="af_messages_body"
+          <tr
               >
             
-            <div
+            <td
+                 class="af_messages_top-start"
                 >
               
-              <h1
-                   class="af_messages_header"
+            </td>
+            <td
+                 class="af_messages_top"
+                >
+              
+            </td>
+            <td
+                 class="af_messages_top-end"
+                >
+              
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 class="af_messages_start"
+                >
+              
+            </td>
+            <td
+                >
+              
+              <div
+                   class="af_messages_body"
                   >
-                Information
-              </h1>
-            </div>
-            <div
-                 style="clear:both"
+                
+                <div
+                    >
+                  
+                  <h1
+                       class="af_messages_header"
+                      >
+                    Information
+                  </h1>
+                </div>
+                <ol
+                     class="af_messages_list af_messages_list-single"
+                    >
+                  
+                  <li
+                      >
+                    message summary - message detail
+                  </li>
+                  <li
+                      >
+                    - message summary
+                  </li>
+                </ol>
+              </div>
+            </td>
+            <td
+                 class="af_messages_end"
                 >
               
-            </div>
-            <div
-                 class="af_messages_message-text"
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 class="af_messages_bottom-start"
                 >
               
-            </div>
-            <ol
-                 class="af_messages_list"
+            </td>
+            <td
+                 class="af_messages_bottom"
                 >
               
-              <li
-                  >
-                message summary - message detail
-              </li>
-              <li
-                  >
-                - message summary
-              </li>
-            </ol>
-          </td>
-        </tr>
+            </td>
+            <td
+                 class="af_messages_bottom-end"
+                >
+              
+            </td>
+          </tr>
+        </tbody>
       </table>
 <!-- MessageTest[ id:null,INFO ]-->
 
@@ -60,50 +105,95 @@
            class="af_messages"
            id="mainId"
            summary=""
-           width="100%"
           >
         
-        <tr
+        <tbody
             >
           
-          <td
-               class="af_messages_body"
+          <tr
               >
             
-            <div
+            <td
+                 class="af_messages_top-start"
                 >
               
-              <h1
-                   class="af_messages_header"
+            </td>
+            <td
+                 class="af_messages_top"
+                >
+              
+            </td>
+            <td
+                 class="af_messages_top-end"
+                >
+              
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 class="af_messages_start"
+                >
+              
+            </td>
+            <td
+                >
+              
+              <div
+                   class="af_messages_body"
                   >
-                Information
-              </h1>
-            </div>
-            <div
-                 style="clear:both"
+                
+                <div
+                    >
+                  
+                  <h1
+                       class="af_messages_header"
+                      >
+                    Information
+                  </h1>
+                </div>
+                <ol
+                     class="af_messages_list af_messages_list-single"
+                    >
+                  
+                  <li
+                      >
+                    message summary - message detail
+                  </li>
+                  <li
+                      >
+                    - message summary
+                  </li>
+                </ol>
+              </div>
+            </td>
+            <td
+                 class="af_messages_end"
                 >
               
-            </div>
-            <div
-                 class="af_messages_message-text"
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 class="af_messages_bottom-start"
                 >
               
-            </div>
-            <ol
-                 class="af_messages_list"
+            </td>
+            <td
+                 class="af_messages_bottom"
                 >
               
-              <li
-                  >
-                message summary - message detail
-              </li>
-              <li
-                  >
-                - message summary
-              </li>
-            </ol>
-          </td>
-        </tr>
+            </td>
+            <td
+                 class="af_messages_bottom-end"
+                >
+              
+            </td>
+          </tr>
+        </tbody>
       </table>
 <!--AttributeTest[id,id_val]-->
 
@@ -114,50 +204,95 @@
            class="af_messages"
            id="id_val"
            summary=""
-           width="100%"
           >
         
-        <tr
+        <tbody
             >
           
-          <td
-               class="af_messages_body"
+          <tr
               >
             
-            <div
+            <td
+                 class="af_messages_top-start"
                 >
               
-              <h1
-                   class="af_messages_header"
+            </td>
+            <td
+                 class="af_messages_top"
+                >
+              
+            </td>
+            <td
+                 class="af_messages_top-end"
+                >
+              
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 class="af_messages_start"
+                >
+              
+            </td>
+            <td
+                >
+              
+              <div
+                   class="af_messages_body"
                   >
-                Information
-              </h1>
-            </div>
-            <div
-                 style="clear:both"
+                
+                <div
+                    >
+                  
+                  <h1
+                       class="af_messages_header"
+                      >
+                    Information
+                  </h1>
+                </div>
+                <ol
+                     class="af_messages_list af_messages_list-single"
+                    >
+                  
+                  <li
+                      >
+                    message summary - message detail
+                  </li>
+                  <li
+                      >
+                    - message summary
+                  </li>
+                </ol>
+              </div>
+            </td>
+            <td
+                 class="af_messages_end"
                 >
               
-            </div>
-            <div
-                 class="af_messages_message-text"
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 class="af_messages_bottom-start"
                 >
               
-            </div>
-            <ol
-                 class="af_messages_list"
+            </td>
+            <td
+                 class="af_messages_bottom"
                 >
               
-              <li
-                  >
-                message summary - message detail
-              </li>
-              <li
-                  >
-                - message summary
-              </li>
-            </ol>
-          </td>
-        </tr>
+            </td>
+            <td
+                 class="af_messages_bottom-end"
+                >
+              
+            </td>
+          </tr>
+        </tbody>
       </table>
 <!--AttributeTest[inlineStyle,background-color:red]-->
 
@@ -169,50 +304,96 @@
            id="mainId"
            style="background-color:red"
            summary=""
-           width="100%"
           >
         
-        <tr
+        <tbody
             >
           
-          <td
-               class="af_messages_body"
+          <tr
               >
             
-            <div
+            <td
+                 class="af_messages_top-start"
                 >
               
-              <h1
-                   class="af_messages_header"
+            </td>
+            <td
+                 class="af_messages_top"
+                >
+              
+            </td>
+            <td
+                 class="af_messages_top-end"
+                >
+              
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 class="af_messages_start"
+                >
+              
+            </td>
+            <td
+                >
+              
+              <div
+                   class="af_messages_body"
                   >
-                Information
-              </h1>
-            </div>
-            <div
-                 style="clear:both"
+                
+                <div
+                     style="background-color:red"
+                    >
+                  
+                  <h1
+                       class="af_messages_header"
+                      >
+                    Information
+                  </h1>
+                </div>
+                <ol
+                     class="af_messages_list af_messages_list-single"
+                    >
+                  
+                  <li
+                      >
+                    message summary - message detail
+                  </li>
+                  <li
+                      >
+                    - message summary
+                  </li>
+                </ol>
+              </div>
+            </td>
+            <td
+                 class="af_messages_end"
                 >
               
-            </div>
-            <div
-                 class="af_messages_message-text"
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 class="af_messages_bottom-start"
                 >
               
-            </div>
-            <ol
-                 class="af_messages_list"
+            </td>
+            <td
+                 class="af_messages_bottom"
                 >
               
-              <li
-                  >
-                message summary - message detail
-              </li>
-              <li
-                  >
-                - message summary
-              </li>
-            </ol>
-          </td>
-        </tr>
+            </td>
+            <td
+                 class="af_messages_bottom-end"
+                >
+              
+            </td>
+          </tr>
+        </tbody>
       </table>
 <!--AttributeTest[message,message_val]-->
 
@@ -223,50 +404,100 @@
            class="af_messages"
            id="mainId"
            summary=""
-           width="100%"
           >
         
-        <tr
+        <tbody
             >
           
-          <td
-               class="af_messages_body"
+          <tr
               >
             
-            <div
+            <td
+                 class="af_messages_top-start"
                 >
               
-              <h1
-                   class="af_messages_header"
-                  >
-                Information
-              </h1>
-            </div>
-            <div
-                 style="clear:both"
+            </td>
+            <td
+                 class="af_messages_top"
                 >
               
-            </div>
-            <div
-                 class="af_messages_message-text"
-                >
-              message_val
-            </div>
-            <ol
-                 class="af_messages_list"
+            </td>
+            <td
+                 class="af_messages_top-end"
                 >
               
-              <li
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 class="af_messages_start"
+                >
+              
+            </td>
+            <td
+                >
+              
+              <div
+                   class="af_messages_body"
                   >
-                message summary - message detail
-              </li>
-              <li
-                  >
-                - message summary
-              </li>
-            </ol>
-          </td>
-        </tr>
+                
+                <div
+                    >
+                  
+                  <h1
+                       class="af_messages_header"
+                      >
+                    Information
+                  </h1>
+                </div>
+                <div
+                     class="af_messages_message-text"
+                    >
+                  message_val
+                </div>
+                <ol
+                     class="af_messages_list af_messages_list-single"
+                    >
+                  
+                  <li
+                      >
+                    message summary - message detail
+                  </li>
+                  <li
+                      >
+                    - message summary
+                  </li>
+                </ol>
+              </div>
+            </td>
+            <td
+                 class="af_messages_end"
+                >
+              
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 class="af_messages_bottom-start"
+                >
+              
+            </td>
+            <td
+                 class="af_messages_bottom"
+                >
+              
+            </td>
+            <td
+                 class="af_messages_bottom-end"
+                >
+              
+            </td>
+          </tr>
+        </tbody>
       </table>
 <!--AttributeTest[messageType,error]-->
 
@@ -277,50 +508,95 @@
            class="af_messages"
            id="mainId"
            summary=""
-           width="100%"
           >
         
-        <tr
+        <tbody
             >
           
-          <td
-               class="af_messages_body"
+          <tr
               >
             
-            <div
+            <td
+                 class="af_messages_top-start"
                 >
               
-              <h1
-                   class="af_messages_header"
+            </td>
+            <td
+                 class="af_messages_top"
+                >
+              
+            </td>
+            <td
+                 class="af_messages_top-end"
+                >
+              
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 class="af_messages_start"
+                >
+              
+            </td>
+            <td
+                >
+              
+              <div
+                   class="af_messages_body"
                   >
-                Information
-              </h1>
-            </div>
-            <div
-                 style="clear:both"
+                
+                <div
+                    >
+                  
+                  <h1
+                       class="af_messages_header"
+                      >
+                    Information
+                  </h1>
+                </div>
+                <ol
+                     class="af_messages_list af_messages_list-single"
+                    >
+                  
+                  <li
+                      >
+                    message summary - message detail
+                  </li>
+                  <li
+                      >
+                    - message summary
+                  </li>
+                </ol>
+              </div>
+            </td>
+            <td
+                 class="af_messages_end"
                 >
               
-            </div>
-            <div
-                 class="af_messages_message-text"
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 class="af_messages_bottom-start"
                 >
               
-            </div>
-            <ol
-                 class="af_messages_list"
+            </td>
+            <td
+                 class="af_messages_bottom"
                 >
               
-              <li
-                  >
-                message summary - message detail
-              </li>
-              <li
-                  >
-                - message summary
-              </li>
-            </ol>
-          </td>
-        </tr>
+            </td>
+            <td
+                 class="af_messages_bottom-end"
+                >
+              
+            </td>
+          </tr>
+        </tbody>
       </table>
 <!--AttributeTest[shortDesc,shortDesc_val]-->
 
@@ -332,50 +608,96 @@
            id="mainId"
            summary=""
            title="shortDesc_val"
-           width="100%"
           >
         
-        <tr
+        <tbody
             >
           
-          <td
-               class="af_messages_body"
+          <tr
               >
             
-            <div
+            <td
+                 class="af_messages_top-start"
                 >
               
-              <h1
-                   class="af_messages_header"
+            </td>
+            <td
+                 class="af_messages_top"
+                >
+              
+            </td>
+            <td
+                 class="af_messages_top-end"
+                >
+              
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 class="af_messages_start"
+                >
+              
+            </td>
+            <td
+                >
+              
+              <div
+                   class="af_messages_body"
                   >
-                Information
-              </h1>
-            </div>
-            <div
-                 style="clear:both"
+                
+                <div
+                     title="shortDesc_val"
+                    >
+                  
+                  <h1
+                       class="af_messages_header"
+                      >
+                    Information
+                  </h1>
+                </div>
+                <ol
+                     class="af_messages_list af_messages_list-single"
+                    >
+                  
+                  <li
+                      >
+                    message summary - message detail
+                  </li>
+                  <li
+                      >
+                    - message summary
+                  </li>
+                </ol>
+              </div>
+            </td>
+            <td
+                 class="af_messages_end"
                 >
               
-            </div>
-            <div
-                 class="af_messages_message-text"
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 class="af_messages_bottom-start"
                 >
               
-            </div>
-            <ol
-                 class="af_messages_list"
+            </td>
+            <td
+                 class="af_messages_bottom"
                 >
               
-              <li
-                  >
-                message summary - message detail
-              </li>
-              <li
-                  >
-                - message summary
-              </li>
-            </ol>
-          </td>
-        </tr>
+            </td>
+            <td
+                 class="af_messages_bottom-end"
+                >
+              
+            </td>
+          </tr>
+        </tbody>
       </table>
 <!--AttributeTest[styleClass,styleClass_val]-->
 
@@ -383,53 +705,99 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
-           class="af_messages"
+           class="styleClass_val af_messages"
            id="mainId"
            summary=""
-           width="100%"
           >
         
-        <tr
+        <tbody
             >
           
-          <td
-               class="af_messages_body"
+          <tr
               >
             
-            <div
+            <td
+                 class="af_messages_top-start"
                 >
               
-              <h1
-                   class="af_messages_header"
+            </td>
+            <td
+                 class="af_messages_top"
+                >
+              
+            </td>
+            <td
+                 class="af_messages_top-end"
+                >
+              
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 class="af_messages_start"
+                >
+              
+            </td>
+            <td
+                >
+              
+              <div
+                   class="af_messages_body"
                   >
-                Information
-              </h1>
-            </div>
-            <div
-                 style="clear:both"
+                
+                <div
+                     class="styleClass_val"
+                    >
+                  
+                  <h1
+                       class="af_messages_header"
+                      >
+                    Information
+                  </h1>
+                </div>
+                <ol
+                     class="af_messages_list af_messages_list-single"
+                    >
+                  
+                  <li
+                      >
+                    message summary - message detail
+                  </li>
+                  <li
+                      >
+                    - message summary
+                  </li>
+                </ol>
+              </div>
+            </td>
+            <td
+                 class="af_messages_end"
                 >
               
-            </div>
-            <div
-                 class="af_messages_message-text"
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 class="af_messages_bottom-start"
                 >
               
-            </div>
-            <ol
-                 class="af_messages_list"
+            </td>
+            <td
+                 class="af_messages_bottom"
                 >
               
-              <li
-                  >
-                message summary - message detail
-              </li>
-              <li
-                  >
-                - message summary
-              </li>
-            </ol>
-          </td>
-        </tr>
+            </td>
+            <td
+                 class="af_messages_bottom-end"
+                >
+              
+            </td>
+          </tr>
+        </tbody>
       </table>
 <!--AttributeTest[text,text_val]-->
 
@@ -440,49 +808,94 @@
            class="af_messages"
            id="mainId"
            summary=""
-           width="100%"
           >
         
-        <tr
+        <tbody
             >
           
-          <td
-               class="af_messages_body"
+          <tr
               >
             
-            <div
+            <td
+                 class="af_messages_top-start"
                 >
               
-              <h1
-                   class="af_messages_header"
+            </td>
+            <td
+                 class="af_messages_top"
+                >
+              
+            </td>
+            <td
+                 class="af_messages_top-end"
+                >
+              
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 class="af_messages_start"
+                >
+              
+            </td>
+            <td
+                >
+              
+              <div
+                   class="af_messages_body"
                   >
-                text_val
-              </h1>
-            </div>
-            <div
-                 style="clear:both"
+                
+                <div
+                    >
+                  
+                  <h1
+                       class="af_messages_header"
+                      >
+                    text_val
+                  </h1>
+                </div>
+                <ol
+                     class="af_messages_list af_messages_list-single"
+                    >
+                  
+                  <li
+                      >
+                    message summary - message detail
+                  </li>
+                  <li
+                      >
+                    - message summary
+                  </li>
+                </ol>
+              </div>
+            </td>
+            <td
+                 class="af_messages_end"
                 >
               
-            </div>
-            <div
-                 class="af_messages_message-text"
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 class="af_messages_bottom-start"
                 >
               
-            </div>
-            <ol
-                 class="af_messages_list"
+            </td>
+            <td
+                 class="af_messages_bottom"
                 >
               
-              <li
-                  >
-                message summary - message detail
-              </li>
-              <li
-                  >
-                - message summary
-              </li>
-            </ol>
-          </td>
-        </tr>
+            </td>
+            <td
+                 class="af_messages_bottom-end"
+                >
+              
+            </td>
+          </tr>
+        </tbody>
       </table>
 </results>

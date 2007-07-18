@@ -264,7 +264,7 @@ public class PanelBoxRenderer
     
     // Render body
     writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
-    _renderBody(context, arc, component, bean, icon, text);
+    renderBody(context, arc, component, bean, icon, text);
     writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
 
     // Render right edge
@@ -288,7 +288,7 @@ public class PanelBoxRenderer
     writer.endElement(XhtmlConstants.TABLE_ROW_ELEMENT);
   }
   
-  private void _renderBody(
+  protected void renderBody(
       FacesContext      context,
       RenderingContext  arc,
       UIComponent       component,
@@ -319,7 +319,7 @@ public class PanelBoxRenderer
       // Render content
       writer.startElement(XhtmlConstants.TABLE_ROW_ELEMENT, null);
       writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
-      _renderContent(context, arc, bean, component);
+      renderContent(context, arc, bean, component);
       writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
       writer.endElement(XhtmlConstants.TABLE_ROW_ELEMENT);
       
@@ -337,7 +337,7 @@ public class PanelBoxRenderer
     {
       // We only have a content, use a div as style class placeholder
       writer.startElement(XhtmlConstants.DIV_ELEMENT, null);
-      _renderContent(context, arc, bean, component);
+      renderContent(context, arc, bean, component);
       writer.endElement(XhtmlConstants.DIV_ELEMENT);
     }
   }
@@ -392,7 +392,7 @@ public class PanelBoxRenderer
     }
   }
   
-  private void _renderContent(
+  protected void renderContent(
       FacesContext      context,
       RenderingContext  arc,
       FacesBean         bean,
@@ -415,21 +415,29 @@ public class PanelBoxRenderer
 
   protected String getText(FacesBean bean)
   {
+    if (_textKey == null)
+      return null;
     return toString(bean.getProperty(_textKey));
   }
 
   protected String getIcon(FacesBean bean)
   {
+    if (_iconKey == null)
+      return null;
     return toUri(bean.getProperty(_iconKey));
   }
 
   protected String getContentStyle(FacesBean bean)
   {
+    if (_contentStyleKey == null)
+      return null;
     return toString(bean.getProperty(_contentStyleKey));
   }
 
   protected String getBackground(FacesBean bean)
   {
+    if (_backgroundKey == null)
+      return null;
     return toString(bean.getProperty(_backgroundKey));
   }
   
