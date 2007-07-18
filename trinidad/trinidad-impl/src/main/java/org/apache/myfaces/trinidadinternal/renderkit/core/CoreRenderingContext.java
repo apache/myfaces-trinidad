@@ -136,7 +136,7 @@ public class CoreRenderingContext extends RenderingContext
 
 
 
-  // Implementation of AdfRenderingContext
+  // Implementation of RenderingContext
 
   @Override
   public Map<Object, Object> getProperties()
@@ -239,7 +239,7 @@ public class CoreRenderingContext extends RenderingContext
   {
     // Initialize the locale context lazily, because we may
     // not have the view root with the correct locale when
-    // the AdfRenderingContext gets created
+    // the RenderingContext gets created
     if (_localeContext == null)
     {
       _initializeLocaleContext(FacesContext.getCurrentInstance(),
@@ -528,10 +528,10 @@ public class CoreRenderingContext extends RenderingContext
     Agent        base,
     String       outputMode)
   {
-    // First, get an AdfFacesAgent out of the plain Agent
+    // First, get an TrinidadAgent out of the plain Agent
     // =-=AEW In theory, we should only be getting a plain Agent
     // out of the RequestContext:  for some reason, we're going
-    // straight to an AdfFacesAgent in RequestContext
+    // straight to an TrinidadAgent in RequestContext
     TrinidadAgent agent;
     if (base instanceof TrinidadAgent)
       agent = (TrinidadAgent) base;
