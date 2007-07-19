@@ -125,6 +125,9 @@ public class StateManagerImpl extends StateManager
     _delegate = delegate;
   }
 
+  /**
+   * Save a component tree as an Object.
+   */
   static public Object saveComponentTree(
     FacesContext context,
     UIComponent  component)
@@ -134,7 +137,11 @@ public class StateManagerImpl extends StateManager
     Object state = component.processSaveState(context);
     return new PageState(context, structure, state, null);
   }
-
+  
+  /**
+   * Take an object created by saveComponentTree()
+   * and instantiate it as a UIComponent.
+   */
   static public UIComponent restoreComponentTree(
     FacesContext context,
     Object       savedState) throws ClassNotFoundException,
@@ -280,13 +287,33 @@ public class StateManagerImpl extends StateManager
             // if this feature has not been disabled
             _useViewRootCache(context) ? root : null);
 
-        // See if we should pin this new state to any old state
-        String pinnedToken = (String)
-          context.getExternalContext().getRequestMap().get(_PINNED_STATE_TOKEN_KEY);
-
-        token = cache.addNewEntry(pageState,
-                                  stateMap,
-                                  pinnedToken);
+        String requestToken = _getRequestTokenForResponse(context);
+        // If we have a cached token that we want to reuse,
+        // and that token hasn't disappeared from the cache already
+        // (unlikely, but not impossible), use the stateMap directly
+        // without asking the cache for a new token
+        if ((requestToken != null) && cache.isAvailable(requestToken))
+        {
+          // NOTE: under *really* high pressure, the cache might
+          // have been emptied between the isAvailable() call and
+          // this put().  This seems sufficiently implausible to
+          // be worth punting on
+          stateMap.put(requestToken, pageState);
+          token = requestToken;
+          // NOTE 2: we have not pinned this reused state to any old state
+          // This is OK for current uses of pinning and state reuse,
+          // as pinning stays constant within a window, and we're not
+          // erasing pinning at all.
+        }
+        else
+        {
+          // See if we should pin this new state to any old state
+          String pinnedToken = (String)
+            context.getExternalContext().getRequestMap().get(_PINNED_STATE_TOKEN_KEY);
+          token = cache.addNewEntry(pageState,
+                                    stateMap,
+                                    pinnedToken);
+        }
       }
       // If we got the "applicationViewCache", we're using it.
       else
@@ -335,6 +362,7 @@ public class StateManagerImpl extends StateManager
    * to the token will not be released before the state for this request
    * is released.
    */
+  @SuppressWarnings("unchecked")
   static public void pinStateToRequest(FacesContext context, String stateToken)
   {
     context.getExternalContext().getRequestMap().put(
@@ -351,6 +379,50 @@ public class StateManagerImpl extends StateManager
             _REQUEST_STATE_TOKEN_KEY);
   }
   
+  
+  /**
+   * Mark the the incoming request token should be used for the response
+   */
+  @SuppressWarnings("unchecked")
+  static public void reuseRequestTokenForResponse(ExternalContext ec)
+  {
+    ec.getRequestMap().put(_REUSE_REQUEST_TOKEN_FOR_RESPONSE_KEY, Boolean.TRUE);    
+  }
+
+  /**
+   * If we've been asked to reuse the request token for the response,
+   * store it off.
+   */
+  @SuppressWarnings("unchecked")
+  static private void _updateRequestTokenForResponse(
+    FacesContext context, String token)
+  {
+    Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
+    // Go from TRUE -> the saved token
+    if (Boolean.TRUE.equals(
+          requestMap.get(_REUSE_REQUEST_TOKEN_FOR_RESPONSE_KEY)))
+    {
+      requestMap.put(_REUSE_REQUEST_TOKEN_FOR_RESPONSE_KEY, token);
+    }
+  }
+
+
+  /**
+   * Get any cached token for the response.
+   */
+  @SuppressWarnings("unchecked")
+  static private String _getRequestTokenForResponse(
+    FacesContext context)
+  {
+    Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
+    Object token = requestMap.get(_REUSE_REQUEST_TOKEN_FOR_RESPONSE_KEY);
+    // We wanted to, but didn't have anything saved
+    if (Boolean.TRUE.equals(token))
+      return null;
+
+    return (String) token;
+  }
+    
   
   @Override
   public void writeState(FacesContext context,
@@ -417,6 +489,9 @@ public class StateManagerImpl extends StateManager
                          context.getExternalContext().getSessionMap(),
                          _VIEW_CACHE_KEY + ".");
         viewState = (PageState) stateMap.get(token);
+
+        if (viewState != null)
+          _updateRequestTokenForResponse(context, (String) token);
 
         // Make sure that if the view state is present, the cache still
         // has the token, and vice versa
@@ -955,6 +1030,9 @@ public class StateManagerImpl extends StateManager
 
   private static final String _PINNED_STATE_TOKEN_KEY =
     "org.apache.myfaces.trinidadinternal.application.PINNED_STATE_TOKEN";
+
+  private static final String _REUSE_REQUEST_TOKEN_FOR_RESPONSE_KEY =
+    "org.apache.myfaces.trinidadinternal.application.REUSE_REQUEST_TOKEN_FOR_RESPONSE";
 
 
   private static final String _APPLICATION_CACHE_TOKEN = "_a_";

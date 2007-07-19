@@ -35,6 +35,7 @@ import javax.servlet.jsp.JspException;
 import org.apache.myfaces.trinidad.config.Configurator;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidadinternal.application.StateManagerImpl;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.XmlResponseWriter;
 import org.apache.myfaces.trinidadinternal.util.ExternalContextUtils;
@@ -55,6 +56,11 @@ public class XmlHttpConfigurator
   public static ServletResponse getWrappedServletResponse(ServletResponse response)
   {
     return new XmlHttpServletResponse(response);
+  }
+
+  public static void beginRequest(ExternalContext externalContext)
+  {
+    StateManagerImpl.reuseRequestTokenForResponse(externalContext);
   }
 
   /**

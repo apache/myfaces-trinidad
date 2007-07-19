@@ -141,7 +141,10 @@ public class TrinidadFilterImpl implements Filter
     }
 
     if (isPartialRequest)
+    {
+      XmlHttpConfigurator.beginRequest(externalContext);
       response = XmlHttpConfigurator.getWrappedServletResponse(response);
+    }
 
     try
     {
