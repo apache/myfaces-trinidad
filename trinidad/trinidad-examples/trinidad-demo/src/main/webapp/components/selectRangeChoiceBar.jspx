@@ -54,7 +54,7 @@
                   rangeChangeListener="#{animals.rangeChange}"
 >
                   <f:facet name="rangeLabel">
-                    <f:selectItem itemLabel="#{range.start} - #{range.end}"/>
+                    <f:selectItem itemValue="ignored" itemLabel="#{range.start} - #{range.end}"/>
                   </f:facet>
                 </tr:selectRangeChoiceBar>
                 <tr:panelGroupLayout partialTriggers="selectRangeCBId1">
