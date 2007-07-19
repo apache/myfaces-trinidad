@@ -1131,7 +1131,9 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
       // get end row. If the end row doesn't exist, find the
       // last row that does exist. The row indices are zero-indexed.
       int endIndex = (int)(start + currVisible - 2);
-      _setToExistingEndRow(component, (int)start -1, endIndex);
+
+      endIndex = _setToExistingEndRow(component, (int)start -1, endIndex);
+      setRowIndex(component, endIndex);
 
       // ok, we are sure we have an existing end row set, so set the end
       // parameter on the range object.
