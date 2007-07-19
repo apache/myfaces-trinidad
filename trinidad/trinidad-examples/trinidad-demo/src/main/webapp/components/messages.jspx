@@ -35,7 +35,7 @@
                 action="guide"/>            
             <tr:outputFormatted styleUsage="instruction" value="&lt;b>Simple messages demo&lt;/b>"/>
               
-            <tr:messages binding="#{editor.component}" onclick="alert('clicked');"/>
+            <tr:messages binding="#{editor.component}"/>
 
             <tr:panelFormLayout>
               <tr:inputText label="Amount">
