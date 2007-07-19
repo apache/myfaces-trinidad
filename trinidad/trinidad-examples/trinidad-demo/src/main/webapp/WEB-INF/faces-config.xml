@@ -173,6 +173,15 @@
     </managed-bean-scope>
   </managed-bean>
 
+  <managed-bean>
+    <managed-bean-name>messages</managed-bean-name>
+    <managed-bean-class>
+       org.apache.myfaces.trinidaddemo.MessagesBean
+    </managed-bean-class>
+    <managed-bean-scope>
+       session
+    </managed-bean-scope>
+  </managed-bean>
 
   <managed-bean>
     <managed-bean-name>table</managed-bean-name>
