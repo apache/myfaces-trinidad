@@ -165,7 +165,7 @@ public class AnimalsBean implements java.io.Serializable
                        
     _setStart(newStart);
     _setEnd(newEnd);
-    _setNamesInRange(getNames().subList(_start, getEnd()));    
+    _setNamesInRange(new ArrayList<String>(getNames().subList(_start, getEnd())));
   } 
 
   private void _setStart(int start)
