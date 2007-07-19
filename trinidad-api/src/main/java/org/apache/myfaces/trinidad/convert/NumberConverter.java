@@ -230,7 +230,21 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     if (pp.getIndex() != value.length())
     {
       Object label = ConverterUtils.getComponentLabel(component);
-      Object[] params = {label, value, getPattern()};
+      Object[] params = null;
+      if("currency".equals(type))
+      {
+        params = new Object[] {label, getPattern(), fmt.format(_EXAMPLE_CURRENCY)};
+      }
+      else if("percent".equals(type))
+      {
+        params = new Object[] {label, getPattern(), fmt.format(_EXAMPLE_PERCENT)};
+      }
+      else
+      {
+        params = new Object[] {label, getPattern()};
+      }
+        
+        
       throw new ConverterException(
         getConvertMessage(context, component, value, params));
     }
@@ -1235,6 +1249,14 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
   private static final int _PERCENT_TYPE  = 3;
 
   private static final int _PATTERN_TYPE  = 4;
+  
+  private static final Number _EXAMPLE_PERCENT;
+
+  private static final Number _EXAMPLE_CURRENCY;
+
+  static
+  {
+    _EXAMPLE_PERCENT = 0.3423d;
+    _EXAMPLE_CURRENCY = 10250;
+  }
 }
-
-
