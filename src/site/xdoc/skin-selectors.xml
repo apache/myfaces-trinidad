@@ -1401,7 +1401,7 @@
         </table>
       </subsection>
       <subsection name="tr:messages Component">
-        <p>This tr:messages component is implemented using an inner table nested
+        <p>This tr:messages component is implemented using an inner div nested
            within an outer table. The outer container is used to lay out the
            messages' icons. The inner container contains the actual contents of
            the messages. If any transparent icons are used, style properties
@@ -1425,15 +1425,30 @@
           </tr>
           <tr>
             <td>af|messages</td>
-            <td>Styles the messages's outer table. Since the messages's icons
-                are rendered within the outer table, the af|message::body
-                selector is probably a better choice for specifying the
-                messages's background color, padding, etc...</td>
+            <td>Styles the messages's outer table. The overall width of the
+                outer table is also configured through this selector. Since 
+                the messages's icons are rendered within the outer table, the 
+                af|messages::body selector is probably a better choice for 
+                specifying the messages's background color, padding, etc...</td>
           </tr>
           <tr>
             <td>af|messages::body</td>
             <td>Styles the messages's inner table, which does not include any
                 outer icons.</td>
+          </tr>
+          <tr>
+            <td>af|messages::message-text</td>
+            <td>Styles the 'text' attribute of tr:messages if present.</td>
+          </tr>
+          <tr>
+            <td>af|messages::list</td>
+            <td>Styles the list of messages inside of af|messages::body</td>
+          </tr>
+          <tr>
+            <td>af|messages::list-single</td>
+            <td>This selector is used in addition to af|messages::list when there 
+                is only a single message displayed.  It can be used to remove the
+                numbering from the list.</td>
           </tr>
           <tr>
             <th colspan="2">
@@ -1445,47 +1460,47 @@
             <th>Description</th>
           </tr>
           <tr>
-            <td>af|messages::top-start-icon</td>
+            <td>af|messages::top-start</td>
             <td>This icon is rendered at the top starting corner of the messages
                 (ie. at the top left corner for left to right languages.)</td>
           </tr>
           <tr>
-            <td>af|messages::top-end-icon</td>
-            <td>This icon is rendered at the top ending corner of the messages
-                (ie. at the top right corner for left to right languages.)</td>
-          </tr>
-          <tr>
-            <td>af|messages::top-background-icon</td>
+            <td>af|messages::top</td>
             <td>This icon is rendered in the background in between the
                 af|messages::top-start-icon and af|messages::top-end-icon icons.</td>
           </tr>
           <tr>
-            <td>af|messages::bottom-start-icon</td>
+            <td>af|messages::top-end</td>
+            <td>This icon is rendered at the top ending corner of the messages
+                (ie. at the top right corner for left to right languages.)</td>
+          </tr>
+          <tr>
+            <td>af|messages::start</td>
+            <td>This icon is rendered in the background at the start of the
+                messages.</td>
+          </tr>
+          <tr>
+            <td>af|messages::end</td>
+            <td>This icon is rendered in the background at the end of the
+                messages.</td>
+          </tr>
+          <tr>
+            <td>af|messages::bottom-start</td>
             <td>This icon is rendered at the bottom starting corner of the
                 messages (ie. at the bottom left corner for left to right
                 languages.)</td>
           </tr>
           <tr>
-            <td>af|messages::bottom-end-icon</td>
-            <td>This icon is rendered at the bottom ending corner of the
-                messages (ie. at the bottom right corner for left to right
-                languages.)</td>
-          </tr>
-          <tr>
-            <td>af|messages::bottom-background-icon</td>
+            <td>af|messages::bottom</td>
             <td>This icon is rendered in the background in between the
                 af|messages::bottom-start-icon and af|messages::bottom-end-icon
                 icons.</td>
           </tr>
           <tr>
-            <td style="white-space: nowrap">af|messages::start-background-icon</td>
-            <td>This icon is rendered in the background at the start of the
-                messages.</td>
-          </tr>
-          <tr>
-            <td>af|messages::end-background-icon</td>
-            <td>This icon is rendered in the background at the end of the
-                messages.</td>
+            <td>af|messages::bottom-end</td>
+            <td>This icon is rendered at the bottom ending corner of the
+                messages (ie. at the bottom right corner for left to right
+                languages.)</td>
           </tr>
           <tr>
             <td>af|messages::error-icon</td>
