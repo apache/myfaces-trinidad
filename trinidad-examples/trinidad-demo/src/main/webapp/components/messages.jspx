@@ -35,17 +35,35 @@
                 action="guide"/>            
             <tr:outputFormatted styleUsage="instruction" value="&lt;b>Simple messages demo&lt;/b>"/>
               
-            <tr:messages binding="#{editor.component}"/>
+            <tr:messages binding="#{editor.component}" onclick="alert('clicked');"/>
 
-            <tr:inputText label="Label">
+            <tr:panelFormLayout>
+              <tr:inputText label="Amount">
+                  <f:facet name="help">
+                    <tr:outputText value="Type 'cat' to see an error in the message box"/>
+                  </f:facet>
+                <f:converter converterId="javax.faces.BigInteger"/>
+              </tr:inputText>    
+              
+              <tr:inputText label="Threshold">
                 <f:facet name="help">
-                  <tr:outputText value="Type 'cat' to see an error in the message box"/>
+                  <tr:outputText value="type='percent' locale='en_US' - This results in fraction displayed as integer value with % symbol"/>
                 </f:facet>
-              <f:converter converterId="javax.faces.BigInteger"/>
-            </tr:inputText>                      
-             
+                <f:convertNumber type="percent" locale="en_US"/>
+              </tr:inputText>
+
+            </tr:panelFormLayout>            
+
             <tr:commandButton id="messages" text="Submit"/>
 
+            <tr:panelHorizontalLayout>
+    
+              <tr:commandButton text="Add Message" action="#{messages.createGlobalMessage}" immediate="true" ></tr:commandButton>                  
+
+              <tr:commandButton text="Add Multiple Messages" action="#{messages.createMultipleGlobalMessages}" immediate="true" ></tr:commandButton>                  
+    
+            </tr:panelHorizontalLayout>
+            
             <jsp:directive.include file="editor.jspf" />
     
           </tr:panelGroupLayout>
