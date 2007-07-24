@@ -94,26 +94,7 @@
       <property-class>boolean</property-class>
       <default-value>false</default-value>
     </property>
-    <property>
-      <description><![CDATA[the event handler for when the element receives focus.]]></description>
-      <property-name>onfocus</property-name>
-      <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
-        </mfp:property-metadata>
-      </property-extension>
-    </property>
-    <property>
-      <description><![CDATA[the event handler for when the element loses focus.]]></description>
-      <property-name>onblur</property-name>
-      <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
-        </mfp:property-metadata>
-      </property-extension>
-    </property>
+
     <property>
       <description><![CDATA[event handler for when the value is changed.]]></description>
       <property-name>onchange</property-name>
@@ -127,6 +108,7 @@
 
     <xi:include href="includes/CommonAttrs.xml" xpointer="/faces-config/component/*"/>
     <xi:include href="includes/CoreJSEvents.xml" xpointer="/faces-config/component/*"/>
+    <xi:include href="includes/FocusJSEvents.xml" xpointer="/faces-config/component/*"/>
 
     <property>
       <description><![CDATA[the display size(number of items) of the lists. The size 
