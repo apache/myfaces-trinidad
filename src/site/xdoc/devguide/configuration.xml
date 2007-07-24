@@ -277,6 +277,26 @@ Some Apache Trinidad configuration options are set instead with
 <code>&lt;context-param&gt;</code> elements in your
 <code>WEB-INF/web.xml</code>file.
 </p>
+<subsection name="org.apache.myfaces.trinidad.CACHE_VIEW_ROOT">
+<p>
+Enables or disables UIViewRoot caching;  defaults to true.
+</p>
+<p>
+When "token" client-side state saving is enabled, Trinidad applies
+an additional optimization by caching an entire UIViewRoot tree
+with each token.  (Care has been taken to ensure that this
+does not affect thread safety or session failover.)
+This is a major optimization for AJAX-intensive
+systems, as postbacks can be processed far more rapidly without
+the need to reinstantiate the UIViewRoot tree.  However, 
+it is known to interfere with some other JSF technologies.
+In particular, the Apache MyFaces Tomahawk <code>saveState</code> component
+does not work, and template text in Facelets may appear in duplicate.
+This optimization can be disabled by setting this context parameter
+to <code>false</code>.
+</p>
+</subsection>
+
 <subsection name="org.apache.myfaces.trinidad.CLIENT_STATE_METHOD">
 <p>
 Chooses the type of client-side state saving used when client-side state saving is enabled (with the JSF standard <code>javax.faces.STATE_SAVING_METHOD</code>
