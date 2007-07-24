@@ -124,7 +124,9 @@
           </taglibs>
           <faceletHandlerClass>org.apache.myfaces.trinidadinternal.facelets.TrinidadComponentHandler</faceletHandlerClass>
           <typePrefix>org.apache</typePrefix>
+          <renderKitPrefix>org.apache</renderKitPrefix>
           <packageContains>org.apache</packageContains>
+          <removeRenderers>true</removeRenderers>
           <force>true</force>
         </configuration>
         <executions>
@@ -133,6 +135,7 @@
               <goal>generate-faces-config</goal>
               <goal>generate-jsp-taglibs</goal>
               <goal>generate-facelets-taglibs</goal>
+              <goal>generate-renderer-map</goal>
             </goals>
           </execution>
         </executions>

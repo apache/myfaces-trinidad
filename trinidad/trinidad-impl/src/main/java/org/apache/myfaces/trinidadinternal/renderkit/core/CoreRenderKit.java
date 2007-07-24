@@ -166,6 +166,11 @@ public class CoreRenderKit extends RenderKitBase
     _addBasicHTMLRenderKit();
   }
 
+  @Override
+  protected String getRenderKitMap()
+  {
+    return "META-INF/org.apache.myfaces.trinidadinternal.core.renderkit";
+  }
 
   /**
    * Save the form name of the source page for use in subsequent postback.
@@ -740,7 +745,8 @@ public class CoreRenderKit extends RenderKitBase
 
   static private final String[] _BASIC_HTML_RENDERERS =
   {
-    UICommand.COMPONENT_FAMILY,       "javax.faces.Button",
+    // For CommandButton we register our own renderer
+    //UICommand.COMPONENT_FAMILY,       "javax.faces.Button",
     // For CommandLink we register our own renderer
     //UICommand.COMPONENT_FAMILY ,      "javax.faces.Link",
     UIData.COMPONENT_FAMILY,          "javax.faces.Table",
