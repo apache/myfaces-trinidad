@@ -168,6 +168,8 @@ public class GenerateFacesConfigMojo extends AbstractFacesMojo
           Transformer transformer = transFactory.newTransformer(xslSource);
           transformer.setParameter("packageContains", packageContains);
           transformer.setParameter("typePrefix", typePrefix);
+          transformer.setParameter("removeRenderers",
+                                   removeRenderers ? "true" : "false");
           transformer.transform(mergedSource, mergedResult);
           resultStream.close();
 
@@ -271,4 +273,9 @@ public class GenerateFacesConfigMojo extends AbstractFacesMojo
    * @parameter
    */
   private String transformStylesheet;
+
+  /**
+   * @parameter
+   */
+  private boolean removeRenderers;
 }
