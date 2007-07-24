@@ -322,7 +322,7 @@
 <resource key="ERR_PARTIAL_PAGE_RENDERING">Error during partial-page rendering</resource>
 
 <!-- POLL_COMPOENT_MUST_INSIDE_FORM -->
-<resource key="POLL_COMPOENT_MUST_INSIDE_FORM">The poll component must be inside of a form;  disabling poll {0}</resource>
+<resource key="POLL_COMPONENT_MUST_INSIDE_FORM">The poll component must be inside of a form;  disabling poll {0}</resource>
 
 <!-- SELECTED_SHUTTLE_ITEMS_EXCEEDED_TOTAL_NUMBER -->
 <resource key="SELECTED_SHUTTLE_ITEMS_EXCEEDED_TOTAL_NUMBER">The number of items selected for shuttle ''{0}'' exceeds the total number of items in the shuttle. No selected items will be returned.</resource>
@@ -1020,5 +1020,8 @@
 
 <!-- STATUS_INDICATOR_MISSING_ICONS -->
 <resource key="STATUS_INDICATOR_MISSING_ICONS">The statusIndicator component requires both a 'ready' and 'busy' icon;  one is missing.</resource>
+
+<!-- COMPONENT_REQUIRES_FORM -->
+<resource key="COMPONENT_REQUIRES_FORM">The {0} component must be inside of a form to function correctly.</resource>
 
 </resources>
