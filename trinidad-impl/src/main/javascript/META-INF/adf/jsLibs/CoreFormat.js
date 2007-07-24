@@ -940,7 +940,7 @@ TrDateRestrictionValidator.prototype._removeInvalidValues = function(
     var value = invalidValues[i];
     for(j=0;j<allValues.length; j++)
     {
-      if(allValues[j] == value)
+      if(allValues[j].toLowerCase() == value.toLowerCase())
       {
         allValues.splice(j,1);
       }
