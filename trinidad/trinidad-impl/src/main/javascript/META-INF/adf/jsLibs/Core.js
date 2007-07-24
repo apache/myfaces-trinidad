@@ -2595,11 +2595,11 @@ function _getGlobalErrorString(
 
     if (errorFormat && label != null)
     {
-        return _formatErrorString(errorFormat,
-                                 {
-                                   "0":label,
-                                   "1":errorString
-                                 });
+      return _formatErrorString(errorFormat,
+                               {
+                                 "0":label,
+                                 "1":errorString
+                               });
     }
   }   
   

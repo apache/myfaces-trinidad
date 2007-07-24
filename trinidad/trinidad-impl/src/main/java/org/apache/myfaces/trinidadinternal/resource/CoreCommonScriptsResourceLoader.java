@@ -54,6 +54,7 @@ public class CoreCommonScriptsResourceLoader extends AggregatingResourceLoader
   static private final String[] _LIBRARIES =
   {
     "META-INF/adf/jsLibs/CharSets.js",
+    "META-INF/adf/jsLibs/NumberFormat.js",
     "META-INF/adf/jsLibs/CoreFormat.js",
     "META-INF/adf/jsLibs/DateField.js",
     "META-INF/adf/jsLibs/DateFieldFormat.js",
@@ -84,6 +85,7 @@ public class CoreCommonScriptsResourceLoader extends AggregatingResourceLoader
   static private final String[] _DEBUG_LIBRARIES =
   {
     "META-INF/adf/jsLibsDebug/CharSets.js",
+    "META-INF/adf/jsLibsDebug/NumberFormat.js",
     "META-INF/adf/jsLibsDebug/CoreFormat.js",
     "META-INF/adf/jsLibsDebug/DateField.js",
     "META-INF/adf/jsLibsDebug/DateFieldFormat.js",
