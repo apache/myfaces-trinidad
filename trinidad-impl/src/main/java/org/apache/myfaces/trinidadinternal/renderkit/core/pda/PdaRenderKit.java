@@ -27,23 +27,22 @@ public class PdaRenderKit extends RenderKitDecorator
   {
     addRenderer("org.apache.myfaces.trinidad.Table",
 		"org.apache.myfaces.trinidad.Table",
-                new PdaTableRenderer());
+                "org.apache.myfaces.trinidadinternal.renderkit.core.pda.PdaTableRenderer");
     addRenderer("org.apache.myfaces.trinidad.Process",
-    "org.apache.myfaces.trinidad.Train",
-                new TrainRenderer());
+                "org.apache.myfaces.trinidad.Train",
+                "org.apache.myfaces.trinidadinternal.renderkit.core.pda.TrainRenderer");
     addRenderer("org.apache.myfaces.trinidad.FrameBorderLayout",
                 "org.apache.myfaces.trinidad.FrameBorderLayout",
-                new PdaFrameBorderLayoutRenderer());
+                "org.apache.myfaces.trinidadinternal.renderkit.core.pda.PdaFrameBorderLayoutRenderer");
     addRenderer("org.apache.myfaces.trinidad.Frame",
                 "org.apache.myfaces.trinidad.Frame",
-                new FrameRenderer());
+                "org.apache.myfaces.trinidadinternal.renderkit.core.pda.FrameRenderer");
     addRenderer("org.apache.myfaces.trinidad.Panel",
                 "org.apache.myfaces.trinidad.ButtonBar",
-                new PanelButtonBarRenderer());
-    //PH:
+                "org.apache.myfaces.trinidadinternal.renderkit.core.pda.PanelButtonBarRenderer");
     addRenderer("org.apache.myfaces.trinidad.NavigationLevel",
                 "org.apache.myfaces.trinidad.Pane",
-                new PdaNavigationPaneRenderer());
+                "org.apache.myfaces.trinidadinternal.renderkit.core.pda.PdaNavigationPaneRenderer");
   }
 
   @Override

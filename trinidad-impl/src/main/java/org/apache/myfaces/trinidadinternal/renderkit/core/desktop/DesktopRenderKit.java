@@ -27,10 +27,10 @@ public class DesktopRenderKit extends RenderKitDecorator
   {
     addRenderer("org.apache.myfaces.trinidad.Table",
 		"org.apache.myfaces.trinidad.Table",
-                new DesktopTableRenderer());
+                "org.apache.myfaces.trinidadinternal.renderkit.core.desktop.DesktopTableRenderer");
     addRenderer("org.apache.myfaces.trinidad.Process",
-    "org.apache.myfaces.trinidad.Train",
-                new TrainRenderer());
+                "org.apache.myfaces.trinidad.Train",
+                "org.apache.myfaces.trinidadinternal.renderkit.core.desktop.TrainRenderer");
   }
 
   @Override
