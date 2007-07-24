@@ -16,19 +16,46 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
+ 
+/**
+ * constructor of client side NumberConverter class
+ */ 
 function TrNumberConverter(
   pattern,  
   type,
   locale,
-  messages)
+  messages,
+  currencyCode,
+  currencySymbol,
+  maxFractionDigits,
+  maxIntegerDigits,
+  minFractionDigits,
+  minIntegerDigits)
 {
   this._pattern = pattern;
   this._type = type;
   this._locale = locale;
   this._messages = messages;
+  this._currencyCode = currencyCode;
+  this._currencySymbol = currencySymbol;
+  this._maxFractionDigits = maxFractionDigits;
+  this._maxIntegerDigits = maxIntegerDigits;
+  this._minFractionDigits = minFractionDigits;
+  this._minIntegerDigits = minIntegerDigits;
   
   // for debugging
   this._class = "TrNumberConverter";
+  
+  if(this._type=="percent")
+  {
+    this._example = 0.3423;
+    this._numberFormat = TrNumberFormat.getPercentInstance();
+  }
+  else if(this._type=="currency")
+  {
+    this._example = 10250;
+    this._numberFormat = TrNumberFormat.getCurrencyInstance();
+  }
 }
 
 TrNumberConverter.prototype = new TrConverter();
@@ -39,7 +66,7 @@ TrNumberConverter.prototype = new TrConverter();
  */
 TrNumberConverter.prototype._isConvertible = function()
 {
-  if(this._pattern == null && this._locale == null && this._type=="number")
+  if((this._pattern == null) && (this._locale == null))
   {
     return true;
   }
@@ -81,7 +108,35 @@ TrNumberConverter.prototype.getAsString = function(
 {
   if(this._isConvertible())
   {
-    return "" + number;
+    if(this._type=="percent" || this._type=="currency")
+    {
+      var string = this._numberFormat.format(number);
+      if(this._type=="currency")
+      {
+        //In Trinidad the currencyCode gets preference over currencySymbol
+        //this is similar on the server-side
+        if(this._currencyCode)
+        {
+          string = string.replace(getLocaleSymbols().getCurrencyCode(), this._currencyCode);
+        }
+        else if(this._currencySymbol)
+        {
+          string = string.replace(getLocaleSymbols().getCurrencySymbol(), this._currencySymbol);
+        }
+      }
+      return string;
+    }
+    else
+    {
+      this._numberFormat = TrNumberFormat.getNumberInstance();
+      this._numberFormat.setMaximumFractionDigits(this._maxFractionDigits);
+      this._numberFormat.setMaximumIntegerDigits(this._maxIntegerDigits);
+      this._numberFormat.setMinimumFractionDigits( this._minFractionDigits);
+      this._numberFormat.setMinimumIntegerDigits( this._minIntegerDigits);
+      return this._numberFormat.format(number);
+  
+      //return "" + number;
+    }
   }
   else
   {
@@ -99,7 +154,37 @@ TrNumberConverter.prototype.getAsObject = function(
 {
   if(this._isConvertible())
   {
-    return _decimalParse(numberString, 
+    var parsedValue;
+    if(this._type=="percent" || this._type=="currency")
+    {
+      try
+      {
+        numberString = this._numberFormat.parse(numberString)+"";
+      }
+      catch(e)
+      {
+        var facesMessage;
+        var example = this._numberFormat.format(this._example);
+        var key = "org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_" + this._type.toUpperCase();
+        if(this._messages && this._messages[this._type])
+        {
+          facesMessage = _createCustomFacesMessage(TrMessageFactory.getSummaryString(key),
+                                                  this._messages[this._type],
+                                                  label,
+                                                  numberString,
+                                                  example);
+        }
+        else
+        {
+          facesMessage = _createFacesMessage(key,
+                                            label,
+                                            numberString,
+                                            example);
+        }
+          throw new TrConverterException(facesMessage);
+      }
+    }
+    parsedValue = _decimalParse(numberString, 
                          this._messages,
                          "org.apache.myfaces.trinidad.convert.NumberConverter",
                          null,
@@ -108,12 +193,18 @@ TrNumberConverter.prototype.getAsObject = function(
                          null,
                          label,
                          true);
+    if(this._type=="percent")
+    {
+      parsedValue = parsedValue / 100;
+    }
+    return parsedValue;
   }
   else
   {
     return undefined;
   }
 }
+
 function TrIntegerConverter(
   message,
   maxPrecision,
@@ -1000,12 +1091,6 @@ function _decimalParse(
         facesMessage =  _createFacesMessage( standardKey+".CONVERT",
                                           label,
                                           numberString);
-        //var summary = "";
-        //var detail = "";
-        //facesMessage =  _createCustomMessage( summary,
-                                          //detail,
-                                          //label,
-                                          //numberString);
       }
       throw new TrConverterException(facesMessage);
     }
@@ -1016,6 +1101,9 @@ function _decimalParse(
     }
     
     // Remove the thousands separator - which Javascript doesn't want to see
+    
+    //is this a i18n bug?...
+    //see TRINIDAD-2
     var thousands = new RegExp("\\" + grouping, "g");
     numberString = numberString.replace(thousands, "");
     // Then change the decimal separator into a period, the only

@@ -920,22 +920,22 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
 
     formatter.setGroupingUsed(isGroupingUsed());
 
-    if (_maxFractionDigitsSpecified())
+    if (isMaximumFractionDigitsSet())
     {
         formatter.setMaximumFractionDigits(getMaxFractionDigits());
     }
 
-    if (_maxIntegerDigitsSpecified())
+    if (isMaximumIntegerDigitsSet())
     {
       formatter.setMaximumIntegerDigits(getMaxIntegerDigits());
     }
 
-    if (_minFractionDigitsSpecified())
+    if (isMinimumFractionDigitsSet())
     {
       formatter.setMinimumFractionDigits(getMinFractionDigits());
     }
 
-    if (_minIntegerDigitsSpecified())
+    if (isMinimumIntegerDigitsSet())
     {
       formatter.setMinimumIntegerDigits(getMinIntegerDigits());
     }
@@ -1145,22 +1145,22 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
         "NOT_VALID_TYPE", type));
   }
 
-  private boolean _maxFractionDigitsSpecified()
+  protected boolean isMaximumFractionDigitsSet()
   {
     return _facesBean.getProperty(_MAX_FRACTION_DIGITS_KEY) != null;
   }
 
-  private boolean _minFractionDigitsSpecified()
+  protected boolean isMinimumFractionDigitsSet()
   {
     return _facesBean.getProperty(_MIN_FRACTION_DIGITS_KEY) != null;
   }
 
-  private boolean _maxIntegerDigitsSpecified()
+  protected boolean isMaximumIntegerDigitsSet()
   {
     return _facesBean.getProperty(_MAX_INTEGER_DIGITS_KEY) != null;
   }
 
-  private boolean _minIntegerDigitsSpecified()
+  protected boolean isMinimumIntegerDigitsSet()
   {
     return _facesBean.getProperty(_MIN_INTEGER_DIGITS_KEY) != null;
   }

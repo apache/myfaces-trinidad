@@ -21,7 +21,6 @@ package org.apache.myfaces.trinidadinternal.convert;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
@@ -79,13 +78,17 @@ public final class NumberConverter extends org.apache.myfaces.trinidad.convert.N
   public String getClientConversion(FacesContext context, UIComponent component)
   {
     String hintPattern = this.getHintPattern();
-    String messageDetailConvertNumber = this.getMessageDetailConvertNumber();
+    String messageDetailConvertNumber   = this.getMessageDetailConvertNumber();
+    String messageDetailConvertPercent  = this.getMessageDetailConvertPercent();
+    String messageDetailConvertCurrency = this.getMessageDetailConvertCurrency();
     Map<String, String> cMessages = null;
-    if(hintPattern != null || messageDetailConvertNumber != null)
+    if(hintPattern != null || messageDetailConvertNumber != null || messageDetailConvertPercent != null || messageDetailConvertCurrency != null)
     {
       cMessages = new HashMap<String, String>();
       cMessages.put("hintPattern", hintPattern);
       cMessages.put("number", messageDetailConvertNumber);
+      cMessages.put("percent", messageDetailConvertPercent);
+      cMessages.put("currency", messageDetailConvertCurrency);
     }
     
     return _getTrNumberConverter(context, component, cMessages);
@@ -106,16 +109,67 @@ public final class NumberConverter extends org.apache.myfaces.trinidad.convert.N
     return null;
   }
   
+  /**
+   * Helper method, that creates an Object array, which contains all
+   * required constructor parameters for the TrNumberConverter class.
+   * 
+   * TrNumberConverter takes several arguments, like pattern or type.
+   * It also takes some arguments that are only useful, when displaying
+   * formatted numbers, like currencyCode or maximumIntegerDigits.
+   * 
+   */
+  private Object[] _getClientConstructorParams(Map<?, ?> messages)
+  {
+    Object[] params;
+    boolean formating = _formatingAttributesSet();
+
+    if(formating)
+      params = new Object[10];
+    else
+      params = new Object[4];
+    params[0] = this.getPattern();
+    params[1] = this.getType();
+    params[2] = this.getLocale() != null ? this.getLocale().toString() : null;
+    params[3] = messages;
+    
+    //TODO we don't really need these attributes all the time,
+    //only if specified.
+    if(formating)
+    {
+      params[4] = this.getCurrencyCode();
+      params[5] = this.getCurrencySymbol();
+      params[6] = this.isMaximumFractionDigitsSet() ? this.getMaxFractionDigits() : null;
+      params[7] = this.isMaximumIntegerDigitsSet() ? this.getMaxIntegerDigits() : null;
+      params[8] = this.isMinimumFractionDigitsSet() ? this.getMinFractionDigits() : null;
+      params[9] = this.isMinimumIntegerDigitsSet() ? this.getMinIntegerDigits() : null;
+    }
+
+    return params;
+  }
+  
+  /*
+   * checks if the attributes, that are interesting for
+   * formating only are applied.
+   */
+  private boolean _formatingAttributesSet()
+  {
+    return (this.getCurrencyCode()!=null ||
+      this.getCurrencySymbol() != null ||
+      this.isMaximumFractionDigitsSet() ||
+      this.isMaximumIntegerDigitsSet() ||
+      this.isMinimumFractionDigitsSet() ||
+      this.isMinimumIntegerDigitsSet());
+  }
+  
   private String _getTrNumberConverter(
       FacesContext context,
       UIComponent  component,
       Map<?, ?>    messages)
     {
   
-      String pattern = this.getPattern();
       StringBuilder outBuffer = new StringBuilder(250);
       
-      if(this.isIntegerOnly() && pattern == null)
+      if(this.isIntegerOnly() && this.getPattern() == null)
       {
         outBuffer.append("new TrIntegerConverter(");
         outBuffer.append("null,null,0,");
@@ -126,48 +180,25 @@ public final class NumberConverter extends org.apache.myfaces.trinidad.convert.N
       }
       else
       {
+
+        Object[] params = _getClientConstructorParams(messages);
+        
         outBuffer.append("new TrNumberConverter(");
 
-        String type = this.getType();
-        String localeString = null;
-        Locale locale = this.getLocale();
-        if(locale != null)
-        localeString = locale.toString();
-
-        try
+        for (int i = 0; i < params.length; i++)
         {
-          JsonUtils.writeString(outBuffer, pattern, false); 
-        } catch (Exception e)
-        {
-          outBuffer.append("null");
-        }
-        outBuffer.append(',');
-        try
-        {
-          JsonUtils.writeString(outBuffer, type, false);
-        } catch (Exception e)
-        {
-          outBuffer.append("null");
-        }
-        outBuffer.append(',');
-        try
-        {
-          JsonUtils.writeString(outBuffer, localeString, false);
-        } catch (Exception e)
-        {
-          outBuffer.append("null");
-        }
-        outBuffer.append(',');
-        try
-        {
-          JsonUtils.writeMap(outBuffer, messages, false); 
-        } catch (Exception e)
-        {
-          outBuffer.append("null");
+          try
+          {
+            JsonUtils.writeObject(outBuffer, params[i], false); 
+          } catch (Exception e)
+          {
+            outBuffer.append("null");
+          }
+          if(i<params.length-1)
+            outBuffer.append(',');
         }
         outBuffer.append(')');
       }
-
       return outBuffer.toString();
     }
   private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "TrNumberConverter()" );
