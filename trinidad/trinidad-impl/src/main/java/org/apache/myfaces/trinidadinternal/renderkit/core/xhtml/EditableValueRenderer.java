@@ -200,6 +200,11 @@ abstract public class EditableValueRenderer extends ValueRenderer
       {
 
         FormData fData = arc.getFormData();
+        if (fData == null)
+        {
+          _LOG.warning("COMPONENT_REQUIRES_FORM", component);
+          return;
+        }
 
         boolean immediate = isImmediate(bean);
         ((CoreFormData) fData).addOnSubmitConverterValidators(component,
