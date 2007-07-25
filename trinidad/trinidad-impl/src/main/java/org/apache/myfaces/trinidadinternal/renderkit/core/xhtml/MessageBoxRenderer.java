@@ -72,6 +72,7 @@ public class MessageBoxRenderer extends XhtmlRenderer
     return true;
   }
   
+  @SuppressWarnings("unchecked")
   @Override
   protected void encodeAll(FacesContext context, RenderingContext arc,
       UIComponent component, FacesBean bean) throws IOException
@@ -83,14 +84,52 @@ public class MessageBoxRenderer extends XhtmlRenderer
       afContext.addPartialTarget(component);
 
     ResponseWriter writer = context.getResponseWriter();
-
+    
+    // Check if INLINE validation mode is enabled
+    boolean inlineValidation = 
+        RequestContext.ClientValidation.INLINE.equals(
+            RequestContext.getCurrentInstance().getClientValidation());
+    
     // Only when there's at least one message queued
-    if (context.getMessages().hasNext())
+    if (inlineValidation || context.getMessages().hasNext())
     {
-      // Setup the arc, so that default skin selectors of
+      
+      if (inlineValidation)
+      {
+        writer.startElement(XhtmlConstants.SCRIPT_ELEMENT, null);
+        renderScriptDeferAttribute(context, arc);
+        renderScriptTypeAttribute(context, arc);
+        
+        // Output the styles required for client-side manipulation of the MessageBox
+        
+        // Output style for list of messages
+        writer.writeText("TrPage.getInstance().addStyleClassMap( {'", null);
+        writer.writeText(SkinSelectors.AF_MESSAGES_LIST_STYLE_CLASS + "':'", null);
+        writer.writeText(arc.getStyleClass(SkinSelectors.AF_MESSAGES_LIST_STYLE_CLASS), null);
+
+        // Single entry list uses two styles
+        writer.writeText("','" + SkinSelectors.AF_MESSAGES_LIST_SINGLE_STYLE_CLASS + "':'", null);
+        writer.writeText(arc.getStyleClass(SkinSelectors.AF_MESSAGES_LIST_STYLE_CLASS), null);
+        writer.writeText(" " + arc.getStyleClass(SkinSelectors.AF_MESSAGES_LIST_SINGLE_STYLE_CLASS), null);
+
+        // Output Style for MessageBox Anchors
+        writer.writeText("','" + SkinSelectors.LINK_STYLE_CLASS + "':'", null);
+        writer.writeText(arc.getStyleClass(SkinSelectors.LINK_STYLE_CLASS), null);
+        writer.writeText("'} ); ", null);
+
+        // Output the script that will register the MessageBox with
+        // the TrMessageBox javascript class that handles client-side
+        // add/remove of messages.
+        writer.writeText("TrMessageBox._registerMessageBox(\"", null);
+        writer.writeText(getClientId(context, component), null);
+        writer.writeText("\");", null);
+        writer.endElement("script");
+      }
+      
+      // Setup the rendering context, so that default skin selectors of
       // delegate renderers are mapped to those of this renderer
       arc.setSkinResourceKeyMap(_RESOURCE_KEY_MAP);
-      
+
       // Delegate rendering of the outer shell to the BoxRenderer class
       // which will call back to this renderer to output the messages
       _boxRenderer.encodeAll(context, arc, component, bean);
@@ -133,6 +172,11 @@ public class MessageBoxRenderer extends XhtmlRenderer
 
     // Render messages as a list
     writer.startElement("ol", null);
+    
+    // Output an id for the list so client-side validation can 
+    // easily access the element
+    String listId = getClientId(context, component) + "__LIST__";
+    writer.writeAttribute(XhtmlConstants.ID_ATTRIBUTE, listId, null);
     
     // Switch list style depending if no. of messages is 1 or >1
     String[] styleClasses = null;
@@ -285,7 +329,9 @@ public class MessageBoxRenderer extends XhtmlRenderer
         FacesContext.getCurrentInstance().getMaximumSeverity();
       
       // Map FacesMessage severity to levels expected by panelHeaderRenderer
-      if (FacesMessage.SEVERITY_FATAL.equals(maxSeverity))
+      if (maxSeverity == null)
+        messageType = XhtmlConstants.MESSAGE_TYPE_ERROR;
+      else if (FacesMessage.SEVERITY_FATAL.equals(maxSeverity))
         messageType = XhtmlConstants.MESSAGE_TYPE_ERROR;
       else if (FacesMessage.SEVERITY_ERROR.equals(maxSeverity))
         messageType = XhtmlConstants.MESSAGE_TYPE_ERROR;
@@ -358,6 +404,27 @@ public class MessageBoxRenderer extends XhtmlRenderer
       // Force use of 'light' style, so we know which style
       // to re-map in _RESOURCE_KEY_MAP
       return "light";
+    }
+    
+    @Override
+    protected String getInlineStyle(FacesBean bean)
+    {
+      String inlineStyle = super.getInlineStyle(bean);
+      
+      boolean inlineValidation = 
+        RequestContext.ClientValidation.INLINE.equals(
+            RequestContext.getCurrentInstance().getClientValidation());
+      
+      if (!inlineValidation)
+        return inlineStyle;
+      
+      boolean hasMessages = FacesContext.getCurrentInstance().getMessages().hasNext();
+      
+      if (hasMessages)
+        return inlineStyle;
+      
+      // Ensure the MessageBox is hidden for inline mode when there are no messages
+      return inlineStyle + ";display:none;";
     }
     
     @Override
