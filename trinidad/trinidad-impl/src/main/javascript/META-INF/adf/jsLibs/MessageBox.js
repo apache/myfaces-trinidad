@@ -178,7 +178,7 @@ TrMessageBox.prototype._showMessageBox = function()
   if (!messageBox)
     return;
 
-  messageBox.style.display = "block";        
+  messageBox.style.display = "";        
 }
 
 TrMessageBox.prototype._hideMessageBox = function()
