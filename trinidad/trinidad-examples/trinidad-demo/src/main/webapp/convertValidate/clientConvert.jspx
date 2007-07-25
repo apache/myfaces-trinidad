@@ -145,7 +145,11 @@
             <tr:panelHeader text="Required"/>
             <tr:spacer height="10"/>
             <tr:panelFormLayout>
-              <tr:inputText required="true" label="required field"/>
+              <tr:inputText required="true" label="required text"/>
+              <tr:selectOneRadio layout="vertical" label="required choice" required="true">
+                 <tr:selectItem value="true" label="Yes" />
+                 <tr:selectItem value="false" label="No" />
+               </tr:selectOneRadio>            
             </tr:panelFormLayout>
             <tr:panelHeader text="Example of 3rd party Converter and Validator"/>
             <tr:spacer height="10"/>
