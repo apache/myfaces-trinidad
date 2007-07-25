@@ -1186,30 +1186,52 @@ function _validateAlert(
   errorTitle
   )
 {
-  var failureArray = _multiValidate(form, source,  validators, globalMessageIndex);
+  var failureMap = _multiValidate(form, source,  validators, globalMessageIndex);
   
-  if (failureArray.length == 0)
+  if (failureMap.length == 0)
     return true;
     
   var firstFailure = true;
   var failureString = errorTitle + '\n';
 
-  for (var j=0; j < failureArray.length; j = j+2)
+  for (var i = 0; i < validators.length; i += 5)
   {
-    var currInput = form.elements[failureArray[j]];
-    
+    var currId = validators[i];
+
+    // Get the messages array for currId, skip if none
+    var messages = failureMap[currId];
+    if (!messages || messages.length==0)
+      continue;
+
+    // Get the input element
+    var currInput = _getFormElement(form, currId);
     if (!currInput)
       continue;
-    
-    failureString += _getLabel(form, currInput) + ": " + failureArray[j+1] + '\n';
+      
+    // Get the label text for this input
+    var label = _getLabel(form, currInput);
 
-    // Move the focus back to the first failed field
-    if (firstFailure)
+    // Loop through the messages for this input
+    for (var j=0; j < messages.length; j = j+2)
     {
-      _setFocus(currInput);
+      // Move the focus back to the first failed field
+      if (firstFailure)
+      {
+        _setFocus(currInput);
+        firstFailure = false;
+      }
+
+      // Get the current message
+      var facesMessage = messages[j];
     
-      firstFailure = false;
+      var errorString = _getGlobalErrorString(currInput, 
+                          globalMessageIndex, 
+                          facesMessage.getDetail(),
+                          label);   
+    
+      failureString += errorString + '\n';
     }
+
   }
 
   // Show the error and note the time we finished this validation.
@@ -1231,69 +1253,79 @@ function _validateInline(
   errorTitle
   )
 {
-  var failureArray = _multiValidate(form, source,  validators, globalMessageIndex);
+  var failureMap = _multiValidate(form, source,  validators, globalMessageIndex);
   
-  var firstFailure = true;
+  var noFailures = true;
 
-  var failureString = "";
   for (var i = 0; i < validators.length; i += 5)
   {
-  
     var currId = validators[i];
     var foundMsg = false;
 
     // Get the icon if any
-    var iconElem = document.getElementById(validators[i] + "::icon");
+    var iconElem = _getElementById(document, validators[i] + "::icon");
 
     // If component hasn't got a message element, then skip
-    var msgElem = document.getElementById(validators[i] + "::msg");
-    if (!msgElem)
+    var msgElem = _getElementById(document, validators[i] + "::msg");
+      
+    // Clear any existing inline message
+    if (msgElem)
+      msgElem.innerHTML = "";
+      
+    // Clear any existing messages from the MessageBox  
+    TrMessageBox.removeMessages(currId);
+    
+    // Get the messages array for currId, skip if none
+    var messages = failureMap[currId];
+    if (!messages || messages.length==0)
+    {
+      // Hide the inline message and icon
+      if (msgElem)
+        msgElem.style.display = "none";
+      if (iconElem)
+        iconElem.style.display = "none";
+      continue;
+    }
+    
+    // Get the input element
+    var currInput = _getFormElement(form, currId);
+    if (!currInput)
       continue;
       
-    // Clear any existing messages from the component
-    msgElem.innerHTML = "";
-    
-    // Find messages for currId
-    for (var j=0; j < failureArray.length; j = j+2)
-    {
-      if (currId != failureArray[j])
-        continue;
-        
-      var currInput = form.elements[failureArray[j]];
-      if (!currInput)
-        continue;
+    // Get the label text for this input
+    var label = _getLabel(form, currInput);
 
+    // Loop through the messages for this input
+    for (var j=0; j < messages.length; j = j+2)
+    {
       // Move the focus back to the first failed field
-      if (firstFailure)
+      if (noFailures)
       {
         _setFocus(currInput);
-        firstFailure = false;
+        noFailures = false;
       }
 
-      msgElem.innerHTML = failureArray[j+1];
-  
-      foundMsg = true;
+      // Get the current message
+      var facesMessage = messages[j];
+
+      if (msgElem)
+      {
+        msgElem.innerHTML += facesMessage.getDetail();
+      }
       
-      failureString += currId + "=" + failureArray[j+1] + '\n';
+      // Add the message to the MessageBox
+      TrMessageBox.addMessage(currId, label, facesMessage);
     }
     
-    // Decide if we show or hide the message element
-    if (foundMsg)
-    {
-      msgElem.style.display = "inline";
-      if (iconElem)
-        iconElem.style.display = 'inline';
-    }
-    else 
-    {
-      msgElem.style.display = "none";
-      if (iconElem)
-        iconElem.style.display = 'none';
-    }
-
+    // If we got this far, we know there's something to display so
+    // make the inline message and icon visible.
+    if (msgElem)
+        msgElem.style.display = "inline";
+    if (iconElem)
+      iconElem.style.display = "inline";
   }
 
-  return (failureArray.length == 0);
+  return noFailures;
 }
 
 /**
@@ -2286,8 +2318,10 @@ function _setFocus(currInput)
 }
 
 /**
- * Calls an array of validation functions and returns a single error
- * String.
+ * Calls an array of validation functions and returns a map of validation
+ * errors.  Each map entry is keyed by an id of an input component
+ * and contains an array of TrFacesMessage objects relating to the
+ * component (i.e. <String, TrFacesMessage[]>).
  */
 function _multiValidate(
   form,
@@ -2296,9 +2330,8 @@ function _multiValidate(
   globalMessageIndex
   )
 {
-  // 2d Array to hold the id and the associated error for each component
-  var failureArray = new Array();
-  var failures = "";
+  // Initialise the return map.
+  var failureMap = new Object();
 
   var subforms = window[form.name + "_SF"];
   var ignorePrefixes = new Array();
@@ -2356,20 +2389,7 @@ function _multiValidate(
         continue;
 
       // get the current form element to validate
-      var currInput = null;
-      if (_agent.isPIE)
-      {
-          currInput = form.elements[validators[i]];
-      }
-      else
-      {
-        currInput = form[validators[i]];
-        // To support required validation on shuttle component
-        if(currInput == undefined)
-        {
-          currInput = form.elements[validators[i]+":trailing:items"];
-        }
-      }
+      var currInput = _getFormElement(form, validators[i]);
 
       // Make sure we have a non-null input control.  It is possible
       // that in rich client environments the DOM for the input
@@ -2382,6 +2402,9 @@ function _multiValidate(
       //       validation shouldn't fire.
       if (!currInput)
         continue;
+
+      //Initialize the failure array for this input
+      var inputFailures = new Array();
 
       var label = _getLabel(form, currInput);
 
@@ -2408,18 +2431,10 @@ function _multiValidate(
         requiredFormatIndex = validators[i+2];
         var requiredErrorString = _getErrorString(currInput,
                                                   requiredFormatIndex);
-
-        if (requiredErrorString)
-        {
-          failureArray[failureArray.length] = currInput.id;
-          failureArray[failureArray.length] = requiredErrorString;
-
-          requiredErrorString = _getGlobalErrorString(currInput, 
-                                              globalMessageIndex, 
-                                              requiredErrorString,
-                                              label);   
-          failures += '\n' + requiredErrorString;
-        }
+                                                  
+        // Populate the failureMap with the current error
+        inputFailures[inputFailures.length] = 
+            new TrFacesMessage(requiredErrorString, requiredErrorString);
       }
       else if (validations)
       {
@@ -2450,20 +2465,8 @@ function _multiValidate(
               {
                 converterError = true; 
   
-                // get the formatted error string for the current input
-                var errorString1 = e.getFacesMessage().getDetail();
-  
-                if (errorString1)
-                {                         
-                  failureArray[failureArray.length] = currInput.id;
-                  failureArray[failureArray.length] = errorString1;
- 
-                  errorString1 = _getGlobalErrorString(currInput, 
-                                                       globalMessageIndex, 
-                                                       errorString1,
-                                                       label);                                         
-                  failures += '\n' + errorString1;
-                }
+                // Populate the failureMap with the current error
+                inputFailures[inputFailures.length] = e.getFacesMessage();
               }
             }
           }
@@ -2492,31 +2495,26 @@ function _multiValidate(
                 }
                 catch (e)
                 {  
-                  // get the formatted error string for the current input and
-                  // formatIndex
-                  var errorString = e.getFacesMessage().getDetail();
-  
-                  if (errorString)
-                  {     
-                    failureArray[failureArray.length] = currInput.id;
-                    failureArray[failureArray.length] = errorString;
- 
-                    errorString = _getGlobalErrorString(currInput, 
-                                                        globalMessageIndex, 
-                                                        errorString,
-                                                        label);       
-                    failures += '\n' + errorString;
-                  }
+                  // Populate the failureMap with the current error
+                  inputFailures[inputFailures.length] = e.getFacesMessage();
                 }
               }
             }
           }
         }
       }
+      
+      // if there were failures, then add the current input to the failuresMap
+      if (inputFailures.length > 0)
+      {
+        // TRINIDAD-123: Use input 'name' from validators array rather than currInput.id
+        // to avoid issues with radio buttons having numeric id suffixes
+        failureMap[validators[i]] = inputFailures;
+      }
     }
   }
   
-  return failureArray;
+  return failureMap;
 }
 
 /**
@@ -2572,7 +2570,7 @@ function _createCustomFacesMessage(
   }
   
   return new TrFacesMessage(summary, 
-                          detail, 
+                          detail,
                           TrFacesMessage.SEVERITY_ERROR);
 }
 
@@ -2745,6 +2743,31 @@ function _getGlobalErrorString(
 
    return form;
  }
+ 
+/**
+ * Returns the element of name elementName for the given form
+ */
+ function _getFormElement(
+   form,
+   elementName)
+{
+  var formElement = null;
+  if (_agent.isPIE)
+  {
+      formElement = form.elements[elementName];
+  }
+  else
+  {
+    formElement = form[elementName];
+    // To support required validation on shuttle component
+    if(formElement == undefined)
+    {
+      formElement = form.elements[elementName+":trailing:items"];
+    }
+  }
+  return formElement;
+}
+ 
 
 /**
  * Returns the name of an input element on either IE or Netscape, dealing
