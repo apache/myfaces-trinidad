@@ -24,7 +24,7 @@ import javax.servlet.ServletRequest;
 /**
  * This defines an abstract class for the Configurator. Classes implementing
  * this abstraction should be listed in the jar's /META-INF/services folder
- * inside of a text file named "org.apache.trinidad.config.Configurator".
+ * inside of a text file named "org.apache.myfaces.trinidad.config.Configurator".
  * These services will then be run by Trinidad's global configurator.
  *
  * This abstract class allows Trinidad and various renderkits to move some of
