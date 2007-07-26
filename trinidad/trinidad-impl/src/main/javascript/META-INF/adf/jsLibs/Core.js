@@ -1298,20 +1298,25 @@ function _validateInline(
     // Loop through the messages for this input
     for (var j=0; j < messages.length; j = j+2)
     {
-      // Move the focus back to the first failed field
       if (noFailures)
       {
-        _setFocus(currInput);
         noFailures = false;
+
+        // Move the focus back to the first failed field
+        // TODO - Remove once inline validation uses onblur/onchange
+        _setFocus(currInput);
       }
 
       // Get the current message
       var facesMessage = messages[j];
 
       if (msgElem)
-      {
         msgElem.innerHTML += facesMessage.getDetail();
-      }
+
+      // if there's nowhere to display the message in either
+      // summary or detail, then pop an alert to warn the page developer
+      if (!msgElem && !TrMessageBox.isPresent())
+        alert("Field Error [" + currId + "] - " + facesMessage.getDetail());
       
       // Add the message to the MessageBox
       TrMessageBox.addMessage(currId, label, facesMessage);
@@ -1320,7 +1325,7 @@ function _validateInline(
     // If we got this far, we know there's something to display so
     // make the inline message and icon visible.
     if (msgElem)
-        msgElem.style.display = "inline";
+      msgElem.style.display = "inline";
     if (iconElem)
       iconElem.style.display = "inline";
   }

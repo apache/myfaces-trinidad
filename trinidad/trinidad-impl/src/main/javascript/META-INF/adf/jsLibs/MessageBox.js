@@ -25,6 +25,12 @@ TrMessageBox._registerMessageBox = function(messageBoxId)
     TrMessageBox._MESSAGE_BOX = new TrMessageBox(messageBoxId);
 }
 
+/**
+ * Adds a message to the message box for a given input.  The
+ * label is used as the anchor text for rendering a link to
+ * the given input.  Also shows the message box if it was previously
+ * empty.
+ **/
 TrMessageBox.addMessage = function(inputId, label, facesMessage)
 {
   var messageBox = TrMessageBox._MESSAGE_BOX;
@@ -34,6 +40,10 @@ TrMessageBox.addMessage = function(inputId, label, facesMessage)
   messageBox.addMessage(inputId, label, facesMessage);
 }
 
+/**
+ * Removes any messages that are shown for the given input.
+ * Also hides the message box if there are no.
+ **/
 TrMessageBox.removeMessages = function(inputId)
 {
   var messageBox = TrMessageBox._MESSAGE_BOX;
@@ -44,8 +54,13 @@ TrMessageBox.removeMessages = function(inputId)
 }
 
 /**
- *
+ * Checks if a tr:messages component is present on-screen.
  **/
+TrMessageBox.isPresent = function()
+{
+  return (TrMessageBox._MESSAGE_BOX) ? true : false;
+}
+
 function TrMessageBox(messageBoxId)
 {
   if (messageBoxId == undefined)
