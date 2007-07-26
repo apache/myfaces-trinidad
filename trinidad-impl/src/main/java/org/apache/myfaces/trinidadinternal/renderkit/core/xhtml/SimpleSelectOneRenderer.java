@@ -206,8 +206,7 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
     if ( converter == null)
       converter = getDefaultConverter(context, bean);
 
-    List<SelectItem> selectItems =
-      SelectItemSupport.getSelectItems(component, converter);
+    List<SelectItem> selectItems = getSelectItems(component, converter);
     
     int index = __getIndex(submittedValue, selectItems);
     if (index < 0)
@@ -255,8 +254,7 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
                       getRequiredMessageKey());
     }
 
-    List<SelectItem> selectItems = 
-      SelectItemSupport.getSelectItems(component, converter);
+    List<SelectItem> selectItems = getSelectItems(component, converter);
     
     int selectedIndex = _getSelectedIndex(context,
                                           component,
@@ -327,8 +325,7 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
     // =-=AEW If needed, this could be made more efficient
     // by iterating through the list instead of getting
     // all the items
-    List<SelectItem> selectItems = 
-      SelectItemSupport.getSelectItems(component, converter);
+    List<SelectItem> selectItems = getSelectItems(component, converter);
     
     int selectedIndex = _getSelectedIndex(context,
                                           component,
@@ -356,6 +353,11 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
   protected String getRequiredMessageKey()
   {
     return UIXSelectOne.REQUIRED_MESSAGE_ID;
+  }
+  
+  protected List<SelectItem> getSelectItems(UIComponent component, Converter converter)
+  {
+    return SelectItemSupport.getSelectItems(component, converter);
   }
 
   protected boolean getValuePassThru(FacesBean bean)
