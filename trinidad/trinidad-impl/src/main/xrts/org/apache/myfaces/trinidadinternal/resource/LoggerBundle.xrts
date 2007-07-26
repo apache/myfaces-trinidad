@@ -232,10 +232,10 @@
 <resource key="NO_SKIN_FACTORY">There is no SkinFactory</resource>
 
 <!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN">The skin {0} specified on the requestMap will not be used because the styleSheetDocument id on the requestMap does not match the local skin's styleSheetDocument's id. It could mean the jars are not identical. For example, one might have trinidad-skins.xml's skin-additions in a jar file on the class path that the other does not have.</resource>
+<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN">The skin {0} specified on the requestMap will not be used because the styleSheetDocument id on the requestMap does not match the local skin''s styleSheetDocument''s id. It could mean the jars are not identical. For example, one might have trinidad-skins.xml''s skin-additions in a jar file on the class path that the other does not have.</resource>
 
 <!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP">The skin {0} specified on the requestMap will not be used because its styleSheetDocument id was not in the requestMap and it is needed to compare with the local skin's styleSheetDocument's id to make sure the skins are the same.</resource>
+<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP">The skin {0} specified on the requestMap will not be used because its styleSheetDocument id was not in the requestMap and it is needed to compare with the local skin''s styleSheetDocument''s id to make sure the skins are the same.</resource>
 
 <!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST -->
 <resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST">The skin {0} specified on the requestMap will not be used because it does not exist.</resource>
@@ -283,7 +283,7 @@
 <resource key="FRAMES_MUST_INSIDE_FRAMEBORDERLAYOUTS">Frames must appear inside FrameBorderLayouts</resource>
 
 <!-- NO_PPR_CAPABLE_ID_FOUND_FOR_COMPONENT -->
-<resource key="NO_PPR_CAPABLE_ID_FOUND_FOR_COMPONENT">No PPR-capable 'id' found for elements of {0}. This component has not written-out an 'id' attribute.</resource>
+<resource key="NO_PPR_CAPABLE_ID_FOUND_FOR_COMPONENT">No PPR-capable ''id'' found for elements of {0}. This component has not written-out an ''id'' attribute.</resource>
 
 <!-- INVALID_STRING_ATTRIBUTE -->
 <resource key="INVALID_STRING_ATTRIBUTE">Invalid string attribute for chooseDate: {0}</resource>
@@ -406,7 +406,7 @@
 <resource key="UNKNOWN_ATTRIBUTE_NAMESPACE">Unknown attribute: {0}, namespace={1}</resource>
 
 <!-- ERR_PARSING_SKIN_CSS_FILE -->
-<resource key="ERR_PARSING_SKIN_CSS_FILE">Error when parsing the skin css file. The property's name cannot be null or the empty string. The parser will ignore it. name is ''{0}'' and value is ''{1}''</resource>
+<resource key="ERR_PARSING_SKIN_CSS_FILE">Error when parsing the skin css file. The property''s name cannot be null or the empty string. The parser will ignore it. name is ''{0}'' and value is ''{1}''</resource>
 
 <!-- IGNORING_PROPERTIES_WITHOUT_SELECTOR -->
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR">Ignoring properties {0} because there is no corresponding selector.</resource>
@@ -421,7 +421,7 @@
 <resource key="CANNOT_GET_SKIN_WITH_NULL_SKINID">Can't get Skin with null skinId</resource>
 
 <!-- CANNOT_FIND_MATCHING_SKIN -->
-<resource key="CANNOT_FIND_MATCHING_SKIN">Can't find a skin that matches family {0} and renderkit {1}, so we will use the simple skin</resource>
+<resource key="CANNOT_FIND_MATCHING_SKIN">Can''t find a skin that matches family {0} and renderkit {1}, so we will use the simple skin</resource>
 
 <!-- CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP -->
 <resource key="CANNOT_GET_STYLESHEET_DOCUMENT_TIMESTAMP">Could not get the stylesheet document's timestamp because we couldn't open the connection.</resource>
@@ -457,7 +457,7 @@
 <resource key="IOEXCEPTION_OPENNING_FILE">IOException while opening file for writing: {0}</resource>
 
 <!-- CSS_FILE_HIT_IE_LIMIT_OF_CSS_SELECTOR -->
-<resource key="CSS_FILE_HIT_IE_LIMIT_OF_CSS_SELECTOR">The css file has hit IE's limit of 4095 CSS selectors. It has {0} selectors. The selectors after that will be ignored.</resource>
+<resource key="CSS_FILE_HIT_IE_LIMIT_OF_CSS_SELECTOR">The css file has hit IE''s limit of 4095 CSS selectors. It has {0} selectors. The selectors after that will be ignored.</resource>
 
 <!-- UNSUPPORTED_CONSECUTIVE_SUB_ELEMENT_SYNTAX -->
 <resource key="UNSUPPORTED_CONSECUTIVE_SUB_ELEMENT_SYNTAX">Consecutive sub-element (::) syntax used in selector {0}. This is not supported.</resource>
@@ -839,7 +839,7 @@
  <resource key="NULL_PROPERTYNAME">Null propertyName</resource>
  
  <!-- PROPERTYNODE_NAME_CANNOT_BE_NULL_OR_EMPTY -->
- <resource key="PROPERTYNODE_NAME_CANNOT_BE_NULL_OR_EMPTY">PropertyNode's name cannot be null or the empty string.name is ''{0}'' and value is ''{1}''</resource>
+ <resource key="PROPERTYNODE_NAME_CANNOT_BE_NULL_OR_EMPTY">PropertyNode''s name cannot be null or the empty string.name is ''{0}'' and value is ''{1}''</resource>
  
  <!-- CHILD_NOT_PROPERTYNODE_INSTANCE -->
  <resource key="CHILD_NOT_PROPERTYNODE_INSTANCE">child not instance of PropertyNode</resource>
