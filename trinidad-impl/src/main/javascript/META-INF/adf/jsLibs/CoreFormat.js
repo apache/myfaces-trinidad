@@ -1080,18 +1080,10 @@ function _decimalParse(
     if ((numberString.indexOf(grouping) == 0) ||
         (numberString.lastIndexOf(grouping) ==  (numberString.length - 1)))
     {
-      if(message == null)
-      {
-        facesMessage =  _createFacesMessage( standardKey+".CONVERT",
-                                          label,
-                                          numberString);
-      }
-      else
-      { 
-        facesMessage =  _createFacesMessage( standardKey+".CONVERT",
-                                          label,
-                                          numberString);
-      }
+      facesMessage =  _createFacesMessage( standardKey+".CONVERT",
+                                        label,
+                                        numberString);
+                                        
       throw new TrConverterException(facesMessage);
     }
 
