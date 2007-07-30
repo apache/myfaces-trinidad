@@ -41,21 +41,13 @@
       <tr:outputFormatted styleUsage="instruction"
                           value="These demos illustrate Partial Page Refresh capabilities using the autoSubmit attribute of various input components."/>
       <tr:panelGroupLayout layout="vertical">
-       <!--tr:panelHeader text="Globally updated">
-        <tr:outputFormatted styleUsage="instruction"
-                            value="This text gets updated on ANY partial update of the page."/>
-        <tr:panelGroupLayout>
-         <tr:panelLabelAndMessage label="last PPR update: ">
-          <tr:outputFormatted id="globalUpdate"
-                              partialTriggers="*"
-                              styleUsage="instruction"
-                              binding="#{partialDemoUtil.globalUpdate}"
-                              value="never">
-           <f:convertDateTime pattern="HH:mm:ss"/>
-          </tr:outputFormatted>
-         </tr:panelLabelAndMessage>
-        </tr:panelGroupLayout>
-       </tr:panelHeader-->
+
+       <tr:panelHeader text="Status Indicator">
+       <tr:outputFormatted styleUsage="instruction"
+                           value="This demo contains a statusIndicator component.  It will spin while a PPR request fires, and can be placed anywhere on a page (or in multiple places if needed).  The image can be replaced with skinning."/>
+       <tr:statusIndicator/>
+       </tr:panelHeader>
+
        <tr:panelHeader text="Radio Buttons">
        <tr:outputFormatted styleUsage="instruction"
                            value="This demo shows a two sets of radio buttons which use autoSubmit. There is also an output component which is listening on updates to the radio buttons and displaying status text accordingly."/>
