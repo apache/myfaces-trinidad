@@ -19,6 +19,7 @@
 function TrPage()
 {
   this._loadedLibraries = TrPage._collectLoadedLibraries();
+  this._requestQueue = new TrRequestQueue(window);
 }
 
 
@@ -34,6 +35,14 @@ TrPage.getInstance = function()
 }
 
 /**
+ * Return the shared request queue for the page.
+ */
+TrPage.prototype.getRequestQueue = function()
+{
+  return this._requestQueue;
+}
+
+/**
  * Post the form for partial postback.  Supports both standard AJAX
  * posts and, for multipart/form posts, IFRAME-based transmission.
  * @param actionForm{FormElement} the HTML form to post
@@ -41,13 +50,12 @@ TrPage.getInstance = function()
  * @param headerParams{Object} HTTP headers to include (ignored if 
  *   the request must be a multipart/form post)
  */
-// TODO rename?
-TrPage.prototype.sendFormPost = function(
+TrPage.prototype.sendPartialFormPost = function(
   actionForm,
   params,
   headerParams)
 {
-  TrRequestQueue.getInstance().sendFormPost(
+  this.getRequestQueue().sendFormPost(
     this, this._requestStatusChanged,
     actionForm, params, headerParams);
 }

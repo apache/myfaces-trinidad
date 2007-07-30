@@ -1786,7 +1786,7 @@ function submitForm(
 
     if (isPartial)
     {
-      TrPage.getInstance().sendFormPost(form, parameters);
+      TrPage.getInstance().sendPartialFormPost(form, parameters);
     }
     else
     {

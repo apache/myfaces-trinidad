@@ -25,7 +25,7 @@ TrStatusIndicator._register = function(id)
   if (!TrStatusIndicator._registered)
   {
     TrStatusIndicator._registered = new Object();
-    TrRequestQueue.getInstance().addStateChangeListener(
+    TrPage.getInstance().getRequestQueue().addStateChangeListener(
        TrStatusIndicator._handleStateChange);
   }
 
