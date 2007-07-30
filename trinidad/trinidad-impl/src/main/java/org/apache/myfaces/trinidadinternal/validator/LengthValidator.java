@@ -136,13 +136,13 @@ public class LengthValidator extends org.apache.myfaces.trinidad.validator.Lengt
       outBuffer.append(IntegerUtils.getString(max));
     outBuffer.append(',');
     outBuffer.append(IntegerUtils.getString(min));
-    outBuffer.append(',');
     if(messages == null)
     {
-      outBuffer.append("null");
+      outBuffer.append(')');
     }
     else
     {
+      outBuffer.append(',');
       try
       {
         JsonUtils.writeMap(outBuffer, messages, false);
@@ -151,8 +151,8 @@ public class LengthValidator extends org.apache.myfaces.trinidad.validator.Lengt
       {
         outBuffer.append("null");
       }
+      outBuffer.append(')');
     }
-    outBuffer.append(')');
 
     return outBuffer.toString();
   }
