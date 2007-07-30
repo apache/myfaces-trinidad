@@ -868,6 +868,7 @@
         <value>panelRadio.jspx</value>
         <value>panelTabbed.jspx</value>
         <value>singleStepButtonBar.jspx</value>
+        <value>statusIndicator.jspx</value>
         <value>styleSheet.jspx</value>
         <value>table.jspx</value>
         <value>table_selection.jspx</value>
@@ -2431,6 +2432,12 @@
     <navigation-case>
       <from-outcome>guide.singleStepButtonBar</from-outcome>
       <to-view-id>/components/singleStepButtonBar.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.statusIndicator</from-outcome>
+      <to-view-id>/components/statusIndicator.jspx</to-view-id>
       <redirect/>
     </navigation-case>
 
