@@ -20,7 +20,7 @@ package org.apache.myfaces.trinidaddemo.resource;
 
 import java.util.ListResourceBundle;
 
-public class SkinBundle extends ListResourceBundle
+public class SkinBundle_fr extends ListResourceBundle
 {
   @Override
   public Object[][] getContents()
@@ -32,11 +32,8 @@ public class SkinBundle extends ListResourceBundle
   {
     {"af_tableSelectMany.SELECT_COLUMN_HEADER", "Select A Lot"},
     {"af_tableSelectOne.SELECT_COLUMN_HEADER", "Select Just One"},
-    {"af_inputDate.LAUNCH_PICKER_TIP", "Purple Launch Picker"},
-    {"Birds.SELECT_MANY", "Purple Default Select Many"},
+    {"af_inputDate.LAUNCH_PICKER_TIP", "French Purple Launch Picker"},
+    {"Birds.SELECT_MANY", "Purple French Select Many"},
   };
 }
-
-
-
 
