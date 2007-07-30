@@ -96,14 +96,7 @@ public class DoubleConverter extends javax.faces.convert.DoubleConverter
       FacesContext context,
       UIComponent component)
     {
-      StringBuilder outBuffer = new StringBuilder(250);
-
-      outBuffer.append("new TrDoubleConverter(");
-      outBuffer.append("'");
-      outBuffer.append("null");
-      outBuffer.append("')");
-
-      return outBuffer.toString();
+      return "new TrDoubleConverter()";
     }
 
   private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "TrNumberConverter()" );
