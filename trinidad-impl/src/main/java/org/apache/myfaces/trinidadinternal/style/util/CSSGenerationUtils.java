@@ -762,7 +762,6 @@ public class CSSGenerationUtils
     else
     {
       // there are no namespaces in this selector, but we still need to convert pseudo-classes.
-      /************************ TODO
       //Separate pseudoclasses and then call it
       int start = 0;
       StringBuilder b = new StringBuilder();
@@ -800,10 +799,6 @@ public class CSSGenerationUtils
         b.append(subSelector);
         mappedSelector = b.toString();
       }
-       mappedSelector = _convertPseudoClassesInSelector(selector);
-
-      *****************/
-       mappedSelector = _convertPseudoClassesInSelector(selector);
 
     }
     return mappedSelector;

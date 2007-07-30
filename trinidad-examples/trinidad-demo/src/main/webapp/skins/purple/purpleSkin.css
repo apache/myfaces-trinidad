@@ -661,3 +661,7 @@ is a right-to-left language. */
 .testRightToLeft:rtl {
   font-size: 24em;
 }
+/* test css parsing only */
+.AFPanelNavigationHorizontal ul li.on:hover ul {
+    background: #224d6f;
+} 
