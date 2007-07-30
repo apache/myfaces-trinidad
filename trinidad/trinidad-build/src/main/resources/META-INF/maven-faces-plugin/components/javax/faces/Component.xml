@@ -26,7 +26,13 @@
     <component-type>javax.faces.Component</component-type>
     <component-class>javax.faces.component.UIComponent</component-class>
     <property>
-      <description>the identifier for the component
+      <description><![CDATA[<html>the identifier for the component.  The identifier
+must follow a subset of the syntax allowed in HTML:
+<ul>
+<li>Must not be a zero-length String.</li>
+<li>First character must be an ASCII letter (A-Za-z) or an underscore ('_').</li>
+<li>Subsequent characters must be an ASCII letter or digit (A-Za-z0-9), an underscore ('_'), or a dash ('-').</li>
+</ul></html>]]>
       </description>
       <property-name>id</property-name>
       <property-class>java.lang.String</property-class>

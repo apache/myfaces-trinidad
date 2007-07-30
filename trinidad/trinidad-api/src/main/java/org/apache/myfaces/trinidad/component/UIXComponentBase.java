@@ -286,6 +286,9 @@ abstract public class UIXComponentBase extends UIXComponent
   }
 
 
+  /**
+   * Gets the identifier for the component.
+   */
   @Override
   public String getId()
   {
@@ -293,6 +296,15 @@ abstract public class UIXComponentBase extends UIXComponent
   }
 
 
+  /**
+   * Sets the identifier for the component.  The identifier
+   * must follow a subset of the syntax allowed in HTML:
+   * <ul>
+   * <li>Must not be a zero-length String.</li>
+   * <li>First character must be an ASCII letter (A-Za-z) or an underscore ('_').</li>
+   * <li>Subsequent characters must be an ASCII letter or digit (A-Za-z0-9), an underscore ('_'), or a dash ('-').
+   * </ul>
+   */
   @Override
   public void setId(String id)
   {
