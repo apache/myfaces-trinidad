@@ -46,7 +46,7 @@
   
   <!-- {0} the label that identifies the selection  -->
   <resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED">Selection Required</resource>
-  <resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED_detail">Select at least one value.</resource>
+  <resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED_detail">Select a value.</resource>
   
 
   <!-- {0} the label that identifies the selection  -->
