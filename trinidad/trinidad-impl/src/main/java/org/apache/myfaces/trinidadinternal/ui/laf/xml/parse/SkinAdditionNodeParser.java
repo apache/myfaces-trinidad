@@ -60,11 +60,13 @@ public class SkinAdditionNodeParser extends BaseNodeParser
     // id and family are required. log a severe error if they are null.
     if ((_skinId == null) && (_LOG.isWarning()))
       _LOG.severe("REQUIRED_ELEMENT_SKINID_NOT_FOUND");
+      /*
     if ((_styleSheetName == null) && (_LOG.isWarning()))
       _LOG.severe("REQUIRED_ELEMENT_STYLE_SHEET_NAME_NOT_FOUND");
+      */
 
       
-    return new SkinAdditionNode(_skinId, _styleSheetName);
+    return new SkinAdditionNode(_skinId, _styleSheetName, _resourceBundleName);
   }
 
   @Override
@@ -77,7 +79,8 @@ public class SkinAdditionNodeParser extends BaseNodeParser
   {
   
     if ("skin-id".equals(localName) ||
-        "style-sheet-name".equals(localName))
+        "style-sheet-name".equals(localName) ||
+        "bundle-name".equals(localName))
 
     {
       return new StringParser();
@@ -99,11 +102,14 @@ public class SkinAdditionNodeParser extends BaseNodeParser
       _skinId = (String) child;
     else if ("style-sheet-name".equals(localName))
       _styleSheetName = (String) child;
+    else if ("bundle-name".equals(localName))
+      _resourceBundleName = (String) child;
   }
 
 
   private String      _skinId;
   private String      _styleSheetName;
+  private String      _resourceBundleName;
 
 
   private static final TrinidadLogger _LOG = 

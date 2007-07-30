@@ -16,70 +16,57 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.apache.myfaces.trinidadinternal.ui.laf.xml.parse;
+package org.apache.myfaces.trinidad.skin;
+
+import java.util.Collections;
+
+import org.apache.myfaces.trinidad.context.LocaleContext;
 
 /**
- * Object which represents a single &lt;skin-addition&gt; element in trinidad-skins.xml.
+ * SkinAdditions are defined in trinidad-skins.xml file &lt;skin-addition&gt;
+ * They are used by custom component developers who have created custom
+ * components, and they need a way to 'push' in their own stylesheet and 
+ * resource bundle for these components into some skin of their choosing, 
+ * most likely the simple skin.
+ * Skin objects contain zero or more SkinAdditions. The SkinAdditions' stylesheets
+ * are merged into the Skin's own stylesheet. The SkinAdditions' resource
+ * bundle is looked at along with the Skin's own resource bundle when Skin's
+ * getTranslatedValue is called.
  *
- * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/xml/parse/SkinPropertyNode.java#0 $) $Date: 10-nov-2005.18:50:45 $
- * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
-@Deprecated
-public class SkinAdditionNode implements Comparable<SkinAdditionNode>
+public class SkinAddition
 {
 
+
   /**
-   * 
+   * Constructor takes a styleSheet name and a resourceBundle name.
    */
-  public SkinAdditionNode (
-    String skinId,
+  public SkinAddition (
     String styleSheetName,
     String resourceBundleName
     )
   {
     _styleSheetName = styleSheetName;
-    _skinId = skinId;
     _resourceBundleName = resourceBundleName;
   }
   
-  public String getSkinId()
-  {
-    return _skinId;
-  }  
-  
-  public void setSkinId(String id)
-  {
-    _skinId = id;
-  }
-  
+  /**
+   * Gets the SkinAddition's style sheet name.
+   */
   public String getStyleSheetName()
   {
     return _styleSheetName;
   } 
   
-  public void setStyleSheetName(String ssName)
-  {
-    _styleSheetName = ssName;
-  }
-  
+  /**
+   * Gets the SkinAddition's resource bundle .     
+   */
   public String getResourceBundleName()
   {
     return _resourceBundleName;
   } 
+ 
+  private final String _styleSheetName;
+  private final String _resourceBundleName;
   
-  public void setResourceBundleName(String rbName)
-  {
-    _resourceBundleName = rbName;
-  }  
-  
-  // Sort by the name of the stylesheet
-  public int compareTo(SkinAdditionNode node)
-  {
-    return getStyleSheetName().compareTo(node.getStyleSheetName());
-  }
-  
-  private String _skinId;
-  private String _styleSheetName;
-  private String _resourceBundleName;
-
 }

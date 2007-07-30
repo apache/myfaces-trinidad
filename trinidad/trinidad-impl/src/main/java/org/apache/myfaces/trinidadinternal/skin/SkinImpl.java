@@ -19,13 +19,19 @@
 package org.apache.myfaces.trinidadinternal.skin;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 import java.util.Stack;
 
 import java.util.concurrent.ConcurrentHashMap;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.faces.context.ExternalContext;
 
@@ -37,6 +43,7 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
 
+import org.apache.myfaces.trinidad.skin.SkinAddition;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinProperties;
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
@@ -52,7 +59,6 @@ import org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.SkinPropertyNode;
 /**
  * Defines the components (icons, styles, etc)
  * which are used to implement a particular skin.
- * @todo. look through UIExtension comments.
  *
  * This implementation class adds the details that should
  * not be exposed outside of this API.
@@ -64,6 +70,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.SkinPropertyNode;
  */
 abstract public class SkinImpl extends Skin
 {
+
   /**
    * Returns an string identifier which uniquely identies
    * this Skin implementation.  Skin implementations
@@ -112,7 +119,7 @@ abstract public class SkinImpl extends Skin
   }
 
   /**
-   * Returns the name of the XSS style sheet for this Skin.
+   * Returns the name of the style sheet for this Skin.
    */
   @Override
   abstract public String getStyleSheetName();
@@ -141,6 +148,8 @@ abstract public class SkinImpl extends Skin
    *                 Cannot be null.
    * @param key The key of the translation to retrieve. Cannot be null.
    * @throws NullPointerException if lContext or key is null.
+   * @throws MissingResourceException if the resource key cannot be found in the skin's bundle
+   * or the skin additions' bundles.
    */
   @Override
   public Object getTranslatedValue(
@@ -148,74 +157,33 @@ abstract public class SkinImpl extends Skin
     String        key
     ) throws MissingResourceException
   {
-    //testTranslationKey(key); //jmw test
-
     if (lContext == null)
       throw new NullPointerException(_LOG.getMessage(
         "NULL_LOCALE_CONTEXT"));
     if (key == null)
       throw new NullPointerException("Null key");
 
-    String bundleName = getBundleName();
-    if (bundleName == null)
+    List<String> resourceBundleNames = _getResourceBundleNames();
+    
+    // if there is nothing to check, return null
+    if (resourceBundleNames.size() == 0)
       return null;
+      
+    Object translatedValue = getCachedTranslatedValue(lContext, key);
+    if (translatedValue == null)
+    {
+      throw new MissingResourceException("Can't find resource for bundle "
+                                         +resourceBundleNames
+                                         +", key "+key,
+                                         getBundleName(),
+                                         key);
+    }
+    
+    return translatedValue;
 
-    return lContext.getBundle(bundleName).getObject(key);
+
   }
 
-
-
-  /**
-   *  This is a test function.
-   *  This looks at the stack that I have on the request map for the
-   *  current component being rendered -- I store the prefix in
-   *  UIComponentUINode.
-   * @param key
-   */
-   /********* jmw for testing translation keys
-  public static void testTranslationKey(
-    String key)
-  {
-
-    javax.faces.context.FacesContext fcontext =
-      javax.faces.context.FacesContext.getCurrentInstance();
-    Stack translationKeyStack  = (Stack)fcontext.getExternalContext().
-                                        getRequestMap().get("TRANSLATION_KEY");
-
-
-    String translationKeyPrefix = null;
-
-    if ((translationKeyStack != null) && !translationKeyStack.empty())
-      translationKeyPrefix = (String)translationKeyStack.peek();
-
-
- //   System.out.println(translationKeyPrefix + " / " + key); //jmw test
-
-    String keyPrefix = null;
-    int index = key.indexOf('.');
-    if (index != -1)
-      keyPrefix = key.substring(0, index);
-
-    if (translationKeyPrefix != null)
-    {
-      if (!(translationKeyPrefix.equalsIgnoreCase(keyPrefix)))
-      {
-        System.out.println("***NO MATCH " + translationKeyPrefix + " / " + key + "");
-      }
-    }
-    if ((translationKeyPrefix == null) && (key != null) &&
-      !(key.equals("WINDOW_CREATION_ERROR") || key.equals("NO_SCRIPT_MESSAGE")))
-    {
-      System.out.println("***nothing was rendered, but I have a key of " + key);
-    }
-
-  }
-  ****/
-
-  /**
-   * Returns the name of the ResourceBundle for the Skin.
-   */
-  abstract protected String getBundleName();
 
   /**
    * Our renderers call this to get the icon. This returns a renderable
@@ -260,56 +228,6 @@ abstract public class SkinImpl extends Skin
   }
 
   /**
-   * Find the actual icon
-   * @param refIcon a ReferenceIcon instance
-   * @param referencedIconStack  The stack of reference icon names which have
-   *          already been visited.  Used to detect circular dependencies.
-   * @return icon which is resolved. i.e., it is not a ReferenceIcon.
-   */
-  private Icon _resolveReferenceIcon(
-    ReferenceIcon refIcon,
-    Stack<String> referencedIconStack)
-  {
-    String refName = refIcon.getName();
-
-    // make sure we don't have a circular dependency
-    if ( _stackContains(referencedIconStack, refName))
-    {
-      if (_LOG.isWarning())
-        _LOG.warning(_CIRCULAR_INCLUDE_ERROR + refName);
-      return null;
-    }
-    
-    if (referencedIconStack == null)
-    {
-      referencedIconStack = new Stack<String>();
-    }
-
-    referencedIconStack.push(refName);
-
-    Icon icon = getIcon(refName, false);
-
-    if ((icon instanceof ReferenceIcon) && (icon != null))
-    {
-
-      return _resolveReferenceIcon((ReferenceIcon)icon,
-                                    referencedIconStack);
-
-    }
-
-    return icon;
-  }
-
-    // Tests whether the value is present in the (possibly null) stack.
-  private static boolean _stackContains(Stack<String> stack, Object value)
-  {
-    if (stack == null)
-      return false;
-
-    return stack.contains(value);
-  }
-
-  /**
    * Registers an Icon for the specified icon name.
    * @param iconName  The name of the icon. Cannot be null.
    * @param icon      The Icon to register.
@@ -327,45 +245,58 @@ abstract public class SkinImpl extends Skin
 
     _icons.put(iconName, icon);
   }
-
+ 
   /**
-   * Registers a style sheet which defines extension-specific
-   * styles.  The styles specified by this style sheet will be
-   * merged with the Skin's own styles.  The full set
-   * of styles can be obtained by calling getStyleSheetDocument().
-   * @todo Is this even supported???
-   * @param styleSheetName The name of the style sheet which
-   *          defines the extension's styles.  This style sheet
-   *          should be installed under the directory specified by
-   *          Configuration.STYLES_DIRECTORY path.
-   * @see #getStyleSheetDocument
-   * @throws NullPointerException if styleSheetName is null.
+   * Adds a SkinAddition on this Skin. You can call this method as many times 
+   * as you like for the Skin, and it will add the SkinAddition to the list of 
+   * SkinAdditions.
+   * However, it does not make sense to call this method more than once
+   * with the same SkinAddition object.
+   * This is meant for the skin-addition use-cases, where a custom component 
+   * developer has a style sheet and/or resource bundle for their custom   
+   * components, and they want the style sheet and/or resource bundle 
+   * to work for this Skin and the children Skins.
+   * The stylesheets specified in the SkinAdditions will be merged with the 
+   * Skin's own styles.
+   * The resource bundles specified in the SkinAdditions will be looked into 
+   * if the translated key is not found in the Skin's own resource bundle 
+   * during the call to getTranslatedString or getTranslatedValue.
+   * 
+   * @param skinAddition The SkinAddition object to add to the Skin.
+   * @throws NullPointerException if SkinAddition is null.
    */
-  @Override
-  public void registerStyleSheet(
-    String styleSheetName
+  public void addSkinAddition (
+    SkinAddition skinAddition
     )
   {
-    if (styleSheetName == null)
-      throw new NullPointerException(_LOG.getMessage(
-        "NULL_STYLESHEETNAME"));
+    // TODO change error message to use the error message resource bundle.
+     if (skinAddition == null)
+       throw new NullPointerException(
+               "A null SkinAddition object was passed to addSkinAddition.");
 
-    if (_extensionStyleSheetNames == null)
-    {
-      _extensionStyleSheetNames = new ArrayList<String>();
-    }
-
-    _extensionStyleSheetNames.add(styleSheetName);
+     if (_skinAdditions == null)
+     {
+       _skinAdditions = new ArrayList<SkinAddition>();
+     }
+     _skinAdditions.add(skinAddition);
   }
-
+  
   /**
-   * Returns the style class map, or null if there is no map.
-   * @param arc RenderingContext
-   * @return Map<String, String> It should be a map that contains the full style class name as 
-   * the key, and the value could be a shortened style class name,
-   * or a portlet style class name, etc.
+   * Gets an unmodifiable List of SkinAdditions that have been added 
+   * on this Skin. To add to the SkinAdditions List, 
+   * call addSkinAddition(SkinAddition)
+   * @return List an unmodifiable List of SkinAdditions.
+   * @see #addSkinAddition(SkinAddition)
    */
-   
+  public List<SkinAddition> getSkinAdditions()
+  {
+    if (_skinAdditions == null)
+    {
+      return Collections.emptyList();
+    }
+    else  
+      return Collections.unmodifiableList(_skinAdditions);
+  }
 
    /**
     * Returns the style class map, or null if there is no map.
@@ -374,8 +305,9 @@ abstract public class SkinImpl extends Skin
     * short style classes can be used instead of the full style class
     * names to reduce the overall size of generated content.
     * @param arc RenderingContext
-    * @return Map&lt;String, String&gt; The default implemention returns a map of full
-    * style class names to shortened style classes.
+    * @return Map&lt;String, String&gt; It should be a map that contains the full style class name
+    * as the key, and the value could be a shortened style class name,
+    * or a portlet style class name, etc.
     */
   @Override
    public Map<String, String> getStyleClassMap(
@@ -397,7 +329,7 @@ abstract public class SkinImpl extends Skin
   /**
    * Returns the StyleSheetDocument object which defines all of the
    * styles for this Skin, including any styles that are
-   * contributed by UIExtensions.
+   * contributed by skin-additions.
    */
   public StyleSheetDocument getStyleSheetDocument(StyleContext context)
   {
@@ -443,6 +375,130 @@ abstract public class SkinImpl extends Skin
   {
     _properties.put(key, value);
   }
+  
+  /**
+   * Returns a translated value in the LocaleContext's translation Locale, or null
+   * if the key could not be found.
+   * This value may or may not be a String, and developers should avoid
+   * calling toString() unless absolutely necessary.
+   * This method protects against MissingResourceExceptions by checking that the key exists 
+   * before calling the bundle's getObject method. It eats any MissingResourceExceptions as
+   * a result of not finding the bundle, since there can be multiple bundles per skin, and
+   * we could get a lot of MissingResourceExceptions otherwise.
+   * Then the method caches the value once it is found in a particular
+   * resource bundle. 
+   * This method is useful for SkinExtensions which will also check their ancestor skins
+   * for the resource if it is not found in the SkinExtension. MissingResourceExceptions would
+   * be numerous if we didn't protect against them.
+   * If you want to throw a MissingResourceException once all the ancestor skins and their
+   * bundles and registered bundles are checked, then you should call getTranslatedValue for the
+   * most base skin, and it will throw a MissingResourceException if the
+   * key was not found in any of the bundles.
+   * @see #getTranslatedValue(LocaleContext, String)
+   * @param lContext The LocaleContext which provides the translation Locale.
+   *                 Cannot be null.
+   * @param key The key of the translation to retrieve. Cannot be null.
+   * @throws NullPointerException if lContext or key is null.
+   * @return Object translated value of the key;
+   *         null if bundleName and skin-addition bundleNames are null for this Skin;
+   *         null if the key cannot be found in the bundle or registered bundles -or-
+   *         
+
+   */
+  protected Object getCachedTranslatedValue(
+    LocaleContext lContext,
+    String        key
+    )
+  {
+    if (lContext == null)
+      throw new NullPointerException(_LOG.getMessage(
+        "NULL_LOCALE_CONTEXT"));
+    if (key == null)
+      throw new NullPointerException("Null key");
+
+    List<String> resourceBundleNames = _getResourceBundleNames();
+    
+    // if there is nothing to check, return null
+    if (resourceBundleNames.size() == 0)
+      return null;
+      
+   
+    return _getCachedTranslationValueFromLocale(lContext, 
+                                                resourceBundleNames, key);
+    
+  }
+
+  /**
+   * @param styleSheetName
+   * @see #addSkinAddition(SkinAddition)
+   * @deprecated Use addSkinAddition instead
+   */
+  public void registerStyleSheet(String styleSheetName) 
+  {
+    //TODO Take out deprecated after sufficient amount of time has passed
+    // deprecated July, 2007
+    SkinAddition addition = new SkinAddition(styleSheetName, null);
+    addSkinAddition(addition);
+  }
+
+  /**
+  * Returns the name of the ResourceBundle for this Skin instance.
+  * This does not include the SkinAddition resource bundles.
+  * We differentiate between the two types of resource bundles so that
+  * the Skin's own resource bundle can take precedence.
+  */
+  abstract protected String getBundleName();
+
+
+  /**
+   * Find the actual icon
+   * @param refIcon a ReferenceIcon instance
+   * @param referencedIconStack  The stack of reference icon names which have
+   *          already been visited.  Used to detect circular dependencies.
+   * @return icon which is resolved. i.e., it is not a ReferenceIcon.
+   */
+  private Icon _resolveReferenceIcon(
+    ReferenceIcon refIcon,
+    Stack<String> referencedIconStack)
+  {
+    String refName = refIcon.getName();
+
+    // make sure we don't have a circular dependency
+    if ( _stackContains(referencedIconStack, refName))
+    {
+      if (_LOG.isWarning())
+        _LOG.warning(_CIRCULAR_INCLUDE_ERROR + refName);
+      return null;
+    }
+    
+    if (referencedIconStack == null)
+    {
+      referencedIconStack = new Stack<String>();
+    }
+
+    referencedIconStack.push(refName);
+
+    Icon icon = getIcon(refName, false);
+
+    if ((icon instanceof ReferenceIcon) && (icon != null))
+    {
+
+      return _resolveReferenceIcon((ReferenceIcon)icon,
+                                    referencedIconStack);
+
+    }
+
+    return icon;
+  }
+
+  // Tests whether the value is present in the (possibly null) stack.
+  private static boolean _stackContains(Stack<String> stack, Object value)
+  {
+    if (stack == null)
+      return false;
+
+    return stack.contains(value);
+  }
 
   // Checks to see whether any of our style sheets have been updated
   private boolean _checkStylesModified(
@@ -454,16 +510,16 @@ abstract public class SkinImpl extends Skin
     if (_skinStyleSheet != null)
       modified = _skinStyleSheet.checkModified(context);
 
-    // We also check all of the UIExtension style sheets even
+    // We also check all of the skin-addition style sheets even
     // if we already know that the skin's style sheet has been
     // modified.  We need to do this because we want to call
     // StyleSheetEntry.checkModified() for each entry - otherwise
     // out of date StyleSheetEntries may not get updated.
-    if (_extensionStyleSheets != null)
+    if (_skinAdditionStyleSheets != null)
     {
-      for (int i = 0; i < _extensionStyleSheets.length; i++)
+      for (int i = 0; i < _skinAdditionStyleSheets.length; i++)
       {
-        StyleSheetEntry entry = _extensionStyleSheets[i];
+        StyleSheetEntry entry = _skinAdditionStyleSheets[i];
         if (entry.checkModified(context))
           modified = true;
       }
@@ -547,8 +603,8 @@ abstract public class SkinImpl extends Skin
         _registerIconsAndPropertiesFromStyleSheetEntry(_skinStyleSheet);
       }
 
-      // Now create entries for UIExtension-specific style sheets.
-      _extensionStyleSheets = _getExtensionStyleSheets(context);
+      // Now create entries for skin-addition-specific style sheets.
+      _skinAdditionStyleSheets = _getSkinAdditionsStyleSheets(context);
     }
 
     // Now merge all of the documents provided by all of our
@@ -558,25 +614,25 @@ abstract public class SkinImpl extends Skin
     if (_skinStyleSheet != null)
       document = _skinStyleSheet.getDocument();
 
-    // Merge in any UIExtension style sheets on top of
+    // Merge in any skin-addition style sheets on top of
     // the skin's style sheet
-    if (_extensionStyleSheets != null)
+    if (_skinAdditionStyleSheets != null)
     {
-      for (int i = 0; i < _extensionStyleSheets.length; i++)
+      for (int i = 0; i < _skinAdditionStyleSheets.length; i++)
       {
-        StyleSheetEntry entry = _extensionStyleSheets[i];
+        StyleSheetEntry entry = _skinAdditionStyleSheets[i];
         if (entry != null)
         {
           // add the icons and properties that are in the 
-          // extensionDocument's StyleSheetEntry
+          // skin-addition's StyleSheetEntry
            _registerIconsAndPropertiesFromStyleSheetEntry(entry);
            
           // now merge the css properties
-          StyleSheetDocument extensionDocument = entry.getDocument();
+          StyleSheetDocument additionDocument = entry.getDocument();
   
-          if (extensionDocument != null)
+          if (additionDocument != null)
           {
-            // Merge the UIExtension's StyleSheetDocument on top of
+            // Merge the skin-addition's StyleSheetDocument on top of
             // the current StyleSheetDocument.  Note: This is not
             // exactly efficient - we would be better off creating
             // an array of StyleSheetDocuments and merging them all
@@ -584,7 +640,7 @@ abstract public class SkinImpl extends Skin
             // executed, this shouldn't be a bottleneck...
             document = StyleSheetDocumentUtils.mergeStyleSheetDocuments(
                                                  document,
-                                                 extensionDocument);
+                                                 additionDocument);
   
           }
         }
@@ -604,19 +660,20 @@ abstract public class SkinImpl extends Skin
                                   StyleSheetDocument.UNKNOWN_TIMESTAMP);
   }
 
-  // Gets the StyleSheetEntries for UIExtensions
-  private StyleSheetEntry[] _getExtensionStyleSheets(StyleContext context)
+  // Gets the StyleSheetEntries for skin-additions
+  private StyleSheetEntry[] _getSkinAdditionsStyleSheets(StyleContext context)
   {
-    if (_extensionStyleSheetNames == null)
+    List<String> skinAdditionStyleSheetNames = _getSkinAdditionsStyleSheetNames();
+    if (skinAdditionStyleSheetNames.size() == 0)
       return null;
 
     // Create a list to hold our StyleSheetEntries
-    int count = _extensionStyleSheetNames.size();
+    int count = skinAdditionStyleSheetNames.size();
     List<StyleSheetEntry> entries = new ArrayList<StyleSheetEntry>(count);
 
     // Loop through all registered style sheet names and
     // try to create a StyleSheetEntry for each name.
-    for(String name : _extensionStyleSheetNames)
+    for(String name : skinAdditionStyleSheetNames)
     {
       StyleSheetEntry entry = StyleSheetEntry.createEntry(context, name);
       if (entry != null)
@@ -627,30 +684,328 @@ abstract public class SkinImpl extends Skin
 
     if (!entries.isEmpty())
     {
-      _extensionStyleSheets = new StyleSheetEntry[entries.size()];
-      return entries.toArray(_extensionStyleSheets);
+      _skinAdditionStyleSheets = new StyleSheetEntry[entries.size()];
+      return entries.toArray(_skinAdditionStyleSheets);
     }
 
     return null;
   }
+  
+  /*
+   * Returns an  List of skin-addition style sheets for the Skin. 
+   * These stylesheets are added with addSkinAddition.
+   * This List does not include the skin's own stylesheet.
+   * @return List<String> of skin addition stylesheet names. It will
+   * return a List of size 0 if no skin addition stylesheets exist.
+   * @see #addSkinAddition(String, String)
+   * @see #getStyleSheetName()
+   */
+  private List<String> _getSkinAdditionsStyleSheetNames() 
+  {
+    // Get all the SkinAdditions's style sheet names.
+    // Get the style sheet names and create a List
+    // Cache this list in an instance variable
+
+    if (_skinAdditionStyleSheetNames != null)
+      return _skinAdditionStyleSheetNames;
+  
+    // loop through all the SkinAdditions and get the resource bundles
+    List<SkinAddition> additions = getSkinAdditions();
+
+    List<String> styleSheetNames = new ArrayList<String>(additions.size());
+
+    for (SkinAddition addition : additions)
+    {
+      String name = addition.getStyleSheetName();
+      if (name != null)
+      {
+        styleSheetNames.add(name);
+      }
+    }
+    
+    // cache in instance variable
+    _skinAdditionStyleSheetNames = styleSheetNames;
+
+    return _skinAdditionStyleSheetNames;
+  }
+  
+  /*
+   * Returns the List of all the ResourceBundles for the Skin --
+   * including Skin's bundle and the skin addition bundles
+   * These resourceBundles are added with addSkinAddition.
+   * @see #addSkinAddition(String, String)
+   * @see #getBundleName()
+   */
+  private List<String> _getResourceBundleNames() 
+  {
+    // Get all the SkinAdditions's resource bundles.
+    // Get the resource bundle names and create a List
+    // Cache this list in instance variable
+    
+    // return if already cached
+    if (_resourceBundleNames != null)
+      return _resourceBundleNames;
+  
+    // We haven't retrieved the bundle names yet, so do so now.
+    String bundleName = getBundleName();
+    
+    List<SkinAddition> additions = getSkinAdditions();
+    
+    int resourceBundleCount = additions.size();
+    if (bundleName != null)
+      resourceBundleCount++;
+    
+    List<String> bundleNameList = new ArrayList<String>(resourceBundleCount);
+    
+    if (bundleName != null)
+        bundleNameList.add(bundleName);
+    
+    for (SkinAddition addition : additions)
+    {
+      String name = addition.getResourceBundleName();
+      if (name != null)
+      {
+        bundleNameList.add(name);
+      }
+    }
+ 
+    // cache in instance variable
+    _resourceBundleNames = bundleNameList;
+    
+    return _resourceBundleNames;
+  }
+  
+  // get the cached value for the locale and key from the _translations map.
+  // If the value does not exist, then find it in the resource bundles,
+  // searching the Skin's bundle first, then each skin addition resource
+  // bundle until it is found. This method fills in the cached key/value map
+  // as we look for the key/value. It keeps track of which bundles we looked
+  // in so that we don't have to look in them any more for this session.
+  private Object _getCachedTranslationValueFromLocale(
+    LocaleContext lContext,
+    List<String> resourceBundleNames,
+    String        key
+    )
+  {
+    Locale locale = lContext.getTranslationLocale();
+    
+    KeyValueMapStatus keyValueMapStatus = _translations.get(locale);
+    Map keyValueMap = null;
+    
+    if (keyValueMapStatus != null)
+    {
+      keyValueMap = keyValueMapStatus.getKeyValueMap();
+      if (keyValueMap != null)
+      {
+        Object value = keyValueMap.get(key);
+        if (value != null)
+        {
+          return value; 
+        }
+      }
+    }
+    else
+    {
+      // create the keyValueMapStatus object and put it on the locale
+      synchronized (_translations)
+      {
+        if (!_translations.contains(locale))
+        {
+          keyValueMapStatus = new KeyValueMapStatus();
+          keyValueMap = keyValueMapStatus.getKeyValueMap();
+          _translations.put(locale, keyValueMapStatus);
+        }
+      }
+    }
+    
+    // at this point the keyValueMapStatus is set on the locale, 
+    // and we know we have to fill it in.
+    // getProcessedBundlesIndex will tell us which resource bundles
+    // we have already processed (locale bundle + skin-addition bundles)
+    // we increment this number after we look in each bundle and update
+    // the keyValueMap.
+            
+    int numberOfBundleNames = resourceBundleNames.size();
+    
+    // in theory, multiple threads could get the same processedBundleIndex
+    // here, so we could get all these threads updating the same map, but
+    // it will eventually update the index, so I won't worry about this now.
+    int startIndex = keyValueMapStatus.getProcessedBundlesIndex();
+    for (int i=startIndex; i < numberOfBundleNames;)
+    {
+      String bundleName = resourceBundleNames.get(i);
+      // 'true' means to check if the key already exists in the keyValueMap and 
+      // if so do not override.
+      _fillInKeyValueMap(lContext, bundleName, keyValueMap, (i==0));
+      i = keyValueMapStatus.incrementAndGetProcessedBundlesIndex();
+      Object value = keyValueMap.get(key);
+      if (value != null)
+      {
+        return value;
+      } 
+    }   
+    
+    // nothing was found
+    return null;
+
+  }
+
+  /**
+   * Fill in the keyValueMap with all the keys and values for the ResourceBundle.
+   * The ResourceBundle is found by calling lContext.getBundle(bundleName).
+   * MissingResourceExceptions are not thrown, since it is possible that 
+   * SkinExtensions have only provided custom bundles for certain languages.
+   * @param lContext LocaleContext,  LocaleContext maintains a cache of found ResourceBundles
+   * @param bundleName the resource bundle's name.
+   * @param keyValueMap A Map of bundle keys to their values
+   * @param checkForKey If true, we will check if the key is already in the map 
+   *                    and not re-add it. If false, we don't bother checking, 
+   *                    we just add it. When this method is called for the
+   *                    first bundle, then we know we do not need to check.
+   */
+  private void _fillInKeyValueMap(
+    LocaleContext lContext, 
+    String        bundleName,
+    Map           keyValueMap,
+    boolean       checkForKey)
+  {
+  
+    ResourceBundle bundle = null;
+    
+    try
+    {
+      bundle = lContext.getBundle(bundleName);
+    }
+    catch (MissingResourceException e)
+    {
+       // It is possible that the call to getBundle() might
+       // fail with a MissingResourceException if the customer
+       // has only provided a custom bundle for certain languages.
+       // This is okay, so we just eat these exceptions.
+       ;
+    }
+    
+    if (bundle != null)
+    { 
+      Enumeration<String> en = bundle.getKeys();
+    
+      if (en != null)
+      {
+        while (en.hasMoreElements())
+        {
+          String bundleKey = en.nextElement();
+          // if checkForKey is true, don't override an existing key/value
+          if (checkForKey)
+          {
+            if (!keyValueMap.containsKey(bundleKey))
+            {
+              Object value = bundle.getObject(bundleKey);
+              if (value != null)
+                keyValueMap.put(bundleKey, value);
+            }            
+          }
+          else
+          {
+            Object value = bundle.getObject(bundleKey);
+            if (value != null)
+              keyValueMap.put(bundleKey, value);             
+          }
+        }
+      }
+    }       
+  }
+  
+  // This is the 'value' of the _translations map.
+  // This contains a translation key/value map which contains
+  // all the translation keys and values in the resource bundles
+  // we have processed thus far for a particular locale.
+  // It also contains an index which keeps track of how
+  // many of the bundles we have checked so far, so that
+  // we don't recheck a bundle.
+  // This is to help with performance, since getting
+  // values from a resource bundle is expensive.
+  private static class KeyValueMapStatus
+  {
+   
+    KeyValueMapStatus()
+    {
+      _keyValueMap = new ConcurrentHashMap<String, Object>();
+      _processedBundlesIndex = new AtomicInteger(0);
+    }
+    
+    // get the current key/value Map
+    public Map<String, Object> getKeyValueMap()
+    {
+      return _keyValueMap;
+    }
+    
+    // Get the current value of processedBundlesIndex.
+    public int getProcessedBundlesIndex()
+    {
+      return _processedBundlesIndex.get();
+    } 
+    
+    // Atomically increment by one the current value of processBundlesIndex.
+    // @return the updated value
+    public int incrementAndGetProcessedBundlesIndex()
+    {
+      return _processedBundlesIndex.incrementAndGet();
+    }         
+
+    Map<String, Object> _keyValueMap;
+    // This keeps track of the number of bundles that have been processed.
+    // A Skin can have multiple bundles registered on it -- a local resource 
+    // bundle + any number of skin-addition bundles.  
+    // When we get a key (getTranslatedValue), we check each bundle
+    // and fill in the keyValueMap until we find the key. 
+    // We update this index after we process each
+    // bundle, so that we don't recheck a bundle. We only have to check a bundle 
+    // once per locale per session, because we cache the keys/values for each
+    // bundle we check in the _keyValueMap.
+    AtomicInteger       _processedBundlesIndex;
+  }
+    
+  // Now that we look into possibly multiple ResourceBundles
+  // to find a translation (eg. the local bundle + a skin-addition's
+  // bundle), translation lookups can become expensive.
+  // To get a value, we call: lContext.getBundle(name).getObject(key).
+  // We speed things up by caching the translations
+  // in this _translations map. 
+  // As we get a call to getTranslatedValue with a key, we
+  // look through our keyValueMap. If it isn't there, we loop
+  // through each resource bundle we haven't yet checked, 
+  // and we get all the keys and values
+  // and when we have all the keys/values for the
+  // bundle, we return if the key/value is there. Otherwise,
+  // we check the next bundle and so on.
+  // If we never get a request for a key in bundle X, that bundle X's
+  // keys/values will never be put in the keyvalue map. This is a good thing.
+  private ConcurrentHashMap<Locale, KeyValueMapStatus> _translations =
+    new ConcurrentHashMap<Locale, KeyValueMapStatus>(13);
 
   // HashMap that maps icon name to Icons
   private ConcurrentHashMap<String, Icon> _icons = new ConcurrentHashMap<String, Icon>();
 
   // The StyleSheetDocument which contains all of the styles
-  // for this Skin - including styles contributed by UIExtensions.
+  // for this Skin - including styles contributed by skin-additions.
   private StyleSheetDocument _styleSheetDocument;
 
   // A StyleSheetEntry which defines the styles that are
   // provided by this Skin's style sheet only (does
-  // not include UIExtension styles).
+  // not include skin-additions styles).
   private StyleSheetEntry _skinStyleSheet;
 
-  // List of extension style sheet names
-  private List<String> _extensionStyleSheetNames;
+  // List of skin-additions style sheet names for this Skin
+  private List<String> _skinAdditionStyleSheetNames;
 
-  // Array of UIExtension StyleSheetEntries
-  private StyleSheetEntry[] _extensionStyleSheets;
+  // Array of skin-additions StyleSheetEntries
+  private StyleSheetEntry[] _skinAdditionStyleSheets;
+  
+  // List of all the resource bundle names (bundleName + skin-additions)
+  private List<String> _resourceBundleNames; 
+  
+  // List of skin-additions for this Skin
+  private List<SkinAddition> _skinAdditions;  
 
   // HashMap of Skin properties
   private ConcurrentHashMap<Object, Object> _properties= new ConcurrentHashMap<Object, Object>();

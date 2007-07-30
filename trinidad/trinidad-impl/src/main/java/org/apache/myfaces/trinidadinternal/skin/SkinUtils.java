@@ -41,6 +41,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
 import org.apache.myfaces.trinidad.skin.Skin;
+import org.apache.myfaces.trinidad.skin.SkinAddition;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.MinimalDesktopSkinExtension;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.MinimalPdaSkinExtension;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.MinimalPortletSkinExtension;
@@ -96,7 +97,7 @@ public class SkinUtils
   }
   
   /**
-   * Register any custom skin extensions found in the
+   * Register any custom skin extensions (and skin-additions) found in the
    * trinidad-skins.xml file with the SkinFactory.
    * 
    * Make sure the SkinFactory.getFactory() does not return null before
@@ -118,7 +119,7 @@ public class SkinUtils
       skinFactory = SkinFactory.getFactory();
     }
 
-    _registerSkinExtensions(context, skinFactory);
+    _registerSkinExtensionsAndAdditions(context, skinFactory);
 
   }
 
@@ -286,7 +287,7 @@ public class SkinUtils
   }
 
   /**
-   * Parse the trinidad-skins.xml file for SkinExtensions and add each
+   * Parse the trinidad-skins.xml file for SkinExtensions and SkinAdditionNodes and add each
    * SkinExtension to the skinFactory.
    * First find all the trinidad-skins.xml files that are in META-INF directory, and 
    * add those skins to the skin factory.
@@ -296,7 +297,7 @@ public class SkinUtils
    * @param context
    * @param skinFactory
    */
-  private static void _registerSkinExtensions(
+  private static void _registerSkinExtensionsAndAdditions(
     ExternalContext context,
     SkinFactory skinFactory)
   {
@@ -340,6 +341,9 @@ public class SkinUtils
     // register all the skin additions from META-INF trinidad-skins.xml and WEB-INF
     // trinidad-skins.xml that we have stored in the metaInfSkinsNodeList object and the
     // webInfSkinsNode object
+    // skin-additions are additions to a skin, not extensions. They are used by
+    // custom component developers that want to add a stylesheet for their components
+    // to a particular skin, like the simple skin.
     FacesContext fContext = FacesContext.getCurrentInstance();
     // register skin-additions from META-INF/trinidad-skins.xml files
     _registerMetaInfSkinAdditions(fContext, skinFactory, metaInfSkinsNodeList);
@@ -654,16 +658,21 @@ public class SkinUtils
     {
       String skinId = skinAdditionNode.getSkinId();
       String styleSheetName = skinAdditionNode.getStyleSheetName();
-  
+      String resourceBundleName = skinAdditionNode.getResourceBundleName();
+
       Skin skin = skinFactory.getSkin(fContext, skinId);
-      if (skin != null && styleSheetName != null)
-      {  
+      if (skin != null && (styleSheetName != null) || (resourceBundleName != null))
+      {
         // If the styleSheetName is in the META-INF/trinidad-skins.xml file, then
         // we prepend META-INF to the styleSheetName if it doesn't begin with '/'.
         // This way we can find the file when we go to parse it later.
-        if (isMetaInfFile)
-          styleSheetName = _prependMetaInf(styleSheetName);
-        skin.registerStyleSheet(styleSheetName); 
+        if (isMetaInfFile && (styleSheetName != null))
+            styleSheetName = _prependMetaInf(styleSheetName);
+
+
+        // we need to create a SkinAddition and add it to the skin
+        SkinAddition addition = new SkinAddition(styleSheetName, resourceBundleName);
+        skin.addSkinAddition(addition);
       }
     }    
   }

@@ -18,6 +18,7 @@
  */
 package org.apache.myfaces.trinidad.skin;
 
+import java.util.List;
 import java.util.Map;
 import java.util.MissingResourceException;
 
@@ -72,7 +73,7 @@ abstract public class Skin
   abstract public Map<String, String> getStyleClassMap(RenderingContext arc);
 
   /**
-   * Returns the name of the XSS style sheet for this Skin.
+   * Returns the name of the style sheet for this Skin.
    */
   abstract public String getStyleSheetName();
 
@@ -141,7 +142,7 @@ abstract public class Skin
   abstract public void registerIcon(
     String  iconName,
     Icon    icon);
-    
+
   /**
    * Registers a style sheet which defines extension-specific
    * styles.  The styles specified by this style sheet will be
@@ -149,8 +150,40 @@ abstract public class Skin
    * @param styleSheetName The name of the style sheet which
    *          defines the extension's styles.
    * @throws NullPointerException if styleSheetName is null.
+   * @deprecated Use addSkinAddition(SkinAddition) instead.
+   * @see #addSkinAddition(SkinAddition)
    */
   abstract public void registerStyleSheet(
     String styleSheetName
     );
+    
+  /**
+   * Adds a SkinAddition on this Skin. You can call this method as many times 
+   * as you like for the Skin, and it will add the SkinAddition to the list of 
+   * SkinAdditions.
+   * However, it does not make sense to call this method more than once
+   * with the same SkinAddition object.
+   * This is meant for the skin-addition use-cases, where a custom component 
+   * developer has a style sheet and/or resource bundle for their custom   
+   * components, and they want the style sheet and/or resource bundle 
+   * to work for this Skin and the children Skins.
+   * The stylesheets specified in the SkinAdditions will be merged with the 
+   * Skin's own styles.
+   * The resource bundles specified in the SkinAdditions will be looked into 
+   * if the translated key is not found in the Skin's own resource bundle 
+   * during the call to getTranslatedString or getTranslatedValue.
+   * 
+   * @param skinAddition The SkinAddition object to add to the Skin.
+   * @throws NullPointerException if SkinAddition is null.
+   */
+  abstract public void addSkinAddition (
+    SkinAddition skinAddition
+    );
+    
+  /**
+   * Gets a List of SkinAdditions that have been added on this Skin.
+   * @return List a List of SkinAdditions.
+   */
+  abstract public List<SkinAddition> getSkinAdditions ();
+    
 }

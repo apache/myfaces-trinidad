@@ -19,15 +19,9 @@
 package org.apache.myfaces.trinidadinternal.skin;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 import java.util.MissingResourceException;
-import java.util.ResourceBundle;
 import java.util.Stack;
-import java.util.concurrent.ConcurrentHashMap;
 
 import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -72,14 +66,19 @@ public class SkinExtension extends SkinImpl
    *               and render-kit-id match will be chosen.
    *               Must be non-null.
    * @param renderKitId The render-kit-id that this Skin is designed for.
+   * @param styleSheetName The name of the stylesheet for this Skin.
+   * @param resourceBundleName The name of the resource bundle for this Skin.
+
    * @throws NullPointerException if baseSkin, id, or family is null.
-   *
+   * 
    */
   public SkinExtension(
     Skin baseSkin,
     String id,
     String family,
-    String renderKitId
+    String renderKitId,
+    String styleSheetName,
+    String resourceBundleName
     )
   {
     if (baseSkin == null)
@@ -96,6 +95,45 @@ public class SkinExtension extends SkinImpl
     _id = id;
     _family = family;
     _renderKitId = renderKitId;
+    _styleSheetName = styleSheetName;
+    _bundleName = resourceBundleName;
+  }
+  
+  /**
+   * Creates a Skin which extends the specified base
+   * Skin.
+   *
+   * @param baseSkin The base Skin that this custom
+   *        Skin "extends". If it is a Skin designed for "org.apache.myfaces.trinidad.desktop"
+   *        render-kit-id, then its base skin should be SimpleDesktopSkin.
+   *        If it is a Skin designed for "org.apache.myfaces.trinidad.pda" render-kit-id,
+   *        then its base skin should be SimplePdaSkin.
+   *        Must be non-null.
+   * @param id A string which can be used to uniquely identify the
+   *           Skin .
+   *           Must be non-null.
+   * @param family The Skin family name that this
+   *               SkinExtension belongs to. For example, you might have
+   *               a Skin that makes your pages look purple for the
+   *               desktop renderkit and a Skin that makes your pages
+   *               look purple for the pda renderkit.
+   *               You can set the skin-family to "purple" in
+   *               trinidad-config.xml, and the Skin with skin-family
+   *               and render-kit-id match will be chosen.
+   *               Must be non-null.
+   * @param renderKitId The render-kit-id that this Skin is designed for.
+   * @throws NullPointerException if baseSkin, id, or family is null.
+   * @deprecated Use the constructor that also contains styleSheetName and resourceBundleName
+   *
+   */
+  public SkinExtension(
+    Skin baseSkin,
+    String id,
+    String family,
+    String renderKitId
+    )
+  {
+    this(baseSkin, id, family, renderKitId, null, null);
   }
 
 
@@ -129,9 +167,9 @@ public class SkinExtension extends SkinImpl
   }
 
   /**
-   * Returns the name of the XSS style sheet for this Skin if
-   * on has been set
-   * @see setStyleSheetName
+   * Returns the name of the style sheet for this Skin if
+   * one has been set
+   * @see #setStyleSheetName(String)
    */
   @Override
   public String getStyleSheetName()
@@ -150,21 +188,22 @@ public class SkinExtension extends SkinImpl
 
 
   /**
-   * Returns the name of the bundle for the extension.
+   * Returns the name of the bundle for the SkinExtension.
    */
   @Override
   public String getBundleName()
   {
-    if (_bundleName != null)
-      return _bundleName;
-    return _baseSkin.getBundleName();
+    return _bundleName;
   }
 
   /**
-   * Returns the name of the bundle for the extension.
+   * Returns the name of the bundle for this SkinExtension.
+   * @deprecated Use the constructor that takes a resourceBundleName instead.
    */
   public void setBundleName(String bundleName)
   {
+     // TODO take out method once sufficient time has past since deprecation
+    // in July, 2007
     _bundleName = bundleName;
   }
 
@@ -197,72 +236,30 @@ public class SkinExtension extends SkinImpl
     return _baseSkin.getStyleClassMap(arc);
   }
 
+
+
   /**
-   * Override of Skin.getTranslatedValue() which
-   * supports pulling translations from component providers
-   * as well as the base Skin.
-   */
+    * Override of Skin.getTranslatedValue() which
+    * supports pulling translations from Skin and if not found from the base Skin.
+  */
   @Override
   public Object getTranslatedValue(
     LocaleContext lContext,
     String        key
     ) throws MissingResourceException
   {
-    // Short-circuit when there is no customized translation
-    if (_bundleName == null)
-    {
+    // Look for the skin's translated value (first bundle name, then registered bundles)
+    // if that's not found, then look in the base skin's translated value.
+    // getCachedTranslatedValue will protect against MissingResourceExceptions
+    Object translatedValue = super.getCachedTranslatedValue(lContext, key);
+    // TODO Cache base skin's non-null translatedValue with this skin to
+    // make it faster.
+    if (translatedValue == null)
       return getBaseSkin().getTranslatedValue(lContext, key);
-    }
-
-    // First, check the local translations cache
-    Object value = _getCachedTranslatedValue(lContext, key);
-    if (value != null)
-    {
-      // testTranslationKey(key);//jmw test for testing translation keys
-      if (value == _NULL_TRANSLATION)
-        return null;
-
-      return value;
-    }
-
-    // Next, check to see if we can get a translation from
-    // a bundle that has been explicitly registered on this
-    // SkinExtension instance.  (We can just use
-    // Skin.getTranslatedValue() for this.)
-    // Note: In order to avoid MissingResourceExceptions, we
-    // first check to see if the translation key is available
-    // before looking up the message in the ResourceBundle.
-    if (_isTranslationKeyAvailable(lContext, key))
-    {
-      try
-      {
-        value = super.getTranslatedValue(lContext, key);
-      }
-      catch (MissingResourceException e)
-      {
-        // It is possible that the call to getBundle() might
-        // fail with a MissingResourceException if the customer
-        // has only provided a custom bundle for certain languages.
-        // This is okay, so we just eat these exceptions.
-        ;
-      }
-    }
-
-    // If we didn't find a value in the local bundle, try getting
-    // the translation from the base Skin.
-    if (value == null)
-    {
-      Skin baseSkin = getBaseSkin();
-      value = baseSkin.getTranslatedValue(lContext, key);
-    }
-
-    // If we found an translation, store it in the cache so that
-    // we don't have to search for it again next time.
-    _putCachedTranslatedValue(lContext, key, value);
-
-    return value;
+    else
+      return translatedValue;
   }
-
+   
   /**
    * Try to pull a locally set property, if null
    * pull a property from the base skin.
@@ -357,6 +354,7 @@ public class SkinExtension extends SkinImpl
 
   /**
    * Sets the name of the style sheet for this Skin.
+   * @deprecated Use the SkinExtension constructor that takes a styleSheetName instead.
    */
   public void setStyleSheetName(String styleSheetName)
   {
@@ -407,133 +405,6 @@ public class SkinExtension extends SkinImpl
     }
   }
 
-
-  // Gets the translated value from the local translations cache.
-  private Object _getCachedTranslatedValue(
-    LocaleContext lContext,
-    String        key
-    )
-  {
-    // Get the translation Locale
-    Locale locale = lContext.getTranslationLocale();
-
-    // Get all of the translations for the current translation Locale
-    Map<String, Object> localeTranslations = _translations.get(locale);
-
-    if (localeTranslations != null)
-      return localeTranslations.get(key);
-
-    return null;
-  }
-
-  // Stores the translated value in the local translations cache
-  // Note the synchronization!  This is necessary because we may be
-  // putting translations into the cache from multiple request threads.
-  synchronized private void _putCachedTranslatedValue(
-    LocaleContext lContext,
-    String        key,
-    Object        value
-    )
-  {
-    // Use a placeholder to mark null translations
-    if (value == null)
-      value = _NULL_TRANSLATION;
-
-    // Get the translation Locale
-    Locale locale = lContext.getTranslationLocale();
-
-    // Get all of the translations for the current translation locale
-    Map<String, Object> localeTranslations = _translations.get(locale);
-
-    if (localeTranslations == null)
-    {
-      // If we didn't previously have any translations for this
-      // Locale, create storage for translations now...
-      localeTranslations = new ConcurrentHashMap<String, Object>();
-      _translations.put(locale, localeTranslations);
-    }
-
-    // Store the new component translations array
-    localeTranslations.put(key, value);
-  }
-
-  // Checks whether there is a translation with the specified
-  // key in the custom ResourceBundle.  We call this method
-  // before calling ResourceBundle.getObject() because custom
-  // bundles are not required to provide translations for all
-  // messages.  If we didn't first check _isTranslationKeyAvailable(),
-  // we might see a lot of MissingResourceExceptions.
-  private boolean _isTranslationKeyAvailable(
-    LocaleContext lContext,
-    String        key
-    )
-  {
-    String bundleName = getBundleName();
-    if (bundleName == null)
-      return false;
-
-    Map<String, Boolean> keys = _getTranslationKeys(lContext);
-
-    return keys.containsKey(key);
-  }
-
-  // Returns the a Map which contains the translation keys for
-  // the specified locale.
-  @SuppressWarnings("unchecked")
-  private Map<String, Boolean> _getTranslationKeys(
-    LocaleContext lContext
-    )
-  {
-   // We store the translation keys map in the translation cache
-    Map<String, Boolean> keys =
-      (Map<String, Boolean>)_getCachedTranslatedValue(lContext,
-                                              _TRANSLATION_KEYS_KEY);
-
-    if (keys == null)
-    {
-      String bundleName = getBundleName();
-      assert bundleName != null;
-
-      keys = new HashMap<String, Boolean>();
-
-      ResourceBundle bundle = null;
-
-      try
-      {
-        bundle = lContext.getBundle(bundleName);
-      }
-      catch (MissingResourceException e)
-      {
-        // It is possible that the call to getBundle() might
-        // fail with a MissingResourceException if the customer
-        // has only provided a custom bundle for certain languages.
-        // This is okay, so we just eat these exceptions.
-        ;
-      }
-
-      if (bundle != null)
-      {
-        Enumeration<String> en = bundle.getKeys();
-
-        if (en != null)
-        {
-          while (en.hasMoreElements())
-            keys.put(en.nextElement(), Boolean.TRUE);
-        }
-      }
-
-      if (keys.isEmpty())
-        keys = Collections.emptyMap();
-      else
-        keys = Collections.unmodifiableMap(keys);
-
-      _putCachedTranslatedValue(lContext,
-                                _TRANSLATION_KEYS_KEY,
-                                keys);
-    }
-
-    return keys;
-  }
   /**
    * Find the actual icon
    * @param refIcon a ReferenceIcon instance
@@ -636,21 +507,7 @@ public class SkinExtension extends SkinImpl
   private String      _styleSheetName;
   private String      _bundleName;
 
-  // Now that we look into possibly multiple ResourceBundles
-  // to find a translation (eg. the local bundle, a component
-  // provider's bundle, the super-LAFs bundle), translation lookups
-  // can become expensive.  So, we keep a local cache all translated
-  // resources which is populated as we go along.  Translations are
-  // hashed by Locale/component name/key.  This is more
-  // hashing than usual to get a translation, but at least this is
-  // a finite/fixed expense.  At least this way translation lookup
-  // performance won't degrade if a custom bundle is provided - or
-  // if we need to pull the translation from some other Skin.
-  //
-  // This HashMap hashes Locales -> HashMaps.
-  // The HashMaps map translation key to message.
-  private ConcurrentHashMap<Locale, Map<String, Object>> _translations =
-    new ConcurrentHashMap<Locale, Map<String, Object>>(13);
+
 
   // The StyleSheetDocument for the base LookAndFeel's style sheet
   private StyleSheetDocument _baseStyleSheetDocument;
@@ -663,15 +520,8 @@ public class SkinExtension extends SkinImpl
   // the SkinExtension.
   private StyleSheetDocument _fullStyleSheetDocument;
 
-  // Special key that we use for storing the translation keys
-  // in the translation cache.
-  private static final String _TRANSLATION_KEYS_KEY = "_uixLafTransKeys";
-
   // Placeholder for null icons
   private static final Icon _NULL_ICON = new NullIcon();
-
-  // Placeholder for null translations
-  private static final Object _NULL_TRANSLATION = new Object();
 
   // Error messages
   private static final String _CIRCULAR_INCLUDE_ERROR =
