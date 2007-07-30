@@ -17,7 +17,6 @@
  *  under the License.
  */
 
-//FIXME: go from "listeners" to a callback approach
 /**
  * The RequestQueue class is a service to serialize the XML HTTP 
  * request communication from the client to the server.
@@ -42,13 +41,6 @@ TrRequestQueue._MULTIPART_FRAME = "_trDTSFrame";
   
 TrRequestQueue._XMLHTTP_TYPE = 0;
 TrRequestQueue._MULTIPART_TYPE = 1;
-
-TrRequestQueue.getInstance = function()
-{
-  if (TrRequestQueue._INSTANCE == null)
-    TrRequestQueue._INSTANCE = new TrRequestQueue(window);
-  return TrRequestQueue._INSTANCE;
-}
 
 TrRequestQueue.prototype.dispose = function()
 {
@@ -373,7 +365,8 @@ TrRequestQueue.prototype._doXmlHtppRequest = function(requestItem)
   var xmlHttp = new TrXMLRequest();
   xmlHttp.__dtsRequestContext = requestItem._context;
   xmlHttp.__dtsRequestMethod = requestItem._method;
-  xmlHttp.setCallback(TrRequestQueue._requestCallback);
+  var callback = TrUIUtils.createCallback(this, this._handleRequestCallback);
+  xmlHttp.setCallback(callback);
   
   // xmlhttp request uses the same charset as its parent document's charset.
   // There is no need to set the charset.
@@ -651,12 +644,6 @@ TrRequestQueue.prototype._requestDone = function()
   }
 }
 
-TrRequestQueue._requestCallback = function(
-  xmlRequest
-  )
-{
-  TrRequestQueue.getInstance()._handleRequestCallback(xmlRequest);
-}
 
 /**
 * Adds a listener to the request queue that is interested in its state change.
