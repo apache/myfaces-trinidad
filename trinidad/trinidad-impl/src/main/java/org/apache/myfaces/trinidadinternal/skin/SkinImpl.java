@@ -431,12 +431,7 @@ abstract public class SkinImpl extends Skin
       throw new NullPointerException("Null key");
 
     List<String> resourceBundleNames = _getResourceBundleNames();
-    
-    // if there is nothing to check, return null
-    if (resourceBundleNames.size() == 0)
-      return null;
-      
-   
+
     return _getCachedTranslationValueFromLocale(lContext, 
                                                 resourceBundleNames, key);
     
@@ -468,6 +463,9 @@ abstract public class SkinImpl extends Skin
     }
     else
     {
+      // in the usual program flow, this won't get called here because the keyValueMapStatus
+      // is created in getCachedTranslatedValue's call of _getCachedTranslationValueFromLocale
+      // it is here as a safeguard in case the keyValueMapStatus isn't there.
       _createKeyValueMapStatusInCache(locale, key, value);    
     }
   }
@@ -853,6 +851,9 @@ abstract public class SkinImpl extends Skin
     // the keyValueMap.
             
     int numberOfBundleNames = resourceBundleNames.size();
+    // if there is nothing to check, return null
+    if (numberOfBundleNames == 0)
+      return null;
     
     // in theory, multiple threads could get the same processedBundleIndex
     // here, so we could get all these threads updating the same map, but
