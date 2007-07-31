@@ -21,7 +21,6 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 import java.io.IOException;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -265,9 +264,7 @@ public class XhtmlRenderer extends CoreRenderer
     UIComponent  component)
   {
     // If there's partial triggers, always render an ID if possible
-    FacesBean bean = getFacesBean(component);
-    if ((_partialTriggersKey != null) &&
-        (bean.getProperty(_partialTriggersKey) != null))
+    if (getPartialTriggers(getFacesBean(component)) != null)
     {
       return true;
     }
@@ -944,6 +941,18 @@ public class XhtmlRenderer extends CoreRenderer
       return null;
 
     return toString(bean.getProperty(_onmouseupKey));
+  }
+
+  protected String[] getPartialTriggers(FacesBean bean)
+  {
+    if (_partialTriggersKey == null)
+    {
+      return null;
+    }
+    else
+    {
+      return (String[])bean.getProperty(_partialTriggersKey);
+    }
   }
 
 
