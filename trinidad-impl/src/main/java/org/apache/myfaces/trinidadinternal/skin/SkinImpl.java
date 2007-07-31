@@ -376,6 +376,20 @@ abstract public class SkinImpl extends Skin
     _properties.put(key, value);
   }
   
+
+  /**
+   * @param styleSheetName
+   * @see #addSkinAddition(SkinAddition)
+   * @deprecated Use addSkinAddition instead
+   */
+  public void registerStyleSheet(String styleSheetName) 
+  {
+    //TODO Take out deprecated after sufficient amount of time has passed
+    // deprecated July, 2007
+    SkinAddition addition = new SkinAddition(styleSheetName, null);
+    addSkinAddition(addition);
+  }
+
   /**
    * Returns a translated value in the LocaleContext's translation Locale, or null
    * if the key could not be found.
@@ -427,18 +441,35 @@ abstract public class SkinImpl extends Skin
                                                 resourceBundleNames, key);
     
   }
-
+  
   /**
-   * @param styleSheetName
-   * @see #addSkinAddition(SkinAddition)
-   * @deprecated Use addSkinAddition instead
+   * Put the locale/key/value in the cache (i.e., translations map). This is useful for subclasses
+   * to call so that they can store/retrieve the key/value locally rather than always
+   * having to look in the parent skins' maps.
+   * @param lContext
+   * @param key
+   * @param value
    */
-  public void registerStyleSheet(String styleSheetName) 
+  protected void putTranslatedValueInLocaleCache(
+    LocaleContext lContext,
+    String        key,
+    Object        value)
   {
-    //TODO Take out deprecated after sufficient amount of time has passed
-    // deprecated July, 2007
-    SkinAddition addition = new SkinAddition(styleSheetName, null);
-    addSkinAddition(addition);
+    Locale locale = lContext.getTranslationLocale();
+    
+    KeyValueMapStatus keyValueMapStatus = _translations.get(locale);
+    if (keyValueMapStatus != null)
+    {
+      Map keyValueMap = keyValueMapStatus.getKeyValueMap();
+      if (keyValueMap != null)
+      {
+        keyValueMap.put(key, value);
+      }
+    }
+    else
+    {
+      _createKeyValueMapStatusInCache(locale, key, value);    
+    }
   }
 
   /**
@@ -774,6 +805,7 @@ abstract public class SkinImpl extends Skin
     
     return _resourceBundleNames;
   }
+
   
   // get the cached value for the locale and key from the _translations map.
   // If the value does not exist, then find it in the resource bundles,
@@ -807,15 +839,10 @@ abstract public class SkinImpl extends Skin
     else
     {
       // create the keyValueMapStatus object and put it on the locale
-      synchronized (_translations)
-      {
-        if (!_translations.contains(locale))
-        {
-          keyValueMapStatus = new KeyValueMapStatus();
-          keyValueMap = keyValueMapStatus.getKeyValueMap();
-          _translations.put(locale, keyValueMapStatus);
-        }
-      }
+
+      keyValueMapStatus = _createKeyValueMapStatusInCache(locale, key, null);
+      keyValueMap = keyValueMapStatus.getKeyValueMap();
+
     }
     
     // at this point the keyValueMapStatus is set on the locale, 
@@ -848,6 +875,43 @@ abstract public class SkinImpl extends Skin
     // nothing was found
     return null;
 
+  }
+  
+  // this method provides a single point of entry for creating KeyValueMapStatus object and
+  // putting the locale/keyValueMapStatus in the _translations map. If value != null,
+  // it adds the key/value to the keyValueMap.
+  // It synchronizes on the _translations parameter
+  // It returns the newly created KeyValueMapStatus object.
+  private KeyValueMapStatus _createKeyValueMapStatusInCache(
+    Locale locale,
+    String key,
+    Object value 
+  )
+  {
+    KeyValueMapStatus keyValueMapStatus = null;
+    
+    // create the keyValueMapStatus object and put it on the locale
+    synchronized (_translations)
+    {
+      // check to see if another thread has put locale in the map
+      if (!_translations.contains(locale))
+      {
+        keyValueMapStatus = new KeyValueMapStatus();
+        if (value != null)
+        {
+          Map keyValueMap = keyValueMapStatus.getKeyValueMap();
+          keyValueMap.put(key, value);
+        }
+        _translations.put(locale, keyValueMapStatus);
+      }
+      else
+      {
+        keyValueMapStatus = _translations.get(locale);
+      }
+    }
+
+    return keyValueMapStatus;
+    
   }
 
   /**

@@ -251,13 +251,20 @@ public class SkinExtension extends SkinImpl
     // Look for the skin's translated value (first bundle name, then registered bundles)
     // if that's not found, then look in the base skin's translated value.
     // getCachedTranslatedValue will protect against MissingResourceExceptions
-    Object translatedValue = super.getCachedTranslatedValue(lContext, key);
-    // TODO Cache base skin's non-null translatedValue with this skin to
-    // make it faster.
+    Object translatedValue = getCachedTranslatedValue(lContext, key);
+
+    
     if (translatedValue == null)
-      return getBaseSkin().getTranslatedValue(lContext, key);
-    else
-      return translatedValue;
+    {
+      translatedValue = getBaseSkin().getTranslatedValue(lContext, key);
+      // Cache the non-null translated value with the SkinExtension to avoid looking
+      // at the base skin's map.
+      if (translatedValue != null)
+        putTranslatedValueInLocaleCache(lContext, key, translatedValue);
+
+    }
+     
+    return translatedValue;
   }
    
   /**
