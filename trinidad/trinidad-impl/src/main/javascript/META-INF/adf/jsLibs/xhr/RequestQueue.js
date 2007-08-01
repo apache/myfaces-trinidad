@@ -351,7 +351,7 @@ TrRequestQueue.prototype._doRequest = function()
   switch (requestItem._type)
   {
     case TrRequestQueue._XMLHTTP_TYPE:
-      this._doXmlHtppRequest(requestItem);
+      this._doXmlHttpRequest(requestItem);
       break;
     
     case TrRequestQueue._MULTIPART_TYPE:    
@@ -360,7 +360,7 @@ TrRequestQueue.prototype._doRequest = function()
   }
 }
 
-TrRequestQueue.prototype._doXmlHtppRequest = function(requestItem)
+TrRequestQueue.prototype._doXmlHttpRequest = function(requestItem)
 {
   var xmlHttp = new TrXMLRequest();
   xmlHttp.__dtsRequestContext = requestItem._context;
