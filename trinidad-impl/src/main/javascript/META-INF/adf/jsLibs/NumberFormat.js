@@ -29,11 +29,13 @@
   this._pSuf = getLocaleSymbols().getPositiveSuffix();
   this._nPre = getLocaleSymbols().getNegativePrefix();
   this._nSuf = getLocaleSymbols().getNegativeSuffix();
-  //default values, similar to JDK
+
+  //default values, similar to JDK (values from Apache Harmony)
   this._maxFractionDigits = 3;
   this._maxIntegerDigits  = 40;
   this._minFractionDigits = 0;
   this._minIntegerDigits  = 1;
+  this._groupingUsed = true;
   
 }
 //***********************
@@ -62,6 +64,28 @@ TrNumberFormat.getCurrencyInstance = function()
 TrNumberFormat.getPercentInstance = function()
 {
   return new TrNumberFormat("percent");
+}
+
+/**
+ * Sets whether this NumberFormat formats and parses numbers using a
+ * grouping separator.
+ * 
+ * @param value true when a grouping separator is used, false otherwise
+ */
+TrNumberFormat.prototype.setGroupingUsed = function(groupingUsed)
+{
+  this._groupingUsed = groupingUsed;
+}
+
+/**
+ * Answers whether this NumberFormat formats and parses numbers using a
+ * grouping separator.
+ * 
+ * @return true when a grouping separator is used, false otherwise
+ */
+TrNumberFormat.prototype.isGroupingUsed = function()
+{
+  return this._groupingUsed;
 }
 
 /**
@@ -466,8 +490,11 @@ TrNumberFormat.prototype._formatIntegers = function(ints)
     ints = leadingZeros + ints;
   }
   
-  ints = this._addGroupingSeparators(ints);
-  
+  if(this.isGroupingUsed())
+  {
+    ints = this._addGroupingSeparators(ints);
+  }
+
   return ints;
 }
 
