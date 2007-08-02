@@ -56,6 +56,7 @@ public class CoreCommonScriptsResourceLoader extends AggregatingResourceLoader
     "META-INF/adf/jsLibs/CharSets.js",
     "META-INF/adf/jsLibs/NumberFormat.js",
     "META-INF/adf/jsLibs/CoreFormat.js",
+    "META-INF/adf/jsLibs/TrCollections.js",
     "META-INF/adf/jsLibs/DateField.js",
     "META-INF/adf/jsLibs/DateFieldFormat.js",
     "META-INF/adf/jsLibs/DateFormat.js",
@@ -87,6 +88,7 @@ public class CoreCommonScriptsResourceLoader extends AggregatingResourceLoader
   {
     "META-INF/adf/jsLibsDebug/CharSets.js",
     "META-INF/adf/jsLibsDebug/NumberFormat.js",
+    "META-INF/adf/jsLibsDebug/TrCollections.js",
     "META-INF/adf/jsLibsDebug/CoreFormat.js",
     "META-INF/adf/jsLibsDebug/DateField.js",
     "META-INF/adf/jsLibsDebug/DateFieldFormat.js",
