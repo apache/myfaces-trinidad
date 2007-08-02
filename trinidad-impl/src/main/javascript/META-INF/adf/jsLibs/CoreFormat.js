@@ -912,8 +912,8 @@ TrDateRestrictionValidator.prototype.getHints = function(
   var allMonth = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
   
   //remove the submitted values, which are invalid, to display only the valid ones
-  this._removeInvalidValues(this._weekdaysValue, allWeekdays);
-  this._removeInvalidValues(this._monthValue, allMonth);
+  TrCollections.removeValuesFromArray(this._weekdaysValue, allWeekdays);
+  TrCollections.removeValuesFromArray(this._monthValue, allMonth);
   
   return _returnHints(
     this._messages,
@@ -924,31 +924,6 @@ TrDateRestrictionValidator.prototype.getHints = function(
     "hintWeek",
     "hintMonth"
   );
-}
-
-/**
- * Removes invalidValues from the allValues array
- * TODO matzew: move this to a "CollectionUtil.js" ?
- */
-TrDateRestrictionValidator.prototype._removeInvalidValues = function(
-  invalidValues,
-  allValues
-  )
-{
-  if(invalidValues)
-  {
-    for(i=0; i<invalidValues.length; i++)
-    {
-      var value = invalidValues[i];
-      for(j=0;j<allValues.length; j++)
-      {
-        if(allValues[j].toLowerCase() == value.toLowerCase())
-        {
-          allValues.splice(j,1);
-        }
-      }
-    }
-  }
 }
 
 TrDateRestrictionValidator.prototype._translate = function(
@@ -988,7 +963,7 @@ TrDateRestrictionValidator.prototype.validate  = function(
       if(weekDaysArray[i].toLowerCase() == dayString)
       {
         var allWeekdays = ['mon','tue','wed','thu','fri','sat','sun'];
-        this._removeInvalidValues(this._weekdaysValue, allWeekdays);
+        TrCollections.removeValuesFromArray(this._weekdaysValue, allWeekdays);
         var days = this._translate(allWeekdays, this._translatedWeekdaysMap, converter.getLocaleSymbols().getWeekdays());
 
         var facesMessage;
@@ -1023,7 +998,7 @@ TrDateRestrictionValidator.prototype.validate  = function(
       if(monthArray[i].toLowerCase() == monthString)
       {
         var allMonth = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
-        this._removeInvalidValues(this._monthValue, allMonth);
+        TrCollections.removeValuesFromArray(this._monthValue, allMonth);
         var month = this._translate(allMonth, this._translatedMonthMap, converter.getLocaleSymbols().getMonths());
         
         var facesMessage;
