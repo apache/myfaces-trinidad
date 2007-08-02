@@ -124,7 +124,7 @@ public final class NumberConverter extends org.apache.myfaces.trinidad.convert.N
     boolean formating = _formatingAttributesSet();
 
     if(formating)
-      params = new Object[10];
+      params = new Object[12];
     else
       params = new Object[4];
     params[0] = this.getPattern();
@@ -136,12 +136,14 @@ public final class NumberConverter extends org.apache.myfaces.trinidad.convert.N
     //only if specified.
     if(formating)
     {
-      params[4] = this.getCurrencyCode();
-      params[5] = this.getCurrencySymbol();
-      params[6] = this.isMaximumFractionDigitsSet() ? this.getMaxFractionDigits() : null;
-      params[7] = this.isMaximumIntegerDigitsSet() ? this.getMaxIntegerDigits() : null;
-      params[8] = this.isMinimumFractionDigitsSet() ? this.getMinFractionDigits() : null;
-      params[9] = this.isMinimumIntegerDigitsSet() ? this.getMinIntegerDigits() : null;
+      params[4] = this.isIntegerOnly();
+      params[5] = this.isGroupingUsed();
+      params[6] = this.getCurrencyCode();
+      params[7] = this.getCurrencySymbol();
+      params[8] = this.isMaximumFractionDigitsSet() ? this.getMaxFractionDigits() : null;
+      params[9] = this.isMaximumIntegerDigitsSet() ? this.getMaxIntegerDigits() : null;
+      params[10] = this.isMinimumFractionDigitsSet() ? this.getMinFractionDigits() : null;
+      params[11] = this.isMinimumIntegerDigitsSet() ? this.getMinIntegerDigits() : null;
     }
 
     return params;
@@ -155,6 +157,8 @@ public final class NumberConverter extends org.apache.myfaces.trinidad.convert.N
   {
     return (this.getCurrencyCode()!=null ||
       this.getCurrencySymbol() != null ||
+      this.isGroupingUsed() != true ||
+      this.isIntegerOnly() != false ||
       this.isMaximumFractionDigitsSet() ||
       this.isMaximumIntegerDigitsSet() ||
       this.isMinimumFractionDigitsSet() ||
@@ -166,10 +170,9 @@ public final class NumberConverter extends org.apache.myfaces.trinidad.convert.N
       UIComponent  component,
       Map<?, ?>    messages)
     {
-  
       StringBuilder outBuffer = new StringBuilder(250);
       
-      if(this.isIntegerOnly() && this.getPattern() == null)
+      if(this.isIntegerOnly() && this.getPattern() == null && "number".equals(this.getType()))
       {
         outBuffer.append("new TrIntegerConverter(");
         outBuffer.append("null,null,0,");
