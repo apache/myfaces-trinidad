@@ -28,6 +28,7 @@
       <p>
         <ul>        
             <li><a href="configuration.html">Configuring Apache Trinidad</a></li>
+            <li><a href="ppr.html">AJAX and Partial Page Rendering (PPR)</a></li>
             <li><a href="communicatingBetweenPages.html">Communicating Between Pages: pageFlowScope</a></li>
             <li><a href="dialogs.html">The Apache Trinidad Dialog Framework</a></li>
             <li><a href="fileUpload.html">File Upload</a></li>            
