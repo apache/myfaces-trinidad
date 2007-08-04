@@ -302,10 +302,10 @@ TrRequestQueue._appendUrlFormEncoded = function(
 * Performs Asynchronous XML HTTP Request with the Server
 * @param context    any object that is sent back to the callback when the request 
 *  is complete. This object can be null.
+* @param method   Javascript method
 * @param actionURL   the url to send the request to
 * @param headerParams  Option HTTP header parameters to attach to the request
 * @param content     the content of the Asynchronous XML HTTP Post
-* @param method   Javascript method
 */
 TrRequestQueue.prototype.sendRequest = function(
   context,
