@@ -18,8 +18,8 @@
  */
 
 /**
- * Data Transfer Request Event class. This object is passed back to the listeners
- * of a Data Transfer Service Request. It support ITrXMLRequestEvent pseudo-interface
+ * AJAX Request Event class. This object is passed back to the listeners
+ * of a AJAX Service Request. It support ITrXMLRequestEvent pseudo-interface
  * with the following methods: getStatus, getResponseXML, getResponseText, 
  * isPprResponse, getResponseContentType
  */
@@ -43,7 +43,7 @@ TrXMLRequestEvent.prototype.getStatus = function()
 }
 
 /**
-* Returns the response of the Data Transfer Request as an XML document
+* Returns the response of the AJAX Request as an XML document
 * NOTE: this method is valid only for TrXMLRequestEvent.STATUS_COMPLETE
 **/
 TrXMLRequestEvent.prototype.getResponseXML = function()
@@ -52,7 +52,7 @@ TrXMLRequestEvent.prototype.getResponseXML = function()
 }
 
 /**
-* Returns true if the response XML of the Data Transfer Request is valid.
+* Returns true if the response XML of the AJAX Request is valid.
 * NOTE: this method is valid only for TrXMLRequestEvent.STATUS_COMPLETE
 **/
 TrXMLRequestEvent.prototype._isResponseValidXML = function()
@@ -77,7 +77,7 @@ TrXMLRequestEvent.prototype._isResponseValidXML = function()
 }
 
 /**
-* Returns the response of the Data Transfer Request as text.
+* Returns the response of the AJAX Request as text.
 * NOTE: this method is valid only for TrXMLRequestEvent.STATUS_COMPLETE
 **/
 TrXMLRequestEvent.prototype.getResponseText = function()
@@ -86,7 +86,7 @@ TrXMLRequestEvent.prototype.getResponseText = function()
 }
 
 /**
-* Returns the status code of the xml http Data Transfer Request.
+* Returns the status code of the xml http AJAX Request.
 * NOTE: this method is valid only for TrXMLRequestEvent.STATUS_COMPLETE
 **/
 TrXMLRequestEvent.prototype.getResponseStatusCode = function()
@@ -95,7 +95,7 @@ TrXMLRequestEvent.prototype.getResponseStatusCode = function()
 }
 
 /**
-* Returns all the response headers for xml http Data Transfer Request.
+* Returns all the response headers for xml http AJAX Request.
 * NOTE: this method is valid only for TrXMLRequestEvent.STATUS_COMPLETE
 **/
 TrXMLRequestEvent.prototype._getAllResponseHeaders = function()
@@ -104,7 +104,7 @@ TrXMLRequestEvent.prototype._getAllResponseHeaders = function()
 }
 
 /**
-* Returns a particular response header for xml http Data Transfer Request.
+* Returns a particular response header for xml http Request.
 * NOTE: this method is valid only for TrXMLRequestEvent.STATUS_COMPLETE
 **/
 TrXMLRequestEvent.prototype.getResponseHeader = function(
@@ -122,6 +122,8 @@ TrXMLRequestEvent.prototype.getResponseHeader = function(
 * Returns if whether if is a rich response
 * NOTE: this method is valid only for TrXMLRequestEvent.STATUS_COMPLETE
 **/
+// TODO: this should likely be deleted or renamed, as it is
+// not PPR-specific here
 TrXMLRequestEvent.prototype.isPprResponse = function()
 {
   // todo: do we need to mark rich responses?
