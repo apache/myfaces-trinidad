@@ -32,6 +32,8 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.nav.CoreCommandButton;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
+
 public class CommandButtonRenderer extends CommandLinkRenderer
 {
   public CommandButtonRenderer()
@@ -67,83 +69,112 @@ public class CommandButtonRenderer extends CommandLinkRenderer
   {
     if (getPartialSubmit(bean))
     {
-      AutoSubmitUtils.writeDependencies(context, arc);
+       AutoSubmitUtils.writeDependencies(context, arc);
     }
 
     String clientId = getClientId(context, component);
     // Make sure we don't have anything to save
     assert(arc.getCurrentClientId() == null);
     arc.setCurrentClientId(clientId);
- 
-    boolean useButtonTag = useButtonTags(arc);
-    String element = useButtonTag ? "button" : "input";
+ 	
     ResponseWriter rw = context.getResponseWriter();
-    rw.startElement(element, component);
-    renderId(context, component);
-
-    // Write the text and access key
-    String text = getText(bean);
     String icon = getIcon(bean);
 
-    if (useButtonTag)
-      rw.writeAttribute("type", getButtonType(), null);
-    else if (icon != null)
-      rw.writeAttribute("type", "image", null);
-    else
-      rw.writeAttribute("type", getInputType(), null);
-
-    if (getDisabled(bean))
+    //if icon is set, render as an image element within a link element
+    //since "buttons" html element is not supported and "input" element of
+    //type=image does not support "onClick" JS handler.
+    if((icon != null) && !_supportsOnClickOnImgInput(arc)) 
     {
-      rw.writeAttribute("disabled", Boolean.TRUE, "disabled");
-      // Skip over event attributes when disabled
-      renderStyleAttributes(context, arc, bean);
-    }
-    else
-    {
-      renderAllAttributes(context, arc, bean);
-    }
-
-    char accessKey;
-    if (supportsAccessKeys(arc))
-    {
-      accessKey = getAccessKey(bean);
-      if (accessKey != CHAR_UNDEFINED)
+      if(!getDisabled(bean))
       {
-        rw.writeAttribute("accesskey",
-                          Character.valueOf(accessKey),
-                          "accessKey");
-      }                   
-    }
-    else
-    {
-      accessKey = CHAR_UNDEFINED;
-    }
-
-    if (useButtonTag)
-    {
-      AccessKeyUtils.renderAccessKeyText(context,
-                                         text,
-                                         accessKey,
-                                         SkinSelectors.AF_ACCESSKEY_STYLE_CLASS);
-      if (icon != null)
-        OutputUtils.renderImage(context, arc, icon, null, null, null,
-                                getShortDesc(bean));
-    }
-    else
-    {
-      if (icon != null)
-      {
+        rw.startElement(XhtmlConstants.LINK_ELEMENT, component);
+        renderEncodedActionURI(context, XhtmlConstants.HREF_ATTRIBUTE, "#");
+        rw.writeAttribute(XhtmlConstants.ONCLICK_ATTRIBUTE, 
+                           getOnclick(bean), null);
+        rw.startElement("img", component);
+        renderAllAttributes(context, arc, bean);
         renderEncodedResourceURI(context, "src", icon);
+        rw.endElement("img");
+        rw.endElement(XhtmlConstants.LINK_ELEMENT);
+      }    
+      else
+      {
+        //If disabled attribute is set on PDAs for commandButtons set as icon,
+        //render a static image
+        rw.startElement("img",component);
+        renderAllAttributes(context, arc, bean);
+        renderEncodedResourceURI(context, "src", icon);
+        rw.endElement("img");
+      }
+    } 
+    else
+    {
+      boolean useButtonTag = useButtonTags(arc);
+      String element = useButtonTag ? "button" : "input";
+      rw.startElement(element, component);
+      renderId(context, component);
+
+      // Write the text and access key
+      String text = getText(bean);
+      
+      if (useButtonTag)
+        rw.writeAttribute("type", getButtonType(), null);
+      else if (icon != null)
+        rw.writeAttribute("type", "image", null);
+      else
+        rw.writeAttribute("type", getInputType(), null);
+
+      if (getDisabled(bean))
+      {
+        rw.writeAttribute("disabled", Boolean.TRUE, "disabled");
+        // Skip over event attributes when disabled
+        renderStyleAttributes(context, arc, bean);
       }
       else
       {
-        rw.writeAttribute("value", text, "text");
+        renderAllAttributes(context, arc, bean);
       }
+
+      char accessKey;
+      if (supportsAccessKeys(arc))
+      {
+        accessKey = getAccessKey(bean);
+        if (accessKey != CHAR_UNDEFINED)
+        {
+          rw.writeAttribute("accesskey",
+                             Character.valueOf(accessKey),
+                             "accessKey");
+        }                   
+      }  
+      else
+      {
+        accessKey = CHAR_UNDEFINED;
+      }
+      if (useButtonTag)
+      {
+        AccessKeyUtils.renderAccessKeyText(context,
+                                           text,
+                                           accessKey,
+                                           SkinSelectors.AF_ACCESSKEY_STYLE_CLASS);
+        if (icon != null)
+          OutputUtils.renderImage(context, arc, icon, null, null, null,
+                                    getShortDesc(bean));
+      } 
+      else
+      {
+        if (icon != null)
+        {
+          renderEncodedResourceURI(context, "src", icon);
+        }
+        else
+        {
+          rw.writeAttribute("value", text, "text");
+        }
+      }
+ 
+      rw.endElement(element);
+      arc.setCurrentClientId(null);
     }
-
-    rw.endElement(element);
-
-    arc.setCurrentClientId(null);
   }
 
   protected String getButtonType()
@@ -262,6 +293,18 @@ public class CommandButtonRenderer extends CommandLinkRenderer
   protected String getIcon(FacesBean bean)
   {
     return toUri(bean.getProperty(_iconKey));
+  }
+
+  /**
+   * Returns true if the agent supports the "onclick" JS Handler in an "input" 
+   * HTML element of type "image"
+   *
+   */
+  static private boolean _supportsOnClickOnImgInput(RenderingContext arc)
+  {
+    Object cap = arc.getAgent().getCapabilities().get(
+                      TrinidadAgent.CAP_ONCLICK_IMG_INPUT);
+    return !Boolean.FALSE.equals(cap);
   }
 
   private PropertyKey _iconKey;

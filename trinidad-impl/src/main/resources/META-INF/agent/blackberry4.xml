@@ -30,6 +30,7 @@
   <capability name="-adfinternal-readonlyFormElements" value="true"/>  
   <capability name="-adfinternal-styleAttributes" value="external"/>
   <capability name="-adfinternal-scriptingSpeed" value="slow"/>
+  <capability name="-adfinternal-onclickOnImgInput" value="false"/>    
   <!-- note the following that is not captured in the capability list:
        1) textPresentation:  BlackBerry Browser 4.0 does not support all
        of the XHTML text presentation module (5.4.1), specifically not 
