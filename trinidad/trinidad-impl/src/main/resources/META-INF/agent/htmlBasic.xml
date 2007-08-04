@@ -48,4 +48,5 @@
   <capability name="-adfinternal-cssSelectors" value="none"/>
   <capability name="-adfinternal-fieldset" value="false"/>  
   <capability name="-adfinternal-supportsDisabledOptions" value="false"/>
+  <capability name="-adfinternal-onclickOnImgInput" value="true"/>    
 </capabilityData>

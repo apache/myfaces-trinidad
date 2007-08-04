@@ -27,4 +27,5 @@
   <capability name="-adfinternal-disabledFormElements" value="false"/>
   <capability name="-adfinternal-readonlyFormElements" value="false"/> 
   <capability name="-adfinternal-valign" value="true"/>
+  <capability name="-adfinternal-onclickOnImgInput" value="false"/>    
 </capabilityData>

@@ -31,6 +31,9 @@ public interface TrinidadAgent extends Agent
   static public final CapabilityKey CAP_DOM =
           CapabilityKey.getCapabilityKey("dom", true);
 
+  static public final CapabilityKey CAP_ONCLICK_IMG_INPUT =
+          CapabilityKey.getCapabilityKey("-adfinternal-onclickOnImgInput", true);
+            
   static public final CapabilityKey CAP_XMLDOM =
           CapabilityKey.getCapabilityKey("-adfinternal-xmldom", true);
 

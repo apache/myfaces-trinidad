@@ -174,16 +174,19 @@
       </input>
 <!--AttributeTest[icon,/foo.gif]-->
 
-      <input
-           class="af_commandButton"
+      <a
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
-           type="image"
-           id="uri-attr:mainId"
-           name="uri-attr:mainId"
-           src="uri-attr:encoded-resource-url:/test-context-path/foo.gif"
+           href="uri-attr:encoded-action-url:#"
           >
         
-      </input>
+        <img
+             class="af_commandButton"
+             onclick="submitForm('formId',1,{source:'mainId'});return false;"
+             src="uri-attr:encoded-resource-url:/test-context-path/foo.gif"
+            >
+          
+        </img>
+      </a>
 <!--AttributeTest[onclick,null]-->
 
       <input
