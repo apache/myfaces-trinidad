@@ -100,7 +100,7 @@ TrNumberFormat.prototype.setMaximumIntegerDigits = function(number)
   //taken from the Apache Harmony project
   if(number)
   {
-    this._maxIntegerDigits = value < 0 ? 0 : number;
+    this._maxIntegerDigits = number < 0 ? 0 : number;
     if (this._minIntegerDigits > this._maxIntegerDigits)
     {
       this._minIntegerDigits = this._maxIntegerDigits;
@@ -133,7 +133,7 @@ TrNumberFormat.prototype.setMaximumFractionDigits = function(number)
   //taken from the Apache Harmony project
   if(number)
   {
-    this._maxFractionDigits = value < 0 ? 0 : number;
+    this._maxFractionDigits = number < 0 ? 0 : number;
     if (this._maxFractionDigits < this._minFractionDigits)
     {
       this._minFractionDigits = this._maxFractionDigits;
