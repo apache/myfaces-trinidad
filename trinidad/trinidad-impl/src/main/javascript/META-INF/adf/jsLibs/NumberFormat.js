@@ -165,7 +165,7 @@ TrNumberFormat.prototype.setMinimumIntegerDigits = function(number)
   //taken from the Apache Harmony project
   if(number)
   {
-    this._minIntegerDigits = value < 0 ? 0 : number;
+    this._minIntegerDigits = number < 0 ? 0 : number;
     if(this._minIntegerDigits > this._maxIntegerDigits)
     {
       this._maxIntegerDigits = this._minIntegerDigits;
@@ -196,7 +196,7 @@ TrNumberFormat.prototype.setMinimumFractionDigits = function(number)
   //taken from the Apache Harmony project
   if(number)
   {
-    this._minFractionDigits = value < 0 ? 0 : number;
+    this._minFractionDigits = number < 0 ? 0 : number;
     if (this._maxFractionDigits < this._minFractionDigits)
     {
       this._maxFractionDigits = this._minFractionDigits;
