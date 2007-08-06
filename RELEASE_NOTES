@@ -1,0 +1,9 @@
+Apache MyFaces Trinidad Plugins (version 1.0.3) (for JSF 1.1)
+
+This file contains informations for the 1.0.3 release of the Plugins
+for the Apache MyFaces Trinidad solved Jira issue:
+
+Issues:
+[TRINIDAD-90] - Tagdoc: Unsupported Agents in component summary
+[TRINIDAD-109] - Tagdoc should doc when a component is a naming container
+[TRINIDAD-122] - Improve startup performance by loading renderers lazily
