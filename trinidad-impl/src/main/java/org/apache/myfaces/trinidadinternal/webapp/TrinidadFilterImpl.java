@@ -106,6 +106,7 @@ public class TrinidadFilterImpl implements Filter
     _filters = null;
   }
 
+
   @SuppressWarnings("unchecked")
   public void doFilter(
     ServletRequest  request,
@@ -128,22 +129,10 @@ public class TrinidadFilterImpl implements Filter
     Map<String, String[]> addedParams = (Map<String, String[]>) externalContext.getRequestMap().
       get(FileUploadConfiguratorImpl._PARAMS);
     
-    boolean isPartialRequest;
     if(addedParams != null)
     {
       FileUploadConfiguratorImpl.apply(externalContext);
       request = new UploadRequestWrapper((HttpServletRequest)request, addedParams);
-      isPartialRequest = CoreRenderKit.isPartialRequest(addedParams);
-    }
-    else
-    {
-      isPartialRequest = CoreRenderKit.isPartialRequest(externalContext);
-    }
-
-    if (isPartialRequest)
-    {
-      XmlHttpConfigurator.beginRequest(externalContext);
-      response = XmlHttpConfigurator.getWrappedServletResponse(response);
     }
 
     try
@@ -151,8 +140,19 @@ public class TrinidadFilterImpl implements Filter
       
       _doFilterImpl(request, response, chain);
     }
+    // For PPR errors, handle the request specially
     catch (Throwable t)
     {
+      boolean isPartialRequest;
+      if (addedParams != null)
+      {
+        isPartialRequest = CoreRenderKit.isPartialRequest(addedParams);
+      }
+      else
+      {
+        isPartialRequest = CoreRenderKit.isPartialRequest(externalContext);
+      }
+
       if (isPartialRequest)
       {
         XmlHttpConfigurator.handleError(externalContext, t);
