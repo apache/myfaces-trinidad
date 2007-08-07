@@ -32,6 +32,7 @@
   <xsl:param name="converterPackageContains" />
   <xsl:param name="validatorPackageContains" />
   <xsl:param name="typePrefix" />
+  <xsl:param name="removeRenderers" />
 
 
 
@@ -67,9 +68,12 @@
           <xsl:apply-templates select="javaee:icon" />
           <xsl:apply-templates select="javaee:render-kit-id" />
           <xsl:apply-templates select="javaee:render-kit-class" />
-          <xsl:for-each select="key('render-kit-id', javaee:render-kit-id/text())" >
-            <xsl:apply-templates select="javaee:renderer[contains(javaee:renderer-class, $packageContains)]" />
-          </xsl:for-each>
+          <!-- Drop renderers if desired -->
+          <xsl:if test="$removeRenderers != 'true'">
+            <xsl:for-each select="key('render-kit-id', javaee:render-kit-id/text())" >
+              <xsl:apply-templates select="javaee:renderer[contains(javaee:renderer-class, $packageContains)]" />
+            </xsl:for-each>
+          </xsl:if>
         </xsl:element>
       </xsl:for-each>
       <xsl:apply-templates select="javaee:lifecycle[contains(javaee:phase-listener, $packageContains)]" />
