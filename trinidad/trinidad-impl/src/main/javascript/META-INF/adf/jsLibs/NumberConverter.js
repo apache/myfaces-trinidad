@@ -46,13 +46,13 @@ function TrNumberConverter(
   this._minIntegerDigits = minIntegerDigits;
   
   //set the integerOnly value
-  if(integerOnly)
+  if(integerOnly !== undefined)
     this._integerOnly = integerOnly;
   else
     this._integerOnly = false;
     
   //set the groupingUsed value
-  if(groupingUsed)
+  if(groupingUsed !== undefined)
     this._groupingUsed = groupingUsed;
   else
     this._groupingUsed = true;
