@@ -297,6 +297,22 @@ public class PropertyBean extends AttributeBean
   }
 
   /**
+   * Returns true if the property is an enumerated Java type.
+   */
+  public boolean isEnum()
+  {
+    return _enum;
+  }
+
+  /**
+   * Returns true if the property is an enumerated Java type.
+   */
+  public void setEnum(boolean isEnum)
+  {
+    _enum = isEnum;
+  }
+
+  /**
    * Returns true if this property is a method binding.
    *
    * @return true  if this property is a method binding,
@@ -307,6 +323,17 @@ public class PropertyBean extends AttributeBean
     return ("javax.faces.el.MethodBinding".equals(getPropertyClass()));
   }
 
+
+  /**
+   * Returns true if this property is a method binding.
+   *
+   * @return true  if this property is a method binding,
+   *         otherwise false
+   */
+  public boolean isMethodExpression()
+  {
+    return ("javax.el.MethodExpression".equals(getPropertyClass()));
+  }
 
   /**
    * Parses the possible values for this property into a String array
@@ -344,13 +371,64 @@ public class PropertyBean extends AttributeBean
     setUnsupportedRenderKits(unsupportedRenderKits.split(" "));
   }
 
+  /**
+   * Sets the JSP name of this property.
+   *
+   * @param jspPropertyName  the JSP property name
+   */
+  public void setJspPropertyName(
+    String jspPropertyName)
+  {
+    _jspPropertyName = jspPropertyName;
+  }
+
+  /**
+   * Returns the JSP name of this property.
+   *
+   * @return  the JSP property name
+   */
+  public String getJspPropertyName()
+  {
+    if (_jspPropertyName == null)
+      return getPropertyName();
+
+    return _jspPropertyName;
+  }
+
+  /**
+   * Sets the field name of this property, when not generating Trinidad components
+   *
+   * @param fieldPropertyName  the field property name
+   */
+  public void setFieldPropertyName(
+    String fieldPropertyName)
+  {
+    _fieldPropertyName = fieldPropertyName;
+  }
+
+  /**
+   * Returns the field name of this property, when not generating Trinidad components
+   *
+   * @return  the field property name
+   */
+  public String getFieldPropertyName()
+  {
+    if (_fieldPropertyName == null)
+      return "_"+getPropertyName();
+
+    return _fieldPropertyName;
+  }
+
   private String  _aliasOf;
+  private String  _jspPropertyName;
+  private String  _fieldPropertyName;
   private boolean _required;
   private boolean _literalOnly;
   private boolean _stateHolder;
   private boolean _transient;
   private boolean _list;
   private boolean _tagAttributeExcluded;
+  private boolean _enum;
   private String[] _propertyValues;
   private String[] _unsupportedAgents = _EMPTY_ARRAY;
   private String[] _unsupportedRenderKits = _EMPTY_ARRAY;

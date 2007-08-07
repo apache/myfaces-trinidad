@@ -18,13 +18,12 @@
  */
 package org.apache.myfaces.trinidadbuild.plugin.faces.parse;
 
+import javax.xml.namespace.QName;
 import java.lang.reflect.Modifier;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Logger;
-
-import javax.xml.namespace.QName;
 
 /**
  * ConverterBean is a Java representation of the faces-config converter
@@ -169,7 +168,7 @@ public class ConverterBean extends ObjectBean
   /**
    * Sets the JSP tag name for this component.
    *
-   * @param tagClass  the JSP tag name
+   * @param tagName  the JSP tag name
    */
   public void setTagName(
     QName tagName)

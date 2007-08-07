@@ -18,14 +18,14 @@
  */
 package org.apache.myfaces.trinidadbuild.plugin.faces.util;
 
+import org.apache.myfaces.trinidadbuild.plugin.faces.parse.PropertyBean;
+
 import java.io.File;
 import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.apache.myfaces.trinidadbuild.plugin.faces.parse.PropertyBean;
 
 public class Util
 {
@@ -42,6 +42,17 @@ public class Util
     return (className != null && className.indexOf('.') != -1);
   }
 
+  public static String getGenericsFromProperty(PropertyBean property){
+      String gen = "";
+      for (int i = 0; i < property.getAttributeClassParameters().length; i++) {
+          if (i>0){
+              gen += ",";
+          }
+          gen += getClassFromFullClass(property.getAttributeClassParameters()[i]);          
+      }
+      return (gen.length() > 0?"<"+gen+">":gen);
+  }
+
   static public String getClassFromFullClass(
     String fullClass)
   {
@@ -49,7 +60,6 @@ public class Util
       return null;
 
     int lastSep = fullClass.lastIndexOf('.');
-
     // Note: this code also works for the empty package
     return (fullClass.substring(lastSep + 1));
   }
@@ -206,6 +216,28 @@ public class Util
       return className;
   }
 
+  static public String primitiveDefaultValue(String className)
+  {
+     if ("boolean".equals(className))
+      return "false";
+    else if ("byte".equals(className))
+      return "0";
+    else if ("char".equals(className))
+      return "''";
+    else if ("double".equals(className))
+      return "0.0d";
+    else if ("float".equals(className))
+      return "0.0f";
+    else if ("int".equals(className))
+      return "0";
+    else if ("long".equals(className))
+      return "0L";
+    else if ("short".equals(className))
+      return "0";
+    else
+      return className;
+  }
+
   static public String fill(
     String base,
     int    length)
@@ -257,7 +289,46 @@ public class Util
     return name;
   }
 
-  static private void _buildPropertyClass(StringBuffer buffer, String type)
+  static public String convertStringToLiteral(String value)
+  {
+    return convertStringToLiteral("String", value);
+  }
+
+  static public String convertStringToLiteral(String className, String value)
+  {
+    if (value == null)
+    {
+      return null;
+    }
+    else if ("String".equals(className))
+    {
+      return "\"" + value.replaceAll("\'", "\\'") + "\"";
+    }
+    else
+    {
+      return value;
+    }
+  }
+
+    static public String getDefaultValue(PropertyBean property){
+        String propertyFullClass = property.getPropertyClass();
+        String def = property.getDefaultValue();
+        if (def == null || def.length() == 0){
+            return null;
+        }
+        if (isPrimitiveClass(propertyFullClass)){
+            return def;
+        } else if ("java.lang.String".equals(propertyFullClass)){
+            if (def.startsWith("\"") && def.endsWith("\"")){
+                return def;
+            } else {
+                return "\""+def+"\"";
+            }
+        }
+        return null;
+    }
+
+    static private void _buildPropertyClass(StringBuffer buffer, String type)
   {
     Matcher matcher = _GENERIC_TYPE.matcher(type);
     if(matcher.matches())

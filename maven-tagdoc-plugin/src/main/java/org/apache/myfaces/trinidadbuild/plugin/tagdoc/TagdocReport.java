@@ -833,10 +833,17 @@ public class TagdocReport extends AbstractMavenMultiPageReport
         out.write("</tr>\n");
       }
 
+      String propertyName = attr.getPropertyName();
+      // Quick fix of problems with actionExpression vs. action
+      // actionExpression is the MethodExpression on the component,
+      // but on the tag it's 'action'
+      if ("actionExpression".equals(propertyName))
+        propertyName = "action";
+
       out.write("<tr>\n");
-      out.write("<td>" + attr.getPropertyName() + "</td>");
+      out.write("<td>" + propertyName + "</td>");
       String type = _getDisplayType(className,
-                                    attr.getPropertyName(),
+                                    propertyName,
                                     attr.getPropertyClass());
 
       out.write("<td>" + type + "</td>");
@@ -845,10 +852,11 @@ public class TagdocReport extends AbstractMavenMultiPageReport
       // MethodBindings, "binding", and some other attributes
       // require EL support
       if (attr.isMethodBinding() || 
-          "binding".equals(attr.getPropertyName()))
+          attr.isMethodExpression() ||
+          "binding".equals(propertyName))
       {
         // "action" doesn't require EL; all else do.
-        elSupported = "action".equals(attr.getPropertyName()) ? "Yes" : "Only EL";
+        elSupported = "action".equals(propertyName) ? "Yes" : "Only EL";
       }
       else
       {
