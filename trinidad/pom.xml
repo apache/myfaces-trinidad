@@ -522,4 +522,13 @@
 -->
   </distributionManagement>
 
+  <profiles>
+    <profile>
+      <id>generate-assembly</id>
+      <modules>
+        <module>trinidad-assembly</module>
+        <module>trinidad-examples</module>
+      </modules>
+    </profile>
+  </profiles>
 </project>
