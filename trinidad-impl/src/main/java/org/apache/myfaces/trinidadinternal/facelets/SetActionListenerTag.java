@@ -27,14 +27,12 @@ import org.apache.myfaces.trinidad.event.SetActionListener;
 
 import com.sun.facelets.FaceletContext;
 import com.sun.facelets.FaceletException;
-import com.sun.facelets.el.LegacyValueBinding;
 import com.sun.facelets.tag.TagAttribute;
 import com.sun.facelets.tag.TagConfig;
 import com.sun.facelets.tag.TagHandler;
 import com.sun.facelets.tag.jsf.ComponentSupport;
 
 /**
- * @todo it should be removed after we consume JSF1.2.
  */
 public class SetActionListenerTag extends TagHandler
 {
@@ -46,7 +44,6 @@ public class SetActionListenerTag extends TagHandler
     _to   = getRequiredAttribute("to");
   }
   
-  @SuppressWarnings("deprecation")
   public void apply(FaceletContext faceletContext,
                     UIComponent parent) throws FaceletException, ELException
   {
@@ -59,10 +56,8 @@ public class SetActionListenerTag extends TagHandler
                                                             Object.class);
       ActionSource actionSource= (ActionSource) parent;
       SetActionListener listener = new SetActionListener();
-      listener.setValueBinding("from",
-                               new LegacyValueBinding(fromExpression));
-      listener.setValueBinding("to",
-                               new LegacyValueBinding(toExpression));
+      listener.setValueExpression("from", fromExpression);
+      listener.setValueExpression("to", toExpression);
       actionSource.addActionListener(listener);
     }
   }

@@ -28,6 +28,11 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Properties;
 
+import javax.el.ELContext;
+import javax.el.ELException;
+import javax.el.MethodExpression;
+import javax.el.ValueExpression;
+
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -106,8 +111,7 @@ abstract public class UIXComponentBase extends UIXComponent
   static private final PropertyKey _LISTENERS_KEY =
     TYPE.registerKey("listeners", FacesListener[].class, PropertyKey.CAP_LIST);
   static private final PropertyKey _ATTRIBUTE_CHANGE_LISTENER_KEY =
-    TYPE.registerKey("attributeChangeListener", MethodBinding.class,
-                     PropertyKey.CAP_STATE_HOLDER);
+    TYPE.registerKey("attributeChangeListener", MethodExpression.class);
   // =-=AEW "parent", "rendersChildren", "childCount", "children",
   // "facets", "facetsAndChildren", "family" all are technically
   // bean properties, but they aren't exposed here...
@@ -190,16 +194,61 @@ abstract public class UIXComponentBase extends UIXComponent
   }
 
   @Override
-  public void setAttributeChangeListener(MethodBinding mb)
+  public void setAttributeChangeListener(MethodExpression mb)
   {
     setProperty(_ATTRIBUTE_CHANGE_LISTENER_KEY, mb);
   }
 
-  @Override
-  public MethodBinding getAttributeChangeListener()
+  @Deprecated
+  public void setAttributeChangeListener(MethodBinding mb)
   {
-    return (MethodBinding) getProperty(_ATTRIBUTE_CHANGE_LISTENER_KEY);
+    setAttributeChangeListener(adaptMethodBinding(mb));
   }
+
+  @Override
+  public MethodExpression getAttributeChangeListener()
+  {
+    return (MethodExpression) getProperty(_ATTRIBUTE_CHANGE_LISTENER_KEY);
+  }
+
+
+  @Override
+  public ValueExpression getValueExpression(String name)
+  {
+    if (name == null)
+      throw new NullPointerException();
+
+    PropertyKey key = getPropertyKey(name);
+
+    // Support standard RI behavior where getValueBinding()
+    // doesn't complain about being asked for a ValueBinding -
+    // but continue supporting strict behavior at FacesBean layer.
+    if (!key.getSupportsBinding())
+      return null;
+
+    return getFacesBean().getValueExpression(key);
+  }
+
+  @Override
+  public void setValueExpression(String name, 
+                                 ValueExpression expression)
+  {
+    if (name == null)
+      throw new NullPointerException();
+
+    if ((expression != null) && expression.isLiteralText())
+    {
+      ELContext context =
+          FacesContext.getCurrentInstance().getELContext();
+      getAttributes().put(name, expression.getValue(context));
+    }
+    else
+    {
+      PropertyKey key = getPropertyKey(name);
+      getFacesBean().setValueExpression(key, expression);
+    }
+  }
+
 
 
   /**
@@ -233,9 +282,8 @@ abstract public class UIXComponentBase extends UIXComponent
   }
 
 
-  @SuppressWarnings("unchecked")
   @Override
-  public Map getAttributes()
+  public Map<String, Object> getAttributes()
   {
     if (_attributes == null)
       _init(null);
@@ -252,7 +300,7 @@ abstract public class UIXComponentBase extends UIXComponent
     // NOTE - client ids cannot be cached because the generated
     // value has to be dynamically calculated in some cases (UIData)
 
-    String clientId = getLocalClientId();
+    String clientId = getId();
     if (clientId == null)
     {
       clientId = (String) getProperty(_GENERATED_ID_KEY);
@@ -269,7 +317,7 @@ abstract public class UIXComponentBase extends UIXComponent
     {
       if (containerComponent instanceof NamingContainer)
       {
-        clientId = (containerComponent.getClientId(context) +
+        clientId = (containerComponent.getContainerClientId(context) +
                     NamingContainer.SEPARATOR_CHAR +
                     clientId);
         break;
@@ -359,13 +407,11 @@ abstract public class UIXComponentBase extends UIXComponent
     setBooleanProperty(RENDERED_KEY, rendered);
   }
 
-  @Override
   public boolean isTransient()
   {
     return getBooleanProperty(TRANSIENT_KEY, false);
   }
 
-  @Override
   public void setTransient(boolean newTransient)
   {
     setBooleanProperty(TRANSIENT_KEY, newTransient);
@@ -497,9 +543,8 @@ abstract public class UIXComponentBase extends UIXComponent
    * <p>Create (if necessary) and return a List of the children associated
    * with this component.</p>
    */
-  @SuppressWarnings("unchecked")
   @Override
-  public List getChildren()
+  public List<UIComponent> getChildren()
   {
     if (_children == null)
       _children = new ChildArrayList(this);
@@ -520,9 +565,8 @@ abstract public class UIXComponentBase extends UIXComponent
    * <p>Create (if necessary) and return a Map of the facets associated
    * with this component.</p>
    */
-  @SuppressWarnings("unchecked")
   @Override
-  public Map getFacets()
+  public Map<String, UIComponent> getFacets()
   {
 
     if (_facets == null)
@@ -539,7 +583,7 @@ abstract public class UIXComponentBase extends UIXComponent
       throw new NullPointerException();
     if (_facets == null)
       return null;
-    return (UIComponent) getFacets().get(facetName);
+    return getFacets().get(facetName);
   }
 
 
@@ -559,9 +603,8 @@ abstract public class UIXComponentBase extends UIXComponent
 
 
   // TODO: Optimize to a compound iterator
-  @SuppressWarnings("unchecked")
   @Override
-  public Iterator getFacetsAndChildren()
+  public Iterator<UIComponent> getFacetsAndChildren()
   {
     // =-=AEW Is this supposed to be an immutable Iterator?
     if (_facets == null)
@@ -597,7 +640,6 @@ abstract public class UIXComponentBase extends UIXComponent
 
   // ------------------------------------------- Event processing methods
 
-  @SuppressWarnings("unchecked")
   @Override
   public void broadcast(FacesEvent event)
     throws AbortProcessingException
@@ -630,7 +672,7 @@ abstract public class UIXComponentBase extends UIXComponent
 
     if (event instanceof AttributeChangeEvent)
     {
-      broadcastToMethodBinding(event, getAttributeChangeListener());
+      broadcastToMethodExpression(event, getAttributeChangeListener());
     }
   }
 
@@ -638,7 +680,6 @@ abstract public class UIXComponentBase extends UIXComponent
   // ------------------------------------------- Lifecycle Processing Methods
 
 
-  @SuppressWarnings("unchecked")
   @Override
   public void decode(FacesContext context)
   {
@@ -646,9 +687,7 @@ abstract public class UIXComponentBase extends UIXComponent
       throw new NullPointerException();
 
     // Find all the partialTriggers and save on the context
-    // -= Simon Lessard =-
-    // FIXME: JSF 1.2 specify <String, Object>
-    Map<Object, Object> attrs = getAttributes();
+    Map<String, Object> attrs = getAttributes();
     Object triggers = attrs.get("partialTriggers");
     if (triggers instanceof String[])
     {
@@ -848,13 +887,11 @@ abstract public class UIXComponentBase extends UIXComponent
     getFacesBean().markInitialState();
   }
 
-  @Override
   public Object saveState(FacesContext context)
   {
     return getFacesBean().saveState(context);
   }
 
-  @Override
   public void restoreState(FacesContext context, Object stateObj)
   {
     getFacesBean().restoreState(context, stateObj);
@@ -909,7 +946,6 @@ abstract public class UIXComponentBase extends UIXComponent
    * component.
    * @param context the current FacesContext
    */
-  @SuppressWarnings("unchecked")
   protected void decodeChildrenImpl(FacesContext context)
   {
     Iterator<UIComponent> kids = getFacetsAndChildren();
@@ -945,7 +981,6 @@ abstract public class UIXComponentBase extends UIXComponent
    * component.
    * @param context the current FacesContext
    */
-  @SuppressWarnings("unchecked")
   protected void validateChildrenImpl(FacesContext context)
   {
     // Process all the facets and children of this component
@@ -977,7 +1012,6 @@ abstract public class UIXComponentBase extends UIXComponent
     updateChildrenImpl(context);
   }
 
-  @SuppressWarnings("unchecked")
   protected void updateChildrenImpl(FacesContext context)
   {
     // Process all the facets and children of this component
@@ -1007,7 +1041,6 @@ abstract public class UIXComponentBase extends UIXComponent
     getFacesBean().removeEntry(_LISTENERS_KEY, listener);
   }
 
-  @SuppressWarnings("unchecked")
   @Override
   protected FacesListener[] getFacesListeners(Class clazz)
   {
@@ -1145,15 +1178,6 @@ abstract public class UIXComponentBase extends UIXComponent
     return n.intValue();
   }
 
-  /**
-   * Returns the default local client identifier, relative to the current
-   * naming container.
-   */
-  protected String getLocalClientId()
-  {
-    return getId();
-  }
-
 
   /**
    * Return the number of facets.  This is more efficient than
@@ -1174,6 +1198,7 @@ abstract public class UIXComponentBase extends UIXComponent
    * This can be used to support MethodBindings such as the "actionListener"
    * binding on ActionSource components:
    * &lt;tr:commandButton actionListener="#{mybean.myActionListener}">
+   * @deprecated
    */
   protected final void broadcastToMethodBinding(
     FacesEvent event,
@@ -1198,10 +1223,46 @@ abstract public class UIXComponentBase extends UIXComponent
   }
 
   /**
+   * Given a MethodBinding, create a MethodExpression that
+   * adapts it.
+   */
+  static public MethodExpression adaptMethodBinding(MethodBinding binding)
+  {
+    return new MethodBindingMethodExpression(binding);
+  }
+
+  /**
+   * Broadcast an event to a MethodExpression.
+   * This can be used to support MethodBindings such as the "actionListener"
+   * binding on ActionSource components:
+   * &lt;tr:commandButton actionListener="#{mybean.myActionListener}">
+   */
+  protected final void broadcastToMethodExpression(
+    FacesEvent event,
+    MethodExpression method) throws AbortProcessingException
+  {
+    if (method != null)
+    {
+      try
+      {
+        FacesContext context = getFacesContext();
+        method.invoke(context.getELContext(), new Object[] { event });
+      }
+      catch (ELException ee)
+      {
+        Throwable t = ee.getCause();
+        // Unwrap AbortProcessingExceptions
+        if (t instanceof AbortProcessingException)
+          throw ((AbortProcessingException) t);
+        throw ee;
+      }
+    }
+  }
+
+  /**
    * render a component. this is called by renderers whose
    * getRendersChildren() return true.
    */
-  @SuppressWarnings("unchecked")
   void __encodeRecursive(FacesContext context, UIComponent component)
     throws IOException
   {
@@ -1216,7 +1277,7 @@ abstract public class UIXComponentBase extends UIXComponent
       {
         if (component.getChildCount() > 0)
         {
-          for(UIComponent child : (List<UIComponent>)component.getChildren())
+          for(UIComponent child : component.getChildren())
           {
             __encodeRecursive(context, child);
           }
@@ -1228,7 +1289,6 @@ abstract public class UIXComponentBase extends UIXComponent
   }
 
 
-  @SuppressWarnings("unchecked")
   static private UIComponent _findInsideOf(
     UIComponent from,
     String id)

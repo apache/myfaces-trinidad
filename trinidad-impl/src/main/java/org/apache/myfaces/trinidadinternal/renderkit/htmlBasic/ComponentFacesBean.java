@@ -21,6 +21,8 @@ package org.apache.myfaces.trinidadinternal.renderkit.htmlBasic;
 import java.util.Iterator;
 import java.util.Set;
 
+import javax.el.ValueExpression;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
@@ -68,9 +70,20 @@ public class ComponentFacesBean implements FacesBean
     throw new UnsupportedOperationException();
   }
 
+
   final public ValueBinding getValueBinding(PropertyKey key)
   {
     return _component.getValueBinding(key.getName());
+  }
+
+  final public ValueExpression getValueExpression(PropertyKey key)
+  {
+    return _component.getValueExpression(key.getName());
+  }
+
+  final public void setValueExpression(PropertyKey key, ValueExpression expression)
+  {
+    throw new UnsupportedOperationException();
   }
 
   final public Object getRawProperty(PropertyKey key)

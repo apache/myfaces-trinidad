@@ -20,13 +20,13 @@ package org.apache.myfaces.trinidadinternal.taglib;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.UIXCollection;
-import org.apache.myfaces.trinidad.webapp.UIXComponentTag;
+import org.apache.myfaces.trinidad.webapp.UIXComponentELTag;
 
 /**
  * Manually written because we don't auto-generate UIXCollection,
  * and we can't currently auto-generate only one of the two.
  */
-abstract public class UIXCollectionTag extends UIXComponentTag
+abstract public class UIXCollectionTag extends UIXComponentELTag
 {
   /**
    * Construct an instance of the UIXCollectionTag.
@@ -46,7 +46,7 @@ abstract public class UIXCollectionTag extends UIXComponentTag
     FacesBean bean)
   {
     super.setProperties(bean);
-    setProperty(bean, UIXCollection.VAR_KEY, _var);
+    bean.setProperty(UIXCollection.VAR_KEY, _var);
   }
 
   @Override
@@ -56,3 +56,5 @@ abstract public class UIXCollectionTag extends UIXComponentTag
     _var = null;
   }
 }
+
+

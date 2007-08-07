@@ -425,13 +425,12 @@ public class ProcessUtils
   @SuppressWarnings("unchecked")
   public static Object getMaxVisitedRowKey(
     MenuModel model,
-    Object    maxPathKey
+    String    maxPathKey
   )
   {
     //TODO - what if maxPathKey is null
     ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-    //FIXME As of JSF 1.2, the request map is <String, Object> 
-    Map<Object, Object> requestMap = externalContext.getRequestMap();
+    Map<String, Object> requestMap = externalContext.getRequestMap();
 
 
 
@@ -442,9 +441,7 @@ public class ProcessUtils
 
       //TODO - if I change this to use pageFlowScope it doesn't work.
       // figure out why.
-      // FIXME: -= Simon Lessard
-      //        session map is <String, Object> as of JSF 1.2
-      Map<Object,Object> sessionMap  = externalContext.getSessionMap();
+      Map<String,Object> sessionMap  = externalContext.getSessionMap();
 
       Map<Object,Object> maxPathMap = (Map<Object,Object>)sessionMap.get(maxPathKey);
       if (maxPathMap == null)
@@ -507,13 +504,12 @@ public class ProcessUtils
 
   @SuppressWarnings("unchecked")
   public static void clearMaxPath(
-    Object maxPathKey
+    String maxPathKey
   )
   {
     if (maxPathKey != null)
     {
-      // FIXME As of JSF 1.2, the request map is <String, Object> 
-      Map<Object, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+      Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
       sessionMap.put(maxPathKey, null);
     }
   }

@@ -25,6 +25,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.faces.context.ExternalContext;
+
+import javax.portlet.ActionRequest;
+
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.myfaces.trinidad.config.Configurator;
@@ -209,8 +213,10 @@ public class FileUploadConfiguratorImpl extends Configurator
     if(!isApplied(externalContext))
     {
       if(!ExternalContextUtils.isPortlet(externalContext))
-      {
-        return new ServletUploadedExternalContext(externalContext, addedParams);
+      {  
+        externalContext.setRequest(new UploadRequestWrapper(
+            (HttpServletRequest)externalContext.getRequest(),
+            addedParams));        
       }
       else if(ExternalContextUtils.isAction(externalContext))
       {
@@ -220,8 +226,10 @@ public class FileUploadConfiguratorImpl extends Configurator
          * RenderParameters.  This is a cool thing because subsequent
          * render requests will retain these parameters for us.
          */
-        return new PortletUploadedExternalContext(externalContext, addedParams);
+        externalContext.setRequest(new ActionUploadRequestWrapper(externalContext,
+           addedParams));
       }
+      apply(externalContext);        
     }
 
     //If we don't have any wrapped params or we have a render portal request,

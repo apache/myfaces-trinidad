@@ -22,12 +22,13 @@ import java.io.IOException;
 
 import java.util.Iterator;
 
+import javax.el.ValueExpression;
+
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
-import javax.faces.el.ValueBinding;
 import javax.faces.validator.Validator;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -237,15 +238,15 @@ abstract public class EditableValueRenderer extends ValueRenderer
     if (Boolean.TRUE.equals(o))
       return true;
 
-    // Now, if the ValueBinding underlying the value says it's
+    // Now, if the ValueExpression underlying the value says it's
     // read-only, then again, it is.
-    ValueBinding vb = getValueBinding(bean);
-    if ((vb != null) && vb.isReadOnly(context))
+    ValueExpression ve = getValueExpression(bean);
+    if ((ve != null) && ve.isReadOnly(context.getELContext()))
     {
       if (_LOG.isFiner())
       {
         _LOG.finer("Value expression {0} is read-only",
-                   vb.getExpressionString());
+                   ve.getExpressionString());
       }
 
       return true;

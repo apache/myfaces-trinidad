@@ -25,13 +25,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.el.ValueExpression;
+
 import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectItem;
 import javax.faces.component.UISelectItems;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.el.ValueBinding;
 import javax.faces.model.SelectItem;
 import org.apache.myfaces.trinidad.component.UIXSelectItem;
 import org.apache.myfaces.trinidadinternal.convert.ConverterUtils;
@@ -373,13 +374,13 @@ public class SelectItemSupport
     Converter converter = null;
     Class<?> modelClass = null;
     
-    ValueBinding binding = component.getValueBinding("value");
-    if (binding != null)
+    ValueExpression expression = component.getValueExpression("value");
+    if (expression != null)
     {
-      modelClass = binding.getType(fContext);
+      modelClass = expression.getType(fContext.getELContext());
       if (modelClass == null)
       {
-        Object o = binding.getValue(fContext);
+        Object o = expression.getValue(fContext.getELContext());
         if (o != null)
         {
           modelClass = o.getClass();

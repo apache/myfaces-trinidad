@@ -18,7 +18,7 @@
  */
 package org.apache.myfaces.trinidadinternal.taglib.util;
 
-import javax.faces.el.ValueBinding;
+import javax.el.ValueExpression;
 
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.bean.FacesBean;
@@ -55,14 +55,14 @@ public class VirtualAttributeUtils
 
   public static void setAccessKeyAttribute(
     FacesBean    bean,
-    ValueBinding valueBinding,
+    ValueExpression valueExpression,
     PropertyKey  textKey,
     PropertyKey  accessKeyKey)
   {
-    bean.setValueBinding(accessKeyKey,
-                         new AccessKeyBinding(valueBinding));
-    bean.setValueBinding(textKey,
-                         new StripAccessKeyBinding(valueBinding));
+    bean.setValueExpression(accessKeyKey,
+                            new AccessKeyBinding(valueExpression));
+    bean.setValueExpression(textKey,
+                         new StripAccessKeyBinding(valueExpression));
   }
 
   private VirtualAttributeUtils()

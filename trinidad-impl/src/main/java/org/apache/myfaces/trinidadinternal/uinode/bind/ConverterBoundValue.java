@@ -18,9 +18,10 @@
  */
 package org.apache.myfaces.trinidadinternal.uinode.bind;
 
+import javax.el.ValueExpression;
+
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.el.ValueBinding;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.UIXComponent;
@@ -57,15 +58,15 @@ public class ConverterBoundValue implements BoundValue
     Converter converter = (Converter)
       bean.getProperty(UIXValue.CONVERTER_KEY);
 
-    // OK, no explicit converter, look at the ValueBinding
+    // OK, no explicit converter, look at the ValueExpression
     if (converter == null)
     {
-      ValueBinding binding = bean.getValueBinding(UIXValue.VALUE_KEY);
-      if (binding != null)
+      ValueExpression expression = bean.getValueExpression(UIXValue.VALUE_KEY);
+      if (expression != null)
       {
         FacesContext fContext = (context == null) ? 
           FacesContext.getCurrentInstance() : context.getFacesContext();
-        Class<?> type = binding.getType(fContext);
+        Class<?> type = expression.getType(fContext.getELContext());
         converter = ConverterUtils.createConverter(fContext, type);
       }
     }

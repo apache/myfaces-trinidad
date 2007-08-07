@@ -19,23 +19,19 @@
 package org.apache.myfaces.trinidadinternal.uinode;
 
 import javax.faces.context.FacesContext;
-import javax.faces.el.ValueBinding;
+import javax.el.ValueExpression;
 
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
 
-/**
- * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
- */
-@Deprecated
-class ValueBindingBoundValue implements BoundValue
+class ValueExpressionBoundValue implements BoundValue
 {
-  public ValueBindingBoundValue(ValueBinding binding)
+  public ValueExpressionBoundValue(ValueExpression expression)
   {
-    if (binding == null)
+    if (expression == null)
       throw new NullPointerException();
 
-    _binding = binding;
+    _expression = expression;
   }
 
   /**
@@ -44,8 +40,8 @@ class ValueBindingBoundValue implements BoundValue
   public Object getValue(UIXRenderingContext rContext)
   {
     FacesContext fContext = FacesContext.getCurrentInstance();
-    return _binding.getValue(fContext);
+    return _expression.getValue(fContext.getELContext());
   }
 
-  private final ValueBinding _binding;
+  private final ValueExpression _expression;
 }

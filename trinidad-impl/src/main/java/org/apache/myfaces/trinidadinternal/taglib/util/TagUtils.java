@@ -32,7 +32,6 @@ import java.util.TimeZone;
 
 import javax.faces.application.Application;
 import javax.faces.context.FacesContext;
-import javax.faces.el.ValueBinding;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
@@ -51,14 +50,6 @@ public class TagUtils
   {
   }
 
-  public static ValueBinding getValueBinding(String valueBindingExpression)
-  {
-    FacesContext context = FacesContext.getCurrentInstance();
-    Application app = context.getApplication();
-    ValueBinding vb = app.createValueBinding(valueBindingExpression);
-    return vb;
-  }
-
   public static void assertNotNull(Object object)
   {
     if (null == object)
@@ -73,9 +64,12 @@ public class TagUtils
    * @return
    */
   public static String getString(
-    String      value)
+    Object value)
   {
-    return value;
+    if (value == null)
+      return null;
+
+    return value.toString();
   }
 
   /**
@@ -84,9 +78,15 @@ public class TagUtils
    * @return
    */
   public static boolean getBoolean(
-    String      value)
+    Object  value)
   {
-    return Boolean.valueOf(value).booleanValue();
+    if (value == null)
+      return false;
+    
+    if (value instanceof Boolean)
+      return ((Boolean) value).booleanValue();
+
+    return Boolean.valueOf(value.toString()).booleanValue();
   }
 
   /**
@@ -95,9 +95,15 @@ public class TagUtils
    * @return
    */
   public static int getInteger(
-    String      value)
+    Object  value)
   {
-    return Integer.valueOf(value).intValue();
+    if (value == null)
+      return 0;
+
+    if (value instanceof Number)
+      return ((Number) value).intValue();
+
+    return Integer.valueOf(value.toString()).intValue();
 
   }
 
@@ -107,10 +113,12 @@ public class TagUtils
    * @return
    */
   public static long getLong(
-    String      value)
+    Object      value)
   {
-    return Long.valueOf(value).longValue();
+    if (value == null)
+      return 0;
 
+    return Long.valueOf(value.toString()).longValue();
   }
 
   /**
@@ -119,9 +127,12 @@ public class TagUtils
    * @return
    */
   public static double getDouble(
-    String      value)
+    Object      value)
   {
-    return Double.valueOf(value).doubleValue();
+    if (value == null)
+      return 0;
+
+    return Double.valueOf(value.toString()).doubleValue();
 
   }
 
@@ -131,10 +142,12 @@ public class TagUtils
    * @return
    */
   public static float getFloat(
-    String      value)
+    Object      value)
   {
-    return Float.valueOf(value).floatValue();
+    if (value == null)
+      return 0;
 
+    return Float.valueOf(value.toString()).floatValue();
   }
 
   /**
@@ -144,9 +157,12 @@ public class TagUtils
    * @return
    */
   public static String[] getStringArray(
-    String      value) throws ParseException
+    Object  value) throws ParseException
   {
-    return _getTokensArray(value);
+    if (value == null)
+      return null;
+
+    return _getTokensArray(value.toString());
   }
 
   /**
@@ -155,9 +171,15 @@ public class TagUtils
    * @return
    */
   public static Date getDate(
-    String      value)
+    Object   value)
   {
-     return _parseISODate(value);
+    if (value == null)
+      return null;
+
+    if (value instanceof Date)
+      return ((Date) value);
+
+    return _parseISODate(value.toString());
   }
 
   /**
@@ -166,9 +188,15 @@ public class TagUtils
    * @return
    */
   public static Locale getLocale(
-    String      value)
+    Object      value)
   {
-    return _getLocale(value);
+    if (value == null)
+      return null;
+
+    if (value instanceof Locale)
+      return ((Locale) value);
+
+    return _getLocale(value.toString());
   }
 
   /**
@@ -177,21 +205,15 @@ public class TagUtils
    * @return
    */
   public static TimeZone getTimeZone(
-    String value)
+    Object value)
   {
-     return TimeZone.getTimeZone(value);
-  }
+    if (value == null)
+      return null;
 
-  public static boolean isValueReference(String expression)
-  {
-    if (null != expression)
-    {
-      int start = expression.indexOf("#{");
-      if ((start >= 0) && (expression.indexOf('}', start + 1) >= 0))
-        return true;
-    }
+    if (value instanceof TimeZone)
+      return ((TimeZone) value);
 
-    return false;
+     return TimeZone.getTimeZone(value.toString());
   }
 
   /**
@@ -199,9 +221,13 @@ public class TagUtils
    *  java.util.List of java.awt.Color objects and returns it.
    * @throws ParseException In case of any parse errors upon such conversion.
    */
-  public static List<Color> getColorList(String value) throws ParseException
+  public static List<Color> getColorList(Object value) throws ParseException
   {
-    String[] tokenArray = _getTokensArray(value);
+    if (value == null)
+      return null;
+
+    String valueStr = value.toString();
+    String[] tokenArray = _getTokensArray(valueStr);
     if (tokenArray == null)
       return null;
 
@@ -214,7 +240,7 @@ public class TagUtils
       //pu: If we do not have correct starter, stop here
       if (!colorCode.startsWith("#"))
         throw new ParseException(_LOG.getMessage(
-          "COLOR_CODE_DOES_NOT_START_WITH_POUNDSIGN", new Object[]{colorCode, value}), value.indexOf(colorCode));
+          "COLOR_CODE_DOES_NOT_START_WITH_POUNDSIGN", new Object[]{colorCode, value}), valueStr.indexOf(colorCode));
 
       //pu: Allow NumberFormatException (RTE) to propogate as is, or transform to JspException ?.
       int rgb = Integer.parseInt(colorCode.substring(1), 16);

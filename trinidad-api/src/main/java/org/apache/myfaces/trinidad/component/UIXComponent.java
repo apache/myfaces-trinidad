@@ -18,15 +18,10 @@
  */
 package org.apache.myfaces.trinidad.component;
 
-import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 import javax.faces.component.UIComponent;
 
-import javax.faces.context.FacesContext;
-import javax.faces.el.MethodBinding;
-import javax.faces.event.FacesListener;
+import javax.el.MethodExpression;
+
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.event.AttributeChangeListener;
 
@@ -71,7 +66,7 @@ abstract public class UIXComponent extends UIComponent
    * specific request.  An example of an attribute change events might
    * include the width of a column that supported client-side resizing.
    */
-  abstract public void setAttributeChangeListener(MethodBinding mb);
+  abstract public void setAttributeChangeListener(MethodExpression me);
 
   /**
    * Gets the method binding to an AttributeChangeListener.  Attribute
@@ -81,39 +76,7 @@ abstract public class UIXComponent extends UIComponent
    * specific request.  An example of an attribute change events might
    * include the width of a column that supported client-side resizing.
    */
-  abstract public MethodBinding getAttributeChangeListener();
+  abstract public MethodExpression getAttributeChangeListener();
 
   abstract public void markInitialState();
-
-  // JSF 1.2 methods that we're adding up front
-  abstract public int getFacetCount();
-  abstract public void encodeAll(FacesContext context) throws IOException;
-
-  
-  // Everything below here is a UIComponent method
-
-  @SuppressWarnings("unchecked")
-  @Override
-  public abstract Map getAttributes();
-
-  @SuppressWarnings("unchecked")
-  @Override
-  public abstract List getChildren();
-
-  @SuppressWarnings("unchecked")
-  @Override
-  public abstract Map getFacets();
-
-  @SuppressWarnings("unchecked")
-  @Override
-  public abstract Iterator getFacetsAndChildren();
-
-  @SuppressWarnings("unchecked")
-  @Override
-  protected abstract FacesListener[] getFacesListeners(Class clazz);
-
-  public abstract Object saveState(FacesContext context);
-  public abstract void restoreState(FacesContext context, Object state);
-  public abstract boolean isTransient();
-  public abstract void setTransient(boolean trans);
 }

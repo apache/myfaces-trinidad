@@ -32,9 +32,9 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @version $Revision: 167257 $ $Date: 2004-10-13 05:51:02 -0600 (Wed, 13 Oct 2004) $
  */
-class ServletRequestHeaderValuesMap extends AbstractAttributeMap<String, String[]>
+public class ServletRequestHeaderValuesMap extends AbstractAttributeMap<String, String[]>
 {
-  ServletRequestHeaderValuesMap(final HttpServletRequest httpServletRequest)
+  public ServletRequestHeaderValuesMap(final HttpServletRequest httpServletRequest)
   {
     _httpServletRequest = httpServletRequest;
   }

@@ -34,9 +34,6 @@
     <facet>
       <description>the popup menu associated with this menu</description>
       <facet-name>popupMenu</facet-name>
-      <facet-extension>
-        <mfp:required>false</mfp:required>
-      </facet-extension>
     </facet>
     <component-extension>
       <mfp:component-family>org.apache.myfaces.trinidad.Menu</mfp:component-family>

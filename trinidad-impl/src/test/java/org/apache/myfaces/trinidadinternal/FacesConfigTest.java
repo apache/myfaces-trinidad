@@ -29,6 +29,8 @@ public class FacesConfigTest extends XMLValidityTestCase
   /* DISABLE THIS TEST: we cannot redistribute the web-facesconfig_1_1.dtd
      without a proper license.  Once in MyFaces Apache, we should be
      able to refer to the MyFaces copy of the DTD for this test */
+  /* But now in 1.2, we have to disable it again - because we need
+     to use Schema Validation. */
   public void testFacesConfigValidity() throws Throwable
   {
     /*

@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.apache.myfaces.trinidad</groupId>
     <artifactId>trinidad</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.2.2-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
@@ -38,7 +38,7 @@
       <plugin>
         <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-jdev-plugin</artifactId>
-        <version>1.0.2</version>
+        <version>1.2.2-SNAPSHOT</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -100,6 +100,7 @@
         <configuration>
           <typePrefix>org.apache</typePrefix>
           <packageContains>org.apache</packageContains>
+          <jsfVersion>1.2</jsfVersion>
           <!--suppressListenerMethods>true</suppressListenerMethods-->
           <force>true</force>
         </configuration>
@@ -168,6 +169,13 @@
     </dependency>
 
     <dependency>
+      <groupId>commons-beanutils</groupId>
+      <artifactId>commons-beanutils</artifactId>
+      <version>1.7.0</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
       <groupId>jmock</groupId>
       <artifactId>jmock</artifactId>
       <scope>test</scope>
@@ -190,7 +198,7 @@
       <plugin>
         <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-tagdoc-plugin</artifactId>
-        <version>1.0.2</version>
+        <version>1.2.2-SNAPSHOT</version>
         <configuration>
           <taglibs>
             <tr>http://myfaces.apache.org/trinidad</tr>

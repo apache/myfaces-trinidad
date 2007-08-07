@@ -505,6 +505,17 @@ public class RequestContextImpl extends RequestContext
     }
   }
 
+  /**
+   * Returns the set of partial targets related to a given UIComponent.
+   */
+  @Override
+  public Set<UIComponent> getPartialTargets(UIComponent source)
+  {
+    HashSet<UIComponent> set = new HashSet<UIComponent>();
+    _addPartialTargets(set, source);
+    return set;    
+  }
+  
   @Override
   public void addPartialTriggerListeners
     (UIComponent listener,
@@ -754,6 +765,33 @@ public class RequestContextImpl extends RequestContext
 
     return _partialListeners;
   }
+
+  //
+  // Recursively builds up the set of partial targets of
+  // a given component
+  //
+  private void _addPartialTargets(
+    Set<UIComponent> sofar, UIComponent from)
+  {
+    Map<UIComponent, Set<UIComponent>> pl = _getPartialListeners();
+    Set<UIComponent> listeners = pl.get(from);
+    if (listeners == null)
+      return;
+    
+    for (UIComponent target : listeners)
+    {
+      // If we haven't encountered this target yet, add
+      // it, and continue recursively.
+      if (!sofar.contains(target))
+      {
+        sofar.add(target);
+        _addPartialTargets(sofar, target);
+      }
+    }
+  }
+
+
+
 
   static private UIComponent _findRelativeComponent(
     UIComponent from,

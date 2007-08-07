@@ -24,10 +24,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.el.ValueExpression;
+
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
-import javax.faces.el.ValueBinding;
 import javax.faces.render.RenderKit;
 
 import org.apache.myfaces.trinidad.context.RequestContext;
@@ -213,8 +214,9 @@ public class DialogServiceImpl extends DialogService
     FacesContext context = _getFacesContext();
     if (TrinidadFilterImpl.isExecutingDialogReturn(context))
     {
-      Map<String, Object> parameterMap = context.getExternalContext().getRequestParameterMap();
-      Object returnParam = parameterMap.get(_RETURN_PARAM);
+      Map<String, String> parameterMap =
+        context.getExternalContext().getRequestParameterMap();
+      String returnParam = parameterMap.get(_RETURN_PARAM);
       if (returnParam == null)
         return null;
 
@@ -464,9 +466,9 @@ public class DialogServiceImpl extends DialogService
   @SuppressWarnings("unchecked")
   private void _executeBindings(FacesContext context, UIComponent component)
   {
-    ValueBinding binding = component.getValueBinding("binding");
-    if (binding != null)
-      binding.setValue(context, component);
+    ValueExpression expression = component.getValueExpression("binding");
+    if (expression != null)
+      expression.setValue(context.getELContext(), component);
 
     Iterator<UIComponent> kids = component.getFacetsAndChildren();
     while (kids.hasNext())
