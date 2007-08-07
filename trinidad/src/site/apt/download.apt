@@ -33,7 +33,7 @@ Download Apache MyFaces Trinidad
   created using GNU tar extensions. Thus they must be untarred with a GNU compatible
   version of tar.
 
-    << Apache MyFaces Trinidad 1.0.1 Distribution >>
+    << Apache MyFaces Trinidad 1.0.1 Distribution  for JSF 1.1 >>
 
     Release notes can be found
   {{{http://tinyurl.com/3ylxf2}here}}.
@@ -50,7 +50,7 @@ Download Apache MyFaces Trinidad
 | Apache MyFaces Trinidad 1.0.1  Example (zip)      | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/trinidad-1.0.1-example.zip} trinidad-1.0.1-example.zip}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.1-example.zip.md5} trinidad-1.0.1-example.zip.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.1-example.zip.asc} trinidad-1.0.1-example.zip.asc}} |
 *-------------------------+---------+----------+-----------+
 
-    << Apache MyFaces Trinidad 1.2.1 Distribution >>
+    << Apache MyFaces Trinidad 1.2.1 Distribution for JSF 1.2 >>
 
     Release notes can be found
   {{{http://tinyurl.com/yttonw}here}}.
