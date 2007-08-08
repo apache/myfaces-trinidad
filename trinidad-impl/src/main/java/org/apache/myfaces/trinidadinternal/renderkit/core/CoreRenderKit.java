@@ -595,8 +595,7 @@ public class CoreRenderKit extends RenderKitBase
       }
       else
       {
-        PartialPageContext ppc = rc.getPartialPageContext();
-        if (ppc != null)
+        if (isPartialRequest(fContext.getExternalContext()))
           rw = new PPRResponseWriter(rw, rc);
       }
       
