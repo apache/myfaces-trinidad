@@ -65,8 +65,8 @@ import org.apache.myfaces.trinidadinternal.el.OracleHelpProvider;
 import org.apache.myfaces.trinidadinternal.metadata.RegionMetadata;
 
 import org.apache.myfaces.trinidad.context.PartialPageContext;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.render.CoreRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 import org.apache.myfaces.trinidadinternal.share.config.UIXCookie;
 
@@ -276,10 +276,12 @@ public class RequestContextImpl extends RequestContext
   @Override
   public char getNumberGroupingSeparator()
   {
-    Character c = (Character) _bean.getProperty(
+
+    Object property = _bean.getProperty(
       RequestContextBean.NUMBER_GROUPING_SEPARATOR_KEY);
-    if (c != null)
-      return c.charValue();
+    char c = CoreRenderer.toChar(property);
+    if (c != CoreRenderer.CHAR_UNDEFINED)
+      return c;
 
     return (char) 0;
   }
@@ -287,11 +289,12 @@ public class RequestContextImpl extends RequestContext
   @Override
   public char getDecimalSeparator()
   {
-    Character c = (Character) _bean.getProperty(
+    Object property = _bean.getProperty(
       RequestContextBean.DECIMAL_SEPARATOR_KEY);
-    if (c != null)
-      return c.charValue();
-
+    char c = CoreRenderer.toChar(property);
+    if (c != CoreRenderer.CHAR_UNDEFINED)
+      return c;
+      
     return (char) 0;
   }
 
