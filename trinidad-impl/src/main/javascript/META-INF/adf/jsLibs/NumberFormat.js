@@ -531,6 +531,9 @@ TrNumberFormat.prototype._formatFractions = function(fracs)
 TrNumberFormat.prototype._addGroupingSeparators = function(ints)
 {
   var counter = ints.length;
+  if(counter<=3)
+    return ints;
+
   var toMuch = counter%3;
   var balance;
   var toFormat;
