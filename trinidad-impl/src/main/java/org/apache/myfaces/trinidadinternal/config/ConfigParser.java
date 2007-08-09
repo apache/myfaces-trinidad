@@ -24,6 +24,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
+import javax.el.ValueExpression;
+
 import javax.faces.context.ExternalContext;
 import javax.faces.el.ValueBinding;
 import javax.xml.parsers.ParserConfigurationException;
@@ -189,9 +191,11 @@ public class ConfigParser
             }
             else
             {
-              ValueBinding binding =
-                LazyValueBinding.createValueBinding(_currentText);
-              _bean.setValueBinding(key, binding);
+                
+              ValueExpression expression =
+                LazyValueExpression.createValueExpression(_currentText, 
+                                                          key.getType());
+              _bean.setValueExpression(key, expression);
             }
           }
           else
