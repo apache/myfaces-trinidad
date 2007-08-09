@@ -27,6 +27,7 @@ import javax.faces.FacesException;
 import javax.faces.context.ExternalContext;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 
@@ -56,6 +57,11 @@ public class XmlHttpConfigurator
   public static ServletResponse getWrappedServletResponse(ServletResponse response)
   {
     return new XmlHttpServletResponse(response);
+  }
+
+  public static ServletRequest getAjaxServletRequest(ServletRequest request)
+  {
+    return new XmlHttpServletRequest(request);
   }
 
   public static void beginRequest(ExternalContext externalContext)

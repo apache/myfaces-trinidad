@@ -147,6 +147,11 @@ public class CoreRenderKit extends RenderKitBase
     return "org.apache.myfaces.trinidad.core.desktop";
   }
 
+  static public boolean isAjaxRequest(ExternalContext ec)
+  {
+    return "true".equals(ec.getRequestHeaderMap().get(_PPR_REQUEST_HEADER));
+  }
+
   static public boolean isPartialRequest(Map<String, String[]> parameters)
   {
     String[] array = parameters.get(_PPR_REQUEST_HEADER);
@@ -157,7 +162,9 @@ public class CoreRenderKit extends RenderKitBase
 
   static public boolean isPartialRequest(ExternalContext ec)
   {
-    return "true".equals(ec.getRequestHeaderMap().get(_PPR_REQUEST_HEADER)) ||
+    // A partial request could be an AJAX request, or it could
+    // be an IFRAME-postback to handle file upload
+    return isAjaxRequest(ec) ||
            "true".equals(ec.getRequestParameterMap().get(_PPR_REQUEST_HEADER));    
   }
   
