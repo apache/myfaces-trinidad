@@ -1479,7 +1479,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
   // Gets the calendar styles for the specified mode
   private static CalendarStyles _getCalendarStyles(boolean isInline)
   {
-    return (isInline) ? _INLINE_STYLES : _DIALOG_STYLES;
+    return _INLINE_STYLES;
   }
 
   // Just a little utility class which specifies the names of
@@ -1524,18 +1524,6 @@ public class ChooseDateRenderer extends XhtmlRenderer
       SkinSelectors.AF_CHOOSE_DATE_ENABLED_STYLE_CLASS,
       SkinSelectors.AF_CHOOSE_DATE_SELECTED_STYLE_CLASS,
       SkinSelectors.AF_CHOOSE_DATE_CONTENT_STYLE_CLASS
-      );
-
-  // Define calendar dialog styles
-  private static final CalendarStyles _DIALOG_STYLES =
-    new CalendarStyles(
-      SkinSelectors.AF_SELECT_INPUT_DATE_NAV_STYLE_CLASS,
-      SkinSelectors.AF_SELECT_INPUT_DATE_TITLE_STYLE_CLASS,
-      SkinSelectors.AF_SELECT_INPUT_DATE_HEADER_STYLE_CLASS,
-      SkinSelectors.AF_SELECT_INPUT_DATE_DISABLED_STYLE_CLASS,
-      SkinSelectors.AF_SELECT_INPUT_DATE_ENABLED_STYLE_CLASS,
-      SkinSelectors.AF_SELECT_INPUT_DATE_SELECTED_STYLE_CLASS,
-      SkinSelectors.AF_SELECT_INPUT_DATE_CONTENT_STYLE_CLASS
       );
 
 
