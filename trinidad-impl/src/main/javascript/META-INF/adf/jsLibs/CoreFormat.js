@@ -723,14 +723,16 @@ TrDateRestrictionValidator.prototype.getHints = function(
   var allWeekdays = ['mon','tue','wed','thu','fri','sat','sun'];
   var allMonth = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
   
-  //remove the submitted values, which are invalid, to display only the valid ones
-  TrCollections.removeValuesFromArray(this._weekdaysValue, allWeekdays);
+  //if needed, remove the submitted values, which are invalid, to display only the valid ones
+  if(this._weekdaysValue)
+    TrCollections.removeValuesFromArray(this._weekdaysValue, allWeekdays);
+  if(this._monthValue)
   TrCollections.removeValuesFromArray(this._monthValue, allMonth);
   
   return _returnHints(
     this._messages,
-    this._translate(allWeekdays, this._translatedWeekdaysMap, converter.getLocaleSymbols().getWeekdays()),
-    this._translate(allMonth, this._translatedMonthMap, converter.getLocaleSymbols().getMonths()),
+    !this._weekdaysValue ? this._weekdaysValue : this._translate(allWeekdays, this._translatedWeekdaysMap, converter.getLocaleSymbols().getWeekdays()),
+    !this._monthValue ? this._monthValue : this._translate(allMonth, this._translatedMonthMap, converter.getLocaleSymbols().getMonths()),
     "org.apache.myfaces.trinidad.validator.DateRestrictionValidator.WEEKDAY_HINT",
     "org.apache.myfaces.trinidad.validator.DateRestrictionValidator.MONTH_HINT",
     "hintWeek",
