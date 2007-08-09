@@ -554,7 +554,7 @@ TrNumberFormat.prototype._addGroupingSeparators = function(ints)
     {
       formatted += groupingSeparator;
     }
-    formatted += toFormat[i];
+    formatted += toFormat.charAt(i);
   }
   ints = balance + formatted;
   return ints;
