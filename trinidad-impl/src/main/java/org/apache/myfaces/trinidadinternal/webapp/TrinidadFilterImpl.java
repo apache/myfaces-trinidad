@@ -137,7 +137,19 @@ public class TrinidadFilterImpl implements Filter
     }
     else
     {
-      isPartialRequest = CoreRenderKit.isPartialRequest(externalContext);
+      // Only test for AJAX request, since file uploads *should* be
+      // handled by the above test.  NOTE: this will not necessarily
+      // work if someone is using Trinidad PPR with non-Trinidad 
+      // file upload!  I've no idea currently how to cleanly handle
+      // that combination in JSF 1.1.  We don't want to ask if
+      // its a partial request here, as this requires getting a
+      // query parameter, but that could block setting
+      // the character set later in the request in some app servers!
+      isPartialRequest = CoreRenderKit.isAjaxRequest(externalContext);
+      if (isPartialRequest)
+      {
+        request = XmlHttpConfigurator.getAjaxServletRequest(request);
+      }
     }
 
     if (isPartialRequest)

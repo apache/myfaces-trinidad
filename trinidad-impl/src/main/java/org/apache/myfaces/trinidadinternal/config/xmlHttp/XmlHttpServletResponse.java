@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletResponseWrapper;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.XmlResponseWriter;
 
+@SuppressWarnings("deprecation")
 final class XmlHttpServletResponse extends HttpServletResponseWrapper
 {
   XmlHttpServletResponse(ServletResponse response)
