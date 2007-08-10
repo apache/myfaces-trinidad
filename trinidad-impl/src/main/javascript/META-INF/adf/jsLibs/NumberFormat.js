@@ -306,6 +306,11 @@ TrNumberFormat.prototype.stringToPercentage = function(numberString)
  */
 TrNumberFormat.prototype.numberToString = function(number)
 {
+  //negative ?
+  var negative = number<0;
+  if(negative)
+    number = (number*-1);
+
   var numberString = number + "";
   var decimalSeparator = getLocaleSymbols().getDecimalSeparator();
   var index = numberString.indexOf(decimalSeparator);
@@ -331,6 +336,9 @@ TrNumberFormat.prototype.numberToString = function(number)
     numberString = (ints+decimalSeparator+fracs);
   else
     numberString = (ints);
+  
+  if(negative)
+    numberString = "-" + numberString;
   
   return numberString;
   
