@@ -602,8 +602,8 @@ TrDateTimeRangeValidator.prototype.validate  = function(
   //range
   if(this._minValue && this._maxValue)
   {
-    minDate = parseInt(this._minValue);
-    maxDate = parseInt(this._maxValue);
+    minDate = Date.parse(this._minValue);
+    maxDate = Date.parse(this._maxValue);
     if(dateTime >= minDate && dateTime <= maxDate)
     {
       return value;
@@ -635,7 +635,7 @@ TrDateTimeRangeValidator.prototype.validate  = function(
     //only min
     if(this._minValue)
     {
-      minDate = parseInt(this._minValue);
+      minDate = Date.parse(this._minValue);
       if(dateTime >= minDate)
       {
         return value;
@@ -663,7 +663,7 @@ TrDateTimeRangeValidator.prototype.validate  = function(
     //max only
     else if(this._maxValue)
     {
-      maxDate = parseInt(this._maxValue);
+      maxDate = Date.parse(this._maxValue);
       if(dateTime <= maxDate)
       {
         return value;
