@@ -159,10 +159,64 @@ TrPage.prototype._handlePprResponse = function(documentElement)
   }
 }
 
+TrPage.prototype._addResetFields = function(formName, resetNames)
+{
+  // Create the necessary objects
+  var resetFields = this._resetFields;
+  if (!resetFields)
+  {
+    resetFields = new Object();
+    this._resetFields = resetFields;
+  }
+
+  var formReset = resetFields[formName];
+  if (!formReset)
+  {
+    formReset = new Object();
+    resetFields[formName] = formReset;
+  }
+
+  // Store "name":true in the map for each such item
+  for (var i = 0; i < resetNames.length; i++)
+  {
+    formReset[resetNames[i]] = true;
+  }
+}
+
+TrPage.prototype._resetHiddenValues = function(form)
+{
+  var resetFields = this._resetFields;
+  if (resetFields)
+  {
+    var formReset = resetFields[form.getAttribute("name")];
+    if (formReset)
+    {
+      for (var k in formReset)
+      {
+        var currField = form[k];
+        // Code previously used form.elements.currField
+        // on PocketIE.  Dunno why the prior form would ever fail.
+        if (!currField)
+          currField = form.elements.currField;
+
+        if (currField)
+          currField.value = '';
+      }
+    }
+  }
+}
+
+/**
+ * Add reset callbacks for a form:
+ * @param formName the name of the form
+ * @param callMap a map from clientId to the JS function
+ *   that will reset that component
+ */
 TrPage.prototype._addResetCalls = function(
   formName,
   callMap)
 {
+  // Create the necessary objects
   var resetCalls = this._resetCalls;
   if (!resetCalls)
   {
@@ -177,6 +231,8 @@ TrPage.prototype._addResetCalls = function(
     resetCalls[formName] = formReset;
   }
 
+  // NOTE: this map is never pruned.  Ideally, it would be,
+  // but in practice this is unlikely to be a major concern
   for (var k in callMap)
   {
     formReset[k] = callMap[k];
