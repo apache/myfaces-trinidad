@@ -386,17 +386,17 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
 
     // Get JS-valid identifiers for ourselves
     String formName = XhtmlUtils.getJSIdentifier(rc.getFormData().getName());
-    clientId = XhtmlUtils.getJSIdentifier(clientId);
+    String jsClientId = XhtmlUtils.getJSIdentifier(clientId);
     
     // Add the reset call to the form as a whole
     StringBuilder funcCallBuffer = new StringBuilder(
                                                19 +
                                                formName.length() +
-                                               clientId.length());
+                                               jsClientId.length());
 
-    funcCallBuffer.append("TrShuttleProxy._resetItems('").append(clientId);
+    funcCallBuffer.append("TrShuttleProxy._resetItems('").append(jsClientId);
     funcCallBuffer.append("','").append(formName).append("');");
-    FormRenderer.addResetCall(funcCallBuffer.toString());
+    FormRenderer.addResetCall(clientId, funcCallBuffer.toString());
 
     ResponseWriter rw = context.getResponseWriter();
     // And write out the "orig" script that retains knowledge of
@@ -404,9 +404,9 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
     rw.writeText( "window[\"_", null);
     rw.writeText(formName, null);
     rw.writeText("_", null);
-    rw.writeText(clientId, null);
+    rw.writeText(jsClientId, null);
     rw.writeText("_orig\"]=TrShuttleProxy._copyLists('", null);
-    rw.writeText(clientId, null);
+    rw.writeText(jsClientId, null);
     rw.writeText("','", null);
     rw.writeText(formName, null);
     rw.writeText("');", null);

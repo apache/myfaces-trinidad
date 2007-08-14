@@ -159,6 +159,55 @@ TrPage.prototype._handlePprResponse = function(documentElement)
   }
 }
 
+TrPage.prototype._addResetCalls = function(
+  formName,
+  callMap)
+{
+  var resetCalls = this._resetCalls;
+  if (!resetCalls)
+  {
+    resetCalls = new Object();
+    this._resetCalls = resetCalls;
+  }
+
+  var formReset = resetCalls[formName];
+  if (!formReset)
+  {
+    formReset = new Object();
+    resetCalls[formName] = formReset;
+  }
+
+  for (var k in callMap)
+  {
+    formReset[k] = callMap[k];
+  }
+}
+
+/**
+ * Callback used by Core.js resetForm() function
+ * TODO: remove entire Core.js code, move to public TrPage.resetForm()
+ * call.
+ */
+TrPage.prototype._resetForm = function(form)
+{
+  var resetCalls = this._resetCalls;
+  if (!resetCalls)
+    return false;
+  var formReset = resetCalls[form.getAttribute("name")];
+  if (!formReset)
+    return false;
+
+  var doReload = false;
+  for (var k in formReset)
+  {
+    var trueResetCallback = unescape(formReset[k]);
+    if (eval(trueResetCallback))
+      doReload = true;
+  }
+  
+  return doReload;
+}
+
 // TODO move to agent code
 TrPage._getNodeName = function(element)
 {

@@ -2009,20 +2009,7 @@ function resetForm(
   if (!form)
     return false;
 
-  var resetCallbacks= window[ "_" + _getJavascriptId(form.name) + "_Reset"];
-
-  if (resetCallbacks && !doReload)
-  {
-    for (var i = 0; i < resetCallbacks.length; i++)
-    {
-      var trueResetCallback = unescape(resetCallbacks[i]);
-
-      doReload = (eval(trueResetCallback));
-
-    }
-  }
-
-
+  var doReload = TrPage.getInstance()._resetForm(form);
   if ( doReload )
   {
     window.document.location.reload();
@@ -2031,6 +2018,7 @@ function resetForm(
   {
     form.reset();
   }
+
   _lastDateReset = new Date();
   return doReload;
 }

@@ -1364,25 +1364,17 @@ TrShuttleProxy._resetItems = function(
   shuttleName,
   formName)
 {
-
-  //get the formName if needed
-  if(formName == (void 0))
-  {
-    formName = TrShuttleProxy._findFormNameContaining(from);
-  }
-
-  if(formName.length == 0)
-  {
-    alert(shuttle_no_form_available);
-    return;
-  }
-
   // get list names
   leadingListName = TrShuttleProxy._getListName( shuttleName, true);
   trailingListName = TrShuttleProxy._getListName( shuttleName, false);
 
   // get current lists
   var leadingList  = document.forms[formName].elements[leadingListName];
+  // Defensive:  reset calls are left attached to the page even after
+  // the element has been removed.  So if the list is not found, just bail
+  if (!leadingList)
+    return;
+
   var trailingList = document.forms[formName].elements[trailingListName];
 
   // get original lists
@@ -1513,19 +1505,6 @@ TrShuttleProxy._resetToOriginalList = function
   */
  TrShuttleProxy._copyLists = function( shuttleName, formName )
  {
-
-   //get the formName if needed
-   if(formName == (void 0))
-   {
-     formName = TrShuttleProxy._findFormNameContaining(from);
-   }
-
-   if(formName.length == 0)
-   {
-     alert(shuttle_no_form_available);
-     return;
-   }
-
    var origLists = new Object();
    origLists.leading = TrShuttleProxy._copyList( TrShuttleProxy._getListName( shuttleName, true), formName);
    origLists.trailing = TrShuttleProxy._copyList( TrShuttleProxy._getListName( shuttleName, false), formName);
