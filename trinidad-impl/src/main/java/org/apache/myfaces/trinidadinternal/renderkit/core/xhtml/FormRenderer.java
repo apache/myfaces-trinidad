@@ -435,6 +435,31 @@ public class FormRenderer extends XhtmlRenderer
 
 
   // Renders validation code
+  // Code is of the form:
+  //  - Dependencies, written sequentially
+  //  - _Validations array (an array of stringified JSON objects)
+  //      (TODO: stringifying these is mostly pointless)
+  //  - _Validators array, which is an array of 5*N entries with each 5:
+  //     0: clientId,
+  //     1: required (0 or 1)
+  //     2: requiredFormatIndex (blank if required==0) - index into _Formats
+  //     3: converter (or (void 0) if omitted) - index into Validations array
+  //     4: validator array - array of integers, each index into Validations
+  //     TODO: turn into a Map of clientId to 4 entries
+  //  - Validator function:
+  //     TODO: don't render for PPR.
+  //     TODO: don't pass index of global message format - just pass the message
+  //          and delete addGlobalMessageFormat() API
+  //  - Label map: clientId to label
+  //     TODO: inline into Validators array
+  //  - _Formats array: now used only for required messages + "global"
+  //  TODO:
+  //    Make one monster function of the form:
+  //   TrPage.prototype._addValidators(
+  //      components (Map of clientId -> other info)
+  //      validationsArray,
+  //      formatsArray,
+  //
   private static void _renderValidationScripts(
     FacesContext        context,
     RenderingContext arc
