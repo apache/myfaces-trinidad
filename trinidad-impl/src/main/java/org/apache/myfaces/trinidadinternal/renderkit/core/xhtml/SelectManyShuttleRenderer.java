@@ -394,7 +394,7 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
                                                formName.length() +
                                                clientId.length());
 
-    funcCallBuffer.append("_resetItems('").append(clientId);
+    funcCallBuffer.append("TrShuttleProxy._resetItems('").append(clientId);
     funcCallBuffer.append("','").append(formName).append("');");
     FormRenderer.addResetCall(funcCallBuffer.toString());
 
