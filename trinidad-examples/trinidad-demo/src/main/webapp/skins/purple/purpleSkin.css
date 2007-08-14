@@ -665,3 +665,28 @@ is a right-to-left language. */
 .AFPanelNavigationHorizontal ul li.on:hover ul {
     background: #224d6f;
 } 
+
+af|navigationPane::bar {
+  background-color: pink;
+}
+af|navigationPane::bar-active-enabled af|navigationPane::bar-content {
+  font-style: italic;
+  font-size: 14px;
+}
+
+af|navigationPane::bar-active-enabled af|navigationPane::bar-content A {
+  color: blue;
+}
+
+af|navigationPane::bar-active-enabled af|navigationPane::bar-content A:hover {
+  color: purple;
+}
+
+af|navigationPane::bar-content {
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+af|navigationPane::bar-separator {
+  color: aqua;
+}
