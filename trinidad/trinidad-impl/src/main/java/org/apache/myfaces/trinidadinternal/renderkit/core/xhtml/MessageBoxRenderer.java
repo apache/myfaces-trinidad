@@ -423,8 +423,12 @@ public class MessageBoxRenderer extends XhtmlRenderer
       if (hasMessages)
         return inlineStyle;
       
-      // Ensure the MessageBox is hidden for inline mode when there are no messages
-      return inlineStyle + ";display:none;";
+      // Ensure the MessageBox is hidden for inline mode when
+      // there are no messages
+      if (inlineStyle == null)
+        return "display:none";
+      else
+        return inlineStyle + ";display:none";
     }
     
     @Override
