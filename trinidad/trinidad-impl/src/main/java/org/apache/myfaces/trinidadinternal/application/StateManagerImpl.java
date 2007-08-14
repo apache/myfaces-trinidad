@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Locale;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.StateManager;
@@ -41,11 +42,11 @@ import javax.faces.render.ResponseStateManager;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidad.component.UIXComponentBase;
+import org.apache.myfaces.trinidad.context.RequestContext;
 
 import org.apache.myfaces.trinidadinternal.util.LRUCache;
 import org.apache.myfaces.trinidadinternal.util.SubKeyMap;
 import org.apache.myfaces.trinidadinternal.util.TokenCache;
-import org.apache.myfaces.trinidadinternal.context.TrinidadPhaseListener;
 
 // Imported only for a String constant - so no runtime dependency
 import com.sun.facelets.FaceletViewHandler;
@@ -441,6 +442,7 @@ public class StateManagerImpl extends StateManager
 
     final Object structure;
     final Object state;
+    boolean recalculateLocale = false;
 
     ResponseStateManager rsm = _getResponseStateManager(context, renderKitId);
     if (_saveAsToken(context))
@@ -480,7 +482,12 @@ public class StateManagerImpl extends StateManager
             if (viewState != null)
               perSessionCache.put(viewId, viewState);
           }
-
+          
+          // If the view was found in the application cache then we
+          // know it would be unsafe to use its locale for this session.
+          // Same conclusion, however, even if found in the per-session 
+          // cache, since the latter is just a mirror of the former.
+          recalculateLocale = true;
         }
       }
       else
@@ -560,6 +567,12 @@ public class StateManagerImpl extends StateManager
 
         if (state != null)
           root.processRestoreState(context, state);
+        
+        if (recalculateLocale)
+        {
+          // Ensure that locale gets re-calculated when next fetched.
+          root.setLocale((Locale) null);
+        }
 
         _LOG.finer("Restored state for view \"{0}\"", viewId);
         return root;
@@ -733,7 +746,11 @@ public class StateManagerImpl extends StateManager
       return false;
 
     if (_saveAsToken(context) &&
-        !TrinidadPhaseListener.isPostback(context))
+        // Note: do not use TrinidadPhaseListener, as that
+        // will return "true" even after navigation has occured,
+        // but the Application View Cache is still fine.
+        //!TrinidadPhaseListener.isPostback(context)
+        !RequestContext.getCurrentInstance().isPostback())
     {
       if (_useApplicationViewCache == null)
       {
