@@ -39,10 +39,10 @@ import org.apache.myfaces.trinidad.context.FormData;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.convert.ClientConverter;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.util.FastMessageFormat;
 import org.apache.myfaces.trinidad.util.MessageFactory;
 import org.apache.myfaces.trinidad.validator.ClientValidator;
 import org.apache.myfaces.trinidadinternal.share.data.ServletRequestParameters;
-import org.apache.myfaces.trinidadinternal.share.util.FastMessageFormat;
 
 /**
  * Implementation of FormData from the CoreRenderKit (or,
@@ -156,28 +156,29 @@ public class CoreFormData extends FormData
    * "eval(call)" will be called on the client when resetting.
    */
   public void addResetCall(
+    String           clientId,
     String           call
     )
   {
 
     if (call != null)
     {
-      List<String> resetCalls = getResetCalls(true);
+      Map<String, String> resetCalls = getResetCalls(true);
 
       // add the call
-      resetCalls.add(call);
+      resetCalls.put(clientId, call);
     }
   }
 
 
-  public List<String> getResetCalls(
+  public Map<String, String> getResetCalls(
     boolean          createIfNecessary
     )
   {
 
     if (_resetCallsList == null && createIfNecessary)
     {
-      _resetCallsList = new ArrayList<String>();
+      _resetCallsList = new HashMap<String, String>();
     }
 
     return _resetCallsList;
@@ -763,8 +764,8 @@ public class CoreFormData extends FormData
   // on the component
   private Map<String, String> _labelMap = null;
 
-  // List of reset calls
-  private List<String> _resetCallsList = null;
+  // Map of reset calls
+  private Map<String, String> _resetCallsList = null;
 
   private String _formName = null;
 

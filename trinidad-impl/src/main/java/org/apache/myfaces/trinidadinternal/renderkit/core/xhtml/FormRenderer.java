@@ -381,10 +381,10 @@ public class FormRenderer extends XhtmlRenderer
     // Write the array of reset calls
     //
     CoreFormData fData = (CoreFormData) arc.getFormData();
-    List<String> resetCallList = fData.getResetCalls(false);
+    Map<String, String> resetCallMap = fData.getResetCalls(false);
 
-    int resetCallCount = (resetCallList != null)
-                            ? resetCallList.size()
+    int resetCallCount = (resetCallMap != null)
+                            ? resetCallMap.size()
                             : 0;
 
     if (resetCallCount != 0)
@@ -397,16 +397,15 @@ public class FormRenderer extends XhtmlRenderer
       // Bug #3426092:
       // render the type="text/javascript" attribute in accessibility mode
       renderScriptTypeAttribute(context, arc);
-
-      writer.write("var _");
-      writer.write(jsID);
-      writer.write("_Reset=[");
-
+      writer.writeText("TrPage.getInstance()._addResetCalls('", null);
+      writer.writeText(fData.getName(), null);
+      writer.writeText("',{", null);
       boolean firstCall = true;
 
-      for (int i = 0; i < resetCallCount; i++)
+      for (Map.Entry<String, String> entry : resetCallMap.entrySet())
       {
-        String currCall = resetCallList.get(i);
+        String clientId = entry.getKey();
+        String currCall = entry.getValue();
 
         if (firstCall)
         {
@@ -415,18 +414,20 @@ public class FormRenderer extends XhtmlRenderer
         else
         {
           // write the separator every time except the first time
-          writer.write(",");
+          writer.writeText(",", null);
         }
 
         // write the error format
         // use single quotes since embedded single quotes
         // are automatically escaped
-        writer.write("\'");
-        writer.write(XhtmlUtils.escapeJS(currCall));
-        writer.write("\'");
+        writer.writeText("'", null);
+        writer.writeText(clientId, null);
+        writer.writeText("':'", null);
+        writer.writeText(XhtmlUtils.escapeJS(currCall), null);
+        writer.writeText("'", null);
       }
 
-      writer.write("];");
+      writer.writeText("});", null);
       writer.endElement("script");
     }
 
@@ -833,12 +834,13 @@ public class FormRenderer extends XhtmlRenderer
    * "eval(call)" will be called on the client when resetting.
    */
   public static void addResetCall(
+    String           clientId,
     String           call
     )
   {
     CoreFormData fData = (CoreFormData)
       RenderingContext.getCurrentInstance().getFormData();
-    fData.addResetCall(call);
+    fData.addResetCall(clientId, call);
   }
 
  public static void addOnSubmitConverterValidators(
