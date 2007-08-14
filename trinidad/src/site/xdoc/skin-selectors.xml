@@ -1461,6 +1461,106 @@
           </tr>
         </table>
       </subsection>
+      <subsection name="tr:navigationPane hint='bar'">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|navigationPane::bar</td>
+            <td>The style on the root dom element of the navigationPane hint="bar".</td>
+          </tr>
+          <tr>
+            <td style="white-space: nowrap">af|navigationPane::bar-active-disabled</td>
+            <td>The style on a table around the item when the item is active and disabled.</td>
+          </tr>
+          <tr>
+            <td style="white-space: nowrap">af|navigationPane::bar-active-enabled</td>
+            <td>The style on a table around the item when the item is active and enabled.</td>
+          </tr>
+          <tr>
+            <td style="white-space: nowrap">af|navigationPane::bar-inactive-disabled</td>
+            <td>The style on a table around the item when the item is inactive and disabled.</td>
+          </tr>
+          <tr>
+            <td style="white-space: nowrap">af|navigationPane::bar-inactive-enabled</td>
+            <td>The style on a table around the item when the item is inactive and enabled.</td>
+          </tr> 
+          <tr>
+            <td style="white-space: nowrap">af|navigationPane::bar-content</td>
+            <td>Styles the cell of the bar content. To change the style (like font-style) of the active disabled
+            item, you can use descendent selector like af|navigationPane::bar-active-enabled af|navigationPane::bar-content.
+            To affect the link itself, like you need to do if you change the color, you can use
+            af|navigationPane::bar-active-enabled af|navigationPane::bar-content A</td>
+          </tr>
+          <tr>
+            <td style="white-space: nowrap">af|navigationPane::bar-separator</td>
+            <td>Styles the separator between items in the navigationPane bar.</td>
+          </tr>             
+        </table>
+      </subsection>
+      <subsection name="tr:navigationPane hint='buttons'">
+      <p>Not yet documented.</p>
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>           
+        </table>
+      </subsection> 
+      <subsection name="tr:navigationPane hint='choice'">
+      <p>Not yet documented.</p>
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>           
+        </table>
+      </subsection> 
+      <subsection name="tr:navigationPane hint='list'">
+      <p>Not yet documented.</p>
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>           
+        </table>
+      </subsection>
+      <subsection name="tr:navigationPane hint='tabs'">
+      <p>Not yet documented.</p>
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>           
+        </table>
+      </subsection> 
       <subsection name="tr:navigationTree">
         <table>
           <tr>

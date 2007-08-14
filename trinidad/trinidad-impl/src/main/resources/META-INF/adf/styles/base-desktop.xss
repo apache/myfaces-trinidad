@@ -1186,6 +1186,7 @@
   </style>
   <style selector="af|navigationPane::bar-active-enabled af|navigationPane::bar-content">
     <includeStyle name="AFTextForeground"/>
+    <property name="font-weight">bold</property>
   </style>
   <style selector="af|navigationPane::bar-inactive-enabled af|navigationPane::bar-content">
     <includeStyle name="AFTextForeground"/>  
@@ -1204,6 +1205,7 @@
   </style>
   <style selector="af|navigationPane::bar-active-disabled af|navigationPane::bar-content">
     <property name="color">gray</property>
+    <property name="font-weight">bold</property>
   </style>
   <style selector="af|navigationPane::bar-inactive-disabled af|navigationPane::bar-content">
     <property name="color">gray</property>
@@ -1213,12 +1215,6 @@
   </style>
   <style selector="af|navigationPane::bar-inactive-disabled af|navigationPane::bar-content a">
     <property name="color">gray</property>
-  </style>
-  <style selector="af|navigationPane::bar-active-enabled af|navigationPane::bar-content">
-    <property name="font-weight">bold</property>
-  </style>
-  <style selector="af|navigationPane::bar-active-disabled af|navigationPane::bar-content">
-    <property name="font-weight">bold</property>
   </style>
   <style selector="af|navigationPane::bar-content">
     <includeStyle name="AFDefaultFont"/>
@@ -1234,6 +1230,8 @@
     <property name="padding-right">6px</property>
     <property name="color">gray</property>
   </style>
+  
+  
   <style selector="af|navigationPane::buttons-active-disabled">
     <property name="cursor">default</property>
   </style>
