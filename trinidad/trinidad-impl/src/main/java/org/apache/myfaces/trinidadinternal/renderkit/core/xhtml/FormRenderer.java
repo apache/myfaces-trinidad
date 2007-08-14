@@ -1085,10 +1085,9 @@ public class FormRenderer extends XhtmlRenderer
             // render the type="text/javascript" attribute in accessibility mode
             renderScriptTypeAttribute(context, arc);
 
-            writer.writeText("var _reset", null);
-            writer.writeText(XhtmlUtils.getJSIdentifier(fData.getName()),
-                             null);
-            writer.writeText("Names=[\"", null);
+            writer.writeText("TrPage.getInstance()._addResetFields('", null);
+            writer.writeText(fData.getName(), null);
+            writer.writeText("',[\"", null);
             writer.writeText(neededValues.get(0), null);
 
             for (int i = 1; i < realNeededIndex; i++)
@@ -1097,7 +1096,7 @@ public class FormRenderer extends XhtmlRenderer
               writer.writeText(neededValues.get(i), null);
             }
 
-            writer.writeText("\"];", null);
+            writer.writeText("\"]);", null);
             writer.endElement("script");
           }
         }
