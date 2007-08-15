@@ -79,7 +79,7 @@ does not support EL expressions - it must be configured statically.
                  type="config:outputModeExpressionType">
           <annotation>
             <documentation>The &lt;output-mode&gt; element controls the
-output mode used by ADF Faces.
+output mode used by Apache MyFaces Trinidad.
             </documentation>
           </annotation>
         </element>
@@ -96,7 +96,7 @@ output mode used by ADF Faces.
                  type="config:accessibilityModeExpressionType">
           <annotation>
             <documentation>The &lt;accessibility-mode&gt; element controls the
-accessibility mode used by ADF Faces.
+accessibility mode used by Apache MyFaces Trinidad.
             </documentation>
           </annotation>
         </element>
