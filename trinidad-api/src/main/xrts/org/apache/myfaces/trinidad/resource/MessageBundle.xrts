@@ -287,7 +287,7 @@
   <!-- default hint for ColorConverter-->
   <resource key="org.apache.myfaces.trinidad.convert.ColorConverter.FORMAT_HINT">Example format: {0}</resource>
   <!-- default hint for NumberConverter-->
-  <resource key="org.apache.myfaces.trinidad.convert.NumberConverter.FORMAT_HINT">Example format: {0}.</resource>
+  <resource key="org.apache.myfaces.trinidad.convert.NumberConverter.FORMAT_HINT">Example format: {0}</resource>
 
   <!-- default hint for IntegerConverter-->
   <!-- resource key="org.apache.myfaces.trinidad.convert.IntegerConverter.FORMAT_HINT">The entered value must be a integer</resource-->
