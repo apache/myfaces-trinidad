@@ -490,7 +490,7 @@ af|navigationPane::tabs-active af|navigationPane::tabs-start-join {
   background-image: url('/skins/beach/images/tabbeach-start-join-selected.gif');
 }
 
-/* NOT THE FIRST TAB AND NOT THE LAST TAB, but one of the tabs in between. */
+/* NOT THE FIRST TAB but the other tabs. */
 /* This is the start 1/3 of a tab that is inactive but is coming from an active tab.
 This is the same as the start-deselected image, only not as wide. It is only 14 pixels wide. */
 af|navigationPane::tabs-inactive af|navigationPane::tabs-start-join-from-active {
@@ -519,7 +519,7 @@ af|navigationPane::tabs-active af|navigationPane::tabs-bottom-start {
 }
 
 /* The bottom bit, start 1/3 of an active tab, regardless of its position (first tab, middle, or last tab) */
-/* ::tabs-bottom-start-content is the div inside of the td which is ::tabls-bottom-start;
+/* ::tabs-bottom-start-content is the div inside of the td which is ::tabs-bottom-start;
 so there is nothing to do here except inhibit the background-image */
 af|navigationPane::tabs-active af|navigationPane::tabs-bottom-start-content {
 /*
@@ -540,24 +540,14 @@ af|navigationPane::tabs-inactive af|navigationPane::tabs-bottom-start {
    background-color: #9FA57D;  
 }
 
-
-/* Bottom bit, start & 1/3 of an selected/active tab (not sure why it is named tabs-bottom-end). */
-/* should be able to use background color. */
-af|navigationPane::tabs-active af|navigationPane::tabs-bottom-end {
-  /* background-image: url('/skins/beach/images/tabbeach-bot-mid-selected.gif'); */
-  -tr-inhibit: background-image;
-  background-color: red;
-}
-
 /* ::tabs-bottom-end is the bottom bit, start 1/3 a tab as long as it isn't the FIRST tab.
-(not sure why it is named tabs-bottom-end).
+(not sure why it is named tabs-bottom-end). It's the end for the last tab.
 Ok to use background-color instead of background-image */ 
 af|navigationPane::tabs-inactive af|navigationPane::tabs-bottom-end {
  /* background-image: url('/skins/beach/images/tabbeach-bot-deselected.gif'); */
- -tr-inhibit: background-image;
- background-color: #9FA57D; 
+  -tr-inhibit: background-image;
+  background-color: #9FA57D; 
 }
-
 
 
 /* END the Tabs Start */
@@ -636,7 +626,7 @@ af|navigationPane::tabs-inactive af|navigationPane::tabs-end-join-to-inactive {
 } 
 
 
-/* Selected tab that isn't the LAST tab. The bottom bit. Ok to use  color and not an image. */  
+/* Selected tab that isn't the LAST tab. The bottom bit, last 1/3. Ok to use  color and not an image. */  
 af|navigationPane::tabs-active af|navigationPane::tabs-bottom-end-join {
 /*
   background-image: url('/skins/beach/images/tabbeach-bot-deselected.gif');
@@ -645,11 +635,15 @@ af|navigationPane::tabs-active af|navigationPane::tabs-bottom-end-join {
   background-color: #336699;
 }
   
-/* The very LAST tab, when it is selected. The bottom bit. Ok to use  color and not an image. */  
-af|navigationPane::tabs-active af|navigationPane::tabs-bottom-end-content {
+/* The very LAST tab, when it is selected. The bottom bit, last 1/3. Ok to use  color and not an image. */  
+af|navigationPane::tabs-active af|navigationPane::tabs-bottom-end {
   /* background-image: url('/skins/beach/images/tabbeach-bot-end-selected.gif'); */
   -tr-inhibit: background-image;
   background-color: #336699;
+}
+/* This is inside tabs-bottom-end, so just inhibit the image */
+af|navigationPane::tabs-active af|navigationPane::tabs-bottom-end-content {
+  -tr-inhibit: background-image;
 }
 
   
