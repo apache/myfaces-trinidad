@@ -29,6 +29,11 @@ public class InputTextRenderer extends InputLabelAndMessageRenderer
     super(CoreInputText.TYPE);
   } 
 
+  protected InputTextRenderer(FacesBean.Type type)
+  {
+    super(type);
+  }
+  
   @Override
   protected void findTypeConstants(FacesBean.Type type)
   {

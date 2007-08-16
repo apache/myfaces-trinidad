@@ -29,6 +29,11 @@ public class InputNumberSpinboxRenderer extends InputLabelAndMessageRenderer
     super(CoreInputNumberSpinbox.TYPE);
   }
 
+  protected InputNumberSpinboxRenderer(FacesBean.Type type)
+  {
+    super(type);
+  }
+  
   @Override
   protected void findTypeConstants(FacesBean.Type type)
   {

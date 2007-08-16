@@ -31,6 +31,11 @@ public class SelectManyCheckboxRenderer extends InputLabelAndMessageRenderer
     super(CoreSelectManyCheckbox.TYPE);
   }
   
+  protected SelectManyCheckboxRenderer(FacesBean.Type type)
+  {
+    super(type);
+  }
+  
   @Override
   protected void findTypeConstants(FacesBean.Type type)
   {

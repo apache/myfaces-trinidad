@@ -33,6 +33,11 @@ public class InputColorRenderer extends InputLabelAndMessageRenderer
     super(CoreInputColor.TYPE);
   }  
 
+  protected InputColorRenderer(FacesBean.Type type)
+  {
+    super(type);
+  }
+  
   @Override
   protected void findTypeConstants(FacesBean.Type type)
   {

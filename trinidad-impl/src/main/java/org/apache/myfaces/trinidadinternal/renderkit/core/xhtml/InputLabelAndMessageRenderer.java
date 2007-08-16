@@ -36,7 +36,7 @@ import org.apache.myfaces.trinidadinternal.util.MessageUtils;
 public abstract class InputLabelAndMessageRenderer extends LabelAndMessageRenderer
 {
 
-  public InputLabelAndMessageRenderer(FacesBean.Type type)
+  protected InputLabelAndMessageRenderer(FacesBean.Type type)
   {
     super(type);
   }
