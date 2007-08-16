@@ -2932,6 +2932,7 @@
     <property name="position">absolute</property>
     <property name="top">-999px</property>
     <property name="left">0px</property>
+    <property name="font-size">0px</property>
   </style>
 
   <!--
