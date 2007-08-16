@@ -1548,7 +1548,31 @@
         </table>
       </subsection>
       <subsection name="tr:navigationPane hint='tabs'">
-      <p>Not yet documented.</p>
+      <p>The navigationPane hint="tabs" renders nested tables. The af|navigationPane::tabs is the root dom
+      element style selector. Within the root dom element are tables denoting af|navigationPane::tabs-active
+      and af|navigationPane::tabs-inactive. Within each of these tables are more tables that break the
+      active or inactive tab into skinnable pieces, so you can skin the start 1/3, the middle, or the
+      end 1/3 of the tab, and each of these pieces have a top and a bottom row..
+      There are also hooks for joining an active tab to an inactive tab or 
+      an inactive tab to another inactive tab, hooks for the very first tab shown and hooks for the 
+      very last tab shown.
+      </p>
+      <p>
+      By default, the tabs use background image. If you need to use background-color instead,
+      use -tr-inhibit: background-image or background-image: none. Remember CSS specificity rules if
+      you find these don't work. If you want to use background-images to get a rounded look, it is easiest to start with the
+      images that are used by default or in the beach skin.
+      </p>
+      <p>
+      For help in skinning the tabs, look at one of the demos: purple skin or beach skin. 
+      Also, it will help to view the html and selectors that are rendered when the active tab is the 
+      first tab, a middle tab, or an end tab, because the selectors change slightly. Make sure the 
+      styleclass compression that is on by default is turned off as this will help your debugging.
+      This is one of the most complicated components to skin. Looking at the examples or at the base
+      skin's css (see generated css file or base-desktop.xss) will help. Also, hopefully this documentation
+      will help.
+      
+      </p>
         <table>
           <tr>
             <th colspan="2">
@@ -1558,7 +1582,140 @@
           <tr>
             <th>Name</th>
             <th>Description</th>
-          </tr>           
+          </tr>
+          <tr>
+            <td style="white-space: nowrap">af|navigationPane::tabs</td>
+            <td>The style root dom element of the tabs. It is unlikely you'll need to use 
+            this selector to skin the tabs, unless you want to skin an instance of a tab component
+            using composite selectors, like af|navigationPane::tabs.MyStyleClass</td>
+          </tr> 
+          <tr>
+            <td style="white-space: nowrap">af|navigationPane::tabs-active</td>
+            <td>The style on the root of the active tab. Available pseudo-class is :disabled.
+            For example, to change the color of all disabled tabs, you can do this:
+            af|navigationPane::tabs-active:disabled af|navigationPane::tabs-mid,
+            af|navigationPane::tabs-inactive:disabled af|navigationPane::tabs-mid {color: pink} </td>
+          </tr>
+          <tr>
+            <td style="white-space: nowrap">af|navigationPane::tabs-inactive</td>
+            <td>This is the style that is on the root of each inactive tab. Available pseudo-class is :disabled.
+            For example, to change the color of all disabled tabs, you can do this:
+            af|navigationPane::tabs-active:disabled af|navigationPane::tabs-mid,
+            af|navigationPane::tabs-inactive:disabled af|navigationPane::tabs-mid {color: pink}.
+            To color a non-disabled tab's text, you need to do this:
+            af|navigationPane::tabs-active af|navigationPane::tabs-mid A {color: white;} Note the A.
+            The reason is a disabled tab does not render an A element.</td>
+          </tr>
+          <tr>
+            <td style="white-space: nowrap">af|navigationPane::tabs-start</td>
+            <td>This styles the FIRST tab only, not the middle tabs, and not the last tab.
+            This styles the start 1/3 of an active tab that is the FIRST tab.
+            This is typically the part that styles
+            the background-image that shows the start of the tab.
+            For example, if using images, it's the ramp-up image.
+            There is a different selector for hte 'start' piece that isn't the first tab. See
+            ::tabs-start-join-from-inactive and ::tabs-start-join-from-active
+            Examples:
+            af|navigationPane::tabs-active af|navigationPane::tabs-start {background-image: url('darkrampup.gif');}
+            af|navigationPane::tabs-inactive af|navigationPane::tabs-start {background-image: url('lightrampup.gif');}           
+            </td>
+          </tr>  
+          <tr>
+            <td style="white-space: nowrap">af|navigationPane::tabs-mid</td>
+            <td>This styles the middle/top portion of all tabs.
+            This is typically the part that holds the text of the tab and 
+            it usually has a background-image or background-color.       
+            </td>
+          </tr>
+          <tr>
+            <td style="white-space: nowrap">af|navigationPane::tabs-end</td>
+            <td>This selector is for the LAST tab in all the tabs and it is the end 1/3 of that last tab.  
+            There is a different selector for the 'end' piece of tabs that are not the last tab.
+            The end piece of the tab that comes before an inactive tab
+            has pseudo-element ::tabs-end-join-to-inactive. There is no 'end' piece for an inactive
+            tab that comes before an active tab.
+            </td>
+          </tr> 
+          
+          <tr>
+            <td style="white-space: nowrap">af|navigationPane::tabs-start-join</td>
+            <td>This styles a tab when it isn't the first tab and it isn't the last tab.
+            Use like this: af|navigationPane::tabs-active af|navigationPane::tabs-start-join{} to 
+            style the start of a selected tab when the previous tab is unselected. By default it contain an image
+            that depicts the end of the unselected tab image (light accent color)
+            and the start of a selected tab (dark color) where the
+            start of the selected tab overlaps in front of the end of the unselected tab.       
+            </td>
+          </tr>  
+          <tr>
+            <td style="white-space: nowrap">af|navigationPane::tabs-start-join-from-active</td>
+            <td>This styles an  inactive tab when it follows an active tab.
+            This is the start 1/3 of a tab that is inactive and follows an active tab.
+            By default, this image is only 14 pixels wide. It's similar to ::tabs-start, but
+            that is for the FIRST tab, and thus that image is probably wider.
+            </td>
+          </tr>    
+          <tr>
+            <td style="white-space: nowrap">af|navigationPane::tabs-start-join-from-inactive</td>
+            <td>This styles an inactive tab when it follows an inactive tab.
+            This is the start 1/3 of a tab that is inactive and follows an inactive tab.
+            You can use the same image as what you defined in ::tabs-start-join-from-active
+            </td>
+          </tr>
+          <tr>
+            <td style="white-space: nowrap">af|navigationPane::tabs-end-join-to-inactive</td>
+            <td>This styles last 1/3 of a tab that isn't the LAST tab. By default, this is the
+            end background-image of a tab.
+            Note: there is no ::end-join-to-active selector because an inactive tab that precedes 
+            an active tab only has 2 pieces (start and mid). Instead you'd use ::tabs-start-join
+            </td>
+          </tr>          
+          <tr>
+            <td style="white-space: nowrap">af|navigationPane::tabs-bottom-start</td>
+            <td>This selector styles the bottom bit of the first 1/3 of a tab that is either
+            the active tab or if it in an inactive tab, it has to be be the first tab.
+            For example, af|navigationPane::tabs-inactive af|navigationPane::tabs-bottom-start {}
+            will skin the bottom bit of the first tab if it is inactive. Otherwise, you will see
+            no effect. af|navigationPane::tabs-active af|navigationPane::tabs-bottom-start {}
+            will skin the bottom bit of the first 1/3 of the active tab, regardless of which tab
+            it is.
+            </td>
+          </tr>
+          <tr>
+            <td style="white-space: nowrap">af|navigationPane::tabs-bottom-start-content</td>
+            <td>This selector is the empty div inside of tabs-bottom-start. The best thing
+            to do is set background-image to none and let the container style take over.</td>            
+          </tr> 
+          <tr>
+            <td style="white-space: nowrap">af|navigationPane::tabs-bottom-end</td>
+            <td>The bottom portion, start 1/3 a tab as long as it isn't the FIRST tab. If the
+            last tab is inactive, then this key is on BOTH the start 1/3 and the end 1/3.
+            <i>This key name and its usage needs to be cleaned up, since it is obviously confusing.</i>
+            (The start 1/3 of the FIRST tab is af|navigatonPane::tabs-inactive af|navigationPane::tabs-bottom-start.)
+            In the active tab, this is only the last 1/3 on the LAST tab. Otherwise it is nothing.
+            (see ::tabs-bottom-end-join)</td>            
+          </tr> 
+         <tr>
+            <td style="white-space: nowrap">af|navigationPane::tabs-bottom-end-content</td>
+            <td>This selector is the empty div inside of tabs-bottom-end. The best thing
+            to do is set background-image to none and let the container style take over.</td>            
+          </tr>    
+          <tr>
+            <td style="white-space: nowrap">af|navigationPane::tabs-bottom-end-join</td>
+            <td>This is the last 1/3 of a tab, the bottom portion, when it is joining another tab.
+            In the active tab, this is the bottom portion, the last 1/3 that isn't the LAST tab. 
+            In the inactive tab, this is the bottom portion, the last 1/3 
+            when joining to another inactive tab (therefore it can't be the LAST tab).
+            For an inactive tab that is joining an active tab, the active tab's bottom
+            start overlaps, so there is no ::tabs-bottom-end-join selector.</td>            
+          </tr>
+          <tr>
+            <td style="white-space: nowrap">af|navigationPane::tabs-bottom-mid</td>
+            <td>This is the middle 1/3 of a tab, the bottom bit. If you want to style an inactive
+            tab's middle portion differently than an active tab, then you set af|navigatonPane::tabs-inactive 
+            before it.</td>            
+          </tr>          
+          
         </table>
       </subsection> 
       <subsection name="tr:navigationTree">
