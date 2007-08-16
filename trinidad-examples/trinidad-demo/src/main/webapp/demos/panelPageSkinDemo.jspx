@@ -41,14 +41,19 @@
             </f:facet>
             <tr:commandLink immediate="true" text="Component Guide"
                             action="guide"/>
-            <tr:panelGroupLayout layout="vertical">
-              <tr:panelGroupLayout layout="horizontal" styleClass="tabsPanelGroup">
-                <tr:navigationPane hint="tabs" shortDesc="Select tab">
-                  <tr:commandNavigationItem text="Home" action="guide.navigationPane"
-                                      selected="true"/>
-                  <tr:commandNavigationItem text="Clothing" action="guide.navigationPane"/>
+                                          <tr:panelGroupLayout layout="vertical">
+
+              <tr:panelGroupLayout styleClass="tabsPanelGroup">
+
+          <tr:navigationPane hint="tabs" id="menuItemContainer2"  shortDesc="Select tab">
+                  <tr:commandNavigationItem text="Home" action="guide.navigationPane" selected="true"
+                                      />
+                  <tr:commandNavigationItem text="Clothing" action="guide.navigationPane" />
+                  <tr:commandNavigationItem text="Disabled" action="guide.navigationPane" disabled="true" shortDesc="Disabled tab"/>
                   <tr:commandNavigationItem text="Equipment" action="guide.navigationPane"/>
                 </tr:navigationPane>
+
+          
                 <tr:panelGroupLayout>
                   <tr:commandNavigationItem text="Your Account"
                                       action="guide.navigationPane"/>
@@ -60,7 +65,8 @@
                   <tr:commandNavigationItem text="Help" action="guide.navigationPane"/>
                 </tr:panelGroupLayout>
               </tr:panelGroupLayout>
-              <!--tr:navigationPane hint="bar">
+
+              <tr:navigationPane hint="bar">
                 <tr:commandNavigationItem text="Jackets" action="guide.navigationPane"
                                     selected="true"/>
                 <tr:commandNavigationItem text="Pants" action="guide.navigationPane"/>
@@ -68,7 +74,7 @@
                 <tr:commandNavigationItem text="Shoes" action="guide.navigationPane"/>
                 <tr:commandNavigationItem text="Swimwear" action="guide.navigationPane"/>
                 <tr:commandNavigationItem text="Sale Items" action="guide.navigationPane"/>
-              </tr:navigationPane-->
+              </tr:navigationPane>
               <tr:panelGroupLayout layout="horizontal"
                              styleClass="adfFacesDemoSearchPanelGroup">
                 <f:facet name="separator">
