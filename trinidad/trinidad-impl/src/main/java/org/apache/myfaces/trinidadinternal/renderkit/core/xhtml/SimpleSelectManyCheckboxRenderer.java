@@ -93,7 +93,7 @@ public class SimpleSelectManyCheckboxRenderer extends SimpleSelectManyRenderer
       else
       {
         writer.startElement("fieldset", null);
-        writer.writeAttribute("style", "border:none", null);
+        writer.writeAttribute("style", "border:none;margin:0px;padding:0px;", null);
         writer.startElement("legend", null);
         renderStyleClass(context, arc,
                          SkinSelectors.HIDDEN_LABEL_STYLE_CLASS);
