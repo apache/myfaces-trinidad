@@ -28,20 +28,11 @@
   <accessibility-mode>#{prefs.proxy.accessibilityMode}</accessibility-mode>
   <!-- you can use EL to get the skin. This allows the skin to change between
        requests. -->
-       <!--
+
   <skin-family>#{prefs.proxy.skinFamily}</skin-family>  
--->
-  <skin-family>beach</skin-family>
+
   <!--
   <output-mode>portlet</output-mode>
   -->
- 
-  <!--  Uncomment any of these to enable them -->
-  <!-- accessibility-mode>inaccessible</accessibility-mode -->  
-  <!--
-    <number-grouping-separator>
-    #{view.locale.language=='de' ? '.' : '?'}
-    </number-grouping-separator>
-    -->
-     <number-grouping-separator>#{view.locale.language=='de' ? 'o' : 'x'}</number-grouping-separator>   
+   
 </trinidad-config>
