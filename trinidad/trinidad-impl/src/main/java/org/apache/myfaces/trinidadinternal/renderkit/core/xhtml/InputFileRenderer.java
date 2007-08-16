@@ -36,6 +36,11 @@ public class InputFileRenderer extends InputLabelAndMessageRenderer
     super(CoreInputFile.TYPE);
   }
 
+  protected InputFileRenderer(FacesBean.Type type)
+  {
+    super(type);
+  }
+  
   @Override
   protected void findTypeConstants(FacesBean.Type type)
   {

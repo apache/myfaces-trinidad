@@ -28,9 +28,13 @@ public class SelectOneListboxRenderer extends InputLabelAndMessageRenderer
   public SelectOneListboxRenderer()
   {
     super(CoreSelectOneListbox.TYPE);
-    
   }
 
+  protected SelectOneListboxRenderer(FacesBean.Type type)
+  {
+    super(type);
+  }
+  
   @Override
   protected void findTypeConstants(FacesBean.Type type)
   {

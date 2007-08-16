@@ -28,9 +28,13 @@ public class SelectOneChoiceRenderer extends InputLabelAndMessageRenderer
   public SelectOneChoiceRenderer()
   {
     super(CoreSelectOneChoice.TYPE);
-    
   }  
 
+  protected SelectOneChoiceRenderer(FacesBean.Type type)
+  {
+    super(type);
+  }
+  
   @Override
   protected void findTypeConstants(FacesBean.Type type)
   {

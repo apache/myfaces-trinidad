@@ -30,6 +30,11 @@ public class SelectBooleanRadioRenderer extends InputLabelAndMessageRenderer
     
   } 
 
+  protected SelectBooleanRadioRenderer(FacesBean.Type type)
+  {
+    super(type);
+  }
+  
   @Override
   protected void findTypeConstants(FacesBean.Type type)
   {

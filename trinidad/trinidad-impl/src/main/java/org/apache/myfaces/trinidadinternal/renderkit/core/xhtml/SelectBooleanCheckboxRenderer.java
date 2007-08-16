@@ -28,8 +28,12 @@ public class SelectBooleanCheckboxRenderer extends InputLabelAndMessageRenderer
   public SelectBooleanCheckboxRenderer()
   {
     super(CoreSelectBooleanCheckbox.TYPE);
-    
   }  
+  
+  protected SelectBooleanCheckboxRenderer(FacesBean.Type type)
+  {
+    super(type);
+  }
   
   @Override
   protected void findTypeConstants(FacesBean.Type type)

@@ -29,6 +29,11 @@ public class InputListOfValuesRenderer extends InputLabelAndMessageRenderer
     super(CoreInputListOfValues.TYPE);
   }  
 
+  protected InputListOfValuesRenderer(FacesBean.Type type)
+  {
+    super(type);
+  }
+  
   @Override
   protected void findTypeConstants(FacesBean.Type type)
   {

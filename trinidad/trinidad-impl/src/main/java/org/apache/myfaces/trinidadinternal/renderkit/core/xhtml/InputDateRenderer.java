@@ -29,6 +29,11 @@ public class InputDateRenderer extends InputLabelAndMessageRenderer
     super(CoreInputDate.TYPE);
   }  
   
+  protected InputDateRenderer(FacesBean.Type type)
+  {
+    super(type);
+  }
+  
   @Override
   protected void findTypeConstants(FacesBean.Type type)
   {

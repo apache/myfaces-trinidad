@@ -30,6 +30,11 @@ public class SelectOneRadioRenderer extends InputLabelAndMessageRenderer
     super(CoreSelectOneRadio.TYPE);
   }
   
+  protected SelectOneRadioRenderer(FacesBean.Type type)
+  {
+    super(type);
+  }
+  
   @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
