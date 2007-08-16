@@ -448,3 +448,216 @@ af|panelFormLayout::label-cell
 {
   -tr-rule-ref: selector(".AFStartTextAlign:alias");
 }
+
+/* navigationPane::tabs */
+
+/* make the disabled black instead of the default gray color */
+
+af|navigationPane::tabs-active:disabled af|navigationPane::tabs-mid{
+  color: black;
+}
+
+af|navigationPane::tabs-inactive:disabled af|navigationPane::tabs-mid {
+  color: black;
+}
+
+af|navigationPane::tabs-active af|navigationPane::tabs-mid A {
+  color: white;
+}
+
+
+/* GROUP together all the Tabs Start */
+/* FIRST TAB */
+/* The start 1/3 of an active tab that is the FIRST tab. It's the ramp-up image that is dark blue */
+af|navigationPane::tabs-active af|navigationPane::tabs-start {
+  background-image: url('/skins/beach/images/tabbeach-start-selected.gif');
+}
+/* FIRST TAB */
+/* The start 1/3 of an inactive tab that is the FIRST tab. 
+It's the ramp-up image that is our 'light' accent color */
+af|navigationPane::tabs-inactive af|navigationPane::tabs-start {
+  background-image: url('/skins/beach/images/tabbeach-start-deselected.gif');
+}
+
+
+
+/* NOT THE FIRST TAB AND NOT THE LAST TAB */
+/* This styles the start of a selected tab when the previous tab is unselected. It contains an image
+that depicts the end of the unselected tab image (light accent color)
+and the start of a selected tab (dark blue color) where the
+start of the selected tab overlaps in front of the end of the unselected tab. */
+af|navigationPane::tabs-active af|navigationPane::tabs-start-join {
+  background-image: url('/skins/beach/images/tabbeach-start-join-selected.gif');
+}
+
+/* NOT THE FIRST TAB AND NOT THE LAST TAB, but one of the tabs in between. */
+/* This is the start 1/3 of a tab that is inactive but is coming from an active tab.
+This is the same as the start-deselected image, only not as wide. It is only 14 pixels wide. */
+af|navigationPane::tabs-inactive af|navigationPane::tabs-start-join-from-active {
+  background-image: url('/skins/beach/images/tabbeach-start-join-selected-to-deselected.gif');
+}
+
+/* This is the start 1/3 of a tab that is inactive, but coming from an inactive tab.
+Just use the selected-to-deselcted image since it is the same */
+af|navigationPane::tabs-inactive af|navigationPane::tabs-start-join-from-inactive {
+/* background-image: url('/skins/beach/images/tabbeach-start-join-deselected-to-deselected.gif'); */
+  background-image: url('/skins/beach/images/tabbeach-start-join-selected-to-deselected.gif');
+
+}
+
+/* START BOTTOM BITS */
+
+/* ::tabs-bottom-start, when inside of an active tab,
+is the bottom bit, start 1/3 of an active tab, regardless of its position 
+(first tab, middle, or last tab). The strange thing is if the inactive tab is the first tab,
+then ::tabs-bottom-start is ONLY the first tab. Otherwise the first 1/3 of an inactive tab is
+::tabs-bottom-end. */
+af|navigationPane::tabs-active af|navigationPane::tabs-bottom-start {
+ /* background-image: url('/skins/beach/images/tabbeach-bot-mid-selected.gif'); */
+ -tr-inhibit: background-image;
+  background-color: #336699;
+}
+
+/* The bottom bit, start 1/3 of an active tab, regardless of its position (first tab, middle, or last tab) */
+/* ::tabs-bottom-start-content is the div inside of the td which is ::tabls-bottom-start;
+so there is nothing to do here except inhibit the background-image */
+af|navigationPane::tabs-active af|navigationPane::tabs-bottom-start-content {
+/*
+  background-image: url('/skins/beach/images/tabbeach-bot-start-selected.gif');
+  */
+-tr-inhibit: background-image;
+  /* The color gets picked up from ::tabs-bottom-start */
+}
+
+/* The FIRST tab, when it is inactive, the bottom bit, first 1/3.*/
+/* background-color instead of background-image works just fine */
+/* See ::tabs-bottom-end for the first 1/3 of an inactive tab when it isn't the first tab */
+af|navigationPane::tabs-inactive af|navigationPane::tabs-bottom-start {
+  /*
+  background-image: url('/skins/beach/images/tabbeach-bot-deselected.gif');
+  */
+  -tr-inhibit: background-image;
+   background-color: #9FA57D;  
+}
+
+
+/* Bottom bit, start & 1/3 of an selected/active tab (not sure why it is named tabs-bottom-end). */
+/* should be able to use background color. */
+af|navigationPane::tabs-active af|navigationPane::tabs-bottom-end {
+  /* background-image: url('/skins/beach/images/tabbeach-bot-mid-selected.gif'); */
+  -tr-inhibit: background-image;
+  background-color: red;
+}
+
+/* ::tabs-bottom-end is the bottom bit, start 1/3 a tab as long as it isn't the FIRST tab.
+(not sure why it is named tabs-bottom-end).
+Ok to use background-color instead of background-image */ 
+af|navigationPane::tabs-inactive af|navigationPane::tabs-bottom-end {
+ /* background-image: url('/skins/beach/images/tabbeach-bot-deselected.gif'); */
+ -tr-inhibit: background-image;
+ background-color: #9FA57D; 
+}
+
+
+
+/* END the Tabs Start */
+
+/* GROUP together all the Tabs Mid */
+/* This is the middle of the tab when it is active */
+/* You could use an image, or simply use a background-color.
+   I added extra padding around the active tab. */
+af|navigationPane::tabs-active af|navigationPane::tabs-mid {
+  background-color: #336699;
+  -tr-inhibit: background-image;
+  padding-right: 10px;
+  padding-left: 10px;
+  /* background-image: url('/skins/beach/images/tabbeach-mid-selected.gif'); */
+}  
+
+
+/* This is the middle of the tab when it is inactive */
+/* You could use an image, or simply use a background-color */
+af|navigationPane::tabs-inactive af|navigationPane::tabs-mid {
+/*
+  background-image: url('/skins/beach/images/tabbeach-mid-deselected.gif');
+  */
+  -tr-inhibit: background-image;  
+  background-color: #D2D8B0;
+}
+
+/* The bottom bit, middle portion, of an active tab, regardless of position of tab.  */
+/* You could use an image, or simply use a background-color */
+af|navigationPane::tabs-active af|navigationPane::tabs-bottom-mid {
+  background-color: #336699;
+ /* background-image: url('/skins/beach/images/tabbeach-bot-mid-selected.gif'); */
+ -tr-inhibit: background-image;
+}
+
+/* Bottom bit, middle portion, of an inactive tab, regardless of position of tab. */
+/* You could use an image, or simply use a background-color */
+af|navigationPane::tabs-inactive af|navigationPane::tabs-bottom-mid {
+ /* background-image: url('/skins/beach/images/tabbeach-bot-deselected.gif'); */
+ -tr-inhibit: background-image;
+ background-color: #9FA57D;
+}
+  
+/* END the Tabs Mid */
+
+  
+   
+/* GROUP together all the Tabs End */
+
+/* Styles the end of the last tab if it is active */
+/* This is the LAST tab, not just the end of any tab */
+/* There are different selectors for the 'end' piece of tabs that are not the last tab.
+   For example, the end piece of the active tab that comes before an inactive tab
+   has pseudo-element ::tabs-end-join-to-inactive */
+   /* This has a dark blue ramp down image */
+af|navigationPane::tabs-active af|navigationPane::tabs-end {
+  background-image: url('/skins/beach/images/tabbeach-end-selected.gif');
+}
+
+/* This has an accent color ramp down image. ::tabs-end is for the LAST tab in all the tabs and
+it is the end 1/3 of that last tab. */  
+af|navigationPane::tabs-inactive af|navigationPane::tabs-end {
+ background-image: url('/skins/beach/images/tabbeach-end-deselected.gif');
+}
+
+/* ::tabs-end-join-to-inactive is the last 1/3 of a tab that isn't the LAST tab */
+af|navigationPane::tabs-active af|navigationPane::tabs-end-join-to-inactive {
+/* background-image: url('/skins/beach/images/tabbeach-end-join-selected-to-deselected.gif'); */
+   background-image: url('/skins/beach/images/tabbeach-end-selected.gif');
+} 
+   
+/* ::tabs-end-join-to-inactive is the last 1/3 of a tab that isn't the LAST tab */
+/* This is the image of the last 1/3 of an inactive tab */
+af|navigationPane::tabs-inactive af|navigationPane::tabs-end-join-to-inactive {
+  background-image: url('/skins/beach/images/tabbeach-end-join-deselected-to-deselected.gif');
+} 
+
+
+/* Selected tab that isn't the LAST tab. The bottom bit. Ok to use  color and not an image. */  
+af|navigationPane::tabs-active af|navigationPane::tabs-bottom-end-join {
+/*
+  background-image: url('/skins/beach/images/tabbeach-bot-deselected.gif');
+  */
+  -tr-inhibit: background-image;
+  background-color: #336699;
+}
+  
+/* The very LAST tab, when it is selected. The bottom bit. Ok to use  color and not an image. */  
+af|navigationPane::tabs-active af|navigationPane::tabs-bottom-end-content {
+  /* background-image: url('/skins/beach/images/tabbeach-bot-end-selected.gif'); */
+  -tr-inhibit: background-image;
+  background-color: #336699;
+}
+
+  
+/* Bottom bit, end 1/3, when joining to another inactive tab (therefore it can't be the LAST tab) */
+af|navigationPane::tabs-inactive af|navigationPane::tabs-bottom-end-join {
+/*  background-image: url('/skins/beach/images/tabbeach-bot-deselected.gif'); */
+ -tr-inhibit: background-image;
+ background-color: #9FA57D; 
+}
+
+/* END the Tabs End */

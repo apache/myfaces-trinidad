@@ -690,3 +690,155 @@ af|navigationPane::bar-content {
 af|navigationPane::bar-separator {
   color: aqua;
 }
+
+/* navigationPane::tabs */
+
+/* style the disabled tabs' text green */
+af|navigationPane::tabs-active:disabled af|navigationPane::tabs-mid {
+  color: green;
+}
+
+af|navigationPane::tabs-inactive:disabled af|navigationPane::tabs-mid {
+  color: green;
+}
+
+/* Skin the by clearing out the background image */
+af|navigationPane::tabs-active af|navigationPane::tabs-start {
+  -tr-inhibit: background-image;
+  border-bottom: Black solid 1px;
+  /* background-image: url('/adf/images/tab3-start-selected.gif'); */
+}
+
+
+af|navigationPane::tabs-active af|navigationPane::tabs-start-join {
+  -tr-inhibit: background-image;
+  border-bottom: 2px green solid;
+  /* background-image: url('/adf/images/tab3-start-join-selected.gif'); */
+}
+
+af|navigationPane::tabs-active af|navigationPane::tabs-bottom-start {
+  -tr-inhibit: background-image;
+  background-color: lime;
+  /* background-image: url('/adf/images/tab3-bot-mid-selected.gif'); */
+}
+
+af|navigationPane::tabs-active af|navigationPane::tabs-bottom-start-content {
+  -tr-inhibit: background-image;  
+/* background-image: url('/adf/images/tab3-bot-start-selected.gif');*/
+}
+
+
+af|navigationPane::tabs-active af|navigationPane::tabs-mid {
+  background-color: purple;
+  border-top: black solid 1px;
+  border-left: black solid 2px;
+  border-right: black solid 2px;
+  -tr-inhibit: background-image;
+  padding-right: 10px;
+  padding-left: 10px;
+  /* background-image: url('/adf/images/tab3-mid-selected.gif'); */
+}  
+  
+af|navigationPane::tabs-active af|navigationPane::tabs-bottom-mid {
+  -tr-inhibit: background-image;
+ /* background-image: url('/adf/images/tab3-bot-mid-selected.gif'); */ 
+}
+   
+
+/* Styles the end of the last tab if it is active */
+af|navigationPane::tabs-active af|navigationPane::tabs-end {
+  -tr-inhibit: background-image;
+    border-bottom: Black solid 1px;
+  /* background-image: url('/adf/images/tab3-end-selected.gif'); */
+}
+  
+af|navigationPane::tabs-active af|navigationPane::tabs-bottom-end {
+  -tr-inhibit: background-image;
+
+  /* background-image: url('/adf/images/tab3-bot-mid-selected.gif'); */
+}
+
+af|navigationPane::tabs-active af|navigationPane::tabs-bottom-end-join {
+  -tr-inhibit: background-image;
+    border-bottom: 2px blue solid;
+  /* background-image: url('/adf/images/tab3-bot-deselected.gif'); */
+}
+  
+  
+af|navigationPane::tabs-active af|navigationPane::tabs-bottom-end-content {
+  -tr-inhibit: background-image;
+      background-color: Lime;
+  /*background-image: url('/adf/images/tab3-bot-end-selected.gif');*/
+}
+  
+  
+af|navigationPane::tabs-inactive af|navigationPane::tabs-start {
+  -tr-inhibit: background-image;
+  /* background-image: url('/adf/images/tab3-start-deselected.gif');*/
+}
+  
+  
+af|navigationPane::tabs-inactive af|navigationPane::tabs-bottom-start {
+  -tr-inhibit: background-image;
+  background-color: red;
+  /* background-image: url('/adf/images/tab3-bot-deselected.gif');*/
+}
+  
+  
+af|navigationPane::tabs-inactive af|navigationPane::tabs-bottom-start-content {
+  -tr-inhibit: background-image;
+  background-color: gray;
+  /* background-image: none;*/
+}
+  
+af|navigationPane::tabs-inactive af|navigationPane::tabs-mid {
+  background-color: pink;
+  border-top: black solid 1px;
+  border-left: black solid 2px;
+  border-right: black solid 2px;
+  padding-right: 10px;
+  padding-left: 10px;
+  -tr-inhibit: background-image;
+  /* background-image: url('/adf/images/tab3-mid-deselected.gif');*/
+}
+  
+af|navigationPane::tabs-bottom-mid {
+  background-color: pink;
+}
+    
+  
+af|navigationPane::tabs-inactive af|navigationPane::tabs-start-join-from-active,
+af|navigationPane::tabs-inactive af|navigationPane::tabs-start-join-from-inactive,
+af|navigationPane::tabs-inactive af|navigationPane::tabs-end-join-to-inactive,
+af|navigationPane::tabs-active af|navigationPane::tabs-end-join-to-inactive {
+  -tr-inhibit: background-image;
+  /* background-image: url('/adf/images/tab3-end-join-deselected-to-deselected.gif');*/
+}
+  
+  
+af|navigationPane::tabs-inactive af|navigationPane::tabs-end {
+  -tr-inhibit: background-image;
+ /*  background-image: url('/adf/images/tab3-end-deselected.gif');*/
+}
+  
+  
+af|navigationPane::tabs-inactive af|navigationPane::tabs-bottom-end {
+  -tr-inhibit: background-image;
+  background-color: gray;
+ /*  background-image: url('/adf/images/tab3-bot-deselected.gif');*/
+}
+  
+  
+af|navigationPane::tabs-inactive af|navigationPane::tabs-bottom-end-join {
+    border-bottom: Fuchsia 3px solid;
+  -tr-inhibit: background-image;
+ /*  background-image: url('/adf/images/tab3-bot-deselected.gif');*/
+}
+
+  
+  
+af|navigationPane::tabs-inactive af|navigationPane::tabs-bottom-end-content {
+  -tr-inhibit: background-image;
+  background-color: red;
+ /*  background-image: none;*/
+}

@@ -1473,9 +1473,6 @@
   <style selector="af|navigationPane::tabs-active af|navigationPane::tabs-start-join">
     <property name="background-image">url('/adf/images/tab3-start-join-selected.gif')</property>
   </style>
-  <style selector="af|navigationPane::tabs-active af|navigationPane::tabs-start-join">
-    <property name="background-image">url('/adf/images/tab3-start-join-selected.gif')</property>
-  </style>
   <style selector="af|navigationPane::tabs-active af|navigationPane::tabs-bottom-start">
     <property name="background-image">url('/adf/images/tab3-bot-mid-selected.gif')</property>
   </style>
