@@ -35,6 +35,7 @@ import javax.faces.model.SelectItem;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.input.CoreSelectManyShuttle;
+import org.apache.myfaces.trinidad.context.FormData;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
@@ -223,6 +224,13 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
     Converter           converter,
     boolean             valuePassThru) throws IOException
   {
+    FormData fData = rc.getFormData();
+    if (fData == null)
+    {
+      _LOG.warning("COMPONENT_REQUIRES_FORM", component);
+      return;
+    }
+
     String clientId = getClientId(context, component);
 
     // Add the needed JS library
