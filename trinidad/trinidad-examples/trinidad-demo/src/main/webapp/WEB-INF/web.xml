@@ -61,6 +61,11 @@
     <param-name>org.apache.myfaces.trinidad.USE_APPLICATION_VIEW_CACHE</param-name>
     <param-value>false</param-value>
   </context-param>
+  
+<context-param>
+ <param-name>org.apache.myfaces.trinidadinternal.DISABLE_CONTENT_COMPRESSION</param-name>
+ <param-value>true</param-value>
+</context-param>
 
   <!-- If this parameter is enabled, Trinidad will automatically
        check the modification date of your JSPs, and discard saved
