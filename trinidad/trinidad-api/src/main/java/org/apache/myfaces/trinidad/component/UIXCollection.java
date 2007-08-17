@@ -780,58 +780,86 @@ public abstract class UIXCollection extends UIXComponentBase
     if (stamp.isTransient())
       return Transient.TRUE;
 
-    Object[] state = new Object[3];
-    state[0] = StampState.saveStampState(context, stamp);
+    // The structure we will use is:
+    //   0: state of the stamp
+    //   1: state of the children (an array)
+    //   2: state of the facets (an array of name-key pairs)
+    // If there is no facet state, we have a two-element array
+    // If there is no facet state or child state, we have a one-elment array
+    // If there is no state at all, we return null
+
+    Object stampState = StampState.saveStampState(context, stamp);
+
+    // StampState can never EVER be an Object array, as if we do,
+    // we have no possible way of identifying the difference between
+    // just having stamp state, and having stamp state + child/facet state
+    assert(!(stampState instanceof Object[]));
 
     int facetCount = _getFacetCount(stamp);
-    Object[] facetState;
-    if (facetCount == 0)
-      facetState = _EMPTY_ARRAY;
-    else
+    int childCount = stamp.getChildCount();
+
+    Object[] state = null;
+
+    if (facetCount > 0)
     {
-      facetState = new Object[facetCount * 2];
+      boolean facetStateIsEmpty = true;
+      Object[] facetState = null;
+
       Map<String, UIComponent> facetMap = stamp.getFacets();
+
       int i = 0;
       for(Map.Entry<String, UIComponent> entry : facetMap.entrySet())
       {
+        Object singleFacetState = saveStampState(context, entry.getValue());
+        // Don't bother allocating anything until we have some non-null
+        // and non-transient facet state
+        if (facetStateIsEmpty)
+        {
+          if ((singleFacetState == null) ||
+              (singleFacetState == Transient.TRUE))
+            continue;
+          
+          facetStateIsEmpty = false;
+          facetState = new Object[facetCount * 2];
+        }
+
         int base = i * 2;
+        assert(facetState != null);
         facetState[base] = entry.getKey();
-        facetState[base + 1] = saveStampState(context, entry.getValue());
+        facetState[base + 1] = singleFacetState;
         i++;
       }
-    }
 
-    state[1] = facetState;
-
-    int childCount = stamp.getChildCount();
-    Object[] childStateArray;
-    if (childCount == 0)
-    {
-      childStateArray = _EMPTY_ARRAY;
-    }
-    else
-    {
-      List<UIComponent> children = stamp.getChildren();
-      childStateArray = new Object[childCount];
-      boolean wasAllTransient = true;
-      for(int i=0; i < childCount; i++)
+      // OK, we had something:  allocate the state array to three
+      // entries, and insert the facet state at position 2
+      if (!facetStateIsEmpty)
       {
-        UIComponent child = children.get(i);
-        Object childState = saveStampState(context, child);
-        if (childState != Transient.TRUE)
-          wasAllTransient = false;
-        
-        childStateArray[i] = childState;
+        state = new Object[3];
+        state[2] = facetState;
       }
-      
-      // If all we found were transient components, just use
-      // an empty array
-      if (wasAllTransient)
-        childStateArray = _EMPTY_ARRAY;
     }
 
-    state[2] = childStateArray;
+    // If we have any children, iterate through the array,
+    // saving state
+    Object childState = StampState.saveChildStampState(context,
+                                                       stamp,
+                                                       this);
+    if (childState != null)
+    {
+      // If the state hasn't been allocated yet, we only
+      // need a two-element array
+      if (state == null)
+        state = new Object[2];
+      state[1] = childState;
+    }
 
+    // If we don't have an array, just return the stamp
+    // state
+    if (state == null)
+      return stampState;
+
+    // Otherwise, store the stamp state at index 0, and return
+    state[0] = stampState;
     return state;
   }
 
@@ -845,57 +873,51 @@ public abstract class UIXCollection extends UIXComponentBase
   protected void restoreStampState(FacesContext context, UIComponent stamp,
                                    Object stampState)
   {
-    if (stampState == Transient.TRUE)
+    // Just a transient component - return
+    if ((stampState == Transient.TRUE) || (stampState == null))
       return;
     
-    Object[] state = (Object[]) stampState;
-    StampState.restoreStampState(context, stamp, state[0]);
-
-    Object[] facetStateArray = (Object[]) state[1];
-    for(int i=0; i<facetStateArray.length; i+=2)
+    // If this isn't an Object array, then it's a component with state
+    // of its own, but no child/facet state - so restore and be done
+    if (!(stampState instanceof Object[]))
     {
-      String facetName = (String) facetStateArray[i];
-      Object facetState = facetStateArray[i + 1];
-      if (facetState != Transient.TRUE)
-        restoreStampState(context, stamp.getFacet(facetName), facetState);
+      StampState.restoreStampState(context, stamp, stampState);
+      // NOTE early return
+      return;
     }
 
-    List<UIComponent> children = stamp.getChildren();
-    Object[] childStateArray = (Object[]) state[2];
-    int childIndex = 0;
-    for(int i=0; i<childStateArray.length; i++)
+    Object[] state = (Object[]) stampState;
+    int stateSize = state.length;
+    // We always have at least one element if we get to here
+    assert(stateSize >= 1);
+
+    StampState.restoreStampState(context, stamp, state[0]);
+
+
+    // If there's any facet state, restore it
+    if (stateSize >= 3)
     {
-      Object childState = childStateArray[i];
-      // Skip over any saved state that corresponds to transient
-      // components
-      if (childState != Transient.TRUE)
+      Object[] facetStateArray = (Object[]) state[2];
+      // This had better be non-null, otherwise we never 
+      // should have allocated a three-element array!
+      assert(facetStateArray != null);
+
+      for(int i=0; i<facetStateArray.length; i+=2)
       {
-        while (childIndex < children.size())
-        {
-          UIComponent child = children.get(childIndex);
-          childIndex++;
-          // Skip over any transient components before restoring state
-          if (!child.isTransient())
-          {
-            restoreStampState(context, child, childState);
-            break;
-          }
-        }
+        String facetName = (String) facetStateArray[i];
+        Object facetState = facetStateArray[i + 1];
+        if (facetState != Transient.TRUE)
+          restoreStampState(context, stamp.getFacet(facetName), facetState);
       }
-      // The component may or may not still be there;  if it
-      // is, then we'd better skip over it
-      else
-      {
-        if (childIndex < children.size())
-        {
-          UIComponent child = children.get(childIndex);
-          // If the child isn't transient, then it must be
-          // something that we want to look at on the next
-          // iteration.
-          if (child.isTransient())
-            childIndex++;
-        }
-      }
+    }
+    
+    // If there's any child state, restore it
+    if (stateSize >= 2)
+    {
+      StampState.restoreChildStampState(context,
+                                        stamp,
+                                        this,
+                                        state[1]);
     }
   }
 
@@ -1188,11 +1210,12 @@ public abstract class UIXCollection extends UIXComponentBase
       {
         Object iniStateObj = _getCurrencyKeyForInitialStampState();
         state = stampState.get(iniStateObj, stampId);
+        /*
         if (state==null)
         {
           _LOG.severe("NO_INITIAL_STAMP_STATE", new Object[]{currencyObj,iniStateObj,stampId});
           continue;
-        }
+        }*/
       }
       restoreStampState(context, stamp, state);
     }
@@ -1393,8 +1416,9 @@ public abstract class UIXCollection extends UIXComponentBase
 
   // An enum to throw into state-saving so that we get a nice
   // instance-equality to test against for noticing transient components
-  // TODO: is this really better than just, say, using null for 
-  // transient components?  It's certainly better at not papering
-  // over error cases
+  // (and better serialization results)
+  // We need this instead of just using null - because transient components
+  // are specially handled, since they may or may not actually still
+  // be there when you go to restore state later (e.g., on the next request!)
   enum Transient { TRUE };
 }

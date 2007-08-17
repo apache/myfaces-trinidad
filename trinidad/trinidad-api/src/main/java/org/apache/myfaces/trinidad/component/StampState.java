@@ -94,8 +94,6 @@ final class StampState implements Externalizable
   public static Object saveStampState(FacesContext context, UIComponent stamp)
   {
     RowState state = _createState(stamp);
-    if (state != null)
-      state.saveRowState(stamp);
     return state;
   }
 
@@ -119,45 +117,80 @@ final class StampState implements Externalizable
   }
 
   /**
-   * save the stamp state of the children of the given column in the given table.
+   * save the stamp state of just the children of the given component
+   * in the given table.
    */
   @SuppressWarnings("unchecked")
   public static Object saveChildStampState(
     FacesContext context,
-    UIComponent column,
+    UIComponent   stamp,
     UIXCollection table)
   {
-    List<UIComponent> kids = column.getChildren();
-    int sz = kids.size();
-    Object[] state = new Object[sz];
-    boolean wasAllTransient = true;
-    for(int i=0; i<sz; i++)
-    {
-      Object childState = table.saveStampState(context, kids.get(i));
-      state[i] = childState;
-      if (childState != UIXCollection.Transient.TRUE)
-        wasAllTransient = false;
-    }
-    
-    // If all we found were transient components, just use
-    // an empty array
-    if (wasAllTransient)
-      return _EMPTY_ARRAY;
+    int childCount = stamp.getChildCount();
+    // If we have any children, iterate through the array,
+    // saving state
+    if (childCount == 0)
+      return null;
 
-    return state;
+    Object[] childStateArray = null;
+    List<UIComponent> children = stamp.getChildren();
+    boolean childStateIsEmpty = true;
+    for(int i=0; i < childCount; i++)
+    {
+      UIComponent child = children.get(i);
+      Object childState = table.saveStampState(context, child);
+
+      // Until we have one non-null entry, don't allocate the array.
+      // Unlike facets, we *do* care about stashing Transient.TRUE,
+      // because we have to keep track of them relative to any
+      // later components, BUT if it's all null and transient, we 
+      // can discard the array.  This does mean that putting 
+      // transient components into a stamp is a bit inefficient
+      
+      // So: allocate the array if we encounter our first
+      // non-null childState (even if it's transient)
+      if (childStateArray == null)
+      {
+        if (childState == null)
+          continue;
+        
+        childStateArray = new Object[childCount];
+      }
+      
+      // But remember the moment we've encountered a non-null
+      // *and* non-transient component, because that means we'll
+      // really need to keep this array
+      if ((childState != UIXCollection.Transient.TRUE) && (childState != null))
+        childStateIsEmpty = false;
+      
+      // Store a value into the array
+      assert(childStateArray != null);
+      childStateArray[i] = childState;
+    }
+
+    // Even if we bothered to allocate an array, if all we 
+    // had were transient + null, don't bother with the array at all
+    if (childStateIsEmpty)
+      return null;
+
+    return childStateArray;
   }
 
   /**
-   * restore the stamp state of the children of the given column in the given table.
+   * Restore the stamp state of just the children of the given component
+   * in the given table.
    */
   @SuppressWarnings("unchecked")
   public static void restoreChildStampState(
     FacesContext context,
-    UIComponent column,
+    UIComponent stamp,
     UIXCollection table,
     Object stampState)
   {
-    List<UIComponent> kids = column.getChildren();
+    if (stampState == null)
+      return;
+
+    List<UIComponent> kids = stamp.getChildren();
     Object[] state = (Object[]) stampState;
 
     int childIndex = 0;
@@ -241,13 +274,27 @@ final class StampState implements Externalizable
 
   private static RowState _createState(UIComponent child)
   {
+    RowState state;
     if (child instanceof EditableValueHolder)
-      return new EVHState();
-    if (child instanceof UIXShowDetail)
-      return new SDState();
-    if (child instanceof UIXCollection)
-      return new TableState();
-    return null;
+    {
+      state = new EVHState();
+      state.saveRowState(child);
+    }
+    else if (child instanceof UIXCollection)
+    {
+      state = new TableState();
+      state.saveRowState(child);
+    }
+    else if (child instanceof UIXShowDetail)
+    {
+      state = SDState.getState((UIXShowDetail) child);
+    }
+    else
+    {
+      state = null;
+    }
+
+    return state;
   }
 
   private static boolean _eq(Object k1, Object k2)
@@ -274,8 +321,24 @@ final class StampState implements Externalizable
 
   static private final class SDState extends RowState
   {
+    /**
+     * Return cached, shared instances of SDState.
+     */
+    static public RowState getState(UIXShowDetail child)
+    {
+      if (child.isDisclosed())
+        return _TRUE;
+      else
+        return _FALSE;
+    }
+
     public SDState()
     {
+    }
+
+    private SDState(boolean disclosed)
+    {
+      _disclosed = disclosed;
     }
 
     @Override
@@ -301,6 +364,11 @@ final class StampState implements Externalizable
     {
       return "SDState[disclosed=" + _disclosed + "]";
     }
+
+    // Reusable instances of SDState. TODO: use readResolve/writeReplace
+    // so that we only send across and restore instances of these
+    static private final SDState _TRUE = new SDState(true);
+    static private final SDState _FALSE = new SDState(false);
 
     /**
      * 
