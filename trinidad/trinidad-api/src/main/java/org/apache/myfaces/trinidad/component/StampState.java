@@ -69,12 +69,21 @@ final class StampState implements Externalizable
     Map<DualKey, Object> comparant = Collections.emptyMap();
     if (_rows == comparant)
     {
+      if (value == null)
+        return;
+
       // =-=AEW Better default sizes
       _rows = new HashMap<DualKey, Object>(109);
     }
 
     DualKey dk = new DualKey(currencyObj, key);
-    _rows.put(dk, value);
+    // Make sure that if we're applying a null value, that we 
+    // don't hold on to the key and retain the entry - just nuke
+    // the entry
+    if (value == null)
+      _rows.remove(dk);
+    else
+      _rows.put(dk, value);
   }
 
   public int size()
