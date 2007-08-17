@@ -74,28 +74,40 @@ public class StyleNode
     _selector = selector;
     _resetProperties = resetProperties;
 
+
+    // Structure copying:
+    // We have quite a lot of StyleNodes floating around;  so making
+    // them lightweight is highly desirable.  Consequently, use
+    // the lightest weight lists possible:  emptyList() if null
+    // or an empty array, and singletonList() if it's a one-element array
+
     // Initialize _properties
     // ------------------------------
-    if (properties != null)
-      _properties = Collections.unmodifiableList(Arrays.asList(properties));
-    else
+    if (properties == null || (properties.length == 0))
       _properties = Collections.emptyList();
-
+    else if (properties.length == 1)
+      _properties = Collections.singletonList(properties[0]);
+    else
+      _properties = Collections.unmodifiableList(Arrays.asList(properties));
 
     // Initialize _includedStyles
     // ------------------------------
-    if (includedStyles != null)
-      _includedStyles = Collections.unmodifiableList(Arrays.asList(includedStyles));
-    else
+    if ((includedStyles == null) || (includedStyles.length == 0))
       _includedStyles = Collections.emptyList();
+    else if (includedStyles.length == 1)
+      _includedStyles = Collections.singletonList(includedStyles[0]);
+    else
+      _includedStyles = Collections.unmodifiableList(Arrays.asList(includedStyles));
 
 
     // Initialize _includedProperties
     // ------------------------------
-    if (includedProperties != null)
-      _includedProperties = Collections.unmodifiableList(Arrays.asList(includedProperties));
-    else
+    if ((includedProperties == null) || (includedProperties.length == 0))
       _includedProperties = Collections.emptyList();
+    else if (includedProperties.length == 1)
+      _includedProperties = Collections.singletonList(includedProperties[0]);
+    else
+      _includedProperties = Collections.unmodifiableList(Arrays.asList(includedProperties));
       
       
     // Initialize _inhibitAll and _inhibitedProperties
@@ -103,7 +115,7 @@ public class StyleNode
     boolean inhibitAll = false;
     // Convert inhibitedProperties Set to an unmodifiableList
 
-    if(inhibitedProperties != null)
+    if ((inhibitedProperties != null) && !inhibitedProperties.isEmpty())
     {
       List<String> inhibitedPropertiesList = new ArrayList<String>(inhibitedProperties.size());
       for(String property : inhibitedProperties)
@@ -135,7 +147,10 @@ public class StyleNode
         }
       }
 
-      _inhibitedProperties = Collections.unmodifiableList(inhibitedPropertiesList);
+      if (inhibitedPropertiesList.size() == 1)
+        _inhibitedProperties = Collections.singletonList(inhibitedPropertiesList.get(0));
+      else
+        _inhibitedProperties = Collections.unmodifiableList(inhibitedPropertiesList);
 
     }
     else
