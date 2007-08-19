@@ -163,17 +163,11 @@ class MenuUtils
       facesContext.getExternalContext().getApplicationMap();
 
     // Get the request Locale
-    Locale requestLocale = facesContext.getExternalContext().getRequestLocale();
-
-    // Make sure it is not null
+    Locale requestLocale = facesContext.getViewRoot().getLocale();
+      
     if (requestLocale == null)
     {
-      requestLocale = facesContext.getViewRoot().getLocale();
-      
-      if (requestLocale == null)
-      {
-        requestLocale = facesContext.getApplication().getDefaultLocale();
-      }
+      requestLocale = facesContext.getApplication().getDefaultLocale();
     }
     
     // Is there a bundle with this key already on the session map?
