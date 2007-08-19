@@ -981,18 +981,12 @@
  
  <!-- CHILD_NOT_NULL_NOT_ICONNODE_INSTANCE -->
  <resource key="CHILD_NOT_NULL_NOT_ICONNODE_INSTANCE">child is not null and not an instance of IconNode</resource>
- 
- <!-- NULL_RENDERERS_NO_RENDERERS_PASSED -->
- <resource key="NULL_RENDERERS_NO_RENDERERS_PASSED">"Null renderers or no renderers passed"</resource>
- 
- <!-- NULL_CHILD_NOT_REDNERERNODE_INSTANCE -->
- <resource key="NULL_CHILD_NOT_REDNERERNODE_INSTANCE">Null child or child not an instance of RendererNode</resource>
- 
+  
  <!-- NULL_FAMILY -->
  <resource key="NULL_FAMILY">Null family</resource>
  
  <!-- NON_NULL_CHILD_NOT_SKINPROPERTYNODE_INSTANCE -->
- <resource key="NON_NULL_CHILD_NOT_SKINPROPERTYNODE_INSTANCE">Non Null child and child not an instance of SkinPropertyNode</resource>
+ <resource key="NON_NULL_CHILD_NOT_SKINPROPERTYNODE_INSTANCE">Non-null child and child not an instance of SkinPropertyNode</resource>
  
  <!-- RENDERINGCONTEXT_HAS_BEEN_CREATED -->
  <resource key="RENDERINGCONTEXT_HAS_BEEN_CREATED">RenderingContext has already been created!</resource>

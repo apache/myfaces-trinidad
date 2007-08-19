@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.apache.myfaces.trinidadinternal.ui.laf.xml.parse;
+package org.apache.myfaces.trinidadinternal.skin.parse;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.share.xml.StringParser;
@@ -26,16 +26,13 @@ import org.xml.sax.SAXParseException;
 import org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser;
 import org.apache.myfaces.trinidadinternal.share.xml.NodeParser;
 import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
-import org.apache.myfaces.trinidadinternal.ui.laf.xml.XMLConstants;
 
 /**
  * NodeParser for &lt;skin&gt; node in trinidad-skins.xml
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/xml/parse/SkinExtensionParser.java#0 $) $Date: 10-nov-2005.18:50:44 $
  * @todo ELIMINATE NAMESPACE
- * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
-@Deprecated
 public class SkinNodeParser extends BaseNodeParser
   implements XMLConstants
 {

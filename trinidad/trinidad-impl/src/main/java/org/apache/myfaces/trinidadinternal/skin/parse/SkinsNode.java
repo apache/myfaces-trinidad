@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.apache.myfaces.trinidadinternal.ui.laf.xml.parse;
+package org.apache.myfaces.trinidadinternal.skin.parse;
 
 import java.util.List;
 
@@ -24,9 +24,7 @@ import java.util.List;
  * Object which represents the skin and skin-addition nodes in trinidad-skins.xml.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/xml/parse/SkinPropertyNode.java#0 $) $Date: 10-nov-2005.18:50:45 $
- * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
  */
-@Deprecated
 public class SkinsNode
 {
   /**

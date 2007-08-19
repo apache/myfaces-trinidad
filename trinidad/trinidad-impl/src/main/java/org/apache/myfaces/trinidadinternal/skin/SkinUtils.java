@@ -61,10 +61,10 @@ import org.apache.myfaces.trinidadinternal.share.xml.TreeBuilder;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLProvider;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
 
-import org.apache.myfaces.trinidadinternal.ui.laf.xml.XMLConstants;
-import org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.SkinAdditionNode;
-import org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.SkinNode;
-import org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.SkinsNode;
+import org.apache.myfaces.trinidadinternal.skin.parse.XMLConstants;
+import org.apache.myfaces.trinidadinternal.skin.parse.SkinAdditionNode;
+import org.apache.myfaces.trinidadinternal.skin.parse.SkinNode;
+import org.apache.myfaces.trinidadinternal.skin.parse.SkinsNode;
 
 /**
  * Utility functions for creating Skin objects and SkinExtension objects 
@@ -699,7 +699,7 @@ public class SkinUtils
 
   // Prefix of LAf parsing package
   static private final String _LAF_PARSE_PACKAGE =
-    "org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.";
+    "org.apache.myfaces.trinidadinternal.skin.parse.";
 
 
   static private final String _CONFIG_FILE = "/WEB-INF/trinidad-skins.xml";
