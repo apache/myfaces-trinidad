@@ -30,12 +30,12 @@ import org.apache.myfaces.trinidadinternal.share.xml.JaxpXMLProvider;
 import org.apache.myfaces.trinidadinternal.share.xml.ParseContextImpl;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLProvider;
 
+import org.apache.myfaces.trinidadinternal.skin.parse.IconNode;
+import org.apache.myfaces.trinidadinternal.skin.parse.SkinPropertyNode;
+
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.xml.StyleSheetDocumentUtils;
-
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
-import org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.IconNode;
-import org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.SkinPropertyNode;
 
 
 /**

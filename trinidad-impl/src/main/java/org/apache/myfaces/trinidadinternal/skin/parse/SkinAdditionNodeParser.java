@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.apache.myfaces.trinidadinternal.ui.laf.xml.parse;
+package org.apache.myfaces.trinidadinternal.skin.parse;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.share.xml.StringParser;
@@ -26,7 +26,6 @@ import org.xml.sax.SAXParseException;
 import org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser;
 import org.apache.myfaces.trinidadinternal.share.xml.NodeParser;
 import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
-import org.apache.myfaces.trinidadinternal.ui.laf.xml.XMLConstants;
 
 /**
  * NodeParser for &lt;skin-addition&gt; node in trinidad-skins.xml

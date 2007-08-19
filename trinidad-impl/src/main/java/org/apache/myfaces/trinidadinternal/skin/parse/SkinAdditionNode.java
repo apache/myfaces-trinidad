@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.apache.myfaces.trinidadinternal.ui.laf.xml.parse;
+package org.apache.myfaces.trinidadinternal.skin.parse;
 
 /**
  * Object which represents a single &lt;skin-addition&gt; element in trinidad-skins.xml.

@@ -37,13 +37,13 @@ import java.util.TreeSet;
 import java.util.regex.Pattern;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.skin.Icon;
 
 import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
 import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
 import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
 
-import org.apache.myfaces.trinidadinternal.skin.icon.NullIcon;
 import org.apache.myfaces.trinidadinternal.style.CSSStyle;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.IncludeStyleNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.PropertyNode;
@@ -51,13 +51,13 @@ import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetNode;
 import org.apache.myfaces.trinidadinternal.skin.icon.ContextImageIcon;
-import org.apache.myfaces.trinidad.skin.Icon;
+import org.apache.myfaces.trinidadinternal.skin.icon.NullIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.TextIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.URIImageIcon;
+import org.apache.myfaces.trinidadinternal.skin.parse.IconNode;
+import org.apache.myfaces.trinidadinternal.skin.parse.SkinPropertyNode;
 import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
 import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
-import org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.IconNode;
-import org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.SkinPropertyNode;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 import org.apache.myfaces.trinidadinternal.util.URLUtils;
 

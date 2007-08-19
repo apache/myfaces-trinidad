@@ -49,12 +49,12 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinProperties;
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadinternal.share.expl.Coercions;
 import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
+import org.apache.myfaces.trinidadinternal.skin.parse.IconNode;
+import org.apache.myfaces.trinidadinternal.skin.parse.SkinPropertyNode;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.StyleProvider;
 import org.apache.myfaces.trinidadinternal.style.xml.StyleSheetDocumentUtils;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
-import org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.IconNode;
-import org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.SkinPropertyNode;
 
 /**
  * Defines the components (icons, styles, etc)
