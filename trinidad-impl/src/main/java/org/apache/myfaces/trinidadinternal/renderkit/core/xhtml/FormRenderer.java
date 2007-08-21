@@ -446,13 +446,12 @@ public class FormRenderer extends XhtmlRenderer
   //     3: converter (or (void 0) if omitted) - index into Validations array
   //     4: validator array - array of integers, each index into Validations
   //     TODO: turn into a Map of clientId to 4 entries
+  //     TODO: consider passing "immediate"
   //  - Validator function:
   //     TODO: don't render for PPR.
-  //     TODO: don't pass index of global message format - just pass the message
-  //          and delete addGlobalMessageFormat() API
   //  - Label map: clientId to label
   //     TODO: inline into Validators array
-  //  - _Formats array: now used only for required messages + "global"
+  //  - _Formats array: now used only for required messages
   //  TODO:
   //    Make one monster function of the form:
   //   TrPage.prototype._addValidators(
@@ -498,10 +497,12 @@ public class FormRenderer extends XhtmlRenderer
     }
 
     // TODO - when there are immediate components validate only those on the
-    // client?
+    // client?  Or consider simply treating immediate components
+    // as if they were non-immediate on the client
+    
     // When there is an immediate component do server side validation,
-    // see bug 4697440 CLIENT VALIDATION HANDLES
-    //                 EDITABLEVALUEHOLDER IMMEDIATE INCORRECTLY
+    // Before had bug where client-side validation ignored
+    // all immediate components!?!
     boolean hasImmediateComponent = fData.hasImmediateComponent();
 
     RequestContext rc = RequestContext.getCurrentInstance();
@@ -671,20 +672,32 @@ public class FormRenderer extends XhtmlRenderer
     else
     {
       writer.writeText("Validator(f,s){return ", null);
-      
-      if (rc.getClientValidation() == RequestContext.ClientValidation.INLINE)
+     
+      boolean isInline =
+        (rc.getClientValidation() == RequestContext.ClientValidation.INLINE);
+
+      if (isInline)
         writer.writeText("_validateInline(f,s,_", null);
       else
         writer.writeText("_validateAlert(f,s,_", null);
           
       writer.writeText(jsID, null);
-      writer.writeText("_Validators,", null);
-      Integer globalFormatIndex = fData.addGlobalMessageFormat(arc);
-      writer.writeText(globalFormatIndex, null);
-      writer.writeText(",\"", null);
-      writer.writeText(XhtmlUtils.escapeJS(
-          arc.getTranslatedString("af_form.SUBMIT_ERRORS")), null);
-      writer.writeText("\");}", null);
+      writer.writeText("_Validators", null);
+      // The _validateAlert() function needs extra arguments
+      // for the "global format" and error title
+      if (!isInline)
+      {
+        writer.writeText(",\"", null);
+        writer.writeText(XhtmlUtils.escapeJS(
+            arc.getTranslatedString(_GLOBAL_FORMAT_KEY)), null);
+        writer.writeText("\",\"", null);
+
+        writer.writeText(XhtmlUtils.escapeJS(
+            arc.getTranslatedString("af_form.SUBMIT_ERRORS")), null);
+        writer.writeText("\"", null);
+      }
+
+      writer.writeText(");}", null);
     }
 
     //
@@ -1137,6 +1150,9 @@ public class FormRenderer extends XhtmlRenderer
   private PropertyKey _defaultCommandKey;
   private PropertyKey _onsubmitKey;
   private PropertyKey _targetFrameKey;
+
+  static private final String _GLOBAL_FORMAT_KEY =
+    "af_messages.GLOBAL_MESSAGE_FORMAT";
 
   // -= Simon Lessard =-
   // FIXME: Nothing in this class is logged as of 2006-08-03

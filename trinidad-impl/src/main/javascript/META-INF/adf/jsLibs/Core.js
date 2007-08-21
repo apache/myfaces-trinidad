@@ -1182,11 +1182,11 @@ function _validateAlert(
   form,
   source,
   validators,
-  globalMessageIndex,
+  globalMessage,
   errorTitle
   )
 {
-  var failureMap = _multiValidate(form, source,  validators, globalMessageIndex);
+  var failureMap = _multiValidate(form, source,  validators);
   
   if (failureMap.length == 0)
     return true;
@@ -1225,7 +1225,7 @@ function _validateAlert(
       var facesMessage = messages[j];
     
       var errorString = _getGlobalErrorString(currInput, 
-                          globalMessageIndex, 
+                          globalMessage, 
                           facesMessage.getDetail(),
                           label);   
     
@@ -1248,12 +1248,10 @@ function _validateAlert(
 function _validateInline(
   form,
   source,
-  validators,
-  globalMessageIndex,
-  errorTitle
+  validators
   )
 {
-  var failureMap = _multiValidate(form, source,  validators, globalMessageIndex);
+  var failureMap = _multiValidate(form, source,  validators);
   
   var noFailures = true;
 
@@ -2285,8 +2283,7 @@ function _setFocus(currInput)
 function _multiValidate(
   form,
   source,
-  validators,
-  globalMessageIndex
+  validators
   )
 {
   // Initialise the return map.
@@ -2536,29 +2533,20 @@ function _createCustomFacesMessage(
 
 function _getGlobalErrorString(
   input,
-  formatIndex,
+  errorFormat,
   errorString,
   label
   )
 {
   var form = _getForm(input);  
-  // get the list of different error formats
-  var errorFormats = window["_" + _getJavascriptId(form.name) + "_Formats"];
-
-  if (errorFormats)
+  if (errorFormat && label != null)
   {
-    // get the appropriate error format
-    var errorFormat = errorFormats[formatIndex];
-
-    if (errorFormat && label != null)
-    {
-      return _formatErrorString(errorFormat,
-                               {
-                                 "0":label,
-                                 "1":errorString
-                               });
-    }
-  }   
+    return _formatErrorString(errorFormat,
+                             {
+                               "0":label,
+                               "1":errorString
+                             });
+  }
   
   return errorString;  
 }                

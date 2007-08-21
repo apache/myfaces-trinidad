@@ -26,8 +26,6 @@ abstract public class FormData
     String targetId,
     String label);
 
-  abstract public Integer addGlobalMessageFormat(RenderingContext rc);
-
   abstract public void addNeededValue(String name);
 
   abstract public void addRenderedValue(String name);
