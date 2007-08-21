@@ -92,17 +92,6 @@ public class CoreFormData extends FormData
     labelMap.put(targetId, label);
   }
 
-  @Override
-  public Integer addGlobalMessageFormat(
-    RenderingContext rc)
-  {
-    String format = rc.getSkin().getTranslatedString(rc.getLocaleContext(),  
-                                                     _GLOBAL_FORMAT_KEY);
-    return _addErrorFormat(format);
-  }
-  
-
-
   public Map<String, String> getLabelMap(
     boolean  createIfNecessary
     )
@@ -777,7 +766,5 @@ public class CoreFormData extends FormData
     public Object             converter;
   }
 
-
-  static private final String _GLOBAL_FORMAT_KEY = "af_messages.GLOBAL_MESSAGE_FORMAT";
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(CoreFormData.class);
 }
