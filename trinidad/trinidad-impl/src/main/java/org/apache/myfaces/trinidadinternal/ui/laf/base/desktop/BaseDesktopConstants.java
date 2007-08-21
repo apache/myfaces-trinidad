@@ -129,68 +129,11 @@ public interface BaseDesktopConstants extends XhtmlLafConstants
   public static final String AF_MENU_BAR_SEPARATOR_STYLE_CLASS =
     "af|menuBar::separator";
 
-  // panelBox style classes
-  public static final String AF_PANEL_BOX_TRANSPARENT_STYLE_CLASS =
-    "af|panelBox::transparent";
-
-  public static final String AF_PANEL_BOX_LIGHT_STYLE_CLASS =
-    "af|panelBox::light";
-
-  public static final String AF_PANEL_BOX_MEDIUM_STYLE_CLASS =
-    "af|panelBox::medium";
-
-  public static final String AF_PANEL_BOX_DARK_STYLE_CLASS =
-    "af|panelBox::dark";
-
-  public static final String AF_PANEL_BOX_HEADER_STYLE_CLASS =
-    "af|panelBox::header";
-
-  public static final String AF_PANEL_BOX_BODY_STYLE_CLASS =
-    "af|panelBox::body";
-  public static final String AF_SELECT_MANY_SHUTTLE_PB_BODY_STYLE_CLASS =
-    "af|selectManyShuttle::box-body";
-  public static final String AF_SELECT_ORDER_SHUTTLE_PB_BODY_STYLE_CLASS =
-    "af|selectOrderShuttle::box-body";
-
-  public static final String AF_PANEL_BOX_CONTENT_TRANSPARENT_STYLE_CLASS = 
-    "af|panelBox::content-transparent";
-
-  public static final String AF_PANEL_BOX_CONTENT_LIGHT_STYLE_CLASS =
-    "af|panelBox::content-light";
   public static final String AF_SELECT_MANY_SHUTTLE_PB_CONTENT_STYLE_CLASS =
     "af|selectManyShuttle::box-content";
   public static final String AF_SELECT_ORDER_SHUTTLE_PB_CONTENT_STYLE_CLASS =
     "af|selectOrderShuttle::box-content";
 
-  public static final String AF_PANEL_BOX_CONTENT_MEDIUM_STYLE_CLASS =
-    "af|panelBox::content-medium";
-
-  public static final String AF_PANEL_BOX_CONTENT_DARK_STYLE_CLASS =
-    "af|panelBox::content-dark";
- 
-  public static final String AF_PANEL_BOX_LIGHT_HEADER_START_ICON_NAME =   
-    "af|panelBox::light-header-start-icon";
-  public static final String AF_PANEL_BOX_LIGHT_HEADER_END_ICON_NAME =    
-    "af|panelBox::light-header-end-icon";
-  public static final String AF_PANEL_BOX_LIGHT_HEADER_BG_ICON_NAME =    
-    "af|panelBox::light-header-background-icon";
-    
-  public static final String AF_PANEL_BOX_LIGHT_BOTTOM_START_ICON_NAME =        
-    "af|panelBox::light-bottom-start-icon";
-  public static final String AF_PANEL_BOX_LIGHT_BOTTOM_END_ICON_NAME =          
-    "af|panelBox::light-bottom-end-icon";
-  public static final String AF_PANEL_BOX_LIGHT_BOTTOM_BG_ICON_NAME =          
-    "af|panelBox::light-bottom-background-icon";    
-  public static final String AF_PANEL_BOX_LIGHT_TOP_START_ICON_NAME =          
-    "af|panelBox::light-top-start-icon";
-  public static final String AF_PANEL_BOX_LIGHT_TOP_END_ICON_NAME =            
-    "af|panelBox::light-top-end-icon";
-  public static final String AF_PANEL_BOX_LIGHT_TOP_BG_ICON_NAME =                
-    "af|panelBox::light-top-background-icon";
-  public static final String AF_PANEL_BOX_LIGHT_START_BG_ICON_NAME =                    
-    "af|panelBox::light-start-background-icon";
-  public static final String AF_PANEL_BOX_LIGHT_END_BG_ICON_NAME =                        
-    "af|panelBox::light-end-background-icon";  
     
   public static final String AF_SELECT_MANY_SHUTTLE_BOTTOM_START_ICON_NAME =        
     "af|selectManyShuttle::bottom-start-icon";

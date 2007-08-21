@@ -77,11 +77,6 @@ component. **/
 
 .AFButtonDisabledBottomBackgroundIcon:alias {content:url(/skins/purple/images/btndbb.gif); width:1px; height:2px}
 
-/** generic background for light panelBox's or shuttles **/
-.AFBoxBackground:alias {background-color:#E3E1E1;}
-
-/** when the panelBox is dark, this is the background color */
-.AFPanelBoxDarkBackground:alias {background-color:green}
 
 /** panelTabbed **/
 /** ---------- **/
@@ -301,34 +296,69 @@ af|menuBar::separator
 /** panelBox **/
 /*  ------------   */
 
-af|panelBox::medium-header-start-icon
-{
-  content:url(/skins/purple/images/panelBoxStart.gif); 
+/* Only skin the panelBox in medium mode. Other modes have their default values. */
+
+/* rounded corners on the top-start and top-end */
+af|panelBox::medium af|panelBox::top-start,
+af|panelBox::medium af|panelBox::top-end:rtl {
+  background-image: url(/skins/purple/images/panelBoxStart.gif);
   width:8px; 
-  height:26px
-}
-af|panelBox::medium-header-end-icon
-{
-  content:url(/skins/purple/images/panelBoxEnd.gif);
-  width:8px; 
-  height:26px  
+  height:8px
 }
 
-.AFPanelBoxBody:alias
-{
+af|panelBox::medium af|panelBox::top-end,
+af|panelBox::medium af|panelBox::top-start:rtl {
+  background-image: url(/skins/purple/images/panelBoxEnd.gif);
+  height: 8px;
+  width:  8px;
+}
+
+af|panelBox::medium af|panelBox::top {
+  background-color: purple;
+}
+
+/* make the bottom have a background color and some padding, no rounded corners */
+af|panelBox::medium  af|panelBox::bottom-start, 
+af|panelBox::medium af|panelBox::bottom-end,
+af|panelBox::medium af|panelBox::bottom {
+  background-color: purple;
+  padding-top: 8px;
+}
+
+
+af|panelBox::medium af|panelBox::start,
+af|panelBox::medium af|panelBox::end {
+  background-color: pink;
+}
+
+af|panelBox::medium af|panelBox::content {
   background-color: #E7E4EA;
   border-color: purple;
-  border-style:solid;
-  border-width:3px;
-  margin:2px;
+  border-style: dashed;
+  border-width:1px;
+  padding-right: 6px;
+  padding-left: 6px;
 }
 
-af|panelBox::header
-{
-  padding: 3px 3px;
-  -tr-rule-ref: selector(".AFMediumFont:alias");
-  font-weight: bold;
+af|panelBox::medium af|panelBox::header {
+  background-color: Aqua;
 }
+
+/* for all panelBox headers, make the font bold */
+af|panelBox::header {
+  font-weight: bold;
+  padding: 2px;
+}
+
+af|panelBox::medium af|panelBox::body {
+  padding: 6px;
+  background-color: pink;
+}
+/* for all body, if doesn't have medium set, use yellow for the background-color */
+.AFPanelBoxBody:alias {
+ background-color: yellow; 
+}
+
 /* for panelBox without a header and shuttles */
 .AFBoxContentBody:alias
 {
@@ -354,6 +384,7 @@ af|selectOrderShuttle::reorder-up-icon {
 	content: url(/skins/purple/images/shuttleOrderUp.png);
 	width: 16px;
 	height: 16px;
+  border: 2px black solid;
 }
 
 af|selectOrderShuttle::reorder-down-icon {
@@ -842,3 +873,6 @@ af|navigationPane::tabs-inactive af|navigationPane::tabs-bottom-end-content {
   background-color: red;
  /*  background-image: none;*/
 }
+
+.AFFooIcon:alias {content:url(/skins/purple/images/btns.gif); width:7px; height:18px}
+.AFBarIcon {content:url(/skins/purple/images/btns.gif); width:7px; height:18px}
