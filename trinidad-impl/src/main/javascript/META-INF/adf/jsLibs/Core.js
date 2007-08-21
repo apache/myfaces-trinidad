@@ -966,20 +966,6 @@ function _setModalAbandoned(
 }
 
 
-function _focusChanging()
-{
-  if (_agent.isIE)
-  {
-    return (window.event.srcElement != window.document.activeElement);
-  }
-  else
-  {
-    // Netscape gives us no good way of determining this
-    return true;
-  }
-}
-
-
 /**
  * Function that returns a single key/value pair String
  */
@@ -1108,30 +1094,6 @@ function _validateForm(
 
 
 /**
- * Returns the next sibling that is not a comment
- */
-function _getNextNonCommentSibling(
-  parent,
-  index
-  )
-{
-  var children = parent.children;
-
-  for (var i = index + 1; i < children.length; i++)
-  {
-    var child = children[i];
-
-    if (child && (child.tagName != "!"))
-    {
-      return child;
-    }
-  }
-
-  return null;
-}
-
-
-/**
  * Validate the specified field.
  */
 function _valField(
@@ -1186,18 +1148,16 @@ function _validateAlert(
   errorTitle
   )
 {
+  if (!validators)
+    validators = _getValidators(form);
+
   var failureMap = _multiValidate(form, source,  validators);
   
-  if (failureMap.length == 0)
-    return true;
-    
   var firstFailure = true;
   var failureString = errorTitle + '\n';
 
-  for (var i = 0; i < validators.length; i += 5)
+  for (var currId in validators)
   {
-    var currId = validators[i];
-
     // Get the messages array for currId, skip if none
     var messages = failureMap[currId];
     if (!messages || messages.length==0)
@@ -1209,7 +1169,7 @@ function _validateAlert(
       continue;
       
     // Get the label text for this input
-    var label = _getLabel(form, currInput);
+    var label = validators[currId].label;
 
     // Loop through the messages for this input
     for (var j=0; j < messages.length; j = j+2)
@@ -1231,8 +1191,10 @@ function _validateAlert(
     
       failureString += errorString + '\n';
     }
-
   }
+
+  if (firstFailure)
+    return true;
 
   // Show the error and note the time we finished this validation.
   // Record the validation both before and after the alert so that we
@@ -1251,20 +1213,23 @@ function _validateInline(
   validators
   )
 {
+  // If not passed explicitly, return
+  if (!validators)
+    validators = _getValidators(form);
+
   var failureMap = _multiValidate(form, source,  validators);
   
   var noFailures = true;
 
-  for (var i = 0; i < validators.length; i += 5)
+  for (var currId in validators)
   {
-    var currId = validators[i];
     var foundMsg = false;
 
     // Get the icon if any
-    var iconElem = _getElementById(document, validators[i] + "::icon");
+    var iconElem = _getElementById(document, currId + "::icon");
 
     // If component hasn't got a message element, then skip
-    var msgElem = _getElementById(document, validators[i] + "::msg");
+    var msgElem = _getElementById(document, currId+ "::msg");
       
     // Clear any existing inline message
     if (msgElem)
@@ -1291,7 +1256,7 @@ function _validateInline(
       continue;
       
     // Get the label text for this input
-    var label = _getLabel(form, currInput);
+    var label = validators[currId].label;
 
     // Loop through the messages for this input
     for (var j=0; j < messages.length; j = j+2)
@@ -1347,34 +1312,31 @@ function _validateInline(
 // validation
 function _validateInput(input)
 {
-  if (input == (void 0))
+  if (!input)
     return true;
-  
+  var id = _getID(input);
+  if (!id)
+    return true;
+
   var form = _getForm(input);
-  if (form == (void 0))
+  if (!form)
     return true;
 
   var validators = _getValidators(form);
-  if (validators == (void 0))
+  if (!validators)
     return true;
     
-  var validatorsToRun = new Array();
+  var descriptor = validators[id];
+  if (!descriptor)
+    return true;
 
-  for (i=0; i < validators.length; i += 5)
-  {
-    // Find any entries that match this element
-    if (validators[i] == input.id)
-    {
-      validatorsToRun[validatorsToRun.length] = validators[i];
-      validatorsToRun[validatorsToRun.length] = validators[i+1];
-      validatorsToRun[validatorsToRun.length] = validators[i+2];
-      validatorsToRun[validatorsToRun.length] = validators[i+3];
-      validatorsToRun[validatorsToRun.length] = validators[i+4];
-    }
-  }
+  // Create a new temporary validators object and run with just the
+  // one descriptor
+  var validatorsToRun = new Object();
+  validatorsToRun[id] = descriptor;
 
   // Call inline validation using only the appropriate validators
-  var retVal = _validateInline(form, (void 0), validatorsToRun, 1, (void 0));
+  var retVal = _validateInline(form, null, validatorsToRun, 1, null);
   return retVal;
 }
 
@@ -1433,163 +1395,6 @@ function _recentValidation(failures)
     }
   }
   return retVal;
-}
-
-/**
- * Field validation function
- * @param err   The error string
- * @param input The field we are validating
- */
-function _validateField(
-  input,
-  validationIndex,
-  errorFormatIndex,
-  emptyValidation,
-  nextSibOK
-  )
-{
-  var isNN = _agent.isNav;
-
-  // don't validate under Netscape if tabbing to the next sibling is OK
-  if (isNN && nextSibOK)
-  {
-    return;
-  }
-
-  // Bug #2205664 (also 2210697, and 2465351): Handling these validations is
-  // fraught with peril on Netscape. The problem is that onBlur events stack
-  // up. The user leaves the text field, an onBlur fires, we raise an alert
-  // causing another onBlur to queue up, we finish handling the first,
-  // return, and immediately get the second.
-  // Bug 2465351 also mentions Mozilla, so it's been added for completeness.
-  if (isNN || _agent.isMac || _agent.isGecko)
-  {
-    if (_recentValidation(false))
-      return;
-  }
-
-  // determine whether we need to validate the field
-  var doValidate = emptyValidation || (_getValue(input) != "");
-
-  // We only validate if we aren't in the middle of validation in order
-  // to avoid infinite lopps caused by the fact that the focus has already
-  // moved to a new field when the validation fires, and if the validation
-  // on the new field failed also, we would ping-pong between the fields
-  // forever
-  if (doValidate && !window._validating && _focusChanging())
-  {
-    if (nextSibOK)
-    {
-      var activeElement = window.document.activeElement;
-
-      if (activeElement)
-      {
-        var parent = input.parentElement;
-
-        if (parent == activeElement.parentElement)
-        {
-          var children = parent.children;
-
-          for (var i = 0; i < children.length; i++)
-          {
-            if (input == children[i])
-            {
-              doValidate = (activeElement != _getNextNonCommentSibling(parent, i));
-            }
-          }
-        }
-      }
-    }
-
-    if (doValidate)
-    {
-      var validationError = _getValidationError(input, validationIndex);
-
-      if (validationError)
-      {
-        var isShowing = _isShowing(input);
-
-        // mark that we are in the middle of validation
-        window._validating = input;
-
-        if (isShowing)
-          input.select();
-
-        // move the focus back to the failed field before showing the alert
-        // to grab the user's attention about what failed.  We don't
-        // do this for netscape because doing so in Netscape will cause
-        // an infinite loop because Netscape appears to keep the onFocus
-        // caused by moving the focus to the field and the onBlur
-        // caused by the display of the alert queued up.  This is a problem
-        // because it causes the window._validating flag to be cleared
-        // and another round of validation to occur
-        // ColorField has required validation on hidden field,
-        // but cannot receive focus
-        if (!isNN && isShowing)
-        {
-          input.focus();
-
-          // See if there's a specific position at which validation
-          // failed;  if there is, we'll try to select everything after it.
-          if (window["_failedPos"] != (void 0))
-          {
-            // IE style - createTextRange()
-            if (input.createTextRange)
-            {
-              var rng = input.createTextRange();
-              rng.moveStart("character", window["_failedPos"]);
-              rng.select();
-            }
-            // Mozilla style.  Sadly, this won't work for TEXTAREA,
-            // because of a Mozilla bug.
-            else if (input.selectionStart != (void 0))
-            {
-              input.selectionStart = window["_failedPos"];
-            }
-
-            window["_failedPos"] = (void 0);
-          }
-        }
-
-        // get the error String, if any
-        var errorString = _getErrorString(input, errorFormatIndex,
-                                          validationError);
-
-        if (errorString)
-        {
-          // show the error and note the time we finished this validation.
-          _validationAlert(errorString);
-        }
-
-        // move the focus back to the field after showing the alert for
-        // Netscape
-        // ColorField has required validation on hidden field,
-        // but cannot receive focus.
-        if (isNN && isShowing)
-        {
-          input.focus();
-        }
-      }
-    }
-  }
-}
-
-
-/**
- * Field unvalidation function.
- *
- * If the input object is the currently validating object, reset the
- * validating object so that field validations can continue.  This method
- * is called from the onFocus handler of validating objects.
- */
-function _unvalidateField(
-  input
-  )
-{
-  if (window._validating == input)
-  {
-    window._validating = void 0;
-  }
 }
 
 /**
@@ -2274,6 +2079,61 @@ function _setFocus(currInput)
   }
 }
 
+function _addValidators(formName, validators, validations, labels, formats)
+{
+  var form = document.forms[formName];
+  var validatorMap = _getValidators(form);
+  if (!validatorMap)
+    validatorMap = new Object();
+
+  // Now, iterate through the array we've been given  
+  for (var i = 0; i < validators.length; i += 5)
+  {
+    var id = validators[i];
+    var descriptor = new Object();
+   
+    // If the field is required, replace the format index with the
+    // actual message
+    if (validators[i + 1])
+    {
+      var formatIndex = validators[i + 2];
+      descriptor.required = true;
+      descriptor.requiredFormat = formats[formatIndex];
+    }
+
+    // If the converter exists, change it from an index to a converter
+    var converterIndex = validators[i + 3];
+    if (converterIndex != null)
+    { 
+      descriptor.converter = validations[converterIndex];
+    }
+
+    // If there's a validator array, reuse it after converting
+    // the indices to validator objects
+    var validatorArray = validators[i + 4];
+    if (validatorArray)
+    {
+      for (j = 0; j < validatorArray.length; j++)
+      {
+        validatorArray[j] = validations[validatorArray[j]];
+      }
+
+      descriptor.validators = validatorArray;
+    }
+
+    // Store the label on the descriptor
+    var label = labels[id];
+    if (label)
+      descriptor.label = label;
+
+    // Stash the descriptor on the validator map
+    validatorMap[id] = descriptor;
+  }
+
+  // And store the new validator map away
+  window["_" + _getJavascriptId(form.name) + "_Validators"] = validatorMap;
+}
+
 /**
  * Calls an array of validation functions and returns a map of validation
  * errors.  Each map entry is keyed by an id of an input component
@@ -2323,18 +2183,14 @@ function _multiValidate(
   // have fixed the first error.
   if (validators && !_recentValidation(true))
   {
-    // get the list of different validations
-    var validations = _getValidations(form);
-
-    // loop through the validations, building up the error string
-    for (var i = 0; i < validators.length; i += 5)
+    for (var id in validators)
     {
       var isIgnored = false;
       // If this field is one that's specifically being ignored,
       // then don't validate here.
       for (var j = 0; j < ignorePrefixes.length; j++)
       {
-        if (validators[i].indexOf(ignorePrefixes[j]) == 0)
+        if (id.indexOf(ignorePrefixes[j]) == 0)
         {
           isIgnored = true;
           break;
@@ -2345,7 +2201,7 @@ function _multiValidate(
         continue;
 
       // get the current form element to validate
-      var currInput = _getFormElement(form, validators[i]);
+      var currInput = _getFormElement(form, id);
 
       // Make sure we have a non-null input control.  It is possible
       // that in rich client environments the DOM for the input
@@ -2361,8 +2217,9 @@ function _multiValidate(
 
       //Initialize the failure array for this input
       var inputFailures = new Array();
-
-      var label = _getLabel(form, currInput);
+   
+      var descriptor = validators[id];
+      var label = descriptor.label;
 
       // if currInput is an array then multiple elements have the same name.
       // Only the first will be validated as subsequent values should be in sync
@@ -2378,60 +2235,51 @@ function _multiValidate(
       }
 
       var value = _getValue(currInput);
-      var required = validators[i+1];
+      var required = descriptor.required;
       if ( required && ((value == "" ) || (value == null)))
       {
 
         // get the formatted error string for the current input and
-        // formatIndex
-        requiredFormatIndex = validators[i+2];
-        var requiredErrorString = _getErrorString(currInput,
-                                                  requiredFormatIndex);
+        var requiredErrorString = _getErrorString(currInput, label,
+                                                  descriptor.requiredFormat);
                                                   
         // Populate the failureMap with the current error
         inputFailures[inputFailures.length] = 
             new TrFacesMessage(requiredErrorString, requiredErrorString);
       }
-      else if (validations)
+      else
       {
-
-        var converterInfo = validators[i+3];
+        var converterConstructor = descriptor.converter;
 
         // set the converterError var to false for each input, otherwise nothing
         // after the first conversion error is validated
         var converterError = false;
 
-        if ( converterInfo != null)
+        if ( converterConstructor )
         {
 
           // do the conversion if this element has a value
           if ((value != null) &&
               !((typeof value == "string") && (value == "")))
           {
-            // evaluate the converter
-            var converterConstructor = validations[converterInfo];
-
-            if (converterConstructor)
+            var converter = eval(converterConstructor);
+            try
             {
-              var converter = eval(converterConstructor);
-              try{
-                value = converter.getAsObject(value, label);
-              }
-              catch (e)
-              {
-                converterError = true; 
-  
-                // Populate the failureMap with the current error
-                inputFailures[inputFailures.length] = e.getFacesMessage();
-              }
+              value = converter.getAsObject(value, label);
+            }
+            catch (e)
+            {
+              converterError = true; 
+                 // Populate the failureMap with the current error
+              inputFailures[inputFailures.length] = e.getFacesMessage();
             }
           }
         }
         
         if ( converterError == false)
         {
-          var validatorInfo = validators[i+4];
-          for ( var j = 0; j < validatorInfo.length; j = j + 1)
+          var validatorArray = descriptor.validators;
+          for ( var j = 0; j < validatorArray.length; j = j + 1)
           {
             // do the validation if this element has a value
             // Don't just compare against "", since the value has
@@ -2440,7 +2288,7 @@ function _multiValidate(
                  !((typeof value == "string") && value == ""))
             {
               // evaluate the validator
-              var validatorConstructor = validations[validatorInfo[j]];
+              var validatorConstructor = validatorArray[j];
               if (validatorConstructor && value !== undefined)
               {
                 var validator = eval(validatorConstructor);
@@ -2465,7 +2313,7 @@ function _multiValidate(
       {
         // TRINIDAD-123: Use input 'name' from validators array rather than currInput.id
         // to avoid issues with radio buttons having numeric id suffixes
-        failureMap[validators[i]] = inputFailures;
+        failureMap[id] = inputFailures;
       }
     }
   }
@@ -2619,53 +2467,39 @@ function _getGlobalErrorString(
    input
    )
  {
-   if (!_agent.isNav)
+   //VAC- bug 4205372 for PIE devices return the name of the input element
+   if (_agent.isPIE)
    {
-     //VAC- bug 4205372 for PIE devices return the name of the input element
-     if (_agent.isPIE){
-       return input.name;
-     }
-     // for non-Netscape return the ID directly
-     var id = input.id;
-
-     var inputType = input.type;
-
-     if (!inputType && input.length)
-       inputType = input[0].type;
-
-     // for radio buttons, return ID of enclosing <span>
-     if (inputType == "radio")
-     {
-       var inputParent;
-
-       if (input.length)
-       {
-         inputParent = input[0].parentNode;
-         if (inputParent.tagName == 'FIELDSET')
-           inputParent = inputParent.parentNode;
-       }
-       else
-       {
-         inputParent = input.parentNode;
-       }
-
-       id = inputParent.id;
-     }
-
-     return id;
+     return input.name;
    }
-   else
+   
+   // for non-Netscape return the ID directly
+   var id = input.id;
+
+   var inputType = input.type;
+
+   if (!inputType && input.length)
+     inputType = input[0].type;
+
+   // for radio buttons, return ID of enclosing <span>
+   if (inputType == "radio")
    {
-     var form = _getForm(input);
-     // for Netscape, use table lookup
-     var nameToID = window["_" + _getJavascriptId(form.name) + "_NameToID"];
-
-     if (nameToID)
+     var inputParent;
+     if (input.length)
      {
-       var name = _getName(input);
-       return nameToID[name];
+       inputParent = input[0].parentNode;
+       if (inputParent.tagName == 'FIELDSET')
+         inputParent = inputParent.parentNode;
      }
+     else
+     {
+       inputParent = input.parentNode;
+     }
+
+     id = inputParent.id;
    }
+
+   return id;
  }
 
 
@@ -2771,26 +2605,6 @@ function _instanceof(
 }
 
 
-function _getLabel(
-  form,
-  input
-)
-{
-
-  // get the mapping of id's to labels
-  var labelMap = window["_" + _getJavascriptId(form.name) + "_Labels"];
-  
-  var label;
-  
-  // get the label for this input element, if one has been
-  // associated using the ID of the input element
-  if (labelMap)
-  {
-    label = labelMap[_getID(input)];
-  }
-  
-  return label;
-}
 
 /**
  * Return the formatted error string for an input field
@@ -2798,7 +2612,8 @@ function _getLabel(
  */
 function _getErrorString(
   input,
-  errorFormatIndex,
+  label,
+  defaultErrorFormat,
   validationError
   )
 {
@@ -2817,22 +2632,13 @@ function _getErrorString(
   {
     errorFormat = validationError.getFacesMessage().getDetail();
   }
-  else if (errorFormatIndex != (void 0))
+  else
   {
-    // get the list of different error formats
-    var errorFormats = window["_" + _getJavascriptId(form.name) + "_Formats"];
-
-    if (errorFormats)
-    {
-      // get the appropriate error format
-      errorFormat = errorFormats[errorFormatIndex];
-    }
+    errorFormat = defaultErrorFormat;
   }
 
   if (errorFormat)
   {
-    var label = _getLabel(form, input);
-    
     // format the error string, replacing the following tokens
     //   {0}    the value of the label
     //   {1}    the value of the input element
@@ -2850,17 +2656,6 @@ function _getErrorString(
 
 
 /**
- * Returns the array of validation information used to validate the form at
- * submission time.
- */
-function _getValidations(
-  form
-  )
-{
-  return window["_" + _getJavascriptId(form.name) + "_Validations"];
-}
-
-/**
  * Returns the array of form validators.
  */
 function _getValidators(
@@ -2868,40 +2663,6 @@ function _getValidators(
   )
 {
   return window["_" + _getJavascriptId(form.name) + "_Validators"];
-}
-
-/**
- * Perform the error validation and return true if there is an error.
- */
-function _getValidationError(
-  input,           // form element to be validated
-  validationIndex, // index of validation code
-  validations      // the validations array, if available
-  )
-{
-  if (!validations)
-  {
-    // get the list of different validations
-    validations = _getValidations(input.form);
-  }
-
-  if (validations)
-  {
-    var validator = validations[validationIndex];
-
-    if (validator)
-    {
-      // get the true validator by replacing any value token with
-      // the value of the input
-      var trueValidator = validator.replace(/%value%/g, "_getValue(input)");
-
-      // return true/Exception if a validation error has occurred
-      return (eval(trueValidator));
-    }
-  }
-
-  // no error
-  return (void 0);
 }
 
 
@@ -3963,12 +3724,8 @@ function _enterField(
   if (input != (void 0))
   {
     input.form._mayResetByInput = false;
-
-    if (input != window._validating)
-    {
-      // save the last valid value for later restoration
-      input._validValue = input.value;
-    }
+    // save the last valid value for later restoration
+    input._validValue = input.value;
     retv = false;
   }
 

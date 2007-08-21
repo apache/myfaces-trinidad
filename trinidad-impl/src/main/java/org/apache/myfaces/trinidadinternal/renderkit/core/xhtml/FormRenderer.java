@@ -437,9 +437,10 @@ public class FormRenderer extends XhtmlRenderer
   // Renders validation code
   // Code is of the form:
   //  - Dependencies, written sequentially
-  //  - _Validations array (an array of stringified JSON objects)
-  //      (TODO: stringifying these is mostly pointless)
-  //  - _Validators array, which is an array of 5*N entries with each 5:
+  //  - Validation function, written only on non-PPR requests
+  //  - Call to _addValidators function, which takes
+  //     - form object
+  //     - _Validators array, which is an array of 5*N entries with each 5:
   //     0: clientId,
   //     1: required (0 or 1)
   //     2: requiredFormatIndex (blank if required==0) - index into _Formats
@@ -447,17 +448,10 @@ public class FormRenderer extends XhtmlRenderer
   //     4: validator array - array of integers, each index into Validations
   //     TODO: turn into a Map of clientId to 4 entries
   //     TODO: consider passing "immediate"
-  //  - Validator function:
-  //     TODO: don't render for PPR.
-  //  - Label map: clientId to label
-  //     TODO: inline into Validators array
-  //  - _Formats array: now used only for required messages
-  //  TODO:
-  //    Make one monster function of the form:
-  //   TrPage.prototype._addValidators(
-  //      components (Map of clientId -> other info)
-  //      validationsArray,
-  //      formatsArray,
+  //     - _Validations array (an array of stringified JSON objects)
+  //      (TODO: stringifying these is pointless, pass as direct JSON)
+  //     - Label map: clientId to label
+  //     - _Formats array: now used only for required messages
   //
   private static void _renderValidationScripts(
     FacesContext        context,
@@ -495,72 +489,61 @@ public class FormRenderer extends XhtmlRenderer
         writer.writeText(clientDependencies.get(d),null);
       }
     }
-
-    // TODO - when there are immediate components validate only those on the
-    // client?  Or consider simply treating immediate components
-    // as if they were non-immediate on the client
     
-    // When there is an immediate component do server side validation,
-    // Before had bug where client-side validation ignored
-    // all immediate components!?!
-    boolean hasImmediateComponent = fData.hasImmediateComponent();
-
     RequestContext rc = RequestContext.getCurrentInstance();
     boolean isClientValidationDisabled = 
       rc.getClientValidation() == RequestContext.ClientValidation.DISABLED;
 
-    if (isClientValidationDisabled || hasImmediateComponent)
+    // Only bother writing out the function when there's no PPR,
+    // as the content doesn't change request to request
+    if (arc.getPartialPageContext() == null)
     {
+      boolean isInline =
+        (rc.getClientValidation() == RequestContext.ClientValidation.INLINE);
+
+      //
+      // write the validation function for this form
+      //
       writer.writeText("function _", null);
       writer.writeText(jsID, null);
-      // no validation, so validation always succeeds
-      writer.writeText("Validator(){return true;}", null);
+      
+      writer.writeText("Validator(f,s){return ", null);
+
+      if (isClientValidationDisabled)
+      {
+        // No client-side validation:  always return true
+        writer.writeText("true", null);
+      }
+      else if (isInline)
+      {
+        writer.writeText("_validateInline(f,s)", null);
+      }
+      else
+      {
+        writer.writeText("_validateAlert(f,s,null,\"", null);
+        writer.writeText(XhtmlUtils.escapeJS(
+            arc.getTranslatedString(_GLOBAL_FORMAT_KEY)), null);
+        writer.writeText("\",\"", null);
+      
+        writer.writeText(XhtmlUtils.escapeJS(
+            arc.getTranslatedString("af_form.SUBMIT_ERRORS")), null);
+        writer.writeText("\")", null);
+      }
+      
+      writer.writeText(";}", null);
+    }
+    
+    
+    // If no client-side validation, return now
+    if (isClientValidationDisabled)
+    {
       writer.endElement("script");
       return;
     }
 
-
-
     //
     // Write the array of validation calls
     //
-
-    Iterator<String> validationIterator = fData.getValidationIterator();
-
-    if (validationIterator != null)
-    {
-      writer.writeText("var _", null);
-      writer.writeText(jsID, null);
-      writer.writeText("_Validations=[", null);
-
-      boolean firstValidation = true;
-
-      while(validationIterator.hasNext())
-      {
-        String currValidation = validationIterator.next();
-
-        if (firstValidation)
-        {
-          firstValidation = false;
-        }
-        else
-        {
-          // write the separator every time except the first time
-          writer.writeText(",", null);
-        }
-
-        // write the error format
-        // use single quotes since embedded single quotes
-        // are automatically escaped
-        writer.writeText("\'", null);
-        writer.writeText(XhtmlUtils.escapeJS(currValidation), null);
-        writer.writeText("\'", null);
-      }
-
-      writer.writeText("];", null);
-    }
-
-
     //
     // Write the array of form validators
     //
@@ -569,12 +552,14 @@ public class FormRenderer extends XhtmlRenderer
     
     if (validatorInfoMap != null)
     {
-      writer.writeText("var _", null);
-      writer.writeText(jsID, null);
-      writer.writeText("_Validators=[", null);
-  
+      writer.writeText("_addValidators(\"", null);
+      writer.writeText(fData.getName(), null);
+      writer.writeText("\",[", null);
 
       boolean firstFormInfo = true;
+      // FIXME: the List here is wrong;  we should only ever have
+      // one CoreFormData.ConvertValidate per ID, and anything else is
+      // an error
       for (Map.Entry<String, List<CoreFormData.ConvertValidate>> validatorEntry  :
            validatorInfoMap.entrySet())
       {
@@ -654,147 +639,126 @@ public class FormRenderer extends XhtmlRenderer
         }
       }
 
-      writer.writeText("]];", null);
-    }
+      writer.writeText("]],[", null);
 
-    //
-    // write the validation function for this form
-    //
-    // FIXME: hoist this out of the PPR block
-    writer.writeText("function _", null);
-    writer.writeText(jsID, null);
-
-    if (validatorInfoMap == null)
-    {
-      // no validation, so validation always succeeds
-      writer.writeText("Validator(){return true;}", null);
-    }
-    else
-    {
-      writer.writeText("Validator(f,s){return ", null);
-     
-      boolean isInline =
-        (rc.getClientValidation() == RequestContext.ClientValidation.INLINE);
-
-      if (isInline)
-        writer.writeText("_validateInline(f,s,_", null);
-      else
-        writer.writeText("_validateAlert(f,s,_", null);
-          
-      writer.writeText(jsID, null);
-      writer.writeText("_Validators", null);
-      // The _validateAlert() function needs extra arguments
-      // for the "global format" and error title
-      if (!isInline)
+      Iterator<String> validationIterator = fData.getValidationIterator();
+      if (validationIterator != null)
       {
-        writer.writeText(",\"", null);
-        writer.writeText(XhtmlUtils.escapeJS(
-            arc.getTranslatedString(_GLOBAL_FORMAT_KEY)), null);
-        writer.writeText("\",\"", null);
+        boolean firstValidation = true;
 
-        writer.writeText(XhtmlUtils.escapeJS(
-            arc.getTranslatedString("af_form.SUBMIT_ERRORS")), null);
-        writer.writeText("\"", null);
+        while(validationIterator.hasNext())
+        {
+          String currValidation = validationIterator.next();
+          
+          if (firstValidation)
+          {
+            firstValidation = false;
+          }
+          else
+          {
+            // write the separator every time except the first time
+            writer.writeText(",", null);
+          }
+          
+          // write the error format
+          // use single quotes since embedded single quotes
+          // are automatically escaped
+          writer.writeText("\'", null);
+          writer.writeText(XhtmlUtils.escapeJS(currValidation), null);
+          writer.writeText("\'", null);
+        }
       }
 
-      writer.writeText(");}", null);
-    }
+        
+      writer.writeText("],{", null);
+      
 
-    //
-    // Render the labels used by validated fields in this form
-    //
-
-    // list of labels used for validation on this form
-    List<String> inputList = fData.getValidatedInputList(false);
-
-    int inputCount = (inputList != null)
+      //
+      // Render the labels used by validated fields in this form
+      //
+      
+      // list of labels used for validation on this form
+      List<String> inputList = fData.getValidatedInputList(false);
+      
+      int inputCount = (inputList != null)
                          ? inputList.size()
                          : 0;
-
-    if (inputCount > 0)
-    {
-      Map<String, String> labelMap = fData.getLabelMap(false);
-
-      if (labelMap != null)
+      
+      if (inputCount > 0)
       {
-        writer.writeText("var _", null);
-        writer.writeText(jsID, null);
-        writer.writeText("_Labels={", null);
-
-        boolean firstLabel = true;
-
-        for (int i = 0; i < inputCount; i++)
+        Map<String, String> labelMap = fData.getLabelMap(false);
+        
+        if (labelMap != null)
         {
-          String currID = inputList.get(i);
-
-          // remove the ID entry to prevent multiple labels from
-          // being written
-          String currLabel = labelMap.remove(currID);
-
-          if (currLabel != null)
+          boolean firstLabel = true;
+          
+          for (int i = 0; i < inputCount; i++)
           {
-            if (firstLabel)
+            String currID = inputList.get(i);
+            
+            // remove the ID entry to prevent multiple labels from
+            // being written
+            String currLabel = labelMap.remove(currID);
+            
+            if (currLabel != null)
             {
-              firstLabel = false;
-            }
-            else
-            {
-              // write the separator every time except the first time
-              writer.writeText(",", null);
-            }
+              if (firstLabel)
+              {
+                firstLabel = false;
+              }
+              else
+              {
+                // write the separator every time except the first time
+                writer.writeText(",", null);
+              }
+              
+              // write the ID of the validated field as the key
+              writer.writeText("\'", null);
+              writer.writeText(currID, null);
+              writer.writeText("\':\'", null);
 
-            // write the ID of the validated field as the key
-            writer.writeText("\'", null);
-            writer.writeText(currID, null);
-            writer.writeText("\':\'", null);
-
-            // write the label of the validated field as the value
-            writer.writeText(XhtmlUtils.escapeJS(currLabel), null);
-            writer.writeText("\'", null);
+              // write the label of the validated field as the value
+              writer.writeText(XhtmlUtils.escapeJS(currLabel), null);
+              writer.writeText("\'", null);
+            }
           }
         }
-
-        writer.writeText("};", null);
-
       }
-    }
+      writer.writeText("},[", null);
 
-    //
-    // Render the error format list for this form
-    //
+      //
+      // Render the error format list for this form
+      //
+      
+      // list of error formats used for validation on this form
+      Iterator<String> errorFormatIterator = fData.getErrorFormatIterator();
 
-    // list of error formats used for validation on this form
-    Iterator<String> errorFormatIterator = fData.getErrorFormatIterator();
-
-    if (errorFormatIterator != null)
-    {
-      writer.writeText("var _", null);
-      writer.writeText(jsID, null);
-      writer.writeText("_Formats=[", null);
-
-      boolean firstFormat = true;
-
-      while(errorFormatIterator.hasNext())
+      if (errorFormatIterator != null)
       {
-        String currErrorFormat = errorFormatIterator.next();
-
-        if (firstFormat)
+        boolean firstFormat = true;
+        
+        while(errorFormatIterator.hasNext())
         {
-          firstFormat = false;
+          String currErrorFormat = errorFormatIterator.next();
+          
+          if (firstFormat)
+          {
+            firstFormat = false;
+          }
+          else
+          {
+            // write the separator every time except the first time
+            writer.writeText(",", null);
+          }
+          
+          // write the error format
+          writer.writeText("'", null);
+          writer.writeText(XhtmlUtils.escapeJS(currErrorFormat), null);
+          writer.writeText("'", null);
         }
-        else
-        {
-          // write the separator every time except the first time
-          writer.writeText(",", null);
-        }
-
-        // write the error format
-        writer.writeText("'", null);
-        writer.writeText(XhtmlUtils.escapeJS(currErrorFormat), null);
-        writer.writeText("'", null);
       }
 
-      writer.writeText("];", null);
+      writer.writeText("]);", null);
     }
 
     _renderSubformLists(context, jsID);
