@@ -23,12 +23,12 @@
   <parent>
     <groupId>org.apache.myfaces.trinidadbuild</groupId>
     <artifactId>maven-plugin-parent</artifactId> 
-    <version>1.2.2-SNAPSHOT</version>
+    <version>1.2.2</version>
   </parent>
 
   <groupId>org.apache.myfaces.trinidadbuild</groupId>
   <artifactId>maven-jdev-plugin</artifactId> 
-  <version>1.2.2-SNAPSHOT</version>
+  <version>1.2.2</version>
   <packaging>maven-plugin</packaging>
   <name>Apache Trinidad Maven JDev Plugin</name>
 
