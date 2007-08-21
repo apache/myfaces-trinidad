@@ -152,8 +152,7 @@
             <td>.AFMediumAccentBackground:alias</td>
             <td>A slightly lighter background color in the accent color ramp.
                 This value is computed relative to the
-                .AFDarkAccentBackground:alias color. Used in
-                .AFPanelBoxMediumBackground:alias.</td>
+                .AFDarkAccentBackground:alias color.</td>
           </tr>
           <tr>
             <td>.AFLightAccentBackground:alias</td>
@@ -1946,20 +1945,21 @@
         </table>
       </subsection>
       <subsection name="tr:panelBox">
-        <p>The panelBox contains two main regions: the body region, which
-           contains the panelBox contents, and the header region, which contains
-           the panelBox header text (set by the text attribute on tr:panelBox).
-           Styles can be applied to the body region via the af|panelBox::body
+        <p>The panelBox contains the body region, which
+           contains the panelBox header which contains
+           the panelBox header text (set by the text attribute on tr:panelBox) 
+           and the panelBox contents.
+           Styles can be applied to the body region via the af|panelBox::content
            selector. Similarly, styles for the header region are specified via
            the af|panelBox::header selector. Both section can be skinned with the 
-           af|panelBox::content selector</p>
+           af|panelBox::body selector</p>
         <p>The content is rendered within a layout container that allow round 
            edges and such. You can access this container using af|panelBox::top, 
            af|panelBox::bottom, af|panelBox::start, af|panelBox::end, 
            af|panelBox::top-start, af|panelBox::top-end, af|panelBox::bottom-start  
            and af|panelBox::bottom-end. To use round edges, set a background 
            image on each of the corners and set the width and height of those 
-           corners to the used image's size. Here're some condition for it to 
+           corners to the used image's size. Here're some conditions for it to 
            work properly:</p>
         <ul>
           <li>The top edge background image should have the same height as both 
@@ -1989,42 +1989,45 @@
           </tr>
           <tr>
             <td>af|panelBox::transparent</td>
-            <td>Styles the container of transparent panelBox when there is
-                a header.</td>
+            <td>Styles the container of transparent panelBox. This is on the root dom element.
+            It includes .AFPanelBox:alias</td>
           </tr>
           <tr>
             <td>af|panelBox::light</td>
-            <td>Styles the container of light panelBox when there is a
-                header.</td>
+            <td>Styles the container of light panelBox.  This is on the root dom element.
+            It includes .AFPanelBox:alias</td>
           </tr>
           <tr>
             <td>af|panelBox::medium</td>
-            <td>Styles the container of the medium panelBox when there is
-                a header.</td>
+            <td>Styles the container of the medium panelBox.  This is on the root dom element.
+            It includes .AFPanelBox:alias</td>
           </tr>
           <tr>
             <td>af|panelBox::dark</td>
-            <td>Styles the container of the dark panelBox when there is a
-                header.</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::content</td>
-            <td>Styles the content region, that is the central frame of the box,
-                including both the header and the body.</td>
+            <td>Styles the container of the dark panelBox.  This is on the root dom element.
+            It includes .AFPanelBox:alias</td>
           </tr>
           <tr>
             <td>af|panelBox::body</td>
-            <td>Styles the body region. The body region is rendered whether or
-                not the panelBox has a header.</td>
+            <td>Styles the body region, that is the central frame of the box,
+                including both the header and the content. To skin the body of a particular
+                background panelBox, you can do use descendent selectors like: 
+                af|panelBox::light af|panelBox::body.
+                </td>
           </tr>
           <tr>
             <td>af|panelBox::header</td>
-            <td>Styles the header region.</td>
+            <td>Styles the header region within the body when there is a header.</td>
           </tr>
+          <tr>
+            <td>af|panelBox::content</td>
+            <td>Styles the content region within the body.</td>
+          </tr>          
           <tr>
             <td>af|panelBox::top-start</td>
             <td>Styles the top start corner of the box's container. In LTR this is 
-                the upper left corner.</td>
+                the upper left corner. For rounded-corners you can set background-image and 
+                width and height css properties.</td>
           </tr>
           <tr>
             <td>af|panelBox::top</td>
@@ -2033,7 +2036,8 @@
           <tr>
             <td>af|panelBox::top-end</td>
             <td>Styles the top end corner of the box's container. In LTR this is 
-                the upper right corner.</td>
+                the upper right corner. . For rounded-corners you can set background-image and 
+                width and height css properties.</td>
           </tr>
           <tr>
             <td>af|panelBox::start</td>
@@ -2048,7 +2052,8 @@
           <tr>
             <td>af|panelBox::bottom-start</td>
             <td>Styles the bottom start corner of the box's container. In LTR this is 
-                the lower left corner.</td>
+                the lower left corner. . For rounded-corners you can set background-image and 
+                width and height css properties.</td>
           </tr>
           <tr>
             <td>af|panelBox::bottom</td>
@@ -2057,8 +2062,25 @@
           <tr>
             <td>af|panelBox::bottom-end</td>
             <td>Styles the bottom end corner of the box's container. In LTR this is 
-                the lower right corner.</td>
+                the lower right corner. . For rounded-corners you can set background-image and 
+                width and height css properties.</td>
           </tr>
+          <tr>
+            <td>.AFPanelBox:alias</td>
+            <td>Alias style that styles the root dom element of the panelBox for all values of the background
+            attribute. It is 
+            included in af|panelBox::transparent, af|panelBox::light, af|panelBox::medium,
+            and af|panelBox::dark. Use this to add styles common to all panelBoxes.</td>
+          </tr>
+          <tr>
+            <td>.AFPanelBoxBody:alias</td>
+            <td>Alias style that styles the af|panelBox::body dom element for all
+            values of the background attribute. It is 
+            included in af|panelBox::body, af|panelBox::transparent af|panelBox::body, af|panelBox::light  af|panelBox::body, af|panelBox::medium  af|panelBox::body,
+            and af|panelBox::dark  af|panelBox::body. Use this to add styles common to all 'af|panelBox::body' regardless
+            of the panelBox background attribute.</td>
+          </tr>          
+          
         </table>
       </subsection>
       <subsection name="tr:panelForm Component">

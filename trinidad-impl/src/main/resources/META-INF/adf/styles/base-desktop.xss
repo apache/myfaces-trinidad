@@ -1671,22 +1671,38 @@
     </style>
     
     <!-- panelBox's body selectors -->
+     <!-- hook to enable styling on all panelBox body regardless of 'type' -->
+    <style name="AFPanelBoxBody">
+    </style>
+
+  <!-- AFBoxBackground: used in AFShuttleBoxBackground and 
+      <style selector="af|panelBox::light af|panelBox::body">
+  -->      
+    <style name="AFBoxBackground">
+         <includeStyle name="AFLightAccentBackground"/>
+    </style>
+    
     <style selector="af|panelBox::body">
+      <includeStyle name="AFPanelBoxBody"/>
     </style>
     
     <style selector="af|panelBox::transparent af|panelBox::body">
+      <includeStyle name="AFPanelBoxBody"/>
     </style>
     
     <style selector="af|panelBox::light af|panelBox::body">
       <includeStyle name="AFBoxBackground"/>
+      <includeStyle name="AFPanelBoxBody"/>
     </style>
    
     <style selector="af|panelBox::medium af|panelBox::body">
-      <includeStyle name="AFPanelBoxMediumBackground"/>
+      <includeStyle name="AFMediumAccentBackground"/>
+      <includeStyle name="AFPanelBoxBody"/>
     </style>
     
     <style selector="af|panelBox::dark af|panelBox::body">
-      <includeStyle name="AFPanelBoxDarkBackground"/>
+      <includeStyle name="AFDarkAccentBackground"/>
+      <includeStyle name="AFPanelBoxBody"/>
     </style>
       
     <!-- panelBox's header selector -->
@@ -1702,52 +1718,15 @@
     <style selector="af|panelBox::content">
     </style>
 
-  <!-- AFBoxBackground: used in AFShuttleBoxBackground and 
-      <style selector="af|panelBox::light af|panelBox::body"> and
-          <style selector="af|panelBox::content-light af|panelBox::body">
-  -->
-        
-    <style name="AFPanelBoxBody">
-    </style>
-      
-    <style name="AFBoxBackground">
-         <includeStyle name="AFLightAccentBackground"/>
-    </style>
     
     <style name="AFShuttleBoxBackground">
          <includeStyle name="AFBoxBackground"/>
     </style>
-    
-    <style name="AFPanelBoxMediumBackground">
-      <includeStyle name="AFMediumAccentBackground"/>
-    </style>
-  
-    <style name="AFPanelBoxDarkBackground">
-      <includeStyle name="AFDarkAccentBackground"/>
-    </style>
-  
-    
-    <!-- Named style which is included by all of the
-         af|panelBox::content[Background] style classes
-         and AFShuttleBoxContent-->
-    <style name="AFBoxContent">
-      <includeStyle name="AFDefaultFont"/>
-    </style>
-    
+
     <style name="AFShuttleBoxContent">
-      <includeStyle name="AFBoxContent"/>
+       <includeStyle name="AFDefaultFont"/>
     </style>
-    
   
-    <!-- These styles are only used by panelBox which
-         do not have headers (and shuttle's box)-->  
-    <style selector="af|panelBox::content-transparent">
-      <includeStyle name="AFBoxContent"/>
-    </style> 
-    
-    <style selector="af|panelBox::content-light">
-      <includeStyle name="AFBoxContent"/>
-    </style>  
     
     <style selector="af|selectManyShuttle::box-content">
       <includeStyle name="AFShuttleBoxContent"/>
@@ -1764,31 +1743,7 @@
     <style selector="af|selectOrderShuttle::box-content img">
       <property name="vertical-align">bottom</property>
     </style>  
-  
-    <style selector="af|panelBox::content-medium">
-      <includeStyle name="AFBoxContent"/>
-    </style> 
-    
-    
-    <style selector="af|panelBox::content-dark">
-      <includeStyle name="AFBoxContent"/>
-    </style> 
-    
-    <!-- since we render in standards mode, images don't take up the entire 
-         table cell unless we use vertical-align:bottom.
-         We don't publish these obviously, cuz they expose the html -->
-    <style selector="af|panelBox::content-transparent img">
-      <property name="vertical-align">bottom</property>
-    </style> 
-    <style selector="af|panelBox::content-light img">
-      <property name="vertical-align">bottom</property>
-    </style>  
-    <style selector="af|panelBox::content-medium img">
-      <property name="vertical-align">bottom</property>
-    </style>  
-    <style selector="af|panelBox::content-dark img">
-      <property name="vertical-align">bottom</property>
-    </style>        
+
     
     <!-- Named style for all panelBox bodies for 
          panelBox which do not have headers -->
@@ -1797,16 +1752,6 @@
     </style>
   
     <style name="AFShuttleBoxContentBody">
-      <includeStyle name="AFBoxContentBody"/>
-    </style>
-    
-    <style selector="af|panelBox::content-transparent af|panelBox::body">
-      <includeStyle name="AFBoxContentBody"/>
-    </style>
-    
-     
-    <style selector="af|panelBox::content-light af|panelBox::body">
-      <includeStyle name="AFBoxBackground"/>
       <includeStyle name="AFBoxContentBody"/>
     </style>
     
@@ -1820,18 +1765,7 @@
       <includeStyle name="AFShuttleBoxContentBody"/>
     </style>
     
-    <style selector="af|panelBox::content-medium af|panelBox::body">
-      <includeStyle name="AFPanelBoxMediumBackground"/>
-      <includeStyle name="AFBoxContentBody"/>
-    </style>
-    
-    
-    <style selector="af|panelBox::content-dark af|panelBox::body">
-      <includeStyle name="AFPanelBoxDarkBackground"/>
-      <includeStyle name="AFBoxContentBody"/>
-    </style>
-    
- 
+
   <!--
     Footer Styles
   -->

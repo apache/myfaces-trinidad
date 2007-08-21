@@ -89,6 +89,7 @@
                   <tr:selectItem label="simple" value="simple"/>
                   <tr:selectItem label="minimal" value="minimal"/>
                   <tr:selectItem label="purple" value="purple"/>
+                  <tr:selectItem label="purpleBigFont" value="purpleBigFont"/>
                   <tr:selectItem label="beach" value="beach"/>
                 </tr:selectOneChoice>
                 <tr:commandButton text="Go"/>
