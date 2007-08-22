@@ -37,7 +37,8 @@
             <li><a href="chart.html">Using Apache Trinidad Chart</a></li>       
             <li><a href="navigation.html">Navigation</a></li>      
             <li><a href="xmlMenuModel.html">XMLMenuModel</a></li>      
-            <li><a href="clientValidation.html">Client-side Converters and Validators</a></li>     
+            <li><a href="clientValidation.html">Client-side Converters and Validators</a></li> 
+            <li><a href="skinning.html">Skinning</a></li>     
         </ul>
       </p>
       </section>
