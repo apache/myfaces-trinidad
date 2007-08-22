@@ -30,6 +30,7 @@ import java.util.Stack;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
 
+import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
@@ -81,8 +82,12 @@ public class DebugHtmlResponseWriter extends ResponseWriterDecorator
     }
 
 
-    // Check for elements that are not allowed inside each other
-    if (!_elementStack.empty())
+    // Check for elements that are not allowed inside each other -
+    // but only when PPR is off (with PPR, we're not rendering the
+    // whole tree, so it's easy for supposedly illegal combinations)
+    RenderingContext rc = RenderingContext.getCurrentInstance();
+    if (((rc == null) || (rc.getPartialPageContext() == null)) &&
+        !_elementStack.empty())
     {
       String parent = _elementStack.peek();
       Collection<String> allowedParents = _sAllowedParents.get(lowerName);

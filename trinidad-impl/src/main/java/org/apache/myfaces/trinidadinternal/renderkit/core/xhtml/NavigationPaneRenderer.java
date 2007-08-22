@@ -67,10 +67,19 @@ public class NavigationPaneRenderer extends XhtmlRenderer
   @Override
   protected void encodeAll(
     FacesContext        context,
-    RenderingContext arc,
+    RenderingContext    arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
+    // Since NavigationPane is a naming container, we can be more
+    // efficient about skipping its children
+    if (!PartialPageUtils.containsPprTargets(arc,
+                                             component,
+                                             getClientId(context, component)))
+    {
+      return;
+    }
+
     ResponseWriter writer = context.getResponseWriter();
 
     writer.startElement("div", component);

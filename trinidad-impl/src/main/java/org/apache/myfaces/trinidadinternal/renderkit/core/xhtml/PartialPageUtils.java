@@ -18,8 +18,11 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
+import java.util.Iterator;
 import java.util.Map;
 
+import javax.faces.component.NamingContainer;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.context.Agent;
@@ -42,6 +45,46 @@ public final class PartialPageUtils
 {
   private PartialPageUtils()
   {
+  }
+
+  /**
+   * Check if a NamingContainer has any partial targets
+   */
+  public static boolean containsPprTargets(
+    RenderingContext rc,
+    UIComponent      component,
+    String           clientId)
+  {
+    // This function can only be called with NamingContainers, so
+    // throw an exception if anyone tries otherwise
+    if (!(component instanceof NamingContainer)) 
+      throw new IllegalArgumentException();
+
+    // If PPR is off (ppc == null), or we're already rendering
+    // (isInsidePartialTarget()), then we have to render, so return true
+    PartialPageContext ppc = rc.getPartialPageContext();
+    if ((ppc == null) || ppc.isInsidePartialTarget())
+      return true;
+
+    // And if we're a partial target ourselves, return true
+    if (ppc.isPartialTarget(clientId))
+      return true;
+
+    // See if anything starts with our prefix
+    String clientIdPrefix = clientId + NamingContainer.SEPARATOR_CHAR;
+    Iterator<String> targets = ppc.getPartialTargets();
+    while (targets.hasNext())
+    {
+      String target = targets.next();
+      if (target == null)
+        continue;
+      // Found one!
+      if (target.startsWith(clientIdPrefix))
+        return true;
+    }
+    
+    // Couldn't find any:  bail
+    return false;
   }
 
   public static boolean isPartialRequest(FacesContext context)

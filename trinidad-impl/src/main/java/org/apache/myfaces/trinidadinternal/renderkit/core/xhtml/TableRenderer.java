@@ -22,9 +22,13 @@ import java.io.IOException;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -43,14 +47,16 @@ import org.apache.myfaces.trinidad.component.core.data.CoreTable;
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.FormData;
 import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidad.context.PartialPageContext;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.event.RowDisclosureEvent;
 import org.apache.myfaces.trinidad.event.RangeChangeEvent;
 import org.apache.myfaces.trinidad.event.SortEvent;
 import org.apache.myfaces.trinidad.model.RowKeySet;
 import org.apache.myfaces.trinidad.model.SortCriterion;
-
-import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.render.ClientRowKeyManager;
 import org.apache.myfaces.trinidad.render.CoreRenderer;
+
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.CellUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.ColumnData;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.DetailColumnRenderer;
@@ -138,6 +144,69 @@ abstract public class TableRenderer extends XhtmlRenderer
     int newEnd = TableUtils.getLast(table, newStart);
 
     return _createRangeChangeEvent(table, newStart, newEnd);
+  }
+
+
+  /**
+   * Returns the set of row keys identified by PPR.  Returns
+   * the empty set if no row keys are present, and null
+   * if row keys could not be properly identified.
+   */
+  static public Set<Object> getPartialRowKeys(
+    FacesContext     context,
+    RenderingContext arc, 
+    UIComponent      component,
+    String           clientId)
+  {
+    ClientRowKeyManager rowKeyManager = null;
+    if (component instanceof UIXCollection)
+      rowKeyManager = ((UIXCollection) component).getClientRowKeyManager();
+    
+    Set<Object> rowKeys = null;
+    String tablePrefix = clientId + NamingContainer.SEPARATOR_CHAR;
+    // Search for any PPR targets that start with "<tableClientId>:"
+    PartialPageContext ppc = arc.getPartialPageContext();
+    Iterator<String> targets = ppc.getPartialTargets();
+    while (targets.hasNext())
+    {
+      String target = targets.next();
+      if (target == null)
+        continue;
+      if (target.startsWith(tablePrefix))
+      {
+        // If we don't have a rowkeymanager, we know that the table
+        // has partial targets, but we can't process the rows individually
+        if (rowKeyManager == null)
+          return null;
+        
+        // Extract the client rowkey from the clientId
+        String clientRowKey = target.substring(tablePrefix.length());
+        int ncIndex = clientRowKey.indexOf(NamingContainer.SEPARATOR_CHAR);
+        // If we have a target that is in the table, but is not in a 
+        // particular row, just repaint the whole table
+        if (ncIndex < 0)
+          return null;
+        
+        clientRowKey = clientRowKey.substring(0, ncIndex);
+        
+        // Try to turn it into a server rowkey
+        Object rowKey = rowKeyManager.getRowKey(context, component, clientRowKey);
+        // if this fails, we have to process the whole table
+        if (rowKey == null)
+          return null;
+        
+        // We know this row exists, and needs to be processed
+        if (rowKeys == null)
+          rowKeys = new HashSet<Object>();        
+        rowKeys.add(rowKey);
+      }
+    }
+
+    // If we never found a rowkey, return the empty set, indicating
+    // that there are no rows to process
+    if (rowKeys == null)
+      rowKeys = Collections.emptySet();
+    return rowKeys;
   }
 
   private static RangeChangeEvent _createRangeChangeEvent(
@@ -242,6 +311,27 @@ abstract public class TableRenderer extends XhtmlRenderer
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
+    Set<Object> keysToRender = null;
+    // See if we can skip rendering altogether
+    if (canSkipRendering(context, arc, component))
+    {
+      // If we're in here, then the table itself as a whole doesn't
+      // need to be re-rendered - but the contents might need to be!
+      keysToRender = getPartialRowKeys(context,
+                                       arc,
+                                       component,
+                                       getClientId(context, component));
+      // getPartialRowKeys() has a weird API.  null means there are contents
+      // that need to be rendered, but we couldn't figure out what row key
+      // they match up to, so just re-render everything and let PPR figure it
+      // out.  An empty set means *there's nothing*, so bail
+      //
+      if ((keysToRender != null) && keysToRender.isEmpty())
+        return;
+
+      // TODO: use keysToRender to only iterate onto rows
+      // that have targets
+    }
 
     // save current skin resource map, if any, on the local property
     Map<String, String> oldSkinResourceMap = arc.getSkinResourceKeyMap();

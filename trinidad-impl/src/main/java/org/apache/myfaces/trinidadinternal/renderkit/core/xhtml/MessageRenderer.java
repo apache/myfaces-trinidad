@@ -90,7 +90,7 @@ public class MessageRenderer extends ValueRenderer
       }
     }
     
-    UIComponent help = component.getFacet("help");   
+    UIComponent help = getFacet(component, "help");   
    
     boolean isError = CoreMessage.MESSAGE_TYPE_ERROR.equals(messageType);
     
@@ -107,7 +107,7 @@ public class MessageRenderer extends ValueRenderer
       inlineStyle = null;
     }
     
-    boolean hasHelp = (help != null && help.isRendered());   
+    boolean hasHelp = (help != null);
     boolean hasMessage = (message != null);
   
     

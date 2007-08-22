@@ -148,6 +148,9 @@ public class MediaRenderer extends XhtmlRenderer
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
+    if (canSkipRendering(context, arc, component))
+      return;
+
     // get the mime type
     String mimeType = _getMimeType(bean);
 

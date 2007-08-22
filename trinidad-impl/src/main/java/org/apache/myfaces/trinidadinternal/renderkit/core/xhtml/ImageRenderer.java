@@ -48,12 +48,20 @@ public class ImageRenderer extends XhtmlRenderer
   }
 
   @Override
-  protected void encodeBegin(
+  public boolean getRendersChildren()
+  {
+    return true;
+  }
+
+  @Override
+  protected void encodeAll(
     FacesContext        context,
-    RenderingContext arc,
+    RenderingContext    arc,
     UIComponent         comp,
     FacesBean           bean) throws IOException
   {
+    if (canSkipRendering(context, arc, comp))
+      return;
 
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement("img", comp);

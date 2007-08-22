@@ -184,6 +184,9 @@ public class ChartRenderer extends XhtmlRenderer
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
+    if (canSkipRendering(context, arc, component))
+      return;
+
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement(XhtmlConstants.DIV_ELEMENT, component); 
     renderId(context, component);

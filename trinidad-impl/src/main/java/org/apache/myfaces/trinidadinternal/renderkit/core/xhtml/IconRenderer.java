@@ -55,6 +55,9 @@ public class IconRenderer extends XhtmlRenderer
     UIComponent         comp,
     FacesBean           bean) throws IOException
   {
+    if (canSkipRendering(context, arc, comp))
+      return;
+
     String name = getName(bean);
     
     if ("logo".equals(name))

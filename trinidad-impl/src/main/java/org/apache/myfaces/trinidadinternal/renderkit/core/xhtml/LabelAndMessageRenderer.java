@@ -170,8 +170,20 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
+    String clientId = component.getClientId(context);
+    
+    // If we're a leaf component, see if we can skip our rendering
+    if (isLeafRenderer() && canSkipRendering(arc, clientId))
+    {
+      // Except we really do have a "help" facet, so render that one...
+      UIComponent help = getFacet(component, "help");
+      if (help != null)
+        encodeChild(context, help);
+      return;
+    }
+
     String saved = arc.getCurrentClientId();
-    arc.setCurrentClientId(component.getClientId(context));
+    arc.setCurrentClientId(clientId);
 
 
     boolean isInTable = _isInTable();
@@ -417,9 +429,8 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     UIComponent         component,
     FacesBean           bean)
   {
-    UIComponent help = component.getFacet("help");
-    if ( help != null &&
-         help.isRendered())
+    UIComponent help = getFacet(component, "help");
+    if (help != null)
       return true;
 
     String id  = getLabelFor(context, arc, component, bean);
@@ -445,6 +456,11 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
   {
     return (super.getClientId(context, component) +
             XhtmlConstants.COMPOSITE_ID_EXTENSION);
+  }
+
+  protected boolean isLeafRenderer()
+  {
+    return true;
   }
 
   protected String getDefaultLabelValign(FacesBean bean)

@@ -94,12 +94,15 @@ public class ChooseDateRenderer extends XhtmlRenderer
   @Override
   protected final void encodeAll(
     FacesContext        context,
-    RenderingContext arc,
+    RenderingContext    arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
     // Currently, we require scripting to render anything
     if (!supportsScripting(arc))
+      return;
+
+    if (canSkipRendering(context, arc, component))
       return;
 
     // If we are running in inline mode, make sure that we are
