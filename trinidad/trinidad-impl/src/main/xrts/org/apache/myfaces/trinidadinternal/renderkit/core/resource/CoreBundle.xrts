@@ -443,6 +443,7 @@
        content -->
   <resource key="af_panelPage.SKIP_PAST_NAVIGATION">Skip navigation elements to page contents</resource>
 
+  <resource key="af_panelPopup.CLOSE">Hide</resource>    
 
   <!-- Nav block titles for screenReader mode -->
   <resource key="af_menuButtons.BLOCK_TITLE">Global buttons</resource>

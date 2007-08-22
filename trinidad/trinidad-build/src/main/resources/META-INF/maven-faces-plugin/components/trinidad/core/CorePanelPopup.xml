@@ -45,7 +45,23 @@ made visible via a clickable link.]]>
       </facet-extension>
     </facet>
     <property>
-      <description><![CDATA[The text to render as a link to launch the popup panel.  If the 'trigger'
+      <description><![CDATA[Defines the launch behaviour of the popup.  If set to 'click' the popup will
+        appear when the trigger is clicked, and disappear when you click off the popup.  The 'hover' value
+        will cause the popup to appear while the mouse is over the trigger, and disappear when the mouse 
+        leaves either the trigger or the popup panel.]]>
+      </description>
+      <property-name>triggerType</property-name>
+      <property-class>java.lang.String</property-class>
+      <default-value>click</default-value>
+      <property-extension>
+        <mfp:property-values>click hover</mfp:property-values>
+        <mfp:property-metadata>
+          <mfp:preferred>true</mfp:preferred>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
+    <property>
+      <description><![CDATA[The icon to render as a link to launch the popup panel.  If the 'trigger'
         facet is defined, then this attribute is ignored.  If the 'text' attribute is also specified, 
         then the icon and text will both be rendered.
         ]]>
@@ -99,16 +115,38 @@ made visible via a clickable link.]]>
     </property>
     <property>
       <description><![CDATA[The position of the content container when visible. Defaults to
-         "none" (appears relative control), if not specified. Other values are "center" (centered on screen).]]>
+         "relative" if not specified. Other values are "centered" (centered on screen).]]>
       </description>
-      <property-name>alignment</property-name>
+      <property-name>position</property-name>
       <property-class>java.lang.String</property-class>
-      <default-value>none</default-value>
+      <default-value>relative</default-value>
       <property-extension>
-        <mfp:property-values>none center</mfp:property-values>
+        <mfp:property-values>relative centered</mfp:property-values>
         <mfp:property-metadata>
           <mfp:preferred>true</mfp:preferred>
         </mfp:property-metadata>
+      </property-extension>
+    </property>
+    <property>
+      <description><![CDATA[The popup's 'x' offset in pixels from the current mouse position.  
+        This property only applies to popups using relative positioning.]]>
+      </description>
+      <property-name>xOffset</property-name>
+      <property-class>int</property-class>
+      <default-value>0</default-value>
+      <property-extension>
+        <mfp:required>false</mfp:required>
+      </property-extension>
+    </property>
+    <property>
+      <description><![CDATA[The popup's 'y' offset in pixels from the current mouse position.  
+        This property only applies to popups using relative positioning.]]>
+      </description>
+      <property-name>yOffset</property-name>
+      <property-class>int</property-class>
+      <default-value>0</default-value>
+      <property-extension>
+        <mfp:required>false</mfp:required>
       </property-extension>
     </property>
     <property>

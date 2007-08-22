@@ -33,8 +33,10 @@
             </f:facet>
             <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/>             
+
             <tr:outputFormatted styleUsage="instruction" value="&lt;b>Simple panelPopup&lt;/b>"/>
-            <tr:panelPopup binding="#{editor.component}" title="Popup Title" text="Click Here"> 
+
+            <tr:panelPopup binding="#{editor.component}" text="Click Here"> 
               <tr:panelGroupLayout layout="vertical"> 
                 <tr:goLink text="item 1" destination="http://www.apache.org"/>
                 <tr:goLink text="item 2" destination="http://www.apache.org"/>
@@ -47,7 +49,7 @@
     
             <tr:outputFormatted styleUsage="instruction" value="&lt;b>Simple PopupPanel&lt;/b>"/>
 
-            <tr:panelPopup text="Simple Popup">
+            <tr:panelPopup text="Hover Popup" triggerType="hover">
               <tr:panelGroupLayout layout="vertical">
                 <tr:outputText value="Line 1" />
                 <tr:outputText value="Line 2" />
@@ -56,11 +58,9 @@
               </tr:panelGroupLayout>
             </tr:panelPopup>
 
-            <tr:outputFormatted styleUsage="instruction" value="&lt;b>PopupPanel containing Date Picker&lt;/b>"/>
-
             <tr:outputFormatted styleUsage="instruction" value="&lt;b>PopupPanel as modal dialog&lt;/b>"/>
 
-            <tr:panelPopup text="Modal Centered Test" title="Centered Panel" alignment="center" modal="true">
+            <tr:panelPopup text="Modal Centered Test" title="Centered Panel" position="centered" modal="true">
               <tr:panelBox>
                 <tr:outputText value="This popup should be centered on screen and modal" />
               </tr:panelBox>
@@ -68,7 +68,7 @@
 
             <tr:outputFormatted styleUsage="instruction" value="&lt;b>PopupPanel of a fixed size with scrolling&lt;/b>"/>
 
-            <tr:panelPopup text="Fixed Size Popup Test" title="Fixed Size Panel" height="300" width="100">
+            <tr:panelPopup text="Fixed Size Popup Test" title="Fixed Size Panel" height="100" width="120">
               <tr:panelBox>
                 <tr:outputText value="This popup is a fixed size.  The content of this popup should be scrollable." />
               </tr:panelBox>

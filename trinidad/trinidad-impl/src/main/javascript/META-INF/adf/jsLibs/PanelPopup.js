@@ -21,63 +21,89 @@
  * Simple function for opening a popup
  * @param contentId(String) id of the element to pop
  * @param triggerId(String) optional id of the element that launched the popup
- * @param props(Array) array of settings (modal(boolean), center(boolean), width(int), height(int))
  * @param event(Event) the javascript event object (used to position relative popups)
+ * @param triggerType(String) 'click'(default) | 'hover'
+ * @param position(String) 'relative'(default) | 'centered'
+ * @param modal(boolean)
+ * @param width(int) 
+ * @param height(int)
+ * @param xOffset(int)
+ * @param yOffset(int)
  **/
-TrPanelPopup.showPopup = function(contentId, triggerId, props, event)
+TrPanelPopup.showPopup = function(
+  contentId, 
+  triggerId, 
+  event, 
+  triggerType,
+  position, 
+  modal, 
+  width, 
+  height, 
+  xOffset, 
+  yOffset)
 {
-  var popup = TrPanelPopup.POPUP;
-  if (!popup)
-    popup = TrPanelPopup.POPUP = new TrPanelPopup();
+  if (contentId == null)
+    return;
+  
+  // Get/Initialize a map of visible popups
+  var visiblePopups = TrPanelPopup._VISIBLE_POPUPS;
+  if (!visiblePopups)
+    visiblePopups = TrPanelPopup._VISIBLE_POPUPS = new Object();
+  
+  // Check if the popup is already visible
+  if (visiblePopups[contentId])
+    // Popup is already visible
+    return;
+    
+  // Create new popup object and add it to the map of visible popups
+  if (triggerType == "hover")
+    visiblePopups[contentId] = new TrHoverPopup();
   else
-    popup.hide();
+    visiblePopups[contentId] = new TrClickPopup();
+
+  var popup = visiblePopups[contentId];
 
   var content = document.getElementById(contentId);
-   if (!content)
+  if (!content)
      return;
 
-  var trigger = document.getElementById(triggerId);
-   
   popup.setContent(content);
-  popup.setTrigger(trigger);
-  popup.setModal(false);
-  popup.setCentered(false);
-
-  // Register the callback
-  popup.callback = TrPanelPopup._popupCallback;
-
-  if (props)
-  {
-    if (props['modal'])
-      popup.setModal(true);
-
-    if (props['center'])
-      popup.setCentered(true);
-
-    if (props['width'] && props['height'])
-      popup.setSize(props['width'], props['height']);
-  }
+  popup.setTrigger(document.getElementById(triggerId));
+  popup.setModal(modal);
+  popup.setCentered(position == 'centered');
+  popup.setSize(width, height);
+  popup.setRelativeOffsetX(xOffset);
+  popup.setRelativeOffsetY(yOffset);
   
-  popup.show(event);
+  popup.showPopup(event);
 }
 
 /**
  * Public function for hiding the current popup.
  */  
-TrPanelPopup.hidePopup = function()
+TrPanelPopup.hidePopup = function(event)
 {
-  var popup = TrPanelPopup.POPUP;
-  if (popup)
-    popup.hide();
-}
+  var visiblePopups = TrPanelPopup._VISIBLE_POPUPS;
+  if (!visiblePopups)
+    return;
 
-/**
- * Callback function to ensure we clear
- * the POPUP var.
- */  
-TrPanelPopup._popupCallback = function()
-{
-  TrPanelPopup.POPUP = undefined;
+  //loop through element stack and find out which popup the event occured in.
+  var currElement = event.target || event.srcElement;
+  while (currElement)
+  {
+    var id = currElement.id;
+    if (id)
+    {
+      var currPopup = visiblePopups[id];
+      if (currPopup)
+      {
+        // We found the popup, so hide it.
+        currPopup.hide(event);
+        break;
+      }
+    }
+    currElement = currElement.parentNode;
+  }
 }
 
 /**
@@ -91,9 +117,6 @@ function TrPanelPopup()
   this._centered = false;
   this._modal = false;
   this._visible = false;
-
-  // Store the callback function so we can cleanly cancel it later
-  this._eventCallbackFunction = TrUIUtils.createCallback(this, this._handleEvent);
 }
 
 TrPanelPopup.prototype.getContent = function()
@@ -108,7 +131,7 @@ TrPanelPopup.prototype.setContent = function(content)
   //Initialize the styles for the content
   if (this._content)
   {
-    this._content.style.cssText  = "position: absolute; z-index: 201; top: 0px; left: 0px; visibility:hidden; padding: 0px; overflow:auto;";  
+    this._content.style.cssText  = "position: absolute; z-index: 5001; top: 0px; left: 0px; visibility:hidden; padding: 0px;";  
   }
 }
 
@@ -129,7 +152,6 @@ TrPanelPopup.prototype.setTrigger = function(trigger)
 {
   this._trigger = trigger;
 }
-
 
 /**
  * Sets the popup to be centered on screen when visible
@@ -157,13 +179,49 @@ TrPanelPopup.prototype.setModal = function(modal)
 }
 
 /**
+ * Sets X offset to apply if popup is positioned relative to mouse x.
+ * @param x(int) The x offset value.
+ **/
+TrPanelPopup.prototype.setRelativeOffsetX = function(x)
+{
+  this._relativeOffsetX = parseInt(x);
+}
+
+/**
+ * Gets X offset to apply if popup is positioned relative to mouse x.
+ * @return (int) The x offset value, or zero if unset.
+ **/
+TrPanelPopup.prototype.getRelativeOffsetX = function()
+{
+  return (this._relativeOffsetX) ? this._relativeOffsetX: 0;
+}
+
+/**
+ * Sets Y offset to apply if popup is positioned relative to mouse y.
+ * @param y(int) The y offset value.
+ **/
+TrPanelPopup.prototype.setRelativeOffsetY = function(y)
+{
+  this._relativeOffsetY = parseInt(y);
+}
+
+/**
+ * Gets Y offset to apply if popup is positioned relative to mouse y.
+ * @return (int) The y offset value, or zero if unset.
+ **/
+TrPanelPopup.prototype.getRelativeOffsetY = function()
+{
+  return (this._relativeOffsetY) ? this._relativeOffsetY: 0;
+}
+
+
+/**
  * Returns true if the popup is currently visible.
  **/
 TrPanelPopup.prototype.isVisible = function()
 {
   return this._visible;
 }
-
 
 /**
  * Holds the return value of the dialog.  Check this property after the 
@@ -204,14 +262,7 @@ TrPanelPopup.prototype.show = function(event)
   this._calcPosition(event);
   
   if (this.isModal())
-  {
     TrPanelPopup._showMask();
-  }
-  else
-  {
-    // Setup event handler to close the popup if clicked off
-    TrPanelPopup._addEvent(document, "click", this._eventCallbackFunction);
-  }
   
   TrPanelPopup._showIeIframe();
 
@@ -224,21 +275,14 @@ TrPanelPopup.prototype.show = function(event)
  * Hide the popup if visible.  Hiding the popup causes the callback
  * handler to be invoked (if configured).
  **/
-TrPanelPopup.prototype.hide = function()
+TrPanelPopup.prototype.hide = function(event)
 {
   //we can't hide content that isn't there
   if (!this.getContent())
     return;
 
   if (this.isModal())
-  {
     TrPanelPopup._hideMask();
-  }
-  else
-  {
-    //cancel callbacks
-    TrPanelPopup._removeEvent(document, "click", this._eventCallbackFunction);
-  }
   
   TrPanelPopup._hideIeIframe();
   
@@ -250,10 +294,22 @@ TrPanelPopup.prototype.hide = function()
   //call the callback function if attached
   if (this.callback)
   {
-    this.callback(this.callbackProps, this.returnValue);
+    try
+    {
+      this.callback(this.callbackProps, this.returnValue);
+    }
+    catch(ex)
+    {
+      alert("Error calling TrPanelPopup callback function:\n" + ex);
+    }
   }
-
+  
   this._visible = false;
+  
+  // Remove the popup from the list of visible popups
+  var popups = TrPanelPopup._VISIBLE_POPUPS;
+  if (popups)
+    delete popups[this.getContent().id];
 }
 
 /**
@@ -263,49 +319,15 @@ TrPanelPopup.prototype.setSize = function(width, height)
 {
   if (width)
   {
-    this.getContent().style.width = width + "px";
+    var i = parseInt(width);
+    if (i > 0)
+      this.getContent().style.width = i + "px";
   }
   if (height)
   {
-    this.getContent().style.height = height + "px";
-  }
-}
-
-/**
- * Event handler function.  Checks if the event occurred outside
- * of the popup or trigger, and if so causes the popup to hide.
- **/
-TrPanelPopup.prototype._handleEvent = function(event)
-{
-  if (!this.isVisible() || this.isModal())
-    return;
-
-  var currElement = false;
-  if (_agent.isIE)
-  {
-    currElement = event.srcElement;
-  }
-  else
-  {
-    currElement = event.target;
-  }
-
-  //loop through element stack where event occurred
-  while (currElement)
-  {
-    //if clicked on trigger or popup  
-    if (currElement == this.getContent() || 
-        currElement == this.getTrigger())
-    {
-      break;
-    }
-    currElement = currElement.parentNode;
-  }
-
-  if (!currElement)
-  {
-    //if click was on something other than the popupContainer
-    this.hide();
+    var i = parseInt(height);
+    if (i > 0)
+      this.getContent().style.height = i + "px";
   }
 }
 
@@ -324,7 +346,7 @@ TrPanelPopup._showMask = function()
     //create mask for modal popups
     TrPanelPopup._mask = document.createElement('div');
     TrPanelPopup._mask.name = "TrPanelPopup._BlockingModalDiv";
-    TrPanelPopup._mask.style.cssText = "display:none;position: absolute; z-index: 200;top: 0px;left: 0px;cursor: not-allowed; background-color: transparent;";
+    TrPanelPopup._mask.style.cssText = "display:none;position: absolute; z-index: 5000;top: 0px;left: 0px;cursor: not-allowed; background-color: transparent;";
     TrPanelPopup._mask.innerHTML = "&nbsp;";
 
     //consume all events
@@ -368,8 +390,8 @@ TrPanelPopup.prototype._calcPosition = function(event)
   var isIE = _agent.isIE;
   
   //bring some sanity to the cross browser measurements
-  var xOffset = isIE ? document.body.scrollLeft : window.pageXOffset;
-  var yOffset = isIE ? document.body.scrollTop : window.pageYOffset;
+  var xOffset = isIE ? document.documentElement.scrollLeft : window.pageXOffset;
+  var yOffset = isIE ? document.documentElement.scrollTop : window.pageYOffset;
   var scrollWidth = document.body.scrollWidth;
   var scrollHeight = document.body.scrollHeight;
   var bodyWidth = isIE ? document.body.clientWidth : window.innerWidth;
@@ -386,16 +408,20 @@ TrPanelPopup.prototype._calcPosition = function(event)
   {
     var eventX = isIE ? window.event.clientX : event.clientX;
     var eventY = isIE ? window.event.clientY : event.clientY;
+    
+    // Apply the offsets
+    eventX += this.getRelativeOffsetX();
+    eventY += this.getRelativeOffsetY();
 
     //ensure we keep popup within current page width
-    if (xOffset + eventX + containerWidth > document.body.scrollWidth)
-      left = document.body.scrollWidth - containerWidth;
+    if (xOffset + eventX + containerWidth > scrollWidth)
+      left = scrollWidth - containerWidth;
     else
       left = xOffset + eventX;
 
     //ensure we keep popup within current page height
-    if (yOffset + eventY + containerHeight > document.body.scrollHeight)
-      top = document.body.scrollHeight - containerHeight;
+    if (yOffset + eventY + containerHeight > scrollHeight)
+      top = scrollHeight - containerHeight;
     else
       top = yOffset + eventY;
   }  
@@ -500,8 +526,7 @@ TrPanelPopup._setMaskSize = function()
  **/
 TrPanelPopup._showIeIframe = function()
 {
-  // FIXME: only bother doing this for IE 6 - bypass the code for IE 7
-  if (_agent.isIE)
+  if (_agent.isIE && _agent.version < 7)
   {
     TrPanelPopup._initIeIframe();
     TrPanelPopup._maskIframe.style.display = "block";      
@@ -510,7 +535,7 @@ TrPanelPopup._showIeIframe = function()
 
 TrPanelPopup._hideIeIframe = function()
 {
-  if (_agent.isIE)
+  if (_agent.isIE && _agent.version < 7)
   {
     TrPanelPopup._initIeIframe();
     TrPanelPopup._maskIframe.style.display = "none";      
@@ -519,7 +544,7 @@ TrPanelPopup._hideIeIframe = function()
 
 TrPanelPopup._resizeIeIframe = function(left, top, width, height)
 {
-  if (_agent.isIE)
+  if (_agent.isIE && _agent.version < 7)
   {
     TrPanelPopup._initIeIframe();
     TrPanelPopup._maskIframe.style.left = left;
@@ -542,4 +567,120 @@ TrPanelPopup._initIeIframe = function()
     //TrPanelPopup._maskIframe.src = "javascript:false;"
     document.body.appendChild(TrPanelPopup._maskIframe);
   }
+}
+
+
+
+
+
+
+
+
+function TrHoverPopup()
+{
+  TrPanelPopup.call(this);
+
+  // Setup callback function for hiding the popup
+  this._hoverCallbackFunction = TrUIUtils.createCallback(this, this.hidePopup);
+}
+
+// TrHoverPopup inherits from TrPanelPopup
+TrHoverPopup.prototype = new TrPanelPopup();
+
+TrHoverPopup.prototype.showPopup = function(event)
+{
+  // Setup event listener for mouse leaving trigger or content elements
+  TrPanelPopup._addEvent(this.getTrigger(), "mouseout", this._hoverCallbackFunction);
+  TrPanelPopup._addEvent(this.getContent(), "mouseout", this._hoverCallbackFunction);
+  
+  this.show(event);
+}
+
+TrHoverPopup.prototype.hidePopup = function(event)
+{
+  // Only hide the popup if the event has a relatedTarget other than the
+  // trigger, the content, or their child elements.  This allows mouse
+  // to move between trigger and content without re-showing the popup
+
+  //loop through element stack where event occurred
+  var currElement = event.relatedTarget || event.toElement;
+  while (currElement)
+  {
+    //if over trigger or popup  
+    if (currElement == this.getContent() || 
+        currElement == this.getTrigger())
+    {
+      break;
+    }
+    currElement = currElement.parentNode;
+  }
+
+  if (!currElement)
+  {
+    // Cancel event listeners
+    TrPanelPopup._removeEvent(this.getTrigger(), "mouseout", this._hoverCallbackFunction);
+    TrPanelPopup._removeEvent(this.getContent(), "mouseout", this._hoverCallbackFunction);
+
+    this.hide(event);
+  }
+}
+
+TrHoverPopup.prototype.isModal = function()
+{
+  // Prevent modal for hover popups
+  return false;
+}
+
+
+
+
+
+
+
+
+
+function TrClickPopup()
+{
+  TrPanelPopup.call(this);
+
+  // Setup callback function for hiding the popup
+  this._clickCallbackFunction = TrUIUtils.createCallback(this, this.hidePopup);
+}
+
+// TrHoverPopup inherits from TrPanelPopup
+TrClickPopup.prototype = new TrPanelPopup();
+
+TrClickPopup.prototype.showPopup = function(event)
+{
+  if (!this.isModal())
+    // Setup event listener for clicking off the popup
+    TrPanelPopup._addEvent(document, "click", this._clickCallbackFunction);
+    
+  this.show(event);
+}
+
+TrClickPopup.prototype.hidePopup = function(event)
+{
+  //loop through element stack where event occurred
+  var currElement = event.target || event.srcElement;
+  while (currElement)
+  {
+    //if clicked on trigger or popup  
+    if (currElement == this.getContent() || 
+        currElement == this.getTrigger())
+    {
+      break;
+    }
+    currElement = currElement.parentNode;
+  }
+  
+  if (!currElement)
+  {
+    // Cancel event listeners
+    TrPanelPopup._removeEvent(document, "click", this._clickCallbackFunction);
+
+    //if click was on something other than the popupContainer
+    this.hide(event);
+  }
+
 }
