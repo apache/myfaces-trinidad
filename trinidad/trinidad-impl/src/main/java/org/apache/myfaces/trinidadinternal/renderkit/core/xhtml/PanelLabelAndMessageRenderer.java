@@ -56,6 +56,12 @@ public class PanelLabelAndMessageRenderer extends LabelAndMessageRenderer
     // Simpler algorithm for panelLabelAndMessage
     return getShowRequired(bean);
   } 
+
+  @Override
+  protected boolean isLeafRenderer()
+  {
+    return false;
+  }
  
   @Override
   protected String getRootStyleClass(FacesBean bean)
