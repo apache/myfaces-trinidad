@@ -441,17 +441,33 @@ Your callback will be passed a single parameter, which will be either
 TrRequestQueue.STATE_READY or TrRequestQueue.STATE_BUSY, depending
 on the current state of the request queue.  The statusIndicator
 component uses exactly this mechanism to know when to start
-and stop spinning its indicator.
+and stop spinning its indicator.  You can optionally pass a
+second parameter to addStateChangeListener() for the "this"
+you want active when your callback is notified.
+</p>
+<p>
+Trinidad also lets you get notified when DOM is replaced
+after an AJAX response by adding a "DOM replace listener"
+on the page:
+<source>
+    function myCallback(oldDom, newDom) { ... }
+
+    TrPage.getInstance().addDomReplaceListener(myCallback);
+</source> 
+The callback is passed two parameters:  the old DOM element
+and the new DOM element that is replacing it.  This callback
+is invoked after the replacement has happened.
+As with addStateChangeListener(), a second argument can be
+passed if you need a "this" to be active when your callback
+is notified.
 </p>
 </subsection>
 </section>
 
 <section name="Coming Features">
 <p>
-The following features are planned enhancements, all high priority:
+The following features are planned enhancements:
 <ul>
-<li>Notification when a DOM tree is being replaced by PPR
-(<a href="http://issues.apache.org/jira/browse/TRINIDAD-129">TRINIDAD-129</a>)</li>
 <li>Optimized postback lifecycle (at least in JSF 1.2)</li>
 <li>Support for explicitly requesting PPR of component from client</li>
 </ul>

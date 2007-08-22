@@ -337,6 +337,20 @@ TrPage.prototype._handlePprResponseFragment = function(fragmentNode)
   {
     // replace the target node with the new source node
     targetNode.parentNode.replaceChild(sourceNode, targetNode);
+    // Call all the DOM replace listeners
+    var listeners = this._domReplaceListeners;
+    if (listeners)
+    {
+      for (var i = 0; i < listeners.length; i+=2)
+      {
+        var currListener = listeners[i];
+        var currInstance = listeners[i+1];
+        if (currInstance != null)
+          currListener.call(currInstance, targetNode, sourceNode);
+        else
+          currListener(targetNode, sourceNode);
+      }
+    }
   }  
 
   // TODO: handle nodes that don't have ID, but do take the focus?
@@ -553,6 +567,57 @@ TrPage._collectLoadedLibraries = function()
   return loadedLibraries;  
 }
 
+/**
+ * Adds a listener for DOM replacement notification.
+ * @param {function} listener listener function to add
+ * @param {object} instance to pass as "this" when calling function (optional)
+ */
+TrPage.prototype.addDomReplaceListener = function(listener, instance)
+{
+  var domReplaceListeners = this._domReplaceListeners;
+  if (!domReplaceListeners)
+  {
+    domReplaceListeners = new Array();
+    this._domReplaceListeners = domReplaceListeners;
+  }
+
+  domReplaceListeners.push(listener);
+  domReplaceListeners.push(instance);
+}
+
+/**
+* Removes a listener for DOM replace notifications.
+* @param {function} listener  listener function to remove
+* @param {object} instance to pass as this when calling function
+*/
+TrPage.prototype.removeDomReplaceListener = function(listener, instance)
+{
+  // remove the listener/instance combination
+  var domReplaceListeners = this._domReplaceListeners;
+  var length = domReplaceListeners.length;
+  
+  for (var i = 0; i < length; i++)
+  {
+    var currListener = domReplaceListeners[i];
+    i++;
+    
+    if (currListener == listener)
+    {
+      var currInstance = domReplaceListeners[i];
+      if (currInstance === instance)
+      {
+        domReplaceListeners.splice(i - 1, 2);
+        break;
+      }
+    }
+  }
+  
+  // remove array, if empty
+  if (domReplaceListeners.length == 0)
+  {
+    this._domReplaceListeners = null;
+  }
+}
  
 /**
  * Adds the styleClassMap entries to the existing internal
