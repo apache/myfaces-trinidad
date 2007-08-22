@@ -558,11 +558,10 @@ TrNumberFormat.prototype._addGroupingSeparators = function(ints)
   var groupingSeparator = getLocaleSymbols().getGroupingSeparator();
   for(i=0; i < toFormat.length; i++)
   {
-    if(i%3==0 && toMuch!=0)
+    if(i%3==0 && i!=0)
     {
       formatted += groupingSeparator;
     }
-    toMuch++;
     formatted += toFormat.charAt(i);
   }
   ints = balance + formatted;
