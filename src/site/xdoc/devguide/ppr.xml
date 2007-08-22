@@ -452,9 +452,6 @@ The following features are planned enhancements, all high priority:
 <ul>
 <li>Notification when a DOM tree is being replaced by PPR
 (<a href="http://issues.apache.org/jira/browse/TRINIDAD-129">TRINIDAD-129</a>)</li>
-<li>Much more efficient PPR by skipping many branches of the
-page and ignoring leaves (blocked by 
-<a href="http://issues.apache.org/jira/browse/TRINIDAD-96">TRINIDAD-96</a>)</li>
 <li>Optimized postback lifecycle (at least in JSF 1.2)</li>
 <li>Support for explicitly requesting PPR of component from client</li>
 </ul>
