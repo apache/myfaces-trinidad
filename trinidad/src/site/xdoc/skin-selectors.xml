@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+     
 -->
 <document>
   <properties>
@@ -2083,7 +2083,7 @@
           
         </table>
       </subsection>
-      <subsection name="tr:panelForm Component">
+      <subsection name="tr:panelFormLayout Component">
         <table>
           <tr>
             <th colspan="2">
@@ -2095,24 +2095,31 @@
             <th>Description</th>
           </tr>
           <tr>
-            <td>af|panelForm::column</td>
+            <td>af|panelFormLayout::column</td>
             <td>Specifies the style information for columns of the panelForm.</td>
           </tr>
           <tr>
-            <td>af|panelForm::separator</td>
+            <td>af|panelFormLayout::separator</td>
             <td>Specifies the style information for separators between groups in the panelForm.</td>
           </tr>
           <tr>
-            <td>af|panelForm::cell</td>
+            <td>af|panelFormLayout::cell</td>
             <td>Specifies the style information for each cell of the panelForm.</td>
           </tr>
           <tr>
-            <td>af|panelForm::label-cell</td>
+            <td>af|panelFormLayout::label-cell</td>
             <td>Specifies the style information for the label cell of the
                 panelForm when side-by-side with content. This includes .AFEndTextAlign:alias.</td>
           </tr>
           <tr>
-            <td>af|panelForm::label-stacked-cell</td>
+            <td>af|panelFormLayout::content-cell</td>
+            <td>Specifies the style information for the input cell of the
+                panelForm when side-by-side with content.  Use this in combination with 
+                af|panelFormLayout::label-cell to space out the inputs horizontally.
+                This includes .AFEndTextAlign:alias.</td>
+          </tr>
+          <tr>
+            <td>af|panelFormLayout::label-stacked-cell</td>
             <td>Specifies the style information for the label cell of the
                 panelForm when stacked above content.</td>
           </tr>
