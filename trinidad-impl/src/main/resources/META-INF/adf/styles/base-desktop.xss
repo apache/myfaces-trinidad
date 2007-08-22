@@ -1836,12 +1836,15 @@
   <style selector="af|panelPopup::title-text">
     <includeStyle name="AFDefaultFont"/>
     <includeStyle name="AFMediumFont"/>
+    <property name="white-space">nowrap</property>
+    <property name="overflow">hidden</property>
   </style>
 
   <style selector="af|panelPopup::close-icon">
     <includeStyle name="AFDefaultFont"/>
     <includeStyle name="AFMediumFont"/>
     <property name="text-align">right</property>
+    <property name="padding-left">5px</property>
   </style>
 
   <style selector="af|panelPopup::content">
