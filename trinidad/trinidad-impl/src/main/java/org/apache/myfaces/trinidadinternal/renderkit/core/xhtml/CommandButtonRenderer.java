@@ -67,12 +67,15 @@ public class CommandButtonRenderer extends CommandLinkRenderer
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
+    String clientId = getClientId(context, component);
+    if (canSkipRendering(arc, clientId))
+      return;
+
     if (getPartialSubmit(bean))
     {
        AutoSubmitUtils.writeDependencies(context, arc);
     }
 
-    String clientId = getClientId(context, component);
     // Make sure we don't have anything to save
     assert(arc.getCurrentClientId() == null);
     arc.setCurrentClientId(clientId);

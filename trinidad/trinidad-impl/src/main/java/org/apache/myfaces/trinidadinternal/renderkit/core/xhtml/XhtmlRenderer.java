@@ -254,6 +254,54 @@ public class XhtmlRenderer extends CoreRenderer
 
 
   /**
+   * Returns true if the component can skip its own rendering;
+   * true if PPR is on for this request, is not currently active,
+   * and this component not a target.  Note that if
+   * the component is not a leaf, then you'd still have to
+   * render the children.
+   * <p>
+   * Call this overload if you have the clientId already.
+   */
+  protected boolean canSkipRendering(
+    RenderingContext rc,
+    String           clientId)
+  {
+    PartialPageContext ppc = rc.getPartialPageContext();
+    if ((ppc == null) ||
+        ppc.isInsidePartialTarget() ||
+        ppc.isPartialTarget(clientId))
+      return false;
+
+    return true;
+  }
+
+  /**
+   * Returns true if the component can skip its own rendering;
+   * true if PPR is on for this request, is not currently active,
+   * and this component not a target.  Note that if
+   * the component is not a leaf, then you'd still have to
+   * render the children.
+   * <p>
+   * Call this overload if you don't have the clientId already.
+   */
+  protected boolean canSkipRendering(
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component)
+  {
+    PartialPageContext ppc = rc.getPartialPageContext();
+    if ((ppc == null) ||
+        ppc.isInsidePartialTarget())
+      return false;
+
+    String clientId = component.getClientId(context);
+    if (ppc.isPartialTarget(clientId))
+      return false;
+
+    return true;
+  }
+
+  /**
    * Returns true if the component should render an ID.  Components
    * that deliver events should always return "true".
    * @todo Profile and possibly optimize.

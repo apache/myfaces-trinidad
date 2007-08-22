@@ -103,10 +103,13 @@ public class SingleStepButtonBarRenderer extends XhtmlRenderer
   @Override
   protected void encodeAll(
     FacesContext        context,
-    RenderingContext arc,
+    RenderingContext    arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
+    if (canSkipRendering(context, arc, component))
+      return;
+
     long currentValue = getSelectedStep(bean);
 
     // get max value

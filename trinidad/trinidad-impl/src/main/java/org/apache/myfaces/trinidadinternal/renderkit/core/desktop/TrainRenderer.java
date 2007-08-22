@@ -43,6 +43,7 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.ProcessUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinProperties;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
@@ -161,6 +162,15 @@ public class TrainRenderer
     FacesBean        bean)
     throws IOException
   {
+    // Since Train is a naming container, we can be more
+    // efficient about skipping its children
+    if (!PartialPageUtils.containsPprTargets(arc,
+                                             component,
+                                             getClientId(context, component)))
+    {
+      return;
+    }
+
     if(!(component instanceof UIXProcess))
     {
       throw new ClassCastException(_LOG.getMessage(

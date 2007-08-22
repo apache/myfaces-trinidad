@@ -111,6 +111,15 @@ public class TreeRenderer extends XhtmlRenderer
     UIComponent      component,
     FacesBean        bean) throws IOException
   {
+    // Since Train is a naming container, we can be more
+    // efficient about skipping its children
+    if (!PartialPageUtils.containsPprTargets(rc,
+                                             component,
+                                             getClientId(context, component)))
+    {
+      return;
+    }
+
     UIXHierarchy tree = (UIXHierarchy) component;
     TreeUtils.expandFocusRowKey((UIXTree) component);
 

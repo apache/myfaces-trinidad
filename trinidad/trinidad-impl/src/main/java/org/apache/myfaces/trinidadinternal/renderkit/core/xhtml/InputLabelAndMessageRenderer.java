@@ -85,14 +85,18 @@ public abstract class InputLabelAndMessageRenderer extends LabelAndMessageRender
   @Override
   protected void encodeAll(
     FacesContext        context,
-    RenderingContext arc,
+    RenderingContext    arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
     if (getSimple(bean))
     {
-      String saved = arc.getCurrentClientId();
       String clientId = component.getClientId(context);
+      // If we're a leaf component, see if we can skip our rendering
+      if (isLeafRenderer() && canSkipRendering(arc, clientId))
+        return;
+
+      String saved = arc.getCurrentClientId();
       arc.setCurrentClientId(clientId);
       
       // add the label to FormData so that it can be used in 

@@ -58,10 +58,13 @@ public class InputHiddenRenderer extends EditableValueRenderer
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
+    String id = getClientId(context, component);
+    if (canSkipRendering(arc, id))
+      return;
+
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement("input", component);
     rw.writeAttribute("type", "hidden", null);
-    String id = getClientId(context, component);
     rw.writeAttribute("id", id, "id");
     rw.writeAttribute("name", id, "id");
     rw.writeAttribute("value",

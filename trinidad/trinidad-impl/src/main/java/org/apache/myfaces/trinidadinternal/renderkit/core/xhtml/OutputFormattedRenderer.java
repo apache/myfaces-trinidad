@@ -46,27 +46,27 @@ public class OutputFormattedRenderer extends ValueRenderer
   }
 
   @Override
-  protected void encodeBegin(
+  public boolean getRendersChildren()
+  {
+    return true;
+  }
+
+  @Override
+  protected void encodeAll(
     FacesContext        context,
     RenderingContext arc,
     UIComponent         comp,
     FacesBean           bean) throws IOException
   {
+    if (canSkipRendering(context, arc, comp))
+      return;
+
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement("span", comp);
     
     renderId(context, comp);
     renderAllAttributes(context, arc, bean);
-  }
 
-  @Override
-  public void encodeEnd(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         comp,
-    FacesBean           bean) throws IOException
-  {
-    ResponseWriter rw = context.getResponseWriter();
     String value = getConvertedString(context, comp, bean);
     renderFormattedText(context, value);
     rw.endElement("span");

@@ -49,34 +49,32 @@ public class OutputTextRenderer extends ValueRenderer
   }
 
   @Override
-  protected void encodeBegin(
+  public boolean getRendersChildren()
+  {
+    return true;
+  }
+
+  @Override
+  protected void encodeAll(
     FacesContext        context,
-    RenderingContext arc,
+    RenderingContext    arc,
     UIComponent         comp,
     FacesBean           bean) throws IOException
   {
-    if (getEscape(bean))
+    if (canSkipRendering(context, arc, comp))
+      return;
+
+    ResponseWriter rw = context.getResponseWriter();
+    String value = getConvertedString(context, comp, bean);
+    boolean escape = getEscape(bean);
+
+    if (escape)
     {
-      ResponseWriter rw = context.getResponseWriter();
       rw.startElement("span", comp);
       
       renderId(context, comp);
       renderAllAttributes(context, arc, bean);
-    }
-  }
 
-  @Override
-  public void encodeEnd(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         comp,
-    FacesBean           bean) throws IOException
-  {
-    ResponseWriter rw = context.getResponseWriter();
-    String value = getConvertedString(context, comp, bean);
-
-    if (getEscape(bean))
-    {
       _renderDescription(context, arc, bean);
 
       if (value != null)

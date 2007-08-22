@@ -509,7 +509,8 @@ public class PPRResponseWriter extends ScriptBufferingResponseWriter
       {
         if (_state.enteringPPR != null)
         {
-          _LOG.warning("NO_PPR_CAPABLE_ID", _state.enteringPPR);
+          _LOG.warning("NO_PPR_CAPABLE_ID_FOUND_FOR_COMPONENT",
+                       _state.enteringPPR);
           _state.enteringPPR = null;
         }
 

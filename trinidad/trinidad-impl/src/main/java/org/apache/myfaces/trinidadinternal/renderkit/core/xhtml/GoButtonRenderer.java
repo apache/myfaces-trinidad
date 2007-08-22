@@ -72,6 +72,9 @@ public class GoButtonRenderer extends GoLinkRenderer
     FacesBean           bean) throws IOException
   {
     String clientId = component.getClientId(context);
+    if (canSkipRendering(arc, clientId))
+      return;
+
     // Make sure we don't have anything to save
     assert(arc.getCurrentClientId() == null);
     arc.setCurrentClientId(clientId);
