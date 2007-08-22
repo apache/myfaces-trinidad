@@ -24,7 +24,7 @@
   </properties>
 
   <body>
-    <section name="Apache MyFaces Trinidad 1.0.2 Release Notes">
+    <section name="Apache MyFaces Trinidad 1.0.3 Release Notes">
       <p>
         <ul>
           <li>
@@ -41,40 +41,19 @@
       </section>
 
       <section name="Overview">
-        <p>This is the first release of Apache MyFaces Trinidad since
-leaving the incubator.  The highlight of this release is greatly
-improved client-side validation, now using inline DHTML instead of
-Javascript alerts, as provided by Danny Robinson.  Many bugs
-have been fixed.  See below for the full list.
+        <p>
        </p>
       </section>
       <section name="Release Notes">
 <subsection name="Features">
 
 <ul>
-<li>Client-side validation no longer shows Javascript alerts.  Instead,
-error messages are shown inline on the components.  This can
-be overridden (to use alerts or disable altogether) using a
-new &lt;client-validation&gt; element in trinidad-config.xml.
-Thanks to Danny Robinson for this feature.
-</li>
-
-<li>A new "autoSubmit" attribute on table and treeTable will send
-PPR submissions to the server any time a row is selected.</li>
-
-<li>"autoSubmit" now works inside of a subform.</li>
-
-<li>.css skinning files can now be edited live without rebooting the server.</li>
-
-<li>The labelAndAccessKey and textAndAccessKey attribute are supported in Facelets</li>
 </ul>
 
 </subsection>
 
 <subsection name="Changes from previous release">
   <ul>
-  <li>The skin selector names for tr:messages have been slightly modified for consistency, and added flexibility. 
-      Refer to the <a href="skin-selectors.html">Skinning Guide</a> for more information</li>
   </ul>
 </subsection>
 
@@ -86,11 +65,18 @@ PPR submissions to the server any time a row is selected.</li>
 
 <subsection name="Improvements">
 <ul>
+<li>Partial-page rendering should now be much more efficient, as
+many portions of the page that are not being rerendered can be
+skipped entirely.
+</li>
 </ul>
 </subsection>
     
 <subsection name="New Features">
 <ul>
+<li>A new addDomReplaceListener() method on the page Javascript
+object lets a developer receive notification when DOM is
+replaced by PPR.</li>
 </ul>
 </subsection>
 
