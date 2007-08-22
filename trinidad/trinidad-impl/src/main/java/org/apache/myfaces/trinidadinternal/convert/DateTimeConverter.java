@@ -179,11 +179,10 @@ public class DateTimeConverter extends
       if (requestMap.get(_PATTERN_WRITTEN_KEY) == null)
       {
         requestMap.put(_PATTERN_WRITTEN_KEY, Boolean.TRUE);
-        // only create the _dfs object if it doesn't exist. This is to
-        // make sure we don't have problems like bug 3448873 where we
+        // only create the _dfs object if it doesn't exist, so we don't
         // wipe out _dfs[xxx] values if we ppr the first date field on a
         // page with multiple date fields.
-        buff.append("if(window['_dfs'] == (void 0)){var _dfs=new Object();}");
+        buff.append("if(window['_dfs'] == undefined){var _dfs=new Object();}");
       }
 
       buff.append("_dfs[\"");
