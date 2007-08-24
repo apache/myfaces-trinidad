@@ -175,6 +175,31 @@ public class ComponentUtils
 
 
   /**
+   * Utility method for component code that transforms Object->Number.
+   */
+  public static Number resolveNumber(
+    Object  value
+    )
+  {
+    return resolveNumber(value, null);
+  }
+
+
+  /**
+   * Utility method for component code that transforms Object->Number.
+   */
+  public static Number resolveNumber(
+    Object  value,
+    Number  defaultValue
+    )
+  {
+    return (value != null)
+             ? (Number) value
+             : defaultValue;
+  }
+  
+
+  /**
    * Utility method for component code that transforms Object->String.
    */
   public static String resolveString(
