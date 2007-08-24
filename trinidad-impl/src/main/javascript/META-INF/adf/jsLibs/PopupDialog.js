@@ -42,6 +42,9 @@ function TrPopupDialog()
   this.setCentered(true);
   this.setContent(div);
 
+  // flag to indicate if dialog should resize to content
+  this._fixedSize = false;
+
   var page = TrPage.getInstance();
   div.className = page.getStyleClass("af|panelPopup::container");
   iframe.className = page.getStyleClass("af|panelPopup::content");
@@ -80,6 +83,7 @@ TrPopupDialog.prototype.setSize = function(width, height)
   if (width && height)
   {
     this._resizeIFrame(width, height);
+    this._fixedSize = true;
   }
 }
 
@@ -121,19 +125,21 @@ TrPopupDialog._initDialogPage = function()
   dialog.setTitle(document.title);
     
   // Resize the dialog to the page content
-  if (_agent.isIE)
+  if (!dialog._fixedSize)
   {
-    dialog._resizeIFrame(
-      dialog._iframe.Document.body.scrollWidth+40, 
-      dialog._iframe.Document.body.scrollHeight+40);
+    if (_agent.isIE)
+    {
+      dialog._resizeIFrame(
+        dialog._iframe.Document.body.scrollWidth+40, 
+        dialog._iframe.Document.body.scrollHeight+40);
+    }
+    else
+    {
+      dialog._resizeIFrame(
+        dialog._iframe.contentDocument.body.offsetWidth+40, 
+        dialog._iframe.contentDocument.body.offsetHeight+40);
+    }
   }
-  else
-  {
-    dialog._resizeIFrame(
-      dialog._iframe.contentDocument.body.offsetWidth+40, 
-      dialog._iframe.contentDocument.body.offsetHeight+40);
-  }
-
   dialog.show();
 }
 
