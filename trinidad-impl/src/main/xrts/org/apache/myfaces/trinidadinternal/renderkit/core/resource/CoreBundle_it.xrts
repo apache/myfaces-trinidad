@@ -341,8 +341,8 @@
        content -->
 <resource key="af_panelPage.SKIP_PAST_NAVIGATION" dnt="false">Vai al contenuto della pagina saltando gli elementi di navigazione</resource>
 <!-- Nav block titles for screenReader mode -->
-<resource key="af_menuButtons.BLOCK_TITLE" dnt="false">Pulsanti glotrinidad</resource>
-<resource key="af_panelButtonBar.BLOCK_TITLE" dnt="false">Pulsanti glotrinidad</resource>
+<resource key="af_menuButtons.BLOCK_TITLE" dnt="false">Pulsanti globali</resource>
+<resource key="af_panelButtonBar.BLOCK_TITLE" dnt="false">Pulsanti globali</resource>
 <resource key="af_menuTabs.BLOCK_TITLE" dnt="false">Elementi di navigazione primo livello</resource>
 <resource key="af_menuBar.BLOCK_TITLE" dnt="false">Elementi di navigazione secondo livello</resource>
 <resource key="af_panelSideBar.BLOCK_TITLE" dnt="false">Elementi di navigazione terzo livello</resource>
