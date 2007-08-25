@@ -127,14 +127,12 @@ public class TextIcon extends Icon
 
     // Handle style attributes (or elements)
 
-    // =-=jmwIcon @todo: do what XhtmlLafRenderer.renderStyleClassAttribute  
-    // =-=jmwIcon need to shorten it!
     // we map the styleClass in case it is used in a composite
-    // Then, since we aren't shortening it, which we need to!, we need
-    // to at least make sure it is valid.
     StringBuilder styleClasses = new StringBuilder();
     if (styleClass != null)
     {
+      // FIXME: since we go through the rendering context,
+      // there should be no need to go to StyleUtils
       String convertedStyleClass = 
         StyleUtils.convertToValidSelector(arc.getStyleClass(_styleClass));
    
@@ -146,7 +144,7 @@ public class TextIcon extends Icon
       if (styleClasses.length() > 0)
         styleClasses.append(" ");
 
-      styleClasses.append(attrStyles.toString());
+      styleClasses.append(arc.getStyleClass(attrStyles.toString()));
     }
 
     if (styleClasses.length() > 0)

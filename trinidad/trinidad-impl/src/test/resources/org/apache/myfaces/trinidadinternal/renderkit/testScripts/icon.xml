@@ -10,7 +10,6 @@
   <attribute-test name="inlineStyle"/>
   <boolean-test name="rendered"/>
   <attribute-test name="shortDesc"/>
-  <!-- Gives error: Attribute class was written twice
   <attribute-test name="styleClass"/> -->
 
   <js-test/>

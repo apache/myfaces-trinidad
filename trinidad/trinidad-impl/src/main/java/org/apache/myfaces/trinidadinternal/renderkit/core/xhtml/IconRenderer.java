@@ -59,14 +59,15 @@ public class IconRenderer extends XhtmlRenderer
       return;
 
     String name = getName(bean);
+
+    ResponseWriter rw = context.getResponseWriter();
+
     
+    // special case for extra skinning of margins in the PanelPage branding
+    // The span is written out here because the writer
+    // needs to see the UIComponent.
     if ("logo".equals(name))
     {
-      // special case for extra skinning of margins in the PanelPage branding
-      // The span is written out here because the writer
-      // needs to see the UIComponent.
-      ResponseWriter rw = context.getResponseWriter();
-
       rw.startElement("img", comp);
       renderId(context, comp);
       renderAllAttributes(context, arc, bean, false);
@@ -98,23 +99,30 @@ public class IconRenderer extends XhtmlRenderer
       // If we've got an Icon, and it has content, render it
       if ((icon != null) && !icon.isNull())
       {
-        // The span is written out here because the writer
-        // needs to see the UIComponent.
-        ResponseWriter rw = context.getResponseWriter();
-  
+        rw.startElement("span", comp);
+
         // If this icon renders as an image, don't embed it in a span
         boolean embed = icon.getImageURI(context, arc) == null;
         if (embed)
         {
-          rw.startElement("span", comp);
           renderId(context, comp);
-          renderAllAttributes(context, arc, bean);
+          // Don't render style class, as it's handled by the icon code
+          renderAllAttributes(context, arc, bean, false);
         }
+        // ... unless we have inlineStyle or Javascript, which won't
+        // get rendered on the icon itself.  If none are present,
+        // our ResponseWriter will trim the unneeded span
+        else
+        {
+          renderEventHandlers(context, bean);
+        }
+
+        // inlineStyle, if set, always goes on the span (today)
+        renderInlineStyle(context, arc, bean);
   
         icon.renderIcon(context, arc,
                         _getNodeAttributeMap(context, comp, bean, embed));
-        if (embed)
-          rw.endElement("span");
+        rw.endElement("span");
       }
     }
   }
@@ -143,12 +151,14 @@ public class IconRenderer extends XhtmlRenderer
     attrs = new ArrayMap<String, Object>(1);
 
     attrs.put(Icon.SHORT_DESC_KEY, getShortDesc(bean));
+    attrs.put(Icon.STYLE_CLASS_KEY, getStyleClass(bean));
 
     if (embed)
+    {
       attrs.put(Icon.EMBEDDED_KEY, Boolean.TRUE);
+    }
     else
     {
-      attrs.put(Icon.STYLE_CLASS_KEY, getStyleClass(bean));
       attrs.put(Icon.ID_KEY, getClientId(context, comp));
     }
 
