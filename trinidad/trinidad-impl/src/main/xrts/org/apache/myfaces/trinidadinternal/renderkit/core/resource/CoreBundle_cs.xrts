@@ -295,9 +295,9 @@
 <!--Link text for deselecting all rows-->
 <resource key="af_tableSelectMany.SELECT_NONE" dnt="false">Nevybrat nic</resource>
 <!--Link text for expanding all rows-->
-<resource key="af_treeTable.EXPAND_ALL" dnt="false">Roztrinidadt vše</resource>
+<resource key="af_treeTable.EXPAND_ALL" dnt="false">Rozbalit vše</resource>
 <!--Link text for collapsing all rows-->
-<resource key="af_treeTable.COLLAPSE_ALL" dnt="false">Strinidadt vše</resource>
+<resource key="af_treeTable.COLLAPSE_ALL" dnt="false">Sbalit vše</resource>
 <!--Link text for showing all details-->
 <resource key="af_table.SHOW_ALL_DETAILS" dnt="false">Zobrazit všechny podrobnosti</resource>
 <!--Link text for hiding all details-->
