@@ -2279,28 +2279,31 @@ function _multiValidate(
         if ( converterError == false)
         {
           var validatorArray = descriptor.validators;
-          for ( var j = 0; j < validatorArray.length; j = j + 1)
+          if (validatorArray)
           {
-            // do the validation if this element has a value
-            // Don't just compare against "", since the value has
-            // already been converted to a non-string type
-            if ((value !== null) &&
-                 !((typeof value == "string") && value == ""))
+            for ( var j = 0; j < validatorArray.length; j = j + 1)
             {
-              // evaluate the validator
-              var validatorConstructor = validatorArray[j];
-              if (validatorConstructor && value !== undefined)
+              // do the validation if this element has a value
+              // Don't just compare against "", since the value has
+              // already been converted to a non-string type
+              if ((value !== null) &&
+                  !((typeof value == "string") && value == ""))
               {
-                var validator = eval(validatorConstructor);
-
-                try 
+                // evaluate the validator
+                var validatorConstructor = validatorArray[j];
+                if (validatorConstructor && value !== undefined)
                 {
-                  validator.validate(value, label, converter);
-                }
-                catch (e)
-                {  
-                  // Populate the failureMap with the current error
-                  inputFailures[inputFailures.length] = e.getFacesMessage();
+                  var validator = eval(validatorConstructor);
+                  
+                  try 
+                  {
+                    validator.validate(value, label, converter);
+                  }
+                  catch (e)
+                  {  
+                    // Populate the failureMap with the current error
+                    inputFailures[inputFailures.length] = e.getFacesMessage();
+                  }
                 }
               }
             }
