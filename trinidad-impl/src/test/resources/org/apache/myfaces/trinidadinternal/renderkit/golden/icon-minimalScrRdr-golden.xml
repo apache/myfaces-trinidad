@@ -65,6 +65,14 @@
           >
         *
       </span>
+<!--AttributeTest[styleClass,null]-->
+
+      <span
+           class="AFRequiredIconStyle test-styleClass"
+           id="mainId"
+          >
+        *
+      </span>
 <!--AttributeTest[onclick,null]-->
 
       <span
