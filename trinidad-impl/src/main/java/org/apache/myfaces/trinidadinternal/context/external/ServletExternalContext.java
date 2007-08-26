@@ -640,6 +640,31 @@ public class ServletExternalContext extends ExternalContext
     // (this was reported by frederic.auge [frederic.auge@laposte.net])
     _requestServletPath = _httpServletRequest.getServletPath();
     _requestPathInfo = _httpServletRequest.getPathInfo();
+
+    final String contentType = _httpServletRequest.getHeader("Content-Type");
+
+    String characterEncoding = _lookupCharacterEncoding(contentType);
+
+    if (characterEncoding == null)
+    {
+      final HttpSession session = _httpServletRequest.getSession(false);
+      if (session != null)
+      {
+        characterEncoding = (String) session.getAttribute(ViewHandler.CHARACTER_ENCODING_KEY);
+      }
+
+      if (characterEncoding != null)
+      {
+        try
+        {
+          _servletRequest.setCharacterEncoding(characterEncoding);
+        }
+        catch (UnsupportedEncodingException uee)
+        {
+          _LOG.warning(uee);
+        }
+      }
+    }
   }
 
   private Map<String, Object>         _applicationMap;
