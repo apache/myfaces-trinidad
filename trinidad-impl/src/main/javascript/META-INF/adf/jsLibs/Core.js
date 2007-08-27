@@ -441,6 +441,54 @@ var _booleanFeatures =
 };
 
 
+/**
+ * Adds an event handler to an element.
+ * @param obj The element against which the event handler should be registered
+ * @param exType The event handler type such as 'change', 'blur', 'click' etc.
+ * @param fn The function to call when the event occurs
+ */
+function _addEvent(obj, evType, fn)
+{
+  if (obj.addEventListener)
+  {
+    obj.addEventListener(evType, fn, false);
+    return true;
+  }
+  else if (obj.attachEvent)
+  {
+    var r = obj.attachEvent("on"+evType, fn);
+    return r;
+  }
+  else
+  {
+    return false;
+  }
+}
+
+/**
+ * Removes an event handler from an element.
+ * @param obj The element against which the event handler is regsitered
+ * @param exType The event handler type such as 'change', 'blur', 'click' etc.
+ * @param fn The event handler function to remove from the element
+ */
+function _removeEvent(obj, evType, fn)
+{
+  // TODO: abstract onto Agent object
+  if (obj.removeEventListener)
+  {
+    obj.removeEventListener(evType, fn, false);
+    return true;
+  }
+  else if (obj.detachEvent)
+  {
+    var r = obj.detachEvent("on"+evType, fn);
+    return r;
+  }
+  else
+  {
+    return false;
+  }
+}
 
 /**
  * Gets the preferred width of the content
@@ -1288,9 +1336,9 @@ function _validateInline(
     // If we got this far, we know there's something to display so
     // make the inline message and icon visible.
     if (msgElem)
-      msgElem.style.display = "inline";
+      msgElem.style.display = "";
     if (iconElem)
-      iconElem.style.display = "inline";
+      iconElem.style.display = "";
   }
 
   return noFailures;
@@ -1302,23 +1350,26 @@ function _validateInline(
  * input field.
  * <p>
  * The simplest usage of this method is from the onblur attribute of the 
- * input component. e.g. onblur="_validateInput(this);"
+ * input component. e.g. onblur="_validateInput(event);"
  * <p>
- * @param input The input element to validate.
+ * @param event, The event object provided by the event handler.
  * @return boolean, false if validation failed, otherwise true. 
  */
 // TODO: make this a public function only after hanging it on
 // a namespaced object, *and* making it not specific to inline
 // validation
-function _validateInput(input)
+function _validateInput(event)
 {
-  if (!input)
+  if (!event)
     return true;
-  var id = _getID(input);
-  if (!id)
+    
+  // Get the element associated with the event
+  var inputElem = event.target || event.srcElement;
+  
+  if (!inputElem || !inputElem.id)
     return true;
 
-  var form = _getForm(input);
+  var form = _getForm(inputElem);
   if (!form)
     return true;
 
@@ -1326,7 +1377,17 @@ function _validateInput(input)
   if (!validators)
     return true;
     
+  var id = inputElem.id;
+
   var descriptor = validators[id];
+
+  // If we couldn't find the descriptor by id, then try by name
+  // as it might be a radio button
+  if (!descriptor && inputElem.name)
+  {
+    id = inputElem.name;
+    descriptor = validators[id];
+  }
   if (!descriptor)
     return true;
 

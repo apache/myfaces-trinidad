@@ -92,14 +92,16 @@ class DialogRequest
     {
       // Output the style classes to the styleClassMap
       out.writeText("TrPage.getInstance().addStyleClassMap( {'", null);
-      out.writeText(SkinSelectors.AF_PANEL_POPUP_CONTAINER_STYLE_CLASS + "':'", null);
-      out.writeText(arc.getStyleClass(SkinSelectors.AF_PANEL_POPUP_CONTAINER_STYLE_CLASS), null);
-      out.writeText("','" + SkinSelectors.AF_PANEL_POPUP_CONTENT_STYLE_CLASS + "':'", null);
-      out.writeText(arc.getStyleClass(SkinSelectors.AF_PANEL_POPUP_CONTENT_STYLE_CLASS), null);
-      out.writeText("','" + SkinSelectors.AF_PANEL_POPUP_TITLE_STYLE_CLASS + "':'", null);
-      out.writeText(arc.getStyleClass(SkinSelectors.AF_PANEL_POPUP_TITLE_STYLE_CLASS), null);
-      out.writeText("','" + SkinSelectors.AF_PANEL_POPUP_TITLEBAR_STYLE_CLASS + "':'", null);
-      out.writeText(arc.getStyleClass(SkinSelectors.AF_PANEL_POPUP_TITLEBAR_STYLE_CLASS), null);
+      out.writeText(SkinSelectors.AF_DIALOG_CONTAINER_STYLE_CLASS + "':'", null);
+      out.writeText(arc.getStyleClass(SkinSelectors.AF_DIALOG_CONTAINER_STYLE_CLASS), null);
+      out.writeText("','" + SkinSelectors.AF_DIALOG_CONTENT_STYLE_CLASS + "':'", null);
+      out.writeText(arc.getStyleClass(SkinSelectors.AF_DIALOG_CONTENT_STYLE_CLASS), null);
+      out.writeText("','" + SkinSelectors.AF_DIALOG_TITLEBAR_STYLE_CLASS + "':'", null);
+      out.writeText(arc.getStyleClass(SkinSelectors.AF_DIALOG_TITLEBAR_STYLE_CLASS), null);
+      out.writeText("','" + SkinSelectors.AF_DIALOG_TITLE_STYLE_CLASS + "':'", null);
+      out.writeText(arc.getStyleClass(SkinSelectors.AF_DIALOG_TITLE_STYLE_CLASS), null);
+      out.writeText("','" + SkinSelectors.AF_DIALOG_CLOSE_ICON_STYLE_CLASS + "':'", null);
+      out.writeText(arc.getStyleClass(SkinSelectors.AF_DIALOG_CLOSE_ICON_STYLE_CLASS), null);
       out.writeText("'} ); ", null);
       
       // Finally output the call to launch the dialog

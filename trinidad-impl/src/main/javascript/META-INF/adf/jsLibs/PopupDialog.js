@@ -18,39 +18,61 @@
  */
 function TrPopupDialog()
 {
+  var page = TrPage.getInstance();
+
   var div = document.createElement("div");
-  div.style.cssText = "visibility:hidden; position: absolute; z-index: 201;";
+  div.style.cssText = "visibility:hidden; position: absolute;";
+  div.className = page.getStyleClass("af|dialog::container");
   
   //setup the title bar
   var titlebar = document.createElement("div");
+  titlebar.className = page.getStyleClass("af|dialog::title-bar");
   div.appendChild(titlebar);
-  this._titleDiv = titlebar;
+
+  //setup the title bar
+  var titleText = document.createElement("div");
+  titleText.style.cssText = "float:left;";
+  titleText.className = page.getStyleClass("af|dialog::title-text");
+  titlebar.appendChild(titleText);
+
+  //setup the title bar
+  var closerDiv = document.createElement("div");
+  closerDiv.style.cssText = "float:right;";
+  closerDiv.className = page.getStyleClass("af|dialog::close-icon");
+  _addEvent(closerDiv, "click", TrPopupDialog._returnFromDialog);
+  titlebar.appendChild(closerDiv);
+
+  //setup the title bar
+  var sepDiv = document.createElement("div");
+  sepDiv.style.cssText = "clear:both;";
+  titlebar.appendChild(sepDiv);
 
   //setup the content iframe
   var iframe = document.createElement("iframe");
   iframe.name = "_blank";
   iframe.frameBorder = "0";
-  
-  //hold the iframe so we can set the 'src' as needed.
-  this._iframe = iframe;
-    
+  iframe.className = page.getStyleClass("af|dialog::content");
   div.appendChild(iframe);
+  
+  // Hold the iframe so we can set the 'src' as needed, and also the height
+  this._iframe = iframe;
+
+  // Hold on to the outer div so we can set the width
+  this._outerDiv = div;
+
+  // Hold on to the text div so we can update the title
+  this._titleTextDiv = titleText;
+    
   document.body.appendChild(div);
   
-  TrPanelPopup.call(this)
+  TrPanelPopup.call(this);
   this.setModal(true);
   this.setCentered(true);
   this.setContent(div);
 
-  // flag to indicate if dialog should resize to content
+  // flag to indicate if dialog size should be locked
   this._fixedSize = false;
 
-  var page = TrPage.getInstance();
-  div.className = page.getStyleClass("af|panelPopup::container");
-  iframe.className = page.getStyleClass("af|panelPopup::content");
-  titlebar.className = page.getStyleClass("af|panelPopup::title-text") + 
-    ' ' + 
-    page.getStyleClass("af|panelPopup::title-bar");
 }
 
 // TrPopupDialog inherits from TrPanelPopup
@@ -63,13 +85,11 @@ TrPopupDialog.prototype.setTitle = function(title)
 {
   if (title)
   {
-    this._titleDiv.innerHTML = title;
-    this._titleDiv.style.display = "block";
+    this._titleTextDiv.innerHTML = title;
   }
   else
   {
-    this._titleDiv.innerHTML = "";
-    this._titleDiv.style.display = "none";
+    this._titleTextDiv.innerHTML = "";
   }
 }
 
@@ -97,8 +117,12 @@ TrPopupDialog.getInstance = function()
  **/
 TrPopupDialog.prototype._resizeIFrame = function(width, height)
 {
-  this._iframe.height = height;
-  this._iframe.width = width;
+  // Set the height of the iframe
+  this._iframe.height = height + "px";
+  // Set the width of the iframe to 100% so it is sized by it's parent outerDiv
+  this._iframe.width = "100%";
+  // But set the width of the outerDiv, so the title bar is also the right size
+  this._outerDiv.style.width = width + "px";
   this._calcPosition(false);
 }
 
