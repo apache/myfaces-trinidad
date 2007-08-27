@@ -346,14 +346,20 @@ TrPanelPopup._showMask = function()
     //create mask for modal popups
     TrPanelPopup._mask = document.createElement('div');
     TrPanelPopup._mask.name = "TrPanelPopup._BlockingModalDiv";
-    TrPanelPopup._mask.style.cssText = "display:none;position: absolute; z-index: 5000;top: 0px;left: 0px;cursor: not-allowed; background-color: transparent;";
+    var cssText = "display:none;position: absolute; z-index: 5000;top: 0px;left: 0px;cursor: not-allowed;";
+    if (_agent.isIE && _agent.version == 7)
+      //workaround for bug in IE7 : see http://blog.thinkature.com/index.php/2006/12/29/odd-mouse-handling-with-transparent-objects-under-internet-explorer-7/
+      cssText = cssText + "background-color: white; filter: alpha(opacity=0);";
+    else
+      cssText = cssText + "background-color: transparent";
+    TrPanelPopup._mask.style.cssText = cssText;
     TrPanelPopup._mask.innerHTML = "&nbsp;";
 
     //consume all events
-    TrPanelPopup._addEvent(TrPanelPopup._mask, "click", TrPanelPopup._consumeMaskEvent);
+    _addEvent(TrPanelPopup._mask, "click", TrPanelPopup._consumeMaskEvent);
 
     //handle window resize events
-    TrPanelPopup._addEvent(window, "resize", TrPanelPopup._setMaskSize);
+    _addEvent(window, "resize", TrPanelPopup._setMaskSize);
 
     //set initial mask size
     TrPanelPopup._setMaskSize();
@@ -372,8 +378,8 @@ TrPanelPopup._showMask = function()
  **/
 TrPanelPopup._hideMask = function()
 {
-  TrPanelPopup._removeEvent(TrPanelPopup._mask, "click", TrPanelPopup._consumeMaskEvent);
-  TrPanelPopup._removeEvent(window, "resize", TrPanelPopup._setMaskSize);
+  _removeEvent(TrPanelPopup._mask, "click", TrPanelPopup._consumeMaskEvent);
+  _removeEvent(window, "resize", TrPanelPopup._setMaskSize);
   TrPanelPopup._mask.style.display = "none";
 }
 
@@ -441,45 +447,6 @@ TrPanelPopup._consumeMaskEvent = function(event)
   return false;
 }
 
-//useful event registration function
-TrPanelPopup._addEvent = function(obj, evType, fn)
-{
-  // TODO: abstract onto Agent object
-  if (obj.addEventListener)
-  {
-    obj.addEventListener(evType, fn, false);
-    return true;
-  }
-  else if (obj.attachEvent)
-  {
-    var r = obj.attachEvent("on"+evType, fn);
-    return r;
-  }
-  else
-  {
-    return false;
-  }
-}
-
-//useful event deregistration function
-TrPanelPopup._removeEvent = function(obj, evType, fn)
-{
-  // TODO: abstract onto Agent object
-  if (obj.removeEventListener)
-  {
-    obj.removeEventListener(evType, fn, false);
-    return true;
-  }
-  else if (obj.detachEvent)
-  {
-    var r = obj.detachEvent("on"+evType, fn);
-    return r;
-  }
-  else
-  {
-    return false;
-  }
-}
 
 /*
  * Sizes/resizes the modal mask if the window size changes
@@ -561,7 +528,7 @@ TrPanelPopup._initIeIframe = function()
     //create single reusable iframe if not already inited
     TrPanelPopup._maskIframe = document.createElement('iframe');
     TrPanelPopup._maskIframe.name = "TrPanelPopup._ieOnlyZIndexIframe";
-    TrPanelPopup._maskIframe.style.cssText = "display: none; left: 0px; position: absolute; top: 0px; z-index: 199;";
+    TrPanelPopup._maskIframe.style.cssText = "display: none; left: 0px; position: absolute; top: 0px; z-index: 4999;";
     TrPanelPopup._maskIframe.style.filter = "progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=0)";
     // FIXME: should this be set to avoid SSL warnings?
     //TrPanelPopup._maskIframe.src = "javascript:false;"
@@ -590,8 +557,8 @@ TrHoverPopup.prototype = new TrPanelPopup();
 TrHoverPopup.prototype.showPopup = function(event)
 {
   // Setup event listener for mouse leaving trigger or content elements
-  TrPanelPopup._addEvent(this.getTrigger(), "mouseout", this._hoverCallbackFunction);
-  TrPanelPopup._addEvent(this.getContent(), "mouseout", this._hoverCallbackFunction);
+  _addEvent(this.getTrigger(), "mouseout", this._hoverCallbackFunction);
+  _addEvent(this.getContent(), "mouseout", this._hoverCallbackFunction);
   
   this.show(event);
 }
@@ -618,8 +585,8 @@ TrHoverPopup.prototype.hidePopup = function(event)
   if (!currElement)
   {
     // Cancel event listeners
-    TrPanelPopup._removeEvent(this.getTrigger(), "mouseout", this._hoverCallbackFunction);
-    TrPanelPopup._removeEvent(this.getContent(), "mouseout", this._hoverCallbackFunction);
+    _removeEvent(this.getTrigger(), "mouseout", this._hoverCallbackFunction);
+    _removeEvent(this.getContent(), "mouseout", this._hoverCallbackFunction);
 
     this.hide(event);
   }
@@ -654,7 +621,7 @@ TrClickPopup.prototype.showPopup = function(event)
 {
   if (!this.isModal())
     // Setup event listener for clicking off the popup
-    TrPanelPopup._addEvent(document, "click", this._clickCallbackFunction);
+    _addEvent(document, "click", this._clickCallbackFunction);
     
   this.show(event);
 }
@@ -677,7 +644,7 @@ TrClickPopup.prototype.hidePopup = function(event)
   if (!currElement)
   {
     // Cancel event listeners
-    TrPanelPopup._removeEvent(document, "click", this._clickCallbackFunction);
+    _removeEvent(document, "click", this._clickCallbackFunction);
 
     //if click was on something other than the popupContainer
     this.hide(event);

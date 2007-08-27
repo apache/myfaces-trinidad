@@ -657,6 +657,46 @@
   <style name="AFRequiredLabel">
   </style>
   
+  <!--
+    Lighweight Dialog Styles
+  -->
+
+  <style selector="af|dialog::container">
+    <includeStyle name="AFVeryDarkBorder"/>
+    <property name="border">1px solid</property>
+    <property name="background-color">white</property>
+  </style>
+
+  <style selector="af|dialog::title-bar">
+    <includeStyle name="AFDarkAccentBackground"/>
+    <includeStyle name="AFVeryDarkBorder"/>
+    <property name="border-bottom">1px solid</property>
+    <property name="padding">2px 2px 2px 2px</property>
+  </style>
+
+  <style selector="af|dialog::title-text">
+    <includeStyle name="AFDefaultFont"/>
+    <includeStyle name="AFMediumFont"/>
+    <property name="white-space">nowrap</property>
+    <property name="overflow">hidden</property>
+  </style>
+
+  <style selector="af|dialog::close-icon">
+    <includeStyle name="AFDefaultFont"/>
+    <includeStyle name="AFMediumFont"/>
+    <property name="margin-left">5px</property>
+    <property name="background-image">url('/adf/images/close.gif')</property>
+    <property name="background-position">center</property>
+    <property name="background-repeat">no-repeat</property>
+    <property name="height">13px</property>
+    <property name="width">13px</property>
+  </style>
+
+  <style selector="af|dialog::content">
+    <includeStyle name="AFLightAccentBackground"/>
+    <property name="border">0px</property>
+  </style>
+
   <!-- Per component selectors -->
   <style selector="af|inputColor:required::label">
     <includeStyle name="AFRequiredLabel"/>

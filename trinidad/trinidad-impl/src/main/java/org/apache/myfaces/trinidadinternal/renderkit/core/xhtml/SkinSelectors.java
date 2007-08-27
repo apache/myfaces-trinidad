@@ -220,6 +220,24 @@ public final class SkinSelectors
   
   //                                                                         //
   //                                                                         //
+  // ========================= Lightweight Dialog=========================== //
+  //                                                                         //
+  //                                                                         //
+  private static final String AF_DIALOG_ROOT_STYLE_CLASS = "af|dialog";
+
+  public static final String AF_DIALOG_CONTAINER_STYLE_CLASS = 
+    AF_DIALOG_ROOT_STYLE_CLASS + "::container";
+  public static final String AF_DIALOG_CONTENT_STYLE_CLASS = 
+    AF_DIALOG_ROOT_STYLE_CLASS + "::content";
+  public static final String AF_DIALOG_TITLEBAR_STYLE_CLASS = 
+    AF_DIALOG_ROOT_STYLE_CLASS + "::title-bar";
+  public static final String AF_DIALOG_TITLE_STYLE_CLASS = 
+    AF_DIALOG_ROOT_STYLE_CLASS + "::title-text";
+  public static final String AF_DIALOG_CLOSE_ICON_STYLE_CLASS = 
+    AF_DIALOG_ROOT_STYLE_CLASS + "::close-icon";
+
+  //                                                                         //
+  //                                                                         //
   // =========================== tr:breadCrumbs ============================ //
   //                                                                         //
   //                                                                         //
