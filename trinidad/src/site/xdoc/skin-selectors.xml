@@ -35,6 +35,9 @@
           <li>
             <a href="#ComponentLevelSelectors">Component-level Selectors</a>
           </li>
+          <li>
+            <a href="#MiscSelectors">Miscellaneous Selectors</a>
+          </li>
         </ul>
       </p>
     </section>
@@ -4048,5 +4051,47 @@ panelTip.</td>
         </table>
       </subsection>
     </section>
-  </body>
+    <a name="MiscSelectors"></a>
+    <section name="Miscellaneous Selectors">
+      <subsection name="Lightweight Dialog Selectors">
+        <p>The following selectors enable styling of specific elements of the dialog box when
+        lightweight dialogs are configured.
+        </p>
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|dialog::container</td>
+            <td>Styles the outer element of the dialog.  Use this selector to control border and margin/padding 
+            around the entire dialog, including title-bar.</td>
+          </tr>
+          <tr>
+            <td>af|dialog::content</td>
+            <td>Styles the content area of the dialog, meaning the area beneath the title-bar.</td>
+          </tr>
+          <tr>
+            <td>af|dialog::title-bar</td>
+            <td>Styles the title-bar of the dialog.  Use this selectors to control the size the baackground color
+            of the title-bar.</td>
+          </tr>
+          <tr>
+            <td>af|dialog::title-text</td>
+            <td>Styles the text within the title-bar.</td>
+          </tr>
+          <tr>
+            <td>af|dialog::close-icon</td>
+            <td>Styles the clickable icon that closes the dialog.  Note - this selector must use an image, it cannot
+            be styled with content text.</td>
+          </tr>
+        </table>
+      </subsection>
+    </section>
+    </body>
 </document>
