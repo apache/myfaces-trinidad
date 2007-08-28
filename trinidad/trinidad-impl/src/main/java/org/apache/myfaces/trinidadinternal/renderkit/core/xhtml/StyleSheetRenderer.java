@@ -52,12 +52,12 @@ public class StyleSheetRenderer extends XhtmlRenderer
    * implementations should attempt to reduce the size of generated
    * content, for example, by compressing style class names.  These
    * optimizations are enabled by default.  In general,
-   * clients should not need to disable these optimizations.  However,
-   * clients that want to disable this functionality for testing or
-   * debugging purposes can do so by setting this property to Boolean.TRUE.
+   * users should not need to disable these optimizations.  However,
+   * users who want to build custom skins for Trinidad will find this
+   * setting essential.  Use Boolean.TRUE to disable compression.
    */
   static public final String DISABLE_CONTENT_COMPRESSION =
-    "org.apache.myfaces.trinidadinternal.DISABLE_CONTENT_COMPRESSION";
+    "org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION";
 
   public StyleSheetRenderer()
   {
