@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+     
 -->
 <document>
   <properties>
@@ -344,6 +344,15 @@ but also makes it tricky to debug the Javascript.  This
 flag can be set to true to turn off the obfuscation.
 </p>
 </subsection>
+<subsection name="org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION">
+<p>
+Apache Trinidad by default compresses the style class names inside the css that
+is generated on the server.  However, when developing custom Trinidad skins, it
+is much easier to work with the non-compressed style class names, which much more
+directly relate to those used in the skin css file.  This flag can be set to turn
+off automatic compression of style class names.
+</p>
+</subsection>
 <subsection name="org.apache.myfaces.trinidad.CHECK_FILE_MODIFICATION">
 <p>
 If this parameter is enabled by setting to "true", Apache Trinidad will automatically
@@ -351,6 +360,14 @@ check the modification date of your JSPs, and discard saved
 state when they change;  this makes development easier,
 but adds overhead that should be avoided when your application
 is deployed.
+</p>
+</subsection>
+<subsection name="org.apache.myfaces.trinidad.renderkit.ENABLE_LIGHTWEIGHT_DIALOGS">
+<p>
+Trinidad supports two dialog implementations.  The default implementation pops a new
+browser window, but may be subject to popup blocking issues depending on the browser.
+The alternative lightweight implementation uses a skinnable modal iframe that hovers 
+over the existing page.  This flag can be set to turn on lightweight dialogs.
 </p>
 </subsection>
 <subsection name="File upload configuration">

@@ -53,8 +53,14 @@
 </subsection>
 
 <subsection name="Changes from previous release">
-  <ul>
-  </ul>
+<ul>
+<li>Non-public web.xml setting 'org.apache.myfaces.trinidadinternal.DISABLE_CONTENT_COMPRESSION' 
+made public as 'org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION'.
+</li>
+<li>Non-public web.xml setting 'org.apache.myfaces.trinidadinternal.renderkit.USE_DIALOG_POPUP' 
+made public as 'org.apache.myfaces.trinidad.renderkit.ENABLE_LIGHTWEIGHT_DIALOGS'.
+</li>
+</ul>
 </subsection>
 
         
