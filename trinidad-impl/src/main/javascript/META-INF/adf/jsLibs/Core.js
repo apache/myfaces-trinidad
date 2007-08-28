@@ -99,6 +99,9 @@ var _TrFocusRequestDoc = null;
 var _TrFocusRequestID = null;
 var _TrFocusRequestNext = false;
 
+// Flag to indicate if inline validation is event based.
+var _TrEventBasedValidation = false;
+
 // _checkUnload is set on our body tag and is called when the window
 // unloads. In our dialog windows, we call _checkUnload via an intermediary
 // function _unloadADFDialog to work around Google's pop-up blocker
@@ -2189,6 +2192,16 @@ function _addValidators(formName, validators, validations, labels, formats)
 
     // Stash the descriptor on the validator map
     validatorMap[id] = descriptor;
+
+    // If enabled, setup event based validation
+    if (_TrEventBasedValidation)
+    {
+      var inputElem = _getElementById(document, id);
+      if (inputElem)
+      { 
+        _addEvent(inputElem, "change", _validateInput);
+      }
+    }
   }
 
   // And store the new validator map away
