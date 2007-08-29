@@ -713,6 +713,69 @@ public class XhtmlRenderer extends CoreRenderer
            arc.getAgent().getCapabilities().get(TrinidadAgent.CAP_SCRIPTING_SPEED)));
     _renderTransparent(context, arc, width, height, needsQuoting, id, useScript);
   }
+  
+  /**
+   * This method evaluates the property of the specified bean if it supports 
+   * the specified property key and if the current value is <code>null</code>, 
+   * then evaluate the default value.
+   * <p>
+   * If the bean does not support the specified key, this method returns 
+   * <code>null</code>. Unsupported keys occur when the bean's type its type 
+   * returned <code>null</code> from <code>findKey</code> when 
+   * <code>findTypeConstants</code> method was called.
+   * </p>
+   * 
+   * @param bean the property value holder.
+   * @param key  the key associated to the property to evaluate.
+   * 
+   * @return <code>null</code> if key is <code>null</code>, the current 
+   *         property value in the bean for the specified key if it was 
+   *         set, or the default value if it wasn't.
+   * 
+   * @see #findTypeConstants(org.apache.myfaces.trinidad.bean.FacesBean.Type)
+   */
+  protected Object resolveProperty(FacesBean bean, PropertyKey key)
+  {
+    return resolveProperty(bean, key, true);
+  }
+  
+  /**
+   * This method evaluates the property of the specified bean if it supports 
+   * the specified property key and if the current value is <code>null</code>, 
+   * then evaluate the default value if and only if <code>checkDefault</code> 
+   * is <code>true</code>.
+   * <p>
+   * If the bean does not support the specified key, this method returns 
+   * <code>null</code>. Unsupported keys occur when the bean's type its type 
+   * returned <code>null</code> from <code>findKey</code> when 
+   * <code>findTypeConstants</code> method was called.
+   * </p>
+   * 
+   * @param bean         the property value holder.
+   * @param key          the key associated to the property to evaluate.
+   * @param checkDefault a flag to tell the method to look for the default value 
+   *                     if no value was explicitely set.
+   * 
+   * @return <code>null</code> if key is <code>null</code>, the current 
+   *         property value in the bean for the specified key if it was 
+   *         set, or the default value if it wasn't and checkDefault is 
+   *         <code>true</code>.
+   */
+  protected Object resolveProperty(FacesBean bean, PropertyKey key, boolean checkDefault)
+  {
+    if (key == null)
+    {
+      return null;
+    }
+    
+    Object value = bean.getProperty(key);
+    if (value == null && checkDefault)
+    {
+      value = key.getDefault();
+    }
+    
+    return value;
+  }
 
   private static final class Counter
   {
