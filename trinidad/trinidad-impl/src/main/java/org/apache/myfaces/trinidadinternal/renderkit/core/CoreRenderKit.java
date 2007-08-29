@@ -836,7 +836,7 @@ public class CoreRenderKit extends RenderKitBase
   static private final String _PPR_REQUEST_HEADER = "Tr-XHR-Message";
 
   static private final String _USE_DIALOG_POPUP_INIT_PARAM =
-    "org.apache.myfaces.trinidad.renderkit.ENABLE_LIGHTWEIGHT_DIALOGS";
+    "org.apache.myfaces.trinidad.ENABLE_LIGHTWEIGHT_DIALOGS";
 
   static private final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(CoreRenderKit.class);

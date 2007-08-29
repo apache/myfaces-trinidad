@@ -362,7 +362,7 @@ but adds overhead that should be avoided when your application
 is deployed.
 </p>
 </subsection>
-<subsection name="org.apache.myfaces.trinidad.renderkit.ENABLE_LIGHTWEIGHT_DIALOGS">
+<subsection name="org.apache.myfaces.trinidad.ENABLE_LIGHTWEIGHT_DIALOGS">
 <p>
 Trinidad supports two dialog implementations.  The default implementation pops a new
 browser window, but may be subject to popup blocking issues depending on the browser.
