@@ -341,7 +341,7 @@ TrRangeValidator.prototype.validate  = function(
   string = "" + value;
   numberValue = parseFloat(string);
   var facesMessage;
-  if(this._minValue && this._maxValue)
+  if(this._minValue != null && this._maxValue != null)
   {
     //range
     if(numberValue >= this._minValue && numberValue <= this._maxValue)
