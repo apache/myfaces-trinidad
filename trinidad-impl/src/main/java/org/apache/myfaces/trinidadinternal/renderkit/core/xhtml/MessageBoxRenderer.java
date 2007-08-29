@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -40,7 +40,7 @@ import org.apache.myfaces.trinidadinternal.util.MessageUtils;
 
 /**
  * Renderer for org.apache.myfaces.trinidad.Messages, family org.apache.myfaces.trinidad.Messages.
- * 
+ *
  */
 public class MessageBoxRenderer extends XhtmlRenderer
 {
@@ -71,7 +71,7 @@ public class MessageBoxRenderer extends XhtmlRenderer
   {
     return true;
   }
-  
+
   @SuppressWarnings("unchecked")
   @Override
   protected void encodeAll(FacesContext context, RenderingContext arc,
@@ -84,30 +84,24 @@ public class MessageBoxRenderer extends XhtmlRenderer
       afContext.addPartialTarget(component);
 
     ResponseWriter writer = context.getResponseWriter();
-    
-    Map<String, String> origSkinResourceMap = arc.getSkinResourceKeyMap();
 
-    // Setup the rendering context, so that default skin selectors of
-    // delegate renderers are mapped to those of this renderer
-    arc.setSkinResourceKeyMap(_RESOURCE_KEY_MAP);
-    
     // Check if INLINE validation mode is enabled
-    boolean inlineValidation = 
+    boolean inlineValidation =
         RequestContext.ClientValidation.INLINE.equals(
             RequestContext.getCurrentInstance().getClientValidation());
-    
+
     // Only when there's at least one message queued
     if (inlineValidation || context.getMessages().hasNext())
     {
-      
+
       if (inlineValidation)
       {
         writer.startElement(XhtmlConstants.SCRIPT_ELEMENT, null);
         renderScriptDeferAttribute(context, arc);
         renderScriptTypeAttribute(context, arc);
-        
+
         // Output the styles required for client-side manipulation of the MessageBox
-        
+
         // Output style for list of messages
         writer.writeText("TrPage.getInstance().addStyleClassMap( {'", null);
         writer.writeText(SkinSelectors.AF_MESSAGES_LIST_STYLE_CLASS + "':'", null);
@@ -131,7 +125,11 @@ public class MessageBoxRenderer extends XhtmlRenderer
         writer.writeText("\");", null);
         writer.endElement("script");
       }
-      
+
+      // Setup the rendering context, so that default skin selectors of
+      // delegate renderers are mapped to those of this renderer
+      arc.setSkinResourceKeyMap(_RESOURCE_KEY_MAP);
+
       // Delegate rendering of the outer shell to the BoxRenderer class
       // which will call back to this renderer to output the messages
       _boxRenderer.encodeAll(context, arc, component, bean);
@@ -143,28 +141,25 @@ public class MessageBoxRenderer extends XhtmlRenderer
       renderId(context, component);
       writer.endElement(XhtmlConstants.SPAN_ELEMENT);
     }
-    
-    // Reset the skin resource map
-    arc.setSkinResourceKeyMap(origSkinResourceMap);
   }
-  
+
   protected void _renderContent(
       FacesContext context,
       RenderingContext arc,
       UIComponent component,
-      FacesBean bean) 
+      FacesBean bean)
       throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
-    
+
     boolean globalOnly = isGlobalOnly(bean);
-    
+
     // TODO - Merge styles into AF_MESSAGES_STYLE_CLASS
     writer.startElement(XhtmlConstants.DIV_ELEMENT, component);
     renderStyleClass(context, arc, SkinSelectors.AF_MESSAGES_BODY_STYLE_CLASS);
 
     _renderHeader(context, arc, component, bean);
-    
+
     // Render the 'message' attribute if specified
     String message = getMessage(bean);
     if (message != null)
@@ -177,39 +172,39 @@ public class MessageBoxRenderer extends XhtmlRenderer
 
     // Render messages as a list
     writer.startElement("ol", null);
-    
-    // Output an id for the list so client-side validation can 
+
+    // Output an id for the list so client-side validation can
     // easily access the element
     String listId = getClientId(context, component) + "__LIST__";
     writer.writeAttribute(XhtmlConstants.ID_ATTRIBUTE, listId, null);
-    
+
     // Switch list style depending if no. of messages is 1 or >1
     String[] styleClasses = null;
     if (MessageUtils.multipleMessagesQueued(context, globalOnly))
       styleClasses = new String[] {SkinSelectors.AF_MESSAGES_LIST_STYLE_CLASS};
     else
-      styleClasses = new String[] {SkinSelectors.AF_MESSAGES_LIST_STYLE_CLASS, 
+      styleClasses = new String[] {SkinSelectors.AF_MESSAGES_LIST_STYLE_CLASS,
         SkinSelectors.AF_MESSAGES_LIST_SINGLE_STYLE_CLASS};
 
     renderStyleClasses(context, arc, styleClasses);
-    
+
     _renderGlobalMessages(context, arc, component, bean);
-    
+
     if (!globalOnly)
       _renderComponentMessages(context, arc, component, bean);
-    
+
     // End of list
     writer.endElement("ol");
-    
+
     writer.endElement(XhtmlConstants.DIV_ELEMENT);
-  }  
-  
+  }
+
   @SuppressWarnings("unchecked")
   protected void _renderGlobalMessages(
       FacesContext context,
       RenderingContext arc,
       UIComponent component,
-      FacesBean bean) 
+      FacesBean bean)
       throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
@@ -224,26 +219,26 @@ public class MessageBoxRenderer extends XhtmlRenderer
 
       String text = MessageUtils.getGlobalMessage(arc, msg.getSummary(), msg.getDetail());
       renderPossiblyFormattedText(context, text);
-      
+
       writer.endElement("li");
     }
   }
-  
+
   @SuppressWarnings("unchecked")
   protected void _renderComponentMessages(
       FacesContext context,
       RenderingContext arc,
       UIComponent component,
-      FacesBean bean) 
+      FacesBean bean)
       throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
-    
+
     Iterator<String> idIter = context.getClientIdsWithMessages();
     while (idIter.hasNext())
     {
       String id = idIter.next();
-      
+
       // Skip global messages
       if (id == null)
         continue;
@@ -254,18 +249,18 @@ public class MessageBoxRenderer extends XhtmlRenderer
         FacesMessage msg = msgIter.next();
 
         writer.startElement("li", null);
-        
+
         _renderMessageAnchor(context, arc, msg, id);
-        
+
         String text = MessageUtils.getClientMessage(arc, msg.getSummary(), msg.getDetail());
 
         renderPossiblyFormattedText(context, text);
-        
+
         writer.endElement("li");
       }
     }
   }
-  
+
   protected void _renderHeader(
       FacesContext        context,
       RenderingContext arc,
@@ -282,11 +277,11 @@ public class MessageBoxRenderer extends XhtmlRenderer
       String componentId) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
-    
+
     if (componentId == null)
       return;
 
-    // Anchor rendering currently only possible for messages that 
+    // Anchor rendering currently only possible for messages that
     // contain a label, but we could use summary text in future
     if (msg instanceof LabeledFacesMessage)
     {
@@ -299,7 +294,7 @@ public class MessageBoxRenderer extends XhtmlRenderer
         writer.writeAttribute(XhtmlConstants.HREF_ATTRIBUTE, "#" + anchor, null);
         writer.write(labeledMsg.getLabel().toString());
         writer.endElement(XhtmlConstants.LINK_ELEMENT);
-      } 
+      }
     }
   }
 
@@ -310,29 +305,29 @@ public class MessageBoxRenderer extends XhtmlRenderer
     {
       super(type);
     }
-    
+
     @Override
     protected boolean shouldRenderId(FacesContext context, UIComponent component)
     {
       // Header will always be refreshed as sub-element of parent
       return false;
     }
-    
+
     @Override
     protected void renderEventHandlers(FacesContext context, FacesBean bean)
         throws IOException
     {
       // Prevent HeaderRenderer from re-rendering event handlers
-    }    
+    }
 
     @Override
     protected String getMessageType(FacesBean bean)
     {
       String messageType = null;
-      
-      FacesMessage.Severity maxSeverity = 
+
+      FacesMessage.Severity maxSeverity =
         FacesContext.getCurrentInstance().getMaximumSeverity();
-      
+
       // Map FacesMessage severity to levels expected by panelHeaderRenderer
       if (maxSeverity == null)
         messageType = XhtmlConstants.MESSAGE_TYPE_ERROR;
@@ -347,7 +342,7 @@ public class MessageBoxRenderer extends XhtmlRenderer
 
       return messageType;
     }
-    
+
     @Override
     protected String getText(RenderingContext arc, FacesBean bean,
         String messageType)
@@ -356,11 +351,11 @@ public class MessageBoxRenderer extends XhtmlRenderer
       if (text != null)
         // Use Text attribute of this component for header text
         return text;
-      
+
       // Otherwise parent will decide text & style based on messageType
       return super.getText(arc, bean, messageType);
     }
-    
+
     @Override
     protected String getMessageIconName(String messageType)
     {
@@ -384,17 +379,17 @@ public class MessageBoxRenderer extends XhtmlRenderer
     }
 
   }
-  
+
   // Delegate renderer, handles the outer element rendering and
   // provides option to wrap message box using rounded borders etc.
   private class BoxRenderer extends PanelBoxRenderer
   {
-   
+
     public BoxRenderer(FacesBean.Type type)
     {
       super(type);
     }
-    
+
     @Override
     protected boolean shouldRenderId(FacesContext context, UIComponent component)
     {
@@ -402,7 +397,7 @@ public class MessageBoxRenderer extends XhtmlRenderer
       // the id of the MessageBox component
       return true;
     }
-   
+
     @Override
     protected String getBackground(FacesBean bean)
     {
@@ -410,39 +405,35 @@ public class MessageBoxRenderer extends XhtmlRenderer
       // to re-map in _RESOURCE_KEY_MAP
       return "light";
     }
-    
+
     @Override
     protected String getInlineStyle(FacesBean bean)
     {
       String inlineStyle = super.getInlineStyle(bean);
-      
-      boolean inlineValidation = 
+
+      boolean inlineValidation =
         RequestContext.ClientValidation.INLINE.equals(
             RequestContext.getCurrentInstance().getClientValidation());
-      
+
       if (!inlineValidation)
         return inlineStyle;
-      
+
       boolean hasMessages = FacesContext.getCurrentInstance().getMessages().hasNext();
-      
+
       if (hasMessages)
         return inlineStyle;
-      
-      // Ensure the MessageBox is hidden for inline mode when
-      // there are no messages
-      if (inlineStyle == null)
-        return "display:none";
-      else
-        return inlineStyle + ";display:none";
+
+      // Ensure the MessageBox is hidden for inline mode when there are no messages
+      return inlineStyle + ";display:none;";
     }
-    
+
     @Override
     protected boolean hasChildren(UIComponent component)
     {
       // Required to force panelBox to call render properly
       return true;
     }
-    
+
     @Override
     protected void renderBody(FacesContext context, RenderingContext arc,
         UIComponent component, FacesBean bean, Object icon, Object text) throws IOException
@@ -452,7 +443,7 @@ public class MessageBoxRenderer extends XhtmlRenderer
       MessageBoxRenderer.this._renderContent(context, arc, component, bean);
     }
   }
-    
+
   @Override
   protected boolean shouldRenderId(FacesContext context, UIComponent component)
   {
@@ -496,7 +487,7 @@ public class MessageBoxRenderer extends XhtmlRenderer
   static
   {
     _RESOURCE_KEY_MAP = new HashMap<String, String>();
-    
+
     // translation keys
     _RESOURCE_KEY_MAP.put("af_panelHeader.INFORMATION",
                               "af_messages.INFORMATION");
@@ -521,28 +512,28 @@ public class MessageBoxRenderer extends XhtmlRenderer
         SkinSelectors.AF_MESSAGES_ERROR_STYLE_CLASS);
     _RESOURCE_KEY_MAP.put(SkinSelectors.AF_PANEL_HEADER_STYLE_CLASS,
         SkinSelectors.AF_MESSAGES_HEADER_STYLE_CLASS);
-    
+
     // We forced the use of 'light' style above, so now map it
-    _RESOURCE_KEY_MAP.put(SkinSelectors.AF_PANEL_BOX_LIGHT_STYLE_CLASS, 
+    _RESOURCE_KEY_MAP.put(SkinSelectors.AF_PANEL_BOX_LIGHT_STYLE_CLASS,
         SkinSelectors.AF_MESSAGES_STYLE_CLASS);
 
     // frame styles
-    _RESOURCE_KEY_MAP.put(SkinSelectors.AF_PANEL_BOX_TOP_START_STYLE_CLASS, 
+    _RESOURCE_KEY_MAP.put(SkinSelectors.AF_PANEL_BOX_TOP_START_STYLE_CLASS,
         SkinSelectors.AF_MESSAGES_TOP_START_STYLE_CLASS);
-    _RESOURCE_KEY_MAP.put(SkinSelectors.AF_PANEL_BOX_TOP_STYLE_CLASS, 
+    _RESOURCE_KEY_MAP.put(SkinSelectors.AF_PANEL_BOX_TOP_STYLE_CLASS,
         SkinSelectors.AF_MESSAGES_TOP_STYLE_CLASS);
-    _RESOURCE_KEY_MAP.put(SkinSelectors.AF_PANEL_BOX_TOP_END_STYLE_CLASS, 
+    _RESOURCE_KEY_MAP.put(SkinSelectors.AF_PANEL_BOX_TOP_END_STYLE_CLASS,
         SkinSelectors.AF_MESSAGES_TOP_END_STYLE_CLASS);
-    _RESOURCE_KEY_MAP.put(SkinSelectors.AF_PANEL_BOX_START_STYLE_CLASS, 
+    _RESOURCE_KEY_MAP.put(SkinSelectors.AF_PANEL_BOX_START_STYLE_CLASS,
         SkinSelectors.AF_MESSAGES_START_STYLE_CLASS);
-    _RESOURCE_KEY_MAP.put(SkinSelectors.AF_PANEL_BOX_END_STYLE_CLASS, 
+    _RESOURCE_KEY_MAP.put(SkinSelectors.AF_PANEL_BOX_END_STYLE_CLASS,
         SkinSelectors.AF_MESSAGES_END_STYLE_CLASS);
-    _RESOURCE_KEY_MAP.put(SkinSelectors.AF_PANEL_BOX_BOTTOM_START_STYLE_CLASS, 
+    _RESOURCE_KEY_MAP.put(SkinSelectors.AF_PANEL_BOX_BOTTOM_START_STYLE_CLASS,
         SkinSelectors.AF_MESSAGES_BOTTOM_START_STYLE_CLASS);
-    _RESOURCE_KEY_MAP.put(SkinSelectors.AF_PANEL_BOX_BOTTOM_STYLE_CLASS, 
+    _RESOURCE_KEY_MAP.put(SkinSelectors.AF_PANEL_BOX_BOTTOM_STYLE_CLASS,
         SkinSelectors.AF_MESSAGES_BOTTOM_STYLE_CLASS);
-    _RESOURCE_KEY_MAP.put(SkinSelectors.AF_PANEL_BOX_BOTTOM_END_STYLE_CLASS, 
+    _RESOURCE_KEY_MAP.put(SkinSelectors.AF_PANEL_BOX_BOTTOM_END_STYLE_CLASS,
         SkinSelectors.AF_MESSAGES_BOTTOM_END_STYLE_CLASS);
-  } 
-  
+  }
+
 }
