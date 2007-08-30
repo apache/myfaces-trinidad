@@ -105,7 +105,7 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
    */
   public LongRangeValidator(long maximum, long minimum)
   {
-    super(minimum, maximum);
+    super(maximum, minimum);
   }
   
   /**

@@ -118,7 +118,7 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
    */
   public LengthValidator(int maximum, int minimum)
   {
-    super(minimum, maximum);
+    super(maximum, minimum);
   }
   
   /**
