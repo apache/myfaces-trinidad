@@ -88,9 +88,9 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
    *
    * @param maximum Maximum value to allow
    */
-  public DoubleRangeValidator(long maximum) 
+  public DoubleRangeValidator(double maximum) 
   {
-    super();
+    super(maximum);
   }
 
   /**
@@ -101,9 +101,9 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
    * @param minimum Minimum value to allow
    *
    */
-  public DoubleRangeValidator(long maximum, long minimum)
+  public DoubleRangeValidator(double maximum, double minimum)
   {
-    super(minimum, maximum);
+    super(maximum, minimum);
   }
   
   /**
