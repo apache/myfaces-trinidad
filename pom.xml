@@ -34,7 +34,7 @@
   <artifactId>trinidad</artifactId>
   <packaging>pom</packaging>
   <name>Apache MyFaces Trinidad 1.2</name>
-  <version>1.2.2-SNAPSHOT</version>
+  <version>1.2.2</version>
   <description>JSF 1.2 branch of Apache MyFaces Trinidad</description>
 
   <issueManagement>
@@ -173,13 +173,9 @@
   </developers>
 
   <scm>
-    <connection>
-      scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad/branches/1.2.1-branch/trinidad/
-    </connection>
-    <developerConnection>
-      scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad/branches/1.2.1-branch/trinidad/
-    </developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/myfaces/trinidad/branches/1.2.1-branch/trinidad</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad/tags/trinidad-1.2.2</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad/tags/trinidad-1.2.2</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/myfaces/trinidad/tags/trinidad-1.2.2</url>
   </scm>
 
   <build>
@@ -204,28 +200,28 @@
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-xrts-plugin</artifactId>
-          <version>1.2.2-SNAPSHOT</version>
+          <version>1.2.2</version>
           <inherited>true</inherited>
         </plugin>
 
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-faces-plugin</artifactId>
-          <version>1.2.2-SNAPSHOT</version>
+          <version>1.2.2</version>
           <inherited>true</inherited>
         </plugin>
 
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-i18n-plugin</artifactId>
-          <version>1.2.2-SNAPSHOT</version>
+          <version>1.2.2</version>
           <inherited>true</inherited>
         </plugin>
 
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-javascript-plugin</artifactId>
-          <version>1.2.2-SNAPSHOT</version>
+          <version>1.2.2</version>
           <inherited>true</inherited>
         </plugin>
 
