@@ -31,7 +31,7 @@ import org.apache.myfaces.trinidad.util.ComponentUtils;
 import org.apache.myfaces.trinidad.util.MessageFactory;
 
 /**
- * <p>Implementation for <code>java.lang.Long</code> values.</p>
+ * <p>Implementation for <code>java.lang.Double</code> values.</p>
  *
  */
 public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValidator
@@ -114,10 +114,10 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
   @Override
   public double getMaximum()
   {
-    Object maxLong = _facesBean.getProperty(_MAXIMUM_KEY);
-    if(maxLong == null)
-      maxLong = Double.MAX_VALUE;
-    return ComponentUtils.resolveDouble(maxLong);
+    Object maxDouble = _facesBean.getProperty(_MAXIMUM_KEY);
+    if(maxDouble == null)
+      maxDouble = Double.MAX_VALUE;
+    return ComponentUtils.resolveDouble(maxDouble);
   }
 
   /**
@@ -142,10 +142,10 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
   @Override
   public double getMinimum()
   {
-    Object minLong = _facesBean.getProperty(_MINIMUM_KEY);
-    if(minLong == null)
-      minLong = Double.MIN_VALUE;
-    return ComponentUtils.resolveDouble(minLong);
+    Object minDouble = _facesBean.getProperty(_MINIMUM_KEY);
+    if(minDouble == null)
+      minDouble = Double.MIN_VALUE;
+    return ComponentUtils.resolveDouble(minDouble);
   }
 
   /**
