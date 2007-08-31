@@ -22,6 +22,9 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import javax.faces.component.NamingContainer;
+import javax.faces.component.UIComponent;
+
 /**
  * Utility functions used by the Apache Trinidad components.
  * <p>
@@ -315,4 +318,54 @@ public class ComponentUtils
     }
     return t;
   }
+
+  /**
+   * Find a component relative to another.
+   * <p>
+   * The relative ID must account for NamingContainers. If the component is already inside
+   * of a naming container, you can use a single colon to start the search from the root, 
+   * or multiple colons to move up through the NamingContainers - "::" will search from 
+   * the parent naming container, ":::" will search from the grandparent 
+   * naming container, etc.
+   * </p>
+   * 
+   * @param from the component to search relative to
+   * @param relativeId the relative path to the component to find
+   * @return the component if found, null otherwise
+   */
+  public static UIComponent findRelativeComponent(
+    UIComponent from,
+    String      relativeId)
+  {
+    int idLength = relativeId.length();
+    // Figure out how many colons
+    int colonCount = 0;
+    while (colonCount < idLength)
+    {
+      if (relativeId.charAt(colonCount) != NamingContainer.SEPARATOR_CHAR)
+        break;
+      colonCount++;
+    }
+
+    // colonCount == 0: fully relative
+    // colonCount == 1: absolute (still normal findComponent syntax)
+    // colonCount > 1: for each extra colon after 1, go up a naming container
+    // (to the view root, if naming containers run out)
+    if (colonCount > 1)
+    {
+      relativeId = relativeId.substring(colonCount);
+      for (int j = 1; j < colonCount; j++)
+      {
+        while (from.getParent() != null)
+        {
+          from = from.getParent();
+          if (from instanceof NamingContainer)
+            break;
+        }
+      }
+    }
+
+    return from.findComponent(relativeId);
+  }
+
 }

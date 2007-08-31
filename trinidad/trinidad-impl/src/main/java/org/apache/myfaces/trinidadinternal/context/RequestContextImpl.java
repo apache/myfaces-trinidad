@@ -28,52 +28,43 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
 
-import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.change.ChangeManager;
 import org.apache.myfaces.trinidad.change.SessionChangeManager;
 import org.apache.myfaces.trinidad.component.UIXCollection;
 import org.apache.myfaces.trinidad.config.RegionManager;
-import org.apache.myfaces.trinidad.context.RequestContext;
-import org.apache.myfaces.trinidad.context.DialogService;
 import org.apache.myfaces.trinidad.context.Agent;
-import org.apache.myfaces.trinidad.context.PageResolver;
+import org.apache.myfaces.trinidad.context.DialogService;
 import org.apache.myfaces.trinidad.context.PageFlowScopeProvider;
+import org.apache.myfaces.trinidad.context.PageResolver;
+import org.apache.myfaces.trinidad.context.PartialPageContext;
+import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.render.CoreRenderer;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
+import org.apache.myfaces.trinidad.util.ComponentUtils;
 import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
-
-import org.apache.myfaces.trinidadinternal.agent.TrinidadAgentImpl;
 import org.apache.myfaces.trinidadinternal.agent.AgentFactory;
 import org.apache.myfaces.trinidadinternal.agent.AgentFactoryImpl;
-
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgentImpl;
 import org.apache.myfaces.trinidadinternal.application.StateManagerImpl;
-
 import org.apache.myfaces.trinidadinternal.change.NullChangeManager;
-
 import org.apache.myfaces.trinidadinternal.el.FormatterMap;
 import org.apache.myfaces.trinidadinternal.el.HelpProvider;
 import org.apache.myfaces.trinidadinternal.el.OracleHelpProvider;
-
 import org.apache.myfaces.trinidadinternal.metadata.RegionMetadata;
-
-import org.apache.myfaces.trinidad.context.PartialPageContext;
-import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidad.render.CoreRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 import org.apache.myfaces.trinidadinternal.share.config.UIXCookie;
-
 import org.apache.myfaces.trinidadinternal.ui.expl.ColorPaletteUtils;
 import org.apache.myfaces.trinidadinternal.util.ExternalContextUtils;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
-
 import org.apache.myfaces.trinidadinternal.webapp.TrinidadFilterImpl;
 
 /**
@@ -527,7 +518,7 @@ public class RequestContextImpl extends RequestContext
       // inside - we want to look outside instead (at least, that was
       // the old ADF Faces rules, and now we should stick with it for
       // backwards compatibility even within Trinidad)
-      UIComponent master = _findRelativeComponent(listener.getParent(),
+      UIComponent master = ComponentUtils.findRelativeComponent(listener.getParent(),
                                                   trigger);
       //listener.getParent().findComponent(trigger);
       if (master == null)
@@ -757,42 +748,6 @@ public class RequestContextImpl extends RequestContext
 
     return _partialListeners;
   }
-
-  static private UIComponent _findRelativeComponent(
-    UIComponent from,
-    String      relativeId)
-  {
-    int idLength = relativeId.length();
-    // Figure out how many colons
-    int colonCount = 0;
-    while (colonCount < idLength)
-    {
-      if (relativeId.charAt(colonCount) != NamingContainer.SEPARATOR_CHAR)
-        break;
-      colonCount++;
-    }
-
-    // colonCount == 0: fully relative
-    // colonCount == 1: absolute (still normal findComponent syntax)
-    // colonCount > 1: for each extra colon after 1, go up a naming container
-    // (to the view root, if naming containers run out)
-    if (colonCount > 1)
-    {
-      relativeId = relativeId.substring(colonCount);
-      for (int j = 1; j < colonCount; j++)
-      {
-        while (from.getParent() != null)
-        {
-          from = from.getParent();
-          if (from instanceof NamingContainer)
-            break;
-        }
-      }
-    }
-
-    return from.findComponent(relativeId);
-  }
-
   
   private RequestContextBean _bean;
   private HelpProvider        _provider;
