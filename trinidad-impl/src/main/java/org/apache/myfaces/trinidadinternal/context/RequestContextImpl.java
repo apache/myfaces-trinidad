@@ -498,6 +498,26 @@ public class RequestContextImpl extends RequestContext
       _partialTargets.add(clientId);
     }
   }
+  
+  /**
+   * @see org.apache.myfaces.trinidad.context.RequestContext#addPartialTargets(javax.faces.component.UIComponent, java.lang.String[])
+   */
+  @Override
+  public void addPartialTargets(UIComponent from, String... targets)
+  {
+    if (targets == null)
+    {
+      return;
+    }
+    for (String target : targets)
+    {
+      UIComponent component = ComponentUtils.findRelativeComponent(from, target);
+      if (component != null)
+      {
+        addPartialTarget(component);
+      }
+    }
+  }
 
   @Override
   public void addPartialTriggerListeners

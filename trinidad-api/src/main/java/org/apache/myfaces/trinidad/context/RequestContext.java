@@ -31,6 +31,7 @@ import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidad.change.ChangeManager;
 import org.apache.myfaces.trinidad.config.RegionManager;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.util.ComponentUtils;
 import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
 
 /**
@@ -386,6 +387,19 @@ abstract public class RequestContext
    */
   public abstract void addPartialTarget(UIComponent newTarget);
 
+  /**
+   * Add components relative to the given component as partial targets.
+   * <p> 
+   * See {@link #addPartialTarget(UIComponent)} for more information.
+   * </p>
+   * @param from the component to use as a relative reference for any
+   * relative IDs in the list of targets
+   * @param targets array of targets relative to the from component that
+   * should be added as targets.
+   * @see ComponentUtils#findRelativeComponent(UIComponent, String)
+   */
+  public abstract void addPartialTargets(UIComponent from, String... targets);
+  
   /**
    * Adds a listener on a set of particular triggering components. If one of
    * the named components gets updated in response to a partial event, then
