@@ -57,6 +57,17 @@ public class PanelGroupLayoutRenderer extends XhtmlRenderer
     return true;
   }
 
+  /**
+   * @see org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer#getDefaultStyleClass(
+   * org.apache.myfaces.trinidad.bean.FacesBean)
+   */
+  @Override
+  protected String getDefaultStyleClass(FacesBean bean)
+  {
+    // Fix for TRINIDAD-652
+    return SkinSelectors.AF_PANEL_GROUP_LAYOUT_STYLE_CLASS;
+  }
+  
   @Override
   protected void encodeAll(
     FacesContext        context,
