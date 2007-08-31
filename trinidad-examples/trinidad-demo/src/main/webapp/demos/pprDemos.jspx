@@ -279,6 +279,96 @@
           <tr:selectItem label="Component Demos" value="/componentDemos.jspx"/>
          </tr:selectOneChoice>
        </tr:panelHeader>
+       <tr:panelHeader
+        text="Partial trigger demonstrations">
+        <tr:panelGroupLayout
+          layout="vertical">
+          <tr:panelHeader
+            text="Trigger rendering with validation errors">
+            <tr:subform>
+              <tr:panelGroupLayout
+                layout="vertical">
+                <tr:inputText
+                  id="partialTriggerText1"
+                  label="This is required"
+                  showRequired="true"
+                  value="#{partialTriggerText1}"
+                  required="true"
+                  partialTriggers="partialTrigger1" />
+                <tr:partialTrigger
+                  id="partialTrigger1"
+                  immediate="true">
+                  <tr:commandLink
+                    id="partialTriggerLink1"
+                    partialSubmit="true"
+                    text="Trigger" />
+                </tr:partialTrigger>
+              </tr:panelGroupLayout>
+            </tr:subform>
+          </tr:panelHeader>
+          <tr:panelHeader
+            text="Trigger based on target rather then trigger">
+            <tr:subform>
+              <tr:panelGroupLayout
+                layout="vertical">
+                <tr:outputFormatted
+                  id="partialTriggerTarget2"
+                  styleUsage="instruction"
+                  value="#{partialDemoUtil.status.linkUpdate}">
+                  <f:convertDateTime pattern="HH:mm:ss"/>
+                </tr:outputFormatted>
+                <tr:partialTrigger
+                  id="partialTrigger2"
+                  partialTargets="partialTriggerTarget2">
+                  <tr:commandLink
+                    id="partialTriggerLink2"
+                    partialSubmit="true"
+                    text="Trigger"
+                    actionListener="#{partialDemoUtil.action}" />
+                </tr:partialTrigger>
+              </tr:panelGroupLayout>
+            </tr:subform>
+          </tr:panelHeader>
+          <tr:panelHeader
+            text="Listen to a parent of several components that can trigger">
+            <tr:subform>
+              <tr:panelGroupLayout
+                layout="vertical">
+                <tr:outputFormatted
+                  id="partialTriggerTarget3"
+                  styleUsage="instruction"
+                  partialTriggers="partialTrigger3"
+                  value="#{partialDemoUtil.status.linkUpdate}">
+                  <f:convertDateTime pattern="HH:mm:ss"/>
+                </tr:outputFormatted>
+                <tr:partialTrigger
+                  id="partialTrigger3">
+                  <tr:panelGroupLayout
+                    layout="horizontal">
+                    <tr:commandLink
+                      id="partialTriggerLink3a"
+                      partialSubmit="true"
+                      text="Trigger A"
+                      actionListener="#{partialDemoUtil.action}" />
+                    <tr:spacer width="8" height="10"/>
+                    <tr:commandLink
+                      id="partialTriggerLink3b"
+                      partialSubmit="true"
+                      text="Trigger B"
+                      actionListener="#{partialDemoUtil.action}" />
+                    <tr:spacer width="8" height="10"/>
+                    <tr:commandLink
+                      id="partialTriggerLink3c"
+                      partialSubmit="true"
+                      text="Trigger C"
+                      actionListener="#{partialDemoUtil.action}" />
+                  </tr:panelGroupLayout>
+                </tr:partialTrigger>
+              </tr:panelGroupLayout>
+            </tr:subform>
+          </tr:panelHeader>
+        </tr:panelGroupLayout>  
+       </tr:panelHeader>
       </tr:panelGroupLayout>
      </tr:panelHeader>
      </tr:panelPage>
