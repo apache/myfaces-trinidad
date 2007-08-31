@@ -367,7 +367,45 @@
               </tr:panelGroupLayout>
             </tr:subform>
           </tr:panelHeader>
-        </tr:panelGroupLayout>  
+        </tr:panelGroupLayout>
+       </tr:panelHeader>
+       <tr:panelHeader
+        text="Partial rendered component demonstrations">
+        <tr:subform>
+          <tr:panelGroupLayout
+            layout="vertical">
+            <tr:group>
+              <h:outputText
+                id="partialRendered1"
+                value="#{partialDemoUtil.status.linkUpdate}">
+                <f:convertDateTime pattern="HH:mm:ss"/>
+              </h:outputText>
+              <tr:partialRendered
+                for="partialRendered1"
+                alwaysRendered="true" />
+            </tr:group>
+            <tr:group>
+              <h:outputText
+                id="partialRendered2"
+                value="#{partialDemoUtil.status.linkUpdate}">
+                <f:convertDateTime pattern="HH:mm:ss"/>
+              </h:outputText>
+              <tr:partialRendered
+                for="partialRendered2"
+                partialTriggers="partialRenderedTrigger2" />
+            </tr:group>
+            <tr:commandLink
+              id="partialRenderedTrigger1"
+              partialSubmit="true"
+              text="No one listens to this link -- test always rendered"
+              actionListener="#{partialDemoUtil.action}" />
+            <tr:commandLink
+              id="partialRenderedTrigger2"
+              partialSubmit="true"
+              text="Trigger"
+              actionListener="#{partialDemoUtil.action}" />
+          </tr:panelGroupLayout>
+        </tr:subform>
        </tr:panelHeader>
       </tr:panelGroupLayout>
      </tr:panelHeader>
