@@ -238,6 +238,15 @@ public class MRequestContext extends RequestContext
   {
     // throw new UnsupportedOperationException("Not implemented yet");
   }
+  
+  /**
+   * @see org.apache.myfaces.trinidad.context.RequestContext#addPartialTargets(javax.faces.component.UIComponent, java.lang.String[])
+   */
+  @Override
+  public void addPartialTargets(UIComponent from, String... targets)
+  {
+    
+  }
 
   @Override
   public void addPartialTriggerListeners(UIComponent listener, String[] trigger)

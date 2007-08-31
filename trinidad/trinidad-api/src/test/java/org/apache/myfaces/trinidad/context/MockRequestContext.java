@@ -23,17 +23,13 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
+
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.change.ChangeManager;
 import org.apache.myfaces.trinidad.config.RegionManager;
-import org.apache.myfaces.trinidad.context.RequestContext;
-import org.apache.myfaces.trinidad.context.Agent;
-import org.apache.myfaces.trinidad.context.DialogService;
-import org.apache.myfaces.trinidad.context.PageFlowScopeProvider;
-import org.apache.myfaces.trinidad.context.PageResolver;
 import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
 
 
@@ -256,6 +252,15 @@ public class MockRequestContext extends RequestContext
   public void addPartialTarget(UIComponent newTarget)
   {
     // throw new UnsupportedOperationException("Not implemented yet");
+  }
+  
+  /**
+   * @see org.apache.myfaces.trinidad.context.RequestContext#addPartialTargets(javax.faces.component.UIComponent, java.lang.String[])
+   */
+  @Override
+  public void addPartialTargets(UIComponent from, String... targets)
+  {
+    
   }
 
   @Override
