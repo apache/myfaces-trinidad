@@ -20,6 +20,7 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
 
+import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
@@ -78,9 +79,24 @@ public class PanelLabelAndMessageRenderer extends LabelAndMessageRenderer
   {
     String forValue = getFor(bean);
 
-    return MessageUtils.getClientIdFor(context,
-                                       component,
-                                       forValue);
+    String val = null;
+    if (forValue != null)
+    {
+      val = MessageUtils.getClientIdFor(context, component, forValue);
+    }
+    else
+    {
+      if (component.getChildCount() > 0)
+      {
+        UIComponent child = findForComponent(context, arc, component, bean);
+        if (child != null)
+        {
+          val = child.getClientId(context);
+        }
+      }
+    }
+    
+    return val;
   }
 
   @Override
@@ -158,6 +174,46 @@ public class PanelLabelAndMessageRenderer extends LabelAndMessageRenderer
     return toString(bean.getProperty(_labelInlineStyleKey));
   }
 
+  /**
+   * In the event that the {@link #getFor(FacesBean)} returns null,
+   * this class finds the first child that implements {@link EditableValueHolder}
+   * 
+   * @param context
+   * @param arc
+   * @param component
+   * @param bean
+   * @return
+   */
+  protected UIComponent findForComponent(
+    FacesContext        context,
+    RenderingContext    arc,
+    UIComponent         component,
+    FacesBean           bean)
+  {
+    // search children first
+    for (Object obj : component.getChildren())
+    {
+      UIComponent child = (UIComponent)obj;
+      if (obj instanceof EditableValueHolder)
+      {
+        return child;
+      }
+    }
+    
+    // recursively search the children of the children
+    for (Object obj : component.getChildren())
+    {
+      UIComponent child = (UIComponent)obj;
+      UIComponent result = findForComponent(context, arc, child, bean);
+      if (result != null)
+      {
+        return result;
+      }
+    }
+    
+    return null;
+  }
+  
   private PropertyKey _forKey;
   private PropertyKey _labelInlineStyleKey;
 }
