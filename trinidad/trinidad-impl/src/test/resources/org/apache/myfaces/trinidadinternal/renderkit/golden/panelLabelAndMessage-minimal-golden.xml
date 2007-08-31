@@ -190,7 +190,12 @@
                class="af_panelLabelAndMessage_label"
                nowrap="nowrap"
               >
-            test-label
+            
+            <label
+                 for="_idXXX"
+                >
+              test-label
+            </label>
           </td>
           <td
                class="AFContentCell"
