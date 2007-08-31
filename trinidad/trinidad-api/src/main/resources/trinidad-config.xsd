@@ -163,6 +163,15 @@ API.  The class must have a no-arg constructor.
             </documentation>
           </annotation>
         </element>
+
+        <element name="formatting-locale" minOccurs="0" maxOccurs="1"
+                 type="config:stringExpressionType">
+          <annotation>
+            <documentation>The &lt;formatting-locale&gt; element can be used to
+override the locale that converters use for date time, number and currency.
+            </documentation>
+          </annotation>
+        </element>
       </all>
     </complexType>
   </element>

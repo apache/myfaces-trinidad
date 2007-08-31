@@ -217,6 +217,7 @@ public class ConfigParser
             }
             else if (key.getType() == Locale.class)
             {
+              _currentText = _currentText.replace('_', '-');
               value = LocaleUtils.getLocaleForIANAString(_currentText);
             }
             else if (key.getType().isEnum())

@@ -424,6 +424,10 @@ public class RequestContextImpl extends RequestContext
     if (o instanceof Locale)
       return (Locale) o;
     
+    // Don't know how this would ever get here.  ConfigParser should have set the key if
+    // formatting-locale was specified, or it is null.
+    if (o instanceof String)  
+      o = ((String)o).replace('_', '-');
     return LocaleUtils.getLocaleForIANAString(o.toString());
   }
 

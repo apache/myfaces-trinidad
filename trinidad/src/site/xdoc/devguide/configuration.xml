@@ -268,6 +268,13 @@ storing files in their final destination, instead of requiring
 Apache Trinidad to handle temporary storage during the request.
 </p>
         </subsection>
+        <subsection name="formatting-locale">
+<p>
+The <code>&lt;formatting-locale&gt;</code> element is used by converters without
+an explicit locale to format values.  Values for this follow the same format as
+locale values in faces-config.xml (ie en_US).
+</p>
+        </subsection>
       </subsection>
     </section>
     <section name="web.xml">
@@ -649,4 +656,5 @@ containing a single parameter.
     
   </body>
 </document>
+
 
