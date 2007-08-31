@@ -880,7 +880,7 @@ public final class SkinSelectors
   
   // ============================ Style classes ============================ //
   public static final String AF_PANEL_GROUP_LAYOUT_STYLE_CLASS =
-    "af|panelPanelGroupLayout";
+    "af|panelGroupLayout";
   
   
    //                                                                         //
