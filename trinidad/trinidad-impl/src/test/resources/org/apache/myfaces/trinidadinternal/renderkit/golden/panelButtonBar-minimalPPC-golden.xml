@@ -1,5 +1,6 @@
 <results>
       <span
+           class="af_panelPanelGroupLayout"
            id="mainId"
           >
         
@@ -31,6 +32,7 @@
 <!--AttributeTest[id,null]-->
 
       <span
+           class="af_panelPanelGroupLayout"
            id="test-id"
           >
         
@@ -62,6 +64,7 @@
 <!--AttributeTest[inlineStyle,null]-->
 
       <span
+           class="af_panelPanelGroupLayout"
            id="mainId"
            style="test-inlineStyle"
           >
@@ -96,6 +99,7 @@
 <!--AttributeTest[rendered,true]-->
 
       <span
+           class="af_panelPanelGroupLayout"
            id="mainId"
           >
         
@@ -127,6 +131,7 @@
 <!--AttributeTest[shortDesc,null]-->
 
       <span
+           class="af_panelPanelGroupLayout"
            id="mainId"
            title="test-shortDesc"
           >
@@ -159,7 +164,7 @@
 <!--AttributeTest[styleClass,null]-->
 
       <span
-           class="test-styleClass"
+           class="test-styleClass af_panelPanelGroupLayout"
            id="mainId"
           >
         
@@ -191,6 +196,7 @@
 <!--AttributeTest[halign,right]-->
 
       <span
+           class="af_panelPanelGroupLayout"
            id="mainId"
           >
         
@@ -222,6 +228,7 @@
 <!--AttributeTest[halign,start]-->
 
       <span
+           class="af_panelPanelGroupLayout"
            id="mainId"
           >
         
@@ -253,6 +260,7 @@
 <!--AttributeTest[halign,left]-->
 
       <span
+           class="af_panelPanelGroupLayout"
            id="mainId"
           >
         
@@ -284,6 +292,7 @@
 <!--AttributeTest[halign,end]-->
 
       <span
+           class="af_panelPanelGroupLayout"
            id="mainId"
           >
         
@@ -315,6 +324,7 @@
 <!--AttributeTest[halign,center]-->
 
       <span
+           class="af_panelPanelGroupLayout"
            id="mainId"
           >
         
@@ -346,6 +356,7 @@
 <!--AttributeTest[onclick,null]-->
 
       <span
+           class="af_panelPanelGroupLayout"
            id="mainId"
            onclick="test-onclick"
           >
@@ -378,6 +389,7 @@
 <!--AttributeTest[ondblclick,null]-->
 
       <span
+           class="af_panelPanelGroupLayout"
            id="mainId"
            ondblclick="test-ondblclick"
           >
@@ -410,6 +422,7 @@
 <!--AttributeTest[onkeydown,null]-->
 
       <span
+           class="af_panelPanelGroupLayout"
            id="mainId"
            onkeydown="test-onkeydown"
           >
@@ -442,6 +455,7 @@
 <!--AttributeTest[onkeypress,null]-->
 
       <span
+           class="af_panelPanelGroupLayout"
            id="mainId"
            onkeypress="test-onkeypress"
           >
@@ -474,6 +488,7 @@
 <!--AttributeTest[onkeyup,null]-->
 
       <span
+           class="af_panelPanelGroupLayout"
            id="mainId"
            onkeyup="test-onkeyup"
           >
@@ -506,6 +521,7 @@
 <!--AttributeTest[onmousedown,null]-->
 
       <span
+           class="af_panelPanelGroupLayout"
            id="mainId"
            onmousedown="test-onmousedown"
           >
@@ -538,6 +554,7 @@
 <!--AttributeTest[onmousemove,null]-->
 
       <span
+           class="af_panelPanelGroupLayout"
            id="mainId"
            onmousemove="test-onmousemove"
           >
@@ -570,6 +587,7 @@
 <!--AttributeTest[onmouseout,null]-->
 
       <span
+           class="af_panelPanelGroupLayout"
            id="mainId"
            onmouseout="test-onmouseout"
           >
@@ -602,6 +620,7 @@
 <!--AttributeTest[onmouseover,null]-->
 
       <span
+           class="af_panelPanelGroupLayout"
            id="mainId"
            onmouseover="test-onmouseover"
           >
@@ -634,6 +653,7 @@
 <!--AttributeTest[onmouseup,null]-->
 
       <span
+           class="af_panelPanelGroupLayout"
            id="mainId"
            onmouseup="test-onmouseup"
           >
