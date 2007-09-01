@@ -21,7 +21,7 @@ package org.apache.myfaces.trinidadinternal.renderkit.html;
 import org.apache.myfaces.trinidadinternal.uinode.UINodeRendererBase;
 
 /**
- * Generic lass for renderers that don't render their children.
+ * Generic class for renderers that don't render their children.
  */
 public class DontRenderChildrenRenderer extends UINodeRendererBase
 {
