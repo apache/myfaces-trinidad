@@ -182,5 +182,23 @@
             </table>
           </td>
         </tr>
+        <tr
+            >
+          
+          <td
+              >
+            
+          </td>
+          <td
+               class="AFComponentMessageCell"
+              >
+            
+            <span
+                 class="OraInlineInfoText"
+                >
+              help text
+            </span>
+          </td>
+        </tr>
       </table>
 </results>

@@ -23,13 +23,11 @@ import java.io.IOException;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-
 import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelLabelAndMessage;
-
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.util.MessageUtils;
 
@@ -151,16 +149,6 @@ public class PanelLabelAndMessageRenderer extends LabelAndMessageRenderer
 
     rw.endElement("tr");
     rw.endElement("table");
-  }
-
-  @Override
-  protected boolean hasMessage(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean)
-  {
-    return false;
   }
 
   protected String getFor(FacesBean bean)
