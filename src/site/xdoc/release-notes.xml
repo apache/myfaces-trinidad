@@ -47,7 +47,7 @@
       <section name="Release Notes">
 <subsection name="Features">
 
-<ul>
+<ul>Added tr:panelCaptionGroup component to render HTML fieldset/legend content groups.
 </ul>
 
 </subsection>
