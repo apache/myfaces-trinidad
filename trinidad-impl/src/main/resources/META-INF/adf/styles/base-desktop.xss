@@ -1848,6 +1848,18 @@
     tr:panelPopup Styles
   -->
 
+  <style selector="af|panelCaptionGroup">
+    <includeStyle name="AFLightAccentBorder"/>
+  </style>
+
+  <style selector="af|panelCaptionGroup::caption">
+    <includeStyle name="AFDefaultBoldFont"/>
+  </style>
+
+  <!--
+    tr:panelPopup Styles
+  -->
+
   <style selector="af|panelPopup::link">
     <includeStyle name="AFDefaultFont"/>
     <includeStyle name="AFLinkForeground"/>
