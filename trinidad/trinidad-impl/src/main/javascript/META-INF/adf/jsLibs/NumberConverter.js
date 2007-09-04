@@ -219,7 +219,24 @@ TrNumberConverter.prototype.getAsObject = function(
     {
       try
       {
+        //TODO matzew - see TRINIDAD-682
+        // Remove the thousands separator - which Javascript doesn't want to see
+        var groupingSeparator = getLocaleSymbols().getGroupingSeparator();
+        var grouping = new RegExp("\\" + groupingSeparator,  "g");
+        numberString = numberString.replace(grouping, "");
+
+        // Then change the decimal separator into a period, the only
+        // decimal separator allowed by JS
+        var decimalSeparator = getLocaleSymbols().getDecimalSeparator()
+        var decimal = new RegExp("\\" + decimalSeparator,  "g");
+        numberString = numberString.replace(decimal, ".");
+
+        //parse the numberString
         numberString = this._numberFormat.parse(numberString)+"";
+
+        //to be able to pass the _decimalParse, we replace the decimal separator...
+        var jsSeparator = new RegExp("\\" + ".",  "g");
+        numberString = numberString.replace(jsSeparator, decimalSeparator);
       }
       catch(e)
       {

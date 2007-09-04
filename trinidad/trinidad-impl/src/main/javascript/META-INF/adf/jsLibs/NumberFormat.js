@@ -312,8 +312,7 @@ TrNumberFormat.prototype.numberToString = function(number)
     number = (number*-1);
 
   var numberString = number + "";
-  var decimalSeparator = getLocaleSymbols().getDecimalSeparator();
-  var index = numberString.indexOf(decimalSeparator);
+  var index = numberString.indexOf(".");
   var numberStringLength = numberString.length;
   var ints;
   var fracs;
@@ -331,7 +330,8 @@ TrNumberFormat.prototype.numberToString = function(number)
   ints  = this._formatIntegers(ints);
   fracs = this._formatFractions(fracs)
   
-  
+  var decimalSeparator = getLocaleSymbols().getDecimalSeparator();
+
   if(fracs!="")
     numberString = (ints+decimalSeparator+fracs);
   else
