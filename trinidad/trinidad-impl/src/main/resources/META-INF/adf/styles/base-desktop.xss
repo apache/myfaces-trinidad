@@ -1854,6 +1854,7 @@
 
   <style selector="af|panelCaptionGroup::caption">
     <includeStyle name="AFDefaultBoldFont"/>
+    <includeStyle name="AFDarkForeground"/>
   </style>
 
   <!--
