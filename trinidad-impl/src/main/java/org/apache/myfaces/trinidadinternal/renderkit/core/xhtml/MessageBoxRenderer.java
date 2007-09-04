@@ -297,7 +297,7 @@ public class MessageBoxRenderer extends XhtmlRenderer
         writer.startElement(XhtmlConstants.LINK_ELEMENT, null);
         renderStyleClass(context, arc, SkinSelectors.LINK_STYLE_CLASS);
         writer.writeAttribute(XhtmlConstants.HREF_ATTRIBUTE, "#" + anchor, null);
-        writer.write(labeledMsg.getLabel().toString());
+        writer.write(labeledMsg.getLabelAsString(context));
         writer.endElement(XhtmlConstants.LINK_ELEMENT);
       }
     }

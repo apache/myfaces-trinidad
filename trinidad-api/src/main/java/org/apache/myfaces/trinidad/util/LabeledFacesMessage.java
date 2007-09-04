@@ -19,6 +19,9 @@
 package org.apache.myfaces.trinidad.util;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
+
 /**
  * Extension to FacesMessage which keeps track of the label on the component
  * that generated the message.
@@ -30,6 +33,12 @@ public class LabeledFacesMessage extends FacesMessage
   {
   }
 
+  /**
+   * Creates a LabeledFacesMessage without a pre-set label.
+   * @param severity the severity of the message
+   * @param summary the message summary
+   * @param detail the message detail
+   */
   public LabeledFacesMessage(
     FacesMessage.Severity severity,
     String summary,
@@ -38,6 +47,14 @@ public class LabeledFacesMessage extends FacesMessage
     super(severity, summary, detail);
   }
 
+
+  /**
+   * Creates a LabeledFacesMessage with a label.
+   * @param severity the severity of the message
+   * @param summary the message summary
+   * @param detail the message detail
+   * @param label the message label - either a String or a ValueBinding
+   */
   public LabeledFacesMessage(
     FacesMessage.Severity severity,
     String summary,
@@ -48,15 +65,41 @@ public class LabeledFacesMessage extends FacesMessage
     _label = label;
   }
 
+  /**
+   * Returns the label, which can be either a String or a ValueBinding.
+   */
   public Object getLabel()
   {
     return _label;
   }
 
+  /**
+   * Sets the label, which can be either a String or a ValueBinding.
+   */
   public void setLabel(Object label)
   {
     _label = label;
   }
+
+  /**
+   * Gets a string representation of the label.  If the label
+   * is a ValueBinding, the expression is evaluated and the string
+   * value returned.
+   */
+  public String getLabelAsString(FacesContext context)
+  {
+    Object label = getLabel();
+    if (label instanceof ValueBinding)
+    {
+      label = ((ValueBinding) label).getValue(context);
+    }
+
+    if (label == null)
+      return null;
+
+    return label.toString();
+  }
+
 
   private Object _label;
   private static final long serialVersionUID = 1L;

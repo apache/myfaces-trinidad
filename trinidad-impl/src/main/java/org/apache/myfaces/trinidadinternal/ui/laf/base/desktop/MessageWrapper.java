@@ -73,20 +73,11 @@ public class MessageWrapper extends FacesMessage
 
     if (_msg instanceof LabeledFacesMessage)
     {
-      Object label = ((LabeledFacesMessage) _msg).getLabel();
-      if (label != null)
-      {
-        // TODO: change to ValueExpression in JSF 1.2
-        if (label instanceof ValueBinding)
-        {
-          FacesContext context = FacesContext.getCurrentInstance();
-          label = ((ValueBinding) label).getValue(context);
-        }
-
-        _label = label.toString();
-        return _label;
-      }
+      FacesContext context = FacesContext.getCurrentInstance();
+      _label = ((LabeledFacesMessage) _msg).getLabelAsString(context);
+      return _label;
     }
+
     return dflt;
   }
 
