@@ -830,6 +830,7 @@
         <value>panelBorderLayout.jspx</value>
         <value>panelBox.jspx</value>
         <value>panelButtonBar.jspx</value>
+        <value>panelCaptionGroup.jspx</value>
         <value>panelFormLayout.jspx</value>
         <value>panelGroupLayout.jspx</value>
         <value>panelHeader.jspx</value>
@@ -2041,13 +2042,17 @@
       <redirect/>
     </navigation-case>
 
+    <navigation-case>
+      <from-outcome>guide.panelCaptionGroup</from-outcome>
+      <to-view-id>/components/panelCaptionGroup.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
 
     <navigation-case>
       <from-outcome>guide.panelPopup</from-outcome>
       <to-view-id>/components/panelPopup.jspx</to-view-id>
       <redirect/>
     </navigation-case>
-  
 
     <navigation-case>
       <from-outcome>guide.form</from-outcome>

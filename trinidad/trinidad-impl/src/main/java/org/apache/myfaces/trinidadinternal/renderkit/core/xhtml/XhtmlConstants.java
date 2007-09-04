@@ -239,6 +239,9 @@ public final class XhtmlConstants
   public static final String TABLE_HEADER_ELEMENT = "th";
   public static final String TABLE_ROW_ELEMENT    = "tr";
   
+  public static final String FIELDSET_ELEMENT     = "fieldset";
+  public static final String LEGEND_ELEMENT       = "legend";
+  
   //
   // Copied from BaseDesktopConstants
   //

@@ -798,6 +798,20 @@ public final class SkinSelectors
 
    //                                                                         //
    //                                                                         //
+   // ============================= tr:panelCaptionGroup ============================= //
+   //                                                                         //
+   //                                                                         //
+   
+   // ============================ Style classes ============================ //
+   // Root class
+   public static final String AF_PANEL_CAPTION_GROUP_ROOT_STYLE_CLASS =
+     "af|panelCaptionGroup";
+   // panelBox parts
+   public static final String AF_PANEL_CAPTION_GROUP_CAPTION_STYLE_CLASS =
+     AF_PANEL_CAPTION_GROUP_ROOT_STYLE_CLASS + "::caption";
+
+   //                                                                         //
+   //                                                                         //
    // ========================= tr:panelButtonBar ========================== //
    //                                                                         //
    //                                                                         //
