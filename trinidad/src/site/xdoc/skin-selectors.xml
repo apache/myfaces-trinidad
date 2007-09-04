@@ -2086,6 +2086,28 @@
           
         </table>
       </subsection>
+      <subsection name="tr:panelCaptionGroup Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|panelCaptionGroup</td>
+            <td>Specifies the style information for caption group.  Use this to style the border and
+            padding for the group.</td>
+          </tr>
+          <tr>
+            <td>af|panelCaptionGroup::caption</td>
+            <td>Specifies the style information for caption text.</td>
+          </tr>
+        </table>
+      </subsection>
       <subsection name="tr:panelFormLayout Component">
         <table>
           <tr>
@@ -2128,7 +2150,7 @@
           </tr>
         </table>
       </subsection>
-       <subsection name="tr:panelLabelAndMessage Component">
+      <subsection name="tr:panelLabelAndMessage Component">
         <table>
           <tr>
             <th colspan="2">
