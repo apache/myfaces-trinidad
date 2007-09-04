@@ -29,7 +29,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.List;
+
+import java.util.Set;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
@@ -213,7 +216,6 @@ public class ClassLoaderUtils
     return Thread.currentThread().getContextClassLoader();
   }
 
-
   /**
    * Instantiate a service from a file in /META-INF/services.
    * <P>
@@ -240,6 +242,7 @@ public class ClassLoaderUtils
       if (urls.hasMoreElements())
       {
         List<T> services = new ArrayList<T>(1);
+        Set<String> keys = new HashSet<String>(20);
         do
         {
           URL url = urls.nextElement();
@@ -255,9 +258,13 @@ public class ClassLoaderUtils
                 if (line == null)
                   break;
                 
-                T instance = (T) _parseLine(loader, line);
-                if (instance != null)
+                String className = _parseLine(line);
+                
+                if(className!=null && keys.add(className))
+                {
+                  T instance = (T) _getClass(loader, className);
                   services.add(instance);
+                }                
               }
             }
             finally
@@ -287,10 +294,8 @@ public class ClassLoaderUtils
 
     return Collections.emptyList();
   }
-
-  private static Object _parseLine(ClassLoader loader, String line)
-    throws ClassNotFoundException, InstantiationException, 
-           IllegalAccessException
+  
+  private static String _parseLine(String line)
   {
     // Eliminate any comments
     int hashIndex = line.indexOf('#');
@@ -301,10 +306,18 @@ public class ClassLoaderUtils
     line = line.trim();
     if (line.length() > 0)
     {
-      Class<?> clazz = loader.loadClass(line);
-      return clazz.newInstance();
+      return line;
     }
+    
     return null;
+  }
+  
+  private static Object _getClass(ClassLoader loader, String className)
+    throws ClassNotFoundException, InstantiationException,
+           IllegalAccessException
+  {
+    Class<?> clazz = loader.loadClass(className);
+    return clazz.newInstance();
   }
 
   private static void _checkResourceName(String name)
