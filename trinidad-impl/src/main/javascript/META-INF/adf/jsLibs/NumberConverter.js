@@ -227,7 +227,7 @@ TrNumberConverter.prototype.getAsObject = function(
 
         // Then change the decimal separator into a period, the only
         // decimal separator allowed by JS
-        var decimalSeparator = getLocaleSymbols().getDecimalSeparator()
+        var decimalSeparator = getLocaleSymbols().getDecimalSeparator();
         var decimal = new RegExp("\\" + decimalSeparator,  "g");
         numberString = numberString.replace(decimal, ".");
 
