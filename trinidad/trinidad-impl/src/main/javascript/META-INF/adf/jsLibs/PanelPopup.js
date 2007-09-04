@@ -623,7 +623,7 @@ TrPanelPopup.prototype._calcPosition = function(event)
   
   if (!this.isModal())
   {
-    var pos = this._getEventPosition(popup);
+    var pos = this._getEventPosition(event);
     TrPanelPopup._resizeIeIframe(pos.x, pos.y, 
       popup.offsetWidth, popup.offsetHeight);
   }
