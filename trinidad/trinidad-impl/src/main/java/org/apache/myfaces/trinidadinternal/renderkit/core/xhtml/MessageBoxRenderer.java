@@ -85,6 +85,12 @@ public class MessageBoxRenderer extends XhtmlRenderer
 
     ResponseWriter writer = context.getResponseWriter();
 
+    Map<String, String> origSkinResourceMap = arc.getSkinResourceKeyMap();
+
+    // Setup the rendering context, so that default skin selectors of
+    // delegate renderers are mapped to those of this renderer
+    arc.setSkinResourceKeyMap(_RESOURCE_KEY_MAP);
+
     // Check if INLINE validation mode is enabled
     boolean inlineValidation =
         RequestContext.ClientValidation.INLINE.equals(
@@ -126,10 +132,6 @@ public class MessageBoxRenderer extends XhtmlRenderer
         writer.endElement("script");
       }
 
-      // Setup the rendering context, so that default skin selectors of
-      // delegate renderers are mapped to those of this renderer
-      arc.setSkinResourceKeyMap(_RESOURCE_KEY_MAP);
-
       // Delegate rendering of the outer shell to the BoxRenderer class
       // which will call back to this renderer to output the messages
       _boxRenderer.encodeAll(context, arc, component, bean);
@@ -141,6 +143,9 @@ public class MessageBoxRenderer extends XhtmlRenderer
       renderId(context, component);
       writer.endElement(XhtmlConstants.SPAN_ELEMENT);
     }
+    
+    // Reset the skin resource map
+    arc.setSkinResourceKeyMap(origSkinResourceMap);
   }
 
   protected void _renderContent(
