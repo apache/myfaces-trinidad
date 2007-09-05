@@ -49,7 +49,7 @@ public final class NumberConverter extends org.apache.myfaces.trinidad.convert.N
     if (number == null) // bug 4137626
       return null;
 
-    // this is causing bug 4920160    
+    // this is causing issue TRINIDAD-690    
     number = 
       DateTimeConverter.__typeConvert(context, this, component, value, number);
     return number;
