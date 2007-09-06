@@ -1,0 +1,66 @@
+Bug
+
+* [TRINIDAD-2] - Broken client decimal number validator
+* [TRINIDAD-4] - Add rat-maven-plugin to the build process
+* [TRINIDAD-56] - Static instances of DateFormat cannot be used
+* [TRINIDAD-57] - Dialog framework documentation errors
+* [TRINIDAD-59] - Invoking ResourceServlet via FacesServlet leads to NPE
+* [TRINIDAD-62] - Use of screen-reader accessibility mode should force client-side validation to use alerts
+* [TRINIDAD-64] - panelPartialRoot.jspx and related configuration should be removed from trinidad-demo
+* [TRINIDAD-66] - Manually created inputText in table does not process unless ID is explicitly set
+* [TRINIDAD-69] - h:commandButton with Image does not post x y coordinates with Trinidad as default renderer
+* [TRINIDAD-73] - trinidad-impl.jar file is left open during execution
+* [TRINIDAD-75] - Nested tables fail in "all"-type client-side state saving
+* [TRINIDAD-76] - tr:inputText displays no data, when maxLength set to 0
+* [TRINIDAD-77] - CONVERTCOLOR BLANKS OUT IF VALUE HIGHER THAN THAT PATTERN
+* [TRINIDAD-78] - Responses can be generated in XHTML format when included .jspx files don't specify contentTypew
+* [TRINIDAD-83] - HTML validity: scripts should have type="text/javascript"
+* [TRINIDAD-84] - Validity: in URI attributes, ampersands should be escaped as &amp;
+* [TRINIDAD-85] - "icon" attribute on commandButton does not work
+* [TRINIDAD-87] - DateRestrictionValidator suggests untranslated and wrong values
+* [TRINIDAD-92] - client side DateTimeRangeValidator: validation error thrown for date entered if datetimerange has no range defined.
+* [TRINIDAD-94] - Inline JS validation fails silently when no location is available for a message
+* [TRINIDAD-101] - Menu Model is not created if its tree is empty
+* [TRINIDAD-102] - Attempt to get the value of a custom property from a node that has no custom properties causes NPE
+* [TRINIDAD-104] - Don't write NULL characters as output
+* [TRINIDAD-107] - add client side support for TrNumberConverter, when type = currency
+* [TRINIDAD-108] - add client side support for TrNumberConverter, when type = percent
+* [TRINIDAD-113] - NumberConverter needs so display example for currency and percent
+* [TRINIDAD-117] - selectRangeChoiceBar selectItem support does not use end range correctly
+* [TRINIDAD-118] - NullPointerException when using an inputDate without form
+* [TRINIDAD-123] - Client side validation: <tr:selectOneRadio>
+* [TRINIDAD-124] - Remove WrapperCompatibleExternalContext from Trinidad GlobalConfiguratorImpl for 301
+* [TRINIDAD-125] - Client-side Validation outputs "Select at least one value" for tr:selectOneRadio required="true"
+* [TRINIDAD-126] - JavaDocs for Configurator registration is incorrect
+* [TRINIDAD-128] - UIXComponentBase.setValueExpression(name, null) throws NPE
+* [TRINIDAD-132] - UIXCollection.invokeOnComponent() never flushes the model cache
+* [TRINIDAD-134] - StateManagerImpl is not fully compatible with JSR-301
+* [TRINIDAD-138] - FF - add agent capability that FF supports legends and fieldsets
+* [TRINIDAD-141] - JavaScript error in TrNumberFormat setMaximumIntegerDigits and setMaximumFractionDigits
+* [TRINIDAD-158] - PPR fails on session timeout with form-based authentication
+* [TRINIDAD-622] - TrNumberConverter inserts thousand separator incorrectly for negative numbers
+
+Improvement
+
+* [TRINIDAD-35] - Dialog Framework to support 'iframe/lightweight' dialogs
+* [TRINIDAD-38] - <tr:table emptyText/> extends across all columns
+* [TRINIDAD-46] - Switch from IFRAMEs to XMLHttpRequest for non-fileupload requests
+* [TRINIDAD-72] - XMLMenuModel is mostly undocumented
+* [TRINIDAD-80] - inputDate picker should use lightweight dialog when lightweight dialogs are configured.
+* [TRINIDAD-97] - potential security violation in some error msgs
+* [TRINIDAD-106] - CoreRenderer.renderStyleClasses() API non-obviously mutates the array
+* [TRINIDAD-109] - Tagdoc should doc when a component is a naming container
+* [TRINIDAD-110] - Deprecated 'laf' MessageBoxRenderer needs migrating to xhtml renderkit
+* [TRINIDAD-116] - PPR + State Management: reuse state tokens while PPRing to avoid flushing the cache
+* [TRINIDAD-122] - Improve startup performance by loading renderers lazily
+* [TRINIDAD-130] - Add non-final getSelectItems method to SimpleSelectOneRenderer
+* [TRINIDAD-133] - SkinExtension's getTranslatedValue performance improvement
+* [TRINIDAD-135] - Add non-final getPartialTriggers method to XhtmlRenderer
+* [TRINIDAD-137] - Enhance TrNumberConverter, by providing accessors
+* [TRINIDAD-140] - PPR is mostly undocumented
+
+New Feature
+
+* [TRINIDAD-51] - Support manually adding SetActionListener
+* [TRINIDAD-52] - Add actionListener to make sending files easy
+* [TRINIDAD-68] - Add statusIndicator component for tracking XMLHttp requests
