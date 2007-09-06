@@ -95,12 +95,17 @@ public class MessageBoxRenderer extends XhtmlRenderer
     boolean inlineValidation =
         RequestContext.ClientValidation.INLINE.equals(
             RequestContext.getCurrentInstance().getClientValidation());
+    
+    boolean isGlobalOnly = isGlobalOnly(bean);
+    
+    // Determine if we should render the MessageBox
+    boolean renderMsgBox = (isGlobalOnly && context.getMessages(null).hasNext()) ||
+      (!isGlobalOnly && inlineValidation) || (!isGlobalOnly && context.getMessages().hasNext());
 
-    // Only when there's at least one message queued
-    if (inlineValidation || context.getMessages().hasNext())
+    if (renderMsgBox)
     {
 
-      if (inlineValidation)
+      if (!isGlobalOnly && inlineValidation)
       {
         writer.startElement(XhtmlConstants.SCRIPT_ELEMENT, null);
         renderScriptDeferAttribute(context, arc);
@@ -460,24 +465,17 @@ public class MessageBoxRenderer extends XhtmlRenderer
 
   protected String getText(FacesBean bean)
   {
-    if (_textKey == null)
-      return null;
-    return toString(bean.getProperty(_textKey));
+    return (String)this.resolveProperty(bean, _textKey);
   }
 
   protected String getMessage(FacesBean bean)
   {
-    if (_messageKey == null)
-      return null;
-    return toString(bean.getProperty(_messageKey));
+    return (String)this.resolveProperty(bean, _messageKey);
   }
 
   protected boolean isGlobalOnly(FacesBean bean)
   {
-    Object o = bean.getProperty(_globalOnlyKey);
-    if (o == null)
-      o = _globalOnlyKey.getDefault();
-    return Boolean.TRUE.equals(o);
+    return (Boolean)this.resolveProperty(bean, _globalOnlyKey, true);
   }
 
   private PropertyKey _textKey;
