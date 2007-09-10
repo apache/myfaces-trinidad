@@ -227,15 +227,14 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
    * @throws ConverterException if an index specified in the
    *  list of values is out of bounds.
    */
-  static private Object _convertIndexedSubmittedValue(
+  private Object _convertIndexedSubmittedValue(
     FacesContext context,
     UIComponent  component,
     Converter    converter,
     String[]     values,
     Class<?>     modelClass) throws ConverterException
   {
-    List<SelectItem> selectItems = 
-      SelectItemSupport.getSelectItems(component, converter);
+    List<SelectItem> selectItems = getSelectItems(component, converter);
 
     // No selectItems automatically means that we failed to convert
     if ((selectItems == null) || (selectItems.isEmpty()))
@@ -313,8 +312,8 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
   }
 
   protected List<SelectItem> getSelectItems(
-    UIComponent component,
-    Converter   converter)
+    UIComponent component, 
+    Converter converter)
   {
     return SelectItemSupport.getSelectItems(component, converter);
   }
