@@ -355,7 +355,9 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
     return UIXSelectOne.REQUIRED_MESSAGE_ID;
   }
   
-  protected List<SelectItem> getSelectItems(UIComponent component, Converter converter)
+  protected List<SelectItem> getSelectItems(
+    UIComponent component, 
+    Converter converter)
   {
     return SelectItemSupport.getSelectItems(component, converter);
   }
