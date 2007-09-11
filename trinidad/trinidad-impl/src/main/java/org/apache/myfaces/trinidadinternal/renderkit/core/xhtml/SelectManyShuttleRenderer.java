@@ -393,16 +393,17 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
     // FIXME: Make sure we don't NPE when not in form
 
     // Get JS-valid identifiers for ourselves
-    String formName = XhtmlUtils.getJSIdentifier(rc.getFormData().getName());
+    String formName = rc.getFormData().getName();
+    String jsFormName = XhtmlUtils.getJSIdentifier(formName);
     String jsClientId = XhtmlUtils.getJSIdentifier(clientId);
     
     // Add the reset call to the form as a whole
     StringBuilder funcCallBuffer = new StringBuilder(
                                                19 +
                                                formName.length() +
-                                               jsClientId.length());
+                                               clientId.length());
 
-    funcCallBuffer.append("TrShuttleProxy._resetItems('").append(jsClientId);
+    funcCallBuffer.append("TrShuttleProxy._resetItems('").append(clientId);
     funcCallBuffer.append("','").append(formName).append("');");
     FormRenderer.addResetCall(clientId, funcCallBuffer.toString());
 
@@ -410,11 +411,11 @@ public class SelectManyShuttleRenderer extends SimpleSelectManyRenderer
     // And write out the "orig" script that retains knowledge of
     // the original state of the component
     rw.writeText( "window[\"_", null);
-    rw.writeText(formName, null);
+    rw.writeText(jsFormName, null);
     rw.writeText("_", null);
     rw.writeText(jsClientId, null);
     rw.writeText("_orig\"]=TrShuttleProxy._copyLists('", null);
-    rw.writeText(jsClientId, null);
+    rw.writeText(clientId, null);
     rw.writeText("','", null);
     rw.writeText(formName, null);
     rw.writeText("');", null);
