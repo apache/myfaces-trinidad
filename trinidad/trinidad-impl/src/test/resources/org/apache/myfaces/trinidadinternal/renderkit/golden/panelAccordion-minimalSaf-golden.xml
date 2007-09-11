@@ -1,6 +1,6 @@
 <results>
       <div
-           class="af_panelAccordion_container"
+           class="af_panelAccordion"
            id="mainId"
           >
         
@@ -79,7 +79,7 @@
 <!--AttributeTest[onclick,null]-->
 
       <div
-           class="af_panelAccordion_container"
+           class="af_panelAccordion"
            id="mainId"
            onclick="test-onclick"
           >
@@ -159,7 +159,7 @@
 <!--AttributeTest[ondblclick,null]-->
 
       <div
-           class="af_panelAccordion_container"
+           class="af_panelAccordion"
            id="mainId"
            ondblclick="test-ondblclick"
           >
@@ -239,7 +239,7 @@
 <!--AttributeTest[onkeydown,null]-->
 
       <div
-           class="af_panelAccordion_container"
+           class="af_panelAccordion"
            id="mainId"
            onkeydown="test-onkeydown"
           >
@@ -319,7 +319,7 @@
 <!--AttributeTest[onkeypress,null]-->
 
       <div
-           class="af_panelAccordion_container"
+           class="af_panelAccordion"
            id="mainId"
            onkeypress="test-onkeypress"
           >
@@ -399,7 +399,7 @@
 <!--AttributeTest[onkeyup,null]-->
 
       <div
-           class="af_panelAccordion_container"
+           class="af_panelAccordion"
            id="mainId"
            onkeyup="test-onkeyup"
           >
@@ -479,7 +479,7 @@
 <!--AttributeTest[onmousedown,null]-->
 
       <div
-           class="af_panelAccordion_container"
+           class="af_panelAccordion"
            id="mainId"
            onmousedown="test-onmousedown"
           >
@@ -559,7 +559,7 @@
 <!--AttributeTest[onmousemove,null]-->
 
       <div
-           class="af_panelAccordion_container"
+           class="af_panelAccordion"
            id="mainId"
            onmousemove="test-onmousemove"
           >
@@ -639,7 +639,7 @@
 <!--AttributeTest[onmouseout,null]-->
 
       <div
-           class="af_panelAccordion_container"
+           class="af_panelAccordion"
            id="mainId"
            onmouseout="test-onmouseout"
           >
@@ -719,7 +719,7 @@
 <!--AttributeTest[onmouseover,null]-->
 
       <div
-           class="af_panelAccordion_container"
+           class="af_panelAccordion"
            id="mainId"
            onmouseover="test-onmouseover"
           >
@@ -799,7 +799,7 @@
 <!--AttributeTest[onmouseup,null]-->
 
       <div
-           class="af_panelAccordion_container"
+           class="af_panelAccordion"
            id="mainId"
            onmouseup="test-onmouseup"
           >
@@ -879,7 +879,7 @@
 <!--AttributeTest[id,null]-->
 
       <div
-           class="af_panelAccordion_container"
+           class="af_panelAccordion"
            id="test-id"
           >
         
@@ -958,7 +958,7 @@
 <!--AttributeTest[shortDesc,null]-->
 
       <div
-           class="af_panelAccordion_container"
+           class="af_panelAccordion"
            id="mainId"
            title="test-shortDesc"
           >
@@ -1038,7 +1038,7 @@
 <!--AttributeTest[styleClass,myStyleClass]-->
 
       <div
-           class="myStyleClass af_panelAccordion_container"
+           class="myStyleClass af_panelAccordion"
            id="mainId"
           >
         
@@ -1117,7 +1117,7 @@
 <!--AttributeTest[inlineStyle,background-color:red;border:5px;]-->
 
       <div
-           class="af_panelAccordion_container"
+           class="af_panelAccordion"
            id="mainId"
            style="background-color:red;border:5px;"
           >

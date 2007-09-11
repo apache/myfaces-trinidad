@@ -264,7 +264,8 @@ public class PanelAccordionRenderer extends XhtmlRenderer
       }
 
       // Header renderer section.
-      out.startElement("div", component);
+      out.startElement("div", detailItem);
+
       String detailItemId = detailItem.getClientId(context);
       String itemStyleClass;
       if (disabled)
@@ -275,6 +276,19 @@ public class PanelAccordionRenderer extends XhtmlRenderer
         itemStyleClass = getHeaderCollapsedStyleClass();
         
       renderStyleClass(context, arc, itemStyleClass);
+
+      // Render the toolbar component, if any (we use float to keep
+      // the toolbar on the right - or left, in RTL languages - so
+      // it has to be rendered first)
+      UIComponent toolbar = getFacet(detailItem,
+                                     CoreShowDetailItem.TOOLBAR_FACET);
+      if (toolbar != null)
+      {
+        out.startElement("div", detailItem);
+        renderStyleClass(context, arc, SkinSelectors.AF_PANELACCORDION_TOOLBAR_STYLE_CLASS);
+        encodeChild(context, toolbar);
+        out.endElement("div");
+      }
 
       out.startElement("a", null);
       out.writeAttribute("name", detailItemId, null);
@@ -319,6 +333,7 @@ public class PanelAccordionRenderer extends XhtmlRenderer
 
       out.endElement("div"); // Ending div for an individual panel
 
+
       // The detail child should be disclosed only when all three criteria met
       // 1. is marked as disclosed
       // 2. is not disabled and
@@ -339,7 +354,7 @@ public class PanelAccordionRenderer extends XhtmlRenderer
   @Override
   protected String getDefaultStyleClass(FacesBean bean)
   {
-    return SkinSelectors.AF_PANELACCORDION_CONTAINER_STYLE_CLASS;
+    return SkinSelectors.AF_PANELACCORDION_STYLE_CLASS;
   }
 
   protected String getContentStyleClass()
