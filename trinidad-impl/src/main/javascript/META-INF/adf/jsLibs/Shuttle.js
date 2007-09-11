@@ -561,8 +561,7 @@ TrShuttleProxy._getDescArray = function
   listName
 )
 {
-
-  var descArray = window[listName.replace(':','_') + '_desc'];
+  var descArray = window[listName.replace(/:/g,'_') + '_desc'];
   return descArray;
 
 }
@@ -631,7 +630,7 @@ TrShuttleProxy._getSelectedArray = function
   listName
 )
 {
-  var selected = window[listName.replace(':','_') + '_sel'];
+  var selected = window[listName.replace(/:/g,'_') + '_sel'];
   return selected;
 }
 
