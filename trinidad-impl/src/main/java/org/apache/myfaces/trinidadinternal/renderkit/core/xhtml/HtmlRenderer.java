@@ -27,6 +27,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
+import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.html.HtmlFrameBorderLayout;
 import org.apache.myfaces.trinidad.component.html.HtmlHtml;
 
@@ -63,6 +64,13 @@ public class HtmlRenderer extends XhtmlRenderer
   }
 
   @Override
+  protected void findTypeConstants(FacesBean.Type type)
+  {
+    super.findTypeConstants(type);
+    _modeKey = type.findKey("mode");
+  }
+
+  @Override
   protected void encodeBegin(
     FacesContext        context,
     RenderingContext arc,
@@ -71,7 +79,7 @@ public class HtmlRenderer extends XhtmlRenderer
   {
     ResponseWriter writer = context.getResponseWriter();
 
-    String docType = getDocType(context, comp);
+    String docType = getDocType(context, comp, bean);
     if (docType != null)
       writer.write(docType);
 
@@ -117,12 +125,18 @@ public class HtmlRenderer extends XhtmlRenderer
     rw.endElement("html");
   }
 
+  protected String getMode(FacesBean bean)
+  {
+    return toString(bean.getProperty(_modeKey));
+  }
+
   /**
    * Subclasses should override to return their doctype
    */
   protected String getDocType(
     FacesContext context,
-    UIComponent  component)
+    UIComponent  component,
+    FacesBean    bean)
   {
     // See bug 1893192 - we don't want to render the DTD
     // in Mozilla until we can fix our code to work in their
@@ -138,7 +152,7 @@ public class HtmlRenderer extends XhtmlRenderer
     }
     else
     {
-      return getDocumentDocType(context);
+      return getDocumentDocType(context, bean);
     }
   }
 
@@ -167,20 +181,27 @@ public class HtmlRenderer extends XhtmlRenderer
    * to a frameset.
    */
   protected String getDocumentDocType(
-    FacesContext context
+    FacesContext context,
+    FacesBean    bean
     )
   {
+    String mode = getMode(bean);
     // default to transitional, rather than strict
     if (isXMLDocument(context))
     {
-      return XHTML_TRANSITIONAL_DOCTYPE;
+      if (HtmlHtml.MODE_STRICT.equals(mode))
+        return XHTML_STRICT_DOCTYPE;
+      else
+        return XHTML_TRANSITIONAL_DOCTYPE;
     }
     else
     {
-      if (isStandardsModeDisabled(context))
-        return HTML_TRANSITIONAL_DOCTYPE;
-      else
+      if (isStandardsModeDisabled(context) || HtmlHtml.MODE_QUIRKS.equals(mode))
+        return HTML_QUIRKS_DOCTYPE;
+      else if (HtmlHtml.MODE_STRICT.equals(mode))
         return HTML_STRICT_DOCTYPE;
+      else
+        return HTML_STANDARDS_DOCTYPE;
     }
   }
 
@@ -228,17 +249,19 @@ public class HtmlRenderer extends XhtmlRenderer
            "application/xml".equals(contentType);
   }
 
+  private PropertyKey _modeKey;
 
-  protected static final String HTML_TRANSITIONAL_DOCTYPE =
+  // DOCTYPE for transitional + quirks
+  protected static final String HTML_QUIRKS_DOCTYPE =
     "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">";
-  /**
-   * Note that the following docType does not work in IE6. see bug 2342217
-   *
-    "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">";
-  **/
 
+  // DOCTYPE for transitional + standards
+  protected static final String HTML_STANDARDS_DOCTYPE =
+    "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">";
+
+  // DOCTYPE for strict + standards
   protected static final String HTML_STRICT_DOCTYPE =
-    "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">";
+    "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">";
 
   // loose plus FRAMESET instead of BODY
   protected static final String HTML_FRAMESET_DOCTYPE =
