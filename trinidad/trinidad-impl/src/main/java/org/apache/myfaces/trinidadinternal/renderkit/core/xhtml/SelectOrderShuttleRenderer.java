@@ -38,6 +38,11 @@ public class SelectOrderShuttleRenderer extends SelectManyShuttleRenderer
     super(CoreSelectOrderShuttle.TYPE);
   }
 
+  protected SelectOrderShuttleRenderer(FacesBean.Type type)
+  {
+    super(type);
+  }
+
   @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
