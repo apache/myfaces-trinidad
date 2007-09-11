@@ -50,6 +50,7 @@
       </property-extension>
     </property>
 
+    <xi:include href="includes/CommonDocumentAttrs.xml" xpointer="/faces-config/component/*"/>
     <xi:include href="includes/CommonAttrs.xml" xpointer="/faces-config/component/*"/>
     <xi:include href="includes/CoreJSEvents.xml" xpointer="/faces-config/component/*"/>
 

@@ -19,6 +19,7 @@
 	   
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:trh="http://myfaces.apache.org/trinidad/html"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -28,6 +29,8 @@
     <icon>
       <small-icon>/org/apache/myfaces/trinidad/metadata/icons/html.png</small-icon>
     </icon>
+    <xi:include href="../core/includes/CommonDocumentAttrs.xml" xpointer="/faces-config/component/*"/>
+
     <component-type>org.apache.myfaces.trinidad.HtmlHtml</component-type>
     <component-class>org.apache.myfaces.trinidad.component.html.HtmlHtml</component-class>
     <component-extension>

@@ -47,7 +47,13 @@
       <section name="Release Notes">
 <subsection name="Features">
 
-<ul>Added tr:panelCaptionGroup component to render HTML fieldset/legend content groups.
+<ul>
+<li>Added tr:panelCaptionGroup component to render HTML fieldset/legend content groups.</li>
+<li>A new addDomReplaceListener() method on the page Javascript
+object lets a developer receive notification when DOM is
+replaced by PPR.</li>
+<li>A new "mode" attribute on tr:document and trh:html lets you force Trinidad to enable "quirks" mode or to a "strict" DTD.  By default, Trinidad still renders with a transitional DTD but with standards-mode rendering.  Note: "strict" mode does not currently change how Trinidad renders - it simply swaps the DTD.</li>
+<li>The "toolbar" facet is now supported on showDetailItems in panelAccordion.</li>
 </ul>
 
 </subsection>
@@ -81,10 +87,6 @@ skipped entirely.
     
 <subsection name="New Features">
 <ul>
-<li>A new addDomReplaceListener() method on the page Javascript
-object lets a developer receive notification when DOM is
-replaced by PPR.</li>
-<li>The "toolbar" facet is now supported on showDetailItems in panelAccordion.</li>
 </ul>
 </subsection>
 
