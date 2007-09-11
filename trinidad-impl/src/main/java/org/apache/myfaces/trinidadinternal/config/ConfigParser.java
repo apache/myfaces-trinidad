@@ -169,7 +169,12 @@ public class ConfigParser
                            String localName,
                            String qName)
     {
-      if ((_currentText != null) && !"".equals(_currentText))
+      String currentText = _currentText;
+      if (currentText == null)
+        return;
+      
+      currentText = currentText.trim();
+      if (!"".equals(currentText))
       {
         PropertyKey key = _bean.getType().findKey(localName);
         if (key == null)
@@ -179,8 +184,8 @@ public class ConfigParser
         }
         else
         {
-          if (_currentText.startsWith("#{") &&
-              _currentText.endsWith("}"))
+          if (currentText.startsWith("#{") &&
+              currentText.endsWith("}"))
           {
             if (!key.getSupportsBinding())
             {
@@ -190,7 +195,7 @@ public class ConfigParser
             else
             {
               ValueBinding binding =
-                LazyValueBinding.createValueBinding(_currentText);
+                LazyValueBinding.createValueBinding(currentText);
               _bean.setValueBinding(key, binding);
             }
           }
@@ -200,25 +205,25 @@ public class ConfigParser
 
             if (key.getType() == Character.class)
             {
-              value = _currentText.charAt(0);
+              value = currentText.charAt(0);
             }
             else if (key.getType() == Integer.class)
             {
-              value = _getIntegerValue(_currentText, qName);
+              value = _getIntegerValue(currentText, qName);
             }
             else if (key.getType() == Boolean.class)
             {
-              value = ("true".equalsIgnoreCase(_currentText)
+              value = ("true".equalsIgnoreCase(currentText)
                        ? Boolean.TRUE : Boolean.FALSE);
             }
             else if (key.getType() == TimeZone.class)
             {
-              value = TimeZone.getTimeZone(_currentText);
+              value = TimeZone.getTimeZone(currentText);
             }
             else if (key.getType() == Locale.class)
             {
-              _currentText = _currentText.replace('_', '-');
-              value = LocaleUtils.getLocaleForIANAString(_currentText);
+              currentText = currentText.replace('_', '-');
+              value = LocaleUtils.getLocaleForIANAString(currentText);
             }
             else if (key.getType().isEnum())
             {
@@ -226,18 +231,18 @@ public class ConfigParser
               try
               {
                 value = Enum.valueOf((Class<? extends Enum>) key.getType(),
-                                     _currentText.trim());
+                                     currentText);
               }
               catch (IllegalArgumentException iae)
               {
                 _LOG.warning("INVALID_ENUM_IN_CONFIG",
-                             new Object[]{_currentText, qName});
+                             new Object[]{currentText, qName});
                 return;
               }
             }
             else
             {
-              value = _currentText;
+              value = currentText;
             }
 
             if (key == RequestContextBean.REMOTE_DEVICE_REPOSITORY_URI)
@@ -261,23 +266,22 @@ public class ConfigParser
       _currentText = null;
     }
 
-  private static Integer _getIntegerValue(String text, String qName)
-  {
-    Integer value = null;
-    try
+    private static Integer _getIntegerValue(String text, String qName)
     {
-      value = Integer.valueOf(text);
-    }
-    catch (NumberFormatException nfe)
-    {
-      if (_LOG.isWarning())
+      Integer value = null;
+      try
       {
-        _LOG.warning("ELEMENT_ONLY_ACCEPT_INTEGER", qName);
+        value = Integer.valueOf(text);
       }
+      catch (NumberFormatException nfe)
+      {
+        if (_LOG.isWarning())
+        {
+          _LOG.warning("ELEMENT_ONLY_ACCEPT_INTEGER", qName);
+        }
+      }
+      return value;
     }
-    return value;
-  }
-
 
     private RequestContextBean  _bean;
     private String              _currentText;
