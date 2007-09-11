@@ -2120,6 +2120,11 @@
             <th>Description</th>
           </tr>
           <tr>
+            <td>af|panelFormLayout</td>
+            <td>This can be used to set common properties that are shared across
+                all panel form layouts.</td>
+          </tr>
+          <tr>
             <td>af|panelFormLayout::column</td>
             <td>Specifies the style information for columns of the panelForm.</td>
           </tr>
@@ -2187,6 +2192,76 @@
           </tr>
         </table>
       </subsection>
+
+      <subsection name="tr:panelAccordion Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|panelAccordion</td>
+            <td>This can be used to style the root element of a panelAccordion.</td>
+          </tr>
+          <tr>
+            <td>af|panelAccordion::content</td>
+            <td>This can be used to style the parent element of each showDetailItem in a panelAccordion.</td>
+          </tr>
+          <tr>
+            <td>af|panelAccordion::header-collapsed</td>
+            <td>This can be used to style the header region of each collapsed showDetailItem in a panelAccordion.</td>
+          </tr>
+          <tr>
+            <td>af|panelAccordion::header-disabled</td>
+            <td>This can be used to style the header region of each disabled showDetailItem in a panelAccordion.</td>
+          </tr>
+          <tr>
+            <td>af|panelAccordion::header-expanded</td>
+            <td>This can be used to style the header region of each expanded showDetailItem in a panelAccordion.</td>
+          </tr>
+
+          <tr>
+            <td>af|panelAccordion::title-link</td>
+            <td>This can be used to style the link element for the title of
+each enabled showDetailItem in a panelAccordion.</td>
+          </tr>
+          <tr>
+            <td>af|panelAccordion::title-disabledlink</td>
+            <td>This can be used to style the link element for the title of
+each disabled showDetailItem in a panelAccordion.</td>
+          </tr>
+          <tr>
+            <td>af|panelAccordion::toolbar</td>
+            <td>This can be used to style the toolbar facet of a showDetailItem in a panelAccordion.</td>
+          </tr>
+        </table>
+      </subsection>
+
+ 
+      <subsection name="tr:panelGroupLayout Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|panelGroupLayout</td>
+            <td>This can be used to set common properties that are shared across
+                all panel group layouts.</td>
+          </tr>
+        </table>
+      </subsection>
+
       <subsection name="tr:panelHeader Component">
         <table>
           <tr>

@@ -650,7 +650,24 @@
 
   <style selector="af|panelTip::content">
   </style>
+
+  <style selector="af|panelFormLayout"/>
+
+  <style selector="af|panelGroupLayout"/>
+
+  <style selector="af|panelAccordion"/>
+  <style selector="af|panelAccordion::content"/>
+  <style selector="af|panelAccordion::header-collapsed"/>
+  <style selector="af|panelAccordion::header-disabled"/>
+  <style selector="af|panelAccordion::header-expanded"/>
+  <style selector="af|panelAccordion::title-disabled-link"/>
+  <style selector="af|panelAccordion::title-link"/>
+  <style selector="af|panelAccordion::toolbar">
+    <includeStyle name="AFFloatEnd"/> 
+  </style>
   
+  <style selector="af|separator"/>
+
   <!-- Required label selectors -->
   
   <!-- Main required label alias -->

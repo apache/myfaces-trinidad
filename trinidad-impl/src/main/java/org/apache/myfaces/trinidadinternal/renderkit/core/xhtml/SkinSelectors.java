@@ -730,14 +730,14 @@ public final class SkinSelectors
    
    //                                                                         //
    //                                                                         //
-   // ========================== tr:Accordion ========================== //
+   // ========================== tr:panelAccordion ========================== //
    //                                                                         //
    //                                                                         //
    
    // ============================ Style classes ============================ //
    // FIXME: Name inconsistency, should be _PANEL_ACCORDION
-   public static final String AF_PANELACCORDION_CONTAINER_STYLE_CLASS =
-     "af|panelAccordion::container";
+   public static final String AF_PANELACCORDION_STYLE_CLASS =
+     "af|panelAccordion";
    public static final String AF_PANELACCORDION_CONTENT_STYLE_CLASS =
      "af|panelAccordion::content";
    public static final String AF_PANELACCORDION_HEADER_COLLAPSED_STYLE_CLASS =
@@ -750,6 +750,8 @@ public final class SkinSelectors
      "af|panelAccordion::title-disabled-link";
    public static final String AF_PANELACCORDION_TITLE_LINK_STYLE_CLASS =
      "af|panelAccordion::title-link";
+   public static final String AF_PANELACCORDION_TOOLBAR_STYLE_CLASS =
+     "af|panelAccordion::toolbar";
 
 
    //                                                                         //

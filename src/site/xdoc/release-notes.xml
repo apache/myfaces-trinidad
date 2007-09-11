@@ -60,6 +60,7 @@ made public as 'org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION'.
 <li>Non-public web.xml setting 'org.apache.myfaces.trinidadinternal.renderkit.USE_DIALOG_POPUP' 
 made public as 'org.apache.myfaces.trinidad.ENABLE_LIGHTWEIGHT_DIALOGS'.
 </li>
+<li>The style name for skinning the root of a panelAccordion has changed from "af|panelAccordion::container" to "af|panelAccordion".</li>
 </ul>
 </subsection>
 
@@ -83,6 +84,7 @@ skipped entirely.
 <li>A new addDomReplaceListener() method on the page Javascript
 object lets a developer receive notification when DOM is
 replaced by PPR.</li>
+<li>The "toolbar" facet is now supported on showDetailItems in panelAccordion.</li>
 </ul>
 </subsection>
 
