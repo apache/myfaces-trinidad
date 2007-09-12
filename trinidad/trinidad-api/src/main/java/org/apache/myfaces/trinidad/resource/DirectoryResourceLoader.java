@@ -23,10 +23,12 @@ import java.io.IOException;
 
 import java.net.URL;
 
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+
 /**
  * A resource loader implementation which loads resources
  * from a directory.  The returned resource URL will be null
- * for file resources that do not exist, or for relative paths 
+ * for file resources that do not exist, or for relative paths
  * that attempt to access paths outside the root directory.
  *
  */
@@ -47,6 +49,15 @@ public class DirectoryResourceLoader extends ResourceLoader
       throw new IllegalArgumentException();
 
     _directory = directory;
+    
+    try
+    {
+      _directoryPath = _directory.getCanonicalPath();
+    }
+    catch (IOException ex)
+    {
+      throw new IllegalArgumentException(ex);
+    }    
   }
 
   /**
@@ -68,6 +79,16 @@ public class DirectoryResourceLoader extends ResourceLoader
       throw new IllegalArgumentException();
 
     _directory = directory;
+    
+    try
+    {
+      _directoryPath = _directory.getCanonicalPath();
+    }
+    catch (IOException ex)
+    {
+      throw new IllegalArgumentException(ex);
+    }
+
   }
 
   @Override
@@ -79,10 +100,11 @@ public class DirectoryResourceLoader extends ResourceLoader
 
     // construct the relative file under the "root" directory
     File file = new File(_directory, path).getCanonicalFile();
+    
 
-    // "root" directory path should always be less than the file path
-    boolean isContained = (_directory.compareTo(file) <= 0);
-
+    // file path should contain the "root" directory path, not be outside it
+    boolean isContained = file.getCanonicalPath().startsWith(_directoryPath);
+    
     // return null if relative paths were used, 
     // or if the file does not exist,
     // otherwise return an URL to the file resource
@@ -94,4 +116,7 @@ public class DirectoryResourceLoader extends ResourceLoader
   }
 
   private final File _directory;
+  private final String _directoryPath;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+    DirectoryResourceLoader.class);
 }
