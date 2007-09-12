@@ -115,17 +115,6 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
 {
 
   /**
-   * Create an instance of the converter
-   */
-  public NumberConverter()
-  {
-    //The defaults
-    setGroupingUsed(true);
-    setIntegerOnly(false);
-    setType("number");
-  }
-
-  /**
    * <p>The standard converter id for this converter.</p>
    */
     public static final String CONVERTER_ID = "org.apache.myfaces.trinidad.Number";
@@ -541,7 +530,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
   public  boolean isGroupingUsed()
   {
     Object grpUSed = _facesBean.getProperty(_GROUPING_USED_KEY);
-    return ComponentUtils.resolveBoolean(grpUSed);
+    return ComponentUtils.resolveBoolean(grpUSed, true);
   }
 
   @Override
@@ -554,7 +543,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
   public boolean isIntegerOnly()
   {
     Object isInt = _facesBean.getProperty(_INTEGER_ONLY_KEY);
-    return ComponentUtils.resolveBoolean(isInt);
+    return ComponentUtils.resolveBoolean(isInt, false);
   }
 
   /**
@@ -663,7 +652,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
   public String getType()
   {
     Object type = _facesBean.getProperty(_TYPE_KEY);
-    return ComponentUtils.resolveString(type);
+    return ComponentUtils.resolveString(type, "number");
   }
 
   /**

@@ -217,21 +217,11 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
   public static final String CONVERT_BOTH_MESSAGE_ID =
       "org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_BOTH";
 
-
   /**
    * Creates a DateTimeConverter
    */
   public DateTimeConverter()
   {
-    /**
-     * @todo a kind of hack? Default value set of the faces bean are not returned
-     * if property has not been set, when default values are set on the property
-     * key. TYPE hangs of the faces bean and can be created separately.
-     * the setProperty is on the faces bean, how to make them get the default!
-     */
-    setTimeStyle("short");
-    setDateStyle("shortish");
-    setType("date");
   }
 
   /**
@@ -839,7 +829,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
   public String getType()
   {
     Object type = _facesBean.getProperty(_TYPE_KEY);
-    return ComponentUtils.resolveString(type);
+    return ComponentUtils.resolveString(type, "date");
   }
 
   /**
@@ -868,7 +858,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
   public String getDateStyle()
   {
     Object dateStyle = _facesBean.getProperty(_DATE_STYLE_KEY);
-    return ComponentUtils.resolveString(dateStyle);
+    return ComponentUtils.resolveString(dateStyle, "shortish");
   }
 
   /**
@@ -894,7 +884,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
   public String getTimeStyle()
   {
     Object timeStyle = _facesBean.getProperty(_TIME_STYLE_KEY);
-    return ComponentUtils.resolveString(timeStyle);
+    return ComponentUtils.resolveString(timeStyle, "short");
   }
 
   /**
