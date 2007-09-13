@@ -1735,6 +1735,9 @@ function submitForm(
           }
         }
       }
+      // IE BUG, see TRINIDAD-704
+      if(_agent.isIE)
+        window.external.AutoCompleteSaveForm(form);
 
       form.submit();
       if (_blockOnEverySubmit)
