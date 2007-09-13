@@ -143,6 +143,11 @@ TrRequestQueue.prototype.sendFormPost = function(
   else
   {
     var content = this._getPostbackContent(actionForm, params);
+
+    // IE BUG, see TRINIDAD-704  
+    if(_agent.isIE)
+      window.external.AutoCompleteSaveForm(actionForm);
+
     this.sendRequest(context, method, actionForm.action, content, headerParams);
   }
 }
@@ -467,6 +472,10 @@ TrRequestQueue.prototype._doRequestThroughIframe = function(requestItem)
   
   if(this._iframeLoadCallback == null)
     this._iframeLoadCallback = TrUIUtils.createCallback(this, this._handleIFrameLoad);
+
+  // IE BUG, see TRINIDAD-704  
+  if(_agent.isIE)
+    window.external.AutoCompleteSaveForm(htmlForm);
   htmlForm.submit();
   
   this._window.setTimeout(this._iframeLoadCallback, 50);
