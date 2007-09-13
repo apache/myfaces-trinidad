@@ -784,7 +784,7 @@ TrRequestQueue._alertError = function()
 // Logging helper for use in Firebug
 TrRequestQueue._logWarning = function(varArgs)
 {
-  if (console && console.warn)
+  if (window.console && console.warn)
     console.warn(arguments);
   // else???
 }
@@ -792,7 +792,7 @@ TrRequestQueue._logWarning = function(varArgs)
 // Logging helper for use in Firebug
 TrRequestQueue._logError = function(varArgs)
 {
-  if (console && console.error)
+  if (window.console && console.error)
     console.error(arguments);
   // else???
 }
