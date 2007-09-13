@@ -259,6 +259,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
    * @param value Model object value to be converted (may be <code>null</code>)
    *
    * @return a zero-length String if value is <code>null</code>,
+   *         if the passed value is a String, it's returned unchanged,
    *         otherwise String representation for the number object based on the
    *         attributes set.
    * @exception ConverterException if conversion cannot be successfully
