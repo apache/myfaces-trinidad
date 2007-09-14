@@ -24,9 +24,7 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelPopup;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
 import org.apache.myfaces.trinidad.skin.Icon;
-import org.apache.myfaces.trinidad.util.Service;
 
 /**
  * @author Danny Robinson
