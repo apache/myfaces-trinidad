@@ -54,6 +54,13 @@ public class RegexResourceLoader extends ResourceLoader
   protected URL findResource(
     String path) throws IOException
   {
+
+    // a RegexResourceNode contains a ResourceLoader 
+    // (e.g., a CoreClassLoaderResourceLoader) and a Pattern.
+    // loop through all the RegExResourceNodes that have been registered
+    // with the RegexResourceLoader's register(regex, loader) method, 
+    // and find the node where the path fits the node's pattern.
+    // Once the node is found, return the resource with the given name
     for(RegexResourceNode node : _loaders)
     {
       Matcher matcher = node.getPattern().matcher(path);

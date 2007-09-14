@@ -37,7 +37,7 @@ import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 
 /**
  * A resource loader implementation which loads resources
- * for the rich renderkit.
+ * for the core renderkit.
  *
  *
  * @todo Dynamic version number
@@ -53,7 +53,7 @@ public class CoreRenderKitResourceLoader extends RegexResourceLoader
              new CoreCommonScriptsResourceLoader(_getCommonLibraryURI(true),
                                                  true));
     register("(/.*LocaleElements.*\\.js)",
-                               new LocaleElementsResourceLoader(getLocaleElementsURI("LocaleElements", true))); 
+             new LocaleElementsResourceLoader(getLocaleElementsURI("LocaleElements", true))); 
 
     register("(/.*\\.(css|jpg|gif|png|jpeg|svg|js))",
              new CoreClassLoaderResourceLoader(parent));

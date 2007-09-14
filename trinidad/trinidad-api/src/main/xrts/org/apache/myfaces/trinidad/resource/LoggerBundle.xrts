@@ -387,5 +387,10 @@
  <!-- VIEW_TAG_NOT_PRESENT -->
  <resource key="VIEW_TAG_NOT_PRESENT">&lt;f:view&gt; was not present on this page; tag {0} encountered without an &lt;f:view&gt; being processed.</resource>
  
+ <!-- RESOURCE_PATH_OUTSIDE_ROOT -->
+ <resource key="RESOURCE_PATH_OUTSIDE_ROOT">The resource path {0} contains ".." and it resolves to be outside the root directory, and that is insecure. Therefore the path is ignored.</resource>
+
+ <!-- RESOURCE_PATH_CONTAINS_DOTS -->
+ <resource key="RESOURCE_PATH_DOTS">The resource path {0} contains "..". Browsers resolve out the "..", so this is a suspicious path.</resource>
 
 </resources>

@@ -26,7 +26,9 @@ import org.apache.myfaces.trinidad.resource.ResourceLoader;
 
 
 /**
- *
+ * A resource loader implementation which loads resources
+ * using the context class loader with a rootPackage of META-INF. This will
+ * find the resources within the META-INF directory.
  */
 public class CoreClassLoaderResourceLoader extends ClassLoaderResourceLoader
 {
@@ -35,10 +37,15 @@ public class CoreClassLoaderResourceLoader extends ClassLoaderResourceLoader
    */
   public CoreClassLoaderResourceLoader(ResourceLoader parent)
   {
-    super("META-INF", parent);
+   super("META-INF", parent);
   }
 
-  @Override
+
+    
+  /**
+   * Override to pull out the version from the path.
+   */
+   @Override
   protected URL findResource(
     String path) throws IOException
   {
