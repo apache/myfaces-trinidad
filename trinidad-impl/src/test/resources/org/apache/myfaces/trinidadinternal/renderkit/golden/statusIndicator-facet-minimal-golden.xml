@@ -1,0 +1,54 @@
+<results>
+      <span
+           class="af_statusIndicator"
+           id="mainId"
+          >
+        
+        <span
+             id="mainId::ready"
+            >
+          
+          <img
+               alt="Page is ready"
+               border="0"
+               height="16"
+               title="Page is ready"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+              >
+            
+          </img>
+          <span
+               class="af_statusIndicator_ready"
+              >
+            The page is ready
+          </span>
+        </span>
+        <span
+             id="mainId::busy"
+             style="display:none"
+            >
+          
+          <img
+               alt="Page is busy processing"
+               border="0"
+               height="16"
+               title="Page is busy processing"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+              >
+            
+          </img>
+          <span
+               class="af_statusIndicator_busy"
+              >
+            The page is busy
+          </span>
+        </span>
+        <script
+             type="text/javascript"
+            >
+          TrStatusIndicator._register("mainId");
+        </script>
+      </span>
+</results>

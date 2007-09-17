@@ -31,6 +31,15 @@
     <component-type>org.apache.myfaces.trinidad.CoreStatusIndicator</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.output.CoreStatusIndicator</component-class>
 
+    <facet>
+      <description><![CDATA[Content to be rendered when the page is ready.]]></description>
+      <facet-name>ready</facet-name>
+    </facet>
+    <facet>
+      <description><![CDATA[Content to be rendered when the page is busy processing.]]></description>
+      <facet-name>busy</facet-name>
+    </facet>
+    
     <xi:include href="includes/CommonAttrs.xml" xpointer="/faces-config/component/*"/>
     <xi:include href="includes/CoreJSEvents.xml" xpointer="/faces-config/component/*"/>
 
@@ -46,7 +55,11 @@ busy processing or is ready.
           </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code>&lt;tr:statusIndicator/&gt;</mfp:source-code>
+        <mfp:source-code>
+          &lt;tr:statusIndicator&gt;
+            &lt;tr:outputText value=&quot;Loading, please wait...&quot;&gt;
+          &lt;/tr:statusIndicator&gt;
+        </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>
       <mfp:component-metadata>

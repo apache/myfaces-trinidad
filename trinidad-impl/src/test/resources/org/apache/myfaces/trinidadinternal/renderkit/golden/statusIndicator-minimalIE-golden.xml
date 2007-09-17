@@ -4,27 +4,35 @@
            id="mainId"
           >
         
-        <img
-             alt="Page is ready"
-             border="0"
-             height="16"
+        <span
              id="mainId::ready"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
             >
           
-        </img>
-        <img
-             alt="Page is busy processing"
-             border="0"
-             height="16"
+          <img
+               alt="Page is ready"
+               border="0"
+               height="16"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+              >
+            
+          </img>
+        </span>
+        <span
              id="mainId::busy"
              style="display:none"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
             >
           
-        </img>
+          <img
+               alt="Page is busy processing"
+               border="0"
+               height="16"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+              >
+            
+          </img>
+        </span>
         <script
              type="text/javascript"
             >
@@ -38,27 +46,35 @@
            id="test-id"
           >
         
-        <img
-             alt="Page is ready"
-             border="0"
-             height="16"
+        <span
              id="test-id::ready"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
             >
           
-        </img>
-        <img
-             alt="Page is busy processing"
-             border="0"
-             height="16"
+          <img
+               alt="Page is ready"
+               border="0"
+               height="16"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+              >
+            
+          </img>
+        </span>
+        <span
              id="test-id::busy"
              style="display:none"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
             >
           
-        </img>
+          <img
+               alt="Page is busy processing"
+               border="0"
+               height="16"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+              >
+            
+          </img>
+        </span>
         <script
              type="text/javascript"
             >
@@ -73,27 +89,35 @@
            style="test-inlineStyle"
           >
         
-        <img
-             alt="Page is ready"
-             border="0"
-             height="16"
+        <span
              id="mainId::ready"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
             >
           
-        </img>
-        <img
-             alt="Page is busy processing"
-             border="0"
-             height="16"
+          <img
+               alt="Page is ready"
+               border="0"
+               height="16"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+              >
+            
+          </img>
+        </span>
+        <span
              id="mainId::busy"
              style="display:none"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
             >
           
-        </img>
+          <img
+               alt="Page is busy processing"
+               border="0"
+               height="16"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+              >
+            
+          </img>
+        </span>
         <script
              type="text/javascript"
             >
@@ -109,27 +133,35 @@
            id="mainId"
           >
         
-        <img
-             alt="Page is ready"
-             border="0"
-             height="16"
+        <span
              id="mainId::ready"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
             >
           
-        </img>
-        <img
-             alt="Page is busy processing"
-             border="0"
-             height="16"
+          <img
+               alt="Page is ready"
+               border="0"
+               height="16"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+              >
+            
+          </img>
+        </span>
+        <span
              id="mainId::busy"
              style="display:none"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
             >
           
-        </img>
+          <img
+               alt="Page is busy processing"
+               border="0"
+               height="16"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+              >
+            
+          </img>
+        </span>
         <script
              type="text/javascript"
             >
@@ -144,27 +176,35 @@
            title="test-shortDesc"
           >
         
-        <img
-             alt="Page is ready"
-             border="0"
-             height="16"
+        <span
              id="mainId::ready"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
             >
           
-        </img>
-        <img
-             alt="Page is busy processing"
-             border="0"
-             height="16"
+          <img
+               alt="Page is ready"
+               border="0"
+               height="16"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+              >
+            
+          </img>
+        </span>
+        <span
              id="mainId::busy"
              style="display:none"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
             >
           
-        </img>
+          <img
+               alt="Page is busy processing"
+               border="0"
+               height="16"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+              >
+            
+          </img>
+        </span>
         <script
              type="text/javascript"
             >
@@ -178,27 +218,35 @@
            id="mainId"
           >
         
-        <img
-             alt="Page is ready"
-             border="0"
-             height="16"
+        <span
              id="mainId::ready"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
             >
           
-        </img>
-        <img
-             alt="Page is busy processing"
-             border="0"
-             height="16"
+          <img
+               alt="Page is ready"
+               border="0"
+               height="16"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+              >
+            
+          </img>
+        </span>
+        <span
              id="mainId::busy"
              style="display:none"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
             >
           
-        </img>
+          <img
+               alt="Page is busy processing"
+               border="0"
+               height="16"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+              >
+            
+          </img>
+        </span>
         <script
              type="text/javascript"
             >
@@ -213,27 +261,35 @@
            onclick="test-onclick"
           >
         
-        <img
-             alt="Page is ready"
-             border="0"
-             height="16"
+        <span
              id="mainId::ready"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
             >
           
-        </img>
-        <img
-             alt="Page is busy processing"
-             border="0"
-             height="16"
+          <img
+               alt="Page is ready"
+               border="0"
+               height="16"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+              >
+            
+          </img>
+        </span>
+        <span
              id="mainId::busy"
              style="display:none"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
             >
           
-        </img>
+          <img
+               alt="Page is busy processing"
+               border="0"
+               height="16"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+              >
+            
+          </img>
+        </span>
         <script
              type="text/javascript"
             >
@@ -248,27 +304,35 @@
            ondblclick="test-ondblclick"
           >
         
-        <img
-             alt="Page is ready"
-             border="0"
-             height="16"
+        <span
              id="mainId::ready"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
             >
           
-        </img>
-        <img
-             alt="Page is busy processing"
-             border="0"
-             height="16"
+          <img
+               alt="Page is ready"
+               border="0"
+               height="16"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+              >
+            
+          </img>
+        </span>
+        <span
              id="mainId::busy"
              style="display:none"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
             >
           
-        </img>
+          <img
+               alt="Page is busy processing"
+               border="0"
+               height="16"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+              >
+            
+          </img>
+        </span>
         <script
              type="text/javascript"
             >
@@ -283,27 +347,35 @@
            onkeydown="test-onkeydown"
           >
         
-        <img
-             alt="Page is ready"
-             border="0"
-             height="16"
+        <span
              id="mainId::ready"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
             >
           
-        </img>
-        <img
-             alt="Page is busy processing"
-             border="0"
-             height="16"
+          <img
+               alt="Page is ready"
+               border="0"
+               height="16"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+              >
+            
+          </img>
+        </span>
+        <span
              id="mainId::busy"
              style="display:none"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
             >
           
-        </img>
+          <img
+               alt="Page is busy processing"
+               border="0"
+               height="16"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+              >
+            
+          </img>
+        </span>
         <script
              type="text/javascript"
             >
@@ -318,27 +390,35 @@
            onkeypress="test-onkeypress"
           >
         
-        <img
-             alt="Page is ready"
-             border="0"
-             height="16"
+        <span
              id="mainId::ready"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
             >
           
-        </img>
-        <img
-             alt="Page is busy processing"
-             border="0"
-             height="16"
+          <img
+               alt="Page is ready"
+               border="0"
+               height="16"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+              >
+            
+          </img>
+        </span>
+        <span
              id="mainId::busy"
              style="display:none"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
             >
           
-        </img>
+          <img
+               alt="Page is busy processing"
+               border="0"
+               height="16"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+              >
+            
+          </img>
+        </span>
         <script
              type="text/javascript"
             >
@@ -353,27 +433,35 @@
            onkeyup="test-onkeyup"
           >
         
-        <img
-             alt="Page is ready"
-             border="0"
-             height="16"
+        <span
              id="mainId::ready"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
             >
           
-        </img>
-        <img
-             alt="Page is busy processing"
-             border="0"
-             height="16"
+          <img
+               alt="Page is ready"
+               border="0"
+               height="16"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+              >
+            
+          </img>
+        </span>
+        <span
              id="mainId::busy"
              style="display:none"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
             >
           
-        </img>
+          <img
+               alt="Page is busy processing"
+               border="0"
+               height="16"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+              >
+            
+          </img>
+        </span>
         <script
              type="text/javascript"
             >
@@ -388,27 +476,35 @@
            onmousedown="test-onmousedown"
           >
         
-        <img
-             alt="Page is ready"
-             border="0"
-             height="16"
+        <span
              id="mainId::ready"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
             >
           
-        </img>
-        <img
-             alt="Page is busy processing"
-             border="0"
-             height="16"
+          <img
+               alt="Page is ready"
+               border="0"
+               height="16"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+              >
+            
+          </img>
+        </span>
+        <span
              id="mainId::busy"
              style="display:none"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
             >
           
-        </img>
+          <img
+               alt="Page is busy processing"
+               border="0"
+               height="16"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+              >
+            
+          </img>
+        </span>
         <script
              type="text/javascript"
             >
@@ -423,27 +519,35 @@
            onmousemove="test-onmousemove"
           >
         
-        <img
-             alt="Page is ready"
-             border="0"
-             height="16"
+        <span
              id="mainId::ready"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
             >
           
-        </img>
-        <img
-             alt="Page is busy processing"
-             border="0"
-             height="16"
+          <img
+               alt="Page is ready"
+               border="0"
+               height="16"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+              >
+            
+          </img>
+        </span>
+        <span
              id="mainId::busy"
              style="display:none"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
             >
           
-        </img>
+          <img
+               alt="Page is busy processing"
+               border="0"
+               height="16"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+              >
+            
+          </img>
+        </span>
         <script
              type="text/javascript"
             >
@@ -458,27 +562,35 @@
            onmouseout="test-onmouseout"
           >
         
-        <img
-             alt="Page is ready"
-             border="0"
-             height="16"
+        <span
              id="mainId::ready"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
             >
           
-        </img>
-        <img
-             alt="Page is busy processing"
-             border="0"
-             height="16"
+          <img
+               alt="Page is ready"
+               border="0"
+               height="16"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+              >
+            
+          </img>
+        </span>
+        <span
              id="mainId::busy"
              style="display:none"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
             >
           
-        </img>
+          <img
+               alt="Page is busy processing"
+               border="0"
+               height="16"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+              >
+            
+          </img>
+        </span>
         <script
              type="text/javascript"
             >
@@ -493,27 +605,35 @@
            onmouseover="test-onmouseover"
           >
         
-        <img
-             alt="Page is ready"
-             border="0"
-             height="16"
+        <span
              id="mainId::ready"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
             >
           
-        </img>
-        <img
-             alt="Page is busy processing"
-             border="0"
-             height="16"
+          <img
+               alt="Page is ready"
+               border="0"
+               height="16"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+              >
+            
+          </img>
+        </span>
+        <span
              id="mainId::busy"
              style="display:none"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
             >
           
-        </img>
+          <img
+               alt="Page is busy processing"
+               border="0"
+               height="16"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+              >
+            
+          </img>
+        </span>
         <script
              type="text/javascript"
             >
@@ -528,27 +648,35 @@
            onmouseup="test-onmouseup"
           >
         
-        <img
-             alt="Page is ready"
-             border="0"
-             height="16"
+        <span
              id="mainId::ready"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
             >
           
-        </img>
-        <img
-             alt="Page is busy processing"
-             border="0"
-             height="16"
+          <img
+               alt="Page is ready"
+               border="0"
+               height="16"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+              >
+            
+          </img>
+        </span>
+        <span
              id="mainId::busy"
              style="display:none"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
             >
           
-        </img>
+          <img
+               alt="Page is busy processing"
+               border="0"
+               height="16"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+              >
+            
+          </img>
+        </span>
         <script
              type="text/javascript"
             >
