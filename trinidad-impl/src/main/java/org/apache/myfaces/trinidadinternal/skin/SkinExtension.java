@@ -500,7 +500,7 @@ public class SkinExtension extends SkinImpl
     public void renderIcon(
       FacesContext        context,
       RenderingContext    arc,
-      Map<String, Object> attrs
+      Map<String, ? extends Object> attrs
       ) throws IOException
     {
       // null icons don't render anything

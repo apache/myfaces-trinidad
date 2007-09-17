@@ -36,9 +36,9 @@ public class NullIcon extends Icon
 
   @Override
   public void renderIcon(
-    FacesContext        context,
-    RenderingContext    arc,
-    Map<String, Object> attrs
+    FacesContext context,
+    RenderingContext arc,
+    Map<String, ? extends Object> attrs
     )
   {
     // null icons don't render anything

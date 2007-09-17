@@ -42,9 +42,9 @@ public class ReferenceIcon extends Icon
   
   @Override
   public void renderIcon(
-    FacesContext        context,
-    RenderingContext    arc,
-    Map<String, Object> attrs
+    FacesContext context,
+    RenderingContext arc,
+    Map<String, ? extends Object> attrs
     ) throws IOException
   {
     // do nothing.
