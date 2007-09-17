@@ -66,9 +66,9 @@ abstract public class Icon
    *             such as "id" and "shortDesc".
    */
   abstract public void renderIcon(
-    FacesContext        context,
-    RenderingContext    arc,
-    Map<String, Object> attrs
+    FacesContext context,
+    RenderingContext arc,
+    Map<String, ? extends Object> attrs
     ) throws IOException;
 
   /**

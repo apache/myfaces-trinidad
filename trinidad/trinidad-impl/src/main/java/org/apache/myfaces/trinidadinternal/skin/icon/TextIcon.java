@@ -86,9 +86,9 @@ public class TextIcon extends Icon
    */
   @Override
   public void renderIcon(
-    FacesContext        context,
-    RenderingContext    arc,
-    Map<String, Object> attrs
+    FacesContext context,
+    RenderingContext arc,
+    Map<String, ? extends Object> attrs
     ) throws IOException
   {
     // See if we have an id
@@ -245,9 +245,7 @@ public class TextIcon extends Icon
 
 
   // Returns the inlineStyle for the icon
-  private Object _getInlineStyle(
-    Map<String, Object> attrs
-    )
+  private Object _getInlineStyle(Map<String, ? extends Object> attrs)
   {
     assert (attrs != null);
 
@@ -255,9 +253,7 @@ public class TextIcon extends Icon
   }
 
   // Returns the styleClasses for the icon
-  private Object _getStyles(
-    Map<String, Object> attrs
-    )
+  private Object _getStyles(Map<String, ? extends Object> attrs)
   {
     assert (attrs != null);
 
@@ -265,18 +261,14 @@ public class TextIcon extends Icon
   }
 
   // Returns the title text for the icon
-  private Object _getTitle(
-    Map<String, Object> attrs
-    )
+  private Object _getTitle(Map<String, ? extends Object> attrs)
   {
     assert (attrs != null);
 
     return attrs.get(Icon.SHORT_DESC_KEY);
   }
 
-  private boolean _isEmbedded(
-    Map<String, Object> attrs
-    )
+  private boolean _isEmbedded(Map<String, ? extends Object> attrs)
   {
     assert (attrs != null);
 
