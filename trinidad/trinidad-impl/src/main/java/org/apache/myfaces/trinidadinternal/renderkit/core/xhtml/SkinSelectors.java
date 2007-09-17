@@ -1236,6 +1236,10 @@ public final class SkinSelectors
    //                                                                         //
    public static final String AF_STATUS_INDICATOR_STYLE =
      "af|statusIndicator";
+   public static final String AF_STATUS_INDICATOR_BUSY_STYLE =
+     "af|statusIndicator::busy";
+   public static final String AF_STATUS_INDICATOR_READY_STYLE =
+     "af|statusIndicator::ready";
 
    // ================================ Icons ================================ //
    public static final String AF_STATUS_INDICATOR_BUSY_ICON =

@@ -3066,6 +3066,10 @@
 
   <style selector="af|statusIndicator"/>
 
+  <style selector="af|statusIndicator::busy"/>
+
+  <style selector="af|statusIndicator::ready"/>
+
   <!-- 
     Private ContentFooter Styles:  Not sure whether any of these
     styles need to be exposed, but if so, they need to be renamed

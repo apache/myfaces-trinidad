@@ -4,27 +4,35 @@
            id="mainId"
           >
         
-        <img
-             border="0"
-             height="16"
+        <span
              id="mainId::ready"
-             title="Page is ready"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
             >
           
-        </img>
-        <img
-             border="0"
-             height="16"
+          <img
+               border="0"
+               height="16"
+               title="Page is ready"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+              >
+            
+          </img>
+        </span>
+        <span
              id="mainId::busy"
              style="display:none"
-             title="Page is busy processing"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
             >
           
-        </img>
+          <img
+               border="0"
+               height="16"
+               title="Page is busy processing"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+              >
+            
+          </img>
+        </span>
         <script
             >
           TrStatusIndicator._register("mainId");
@@ -37,27 +45,35 @@
            id="test-id"
           >
         
-        <img
-             border="0"
-             height="16"
+        <span
              id="test-id::ready"
-             title="Page is ready"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
             >
           
-        </img>
-        <img
-             border="0"
-             height="16"
+          <img
+               border="0"
+               height="16"
+               title="Page is ready"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+              >
+            
+          </img>
+        </span>
+        <span
              id="test-id::busy"
              style="display:none"
-             title="Page is busy processing"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
             >
           
-        </img>
+          <img
+               border="0"
+               height="16"
+               title="Page is busy processing"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+              >
+            
+          </img>
+        </span>
         <script
             >
           TrStatusIndicator._register("test-id");
@@ -71,27 +87,35 @@
            style="test-inlineStyle"
           >
         
-        <img
-             border="0"
-             height="16"
+        <span
              id="mainId::ready"
-             title="Page is ready"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
             >
           
-        </img>
-        <img
-             border="0"
-             height="16"
+          <img
+               border="0"
+               height="16"
+               title="Page is ready"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+              >
+            
+          </img>
+        </span>
+        <span
              id="mainId::busy"
              style="display:none"
-             title="Page is busy processing"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
             >
           
-        </img>
+          <img
+               border="0"
+               height="16"
+               title="Page is busy processing"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+              >
+            
+          </img>
+        </span>
         <script
             >
           TrStatusIndicator._register("mainId");
@@ -106,27 +130,35 @@
            id="mainId"
           >
         
-        <img
-             border="0"
-             height="16"
+        <span
              id="mainId::ready"
-             title="Page is ready"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
             >
           
-        </img>
-        <img
-             border="0"
-             height="16"
+          <img
+               border="0"
+               height="16"
+               title="Page is ready"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+              >
+            
+          </img>
+        </span>
+        <span
              id="mainId::busy"
              style="display:none"
-             title="Page is busy processing"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
             >
           
-        </img>
+          <img
+               border="0"
+               height="16"
+               title="Page is busy processing"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+              >
+            
+          </img>
+        </span>
         <script
             >
           TrStatusIndicator._register("mainId");
@@ -140,27 +172,35 @@
            title="test-shortDesc"
           >
         
-        <img
-             border="0"
-             height="16"
+        <span
              id="mainId::ready"
-             title="Page is ready"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
             >
           
-        </img>
-        <img
-             border="0"
-             height="16"
+          <img
+               border="0"
+               height="16"
+               title="Page is ready"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+              >
+            
+          </img>
+        </span>
+        <span
              id="mainId::busy"
              style="display:none"
-             title="Page is busy processing"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
             >
           
-        </img>
+          <img
+               border="0"
+               height="16"
+               title="Page is busy processing"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+              >
+            
+          </img>
+        </span>
         <script
             >
           TrStatusIndicator._register("mainId");
@@ -173,27 +213,35 @@
            id="mainId"
           >
         
-        <img
-             border="0"
-             height="16"
+        <span
              id="mainId::ready"
-             title="Page is ready"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
             >
           
-        </img>
-        <img
-             border="0"
-             height="16"
+          <img
+               border="0"
+               height="16"
+               title="Page is ready"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+              >
+            
+          </img>
+        </span>
+        <span
              id="mainId::busy"
              style="display:none"
-             title="Page is busy processing"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
             >
           
-        </img>
+          <img
+               border="0"
+               height="16"
+               title="Page is busy processing"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+              >
+            
+          </img>
+        </span>
         <script
             >
           TrStatusIndicator._register("mainId");
@@ -207,27 +255,35 @@
            onclick="test-onclick"
           >
         
-        <img
-             border="0"
-             height="16"
+        <span
              id="mainId::ready"
-             title="Page is ready"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
             >
           
-        </img>
-        <img
-             border="0"
-             height="16"
+          <img
+               border="0"
+               height="16"
+               title="Page is ready"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+              >
+            
+          </img>
+        </span>
+        <span
              id="mainId::busy"
              style="display:none"
-             title="Page is busy processing"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
             >
           
-        </img>
+          <img
+               border="0"
+               height="16"
+               title="Page is busy processing"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+              >
+            
+          </img>
+        </span>
         <script
             >
           TrStatusIndicator._register("mainId");
@@ -241,27 +297,35 @@
            ondblclick="test-ondblclick"
           >
         
-        <img
-             border="0"
-             height="16"
+        <span
              id="mainId::ready"
-             title="Page is ready"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
             >
           
-        </img>
-        <img
-             border="0"
-             height="16"
+          <img
+               border="0"
+               height="16"
+               title="Page is ready"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+              >
+            
+          </img>
+        </span>
+        <span
              id="mainId::busy"
              style="display:none"
-             title="Page is busy processing"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
             >
           
-        </img>
+          <img
+               border="0"
+               height="16"
+               title="Page is busy processing"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+              >
+            
+          </img>
+        </span>
         <script
             >
           TrStatusIndicator._register("mainId");
@@ -275,27 +339,35 @@
            onkeydown="test-onkeydown"
           >
         
-        <img
-             border="0"
-             height="16"
+        <span
              id="mainId::ready"
-             title="Page is ready"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
             >
           
-        </img>
-        <img
-             border="0"
-             height="16"
+          <img
+               border="0"
+               height="16"
+               title="Page is ready"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+              >
+            
+          </img>
+        </span>
+        <span
              id="mainId::busy"
              style="display:none"
-             title="Page is busy processing"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
             >
           
-        </img>
+          <img
+               border="0"
+               height="16"
+               title="Page is busy processing"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+              >
+            
+          </img>
+        </span>
         <script
             >
           TrStatusIndicator._register("mainId");
@@ -309,27 +381,35 @@
            onkeypress="test-onkeypress"
           >
         
-        <img
-             border="0"
-             height="16"
+        <span
              id="mainId::ready"
-             title="Page is ready"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
             >
           
-        </img>
-        <img
-             border="0"
-             height="16"
+          <img
+               border="0"
+               height="16"
+               title="Page is ready"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+              >
+            
+          </img>
+        </span>
+        <span
              id="mainId::busy"
              style="display:none"
-             title="Page is busy processing"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
             >
           
-        </img>
+          <img
+               border="0"
+               height="16"
+               title="Page is busy processing"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+              >
+            
+          </img>
+        </span>
         <script
             >
           TrStatusIndicator._register("mainId");
@@ -343,27 +423,35 @@
            onkeyup="test-onkeyup"
           >
         
-        <img
-             border="0"
-             height="16"
+        <span
              id="mainId::ready"
-             title="Page is ready"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
             >
           
-        </img>
-        <img
-             border="0"
-             height="16"
+          <img
+               border="0"
+               height="16"
+               title="Page is ready"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+              >
+            
+          </img>
+        </span>
+        <span
              id="mainId::busy"
              style="display:none"
-             title="Page is busy processing"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
             >
           
-        </img>
+          <img
+               border="0"
+               height="16"
+               title="Page is busy processing"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+              >
+            
+          </img>
+        </span>
         <script
             >
           TrStatusIndicator._register("mainId");
@@ -377,27 +465,35 @@
            onmousedown="test-onmousedown"
           >
         
-        <img
-             border="0"
-             height="16"
+        <span
              id="mainId::ready"
-             title="Page is ready"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
             >
           
-        </img>
-        <img
-             border="0"
-             height="16"
+          <img
+               border="0"
+               height="16"
+               title="Page is ready"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+              >
+            
+          </img>
+        </span>
+        <span
              id="mainId::busy"
              style="display:none"
-             title="Page is busy processing"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
             >
           
-        </img>
+          <img
+               border="0"
+               height="16"
+               title="Page is busy processing"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+              >
+            
+          </img>
+        </span>
         <script
             >
           TrStatusIndicator._register("mainId");
@@ -411,27 +507,35 @@
            onmousemove="test-onmousemove"
           >
         
-        <img
-             border="0"
-             height="16"
+        <span
              id="mainId::ready"
-             title="Page is ready"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
             >
           
-        </img>
-        <img
-             border="0"
-             height="16"
+          <img
+               border="0"
+               height="16"
+               title="Page is ready"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+              >
+            
+          </img>
+        </span>
+        <span
              id="mainId::busy"
              style="display:none"
-             title="Page is busy processing"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
             >
           
-        </img>
+          <img
+               border="0"
+               height="16"
+               title="Page is busy processing"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+              >
+            
+          </img>
+        </span>
         <script
             >
           TrStatusIndicator._register("mainId");
@@ -445,27 +549,35 @@
            onmouseout="test-onmouseout"
           >
         
-        <img
-             border="0"
-             height="16"
+        <span
              id="mainId::ready"
-             title="Page is ready"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
             >
           
-        </img>
-        <img
-             border="0"
-             height="16"
+          <img
+               border="0"
+               height="16"
+               title="Page is ready"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+              >
+            
+          </img>
+        </span>
+        <span
              id="mainId::busy"
              style="display:none"
-             title="Page is busy processing"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
             >
           
-        </img>
+          <img
+               border="0"
+               height="16"
+               title="Page is busy processing"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+              >
+            
+          </img>
+        </span>
         <script
             >
           TrStatusIndicator._register("mainId");
@@ -479,27 +591,35 @@
            onmouseover="test-onmouseover"
           >
         
-        <img
-             border="0"
-             height="16"
+        <span
              id="mainId::ready"
-             title="Page is ready"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
             >
           
-        </img>
-        <img
-             border="0"
-             height="16"
+          <img
+               border="0"
+               height="16"
+               title="Page is ready"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+              >
+            
+          </img>
+        </span>
+        <span
              id="mainId::busy"
              style="display:none"
-             title="Page is busy processing"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
             >
           
-        </img>
+          <img
+               border="0"
+               height="16"
+               title="Page is busy processing"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+              >
+            
+          </img>
+        </span>
         <script
             >
           TrStatusIndicator._register("mainId");
@@ -513,27 +633,35 @@
            onmouseup="test-onmouseup"
           >
         
-        <img
-             border="0"
-             height="16"
+        <span
              id="mainId::ready"
-             title="Page is ready"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
             >
           
-        </img>
-        <img
-             border="0"
-             height="16"
+          <img
+               border="0"
+               height="16"
+               title="Page is ready"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
+              >
+            
+          </img>
+        </span>
+        <span
              id="mainId::busy"
              style="display:none"
-             title="Page is busy processing"
-             width="16"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
             >
           
-        </img>
+          <img
+               border="0"
+               height="16"
+               title="Page is busy processing"
+               width="16"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
+              >
+            
+          </img>
+        </span>
         <script
             >
           TrStatusIndicator._register("mainId");
