@@ -178,6 +178,19 @@
 <resource key="COMMENTS_CANNOT_INCLUDE">Comments cannot include "--"</resource>
 
 <!-- ENDING_WHEN_OTHER_EXPECTED -->
+
+<!-- The first two parameters to ENDING_WHEN_OTHER_EXPECTED will be XML   -->
+<!-- tag names. The error occurs when we're parsing a .jspx file, and an  -->
+<!-- end tag is encountered that does not match the currently active tag. -->
+<!-- Parameter 2 will be an integer.                                      -->
+<!--                                                                      -->
+<!-- For example if we parsed this:                                       -->
+<!--   <topTag>                                                           -->
+<!--     <innerTag>                                                       -->
+<!--     </errorTag>                                                      -->
+<!--   </topTag>                                                          -->
+<!-- then {0} => "errorTag"; {1} => "topTag"; {2} => 2
+
 <resource key="ENDING_WHEN_OTHER_EXPECTED">Ending {0} when {1} expected. Passes:{2}</resource>
 
 <!-- ATTRIBUTE_OUTSIDE_ELEMENT -->
@@ -445,7 +458,7 @@
 <resource key="IOEXCEPTION_IN_PHASE">IOException during parse of {0}</resource>
 
 <!-- NO_STYLES_FOUND_CONTEXT -->
-<resource key="NO_STYLES_FOUND_CONTEXT">No styles found context - {0}</resource>
+<resource key="NO_STYLES_FOUND_CONTEXT">No styles found in context - {0}</resource>
 
 <!-- IOEXCEPTION_CREATING_FILE -->
 <resource key="IOEXCEPTION_CREATING_FILE">IOException while creating file: {0}</resource>
