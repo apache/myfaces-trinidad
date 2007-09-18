@@ -45,7 +45,14 @@
 
             <tr:outputFormatted styleUsage="instruction"
                                value="&lt;b>A second statusIndicator&lt;/b>"/>
-            <tr:statusIndicator/>
+            <tr:statusIndicator>
+              <f:facet name="busy">
+                <tr:outputText value="Loading..." />
+              </f:facet>
+              <f:facet name="ready">
+                <tr:outputText value="Done!" />
+              </f:facet>
+            </tr:statusIndicator>
           </tr:panelGroupLayout>
         </tr:form>
  </tr:document>
