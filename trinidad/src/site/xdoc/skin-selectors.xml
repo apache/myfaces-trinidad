@@ -3965,6 +3965,14 @@ panelTip.</td>
             <td>Styles the status indicator as a whole.</td>
           </tr>
           <tr>
+            <td>af|statusIndicator::busy</td>
+            <td>Styles the status indicator's busy facet</td>
+          </tr>
+          <tr>
+            <td>af|statusIndicator::ready</td>
+            <td>Styles the status indicator's ready facet</td>
+          </tr>
+          <tr>
             <th colspan="2">
               <i>Icon Selectors</i>
             </th>
