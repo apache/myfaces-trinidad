@@ -189,7 +189,7 @@
 <!--     <innerTag>                                                       -->
 <!--     </errorTag>                                                      -->
 <!--   </topTag>                                                          -->
-<!-- then {0} => "errorTag"; {1} => "topTag"; {2} => 2
+<!-- then {0} => "errorTag"; {1} => "topTag"; {2} => 2                    -->
 
 <resource key="ENDING_WHEN_OTHER_EXPECTED">Ending {0} when {1} expected. Passes:{2}</resource>
 
