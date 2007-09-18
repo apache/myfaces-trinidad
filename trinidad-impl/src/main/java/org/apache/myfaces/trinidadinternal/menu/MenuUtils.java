@@ -46,6 +46,67 @@ class MenuUtils
   MenuUtils() {}
 
   //=======================================================================
+  // String, Stringbuffer utilities
+  //=======================================================================
+  /**
+   * Returns a String with the first occurrence of str1 replaced with str2
+   * in fullstring
+   * 
+   * @param fullstring - The full string
+   * @param str1 - String to be found in fullstring
+   * @param str2 - String to replace the first occurrence of str1
+   * @return String
+   */
+  static String stringReplaceFirst(String fullstring, String str1, String str2)
+  {
+    if (fullstring == null)
+      return null;
+    
+    StringBuffer returnStr = 
+      stringBufferReplaceFirst(new StringBuffer(fullstring), str1, str2);
+    return returnStr.toString();
+  }
+
+  /**
+   * Returns a StringBuffer with the first occurrence of str1 replaced with str2
+   * in fullBuf
+   * 
+   * @param fullBuf - The full stringbuffer
+   * @param str1 - String to be found in fullBuf
+   * @param str2 - String to replace the first occurrence of str1
+   * @return StringBuffer
+   */
+  static StringBuffer stringBufferReplaceFirst(
+    StringBuffer fullBuf, 
+    String str1, 
+    String str2)
+  {
+    if (fullBuf == null)
+      return null;
+    
+    String fullstr = fullBuf.toString();
+    
+    // All Cases that just return fullBuf
+    if (str1 == null || str2 == null)
+      return fullBuf;
+    if ("".equals(fullstr) && !"".equals(str1))
+      return fullBuf;
+
+    // if the string being replaced is not found, return    
+    int startIdx = fullBuf.indexOf(str1);
+    if (startIdx == -1)
+      return fullBuf;
+    
+    // We are ok, now go ahead
+    int foundLen = str1.length();
+    int endIdx = startIdx + foundLen;
+    
+    StringBuffer returnBuf = fullBuf.replace(startIdx, endIdx, str2);
+    return returnBuf;
+  }
+
+
+  //=======================================================================
   // Bound Value/EL Binding utilities
   //=======================================================================
   
@@ -392,5 +453,6 @@ class MenuUtils
   private final static TrinidadLogger _LOG = 
                         TrinidadLogger.createTrinidadLogger(MenuUtils.class);
 }
+
 
 
