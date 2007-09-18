@@ -740,10 +740,13 @@ public class MenuNode
    */
   private String _evalElStr(String str)
   {
-   String keystr = 
-     str.trim().replaceFirst(_bundleKey, _bundleKey + getHandlerId());
-   String elVal = (String) MenuUtils.getBoundValue(keystr);
-   return elVal;       
+    if (str == null)
+      return null;
+    
+    String keystr = MenuUtils.stringReplaceFirst(str.trim(), _bundleKey, 
+                                                 _bundleKey + getHandlerId());
+    String elVal = (String) MenuUtils.getBoundValue(keystr);
+    return elVal;       
   }
   
   private String         _label       = null;
