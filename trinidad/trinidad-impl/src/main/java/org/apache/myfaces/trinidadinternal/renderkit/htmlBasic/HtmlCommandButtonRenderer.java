@@ -97,7 +97,7 @@ public class HtmlCommandButtonRenderer extends Renderer
     else
     {
       script = AutoSubmitUtils.getFullPageSubmitScript(
-              arc, id, false,
+              arc, id, command.isImmediate(),
               null/*no event*/,
               null,
               false/* return false*/);
