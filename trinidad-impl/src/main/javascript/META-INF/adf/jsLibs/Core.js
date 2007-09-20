@@ -1697,7 +1697,7 @@ function submitForm(
               {
                 // This condition was added to support enter key
                 // on forms for hcommandButton
-                if (hiddenField.type == 'submit')
+                if (hiddenField.type == 'submit' || hiddenField.type == 'button')
                 {
                   var tmpField = document.createElement("input");
                   tmpField.type = "hidden";
