@@ -204,28 +204,28 @@
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-xrts-plugin</artifactId>
-          <version>1.0.2</version>
+          <version>1.2.3-SNAPSHOT</version>
           <inherited>true</inherited>
         </plugin>
 
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-faces-plugin</artifactId>
-          <version>1.0.2</version>
+          <version>1.2.3-SNAPSHOT</version>
           <inherited>true</inherited>
         </plugin>
 
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-i18n-plugin</artifactId>
-          <version>1.0.2</version>
+          <version>1.2.3-SNAPSHOT</version>
           <inherited>true</inherited>
         </plugin>
 
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-javascript-plugin</artifactId>
-          <version>1.0.2</version>
+          <version>1.2.3-SNAPSHOT</version>
           <inherited>true</inherited>
         </plugin>
 
