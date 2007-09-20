@@ -1708,7 +1708,9 @@ function submitForm(
                   hiddenFieldCreated = true;
                 }
                 else
+                {
                   hiddenField.value = paramValue;
+                }
               }
               //VAC- added so that PDA's do not enter this flow. Since no PDA currently
               //supports createElement function on the document.  Furthermore, if the
@@ -4414,91 +4416,6 @@ function _spinboxRepeat(id, increment, stepSize, min, max)
 
 }
 
-/** This function is called from _spinboxRepeat.
- * This function increments or decrements the value that is in the 
- * input field by the stepSize. If the max/min is reached, check circular.  
- * If circular is true, then circle the number around. 
- * we default circular for now, because we do not support it yet.
- * Else, stop at the max or min.
- */
-function _stepSpinboxValue(id, increment, stepSize, min, max)
-{
-   var circular = false;
-   var input = _getElementById(document, id);
-   if (input)
-   {
-      var value = input.value;
-      if (isNaN(value) || isNaN(stepSize) || isNaN(min) || isNaN(max))
-      {
-        alert("value, stepSize, min, and max must all be numbers. value: "+
-               value+", stepSize: "+stepSize+", min: "+min+", max: "+max);
-        return false; 
-      }
-      if (increment)
-      {
-        var incrementedValue = parseFloat(value) + parseFloat(stepSize);
-        if (incrementedValue < max)
-              input.value = incrementedValue;
-        else if (circular)
-              input.value = min;   
-        else input.value = max;
-      }
-      else
-      {
-        var decrementedValue = parseFloat(value) - parseFloat(stepSize);
-        
-        if (decrementedValue > min)
-          input.value = decrementedValue;
-        else if (circular)
-          input.value = max; 
-        else input.value = min;
-      }
-      return true;
-   }
-   return false;
-}
-
-/* This function is called when the inputNumberSpinbox component's spinbox 
- * buttons are released (onmouseup).
- * This function stops the spinboxTimer. 
- * The spinboxTimer calls _stepSpinboxValue in one second increments.
- */
-function _clearSpinbox()
-{
-  window.clearTimeout(_spinboxRepeat.timer);
-  _spinboxRepeat.functionString = null;
-}
-
-/**
-  * This function is called when the inputNumberSpinbox component's 
-  * spinbox buttons are pressed. This is called onmousedown. 
-  * It calls the _stepSpinboxValue function to increment or decrement
-  * the input element's value. We call this repeatedly every second.
-  * onmouseup the component calls _clearSpinbox which clears the timeout.
-  */
-function _spinboxRepeat(id, increment, stepSize, min, max)
-{ 
-  // increment/decrement
-  var success = _stepSpinboxValue(id, increment, stepSize, min, max);
-  // if not successful, then clear the timeout and return
-  if (!success)
-  {
-    window.clearTimeout(_spinboxRepeat.timer);
-  }
-  else
-  {
-    if (_spinboxRepeat.functionString == null)
-    {
-      // setup the function to pass to the timeout.
-      _spinboxRepeat.functionString = 
-          "_spinboxRepeat('"+id+"',"+increment+
-          ","+stepSize+","+min+","+max+");";
-    }
-    _spinboxRepeat.timer =
-      window.setTimeout(_spinboxRepeat.functionString, 1000);
-  }
-
-}
 //PH:This method returns the 'event' object
 function _getEventObj()
 {
