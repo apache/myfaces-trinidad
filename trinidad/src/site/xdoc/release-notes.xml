@@ -68,6 +68,8 @@ made public as 'org.apache.myfaces.trinidad.ENABLE_LIGHTWEIGHT_DIALOGS'.
 </li>
 <li>The style name for skinning the root of a panelAccordion has changed from "af|panelAccordion::container" to "af|panelAccordion".</li>
 </ul>
+<li>The xOffset/yOffset attributes of panelPopup have been renamed (and fixed) to horzOffset/vertOffset.</li>
+</ul>
 </subsection>
 
         
