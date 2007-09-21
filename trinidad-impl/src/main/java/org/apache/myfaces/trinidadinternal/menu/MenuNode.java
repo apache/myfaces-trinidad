@@ -78,7 +78,9 @@ public class MenuNode
         && UIComponentTag.isValueReference(_label)
        )
     {
-      _label = _evalElStr(_label);
+      // do not set _label to the evaluated EL.
+      // It may change at times in the EL.
+      return _evalElStr(_label);
     }
     return _label;
   }
