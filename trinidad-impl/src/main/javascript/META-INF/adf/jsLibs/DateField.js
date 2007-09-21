@@ -189,8 +189,8 @@ function _ldp(
   {
     destination = _jspDir + _getQuerySeparator(_jspDir);
 
+    //Only use frame redirect for non popup date picker
     if (usePopup)
-      //don't use frame redirect
       destination += "_t=cd";
     else
       destination += "_t=fred&_red=cd";

@@ -137,7 +137,6 @@ TrPopupDialog._initDialogPage = function()
   try
   {
     dialog = parent.TrPopupDialog.DIALOG;
-
   }
   catch(err)
   {
@@ -146,7 +145,12 @@ TrPopupDialog._initDialogPage = function()
   if (!dialog)
     return;
 
+  // Update the dialog title
   dialog.setTitle(document.title);
+  
+  // Exit if the dialog is already visible
+  if (dialog.isVisible())
+    return;
     
   // Resize the dialog to the page content
   if (!dialog._fixedSize)

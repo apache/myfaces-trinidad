@@ -128,10 +128,10 @@ made visible via a clickable link.]]>
       </property-extension>
     </property>
     <property>
-      <description><![CDATA[The popup's 'x' offset in pixels from the current mouse position.  
+      <description><![CDATA[The popup's horizontal offset in pixels from the current mouse position.  
         This property only applies to popups using relative positioning.]]>
       </description>
-      <property-name>xOffset</property-name>
+      <property-name>horzOffset</property-name>
       <property-class>int</property-class>
       <default-value>0</default-value>
       <property-extension>
@@ -139,10 +139,10 @@ made visible via a clickable link.]]>
       </property-extension>
     </property>
     <property>
-      <description><![CDATA[The popup's 'y' offset in pixels from the current mouse position.  
+      <description><![CDATA[The popup's vertical offset in pixels from the current mouse position.  
         This property only applies to popups using relative positioning.]]>
       </description>
-      <property-name>yOffset</property-name>
+      <property-name>vertOffset</property-name>
       <property-class>int</property-class>
       <default-value>0</default-value>
       <property-extension>
@@ -154,15 +154,6 @@ made visible via a clickable link.]]>
         <![CDATA[The inline style of the content region.]]>
       </description>
       <property-name>contentStyle</property-name>
-      <property-class>java.lang.String</property-class>
-    </property>
-    <property>
-      <description>
-        <![CDATA[The inline style of the trigger.  This style 
-        will be applied trigger specified by either the text 
-        and/or icon attribute, or the 'trigger' facet.]]>
-      </description>
-      <property-name>triggerStyle</property-name>
       <property-class>java.lang.String</property-class>
     </property>
     <property>
@@ -202,7 +193,7 @@ containing the child components. If the title attribute is present, then a title
 rendered for the popup panel.
 </html:p>
 <html:p>
-The alignment attribute of popupPanel can be used to control the location of the panel when visible.
+The position attribute of popupPanel can be used to control the location of the panel when visible.
 </html:p>
 <html:p>
   You can make changes to the style of the content region of this component by
