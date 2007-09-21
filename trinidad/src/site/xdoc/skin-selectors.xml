@@ -2441,6 +2441,41 @@ each disabled showDetailItem in a panelAccordion.</td>
           </tr>
         </table>
       </subsection>
+      <subsection name="tr:panelPopup Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|panelPopup::container</td>
+            <td>Styles the outer element of the popup.  Use this selector to control border and margin/padding 
+            around the entire popup.</td>
+          </tr>
+          <tr>
+            <td>af|panelPopup::content</td>
+            <td>Styles the content area of the popup, meaning the area beneath the title-bar.</td>
+          </tr>
+          <tr>
+            <td>af|panelPopup::title-bar</td>
+            <td>Styles the title-bar of the popup.  Use this selectors to control the size the baackground color
+            of the title-bar.</td>
+          </tr>
+          <tr>
+            <td>af|panelPopup::title-text</td>
+            <td>Styles the text within the title-bar.</td>
+          </tr>
+          <tr>
+            <td>af|panelPopup::close-icon</td>
+            <td>Styles the clickable icon that closes the popup.</td>
+          </tr>
+        </table>
+      </subsection>
       <subsection name="tr:panelSideBar Component">
         <p>This tr:panelSideBar component is implemented using an inner table
            nested within an outer table. The outer container is used to lay out
