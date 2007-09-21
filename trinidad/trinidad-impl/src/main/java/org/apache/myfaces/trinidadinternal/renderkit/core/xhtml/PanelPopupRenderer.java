@@ -58,89 +58,65 @@ public class PanelPopupRenderer extends XhtmlRenderer
     _contentStyleKey = type.findKey("contentStyle");
     _widthKey = type.findKey("width");
     _heightKey = type.findKey("height");
-    _xOffsetKey = type.findKey("xOffset");
-    _yOffsetKey = type.findKey("yOffset");
+    _horzOffsetKey = type.findKey("horzOffset");
+    _vertOffsetKey = type.findKey("vertOffset");
     _triggerRenderer = new TriggerRenderer();
   }
 
   protected String getText(FacesBean bean)
   {
-    return toString(bean.getProperty(_textKey));
+    return toString(resolveProperty(bean, _textKey));
   }
 
   protected String getTitle(FacesBean bean)
   {
-    return toString(bean.getProperty(_titleKey));
+    return toString(resolveProperty(bean, _titleKey));
   }
 
   protected String getTriggerType(FacesBean bean)
   {
-    String s = toString(bean.getProperty(_triggerTypeKey));
-    if (s == null || s.length()==0)
-      s = toString(_triggerTypeKey.getDefault());
-    return s;
+    return toString(resolveProperty(bean, _triggerTypeKey, true));
   }
 
   protected String getPosition(FacesBean bean)
   {
-    return toString(bean.getProperty(_positionKey));
+    return toString(resolveProperty(bean, _positionKey));
   }
 
   protected String getContentStyle(FacesBean bean)
   {
-    return toString(bean.getProperty(_contentStyleKey));
+    return toString(resolveProperty(bean, _contentStyleKey));
   }
 
   protected int getWidth(FacesBean bean)
   {
-    Object o = bean.getProperty(_widthKey);
-    if (o == null)
-      o = _widthKey.getDefault();
-    int i = toInt(o);
-    return (i<0) ? 0 : i;
+    return toInt(resolveProperty(bean, _widthKey, true));
   }
 
   protected int getHeight(FacesBean bean)
   {
-    Object o = bean.getProperty(_heightKey);
-    if (o == null)
-      o = _heightKey.getDefault();
-    int i = toInt(o);
-    return (i<0) ? 0 : i;
+    return toInt(resolveProperty(bean, _heightKey, true));
   }
 
-  protected int getXOffset(FacesBean bean)
+  protected int getHorzOffset(FacesBean bean)
   {
-    Object o = bean.getProperty(_xOffsetKey);
-    if (o == null)
-      o = _xOffsetKey.getDefault();
-    int i = toInt(o);
-    return (i<0) ? 0 : i;
+    return toInt(resolveProperty(bean, _horzOffsetKey, true));
   }
 
-  protected int getYOffset(FacesBean bean)
+  protected int getVertOffset(FacesBean bean)
   {
-    Object o = bean.getProperty(_yOffsetKey);
-    if (o == null)
-      o = _yOffsetKey.getDefault();
-    int i = toInt(o);
-    return (i<0) ? 0 : i;
+    return toInt(resolveProperty(bean, _vertOffsetKey, true));
   }
 
   protected boolean isModal(FacesBean bean)
   {
-    Object o = bean.getProperty(_modalKey);
-    if (o == null)
-      o = _modalKey.getDefault();
-    return Boolean.TRUE.equals(o);
+    return (Boolean)resolveProperty(bean, _modalKey, true);
   }
 
   protected boolean isCentered(FacesBean bean)
   {
-    String centeredString = toString(bean.getProperty(_positionKey));
-    if (centeredString != null)
-      return centeredString.equalsIgnoreCase(CorePanelPopup.POSITION_CENTERED);
-    return false;
+    String centeredString = toString(resolveProperty(bean, _positionKey));
+    return CorePanelPopup.POSITION_CENTERED.equalsIgnoreCase(centeredString);
   }
 
   @SuppressWarnings("unchecked")
@@ -175,6 +151,7 @@ public class PanelPopupRenderer extends XhtmlRenderer
     writer.startElement(XhtmlConstants.DIV_ELEMENT, null);
     writer.writeAttribute(XhtmlConstants.ID_ATTRIBUTE, XhtmlUtils.getJSIdentifier(clientId)
         + _POPUP_CONTAINER_ID_SUFFIX, null);
+
     // Output the non-modifiable styles the keep the popup hidden initially
     writer.writeAttribute(XhtmlConstants.STYLE_ATTRIBUTE,
         _POPUP_CONTAINER_DIV_STYLES, null);
@@ -182,13 +159,7 @@ public class PanelPopupRenderer extends XhtmlRenderer
     // Render the skinnable container div
     writer.startElement(XhtmlConstants.DIV_ELEMENT, null);
     renderStyleClass(context, arc, SkinSelectors.AF_PANEL_POPUP_CONTAINER_STYLE_CLASS);
-    // If width is set, then add that style to the container
-    int width = getWidth(bean);
-    if (width > 0)
-    {
-      String style = "width:" + width + "px";
-      writer.writeAttribute(XhtmlConstants.STYLE_ATTRIBUTE, style, null);
-    }
+    renderInlineStyle(context, arc, bean);
 
     renderTitleBar(context, arc, component, bean);
 
@@ -252,7 +223,7 @@ public class PanelPopupRenderer extends XhtmlRenderer
     // Render the skinnable title text
     writer.startElement(XhtmlConstants.DIV_ELEMENT, null);
     renderStyleClass(context, arc, SkinSelectors.AF_PANEL_POPUP_TITLE_STYLE_CLASS);
-    writer.writeAttribute(XhtmlConstants.STYLE_ATTRIBUTE, "float: left;", null);
+    writer.writeAttribute(XhtmlConstants.STYLE_ATTRIBUTE, "float:left;", null);
 
     writer.writeText(title, "title");
 
@@ -356,6 +327,18 @@ public class PanelPopupRenderer extends XhtmlRenderer
       return PanelPopupRenderer.this.getText(bean);
     }
     
+    @Override
+    protected String getInlineStyle(FacesBean bean)
+    {
+      return PanelPopupRenderer.this.getInlineStyle(bean);
+    }
+    
+    @Override
+    protected String getStyleClass(FacesBean bean)
+    {
+      return PanelPopupRenderer.this.getStyleClass(bean);
+    }
+    
     protected String getTriggerScript(FacesBean bean, String componentId)
     {
       String clientId = XhtmlUtils.getJSIdentifier(componentId);
@@ -377,9 +360,9 @@ public class PanelPopupRenderer extends XhtmlRenderer
       script.append(",");
       script.append(PanelPopupRenderer.this.getHeight(bean));
       script.append(",");
-      script.append(PanelPopupRenderer.this.getXOffset(bean));
+      script.append(PanelPopupRenderer.this.getHorzOffset(bean));
       script.append(",");
-      script.append(PanelPopupRenderer.this.getYOffset(bean));
+      script.append(PanelPopupRenderer.this.getVertOffset(bean));
       
       script.append("); return false;");
       
@@ -398,8 +381,8 @@ public class PanelPopupRenderer extends XhtmlRenderer
   private PropertyKey _contentStyleKey;
   private PropertyKey _widthKey;
   private PropertyKey _heightKey;
-  private PropertyKey _xOffsetKey;
-  private PropertyKey _yOffsetKey;
+  private PropertyKey _horzOffsetKey;
+  private PropertyKey _vertOffsetKey;
   private XhtmlRenderer _triggerRenderer;
   
   private static final String _POPUP_CONTAINER_ID_SUFFIX = "_popupContainer";
