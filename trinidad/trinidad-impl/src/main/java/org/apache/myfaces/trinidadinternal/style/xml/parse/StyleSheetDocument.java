@@ -124,7 +124,7 @@ public class StyleSheetDocument
     {
       hashCode = hashCode*37 +  styleSheetNodes.next().hashCode();      
     }
-    return String.valueOf(Math.abs(hashCode));
+    return Integer.toString(Math.abs(hashCode), 36);
   }
 
   /**
