@@ -371,7 +371,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
       if (hasNextRecords && (maxValue == XhtmlConstants.MAX_VALUE_UNKNOWN))
       {
         // make sure the next range exists in the data model.
-        hasNextRecords = isRowAvailable(component, (int)nextValue);
+        hasNextRecords = isRowAvailable(component, (int)nextValue-1);
       }
 
       boolean showBackButton = hasBackRecords || showDisabledNavigation;
@@ -936,9 +936,9 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
     String              id) throws IOException
   {
     String text = getBlockString(arc, isNext, records);
-
+    boolean isEnabled = ((onclick != null) && (records > 0));
     ResponseWriter writer = context.getResponseWriter();
-    if (records > 0)
+    if (isEnabled)
     {
       writer.startElement("a", null);
       writer.writeURIAttribute("href", "#", null);
@@ -964,7 +964,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
 
     writer.writeText(text, null);
 
-    if (records > 0)
+    if (isEnabled)
     {
       writer.endElement("a");
     }
