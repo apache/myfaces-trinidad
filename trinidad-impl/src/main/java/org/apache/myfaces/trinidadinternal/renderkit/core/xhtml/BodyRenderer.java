@@ -202,15 +202,7 @@ public class BodyRenderer extends PanelPartialRootRenderer
     else
       onload = toString(bean.getProperty(_onloadKey));
 
-    StringBuilder js = new StringBuilder(60);
-
-    // FIXME: call this from _checkLoad() instead of rendering
-    // it into every onload
-    if (CoreRenderKit.usePopupForDialog(FacesContext.getCurrentInstance(),
-                                        RequestContext.getCurrentInstance()))
-    {
-      js.append("TrPopupDialog._initDialogPage();");
-    }
+    String checkLoad;
 
     //PH: Currently, if a browser supports PPR, _checkLoad function is called
     //that sets initialFocus if set.For non-PPR browsers like blackBerry 4.0,
@@ -225,14 +217,14 @@ public class BodyRenderer extends PanelPartialRootRenderer
       //devices like IE Mobile , event object is not defined. Moreover,
       //_checkLoad function does not use event object. So, remove it altogether
       //for all PPR devices
-      js.append("_checkLoad()");
+      checkLoad = "_checkLoad()";
     }
     else
     {
-      js.append("_checkLoadNoPPR()");
+      checkLoad = "_checkLoadNoPPR()"; 
     }
     
-    onload = XhtmlUtils.getChainedJS(js.toString(), onload, false);
+    onload = XhtmlUtils.getChainedJS(checkLoad, onload, false);
 
     return onload;
   }
