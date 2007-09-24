@@ -174,6 +174,8 @@ public final class SkinSelectors
     STATE_DISABLED;
 
   // ================================ Icons ================================ //
+  public static final String BUSY_ICON_ALIAS_NAME = 
+    "AFBusyIcon";
   public static final String DETAIL_DISCLOSED_ICON_ALIAS_NAME =
     "AFDetailDisclosedIcon";
   public static final String DETAIL_UNDISCLOSED_ICON_ALIAS_NAME =
@@ -202,6 +204,8 @@ public final class SkinSelectors
     "AFQuickSelectDisabledIcon";
   public static final String QUICK_SELECT_ICON_NAME =
     "AFQuickSelectIcon";
+  public static final String READY_ICON_ALIAS_NAME = 
+    "AFReadyIcon";
   public static final String REQUIRED_ICON_ALIAS_NAME =
     "AFRequiredIcon";
   public static final String SHUTTLE_MOVE_ALL_ICON_ALIAS_NAME =

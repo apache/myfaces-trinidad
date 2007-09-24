@@ -4018,11 +4018,29 @@ panelTip.</td>
           </tr>
           <tr>
             <td>af|statusIndicator::busy-icon</td>
-            <td>The icon that is displayed when the page is busy.</td>
+            <td>The icon that is displayed when the page is busy. The icon 
+                will only be rendered if no facet was specified. Simple skin 
+                references the ".AFBusyIcon:alias" icon.</td>
           </tr>
           <tr>
             <td>af|statusIndicator::ready-icon</td>
-            <td>The icon that is displayed when the page is not busy.</td>
+            <td>The icon that is displayed when the page is not busy. The icon 
+                will only be rendered if no facet was specified. Simple skin 
+                references the ".AFReadyIcon:alias" icon.</td>
+          </tr>
+          <tr>
+            <td>.AFBusyIcon:alias</td>
+            <td>A named icon that's used by af|statusIndicator::busy-icon and 
+                is also usable in with &lt;tr:icon&gt;. That ability is important 
+                to include the icon even when a facet is specified on the 
+                statusIndicator.</td>
+          </tr>
+          <tr>
+            <td>.AFReadyIcon:alias</td>
+            <td>A named icon that's used by af|statusIndicator::ready-icon and 
+                is also usable in with &lt;tr:icon&gt;. That ability is important 
+                to include the icon even when a facet is specified on the 
+                statusIndicator.</td>
           </tr>
         </table>
       </subsection>

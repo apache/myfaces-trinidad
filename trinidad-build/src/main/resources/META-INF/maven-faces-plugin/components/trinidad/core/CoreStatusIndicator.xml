@@ -24,7 +24,14 @@
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
-    <description><![CDATA[The statusIndicator component shows whether the page is busy processing or is ready.]]></description>
+    <description>
+      <![CDATA[The statusIndicator component shows whether the page 
+               is busy processing or is ready. By default, the component 
+               shows predefined icons for both readyand busy state. However, 
+               if a facet is specified, be it rendered or not, none of the 
+               default icon is going to be rendered. That behavior enable an 
+               easy emulation of GMail behavior specifying only a busy 
+               facet.]]></description>
     <icon>
       <small-icon>/org/apache/myfaces/trinidad/metadata/icons/statusIndicator.png</small-icon>
     </icon>
@@ -32,17 +39,21 @@
     <component-class>org.apache.myfaces.trinidad.component.core.output.CoreStatusIndicator</component-class>
 
     <facet>
-      <description><![CDATA[Content to be rendered when the page is ready.]]></description>
+      <description>
+        <![CDATA[Content to be rendered when the page is ready. If this facet is
+                 specified, no default icon is going to be rendered.]]></description>
       <facet-name>ready</facet-name>
     </facet>
     <facet>
-      <description><![CDATA[Content to be rendered when the page is busy processing.]]></description>
+      <description>
+        <![CDATA[Content to be rendered when the page is busy processing. 
+                 If this facet is specified, no default icon is going to 
+                 be rendered.]]></description>
       <facet-name>busy</facet-name>
     </facet>
     
     <xi:include href="includes/CommonAttrs.xml" xpointer="/faces-config/component/*"/>
     <xi:include href="includes/CoreJSEvents.xml" xpointer="/faces-config/component/*"/>
-
 
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Object</mfp:component-supertype>
@@ -50,14 +61,20 @@
       <mfp:tag-name>tr:statusIndicator</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.output.CoreStatusIndicatorTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
-            The The statusIndicator component shows whether the page is
-busy processing or is ready.
-          </html:p>]]>
+            The The statusIndicator component shows whether the page is 
+            busy processing or is ready. By default, the component 
+            shows predefined icons for both readyand busy state. However, 
+            if a facet is specified, be it rendered or not, none of the 
+            default icon is going to be rendered. That behavior enable an 
+            easy emulation of GMail behavior by specifying only a busy 
+            facet.</html:p>]]>
       </mfp:long-description>
       <mfp:example>
         <mfp:source-code>
           &lt;tr:statusIndicator&gt;
-            &lt;tr:outputText value=&quot;Loading, please wait...&quot;&gt;
+          	&lt;f:facet name=&quot;busy&quot;&gt;
+              &lt;tr:outputText value=&quot;Loading, please wait...&quot;/&gt;
+            &lt;/f:facet&gt;
           &lt;/tr:statusIndicator&gt;
         </mfp:source-code>
       </mfp:example>
