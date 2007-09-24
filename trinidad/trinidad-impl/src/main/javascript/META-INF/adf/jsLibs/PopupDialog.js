@@ -113,6 +113,29 @@ TrPopupDialog.getInstance = function()
 }
 
 /**
+ * Clean up the dialog
+ */
+TrPopupDialog.prototype._destroy = function()
+{
+  // Remove the DIV from the body, and delete any
+  // references to DOM in case someone is bad and holds onto
+  // this JS object
+  var div = this._outerDiv;
+  if (div)
+  {
+    delete this._outerDiv;
+    div.parentNode.removeChild(div);
+  }
+  
+  if (this._iframe)
+    delete this._iframe;
+
+  if (this._titleTextDiv)
+    delete this._titleTextDiv;
+}
+
+
+/**
  * Resize the content area of the dialog
  **/
 TrPopupDialog.prototype._resizeIFrame = function(width, height)
@@ -181,14 +204,16 @@ TrPopupDialog._returnFromDialog = function()
   if (dialog)
   {
     dialog.hide();
+    // Set a timeout to clean up the dialog later - not now, because
+    // otherwise it'll kill our current submit
+    window.setTimeout(TrUIUtils.createCallback(
+       dialog, TrPopupDialog.prototype._destroy), 100);
+    TrPopupDialog.DIALOG = undefined;
   }
   else
   {
     alert("returnFromDialog(): Error - Current popup is not a dialog");
   }
-
-  // Clear the dialog instance
-  TrPopupDialog.DIALOG = undefined;
 }
 
 /*

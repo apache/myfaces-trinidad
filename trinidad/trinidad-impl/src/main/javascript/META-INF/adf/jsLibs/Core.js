@@ -3968,6 +3968,9 @@ function _checkLoad()
     if(myElement)
       _setFocus(myElement);
   }  
+
+  // Initialize ourselves if we're in a PopupDialog
+  TrPopupDialog._initDialogPage();
 }
 
 
