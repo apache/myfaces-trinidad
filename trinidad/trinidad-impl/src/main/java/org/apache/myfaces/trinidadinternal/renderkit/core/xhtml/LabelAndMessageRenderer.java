@@ -193,7 +193,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
       String value = getLabel(bean);
       FormData fd = arc.getFormData();
       if (fd != null)
-        fd.addLabel(component.getClientId(context), value);
+        fd.addLabel(clientId, value);
     }
 
     RequestContext rc = RequestContext.getCurrentInstance();
