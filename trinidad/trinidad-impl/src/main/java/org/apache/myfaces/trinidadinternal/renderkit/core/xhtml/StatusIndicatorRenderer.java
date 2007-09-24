@@ -29,6 +29,7 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.core.output.CoreStatusIndicator;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
 
 public class StatusIndicatorRenderer extends XhtmlRenderer
@@ -38,29 +39,85 @@ public class StatusIndicatorRenderer extends XhtmlRenderer
     super(CoreStatusIndicator.TYPE);
   }
 
+  protected StatusIndicatorRenderer(FacesBean.Type type)
+  {
+    super(type);
+  }
+
   @Override
-  protected void encodeBegin(
+  public boolean getRendersChildren()
+  {
+    return true;
+  }
+
+  @Override
+  protected void encodeAll(
     FacesContext     context,
     RenderingContext rc,
     UIComponent      comp,
     FacesBean        bean) throws IOException
   {
+    UIComponent busyFacet = comp.getFacet(CoreStatusIndicator.BUSY_FACET);
+    UIComponent readyFacet = comp.getFacet(CoreStatusIndicator.READY_FACET);
+    
+    boolean iconMode = false;
+    Icon busyIcon = null;
+    Icon readyIcon = null;
+    if (busyFacet == null && readyFacet == null)
+    {
+      // Render icons only if no facet was specified.
+      busyIcon = rc.getIcon(SkinSelectors.AF_STATUS_INDICATOR_BUSY_ICON);
+      readyIcon = rc.getIcon(SkinSelectors.AF_STATUS_INDICATOR_READY_ICON);
+      if (busyIcon == null || readyIcon == null)
+      {
+        // Missing an icon and no faet was specified, log.
+        _LOG.warning("STATUS_INDICATOR_MISSING_ICONS");
+        return;
+      }
+      
+      iconMode = true;
+    }
+    
     ResponseWriter rw = context.getResponseWriter();
 
     String clientId = getClientId(context, comp);
     
+    // Renders root DOM
     rw.startElement(XhtmlConstants.SPAN_ELEMENT, comp);
     renderId(context, comp);
     renderAllAttributes(context, rc, bean);
+    
+    // Renders ready DOM
     rw.startElement(XhtmlConstants.SPAN_ELEMENT, null);
     rw.writeAttribute(XhtmlConstants.ID_ATTRIBUTE, clientId + "::ready", null);
-    renderReadyContent(context, rc, comp, bean);
+    
+    if (iconMode)
+    {
+      _renderIcon(context, rc, readyIcon, "af_statusIndicator.READY");
+    }
+    else
+    {
+      _renderFacet(context, rc, readyFacet, 
+                   SkinSelectors.AF_STATUS_INDICATOR_READY_STYLE);
+    }
+    
     rw.endElement(XhtmlConstants.SPAN_ELEMENT);
     
+    // Renders busy DOM
     rw.startElement(XhtmlConstants.SPAN_ELEMENT, null);
     rw.writeAttribute(XhtmlConstants.ID_ATTRIBUTE, clientId + "::busy", null);
     rw.writeAttribute(XhtmlConstants.STYLE_ATTRIBUTE, "display:none", null);
-    renderBusyContent(context, rc, comp, bean);
+    
+    if (iconMode)
+    {
+      _renderIcon(context, rc, busyIcon, "af_statusIndicator.BUSY");
+    }
+    else
+    {
+      _renderFacet(context, rc, busyFacet, 
+                   SkinSelectors.AF_STATUS_INDICATOR_BUSY_STYLE);
+    }
+    
     rw.endElement(XhtmlConstants.SPAN_ELEMENT);
       
     rw.startElement(XhtmlConstants.SCRIPT_ELEMENT, null);
@@ -76,51 +133,30 @@ public class StatusIndicatorRenderer extends XhtmlRenderer
   {
     return SkinSelectors.AF_STATUS_INDICATOR_STYLE;
   }
-  
-  protected void renderBusyContent(
-    FacesContext     context,
-    RenderingContext rc,
-    UIComponent      comp,
-    FacesBean        bean) throws IOException
-  {
-    renderDefaultContent(context, 
-                         rc, 
-                         comp,
-                         SkinSelectors.AF_STATUS_INDICATOR_BUSY_ICON,
-                         "af_statusIndicator.BUSY",
-                         "busy",
-                         SkinSelectors.AF_STATUS_INDICATOR_BUSY_STYLE);
-  }
-  
-  protected void renderReadyContent(
-    FacesContext     context,
-    RenderingContext rc,
-    UIComponent      comp,
-    FacesBean        bean) throws IOException
-  {
-    renderDefaultContent(context, 
-                         rc, 
-                         comp,
-                         SkinSelectors.AF_STATUS_INDICATOR_READY_ICON,
-                         "af_statusIndicator.READY",
-                         "ready",
-                         SkinSelectors.AF_STATUS_INDICATOR_READY_STYLE);
-  }
-  
-  private void renderDefaultContent(
-    FacesContext     context,
-    RenderingContext rc,
-    UIComponent      comp,
-    String           iconName,
-    String           iconDesc,
-    String           facetName,
-    String           facetStyleClass) throws IOException
-  {
 
-    ResponseWriter rw = context.getResponseWriter();
+  private void _renderFacet(
+    FacesContext     context, 
+    RenderingContext rc,
+    UIComponent      facet,
+    String           styleClass) throws IOException
+  {
+    if (facet != null && facet.isRendered())
+    {
+      ResponseWriter rw = context.getResponseWriter();
+      
+      rw.startElement(XhtmlConstants.SPAN_ELEMENT, null);
+      renderStyleClass(context, rc, styleClass);
+      encodeChild(context, facet);
+      rw.endElement(XhtmlConstants.SPAN_ELEMENT);
+    }
+  }
 
-    // Render the icon
-    Icon icon = rc.getIcon(iconName);
+  private void _renderIcon(
+    FacesContext     context, 
+    RenderingContext rc, 
+    Icon             icon,
+    String           iconDesc) throws IOException
+  {
     if (icon != null && !icon.isNull())
     {
       Map<String, String> attrs = 
@@ -129,15 +165,8 @@ public class StatusIndicatorRenderer extends XhtmlRenderer
       
       icon.renderIcon(context, rc, attrs);
     }
-    
-    // Render the facet
-    UIComponent facet = getFacet(comp, facetName);
-    if (facet != null)
-    {
-      rw.startElement(XhtmlConstants.SPAN_ELEMENT, null);
-      renderStyleClass(context, rc, facetStyleClass);
-      encodeChild(context, facet);
-      rw.endElement(XhtmlConstants.SPAN_ELEMENT);
-    }
   }
+
+  private static final TrinidadLogger _LOG = 
+    TrinidadLogger.createTrinidadLogger(StatusIndicatorRenderer.class);
 }

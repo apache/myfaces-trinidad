@@ -8,15 +8,6 @@
              id="mainId::ready"
             >
           
-          <img
-               border="0"
-               height="16"
-               title="Page is ready"
-               width="16"
-               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/siready.gif"
-              >
-            
-          </img>
           <span
                class="af_statusIndicator_ready"
               >
@@ -28,15 +19,6 @@
              style="display:none"
             >
           
-          <img
-               border="0"
-               height="16"
-               title="Page is busy processing"
-               width="16"
-               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/sibusy.gif"
-              >
-            
-          </img>
           <span
                class="af_statusIndicator_busy"
               >

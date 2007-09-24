@@ -103,7 +103,6 @@ public class XhtmlSkin extends BaseSkin
                  SkinSelectors.QUICK_SELECT_DISABLED_ICON_STYLE_CLASS,
                  null);
 
-
   private static final CSSStyle spinboxTopStyle = new CSSStyle();
   private static final CSSStyle spinboxBottomStyle = new CSSStyle();
 
@@ -357,15 +356,25 @@ public class XhtmlSkin extends BaseSkin
     new TextIcon(">"),
 
     // StatusIndicator Icons
-    SkinSelectors.AF_STATUS_INDICATOR_BUSY_ICON,
-      new ContextImageIcon("adf/images/sibusy.gif",
-                          "adf/images/sibusy.gif",
-                          16,
-                          16),
-    SkinSelectors.AF_STATUS_INDICATOR_READY_ICON,
-      new ContextImageIcon("adf/images/siready.gif",
-                          "adf/images/siready.gif",
-                          16,
-                          16),
+
+    // Icon aliases (for tr:icon access)
+    SkinSelectors.BUSY_ICON_ALIAS_NAME, 
+    new ContextImageIcon("adf/images/sibusy.gif",
+                         "adf/images/sibusy.gif",
+                         16,
+                         16),
+    
+    SkinSelectors.READY_ICON_ALIAS_NAME, 
+    new ContextImageIcon("adf/images/siready.gif",
+                         "adf/images/siready.gif",
+                         16,
+                         16),
+    
+    SkinSelectors.AF_STATUS_INDICATOR_READY_ICON, 
+    new ReferenceIcon(SkinSelectors.READY_ICON_ALIAS_NAME),
+    
+    SkinSelectors.AF_STATUS_INDICATOR_BUSY_ICON, 
+    new ReferenceIcon(SkinSelectors.BUSY_ICON_ALIAS_NAME),
+
   };
 }
