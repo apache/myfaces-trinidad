@@ -45,22 +45,6 @@ ApacheChartObj.Inherit = function(baseClass, extendingClass)
   extendingClass.superclass = baseClass.prototype;
 }
 
-ApacheChartObj.prototype.createCallback = function(func)
-{
-  // create a function that sets up "this" and delegates all of the parameters
-  // to the passed in function
-  var proxyFunction = new Function(
-    "var f=arguments.callee; return f._func.apply(f._owner, arguments);");
-
-  // attach ourselves as "this" to the created function
-  proxyFunction._owner = this;
-
-  // attach function to delegate to
-  proxyFunction._func = func;
-
-  return proxyFunction;
-}
-
 /**
 * Asserts arg is true; else throws error with msg.
 */
@@ -695,10 +679,10 @@ ApacheChart.prototype.draw = function()
   }
   if(this._tooltipsVisible)
   {
-    this.ShowToolTipCallback = this.createCallback(this.ShowToolTip);
-    this.HideToolTipCallback = this.createCallback(this.HideToolTip);
+    this.ShowToolTipCallback = TrUIUtils.createCallback(this, this.ShowToolTip);
+    this.HideToolTipCallback = TrUIUtils.createCallback(this, this.HideToolTip);
   }
-  this.ClickCallback = this.createCallback(this.Click);
+  this.ClickCallback = TrUIUtils.createCallback(this, this.Click);
   
   // Note the ordering is important. The grid takes the space after the title etc.
   this.DrawBorder();
@@ -761,7 +745,7 @@ ApacheChart.prototype._initDocument = function()
     }
 
     if(!this._drawCallback)
-      this._drawCallback = this.createCallback(this.draw);
+      this._drawCallback = TrUIUtils.createCallback(this, this.draw);
     // Lets try again
     window.setTimeout(this._drawCallback, ApacheChart._SVGCHECK_INTERVAL);
     return false;
@@ -804,7 +788,7 @@ ApacheChart.prototype.Animate = function()
   if(animateDuration > 0)
   {
     if(this._animCallback == null)
-       this._animCallback = this.createCallback(this.DoAnimation);
+       this._animCallback = TrUIUtils.createCallback(this, this.DoAnimation);
     this._startTime = (new Date()).getTime();
     this._intervalId = window.setInterval(this._animCallback, ApacheChart._ANIMATE_INTERVAL);
   }
