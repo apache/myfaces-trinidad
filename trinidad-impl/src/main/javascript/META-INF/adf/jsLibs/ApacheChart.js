@@ -101,6 +101,21 @@ function ApacheChartModel(seriesLabels, groupLabels, yValues, xValues, seriesCol
   // The array of strings with colors. Used for display of the series
   this._seriesColors = seriesColors;
   
+  var labelCount = seriesLabels.length;
+  var colorCount = seriesColors.length;
+
+  if(colorCount < labelCount)
+  {
+    var toHexFunc = ApacheChart._to_hex;
+    for(i = colorCount; i < labelCount; i++)
+    {
+      // generate random colors
+      var rVal = Math.floor(Math.random()*1000)%255;
+      var gVal = Math.floor(Math.random()*1000)%255;
+      var bVal = Math.floor(Math.random()*1000)%255;
+      seriesColors[i] = "#"+toHexFunc(rVal)+toHexFunc(gVal)+toHexFunc(bVal);
+    }
+  }
   // the maximum value used to display the y-axis. 
   // Default is 120% of maximum of the yValues
   //this._maxYValue = undefined;
@@ -296,6 +311,7 @@ ApacheChart.createSVG = function(containerId,
   var svgContainer = document.getElementById(containerId);
   var embed = document.createElement("embed");
   var agent = window._agent;
+
   if(agent && agent.isIE)
   {
     var semiColIndex = sourceUrl.indexOf(";");
@@ -493,6 +509,7 @@ ApacheChart.prototype.ComputeMinMaxValues = function()
       maxYValue = model.getMaxYValue(), maxXValue = model.getMaxXValue(),
       minYValue = model.getMinYValue(), minXValue = model.getMinXValue(),
       seriesLabels = model.getSeriesLabels();
+
   if(yValues != null && (maxYValue == null || minYValue == null))
   {
     var minMax = this._computeAxisMinMaxValues(yValues, seriesLabels.length);
@@ -541,6 +558,7 @@ ApacheChart.prototype._computeAxisMinMaxValues = function(values, seriesSize)
       minValue = Math.min(minValue, stackedTotal);
     }
   }
+
   var maxMult = maxValue>0?ApacheChart._MAX_MULTIPLIER:ApacheChart._MIN_MULTIPLIER,
       minMult = minValue>0?ApacheChart._MIN_MULTIPLIER:ApacheChart._MAX_MULTIPLIER;
   return {max: maxValue*maxMult, min: minValue*minMult};
@@ -671,8 +689,8 @@ ApacheChart.prototype.draw = function()
   if(!this._initDocument())
     return;
   	
-	// Initialize our gradients if necessary
-	if (this._gradientsUsed && !this._gradientsInitialized)
+  // Initialize our gradients if necessary
+  if (this._gradientsUsed && !this._gradientsInitialized)
   {
     this.InitializeGradients();
     this._gradientsInitialized = true;
@@ -689,17 +707,17 @@ ApacheChart.prototype.draw = function()
   this.DrawTitles();
   // First just draw the label elements so that we can estimate the space requirements
   this.DrawGroupLabels();
-	this.DrawYValueLabels();
-	// Now adjust margins based on the labels
-	this.AdjustMarginsForGroupLabels();
-	this.AdjustMarginsForYLabels();
+  this.DrawYValueLabels();
+  // Now adjust margins based on the labels
+  this.AdjustMarginsForGroupLabels();
+  this.AdjustMarginsForYLabels();
   // Now start drawing the graph so that it gobbles the left over space
   this.DrawLegend();
   this.LayoutGroupLabels();
-	this.LayoutYValueLabels();
-	this.DrawGrid();
-	this.DrawChartData();
-	this.Animate();
+  this.LayoutYValueLabels();
+  this.DrawGrid();
+  this.DrawChartData();
+  this.Animate();
 }
 
 ApacheChart.prototype._initDocument = function()
@@ -715,18 +733,18 @@ ApacheChart.prototype._initDocument = function()
   }
   try
   {
-	  var svgDoc = svgEmbed.getSVGDocument();
-	  this._rootElement = svgDoc.getElementById("chartRoot");
-	  if(!this._rootElement) // make sure that the document is loaded
-	    throw "not yet loaded";
-	  this._svgDoc = svgDoc;
-	  this._width = svgEmbed.clientWidth;
-	  this._height = svgEmbed.clientHeight;
-	  if(this._errorTextNode != null)
-	  {
-	    svgEmbed.parentNode.removeChild(this._errorTextNode);
-		  svgEmbed.style.display = "";
-	  }  
+    var svgDoc = svgEmbed.getSVGDocument();
+    this._rootElement = svgDoc.getElementById("chartRoot");
+    if(!this._rootElement) // make sure that the document is loaded
+      throw "not yet loaded";
+    this._svgDoc = svgDoc;
+    this._width = svgEmbed.clientWidth;
+    this._height = svgEmbed.clientHeight;
+    if(this._errorTextNode != null)
+    {
+      svgEmbed.parentNode.removeChild(this._errorTextNode);
+            svgEmbed.style.display = "";
+    }  
   }
   catch(e)
   {
@@ -756,9 +774,9 @@ ApacheChart.prototype._initDocument = function()
 ApacheChart.prototype._displayStatusHtml = function(svgEmbed)
 {
   var errorTextNode = this._errorTextNode = document.createElement("span");
-	errorTextNode.innerHTML = this._statusHtml;
-	svgEmbed.parentNode.insertBefore(errorTextNode, svgEmbed);
-	svgEmbed.style.display = "none"; 
+  errorTextNode.innerHTML = this._statusHtml;
+  svgEmbed.parentNode.insertBefore(errorTextNode, svgEmbed);
+  svgEmbed.style.display = "none"; 
 }
 
 ApacheChart.prototype._displayErrorHtml = function(svgEmbed)
@@ -771,10 +789,10 @@ ApacheChart.prototype._displayErrorHtml = function(svgEmbed)
   else
   {
     var errorTextNode = this._errorTextNode = document.createElement("span");
-	  errorTextNode.innerHTML = this._errorHtml;
-	  svgEmbed.parentNode.insertBefore(errorTextNode, svgEmbed);
-	}
-	svgEmbed.style.display = "none"; 
+    errorTextNode.innerHTML = this._errorHtml;
+    svgEmbed.parentNode.insertBefore(errorTextNode, svgEmbed);
+  }
+  svgEmbed.style.display = "none"; 
 }
 
 ApacheChart.prototype.DrawChartData = function()
@@ -897,16 +915,24 @@ ApacheChart.prototype.InitializeGradients = function()
   ApacheChartObj.Assert(gradients, "No Gradients element in the SVG document");
   var gradientElements = gradients.childNodes;
   ApacheChartObj.Assert(gradients.childNodes.length>1, "No Gradient Template in the SVG document");
-  var gradientTemplate = gradients.childNodes[0], gradientElement;
+  var gradientElement, gradientTemplate = null;
    
   for (var i = 0; i< seriesCount; ++i)
   {
     gradientElement = svgDoc.getElementById("gradient"+i);
     if(gradientElement == null)
     {
+      if(gradientTemplate == null)
+      {
+        gradientTemplate = gradients.firstChild;
+        while(gradientTemplate.nodeType == 3 && gradientTemplate != null)
+          gradientTemplate = gradientTemplate.nextSibling;
+      }
       gradientElement = gradientTemplate.cloneNode(true);
+      gradientElement.id = "gradient"+i;
       gradients.appendChild(gradientElement);
     }
+    
     var childNode = gradientElement.firstChild;
     var stopIndex = 0;
     while (childNode)
@@ -961,10 +987,10 @@ ApacheChart.prototype._getLighterNumberStr = function(valStr)
   if(val>255)
     val = 255;
   
-  return this._to_hex(val);  
+  return ApacheChart._to_hex(val);  
 }
 
-ApacheChart.prototype._to_hex = function(n)
+ApacheChart._to_hex = function(n)
 {
   var digit_array = ApacheChart._digit_array;
   if(digit_array == null)
@@ -972,17 +998,20 @@ ApacheChart.prototype._to_hex = function(n)
     digit_array = ApacheChart._digit_array = 
           ['0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'];
   }
-	var hex_result=''
-	var the_start=true;
-	for(var i=32;i>0;){
-		i-=4;
-		var one_digit=(n>>i)&0xf;
-		if(!the_start||one_digit!=0){
-			the_start=false;
-			hex_result+=digit_array[one_digit];
-		}
-	}
-	return ''+(hex_result==''?'0':hex_result);
+
+  var hex_result=''
+  var the_start=true;
+  for(var i=32;i>0;)
+  {
+    i-=4;
+    var one_digit=(n>>i)&0xf;
+    if(!the_start||one_digit!=0)
+    {
+      the_start=false;
+      hex_result+=digit_array[one_digit];
+    }
+  }
+  return ''+(hex_result==''?'0':hex_result);
 }
 
 ApacheChart.prototype.DrawBorder = function()
@@ -990,6 +1019,7 @@ ApacheChart.prototype.DrawBorder = function()
   var svgDoc = this._svgDoc, rootElem = this._rootElement;
   var rectElem = svgDoc.getElementById("borderPrototype").cloneNode(false);
   var borderSize = ApacheChart._BORDER_SIZE, stroke = borderSize/2;
+
   rectElem.setAttribute("x", 0);
   rectElem.setAttribute("y", 0);
   rectElem.setAttribute("rx", stroke);
@@ -1028,10 +1058,11 @@ ApacheChart.prototype._drawTitleElem = function(template, title, isFooter)
   
   var textElem = svgDoc.getElementById(template).cloneNode(true);
   if(animate)
-	{
-		labelElems.push(textElem);
-		textElem.setAttribute("fill-opacity","0");
-	}
+  {
+    labelElems.push(textElem);
+    textElem.setAttribute("fill-opacity","0");
+  }
+
   textElem.firstChild.data = title;
   rootElem.appendChild(textElem);
   var textBBox = textElem.getBBox(), textWidth = textBBox.width, dx=margins.left;
@@ -1051,9 +1082,9 @@ ApacheChart.prototype._drawTitleElem = function(template, title, isFooter)
   else
   {
     margins.top += textBBox.height;
-	  textElem.setAttribute("y",margins.top);
-	  margins.top += ApacheChart._TEXT_MARGIN;
-	}
+    textElem.setAttribute("y",margins.top);
+    margins.top += ApacheChart._TEXT_MARGIN;
+  }
 } 
 
 ApacheChart.prototype.DrawGroupLabels = function()
@@ -1078,10 +1109,10 @@ ApacheChart.prototype.DrawGroupLabels = function()
     
     labelElem = labelElem.cloneNode(true);
     if(animate)
-		{
-		  labelElems.push(labelElem);
-		  labelElem.setAttribute("fill-opacity","0");
-		}
+    {
+      labelElems.push(labelElem);
+      labelElem.setAttribute("fill-opacity","0");
+    }
     labelElem.firstChild.data = labelText;
     container.appendChild(labelElem);
     gLabelElems[i] = labelElem;
@@ -1104,6 +1135,7 @@ ApacheChart.prototype.LayoutGroupLabels = function()
   var labelElem, groupWidth = gridWidth/(isCenterAligned?vLineCount:vLineCount-1);
   var dx = 0, dy = this._height - margins.bottom+container.getBBox().height+ApacheChart._TEXT_MARGIN;
   var gLabelElems = this._groupLabelElems;
+
   for (var i = 0; i< vLineCount; ++i)
   {
     labelElem = gLabelElems[i];
@@ -1111,19 +1143,19 @@ ApacheChart.prototype.LayoutGroupLabels = function()
       continue;
       
     labelElem.setAttribute("y", dy);
-    var textWidth = labelElem.getComputedTextLength();
+    var textWidth = labelElem.getBBox().width;
     if(isCenterAligned)
     {
       if(groupWidth > textWidth)
-			  dx = (groupWidth-textWidth)/2;
-	    else
-	      dx = 2;
-	  }
-	  else
-	  {
-	    dx = (-textWidth)/2;
-		  if(this._isPerspective)
-		    dx -= ApacheChart._XOFFSET_PERSPECTIVE;
+        dx = (groupWidth-textWidth)/2;
+      else
+        dx = 2;
+    }
+    else
+    {
+      dx = (-textWidth)/2;
+      if(this._isPerspective)
+        dx -= ApacheChart._XOFFSET_PERSPECTIVE;
     }    
     labelElem.setAttribute("x", marginLeft+dx+i*groupWidth);
   }
@@ -1170,6 +1202,7 @@ ApacheChart.prototype.DrawLegend = function()
       legendGroup = svgDoc.createElementNS("http://www.w3.org/2000/svg", "g");
   var margins = this._margins, marginLeft = margins.left, marginTop = margins.top; 
   var labelElems = this._labelElems, animate = (this._animDuration>0);
+
   rootElem.appendChild(legendGroup);
 
   if(this._isPerspective)
@@ -1180,14 +1213,15 @@ ApacheChart.prototype.DrawLegend = function()
       gridHeight = (this._height - marginTop - margins.bottom);
   
   if(animate)
-	{
-		labelElems.push(legendGroup);
-		legendGroup.setAttribute("fill-opacity","0");
-	}
+  {
+    labelElems.push(legendGroup);
+    legendGroup.setAttribute("fill-opacity","0");
+  }
 	
   var dx = 0, dy = 0, tx = marginLeft, ty = this._height - margins.bottom;
   var drawSideWays = (legendPosition == ApacheChart.LEGEND_LOCATION_START || 
                       legendPosition == ApacheChart.LEGEND_LOCATION_END)
+
   for (var i = 0; i < seriesCount; ++i)
   {
     if(i == 0)
@@ -1208,6 +1242,7 @@ ApacheChart.prototype.DrawLegend = function()
     else
       rectElem.setAttribute("fill", seriesColors[i]);
     rectElem.setAttribute("stroke", "#000000");
+    
     // TODO: Legend elements should fire on click event       
     //rectElem.setAttribute("onclick", "parent."+onclickStrings[i]);
     legendGroup.appendChild(rectElem);
@@ -1219,11 +1254,12 @@ ApacheChart.prototype.DrawLegend = function()
     labelElem.setAttribute("y", dy);
     labelElem.firstChild.data = seriesLabels[i];
     legendGroup.appendChild(labelElem);
+    
     // TODO: Legend elements should fire on click event
     //labelElem.setAttribute("onclick", "parent."+onclickStrings[i]);
     
     if(!drawSideWays)
-      dx += labelElem.getComputedTextLength()+legendRectHeight;
+      dx += labelElem.getBBox().width+legendRectHeight;
     else
       dy += 1.5*legendRectHeight;
     
@@ -1286,6 +1322,7 @@ ApacheChart.prototype.SetLegendTopAdjustment = function(ty)
 ApacheChart.prototype.SetLegendBottomAdjustment = function(ty)
 {
   var container = this._hLabelContainer;
+
   if(container && container.childNodes.length > 0)
   {
     ty += container.getBBox().height+ApacheChart._TEXT_MARGIN;
@@ -1334,6 +1371,7 @@ ApacheChart.prototype.Draw2DGrid = function()
   var gridHeight = (this._height - marginTop - margins.bottom);
   var gradientsUsed = this._gradientsUsed;
   var rectElem = svgDoc.getElementById("gridRectPrototype").cloneNode(false);
+
   rectElem.setAttribute("x", margins.left);
   rectElem.setAttribute("y", (marginTop));
   rectElem.setAttribute("width", gridWidth);
@@ -1341,12 +1379,14 @@ ApacheChart.prototype.Draw2DGrid = function()
   if(gradientsUsed)
     rectElem.setAttribute("fill", "url(#gridGradient)");
   this._rootElement.appendChild(rectElem);
+
   var pathElem = svgDoc.getElementById("gridPathPrototype").cloneNode(false);
   if(animate)
   {
     gridElems.push(pathElem);
     pathElem.setAttribute("transform", "scale(0.00001,1)");
   }
+
   var sb = new ApacheChartBuffer(), vLineCount = this.GetVLineCount(), hLineCount = this.GetHLineCount();
   // horizontal lines
   for (var i = 0; i< hLineCount-1; ++i)
@@ -1369,6 +1409,7 @@ ApacheChart.prototype.Draw2DGrid = function()
 ApacheChart.prototype.GetVLineCount = function()
 {
   var xMajorCount = this._xMajorGridCount;
+
   if(xMajorCount >= 0)
     return xMajorCount;
   else
@@ -1451,19 +1492,19 @@ ApacheChart.prototype.DrawYValueLabels = function()
   
   var labelElem = svgDoc.getElementById("yLabelPrototype").cloneNode(true);
   if(animate)
-	{
-		labelElems.push(labelElem);
-		labelElem.setAttribute("fill-opacity","0");
-	}
+  {
+    labelElems.push(labelElem);
+    labelElem.setAttribute("fill-opacity","0");
+  }
   labelElem.firstChild.data = this._formatValue(minValue);
   container.appendChild(labelElem);
   
   labelElem = labelElem.cloneNode(true);
   if(animate)
-	{
-		labelElems.push(labelElem);
-		labelElem.setAttribute("fill-opacity","0");
-	}
+  {
+    labelElems.push(labelElem);
+    labelElem.setAttribute("fill-opacity","0");
+  }
   labelElem.firstChild.data = this._formatValue(maxValue);
   container.appendChild(labelElem);
       
@@ -1474,11 +1515,11 @@ ApacheChart.prototype.DrawYValueLabels = function()
     var value = ((maxValue-minValue)*(i+1)/hLineCount) + minValue;
     labelElem = labelElem.cloneNode(true);
     if(animate)
-		{
-		  labelElems.push(labelElem);
-		  labelElem.setAttribute("fill-opacity","0");
-		}
-		labelElem.firstChild.data = this._formatValue(value);
+    {
+      labelElems.push(labelElem);
+      labelElem.setAttribute("fill-opacity","0");
+    }
+    labelElem.firstChild.data = this._formatValue(value);
     container.appendChild(labelElem);
   }
   
@@ -1522,6 +1563,7 @@ ApacheChart.prototype.LayoutYValueLabels = function()
   var marginLeft = margins.left, marginTop = margins.top; 
   var container = this._vLabelContainer, childNodes = container.childNodes;
   var gridHeight = (this._height - marginTop - margins.bottom);
+
   if(this._isPerspective)
     gridHeight -= ApacheChart._YOFFSET_PERSPECTIVE;
     
@@ -1551,7 +1593,7 @@ ApacheChart.prototype.SetVerticalLabelAt = function(
     y += ApacheChart._YOFFSET_PERSPECTIVE;
   // readjust to right align
   var labelMargin = ApacheChart._TEXT_MARGIN, 
-      textLength = labelElem.getComputedTextLength(), dx = labelMargin;
+      textLength = labelElem.getBBox().width, dx = labelMargin;
   if(marginLeft>textLength+labelMargin)
     dx = marginLeft-textLength-labelMargin;
   labelElem.setAttribute("x", dx);
@@ -1564,21 +1606,24 @@ ApacheChart.prototype.DrawGroupLabelTitle = function(
 {
   if(!label)
     return quadHeight;
+  
   var labelElems = this._labelElems, animate = (this._animDuration>0);
   labelElem.setAttribute("y", dy+quadHeight);
   labelElem.firstChild.data = label;
   container.appendChild(labelElem);
-  var textWidth = labelElem.getComputedTextLength();
+  
+  var rect = labelElem.getBBox();
+  var textWidth = rect.width;
   if(quadWidth > textWidth)
-		dx += (quadWidth-textWidth)/2;
-	else
-	  dx += 2;
+    dx += (quadWidth-textWidth)/2;
+  else
+    dx += 2;
+
   labelElem.setAttribute("x", dx);
 	
-	if(animate)
-	  labelElems.push(labelElem);
+  if(animate)
+    labelElems.push(labelElem);
 	
-  var rect = labelElem.getBBox();
   quadHeight -= rect.height+ApacheChart._TEXT_MARGIN;
   return quadHeight;
 }
@@ -1590,6 +1635,7 @@ ApacheChart.prototype.ShowToolTip = function(e)
   
   var model = this._model, seriesColors = model.getSeriesColors();    
   var toolTip = this.getToolTip();
+
   if (toolTip == null)
   {
     toolTip = this._svgDoc.getElementById("toolTip").cloneNode(true);
@@ -1615,6 +1661,7 @@ ApacheChart.prototype.ShowToolTip = function(e)
   {
     circleElem.setAttribute("cx",0);
   }
+  
   if(dy - ttBBox.height < 0)
   {
     dy += ttBBox.height;
@@ -1662,16 +1709,18 @@ ApacheChart.prototype.FillToolTipData = function(boundingRectElem, circleElem, e
   var textElem = boundingRectElem.nextSibling.nextSibling;
   textElem.firstChild.data = seriesLabels[j];
                 
-  var labelWidth = textElem.getComputedTextLength();      
+  var labelWidth = textElem.getBBox().width;      
+  
   //actual value
   textElem = textElem.nextSibling.nextSibling;
   textElem.firstChild.data = this._formatValue(yValues[0]);
-  var dataWidth = textElem.getComputedTextLength();
+  var dataWidth = textElem.getBBox().width;
+  
   // leave a  clearance on either end of the text
   var xMargin = ApacheChart._TEXT_MARGIN, dx = xMargin;
   if (labelWidth > dataWidth)
     dx = (labelWidth-dataWidth)/2+xMargin;
-  textElem.setAttribute("dx",dx);
+  textElem.setAttribute("x",dx);
   var rectWidth = Math.max(labelWidth,dataWidth)+2*xMargin;
   boundingRectElem.setAttribute("width",rectWidth);
   boundingRectElem.setAttribute("stroke", seriesColors[j]);
@@ -1764,6 +1813,7 @@ ApacheBarChart.prototype._drawBars = function(isCombo)
   var dx = marginLeft, dy, barHeight, stackBase = minValue;
   var gradientsUsed = this._gradientsUsed;
   var defaultTransform = "scale(1,0.00001)";
+
   for (var i = 0; i< yValueCount; ++i)
   {
     dx += barItemPadding;
@@ -1845,6 +1895,7 @@ ApacheBarChart.prototype._drawPerspectiveBars = function(isCombo)
   var dx = marginLeft, dy, barHeight, stackBase = minValue;
   var gradientsUsed = this._gradientsUsed;
   var defaultTransform = "scale(1, 0.00001)";
+
   for (var i = 0; i< yValueCount; ++i)
   {
     dx += barItemPadding;
@@ -1992,10 +2043,10 @@ ApacheHBarChart.prototype.DrawYValueLabels = function()
     container.appendChild(labelElem);
     gLabelElems[i] = labelElem;
     if(animate)
-		{
-		  labelElems.push(labelElem);
-		  labelElem.setAttribute("fill-opacity","0");
-		}
+    {
+      labelElems.push(labelElem);
+      labelElem.setAttribute("fill-opacity","0");
+    }
   }
   rootElem.appendChild(container);
 }
@@ -2052,11 +2103,11 @@ ApacheHBarChart.prototype.DrawGroupLabels = function()
     // draw the horizontal label
     labelElem = labelElem.cloneNode(true);
     if(animate)
-		{
-		  labelElems.push(labelElem);
-		  labelElem.setAttribute("fill-opacity","0");
-		}
-		if(i==0)
+    {
+      labelElems.push(labelElem);
+      labelElem.setAttribute("fill-opacity","0");
+    }
+    if(i==0)
       value = minValue;
     else if(i==vLineCount)
       value = maxValue;
@@ -2083,12 +2134,13 @@ ApacheHBarChart.prototype.LayoutGroupLabels = function()
   var bBox = container.getBBox();      
   var dx = 0, dy = this._height - margins.bottom + bBox.height+ApacheChart._TEXT_MARGIN;
   var labelElems = this._labelElems, animate = (this._animDuration>0);
+
   for (var i = 0; i< vLineCount+1; ++i)
   {
     // draw the horizontal label
     labelElem = childNodes.item(i);
     labelElem.setAttribute("y", dy);
-    var textWidth = labelElem.getComputedTextLength();
+    var textWidth = labelElem.getBBox().width;
     labelElem.setAttribute("x", marginLeft-textWidth/2+i*yValWidth);	    
   }
 }
@@ -2127,6 +2179,7 @@ ApacheHBarChart.prototype._drawBars = function()
   var dx = marginLeft, dy=gridHeight+marginTop, barWidth;
   var gradientsUsed = this._gradientsUsed;
   var defaultTransform = "scale(0.00001,1)";
+
   for (var i = 0; i< yValueCount; ++i)
   {
     dy -= barItemPadding;
@@ -2193,6 +2246,7 @@ ApacheHBarChart.prototype._drawPerspectiveBars = function()
   var minValue = model.getMinYValue(), maxValue = model.getMaxYValue();    
   var yValueCount = yValues.length;
   var barHeight, stackBase = minValue;
+
   if(isStacked)
     barHeight = gridHeight/Math.max(yValueCount,groupCount)-2*barItemPadding;
   else
@@ -2305,6 +2359,7 @@ ApachePieChart.prototype.DrawChartData = function()
   var animate = (this._animDuration>0), isPerspective = this._isPerspective;
   var pieAnimRadii, vGap = 2*ApacheChart._TEXT_MARGIN;
   var quadHeight = (this._height - margins.top - margins.bottom - (nRows-1)*vGap)/nRows;
+
   if(animate)
   {
     this._pieAnimAngles = [];
@@ -2461,25 +2516,34 @@ ApachePieChart.prototype._drawPies = function(
       pieAnimAngles.push(animAngleStart+curAnimRatio/2);
       animAngleStart+=curAnimRatio;
     }
+    
+    var x1 = pieSize*Math.cos(pieStart*Math.PI*2), y1 = pieSize*Math.sin(pieStart*Math.PI*2);
     var sb = new ApacheChartBuffer();
     sb.append("M0,0L");
-    sb.append(pieSize*Math.cos(pieStart*Math.PI*2));
-    sb.append(",").append(pieSize*Math.sin(pieStart*Math.PI*2));
-
+    sb.append(x1);
+    sb.append(",").append(y1);
+    
+    var x2 = pieSize* Math.cos((pieStart+valueRatio)*Math.PI*2), 
+        y2 = pieSize*Math.sin((pieStart+valueRatio)*Math.PI*2);
     if (valueRatio >= .5) // major arc
     {
       sb.append("A").append(pieSize).append(" ").append(pieSize).append(" 1 0 0 ");
-      sb.append(pieSize* Math.cos((pieStart+valueRatio)*Math.PI*2));
-      sb.append(",").append(pieSize*Math.sin((pieStart+valueRatio)*Math.PI*2));
     }
     else
     {
       sb.append("A").append(pieSize).append(" ").append(pieSize).append(" 1 1 0 ");
-      sb.append(pieSize* Math.cos((pieStart+valueRatio)*Math.PI*2));
-      sb.append(",").append(pieSize*Math.sin((pieStart+valueRatio)*Math.PI*2));
     }
+    sb.append(x2);
+    sb.append(",").append(y2);    
     sb.append("z");
     
+    // set the centroids as expandos
+    if(this._tooltipsVisible)
+    {
+      pathElem.setAttribute("_apcGx", Math.round((x1+x2)/3)); 
+      pathElem.setAttribute("_apcGy", Math.round((y1+y2)/3));
+    }
+        
     pathElem.setAttribute("d", sb.toString());
     if(gradientsUsed)
       pathElem.setAttribute("fill", "url(#gradient"+i+")");
@@ -2489,6 +2553,7 @@ ApachePieChart.prototype._drawPies = function(
     pathElem.setAttribute("stroke-width", 1);
     pathElem.setAttribute("yValueIndex", iGroup);
     pathElem.setAttribute("seriesIndex", i);
+    
     if(this._tooltipsVisible)
     {
       pathElem.addEventListener("mouseover",this.ShowToolTipCallback,false);
@@ -2534,6 +2599,7 @@ ApachePieChart.prototype._draw3DPies = function(
   var pathElem = svgDoc.getElementById("piePathPrototype"), pieStart = 0;
   var gradientsUsed = this._gradientsUsed;
   var defaultTransform = "translate(-10000, -10000)", pieAnimAngles = this._pieAnimAngles;
+
   for (var i = 0; i < nPies; ++i)
   {
     pathElem = pathElem.cloneNode(false);
@@ -2544,8 +2610,8 @@ ApachePieChart.prototype._draw3DPies = function(
       pathElem.setAttribute("transform",defaultTransform);
       pieAnimAngles.push(pieStart+valueRatio/2);
     }
-    var arcBeginX, arcBeginY, arcEndX, arcEndY;
-    
+
+    var arcBeginX, arcBeginY, arcEndX, arcEndY;    
     arcBeginX = pieSize*Math.cos(pieStart*Math.PI*2);
     arcBeginY = pieSize*Math.sin(pieStart*Math.PI*2); 
     var sb = new ApacheChartBuffer();
@@ -2557,14 +2623,22 @@ ApachePieChart.prototype._draw3DPies = function(
     if (valueRatio >= .5) 
     {
       sb.append("A").append(pieSize).append(" ").append(pieSize).append(" 1 0 0 ");
-      sb.append(arcEndX).append(",").append(arcEndY);
     }
     else
     {
       sb.append("A").append(pieSize).append(" ").append(pieSize).append(" 1 1 0 ");
-      sb.append(arcEndX).append(",").append(arcEndY);
     }
+    
+    sb.append(arcEndX).append(",").append(arcEndY);
     sb.append("z");
+
+    // set the centroid as expandos
+    if(this._tooltipsVisible)
+    {
+      pathElem.setAttribute("_apcGx", Math.round((arcBeginX+arcEndX)/3)); 
+      pathElem.setAttribute("_apcGy", Math.round((arcBeginY+arcEndY)/3));
+    }
+            
     if(gradientsUsed)
       pathElem.setAttribute("fill", "url(#gradient"+i+")");
     else
@@ -2596,26 +2670,24 @@ ApachePieChart.prototype._draw3DPies = function(
     if (valueRatio >= .5) // major arc
     {
       sb.append("A").append(pieSize).append(" ").append(pieSize).append(" 1 0 0 ");
-      sb.append(arcEndX).append(",").append(arcEndY);
     }
     else
     {
       sb.append("A").append(pieSize).append(" ").append(pieSize).append(" 1 1 0 ");
-      sb.append(arcEndX).append(",").append(arcEndY);
     }
-        
+
+    sb.append(arcEndX).append(",").append(arcEndY);        
     sb.append("v").append(perspectiveHeight);
     if (valueRatio >= .5) // major arc
     {
       sb.append("A").append(pieSize).append(" ").append(pieSize).append(" 1 0 1 ");
-      sb.append(arcBeginX).append(",").append(arcBeginY+perspectiveHeight);
     }
     else
     {
       sb.append("A").append(pieSize).append(" ").append(pieSize).append(" 1 1 1 ");
-      sb.append(arcBeginX).append(",").append(arcBeginY+perspectiveHeight);
     }
     
+    sb.append(arcBeginX).append(",").append(arcBeginY+perspectiveHeight);
     sb.append("z");
     pathRingElem.setAttribute("d", sb.toString());
     
@@ -2680,10 +2752,12 @@ ApachePieChart.prototype._draw3DPies = function(
 ApachePieChart.prototype.GetToolTipLocation = function(e, ttBBox)
 {
   var evtTarget = e.target;
-  var targetBBox = evtTarget.getBBox();
   var ctm = evtTarget.parentNode.getCTM();
-  return {x:(ctm.e+targetBBox.x+targetBBox.width/2), 
-          y:(ctm.f+targetBBox.y+targetBBox.height/2 - ttBBox.height)};
+  
+  // display the tooltip at the centroid
+  return {x:(ctm.e + parseInt(evtTarget.getAttribute("_apcGx"))), 
+          y:(ctm.f + ctm.d*parseInt(evtTarget.getAttribute("_apcGy")) - ttBBox.height)};
+          
 }
 
 ApachePieChart._MAX_PERSPECTIVE_HEIGHT = 30;	
@@ -3002,6 +3076,7 @@ ApacheAreaChart.prototype.GetChartEvent = function(e, seriesYs)
   var gridHeight = (this._height - marginTop - margins.bottom);
   var yValueCount = yValues.length;
   var barWidth = (gridWidth/(Math.max(yValueCount,groupCount)-1));
+
   if(isPerspective)
   {
     gridWidth -= xOffset;
@@ -3104,6 +3179,7 @@ ApacheAreaChart.prototype._displayToolTips = function(
   var tooltipCount = seriesIndices.length, toolTips = this._toolTips;
   var clientX = e.clientX;
   var dx, dy;
+
   for(var i = 0; i<tooltipCount; ++i)
   { 
     var seriesIndex = seriesIndices[i];
@@ -3125,7 +3201,7 @@ ApacheAreaChart.prototype._displayToolTips = function(
     //append all the series values as labels
     var textElem = boundingRectElem.nextSibling.nextSibling;
     var textElemCount = seriesValues.length;
-    var rectWidth = textElem.getComputedTextLength();
+    var rectWidth = textElem.getBBox().width;
     
     textElem.firstChild.data = 
         seriesLabels[seriesIndex]+":  " + this._formatValue(seriesValues[i]);
@@ -3134,7 +3210,7 @@ ApacheAreaChart.prototype._displayToolTips = function(
     if(resizeOnInit)
     {
       var rectHeight = parseInt(boundingRectElem.getAttribute("height"));
-      var dy = parseInt(textElem.getAttribute("dy"));
+      var dy = parseInt(textElem.getAttribute("y"));
       rectHeight -= dy;
       boundingRectElem.setAttribute("height",rectHeight);
       textElem = textElem.nextSibling.nextSibling;
@@ -3146,7 +3222,9 @@ ApacheAreaChart.prototype._displayToolTips = function(
     
     var targetBBox = e.target.getBBox();
     var ttBBox = toolTip.getBBox();
-    dx = clientX, dy = seriesYs[i]- ttBBox.height;
+    dx = clientX;
+    dy = seriesYs[i]- ttBBox.height;
+    
     if(dx + ttBBox.width > this._width)
     {
       dx -= ttBBox.width;
@@ -3174,6 +3252,7 @@ ApacheAreaChart.prototype._displayToolTips = function(
 ApacheAreaChart.prototype.HideToolTip = function(e)
 {
   var tooltips = this._toolTips, tooltipCount = tooltips.length;
+
   for(var i = 0; i<tooltipCount; ++i)
   { 
     var toolTip = tooltips[i];
@@ -3226,6 +3305,7 @@ ApacheLineChart.prototype.__drawLines = function(isCombo)
   var barWidth = gridWidth/Math.max(yValueCount,groupCount);
   var dx, dy;
   var gradientsUsed = this._gradientsUsed;
+
   // Adobe plugin does not like 0 for scale and gecko does not like a low number for circles
   var defaultTransform = this._isIE?"scale(0.00001,1)":"scale(0,1)";
 
@@ -3379,6 +3459,7 @@ ApacheLineChart.prototype.GetChartEvent = function(e)
   var barWidth = (gridWidth/Math.max(yValueCount,groupCount));
   var gridBottom = gridHeight + marginTop +(isPerspective?yOffset:0);
   var dx = marginLeft+barWidth/2, value = 0.0;
+
   for (var j = 0; j < yValueCount; ++j)
   {
     if(j == yValueCount - 1)
@@ -3404,7 +3485,7 @@ ApacheLineChart.prototype.FillToolTipData = function(boundingRectElem, circleEle
   textElem.firstChild.data = seriesLabels[i]+
                 ": "+this._formatValue(value);
                 
-  var labelWidth = textElem.getComputedTextLength();      
+  var labelWidth = textElem.getBBox().width;      
   //We do not need the next label 
   textElem = textElem.nextSibling.nextSibling;
   textElem.firstChild.data = "";
@@ -3590,6 +3671,7 @@ ApacheScatterPlotChart.prototype._drawPerspectivePoints = function()
   var barWidth = (gridWidth/(groupCount-1));
   var gridBottom = gridHeight + marginTop + yOffset, cxs, cys, dx, dy, gridCx, gridCY;
   var gradientsUsed = this._gradientsUsed;
+
   if(animate)
   {
     cxs = this._cxs = [];
@@ -3673,7 +3755,7 @@ ApacheScatterPlotChart.prototype.FillToolTipData = function(boundingRectElem, ci
                 ": ("+ this._formatValue(xValue) + 
                 ")    (" + this._formatValue(yValue) +")";
                 
-  var labelWidth = textElem.getComputedTextLength();      
+  var labelWidth = textElem.getBBox().width;      
   //We do not need the next label 
   textElem = textElem.nextSibling.nextSibling;
   textElem.firstChild.data = "";
@@ -3868,6 +3950,7 @@ ApacheXYLineChart.prototype.GetChartEvent = function(e)
   var gridBottom = gridHeight + marginTop +(isPerspective?yOffset:0);
   var dx, dy, xValue = 0.0, yValue = 0.0;
   var nextdy, nextdx;
+
   for (var j = 0; j < nValues; ++j)
   { 
     if(j != nValues - 1)
@@ -3904,7 +3987,8 @@ ApacheXYLineChart.prototype.FillToolTipData = function(boundingRectElem, circleE
                 ": ("+ this._formatValue(xValue) + 
                 ")    (" + this._formatValue(yValue) +")";
                 
-  var labelWidth = textElem.getComputedTextLength();      
+  var labelWidth = textElem.getBBox().width;      
+
   //We do not need the next label 
   textElem = textElem.nextSibling.nextSibling;
   textElem.firstChild.data = "";
@@ -3962,6 +4046,7 @@ ApacheRadarChart.prototype.SetDataAnimStep = function(ratio)
   var gridHeight = (this._height - marginTop - margins.bottom);
   var cx = marginLeft+gridWidth/2, cy = marginTop+gridHeight/2;
   var newRatio = ratio*seriesCount, animSeriesIndex = 0;
+
   if(newRatio > 1)
   {
     animSeriesIndex = Math.floor(newRatio);
@@ -4088,6 +4173,7 @@ ApacheRadarChart.prototype.DrawGroupLabels = function()
   var groupLabels = model.getGroupLabels(), vLineCount = groupLabels.length;
   var labelElem = svgDoc.getElementById("groupLabelPrototype");
   var labelText, gLabelElems = this._groupLabelElems;
+
   for(var i = 0; i<vLineCount; ++i)
   {
     labelText = groupLabels[i];
@@ -4157,9 +4243,9 @@ ApacheRadarChart.prototype.LayoutGroupLabels = function()
         dy = cy - radius*Math.cos(theta);
     
     labelElem.setAttribute("y", dy);
-    var textWidth = labelElem.getComputedTextLength();
+    var textWidth = labelElem.getBBox().width;
     if(theta > Math.PI)
-			dx -= textWidth;
+      dx -= textWidth;
     labelElem.setAttribute("x", dx);
   }
 }
@@ -4182,6 +4268,7 @@ ApacheRadarChart.prototype.Draw2DGrid = function()
   var radius = Math.min(gridWidth, gridHeight)/2;
   var gradientsUsed = this._gradientsUsed;
   var circle = svgDoc.getElementById("radarCirclePrototype").cloneNode(false);
+
   circle.setAttribute("cx", cx);
   circle.setAttribute("cy", cy);
   circle.setAttribute("r", radius);
@@ -4255,6 +4342,7 @@ ApacheRadarChart.prototype.LayoutYValueLabels = function()
   var minValue = model.getMinYValue(), maxValue = model.getMaxYValue();  
   var yLabels = this._yLabels;
   var labelElem = svgDoc.getElementById("yLabelPrototype");
+
   labelElem = labelElem.cloneNode(true);
   var textHeight = this._addRadarYLabelAt(rootElem, labelElem, circleCount-1, 
                          cx,marginTop, textHeight, this._formatValue(maxValue));
@@ -4295,14 +4383,16 @@ ApacheRadarChart.prototype._addRadarYLabelAt = function(
   this._yLabels[index] = labelElem;
   labelElem.firstChild.data = value;
   rootElem.appendChild(labelElem);
+  
   if(textHeight == null)
   {
     var rect = labelElem.getBBox();
     textHeight = rect.height;
   }
+  
   // readjust to right align
   var labelMargin = ApacheChart._TEXT_MARGIN, 
-      textLength = labelElem.getComputedTextLength();
+      textLength = labelElem.getBBox().width;
   dx = x-textLength-labelMargin;
   labelElem.setAttribute("x", dx);
   labelElem.setAttribute("y", y+textHeight/2);
@@ -4514,6 +4604,7 @@ ApacheRadarChart.prototype._displayToolTips = function(
       seriesCount = seriesLabels.length, seriesColors = model.getSeriesColors();
   var tooltipCount = seriesIndices.length, toolTips = this._toolTips;
   var dx, dy;
+
   for(var i = 0; i<tooltipCount; ++i)
   { 
     var seriesIndex = seriesIndices[i];
@@ -4535,7 +4626,7 @@ ApacheRadarChart.prototype._displayToolTips = function(
     //append all the series values as labels
     var textElem = boundingRectElem.nextSibling.nextSibling;
     var textElemCount = seriesValues.length;
-    var rectWidth = textElem.getComputedTextLength();
+    var rectWidth = textElem.getBBox().width;
     
     textElem.firstChild.data = 
         seriesLabels[seriesIndex]+":  " +this._formatValue(seriesValues[i]);
@@ -4544,7 +4635,7 @@ ApacheRadarChart.prototype._displayToolTips = function(
     if(resizeOnInit)
     {
       var rectHeight = parseInt(boundingRectElem.getAttribute("height"));
-      var dy = parseInt(textElem.getAttribute("dy"));
+      var dy = parseInt(textElem.getAttribute("y"));
       rectHeight -= dy;
       boundingRectElem.setAttribute("height",rectHeight);
       textElem = textElem.nextSibling.nextSibling;
@@ -4556,11 +4647,13 @@ ApacheRadarChart.prototype._displayToolTips = function(
     
     var targetBBox = e.target.getBBox();
     var ttBBox = toolTip.getBBox();
-    dx = seriesXs[i], dy = seriesYs[i]- ttBBox.height;
+    dx = seriesXs[i];
+    dy = seriesYs[i]- ttBBox.height;
+    
     if(dx + ttBBox.width > this._width)
     {
       dx -= ttBBox.width;
-      circleElem.setAttribute("cx",boundingRectElem.getBBox().width);
+      circleElem.setAttribute("cx", boundingRectElem.getBBox().width);
     }
     else
     {
@@ -4608,6 +4701,7 @@ ApacheFunnelChart.prototype.SetDataAnimStep = function(ratio)
 {
   var animElems = this._dataElems, animCount = animElems.length;
   var transform = "scale("+ratio+","+ratio+")";
+
   for(var i = 0; i < animCount; ++i)
   {
     animElems[i].setAttribute("transform", transform);
@@ -4630,6 +4724,7 @@ ApacheFunnelChart.prototype.DrawChartData = function()
   var vGap = this._isPerspective?0:2*ApacheChart._TEXT_MARGIN;
   var quadHeight = (this._height - margins.top - margins.bottom - (nRows-1)*vGap)/nRows;
   var labelElem = this._svgDoc.getElementById("groupLabelPrototype");
+
   for(var i = 0; i<nRows; ++i)
   {
     for(var j = 0; j<nCols; ++j)
@@ -4704,6 +4799,7 @@ ApacheFunnelChart.prototype._drawFunnel = function(
 {
   var svgDoc = this._svgDoc, model = this._model, yValues = model.getYValues();
   var groupLabels = model.getGroupLabels(), seriesColors = model.getSeriesColors();
+
   if(iGroup == -1)
     iGroup = 0;
   
@@ -4721,6 +4817,7 @@ ApacheFunnelChart.prototype._drawFunnel = function(
   var defaultTransform = "scale(0.00001, 0.00001)";
   var x = 0, y = 0, slope = (quadWidth/2)/quadHeight,
       dx = quadWidth, dy, nextX, nextY;
+
   for (var i = nSeg-1; i >= 0; --i)
   {
     pathElem = pathElem.cloneNode(false);
@@ -4782,6 +4879,7 @@ ApacheFunnelChart.prototype._drawPerspectiveFunnel = function(
 {
   var svgDoc = this._svgDoc, model = this._model, yValues = model.getYValues();
   var groupLabels = model.getGroupLabels(), seriesColors = model.getSeriesColors();
+
   if(iGroup == -1)
     iGroup = 0;
   
@@ -4799,6 +4897,7 @@ ApacheFunnelChart.prototype._drawPerspectiveFunnel = function(
   var defaultTransform = "scale(0.00001, 0.00001)";
   var x = 0, y = 0, slope = (quadWidth/2)/quadHeight,
       dx = quadWidth, dy, nextX, oldDx, nextY;
+
   // the ring height is 1/12 of the width
   var rx = dx/2, ry = dx/24, oldRx, oldRy;
   for (var i = nSeg-1; i >= 0; --i)
@@ -4953,6 +5052,7 @@ ApacheGaugeChart.prototype.DrawChartData = function()
   var vGap = 2*ApacheChart._TEXT_MARGIN;
   var quadHeight = (this._height - margins.top - margins.bottom - (nRows-1)*vGap)/nRows;
   var labelElem = this._svgDoc.getElementById("groupLabelPrototype");
+
   for(var i = 0; i<nRows; ++i)
   {
     for(var j = 0; j<nCols; ++j)
@@ -5089,6 +5189,7 @@ ApacheGaugeChart.prototype.CreateTextMarkerGroup = function(gauge, gaugeR)
 {
   var svgDoc = this._svgDoc, model = this._model;
   var gElem = svgDoc.createElementNS("http://www.w3.org/2000/svg", "g");
+
   gauge.appendChild(gElem);
   this._markerTextGroup = gElem;
   
@@ -5207,7 +5308,7 @@ ApacheGaugeChart.prototype.FillToolTipData = function(boundingRectElem, circleEl
   var textElem = boundingRectElem.nextSibling.nextSibling;
   textElem.firstChild.data = ""+this._formatValue(value);
                 
-  var labelWidth = textElem.getComputedTextLength();      
+  var labelWidth = textElem.getBBox().width;      
   //We do not need the next label 
   textElem = textElem.nextSibling.nextSibling;
   textElem.firstChild.data = "";
@@ -5336,5 +5437,6 @@ ApacheSemiGaugeChart.prototype.ScaleGauge = function(
   var scale = Math.min(sx, sy);
   var tx = (quadWidth<=gaugeWidth)?0:(quadWidth-gaugeWidth)/2,
       ty = (quadHeight<=gaugeHeight)?0:(quadHeight-gaugeHeight)/2;
+ 
   gauge.setAttribute("transform","translate("+tx+","+ty+") scale("+scale+","+scale+")");
 }

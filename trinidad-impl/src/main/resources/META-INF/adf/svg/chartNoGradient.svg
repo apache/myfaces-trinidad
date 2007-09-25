@@ -125,8 +125,8 @@
   <g id="toolTip" style="font:9px Tahoma, Verdana, Helvetica, sans-serif;">
     <circle cx="0" cy="20" r="3" fill="#fefee6" stroke-width="2" stroke="#000000"/>
     <rect height="25" rx="2" ry="2" style="opacity:.8;" fill="#fefee6" stroke-width="1" stroke="#000000"/>
-    <text dx="5" dy="10" fill="#000000">Series(Group)</text>
-    <text dy="20" fill="#000000">Value</text>
+    <text x="5" y="10" fill="#000000">Series(Group)</text>
+    <text y="20" fill="#000000">Value</text>
   </g>
   <!-- END Tooltip Prototype-->
 
