@@ -33,13 +33,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import javax.servlet.jsp.JspException;
 
-import org.apache.myfaces.trinidad.config.Configurator;
-import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.application.StateManagerImpl;
-import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.XmlResponseWriter;
-import org.apache.myfaces.trinidadinternal.util.ExternalContextUtils;
 
 /**
  * Though a configurator in spirit, at this point it purely exposes
