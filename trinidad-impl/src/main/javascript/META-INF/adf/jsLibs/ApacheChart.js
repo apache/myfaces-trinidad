@@ -62,7 +62,7 @@ ApacheChartObj.Assert = function(arg, msg)
 */
 function ApacheChartBuffer(size)
 {
-  this.maxStreamLength = document.all?5000:100000;	
+  this.maxStreamLength = document.all?5000:100000;  
   this.data = new Array(size?size:100);
   this.iStr = 0;
 }
@@ -688,7 +688,7 @@ ApacheChart.prototype.draw = function()
 {  
   if(!this._initDocument())
     return;
-  	
+    
   // Initialize our gradients if necessary
   if (this._gradientsUsed && !this._gradientsInitialized)
   {
@@ -1071,7 +1071,7 @@ ApacheChart.prototype._drawTitleElem = function(template, title, isFooter)
     dx = (this._width-textWidth)-margins.right;
   
   if(!isFooter && gridWidth > textWidth)
-		dx = (gridWidth-textWidth)/2+margins.left;
+    dx = (gridWidth-textWidth)/2+margins.left;
     
   textElem.setAttribute("x",dx);
   if(isFooter)
@@ -1217,7 +1217,7 @@ ApacheChart.prototype.DrawLegend = function()
     labelElems.push(legendGroup);
     legendGroup.setAttribute("fill-opacity","0");
   }
-	
+  
   var dx = 0, dy = 0, tx = marginLeft, ty = this._height - margins.bottom;
   var drawSideWays = (legendPosition == ApacheChart.LEGEND_LOCATION_START || 
                       legendPosition == ApacheChart.LEGEND_LOCATION_END)
@@ -1620,10 +1620,10 @@ ApacheChart.prototype.DrawGroupLabelTitle = function(
     dx += 2;
 
   labelElem.setAttribute("x", dx);
-	
+  
   if(animate)
     labelElems.push(labelElem);
-	
+  
   quadHeight -= rect.height+ApacheChart._TEXT_MARGIN;
   return quadHeight;
 }
@@ -2141,7 +2141,7 @@ ApacheHBarChart.prototype.LayoutGroupLabels = function()
     labelElem = childNodes.item(i);
     labelElem.setAttribute("y", dy);
     var textWidth = labelElem.getBBox().width;
-    labelElem.setAttribute("x", marginLeft-textWidth/2+i*yValWidth);	    
+    labelElem.setAttribute("x", marginLeft-textWidth/2+i*yValWidth);      
   }
 }
 
@@ -2760,7 +2760,7 @@ ApachePieChart.prototype.GetToolTipLocation = function(e, ttBBox)
           
 }
 
-ApachePieChart._MAX_PERSPECTIVE_HEIGHT = 30;	
+ApachePieChart._MAX_PERSPECTIVE_HEIGHT = 30;  
 ////////////////////////////////////////////////////////////////////
 // Area chart subclass
 ////////////////////////////////////////////////////////////////////
@@ -4181,10 +4181,10 @@ ApacheRadarChart.prototype.DrawGroupLabels = function()
       continue;
     labelElem = labelElem.cloneNode(true);
     if(animate)
-		{
-		  labelElems.push(labelElem);
-		  labelElem.setAttribute("fill-opacity","0");
-		}
+    {
+      labelElems.push(labelElem);
+      labelElem.setAttribute("fill-opacity","0");
+    }
     labelElem.firstChild.data = labelText;
     container.appendChild(labelElem);
     gLabelElems[i] = labelElem;
@@ -4347,18 +4347,18 @@ ApacheRadarChart.prototype.LayoutYValueLabels = function()
   var textHeight = this._addRadarYLabelAt(rootElem, labelElem, circleCount-1, 
                          cx,marginTop, textHeight, this._formatValue(maxValue));
   if(animate)
-	{
-		labelElems.push(labelElem);
-		labelElem.setAttribute("fill-opacity","0");
-	}                     
+  {
+    labelElems.push(labelElem);
+    labelElem.setAttribute("fill-opacity","0");
+  }                     
   labelElem = labelElem.cloneNode(true);
   this._addRadarYLabelAt(rootElem, labelElem, circleCount, 
                            cx, cy, textHeight, this._formatValue(minValue));
   if(animate)
-	{
-		labelElems.push(labelElem);
-		labelElem.setAttribute("fill-opacity","0");
-	}
+  {
+    labelElems.push(labelElem);
+    labelElem.setAttribute("fill-opacity","0");
+  }
                            
   // horizontal lines
   for (var i = 0; i< circleCount-1; ++i)
@@ -4369,10 +4369,10 @@ ApacheRadarChart.prototype.LayoutYValueLabels = function()
     this._addRadarYLabelAt(rootElem, labelElem, i, cx,
           radius-newRadius+marginTop, textHeight, this._formatValue(value));
     if(animate)
-	  {
-		  labelElems.push(labelElem);
-		  labelElem.setAttribute("fill-opacity","0");
-	  }
+    {
+      labelElems.push(labelElem);
+      labelElem.setAttribute("fill-opacity","0");
+    }
   }
 }
 
