@@ -58,8 +58,8 @@ public class PanelPopupRenderer extends XhtmlRenderer
     _contentStyleKey = type.findKey("contentStyle");
     _widthKey = type.findKey("width");
     _heightKey = type.findKey("height");
-    _horzOffsetKey = type.findKey("horzOffset");
-    _vertOffsetKey = type.findKey("vertOffset");
+    _horzOffsetKey = type.findKey("xoffset");
+    _vertOffsetKey = type.findKey("yoffset");
     _triggerRenderer = new TriggerRenderer();
   }
 
