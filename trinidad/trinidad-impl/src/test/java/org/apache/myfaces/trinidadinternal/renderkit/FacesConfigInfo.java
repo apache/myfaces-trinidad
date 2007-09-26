@@ -25,8 +25,10 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.TreeMap;
@@ -89,6 +91,11 @@ public class FacesConfigInfo
       String className = info.componentClass;
       appl.addComponent(type, className);
     }
+  }
+
+  public List<String> getRenderKitFactories()
+  {
+    return _renderKitFactories;
   }
 
   public Map<String, RenderKit> getRenderKits()
@@ -192,6 +199,7 @@ public class FacesConfigInfo
   }
 
   private Map<String, ComponentInfo> _components = new HashMap<String, ComponentInfo>();
+  private List<String> _renderKitFactories  = new ArrayList<String>();
   private Map<String, RenderKit> _renderKits  = new HashMap<String, RenderKit>();
   private Map<String, String> _convertersByType  = new HashMap<String, String>();
   private Map<String, String> _convertersById  = new HashMap<String, String>();
