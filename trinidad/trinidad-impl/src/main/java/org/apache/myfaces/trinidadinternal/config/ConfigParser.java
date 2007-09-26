@@ -37,6 +37,7 @@ import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
 import org.apache.myfaces.trinidadinternal.config.upload.UploadedFileProcessorImpl;
 import org.apache.myfaces.trinidadinternal.context.RequestContextBean;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
+import org.apache.myfaces.trinidadinternal.util.DateUtils;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -218,7 +219,11 @@ public class ConfigParser
             }
             else if (key.getType() == TimeZone.class)
             {
-              value = TimeZone.getTimeZone(currentText);
+              value = DateUtils.getSupportedTimeZone(currentText);
+              if (value == null)
+              {
+                _LOG.warning("INVALID_TIMEZONE_IN_CONFIG", currentText);
+              }
             }
             else if (key.getType() == Locale.class)
             {

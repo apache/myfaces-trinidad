@@ -1031,4 +1031,10 @@
 <!-- COMPONENT_REQUIRES_FORM -->
 <resource key="COMPONENT_REQUIRES_FORM">The {0} component must be inside of a form to function correctly.</resource>
 
+<!-- CANNOT_FIND_TIMEZONE -->
+<resource key="CANNOT_FIND_TIMEZONE">Timezone with id {0} was requested, but it is not available through the TimeZone.getTimeZone(String id) API. Please check that the ID matches, including case, an ID returned by TimeZone.getAvailableIDs()</resource>
+
+<!-- INVALID_TIMEZONE_IN_CONFIG -->
+<resource key="INVALID_TIMEZONE_IN_CONFIG">The trinidad-config.xml contains an invalid value for time-zone ({0}). The default timezone will be used instead.</resource>
+
 </resources>

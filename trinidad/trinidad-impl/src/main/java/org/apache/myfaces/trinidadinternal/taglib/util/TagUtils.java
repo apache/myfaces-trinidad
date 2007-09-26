@@ -37,6 +37,7 @@ import javax.faces.el.ValueBinding;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
+import org.apache.myfaces.trinidadinternal.util.DateUtils;
 
 
 /**
@@ -179,7 +180,7 @@ public class TagUtils
   public static TimeZone getTimeZone(
     String value)
   {
-     return TimeZone.getTimeZone(value);
+    return DateUtils.getSupportedTimeZone(value);
   }
 
   public static boolean isValueReference(String expression)
