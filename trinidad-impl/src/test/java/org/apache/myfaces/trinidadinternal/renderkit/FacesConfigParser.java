@@ -57,6 +57,8 @@ class FacesConfigParser extends BaseNodeParser
       return new ComponentParser();
     if ("converter".equals(localName))
       return new ConverterParser();
+    if ("factory".equals(localName))
+      return new FactoryParser(_info);
 
     return BaseNodeParser.getIgnoreParser();
   }
@@ -151,6 +153,50 @@ class FacesConfigParser extends BaseNodeParser
     private String    _renderKitId;
     private RenderKit _kit;
   }
+
+  private class FactoryParser extends BaseNodeParser
+  {
+    public FactoryParser(FacesConfigInfo info)
+    {
+      _info = info;
+    }
+
+    @Override
+    public NodeParser startChildElement(
+      ParseContext context,
+      String       namespaceURI,
+      String       localName,
+      Attributes   attrs) throws SAXParseException
+    {
+      // For now, let's just parse renderkit factories
+      if ("render-kit-factory".equals(localName))
+        return new StringParser();
+
+      return BaseNodeParser.getIgnoreParser();
+    }
+    
+    @Override
+    public void addCompletedChild(
+      ParseContext context,
+      String       namespaceURI,
+      String       localName,
+      Object       child) throws SAXParseException
+    {
+      if ("render-kit-factory".equals(localName))
+      {
+        String factoryName = (String) child;
+        if (factoryName != null)
+        {
+          factoryName = factoryName.trim();
+          if (!"".equals(factoryName))
+            _info.getRenderKitFactories().add(factoryName);
+        }
+      }
+    }
+    
+    private FacesConfigInfo _info;
+  }
+
 
 
   private class ComponentParser extends BaseNodeParser
