@@ -143,7 +143,7 @@
               <input
                    id="mainId"
                    name="groupTest"
-                   onclick="_radioSet_adfspu('formId',1,'autosub','mainId');return true;"
+                   onclick="TrPage._autoSubmit('formId','mainId',event,1);return true;"
                    type="radio"
                    value="mainId"
                   >
@@ -198,7 +198,7 @@
               <input
                    id="mainId"
                    name="groupTest"
-                   onclick="_radioSet_adfspu('formId',0,'autosub','mainId');return true;"
+                   onclick="TrPage._autoSubmit('formId','mainId',event,0);return true;"
                    type="radio"
                    value="mainId"
                   >

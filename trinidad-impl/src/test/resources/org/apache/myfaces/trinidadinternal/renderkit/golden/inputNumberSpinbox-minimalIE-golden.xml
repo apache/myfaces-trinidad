@@ -2835,7 +2835,7 @@
                        class="af_inputNumberSpinbox_content"
                        id="mainId"
                        name="mainId"
-                       onchange="_adfspu('formId',1,'autosub','mainId');return true;"
+                       onchange="TrPage._autoSubmit('formId','mainId',event,1);return true;"
                        size="1"
                        type="text"
                        value="Text"

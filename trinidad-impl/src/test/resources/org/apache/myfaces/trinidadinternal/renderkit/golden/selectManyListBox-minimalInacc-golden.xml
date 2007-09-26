@@ -298,7 +298,7 @@
                  id="mainId"
                  multiple="multiple"
                  name="mainId"
-                 onchange="_adfspu('formId',1,'autosub','mainId');return true;"
+                 onchange="TrPage._autoSubmit('formId','mainId',event,1);return true;"
                  size="3"
                 >
               

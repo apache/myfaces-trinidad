@@ -654,3 +654,42 @@ TrPage.prototype.getStyleClass = function(key)
 
   return key;
 }
+
+/**
+ * Causes a partial submit to occur on a given component.  The specified
+ * component will always be validated first (if appropriate), then optionally 
+ * the whole form, prior to submission.
+ * @param formId(String) Id of the form to partial submit.
+ * @param inputId(String) Id of the element causing the partial submit.  If this
+ * element fails validation the partial submit will not be performed.
+ * @param event(Event) The javascript event object.
+ * @param validateForm(boolean) true if the whole form should be validated.
+ */
+TrPage._autoSubmit = function(formId, inputId, event, validateForm, params)
+{
+  if (_agent.isIE)
+  {
+    // in many forms there is a hidden field named "event"
+    // Sometimes IE gets confused and sends us that instead of
+    // the true event, so...
+    if (event["type"] == "hidden")
+      event = window.event;
+  }
+
+  // If onchange is used for validation, then first validate 
+  // just the current input
+  var isValid = true;
+  if (_TrEventBasedValidation)
+    isValid = _validateInput(event, true);
+
+  // Only proceed if the current input is valid
+  if (isValid)
+  {
+    if (!params)
+      params = new Object();
+    params.event = "autosub";
+    params.source = inputId;
+  
+    _submitPartialChange(formId, validateForm, params);
+  }
+}

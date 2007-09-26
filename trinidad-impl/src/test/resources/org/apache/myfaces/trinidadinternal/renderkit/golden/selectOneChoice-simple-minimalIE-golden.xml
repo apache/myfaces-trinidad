@@ -178,9 +178,9 @@
              class="af_selectOneChoice_content"
              id="mainId"
              name="mainId"
-             onblur="if(!_pprChoiceAction(event))return true;_adfspu('formId',1,'autosub','mainId');return true;"
+             onblur="if(!_pprChoiceAction(event))return true;TrPage._autoSubmit('formId','mainId',event,1);return true;"
              onchange="return _pprChoiceChangeEvent(event);"
-             onclick="if(!_pprChoiceAction(event))return true;_adfspu('formId',1,'autosub','mainId');return true;"
+             onclick="if(!_pprChoiceAction(event))return true;TrPage._autoSubmit('formId','mainId',event,1);return true;"
             >
           
           <option

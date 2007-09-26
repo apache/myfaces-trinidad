@@ -853,7 +853,7 @@
                     <input
                          id="mainId:0"
                          name="mainId:_s"
-                         onclick="_adfspu('formId',1,'autosub','mainId');return true;"
+                         onclick="TrPage._autoSubmit('formId','mainId',event,1);return true;"
                          title="Select"
                          type="checkbox"
                          value="0"
@@ -884,7 +884,7 @@
                     <input
                          id="mainId:1"
                          name="mainId:_s"
-                         onclick="_adfspu('formId',1,'autosub','mainId');return true;"
+                         onclick="TrPage._autoSubmit('formId','mainId',event,1);return true;"
                          title="Select"
                          type="checkbox"
                          value="1"
@@ -915,7 +915,7 @@
                     <input
                          id="mainId:2"
                          name="mainId:_s"
-                         onclick="_adfspu('formId',1,'autosub','mainId');return true;"
+                         onclick="TrPage._autoSubmit('formId','mainId',event,1);return true;"
                          title="Select"
                          type="checkbox"
                          value="2"

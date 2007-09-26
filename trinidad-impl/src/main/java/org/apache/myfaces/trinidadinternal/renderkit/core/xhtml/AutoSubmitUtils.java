@@ -213,55 +213,31 @@ public class AutoSubmitUtils
      String              extraParams,
      boolean             returnTrue)
   {
+    StringBuilder builder = new StringBuilder();
+
     // Get the formName
-    FormData fData = arc.getFormData();
-    if (fData == null)
+    FormData formData = arc.getFormData();
+    if (formData == null)
       return null;
 
-    String formName = fData.getName();
+    String formName = formData.getName();
     if (formName == null)
       return null;
 
-    String startString = _START;
-
-    if (isRadio)
-      startString = _START_RADIO;
-
-    String endString = (returnTrue ? _TRUE_END : _FALSE_END);
-
-    int length = (startString.length()
-                  + formName.length()
-                  + 4 // close quote, comma, validated flag, and one more comma
-                  + (source.length() + 1)
-                  + (event == null ? 2 : event.length() + 1)
-                  + endString.length());
-    if (extraParams != null)
-    {
-      length += (3 + extraParams.length());
-    }
-
-    // Create the builder
-    StringBuilder builder = new StringBuilder(length);
-
-    // Build up the script
-    builder.append(startString);
+    builder.append("TrPage._autoSubmit('");
     builder.append(formName);
-    builder.append("\',");
+    builder.append("',");
+    _appendJSParameter(builder, source);
+    builder.append(",event,");
     builder.append(immediate ? "0" : "1");
-
-    builder.append(",");
-    _appendJSParameter(builder, event); // eventName
-    builder.append(",");
-    _appendJSParameter(builder, source); // source
-
     if (extraParams != null)
     {
       builder.append(",{");
       builder.append(extraParams);
       builder.append("}");
     }
+    builder.append(returnTrue ? _TRUE_END : _FALSE_END);
 
-    builder.append(endString);
     return builder.toString();
   }
 
