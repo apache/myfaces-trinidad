@@ -32,6 +32,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.pages.FredJSP;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.DialogStyleScriptlet;
 
 /**
  *
@@ -90,19 +91,9 @@ class DialogRequest
 
     if (_usePopup)
     {
-      // Output the style classes to the styleClassMap
-      out.writeText("TrPage.getInstance().addStyleClassMap( {'", null);
-      out.writeText(SkinSelectors.AF_DIALOG_CONTAINER_STYLE_CLASS + "':'", null);
-      out.writeText(arc.getStyleClass(SkinSelectors.AF_DIALOG_CONTAINER_STYLE_CLASS), null);
-      out.writeText("','" + SkinSelectors.AF_DIALOG_CONTENT_STYLE_CLASS + "':'", null);
-      out.writeText(arc.getStyleClass(SkinSelectors.AF_DIALOG_CONTENT_STYLE_CLASS), null);
-      out.writeText("','" + SkinSelectors.AF_DIALOG_TITLEBAR_STYLE_CLASS + "':'", null);
-      out.writeText(arc.getStyleClass(SkinSelectors.AF_DIALOG_TITLEBAR_STYLE_CLASS), null);
-      out.writeText("','" + SkinSelectors.AF_DIALOG_TITLE_STYLE_CLASS + "':'", null);
-      out.writeText(arc.getStyleClass(SkinSelectors.AF_DIALOG_TITLE_STYLE_CLASS), null);
-      out.writeText("','" + SkinSelectors.AF_DIALOG_CLOSE_ICON_STYLE_CLASS + "':'", null);
-      out.writeText(arc.getStyleClass(SkinSelectors.AF_DIALOG_CLOSE_ICON_STYLE_CLASS), null);
-      out.writeText("'} ); ", null);
+      // Use the common scriplet to output the javascript
+      // that sets the skin entries for the lightweight dialogs.
+      DialogStyleScriptlet.outputStyleMapForDialog(context, arc);
       
       // Finally output the call to launch the dialog
       out.writeText("TrPopupDialog._launchDialog(\"", null);

@@ -48,6 +48,7 @@ import org.apache.myfaces.trinidadinternal.convert.GenericConverterFactory;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 import org.apache.myfaces.trinidadinternal.renderkit.core.pages.GenericEntry;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.ConfigurationScriptlet;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.DialogStyleScriptlet;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.Scriptlet;
 
 
@@ -214,6 +215,14 @@ public class SimpleInputDateRenderer
                       arc,
                       _DATE_TIME_ZONE_OFFSET_KEY);
 
+    // Add the dialog styles so the picker window is skinned correctly
+    if (CoreRenderKit.usePopupForDialog(context, RequestContext.getCurrentInstance()))
+    {
+      XhtmlUtils.addLib(context,
+          arc,
+          DialogStyleScriptlet.sharedInstance().getScriptletKey());
+    }
+    
     super.renderIcon(context, arc, component, bean);
   }
 
