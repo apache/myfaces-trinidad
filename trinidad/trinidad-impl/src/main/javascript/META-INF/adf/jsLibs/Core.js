@@ -1355,13 +1355,14 @@ function _validateInline(
  * The simplest usage of this method is from the onblur attribute of the 
  * input component. e.g. onblur="_validateInput(event);"
  * <p>
- * @param event, The event object provided by the event handler.
- * @return boolean, false if validation failed, otherwise true. 
+ * @param event(Event) The event object provided by the event handler.
+ * @param falseOnFail(boolean) Force method to return false if validation failed.
+ * @return boolean, false if validation failed and falseOnFail set to true, otherwise true. 
  */
 // TODO: make this a public function only after hanging it on
 // a namespaced object, *and* making it not specific to inline
 // validation
-function _validateInput(event)
+function _validateInput(event, falseOnFail)
 {
   if (!event)
     return true;
@@ -1400,8 +1401,11 @@ function _validateInput(event)
   validatorsToRun[id] = descriptor;
 
   // Call inline validation using only the appropriate validators
-  var retVal = _validateInline(form, null, validatorsToRun, 1, null);
-  return retVal;
+  var retval = _validateInline(form, null, validatorsToRun, 1, null);
+  
+  // Only return the actual outcome if asked to do so 
+  if (falseOnFail)
+    return retval;
 }
 
 // Records the time of this validation event.

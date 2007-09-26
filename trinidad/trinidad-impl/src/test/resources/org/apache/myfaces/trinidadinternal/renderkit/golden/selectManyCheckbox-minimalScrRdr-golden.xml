@@ -650,7 +650,7 @@
               <input
                    id="mainId:_0"
                    name="mainId"
-                   onclick="_adfspu('formId',1,'autosub','mainId');return true;"
+                   onclick="TrPage._autoSubmit('formId','mainId',event,1);return true;"
                    type="checkbox"
                    value="0"
                   >
@@ -668,7 +668,7 @@
               <input
                    id="mainId:_1"
                    name="mainId"
-                   onclick="_adfspu('formId',1,'autosub','mainId');return true;"
+                   onclick="TrPage._autoSubmit('formId','mainId',event,1);return true;"
                    type="checkbox"
                    value="1"
                   >
@@ -686,7 +686,7 @@
               <input
                    id="mainId:_2"
                    name="mainId"
-                   onclick="_adfspu('formId',1,'autosub','mainId');return true;"
+                   onclick="TrPage._autoSubmit('formId','mainId',event,1);return true;"
                    type="checkbox"
                    value="2"
                   >

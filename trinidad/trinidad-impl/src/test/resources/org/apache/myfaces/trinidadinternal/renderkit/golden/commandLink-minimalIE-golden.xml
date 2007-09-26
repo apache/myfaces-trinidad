@@ -87,7 +87,7 @@
       </script>
       <a
            class="OraLink"
-           onclick="_adfspu('formId',1,0,'mainId');return false;"
+           onclick="TrPage._autoSubmit('formId','mainId',event,1);return false;"
            href="uri-attr:encoded-action-url:#"
            id="uri-attr:mainId"
            name="uri-attr:mainId"

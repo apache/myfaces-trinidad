@@ -48,7 +48,7 @@
         
         <span
              class="af_selectBooleanRadio_content"
-             onclick="_radioSet_adfspu('formId',1,'autosub','mainId');return true;"
+             onclick="TrPage._autoSubmit('formId','mainId',event,1);return true;"
             >
           
           <script
@@ -74,7 +74,7 @@
         
         <span
              class="af_selectBooleanRadio_content"
-             onclick="_radioSet_adfspu('formId',0,'autosub','mainId');return true;"
+             onclick="TrPage._autoSubmit('formId','mainId',event,0);return true;"
             >
           
           <input

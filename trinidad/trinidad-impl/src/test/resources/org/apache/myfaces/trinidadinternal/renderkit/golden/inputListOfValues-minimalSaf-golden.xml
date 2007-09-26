@@ -42,7 +42,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -105,7 +105,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -168,7 +168,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -230,7 +230,7 @@
               
             </img>
             <a
-                 onclick="return _chain('test-onclick','_adfspu(\'formId\',0,0,\'mainId\',{part:\'b\'});return false;',this,event,true)"
+                 onclick="return _chain('test-onclick','TrPage._autoSubmit(\'formId\',\'mainId\',event,0,{part:\'b\'});return false;',this,event,true)"
                  href="uri-attr:#"
                 >
               
@@ -293,7 +293,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -356,7 +356,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -419,7 +419,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -482,7 +482,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -545,7 +545,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -608,7 +608,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -671,7 +671,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -734,7 +734,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -797,7 +797,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -860,7 +860,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -923,7 +923,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -985,7 +985,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -1047,7 +1047,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -1107,7 +1107,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'id_val',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','id_val',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -1170,7 +1170,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -1237,7 +1237,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -1300,7 +1300,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -1364,7 +1364,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -1426,7 +1426,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -1488,7 +1488,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -1550,7 +1550,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -1612,7 +1612,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -1674,7 +1674,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -1721,7 +1721,7 @@
                  class="af_inputListOfValues_content"
                  id="mainId"
                  name="mainId"
-                 onchange="_adfspu('formId',1,'autosub','mainId');return true;"
+                 onchange="TrPage._autoSubmit('formId','mainId',event,1);return true;"
                  size="30"
                  type="text"
                  value="Text"
@@ -1737,7 +1737,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -1799,7 +1799,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -1901,7 +1901,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -1998,7 +1998,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -2066,7 +2066,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -2128,7 +2128,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -2190,7 +2190,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -2258,7 +2258,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -2326,7 +2326,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -2394,7 +2394,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -2462,7 +2462,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -2524,7 +2524,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -2586,7 +2586,7 @@
               
             </img>
             <a
-                 onclick="return _chain('test-onclick','_adfspu(\'formId\',0,0,\'mainId\',{part:\'b\'});return false;',this,event,true)"
+                 onclick="return _chain('test-onclick','TrPage._autoSubmit(\'formId\',\'mainId\',event,0,{part:\'b\'});return false;',this,event,true)"
                  href="uri-attr:#"
                 >
               
@@ -2648,7 +2648,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -2710,7 +2710,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -2772,7 +2772,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -2874,7 +2874,7 @@
               
             </img>
             <a
-                 onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+                 onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
                  href="uri-attr:#"
                 >
               
@@ -2951,7 +2951,7 @@
           
         </img>
         <a
-             onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+             onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
              href="uri-attr:#"
             >
           
@@ -2991,7 +2991,7 @@
           
         </img>
         <a
-             onclick="return _chain('test-onclick','_adfspu(\'formId\',0,0,\'mainId\',{part:\'b\'});return false;',this,event,true)"
+             onclick="return _chain('test-onclick','TrPage._autoSubmit(\'formId\',\'mainId\',event,0,{part:\'b\'});return false;',this,event,true)"
              href="uri-attr:#"
             >
           
@@ -3031,7 +3031,7 @@
           
         </img>
         <a
-             onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+             onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
              href="uri-attr:#"
             >
           
@@ -3071,7 +3071,7 @@
           
         </img>
         <a
-             onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+             onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
              href="uri-attr:#"
             >
           
@@ -3111,7 +3111,7 @@
           
         </img>
         <a
-             onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+             onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
              href="uri-attr:#"
             >
           
@@ -3169,7 +3169,7 @@
           
         </img>
         <a
-             onclick="_adfspu('formId',0,0,'mainId',{part:'b'});return false;"
+             onclick="TrPage._autoSubmit('formId','mainId',event,0,{part:'b'});return false;"
              href="uri-attr:#"
             >
           
