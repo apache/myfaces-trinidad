@@ -131,7 +131,7 @@ made visible via a clickable link.]]>
       <description><![CDATA[The popup's horizontal offset in pixels from the current mouse position.  
         This property only applies to popups using relative positioning.]]>
       </description>
-      <property-name>horzOffset</property-name>
+      <property-name>xoffset</property-name>
       <property-class>int</property-class>
       <default-value>0</default-value>
       <property-extension>
@@ -142,7 +142,7 @@ made visible via a clickable link.]]>
       <description><![CDATA[The popup's vertical offset in pixels from the current mouse position.  
         This property only applies to popups using relative positioning.]]>
       </description>
-      <property-name>vertOffset</property-name>
+      <property-name>yoffset</property-name>
       <property-class>int</property-class>
       <default-value>0</default-value>
       <property-extension>
