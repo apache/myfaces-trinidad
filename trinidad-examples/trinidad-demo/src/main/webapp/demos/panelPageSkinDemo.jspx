@@ -41,19 +41,14 @@
             </f:facet>
             <tr:commandLink immediate="true" text="Component Guide"
                             action="guide"/>
-                                          <tr:panelGroupLayout layout="vertical">
-
-              <tr:panelGroupLayout styleClass="tabsPanelGroup">
-
-          <tr:navigationPane hint="tabs" id="menuItemContainer2"  shortDesc="Select tab">
-                  <tr:commandNavigationItem text="Home" action="guide.navigationPane" selected="true"
-                                      />
-                  <tr:commandNavigationItem text="Clothing" action="guide.navigationPane" />
-                  <tr:commandNavigationItem text="Disabled" action="guide.navigationPane" disabled="true" shortDesc="Disabled tab"/>
+            <tr:panelGroupLayout layout="vertical">
+              <tr:panelGroupLayout layout="horizontal" styleClass="tabsPanelGroup">
+                <tr:navigationPane hint="tabs" shortDesc="Select tab">
+                  <tr:commandNavigationItem text="Home" action="guide.navigationPane"
+                                      selected="true"/>
+                  <tr:commandNavigationItem text="Clothing" action="guide.navigationPane"/>
                   <tr:commandNavigationItem text="Equipment" action="guide.navigationPane"/>
                 </tr:navigationPane>
-
-          
                 <tr:panelGroupLayout>
                   <tr:commandNavigationItem text="Your Account"
                                       action="guide.navigationPane"/>
@@ -65,8 +60,7 @@
                   <tr:commandNavigationItem text="Help" action="guide.navigationPane"/>
                 </tr:panelGroupLayout>
               </tr:panelGroupLayout>
-
-              <tr:navigationPane hint="bar">
+              <!--tr:navigationPane hint="bar">
                 <tr:commandNavigationItem text="Jackets" action="guide.navigationPane"
                                     selected="true"/>
                 <tr:commandNavigationItem text="Pants" action="guide.navigationPane"/>
@@ -74,7 +68,7 @@
                 <tr:commandNavigationItem text="Shoes" action="guide.navigationPane"/>
                 <tr:commandNavigationItem text="Swimwear" action="guide.navigationPane"/>
                 <tr:commandNavigationItem text="Sale Items" action="guide.navigationPane"/>
-              </tr:navigationPane>
+              </tr:navigationPane-->
               <tr:panelGroupLayout layout="horizontal"
                              styleClass="adfFacesDemoSearchPanelGroup">
                 <f:facet name="separator">
@@ -170,16 +164,24 @@
                     <tr:showDetailItem text="Tab 4" disabled="true"/>
                     <tr:showDetailItem text="Tab 5">
                       <tr:panelHeader text="Header 5">
-                        <tr:panelFormLayout>
-                          <tr:inputText readOnly="true" label="Label 5-1"
-                                        value="Value" styleClass="AFDataText"/>
-                          <tr:inputText readOnly="true"
-                                        label="Date/Time from last partial refresh"
-                                        value="#{date.currentDate}"
-                                        styleClass="AFDataText">
-                            <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
-                          </tr:inputText>
-                        </tr:panelFormLayout>
+                      
+            <tr:table allDetailsEnabled="true" var="row"
+                      rowBandingInterval="2"
+                      value="#{periodicTable.tableData}" rows="10"
+                      summary="Element information">
+              <f:facet name="actions">
+                <tr:outputText value="(Actions)"/>
+              </f:facet>
+              <tr:column headerText="Name">
+                <tr:outputText value="#{row.name}"/>
+              </tr:column>
+              <f:facet name="detailStamp" >
+                <tr:panelGroupLayout layout="vertical" >
+                  <tr:outputText value="Element Name: #{row.name}"/>
+                </tr:panelGroupLayout>
+              </f:facet>
+            </tr:table>
+
                       </tr:panelHeader>
                     </tr:showDetailItem>
                   </tr:panelTabbed>

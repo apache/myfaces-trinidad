@@ -54,6 +54,7 @@
         <style-sheet-name>
             skins/purple/purpleBigFontSkin.css
         </style-sheet-name>
+        <translation-source>#{skinTranslationMap.contents}</translation-source>
     </skin>    
     <skin>
         <id>
@@ -68,5 +69,10 @@
         <style-sheet-name>
             skins/beach/beach.css
         </style-sheet-name>
+        <translation-source>#{skinTranslationMap.resourceBundle}</translation-source>
+
     </skin>
+    <skin-addition>
+      <skin-id>purpleBigFont.desktop</skin-id>
+    </skin-addition>
 </skins>

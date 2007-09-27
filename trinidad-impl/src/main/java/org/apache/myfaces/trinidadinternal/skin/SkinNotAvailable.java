@@ -18,6 +18,9 @@
  */
 package org.apache.myfaces.trinidadinternal.skin;
 
+
+import javax.faces.el.ValueBinding;
+
 import org.apache.myfaces.trinidad.context.LocaleContext;
 
 /**
@@ -52,6 +55,13 @@ public class SkinNotAvailable extends SkinImpl
   
   @Override
   protected String getBundleName()
+  {
+    return null;
+  }
+  
+  
+  @Override
+  protected ValueBinding getTranslationSourceValueBinding()
   {
     return null;
   }

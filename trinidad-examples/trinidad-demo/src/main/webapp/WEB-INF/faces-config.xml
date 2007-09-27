@@ -3045,5 +3045,11 @@
       </list-entries>
     </managed-property>
   </managed-bean>
+  
+  <managed-bean>
+    <managed-bean-name>skinTranslationMap</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.resource.SkinTranslationMapDemo</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
 
 </faces-config>

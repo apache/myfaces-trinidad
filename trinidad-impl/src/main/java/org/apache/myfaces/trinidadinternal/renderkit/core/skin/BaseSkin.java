@@ -18,6 +18,9 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.skin;
 
+
+import javax.faces.el.ValueBinding;
+
 import org.apache.myfaces.trinidadinternal.skin.SkinImpl;
 
 /**
@@ -41,6 +44,12 @@ public class BaseSkin extends SkinImpl
 
   @Override
   protected String getBundleName()
+  {
+    return null;
+  }
+
+  @Override
+  protected ValueBinding getTranslationSourceValueBinding()
   {
     return null;
   }

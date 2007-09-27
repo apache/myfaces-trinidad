@@ -34,12 +34,14 @@ public class SkinAdditionNode implements Comparable<SkinAdditionNode>
   public SkinAdditionNode (
     String skinId,
     String styleSheetName,
-    String resourceBundleName
+    String resourceBundleName,
+    String translationSourceExpression
     )
   {
     _styleSheetName = styleSheetName;
     _skinId = skinId;
     _resourceBundleName = resourceBundleName;
+    _translationSourceExpression = translationSourceExpression;
   }
   
   public String getSkinId()
@@ -62,6 +64,10 @@ public class SkinAdditionNode implements Comparable<SkinAdditionNode>
     _styleSheetName = ssName;
   }
   
+  /**
+   * Returns the resource bundle name. The actual ResourceBundle will
+   * be resolved by the Skin by using the LocaleContext. 
+   */    
   public String getResourceBundleName()
   {
     return _resourceBundleName;
@@ -70,7 +76,16 @@ public class SkinAdditionNode implements Comparable<SkinAdditionNode>
   public void setResourceBundleName(String rbName)
   {
     _resourceBundleName = rbName;
-  }  
+  }
+  
+  /**
+   * Returns the translationSource value expression String. This could
+   * resolve to a Map or a ResourceBundle. 
+   */  
+  public String getTranslationSourceExpression()
+  {
+    return _translationSourceExpression;
+  } 
   
   // Sort by the name of the stylesheet
   public int compareTo(SkinAdditionNode node)
@@ -81,5 +96,6 @@ public class SkinAdditionNode implements Comparable<SkinAdditionNode>
   private String _skinId;
   private String _styleSheetName;
   private String _resourceBundleName;
+  private String _translationSourceExpression;
 
 }

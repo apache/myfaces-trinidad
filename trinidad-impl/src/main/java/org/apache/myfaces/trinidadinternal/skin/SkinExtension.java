@@ -24,6 +24,8 @@ import java.util.MissingResourceException;
 import java.util.Stack;
 
 import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
+
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.context.LocaleContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
@@ -44,9 +46,9 @@ import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
 public class SkinExtension extends SkinImpl
 {
   /**
-   * Creates a Skin which extends the specified base
-   * Skin.
-   *
+   * Constructs a SkinExtension of id and family and renderKitId. It also
+   * sets the styleSheetname and a resourceBundle name.
+   * 
    * @param baseSkin The base Skin that this custom
    *        Skin "extends". If it is a Skin designed for "org.apache.myfaces.trinidad.desktop"
    *        render-kit-id, then its base skin should be SimpleDesktopSkin.
@@ -67,7 +69,8 @@ public class SkinExtension extends SkinImpl
    *               Must be non-null.
    * @param renderKitId The render-kit-id that this Skin is designed for.
    * @param styleSheetName The name of the stylesheet for this Skin.
-   * @param resourceBundleName The name of the resource bundle for this Skin.
+   * @param resourceBundleName The name of the resource bundle for this Skin
+   *    to be used to translate strings that a renderer renders.
 
    * @throws NullPointerException if baseSkin, id, or family is null.
    * 
@@ -89,16 +92,134 @@ public class SkinExtension extends SkinImpl
     if (family == null)
       throw new NullPointerException("Null family");
     if (renderKitId == null)
-      renderKitId = "org.apache.myfaces.trinidad.desktop";
+      renderKitId = _DEFAULT_RENDERKIT;
 
-    _baseSkin = (SkinImpl) baseSkin;
+
+    _baseSkin = (SkinImpl)baseSkin;
     _id = id;
     _family = family;
     _renderKitId = renderKitId;
     _styleSheetName = styleSheetName;
     _bundleName = resourceBundleName;
+    _translationSourceVB = null;
   }
   
+  /**
+   * Constructs a SkinExtension of id and family and renderKitId. It also
+   * sets the styleSheetname and a translation-source (instead of a resource
+   * bundle name).
+   * 
+   * @param baseSkin The base Skin that this custom
+   *        Skin "extends". If it is a Skin designed for "org.apache.myfaces.trinidad.desktop"
+   *        render-kit-id, then its base skin should be SimpleDesktopSkin.
+   *        If it is a Skin designed for "org.apache.myfaces.trinidad.pda" render-kit-id,
+   *        then its base skin should be SimplePdaSkin.
+   *        Must be non-null.
+   * @param id A string which can be used to uniquely identify the
+   *           Skin .
+   *           Must be non-null.
+   * @param family The Skin family name that this
+   *               SkinExtension belongs to. For example, you might have
+   *               a Skin that makes your pages look purple for the
+   *               desktop renderkit and a Skin that makes your pages
+   *               look purple for the pda renderkit.
+   *               You can set the skin-family to "purple" in
+   *               trinidad-config.xml, and the Skin with skin-family
+   *               and render-kit-id match will be chosen.
+   *               Must be non-null.
+   * @param renderKitId The render-kit-id that this Skin is designed for.
+   * @param styleSheetName The name of the stylesheet for this Skin.
+   * @param translationSourceValueBinding 
+   *          A ValueBinding that points to a translation source of type
+   *          Map or ResourceBundle. This can be used instead of a 
+   *          resource bundle name.
+   * @throws NullPointerException if baseSkin, id, or family is null.
+   * 
+   */
+  public SkinExtension(
+    Skin   baseSkin,
+    String id,
+    String family,
+    String renderKitId,
+    String styleSheetName,
+    ValueBinding translationSourceValueBinding
+    )
+  {
+    if (baseSkin == null)
+      throw new NullPointerException("Null baseSkin");
+    if (id == null)
+      throw new NullPointerException(_LOG.getMessage(
+        "NULL_SKIN_ID"));
+    if (family == null)
+      throw new NullPointerException("Null family");
+    if (renderKitId == null)
+      renderKitId = _DEFAULT_RENDERKIT;
+
+    _baseSkin = (SkinImpl)baseSkin;
+    _id = id;
+    _family = family;
+    _renderKitId = renderKitId;
+    _styleSheetName = styleSheetName;
+    _bundleName = null;
+    _translationSourceVB = translationSourceValueBinding;
+  }
+
+  
+  /**
+   * Constructs a SkinExtension of id and family and renderKitId. It also
+   * sets the styleSheetname, but not the resource bundle name or 
+   * translation source. This is the most frequently-used constructor.
+   *
+   * @param baseSkin The base Skin that this custom
+   *        Skin "extends". If it is a Skin designed for "org.apache.myfaces.trinidad.desktop"
+   *        render-kit-id, then its base skin should be SimpleDesktopSkin.
+   *        If it is a Skin designed for "org.apache.myfaces.trinidad.pda" render-kit-id,
+   *        then its base skin should be SimplePdaSkin.
+   *        Must be non-null.
+   * @param id A string which can be used to uniquely identify the
+   *           Skin .
+   *           Must be non-null.
+   * @param family The Skin family name that this
+   *               SkinExtension belongs to. For example, you might have
+   *               a Skin that makes your pages look purple for the
+   *               desktop renderkit and a Skin that makes your pages
+   *               look purple for the pda renderkit.
+   *               You can set the skin-family to "purple" in
+   *               trinidad-config.xml, and the Skin with skin-family
+   *               and render-kit-id match will be chosen.
+   *               Must be non-null.
+   * @param renderKitId The render-kit-id that this Skin is designed for.
+   * @param styleSheetName The name of the stylesheet for this Skin.
+   *
+   * @throws NullPointerException if baseSkin, id, or family is null.
+   * 
+   */  
+  public SkinExtension(
+    Skin baseSkin,
+    String id,
+    String family,
+    String renderKitId,
+    String styleSheetName
+    )
+  {
+    if (baseSkin == null)
+      throw new NullPointerException("Null baseSkin");
+    if (id == null)
+      throw new NullPointerException(_LOG.getMessage(
+        "NULL_SKIN_ID"));
+    if (family == null)
+      throw new NullPointerException("Null family");
+    if (renderKitId == null)
+      renderKitId = _DEFAULT_RENDERKIT;
+
+    _baseSkin = (SkinImpl)baseSkin;
+    _id = id;
+    _family = family;
+    _renderKitId = renderKitId;
+    _styleSheetName = styleSheetName;
+    _bundleName = null;
+    _translationSourceVB = null;
+  }
   /**
    * Creates a Skin which extends the specified base
    * Skin.
@@ -123,7 +244,7 @@ public class SkinExtension extends SkinImpl
    *               Must be non-null.
    * @param renderKitId The render-kit-id that this Skin is designed for.
    * @throws NullPointerException if baseSkin, id, or family is null.
-   * @deprecated Use the constructor that also contains styleSheetName and resourceBundleName
+   * @deprecated Use the constructor that also contains styleSheetName
    *
    */
   public SkinExtension(
@@ -133,7 +254,7 @@ public class SkinExtension extends SkinImpl
     String renderKitId
     )
   {
-    this(baseSkin, id, family, renderKitId, null, null);
+    this(baseSkin, id, family, renderKitId, null);
   }
 
 
@@ -189,6 +310,8 @@ public class SkinExtension extends SkinImpl
 
   /**
    * Returns the name of the bundle for the SkinExtension.
+   * Note: A skin cannot have both a bundleName and a translation source
+   * value expression. If they do, then the bundlename takes precedence.
    */
   @Override
   public String getBundleName()
@@ -198,7 +321,7 @@ public class SkinExtension extends SkinImpl
 
   /**
    * Returns the name of the bundle for this SkinExtension.
-   * @deprecated Use the constructor that takes a resourceBundleName instead.
+   * @deprecated Use the constructor that takes a resourceBundleName instead
    */
   public void setBundleName(String bundleName)
   {
@@ -207,6 +330,18 @@ public class SkinExtension extends SkinImpl
     _bundleName = bundleName;
   }
 
+  /**
+   * Returns the translation source ValueBinding for the SkinExtension.
+   * Note: A skin cannot have both a bundleName and a translation source
+   * value binding. If they do, then the bundlename takes precedence.
+   * A translation source can be a map of keys/values or a ResourceBundle.
+   */
+  @Override
+  public ValueBinding getTranslationSourceValueBinding()
+  {
+    return _translationSourceVB;
+  }
+  
   /**
    * Override of Skin.registerIcon().
    */
@@ -248,12 +383,15 @@ public class SkinExtension extends SkinImpl
     String        key
     ) throws MissingResourceException
   {
-    // Look for the skin's translated value (first bundle name, then registered bundles)
-    // if that's not found, then look in the base skin's translated value.
+    // Look for the skin's translated value 
+    // -first Skin's translation source, then SkinAddition translation sources.
+    // A translation source is either a bundleName or 
+    // a translationSourceValueBinding
+    // If that's not found, then look in the base skin's translated value.
     // getCachedTranslatedValue will protect against MissingResourceExceptions
+
     Object translatedValue = getCachedTranslatedValue(lContext, key);
 
-    
     if (translatedValue == null)
     {
       translatedValue = getBaseSkin().getTranslatedValue(lContext, key);
@@ -263,7 +401,7 @@ public class SkinExtension extends SkinImpl
         putTranslatedValueInLocaleCache(lContext, key, translatedValue);
 
     }
-     
+
     return translatedValue;
   }
    
@@ -506,13 +644,14 @@ public class SkinExtension extends SkinImpl
       // null icons don't render anything
     }
   }
-
-  private String      _id;
-  private String      _family;
-  private String      _renderKitId;
-  private SkinImpl    _baseSkin;
-  private String      _styleSheetName;
-  private String      _bundleName;
+  
+  private String          _id;
+  private String          _family;
+  private String          _renderKitId;
+  private SkinImpl        _baseSkin;
+  private String          _styleSheetName;
+  private String          _bundleName;
+  private ValueBinding    _translationSourceVB;
 
 
 
@@ -529,6 +668,9 @@ public class SkinExtension extends SkinImpl
 
   // Placeholder for null icons
   private static final Icon _NULL_ICON = new NullIcon();
+  
+  private static final String _DEFAULT_RENDERKIT = 
+    "org.apache.myfaces.trinidad.desktop";
 
   // Error messages
   private static final String _CIRCULAR_INCLUDE_ERROR =

@@ -256,6 +256,22 @@
 <!-- CANNOT_GET_SKIN_FROM_SKINFACTORY -->
 <resource key="CANNOT_GET_SKIN_FROM_SKINFACTORY">Could not get skin {0} from the SkinFactory</resource>
 
+<!-- SKIN_CIRCULAR_INCLUDE_ERROR -->
+<resource key="SKIN_CIRCULAR_INCLUDE_ERROR">Circular dependency detected in skin reference icon {0}</resource>
+
+<!-- NULL_SKINADDITION -->
+<resource key="NULL_SKINADDITION">A null SkinAddition object was passed to addSkinAddition.</resource>
+
+<!-- INVALID_TRANSLATION_SOURCE_VE_TYPE -->
+<resource key="INVALID_TRANSLATION_SOURCE_VE_TYPE">The skin's translation-source ValueExpression is not of the expected type Map or ResourceBundle, so it will be ignored.</resource>
+
+<!-- BOTH_BUNDLENAME_TRANSLATIONSOURCE_SET -->
+<resource key="BOTH_BUNDLENAME_TRANSLATIONSOURCE_SET">You cannot set both bundle-name and translation-source. bundle-name will take precedence.</resource>
+
+<!-- TRANSLATION_SOURCE_NOT_EL -->
+<resource key="TRANSLATION_SOURCE_NOT_EL">The translation-source must be an EL expression. Check the trinidad-skins.xml file.</resource>
+
+
 <!-- FILE_HANDLER_NOT_SET_IN_SERVLETCONTEXT -->
 <resource key="FILE_HANDLER_NOT_SET_IN_SERVLETCONTEXT">The java.io.File handle ("javax.servlet.context.tempdir") is not set in the ServletContext</resource>
 
