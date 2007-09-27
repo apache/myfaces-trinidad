@@ -56,16 +56,26 @@ public class SkinAdditionNodeParser extends BaseNodeParser
     ) throws SAXParseException
   {
 
-    // id and family are required. log a severe error if they are null.
-    if ((_skinId == null) && (_LOG.isWarning()))
+    // id is required for a SkinAddition. log a severe error if it is null.
+    if (_skinId == null)
       _LOG.severe("REQUIRED_ELEMENT_SKINID_NOT_FOUND");
-      /*
-    if ((_styleSheetName == null) && (_LOG.isWarning()))
-      _LOG.severe("REQUIRED_ELEMENT_STYLE_SHEET_NAME_NOT_FOUND");
-      */
 
-      
-    return new SkinAdditionNode(_skinId, _styleSheetName, _resourceBundleName);
+    if ((_resourceBundleName != null) && (_translationSourceExpression != null))
+    {
+      _LOG.severe("BOTH_BUNDLENAME_TRANSLATIONSOURCE_SET");
+      _translationSourceExpression = null;
+    }
+
+    if (_translationSourceExpression != null &&
+        !(_translationSourceExpression.startsWith("#{") &&
+        _translationSourceExpression.endsWith("}")))
+    {
+      _LOG.severe("TRANSLATION_SOURCE_NOT_EL");
+      _translationSourceExpression = null;
+    }
+
+    return new SkinAdditionNode(_skinId, _styleSheetName,
+                                _resourceBundleName, _translationSourceExpression);
   }
 
   @Override
@@ -76,10 +86,11 @@ public class SkinAdditionNodeParser extends BaseNodeParser
     Attributes   attrs
     ) throws SAXParseException
   {
-  
+
     if ("skin-id".equals(localName) ||
         "style-sheet-name".equals(localName) ||
-        "bundle-name".equals(localName))
+        "bundle-name".equals(localName) ||
+        "translation-source".equals(localName))
 
     {
       return new StringParser();
@@ -103,12 +114,14 @@ public class SkinAdditionNodeParser extends BaseNodeParser
       _styleSheetName = (String) child;
     else if ("bundle-name".equals(localName))
       _resourceBundleName = (String) child;
+    else if ("translation-source".equals(localName))
+      _translationSourceExpression = (String) child;
   }
 
-
-  private String      _skinId;
-  private String      _styleSheetName;
-  private String      _resourceBundleName;
+  private String _skinId;
+  private String _styleSheetName;
+  private String _resourceBundleName;
+  private String _translationSourceExpression;
 
 
   private static final TrinidadLogger _LOG = 

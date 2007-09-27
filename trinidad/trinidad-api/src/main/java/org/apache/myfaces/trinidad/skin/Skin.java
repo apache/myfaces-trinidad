@@ -153,6 +153,7 @@ abstract public class Skin
    * @deprecated Use addSkinAddition(SkinAddition) instead.
    * @see #addSkinAddition(SkinAddition)
    */
+  @Deprecated
   abstract public void registerStyleSheet(
     String styleSheetName
     );

@@ -18,15 +18,13 @@
  */
 package org.apache.myfaces.trinidad.skin;
 
-import java.util.Collections;
-
-import org.apache.myfaces.trinidad.context.LocaleContext;
+import javax.faces.el.ValueBinding;
 
 /**
  * SkinAdditions are defined in trinidad-skins.xml file &lt;skin-addition&gt;
  * They are used by custom component developers who have created custom
- * components, and they need a way to 'push' in their own stylesheet and 
- * resource bundle for these components into some skin of their choosing, 
+ * components, and they need a way to 'push' in their own stylesheet and
+ * resource bundle for these components into some skin of their choosing,
  * most likely the simple skin.
  * Skin objects contain zero or more SkinAdditions. The SkinAdditions' stylesheets
  * are merged into the Skin's own stylesheet. The SkinAdditions' resource
@@ -48,6 +46,32 @@ public class SkinAddition
   {
     _styleSheetName = styleSheetName;
     _resourceBundleName = resourceBundleName;
+    _translationSourceVB = null;
+  }
+
+  /**
+   * Constructor takes a styleSheet name and a translationSource ValueBinding.
+   */
+  public SkinAddition (
+    String       styleSheetName,
+    ValueBinding translationSourceValueBinding
+    )
+  {
+    _styleSheetName = styleSheetName;
+    _resourceBundleName = null;
+    _translationSourceVB = translationSourceValueBinding;
+  }
+  /**
+   * Constructor takes a styleSheet name. resource bundle name and 
+   * translation source value binding will be null.
+   */
+  public SkinAddition (
+    String styleSheetName
+    )
+  {
+    _styleSheetName = styleSheetName;
+    _resourceBundleName = null;
+    _translationSourceVB = null;
   }
   
   /**
@@ -59,14 +83,28 @@ public class SkinAddition
   } 
   
   /**
-   * Gets the SkinAddition's resource bundle .     
+   * Gets the SkinAddition's resource bundle. 
+   * Note: A skin cannot have both a resourceBundleName and a translation source
+   * value binding. If they do, then the resourceBundleName takes precedence.
    */
   public String getResourceBundleName()
   {
     return _resourceBundleName;
   } 
+  
+  /**
+   * Gets the SkinAddition's translation source ValueBinding. The 
+   * ValueBinding can point to a Map or a ResourceBundle.
+   * Note: A skin cannot have both a resourceBundleName and a translation source
+   * value binding. If they do, then the resourceBundleName takes precedence.
+   */
+  public ValueBinding getTranslationSourceValueBinding()
+  {
+    return _translationSourceVB;
+  } 
  
-  private final String _styleSheetName;
-  private final String _resourceBundleName;
+  private final String       _styleSheetName;
+  private final String       _resourceBundleName;
+  private final ValueBinding _translationSourceVB;
   
 }

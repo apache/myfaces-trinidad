@@ -34,7 +34,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  * expression won't get detected until use.
  *
  */
-class LazyValueBinding extends ValueBinding
+public class LazyValueBinding extends ValueBinding
 {
   /**
    * Create a ValueBinding;  if the Application is not yet

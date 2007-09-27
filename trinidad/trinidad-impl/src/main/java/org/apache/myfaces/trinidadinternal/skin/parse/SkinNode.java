@@ -36,7 +36,8 @@ public class SkinNode
     String renderKitId,
     String skinExtends,
     String styleSheetName,
-    String bundleName)
+    String bundleName,
+    String translationSourceExpression)
   {
     
     if (id==null)
@@ -56,6 +57,7 @@ public class SkinNode
     _skinExtends = skinExtends;
     _styleSheetName = styleSheetName;
     _bundleName = bundleName;
+    _translationSourceExpression = translationSourceExpression;
 
   }
 
@@ -105,7 +107,16 @@ public class SkinNode
   public String getBundleName()
   {
     return _bundleName;
-  }  
+  } 
+  
+  /**
+   * Returns the translationSource value expression String. This could
+   * resolve to a Map or a ResourceBundle.
+   */
+  public String getTranslationSourceExpression()
+  {
+    return _translationSourceExpression;
+  }   
 
   
   private String _id;
@@ -114,6 +125,8 @@ public class SkinNode
   private String _skinExtends;
   private String _styleSheetName;
   private String _bundleName;
+  private String _translationSourceExpression;
+
 
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger( SkinNode.class);

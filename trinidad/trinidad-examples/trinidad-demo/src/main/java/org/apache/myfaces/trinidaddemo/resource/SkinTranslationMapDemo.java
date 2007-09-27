@@ -18,33 +18,40 @@
  */
 package org.apache.myfaces.trinidaddemo.resource;
 
-import java.util.ListResourceBundle;
-/*
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ResourceBundle;
+
+/* 
  * This class is used in the demo's trinidad-skins.xml file when
- * setting bundle-name. Run the panelPageSkinDemo.jspx
+ * binding the translation-source element. It tests the EL expression
+ * pointing to a Map or a resourceBundle. Run the panelPageSkinDemo.jspx
  * page to see some of these translation values in action.
  */
-public class SkinBundle extends ListResourceBundle
+public class SkinTranslationMapDemo
 {
-  @Override
-  public Object[][] getContents()
+  /* Test a skin's translation-source EL pointing to a Map */
+  public Map<String, String> getContents()
   {
     return _CONTENTS;
   }
 
-  static private final Object[][] _CONTENTS =
+  /* Test a skin's translation-source EL pointing to a ResourceBundle */
+  public ResourceBundle getResourceBundle()
   {
-    {"af_tableSelectMany.SELECT_COLUMN_HEADER", "SBundle Select A Lot"},
-    {"af_tableSelectOne.SELECT_COLUMN_HEADER", "SBundle Select Just One"},
-    {"af_inputDate.LAUNCH_PICKER_TIP", "SBundle Launch Picker"},
-    {"Birds.SELECT_MANY", "SBundle Select Many"},
-    {"af_showDetail.DISCLOSED_TIP", "SBundle Hide Tip"},
-    {"af_showDetail.DISCLOSED", "SBundle Hide"},
-    {"af_showDetail.UNDISCLOSED_TIP", "SBundle Show Tip"},
-    {"af_showDetail.UNDISCLOSED", "SBundle Show"},
-  };
-}
+    return new SkinBundle_fr();
+  }
 
+  static private final Map<String, String> _CONTENTS = new HashMap<String, String>();
+  static 
+  {
+    _CONTENTS.put("af_inputDate.LAUNCH_PICKER_TIP", "Launch PickerMap");
+    _CONTENTS.put("af_showDetail.DISCLOSED_TIP", "Hide Tip Map");
+    _CONTENTS.put("af_showDetail.DISCLOSED", "Hide Map");
+
+  }
+
+}
 
 
 

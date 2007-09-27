@@ -56,13 +56,27 @@ public class SkinNodeParser extends BaseNodeParser
   {
 
     // id and family are required. log a severe error if they are null.
-    if ((_id == null) && (_LOG.isWarning()))
+    if (_id == null)
       _LOG.severe("REQUIRED_ELEMENT_ID_NOT_FOUND");
-    if ((_family == null) && (_LOG.isWarning()))
+    if (_family == null)
       _LOG.severe("REQURIED_ELEMENT_FAMILY_NOT_FOUND");
 
-      
-    return new SkinNode(_id, _family, _renderKitId, _extends, _styleSheetName, _bundleName);
+    if ((_bundleName != null) && (_translationSourceExpression != null))
+    {
+      _LOG.severe("BOTH_BUNDLENAME_TRANSLATIONSOURCE_SET");
+      _translationSourceExpression = null;
+    }
+
+    if (_translationSourceExpression != null &&
+        !(_translationSourceExpression.startsWith("#{") &&
+        _translationSourceExpression.endsWith("}")))
+    {
+      _LOG.severe("TRANSLATION_SOURCE_NOT_EL");
+      _translationSourceExpression = null;
+    }
+
+    return new SkinNode(_id, _family, _renderKitId, _extends,
+                        _styleSheetName, _bundleName, _translationSourceExpression);
   }
 
   @Override
@@ -81,6 +95,7 @@ public class SkinNodeParser extends BaseNodeParser
         "render-kit-id".equals(localName) ||
         "style-sheet-name".equals(localName) ||
         "bundle-name".equals(localName) ||
+        "translation-source".equals(localName) ||
         "extends".equals(localName))
 
     {
@@ -109,6 +124,8 @@ public class SkinNodeParser extends BaseNodeParser
       _styleSheetName = (String) child;
     else if ("bundle-name".equals(localName))
       _bundleName = (String) child;
+    else if ("translation-source".equals(localName))
+      _translationSourceExpression = (String) child;
     else if ("extends".equals(localName))
       _extends = (String) child;
   }
@@ -120,6 +137,7 @@ public class SkinNodeParser extends BaseNodeParser
   private String      _styleSheetName;
   private String      _renderKitId;
   private String      _bundleName;
+  private String      _translationSourceExpression;
   private String      _extends;
 
 

@@ -34,6 +34,8 @@ import java.util.List;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
+import javax.faces.el.ValueBinding;
+
 import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.myfaces.trinidad.skin.SkinFactory;
@@ -42,6 +44,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.SkinAddition;
+import org.apache.myfaces.trinidadinternal.config.LazyValueBinding;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.MinimalDesktopSkinExtension;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.MinimalPdaSkinExtension;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.MinimalPortletSkinExtension;
@@ -479,6 +482,8 @@ public class SkinUtils
     String family = skinNode.getFamily();
     String styleSheetName = skinNode.getStyleSheetName();
     String bundleName = skinNode.getBundleName();
+    String translationSourceExpression = 
+      skinNode.getTranslationSourceExpression();
     
     if (renderKitId == null)
       renderKitId = _RENDER_KIT_ID_DESKTOP;
@@ -496,15 +501,11 @@ public class SkinUtils
       
       if (skinExtends != null)
       {
-        _LOG.severe("UNABLE_LOCATE_BASE_SKIN", new String[]{skinExtends, id, family, renderKitId, baseSkin.getId()});
+        _LOG.severe("UNABLE_LOCATE_BASE_SKIN", 
+                    new String[]{skinExtends, id, family, renderKitId, baseSkin.getId()});
       }
 
     }
-
-    SkinExtension skin = new SkinExtension(baseSkin,
-                                           id,
-                                           family,
-                                           renderKitId);
 
     // Set the style sheet
     if (styleSheetName != null)
@@ -514,14 +515,71 @@ public class SkinUtils
       // This way we can find the file when we go to parse it later.
       if (isMetaInfFile)
         styleSheetName = _prependMetaInf(styleSheetName);
-      skin.setStyleSheetName(styleSheetName);
     }
-    // And the bundle
-    if (bundleName != null)
-      skin.setBundleName(bundleName);
+    // If bundleName and translationSourceExpression are both set, then we 
+    // only use the bundleName. An error was already logged during trinidad-skins
+    // parsing.
 
+
+    Skin skin = null;
+
+    // bundle-name takes precedence over translation-source
+    if (bundleName != null)
+    {
+      skin = new SkinExtension(baseSkin,
+                               id,
+                               family,
+                               renderKitId,
+                               styleSheetName,
+                               bundleName);    
+    }
+    else
+    {
+      ValueBinding translationSourceVB = null;
+      if (translationSourceExpression != null)
+      {
+        translationSourceVB = 
+          _createTranslationSourceValueBinding(translationSourceExpression);
+      }
+      
+      if (translationSourceVB != null)
+      {
+        skin = new SkinExtension(baseSkin,
+                                 id,
+                                 family,
+                                 renderKitId,
+                                 styleSheetName,
+                                 translationSourceVB);         
+      }
+      else
+      {
+        skin = new SkinExtension(baseSkin,
+                                 id,
+                                 family,
+                                 renderKitId,
+                                 styleSheetName);         
+      }
+
+    }
+
+    
     // Create a SkinExtension object and register skin with factory
     skinFactory.addSkin(id, skin);    
+  }
+  
+  private static ValueBinding
+  _createTranslationSourceValueBinding(
+    String translationSourceExpression)
+  {    
+      if (translationSourceExpression != null)
+      {
+        translationSourceExpression = translationSourceExpression.trim();
+         
+        return LazyValueBinding.createValueBinding(translationSourceExpression);
+      }
+      else
+        return null;
+
   }
   
   /**
@@ -659,9 +717,14 @@ public class SkinUtils
       String skinId = skinAdditionNode.getSkinId();
       String styleSheetName = skinAdditionNode.getStyleSheetName();
       String resourceBundleName = skinAdditionNode.getResourceBundleName();
+      String translationSourceExpression = 
+        skinAdditionNode.getTranslationSourceExpression();
 
       Skin skin = skinFactory.getSkin(fContext, skinId);
-      if (skin != null && (styleSheetName != null) || (resourceBundleName != null))
+      if (skin != null 
+          && ((styleSheetName != null) 
+              || (resourceBundleName != null)
+              || (translationSourceExpression != null)))
       {
         // If the styleSheetName is in the META-INF/trinidad-skins.xml file, then
         // we prepend META-INF to the styleSheetName if it doesn't begin with '/'.
@@ -670,8 +733,37 @@ public class SkinUtils
             styleSheetName = _prependMetaInf(styleSheetName);
 
 
-        // we need to create a SkinAddition and add it to the skin
-        SkinAddition addition = new SkinAddition(styleSheetName, resourceBundleName);
+        SkinAddition addition = null;
+        
+        if (resourceBundleName != null)
+        {
+          // create SkinAddition with resourceBundleName 
+          addition = new SkinAddition(styleSheetName, resourceBundleName);
+        }
+        else
+        {
+          ValueBinding translationSourceVB = null;
+          if (translationSourceExpression != null)
+          {
+            translationSourceVB = 
+              _createTranslationSourceValueBinding(translationSourceExpression);
+          }
+          
+          if (translationSourceVB != null)
+          {
+            // Create a SkinAddition with translationSourceVE 
+            addition = new SkinAddition(styleSheetName, translationSourceVB);
+
+          }
+          else
+          {
+            // Create a SkinAddition with stylesheetName only 
+            addition = new SkinAddition(styleSheetName);
+
+          }
+
+        }
+        
         skin.addSkinAddition(addition);
       }
     }    
