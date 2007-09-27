@@ -78,6 +78,7 @@ public class XhtmlScriptletFactory
     JspDirScriptlet.sharedInstance().registerSelf();
     ConfigurationScriptlet.sharedInstance().registerSelf();
     GlobalVariablesScriptlet.sharedInstance().registerSelf();
+    DialogStyleScriptlet.sharedInstance().registerSelf();
   }
 
 

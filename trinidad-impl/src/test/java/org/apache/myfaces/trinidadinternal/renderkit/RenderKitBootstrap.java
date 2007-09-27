@@ -102,10 +102,18 @@ public class RenderKitBootstrap
   static public void setFactories(FacesConfigInfo info)
   {
     FactoryFinder.releaseFactories();
+    // Install the basic RenderKitFactory impl.
     FactoryFinder.setFactory(FactoryFinder.RENDER_KIT_FACTORY,
                              MRenderKitFactory.class.getName());
-    FactoryFinder.setFactory(FactoryFinder.RENDER_KIT_FACTORY,
-                             CoreRenderKitFactory.class.getName());
+    // Install all registered renderkit factories
+    if (info != null)
+    {
+      for (String rkFactory : info.getRenderKitFactories())
+      {
+        FactoryFinder.setFactory(FactoryFinder.RENDER_KIT_FACTORY, rkFactory);
+      }
+    }
+
     RenderKitFactory rkFactory = (RenderKitFactory)
       FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
     rkFactory.addRenderKit(RenderKitFactory.HTML_BASIC_RENDER_KIT,
