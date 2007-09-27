@@ -821,9 +821,9 @@ abstract public class SkinImpl extends Skin
         translationSourceList.add(new ResourceBundleNameTranslationSource(name));
       else
       {
-        ValueBinding additionVe = add.getTranslationSourceValueBinding();
-        if (ve != null)
-          translationSourceList.add(new ValueBindingTranslationSource(additionVe));
+        ValueBinding additionVb = add.getTranslationSourceValueBinding();
+        if (additionVb != null)
+          translationSourceList.add(new ValueBindingTranslationSource(additionVb));
       }
     }
 
@@ -1102,7 +1102,7 @@ abstract public class SkinImpl extends Skin
       }
       else
       {
-        _LOG.warning("INVALID_TRANSLATION_SOURCE_VE_TYPE");        
+        _LOG.warning("INVALID_TRANSLATION_SOURCE_VE_TYPE");
       }
     }
 
