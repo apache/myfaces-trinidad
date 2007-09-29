@@ -30,7 +30,7 @@
     series of selectItem components.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/selectOne.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/selectOne.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.SelectOne</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXSelectOne</component-class>
@@ -59,4 +59,5 @@
     </component-extension>
   </component>
 </faces-config>
+
 

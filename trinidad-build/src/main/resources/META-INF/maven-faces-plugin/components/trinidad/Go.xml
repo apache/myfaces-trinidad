@@ -30,7 +30,7 @@
           any server-side actions.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/go.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/go.gif</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.Go</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXGo</component-class>
@@ -55,4 +55,5 @@
     </component-extension>
   </component>
 </faces-config>
+
 

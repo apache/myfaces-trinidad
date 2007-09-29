@@ -28,7 +28,7 @@
           facets: top, bottom, left, right, start, end, innerTop, innerBottom, innerLeft, innerRight, innerStart, and innerEnd]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/panelBorderLayout.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/panelBorderLayout.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.CorePanelBorderLayout</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.layout.CorePanelBorderLayout</component-class>

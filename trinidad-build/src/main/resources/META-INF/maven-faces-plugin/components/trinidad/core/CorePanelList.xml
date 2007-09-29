@@ -28,7 +28,7 @@
           in a list with a bullet next to it.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/panelList.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/panelList.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.CorePanelList</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.layout.CorePanelList</component-class>

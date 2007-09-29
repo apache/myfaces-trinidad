@@ -28,7 +28,7 @@
 it is used to enter numbers and it has a spinbox to quickly increment or decrement the number.]]>
     </description>  
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/inputText.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/inputText.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreInputNumberSpinbox</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.input.CoreInputNumberSpinbox</component-class>

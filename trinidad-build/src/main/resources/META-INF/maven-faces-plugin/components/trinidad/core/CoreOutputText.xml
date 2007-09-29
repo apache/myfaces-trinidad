@@ -26,7 +26,7 @@
   <component>
     <description><![CDATA[The outputText component supports styled text.]]></description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/outputText.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/outputText.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreOutputText</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.output.CoreOutputText</component-class>

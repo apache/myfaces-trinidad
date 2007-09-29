@@ -30,7 +30,7 @@
           through a choice and buttons.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/selectRangeChoiceBar.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/selectRangeChoiceBar.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreSelectRangeChoiceBar</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.data.CoreSelectRangeChoiceBar</component-class>

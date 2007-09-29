@@ -29,7 +29,7 @@ component defines the header, footer and data for a single column in the
 Table.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/column.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/column.gif</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreColumn</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.data.CoreColumn</component-class>

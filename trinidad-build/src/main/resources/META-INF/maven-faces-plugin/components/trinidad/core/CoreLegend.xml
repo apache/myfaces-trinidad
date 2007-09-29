@@ -26,7 +26,7 @@
   <component>
     <description><![CDATA[The legend adds a legend describing the meaning of an icon.]]></description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/legend.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/legend.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreLegend</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.output.CoreLegend</component-class>

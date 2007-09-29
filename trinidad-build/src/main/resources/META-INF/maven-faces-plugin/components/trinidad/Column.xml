@@ -27,7 +27,7 @@
   <component>
     <description><![CDATA[This is base abstraction for column.]]></description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/baseColumn.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/baseColumn.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.Column</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXColumn</component-class>
@@ -76,4 +76,5 @@
     </component-extension>
   </component>
 </faces-config>
+
 

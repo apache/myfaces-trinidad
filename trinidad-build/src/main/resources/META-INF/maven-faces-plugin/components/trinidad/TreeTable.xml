@@ -28,7 +28,7 @@
     <description><![CDATA[The Apache Trinidad TreeTable is used to display data that is structured in a hierarchical format.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/baseTreeTable.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/baseTreeTable.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.TreeTable</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXTreeTable</component-class>
@@ -107,4 +107,5 @@
     </component-extension>
   </component>
 </faces-config>
+
 

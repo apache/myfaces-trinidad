@@ -28,7 +28,7 @@
           the user to select a single value from a list of items.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/selectOneListbox.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/selectOneListbox.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreSelectOneListbox</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.input.CoreSelectOneListbox</component-class>

@@ -32,7 +32,7 @@ There will be no layout applied to the children so the natural layout behavior o
 If you require a more predictable layout, you should use a layout component such as panelGroupLayout.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/group.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/group.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.Group</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXGroup</component-class>
@@ -67,4 +67,5 @@ If you require a more predictable layout, you should use a layout component such
     </component-extension>
   </component>
 </faces-config>
+
 

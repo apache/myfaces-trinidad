@@ -28,7 +28,7 @@
       <![CDATA[The image control creates an image tag.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/image.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/image.gif</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreImage</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.output.CoreImage</component-class>

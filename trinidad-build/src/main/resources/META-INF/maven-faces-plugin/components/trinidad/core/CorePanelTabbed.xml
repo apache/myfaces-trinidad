@@ -27,7 +27,7 @@
     <description><![CDATA[The panelTabbed control creates, contains and shows a series of items defined by showDetailItem nodes.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/panelTabbed.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/panelTabbed.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.CorePanelTabbed</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.layout.CorePanelTabbed</component-class>

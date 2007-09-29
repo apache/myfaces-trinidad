@@ -27,7 +27,7 @@
   <component>
     <description><![CDATA[basePage is the base abstraction for a page]]></description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/basePage.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/basePage.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.Page</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXPage</component-class>
@@ -107,4 +107,5 @@
     </component-extension>
   </component>
 </faces-config>
+
 

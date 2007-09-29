@@ -30,7 +30,7 @@
           hierarchy with links.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/baseNavigationPath.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/baseNavigationPath.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.NavigationPath</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXNavigationPath</component-class>
@@ -94,4 +94,5 @@
     </component-extension>
   </component>
 </faces-config>
+
 

@@ -28,7 +28,7 @@
           a button for picking dates from a calendar.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/inputDate.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/inputDate.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreInputDate</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.input.CoreInputDate</component-class>

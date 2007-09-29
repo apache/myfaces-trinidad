@@ -28,7 +28,7 @@
           a button for picking colors from a palette.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/inputColor.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/inputColor.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreInputColor</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.input.CoreInputColor</component-class>

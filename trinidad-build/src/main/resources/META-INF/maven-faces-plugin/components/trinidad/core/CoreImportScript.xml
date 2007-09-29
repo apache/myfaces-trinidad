@@ -28,7 +28,7 @@
          provided by Apache Trinidad.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/importScript.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/importScript.gif</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreImportScript</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.CoreImportScript</component-class>

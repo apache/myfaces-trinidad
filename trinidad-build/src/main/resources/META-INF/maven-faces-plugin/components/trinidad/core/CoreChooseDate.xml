@@ -29,7 +29,7 @@
           having to navigate to a secondary window.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/chooseDate.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/chooseDate.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreChooseDate</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.input.CoreChooseDate</component-class>

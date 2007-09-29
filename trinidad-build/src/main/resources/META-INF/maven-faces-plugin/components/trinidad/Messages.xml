@@ -29,7 +29,7 @@
 that display a messages for an entire page.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/baseMessages.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/baseMessages.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.Messages</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXMessages</component-class>
@@ -43,4 +43,5 @@ that display a messages for an entire page.]]>
     </component-extension>
   </component>
 </faces-config>
+
 

@@ -30,7 +30,7 @@
           choice, radio, or shuttle control.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/baseSelectItem.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/baseSelectItem.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.SelectItem</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXSelectItem</component-class>
@@ -62,4 +62,5 @@
     </component-extension>
   </component>
 </faces-config>
+
 

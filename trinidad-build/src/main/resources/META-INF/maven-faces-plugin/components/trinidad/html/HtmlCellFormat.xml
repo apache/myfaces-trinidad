@@ -27,7 +27,7 @@
           rowLayout component.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/cellFormat.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/cellFormat.gif</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.HtmlCellFormat</component-type>
     <component-class>org.apache.myfaces.trinidad.component.html.HtmlCellFormat</component-class>

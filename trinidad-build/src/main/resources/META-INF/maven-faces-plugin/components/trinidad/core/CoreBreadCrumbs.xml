@@ -28,7 +28,7 @@
           hierarchy with links.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/breadCrumbs.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/breadCrumbs.gif</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreBreadCrumbs</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.nav.CoreBreadCrumbs</component-class>

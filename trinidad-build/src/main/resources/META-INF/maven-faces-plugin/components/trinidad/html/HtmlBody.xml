@@ -25,7 +25,7 @@
   <component>
     <description><![CDATA[Tag for the HTML body element.]]></description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/body.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/body.gif</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.HtmlBody</component-type>
     <component-class>org.apache.myfaces.trinidad.component.html.HtmlBody</component-class>

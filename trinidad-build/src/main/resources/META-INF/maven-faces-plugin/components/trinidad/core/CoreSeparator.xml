@@ -29,7 +29,7 @@
 between items.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/separator.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/separator.gif</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreSeparator</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.output.CoreSeparator</component-class>

@@ -29,7 +29,7 @@
 support type conversion.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/output.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/output.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.Output</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXOutput</component-class>
@@ -51,4 +51,5 @@ into a String with a <html:code>javax.faces.convert.Converter</html:code>.]]>
     </component-extension>
   </component>
 </faces-config>
+
 

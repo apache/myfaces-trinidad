@@ -27,7 +27,7 @@
     <description><![CDATA[spacers occupy a fixed amount of
           space in a layout.]]></description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/spacer.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/spacer.gif</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreSpacer</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.output.CoreSpacer</component-class>

@@ -28,7 +28,7 @@
           reset the content of a form.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/resetButton.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/resetButton.gif</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreResetButton</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.input.CoreResetButton</component-class>

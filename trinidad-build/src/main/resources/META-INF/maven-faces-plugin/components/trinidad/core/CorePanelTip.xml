@@ -27,7 +27,7 @@
     <description><![CDATA[The panelTip tag provides a container for page or section level hints
 to the user.]]></description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/panelTip.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/panelTip.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.CorePanelTip</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.layout.CorePanelTip</component-class>

@@ -26,7 +26,7 @@
     <description><![CDATA[The navigationPane component creates a series of navigation items representing one level in a navigation hierarchy.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/navigationPane.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/navigationPane.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreNavigationPane</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.nav.CoreNavigationPane</component-class>

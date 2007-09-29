@@ -28,7 +28,7 @@
           button, a choice bar, and a next button.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/processChoiceBar.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/processChoiceBar.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreProcessChoiceBar</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.nav.CoreProcessChoiceBar</component-class>

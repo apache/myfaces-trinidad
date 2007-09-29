@@ -27,7 +27,7 @@
           HTML frame.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/frame.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/frame.gif</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.HtmlFrame</component-type>
     <component-class>org.apache.myfaces.trinidad.component.html.HtmlFrame</component-class>

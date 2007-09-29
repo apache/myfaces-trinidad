@@ -27,7 +27,7 @@
   <component>
     <description><![CDATA[UIXInput is a base class for all Apache Trinidad input components.]]></description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/input.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/input.gif</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.Input</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXInput</component-class>
@@ -47,4 +47,5 @@
     </component-extension>
   </component>
 </faces-config>
+
 

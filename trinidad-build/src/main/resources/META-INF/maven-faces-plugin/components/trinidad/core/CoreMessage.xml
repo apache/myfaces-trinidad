@@ -30,7 +30,7 @@ their own messages, so this tag should be used only when
 setting the "simple" attribute to true.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/message.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/message.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreMessage</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.output.CoreMessage</component-class>

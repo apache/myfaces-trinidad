@@ -26,7 +26,7 @@
 made visible via a clickable link.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/panelPopup.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/panelPopup.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.CorePanelPopup</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.layout.CorePanelPopup</component-class>

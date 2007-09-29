@@ -31,7 +31,7 @@
           is relevant.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/selectOrder.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/selectOrder.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.SelectOrder</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXSelectOrder</component-class>
@@ -52,4 +52,5 @@
     </component-extension>
   </component>
 </faces-config>
+
 

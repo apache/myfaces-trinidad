@@ -28,7 +28,7 @@
           an understanding that there is a back end task in progress.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/progressIndicator.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/progressIndicator.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreProgressIndicator</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.output.CoreProgressIndicator</component-class>

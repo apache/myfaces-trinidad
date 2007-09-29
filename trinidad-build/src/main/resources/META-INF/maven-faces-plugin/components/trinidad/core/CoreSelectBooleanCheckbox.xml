@@ -28,7 +28,7 @@
           checkbox.  It supports displaying a prompt, text, and messages.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/selectBooleanCheckbox.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/selectBooleanCheckbox.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreSelectBooleanCheckbox</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.input.CoreSelectBooleanCheckbox</component-class>

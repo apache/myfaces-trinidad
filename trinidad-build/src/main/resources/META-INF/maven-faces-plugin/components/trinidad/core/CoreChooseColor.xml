@@ -26,7 +26,7 @@
   <component>
     <description><![CDATA[The chooseColor control creates a palette for picking colors.]]></description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/chooseColor.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/chooseColor.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreChooseColor</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.input.CoreChooseColor</component-class>

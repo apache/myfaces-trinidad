@@ -30,7 +30,7 @@
           is an image and text describing the page in the multi-page process.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/train.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/train.gif</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreTrain</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.nav.CoreTrain</component-class>

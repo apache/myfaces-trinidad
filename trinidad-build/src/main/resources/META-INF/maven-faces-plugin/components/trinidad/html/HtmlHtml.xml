@@ -27,7 +27,7 @@
     <description><![CDATA[<html>
           The html tag generates the &lt;html&gt; element for an HTML page.</html>]]></description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/html.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/html.png</small-icon -->
     </icon>
     <xi:include href="../core/includes/CommonDocumentAttrs.xml" xpointer="/faces-config/component/*"/>
 

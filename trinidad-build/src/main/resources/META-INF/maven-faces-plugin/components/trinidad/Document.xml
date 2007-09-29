@@ -28,7 +28,7 @@
     <description><![CDATA[The document control is the base abstraction for an entire document.  It will generally be used immediately inside a UIViewRoot.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/baseDocument.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/baseDocument.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.Document</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXDocument</component-class>
@@ -42,4 +42,5 @@
     </component-extension>
   </component>
 </faces-config>
+
 

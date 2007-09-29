@@ -28,7 +28,7 @@
     <description><![CDATA[The switcher component dynamically decides which facet component
 should be rendered.]]></description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/switcher.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/switcher.gif</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.Switcher</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXSwitcher</component-class>
@@ -86,4 +86,5 @@ all.)]]>
     </component-extension>
   </component>
 </faces-config>
+
 

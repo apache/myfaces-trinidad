@@ -26,7 +26,7 @@
   <component>
     <description><![CDATA[PanelPageHeader lays out the top portion of a page.]]></description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/panelPageHeader.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/panelPageHeader.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.CorePanelPageHeader</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.layout.CorePanelPageHeader</component-class>
