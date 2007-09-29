@@ -26,7 +26,7 @@
   <component>
     <description><![CDATA[The panelButtonBar lays out a set of buttons.]]></description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/panelButtonBar.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/panelButtonBar.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.CorePanelButtonBar</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.layout.CorePanelButtonBar</component-class>

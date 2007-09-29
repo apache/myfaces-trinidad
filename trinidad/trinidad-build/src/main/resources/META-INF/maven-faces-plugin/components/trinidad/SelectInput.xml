@@ -30,7 +30,7 @@
           from a list of possible values.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/selectInput.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/selectInput.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.SelectInput</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXSelectInput</component-class>
@@ -110,4 +110,5 @@ invoked.  The action should generally result in launching a dialog.
     </component-extension>
   </component>
 </faces-config>
+
 

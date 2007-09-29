@@ -26,7 +26,7 @@
   <component>
     <description><![CDATA[The icon component renders a skin specific icon.]]></description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/icon.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/icon.gif</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreIcon</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.output.CoreIcon</component-class>

@@ -27,7 +27,7 @@
     <description><![CDATA[Represents an interactive tree component.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/tree.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/tree.gif</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreTree</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.data.CoreTree</component-class>

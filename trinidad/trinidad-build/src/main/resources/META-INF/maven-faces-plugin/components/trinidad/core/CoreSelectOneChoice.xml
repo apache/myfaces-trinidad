@@ -27,7 +27,7 @@
     <description><![CDATA[The selectOneChoice component creates a menu-style component, which allows the user to select a single value from a list of items.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/selectOneChoice.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/selectOneChoice.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreSelectOneChoice</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.input.CoreSelectOneChoice</component-class>

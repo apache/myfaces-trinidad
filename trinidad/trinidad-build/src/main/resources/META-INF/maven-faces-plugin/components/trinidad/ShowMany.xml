@@ -29,7 +29,7 @@
 a group of showDetails and can display multiple items at a time.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/showMany.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/showMany.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.ShowMany</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXShowMany</component-class>
@@ -47,4 +47,5 @@ a group of showDetails and can display multiple at a time.]]>
     </component-extension>
   </component>
 </faces-config>
+
 

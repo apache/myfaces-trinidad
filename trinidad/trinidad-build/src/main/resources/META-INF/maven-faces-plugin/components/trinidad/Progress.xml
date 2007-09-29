@@ -32,7 +32,7 @@
           page once the task is complete.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/progress.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/progress.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.Progress</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXProgress</component-class>
@@ -132,4 +132,5 @@
     </component-extension>
   </component>
 </faces-config>
+
 

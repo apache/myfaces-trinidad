@@ -29,7 +29,7 @@
    items between two lists, and reordering that list of values.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/selectOrderShuttle.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/selectOrderShuttle.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreSelectOrderShuttle</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.input.CoreSelectOrderShuttle</component-class>

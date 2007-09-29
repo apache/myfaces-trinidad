@@ -27,7 +27,7 @@
   <component>
     <description><![CDATA[Base class for input components whose value is true or false.]]></description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/selectBoolean.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/selectBoolean.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.SelectBoolean</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXSelectBoolean</component-class>
@@ -60,4 +60,5 @@
     </component-extension>
   </component>
 </faces-config>
+
 

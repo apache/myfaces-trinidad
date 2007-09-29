@@ -27,7 +27,7 @@
           define a row of a tableLayout component.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/rowLayout.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/rowLayout.gif</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.HtmlRowLayout</component-type>
     <component-class>org.apache.myfaces.trinidad.component.html.HtmlRowLayout</component-class>

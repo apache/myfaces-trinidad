@@ -28,7 +28,7 @@
           or image in a player embedded in the user agent.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/media.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/media.gif</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreMedia</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.output.CoreMedia</component-class>

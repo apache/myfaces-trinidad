@@ -28,7 +28,7 @@
     <description><![CDATA[The Apache Trinidad Chart is used to diplay data in a chart format.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/basechart.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/basechart.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.Chart</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXChart</component-class>
@@ -82,4 +82,5 @@
     </component-extension>
   </component>
 </faces-config>
+
 

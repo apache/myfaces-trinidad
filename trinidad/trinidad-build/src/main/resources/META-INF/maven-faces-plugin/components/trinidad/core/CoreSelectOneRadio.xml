@@ -29,7 +29,7 @@
           displayed as a series of radio buttons.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/selectOneRadio.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/selectOneRadio.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreSelectOneRadio</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.input.CoreSelectOneRadio</component-class>

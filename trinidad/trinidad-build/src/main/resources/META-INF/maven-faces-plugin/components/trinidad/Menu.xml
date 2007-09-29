@@ -27,7 +27,7 @@
   <component>
     <description><![CDATA[Signifies an element that can contain a series of UIXCommand components.]]></description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/menu.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/menu.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.Menu</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXMenu</component-class>
@@ -50,4 +50,5 @@
     </component-extension>
   </component>
 </faces-config>
+
 

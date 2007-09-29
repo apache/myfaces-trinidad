@@ -29,7 +29,7 @@ arranges its children horizontally. The vertical and horizontal alignment
 can be specified.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/panelHorizontalLayout.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/panelHorizontalLayout.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.CorePanelHorizontalLayout</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.layout.CorePanelHorizontalLayout</component-class>

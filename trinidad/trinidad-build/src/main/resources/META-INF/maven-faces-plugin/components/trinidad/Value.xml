@@ -30,7 +30,7 @@
    ValueHolder interface, and therefore support values and Converters.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/value.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/value.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.Value</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXValue</component-class>
@@ -69,4 +69,5 @@ in read-only mode.]]></description>
     </component-extension>
   </component>
 </faces-config>
+
 

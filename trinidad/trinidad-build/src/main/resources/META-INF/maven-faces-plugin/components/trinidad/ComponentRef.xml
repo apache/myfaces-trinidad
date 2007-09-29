@@ -27,7 +27,7 @@
   <component>
     <description><![CDATA[Inserts a region into the current page.]]></description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/region.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/region.gif</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.ComponentRef</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXComponentRef</component-class>
@@ -102,4 +102,5 @@ time the page renders.</html>]]>
     </component-extension>
   </component>
 </faces-config>
+
 

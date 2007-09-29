@@ -28,7 +28,7 @@
           The document tag creates each of the standard root elements of an HTML page:  &lt;html&gt;, &lt;body&gt;, and &lt;head&gt;.</html>]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/document.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/document.gif</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreDocument</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.CoreDocument</component-class>

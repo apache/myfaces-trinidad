@@ -31,7 +31,7 @@
           is not relevant.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/selectMany.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/selectMany.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.SelectMany</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXSelectMany</component-class>
@@ -57,4 +57,5 @@
     </component-extension>
   </component>
 </faces-config>
+
 

@@ -39,7 +39,7 @@ the undisclosed text.  For the purposes of EL, setting disclosedText or
 undisclosedText to null is the same as not setting the value.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/showDetail.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/showDetail.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreShowDetail</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.layout.CoreShowDetail</component-class>

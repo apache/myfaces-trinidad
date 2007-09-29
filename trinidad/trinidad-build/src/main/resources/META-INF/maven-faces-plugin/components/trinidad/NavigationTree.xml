@@ -27,7 +27,7 @@
   <component>
     <description><![CDATA[Apache Trinidad navigationTree components are used to display hierarchical navigation data.]]></description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/baseNavigationTree.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/baseNavigationTree.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.NavigationTree</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXNavigationTree</component-class>
@@ -124,4 +124,5 @@
     </component-extension>
   </component>
 </faces-config>
+
 

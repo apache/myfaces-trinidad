@@ -28,7 +28,7 @@
 launching a dialog to assist users in entering a value.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/inputListOfValues.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/inputListOfValues.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreInputListOfValues</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.input.CoreInputListOfValues</component-class>

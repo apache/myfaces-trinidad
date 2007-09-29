@@ -28,7 +28,7 @@
     <description><![CDATA[Base class for components that provide
 layout for their children.]]></description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/panel.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/panel.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.Panel</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXPanel</component-class>
@@ -44,4 +44,5 @@ layout for their children.]]></mfp:long-description>
     </component-extension>
   </component>
 </faces-config>
+
 

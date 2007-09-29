@@ -28,7 +28,7 @@
         the user important messaging information.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/messages.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/messages.gif</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreMessages</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.output.CoreMessages</component-class>

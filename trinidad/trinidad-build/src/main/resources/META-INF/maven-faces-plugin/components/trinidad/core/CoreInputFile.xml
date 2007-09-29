@@ -29,7 +29,7 @@
           text, and messages.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/inputFile.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/inputFile.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreInputFile</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.input.CoreInputFile</component-class>

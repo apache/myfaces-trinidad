@@ -32,7 +32,7 @@ If you place panelFormLayout child items inside of a group, separators will be d
 Grouped panelFormLayout items are kept in the same column of the panelFormLayout even when the assigned rows attribute is set to a value smaller than the number of items in the group.
 The panelFormLayout component also supports the group component in its footer facet so you can place more than one item in the footer.  You can even group footer items one additional time to get separators to appear.]]></description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/panelFormLayout.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/panelFormLayout.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.CorePanelFormLayout</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.layout.CorePanelFormLayout</component-class>

@@ -29,7 +29,7 @@
 a group of showDetails, but displays one of them.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/showOne.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/showOne.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.ShowOne</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXShowOne</component-class>
@@ -46,4 +46,5 @@ a group of showDetails, but displays one of them.]]>
     </component-extension>
   </component>
 </faces-config>
+
 

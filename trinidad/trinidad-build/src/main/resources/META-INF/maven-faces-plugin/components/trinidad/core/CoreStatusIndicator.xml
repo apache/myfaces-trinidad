@@ -33,7 +33,7 @@
                easy emulation of GMail behavior specifying only a busy 
                facet.]]></description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/statusIndicator.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidad/metadata/icons/statusIndicator.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreStatusIndicator</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.output.CoreStatusIndicator</component-class>

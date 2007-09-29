@@ -27,7 +27,7 @@
     <description><![CDATA[The panelChoice control creates, contains and shows a series of items defined by showDetailItem nodes.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/panelChoice.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/panelChoice.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.CorePanelChoice</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.layout.CorePanelChoice</component-class>

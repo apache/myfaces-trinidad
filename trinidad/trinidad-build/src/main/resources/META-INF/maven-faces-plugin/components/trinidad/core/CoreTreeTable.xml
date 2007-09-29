@@ -27,7 +27,7 @@
     <description><![CDATA[The Trinidad TreeTable is used to display data that is structured in a hierarchical format.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/treeTable.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/treeTable.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreTreeTable</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.data.CoreTreeTable</component-class>

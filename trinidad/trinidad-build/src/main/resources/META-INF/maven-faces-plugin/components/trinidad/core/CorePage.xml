@@ -27,7 +27,7 @@
     <description><![CDATA[The Page component is similar to the PanelPage component, except that instead of having navigation1, navigation2, navigation3, and navigationGlobal facets for adding navigation item information, the user binds a model object and a stamp to render these areas.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/page.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/page.gif</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CorePage</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.nav.CorePage</component-class>

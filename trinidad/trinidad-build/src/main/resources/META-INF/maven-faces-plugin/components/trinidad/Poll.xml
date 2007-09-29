@@ -27,7 +27,7 @@
   <component>
     <description><![CDATA[The poll component initiates poll to the server.]]></description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/basePoll.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/basePoll.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.Poll</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXPoll</component-class>
@@ -79,4 +79,5 @@
     </component-extension>
   </component>
 </faces-config>
+
 

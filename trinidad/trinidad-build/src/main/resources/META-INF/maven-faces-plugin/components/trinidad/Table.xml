@@ -27,7 +27,7 @@
   <component>
     <description><![CDATA[UIXTable is the base abstraction for table components.]]></description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/baseTable.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/baseTable.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.Table</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXTable</component-class>
@@ -113,4 +113,5 @@ detail facet will automatically cause the detail column to be displayed.]]>
     </component-extension>
   </component>
 </faces-config>
+
 

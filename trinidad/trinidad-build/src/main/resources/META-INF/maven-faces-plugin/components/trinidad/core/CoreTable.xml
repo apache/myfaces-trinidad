@@ -27,7 +27,7 @@
     <description><![CDATA[The Trinidad Table is used to display tabular data. It also supports selection (both single and multiple), sorting, record navigation and detail-disclosure.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/table.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/table.gif</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreTable</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.data.CoreTable</component-class>

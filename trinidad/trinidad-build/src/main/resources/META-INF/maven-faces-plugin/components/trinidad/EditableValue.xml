@@ -30,7 +30,7 @@
           EditableValueHolder interface.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/editableValue.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/editableValue.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.EditableValue</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXEditableValue</component-class>
@@ -150,4 +150,5 @@ may manually set it to null to erase any submitted value.]]>
     </component-extension>
   </component>
 </faces-config>
+
 

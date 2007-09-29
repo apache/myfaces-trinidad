@@ -29,7 +29,7 @@
           that presents users with a diagrammatic chooser like a calendar or palette.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/choose.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/choose.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.Choose</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXChoose</component-class>

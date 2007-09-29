@@ -28,7 +28,7 @@
 may select from a list, choice, radio, or shuttle Trinidad control.]]>
     </description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/selectItem.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/selectItem.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreSelectItem</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.input.CoreSelectItem</component-class>

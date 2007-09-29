@@ -27,7 +27,7 @@
     <description><![CDATA[<html>
           The form tag creates an HTML &lt;form&gt; element.</html>]]></description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/form.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/form.gif</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreForm</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.CoreForm</component-class>

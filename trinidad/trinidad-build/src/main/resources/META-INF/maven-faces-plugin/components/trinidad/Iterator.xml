@@ -32,7 +32,7 @@ that does its processing during rendering, while forEach runs during
 the assembly of the component tree, and doesn't leave behind a component in the
 heirarchy. ]]></description>
     <icon>
-      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/iterator.png</small-icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/iterator.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.Iterator</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXIterator</component-class>
@@ -153,4 +153,5 @@ on "binding", etc., as apply inside a table also apply to iterator.</li>
     </component-extension>
   </component>
 </faces-config>
+
 
