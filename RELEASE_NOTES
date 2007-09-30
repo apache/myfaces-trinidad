@@ -1,0 +1,73 @@
+Bug
+    * [TRINIDAD-621] - af|inputDate::content is being used by both the popup calendar and the date field
+    * [TRINIDAD-624] - af:messages generates improper style attribute by default
+    * [TRINIDAD-627] - SelectManyShuttle NullPointerException when not inside a form
+    * [TRINIDAD-631] - Renderer classes that extend InputLabelAndMessageRenderer don't provide protected constructor with parameter FacesBean.TYPE
+    * [TRINIDAD-637] - MenuModel is looking at the wrong locale
+    * [TRINIDAD-638] - trinidad-config.xml's parser should greedily trim white spaces for some properties
+    * [TRINIDAD-639] - panelAccordion does not render toolbars of showdetailitem
+    * [TRINIDAD-644] - tr:icon doesn't render many of its properties
+    * [TRINIDAD-646] - Wrong messages localization in Czech and Slovak language
+    * [TRINIDAD-647] - Client-side validation doesn't work
+    * [TRINIDAD-648] - windowHeight/windowWidth don't behave correctly and/or get ignored when lightweight dialogs are enabled
+    * [TRINIDAD-651] - Lightweight dialogs require 'X' close icon in titlebar
+    * [TRINIDAD-658] - Add doctype flag to trh:html and trh:document to allow switching doctype to quirks mode
+    * [TRINIDAD-659] - Lightweight dialogs not modal in IE7
+    * [TRINIDAD-665] - Pie chart breaking with 7 items
+    * [TRINIDAD-667] - Configurator Services may get initialized more then once if jars are referenced in classpath multiple times
+    * [TRINIDAD-672] - PanelLabelAndMessageRenderer overrides hasMessage
+    * [TRINIDAD-673] - tr:panelPopup positions itself with regards to the document body, not the offset parent
+    * [TRINIDAD-674] - Component selectRangeChoiceBar not properly rendered
+    * [TRINIDAD-676] - Component selectRangeChoiceBar not properly rendered (2nd issue)
+    * [TRINIDAD-678] - Description Not Shown in TextArea for Select*Shuttle Components
+    * [TRINIDAD-679] - tr:messages fails to display EL labels correctly
+    * [TRINIDAD-681] - tr:messages - Causes tr:panelBox styles to be corrupted with tr:messages styles
+    * [TRINIDAD-693] - tr:messages globalOnly="true" still rendering when it should not
+    * [TRINIDAD-700] - EL isn't evalutaed for the datestyle / timestyle attrs of tr:convertDateTime
+    * [TRINIDAD-704] - IE7 - AutoComplete Does Not Work When You Use Script to Submit a Form
+    * [TRINIDAD-709] - PPR error logging itself generates JS errors on IE
+    * [TRINIDAD-715] - Unclear text in a couple of messages
+    * [TRINIDAD-721] - h:commandButton "immediate" attribute is broken
+    * [TRINIDAD-727] - funny issue with form and defaultCommand (in IE)
+    * [TRINIDAD-734] - EL expression used for node labels gets evaluated only once
+    * [TRINIDAD-735] - '_checkLoad is not defined' error opening lightweight dialog in FireFox
+    * [TRINIDAD-736] - Dialog popup isn't skinned when launched only with inputDate or inputColor
+    * [TRINIDAD-739] - Timezone handling in trinidad-config.xml and ConvertDateTimeTag does not give notice on errors
+
+Improvement
+
+    * [TRINIDAD-96] - Validators should be added incrementally, not set as a whole
+    * [TRINIDAD-130] - Add non-final getSelectItems method to SimpleSelectOneRenderer
+    * [TRINIDAD-555] - add public api to turn styleclass compression off for debugging
+    * [TRINIDAD-601] - delete unused parsers in org.apache.myfaces.trinidadinternal.ui.laf.xml.parse
+    * [TRINIDAD-625] - Application view cache could be used on postback
+    * [TRINIDAD-630] - Table stamp state could be greatly optimized for size
+    * [TRINIDAD-633] - StyleNode objects could be much more lightweight
+    * [TRINIDAD-641] - PPR can easily trim content of leaves and NamingContainers
+    * [TRINIDAD-652] - add skin selector for panelGroupLayout
+    * [TRINIDAD-653] - PanelLabelAndMessageRenderer shouldn't need the "for" given to detect what it is for
+    * [TRINIDAD-654] - Lightweight dialogs should be skinnable
+    * [TRINIDAD-660] - Make DISABLE_CONTENT_COMPRESSION & USE_DIALOG_POPUP public configuration settings
+    * [TRINIDAD-661] - Reduce property resolution code by adding a resolveProperty method to XhtmlRenderer
+    * [TRINIDAD-669] - Add a method on RequestContext that adds relative targets
+    * [TRINIDAD-671] - Profile for retrotranslating Trinidad to JDK1.4
+    * [TRINIDAD-687] - Create a tr:panelCaptionGroup component to render fieldset/legend style content grouping
+    * [TRINIDAD-702] - SelectOrderShuttleRenderer does not provide a protected constructor receiving a FacesBean.Type argument
+    * [TRINIDAD-716] - Change Icon.renderIcon to accept Map<String, ? extends Object> attribute map
+    * [TRINIDAD-717] - Add "busy" and "ready" facets to statusIndicator component
+    * [TRINIDAD-731] - xOffset/yOffset don't get correctly processed by plugins, switch to horzOffset/vertOffset for simplicity and clarity.
+    * [TRINIDAD-737] - Need To Establish Currency for Table Events
+    * [TRINIDAD-740] - autoSubmit framework should cater for client-side validation
+
+New Feature
+
+    * [TRINIDAD-418] - Popup component to display child components in a floating panel (e.g. div)
+    * [TRINIDAD-668] - Move RequestContextImpl._findRelativeComponent to public utility class
+
+Task
+
+    * [TRINIDAD-732] - JS clean-up: ApacheChart should use TrUtils for creating the callback
+
+Test
+
+    * [TRINIDAD-742] - RenderKit test framework doesn't load RenderKitFactories from faces-config.xml
