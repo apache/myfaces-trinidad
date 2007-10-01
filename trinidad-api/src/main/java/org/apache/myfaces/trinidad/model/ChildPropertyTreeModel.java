@@ -18,10 +18,14 @@
  */
 package org.apache.myfaces.trinidad.model;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.faces.el.PropertyResolver;
+import javax.faces.model.DataModel;
+
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
