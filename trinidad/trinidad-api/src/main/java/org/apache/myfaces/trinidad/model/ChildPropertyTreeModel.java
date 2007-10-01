@@ -213,7 +213,24 @@ public class ChildPropertyTreeModel extends TreeModel
   {
     Object rowData = getRowData();
     Object value = getChildData(rowData);
-    return (value != null);
+    
+    if (value != null)
+    {
+      if (value instanceof Collection<?>)
+      {
+        return !((Collection<?>)value).isEmpty();
+      }
+      else if (value.getClass().isArray())
+      {
+        return Array.getLength(value) > 0;
+      }
+      else if (value instanceof DataModel)
+      {
+        return ((DataModel)value).getRowCount() > 0;
+      }
+    }
+    
+    return value != null;
   }
 
   @Override
