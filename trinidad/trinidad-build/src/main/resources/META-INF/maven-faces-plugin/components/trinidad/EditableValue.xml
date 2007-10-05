@@ -98,7 +98,7 @@ may manually set it to null to erase any submitted value.]]>
       </property-extension>
     </property>
     <property>
-      <description><![CDATA[a method reference to an value change listener]]></description>
+      <description><![CDATA[a method reference to a value change listener]]></description>
       <property-name>valueChangeListener</property-name>
       <property-class>javax.faces.el.MethodBinding</property-class>
       <property-extension>
