@@ -22,10 +22,11 @@ import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import javax.el.MethodExpression;
+import javax.el.ValueExpression;
+
 import javax.faces.component.StateHolder;
 import javax.faces.context.FacesContext;
-import javax.faces.el.MethodBinding;
-import javax.faces.el.ValueBinding;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
 
@@ -50,13 +51,13 @@ public class FileDownloadActionListener extends FacesBeanImpl
   static public final FacesBean.Type TYPE = new FacesBean.Type();
   static public final PropertyKey FILENAME_KEY =
     TYPE.registerKey("filename");
-  // Must be a ValueBinding
+  // Must be a ValueExpression
   static public final PropertyKey CONTENT_TYPE_KEY =
     TYPE.registerKey("contentType");
   static public final PropertyKey METHOD_KEY =
     TYPE.registerKey("method",
-                     MethodBinding.class,
-                     PropertyKey.CAP_NOT_BOUND | PropertyKey.CAP_STATE_HOLDER);
+                     MethodExpression.class,
+                     PropertyKey.CAP_NOT_BOUND);
 
   static
   {
@@ -90,11 +91,11 @@ public class FileDownloadActionListener extends FacesBeanImpl
           // TODO: what about non-ASCII characters in the filename?
           hsr.setHeader("Content-Disposition",
                         "attachment; filename=" + filename);
-        MethodBinding method = getMethod();
+        MethodExpression method = getMethod();
         OutputStream out = new BufferedOutputStream(hsr.getOutputStream());
         try
         {
-          method.invoke(context, new Object[]{context, out});
+          method.invoke(context.getELContext(), new Object[]{context, out});
         }
         finally
         {
@@ -111,12 +112,12 @@ public class FileDownloadActionListener extends FacesBeanImpl
     context.responseComplete();
   }
 
-  public MethodBinding getMethod()
+  public MethodExpression getMethod()
   {
-    return (MethodBinding) getProperty(METHOD_KEY);
+    return (MethodExpression) getProperty(METHOD_KEY);
   }
 
-  public void setMethod(MethodBinding method)
+  public void setMethod(MethodExpression method)
   {
     setProperty(METHOD_KEY, method);
   }

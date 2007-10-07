@@ -260,15 +260,43 @@ function openWindow(
     var atMostIE4 = _agent.atMost("ie", 4.99);
     var alphaFilter = false;
 
-    // body of the aprent window
-    var parentBody = parentWindow.document.body;
+    // document of the parent window
+    var parentDoc = parentWindow.document;
+
+    // body of the parent window
+    var parentBody = parentDoc.body;
 
     if (isModal && !atMostIE4)
     {
       if (_agent.atLeast("ie", 4))
       {
-        parentBody.style.filter = "alpha(opacity=50)";
-        alphaFilter = true;
+        var dimmer = parentDoc.getElementById("_trDialogDimmer");
+        if (dimmer == null)
+        {
+          // Display a div over the browser viewport that will give the entire page the appearance
+          // of being disabled:
+          dimmer = parentDoc.createElement("div");
+          dimmer.id = "_trDialogDimmer";
+          var dimmerStyle = dimmer.style;
+          dimmerStyle.position = "absolute";
+          dimmerStyle.zIndex = "32000";
+          dimmerStyle.backgroundColor = "#FFFFFF";
+          dimmerStyle.filter = "alpha(opacity=50)";
+
+          // Position the dimmer element, account for scrolling:
+          var docElement = parentDoc.documentElement;
+          var width = Math.max(docElement.offsetWidth, docElement.scrollWidth);
+          var height = Math.max(docElement.offsetHeight, docElement.scrollHeight);
+          dimmerStyle.width = width + "px";
+          dimmerStyle.height = height + "px";
+          dimmerStyle.top = "0px";
+          dimmerStyle.left = "0px";
+
+          // Add the dimmer element to the body:
+          parentBody.appendChild(dimmer);
+
+          alphaFilter = true;
+        }
       }
 
       // Capture mouse events.  Note: we special-case IE/Windows,
@@ -488,9 +516,16 @@ function _clearBodyModalEffects(effect)
   {
     if (effect == 'alpha')
     {
-      // No modal dependent - clear out the alpha filter and
-      // don't bother rescheduling.
-      self.document.body.style.filter = null;
+      // No modal dependent - clear out the alpha filter and don't bother rescheduling.
+
+      // Locate the dialog dimmer element:
+      var dimmerDoc = self.document;
+      var dimmer = dimmerDoc.getElementById("_trDialogDimmer");
+      if (dimmer != null)
+      {
+        // Remove the dimmer div that covers the browser viewport:
+        dimmerDoc.body.removeChild(dimmer);
+      }
     }
   }
 }

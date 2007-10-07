@@ -180,6 +180,11 @@ public final class Coercions
       {
         return text;
       }
+      else if (Enum.class.isAssignableFrom(type))
+      {
+        return Enum.valueOf((Class<? extends Enum>) type, text);
+      }
+
       throw new IllegalArgumentException(_LOG.getMessage(
         "CANNOT_BE_PARSED", new Object[]{text, type.getName()}));
     }
@@ -275,6 +280,10 @@ public final class Coercions
           Array.set(res, 0, arrayValue);
         }
         return res;
+      }
+      else if (Enum.class.isAssignableFrom(type))
+      {
+        return Enum.valueOf((Class<? extends Enum>) type, value.toString());
       }
 
       throw new IllegalArgumentException(_LOG.getMessage(

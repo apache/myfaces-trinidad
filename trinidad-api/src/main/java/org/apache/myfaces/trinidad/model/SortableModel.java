@@ -23,10 +23,14 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import javax.el.ELContext;
+import javax.el.ELResolver;
+import javax.el.FunctionMapper;
+import javax.el.VariableMapper;
+
 import javax.faces.FactoryFinder;
 import javax.faces.application.ApplicationFactory;
 import javax.faces.context.FacesContext;
-import javax.faces.el.PropertyResolver;
 import javax.faces.model.DataModel;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -150,9 +154,7 @@ public class SortableModel extends CollectionModel
       Object data = _model.getRowData();
       try
       {
-        PropertyResolver resolver = __getPropertyResolver();
-        Object propertyValue = resolver.getValue(data, property);
-
+        Object propertyValue = __resolveProperty(data, property);
         // when the value is null, we don't know if we can sort it.
         // by default let's support sorting of null values, and let the user
         // turn off sorting if necessary:
@@ -250,8 +252,11 @@ public class SortableModel extends CollectionModel
     // Make sure the model has that row 0! (It could be empty.)
     if (_model.isRowAvailable())
     {
+      FacesContext context = FacesContext.getCurrentInstance();
+      ELResolver resolver = _getELResolver(context);
+      ELContext elContext = _getELContext(context, resolver);
       Comparator<Integer> comp =
-        new Comp(__getPropertyResolver(), property);
+        new Comp(resolver, elContext, property);
       if (!isAscending)
         comp = new Inverter<Integer>(comp);
 
@@ -334,9 +339,10 @@ public class SortableModel extends CollectionModel
 
   private final class Comp implements Comparator<Integer>
   {
-    public Comp(PropertyResolver resolver, String property)
+    public Comp(ELResolver resolver, ELContext context, String property)
     {
       _resolver = resolver;
+      _context  = context;
       _prop = property;
     }
 
@@ -348,11 +354,11 @@ public class SortableModel extends CollectionModel
 
       _model.setRowIndex(index1);
       Object instance1 = _model.getRowData();
-      Object value1 = _resolver.getValue(instance1, _prop);
+      Object value1 = _resolver.getValue(_context, instance1, _prop);
 
       _model.setRowIndex(index2);
       Object instance2 = _model.getRowData();
-      Object value2 = _resolver.getValue(instance2, _prop);
+      Object value2 = _resolver.getValue(_context, instance2, _prop);
 
       if (value1 == null)
         return (value2 == null) ? 0 : -1;
@@ -376,7 +382,8 @@ public class SortableModel extends CollectionModel
       }
     }
 
-    private final PropertyResolver _resolver;
+    private final ELResolver _resolver;
+    private final ELContext  _context;
     private final String _prop;
   }
 
@@ -395,19 +402,73 @@ public class SortableModel extends CollectionModel
     private final Comparator<T> _comp;
   }
 
-  static PropertyResolver __getPropertyResolver()
+  /**
+   * Quickie implementation of ELContext for use
+   * if we're not being called in the JSF lifecycle
+   */
+  private static final class ELContextImpl extends ELContext
+  {
+    public ELContextImpl(ELResolver resolver)
+    {
+      _resolver = resolver;
+    }
+    
+    @Override
+    public ELResolver getELResolver()
+    {
+      return _resolver;
+    }
+
+    @Override
+    public FunctionMapper getFunctionMapper()
+    {
+      // Because we're only really being used to pass
+      // to an ELResolver, no FunctionMapper is needed
+      return null;
+    }
+
+    @Override
+    public VariableMapper getVariableMapper()
+    {
+      // Because we're only really being used to pass
+      // to an ELResolver, no VariableMapper is needed
+      return null;
+    }
+    
+    private final ELResolver _resolver;
+  }
+
+  static Object __resolveProperty(Object object, String propertyName)
+  {
+    FacesContext context = FacesContext.getCurrentInstance();
+    ELResolver resolver = _getELResolver(context);
+    ELContext elContext = _getELContext(context, resolver);
+    return resolver.getValue(elContext, object, propertyName);
+  }
+
+  static private ELContext _getELContext(
+    FacesContext context, ELResolver resolver)
+  {
+    // Hopefully, we have a FacesContext.  If not, we're
+    // going to have to synthesize one!
+    if (context != null)
+      return context.getELContext();
+   
+    return new ELContextImpl(resolver); 
+  }
+
+  static private ELResolver _getELResolver(FacesContext context)
   {
     // First try the FacesContext, which is a faster way to
-    // get the PropertyResolver (and the 99.9% scenario)
-    FacesContext context = FacesContext.getCurrentInstance();
+    // get the ELResolver (and the 99.9% scenario)
     if (context != null)
-      return context.getApplication().getPropertyResolver();
+      return context.getApplication().getELResolver();
     
     // If that fails, then we're likely outside of the JSF lifecycle.
     // Look to the ApplicationFactory.
     ApplicationFactory factory = (ApplicationFactory)
       FactoryFinder.getFactory(FactoryFinder.APPLICATION_FACTORY);
-    return factory.getApplication().getPropertyResolver();
+    return factory.getApplication().getELResolver();
     
   }
 

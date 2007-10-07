@@ -27,10 +27,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.el.ELContext;
+import javax.el.ELResolver;
+import javax.el.PropertyNotFoundException;
+
+import javax.faces.application.Application;
 import javax.faces.context.FacesContext;
-import javax.faces.el.PropertyNotFoundException;
-import javax.faces.el.PropertyResolver;
-import javax.faces.el.ValueBinding;
 import javax.faces.webapp.UIComponentTag;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -471,14 +473,16 @@ public class XMLMenuModel extends BaseMenuModel
     if (node == null)
       return null;
       
-    FacesContext context      = FacesContext.getCurrentInstance();
-    PropertyResolver resolver = context.getApplication().getPropertyResolver();
-    String value              = null;
+    FacesContext context = FacesContext.getCurrentInstance();
+    ELContext elContext  = context.getELContext();
+    ELResolver resolver  = elContext.getELResolver();
+    String value         = null;
     
     try
     {
       Map<String, String> propMap = 
-        (Map<String, String>) resolver.getValue(node, _CUSTOM_ATTR_LIST);
+        (Map<String, String>) resolver.getValue(elContext,
+                                                node, _CUSTOM_ATTR_LIST);
         
       // Need to check to see if propMap is null.  If there are
       // no custom properties for this itemNode, there will be
@@ -496,7 +500,7 @@ public class XMLMenuModel extends BaseMenuModel
       return null;
     }
     
-    // If it is an El expression, we must evaluate it
+    // If it is an EL expression, we must evaluate it
     // and return its value
     if (   value != null
         && UIComponentTag.isValueReference(value)
@@ -506,9 +510,9 @@ public class XMLMenuModel extends BaseMenuModel
        
        try
        {
-         FacesContext ctx     = FacesContext.getCurrentInstance();
-         ValueBinding binding = ctx.getApplication().createValueBinding(value);
-         elValue              = binding.getValue(ctx);
+         elValue = context.getApplication().evaluateExpressionGet(context,
+                                                                  value,
+                                                                  Object.class);
        }
        catch (Exception ex)
        {

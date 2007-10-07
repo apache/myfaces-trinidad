@@ -30,8 +30,6 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 import javax.faces.context.FacesContext;
-import javax.faces.el.ValueBinding;
-
 import javax.faces.webapp.UIComponentTag;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -76,10 +74,8 @@ class MenuUtils
    * @param str2 - String to replace the first occurrence of str1
    * @return StringBuffer
    */
-  static StringBuffer stringBufferReplaceFirst(
-    StringBuffer fullBuf, 
-    String str1, 
-    String str2)
+  static StringBuffer stringBufferReplaceFirst(StringBuffer fullBuf, String str1, 
+                                               String str2)
   {
     if (fullBuf == null)
       return null;
@@ -105,9 +101,8 @@ class MenuUtils
     return returnBuf;
   }
 
-
   //=======================================================================
-  // Bound Value/EL Binding utilities
+  // Bound Value/EL Expression utilities
   //=======================================================================
   
   /**
@@ -115,18 +110,17 @@ class MenuUtils
    * 
    * @param elExpression - String representing an EL expression
    */
-  static Object getBoundValue(String elExpression)
+  static <T> T getBoundValue(String elExpression, Class<T> desiredClass)
   {
-    Object retVal = null;
-    
     try
     {
-      // Value of rendered is EL method binding, so we 
-      // need to evaluate it
-      FacesContext ctx     = FacesContext.getCurrentInstance();
-      ValueBinding binding = 
-                        ctx.getApplication().createValueBinding(elExpression);
-      retVal               = binding.getValue(ctx);
+      if (desiredClass == null)
+        throw new NullPointerException();
+
+      FacesContext ctx = FacesContext.getCurrentInstance();
+      return (T) ctx.getApplication().evaluateExpressionGet(ctx,
+                                                            elExpression,
+                                                            desiredClass);
     }
     catch (Exception ex)
     {
@@ -135,7 +129,6 @@ class MenuUtils
       _LOG.severe(ex);
       return null;
     }
-    return retVal;
   }
   
   /**
@@ -160,7 +153,7 @@ class MenuUtils
         && UIComponentTag.isValueReference(boolStr)
        )
     {
-      Boolean bValue = (Boolean) getBoundValue(boolStr);
+      Boolean bValue = getBoundValue(boolStr, Boolean.class);
       return bValue.booleanValue();
     }
     else
@@ -184,7 +177,7 @@ class MenuUtils
         && UIComponentTag.isValueReference(propVal)
        )
     {
-      String elVal = (String) getBoundValue(propVal);
+      String elVal = getBoundValue(propVal, String.class);
       return elVal;
     }
     return propVal;
@@ -202,7 +195,7 @@ class MenuUtils
         && UIComponentTag.isValueReference(propVal)
        )
     {
-      Integer elVal = (Integer) getBoundValue(propVal);
+      Integer elVal = getBoundValue(propVal, Integer.class);
       return elVal.intValue();
     }
     return Integer.parseInt(propVal);
@@ -224,11 +217,17 @@ class MenuUtils
       facesContext.getExternalContext().getApplicationMap();
 
     // Get the request Locale
-    Locale requestLocale = facesContext.getViewRoot().getLocale();
-      
+    Locale requestLocale = facesContext.getExternalContext().getRequestLocale();
+
+    // Make sure it is not null
     if (requestLocale == null)
     {
-      requestLocale = facesContext.getApplication().getDefaultLocale();
+      requestLocale = facesContext.getViewRoot().getLocale();
+      
+      if (requestLocale == null)
+      {
+        requestLocale = facesContext.getApplication().getDefaultLocale();
+      }
     }
     
     // Is there a bundle with this key already on the session map?
@@ -260,7 +259,7 @@ class MenuUtils
       // if _bundleName is an EL, then get its value
       if (UIComponentTag.isValueReference(resBundle)) 
       {
-        bundleName = (String)MenuUtils.getBoundValue(resBundle);
+        bundleName = MenuUtils.getBoundValue(resBundle, String.class);
       } 
       else
       {

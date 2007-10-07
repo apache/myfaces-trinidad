@@ -106,6 +106,7 @@ public class TrinidadFilterImpl implements Filter
     _filters = null;
   }
 
+
   @SuppressWarnings("unchecked")
   public void doFilter(
     ServletRequest  request,
@@ -128,34 +129,10 @@ public class TrinidadFilterImpl implements Filter
     Map<String, String[]> addedParams = (Map<String, String[]>) externalContext.getRequestMap().
       get(FileUploadConfiguratorImpl._PARAMS);
     
-    boolean isPartialRequest;
     if(addedParams != null)
     {
       FileUploadConfiguratorImpl.apply(externalContext);
       request = new UploadRequestWrapper((HttpServletRequest)request, addedParams);
-      isPartialRequest = CoreRenderKit.isPartialRequest(addedParams);
-    }
-    else
-    {
-      // Only test for AJAX request, since file uploads *should* be
-      // handled by the above test.  NOTE: this will not necessarily
-      // work if someone is using Trinidad PPR with non-Trinidad 
-      // file upload!  I've no idea currently how to cleanly handle
-      // that combination in JSF 1.1.  We don't want to ask if
-      // its a partial request here, as this requires getting a
-      // query parameter, but that could block setting
-      // the character set later in the request in some app servers!
-      isPartialRequest = CoreRenderKit.isAjaxRequest(externalContext);
-      if (isPartialRequest)
-      {
-        request = XmlHttpConfigurator.getAjaxServletRequest(request);
-      }
-    }
-
-    if (isPartialRequest)
-    {
-      XmlHttpConfigurator.beginRequest(externalContext);
-      response = XmlHttpConfigurator.getWrappedServletResponse(response);
     }
 
     try
@@ -163,8 +140,19 @@ public class TrinidadFilterImpl implements Filter
       
       _doFilterImpl(request, response, chain);
     }
+    // For PPR errors, handle the request specially
     catch (Throwable t)
     {
+      boolean isPartialRequest;
+      if (addedParams != null)
+      {
+        isPartialRequest = CoreRenderKit.isPartialRequest(addedParams);
+      }
+      else
+      {
+        isPartialRequest = CoreRenderKit.isPartialRequest(externalContext);
+      }
+
       if (isPartialRequest)
       {
         XmlHttpConfigurator.handleError(externalContext, t);

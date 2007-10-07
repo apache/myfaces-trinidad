@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -904,7 +904,7 @@ public class FileSystemStyleCache implements StyleProvider
             if (styleClass != null && !styleClass.startsWith(SkinSelectors.STATE_PREFIX))
               if (!map.containsKey(styleClass))
                 map.put(styleClass, _getShortStyleClass(map.size()));
-            
+
             if (style.isEmpty())
               emptySelectors.add(styleClass);
             else
@@ -921,15 +921,14 @@ public class FileSystemStyleCache implements StyleProvider
               {
                 String styleClass = styleClasses.next();
                 _putStyleClassInShortMap(styleClass, map);
-                
                 // Don't remove any styleclass that is referred to
                 nonEmptySelectors.add(styleClass);
               }
             }
-            
+
             // now search for the selectors that have namespaces and add those to the map
             int length = namespacePrefixes.length;
-            
+
             for (int i=0; i < length; i++)
             {
               String nsPrefix = namespacePrefixes[i];
@@ -944,7 +943,6 @@ public class FileSystemStyleCache implements StyleProvider
                 {
                   String styleClass = afSelectors.next();
                   _putStyleClassInShortMap(styleClass, map);
-
                   if (isFirst && !afSelectors.hasNext() && style.isEmpty())
                   {
                     emptySelectors.add(styleClass);
@@ -953,7 +951,7 @@ public class FileSystemStyleCache implements StyleProvider
                   {
                     nonEmptySelectors.add(styleClass);
                   }
-                  
+
                   isFirst = false;
                 }
               }

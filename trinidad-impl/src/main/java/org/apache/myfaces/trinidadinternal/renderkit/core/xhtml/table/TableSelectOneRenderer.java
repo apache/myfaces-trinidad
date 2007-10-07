@@ -239,6 +239,13 @@ public class TableSelectOneRenderer extends XhtmlRenderer
     }
 
     @Override
+    protected String getClientId(FacesContext context, UIComponent component)
+    {
+      // We use the table's container client ID
+      return component.getContainerClientId(context);
+    }
+
+    @Override
     protected Object getSubmittedValue(FacesBean bean)
     {
       TableRenderingContext tContext =

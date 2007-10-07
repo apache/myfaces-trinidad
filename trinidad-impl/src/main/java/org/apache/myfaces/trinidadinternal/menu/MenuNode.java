@@ -745,9 +745,9 @@ public class MenuNode
     if (str == null)
       return null;
     
-    String keystr = MenuUtils.stringReplaceFirst(str.trim(), _bundleKey, 
+    String keystr = MenuUtils.stringReplaceFirst(str.trim(), _bundleKey,
                                                  _bundleKey + getHandlerId());
-    String elVal = (String) MenuUtils.getBoundValue(keystr);
+    String elVal = MenuUtils.getBoundValue(keystr, String.class);
     return elVal;       
   }
   

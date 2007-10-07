@@ -53,7 +53,6 @@
         <mfp:property-metadata>
           <mfp:preferred>true</mfp:preferred>
         </mfp:property-metadata>
-        <mfp:required>false</mfp:required>
       </property-extension>
     </property>
     <property>
@@ -65,7 +64,6 @@
         <mfp:property-metadata>
           <mfp:preferred>true</mfp:preferred>
         </mfp:property-metadata>
-        <mfp:required>false</mfp:required>
         <mfp:property-editor>UNSIGNED_INTEGER</mfp:property-editor>
       </property-extension>
     </property>

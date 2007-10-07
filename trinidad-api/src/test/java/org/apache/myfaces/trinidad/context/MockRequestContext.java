@@ -22,6 +22,7 @@ import java.awt.Color;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.TimeZone;
 
 import javax.faces.component.UIComponent;
@@ -261,6 +262,12 @@ public class MockRequestContext extends RequestContext
   public void addPartialTargets(UIComponent from, String... targets)
   {
     
+  }
+
+  @Override
+  public Set<UIComponent> getPartialTargets(UIComponent from)
+  {
+    throw new UnsupportedOperationException("Not implemented yet");
   }
 
   @Override

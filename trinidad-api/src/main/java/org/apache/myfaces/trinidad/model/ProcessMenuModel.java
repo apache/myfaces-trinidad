@@ -109,7 +109,7 @@ public class ProcessMenuModel extends ViewIdPropertyMenuModel
   public ProcessMenuModel(
     Object instance,
     String viewIdProperty,
-    Object maxPathKey
+    String maxPathKey
   )throws IntrospectionException
   {
     super(instance, viewIdProperty);
@@ -151,7 +151,7 @@ public class ProcessMenuModel extends ViewIdPropertyMenuModel
   */
   public boolean isImmediate()
   {
-    Object maxPathKey = getMaxPathKey();
+    String maxPathKey = getMaxPathKey();
     if ( maxPathKey == null)
       return ProcessUtils.isImmediate(this, false);
     else
@@ -189,7 +189,7 @@ public class ProcessMenuModel extends ViewIdPropertyMenuModel
   */
   public boolean isReadOnly()
   {
-    Object maxPathKey = getMaxPathKey();
+    String maxPathKey = getMaxPathKey();
     if (maxPathKey == null)
       return ProcessUtils.isReadOnly(this, true);
     else
@@ -211,14 +211,14 @@ public class ProcessMenuModel extends ViewIdPropertyMenuModel
   public boolean isVisited()
   {
     // Max Visited
-    Object maxPathKey = getMaxPathKey();
+    String maxPathKey = getMaxPathKey();
     if ( maxPathKey == null)
     {
       return ProcessUtils.isVisited(this, false);
     }
     else
     {
-      Object  maxPath = ProcessUtils.getMaxVisitedRowKey(this, maxPathKey);
+      Object maxPath = ProcessUtils.getMaxVisitedRowKey(this, maxPathKey);
       return ProcessUtils.isVisited(this, maxPath, false);
     }
   }  
@@ -228,20 +228,20 @@ public class ProcessMenuModel extends ViewIdPropertyMenuModel
    */
   public void clearMaxPath()
   {
-    Object maxPathKey = getMaxPathKey();
+    String maxPathKey = getMaxPathKey();
     if ( maxPathKey != null)
       ProcessUtils.clearMaxPath(maxPathKey);
   }
 
-  public void setMaxPathKey(Object maxPathKey)
+  public void setMaxPathKey(String maxPathKey)
   {
     _maxPathKey = maxPathKey;
   }
 
-  public Object getMaxPathKey()
+  public String getMaxPathKey()
   {
     return _maxPathKey;
   }
 
-  Object _maxPathKey = null;
+  private String _maxPathKey;
 }

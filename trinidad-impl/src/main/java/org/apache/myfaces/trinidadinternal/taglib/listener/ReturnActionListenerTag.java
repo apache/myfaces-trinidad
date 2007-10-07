@@ -20,6 +20,8 @@ package org.apache.myfaces.trinidadinternal.taglib.listener;
 
 import org.apache.myfaces.trinidadinternal.taglib.util.TagUtils;
 
+import javax.el.ValueExpression;
+
 import javax.servlet.jsp.tagext.TagSupport;
 import javax.servlet.jsp.JspException;
 
@@ -27,7 +29,7 @@ import javax.faces.application.Application;
 import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.webapp.UIComponentTag;
+import javax.faces.webapp.UIComponentClassicTagBase;
 
 import org.apache.myfaces.trinidad.webapp.ELContextTag;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -38,7 +40,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  */
 public class ReturnActionListenerTag extends TagSupport
 {
-  public void setValue(String value)
+  public void setValue(ValueExpression value)
   {
     _value = value;
   }
@@ -46,7 +48,8 @@ public class ReturnActionListenerTag extends TagSupport
   @Override
   public int doStartTag() throws JspException
   {
-    UIComponentTag tag = UIComponentTag.getParentUIComponentTag(pageContext);
+    UIComponentClassicTagBase tag =
+      UIComponentClassicTagBase.getParentUIComponentClassicTagBase(pageContext);
     if (tag == null)
     {
       throw new JspException(_LOG.getMessage(
@@ -72,21 +75,8 @@ public class ReturnActionListenerTag extends TagSupport
 
     ReturnActionListener listener = new ReturnActionListener();
     if (_value != null)
-    {
-      String value = _value;
-      if (TagUtils.isValueReference(value))
-      {
-        if (parentELContext != null)
-          value = parentELContext.transformExpression(value);
+      listener.setValue(_value);
 
-        listener.setValueBinding(ReturnActionListener.VALUE_KEY,
-                                 application.createValueBinding(value));
-      }
-      else
-      {
-        listener.setValue(value);
-      }
-    }
     ((ActionSource) component).addActionListener(listener);
 
     return super.doStartTag();
@@ -99,7 +89,7 @@ public class ReturnActionListenerTag extends TagSupport
     _value = null;
   }
 
-  private String _value;
+  private ValueExpression _value;
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     ReturnActionListenerTag.class);
 }

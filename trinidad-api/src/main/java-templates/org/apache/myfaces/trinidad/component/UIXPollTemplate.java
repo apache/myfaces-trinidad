@@ -18,6 +18,8 @@
  */
 package org.apache.myfaces.trinidad.component;
 
+import javax.el.MethodExpression;
+
 import javax.faces.el.MethodBinding;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
@@ -34,7 +36,13 @@ abstract public class UIXPollTemplate extends UIXComponentBase
 	
 /**/ // Abstract methods implemented by code gen
 /**/  abstract public boolean isImmediate();
-/**/  abstract public MethodBinding getPollListener();
+/**/  abstract public MethodExpression getPollListener();
+
+  @Deprecated
+  public void setPollListener(MethodBinding binding)
+  {
+    setPollListener(adaptMethodBinding(binding));
+  }
 
   //
   // Abstract methods implemented by subclass.
@@ -47,7 +55,7 @@ abstract public class UIXPollTemplate extends UIXComponentBase
     // Notify the specified Poll listener method (if any)
     if (event instanceof PollEvent)
     {
-      broadcastToMethodBinding(event, getPollListener());
+      broadcastToMethodExpression(event, getPollListener());
     }
   }
 

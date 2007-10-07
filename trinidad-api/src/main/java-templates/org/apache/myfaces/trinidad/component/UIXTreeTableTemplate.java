@@ -24,6 +24,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.el.MethodExpression;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
@@ -45,7 +47,13 @@ import org.apache.myfaces.trinidad.model.TreeModel;
 abstract public class UIXTreeTableTemplate extends UIXTree
 {
 /**/  public abstract int[] getRowsByDepth();
-/**/  abstract public MethodBinding getRangeChangeListener();
+/**/  abstract public MethodExpression getRangeChangeListener();
+
+  @Deprecated
+  public void setRangeChangeListener(MethodBinding binding)
+  {
+    setRangeChangeListener(adaptMethodBinding(binding));
+  }
 
   /**
    * Gets the maximum number of rows to show.
@@ -181,7 +189,7 @@ abstract public class UIXTreeTableTemplate extends UIXTree
       // it is nice to expand the focused item:
       getDisclosedRowKeys().add();
 
-      broadcastToMethodBinding(event, getFocusListener());
+      broadcastToMethodExpression(event, getFocusListener());
     }
     else if (event instanceof RangeChangeEvent)
     {
@@ -191,7 +199,7 @@ abstract public class UIXTreeTableTemplate extends UIXTree
       //=-=pu: This ain't getting restored. Check with Arj or file a bug.
       addAttributeChange("first",
                          Integer.valueOf(rce.getNewStart()));
-      broadcastToMethodBinding(event, getRangeChangeListener());
+      broadcastToMethodExpression(event, getRangeChangeListener());
     }
 
     // Perform standard superclass processing
