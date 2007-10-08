@@ -109,7 +109,7 @@ public class MenuContentHandlerImpl extends DefaultHandler
   {
     super();
     
-    // Init the essential maps
+    // Init the essential maps.
     _treeModelMap = new HashMap<String, TreeModel>();
     _viewIdFocusPathMapMap = new HashMap<Object, Map<String, List<Object>>>();
     _nodeFocusPathMapMap = new HashMap<Object, Map<Object, List<Object>>>();
@@ -226,7 +226,7 @@ public class MenuContentHandlerImpl extends DefaultHandler
           
           // Set the root model on the node so we can call into
           // the root model from the node to populate its
-          // idNodeMap (See CombinationMenuModel.java)
+          // idNodeMap (See XMLMenuModel.java)
           menuNode.setRootModelKey(getRootModelKey());
           
           // Set the local model (created when parsing a sharedNode)
@@ -246,36 +246,82 @@ public class MenuContentHandlerImpl extends DefaultHandler
         // and thus a new model, which we build here.  Note: this will
         // recursively call into this MenuContentHandlerImpl when parsing the
         // submenu's metadata.
-        String expr            = attrList.getValue(_REF_ATTR);
+        String expr = attrList.getValue(_REF_ATTR);
         
         // Need to push several items onto the stack now as we recurse
         // into another menu model.
         _saveModelData();        
 
+        // Create the sub menu model specified in the sharedNode
         XMLMenuModel menuModel = (XMLMenuModel)MenuUtils.getBoundValue(expr);
         
         // Now must pop the values cause we are back to the parent
         // model.
         _restoreModelData();
         
-        Object         subMenuObj  = menuModel.getWrappedData();
-        List<MenuNode> subMenuList = null;
+        // Name of the managed bean that is the sub menu XMLMenuModel.
+        String modelStr = expr.substring(expr.indexOf('{')+1, 
+                                         expr.indexOf('}'));
         
-        if (subMenuObj instanceof ChildPropertyTreeModel)
+        // There are 2 ways that a Model can be invalid:
+        // 1) Something such as a missing managed bean definition
+        //    for the submenu model causes the creation of the 
+        //    XMLMenuModel for the submenu to fail. This will result
+        //    in menuModel being NULL.
+        // 2) Some kind of parsing error in its metadata.  If a node
+        //    type is invalid, an exception will be thrown (see below)
+        //    and caught in getTreeModel().  This will result in a
+        //    null submenu list the following SAXException will also
+        //    be logged.
+        if (menuModel != null)
         {
-          subMenuList =  
-            (List<MenuNode>)((ChildPropertyTreeModel)subMenuObj).getWrappedData();
+          Object         subMenuObj  = menuModel.getWrappedData();
+          List<MenuNode> subMenuList = null;
+          
+          if (subMenuObj instanceof ChildPropertyTreeModel)
+          {
+            subMenuList =  
+              (List<MenuNode>)((ChildPropertyTreeModel)subMenuObj).getWrappedData();
+          }
+          
+          if (subMenuList != null)
+          {
+            // SharedNode could be the first child
+            // So we need a new list for the children
+            if (_menuNodes.size() < _nodeDepth) 
+            {
+              _menuNodes.add(new ArrayList<MenuNode>());
+            }
+            
+            List<MenuNode> list = _menuNodes.get(_nodeDepth-1);
+            list.addAll(subMenuList);
+          }
+          else
+          {
+            // Let it go through but log it.  This way the rest of
+            // the Tree gets built and this submenu is skipped.
+            SAXException npe =
+              new SAXException("Shared Node Model not created for " + modelStr);
+          }
         }
-  
-        // SharedNode could be the first child
-        // So we need a new list for the children
-        if (_menuNodes.size() < _nodeDepth) 
+        else
         {
-          _menuNodes.add(new ArrayList<MenuNode>());
+          // Let it go through but log it.  This way the rest of
+          // the Tree gets built and this submenu is skipped.
+          NullPointerException npe =
+            new NullPointerException("Shared Node Model not created for "
+              + modelStr + ". Check for the existence of the corresponding "
+              + "managed bean in your config files.");
+          
+          _LOG.severe (npe.getMessage(), npe);
         }
-        
-        List<MenuNode> list = _menuNodes.get(_nodeDepth-1);
-        list.addAll(subMenuList);
+      }
+      else
+      {
+        // Throw an Exception for any node that is not of type
+        // menu, itemNode, groupNode, or sharedNode.  This will get
+        // caught in getTreeModel()
+        throw new SAXException("Invalid Node type: " + localElemName);
       }
     }
   }
@@ -329,7 +375,13 @@ public class MenuContentHandlerImpl extends DefaultHandler
     {
       _nodeDepth--;
 
-      if (_nodeDepth > 0)
+      // In processing a sharedNode in startElement(), it is possible
+      // that a sharedNode model is not created properly. However,
+      // we only log an error and let parsing continue so that the whole
+      // Tree can get created w/o the failed sharedNode submenu model.
+      // Thus we need the 2nd conditional here to detect if we are at 
+      // the end of parsing a failed sharedNode.
+      if (_nodeDepth > 0  && _menuNodes.size() > _nodeDepth)
       {
         // The parent menu item is the last menu item at the previous depth
         List<MenuNode> parentList = _menuNodes.get(_nodeDepth-1);
@@ -464,18 +516,20 @@ public class MenuContentHandlerImpl extends DefaultHandler
     }
     catch (SAXException saxex)
     {
-      _LOG.severe ("CREATE_MODEL_EXCEPTION", uri);
-      _LOG.severe(saxex);
+      _LOG.severe ( "SAX Parse Exception parsing " + uri + ": " + 
+                    saxex.getMessage(), saxex);
     }
     catch (IOException ioe)
     {
-      _LOG.severe ("CREATE_MODEL_EXCEPTION", uri);
-      _LOG.severe(ioe);
+      _LOG.severe ( "Unable to open an InputStream to " + uri, ioe);
+    }
+    catch (IllegalArgumentException iae)
+    {
+      _LOG.severe("InputStream to " + iae + " is null", iae);
     }
     catch (ParserConfigurationException pce)
     {
-      _LOG.severe ("CREATE_MODEL_EXCEPTION", uri);
-      _LOG.severe(pce);
+      _LOG.severe ( "Unable to create SAX parser for " + uri, pce);
     }
 
     return _treeModelMap.get(uri);
