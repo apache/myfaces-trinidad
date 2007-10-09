@@ -1131,6 +1131,24 @@ The children of the group will not be displayed unless the parent of the group h
 <!-- ********** end panelPage ********** -->
 
 
+<!-- ********** start region ********** -->
+<subsection name="region">
+
+  <p>
+    <b>Component Name:</b>
+    <ul>
+      <li><b>ADF:</b> region </li>
+      <li><b>Trinidad:</b> (removed)</li>
+    </ul>
+  </p>
+
+  <p><b>Changed Attributes:</b> (n/a)</p>
+  <p><b>Changed Facets:</b> (n/a)</p>
+
+</subsection>
+<!-- ********** end region ********** -->
+
+
 <!-- ********** start regionDef ********** -->
 <subsection name="regionDef">
 
@@ -1138,12 +1156,12 @@ The children of the group will not be displayed unless the parent of the group h
     <b>Component Name:</b>
     <ul>
       <li><b>ADF:</b> regionDef</li>
-      <li><b>Trinidad:</b> componentDef</li>
+      <li><b>Trinidad:</b> (removed)</li>
     </ul>
   </p>
 
-  <p><b>Changed Attributes:</b>None</p>
-  <p><b>Changed Facets:</b>None</p>
+  <p><b>Changed Attributes:</b> (n/a)</p>
+  <p><b>Changed Facets:</b> (n/a)</p>
 
 </subsection>
 <!-- ********** end regionDef ********** -->
