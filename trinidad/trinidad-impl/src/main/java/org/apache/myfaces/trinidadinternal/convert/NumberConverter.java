@@ -31,7 +31,7 @@ import org.apache.myfaces.trinidad.convert.ClientConverter;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
 import org.apache.myfaces.trinidadinternal.util.JsonUtils;
 
-public final class NumberConverter extends org.apache.myfaces.trinidad.convert.NumberConverter
+public class NumberConverter extends org.apache.myfaces.trinidad.convert.NumberConverter
                    implements ClientConverter
 {
   public NumberConverter()
