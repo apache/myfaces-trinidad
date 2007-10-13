@@ -638,7 +638,7 @@ function _updateFormActions(sourceDocument, targetDocument)
     if (sourceForm.hasChildNodes())
     {
       // Get the source form's name and action
-      var sourceName = sourceForm.name;
+      var sourceName = _getFormName(sourceForm);
       var sourceAction = sourceForm.action;
 
       // Locate the target form

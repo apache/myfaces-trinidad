@@ -136,13 +136,6 @@ public class DebugHtmlResponseWriter extends ResponseWriterDecorator
         if (!"a".equals(_elementStack.peek()))
           _LOG.warning("Illegal character (space) in \"name\" attribute");
       }
-      // =-=AEW.  Some browsers are very unhappy when the "name"
-      // attribute is set to "name" itself; we have gotten many emails and bugs
-      // from people who make this mistake.
-      else if ("name".equals(value))
-      {
-        _LOG.warning("\"name\" attribute incorrectly set to \"name\"");
-      }
       // And "target" causes problems too - see bug 2693457
       else if ("target".equals(value))
       {
