@@ -1126,6 +1126,26 @@ function _getJavascriptId(name)
   return name.split(':').join('_');
 }
 
+function _getFormName(form)
+{
+  var name = form.name;
+  
+  if ((typeof name) != 'string')
+  {
+    if (_agent.isIE)
+    {
+      name = form.attributes['name'].nodeValue; 
+    }
+    else
+    {
+      name = form.getAttribute('name');
+    }
+  }
+
+  return name;
+}
+
+
 /**
  * Calls the correct validations function for the form and returns true
  * if the validation succeeded.
@@ -1135,7 +1155,7 @@ function _validateForm(
   source
   )
 {
-  var funcName = '_' + _getJavascriptId(form.name) + 'Validator';
+  var funcName = '_' + _getJavascriptId(_getFormName(form)) + 'Validator';
   var formWind = window[funcName];
   if (formWind)
     return formWind(form, source);
@@ -1573,7 +1593,7 @@ function submitForm(
   // validated, so there is no real validator, we've just hacked one. The
   // submit always sets doValidate to false. Just make sure that you never use
   // this validator if doValidate is false (it might just be the value '1').
-  var formComplete = window["_"+ _getJavascriptId(form.name) + "Validator"];
+  var formComplete = window["_"+ _getJavascriptId(_getFormName(form)) + "Validator"];
 
   if (formComplete == (void 0))
   {
@@ -1625,7 +1645,7 @@ function submitForm(
   //
   // If we have an onSubmit handler, call it
   //
-  var onSubmit = window["_" + _getJavascriptId(form.name) + "_Submit"];
+  var onSubmit = window["_" + _getJavascriptId(_getFormName(form)) + "_Submit"];
 
   if (onSubmit != (void 0))
   {
@@ -2214,7 +2234,7 @@ function _addValidators(formName, validators, validations, labels, formats)
   }
 
   // And store the new validator map away
-  window["_" + _getJavascriptId(form.name) + "_Validators"] = validatorMap;
+  window["_" + _getJavascriptId(_getFormName(form)) + "_Validators"] = validatorMap;
 }
 
 /**
@@ -2232,7 +2252,7 @@ function _multiValidate(
   // Initialise the return map.
   var failureMap = new Object();
 
-  var subforms = window[form.name + "_SF"];
+  var subforms = window[_getFormName(form) + "_SF"];
   var ignorePrefixes = new Array();
   var foundUsedSubform = false;
   var key;
@@ -2748,7 +2768,7 @@ function _getValidators(
   form
   )
 {
-  return window["_" + _getJavascriptId(form.name) + "_Validators"];
+  return window["_" + _getJavascriptId(_getFormName(form)) + "_Validators"];
 }
 
 

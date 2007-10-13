@@ -63,7 +63,7 @@ function TrShuttleProxy(
     {
       if (document.forms[i][listName] != (void 0))
       {
-        this.formName = document.forms[i].name;
+        this.formName = _getFormName(document.forms[i]);
         break;
       }
     }
@@ -1291,7 +1291,7 @@ TrShuttleProxy._findFormNameContaining = function(
   {
     if (document.forms[i][element] != (void 0))
     {
-      return document.forms[i].name;
+      return _getFormName(document.forms[i]);
     }
   }
   return "";
