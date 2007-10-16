@@ -933,32 +933,30 @@ function _decimalParse(
       }
       
       var messageKey;
+      var rangeLimit;
       //not true for float/double converter
       if ((maxValue != null) &&
           (result  > maxValue))
       {
         messageKey = standardKey+".MAXIMUM";
+        rangeLimit = maxValue;
       }
       else if ((minValue != null) &&
                (result  < minValue))
       {
         messageKey = standardKey+".MINIMUM";
+        rangeLimit = minValue;
       }
 
-      if (messageKey != null)
+      if (messageKey)
       {
-        var messages = message;
-        if ((messages == null) ||
-            (messages[messageKey] == null))
-          throw  new TrConverterException(null, null, "Conversion failed, but no appropriate message found");  // default error format
-        else
-        {
-          facesMessage =  _createFacesMessage( messageKey,
+        facesMessage = _createFacesMessage(messageKey,
                                       label,
-                                      numberString);
-          throw new TrConverterException(facesMessage);
-        }
-       }
+                                      numberString,
+                                      ""+rangeLimit);
+
+        throw new TrConverterException(facesMessage);
+      }
       return result;
     }
   }
