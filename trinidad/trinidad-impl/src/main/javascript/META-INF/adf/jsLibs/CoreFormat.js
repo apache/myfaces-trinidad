@@ -921,7 +921,8 @@ function _decimalParse(
       }
     }
     if (!floater && !isNaN(result))
-    {      var integerDigits = numberString.length;
+    {
+      var integerDigits = numberString.length;
       var fractionDigits = 0;
 
       var sepIndex = numberString.lastIndexOf('.');
@@ -946,7 +947,7 @@ function _decimalParse(
 
       if (messageKey != null)
       {
-        var messages = messages;
+        var messages = message;
         if ((messages == null) ||
             (messages[messageKey] == null))
           throw  new TrConverterException(null, null, "Conversion failed, but no appropriate message found");  // default error format
