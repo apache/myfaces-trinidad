@@ -18,9 +18,9 @@
     under the License.
 	   
 -->
-<project name="Apache Incubator Trinidad Podling">
+<project name="Apache MyFaces Trinidad">
   <bannerLeft>
-    <name>Apache Incubator Trinidad Podling Implementation</name>
+    <name>Apache MyFaces Trinidad Implementation</name>
   </bannerLeft>
   <body>
     <links>
