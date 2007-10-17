@@ -236,6 +236,15 @@ public abstract class UIXIteratorTemplate extends UIXCollection
     // if we are starting from row zero then there is no problem:
     if (first == 0)
       return;
+
+    // Negative "first" makes no sense. Given the logic below,
+    // it forces iterator to scroll to the end unnecessarily.
+    if (first < 0)
+    {
+      setFirst(0);
+      return;
+    }
+
     CollectionModel model = getCollectionModel();
     int oldIndex = model.getRowIndex();
     try
