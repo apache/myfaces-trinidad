@@ -290,11 +290,12 @@ TrNumberFormat.prototype.stringToCurrency = function(numberString)
 /**
  * Formats a percent string into a number.
  */
-TrNumberFormat.prototype.stringToPercentage = function(numberString)
+TrNumberFormat.prototype.stringToPercentage = function(percentString)
 {
-  numberString = numberString.replace(/\%/g, '');
+  var isPercentage = (percentString.indexOf('%') != -1);
+  var numberString = percentString.replace(/\%/g, '');
   numberString = parseFloat(numberString);
-  if(isNaN(numberString))
+  if(!isPercentage || isNaN(numberString))
   {
     throw new TrParseException("not able to parse number");
   }
