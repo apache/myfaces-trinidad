@@ -212,6 +212,16 @@ TrNumberConverter.prototype.getAsObject = function(
   label
   )
 {
+  // The following are from the javadoc for Number and DateTimeConverter.
+  // If the specified String is null, return a null. Otherwise, trim leading and trailing whitespace before proceeding.
+  // If the specified String - after trimming - has a zero length, return null.
+  if (numberString== null)
+    return null;
+    
+  numberString= TrUIUtils.trim(numberString);
+  if (numberString.length == 0)
+    return null
+
   if(this._isConvertible())
   {
     var parsedValue;
