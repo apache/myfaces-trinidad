@@ -75,6 +75,9 @@
       <property-class>java.lang.String</property-class>
       <property-extension>
         <mfp:required>false</mfp:required>
+        <mfp:property-metadata>
+          <mfp:translatable>true</mfp:translatable>
+        </mfp:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -130,6 +133,7 @@
       <property-extension>
         <mfp:property-metadata>
           <mfp:preferred>true</mfp:preferred>
+          <mfp:translatable>true</mfp:translatable>
         </mfp:property-metadata>
       </property-extension>
     </property>

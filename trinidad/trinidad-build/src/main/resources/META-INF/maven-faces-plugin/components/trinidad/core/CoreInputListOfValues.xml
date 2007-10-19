@@ -40,7 +40,11 @@ launching a dialog to assist users in entering a value.]]>
       </description>
       <property-name>searchDesc</property-name>
       <property-class>java.lang.String</property-class>
-      <property-extension/>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:translatable>true</mfp:translatable>
+        </mfp:property-metadata>
+      </property-extension>
     </property>
     <property>
       <description><![CDATA[the URI for an alternative image on the button to launch the dialog]]></description>
@@ -72,6 +76,7 @@ launching a dialog to assist users in entering a value.]]>
         <mfp:property-metadata>
           <mfp:initial-value>Label {0}</mfp:initial-value>
           <mfp:preferred>true</mfp:preferred>
+          <mfp:translatable>true</mfp:translatable>
           <mfp:short-description>${md:getTranslatedString("SD_ATTRGROUP_INLINEMESSAGINGPROMPT_ATTR_PROMPT")}</mfp:short-description>
         </mfp:property-metadata>
       </property-extension>
@@ -153,6 +158,7 @@ tip), and may use simpler layout primitives]]>
       <property-class>java.lang.String</property-class>
       <property-extension>
         <mfp:property-metadata>
+          <mfp:translatable>true</mfp:translatable>
           <mfp:short-description>${md:getTranslatedString("SD_ATTRGROUP_ACCESSKEY_ATTR_VALUEANDACCESSKEY")}</mfp:short-description>
         </mfp:property-metadata>
         <mfp:virtual>true</mfp:virtual>

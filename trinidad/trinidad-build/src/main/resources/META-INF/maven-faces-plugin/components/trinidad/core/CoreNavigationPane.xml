@@ -60,7 +60,11 @@
       <description><![CDATA[Text that describes the items.  (This attribute is only applicable if the rendering hint supports it, e.g. "choice".)]]></description>
       <property-name>title</property-name>
       <property-class>java.lang.String</property-class>
-      <property-extension/>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:translatable>true</mfp:translatable>
+        </mfp:property-metadata>
+      </property-extension>
     </property>
 
     <component-extension>

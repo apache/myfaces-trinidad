@@ -143,6 +143,7 @@
         <mfp:property-metadata>
           <mfp:initial-value>{localName} {0}</mfp:initial-value>
           <mfp:preferred>true</mfp:preferred>
+          <mfp:translatable>true</mfp:translatable>
         </mfp:property-metadata>
         <mfp:required>false</mfp:required>
       </property-extension>
@@ -162,6 +163,9 @@
       <property-extension>
         <mfp:required>false</mfp:required>
         <mfp:virtual>true</mfp:virtual>
+        <mfp:property-metadata>
+          <mfp:translatable>true</mfp:translatable>
+        </mfp:property-metadata>
       </property-extension>
     </property>
 

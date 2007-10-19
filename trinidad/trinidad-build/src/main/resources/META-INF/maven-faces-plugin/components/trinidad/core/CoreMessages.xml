@@ -41,6 +41,7 @@
       <property-extension>
         <mfp:property-metadata>
           <mfp:preferred>true</mfp:preferred>
+          <mfp:translatable>true</mfp:translatable>
         </mfp:property-metadata>
       </property-extension>
     </property>
@@ -48,6 +49,9 @@
       <description><![CDATA[the overridden title text.]]></description>
       <property-name>text</property-name>
       <property-class>java.lang.String</property-class>
+      <mfp:property-metadata>
+         <mfp:translatable>true</mfp:translatable>
+      </mfp:property-metadata>
       <property-extension/>
     </property>
     <property>
