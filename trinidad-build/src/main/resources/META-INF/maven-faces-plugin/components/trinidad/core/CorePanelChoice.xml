@@ -39,6 +39,7 @@
         <mfp:property-metadata>
           <mfp:initial-value>{localName} {0}</mfp:initial-value>
           <mfp:preferred>true</mfp:preferred>
+          <mfp:translatable>true</mfp:translatable>
         </mfp:property-metadata>
       </property-extension>
     </property>
@@ -79,6 +80,7 @@
       <property-class>java.lang.String</property-class>
       <property-extension>
         <mfp:property-metadata>
+          <mfp:translatable>true</mfp:translatable>
           <mfp:short-description>${md:getTranslatedString("SD_ATTRGROUP_ACCESSKEY_ATTR_VALUEANDACCESSKEY")}</mfp:short-description>
         </mfp:property-metadata>
         <mfp:virtual>true</mfp:virtual>

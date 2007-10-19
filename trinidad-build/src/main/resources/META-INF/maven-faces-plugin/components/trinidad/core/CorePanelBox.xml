@@ -46,6 +46,7 @@ offset by a certain color.]]>
         <mfp:required>false</mfp:required>
         <mfp:property-metadata>
           <mfp:preferred>true</mfp:preferred>
+          <mfp:translatable>true</mfp:translatable>
         </mfp:property-metadata>
       </property-extension>
     </property>

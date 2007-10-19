@@ -71,6 +71,7 @@ both the disclosed state AND the undisclosed state.]]>
         <mfp:required>false</mfp:required>
         <mfp:property-metadata>
           <mfp:preferred>true</mfp:preferred>
+          <mfp:translatable>true</mfp:translatable>
         </mfp:property-metadata>
         <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>
       </property-extension>
@@ -87,6 +88,7 @@ both the disclosed state AND the undisclosed state.]]>
         <mfp:required>false</mfp:required>
         <mfp:property-metadata>
           <mfp:preferred>true</mfp:preferred>
+          <mfp:translatable>true</mfp:translatable>
         </mfp:property-metadata>
         <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>
       </property-extension>

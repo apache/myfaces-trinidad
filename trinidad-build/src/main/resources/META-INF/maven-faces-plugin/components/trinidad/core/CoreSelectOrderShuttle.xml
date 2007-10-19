@@ -135,6 +135,7 @@
       <property-extension>
         <mfp:property-metadata>
           <mfp:preferred>true</mfp:preferred>
+          <mfp:translatable>true</mfp:translatable>
         </mfp:property-metadata>
       </property-extension>
     </property>
@@ -145,6 +146,7 @@
       <property-extension>
         <mfp:property-metadata>
           <mfp:preferred>true</mfp:preferred>
+          <mfp:translatable>true</mfp:translatable>
         </mfp:property-metadata>
       </property-extension>
     </property>

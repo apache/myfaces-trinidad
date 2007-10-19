@@ -51,6 +51,7 @@ setting the "simple" attribute to true.]]>
       <property-class>java.lang.String</property-class>
       <property-extension>
         <mfp:property-metadata>
+          <mfp:translatable>true</mfp:translatable>
           <mfp:group>${md:getTranslatedString("MESSAGE_GROUP")}</mfp:group>
           <mfp:short-description>${md:getTranslatedString("SD_ATTRGROUP_INLINEMESSAGINGTEXT_ATTR_MESSAGE")}</mfp:short-description>
         </mfp:property-metadata>

@@ -51,6 +51,7 @@ not be otherwise visible.]]>
       <property-class>java.lang.String</property-class>
       <property-extension>
         <mfp:property-metadata>
+          <mfp:translatable>true</mfp:translatable>
           <mfp:expert>true</mfp:expert>
         </mfp:property-metadata>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>

@@ -53,6 +53,7 @@
         <mfp:required>false</mfp:required>
         <mfp:property-metadata>
           <mfp:group>${md:getTranslatedString("CORE_GROUP")}</mfp:group>
+          <mfp:translatable>true</mfp:translatable>
         </mfp:property-metadata>
       </property-extension>
     </property>

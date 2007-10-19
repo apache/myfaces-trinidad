@@ -37,7 +37,11 @@
             The default is "Step".]]></description>
       <property-name>text</property-name>
       <property-class>java.lang.String</property-class>
-      <property-extension/>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:translatable>true</mfp:translatable>
+        </mfp:property-metadata>
+      </property-extension>
     </property>
 
     <xi:include href="includes/CommonAttrs.xml" xpointer="/faces-config/component/*"/>

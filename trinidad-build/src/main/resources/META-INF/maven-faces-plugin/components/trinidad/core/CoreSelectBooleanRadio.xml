@@ -64,6 +64,7 @@
         <mfp:property-metadata>
           <mfp:initial-value>Label {0}</mfp:initial-value>
           <mfp:preferred>true</mfp:preferred>
+          <mfp:translatable>true</mfp:translatable>
           <mfp:short-description>${md:getTranslatedString("SD_ATTRGROUP_INLINEMESSAGINGPROMPT_ATTR_PROMPT")}</mfp:short-description>
         </mfp:property-metadata>
       </property-extension>
@@ -87,6 +88,7 @@ tip), and may use simpler layout primitives]]>
         <mfp:property-metadata>
           <mfp:initial-value>{localName} {0}</mfp:initial-value>
           <mfp:preferred>true</mfp:preferred>
+          <mfp:translatable>true</mfp:translatable>
         </mfp:property-metadata>
       </property-extension>
     </property>
@@ -126,6 +128,9 @@ tip), and may use simpler layout primitives]]>
       <property-class>java.lang.String</property-class>
       <property-extension>
         <mfp:virtual>true</mfp:virtual>
+        <mfp:property-metadata>
+          <mfp:translatable>true</mfp:translatable>
+        </mfp:property-metadata>
       </property-extension>
     </property>
     <property>

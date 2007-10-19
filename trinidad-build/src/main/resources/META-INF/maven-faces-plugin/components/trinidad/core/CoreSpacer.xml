@@ -65,6 +65,7 @@
       <property-class>java.lang.String</property-class>
       <property-extension>
         <mfp:property-metadata>
+          <mfp:translatable>true</mfp:translatable>
           <mfp:group>${md:getTranslatedString("CORE_GROUP")}</mfp:group>
         </mfp:property-metadata>
       </property-extension>

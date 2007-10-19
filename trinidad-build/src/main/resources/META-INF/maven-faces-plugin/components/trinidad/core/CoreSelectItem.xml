@@ -38,6 +38,7 @@ may select from a list, choice, radio, or shuttle Trinidad control.]]>
       <property-class>java.lang.String</property-class>
       <property-extension>
         <mfp:property-metadata>
+          <mfp:translatable>true</mfp:translatable>
           <mfp:initial-value>{localName} {0}</mfp:initial-value>
           <mfp:preferred>true</mfp:preferred>
         </mfp:property-metadata>
@@ -61,7 +62,11 @@ may select from a list, choice, radio, or shuttle Trinidad control.]]>
       </description>
       <property-name>longDesc</property-name>
       <property-class>java.lang.String</property-class>
-      <property-extension/>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:translatable>true</mfp:translatable>
+        </mfp:property-metadata>
+      </property-extension>
     </property>
     <property>
       <description><![CDATA[The short description of the bean.  This text

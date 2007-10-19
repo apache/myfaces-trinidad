@@ -130,6 +130,7 @@ may manually set it to null to erase any submitted value.]]>
       <property-extension>
         <mfp:property-metadata>
           <mfp:preferred>true</mfp:preferred>
+          <mfp:translatable>true</mfp:translatable>
         </mfp:property-metadata>
       </property-extension>
     </property>
