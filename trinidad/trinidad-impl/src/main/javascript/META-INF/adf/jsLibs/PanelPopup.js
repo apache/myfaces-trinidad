@@ -550,20 +550,20 @@ TrPanelPopup.prototype._centerOnScreen = function(element)
     loc = document.body.scrollLeft +
       ((document.body.clientWidth - element.clientWidth) / 2) -
       parentPos.x;
-    element.style.left = loc + "px";
+    element.style.left = ((loc>0)?loc:0) + "px";
     loc = document.body.scrollTop +
       ((document.body.clientHeight - element.clientHeight) / 2) -
       parentPos.y;
-    element.style.top = loc + "px";
+    element.style.top = ((loc>0)?loc:0) + "px";
   }
   else
   {
     loc = window.pageXOffset + ((window.innerWidth - element.clientWidth) / 2) -
       parentPos.x;
-    element.style.left = loc + "px"
+    element.style.left = ((loc>0)?loc:0) + "px"
     loc = window.pageYOffset + ((window.innerHeight - element.clientHeight)/2) -
       parentPos.y;
-    element.style.top= loc + "px"
+    element.style.top= ((loc>0)?loc:0) + "px"
   }
   element.style.visibility = vis;
 }
