@@ -28,6 +28,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
 
+import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
@@ -542,15 +543,47 @@ public class RequestContextImpl extends RequestContext
       // inside - we want to look outside instead (at least, that was
       // the old ADF Faces rules, and now we should stick with it for
       // backwards compatibility even within Trinidad)
-      UIComponent master = ComponentUtils.findRelativeComponent(listener.getParent(),
-                                                  trigger);
-      //listener.getParent().findComponent(trigger);
+      
+      // The rule is "if the component is a naming container, search relative 
+      // to the parent; otherwise, search relative to the component." In the
+      // non-naming container case, if it fails, then search relative to the 
+      // parent, for backwards compatibility only, since we were always 
+      // searching relative to the parent.
+      UIComponent from;
+      boolean isNamingContainer = false;
+      boolean deprecatedFind = false;
+      if (listener instanceof NamingContainer)
+      {
+        from = listener.getParent();
+        isNamingContainer = true;
+      }
+      else
+        from = listener;
+        
+      UIComponent master = ComponentUtils.findRelativeComponent(from, trigger);
+      
+      if (master == null && !isNamingContainer)
+      {
+        // for backwards compatibility, look from the parent.
+        from = listener.getParent();
+        master = ComponentUtils.findRelativeComponent(from, trigger);
+        deprecatedFind = true;
+      }
+
       if (master == null)
       {
         _LOG.warning("CANNOT_FIND_PARTIAL_TRIGGER", new Object[] {trigger, listener});
       }
       else
       {
+        // if we found this with the deprecated method of searching relative to
+        // the component's parent, then warn the user to change their syntax.
+        if (deprecatedFind)
+        {
+          _LOG.warning("DEPRECATED_PARTIAL_TRIGGER_SYNTAX", 
+            new Object[] {trigger, listener});
+        }
+      
         // Get the set of listeners on this trigger and add this component.
         Set<UIComponent> listeners = pl.get(master);
         if (listeners == null)

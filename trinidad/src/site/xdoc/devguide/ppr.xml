@@ -143,27 +143,88 @@ partialSubmit itself only happens to exist for ActionEvent components,
 though.  (See below for other component events.)</p>
 
 <subsection name="partialTriggers: more details">
-<p>
+<P>
 It's possible to have a component that is affected by multiple triggers
 (hence, the attribute name "partialTriggers", not just "partialTrigger").
 For this, just separate each ID with a space:
-</p>
+</P>
 <source>
   &lt;tr:outputText value="#{myBean.textValue}"
                     partialTriggers="myButton1 myLink2"/&gt;
 </source>
 
-<p>
-Also, if you've got JSF NamingContainers between the trigger and its target,
+<P>
+Also, if you've got JSF NamingContainers (e.g., f:subview) between the trigger and its target,
 you'll need to incorporate that into the partialTriggers definition:
 <ul>
-<li>If you need to go through a naming container, include its ID with a colon (e.g., partialTriggers="theSubform:theLink"</li>
-<li>If you need to start at the root of the page, start with a single colon (e.g., partialTriggers=":someRootComponent"</li>
-<li>If you need to go up and out of a parent naming container, start with two colons (e.g., partialTriggers="::outsideOfMyParentNamingContainer").  To go out of two naming containers, use three colons, and so forth.</li>
+<li>If you need to go down through a naming container to get to the trigger, include the naming container's ID with a colon (e.g., partialTriggers="theSubform:theLink"</li>
+<li>If you need to start at the root of the page to get the trigger component, start with a single colon (e.g., partialTriggers=":someRootComponent"</li>
+<li>If you need to go up and out of a parent naming container to get the trigger component, start with multiple colons. 
+  <ul>
+    <li>If the target component is not a NamingContainer, then the trigger is relative to the target component. To find it relative to the parent naming
+    container, start with two colons (e.g, partialTriggers="::myTrigger"). To find it relative to the grandparent naming container,
+    start with three colons (e.g., partialTriggers=":::myTrigger"), and so forth.
+    </li>
+    <li>If the target component is a NamingContainer, then the trigger is relative to the target component's parent, not the component itself.
+    </li>
+  </ul>
+</li>
 </ul>
-</p>
+</P>
+<source>
+<![CDATA[
+  <f:view>
+    <tr:document title="Relative partialTriggers Test">
+      <tr:form>
+        <f:subview id="wrapperAroundEverything">
+          <tr:panelGroupLayout layout="vertical">
+            <!-- Button 1 is the component that all of the other buttons have partialTriggers
+                 for. -->
+            <f:subview id="button1WrapperA">
+              <f:subview id="button1WrapperB">
+                <tr:commandButton
+                  partialSubmit="true"
+                  id="button1"
+                  text="button 1 (click me then view errors in server console)"/>
+              </f:subview>
+            </f:subview>
 
-<p>Finally, a cool thing about partialTriggers when you're
+            <!-- Button 2 has four colons. Two to get it to button2WrapperB, three to get it to buttons2WrapperA,
+            and four to get it to wrapperAroundEverything. It will find the trigger from there. 
+            commandButton is not a NamingContainer -->
+            <f:subview id="button2WrapperA">
+              <f:subview id="button2WrapperB">
+                <tr:commandButton
+                  partialTriggers="::::button1WrapperA:button1WrapperB:button1"
+                  partialSubmit="true"
+                  id="button2"
+                  text="button 2"/>
+              </f:subview>
+            </f:subview>
+        ....
+            <!-- table is a NamingContainer, so finding the trigger starts
+            with the parent component -- the panelGroupLayout.. If the 
+            parent is a NamingContainer (like if you take the panelGroupLayout
+            away) then there would only be three colons. -->
+            <f:subview id="table7WrapperA">
+              <f:subview id="table7WrapperB">
+                <tr:panelGroupLayout layout="vertical">
+                  <tr:table
+                    value="#{facesContext.externalContext.requestMap.cookies}"
+                    var="row"
+                    partialTriggers="::::button1WrapperA:button1WrapperB:button1"
+                    id="table7">
+                    <tr:column headerText="Column">
+                      <tr:outputText value="#{row.name}"/>
+                    </tr:column>
+                  </tr:table>
+                </tr:panelGroupLayout>
+              </f:subview>
+            </f:subview>
+            ]]>
+</source>
+
+<P>Finally, a cool thing about partialTriggers when you're
 inside a table row.  If an event in one column needs to repaint
 a component in a different column, partialTriggers works great,
 no code required:
@@ -182,7 +243,7 @@ no code required:
   &lt;/tr:column&gt;
 </source>
 This works in h:dataTable, tr:table, tr:tree or tr:treeTable, the Facelets ui:repeat, etc.  However, if you need to redraw a component in a <em>different</em> row, then you'll need to write some Java code (see RequestContext.addPartialTarget(), below).
-</p>
+</P>
 </subsection>
 <subsection name="PPR and 'rendered'">
 <p>
