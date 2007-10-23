@@ -242,24 +242,30 @@
                            text="Go to feature demos page."/>
          </tr:panelGroupLayout>
        </tr:panelHeader>
-       <tr:panelHeader text="Naming container tests"> 
+       <tr:panelHeader text="Naming container tests; partial triggers are the previous command components with partialSubmit"> 
          <tr:panelGroupLayout layout="vertical">
            <f:subview id="sub">
-             <tr:outputFormatted  partialTriggers="::pSub_link ::pSub_button"
-                                  styleUsage="instruction"
-                                  value="#{partialDemoUtil.status.linkUpdate}">
-               <f:convertDateTime pattern="HH:mm:ss"/>
-             </tr:outputFormatted>
-           </f:subview>
-           <f:subview id="sub2">
-            <f:subview id="sub3">
+             <!-- use '::' in front of the identifier to get to the parent naming
+             container, add ':::' to get to the grandparent naming container, etc.
+             This works for non-Naming Container components. -->
              <tr:outputFormatted  partialTriggers=":::pSub_link :::pSub_button"
                                   styleUsage="instruction"
                                   value="#{partialDemoUtil.status.linkUpdate}">
                <f:convertDateTime pattern="HH:mm:ss"/>
              </tr:outputFormatted>
-             </f:subview>
            </f:subview>
+             <!-- use '::' in front of the identifier to get to the parent naming
+             container, add ':::' to get to the grandparent naming container, etc.
+             This works for non-Naming Container components. -->
+           <f:subview id="sub2">
+            <f:subview id="sub3">
+             <tr:outputFormatted  partialTriggers="::::pSub_link ::::pSub_button"
+                                  styleUsage="instruction"
+                                  value="#{partialDemoUtil.status.linkUpdate}">
+               <f:convertDateTime pattern="HH:mm:ss"/>
+             </tr:outputFormatted>
+             </f:subview>
+           </f:subview>          
          </tr:panelGroupLayout>
        </tr:panelHeader>
        <tr:panelHeader text="This Reset button will reset all values on the page.">

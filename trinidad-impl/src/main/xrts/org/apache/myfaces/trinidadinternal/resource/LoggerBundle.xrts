@@ -1053,4 +1053,7 @@
 <!-- INVALID_TIMEZONE_IN_CONFIG -->
 <resource key="INVALID_TIMEZONE_IN_CONFIG">The trinidad-config.xml contains an invalid value for time-zone ({0}). The default timezone will be used instead.</resource>
 
+
+<!-- DEPRECATED_PARTIAL_TRIGGER_SYNTAX -->
+<resource key="DEPRECATED_PARTIAL_TRIGGER_SYNTAX">Could not find partial trigger {0} from {1} searching relative to the component. The partial trigger was found relative to the component's parent but this is deprecated. Change the partial trigger to be relative to component, not relative to parent.</resource>
 </resources>

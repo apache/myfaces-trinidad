@@ -49,10 +49,11 @@
       <description><![CDATA[the overridden title text.]]></description>
       <property-name>text</property-name>
       <property-class>java.lang.String</property-class>
-      <mfp:property-metadata>
-         <mfp:translatable>true</mfp:translatable>
-      </mfp:property-metadata>
-      <property-extension/>
+      <property-extension>
+        <mfp:property-metadata>
+           <mfp:translatable>true</mfp:translatable>
+        </mfp:property-metadata>
+      </property-extension>
     </property>
     <property>
       <description><![CDATA[whether to render all messages or just global messages. Normally
