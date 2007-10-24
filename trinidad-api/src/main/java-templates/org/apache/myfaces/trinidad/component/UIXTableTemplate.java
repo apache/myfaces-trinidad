@@ -64,31 +64,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
   public void queueEvent(FacesEvent event)
   {
     TableUtils.__handleQueueEvent(this, event);
-    
-    // If the currency is not already established,
-    // associate selected row key with the event
-    // UIXCollection.queueEvent() will wrap the event into
-    // a TableRowEvent that will include currency information
-    
-    Object newKey = null;
-    Object oldKey = getRowKey();
-    if (oldKey == null)
-    {
-      Set keys = getSelectedRowKeys();
-      if (!keys.isEmpty())
-        newKey = keys.iterator().next();
-    }
-    
-    if (newKey != null)
-    {
-      setRowKey(newKey);
-      super.queueEvent(event);
-      setRowKey(oldKey);
-    }
-    else
-    {
-      super.queueEvent(event);
-    }  
+    super.queueEvent(event);
   }
 
   /**
