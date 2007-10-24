@@ -28,7 +28,7 @@ import java.util.StringTokenizer;
 
 import javax.faces.context.ExternalContext;
 
-import org.apache.myfaces.trinidadinternal.util.ExternalContextUtils;
+import org.apache.myfaces.trinidad.util.ExternalContextUtils;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
@@ -54,7 +54,7 @@ public class MultipartFormHandler
    */
   static public boolean isMultipartRequest(final ExternalContext externalContext)
   {
-    final String contentType =   ExternalContextUtils.getContentType(externalContext);
+    final String contentType = ExternalContextUtils.getContentType(externalContext);
     
     if (contentType == null)
     {

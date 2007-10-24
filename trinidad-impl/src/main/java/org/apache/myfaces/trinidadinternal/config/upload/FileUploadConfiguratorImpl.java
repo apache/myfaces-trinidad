@@ -33,7 +33,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.UploadedFile;
 import org.apache.myfaces.trinidadinternal.share.util.MultipartFormHandler;
 import org.apache.myfaces.trinidadinternal.share.util.MultipartFormItem;
-import org.apache.myfaces.trinidadinternal.util.ExternalContextUtils;
+import org.apache.myfaces.trinidad.util.ExternalContextUtils;
 
 /**
  * This configurator will handle the FileUploads for Trinidad.
@@ -97,8 +97,7 @@ public class FileUploadConfiguratorImpl extends Configurator
     // as possible is a good thing
     //Process MultipartForm if need be
     if (MultipartFormHandler.isMultipartRequest(externalContext) &&
-       (externalContext.getRequest() instanceof HttpServletRequest ||
-          ExternalContextUtils.isPortlet(externalContext)))
+       (externalContext.getRequest() instanceof HttpServletRequest || ExternalContextUtils.isPortlet(externalContext)))
     {
       try
       {
