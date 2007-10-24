@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.apache.myfaces.trinidadinternal.util;
+package org.apache.myfaces.trinidad.util;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,7 +25,6 @@ import javax.faces.context.ExternalContext;
 import javax.portlet.ActionRequest;
 import javax.servlet.ServletRequest;
 
-import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**

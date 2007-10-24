@@ -34,7 +34,7 @@ import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidadinternal.context.RequestContextFactoryImpl;
 import org.apache.myfaces.trinidadinternal.skin.SkinFactoryImpl;
 import org.apache.myfaces.trinidadinternal.skin.SkinUtils;
-import org.apache.myfaces.trinidadinternal.util.ExternalContextUtils;
+import org.apache.myfaces.trinidad.util.ExternalContextUtils;
 
 /**
  * This is the implementation of the Trinidad's Global configurator. It provides the entry point for

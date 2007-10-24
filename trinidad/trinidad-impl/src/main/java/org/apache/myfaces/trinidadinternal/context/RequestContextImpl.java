@@ -64,7 +64,7 @@ import org.apache.myfaces.trinidadinternal.metadata.RegionMetadata;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 import org.apache.myfaces.trinidadinternal.share.config.UIXCookie;
 import org.apache.myfaces.trinidadinternal.ui.expl.ColorPaletteUtils;
-import org.apache.myfaces.trinidadinternal.util.ExternalContextUtils;
+import org.apache.myfaces.trinidad.util.ExternalContextUtils;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 import org.apache.myfaces.trinidadinternal.webapp.TrinidadFilterImpl;
 

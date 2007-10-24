@@ -33,7 +33,7 @@ import javax.servlet.ServletResponse;
 
 import org.apache.myfaces.trinidad.config.Configurator;
 import org.apache.myfaces.trinidad.context.ExternalContextDecorator;
-import org.apache.myfaces.trinidadinternal.util.ExternalContextUtils;
+import org.apache.myfaces.trinidad.util.ExternalContextUtils;
 import org.apache.myfaces.trinidadinternal.webapp.wrappers.PortletContextWrapper;
 
 /**
