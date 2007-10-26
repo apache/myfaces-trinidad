@@ -63,6 +63,37 @@ public class MessageRenderer extends ValueRenderer
   {
     return true;
   }
+  
+  @Override
+  protected String getInlineStyle(FacesBean bean)
+  {
+    String beanInlineStyle = super.getInlineStyle(bean);
+    String inlineStyle = null;
+
+    if (getIndented(bean))
+    {
+      inlineStyle = (RenderingContext.getCurrentInstance().isRightToLeft()
+          ? _sRTL_INDENTED_STYLE
+              : _sLTR_INDENTED_STYLE);
+    }
+
+    // if neither of these are null, then combine them and render
+   if (inlineStyle != null && beanInlineStyle != null)
+    {
+      StringBuffer buffer = new StringBuffer(inlineStyle.length() +
+                                             beanInlineStyle.length() + 
+                                             1);
+      buffer.append(inlineStyle);
+      if (!inlineStyle.endsWith(";"))
+        buffer.append(";");
+      buffer.append(beanInlineStyle);
+       return buffer.toString();
+    }
+    else if (inlineStyle != null)
+      return inlineStyle;
+    else 
+      return beanInlineStyle;
+  }
 
   @Override
   protected void encodeAll(
@@ -76,9 +107,9 @@ public class MessageRenderer extends ValueRenderer
     String message = getMessage(bean);
     String messageType = getMessageType(bean);
 
+    String forId = getForId(context, component, bean);
     if ((message == null) || (messageType == null))
     {
-      String forId = getForId(context, component, bean);
       FacesMessage facesMessage = MessageUtils.getFacesMessage(context, forId);
       if (facesMessage != null)
       {
@@ -92,163 +123,75 @@ public class MessageRenderer extends ValueRenderer
     
     UIComponent help = getFacet(component, "help");   
    
-    boolean isError = CoreMessage.MESSAGE_TYPE_ERROR.equals(messageType);
-    
-    String styleClass = null;
-    String inlineStyle;
-    if (getIndented(bean))
-    {
-      inlineStyle = (arc.isRightToLeft()
-                     ? _sRTL_INDENTED_STYLE
-                     : _sLTR_INDENTED_STYLE);
-    }
-    else
-    {
-      inlineStyle = null;
-    }
+    boolean isError = true;
+    if (messageType != null)
+      isError = CoreMessage.MESSAGE_TYPE_ERROR.equals(messageType);
     
     boolean hasHelp = (help != null);
     boolean hasMessage = (message != null);
-  
     
-    // When there's both a help facet and a message, and we need to indent,
-    // then we want to use a div around the whole thing - so that both
-    // the help facet and message will be indented.  Otherwise, we'll
-    // get away with a span.
-    boolean useDiv = (hasHelp && hasMessage && (inlineStyle != null));
-    if (useDiv)
-    {
-      writer.startElement("div", component);
-    }
-    else
-    {
-      writer.startElement("span", component);
-    }
-
-    renderId(context, component);
-    // render all the attributes BUT the style classes, since we'll do 
-    // that separately.
-    renderAllAttributes(context, arc, bean, false);
+    RequestContext rc = RequestContext.getCurrentInstance();
+    boolean isInline = (rc.getClientValidation() ==
+                        RequestContext.ClientValidation.INLINE);
     
-    String beanInlineStyle = getInlineStyle(bean);
-    _renderInlineStyles(writer, inlineStyle, beanInlineStyle);
-
-    // get the bean's styleClass attribute. we'll render it along with
-    // our default styles if necessary.
-    String beanStyleClass = getStyleClass(bean);
- 
-
-    // both help facet and message exist and messageType is error
-    // so need 2 divs inside span with id
-    if ( hasHelp && hasMessage && isError )
+    // Handle rendering the help text
+    if (hasHelp)
     {
-      if (beanStyleClass != null)
-        renderStyleClass(context, arc, beanStyleClass);        
-      
-      writer.startElement("div", null);
-      renderStyleClass(context, arc, SkinSelectors.INLINE_INFO_TEXT_STYLE_CLASS); 
-      encodeChild(context, help); 
-      writer.endElement("div");
+      // Write the root level element for the help
+      writer.startElement(XhtmlConstants.SPAN_ELEMENT, component);
+      if (shouldRenderId(context, component))
+        writer.writeAttribute(XhtmlConstants.ID_ATTRIBUTE, 
+            forId + "::help", null);
+      renderId(context, component);
 
-      // Use a div for the error message to force it onto a new line
-      writer.startElement("div", null);
-      renderStyleClass(context, arc, 
-                       SkinSelectors.INLINE_ERROR_TEXT_STYLE_CLASS);
-      renderPossiblyFormattedText(context, message);
-      writer.endElement("div");
-    }    
-    // Either
-    // 1. Only help facet exists
-    // 2. Only message exists
-    // 3. Both exist and messageType not error
-    else if (hasHelp || hasMessage)
-    {  
-      // if there's a help facet the styleclass should not be error
-      if (hasHelp)
-        styleClass = SkinSelectors.INLINE_INFO_TEXT_STYLE_CLASS;
-      else
-        styleClass = isError ? SkinSelectors.INLINE_ERROR_TEXT_STYLE_CLASS :
-                               SkinSelectors.INLINE_INFO_TEXT_STYLE_CLASS; 
-      // render default styles along with bean's styleClass if it exists.
-      if (beanStyleClass != null)
-      {
-        StringBuffer styleClassBuffer = 
-          new StringBuffer(styleClass.length() + beanStyleClass.length() + 1);
-        styleClassBuffer.append(styleClass);
-        styleClassBuffer.append(' ');
-        styleClassBuffer.append(beanStyleClass);
-        renderStyleClass(context, arc, styleClassBuffer.toString());
-      }
-      else
-        renderStyleClass(context, arc, styleClass);
-      
-      if ( hasHelp )        
+      renderAllAttributes(context, arc, bean, false);
+      renderStyleAttributes(context, arc, bean, SkinSelectors.INLINE_INFO_TEXT_STYLE_CLASS);
+
       encodeChild(context, help); 
 
-      if (hasHelp && hasMessage)
+      if (hasMessage || isInline)
       {
+        // We'll need a break between the help and message
+        // Do it here, so it gets inserted if hasHelp
         writer.startElement("br", null);
         writer.endElement("br");
       }
 
+      writer.endElement(XhtmlConstants.SPAN_ELEMENT);
+
+    }
+
+    // Handle rendering the message text (or the empty placeholder)
+    if (hasMessage || isInline)
+    {
+
+      // Write the root level element for the help
+      writer.startElement(XhtmlConstants.SPAN_ELEMENT, component);
+
+      if (shouldRenderId(context, component) || (isInline && forId != null))
+        writer.writeAttribute(XhtmlConstants.ID_ATTRIBUTE, 
+            forId + "::msg", null);
+
+      renderAllAttributes(context, arc, bean, false);
+      renderStyleAttributes(context, arc, bean, isError ? 
+          SkinSelectors.INLINE_ERROR_TEXT_STYLE_CLASS :
+            SkinSelectors.INLINE_INFO_TEXT_STYLE_CLASS);
+
       if (hasMessage)
       {
+        // Output the server-side message
         renderPossiblyFormattedText(context, message);
       }
-
-    }
-    
-    // Render a hidden container for client-side messages
-    RequestContext rc = RequestContext.getCurrentInstance();
-    boolean isInline = (rc.getClientValidation() ==
-                        RequestContext.ClientValidation.INLINE);
-    if (isInline)
-    {
-      String forId = getForId(context, component, bean);
-      
-      if (forId != null)
+      else 
       {
-        if (hasHelp && hasMessage)
-          writer.startElement(XhtmlConstants.DIV_ELEMENT, null);
-        else 
-        {
-          if (hasHelp || hasMessage)
-          {
-            writer.startElement("br", null);
-            writer.endElement("br");
-          }
-          else
-          {
-            // Add style to outer span
-            renderStyleClass(context, arc, SkinSelectors.INLINE_INFO_TEXT_STYLE_CLASS); 
-          }
-          
-          writer.startElement(XhtmlConstants.SPAN_ELEMENT, null);
-        }
-        
-        writer.writeAttribute(XhtmlConstants.ID_ATTRIBUTE, 
-                              forId + "::msg", null);
+        // Hide element ready for client-side validation
         writer.writeAttribute(XhtmlConstants.STYLE_ATTRIBUTE, 
-                              "display:none;", null);
-        renderStyleClass(context, arc, 
-                         SkinSelectors.INLINE_ERROR_TEXT_STYLE_CLASS);
-        if (hasHelp && hasMessage)
-          writer.endElement(XhtmlConstants.DIV_ELEMENT);
-        else
-        {
-          writer.endElement(XhtmlConstants.SPAN_ELEMENT);
-        }
+            "display:none;", null);
       }
-    }
+      
+      writer.endElement(XhtmlConstants.SPAN_ELEMENT);
+    }    
 
-    if (useDiv)
-    {
-      writer.endElement("div");
-    }
-    else
-    {
-      writer.endElement("span");
-    }
   }
 
   //
@@ -298,30 +241,6 @@ public class MessageRenderer extends ValueRenderer
     return MessageUtils.getClientIdFor(context,
                                        component,
                                        forValue);
-  }
-
-
-  private void _renderInlineStyles(
-    ResponseWriter      writer,
-    String              inlineStyle, 
-    String              beanInlineStyle) throws IOException
-  {
-    // if neither of these are null, then combine them and render
-    if (inlineStyle != null && beanInlineStyle != null)
-    {
-      StringBuffer buffer = new StringBuffer(inlineStyle.length() +
-                                             beanInlineStyle.length() + 
-                                             1);
-      buffer.append(inlineStyle);
-      if (!inlineStyle.endsWith(";"))
-        buffer.append(";");
-      buffer.append(beanInlineStyle);
-      writer.writeAttribute("style", buffer.toString(), null);
-    }
-    else if (inlineStyle != null)
-      writer.writeAttribute("style", inlineStyle, null);
-    else if (beanInlineStyle != null)
-      writer.writeAttribute("style", beanInlineStyle, null);
   }
 
   private PropertyKey _forKey;

@@ -179,42 +179,40 @@ public class OutputLabelRenderer extends ValueRenderer
     String              forId) throws IOException
   {
     boolean encodedIcons = false;
+    boolean isInline = (RequestContext.getCurrentInstance().getClientValidation() ==
+        RequestContext.ClientValidation.INLINE);
 
     if ((null != messageType) &&
-        !"none".equals(messageType))
+        !"none".equals(messageType) ||
+        ((forId != null) &&
+        isInline))
     {
       String vAlign = getDefaultValign(bean);
       String destination  = getMessageDescUrl(bean);
       String targetFrame = getMessageTargetFrame(bean);
       String anchor       = MessageUtils.getAnchor(forId);
+
+      ResponseWriter rw = context.getResponseWriter();
+      if(isInline)
+      {
+        rw.startElement(XhtmlConstants.SPAN_ELEMENT, component);
+        rw.writeAttribute(XhtmlConstants.ID_ATTRIBUTE, 
+            forId + "::icon", null);
+      
+        if(null == messageType || "none".equals(messageType))
+        {
+          messageType = XhtmlConstants.MESSAGE_TYPE_ERROR;
+          rw.writeAttribute(XhtmlConstants.STYLE_ATTRIBUTE, 
+		          "display:none;", null);
+        }
+      }
 
       encodedIcons = renderMessageSymbol(context, arc, messageType,
                                          destination, anchor, 
                                          targetFrame, vAlign);
-    }
-    else if ((forId != null) &&
-             (RequestContext.getCurrentInstance().getClientValidation() ==
-                RequestContext.ClientValidation.INLINE))
-    {
-      // Render a hidden message icon that will be used by inline validation
-      ResponseWriter rw = context.getResponseWriter();
-      rw.startElement(XhtmlConstants.SPAN_ELEMENT, component);
-      rw.writeAttribute(XhtmlConstants.ID_ATTRIBUTE, 
-          forId + "::icon", null);
-      rw.writeAttribute(XhtmlConstants.STYLE_ATTRIBUTE, 
-          "display:none;", null);
- 
-      String vAlign = getDefaultValign(bean);
-      String destination  = getMessageDescUrl(bean);
-      String targetFrame = getMessageTargetFrame(bean);
-      String anchor       = MessageUtils.getAnchor(forId);
-
-      encodedIcons = renderMessageSymbol(context, arc, 
-                                         XhtmlConstants.MESSAGE_TYPE_ERROR,
-                                         destination, anchor, 
-                                         targetFrame, vAlign);
       
-      rw.endElement(XhtmlConstants.SPAN_ELEMENT);
+      if(isInline)
+        rw.endElement(XhtmlConstants.SPAN_ELEMENT);
     }
 
     if (getShowRequired(bean))

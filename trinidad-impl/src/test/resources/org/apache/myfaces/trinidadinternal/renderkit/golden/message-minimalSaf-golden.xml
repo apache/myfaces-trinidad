@@ -1,7 +1,7 @@
 <results>
       <span
            class="OraInlineErrorText"
-           id="mainId"
+           id="other::msg"
           >
         message detail
       </span>
@@ -9,7 +9,7 @@
 
       <span
            class="OraInlineErrorText"
-           id="mainId"
+           id="other::msg"
           >
         message detail
       </span>
@@ -17,7 +17,7 @@
 
       <span
            class="OraInlineErrorText"
-           id="mainId"
+           id="other::msg"
           >
         message_val
       </span>
@@ -25,7 +25,7 @@
 
       <span
            class="OraInlineErrorText"
-           id="id_val"
+           id="other::msg"
           >
         message detail
       </span>
@@ -33,7 +33,7 @@
 
       <span
            class="OraInlineErrorText"
-           id="mainId"
+           id="other::msg"
           >
         message detail
       </span>
@@ -41,7 +41,7 @@
 
       <span
            class="OraInlineInfoText"
-           id="mainId"
+           id="other::msg"
           >
         message detail
       </span>
@@ -49,7 +49,7 @@
 
       <span
            class="OraInlineInfoText"
-           id="mainId"
+           id="other::msg"
           >
         message detail
       </span>
@@ -57,7 +57,7 @@
 
       <span
            class="OraInlineInfoText"
-           id="mainId"
+           id="other::msg"
           >
         message detail
       </span>
@@ -65,8 +65,16 @@
 
       <span
            class="OraInlineErrorText"
-           id="mainId"
+           id="other::msg"
            title="shortDesc_val"
+          >
+        message detail
+      </span>
+<!--AttributeTest[styleClass,someStyle]-->
+
+      <span
+           class="someStyle OraInlineErrorText"
+           id="other::msg"
           >
         message detail
       </span>
@@ -74,7 +82,7 @@
 
       <span
            class="OraInlineErrorText"
-           id="mainId"
+           id="other::msg"
            style="background-color:red"
           >
         message detail
@@ -83,7 +91,7 @@
 
       <span
            class="OraInlineErrorText"
-           id="mainId"
+           id="other::msg"
            onclick="test-onclick"
           >
         message detail
@@ -92,7 +100,7 @@
 
       <span
            class="OraInlineErrorText"
-           id="mainId"
+           id="other::msg"
            ondblclick="test-ondblclick"
           >
         message detail
@@ -101,7 +109,7 @@
 
       <span
            class="OraInlineErrorText"
-           id="mainId"
+           id="other::msg"
            onkeydown="test-onkeydown"
           >
         message detail
@@ -110,7 +118,7 @@
 
       <span
            class="OraInlineErrorText"
-           id="mainId"
+           id="other::msg"
            onkeypress="test-onkeypress"
           >
         message detail
@@ -119,7 +127,7 @@
 
       <span
            class="OraInlineErrorText"
-           id="mainId"
+           id="other::msg"
            onkeyup="test-onkeyup"
           >
         message detail
@@ -128,7 +136,7 @@
 
       <span
            class="OraInlineErrorText"
-           id="mainId"
+           id="other::msg"
            onmousedown="test-onmousedown"
           >
         message detail
@@ -137,7 +145,7 @@
 
       <span
            class="OraInlineErrorText"
-           id="mainId"
+           id="other::msg"
            onmousemove="test-onmousemove"
           >
         message detail
@@ -146,7 +154,7 @@
 
       <span
            class="OraInlineErrorText"
-           id="mainId"
+           id="other::msg"
            onmouseout="test-onmouseout"
           >
         message detail
@@ -155,7 +163,7 @@
 
       <span
            class="OraInlineErrorText"
-           id="mainId"
+           id="other::msg"
            onmouseover="test-onmouseover"
           >
         message detail
@@ -164,7 +172,7 @@
 
       <span
            class="OraInlineErrorText"
-           id="mainId"
+           id="other::msg"
            onmouseup="test-onmouseup"
           >
         message detail

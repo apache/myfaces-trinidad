@@ -12,9 +12,7 @@
   <attribute-test name="messageType" value="info"/>
   <attribute-test name="messageType" value="none"/>
   <attribute-test name="shortDesc" value="shortDesc_val"/>
-<!-- Currently causes error - style written twice
-  <attribute-test name="styleClass"/>
--->
+  <attribute-test name="styleClass" value="someStyle"/>
   <attribute-test name="inlineStyle" value="background-color:red"/>
   <js-test/>
 </test>

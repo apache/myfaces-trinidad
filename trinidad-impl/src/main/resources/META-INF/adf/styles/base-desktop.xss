@@ -2808,7 +2808,6 @@
   <style selector=".OraInlineInfoText">
     <includeStyle name="AFVerySmallFont"/>
     <includeStyle name="AFDarkForeground"/>
-    <includeStyle selector=".p_OraDisplayBlock"/>
   </style>
 
   <!-- Should probably be public -->
