@@ -198,7 +198,7 @@ public class StateManagerImpl extends StateManager
 
     PageState viewState = (PageState) saved;
 
-    UIViewRoot root = viewState.popRoot(context);
+    UIViewRoot root = viewState._popRoot(context);
     if (root != null)
     {
       return root; // bug 4712492
@@ -520,7 +520,7 @@ public class StateManagerImpl extends StateManager
 
       _LOG.fine("Successfully found view state for token {0}", token);
 
-      UIViewRoot root = viewState.popRoot(context); // bug 4712492
+      UIViewRoot root = viewState._popRoot(context); // bug 4712492
       if (root != null)
       {
         _LOG.finer("UIViewRoot for token {0} already exists. Bypassing restoreState", token);
@@ -924,7 +924,7 @@ public class StateManagerImpl extends StateManager
     }
 
     @SuppressWarnings("unchecked")
-    public UIViewRoot popRoot(FacesContext fc)
+    private UIViewRoot _popRoot(FacesContext fc)
     {
       UIViewRoot root = null;
       Object viewRootState = null;
@@ -953,8 +953,8 @@ public class StateManagerImpl extends StateManager
         // so to clear the events, we create a new UIViewRoot.
         // must get the UIViewRoot from the application so that
         // we pick up any custom ViewRoot defined in faces-config.xml:
-        UIViewRoot newRoot = (UIViewRoot) 
-          fc.getApplication().createComponent(UIViewRoot.COMPONENT_TYPE);
+        UIViewRoot newRoot = (UIViewRoot)
+          fc.getApplication().getViewHandler().createView(fc, root.getViewId());
         
         // must call restoreState so that we setup attributes, listeners,
         // uniqueIds, etc ...
