@@ -6,7 +6,7 @@
            clientId="other"/>
 
   <attribute-test name="message" value="message_val"/>
-  <attribute-test name="id" value="id_val"/>
+  <attribute-test name="id" value="id_val" matchesBase="true"/>
   <attribute-test name="messageType" value="error"  matchesBase="true"/>
   <attribute-test name="messageType" value="warning"/>
   <attribute-test name="messageType" value="info"/>

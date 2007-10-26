@@ -142,7 +142,6 @@ public class MessageRenderer extends ValueRenderer
       if (shouldRenderId(context, component))
         writer.writeAttribute(XhtmlConstants.ID_ATTRIBUTE, 
             forId + "::help", null);
-      renderId(context, component);
 
       renderAllAttributes(context, arc, bean, false);
       renderStyleAttributes(context, arc, bean, SkinSelectors.INLINE_INFO_TEXT_STYLE_CLASS);
