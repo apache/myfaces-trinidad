@@ -181,12 +181,12 @@ public class MessageRenderer extends ValueRenderer
         // Output the server-side message
         renderPossiblyFormattedText(context, message);
       }
-      else 
-      {
-        // Hide element ready for client-side validation
-        writer.writeAttribute(XhtmlConstants.STYLE_ATTRIBUTE, 
-            "display:none;", null);
-      }
+//      else 
+//      {
+//        // Hide element ready for client-side validation
+//        writer.writeAttribute(XhtmlConstants.STYLE_ATTRIBUTE, 
+//            "display:none;", null);
+//      }
       
       writer.endElement(XhtmlConstants.SPAN_ELEMENT);
     }    
