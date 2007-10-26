@@ -75,7 +75,7 @@ public class PanelCaptionGroupRenderer extends XhtmlRenderer
     
     writer.startElement(XhtmlConstants.FIELDSET_ELEMENT, component);
     renderAllAttributes(context, arc, bean, false);
-    renderStyleClass(context, arc, getRootStyle());
+    renderStyleAttributes(context, arc, bean, getRootStyle());
 
     UIComponent captionFacet = getFacet(component, CorePanelCaptionGroup.CAPTION_FACET);
     String captionText = getCaptionText(bean);
