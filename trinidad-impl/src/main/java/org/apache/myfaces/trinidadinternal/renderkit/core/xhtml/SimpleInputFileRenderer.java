@@ -26,6 +26,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.core.input.CoreInputFile;
 
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.model.UploadedFile;
 import org.apache.myfaces.trinidadinternal.config.upload.UploadedFiles;
 
 /**
@@ -56,18 +57,21 @@ public class SimpleInputFileRenderer extends SimpleInputTextRenderer
     detectAutoSubmit(context, component, clientId);
 
     Object result = null;
+    UploadedFile file = null;
 
     UploadedFiles files = UploadedFiles.getUploadedFiles(context);
     if (files != null)
     {
-      result = files.getUploadedFile(clientId);
+      file = files.getUploadedFile(clientId);
     }
 
-    // If we couldn't find a file, return "FALSE" to indicate that
-    // the file upload *was* available, but didn't upload anything
+    // If we couldn't find a file (or the file is empty), return "FALSE" to indicate that
+    // the file upload *was* available, but didn't upload a file
     // this time.
-    if (result == null)
+    if (file == null || file.getLength() == 0)
       result = Boolean.FALSE;
+    else
+      result = file;
 
     return result;
   }
