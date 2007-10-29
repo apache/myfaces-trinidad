@@ -145,7 +145,7 @@ TrRequestQueue.prototype.sendFormPost = function(
     var content = this._getPostbackContent(actionForm, params);
 
     // IE BUG, see TRINIDAD-704  
-    if(_agent.isIE)
+    if(_agent.isIE && window.external)
       window.external.AutoCompleteSaveForm(actionForm);
 
     this.sendRequest(context, method, actionForm.action, content, headerParams);
@@ -474,7 +474,7 @@ TrRequestQueue.prototype._doRequestThroughIframe = function(requestItem)
     this._iframeLoadCallback = TrUIUtils.createCallback(this, this._handleIFrameLoad);
 
   // IE BUG, see TRINIDAD-704  
-  if(_agent.isIE)
+  if(_agent.isIE && window.external)
     window.external.AutoCompleteSaveForm(htmlForm);
   htmlForm.submit();
   
