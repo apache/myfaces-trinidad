@@ -205,6 +205,29 @@ public abstract class NumberConverterTestCase extends ConverterTestCase
     }
   }
 
+  public void testFranceLocale()
+  {
+    NumberConverter converter = getNumberConverter();
+    Mock mock = mock(UIComponent.class);
+    UIComponent comp = (UIComponent) mock.proxy();
+    
+    converter.setLocale(Locale.FRANCE);
+    converter.setType("currency");
+    Double d = new Double(12345.68d);
+    
+    setFacesContext(facesContext);
+    try
+    {
+      String convertedString = converter.getAsString(facesContext, comp, d);
+      assertEquals("12 345,68 €", convertedString);
+    }
+    finally
+    {
+      setFacesContext(null);
+    }
+    mock.verify();
+  }
+  
   public void testCurrencyCodeIsHonoured()
   {
     NumberConverter converter = getNumberConverter();
