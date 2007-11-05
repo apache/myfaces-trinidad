@@ -88,15 +88,15 @@ public class TrinidadNumberConverterTest extends NumberConverterTestCase
     super.testCurrencyCodeIsHonoured();
   }
 
-  @Override
-  public void testFranceLocale()
-  {
-    DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.FRANCE);
-    _mafct.setDecimalSeparator(symbols.getMonetaryDecimalSeparator());
-    _mafct.setNumberGroupingSeparator(symbols.getGroupingSeparator());
-  
-    super.testFranceLocale();
-  }
+//  @Override
+//  public void testFranceLocale()
+//  {
+//    DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.FRANCE);
+//    _mafct.setDecimalSeparator(symbols.getMonetaryDecimalSeparator());
+//    _mafct.setNumberGroupingSeparator(symbols.getGroupingSeparator());
+//  
+//    super.testFranceLocale();
+//  }
   
 
   public void testValueSetInRequestContextIsHonoured()
