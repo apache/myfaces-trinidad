@@ -42,9 +42,30 @@ class ChangeUtils
    * Given a parent component and the identifier for the child, looks up among
    *  the children for a child with the specified identifier and returns.
    * Returns null if there were to be no such child
+   * @param parent the parent UIComponent
+   * @param childId the 'id' identifier value of child to be searched in the parent's 
+   *        children.
    */
   @SuppressWarnings("unchecked")
   public static UIComponent getChildForId(UIComponent parent, String childId)
+  {
+    return getChildForId(parent, childId, "id");
+  }
+  
+  /**
+   * Given a parent component and the identifier value for the child, looks up among
+   * the children for a child with the specified identifier and returns.
+   * Returns null if there were to be no such child
+   * @param parent the parent UIComponent
+   * @param childId the identifier value of child to be searched in the parent's 
+   *        children.
+   * @param identifier the identifier type 
+   */
+  @SuppressWarnings("unchecked")
+  public static UIComponent getChildForId(
+    UIComponent parent, 
+    String childId,
+    String identifier)
   {
     if (parent == null)
       return null;
@@ -53,12 +74,14 @@ class ChangeUtils
     if (numChildren == 0)
       return null;
 
-    List children = parent.getChildren();
-    UIComponent child;
+    List<UIComponent> children = parent.getChildren();
+    
     for (int i=0; i<numChildren; i++)
     {
-      child = (UIComponent) children.get(i);
-      if ( childId.equals(child.getId()) )
+      UIComponent child = children.get(i);
+      Object attrVal = child.getAttributes().get(identifier);
+      
+      if ( childId.equals(attrVal) )
         return child;
     }
     return null;

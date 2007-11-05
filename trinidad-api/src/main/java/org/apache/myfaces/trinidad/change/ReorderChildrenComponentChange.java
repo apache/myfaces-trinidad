@@ -43,18 +43,44 @@ public class ReorderChildrenComponentChange extends ComponentChange
    *         of child components.
    *        This List implementation should be of type java.io.Serializable in
    *         order to be persisted.
+   *        If no identifier was passed, it would be assumed that the list 
+   *          consists of the Ids. 
    * @throws IllegalArgumentException if supplied childIds were to be null.
    */
   public ReorderChildrenComponentChange(
     List<String> childIds
     )
   {
+    this(childIds, "id");
+  }
+  
+  /**
+   * Constructs a ReorderChange with the given List of identifiers for children.
+   * @param childIds An in-order collection (List) of Ids (as java.lang.String) 
+   *         of child components.
+   *        This List implementation should be of type java.io.Serializable in
+   *         order to be persisted.
+   * @param identifier Determines the type of identifiers which the List consists of.
+   * @throws IllegalArgumentException if supplied childIds were to be null or supplied 
+   *          identifier was to be null or emtpy string.
+   */
+  public ReorderChildrenComponentChange(
+    List<String> childIds,
+    String identifier
+    )
+  {
     if (childIds == null)
       throw new IllegalArgumentException(_LOG.getMessage(
         "CANNOT_CONSTRUCT_REORDERCHANGE_WITH_NULL_ID"));
-  
+    
+    if (identifier == null || "".equals(identifier))
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "IDENTIFIER_TYPE_CANNOT_BE_NULL"));
+    
     // make serializable copy of list        
     _childIds = Collections.unmodifiableList(new ArrayList<String>(childIds));
+    
+    _identifier = identifier;
   }
   
   /**
@@ -63,6 +89,14 @@ public class ReorderChildrenComponentChange extends ComponentChange
   public List<String> getChildIds()
   {
     return _childIds;
+  }
+  
+  /**
+   * Returns the identifier type.
+   */
+  public final String getIdentifier()
+  {
+    return _identifier;
   }
   
   /**
@@ -88,9 +122,19 @@ public class ReorderChildrenComponentChange extends ComponentChange
     Map<String, UIComponent> childrenMap = new LinkedHashMap<String, UIComponent>();
     
     List<UIComponent> children = uiComponent.getChildren();
+    
+    int fakeIndex = 0;
     for(UIComponent child : children)
     {
-      childrenMap.put(child.getId(), child);
+      String attrValue = (String)child.getAttributes().get(_identifier);
+      
+      // create a dummy key to maintain order of children whose identifier 
+      // does not exist
+      if (attrValue == null) 
+      {
+        attrValue = Integer.valueOf(fakeIndex++).toString();
+      }
+      childrenMap.put(attrValue, child);
     }
 
     // remove the children so that we can add them back in
@@ -133,15 +177,15 @@ public class ReorderChildrenComponentChange extends ComponentChange
         
     Node currChild = componentNode.getFirstChild();
     
+    int fakeIndex = 0;
     while (currChild != null)
     {
-      int fakeIndex = 0;
       NamedNodeMap attributes = currChild.getAttributes();
-      
+              
       String currKey = null;
       if (attributes != null)
       {
-        Node idAttr = attributes.getNamedItem("id");
+        Node idAttr = attributes.getNamedItem(_identifier);
         
         if (idAttr != null)
         {
@@ -195,6 +239,7 @@ public class ReorderChildrenComponentChange extends ComponentChange
   }
 
   private final List<String> _childIds;
+  private final String _identifier;
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     ReorderChildrenComponentChange.class);
   private static final long serialVersionUID = 1L;
