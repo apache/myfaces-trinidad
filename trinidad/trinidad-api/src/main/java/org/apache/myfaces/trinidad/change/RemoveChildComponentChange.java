@@ -38,23 +38,51 @@ public class RemoveChildComponentChange extends ComponentChange
   /**
    * Constructs a RemoveChildChange with the specified identifier of the child.
    * @param childId The identifier of the child component that needs to be 
-   *         removed.
+   *        removed. If no identifier is specified, the type will be treated
+   *        as of 'id' type.
    * @throws IllegalArgumentException if specified childId were to be null.
    */
   public RemoveChildComponentChange(String childId)
   {
+    this(childId, "id");
+  }
+  
+  /**
+   * Constructs a RemoveChildChange with the specified identifier of the child.
+   * @param childId The identifier of the child component that needs to be 
+   *        removed.
+   * @param identifier Determines the type of identifier which is passed as the 
+   *        first argument. 
+   * @throws IllegalArgumentException if specified childId were to be null.
+   */
+  public RemoveChildComponentChange(String childId, String identifier)
+  {
     if ((childId == null) || (childId.length() == 0))
       throw new IllegalArgumentException(_LOG.getMessage(
         "CANNOT_CONSTRUCT_REMOVECHILDCHANGE_WITH_NULL_ID"));
+      
+    if (identifier == null || "".equals(identifier))
+      throw new IllegalArgumentException(_LOG.getMessage(
+      "IDENTIFIER_TYPE_CANNOT_BE_NULL"));
+    
     _childId = childId;
+    _identifier = identifier;
   }
-  
+    
   /**
    * Returns the identifier of child component that needs to be removed.
    */
   public String getChildId()
   {
     return _childId;
+  }
+  
+  /**
+   * Returns the identifier type.
+   */
+  public final String getIdentifier()
+  {
+    return _identifier;
   }
   
   /**
@@ -68,7 +96,7 @@ public class RemoveChildComponentChange extends ComponentChange
       return;
       
     List<UIComponent> children = uiComponent.getChildren();
-    children.remove(ChangeUtils.getChildForId(uiComponent, _childId));
+    children.remove(ChangeUtils.getChildForId(uiComponent, _childId, _identifier));
   }
 
   /**
@@ -84,7 +112,7 @@ public class RemoveChildComponentChange extends ComponentChange
       
       if (attributes != null)
       {
-        Node idAttr = attributes.getNamedItem("id");
+        Node idAttr = attributes.getNamedItem(_identifier);
         
         if (idAttr != null)
         {
@@ -110,6 +138,7 @@ public class RemoveChildComponentChange extends ComponentChange
   }
 
   private final String _childId;
+  private final String _identifier;
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     RemoveChildComponentChange.class);
   private static final long serialVersionUID = 1L;

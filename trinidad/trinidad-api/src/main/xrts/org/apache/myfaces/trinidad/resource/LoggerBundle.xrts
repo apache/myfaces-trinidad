@@ -216,6 +216,9 @@
  <!-- CANNOT_CONSTRUCT_REORDERCHANGE_WITH_NULL_ID -->
  <resource key="CANNOT_CONSTRUCT_REORDERCHANGE_WITH_NULL_ID">Cannot construct a ReorderChange with null child ids.</resource>
  
+ <!-- IDENTIFIER_TYPE_CANNOT_BE_NULL -->
+ <resource key="IDENTIFIER_TYPE_CANNOT_BE_NULL">Identifier type cannot be null or empty string.</resource>
+
  <!-- CANNOT_CONSTRUCT_ADDFACETCHANGE_WITH_NULL_FACETNAME_FACETCOMPONENT -->
  <resource key="CANNOT_CONSTRUCT_ADDFACETCHANGE_WITH_NULL_FACETNAME_FACETCOMPONENT">Cannot construct an AddFacetChange with either of facetName or facetComponent being null.</resource>
  
