@@ -209,6 +209,8 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     
     DecimalFormat df = (DecimalFormat)fmt;
     DecimalFormatSymbols dfs = df.getDecimalFormatSymbols();
+
+    //TODO: This guy replaces a bit to much...
     if (dfs.getGroupingSeparator() == '\u00a0')
       value = value.replace(' ', '\u00a0');
          
