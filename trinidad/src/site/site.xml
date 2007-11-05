@@ -38,6 +38,12 @@
       <item name="Live Demos" href="http://www.irian.at/trinidad-demo/faces/index.jspx" />
 
     </menu>
+
+    <menu name="Foundation">
+      <item name="ASF" href="http://apache.org/" />
+      <item name="Sponsorship" href="http://www.apache.org/foundation/sponsorship.html" />
+      <item name="Thanks" href="http://www.apache.org/foundation/thanks.html" />
+    </menu>
     
     <menu ref="modules"/>
     <menu ref="reports"/>
