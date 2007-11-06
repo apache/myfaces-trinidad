@@ -228,6 +228,34 @@ public class TagUtils
   }
 
   /**
+   * Takes in a string that is a sequence of hex color codes, converts it to a
+   *  java.awt.Color object and returns it.
+   * @throws ParseException In case of any parse errors upon such conversion.
+   */
+  public static Color getColor(String value) throws ParseException
+  {
+    if (value == null)
+      return null;
+
+    String colorCode = value.toString();
+
+    // If we do not have correct starter, stop here
+    if (!colorCode.startsWith("#"))
+    {
+      throw new ParseException(_LOG.getMessage(
+        "COLOR_CODE_DOES_NOT_START_WITH_POUNDSIGN",
+        new Object[]{colorCode, value}), 0);
+    }
+
+    // Allow NumberFormatException (RTE) to propogate as is, or transform to JspException ?.
+      int rgb = Integer.parseInt(colorCode.substring(1), 16);
+
+      // CSSUtils used to cache and re-use color. Revisit if found required.
+      return new Color(rgb);
+
+  }
+
+  /**
    * Takes a string that is a composite of tokens, extracts tokens delimited
    *  by any whitespace character sequence combination and returns a String
    *  array of such tokens.
