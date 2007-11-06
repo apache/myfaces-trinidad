@@ -62,14 +62,14 @@ class DialogRequest
 
     if (usePopup)
     {
-      _url = context.getApplication().getViewHandler().getActionURL(context, targetRoot.getViewId());
+      _url = context.getExternalContext().encodeActionURL(context.getApplication().getViewHandler().getActionURL(context, targetRoot.getViewId()));
     }
     else
     {
-      _url = FredJSP.getRedirectURL(context,
+      _url = context.getExternalContext().encodeActionURL(FredJSP.getRedirectURL(context,
                                   targetRoot,
                                   CoreRenderer.toString(width),
-                                  CoreRenderer.toString(height));
+                                  CoreRenderer.toString(height)));
     }
     _dialogProperties  = dialogProperties;
   }
