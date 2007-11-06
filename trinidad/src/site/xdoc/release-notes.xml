@@ -60,14 +60,14 @@ replaced by PPR.</li>
 
 <subsection name="Changes from previous release">
 <ul>
-<li>Non-public web.xml setting 'org.apache.myfaces.trinidadinternal.DISABLE_CONTENT_COMPRESSION' 
-made public as 'org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION'.
-</li>
-<li>Non-public web.xml setting 'org.apache.myfaces.trinidadinternal.renderkit.USE_DIALOG_POPUP' 
-made public as 'org.apache.myfaces.trinidad.ENABLE_LIGHTWEIGHT_DIALOGS'.
+<li>In previous releases, when you change a skinning css file, the change is reflected 
+in the running application on refresh. To aid in performance, this is now a configuration
+option that defaults to false -- do not check for css file modifications.
+The web.xml configuration parameter org.apache.myfaces.trinidad.CHECK_FILE_MODIFICATION 
+is used. Set this to true if you want your skinning css file changes to be reflected
+without stopping/starting the server.
 </li>
 <li>The style name for skinning the root of a panelAccordion has changed from "af|panelAccordion::container" to "af|panelAccordion".</li>
-</ul>
 <li>The xOffset/yOffset attributes of panelPopup have been renamed to xoffset/yoffset.</li>
 </ul>
 </subsection>

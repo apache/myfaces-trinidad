@@ -45,6 +45,7 @@ import org.apache.myfaces.trinidad.render.InternalView;
 import org.apache.myfaces.trinidad.util.Service;
 import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
 import org.apache.myfaces.trinidadinternal.context.TrinidadPhaseListener;
+import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadinternal.util.URLUtils;
 
 /**
@@ -345,7 +346,7 @@ public class ViewHandlerImpl extends ViewHandler
     if (_checkTimestamp == null)
     {
       String checkTimestamp =
-        context.getExternalContext().getInitParameter(_CHECK_TIMESTAMP_PARAM);
+        context.getExternalContext().getInitParameter(Configuration.CHECK_TIMESTAMP_PARAM);
       // Detect when we're running inside of the JDeveloper embedded OC4J
       // environment - and there, always use timestamp checking
       // TODO: come up with a non-proprietary way of checking this?
@@ -355,7 +356,7 @@ public class ViewHandlerImpl extends ViewHandler
       if ("true".equals(checkTimestamp))
       {
         _LOG.info("TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION",
-                  _CHECK_TIMESTAMP_PARAM);
+                  Configuration.CHECK_TIMESTAMP_PARAM);
       }
     }
 
@@ -520,10 +521,6 @@ public class ViewHandlerImpl extends ViewHandler
   private final Map<String, Long> _timestamps;
   private boolean           _inited;
   private Map<String, InternalView> _internalViews;
-
-
-  private static final String _CHECK_TIMESTAMP_PARAM =
-  "org.apache.myfaces.trinidad.CHECK_FILE_MODIFICATION";
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ViewHandlerImpl.class);
   private static final Long   _NOT_FOUND = Long.valueOf(0);
