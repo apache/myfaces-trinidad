@@ -363,7 +363,7 @@ off automatic compression of style class names.
 <subsection name="org.apache.myfaces.trinidad.CHECK_FILE_MODIFICATION">
 <p>
 If this parameter is enabled by setting to "true", Apache Trinidad will automatically
-check the modification date of your JSPs, and discard saved
+check the modification date of your JSPs and skinning CSS files, and discard saved
 state when they change;  this makes development easier,
 but adds overhead that should be avoided when your application
 is deployed.

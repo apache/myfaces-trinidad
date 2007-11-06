@@ -44,6 +44,9 @@ abstract public class Configuration
    */
   static public final String DISABLE_CONTENT_COMPRESSION =
     "org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION";
+    
+  static public final String CHECK_TIMESTAMP_PARAM =
+  "org.apache.myfaces.trinidad.CHECK_FILE_MODIFICATION";
 
   /**
    * Key for the base UIX directory.

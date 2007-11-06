@@ -29,6 +29,7 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.HtmlRenderer;
 import org.apache.myfaces.trinidad.context.LocaleContext;
 import org.apache.myfaces.trinidad.skin.Skin;
+import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadinternal.skin.SkinStyleProvider;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.StyleProvider;
@@ -84,9 +85,10 @@ class StyleContextImpl implements StyleContext
 
   public boolean checkStylesModified()
   {
-    // =-=AEW Expose a configuration option if this
-    // is a performance issue
-    return true;
+    FacesContext context = FacesContext.getCurrentInstance();
+    String checkTimestamp =
+      context.getExternalContext().getInitParameter(Configuration.CHECK_TIMESTAMP_PARAM);
+    return "true".equals(checkTimestamp);
   }
 
   public boolean disableStandardsMode()
