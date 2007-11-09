@@ -51,6 +51,8 @@ import org.apache.myfaces.trinidadinternal.util.TokenCache;
 // Imported only for a String constant - so no runtime dependency
 import com.sun.facelets.FaceletViewHandler;
 
+import javax.faces.application.StateManagerWrapper;
+
 /**
  * StateManager that handles a hybrid client/server strategy:  a
  * SerializedView is stored on the server, and only a small token
@@ -82,7 +84,7 @@ import com.sun.facelets.FaceletViewHandler;
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/application/StateManagerImpl.java#2 $) $Date: 18-nov-2005.16:12:04 $
  */
-public class StateManagerImpl extends StateManager
+public class StateManagerImpl extends StateManagerWrapper
 {
   static public final String USE_APPLICATION_VIEW_CACHE_INIT_PARAM =
     "org.apache.myfaces.trinidad.USE_APPLICATION_VIEW_CACHE";
@@ -123,7 +125,7 @@ public class StateManagerImpl extends StateManager
   public StateManagerImpl(
     StateManager delegate)
   {
-    _delegate = delegate;
+    _delegate  = delegate;
   }
 
   /**
@@ -221,7 +223,7 @@ public class StateManagerImpl extends StateManager
   public SerializedView saveSerializedView(FacesContext context)
   {
     if (!isSavingStateInClient(context))
-      return _delegate.saveSerializedView(context);
+      return getWrapped().saveSerializedView(context);
 
     SerializedView view = _getCachedSerializedView(context);
     if (view != null)
@@ -429,7 +431,7 @@ public class StateManagerImpl extends StateManager
   public void writeState(FacesContext context,
                          SerializedView state) throws IOException
   {
-    _delegate.writeState(context, state);
+    getWrapped().writeState(context, state);
   }
 
   @SuppressWarnings("unchecked")
@@ -438,7 +440,7 @@ public class StateManagerImpl extends StateManager
                                 String renderKitId)
   {
     if (!isSavingStateInClient(context))
-      return _delegate.restoreView(context, viewId, renderKitId);
+      return getWrapped().restoreView(context, viewId, renderKitId);
 
     final Object structure;
     final Object state;
@@ -597,7 +599,7 @@ public class StateManagerImpl extends StateManager
   @Override
   public boolean isSavingStateInClient(FacesContext context)
   {
-    return _delegate.isSavingStateInClient(context);
+    return getWrapped().isSavingStateInClient(context);
   }
 
   //
@@ -890,6 +892,11 @@ public class StateManagerImpl extends StateManager
   {
     context.getExternalContext().getRequestMap().put(_CACHED_SERIALIZED_VIEW,
                                                      state);
+  }
+
+  protected StateManager getWrapped()
+  {
+    return _delegate;
   }
 
   private static final class PageState implements Serializable
