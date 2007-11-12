@@ -471,24 +471,7 @@ public class RequestContextImpl extends RequestContext
 
     // find the nearest ancestor that generates html markup:
     newTarget = _getNearestPPRTarget(newTarget);
-
-    Object savedKey = null;
-    // =-=AEW Force the rowkey of a collection back to null so that the clientId
-    // will be correct.  Note that in JSF 1.2, this will be unnecessary
-    if (newTarget instanceof UIXCollection)
-    {
-      savedKey = ((UIXCollection) newTarget).getRowKey();
-      if (savedKey != null)
-        ((UIXCollection) newTarget).setRowKey(null);
-    }
-
     String clientId = newTarget.getClientId(fContext);
-
-    // Restore the row key
-    if (savedKey != null)
-    {
-      ((UIXCollection) newTarget).setRowKey(savedKey);
-    }
 
     _LOG.finer("Adding partial target: {0}", newTarget);
 
