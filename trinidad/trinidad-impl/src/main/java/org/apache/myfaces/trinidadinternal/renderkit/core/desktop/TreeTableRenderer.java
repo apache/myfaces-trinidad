@@ -35,12 +35,14 @@ import org.apache.myfaces.trinidad.component.UIXHierarchy;
 import org.apache.myfaces.trinidad.component.UIXTree;
 import org.apache.myfaces.trinidad.component.UIXTreeTable;
 import org.apache.myfaces.trinidad.component.core.data.CoreTreeTable;
+import org.apache.myfaces.trinidad.context.FormData;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.RowKeySet;
-import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidad.context.FormData;
 import org.apache.myfaces.trinidad.render.CoreRenderer;
+import org.apache.myfaces.trinidad.skin.Icon;
+import org.apache.myfaces.trinidad.util.IntegerUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.ResourceKeyUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
@@ -56,8 +58,6 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeNodeCo
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeTableNavRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeTableRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeUtils;
-import org.apache.myfaces.trinidad.skin.Icon;
-import org.apache.myfaces.trinidad.util.IntegerUtils;
 
 /**
  * Renderer for treeTable
@@ -77,9 +77,8 @@ public class TreeTableRenderer extends DesktopTableRenderer
     super.findTypeConstants(type);
     _immediateKey  = type.findKey("immediate");
     _expandAllEnabledKey  = type.findKey("expandAllEnabled");
+    _rootNodeRendered = type.findKey("rootNodeRendered");
   }
-
-
 
   /**
    * @todo Set "expanded" vs. "collapsed" correctly on the queued
@@ -165,7 +164,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
 
     TreeUtils.setDefaultFocusRowKey((UIXTree) component);
     TreeUtils.expandFocusRowKey((UIXTree) component);
-
+    
     super.encodeAll(context, arc, component, bean);
 
     // have we rendered the script before?
@@ -344,7 +343,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
     if (isEmptyTable)
       _renderEmptyTableRow(context, arc, ttrc);
     else
-      _renderTableRows(context, arc, ttrc);
+      _renderTableRows(context, arc, ttrc, bean);
 
     // render the footer
     renderFooter(context, arc, trc, component);
@@ -359,10 +358,17 @@ public class TreeTableRenderer extends DesktopTableRenderer
     return _FOCUS;
   }
 
+  protected boolean isRootNodeRendered(FacesBean bean)
+  {
+    if (_rootNodeRendered == null)
+      return true;
+
+    return !Boolean.FALSE.equals(bean.getProperty(_rootNodeRendered));
+  }
+  
   //
   // Private methods
   //
-
 
   // Renders the hGridLocator Icon
   private void _renderLocatorIcon(
@@ -436,12 +442,15 @@ public class TreeTableRenderer extends DesktopTableRenderer
   private void _renderTableRows(
     FacesContext          context,
     final RenderingContext   arc,
-    final TreeTableRenderingContext ttrc) throws IOException
+    final TreeTableRenderingContext ttrc,
+    final FacesBean bean)
+    throws IOException
   {
     final UIXTreeTable treeTableBase = ttrc.getUIXTreeTable();
     final ResponseWriter writer = context.getResponseWriter();
     final RowKeySet treeState = treeTableBase.getDisclosedRowKeys();
     final int specialColCount = _getSpecialColCount(ttrc);
+    final boolean rootNodeRendered = isRootNodeRendered(bean);
 
     TableUtils.RowLoop loop = new TableUtils.RowLoop()
     {
@@ -458,9 +467,13 @@ public class TreeTableRenderer extends DesktopTableRenderer
       protected void processRowImpl(FacesContext context, CollectionComponent treeTable)
         throws IOException
       {
-        writer.startElement(XhtmlConstants.TABLE_ROW_ELEMENT, null);
-        renderSingleRow(context, arc, ttrc, treeTableBase);
-        writer.endElement(XhtmlConstants.TABLE_ROW_ELEMENT);
+        if (rootNodeRendered || treeTableBase.getDepth() > 0)
+        {
+          writer.startElement(XhtmlConstants.TABLE_ROW_ELEMENT, null);
+          renderSingleRow(context, arc, ttrc, treeTableBase);
+          writer.endElement(XhtmlConstants.TABLE_ROW_ELEMENT);
+        }
+        
 //
   //        if (hasInvisibleNodes)
   //        {
@@ -469,7 +482,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
 
         if (treeTableBase.isContainer())
         {
-          if (treeState.isContained())
+          if (treeState.isContained() || (rootNodeRendered == false && treeTableBase.getDepth() == 0))
           {
             treeTableBase.enterContainer();
             int rows = treeTableBase.getRows();
@@ -653,6 +666,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
 
   private PropertyKey _immediateKey;
   private PropertyKey _expandAllEnabledKey;
+  private PropertyKey _rootNodeRendered;
 
   private static final Object _JS_LIBS_KEY = new Object();
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(TreeTableRenderer.class);
