@@ -19,7 +19,6 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table;
 
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -34,19 +33,19 @@ import org.apache.myfaces.trinidad.component.UIXNavigationTree;
 import org.apache.myfaces.trinidad.component.UIXPage;
 import org.apache.myfaces.trinidad.component.UIXTree;
 import org.apache.myfaces.trinidad.component.UIXTreeTable;
+import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.FocusEvent;
 import org.apache.myfaces.trinidad.event.RowDisclosureEvent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.RowKeySet;
-import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidad.util.IntegerUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.HiddenLabelUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TableRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
-import org.apache.myfaces.trinidad.util.IntegerUtils;
 
 /**
  * Class that handles all tree related events
@@ -110,7 +109,7 @@ public final class TreeUtils
   }
 
   /**
-   * Utility method to expand the focusRowKey during intial
+   * Utility method to expand the focusRowKey during initial
    * rendering.
    * @param tree
    */

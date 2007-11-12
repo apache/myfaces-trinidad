@@ -26,14 +26,14 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.component.UIXTreeTable;
-import org.apache.myfaces.trinidad.model.RowKeySet;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.model.RowKeySet;
+import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.ColumnRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
-import org.apache.myfaces.trinidad.skin.Icon;
 
 public class TreeNodeColumnRenderer extends ColumnRenderer
 {
@@ -71,6 +71,13 @@ public class TreeNodeColumnRenderer extends ColumnRenderer
 
     int focusPath = hGrid.getDepth(TreeUtils.getFocusRowKey(hGrid));
     int depth = hGrid.getDepth() + 1 - focusPath;
+    if (!ttrc.isRootNodeRendered())
+    {
+      // decrease the depth by one if the root node is not rendered to avoid
+      // unnecessary indentation 
+      --depth;
+    }
+    
     int spacerWidth = _getSpacerWidth(ttrc);
 
     ResponseWriter writer = context.getResponseWriter();

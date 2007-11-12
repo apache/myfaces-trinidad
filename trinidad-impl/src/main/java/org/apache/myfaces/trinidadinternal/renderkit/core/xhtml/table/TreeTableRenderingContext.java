@@ -24,9 +24,9 @@ import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidad.component.UIXColumn;
 import org.apache.myfaces.trinidad.component.UIXTree;
 import org.apache.myfaces.trinidad.component.UIXTreeTable;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.RowKeySet;
-import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinProperties;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 
@@ -83,6 +83,8 @@ public final class TreeTableRenderingContext extends TableRenderingContext
     {
       _spacerWidth = _DEFAULT_SPACER_WIDTH;
     }
+    
+    _rootNodeRendered = _hGridBase.isRootNodeRendered();
   }
 
   /**
@@ -172,6 +174,14 @@ public final class TreeTableRenderingContext extends TableRenderingContext
   {
     return _spacerWidth;
   }
+  
+  /**
+   * @return if the root node is rendered
+   */
+  public boolean isRootNodeRendered()
+  {
+    return _rootNodeRendered;
+  }
 
 //  protected boolean computeHasNavigation(UINode table, int rows)
 //  {
@@ -189,6 +199,7 @@ public final class TreeTableRenderingContext extends TableRenderingContext
   private final Object _crumbs;
   private final UIComponent _nodeStamp, _pathStamp;
   private final int _spacerWidth;
+  private final boolean _rootNodeRendered;
 
   private static final int _DEFAULT_SPACER_WIDTH = 18;
 
