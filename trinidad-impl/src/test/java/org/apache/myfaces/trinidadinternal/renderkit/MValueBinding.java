@@ -44,6 +44,7 @@ public class MValueBinding extends ValueBinding
     Object var =  vr.resolveVariable(context, varName);
     if (period < 0)
       return var;
+
     return _resolveProperty(context, var, _expression.substring(period + 1));
   }
 
@@ -58,7 +59,7 @@ public class MValueBinding extends ValueBinding
 
     PropertyResolver pr = context.getApplication().getPropertyResolver();
     var =  pr.getValue(var, propertyName);
-    
+
     if (period < 0)
       return var;
     return _resolveProperty(context, var, expr.substring(period + 1));

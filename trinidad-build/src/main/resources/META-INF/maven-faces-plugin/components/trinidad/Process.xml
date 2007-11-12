@@ -52,7 +52,6 @@
         <mfp:property-metadata>
           <mfp:preferred>true</mfp:preferred>
         </mfp:property-metadata>
-        <mfp:required>true</mfp:required>
       </property-extension>
     </property>
     <property>

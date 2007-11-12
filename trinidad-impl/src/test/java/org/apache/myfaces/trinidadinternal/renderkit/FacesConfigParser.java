@@ -361,7 +361,7 @@ class FacesConfigParser extends BaseNodeParser
               
             try
             {
-              c = Class.forName(s);
+              c = _loadClass(s);
               if (isArray)
                 c = _getArrayType(c);
             }
@@ -400,6 +400,34 @@ class FacesConfigParser extends BaseNodeParser
     
     private FacesConfigInfo.ComponentInfo _info;
     private FacesConfigInfo.PropertyInfo  _property;
+  }
+
+  /**
+   * Load a class, "trying harder" - supports "." syntax
+   * to access inner classes
+   */
+  static private Class _loadClass(String s) throws ClassNotFoundException
+  {
+    try
+    {
+      return Class.forName(s);
+    }
+    catch (ClassNotFoundException cnfe)
+    {
+      // If the inner class works, great
+      int lastPeriod = s.lastIndexOf('.');
+      String ifInnerClass =
+        s.substring(0, lastPeriod) + "$" + s.substring(lastPeriod + 1);
+      try
+      {
+        return Class.forName(ifInnerClass);
+      }
+      catch (ClassNotFoundException cnfe2)
+      {
+        // Otherwise, throw the original exception
+        throw cnfe;
+      }
+    }
   }
 
   private class RendererParser extends BaseNodeParser

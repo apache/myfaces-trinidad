@@ -18,8 +18,11 @@
  */
 package org.apache.myfaces.trinidadinternal.binding;
 
-import javax.faces.context.FacesContext;
-import javax.faces.el.ValueBinding;
+import java.io.Serializable;
+
+import javax.el.ValueExpression;
+import javax.el.ELContext;
+import javax.el.PropertyNotWritableException;
 
 import org.apache.myfaces.trinidadinternal.util.nls.StringUtils;
 
@@ -29,25 +32,18 @@ import org.apache.myfaces.trinidadinternal.util.nls.StringUtils;
  * the mnemonic.
  *
  */
-public class StripAccessKeyBinding extends ValueBindingAdapter
+public class StripAccessKeyBinding extends ValueExpression implements Serializable
 {
-  /**
-   * Constructor purely for serialization.
-   */
-  public StripAccessKeyBinding()
-  {
-    super(null);
-  }
 
-  public StripAccessKeyBinding(ValueBinding base)
+  public StripAccessKeyBinding(ValueExpression base)
   {
-    super(base);
+    _base = base;
   }
 
   @Override
-  public Object getValue(FacesContext context)
+  public Object getValue(ELContext context)
   {
-    Object o = super.getValue(context);
+    Object o = _base.getValue(context);
     if (o == null)
       return null;
 
@@ -60,8 +56,50 @@ public class StripAccessKeyBinding extends ValueBindingAdapter
   }
 
   @Override
-  public Class<?> getType(FacesContext context)
+  public void setValue(ELContext context, Object value)
   {
-    return String.class;
+    throw new PropertyNotWritableException();
   }
+
+  @Override
+  public Class<?> getType(ELContext context)
+  {
+    return Character.class;
+  }
+
+  @Override
+  public Class<?> getExpectedType()
+  {
+    return Character.class;
+  }
+
+  @Override
+  public boolean isReadOnly(ELContext context)
+  {
+    return true;
+  }
+
+  @Override
+  public boolean isLiteralText()
+  {
+    return false;
+  }
+
+  @Override
+  public String getExpressionString()
+  {
+    return null;
+  }
+
+  public int hashCode()
+  {
+    return 0;
+  }
+
+  public boolean equals(Object o)
+  {
+    return (o == this);
+  }
+
+  private ValueExpression _base;
 }

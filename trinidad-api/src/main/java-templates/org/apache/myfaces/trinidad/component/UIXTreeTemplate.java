@@ -22,6 +22,8 @@ import java.io.IOException;
 
 import java.util.Set;
 
+import javax.el.MethodExpression;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
@@ -45,8 +47,20 @@ abstract public class UIXTreeTemplate extends UIXHierarchy
 /**/  public abstract void setDisclosedRowKeys(RowKeySet keys);
 /**/  public abstract RowKeySet getSelectedRowKeys();
 /**/  public abstract void setSelectedRowKeys(RowKeySet keys);
-/**/  public abstract MethodBinding getRowDisclosureListener();
+/**/  public abstract MethodExpression getRowDisclosureListener();
 /**/  public abstract UIComponent getNodeStamp();
+
+  @Deprecated
+  public void setRowDisclosureListener(MethodBinding binding)
+  {
+    setRowDisclosureListener(adaptMethodBinding(binding));
+  }
+  
+  @Deprecated
+  public void setSelectionListener(MethodBinding binding)
+  {
+    setSelectionListener(adaptMethodBinding(binding));
+  }
   
   /**
    * Sets the phaseID of UI events depending on the "immediate" property.
@@ -72,7 +86,7 @@ abstract public class UIXTreeTemplate extends UIXHierarchy
       //=-=pu: This ain't getting restored. Check with Arj or file a bug.
       addAttributeChange("selectedRowKeys",
                          getSelectedRowKeys());
-      broadcastToMethodBinding(event, getSelectionListener());
+      broadcastToMethodExpression(event, getSelectionListener());
     }
 
     HierarchyUtils.__handleBroadcast(this, 

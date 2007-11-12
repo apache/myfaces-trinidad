@@ -18,8 +18,7 @@
  */
 package org.apache.myfaces.trinidadinternal.skin;
 
-
-import javax.faces.el.ValueBinding;
+import javax.el.ValueExpression;
 
 import org.apache.myfaces.trinidad.context.LocaleContext;
 
@@ -61,7 +60,7 @@ public class SkinNotAvailable extends SkinImpl
   
   
   @Override
-  protected ValueBinding getTranslationSourceValueBinding()
+  protected ValueExpression getTranslationSourceValueExpression()
   {
     return null;
   }

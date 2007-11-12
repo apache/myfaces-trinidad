@@ -24,6 +24,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import javax.el.ValueExpression;
+
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -62,19 +64,27 @@ public interface FacesBean
    * @exception IllegalArgumentException if key is a list key
    */
   public Object getLocalProperty(PropertyKey key);
-  
+
+  /**
+   * Return the value expression for a key.
+   * @exception IllegalArgumentException if the property does
+   *   not support value bindings.
+   */
+  public ValueExpression getValueExpression(PropertyKey key);
+
   /**
    * Return the value binding for a key.
    * @exception IllegalArgumentException if the property does
    *   not support value bindings.
+   * @deprecated
    */
   public ValueBinding getValueBinding(PropertyKey key);
 
   /**
    * Gets the current unevaluated value for the specified property key. 
    * <p>The method will first look for a local value. If it exists, it will 
-   * be returned. If it does not and the bean supports value bindings, the 
-   * method will look for a binding with the specified key and return it 
+   * be returned. If it does not and the bean supports value expressions, the 
+   * method will look for an expression with the specified key and return it 
    * directly if it exists without evaluatig its value.</p>
    * <p>This method is mainly used when:</p>
    * <ul>
@@ -97,21 +107,30 @@ public interface FacesBean
    * @param key the parameter key of the raw property value to get.
    * 
    * @return the local value of the specified key if it exists, a 
-   *         <code>ValueBinding</code> object if the specified key 
-   *         supports bindings and a binding was specified for that 
+   *         <code>ValueExpression</code> object if the specified key 
+   *         supports expressions and an expression was specified for that 
    *         property, <code>null</code> otherwise.
    * 
    * @throws IllegalArgumentException if the specified key is a list key.
    * 
    * @see #getLocalProperty(PropertyKey)
    * @see #getValueBinding(PropertyKey)
+   * @see #getValueExpression(PropertyKey)
    */
   public Object getRawProperty(PropertyKey key);
+
+  /**
+   * Set the value expression for a key.
+   * @exception IllegalArgumentException if the property does
+   *   not support value expressions.
+   */
+  public void setValueExpression(PropertyKey key, ValueExpression expression);
 
   /**
    * Set the value binding for a key.
    * @exception IllegalArgumentException if the property does
    *   not support value bindings.
+   * @deprecated
    */
   public void setValueBinding(PropertyKey key, ValueBinding binding);
 

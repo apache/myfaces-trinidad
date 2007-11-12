@@ -18,10 +18,11 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
+import javax.el.ValueExpression;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.el.ValueBinding;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
@@ -70,11 +71,11 @@ abstract public class ValueRenderer extends XhtmlRenderer
     FacesContext context,
     FacesBean    bean)
   {
-    ValueBinding binding = getValueBinding(bean);
-    if (binding == null)
+    ValueExpression expression = getValueExpression(bean);
+    if (expression == null)
       return null;
 
-    Class<?> type = binding.getType(context);
+    Class<?> type = expression.getType(context.getELContext());
     return ConverterUtils.createConverter(context, type);
   }
 
@@ -84,11 +85,11 @@ abstract public class ValueRenderer extends XhtmlRenderer
   }
 
   /**
-   * Returns the ValueBinding for the "value" property.
+   * Returns the ValueExpression for the "value" property.
    */
-  protected ValueBinding getValueBinding(FacesBean bean)
+  protected ValueExpression getValueExpression(FacesBean bean)
   {
-    return bean.getValueBinding(_valueKey);
+    return bean.getValueExpression(_valueKey);
   }
 
   protected Converter getConverter(FacesBean bean)

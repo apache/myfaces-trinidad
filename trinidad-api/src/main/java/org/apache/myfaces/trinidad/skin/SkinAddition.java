@@ -18,7 +18,13 @@
  */
 package org.apache.myfaces.trinidad.skin;
 
+import java.util.Collections;
+
+import javax.el.ValueExpression;
+
 import javax.faces.el.ValueBinding;
+
+import org.apache.myfaces.trinidad.context.LocaleContext;
 
 /**
  * SkinAdditions are defined in trinidad-skins.xml file &lt;skin-addition&gt;
@@ -46,24 +52,26 @@ public class SkinAddition
   {
     _styleSheetName = styleSheetName;
     _resourceBundleName = resourceBundleName;
+    _translationSourceVE = null;
     _translationSourceVB = null;
   }
 
   /**
-   * Constructor takes a styleSheet name and a translationSource ValueBinding.
+   * Constructor takes a styleSheet name and a translationSource ValueExpression.
    */
   public SkinAddition (
     String       styleSheetName,
-    ValueBinding translationSourceValueBinding
+    ValueExpression translationSourceValueExpression
     )
   {
     _styleSheetName = styleSheetName;
     _resourceBundleName = null;
-    _translationSourceVB = translationSourceValueBinding;
+    _translationSourceVE = translationSourceValueExpression;
+    _translationSourceVB = null;
   }
   /**
    * Constructor takes a styleSheet name. resource bundle name and 
-   * translation source value binding will be null.
+   * translation source value expression will be null.
    */
   public SkinAddition (
     String styleSheetName
@@ -71,7 +79,24 @@ public class SkinAddition
   {
     _styleSheetName = styleSheetName;
     _resourceBundleName = null;
+    _translationSourceVE = null;
     _translationSourceVB = null;
+  }
+  
+  /**
+   * Constructor takes a styleSheet name and a translationSource ValueBinding.
+   * @deprecated
+   */
+  @Deprecated
+  public SkinAddition (
+    String       styleSheetName,
+    ValueBinding translationSourceValueBinding
+    )
+  {
+    _styleSheetName = styleSheetName;
+    _resourceBundleName = null;
+    _translationSourceVE = null;
+    _translationSourceVB = translationSourceValueBinding;
   }
   
   /**
@@ -85,7 +110,7 @@ public class SkinAddition
   /**
    * Gets the SkinAddition's resource bundle. 
    * Note: A skin cannot have both a resourceBundleName and a translation source
-   * value binding. If they do, then the resourceBundleName takes precedence.
+   * value expression. If they do, then the resourceBundleName takes precedence.
    */
   public String getResourceBundleName()
   {
@@ -93,11 +118,24 @@ public class SkinAddition
   } 
   
   /**
+   * Gets the SkinAddition's translation source ValueExpresion. The 
+   * ValueExpression can point to a Map or a ResourceBundle.
+   * Note: A skin cannot have both a resourceBundleName and a translation source
+   * value expression. If they do, then the resourceBundleName takes precedence.
+   */
+  public ValueExpression getTranslationSourceValueExpression()
+  {
+    return _translationSourceVE;
+  } 
+  
+  /**
    * Gets the SkinAddition's translation source ValueBinding. The 
    * ValueBinding can point to a Map or a ResourceBundle.
    * Note: A skin cannot have both a resourceBundleName and a translation source
    * value binding. If they do, then the resourceBundleName takes precedence.
+   * @deprecated
    */
+   @Deprecated
   public ValueBinding getTranslationSourceValueBinding()
   {
     return _translationSourceVB;
@@ -105,6 +143,7 @@ public class SkinAddition
  
   private final String       _styleSheetName;
   private final String       _resourceBundleName;
+  private final ValueExpression _translationSourceVE;
   private final ValueBinding _translationSourceVB;
   
 }

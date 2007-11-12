@@ -18,8 +18,10 @@
     under the License.
 	   
 -->
-<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
-<web-app>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         version="2.5">
 
   <!-- Faces API parameter -->
   <context-param>
@@ -94,32 +96,33 @@
   </welcome-file-list>
 
   <!-- Trinidad Tag Library -->
-  <taglib>
-    <taglib-uri>http://myfaces.apache.org/trinidad</taglib-uri>
-    <taglib-location>/WEB-INF/tr.tld</taglib-location>
-  </taglib>
-
-  <taglib>
-    <taglib-uri>http://myfaces.apache.org/trinidad/html</taglib-uri>
-    <taglib-location>/WEB-INF/trh.tld</taglib-location>
-  </taglib>
+  <jsp-config>
+    <taglib>
+      <taglib-uri>http://myfaces.apache.org/trinidad</taglib-uri>
+      <taglib-location>/WEB-INF/tr.tld</taglib-location>
+    </taglib>
+    <taglib>
+      <taglib-uri>http://myfaces.apache.org/trinidad/html</taglib-uri>
+      <taglib-location>/WEB-INF/trh.tld</taglib-location>
+    </taglib>
+    <taglib>
+      <taglib-uri>http://java.sun.com/jsf/core</taglib-uri>
+      <taglib-location>/WEB-INF/jsf_core.tld</taglib-location>
+    </taglib>
+    <taglib>
+      <taglib-uri>http://java.sun.com/jsf/html</taglib-uri>
+      <taglib-location>/WEB-INF/html_basic.tld</taglib-location>
+    </taglib>
+    <taglib>
+      <taglib-uri>http://myfaces.apache.org/trinidaddemo</taglib-uri>
+      <taglib-location>/WEB-INF/uixdemo.tld</taglib-location>
+    </taglib>
+  </jsp-config>
 
   <!-- Faces Core Tag Library -->
-  <taglib>
-    <taglib-uri>http://java.sun.com/jsf/core</taglib-uri>
-    <taglib-location>/WEB-INF/jsf_core.tld</taglib-location>
-  </taglib>
 
   <!-- Faces Html Basic Tag Library -->
-  <taglib>
-    <taglib-uri>http://java.sun.com/jsf/html</taglib-uri>
-    <taglib-location>/WEB-INF/html_basic.tld</taglib-location>
-  </taglib>
 
-  <!-- Trinidad Demo Tag Library --> 
-  <taglib>
-    <taglib-uri>http://myfaces.apache.org/trinidaddemo</taglib-uri>
-    <taglib-location>/WEB-INF/uixdemo.tld</taglib-location>
-  </taglib>
+  <!-- Trinidad Demo Tag Library -->
 
 </web-app>

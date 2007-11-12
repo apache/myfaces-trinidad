@@ -22,6 +22,7 @@ import java.awt.Color;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.TimeZone;
 
 import javax.faces.component.UIComponent;
@@ -399,6 +400,11 @@ abstract public class RequestContext
    * @see ComponentUtils#findRelativeComponent(UIComponent, String)
    */
   public abstract void addPartialTargets(UIComponent from, String... targets);
+  
+  /**
+   * Returns the set of partial targets related to a given UIComponent.
+   */
+  public abstract Set<UIComponent> getPartialTargets(UIComponent newTarget);
   
   /**
    * Adds a listener on a set of particular triggering components. If one of

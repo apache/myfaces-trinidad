@@ -152,21 +152,21 @@
                           >
                         
                         <option
-                             value="submitForm('formId',1,{source:'mainId:_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'mainId:j_idXXX:j_idXXX'});"
                              id="uri-attr:mainId:_idXXX:_idXXX"
                              name="uri-attr:mainId:_idXXX:_idXXX"
                             >
                           choice1
                         </option>
                         <option
-                             value="submitForm('formId',1,{source:'mainId:_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'mainId:j_idXXX:j_idXXX'});"
                              id="uri-attr:mainId:_idXXX:_idXXX"
                              name="uri-attr:mainId:_idXXX:_idXXX"
                             >
                           choice2
                         </option>
                         <option
-                             value="submitForm('formId',1,{source:'mainId:_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'mainId:j_idXXX:j_idXXX'});"
                              id="uri-attr:mainId:_idXXX:_idXXX"
                              name="uri-attr:mainId:_idXXX:_idXXX"
                             >
@@ -180,7 +180,7 @@
                       </span>
                       <button
                            class="af_navigationPane_choice-button"
-                           onclick="var navLevelSelect = document.getElementById('mainId:_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+                           onclick="var navLevelSelect = document.getElementById('mainId:j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
                            type="button"
                           >
                         Go
@@ -571,22 +571,22 @@
                              class="AFFieldText"
                              id="mainId:_idXXX"
                              name="mainId:_idXXX"
-                             onchange="_commandChoice('formId','mainId:_idXXX');return false;"
+                             onchange="_commandChoice('formId','mainId:j_idXXX');return false;"
                             >
                           
                           <option
                                selected="selected"
-                               value="mainId:null:0:_idXXX[1]"
+                               value="mainId:j_idXXX:0:j_idXXX[1]"
                               >
                             First
                           </option>
                           <option
-                               value="mainId:null:1:_idXXX[1]"
+                               value="mainId:j_idXXX:1:j_idXXX[1]"
                               >
                             Second
                           </option>
                           <option
-                               value="mainId:null:2:_idXXX[1]"
+                               value="mainId:j_idXXX:2:j_idXXX[1]"
                               >
                             Third
                           </option>
@@ -609,7 +609,7 @@
                         <button
                              accesskey="x"
                              class="OraLink"
-                             onclick="_navSubmit('formId', 'goto', 'mainId:_idXXX',1,'1', '1',null);return false"
+                             onclick="_navSubmit('formId', 'goto', 'mainId:j_idXXX',1,'1', '1',null);return false"
                              type="button"
                             >
                           Ne
@@ -655,7 +655,7 @@
                 >
               
               <a
-                   onclick="submitForm('formId',1,{source:'mainId:_idXXX'});return false;"
+                   onclick="submitForm('formId',1,{source:'mainId:j_idXXX'});return false;"
                    href="uri-attr:encoded-action-url:#"
                   >
                 privacy
@@ -666,7 +666,7 @@
                 >
               
               <a
-                   onclick="submitForm('formId',1,{source:'mainId:_idXXX'});return false;"
+                   onclick="submitForm('formId',1,{source:'mainId:j_idXXX'});return false;"
                    href="uri-attr:encoded-action-url:#"
                   >
                 appAbout

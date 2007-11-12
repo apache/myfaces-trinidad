@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 
+import javax.el.MethodExpression;
+
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
@@ -142,10 +144,14 @@ abstract public class UIXComponentTag extends UIComponentTag
 
     if (_attributeChangeListener != null)
     {
-      MethodBinding mb =
-        createMethodBinding(_attributeChangeListener,
-                            new Class[]{AttributeChangeEvent.class});
-      uixComponent.setAttributeChangeListener(mb);
+      MethodExpression me = getFacesContext().getApplication().
+         getExpressionFactory().createMethodExpression(
+             getFacesContext().getELContext(),
+             _attributeChangeListener,
+             null,
+             new Class[]{AttributeChangeEvent.class});
+
+      uixComponent.setAttributeChangeListener(me);
     }
 
 

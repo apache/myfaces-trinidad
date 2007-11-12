@@ -28,9 +28,9 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @version $Revision: 278654 $ $Date: 2005-09-04 18:32:35 -0600 (Sun, 04 Sep 2005) $
  */
-class ServletCookieMap extends AbstractAttributeMap<String, Object>
+public class ServletCookieMap extends AbstractAttributeMap<String, Object>
 {
-  ServletCookieMap(final HttpServletRequest httpServletRequest)
+  public ServletCookieMap(final HttpServletRequest httpServletRequest)
   {
     _httpServletRequest = httpServletRequest;
   }

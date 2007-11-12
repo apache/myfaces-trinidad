@@ -34,6 +34,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+import javax.el.ELContext;
+import javax.el.ValueExpression;
+
 import javax.faces.context.ExternalContext;
 
 import javax.faces.context.FacesContext;
@@ -477,19 +480,19 @@ abstract public class SkinImpl extends Skin
   * We differentiate between the two types of resource bundles so that
   * the Skin's own resource bundle can take precedence.
   * Note: A skin cannot have both a bundleName and a translation source
-  * value binding. If they do, then the bundlename takes precedence.
+  * value expression. If they do, then the bundlename takes precedence.
   */
   abstract protected String getBundleName();
 
   /**
-  * Returns the ValueBinding of the translation source for this Skin instance.
+  * Returns the ValueExpression of the translation source for this Skin instance.
   * This does not include the SkinAddition translation source.
   * The Skin's own resource bundle or translation source can take precedence
   * over the SkinAdditions resource bundle or translation source.
   * Note: A skin cannot have both a bundleName and a translation source
   * value expression. If they do, then the bundleName takes precedence.
   */
-  abstract protected ValueBinding getTranslationSourceValueBinding();
+  abstract protected ValueExpression getTranslationSourceValueExpression();
 
   /**
    * Find the actual icon
@@ -772,11 +775,11 @@ abstract public class SkinImpl extends Skin
 
   /*
    * Returns the List of TranslationSource. A TranslationSource can be
-   * a resource bundle name or a translation-source ValueBinding that
+   * a resource bundle name or a translation-source ValueExpression that
    * resolves to a Map or a ResourceBundle.
    * The List indlues TranslationSources from the Skin and the SkinAdditions.
    * @see #getBundleName()
-   * @see #getTranslationSourceValueBinding()
+   * @see #getTranslationSourceValueExpression()
    */
   private List<TranslationSource> _getTranslationSourceList()
   {
@@ -793,9 +796,9 @@ abstract public class SkinImpl extends Skin
     int translationSourceCount = 0;
 
     String bName = getBundleName();
-    ValueBinding ve = null;
+    ValueExpression ve = null;
     if (bName == null)
-      ve = getTranslationSourceValueBinding();
+      ve = getTranslationSourceValueExpression();
     if (bName != null || ve != null)
       translationSourceCount++;
 
@@ -808,11 +811,11 @@ abstract public class SkinImpl extends Skin
 
     // First put in the Skin's translation information, then the SkinAdditions'
     // translation information.
-    // Note: bundleName takes precedence over translationSourceValueBinding.
+    // Note: bundleName takes precedence over translationSourceValueExpression.
     if (bName != null)
       translationSourceList.add(new ResourceBundleNameTranslationSource(bName));
     else if (ve != null)
-      translationSourceList.add(new ValueBindingTranslationSource(ve));
+      translationSourceList.add(new ValueExprTranslationSource(ve));
 
     for (SkinAddition add : additions)
     {
@@ -821,9 +824,18 @@ abstract public class SkinImpl extends Skin
         translationSourceList.add(new ResourceBundleNameTranslationSource(name));
       else
       {
+        ValueExpression additionVe = add.getTranslationSourceValueExpression();
+        if (additionVe != null)
+          translationSourceList.add(new ValueExprTranslationSource(additionVe));
+        else
+        {
+          // try the deprecated ValueBinding last.
+          // This code can be deleted when we delete the deprecated api
+          // SkinAddition's getTranslationSourceValueBinding
         ValueBinding additionVb = add.getTranslationSourceValueBinding();
         if (additionVb != null)
           translationSourceList.add(new ValueBindingTranslationSource(additionVb));
+        }
       }
     }
 
@@ -1067,6 +1079,48 @@ abstract public class SkinImpl extends Skin
     public final String        _bundleName;
   }
 
+  private static class ValueExprTranslationSource implements TranslationSource
+  {
+
+    public ValueExprTranslationSource(
+      ValueExpression ve)
+    {
+      _translationSourceVE = ve;
+    }
+
+    // fill in the keyValueMap from a ValueExpression. The ValueExpression
+    // types that we support are Map and ResourceBundle.
+    // If checkForKey is true, it will not overwrite if the key exists already.
+    public void fillInKeyValueMap(
+      LocaleContext  lContext,
+      Map            keyValueMap,
+      boolean        checkForKey)
+    {
+      ELContext elContext = FacesContext.getCurrentInstance().getELContext();
+
+      Object veValue = _translationSourceVE.getValue(elContext);
+
+      if (veValue instanceof Map)
+      {
+        Map<String, String> translationSourceMap =
+          (Map<String, String>)_translationSourceVE.getValue(elContext);
+        _fillInKeyValueMapFromMap(translationSourceMap, keyValueMap, checkForKey);
+      }
+      else if (veValue instanceof ResourceBundle)
+      {
+        ResourceBundle bundle =
+          (ResourceBundle)_translationSourceVE.getValue(elContext);
+        _fillInKeyValueMapFromResourceBundle(bundle, keyValueMap, checkForKey);
+      }
+      else
+      {
+        _LOG.warning("INVALID_TRANSLATION_SOURCE_VE_TYPE");        
+      }
+    }
+
+    public final ValueExpression _translationSourceVE;
+  }
+  
   private static class ValueBindingTranslationSource implements TranslationSource
   {
 

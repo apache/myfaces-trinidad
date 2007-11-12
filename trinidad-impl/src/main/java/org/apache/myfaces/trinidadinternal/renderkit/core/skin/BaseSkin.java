@@ -18,8 +18,7 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.skin;
 
-
-import javax.faces.el.ValueBinding;
+import javax.el.ValueExpression;
 
 import org.apache.myfaces.trinidadinternal.skin.SkinImpl;
 
@@ -49,7 +48,7 @@ public class BaseSkin extends SkinImpl
   }
 
   @Override
-  protected ValueBinding getTranslationSourceValueBinding()
+  protected ValueExpression getTranslationSourceValueExpression()
   {
     return null;
   }

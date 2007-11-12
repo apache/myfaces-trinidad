@@ -18,10 +18,14 @@
  */
 package org.apache.myfaces.trinidadinternal.context;
 
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
+
+import org.apache.myfaces.trinidadinternal.config.xmlHttp.XmlHttpConfigurator;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 
 /**
  * Performs some trinidad logic and provides some hooks.
@@ -76,9 +80,21 @@ public class TrinidadPhaseListener implements PhaseListener
     if (event.getPhaseId() == PhaseId.RESTORE_VIEW)
     {
       FacesContext context = event.getFacesContext();
+      ExternalContext ec = context.getExternalContext();
       // Assume it's not a postback request
-      context.getExternalContext().getRequestMap().put(_POSTBACK_KEY,
-                                                       Boolean.FALSE);      
+      ec.getRequestMap().put(_POSTBACK_KEY, Boolean.FALSE);
+
+      // And initialize XmlHttp.  We wait until beforePhase()
+      // of RESTORE_VIEW, instead of doing this in the filter,
+      // so that we don't get a request parameter before ViewHandler.initView()
+      // has been called:  doing that leads to big problems.  Note
+      // that with the 1.2_03 RI, this will still be too early,
+      // as it called initView() after beforePhase()
+      if (CoreRenderKit.isPartialRequest(ec))
+      {
+        XmlHttpConfigurator.beginRequest(ec);
+      }
+      
     }
     // If we've reached "apply request values", this is definitely a
     // postback (the ViewHandler should have reached the same conclusion too,

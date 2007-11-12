@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.faces.el.PropertyResolver;
 import javax.faces.model.DataModel;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -341,8 +340,7 @@ public class ChildPropertyTreeModel extends TreeModel
     if (prop == null)
       return null;
     
-    PropertyResolver resolver = SortableModel.__getPropertyResolver();
-    return resolver.getValue(parentData, prop);
+    return SortableModel.__resolveProperty(parentData, prop);
   }
 
   /**

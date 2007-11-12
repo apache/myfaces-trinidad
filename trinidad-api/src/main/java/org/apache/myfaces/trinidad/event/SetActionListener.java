@@ -18,9 +18,10 @@
  */
 package org.apache.myfaces.trinidad.event;
 
+import javax.el.ValueExpression;
+
 import javax.faces.component.StateHolder;
 import javax.faces.context.FacesContext;
-import javax.faces.el.ValueBinding;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
 
@@ -35,7 +36,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  */
 public class SetActionListener implements ActionListener, StateHolder
 {
-  
   /**
    * Creates a SetActionListener.
    */
@@ -50,23 +50,23 @@ public class SetActionListener implements ActionListener, StateHolder
    */
   public void processAction(ActionEvent event)
   {
-    ValueBinding to = _bean.getValueBinding(Bean.TO_KEY);
+    ValueExpression to = _bean.getValueExpression(Bean.TO_KEY);
     if (to != null)
     {
       Object from = getFrom();
       try
       {
-        to.setValue(FacesContext.getCurrentInstance(), from);
+        to.setValue(FacesContext.getCurrentInstance().getELContext(), from);
       }
       catch (RuntimeException e)
       {
         if (_LOG.isWarning())
         {
-          ValueBinding fromBinding = _bean.getValueBinding(Bean.FROM_KEY);
+          ValueExpression fromExpression = _bean.getValueExpression(Bean.FROM_KEY);
           String mes = "Error setting:'"+to.getExpressionString() +
             "' to value:"+from;
-          if (fromBinding != null)
-            mes += " from:'"+fromBinding.getExpressionString()+"'";
+          if (fromExpression != null)
+            mes += " from:'"+fromExpression.getExpressionString()+"'";
             
           _LOG.warning(mes, e);
         }
@@ -75,21 +75,21 @@ public class SetActionListener implements ActionListener, StateHolder
     }
   }
 
-  public ValueBinding getValueBinding(String name)
+  public ValueExpression getValueExpression(String name)
   {
     PropertyKey key = Bean.TYPE.findKey(name);
     if (key == null)
       return null;
 
-    return _bean.getValueBinding(key);
+    return _bean.getValueExpression(key);
   }
 
-  public void setValueBinding(String name, ValueBinding binding)
+  public void setValueExpression(String name, ValueExpression binding)
   {
     PropertyKey key = Bean.TYPE.findKey(name);
     if (key == null)
       throw new IllegalArgumentException();
-    _bean.setValueBinding(key, binding);
+    _bean.setValueExpression(key, binding);
   }
 
   public Object getFrom()
@@ -128,7 +128,7 @@ public class SetActionListener implements ActionListener, StateHolder
     static public final FacesBean.Type TYPE = new FacesBean.Type();
     static public final PropertyKey FROM_KEY =
       TYPE.registerKey("from");
-    // Must be a ValueBinding
+    // Must be a ValueExpression
     static public final PropertyKey TO_KEY =
       TYPE.registerKey("to");
 

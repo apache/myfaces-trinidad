@@ -34,7 +34,7 @@ import java.util.List;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import javax.faces.el.ValueBinding;
+import javax.el.ValueExpression;
 
 import javax.xml.parsers.SAXParserFactory;
 
@@ -44,7 +44,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.SkinAddition;
-import org.apache.myfaces.trinidadinternal.config.LazyValueBinding;
+import org.apache.myfaces.trinidadinternal.config.LazyValueExpression;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.MinimalDesktopSkinExtension;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.MinimalPdaSkinExtension;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.MinimalPortletSkinExtension;
@@ -535,21 +535,21 @@ public class SkinUtils
     }
     else
     {
-      ValueBinding translationSourceVB = null;
+      ValueExpression translationSourceVE = null;
       if (translationSourceExpression != null)
       {
-        translationSourceVB = 
-          _createTranslationSourceValueBinding(translationSourceExpression);
+        translationSourceVE = 
+          _createTranslationSourceValueExpression(translationSourceExpression);
       }
       
-      if (translationSourceVB != null)
+      if (translationSourceVE != null)
       {
         skin = new SkinExtension(baseSkin,
                                  id,
                                  family,
                                  renderKitId,
                                  styleSheetName,
-                                 translationSourceVB);         
+                                 translationSourceVE);         
       }
       else
       {
@@ -567,15 +567,16 @@ public class SkinUtils
     skinFactory.addSkin(id, skin);    
   }
   
-  private static ValueBinding
-  _createTranslationSourceValueBinding(
+  private static ValueExpression
+  _createTranslationSourceValueExpression(
     String translationSourceExpression)
   {    
       if (translationSourceExpression != null)
       {
         translationSourceExpression = translationSourceExpression.trim();
          
-        return LazyValueBinding.createValueBinding(translationSourceExpression);
+        return LazyValueExpression.createValueExpression(translationSourceExpression, 
+                                                         Object.class);
       }
       else
         return null;
@@ -742,17 +743,17 @@ public class SkinUtils
         }
         else
         {
-          ValueBinding translationSourceVB = null;
+          ValueExpression translationSourceVE = null;
           if (translationSourceExpression != null)
           {
-            translationSourceVB = 
-              _createTranslationSourceValueBinding(translationSourceExpression);
+            translationSourceVE = 
+              _createTranslationSourceValueExpression(translationSourceExpression);
           }
           
-          if (translationSourceVB != null)
+          if (translationSourceVE != null)
           {
             // Create a SkinAddition with translationSourceVE 
-            addition = new SkinAddition(styleSheetName, translationSourceVB);
+            addition = new SkinAddition(styleSheetName, translationSourceVE);
 
           }
           else

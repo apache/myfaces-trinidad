@@ -125,7 +125,7 @@ public class RenderKitPerfTestCase extends TestCase
     //    _fileWriter = new java.io.BufferedWriter(new java.io.FileWriter("c:\\tmp\\test.out", true));
 
     //    
-    _facesContext = new MFacesContext(false);
+    _facesContext = new MFacesContext(MApplication.sharedInstance(), false);
     ResponseWriter writer = new XhtmlResponseWriter(
       _fileWriter == null ? new NullWriter() : _fileWriter,
       XhtmlResponseWriter.XHTML_CONTENT_TYPE,

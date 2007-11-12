@@ -18,8 +18,9 @@
  */
 package org.apache.myfaces.trinidad.component;
 
-import javax.faces.context.FacesContext;
-import javax.faces.el.MethodBinding;
+import javax.el.ELContext;
+import javax.el.MethodExpression;
+import javax.el.MethodInfo;
 
 import org.apache.myfaces.trinidad.event.AttributeChangeEvent;
 import org.apache.myfaces.trinidad.event.AttributeChangeListener;
@@ -27,7 +28,7 @@ import org.apache.myfaces.trinidad.event.AttributeChangeListener;
 /**
  * Utility class for testing out AttributeChange events.
  */
-public class AttributeChangeTester extends MethodBinding
+public class AttributeChangeTester extends MethodExpression
  implements AttributeChangeListener
 {
   public AttributeChangeTester()
@@ -41,8 +42,13 @@ public class AttributeChangeTester extends MethodBinding
     _listenerCalled = true;
   }
 
+  public MethodInfo getMethodInfo(ELContext context)
+  {
+    return null;
+  }
+
   @Override
-  public Object invoke(FacesContext context, Object params[])
+  public Object invoke(ELContext context, Object params[])
   {
     if (params.length != 1)
       throw new IllegalStateException("Params not of length 1");
@@ -55,10 +61,24 @@ public class AttributeChangeTester extends MethodBinding
     return null;
   }
 
-  @Override
-  public Class<?> getType(FacesContext context)
+  public String getExpressionString()
   {
     return null;
+  }
+
+  public boolean isLiteralText()
+  {
+    return false;
+  }
+
+  public int hashCode()
+  {
+    return 0;
+  }
+
+  public boolean equals(Object o)
+  {
+    return o == this;
   }
 
   public void verify()

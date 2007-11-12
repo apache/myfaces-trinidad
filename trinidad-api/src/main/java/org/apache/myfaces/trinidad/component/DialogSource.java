@@ -20,7 +20,7 @@ package org.apache.myfaces.trinidad.component;
 
 import javax.faces.component.ActionSource;
 
-import javax.faces.el.MethodBinding;
+import javax.el.MethodExpression;
 
 import org.apache.myfaces.trinidad.event.LaunchListener;
 import org.apache.myfaces.trinidad.event.ReturnListener;
@@ -37,12 +37,12 @@ public interface DialogSource extends ActionSource
   public void addReturnListener(ReturnListener listener);
   public void removeReturnListener(ReturnListener listener);
   public ReturnListener[] getReturnListeners();
-  public void setReturnListener(MethodBinding returnListener);
-  public MethodBinding getReturnListener();
+  public void setReturnListener(MethodExpression returnListener);
+  public MethodExpression getReturnListener();
 
   public void addLaunchListener(LaunchListener listener);
   public void removeLaunchListener(LaunchListener listener);
   public LaunchListener[] getLaunchListeners();
-  public void setLaunchListener(MethodBinding launchListener);
-  public MethodBinding getLaunchListener();
+  public void setLaunchListener(MethodExpression launchListener);
+  public MethodExpression getLaunchListener();
 }

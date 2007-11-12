@@ -22,6 +22,8 @@ import java.io.UnsupportedEncodingException;
 
 import java.nio.charset.IllegalCharsetNameException;
 
+import javax.el.ValueExpression;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.component.StateHolder;
 import javax.faces.component.UIComponent;
@@ -267,6 +269,43 @@ public class ByteLengthValidator  implements StateHolder, Validator
     _isTransient = transientValue;
   }
 
+
+  /**
+   * <p>Set the {@link ValueExpression} used to calculate the value for the
+   * specified attribute if any.</p>
+   *
+   * @param name Name of the attribute for which to set a {@link ValueExpression}
+   * @param expression The {@link ValueExpression} to set, or <code>null</code>
+   *  to remove any currently set {@link ValueExpression}
+   *
+   * @exception NullPointerException if <code>name</code>
+   *  is <code>null</code>
+   * @exception IllegalArgumentException if <code>name</code> is not a valid
+   *            attribute of this converter
+   */
+  public void setValueExpression(String name, ValueExpression expression)
+  {
+    ValidatorUtils.setValueExpression(_facesBean, name, expression) ;
+  }
+
+
+  /**
+   * <p>Return the {@link ValueExpression} used to calculate the value for the
+   * specified attribute name, if any.</p>
+   *
+   * @param name Name of the attribute or property for which to retrieve a
+   *  {@link ValueExpression}
+   *
+   * @exception NullPointerException if <code>name</code>
+   *  is <code>null</code>
+   * @exception IllegalArgumentException if <code>name</code> is not a valid
+   * attribute of this converter
+   */
+  public ValueExpression getValueExpression(String name)
+  {
+    return ValidatorUtils.getValueExpression(_facesBean, name);
+  }
+
   /**
    * <p>Set the {@link ValueBinding} used to calculate the value for the
    * specified attribute if any.</p>
@@ -279,6 +318,7 @@ public class ByteLengthValidator  implements StateHolder, Validator
    *  is <code>null</code>
    * @exception IllegalArgumentException if <code>name</code> is not a valid
    *            attribute of this validator
+   * @deprecated
    */
   public void setValueBinding(String name, ValueBinding binding)
   {
@@ -296,6 +336,7 @@ public class ByteLengthValidator  implements StateHolder, Validator
    *  is <code>null</code>
    * @exception IllegalArgumentException if <code>name</code> is not a valid
    * attribute of this validator
+   * @deprecated
    */
   public ValueBinding getValueBinding(String name)
   {

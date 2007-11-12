@@ -69,12 +69,25 @@ public class CoreResponseStateManager extends ResponseStateManager
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement("input", null);
     rw.writeAttribute("type", "hidden", null);
-    rw.writeAttribute("name", _STATE_FIELD_NAME, null);
+    rw.writeAttribute("name", VIEW_STATE_PARAM, null);
+    // Don't write out the ID, as it can be written
+    // out twice
+    //    rw.writeAttribute("id", VIEW_STATE_PARAM, null);
 
     String s = encodeSerializedViewAsString(serializedView);
     rw.writeAttribute("value", s, null);
 
     rw.endElement("input");
+  }
+
+  @Override
+  /**
+   * A request is a postback if it contains the state parameter.
+   */
+  public boolean isPostback(FacesContext context)
+  {
+    Map requestParams = context.getExternalContext().getRequestParameterMap();
+    return requestParams.containsKey(VIEW_STATE_PARAM);
   }
 
 
@@ -146,7 +159,7 @@ public class CoreResponseStateManager extends ResponseStateManager
       Map<String, String> requestParamMap =
          context.getExternalContext().getRequestParameterMap();
 
-      String stateString = requestParamMap.get(_STATE_FIELD_NAME);
+      String stateString = requestParamMap.get(VIEW_STATE_PARAM);
       if (stateString == null)
         return null;
 
@@ -196,8 +209,6 @@ public class CoreResponseStateManager extends ResponseStateManager
 
     return view;
   }
-
-  static private final String _STATE_FIELD_NAME = "org.apache.myfaces.trinidad.faces.STATE";
 
 
   /* Test code for dumping out the page's state

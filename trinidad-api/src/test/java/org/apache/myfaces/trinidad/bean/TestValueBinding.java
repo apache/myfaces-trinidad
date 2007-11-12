@@ -22,7 +22,13 @@ import javax.faces.component.StateHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
-public class TestValueBinding extends ValueBinding implements StateHolder
+import java.io.Serializable;
+
+// =-=AdamWiner FIXME We shouldn't have to implement Serializable
+// on ValueBindings - FacesBeanImpl is not handling ValueExpressions
+// around non-serializable ValueBindings
+public class TestValueBinding extends ValueBinding implements StateHolder, 
+                                                              Serializable
 {
   public TestValueBinding()
   {

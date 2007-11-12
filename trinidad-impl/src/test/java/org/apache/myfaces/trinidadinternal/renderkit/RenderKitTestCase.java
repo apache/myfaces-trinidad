@@ -152,7 +152,7 @@ abstract public class RenderKitTestCase extends TestSuite
     @Override
     protected void setUp() throws IOException  
     {
-      _facesContext = new MFacesContext(true);
+      _facesContext = new MFacesContext(MApplication.sharedInstance(), true);
       _requestContext = new MRequestContext();
       _requestContext.setSkinFamily(_skin);
       _requestContext.setAgent(_agent);
