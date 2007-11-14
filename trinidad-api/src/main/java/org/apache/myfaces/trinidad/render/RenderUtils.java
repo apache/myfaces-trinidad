@@ -24,7 +24,6 @@ import java.util.List;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
-
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.component.UIXForm;
@@ -116,13 +115,40 @@ public class RenderUtils
   {
     if ((relativeId == null) || (relativeId.length() == 0))
       return null;
-
+    
+    UIComponent parentNC;
     if (relativeId.charAt(0) == NamingContainer.SEPARATOR_CHAR)
-      return relativeId.substring(1);
-
-    UIComponent parentNC = _getParentNamingContainer(from.getParent());
-    if (parentNC == null)
-      return relativeId;
+    {
+      if (relativeId.length() > 1 && relativeId.charAt(1)
+        == NamingContainer.SEPARATOR_CHAR)
+      {
+        parentNC = _getParentNamingContainer(from.getParent());
+        int index = 2;
+        for (; index < relativeId.length() && relativeId.charAt(index) 
+          == NamingContainer.SEPARATOR_CHAR && parentNC != null; ++index)
+        {
+          parentNC = _getParentNamingContainer(parentNC.getParent());
+        }
+        if (parentNC == null || index >= relativeId.length())
+        {
+          // TODO: would it be better to return null from here?
+          return relativeId;
+        }
+        relativeId = relativeId.substring(index);
+      }
+      else
+      {
+        return relativeId.substring(1);
+      }
+    }
+    else
+    {
+      parentNC = _getParentNamingContainer(from.getParent());
+      if (parentNC == null)
+      {
+        return relativeId;
+      }
+    }
 
     return (parentNC.getClientId(context) +
             NamingContainer.SEPARATOR_CHAR + relativeId);
