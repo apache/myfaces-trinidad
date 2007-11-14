@@ -655,3 +655,28 @@ af|navigationPane::tabs-inactive af|navigationPane::tabs-bottom-end-join {
 }
 
 /* END the Tabs End */
+
+
+af|tree::node-icon:folder-expanded{
+    content: url(/skins/beach/images/yellow-folder-open.png);
+}
+
+af|tree::node-icon:folder-collapsed{
+    content: url(/skins/beach/images/yellow-folder-closed.png);
+}
+
+af|tree::node-icon:document{
+    content: url(/skins/beach/images/document.png);
+}
+
+af|treeTable::node-icon:folder-expanded{
+    content: url(/skins/beach/images/yellow-folder-open.png);
+}
+
+af|treeTable::node-icon:folder-collapsed{
+    content: url(/skins/beach/images/yellow-folder-closed.png);
+}
+
+af|treeTable::node-icon:document{
+    content: url(/skins/beach/images/document.png);
+}

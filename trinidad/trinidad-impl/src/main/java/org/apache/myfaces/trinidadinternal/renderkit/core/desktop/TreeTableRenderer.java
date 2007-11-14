@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -93,9 +93,9 @@ public class TreeTableRenderer extends DesktopTableRenderer
   {
     decodeSelection(context, component);
 
-    Map<String, String> parameters = 
+    Map<String, String> parameters =
       context.getExternalContext().getRequestParameterMap();
-    
+
     Object source = parameters.get(XhtmlConstants.SOURCE_PARAM);
     if (component.getClientId(context).equals(source))
     {
@@ -164,7 +164,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
 
     TreeUtils.setDefaultFocusRowKey((UIXTree) component);
     TreeUtils.expandFocusRowKey((UIXTree) component);
-    
+
     super.encodeAll(context, arc, component, bean);
 
     // have we rendered the script before?
@@ -260,14 +260,47 @@ public class TreeTableRenderer extends DesktopTableRenderer
                                       tContext.getJSVarName(),
                                       true /*isExpand*/);
        renderControlBarLink(context, arc, onclick, _EXPAND_ALL_TEXT_KEY,
+                           arc.getIcon(SkinSelectors.AF_TREE_TABLE_EXPAND_ALL_ICON_NAME),
                             preId+"eAll", true);
       onclick =
             TreeUtils.callJSExpandAll(hContext.getUIXTreeTable(),
                                       tContext.getJSVarName(),
                                       false /*isExpand*/);
        renderControlBarLink(context, arc, onclick, _COLLAPSE_ALL_TEXT_KEY,
+                           arc.getIcon(SkinSelectors.AF_TREE_TABLE_COLLAPSE_ALL_ICON_NAME),
                             preId+"cAll", useDivider);
     }
+  }
+
+  protected void renderControlBarLink(
+      FacesContext context,
+      RenderingContext arc,
+      String onclick,
+      String translationKey,
+      Icon icon,
+      String id,
+      boolean hasDivider
+  ) throws IOException
+  {
+    ResponseWriter writer = context.getResponseWriter();
+    writer.startElement("a", null);
+    writer.writeAttribute(XhtmlConstants.ID_ATTRIBUTE, id, null);
+    renderStyleClass(context, arc, SkinSelectors.NAV_BAR_ALINK_STYLE_CLASS);
+    writer.writeAttribute("onclick", onclick, null);
+    writer.writeURIAttribute("href", "#", null);
+    if (icon != null)
+    {
+      OutputUtils.renderIcon(context, arc, icon, arc.getTranslatedString(translationKey),
+                             null);
+    } else
+    {
+      writer.writeText(arc.getTranslatedString(translationKey), null);
+    }
+
+    writer.endElement("a");
+
+    if (hasDivider)
+      writer.writeText(LINKS_DIVIDER_TEXT, null);
   }
 
   protected boolean isExpandAllEnabled(UIComponent component)
@@ -365,7 +398,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
 
     return !Boolean.FALSE.equals(bean.getProperty(_rootNodeRendered));
   }
-  
+
   //
   // Private methods
   //
@@ -473,7 +506,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
           renderSingleRow(context, arc, ttrc, treeTableBase);
           writer.endElement(XhtmlConstants.TABLE_ROW_ELEMENT);
         }
-        
+
 //
   //        if (hasInvisibleNodes)
   //        {
@@ -635,9 +668,9 @@ public class TreeTableRenderer extends DesktopTableRenderer
   protected Map<String, String> createResourceKeyMap()
   {
     Map<String, String> tablemap = super.createResourceKeyMap();
-    Map<String, String> map = 
+    Map<String, String> map =
       ResourceKeyUtils.convertResourceKeyMap(tablemap, "table", "treeTable");
-    
+
     // we need a resource key map since we are using a navigationPath.
     // and we are using table for the styles
     map.put(SkinSelectors.AF_NAVIGATION_PATH_SEPARATOR_ICON_NAME,
@@ -652,7 +685,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
             SkinSelectors.AF_TREE_TABLE_CONTROL_BAR_TOP_STYLE);
     map.put(SkinSelectors.AF_TABLE_CONTROL_BAR_BOTTOM_STYLE,
             SkinSelectors.AF_TREE_TABLE_CONTROL_BAR_BOTTOM_STYLE);
-    
+
     return Collections.unmodifiableMap(map);
   }
 

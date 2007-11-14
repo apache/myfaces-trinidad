@@ -40,6 +40,7 @@ public class DemoTreeData extends ArrayList<TreeNodeImpl>
     TreeNodeImpl data = new TreeNodeImpl();
     data.setText(text);
     data.setDestination( "http://www.oracle.com");
+    data.setNodeType("document");
     return data;
   }
 
@@ -68,19 +69,23 @@ public class DemoTreeData extends ArrayList<TreeNodeImpl>
     list_0.add(node_0_4);
     list_0.add(node_0_5);
     node_0.setChildren(list_0);
+    node_0.setNodeType("folder");
 
     ArrayList<TreeNodeImpl> list_0_0 = new ArrayList<TreeNodeImpl>();
     list_0_0.add(node_0_0_0);
     list_0_0.add(node_0_0_1);
     node_0_0.setChildren(list_0_0);
+    node_0_0.setNodeType("folder");
 
     ArrayList<TreeNodeImpl> list_0_0_0 = new ArrayList<TreeNodeImpl>();
     list_0_0_0.add(node_0_0_0_0);
     node_0_0_0.setChildren(list_0_0_0);
+    node_0_0_0.setNodeType("folder");
 
     ArrayList<TreeNodeImpl> list_0_1 = new ArrayList<TreeNodeImpl>();
     list_0_1.add(node_0_1_0);
     list_0_1.add(node_0_1_1);
     node_0_1.setChildren(list_0_1);
+    node_0_1.setNodeType("folder");
   }
 }
