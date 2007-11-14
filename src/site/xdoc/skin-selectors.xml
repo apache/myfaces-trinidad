@@ -4206,6 +4206,93 @@ panelTip.</td>
             <td>Changing this icon changes both af|breadCrumbs::separator-icon and
                 af|treeTable::separator-icon</td>
           </tr>
+          <tr>
+            <td>af|treeTable::expand-all-icon</td>
+            <td>The expand-all link icon.</td>
+          </tr>
+          <tr>
+            <td>af|treeTable::collapse-all-icon</td>
+            <td>The collapse-all link icon.</td>
+          </tr>
+          <tr>
+            <td>af|treeTable::node-icon</td>
+            <td>This icon selector is used in the case the Node class has a getNodeType()
+              method that returns the node type as string. The nodetype gets added to this
+              selector separated by a ':'. If the node is a container (has children) the
+              following suffixes get added depending on the expanded/collapsed state:
+              '-expanded' / '-collapsed'. i.e.
+              "af|treeTable::node-icon:container-collapsed",
+              "af|treeTable::node-icon:container-expanded",
+              "af|treeTable::node-icon:noncontainer".
+            </td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="tr:tree Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Icon Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|tree::expanded-icon</td>
+            <td>This icon is displayed before the expanded tree node.</td>
+          </tr>
+          <tr>
+            <td>af|treeTable::collapsed-icon</td>
+            <td>This icon is displayed before the collapsed tree node.</td>
+          </tr>
+          <tr>
+            <td>af|treeTable::line-icon</td>
+            <td>This icon is used as a vertical line between the nodes.
+            </td>
+          </tr>
+          <tr>
+            <td>af|treeTable::line-middle-icon</td>
+            <td>This icon is used as the horizontal line in the background of the
+              expand/collapse icon of the node, in the case the node is not the last
+              sibling of its parent node.
+            </td>
+          </tr>
+          <tr>
+            <td>af|treeTable::line-last-icon</td>
+            <td>This icon is used as the horizontal line in the background of the
+              expand/collapse icon of the node, in the case the node is the last
+              sibling of its parent node.
+            </td>
+          </tr>
+          <tr>
+            <td>af|treeTable::node-icon</td>
+            <td>This icon selector is used in the case the Node class has a getNodeType()
+              method that returns the node type as string. The nodetype gets added to this
+              selector separated by a ':'. If the node is a container (has children) the
+              following suffixes get added depending on the expanded/collapsed state:
+              '-expanded' / '-collapsed'. e.g.
+              "af|treeTable::node-icon:container-collapsed",
+              "af|treeTable::node-icon:container-expanded",
+              "af|treeTable::node-icon:noncontainer".
+            </td>
+          </tr>
+          <tr>
+            <th colspan="2">
+              <i>Trinidad properties</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>-tr-show-lines</td>
+            <td>Valid values are true or false (default true).
+                Determines whether the tree lines are displayed or not. e.g., af|tree
+                {-tr-show-lines:false} will not show the lines of the tree.</td>
+          </tr>
         </table>
       </subsection>
     </section>

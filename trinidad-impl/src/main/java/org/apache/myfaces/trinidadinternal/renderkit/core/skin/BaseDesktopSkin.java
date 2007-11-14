@@ -48,6 +48,7 @@ public class BaseDesktopSkin extends XhtmlSkin
   {
     // Not sure where this comes from!
     setProperty(SkinProperties.AF_PANEL_BORDER_LAYOUT_SPACER_WIDTH, "2");
+    setProperty(SkinProperties.AF_TREE_SHOW_LINES, true);
   }
 
   /**
@@ -176,12 +177,14 @@ public class BaseDesktopSkin extends XhtmlSkin
     // HGrid icons
     // (treeTable)
     SkinSelectors.AF_TREE_TABLE_EXPANDED_ICON_NAME,
-      new MacOSSwitcherIcon(new TextIcon("\u25BC"), 
-                            new TextIcon("\u2193")),
+      new ContextImageIcon("adf/images/nav-minus.gif",
+                          19,
+                          18),
 
     SkinSelectors.AF_TREE_TABLE_COLLAPSED_ICON_NAME,
-      new MacOSSwitcherIcon(new TextIcon("\u25BA", "\u25C4"), 
-                            new TextIcon("\u2192", "\u2190")),
+      new ContextImageIcon("adf/images/nav-plus.gif",
+                          19,
+                          18),
 
     SkinSelectors.AF_TREE_TABLE_FOCUS_ICON_NAME,
       new TextIcon("X",
@@ -194,6 +197,31 @@ public class BaseDesktopSkin extends XhtmlSkin
                    null,
                    SkinSelectors.AF_TREE_TABLE_LOCATOR_ICON_STYLE_CLASS,
                    null),
+
+    SkinSelectors.AF_TREE_EXPANDED_ICON,
+      new ContextImageIcon("adf/images/nav-minus.gif",
+                          19,
+                          18),
+
+    SkinSelectors.AF_TREE_COLLAPSED_ICON,
+      new ContextImageIcon("adf/images/nav-plus.gif",
+                          19,
+                          18),
+
+    SkinSelectors.AF_TREE_LINE_ICON,
+      new ContextImageIcon("adf/images/tree-line-trunk.gif",
+                          19,
+                          18),
+
+    SkinSelectors.AF_TREE_LINE_MIDDLE_ICON,
+      new ContextImageIcon("adf/images/tree-line-middle.gif",
+                          19,
+                          18),
+
+    SkinSelectors.AF_TREE_LINE_LAST_ICON,
+      new ContextImageIcon("adf/images/tree-line-last.gif",
+                          19,
+                          18),
 
     // SelectInputText Icons
     SkinSelectors.AF_SELECT_INPUT_TEXT_BUTTON_ICON_NAME,

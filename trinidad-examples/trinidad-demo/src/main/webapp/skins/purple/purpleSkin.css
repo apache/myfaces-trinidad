@@ -876,3 +876,7 @@ af|navigationPane::tabs-inactive af|navigationPane::tabs-bottom-end-content {
 
 .AFFooIcon:alias {content:url(/skins/purple/images/btns.gif); width:7px; height:18px}
 .AFBarIcon {content:url(/skins/purple/images/btns.gif); width:7px; height:18px}
+
+af|tree {
+  -tr-show-lines:false;
+}
