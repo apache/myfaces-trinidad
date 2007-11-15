@@ -19,8 +19,11 @@
 package org.apache.myfaces.trinidadinternal.convert;
 
 import java.io.IOException;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -44,6 +47,7 @@ import org.apache.myfaces.trinidad.util.MessageFactory;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
 import org.apache.myfaces.trinidadinternal.util.JsonUtils;
+
 
 /**
  * <p>
@@ -150,7 +154,8 @@ public class DateTimeConverter extends
       _LOG
           .severe("The component is null, but it is needed for the client id, so no script written");
       return null;
-    }
+    }    
+        
     // Add a JavaScript Object to store the datefield formats
     // on the client-side. We currently store the format string
     // for each and every field. It'd be more efficient to have
@@ -170,11 +175,12 @@ public class DateTimeConverter extends
       // this fetch could be at the place where we append, but has been
       // moved ahead to optimize use of StringBuilder
       String jsPattern = getJSPattern(context);
+      String loc = _getLocaleString (context);
 
       // FIX - figure out size!!!
-      // 65 chars for javascript + length of jspattern + 12 chars for
+      // 127 chars for javascript + length of jspattern + locale + 12 chars for
       // tranforming to name in the worst case.
-      StringBuilder buff = new StringBuilder(77 + jsPattern.length());
+      StringBuilder buff = new StringBuilder(139 + jsPattern.length() + loc.length());
 
       if (requestMap.get(_PATTERN_WRITTEN_KEY) == null)
       {
@@ -182,13 +188,19 @@ public class DateTimeConverter extends
         // only create the _dfs object if it doesn't exist, so we don't
         // wipe out _dfs[xxx] values if we ppr the first date field on a
         // page with multiple date fields.
-        buff.append("if(window['_dfs'] == undefined){var _dfs=new Object();}");
+        buff.append("if(window['_dfs'] == undefined){var _dfs=new Object();}if(window['_dl'] == undefined){var _dl=new Object();}");
       }
 
       buff.append("_dfs[\"");
       buff.append(clientId);
       buff.append("\"]=");
       buff.append(jsPattern);
+      buff.append(";");
+
+      buff.append("_dl[\"");
+      buff.append(clientId);
+      buff.append("\"]=");
+      buff.append(loc);
       buff.append(";");
 
       return buff.toString();
@@ -202,13 +214,6 @@ public class DateTimeConverter extends
 
   public String getClientConversion(FacesContext context, UIComponent component)
   {
-    // for now, we are disabling the client-side validation when the
-    // locale is not the page's locale.
-    if (_isDifferentLocale())
-    {
-      return null;
-    }
-
     String jsPattern = getJSPattern(context);
     Map<String, String> messages = new HashMap<String, String>();
     if (jsPattern != null)
@@ -244,7 +249,17 @@ public class DateTimeConverter extends
       StringBuilder outBuffer = new StringBuilder();
       outBuffer.append("new TrDateTimeConverter(");
       outBuffer.append(jsPattern);
-      outBuffer.append(",null,'");
+      Locale loc = getLocale ();
+      if (loc != null)
+      {
+        outBuffer.append(",'");
+        outBuffer.append (loc.toString());
+        outBuffer.append ("','");        
+      }
+      else
+      {
+        outBuffer.append (",null,'");
+      }
       outBuffer.append(exampleString);
       outBuffer.append("','");
       outBuffer.append(escapedType);
@@ -278,7 +293,24 @@ public class DateTimeConverter extends
 
   public Collection<String> getClientImportNames()
   {
-    return _IMPORT_NAMES;
+    // Load the library for the different locale, so that the locale elements
+    // are available for the client converter and validator.
+    if (_isDifferentLocale())
+    {
+      ArrayList<String> names = new ArrayList<String>(2);
+      names.add ("TrDateTimeConverter()");
+      // Load NamedLocaleInfoScriptlet  "LocaleInfo_<locale>"
+      String sloc =  getLocale().toString();
+      StringBuffer sb = new StringBuffer (11 + sloc.length());
+      sb.append ("LocaleInfo_");
+      sb.append (sloc);
+      names.add (sb.toString());
+      return names;
+    }
+    else
+    {
+      return _IMPORT_NAMES;
+    }
   }
 
   public String getClientLibrarySource(FacesContext context)
@@ -516,6 +548,26 @@ public class DateTimeConverter extends
       buffer.append("']");
     }
     return buffer.toString();
+  }
+  
+  private String _getLocaleString (FacesContext context)
+  {
+    Locale dateTimeConverterLocale = getLocale();
+    if (dateTimeConverterLocale != null)
+    {
+      Locale defaultLocale = RenderingContext.getCurrentInstance()
+          .getLocaleContext().getFormattingLocale();
+      if (!(dateTimeConverterLocale.equals (defaultLocale)))
+      {
+        String loc = dateTimeConverterLocale.toString();
+        StringBuffer sb = new StringBuffer (2 + loc.length());
+        sb.append ("'");
+        sb.append (loc);
+        sb.append ("'");
+        return (sb.toString());
+      }
+    }
+    return "null";    
   }
 
   // Bug 4570591

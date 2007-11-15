@@ -23,14 +23,15 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Locale;
 
-import javax.faces.context.ResponseWriter;
 import javax.faces.context.FacesContext;
-import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidad.context.LocaleContext;
+import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.LocaleList;
+import org.apache.myfaces.trinidad.context.LocaleContext;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.LocaleList;
+
 
 /**
  * Scriptlet for registering locale information.
@@ -113,8 +114,7 @@ class LocaleInfoScriptlet extends LibraryScriptlet
     FacesContext        context,
     RenderingContext arc)
   {
-    Locale elementsLocale = _getJSLocaleElementsLocale(
-                                    arc.getLocaleContext().getFormattingLocale());
+    Locale elementsLocale = _getJSLocaleElementsLocale(getFormattingLocale(arc));
     String var = getSupportedLocaleVariant(arc);
     if (var != null)
     {
@@ -134,6 +134,10 @@ class LocaleInfoScriptlet extends LibraryScriptlet
     buffer.append(locStr);
     return buffer.toString();
   }
+
+    protected Locale getFormattingLocale(RenderingContext arc) {
+      return arc.getLocaleContext().getFormattingLocale();
+    }
 
   /**
    * Returns the locale variant type to use when formatting dates. The locale
@@ -155,7 +159,7 @@ class LocaleInfoScriptlet extends LibraryScriptlet
 
     return null;
   }
-
+  
   /**
    * Returns the Locale to use for loading a JavaScript resource,
    * given an input Locale
@@ -199,6 +203,7 @@ class LocaleInfoScriptlet extends LibraryScriptlet
       return outLocale;
     }        
   }
+  
 
   static private final String    _RESOURCE_BASE = "resources/LocaleElements_";
   static private final Scriptlet _sInstance = new LocaleInfoScriptlet();
