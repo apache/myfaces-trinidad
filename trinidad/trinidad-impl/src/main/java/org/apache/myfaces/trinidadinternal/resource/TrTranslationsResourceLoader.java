@@ -18,9 +18,14 @@
  */
 package org.apache.myfaces.trinidadinternal.resource;
 
+import java.io.IOException;
+
+import java.util.Map;
+
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.skin.Skin;
+
 
 public class TrTranslationsResourceLoader extends TranslationsResourceLoader
 {
@@ -66,5 +71,28 @@ public class TrTranslationsResourceLoader extends TranslationsResourceLoader
   protected Skin getSkin(FacesContext context)
   {
     return null;
+  }
+  
+  /*
+   * Override to return empty content when loading translations for
+   * something other than the page locale. This can happen if components
+   * on the page have a different locale than the page. 
+   */
+  @Override
+  protected String getString(String path) throws IOException
+  {
+    FacesContext context = FacesContext.getCurrentInstance();
+    Map params = context.getExternalContext().getRequestParameterMap();
+    
+    boolean skipTranslations = "true".equals(params.get("skipTranslations"));
+    if (skipTranslations)
+    {
+      return "";
+    }
+    else
+    {
+      return (super.getString (path));
+    }
+    
   }
 }

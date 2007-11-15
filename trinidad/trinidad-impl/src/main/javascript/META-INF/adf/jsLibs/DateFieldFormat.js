@@ -22,8 +22,12 @@ function _getDateFieldFormat(dateField)
   if (name && _dfs)
   {
     var format = _dfs[name];
-    if (format)
-      return new TrDateTimeConverter(format);
+    if (_dl)
+    {
+      var locale = _dl[name];
+      return new TrDateTimeConverter (format, locale);
+    }
+   return new TrDateTimeConverter(format);
   }
 
   return new TrDateTimeConverter();
@@ -47,4 +51,5 @@ function _fixDFF(dateField)
     }
   }
 }
+
 
