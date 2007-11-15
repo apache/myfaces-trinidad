@@ -54,10 +54,16 @@ public class FacesBeanFactory
     FacesBean bean = createFacesBean(className, rendererType);
 
     if (bean == null && rendererType != null)
+    {
       bean = createFacesBean(className, null);
-
+      _cacheFacesBeanClass(bean, className, rendererType);
+    }
+    
     if (bean == null)
+    {
       bean = createFacesBean(ownerClass.getSuperclass(), rendererType);
+      _cacheFacesBeanClass(bean, className, rendererType);
+    }
 
     return bean;
   }
@@ -66,32 +72,44 @@ public class FacesBeanFactory
     String beanType,
     String rendererType)
   {
-    String typeKey = (rendererType != null)
-                        ? beanType + "|" + rendererType
-                        : beanType;
+    String typeKey = _buildTypeKey(beanType, rendererType);
 
-    String className = (String) _TYPES_MAP.get(typeKey);
-    if (className == null)
-      return null;
-
+    Class<?> type = _TYPES_CLASS.get(typeKey);
+      
+    if(type == null)
+    {
+      String className = (String) _TYPES_MAP.get(typeKey);
+      if (className == null)
+        return null;
+      
+      // At this point we did not have a cached FacesBean class for the
+      // typeKey, but we did have a cached className for the typeKey.
+      //  Get the FacesBean class from the className and cache.
+      // This will improve performance based on tests.
+      try
+      {
+        type = _getClassLoader().loadClass(className);
+        _TYPES_CLASS.put(typeKey, type);
+      }
+      catch (ClassNotFoundException cnfe)
+      {
+        _LOG.severe("CANNOT_FIND_FACESBEAN", className);
+        _LOG.severe(cnfe);
+      }
+    }
+  
     try
     {
-      Class<?> type = _getClassLoader().loadClass(className);
       return (FacesBean) type.newInstance();
-    }
-    catch (ClassNotFoundException cnfe)
-    {
-      _LOG.severe("CANNOT_FIND_FACESBEAN", className);
-      _LOG.severe(cnfe);
     }
     catch (IllegalAccessException iae)
     {
-      _LOG.severe("CANNOT_CREATE_FACESBEAN_INSTANCE", className);
+      _LOG.severe("CANNOT_CREATE_FACESBEAN_INSTANCE", type.getName());
       _LOG.severe(iae);
     }
     catch (InstantiationException ie)
     {
-      _LOG.severe("CANNOT_CREATE_FACESBEAN_INSTANCE", className);
+      _LOG.severe("CANNOT_CREATE_FACESBEAN_INSTANCE", type.getName());
       _LOG.severe(ie);
     }
 
@@ -167,8 +185,43 @@ public class FacesBeanFactory
     return loader;
   }
 
+  /* given non-null beanType & rendererType, concatenate together with 
+   * a '|' in between
+   */
+  static private String _buildTypeKey(
+    String beanType, 
+    String rendererType)
+  {
+    if (rendererType != null)
+    {
+      int length = beanType.length() + 1 + rendererType.length();
+      StringBuilder typeKeyBuilder = new StringBuilder(length);
+      
+      typeKeyBuilder.append(beanType).append('|').append(rendererType);
+      
+      return typeKeyBuilder.toString();
+    }
+    else
+      return beanType;
+    
+  }
+  
+  static private void _cacheFacesBeanClass(
+    FacesBean bean,
+    String beanType, 
+    String rendererType)
+  {
+    // cache the typeKey and the bean's class, for performance
+    if(bean != null)
+    {
+      String typeKey = _buildTypeKey(beanType, rendererType);
+      _TYPES_CLASS.put(typeKey, bean.getClass());
+    }
+  }
+
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(FacesBeanFactory.class);
-  static private       Map<Object, Object> _TYPES_MAP;
+  static private Map<Object, Object> _TYPES_MAP;
+  static private Map<String, Class<?>> _TYPES_CLASS = new HashMap<String, Class<?>>();
 
   static
   {
