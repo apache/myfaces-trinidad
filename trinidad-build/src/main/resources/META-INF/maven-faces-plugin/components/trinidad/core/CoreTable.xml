@@ -197,8 +197,8 @@ detail-disclosure.
         </f:facet>
         ...
       </tr:column>
-      <tr:column>
-        <f:facet name="header" sortProperty="lastname" sortable="true">
+      <tr:column sortProperty="lastname" sortable="true">
+        <f:facet name="header">
           <tr:outputText value="Lastname" />
         </f:facet>
         ...
