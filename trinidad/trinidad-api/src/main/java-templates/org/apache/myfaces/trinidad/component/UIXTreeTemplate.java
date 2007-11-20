@@ -20,20 +20,20 @@ package org.apache.myfaces.trinidad.component;
 
 import java.io.IOException;
 
-import java.util.Set;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
+
+import org.apache.myfaces.trinidad.event.RowDisclosureEvent;
+import org.apache.myfaces.trinidad.event.SelectionEvent;
 import org.apache.myfaces.trinidad.model.CollectionModel;
 import org.apache.myfaces.trinidad.model.ModelUtils;
 import org.apache.myfaces.trinidad.model.RowKeySet;
 import org.apache.myfaces.trinidad.model.RowKeySetTreeImpl;
 import org.apache.myfaces.trinidad.model.TreeModel;
-import org.apache.myfaces.trinidad.event.SelectionEvent;
 
 /**
  * Base class for Tree component.
@@ -47,6 +47,7 @@ abstract public class UIXTreeTemplate extends UIXHierarchy
 /**/  public abstract void setSelectedRowKeys(RowKeySet keys);
 /**/  public abstract MethodBinding getRowDisclosureListener();
 /**/  public abstract UIComponent getNodeStamp();
+/**/  public abstract boolean isInitiallyExpanded();
   
   /**
    * Sets the phaseID of UI events depending on the "immediate" property.
@@ -118,5 +119,40 @@ abstract public class UIXTreeTemplate extends UIXHierarchy
       setDisclosedRowKeys(new RowKeySetTreeImpl());
     if (getSelectedRowKeys() == null)
       setSelectedRowKeys(new RowKeySetTreeImpl());
+  }
+  
+  private final static String EXPAND_ONCE_KEY = "initialExpandCompleted";
+
+  /**
+   * @see org.apache.myfaces.trinidad.component.UIXCollection#__encodeBegin(javax.faces.context.FacesContext)
+   */
+  @Override @SuppressWarnings("unchecked")
+  protected void __encodeBegin(FacesContext context) throws IOException
+  {
+    if (isInitiallyExpanded() && !Boolean.TRUE.equals(getAttributes().get(EXPAND_ONCE_KEY)))
+    {
+      Object rowKey = getFocusRowKey();
+      if (rowKey == null)
+      {
+        int oldIndex = getRowIndex();
+        setRowIndex(0);
+        rowKey = getRowKey();
+        setRowIndex(oldIndex);
+      }
+
+      setRowKey(rowKey);
+      RowKeySet old = getDisclosedRowKeys();
+      RowKeySet newset = old.clone();
+      newset.addAll();
+      
+      // use an event to ensure the row disclosure listener is called 
+      broadcast(new RowDisclosureEvent(old, newset, this));
+      
+      // use attributes to store that we have processed the initial expansion
+      // as there is no support for private properties in the plug-in at the
+      // moment
+      getAttributes().put(EXPAND_ONCE_KEY, Boolean.TRUE);
+    }
+    super.__encodeBegin(context);    
   }
 }
