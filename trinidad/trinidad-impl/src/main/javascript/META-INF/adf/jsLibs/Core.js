@@ -44,7 +44,7 @@ var _blockOnEverySubmit = false;
 var _pprFirstClickPass = false;
 
 // We block using a special DIV element. This is its name
-var _pprdivElementName = '_pprBlockingDiv';
+var _pprdivElementName = 'tr_pprBlockingDiv';
 
 // stores the variables needed to load the libraries for IE
 var _pprLibStore;
