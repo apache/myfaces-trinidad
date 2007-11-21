@@ -2795,6 +2795,12 @@ function _formatErrorString(
       currValue = "";
     }
 
+    // TRINIDAD-829:
+    // we replace '{' and '}' to ensure, that tokens containing values
+    // like {3} aren't parsed more than once...
+    currValue = currValue.replace("{","{'");
+    currValue = currValue.replace("}","'}");
+
     // the tokens are delimited by '{' before and '}' after the token
     var currRegExp = "{" + currToken + "}";
 
@@ -2842,12 +2848,20 @@ function _formatErrorString(
     }
  }
 
+  // TRINIDAD-829:
+  // we finally re-replace the '{' and '}'...
+  while(currString.indexOf("{'")!=-1)
+  {
+    currString= currString.replace("{'","{");
+    currString= currString.replace("'}","}");
+  }
+
   // And now take any doubled-up single quotes down to one,
   // to handle escaping
   var twoSingleQuotes = /''/g;
+  
   return currString.replace(twoSingleQuotes, "'");
 }
-
 
 /**
  * Chain two functions together returning whether the default
