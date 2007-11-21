@@ -183,7 +183,7 @@ public class PanelPartialRootRenderer extends XhtmlRenderer
 
 
   // Div element used for blocking
-  private static final String _PARTIAL_DIV_ID  = "_pprBlockingDiv";
+  private static final String _PARTIAL_DIV_ID  = "tr_pprBlockingDiv";
   private static final String _PARTIAL_DIV_CLICK_HANDLER =
           "return _pprConsumeClick(event);";
   private static final String _PARTIAL_DIV_EAT_KEY_HANDLER = "return false;";
