@@ -26,10 +26,13 @@
     <validator-id>org.apache.myfaces.trinidad.DateTimeRange</validator-id>
     <validator-class>org.apache.myfaces.trinidadinternal.validator.DateTimeRangeValidator</validator-class>
     <property>
-      <description><![CDATA[the maximum java.util.Date.
+      <description>
+             <![CDATA[the maximum java.util.Date.
            ISO 8601 date strings, of the form 'yyyy-MM-dd'
            (for example 2004-06-22) is also allowed.
-           This will be parsed to date.]]>
+           This will be parsed to date. When binding to Date objects, it is advised to create the Date object with 
+maximum value for any date-time components that aren't displayed (usually hours, minutes, seconds, milliseconds) 
+to allow the largest range of values to be accepted.]]>
       </description>
       <property-name>maximum</property-name>
       <property-class>java.util.Date</property-class>
@@ -40,10 +43,13 @@
       </property-extension>
     </property>
     <property>
-      <description><![CDATA[The minimum java.util.Date.
+      <description>
+             <![CDATA[The minimum java.util.Date.
            ISO 8601 date strings, of the form 'yyyy-MM-dd'
            (for example 2004-06-22) are also allowed.
-           This will be parsed to date.]]>
+           This will be parsed to date. When binding to Date objects, it is advised to create the Date object with zeroed-out
+values for any date-time components that aren't displayed (usually hours, minutes, seconds, milliseconds)
+to allow the largest range of values to be accepted.]] ]]>
       </description>
       <property-name>minimum</property-name>
       <property-class>java.util.Date</property-class>

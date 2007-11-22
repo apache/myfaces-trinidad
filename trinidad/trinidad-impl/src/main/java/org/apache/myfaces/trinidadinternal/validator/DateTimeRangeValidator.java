@@ -26,10 +26,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.EditableValueHolder;
 import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
 import javax.faces.validator.ValidatorException;
 
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.validator.ClientValidator;
+import org.apache.myfaces.trinidadinternal.convert.DateTimeConverter;
 import org.apache.myfaces.trinidadinternal.convert.GenericConverterFactory;
 import org.apache.myfaces.trinidadinternal.util.JsonUtils;
 
@@ -81,8 +85,20 @@ public class DateTimeRangeValidator extends org.apache.myfaces.trinidad.validato
   {
     Date max = getMaximum();
     Date min = getMinimum();
-    String maxStr = (max == null) ? "null" : Long.toString(max.getTime());
-    String minStr = (min == null) ? "null" : Long.toString(min.getTime());
+    
+    if (!(component instanceof EditableValueHolder))
+    {
+      _LOG.warning("DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER", component.getId());
+      return null;
+    }
+    Converter conv = ((EditableValueHolder)component).getConverter();
+    if (conv == null)
+    {
+      conv = FacesContext.getCurrentInstance().getApplication().createConverter(Date.class);
+    }
+    
+    String maxStr = (max == null || conv == null) ? "null" : "'" + conv.getAsString(context, component, max)  + "'";
+    String minStr = (min == null || conv == null) ? "null" : "'" + conv.getAsString(context, component, min)  + "'";
     
     String messageDetailMax = this.getMessageDetailMaximum();
     String messageDetailMin = this.getMessageDetailMinimum();
@@ -146,7 +162,9 @@ public class DateTimeRangeValidator extends org.apache.myfaces.trinidad.validato
   }
 
   
-  private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "TrNumberConverter()" );
+  private static final TrinidadLogger _LOG = TrinidadLogger
+      .createTrinidadLogger(DateTimeRangeValidator.class);
+ private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "TrNumberConverter()" );
   
   
 }
