@@ -18,7 +18,9 @@
  */
 package org.apache.myfaces.trinidaddemo;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class DateBean implements java.io.Serializable
 {
@@ -29,8 +31,27 @@ public class DateBean implements java.io.Serializable
     _date2 = new Date();
     _date3 = new Date();
     _date4 = new Date();
+    _date5 = new Date();
     _minDate = new Date(System.currentTimeMillis() - 24 * 60 * 60 * 1000);
     _maxDate = new Date();
+    Calendar now = Calendar.getInstance();
+    Calendar clone = Calendar.getInstance();
+    clone.clear();
+    clone.set (Calendar.YEAR, now.get(Calendar.YEAR));
+    clone.set (Calendar.MONTH, now.get(Calendar.MONTH));
+    clone.set (Calendar.DATE, now.get(Calendar.DATE));
+    clone.set (Calendar.HOUR_OF_DAY, 0);
+    clone.set (Calendar.MINUTE, 0);
+    clone.set (Calendar.SECOND, 0);
+    clone.set (Calendar.MILLISECOND, 0);
+    _todayFromMidnight = new Date();
+    _todayFromMidnight.setTime(clone.getTime().getTime());  
+    clone.set (Calendar.HOUR_OF_DAY, 23);
+    clone.set (Calendar.MINUTE, 59);
+    clone.set (Calendar.SECOND, 59);
+    clone.set (Calendar.MILLISECOND, 999);
+    _tonightNearMidnight = clone.getTime();
+    
   }
 
   public String action()
@@ -78,6 +99,16 @@ public class DateBean implements java.io.Serializable
     _date4 = date;
   }
 
+  public Date getDate5()
+  {
+    return _date5;
+  }
+
+  public void setDate5(Date date)
+  {
+    _date5 = date;
+  }
+
   public void setMinDate(Date minDate)
   {
     _minDate = minDate;
@@ -108,11 +139,34 @@ public class DateBean implements java.io.Serializable
     return;
   }
 
+  public Date getTodayFromMidnight()
+  {
+    return _todayFromMidnight;
+  }
+
+  public void setTodayFromMidnight(Date date)
+  {
+    return;
+  }
+
+  public Date getTonightNearMidnight()
+  {
+    return _tonightNearMidnight;
+  }
+
+  public void setTonightNearMidnight(Date date)
+  {
+    return;
+  }
+
   private Date _date1;
   private Date _date2;
   private Date _date3;
   private Date _date4;
+  private Date _date5;
   private Date _minDate;
   private Date _maxDate;
+  private Date _todayFromMidnight;
+  private Date _tonightNearMidnight;
 
 }

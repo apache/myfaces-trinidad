@@ -17,7 +17,6 @@
  *  under the License.
  */
 
-
 // External variables used:
 //  _df2DYS: Sets the two-digit year start.
 
@@ -733,10 +732,12 @@ function _subparse(
           }
           
           // accumulate the hour offset number
-          if(_accumulateNumber(parseContext, 2) == null)
+          var hourOffset = _accumulateNumber(parseContext, 2);
+          if(hourOffset == null)
           {
             return false;
           }
+          parseContext.hourOffset = hourOffset;
           
           // consume the separator between HH and mm
           if (!_matchText(parseContext, ":"))
@@ -745,11 +746,13 @@ function _subparse(
           }
           
           // accumulate minute offset number (should have 2 digits)
+          var minOffset;
           if(((parseContext.parseString.length - parseContext.currIndex) < 2) ||
-             _accumulateNumber(parseContext, 2) == null)
+             (minOffset = _accumulateNumber(parseContext, 2)) == null)
           {
             return false;
           }
+          parseContext.minOffset = minOffset;
         }
       }
       break;
@@ -769,16 +772,20 @@ function _subparse(
         }
           
         // accumulate the hour offset number
-        if(_accumulateNumber(parseContext, 2) == null)
+        var hourOffset = _accumulateNumber(parseContext, 2)
+        if(hourOffset == null)
         {
           return false;
         }
-          
+        parseContext.hourOffset = hourOffset;
+        
         // accumulate the minute offset number
-        if(_accumulateNumber(parseContext, 2) == null)
+        var minOffset = _accumulateNumber(parseContext, 2)
+        if(minOffset == null)
         {
           return false;
         }
+        parseContext.minOffset = null;
       }
       break;
     
@@ -1277,6 +1284,8 @@ TrDateTimeConverter.prototype._simpleDateParseImpl = function(
   parseContext.parsedFullYear = null;
   parseContext.parsedMonth = null;
   parseContext.parsedDate = null;
+  parseContext.hourOffset = null;
+  parseContext.minOffset = null;
   parseContext.parseException = new TrConverterException( msg);
 
   var parsedTime = new Date(0);
@@ -1293,6 +1302,16 @@ TrDateTimeConverter.prototype._simpleDateParseImpl = function(
     {
       throw parseContext.parseException;
     }
+
+    // give up instantly if we encounter timezone because
+    // the client can never correctly convert to a milliseconds
+    // value accurately due to lack of timezone and Daylight savings
+    // rules in Javascript
+    // Undefined is used in _multiValidate as a flag to skip
+    // validation and avoid required errors (which returning null would trigger)
+    if ((parseContext.hourOffset != null) || 
+       (parseContext.minOffset != null))
+      return undefined;
 
     // Set the parsed year, if any;  adjust for AD vs. BC
     var year = parseContext.parsedFullYear;
@@ -1352,7 +1371,7 @@ TrDateTimeConverter.prototype._simpleDateParseImpl = function(
     {
       throw parseContext.parseException;
     }
-
+      
     //correct Date Time ?
     if(this._offset)
     {
