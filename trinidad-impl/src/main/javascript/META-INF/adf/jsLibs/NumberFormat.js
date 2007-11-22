@@ -518,9 +518,9 @@ TrNumberFormat.prototype._formatFractions = function(fracs)
 
   if(fracsLength > maxFra)
   {
-    fracs = fracs.substring(0,maxFra-1);
+    fracs = fracs.substring(0, maxFra);
   }
-  else if(fracsLength <minFra)
+  if(fracsLength <minFra)
   {
     var gap = minFra-fracsLength;
     
