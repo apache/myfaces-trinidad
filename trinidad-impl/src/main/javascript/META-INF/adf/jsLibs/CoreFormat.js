@@ -574,10 +574,10 @@ TrDateTimeRangeValidator.prototype.getHints = function(
 {
   var max = null;
   var min = null;
-  if(this._maxValue)
-    max = converter.getAsString(new Date(this._maxValue));
-  if(this._minValue)
-    min = converter.getAsString(new Date(this._minValue));
+  if (this._maxValue)
+    max = this._maxValue;
+  if (this._minValue)
+    min = this._minValue;
 
   return _returnRangeHints(
     this._messages,
@@ -602,8 +602,17 @@ TrDateTimeRangeValidator.prototype.validate  = function(
   //range
   if(this._minValue && this._maxValue)
   {
-    minDate = parseInt(this._minValue);
-    maxDate = parseInt(this._maxValue);
+    try
+    {
+      minDate = (converter.getAsObject (this._minValue)).getTime();
+      maxDate = (converter.getAsObject (this._maxValue)).getTime();
+    }
+    catch (e)
+    {
+      // Make the validator lenient: let the server convert/validate if 
+      // client conversion fails
+      return value;
+    }
     if(dateTime >= minDate && dateTime <= maxDate)
     {
       return value;
@@ -617,16 +626,16 @@ TrDateTimeRangeValidator.prototype.validate  = function(
                                         this._messages["range"],
                                         label,
                                         ""+converter.getAsString(value),
-                                        ""+converter.getAsString(new Date(this._minValue)),
-                                        ""+converter.getAsString(new Date(this._maxValue)));
+                                        ""+this._minValue,
+                                        ""+this._maxValue);
         }
       else
       {
           facesMessage = _createFacesMessage(key,
                                         label,
                                         ""+converter.getAsString(value),
-                                        ""+converter.getAsString(new Date(this._minValue)),
-                                        ""+converter.getAsString(new Date(this._maxValue)));
+                                        ""+this._minValue,
+                                        ""+this._maxValue);
       }
     }
   }
@@ -635,7 +644,17 @@ TrDateTimeRangeValidator.prototype.validate  = function(
     //only min
     if(this._minValue)
     {
-      minDate = parseInt(this._minValue);
+      try
+      {
+        minDate = (converter.getAsObject (this._minValue)).getTime();
+      }
+      catch (e)
+      {
+        // Make the validator lenient: let the server convert/validate if 
+        // client conversion fails
+        return value;
+      }
+
       if(dateTime >= minDate)
       {
         return value;
@@ -649,21 +668,31 @@ TrDateTimeRangeValidator.prototype.validate  = function(
                                         this._messages["min"],
                                         label,
                                         ""+converter.getAsString(value),
-                                        ""+converter.getAsString(new Date(this._minValue)));
+                                        ""+this._minValue);
         }
       else
       {
           facesMessage = _createFacesMessage(key,
                                         label,
                                         ""+converter.getAsString(value),
-                                        ""+converter.getAsString(new Date(this._minValue)));
+                                        ""+this._minValue);
       }
       }
     }
     //max only
     else if(this._maxValue)
     {
-      maxDate = parseInt(this._maxValue);
+      try
+      {
+      maxDate = (converter.getAsObject (this._maxValue)).getTime();
+        
+      }
+      catch (e)
+      {
+        // Make the validator lenient: let the server convert/validate if 
+        // client conversion fails
+        return value;
+      }
       if(dateTime <= maxDate)
       {
         return value;
@@ -677,14 +706,14 @@ TrDateTimeRangeValidator.prototype.validate  = function(
                                         this._messages["max"],
                                         label,
                                         ""+converter.getAsString(value),
-                                        ""+converter.getAsString(new Date(this._maxValue)));
+                                        ""+this._maxValue);
         }
         else
         {
           facesMessage = _createFacesMessage(key,
                                         label,
                                         ""+converter.getAsString(value),
-                                        ""+converter.getAsString(new Date(this._maxValue)));
+                                        ""+this._maxValue);
         }
       }
     }

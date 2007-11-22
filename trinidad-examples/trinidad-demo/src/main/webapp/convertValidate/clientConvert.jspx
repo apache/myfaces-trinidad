@@ -141,6 +141,22 @@
                 <tr:validateDateTimeRange minimum="2007-01-01"
                                           maximum="2007-12-31"/>
               </tr:inputText>
+              <tr:inputDate id="mdf4" value="#{date.date1}"
+                                    label="min validation with minimum set to today (since midnight)" columns="50" required="true">
+                <f:facet name="help">
+                  <tr:outputText value="examples of values that will fail validation: any date earlier than today"/>
+                </f:facet>
+                <tr:convertDateTime pattern="yyyy-MM-dd hh:mm:ss a"/>                                    
+                <tr:validateDateTimeRange minimum="#{date.todayFromMidnight}"/>
+              </tr:inputDate>
+              <tr:inputText id="mdf5" value="#{date.date2}"
+                                    label="date converter and a validator that sets a maximum date of tonight">
+                <f:facet name="help">
+                  <tr:outputText value="examples of values that will fail validation: any date later than tonight 11:59 PM"/>
+                </f:facet>
+                <tr:convertDateTime type="both"/>
+                <tr:validateDateTimeRange maximum="#{date.tonightNearMidnight}"/>
+              </tr:inputText>
             </tr:panelFormLayout>
             <tr:panelHeader text="Required"/>
             <tr:spacer height="10"/>
@@ -170,6 +186,7 @@
               </tr:inputText>
             </tr:panelFormLayout>
            </tr:panelHeader>
+           
             <tr:panelButtonBar>
               <tr:commandButton text="Submit"/>
             </tr:panelButtonBar>
