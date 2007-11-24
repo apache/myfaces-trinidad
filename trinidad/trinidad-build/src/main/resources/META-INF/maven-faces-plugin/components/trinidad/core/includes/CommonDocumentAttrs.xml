@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 --><faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin">
   <component>
@@ -29,7 +29,7 @@ with <a href="http://developer.mozilla.org/en/docs/Gecko's_%22Almost_Standards%2
 in standards rendering mode</li>
 <li>"quirks": renders HTML pages in quirks mode, and XHTML with
 a transitional doctype, but standards mode  (there is no quirks mode for
-XHTML). ]]>
+XHTML).</li></ul>]]>
       </description>
       <property-name>mode</property-name>
       <property-class>java.lang.String</property-class>
