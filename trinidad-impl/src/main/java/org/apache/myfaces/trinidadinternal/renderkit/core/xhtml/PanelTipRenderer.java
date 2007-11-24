@@ -85,9 +85,10 @@ public class PanelTipRenderer extends XhtmlRenderer
     // content
     rw.startElement("span", null);
     renderStyleClass(context, rc,  SkinSelectors.AF_PANEL_TIP_CONTENT_STYLE_CLASS);
-    rw.endElement("span");
 
     encodeAllChildren(context, component);
+
+    rw.endElement("span");
 
     rw.endElement("div");
   }
