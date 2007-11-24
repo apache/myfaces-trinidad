@@ -101,6 +101,13 @@ public class TrinidadELResolver
   public void setValue(ELContext elContext, Object base, Object property, 
                        Object value)
   {
+    if (PAGE_FLOW_SCOPE_VARIABLE_NAME.equals(base) ||
+        "processScope".equals(base))
+    {
+      Map m = RequestContext.getCurrentInstance().getPageFlowScope();
+      m.put(property, value);
+      elContext.setPropertyResolved(true);
+    }
   }
 
   public boolean isReadOnly(ELContext elContext, Object base, 
