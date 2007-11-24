@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
@@ -221,7 +222,7 @@ public class FacesBeanFactory
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(FacesBeanFactory.class);
   static private Map<Object, Object> _TYPES_MAP;
-  static private Map<String, Class<?>> _TYPES_CLASS = new HashMap<String, Class<?>>();
+  static private Map<String, Class<?>> _TYPES_CLASS = new ConcurrentHashMap<String, Class<?>>();
 
   static
   {
