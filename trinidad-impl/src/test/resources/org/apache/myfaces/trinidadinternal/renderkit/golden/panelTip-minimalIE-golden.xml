@@ -12,8 +12,8 @@
         <span
              class="af_panelTip_content"
             >
-          
-        </span>Tip content
+          Tip content
+        </span>
       </div>
 <!--AttributeTest[id,null]-->
 
@@ -30,8 +30,8 @@
         <span
              class="af_panelTip_content"
             >
-          
-        </span>Tip content
+          Tip content
+        </span>
       </div>
 <!--AttributeTest[inlineStyle,null]-->
 
@@ -49,8 +49,8 @@
         <span
              class="af_panelTip_content"
             >
-          
-        </span>Tip content
+          Tip content
+        </span>
       </div>
 <!--AttributeTest[rendered,false]-->
 
@@ -69,8 +69,8 @@
         <span
              class="af_panelTip_content"
             >
-          
-        </span>Tip content
+          Tip content
+        </span>
       </div>
 <!--AttributeTest[shortDesc,null]-->
 
@@ -88,8 +88,8 @@
         <span
              class="af_panelTip_content"
             >
-          
-        </span>Tip content
+          Tip content
+        </span>
       </div>
 <!--AttributeTest[styleClass,null]-->
 
@@ -106,8 +106,8 @@
         <span
              class="af_panelTip_content"
             >
-          
-        </span>Tip content
+          Tip content
+        </span>
       </div>
 <!--AttributeTest[onclick,null]-->
 
@@ -125,8 +125,8 @@
         <span
              class="af_panelTip_content"
             >
-          
-        </span>Tip content
+          Tip content
+        </span>
       </div>
 <!--AttributeTest[ondblclick,null]-->
 
@@ -144,8 +144,8 @@
         <span
              class="af_panelTip_content"
             >
-          
-        </span>Tip content
+          Tip content
+        </span>
       </div>
 <!--AttributeTest[onkeydown,null]-->
 
@@ -163,8 +163,8 @@
         <span
              class="af_panelTip_content"
             >
-          
-        </span>Tip content
+          Tip content
+        </span>
       </div>
 <!--AttributeTest[onkeypress,null]-->
 
@@ -182,8 +182,8 @@
         <span
              class="af_panelTip_content"
             >
-          
-        </span>Tip content
+          Tip content
+        </span>
       </div>
 <!--AttributeTest[onkeyup,null]-->
 
@@ -201,8 +201,8 @@
         <span
              class="af_panelTip_content"
             >
-          
-        </span>Tip content
+          Tip content
+        </span>
       </div>
 <!--AttributeTest[onmousedown,null]-->
 
@@ -220,8 +220,8 @@
         <span
              class="af_panelTip_content"
             >
-          
-        </span>Tip content
+          Tip content
+        </span>
       </div>
 <!--AttributeTest[onmousemove,null]-->
 
@@ -239,8 +239,8 @@
         <span
              class="af_panelTip_content"
             >
-          
-        </span>Tip content
+          Tip content
+        </span>
       </div>
 <!--AttributeTest[onmouseout,null]-->
 
@@ -258,8 +258,8 @@
         <span
              class="af_panelTip_content"
             >
-          
-        </span>Tip content
+          Tip content
+        </span>
       </div>
 <!--AttributeTest[onmouseover,null]-->
 
@@ -277,8 +277,8 @@
         <span
              class="af_panelTip_content"
             >
-          
-        </span>Tip content
+          Tip content
+        </span>
       </div>
 <!--AttributeTest[onmouseup,null]-->
 
@@ -296,7 +296,7 @@
         <span
              class="af_panelTip_content"
             >
-          
-        </span>Tip content
+          Tip content
+        </span>
       </div>
 </results>
