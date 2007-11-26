@@ -21,6 +21,7 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -120,6 +121,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     ) throws IOException
   {
     NavItemData navItemData = new NavItemData();
+    List<UIComponent> nonNavItemList = new ArrayList<UIComponent>();
     String renderingHint = _getHint(bean);
 
     UIComponent nodeStamp = _getStamp(component);
@@ -128,18 +130,27 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       // we aren't stamping, but rather have explicitly defined children:
       for(UIComponent child : (List<UIComponent>)component.getChildren())
       {
-        try
+        if (child.isRendered())
         {
-          UIXCommand navItem = (UIXCommand)child;
-          if (navItem.isRendered())
+          UIXCommand navItem;
+          if (child instanceof UIXCommand)
           {
+            navItem = (UIXCommand) child;
             // collect the information needed to render this nav item:
             _collectNavItemData(navItemData, navItem, -1, component);
           }
-        }
-        catch (ClassCastException cce)
-        {
-          _LOG.severe("ILLEGAL_COMPONENT_HIERARCHY_UIXCOMMAND_EXPECTED", cce);
+          else if(renderingHint == NavigationPaneRenderer._HINT_BAR || 
+                  renderingHint == NavigationPaneRenderer._HINT_BUTTONS)
+          {
+            navItemData.addItemData(null);
+            nonNavItemList.add(child);
+          }
+          else
+          {
+            // we don't support a non-command child for other hints.
+            _LOG.severe("ILLEGAL_COMPONENT_HIERARCHY_UIXCOMMAND_EXPECTED");
+            return;
+          }
         }
       }
     }
@@ -223,25 +234,29 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       _setStartDepthPath(component, 
                            ((UIXNavigationLevel)component).getLevel());
 
+      Iterator<UIComponent> iter = nonNavItemList.iterator();
       for (int i=0; i<visibleItemCount; i++)
       {
         Map<String, Object> currentItemData = navItemData.getItemData(i);
-        currentItemData.put("isFirst", (i == 0));
-        currentItemData.put("isLast", (i == lastRowIndex));
-        currentItemData.put("previousActive", previousActive);
-        currentItemData.put("nextActive", (i == nextActiveIndex));
-        Integer rowIndex = (Integer) currentItemData.get("rowIndex");
-        if (rowIndex != null)
-          component.setRowIndex(rowIndex.intValue());
-
-        _renderNavigationItem(
-          context,
-          arc,
-          rw,
-          currentItemData,
-          renderingHint,
-          isRtl);
-        previousActive = getBooleanFromProperty(currentItemData.get("isActive"));
+        //if currentItemData is null,we have a non-command child.
+        if (currentItemData != null)
+        {
+          currentItemData.put("isFirst", (i == 0));
+          currentItemData.put("isLast", (i == lastRowIndex));
+          currentItemData.put("previousActive", previousActive);
+          currentItemData.put("nextActive", (i == nextActiveIndex));
+          Integer rowIndex = (Integer) currentItemData.get("rowIndex");
+          if (rowIndex != null)
+            component.setRowIndex(rowIndex.intValue());
+          _renderNavigationItem(context, arc, rw, currentItemData,
+              renderingHint, isRtl);
+          previousActive =
+              getBooleanFromProperty(currentItemData.get("isActive"));
+        }
+        else
+        {
+          renderNonCommandChild(i, context, arc,iter.next(), (i == lastRowIndex), renderingHint);
+        }
       }
       component.setRowKey(oldPath);
 
@@ -898,6 +913,63 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     rw.endElement("tr");
     rw.endElement("tbody");
     rw.endElement("table");
+  }
+  
+  /**
+   * encodes non command children of navigationPane.
+   * This is used only for hint="bar" and hint="buttons"
+   * @param index
+   * @param context
+   * @param arc
+   * @param child
+   * @param isLastItem
+   * @param hint
+   * @throws IOException
+   */
+  protected void renderNonCommandChild(
+    int index,
+    FacesContext context,
+    RenderingContext arc,
+    UIComponent child,
+    boolean isLastItem,
+    String hint) throws IOException
+  {
+    ResponseWriter rw = context.getResponseWriter();
+    rw.startElement("table", null);
+    OutputUtils.renderLayoutTableAttributes(context, arc, "0", null);
+    String appendedStyle = null;
+    appendedStyle = "display: inline;"; // style to make the table inline
+    writeInlineStyles(rw, null, appendedStyle);
+    rw.startElement("tbody", null);
+    _writeInlineTbodyStyles(arc, rw);
+    rw.startElement("tr", null);
+    rw.startElement("td", null); 
+    rw.startElement("div", null);
+    encodeChild(context, child);
+    rw.endElement("div"); 
+    rw.endElement("td"); 
+    if(!isLastItem)
+    {
+      rw.startElement("td", null); // rightCell
+      rw.startElement("div", null); // rightContent
+      if (hint == _HINT_BAR)
+      {
+        renderStyleClass(context, arc,
+          SkinSelectors.AF_NAVIGATION_LEVEL_BAR_SEPARATOR_STYLE_CLASS);
+      }
+      else
+      {
+        renderStyleClass(context, arc,
+          SkinSelectors.AF_NAVIGATION_LEVEL_BUTTONS_SEPARATOR_STYLE_CLASS);
+      }
+      
+      rw.write("|");
+      rw.endElement("div"); // rightContent
+      rw.endElement("td"); // rightCell
+    }
+    rw.endElement("tr");
+    rw.endElement("tbody");
+    rw.endElement("table");   
   }
 
   private void _renderChoiceItem(
