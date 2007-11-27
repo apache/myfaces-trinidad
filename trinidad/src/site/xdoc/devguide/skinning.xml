@@ -499,7 +499,7 @@ so the medium panelBox's body will be pink, not yellow */
       instead of hardcoding things like colors and fonts.
       </P>
       <P>
-      Looking at the example above, to change the font-family:Tahoma to Ariel you would have to change
+      Looking at the example above, to change the font-family:Tahoma to Arial you would have to change
       every style class that uses font-family. 
       If, however, the base skin was defined to use the .AFDefaultFont:alias in these
       styles, you would only have to skin the .AFDefaultFont:alias in your skin.
