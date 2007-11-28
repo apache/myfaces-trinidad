@@ -2288,6 +2288,11 @@ function _multiValidate(
   {
     for (var id in validators)
     {
+      if(document.getElementById(id) == null)
+      {
+          continue;
+      }
+        
       var isIgnored = false;
       // If this field is one that's specifically being ignored,
       // then don't validate here.
