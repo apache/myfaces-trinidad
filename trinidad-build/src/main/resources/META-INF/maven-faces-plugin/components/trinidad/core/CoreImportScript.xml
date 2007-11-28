@@ -62,8 +62,8 @@
       <mfp:component-metadata>
         <mfp:favorite-property>names</mfp:favorite-property>
         <mfp:group>${md:getTranslatedString("PALETTE_OTHER")}</mfp:group>
+        <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </mfp:component-metadata>
-      <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
     </component-extension>
   </component>
 </faces-config>

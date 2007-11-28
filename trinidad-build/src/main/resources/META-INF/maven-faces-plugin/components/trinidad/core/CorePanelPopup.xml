@@ -222,12 +222,12 @@ The position attribute of popupPanel can be used to control the location of the 
       <mfp:author>Danny Robinson</mfp:author>
       <mfp:component-metadata>
         <mfp:group>${md:getTranslatedString("PALETTE_LAYOUT")}</mfp:group>
+        <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </mfp:component-metadata>
       <mfp:java-constructor>
         <mfp:property-name>icon</mfp:property-name>
       </mfp:java-constructor>
       <mfp:uix2-local-name>contentContainer</mfp:uix2-local-name>
-      <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>
     </component-extension>
   </component>
 </faces-config>

@@ -370,6 +370,7 @@
         <mfp:accepts-child-components>false</mfp:accepts-child-components>
         <mfp:favorite-property>source</mfp:favorite-property>
         <mfp:group>${md:getTranslatedString("PALETTE_OUTPUT")}</mfp:group>
+        <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </mfp:component-metadata>
       <mfp:java-constructor>
         <mfp:property-name>shortDesc</mfp:property-name>

@@ -246,6 +246,7 @@ the &quot;dialog&quot; will be shown in the same window.)
         <mfp:accepts-child-components>false</mfp:accepts-child-components>
         <mfp:favorite-property>label</mfp:favorite-property>
         <mfp:group>${md:getTranslatedString("PALETTE_INPUT")}</mfp:group>
+        <mfp:unsupported-agents>pda</mfp:unsupported-agents>
       </mfp:component-metadata>
       <mfp:uix2-local-name>inputListOfValues</mfp:uix2-local-name>
     </component-extension>

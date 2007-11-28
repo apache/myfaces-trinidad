@@ -98,6 +98,7 @@
         <mfp:accepts-child-components>false</mfp:accepts-child-components>
         <mfp:favorite-property>selectedStep</mfp:favorite-property>
         <mfp:group>${md:getTranslatedString("PALETTE_NAVIGATION")}</mfp:group>
+        <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </mfp:component-metadata>
     </component-extension>
   </component>

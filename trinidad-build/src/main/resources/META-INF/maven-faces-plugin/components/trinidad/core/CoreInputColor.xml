@@ -226,12 +226,12 @@ tip), and may use simpler layout primitives]]>
         <mfp:accepts-child-components>false</mfp:accepts-child-components>
         <mfp:favorite-property>label</mfp:favorite-property>
         <mfp:group>${md:getTranslatedString("PALETTE_INPUT")}</mfp:group>
+        <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </mfp:component-metadata>
       <mfp:java-constructor>
         <mfp:property-name>name</mfp:property-name>
       </mfp:java-constructor>
       <mfp:uix2-local-name>inputColor</mfp:uix2-local-name>
-      <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
     </component-extension>
   </component>
 </faces-config>

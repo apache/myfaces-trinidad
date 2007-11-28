@@ -82,6 +82,7 @@
       <mfp:component-metadata>
         <mfp:accepts-child-components>false</mfp:accepts-child-components>
         <mfp:group>${md:getTranslatedString("PALETTE_OUTPUT")}</mfp:group>
+        <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </mfp:component-metadata>
     </component-extension>
   </component>
