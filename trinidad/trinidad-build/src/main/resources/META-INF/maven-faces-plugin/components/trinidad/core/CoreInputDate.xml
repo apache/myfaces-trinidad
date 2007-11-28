@@ -219,9 +219,9 @@ tip), and may use simpler layout primitives]]>
         <mfp:accepts-child-components>false</mfp:accepts-child-components>
         <mfp:favorite-property>label</mfp:favorite-property>
         <mfp:group>${md:getTranslatedString("PALETTE_INPUT")}</mfp:group>
+        <mfp:unsupported-agents>phone</mfp:unsupported-agents>
       </mfp:component-metadata>
       <mfp:uix2-local-name>inputDate</mfp:uix2-local-name>
-      <mfp:unsupported-agents>phone</mfp:unsupported-agents>
     </component-extension>
   </component>
 </faces-config>

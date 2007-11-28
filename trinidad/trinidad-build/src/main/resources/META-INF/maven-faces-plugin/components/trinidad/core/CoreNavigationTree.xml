@@ -68,9 +68,9 @@
         <mfp:accepts-child-components>false</mfp:accepts-child-components>
         <mfp:favorite-property>value</mfp:favorite-property>
         <mfp:group>${md:getTranslatedString("PALETTE_NAVIGATION")}</mfp:group>
+        <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </mfp:component-metadata>
       <mfp:uix2-local-name>navigationTree</mfp:uix2-local-name>
-      <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>
     </component-extension>
   </component>
 </faces-config>
