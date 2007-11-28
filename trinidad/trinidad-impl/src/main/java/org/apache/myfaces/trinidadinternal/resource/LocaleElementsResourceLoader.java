@@ -63,7 +63,7 @@ public class LocaleElementsResourceLoader extends AggregatingResourceLoader
   @Override
   protected URL getURL(String path) throws IOException
   {
-    String[] _LIBRARIES = _getLiraries();
+    String[] _LIBRARIES = _getLibraries();
     
     int len = _LIBRARIES.length;
     ArrayList<URL> urls = new ArrayList<URL>(len);
@@ -95,7 +95,7 @@ public class LocaleElementsResourceLoader extends AggregatingResourceLoader
     return "text/javascript";
   }
   
-  private String[] _getLiraries()
+  private String[] _getLibraries()
   {
     String[] _LIBRARIES =
     {
