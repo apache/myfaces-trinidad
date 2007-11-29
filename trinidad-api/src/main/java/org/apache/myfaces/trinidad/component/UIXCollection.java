@@ -813,14 +813,14 @@ public abstract class UIXCollection extends UIXComponentBase
       for(Map.Entry<String, UIComponent> entry : facetMap.entrySet())
       {
         Object singleFacetState = saveStampState(context, entry.getValue());
+        if ((singleFacetState == null) ||
+            (singleFacetState == Transient.TRUE))
+          continue;
+        
         // Don't bother allocating anything until we have some non-null
         // and non-transient facet state
         if (facetStateIsEmpty)
-        {
-          if ((singleFacetState == null) ||
-              (singleFacetState == Transient.TRUE))
-            continue;
-          
+        {          
           facetStateIsEmpty = false;
           facetState = new Object[facetCount * 2];
         }
@@ -831,11 +831,18 @@ public abstract class UIXCollection extends UIXComponentBase
         facetState[base + 1] = singleFacetState;
         i++;
       }
-
+      
       // OK, we had something:  allocate the state array to three
       // entries, and insert the facet state at position 2
       if (!facetStateIsEmpty)
       {
+        // trim the facetState array if necessary
+        if(i < facetCount)
+        {
+          Object[] trimmed = new Object[i*2];
+          System.arraycopy(facetState, 0, trimmed, 0, i*2);
+          facetState = trimmed;
+        }
         state = new Object[3];
         state[2] = facetState;
       }
