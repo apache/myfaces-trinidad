@@ -38,7 +38,6 @@
       <plugin>
         <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-jdev-plugin</artifactId>
-        <version>1.2.3</version>
         <configuration>
           <sourceRoots>
             <sourceRoot>src/main/java-templates/</sourceRoot>

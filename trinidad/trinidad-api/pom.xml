@@ -38,7 +38,6 @@
       <plugin>
         <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-jdev-plugin</artifactId>
-        <version>1.2.3</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -195,7 +194,6 @@
       <plugin>
         <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-tagdoc-plugin</artifactId>
-        <version>1.2.3</version>
         <configuration>
           <taglibs>
             <tr>http://myfaces.apache.org/trinidad</tr>

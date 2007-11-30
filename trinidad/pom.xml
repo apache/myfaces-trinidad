@@ -201,31 +201,37 @@
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-xrts-plugin</artifactId>
-          <version>1.2.3</version>
+          <version>${trinidad-plugins.version}</version>
           <inherited>true</inherited>
         </plugin>
-
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-faces-plugin</artifactId>
-          <version>1.2.3</version>
+          <version>${trinidad-plugins.version}</version>
           <inherited>true</inherited>
         </plugin>
-
+        <plugin>
+          <groupId>org.apache.myfaces.trinidadbuild</groupId>
+          <artifactId>maven-jdev-plugin</artifactId>
+          <version>${trinidad-plugins.version}</version>
+        </plugin>
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-i18n-plugin</artifactId>
-          <version>1.2.3</version>
+          <version>${trinidad-plugins.version}</version>
           <inherited>true</inherited>
         </plugin>
-
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-javascript-plugin</artifactId>
-          <version>1.2.3</version>
+          <version>${trinidad-plugins.version}</version>
           <inherited>true</inherited>
         </plugin>
-
+        <plugin>
+          <groupId>org.apache.myfaces.trinidadbuild</groupId>
+          <artifactId>maven-tagdoc-plugin</artifactId>
+          <version>${trinidad-plugins.version}</version>
+        </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
@@ -302,19 +308,8 @@
 
   <repositories>
     <repository>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-      <id>java-net</id>
-      <name>java.net repository</name>
-      <!-- NOTE: this URL must be HTTPS.  However, unfortunately this
-           doesn't work behind a firewall.  See:
-         http://jira.codehaus.org/browse/WAGONHTTP-6
-           ... for the source of that problem.  Users behind firewalls
-           will have to manually download the files from this repository
-           and transfer them to their local repository.
-      -->
-      <url>https://maven-repository.dev.java.net/nonav/repository/</url>
+      <id>java.net</id>
+      <url>http://download.java.net/maven/1</url>
       <layout>legacy</layout>
     </repository>
     <repository>
@@ -465,7 +460,7 @@
       <dependency>
         <groupId>com.sun.facelets</groupId>
         <artifactId>jsf-facelets</artifactId>
-        <version>1.1.11</version>
+        <version>1.1.14</version>
         <scope>provided</scope>
       </dependency>
 
@@ -560,4 +555,10 @@
         </build>
       </profile>    
   </profiles>
+
+  <properties>
+    <trinidad-plugins.version>1.2.4</trinidad-plugins.version>
+  </properties>
+
+
 </project>
