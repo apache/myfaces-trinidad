@@ -86,6 +86,7 @@
     </mailingList>
   </mailingLists>
 
+  <!-- TODO: remove developers, since they are listed in MYFACES-PARENT -->
   <developers>
     <developer>
       <id>awiner</id>
