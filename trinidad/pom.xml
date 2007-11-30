@@ -576,7 +576,7 @@
   </profiles>
 
   <properties>
-    <trinidad-plugins.version>1.2.4</trinidad-plugins.version>
+    <trinidad-plugins.version>1.2.5</trinidad-plugins.version>
   </properties>
 
 
