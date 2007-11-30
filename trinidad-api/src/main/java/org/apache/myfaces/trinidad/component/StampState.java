@@ -32,6 +32,7 @@ import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
+import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
@@ -335,7 +336,11 @@ final class StampState implements Externalizable
      */
     static public RowState getState(UIXShowDetail child)
     {
-      if (child.isDisclosed())
+      FacesBean bean = child.getFacesBean();
+      Boolean disclosed = (Boolean)bean.getLocalProperty(UIXShowDetail.DISCLOSED_KEY);
+      if (disclosed == null)
+        return _NULL;
+      else if (disclosed)
         return _TRUE;
       else
         return _FALSE;
@@ -345,7 +350,7 @@ final class StampState implements Externalizable
     {
     }
 
-    private SDState(boolean disclosed)
+    private SDState(Boolean disclosed)
     {
       _disclosed = disclosed;
     }
@@ -353,19 +358,21 @@ final class StampState implements Externalizable
     @Override
     public void saveRowState(UIComponent child)
     {
-      _disclosed = ((UIXShowDetail) child).isDisclosed();
+      FacesBean bean = ((UIXShowDetail)child).getFacesBean();
+      _disclosed = (Boolean)bean.getLocalProperty(UIXShowDetail.DISCLOSED_KEY);
     }
 
     @Override
     public void restoreRowState(UIComponent child)
     {
-      ((UIXShowDetail) child).setDisclosed(_disclosed);
+      FacesBean bean = ((UIXShowDetail)child).getFacesBean();
+      bean.setProperty(UIXShowDetail.DISCLOSED_KEY, _disclosed);
     }
 
     @Override
     public boolean isNull()
     {
-      return !_disclosed;
+      return _disclosed == null;
     }
 
     @Override
@@ -378,13 +385,14 @@ final class StampState implements Externalizable
     // so that we only send across and restore instances of these
     static private final SDState _TRUE = new SDState(true);
     static private final SDState _FALSE = new SDState(false);
+    static private final SDState _NULL = new SDState(null);
 
     /**
      * 
      */
     private static final long serialVersionUID = -8605916495935317932L;
 
-    private boolean _disclosed;
+    private Boolean _disclosed;
   }
 
   static private final class TableState extends RowState
