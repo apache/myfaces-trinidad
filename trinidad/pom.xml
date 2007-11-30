@@ -232,6 +232,7 @@
           <artifactId>maven-tagdoc-plugin</artifactId>
           <version>${trinidad-plugins.version}</version>
         </plugin>
+
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
@@ -243,7 +244,6 @@
             <compilerArgument>-Xlint:all,-serial,-fallthrough</compilerArgument>
           </configuration>
         </plugin>
-
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-pmd-plugin</artifactId>
@@ -339,6 +339,10 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>rat-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
       </plugin>
       <plugin>
         <artifactId>maven-pmd-plugin</artifactId>
