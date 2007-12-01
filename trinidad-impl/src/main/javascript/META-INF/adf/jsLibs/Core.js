@@ -3519,7 +3519,8 @@ function _firePartialChange(url)
   // FIXME: shouldn't be using a private method on TrPage - this should
   // really be made into a public API on TrPage
   var page = TrPage.getInstance();
-  TrRequestQueue.getInstance().sendRequest(
+  var queue = page.getRequestQueue();
+  queue.sendRequest(
     page, page._requestStatusChanged, url);
 }
 
