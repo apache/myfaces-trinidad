@@ -257,7 +257,7 @@
           </configuration>
         </plugin>
 
-        <plugin>
+        <!--plugin>
             <artifactId>maven-source-plugin</artifactId>
             <executions>
                 <execution>
@@ -267,7 +267,7 @@
                     </goals>
                 </execution>
             </executions>
-        </plugin>
+        </plugin-->
 
       </plugins>
     </pluginManagement>
@@ -554,6 +554,59 @@
 -->
   </distributionManagement>
   <profiles>
+    <profile>
+      <id>release</id>
+      <!--
+      NOTE: Execute this profile like
+            mvn clean source:jar install deploy -DaltDeploymentRepository=matzew::default::file://FOLDER -Prelease
+       -->
+      <modules>
+        <module>trinidad-assembly</module>
+        <module>trinidad-examples</module>
+      </modules>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>2.2</version>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-scm-plugin</artifactId>
+            <executions>
+              <execution>
+                <phase>validate</phase>
+                <id>getting-scm.revision</id>
+                <goals>
+                  <goal>update</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
     <profile>
       <id>generate-assembly</id>
       <modules>
