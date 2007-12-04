@@ -60,7 +60,7 @@
   </build>
   <profiles>
     <profile>
-      <id>generate-assembly</id>
+      <id>release</id>
       <build>
         <plugins>
           <plugin>
