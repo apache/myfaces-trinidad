@@ -215,7 +215,10 @@
           <version>2.3.1-SNAPSHOT</version>
           <inherited>true</inherited>
           <configuration>
-            <forkMode>pertest</forkMode>            
+            <!-- set the forkMode to "always" to validate new tests,
+              and "once" otherwise for performance -->
+            <forkMode>always</forkMode>
+            <parallel>true</parallel>
           </configuration>
         </plugin>
 
