@@ -212,13 +212,28 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     DecimalFormat df = (DecimalFormat)fmt;
     DecimalFormatSymbols dfs = df.getDecimalFormatSymbols();
 
-    //TODO: This guy replaces a bit to much...
-    if (dfs.getGroupingSeparator() == '\u00a0')
-      value = value.replace(' ', '\u00a0');
-         
-
+    // We change the grouping_separator b/c TRINIDAD-849
+    // we parse a second-time, once the first run fails
+    // source is this JDK bug: 4510618.
+    boolean changed = false;
+    if(dfs.getGroupingSeparator() == '\u00a0')
+    {
+      dfs.setGroupingSeparator(' ');
+      df.setDecimalFormatSymbols(dfs);
+      changed = true;
+    }
     ParsePosition pp = new ParsePosition(0);
     Number num = (Number) fmt.parseObject(value,pp);
+    if(changed)
+    {
+      dfs.setGroupingSeparator('\u00a0');
+      df.setDecimalFormatSymbols(dfs);
+    }
+    
+    if(num == null)
+    {
+      num = (Number) fmt.parseObject(value, pp);
+    }
 
     if (pp.getIndex() != value.length())
     {

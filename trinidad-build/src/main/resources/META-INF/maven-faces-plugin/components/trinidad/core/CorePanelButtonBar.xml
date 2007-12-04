@@ -64,6 +64,7 @@ right, or center.]]></description>
       <mfp:component-metadata>
         <mfp:group>${md:getTranslatedString("PALETTE_LAYOUT")}</mfp:group>
         <mfp:preferred-children>tr:button tr:commandButton tr:resetButton tr:processChoiceBar tr:selectOneChoice</mfp:preferred-children>
+        <mfp:unsupported-agents>pda</mfp:unsupported-agents>
       </mfp:component-metadata>
       <mfp:uix2-local-name>pageButtonBar</mfp:uix2-local-name>
     </component-extension>

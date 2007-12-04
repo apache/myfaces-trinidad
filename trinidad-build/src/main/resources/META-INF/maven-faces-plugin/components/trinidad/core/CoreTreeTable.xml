@@ -129,9 +129,9 @@
         <mfp:favorite-property>id</mfp:favorite-property>
         <mfp:group>${md:getTranslatedString("PALETTE_DATA")}</mfp:group>
         <mfp:preferred-children>tr:column tr:columnGroup</mfp:preferred-children>
+        <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </mfp:component-metadata>
       <mfp:uix2-local-name>hGrid</mfp:uix2-local-name>
-      <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
     </component-extension>
   </component>
 </faces-config>

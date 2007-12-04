@@ -47,9 +47,9 @@
       <mfp:author>Brian Albers</mfp:author>
       <mfp:component-metadata>
         <mfp:hidden>true</mfp:hidden>
+        <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>
       </mfp:component-metadata>
       <mfp:uix2-local-name>styleSheet</mfp:uix2-local-name>
-      <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>
     </component-extension>
   </component>
 </faces-config>

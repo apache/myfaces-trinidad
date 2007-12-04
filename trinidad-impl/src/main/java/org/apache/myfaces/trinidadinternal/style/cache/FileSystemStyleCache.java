@@ -682,6 +682,9 @@ public class FileSystemStyleCache implements StyleProvider
 
     out.close();
 
+    // We never want to do anything other then read it or delete it:
+    outputFile.setReadOnly();
+
     // Return the name of the new style sheet
     return name;
   }

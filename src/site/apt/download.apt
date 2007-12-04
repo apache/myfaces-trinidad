@@ -33,25 +33,25 @@ Download Apache MyFaces Trinidad
   created using GNU tar extensions. Thus they must be untarred with a GNU compatible
   version of tar.
 
-    << Apache MyFaces Trinidad 1.0.3 Distribution  for JSF 1.1 >>
+    << Apache MyFaces Trinidad 1.2.5 Distribution  for JSF 1.2 >>
 
     Release notes can be found
-  {{{https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310661&styleName=Html&version=12312537}here}}.
+  {{{https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310661&styleName=Html&version=12312810}here}}.
 
 *-------------------------+---------+----------+-----------+
 |                         | Mirrors | Checksum | Signature |
 *-------------------------+---------+----------+-----------+
-| Apache MyFaces Trinidad 1.0.3 (tar.gz)     | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/trinidad-1.0.3-dist.tar.gz} trinidad-1.0.3-dist.tar.gz}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.3-dist.tar.gz.md5} trinidad-1.0.3-dist.tar.gz.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.3-dist.tar.gz.asc} trinidad-1.0.3-dist.tar.gz.asc}} |
+| Apache MyFaces Trinidad 1.2.5 (tar.gz)     | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/trinidad-1.2.5-dist.tar.gz} trinidad-1.2.5-dist.tar.gz}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.2.5-dist.tar.gz.md5} trinidad-1.2.5-dist.tar.gz.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.2.5-dist.tar.gz.asc} trinidad-1.2.5-dist.tar.gz.asc}} |
 *-------------------------+---------+----------+-----------+
-| Apache MyFaces Trinidad 1.0.3 (zip)      | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/trinidad-1.0.3-dist.zip} trinidad-1.0.3-dist.zip}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.3-dist.zip.md5} trinidad-1.0.3-dist.zip.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.3-dist.zip.asc} trinidad-1.0.3-dist.zip.asc}} |
+| Apache MyFaces Trinidad 1.2.5 (zip)      | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/trinidad-1.2.5-dist.zip} trinidad-1.2.5-dist.zip}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.2.5-dist.zip.md5} trinidad-1.2.5-dist.zip.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.2.5-dist.zip.asc} trinidad-1.2.5-dist.zip.asc}} |
 *-------------------------+---------+----------+-----------+
-| Apache MyFaces Trinidad 1.0.3 Example (tar.gz)     | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/trinidad-1.0.3-example.tar.gz} trinidad-1.0.3-example.tar.gz}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.3-example.tar.gz.md5} trinidad-1.0.3-example.tar.gz.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.3-example.tar.gz.asc} trinidad-1.0.3-example.tar.gz.asc}} |
+| Apache MyFaces Trinidad 1.2.5 Example (tar.gz)     | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/trinidad-1.2.5-example.tar.gz} trinidad-1.2.5-example.tar.gz}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.2.5-example.tar.gz.md5} trinidad-1.2.5-example.tar.gz.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.2.5-example.tar.gz.asc} trinidad-1.2.5-example.tar.gz.asc}} |
 *-------------------------+---------+----------+-----------+
-| Apache MyFaces Trinidad 1.0.3  Example (zip)      | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/trinidad-1.0.3-example.zip} trinidad-1.0.3-example.zip}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.3-example.zip.md5} trinidad-1.0.3-example.zip.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.3-example.zip.asc} trinidad-1.0.3-example.zip.asc}} |
+| Apache MyFaces Trinidad 1.2.5  Example (zip)      | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/trinidad-1.2.5-example.zip} trinidad-1.2.5-example.zip}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.2.5-example.zip.md5} trinidad-1.2.5-example.zip.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.2.5-example.zip.asc} trinidad-1.2.5-example.zip.asc}} |
 *-------------------------+---------+----------+-----------+
-| Apache MyFaces Trinidad 1.0.3 Source (tar.gz)     | {{{http://www.apache.org/dyn/closer.cgi/myfaces/source/trinidad-1.0.3-src-all.tar.gz} trinidad-1.0.3-src-all.tar.gz}} | {{{http://www.apache.org/dist/myfaces/source/trinidad-1.0.3-src-all.tar.gz.md5} trinidad-1.0.3-src-all.tar.gz.md5}} | {{{http://www.apache.org/dist/myfaces/source/trinidad-1.0.3-src-all.tar.gz.asc} trinidad-1.0.3-src-all.tar.gz.asc}} |
+| Apache MyFaces Trinidad 1.2.5 Source (tar.gz)     | {{{http://www.apache.org/dyn/closer.cgi/myfaces/source/trinidad-1.2.5-src-all.tar.gz} trinidad-1.2.5-src-all.tar.gz}} | {{{http://www.apache.org/dist/myfaces/source/trinidad-1.2.5-src-all.tar.gz.md5} trinidad-1.2.5-src-all.tar.gz.md5}} | {{{http://www.apache.org/dist/myfaces/source/trinidad-1.2.5-src-all.tar.gz.asc} trinidad-1.2.5-src-all.tar.gz.asc}} |
 *-------------------------+---------+----------+-----------+
-| Apache MyFaces Trinidad 1.0.3  Source (zip)      | {{{http://www.apache.org/dyn/closer.cgi/myfaces/source/trinidad-1.0.3-src-all.zip} trinidad-1.0.3-src-all.zip}} | {{{http://www.apache.org/dist/myfaces/source/trinidad-1.0.3-src-all.zip.md5} trinidad-1.0.3-src-all.zip.md5}} | {{{http://www.apache.org/dist/myfaces/source/trinidad-1.0.3-src-all.zip.asc} trinidad-1.0.3-src-all.zip.asc}} |
+| Apache MyFaces Trinidad 1.2.5  Source (zip)      | {{{http://www.apache.org/dyn/closer.cgi/myfaces/source/trinidad-1.2.5-src-all.zip} trinidad-1.2.5-src-all.zip}} | {{{http://www.apache.org/dist/myfaces/source/trinidad-1.2.5-src-all.zip.md5} trinidad-1.2.5-src-all.zip.md5}} | {{{http://www.apache.org/dist/myfaces/source/trinidad-1.2.5-src-all.zip.asc} trinidad-1.2.5-src-all.zip.asc}} |
 *-------------------------+---------+----------+-----------+
 
     << Apache MyFaces Trinidad 1.2.3 Distribution for JSF 1.2 >>
@@ -115,19 +115,19 @@ Verifying signatures
 
 	  <<<
 	  % pgpk -a KEYS
-	  % pgpv trinidad-1.0.3-dist.tar.gz.asc
+	  % pgpv trinidad-1.2.5-dist.tar.gz.asc
 	  >>>
 
 	  <or>
 
 	  <<<
 	  % pgp -ka KEYS
-	  % pgp trinidad-1.0.3-dist.tar.gz.asc
+	  % pgp trinidad-1.2.5-dist.tar.gz.asc
 	  >>>
 
 	  <or>
 
 	  <<<
   	% gpg --import KEYS
-	  % gpg --verify trinidad-1.0.3-dist.tar.gz.asc
+	  % gpg --verify trinidad-1.2.5-dist.tar.gz.asc
 	  >>>

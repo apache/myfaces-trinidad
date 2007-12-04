@@ -77,9 +77,19 @@ public class TreeNodeImpl implements Serializable
     return Collections.unmodifiableList(_nodes);
   }
 
+  public String getNodeType()
+  {
+    return _nodeType;
+  }
+
+  public void setNodeType(String nodeType)
+  {
+    this._nodeType = nodeType;
+  }
 
   private String _text = null;
   private String _destination = null;
   private String _icon = null;
+  private String _nodeType = null;
   private List<TreeNodeImpl> _nodes;
 }

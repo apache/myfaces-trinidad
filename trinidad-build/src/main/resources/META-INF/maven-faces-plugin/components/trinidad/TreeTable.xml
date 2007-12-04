@@ -33,6 +33,22 @@
     <component-type>org.apache.myfaces.trinidad.TreeTable</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXTreeTable</component-class>
     <property>
+      <description>
+        <![CDATA[
+          If the root node should be rendered or not. Defaults to true.
+        ]]>
+      </description>
+      <property-name>rootNodeRendered</property-name>
+      <property-class>boolean</property-class>
+      <default-value>true</default-value>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:preferred>true</mfp:preferred>
+        </mfp:property-metadata>
+        <mfp:required>false</mfp:required>
+      </property-extension>
+    </property>
+    <property>
       <description><![CDATA[the maximum number of records that can be displayed at
               one time (range size).
               Each level of depth in the tree can have a different range size.

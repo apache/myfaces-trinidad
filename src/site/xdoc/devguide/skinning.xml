@@ -98,7 +98,7 @@
         &lt;img&gt;tags in your page. You can create skin information for a particular agent or reading
              direction all in the stylesheet. All this gets automatically transformed into the
              appropriate CSS-2 page and rendered component (the icons you define in the skin
-             stylesheet do not get output to the generated CSS-2 file, but instead gets used by the
+             stylesheet do not get output to the generated CSS-2 file, but instead get used by the
              renderer).
       </P>
       
@@ -147,6 +147,10 @@
                 does, please log a JIRA-issue/bug)</li>
             <li>Decide what changes you want to make and add the Skin selectors/properties to your
                 stylesheet.</li>
+            <li>By default you'll need to restart your server to see your skin changes. To see your changes
+            without restarting your server, set the web.xml parameter 
+            'org.apache.myfaces.trinidad.CHECK_FILE_MODIFICATION' to true. However, you always need to restart the
+            server to see icon and skin property changes.</li>
             <li>Run your component to see the changes. NOTE: A frequently asked question is why
                 don't I see my skin? The most frequently correct answer is that you forgot to add
                 &lt;tr:document&gt; to your page. This kicks off the skin framework to create the
@@ -228,7 +232,19 @@
         <li>
         <b>bundle-name</b> - This is the package where the skin's resource bundle lives. Skinning text is not 
         recommended because you'll need to get the text translated for all the languages.
+        <source><![CDATA[
+        <bundle-name>org.apache.myfaces.trinidaddemo.resource.SkinBundle
+        </bundle-name>]]>
+        </source>
         </li>
+        <li>
+        <b>translation-source</b> - This is an EL binding that can point to a Map or a ResourceBundle. You can use this instead
+        of the bundle-name if you would like to be more dynamic in your skin translations at runtime. bundle-name takes precedence.
+        <source><![CDATA[
+        <translation-source>#{skinTranslationMap.contents}</translation-source>
+        ]]>
+        </source>
+        </li>        
       </ul>
       </P>
         </subsection>
@@ -335,8 +351,11 @@ af|panelBox::header {
   padding: 2px;
 }
 </source>
-You can run the panelBox demo with your skin-family set to see the change. There is no need to restart the server. 
-You can just refresh your page and the skinning framework will detect the skin has changed and will regenerate it.
+You can run the panelBox demo with your skin-family set to see the change. 
+If you have 'org.apache.myfaces.trinidad.CHECK_FILE_MODIFICATION' set to true, there is no need to restart the server to see
+css property changes .You can just refresh your page and the skinning framework will detect the skin has changed 
+and will regenerate it. To see icon or skin property changes, you always have to restart the server.
+
 
 Now you have this:
 <br></br><img src="panelBoxStepOne.png" alt="panelBox skin step one" /><br></br>
@@ -419,6 +438,7 @@ so the medium panelBox's body will be pink, not yellow */
         <P>
         This section is to help you understand the different kinds of skinning keys: component-level
         skinning keys, alias skinning keys, state skinning keys, skinning properties, and icon skinning keys.
+        Other names for a skinning 'key' is skinning 'selector' or skinning 'hook'.
         This section will go over the skinning key syntax and their use. It is highly recommended that
         you familiarize yourself with the W3c's CSS specification regarding selectors,
         pseudo-elements and pseudo-classes. With this knowledge, skinning will be much easier.
@@ -479,7 +499,7 @@ so the medium panelBox's body will be pink, not yellow */
       instead of hardcoding things like colors and fonts.
       </P>
       <P>
-      Looking at the example above, to change the font-family:Tahoma to Ariel you would have to change
+      Looking at the example above, to change the font-family:Tahoma to Arial you would have to change
       every style class that uses font-family. 
       If, however, the base skin was defined to use the .AFDefaultFont:alias in these
       styles, you would only have to skin the .AFDefaultFont:alias in your skin.
@@ -577,12 +597,99 @@ so the medium panelBox's body will be pink, not yellow */
       </section>
       
       <section name="Skinning Text">
-        <P>All text in our components is translatable. The text has resource bundle keys. With skinning
-        you can override resource bundle key values. This feature is not well documented at the moment. 
-        In general, you create a ResourceBundle where you override the skinning resource bundle
-        keys with new values and then you set the resource-bundle-name in your trinidad-skins.xml file.       
+        <P>Text our components render is translatable. The text is abstracted out as resource bundle keys. With skinning
+        you can override resource bundle key values. These key values should be documented in skin-selectors.xml,
+        but if they are not (they are not currently for the Trinidad components), 
+        then you'll have to look at the CoreBundle.xrts/.java source file for the keys. The resource bundle key/values
+        are not skinned in the skin's css file. Instead they are skinned in a Map or ResourceBundle and you point
+        to that from your skin definition in trinidad-skins.xml.
+        </P>
+        <P>Let's go through an example. Let's say you want to skin the ShowDetail disclosed tip.
+        Let's say the 'key' is af_showDetail.DISCLOSED_TIP. You would:
+        <ul>
+        <li> Create a ResouceBundle file that sets your new value for this key and any other
+        keys you want to change the value for.</li>
+        <li> Set bundle-name in the trinidad-skins.xml file for your custom skin.</li>
+        </ul>
+        </P>
+
+    <source><![CDATA[    
+      public class SkinBundle extends ListResourceBundle
+      {
+        @Override
+        public Object[][] getContents()
+        {
+          return _CONTENTS;
+        }
+      
+        static private final Object[][] _CONTENTS =
+        {
+          {"af_tableSelectMany.SELECT_COLUMN_HEADER", "Select A Lot"},
+          {"af_tableSelectOne.SELECT_COLUMN_HEADER", "Select Just One"},
+          {"af_showDetail.DISCLOSED_TIP", "Click to Hide"}
+        };
+      }]]></source>
+        <source><![CDATA[
+     <skin>
+        <id>
+            purple.desktop
+        </id>
+        <family>
+            purple
+        </family>
+        <render-kit-id>
+            org.apache.myfaces.trinidad.desktop
+        </render-kit-id>
+        <style-sheet-name>
+            skins/purple/purpleSkin.css
+        </style-sheet-name>
+        <bundle-name>
+            org.apache.myfaces.trinidaddemo.resource.SkinBundle
+        </bundle-name>
+    </skin>]]></source>
+        <P>Then when the renderer renders the text, it will look in your resource bundle first for the key's value.   
         It is highly recommended if you do skin text that you provide all the translated bundles
-        for the key you are skinning.</P>
+        for the key you are skinning. Therefore you will have many other files, like SkinBundle_fr, etc.,
+        for each language.</P>
+        <P>Another option for skinning text is to use the translation-source parameter instead 
+        of bundle-name. translation-source is an EL binding that points to a Map or a ResourceBundle.
+        The benefit of this option is that you can automatically change the translation value based on
+        any logic that you want at runtime. bundle-name takes precedence if both are set.
+        <source><![CDATA[  
+public class SkinTranslationMapDemo
+{
+  /* Test a skin's translation-source EL pointing to a Map */
+  public Map<String, String> getContents()
+  {
+    return _CONTENTS;
+  }
+
+  static private final Map<String, String> _CONTENTS = new HashMap<String, String>();
+  static 
+  {
+    _CONTENTS.put("af_inputDate.LAUNCH_PICKER_TIP", "Launch PickerMap");
+    _CONTENTS.put("af_showDetail.DISCLOSED_TIP", "Hide Tip Map");
+    _CONTENTS.put("af_showDetail.DISCLOSED", "Hide Map");
+
+  }
+}]]></source>
+       <source><![CDATA[
+      <skin>
+        <id>
+            purple.desktop
+        </id>
+        <family>
+            purple
+        </family>
+        <render-kit-id>
+            org.apache.myfaces.trinidad.desktop
+        </render-kit-id>
+        <style-sheet-name>
+            skins/purple/purpleSkin.css
+        </style-sheet-name>
+        <translation-source>#{skinTranslationMap.resourceBundle}</translation-source>
+    </skin>]]></source>
+        </P>
       </section>
       
       <section name="Skinning CSS features">
@@ -618,11 +725,13 @@ so the medium panelBox's body will be pink, not yellow */
         </li> 
         <li>
         <strong>-tr-inhibit</strong> - > This is used to inhibit/reset css properties that you are inheriting from a base skin.
-        "-tr-inhibit: all" will clear out all the inherited properties. "-tr-inhibit: property-name" will inhibit the 
+        "-tr-inhibit: all" will clear out all the inherited properties. "-tr-inhibit: <i>property-name</i>" will inhibit the 
         property name; "-tr-inhibit: padding", for example, will clear out any padding
-        that you have inherited. You need to make sure your property-name matches that in the base skin. If the
+        that you have inherited. You need to make sure your <i>property-name</i> matches that in the base skin. If the
         base skin has padding-right: 6px and you inhibit padding, you will still get the padding-right. You need
-        to inhibit padding-right.
+        to inhibit padding-right. Also note that inhibitions happen when the skinning framework processes the skin's css file,
+        and not based on cascading rules in the browser. Therefore the skin selector has to match and the property name has
+        to match exactly to what you are inhibiting.
         </li>        
         <li>
         <strong>-tr-rule-ref</strong> - > This is used to include other styles in your style see :alias
@@ -698,6 +807,8 @@ so the medium panelBox's body will be pink, not yellow */
         </context-param>
                     ]]>
         </source>
+        Note: Trinidad releases prior to 1.0.3/1.2.4 used an 'internal' key, 
+        org.apache.myfaces.trinidadimpl.DISABLE_CONTENT_COMPRESSION
         </subsection>
         <subsection name="Firebug">
         <P>

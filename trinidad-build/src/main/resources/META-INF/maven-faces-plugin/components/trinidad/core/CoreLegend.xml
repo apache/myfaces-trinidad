@@ -72,6 +72,7 @@ be described.  Only one value is currently supported: "required".]]>
       <mfp:component-metadata>
         <mfp:favorite-property>name</mfp:favorite-property>
         <mfp:group>${md:getTranslatedString("PALETTE_OUTPUT")}</mfp:group>
+        <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </mfp:component-metadata>
       <mfp:uix2-local-name>iconKey</mfp:uix2-local-name>
     </component-extension>

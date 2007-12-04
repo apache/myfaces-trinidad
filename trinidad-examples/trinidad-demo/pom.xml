@@ -27,8 +27,8 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <name>Apache Trinidad Demo</name>
-  <description>Apache Trinidad Demo</description>
+  <name>Apache MyFaces Trinidad Demo</name>
+  <description>Apache MyFaces Trinidad Demo</description>
 
   <artifactId>trinidad-demo</artifactId>
   <packaging>war</packaging>

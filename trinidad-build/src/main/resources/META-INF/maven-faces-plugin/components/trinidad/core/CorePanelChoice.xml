@@ -39,7 +39,6 @@
         <mfp:property-metadata>
           <mfp:initial-value>{localName} {0}</mfp:initial-value>
           <mfp:preferred>true</mfp:preferred>
-          <mfp:translatable>true</mfp:translatable>
         </mfp:property-metadata>
       </property-extension>
     </property>
@@ -150,9 +149,9 @@
         <mfp:favorite-property>id</mfp:favorite-property>
         <mfp:group>${md:getTranslatedString("PALETTE_LAYOUT")}</mfp:group>
         <mfp:preferred-children>tr:showDetailItem</mfp:preferred-children>
+        <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </mfp:component-metadata>
       <mfp:uix2-local-name>panelChoice</mfp:uix2-local-name>
-      <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
     </component-extension>
   </component>
 </faces-config>

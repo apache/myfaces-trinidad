@@ -100,11 +100,27 @@ TrPopupDialog.prototype.setDestination = function(url)
 
 TrPopupDialog.prototype.setSize = function(width, height)
 {
-  if (width && height)
-  {
     this._resizeIFrame(width, height);
-    this._fixedSize = true;
-  }
+
+    if(width == null)
+    {
+      this._variableWidth = true;
+    }
+    else
+    {
+      this._variableWidth = false;
+      this._fixedSize = true;
+    }
+
+    if(height == null)
+    {
+      this._variableHeight = true;
+    }
+    else
+    {
+      this._variableHeight = false;
+      this._fixedSize = true;
+    }
 }
 
 TrPopupDialog.getInstance = function()
@@ -140,13 +156,20 @@ TrPopupDialog.prototype._destroy = function()
  **/
 TrPopupDialog.prototype._resizeIFrame = function(width, height)
 {
-  // Set the height of the iframe
-  this._iframe.height = height + "px";
-  // Set the width of the iframe to 100% so it is sized by it's parent outerDiv
-  this._iframe.width = "100%";
-  // But set the width of the outerDiv, so the title bar is also the right size
-  this._outerDiv.style.width = width + "px";
-  this._calcPosition(false);
+    if(height != null)
+    {
+      // Set the height of the iframe
+      this._iframe.height = height + "px";
+    }
+
+    if(width != null)
+    {
+      // Set the width of the iframe to 100% so it is sized by it's parent outerDiv
+      this._iframe.width = "100%";
+      // But set the width of the outerDiv, so the title bar is also the right size
+      this._outerDiv.style.width = width + "px";
+    }
+    this._calcPosition(false);
 }
 
 /**
@@ -189,6 +212,32 @@ TrPopupDialog._initDialogPage = function()
       dialog._resizeIFrame(
         dialog._iframe.contentDocument.body.offsetWidth+40, 
         dialog._iframe.contentDocument.body.offsetHeight+40);
+    }
+  }
+  else if(dialog._variableWidth || dialog._variableHeight)
+  {
+    if(dialog._variableWidth)
+    {
+      if (_agent.isIE)
+      {
+        dialog._resizeIFrame(dialog._iframe.Document.body.scrollWidth+40, null);
+      }
+      else
+      {
+        dialog._resizeIFrame(dialog._iframe.contentDocument.body.offsetWidth+40, null);
+      }
+    }
+
+    if(dialog._variableHeight)
+    {
+      if (_agent.isIE)
+      {
+        dialog._resizeIFrame(null, dialog._iframe.Document.body.scrollHeight+40);
+      }
+      else
+      {
+        dialog._resizeIFrame(null, dialog._iframe.contentDocument.body.offsetHeight+40);
+      }
     }
   }
   dialog.show();
@@ -248,9 +297,19 @@ TrPopupDialog._launchDialog = function(
   dialog.callback = callbackFunction;
   dialog.callbackProps = callbackProps;
 
-  // Dialog will auto-size to fit content unless specified
-  if (dialogProps && dialogProps['width'] && dialogProps['height'])
-    dialog.setSize(dialogProps['width'], dialogProps['height']);
+    // Dialog will auto-size to fit content unless specified
+    if (dialogProps && dialogProps['width'] && dialogProps['height'])
+    {
+      dialog.setSize(dialogProps['width'], dialogProps['height']);
+    }
+    else if (dialogProps && dialogProps['width'])
+    {
+      dialog.setSize(dialogProps['width'], null);
+    }
+    else if (dialogProps && dialogProps['height'])
+    {
+      dialog.setSize(null, dialogProps['height']);
+    }
 
   // Dialog will be opened by _initDialogPage() once dialog page has loaded
   // to prevent lots of up/down sizing when auto-sized.

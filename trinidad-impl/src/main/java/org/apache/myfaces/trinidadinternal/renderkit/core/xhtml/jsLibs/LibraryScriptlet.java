@@ -93,7 +93,7 @@ public class LibraryScriptlet extends Scriptlet
         outputDependency(context, arc, _dependencies[i]);
     }
 
-    XhtmlUtils.writeLibImport(context, arc, _getLibraryURL(context, arc));
+    XhtmlUtils.writeLibImport(context, arc, getLibraryURL(context, arc));
   }
 
   @Override
@@ -127,7 +127,7 @@ public class LibraryScriptlet extends Scriptlet
     return libraryName;
   }
 
-  private String _getLibraryURL(
+  protected String getLibraryURL(
     FacesContext        context,
     RenderingContext arc)
   {

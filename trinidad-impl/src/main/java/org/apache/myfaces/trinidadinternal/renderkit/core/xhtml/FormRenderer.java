@@ -908,7 +908,7 @@ public class FormRenderer extends XhtmlRenderer
     )
   {
     if (PartialPageUtils.supportsPartialRendering(arc))
-      return "_" + formName + "_Postscript";
+      return "tr_" + formName + "_Postscript";
 
     return null;
   }

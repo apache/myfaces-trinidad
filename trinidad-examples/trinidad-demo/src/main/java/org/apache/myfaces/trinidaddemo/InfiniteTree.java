@@ -18,11 +18,11 @@
  */
 package org.apache.myfaces.trinidaddemo;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.AbstractList;
 import java.util.List;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 
 public class InfiniteTree extends AbstractList<InfiniteTree.Bean> implements Serializable
 {
@@ -88,6 +88,11 @@ public class InfiniteTree extends AbstractList<InfiniteTree.Bean> implements Ser
     public List<InfiniteTree.Bean> getKids()
     {
       return new InfiniteTree(getLabel());
+    }
+
+    public String getNodeType()
+    {
+      return "folder";
     }
 
     private final int _index;

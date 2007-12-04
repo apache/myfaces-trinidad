@@ -1471,6 +1471,12 @@ public final class SkinSelectors
      "af|treeTable::prev-disabled-icon";
    public static final String AF_TREE_TABLE_NB_NEXT_DISABLED_ICON_NAME =
      "af|treeTable::next-disabled-icon";
+   public static final String AF_TREE_TABLE_EXPAND_ALL_ICON_NAME =
+     "af|treeTable::expand-all-icon";
+   public static final String AF_TREE_TABLE_COLLAPSE_ALL_ICON_NAME =
+     "af|treeTable::collapse-all-icon";
+   public static final String AF_TREE_TABLE_NODE_ICON =
+     "af|treeTable::node-icon";
 
 
   //                                                                         //
@@ -1478,14 +1484,33 @@ public final class SkinSelectors
   // ============================== tr:tree =============================== //
   //                                                                         //
   //
-  public static final String TREE_NODE_ADJUST_STYLE_CLASS = 
+
+  // ============================ Style classes ============================ //
+  public static final String TREE_NODE_ADJUST_STYLE_CLASS =
     "p_OraTreeNodeAdjust";
   public static final String TREE_ROW_STYLE_CLASS = "p_OraTreeRow";
-  public static final String TREE_ROW_SELECTED_STYLE_CLASS = 
+  public static final String TREE_ROW_SELECTED_STYLE_CLASS =
     "p_OraTreeRowSelected";
   public static final String TREE_ICON_STYLE_CLASS = "p_OraTreeIcon";
-  public static final String TREE_DISCLOSED_SYMBOL_STYLE_CLASS = 
-    "p_OraTreeDisclosedSymbol";
+  public static final String TREE_DISCLOSED_SYMBOL_STYLE_CLASS =
+    "p_OraTreeDisclosedSymbol";  
+
+  // ================================ Icons ================================ //
+  public static final String AF_TREE_EXPANDED_ICON =
+    "af|tree::expanded-icon";
+  public static final String AF_TREE_COLLAPSED_ICON =
+    "af|tree::collapsed-icon";
+
+  public static final String AF_TREE_NODE_ICON =
+    "af|tree::node-icon";
+
+  public static final String AF_TREE_LINE_ICON =
+    "af|tree::line-icon";
+  public static final String AF_TREE_LINE_MIDDLE_ICON =
+    "af|tree::line-middle-icon";
+  public static final String AF_TREE_LINE_LAST_ICON =
+    "af|tree::line-last-icon";
+
 
   //                                                                         //
   //                                                                         //

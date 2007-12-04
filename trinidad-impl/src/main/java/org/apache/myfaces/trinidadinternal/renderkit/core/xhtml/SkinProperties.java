@@ -50,4 +50,6 @@ public final class SkinProperties
     "af|train-tr-visible-stop-count";
   public static final String AF_TREE_TABLE_SPACER_WIDTH =
     "af|treeTable-tr-spacer-width";
+  public static final String AF_TREE_SHOW_LINES =
+    "af|tree-tr-show-lines";
 }

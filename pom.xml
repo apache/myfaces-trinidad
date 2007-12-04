@@ -64,31 +64,50 @@
       <post>users@myfaces.apache.org</post>
       <subscribe>users-subscribe@myfaces.apache.org</subscribe>
       <unsubscribe>users-unsubscribe@myfaces.apache.org</unsubscribe>
-      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-users/</archive>
+      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-users</archive>
+      <otherArchives>
+        <otherArchive>http://users.myfaces.markmail.org/</otherArchive>
+        <otherArchive>http://www.mail-archive.com/users@myfaces.apache.org/</otherArchive>
+        <otherArchive>http://www.nabble.com/MyFaces---Users-f181.html</otherArchive>
+      </otherArchives>
     </mailingList>
     <mailingList>
       <name>MyFaces Developers (use [Trinidad] prefix)</name>
       <post>dev@myfaces.apache.org</post>
       <subscribe>dev-subscribe@myfaces.apache.org</subscribe>
       <unsubscribe>dev-unsubscribe@myfaces.apache.org</unsubscribe>
-      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-dev/</archive>
+      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-dev</archive>
+      <otherArchives>
+        <otherArchive>http://dev.myfaces.markmail.org/</otherArchive>
+        <otherArchive>http://www.mail-archive.com/dev@myfaces.apache.org/</otherArchive>
+        <otherArchive>http://www.nabble.com/My-Faces---Dev-f182.html</otherArchive>
+      </otherArchives>
     </mailingList>
     <mailingList>
       <name>MyFaces issues</name>
       <post>Do not post</post>
       <subscribe>issues-subscribe@myfaces.apache.org</subscribe>
       <unsubscribe>issues-unsubscribe@myfaces.apache.org</unsubscribe>
-      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-issues/</archive>
+      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-dev</archive>
+      <otherArchives>
+        <otherArchive>http://dev.myfaces.markmail.org/</otherArchive>
+        <otherArchive>http://www.mail-archive.com/dev@myfaces.apache.org/</otherArchive>
+        <otherArchive>http://www.nabble.com/My-Faces---Dev-f182.html</otherArchive>
+      </otherArchives>
     </mailingList>
     <mailingList>
       <name>MyFaces commits</name>
       <post>Do not post</post>
       <subscribe>commits-subscribe@myfaces.apache.org</subscribe>
       <unsubscribe>commits-unsubscribe@myfaces.apache.org</unsubscribe>
-      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-commits/</archive>
+      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-commits</archive>
+      <otherArchives>
+        <otherArchive>http://commits.myfaces.markmail.org/</otherArchive>
+      </otherArchives>
     </mailingList>
   </mailingLists>
 
+  <!-- TODO: remove developers, since they are listed in MYFACES-PARENT -->
   <developers>
     <developer>
       <id>awiner</id>
@@ -200,29 +219,38 @@
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-xrts-plugin</artifactId>
-          <version>1.2.3</version>
+          <version>${trinidad-plugins.version}</version>
           <inherited>true</inherited>
         </plugin>
-
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-faces-plugin</artifactId>
-          <version>1.2.3</version>
+          <version>${trinidad-plugins.version}</version>
           <inherited>true</inherited>
         </plugin>
 
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
+          <artifactId>maven-jdev-plugin</artifactId>
+          <version>${trinidad-plugins.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-i18n-plugin</artifactId>
-          <version>1.2.3</version>
+          <version>${trinidad-plugins.version}</version>
           <inherited>true</inherited>
         </plugin>
 
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-javascript-plugin</artifactId>
-          <version>1.2.3</version>
+          <version>${trinidad-plugins.version}</version>
           <inherited>true</inherited>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.myfaces.trinidadbuild</groupId>
+          <artifactId>maven-tagdoc-plugin</artifactId>
+          <version>${trinidad-plugins.version}</version>
         </plugin>
 
         <plugin>
@@ -274,7 +302,7 @@
     <plugins>
       <plugin>
         <artifactId>maven-remote-resources-plugin</artifactId>
-        <version>1.0-alpha-5</version>
+        <version>1.0-alpha-6</version>
         <executions>
           <execution>
             <goals>
@@ -282,7 +310,7 @@
             </goals>
             <configuration>
             <resourceBundles>
-              <resourceBundle>org.apache:apache-jar-resource-bundle:1.1</resourceBundle>
+              <resourceBundle>org.apache:apache-jar-resource-bundle:1.3</resourceBundle>
             </resourceBundles>
             <properties>
               <addLicense>true</addLicense>
@@ -303,9 +331,6 @@
 
   <repositories>
     <repository>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
       <id>java-net</id>
       <name>java.net repository</name>
       <!-- NOTE: this URL must be HTTPS.  However, unfortunately this
@@ -355,6 +380,24 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>rat-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>2.0.1</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <version>2.0</version>
+        <configuration>
+          <rulesets>
+            <ruleset>/rulesets/basic.xml</ruleset>
+            <ruleset>/rulesets/unusedcode.xml</ruleset>
+          </rulesets>
+          <linkXref>true</linkXref>
+          <minimumTokens>100</minimumTokens>
+          <targetJdk>1.5</targetJdk>
+        </configuration>
       </plugin>
       <!--plugin>
         <inherited>false</inherited>
@@ -498,7 +541,7 @@
       <dependency>
         <groupId>com.sun.facelets</groupId>
         <artifactId>jsf-facelets</artifactId>
-        <version>1.1.11</version>
+        <version>1.1.14</version>
         <scope>provided</scope>
       </dependency>
 
@@ -629,14 +672,14 @@
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>retrotranslator-maven-plugin</artifactId>
               <executions>
-        		    <execution>
+                <execution>
                   <goals>
                     <goal>translate-project</goal>
                   </goals>
                   <configuration>
                     <advanced>true</advanced>
-          				  <embed>org.apache.myfaces.trinidad.backport</embed>
-          				  <attach>true</attach>
+                    <embed>org.apache.myfaces.trinidad.backport</embed>
+                    <attach>true</attach>
                   </configuration>
                 </execution>
               </executions>
@@ -645,4 +688,8 @@
         </build>
       </profile>    
   </profiles>
+  <properties>
+    <trinidad-plugins.version>1.2.5</trinidad-plugins.version>
+  </properties>
+
 </project>

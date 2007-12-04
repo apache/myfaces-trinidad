@@ -72,6 +72,7 @@ public class XhtmlScriptletFactory
     _sDateFieldScriptlet.registerSelf();
     _sPollScriptlet.registerSelf();
     LocaleInfoScriptlet.sharedInstance().registerSelf();
+    NamedLocaleInfoScriptlet.registerNamedLocales();
     ColorFormatInfoScriptlet.sharedInstance().registerSelf();
     DateFormatInfoScriptlet.sharedInstance().registerSelf();
     DefaultTimeZoneScriptlet.sharedInstance().registerSelf();

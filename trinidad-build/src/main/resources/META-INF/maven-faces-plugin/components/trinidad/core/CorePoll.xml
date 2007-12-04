@@ -69,9 +69,9 @@
       <mfp:component-metadata>
         <mfp:favorite-property>interval</mfp:favorite-property>
         <mfp:group>${md:getTranslatedString("PALETTE_OTHER")}</mfp:group>
+        <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </mfp:component-metadata>
       <mfp:uix2-local-name>poll</mfp:uix2-local-name>
-      <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
     </component-extension>
   </component>
 </faces-config>

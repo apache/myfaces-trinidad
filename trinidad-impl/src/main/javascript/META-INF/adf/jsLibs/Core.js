@@ -44,7 +44,7 @@ var _blockOnEverySubmit = false;
 var _pprFirstClickPass = false;
 
 // We block using a special DIV element. This is its name
-var _pprdivElementName = '_pprBlockingDiv';
+var _pprdivElementName = 'tr_pprBlockingDiv';
 
 // stores the variables needed to load the libraries for IE
 var _pprLibStore;
@@ -2288,6 +2288,11 @@ function _multiValidate(
   {
     for (var id in validators)
     {
+      if(document.getElementById(id) == null)
+      {
+          continue;
+      }
+        
       var isIgnored = false;
       // If this field is one that's specifically being ignored,
       // then don't validate here.
@@ -2795,6 +2800,12 @@ function _formatErrorString(
       currValue = "";
     }
 
+    // TRINIDAD-829:
+    // we replace '{' and '}' to ensure, that tokens containing values
+    // like {3} aren't parsed more than once...
+    currValue = currValue.replace("{","{'");
+    currValue = currValue.replace("}","'}");
+
     // the tokens are delimited by '{' before and '}' after the token
     var currRegExp = "{" + currToken + "}";
 
@@ -2842,12 +2853,20 @@ function _formatErrorString(
     }
  }
 
+  // TRINIDAD-829:
+  // we finally re-replace the '{' and '}'...
+  while(currString.indexOf("{'")!=-1)
+  {
+    currString= currString.replace("{'","{");
+    currString= currString.replace("'}","}");
+  }
+
   // And now take any doubled-up single quotes down to one,
   // to handle escaping
   var twoSingleQuotes = /''/g;
+  
   return currString.replace(twoSingleQuotes, "'");
 }
-
 
 /**
  * Chain two functions together returning whether the default
@@ -3500,7 +3519,8 @@ function _firePartialChange(url)
   // FIXME: shouldn't be using a private method on TrPage - this should
   // really be made into a public API on TrPage
   var page = TrPage.getInstance();
-  TrRequestQueue.getInstance().sendRequest(
+  var queue = page.getRequestQueue();
+  queue.sendRequest(
     page, page._requestStatusChanged, url);
 }
 

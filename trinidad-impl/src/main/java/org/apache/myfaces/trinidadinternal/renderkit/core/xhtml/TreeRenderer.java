@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,6 +19,9 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -36,15 +39,15 @@ import org.apache.myfaces.trinidad.component.UIXTree;
 import org.apache.myfaces.trinidad.component.core.data.CoreTree;
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.FormData;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.RowKeySet;
-
-import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeUtils;
 
 /**
- * Renderer for trees. 
+ * Renderer for trees.
  *
  */
 public class TreeRenderer extends XhtmlRenderer
@@ -86,9 +89,9 @@ public class TreeRenderer extends XhtmlRenderer
     if (!component.getClientId(context).equals(source))
       return;
 
-    TreeUtils.decodeExpandEvents(parameters, component, 
+    TreeUtils.decodeExpandEvents(parameters, component,
                                  Collections.emptyList());
-    String currencyStrParam = 
+    String currencyStrParam =
       source + NamingContainer.SEPARATOR_CHAR + SELECTED_PARAM;
     String currencyStr = parameters.get(currencyStrParam);
     if ((currencyStr != null) && (!"".equals(currencyStr)))
@@ -107,7 +110,7 @@ public class TreeRenderer extends XhtmlRenderer
   @Override
   protected void encodeAll(
     FacesContext     context,
-    RenderingContext rc,    
+    RenderingContext rc,
     UIComponent      component,
     FacesBean        bean) throws IOException
   {
@@ -137,14 +140,14 @@ public class TreeRenderer extends XhtmlRenderer
       tree.setRowKey(oldPath);
     }
   }
-  
+
   @Override
   protected boolean shouldRenderId(FacesContext context,
                                    UIComponent component)
   {
     return true;
   }
-  
+
   private void _renderContent(FacesContext context,
                               RenderingContext rc,
                               UIXHierarchy tree,
@@ -184,8 +187,8 @@ public class TreeRenderer extends XhtmlRenderer
     for (int i = 0; i < rootSize; i++)
     {
       tree.setRowIndex(i);
-      _renderNode(context, rc, tree, bean, stamp, varName, state, 
-                  selectedPaths, new Boolean[_DEFAULT_TREE_DEPTH], 
+      _renderNode(context, rc, tree, bean, stamp, varName, state,
+                  selectedPaths, new Boolean[_DEFAULT_TREE_DEPTH],
                   leftToRight, (i == 0), (i == rootSize - 1), 0);
     }
 
@@ -197,15 +200,15 @@ public class TreeRenderer extends XhtmlRenderer
 
     //out.writeText("_setNodes('"+name+"','"+nodesRendered+"');");
 
-    String selectedParam = 
+    String selectedParam =
       id + NamingContainer.SEPARATOR_CHAR + SELECTED_PARAM;
 
-    rw.writeText("var " + varName + " = " + 
-                     _createNewJSSelectionState(formName, id, 
+    rw.writeText("var " + varName + " = " +
+                     _createNewJSSelectionState(formName, id,
                                                 selectedParam), null);
     rw.endElement("script");
     rw.endElement("div");
-    
+
     fd.addNeededValue(selectedParam);
     fd.addNeededValue(_PATH_PARAM);
 
@@ -222,8 +225,8 @@ public class TreeRenderer extends XhtmlRenderer
   }
 
 
-  private boolean _isShownSelected(UIXHierarchy tree, 
-                                   Map<Object, Boolean> selectedPaths, 
+  private boolean _isShownSelected(UIXHierarchy tree,
+                                   Map<Object, Boolean> selectedPaths,
                                    Object currPath)
   {
 
@@ -258,26 +261,70 @@ public class TreeRenderer extends XhtmlRenderer
     return ((UIXTree) tree).getDisclosedRowKeys();
   }
 
-  protected String getConnectingBackgroundIcon(boolean isLine, 
-                                               boolean leftToRight)
+  /**
+   * Returns the URI of the vertical line icon
+   *
+   * @param context     the FacesContext
+   * @param rc          the RenderingContext
+   * @param isLine      if there is need for a vertical line
+   * @param leftToRight reft to right
+   * @return the URI of the icon
+   */
+  protected String getConnectingBackgroundIcon(
+      FacesContext context,
+      RenderingContext rc,
+      boolean isLine,
+      boolean leftToRight
+  )
   {
-    return null;
+    if (!isLine)
+      return null;
+    Object showLines = rc.getSkin().getProperty(SkinProperties.AF_TREE_SHOW_LINES);
+    if (showLines == null ||
+        !(showLines.equals(Boolean.TRUE) || showLines.equals("true")))
+      return null;
+    Icon icon = rc.getIcon(SkinSelectors.AF_TREE_LINE_ICON);
+    return (icon == null) ? null : icon.getImageURI(context, rc).toString();
   }
 
-  protected String getIconBackgroundIcon(int expand, boolean isLeftToRight)
+  protected String getIconBackgroundIcon(
+      FacesContext context,
+      RenderingContext rc,
+      boolean isLastSibling,
+      boolean isLeftToRight
+  )
   {
-    return null;
+    Object showLines = rc.getSkin().getProperty(SkinProperties.AF_TREE_SHOW_LINES);
+    if (showLines == null || 
+        !(showLines.equals(Boolean.TRUE) || showLines.equals("true")))
+      return null;
+    Icon nodeBackgroundIcon = rc.getIcon(isLastSibling
+        ? SkinSelectors.AF_TREE_LINE_LAST_ICON : SkinSelectors.AF_TREE_LINE_MIDDLE_ICON);
+    return (nodeBackgroundIcon != null)
+        ? nodeBackgroundIcon.getImageURI(context, rc).toString() : null;
   }
-
 
   // render the correct icon for a specific node
 
-  protected void renderExpandCell(FacesContext context, 
-                                  RenderingContext rc,
-                                  int expanded, String onclick)
-    throws IOException
+  protected void renderExpandCell(
+      FacesContext context,
+      RenderingContext rc,
+      int expanded,
+      boolean isLastSibling,
+      String onclick
+  )
+      throws IOException
   {
 
+    Icon icon = null;
+    String iconURI = null;
+
+    String backgroundIconURI;
+    String nodeBackgroundIconURI;
+
+    boolean isAbsoluteImageURI = true;
+
+    String iconHeight = null;
 
     Object altText = null;
 
@@ -288,62 +335,80 @@ public class TreeRenderer extends XhtmlRenderer
     switch (expanded)
     {
       case NO_CHILDREN:
+        iconURI = TRANSPARENT_GIF;
+        iconHeight = _ICON_HEIGHT;
+        isAbsoluteImageURI = false;
         break;
       case EXPAND_CLOSED:
         // "\u21D2"; // Double Arrow right
 
         if (isMacOS)
           // single arrow left
-          text = 
-            rc.isRightToLeft()? "\u2190": "\u2192"; // single arrow right
-        else if(isPDA(rc)) 
+          text = rc.isRightToLeft() ? "\u2190" : "\u2192"; // single arrow right
+        else if (isPDA(rc))
           //for PDAs use a simple "+" or "-" since miscellaneous unicode characters
-          //are not supported 
-                 text = "[+]"; //plus sign
+          //are not supported
+          text = "[+]"; //plus sign
         else // triangle left
-          text = 
-            rc.isRightToLeft()? "\u25C4": "\u25BA"; // triangle right
-     
-        altText = rc.getTranslatedString(_EXPAND_TIP_KEY);        
+          text = rc.isRightToLeft() ? "\u25C4" : "\u25BA"; // triangle right
+
+        altText = rc.getTranslatedString(_EXPAND_TIP_KEY);
+        icon = rc.getIcon(SkinSelectors.AF_TREE_COLLAPSED_ICON);
         break;
       case EXPAND_OPEN:
         //"\u21D3"; // double arrow down
         if (isMacOS)
           text = "\u2193"; // single arrow down
-        else  if(isPDA(rc))
+        else if (isPDA(rc))
           //for PDAs use a simple "+" or "-" since miscellaneous unicode characters
-          //are not supported 
-            text = "[-]"; //plus sign 
+          //are not supported
+          text = "[-]"; //plus sign
         else
           text = "\u25BC"; // triangle down
 
-      
         altText = rc.getTranslatedString(_COLLAPSE_TIP_KEY);
+        icon = rc.getIcon(SkinSelectors.AF_TREE_EXPANDED_ICON);
         break;
       case EXPAND_ALWAYS:
         if (isMacOS)
           text = "\u2193"; // single arrow down
-        else if(isPDA(rc))
-          text = "[-]"; //plus sign  
+        else if (isPDA(rc))
+          text = "[-]"; //plus sign
         else
           text = "\u25BC"; // triangle down
         //for PDAs use a simple "+" or "-" since miscellaneous unicode character
-        //s are not supported 
-      
+        //s are not supported
+
         altText = rc.getTranslatedString(_DISABLED_COLLAPSE_TIP_KEY);
+        icon = rc.getIcon(SkinSelectors.AF_TREE_EXPANDED_ICON);
         break;
     }
 
-    _renderTextCell(context, rc, text, altText, _ICON_WIDTH, onclick, 
-                    SkinSelectors.TREE_DISCLOSED_SYMBOL_STYLE_CLASS);
+    if (iconURI == null && icon != null)
+      iconURI = icon.getImageURI(context, rc).toString();
+
+    backgroundIconURI = getConnectingBackgroundIcon(context, rc, !isLastSibling, true);
+    nodeBackgroundIconURI = getIconBackgroundIcon(context, rc, isLastSibling, true);
+
+    if (iconURI != null)
+    {
+      renderExpandIconCell(context, rc,
+                            backgroundIconURI, nodeBackgroundIconURI,
+                            iconURI, isAbsoluteImageURI,
+                            altText, _ICON_WIDTH, iconHeight, onclick);
+    } else
+    {
+      _renderTextCell(context, rc, text, altText, _ICON_WIDTH, onclick,
+                      SkinSelectors.TREE_DISCLOSED_SYMBOL_STYLE_CLASS);
+    }
 
   }
 
 
   private void _renderTextCell(FacesContext context,
                                RenderingContext rc,
-                               String text, 
-                               Object altText, String width, 
+                               String text,
+                               Object altText, String width,
                                String onclick, String styleClass)
     throws IOException
   {
@@ -372,11 +437,71 @@ public class TreeRenderer extends XhtmlRenderer
     writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
   }
 
+  protected void renderExpandIconCell(
+      FacesContext context,
+      RenderingContext rc,
+      String backgroundIcon,
+      String nodeBackgroundIcon,
+      String icon,
+      boolean isIconAbsoluteURI,
+      Object altText,
+      String width,
+      String height,
+      String onclick
+  )
+      throws IOException
+  {
+    ResponseWriter writer = context.getResponseWriter();
+
+    writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
+    writer.writeAttribute(XhtmlConstants.WIDTH_ATTRIBUTE, width, null);
+    writer.writeAttribute(XhtmlConstants.HEIGHT_ATTRIBUTE, "100%", null);
+    writer.writeAttribute(XhtmlConstants.VALIGN_ATTRIBUTE, XhtmlConstants.V_ALIGN_TOP,
+                          null);
+
+    if (backgroundIcon != null)
+    {
+//      String backgroundIconURI = getAbsoluteImageUri(context, rc, backgroundIcon);
+      writer.writeAttribute(XhtmlConstants.STYLE_ATTRIBUTE,
+                            _BACKGROUND_IMAGE_URL + backgroundIcon +
+                                _END_FUNC, null);
+    }
+
+    if (nodeBackgroundIcon != null)
+    {
+      writer.startElement(XhtmlConstants.DIV_ELEMENT, null);
+      writer.writeAttribute(XhtmlConstants.STYLE_ATTRIBUTE,
+                            _BACKGROUND_IMAGE_URL + nodeBackgroundIcon +
+                                _END_FUNC + _BACKGROUND_NO_REPEAT, null);
+    }
+
+    if (onclick != null)
+    {
+      writer.startElement(XhtmlConstants.LINK_ELEMENT, null);
+      writer.writeAttribute(XhtmlConstants.HREF_ATTRIBUTE, "#", null);
+      writer.writeAttribute(XhtmlConstants.ONCLICK_ATTRIBUTE, onclick, null);
+    }
+
+    _renderIcon(context, rc, icon, isIconAbsoluteURI, altText, null, height);
+
+    if (onclick != null)
+    {
+      writer.endElement(XhtmlConstants.LINK_ELEMENT);
+    }
+
+    if (nodeBackgroundIcon != null)
+    {
+      writer.endElement(XhtmlConstants.DIV_ELEMENT);
+    }
+
+    writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
+  }
+
 
   protected void renderIconCell(FacesContext context, RenderingContext rc,
-                                UIXHierarchy tree, String backgroundIcon, 
-                                String icon, boolean isIconAbsoluteURI, 
-                                Object altText, String width, 
+                                UIXHierarchy tree, String backgroundIcon,
+                                String icon, boolean isIconAbsoluteURI,
+                                Object altText, String width,
                                 String height, String onclick)
     throws IOException
   {
@@ -387,9 +512,9 @@ public class TreeRenderer extends XhtmlRenderer
 
     if (backgroundIcon != null)
     {
-      String backgroundIconURI = getAbsoluteImageUri(context, rc, backgroundIcon);
-      writer.writeAttribute(XhtmlConstants.STYLE_ATTRIBUTE, 
-                            _BACKGROUND_IMAGE_URL + backgroundIconURI + 
+      String backgroundIconURI = backgroundIcon;//getAbsoluteImageUri(context, rc, backgroundIcon);
+      writer.writeAttribute(XhtmlConstants.STYLE_ATTRIBUTE,
+                            _BACKGROUND_IMAGE_URL + backgroundIconURI +
                             _END_FUNC, null);
     }
 
@@ -414,12 +539,12 @@ public class TreeRenderer extends XhtmlRenderer
   }
 
 
-  private static String _createNewJSSelectionState(String formName, 
-                                                   String treeClientId, 
+  private static String _createNewJSSelectionState(String formName,
+                                                   String treeClientId,
                                                    String selectParam)
   {
-    return "new _adfTreeSelector('" + selectParam + "'," + 
-      TreeUtils.createNewJSCollectionComponentState(formName, 
+    return "new _adfTreeSelector('" + selectParam + "'," +
+      TreeUtils.createNewJSCollectionComponentState(formName,
                                                     treeClientId) + ");";
   }
 
@@ -438,16 +563,16 @@ public class TreeRenderer extends XhtmlRenderer
     {
       rc.getProperties().put(_JS_RENDERED_KEY, Boolean.TRUE);
       ResponseWriter writer = context.getResponseWriter();
-      writer.writeText("function _adfTreeSelector(selectParam,tState) {" + 
-                       "this._selectParam = selectParam;" + 
-                       "this._pTag = null;" + "this.treeState = tState;" + 
-                       "}" + 
-                       "_adfTreeSelector.prototype.select = function(tag,path) {" + 
-                       "if (this._pTag != null) {" + 
-                       "this._pTag.className='" + SkinSelectors.TREE_ROW_STYLE_CLASS + 
-                       "';" + "}" + "this._pTag = tag;" + 
-                       "document.forms[this.treeState.getFormName()][this._selectParam].value=path;" + 
-                       "tag.className='" + SkinSelectors.TREE_ROW_SELECTED_STYLE_CLASS + 
+      writer.writeText("function _adfTreeSelector(selectParam,tState) {" +
+                       "this._selectParam = selectParam;" +
+                       "this._pTag = null;" + "this.treeState = tState;" +
+                       "}" +
+                       "_adfTreeSelector.prototype.select = function(tag,path) {" +
+                       "if (this._pTag != null) {" +
+                       "this._pTag.className='" + SkinSelectors.TREE_ROW_STYLE_CLASS +
+                       "';" + "}" + "this._pTag = tag;" +
+                       "document.forms[this.treeState.getFormName()][this._selectParam].value=path;" +
+                       "tag.className='" + SkinSelectors.TREE_ROW_SELECTED_STYLE_CLASS +
                        "';" + "};", null);
 
 
@@ -512,7 +637,7 @@ public class TreeRenderer extends XhtmlRenderer
       //         null);
 
       boolean immediate = getImmediate(bean);
-      String buff = 
+      String buff =
         TreeUtils.setupJSTreeCollectionComponent(!immediate) + ";";
       writer.writeText(buff, null);
     }
@@ -522,14 +647,14 @@ public class TreeRenderer extends XhtmlRenderer
 
   private void _renderNode(FacesContext context,
                            RenderingContext rc,
-                           UIXHierarchy tree, 
+                           UIXHierarchy tree,
                            FacesBean bean,
                            UIComponent stamp,
-                           final String varName, 
-                           RowKeySet state, 
-                           Map<Object, Boolean> selectedPaths, 
-                           Boolean[] prepend, boolean leftToRight, 
-                           boolean isFirstSibling, boolean isLastSibling, 
+                           final String varName,
+                           RowKeySet state,
+                           Map<Object, Boolean> selectedPaths,
+                           Boolean[] prepend, boolean leftToRight,
+                           boolean isFirstSibling, boolean isLastSibling,
                            int nodeDepth)
     throws IOException
   {
@@ -550,12 +675,12 @@ public class TreeRenderer extends XhtmlRenderer
 
     if ((expand != NO_CHILDREN) && supportsNavigation(rc))
     {
-      onclickExpand = 
-          TreeUtils.callJSExpandNode(tree, varName + ".treeState", 
+      onclickExpand =
+          TreeUtils.callJSExpandNode(tree, varName + ".treeState",
                                      (expand == EXPAND_CLOSED));
     }
 
-    renderExpandCell(context, rc, expand, onclickExpand);
+    renderExpandCell(context, rc, expand, isLastSibling, onclickExpand);
 
 
     //    DataObject curData = BeanAdapterUtils.getAdapter(context, tree.getRowData());
@@ -590,40 +715,138 @@ public class TreeRenderer extends XhtmlRenderer
       treeStyle = SkinSelectors.TREE_ROW_SELECTED_STYLE_CLASS;
     }
 
-    // render the icon
-    if (true/*icon != null*/)
-    {
-      String backgroundIcon = getIconBackgroundIcon(expand, leftToRight);
+    renderNodeIconCell(context, rc, tree, expand);
 
-      writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
-
-      if (backgroundIcon != null)
-      {
-        String backgroundIconURI = 
-          getAbsoluteImageUri(context, rc, backgroundIcon);
-
-        StringBuffer backgroundStyle = 
-          new StringBuffer(_BACKGROUND_IMAGE_URL.length() + 
-                           backgroundIconURI.length() + 
-                           _END_FUNC.length());
-
-        backgroundStyle.append(_BACKGROUND_IMAGE_URL);
-        backgroundStyle.append(backgroundIconURI);
-        backgroundStyle.append(_END_FUNC);
-
-        writer.writeAttribute(XhtmlConstants.STYLE_ATTRIBUTE, backgroundStyle.toString(), 
-                              null);
-      }
-
-      writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
-
-      // render space between icon and node stamp
-      // alt Text
-      renderIconCell(context, rc, tree, null, TRANSPARENT_GIF, false, null, 
-                     _NODE_SPACER, _ICON_HEIGHT, null);
-    }
+    // render space between icon and node stamp
+    // alt Text
+    renderIconCell(context, rc, tree, null, TRANSPARENT_GIF, false, null,
+                   _NODE_SPACER, _ICON_HEIGHT, null);
 
     // render the node stamp
+    renderStampCell(context, rc, tree, stamp, onClick, treeStyle, nodeDepth);
+
+    // end row
+    writer.endElement(XhtmlConstants.TABLE_ROW_ELEMENT);
+    //end table
+    writer.endElement(XhtmlConstants.TABLE_ELEMENT);
+
+    // render children
+    if ((expand == EXPAND_OPEN) || (expand == EXPAND_ALWAYS))
+    {
+      _renderNodeChildren(context, rc, tree, bean, stamp, varName, state, selectedPaths,
+                          prepend, leftToRight, isFirstSibling, isLastSibling, nodeDepth);
+    }
+  }
+
+  protected void renderNodeIconCell(
+      FacesContext context,
+      RenderingContext rc,
+      UIXHierarchy tree,
+      int expand
+  ) throws IOException
+  {
+    String nodeType = getNodeType(tree);
+    Icon nodeIcon = getNodeIcon(rc, nodeType, expand);
+
+    ResponseWriter writer = context.getResponseWriter();
+    // render the node icon
+    if (nodeIcon != null)
+    {
+      writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
+      writer.writeAttribute(XhtmlConstants.WIDTH_ATTRIBUTE, _ICON_WIDTH, null);
+      writer.writeAttribute(XhtmlConstants.HEIGHT_ATTRIBUTE, _ICON_HEIGHT, null);
+      writer.writeAttribute(XhtmlConstants.VALIGN_ATTRIBUTE, XhtmlConstants.V_ALIGN_TOP,
+                            null);
+
+      _renderIcon(context, rc, nodeIcon.getImageURI(context, rc).toString(),
+                  true, null, null, null);
+
+      writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
+    }
+  }
+
+  protected String getNodeType(
+      UIXHierarchy tree
+  )
+  {
+    String nodeType = null;
+    Object rowData = tree.getRowData();
+    Class rowClass = rowData.getClass();
+    Method method = null;
+
+    try
+    {
+      method = rowClass.getMethod("getNodeType");
+      if (method != null && method.getReturnType().equals(String.class))
+      {
+        nodeType = (String) method.invoke(rowData);
+      }
+    }
+    catch (IllegalAccessException e)
+    {
+    }
+    catch (NoSuchMethodException e)
+    {
+    }
+    catch (InvocationTargetException e)
+    {
+    }
+    return nodeType;
+  }
+
+  protected String getNodeIconSelector(
+      String nodeType,
+      int expandedState
+  )
+  {
+    switch (expandedState)
+    {
+      case EXPAND_OPEN:
+        nodeType += NODE_ICON_EXPANDED_SUFFIX;
+        break;
+      case EXPAND_CLOSED:
+        nodeType += NODE_ICON_COLLAPSED_SUFFIX;
+        break;
+    }
+    return SkinSelectors.AF_TREE_NODE_ICON + ":" + nodeType;
+  }
+
+  protected Icon getNodeIcon(
+      RenderingContext rc,
+      String nodeType,
+      int expandedState
+  )
+  {
+    if (nodeType == null || nodeType.length() == 0)
+    {
+      return null;
+    }
+    Icon icon = rc.getIcon(getNodeIconSelector(nodeType, expandedState));
+    if (icon == null)
+      if (expandedState != NO_CHILDREN)
+      {
+        icon = rc.getIcon(getNodeIconSelector(nodeType, NO_CHILDREN));
+      }
+      else
+      {
+        icon = rc.getIcon(getNodeIconSelector(nodeType, EXPAND_CLOSED));
+      }
+    return icon;
+  }
+
+
+  protected void renderStampCell(
+      FacesContext context,
+      RenderingContext rc,
+      UIXHierarchy tree,
+      UIComponent stamp,
+      String onClick,
+      String treeStyle,
+      int nodeDepth
+  ) throws IOException
+  {
+    ResponseWriter writer = context.getResponseWriter();
+
     writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
     writer.writeAttribute(XhtmlConstants.NOWRAP_ATTRIBUTE, Boolean.FALSE, null);
     renderStyleClass(context, rc, SkinSelectors.TREE_NODE_ADJUST_STYLE_CLASS);
@@ -640,44 +863,50 @@ public class TreeRenderer extends XhtmlRenderer
 
     writer.endElement(XhtmlConstants.SPAN_ELEMENT);
     writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
+  }
 
-    // end row
-    writer.endElement(XhtmlConstants.TABLE_ROW_ELEMENT);
-    //end table
-    writer.endElement(XhtmlConstants.TABLE_ELEMENT);
+  private void _renderNodeChildren(
+      FacesContext context,
+      RenderingContext rc,
+      UIXHierarchy tree,
+      FacesBean bean,
+      UIComponent stamp,
+      final String varName,
+      RowKeySet state,
+      Map<Object, Boolean> selectedPaths,
+      Boolean[] prepend,
+      boolean leftToRight,
+      boolean isFirstSibling,
+      boolean isLastSibling,
+      int nodeDepth
+  ) throws IOException
+  {
+    tree.enterContainer();
+    int childCount = tree.getRowCount();
 
-    // render children
-    if ((expand == EXPAND_OPEN) || (expand == EXPAND_ALWAYS))
+    if (childCount > 0)
     {
-      tree.enterContainer();
-      int childCount = tree.getRowCount();
+      // prepare the prepended icons for the child nodes
+      prepend = _appendIcon(prepend, (isLastSibling) ? Boolean.FALSE : Boolean.TRUE);
+      Boolean[] currClone;
 
-      if (childCount > 0)
+      ++nodeDepth; // increment the depth of the child from the root
+
+      int oldIndex = tree.getRowIndex();
+      for (int i = 0; i < childCount; i++)
       {
-        // prepare the prepended icons for the child nodes
-        prepend = 
-            _appendIcon(prepend, (isLastSibling)? Boolean.FALSE: Boolean.TRUE);
-        Boolean[] currClone;
+        currClone = new Boolean[prepend.length];
+        System.arraycopy(prepend, 0, currClone, 0, prepend.length);
 
-
-        ++nodeDepth; // increment the depth of the child from the root
-
-        int oldIndex = tree.getRowIndex();
-        for (int i = 0; i < childCount; i++)
-        {
-          currClone = new Boolean[prepend.length];
-          System.arraycopy(prepend, 0, currClone, 0, prepend.length);
-
-          tree.setRowIndex(i);
-          _renderNode(context, rc, tree, bean, stamp, varName, state, 
-                      selectedPaths, currClone, leftToRight, false, 
-                      (i == childCount - 1), nodeDepth);
-        }
-        tree.setRowIndex(oldIndex);
-        --nodeDepth;
+        tree.setRowIndex(i);
+        _renderNode(context, rc, tree, bean, stamp, varName, state,
+                    selectedPaths, currClone, leftToRight, i == 0,
+                    (i == childCount - 1), nodeDepth);
       }
-      tree.exitContainer();
+      tree.setRowIndex(oldIndex);
+      --nodeDepth;
     }
+    tree.exitContainer();
   }
 
   // is this row childless, open, or closed?
@@ -698,8 +927,8 @@ public class TreeRenderer extends XhtmlRenderer
 
   // render an icon with our own special formatting
 
-  private void _renderIcon(FacesContext context, RenderingContext rc, String icon, 
-                           boolean isIconAbsoluteURI, Object text, 
+  private void _renderIcon(FacesContext context, RenderingContext rc, String icon,
+                           boolean isIconAbsoluteURI, Object text,
                            String width, String height)
     throws IOException
   {
@@ -707,16 +936,18 @@ public class TreeRenderer extends XhtmlRenderer
     {
       ResponseWriter writer = context.getResponseWriter();
 
-      // TODO: change 
+      // TODO: change
       writer.startElement("img", null);
       renderStyleClass(context, rc, SkinSelectors.TREE_ICON_STYLE_CLASS);
-      writer.writeAttribute(XhtmlConstants.WIDTH_ATTRIBUTE, width, null);
-      writer.writeAttribute(XhtmlConstants.HEIGHT_ATTRIBUTE, height, null);
+      if (width != null)
+        writer.writeAttribute(XhtmlConstants.WIDTH_ATTRIBUTE, width, null);
+      if (height != null)
+        writer.writeAttribute(XhtmlConstants.HEIGHT_ATTRIBUTE, height, null);
 
       // Convert iconURL to an absolute uri
       if (!isIconAbsoluteURI)
         icon = getAbsoluteImageUri(context, rc, icon);
-    
+
       renderEncodedResourceURI(context, "src", icon);
 
       // Ensure that we're never rendering null;  see bug 4161181
@@ -741,7 +972,7 @@ public class TreeRenderer extends XhtmlRenderer
     if (prepend[currLength - 1] != null)
     {
       // resize, incrementing should be fine
-      Boolean[] newBools = 
+      Boolean[] newBools =
         new Boolean[currLength + _DEFAULT_TREE_INCREMENT];
       System.arraycopy(prepend, 0, newBools, 0, currLength);
       prepend = newBools;
@@ -761,7 +992,7 @@ public class TreeRenderer extends XhtmlRenderer
 
 
   private void _prependIcons(FacesContext context, RenderingContext rc,
-                             UIXHierarchy tree, Boolean[] prepend, 
+                             UIXHierarchy tree, Boolean[] prepend,
                              boolean leftToRight)
     throws IOException
   {
@@ -777,12 +1008,12 @@ public class TreeRenderer extends XhtmlRenderer
       {
         String icon = TRANSPARENT_GIF;
 
-        String backgroundIcon = 
-          getConnectingBackgroundIcon(isLine.booleanValue(), leftToRight);
+        String backgroundIcon =
+            getConnectingBackgroundIcon(context, rc, isLine.booleanValue(), leftToRight);
 
         // alt text
-        renderIconCell(context, rc, tree, backgroundIcon, icon, false, null, 
-                       _ICON_WIDTH, _ICON_HEIGHT, null);
+        renderIconCell(context, rc, tree, backgroundIcon, icon, false, null,
+                       _ICON_WIDTH, "100%", null);
       }
     }
 
@@ -832,13 +1063,14 @@ public class TreeRenderer extends XhtmlRenderer
       encodeChild(context, stamp);
   }
 
-  private static final String _BACKGROUND_IMAGE_URL = 
+  private static final String _BACKGROUND_IMAGE_URL =
     "background-image:url(";
   private static final String _END_FUNC = ");";
+  private static final String _BACKGROUND_NO_REPEAT = "background-repeat:no-repeat;";
 
-  private static final String _ICON_WIDTH = "16";
-  private static final String _ICON_HEIGHT = "22";
-  private static final String _NODE_SPACER = "6";
+  private static final String _ICON_WIDTH = "19";
+  private static final String _ICON_HEIGHT = "18";
+  private static final String _NODE_SPACER = "3";
 
 
   // expanded states
@@ -862,7 +1094,7 @@ public class TreeRenderer extends XhtmlRenderer
   private PropertyKey _immediateKey;
 
   // translation keys
-  private static final String _DISABLED_COLLAPSE_TIP_KEY = 
+  private static final String _DISABLED_COLLAPSE_TIP_KEY =
     "af_tree.DISABLED_COLLAPSE_TIP";
   private static final String _COLLAPSE_TIP_KEY = "af_tree.COLLAPSE_TIP";
   private static final String _EXPAND_TIP_KEY = "af_tree.EXPAND_TIP";
@@ -871,7 +1103,9 @@ public class TreeRenderer extends XhtmlRenderer
   private static final String _PATH_PARAM = "path";
   public static final String SELECTED_PARAM = "_selected";
 
+  public static final String NODE_ICON_EXPANDED_SUFFIX = "-expanded";
+  public static final String NODE_ICON_COLLAPSED_SUFFIX = "-collapsed";
 
-  private static final TrinidadLogger _LOG = 
+  private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(TreeRenderer.class);
 }

@@ -45,7 +45,7 @@ import org.apache.myfaces.trinidadinternal.util.DateUtils;
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/taglib/util/TagUtils.java#1 $) $Date: 11-nov-2005.14:59:38 $
  *
  */
-public class TagUtils
+public final class TagUtils
 {
   private TagUtils()
   {

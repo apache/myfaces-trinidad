@@ -173,8 +173,8 @@
       <mfp:component-metadata>
         <mfp:favorite-property>id</mfp:favorite-property>
         <mfp:group>${md:getTranslatedString("PALETTE_DATA")}</mfp:group>
+        <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </mfp:component-metadata>
-      <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
     </component-extension>
   </component>
 </faces-config>

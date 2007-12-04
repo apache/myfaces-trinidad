@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -35,12 +35,14 @@ import org.apache.myfaces.trinidad.component.UIXHierarchy;
 import org.apache.myfaces.trinidad.component.UIXTree;
 import org.apache.myfaces.trinidad.component.UIXTreeTable;
 import org.apache.myfaces.trinidad.component.core.data.CoreTreeTable;
+import org.apache.myfaces.trinidad.context.FormData;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.RowKeySet;
-import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidad.context.FormData;
 import org.apache.myfaces.trinidad.render.CoreRenderer;
+import org.apache.myfaces.trinidad.skin.Icon;
+import org.apache.myfaces.trinidad.util.IntegerUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.ResourceKeyUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
@@ -56,8 +58,6 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeNodeCo
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeTableNavRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeTableRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeUtils;
-import org.apache.myfaces.trinidad.skin.Icon;
-import org.apache.myfaces.trinidad.util.IntegerUtils;
 
 /**
  * Renderer for treeTable
@@ -77,9 +77,8 @@ public class TreeTableRenderer extends DesktopTableRenderer
     super.findTypeConstants(type);
     _immediateKey  = type.findKey("immediate");
     _expandAllEnabledKey  = type.findKey("expandAllEnabled");
+    _rootNodeRendered = type.findKey("rootNodeRendered");
   }
-
-
 
   /**
    * @todo Set "expanded" vs. "collapsed" correctly on the queued
@@ -94,9 +93,9 @@ public class TreeTableRenderer extends DesktopTableRenderer
   {
     decodeSelection(context, component);
 
-    Map<String, String> parameters = 
+    Map<String, String> parameters =
       context.getExternalContext().getRequestParameterMap();
-    
+
     Object source = parameters.get(XhtmlConstants.SOURCE_PARAM);
     if (component.getClientId(context).equals(source))
     {
@@ -261,14 +260,47 @@ public class TreeTableRenderer extends DesktopTableRenderer
                                       tContext.getJSVarName(),
                                       true /*isExpand*/);
        renderControlBarLink(context, arc, onclick, _EXPAND_ALL_TEXT_KEY,
+                           arc.getIcon(SkinSelectors.AF_TREE_TABLE_EXPAND_ALL_ICON_NAME),
                             preId+"eAll", true);
       onclick =
             TreeUtils.callJSExpandAll(hContext.getUIXTreeTable(),
                                       tContext.getJSVarName(),
                                       false /*isExpand*/);
        renderControlBarLink(context, arc, onclick, _COLLAPSE_ALL_TEXT_KEY,
+                           arc.getIcon(SkinSelectors.AF_TREE_TABLE_COLLAPSE_ALL_ICON_NAME),
                             preId+"cAll", useDivider);
     }
+  }
+
+  protected void renderControlBarLink(
+      FacesContext context,
+      RenderingContext arc,
+      String onclick,
+      String translationKey,
+      Icon icon,
+      String id,
+      boolean hasDivider
+  ) throws IOException
+  {
+    ResponseWriter writer = context.getResponseWriter();
+    writer.startElement("a", null);
+    writer.writeAttribute(XhtmlConstants.ID_ATTRIBUTE, id, null);
+    renderStyleClass(context, arc, SkinSelectors.NAV_BAR_ALINK_STYLE_CLASS);
+    writer.writeAttribute("onclick", onclick, null);
+    writer.writeURIAttribute("href", "#", null);
+    if (icon != null)
+    {
+      OutputUtils.renderIcon(context, arc, icon, arc.getTranslatedString(translationKey),
+                             null);
+    } else
+    {
+      writer.writeText(arc.getTranslatedString(translationKey), null);
+    }
+
+    writer.endElement("a");
+
+    if (hasDivider)
+      writer.writeText(LINKS_DIVIDER_TEXT, null);
   }
 
   protected boolean isExpandAllEnabled(UIComponent component)
@@ -344,7 +376,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
     if (isEmptyTable)
       _renderEmptyTableRow(context, arc, ttrc);
     else
-      _renderTableRows(context, arc, ttrc);
+      _renderTableRows(context, arc, ttrc, bean);
 
     // render the footer
     renderFooter(context, arc, trc, component);
@@ -359,10 +391,17 @@ public class TreeTableRenderer extends DesktopTableRenderer
     return _FOCUS;
   }
 
+  protected boolean isRootNodeRendered(FacesBean bean)
+  {
+    if (_rootNodeRendered == null)
+      return true;
+
+    return !Boolean.FALSE.equals(bean.getProperty(_rootNodeRendered));
+  }
+
   //
   // Private methods
   //
-
 
   // Renders the hGridLocator Icon
   private void _renderLocatorIcon(
@@ -436,12 +475,15 @@ public class TreeTableRenderer extends DesktopTableRenderer
   private void _renderTableRows(
     FacesContext          context,
     final RenderingContext   arc,
-    final TreeTableRenderingContext ttrc) throws IOException
+    final TreeTableRenderingContext ttrc,
+    final FacesBean bean)
+    throws IOException
   {
     final UIXTreeTable treeTableBase = ttrc.getUIXTreeTable();
     final ResponseWriter writer = context.getResponseWriter();
     final RowKeySet treeState = treeTableBase.getDisclosedRowKeys();
     final int specialColCount = _getSpecialColCount(ttrc);
+    final boolean rootNodeRendered = isRootNodeRendered(bean);
 
     TableUtils.RowLoop loop = new TableUtils.RowLoop()
     {
@@ -458,9 +500,13 @@ public class TreeTableRenderer extends DesktopTableRenderer
       protected void processRowImpl(FacesContext context, CollectionComponent treeTable)
         throws IOException
       {
-        writer.startElement(XhtmlConstants.TABLE_ROW_ELEMENT, null);
-        renderSingleRow(context, arc, ttrc, treeTableBase);
-        writer.endElement(XhtmlConstants.TABLE_ROW_ELEMENT);
+        if (rootNodeRendered || treeTableBase.getDepth() > 0)
+        {
+          writer.startElement(XhtmlConstants.TABLE_ROW_ELEMENT, null);
+          renderSingleRow(context, arc, ttrc, treeTableBase);
+          writer.endElement(XhtmlConstants.TABLE_ROW_ELEMENT);
+        }
+
 //
   //        if (hasInvisibleNodes)
   //        {
@@ -469,7 +515,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
 
         if (treeTableBase.isContainer())
         {
-          if (treeState.isContained())
+          if (treeState.isContained() || (rootNodeRendered == false && treeTableBase.getDepth() == 0))
           {
             treeTableBase.enterContainer();
             int rows = treeTableBase.getRows();
@@ -622,9 +668,9 @@ public class TreeTableRenderer extends DesktopTableRenderer
   protected Map<String, String> createResourceKeyMap()
   {
     Map<String, String> tablemap = super.createResourceKeyMap();
-    Map<String, String> map = 
+    Map<String, String> map =
       ResourceKeyUtils.convertResourceKeyMap(tablemap, "table", "treeTable");
-    
+
     // we need a resource key map since we are using a navigationPath.
     // and we are using table for the styles
     map.put(SkinSelectors.AF_NAVIGATION_PATH_SEPARATOR_ICON_NAME,
@@ -639,7 +685,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
             SkinSelectors.AF_TREE_TABLE_CONTROL_BAR_TOP_STYLE);
     map.put(SkinSelectors.AF_TABLE_CONTROL_BAR_BOTTOM_STYLE,
             SkinSelectors.AF_TREE_TABLE_CONTROL_BAR_BOTTOM_STYLE);
-    
+
     return Collections.unmodifiableMap(map);
   }
 
@@ -653,6 +699,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
 
   private PropertyKey _immediateKey;
   private PropertyKey _expandAllEnabledKey;
+  private PropertyKey _rootNodeRendered;
 
   private static final Object _JS_LIBS_KEY = new Object();
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(TreeTableRenderer.class);

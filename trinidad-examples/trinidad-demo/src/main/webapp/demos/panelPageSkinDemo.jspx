@@ -28,7 +28,7 @@
     <trh:html>
       <trh:head title="Skin Demo">
         <!-- the beach skin is defined in beach.css. If you want to add your own
-     custom style classes, you can add it to beach.css or to your own css 
+     custom style classes, you can add it to beach.css or to your own css
      file, like what we demo here in beachCustomStyles.css -->
         <link rel="stylesheet" charset="UTF-8" type="text/css"
               href="/adf-faces-demo-context-root/skins/beach/CustomStyles.css"/>
@@ -164,7 +164,7 @@
                     <tr:showDetailItem text="Tab 4" disabled="true"/>
                     <tr:showDetailItem text="Tab 5">
                       <tr:panelHeader text="Header 5">
-                      
+
             <tr:table allDetailsEnabled="true" var="row"
                       rowBandingInterval="2"
                       value="#{periodicTable.tableData}" rows="10"
@@ -185,6 +185,11 @@
                       </tr:panelHeader>
                     </tr:showDetailItem>
                   </tr:panelTabbed>
+                  <tr:tree var="foo" value="#{tree.model}">
+                      <f:facet name="nodeStamp">
+                        <tr:outputText value="#{foo.text}"/>
+                      </f:facet>
+                    </tr:tree>
                 </tr:panelGroupLayout>
                 <tr:panelGroupLayout layout="vertical">
                   <f:facet name="separator">
