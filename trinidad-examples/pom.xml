@@ -34,8 +34,6 @@
     <module>trinidad-demo</module>
   </modules>
 
-
-
   <profiles>
     <profile>
       <id>release</id>
