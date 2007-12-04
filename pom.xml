@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+     
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
@@ -210,7 +210,7 @@
           </configuration>
         </plugin>
 
-	<!-- To work around "No Java test frameworks found" problem with 2.2 -->
+        <!-- To work around "No Java test frameworks found" problem with 2.2 -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
@@ -537,21 +537,6 @@
       <name>Apache Maven Snapshot Repository</name>
       <url>scpexe://minotaur.apache.org/www/people.apache.org/repo/m2-snapshot-repository</url>
     </snapshotRepository>
-<!--
-    <repository>
-      <id>incubator</id>
-      <name>Maven2 Incubator Repository</name>
-      <url>TBD</url>
-      <layout>default</layout>
-    </repository>
-    <snapshotRepository>
-      <uniqueVersion>false</uniqueVersion>
-      <id>incubator-snapshots</id>
-      <name>Maven2 Incubator Snapshots Repository</name>
-      <url>TBD</url>
-      <layout>default</layout>
-    </snapshotRepository>
--->
   </distributionManagement>
 
   <profiles>
@@ -623,14 +608,14 @@
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>retrotranslator-maven-plugin</artifactId>
               <executions>
-        		    <execution>
+                <execution>
                   <goals>
                     <goal>translate-project</goal>
                   </goals>
                   <configuration>
                     <advanced>true</advanced>
-          				  <embed>org.apache.myfaces.trinidad.backport</embed>
-          				  <attach>true</attach>
+                    <embed>org.apache.myfaces.trinidad.backport</embed>
+                    <attach>true</attach>
                   </configuration>
                 </execution>
               </executions>
