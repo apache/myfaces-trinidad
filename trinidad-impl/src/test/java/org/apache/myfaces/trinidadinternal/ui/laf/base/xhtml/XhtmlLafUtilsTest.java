@@ -18,7 +18,22 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 
+import java.util.Locale;
+
+import javax.faces.component.UIViewRoot;
+import javax.faces.context.ResponseWriter;
+
 import junit.framework.TestCase;
+
+import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidadinternal.io.XhtmlResponseWriter;
+import org.apache.myfaces.trinidadinternal.renderkit.FacesConfigInfo;
+import org.apache.myfaces.trinidadinternal.renderkit.MFacesContext;
+import org.apache.myfaces.trinidadinternal.renderkit.MRequestContext;
+import org.apache.myfaces.trinidadinternal.renderkit.NullWriter;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderKitBootstrap;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 
 /**
  * Unit tests for XhtmlLafUtils.
@@ -31,6 +46,50 @@ public class XhtmlLafUtilsTest extends TestCase
     String testName)
   {
     super(testName);
+  }
+
+  protected void setUp() throws Exception
+  {
+    RequestContext rc = RequestContext.getCurrentInstance();
+    if (rc != null)
+    {
+      rc.release();
+    }
+    
+    _bootstrap = new RenderKitBootstrap();
+    _bootstrap.init();
+    
+    RenderKitBootstrap.clearFactories();
+    RenderKitBootstrap.setFactories(_bootstrap.getFacesConfigInfo());
+    _facesContext = new MFacesContext(false);
+    
+    _facesContext = new MFacesContext(true);
+    _requestContext = new MRequestContext();
+    _requestContext.setSkinFamily("minimal");
+    _requestContext.setAgent(RenderKitBootstrap.getGeckoAgent());
+    _requestContext.setRightToLeft(false);
+    _requestContext.setAccessibilityMode(null);
+
+    UIViewRoot root = RenderKitBootstrap.createUIViewRoot(_facesContext);
+    root.setRenderKitId("org.apache.myfaces.trinidad.core");
+    root.setLocale(Locale.getDefault());
+    _facesContext.setViewRoot(root);
+    
+    try
+    {
+      new CoreRenderingContext();
+    }
+    catch (IllegalStateException ex)
+    {
+      return;
+    }
+  }
+
+  protected void tearDown() throws Exception
+  {
+    MFacesContext.clearContext();
+    _requestContext.release();
+    RenderKitBootstrap.clearFactories();
   }
 
   /**
@@ -54,4 +113,9 @@ public class XhtmlLafUtilsTest extends TestCase
     XhtmlLafUtils.escapeJS(escaped, raw, true, 2);
     assertEquals("a\\\\\\\'b", escaped.toString());
   }
+  
+  private MFacesContext _facesContext;
+  private MRequestContext _requestContext;
+
+  private RenderKitBootstrap _bootstrap;
 }
