@@ -61,8 +61,6 @@ public class XhtmlLafUtilsTest extends TestCase
     
     RenderKitBootstrap.clearFactories();
     RenderKitBootstrap.setFactories(_bootstrap.getFacesConfigInfo());
-    _facesContext = new MFacesContext(false);
-    
     _facesContext = new MFacesContext(true);
     _requestContext = new MRequestContext();
     _requestContext.setSkinFamily("minimal");
