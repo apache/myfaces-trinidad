@@ -218,8 +218,8 @@
           <inherited>true</inherited>
           <configuration>
             <!-- set the forkMode to "always" to validate new tests,
-              and "once" otherwise for performance -->
-            <forkMode>always</forkMode>
+              and "never" otherwise for performance -->
+            <forkMode>never</forkMode>
             <parallel>true</parallel>
           </configuration>
         </plugin>
