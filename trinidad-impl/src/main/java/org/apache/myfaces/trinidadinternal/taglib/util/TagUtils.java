@@ -25,6 +25,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -181,6 +182,30 @@ public final class TagUtils
       return ((Date) value);
 
     return _parseISODate(value.toString());
+  }
+
+  /**
+  *  ISO Date String --> Date with time components maximized
+  * @param value
+  * @return
+  */
+  public static Date getDateWithMaxTime(
+    Object value)
+  {
+    if (value == null)
+      return null;
+
+    if (value instanceof Date)
+      return ((Date)value);
+
+    Calendar c = Calendar.getInstance();
+    Date d = _parseISODate(value.toString());
+    c.setTime(d);
+    c.set(Calendar.HOUR_OF_DAY, 23);
+    c.set(Calendar.MINUTE, 59);
+    c.set(Calendar.SECOND, 59);
+    c.set(Calendar.MILLISECOND, 999);
+    return (c.getTime());
   }
 
   /**
