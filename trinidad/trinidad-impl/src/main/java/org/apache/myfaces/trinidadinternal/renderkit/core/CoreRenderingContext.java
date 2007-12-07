@@ -432,6 +432,11 @@ public class CoreRenderingContext extends RenderingContext
           Object requestMapStyleSheetId = requestMap.get(_SKIN_STYLESHEET_ID_PARAM);
           if (requestMapStyleSheetId != null)
           {
+            // set up the styleProvider first, so that it will create the /adf/style
+            // directory. Otherwise the following code would get an error when it
+            // tries to getStyleDir. This could possibly be done better.
+            getStyleContext().getStyleProvider();
+            
             String skinForPortalStyleSheetId = requestedSkin.getStyleSheetDocumentId(this);
             if (skinForPortalStyleSheetId != null &&
                 skinForPortalStyleSheetId.equals(requestMapStyleSheetId))

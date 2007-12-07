@@ -39,7 +39,8 @@ import org.apache.myfaces.trinidadinternal.skin.SkinExtension;
      super(baseSkin,
            "minimal.portlet",
            "minimal",
-           XhtmlConstants.OUTPUT_MODE_PORTLET);
+           XhtmlConstants.OUTPUT_MODE_PORTLET,
+           "META-INF/adf/styles/simple-portlet.xss");
    }
 
  }
