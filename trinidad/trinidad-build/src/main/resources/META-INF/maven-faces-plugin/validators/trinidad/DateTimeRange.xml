@@ -39,6 +39,7 @@ to allow the largest range of values to be accepted.]]>
       <property-extension>
         <mfp:property-metadata>
           <mfp:preferred>true</mfp:preferred>
+          <mfp:use-max-time>true</mfp:use-max-time>
         </mfp:property-metadata>
       </property-extension>
     </property>

@@ -23,6 +23,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -439,6 +440,38 @@ abstract public class UIXComponentTag extends UIComponentTag
     else
     {
       bean.setProperty(key, _parseISODate(value));
+    }
+  }
+
+  /**
+   * Set a property of type java.util.Date.  If the value
+   * is an EL expression, it will be stored as a ValueBinding.
+   * Otherwise, it will parsed as an ISO 8601 date (yyyy-MM-dd)
+   * and the time components (hour, min, second, millisecond) maximized.
+   * Null values are ignored.
+   */
+  protected void setMaxDateProperty(
+    FacesBean   bean,
+    PropertyKey key,
+    String      value)
+  {
+    if (value == null)
+      return;
+
+    if (isValueReference(value))
+    {
+      bean.setValueBinding(key, createValueBinding(value));
+    }
+    else
+    {
+      Date d = _parseISODate(value);
+      Calendar c = Calendar.getInstance();
+      c.setTime(d);
+      c.set (Calendar.HOUR_OF_DAY, 23);
+      c.set (Calendar.MINUTE, 59);
+      c.set (Calendar.SECOND, 59);
+      c.set (Calendar.MILLISECOND, 999);
+      bean.setProperty(key, c.getTime());
     }
   }
 
