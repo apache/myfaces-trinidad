@@ -27,7 +27,7 @@ import org.apache.myfaces.trinidad.bean.FacesBeanImpl;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
-class ConverterUtils 
+final class ConverterUtils 
 {
   private ConverterUtils()
   {
