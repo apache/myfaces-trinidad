@@ -25,8 +25,6 @@ Bug
 
 Improvement
 
-    * [TRINIDAD-663] - Idea for a new component to enhance PPR
-    * [TRINIDAD-664] - Component to allow a non-trinidad component compatible with trinidad with no code
     * [TRINIDAD-666] - Make ExternalContextUtils part of the public API
     * [TRINIDAD-766] - trinidadinternal's NumberConverter should not be final
     * [TRINIDAD-774] - support for static colors in a tag
