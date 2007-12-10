@@ -40,6 +40,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.el.ValueExpression;
 
+import org.apache.myfaces.trinidad.component.UIXEditableValue;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.convert.ClientConverter;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -113,7 +114,7 @@ public class DateTimeConverter extends
    * the expected type and convert if necessary: bug 4549630:
    */
   static Object __typeConvert(FacesContext context, Converter converter,
-      UIComponent component, String strValue, Object value)
+      UIComponent component, String strValue, Object value) throws ConverterException
   {
     assert value != null;
     ValueExpression expression = component.getValueExpression("value");
@@ -138,7 +139,23 @@ public class DateTimeConverter extends
         {
           GenericConverterFactory fac = GenericConverterFactory
               .getCurrentInstance();
-          value = fac.convert(value, expectedType);
+          try
+          {
+            value = fac.convert(value, expectedType);
+          }
+          catch(ConvertException e)
+          {
+            // Use underlying exception's message if ConvertException
+            // wrapped exception raised by the converter
+            Throwable cause = e.getCause();
+            if (cause == null)
+              cause = e;
+           
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+                                                MessageFactory.getString(context, UIXEditableValue.CONVERSION_MESSAGE_ID),
+                                                cause.getLocalizedMessage());
+            throw new ConverterException(msg, e);
+          }
         }
       }
     }

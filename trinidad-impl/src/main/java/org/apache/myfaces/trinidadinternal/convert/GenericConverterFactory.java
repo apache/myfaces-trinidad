@@ -40,8 +40,9 @@ public class GenericConverterFactory
 {
   private GenericConverterFactory()
   {
-    _cache = new HashMap<Key, GenericConverter>(16);
+    _cache = new HashMap<Key, Converter>(16);
     _converters = new ArrayList<GenericConverter>(3);
+    _reverseDiscoveryConverters = new ArrayList<ReverseDiscoveryGenericConverter>(2);
     registerConverter(new SqlConverter());
     registerConverter(new BaseConverter());
   }
@@ -59,14 +60,14 @@ public class GenericConverterFactory
    * requests for the same source and target types will be fast.
    * @return null if there is no such converter.
    */
-  public GenericConverter getConverter(Class<?> sourceType, Class<?> targetType)
+  public Converter getConverter(Class<?> sourceType, Class<?> targetType)
   {
     Key key = new Key(sourceType, targetType);
     // check the cache first:
     Object cached = _cache.get(key);
     if (cached != null)
     {
-      return (cached == _NULL) ? null : (GenericConverter) cached;
+      return (cached == _NULL) ? null : (Converter) cached;
     }
 
     // we are going to start searching to see if some chain of converters
@@ -78,7 +79,20 @@ public class GenericConverterFactory
     // cache to store all the classes we've tested already. This is to
     // avoid our chains from looping indefinitely:
     Set<Class<?>> cache  = new HashSet<Class<?>>(16);
-    GenericConverter converter = _findConverter(sourcesToBeSearched, targetType, cache);
+    
+    // Try to find a converter chain without "reverse discovery" converetrs.
+    // Our particular implementation of the "reverse discovery" converter uses Java Reflection,
+    // so it is better to use a chain of normal generic converters
+    Converter converter = _findConverter(sourcesToBeSearched, targetType, cache, false);
+    
+    // If we failed, try to use "reverse discovery" converters
+    if (converter == null && _reverseDiscoveryConverters.size() > 0)
+    {
+      cache.clear();
+      sourcesToBeSearched.add(start);
+      converter = _findConverter(sourcesToBeSearched, targetType, cache, true);
+    }
+    
     if (converter == null)
     {
       // cache the fact that no such converter exists:
@@ -99,16 +113,20 @@ public class GenericConverterFactory
    * sourceType and the chain of converters needed to produce this sourceType.
    * @param targetType the type that is needed
    * @param cache used to record which classes we've searched already.
+   * @param useRevserseDiscovery true if "reverse discovery" converters should be used, false otherwise
    * @return null if no converter was found.
    */
-  private GenericConverter _findConverter(
+  private Converter _findConverter(
     LinkedList<Node> sourcesToBeSearched,
     Class<?> targetType, 
-    Set<Class<?>> cache)
+    Set<Class<?>> cache,
+    boolean useRevserseDiscovery)
   {
     while(!sourcesToBeSearched.isEmpty())
     {
       Node source = sourcesToBeSearched.removeFirst();
+      Converter match = null;
+      
       // loop through all the converters and see what types they can turn 
       // the current sourceType into 
       // (the current sourceType is source.targetType):
@@ -120,13 +138,21 @@ public class GenericConverterFactory
         if (_searchTargetTypes(sourcesToBeSearched, source, conv, targetType,
                                cache))
         {
-          // see if there is no chain:
-          if (source.previous == null)
-            return conv;
-            
-          // there is a chain:
-          return new CompositeConverter(source, conv, targetType);
+          match = conv;
         }
+      }
+      
+      if (match == null && useRevserseDiscovery)
+        match = _searchSourceTypes(source.targetType, targetType);
+      
+      if (match != null)
+      {
+        // see if there is no chain:
+        if (source.previous == null)
+          return match;
+          
+        // there is a chain:
+        return new CompositeConverter(source, match, targetType);
       }
     }
     return null;
@@ -151,7 +177,7 @@ public class GenericConverterFactory
     GenericConverter currentConverter,
     Class<?> searchType,
     Set<Class<?>> cache)
-  {
+  { 
     Class<?> sourceType = currentSource.targetType;
     List<Class<?>> targetTypes = currentConverter.getTargetTypes(sourceType);
     for(int i=0,sz=targetTypes.size(); i<sz; i++)
@@ -177,12 +203,43 @@ public class GenericConverterFactory
   }
   
   /**
+   * Finds a suitable converter by searching source types supported for a
+   * given target type
+   * @param sourceType - source type
+   * @param targetType - target type
+   * @return a suitable Converter is found, null otherwise
+   */
+  private Converter _searchSourceTypes(Class<?> sourceType, Class<?> targetType)
+  {
+    for (ReverseDiscoveryGenericConverter conv:_reverseDiscoveryConverters)
+    {
+      List<Class<?>> sourceTypes = conv.getSourceTypes(targetType);
+      for (Class<?> type: sourceTypes)
+      {
+        if (type.isAssignableFrom(sourceType))
+          return conv;
+      }
+    }
+    return null;
+  }
+  
+  /**
    * Registers a converter. Registering a new converter causes the internal
    * cache to be cleared.
    */
   public void registerConverter(GenericConverter converter)
   {
     _converters.add(converter);
+    _cache.clear();
+  }
+  
+  /**
+   * Registers a "reverse discovery" converter. Registering a new converter causes the internal
+   * cache to be cleared.
+   */
+  public void registerReverseDiscoveryConverter(ReverseDiscoveryGenericConverter converter)
+  {
+    _reverseDiscoveryConverters.add(converter);
     _cache.clear();
   }
 
@@ -200,7 +257,7 @@ public class GenericConverterFactory
     if (targetType.isAssignableFrom(source.getClass()))
       return source;
   
-    GenericConverter converter = getConverter(source.getClass(), targetType);
+    Converter converter = getConverter(source.getClass(), targetType);
     if (converter != null)
     {
       return converter.convert(source, targetType);
@@ -221,33 +278,27 @@ public class GenericConverterFactory
     if (targetType.isAssignableFrom(source.getClass()))
       return true;
     
-    GenericConverter converter = getConverter(source.getClass(), targetType);
+    Converter converter = getConverter(source.getClass(), targetType);
     return converter != null;
   }
   
-  private final Map<Key, GenericConverter> _cache;
+  private final Map<Key, Converter> _cache;
   private final List<GenericConverter> _converters;
+  private final List<ReverseDiscoveryGenericConverter> _reverseDiscoveryConverters;
   // 2006-08-02: -= Simon Lessard =-
   //             Using a GenericConverter null value instead 
   //             of Node.class to be typesafe
-  private static final GenericConverter _NULL = new GenericConverter()
+  private static final Converter _NULL = new Converter()
   {
-    @Override
     public Object convert(Object source, Class<?> targetType)
     {
       return null;
-    }
-    
-    @Override
-    public List<Class<?>> getTargetTypes(Class<?> sourceType)
-    {
-      return Collections.emptyList();
     }
   };
 
   private static final class Node
   {
-    public Node(Node previous, GenericConverter converter, Class<?> targetType)
+    public Node(Node previous, Converter converter, Class<?> targetType)
     {
       this.previous = previous;
       this.converter = converter;
@@ -264,15 +315,8 @@ public class GenericConverterFactory
       return source;
     }
     
-    public Class<?> getSourceType()
-    {
-      if (previous == null)
-        return targetType;
-      return previous.getSourceType();
-    }
-    
     public final Node previous;
-    public final GenericConverter converter;
+    public final Converter converter;
     public final Class<?> targetType;
   }
   
@@ -312,15 +356,14 @@ public class GenericConverterFactory
     private final Class<?> _target;
   }
   
-  private static final class CompositeConverter extends GenericConverter
+  private static final class CompositeConverter implements Converter
   {
-    public CompositeConverter(Node source, GenericConverter conv, Class<?> targetType)
+    public CompositeConverter(Node source, Converter conv, Class<?> targetType)
     {
       assert source != null;
       _chain = new Node(source, conv, targetType) ;
     }
 
-    @Override
     public Object convert(Object source, Class<?> targetType)
     {
       if (targetType.isAssignableFrom(_chain.targetType))
@@ -330,18 +373,6 @@ public class GenericConverterFactory
       else
         throw new IllegalArgumentException(_LOG.getMessage(
           "CANNOT_CONVERT", new Object[]{source, targetType.getName()}));
-    }
-
-    @Override
-    public List<Class<?>> getTargetTypes(Class<?> sourceType)
-    {
-      if (_chain.getSourceType().isAssignableFrom(sourceType))
-      {
-        List<Class<?>> list = new ArrayList<Class<?>>(1);
-        list.add(_chain.targetType);
-        return list;
-      }
-      return Collections.emptyList();
     }
     
     private final Node _chain;
