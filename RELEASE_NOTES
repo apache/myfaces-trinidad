@@ -1,0 +1,36 @@
+Sub-task
+
+    * [TRINIDAD-771] - returnListener from a commandButton is broken in a table facet
+    * [TRINIDAD-787] - somtimes window.external can be null
+
+Bug
+
+    * [TRINIDAD-144] - AJAX client validation creates blank space underneath inputs in IE6
+    * [TRINIDAD-692] - Title of Lightweight Dialogs is set to parent page's title when partialSubmit is not used on link/button
+    * [TRINIDAD-713] - Using "name" as the id for a component breaks form submission. "name" appears to be an undocumented reserved identifier.
+    * [TRINIDAD-729] - autoSubmit does not work in <tr:inputNumberSpinbox>
+    * [TRINIDAD-746] - ChildPropertyTreeModel returns true for isContainer when there are no children
+    * [TRINIDAD-748] - Client-side DateTimeRangeValidator does not handle differences in timezone
+    * [TRINIDAD-749] - Launching modal dialog when the launcher window body has position:absolute in IE makes launcher page look corrupt
+    * [TRINIDAD-760] - Web app should be 2.5
+    * [TRINIDAD-762] - pom files have not been updated since the 1.0.3 release
+    * [TRINIDAD-770] - unhelpful message for number out of range
+    * [TRINIDAD-772] - Setting "First" to -1 makes UIXIterator scroll to the end
+    * [TRINIDAD-777] - Lightweight dialogs sometimes rendered such that top is off the page
+    * [TRINIDAD-783] - Duplicate error messages shown for inline c/s and server validation
+    * [TRINIDAD-785] - panelCaptionGroup fails to render custom style class
+    * [TRINIDAD-800] - DialogRequest doesn't call context.getExternalContext().encodeActionURL()
+    * [TRINIDAD-803] - NPE in UIXCollection saveStampState()
+    * [TRINIDAD-809] - StampState for UIXShowDetail does not handle EL-bound "disclosed" property
+
+Improvement
+
+    * [TRINIDAD-663] - Idea for a new component to enhance PPR
+    * [TRINIDAD-664] - Component to allow a non-trinidad component compatible with trinidad with no code
+    * [TRINIDAD-666] - Make ExternalContextUtils part of the public API
+    * [TRINIDAD-766] - trinidadinternal's NumberConverter should not be final
+    * [TRINIDAD-774] - support for static colors in a tag
+    * [TRINIDAD-776] - add 'translatable' meta-data to all the component properties that are translatable
+    * [TRINIDAD-788] - stopp uploading empty files
+    * [TRINIDAD-792] - Making Reorder,Remove ChildComponentChange generic to all the attributes
+    * [TRINIDAD-796] - TrinidadELResolver::setValue support
