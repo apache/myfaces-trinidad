@@ -18,7 +18,7 @@
  */
 package org.apache.myfaces.trinidadinternal.convert;
 
-class ConvertException extends RuntimeException
+public class ConvertException extends RuntimeException
 {
   public ConvertException(Object source, Class<?> targetType, Throwable error)
   {
