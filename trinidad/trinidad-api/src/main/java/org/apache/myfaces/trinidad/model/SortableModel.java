@@ -151,7 +151,7 @@ public class SortableModel extends CollectionModel
       try
       {
         PropertyResolver resolver = __getPropertyResolver();
-        Object propertyValue = resolver.getValue(data, property);
+        Object propertyValue = evaluateProperty(resolver, data, property);
 
         // when the value is null, we don't know if we can sort it.
         // by default let's support sorting of null values, and let the user
@@ -171,6 +171,18 @@ public class SortableModel extends CollectionModel
     {
       _model.setRowIndex(oldIndex);
     }
+  }
+
+  private Object evaluateProperty(PropertyResolver resolver, Object base, String property)
+  {
+    //simple property -> resolve value directly
+    if (!property.contains( "." ))
+      return resolver.getValue( base, property );
+    
+    int index = property.indexOf( '.' );
+    Object newBase = resolver.getValue( base, property.substring( 0, index ) );
+
+    return evaluateProperty( resolver, newBase, property.substring( index + 1 ) );
   }
 
   @Override
@@ -348,11 +360,11 @@ public class SortableModel extends CollectionModel
 
       _model.setRowIndex(index1);
       Object instance1 = _model.getRowData();
-      Object value1 = _resolver.getValue(instance1, _prop);
+      Object value1 = evaluateProperty( _resolver, instance1, _prop );
 
       _model.setRowIndex(index2);
       Object instance2 = _model.getRowData();
-      Object value2 = _resolver.getValue(instance2, _prop);
+      Object value2 = evaluateProperty( _resolver, instance2, _prop );
 
       if (value1 == null)
         return (value2 == null) ? 0 : -1;
