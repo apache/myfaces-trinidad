@@ -2033,10 +2033,10 @@ function _getValue(formElement)
     var multiResult = new Array();
     for (var i = 0; i < formElement.length; i++)
     {
-        if(formElement.options[i].selected)
-        {
-          multiResult[multiResult.length] = formElement.options[i].value;
-        }
+      if(formElement.options[i].selected)
+      {
+        multiResult[multiResult.length] = formElement.options[i].value;
+      }
     }
     return (multiResult.length > 0) ? multiResult : "";
   }
