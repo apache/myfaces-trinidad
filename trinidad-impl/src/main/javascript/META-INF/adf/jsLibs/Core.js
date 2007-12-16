@@ -2028,6 +2028,18 @@ function _getValue(formElement)
       return formElement.checked;
     }
   }
+  else if (elementType == "select-multiple")
+  {
+    var multiResult = new Array();
+    for (var i = 0; i < formElement.length; i++)
+    {
+        if(formElement.options[i].selected)
+        {
+          multiResult[multiResult.length] = formElement.options[i].value;
+        }
+    }
+    return (multiResult.length > 0) ? multiResult : "";
+  }
   else if (elementType.substring(0,6) == "select")
   {
     formElement = shadowElem;
