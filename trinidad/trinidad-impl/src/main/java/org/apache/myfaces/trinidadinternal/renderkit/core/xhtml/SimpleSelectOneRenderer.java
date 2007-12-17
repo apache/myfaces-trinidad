@@ -435,7 +435,7 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
       }
       else
       {
-        if (value.equals(item.getValue()))
+        if (value.equals(item.getValue()) || (value.getClass().isEnum() && item.getValue() != null && value.toString().equals( item.getValue().toString() )))
           return i;
       }
     }
