@@ -2806,8 +2806,9 @@ function _formatErrorString(
   {
     var currValue = tokens[currToken];
 
-    // if the token has no value, replace it with the empty string
-    if (!currValue)
+    // if the token has no value 
+    // or !typeof string, replace it with the empty string (see TRINIDAD-873)
+    if (!currValue || !(typeof currValue == "string"))
     {
       currValue = "";
     }
