@@ -197,7 +197,8 @@ TrRequestQueue.prototype._getPostbackContent = function(actionForm, params)
       var input = formElements[elementIndex];
       
       // todo: do not post values for non-triggering submit buttons
-      if (input.name && !input.disabled)
+      // TRINIDAD-874 skip input.type="submit" fields
+      if (input.name && !input.disabled && !(input.tagName=="INPUT" && input.type=="submit"))
       {
         if (input.options)
         {
