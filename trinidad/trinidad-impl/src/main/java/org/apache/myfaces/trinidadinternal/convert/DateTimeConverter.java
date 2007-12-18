@@ -90,7 +90,7 @@ public class DateTimeConverter extends
 
     GenericConverterFactory fac = GenericConverterFactory.getCurrentInstance();
     // we support other types of dates, like oracle.jbo.domain.Date:
-    if ((!(value instanceof Date)) && fac.isConvertible(value, Date.class))
+    if (!(value instanceof String) && (!(value instanceof Date)) && fac.isConvertible(value, Date.class))
     {
       value = fac.convert(value, Date.class);
     }
@@ -143,9 +143,9 @@ public class DateTimeConverter extends
           {
             value = fac.convert(value, expectedType);
           }
-          catch(ConvertException e)
+          catch(TypeConversionException e)
           {
-            // Use underlying exception's message if ConvertException
+            // Use underlying exception's message if TypeConversionException
             // wrapped exception raised by the converter
             Throwable cause = e.getCause();
             if (cause == null)
@@ -406,7 +406,7 @@ public class DateTimeConverter extends
     if (component instanceof ValueHolder)
     {
       Object value = ((ValueHolder) component).getValue();
-      if (value == null)
+      if (value == null || value instanceof String)
         return null;
 
       if (value instanceof Date)

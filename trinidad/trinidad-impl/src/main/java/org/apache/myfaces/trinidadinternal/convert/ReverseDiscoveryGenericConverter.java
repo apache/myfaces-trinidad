@@ -24,12 +24,12 @@ import java.util.List;
 /**
  * This class is capable of converting
  * one Object into another.
- * Users of this class may discover source types supported by this Converter
+ * Users of this class may discover source types supported by this TypeConverter
  * by specifying a target type. Regular GenericConverter allows discovery of supported
  * target types by specifying a source type
  */
 
-public abstract class ReverseDiscoveryGenericConverter implements Converter
+public abstract class ReverseDiscoveryGenericConverter implements TypeConverter
 {
   /**
    * converts the given Object into an instance of the 

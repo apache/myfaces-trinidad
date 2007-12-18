@@ -23,12 +23,12 @@ package org.apache.myfaces.trinidadinternal.convert;
  * Defines convertion capability for generic Converters
  */
 
-public interface Converter
+public interface TypeConverter
 {
   /**
    * converts the given Object into an instance of the 
    * targetType.
    * @return an instance of the targetType.
    */
-  public Object convert(Object source, Class<?> targetType);
+  Object convert(Object source, Class<?> targetType);
 }
