@@ -681,6 +681,14 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
     }
   }
 
+  private void _addConveniencePattern(Set<String> patterns)
+  {
+    //see TRINIDAD-859
+    patterns.add("MMMM dd, yy");
+    patterns.add("dd-MMMM-yy");
+    patterns.add("MMMM/dd/yy");
+  }
+  
   private Date _doLenientParse(
     FacesContext context,
     UIComponent component,
@@ -705,12 +713,25 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
       // Let us save this exception to throw, if in case we have exhausted
       // all possible patterns
       ce = convException;
-      String[] lenientPatterns = _getLenientPatterns(pattern);
-      for (int i = 0; i < lenientPatterns.length; i++)
+      
+      Set<String> patterns = new HashSet<String>();
+      Set<String> lenientPatterns = new HashSet<String>();
+      patterns.add(pattern);
+      
+      // we apply some patterns for convenience reasons 
+      // (see TRINIDAD-859)
+      _addConveniencePattern(patterns);
+      
+      for (String tmpPattern : patterns)
+      {
+        lenientPatterns.addAll(_getLenientPatterns(tmpPattern));
+      }
+
+      for (String lenientPattern : lenientPatterns)
       {
         try
         {
-          return _parse(context, component, value, lenientPatterns[i]);
+          return _parse(context, component, value, lenientPattern);
         }
         catch (ConverterException e)
         {
@@ -1242,7 +1263,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
     return obj == null? 0 : obj.hashCode();
   }
 
-  private static String[] _getLenientPatterns(String pattern)
+  private static Set<String> _getLenientPatterns(String pattern)
   {
     //Create patterns so as to be lenient.
     // allow for
@@ -1271,7 +1292,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
       patterns.add(str2);
     }
 
-    //Apply the leninecy to the above obtained patterns which was obtained
+    // Apply the leninecy to the above obtained patterns which was obtained
     // after replacing MMM -> MM and MMM -> M and the actual pattern
     for (int i = 0; i < leniencyApplicablePatterns.length ; i++)
     {
@@ -1291,7 +1312,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
         patterns.add(leniencyApplicablePatterns[i].replaceAll("\\.", "-"));
       }
     }
-    return patterns.toArray(_EMTPTY_ARRAY);
+    return patterns;
   }
 
   private Object[] _getPlaceHolderParameters(
@@ -1797,8 +1818,6 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
   private FacesBean _facesBean = ConverterUtils.getFacesBean(_TYPE);
 
   private boolean _isTransient;
-
-  private static final String[] _EMTPTY_ARRAY = new String[0];
 
   private static final TimeZone _DEFAULT_TIME_ZONE = TimeZone.getTimeZone("GMT");
 
