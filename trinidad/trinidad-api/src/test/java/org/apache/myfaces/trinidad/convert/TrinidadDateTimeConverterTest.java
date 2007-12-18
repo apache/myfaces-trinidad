@@ -344,7 +344,7 @@ public class TrinidadDateTimeConverterTest extends DateTimeConverterTestCase
       for (int j = 0; j < 3; j++)
       {
         for (int k = 0; k < 4; k++)
-        	facesContext.getViewRoot().setLocale(Locale.US);
+          facesContext.getViewRoot().setLocale(Locale.US);
       }
 
       try
