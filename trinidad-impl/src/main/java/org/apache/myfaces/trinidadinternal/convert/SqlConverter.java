@@ -51,7 +51,7 @@ class SqlConverter extends GenericConverter
     {
       return new Timestamp(jDate.getTime());
     }
-    throw new ConvertException(source, targetType);
+    throw new TypeConversionException(source, targetType);
   }
 
   @Override

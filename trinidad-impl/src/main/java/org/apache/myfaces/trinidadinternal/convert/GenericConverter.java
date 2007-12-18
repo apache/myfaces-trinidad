@@ -26,7 +26,7 @@ import java.util.List;
  * A converter may be capable of converting a single Object into
  * many different types.
  */
-public abstract class GenericConverter implements Converter
+public abstract class GenericConverter implements TypeConverter
 {
   /**
    * converts the given Object into an instance of the 

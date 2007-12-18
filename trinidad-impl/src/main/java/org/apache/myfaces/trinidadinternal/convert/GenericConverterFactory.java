@@ -20,12 +20,16 @@ package org.apache.myfaces.trinidadinternal.convert;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
@@ -40,11 +44,12 @@ public class GenericConverterFactory
 {
   private GenericConverterFactory()
   {
-    _cache = new HashMap<Key, Converter>(16);
+    _cache = new ConcurrentHashMap<Key, TypeConverter>(16);
     _converters = new ArrayList<GenericConverter>(3);
     _reverseDiscoveryConverters = new ArrayList<ReverseDiscoveryGenericConverter>(2);
     registerConverter(new SqlConverter());
     registerConverter(new BaseConverter());
+    registerReverseDiscoveryConverter(new ReflectionConverter());
   }
   
   /**
@@ -60,14 +65,14 @@ public class GenericConverterFactory
    * requests for the same source and target types will be fast.
    * @return null if there is no such converter.
    */
-  public Converter getConverter(Class<?> sourceType, Class<?> targetType)
+  public TypeConverter getConverter(Class<?> sourceType, Class<?> targetType)
   {
     Key key = new Key(sourceType, targetType);
     // check the cache first:
     Object cached = _cache.get(key);
     if (cached != null)
     {
-      return (cached == _NULL) ? null : (Converter) cached;
+      return (cached == _NULL) ? null : (TypeConverter) cached;
     }
 
     // we are going to start searching to see if some chain of converters
@@ -80,17 +85,36 @@ public class GenericConverterFactory
     // avoid our chains from looping indefinitely:
     Set<Class<?>> cache  = new HashSet<Class<?>>(16);
     
-    // Try to find a converter chain without "reverse discovery" converetrs.
-    // Our particular implementation of the "reverse discovery" converter uses Java Reflection,
+    // Try to find a converter chain without "reverse discovery" type converetrs.
+    // Our particular implementation of the "reverse discovery" type converter uses Java Reflection,
     // so it is better to use a chain of normal generic converters
-    Converter converter = _findConverter(sourcesToBeSearched, targetType, cache, false);
+    TypeConverter converter = _findConverter(sourcesToBeSearched, targetType, cache, false);
     
     // If we failed, try to use "reverse discovery" converters
     if (converter == null && _reverseDiscoveryConverters.size() > 0)
     {
-      cache.clear();
-      sourcesToBeSearched.add(start);
-      converter = _findConverter(sourcesToBeSearched, targetType, cache, true);
+      // We will use a "reverse discovery" type converter only if target-to-source conversion
+      // is available without the use of "reverse discovery" type converters. This is done to ensure
+      // we do not find a converter dynamically for the target type when the source type is
+      // not convertable from the target type (converter's availability has to be 'reflective').
+      // Regular generic converters are pre-defined, so they normally do not have this problem.
+      
+      TypeConverter reverseConv = null;
+      reverseConv = _cache.get(new Key(targetType, sourceType));
+      if (reverseConv == null)
+      {
+        cache.clear();
+        sourcesToBeSearched.add( new Node(null, null, targetType));
+        reverseConv = _findConverter(sourcesToBeSearched, sourceType, cache, false);
+      }
+      
+      if (reverseConv != null)
+      {
+        cache.clear();
+        sourcesToBeSearched.clear();
+        sourcesToBeSearched.add(start);
+        converter = _findConverter(sourcesToBeSearched, targetType, cache, true);
+      }
     }
     
     if (converter == null)
@@ -116,7 +140,7 @@ public class GenericConverterFactory
    * @param useRevserseDiscovery true if "reverse discovery" converters should be used, false otherwise
    * @return null if no converter was found.
    */
-  private Converter _findConverter(
+  private TypeConverter _findConverter(
     LinkedList<Node> sourcesToBeSearched,
     Class<?> targetType, 
     Set<Class<?>> cache,
@@ -125,7 +149,7 @@ public class GenericConverterFactory
     while(!sourcesToBeSearched.isEmpty())
     {
       Node source = sourcesToBeSearched.removeFirst();
-      Converter match = null;
+      TypeConverter match = null;
       
       // loop through all the converters and see what types they can turn 
       // the current sourceType into 
@@ -207,9 +231,9 @@ public class GenericConverterFactory
    * given target type
    * @param sourceType - source type
    * @param targetType - target type
-   * @return a suitable Converter is found, null otherwise
+   * @return a suitable TypeConverter is found, null otherwise
    */
-  private Converter _searchSourceTypes(Class<?> sourceType, Class<?> targetType)
+  private TypeConverter _searchSourceTypes(Class<?> sourceType, Class<?> targetType)
   {
     for (ReverseDiscoveryGenericConverter conv:_reverseDiscoveryConverters)
     {
@@ -257,12 +281,12 @@ public class GenericConverterFactory
     if (targetType.isAssignableFrom(source.getClass()))
       return source;
   
-    Converter converter = getConverter(source.getClass(), targetType);
+    TypeConverter converter = getConverter(source.getClass(), targetType);
     if (converter != null)
     {
       return converter.convert(source, targetType);
     }
-    throw new ConvertException(source, targetType);
+    throw new TypeConversionException(source, targetType);
   }
   
   /**
@@ -278,17 +302,17 @@ public class GenericConverterFactory
     if (targetType.isAssignableFrom(source.getClass()))
       return true;
     
-    Converter converter = getConverter(source.getClass(), targetType);
+    TypeConverter converter = getConverter(source.getClass(), targetType);
     return converter != null;
   }
   
-  private final Map<Key, Converter> _cache;
+  private final Map<Key, TypeConverter> _cache;
   private final List<GenericConverter> _converters;
   private final List<ReverseDiscoveryGenericConverter> _reverseDiscoveryConverters;
   // 2006-08-02: -= Simon Lessard =-
   //             Using a GenericConverter null value instead 
   //             of Node.class to be typesafe
-  private static final Converter _NULL = new Converter()
+  private static final TypeConverter _NULL = new TypeConverter()
   {
     public Object convert(Object source, Class<?> targetType)
     {
@@ -298,7 +322,7 @@ public class GenericConverterFactory
 
   private static final class Node
   {
-    public Node(Node previous, Converter converter, Class<?> targetType)
+    public Node(Node previous, TypeConverter converter, Class<?> targetType)
     {
       this.previous = previous;
       this.converter = converter;
@@ -316,7 +340,7 @@ public class GenericConverterFactory
     }
     
     public final Node previous;
-    public final Converter converter;
+    public final TypeConverter converter;
     public final Class<?> targetType;
   }
   
@@ -356,9 +380,9 @@ public class GenericConverterFactory
     private final Class<?> _target;
   }
   
-  private static final class CompositeConverter implements Converter
+  private static final class CompositeConverter implements TypeConverter
   {
-    public CompositeConverter(Node source, Converter conv, Class<?> targetType)
+    public CompositeConverter(Node source, TypeConverter conv, Class<?> targetType)
     {
       assert source != null;
       _chain = new Node(source, conv, targetType) ;
@@ -378,13 +402,34 @@ public class GenericConverterFactory
     private final Node _chain;
   }
   
-  public static GenericConverterFactory getCurrentInstance()
+  public static GenericConverterFactory getCurrentInstance(ExternalContext extContext)
   {
+    // TODO: once getCurrentInstance() taking ExternalContext is in ADE,
+    // we need to modify FacesDatabindingConfigurator to pass in the context.
+    // Then we can switch to storing factory instance on the application map
+    
+    /*if (extContext == null)
+      extContext = FacesContext.getCurrentInstance().getExternalContext();
+    Map appMap = extContext.getApplicationMap();
+    GenericConverterFactory factory = (GenericConverterFactory)appMap.get(_INSTANCE_KEY);
+    if (factory == null)
+    {
+      factory = new GenericConverterFactory();
+      appMap.put(_INSTANCE_KEY, factory);
+    }
+    return factory;*/
     return _INSTANCE;
   }
   
-  private static final GenericConverterFactory _INSTANCE = 
-    new GenericConverterFactory();
+  public static GenericConverterFactory getCurrentInstance()
+  {
+    return getCurrentInstance(null);
+  }
+  
+
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     GenericConverterFactory.class);
+  
+  //private static final String _INSTANCE_KEY = "org.apache.myfaces.trinidadinternal.convert.GenericConverterFactory";
+  private static final GenericConverterFactory _INSTANCE = new GenericConverterFactory();
 }
