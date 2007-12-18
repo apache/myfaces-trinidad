@@ -18,7 +18,6 @@
  */
 package org.apache.myfaces.trinidadinternal.application;
 
-import java.io.File;
 import java.io.InputStream;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
