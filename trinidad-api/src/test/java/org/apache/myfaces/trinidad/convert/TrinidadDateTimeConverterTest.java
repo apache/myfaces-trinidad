@@ -65,7 +65,64 @@ public class TrinidadDateTimeConverterTest extends DateTimeConverterTestCase
   {
     return new TestSuite(TrinidadDateTimeConverterTest.class);
   }
-  
+
+  public void testConveniencePatterns()
+  {
+    DateTimeConverter dtConv   = new DateTimeConverter();
+    dtConv.setLocale(Locale.US);
+
+    //this is what SimpleInputDateRenderer does
+    if(dtConv.getTimeZone() == null)
+    {
+      TimeZone tz = null;
+      tz = _mafct.getTimeZone();
+      if(tz == null)
+        tz = TimeZone.getDefault();
+      dtConv.setTimeZone(tz);
+    }
+
+    Mock mock = buildMockUIComponent();
+    UIComponent component = (UIComponent) mock.proxy();
+    String[] inputValue = {"15/2/2002", "January 4, 2004", "4-JAnuARY-2004", "JANUARY/4/2007", "Jan 4, 2004",
+        "01/4/2004", "01-4-2004", "01.4.2004", "1/4/2004", "1-4-2004", "1.4.2004", "Jan/4/2004", "Jan-4-2004",
+        "Jan.4.2004", "04-jan-2004", "4-jan-04", "4-jan-2004", "04-jAn-04", "04-JAN-04", "04-JAN-2004",
+        "4-JAN-04", "4-JAN-2004", "January 4, 2004", "Jan 4, 2004"};
+
+    for(int i = 0; i < inputValue.length; i++)
+    {
+      dtConv.getAsObject(facesContext, component, inputValue[i]);
+    }
+  }
+
+  public void testFormatedPatterns()
+  {
+    DateTimeConverter dtConv   = new DateTimeConverter();
+    dtConv.setLocale(Locale.US);
+
+    //this is what SimpleInputDateRenderer does
+    if(dtConv.getTimeZone() == null)
+    {
+      TimeZone tz = null;
+      tz = _mafct.getTimeZone();
+      if(tz == null)
+        tz = TimeZone.getDefault();
+      dtConv.setTimeZone(tz);
+    }
+
+    Mock mock = buildMockUIComponent();
+    UIComponent component = (UIComponent) mock.proxy();
+    String[] inputValue = {"15/2/2002", "January 4, 2004", "4-JAnuARY-2004", "JANUARY/4/2007"};
+    String[] formatedStrings = {"2/15/2002", "1/4/2004", "1/4/2004", "1/4/2007"};
+
+    Date convertedDate = null;
+    String returnedString = null;
+    for(int i = 0; i < inputValue.length; i++)
+    {
+      convertedDate = (Date) dtConv.getAsObject(facesContext, component, inputValue[i]);
+      returnedString = dtConv.getAsString(facesContext, component, convertedDate);
+      assertEquals(returnedString, formatedStrings[i]);
+    }
+  }
 
   /**
    * @todo move this to the parent class once JSF fixes the bug
@@ -271,7 +328,7 @@ public class TrinidadDateTimeConverterTest extends DateTimeConverterTestCase
     //default time is short hh:m A.M/P.M
     //default both
     //let us choose pattern as M/d/yyyy
-    String[] failingValues = {"15/2/2002", "02;30 A.M,", "15/2/2002 22:22 A*M.", "M/d/yyyy"};
+    String[] failingValues = {"15/15/2002", "02;30 A.M,", "15/15/2002 22:22 A*M.", "M/d/yyyy"};
     String[] types         = {"date",   "time",  "both", "pattern"};
     String[] customMessage = {"date",   "time",  "both", "pattern"};
 
@@ -286,7 +343,7 @@ public class TrinidadDateTimeConverterTest extends DateTimeConverterTestCase
       for (int j = 0; j < 3; j++)
       {
         for (int k = 0; k < 4; k++)
-        	facesContext.getViewRoot().setLocale(Locale.US);
+          facesContext.getViewRoot().setLocale(Locale.US);
       }
 
       try
@@ -306,7 +363,9 @@ public class TrinidadDateTimeConverterTest extends DateTimeConverterTestCase
           converter.setMessageDetailConvertDate(customMessage[3]);
         }
         else
+        {
           converter.setType(types[i]);
+        }
 
         converter.getAsObject(facesContext, component, failingValues[i]);
         fail("Expected converter exception");
