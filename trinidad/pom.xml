@@ -21,7 +21,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-
   <parent>
     <groupId>org.apache.myfaces</groupId>
     <artifactId>myfaces</artifactId>
@@ -42,7 +41,7 @@
 
   <ciManagement>
     <system>continuum</system>
-    <url>http://myfaces.zones.apache.org:8081/continuum</url>
+    <url>http://myfaces.zones.apache.org:8080/continuum</url>
     <notifiers>
       <notifier>
         <type>mail</type>
@@ -259,13 +258,11 @@
       <name>Apache Snapshot Repository</name>
       <url>http://people.apache.org/repo/m2-snapshot-repository</url>
     </repository>
-
     <repository>
-    <id>apache.snapshots</id>
-    <name>Apache Snapshot Repository</name>
-    <url>http://people.apache.org/repo/m2-snapshot-repository</url>
+      <id>apache.snapshots</id>
+      <name>Apache Snapshot Repository</name>
+      <url>http://people.apache.org/repo/m2-snapshot-repository</url>
     </repository>
-
   </repositories>
 
   <pluginRepositories>
