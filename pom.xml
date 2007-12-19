@@ -21,12 +21,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <!-- TODO: Need new parent (MyFaces, instead of Apache), but
-       when I do this, the compiler plugin goes back to 1.3, ignoring
-       the local override of 5.0 (see TRINIDAD-99) -->
   <parent>
-    <groupId>org.apache</groupId>
-    <artifactId>apache</artifactId>
+    <groupId>org.apache.myfaces</groupId>
+    <artifactId>myfaces</artifactId>
     <version>4</version>
   </parent>
 
@@ -44,7 +41,7 @@
 
   <ciManagement>
     <system>continuum</system>
-    <url>http://myfaces.zones.apache.org:8081/continuum</url>
+    <url>http://myfaces.zones.apache.org:8080/continuum</url>
     <notifiers>
       <notifier>
         <type>mail</type>
@@ -106,90 +103,6 @@
       </otherArchives>
     </mailingList>
   </mailingLists>
-
-  <!-- TODO: remove developers, since they are listed in MYFACES-PARENT -->
-  <developers>
-    <developer>
-      <id>awiner</id>
-      <name>Adam Winer</name>
-      <organization>Oracle Corp</organization>
-      <email>awiner@apache.org</email>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>-8</timezone>
-    </developer>
-    <developer>
-      <id>baranda</id>
-      <name>Bruno Aranda</name>
-      <organization>EMBL-EBI (European Bioinformatics Institute), UK</organization>
-      <email>baranda@apache.org</email>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>0</timezone>
-    </developer>
-    <developer>
-      <id>gcrawford</id>
-      <name>Gabrielle Crawford</name>
-      <organization>Oracle Corp</organization>
-      <email>gcrawford@apache.org</email>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>-8</timezone>
-    </developer>
-    <developer>
-      <id>jwaldman</id>
-      <name>Jeanne Waldman</name>
-      <organization>Oracle Corp</organization>
-      <email>jwaldman@apache.org</email>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>-8</timezone>
-    </developer>
-    <developer>
-      <id>mcooper</id>
-      <name>Matt Cooper</name>
-      <organization>Oracle Corp</organization>
-      <email>mcooper@apache.org</email>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>-7</timezone>
-    </developer>
-    <developer>
-      <id>matzew</id>
-      <name>Matthias Wessendorf</name>
-      <organization>Oracle Deutschland GmbH, Germany</organization>
-      <email>matzew@apache.org</email>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>-8</timezone>
-    </developer>
-    <developer>
-      <id>mmarinschek</id>
-      <name>Martin Marinschek</name>
-      <organization>Irian, Austria</organization>
-      <email>mmarinschek@apache.org</email>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
-    <developer>
-      <id>slessard</id>
-      <name>Simon Lessard</name>
-      <organization>Fujitsu Consulting, Canada</organization>
-      <email>slessard@apache.org</email>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>-5</timezone>
-    </developer>
-  </developers>
 
   <scm>
     <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad/trunk_1.2.x</connection>
@@ -337,16 +250,8 @@
 
   <repositories>
     <repository>
-      <id>java-net</id>
-      <name>java.net repository</name>
-      <!-- NOTE: this URL must be HTTPS.  However, unfortunately this
-           doesn't work behind a firewall.  See:
-         http://jira.codehaus.org/browse/WAGONHTTP-6
-           ... for the source of that problem.  Users behind firewalls
-           will have to manually download the files from this repository
-           and transfer them to their local repository.
-      -->
-      <url>https://maven-repository.dev.java.net/nonav/repository/</url>
+      <id>java.net</id>
+      <url>http://download.java.net/maven/1</url>
       <layout>legacy</layout>
     </repository>
     <repository>
@@ -354,28 +259,19 @@
       <name>Apache Snapshot Repository</name>
       <url>http://people.apache.org/repo/m2-snapshot-repository</url>
     </repository>
-
     <repository>
       <id>apache.snapshots</id>
       <name>Apache Snapshot Repository</name>
       <url>http://people.apache.org/repo/m2-snapshot-repository</url>
     </repository>
-
   </repositories>
 
   <pluginRepositories>
     <pluginRepository>
-
       <id>apache.stage</id>
       <name>Apache Stage Repository</name>
       <url>http://people.apache.org/repo/m2-incubating-repository</url>
       <layout>default</layout>
-    </pluginRepository>
-
-    <pluginRepository>
-      <id>apache.snapshots</id>
-      <name>Apache Snapshot Repository</name>
-      <url>http://people.apache.org/repo/m2-snapshot-repository</url>
     </pluginRepository>
   </pluginRepositories>
 
@@ -584,7 +480,7 @@
     <site>
       <id>apache-site</id>
       <name>Apache Website</name>
-      <url>scpexe://minotaur.apache.org/www/incubator.apache.org/trinidad-1_2</url>
+      <url>scpexe://minotaur.apache.org/www/myfaces.apache.org/trinidad/trinidad-1_2</url>
     </site>
     <snapshotRepository>
       <uniqueVersion>false</uniqueVersion>
@@ -592,22 +488,8 @@
       <name>Apache Maven Snapshot Repository</name>
       <url>scpexe://minotaur.apache.org/www/people.apache.org/repo/m2-snapshot-repository</url>
     </snapshotRepository>
-<!--
-    <repository>
-      <id>incubator</id>
-      <name>Maven2 Incubator Repository</name>
-      <url>TBD</url>
-      <layout>default</layout>
-    </repository>
-    <snapshotRepository>
-      <uniqueVersion>false</uniqueVersion>
-      <id>incubator-snapshots</id>
-      <name>Maven2 Incubator Snapshots Repository</name>
-      <url>TBD</url>
-      <layout>default</layout>
-    </snapshotRepository>
--->
   </distributionManagement>
+
   <profiles>
     <profile>
       <id>release</id>
@@ -662,44 +544,8 @@
         </plugins>
       </build>
     </profile>
-    <profile>
-      <id>generate-assembly</id>
-      <modules>
-        <module>trinidad-assembly</module>
-        <module>trinidad-examples</module>
-      </modules>
-    </profile>
-    <profile>
-      <id>jdk14-compatible</id>
-      <activation>
-        <property>
-          <name>build.jdk14.compatible</name>
-          <value>true</value>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <!-- Backport Trinidad -->
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>retrotranslator-maven-plugin</artifactId>
-              <executions>
-                <execution>
-                  <goals>
-                    <goal>translate-project</goal>
-                  </goals>
-                  <configuration>
-                    <advanced>true</advanced>
-                    <embed>org.apache.myfaces.trinidad.backport</embed>
-                    <attach>true</attach>
-                  </configuration>
-                </execution>
-              </executions>
-            </plugin>
-          </plugins>
-        </build>
-      </profile>    
   </profiles>
+
   <properties>
     <trinidad-plugins.version>1.2.5</trinidad-plugins.version>
   </properties>
