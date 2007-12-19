@@ -27,6 +27,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 
+import java.util.TimeZone;
+
 import javax.el.MethodExpression;
 import javax.el.ValueExpression;
 
@@ -425,7 +427,11 @@ abstract public class UIXComponentELTag extends UIComponentELTag
   // We rely strictly on ISO 8601 formats
   private static DateFormat _getDateFormat()
   {
-    return new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    TimeZone tz = RequestContext.getCurrentInstance().getTimeZone();
+    if (tz != null)
+      sdf.setTimeZone(tz);
+    return sdf;
   }
 
   private MethodExpression  _attributeChangeListener;
