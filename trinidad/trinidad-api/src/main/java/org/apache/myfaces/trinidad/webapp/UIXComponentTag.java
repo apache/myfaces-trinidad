@@ -27,6 +27,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 
+import java.util.TimeZone;
+
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
@@ -40,7 +42,6 @@ import javax.servlet.jsp.tagext.TagSupport;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.change.AddComponentChange;
-import org.apache.myfaces.trinidad.change.AttributeComponentChange;
 import org.apache.myfaces.trinidad.change.ComponentChange;
 import org.apache.myfaces.trinidad.component.UIXComponent;
 import org.apache.myfaces.trinidad.context.RequestContext;
@@ -625,7 +626,11 @@ abstract public class UIXComponentTag extends UIComponentTag
   // We rely strictly on ISO 8601 formats
   private static DateFormat _getDateFormat()
   {
-    return new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    TimeZone tz = RequestContext.getCurrentInstance().getTimeZone();
+    if (tz != null)
+      sdf.setTimeZone(tz);
+    return sdf;
   }
 
   private String       _rendered;

@@ -35,6 +35,7 @@ import javax.faces.application.Application;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
@@ -337,7 +338,11 @@ public final class TagUtils
   // We rely strictly on ISO 8601 formats
   private static DateFormat _getDateFormat()
   {
-    return new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    TimeZone tz = RequestContext.getCurrentInstance().getTimeZone();
+    if (tz != null)
+      sdf.setTimeZone(tz);
+    return sdf;    
   }
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(TagUtils.class);
