@@ -25,7 +25,7 @@
   <parent>
     <groupId>org.apache.myfaces</groupId>
     <artifactId>myfaces</artifactId>
-    <version>3</version>
+    <version>4</version>
   </parent>
 
   <groupId>org.apache.myfaces.trinidad</groupId>
@@ -104,90 +104,6 @@
       </otherArchives>
     </mailingList>
   </mailingLists>
-
-  <!-- TODO: remove developers, since they are listed in MYFACES-PARENT -->
-  <developers>
-    <developer>
-      <id>awiner</id>
-      <name>Adam Winer</name>
-      <organization>Oracle Corp</organization>
-      <email>awiner@apache.org</email>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>-8</timezone>
-    </developer>
-    <developer>
-      <id>baranda</id>
-      <name>Bruno Aranda</name>
-      <organization>EMBL-EBI (European Bioinformatics Institute), UK</organization>
-      <email>baranda@apache.org</email>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>0</timezone>
-    </developer>
-    <developer>
-      <id>gcrawford</id>
-      <name>Gabrielle Crawford</name>
-      <organization>Oracle Corp</organization>
-      <email>gcrawford@apache.org</email>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>-8</timezone>
-    </developer>
-    <developer>
-      <id>jwaldman</id>
-      <name>Jeanne Waldman</name>
-      <organization>Oracle Corp</organization>
-      <email>jwaldman@apache.org</email>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>-8</timezone>
-    </developer>
-    <developer>
-      <id>mcooper</id>
-      <name>Matt Cooper</name>
-      <organization>Oracle Corp</organization>
-      <email>mcooper@apache.org</email>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>-7</timezone>
-    </developer>
-    <developer>
-      <id>matzew</id>
-      <name>Matthias Wessendorf</name>
-      <organization>Oracle Deutschland GmbH, Germany</organization>
-      <email>matzew@apache.org</email>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>-8</timezone>
-    </developer>
-    <developer>
-      <id>mmarinschek</id>
-      <name>Martin Marinschek</name>
-      <organization>Irian, Austria</organization>
-      <email>mmarinschek@apache.org</email>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
-    <developer>
-      <id>slessard</id>
-      <name>Simon Lessard</name>
-      <organization>Fujitsu Consulting, Canada</organization>
-      <email>slessard@apache.org</email>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>-5</timezone>
-    </developer>
-  </developers>
 
   <scm>
     <connection>
