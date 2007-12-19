@@ -34,9 +34,6 @@
       <item name="Tag Documentation" href="trinidad-api/tagdoc.html" />
       <item name="Skinning Selectors" href="skin-selectors.html" />
       <item name="Developer Guide" href="devguide/index.html" />
-      <item name="Plugins" href="plugins/index.html"/>
-      <item name="Live Demos" href="http://www.irian.at/trinidad-demo/faces/index.jspx" />
-
     </menu>
 
     <menu name="Foundation">
