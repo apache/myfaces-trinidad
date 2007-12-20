@@ -369,14 +369,14 @@
       <dependency>
         <groupId>org.apache.myfaces.core</groupId>
         <artifactId>myfaces-api</artifactId>
-        <version>1.2.0</version>
+        <version>${myfaces.version}</version>
         <scope>provided</scope>
       </dependency>
 
       <dependency>
         <groupId>org.apache.myfaces.core</groupId>
         <artifactId>myfaces-impl</artifactId>
-        <version>1.2.0</version>
+        <version>${myfaces.version}</version>
         <scope>provided</scope>
       </dependency>
 
@@ -453,19 +453,6 @@
         <scope>provided</scope>
       </dependency>
 
-<!--
-      <dependency>
-        <groupId>javax.el</groupId>
-        <artifactId>el-api</artifactId>
-        <version>1.0alpha</version>
-      </dependency>
-
-      <dependency>
-        <groupId>javax.el</groupId>
-        <artifactId>el-ri</artifactId>
-        <version>1.0alpha</version>
-      </dependency>
--->
       <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
@@ -548,6 +535,7 @@
 
   <properties>
     <trinidad-plugins.version>1.2.5</trinidad-plugins.version>
+    <myfaces.version>1.2.0</myfaces.version>
   </properties>
 
 </project>
