@@ -106,12 +106,12 @@
 
   <scm>
     <connection>
-      scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad/trunk/trinidad/
+      scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad/trunk/
     </connection>
     <developerConnection>
-      scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad/trunk/trinidad/
+      scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad/trunk/
     </developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/myfaces/trinidad/trunk/trinidad</url>
+    <url>http://svn.apache.org/viewcvs.cgi/myfaces/trinidad/trunk/</url>
   </scm>
 
   <build>
