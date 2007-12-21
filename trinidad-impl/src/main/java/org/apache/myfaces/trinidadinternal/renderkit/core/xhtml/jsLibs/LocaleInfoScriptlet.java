@@ -134,6 +134,20 @@ class LocaleInfoScriptlet extends LibraryScriptlet
     buffer.append(locStr);
     return buffer.toString();
   }
+  
+
+  /* return extra parameter "?loc=en", so that we can know what locale 
+   * the translations in LocaleElements should be in. */
+  protected String getExtraParameters(
+  FacesContext        context,
+  RenderingContext    arc)
+  {
+    String locStr = arc.getLocaleContext().getTranslationLocale().toString();
+
+    String extraParams = "?loc=" + locStr;
+
+    return extraParams;
+  }  
 
     protected Locale getFormattingLocale(RenderingContext arc) {
       return arc.getLocaleContext().getFormattingLocale();

@@ -60,12 +60,6 @@ public class TrTranslationsResourceLoader extends TranslationsResourceLoader
     return "org.apache.myfaces.trinidad.resource.MessageBundle";
   }
 
-  @Override
-  protected String getLocaleString(FacesContext context)
-  {
-    return CoreRenderKitResourceLoader.getLocale();
-  }
-
   // These translations do not go through the skin
   @Override
   protected Skin getSkin(FacesContext context)
