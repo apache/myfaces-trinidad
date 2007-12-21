@@ -126,7 +126,16 @@ public class LibraryScriptlet extends Scriptlet
 
     return libraryName;
   }
-
+  
+  /* return extra parameters, like "?loc=en".
+  /* returns null if no extra parameters */
+  protected String getExtraParameters(
+  FacesContext        context,
+  RenderingContext    arc)
+  {
+    return null;
+  }
+  
   protected String getLibraryURL(
     FacesContext        context,
     RenderingContext arc)
@@ -142,9 +151,12 @@ public class LibraryScriptlet extends Scriptlet
 
     if (_useLibraryVersions())
       libURL.append(_LIBRARY_VERSION);
-
-
+    
     libURL.append(".js");
+
+    String extraParams = getExtraParameters(context, arc);
+    if (extraParams != null)
+      libURL.append(extraParams);    
 
     return libURL.toString();
   }
