@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -557,9 +557,9 @@ public abstract class UIXCollection extends UIXComponentBase
   @Deprecated
   public String getCurrencyString()
   {
-    return getClientRowKey();  
+    return getClientRowKey();
   }
-  
+
   /**
    * @deprecated use setClientRowKey
    * @see #setClientRowKey
@@ -669,7 +669,9 @@ public abstract class UIXCollection extends UIXComponentBase
     String key = getClientRowKey();
     if (key != null)
     {
-      id += NamingContainer.SEPARATOR_CHAR + key;
+      StringBuilder bld = new StringBuilder(id.length() + 1 + key.length());
+      bld.append(id).append(NamingContainer.SEPARATOR_CHAR).append(key);
+      id = bld.toString();
     }
 
     return id;
@@ -816,11 +818,11 @@ public abstract class UIXCollection extends UIXComponentBase
         if ((singleFacetState == null) ||
             (singleFacetState == Transient.TRUE))
           continue;
-        
+
         // Don't bother allocating anything until we have some non-null
         // and non-transient facet state
         if (facetStateIsEmpty)
-        {          
+        {
           facetStateIsEmpty = false;
           facetState = new Object[facetCount * 2];
         }
@@ -831,7 +833,7 @@ public abstract class UIXCollection extends UIXComponentBase
         facetState[base + 1] = singleFacetState;
         i++;
       }
-      
+
       // OK, we had something:  allocate the state array to three
       // entries, and insert the facet state at position 2
       if (!facetStateIsEmpty)
@@ -885,7 +887,7 @@ public abstract class UIXCollection extends UIXComponentBase
     // Just a transient component - return
     if ((stampState == Transient.TRUE) || (stampState == null))
       return;
-    
+
     // If this isn't an Object array, then it's a component with state
     // of its own, but no child/facet state - so restore and be done
     if (!(stampState instanceof Object[]))
@@ -907,7 +909,7 @@ public abstract class UIXCollection extends UIXComponentBase
     if (stateSize >= 3)
     {
       Object[] facetStateArray = (Object[]) state[2];
-      // This had better be non-null, otherwise we never 
+      // This had better be non-null, otherwise we never
       // should have allocated a three-element array!
       assert(facetStateArray != null);
 
@@ -919,7 +921,7 @@ public abstract class UIXCollection extends UIXComponentBase
           restoreStampState(context, stamp.getFacet(facetName), facetState);
       }
     }
-    
+
     // If there's any child state, restore it
     if (stateSize >= 2)
     {
@@ -978,7 +980,7 @@ public abstract class UIXCollection extends UIXComponentBase
 
   /**
    * Gets the ClientRowKeyManager that is used to handle the
-   * {@link #getClientRowKey} and  
+   * {@link #getClientRowKey} and
    * {@link #setClientRowKey} methods.
    * If the manager does not already exist a new one is created.
    * In order to create your own manager, your Renderer (for this component)
@@ -989,7 +991,7 @@ public abstract class UIXCollection extends UIXComponentBase
   {
     // this method must be public, because specific renderers
     // need access to the ClientRowKeyManager so that they might prune it.
-    
+
     InternalState iState = _getInternalState(true);
     if (iState._clientKeyMgr == null)
     {
@@ -1003,7 +1005,7 @@ public abstract class UIXCollection extends UIXComponentBase
   }
 
   public boolean invokeOnComponent(FacesContext context,
-                                   String clientId, 
+                                   String clientId,
                                    ContextCallback callback)
     throws FacesException
   {
@@ -1036,7 +1038,7 @@ public abstract class UIXCollection extends UIXComponentBase
       try
       {
         setCurrencyString(currencyString);
-        return super.invokeOnComponent(context, clientId, callback);        
+        return super.invokeOnComponent(context, clientId, callback);
       }
       finally
       {
@@ -1044,7 +1046,7 @@ public abstract class UIXCollection extends UIXComponentBase
         setRowKey(oldRowKey);
       }
     }
-    
+
     return false;
   }
 
@@ -1177,10 +1179,10 @@ public abstract class UIXCollection extends UIXComponentBase
       iState._model = createCollectionModel(iState._model, value);
     }
   }
-  
+
   //
   // Returns true if this is the first request to invokeOnComponent()
-  // 
+  //
   static private boolean _getAndMarkFirstInvokeForRequest(
     FacesContext context, String clientId)
   {
@@ -1238,7 +1240,7 @@ public abstract class UIXCollection extends UIXComponentBase
   {
     // Never read and created by _getStampState
     //InternalState iState = _getInternalState(true);
-    
+
     StampState stampState = _getStampState();
     FacesContext context = getFacesContext();
     Object currencyObj = getRowKey();
@@ -1366,7 +1368,7 @@ public abstract class UIXCollection extends UIXComponentBase
     {
       if (_isOptimizedKey(clientRowKey))
         return clientRowKey;
-      
+
       ValueMap<Object,String> currencyCache = _currencyCache;
       Object rowkey = currencyCache.getKey(clientRowKey);
       return rowkey;
@@ -1386,7 +1388,7 @@ public abstract class UIXCollection extends UIXComponentBase
       if (key == null)
       {
         // we don't have a string-key, so create a new one.
-        
+
         // first check to see if the rowkey itself can be used as the string-key:
         if (rowKey instanceof String)
         {
