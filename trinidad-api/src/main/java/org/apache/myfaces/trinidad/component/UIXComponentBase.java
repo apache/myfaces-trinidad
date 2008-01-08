@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -61,7 +61,7 @@ import org.apache.myfaces.trinidad.render.LifecycleRenderer;
  * <li>Use of FacesBean for better and easier state saving</li>
  * <li>Support of the LifecycleRenderer class for greater Renderer
  *  control over the lifecycle</li>
- * <li>Built-in support for both the "partialTriggers" attribute 
+ * <li>Built-in support for both the "partialTriggers" attribute
  *   (declarative support for being a PPR target) and for triggering
  *   such components (for being a the source of a PPR-causing event).</li>
  * </ul>
@@ -269,9 +269,10 @@ abstract public class UIXComponentBase extends UIXComponent
     {
       if (containerComponent instanceof NamingContainer)
       {
-        clientId = (containerComponent.getClientId(context) +
-                    NamingContainer.SEPARATOR_CHAR +
-                    clientId);
+        String contClientId = containerComponent.getClientId(context);
+        StringBuilder bld = new StringBuilder(contClientId.length() + 1 + clientId.length());
+        bld.append(contClientId).append(NamingContainer.SEPARATOR_CHAR).append(clientId);
+        clientId = bld.toString();
         break;
       }
 
@@ -582,7 +583,7 @@ abstract public class UIXComponentBase extends UIXComponent
     {
       childrenAndFacets.add(facet);
     }
-    
+
     for(UIComponent child : _children)
     {
       childrenAndFacets.add(child);
@@ -616,9 +617,9 @@ abstract public class UIXComponentBase extends UIXComponent
         adfContext.partialUpdateNotify(component);
     }
 
-    Iterator<FacesListener> iter = 
+    Iterator<FacesListener> iter =
       (Iterator<FacesListener>)getFacesBean().entries(_LISTENERS_KEY);
-    
+
     while (iter.hasNext())
     {
       FacesListener listener = iter.next();
@@ -1319,9 +1320,9 @@ abstract public class UIXComponentBase extends UIXComponent
   private transient Renderer _cachedRenderer = _UNDEFINED_RENDERER;
   private transient LifecycleRenderer _cachedLifecycleRenderer =
                                                 _UNDEFINED_LIFECYCLE_RENDERER;
-  
+
   // -= Simon Lessard =-
-  // FIXME: _initialStateMarked is never read 
+  // FIXME: _initialStateMarked is never read
   //        So commented out, is that ok? If so, this attribute should be deleted
   //private transient boolean _initialStateMarked;
 
@@ -1378,7 +1379,7 @@ abstract public class UIXComponentBase extends UIXComponent
   static private class ExtendedRendererImpl extends ExtendedRenderer
   {
   }
-  
+
   private static class EmptyIterator<T> implements Iterator<T>
   {
     public boolean hasNext()
@@ -1395,7 +1396,7 @@ abstract public class UIXComponentBase extends UIXComponent
     {
       throw new UnsupportedOperationException();
     }
-    
+
   }
 
   static private final LifecycleRenderer _UNDEFINED_LIFECYCLE_RENDERER =
