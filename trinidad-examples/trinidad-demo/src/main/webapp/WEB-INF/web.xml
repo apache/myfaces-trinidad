@@ -75,7 +75,7 @@
        is deployed -->
   <context-param>
     <param-name>org.apache.myfaces.trinidad.CHECK_FILE_MODIFICATION</param-name>
-    <param-value>true</param-value>
+    <param-value>false</param-value>
   </context-param>
 
   <!-- Enables Change Persistence at a session scope.  By default,

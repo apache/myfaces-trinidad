@@ -51,6 +51,8 @@
                               action="demos.changePersistence" />
               <tr:commandLink text="Table Demos" action="demos.tableDemos" />
               <tr:commandLink text="Skin Demo" action="demos.skin" />
+              <tr:goLink text="Show Detail Disclosure Demo"
+                destination="showDetailDiscloseOne.jspx" />
               
             </tr:panelGroupLayout>
            </tr:panelHeader>

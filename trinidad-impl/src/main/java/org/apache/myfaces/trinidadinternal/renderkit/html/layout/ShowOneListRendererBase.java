@@ -109,7 +109,8 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
     }
 
     // If nothing has been disclosed as of yet, disclose the first rendered one
-    if ( (disclosedChild == null) && (renderableChild != null) )
+    if ( (disclosedChild == null) && (renderableChild != null) &&
+      !renderableChild.isDisclosedTransient())
     {
       renderableChild.setDisclosed(true);
     }

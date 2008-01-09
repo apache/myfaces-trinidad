@@ -197,7 +197,7 @@ public class PanelAccordionRenderer extends XhtmlRenderer
     // If we have a minimum of 1 disclosed child and none have been disclosed
     // yet, disclose the first rendered one:
     if ( (disclosedChild == null) && !getDiscloseNone(bean) &&
-      (renderableChild != null) )
+      (renderableChild != null) && !renderableChild.isDisclosedTransient())
     {
       renderableChild.setDisclosed(true);
     }

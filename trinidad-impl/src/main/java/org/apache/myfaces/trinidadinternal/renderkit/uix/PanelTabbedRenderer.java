@@ -79,8 +79,11 @@ public class PanelTabbedRenderer extends UINodeRendererBase
           Object disabled = child.getAttributes().get("disabled");
           if (Boolean.TRUE.equals(disabled))
             continue;
-
-          child.setDisclosed(true);
+          
+          if (!child.isDisclosedTransient())
+          {
+            child.setDisclosed(true);
+          }
           break;
         }
       }
