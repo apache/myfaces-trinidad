@@ -31,7 +31,7 @@
   <artifactId>trinidad</artifactId>
   <packaging>pom</packaging>
   <name>Apache MyFaces Trinidad 1.2</name>
-  <version>1.2.5-SNAPSHOT</version>
+  <version>1.2.6-SNAPSHOT</version>
   <description>JSF 1.2 branch of Apache MyFaces Trinidad</description>
 
   <issueManagement>
