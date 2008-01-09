@@ -52,8 +52,6 @@ abstract public class FacesBeanImpl implements FacesBean
 
   final public Object getProperty(PropertyKey key)
   {
-    _checkNotListKey(key);
-
     Object o = getLocalProperty(key);
     if (o != null)
       return o;
@@ -79,8 +77,6 @@ abstract public class FacesBeanImpl implements FacesBean
    */
   final public Object getRawProperty(PropertyKey key)
   {
-    _checkNotListKey(key);
-
     Object local = getLocalProperty(key);
     if (local != null)
       return local;
