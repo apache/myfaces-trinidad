@@ -39,6 +39,7 @@ abstract public class UIXShowDetailTemplate extends UIXComponentBase
 /**/  abstract public void setDisclosed(boolean setDisclosed);
 /**/  abstract public boolean isImmediate();
 /**/  abstract public MethodBinding getDisclosureListener();
+/**/  abstract public boolean isDisclosedTransient();
 
   @Override
   public void processDecodes(FacesContext context)
@@ -75,25 +76,30 @@ abstract public class UIXShowDetailTemplate extends UIXComponentBase
 
     if (event instanceof DisclosureEvent)
     {
-      // Expand or collapse this showDetail
-      boolean isDisclosed = ((DisclosureEvent) event).isExpanded();
-      // If the component is already in that disclosure state, we 
-      // have a renderer bug.  Either it delivered an unnecessary event,
-      // or even worse it set disclosed on its own instead of waiting 
-      // for the disclosure event to do that, which will lead to lifecycle
-      // problems.  So in either case, warn the developer.
-      if (isDisclosed == isDisclosed())
-      {
-        _LOG.warning("EVENT_DELIVERED_ALREADY_IN_DISCLOSURE_STATE", event);
+      // Do not update the disclosed if "transient"
+      if (!isDisclosedTransient())
+      {      
+        // Expand or collapse this showDetail
+        boolean isDisclosed = ((DisclosureEvent) event).isExpanded();
+        // If the component is already in that disclosure state, we 
+        // have a renderer bug.  Either it delivered an unnecessary event,
+        // or even worse it set disclosed on its own instead of waiting 
+        // for the disclosure event to do that, which will lead to lifecycle
+        // problems.  So in either case, warn the developer.
+        if (isDisclosed == isDisclosed())
+        {
+          _LOG.warning("EVENT_DELIVERED_ALREADY_IN_DISCLOSURE_STATE", event);
+        }
+        else
+        {
+          setDisclosed(isDisclosed);
+        }
+  
+        //pu: Implicitly record a Change for 'disclosed' attribute
+        addAttributeChange("disclosed",
+                           isDisclosed ? Boolean.TRUE : Boolean.FALSE);
       }
-      else
-      {
-        setDisclosed(isDisclosed);
-      }
-
-      //pu: Implicitly record a Change for 'disclosed' attribute
-      addAttributeChange("disclosed",
-                         isDisclosed ? Boolean.TRUE : Boolean.FALSE);
+      
       if (isImmediate())
         getFacesContext().renderResponse();
 

@@ -3051,5 +3051,9 @@
     <managed-bean-class>org.apache.myfaces.trinidaddemo.resource.SkinTranslationMapDemo</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
-
+  <managed-bean>
+    <managed-bean-name>showDetailDisclosureBean</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.DemoShowDetailDisclosureBean</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean>
 </faces-config>
