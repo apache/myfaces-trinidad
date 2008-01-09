@@ -154,7 +154,11 @@ public class SortableModel extends CollectionModel
       Object data = _model.getRowData();
       try
       {
-        Object propertyValue = __resolveProperty(data, property);
+        //TODO clean up that _getELXyz() calls
+        FacesContext context = FacesContext.getCurrentInstance();
+        ELResolver resolver = _getELResolver(context);
+        ELContext elContext = _getELContext(context, resolver);
+        Object propertyValue = evaluateProperty(resolver, elContext, data, property);
         // when the value is null, we don't know if we can sort it.
         // by default let's support sorting of null values, and let the user
         // turn off sorting if necessary:
@@ -173,6 +177,18 @@ public class SortableModel extends CollectionModel
     {
       _model.setRowIndex(oldIndex);
     }
+  }
+
+  private Object evaluateProperty(ELResolver resolver, ELContext context, Object base, String property)
+  {
+    //simple property -> resolve value directly
+    if (!property.contains( "." ))
+      return resolver.getValue(context, base, property );
+    
+    int index = property.indexOf( '.' );
+    Object newBase = resolver.getValue(context, base, property.substring( 0, index ) );
+
+    return evaluateProperty(resolver, context, newBase, property.substring( index + 1 ) );
   }
 
   @Override
@@ -354,11 +370,11 @@ public class SortableModel extends CollectionModel
 
       _model.setRowIndex(index1);
       Object instance1 = _model.getRowData();
-      Object value1 = _resolver.getValue(_context, instance1, _prop);
+      Object value1 = evaluateProperty(_resolver, _context, instance1, _prop );
 
       _model.setRowIndex(index2);
       Object instance2 = _model.getRowData();
-      Object value2 = _resolver.getValue(_context, instance2, _prop);
+      Object value2 = evaluateProperty(_resolver, _context, instance2, _prop );
 
       if (value1 == null)
         return (value2 == null) ? 0 : -1;
