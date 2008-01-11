@@ -26,18 +26,18 @@ import javax.servlet.ServletRequest;
  * this abstraction should be listed in the jar's /META-INF/services folder
  * inside of a text file named "org.apache.myfaces.trinidad.config.Configurator".
  * These services will then be run by Trinidad's global configurator.
- *
+ * <p/>
  * This abstract class allows Trinidad and various renderkits to move some of
  * their initialization and request/response wrapping code into a configurator
  * so that they may be handled in a container agnostic fashion supporting
  * both Portlets and Servlets. This allows Trinidad and its various
  * renderkits to offload some of their filter logic such as multi-part
  * request handling (file uploads), skin initialization, and other tasks.
- *
+ * <p/>
  * Depending on the container,these methods may be called at different times
  * during the actual request.  The only thing guaranteed to Configurator
  * developers are the constraints listed below in the following methods.
- *
+ * <p/>
  * Use of this abstract class is encouraged, where possible, instead of using
  * Trinidad filter services.  While configurators and filter services should
  * be able to coexist, any services provided by the filter service will not
