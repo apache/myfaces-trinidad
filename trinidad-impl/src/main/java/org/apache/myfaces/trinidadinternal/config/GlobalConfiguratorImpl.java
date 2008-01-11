@@ -60,7 +60,7 @@ import org.apache.myfaces.trinidad.util.ExternalContextUtils;
  * @see org.apache.myfaces.trinidad.config.Configurator
  * @version $Revision$ $Date$
  */
-public class GlobalConfiguratorImpl extends Configurator
+public final class GlobalConfiguratorImpl extends Configurator
 {
   /**
    * Returns a GlobalConfigurator instance for the current context's class loader. The
