@@ -29,12 +29,10 @@ import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletResponseWrapper;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
@@ -126,8 +124,7 @@ public class TrinidadFilterImpl implements Filter
     config.beginRequest(externalContext);
     
     //To maintain backward compatibilty, wrap the request at the filter level
-    Map<String, String[]> addedParams = (Map<String, String[]>) externalContext.getRequestMap().
-      get(FileUploadConfiguratorImpl._PARAMS);
+    Map<String, String[]> addedParams = FileUploadConfiguratorImpl.getAddedParameters(externalContext);
     
     if(addedParams != null)
     {

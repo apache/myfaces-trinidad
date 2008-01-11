@@ -25,19 +25,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.faces.context.ExternalContext;
-
-import javax.portlet.ActionRequest;
-
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.myfaces.trinidad.config.Configurator;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.UploadedFile;
+import org.apache.myfaces.trinidad.util.ExternalContextUtils;
 import org.apache.myfaces.trinidadinternal.share.util.MultipartFormHandler;
 import org.apache.myfaces.trinidadinternal.share.util.MultipartFormItem;
-import org.apache.myfaces.trinidad.util.ExternalContextUtils;
 
 /**
  * This configurator will handle the FileUploads for Trinidad.
@@ -279,7 +275,6 @@ public class FileUploadConfiguratorImpl extends Configurator
   }
   static private final String _APPLIED = FileUploadConfiguratorImpl.class.getName()+".APPLIED";
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(FileUploadConfiguratorImpl.class);
-  // FIXME: should be private
-  static public final String _PARAMS = FileUploadConfiguratorImpl.class.getName()+".PARAMS";
+  static private final String _PARAMS = FileUploadConfiguratorImpl.class.getName()+".PARAMS";
   private long _maxAllowedBytes = 1L << 27;
 }
