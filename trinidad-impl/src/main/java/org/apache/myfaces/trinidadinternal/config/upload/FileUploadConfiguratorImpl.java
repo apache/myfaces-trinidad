@@ -271,7 +271,6 @@ public class FileUploadConfiguratorImpl extends Configurator
   }
   static private final String _APPLIED = FileUploadConfiguratorImpl.class.getName()+".APPLIED";
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(FileUploadConfiguratorImpl.class);
-  // FIXME: should be private
-  static public final String _PARAMS = FileUploadConfiguratorImpl.class.getName()+".PARAMS";
+  static private final String _PARAMS = FileUploadConfiguratorImpl.class.getName()+".PARAMS";
   private long _maxAllowedBytes = 1L << 27;
 }
