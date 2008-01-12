@@ -270,6 +270,11 @@ abstract public class RequestContext
    */
   public abstract ClientValidation getClientValidation();
 
+  /**
+   * Returns the system wide setting to turn animation on/off.
+   */
+  public abstract boolean isAnimationEnabled();
+
   //
   //  General localization
   //

@@ -172,6 +172,15 @@ override the locale that converters use for date time, number and currency.
             </documentation>
           </annotation>
         </element>
+
+        <element name="animation-enabled" minOccurs="0" maxOccurs="1"
+                 type="config:booleanExpressionType">
+          <annotation>
+            <documentation>The &lt;animation-enabled&gt; is a system wide setting to turn animation on or off.
+            </documentation>
+          </annotation>
+        </element> 
+
       </all>
     </complexType>
   </element>

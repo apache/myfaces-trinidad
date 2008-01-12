@@ -44,6 +44,7 @@ import org.apache.myfaces.trinidadinternal.context.PageResolverDefaultImpl;
 
 public class MRequestContext extends RequestContext
 {
+
   public MRequestContext()
   {
     attach();
@@ -178,6 +179,17 @@ public class MRequestContext extends RequestContext
   public void setRightToLeft(boolean rtl)
   {
     _rtl = rtl;
+  }
+
+  public void setAnimationEnabled(boolean animationEnabled)
+  {
+    _animationEnabled = animationEnabled;
+  }
+
+  @Override
+  public boolean isAnimationEnabled()
+  {
+    return _animationEnabled;
   }
 
   @Override
@@ -315,6 +327,8 @@ public class MRequestContext extends RequestContext
   private ClientValidation _clientValidation = ClientValidation.ALERT;
   private Agent _agent;
   private boolean _rtl = false;
+  private boolean _animationEnabled = true;
+
   static private TimeZone _FIXED_TIME_ZONE =
     TimeZone.getTimeZone("America/Los_Angeles");
   

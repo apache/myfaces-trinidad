@@ -70,7 +70,8 @@ public class RequestContextBean extends FacesBeanImpl
                      PropertyKey.CAP_NOT_BOUND);
     static public final PropertyKey REMOTE_DEVICE_REPOSITORY_URI =
       TYPE.registerKey("remote-device-repository-uri");                       
-
+  static public final PropertyKey ANIMATION_ENABLED_KEY =
+    TYPE.registerKey("animation-enabled", Boolean.class, true);
   static
   {
     TYPE.lock();
