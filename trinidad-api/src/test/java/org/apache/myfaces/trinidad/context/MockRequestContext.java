@@ -164,6 +164,17 @@ public class MockRequestContext extends RequestContext
     _rtl = rtl;
   }
 
+  public void setAnimationEnabled(boolean animationEnabled)
+  {
+    _animationEnabled = animationEnabled;
+  }
+
+  @Override
+  public boolean isAnimationEnabled()
+  {
+    return _animationEnabled;
+  }
+
   @Override
   public Locale getFormattingLocale()
   {
@@ -332,5 +343,6 @@ public class MockRequestContext extends RequestContext
   private Accessibility _accMode;
   private Agent _agent;
   private boolean _rtl = false;
+  private boolean _animationEnabled = true;
   private Locale _formattingLocale;
 }

@@ -85,6 +85,7 @@ public class CoreRenderingContext extends RenderingContext
     _initializePPR(context, afContext);
     // Get and cache (since it can be EL-bound)
     _accessibilityMode = afContext.getAccessibilityMode();
+    _animationEnabled = afContext.isAnimationEnabled();
   }
 
 
@@ -180,6 +181,12 @@ public class CoreRenderingContext extends RenderingContext
   public RequestContext.Accessibility getAccessibilityMode()
   {
     return _accessibilityMode;
+  }
+
+  @Override
+  public boolean isAnimationEnabled()
+  {
+    return _animationEnabled;
   }
 
   /**
@@ -668,6 +675,7 @@ public class CoreRenderingContext extends RenderingContext
   private Map<String, String> _skinResourceKeyMap;
   private String              _outputMode;
   private RequestContext.Accessibility _accessibilityMode;
+  private boolean _animationEnabled;
   private PartialPageContext  _pprContext;
   private LocaleContext       _localeContext;
   private StyleContext        _styleContext;
