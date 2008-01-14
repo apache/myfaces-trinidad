@@ -64,17 +64,17 @@ public class PartialPageContextImpl extends PartialPageContext
    * the specified ids.
    */
   public PartialPageContextImpl(
-    RequestContext afContext)
+    RequestContext reqContext)
   {
     this();
 
     // Components may add themselves to the partialTargets list in earlier
     // phases (we don't get here until render response). If so, the IDs have
-    // been kept on the AdfContext. We'll grab them now and add them to the
+    // been kept on the RequestContext. We'll grab them now and add them to the
     // target list.
-    RequestContextImpl adfContext =
-      (RequestContextImpl) afContext;
-    Iterator<String> targetIter = adfContext.getPartialTargets();
+    RequestContextImpl requestContext =
+      (RequestContextImpl) reqContext;
+    Iterator<String> targetIter = requestContext.getPartialTargets();
     while (targetIter.hasNext())
       _targets.put(targetIter.next(), Boolean.FALSE);
 
