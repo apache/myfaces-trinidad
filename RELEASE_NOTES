@@ -1,0 +1,44 @@
+Bug
+
+    * [TRINIDAD-61] - tr:validateDateTimeRange validation fails on last day of valid range
+    * [TRINIDAD-748] - Client-side DateTimeRangeValidator does not handle differences in timezone
+    * [TRINIDAD-773] - Inefficient way to create faces ben in FacesBeanFactory
+    * [TRINIDAD-793] - HTML tag errors in documentation
+    * [TRINIDAD-797] - Date-picker does not use the converter's locale attribute if it differs from page locale
+    * [TRINIDAD-809] - StampState for UIXShowDetail does not handle EL-bound "disclosed" property
+    * [TRINIDAD-825] - Make the Generated Skin File Cache Read Only
+    * [TRINIDAD-826] - unsupported agent metadata is not at correct location or missing
+    * [TRINIDAD-829] - error message for validateRegExp does not always show pattern information
+    * [TRINIDAD-830] - tr:selectOneRadio - no preselection (default value) with java 5 enums
+    * [TRINIDAD-831] - _pprBlockingDiv is not a valid HTML 4.01 Transitional compliant value
+    * [TRINIDAD-835] - PanelTip content not rendered in content pane
+    * [TRINIDAD-839] - HTML 4.01 Transitional compliance - Postscript element's id
+    * [TRINIDAD-841] - lightweight dialogs - usage of windowWidth and windowHeight (without each other)
+    * [TRINIDAD-842] - client-side validation and ppr
+    * [TRINIDAD-849] - NumberConverter (type:currency; locale:fr_FR) does not work
+    * [TRINIDAD-852] - output-mode portlet gives NPE if minimal skin
+    * [TRINIDAD-853] - skin-sharing not working after deployment unless accessed as servlet first
+    * [TRINIDAD-859] - It would be nice if date-converter was lenient out of the box
+    * [TRINIDAD-860] - client-side validation for multi-select components
+    * [TRINIDAD-873] - JavaScriptError in Core.js _formatErrorString
+    * [TRINIDAD-874] - RequestQueue.js breaks tomahawk components
+    * [TRINIDAD-887] - perf: USE CORRECTLY SIZED STRINGBUILDERS IN GETCLIENTID
+
+Improvement
+
+    * [TRINIDAD-768] - improved support for sortable properties
+    * [TRINIDAD-781] - NavigationPane should support non-command children for some hints.
+    * [TRINIDAD-786] - Support multiple root nodes or the ability to hide the root node of treeTable
+    * [TRINIDAD-821] - RenderUtils.getRelativeId does not support the "::" method of relative referencing
+    * [TRINIDAD-828] - New attribute of "initiallyExpanded" on tree and treeTable
+    * [TRINIDAD-854] - Double check for isListKey in org.apache.myfaces.trinidad.bean.FacesBeanImpl
+
+New Feature
+
+    * [TRINIDAD-769] - Tree / TreeTable skinning improvements
+    * [TRINIDAD-858] - Need Support for GenericConverters being discovered by the target type for the conversion
+    * [TRINIDAD-886] - Add the ability to the show* components to always get their disclosed property from EL
+
+Task
+
+    * [TRINIDAD-801] - Trinidad should use the new MyFaces Master POM
