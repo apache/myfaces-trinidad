@@ -380,7 +380,7 @@ public class SimpleInputListOfValuesRenderer extends SimpleInputTextRenderer
     if (_iconKey == null)
       return null;
 
-    return toUri(bean.getProperty(_iconKey));
+    return toResourceUri(FacesContext.getCurrentInstance(), bean.getProperty(_iconKey));
   }
 
   @Override

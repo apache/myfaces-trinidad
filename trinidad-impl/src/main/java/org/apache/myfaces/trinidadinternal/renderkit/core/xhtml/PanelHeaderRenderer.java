@@ -240,7 +240,7 @@ public class PanelHeaderRenderer extends XhtmlRenderer
   {
     if (_iconKey == null)
       return null;
-    return toUri(bean.getProperty(_iconKey));
+    return toResourceUri(FacesContext.getCurrentInstance(), bean.getProperty(_iconKey));
   }
 
   protected Number getSize(FacesBean bean)

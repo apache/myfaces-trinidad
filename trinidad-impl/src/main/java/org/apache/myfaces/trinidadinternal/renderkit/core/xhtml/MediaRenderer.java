@@ -68,7 +68,7 @@ public class MediaRenderer extends XhtmlRenderer
 
   protected String getSource(FacesBean bean)
   {
-    return toUri(bean.getProperty(_sourceKey));
+    return toResourceUri(FacesContext.getCurrentInstance(), bean.getProperty(_sourceKey));
   }
 
   protected String getPlayer(FacesBean bean)

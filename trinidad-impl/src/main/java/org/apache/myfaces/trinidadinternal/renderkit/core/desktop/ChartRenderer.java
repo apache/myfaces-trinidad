@@ -649,7 +649,7 @@ public class ChartRenderer extends XhtmlRenderer
     {
       uri = toString(ret);
     }
-    return toUri(uri);
+    return toResourceUri(FacesContext.getCurrentInstance(), uri);
   }
 
   protected boolean isPerspective(FacesBean bean)

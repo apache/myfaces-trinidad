@@ -66,7 +66,7 @@ public class HtmlCommandButtonRenderer extends Renderer
    
     String label = CoreRenderer.toString(command.getValue());
    
-    String imageSrc = CoreRenderer.toUri(attrs.get("image"));
+    String imageSrc = CoreRenderer.toResourceUri(context, attrs.get("image"));
     writer.startElement("input", component);
     String id = component.getClientId(context);
     writer.writeAttribute("id", id, "id");

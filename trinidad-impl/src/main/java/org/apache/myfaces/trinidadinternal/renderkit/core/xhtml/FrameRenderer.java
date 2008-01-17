@@ -70,13 +70,13 @@ public class FrameRenderer extends XhtmlRenderer
   @Override
   protected void renderAllAttributes(
     FacesContext        context,
-    RenderingContext arc,
+    RenderingContext    rc,
     FacesBean           bean) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
 
-    renderShortDescAttribute(context, arc, bean);
-    renderStyleAttributes(context, arc, bean);
+    renderShortDescAttribute(context, rc, bean);
+    renderStyleAttributes(context, rc, bean);
     
     writer.writeAttribute("frameborder", "0", null);
     writer.writeAttribute("marginwidth", 
@@ -87,11 +87,11 @@ public class FrameRenderer extends XhtmlRenderer
                           "marginHeight");
     writer.writeAttribute("noresize", Boolean.TRUE, null);
 
-    String source = toUri(bean.getProperty(_sourceKey));
+    String source = toResourceUri(context, bean.getProperty(_sourceKey));
 
     renderEncodedActionURI(context, "src", source);
 
-    String longDesc = toUri(bean.getProperty(_longDescUrlKey));
+    String longDesc = toResourceUri(context, bean.getProperty(_longDescUrlKey));
     renderEncodedActionURI(context, "longdesc", longDesc);
 
     writer.writeAttribute("scrolling",

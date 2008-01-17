@@ -68,7 +68,7 @@ public class FrameRenderer extends XhtmlRenderer
   @Override
   protected final void encodeAll(
     FacesContext        context,
-    RenderingContext arc,
+    RenderingContext    rc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -89,12 +89,12 @@ public class FrameRenderer extends XhtmlRenderer
       writer.startElement("a", component);
       renderId(context, component);
       
-      String source = toUri(bean.getProperty(_sourceKey));
+      String source = toResourceUri(context, bean.getProperty(_sourceKey));
       String shortDesc = getShortDesc(bean);
 
       // =-=Adam Winer: OraLink is obviously not a good style class
       // here - substitute something like trh|frame in a PDA css
-      renderStyleClass(context, arc, "OraLink");
+      renderStyleClass(context, rc, "OraLink");
       renderEncodedActionURI(context, "href", source);
       if (shortDesc != null)
         writer.writeText(shortDesc, "shortDesc");

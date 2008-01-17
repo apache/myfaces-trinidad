@@ -110,6 +110,7 @@ public class CoreRenderer extends Renderer
 
   /**
    * Coerces an object into a resource URI, calling the view-handler.
+   * @deprecated use toResourceUri
    */
   static public String toUri(Object o)
   {
