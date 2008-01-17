@@ -396,7 +396,7 @@ public class DialogServiceImpl extends DialogService
       // Save the parameters used to launch the dialog so we can
       // simulate a postback when coming back to the dialog;  and
       // write in a "returnId" with the "id" that will be used.
-      Map<String, Object> savedRequestParameters = new HashMap<String, Object>();
+      Map<String, String[]> savedRequestParameters = new HashMap<String, String[]>();
       savedRequestParameters.putAll(
             context.getExternalContext().getRequestParameterValuesMap());
       if (source != null)

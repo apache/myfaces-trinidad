@@ -41,7 +41,7 @@ import org.apache.myfaces.trinidad.model.ModelUtils;
  * If {@link #getRows()} returns 0, then the iteration continues until 
  * there are no more elements in the underlying data.
  */
-public abstract class UIXIteratorTemplate extends UIXCollection
+public abstract class UIXIteratorTemplate extends UIXCollection implements FlattenedComponent
 {
 
 /**/  abstract public int getFirst();
@@ -55,6 +55,49 @@ public abstract class UIXIteratorTemplate extends UIXCollection
   public boolean getRendersChildren()
   {
     return true;
+  }
+
+  /**
+   * Sets up the iteration context for each child and processes it
+   */
+  public <S> boolean processFlattenedChildren(
+    final FacesContext context,
+    ComponentProcessingContext cpContext,
+    final ComponentProcessor<S> childProcessor,
+    final S callbackContext) throws IOException
+  {
+    Runner runner = new Runner(cpContext)
+    {
+      @Override
+      protected void process(UIComponent kid, ComponentProcessingContext cpContext) throws IOException
+      {
+        childProcessor.processComponent(context, cpContext, kid, callbackContext);
+      }
+    };
+    boolean processedChildren = runner.run();
+    Exception exp = runner.exception;
+    if (exp != null)
+    {
+      if (exp instanceof RuntimeException)
+        throw (RuntimeException) exp;
+
+      if (exp instanceof IOException)
+        throw (IOException) exp;
+      throw new IllegalStateException(exp);
+    }
+    
+    return processedChildren;
+  }
+
+  /**
+   * Returns <code>true</code> if this FlattenedComponent is currently flattening its children
+   * @param context FacesContext
+   * @return <code>true</code> if this FlattenedComponent is currently flattening its children
+   */
+  public boolean isFlatteningChildren(FacesContext context)
+  {
+    // if we don't have a Renderer, then we're flattening
+    return (getRendererType() == null);
   }
 
   /**
@@ -81,7 +124,8 @@ public abstract class UIXIteratorTemplate extends UIXCollection
       Runner runner = new Runner()
       {
         @Override
-        protected void process(UIComponent kid) throws IOException
+        protected void process(UIComponent kid,
+                               ComponentProcessingContext cpContext) throws IOException
         {
           __encodeRecursive(context, kid);
         }
@@ -172,18 +216,30 @@ public abstract class UIXIteratorTemplate extends UIXCollection
     Runner runner = new Runner()
     {
       @Override
-      protected void process(UIComponent kid)
+      protected void process(UIComponent kid, ComponentProcessingContext cpContext)
       {
-        processComponent(context, kid, phaseId);
+        UIXIterator.this.processComponent(context, kid, phaseId);
       }
     };
     runner.run();
   }
-
-  private abstract class Runner
+  
+  private abstract class Runner implements ComponentProcessor<Object>
   {
-    public final void run()
+    public Runner()
     {
+      this(null);
+    }
+
+    public Runner(ComponentProcessingContext cpContext)
+    {
+      _cpContext = cpContext;
+    }
+    
+    public final boolean run()
+    {
+      FacesContext context = FacesContext.getCurrentInstance();
+      
       List<UIComponent> stamps = getStamps();
       int oldIndex = getRowIndex();
       int first = getFirst();
@@ -191,6 +247,9 @@ public abstract class UIXIteratorTemplate extends UIXCollection
       int end = (rows <= 0) //show everything
         ? Integer.MAX_VALUE
         : first + rows;
+      
+      boolean processedChild = false;
+      
       try
       {
         for(int i=first; i<end; i++)
@@ -198,16 +257,16 @@ public abstract class UIXIteratorTemplate extends UIXCollection
           setRowIndex(i);
           if (isRowAvailable())
           {
-            for(UIComponent stamp : stamps)
-            {
-              process(stamp);
-            }
+            // latch processedChild the first time we process a child
+            processedChild |= (_cpContext != null)
+              ? UIXComponent.processFlattenedChildren(context, _cpContext, this, stamps, null)
+              : UIXComponent.processFlattenedChildren(context, this, stamps, null);
           }
           else
             break;
         }
       }
-      catch (Exception e)
+      catch (IOException e)
       {
         exception = e;
       }
@@ -215,10 +274,39 @@ public abstract class UIXIteratorTemplate extends UIXCollection
       {
         setRowIndex(oldIndex);
       }
+      
+      return processedChild;
     }
-    
+
+    /**
+     * Sets up the context for the child and processes it
+     */
+    public void processComponent(
+      FacesContext context,
+      ComponentProcessingContext cpContext,
+      UIComponent component,
+      Object callbackContext) throws IOException
+    {
+      try
+      {
+        process(component, cpContext);
+      }
+      catch (IOException ioe)
+      {
+        throw ioe;
+      }
+      catch (Exception e)
+      {
+        exception = e;
+      }
+    }
+
+    protected abstract void process(UIComponent comp, ComponentProcessingContext cpContext)
+      throws Exception;
+
     public Exception exception = null;
-    protected abstract void process(UIComponent comp) throws Exception;
+
+    private final ComponentProcessingContext _cpContext;
   }
 
   @Override

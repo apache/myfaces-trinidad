@@ -18,9 +18,13 @@
  */
 package org.apache.myfaces.trinidad.component;
 
+import java.io.IOException;
+
 import javax.faces.component.UIComponent;
 
 import javax.el.MethodExpression;
+
+import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.event.AttributeChangeListener;
@@ -30,6 +34,165 @@ import org.apache.myfaces.trinidad.event.AttributeChangeListener;
  */
 abstract public class UIXComponent extends UIComponent
 {
+  /**
+   * Helper function called by Renderers to iterate over a flattened view of a group of
+   * potentially FlattenedComponent instances rooted at a single child of the component that
+   * the Renderer is encoding, invoking the <code>childProcessor</code> with its
+   * <code>callbackContext</code> on each renderable instance.
+   * <p>
+   * If the child is a FlattenedComponent, the <code>childProcessor</code> will
+   * be called on each of that FlattenedComponent's children, recursing if those children are
+   * themselves FlattenedComponents, otherwise, the <code>childProcessor</code> will be called on
+   * the child itself.
+   * <p>
+   * This method is typically used to flatten the contents of a facet on the FlattenedComponent to
+   * be encoded.  If the Renderer accidentally passes in the component to be encoded instead of one
+   * of its children, the result will almost certainly be an infinite recursion and stack overflow.
+   * @see UIXComponent#processFlattenedChildren(FacesContext, ComponentProcessor, Iterable, Object)
+   * @see UIXComponent#processFlattenedChildren(FacesContext, ComponentProcessingContext, ComponentProcessor, UIComponent, Object)
+   * @see UIXComponent#processFlattenedChildren(FacesContext, ComponentProcessingContext, ComponentProcessor, Iterable, Object)
+   * @see FlattenedComponent
+   */
+  public static <S> boolean processFlattenedChildren(
+    FacesContext context,
+    ComponentProcessor<S> childProcessor,
+    UIComponent child,
+    S callbackContext) throws IOException
+  {
+    return processFlattenedChildren(context,
+                                    new ComponentProcessingContext(),
+                                    childProcessor,
+                                    child,
+                                    callbackContext);
+  }
+
+  /**
+   * Helper function called by FlattenedComponent to iterate over a flattened view of a group of
+   * potentially FlattenedComponent instances rooted at a single child of the FlattenedComponent,
+   * invoking the <code>childProcessor</code> with its
+   * <code>callbackContext</code> on each renderable instance.
+   * <p>
+   * If the child is a FlattenedComponent, the <code>childProcessor</code> will
+   * be called on each of that FlattenedComponent's children, recursing if those children are
+   * themselves FlattenedComponents, otherwise, the <code>childProcessor</code> will be called on
+   * the child itself.
+   * <p>
+   * This method is typically used to flatten the contents of a facet of the FlattenedComponent.
+   * If the FlattenedComponent accidentally passes in itself instead of one
+   * of its children, the result will almost certainly be an infinite recursion and stack overflow.
+   * @see UIXComponent#processFlattenedChildren(FacesContext, ComponentProcessor, UIComponent, Object)
+   * @see UIXComponent#processFlattenedChildren(FacesContext, ComponentProcessor, Iterable, Object)
+   * @see UIXComponent#processFlattenedChildren(FacesContext, ComponentProcessingContext, ComponentProcessor, Iterable, Object)
+   * @see FlattenedComponent
+   */
+    public static <S> boolean processFlattenedChildren(
+    FacesContext context,
+    ComponentProcessingContext cpContext,
+    ComponentProcessor<S> childProcessor,
+    UIComponent child,
+    S callbackContext) throws IOException
+  {
+    if (child.isRendered())
+    {      
+       // component is an action FlattenedComponent.  Ask it to flatten its children
+      if ((child instanceof FlattenedComponent) &&
+          ((FlattenedComponent)child).isFlatteningChildren(context))
+      {
+        return ((FlattenedComponent)child).processFlattenedChildren(context,
+                                                                    cpContext,
+                                                                    childProcessor,
+                                                                    callbackContext);
+      }
+      else
+      {
+        // not a FlattenedComponent, pass the component directly to the ComponentProcessor
+        try
+        {
+          childProcessor.processComponent(context, cpContext, child, callbackContext);
+        }
+        finally
+        {
+          // if startDepth is > 0, only the first visible child will be marked as starting a group
+          cpContext.resetStartDepth();
+        }
+        
+        return true;
+      }
+    }
+    else
+    {
+      // component not rendered
+      return false;
+    }
+  }
+
+  /**
+   * Helper function called by Renderers to iterate over a flattened view of the
+   * children, potentially containing FlattenedComponents, of the component the Renderer is
+   * encoding, invoking the <code>childProcessor</code> with its
+   * <code>callbackContext</code> on each renderable instance.
+   * <p>
+   * For each FlattenedComponent child, the <code>childProcessor</code> will
+   * be called on each of that FlattenedComponent's children, recursing if those children are
+   * themselves FlattenedComponents, otherwise, the <code>childProcessor</code> will be called on
+   * the child itself.
+   * <p>
+   * This method is typically used to flatten the children of the FlattenedComponent to
+   * be encoded.
+   * @see UIXComponent#processFlattenedChildren(FacesContext, ComponentProcessor, UIComponent, Object)
+   * @see UIXComponent#processFlattenedChildren(FacesContext, ComponentProcessingContext, ComponentProcessor, UIComponent, Object)
+   * @see UIXComponent#processFlattenedChildren(FacesContext, ComponentProcessingContext, ComponentProcessor, Iterable, Object)
+   * @see FlattenedComponent
+   */
+  public static <S> boolean processFlattenedChildren(
+    FacesContext context,
+    ComponentProcessor<S> childProcessor,
+    Iterable<UIComponent> children,
+    S callbackContext) throws IOException
+  {
+    return processFlattenedChildren(context,
+                                    new ComponentProcessingContext(),
+                                    childProcessor,
+                                    children,
+                                    callbackContext);
+  }
+
+  /**
+   * Helper function called by FlattenedComponents to iterate over a flattened view of their
+   * children, potentially themselves FlattenedComponents, invoking the <code>childProcessor</code>
+   * with its <code>callbackContext</code> on each renderable instance.
+   * <p>
+   * For each FlattenedComponent child, the <code>childProcessor</code> will
+   * be called on each of that FlattenedComponent's children, recursing if those children are
+   * themselves FlattenedComponents, otherwise, the <code>childProcessor</code> will be called on
+   * the child itself.
+   * @see UIXComponent#processFlattenedChildren(FacesContext, ComponentProcessor, UIComponent, Object)
+   * @see UIXComponent#processFlattenedChildren(FacesContext, ComponentProcessor, Iterable, Object)
+   * @see UIXComponent#processFlattenedChildren(FacesContext, ComponentProcessingContext, ComponentProcessor, UIComponent, Object)
+   * @see FlattenedComponent
+   */
+  public static <S> boolean processFlattenedChildren(
+    FacesContext context,
+    ComponentProcessingContext cpContext,
+    ComponentProcessor<S> childProcessor,
+    Iterable<UIComponent> children,
+    S callbackContext) throws IOException
+  {
+    // we haven't processed a child yet
+    boolean processedChild = false;
+    
+    for (UIComponent currChild : children)
+    {
+      // latch processed child to the first child processed
+      processedChild |= processFlattenedChildren(context,
+                                                 cpContext, childProcessor,
+                                                 currChild,
+                                                 callbackContext);
+    }
+    
+    return processedChild;
+  }
+
   /**
    * Returns the FacesBean used for storing the component's state.
    */

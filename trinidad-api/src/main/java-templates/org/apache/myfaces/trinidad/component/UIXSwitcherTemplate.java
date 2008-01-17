@@ -29,7 +29,7 @@ import javax.faces.context.FacesContext;
  * <p>
  * @version $Name:  $ ($Revision$) $Date$
  */
-abstract public class UIXSwitcherTemplate extends UIXComponentBase
+abstract public class UIXSwitcherTemplate extends UIXComponentBase implements FlattenedComponent
 {
 /**/ // Abstract methods implemented by code gen
 /**/  abstract public String getFacetName();
@@ -69,6 +69,36 @@ abstract public class UIXSwitcherTemplate extends UIXComponentBase
       facet.processUpdates(context);
   }
 
+  /**
+   * Processes the selected switcher facet
+   */
+  public <S> boolean processFlattenedChildren(
+    final FacesContext context,
+    ComponentProcessingContext cpContext,
+    final ComponentProcessor<S> childProcessor,
+    final S callbackContext) throws IOException
+  {
+    UIComponent facet = _getFacet();
+    
+    if (facet != null)
+      return UIXComponent.processFlattenedChildren(context,
+                                                   cpContext,
+                                                   childProcessor,
+                                                   facet,
+                                                   callbackContext);
+    else
+      return false;
+  }
+
+  /**
+   * Returns <code>true</code> if this FlattenedComponent is currently flattening its children
+   * @param context FacesContext
+   * @return <code>true</code> if this FlattenedComponent is currently flattening its children
+   */
+  public boolean isFlatteningChildren(FacesContext context)
+  {
+    return true;
+  }
 
   /**
    * Only render the currently active facet.
@@ -113,4 +143,5 @@ abstract public class UIXSwitcherTemplate extends UIXComponentBase
   }
 
 }
+
 
