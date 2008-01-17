@@ -51,7 +51,7 @@ public class SimpleInputFileRenderer extends SimpleInputTextRenderer
     FacesContext context,
     UIComponent  component,
     String       clientId)
-  {
+  {System.out.println("\n\n\n\n\n\n\n getSubmittedValue() \n\n\n\n\n\n\n");
     // Since we override getSubmittedValue() entirely,
     // detect auto submit manually
     detectAutoSubmit(context, component, clientId);
@@ -81,7 +81,7 @@ public class SimpleInputFileRenderer extends SimpleInputTextRenderer
     FacesContext context,
     UIComponent  component,
     Object       submittedValue)
-  {
+  {System.out.println("\n\n\n\n\n\n\n getConvertedValue() \n\n\n\n\n\n\n");
     // Convert FALSE back into null
     if (submittedValue == Boolean.FALSE)
       return null;

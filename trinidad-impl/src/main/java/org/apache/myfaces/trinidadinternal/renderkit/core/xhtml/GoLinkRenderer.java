@@ -161,7 +161,7 @@ public class GoLinkRenderer extends XhtmlRenderer
 
   protected String getDestination(FacesBean bean)
   {
-    return toUri(bean.getProperty(_destinationKey));
+    return toResourceUri(FacesContext.getCurrentInstance(), bean.getProperty(_destinationKey));
   }
 
   protected boolean getDisabled(FacesBean bean)

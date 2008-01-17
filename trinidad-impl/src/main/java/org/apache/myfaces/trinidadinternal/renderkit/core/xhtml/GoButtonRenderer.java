@@ -326,7 +326,7 @@ public class GoButtonRenderer extends GoLinkRenderer
 
   protected String getIcon(FacesBean bean)
   {
-    return toUri(bean.getProperty(_iconKey));
+    return toResourceUri(FacesContext.getCurrentInstance(), bean.getProperty(_iconKey));
   }
 
   private PropertyKey _iconKey;

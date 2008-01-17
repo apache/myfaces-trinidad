@@ -186,7 +186,7 @@ public class FileUploadConfiguratorImpl extends Configurator
       final MultipartFormItem item) throws IOException
   {
     final UploadedFile temp = new TempUploadedFile(item);
-
+System.out.println("\n\n\n\n\n\n\n _doUploadFile() \n\n\n\n\n\n\n");
     final UploadedFile file =
       context.getUploadedFileProcessor().processFile(externalContext.getRequest(), temp);
 

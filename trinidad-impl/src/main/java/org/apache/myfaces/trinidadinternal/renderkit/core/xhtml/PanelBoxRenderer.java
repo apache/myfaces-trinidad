@@ -424,7 +424,7 @@ public class PanelBoxRenderer
   {
     if (_iconKey == null)
       return null;
-    return toUri(bean.getProperty(_iconKey));
+    return toResourceUri(FacesContext.getCurrentInstance(), bean.getProperty(_iconKey));
   }
 
   protected String getContentStyle(FacesBean bean)

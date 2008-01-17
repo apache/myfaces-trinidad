@@ -295,7 +295,7 @@ public class CommandButtonRenderer extends CommandLinkRenderer
 
   protected String getIcon(FacesBean bean)
   {
-    return toUri(bean.getProperty(_iconKey));
+    return toResourceUri(FacesContext.getCurrentInstance(), bean.getProperty(_iconKey));
   }
 
   /**

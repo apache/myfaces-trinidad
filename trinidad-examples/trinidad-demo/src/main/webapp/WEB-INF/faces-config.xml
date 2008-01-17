@@ -22,7 +22,10 @@
   "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN"
   "http://java.sun.com/dtd/web-facesconfig_1_1.dtd" >
 <faces-config>
-  
+<lifecycle>
+<phase-listener>Debugger</phase-listener>
+
+</lifecycle>  
   <application>
     <!-- Use the ADF RenderKit -->
     <default-render-kit-id>
