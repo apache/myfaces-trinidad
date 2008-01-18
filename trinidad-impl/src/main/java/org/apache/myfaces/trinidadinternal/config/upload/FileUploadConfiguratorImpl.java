@@ -1,5 +1,4 @@
 /*
-/*
  *  Licensed to the Apache Software Foundation (ASF) under one
  *  or more contributor license agreements.  See the NOTICE file
  *  distributed with this work for additional information
@@ -17,6 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
+
 package org.apache.myfaces.trinidadinternal.config.upload;
 
 import java.io.IOException;
@@ -186,7 +186,7 @@ public class FileUploadConfiguratorImpl extends Configurator
       final MultipartFormItem item) throws IOException
   {
     final UploadedFile temp = new TempUploadedFile(item);
-System.out.println("\n\n\n\n\n\n\n _doUploadFile() \n\n\n\n\n\n\n");
+
     final UploadedFile file =
       context.getUploadedFileProcessor().processFile(externalContext.getRequest(), temp);
 
