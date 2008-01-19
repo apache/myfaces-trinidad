@@ -669,7 +669,7 @@ public abstract class UIXCollection extends UIXComponentBase
     String key = getClientRowKey();
     if (key != null)
     {
-      StringBuilder bld = new StringBuilder(id.length() + 1 + key.length());
+      StringBuilder bld = __getSharedStringBuilder();
       bld.append(id).append(NamingContainer.SEPARATOR_CHAR).append(key);
       id = bld.toString();
     }
