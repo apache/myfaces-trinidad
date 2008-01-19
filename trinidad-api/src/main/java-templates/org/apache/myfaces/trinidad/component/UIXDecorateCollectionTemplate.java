@@ -18,6 +18,8 @@
  */
 package org.apache.myfaces.trinidad.component;
 
+import javax.faces.FacesException;
+import javax.faces.component.ContextCallback;
 import javax.faces.context.FacesContext;
 import javax.faces.component.NamingContainer;
 
@@ -77,6 +79,38 @@ public abstract class UIXDecorateCollectionTemplate extends UIXComponentBase
 
     return id;
   }
+
+
+
+  @Override
+  public boolean invokeOnComponent(FacesContext context,
+                                   String clientId,
+                                   ContextCallback callback)
+    throws FacesException
+  {
+    String thisClientId = getClientId(context);
+
+    if (clientId.equals(thisClientId))
+    {
+      callback.invokeContextCallback(context, this);
+      return true;
+    }
+
+    // This component is a naming container. If the client id shows it's inside this naming container,
+    // then process further.
+    // Otherwise we know the client id we're looking for is not in this naming container,
+    // so for improved performance short circuit and return false.
+    else if (clientId.startsWith(thisClientId) &&
+             (clientId.charAt(thisClientId.length()) ==
+              NamingContainer.SEPARATOR_CHAR))
+    {
+
+      return super.invokeOnComponent(context, clientId, callback);
+    }
+
+    return false;
+  }
+
 
   private String _currencyString = null;
 }
