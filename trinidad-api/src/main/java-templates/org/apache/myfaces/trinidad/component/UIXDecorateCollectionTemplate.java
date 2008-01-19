@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -26,7 +26,7 @@ import javax.faces.component.NamingContainer;
  * <p>
  * @version $Name:  $ ($Revision$) $Date$
  */
-public abstract class UIXDecorateCollectionTemplate extends UIXComponentBase 
+public abstract class UIXDecorateCollectionTemplate extends UIXComponentBase
         implements NamingContainer
 {
   /**
@@ -38,13 +38,13 @@ public abstract class UIXDecorateCollectionTemplate extends UIXComponentBase
   {
     return _currencyString;
   }
-  
+
   /**
    * Sets the currency String for this decorate collection. The decorator renders
    * aggregated components that are not in the component tree. If any of the aggregated
    * component is a naming container (for e.g. menubar), this method allows the currency to
    * be set to that naming container so that it can successfully decode its children.
-   * 
+   *
    * @param currency the currency to be established
    * @see #getCurrencyString
    */
@@ -52,7 +52,7 @@ public abstract class UIXDecorateCollectionTemplate extends UIXComponentBase
   {
     _currencyString = currency;
   }
-  
+
   /**
    * Gets the client-id of this component, without any NamingContainers.
    * This id changes depending on the currency Object.
@@ -69,7 +69,9 @@ public abstract class UIXDecorateCollectionTemplate extends UIXComponentBase
     String key = getCurrencyString();
     if (key != null)
     {
-      id += NamingContainer.SEPARATOR_CHAR + key;
+      StringBuilder bld = __getSharedStringBuilder();
+      bld.append(id).append(NamingContainer.SEPARATOR_CHAR).append(key);
+      id = bld.toString();
     }
 
     return id;

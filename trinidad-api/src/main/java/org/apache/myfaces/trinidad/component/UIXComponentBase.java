@@ -270,7 +270,7 @@ abstract public class UIXComponentBase extends UIXComponent
       if (containerComponent instanceof NamingContainer)
       {
         String contClientId = containerComponent.getClientId(context);
-        StringBuilder bld = new StringBuilder(contClientId.length() + 1 + clientId.length());
+        StringBuilder bld = __getSharedStringBuilder();
         bld.append(contClientId).append(NamingContainer.SEPARATOR_CHAR).append(clientId);
         clientId = bld.toString();
         break;
@@ -1198,6 +1198,59 @@ abstract public class UIXComponentBase extends UIXComponent
     }
   }
 
+
+
+  /**
+   * <p>
+   * This gets a single threadlocal shared stringbuilder instance, each time you call
+   * __getSharedStringBuilder it sets the length of the stringBuilder instance to 0.
+   * </p><p>
+   * This allows you to use the same StringBuilder instance over and over.
+   * You must call toString on the instance before calling __getSharedStringBuilder again.
+   * </p>
+   * Example that works
+   * <pre><code>
+   * StringBuilder sb1 = __getSharedStringBuilder();
+   * sb1.append(a).append(b);
+   * String c = sb1.toString();
+   *
+   * StringBuilder sb2 = __getSharedStringBuilder();
+   * sb2.append(b).append(a);
+   * String d = sb2.toString();
+   * </code></pre>
+   * <br><br>
+   * Example that doesn't work, you must call toString on sb1 before
+   * calling __getSharedStringBuilder again.
+   * <pre><code>
+   * StringBuilder sb1 = __getSharedStringBuilder();
+   * StringBuilder sb2 = __getSharedStringBuilder();
+   *
+   * sb1.append(a).append(b);
+   * String c = sb1.toString();
+   *
+   * sb2.append(b).append(a);
+   * String d = sb2.toString();
+   * </code></pre>
+   *
+   */
+  static StringBuilder __getSharedStringBuilder()
+  {
+    StringBuilder sb = _STRING_BUILDER.get();
+
+    if (sb == null)
+    {
+      sb = new StringBuilder();
+      _STRING_BUILDER.set(sb);
+    }
+
+    // clear out the stringBuilder by setting the length to 0
+    sb.setLength(0);
+
+    return sb;
+  }
+
+
+
   /**
    * render a component. this is called by renderers whose
    * getRendersChildren() return true.
@@ -1328,6 +1381,11 @@ abstract public class UIXComponentBase extends UIXComponent
 
   private static final Iterator<String> _EMPTY_STRING_ITERATOR =
     new EmptyIterator<String>();
+
+
+  static private final ThreadLocal<StringBuilder> _STRING_BUILDER =
+                                                        new ThreadLocal<StringBuilder>();
+
 
   private static final Iterator<UIComponent> _EMPTY_UICOMPONENT_ITERATOR =
     new EmptyIterator<UIComponent>();
