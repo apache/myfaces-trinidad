@@ -1013,7 +1013,13 @@ public abstract class UIXCollection extends UIXComponentBase
     if (clientId.equals(thisClientId))
     {
       if (_getAndMarkFirstInvokeForRequest(context, clientId))
+      {
+        // Call _init() since _flushCachedModel() assumes that
+        // selectedRowKeys and disclosedRowKeys are initialized to be non-null
+        _init();
+
         _flushCachedModel();
+      }
 
       callback.invokeContextCallback(context, this);
       return true;
@@ -1025,7 +1031,13 @@ public abstract class UIXCollection extends UIXComponentBase
         (clientId.charAt(thisClientIdLength) == NamingContainer.SEPARATOR_CHAR))
     {
       if (_getAndMarkFirstInvokeForRequest(context, clientId))
+      {
+        // Call _init() since _flushCachedModel() assumes that
+        // selectedRowKeys and disclosedRowKeys are initialized to be non-null
+        _init();
+
         _flushCachedModel();
+      }
 
       String postId = clientId.substring(thisClientIdLength + 1);
       int sepIndex = postId.indexOf(NamingContainer.SEPARATOR_CHAR);

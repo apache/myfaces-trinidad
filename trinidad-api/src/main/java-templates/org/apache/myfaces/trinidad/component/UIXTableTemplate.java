@@ -312,17 +312,23 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
     CollectionModel model = super.createCollectionModel(current, value); 
 
     RowKeySet selectedRowKeys = getSelectedRowKeys();
+
+    if (selectedRowKeys == null)
+    {
+      selectedRowKeys = new RowKeySetImpl();
+      setSelectedRowKeys(selectedRowKeys);
+    }
+
     RowKeySet disclosedRowKeys = getDisclosedRowKeys();
 
-    if (selectedRowKeys != null)
+    if (disclosedRowKeys == null)
     {
-      selectedRowKeys.setCollectionModel(model);
+      disclosedRowKeys = new RowKeySetImpl();
+      setDisclosedRowKeys(disclosedRowKeys);
     }
 
-    if (disclosedRowKeys != null)
-    {
-      disclosedRowKeys.setCollectionModel(model);
-    }
+    selectedRowKeys.setCollectionModel(model);
+    disclosedRowKeys.setCollectionModel(model);
 
     // If we were perviously sorted, restore the sort order:
     if (_sortCriteria != null)
