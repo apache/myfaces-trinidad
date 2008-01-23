@@ -2231,7 +2231,7 @@
 each enabled showDetailItem in a panelAccordion.</td>
           </tr>
           <tr>
-            <td>af|panelAccordion::title-disabledlink</td>
+            <td>af|panelAccordion::title-disabled-link</td>
             <td>This can be used to style the link element for the title of
 each disabled showDetailItem in a panelAccordion.</td>
           </tr>
