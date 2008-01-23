@@ -110,7 +110,7 @@
                   readOnly="true" 
                   label="Date/Time from last full page refresh" 
                   value="#{date.currentDate}" 
-                  styleClass="AFDataText">
+                  styleClass="AFFieldTextMarker">
                   <tr:convertDateTime 
                     pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
                 </tr:inputText>

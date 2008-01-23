@@ -45,7 +45,7 @@
             <tr:inputText readOnly="true" 
               label="Date/Time from last full page refresh" 
               value="#{date.currentDate}"
-              styleClass="AFDataText">
+              styleClass="AFFieldTextMarker">
               <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
             </tr:inputText>
             <tr:panelGroupLayout layout="vertical">
@@ -53,7 +53,7 @@
                 value="&lt;b>InputText linked to Poll component being updated in partial page mode&lt;/b>"/>
               <tr:inputText  readOnly="true" label="Poll Count: " 
                              value="#{poll.pollCount}"
-                             styleClass="AFDataText" partialTriggers="pollid"/>
+                             styleClass="AFFieldTextMarker" partialTriggers="pollid"/>
             </tr:panelGroupLayout>
 
             <tr:panelGroupLayout layout="vertical">

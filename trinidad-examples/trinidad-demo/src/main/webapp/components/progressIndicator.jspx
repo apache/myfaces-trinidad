@@ -37,7 +37,7 @@
             <tr:commandButton text="Submit"/>           
             
             <tr:inputText readOnly="true" label="Date/Time from last full page refresh" 
-              value="#{date.currentDate}" styleClass="AFDataText">
+              value="#{date.currentDate}" styleClass="AFFieldTextMarker">
               <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
             </tr:inputText>
               

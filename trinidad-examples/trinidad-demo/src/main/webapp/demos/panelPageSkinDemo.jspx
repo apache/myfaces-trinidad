@@ -139,11 +139,11 @@
                       <tr:panelHeader text="Tab Header 1">
                         <tr:panelFormLayout>
                           <tr:inputText readOnly="true" label="Label 2-1"
-                                        value="Value" styleClass="AFDataText"/>
+                                        value="Value" styleClass="AFFieldTextMarker"/>
                           <tr:inputText readOnly="true"
                                         label="Date/Time from last partial refresh"
                                         value="#{date.currentDate}"
-                                        styleClass="AFDataText">
+                                        styleClass="AFFieldTextMarker">
                             <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
                           </tr:inputText>
                           <tr:inputDate label="Birthdate:"/>
