@@ -18,8 +18,6 @@
  */
 package org.apache.myfaces.trinidadinternal.application;
 
-import java.io.IOException;
-
 import java.io.Serializable;
 
 import java.util.ArrayList;
@@ -31,6 +29,7 @@ import java.util.Locale;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.StateManager;
+import javax.faces.application.StateManagerWrapper;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
@@ -50,6 +49,8 @@ import org.apache.myfaces.trinidadinternal.util.TokenCache;
 
 // Imported only for a String constant - so no runtime dependency
 import com.sun.facelets.FaceletViewHandler;
+
+import java.io.IOException;
 
 /**
  * StateManager that handles a hybrid client/server strategy:  a
@@ -82,7 +83,7 @@ import com.sun.facelets.FaceletViewHandler;
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/application/StateManagerImpl.java#2 $) $Date: 18-nov-2005.16:12:04 $
  */
-public class StateManagerImpl extends StateManager
+public class StateManagerImpl extends StateManagerWrapper
 {
   static public final String USE_APPLICATION_VIEW_CACHE_INIT_PARAM =
     "org.apache.myfaces.trinidad.USE_APPLICATION_VIEW_CACHE";
@@ -125,6 +126,28 @@ public class StateManagerImpl extends StateManager
   {
     _delegate = delegate;
   }
+  
+  @Override
+  protected StateManager getWrapped()
+  {
+    return _delegate;
+  }
+
+  @SuppressWarnings("deprecation")
+  @Override
+  public Object saveView(FacesContext context)
+  {
+    assert(context != null);
+    
+    if(isSavingStateInClient(context))
+    {
+      SerializedView view = _saveSerializedView(context);
+      return new Object[]{view.getStructure(), view.getState()};
+    }
+    
+    return super.saveView(context);
+  }
+
 
   /**
    * Save a component tree as an Object.
@@ -214,15 +237,11 @@ public class StateManagerImpl extends StateManager
       root.processRestoreState(context, state);
 
     return root;
-  }
+  }  
 
   @SuppressWarnings("unchecked")
-  @Override
-  public SerializedView saveSerializedView(FacesContext context)
+  private SerializedView _saveSerializedView(FacesContext context)
   {
-    if (!isSavingStateInClient(context))
-      return _delegate.saveSerializedView(context);
-
     SerializedView view = _getCachedSerializedView(context);
     if (view != null)
       return view;
