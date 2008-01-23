@@ -203,7 +203,7 @@ public class ComponentTree
         Bean child = kids.get(0);
         fn = child.getFilename();
         _token = child.getLabel();
-        kids = null;
+        kids = kids.get(0).getComponents();
       }
       else
       {
