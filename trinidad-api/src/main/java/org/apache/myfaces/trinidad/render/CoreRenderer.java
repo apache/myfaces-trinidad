@@ -195,6 +195,8 @@ public class CoreRenderer extends Renderer
           "NO_RENDERINGCONTEXT"));
       
       FacesBean bean = getFacesBean(component);
+      
+      beforeEncode(context, arc, component, bean);      
       encodeBegin(context, arc, component, bean);
     }
   }
@@ -218,12 +220,14 @@ public class CoreRenderer extends Renderer
     FacesBean bean = getFacesBean(component);
     if (getRendersChildren())
     {
+      beforeEncode(context, arc, component, bean);
       encodeAll(context, arc, component, bean);
     }
     else
     {
       encodeEnd(context, arc, component, bean);
     }
+    afterEncode(context, arc, component, bean);      
   }
 
   /**
@@ -561,6 +565,36 @@ public class CoreRenderer extends Renderer
     return (arc.getAccessibilityMode() ==
             RequestContext.Accessibility.SCREEN_READER);
   }
+
+  //
+  // Encoding hook methods for sub-classes
+  //
+  
+  /**
+   * Hook method that gets invoked before the component is encoded
+   * 
+   * @see #encodeBegin(FacesContext, RederingContext, UIComponent, FacesBean)
+   * @see #encodeAll(FacesContext, RederingContext, UIComponent, FacesBean)
+   */
+  protected void beforeEncode(
+    FacesContext     context,
+    RenderingContext arc,
+    UIComponent      component,
+    FacesBean        bean)
+  {}
+  
+  /**
+   * Hook method that gets invoked after the component is encoded
+   * 
+   * @see #encodeEnd(FacesContext, RederingContext, UIComponent, FacesBean)
+   * @see #encodeAll(FacesContext, RederingContext, UIComponent, FacesBean)
+   */
+  protected void afterEncode(
+    FacesContext     context,
+    RenderingContext arc,
+    UIComponent      component,
+    FacesBean        bean)
+  {}
 
   //
   // Rendering convenience methods.
