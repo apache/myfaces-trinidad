@@ -18,8 +18,6 @@
  */
 package org.apache.myfaces.trinidadinternal.application;
 
-import java.io.IOException;
-
 import java.io.Serializable;
 
 import java.util.ArrayList;
@@ -50,6 +48,8 @@ import org.apache.myfaces.trinidadinternal.util.TokenCache;
 
 // Imported only for a String constant - so no runtime dependency
 import com.sun.facelets.FaceletViewHandler;
+
+import java.io.IOException;
 
 /**
  * StateManager that handles a hybrid client/server strategy:  a
@@ -125,6 +125,20 @@ public class StateManagerImpl extends StateManager
   {
     _delegate = delegate;
   }
+  
+  @Override
+  public SerializedView saveSerializedView(FacesContext context)
+  {
+    assert(context != null);
+    
+    if(isSavingStateInClient(context))
+    {
+      return _saveSerializedView(context);
+    }
+    
+    return _delegate.saveSerializedView(context);
+  }
+
 
   /**
    * Save a component tree as an Object.
@@ -214,15 +228,11 @@ public class StateManagerImpl extends StateManager
       root.processRestoreState(context, state);
 
     return root;
-  }
+  }  
 
   @SuppressWarnings("unchecked")
-  @Override
-  public SerializedView saveSerializedView(FacesContext context)
+  private SerializedView _saveSerializedView(FacesContext context)
   {
-    if (!isSavingStateInClient(context))
-      return _delegate.saveSerializedView(context);
-
     SerializedView view = _getCachedSerializedView(context);
     if (view != null)
       return view;
