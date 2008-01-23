@@ -88,9 +88,27 @@ abstract public class UIXTreeTemplate extends UIXHierarchy
   {
     
     TreeModel model = ModelUtils.toTreeModel(value);
-    model.setRowKey(null);    
-    getDisclosedRowKeys().setCollectionModel(model);
-    getSelectedRowKeys().setCollectionModel(model);
+    model.setRowKey(null);
+
+    RowKeySet selectedRowKeys = getSelectedRowKeys();
+
+    if (selectedRowKeys == null)
+    {
+      selectedRowKeys = new RowKeySetTreeImpl();
+      setSelectedRowKeys(selectedRowKeys);
+    }
+
+    RowKeySet disclosedRowKeys = getDisclosedRowKeys();
+
+    if (disclosedRowKeys == null)
+    {
+      disclosedRowKeys = new RowKeySetTreeImpl();
+      setDisclosedRowKeys(disclosedRowKeys);
+    }
+
+    selectedRowKeys.setCollectionModel(model);
+    disclosedRowKeys.setCollectionModel(model);
+
     return model;
   }
 
