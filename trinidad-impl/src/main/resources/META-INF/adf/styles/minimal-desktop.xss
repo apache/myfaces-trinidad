@@ -90,6 +90,11 @@
     <property name="height">20px</property>
   </style>  
 
+  <!-- panelPage -->
+  <style selector="af|panelPage::branding">
+    <property name="padding">4px</property>
+  </style>
+
   <!-- panelForm -->
   <style selector="af|panelFormLayout::column">
     <property name="vertical-align">top</property>
