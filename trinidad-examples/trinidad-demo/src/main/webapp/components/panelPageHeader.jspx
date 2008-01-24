@@ -38,9 +38,9 @@
             <tr:outputFormatted styleUsage="instruction" value="&lt;b>panelPageHeader demo &lt;/b>"/>
             <tr:panelPageHeader binding="#{editor.component}">                          
               <f:facet name="branding">
-                <tr:panelGroupLayout>
+                <tr:panelGroupLayout layout="horizontal">
                   <tr:image source="/components/images/corporateBrand.gif"
-                             shortDesc="corporate"/>
+                            shortDesc="corporate"/>
                   <tr:outputFormatted value="Customer &lt;b&gt;InContextBranding Company - Menlo Park&lt;/b&gt;"
                                      styleUsage="inContextBranding"/>
                 </tr:panelGroupLayout>

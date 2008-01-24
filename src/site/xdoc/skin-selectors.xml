@@ -2424,6 +2424,10 @@ each disabled showDetailItem in a panelAccordion.</td>
             <td>Styles the links within the "appAbout" facet.</td>
           </tr>
           <tr>
+            <td>af|panelPage::branding</td>
+            <td>Styles the "branding" facet.</td>
+          </tr>
+          <tr>
             <td>af|panelPage::copyright</td>
             <td>Styles the "appCopyright" facet.</td>
           </tr>

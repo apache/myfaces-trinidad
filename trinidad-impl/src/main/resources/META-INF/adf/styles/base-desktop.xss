@@ -2158,7 +2158,10 @@
     <includeStyle selector=".AFHeaderLevelOne"/>
     <includeStyle name="AFErrorTextForeground"/>
   </style>
-  
+
+  <style selector="af|panelPage::branding">
+  </style>
+
   <style selector="af|messages::error">
     <includeStyle selector=".AFHeaderLevelOne"/>
     <includeStyle name="AFErrorTextForeground"/>

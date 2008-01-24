@@ -38,6 +38,7 @@
                     >
                   
                   <td
+                       class="af_panelPage_branding"
                        nowrap="nowrap"
                       >
                     
@@ -1364,6 +1365,7 @@
                     >
                   
                   <td
+                       class="af_panelPage_branding"
                        nowrap="nowrap"
                       >
                     

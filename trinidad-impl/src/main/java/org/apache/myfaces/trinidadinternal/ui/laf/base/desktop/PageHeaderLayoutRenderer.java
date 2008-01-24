@@ -203,6 +203,7 @@ public class PageHeaderLayoutRenderer extends HtmlLafRenderer
 
           writer.startElement(TABLE_ROW_ELEMENT, null);
           writer.startElement(TABLE_DATA_ELEMENT, null);
+          renderStyleClassAttribute(context, AF_PANEL_PAGE_BRANDING_STYLE_CLASS);
           writer.writeAttribute(NOWRAP_ATTRIBUTE, Boolean.TRUE, null);
           // what is happening is that the corporate branding and
           // the product branding that is next to it have a big space
