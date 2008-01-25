@@ -188,7 +188,7 @@ public class CSSGenerationUtils
         {
           StyleNode matchingStyle = matchingStyles[j];
           String selector = matchingStyle.getSelector();
-
+          
           // We should always have a selector at this point
           assert (selector != null);
 
@@ -228,6 +228,7 @@ public class CSSGenerationUtils
           {
             String shortSelector = _getShortSelector(mappedSelector,
                                                      shortStyleClassMap);
+
             if (shortSelector == null)
               shortSelector = mappedSelector;
 
@@ -253,7 +254,7 @@ public class CSSGenerationUtils
             {
               String validShortSelector =
                 _getValidFullNameSelector(shortSelector, namespacePrefixArray);
-
+              
               // if we wrote out a full style, check to see if we need to write out the short, too.
               // if it is something different, write out the short, too.
               if (validFullNameSelector != null)
@@ -745,7 +746,7 @@ public class CSSGenerationUtils
     {
       String[] selectorArray =
         _orderPseudoElementsAndClasses(selector);
-
+      
       // map selectors, if needed
       // any of the selectors that start with a namespace prefix will
       // be mapped.
@@ -757,7 +758,6 @@ public class CSSGenerationUtils
                                             selector,
                                             selectorArray,
                                             false);
-
     }
     else
     {
@@ -898,7 +898,7 @@ public class CSSGenerationUtils
       colonIndex = 0;
     String afterDoubleColon = wholeAfSelector.substring(colonIndex);
 
-    // now find the part with a single ':', a ' ', or a '.'. That is where
+    // now find the part with a single ':', a ' ', a '[', or a '.'. That is where
     // I want to chop it to get my 'main' piece of the component selector.
     boolean end = false;
     int afterLength = afterDoubleColon.length();
@@ -907,7 +907,7 @@ public class CSSGenerationUtils
     for (; ((endIndex < afterLength) && !end); endIndex++)
     {
       c = afterDoubleColon.charAt(endIndex);
-      end = (Character.isWhitespace(c)) || (c == '.') || (c == ':');
+      end = (Character.isWhitespace(c)) || (c == '.') || (c == ':') || (c == '[');
     }
 
     // Set the main piece in the pieces object
@@ -1111,7 +1111,7 @@ public class CSSGenerationUtils
   // style class selector
   private static boolean _isStyleClassTerminator(char c)
   {
-    return (Character.isWhitespace(c) || (c == ':') || (c == '.'));
+    return (Character.isWhitespace(c) || (c == ':') || (c == '.') || (c == '['));
   }
 
   // Gets the properties of the specified StyleNode in sorted
@@ -1200,7 +1200,7 @@ public class CSSGenerationUtils
     {
       char x = selector.charAt(i);
 
-      if ((x == ':') || (x == '.'))
+      if ((x == ':') || (x == '.') || (x == '['))
       {
         if (inPseudoClass)
         {
@@ -1216,7 +1216,7 @@ public class CSSGenerationUtils
           inPseudoClass = true;
           pseudoClassBuffer.append(x);
         }
-        else if (x == '.')
+        else if (x == '.' || x == '[')
         {
           completeBuffer.append(x);
         }
