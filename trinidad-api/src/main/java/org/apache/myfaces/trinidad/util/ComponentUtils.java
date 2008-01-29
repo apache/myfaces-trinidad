@@ -30,7 +30,7 @@ import javax.faces.component.UIComponent;
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/util/ComponentUtils.java#0 $) $Date: 10-nov-2005.19:08:37 $
  */
-public class ComponentUtils
+public final class ComponentUtils
 {
   private ComponentUtils()
   {

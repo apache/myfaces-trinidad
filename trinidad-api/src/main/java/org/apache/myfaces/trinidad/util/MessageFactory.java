@@ -30,7 +30,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  * Factory class to return {@link FacesMessage} objects.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/util/MessageFactory.java#0 $) $Date: 30-nov-2005.11:48:33 $
  */
-public class MessageFactory
+public final class MessageFactory
 {
   private MessageFactory()
   {

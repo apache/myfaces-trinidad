@@ -33,7 +33,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  *
  * @version $Revision$ $Date$
  */
-public class ExternalContextUtils
+public final class ExternalContextUtils
 {
   /**
    * Returns the character encoding or null if there isn't any
