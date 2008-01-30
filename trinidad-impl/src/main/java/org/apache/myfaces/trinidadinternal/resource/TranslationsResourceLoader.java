@@ -23,10 +23,15 @@ import java.io.IOException;
 import java.net.URL;
 
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Locale;
+import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+import java.util.Set;
 
+import javax.faces.application.Application;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.context.LocaleContext;
@@ -109,6 +114,17 @@ abstract public class TranslationsResourceLoader
       _LOG.severe(mre);
       return "/* COULD NOT FIND BUNDLE " + getBundleName() + " */";
     }
+    
+    // see TRINIDAD-915
+    // we load messages from application specific bundle 
+    ResourceBundle applicationBundle = _getApplicationFacesMessageBundle(context, locale);
+
+    // we put both, regular and application specific bundle to a map,
+    // to avoid sending down duplicated key/value pairs
+    Map<String, String> messages = new HashMap<String, String>();
+    _addMessagesToMap(messages, bundle);
+    _addMessagesToMap(messages, applicationBundle, true);
+    
 
     // FIXME: would be much better to directly stream the contents
     // rather than using StringContentResourceLoader
@@ -118,8 +134,8 @@ abstract public class TranslationsResourceLoader
       .append("=")
       .append("{\n");
 
-    _processBundle(context, builder, bundle, locale);
-    
+    _processBundle(context, builder, messages, locale);
+
     builder.append("\n}");
 
     return builder.toString();
@@ -134,6 +150,42 @@ abstract public class TranslationsResourceLoader
                                     loader);
   }
 
+  private ResourceBundle _getApplicationFacesMessageBundle(
+    FacesContext context,
+    Locale locale)
+  {
+    assert context != null;
+    assert locale  != null;
+
+    Application application = context.getApplication();
+    if(application == null)
+    {
+      // Should not happen, but better check than a NullPointerException
+      return null;
+    }
+    
+    String bundleName = application.getMessageBundle();
+    
+    if(bundleName == null)
+    {
+      // There's no specified message bundle in faces-config.xml
+      return null;
+    }
+    
+    ClassLoader loader = Thread.currentThread().getContextClassLoader();
+
+    try
+    {
+      return ResourceBundle.getBundle(bundleName, locale, loader);
+    }
+    catch (MissingResourceException missingResource)
+    {
+      _LOG.warning("Unable to load faces-config.xml defined message bundle {0}", bundleName);
+      _LOG.warning(missingResource);
+      return null;
+    }
+  }
+  
   protected Skin getSkin(FacesContext context)
   {
     Skin skin = null;
@@ -146,32 +198,68 @@ abstract public class TranslationsResourceLoader
     return skin;
   }
 
-  private void _processBundle(
-    FacesContext   context,
-    StringBuilder  builder,
+  private void _addMessagesToMap(
+    Map<String, String> map,
     ResourceBundle bundle,
-    Locale         locale)
+    boolean onlyReplaceExisting)
+  {
+    Enumeration<String> keys = bundle.getKeys();
+    while (keys.hasMoreElements())
+    {
+      String key = keys.nextElement();
+      String value = null;
+      if(onlyReplaceExisting)
+      {
+        // just add only those key/value pairs, that already 
+        // were present in the original bundle, to not sent
+        // down never used (custom) messages
+        if(map.containsKey(key))
+        {
+          value = bundle.getString(key);
+          map.put(key, value);
+        }
+      }
+      else
+      {
+        value = bundle.getString(key);
+        map.put(key, value);
+      }
+    }
+  }
+  
+  private void _addMessagesToMap(
+    Map<String, String> map,
+    ResourceBundle bundle)
+  {
+    _addMessagesToMap(map, bundle, false);
+  }
+  
+  private void _processBundle(
+    FacesContext        context,
+    StringBuilder       builder,
+    Map<String, String> messages,
+    Locale              locale)
   {
     Skin             skin = getSkin(context);
     LocaleContext    lc = new LocaleContextImpl(locale);
 
     // We get the keys from the bundle, but try to get the values from
     // the skin if possible
-    Enumeration<String> keys = bundle.getKeys();
+    Set<String> keys = messages.keySet();
     boolean writtenOne = false;
-    while (keys.hasMoreElements())
+    for (Iterator<String> iterator = keys.iterator(); iterator.hasNext();)
     {
       if (writtenOne)
         builder.append(",\n");
       else
         writtenOne = true;
 
-      String key = keys.nextElement();
+      String key = iterator.next();
       String value;
       // If we can get it from the skin, that's better, but if not,
       // go to the bundle
       if (skin == null)
-        value = bundle.getString(key);
+        value = messages.get(key);
       else
         value = skin.getTranslatedString(lc, key);
       
@@ -180,6 +268,7 @@ abstract public class TranslationsResourceLoader
       builder.append("':'");
       _appendUnicodeString(builder, value);
       builder.append("'");
+      
     }
   }
 
