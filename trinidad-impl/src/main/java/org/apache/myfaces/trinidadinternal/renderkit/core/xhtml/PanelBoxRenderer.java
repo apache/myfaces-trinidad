@@ -306,7 +306,7 @@ public class PanelBoxRenderer
     {
       // There's both a header and a content, use a table.
       writer.startElement(XhtmlConstants.TABLE_ELEMENT, null);
-      OutputUtils.renderLayoutTableAttributes(context, arc, "0", null);
+      OutputUtils.renderLayoutTableAttributes(context, arc, "0", "100%");
       writer.startElement(XhtmlConstants.TABLE_BODY_ELEMENT, null);
       
       // Render header
