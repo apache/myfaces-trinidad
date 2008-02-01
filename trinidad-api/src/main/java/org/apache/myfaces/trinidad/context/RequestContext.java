@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -24,6 +24,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
+
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
@@ -80,7 +83,7 @@ abstract public class RequestContext
     return _CURRENT_CONTEXT.get();
   }
 
-  
+
 
   /**
    * Creates an RequestContext.  RequestContext is abstract
@@ -188,11 +191,11 @@ abstract public class RequestContext
    * </p>
    */
   public abstract boolean isPostback();
-  
+
   /**
    * Method to indicate if this current HTTP request is a
    * partial page rendering request.
-   * 
+   *
    * @param context the <code>FacesContext</code> object for
    * the request we are processing
    * @return is this request a PPR request?
@@ -224,7 +227,7 @@ abstract public class RequestContext
     DEFAULT("default"),
     INACCESSIBLE("inaccessible"),
     SCREEN_READER("screenReader");
-    
+
     Accessibility(String name)
     {
       _name = name;
@@ -245,7 +248,7 @@ abstract public class RequestContext
     ALERT("alert"),
     INLINE("inline"),
     DISABLED("disabled");
-    
+
     ClientValidation(String name)
     {
       _name = name;
@@ -366,6 +369,29 @@ abstract public class RequestContext
   public abstract ChangeManager getChangeManager();
 
   /**
+   * Gets a per application concurrent map. There is no synchronization
+   * with ServletContext attributes.
+   */
+   public ConcurrentMap<String, Object> getApplicationScopedConcurrentMap()
+   {
+     ClassLoader cl = _getClassLoader();
+
+     ConcurrentMap<String, Object> classMap = _APPLICATION_MAPS.get(cl);
+
+     if (classMap == null)
+     {
+       ConcurrentMap<String, Object> newClassMap = new ConcurrentHashMap<String, Object>();
+       ConcurrentMap<String, Object> oldClassMap = _APPLICATION_MAPS.putIfAbsent(cl, newClassMap);
+
+       classMap = ((oldClassMap != null)? oldClassMap : newClassMap);
+
+       assert(classMap != null);
+     }
+
+     return classMap;
+   }
+
+  /**
     * Gets the PageFlowScopeProvider for the current application.
     */
   public abstract PageFlowScopeProvider getPageFlowScopeProvider();
@@ -395,7 +421,7 @@ abstract public class RequestContext
 
   /**
    * Add components relative to the given component as partial targets.
-   * <p> 
+   * <p>
    * See {@link #addPartialTarget(UIComponent)} for more information.
    * </p>
    * @param from the component to use as a relative reference for any
@@ -405,12 +431,12 @@ abstract public class RequestContext
    * @see ComponentUtils#findRelativeComponent(UIComponent, String)
    */
   public abstract void addPartialTargets(UIComponent from, String... targets);
-  
+
   /**
    * Returns the set of partial targets related to a given UIComponent.
    */
   public abstract Set<UIComponent> getPartialTargets(UIComponent newTarget);
-  
+
   /**
    * Adds a listener on a set of particular triggering components. If one of
    * the named components gets updated in response to a partial event, then
@@ -458,7 +484,7 @@ abstract public class RequestContext
    * Object will be serializable, unless a UIComponent
    * in this tree contains a non-serializable property.  This
    * method does not check that condition.
-   * @param component the component 
+   * @param component the component
    * @return an Object that can be passed to restoreComponent()
    *  to reinstantiate the state
    */
@@ -484,10 +510,10 @@ abstract public class RequestContext
   {
     if (_LOG.isFinest())
     {
-      _LOG.finest("RequestContext released.", 
+      _LOG.finest("RequestContext released.",
                   new RuntimeException("This is not an error. This trace is for debugging."));
     }
-    
+
     Object o = _CURRENT_CONTEXT.get();
     if (o == null)
       throw new IllegalStateException(
@@ -496,12 +522,12 @@ abstract public class RequestContext
     if (o != this)
       throw new IllegalStateException(_LOG.getMessage(
         "RELEASE_DIFFERENT_REQUESTCONTEXT_THAN_CURRENT_ONE"));
-    
+
     _CURRENT_CONTEXT.remove();
   }
 
   /**
-   * Attaches a RequestContext to the current thread.  This method 
+   * Attaches a RequestContext to the current thread.  This method
    * should only be called by a RequestContext object itself.
    * @exception IllegalStateException if an RequestContext is already
    * attached to the thread
@@ -510,7 +536,7 @@ abstract public class RequestContext
   {
     if (_LOG.isFinest())
     {
-      _LOG.finest("RequestContext attached.", 
+      _LOG.finest("RequestContext attached.",
                   new RuntimeException(_LOG.getMessage(
                     "DEBUGGING_TRACE_NOT_ERROR")));
     }
@@ -524,7 +550,7 @@ abstract public class RequestContext
     }
     _CURRENT_CONTEXT.set(this);
   }
-  
+
   private static String _addHelp(String error)
   {
     if (!_LOG.isFinest())
@@ -535,7 +561,18 @@ abstract public class RequestContext
     return error;
   }
 
-  static private final ThreadLocal<RequestContext> _CURRENT_CONTEXT = 
+  //
+  // Pick a ClassLoader
+  //
+  private ClassLoader _getClassLoader()
+  {
+    return Thread.currentThread().getContextClassLoader();
+  }
+
+  @SuppressWarnings({"CollectionWithoutInitialCapacity"})
+  private static final ConcurrentMap<ClassLoader, ConcurrentMap<String, Object>> _APPLICATION_MAPS =
+       new ConcurrentHashMap<ClassLoader, ConcurrentMap<String, Object>>();
+  static private final ThreadLocal<RequestContext> _CURRENT_CONTEXT =
     new ThreadLocal<RequestContext>();
   static private final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(RequestContext.class);
