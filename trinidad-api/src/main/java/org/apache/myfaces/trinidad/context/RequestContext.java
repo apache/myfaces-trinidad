@@ -24,6 +24,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
@@ -365,6 +368,29 @@ abstract public class RequestContext
   public abstract ChangeManager getChangeManager();
 
   /**
+   * Gets a per application concurrent map. There is no synchronization
+   * with ServletContext attributes.
+   */
+   public ConcurrentMap<String, Object> getApplicationScopedConcurrentMap()
+   {
+     ClassLoader cl = _getClassLoader();
+
+     ConcurrentMap<String, Object> classMap = _APPLICATION_MAPS.get(cl);
+
+     if (classMap == null)
+     {
+       ConcurrentMap<String, Object> newClassMap = new ConcurrentHashMap<String, Object>();
+       ConcurrentMap<String, Object> oldClassMap = _APPLICATION_MAPS.putIfAbsent(cl, newClassMap);
+
+       classMap = ((oldClassMap != null)? oldClassMap : newClassMap);
+
+       assert(classMap != null);
+     }
+
+     return classMap;
+   }
+
+  /**
     * Gets the PageFlowScopeProvider for the current application.
     */
   public abstract PageFlowScopeProvider getPageFlowScopeProvider();
@@ -529,6 +555,17 @@ abstract public class RequestContext
     return error;
   }
 
+  //
+  // Pick a ClassLoader
+  //
+  private ClassLoader _getClassLoader()
+  {
+    return Thread.currentThread().getContextClassLoader();
+  }
+
+  @SuppressWarnings({"CollectionWithoutInitialCapacity"})
+  private static final ConcurrentMap<ClassLoader, ConcurrentMap<String, Object>> _APPLICATION_MAPS =
+       new ConcurrentHashMap<ClassLoader, ConcurrentMap<String, Object>>();
   static private final ThreadLocal<RequestContext> _CURRENT_CONTEXT = 
     new ThreadLocal<RequestContext>();
   static private final TrinidadLogger _LOG =
