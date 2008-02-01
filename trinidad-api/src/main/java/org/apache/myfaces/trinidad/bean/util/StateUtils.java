@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -21,16 +21,19 @@ package org.apache.myfaces.trinidad.bean.util;
 import java.io.Serializable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import java.util.concurrent.ConcurrentMap;
 
 import javax.faces.component.StateHolder;
 import javax.faces.context.FacesContext;
 
-
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.bean.PropertyMap;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
@@ -222,8 +225,8 @@ public class StateUtils
 
     Object[] array = new Object[size];
     // 2006-08-01: -= Simon Lessard =-
-    //             Inefficient loop if the list implementation 
-    //             ever change to a linked data structure. Use 
+    //             Inefficient loop if the list implementation
+    //             ever change to a linked data structure. Use
     //             iterators instead
     //for (int i = 0; i < size; i++)
     //  array[i] = saveStateHolder(context, list.get(i));
@@ -232,7 +235,7 @@ public class StateUtils
     {
       array[index++] = saveStateHolder(context, object);
     }
-    
+
     return array;
   }
 
@@ -279,10 +282,48 @@ public class StateUtils
 
     public Object restoreState(FacesContext context)
     {
-      ClassLoader cl = _getClassLoader();
+      // we don't need to use concurrent map methods like putIfAbsent. If someone happens to
+      // add a name/value pair again it's fine because as the doc for put in HashMap says
+      // "If the map previously contained a mapping for this key, the old value is replaced."
+      ConcurrentMap<String, Object> appMap = 
+                           RequestContext.getCurrentInstance().getApplicationScopedConcurrentMap();
+      
+
+      Map<String, Class> classMap = (Map<String, Class>) appMap.get(_CLASS_MAP_KEY);
+      
+      if (classMap == null)
+      {    
+        // the classMap doesn't need to worry about synchronization, 
+        // if the Class is loaded twice that's fine. 
+        Map<String, Class> newClassMap = new HashMap<String, Class>();
+        Map<String, Class> oldClassMap = 
+                              (Map<String, Class>) appMap.putIfAbsent(_CLASS_MAP_KEY, newClassMap);
+        
+        if (oldClassMap != null)
+          classMap = oldClassMap;
+        else
+          classMap = newClassMap;
+      }
+            
+      Class clazz = classMap.get(_name);
+
+      if (clazz == null)
+      {
+        try
+        {
+          ClassLoader cl = _getClassLoader();
+          clazz = cl.loadClass(_name);
+          classMap.put(_name, clazz);
+        }
+        catch (Throwable t)
+        {
+          _LOG.severe(t);
+          return null;
+        }
+      }
+
       try
       {
-        Class<?> clazz = cl.loadClass(_name);
         return clazz.newInstance();
       }
       catch (Throwable t)
@@ -337,5 +378,10 @@ public class StateUtils
   }
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(StateUtils.class);
+
+  private static final String _CLASS_MAP_KEY = 
+                                           "org.apache.myfaces.trinidad.bean.util.CLASS_MAP_KEY";
+
+
 }
 
