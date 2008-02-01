@@ -123,7 +123,9 @@ abstract public class TranslationsResourceLoader
     // to avoid sending down duplicated key/value pairs
     Map<String, String> messages = new HashMap<String, String>();
     _addMessagesToMap(messages, bundle);
-    _addMessagesToMap(messages, applicationBundle, true);
+    
+    if(applicationBundle != null)
+      _addMessagesToMap(messages, applicationBundle, true);
     
 
     // FIXME: would be much better to directly stream the contents
