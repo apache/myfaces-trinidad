@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -34,6 +34,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import org.apache.myfaces.trinidad.context.MockRequestContext;
 import org.apache.myfaces.trinidadbuild.test.FacesTestCase;
 
 public class FacesBeanImplTest extends FacesTestCase
@@ -42,7 +43,7 @@ public class FacesBeanImplTest extends FacesTestCase
   {
     return new TestSuite(FacesBeanImplTest.class);
   }
-  
+
   public static void main(String[] args) throws Throwable
   {
     junit.textui.TestRunner.run(suite());
@@ -54,15 +55,21 @@ public class FacesBeanImplTest extends FacesTestCase
     super(testName);
   }
 
+
+  private MockRequestContext _mafct;
+
   @Override
   protected void setUp() throws Exception
   {
     super.setUp();
+    _mafct = new MockRequestContext();
   }
 
   @Override
   protected void tearDown() throws Exception
   {
+    _mafct.release();
+    _mafct = null;
     super.tearDown();
   }
 
@@ -166,7 +173,7 @@ public class FacesBeanImplTest extends FacesTestCase
 
     bean.setFirst("first");
     assertEquals("first", bean.getFirst());
-    
+
     bean.setFirst(null);
     assertEquals("vbFirst", bean.getFirst());
   }
@@ -176,7 +183,7 @@ public class FacesBeanImplTest extends FacesTestCase
     TestBean bean = new TestBean();
     assertTrue(bean.keySet().isEmpty());
     assertTrue(bean.bindingKeySet().isEmpty());
-    
+
     bean.setFirst("first");
     bean.setSecond("second");
 
@@ -185,9 +192,9 @@ public class FacesBeanImplTest extends FacesTestCase
     bean.setSecond("newSecond");
 
     assertEquals(2, bean.keySet().size());
-    
+
     bean.setSecond(null);
-    
+
     // This test is somewhat dubious...
     assertEquals(1, bean.keySet().size());
 
@@ -202,8 +209,8 @@ public class FacesBeanImplTest extends FacesTestCase
 
     bean.setValueBinding(thirdKey, new TestValueBinding());
     assertEquals(2, bean.bindingKeySet().size());
-    
-    assertTrue(bean.bindingKeySet().contains(thirdKey));  
+
+    assertTrue(bean.bindingKeySet().contains(thirdKey));
     assertTrue(bean.bindingKeySet().contains(TestBean.FIRST_KEY));
     assertTrue(!bean.bindingKeySet().contains(TestBean.SECOND_KEY));
   }
@@ -222,7 +229,7 @@ public class FacesBeanImplTest extends FacesTestCase
 
     bean.addItem(new Integer(2));
     assertEquals(2, bean.getItems().length);
-    
+
     array = bean.getItems();
     assertEquals(array[0], new Integer(1));
     assertEquals(array[1], new Integer(2));
@@ -257,7 +264,7 @@ public class FacesBeanImplTest extends FacesTestCase
       bean.setProperty(TestBean.ITEMS_KEY, "Shouldn't work");
       fail();
     }
-    catch (IllegalArgumentException iae) 
+    catch (IllegalArgumentException iae)
     {
       // expected
     }
@@ -319,7 +326,7 @@ public class FacesBeanImplTest extends FacesTestCase
       bean.removeEntry(TestBean.FIRST_KEY, null);
       fail();
     }
-    catch (IllegalArgumentException iae) 
+    catch (IllegalArgumentException iae)
     {
       // expected
     }
@@ -436,7 +443,7 @@ public class FacesBeanImplTest extends FacesTestCase
     assertEquals("second", newBean.getSecond());
     assertNull(newBean.getValueBinding(SubTypeBean.SECOND_KEY));
     assertEquals("sub", newBean.getSub());
-    
+
     // Verify that our "silly" object has had its state restored
     assertEquals("2", newBean.getProperty(SubTypeBean.SILLY_KEY).toString());
 
@@ -445,7 +452,7 @@ public class FacesBeanImplTest extends FacesTestCase
     assertEquals(new Integer(1), array[0]);
     assertEquals(new Integer(2), array[1]);
 
-    
+
     // Make sure the transient value is now null
     assertNull(newBean.getTransient());
 
@@ -455,26 +462,26 @@ public class FacesBeanImplTest extends FacesTestCase
     assertTrue(vb instanceof TestValueBinding);
     assertTrue(vb != vb1);
     assertEquals(vb.getValue(null), "vbFirst");
-    
+
     // Now change the value binding, and verify the original
     // bean is unchanged
     vb.setValue(null, "changedVB");
     assertEquals("changedVB", newBean.getFirst());
     assertEquals("vbFirst", bean.getFirst());
-    
+
     // Now, verify that if we mark the initial state and save, that we get
     // a non-null value
     newBean.markInitialState();
     assertNull(newBean.saveState(null));
-    
+
     // Now, we'll set a value, so we should get a non-null state
-    
+
     // Our current delta support *does not* keep track of the original value.
     // If it does, add this test
     // String oldFirst = newBean.getFirst();
     newBean.setFirst("foo");
     assertNotNull(newBean.saveState(null));
-  
+
     // Our current delta support *does not* keep track of the original value.
     // If it does, add this test
 //    newBean.setFirst(oldFirst);
