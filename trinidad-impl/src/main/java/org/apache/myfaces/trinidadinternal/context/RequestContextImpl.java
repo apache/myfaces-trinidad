@@ -268,7 +268,7 @@ public class RequestContextImpl extends RequestContext
   @Override
   public boolean isAnimationEnabled()
   {
-    return Boolean.TRUE.equals(_bean.getProperty(RequestContextBean.ANIMATION_ENABLED_KEY));
+    return !Boolean.FALSE.equals(_bean.getProperty(RequestContextBean.ANIMATION_ENABLED_KEY));
   }
   
   @Override
