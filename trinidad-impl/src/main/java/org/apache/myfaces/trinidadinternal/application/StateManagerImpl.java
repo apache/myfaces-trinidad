@@ -408,6 +408,15 @@ public class StateManagerImpl extends StateManagerWrapper
   {
     ec.getRequestMap().put(_REUSE_REQUEST_TOKEN_FOR_RESPONSE_KEY, Boolean.TRUE);    
   }
+  
+  /**
+   * Clears the flag indicating that the old request token should be used for the response.
+   */
+  @SuppressWarnings("unchecked")
+  static public void clearReuseRequestTokenForResponse(ExternalContext ec)
+  {
+    ec.getRequestMap().remove(_REUSE_REQUEST_TOKEN_FOR_RESPONSE_KEY);    
+  }
 
   /**
    * If we've been asked to reuse the request token for the response,
