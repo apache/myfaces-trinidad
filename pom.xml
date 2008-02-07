@@ -31,7 +31,7 @@
   <artifactId>trinidad</artifactId>
   <packaging>pom</packaging>
   <name>Apache MyFaces Trinidad</name>
-  <version>1.0.6-SNAPSHOT</version>
+  <version>1.0.6</version>
   <description>Apache MyFaces Trinidad</description>
 
   <issueManagement>
@@ -105,13 +105,9 @@
   </mailingLists>
 
   <scm>
-    <connection>
-      scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad/trunk/
-    </connection>
-    <developerConnection>
-      scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad/trunk/
-    </developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/myfaces/trinidad/trunk/</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad/tags/trinidad-1.0.6</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad/tags/trinidad-1.0.6</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/myfaces/trinidad/tags/trinidad-1.0.6</url>
   </scm>
 
   <build>
