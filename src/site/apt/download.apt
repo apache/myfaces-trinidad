@@ -33,46 +33,46 @@ Download Apache MyFaces Trinidad
   created using GNU tar extensions. Thus they must be untarred with a GNU compatible
   version of tar.
 
-    << Apache MyFaces Trinidad 1.0.5 Distribution  for JSF 1.1 >>
+    << Apache MyFaces Trinidad 1.0.6 Distribution  for JSF 1.1 >>
 
     Release notes can be found
-  {{{https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310661&styleName=Html&version=12312810}here}}.
+  {{{https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310661&styleName=Html&version=12312922}here}}.
 
 *-------------------------+---------+----------+-----------+
 |                         | Mirrors | Checksum | Signature |
 *-------------------------+---------+----------+-----------+
-| Apache MyFaces Trinidad 1.0.5 (tar.gz)     | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/trinidad-1.0.5-dist.tar.gz} trinidad-1.0.5-dist.tar.gz}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.5-dist.tar.gz.md5} trinidad-1.0.5-dist.tar.gz.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.5-dist.tar.gz.asc} trinidad-1.0.5-dist.tar.gz.asc}} |
+| Apache MyFaces Trinidad 1.0.6 (tar.gz)     | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/trinidad-1.0.6-dist.tar.gz} trinidad-1.0.6-dist.tar.gz}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.6-dist.tar.gz.md5} trinidad-1.0.6-dist.tar.gz.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.6-dist.tar.gz.asc} trinidad-1.0.6-dist.tar.gz.asc}} |
 *-------------------------+---------+----------+-----------+
-| Apache MyFaces Trinidad 1.0.5 (zip)      | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/trinidad-1.0.5-dist.zip} trinidad-1.0.5-dist.zip}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.5-dist.zip.md5} trinidad-1.0.5-dist.zip.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.5-dist.zip.asc} trinidad-1.0.5-dist.zip.asc}} |
+| Apache MyFaces Trinidad 1.0.6 (zip)      | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/trinidad-1.0.6-dist.zip} trinidad-1.0.6-dist.zip}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.6-dist.zip.md5} trinidad-1.0.6-dist.zip.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.6-dist.zip.asc} trinidad-1.0.6-dist.zip.asc}} |
 *-------------------------+---------+----------+-----------+
-| Apache MyFaces Trinidad 1.0.5 Example (tar.gz)     | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/trinidad-1.0.5-example.tar.gz} trinidad-1.0.5-example.tar.gz}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.5-example.tar.gz.md5} trinidad-1.0.5-example.tar.gz.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.5-example.tar.gz.asc} trinidad-1.0.5-example.tar.gz.asc}} |
+| Apache MyFaces Trinidad 1.0.6 Example (tar.gz)     | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/trinidad-1.0.6-example.tar.gz} trinidad-1.0.6-example.tar.gz}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.6-example.tar.gz.md5} trinidad-1.0.6-example.tar.gz.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.6-example.tar.gz.asc} trinidad-1.0.6-example.tar.gz.asc}} |
 *-------------------------+---------+----------+-----------+
-| Apache MyFaces Trinidad 1.0.5  Example (zip)      | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/trinidad-1.0.5-example.zip} trinidad-1.0.5-example.zip}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.5-example.zip.md5} trinidad-1.0.5-example.zip.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.5-example.zip.asc} trinidad-1.0.5-example.zip.asc}} |
+| Apache MyFaces Trinidad 1.0.6  Example (zip)      | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/trinidad-1.0.6-example.zip} trinidad-1.0.6-example.zip}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.6-example.zip.md5} trinidad-1.0.6-example.zip.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.0.6-example.zip.asc} trinidad-1.0.6-example.zip.asc}} |
 *-------------------------+---------+----------+-----------+
-| Apache MyFaces Trinidad 1.0.5 Source (tar.gz)     | {{{http://www.apache.org/dyn/closer.cgi/myfaces/source/trinidad-1.0.5-src-all.tar.gz} trinidad-1.0.5-src-all.tar.gz}} | {{{http://www.apache.org/dist/myfaces/source/trinidad-1.0.5-src-all.tar.gz.md5} trinidad-1.0.5-src-all.tar.gz.md5}} | {{{http://www.apache.org/dist/myfaces/source/trinidad-1.0.5-src-all.tar.gz.asc} trinidad-1.0.5-src-all.tar.gz.asc}} |
+| Apache MyFaces Trinidad 1.0.6 Source (tar.gz)     | {{{http://www.apache.org/dyn/closer.cgi/myfaces/source/trinidad-1.0.6-src-all.tar.gz} trinidad-1.0.6-src-all.tar.gz}} | {{{http://www.apache.org/dist/myfaces/source/trinidad-1.0.6-src-all.tar.gz.md5} trinidad-1.0.6-src-all.tar.gz.md5}} | {{{http://www.apache.org/dist/myfaces/source/trinidad-1.0.6-src-all.tar.gz.asc} trinidad-1.0.6-src-all.tar.gz.asc}} |
 *-------------------------+---------+----------+-----------+
-| Apache MyFaces Trinidad 1.0.5  Source (zip)      | {{{http://www.apache.org/dyn/closer.cgi/myfaces/source/trinidad-1.0.5-src-all.zip} trinidad-1.0.5-src-all.zip}} | {{{http://www.apache.org/dist/myfaces/source/trinidad-1.0.5-src-all.zip.md5} trinidad-1.0.5-src-all.zip.md5}} | {{{http://www.apache.org/dist/myfaces/source/trinidad-1.0.5-src-all.zip.asc} trinidad-1.0.5-src-all.zip.asc}} |
+| Apache MyFaces Trinidad 1.0.6  Source (zip)      | {{{http://www.apache.org/dyn/closer.cgi/myfaces/source/trinidad-1.0.6-src-all.zip} trinidad-1.0.6-src-all.zip}} | {{{http://www.apache.org/dist/myfaces/source/trinidad-1.0.6-src-all.zip.md5} trinidad-1.0.6-src-all.zip.md5}} | {{{http://www.apache.org/dist/myfaces/source/trinidad-1.0.6-src-all.zip.asc} trinidad-1.0.6-src-all.zip.asc}} |
 *-------------------------+---------+----------+-----------+
 
-    << Apache MyFaces Trinidad 1.2.5 Distribution for JSF 1.2 >>
+    << Apache MyFaces Trinidad 1.2.6 Distribution for JSF 1.2 >>
 
     Release notes can be found
-  {{{http://tinyurl.com/3bf7oh}here}}.
+  {{{https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310661&styleName=Html&version=12312923}here}}.
 
 *-------------------------+---------+----------+-----------+
 |                         | Mirrors | Checksum | Signature |
 *-------------------------+---------+----------+-----------+
-| Apache MyFaces Trinidad 1.2.5 (tar.gz)     | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/trinidad-1.2.5-dist.tar.gz} trinidad-1.2.5-dist.tar.gz}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.2.5-dist.tar.gz.md5} trinidad-1.2.5-dist.tar.gz.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.2.5-dist.tar.gz.asc} trinidad-1.2.5-dist.tar.gz.asc}} |
+| Apache MyFaces Trinidad 1.2.6 (tar.gz)     | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/trinidad-1.2.6-dist.tar.gz} trinidad-1.2.6-dist.tar.gz}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.2.6-dist.tar.gz.md5} trinidad-1.2.6-dist.tar.gz.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.2.6-dist.tar.gz.asc} trinidad-1.2.6-dist.tar.gz.asc}} |
 *-------------------------+---------+----------+-----------+
-| Apache MyFaces Trinidad 1.2.5 (zip)      | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/trinidad-1.2.5-dist.zip} trinidad-1.2.5-dist.zip}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.2.5-dist.zip.md5} trinidad-1.2.5-dist.zip.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.2.5-dist.zip.asc} trinidad-1.2.5-dist.zip.asc}} |
+| Apache MyFaces Trinidad 1.2.6 (zip)      | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/trinidad-1.2.6-dist.zip} trinidad-1.2.6-dist.zip}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.2.6-dist.zip.md5} trinidad-1.2.6-dist.zip.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.2.6-dist.zip.asc} trinidad-1.2.6-dist.zip.asc}} |
 *-------------------------+---------+----------+-----------+
-| Apache MyFaces Trinidad 1.2.5 Example (tar.gz)     | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/trinidad-1.2.5-example.tar.gz} trinidad-1.2.5-example.tar.gz}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.2.5-example.tar.gz.md5} trinidad-1.2.5-example.tar.gz.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.2.5-example.tar.gz.asc} trinidad-1.2.5-example.tar.gz.asc}} |
+| Apache MyFaces Trinidad 1.2.6 Example (tar.gz)     | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/trinidad-1.2.6-example.tar.gz} trinidad-1.2.6-example.tar.gz}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.2.6-example.tar.gz.md5} trinidad-1.2.6-example.tar.gz.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.2.6-example.tar.gz.asc} trinidad-1.2.6-example.tar.gz.asc}} |
 *-------------------------+---------+----------+-----------+
-| Apache MyFaces Trinidad 1.2.5  Example (zip)      | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/trinidad-1.2.5-example.zip} trinidad-1.2.5-example.zip}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.2.5-example.zip.md5} trinidad-1.2.5-example.zip.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.2.5-example.zip.asc} trinidad-1.2.5-example.zip.asc}} |
+| Apache MyFaces Trinidad 1.2.6  Example (zip)      | {{{http://www.apache.org/dyn/closer.cgi/myfaces/binaries/trinidad-1.2.6-example.zip} trinidad-1.2.6-example.zip}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.2.6-example.zip.md5} trinidad-1.2.6-example.zip.md5}} | {{{http://www.apache.org/dist/myfaces/binaries/trinidad-1.2.6-example.zip.asc} trinidad-1.2.6-example.zip.asc}} |
 *-------------------------+---------+----------+-----------+
-| Apache MyFaces Trinidad 1.2.5 Source (tar.gz)     | {{{http://www.apache.org/dyn/closer.cgi/myfaces/source/trinidad-1.2.5-src-all.tar.gz} trinidad-1.2.5-src-all.tar.gz}} | {{{http://www.apache.org/dist/myfaces/source/trinidad-1.2.5-src-all.tar.gz.md5} trinidad-1.2.5-src-all.tar.gz.md5}} | {{{http://www.apache.org/dist/myfaces/source/trinidad-1.2.5-src-all.tar.gz.asc} trinidad-1.2.5-src-all.tar.gz.asc}} |
+| Apache MyFaces Trinidad 1.2.6 Source (tar.gz)     | {{{http://www.apache.org/dyn/closer.cgi/myfaces/source/trinidad-1.2.6-src-all.tar.gz} trinidad-1.2.6-src-all.tar.gz}} | {{{http://www.apache.org/dist/myfaces/source/trinidad-1.2.6-src-all.tar.gz.md5} trinidad-1.2.6-src-all.tar.gz.md5}} | {{{http://www.apache.org/dist/myfaces/source/trinidad-1.2.6-src-all.tar.gz.asc} trinidad-1.2.6-src-all.tar.gz.asc}} |
 *-------------------------+---------+----------+-----------+
-| Apache MyFaces Trinidad 1.2.5  Source (zip)      | {{{http://www.apache.org/dyn/closer.cgi/myfaces/source/trinidad-1.2.5-src-all.zip} trinidad-1.2.5-src-all.zip}} | {{{http://www.apache.org/dist/myfaces/source/trinidad-1.2.5-src-all.zip.md5} trinidad-1.2.5-src-all.zip.md5}} | {{{http://www.apache.org/dist/myfaces/source/trinidad-1.2.5-src-all.zip.asc} trinidad-1.2.5-src-all.zip.asc}} |
+| Apache MyFaces Trinidad 1.2.6  Source (zip)      | {{{http://www.apache.org/dyn/closer.cgi/myfaces/source/trinidad-1.2.6-src-all.zip} trinidad-1.2.6-src-all.zip}} | {{{http://www.apache.org/dist/myfaces/source/trinidad-1.2.6-src-all.zip.md5} trinidad-1.2.6-src-all.zip.md5}} | {{{http://www.apache.org/dist/myfaces/source/trinidad-1.2.6-src-all.zip.asc} trinidad-1.2.6-src-all.zip.asc}} |
 *-------------------------+---------+----------+-----------+
 
 Latest source code from SVN repository
@@ -115,19 +115,19 @@ Verifying signatures
 
 	  <<<
 	  % pgpk -a KEYS
-	  % pgpv trinidad-1.0.5-dist.tar.gz.asc
+	  % pgpv trinidad-1.0.6-dist.tar.gz.asc
 	  >>>
 
 	  <or>
 
 	  <<<
 	  % pgp -ka KEYS
-	  % pgp trinidad-1.0.5-dist.tar.gz.asc
+	  % pgp trinidad-1.0.6-dist.tar.gz.asc
 	  >>>
 
 	  <or>
 
 	  <<<
   	% gpg --import KEYS
-	  % gpg --verify trinidad-1.0.5-dist.tar.gz.asc
+	  % gpg --verify trinidad-1.0.6-dist.tar.gz.asc
 	  >>>
