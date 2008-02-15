@@ -3274,6 +3274,26 @@ function _pprConsumeClick(event)
 //
 function _pprStartBlocking(win)
 {
+  if (_agent.isIE)
+  {
+    // see TRINIDAD-952 - IE does not update the activeElement in time before
+    // blocking starts. Use a timeout to allow the update.
+    win._pprTimeoutFunc = win.setTimeout("_doPprStartBlocking(window);",
+                                             1);
+    return;        
+  }
+  else
+  {
+     _doPprStartBlocking (win);
+  }
+}
+
+function _doPprStartBlocking (win)
+{
+  // Clean up timeout set in _pprStartBlocking()
+  if (win._pprTimeoutFunc)
+    win.clearTimeout(win._pprTimeoutFunc);
+
   // In order to force the user to allow a PPR update to complete, we
   // block all mouse clicks between the start of a PPR update, and the end.
   // We do this by building a dummy DIV element and having it grab all clicks.
@@ -3300,7 +3320,7 @@ function _pprStartBlocking(win)
                                                8000);
     }
     else if (_agent.isIE)
-    {
+    {    
       // save off the element we'll return focus to
       _pprEventElement = window.document.activeElement;
     }
