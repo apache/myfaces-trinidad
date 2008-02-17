@@ -279,6 +279,27 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
         }
       }
       
+      //This part is necessary to make work hspace on tr:tableFormLayout
+      Map<String, Object> requestMap = context.getExternalContext()
+          .getRequestMap();
+      
+      Integer hspaceObject = (Integer) requestMap.get(
+              "org.apache.myfaces.trinidadinternal.TableFormHspace");
+
+      Boolean percentWidthObject = (Boolean) requestMap.get(
+              "org.apache.myfaces.trinidadinternal.TableFormPercentWidth");
+      
+      if (hspaceObject != null){
+          
+          rw.startElement("td", null);
+          if (percentWidthObject != null && percentWidthObject == true){
+              rw.writeAttribute("width", hspaceObject +"%", null);
+          }else{
+              rw.writeAttribute("width", hspaceObject, null);              
+          }
+          rw.endElement("td");
+      }
+      
       _renderFieldCell(context, arc, component, bean, labelExists,
                        needsPanelFormLayout, isInline);
       
@@ -787,7 +808,8 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
   {
     return "org.apache.myfaces.trinidad.Form".equals(rendererType) ||
         "org.apache.myfaces.trinidad.FormLayout".equals(rendererType) ||
-        "org.apache.myfaces.trinidad.rich.Form".equals(rendererType);
+        "org.apache.myfaces.trinidad.rich.Form".equals(rendererType) ||
+        "org.apache.myfaces.trinidad.TableLayout".equals(rendererType);
   }
 
   
