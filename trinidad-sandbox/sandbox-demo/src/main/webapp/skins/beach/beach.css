@@ -1,0 +1,682 @@
+/*
+ *  Licensed to the Apache Software Foundation (ASF) under one
+ *  or more contributor license agreements.  See the NOTICE file
+ *  distributed with this work for additional information
+ *  regarding copyright ownership.  The ASF licenses this file
+ *  to you under the Apache License, Version 2.0 (the
+ *  "License"); you may not use this file except in compliance
+ *  with the License.  You may obtain a copy of the License at
+ * 
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ */
+
+/** Change the colors to blue/tan like beach's site **/
+
+/** All these styles/icons/properties are overrides of the simple skin */
+
+/** :alias means that this class or icon is not used directly. It is included
+in other component's style selectors or other component's icons. It is 
+meant to be a fast way to change styles. The alternative is to style each 
+component. **/
+
+.adfFacesDemoSearchPanelGroup .AFLabelText
+{
+  font-weight:bold;
+  font-size:small;
+  color:#ffffff;
+}
+.AFInstructionText
+{
+  font-family: verdana,arial,helvetica,sans-serif; 
+  font-size: small;
+}
+.AFDefaultFontFamily:alias
+{
+  font-family:Tahoma,Arial,Helvetica,Geneva,sans-serif;
+}
+.AFVeryDarkForeground:alias {color:black;}
+.AFDarkForeground:alias {color:blue;}
+.AFDarkBackground:alias {background-color:blue;}
+/** In the base styles, AFDarkBorder uses the background-color of 
+    AFDarkBackground for its border color, so no need to set it directly. */
+    
+/* make up a color for hovering over menuTabs and menuBars */
+/* put the extension :alias so it won't get written out to the final css file,
+   cuz I know it won't be used directly. Instead it will be included in
+   other style definions using the -tr-rule-ref property. */
+.MyLinkHoverColor:alias { color: #E08D3C; }
+
+
+.AFLinkForeground:alias {color:#003399}
+
+/** BUTTON STYLES. Notice the right to left icons are specified with the
+:rtl pseudo-class. If :rtl icons are not specified, we default to non-:rtl icons. **/
+
+/** use this to color the button background and text **/
+/* bg-color: bluish; color: deep blue */
+.AFButtonServerText:alias {color:#25009E; background-image:url(/skins/purple/images/menuTabsEnabledEnd.gif);}
+/* antialias the text for our disabled buttons */
+.AFButtonServerTextDisabled:alias {background-color:#F0F0F0; color:Gray;-tr-text-antialias:true}
+
+
+.AFButtonStartIcon:alias {content:url(/skins/beach/images/btnStart.gif); width:7px; height:18px}
+
+.AFButtonStartIcon:alias:rtl {content:url(/skins/beach/images/btnEnd.gif); width:7px; height:18px}
+
+.AFButtonEndIcon:alias {content:url(/skins/beach/images/btnEnd.gif); width:7px; height:18px}
+.AFButtonEndIcon:alias:rtl {content:url(/skins/beach/images/btnStart.gif); width:7px; height:18px}
+
+.AFButtonTopBackgroundIcon:alias {content:url(/skins/beach/images/btnTop-bg.gif); width:1px; height:2px}
+.AFButtonTopBackgroundIcon:alias:rtl {content:url(/skins/beach/images/btnTop-bg.gif); width:1px; height:2px}
+
+.AFButtonBottomBackgroundIcon:alias {content:url(/skins/beach/images/btnBottom-bg.gif); width:1px; height:2px}
+.AFButtonBottomBackgroundIcon:alias:rtl {content:url(/skins/beach/images/btnBottom-bg.gif); width:1px; height:2px}
+
+.AFButtonDisabledStartIcon:alias {content:url(/skins/beach/images/btnDisabledStart.gif); width:7px; height:18px}
+.AFButtonDisabledStartIcon:alias:rtl {content:url(/skins/beach/images/btnDisabledEnd.gif); width:7px; height:18px}
+.AFButtonDisabledEndIcon:alias {content:url(/skins/beach/images/btnDisabledEnd.gif); width:7px; height:18px}
+.AFButtonDisabledEndIcon:alias:rtl {content:url(/skins/beach/images/btnDisabledStart.gif); width:7px; height:18px}
+
+.AFButtonDisabledTopBackgroundIcon:alias {content:url(/skins/beach/images/btnDisabledTop-bg.gif); width:1px; height:2px}
+
+.AFButtonDisabledBottomBackgroundIcon:alias {content:url(/skins/beach/images/btnDisabledBottom-bg.gif); width:1px; height:2px}
+
+
+
+/** panelTabbed **/
+/** ---------- **/
+/** .AFPanelTabbed:alias is included in af|panelTabbed::orientation-top and 
+    af|panelTabbed::orientation-bottom which are the styles on the table. **/
+.AFPanelTabbed:alias {
+  background-color:#A4CACA; 
+  text-align:center;
+}
+/** make the top tab bar have a solid border underneath **/
+af|panelTabbed::orientation-top
+{
+  border-bottom:3px solid #367FA8;border-top:3px solid #367FA8;
+}
+/** make the bottom tab bar have a solid border on top **/
+af|panelTabbed::orientation-bottom
+{
+  border-bottom:3px solid #367FA8;border-top:3px solid #367FA8;
+}
+
+af|panelTabbed::separator {
+  margin-width:4px;
+  border-top: #ADBCC5; solid 4pt ;
+  border-bottom: #ADBCC5; solid 4pt ;
+  BACKGROUND-COLOR: white;
+  PADDING-LEFT: 1px;}
+
+af|panelTabbed::tab {
+  font-weight:bold;
+  font-family:Tahoma; 
+  padding:6px 8px;
+}
+
+af|panelTabbed::tab-selected {
+  font-family:Tahoma;
+  padding:6px 8px; 
+  text-decoration: none; 
+  background-color:white
+}  
+
+af|panelTabbed::tab-link {
+  color:white;
+  text-decoration: none;
+}
+
+af|panelTabbed::tab-link:hover
+{
+  -tr-rule-ref:selector(".MyLinkHoverColor:alias");
+}
+
+/* put some space in the
+first cell */
+af|panelTabbed::cell-start {
+  background-color:transparent; 
+  padding-left:10px;
+  width:50%;
+}
+af|panelTabbed::cell-end {
+  width:50%;
+}
+/** put some space between the tabs and the body */
+af|panelTabbed::body
+{
+  padding: 10px;
+}
+
+/** panelPage's footer area **/
+/** ----------------------- **/
+.AFFooterMessageText:alias
+{
+  padding:2px 6px;
+}
+
+/** menuTabs **/
+/** -------- **/
+
+
+.AFTabBarItem:alias
+{
+  line-height:100%;
+  text-align:center;
+}
+
+af|menuTabs::enabled
+{
+  border-style:solid; 
+  border-color:#EDEDC5;
+  border-width:3px 2px 0px 2px;
+  padding:9px 9px;
+  background-image:url(/adf-faces-demo-context-root/skins/beach/images/menuTabsEnabledBackground.gif);
+}
+
+af|menuTabs::selected
+{
+  border-style:solid;
+  border-color:#066867;
+  border-width:3px 4px 0px 4px;
+  padding:9px 12px;
+  background-image:url(/adf-faces-demo-context-root/skins/beach/images/menuTabsSelectedBackground.gif);
+  background-color: #008080;  
+}
+
+
+
+
+
+/* Remove the text decoration from all tabBar links  */
+.AFTabBarLink:alias
+{
+  text-decoration:none;
+  text-align:center;
+  FONT-SIZE: 11px; 
+  LINE-HEIGHT: 11px; 
+  FONT-FAMILY: tahoma,sans-serif;
+  COLOR: black;
+}
+af|menuTabs::selected-link
+{
+  COLOR: black;
+}
+af|menuTabs::enabled-link:hover, af|menuTabs::selected-link:hover
+{
+  -tr-rule-ref:selector(".MyLinkHoverColor:alias");
+}
+
+
+
+/** menuBar **/
+/** ------- **/
+af|menuBar
+{
+
+  -tr-rule-ref:selector(".AFDarkBorder:alias");
+  padding: 6px;
+}
+af|menuBar::enabled-link, af|menuBar::selected-link
+{
+  text-decoration:none;
+  text-align:center;
+  FONT-SIZE: 11px; LINE-HEIGHT: 11px; FONT-FAMILY: tahoma,sans-serif;
+}
+
+af|menuBar::body 
+{
+  text-align:center;
+  background-image:url(/adf-faces-demo-context-root/skins/beach/images/menuBar-bg.gif);
+  background-color:#02B0AE;
+}
+
+af|menuBar::enabled-link:hover
+{
+  -tr-rule-ref:selector(".MyLinkHoverColor:alias");
+}
+af|menuBar::separator
+{
+    padding: 0px 2px 0px 2px;
+    color: black;
+}
+.AFTabBarItem:alias
+{
+  border-style:solid; 
+  border-color:blue;
+  border-width: 3px 2px 0px 2px;
+  padding:2px 6px;
+  background-image:url(/adf-faces-demo-context-root/skins/beach/images/menuBar-bg.gif);
+}
+
+
+/** menuButtons **/
+/** ----------- **/
+.AFMenuButtons:alias
+{
+  padding:0px 2px 2px 4px;
+  text-decoration:none;
+}
+
+af|menuButtons::text:hover
+{
+  -tr-rule-ref:selector(".MyLinkHoverColor:alias");
+}
+af|menuButtons::text-selected:hover
+{
+  -tr-rule-ref:selector(".MyLinkHoverColor:alias");
+}
+af|menuButtons::text-disabled:hover
+{
+  -tr-rule-ref:selector(".MyLinkHoverColor:alias");
+}
+
+
+/** panelBox **/
+/*  ------------   */
+/* for panelBox with a header */
+.AFPanelBoxBody:alias
+{
+  background-color: white;
+  border-color: #006699;
+  border-style:solid;
+  border-width:1px;
+  margin:2px;
+
+}
+/* for panelBox without a header and shuttles */
+.AFBoxContentBody:alias
+{
+  background-color: white;
+  border-color: #006699;
+  border-style:solid;
+  border-width:1px;
+  margin:2px; 
+  padding:5px;
+}
+
+af|panelBox::header
+{
+  padding: 0px 3px;
+  font-weight: bold;
+  font-family: verdana,arial,helvetica,sans-serif; 
+  font-size: 10px; 
+  text-transform: uppercase; 
+  text-decoration: none; 
+  color: #FFFFFF; 
+  background-color:#008484;
+  
+}
+
+
+/** panelHeader **/
+/** ----------- **/
+af|panelHeader
+{
+   margin-bottom:3px;
+   padding:0px 3px;
+
+}
+.AFHeaderLevelOne
+{
+   font-weight:bold;
+   font-size:large;
+   font-family: verdana,arial,helvetica,sans-serif; 
+   color: #266D9A;
+   padding: 10px 2px;
+}
+
+
+/** train **/
+/** ------------ **/
+/**  We override the AFTrainStation alias style to add some
+       padding, and also to display the station indicator
+       using a top border **/
+.AFTrainStation:alias
+{
+  border-style:solid;
+  border-width:3px 0px 0px 0px;
+  padding:3pt;
+}
+
+/** selectBooleanCheckbox **/
+/** ---------------------  **/
+af|selectBooleanCheckbox::read-only-unchecked-icon
+{
+  content:url(/skins/beach/images/checkrn.gif);
+}
+af|selectBooleanCheckbox::read-only-checked-icon
+{
+  content:url(/skins/beach/images/checkrc.gif);
+}
+
+af|selectBooleanCheckbox::disabled-only-unchecked-icon
+{
+  content:url(/skins/beach/images/checkdn.gif);
+}
+af|selectBooleanCheckbox::disabled-only-checked-icon
+{
+  content:url(/skins/beach/images/checkdc.gif);
+}
+
+/* use special properties to change the ui **/
+/* don't show the last item in breadCrumbs (the default is to show it)*/
+af|breadCrumbs {-tr-show-last-item:false}
+
+/** if, for some reason, you don't want an icon to show up, you
+    can hide it like this (this feature will be more useful when skins can
+    extends other skins besides simple)
+
+af|breadCrumbs::separator-icon {content:inhibit}    
+*/
+
+.AFHeaderErrorIcon:alias 
+{
+  content:url(/skins/beach/images/errorl.gif); width:18px; height: 18px;
+
+}
+
+af|messages
+{
+  -tr-rule-ref: selector(".AFVeryDarkAccentBorder:alias");
+  border-style:solid;
+  border-width:1px;
+  padding:5px;
+  margin:5px 0px 0px;
+}
+
+af|messages::header
+{
+  -tr-rule-ref: selector(".AFDarkAccentBorder:alias");
+  border-width:0px 0px 1px 0px;
+  border-style:solid;
+  vertical-align:bottom;
+  margin-bottom:3px;
+  padding:0px 3px;
+}
+
+.AFHeaderText:alias
+{
+  -tr-rule-ref: selector(".AFDarkForeground:alias");
+  font-weight:bold;
+  padding: 0px;
+  margin: 0px;
+}
+
+/* custom styles that I made up and set on the styleClass attribute of various
+Trinidad components */
+.adfFacesDemoSearchPanelGroup
+{
+  width:100%; 
+  background-image:url(/adf-faces-demo-context-root/skins/beach/images/searchPanelGroup-bg.gif);
+  padding:6px 6px 6px 26px;
+  background-color: #a4caca;
+}
+
+.welcomePanel
+{
+  padding-left:50px;
+  width:100%;
+  background-color:#EDEDC5;
+  margin-bottom:10px;
+  padding-bottom:5px; padding-top:5px;
+  background-image:url(/adf-faces-demo-context-root/skins/beach/images/menuTabsEnabledBackground.gif);
+
+
+}
+.tabsPanelGroup
+{
+  text-align:right;
+  width:90%;
+}
+.panelBoxHeader
+{
+  font-family: verdana,arial,helvetica,sans-serif; 
+  color:brown;
+  font-weight:bold; 
+  font-size:small;
+}
+
+af|panelFormLayout::label-cell
+{
+  -tr-rule-ref: selector(".AFStartTextAlign:alias");
+}
+
+/* navigationPane::tabs */
+
+/* make the disabled black instead of the default gray color */
+
+af|navigationPane::tabs-active:disabled af|navigationPane::tabs-mid{
+  color: black;
+}
+
+af|navigationPane::tabs-inactive:disabled af|navigationPane::tabs-mid {
+  color: black;
+}
+
+af|navigationPane::tabs-active af|navigationPane::tabs-mid A {
+  color: white;
+}
+
+
+/* GROUP together all the Tabs Start */
+/* FIRST TAB */
+/* The start 1/3 of an active tab that is the FIRST tab. It's the ramp-up image that is dark blue */
+af|navigationPane::tabs-active af|navigationPane::tabs-start {
+  background-image: url('/skins/beach/images/tabbeach-start-selected.gif');
+}
+/* FIRST TAB */
+/* The start 1/3 of an inactive tab that is the FIRST tab. 
+It's the ramp-up image that is our 'light' accent color */
+af|navigationPane::tabs-inactive af|navigationPane::tabs-start {
+  background-image: url('/skins/beach/images/tabbeach-start-deselected.gif');
+}
+
+
+
+/* NOT THE FIRST TAB AND NOT THE LAST TAB */
+/* This styles the start of a selected tab when the previous tab is unselected. It contains an image
+that depicts the end of the unselected tab image (light accent color)
+and the start of a selected tab (dark blue color) where the
+start of the selected tab overlaps in front of the end of the unselected tab. */
+af|navigationPane::tabs-active af|navigationPane::tabs-start-join {
+  background-image: url('/skins/beach/images/tabbeach-start-join-selected.gif');
+}
+
+/* NOT THE FIRST TAB but the other tabs. */
+/* This is the start 1/3 of a tab that is inactive but is coming from an active tab.
+This is the same as the start-deselected image, only not as wide. It is only 14 pixels wide. */
+af|navigationPane::tabs-inactive af|navigationPane::tabs-start-join-from-active {
+  background-image: url('/skins/beach/images/tabbeach-start-join-selected-to-deselected.gif');
+}
+
+/* This is the start 1/3 of a tab that is inactive, but coming from an inactive tab.
+Just use the selected-to-deselcted image since it is the same */
+af|navigationPane::tabs-inactive af|navigationPane::tabs-start-join-from-inactive {
+/* background-image: url('/skins/beach/images/tabbeach-start-join-deselected-to-deselected.gif'); */
+  background-image: url('/skins/beach/images/tabbeach-start-join-selected-to-deselected.gif');
+
+}
+
+/* START BOTTOM BITS */
+
+/* ::tabs-bottom-start, when inside of an active tab,
+is the bottom bit, start 1/3 of an active tab, regardless of its position 
+(first tab, middle, or last tab). The strange thing is if the inactive tab is the first tab,
+then ::tabs-bottom-start is ONLY the first tab. Otherwise the first 1/3 of an inactive tab is
+::tabs-bottom-end. */
+af|navigationPane::tabs-active af|navigationPane::tabs-bottom-start {
+ /* background-image: url('/skins/beach/images/tabbeach-bot-mid-selected.gif'); */
+ -tr-inhibit: background-image;
+  background-color: #336699;
+}
+
+/* The bottom bit, start 1/3 of an active tab, regardless of its position (first tab, middle, or last tab) */
+/* ::tabs-bottom-start-content is the div inside of the td which is ::tabs-bottom-start;
+so there is nothing to do here except inhibit the background-image */
+af|navigationPane::tabs-active af|navigationPane::tabs-bottom-start-content {
+/*
+  background-image: url('/skins/beach/images/tabbeach-bot-start-selected.gif');
+  */
+-tr-inhibit: background-image;
+  /* The color gets picked up from ::tabs-bottom-start */
+}
+
+/* The FIRST tab, when it is inactive, the bottom bit, first 1/3.*/
+/* background-color instead of background-image works just fine */
+/* See ::tabs-bottom-end for the first 1/3 of an inactive tab when it isn't the first tab */
+af|navigationPane::tabs-inactive af|navigationPane::tabs-bottom-start {
+  /*
+  background-image: url('/skins/beach/images/tabbeach-bot-deselected.gif');
+  */
+  -tr-inhibit: background-image;
+   background-color: #9FA57D;  
+}
+
+/* ::tabs-bottom-end is the bottom bit, start 1/3 a tab as long as it isn't the FIRST tab.
+(not sure why it is named tabs-bottom-end). It's the end for the last tab.
+Ok to use background-color instead of background-image */ 
+af|navigationPane::tabs-inactive af|navigationPane::tabs-bottom-end {
+ /* background-image: url('/skins/beach/images/tabbeach-bot-deselected.gif'); */
+  -tr-inhibit: background-image;
+  background-color: #9FA57D; 
+}
+
+
+/* END the Tabs Start */
+
+/* GROUP together all the Tabs Mid */
+/* This is the middle of the tab when it is active */
+/* You could use an image, or simply use a background-color.
+   I added extra padding around the active tab. */
+af|navigationPane::tabs-active af|navigationPane::tabs-mid {
+  background-color: #336699;
+  -tr-inhibit: background-image;
+  padding-right: 10px;
+  padding-left: 10px;
+  /* background-image: url('/skins/beach/images/tabbeach-mid-selected.gif'); */
+}  
+
+
+/* This is the middle of the tab when it is inactive */
+/* You could use an image, or simply use a background-color */
+af|navigationPane::tabs-inactive af|navigationPane::tabs-mid {
+/*
+  background-image: url('/skins/beach/images/tabbeach-mid-deselected.gif');
+  */
+  -tr-inhibit: background-image;  
+  background-color: #D2D8B0;
+}
+
+/* The bottom bit, middle portion, of an active tab, regardless of position of tab.  */
+/* You could use an image, or simply use a background-color */
+af|navigationPane::tabs-active af|navigationPane::tabs-bottom-mid {
+  background-color: #336699;
+ /* background-image: url('/skins/beach/images/tabbeach-bot-mid-selected.gif'); */
+ -tr-inhibit: background-image;
+}
+
+/* Bottom bit, middle portion, of an inactive tab, regardless of position of tab. */
+/* You could use an image, or simply use a background-color */
+af|navigationPane::tabs-inactive af|navigationPane::tabs-bottom-mid {
+ /* background-image: url('/skins/beach/images/tabbeach-bot-deselected.gif'); */
+ -tr-inhibit: background-image;
+ background-color: #9FA57D;
+}
+  
+/* END the Tabs Mid */
+
+  
+   
+/* GROUP together all the Tabs End */
+
+/* Styles the end of the last tab if it is active */
+/* This is the LAST tab, not just the end of any tab */
+/* There are different selectors for the 'end' piece of tabs that are not the last tab.
+   For example, the end piece of the active tab that comes before an inactive tab
+   has pseudo-element ::tabs-end-join-to-inactive */
+   /* This has a dark blue ramp down image */
+af|navigationPane::tabs-active af|navigationPane::tabs-end {
+  background-image: url('/skins/beach/images/tabbeach-end-selected.gif');
+}
+
+/* This has an accent color ramp down image. ::tabs-end is for the LAST tab in all the tabs and
+it is the end 1/3 of that last tab. */  
+af|navigationPane::tabs-inactive af|navigationPane::tabs-end {
+ background-image: url('/skins/beach/images/tabbeach-end-deselected.gif');
+}
+
+/* ::tabs-end-join-to-inactive is the last 1/3 of a tab that isn't the LAST tab */
+af|navigationPane::tabs-active af|navigationPane::tabs-end-join-to-inactive {
+/* background-image: url('/skins/beach/images/tabbeach-end-join-selected-to-deselected.gif'); */
+   background-image: url('/skins/beach/images/tabbeach-end-selected.gif');
+} 
+   
+/* ::tabs-end-join-to-inactive is the last 1/3 of a tab that isn't the LAST tab */
+/* This is the image of the last 1/3 of an inactive tab */
+af|navigationPane::tabs-inactive af|navigationPane::tabs-end-join-to-inactive {
+  background-image: url('/skins/beach/images/tabbeach-end-join-deselected-to-deselected.gif');
+} 
+
+
+/* Selected tab that isn't the LAST tab. The bottom bit, last 1/3. Ok to use  color and not an image. */  
+af|navigationPane::tabs-active af|navigationPane::tabs-bottom-end-join {
+/*
+  background-image: url('/skins/beach/images/tabbeach-bot-deselected.gif');
+  */
+  -tr-inhibit: background-image;
+  background-color: #336699;
+}
+  
+/* The very LAST tab, when it is selected. The bottom bit, last 1/3. Ok to use  color and not an image. */  
+af|navigationPane::tabs-active af|navigationPane::tabs-bottom-end {
+  /* background-image: url('/skins/beach/images/tabbeach-bot-end-selected.gif'); */
+  -tr-inhibit: background-image;
+  background-color: #336699;
+}
+/* This is inside tabs-bottom-end, so just inhibit the image */
+af|navigationPane::tabs-active af|navigationPane::tabs-bottom-end-content {
+  -tr-inhibit: background-image;
+}
+
+  
+/* Bottom bit, end 1/3, when joining to another inactive tab (therefore it can't be the LAST tab) */
+af|navigationPane::tabs-inactive af|navigationPane::tabs-bottom-end-join {
+/*  background-image: url('/skins/beach/images/tabbeach-bot-deselected.gif'); */
+ -tr-inhibit: background-image;
+ background-color: #9FA57D; 
+}
+
+/* END the Tabs End */
+
+
+af|tree::node-icon:folder-expanded{
+    content: url(/skins/beach/images/yellow-folder-open.png);
+}
+
+af|tree::node-icon:folder-collapsed{
+    content: url(/skins/beach/images/yellow-folder-closed.png);
+}
+
+af|tree::node-icon:document{
+    content: url(/skins/beach/images/document.png);
+}
+
+af|treeTable::node-icon:folder-expanded{
+    content: url(/skins/beach/images/yellow-folder-open.png);
+}
+
+af|treeTable::node-icon:folder-collapsed{
+    content: url(/skins/beach/images/yellow-folder-closed.png);
+}
+
+af|treeTable::node-icon:document{
+    content: url(/skins/beach/images/document.png);
+}
