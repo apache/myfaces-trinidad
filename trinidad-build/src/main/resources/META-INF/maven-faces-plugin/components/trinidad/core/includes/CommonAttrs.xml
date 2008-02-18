@@ -58,20 +58,22 @@
       </property-extension>
     </property>
     <property>
-      <description><![CDATA[<p>the IDs of the components that should trigger a partial update.
+      <description><![CDATA[the IDs of the components that should trigger a partial update.
+        <p>
         This component will listen on the trigger components. If one of the
         trigger components receives an event that will cause it to update
         in some way, this component will request to be updated too.</p>
         <p>
-        Separate multiple triggers with a space.
-        Trigger identifiers are relative to the source component for non-NamingContainer components and relative to the parent component for NamingContainer components. 
+        Separate multiple triggers with a space. e.g., partialTriggers="cmp1 cmp2"
+        </p>
+        <p>
         Identifiers must account for NamingContainers.  You can use a single colon to start the search from the root,
         or use multiple colons to move up through the NamingContainer. For example,
-        for a non-NamingContainer component, "::" will
-        search from the parent naming container, ":::" will search
-        from the grandparent naming container, etc. For a NamingContainer component,
-        "::" will search from the parent component's parent naming container. ":::" will
-        search from the parent component's grandparent naming container.</p>]]>
+        "::" will pop out of this component's naming container (it pops out of itself if it is a naming container), 
+        ":::" will pop out of two naming containers, etc. The search for
+        the partialTrigger begins from there. e.g., partialTriggers=":::commandButton1" the search begins for the 
+        component with id = commandButton1 after popping out of two naming containers relative to this component.
+        To go into naming containers, you separate the naming containers with ':', e.g.,partialTriggers= "nc1:nc2:nc3:componentId".</p>]]>
       </description>
       <property-name>partialTriggers</property-name>
       <property-class>java.lang.String[]</property-class>

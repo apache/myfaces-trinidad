@@ -245,10 +245,9 @@
        <tr:panelHeader text="Naming container tests; partial triggers are the previous command components with partialSubmit"> 
          <tr:panelGroupLayout layout="vertical">
            <f:subview id="sub">
-             <!-- use '::' in front of the identifier to get to the parent naming
-             container, add ':::' to get to the grandparent naming container, etc.
-             This works for non-Naming Container components. -->
-             <tr:outputFormatted  partialTriggers=":::pSub_link :::pSub_button"
+             <!-- use '::' in front of the identifier to pop out of the current naming container.
+             Additional colons continue to pop. -->
+             <tr:outputFormatted  partialTriggers="::pSub_link ::pSub_button"
                                   styleUsage="instruction"
                                   value="#{partialDemoUtil.status.linkUpdate}">
                <f:convertDateTime pattern="HH:mm:ss"/>
@@ -259,7 +258,7 @@
              This works for non-Naming Container components. -->
            <f:subview id="sub2">
             <f:subview id="sub3">
-             <tr:outputFormatted  partialTriggers="::::pSub_link ::::pSub_button"
+             <tr:outputFormatted  partialTriggers=":::pSub_link :::pSub_button"
                                   styleUsage="instruction"
                                   value="#{partialDemoUtil.status.linkUpdate}">
                <f:convertDateTime pattern="HH:mm:ss"/>
@@ -284,6 +283,10 @@
           <tr:selectItem label="Index" value="/index.jspx"/>
           <tr:selectItem label="Component Demos" value="/componentDemos.jspx"/>
          </tr:selectOneChoice>
+       </tr:panelHeader>
+        <tr:panelHeader text="More ppr demos showing partialTriggers syntax with regard to NamingContainers.">
+        <tr:goLink text="Relative Partial Triggers Demo"
+                destination="testRelativePartialTriggers.jspx" />      
        </tr:panelHeader>
       </tr:panelGroupLayout>
      </tr:panelHeader>

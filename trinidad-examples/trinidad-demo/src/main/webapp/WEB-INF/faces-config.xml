@@ -3056,4 +3056,10 @@
     <managed-bean-class>org.apache.myfaces.trinidaddemo.DemoShowDetailDisclosureBean</managed-bean-class>
     <managed-bean-scope>request</managed-bean-scope>
   </managed-bean>
+  <managed-bean>
+    <managed-bean-name>testTriggers</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.TestRelativePartialTriggers</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+    <!--oracle-jdev-comment:managed-bean-jsp-link:1demos/testRelativePartialTriggers.jspx-->
+  </managed-bean>
 </faces-config>

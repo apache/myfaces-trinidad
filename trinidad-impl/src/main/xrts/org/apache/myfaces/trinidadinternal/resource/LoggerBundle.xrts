@@ -1044,8 +1044,8 @@
 <!-- INVALID_TIMEZONE_IN_CONFIG -->
 <resource key="INVALID_TIMEZONE_IN_CONFIG">The trinidad-config.xml contains an invalid value for time-zone ({0}). The default timezone will be used instead.</resource>
 
-<!-- DEPRECATED_PARTIAL_TRIGGER_SYNTAX -->
-<resource key="DEPRECATED_PARTIAL_TRIGGER_SYNTAX">Could not find partial trigger {0} from {1} searching relative to the component. The partial trigger was found relative to the component's parent but this is deprecated. Change the partial trigger to be relative to component, not relative to parent.</resource>
+<!-- DEPRECATED_TRIGGER_SYNTAX -->
+<resource key="DEPRECATED_TRIGGER_SYNTAX">Could not find partial trigger {0} from {1} with the supported partialTriggers syntax. The partial trigger was found with the deprecated syntax. Please use the supported syntax.</resource>
 
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER">The DateTimeRangeValidator requires the component to be an EditableValueHolder for client validation to work. Client validation will be disabled for component {0}.</resource>

@@ -25,6 +25,8 @@ import java.util.TimeZone;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+
 /**
  * Utility functions used by the Apache Trinidad components.
  * <p>
@@ -319,24 +321,119 @@ public final class ComponentUtils
     return t;
   }
 
+
   /**
    * Find a component relative to another.
    * <p>
    * The relative ID must account for NamingContainers. If the component is already inside
    * of a naming container, you can use a single colon to start the search from the root, 
-   * or multiple colons to move up through the NamingContainers - "::" will search from 
-   * the parent naming container, ":::" will search from the grandparent 
-   * naming container, etc.
+   * or multiple colons to move up through the NamingContainers - "::" will 
+   * pop out of the current naming container, ":::" will pop out of two
+   * naming containers, etc.
    * </p>
    * 
    * @param from the component to search relative to
    * @param relativeId the relative path to the component to find
    * @return the component if found, null otherwise
+   * @see RenderUtils.getRelativeId(from, relativeId)
    */
   public static UIComponent findRelativeComponent(
     UIComponent from,
     String      relativeId)
   {
+    if (from == null)
+        return null;
+    UIComponent originalFrom = from;
+    String originalRelativeId = relativeId;
+    
+    int idLength = relativeId.length();
+    // Figure out how many colons
+    int colonCount = 0;
+    while (colonCount < idLength)
+    {
+      if (relativeId.charAt(colonCount) != NamingContainer.SEPARATOR_CHAR)
+        break;
+      colonCount++;
+    }
+
+    // colonCount == 0: fully relative
+    // colonCount == 1: absolute (still normal findComponent syntax)
+    // colonCount > 1: for each extra colon after 1, pop out of
+    // the naming container (to the view root, if naming containers run out)
+    if (colonCount > 1)
+    {
+      relativeId = relativeId.substring(colonCount);
+      
+      // if the component is not a NamingContainer, then we need to 
+      // get the component's naming container and set this as the 'from'.
+      // this way we'll pop out of the component's 
+      // naming container if there is are multiple colons.
+      if (!(from instanceof NamingContainer))
+      {
+        from = _getParentNamingContainer(from);
+      }
+      
+      // pop out of the naming containers if there are multiple colons
+      for (int j = 1; j < colonCount; j++)
+      {
+        from = _getParentNamingContainer(from);
+      }
+    }
+
+    UIComponent found = from.findComponent(relativeId);
+    if (found != null)
+      return found;
+    else
+    {
+      // try the old way for backward compatability as far as it differed,
+      // which is only if the 'from' was not a NamingContainer.
+      if (!(originalFrom instanceof NamingContainer))
+        return _findRelativeComponentDeprecated(originalFrom, originalRelativeId);
+      else
+        return null;
+    }
+    
+  }
+  
+  // given a component, get its naming container. If the component
+  // is a naming container, it will get its naming container.
+  // if no parent naming containers exist, it stops at the ViewRoot.
+  private static UIComponent _getParentNamingContainer (
+    UIComponent from)
+  {
+    while (from.getParent() != null)
+    {
+      from = from.getParent();
+      if (from instanceof NamingContainer)
+        break;
+    }
+    return from;
+  }
+
+   /**
+    * Find a component relative to another.
+    * This method is the same as the 'old' public findRelativeComponent.
+   * This method is around so that the
+   * new findRelativeComponent method is backward compatibility.
+    * <p>
+    * The relative ID must account for NamingContainers. If the component is already inside
+    * of a naming container, you can use a single colon to start the search from the root, 
+    * or multiple colons to move up through the NamingContainers - "::" will search from 
+    * the parent naming container, ":::" will search from the grandparent 
+    * naming container, etc.
+    * </p>
+    * 
+    * @param from the component to search relative to
+    * @param relativeId the relative path to the component to find
+    * @return the component if found, null otherwise
+    */
+  private static UIComponent _findRelativeComponentDeprecated(
+    UIComponent from,
+    String      relativeId)
+  {  
+    UIComponent originalFrom = from;
+    String originalRelativeId = relativeId;
+
     int idLength = relativeId.length();
     // Figure out how many colons
     int colonCount = 0;
@@ -365,7 +462,15 @@ public final class ComponentUtils
       }
     }
 
-    return from.findComponent(relativeId);
+    UIComponent found = from.findComponent(relativeId);
+    if (found != null)
+    {
+      _LOG.warning("DEPRECATED_RELATIVE_ID_SYNTAX", 
+        new Object[] {originalRelativeId, originalFrom});
+    }
+    return found;
   }
-
+  
+  static private final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(ComponentUtils.class);
 }
