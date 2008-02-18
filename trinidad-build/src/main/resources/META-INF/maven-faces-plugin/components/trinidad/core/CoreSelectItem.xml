@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -57,7 +57,7 @@ may select from a list, choice, radio, or shuttle Trinidad control.]]>
       </property-extension>
     </property>
     <property>
-      <description><![CDATA[the description associated with this option. 
+      <description><![CDATA[the description associated with this option.
         This is used in selectManyShuttle and selectOrderShuttle, and ignored otherwise.]]>
       </description>
       <property-name>longDesc</property-name>
@@ -87,11 +87,14 @@ tags, but is very similar (largely not requiring &quot;item&quot; in front
 of its attributes.)]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<tr:selectOneRadio value="#{bean.aValue}" required="true">
+        <mfp:source-code>
+          <![CDATA[
+<tr:selectOneRadio value="#{bean.aValue}" required="true">
   <tr:selectItem label="Option1" value="1"/>
   <tr:selectItem label="Option1" value="2"/>
   <tr:selectItem label="Option1" value="3"/>
-</tr:selectOneRadio>]]>
+</tr:selectOneRadio>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Andy Schwartz</mfp:author>

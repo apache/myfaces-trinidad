@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -83,22 +83,25 @@
       <mfp:long-description><![CDATA[The panelRadio control can be used to display a group of contents belonging to a showDetailItem.
           Radio buttons with each individual radio button representing a showDetailItem child is displayed.
           The radio button control corresponding to showDetailItem that is disclosed is shown as selected
-          and contents of selected showDetailItem is displayed. If none of the showDetailItem children 
+          and contents of selected showDetailItem is displayed. If none of the showDetailItem children
           are selected, the first showDetailItem that is enabled is considered to be selected.]]>
       </mfp:long-description>
       <mfp:example>
-        <xhtml:p>The following is an example of panelRadio.</xhtml:p>
-        <mfp:source-code><![CDATA[<tr:panelRadio label="Current Bug Status" position="top" alignment="right">
-          <tr:showDetailItem text="10.1.3">
-            <tr:panelHeader text="10.1.3 Open Bugs"/>
-          </tr:showDetailItem>
-          <tr:showDetailItem text="10.1.2 R2" >
-            <tr:panelHeader text="10.1.2 R2 Open Bugs"/>
-          </tr:showDetailItem>
-          <tr:showDetailItem text="Untriaged Bugs">
-            <tr:panelHeader text="Untriaged Bugs per component"/>
-          </tr:showDetailItem>
-        </tr:panelRadio>]]>
+        <mfp:source-description>The following is an example of panelRadio.</mfp:source-description>
+        <mfp:source-code>
+          <![CDATA[
+<tr:panelRadio label="Current Bug Status" position="top" alignment="right">
+  <tr:showDetailItem text="10.1.3">
+    <tr:panelHeader text="10.1.3 Open Bugs"/>
+  </tr:showDetailItem>
+  <tr:showDetailItem text="10.1.2 R2" >
+    <tr:panelHeader text="10.1.2 R2 Open Bugs"/>
+  </tr:showDetailItem>
+  <tr:showDetailItem text="Untriaged Bugs">
+    <tr:panelHeader text="Untriaged Bugs per component"/>
+  </tr:showDetailItem>
+</tr:panelRadio>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Ravi Baranwal</mfp:author>

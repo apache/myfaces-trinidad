@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -37,12 +37,16 @@
       <facet-extension>
         <mfp:long-description>the node to use to render this column's header.</mfp:long-description>
         <mfp:example>
-          <mfp:source-code><![CDATA[<tr:column>
+          <mfp:source-code>
+            <![CDATA[
+<tr:column>
  <f:facet name="header">
   <tr:outputText value="Header1"/>
  </f:facet>
  ...
-</column>]]></mfp:source-code>
+</tr:column>
+            ]]>
+          </mfp:source-code>
         </mfp:example>
         <mfp:facet-metadata>
           <mfp:preferred-children>tr:outputText</mfp:preferred-children>
@@ -55,7 +59,7 @@
     </facet>
     <property>
       <description><![CDATA[The property that is displayed by this Column. This is the
-            property that the framework might use to (for example) sort  
+            property that the framework might use to (for example) sort
             the Table's data.]]>
       </description>
       <property-name>sortProperty</property-name>
@@ -76,5 +80,6 @@
     </component-extension>
   </component>
 </faces-config>
+
 
 

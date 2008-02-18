@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -54,18 +54,18 @@
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.nav.CoreBreadCrumbsTag</mfp:tag-class>
       <mfp:long-description><![CDATA[A breadCrumbs component is used in hierarchical
           site layouts to indicate the path back to the root page of the
-          hierarchy with links. A child representing the current page 
-          should be the last child. This child may or may not 
-          be rendered depending on variables like the device type or look and feel, 
-          but it should always be added. 
-          
-           <html:p>The links indicating the hierarchy may be added as children or a menu model may be bound to the breadCrumbs component. If a menu model is bound, of class 
+          hierarchy with links. A child representing the current page
+          should be the last child. This child may or may not
+          be rendered depending on variables like the device type or look and feel,
+          but it should always be added.
+
+           <html:p>The links indicating the hierarchy may be added as children or a menu model may be bound to the breadCrumbs component. If a menu model is bound, of class
            <html:code>org.apache.myfaces.trinidad.model.MenuModel</html:code>, the nodes along the focus path will be rendered.
            </html:p>
            <html:p>
-            MenuModel extends TreeModel, but it also knows how to go from the current viewId to the focus path. Notice that the menuModel has no special knowledge of page navigation and places no requirements on the nodes that go into the tree. The nodes in the tree are stamped out with the 'nodeStamp' facet, which should contain a commandNavigationItem component, which allows the default actionListener mechanism to be used for page navigation. 
+            MenuModel extends TreeModel, but it also knows how to go from the current viewId to the focus path. Notice that the menuModel has no special knowledge of page navigation and places no requirements on the nodes that go into the tree. The nodes in the tree are stamped out with the 'nodeStamp' facet, which should contain a commandNavigationItem component, which allows the default actionListener mechanism to be used for page navigation.
           </html:p>
- 
+
          <section name="Supported Attributes">
           <html:p>
           The &quot;orientation&quot; property may be used to specify the
@@ -81,12 +81,15 @@
           </section>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<tr:breadCrumbs var="foo" value="#{menuModel.model}">
+        <mfp:source-code>
+          <![CDATA[
+<tr:breadCrumbs var="foo" value="#{menuModel.model}">
   <f:facet name="nodeStamp">
     <tr:commandNavigationItem text="#{foo.label}"
       action="#{foo.action}"/>
   </f:facet>
-</tr:breadCrumbs>]]>
+</tr:breadCrumbs>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Blake Sullivan</mfp:author>

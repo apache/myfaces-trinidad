@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -124,7 +124,7 @@ should be allowed to wrap]]></description>
             component creates a separate column in the Table.
           </P>
           <P>
-            Use the &quot;header&quot; facet on a Column to create the column header. 
+            Use the &quot;header&quot; facet on a Column to create the column header.
             The following example creates a two-column table with the column headers -
             &quot;Firstname&quot; and &quot;Lastname&quot;:
           </P>
@@ -156,7 +156,7 @@ should be allowed to wrap]]></description>
           </P>
           <P>
             As each row is stamped, the data for the current row ( see
-            <code>getRowData()</code> on the Table) 
+            <code>getRowData()</code> on the Table)
             is copied into an EL reachable property.
             The name of this property is defined by the <code>var</code>
             property on the Table. Once the Table has completed rendering, this
@@ -182,24 +182,24 @@ should be allowed to wrap]]></description>
               formatting:
               <dl>
                 <dt>align</dt>
-    
+
                 <dd>The type of alignment to use for this column. This
                 atribute controls left/start, right/end, or center justification of the
                 column data.
                 </dd>
-        
+
                 <dt>width</dt>
                 <dd>The width of this column.
                 </dd>
-        
+
                 <dt>noWrap</dt>
                 <dd>Controls whether long lines of text in the column data should
                 be wrapped.</dd>
-    
+
                 <dt>headerNoWrap</dt>
                 <dd>Controls whether long lines of text in the column header should
                   be wrapped.</dd>
-    
+
                 <dt>separateRows</dt> <dd>Controls whether each child of this
                 column should be rendered in separate cells, or inside the same
                 cell.</dd>
@@ -248,9 +248,6 @@ should be allowed to wrap]]></description>
           </pre>
           </section>]]>
       </mfp:long-description>
-      <mfp:example>
-        <mfp:source-code/>
-      </mfp:example>
       <mfp:author>Brian Albers</mfp:author>
       <mfp:component-metadata>
         <mfp:favorite-property>headerText</mfp:favorite-property>

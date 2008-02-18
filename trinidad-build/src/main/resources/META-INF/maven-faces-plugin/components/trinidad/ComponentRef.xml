@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -40,7 +40,7 @@
       <property-class>java.lang.Object</property-class>
     </property>
     <property>
-      <description><![CDATA[<html> which componnet to use. This should match a 
+      <description><![CDATA[<html> which componnet to use. This should match a
 &lt;component-type&gt; string in a region metadata file.
 An example might look like "org.apache.myfaces.trinidaddemo.region.stock".
 This attribute can be bound to an EL expression or manually
@@ -51,12 +51,12 @@ time the page renders.</html>]]>
       <property-class>java.lang.String</property-class>
     </property>
     <property>
-      <description><![CDATA[<html> The name of the EL variable that will be set when encoding the component.  
-        This attribute is set by the tr:componentDef on behalf of the UIXComponentRef, and not the tr:componentRef. 
+      <description><![CDATA[<html> The name of the EL variable that will be set when encoding the component.
+        This attribute is set by the tr:componentDef on behalf of the UIXComponentRef, and not the tr:componentRef.
         For example,
               let's say this "var" attribute is set to the value "attrs";
               if the &lt;tr:componentRef&gt; tag has an attribute called "bar",
-              The value of "bar" can be referenced from a child within 
+              The value of "bar" can be referenced from a child within
               &lt;tr:componentDef&gt; using the expression
               <code>#{attrs.bar}</code>.</html>]]>
       </description>
@@ -87,13 +87,16 @@ time the page renders.</html>]]>
           &lt;tr:componentRef&gt; tag documentation for more information.]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<tr:componentRef componentType="org.apache.myfaces.trinidaddemo.region.stock" >
+        <mfp:source-code>
+          <![CDATA[
+<tr:componentRef componentType="org.apache.myfaces.trinidaddemo.region.stock" >
    <f:attribute name="symbol" value="ORCL"/>
    <f:attribute name="desc" value="Oracle Corp"/>
    <f:facet name="actions">
      <tr:commandButton text="Update Stock Quote"/>
    </f:facet>
- </tr:region>]]>
+ </tr:componentRef>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Arjuna Wijeyekoon</mfp:author>
@@ -102,5 +105,6 @@ time the page renders.</html>]]>
     </component-extension>
   </component>
 </faces-config>
+
 
 

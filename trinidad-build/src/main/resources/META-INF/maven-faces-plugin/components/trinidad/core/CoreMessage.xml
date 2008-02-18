@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -44,7 +44,7 @@ setting the "simple" attribute to true.]]>
           <mfp:preferred-children>tr:outputText</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
-    </facet> 
+    </facet>
     <property>
       <description><![CDATA[the error, warning, or informational text.]]></description>
       <property-name>message</property-name>
@@ -87,9 +87,12 @@ setting the "simple" attribute to true.]]>
 </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<tr:outputLabel label="Name:" for="name"/>
+        <mfp:source-code>
+          <![CDATA[
+<tr:outputLabel label="Name:" for="name"/>
 <tr:inputText simple="true"  id="name"/>
-<tr:message for="name" />]]>
+<tr:message for="name" />
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>

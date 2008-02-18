@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -54,7 +54,7 @@
     </facet>
 
     <property>
-      <description><![CDATA[the style class of the title. This property will be 
+      <description><![CDATA[the style class of the title. This property will be
          considered only if a title facet is used.]]>
       </description>
       <property-name>titleClass</property-name>
@@ -66,7 +66,7 @@
       </property-extension>
     </property>
     <property>
-      <description><![CDATA[the style class of the separator. This property will be 
+      <description><![CDATA[the style class of the separator. This property will be
          considered only if a separator facet is used.]]>
       </description>
       <property-name>separatorClass</property-name>
@@ -77,7 +77,7 @@
         </mfp:property-metadata>
       </property-extension>
     </property>
-    
+
     <xi:include href="includes/CommonAttrs.xml" xpointer="/faces-config/component/*"/>
     <xi:include href="includes/CoreJSEvents.xml" xpointer="/faces-config/component/*"/>
 
@@ -91,8 +91,12 @@ can optionally be left unescaped, and supports
 conversion to and from Java objects.]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code>&lt;tr:outputDocument value="A long text including"
-                     styleClass="AFFieldText"/&gt;</mfp:source-code>
+        <mfp:source-code>
+          <![CDATA[
+<tr:outputDocument value="A long text including"
+                   styleClass="AFFieldText"/>
+          ]]>
+        </mfp:source-code>
       </mfp:example>
       <mfp:author>Simon Lessard</mfp:author>
       <mfp:component-metadata>

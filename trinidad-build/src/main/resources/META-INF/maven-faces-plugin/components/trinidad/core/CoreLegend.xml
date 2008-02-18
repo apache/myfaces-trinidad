@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -60,12 +60,15 @@ be described.  Only one value is currently supported: "required".]]>
           </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<tr:panelPage>
+        <mfp:source-code>
+          <![CDATA[
+<tr:panelPage>
   <f:facet name="infoStatus">
     <tr:legend name="required"/>
   </f:facet>
   ...
-</tr:panelPage>]]>
+</tr:panelPage>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>

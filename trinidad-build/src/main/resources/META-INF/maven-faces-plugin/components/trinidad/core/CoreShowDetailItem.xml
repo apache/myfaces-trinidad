@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -46,8 +46,8 @@ toobars.]]>
     <xi:include href="includes/CoreJSEvents.xml" xpointer="/faces-config/component/*"/>
     <property>
       <description>
-        <![CDATA[If value is "true", the component becomes non-interactive.  
-Otherwise,the default value is "false" and component assumes 
+        <![CDATA[If value is "true", the component becomes non-interactive.
+Otherwise,the default value is "false" and component assumes
 its expected behavior.]]>
       </description>
       <property-name>disabled</property-name>
@@ -95,7 +95,7 @@ conventional ampersand ('&amp;') notation.
     <property>
       <description>
         <![CDATA[Character used to gain quick access to this showDetailItem.
-For accessibility reasons, this functionality is not supported 
+For accessibility reasons, this functionality is not supported
 in screen reader mode.
 <p>
   If the same access key appears in multiple locations in the
@@ -117,14 +117,14 @@ in screen reader mode.
     </property>
     <property>
       <description>
-        <![CDATA[A non-negative integer that indicates the flexibility of this 
-component in its container.  If the container supports it, flex 
-is used to determine how space is distributed among its children.  
-Components with larger flex values will be made larger than 
-components with lower flex values.  This is done so at the ratio 
-determined by the flex of each of the two components.  The actual 
-value is only relevant if there are other flexible components 
-(components with flex values larger than zero) within the same 
+        <![CDATA[A non-negative integer that indicates the flexibility of this
+component in its container.  If the container supports it, flex
+is used to determine how space is distributed among its children.
+Components with larger flex values will be made larger than
+components with lower flex values.  This is done so at the ratio
+determined by the flex of each of the two components.  The actual
+value is only relevant if there are other flexible components
+(components with flex values larger than zero) within the same
 container.]]>
       </description>
       <property-name>flex</property-name>
@@ -156,12 +156,14 @@ container.]]>
 </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <xhtml:p>Two showDetailItems, the first of which is "disclosed":</xhtml:p>
+        <mfp:source-description>Two showDetailItems, the first of which is "disclosed":</mfp:source-description>
         <mfp:source-code>
-          <![CDATA[<tr:panelTabbed>
-            <tr:showDetailItem text="First" disclosed="true"/>
-            <tr:showDetailItem text="Second"/>
-           </tr:panelTabbed>]]>
+          <![CDATA[
+<tr:panelTabbed>
+  <tr:showDetailItem text="First" disclosed="true"/>
+  <tr:showDetailItem text="Second"/>
+</tr:panelTabbed>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Prakash Udupa</mfp:author>

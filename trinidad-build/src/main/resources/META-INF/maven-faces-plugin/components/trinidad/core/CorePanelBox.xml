@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -52,7 +52,7 @@ offset by a certain color.]]>
     </property>
     <property>
       <description>
-        <![CDATA[the appearance type of the content container. It should be one of "light", 
+        <![CDATA[the appearance type of the content container. It should be one of "light",
 "medium", "dark", or "transparent"]]>
       </description>
       <property-name>background</property-name>
@@ -120,7 +120,7 @@ the content container.]]>
   on the left but no header text will be visible.
 </html:p>
 <html:p>
-  Content containers can have various color schemes, which can be specified 
+  Content containers can have various color schemes, which can be specified
   by setting the background attribute.  The values for the background attribute
   are light, medium, dark, and transparent.  The default is light.  Please note
   that changing the background attribute may also change the appearance of the
@@ -140,11 +140,12 @@ the content container.]]>
       </mfp:long-description>
       <mfp:example>
         <mfp:source-code>
-          <![CDATA[<tr:panelBox text="Header"
-            background="light"
-            contentStyle="background:blue;"
-            icon="/images/info.gif"
-            inlineStyle = "width: 25%;" >
+          <![CDATA[
+<tr:panelBox text="Header"
+             background="light"
+             contentStyle="background:blue;"
+             icon="/images/info.gif"
+             inlineStyle = "width: 25%;" >
   <tr:panelGroupLayout layout="vertical">
     <tr:goLink text="point 1" destination="http://myfaces.apache.org"/>
     <tr:goLink text="point 2" destination="http://myfaces.apache.org"/>
@@ -152,7 +153,8 @@ the content container.]]>
     <tr:goLink text="point 4" destination="http://myfaces.apache.org"/>
     <tr:goLink text="point 5" destination="http://myfaces.apache.org"/>
   </tr:panelGroupLayout>
-</tr:panelBox>]]>
+</tr:panelBox>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Marissa Treinen</mfp:author>

@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -93,17 +93,20 @@
           standards mode HTML.]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<tr:panelGroupLayout type="horizontal">
+        <mfp:source-code>
+          <![CDATA[
+<tr:panelGroupLayout type="horizontal">
   <f:facet name="separator">
     <tr:spacer width="10" height="1"/>
   </f:facet>
   <tr:goLink text="First Link"
-        destination="http://myfaces.apache.org"/>
+             destination="http://myfaces.apache.org"/>
   <tr:goLink text="Second Link"
-        destination="http://myfaces.apache.org"/>
+             destination="http://myfaces.apache.org"/>
   <tr:goLink text="Third Link"
-        destination="http://myfaces.apache.org"/>
-</tr:panelGroupLayout>]]>
+             destination="http://myfaces.apache.org"/>
+</tr:panelGroupLayout>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>

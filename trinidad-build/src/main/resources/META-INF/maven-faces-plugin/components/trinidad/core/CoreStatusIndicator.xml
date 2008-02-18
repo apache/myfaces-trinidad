@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -25,12 +25,12 @@
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
     <description>
-      <![CDATA[The statusIndicator component shows whether the page 
-               is busy processing or is ready. By default, the component 
-               shows predefined icons for both readyand busy state. However, 
-               if a facet is specified, be it rendered or not, none of the 
-               default icon is going to be rendered. That behavior enable an 
-               easy emulation of GMail behavior specifying only a busy 
+      <![CDATA[The statusIndicator component shows whether the page
+               is busy processing or is ready. By default, the component
+               shows predefined icons for both readyand busy state. However,
+               if a facet is specified, be it rendered or not, none of the
+               default icon is going to be rendered. That behavior enable an
+               easy emulation of GMail behavior specifying only a busy
                facet.]]></description>
     <icon>
       <!-- small-icon>/org/apache/myfaces/trinidad/metadata/icons/statusIndicator.png</small-icon -->
@@ -46,12 +46,12 @@
     </facet>
     <facet>
       <description>
-        <![CDATA[Content to be rendered when the page is busy processing. 
-                 If this facet is specified, no default icon is going to 
+        <![CDATA[Content to be rendered when the page is busy processing.
+                 If this facet is specified, no default icon is going to
                  be rendered.]]></description>
       <facet-name>busy</facet-name>
     </facet>
-    
+
     <xi:include href="includes/CommonAttrs.xml" xpointer="/faces-config/component/*"/>
     <xi:include href="includes/CoreJSEvents.xml" xpointer="/faces-config/component/*"/>
 
@@ -61,21 +61,23 @@
       <mfp:tag-name>tr:statusIndicator</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.output.CoreStatusIndicatorTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
-            The The statusIndicator component shows whether the page is 
-            busy processing or is ready. By default, the component 
-            shows predefined icons for both readyand busy state. However, 
-            if a facet is specified, be it rendered or not, none of the 
-            default icon is going to be rendered. That behavior enable an 
-            easy emulation of GMail behavior by specifying only a busy 
+            The The statusIndicator component shows whether the page is
+            busy processing or is ready. By default, the component
+            shows predefined icons for both readyand busy state. However,
+            if a facet is specified, be it rendered or not, none of the
+            default icon is going to be rendered. That behavior enable an
+            easy emulation of GMail behavior by specifying only a busy
             facet.</html:p>]]>
       </mfp:long-description>
       <mfp:example>
         <mfp:source-code>
-          &lt;tr:statusIndicator&gt;
-          	&lt;f:facet name=&quot;busy&quot;&gt;
-              &lt;tr:outputText value=&quot;Loading, please wait...&quot;/&gt;
-            &lt;/f:facet&gt;
-          &lt;/tr:statusIndicator&gt;
+          <![CDATA[
+<tr:statusIndicator>
+  <f:facet name="busy">
+    <tr:outputText value="Loading, please wait..."/>
+  </f:facet>
+</tr:statusIndicator>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>

@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -45,7 +45,7 @@ all items to be collapsed.
       <property-class>boolean</property-class>
       <default-value>false</default-value>
     </property>
-    
+
     <property>
       <description>Indicates whether more than one detail item may be
 disclosed at a time.  Use "false" (the default) to keep a maximum of
@@ -70,21 +70,24 @@ an accordion looks like a series of accordion bars,
 with panels below the bar representing disclosed showDetailItem children.]]>
       </mfp:long-description>
       <mfp:example>
-        <xhtml:p>The following is an example of panelAccordion.</xhtml:p>
-        <mfp:source-code><![CDATA[<tr:panelAccordion>
-          <tr:showDetailItem text="Apache Trinidad Components">
-            <tr:panelHeader text="Apache Trinidad Components First Child"/>
-            <tr:panelHeader text="Apache Trinidad Components Second Child"/>
-          </tr:showDetailItem>
-          <tr:showDetailItem text="Architecture" disabled="true">
-            <tr:panelHeader text="Architecture First Child"/>
-            <tr:panelHeader text="Architecture Second Child"/>
-          </tr:showDetailItem>
-          <tr:showDetailItem text="Release">
-            <tr:panelHeader text="Release First Child"/>
-            <tr:panelHeader text="Release Second Child"/>
-          </tr:showDetailItem>
-        </tr:panelAccordion>]]>
+        <mfp:source-description>The following is an example of panelAccordion.</mfp:source-description>
+        <mfp:source-code>
+          <![CDATA[
+<tr:panelAccordion>
+  <tr:showDetailItem text="Apache Trinidad Components">
+    <tr:panelHeader text="Apache Trinidad Components First Child"/>
+    <tr:panelHeader text="Apache Trinidad Components Second Child"/>
+  </tr:showDetailItem>
+  <tr:showDetailItem text="Architecture" disabled="true">
+    <tr:panelHeader text="Architecture First Child"/>
+    <tr:panelHeader text="Architecture Second Child"/>
+  </tr:showDetailItem>
+  <tr:showDetailItem text="Release">
+    <tr:panelHeader text="Release First Child"/>
+    <tr:panelHeader text="Release Second Child"/>
+  </tr:showDetailItem>
+</tr:panelAccordion>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:component-metadata>

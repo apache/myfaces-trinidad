@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -225,8 +225,10 @@ detail-disclosure.
         </section>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<tr:table value="#{myManagedBean.allEmployees}"  
-   bandingInterval="2" banding="row" var="emp">
+        <mfp:source-code>
+          <![CDATA[
+<tr:table value="#{myManagedBean.allEmployees}"
+          bandingInterval="2" banding="row" var="emp">
   <tr:column>
     <f:facet name="header">
       <tr:outputText value="Name"/>
@@ -239,7 +241,8 @@ detail-disclosure.
     </f:facet>
     <tr:outputText value="#{emp.deptno}"/>
   </tr:column>
-</tr:table>]]>
+</tr:table>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Brian Albers</mfp:author>

@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -33,13 +33,13 @@
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreInputFile</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.input.CoreInputFile</component-class>
-    <xi:include href="includes/CommonFormControls.xml" xpointer="/faces-config/component/*"/>      
-    <xi:include href="includes/CommonAttrs.xml" xpointer="/faces-config/component/*"/>      
-    <xi:include href="includes/CoreJSEvents.xml" xpointer="/faces-config/component/*"/>      
-    <xi:include href="includes/FocusJSEvents.xml" xpointer="/faces-config/component/*"/>      
+    <xi:include href="includes/CommonFormControls.xml" xpointer="/faces-config/component/*"/>
+    <xi:include href="includes/CommonAttrs.xml" xpointer="/faces-config/component/*"/>
+    <xi:include href="includes/CoreJSEvents.xml" xpointer="/faces-config/component/*"/>
+    <xi:include href="includes/FocusJSEvents.xml" xpointer="/faces-config/component/*"/>
     <property>
-	<description><![CDATA[event handler for when the value is changed.]]>
-	</description>
+        <description><![CDATA[event handler for when the value is changed.]]>
+        </description>
       <property-name>onchange</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
@@ -59,7 +59,7 @@
       </property-extension>
     </property>
     <property>
-      	    <description><![CDATA[The size of the text control specified by the number of characters shown.The default value depends on the browser.]]>	
+            <description><![CDATA[The size of the text control specified by the number of characters shown.The default value depends on the browser.]]>
       </description>
       <property-name>columns</property-name>
       <property-class>int</property-class>
@@ -81,7 +81,7 @@
       </property-extension>
     </property>
     <property>
-      <description><![CDATA[whether the associated control displays a visual indication of required user input. If a "required" attribute is also present, both the "required" attribute and the 
+      <description><![CDATA[whether the associated control displays a visual indication of required user input. If a "required" attribute is also present, both the "required" attribute and the
           "showRequired" attribute must be false for the visual indication not to be displayed.]]>
       </description>
       <property-name>showRequired</property-name>
@@ -93,16 +93,16 @@
         </mfp:property-metadata>
       </property-extension>
     </property>
-    <property>   
-	<description><![CDATA[<html> For accessibility reasons, this functionality is not supported in screen reader mode. If the same access key appears in multiple locations in the same page of output, the rendering user agent will cycle among the elements accessed by the similar keys. <p> This attribute is sometimes referred to as the "mnemonic". </p></html>]]>
-      	</description>
+    <property>
+        <description><![CDATA[<html> For accessibility reasons, this functionality is not supported in screen reader mode. If the same access key appears in multiple locations in the same page of output, the rendering user agent will cycle among the elements accessed by the similar keys. <p> This attribute is sometimes referred to as the "mnemonic". </p></html>]]>
+        </description>
       <property-name>accessKey</property-name>
       <property-class>char</property-class>
       <property-extension>
         <mfp:property-metadata>
           <mfp:short-description>${md:getTranslatedString("SD_ATTRGROUP_ACCESSKEY_ATTR_ACCESSKEY")}</mfp:short-description>
         </mfp:property-metadata>
-	</property-extension>
+        </property-extension>
     </property>
     <property>
       <description><![CDATA[whether the component is disabled.]]></description>
@@ -127,7 +127,7 @@
       <description><![CDATA[a boolean value that controls whether the component
 provides label and message support;  when set to "true", the component will
 not display messaging support or the label (these attributes may be ignored: label,
-labelAndAccessKey, accessKey, showRequired, 
+labelAndAccessKey, accessKey, showRequired,
 tip), and may use simpler layout primitives]]>
       </description>
       <property-name>simple</property-name>
@@ -149,10 +149,13 @@ tip), and may use simpler layout primitives]]>
           using this, developers must install the Apache Trinidad filter.]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<tr:form usesUpload="true">
+        <mfp:source-code>
+          <![CDATA[
+<tr:form usesUpload="true">
   <tr:inputFile columns="10"
                 valueChangeListener="#{backing.fileUploaded}"/>
-</tr:form>]]>
+</tr:form>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>

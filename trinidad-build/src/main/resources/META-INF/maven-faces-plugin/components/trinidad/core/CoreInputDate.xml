@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -200,18 +200,20 @@ tip), and may use simpler layout primitives]]>
           </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <xhtml:p>Two inputDate, the first converts the dateStyle to "long",
+        <mfp:source-description>Two inputDate, the first converts the dateStyle to "long",
             the second sets the maximum date:
-        </xhtml:p>
-        <mfp:source-code><![CDATA[<tr:inputDate id="mdf2" value="#{date.date2}"
-                            label="has converter">
-        <f:convertDateTime dateStyle="long"/>
-      </tr:inputDate>
-
-      <tr:inputDate id="mdf3" value="#{date.date3}"
-                            label="max validator">
-        <tr:validateDateTimeRange maximum="#{date.maxDate}"/>
-      </tr:inputDate>]]>
+        </mfp:source-description>
+        <mfp:source-code>
+          <![CDATA[
+<tr:inputDate id="mdf2" value="#{date.date2}"
+              label="has converter">
+  <f:convertDateTime dateStyle="long"/>
+</tr:inputDate>
+<tr:inputDate id="mdf3" value="#{date.date3}"
+              label="max validator">
+  <tr:validateDateTimeRange maximum="#{date.maxDate}"/>
+</tr:inputDate>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Blake Sullivan</mfp:author>

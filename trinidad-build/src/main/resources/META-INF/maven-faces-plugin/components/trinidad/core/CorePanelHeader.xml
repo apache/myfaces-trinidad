@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -43,14 +43,14 @@
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.layout.CorePanelHeaderTag</mfp:tag-class>
       <mfp:long-description>
         <![CDATA[<html:p>
-  The panelHeader control places a label and optional icon at the top of a 
+  The panelHeader control places a label and optional icon at the top of a
   section.
 </html:p>
 
 <section name="panelHeader and Messaging Information">
   <html:p>
     The panelHeader can also be used at the top of an application page to give
-    the user important messaging information. The types of messages, set by 
+    the user important messaging information. The types of messages, set by
     the <html:code>messageType</html:code> attribute are:
 
     <html:ul>
@@ -64,28 +64,30 @@
 
 <section name="Header Size">
   <html:p>
-    panelHeader does not support setting the CSS style, but does support setting 
-    a size. A large header (H1 in HTML) corresponds to 0, medium to 1, and small 
+    panelHeader does not support setting the CSS style, but does support setting
+    a size. A large header (H1 in HTML) corresponds to 0, medium to 1, and small
     to 2.  Some render kits and skins support sizes up to 5 (equiv. H6 - HTML's
     maximum header value) but most renderkits and skins will only support up to
     2 (in compliance with the BLAF and BLAF+ specs.  Setting the header size to
-    something greater then the supported value will style the header the same 
+    something greater then the supported value will style the header the same
     as the largest supported value (ie. size="6" will be displayed the same as
     either a size="5" if supported or a size="2").
   </html:p>
 </section>]]>
       </mfp:long-description>
       <mfp:example>
-        <xhtml:p>Basic example.</xhtml:p>
+        <mfp:source-description>Basic example.</mfp:source-description>
         <mfp:source-code>
-          <![CDATA[<tr:panelHeader text="This is a panelHeader">
+          <![CDATA[
+<tr:panelHeader text="This is a panelHeader">
   <tr:goLink text="Apache Trinidad" destination="http://myfaces.apache.org"/>
   <tr:panelHeader text="This is a Sub-panelHeader" >
     <tr:goLink text="Apache Trinidad" destination="http://myfaces.apache.org"/>
   </tr:panelHeader>
-</tr:panelHeader>]]>
+</tr:panelHeader>
+          ]]>
         </mfp:source-code>
-        <xhtml:p>panelHeader displaying message information.</xhtml:p>
+        <mfp:source-description>panelHeader displaying message information.</mfp:source-description>
         <mfp:source-code>&lt;tr:panelHeader messageType="error"/&gt;</mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>

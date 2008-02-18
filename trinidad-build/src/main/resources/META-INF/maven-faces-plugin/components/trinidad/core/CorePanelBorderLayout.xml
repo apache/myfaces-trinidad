@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -170,11 +170,13 @@
       <mfp:long-description><![CDATA[The panelBorderLayout component is a layout element which lays out all of its
           children consecutively in its middle, and supports twelve other
           facets: top, bottom, left, right, start and end. Clients should use only
-          one of left/right or start/end for each side, in any one container, but if both are used, 
+          one of left/right or start/end for each side, in any one container, but if both are used,
           left/right &quot;wins&quot;.]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<tr:panelBorderLayoutLayout>
+        <mfp:source-code>
+          <![CDATA[
+<tr:panelBorderLayoutLayout>
   <f:facet name="top">
     <tr:image source="/images/globalhelp.gif"/>
   </f:facet>
@@ -193,7 +195,8 @@
 
   <tr:outputText value="Here is some content"
                  styleClass="AFInstructionText"/>
-</tr:panelBorderLayoutLayout>]]>
+</tr:panelBorderLayoutLayout>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>

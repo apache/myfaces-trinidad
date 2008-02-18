@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -32,11 +32,11 @@
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreInputColor</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.input.CoreInputColor</component-class>
-    <xi:include href="includes/CommonFormControls.xml" xpointer="/faces-config/component/*"/> 
+    <xi:include href="includes/CommonFormControls.xml" xpointer="/faces-config/component/*"/>
     <property>
-      <description><![CDATA[If true, attempt to use less screen real-estate to display the 
+      <description><![CDATA[If true, attempt to use less screen real-estate to display the
           inputColor.  For example, this
-          might cause the text area not to be rendered, and the color 
+          might cause the text area not to be rendered, and the color
           swatch conveys the currently selected color.]]>
       </description>
       <property-name>compact</property-name>
@@ -79,7 +79,7 @@
       <description><![CDATA[a boolean value that controls whether the component
 provides label and message support;  when set to "true", the component will
 not display messaging support or the label (these attributes may be ignored: label,
-labelAndAccessKey, accessKey, showRequired, 
+labelAndAccessKey, accessKey, showRequired,
 tip), and may use simpler layout primitives]]>
       </description>
       <property-name>simple</property-name>
@@ -117,7 +117,7 @@ tip), and may use simpler layout primitives]]>
     <xi:include href="includes/FocusJSEvents.xml" xpointer="/faces-config/component/*"/>
 
     <property>
-      <description><![CDATA[whether the associated control displays a visual indication of required user input. If a "required" attribute is also present, both the "required" attribute and the 
+      <description><![CDATA[whether the associated control displays a visual indication of required user input. If a "required" attribute is also present, both the "required" attribute and the
           "showRequired" attribute must be false for the visual indication not to be displayed.]]>
       </description>
       <property-name>showRequired</property-name>
@@ -128,14 +128,14 @@ tip), and may use simpler layout primitives]]>
           <mfp:group>${md:getTranslatedString("MESSAGE_GROUP")}</mfp:group>
         </mfp:property-metadata>
       </property-extension>
-    </property> 
+    </property>
     <property>
       <description><![CDATA[<html>
  Character used to gain quick access to
                the form element specified by the
          <code>for</code>, if set (or this component itself,
               if it is a "non-simple" form element).
-              For accessibility reasons, this functionality is not supported 
+              For accessibility reasons, this functionality is not supported
               in screen reader mode.
               If the same access key appears in multiple locations in the
               same page of output, the rendering user agent will cycle
@@ -191,13 +191,13 @@ tip), and may use simpler layout primitives]]>
           how the inputColor component is configured.
           <html:ul>
             <html:li>
-            Users can type the color value directly in the field. 
+            Users can type the color value directly in the field.
             This option is always available.
             </html:li>
             <html:li>
             Users can select a color value from a secondary dialog.
             This option may not be available in all look and feel
-            implementations.  In particular, this option is not 
+            implementations.  In particular, this option is not
             available on PDA look and feels.
             </html:li>
             <html:li>
@@ -213,13 +213,17 @@ tip), and may use simpler layout primitives]]>
           <html:p>
             The colorConverter can be used to control
             both the formatting that the inputColor uses when displaying
-            color values, as well as the set of color format patterns that 
+            color values, as well as the set of color format patterns that
             are accepted by the inputColor.  See the documentation for the
             colorConverter for more information.
           </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<tr:inputColor name="color" value="#{color.colorValue3}" />]]></mfp:source-code>
+        <mfp:source-code>
+          <![CDATA[
+<tr:inputColor name="color" value="#{color.colorValue3}" />
+          ]]>
+        </mfp:source-code>
       </mfp:example>
       <mfp:author>John Fallows</mfp:author>
       <mfp:component-metadata>

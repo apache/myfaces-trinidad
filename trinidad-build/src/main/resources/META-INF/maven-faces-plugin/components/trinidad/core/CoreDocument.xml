@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -96,11 +96,15 @@
       <mfp:long-description><![CDATA[The CoreDocument creates each of the standard root elements of an HTML page:  &lt;html&gt;, &lt;body&gt;, and &lt;head&gt;, but by abstracting away from those components, can be used in non-HTML pages as well.]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<f:view>
+        <mfp:source-code>
+          <![CDATA[
+<f:view>
   <tr:document>
     <tr:form> ... </tr:form>
   </tr:document>
-</f:view>]]></mfp:source-code>
+</f:view>
+           ]]>
+         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>
       <mfp:component-metadata>
