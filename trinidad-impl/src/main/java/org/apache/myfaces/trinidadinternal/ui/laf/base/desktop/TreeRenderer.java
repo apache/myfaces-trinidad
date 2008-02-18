@@ -428,7 +428,7 @@ public class TreeRenderer extends HtmlLafRenderer
              "';"+
            "}"+
            "this._pTag = tag;"+
-           "document.forms[this.treeState.getFormName()][this._selectParam].value=path;"+
+           //if there are any problems see TRINIDAD-935
            "tag.className='"+TREE_ROW_SELECTED_STYLE_CLASS+
            "';"+
          "};"
