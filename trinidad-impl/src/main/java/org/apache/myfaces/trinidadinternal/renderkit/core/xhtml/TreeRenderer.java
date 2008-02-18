@@ -571,7 +571,7 @@ public class TreeRenderer extends XhtmlRenderer
                        "if (this._pTag != null) {" +
                        "this._pTag.className='" + SkinSelectors.TREE_ROW_STYLE_CLASS +
                        "';" + "}" + "this._pTag = tag;" +
-                       "document.forms[this.treeState.getFormName()][this._selectParam].value=path;" +
+                       //if there are any problems see TRINIDAD-935
                        "tag.className='" + SkinSelectors.TREE_ROW_SELECTED_STYLE_CLASS +
                        "';" + "};", null);
 
