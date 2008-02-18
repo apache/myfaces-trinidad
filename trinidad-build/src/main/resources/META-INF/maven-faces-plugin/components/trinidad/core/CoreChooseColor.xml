@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -78,7 +78,7 @@
             </html:li>
             <html:li>
             A set of custom colors which extend the set of colors available
-            in the standard palette.  Custom colors are specified by the 
+            in the standard palette.  Custom colors are specified by the
             customColorData attribute.
             </html:li>
           </html:ul>
@@ -89,8 +89,8 @@
           instance for each color to display.
           </html:p>
           <html:p>
-          In order to simplify the use of standard palettes, Apache Trinidad makes 
-          certain palettes available via the requestContext.colorPalette EL implicit 
+          In order to simplify the use of standard palettes, Apache Trinidad makes
+          certain palettes available via the requestContext.colorPalette EL implicit
           object.  The &quot;#{requestContext.colorPalette}&quot; implicit object
           provides access to four standard color palettes:
           <html:ul>
@@ -106,18 +106,33 @@
           </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<!-- A chooseColor which uses the standard "default49" palette -->
-<tr:chooseColor id="cc0"
-                colorData="#{requestContext.colorPalette.default49}"/>
-
-<!-- A chooseColor which defines custom colors using inline data -->
+        <mfp:source-description>A chooseColor which uses the standard "default49" palette
+        </mfp:source-description>
+        <mfp:source-code>
+          <![CDATA[
+<tr:chooseColor id="cc0" colorData="#{requestContext.colorPalette.default49}"/>
+          ]]>
+        </mfp:source-code>
+      </mfp:example>
+      <mfp:example>
+        <mfp:source-description>A chooseColor which defines custom colors using inline data
+        </mfp:source-description>
+        <mfp:source-code>
+          <![CDATA[
 <tr:chooseColor id="cc1" colorData="#{requestContext.colorPalette.default49}"
-                         customColorData="#{myBean.listOfColors}">
-
-<!-- A chooseColor that is associated with a selectInputColor -->
+                customColorData="#{myBean.listOfColors}">
+          ]]>
+        </mfp:source-code>
+      </mfp:example>
+      <mfp:example>
+        <mfp:source-description>A chooseColor that is associated with a selectInputColor
+        </mfp:source-description>
+        <mfp:source-code>
+          <![CDATA[
 <tr:inputColor id="sic1" chooseId="cc2"/>
 <tr:chooseColor id="cc2" width="18"
-                colorData="#{requestContext.colorPalette.web216}"/>]]>
+                colorData="#{requestContext.colorPalette.web216}"/>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>John Fallows</mfp:author>

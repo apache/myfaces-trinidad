@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:trh="http://myfaces.apache.org/trinidad/html"
@@ -104,7 +104,7 @@
               frame. Valid values for this attribute are the following
               constants:<br/>
 
-              
+
      "yes" specifies that scrollbars are always available. <br/>
      "no" specifies that scrollbars are never available. <br/>
      "auto" specifies that the browser determines whether to display scroll
@@ -179,17 +179,17 @@
           </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<trh:frameBorderLayout >
-
- <f:facet name="left">
-  <trh:frame source="frame_leftTest.jspx" name="left" width="30%" />
- </f:facet>
-
- <f:facet name="center">
-  <trh:frame source="frame_centerTest.jspx" name="contents" />
- </f:facet>
-
-</trh:frameBorderLayout>]]>
+        <mfp:source-code>
+          <![CDATA[
+<trh:frameBorderLayout >
+  <f:facet name="left">
+    <trh:frame source="frame_leftTest.jspx" name="left" width="30%" />
+  </f:facet>
+  <f:facet name="center">
+    <trh:frame source="frame_centerTest.jspx" name="contents" />
+  </f:facet>
+</trh:frameBorderLayout>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Arjuna Wijeyekoon</mfp:author>

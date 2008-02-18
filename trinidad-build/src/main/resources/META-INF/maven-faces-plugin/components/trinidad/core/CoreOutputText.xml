@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -71,7 +71,7 @@ is set to false (e.g., "styleClass" is not output).</html>]]>
       <property-class>boolean</property-class>
       <default-value>true</default-value>
     </property>
-    
+
     <xi:include href="includes/CommonAttrs.xml" xpointer="/faces-config/component/*"/>
     <xi:include href="includes/CoreJSEvents.xml" xpointer="/faces-config/component/*"/>
     <component-extension>
@@ -84,8 +84,12 @@ can optionally be left unescaped, and supports
 conversion to and from Java objects.]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code>&lt;tr:outputText value="AFFieldText"
-                     styleClass="AFFieldText"/&gt;</mfp:source-code>
+        <mfp:source-code>
+          <![CDATA[
+<tr:outputText value="AFFieldText"
+               styleClass="AFFieldText"/>
+          ]]>
+        </mfp:source-code>
       </mfp:example>
       <mfp:author>Blake Sullivan</mfp:author>
       <mfp:component-metadata>

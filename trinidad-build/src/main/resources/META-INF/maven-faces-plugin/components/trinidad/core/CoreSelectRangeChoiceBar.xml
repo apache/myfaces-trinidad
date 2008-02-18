@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -25,8 +25,8 @@
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
     <description><![CDATA[SelectRangeChoiceBar is used to allow the user to select a range of
-          records to display among a larger set of records. 
-          It allows the user to move back and forth through these records 
+          records to display among a larger set of records.
+          It allows the user to move back and forth through these records
           through a choice and buttons.]]>
     </description>
     <icon>
@@ -56,32 +56,42 @@
       <mfp:tag-name>tr:selectRangeChoiceBar</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.data.CoreSelectRangeChoiceBarTag</mfp:tag-class>
       <mfp:long-description><![CDATA[SelectRangeChoiceBar is used to allow the user to select a range of
-          records to display among a larger set of records. 
+          records to display among a larger set of records.
           It allows the user to move back and forth through these records.
           <section name="Appearance">
           selectRangeChoiceBar renders a Previous button, a choice, and a Next button.
           The choice contains options for ranges.
           </section>
           <section name="Events">
-          Clicking on either the Previous or Next buttons or selecting an option from the 
+          Clicking on either the Previous or Next buttons or selecting an option from the
           choice will deliver a <code>RangeChangeEvent</code> to the server.
           </section>]]>
       </mfp:long-description>
       <mfp:example>
-        <xhtml:p>The following is an example of selectRangeChoiceBar.
-          If tableData has 100 rows, 
-          it renders a Previous button, 
+        <mfp:source-description>The following is an example of selectRangeChoiceBar.
+          If tableData has 100 rows,
+          it renders a Previous button,
           a choice with the selected value of 30-39 of 100,
           and a Next button.
-        </xhtml:p>
-        <mfp:source-code><![CDATA[<tr:selectRangeChoiceBar value="#{tableData}" first="30" rows="10"/>]]></mfp:source-code>
-        <xhtml:p>The following is an example of selectRangeChoiceBar with
-          customized range labels.</xhtml:p>
-        <mfp:source-code><![CDATA[<tr:selectRangeChoiceBar value="#{tableData}" var="range" first="30" rows="10">
-              <f:facet name="rangeLabel">
-                <f:selectItem itemLabel="#{range.start.eName} - #{range.end.eName}" />
-              </f:facet>
-            </tr:selectRangeChoiceBar>]]>
+        </mfp:source-description>
+        <mfp:source-code>
+          <![CDATA[
+<tr:selectRangeChoiceBar value="#{tableData}" first="30" rows="10"/>
+          ]]>
+        </mfp:source-code>
+      </mfp:example>
+      <mfp:example>
+        <mfp:source-description>The following is an example of selectRangeChoiceBar with
+          customized range labels.
+        </mfp:source-description>
+        <mfp:source-code>
+          <![CDATA[
+<tr:selectRangeChoiceBar value="#{tableData}" var="range" first="30" rows="10">
+  <f:facet name="rangeLabel">
+    <f:selectItem itemLabel="#{range.start.eName} - #{range.end.eName}" />
+  </f:facet>
+</tr:selectRangeChoiceBar>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Jeanne Waldman</mfp:author>

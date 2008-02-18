@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -55,7 +55,7 @@
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.layout.CorePanelTabbedTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The panelTabbed control can be used to display a group of contents that belongs to
            a showDetailItem that is shown. Tab bar(s) with tabs representing the showDetailItem children is displayed.
-          The tab for the showDetailItem that is selected to be shown is highlighted and contents from the 
+          The tab for the showDetailItem that is selected to be shown is highlighted and contents from the
            selected showDetailItem is displayed. If none of the showDetailItem children are selected, the first showDetailItem
            that is enabled is considered to be selected.
 
@@ -63,42 +63,52 @@
 
           <html:p>
           The "position" attribute indicates whether the tab bar has to
-	  be above and/or below the contents.
+          be above and/or below the contents.
           </html:p>
           </section>]]>
       </mfp:long-description>
       <mfp:example>
-        <xhtml:p>The following is an example of panelTabbed.</xhtml:p>
-        <mfp:source-code><![CDATA[<tr:panelTabbed>
-          <tr:showDetailItem text="Apache Trinidad Components">
-            <tr:panelHeader text="Apache Trinidad Components First Child"/>
-            <tr:panelHeader text="Apache Trinidad Components Second Child"/>
-          </tr:showDetailItem>
-          <tr:showDetailItem text="Architecture" disabled="true">
-            <tr:panelHeader text="Architecture First Child"/>
-            <tr:panelHeader text="Architecture Second Child"/>
-          </tr:showDetailItem>
-          <tr:showDetailItem text="Release">
-            <tr:panelHeader text="Release First Child"/>
-            <tr:panelHeader text="Release Second Child"/>
-          </tr:showDetailItem>
-        </tr:panelTabbed>]]>
+        <mfp:source-description>The following is an example of panelTabbed.</mfp:source-description>
+        <mfp:source-code>
+          <![CDATA[
+<tr:panelTabbed>
+  <tr:showDetailItem text="Apache Trinidad Components">
+    <tr:panelHeader text="Apache Trinidad Components First Child"/>
+    <tr:panelHeader text="Apache Trinidad Components Second Child"/>
+  </tr:showDetailItem>
+  <tr:showDetailItem text="Architecture" disabled="true">
+    <tr:panelHeader text="Architecture First Child"/>
+    <tr:panelHeader text="Architecture Second Child"/>
+  </tr:showDetailItem>
+  <tr:showDetailItem text="Release">
+    <tr:panelHeader text="Release First Child"/>
+    <tr:panelHeader text="Release Second Child"/>
+  </tr:showDetailItem>
+</tr:panelTabbed>
+          ]]>
         </mfp:source-code>
-        <xhtml:p>The following example renders with the tab bar appearing only above the contents.</xhtml:p>
-        <mfp:source-code><![CDATA[<tr:panelTabbed>
-          <tr:showDetailItem text="Apache Trinidad Components" position="above">
-            <tr:panelHeader text="Apache Trinidad Components First Child"/>
-            <tr:panelHeader text="Apache Trinidad Components Second Child"/>
-          </tr:showDetailItem>
-          <tr:showDetailItem text="Architecture">
-            <tr:panelHeader text="Architecture First Child"/>
-            <tr:panelHeader text="Architecture Second Child"/>
-          </tr:showDetailItem>
-          <tr:showDetailItem text="Release" disabled="true">
-            <tr:panelHeader text="Release First Child"/>
-            <tr:panelHeader text="Release Second Child"/>
-          </tr:showDetailItem>
-        </tr:panelTabbed>]]>
+      </mfp:example>
+      <mfp:example>
+        <mfp:source-description>The following example renders with the tab bar
+         appearing only above the contents.
+        </mfp:source-description>
+        <mfp:source-code>
+          <![CDATA[
+<tr:panelTabbed>
+  <tr:showDetailItem text="Apache Trinidad Components" position="above">
+    <tr:panelHeader text="Apache Trinidad Components First Child"/>
+    <tr:panelHeader text="Apache Trinidad Components Second Child"/>
+  </tr:showDetailItem>
+  <tr:showDetailItem text="Architecture">
+    <tr:panelHeader text="Architecture First Child"/>
+    <tr:panelHeader text="Architecture Second Child"/>
+  </tr:showDetailItem>
+  <tr:showDetailItem text="Release" disabled="true">
+    <tr:panelHeader text="Release First Child"/>
+    <tr:panelHeader text="Release Second Child"/>
+  </tr:showDetailItem>
+</tr:panelTabbed>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Prakash Udupa</mfp:author>

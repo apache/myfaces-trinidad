@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -51,13 +51,16 @@ right, or center.]]></description>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.layout.CorePanelButtonBarTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The panelButtonBar lays out a set of buttons.]]></mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<tr:panelButtonBar>
-              <tr:commandButton text="button 1" action="action1"/>
-              <tr:commandButton text="button 2" action="action2"/>
-              <tr:singleStepButtonBar selectedStep="4" maxStep="5"  
-                                      previousAction="#{action.app1}"
-                                      nextAction="#{action.app2}"/>
-            </tr:panelButtonBar>]]>
+        <mfp:source-code>
+          <![CDATA[
+<tr:panelButtonBar>
+  <tr:commandButton text="button 1" action="action1"/>
+  <tr:commandButton text="button 2" action="action2"/>
+  <tr:singleStepButtonBar selectedStep="4" maxStep="5"
+                          previousAction="#{action.app1}"
+                          nextAction="#{action.app2}"/>
+</tr:panelButtonBar>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Blake Sullivan</mfp:author>

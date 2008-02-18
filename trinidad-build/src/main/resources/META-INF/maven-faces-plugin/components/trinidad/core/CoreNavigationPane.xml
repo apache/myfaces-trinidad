@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -73,29 +73,41 @@
       <mfp:tag-name>tr:navigationPane</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.nav.CoreNavigationPaneTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
-          The navigationPane component creates a series of navigation items representing one level in a navigation hierarchy. These items may either be added as children or a menu model may be bound to the navigationPane component. If a menu model is bound, of class 
-          <html:code>org.apache.myfaces.trinidad.model.MenuModel</html:code>, a level along the focus path, or the next level down, will be rendered. A node that is on the focus path will be rendered as &quot;selected&quot;.
+          The navigationPane component creates a series of navigation items representing one
+          level in a navigation hierarchy. These items may either be added as children or a
+          menu model may be bound to the navigationPane component. If a menu model is bound, of class
+          <html:code>org.apache.myfaces.trinidad.model.XMLMenuModel</html:code> or
+          <html:code>org.apache.myfaces.trinidad.model.MenuModel</html:code>, a level along the focus path,
+          or the next level down, will be rendered. A node that is on the focus path will be rendered as &quot;selected&quot;.
           </html:p>
           <html:p>
-          
-          <html:b>Note</html:b>: The 'level' attribute is temporary. It is used to indicate the level along the focusPath to render. It will likely be replaced with an el expression in a future release. 
+
+          <html:b>Note</html:b>: The 'level' attribute is temporary. It is used to indicate the level
+          along the focusPath to render. It will likely be replaced with an el expression in a future release.
           </html:p>
           <html:p>
-          MenuModel extends TreeModel, but it also knows how to go from the current viewId to the focus path. Notice that the menuModel has no special knowledge of page navigation and places no requirements on the nodes that go into the tree. The nodes in the tree are stamped out with the 'nodeStamp' facet, which should contain a commandNavigationItem component, which allows the default actionListener mechanism to be used for page navigation. 
+          XMLMenuModel extends TreeModel, but it also knows how to go from the current viewId to the focus path.
+          Notice that the xmlMenuModel has no special knowledge of page navigation and places no requirements
+          on the nodes that go into the tree. The nodes in the tree are stamped out with the 'nodeStamp' facet,
+          which should contain a commandNavigationItem component, which allows the default actionListener
+          mechanism to be used for page navigation.
           </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<tr:navigationPane var="foo" value="#{menuModel.model}">
+        <mfp:source-code>
+          <![CDATA[
+<tr:navigationPane var="foo" value="#{xmlMenuModel}">
   <f:facet name="nodeStamp">
     <tr:commandNavigationItem
       text="#{foo.label}"
-      action="#{foo.action}"
+      action="#{foo.doAction}"
       destination="#{foo.destination}"/>
   </f:facet>
-</tr:navigationPane>]]>
+</tr:navigationPane>
+          ]]>
         </mfp:source-code>
       </mfp:example>
-      <mfp:author>Adam Winer, Blake Sullivan, Gabrielle Crawford</mfp:author>
+      <mfp:author>Adam Winer, Blake Sullivan, Gabrielle Crawford, Gary Kind</mfp:author>
       <mfp:component-metadata>
         <mfp:group>${md:getTranslatedString("PALETTE_NAVIGATION")}</mfp:group>
         <mfp:preferred-children>tr:commandNavigationItem</mfp:preferred-children>

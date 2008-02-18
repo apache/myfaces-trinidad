@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -53,20 +53,23 @@
         <html:P>
           The &quot;nodeStamp&quot; facet of the Tree is used to display the
           data for each element in the tree. The &quot;nodeStamp&quot; is repeatedly
-          rendered (stamped) once per element. 
+          rendered (stamped) once per element.
         </html:P>]]>
       </mfp:long-description>
       <mfp:example>
-        <xhtml:p>In the following
+        <mfp:source-description>In the following
           example, the data for each element is placed under the EL property
           "node". The "nodeStamp" displays the data for each element by
           getting further properties from the "node" property:
-        </xhtml:p>
-        <mfp:source-code><![CDATA[<tr:tree var="node" value="#{myBean.orgChart.root}">
+        </mfp:source-description>
+        <mfp:source-code>
+          <![CDATA[
+<tr:tree var="node" value="#{myBean.orgChart.root}">
   <f:facet name="nodeStamp">
     <tr:outputText value="#{node.firstname}"/>
   </f:facet>
-</tr:tree>]]>
+</tr:tree>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Brian Albers</mfp:author>

@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -62,10 +62,13 @@ See the UIXSubform Javadoc for more details on how subforms work.
 </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<tr:form>
+        <mfp:source-code>
+          <![CDATA[
+<tr:form>
   <tr:subform>... search region ... </tr:subform>
   <tr:subform default="true"> ... main content ... </tr:subform>
-</tr:form>]]>
+</tr:form>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>

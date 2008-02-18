@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:trh="http://myfaces.apache.org/trinidad/html"
@@ -324,7 +324,9 @@
           </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<trh:frameBorderLayout>
+        <mfp:source-code>
+          <![CDATA[
+<trh:frameBorderLayout>
  <f:facet name="Lleft">
   <trh:frame source="frame_leftTest.jspx" name="left" width="30%" />
  </f:facet>
@@ -332,7 +334,8 @@
  <f:facet name="center">
   <trh:frame source="frame_centerTest.jspx" name="contents" />
  </f:facet>
-</trh:frameBorderLayout>]]>
+</trh:frameBorderLayout>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Arjuna Wijeyekoon</mfp:author>

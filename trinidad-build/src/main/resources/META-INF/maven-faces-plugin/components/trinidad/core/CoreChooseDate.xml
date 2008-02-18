@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -24,8 +24,8 @@
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
-    <description><![CDATA[The chooseDate component is used in conjunction with a 
-          selectInputDate to allow the user to quickly select a date value without 
+    <description><![CDATA[The chooseDate component is used in conjunction with a
+          selectInputDate to allow the user to quickly select a date value without
           having to navigate to a secondary window.]]>
     </description>
     <icon>
@@ -37,7 +37,7 @@
       <description><![CDATA[The minimum value allowed for the Date value.
 When set to a fixed value on a tag, this will be parsed as an ISO 8601 date.
 ISO 8601 dates are of the form "yyyy-MM-dd"
-(for example: 2002-02-15).  All other uses require java.util.Date objects. 
+(for example: 2002-02-15).  All other uses require java.util.Date objects.
 When binding to Date objects, it is advised to create the Date object with zeroed-out
 values for any date-time components that aren't displayed (usually hours, minutes, seconds, milliseconds)
 to allow the largest range of values to be accepted.]]>
@@ -56,8 +56,8 @@ to allow the largest range of values to be accepted.]]>
 When set to a fixed value on a tag, this will be parsed as an ISO 8601 date.
 ISO 8601 dates are of the form "yyyy-MM-dd"
 (for example: 2002-02-15).  All other uses require java.util.Date objects.
-When binding to Date objects, it is advised to create the Date object with 
-maximum value for any date-time components that aren't displayed (usually hours, minutes, seconds, milliseconds) 
+When binding to Date objects, it is advised to create the Date object with
+maximum value for any date-time components that aren't displayed (usually hours, minutes, seconds, milliseconds)
 to allow the largest range of values to be accepted.]]>
       </description>
       <property-name>maxValue</property-name>
@@ -78,25 +78,25 @@ to allow the largest range of values to be accepted.]]>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Date</mfp:renderer-type>
       <mfp:tag-name>tr:chooseDate</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.input.CoreChooseDateTag</mfp:tag-class>
-      <mfp:long-description><![CDATA[The chooseDate component is used in conjunction with a 
-          selectInputDate to allow the user to quickly select a date value without 
-          having to navigate to a secondary window.  The chooseDate is 
-          typically used for tasks where selecting a date value is a critical 
-          part of the task flow.  Instead of requiring the user to 
+      <mfp:long-description><![CDATA[The chooseDate component is used in conjunction with a
+          selectInputDate to allow the user to quickly select a date value without
+          having to navigate to a secondary window.  The chooseDate is
+          typically used for tasks where selecting a date value is a critical
+          part of the task flow.  Instead of requiring the user to
           select the date from a secondary window, a chooseDate can be
           displayed inline in the page contents.  Users can then select
-          a date directly within the chooseDate, which will cause the 
+          a date directly within the chooseDate, which will cause the
           currently focused selectInputDate to be updated with the selected
           date.
           <html:p>
-          In order to indicate that a particular selectInputDate should 
+          In order to indicate that a particular selectInputDate should
           be updated in response to chooseDate selection changes, the
           the selectInputDate's &quot;chooseId&quot; attribute must be set to the
           id of the associated chooseDate component.
           </html:p>
 
           <html:p>
-          The chooseDate component uses partial page rendering to update 
+          The chooseDate component uses partial page rendering to update
           itself as the user navigates between months.  In environments
           where partial page rendering is not supported, the chooseDate
           component will not be rendered.  Instead, the selectInputDate may
@@ -105,10 +105,13 @@ to allow the largest range of values to be accepted.]]>
           </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<tr:inputDate chooseId="cd1"/>
+        <mfp:source-code>
+          <![CDATA[
+<tr:inputDate chooseId="cd1"/>
 <tr:chooseDate id="cd1"
                minValue="2004-07-01"
-               maxValue="2014-12-31"/>]]>
+               maxValue="2014-12-31"/>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Blake Sullivan</mfp:author>

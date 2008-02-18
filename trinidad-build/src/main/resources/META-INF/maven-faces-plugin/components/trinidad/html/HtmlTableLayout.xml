@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:trh="http://myfaces.apache.org/trinidad/html"
@@ -226,31 +226,30 @@
           element.  It contains a series of row layout elements.]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<trh:tableLayout width="75%"
-             borderWidth="3"
-             cellSpacing="10"
-             halign="center">
+        <mfp:source-code>
+          <![CDATA[
+<trh:tableLayout width="75%"
+                 borderWidth="3"
+                 cellSpacing="10"
+                 halign="center">
   <trh:rowLayout>
-     First Column
-
-    <trh:cellFormat valign="bottom">
-      SecondColumn
+    <!-- First Column -->
+    <trh:cellFormat valign="bottom" />
+    <!-- SecondColumn -->
     </trh:cellFormat>
-
     <tr:panelGroupLayout layout="horizontal">
-      Third Column
+      <!-- Third Column -->
       <tr:spacer height="100" width="1"/>
     </tr:panelGroupLayout>
-
   </trh:rowLayout>
-
   <trh:rowLayout>
     <tr:panelHeader text="Apache Trinidad Components"/>
     <trh:cellFormat columnSpan="2">
       <tr:panelHeader text="Faces Servlet"/>
     </trh:cellFormat>
   </trh:rowLayout>
-</trh:tableLayout>]]>
+</trh:tableLayout>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>

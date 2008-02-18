@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -37,23 +37,26 @@
     <xi:include href="includes/CoreJSEvents.xml" xpointer="/faces-config/component/*"/>
 
     <facet>
-      <description><![CDATA[the component used to stamp each step of the focus path of this 
+      <description><![CDATA[the component used to stamp each step of the focus path of this
                   treeTable.]]>
       </description>
       <facet-name>pathStamp</facet-name>
       <facet-extension>
-        <mfp:long-description>the component used to stamp each step of the focus path of this 
+        <mfp:long-description>the component used to stamp each step of the focus path of this
                   treeTable. This must be a simple outputText, or outputFormatted
                   tag. If this facet is not provided then the focus column and
                   the focus path will not be rendered.
         </mfp:long-description>
         <mfp:example>
-          <mfp:source-code><![CDATA[<tr:treeTable ...>
-                     <f:facet name="pathStamp">
-                      <tr:outputText value="#{node.Ename}" />
-                     </f:facet>
-                     ...
-                    </tr:treeTable>]]>
+          <mfp:source-code>
+            <![CDATA[
+<tr:treeTable ...>
+  <f:facet name="pathStamp">
+    <tr:outputText value="#{node.Ename}" />
+  </f:facet>
+     ...
+</tr:treeTable>
+            ]]>
           </mfp:source-code>
         </mfp:example>
         <mfp:facet-metadata>
@@ -96,11 +99,13 @@
         </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <xhtml:p>In the following example, The "Object Name" Column is
+        <mfp:source-description>In the following example, The "Object Name" Column is
           the "Employee Name" Column. For each element (that is, employee) the
           TreeTable stamps out the name, ID and the department.
-        </xhtml:p>
-        <mfp:source-code><![CDATA[<tr:treeTable var="node" value="#{myBean.orgChart.root}">
+        </mfp:source-description>
+        <mfp:source-code>
+          <![CDATA[
+<tr:treeTable var="node" value="#{myBean.orgChart.root}">
   <f:facet name="nodeStamp">
     <tr:column>
       <f:facet name="header">
@@ -121,7 +126,8 @@
     </f:facet>
     <tr:outputText value="#{node.dname}"/>
   </tr:column>
-</tr:treeTable>]]>
+</tr:treeTable>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Arjuna Wijeyekoon</mfp:author>

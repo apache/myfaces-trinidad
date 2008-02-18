@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -90,10 +90,12 @@ This description should supplement the short description.]]>
       </mfp:long-description>
       <mfp:example>
         <mfp:source-code>
-          <![CDATA[<tr:image source="/images/globalhelp.gif"
-                shortDesc="help"
-                height="50"
-                width="50"/>]]>
+          <![CDATA[
+<tr:image source="/images/globalhelp.gif"
+          shortDesc="help"
+          height="50"
+          width="50"/>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>

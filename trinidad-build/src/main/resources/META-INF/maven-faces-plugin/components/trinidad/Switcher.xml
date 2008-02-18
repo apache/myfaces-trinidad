@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -65,17 +65,20 @@ simpler.  Ordinary children of the switcher component are not rendered at
 all.)]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<tr:switcher facetName="#{userData.person}" defaultFacet="default">
- <f:facet name="default">
-  <tr:outputText value="You have not picked anyone I know"/>
- </f:facet >
- <f:facet name="Roger">
-  <tr:outputText value="You have picked Roger"/>
- </f:facet >
- <f:facet name="Peter">
-  <tr:outputText value="You have picked Peter"/>
- </f:facet >
-</tr:switcher>]]>
+        <mfp:source-code>
+          <![CDATA[
+<tr:switcher facetName="#{userData.person}" defaultFacet="default">
+  <f:facet name="default">
+    <tr:outputText value="You have not picked anyone I know"/>
+  </f:facet >
+  <f:facet name="Roger">
+    <tr:outputText value="You have picked Roger"/>
+  </f:facet >
+  <f:facet name="Peter">
+    <tr:outputText value="You have picked Peter"/>
+  </f:facet >
+</tr:switcher>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>
@@ -86,5 +89,6 @@ all.)]]>
     </component-extension>
   </component>
 </faces-config>
+
 
 

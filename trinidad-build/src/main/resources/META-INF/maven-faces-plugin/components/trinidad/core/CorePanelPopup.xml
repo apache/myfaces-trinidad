@@ -47,7 +47,7 @@ made visible via a clickable link.]]>
     <property>
       <description><![CDATA[Defines the launch behaviour of the popup.  If set to 'click' the popup will
         appear when the trigger is clicked, and disappear when you click off the popup.  The 'hover' value
-        will cause the popup to appear while the mouse is over the trigger, and disappear when the mouse 
+        will cause the popup to appear while the mouse is over the trigger, and disappear when the mouse
         leaves either the trigger or the popup panel.]]>
       </description>
       <property-name>triggerType</property-name>
@@ -62,7 +62,7 @@ made visible via a clickable link.]]>
     </property>
     <property>
       <description><![CDATA[The icon to render as a link to launch the popup panel.  If the 'trigger'
-        facet is defined, then this attribute is ignored.  If the 'text' attribute is also specified, 
+        facet is defined, then this attribute is ignored.  If the 'text' attribute is also specified,
         then the icon and text will both be rendered.
         ]]>
       </description>
@@ -99,9 +99,9 @@ made visible via a clickable link.]]>
       </property-extension>
     </property>
     <property>
-      <description><![CDATA[The display mode of the panel.  Defaults to "false" (non-modal). 
-        Non-Modal panels will close when the user clicks off the panel. Modal popups are 
-        rendered with a titlebar and close icon.  Clicking the close icon will close the 
+      <description><![CDATA[The display mode of the panel.  Defaults to "false" (non-modal).
+        Non-Modal panels will close when the user clicks off the panel. Modal popups are
+        rendered with a titlebar and close icon.  Clicking the close icon will close the
         modal popup.]]>
       </description>
       <property-name>modal</property-name>
@@ -128,7 +128,7 @@ made visible via a clickable link.]]>
       </property-extension>
     </property>
     <property>
-      <description><![CDATA[The popup's horizontal offset in pixels from the current mouse position.  
+      <description><![CDATA[The popup's horizontal offset in pixels from the current mouse position.
         This property only applies to popups using relative positioning.]]>
       </description>
       <property-name>xoffset</property-name>
@@ -139,7 +139,7 @@ made visible via a clickable link.]]>
       </property-extension>
     </property>
     <property>
-      <description><![CDATA[The popup's vertical offset in pixels from the current mouse position.  
+      <description><![CDATA[The popup's vertical offset in pixels from the current mouse position.
         This property only applies to popups using relative positioning.]]>
       </description>
       <property-name>yoffset</property-name>
@@ -211,12 +211,13 @@ The position attribute of popupPanel can be used to control the location of the 
         <mfp:source-code>
           <![CDATA[
 <tr:panelPopup text="Click Here!">
-    <tr:panelGroupLayout layout="vertical">
-      <tr:goLink text="point 1" destination="http://myfaces.apache.org"/>
-      <tr:goLink text="point 2" destination="http://myfaces.apache.org"/>
-      <tr:goLink text="point 3" destination="http://myfaces.apache.org"/>
-    </tr:panelGroupLayout>
-</tr:panelPopup>]]>
+  <tr:panelGroupLayout layout="vertical">
+    <tr:goLink text="point 1" destination="http://myfaces.apache.org"/>
+    <tr:goLink text="point 2" destination="http://myfaces.apache.org"/>
+    <tr:goLink text="point 3" destination="http://myfaces.apache.org"/>
+  </tr:panelGroupLayout>
+</tr:panelPopup>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Danny Robinson</mfp:author>

@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -41,15 +41,18 @@
       <mfp:long-description><![CDATA[The UIXInputHidden component adds a value that
           will be submitted with a form, but not displayed
           to the user.  The value can be manipulated with
-          Javascript on the client, and such values will 
+          Javascript on the client, and such values will
           be automatically re-posted into any ValueBinding
           attached to the &quot;value&quot; property.]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<h:form>
+        <mfp:source-code>
+          <![CDATA[
+<h:form>
   <tr:inputHidden value="#{managed.property}"/>
   <tr:commandButton text="Submit"/>
-</h:form>]]>
+</h:form>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>

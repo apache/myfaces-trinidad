@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -60,8 +60,8 @@
             SingleStepButtonBar implements javax.faces.component.ActionSource, which
             means it is a source of javax.faces.event.ActionEvent's.
             <p>
-            The ActionEvent is delivered during the Apply Request Values phase 
-            when navigating back, and during the 
+            The ActionEvent is delivered during the Apply Request Values phase
+            when navigating back, and during the
             Invoke Application phase when navigating forward.
             </p>
             <p>
@@ -74,23 +74,26 @@
             <p>
             JSF has a default javax.faces.event.ActionListener that passes the
             nextAction or previousAction outcome to the NavigationHandler.
-            </p>              
+            </p>
             <p>
-            The nextActionListener/previousActionListener attributes are of 
-            type MethodBinding and must (in non-null) point to a method 
+            The nextActionListener/previousActionListener attributes are of
+            type MethodBinding and must (in non-null) point to a method
             accepting an ActionEvent, with a return type of void.
             When navigating to the previous step, then the previousActionListener
             method is called. When navigating to the next step, the nextActionListener
             method is called.
-            </p>       
+            </p>
           </section>]]>
       </mfp:long-description>
       <mfp:example>
-        <xhtml:p>A simple example of a singleStepButtonBar.</xhtml:p>
-        <mfp:source-code><![CDATA[<tr:form>
-     <tr:singleStepButtonBar selectedStep="2" maxStep="5" previousAction="cart"
-     nextAction="checkout"/>
-   </tr:form>]]>
+        <mfp:source-description>A simple example of a singleStepButtonBar.</mfp:source-description>
+        <mfp:source-code>
+          <![CDATA[
+<tr:form>
+  <tr:singleStepButtonBar selectedStep="2" maxStep="5" previousAction="cart"
+                          nextAction="checkout"/>
+</tr:form>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Jeanne Waldman</mfp:author>

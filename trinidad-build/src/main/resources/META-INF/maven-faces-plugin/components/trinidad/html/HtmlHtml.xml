@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -46,12 +46,16 @@ based on the current locale.
           </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<trh:html>
+        <mfp:source-code>
+          <![CDATA[
+<trh:html>
   <trh:head title="Document title"/>
 
   <trh:body>
-    <tr:panelPage/>      
-  </trh:body>]]>
+    <tr:panelPage/>
+  </trh:body>
+</trh:html>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>

@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -72,7 +72,9 @@ Each pair of adjacent children will be separated
 by an optional separator child.]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<tr:panelHorizontalLayout valign="top"> halign="end"
+        <mfp:source-code>
+          <![CDATA[
+<tr:panelHorizontalLayout valign="top"> halign="end"
   <f:facet name="separator">
     <tr:spacer width="10" height="1"/>
   </f:facet>
@@ -82,7 +84,8 @@ by an optional separator child.]]>
         destination="http://myfaces.apache.org"/>
   <tr:goLink text="Apache Trinidad 3"
         destination="http://myfaces.apache.org"/>
-</tr:panelHorizontalLayout>]]>
+</tr:panelHorizontalLayout>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Jeanne Waldman</mfp:author>

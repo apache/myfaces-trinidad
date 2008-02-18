@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -32,7 +32,7 @@ launching a dialog to assist users in entering a value.]]>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreInputListOfValues</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.input.CoreInputListOfValues</component-class>
-    <xi:include href="includes/CommonFormControls.xml" xpointer="/faces-config/component/*"/> 
+    <xi:include href="includes/CommonFormControls.xml" xpointer="/faces-config/component/*"/>
     <property>
       <description><![CDATA[the search description for the button that launches the dialog.
            This text is commonly used by user agents to display tooltip
@@ -85,7 +85,7 @@ launching a dialog to assist users in entering a value.]]>
       <description><![CDATA[a boolean value that controls whether the component
 provides label and message support;  when set to "true", the component will
 not display messaging support or the label (these attributes may be ignored: label,
-labelAndAccessKey, accessKey, showRequired, 
+labelAndAccessKey, accessKey, showRequired,
 tip), and may use simpler layout primitives]]>
       </description>
       <property-name>simple</property-name>
@@ -109,7 +109,7 @@ tip), and may use simpler layout primitives]]>
     <xi:include href="includes/FocusJSEvents.xml" xpointer="/faces-config/component/*"/>
 
     <property>
-      <description><![CDATA[whether the associated control displays a visual indication of required user input. If a "required" attribute is also present, both the "required" attribute and the 
+      <description><![CDATA[whether the associated control displays a visual indication of required user input. If a "required" attribute is also present, both the "required" attribute and the
           "showRequired" attribute must be false for the visual indication not to be displayed.]]>
       </description>
       <property-name>showRequired</property-name>
@@ -120,14 +120,14 @@ tip), and may use simpler layout primitives]]>
           <mfp:group>${md:getTranslatedString("MESSAGE_GROUP")}</mfp:group>
         </mfp:property-metadata>
       </property-extension>
-    </property>   
+    </property>
     <property>
       <description><![CDATA[<html>
  Character used to gain quick access to
                the form element specified by the
          <code>for</code>, if set (or this component itself,
               if it is a "non-simple" form element).
-              For accessibility reasons, this functionality is not supported 
+              For accessibility reasons, this functionality is not supported
               in screen reader mode.
               If the same access key appears in multiple locations in the
               same page of output, the rendering user agent will cycle
@@ -234,11 +234,14 @@ the &quot;dialog&quot; will be shown in the same window.)
          </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<tr:form>
-     <tr:inputListOfValues label="Input:" value="Some text"
-                            action="dialog:valueDialog"
-                            searchDesc="Click to get a value" />
-   </tr:form>]]>
+        <mfp:source-code>
+          <![CDATA[
+<tr:form>
+  <tr:inputListOfValues label="Input:" value="Some text"
+                        action="dialog:valueDialog"
+                        searchDesc="Click to get a value" />
+</tr:form>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>

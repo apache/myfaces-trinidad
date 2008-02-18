@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -56,7 +56,11 @@
           being imported.]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code>&lt;tr:importScript names="submitForm() TableProxy()"/&gt;</mfp:source-code>
+        <mfp:source-code>
+          <![CDATA[
+<tr:importScript names="submitForm() TableProxy()"/>
+          ]]>
+        </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>
       <mfp:component-metadata>

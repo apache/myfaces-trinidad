@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -26,7 +26,7 @@
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
     <description>
-      <![CDATA[The showDetailHeader provides a means of toggling the contents under a header 
+      <![CDATA[The showDetailHeader provides a means of toggling the contents under a header
 between being disclosed(shown) or undisclosed(hidden).]]>
     </description>
     <icon>
@@ -54,26 +54,28 @@ between being disclosed(shown) or undisclosed(hidden).]]>
 
 <section name="Appearance">
   <html:p>
-    If the &quot;disclosed&quot; property on the showDetailHeader is set 
-    to false, the icon arrow will point sideways, and the children of 
-    the showDetailHeader will not be rendered.  If the &quot;disclosed&quot; 
-    property of the showDetailHeader is set to true, the icon arrow will 
+    If the &quot;disclosed&quot; property on the showDetailHeader is set
+    to false, the icon arrow will point sideways, and the children of
+    the showDetailHeader will not be rendered.  If the &quot;disclosed&quot;
+    property of the showDetailHeader is set to true, the icon arrow will
     point down and the children of the showDetailHeader will be rendered.
   </html:p>
 </section>
 <section name="Events">
   <html:p>
-    Clicking on the icon of the showDetailHeader will deliver a 
+    Clicking on the icon of the showDetailHeader will deliver a
     <code>DisclosureEvent</code> to the server.
   </html:p>
 </section>]]>
       </mfp:long-description>
       <mfp:example>
-        <xhtml:p>Basic example.</xhtml:p>
+        <mfp:source-description>Basic example.</mfp:source-description>
         <mfp:source-code>
-          <![CDATA[<tr:showDetailHeader text="ShowDetail Header" id="showDetail1" >
+          <![CDATA[
+<tr:showDetailHeader text="ShowDetail Header" id="showDetail1" >
   <tr:panelHeader text="Header"/>
-</tr:showDetailHeader>]]>
+</tr:showDetailHeader>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Gabrielle Crawford</mfp:author>

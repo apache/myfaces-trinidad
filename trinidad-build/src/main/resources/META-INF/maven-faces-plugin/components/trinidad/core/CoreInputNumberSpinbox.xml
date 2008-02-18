@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -26,13 +26,13 @@
   <component>
     <description><![CDATA[The inputNumberSpinbox tag creates a browser input widget;
 it is used to enter numbers and it has a spinbox to quickly increment or decrement the number.]]>
-    </description>  
+    </description>
     <icon>
       <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/inputText.png</small-icon -->
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreInputNumberSpinbox</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.input.CoreInputNumberSpinbox</component-class>
-    <xi:include href="includes/CommonFormControls.xml" xpointer="/faces-config/component/*"/>    
+    <xi:include href="includes/CommonFormControls.xml" xpointer="/faces-config/component/*"/>
     <property>
       <description><![CDATA[whether the element is read-only.]]></description>
       <property-name>readOnly</property-name>
@@ -84,7 +84,7 @@ it is used to enter numbers and it has a spinbox to quickly increment or decreme
       <description><![CDATA[a boolean value that controls whether the component
 provides label and message support;  when set to "true", the component will
 not display messaging support or the label (these attributes may be ignored: label,
-labelAndAccessKey, accessKey, showRequired, 
+labelAndAccessKey, accessKey, showRequired,
 tip), and may use simpler layout primitives]]>
       </description>
       <property-name>simple</property-name>
@@ -107,9 +107,9 @@ tip), and may use simpler layout primitives]]>
     <xi:include href="includes/FocusJSEvents.xml" xpointer="/faces-config/component/*"/>
 
     <property>
-      <description><![CDATA[<html>a CSS style class to use for this component. 
+      <description><![CDATA[<html>a CSS style class to use for this component.
       The styleClass attribute value is rendered on the root dom element.
-      We provide some public style classes you can use that will affect only the 'content' piece of the component: 
+      We provide some public style classes you can use that will affect only the 'content' piece of the component:
       AFFieldTextMarker, AFFieldTextLTRMarker, AFFieldNumberMarker.
       </html>]]></description>
       <property-name>styleClass</property-name>
@@ -117,7 +117,7 @@ tip), and may use simpler layout primitives]]>
       <property-extension>
         <mfp:property-metadata>
           <mfp:group>${md:getTranslatedString("CORE_GROUP")}</mfp:group>
-        </mfp:property-metadata>      
+        </mfp:property-metadata>
         <mfp:property-values>AFFieldTextMarker AFFieldTextLTRMarker AFFieldNumberMarker</mfp:property-values>
       </property-extension>
     </property>
@@ -132,7 +132,7 @@ tip), and may use simpler layout primitives]]>
       </property-extension>
     </property>
     <property>
-      <description><![CDATA[whether the associated control displays a visual indication of required user input. If a "required" attribute is also present, both the "required" attribute and the 
+      <description><![CDATA[whether the associated control displays a visual indication of required user input. If a "required" attribute is also present, both the "required" attribute and the
           "showRequired" attribute must be false for the visual indication not to be displayed.]]>
       </description>
       <property-name>showRequired</property-name>
@@ -152,7 +152,7 @@ tip), and may use simpler layout primitives]]>
       </description>
       <property-name>columns</property-name>
       <property-class>int</property-class>
-      <default-value>1</default-value>      
+      <default-value>1</default-value>
       <property-extension>
         <mfp:property-metadata>
           <mfp:property-editor>UNSIGNED_INTEGER</mfp:property-editor>
@@ -187,14 +187,14 @@ tip), and may use simpler layout primitives]]>
       <description><![CDATA[The step size by which the spinbox will increase or decrease the number in the input.]]></description>
       <property-name>stepSize</property-name>
       <property-class>int</property-class>
-      <default-value>1</default-value>      
+      <default-value>1</default-value>
       <property-extension>
         <mfp:property-metadata>
           <mfp:property-editor>UNSIGNED_INTEGER</mfp:property-editor>
-        </mfp:property-metadata>      
+        </mfp:property-metadata>
       </property-extension>
-    </property>    
- 
+    </property>
+
     <property>
       <description><![CDATA[event handler for when text becomes selected.]]></description>
       <property-name>onselect</property-name>
@@ -211,7 +211,7 @@ tip), and may use simpler layout primitives]]>
                the form element specified by the
          <code>for</code>, if set (or this component itself,
               if it is a "non-simple" form element).
-              For accessibility reasons, this functionality is not supported 
+              For accessibility reasons, this functionality is not supported
               in screen reader mode.
               If the same access key appears in multiple locations in the
               same page of output, the rendering user agent will cycle
@@ -270,10 +270,14 @@ tip), and may use simpler layout primitives]]>
           </p></html>]]>
       </mfp:long-description>
       <mfp:example>
-        <xhtml:p>Simple inputNumberSpinbox with the some default text and a label.</xhtml:p>
-        <mfp:source-code><![CDATA[<af:form>
-     <af:inputNumberSpinbox label="Year:" value="2006" minimum="1900" maximum="2100"/>
-   </af:form>]]></mfp:source-code>
+        <mfp:source-description>Simple inputNumberSpinbox with the some default text and a label.</mfp:source-description>
+        <mfp:source-code>
+          <![CDATA[
+<tr:form>
+  <tr:inputNumberSpinbox label="Year:" value="2006" minimum="1900" maximum="2100"/>
+</tr:form>
+          ]]>
+        </mfp:source-code>
       </mfp:example>
       <mfp:component-metadata>
         <mfp:accepts-child-components>false</mfp:accepts-child-components>

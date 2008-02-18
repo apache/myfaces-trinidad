@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -35,7 +35,7 @@
  Character used to gain quick access to
                the form element specified by the
          <code>for</code>, if set.
-              For accessibility reasons, this functionality is not supported in 
+              For accessibility reasons, this functionality is not supported in
               screen reader mode.
               If the same access key appears in multiple locations in the
               same page of output, the rendering user agent will cycle
@@ -53,7 +53,7 @@
       </property-extension>
     </property>
     <property>
-      <description><![CDATA[whether the associated control displays a visual indication of required user input. If a "required" attribute is also present, both the "required" attribute and the 
+      <description><![CDATA[whether the associated control displays a visual indication of required user input. If a "required" attribute is also present, both the "required" attribute and the
           "showRequired" attribute must be false for the visual indication not to be displayed.]]>
       </description>
       <property-name>showRequired</property-name>
@@ -113,9 +113,13 @@ refers to]]></description>
         </p></html>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<tr:outputLabel value="Name:"
-                  for="anInput"/>
-  <tr:inputText id="anInput"/>]]></mfp:source-code>
+        <mfp:source-code>
+          <![CDATA[
+<tr:outputLabel value="Name:"
+                for="anInput"/>
+<tr:inputText id="anInput"/>
+          ]]>
+        </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>
       <mfp:component-metadata>

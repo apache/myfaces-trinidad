@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -108,7 +108,7 @@ This facet may not always line up perfectly, especially if the labels or fields 
       <mfp:renderer-type>org.apache.myfaces.trinidad.FormLayout</mfp:renderer-type>
       <mfp:tag-name>tr:panelFormLayout</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.layout.CorePanelFormLayoutTag</mfp:tag-class>
-      <mfp:long-description><![CDATA[<html:p>          
+      <mfp:long-description><![CDATA[<html:p>
            The panelFormLayout lays out input form controls, such that their
            labels and fields line up vertically.  It supports multiple
            columns, and also supports a footer facet.
@@ -155,31 +155,34 @@ This facet may not always line up perfectly, especially if the labels or fields 
           </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<tr:panelFormLayout rows="6" labelWidth="40%">
-    <!-- A bunch of form components -->
-    <tr:inputText label="Text"/>
-    <tr:inputFile label="File"/>
-    <tr:inputListOfValues label="SelectInput"/>
-    <tr:inputDate label="Date"/>
-    <tr:inputText label="Attribute"/>
-    <tr:inputText label="Attribute"/>
-    <tr:inputText label="Attribute"/>
-    <tr:inputText label="Attribute"/>
+        <mfp:source-code>
+          <![CDATA[
+<tr:panelFormLayout rows="6" labelWidth="40%">
+  <!-- A bunch of form components -->
+  <tr:inputText label="Text"/>
+  <tr:inputFile label="File"/>
+  <tr:inputListOfValues label="SelectInput"/>
+  <tr:inputDate label="Date"/>
+  <tr:inputText label="Attribute"/>
+  <tr:inputText label="Attribute"/>
+  <tr:inputText label="Attribute"/>
+  <tr:inputText label="Attribute"/>
 
-    <!-- Now, an example of panelLabelAndMessage for more complex content -->
-    <tr:panelLabelAndMessage label="Date Range">
-      <tr:panelHorizontalLayout>
-        <tr:inputDate simple="true" shortDesc="Start date"/>
-        <tr:inputDate simple="true" shortDesc="End date"/>
-      </tr:panelHorizontalLayout>
-    </tr:panelLabelAndMessage>
-    <f:facet name="footer">
-      <tr:panelButtonBar>
-        <tr:commandButton text="Button 1"/>
-        <tr:commandButton text="Button 2"/>
-      </tr:panelButtonBar>
-    </f:facet>      
-</tr:panelFormLayout>]]>
+  <!-- Now, an example of panelLabelAndMessage for more complex content -->
+  <tr:panelLabelAndMessage label="Date Range">
+    <tr:panelHorizontalLayout>
+      <tr:inputDate simple="true" shortDesc="Start date"/>
+      <tr:inputDate simple="true" shortDesc="End date"/>
+    </tr:panelHorizontalLayout>
+  </tr:panelLabelAndMessage>
+  <f:facet name="footer">
+    <tr:panelButtonBar>
+      <tr:commandButton text="Button 1"/>
+      <tr:commandButton text="Button 2"/>
+    </tr:panelButtonBar>
+  </f:facet>
+</tr:panelFormLayout>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Gabrielle Crawford</mfp:author>
@@ -187,7 +190,7 @@ This facet may not always line up perfectly, especially if the labels or fields 
         <mfp:group>${md:getTranslatedString("PALETTE_LAYOUT")}</mfp:group>
         <mfp:preferred-children>tr:inputText tr:inputFile tr:selectBooleanCheckbox
           tr:selectBooleanRadio tr:inputColor tr:inputDate
-          tr:inputListOfValues tr:selectManyListbox tr:selectOneChoice 
+          tr:inputListOfValues tr:selectManyListbox tr:selectOneChoice
           tr:selectOneRadio tr:panelLabelAndMessage tr:selectManyCheckbox
         </mfp:preferred-children>
       </mfp:component-metadata>

@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -71,12 +71,12 @@
       <description><![CDATA[whether or not the values are passed through to
         the client. When valuePassThru is false
         the value and the options' values
-        are converted to indexes before being sent to the client. 
-        Therefore, when valuePassThru is false, 
+        are converted to indexes before being sent to the client.
+        Therefore, when valuePassThru is false,
         there is no need to write your own converter when you are using custom Objects
         as your values and/or options.
-        If you need to know the actual values on the client-side, then you can set 
-        valuePassThru to true. This will pass the values through to the client, 
+        If you need to know the actual values on the client-side, then you can set
+        valuePassThru to true. This will pass the values through to the client,
         using your custom converter if it is available; a custom converter is
         needed if you are using custom objects. The default is false.]]>
       </description>
@@ -118,10 +118,10 @@
     <xi:include href="includes/FocusJSEvents.xml" xpointer="/faces-config/component/*"/>
 
     <property>
-      <description><![CDATA[the display size(number of items) of the lists. The size 
-              specified must be between 10 and 20 items. If the attribute is not 
-              set or has a value less than 10, the size would have a default or 
-              minimum value of 10. If the attribute value specified is more than 
+      <description><![CDATA[the display size(number of items) of the lists. The size
+              specified must be between 10 and 20 items. If the attribute is not
+              set or has a value less than 10, the size would have a default or
+              minimum value of 10. If the attribute value specified is more than
               20 items, the size would have the maximum value of 20.]]>
       </description>
       <property-name>size</property-name>
@@ -177,7 +177,7 @@
       <mfp:long-description><![CDATA[The selectOrderShuttle component provides a mechanism for selecting
    multiple values from a list of values by allowing the user to move
    items between two lists, and reordering that list of values.
-          It includes all the functionality 
+          It includes all the functionality
           of selectManyShuttle, and has an equivalent API.  The only
           functional difference is that selectOrderShuttle will present the
           user with the ability to reorder the list of selected values,
@@ -188,11 +188,14 @@
           on using the shuttle.]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<tr:selectOrderShuttle value="#{bean.valueList}">
+        <mfp:source-code>
+          <![CDATA[
+<tr:selectOrderShuttle value="#{bean.valueList}">
   <f:selectItem itemLabel="Option1" itemValue="1"/>
   <f:selectItem itemLabel="Option1" itemValue="2"/>
   <f:selectItem itemLabel="Option1" itemValue="3"/>
-</tr:selectOrderShuttle>]]>
+</tr:selectOrderShuttle>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Marissa Treinen</mfp:author>

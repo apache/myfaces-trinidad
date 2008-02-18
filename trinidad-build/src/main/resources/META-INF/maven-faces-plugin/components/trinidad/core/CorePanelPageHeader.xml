@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -70,7 +70,7 @@
     </facet>
     <facet>
       <description><![CDATA[The corporate or organization branding region of the page.  This section typically
-                contains a medium size image of the logo of the organization 
+                contains a medium size image of the logo of the organization
                 owning the page.]]>
       </description>
       <facet-name>branding</facet-name>
@@ -94,9 +94,9 @@
     <facet>
       <description><![CDATA[The application's contextual branding region of the page.  This section typically
                 contains formatted text indicating that ONE context exists
-                between the persistent tabs. The user selects the context 
-                from a centralized aggregate home page of multiple contexts, 
-                then navigates into a tabbed application pertaining to that 
+                between the persistent tabs. The user selects the context
+                from a centralized aggregate home page of multiple contexts,
+                then navigates into a tabbed application pertaining to that
                 specific context.]]>
       </description>
       <facet-name>brandingAppContextual</facet-name>
@@ -116,7 +116,7 @@
     </facet>
     <property>
       <description><![CDATA[what the chromeType is for the page: compact or expanded. If
-              compact, the productBranding will be shown alongside the 
+              compact, the productBranding will be shown alongside the
               corporate branding instead of below the corporate branding.]]>
       </description>
       <property-name>chromeType</property-name>
@@ -137,32 +137,35 @@
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.layout.CorePanelPageHeaderTag</mfp:tag-class>
       <mfp:long-description><![CDATA[PanelPageHeader lays out the top portion of a page.]]></mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<tr:panelPageHeader>
-              <f:facet name="branding">
-                <tr:panelGroupLayout layout="horizontal">
-                  <tr:image source="/components/images/corporateBrand.gif"/>
-                  <tr:image source="/components/images/applicationBrand.gif"/>
-                  <tr:outputFormatted value="Customer &lt;b&gt;Contextual Application Branding - Menlo Park&lt;/b&gt;"
-                                      styleUsage="inContextBranding"/>
-                </tr:panelGroupLayout>
-              </f:facet>
-              <f:facet name="navigationGlobal">
-                <tr:menuButtons>
-                  <tr:commandNavigationItem text="Help"
-                                    icon="/components/images/globalhelp.gif"
-                                    action="guide.menuButtons"/>
-                  <tr:commandNavigationItem text="Help 2"
-                                    icon="/components/images/globalhelp.gif"
-                                    action="guide.menuButtons"/>
-                </tr:menuButtons>
-              </f:facet>
-              <f:facet name="navigation2">
-                <tr:menuBar >
-                  <tr:commandNavigationItem text="item 1" action="guide.menuBar" 
-                                   selected="true" />
-                </tr:menuBar>
-              </f:facet>
-            </tr:panelPageHeader>]]>
+        <mfp:source-code>
+          <![CDATA[
+<tr:panelPageHeader>
+  <f:facet name="branding">
+    <tr:panelGroupLayout layout="horizontal">
+      <tr:image source="/components/images/corporateBrand.gif"/>
+      <tr:image source="/components/images/applicationBrand.gif"/>
+      <tr:outputFormatted value="Customer &lt;b&gt;Contextual Application Branding - Menlo Park&lt;/b&gt;"
+                          styleUsage="inContextBranding"/>
+    </tr:panelGroupLayout>
+  </f:facet>
+  <f:facet name="navigationGlobal">
+    <tr:menuButtons>
+      <tr:commandNavigationItem text="Help"
+                        icon="/components/images/globalhelp.gif"
+                        action="guide.menuButtons"/>
+      <tr:commandNavigationItem text="Help 2"
+                        icon="/components/images/globalhelp.gif"
+                        action="guide.menuButtons"/>
+    </tr:menuButtons>
+  </f:facet>
+  <f:facet name="navigation2">
+    <tr:menuBar >
+      <tr:commandNavigationItem text="item 1" action="guide.menuBar"
+                       selected="true" />
+    </tr:menuBar>
+  </f:facet>
+</tr:panelPageHeader>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Blake Sullivan</mfp:author>

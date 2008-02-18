@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -75,15 +75,19 @@ messages will be rendered.]]>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Messages</mfp:renderer-type>
       <mfp:tag-name>tr:messages</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.output.CoreMessagesTag</mfp:tag-class>
-      <mfp:long-description><![CDATA[The messages bean is used at the top of an application page to 
-give the user important messaging information. It will 
+      <mfp:long-description><![CDATA[The messages bean is used at the top of an application page to
+give the user important messaging information. It will
 automatically show any messages added to the FacesContext.]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<tr:panelPage>
+        <mfp:source-code>
+          <![CDATA[
+<tr:panelPage>
   <tr:messages/>
   ...
-</tr:panelPage>]]></mfp:source-code>
+</tr:panelPage>
+          ]]>
+        </mfp:source-code>
       </mfp:example>
       <mfp:author>Brian Albers</mfp:author>
       <mfp:component-metadata>

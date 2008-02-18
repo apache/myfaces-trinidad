@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -72,9 +72,13 @@
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.CoreFormTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The UIXForm component creates an HTML &lt;form&gt; element.  Unlike the standard h:form tag, tr:form is not a NamingContainer, and therefore you don't need to use its ID as a prefix in attributes like "partialTriggers" or for Javascript identifiers.]]></mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<tr:form usesUpload="true">
+        <mfp:source-code>
+          <![CDATA[
+<tr:form usesUpload="true">
   <tr:inputFile columns="10"/>
-</tr:form>]]></mfp:source-code>
+</tr:form>
+           ]]>
+        </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>
       <mfp:component-metadata>

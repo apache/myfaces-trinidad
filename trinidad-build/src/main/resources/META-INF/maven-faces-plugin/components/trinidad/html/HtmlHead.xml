@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:trh="http://myfaces.apache.org/trinidad/html"
@@ -66,7 +66,11 @@
           </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code>&lt;trh:head title="The Title"/&gt;</mfp:source-code>
+        <mfp:source-code>
+          <![CDATA[
+<trh:head title="The Title"/>
+          ]]>
+        </mfp:source-code>
       </mfp:example>
       <mfp:author>Blake Sullivan</mfp:author>
       <mfp:component-metadata>

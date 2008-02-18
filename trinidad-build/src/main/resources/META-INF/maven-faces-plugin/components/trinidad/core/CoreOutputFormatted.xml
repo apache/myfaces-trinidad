@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -122,17 +122,23 @@
         </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[In a .jspx:
-
-            <tr:outputFormatted
-              styleUsage="instruction"
-              value="&lt;b>simple outputFormatted&lt;/b>"/>
-
-           In a .jsp:
-
-            <tr:outputFormatted
-              styleUsage="instruction"
-              value="<b>simple outputFormatted</b>"/>]]>
+        <mfp:source-description>In a .jspx:</mfp:source-description>
+        <mfp:source-code>
+          <![CDATA[
+tr:outputFormatted
+ styleUsage="instruction"
+ value="&lt;b>simple outputFormatted&lt;/b>"/>
+          ]]>
+        </mfp:source-code>
+      </mfp:example>
+      <mfp:example>
+        <mfp:source-description>In a .jsp:</mfp:source-description>
+        <mfp:source-code>
+          <![CDATA[
+<tr:outputFormatted
+  styleUsage="instruction"
+  value="<b>simple outputFormatted</b>"/>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>

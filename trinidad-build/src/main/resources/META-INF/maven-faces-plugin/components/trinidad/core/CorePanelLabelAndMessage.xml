@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -84,7 +84,7 @@
                the form element specified by the
          <code>for</code>, if set (or this component itself,
               if it is a "non-simple" form element).
-              For accessibility reasons, this functionality is not supported 
+              For accessibility reasons, this functionality is not supported
               in screen reader mode.
               If the same access key appears in multiple locations in the
               same page of output, the rendering user agent will cycle
@@ -151,12 +151,15 @@
         </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<tr:panelLabelAndMessage for="selectDate">
+        <mfp:source-code>
+          <![CDATA[
+<tr:panelLabelAndMessage for="selectDate">
   <f:facet name="help">
     <tr:outputText value="Pick a date"/>
   </f:facet>
   <tr:inputDate id="selectDate" simple="true"/>
-</tr:panelLabelAndMessage>]]>
+</tr:panelLabelAndMessage>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>

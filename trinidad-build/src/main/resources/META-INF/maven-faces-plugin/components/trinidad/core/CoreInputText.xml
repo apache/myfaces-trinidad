@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -33,7 +33,7 @@ It supports displaying a label, text, and messages.]]>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreInputText</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.input.CoreInputText</component-class>
-    <xi:include href="includes/CommonFormControls.xml" xpointer="/faces-config/component/*"/>    
+    <xi:include href="includes/CommonFormControls.xml" xpointer="/faces-config/component/*"/>
     <property>
       <description><![CDATA[the number of rows to display in the text control.
               The default is one. Setting to more than one row
@@ -127,7 +127,7 @@ It supports displaying a label, text, and messages.]]>
       <description><![CDATA[a boolean value that controls whether the component
 provides label and message support;  when set to "true", the component will
 not display messaging support or the label (these attributes may be ignored: label,
-labelAndAccessKey, accessKey, showRequired, 
+labelAndAccessKey, accessKey, showRequired,
 tip), and may use simpler layout primitives]]>
       </description>
       <property-name>simple</property-name>
@@ -150,16 +150,16 @@ tip), and may use simpler layout primitives]]>
     <xi:include href="includes/FocusJSEvents.xml" xpointer="/faces-config/component/*"/>
 
     <property>
-      <description><![CDATA[<html>a CSS style class to use for this component. 
+      <description><![CDATA[<html>a CSS style class to use for this component.
       The styleClass attribute value is rendered on the root dom element.
-      We provide some public style classes you can use that will affect only the 'content' piece of the component: 
-      AFFieldTextMarker, AFFieldTextLTRMarker, AFPhoneFieldTextMarker, AFPostalCodeFieldTextMarker, 
+      We provide some public style classes you can use that will affect only the 'content' piece of the component:
+      AFFieldTextMarker, AFFieldTextLTRMarker, AFPhoneFieldTextMarker, AFPostalCodeFieldTextMarker,
       AFAddressFieldTextMarker, AFFieldNumberMarker.
       You can still modify the public style definitions for these marker style classes
-      and it will be picked up by using these "Marker" style class 
+      and it will be picked up by using these "Marker" style class
       because in our base skin implementation we map to the public style by doing this:
-      af|inputText.AFFieldNumberMarker af|inputText::content {-tr-rule-ref:selector(".AFFieldNumber")}. 
-      We recommend that you do not add style properties to the "Marker" style classes. 
+      af|inputText.AFFieldNumberMarker af|inputText::content {-tr-rule-ref:selector(".AFFieldNumber")}.
+      We recommend that you do not add style properties to the "Marker" style classes.
       They are used solely in the css descendant selector to point to the content pseudo-element.</html>]]>
       </description>
       <property-name>styleClass</property-name>
@@ -182,7 +182,7 @@ tip), and may use simpler layout primitives]]>
       </property-extension>
     </property>
     <property>
-      <description><![CDATA[whether the associated control displays a visual indication of required user input. If a "required" attribute is also present, both the "required" attribute and the 
+      <description><![CDATA[whether the associated control displays a visual indication of required user input. If a "required" attribute is also present, both the "required" attribute and the
           "showRequired" attribute must be false for the visual indication not to be displayed.]]>
       </description>
       <property-name>showRequired</property-name>
@@ -239,7 +239,7 @@ tip), and may use simpler layout primitives]]>
                the form element specified by the
          <code>for</code>, if set (or this component itself,
               if it is a "non-simple" form element).
-              For accessibility reasons, this functionality is not supported 
+              For accessibility reasons, this functionality is not supported
               in screen reader mode.
               If the same access key appears in multiple locations in the
               same page of output, the rendering user agent will cycle
@@ -300,27 +300,41 @@ tip), and may use simpler layout primitives]]>
           </p></html>]]>
       </mfp:long-description>
       <mfp:example>
-        <xhtml:p>Simple text input box with the some default text and a label.</xhtml:p>
-        <mfp:source-code><![CDATA[<tr:form>
-     <tr:inputText label="Input:" value="Some text"/>
-   </tr:form>]]></mfp:source-code>
-        <xhtml:p>A slightly more interesting example showing a text box
-      twenty five characters in length with hidden input text.
-        </xhtml:p>
-        <mfp:source-code>&lt;tr:inputText label="Password:"
-                columns="25"
-                required="no"
-                secret="true"/&gt;
+        <mfp:source-description>Simple text input box with the some default text and a label.</mfp:source-description>
+        <mfp:source-code>
+          <![CDATA[
+<tr:form>
+  <tr:inputText label="Input:" value="Some text"/>
+</tr:form>
+          ]]>
         </mfp:source-code>
-        <xhtml:p>A text input box which will display three rows of wrapped
+      </mfp:example>
+      <mfp:example>
+        <mfp:source-description>A slightly more interesting example showing a text box
+           twenty five characters in length with hidden input text.
+        </mfp:source-description>
+        <mfp:source-code>
+          <![CDATA[
+<tr:inputText label="Password:"
+              columns="25"
+              required="no"
+              secret="true"/>
+          ]]>
+        </mfp:source-code>
+      </mfp:example>
+      <mfp:example>
+        <mfp:source-description>A text input box which will display three rows of wrapped
             input text, with a vertical scrollbar. If the value is
             changed, an alert will say so.
-        </xhtml:p>
-        <mfp:source-code>&lt;tr:inputText label="Alert:"
-                rows="3"
-                wrap="soft"
-                onchange="alert('Text box has changed.')"
-                value="Alert on change."/&gt;
+        </mfp:source-description>
+        <mfp:source-code>
+          <![CDATA[
+<tr:inputText label="Alert:"
+              rows="3"
+              wrap="soft"
+              onchange="alert('Text box has changed.')"
+              value="Alert on change."/>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>

@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -72,7 +72,7 @@
     <property>
       <description><![CDATA[<html>
  Character used to gain quick access to this button.
-              For accessibility reasons, this functionality is not supported 
+              For accessibility reasons, this functionality is not supported
               in screen reader mode.
               <p>
                 If the same access key appears in multiple locations in the
@@ -110,16 +110,18 @@
          </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <xhtml:p/>
-        <mfp:source-code><![CDATA[<h:form>
-     <tr:panelGroupLayout type="horizontal">
-       <tr:panelHeader text="Reset Elements." /> 
-       <tr:selectBooleanCheckbox text="Box1" /> 
-       <tr:selectBooleanCheckbox text="Box2" selected="true"/> 
-       <tr:selectBooleanCheckbox text="Box3" /> 
-       <tr:resetButton textAndAccessKey="&amp;Reset"/> 
-     </tr:panelGroupLayout>
-   </h:form>]]>
+        <mfp:source-code>
+          <![CDATA[
+<h:form>
+  <tr:panelGroupLayout type="horizontal">
+    <tr:panelHeader text="Reset Elements." />
+    <tr:selectBooleanCheckbox text="Box1" />
+    <tr:selectBooleanCheckbox text="Box2" selected="true"/>
+    <tr:selectBooleanCheckbox text="Box3" />
+    <tr:resetButton textAndAccessKey="&amp;Reset"/>
+  </tr:panelGroupLayout>
+</h:form>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>

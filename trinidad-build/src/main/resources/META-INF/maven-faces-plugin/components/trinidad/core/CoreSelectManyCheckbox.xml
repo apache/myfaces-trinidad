@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -32,10 +32,10 @@
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreSelectManyCheckbox</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.input.CoreSelectManyCheckbox</component-class>
-    <xi:include href="includes/CommonFormControls.xml" xpointer="/faces-config/component/*"/> 
+    <xi:include href="includes/CommonFormControls.xml" xpointer="/faces-config/component/*"/>
     <property>
-      <description><![CDATA[whether the control displays the buttons 
-              horizontally or vertically.The valid values are "horizontal" and 
+      <description><![CDATA[whether the control displays the buttons
+              horizontally or vertically.The valid values are "horizontal" and
               "vertical",the default being "vertical".]]>
       </description>
       <property-name>layout</property-name>
@@ -49,12 +49,12 @@
       <description><![CDATA[whether or not the values are passed through to
         the client. When valuePassThru is false
         the value and the options' values
-        are converted to indexes before being sent to the client. 
-        Therefore, when valuePassThru is false, 
+        are converted to indexes before being sent to the client.
+        Therefore, when valuePassThru is false,
         there is no need to write your own converter when you are using custom Objects
         as your values and/or options.
-        If you need to know the actual values on the client-side, then you can set 
-        valuePassThru to true. This will pass the values through to the client, 
+        If you need to know the actual values on the client-side, then you can set
+        valuePassThru to true. This will pass the values through to the client,
         using your custom converter if it is available; a custom converter is
         needed if you are using custom objects. The default is false.]]>
       </description>
@@ -96,7 +96,7 @@
       <description><![CDATA[a boolean value that controls whether the component
 provides label and message support;  when set to "true", the component will
 not display messaging support or the label (these attributes may be ignored: label,
-labelAndAccessKey, accessKey, showRequired, 
+labelAndAccessKey, accessKey, showRequired,
 tip), and may use simpler layout primitives]]>
       </description>
       <property-name>simple</property-name>
@@ -120,7 +120,7 @@ tip), and may use simpler layout primitives]]>
     <xi:include href="includes/FocusJSEvents.xml" xpointer="/faces-config/component/*"/>
 
     <property>
-      <description><![CDATA[whether the associated control displays a visual indication of required user input. If a "required" attribute is also present, both the "required" attribute and the 
+      <description><![CDATA[whether the associated control displays a visual indication of required user input. If a "required" attribute is also present, both the "required" attribute and the
           "showRequired" attribute must be false for the visual indication not to be displayed.]]>
       </description>
       <property-name>showRequired</property-name>
@@ -131,14 +131,14 @@ tip), and may use simpler layout primitives]]>
           <mfp:group>${md:getTranslatedString("MESSAGE_GROUP")}</mfp:group>
         </mfp:property-metadata>
       </property-extension>
-    </property>   
+    </property>
     <property>
       <description><![CDATA[<html>
  Character used to gain quick access to
                the form element specified by the
          <code>for</code>, if set (or this component itself,
               if it is a "non-simple" form element).
-              For accessibility reasons, this functionality is not supported 
+              For accessibility reasons, this functionality is not supported
               in screen reader mode.
               If the same access key appears in multiple locations in the
               same page of output, the rendering user agent will cycle
@@ -196,11 +196,14 @@ tip), and may use simpler layout primitives]]>
    &lt;tr:selectItem&gt; components,  each of which represents an available checkbox that the user may select.</p></html>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<tr:selectManyCheckbox value="#{bean.aValue}" required="yes">
+        <mfp:source-code>
+          <![CDATA[
+<tr:selectManyCheckbox value="#{bean.aValue}" required="yes">
   <f:selectItem itemLabel="Option1" itemValue="1"/>
   <f:selectItem itemLabel="Option1" itemValue="2"/>
   <f:selectItem itemLabel="Option1" itemValue="3"/>
-</tr:selectManyCheckbox>]]>
+</tr:selectManyCheckbox>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>

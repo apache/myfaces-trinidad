@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -63,7 +63,7 @@
     </facet>
     <facet>
       <description><![CDATA[The corporate or organization branding region of the page.  This section typically
-                contains a medium size image of the logo of the organization 
+                contains a medium size image of the logo of the organization
                 owning the page.]]>
       </description>
       <facet-name>branding</facet-name>
@@ -87,12 +87,12 @@
       </facet-extension>
     </facet>
     <facet>
-      <description><![CDATA[The application's contextual branding region of the page.  
+      <description><![CDATA[The application's contextual branding region of the page.
                 This section typically
                 contains formatted text indicating that ONE context exists
-                between the persistent tabs. The user selects the context 
-                from a centralized aggregate home page of multiple contexts, 
-                then navigates into a tabbed application pertaining to that 
+                between the persistent tabs. The user selects the context
+                from a centralized aggregate home page of multiple contexts,
+                then navigates into a tabbed application pertaining to that
                 specific context.]]>
       </description>
       <facet-name>brandingAppContextual</facet-name>
@@ -238,7 +238,7 @@
     </facet>
     <property>
       <description><![CDATA[what the chromeType is for the page: compact or expanded. If
-              compact, the productBranding will be shown alongside the 
+              compact, the productBranding will be shown alongside the
               corporate branding instead of below the corporate branding.]]>
       </description>
       <property-name>chromeType</property-name>
@@ -260,27 +260,30 @@
       <mfp:long-description><![CDATA[The Page component is similar to the PanelPage component, except that instead of having navigation1, navigation2 and navigation3 facets for adding navigation item information, the user binds a model object and a stamp to render these areas. The model object is of type MenuModel. A commandNavigationItem should be used as the stamp and placed in the &quot;nodeStamp&quot; facet.]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<tr:page var="foo" value="#{nav.menuModel}">
-              <f:facet name="nodeStamp">
-                <tr:commandNavigationItem text="#{foo.label}" action="#{foo.action}"/>
-              </f:facet>                   
-              <f:facet name="branding">
-                <tr:panelGroupLayout layout="horizontal">
-                  <tr:image source="/components/images/corporateBrand.gif"/>
-                  <tr:image source="/components/images/applicationBrand.gif"/>
-                </tr:panelGroupLayout>
-              </f:facet>
-              <f:facet name="appCopyright">
-                <tr:outputText value="copyright facet"/>
-              </f:facet>
-              <f:facet name="appPrivacy">
-                <tr:commandLink text="privacy facet" action="action.none" />
-              </f:facet>
-              <f:facet name="appAbout">
-                <tr:commandLink text="about facet" action="action.none" />
-              </f:facet>
-              <tr:outputText value="Content here" />
-            </tr:page>]]>
+        <mfp:source-code>
+          <![CDATA[
+<tr:page var="foo" value="#{nav.menuModel}">
+  <f:facet name="nodeStamp">
+    <tr:commandNavigationItem text="#{foo.label}" action="#{foo.action}"/>
+  </f:facet>
+  <f:facet name="branding">
+    <tr:panelGroupLayout layout="horizontal">
+      <tr:image source="/components/images/corporateBrand.gif"/>
+      <tr:image source="/components/images/applicationBrand.gif"/>
+    </tr:panelGroupLayout>
+  </f:facet>
+  <f:facet name="appCopyright">
+    <tr:outputText value="copyright facet"/>
+  </f:facet>
+  <f:facet name="appPrivacy">
+    <tr:commandLink text="privacy facet" action="action.none" />
+  </f:facet>
+  <f:facet name="appAbout">
+    <tr:commandLink text="about facet" action="action.none" />
+  </f:facet>
+  <tr:outputText value="Content here" />
+</tr:page>
+          ]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Gabrielle Crawford</mfp:author>
