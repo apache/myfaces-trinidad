@@ -51,6 +51,11 @@ import com.sun.facelets.FaceletViewHandler;
 
 import java.io.IOException;
 
+import javax.portlet.faces.annotation.PortletNamingContainer;
+import javax.portlet.faces.component.PortletNamingContainerUIViewRoot;
+
+import org.apache.myfaces.trinidad.util.ExternalContextUtils;
+
 /**
  * StateManager that handles a hybrid client/server strategy:  a
  * SerializedView is stored on the server, and only a small token
@@ -966,6 +971,17 @@ public class StateManagerImpl extends StateManager
         UIViewRoot newRoot = (UIViewRoot) 
           fc.getApplication().createComponent(UIViewRoot.COMPONENT_TYPE);
         
+        //This code handles automatic namespacing in a JSR-301 environment
+        if(ExternalContextUtils.isPortlet(fc.getExternalContext())) 
+        {
+          //To avoid introducing a runtime dependency on the bridge,
+          //this method should only be executed when we have a portlet
+          //request.  If we do have a portlet request then the bridge
+          //should be available anyway.
+          newRoot = _getPortletRoot(newRoot);
+        }
+
+        
         // must call restoreState so that we setup attributes, listeners,
         // uniqueIds, etc ...
         newRoot.restoreState(fc, viewRootState);
@@ -984,6 +1000,37 @@ public class StateManagerImpl extends StateManager
       
       return null;
     }
+    
+    /**
+     * This should only be executed if we are currently in a Portlet Request.
+     * If executed, this method introduces a dependency on the JSR-301 bridge
+     * which is required for Trinidad to run in a portal environment.  If this
+     * method is not run, then the bridge api's remain optional at runtime.
+     * 
+     * This method checks the current UIViewRoot to see if it is a 
+     * PortletNamingContainer.  If it is, then this class simply returns the
+     * UIViewRoot.  If it does not then the current UIViewRoot is used to create
+     * a new PortletNamingContainerUIViewRoot.
+     */
+    private UIViewRoot _getPortletRoot(UIViewRoot root) 
+    {
+      Class<? extends UIViewRoot> rootClass = root.getClass();
+      //If the current root is not the real UIViewRoot object in faces then
+      //is no need to escape it.  It is assumed it handles namespacing on its
+      //own.  This is the same as the logic in the JSR-301 Bridge spec.
+      if(rootClass == UIViewRoot.class) 
+      {
+        _LOG.fine("Creating PortletUIViewRoot for use with the portal.");
+        root = new PortletNamingContainerUIViewRoot(root);
+      }
+      
+      //TODO: Do we need a warning here if the view root is not annotated 
+      //properly?  This could happen if another renderkit is involved and does
+      //not correctly implement JSR-301.  This will NOT be an issue in Trin only
+      //environments.
+      return root;
+    }
+
   }
 
 

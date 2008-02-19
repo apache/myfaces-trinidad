@@ -351,6 +351,13 @@
       </dependency>
 
       <dependency>
+        <groupId>org.apache.myfaces.portlet-bridge</groupId>
+        <artifactId>portlet-bridge-api</artifactId>
+        <version>1.0.0-alpha</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <dependency>
         <groupId>org.apache.myfaces.core</groupId>
         <artifactId>myfaces-api</artifactId>
         <version>${myfaces.version}</version>

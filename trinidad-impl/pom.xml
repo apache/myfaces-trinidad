@@ -206,6 +206,11 @@
     </dependency>
 
     <dependency>
+      <groupId>org.apache.myfaces.portlet-bridge</groupId>
+      <artifactId>portlet-bridge-api</artifactId>
+    </dependency>
+
+    <dependency>
       <groupId>org.apache.myfaces.trinidad</groupId>
       <artifactId>trinidad-build</artifactId>
     </dependency>
