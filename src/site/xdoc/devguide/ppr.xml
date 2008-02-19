@@ -155,21 +155,17 @@ For this, just separate each ID with a space:
 
 <P>
 Also, if you've got JSF NamingContainers (e.g., f:subview) between the trigger and its target,
-you'll need to incorporate that into the partialTriggers definition:
+you'll need to incorporate that into the partialTriggers definition. The syntax is:
 <ul>
 <li>If you need to go down through a naming container to get to the trigger, include the naming container's ID with a colon (e.g., partialTriggers="theSubform:theLink"</li>
 <li>If you need to start at the root of the page to get the trigger component, start with a single colon (e.g., partialTriggers=":someRootComponent"</li>
-<li>If you need to go up and out of a parent naming container to get the trigger component, start with multiple colons. 
-  <ul>
-    <li>If the target component is not a NamingContainer, then the trigger is relative to the target component. To find it relative to the parent naming
-    container, start with two colons (e.g, partialTriggers="::myTrigger"). To find it relative to the grandparent naming container,
-    start with three colons (e.g., partialTriggers=":::myTrigger"), and so forth.
-    </li>
-    <li>If the target component is a NamingContainer, then the trigger is relative to the target component's parent, not the component itself.
-    </li>
-  </ul>
-</li>
+<li>If you need to go up and out of a naming container to get the trigger component, start with two colons. (e.g., partialTriggers="::someComponentOutsideNamingContainer")
+This includes the current component if the component is a NamingContainer. (e.g., tr:table partialTriggers="::mySiblingComponent" pops out of the table to get to the sibling)</li>
+<li>If you need to go up and out of two naming containers to get the trigger component, start with three colons.
+To pop out of three naming containers, start with four colons, and so on. (e.g., partialTriggers=":::someOtherComponent" pops out of two naming containers)</li>
 </ul>
+
+Here are some examples:
 </P>
 <source>
 <![CDATA[
@@ -189,23 +185,22 @@ you'll need to incorporate that into the partialTriggers definition:
               </f:subview>
             </f:subview>
 
-            <!-- Button 2 has four colons. Two to get it to button2WrapperB, three to get it to buttons2WrapperA,
-            and four to get it to wrapperAroundEverything. It will find the trigger from there. 
+            <!-- Button 2's partialTrigger starts with ':::'. 
+            Two colons to pop it out of button2WrapperB, another colon to pop it out of buttons2WrapperA.
             commandButton is not a NamingContainer -->
             <f:subview id="button2WrapperA">
               <f:subview id="button2WrapperB">
                 <tr:commandButton
-                  partialTriggers="::::button1WrapperA:button1WrapperB:button1"
+                  partialTriggers=":::button1WrapperA:button1WrapperB:button1"
                   partialSubmit="true"
                   id="button2"
                   text="button 2"/>
               </f:subview>
             </f:subview>
         ....
-            <!-- table is a NamingContainer, so finding the trigger starts
-            with the parent component -- the panelGroupLayout.. If the 
-            parent is a NamingContainer (like if you take the panelGroupLayout
-            away) then there would only be three colons. -->
+            <!-- table is a NamingContainer. Two colons pop out of the table.
+            Two more to pop it out of the two subviews.
+            -->
             <f:subview id="table7WrapperA">
               <f:subview id="table7WrapperB">
                 <tr:panelGroupLayout layout="vertical">

@@ -550,30 +550,22 @@ public class RequestContextImpl extends RequestContext
       // the old ADF Faces rules, and now we should stick with it for
       // backwards compatibility even within Trinidad)
       
-      // The rule is "if the component is a naming container, search relative 
-      // to the parent; otherwise, search relative to the component." In the
-      // non-naming container case, if it fails, then search relative to the 
-      // parent, for backwards compatibility only, since we were always 
-      // searching relative to the parent.
-      UIComponent from;
-      boolean isNamingContainer = false;
+      UIComponent master = ComponentUtils.findRelativeComponent(listener, trigger);
+      
       boolean deprecatedFind = false;
+    
+      if (master == null)
+      {
+        UIComponent from = listener;
+        // backward compatible code
+        // The old rule is "if the component is a naming container, search relative 
+        // to the parent; otherwise, search relative to the component." 
       if (listener instanceof NamingContainer)
       {
         from = listener.getParent();
-        isNamingContainer = true;
-      }
-      else
-        from = listener;
-        
-      UIComponent master = ComponentUtils.findRelativeComponent(from, trigger);
-      
-      if (master == null && !isNamingContainer)
-      {
-        // for backwards compatibility, look from the parent.
-        from = listener.getParent();
         master = ComponentUtils.findRelativeComponent(from, trigger);
         deprecatedFind = true;
+      }
       }
 
       if (master == null)
@@ -582,11 +574,11 @@ public class RequestContextImpl extends RequestContext
       }
       else
       {
-        // if we found this with the deprecated method of searching relative to
-        // the component's parent, then warn the user to change their syntax.
+        // if we found this with the deprecated method, 
+        // then warn the user to change their syntax.
         if (deprecatedFind)
         {
-          _LOG.warning("DEPRECATED_PARTIAL_TRIGGER_SYNTAX", 
+          _LOG.warning("DEPRECATED_TRIGGER_SYNTAX", 
             new Object[] {trigger, listener});
         }
       

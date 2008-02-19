@@ -27,6 +27,8 @@ import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.component.UIXForm;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.util.ComponentUtils;
 
 /**
  * Generic utilities for rendering.
@@ -102,67 +104,193 @@ public class RenderUtils
   }
 
   /**
-   * Returns a relative ID for use at rendering time, e.g. "for"
-   * attributes on components.  It does not assume that the target
-   * component can be located.  A relative ID starting with
+   * Given a 'from' component and a relativeId, 
+   * return the clientId for use at rendering time that will identify the
+   * id of the component you are referencing on the client.
+   * This is used for attributes like e.g. "for" and "chooseId".
+   * 
+   * <p>
+   * e.g., given this hierarchy
+   * <br/>
+   *  &lt;f:subview id="aaa"&gt;&lt;f:subview id="xxx"&gt;<br/>
+           &lt;tr:chooseColor id="cp1" .../&gt;<br/>
+            &lt;f:subview id="yyy"><br/>
+               &lt;tr:inputColor id="sic1" chooseId="::cp1" .../&gt;<br/>
+            &lt;/f:subview&gt;<br/>
+         &lt;/f:subview&gt;&lt;/f:subview&gt;<br/>
+    </p>
+    <p>
+   * The 'from' component is the inputColor component.
+   * The 'relativeId' is "::cp1". ('::' pops up one naming container)
+   * The return value is 'aaa:xxx:cp1' when
+   * the clientId of the 'xxx' component is 'aaa:xxx'.
+   * 
+   * </p>
+   * <p>
+   * It does not assume that the target component can be located, although it does
+   * check. If it can't be found, returns the correct relativeId anyway.
+   * </p>
+   * <p>
+   * A relativeId starting with
    * NamingContainer.SEPARATOR_CHAR (that is, ':') will be
    * treated as absolute (after dropping that character).
+   * A relativeId with no colons means it is within the same naming container
+   * as the 'from' component (this is within the 'from' component if 'from'
+   * is a naming container).
+   * A relativeId starting with '::' pops out of the 'from' component's
+   * naming container. If the 'from' component is a naming container, then
+   * '::' will pop out of the 'from' component itself. A relativeId with ':::' pops up two naming containers, etc.
+   * ComponentUtils.findRelativeComponent finds and returns the component, whereas
+   * this method returns a relativeId that can be used during renderering 
+   * so the component can be found in javascript on the client.
+   * </p>
+   * @param context
+   * @param from the component to search relative to
+   * @param relativeId the relative path from the 'from' component 
+   *                   to the component to find
+   * @return the clientId for the 'relative' component.
+   @see ComponentUtils.findRelativeComponent(from, relativeId)
+
    */
   public static String getRelativeId(
     FacesContext context,
     UIComponent  from,
     String       relativeId)
   {
+    if (from == null)
+        return null;
+    
     if ((relativeId == null) || (relativeId.length() == 0))
       return null;
+
+    // Figure out how many colons
+    int colonCount = _getColonCount(relativeId);
+
+    // colonCount == 0: fully relative
+    // colonCount == 1: absolute 
+    // colonCount > 1: for each extra colon after 1, pop out of
+    // the naming container (to the view root, if naming containers run out)
     
-    UIComponent parentNC;
-    if (relativeId.charAt(0) == NamingContainer.SEPARATOR_CHAR)
+    if (colonCount == 1)
+      return relativeId.substring(1);
+    
+    // 
+    // We need to make it backward compatible, and 
+    // the only way is to use the findRelativeComponent code.
+    // This way we'll have a hint that the syntax is 'old' if 
+    // it can't be found. Plus, findRelativeComponent code has 
+    // backward compatibilty built in.
+    UIComponent component = 
+      ComponentUtils.findRelativeComponent(from, relativeId);
+    if (component == null && from instanceof NamingContainer)
     {
-      if (relativeId.length() > 1 && relativeId.charAt(1)
-        == NamingContainer.SEPARATOR_CHAR)
+      component = ComponentUtils.findRelativeComponent(from.getParent(), relativeId);
+      if (component != null)
       {
-        parentNC = _getParentNamingContainer(from.getParent());
-        int index = 2;
-        for (; index < relativeId.length() && relativeId.charAt(index) 
-          == NamingContainer.SEPARATOR_CHAR && parentNC != null; ++index)
-        {
-          parentNC = _getParentNamingContainer(parentNC.getParent());
-        }
-        if (parentNC == null || index >= relativeId.length())
-        {
-          // TODO: would it be better to return null from here?
-          return relativeId;
-        }
-        relativeId = relativeId.substring(index);
+        // TODO Log warning
+        _LOG.warning("DEPRECATED_RELATIVE_ID_SYNTAX", 
+          new Object[] {relativeId, from});
       }
-      else
-      {
-        return relativeId.substring(1);
-      }
+    }
+    
+    // the component wasn't found, but go ahead and return something smart
+    if (component == null)
+    {
+      // TODO LOG warning
+      _LOG.warning("RELATIVE_ID_NOT_FOUND", 
+        new Object[] {relativeId, from});
+      return _getRelativeId(context, from, relativeId, colonCount);
     }
     else
     {
-      parentNC = _getParentNamingContainer(from.getParent());
-      if (parentNC == null)
-      {
-        return relativeId;
-      }
+      return component.getClientId(context);
     }
 
-    return (parentNC.getClientId(context) +
-            NamingContainer.SEPARATOR_CHAR + relativeId);
   }
 
-  private static UIComponent _getParentNamingContainer(UIComponent from)
+
+  // This does NOT use findComponent
+  // ComponentUtils.findRelativeComponent finds the component, whereas
+  // this method returns a relativeId that can be used during renderering 
+  // so the component can be found in javascript on the client.
+  // This code is faster because it doesn't have to find the component.
+  // It is used when the getRelativeId's findRelativeComponent cannot find 
+  // the component. This way we can return the relativeId anyway.
+  private static String _getRelativeId(
+    FacesContext context,
+    UIComponent  from,
+    String       relativeId,
+    int          colonCount)
   {
-    while (from != null)
+
+
+    if (colonCount == 1)
+      return relativeId.substring(1);
+    else if (colonCount > 1)
     {
+      relativeId = relativeId.substring(colonCount);
+    }
+      
+    // if the component is not a NamingContainer, then we need to 
+    // get the component's naming container and set this as the 'from'.
+
+    if (!(from instanceof NamingContainer))
+    {
+      from = _getParentNamingContainer(from);
+    }
+    // pop out of the naming containers if there are multiple colons
+    // from will be null if there are no more naming containers
+    for (int j = 1; j < colonCount; j++)
+    {
+      from = _getParentNamingContainer(from);
+    }
+
+
+    if (from == null)
+      return relativeId;
+    else
+    {
+      return (from.getClientId(context) +
+              NamingContainer.SEPARATOR_CHAR + relativeId);
+    }
+
+
+  }
+
+
+  // Given a component, get its naming container. If the component
+  // is a naming container, it will get its naming container.
+  // This is different than the one in ComponentUtils. This one
+  // returns null if there are no more NamingContainers. The other one
+  // returns the ViewRoot.
+  private static UIComponent _getParentNamingContainer (
+    UIComponent from)
+  {
+
+    while (from != null && from.getParent() != null)
+    {
+      from = from.getParent();
       if (from instanceof NamingContainer)
         return from;
-      from = from.getParent();
     }
 
     return null;
   }
+  
+  // Figure out how many colons
+  private static int _getColonCount(String relativeId)
+  {
+    int idLength = relativeId.length();
+    int colonCount = 0;
+    while (colonCount < idLength)
+    {
+      if (relativeId.charAt(colonCount) != NamingContainer.SEPARATOR_CHAR)
+        break;
+      colonCount++;
+    }
+    return colonCount;
+  }
+  static private final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(RenderUtils.class);
+
 }
