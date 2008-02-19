@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -36,6 +36,7 @@ import org.apache.myfaces.trinidad.component.core.CoreDocument;
 import org.apache.myfaces.trinidad.component.core.CoreForm;
 import org.apache.myfaces.trinidad.component.html.HtmlHtml;
 import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidad.render.RenderUtils;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 
@@ -74,14 +75,14 @@ public class CoreRenderKitTest extends RenderKitTestCase
     UIViewRoot  root,
     TestScript  script)
   {
-    String componentType = 
+    String componentType =
            script.getDefinition().getComponentInfo().componentType;
 
     if ("org.apache.myfaces.trinidad.HtmlHtml".equals(componentType))
     {
       return root;
     }
-    
+
     if (_sHtmlComponents.contains(componentType))
     {
       HtmlHtml html = new HtmlHtml();
@@ -114,6 +115,13 @@ public class CoreRenderKitTest extends RenderKitTestCase
     Logger logger = Logger.getLogger(CoreRenderKit.class.getName());
     logger.setLevel(Level.SEVERE);
     logger.setUseParentHandlers(false);
+    // Force the RenderUtils logger level to SEVERE to bypass the
+    // warnings in getRelativeId method when the component
+    // with the relativeId could not be found which is the case in our
+    // render kit rendering tests.
+    Logger loggerTwo = Logger.getLogger(RenderUtils.class.getName());
+    loggerTwo.setLevel(Level.SEVERE);
+    loggerTwo.setUseParentHandlers(false);
 
     _definitions.add(new SuiteDefinition("minimal",
                                          "minimal",
