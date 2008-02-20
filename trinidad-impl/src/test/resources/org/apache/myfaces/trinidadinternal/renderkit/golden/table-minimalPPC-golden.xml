@@ -7871,7 +7871,7 @@
               </a>
             </th>
             <th
-                 class="af_column_sortable-header-text"
+                 class="af_column_sorted-header-text"
                  id="mainId:separate-id"
                  nowrap="nowrap"
                 >
@@ -8268,7 +8268,7 @@
               Details
             </th>
             <th
-                 class="af_column_sortable-header-text"
+                 class="af_column_sorted-header-text"
                  id="mainId:test-id"
                  nowrap="nowrap"
                 >

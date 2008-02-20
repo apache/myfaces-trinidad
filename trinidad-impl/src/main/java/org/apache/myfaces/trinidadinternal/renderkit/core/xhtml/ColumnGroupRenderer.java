@@ -417,7 +417,7 @@ public class ColumnGroupRenderer extends XhtmlRenderer
                                 isNoWrap,
                                 true); //isColHeader
 
-    String styleClass = _getHeaderStyleClass(tContext, sortable);
+    String styleClass = getSortableHeaderStyleClass(tContext, sortability);
     String borderStyleClass =
       CellUtils.getHeaderBorderStyle(tContext,
                                      arc,
@@ -785,8 +785,15 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     _getNodeList(tContext, true).currentNode = parentNode;
   }
 
-  private String _getHeaderStyleClass(TableRenderingContext tContext,
-                                      boolean isSortable)
+  /**
+   * Returns the skinning selector for the header
+   * taking into account the if the column is sortable or is sorted
+   * @param tContext the TableRenderingContext
+   * @param sortability the value returned by getSortability()
+   * @return the skinning selector for the header
+   */
+  protected String getSortableHeaderStyleClass(TableRenderingContext tContext,
+                                      int sortability)
   {
     ColumnData colData = tContext.getColumnData();
     // if we are a columnGroup header, then we must be centered:
@@ -795,17 +802,25 @@ public class ColumnGroupRenderer extends XhtmlRenderer
       return SkinSelectors.AF_COLUMN_HEADER_ICON_STYLE;
     }
 
-    if (isSortable)
+    switch (sortability)
     {
-      return ColumnData.selectFormat(
-          tContext,
-          SkinSelectors.AF_COLUMN_SORTABLE_HEADER_STYLE_CLASS,
-          SkinSelectors.AF_COLUMN_SORTABLE_HEADER_NUMBER_STYLE_CLASS,
-          SkinSelectors.AF_COLUMN_SORTABLE_HEADER_ICON_STYLE_CLASS);
-    }
-    else
-    {
-      return getHeaderStyleClass(tContext);
+      //not sortable column
+      case SORT_NO:
+        return getHeaderStyleClass(tContext);
+        //sortable column (but not sorted)
+      case SORT_SORTABLE:
+        return ColumnData.selectFormat(
+            tContext,
+            SkinSelectors.AF_COLUMN_SORTABLE_HEADER_STYLE_CLASS,
+            SkinSelectors.AF_COLUMN_SORTABLE_HEADER_NUMBER_STYLE_CLASS,
+            SkinSelectors.AF_COLUMN_SORTABLE_HEADER_ICON_STYLE_CLASS);
+        //sorted column
+      default:
+        return ColumnData.selectFormat(
+            tContext,
+            SkinSelectors.AF_COLUMN_SORTED_HEADER_STYLE_CLASS,
+            SkinSelectors.AF_COLUMN_SORTED_HEADER_NUMBER_STYLE_CLASS,
+            SkinSelectors.AF_COLUMN_SORTED_HEADER_ICON_STYLE_CLASS);
     }
   }
 

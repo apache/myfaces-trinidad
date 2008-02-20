@@ -681,7 +681,21 @@
             <td style="white-space: nowrap">af|column::sortable-header-icon-format</td>
             <td>Styles the icon sortable column headers.</td>
           </tr>
-            <tr>
+          <tr>
+            <td>af|column::sorted-header-text</td>
+            <td>Styles the currently sorted column header.
+            You can style the borders with this selector as well.</td>
+          </tr>
+          <tr>
+            <td>af|column::sorted-header-number</td>
+            <td>Styles the numeric sorted column header.
+            This includes the af|column::sorted-header-text selector.</td>
+          </tr>
+          <tr>
+            <td style="white-space: nowrap">af|column::sorted-header-icon-format</td>
+            <td>Styles the icon of the sorted column header.</td>
+          </tr>
+          <tr>
             <td>.AFTableCellDataText:alias</td>
             <td>Specifies the font family, font size and color for table data
                 text. This is included in the af|column::cell* selectors.</td>

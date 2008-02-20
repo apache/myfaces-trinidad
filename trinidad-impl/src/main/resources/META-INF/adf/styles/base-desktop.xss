@@ -2506,6 +2506,7 @@
     <includeStyle name="AFTableCellDataVerticalAlign"/>
   </style>
 
+  <!-- for sortable columns -->
   <style selector="af|column::sortable-header-text">
     <includeStyle selector="af|column::header-text"/>
     <property name="cursor">pointer</property>
@@ -2520,6 +2521,22 @@
 
   <style selector="af|column::sortable-header-icon-format">
     <includeStyle selector="af|column::sortable-header-text"/>
+    <includeStyle name="AFCenterTextAlign"/>
+  </style>
+
+  <!-- for the currently sorted column -->
+  <style selector="af|column::sorted-header-text">
+    <includeStyle selector="af|column::sortable-header-text"/>
+    <includeStyle selector="AFVeryDarkAccentBackground"/>
+  </style>
+
+  <style selector="af|column::sorted-header-number">
+    <includeStyle selector="af|column::sorted-header-text"/>
+    <includeStyle name="AFRightTextAlign"/>
+  </style>
+
+  <style selector="af|column::sorted-header-icon-format">
+    <includeStyle selector="af|column::sorted-header-text"/>
     <includeStyle name="AFCenterTextAlign"/>
   </style>
 
