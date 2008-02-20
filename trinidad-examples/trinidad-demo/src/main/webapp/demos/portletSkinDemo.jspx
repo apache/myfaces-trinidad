@@ -159,10 +159,10 @@
                           <tr:panelHeader text="Header 5">
                             <tr:panelFormLayout>
                               <tr:inputText readOnly="true" label="Label 5-1" value="Value"
-                                            styleClass="AFDataText"/>
+                                            styleClass="AFFieldTextMarker"/>
                               <tr:inputText 
                                             label="Date/Time from last partial refresh"
-                                            value="#{date.currentDate}" styleClass="AFDataText">
+                                            value="#{date.currentDate}" styleClass="AFFieldTextMarker">
                                 <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
                               </tr:inputText>
                               <!--

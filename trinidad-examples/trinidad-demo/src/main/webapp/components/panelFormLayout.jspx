@@ -67,15 +67,15 @@
             <tr:selectBooleanRadio id="rb" group="rbGroup" shortDesc="Label 7"
               label="label 7"/>
             <tr:selectBooleanCheckbox shortDesc="label 8" label="label 8"/>
-            <tr:inputText styleClass="AFDataText" label="label 9" value="hi"
+            <tr:inputText styleClass="AFFieldTextMarker" label="label 9" value="hi"
               readOnly="true"/>
-            <tr:inputText styleClass="AFDataText" label="label 10"
+            <tr:inputText styleClass="AFFieldTextMarker" label="label 10"
               value="hi again" readOnly="true"/>
             <tr:panelLabelAndMessage label="label 11">
               <tr:selectBooleanCheckbox shortDesc="option 1" label="option 1"/>
               <tr:panelFormLayout>
-                <tr:inputText styleClass="AFDataText" label="sub item 1" value="hello"/>
-                <tr:inputText styleClass="AFDataText" label="sub item 2" value="world"/>
+                <tr:inputText styleClass="AFFieldTextMarker" label="sub item 1" value="hello"/>
+                <tr:inputText styleClass="AFFieldTextMarker" label="sub item 2" value="world"/>
                 <tr:selectOneChoice label="sub item 3">
                   <tr:selectItem label="coffee" value="bean"
                     shortDesc="Coffee from Kona"/>

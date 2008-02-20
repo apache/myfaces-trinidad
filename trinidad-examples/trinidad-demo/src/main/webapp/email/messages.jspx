@@ -107,7 +107,7 @@
                                   source="/email/images/deleted.gif"/>
                   <tr:commandLink action="showMessage">
                     <tr:outputText
-                       styleClass="#{currentMessage.read ? null : 'AFDataText'}"
+                       styleClass="#{currentMessage.read ? null : 'AFFieldTextMarker'}"
                        truncateAt="25" value="#{currentMessage.subject}"
                        shortDesc="#{currentMessage.subject}"/>
                     <tr:setActionListener from="#{currentMessage}"

@@ -76,16 +76,16 @@
                         <tr:inputText readOnly="true" 
                                       label="Label 1-1" 
                                       value="Value"
-                                      styleClass="AFDataText"/>
+                                      styleClass="AFFieldTextMarker"/>
                         <tr:inputText readOnly="true" 
                                       label="Date/Time from last partial refresh" 
                                       value="#{date.currentDate}"
-                                      styleClass="AFDataText">
+                                      styleClass="AFFieldTextMarker">
                           <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
                         </tr:inputText>
 
                         <tr:inputText readOnly="true"
-                                      styleClass="AFDataText"
+                                      styleClass="AFFieldTextMarker"
                                       value="You have shown/ hidden this page data option a total of #{toggle.totalCount} times"/>
 
                       </tr:panelFormLayout>
@@ -105,7 +105,7 @@
                   <tr:inputText readOnly="true" 
                                 label="Date/Time from last full page refresh" 
                                 value="#{date.currentDate}"
-                                styleClass="AFDataText">
+                                styleClass="AFFieldTextMarker">
                     <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
                   </tr:inputText>
                 </tr:panelFormLayout>
