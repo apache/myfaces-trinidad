@@ -329,6 +329,12 @@ public final class SkinSelectors
     "af|column::total-number";
   public static final String AF_COLUMN_TOTAL_TEXT_STYLE =
     "af|column::total-text";
+  public static final String AF_COLUMN_SORTED_HEADER_STYLE_CLASS =
+    "af|column::sorted-header-text";
+  public static final String AF_COLUMN_SORTED_HEADER_NUMBER_STYLE_CLASS =
+    "af|column::sorted-header-number";
+  public static final String AF_COLUMN_SORTED_HEADER_ICON_STYLE_CLASS =
+    "af|column::sorted-header-icon-format";
   
   // ================================ Icons ================================ //
   public static final String AF_COLUMN_SORTED_ASCEND_ICON_NAME =
