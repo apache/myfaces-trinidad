@@ -27,48 +27,49 @@
       <P>
         <ul>
           <li>
-            <a href="#About Skinning">About Skinning</a>
+            <a href="#AboutSkinning">About Skinning</a>
           </li>
           <li>
-            <a href="#Create a skin - an overview">Create a skin - an overview</a>
+            <a href="#Create_a_skin-an_overview">Create a skin - an overview</a>
           </li>
           <li>
-            <a href="#How to create a skin">How to create a skin</a>
+            <a href="#How_to_create_a_skin">How to create a skin</a>
           </li>
           <li>
-            <a href="#Skinning a component - a step-by-step example">Skinning a component - a
+            <a href="#Skinning_a_component">Skinning a component - a
                                                                      step-by-step example</a>
           </li>
           <li>
-            <a href="#Skinning Keys">Skinning Keys</a>
+            <a href="#SkinningKeys">Skinning Keys</a>
                 <ul>
-                  <li><a href="#Component-level skinning keys">Component-level skinning keys</a>
+                  <li><a href="#Component-level_skinning_keys">Component-level skinning keys</a>
                   </li>
-                  <li><a href="#Alias skinning keys">Alias skinning keys</a>
+                  <li><a href="#Alias_skinning_keys">Alias skinning keys</a>
                   </li>
-                  <li><a href="#State skinning keys">State skinning keys</a>
+                  <li><a href="#State_skinning_keys">State skinning keys</a>
                   </li>
-                  <li><a href="#Skinning properties">Skinning properties</a>
+                  <li><a href="#Skinning_properties">Skinning properties</a>
                   </li>  
-                  <li><a href="#Icon skinning keys">Icon skinning keys</a>
+                  <li><a href="#Icon_skinning_keys">Icon skinning keys</a>
                   </li>                  
               </ul>
           </li>
           <li>
-            <a href="#Skinning Text">Skinning Text</a>
+            <a href="#Skinning_Text">Skinning Text</a>
           </li>
           <li>
-            <a href="#Skinning CSS features">Skinning CSS features</a>
+            <a href="#Skinning_CSS_features">Skinning CSS features</a>
           </li>
           <li>
-            <a href="#Tips and Tricks">Tips and Tricks</a>
+            <a href="#Tips_and_Tricks">Tips and Tricks</a>
           </li>
           <li>
-            <a href="#Frequently Asked Questions">Frequently Asked Questions</a>
+            <a href="#Frequently_Asked_Questions">Frequently Asked Questions</a>
           </li>
         </ul>
       </P>
     </section>
+    <a name="AboutSkinning"></a>
     <section name="About Skinning">
       <P>
       A skin in Trinidad is a global style sheet that affects the entire application. You can
@@ -116,6 +117,7 @@
          <br></br><img src="skinningTabs.png" alt="skinned tabs" /><br></br>
          </P>
     </section>
+    <a name="Create_a_skin-an_overview"></a>
     <section name="Create a skin - an overview">
       <P>
       Let's get started and create a very simple skin so that you can see what files you need and
@@ -158,6 +160,7 @@
         </ul>
       </P>
       </section>
+      <a name="How_to_create_a_skin"></a>
       <section name="How to create a skin">
       <P>
       To keep the first skin example simple, this section will explain what what files you need to create 
@@ -295,6 +298,7 @@ font family are now different than they were with the default simple.desktop ski
 </P>
        </subsection>
       </section>
+      <a name="Skinning_a_component"></a>
       <section name="Skinning a component - a step-by-step example">
         <P>
         In the previous sections we discussed creating a skin that changes the font of your application.
@@ -434,6 +438,7 @@ so the medium panelBox's body will be pink, not yellow */
 }
 </source>
       </section>
+      <a name="SkinningKeys"></a>
       <section name="Skinning Keys">
         <P>
         This section is to help you understand the different kinds of skinning keys: component-level
@@ -443,6 +448,7 @@ so the medium panelBox's body will be pink, not yellow */
         you familiarize yourself with the W3c's CSS specification regarding selectors,
         pseudo-elements and pseudo-classes. With this knowledge, skinning will be much easier.
         </P>
+        <a name="Component-level_skinning_keys"></a>
         <subsection name="Component-level skinning keys">
           This section will explain the syntax of a component-level skinning key and the pseudo-elements.
           
@@ -466,6 +472,7 @@ so the medium panelBox's body will be pink, not yellow */
             </li>
           </ul>
         </subsection>
+        <a name="Alias_skinning_keys"></a>
         <subsection name="Alias skinning keys">
         <P>
         Why do we need alias keys? Let's say you have a css-2 stylesheet for your page. 
@@ -529,6 +536,7 @@ so the medium panelBox's body will be pink, not yellow */
         </source>
       </P>
   </subsection>
+        <a name="State_skinning_keys"></a>
         <subsection name="State skinning keys">
         In CSS there are pseudo-classes, like :hover, :active, :focus. We consider these 'states' of the
         component. We use this same concept in skinning components. Components can have state, like
@@ -547,6 +555,7 @@ so the medium panelBox's body will be pink, not yellow */
          ]]>
         </source>
         </subsection>
+        <a name="Skinning_properties"></a>
         <subsection name="Skinning properties">
           Skinning properties are skin css properties that are essentially a key that will be
           stored in the Skin object with the value. The renderer uses the skin property when it is rendering.
@@ -563,6 +572,7 @@ so the medium panelBox's body will be pink, not yellow */
           </source>
           </P>
         </subsection>
+        <a name="Icon_skinning_keys"></a>
         <subsection name="Icon skinning keys">
             <P>
               Some components render icons (&lt;img&gt; tags) within them. For instance the inputDate
@@ -595,7 +605,8 @@ so the medium panelBox's body will be pink, not yellow */
             </source>
         </subsection>
       </section>
-      
+
+      <a name="Skinning_Text"></a>
       <section name="Skinning Text">
         <P>Text our components render is translatable. The text is abstracted out as resource bundle keys. With skinning
         you can override resource bundle key values. These key values should be documented in skin-selectors.xml,
@@ -691,7 +702,8 @@ public class SkinTranslationMapDemo
     </skin>]]></source>
         </P>
       </section>
-      
+
+      <a name="Skinning_CSS_features"></a>
       <section name="Skinning CSS features">
         
         <P>
@@ -790,6 +802,8 @@ public class SkinTranslationMapDemo
         </source>
         </P>
       </section>
+
+      <a name="Tips_and_Tricks"></a>
       <section name="Tips and Tricks">
         <P></P>
         
@@ -876,6 +890,8 @@ public class SkinTranslationMapDemo
           </P>
         </subsection>  
       </section>
+
+      <a name="Frequently_Asked_Questions"></a>
       <section name="Frequently Asked Questions">
         <P>There is a Trinidad Wiki where we post FAQs. http://wiki.apache.org/myfaces/Trinidad_Skinning_FAQ</P>
       </section>

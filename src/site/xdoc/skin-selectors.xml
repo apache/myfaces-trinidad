@@ -30,7 +30,7 @@
             <a href="#Overview">Overview</a>
           </li>
           <li>
-            <a href="#Global Selectors">Global Selectors</a>
+            <a href="#GlobalSelectors">Global Selectors</a>
           </li>
           <li>
             <a href="#ComponentLevelSelectors">Component-level Selectors</a>
@@ -4248,38 +4248,38 @@ panelTip.</td>
             <td>This icon is displayed before the expanded tree node.</td>
           </tr>
           <tr>
-            <td>af|treeTable::collapsed-icon</td>
+            <td>af|tree::collapsed-icon</td>
             <td>This icon is displayed before the collapsed tree node.</td>
           </tr>
           <tr>
-            <td>af|treeTable::line-icon</td>
+            <td>af|tree::line-icon</td>
             <td>This icon is used as a vertical line between the nodes.
             </td>
           </tr>
           <tr>
-            <td>af|treeTable::line-middle-icon</td>
+            <td>af|tree::line-middle-icon</td>
             <td>This icon is used as the horizontal line in the background of the
               expand/collapse icon of the node, in the case the node is not the last
               sibling of its parent node.
             </td>
           </tr>
           <tr>
-            <td>af|treeTable::line-last-icon</td>
+            <td>af|tree::line-last-icon</td>
             <td>This icon is used as the horizontal line in the background of the
               expand/collapse icon of the node, in the case the node is the last
               sibling of its parent node.
             </td>
           </tr>
           <tr>
-            <td>af|treeTable::node-icon</td>
+            <td>af|tree::node-icon</td>
             <td>This icon selector is used in the case the Node class has a getNodeType()
               method that returns the node type as string. The nodetype gets added to this
-              selector separated by a ':'. If the node is a container (has children) the
+              selector, separated by a ':'. If the node is a container (has children) the
               following suffixes get added depending on the expanded/collapsed state:
               '-expanded' / '-collapsed'. e.g.
-              "af|treeTable::node-icon:container-collapsed",
-              "af|treeTable::node-icon:container-expanded",
-              "af|treeTable::node-icon:noncontainer".
+              "af|tree::node-icon:container-collapsed",
+              "af|tree::node-icon:container-expanded",
+              "af|tree::node-icon:noncontainer".
             </td>
           </tr>
           <tr>
