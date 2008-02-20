@@ -165,7 +165,9 @@ class LocaleInfoScriptlet extends LibraryScriptlet
    */
   public String getSupportedLocaleVariant(RenderingContext arc)
   {
-    String variant = arc.getLocaleContext().getFormattingLocale().getVariant();
+    LocaleContext lc  = arc.getLocaleContext();
+    Locale l = lc.getFormattingLocale();
+    String variant = l.getVariant();
     variant = variant.toUpperCase();
 
     if (variant.startsWith("ORACLE"))
