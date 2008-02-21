@@ -19,55 +19,53 @@
 	   
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
-          xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
-          xmlns:tr="http://myfaces.apache.org/trinidad" >
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
- <tr:document title="SelectOrderShuttle Demo">
-        <tr:form>
-          <tr:panelGroupLayout layout="vertical">
-            <f:facet name="separator">
-              <tr:separator />
-            </f:facet>   
-            <tr:commandLink immediate="true" text="Component Guide"
-                action="guide"/> 
-            <tr:outputFormatted styleUsage="instruction" value="&lt;b>SelectOrderShuttle bound to string array&lt;/b>"/>
-             <tr:messages/> 
-             <tr:selectOrderShuttle id="shuttle1"
-                                 label="Selected Values"
-                                 leadingHeader="Available values:"
-                                 trailingHeader="Selected values:"
+    <tr:document title="SelectOrderShuttle Demo">
+      <tr:form>
+        <tr:panelGroupLayout layout="vertical">
+          <f:facet name="separator">
+            <tr:separator/>
+          </f:facet>
+          <tr:panelGroupLayout layout="horizontal">
+            <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_selectOrderShuttle.html"
+                       text="Tag Documentation"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/skin-selectors.html#selectOrderShuttle"
+                       text="Skinning Key Documentation"/>
+          </tr:panelGroupLayout>
+          <tr:outputFormatted styleUsage="instruction"
+                              value="&lt;b>selectOrderShuttle bound to string array&lt;/b>"/>
+          <tr:messages/>
+          <tr:selectOrderShuttle id="shuttle1" label="Selected Values"
+                                 leadingHeader="Available values:" trailingHeader="Selected values:"
                                  binding="#{editor.component}"
                                  valueChangeListener="#{list.valueChanged}"
                                  value="#{list.stringArray}">
-               <tr:selectItem shortDesc="The First Item" label="First" value="foo"/>
-               <tr:selectItem label="Second" value="bar"/>
-               <tr:selectItem label="Third" value="baz"/>
-             </tr:selectOrderShuttle>
-             <tr:message for="shuttle1"/>
-
-
-            <jsp:directive.include file="editor.jspf" />
-
-            <tr:outputFormatted styleUsage="instruction" value="&lt;b>SelectOrderShuttle bound to list&lt;/b>"/>
-              
-             <tr:selectOrderShuttle id="shuttle2" valuePassThru="true"
-                                 leadingHeader="Available values:"
-                                 trailingHeader="Selected values:"
+            <tr:selectItem shortDesc="The First Item" label="First" value="foo"/>
+            <tr:selectItem label="Second" value="bar"/>
+            <tr:selectItem label="Third" value="baz"/>
+          </tr:selectOrderShuttle>
+          <tr:message for="shuttle1"/>
+          <jsp:directive.include file="editor.jspf"/>
+          <tr:outputFormatted styleUsage="instruction"
+                              value="&lt;b>selectOrderShuttle bound to list&lt;/b>"/>
+          <tr:selectOrderShuttle id="shuttle2" valuePassThru="true"
+                                 leadingHeader="Available values:" trailingHeader="Selected values:"
                                  valueChangeListener="#{list.valueChanged}"
-                                 value="#{list.objectList}" leadingDescShown="true" 
-                                 >
-               <tr:selectItem label="First" value="foo"/>
-               <tr:selectItem label="Second" value="bar"/>
-               <tr:selectItem label="Third" value="baz"/>
-             </tr:selectOrderShuttle>
-             <tr:message for="shuttle2"/>
-
-
-<!--
-            <tr:outputFormatted styleUsage="instruction" value="&lt;b>SelectOrderShuttle bound to integer array&lt;/b>"/>
+                                 value="#{list.objectList}" leadingDescShown="true">
+            <tr:selectItem label="First" value="foo"/>
+            <tr:selectItem label="Second" value="bar"/>
+            <tr:selectItem label="Third" value="baz"/>
+          </tr:selectOrderShuttle>
+          <tr:message for="shuttle2"/>
+          <!--
+            <tr:outputFormatted styleUsage="instruction" value="&lt;b>selectOrderShuttle bound to integer array&lt;/b>"/>
               
              <tr:selectOrderShuttle id="shuttle3"
                                  leadingHeader="Available values:"
@@ -80,10 +78,9 @@
             </tr:selectOrderShuttle>
              <tr:message for="shuttle3"/>
 -->
-             <tr:commandButton text="Submit"/>
-
-          </tr:panelGroupLayout>
-        </tr:form>
- </tr:document>
+          <tr:commandButton text="Submit"/>
+        </tr:panelGroupLayout>
+      </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

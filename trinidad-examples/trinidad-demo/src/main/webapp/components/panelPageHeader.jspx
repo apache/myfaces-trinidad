@@ -19,10 +19,9 @@
 	   
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
-          xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
-          xmlns:tr="http://myfaces.apache.org/trinidad" >
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
     <trh:html>
@@ -33,38 +32,37 @@
             <f:facet name="separator">
               <tr:separator/>
             </f:facet>
-            <tr:commandLink immediate="true" text="Component Guide"
-                action="guide"/>             
-            <tr:outputFormatted styleUsage="instruction" value="&lt;b>panelPageHeader demo &lt;/b>"/>
-            <tr:panelPageHeader binding="#{editor.component}">                          
+            <tr:panelGroupLayout layout="horizontal">
+              <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+              <tr:spacer width="10"/>
+              <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_panelPageHeader.html"
+                         text="Tag Documentation"/>
+            </tr:panelGroupLayout>
+            <tr:outputFormatted styleUsage="instruction" value="&lt;b>panelPageHeader&lt;/b>"/>
+            <tr:panelPageHeader binding="#{editor.component}">
               <f:facet name="branding">
                 <tr:panelGroupLayout layout="horizontal">
-                  <tr:image source="/components/images/corporateBrand.gif"
-                            shortDesc="corporate"/>
-                  <tr:outputFormatted value="Customer &lt;b&gt;InContextBranding Company - Menlo Park&lt;/b&gt;"
-                                     styleUsage="inContextBranding"/>
+                  <tr:image source="/components/images/corporateBrand.gif" shortDesc="corporate"/>
+                  <tr:outputFormatted value="Customer &lt;b>InContextBranding Company - Menlo Park&lt;/b>"
+                                      styleUsage="inContextBranding"/>
                 </tr:panelGroupLayout>
               </f:facet>
               <f:facet name="navigationGlobal">
                 <tr:navigationPane hint="buttons">
-                  <tr:commandNavigationItem text="Help"
-                                    icon="/components/images/globalhelp.gif"
-                                    action="guide.commandGloablButton"/>
-                  <tr:commandNavigationItem text="Help 2"
-                                    icon="/components/images/globalhelp.gif"
-                                    action="guide.commandGloablButton"/>
+                  <tr:commandNavigationItem text="Help" icon="/components/images/globalhelp.gif"
+                                            action="guide.commandGloablButton"/>
+                  <tr:commandNavigationItem text="Help 2" icon="/components/images/globalhelp.gif"
+                                            action="guide.commandGloablButton"/>
                 </tr:navigationPane>
               </f:facet>
               <f:facet name="navigation2">
-                <tr:navigationPane hint="bar" >
-                  <tr:commandNavigationItem text="item 1" action="guide.navigationPane" 
-                                   selected="true" />
+                <tr:navigationPane hint="bar">
+                  <tr:commandNavigationItem text="item 1" action="guide.navigationPane"
+                                            selected="true"/>
                 </tr:navigationPane>
               </f:facet>
             </tr:panelPageHeader>
-            
-            <jsp:directive.include file="editor.jspf" />
-    
+            <jsp:directive.include file="editor.jspf"/>
           </tr:panelGroupLayout>
         </tr:form>
       </trh:body>

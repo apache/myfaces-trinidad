@@ -19,40 +19,40 @@
 	   
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
-          xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
-          xmlns:tr="http://myfaces.apache.org/trinidad" >
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
- <tr:document title="Messages Demo">
-   <tr:form defaultCommand="message">
-          <tr:panelGroupLayout layout="vertical">
-            <f:facet name="separator">
-              <tr:separator />
-            </f:facet>
-            <tr:commandLink immediate="true" text="Component Guide"
-                action="guide"/>            
-            <tr:outputFormatted styleUsage="instruction" value="&lt;b>Type 'cat' to see an error message&lt;/b>"/>
-              
-            <tr:panelGroupLayout layout="vertical">
-              <tr:outputLabel for="foo" value="Label"/>
-              <tr:message for="foo" binding="#{editor.component}" 
-              inlineStyle="background-color:red">
-                <f:facet name="help">
-                  <tr:outputText value="Help facet text"/>
-                </f:facet>
-              </tr:message>
-              <tr:inputText id="foo" simple="true" label="BigInteger field">
-                <f:converter converterId="javax.faces.BigInteger"/>
-              </tr:inputText>                      
-              <tr:commandButton id="message" text="Submit"/>
-            </tr:panelGroupLayout>
-
-            <jsp:directive.include file="editor.jspf" />
-    
+    <tr:document title="Message Demo">
+      <tr:form defaultCommand="message">
+        <tr:panelGroupLayout layout="vertical">
+          <f:facet name="separator">
+            <tr:separator/>
+          </f:facet>
+          <tr:panelGroupLayout layout="horizontal">
+            <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_message.html"
+                       text="Tag Documentation"/>
           </tr:panelGroupLayout>
-        </tr:form>
- </tr:document>
+          <tr:outputFormatted styleUsage="instruction" value="&lt;b>message&lt;/b>"/>
+          <tr:outputText value="Type 'cat' to see an error message"/>
+          <tr:panelGroupLayout layout="vertical">
+            <tr:outputLabel for="foo" value="Label"/>
+            <tr:message for="foo" binding="#{editor.component}" inlineStyle="background-color:red">
+              <f:facet name="help">
+                <tr:outputText value="Help facet text"/>
+              </f:facet>
+            </tr:message>
+            <tr:inputText id="foo" simple="true" label="BigInteger field">
+              <f:converter converterId="javax.faces.BigInteger"/>
+            </tr:inputText>
+            <tr:commandButton id="message" text="Submit"/>
+          </tr:panelGroupLayout>
+          <jsp:directive.include file="editor.jspf"/>
+        </tr:panelGroupLayout>
+      </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

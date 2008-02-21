@@ -19,157 +19,143 @@
 	   
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
-          xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
-          xmlns:tr="http://myfaces.apache.org/trinidad" >
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
- <tr:document title="panelTabbed Demo">
-        <tr:form>
-        
-            <tr:panelGroupLayout layout="vertical">
-              <f:facet name="separator">
-                <tr:separator/>
-              </f:facet>
-            <tr:commandLink immediate="true" text="Component Guide"
-                action="guide"/>                   
-             
-                <tr:outputFormatted styleUsage="instruction" value="&lt;b> A panelTabbed component with position set to 'above' and takes default selection among showDetailItem children&lt;/b>"/>  
-                <tr:panelTabbed position="above">
-                  <tr:showDetailItem text="Tab 1" disabled="true"/>
-                  <tr:showDetailItem text="Tab 2">
-                    <tr:panelHeader text="Header 2">
-                      <tr:panelFormLayout>
-                        <tr:inputText readOnly="true" label="Label 2-1" value="Value"
-                                               styleClass="AFFieldTextMarker"/>
-                        <tr:inputText readOnly="true" 
-                          label="Date/Time from last partial refresh" 
-                          value="#{date.currentDate}"
-                          styleClass="AFFieldTextMarker">
-                          <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
-                        </tr:inputText>
-                      </tr:panelFormLayout>
-                    </tr:panelHeader>
-                  </tr:showDetailItem>
-                  <tr:showDetailItem text="Tab 3">
-                    <tr:panelHeader text="Header 3">
-                      <tr:panelFormLayout>
-                        <tr:inputText readOnly="true" label="Label 3-1" value="Value"
-                                               styleClass="AFFieldTextMarker"/>
-                        <tr:inputText readOnly="true" 
-                          label="Date/Time from last partial refresh" 
-                          value="#{date.currentDate}"
-                          styleClass="AFFieldTextMarker">
-                          <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
-                        </tr:inputText>
-                      </tr:panelFormLayout>
-                    </tr:panelHeader>
-                  </tr:showDetailItem>
-                  <tr:showDetailItem text="Tab 4">
-                    <tr:panelHeader text="Header 4">
-                      <tr:panelFormLayout>
-                        <tr:inputText readOnly="true" label="Label 4-1" value="Value"
-                                               styleClass="AFFieldTextMarker"/>
-                        <tr:inputText readOnly="true" 
-                          label="Date/Time from last partial refresh" 
-                          value="#{date.currentDate}"
-                          styleClass="AFFieldTextMarker">
-                          <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
-                        </tr:inputText>
-                      </tr:panelFormLayout>
-                    </tr:panelHeader>
-                  </tr:showDetailItem>
-                  <tr:showDetailItem text="Tab 5">
-                    <tr:panelHeader text="Header 5">
-                      <tr:panelFormLayout>
-                        <tr:inputText readOnly="true" label="Label 5-1" value="Value"
-                                               styleClass="AFFieldTextMarker"/>
-                        <tr:inputText readOnly="true" 
-                          label="Date/Time from last partial refresh" 
-                          value="#{date.currentDate}"
-                          styleClass="AFFieldTextMarker">
-                          <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
-                        </tr:inputText>
-                      </tr:panelFormLayout>
-                    </tr:panelHeader>
-                  </tr:showDetailItem>
-                </tr:panelTabbed>
-                
-                <tr:outputFormatted styleUsage="instruction" value="&lt;b>This block is to show the current date for reference - Note that this does not change until there is a full page refresh &lt;/b>"/>  
+    <tr:document title="panelTabbed Demo">
+      <tr:form>
+        <tr:panelGroupLayout layout="vertical">
+          <f:facet name="separator">
+            <tr:separator/>
+          </f:facet>
+          <tr:panelGroupLayout layout="horizontal">
+            <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_panelTabbed.html"
+                       text="Tag Documentation"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/skin-selectors.html#panelTabbed"
+                       text="Skinning Key Documentation"/>
+          </tr:panelGroupLayout>
+          <tr:outputFormatted styleUsage="instruction"
+                              value="&lt;b>panelTabbed component with position set to 'above' and takes default selection among showDetailItem children&lt;/b>"/>
+          <tr:panelTabbed position="above">
+            <tr:showDetailItem text="Tab 1" disabled="true"/>
+            <tr:showDetailItem text="Tab 2">
+              <tr:panelHeader text="Header 2">
                 <tr:panelFormLayout>
-                  <tr:inputText readOnly="true" label="Date/Time from last full page refresh" 
-                                         value="#{date.currentDate}"
-                                         styleClass="AFFieldTextMarker">
+                  <tr:inputText readOnly="true" label="Label 2-1" value="Value"
+                                styleClass="AFFieldTextMarker"/>
+                  <tr:inputText readOnly="true" label="Date/Time from last partial refresh"
+                                value="#{date.currentDate}" styleClass="AFFieldTextMarker">
                     <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
                   </tr:inputText>
                 </tr:panelFormLayout>
-
-                <tr:outputFormatted styleUsage="instruction" value="&lt;b>A standard panelTabbed component - Update its properties from the table below &lt;/b>"/>  
-                <tr:panelTabbed binding="#{editor.component}">
-                  <tr:showDetailItem text="Tab 1">
-                    <tr:panelHeader text="Header 1">
-                      <tr:panelFormLayout>
-                        <tr:inputText readOnly="true" label="Label 1-1" value="Value"
-                                               styleClass="AFFieldTextMarker"/>
-                        <tr:inputText readOnly="true" 
-                          label="Date/Time from last partial refresh" 
-                          value="#{date.currentDate}"
-                          styleClass="AFFieldTextMarker">
-                          <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
-                        </tr:inputText>
-                      </tr:panelFormLayout>
-                    </tr:panelHeader>
-                  </tr:showDetailItem>
-                  <tr:showDetailItem text="Tab 2">
-                    <tr:panelHeader text="Header 2">
-                      <tr:panelFormLayout>
-                        <tr:inputText readOnly="true" label="Label 2-1" value="Value"
-                                               styleClass="AFFieldTextMarker"/>
-                        <tr:inputText readOnly="true" 
-                          label="Date/Time from last partial refresh" 
-                          value="#{date.currentDate}"
-                          styleClass="AFFieldTextMarker">
-                          <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
-                        </tr:inputText>
-                      </tr:panelFormLayout>
-                    </tr:panelHeader>
-                  </tr:showDetailItem>
-                  <tr:showDetailItem text="Tab 3" disclosed="true">
-                    <tr:panelHeader text="Header 3">
-                      <tr:panelFormLayout>
-                        <tr:inputText readOnly="true" label="Label 3-1" value="Value"
-                                               styleClass="AFFieldTextMarker"/>
-                        <tr:inputText readOnly="true" 
-                          label="Date/Time from last partial refresh" 
-                          value="#{date.currentDate}"
-                          styleClass="AFFieldTextMarker">
-                          <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
-                        </tr:inputText>
-                      </tr:panelFormLayout>
-                    </tr:panelHeader>
-                  </tr:showDetailItem>
-                  <tr:showDetailItem text="Tab 4" disabled="true"/>
-                  <tr:showDetailItem text="Tab 5">
-                    <tr:panelHeader text="Header 5">
-                      <tr:panelFormLayout>
-                        <tr:inputText readOnly="true" label="Label 5-1" value="Value"
-                                               styleClass="AFFieldTextMarker"/>
-                        <tr:inputText readOnly="true" 
-                          label="Date/Time from last partial refresh" 
-                          value="#{date.currentDate}"
-                          styleClass="AFFieldTextMarker">
-                          <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
-                        </tr:inputText>
-                      </tr:panelFormLayout>
-                    </tr:panelHeader>
-                  </tr:showDetailItem>
-                </tr:panelTabbed>
-                
-                <jsp:directive.include file="editor.jspf" />
-    
-            </tr:panelGroupLayout>
-        </tr:form>
- </tr:document>
+              </tr:panelHeader>
+            </tr:showDetailItem>
+            <tr:showDetailItem text="Tab 3">
+              <tr:panelHeader text="Header 3">
+                <tr:panelFormLayout>
+                  <tr:inputText readOnly="true" label="Label 3-1" value="Value"
+                                styleClass="AFFieldTextMarker"/>
+                  <tr:inputText readOnly="true" label="Date/Time from last partial refresh"
+                                value="#{date.currentDate}" styleClass="AFFieldTextMarker">
+                    <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
+                  </tr:inputText>
+                </tr:panelFormLayout>
+              </tr:panelHeader>
+            </tr:showDetailItem>
+            <tr:showDetailItem text="Tab 4">
+              <tr:panelHeader text="Header 4">
+                <tr:panelFormLayout>
+                  <tr:inputText readOnly="true" label="Label 4-1" value="Value"
+                                styleClass="AFFieldTextMarker"/>
+                  <tr:inputText readOnly="true" label="Date/Time from last partial refresh"
+                                value="#{date.currentDate}" styleClass="AFFieldTextMarker">
+                    <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
+                  </tr:inputText>
+                </tr:panelFormLayout>
+              </tr:panelHeader>
+            </tr:showDetailItem>
+            <tr:showDetailItem text="Tab 5">
+              <tr:panelHeader text="Header 5">
+                <tr:panelFormLayout>
+                  <tr:inputText readOnly="true" label="Label 5-1" value="Value"
+                                styleClass="AFFieldTextMarker"/>
+                  <tr:inputText readOnly="true" label="Date/Time from last partial refresh"
+                                value="#{date.currentDate}" styleClass="AFFieldTextMarker">
+                    <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
+                  </tr:inputText>
+                </tr:panelFormLayout>
+              </tr:panelHeader>
+            </tr:showDetailItem>
+          </tr:panelTabbed>
+          <tr:outputFormatted styleUsage="instruction"
+                              value="&lt;b>This block is to show the current date for reference - Note that this does not change until there is a full page refresh &lt;/b>"/>
+          <tr:panelFormLayout>
+            <tr:inputText readOnly="true" label="Date/Time from last full page refresh"
+                          value="#{date.currentDate}" styleClass="AFFieldTextMarker">
+              <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
+            </tr:inputText>
+          </tr:panelFormLayout>
+          <tr:outputFormatted styleUsage="instruction"
+                              value="&lt;b>A standard panelTabbed component - Update its properties from the table below &lt;/b>"/>
+          <tr:panelTabbed binding="#{editor.component}">
+            <tr:showDetailItem text="Tab 1">
+              <tr:panelHeader text="Header 1">
+                <tr:panelFormLayout>
+                  <tr:inputText readOnly="true" label="Label 1-1" value="Value"
+                                styleClass="AFFieldTextMarker"/>
+                  <tr:inputText readOnly="true" label="Date/Time from last partial refresh"
+                                value="#{date.currentDate}" styleClass="AFFieldTextMarker">
+                    <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
+                  </tr:inputText>
+                </tr:panelFormLayout>
+              </tr:panelHeader>
+            </tr:showDetailItem>
+            <tr:showDetailItem text="Tab 2">
+              <tr:panelHeader text="Header 2">
+                <tr:panelFormLayout>
+                  <tr:inputText readOnly="true" label="Label 2-1" value="Value"
+                                styleClass="AFFieldTextMarker"/>
+                  <tr:inputText readOnly="true" label="Date/Time from last partial refresh"
+                                value="#{date.currentDate}" styleClass="AFFieldTextMarker">
+                    <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
+                  </tr:inputText>
+                </tr:panelFormLayout>
+              </tr:panelHeader>
+            </tr:showDetailItem>
+            <tr:showDetailItem text="Tab 3" disclosed="true">
+              <tr:panelHeader text="Header 3">
+                <tr:panelFormLayout>
+                  <tr:inputText readOnly="true" label="Label 3-1" value="Value"
+                                styleClass="AFFieldTextMarker"/>
+                  <tr:inputText readOnly="true" label="Date/Time from last partial refresh"
+                                value="#{date.currentDate}" styleClass="AFFieldTextMarker">
+                    <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
+                  </tr:inputText>
+                </tr:panelFormLayout>
+              </tr:panelHeader>
+            </tr:showDetailItem>
+            <tr:showDetailItem text="Tab 4" disabled="true"/>
+            <tr:showDetailItem text="Tab 5">
+              <tr:panelHeader text="Header 5">
+                <tr:panelFormLayout>
+                  <tr:inputText readOnly="true" label="Label 5-1" value="Value"
+                                styleClass="AFFieldTextMarker"/>
+                  <tr:inputText readOnly="true" label="Date/Time from last partial refresh"
+                                value="#{date.currentDate}" styleClass="AFFieldTextMarker">
+                    <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
+                  </tr:inputText>
+                </tr:panelFormLayout>
+              </tr:panelHeader>
+            </tr:showDetailItem>
+          </tr:panelTabbed>
+          <jsp:directive.include file="editor.jspf"/>
+        </tr:panelGroupLayout>
+      </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

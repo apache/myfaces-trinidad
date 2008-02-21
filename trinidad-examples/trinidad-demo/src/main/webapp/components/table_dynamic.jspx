@@ -19,85 +19,71 @@
 	   
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
-          xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:tr="http://myfaces.apache.org/trinidad" >
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
- <tr:document title="Dynamic Table Demo">
-        <tr:form >
-          <tr:messages/>
-          <tr:panelGroupLayout layout="vertical">
-            <f:facet name="separator">
-              <tr:separator />
-            </f:facet>   
-            <tr:commandLink immediate="true" text="Component Guide"
-                action="guide"/>     
-  
-            <tr:outputFormatted styleUsage="instruction" value="&lt;b>Dynamic table&lt;/b>"/>
-            
-            <f:verbatim>
-              &lt;ul>
-                &lt;li>
-                The table should tolerate RowCounts which are greater than the 
-                actual RowCount.
-                &lt;li>
-                The table should try to preserve the page being viewed, when the
-                rowCounts change.
-                &lt;li>
-                In the following example, the table should not render NULL values
-                nor throw Exceptions:
-              &lt;/ul>
-            </f:verbatim>
-            
-            <tr:panelFormLayout>
-              <tr:inputText label="RowCount" value="#{dynamicTable.rowCount}"
-                accessKey="R">
-                <f:facet name="help">
-                  <tr:outputText value="Minimum -1. Maximum 400"/>
-                </f:facet>
-                <f:validateLongRange minimum="-1" maximum="400" />
-              </tr:inputText>
-              <tr:inputText label="RowCount (Actual)"
-                accessKey="A"
-                value="#{dynamicTable.actualRowCount}">
-                <f:facet name="help">
-                  <tr:outputText value="Minimum 0. Maximum 400"/>
-                </f:facet>
-                <f:validateLongRange minimum="0" maximum="400"/>
-              </tr:inputText>
-              <tr:inputText label="Block Size"
-                accessKey="B"
-                value="#{dynamicTable.blockSize}">
-                <f:facet name="help">
-                  <tr:outputText value="Minimum 0"/>
-                </f:facet>
-                <f:validateLongRange minimum="0"/>
-              </tr:inputText>
-              <f:facet name="footer">
-                <tr:commandButton textAndAccessKey="&amp;Update"/>
+    <tr:document title="Dynamic Table Demo">
+      <tr:form>
+        <tr:messages/>
+        <tr:panelGroupLayout layout="vertical">
+          <f:facet name="separator">
+            <tr:separator/>
+          </f:facet>
+          <tr:panelGroupLayout layout="horizontal">
+            <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_table.html"
+                       text="Tag Documentation"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/skin-selectors.html#table"
+                       text="Skinning Key Documentation"/>
+          </tr:panelGroupLayout>
+          <tr:outputFormatted styleUsage="instruction" value="&lt;b>Dynamic table&lt;/b>"/>
+          <f:verbatim>&lt;ul&gt; &lt;li&gt; The table should tolerate RowCounts which are greater
+                      than the actual RowCount. &lt;li&gt; The table should try to preserve the page
+                      being viewed, when the rowCounts change. &lt;li&gt; In the following example,
+                      the table should not render NULL values nor throw Exceptions: &lt;/ul&gt;</f:verbatim>
+          <tr:panelFormLayout>
+            <tr:inputText label="RowCount" value="#{dynamicTable.rowCount}" accessKey="R">
+              <f:facet name="help">
+                <tr:outputText value="Minimum -1. Maximum 400"/>
               </f:facet>
-            </tr:panelFormLayout>
-            
-            <tr:table var="row"
-                      emptyText="No Data"
-                      value="#{dynamicTable}" 
-                      rows="#{dynamicTable.blockSize}"
-                      summary="Dynamic Table">
-              <tr:column>
-                <f:facet name="header">
-                  <tr:outputText value="Row"/>
-                </f:facet>
-                <tr:outputText value="#{empty row ? 'NULL - This is bad!' : row}"/>
-              </tr:column>
-              <tr:column>
-                <f:facet name="header">
-                  <tr:outputText value="Number"/>
-                </f:facet>
-                <tr:outputText value="#{row * 100}"/>
-              </tr:column>
-            </tr:table>
-          </tr:panelGroupLayout>    
-        </tr:form>
- </tr:document>
+              <f:validateLongRange minimum="-1" maximum="400"/>
+            </tr:inputText>
+            <tr:inputText label="RowCount (Actual)" accessKey="A"
+                          value="#{dynamicTable.actualRowCount}">
+              <f:facet name="help">
+                <tr:outputText value="Minimum 0. Maximum 400"/>
+              </f:facet>
+              <f:validateLongRange minimum="0" maximum="400"/>
+            </tr:inputText>
+            <tr:inputText label="Block Size" accessKey="B" value="#{dynamicTable.blockSize}">
+              <f:facet name="help">
+                <tr:outputText value="Minimum 0"/>
+              </f:facet>
+              <f:validateLongRange minimum="0"/>
+            </tr:inputText>
+            <f:facet name="footer">
+              <tr:commandButton textAndAccessKey="&amp;Update"/>
+            </f:facet>
+          </tr:panelFormLayout>
+          <tr:table var="row" emptyText="No Data" value="#{dynamicTable}"
+                    rows="#{dynamicTable.blockSize}" summary="Dynamic Table">
+            <tr:column>
+              <f:facet name="header">
+                <tr:outputText value="Row"/>
+              </f:facet>
+              <tr:outputText value="#{empty row ? 'NULL - This is bad!' : row}"/>
+            </tr:column>
+            <tr:column>
+              <f:facet name="header">
+                <tr:outputText value="Number"/>
+              </f:facet>
+              <tr:outputText value="#{row * 100}"/>
+            </tr:column>
+          </tr:table>
+        </tr:panelGroupLayout>
+      </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

@@ -19,48 +19,48 @@
 	   
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
-          xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
-          xmlns:tr="http://myfaces.apache.org/trinidad" >
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-   <tr:document title="ChooseColor Demo" >
-        <tr:form>       
-            <tr:panelGroupLayout layout="vertical">
-              <f:facet name="separator">
-                <tr:separator/>
-              </f:facet>
-              <tr:commandLink immediate="true" text="Component Guide"
-                  action="guide"/> 
-              <tr:outputFormatted styleUsage="instruction" value="&lt;b>A chooseColor associated with a selectInputColor&lt;/b>"/>                
-              <tr:inputColor id="sic1" chooseId="cp1"
-                shortDesc="Select color from pallette"                
-                label="Enter or select color from palette below"
-                value="#{color.colorValue1}"/>                              
-              <tr:chooseColor id="cp1" 
-                colorData="#{requestContext.colorPalette.default49}"/>
-                          
-              <tr:outputFormatted styleUsage="instruction" value="&lt;b>Color Converter with patterns &quot;rrr-ggg-bbb #RRGGBB&quot; associated with selectInputColor component&lt;/b>"/>                
-              <tr:inputColor id="sicConv" chooseId="cpConv"
-                label="Enter or select color from palette below"
-                value="#{color.colorValue1}">
-                <tr:convertColor  patterns="rrr-ggg-bbb #RRGGBB" transparentAllowed="false" />
-              </tr:inputColor>
-              <tr:chooseColor id="cpConv" 
-                colorData="#{requestContext.colorPalette.default49}"/>
-
-              <tr:outputFormatted styleUsage="instruction" value="&lt;b>A chooseColor with attribute 'colorData' bound to a list(java.util.List) of colors(java.awt.Color) and attribute 'customColorData' bound to an array of colors(java.awt.Color)&lt;/b>"/>                                
-              <tr:chooseColor id="cp2" 
-                colorData="#{color.colorList}"
-                customColorData="#{color.colorArray}"/>
-  
-              <tr:outputFormatted styleUsage="instruction" value="&lt;b>A chooseColor using standard 80 color palette(Trinidad implicit object) - Update its properties  from the table below&lt;/b>"/>                                
-              <tr:chooseColor binding="#{editor.component}" id="cp3" 
-                colorData="#{requestContext.colorPalette.default80}" width="16"/>
-              <jsp:directive.include file="editor.jspf" />
+    <tr:document title="ChooseColor Demo">
+      <tr:form>
+        <tr:panelGroupLayout layout="vertical">
+          <f:facet name="separator">
+            <tr:separator/>
+          </f:facet>
+          <tr:panelGroupLayout layout="horizontal">
+            <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_chooseColor.html"
+                       text="Tag Documentation"/>
           </tr:panelGroupLayout>
-        </tr:form>
+          <tr:outputFormatted styleUsage="instruction"
+                              value="&lt;b>A chooseColor associated with an inputColor&lt;/b>"/>
+          <tr:inputColor id="sic1" chooseId="cp1" shortDesc="Select color from pallette"
+                         label="Enter or select color from palette below"
+                         value="#{color.colorValue1}"/>
+          <tr:chooseColor id="cp1" colorData="#{requestContext.colorPalette.default49}"/>
+          <tr:outputFormatted styleUsage="instruction"
+                              value='&lt;b>Color Converter with patterns "rrr-ggg-bbb #RRGGBB" associated with an inputColor component&lt;/b>'/>
+          <tr:inputColor id="sicConv" chooseId="cpConv"
+                         label="Enter or select color from palette below"
+                         value="#{color.colorValue1}">
+            <tr:convertColor patterns="rrr-ggg-bbb #RRGGBB" transparentAllowed="false"/>
+          </tr:inputColor>
+          <tr:chooseColor id="cpConv" colorData="#{requestContext.colorPalette.default49}"/>
+          <tr:outputFormatted styleUsage="instruction"
+                              value="&lt;b>A chooseColor with attribute 'colorData' bound to a list(java.util.List) of colors(java.awt.Color) and attribute 'customColorData' bound to an array of colors(java.awt.Color)&lt;/b>"/>
+          <tr:chooseColor id="cp2" colorData="#{color.colorList}"
+                          customColorData="#{color.colorArray}"/>
+          <tr:outputFormatted styleUsage="instruction"
+                              value="&lt;b>A chooseColor using standard 80 color palette(Trinidad implicit object) - Update its properties  from the table below&lt;/b>"/>
+          <tr:chooseColor binding="#{editor.component}" id="cp3"
+                          colorData="#{requestContext.colorPalette.default80}" width="16"/>
+          <jsp:directive.include file="editor.jspf"/>
+        </tr:panelGroupLayout>
+      </tr:form>
     </tr:document>
   </f:view>
 </jsp:root>

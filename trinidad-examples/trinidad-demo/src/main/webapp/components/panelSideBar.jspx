@@ -19,33 +19,37 @@
 	   
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
-          xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
-          xmlns:tr="http://myfaces.apache.org/trinidad" >
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
- <tr:document title="PanelSideBar Demo">
-        <tr:form>
-          <tr:panelGroupLayout layout="vertical">
-            <f:facet name="separator">
-              <tr:separator/>
-            </f:facet>
-            <tr:commandLink immediate="true" text="Component Guide"
-                action="guide"/>             
-            <tr:outputFormatted styleUsage="instruction" value="&lt;b> &lt;/b>"/>
-            <tr:panelSideBar binding="#{editor.component}">
-              <tr:panelList>
-                <tr:commandLink text="item 1" action="guide.commandLink" />
-                <tr:commandLink text="item 2" action="guide.commandLink" />
-                <tr:commandLink text="item 3" action="guide.commandLink" />
-              </tr:panelList>
-            </tr:panelSideBar>
-            
-            <jsp:directive.include file="editor.jspf" />
-    
+    <tr:document title="PanelSideBar Demo">
+      <tr:form>
+        <tr:panelGroupLayout layout="vertical">
+          <f:facet name="separator">
+            <tr:separator/>
+          </f:facet>
+          <tr:panelGroupLayout layout="horizontal">
+            <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_panelSideBar.html"
+                       text="Tag Documentation"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/skin-selectors.html#panelSideBar"
+                       text="Skinning Key Documentation"/>
           </tr:panelGroupLayout>
-        </tr:form>
- </tr:document>
+          <tr:outputFormatted styleUsage="instruction" value="&lt;b>panelSideBar&lt;/b>"/>
+          <tr:panelSideBar binding="#{editor.component}">
+            <tr:panelList>
+              <tr:commandLink text="item 1" action="guide.commandLink"/>
+              <tr:commandLink text="item 2" action="guide.commandLink"/>
+              <tr:commandLink text="item 3" action="guide.commandLink"/>
+            </tr:panelList>
+          </tr:panelSideBar>
+          <jsp:directive.include file="editor.jspf"/>
+        </tr:panelGroupLayout>
+      </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

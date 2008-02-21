@@ -19,53 +19,51 @@
 	   
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
-          xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
-          xmlns:tr="http://myfaces.apache.org/trinidad" >
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
- <tr:document title="ProgressIndicator Demo">
-    <tr:form>
+    <tr:document title="ProgressIndicator Demo">
+      <tr:form>
+        <tr:panelGroupLayout layout="vertical">
+          <f:facet name="separator">
+            <tr:separator/>
+          </f:facet>
+          <tr:panelGroupLayout layout="horizontal">
+            <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_progressIndicator.html"
+                       text="Tag Documentation"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/skin-selectors.html#progressIndicator"
+                       text="Skinning Key Documentation"/>
+          </tr:panelGroupLayout>
+          <tr:outputFormatted styleUsage="instruction" value="&lt;b>progressIndicator&lt;/b>"/>
+          <tr:commandButton text="Submit"/>
+          <tr:inputText readOnly="true" label="Date/Time from last full page refresh"
+                        value="#{date.currentDate}" styleClass="AFFieldTextMarker">
+            <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
+          </tr:inputText>
           <tr:panelGroupLayout layout="vertical">
-            <f:facet name="separator">
-              <tr:separator/>
-            </f:facet>
-            <tr:commandLink immediate="true" text="Component Guide"
-              action="guide" actionListener="#{progress.cancelProcess}"/> 
-
-            <tr:commandButton text="Submit"/>           
-            
-            <tr:inputText readOnly="true" label="Date/Time from last full page refresh" 
-              value="#{date.currentDate}" styleClass="AFFieldTextMarker">
-              <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
-            </tr:inputText>
-              
-            <tr:panelGroupLayout layout="vertical">
-              <tr:outputFormatted styleUsage="instruction" 
-                value="&lt;b>ProgressIndicator component linked to a Poll 
+            <tr:outputFormatted styleUsage="instruction" value="&lt;b>progressIndicator component linked to a poll 
                 component - Navigates to a different page once the background
                 task is complete&lt;/b>"/>
-              <tr:poll interval="2000" id="pollid"/>
-              <tr:progressIndicator binding="#{editor.component}" id="progressid" 
-                action="progressEnd" value="#{progress.progressModel}" 
-                partialTriggers="pollid">
-                <tr:outputFormatted styleUsage="instruction" 
-                  value="Task status not known"
-                  rendered="#{progress.progressModel.value == -1 or progress.progressModel.value == -1}"/>
-                <tr:outputFormatted styleUsage="instruction" 
-                  value="#{progress.progressModel.value} of #{progress.progressModel.maximum} files copied"
-                  rendered="#{progress.progressModel.value > -1 and progress.progressModel.value > -1}"/>
-              </tr:progressIndicator>
-            </tr:panelGroupLayout>
-
-            <tr:commandButton text="Cancel" action="progressCancel" 
-              actionListener="#{progress.cancelProcess}"/>
-            
-            <jsp:directive.include file="editor.jspf" />
-
+            <tr:poll interval="2000" id="pollid"/>
+            <tr:progressIndicator binding="#{editor.component}" id="progressid" action="progressEnd"
+                                  value="#{progress.progressModel}" partialTriggers="pollid">
+              <tr:outputFormatted styleUsage="instruction" value="Task status not known"
+                                  rendered="#{progress.progressModel.value == -1 or progress.progressModel.value == -1}"/>
+              <tr:outputFormatted styleUsage="instruction"
+                                  value="#{progress.progressModel.value} of #{progress.progressModel.maximum} files copied"
+                                  rendered="#{progress.progressModel.value > -1 and progress.progressModel.value > -1}"/>
+            </tr:progressIndicator>
           </tr:panelGroupLayout>
-        </tr:form>
- </tr:document>
+          <tr:commandButton text="Cancel" action="progressCancel"
+                            actionListener="#{progress.cancelProcess}"/>
+          <jsp:directive.include file="editor.jspf"/>
+        </tr:panelGroupLayout>
+      </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

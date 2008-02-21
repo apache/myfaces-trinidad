@@ -19,40 +19,40 @@
 	   
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
-          xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
-          xmlns:tr="http://myfaces.apache.org/trinidad" >
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
- <tr:document title="Iterator Demo">
-        <tr:form >
-          <tr:messages/>
-          <tr:panelGroupLayout layout="vertical">
-            <f:facet name="separator">
-              <tr:separator />
-            </f:facet>   
-            <tr:commandLink immediate="true" text="Component Guide"
-                action="guide"/>     
-
-            <tr:outputFormatted styleUsage="instruction" value="&lt;b>Iterated Data with VarStatus&lt;/b>"/>
-            <tr:iterator var="row" first="3" rows="3" varStatus="stat"
-                      binding="#{editor.component}"
-                      value="#{periodicTable.tableData}" >
-              <tr:outputText value="#{stat.count}. Index:#{stat.index} of #{stat.model.rowCount}"/>
-              <tr:inputText label="Element Name" value="#{row.name}"/>
-              <tr:inputText label="Atomic Number" value="#{row.number}"/>
-              <tr:inputText label="Symbol" value="#{row.symbol}"/>
-              <tr:inputText label="Group" value="#{row.group}"/>
-              <tr:separator/>
-            </tr:iterator>
-
-            <tr:outputFormatted styleUsage="instruction" 
-              value="&lt;b>Use the editor to change the range:&lt;/b>"/>
-            <jsp:directive.include file="editor.jspf" />
-            
-          </tr:panelGroupLayout>    
-        </tr:form>
- </tr:document>
+    <tr:document title="Iterator Demo">
+      <tr:form>
+        <tr:messages/>
+        <tr:panelGroupLayout layout="vertical">
+          <f:facet name="separator">
+            <tr:separator/>
+          </f:facet>
+          <tr:panelGroupLayout layout="horizontal">
+            <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_iterator.html"
+                       text="Tag Documentation"/>
+          </tr:panelGroupLayout>
+          <tr:outputFormatted styleUsage="instruction"
+                              value="&lt;b>iterator with VarStatus&lt;/b>"/>
+          <tr:iterator var="row" first="3" rows="3" varStatus="stat" binding="#{editor.component}"
+                       value="#{periodicTable.tableData}">
+            <tr:outputText value="#{stat.count}. Index:#{stat.index} of #{stat.model.rowCount}"/>
+            <tr:inputText label="Element Name" value="#{row.name}"/>
+            <tr:inputText label="Atomic Number" value="#{row.number}"/>
+            <tr:inputText label="Symbol" value="#{row.symbol}"/>
+            <tr:inputText label="Group" value="#{row.group}"/>
+            <tr:separator/>
+          </tr:iterator>
+          <tr:outputFormatted styleUsage="instruction"
+                              value="&lt;b>Use the editor to change the range:&lt;/b>"/>
+          <jsp:directive.include file="editor.jspf"/>
+        </tr:panelGroupLayout>
+      </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

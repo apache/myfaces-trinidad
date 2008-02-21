@@ -18,24 +18,28 @@
     under the License.
 	   
 -->
-<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
-          xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:tr="http://myfaces.apache.org/trinidad"
-          version="1.2">
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:tr="http://myfaces.apache.org/trinidad" version="1.2">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
- <tr:document title="PanelFormLayout Demo">
+    <tr:document title="PanelFormLayout Demo">
       <tr:form>
         <tr:panelGroupLayout layout="vertical">
           <f:facet name="separator">
             <tr:separator/>
           </f:facet>
-          <tr:commandLink immediate="true" text="Component Guide"
-            action="guide"/>
-          <tr:outputText
-            value="This is a test case for the core panelFormLayout component."/>
-          <tr:panelFormLayout binding="#{editor.component}" rows="5"
-            labelWidth="33%" fieldWidth="67%">
+          <tr:panelGroupLayout layout="horizontal">
+            <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_panelFormLayout.html"
+                       text="Tag Documentation"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/skin-selectors.html#panelFormLayout"
+                       text="Skinning Key Documentation"/>
+          </tr:panelGroupLayout>
+          <tr:outputFormatted styleUsage="instruction" value="&lt;b>panelFormLayout&lt;/b>"/>
+          <tr:panelFormLayout binding="#{editor.component}" rows="5" labelWidth="33%"
+                              fieldWidth="67%">
             <tr:inputText columns="5" label="label 1">
               <f:facet name="help">
                 <tr:outputText value="Enter an integer."/>
@@ -50,8 +54,7 @@
             <tr:panelLabelAndMessage rendered="true" label="label 3">
               <tr:commandButton text="Submit"/>
             </tr:panelLabelAndMessage>
-            <tr:selectManyListbox id="rs" label="label 4"
-              shortDesc="Select Option">
+            <tr:selectManyListbox id="rs" label="label 4" shortDesc="Select Option">
               <tr:selectItem label="option 1"/>
               <tr:selectItem label="option 2"/>
               <tr:selectItem label="option 3"/>
@@ -64,23 +67,20 @@
               <tr:commandButton text="Hello World" partialSubmit="true"/>
             </tr:panelLabelAndMessage>
             <tr:inputText rows="2" label="label 6" secret="true"/>
-            <tr:selectBooleanRadio id="rb" group="rbGroup" shortDesc="Label 7"
-              label="label 7"/>
+            <tr:selectBooleanRadio id="rb" group="rbGroup" shortDesc="Label 7" label="label 7"/>
             <tr:selectBooleanCheckbox shortDesc="label 8" label="label 8"/>
             <tr:inputText styleClass="AFFieldTextMarker" label="label 9" value="hi"
-              readOnly="true"/>
-            <tr:inputText styleClass="AFFieldTextMarker" label="label 10"
-              value="hi again" readOnly="true"/>
+                          readOnly="true"/>
+            <tr:inputText styleClass="AFFieldTextMarker" label="label 10" value="hi again"
+                          readOnly="true"/>
             <tr:panelLabelAndMessage label="label 11">
               <tr:selectBooleanCheckbox shortDesc="option 1" label="option 1"/>
               <tr:panelFormLayout>
                 <tr:inputText styleClass="AFFieldTextMarker" label="sub item 1" value="hello"/>
                 <tr:inputText styleClass="AFFieldTextMarker" label="sub item 2" value="world"/>
                 <tr:selectOneChoice label="sub item 3">
-                  <tr:selectItem label="coffee" value="bean"
-                    shortDesc="Coffee from Kona"/>
-                  <f:selectItem itemLabel="tea" itemValue="leaf"
-                    itemDescription="Tea from China"/>
+                  <tr:selectItem label="coffee" value="bean" shortDesc="Coffee from Kona"/>
+                  <f:selectItem itemLabel="tea" itemValue="leaf" itemDescription="Tea from China"/>
                   <tr:selectItem label="milk" value="moo" rendered="false"/>
                   <f:selectItems value="#{demoInput.selectItems}"/>
                 </tr:selectOneChoice>

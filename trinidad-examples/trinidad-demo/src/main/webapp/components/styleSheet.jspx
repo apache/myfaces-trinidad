@@ -19,38 +19,32 @@
 	   
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
-          xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
-          xmlns:tr="http://myfaces.apache.org/trinidad" >
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
     <trh:html>
-    <!-- The trh:head element automatically adds 
+      <!-- The trh:head element automatically adds 
     the style sheet link reference to a generated Trinidad style sheet 
       <trh:head title="commandButton Demo"/>
     -->
       <trh:styleSheet rendered="true" binding="#{editor.component}"/>
       <trh:body>
-        <tr:form>       
-            <tr:panelGroupLayout layout="vertical">
-              <f:facet name="separator">
-                <tr:separator />
-              </f:facet>   
-              <tr:commandLink immediate="true" text="Component Guide"
-                  action="guide"/>      
-              <tr:outputFormatted 
-                styleUsage="instruction" 
-                value="&lt;b>styleSheet Demo&lt;/b>"/>
-              <tr:outputFormatted 
-                styleUsage="instruction" 
-                value="The styleSheet component generates the style sheet link
+        <tr:form>
+          <tr:panelGroupLayout layout="vertical">
+            <f:facet name="separator">
+              <tr:separator/>
+            </f:facet>
+            <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+            <tr:outputFormatted styleUsage="instruction" value="&lt;b>styleSheet&lt;/b>"/>
+            <tr:outputFormatted styleUsage="instruction" value="The styleSheet component generates the style sheet link
                 reference to a generated Trinidad style sheet. This is automatically 
                 included for you if you use the ADF HtmlHead component. 
                 Toggle rendered to see the effect of the styleSheet component.
                 "/>
-              <jsp:directive.include file="editor.jspf" />
-            </tr:panelGroupLayout>
+            <jsp:directive.include file="editor.jspf"/>
+          </tr:panelGroupLayout>
         </tr:form>
       </trh:body>
     </trh:html>

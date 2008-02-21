@@ -18,75 +18,77 @@
     under the License.
 	   
 -->
-
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
-          xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
-          xmlns:tr="http://myfaces.apache.org/trinidad" >
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
- <tr:document title="PanelList Demo">
-        <tr:form>
-          <tr:panelGroupLayout layout="vertical">
-            <f:facet name="separator">
-              <tr:separator />
-            </f:facet>
-            <tr:commandLink immediate="true" text="Component Guide"
-                action="guide"/>             
-            <tr:outputFormatted styleUsage="instruction" value="&lt;b>A basic bulleted List &lt;/b>"/>        
-            <tr:panelList binding="#{editor.component}"> 
-              <tr:commandLink text="item 1" action="action.nothing" />
-              <tr:commandLink text="item 2" action="action.nothing" />
-              <tr:commandLink text="item 3" action="action.nothing" />
-              <tr:commandLink text="item 4" action="action.nothing" />
-            </tr:panelList>     
-            
-            <jsp:directive.include file="editor.jspf" />
-            
-            <tr:outputFormatted styleUsage="instruction" value="&lt;b>A bulleted List where rows is 2&lt;/b>"/>        
-            <tr:panelList rows="2"> 
-              <tr:commandLink text="item 1" action="action.nothing" />
-              <tr:commandLink text="item 2" action="action.nothing" />
-              <tr:commandLink text="item 3" action="action.nothing" />
-              <tr:commandLink text="item 4" action="action.nothing" />
-            </tr:panelList>
-            
-            <tr:outputFormatted styleUsage="instruction" value="&lt;b>A bulleted List where rows is 2 and maxColumns is 1&lt;/b>"/>        
-            <tr:panelList rows="2" maxColumns="1"> 
-              <tr:commandLink text="item 1" action="action.nothing" />
-              <tr:commandLink text="item 2" action="action.nothing" />
-              <tr:commandLink text="item 3" action="action.nothing" />
-              <tr:commandLink text="item 4" action="action.nothing" />
-            </tr:panelList>
-                      
-            <tr:outputFormatted styleUsage="instruction" value="&lt;b>Nested bulleted List&lt;/b>" />
-            <tr:panelList rows="1" maxColumns="1">            
-                <tr:panelGroupLayout>
-                  <tr:commandLink text="item 1" action="action.nothing" />
-                  <tr:panelList rows="2" maxColumns="2"> 
-                    <tr:commandLink text="item 1.1" action="action.nothing" />
-                    <tr:commandLink text="item 1.2" action="action.nothing" />
-                  </tr:panelList>
-                </tr:panelGroupLayout>
-            </tr:panelList>
-            
-            <tr:outputFormatted styleUsage="instruction" value="&lt;b>Another nested bulleted List&lt;/b>" />
-            <tr:panelList rows="1" maxColumns="1">            
-                <tr:panelGroupLayout>
-                  <tr:commandLink text="item 1" action="action.nothing" />
-                </tr:panelGroupLayout>
-                <tr:panelGroupLayout>
-                  <tr:commandLink text="item 2" action="action.nothing" />                
-                  <tr:panelList rows="2" maxColumns="2"> 
-                    <tr:commandLink text="item 2.1" action="action.nothing" />
-                    <tr:commandLink text="item 2.2" action="action.nothing" />
-                  </tr:panelList>
-                </tr:panelGroupLayout>
-            </tr:panelList>
-                              
-          </tr:panelGroupLayout>          
-        </tr:form>
- </tr:document>
+    <tr:document title="PanelList Demo">
+      <tr:form>
+        <tr:panelGroupLayout layout="vertical">
+          <f:facet name="separator">
+            <tr:separator/>
+          </f:facet>
+          <tr:panelGroupLayout layout="horizontal">
+            <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_panelList.html"
+                       text="Tag Documentation"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/skin-selectors.html#panelList"
+                       text="Skinning Key Documentation"/>
+          </tr:panelGroupLayout>
+          <tr:outputFormatted styleUsage="instruction" value="&lt;b>panelList&lt;/b>"/>
+          <tr:panelList binding="#{editor.component}">
+            <tr:commandLink text="item 1" action="action.nothing"/>
+            <tr:commandLink text="item 2" action="action.nothing"/>
+            <tr:commandLink text="item 3" action="action.nothing"/>
+            <tr:commandLink text="item 4" action="action.nothing"/>
+          </tr:panelList>
+          <jsp:directive.include file="editor.jspf"/>
+          <tr:outputFormatted styleUsage="instruction"
+                              value="&lt;b>A bulleted List where rows is 2&lt;/b>"/>
+          <tr:panelList rows="2">
+            <tr:commandLink text="item 1" action="action.nothing"/>
+            <tr:commandLink text="item 2" action="action.nothing"/>
+            <tr:commandLink text="item 3" action="action.nothing"/>
+            <tr:commandLink text="item 4" action="action.nothing"/>
+          </tr:panelList>
+          <tr:outputFormatted styleUsage="instruction"
+                              value="&lt;b>A bulleted List where rows is 2 and maxColumns is 1&lt;/b>"/>
+          <tr:panelList rows="2" maxColumns="1">
+            <tr:commandLink text="item 1" action="action.nothing"/>
+            <tr:commandLink text="item 2" action="action.nothing"/>
+            <tr:commandLink text="item 3" action="action.nothing"/>
+            <tr:commandLink text="item 4" action="action.nothing"/>
+          </tr:panelList>
+          <tr:outputFormatted styleUsage="instruction" value="&lt;b>Nested bulleted List&lt;/b>"/>
+          <tr:panelList rows="1" maxColumns="1">
+            <tr:panelGroupLayout>
+              <tr:commandLink text="item 1" action="action.nothing"/>
+              <tr:panelList rows="2" maxColumns="2">
+                <tr:commandLink text="item 1.1" action="action.nothing"/>
+                <tr:commandLink text="item 1.2" action="action.nothing"/>
+              </tr:panelList>
+            </tr:panelGroupLayout>
+          </tr:panelList>
+          <tr:outputFormatted styleUsage="instruction"
+                              value="&lt;b>Another nested bulleted List&lt;/b>"/>
+          <tr:panelList rows="1" maxColumns="1">
+            <tr:panelGroupLayout>
+              <tr:commandLink text="item 1" action="action.nothing"/>
+            </tr:panelGroupLayout>
+            <tr:panelGroupLayout>
+              <tr:commandLink text="item 2" action="action.nothing"/>
+              <tr:panelList rows="2" maxColumns="2">
+                <tr:commandLink text="item 2.1" action="action.nothing"/>
+                <tr:commandLink text="item 2.2" action="action.nothing"/>
+              </tr:panelList>
+            </tr:panelGroupLayout>
+          </tr:panelList>
+        </tr:panelGroupLayout>
+      </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

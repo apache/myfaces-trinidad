@@ -19,34 +19,39 @@
 	   
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
-          xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
-          xmlns:tr="http://myfaces.apache.org/trinidad" >
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
- <tr:document title="PanelBox Demo">
-        <tr:form>
-          <tr:panelGroupLayout layout="vertical">
-            <f:facet name="separator">
-              <tr:separator />
-            </f:facet>
-            <tr:commandLink immediate="true" text="Component Guide"
-                action="guide"/>             
-            <tr:outputFormatted styleUsage="instruction" value="&lt;b>Simple panelBox&lt;/b>"/>
-            <tr:panelBox binding="#{editor.component}" icon="/adf/images/info.gif" text="container header"> 
-              <tr:panelList> 
-                <tr:goLink text="item 1" destination="http://www.apache.org"/>
-                <tr:goLink text="item 2" destination="http://www.apache.org"/>
-                <tr:goLink text="item 3" destination="http://www.apache.org"/>
-                <tr:goLink text="item 4" destination="http://www.apache.org"/>
-              </tr:panelList>     
-            </tr:panelBox>
-            
-            <jsp:directive.include file="editor.jspf" />
-    
+    <tr:document title="PanelBox Demo">
+      <tr:form>
+        <tr:panelGroupLayout layout="vertical">
+          <f:facet name="separator">
+            <tr:separator/>
+          </f:facet>
+          <tr:panelGroupLayout layout="horizontal">
+            <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_panelBox.html"
+                       text="Tag Documentation"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/skin-selectors.html#panelBox"
+                       text="Skinning Key Documentation"/>
           </tr:panelGroupLayout>
-        </tr:form>
- </tr:document>
+          <tr:outputFormatted styleUsage="instruction" value="&lt;b>panelBox&lt;/b>"/>
+          <tr:panelBox binding="#{editor.component}" icon="/adf/images/info.gif"
+                       text="container header">
+            <tr:panelList>
+              <tr:goLink text="item 1" destination="http://www.apache.org"/>
+              <tr:goLink text="item 2" destination="http://www.apache.org"/>
+              <tr:goLink text="item 3" destination="http://www.apache.org"/>
+              <tr:goLink text="item 4" destination="http://www.apache.org"/>
+            </tr:panelList>
+          </tr:panelBox>
+          <jsp:directive.include file="editor.jspf"/>
+        </tr:panelGroupLayout>
+      </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

@@ -19,42 +19,44 @@
 	   
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
-          xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:tr="http://myfaces.apache.org/trinidad" >
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
- <tr:document title="InputColor Demo">
-        <tr:form>
-          <tr:panelGroupLayout layout="vertical">
-            <f:facet name="separator">
-              <tr:separator/>
-            </f:facet>
-            <tr:commandLink immediate="true" text="Component Guide"
-              action="guide"/>       
-
-            <tr:commandButton text="Submit"/>           
-            <tr:outputFormatted styleUsage="instruction" value="&lt;b>A inputColor using inline chooseColor - Update its properties from the table below&lt;/b>"/>
-            <tr:inputColor id="sic1" chooseId="cp1"
-              binding="#{editor.component}"
-              label="Enter or select color from palette below"
-              value="#{color.colorValue2}">
-              <f:facet name="help">
-                <tr:outputText value="Use format (#RRGGBB) or (r,g,b)"/>
-              </f:facet>
-            </tr:inputColor>
-            <tr:chooseColor id="cp1" 
-              colorData="#{requestContext.colorPalette.default49}"/>
-            <jsp:directive.include file="editor.jspf" />          
-            <tr:outputFormatted styleUsage="instruction" value="&lt;b>A inputColor&lt;/b>"/>
-            <tr:inputColor id="sic3"
-              label="Enter or select color" value="#{color.colorValue3}" > 
-              <f:facet name="help">
-                <tr:outputText value="Use format (#RRGGBB) or (r,g,b)"/>
-              </f:facet>
-            </tr:inputColor>
-
+    <tr:document title="InputColor Demo">
+      <tr:form>
+        <tr:panelGroupLayout layout="vertical">
+          <f:facet name="separator">
+            <tr:separator/>
+          </f:facet>
+          <tr:panelGroupLayout layout="horizontal">
+            <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_inputColor.html"
+                       text="Tag Documentation"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/skin-selectors.html#inputColor"
+                       text="Skinning Key Documentation"/>
           </tr:panelGroupLayout>
-        </tr:form>
- </tr:document>
+          <tr:outputFormatted styleUsage="instruction"
+                              value="&lt;b>inputColor using inline chooseColor - Update its properties from the table below&lt;/b>"/>
+          <tr:inputColor id="sic1" chooseId="cp1" binding="#{editor.component}"
+                         label="Enter or select color from palette below"
+                         value="#{color.colorValue2}">
+            <f:facet name="help">
+              <tr:outputText value="Use format (#RRGGBB) or (r,g,b)"/>
+            </f:facet>
+          </tr:inputColor>
+          <tr:chooseColor id="cp1" colorData="#{requestContext.colorPalette.default49}"/>
+          <jsp:directive.include file="editor.jspf"/>
+          <tr:outputFormatted styleUsage="instruction" value="&lt;b>inputColor&lt;/b>"/>
+          <tr:inputColor id="sic3" label="Enter or select color" value="#{color.colorValue3}">
+            <f:facet name="help">
+              <tr:outputText value="Use format (#RRGGBB) or (r,g,b)"/>
+            </f:facet>
+          </tr:inputColor>
+          <tr:commandButton text="Submit"/>
+        </tr:panelGroupLayout>
+      </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>
