@@ -4266,6 +4266,12 @@ panelTip.</td>
             <td>This icon is displayed before the collapsed tree node.</td>
           </tr>
           <tr>
+            <td>af|tree::no-children-icon</td>
+            <td>This icon is displayed instead of the expanded/collapsed icon,
+              when the node has no children
+            </td>
+          </tr>
+          <tr>
             <td>af|tree::line-icon</td>
             <td>This icon is used as a vertical line between the nodes.
             </td>

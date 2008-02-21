@@ -267,7 +267,7 @@ public class TreeRenderer extends XhtmlRenderer
    * @param context     the FacesContext
    * @param rc          the RenderingContext
    * @param isLine      if there is need for a vertical line
-   * @param leftToRight reft to right
+   * @param leftToRight left to right
    * @return the URI of the icon
    */
   protected String getConnectingBackgroundIcon(
@@ -287,6 +287,15 @@ public class TreeRenderer extends XhtmlRenderer
     return (icon == null) ? null : icon.getImageURI(context, rc).toString();
   }
 
+  /**
+   * Returns the URI of the expanded-icon's background icon
+   * Usually the lines connecting a node
+   * @param context the FacesContext
+   * @param rc the RenderingContext
+   * @param isLastSibling true if the node is the last child of its parent node
+   * @param isLeftToRight left to right
+   * @return the URI of the icon
+   */
   protected String getIconBackgroundIcon(
       FacesContext context,
       RenderingContext rc,
@@ -335,9 +344,13 @@ public class TreeRenderer extends XhtmlRenderer
     switch (expanded)
     {
       case NO_CHILDREN:
-        iconURI = TRANSPARENT_GIF;
-        iconHeight = _ICON_HEIGHT;
-        isAbsoluteImageURI = false;
+        icon = rc.getIcon(SkinSelectors.AF_TREE_NO_CHILDREN_ICON);
+        if (icon == null || icon.getImageURI(context, rc) == null)
+        {
+          iconURI = TRANSPARENT_GIF;
+          iconHeight = _ICON_HEIGHT;
+          isAbsoluteImageURI = false;
+        }
         break;
       case EXPAND_CLOSED:
         // "\u21D2"; // Double Arrow right

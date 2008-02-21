@@ -1506,6 +1506,8 @@ public final class SkinSelectors
     "af|tree::expanded-icon";
   public static final String AF_TREE_COLLAPSED_ICON =
     "af|tree::collapsed-icon";
+  public static final String AF_TREE_NO_CHILDREN_ICON =
+    "af|tree::no-children-icon";
 
   public static final String AF_TREE_NODE_ICON =
     "af|tree::node-icon";
