@@ -355,14 +355,14 @@
       <dependency>
         <groupId>javax.faces</groupId>
         <artifactId>jsf-api</artifactId>
-        <version>1.2_04</version>
+        <version>1.2_07</version>
         <scope>provided</scope>
       </dependency>
 
       <dependency>
         <groupId>javax.faces</groupId>
         <artifactId>jsf-impl</artifactId>
-        <version>1.2_04</version>
+        <version>1.2_07</version>
         <scope>provided</scope>
       </dependency>
 
