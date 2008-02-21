@@ -21,6 +21,8 @@ package org.apache.myfaces.trinidadinternal.renderkit;
 import java.io.OutputStream;
 import java.io.Writer;
 
+import java.util.concurrent.ConcurrentMap;
+
 import javax.faces.FactoryFinder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseStream;
@@ -30,7 +32,9 @@ import javax.faces.render.RenderKitFactory;
 import javax.faces.render.Renderer;
 import javax.faces.render.ResponseStateManager;
 
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.util.Service;
+
 
 abstract public class RenderKitDecorator extends RenderKitBase
                                          implements Service.Provider
@@ -103,14 +107,36 @@ abstract public class RenderKitDecorator extends RenderKitBase
   protected RenderKit getRenderKit()
   {
     FacesContext context = FacesContext.getCurrentInstance();
-    RenderKitFactory factory = (RenderKitFactory)
-      FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
+    
+    // There's only one RenderKitFactory per app. The javadoc for RenderKitFactory says:
+    //      "There must be one RenderKitFactory instance per web 
+    //       application that is utilizing JavaServer Faces"
+    // The call to FactoryFinder.getFactory is doing locking, Issue 688 was filed with the RI
+    // to try to remove the locking there:
+    // https://javaserverfaces.dev.java.net/issues/show_bug.cgi?id=688
+    // However they were not able to remove the locking. 
+    // Therefore save off the factory on the app map.
+    ConcurrentMap<String, Object> appMap = 
+                         RequestContext.getCurrentInstance().getApplicationScopedConcurrentMap();
+    
+    RenderKitFactory factory = (RenderKitFactory)appMap.get(_RENDER_KIT_FACTORY_KEY);
+    
+    if (factory == null)
+    {
+      factory = (RenderKitFactory)FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);   
+      RenderKitFactory oldFactory = 
+                          (RenderKitFactory) appMap.putIfAbsent(_RENDER_KIT_FACTORY_KEY, factory);
+        
+      if (oldFactory != null)
+        factory = oldFactory;      
+    }
 
-    RenderKit renderKit = factory.getRenderKit(context,
-					       getDecoratedRenderKitId());
+    RenderKit renderKit = factory.getRenderKit(context, getDecoratedRenderKitId());
     assert (renderKit != null);
     return renderKit;
   }
 
   abstract protected String getDecoratedRenderKitId();
+  private static final String _RENDER_KIT_FACTORY_KEY = 
+         "org.apache.myfaces.trinidadinternal.renderkit.RenderKitDecorator.RENDER_KIT_FACTORY_KEY";
 }
