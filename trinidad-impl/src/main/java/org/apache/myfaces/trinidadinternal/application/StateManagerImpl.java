@@ -51,6 +51,7 @@ import org.apache.myfaces.trinidadinternal.util.TokenCache;
 import com.sun.facelets.FaceletViewHandler;
 
 import java.io.IOException;
+import org.apache.myfaces.trinidad.util.ExternalContextUtils;
 
 /**
  * StateManager that handles a hybrid client/server strategy:  a
@@ -984,6 +985,17 @@ public class StateManagerImpl extends StateManagerWrapper
         UIViewRoot newRoot = (UIViewRoot) 
           fc.getApplication().createComponent(UIViewRoot.COMPONENT_TYPE);
         
+        //This code handles automatic namespacing in a JSR-301 environment
+        if(ExternalContextUtils.isPortlet(fc.getExternalContext())) 
+        {
+          //To avoid introducing a runtime dependency on the bridge,
+          //this method should only be executed when we have a portlet
+          //request.  If we do have a portlet request then the bridge
+          //should be available anyway.
+          newRoot = PortletUtils.getPortletViewRoot(newRoot);
+        }
+
+        
         // must call restoreState so that we setup attributes, listeners,
         // uniqueIds, etc ...
         newRoot.restoreState(fc, viewRootState);
@@ -1001,9 +1013,8 @@ public class StateManagerImpl extends StateManagerWrapper
       }
       
       return null;
-    }
+    }    
   }
-
 
   /* =-=AEW A utility function to dump out all the state that's getting
      sent over.  To compile, you need to make most of TreeState public */
