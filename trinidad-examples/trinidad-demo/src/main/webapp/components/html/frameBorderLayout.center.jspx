@@ -19,23 +19,21 @@
 	   
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
-          xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
-          xmlns:tr="http://myfaces.apache.org/trinidad" >
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
- <tr:document title="FrameBorderLayout Demo">
-        <tr:form>
-          <tr:panelGroupLayout layout="vertical">
-            <f:facet name="separator">
-              <tr:separator />
-            </f:facet>   
-            <tr:outputFormatted styleUsage="instruction" 
-                               value="&lt;b>A frameBorderLayout&lt;/b>"/>
-            <!--jsp:directive.include file="editor.jspf" /-->
-          </tr:panelGroupLayout>
-        </tr:form>
- </tr:document>
+    <tr:document title="FrameBorderLayout Demo">
+      <tr:form>
+        <tr:panelGroupLayout layout="vertical">
+          <f:facet name="separator">
+            <tr:separator/>
+          </f:facet>
+          <tr:outputFormatted styleUsage="instruction" value="&lt;b>frameBorderLayout&lt;/b>"/>
+          <!--jsp:directive.include file="editor.jspf" /-->
+        </tr:panelGroupLayout>
+      </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

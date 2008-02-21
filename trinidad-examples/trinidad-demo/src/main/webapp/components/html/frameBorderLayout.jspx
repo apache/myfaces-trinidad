@@ -19,52 +19,46 @@
 	   
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
-          xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
-          xmlns:tr="http://myfaces.apache.org/trinidad" >
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
     <trh:html>
       <trh:head title="FrameBorderLayout Demo"/>
+      
       <trh:frameBorderLayout shortDesc="Frame border layout demo">
-        <f:facet name="alternateContent">
+       
+      <f:facet name="alternateContent">
           <tr:outputText value="Your browser does not support frames. Frames support is required for this demo page"/>
         </f:facet>
-        <f:facet name="top" >
-          <trh:frame width="100%" height="30pt" scrolling="yes"
-                     shortDesc="Top frame"
-                     source="frameBorderLayout.top.jspx" />
+        <f:facet name="top">
+          <trh:frame width="100%" height="60pt" scrolling="yes" shortDesc="Top frame"
+                     source="frameBorderLayout.top.jspx"/>
         </f:facet>
-        <f:facet name="left" >
-          <trh:frame width="10%" scrolling="auto"
-                     shortDesc="Left frame"
-                     source="frameBorderLayout.left.jspx" />
+        <f:facet name="left">
+          <trh:frame width="10%" scrolling="auto" shortDesc="Left frame"
+                     source="frameBorderLayout.left.jspx"/>
         </f:facet>
-        <f:facet name="innerLeft" >
-          <trh:frame width="10%" scrolling="auto"
-                     shortDesc="Inner left frame"
-                     source="frameBorderLayout.innerLeft.jspx" />
+        <f:facet name="innerLeft">
+          <trh:frame width="10%" scrolling="auto" shortDesc="Inner left frame"
+                     source="frameBorderLayout.innerLeft.jspx"/>
         </f:facet>
-        <f:facet name="innerRight" >
-          <trh:frame width="10%" scrolling="auto"
-                     shortDesc="Inner right frame"
-                     source="frameBorderLayout.innerRight.jspx" />
+        <f:facet name="innerRight">
+          <trh:frame width="10%" scrolling="auto" shortDesc="Inner right frame"
+                     source="frameBorderLayout.innerRight.jspx"/>
         </f:facet>
-        <f:facet name="right" >
-          <trh:frame width="10%" height="100%" scrolling="auto"
-                     shortDesc="Right frame"
-                     source="frameBorderLayout.right.jspx" />
+        <f:facet name="right">
+          <trh:frame width="10%" height="90%" scrolling="auto" shortDesc="Right frame"
+                     source="frameBorderLayout.right.jspx"/>
         </f:facet>
-        <f:facet name="bottom" >
-          <trh:frame width="100%" height="30pt" scrolling="yes"
-                     shortDesc="Bottom frame"
-                     source="frameBorderLayout.bottom.jspx" />
+        <f:facet name="bottom">
+          <trh:frame width="100%" height="30pt" scrolling="yes" shortDesc="Bottom frame"
+                     source="frameBorderLayout.bottom.jspx"/>
         </f:facet>
-        <f:facet name="center" >
-          <trh:frame scrolling="auto"
-                     shortDesc="Center frame"
-                     source="frameBorderLayout.center.jspx" />
+        <f:facet name="center">
+          <trh:frame scrolling="auto" shortDesc="Center frame"
+                     source="frameBorderLayout.center.jspx"/>
         </f:facet>
       </trh:frameBorderLayout>
     </trh:html>

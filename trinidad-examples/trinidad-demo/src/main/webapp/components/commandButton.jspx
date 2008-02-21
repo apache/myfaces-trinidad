@@ -19,26 +19,32 @@
 	   
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
-          xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
-          xmlns:tr="http://myfaces.apache.org/trinidad" >
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
- <tr:document title="commandButton Demo">
-        <tr:form>       
-            <tr:panelGroupLayout layout="vertical">
-              <f:facet name="separator">
-                <tr:separator />
-              </f:facet>   
-              <tr:commandLink immediate="true" text="Component Guide"
-                  action="guide"/>      
-              <tr:outputFormatted styleUsage="instruction" value="&lt;b>Command button&lt;/b>"/>
-              <tr:commandButton binding="#{editor.component}"
-                  text="Go to breadCrumbs demo" action="guide.breadCrumbs"/>
-              <jsp:directive.include file="editor.jspf" />
-            </tr:panelGroupLayout>
-        </tr:form>
- </tr:document>
+    <tr:document title="commandButton Demo">
+      <tr:form>
+        <tr:panelGroupLayout layout="vertical">
+          <f:facet name="separator">
+            <tr:separator/>
+          </f:facet>
+          <tr:panelGroupLayout layout="horizontal">
+            <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_commandButton.html"
+                       text="Tag Documentation"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/skin-selectors.html#commandButton"
+                       text="Skinning Key Documentation"/>
+          </tr:panelGroupLayout>
+          <tr:outputFormatted styleUsage="instruction" value="&lt;b>commandButton&lt;/b>"/>
+          <tr:commandButton binding="#{editor.component}" text="Go to breadCrumbs demo"
+                            action="guide.breadCrumbs"/>
+          <jsp:directive.include file="editor.jspf"/>
+        </tr:panelGroupLayout>
+      </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

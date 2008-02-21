@@ -42,7 +42,14 @@
             <tr:commandNavigationItem immediate="true" text="PanelPage Demo"
               action="guide.panelPage"/>
           </tr:navigationPane>
-          <tr:outputFormatted styleUsage="instruction" value="&lt;b>A breadCrumbs&lt;/b>"/>
+          <tr:panelGroupLayout layout="horizontal">
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_breadCrumbs.html"
+                       text="Tag Documentation"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/skin-selectors.html#breadCrumbs"
+                       text="Skinning Key Documentation"/>
+          </tr:panelGroupLayout>
+          <tr:outputFormatted styleUsage="instruction" value="&lt;b>breadCrumbs&lt;/b>"/>
           <tr:breadCrumbs binding="#{editor.component}">
             <tr:commandNavigationItem text="breadCrumbs Demo" action="guide.breadCrumbs"/>
             <tr:commandNavigationItem text="Apache.org" destination="http://www.apache.org" targetFrame="_new"/>
@@ -51,7 +58,7 @@
             <tr:commandNavigationItem text="Current Page" action="guide.breadCrumbs"/>
           </tr:breadCrumbs>
           <jsp:directive.include file="editor.jspf"/>
-          <tr:outputFormatted styleUsage="instruction" value="&lt;b>A breadCrumbs with the 'orientation' attribute set to 'vertical'&lt;/b>"/>
+          <tr:outputFormatted styleUsage="instruction" value="&lt;b>breadCrumbs with the 'orientation' attribute set to 'vertical'&lt;/b>"/>
           <tr:breadCrumbs orientation="vertical">
             <tr:commandNavigationItem text="Table Demo" action="guide.table"/>
             <tr:commandNavigationItem text="Tree Demo" action="guide.tree"/>

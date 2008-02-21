@@ -19,10 +19,9 @@
 	   
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
-          xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
-          xmlns:tr="http://myfaces.apache.org/trinidad" >
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
     <trh:html>
@@ -31,17 +30,23 @@
         <tr:form>
           <tr:panelGroupLayout layout="vertical">
             <f:facet name="separator">
-              <tr:separator />
-            </f:facet> 
-            <tr:commandLink immediate="true" text="Component Guide"
-                action="guide"/>             
-            <tr:outputFormatted styleUsage="instruction" value="&lt;b>Simple nested panelHeader &lt;/b>"/>
-            <tr:panelHeader text="panelHeader 1"  binding="#{editor.component}">
-              <tr:panelHeader text="panelHeader 2"/>          
+              <tr:separator/>
+            </f:facet>
+            <tr:panelGroupLayout layout="horizontal">
+              <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+              <tr:spacer width="10"/>
+              <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_panelHeader.html"
+                         text="Tag Documentation"/>
+              <tr:spacer width="10"/>
+              <tr:goLink destination="http://myfaces.apache.org/trinidad/skin-selectors.html#panelHeader"
+                         text="Skinning Key Documentation"/>
+            </tr:panelGroupLayout>
+            <tr:outputFormatted styleUsage="instruction"
+                                value="&lt;b>Simple nested panelHeader &lt;/b>"/>
+            <tr:panelHeader text="panelHeader 1" binding="#{editor.component}">
+              <tr:panelHeader text="panelHeader 2"/>
             </tr:panelHeader>
-            
-            <jsp:directive.include file="editor.jspf" />
-    
+            <jsp:directive.include file="editor.jspf"/>
           </tr:panelGroupLayout>
         </tr:form>
       </trh:body>

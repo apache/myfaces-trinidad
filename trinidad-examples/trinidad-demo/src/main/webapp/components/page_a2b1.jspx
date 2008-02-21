@@ -19,20 +19,23 @@
 	   
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
-          xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:tr="http://myfaces.apache.org/trinidad">
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
     <tr:document title="Page Hierarchy Demo">
       <tr:form>
         <tr:panelGroupLayout layout="vertical">
-          <tr:commandLink immediate="true" text="Component Guide"
-                          action="guide"/>
+          <tr:panelGroupLayout layout="horizontal">
+            <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_page.html"
+                       text="Tag Documentation"/>
+          </tr:panelGroupLayout>
           <tr:separator/>
           <tr:page var="foo" value="#{menuModel.model}">
             <f:facet name="nodeStamp">
-              <tr:commandNavigationItem text="#{foo.label}"
-                action="#{foo.getOutcome}" icon="#{foo.ico}"/>
+              <tr:commandNavigationItem text="#{foo.label}" action="#{foo.getOutcome}"
+                                        icon="#{foo.ico}"/>
             </f:facet>
             <f:facet name="appAbout">
               <tr:outputText value="appAbout facet"/>
@@ -44,28 +47,22 @@
               <tr:outputText value="appPrivacy facet"/>
             </f:facet>
             <f:facet name="branding">
-              <tr:outputFormatted styleUsage="instruction"
-                                  value="branding facet"/>
+              <tr:outputFormatted styleUsage="instruction" value="branding facet"/>
             </f:facet>
             <f:facet name="infoFootnote">
-              <tr:outputFormatted styleUsage="instruction"
-                                  value="infoFootnote facet"/>
+              <tr:outputFormatted styleUsage="instruction" value="infoFootnote facet"/>
             </f:facet>
             <f:facet name="infoReturn">
-              <tr:outputFormatted styleUsage="instruction"
-                                  value="infoReturn facet"/>
+              <tr:outputFormatted styleUsage="instruction" value="infoReturn facet"/>
             </f:facet>
             <f:facet name="infoStatus">
-              <tr:outputFormatted styleUsage="instruction"
-                                  value="infoStatus facet"/>
+              <tr:outputFormatted styleUsage="instruction" value="infoStatus facet"/>
             </f:facet>
             <f:facet name="infoUser">
-              <tr:outputFormatted styleUsage="instruction"
-                                  value="infoUser facet"/>
+              <tr:outputFormatted styleUsage="instruction" value="infoUser facet"/>
             </f:facet>
             <f:facet name="search">
-              <tr:outputFormatted styleUsage="instruction"
-                                  value="search facet"/>
+              <tr:outputFormatted styleUsage="instruction" value="search facet"/>
             </f:facet>
             <tr:panelHeader text="Title attribute">
               <tr:outputFormatted styleUsage="instruction"

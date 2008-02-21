@@ -19,36 +19,35 @@
 	   
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
-          xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
           xmlns:trh="http://myfaces.apache.org/trinidad/html"
-          xmlns:tr="http://myfaces.apache.org/trinidad" >
+          xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-   <tr:document title="ChooseDate Demo" >
-        <tr:form>
-          <tr:panelGroupLayout layout="vertical">
-            <f:facet name="separator">
-              <tr:separator/>
-            </f:facet>
-            <tr:commandLink immediate="true" text="Component Guide"
-                  action="guide"/>
-            <tr:outputFormatted styleUsage="instruction" value="&lt;b>Simple chooseDate &lt;/b>"/>
-            <tr:chooseDate binding="#{editor.component}" id="idp1" shortDesc="Choose Date"/>
-            <tr:inputDate id="df1a"
-                           chooseId="idp1"
-                           shortDesc="Choose Date"/>
-            <tr:inputText id="ti1a" value="Not a Date Field" shortDesc="Enter value"/>
-            <tr:inputDate id="df1b"
-                           chooseId="idp1"
-                           shortDesc="Choose Date"/>
-            <tr:inputDate id="df1c"
-                           chooseId="idp1"
-                           shortDesc="Choose Date"/>
-
-            <jsp:directive.include file="editor.jspf" />
+    <tr:document title="ChooseDate Demo">
+      <tr:form>
+        <tr:panelGroupLayout layout="vertical">
+          <f:facet name="separator">
+            <tr:separator/>
+          </f:facet>
+          <tr:panelGroupLayout layout="horizontal">
+            <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_chooseDate.html"
+                       text="Tag Documentation"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/skin-selectors.html#chooseDate"
+                       text="Skinning Key Documentation"/>
           </tr:panelGroupLayout>
-        </tr:form>
-     </tr:document>
+          <tr:outputFormatted styleUsage="instruction" value="&lt;b>Simple chooseDate &lt;/b>"/>
+          <tr:chooseDate binding="#{editor.component}" id="idp1" shortDesc="Choose Date"/>
+          <tr:inputDate id="df1a" chooseId="idp1" shortDesc="Choose Date"/>
+          <tr:inputText id="ti1a" value="Not a Date Field" shortDesc="Enter value"/>
+          <tr:inputDate id="df1b" chooseId="idp1" shortDesc="Choose Date"/>
+          <tr:inputDate id="df1c" chooseId="idp1" shortDesc="Choose Date"/>
+          <jsp:directive.include file="editor.jspf"/>
+        </tr:panelGroupLayout>
+      </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

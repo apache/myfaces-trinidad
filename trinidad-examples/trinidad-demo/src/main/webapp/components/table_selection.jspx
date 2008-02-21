@@ -19,38 +19,39 @@
 	   
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
-          xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
           xmlns:trh="http://myfaces.apache.org/trinidad/html"
           xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <tr:document title="tableSelectMany Demo">
+    <tr:document title="Table Selection Demo">
       <tr:form>
-        <tr:panelGroupLayout layout="vertical">
-          <tr:commandLink immediate="true" text="Component Guide"
-                          action="guide"/>
-        </tr:panelGroupLayout>
         <tr:panelGroupLayout layout="vertical">
           <f:facet name="separator">
             <tr:separator/>
           </f:facet>
+          <tr:panelGroupLayout layout="horizontal">
+            <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_table.html"
+                       text="Tag Documentation"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/skin-selectors.html#table"
+                       text="Skinning Key Documentation"/>
+          </tr:panelGroupLayout>
+          <tr:outputFormatted styleUsage="instruction" value="&lt;b>table selection&lt;/b>"/>
           <tr:messages/>
-          <tr:selectOneChoice value="#{sessionScope.tableSelection}"
-              autoSubmit="true"
-               id="selType"
-              label="Selection Type">
+          <tr:selectOneChoice value="#{sessionScope.tableSelection}" autoSubmit="true" id="selType"
+                              label="Selection Type">
             <tr:selectItem label="Single" value="#{null}"/>
             <tr:selectItem label="Multiple" value="#{true}"/>
           </tr:selectOneChoice>
-          <tr:table summary="Periodic table"
-                    binding="#{tableActions.table}" 
+          <tr:table summary="Periodic table" binding="#{tableActions.table}"
                     partialTriggers="selType"
                     rowSelection="#{sessionScope.tableSelection ? 'multiple' : 'single'}"
                     value="#{periodicTable.tableData}" var="row" rows="10">
             <f:facet name="footer">
-              <tr:commandButton text="Report" 
-                   actionListener="#{tableActions.performReport}"/>
+              <tr:commandButton text="Report" actionListener="#{tableActions.performReport}"/>
             </f:facet>
             <tr:column>
               <f:facet name="header">
@@ -68,8 +69,7 @@
               <f:facet name="header">
                 <tr:outputText value="Action Column"/>
               </f:facet>
-              <tr:commandButton immediate="true" text="Action"
-                                action="#{row.action}"/>
+              <tr:commandButton immediate="true" text="Action" action="#{row.action}"/>
             </tr:column>
           </tr:table>
           <tr:panelHeader text="Report Items">

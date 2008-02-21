@@ -19,84 +19,72 @@
 	   
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
-          xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
-          xmlns:tr="http://myfaces.apache.org/trinidad" >
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
- <tr:document title="PanelBorder Demo">
-        <tr:form>
-          <tr:panelGroupLayout layout="vertical">
-            <f:facet name="separator">
-              <tr:separator />
-            </f:facet> 
-            <tr:commandLink immediate="true" text="Component Guide"
-                action="guide"/>             
-            <tr:outputFormatted styleUsage="instruction" value="&lt;b>A panelBorder&lt;/b>"/>
-            <tr:panelBorderLayout binding="#{editor.component}"> 
-              <f:facet name="top" >
-                <f:verbatim>
-                  <table width="100%" >
-                    <tr>
-                      <td height="30pt" align="center"
-                          style="background-color:yellow;" >
-                        top
-                      </td>
-                    </tr>
-                  </table>
-                </f:verbatim>
-              </f:facet>
-              <f:facet name="left" >
-                <f:verbatim>
-                  <table width="100%" >
-                    <tr>
-                      <td height="100pt" align="center"
-                          style="background-color:pink;" >
-                        left
-                      </td>
-                    </tr>
-                  </table>
-                </f:verbatim>
-              </f:facet>
-              <f:facet name="right" >
-                <f:verbatim>
-                  <table width="100%" >
-                    <tr>
-                      <td height="100pt" align="center"
-                          style="background-color:pink;" >
-                        right
-                      </td>
-                    </tr>
-                  </table>
-                </f:verbatim>
-              </f:facet>
-              <f:facet name="bottom" >
-                <f:verbatim>
-                  <table width="100%" >
-                    <tr>
-                      <td height="30pt" align="center"
-                          style="background-color:yellow;" >
-                        bottom
-                      </td>
-                    </tr>
-                  </table>
-                </f:verbatim>
-              </f:facet>
-                <f:verbatim>
-                  <table width="100%" >
-                    <tr>
-                      <td height="30pt" align="center" >
-                        contents
-                      </td>
-                    </tr>
-                  </table>
-                </f:verbatim>
-            </tr:panelBorderLayout>
-            
-            <jsp:directive.include file="editor.jspf" />
+    <tr:document title="PanelBorderLayout Demo">
+      <tr:form>
+        <tr:panelGroupLayout layout="vertical">
+          <f:facet name="separator">
+            <tr:separator/>
+          </f:facet>
+          <tr:panelGroupLayout layout="horizontal">
+            <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_panelBorderLayout.html"
+                       text="Tag Documentation"/>
           </tr:panelGroupLayout>
-        </tr:form>
- </tr:document>
+          <tr:outputFormatted styleUsage="instruction" value="&lt;b>panelBorderLayout&lt;/b>"/>
+          <tr:panelBorderLayout binding="#{editor.component}">
+            <f:facet name="top">
+              <f:verbatim>
+                <table width="100%">
+                  <tr>
+                    <td height="30pt" align="center" style="background-color:yellow;">top</td>
+                  </tr>
+                </table>
+              </f:verbatim>
+            </f:facet>
+            <f:facet name="left">
+              <f:verbatim>
+                <table width="100%">
+                  <tr>
+                    <td height="100pt" align="center" style="background-color:pink;">left</td>
+                  </tr>
+                </table>
+              </f:verbatim>
+            </f:facet>
+            <f:facet name="right">
+              <f:verbatim>
+                <table width="100%">
+                  <tr>
+                    <td height="100pt" align="center" style="background-color:pink;">right</td>
+                  </tr>
+                </table>
+              </f:verbatim>
+            </f:facet>
+            <f:facet name="bottom">
+              <f:verbatim>
+                <table width="100%">
+                  <tr>
+                    <td height="30pt" align="center" style="background-color:yellow;">bottom</td>
+                  </tr>
+                </table>
+              </f:verbatim>
+            </f:facet>
+            <f:verbatim>
+              <table width="100%">
+                <tr>
+                  <td height="30pt" align="center">contents</td>
+                </tr>
+              </table>
+            </f:verbatim>
+          </tr:panelBorderLayout>
+          <jsp:directive.include file="editor.jspf"/>
+        </tr:panelGroupLayout>
+      </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

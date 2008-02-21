@@ -19,44 +19,47 @@
 	   
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
-          xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
-          xmlns:tr="http://myfaces.apache.org/trinidad" >
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
     <trh:html>
       <trh:head title="Form Demo"/>
-      <trh:body>      
-          <tr:panelGroupLayout layout="vertical">
-            <f:facet name="separator">
-              <tr:separator />
-            </f:facet>   
-            <tr:outputFormatted styleUsage="instruction" value="&lt;b>Multiple form test &lt;/b>"/>
-            <tr:form defaultCommand="first" binding="#{editor.component}">
-            
-             <tr:panelGroupLayout layout="vertical">
-              <tr:commandLink immediate="true" text="Component Guide"
-                                action="guide"/>
+      <trh:body>
+        <tr:panelGroupLayout layout="vertical">
+          <f:facet name="separator">
+            <tr:separator/>
+          </f:facet>
+          <tr:outputFormatted styleUsage="instruction" value="&lt;b>Multiple form test &lt;/b>"/>
+          <tr:form defaultCommand="first" binding="#{editor.component}">
+            <tr:panelGroupLayout layout="vertical">
+              <tr:panelGroupLayout layout="horizontal">
+                <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+                <tr:spacer width="10"/>
+                <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_form.html"
+                           text="Tag Documentation"/>
+              </tr:panelGroupLayout>
+              <tr:spacer width="10"/>
               <tr:outputFormatted styleUsage="instruction"
-                                 value="This is the first form;  submit it and changes in the second form will be lost."/>
-              <tr:inputText label="First form, First Field:"  shortDesc="Field 1"/>
+                                  value="This is the first form;  submit it and changes in the second form will be lost."/>
+              <tr:inputText label="First form, First Field:" shortDesc="Field 1"/>
               <tr:inputText label="First form, Second Field:" shortDesc="Field 2"/>
               <tr:commandButton id="first" text="First"/>
-             </tr:panelGroupLayout>
-            </tr:form>
-            <tr:form>
-              <jsp:directive.include file="editor.jspf" />
-            </tr:form>
-            <tr:form>
-             <tr:panelGroupLayout layout="vertical">
+            </tr:panelGroupLayout>
+          </tr:form>
+          <tr:form>
+            <jsp:directive.include file="editor.jspf"/>
+          </tr:form>
+          <tr:form>
+            <tr:panelGroupLayout layout="vertical">
               <tr:outputFormatted styleUsage="instruction"
-                                 value="This is the second form; submit it and changes in the first form will be lost."/>
+                                  value="This is the second form; submit it and changes in the first form will be lost."/>
               <tr:inputText label="Second form"/>
               <tr:commandButton text="Second"/>
-             </tr:panelGroupLayout>
-            </tr:form>
-          </tr:panelGroupLayout>
+            </tr:panelGroupLayout>
+          </tr:form>
+        </tr:panelGroupLayout>
       </trh:body>
     </trh:html>
   </f:view>

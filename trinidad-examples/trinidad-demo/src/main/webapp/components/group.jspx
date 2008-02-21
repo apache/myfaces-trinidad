@@ -18,10 +18,8 @@
     under the License.
 	   
 -->
-<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
-          xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:tr="http://myfaces.apache.org/trinidad"
-          version="1.2">
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:tr="http://myfaces.apache.org/trinidad" version="1.2">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
     <tr:document title="Group Demo">
@@ -30,16 +28,19 @@
           <f:facet name="separator">
             <tr:separator/>
           </f:facet>
-          <tr:commandLink immediate="true" text="Component Guide"
-            action="guide"/>
-          <tr:outputText
-            value="The group component is an invisible control that aggregates semantically-related children; the group itself has no associated client representation (visual or API).
+          <tr:panelGroupLayout layout="horizontal">
+            <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_group.html"
+                       text="Tag Documentation"/>
+          </tr:panelGroupLayout>
+          <tr:outputFormatted styleUsage="instruction" value="&lt;b>group&lt;/b>"/>
+          <tr:outputText value="The group component is an invisible control that aggregates semantically-related children; the group itself has no associated client representation (visual or API).
 Some parent components may have special representation for groups like adding separators around the group but this is a special case and is not always rendered this way.
 In most cases, only the children of the group will be rendered directly to the page.
 There will be no layout applied to the children so the natural layout behavior of the underlying HTML elements will apply.
 If you require a more predictable layout, you should use a layout component such as panelGroupLayout."/>
-          <tr:outputText
-            value="The following demo shows a vertical panelGroupLayout with a separator facet containing a
+          <tr:outputText value="The following demo shows a vertical panelGroupLayout with a separator facet containing a
 group that has two images directly inside of it."/>
           <tr:panelGroupLayout layout="vertical">
             <f:facet name="separator">

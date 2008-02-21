@@ -19,34 +19,34 @@
 	   
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
-          xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
-          xmlns:tr="http://myfaces.apache.org/trinidad" >
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
     <trh:html>
-      <trh:head title="processChoiceBar Demo"/>
+      <trh:head title="ProcessChoiceBar Demo"/>
       <trh:body>
         <tr:form>
           <tr:panelGroupLayout layout="vertical">
             <f:facet name="separator">
               <tr:separator/>
             </f:facet>
-            <tr:commandLink immediate="true" text="Component Guide"
-                action="guide"/>             
-            <tr:outputFormatted styleUsage="instruction" value="&lt;b>Step 3 -- processChoiceBar with navigation&lt;/b>"/>
-
-            <tr:processChoiceBar var="foo" value="#{processMenuModel}"
-                                 shortDesc="Select step">
+            <tr:panelGroupLayout layout="horizontal">
+              <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+              <tr:spacer width="10"/>
+              <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_processChoiceBar.html"
+                         text="Tag Documentation"/>
+            </tr:panelGroupLayout>
+            <tr:outputFormatted styleUsage="instruction"
+                                value="&lt;b>Step 3 -- processChoiceBar with navigation&lt;/b>"/>
+            <tr:processChoiceBar var="foo" value="#{processMenuModel}" shortDesc="Select step">
               <f:facet name="nodeStamp">
-                <tr:commandNavigationItem text="#{foo.label}"
-                                    action="#{foo.getOutcome}"
-                                    immediate="#{processMenuModel.immediate}"
-                                    disabled="#{processMenuModel.readOnly}"/>
+                <tr:commandNavigationItem text="#{foo.label}" action="#{foo.getOutcome}"
+                                          immediate="#{processMenuModel.immediate}"
+                                          disabled="#{processMenuModel.readOnly}"/>
               </f:facet>
-            </tr:processChoiceBar>    
-
+            </tr:processChoiceBar>
           </tr:panelGroupLayout>
         </tr:form>
       </trh:body>

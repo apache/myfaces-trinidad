@@ -19,8 +19,7 @@
 	   
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
-          xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
           xmlns:trh="http://myfaces.apache.org/trinidad/html"
           xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
@@ -29,29 +28,28 @@
       <tr:form>
         <tr:panelGroupLayout layout="vertical">
           <f:facet name="separator">
-            <tr:separator />
+            <tr:separator/>
           </f:facet>
-          <tr:commandLink immediate="true" text="Component Guide"
-              action="guide"/>
-          <tr:outputFormatted styleUsage="instruction" value="&lt;b>Chart&lt;/b>"/>
-          <tr:chart chartDrillDownListener="#{chart.drillDown}" id="chart" 
-            YMajorGridLineCount="7" value="#{chart.value}" 
-            inlineStyle="width:680px; height:400px;" 
-            partialTriggers="nextChartType"
-            binding="#{chart.editor.component}"/>
+          <tr:panelGroupLayout layout="horizontal">
+            <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_chart.html"
+                       text="Tag Documentation"/>
+          </tr:panelGroupLayout>
+          <tr:outputFormatted styleUsage="instruction" value="&lt;b>chart&lt;/b>"/>
+          <tr:chart chartDrillDownListener="#{chart.drillDown}" id="chart" YMajorGridLineCount="7"
+                    value="#{chart.value}" inlineStyle="width:680px; height:400px;"
+                    partialTriggers="nextChartType" binding="#{chart.editor.component}"/>
           <tr:panelGroupLayout layout="horizontal">
             <tr:commandButton id="nextChartType" partialSubmit="true" text="Next Chart Type"
                               action="#{chart.nextChartType}"/>
-            <tr:commandButton  text="Update"
-                              action="#{chart.editor.update}"/>
+            <tr:commandButton text="Update" action="#{chart.editor.update}"/>
             <tr:commandButton id="partialButton" partialSubmit="true" text="Update Partial"
                               action="#{chart.updatePartial}"/>
-            
             <tr:selectBooleanCheckbox immediate="true" label="Larger Data Set"
-                value="#{chart.largerDataSet}"/>            
+                                      value="#{chart.largerDataSet}"/>
           </tr:panelGroupLayout>
-          <tr:table var="row" rows="100" value="#{chart.editor.attributes}" 
-                    summary="Attributes">
+          <tr:table var="row" rows="100" value="#{chart.editor.attributes}" summary="Attributes">
             <tr:column>
               <f:facet name="header">
                 <tr:outputText value="Name"/>
@@ -62,8 +60,7 @@
               <f:facet name="header">
                 <tr:outputText value="Value"/>
               </f:facet>
-              <tr:inputText immediate="true"
-                             readOnly="#{row.name == 'value' ||
+              <tr:inputText immediate="true" readOnly="#{row.name == 'value' ||
                                          row.name == 'var' ||
                                          row.name == 'currencyKey' ||
                                          row.name == 'currencyString' ||
@@ -71,31 +68,25 @@
                                          row.name == 'id' ||
                                          row.name == 'rendererType' ||
                                          row.name == 'submittedValue'}"
-                             rendered="#{row.type == 'string'}"
-                             value="#{row.value}"
-                             shortDesc="Type to change '#{row.name}'"/>
-              <tr:inputText immediate="true"
-                             readOnly="#{row.name == 'rowIndex'}"
-                             rendered="#{row.type == 'integer'}"
-                             value="#{row.value}"
-                             shortDesc="Type to change '#{row.name}'">
+                            rendered="#{row.type == 'string'}" value="#{row.value}"
+                            shortDesc="Type to change '#{row.name}'"/>
+              <tr:inputText immediate="true" readOnly="#{row.name == 'rowIndex'}"
+                            rendered="#{row.type == 'integer'}" value="#{row.value}"
+                            shortDesc="Type to change '#{row.name}'">
                 <f:converter converterId="javax.faces.Integer"/>
               </tr:inputText>
-              <tr:inputText immediate="true"
-                            rendered="#{row.type == 'date'}"
-                            value="#{row.value}"
+              <tr:inputText immediate="true" rendered="#{row.type == 'date'}" value="#{row.value}"
                             shortDesc="Type to change '#{row.name}'">
                 <f:facet name="help">
                   <tr:outputText value="Sample format: 2004-07-15"/>
                 </f:facet>
                 <f:convertDateTime pattern="yyyy-MM-dd"/>
               </tr:inputText>
-              <tr:selectBooleanCheckbox rendered="#{row.type == 'boolean'}"
-                                         readOnly="#{row.name == 'localValueSet' ||
+              <tr:selectBooleanCheckbox rendered="#{row.type == 'boolean'}" readOnly="#{row.name == 'localValueSet' ||
                                                      row.name == 'valid' ||
-                                                     row.name == 'transient'}"
-                                         immediate="true" value="#{row.value}"
-                                         shortDesc="Click to change '#{row.name}'"/>
+                                                     row.name == 'transient'}" immediate="true"
+                                        value="#{row.value}"
+                                        shortDesc="Click to change '#{row.name}'"/>
             </tr:column>
           </tr:table>
         </tr:panelGroupLayout>

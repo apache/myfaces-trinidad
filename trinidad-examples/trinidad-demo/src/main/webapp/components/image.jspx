@@ -19,36 +19,43 @@
 	   
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
-          xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
           xmlns:trh="http://myfaces.apache.org/trinidad/html"
           xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
- <tr:document title="Image Demo">
-        <tr:form>
-          <tr:panelGroupLayout layout="vertical">
-            <f:facet name="separator">
-              <tr:separator />
-            </f:facet>
-            <tr:commandLink immediate="true" text="Component Guide"
-                action="guide"/>
-            <tr:outputFormatted styleUsage="instruction" value="&lt;b>objectImage with context-relative URL&lt;/b>"/>
-            <tr:commandLink immediate="true" action="guide">
-              <tr:image binding="#{editor.component}" source="/adf/images/error.gif" shortDesc="error"/>
-            </tr:commandLink>
-
-            <jsp:directive.include file="editor.jspf" />
-
-            <tr:outputFormatted styleUsage="instruction" value="&lt;b>objectImage with server-relative URL&lt;/b>"/>
-            <tr:goLink destination="http://www.apache.org">
-              <!-- Use long EL chain to avoid hardcoding the context path;  of course, once you're doing this, you might as well just use the context-relative URL form above, but this does test out the feature... -->
-              <tr:image source="/#{facesContext.externalContext.request.contextPath}/adf/images/error.gif" shortDesc="error"/>
-            </tr:goLink>
-            <tr:outputFormatted styleUsage="instruction" value="&lt;b>objectImage with absolute URL&lt;/b>"/>
-            <tr:image source="http://homepage.mac.com/awiner/.Pictures/WindyHill/PaleSwallowtail.jpg" shortDesc="Pale Swallow Tail"/>
+    <tr:document title="Image Demo">
+      <tr:form>
+        <tr:panelGroupLayout layout="vertical">
+          <f:facet name="separator">
+            <tr:separator/>
+          </f:facet>
+          <tr:panelGroupLayout layout="horizontal">
+            <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_image.html"
+                       text="Tag Documentation"/>
           </tr:panelGroupLayout>
-        </tr:form>
- </tr:document>
+          <tr:outputFormatted styleUsage="instruction"
+                              value="&lt;b>image with context-relative URL&lt;/b>"/>
+          <tr:commandLink immediate="true" action="guide">
+            <tr:image binding="#{editor.component}" source="/adf/images/error.gif"
+                      shortDesc="error"/>
+          </tr:commandLink>
+          <jsp:directive.include file="editor.jspf"/>
+          <tr:outputFormatted styleUsage="instruction"
+                              value="&lt;b>image with server-relative URL&lt;/b>"/>
+          <tr:goLink destination="http://www.apache.org">
+            <!-- Use long EL chain to avoid hardcoding the context path;  of course, once you're doing this, you might as well just use the context-relative URL form above, but this does test out the feature... -->
+            <tr:image source="/#{facesContext.externalContext.request.contextPath}/adf/images/error.gif"
+                      shortDesc="error"/>
+          </tr:goLink>
+          <tr:outputFormatted styleUsage="instruction"
+                              value="&lt;b>image with absolute URL&lt;/b>"/>
+          <tr:image source="http://homepage.mac.com/awiner/.Pictures/WindyHill/PaleSwallowtail.jpg"
+                    shortDesc="Pale Swallow Tail"/>
+        </tr:panelGroupLayout>
+      </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

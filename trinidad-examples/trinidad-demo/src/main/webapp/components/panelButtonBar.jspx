@@ -19,10 +19,9 @@
 	   
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
-          xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
-          xmlns:tr="http://myfaces.apache.org/trinidad" >
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
     <trh:html>
@@ -31,21 +30,22 @@
         <tr:form>
           <tr:panelGroupLayout layout="vertical">
             <f:facet name="separator">
-              <tr:separator />
+              <tr:separator/>
             </f:facet>
-            <tr:commandLink immediate="true" text="Component Guide"
-                action="guide"/>             
-            <tr:outputFormatted styleUsage="instruction" value="&lt;b>panelButtonBar demo &lt;/b>"/>
+            <tr:panelGroupLayout layout="horizontal">
+              <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+              <tr:spacer width="10"/>
+              <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_panelButtonBar.html"
+                         text="Tag Documentation"/>
+            </tr:panelGroupLayout>
+            <tr:outputFormatted styleUsage="instruction" value="&lt;b>panelButtonBar&lt;/b>"/>
             <tr:panelButtonBar binding="#{editor.component}">
               <tr:commandButton text="button 1" action="guide.table"/>
               <tr:commandButton text="button 2" action="guide.tree"/>
-              <tr:singleStepButtonBar selectedStep="4" maxStep="5"  
-                                      previousAction="#{action.app1}"
+              <tr:singleStepButtonBar selectedStep="4" maxStep="5" previousAction="#{action.app1}"
                                       nextAction="#{action.app2}"/>
             </tr:panelButtonBar>
-            
-            <jsp:directive.include file="editor.jspf" />
-    
+            <jsp:directive.include file="editor.jspf"/>
           </tr:panelGroupLayout>
         </tr:form>
       </trh:body>
