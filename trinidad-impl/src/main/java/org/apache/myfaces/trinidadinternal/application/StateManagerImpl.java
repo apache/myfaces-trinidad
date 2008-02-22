@@ -18,14 +18,14 @@
  */
 package org.apache.myfaces.trinidadinternal.application;
 
+import java.io.IOException;
 import java.io.Serializable;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.StateManager;
@@ -38,20 +38,15 @@ import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
 import javax.faces.render.ResponseStateManager;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
 import org.apache.myfaces.trinidad.component.UIXComponentBase;
 import org.apache.myfaces.trinidad.context.RequestContext;
-
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.util.ExternalContextUtils;
 import org.apache.myfaces.trinidadinternal.util.LRUCache;
 import org.apache.myfaces.trinidadinternal.util.SubKeyMap;
 import org.apache.myfaces.trinidadinternal.util.TokenCache;
 
-// Imported only for a String constant - so no runtime dependency
 import com.sun.facelets.FaceletViewHandler;
-
-import java.io.IOException;
-import org.apache.myfaces.trinidad.util.ExternalContextUtils;
 
 /**
  * StateManager that handles a hybrid client/server strategy:  a
@@ -149,6 +144,18 @@ public class StateManagerImpl extends StateManagerWrapper
     return super.saveView(context);
   }
 
+  @Override @SuppressWarnings("deprecation")
+  public SerializedView saveSerializedView(FacesContext context)
+  {
+    assert(context != null);
+    
+    if(isSavingStateInClient(context))
+    {
+      return _saveSerializedView(context);
+    }
+    
+    return _delegate.saveSerializedView(context);
+  }
 
   /**
    * Save a component tree as an Object.
@@ -240,7 +247,7 @@ public class StateManagerImpl extends StateManagerWrapper
     return root;
   }  
 
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings({"unchecked", "deprecation"})
   private SerializedView _saveSerializedView(FacesContext context)
   {
     SerializedView view = _getCachedSerializedView(context);
@@ -454,14 +461,14 @@ public class StateManagerImpl extends StateManagerWrapper
   }
     
   
-  @Override
+  @Override @SuppressWarnings("deprecation")
   public void writeState(FacesContext context,
                          SerializedView state) throws IOException
   {
     _delegate.writeState(context, state);
   }
 
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings({"unchecked", "deprecation"})
   @Override
   public UIViewRoot restoreView(FacesContext context, String viewId,
                                 String renderKitId)
@@ -905,7 +912,7 @@ public class StateManagerImpl extends StateManagerWrapper
     }
   }
 
-
+  @SuppressWarnings("deprecation")
   private SerializedView _getCachedSerializedView(
     FacesContext context)
   {
@@ -913,7 +920,7 @@ public class StateManagerImpl extends StateManagerWrapper
                  getRequestMap().get(_CACHED_SERIALIZED_VIEW);
   }
 
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings({"unchecked","deprecation"})
   private void _saveCachedSerializedView(
     FacesContext context, SerializedView state)
   {
