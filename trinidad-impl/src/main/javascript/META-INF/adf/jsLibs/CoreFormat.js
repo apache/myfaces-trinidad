@@ -235,7 +235,12 @@ TrDoubleConverter.prototype.getAsString = function(
   label
   )
 {
-  return "" + number;
+  var numberString = "" + number;
+  var index = numberString.indexOf(".");
+  if(index != -1)
+    return numberString;
+  else
+    return "" + number.toFixed(1);
 }
 
 TrDoubleConverter.prototype.getAsObject = function(
@@ -282,7 +287,12 @@ TrFloatConverter.prototype.getAsString = function(
   label
   )
 {
-  return "" + number;
+  var numberString = "" + number;
+  var index = numberString.indexOf(".");
+  if(index != -1)
+    return numberString;
+  else
+    return "" + number.toFixed(1);
 }
 
 TrFloatConverter.prototype.getAsObject = function(
