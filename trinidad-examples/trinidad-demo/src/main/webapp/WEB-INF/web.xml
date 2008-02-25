@@ -70,9 +70,11 @@
 
   <!-- If this parameter is enabled, Trinidad will automatically
        check the modification date of your JSPs, and discard saved
-       state when they change;  this makes development easier,
+       state when they change. Trinidad will also automatically check
+       if your skinning css files have changed without having to restart
+       the server; this makes development easier,
        but adds overhead that should be avoided when your application
-       is deployed -->
+       is deployed. -->
   <context-param>
     <param-name>org.apache.myfaces.trinidad.CHECK_FILE_MODIFICATION</param-name>
     <param-value>false</param-value>
