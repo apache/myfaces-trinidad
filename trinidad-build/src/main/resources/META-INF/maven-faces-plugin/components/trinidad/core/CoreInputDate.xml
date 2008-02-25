@@ -35,7 +35,8 @@
     <xi:include href="includes/CommonFormControls.xml" xpointer="/faces-config/component/*"/>
     <property>
       <description><![CDATA[The id of the chooseDate component which can be used to
-              pick the Date value for this inputDate.]]>
+              pick the Date value for this inputDate. Use the same syntax as partialTriggers
+          if the components are separated by Naming Containers.]]>
       </description>
       <property-name>chooseId</property-name>
       <property-class>java.lang.String</property-class>

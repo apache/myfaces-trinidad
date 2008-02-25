@@ -45,7 +45,8 @@
     </property>
     <property>
       <description><![CDATA[The id of the inline chooseColor component which can be used to
-          update the Color value for this inputColor.]]>
+          update the Color value for this inputColor. Use the same syntax as partialTriggers
+          if the components are separated by Naming Containers.]]>
       </description>
       <property-name>chooseId</property-name>
       <property-class>java.lang.String</property-class>
