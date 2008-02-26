@@ -135,7 +135,7 @@
            <plugin>
              <groupId>org.mortbay.jetty</groupId>
              <artifactId>maven-jetty-plugin</artifactId>
-             <version>6.1.2rc0</version>
+             <version>6.1.7</version>
              <configuration>
                <scanIntervalSeconds>10</scanIntervalSeconds>
              </configuration>
@@ -181,11 +181,13 @@
         <dependency>
           <groupId>javax.faces</groupId>
           <artifactId>jsf-api</artifactId>
+          <version>1.2_07</version>
           <scope>compile</scope>
         </dependency>
         <dependency>
           <groupId>javax.faces</groupId>
           <artifactId>jsf-impl</artifactId>
+          <version>1.2_07</version>
           <scope>runtime</scope>
         </dependency>
       </dependencies>
