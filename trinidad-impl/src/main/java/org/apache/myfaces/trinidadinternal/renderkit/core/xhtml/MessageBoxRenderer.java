@@ -34,7 +34,6 @@ import org.apache.myfaces.trinidad.component.core.output.CoreMessages;
 
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.context.RequestContext;
-import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.util.LabeledFacesMessage;
 import org.apache.myfaces.trinidadinternal.util.MessageUtils;
 
@@ -296,13 +295,14 @@ public class MessageBoxRenderer extends XhtmlRenderer
     if (msg instanceof LabeledFacesMessage)
     {
       LabeledFacesMessage labeledMsg = (LabeledFacesMessage)msg;
-      String anchor = MessageUtils.getAnchor(componentId);
-      if (anchor != null)
+      String labelString = labeledMsg.getLabelAsString(context);
+      if (labelString != null)
       {
+        String anchor = MessageUtils.getAnchor(componentId);
         writer.startElement(XhtmlConstants.LINK_ELEMENT, null);
         renderStyleClass(context, arc, SkinSelectors.LINK_STYLE_CLASS);
         writer.writeAttribute(XhtmlConstants.HREF_ATTRIBUTE, "#" + anchor, null);
-        writer.write(labeledMsg.getLabelAsString(context));
+        writer.write(labelString);
         writer.endElement(XhtmlConstants.LINK_ELEMENT);
       }
     }
