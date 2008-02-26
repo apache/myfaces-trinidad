@@ -112,12 +112,14 @@ public class RenderUtils
    * <p>
    * e.g., given this hierarchy
    * <br/>
-   *  &lt;f:subview id="aaa"&gt;&lt;f:subview id="xxx"&gt;<br/>
+   *  &lt;f:subview id="aaa"&gt;  
+   *    &lt;f:subview id="xxx"&gt;<br/>
            &lt;tr:chooseColor id="cp1" .../&gt;<br/>
             &lt;f:subview id="yyy"><br/>
                &lt;tr:inputColor id="sic1" chooseId="::cp1" .../&gt;<br/>
             &lt;/f:subview&gt;<br/>
-         &lt;/f:subview&gt;&lt;/f:subview&gt;<br/>
+         &lt;/f:subview&gt;   
+      &lt;/f:subview&gt;<br/>
     </p>
     <p>
    * The 'from' component is the inputColor component.
@@ -128,7 +130,7 @@ public class RenderUtils
    * </p>
    * <p>
    * It does not assume that the target component can be located, although it does
-   * check. If it can't be found, returns the correct relativeId anyway.
+   * check. If it can't be found, it returns the correct relativeId anyway.
    * </p>
    * <p>
    * A relativeId starting with
@@ -146,25 +148,26 @@ public class RenderUtils
    * </p>
    * @param context
    * @param from the component to search relative to
-   * @param relativeId the relative path from the 'from' component 
-   *                   to the component to find
+   * @param scopedId the relative id path from the 'from' component to the
+   *                 component to find
    * @return the clientId for the 'relative' component.
-   @see ComponentUtils.findRelativeComponent(from, relativeId)
+   * @see ComponentUtils#findRelativeComponent
+   * @see javax.faces.component.UIComponent#findComponent
 
    */
   public static String getRelativeId(
     FacesContext context,
     UIComponent  from,
-    String       relativeId)
+    String       scopedId)
   {
     if (from == null)
         return null;
     
-    if ((relativeId == null) || (relativeId.length() == 0))
+    if ((scopedId == null) || (scopedId.length() == 0))
       return null;
 
     // Figure out how many colons
-    int colonCount = _getColonCount(relativeId);
+    int colonCount = _getColonCount(scopedId);
 
     // colonCount == 0: fully relative
     // colonCount == 1: absolute 
@@ -172,7 +175,17 @@ public class RenderUtils
     // the naming container (to the view root, if naming containers run out)
     
     if (colonCount == 1)
-      return relativeId.substring(1);
+      return scopedId.substring(1);
+    if (colonCount == 0 && !(from instanceof NamingContainer))
+    {
+      // we do it the fast way if there 
+      // are no colons and the from isn't a NamingContainer.
+      // the reason is this use case hasn't changed between the previous
+      // logic and the current logic for finding the component, so it
+      // is already backward compatible, and therefore we don't have to 
+      // call the findComponent code for backward compatibility.
+      return _getRelativeId(context, from, scopedId, colonCount);
+    }
     
     // 
     // We need to make it backward compatible, and 
@@ -181,25 +194,23 @@ public class RenderUtils
     // it can't be found. Plus, findRelativeComponent code has 
     // backward compatibilty built in.
     UIComponent component = 
-      ComponentUtils.findRelativeComponent(from, relativeId);
+      ComponentUtils.findRelativeComponent(from, scopedId);
     if (component == null && from instanceof NamingContainer)
     {
-      component = ComponentUtils.findRelativeComponent(from.getParent(), relativeId);
+      component = ComponentUtils.findRelativeComponent(from.getParent(), scopedId);
       if (component != null)
       {
-        // TODO Log warning
         _LOG.warning("DEPRECATED_RELATIVE_ID_SYNTAX", 
-          new Object[] {relativeId, from});
+          new Object[] {scopedId, from});
       }
     }
     
     // the component wasn't found, but go ahead and return something smart
     if (component == null)
     {
-      // TODO LOG warning
       _LOG.warning("RELATIVE_ID_NOT_FOUND", 
-        new Object[] {relativeId, from});
-      return _getRelativeId(context, from, relativeId, colonCount);
+        new Object[] {scopedId, from});
+      return _getRelativeId(context, from, scopedId, colonCount);
     }
     else
     {
@@ -245,7 +256,8 @@ public class RenderUtils
       from = _getParentNamingContainer(from);
     }
 
-
+    // assumption is no one but the parent naming container modifies its
+    // client id
     if (from == null)
       return relativeId;
     else
@@ -261,7 +273,7 @@ public class RenderUtils
   // Given a component, get its naming container. If the component
   // is a naming container, it will get its naming container.
   // This is different than the one in ComponentUtils. This one
-  // returns null if there are no more NamingContainers. The other one
+  // returns null if there are no NamingContainers. The other one
   // returns the ViewRoot.
   private static UIComponent _getParentNamingContainer (
     UIComponent from)

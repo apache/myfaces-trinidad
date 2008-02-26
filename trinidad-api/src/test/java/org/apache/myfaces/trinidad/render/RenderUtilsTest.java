@@ -107,7 +107,7 @@ public class RenderUtilsTest extends TestCase
     
     String relativeId = 
       RenderUtils.getRelativeId(null, button1, "table1");
-    assertEquals("table1_Client", relativeId);
+    assertEquals("table1", relativeId);
     
     relativeId = 
       RenderUtils.getRelativeId(null, button1, ":table1");
