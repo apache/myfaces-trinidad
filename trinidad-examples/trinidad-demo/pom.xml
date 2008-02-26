@@ -143,6 +143,22 @@
   </dependencies>
 
   <profiles>
+     <profile>
+       <id>jettyConfig</id>
+       <build>
+         <plugins>
+           <plugin>
+             <groupId>org.mortbay.jetty</groupId>
+             <artifactId>maven-jetty-plugin</artifactId>
+             <version>6.1.7</version>
+             <configuration>
+               <scanIntervalSeconds>10</scanIntervalSeconds>
+             </configuration>
+           </plugin>
+        </plugins>
+      </build>
+    </profile>
+
     <!-- By default the war examples use myfaces! :) -->
     <profile>
       <id>myfaces</id>
