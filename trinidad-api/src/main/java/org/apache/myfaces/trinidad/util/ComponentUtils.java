@@ -333,25 +333,27 @@ public final class ComponentUtils
    * </p>
    * 
    * @param from the component to search relative to
-   * @param relativeId the relative path to the component to find
+   * @param scopedId the relative id path from the 'from' component to the
+   *                 component to find
    * @return the component if found, null otherwise
-   * @see RenderUtils.getRelativeId(from, relativeId)
+   * @see org.apache.myfaces.trinidad.render.RenderUtils#getRelativeId
+   * @see javax.faces.component.UIComponent#findComponent
    */
   public static UIComponent findRelativeComponent(
     UIComponent from,
-    String      relativeId)
+    String      scopedId)
   {
     if (from == null)
         return null;
     UIComponent originalFrom = from;
-    String originalRelativeId = relativeId;
+    String originalRelativeId = scopedId;
     
-    int idLength = relativeId.length();
+    int idLength = scopedId.length();
     // Figure out how many colons
     int colonCount = 0;
     while (colonCount < idLength)
     {
-      if (relativeId.charAt(colonCount) != NamingContainer.SEPARATOR_CHAR)
+      if (scopedId.charAt(colonCount) != NamingContainer.SEPARATOR_CHAR)
         break;
       colonCount++;
     }
@@ -362,7 +364,7 @@ public final class ComponentUtils
     // the naming container (to the view root, if naming containers run out)
     if (colonCount > 1)
     {
-      relativeId = relativeId.substring(colonCount);
+      scopedId = scopedId.substring(colonCount);
       
       // if the component is not a NamingContainer, then we need to 
       // get the component's naming container and set this as the 'from'.
@@ -380,7 +382,7 @@ public final class ComponentUtils
       }
     }
 
-    UIComponent found = from.findComponent(relativeId);
+    UIComponent found = from.findComponent(scopedId);
     if (found != null)
       return found;
     else
