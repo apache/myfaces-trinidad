@@ -66,6 +66,9 @@ public abstract class UIXIteratorTemplate extends UIXCollection implements Flatt
     final ComponentProcessor<S> childProcessor,
     final S callbackContext) throws IOException
   {
+    // Mimic what would normally happen in the non-flattening case for encodeBegin():
+    __processFlattenedChildrenBegin();
+
     Runner runner = new Runner(cpContext)
     {
       @Override

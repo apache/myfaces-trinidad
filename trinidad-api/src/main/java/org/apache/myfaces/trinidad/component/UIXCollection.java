@@ -1170,6 +1170,21 @@ public abstract class UIXCollection extends UIXComponentBase
     }
  }
 
+  /**
+   * Hook for subclasses like UIXIterator to initialize and flush the cache when visting flattened
+   * children when parented by a renderer that needs to use
+   * UIXComponent.processFlattenedChildren().
+   * This is to mimic what happens in the non flattening case where similar logic is invoked
+   * during encodeBegin().
+   */
+  void __processFlattenedChildrenBegin()
+  {
+    // Call _init() since _flushCachedModel() assumes that
+    // selectedRowKeys and disclosedRowKeys are initialized to be non-null.
+    _init();
+    _flushCachedModel();
+  }
+
   private void _init()
   {
     InternalState iState = _getInternalState(true);
