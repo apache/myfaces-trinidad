@@ -72,6 +72,7 @@ import org.apache.myfaces.trinidadinternal.io.HtmlResponseWriter;
 import org.apache.myfaces.trinidadinternal.io.IndentingResponseWriter;
 import org.apache.myfaces.trinidadinternal.io.XhtmlResponseWriter;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderKitBase;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderKitDecorator;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PPRResponseWriter;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContextImpl;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
@@ -87,7 +88,7 @@ import org.apache.myfaces.trinidadinternal.share.util.CaboHttpUtils;
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/CoreRenderKit.java#0 $) $Date: 10-nov-2005.19:01:18 $
  */
-public class CoreRenderKit extends RenderKitBase
+public class CoreRenderKit extends RenderKitDecorator
                           implements DialogRenderKitService,
                                      ExtendedRenderKitService
 {
@@ -170,7 +171,13 @@ public class CoreRenderKit extends RenderKitBase
   
   public CoreRenderKit()
   {
-    _addBasicHTMLRenderKit();
+    _modifyBasicHTMLRenderKit();
+  }
+
+  @Override
+  protected String getDecoratedRenderKitId()
+  {
+    return RenderKitFactory.HTML_BASIC_RENDER_KIT;
   }
 
   @Override
@@ -633,59 +640,26 @@ public class CoreRenderKit extends RenderKitBase
   }
 
   //
-  // Copy most of the known Basic HTML RenderKit over to ourselves
-  // to improve the efficiency of common lookups.  Also, register
-  // the Renderers that we explicitly override.
+  // This RenderKit decorates the standard BASIC_HTML, 
+  // but we need to replace some renderers with our own.
   //
-  private void _addBasicHTMLRenderKit()
+  private void _modifyBasicHTMLRenderKit()
   {
-    RenderKitFactory rkf = (RenderKitFactory)
-      FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
-    RenderKit basic = rkf.getRenderKit(null,
-                                       RenderKitFactory.HTML_BASIC_RENDER_KIT);
-    if (basic == null)
-    {
-      _LOG.warning("CANNOT_LOCATE_HTMLRENDERKIT");
-    }
-    else
-    {
-      for (int i = 0; i < _BASIC_HTML_RENDERERS.length; i += 2)
-      {
-        String componentFamily = _BASIC_HTML_RENDERERS[i];
-        String rendererType = _BASIC_HTML_RENDERERS[i + 1];
-        Renderer renderer = basic.getRenderer(componentFamily, rendererType);
-        if (renderer == null)
-        {
-          _LOG.warning("CANNOT_FIND_HTML_RENDERER", new Object[]{componentFamily, rendererType});
-        }
-        else
-        {
-          addRenderer(componentFamily, rendererType, renderer);
-        }
-      }
-
-      // But we render UIForms with our own renderer
-      addRenderer(UIForm.COMPONENT_FAMILY,
-                  "javax.faces.Form",
-                  new HtmlFormRenderer());
-      // And we render UICommandLink with our own renderer
-      addRenderer(UICommand.COMPONENT_FAMILY,
-                  "javax.faces.Link",
-                  new HtmlCommandLinkRenderer());
-      // In jsf 1.1_02 the ri FormRenderer writes out script used by
-      // h:commandButton. Since we override the RI FormRenderer, we also
-      // need to override the commandButton renderer:
-      addRenderer(UICommand.COMPONENT_FAMILY,
-                  "javax.faces.Button",
-                  new HtmlCommandButtonRenderer());
-
-    }
-
-    // And, generally speaking, aggregate in anything else found
-    // in the Basic HTML RenderKit
-    attachAggregatedRenderKit(basic);
+    // We render UIForms with our own renderer
+    addRenderer(UIForm.COMPONENT_FAMILY,
+                "javax.faces.Form",
+                new HtmlFormRenderer());
+    // And we render UICommandLink with our own renderer
+    addRenderer(UICommand.COMPONENT_FAMILY,
+                "javax.faces.Link",
+                new HtmlCommandLinkRenderer());
+    // In jsf 1.1_02 the ri FormRenderer writes out script used by
+    // h:commandButton. Since we override the RI FormRenderer, we also
+    // need to override the commandButton renderer:
+    addRenderer(UICommand.COMPONENT_FAMILY,
+                "javax.faces.Button",
+                new HtmlCommandButtonRenderer());
   }
-
 
   @SuppressWarnings("unchecked")
   private List<DialogRequest> _getDialogList(

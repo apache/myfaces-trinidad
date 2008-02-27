@@ -81,6 +81,8 @@ public class RenderKitBootstrap
     RenderKitFactory factory = (RenderKitFactory)
       FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
 
+    factory.addRenderKit(RenderKitFactory.HTML_BASIC_RENDER_KIT, new BasicHtmlRenderKit());
+
     String renderKitId = null;
     if (context.getViewRoot() != null)
       renderKitId = context.getViewRoot().getRenderKitId();
@@ -193,4 +195,5 @@ public class RenderKitBootstrap
     _createAgents();
   }
 }
+
 
