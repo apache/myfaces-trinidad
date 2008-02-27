@@ -208,8 +208,6 @@ public class RenderUtils
     // the component wasn't found, but go ahead and return something smart
     if (component == null)
     {
-      _LOG.warning("RELATIVE_ID_NOT_FOUND", 
-        new Object[] {scopedId, from});
       return _getRelativeId(context, from, scopedId, colonCount);
     }
     else

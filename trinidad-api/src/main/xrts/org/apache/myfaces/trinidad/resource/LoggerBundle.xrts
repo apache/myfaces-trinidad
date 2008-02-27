@@ -397,9 +397,6 @@
  <resource key="RESOURCE_PATH_DOTS">The resource path {0} contains "..". Browsers resolve out the "..", so this is a suspicious path.</resource>
 
 <!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
-<resource key="DEPRECATED_RELATIVE_ID_SYNTAX">Could not find the component with relative id {0} from {1} with the supported syntax. The component was found with the deprecated syntax. Please use the supported syntax.</resource>
-
-<!-- RELATIVE_ID_NOT_FOUND -->
-<resource key="RELATIVE_ID_NOT_FOUND">Could not find the component with relative id {0} from {1}. This method will return the relative id anyway. Please double-check the syntax and make sure the component exists.</resource>
+<resource key="DEPRECATED_RELATIVE_ID_SYNTAX">Could not find the component with scopedId {0} from {1} with the supported syntax. The component was found with the deprecated syntax. Please use the supported syntax.</resource>
 
 </resources>
