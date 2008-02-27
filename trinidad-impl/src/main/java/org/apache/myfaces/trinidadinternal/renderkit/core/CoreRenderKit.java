@@ -26,7 +26,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.FactoryFinder;
 import javax.faces.application.ViewHandler;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
@@ -46,9 +45,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseStream;
 import javax.faces.context.ResponseWriter;
-import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
-import javax.faces.render.Renderer;
 import javax.faces.render.ResponseStateManager;
 import javax.servlet.ServletResponse;
 
@@ -71,7 +68,6 @@ import org.apache.myfaces.trinidadinternal.io.DebugResponseWriter;
 import org.apache.myfaces.trinidadinternal.io.HtmlResponseWriter;
 import org.apache.myfaces.trinidadinternal.io.IndentingResponseWriter;
 import org.apache.myfaces.trinidadinternal.io.XhtmlResponseWriter;
-import org.apache.myfaces.trinidadinternal.renderkit.RenderKitBase;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderKitDecorator;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PPRResponseWriter;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContextImpl;
@@ -173,11 +169,11 @@ public class CoreRenderKit extends RenderKitDecorator
     _modifyBasicHTMLRenderKit();
   }
 
+  @Override
   protected String getDecoratedRenderKitId()
   {
     return RenderKitFactory.HTML_BASIC_RENDER_KIT;
   }
-
   
   @Override
   protected String getRenderKitMap()
@@ -658,7 +654,6 @@ public class CoreRenderKit extends RenderKitDecorator
                 "javax.faces.Button",
                 new HtmlCommandButtonRenderer());
   }
-
 
   @SuppressWarnings("unchecked")
   private List<DialogRequest> _getDialogList(
