@@ -21,8 +21,8 @@ package org.apache.myfaces.trinidadinternal.renderkit;
 import java.io.OutputStream;
 import java.io.Writer;
 
-import javax.faces.component.UIComponent;
 import javax.faces.component.UICommand;
+import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
 import javax.faces.component.UIGraphic;
 import javax.faces.component.UIInput;
@@ -33,13 +33,11 @@ import javax.faces.component.UIPanel;
 import javax.faces.component.UISelectBoolean;
 import javax.faces.component.UISelectMany;
 import javax.faces.component.UISelectOne;
-
 import javax.faces.context.FacesContext;
-
-import javax.faces.render.Renderer;
-import javax.faces.render.ResponseStateManager;
 import javax.faces.context.ResponseStream;
 import javax.faces.context.ResponseWriter;
+import javax.faces.render.Renderer;
+import javax.faces.render.ResponseStateManager;
 
 public class BasicHtmlRenderKit extends RenderKitBase
 {
