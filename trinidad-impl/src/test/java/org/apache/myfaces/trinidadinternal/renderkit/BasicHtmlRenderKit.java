@@ -23,6 +23,7 @@ import java.io.Writer;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UICommand;
+import javax.faces.component.UIData;
 import javax.faces.component.UIGraphic;
 import javax.faces.component.UIInput;
 import javax.faces.component.UIMessage;
@@ -101,6 +102,11 @@ public class BasicHtmlRenderKit extends RenderKitBase
     addRenderer(UISelectMany.COMPONENT_FAMILY,    "javax.faces.Listbox", n);
     addRenderer(UISelectMany.COMPONENT_FAMILY,    "javax.faces.Menu", n);
     addRenderer(UISelectMany.COMPONENT_FAMILY,    "javax.faces.Checkbox", n);
+    addRenderer(UIData.COMPONENT_FAMILY,          "javax.faces.Table", n);
+    addRenderer(UIOutput.COMPONENT_FAMILY,        "javax.faces.Text", n);
+    addRenderer(UIInput.COMPONENT_FAMILY,         "javax.faces.Text", n);
+    addRenderer(UISelectOne.COMPONENT_FAMILY,     "javax.faces.Menu", n);
+    addRenderer(UISelectOne.COMPONENT_FAMILY,     "javax.faces.Radio", n);
 
   }
 
