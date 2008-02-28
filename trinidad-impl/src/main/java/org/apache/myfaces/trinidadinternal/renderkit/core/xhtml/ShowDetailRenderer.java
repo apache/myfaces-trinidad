@@ -78,14 +78,16 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
     _renderScripts(context, arc, component);
     String onClickString =
                _generateOnClickString(context, arc, component, bean, disclosed);
-    _renderLinkStart(context, arc, onClickString);
     String sourceValue = getClientId(context, component);
     String linkId = getLinkId(sourceValue, disclosed);
+
+    _renderLinkStart(context, arc, onClickString);
     if (linkId != null)
       rw.writeAttribute("id", linkId, null);
 
     if (!isTableAllDisclosure())
     {
+      renderStyleClasses(context, arc, getDisclosureIconLinkStyleClasses());
       renderDisclosureIcon(context, arc, disclosed);
       _renderLinkEnd(context, arc);
     }
@@ -99,9 +101,7 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
       {
         if (!isTableAllDisclosure())
           _renderLinkStart(context, arc, onClickString);
-        String styleClass = getLinkStyleClass();
-        if (styleClass != null)
-          renderStyleClass(context, arc, styleClass);
+        renderStyleClasses(context, arc, getLinkStyleClasses());
         rw.writeText(text,
                      disclosed ? "disclosedText" : "undisclosedText");
 
@@ -450,12 +450,12 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
   }
 
   /**
-   * Returns the style class to use for links rendered by the
+   * Returns the style classes to use for links rendered by the
    * ShowDetailRenderer
    */
-  protected String getLinkStyleClass()
+  protected String[] getLinkStyleClasses()
   {
-    return SkinSelectors.LINK_STYLE_CLASS;
+    return PROMPT_LINK_STYLE_CLASSES;
   }
 
   /**
@@ -493,7 +493,19 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
     return toString(bean.getProperty(_undisclosedTextKey));
   }
 
+  protected String[] getDisclosureIconLinkStyleClasses() {
+    return DISCLOSURE_ICON_LINK_STYLE_CLASSES;
+  }
 
+  protected String getPromptStyleClass(boolean disclosed) {
+    return disclosed
+        ? SkinSelectors.AF_SHOW_DETAIL_PROMPT_DISCLOSED_STYLE_CLASS
+        : SkinSelectors.AF_SHOW_DETAIL_PROMPT_UNDISCLOSED_STYLE_CLASS;
+  }
+
+  protected String getDefaultStyleClass(FacesBean bean) {
+    return getPromptStyleClass(getDisclosed(bean));
+  }
 
   private PropertyKey _immediateKey;
   private PropertyKey _disclosedTextKey;
@@ -511,6 +523,14 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
     "af_showDetail.DISCLOSED_TIP";
   private static final String _UNDISCLOSED_TIP_KEY =
     "af_showDetail.UNDISCLOSED_TIP";
+
+  private static final String[] PROMPT_LINK_STYLE_CLASSES =
+    {SkinSelectors.LINK_STYLE_CLASS,
+     SkinSelectors.AF_SHOW_DETAIL_PROMPT_LINK_STYLE_CLASS};
+
+  private static final String[]DISCLOSURE_ICON_LINK_STYLE_CLASSES =
+    {SkinSelectors.LINK_STYLE_CLASS,
+     SkinSelectors.AF_SHOW_DETAIL_DISCLOSURE_ICON_LINK_STYLE_CLASS};
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ShowDetailRenderer.class);
 }

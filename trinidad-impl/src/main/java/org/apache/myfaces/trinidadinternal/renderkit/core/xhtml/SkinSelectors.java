@@ -1174,6 +1174,14 @@ public final class SkinSelectors
    //                                                                         //
    
    // ============================ Style classes ============================ //
+   public static final String AF_SHOW_DETAIL_PROMPT_DISCLOSED_STYLE_CLASS =
+     "af|showDetail::prompt-disclosed";
+   public static final String AF_SHOW_DETAIL_PROMPT_UNDISCLOSED_STYLE_CLASS =
+     "af|showDetail::prompt-undisclosed";
+   public static final String AF_SHOW_DETAIL_PROMPT_LINK_STYLE_CLASS =
+     "af|showDetail::prompt-link";
+   public static final String AF_SHOW_DETAIL_DISCLOSURE_ICON_LINK_STYLE_CLASS =
+     "af|showDetail::disclosure-icon-link";
    
    // ================================ Icons ================================ //
    public static final String AF_SHOW_DETAIL_DISCLOSED_ICON_NAME =
