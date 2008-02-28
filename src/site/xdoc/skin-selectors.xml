@@ -3214,6 +3214,35 @@
         <table>
           <tr>
             <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|showDetail::prompt-disclosed</td>
+            <td>Styles the prompt when the component is rendered
+                in its disclosed state.</td>
+          </tr>
+          <tr>
+            <td>af|showDetail::prompt-undisclosed</td>
+            <td>Styles the prompt when the component is rendered
+                in its undisclosed state.</td>
+          </tr>
+          <tr>
+            <td>af|showDetail::prompt-link</td>
+            <td>Styles the prompt-link.</td>
+          </tr>
+          <tr>
+            <td>af|showDetail::disclosure-icon-link</td>
+            <td>Styles the disclosure-icon-link.</td>
+          </tr>
+        </table>
+        <table>
+          <tr>
+            <th colspan="2">
               <i>Icon Selectors</i>
             </th>
           </tr>
