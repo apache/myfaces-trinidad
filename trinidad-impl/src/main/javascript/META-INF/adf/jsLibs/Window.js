@@ -589,6 +589,15 @@ function _sizeWin(
                      : _getBodyWidth(body, body.offsetWidth, body.offsetLeft);
     var newHeight = 0;
 
+    // if the height was not explicitly set, change to auto forcing
+    // recalculation of  the offsetHeight.  FireFox doesn't always detect
+    // that a PPR has changed the content size.
+    var bodyStyle = body.style;
+    if (!bodyStyle.height || bodyStyle.height.length == 0)
+    {
+      bodyStyle.height = "auto";
+    }
+
     if (isStandard)
     {
       newHeight = body.offsetHeight + (window.outerHeight - window.innerHeight);
