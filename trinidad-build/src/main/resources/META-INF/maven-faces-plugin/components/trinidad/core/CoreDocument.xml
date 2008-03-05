@@ -84,6 +84,7 @@
       <property-extension>
         <mfp:property-metadata>
           <mfp:expert>true</mfp:expert>
+          <mfp:scoped-id-holder>true</mfp:scoped-id-holder>
         </mfp:property-metadata>
         <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>
       </property-extension>

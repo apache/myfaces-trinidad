@@ -66,6 +66,11 @@ it is used to enter numbers and it has a spinbox to quickly increment or decreme
       </description>
       <property-name>partialTriggers</property-name>
       <property-class>java.lang.String[]</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:multi-scoped-id-holder>true</mfp:multi-scoped-id-holder>
+        </mfp:property-metadata>
+      </property-extension>
     </property>
     <property>
       <description><![CDATA[the label of the bean.]]></description>

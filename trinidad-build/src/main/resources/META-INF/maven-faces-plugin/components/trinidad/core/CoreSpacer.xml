@@ -78,6 +78,11 @@
       </description>
       <property-name>partialTriggers</property-name>
       <property-class>java.lang.String[]</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:multi-scoped-id-holder>true</mfp:multi-scoped-id-holder>
+        </mfp:property-metadata>
+      </property-extension>
     </property>
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Object</mfp:component-supertype>

@@ -73,6 +73,11 @@
       </description>
       <property-name>partialTriggers</property-name>
       <property-class>java.lang.String[]</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:multi-scoped-id-holder>true</mfp:multi-scoped-id-holder>
+        </mfp:property-metadata>
+      </property-extension>      
     </property>
     <property>
       <description><![CDATA[an onclick Javascript handler.]]></description>
@@ -224,6 +229,7 @@
       <property-extension>
         <mfp:property-metadata>
           <mfp:expert>true</mfp:expert>
+          <mfp:scoped-id-holder>true</mfp:scoped-id-holder>
         </mfp:property-metadata>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </property-extension>

@@ -98,6 +98,12 @@
       </description>
       <property-name>headers</property-name>
       <property-class>java.lang.String</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:multi-scoped-id-holder>true</mfp:multi-scoped-id-holder>
+        </mfp:property-metadata>
+        <mfp:required>false</mfp:required>
+      </property-extension>      
     </property>
     <property>
       <description><![CDATA[Indicates whether or not this table cell is a header cell or a data cell.
@@ -126,6 +132,11 @@
       </description>
       <property-name>partialTriggers</property-name>
       <property-class>java.lang.String[]</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:multi-scoped-id-holder>true</mfp:multi-scoped-id-holder>
+        </mfp:property-metadata>
+      </property-extension>      
     </property>
     <property>
       <description><![CDATA[an onclick Javascript handler.]]></description>
