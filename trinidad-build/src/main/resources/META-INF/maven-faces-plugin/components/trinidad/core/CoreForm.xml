@@ -50,6 +50,11 @@
       </description>
       <property-name>defaultCommand</property-name>
       <property-class>java.lang.String</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:scoped-id-holder>true</mfp:scoped-id-holder>
+        </mfp:property-metadata>
+      </property-extension>
     </property>
     <property>
       <description><![CDATA[Javascript code to be called when the form is submitted.]]></description>

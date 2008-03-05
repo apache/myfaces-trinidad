@@ -122,6 +122,7 @@
         <mfp:property-metadata>
           <mfp:group>${md:getTranslatedString("MESSAGE_GROUP")}</mfp:group>
           <mfp:short-description>${md:getTranslatedString("SD_ATTRGROUP_INLINEMESSAGINGTEXT_ATTR_FOR")}</mfp:short-description>
+          <mfp:scoped-id-holder>true</mfp:scoped-id-holder>
         </mfp:property-metadata>
         <mfp:required>false</mfp:required>
       </property-extension>
