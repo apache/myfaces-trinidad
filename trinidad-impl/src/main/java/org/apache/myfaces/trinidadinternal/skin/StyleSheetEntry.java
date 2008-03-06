@@ -30,7 +30,6 @@ import org.apache.myfaces.trinidadinternal.share.xml.JaxpXMLProvider;
 import org.apache.myfaces.trinidadinternal.share.xml.ParseContextImpl;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLProvider;
 
-import org.apache.myfaces.trinidadinternal.skin.parse.IconNode;
 import org.apache.myfaces.trinidadinternal.skin.parse.SkinPropertyNode;
 
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
@@ -83,7 +82,6 @@ class StyleSheetEntry
       if (context.checkStylesModified())
         return new CheckModifiedEntry(styleSheetName,
                                       skinStyleSheet.getDocument(),
-                                      skinStyleSheet.getIcons(),
                                       skinStyleSheet.getSkinProperties(),
                                       resolver);
 
@@ -101,21 +99,19 @@ class StyleSheetEntry
   StyleSheetEntry(
     String                 styleSheetName,
     StyleSheetDocument     document,
-    List<IconNode>         icons,
     List<SkinPropertyNode> skinProperties
 
     )
   {
     _name       = styleSheetName;
     _document   = document;
-    _icons      = icons;
     _skinProperties = skinProperties;
 
   }
 
   StyleSheetEntry(String styleSheetName)
   {
-    this(styleSheetName, null, null, null);
+    this(styleSheetName, null, null);
   }
 
   // Use full constructor
@@ -139,15 +135,6 @@ class StyleSheetEntry
   public StyleSheetDocument getDocument()
   {
     return _document;
-  }
-
-  /**
-   * Returns the icons List for this
-   * StyleSheetEntry. (this is a list of IconNodes )
-   */
-  public List <IconNode> getIcons()
-  {
-    return _icons;
   }
 
   /**
@@ -180,12 +167,6 @@ class StyleSheetEntry
   }
 
   // Called by CheckModifiedEntry when the style sheet has changed
-  void __setIcons(List <IconNode> icons)
-  {
-    _icons = icons;
-  }
-
-  // Called by CheckModifiedEntry when the style sheet has changed
   void __setSkinProperties(List <SkinPropertyNode> skinProperties)
   {
     _skinProperties = skinProperties;
@@ -193,7 +174,7 @@ class StyleSheetEntry
 
   // Creates the SkinStyleSheet (a private static inner class that
   // contains StyleSheetDocument plus a list
-  // of icons and properties) from a CSS file
+  // of properties) from a CSS file
   //
   private static StyleSheetEntry _createSkinStyleSheet(
     NameResolver     resolver,
@@ -215,7 +196,6 @@ class StyleSheetEntry
       {
         skinStyleSheet = new StyleSheetEntry(styleSheetName,
                                              document,
-                                             null,
                                              null);
       }
 
@@ -317,12 +297,11 @@ class StyleSheetEntry
     public CheckModifiedEntry(
       String                 styleSheetName,
       StyleSheetDocument     document,
-      List<IconNode>         icons,
       List<SkinPropertyNode> properties,
       NameResolver           resolver
       )
     {
-      super(styleSheetName, document, icons, properties);
+      super(styleSheetName, document, properties);
 
       // We need the InputStreamProvider in order to check
       // for modifications.  Get it from the NameResolver.
@@ -342,7 +321,6 @@ class StyleSheetEntry
         // Throw away the old InputStreamProvider and StyleSheetDocument
         _provider = null;
         __setDocument(null);
-        __setIcons(null);
         __setSkinProperties(null);
 
         // Get a new NameResolver
@@ -364,7 +342,6 @@ class StyleSheetEntry
           {
             _provider = _getInputStreamProvider(resolver);
             __setDocument(skinStyleSheet.getDocument());
-            __setIcons(skinStyleSheet.getIcons());
             __setSkinProperties(skinStyleSheet.getSkinProperties());
           }
 
@@ -408,8 +385,7 @@ class StyleSheetEntry
 
   private String              _name;
   private StyleSheetDocument  _document;
-  // List of IconNodes
-  private List <IconNode> _icons;
+
   // List of -tr- properties that the skin can be set on the skin.
   // This is a List of SkinPropertyNodes
   private List <SkinPropertyNode> _skinProperties;

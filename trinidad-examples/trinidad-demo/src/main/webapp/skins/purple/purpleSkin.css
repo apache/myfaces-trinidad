@@ -616,13 +616,23 @@ Is this a bug? It seems like it */
 @agent gecko {
 af|column::sortable-header-text {
     border-style: solid;
-}  
+}
+
+  af|tree::collapsed-icon {
+    content:url(/skins/purple/images/collapsed.gif);
+    width:18px;
+    height:19px    
+  }
+
+  af|tree::expanded-icon {
+    content:url(/skins/purple/images/expanded.gif);
+    width:18px;
+    height:19px    
+  }
 }
 
 
 /* test @agent and @platform styles */
-/* right now @agent/@platform work with style selectors, but they have no
-   effect on icon selectors. */
 /* possible values for @agent are: 
 netscape, ie, mozilla, gecko, webkit, ice */
 /* possible values for @platform are: 

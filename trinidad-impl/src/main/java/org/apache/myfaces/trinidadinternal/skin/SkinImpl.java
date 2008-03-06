@@ -55,7 +55,6 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinProperties;
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadinternal.share.expl.Coercions;
 import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
-import org.apache.myfaces.trinidadinternal.skin.parse.IconNode;
 import org.apache.myfaces.trinidadinternal.skin.parse.SkinPropertyNode;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.StyleProvider;
@@ -74,7 +73,7 @@ import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/skin/Skin.java#0 $) $Date: 10-nov-2005.18:58:54 $
  */
-abstract public class SkinImpl extends Skin
+abstract public class SkinImpl extends Skin implements DocumentProviderSkin
 {
 
   /**
@@ -572,23 +571,12 @@ abstract public class SkinImpl extends Skin
     return modified;
   }
 
-  private void _registerIconsAndPropertiesFromStyleSheetEntry(
+  private void _registerPropertiesFromStyleSheetEntry(
     StyleSheetEntry entry)
   {
-    // register the icons and properties if there are any.
-    // get a List of IconNodes, and register them.
+    // register the properties if there are any.
     if (entry != null)
     {
-      // register icons
-      List<IconNode> icons = entry.getIcons();
-      if (icons != null)
-      {
-        for(IconNode iconNode : icons)
-        {
-          registerIcon(iconNode.getIconName(), iconNode.getIcon());
-        }
-      }
-
       // register properties
       List<SkinPropertyNode> skinProperties = entry.getSkinProperties();
 
@@ -644,7 +632,7 @@ abstract public class SkinImpl extends Skin
       if (styleSheetName != null)
       {
         _skinStyleSheet = StyleSheetEntry.createEntry(context, styleSheetName);
-        _registerIconsAndPropertiesFromStyleSheetEntry(_skinStyleSheet);
+        _registerPropertiesFromStyleSheetEntry(_skinStyleSheet);
       }
 
       // Now create entries for skin-addition-specific style sheets.
@@ -669,7 +657,7 @@ abstract public class SkinImpl extends Skin
         {
           // add the icons and properties that are in the
           // skin-addition's StyleSheetEntry
-           _registerIconsAndPropertiesFromStyleSheetEntry(entry);
+           _registerPropertiesFromStyleSheetEntry(entry);
 
           // now merge the css properties
           StyleSheetDocument additionDocument = entry.getDocument();

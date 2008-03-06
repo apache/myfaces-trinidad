@@ -124,6 +124,7 @@ public class SkinFactoryImpl extends SkinFactory
 
     // loop through each skin in the SkinFactory
     // and see if the family and the renderKitId match
+    Skin matchingSkin = null;
 
     for(Skin skin : _skins.values())
     {
@@ -131,28 +132,36 @@ public class SkinFactoryImpl extends SkinFactory
           renderKitId.equalsIgnoreCase(skin.getRenderKitId()))
       {
         // exact family+renderKitId match!
-        return skin;
+        matchingSkin = skin;
+        break;
       }
     }
 
-    // if we get here, that means we couldn't find an exact
-    // family/renderKitId match, so return the simple skin
-    // that matches the renderkitid.
-     if (_LOG.isWarning())
-     {
-       _LOG.warning("CANNOT_FIND_MATCHING_SKIN", new Object[]{family, renderKitId});
-     }
+    if (matchingSkin == null)
+    {
+      // if we get here, that means we couldn't find an exact
+      // family/renderKitId match, so return the simple skin
+      // that matches the renderkitid.
+       if (_LOG.isWarning())
+       {
+         _LOG.warning("CANNOT_FIND_MATCHING_SKIN", new Object[]{family, renderKitId});
+       }
 
-    // if we get here, that means we couldn't find an exact
-    // family/renderKitId match, so return the simple skin
-    // that matches the renderkitid.
-    if (renderKitId.equals(XhtmlConstants.APACHE_TRINIDAD_PORTLET))
-      return getSkin(context, _SIMPLE_PORTLET);
-    else if (renderKitId.equals(XhtmlConstants.APACHE_TRINIDAD_PDA))
-      return getSkin(context, _SIMPLE_PDA);
-    else
-      return getSkin(context, _SIMPLE_DESKTOP);
+      // if we get here, that means we couldn't find an exact
+      // family/renderKitId match, so return the simple skin
+      // that matches the renderkitid.
 
+      if (renderKitId.equals(XhtmlConstants.APACHE_TRINIDAD_PORTLET))
+        matchingSkin = getSkin(context, _SIMPLE_PORTLET);
+      else if (renderKitId.equals(XhtmlConstants.APACHE_TRINIDAD_PDA))
+        matchingSkin = getSkin(context, _SIMPLE_PDA);
+      else
+        matchingSkin = getSkin(context, _SIMPLE_DESKTOP);
+    }
+
+    // If we've got a matching skin, wrap it in a RequestSkinWrapper 
+    // to provide access to request-specific state.
+    return (matchingSkin == null) ? null : new RequestSkinWrapper(matchingSkin);
   }
 
   @Override

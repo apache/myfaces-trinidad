@@ -69,6 +69,13 @@ public class SkinStyleProvider extends FileSystemStyleCache
       throw new IllegalArgumentException(_LOG.getMessage(
         "NO_SKIN_SPECIFIED"));
 
+    // If the skin is actually one of our request-specific wrapper
+    // skins, rip off the wrapper and look up the StyleProvider
+    // for the wrapped skin.  If we don't do this, we end up creating
+    // a new StyleProvider for every request.
+    if (skin instanceof RequestSkinWrapper)
+      skin = ((RequestSkinWrapper)skin).getWrappedSkin();
+
     // Create the key object that we use to look up our
     // shared SkinStyleProvider instance
     ProviderKey key = new ProviderKey(skin, 
@@ -149,7 +156,8 @@ public class SkinStyleProvider extends FileSystemStyleCache
     synchronized (this)
     {
       // gets the skin's StyleSheetDocument (it creates it if needed)
-      skinDocument = _skinDocument = ((SkinImpl) _skin).getStyleSheetDocument(context);
+      skinDocument = _skinDocument = 
+        ((DocumentProviderSkin) _skin).getStyleSheetDocument(context);
     }
 
 
@@ -174,7 +182,8 @@ public class SkinStyleProvider extends FileSystemStyleCache
     // Synchronize access to _skinDocument
     synchronized (this)
     {
-      return (_skinDocument != ((SkinImpl) _skin).getStyleSheetDocument(context));
+      return (_skinDocument != 
+              ((DocumentProviderSkin) _skin).getStyleSheetDocument(context));
     }
   }
 

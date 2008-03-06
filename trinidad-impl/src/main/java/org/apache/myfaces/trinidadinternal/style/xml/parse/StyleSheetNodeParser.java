@@ -77,9 +77,9 @@ public class StyleSheetNodeParser extends BaseNodeParser
       _styles.copyInto(styles);
     }
 
-    return new
-      StyleSheetNode(
+    return new StyleSheetNode(
         styles,
+        null,      // icons only supported in skin CSS - not XSS
         _locales,
         _direction,
         _browsers,

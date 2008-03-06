@@ -152,7 +152,7 @@
             <li>By default you'll need to restart your server to see your skin changes. To see your changes
             without restarting your server, set the web.xml parameter 
             'org.apache.myfaces.trinidad.CHECK_FILE_MODIFICATION' to true. However, you always need to restart the
-            server to see icon and skin property changes.</li>
+            server to see skin property changes.</li>
             <li>Run your component to see the changes. NOTE: A frequently asked question is why
                 don't I see my skin? The most frequently correct answer is that you forgot to add
                 &lt;tr:document&gt; to your page. This kicks off the skin framework to create the
@@ -358,7 +358,7 @@ af|panelBox::header {
 You can run the panelBox demo with your skin-family set to see the change. 
 If you have 'org.apache.myfaces.trinidad.CHECK_FILE_MODIFICATION' set to true, there is no need to restart the server to see
 css property changes .You can just refresh your page and the skinning framework will detect the skin has changed 
-and will regenerate it. To see icon or skin property changes, you always have to restart the server.
+and will regenerate it. To see skin property changes, you always have to restart the server.
 
 
 Now you have this:
@@ -717,13 +717,13 @@ public class SkinTranslationMapDemo
         <ul>
         <li>
         <strong>@platform</strong> {/skin definitions go here/} - > 
-        Possible values are: windows, macos, linux, solaris, ppc (DOES NOT WORK FOR ICONS). 
+        Possible values are: windows, macos, linux, solaris, ppc. 
         This is to define styles only for a particular platform.
         </li>
         <li>
         <strong>@agent</strong> {/skin definitions go here/} - > 
-        Possible values are: netscape, ie, mozilla, gecko, webkit (maps to safari), ice 
-        (DOES NOT WORK FOR ICONS). This is to define styles only for a particular agent.          
+        Possible values are: netscape, ie, mozilla, gecko, webkit (maps to safari), ice. 
+        This is to define styles only for a particular agent.          
         </li>
         <li>
         <strong>:rtl</strong> - >  pseudo-class to create a style or icon definition when the browser 
