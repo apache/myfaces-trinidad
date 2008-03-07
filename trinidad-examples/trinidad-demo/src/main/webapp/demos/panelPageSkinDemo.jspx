@@ -85,6 +85,7 @@
                   <tr:selectItem label="purple" value="purple"/>
                   <tr:selectItem label="purpleBigFont" value="purpleBigFont"/>
                   <tr:selectItem label="beach" value="beach"/>
+                  <tr:selectItem label="suede" value="suede"/>
                 </tr:selectOneChoice>
                 <tr:commandButton text="Go"/>
               </tr:panelGroupLayout>
