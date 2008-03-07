@@ -25,6 +25,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.faces.context.ExternalContext;
+
+import javax.portlet.faces.annotation.ExcludeFromManagedRequestScope;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.myfaces.trinidad.config.Configurator;
@@ -74,7 +77,7 @@ public class FileUploadConfiguratorImpl extends Configurator
   @SuppressWarnings("unchecked")
   static public void apply(ExternalContext context)
   {
-    context.getRequestMap().put(_APPLIED, Boolean.TRUE);
+    context.getRequestMap().put(_APPLIED, AppliedClass.APPLIED);
   }
 
   /* (non-Javadoc)
@@ -231,6 +234,13 @@ public class FileUploadConfiguratorImpl extends Configurator
     //return the origional external context
     return externalContext;
   }
+  
+  //This will ensure the property is removed on the next request
+  @ExcludeFromManagedRequestScope
+  static private class AppliedClass
+  {
+    static public final AppliedClass APPLIED = new AppliedClass();
+  }
 
   static private class TempUploadedFile implements UploadedFile
   {
@@ -276,5 +286,6 @@ public class FileUploadConfiguratorImpl extends Configurator
   static private final String _APPLIED = FileUploadConfiguratorImpl.class.getName()+".APPLIED";
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(FileUploadConfiguratorImpl.class);
   static private final String _PARAMS = FileUploadConfiguratorImpl.class.getName()+".PARAMS";
+  
   private long _maxAllowedBytes = 1L << 27;
 }

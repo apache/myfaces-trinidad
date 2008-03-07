@@ -51,9 +51,6 @@ public class ActionUploadRequestWrapper
     _extractedParams.putAll(params);
 
     _encoding = super.getCharacterEncoding();
-
-    //add these params to the render request
-    _response.setRenderParameters(_extractedParams);
   }
 
   /**
