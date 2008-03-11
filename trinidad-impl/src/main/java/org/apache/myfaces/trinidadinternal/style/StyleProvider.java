@@ -20,12 +20,20 @@ package org.apache.myfaces.trinidadinternal.style;
 
 import java.util.Map;
 
+import java.util.concurrent.ConcurrentMap;
+
+import org.apache.myfaces.trinidad.skin.Icon;
+
 /**
  * The StyleProvider API is used to access context-dependent style
  * information.  Style information is exposed in two ways - as
  * CSS style sheet URIs (via getStyleSheetURI()), or as Style objects
  * (via getStyleMap()).  Both methods take a StyleContext object,
  * which describes the target end user environment.
+ * 
+ * In addition to providing access to style-related information, the
+ * StyleProvider also provides access to Icons which are defined within
+ * style sheets via the getIcons() API.
  *
  * @see StyleContext
  * @see StyleMap
@@ -71,4 +79,16 @@ public interface StyleProvider
    */
   public StyleMap getStyleMap(StyleContext context);
 
+  /**
+   * Returns a map of icon names to Icon instances.
+   * 
+   * The returned map is both mutable and threadsafe.  This allows
+   * request/context-specific icons to be cached on the icon map.
+   * 
+   * @param context The context which describes the target end user 
+   *   environment
+   * @return A ConcurrentMap which exposes the Icons for the
+   *  specified context.
+   */
+  public ConcurrentMap<String, Icon> getIcons(StyleContext context);
 }

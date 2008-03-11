@@ -18,6 +18,8 @@
  */
 package org.apache.myfaces.trinidadinternal.style.xml.parse;
 
+import java.util.ArrayList;
+
 import junit.framework.TestCase;
 
 import java.util.Arrays;
@@ -29,10 +31,14 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.Vector;
 
+import org.apache.myfaces.trinidad.skin.Icon;
+import org.apache.myfaces.trinidadinternal.skin.icon.ContextImageIcon;
+import org.apache.myfaces.trinidadinternal.skin.icon.TextIcon;
+
 /**
- * Test the hashCode and equals methods on the StyleSheetNode object and the objects
- * that make up the StyleSheetNode. The hashcode of the StyleSheetNode object is used
- * to create a StyleSheetDocument id.
+ * Test the getStyleSheetId() method on the StyleSheetNode object. 
+ * The id of the StyleSheetNode object is used to create a StyleSheetDocument 
+ * id.
  */
 public class StyleSheetNodeEqualsTest extends TestCase
 {
@@ -119,6 +125,9 @@ public class StyleSheetNodeEqualsTest extends TestCase
                                       getOutputLabelStyleNode(),
                                       getAnotherOutputLabelStyleNode()};
 
+    List<IconNode> iconNodes = _getIconNodes();
+    List<IconNode> anotherIconNodes = _getIconNodes();
+
     // create locales arrays
     Locale[] localesArray = getLocalesArray();
     Locale[] anotherLocalesArray = getAnotherLocalesArray();
@@ -147,7 +156,8 @@ public class StyleSheetNodeEqualsTest extends TestCase
     // int mode
     
     StyleSheetNode styleSheetNode = 
-      new StyleSheetNode(styleSheetOneNodes, 
+      new StyleSheetNode(styleSheetOneNodes,
+                         iconNodes,
                          localesArray, 
                          0, 
                          browsers, 
@@ -155,7 +165,8 @@ public class StyleSheetNodeEqualsTest extends TestCase
                          platforms, 
                          0);
     StyleSheetNode anotherStyleSheetNode = 
-      new StyleSheetNode(anotherStyleSheetOneNodes, 
+      new StyleSheetNode(anotherStyleSheetOneNodes,
+                         anotherIconNodes,
                          anotherLocalesArray,
                          0, 
                          anotherBrowsersDiffOrder, 
@@ -163,7 +174,8 @@ public class StyleSheetNodeEqualsTest extends TestCase
                          anotherPlatforms, 
                          0);
     StyleSheetNode sameDiffOrderStyleSheetNode = 
-      new StyleSheetNode(anotherStyleSheetOneNodes, 
+      new StyleSheetNode(anotherStyleSheetOneNodes,
+                         anotherIconNodes,
                          diffOrderLocalesArray,
                          0, 
                          anotherBrowsersDiffOrder, 
@@ -172,12 +184,20 @@ public class StyleSheetNodeEqualsTest extends TestCase
                          0);                         
       
     // these should be equal
-    assertEquals(styleSheetNode.hashCode() == anotherStyleSheetNode.hashCode(), true);   
-    assertEquals(anotherStyleSheetNode.equals(styleSheetNode), true);
-    assertEquals(styleSheetNode.equals(anotherStyleSheetNode), true); 
-    assertEquals(sameDiffOrderStyleSheetNode.equals(anotherStyleSheetNode), true); 
-    assertEquals(styleSheetNode.equals(sameDiffOrderStyleSheetNode), true);
-    
+    assertEquals(styleSheetNode.getStyleSheetId() == anotherStyleSheetNode.getStyleSheetId(), true);   
+    assertEquals(styleSheetNode.getStyleSheetId() == sameDiffOrderStyleSheetNode.getStyleSheetId(), true);   
+        
+    // Note that StyleSheetNode.equals() explicitly uses the default
+    // identity comparison since we never care about logical equivalence
+    // of two StyleSheetNode instances.  The StyleSheetNode equality
+    // tests below enforce that StyleSheetNode.equals() implements identity 
+    // rather that logical equality.
+    assertEquals(styleSheetNode.equals(styleSheetNode), true);  
+    assertEquals(anotherStyleSheetNode.equals(styleSheetNode), false);
+    assertEquals(styleSheetNode.equals(anotherStyleSheetNode), false); 
+    assertEquals(sameDiffOrderStyleSheetNode.equals(anotherStyleSheetNode), false); 
+    assertEquals(styleSheetNode.equals(sameDiffOrderStyleSheetNode), false);
+
     // these should be false
     assertEquals(styleSheetNode.equals(null), false);
     assertEquals(styleSheetNode.equals(localesArray), false);
@@ -292,6 +312,19 @@ public class StyleSheetNodeEqualsTest extends TestCase
   {
     return new Locale[] {new Locale("zh", "CN"), new Locale("tw", "TW")};  
   }
-  
+
+  private List<IconNode> _getIconNodes()
+  {
+    List<IconNode> iconNodes = new ArrayList<IconNode>(2);
+    
+    Icon icon1 = new TextIcon("Hello, world!");
+    Icon icon2 = new ContextImageIcon("/foo/bar/baz.png", 10, 10);
+    
+    iconNodes.add(new IconNode("hello", icon1));
+    iconNodes.add(new IconNode("foo", icon1));
+    
+    return iconNodes;
+  }
 }
+
 

@@ -34,6 +34,14 @@ public class NullIcon extends Icon
     return _ICON;
   }
 
+  // Most NullIcon clients should use NullIcon.sharedInstance() to
+  // retrieve a NullIcon instance.  This constructor is provided
+  // specifically for clients that are using a NullIcon instance
+  // as a marker object, eg. see RequestSkinWrapper.
+  public NullIcon()
+  {
+  }
+
   @Override
   public void renderIcon(
     FacesContext context,
@@ -50,10 +58,7 @@ public class NullIcon extends Icon
     return true;
   }
 
-  private NullIcon()
-  {
-  }
-
   static private final NullIcon _ICON = new NullIcon();
 }
+
 

@@ -48,7 +48,10 @@ import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 
 /**
- * Private implementation of StyleSheetDocument.
+ * Parsed representation of a Trinidad style sheet document.
+ * 
+ * The StyleSheetDocument provides access to both style as well as icons
+ * information, but not to skin properties.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/xml/parse/StyleSheetDocument.java#0 $) $Date: 10-nov-2005.18:58:12 $
  */
@@ -122,7 +125,7 @@ public class StyleSheetDocument
     Iterator<StyleSheetNode> styleSheetNodes = getStyleSheets(sContext);
     while (styleSheetNodes.hasNext())
     {
-      hashCode = hashCode*37 +  styleSheetNodes.next().hashCode();      
+      hashCode = hashCode*37 +  styleSheetNodes.next().getStyleSheetId();      
     }
     return Integer.toString(Math.abs(hashCode), 36);
   }

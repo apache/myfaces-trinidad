@@ -18,6 +18,7 @@
  */
 package org.apache.myfaces.trinidadinternal.style.xml.parse;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -38,7 +39,9 @@ import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
 
 /**
  * Private implementation of StyleSheetNode. A StyleSheetNode has StyleNodes for particular
- * browsers, direction, versions, platforms and mode.
+ * browsers, direction, versions, platforms and mode.  In addition, the StyleSheetNode
+ * provides access to IconNodes representing the icons which were defined within
+ * the context of this style sheet.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/xml/parse/StyleSheetNode.java#0 $) $Date: 10-nov-2005.18:58:46 $
  */
@@ -50,6 +53,7 @@ public class StyleSheetNode
    */
   public StyleSheetNode(
     StyleNode[] styles,
+    Collection<IconNode> icons,
     Locale[] locales,
     int direction,
     int[] browsers,
@@ -63,6 +67,11 @@ public class StyleSheetNode
       _styles = Collections.unmodifiableList(Arrays.asList(styles));
     else
       _styles = Collections.emptyList();
+
+    if (icons != null)
+      _icons = Collections.unmodifiableList(new ArrayList<IconNode>(icons));
+    else
+      _icons = Collections.emptyList();
 
     // locales, browsers, versions, platforms order does not matter, so these are Sets.
     if (locales != null)
@@ -100,7 +109,7 @@ public class StyleSheetNode
       
     _mode = mode;
     _direction = direction;
-    _hashCode = _getHashCode();
+    _id = _computeStyleSheetId();
   }
 
   /**
@@ -109,6 +118,14 @@ public class StyleSheetNode
   public Collection<StyleNode> getStyles()
   {
     return _styles;
+  }
+
+  /**
+   * Returns icons contained by this StyleSheetNode.
+   */
+  public Collection<IconNode> getIcons()
+  {
+    return _icons;
   }
 
   /**
@@ -207,33 +224,38 @@ public class StyleSheetNode
   }
 
   @Override  
-  public boolean equals(Object obj)
+  public final boolean equals(Object obj)
   {
-    if (this == obj)
-      return true;
-    if (!(obj instanceof StyleSheetNode))
-      return false;
-      
-    // obj at this point must be a StyleSheetNode
-    StyleSheetNode test = (StyleSheetNode)obj;
-    // look for equality in the order of what is most likely to be different and what
-    // is easiest to check for.  
-    return
-      (_mode == test._mode) &&
-      (_direction == test._direction) &&
-      (_locales.equals(test._locales)) &&
-      (_browsers.equals(test._browsers)) &&
-      (_platforms.equals(test._platforms)) &&
-      (_versions.equals(test._versions)) &&
-      (_styles.equals(test._styles));
+    // A single StyleSheetNode is created for each "style sheet"
+    // section in a StyleSheetDocument.  As such, we have no need
+    // for a logical equality test.  We always want to perform 
+    // identity comparisons when determining the equality of 
+    // two StyleSheetNodes.  We use the default Object.equals()
+    // implementation to achieve this.
+    
+    // Note that technically speaking this override is not needed.
+    // However, to avoid confusion about whether we should be performing
+    // logical equality vs. identity comparisons, we explicitly define
+    // this final override, if only to serve as documentation of our
+    // intentions.
 
-  }
   
+    return super.equals(obj);
+  }
+
   @Override
-  public int hashCode()
+  public final int hashCode()
   {
-    // return the cached hashCode that is computed in the constructor
-    return _hashCode;
+    // Since unique StyleSheetNode instance is created for each "style sheet"
+    // section in a StyleSheetDocument, and since we have no need for 
+    // logical equality comparisions, the default hashCode() implementation
+    // is sufficient for our needs.
+    
+    // Like the override of equals(), this override is not strictly
+    // necessary, but is here to make it clear that we always want to
+    // use the default Object.hashCode() implementation.
+
+    return super.hashCode();
   }
   
   @Override
@@ -244,13 +266,37 @@ public class StyleSheetNode
       "direction=" + _getDirectionString() + ", " +
       "browsers="  + _browsers.toString()  + ", " +
       "versions="  + _versions.toString()  + ", " +
-      "platforms=" + _platforms.toString()  + ", " +
-      "styles="    + _styles.toString() + "]";
+      "platforms=" + _platforms.toString() + ", " +
+      "styles="    + _styles.toString()    + ", " +
+      "icons="     + _icons.toString()     + "]";
   }
-  
-  // Compute the hashCode and return it.  
-  private int _getHashCode()
+
+  /**
+   * Returns an int-based id which can be used by StyleSheetDocument.getDocumentId()
+   * to (semi-)uniquely identify this StyleSheetNode.  This id is very similar
+   * to a hash code, though is not exactly the same, as some StyleSheetNode
+   * properties (such as icons) are intentionally excluded from the style sheet 
+   * id.
+   * 
+   * @return An integer value suitable for use by StyleSheetDocument.getDocumentId().
+   */
+  public int getStyleSheetId()
   {
+    return _id;    
+  }
+
+  // Compute the style sheet id and return it.  
+  private int _computeStyleSheetId()
+  {
+    // This is very similar to computing a hash code.  However, we
+    // explicitly exclude properties which have no impact on the
+    // generated style sheet, such as icons.  The reason for this
+    // is that the generated style sheet version produced by 
+    // StyleSheetDocument.getDocumentId() should not change unless
+    // the generated style sheet itself changes.  Since icons do not
+    // impact the generated style sheet, these are excluded form the
+    // style sheet id.
+
     int hash = 17;
     hash = 37*hash + _mode;
     hash = 37*hash + _direction;
@@ -432,6 +478,7 @@ public class StyleSheetNode
   }
 
   private final List<StyleNode> _styles;     // The styles contained within this node
+  private final List<IconNode>  _icons;      // The icons contained within this node
   // Order does not matter for locales, browsers, versions, platforms
   private final Set<Locale>     _locales;    // The locale variants
   private final int             _direction;  // The reading direction
@@ -439,7 +486,7 @@ public class StyleSheetNode
   private final Set<Integer>    _versions;   // The version variants
   private final Set<Integer>    _platforms;  // The platform variants
   private final int             _mode;       // The mode  
-  private final int             _hashCode;   // The cached hashCode
+  private final int             _id;         // The cached style sheet id
 
   // Constants for locale matches - 0x000f0000 bits
   private static final int _LOCALE_EXACT_MATCH      = 0x00040000;

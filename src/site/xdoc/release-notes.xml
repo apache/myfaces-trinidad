@@ -60,6 +60,8 @@ replaced by PPR.</li>
 
 <subsection name="Changes from previous release">
 <ul>
+<li>In previous releases, @agent/@platform constrains in skin definitions were not applied to icons.  That is, icons which appeared within @agent/@platform objects were registered globally and were not constrained to any particular agent/platform.  This is no longer the case.  @agent/@platform constraints are now honored for both styles and icons, making it possible to define agent/platform-specific icons.
+</li>
 <li>In previous releases, when you change a skinning css file, the change is reflected 
 in the running application on refresh. To aid in performance, this is now a configuration
 option that defaults to false -- do not check for css file modifications.

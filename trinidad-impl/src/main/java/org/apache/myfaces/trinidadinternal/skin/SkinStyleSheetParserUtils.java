@@ -45,6 +45,7 @@ import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
 
 import org.apache.myfaces.trinidadinternal.style.CSSStyle;
+import org.apache.myfaces.trinidadinternal.style.xml.parse.IconNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.IncludeStyleNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.PropertyNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleNode;
@@ -54,7 +55,6 @@ import org.apache.myfaces.trinidadinternal.skin.icon.ContextImageIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.NullIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.TextIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.URIImageIcon;
-import org.apache.myfaces.trinidadinternal.skin.parse.IconNode;
 import org.apache.myfaces.trinidadinternal.skin.parse.SkinPropertyNode;
 import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
 import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
@@ -186,7 +186,6 @@ class SkinStyleSheetParserUtils
     // styleNodeList. Also, build one iconNodeList and one skinPropertyNodeList.
     
     // initialize
-    List<IconNode> iconNodeList = new ArrayList<IconNode>();
     List<SkinPropertyNode> skinPropertyNodeList = new ArrayList<SkinPropertyNode>();
     List<StyleSheetNode> ssNodeList = new ArrayList<StyleSheetNode>();
     String baseSourceURI = CSSUtils.getBaseSkinStyleSheetURI(sourceName);
@@ -201,6 +200,7 @@ class SkinStyleSheetParserUtils
      
       // initialize
       List <StyleNode> styleNodeList = new ArrayList<StyleNode>();
+      List<IconNode> iconNodeList = new ArrayList<IconNode>();
   
       for (SkinSelectorPropertiesNode cssSelector : selectorNodeList) 
       {
@@ -244,25 +244,6 @@ class SkinStyleSheetParserUtils
                           resolvedProperties.isTrTextAntialias(),
                           styleNodeList);           
           }
-          
-          
-          // log warning if the icon is defined within an @agent or @platform
-          // block that tells the user that this icon will be used 
-          // for all agents and platforms.
-          // TODO add agent and platform support for icons.
-          // This means that if an icon is defined within the @agent and/or
-          // the @platform keys, then that icon should be rendered when
-          // the rendering context matches the agent/platform.
-          if (skinSSNode.getAgents() != null ||
-              skinSSNode.getPlatforms() != null)
-          {
-            _LOG.warning("Icon '" +
-                         selectorName +
-                         "' is defined for agents and/or platforms in the skinning file." +
-                         " However that feature is not implemented yet for icons, only styles. "+ " " +
-                         "Therefore, this icon will be used " +
-                         "regardless of the request's agent or platform.");
-          }
         }
         else
         {
@@ -277,7 +258,7 @@ class SkinStyleSheetParserUtils
         }
       }
       
-      if (styleNodeList.size() > 0)
+      if ((styleNodeList.size() > 0) || (iconNodeList.size() > 0))
       {
         // we need to deal with the styleNodeList by building a StyleSheetNode
         // with this information.
@@ -285,6 +266,7 @@ class SkinStyleSheetParserUtils
         StyleNode[] styleNodeArray = styleNodeList.toArray(new StyleNode[0]);
         StyleSheetNode ssNode = 
           new StyleSheetNode(styleNodeArray,
+                             iconNodeList,
                              null,/*locales, not yet supported*/
                              skinSSNode.getDirection(),
                              skinSSNode.getAgents(),
@@ -303,7 +285,6 @@ class SkinStyleSheetParserUtils
 
     return new StyleSheetEntry(sourceName,
                                ssDocument,
-                               iconNodeList,
                                skinPropertyNodeList);
 
 

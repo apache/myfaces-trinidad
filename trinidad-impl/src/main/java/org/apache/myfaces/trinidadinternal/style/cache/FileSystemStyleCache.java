@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -27,6 +27,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -37,6 +38,10 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
+
+import java.util.concurrent.ConcurrentHashMap;
+
+import java.util.concurrent.ConcurrentMap;
 
 import javax.faces.context.FacesContext;
 
@@ -50,6 +55,7 @@ import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
 import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
 import org.apache.myfaces.trinidad.context.LocaleContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.StyleSheetRenderer;
@@ -63,6 +69,7 @@ import org.apache.myfaces.trinidadinternal.style.StyleProvider;
 import org.apache.myfaces.trinidadinternal.style.util.CSSGenerationUtils;
 import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
 import org.apache.myfaces.trinidadinternal.style.xml.StyleSheetDocumentUtils;
+import org.apache.myfaces.trinidadinternal.style.xml.parse.IconNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.PropertyNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
@@ -73,6 +80,10 @@ import org.xml.sax.SAXException;
 /**
  * The FileSystemStyleCache is a StyleProvider implementation which
  * caches generated CSS style sheets on the file system.
+ * 
+ * Note that StyleProviders are responsible for providing access 
+ * both to style information (eg. getStyleSheetURI(), getStyleMap()) as
+ * well as to icons registered via style sheets (see getIcons()).
  *
  * @see org.apache.myfaces.trinidadinternal.style.StyleProvider
  * @see org.apache.myfaces.trinidadinternal.skin.SkinStyleProvider
@@ -167,6 +178,20 @@ public class FileSystemStyleCache implements StyleProvider
       return null;
 
     return entry.map;
+  }
+
+  /**
+   * Implementation of StyleProvider.getIcons()
+   */
+  public ConcurrentMap<String, Icon> getIcons(StyleContext context)
+  {
+
+    Entry entry = _getEntry(context);
+
+    if (entry == null)
+      return null;
+
+    return entry.icons;    
   }
 
   /**
@@ -462,10 +487,12 @@ public class FileSystemStyleCache implements StyleProvider
 
     _LOG.fine("Finished processing stylesheet {0}", uri);
 
+    ConcurrentMap<String, Icon> icons = _getStyleContextResolvedIcons(context, document);
+
     // Create a new entry and cache it in the "normal" cache. The "normal" cache is one
     // where the key is the Key object which is built based on information from the StyleContext,
     // like browser, agent, locale, direction.
-    Entry entry = new Entry(uri, new StyleMapImpl());
+    Entry entry = new Entry(uri, new StyleMapImpl(), icons);
     cache.put(key, entry);
 
     // Also, cache the new entry in the entry cache
@@ -592,6 +619,32 @@ public class FileSystemStyleCache implements StyleProvider
       v.add(e.next());
 
     return v.toArray(new StyleNode[v.size()]);
+  }
+
+  // Returns a Map of icon names to Icons for the specified
+  // StyleContext and StyleSheetDocument.
+  private ConcurrentMap<String, Icon> _getStyleContextResolvedIcons(
+    StyleContext       context,
+    StyleSheetDocument document
+    )
+  {
+    ConcurrentMap<String, Icon> icons = new ConcurrentHashMap<String, Icon>();
+    Iterator<StyleSheetNode> styleSheetNodes = document.getStyleSheets(context);
+    while (styleSheetNodes.hasNext())
+    {
+      StyleSheetNode styleSheetNode = styleSheetNodes.next();
+      Collection<IconNode> iconNodes = styleSheetNode.getIcons();
+      
+      if (iconNodes != null)
+      {
+        for (IconNode iconNode : iconNodes)
+        {
+          icons.put(iconNode.getIconName(), iconNode.getIcon());
+        }
+      }
+    }
+
+    return icons;
   }
 
   // Generates the CSS file for the specified context and styles.
@@ -907,7 +960,7 @@ public class FileSystemStyleCache implements StyleProvider
             if (styleClass != null && !styleClass.startsWith(SkinSelectors.STATE_PREFIX))
               if (!map.containsKey(styleClass))
                 map.put(styleClass, _getShortStyleClass(map.size()));
-            
+
             if (style.isEmpty())
               emptySelectors.add(styleClass);
             else
@@ -924,15 +977,14 @@ public class FileSystemStyleCache implements StyleProvider
               {
                 String styleClass = styleClasses.next();
                 _putStyleClassInShortMap(styleClass, map);
-                
                 // Don't remove any styleclass that is referred to
                 nonEmptySelectors.add(styleClass);
               }
             }
-            
+
             // now search for the selectors that have namespaces and add those to the map
             int length = namespacePrefixes.length;
-            
+
             for (int i=0; i < length; i++)
             {
               String nsPrefix = namespacePrefixes[i];
@@ -947,7 +999,6 @@ public class FileSystemStyleCache implements StyleProvider
                 {
                   String styleClass = afSelectors.next();
                   _putStyleClassInShortMap(styleClass, map);
-
                   if (isFirst && !afSelectors.hasNext() && style.isEmpty())
                   {
                     emptySelectors.add(styleClass);
@@ -956,7 +1007,7 @@ public class FileSystemStyleCache implements StyleProvider
                   {
                     nonEmptySelectors.add(styleClass);
                   }
-                  
+
                   isFirst = false;
                 }
               }
@@ -1098,11 +1149,13 @@ public class FileSystemStyleCache implements StyleProvider
   {
     public final String uri;
     public final StyleMap map;
+    public final ConcurrentMap<String, Icon> icons;
 
-    public Entry(String uri, StyleMap map)
+    public Entry(String uri, StyleMap map, ConcurrentMap<String, Icon> icons)
     {
       this.uri = uri;
       this.map = map;
+      this.icons = icons;
     }
   }
 

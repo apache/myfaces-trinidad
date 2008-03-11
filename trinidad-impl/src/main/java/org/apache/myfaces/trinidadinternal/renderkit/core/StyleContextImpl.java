@@ -20,6 +20,8 @@ package org.apache.myfaces.trinidadinternal.renderkit.core;
 
 import java.util.Map;
 
+import java.util.concurrent.ConcurrentMap;
+
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -28,6 +30,7 @@ import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.HtmlRenderer;
 import org.apache.myfaces.trinidad.context.LocaleContext;
+import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadinternal.skin.SkinStyleProvider;
@@ -145,6 +148,11 @@ class StyleContextImpl implements StyleContext
     }
 
     public StyleMap getStyleMap(StyleContext context)
+    {
+      return null;
+    }
+
+    public ConcurrentMap<String, Icon> getIcons(StyleContext context)
     {
       return null;
     }
