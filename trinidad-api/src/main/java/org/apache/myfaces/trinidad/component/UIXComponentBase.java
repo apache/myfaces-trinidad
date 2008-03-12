@@ -173,6 +173,11 @@ abstract public class UIXComponentBase extends UIXComponent
     return _facesBean;
   }
 
+  @Override
+  public String getContainerClientId(FacesContext context, UIComponent child)
+  {
+    return getContainerClientId(context);
+  }
 
   @Override
   public void addAttributeChangeListener(AttributeChangeListener acl)
@@ -318,7 +323,14 @@ abstract public class UIXComponentBase extends UIXComponent
     {
       if (containerComponent instanceof NamingContainer)
       {
-        String contClientId = containerComponent.getContainerClientId(context);
+        String contClientId;
+
+        // Pass additional context information to naming containers which extend UIXComponent:
+        if (containerComponent instanceof UIXComponent)
+          contClientId = ((UIXComponent)containerComponent).getContainerClientId(context, this);
+        else
+          contClientId = containerComponent.getContainerClientId(context);
+
         StringBuilder bld = __getSharedStringBuilder();
         bld.append(contClientId).append(NamingContainer.SEPARATOR_CHAR).append(clientId);
         clientId = bld.toString();

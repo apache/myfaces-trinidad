@@ -52,6 +52,24 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
 {
 
   @Override
+  public String getContainerClientId(FacesContext context, UIComponent child)
+  {
+    String id;
+    if (_isStampedChild(child))
+    {   
+      // call the UIXCollection getContainerClientId, which attaches currency string to the client id
+      id = getContainerClientId(context);
+    }
+    else
+    {
+      // The target is not a stamped child, so return a client id with no currency string
+      id = getClientId(context);
+    }
+
+    return id;
+  }
+
+  @Override
   public void setSortCriteria(List<SortCriterion> criteria)
   {
     _sortCriteria = criteria;
@@ -401,6 +419,19 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
 
       setRowIndex(-1);
     }
+  }
+
+  private boolean _isStampedChild(UIComponent target)
+  {
+    // Not stamped if target is in table header/footer:
+    if (TableUtils.__isInTableHeaderFooterFacet(this, target))
+      return false;
+
+    // Not stamped if target is in a column header/footer:
+    if (TableUtils.__isInColumnHeaderFooterFacet(this, target))
+      return false;
+
+    return true;
   }
 
   @Override

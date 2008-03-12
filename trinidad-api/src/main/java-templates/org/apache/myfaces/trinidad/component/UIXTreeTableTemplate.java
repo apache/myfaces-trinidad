@@ -49,6 +49,24 @@ abstract public class UIXTreeTableTemplate extends UIXTree
 /**/  public abstract int[] getRowsByDepth();
 /**/  abstract public MethodExpression getRangeChangeListener();
 
+  @Override
+  public String getContainerClientId(FacesContext context, UIComponent child)
+  {
+    String id;
+    if (_isStampedChild(child))
+    {   
+      // call the UIXCollection getContainerClientId, which attaches currency string to the client id
+      id = getContainerClientId(context);
+    }
+    else
+    {
+      // The target is not a stamped child, so return a client id with no currency string
+      id = getClientId(context);
+    }
+
+    return id;
+  }
+
   @Deprecated
   public void setRangeChangeListener(MethodBinding binding)
   {
@@ -330,6 +348,24 @@ abstract public class UIXTreeTableTemplate extends UIXTree
     Object parentKey = getTreeModel().getContainerRowKey();
     return parentKey;
   }
+
+  private boolean _isStampedChild(UIComponent target)
+  {
+    // Not stamped if target is in table header/footer:
+    if (TableUtils.__isInTableHeaderFooterFacet(this, target))
+      return false;
+
+    // Not stamped if target is in a column header/footer:
+    if (TableUtils.__isInColumnHeaderFooterFacet(this, target))
+      return false;
+
+    // Not stamped if target is in the nodeStamp column header/footer:
+    if (TableUtils.__isInNodeStampHeaderFooterFacet(this, target))
+      return false;
+
+    return true;
+  }
+
 
   private Map<Object, Integer> _firstMap = Collections.emptyMap();
 }

@@ -242,4 +242,13 @@ abstract public class UIXComponent extends UIComponent
   abstract public MethodExpression getAttributeChangeListener();
 
   abstract public void markInitialState();
+  
+  /**
+   * Provides additional context (the target child component for which the container 
+   * client ID is requested) to a naming container for constructing a client ID.
+   * This is useful for components such as @link UIXTable and @link UIXTreeTable which need 
+   * to return different container client IDs for stamped and non-stamped child components.
+   * @see UIXComponentBase#getClientId(FacesContext context)
+   */
+  abstract public String getContainerClientId(FacesContext context, UIComponent child);
 }
