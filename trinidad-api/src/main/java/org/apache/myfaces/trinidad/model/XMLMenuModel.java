@@ -552,6 +552,22 @@ public class XMLMenuModel extends BaseMenuModel
     }    
   }
 
+  /**
+   * Get the Model's viewIdFocusPathMap
+   *
+   * @return the Model's viewIdFocusPathMap
+   */
+  public Map<String, List<Object>> getViewIdFocusPathMap()
+  {
+    if (this != _getRootModel() || _contentHandler == null)
+      return null;
+
+    if (_viewIdFocusPathMap == null)
+      _viewIdFocusPathMap = _contentHandler.getViewIdFocusPathMap(_mdSource);
+
+    return _viewIdFocusPathMap;
+  }
+
   /* ====================================================================
    * Private Methods
    * ==================================================================== */
