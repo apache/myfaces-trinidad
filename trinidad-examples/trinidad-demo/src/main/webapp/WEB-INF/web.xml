@@ -96,6 +96,10 @@
     <param-name>org.apache.myfaces.trinidad.resource.DEBUG</param-name>
     <param-value>false</param-value>
   </context-param>
+  <context-param>
+    <param-name>org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT</param-name>
+    <param-value>true</param-value>
+  </context-param>
 
   <!-- With setting this parameter you are able to specify the logical
        outcome prefix to launch the dialog framework. If not set, the

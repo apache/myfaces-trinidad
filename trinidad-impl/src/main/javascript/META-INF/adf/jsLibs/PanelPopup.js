@@ -367,7 +367,6 @@ TrPanelPopup._showMask = function()
 
     //add mask to body
     document.body.appendChild(TrPanelPopup._mask);
-    
   }
 
   TrPanelPopup._mask.style.display = "block";
@@ -387,184 +386,125 @@ TrPanelPopup._hideMask = function()
 /**
  * Check to see if a point lies inside the bounds of an element
  */
-TrPanelPopup.prototype._hitTest = function(element, point)
+TrPanelPopup.prototype._hitTest = function(element, eventLoc)
 {
-  var pos = this._getElementPosition(element);
-  if (pos.x > point.x || pos.y > point.y)
-  {
-    return false;
-  }
-  return pos.x + element.offsetWidth >= point.x &&
-    pos.y + element.offsetHeight >= point.y;
+  var b = TrUIUtils._getElementBounds(element);
+  
+  return b.x <= eventLoc.pageX && (b.x + b.w) >= eventLoc.pageX &&
+    b.y <= eventLoc.pageY && (b.y + b.h) >= eventLoc.pageY;
 }
 
 /**
  * Reposition an element to ensure that it fits on the screen
  */
-TrPanelPopup.prototype._fitOnScreen = function(element)
+TrPanelPopup.prototype._fitOnScreen = function(element, windowSize)
 {
-  var vis = this._getStyle(element, 'visibility');
+  var vis = TrUIUtils._getStyle(element, 'visibility');
   element.style.visibility = 'hidden';
-  if (element.origX)
+  var b = TrUIUtils._getElementBounds(element);
+  var parentLoc = TrUIUtils._getElementLocation(element.offsetParent);
+  var posType = TrUIUtils._getStyle(element.offsetParent, 'position');
+  var parentOffset;
+  if (posType == 'relative' || posType == 'absolute')
   {
-    element.style.left = element.origX + 'px';
+    parentOffset = { left: parentLoc.x, top: parentLoc.y };
   }
-  if (element.origY)
+  else
   {
-    element.style.top = element.origY + 'px';
+    parentOffset = { left: 0, top: 0 };
   }
-  var w = element.offsetWidth;
-  var h = element.offsetHeight;
-  var pos = this._getElementPosition(element);
-  var x = pos.x;
-  var y = pos.y;
-  var ww = document.body.offsetWidth;
-  var wh = document.body.offsetHeight;
+  
+  // calculate the client location of the popup (not the page location)
+  var clientLoc = { 
+    x: b.x - (document.body.scrollLeft || document.documentElement.scrollLeft),
+    y: b.y - (document.body.scrollTop || document.documentElement.scrollTop)
+  };
+  
+  // is the popup off the page to the left?
+  if (b.x < 0)
+  {
+    element.style.left = (0 - parentOffset.left) + 'px';
+  }
+  // is it off the page to the right?
+  else if (clientLoc.x + b.w > windowSize.w)
+  {
+    element.style.left = (element.offsetLeft - (clientLoc.x + b.w - windowSize.w)) + 'px';
+  }
 
-  var parentPos = this._getElementPosition(element.parentNode);
-
-  if (x + w > ww)
+  // is the popup off the top of the page?
+  if (b.y < 0)
   {
-    var diff = (x + w) - ww;
-    var ox = element.offsetLeft;
-    if (!element.origX)
-    {
-      element.origX = ox;
-    }
-    element.style.left = (ox - diff - parentPos.x) + 'px';
+    element.style.top = (0 - parentOffset.top) + 'px';
   }
-  if (y + h > wh)
+  // is it past the bottom the page?
+  else if (clientLoc.y + b.h > windowSize.h)
   {
-    var diff = (y + h) - wh;
-    var oy = element.offsetTop;
-    if (!element.origY)
-    {
-      element.origY = oy;
-    }
-    element.style.top = (oy - diff - parentPos.y) + 'px';
+    element.style.top = (element.offsetTop - (clientLoc.y + b.h - windowSize.h)) + 'px';
   }
   element.style.visibility = vis;
 }
 
 /**
- * Get the Page X and Y of an event
+ * Get the page X and Y and the client X and Y of an event
  */
 TrPanelPopup.prototype._getEventPosition = function(event)
 {
-  return {
-    x: (event.pageX || (event.clientX +
-        (document.documentElement.scrollLeft || document.body.scrollLeft))),
-    y: (event.pageY || (event.clientY +
-        (document.documentElement.scrollTop || document.body.scrollTop)))
+  // all browsers
+  var pos = { 
+    clientX: event.clientX,
+    clientY: event.clientY,
+    pageX: event.pageX,
+    pageY: event.pageY
   };
-}
 
-/**
- * Check if the browser is Internet Explorer
- */
-TrPanelPopup.prototype._isIE = function()
-{
-  return navigator.appVersion.indexOf("MSIE") != -1;
-}
+  if (pos.pageX == null)
+  {
+    pos.pageX = event.clientX
+      + (document.body.scrollLeft || document.documentElement.scrollLeft);
+    pos.pageY = event.clientY
+      + (document.body.scrollTop || document.documentElement.scrollTop);
+  }
 
-/**
- * Get the position of an element relative to the page, not
- * its parent
- */
-TrPanelPopup.prototype._getElementPosition = function(element)
-{
-  var curleft = 0;
-  var curtop = 0;
-  var obj = element;
-  while (obj)
-  {
-    curleft += obj.offsetLeft;
-    curtop += obj.offsetTop;
-    obj = obj.offsetParent;
-  }
-  return { x: curleft, y: curtop };
-}
-
-/**
- * Get a css property as its JavaScript variable name
- */
-TrPanelPopup.prototype._cssToJs = function(prop)
-{
-  var jsProp = '';
-  var upperNext = false;
-  for (var c = 0; c < prop.length; c++)
-  {
-    if (prop.charAt(c) == '-')
-    {
-      upperNext = true;
-      continue;
-    }
-    
-    if (upperNext)
-    {
-      jsProp += prop.charAt(c).toUpperCase();
-    }
-    else
-    {
-      jsProp += prop.charAt(c);
-    }
-      
-    upperNext = false;
-  }
-  
-  return jsProp;
-}
-
-/**
- * Get a calculated CSS style value
- */
-TrPanelPopup.prototype._getStyle = function(element, prop)
-{
-  if (element.currentStyle)
-  {
-    // remove dashes and uppercase next letter
-    var jsProp = this._cssToJs(prop);
-    return element.currentStyle[jsProp];
-  }
-  else if (window.getComputedStyle)
-  {
-    return document.defaultView.getComputedStyle(element, '')
-      .getPropertyValue(prop);
-  }
-  return '';
+  return pos;
 }
 
 /**
  * Function to center an element on the screen
  */
-TrPanelPopup.prototype._centerOnScreen = function(element)
+TrPanelPopup.prototype._centerOnScreen = function(element, windowSize)
 {
   element.style.position = 'absolute';
-  var vis = this._getStyle(element, 'visibility');
-  element.style.visibility = 'hidden'; // stop flickering
-  var parentPos = this._getElementPosition(element.parentNode);
-
-  var loc;
-  if (this._isIE())
+  var vis = TrUIUtils._getStyle(element, 'visibility');
+  element.style.visibility = 'hidden'; // prevent flickering
+  var parentLoc = TrUIUtils._getElementLocation(element.offsetParent);
+  var pageLoc = TrUIUtils._getElementBounds(element);
+  var posType = TrUIUtils._getStyle(element.offsetParent, 'position');
+  var parentOffset;
+  if (posType == 'relative' || posType == 'absolute')
   {
-    loc = document.body.scrollLeft +
-      ((document.body.clientWidth - element.clientWidth) / 2) -
-      parentPos.x;
-    element.style.left = ((loc>0)?loc:0) + "px";
-    loc = document.body.scrollTop +
-      ((document.body.clientHeight - element.clientHeight) / 2) -
-      parentPos.y;
-    element.style.top = ((loc>0)?loc:0) + "px";
+    parentOffset = { left: parentLoc.x, top: parentLoc.y };
   }
   else
   {
-    loc = window.pageXOffset + ((window.innerWidth - element.clientWidth) / 2) -
-      parentPos.x;
-    element.style.left = ((loc>0)?loc:0) + "px"
-    loc = window.pageYOffset + ((window.innerHeight - element.clientHeight)/2) -
-      parentPos.y;
-    element.style.top= ((loc>0)?loc:0) + "px"
+    parentOffset = { left: 0, top: 0 };
   }
+    
+  // calculate the client location of the popup (not the page location)
+  var clientLoc = { 
+    x: pageLoc.x - (document.body.scrollLeft || document.documentElement.scrollLeft),
+    y: pageLoc.y - (document.body.scrollTop || document.documentElement.scrollTop)
+  };
+
+  element.style.left = Math.max(0,
+    (windowSize.w / 2 - element.clientWidth / 2)
+    - parentOffset.left
+    + (pageLoc.x - clientLoc.x)) + 'px';
+  
+  element.style.top = Math.max(0,
+    (windowSize.h / 2 - element.clientHeight / 2)
+    - parentOffset.top
+    + (pageLoc.y - clientLoc.y)) + 'px';
+  
   element.style.visibility = vis;
 }
 
@@ -588,45 +528,77 @@ TrPanelPopup.prototype._getOffsetParent = function()
 /**
  * Position the popup ensuring it doesn't go off-page, and if centered, then 
  * center in the middle of the current window.
- **/
+ */
 TrPanelPopup.prototype._calcPosition = function(event)
 {
   var popup = this.getContent();
   event = window.event || event;
   
-  var parent = this._getOffsetParent();
-  if (!this._centered)
-  {
-    var pos = this._getEventPosition(event);
-    var parentPos = this._getElementPosition(parent);
-    popup.style.left = (pos.x - parentPos.x + 
-      this.getRelativeOffsetX()) + 'px';
-    popup.style.top = (pos.y - parentPos.y +
-      this.getRelativeOffsetY()) + 'px';
-  }
-    
+  var parent = this._getOffsetParent(); 
+  // get the window size before the popup may alter it
+  var wSize = TrUIUtils._getWindowClientSize();
+  
   if (!popup.origParent)
   {
     popup.origParent = popup.parentNode;
-  }
-  
+  }  
   parent.appendChild(popup);
+
+  if (!this._centered)
+  {
+    var eventP = this._getEventPosition(event);
+    var parLoc = TrUIUtils._getElementLocation(popup.offsetParent);
+    var posType = TrUIUtils._getStyle(popup.offsetParent, 'position');
+    var parentOffset;
+    if (posType == 'relative' || posType == 'absolute')
+    {
+      parentOffset = { left: parLoc.x, top: parLoc.y };
+    }
+    else
+    {
+      parentOffset = { left: 0, top: 0 };
+    }
+
+    // set the location to the location of the event on the page
+    // adjusted to the parent location on the page
+    // adjusted by the relative offset of the popup
+    popup.style.left = (eventP.pageX - parentOffset.left + this.getRelativeOffsetX() -
+      this._getSideOffset(popup, "Left")) + 'px';
+    
+    popup.style.top = (eventP.pageY - parentOffset.top + this.getRelativeOffsetY() -
+      this._getSideOffset(popup, "Top")) + 'px';
+  }
   
   if (this._centered)
   {
-    this._centerOnScreen(popup);
+    this._centerOnScreen(popup, wSize);
   }
   else
   {
-    this._fitOnScreen(popup);
+    this._fitOnScreen(popup, wSize);
   }
   
   if (!this.isModal())
   {
-    var pos = this._getEventPosition(event);
-    TrPanelPopup._resizeIeIframe(pos.x, pos.y, 
-      popup.offsetWidth, popup.offsetHeight);
+    var b = TrUIUtils._getElementBounds(popup);
+    TrPanelPopup._resizeIeIframe(b.x, b.y, b.w, b.h);
   }
+}
+
+TrPanelPopup.prototype._getSideOffset = function(elem, side)
+{
+  var arr = [ "border", "padding", "margin" ];
+  var val = 0;
+  for (var i = 0; i < arr.length; ++i)
+  {
+    var o = TrUIUtils._getStyle(elem, arr[i] + side);
+    o = parseInt(o);
+    if (!isNaN(o))
+    {
+      val += o;
+    }
+  }
+  return val;
 }
 
 /**
@@ -637,7 +609,7 @@ TrPanelPopup._consumeMaskEvent = function(event)
   return false;
 }
 
-/*
+/**
  * Sizes/resizes the modal mask if the window size changes
  */
 TrPanelPopup._setMaskSize = function()
@@ -646,34 +618,17 @@ TrPanelPopup._setMaskSize = function()
   if (!TrPanelPopup._mask)
     return;
 
-  if (window.innerHeight!=window.undefined)
-    fullHeight = window.innerHeight;
-  else if (document.compatMode=='CSS1Compat')
-    fullHeight = document.documentElement.clientHeight;
-  else if (document.body)
-    fullHeight = document.body.clientHeight;
-
-  if (window.innerWidth!=window.undefined) 
-    fullWidth = window.innerWidth;
-  else if (document.compatMode=='CSS1Compat')
-    fullWidth = document.documentElement.clientWidth;
-  else if (document.body)
-    fullWidth = document.body.clientWidth;
+  var wSize = TrUIUtils._getWindowClientSize();
+  var scrollWidth = document.documentElement.scrollWidth || document.body.scrollWidth;
+  var scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
     
-  // Determine what's bigger, scrollHeight or fullHeight / width
-  if (fullHeight > document.body.scrollHeight)
-  {
-    popHeight = fullHeight;
-  }
-  else
-  {
-    popHeight = document.body.scrollHeight
-  }
+  var w = Math.max(wSize.w, scrollWidth);
+  var h = Math.max(wSize.h, scrollHeight);
   
-  TrPanelPopup._mask.style.height = popHeight + "px";
-  TrPanelPopup._mask.style.width = document.body.scrollWidth + "px";
+  TrPanelPopup._mask.style.width = w + "px";
+  TrPanelPopup._mask.style.height = h + "px";
   
-  TrPanelPopup._resizeIeIframe(0, 0, document.body.scrollWidth, popHeight);
+  TrPanelPopup._resizeIeIframe(0, 0, w, h);
 }
 
 /**
@@ -719,8 +674,11 @@ TrPanelPopup._initIeIframe = function()
     TrPanelPopup._maskIframe.name = "TrPanelPopup._ieOnlyZIndexIframe";
     TrPanelPopup._maskIframe.style.cssText = "display: none; left: 0px; position: absolute; top: 0px; z-index: 4999;";
     TrPanelPopup._maskIframe.style.filter = "progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=0)";
-    // FIXME: should this be set to avoid SSL warnings?
-    //TrPanelPopup._maskIframe.src = "javascript:false;"
+    // avoid SSL warnings in IE
+    if (_agent.isIE)
+    {
+      TrPanelPopup._maskIframe.src = "javascript:false;";
+    }
     document.body.appendChild(TrPanelPopup._maskIframe);
   }
 }
@@ -746,8 +704,11 @@ TrHoverPopup.prototype = new TrPanelPopup();
 TrHoverPopup.prototype.showPopup = function(event)
 {
   // Setup event listener for mouse leaving trigger or content elements
-  _addEvent(this.getTrigger(), "mouseout", this._hoverCallbackFunction);
-  _addEvent(this.getContent(), "mouseout", this._hoverCallbackFunction);
+  //_addEvent(this.getTrigger(), "mouseout", this._hoverCallbackFunction);
+  //_addEvent(this.getContent(), "mouseout", this._hoverCallbackFunction);
+  
+  // mouse out on the elements didn't always get called, so use mouse move
+  _addEvent(document.body, "mousemove", this._hoverCallbackFunction);
   
   this.show(event);
 }
@@ -769,8 +730,10 @@ TrHoverPopup.prototype.hidePopup = function(event)
   }
   
   // Cancel event listeners
-  _removeEvent(this.getTrigger(), "mouseout", this._hoverCallbackFunction);
-  _removeEvent(this.getContent(), "mouseout", this._hoverCallbackFunction);
+  // mouse out on the elements didn't always get called, so use mouse move
+  //_removeEvent(this.getTrigger(), "mouseout", this._hoverCallbackFunction);
+  //_removeEvent(this.getContent(), "mouseout", this._hoverCallbackFunction);
+  _removeEvent(document.body, "mousemove", this._hoverCallbackFunction);
 
   this.hide(event);
   
