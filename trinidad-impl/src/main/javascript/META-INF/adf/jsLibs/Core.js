@@ -4550,3 +4550,188 @@ TrUIUtils.createCallback = function(thisObj, func)
 
   return proxyFunction;
 }
+
+/**
+ * Get the client window size.
+ * TODO - make this public?
+ * 
+ * @return {Object} the client size of the window. The returned object will have w and h properties.
+ */
+TrUIUtils._getWindowClientSize = function()
+{
+  var func;
+  
+  if (TrUIUtils['_getWinClientSize'] == null)
+  {
+    // IE is abnormal
+    if(_agent.isIE)
+    {
+      TrUIUtils._getWinClientSize = function()
+      {
+        var e = ((document.compatMode == "BackCompat") ? document.body : document.documentElement);
+        return { w: e.clientWidth, h: e.clientHeight };
+      }
+    }
+    else
+    {
+      TrUIUtils._getWinClientSize = function()
+      {
+        return { w: window.innerWidth, h: window.innerHeight };
+      }
+    }
+  }
+  
+  return TrUIUtils._getWinClientSize();
+}
+
+/**
+ * Return the offset bounds of an element
+ * TODO - make this public?
+ * 
+ * @param elem {String or Element} the ID of an element or an element reference 
+ * @return {Object} the returned object will have x, y, w and h properties.
+ * Returns null if the element does not exist
+ */
+TrUIUtils._getElementBounds = function(elem)
+{
+  if (typeof(elem) == "string")
+  {
+    elem = document.getElementById(elem);
+  }
+  if (!elem)
+  {
+    return null;
+  }
+  var loc = TrUIUtils._getElementLocation(elem);
+  return { x: loc.x, y: loc.y, w: elem.offsetWidth, h: elem.offsetHeight };
+}
+
+/**
+ * Get the location of an element in relation to the view port.
+ * This will return the same co-ordinates as browser events (i.e. mouse event locations).
+ * TODO - make this public?
+ * 
+ * @param elem {String or Element} the ID of an element or an element reference 
+ * @return {Object} the location on the page. The returned object will have x and y properties.
+ * Returns null if the element does not exist
+ */
+TrUIUtils._getElementLocation = function(elem)
+{
+  if (typeof(elem) == "string")
+  {
+    elem = document.getElementById(elem);
+  }
+  if (!elem)
+  {
+    return null;
+  }
+  
+  var func;
+  
+  if (TrUIUtils['_getElemLoc'] == null)
+  {
+    // if possible, use more accurate browser specific methods
+    if (_agent.isGecko)
+    {
+      TrUIUtils._getElemLoc = function(elem)
+      {
+        var doc = elem.ownerDocument;
+        var box = doc.getBoxObjectFor(elem);
+        var loc = { x: box.screenX, y: box.screenY };
+        box = doc.getBoxObjectFor(doc.documentElement);
+        loc.x -= box.screenX;
+        loc.y -= box.screenY;
+        return loc;
+      }
+    }
+    else if(_agent.isIE)
+    {
+      TrUIUtils._getElemLoc = function(elem)
+      {
+        var doc = elem.ownerDocument;
+        var rect = elem.getBoundingClientRect();
+        var loc = { x: rect.left, y: rect.top };
+        var docElem = doc.documentElement;
+        var scrollLeft = docElem.scrollLeft;
+        
+        var rtl = docElem["dir"] == "rtl";
+        // IE scroll bar adjustment
+        if (rtl)
+        {
+          scrollLeft += docElem.clientWidth - docElem.scrollWidth;
+        }
+        loc.x -= docElem.clientLeft - scrollLeft;
+        loc.y -= (docElem.clientTop - docElem.scrollTop);
+        return loc;
+      }
+    }
+    else
+    {
+      TrUIUtils._getElemLoc = function(elem)
+      {
+        var win = elem.ownerDocument.contentWindow;  
+        // use offset* properties to determine location
+        var curleft = 0;
+        var curtop = 0;
+        for (var obj = elem; obj && obj != win; obj = obj.offsetParent)
+        {
+          curleft += obj.offsetLeft;
+          curtop += obj.offsetTop;
+        }
+        return { x: curleft, y: curtop };
+      }
+    }
+  }
+  
+  return TrUIUtils._getElemLoc(elem);
+}
+
+
+/**
+ * Get a css property as its JavaScript variable name
+ */
+TrUIUtils._cssToJs = function(prop)
+{
+  var jsProp = '';
+  var upperNext = false;
+  for (var c = 0; c < prop.length; c++)
+  {
+    if (prop.charAt(c) == '-')
+    {
+      upperNext = true;
+      continue;
+    }
+    
+    if (upperNext)
+    {
+      jsProp += prop.charAt(c).toUpperCase();
+    }
+    else
+    {
+      jsProp += prop.charAt(c);
+    }
+      
+    upperNext = false;
+  }
+  
+  return jsProp;
+}
+
+/**
+ * Get a calculated CSS style value
+ */
+TrUIUtils._getStyle = function(element, prop)
+{
+  if (element.currentStyle)
+  {
+    // remove dashes and uppercase next letter
+    var jsProp = this._cssToJs(prop);
+    return element.currentStyle[jsProp];
+  }
+  else if (window.getComputedStyle)
+  {
+    return document.defaultView.getComputedStyle(element, '')
+      .getPropertyValue(prop);
+  }
+  return '';
+}
