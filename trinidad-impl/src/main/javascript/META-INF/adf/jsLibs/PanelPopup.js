@@ -347,6 +347,14 @@ TrPanelPopup._showMask = function()
     //create mask for modal popups
     TrPanelPopup._mask = document.createElement('div');
     TrPanelPopup._mask.name = "TrPanelPopup._BlockingModalDiv";
+
+    //optional: id of blocked area
+    TrPanelPopup._mask.id = "af_dialog_blocked-area";
+
+    //set style class for blocked area
+    var page = TrPage.getInstance();
+    TrPanelPopup._mask.className = page.getStyleClass("af|dialog::blocked-area");
+
     var cssText = "display:none;position: absolute; z-index: 5000;top: 0px;left: 0px;cursor: not-allowed;";
     if (_agent.isIE && _agent.version == 7)
       //workaround for bug in IE7 : see http://blog.thinkature.com/index.php/2006/12/29/odd-mouse-handling-with-transparent-objects-under-internet-explorer-7/
@@ -356,21 +364,29 @@ TrPanelPopup._showMask = function()
     TrPanelPopup._mask.style.cssText = cssText;
     TrPanelPopup._mask.innerHTML = "&nbsp;";
 
-    //consume all events
-    _addEvent(TrPanelPopup._mask, "click", TrPanelPopup._consumeMaskEvent);
-
-    //handle window resize events
-    _addEvent(window, "resize", TrPanelPopup._setMaskSize);
-
-    //set initial mask size
-    TrPanelPopup._setMaskSize();
-
     //add mask to body
     document.body.appendChild(TrPanelPopup._mask);
   }
 
+  TrPanelPopup._registerMaskEvents();
+
+  //set initial mask size
+  TrPanelPopup._setMaskSize();
+
   TrPanelPopup._mask.style.display = "block";
   
+}
+
+TrPanelPopup._registerMaskEvents = function()
+{
+  //consume all events
+  _addEvent(TrPanelPopup._mask, "click", TrPanelPopup._consumeMaskEvent);
+
+  //handle window resize events
+  _addEvent(window, "resize", TrPanelPopup._setMaskSize);
+
+  //handle window scroll events
+  _addEvent(window, "scroll", TrPanelPopup._setMaskSize);
 }
 
 /**
@@ -380,6 +396,7 @@ TrPanelPopup._hideMask = function()
 {
   _removeEvent(TrPanelPopup._mask, "click", TrPanelPopup._consumeMaskEvent);
   _removeEvent(window, "resize", TrPanelPopup._setMaskSize);
+  _removeEvent(window, "scroll", TrPanelPopup._setMaskSize);
   TrPanelPopup._mask.style.display = "none";
 }
 
@@ -802,4 +819,5 @@ TrClickPopup.prototype.hidePopup = function(event)
     }
   }
 }
+
 

@@ -4066,6 +4066,12 @@
             <td>Styles the clickable icon that closes the dialog.  Note - this selector must use an image, it cannot
             be styled with content text.</td>
           </tr>
+          <tr>
+            <td>af|dialog::blocked-area</td>
+            <td>Styles the blocked area (behind the opened modal dialog).
+                Note - at the moment the usage of !important is required to overwrite the following inline styles:
+                background-color, display, position, z-index, top, left, cursor</td>
+          </tr>
         </table>
       </subsection>
     </section>
