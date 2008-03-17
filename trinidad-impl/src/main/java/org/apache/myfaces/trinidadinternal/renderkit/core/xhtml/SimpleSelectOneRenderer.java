@@ -29,6 +29,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 
 import javax.faces.model.SelectItem;
+import javax.faces.model.SelectItemGroup;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
@@ -206,7 +207,7 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
     if ( converter == null)
       converter = getDefaultConverter(context, bean);
 
-    List<SelectItem> selectItems = getSelectItems(component, converter);
+    List<SelectItem> selectItems = getSelectItems(component, converter, true);
     
     int index = __getIndex(submittedValue, selectItems);
     if (index < 0)
@@ -254,7 +255,7 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
                       getRequiredMessageKey());
     }
 
-    List<SelectItem> selectItems = getSelectItems(component, converter);
+    List<SelectItem> selectItems = getSelectItems(component, converter, false);
     
     int selectedIndex = _getSelectedIndex(context,
                                           component,
@@ -325,7 +326,7 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
     // =-=AEW If needed, this could be made more efficient
     // by iterating through the list instead of getting
     // all the items
-    List<SelectItem> selectItems = getSelectItems(component, converter);
+    List<SelectItem> selectItems = getSelectItems(component, converter, false);
     
     int selectedIndex = _getSelectedIndex(context,
                                           component,
@@ -354,12 +355,20 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
   {
     return UIXSelectOne.REQUIRED_MESSAGE_ID;
   }
-  
+
   protected List<SelectItem> getSelectItems(
-    UIComponent component, 
+    UIComponent component,
     Converter converter)
   {
-    return SelectItemSupport.getSelectItems(component, converter);
+    return getSelectItems(component, converter, false);
+  }
+
+  protected List<SelectItem> getSelectItems(
+    UIComponent component,
+    Converter converter,
+    boolean filteredItems)
+  {
+    return SelectItemSupport.getSelectItems(component, converter, filteredItems);
   }
 
   protected boolean getValuePassThru(FacesBean bean)
@@ -393,7 +402,7 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
     {
       int index = Integer.parseInt(submittedValue.toString());
 
-      if (( -1 < index) && (selectItems.size() > index))
+      if (( -1 < index) && (countSelectItems(selectItems) > index))
       {
         return index;
       }
@@ -412,6 +421,36 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
     }
   }
 
+  private static int countSelectItems(List<SelectItem> selectItems)
+  {
+    int count = 0;
+    for(SelectItem item : selectItems)
+    {
+      count += calcItems( item );
+    }
+
+    return count;
+  }
+
+  private static int calcItems(SelectItem item)
+  {
+    if(item instanceof SelectItemGroup)
+    {
+      int count = 0;
+      SelectItem[] items;
+      items = ((SelectItemGroup)item).getSelectItems();
+
+      for(int i = 0; i < items.length; i++)
+      {
+        count += calcItems( items[i] );
+      }
+
+      return count;
+    }
+
+    return 1;
+  }
+
   //
   // Find the selected item in the list
   //
@@ -420,23 +459,51 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
       List<SelectItem> selectItems)
   {
     int size = selectItems.size();
+    int result;
     for (int i = 0; i < size; i++)
     {
       SelectItem item = selectItems.get(i);
       if (item == null)
         continue;
 
+      result = resolveIndex(item, value, i);
+      if(result >= 0)
+      {
+        return result;
+      }
+    }
+
+    return -1;
+  }
+
+  private int resolveIndex(SelectItem item, Object value, int index)
+  {
+    if(item instanceof SelectItemGroup)
+    {
+      int result;
+      for(SelectItem subItem : ((SelectItemGroup)item).getSelectItems())
+      {
+        result = resolveIndex( subItem, value, index++ );
+
+        if(result >= 0)
+        {
+          return result;
+        }
+      }
+    }
+    else
+    {
       if (value == null)
       {
         Object itemValue = item.getValue();
         // =-=AEW Treat the empty string as if it were null
         if ((itemValue == null) || "".equals(itemValue))
-          return i;
+          return index;
       }
       else
       {
         if (value.equals(item.getValue()) || (value.getClass().isEnum() && item.getValue() != null && value.toString().equals( item.getValue().toString() )))
-          return i;
+          return index;
       }
     }
 

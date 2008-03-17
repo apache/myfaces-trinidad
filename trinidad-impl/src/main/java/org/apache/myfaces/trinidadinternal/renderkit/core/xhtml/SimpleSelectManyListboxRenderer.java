@@ -28,6 +28,7 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 
 import javax.faces.model.SelectItem;
+import javax.faces.model.SelectItemGroup;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
@@ -86,17 +87,44 @@ public class SimpleSelectManyListboxRenderer extends SimpleSelectManyRenderer
 
     int selectedCount = selectedIndices.length;
     int selectedEntry = 0;
+    int counter = 0;
     for (int i = 0; i < count; i++)
     {
-      boolean selected = ((selectedEntry < selectedCount) && 
-                          (i == selectedIndices[selectedEntry]));
-      if (selected)
-        selectedEntry++;
+      boolean selected;
 
       SelectItem item = selectItems.get(i);
-      SimpleSelectOneRenderer.encodeOption(
-           context, arc, component, item, converter,
-           valuePassThru, i, selected);
+
+      if(item instanceof SelectItemGroup)
+      {
+        writer.startElement("optgroup", component);
+        writer.writeAttribute("label", item.getLabel(), null);
+        SelectItem[] items = ((SelectItemGroup)item).getSelectItems();
+
+        for(int j = 0; j < items.length; j++)
+        {
+          selected = ((selectedEntry < selectedCount) &&
+                     (counter == selectedIndices[selectedEntry]));
+          if (selected)
+            selectedEntry++;
+
+          SimpleSelectOneRenderer.encodeOption(
+               context, arc, component, items[j], converter,
+               valuePassThru, counter++, selected);
+        }
+        writer.endElement("optgroup");
+      }
+      else
+      {
+        selected = ((selectedEntry < selectedCount) &&
+                   (counter == selectedIndices[selectedEntry]));
+
+        if (selected)
+          selectedEntry++;
+
+        SimpleSelectOneRenderer.encodeOption(
+             context, arc, component, item, converter,
+             valuePassThru, counter++, selected);
+      }
     }
     
     writer.endElement("select");
@@ -150,4 +178,5 @@ public class SimpleSelectManyListboxRenderer extends SimpleSelectManyRenderer
   
   private PropertyKey _sizeKey;
 }
+
 

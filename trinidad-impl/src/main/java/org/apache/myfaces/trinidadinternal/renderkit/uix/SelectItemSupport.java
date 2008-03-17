@@ -34,6 +34,8 @@ import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.model.SelectItem;
+import javax.faces.model.SelectItemGroup;
+
 import org.apache.myfaces.trinidad.component.UIXSelectItem;
 import org.apache.myfaces.trinidadinternal.convert.ConverterUtils;
 
@@ -43,25 +45,48 @@ public class SelectItemSupport
   {
   }
 
-   /**
-   * 
+  /**
+   *
    * @param component  UIComponent
-   * @param converter For UISelectItem and UIXSelectItem children of the 
-   *                  component, use the converter to convert itemValue Strings 
+   * @param converter For UISelectItem and UIXSelectItem children of the
+   *                  component, use the converter to convert itemValue Strings
    *                  when creating the javax.faces.model.SelectItem Object if
    *                  the child's value is not an instanceof SelectItem.
-   * @return a List of javax.faces.model.SelectItem Objects that we get or 
+   * @return a List of javax.faces.model.SelectItem Objects that we get or
    *         create from the component's children.
-   *         OR 
+   *         OR
+   *         java.util.Collections.emptyList if component has no children or
+   *         the component isn't a javax.faces.component.ValueHolder. else
+   */
+   @SuppressWarnings("unchecked")
+   static public List<SelectItem> getSelectItems(
+            UIComponent  component,
+            Converter    converter)
+   {
+     return getSelectItems( component, converter, false );
+   }
+
+  /**
+   *
+   * @param component  UIComponent
+   * @param converter For UISelectItem and UIXSelectItem children of the
+   *                  component, use the converter to convert itemValue Strings
+   *                  when creating the javax.faces.model.SelectItem Object if
+   *                  the child's value is not an instanceof SelectItem.
+   * @param filteredItems to exclude SelectItemGroup components
+   * @return a List of javax.faces.model.SelectItem Objects that we get or
+   *         create from the component's children.
+   *         OR
    *         java.util.Collections.emptyList if component has no children or
    *         the component isn't a javax.faces.component.ValueHolder. else
    */
   @SuppressWarnings("unchecked")
   static public List<SelectItem> getSelectItems(
     UIComponent  component,
-    Converter    converter)
-  { 
-    
+    Converter    converter,
+    boolean filteredItems)
+  {
+
     int childCount = component.getChildCount();
     if (childCount == 0)
       return Collections.emptyList();
@@ -91,7 +116,7 @@ public class SelectItemSupport
       {
         if (items == null)
           items = new ArrayList<SelectItem>(childCount);
-        addSelectItems((UISelectItems) child, items);
+        addSelectItems((UISelectItems) child, items, filteredItems );
       }
       // tr:selectItem
       else if (child instanceof UIXSelectItem)
@@ -259,11 +284,13 @@ public class SelectItemSupport
   /**
    * Adds SelectItem objects derived from
    * a UISelectItems component into the items List.
+   * @param filteredItems to exclude SelectItemGroup components
    */
   @SuppressWarnings("unchecked")
   static public void addSelectItems(
     UISelectItems uiItems,
-    List<SelectItem> items)
+    List<SelectItem> items,
+    boolean filteredItems)
   {
     if (!uiItems.isRendered())
     {
@@ -281,15 +308,32 @@ public class SelectItemSupport
       Object[] array = (Object[]) value;
       for (int i = 0; i < array.length; i++)
       {
-        items.add((SelectItem) array[i]);
+         //TODO test - this section is untested
+         if(array[i] instanceof SelectItemGroup && filteredItems)
+         {
+            resolveAndAddItems((SelectItemGroup) array[i], items);
+         }
+         else
+         {
+            items.add((SelectItem) array[i]);
+         }
       }
     }
     else if (value instanceof Collection)
     {
       Iterator<SelectItem> iter = ((Collection<SelectItem>) value).iterator();
+      SelectItem item;
       while (iter.hasNext())
       {
-        items.add(iter.next());
+         item = iter.next();
+         if(item instanceof SelectItemGroup && filteredItems)
+         {
+            resolveAndAddItems((SelectItemGroup) item, items);
+         }
+         else
+         {
+            items.add(item);
+         }
       }
     }
     else if (value instanceof Map)
@@ -301,11 +345,34 @@ public class SelectItemSupport
           new SelectItem(entry.getValue(),
                          label == null ? (String) null : label.toString());
 
-        items.add(item);
+        //TODO test - this section is untested
+        if(item instanceof SelectItemGroup && filteredItems)
+        {
+           resolveAndAddItems((SelectItemGroup) item, items);
+        }
+        else
+        {
+           items.add(item);
+        }
       }
     }
   }
  
+  private static void resolveAndAddItems(SelectItemGroup group, List<SelectItem> items)
+  {
+     for(SelectItem item: group.getSelectItems())
+     {
+        if(item instanceof SelectItemGroup)
+        {
+           resolveAndAddItems( (SelectItemGroup) item, items );
+        }
+        else
+        {
+           items.add( item );
+        }
+     }
+  }
+
   /**
    * Adds a SelectItem object derived from
    * a UIXSelectItem component into the items List.
