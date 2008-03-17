@@ -28,6 +28,7 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 
 import javax.faces.model.SelectItem;
+import javax.faces.model.SelectItemGroup;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
@@ -113,11 +114,32 @@ public class SimpleSelectOneListboxRenderer extends SimpleSelectOneRenderer
                    (selectedIndex < 0));
     }
 
+    int counter = 0;
     for (int i = 0; i < count; i++)
     {
-      SelectItem item = selectItems.get(i);
-      encodeOption(context, arc, component, item, converter,
-                   valuePassThru, i, selectedIndex == i);
+       SelectItem item = selectItems.get(i);
+
+       if(item instanceof SelectItemGroup)
+       {
+          writer.startElement("optgroup", component);
+          writer.writeAttribute("label", item.getLabel(), null);
+          SelectItem[] items = ((SelectItemGroup)item).getSelectItems();
+
+          for(int j = 0; j < items.length; j++)
+          {
+             encodeOption(context, arc, component, items[j], converter,
+                          valuePassThru, counter, selectedIndex == counter);
+             counter++;
+
+          }
+          writer.endElement("optgroup");
+       }
+       else
+       {
+          encodeOption(context, arc, component, item, converter,
+                       valuePassThru, counter, selectedIndex == counter);
+          counter++;
+       }
     }
     
     writer.endElement("select");

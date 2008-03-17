@@ -35,6 +35,7 @@ import javax.faces.convert.ConverterException;
 import javax.faces.el.ValueBinding;
 
 import javax.faces.model.SelectItem;
+import javax.faces.model.SelectItemGroup;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
@@ -234,7 +235,7 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
     String[]     values,
     Class<?>     modelClass) throws ConverterException
   {
-    List<SelectItem> selectItems = getSelectItems(component, converter);
+    List<SelectItem> selectItems = getSelectItems(component, converter, true);
 
     // No selectItems automatically means that we failed to convert
     if ((selectItems == null) || (selectItems.isEmpty()))
@@ -312,10 +313,18 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
   }
 
   protected List<SelectItem> getSelectItems(
-    UIComponent component, 
+    UIComponent component,
     Converter converter)
   {
-    return SelectItemSupport.getSelectItems(component, converter);
+    return getSelectItems(component, converter, false);
+  }
+
+  protected List<SelectItem> getSelectItems(
+    UIComponent component,
+    Converter converter,
+    boolean filteredItems)
+  {
+    return SelectItemSupport.getSelectItems(component, converter, filteredItems);
   }
 
   @Override
@@ -496,6 +505,7 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
     Converter           converter,
     boolean             valuePassThru)
   {
+    List<SelectItem> selectItemList =  flatItemList(selectItems);
     Object submittedValue = getSubmittedValue(bean);
     // In passthru mode, if there's a submitted value, we just
     // have to turn it into an array of ints and range-check it
@@ -507,7 +517,7 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
       int[] indices = new int[values.length];
       for (int i = 0; i < values.length; i++)
       {
-        indices[i] = SimpleSelectOneRenderer.__getIndex(values[i], selectItems);
+        indices[i] = SimpleSelectOneRenderer.__getIndex(values[i], selectItemList);
       }
 
       // And sort it, but only if it's not reorderable
@@ -581,17 +591,17 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
       indices[i] = -1;
     }
 
-    int itemCount = selectItems.size();
+    int itemCount = selectItemList.size();
     int foundCount = 0;
 
     for (int i = 0; i < itemCount; i++)
     {
-      SelectItem item = selectItems.get(i);
+      SelectItem item = selectItemList.get(i);
       if (item == null)
         continue;
 
-      Object itemValue = item.getValue();
-      int index = valueList.indexOf(itemValue);
+      int index = calcIndex(item, valueList);
+
       if (index >= 0)
       {
         // Remove it from the valueList so that if the same
@@ -607,9 +617,9 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
     }
 
     // If all of our values matched up to something in the
-    // selectItems, then the valueList will now be empty.
+    // selectItemList, then the valueList will now be empty.
     // Otherwise, there's some values in the List that didn't
-    // appear anywhere among our selectItems, so clear
+    // appear anywhere among our selectItemList, so clear
     // out the remainder of the indices (which otherwise would
     // be zero) and log a warning
     if (foundCount < valueListSize)
@@ -631,8 +641,66 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
     return indices;
   }
 
+  private List<SelectItem> flatItemList(List<SelectItem> selectItems)
+  {
+     List<SelectItem> result = new ArrayList<SelectItem>();
+     for(SelectItem item : selectItems)
+     {
+        List<SelectItem> subresult = collectItems( item );
 
-  static private void _throwConversionError(
+        for(SelectItem subItem : subresult)
+        {
+           result.add( subItem );
+        }
+     }
+
+     return result;
+  }
+
+  private List<SelectItem> collectItems(SelectItem item)
+  {
+     List<SelectItem> result = new ArrayList<SelectItem>();
+     if(item instanceof SelectItemGroup)
+     {
+        for(SelectItem subitem : ((SelectItemGroup)item).getSelectItems())
+        {
+           List<SelectItem> subresult = collectItems( subitem );
+
+           for(SelectItem subItem : subresult)
+           {
+              result.add( subItem );
+           }
+        }
+     }
+     else
+     {
+        result.add( item );
+     }
+     return result;
+  }
+
+  private int calcIndex(SelectItem item, List<Object> valueList)
+  {
+     if(item instanceof SelectItemGroup)
+     {
+        int index = -1;
+        for(SelectItem subItem : ((SelectItemGroup)item).getSelectItems())
+        {
+           index = calcIndex( subItem, valueList );
+           if(index >= 0 )
+           {
+              break;
+           }
+        }
+            return index;
+     }
+     else
+     {
+        return valueList.indexOf(item.getValue());
+     }
+  }
+
+    static private void _throwConversionError(
     FacesContext context, UIComponent component)
       throws ConverterException
   {
@@ -661,5 +729,6 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     EditableValueRenderer.class);
 }
+
 
 
