@@ -239,6 +239,8 @@ public final class SkinSelectors
     AF_DIALOG_ROOT_STYLE_CLASS + "::title-text";
   public static final String AF_DIALOG_CLOSE_ICON_STYLE_CLASS = 
     AF_DIALOG_ROOT_STYLE_CLASS + "::close-icon";
+  public static final String AF_DIALOG_BLOCKED_AREA_STYLE_CLASS =
+    AF_DIALOG_ROOT_STYLE_CLASS + "::blocked-area";
 
   //                                                                         //
   //                                                                         //
