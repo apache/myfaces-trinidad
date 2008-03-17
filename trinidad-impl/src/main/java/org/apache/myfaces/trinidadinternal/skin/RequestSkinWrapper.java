@@ -31,6 +31,7 @@ import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.SkinAddition;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.skin.icon.NullIcon;
+import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.StyleProvider;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
@@ -180,19 +181,24 @@ public class RequestSkinWrapper extends Skin implements DocumentProviderSkin
     
     if (icon == null)
     {  
-      icon = _skin.getIcon(iconName, resolveIcon);
-      
-      // We ended up having to do two lookups for icons
-      // which are not available in the StyleProvider
-      // icon map.  To avoid having to do two lookups
-      // the next time this icon is requested, we promote
-      // the icon up from the wrapped skin into the
-      // StyleProvider icon map.
-      //
-      // resolveIcon should always be true here, but just
-      // to be totally safe, avoid caching unresolved icons
+      icon = _skin.getIcon(iconName, false);
+
+      // Resolve ReferenceIcons if necessary
       if (resolveIcon)
+      {
+        if (icon instanceof ReferenceIcon)
+          icon = SkinUtils.resolveReferenceIcon(this, (ReferenceIcon)icon);
+
+        // We ended up having to do two lookups for icons
+        // which are not available in the StyleProvider
+        // icon map.  To avoid having to do two lookups
+        // the next time this icon is requested, we promote
+        // the icon up from the wrapped skin into the
+        // StyleProvider icon map.  Note that we only cache
+        // resolved icons in this way - we don't want to 
+        // pollute our cache with unresolved ReferenceIcons.
         registerIcon(iconName, icon);
+      }
     }
 
     return (icon == _NULL_ICON) ? null : icon;

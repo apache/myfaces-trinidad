@@ -31,6 +31,8 @@ import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
 
+import java.util.Stack;
+
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
@@ -42,6 +44,7 @@ import org.apache.myfaces.trinidad.skin.SkinFactory;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
+import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.SkinAddition;
 import org.apache.myfaces.trinidadinternal.config.LazyValueExpression;
@@ -64,6 +67,7 @@ import org.apache.myfaces.trinidadinternal.share.xml.TreeBuilder;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLProvider;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
 
+import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
 import org.apache.myfaces.trinidadinternal.skin.parse.XMLConstants;
 import org.apache.myfaces.trinidadinternal.skin.parse.SkinAdditionNode;
 import org.apache.myfaces.trinidadinternal.skin.parse.SkinNode;
@@ -124,6 +128,65 @@ public class SkinUtils
 
     _registerSkinExtensionsAndAdditions(context, skinFactory);
 
+  }
+
+  /**
+   * Returns the actual Icon referenced by the ReferenceIcon.
+   * @param skin the Skin to use when resolving the ReferenceIcon
+   * @param refIcon a ReferenceIcon instance
+   * @return icon which is resolved. i.e., it is not a ReferenceIcon.
+   */
+   static public Icon resolveReferenceIcon(
+     Skin          skin,
+     ReferenceIcon refIcon)
+   {
+     return _resolveReferenceIcon(skin, refIcon, null);
+   }
+
+  /**
+   * Helper for resolveReferenceIcon which uses a Stack of icon names
+   * to detect circular dependencies.
+   *
+   * @param skin the Skin to use when resolving the ReferenceIcon
+   * @param refIcon a ReferenceIcon instance
+   * @param referencedIconStack  The stack of reference icon names which have
+   *          already been visited.  Used to detect circular dependencies.
+   * @return icon which is resolved. i.e., it is not a ReferenceIcon.
+   */
+  static private Icon _resolveReferenceIcon(
+    Skin          skin,
+    ReferenceIcon refIcon,
+    Stack<String> referencedIconStack)
+  {
+    String refName = refIcon.getName();
+
+    // make sure we don't have a circular dependency
+    if ((referencedIconStack != null) && referencedIconStack.contains(refName))
+    {
+      if (_LOG.isWarning())
+        _LOG.warning("SKIN_CIRCULAR_INCLUDE_ERROR", refName);
+      return null;
+    }
+
+    if (referencedIconStack == null)
+    {
+      referencedIconStack = new Stack<String>();
+    }
+
+    referencedIconStack.push(refName);
+
+    Icon icon = skin.getIcon(refName, false);
+
+    if ((icon instanceof ReferenceIcon) && (icon != null))
+    {
+
+      return _resolveReferenceIcon(skin,
+                                  (ReferenceIcon)icon,
+                                  referencedIconStack);
+
+    }
+
+    return icon;
   }
 
   /**
