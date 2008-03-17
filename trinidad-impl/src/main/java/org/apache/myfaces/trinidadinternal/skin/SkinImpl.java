@@ -28,7 +28,6 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.Set;
-import java.util.Stack;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -220,8 +219,7 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
       if (icon instanceof ReferenceIcon)
       {
         // find the true icon, not a ReferenceIcon
-        icon = _resolveReferenceIcon((ReferenceIcon)icon,
-                                     null);
+        icon = SkinUtils.resolveReferenceIcon(this, (ReferenceIcon)icon);
       }
     }
 
@@ -489,56 +487,6 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
   * value expression. If they do, then the bundleName takes precedence.
   */
   abstract protected ValueBinding getTranslationSourceValueBinding();
-
-  /**
-   * Find the actual icon
-   * @param refIcon a ReferenceIcon instance
-   * @param referencedIconStack  The stack of reference icon names which have
-   *          already been visited.  Used to detect circular dependencies.
-   * @return icon which is resolved. i.e., it is not a ReferenceIcon.
-   */
-  private Icon _resolveReferenceIcon(
-    ReferenceIcon refIcon,
-    Stack<String> referencedIconStack)
-  {
-    String refName = refIcon.getName();
-
-    // make sure we don't have a circular dependency
-    if ( _stackContains(referencedIconStack, refName))
-    {
-      if (_LOG.isWarning())
-        _LOG.warning("CANNOT_GET_SKIN_FROM_SKINFACTORY", refName);
-      return null;
-    }
-
-    if (referencedIconStack == null)
-    {
-      referencedIconStack = new Stack<String>();
-    }
-
-    referencedIconStack.push(refName);
-
-    Icon icon = getIcon(refName, false);
-
-    if ((icon instanceof ReferenceIcon) && (icon != null))
-    {
-
-      return _resolveReferenceIcon((ReferenceIcon)icon,
-                                    referencedIconStack);
-
-    }
-
-    return icon;
-  }
-
-  // Tests whether the value is present in the (possibly null) stack.
-  private static boolean _stackContains(Stack<String> stack, Object value)
-  {
-    if (stack == null)
-      return false;
-
-    return stack.contains(value);
-  }
 
   // Checks to see whether any of our style sheets have been updated
   private boolean _checkStylesModified(
