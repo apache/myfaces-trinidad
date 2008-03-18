@@ -226,7 +226,23 @@
         </li>
         <li>
         <b>style-sheet-name</b> - This is your skin's stylesheet name url.
+        We try a few different means to get the style-sheet-name file as an URL object.
+        <p>
+        First, we try to get an URL for the non static urls, that is, urls that could change
+        after the server has started:
+        <ol>
+        <li>
+        If style-sheet-name starts with "http:", "https:", "file:", "ftp:", or "jar:",
+        then we create the URL by calling new java.net.URL(style-sheet-name).</li>
+        <li>
+        Else we create the URL by calling FacesContext's ExternalContext's getResource(style-sheet-name).
+        (we prepend '/' if it isn't already there)
         </li>
+        </ol>
+        If we still don't have an URL, we try to create the style-sheet-name URL using the ClassLoader's getResource.
+        </p>
+        </li>
+
         <li>
         <b>extends</b> - This is how you can extend another skin rather than the default simple skin. Say you like 
         the purple skin but only want to change the font size. You'd extend the purple.desktop skin and 
