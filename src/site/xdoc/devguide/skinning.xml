@@ -236,10 +236,13 @@
         then we create the URL by calling new java.net.URL(style-sheet-name).</li>
         <li>
         Else we create the URL by calling FacesContext's ExternalContext's getResource(style-sheet-name).
-        (we prepend '/' if it isn't already there)
+        (we prepend '/' if it isn't already there). This is how we find the style-sheet-name 
+        of the form "skins/bigfont/bigfont.css" when the file is in the application's project.
         </li>
         </ol>
         If we still don't have an URL, we try to create the style-sheet-name URL using the ClassLoader's getResource.
+        This is how we find a file in a jar when you have something like style-sheet-name=	"META-INF/purpleSkin/styles/myPurpleSkin.css".
+        
         </p>
         </li>
 
