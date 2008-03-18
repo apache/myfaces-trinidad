@@ -64,6 +64,9 @@
             <a href="#Tips_and_Tricks">Tips and Tricks</a>
           </li>
           <li>
+            <a href="#Custom_Component_Developers">Skinning for Custom Component Developers</a>
+          </li>          
+          <li>
             <a href="#Frequently_Asked_Questions">Frequently Asked Questions</a>
           </li>
         </ul>
@@ -909,6 +912,150 @@ public class SkinTranslationMapDemo
           </P>
         </subsection>  
       </section>
+      
+      <a name="Custom_Component_Developers"></a>
+      <section name="Skinning for Custom Component Developers">
+        <P>
+        This section is for a custom component developer.
+        This section is not for someone who is skinning their application.
+        </P>
+        <P>
+        If you created your own custom component, and you want this component 
+        to work well with other existing skins,
+        then you need to create a skin-addition. A skin-addition
+        gives you a way to 'push' your own stylesheet 
+        and resource bundle for your components into existing skins, 
+        most likely the simple skin. Then you can jar up your component
+        and skin information and your component can be used by others.
+        (Another way to do the same thing is to open up the simple-desktop.xss
+        file and other skin css files, and add your skin definitions there.
+        This is not practical if you don't own this source.)
+        </P> 
+        <P>
+        Skin objects contain zero or more SkinAdditions. 
+        The SkinAdditions' stylesheets are merged into the Skin's own stylesheet. 
+        The SkinAdditions' resource bundle is looked at along 
+        with the Skin's own resource bundle when Skin's getTranslatedValue is called
+        by your renderer.
+        </P>
+        <subsection name="Creating a skin addition declaratively">
+        <P>
+        Create a skin stylesheet  file (say, myComponents-simple-desktop.css) 
+        that defines your icons, styles, and properties so that your components 
+        will fit in with the simple.desktop skin (or whatever skin you want to 
+        fit in with). Use the Skin Selector Aliases as much as possible. 
+        This way if a person wants to change the default font for the entire 
+        application, he can create a skin that changes the 
+        .AFDefaultFont:alias and your component's font will change, too. 
+        If you didn't include the alias in your skin selector properties, 
+        then your font won't change. (See Skin-Selectors.html documentation)
+        </P>
+        <P>
+        Register this StyleSheet file with the simple.desktop skin.
+        Create a META-INF/trinidad-skins.xml file if you don't already have one.
+          <source>
+          <![CDATA[
+          <?xml version="1.0" encoding="ISO-8859-1"?>
+
+            <skins xmlns="http://myfaces.apache.org/trinidad/skin">
+                <skin-addition>
+                    <skin-id>
+                        simple.desktop
+                    </skin-id>
+                    <style-sheet-name>
+                        styles/myComponents-simple-desktop.css
+                    </style-sheet-name>
+                    <bundle-name>
+                        org.mycompany.view.resource.myComponentsResourceBundle.java
+                    </bundle-name>
+                </skin-addition>
+            ... more skins or skin-additions could go here ...
+            </skins>
+            ]]>
+         </source>
+         <ul>
+        <li>
+        <b>skin-id</b> - The id of the skin you are 'pushing' your styles into.
+        </li>
+        <li>
+        <b>style-sheet-name</b> - This is your skin's stylesheet name url.
+        This should be a uniquely name path, since we use ClassLoader getResource
+        to find this file, and if another jar has the same style-sheet-name, it might
+        find that file and not yours.
+        </li>
+        <li>
+        <b>bundle-name</b> - This is the package where the skin's resource bundle lives.
+        This is important for a custom component developer so that the component's
+        text supports different languages.
+        </li>
+        </ul>
+        </P>
+        <P>If you want your component to be skinnable, then you should document
+        the selectors similar to the skin-selectors.html document we have in Trinidad.
+        </P>
+        </subsection>
+        <subsection name="Serving up your stylesheet's image urls ">
+        <P>
+        Feel free to jar this file up with your other files, because we can find 
+        trinidad-skins.xml files in the META-INF directory. However, we can't 
+        automatically find any image urls; so if you have image urls, like 
+        background-image: url("../arrow.png"); in your myComponents-simple-desktop.css file, 
+        you'll have to either put the images relative to the servlet context 
+        (start with a /), or create a ResourceLoader and make the path relative 
+        to the css file, like "../../xyz/images/drill.gif".
+        </P>
+
+        <P>
+        These are the steps to create your own ResourceLoader:
+        <ul>
+        <li>
+        Add an extra servlet-mapping to web.xml for your resource path,  
+        like "/xyz/*" as opposed to "/adf/*".
+        </li>
+        <li>
+        Create a ResourceLoader file, like org.mycompany.resource.XYZResourceLoader
+        <source>
+        package oracle.adfinternal.view.faces.xyz.resource;
+
+import org.apache.myfaces.trinidad.resource.ClassLoaderResourceLoader;
+import org.apache.myfaces.trinidad.resource.RegexResourceLoader;
+import org.apache.myfaces.trinidad.resource.ResourceLoader;
+public class XYZResourceLoader extends RegexResourceLoader
+{
+ public XYZResourceLoader(ResourceLoader parent)
+ {
+     register("(/.*\\.(css\|jpg\|gif\|png\|jpeg\|js\|svg))",
+     new ClassLoaderResourceLoader("META-INF", parent));
+ }
+}
+        </source>
+        </li>
+        <li>
+        Create a .resources file and place it in META-INF/servlet/resources.  
+        In the file, place a single line that references the resource loader class.  
+        For example,  create an xyz.resources file with the following single line:
+        org.mycompany.resource.XYZResourceLoader
+        </li>
+        <li>
+        Place the .resources file in your JAR, 
+        so its path is META-INF/servlet/resources/xyz.resources.
+        </li>
+        <li>
+          Add resources in your jar at the following location: META-INF/xyz/*, 
+          which needs to match the servlet-mapping
+        </li>
+        <li>
+        Create a URL reference to the image with "xyz" in the path.
+        </li>
+        <li>
+        all files created above should be in the same JAR that contains your custom components/faces-config.xml/etc.
+        </li>
+        </ul>
+        </P>
+        
+        </subsection>
+      </section>
+
 
       <a name="Frequently_Asked_Questions"></a>
       <section name="Frequently Asked Questions">
