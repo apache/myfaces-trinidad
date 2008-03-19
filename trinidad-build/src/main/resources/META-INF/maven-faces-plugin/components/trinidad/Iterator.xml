@@ -80,7 +80,8 @@ The specific model class is
 Some ranges might have fewer
 than the number of rows specified by this attribute (eg: the last range
 might have an insufficient number of rows).
-To display all rows at once, set this attribute to 0.]]>
+To display all rows at once, set this attribute to 0.
+The default is 25.]]>
       </description>
       <property-name>rows</property-name>
       <property-class>int</property-class>
@@ -146,6 +147,7 @@ individually.</li>
 on "binding", etc., as apply inside a table also apply to iterator.</li>
 </ul>
 </p>
+<p>By default, it processes up to 25 rows. Use the rows attribute to alter this behavior.</p>
 ]]>
       </mfp:long-description>
       <mfp:author>Arjuna Wijeyekoon</mfp:author>
