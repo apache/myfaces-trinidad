@@ -28,9 +28,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
+import java.util.Set;
 import java.util.Stack;
 
 import javax.faces.context.ExternalContext;
@@ -42,6 +44,7 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.myfaces.trinidad.skin.SkinFactory;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+
 
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
@@ -317,7 +320,7 @@ public class SkinUtils
 
   /**
    * register the Trinidad skins: simpleDesktopSkin, simplePdaSkin,
-   * and minimalDesktopSkin, minimalPdaSkin, and blafPlusDesktopSkin.
+   * and minimalDesktopSkin, minimalPdaSkin, and portlet skins.
    * @param skinFactory
    */
   private static void _registerTrinidadSkins(
@@ -353,10 +356,10 @@ public class SkinUtils
 
   /**
    * Parse the trinidad-skins.xml file for SkinExtensions and SkinAdditionNodes and add each
-   * SkinExtension to the skinFactory.
+   * SkinExtension to the skinFactory and each SkinAddition to its skin.
    * First find all the trinidad-skins.xml files that are in META-INF directory, and 
-   * add those skins to the skin factory.
-   * Then find the WEB-INF/trinidad-skins.xml file and add those skins to the skin factory.
+   * add those skins and skin additions.
+   * Then find the WEB-INF/trinidad-skins.xml file and add those skins and skin additions.
    * The skins are ordered so that the 'extended' skins are registered before the skins that extend
    * them.
    * @param context
@@ -645,7 +648,7 @@ public class SkinUtils
   }
   
   /**
-   * Get the WEB-INF/trinidad-skins.xml file, parse it, and return a List SkinNode objects. 
+   * Get the WEB-INF/trinidad-skins.xml file, parse it, and return a List of SkinsNode objects. 
    * @param context ServletContext used to getResourceAsStream
    * @return List of SkinNodes (skin elements) found in trinidad-skins.xml
    */
@@ -683,15 +686,32 @@ public class SkinUtils
     {
   
       Enumeration<URL> urls = loader.getResources(_META_INF_CONFIG_FILE);
+      Set<String> urlPaths = new HashSet<String>(16);
+      
       while (urls.hasMoreElements())
       {
         URL url = urls.nextElement();
         
-        _LOG.finest("Processing:{0}", url);
+        // if url matches one we've already processed, skip it
+        boolean successfullyAdded = urlPaths.add(url.getPath());
+
+        if (!successfullyAdded)
+        {
+          if (_LOG.isFinest())
+          {
+            _LOG.finest("Skipping skin URL:{0} because it was already processed. " +
+              "It was on the classpath more than once.", url);
+          }
+          // continue to the next url
+        }
+        else
+        {
+          _LOG.finest("Processing skin URL:{0}", url);
+          InputStream in = url.openStream();
         try
         {
           // parse the config file and register the skin's additional stylesheets.
-          InputStream in = url.openStream();
+  
           if (in != null)
           {
             SkinsNode  metaInfSkinsNode = 
@@ -699,13 +719,18 @@ public class SkinUtils
                                            _META_INF_CONFIG_FILE);
               
             allSkinsNodes.add(metaInfSkinsNode);
-            in.close();
+              
           }
         }
         catch (Exception e)
         {
          _LOG.warning("ERR_PARSING", url);
          _LOG.warning(e);
+        }
+          finally
+          {
+            in.close();
+          }     
         }
       }
     }
@@ -759,8 +784,8 @@ public class SkinUtils
   }
   
   /**
-   * Get the skin id and stylesheet name from each SkinAdditionNode and
-   * get the skin and register the styleSheetName with the skin
+   * Get the skin id and other information from each SkinAdditionNode and
+   * get the skin and register the SkinAddition with the skin
    * @param fContext
    * @param skinFactory
    * @param skinAdditionNodeList
