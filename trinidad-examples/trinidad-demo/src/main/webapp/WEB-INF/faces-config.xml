@@ -172,6 +172,16 @@
        session
     </managed-bean-scope>
   </managed-bean>
+  
+  <managed-bean>
+    <managed-bean-name>fileDownload</managed-bean-name>
+    <managed-bean-class>
+       org.apache.myfaces.trinidaddemo.tagDemos.TestFileDownloadBean
+    </managed-bean-class>
+    <managed-bean-scope>
+       session
+    </managed-bean-scope>
+  </managed-bean>
 
   <managed-bean>
     <managed-bean-name>messages</managed-bean-name>
@@ -1823,7 +1833,7 @@
       <from-outcome>guide</from-outcome>
       <to-view-id>/componentDemos.jspx</to-view-id>
       <redirect/>
-    </navigation-case>
+    </navigation-case>      
 
     <navigation-case>
       <from-outcome>emaildemo</from-outcome>

@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+     
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
@@ -53,6 +53,8 @@
               <tr:commandLink text="Skin Demo" action="demos.skin" />
               <tr:goLink text="Show Detail Disclosure Demo"
                 destination="showDetailDiscloseOne.jspx" />
+              <tr:goLink text="FileDownloadActionListener Demo"
+                destination="tags/fileDownloadActionListener.jspx" />
               
             </tr:panelGroupLayout>
            </tr:panelHeader>
