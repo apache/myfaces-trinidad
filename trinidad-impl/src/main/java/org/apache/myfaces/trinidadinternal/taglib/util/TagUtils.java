@@ -199,9 +199,14 @@ public final class TagUtils
     if (value instanceof Date)
       return ((Date)value);
 
-    Calendar c = Calendar.getInstance();
     Date d = _parseISODate(value.toString());
+    Calendar c = Calendar.getInstance();
+    TimeZone tz = RequestContext.getCurrentInstance().getTimeZone();
+    if (tz != null)
+      c.setTimeZone(tz);
     c.setTime(d);
+    // Original value had 00:00:00 for hours,mins, seconds now maximize those
+    // to get the latest time value for the date supplied.
     c.set(Calendar.HOUR_OF_DAY, 23);
     c.set(Calendar.MINUTE, 59);
     c.set(Calendar.SECOND, 59);
