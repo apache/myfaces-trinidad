@@ -442,5 +442,9 @@
   <!-- {1} = full formatted error message detail                       -->
   <resource key="org.apache.myfaces.trinidad.convert.ALERT_FORMAT">{0} - {1}</resource>
   <resource key="org.apache.myfaces.trinidad.convert.ALERT_FORMAT_detail">{0} - {1}</resource>
+  
+  <!-- message for error while downloading a file  -->
+  <resource key="org.apache.myfaces.trinidad.event.FileDownloadActionListener.DOWNLOAD_ERROR">Download Error</resource>
+  <resource key="org.apache.myfaces.trinidad.event.FileDownloadActionListener.DOWNLOAD_ERROR_detail">An error was encountered while downloading.</resource>  
 
 </resources>
