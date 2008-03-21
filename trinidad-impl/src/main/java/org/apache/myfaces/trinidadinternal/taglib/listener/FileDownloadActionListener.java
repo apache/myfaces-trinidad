@@ -19,9 +19,9 @@
 package org.apache.myfaces.trinidadinternal.taglib.listener;
 
 import java.io.BufferedOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.component.StateHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
@@ -36,6 +36,8 @@ import org.apache.myfaces.trinidad.bean.FacesBeanImpl;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.ComponentUtils;
+import org.apache.myfaces.trinidad.util.MessageFactory;
+
 
 /**
  * @todo Look at moving to org.apache.myfaces.trinidad.event
@@ -57,6 +59,14 @@ public class FileDownloadActionListener extends FacesBeanImpl
     TYPE.registerKey("method",
                      MethodBinding.class,
                      PropertyKey.CAP_NOT_BOUND | PropertyKey.CAP_STATE_HOLDER);
+
+
+  /**
+    * <p>The message identifier of the {@link FacesMessage} to be created when
+    * there is a download error.</p>
+    */
+     public static final String DOWNLOAD_MESSAGE_ID =
+         "org.apache.myfaces.trinidad.event.FileDownloadActionListener.DOWNLOAD_ERROR";  
 
   static
   {
@@ -80,9 +90,9 @@ public class FileDownloadActionListener extends FacesBeanImpl
     }
     else
     {
+      HttpServletResponse hsr = (HttpServletResponse) response;
       try
       {
-        HttpServletResponse hsr = (HttpServletResponse) response;
         if (contentType != null)
           // TODO: encoding?
           hsr.setContentType(contentType);
@@ -92,19 +102,18 @@ public class FileDownloadActionListener extends FacesBeanImpl
                         "attachment; filename=" + filename);
         MethodBinding method = getMethod();
         OutputStream out = new BufferedOutputStream(hsr.getOutputStream());
-        try
-        {
           method.invoke(context, new Object[]{context, out});
-        }
-        finally
-        {
           out.close();
-        }
          
       }
-      catch (IOException ioe)
+      catch (Exception e)
       {
-        _LOG.warning(ioe);
+        hsr.reset();
+        _LOG.warning(e);       
+        FacesMessage message = MessageFactory.getMessage(context, DOWNLOAD_MESSAGE_ID);
+        context.addMessage(null, message);
+        context.renderResponse();
+        return;
       }
     }
     

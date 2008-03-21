@@ -34,6 +34,7 @@
             <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_fileDownloadActionListener.html"
                        text="Tag Documentation"/>
           </tr:panelGroupLayout>
+          <tr:messages/>
           <tr:outputFormatted styleUsage="instruction"
                               value="&lt;b>fileDownloadActionListener&lt;/b>"/>
           <tr:outputText value="Click any command component to download a file"/>
