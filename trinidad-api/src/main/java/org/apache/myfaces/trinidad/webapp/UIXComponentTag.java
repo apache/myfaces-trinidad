@@ -467,6 +467,11 @@ abstract public class UIXComponentTag extends UIComponentTag
     {
       Date d = _parseISODate(value);
       Calendar c = Calendar.getInstance();
+      TimeZone tz = RequestContext.getCurrentInstance().getTimeZone();
+      if (tz != null)
+        c.setTimeZone(tz);
+       // Original value had 00:00:00 for hours,mins, seconds now maximize those
+       // to get the latest time value for the date supplied.
       c.setTime(d);
       c.set (Calendar.HOUR_OF_DAY, 23);
       c.set (Calendar.MINUTE, 59);

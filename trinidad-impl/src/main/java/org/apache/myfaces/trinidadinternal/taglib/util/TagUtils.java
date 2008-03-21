@@ -171,9 +171,15 @@ public final class TagUtils
   public static Date getDateWithMaxTime(
     String      value)
   {
-     Calendar c = Calendar.getInstance();
-     Date d = _parseISODate(value);
+
+    Date d = _parseISODate(value);
+    Calendar c = Calendar.getInstance();
+    TimeZone tz = RequestContext.getCurrentInstance().getTimeZone();
+    if (tz != null)
+      c.setTimeZone(tz);
      c.setTime(d);
+     // Original value had 00:00:00 for hours,mins, seconds now maximize those
+     // to get the latest time value for the date supplied.
      c.set (Calendar.HOUR_OF_DAY, 23);
      c.set (Calendar.MINUTE, 59);
      c.set (Calendar.SECOND, 59);
@@ -341,7 +347,7 @@ public final class TagUtils
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     TimeZone tz = RequestContext.getCurrentInstance().getTimeZone();
     if (tz != null)
-      sdf.setTimeZone(tz);
+      sdf.setTimeZone(tz);    
     return sdf;    
   }
 
