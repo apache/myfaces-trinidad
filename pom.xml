@@ -33,6 +33,7 @@
   <name>Apache MyFaces Trinidad 1.2</name>
   <version>1.2.8-SNAPSHOT</version>
   <description>JSF 1.2 branch of Apache MyFaces Trinidad</description>
+  <url>http://myfaces.apache.org/trinidad/trinidad-1_2</url>
 
   <issueManagement>
     <system>jira</system>
