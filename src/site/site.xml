@@ -22,6 +22,16 @@
   <bannerLeft>
     <name>Apache MyFaces Trinidad</name>
   </bannerLeft>
+  <bannerRight>
+    <name>Apache Banner</name>
+    <src>img/banners/apache_banner.png</src>
+    <href>http://myfaces.apache.org/</href>
+  </bannerRight>
+  <skin>
+    <groupId>org.apache.myfaces.maven</groupId>
+    <artifactId>myfaces-site-skin</artifactId>
+    <version>1-SNAPSHOT</version>
+  </skin>
   <body>
     <links>
       <item name="MyFaces" href="http://myfaces.apache.org/"/>

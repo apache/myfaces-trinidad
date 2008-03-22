@@ -33,6 +33,7 @@
   <name>Apache MyFaces Trinidad</name>
   <version>1.0.8-SNAPSHOT</version>
   <description>Apache MyFaces Trinidad</description>
+  <url>http://myfaces.apache.org/trinidad</url>
 
   <issueManagement>
     <system>jira</system>
