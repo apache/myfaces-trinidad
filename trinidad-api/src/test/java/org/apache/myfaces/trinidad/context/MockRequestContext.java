@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidad.context;
 
 import java.awt.Color;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -76,7 +77,7 @@ public class MockRequestContext extends RequestContext
   @Override
   public Map<String, Object> getPageFlowScope()
   {
-    throw new UnsupportedOperationException("Not implemented yet");
+    return Collections.emptyMap();
   }
 
   @Override
