@@ -183,7 +183,7 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
 
   protected void renderNode(
     FacesContext        context,
-    RenderingContext arc,
+    RenderingContext    arc,
     Icon                separatorIcon,
     UIComponent         child,
     int                 renderedCount,
@@ -194,9 +194,11 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
     ) throws IOException
   {      
     
+    boolean separatorOnNewRow = shouldRenderSeparatorOnNewLineWhenVertical(arc);
+
     if (!isLastChild || shouldRenderLastChild)
     {
-      _renderStartOfLink(context, isVertical);
+      renderStartOfLink(context, isVertical);
       
       ResponseWriter writer = context.getResponseWriter();
       
@@ -206,7 +208,9 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
         char[] chars = new char[1];
         chars[0] = XhtmlConstants.NBSP_CHAR;
 
-        for(int i = 0; i < renderedCount * _INDENT_SPACES; i++)
+        int indents = separatorOnNewRow ? renderedCount - 1 : renderedCount;
+        int indentSpaces = indents * getNumberOfIndentSpaces(arc);
+        for(int i = 0; i < indentSpaces; i++)
         {
           writer.writeText(chars, 0, 1);
         }
@@ -218,9 +222,14 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
         writer.writeAttribute(XhtmlConstants.DIR_ATTRIBUTE_VALUE, "rtl", null);
       }
       
+      if (!isFirstChild && (isVertical && separatorOnNewRow) )
+      {
+        OutputUtils.renderIcon(context, arc, separatorIcon, "", null );
+      }
+
       renderLink(context, arc, child, renderedCount, isLastChild);
 
-      if (!isLastChild)
+      if (!isLastChild && (!isVertical || !separatorOnNewRow) )
       {
         OutputUtils.renderIcon(context, arc, separatorIcon, "", null );
       }      
@@ -230,7 +239,7 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
          writer.endElement(XhtmlConstants.SPAN_ELEMENT);
       }
       
-      _renderEndOfLink(context, isVertical);                  
+      renderEndOfLink(context, isVertical);
       
     }
   }
@@ -317,7 +326,7 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
    * @todo - not rendering style elements - see breadcrumbsrenderer
    * for explanation, do we still need this code?
    */
-  private void _renderStartOfLink(
+  protected final void renderStartOfLink(
     FacesContext        context,
     boolean             isVertical) throws IOException
   {
@@ -338,7 +347,7 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
   //
   // Renders everything that goes after the link
   //
-  private void _renderEndOfLink(
+  protected final void renderEndOfLink(
     FacesContext        context,
     boolean             isVertical
     ) throws IOException
@@ -394,6 +403,40 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
   {
     String orientation = getOrientation(bean);
     return XhtmlConstants.ORIENTATION_VERTICAL.equals(orientation);
+  }
+
+  protected boolean shouldRenderSeparatorOnNewLineWhenVertical(
+    RenderingContext arc
+  )
+  {
+    Object propValue = arc.getSkin().getProperty(
+                                  SkinProperties.AF_BREAD_CRUMBS_SEPARATOR_ON_NEW_LINE);
+    return Boolean.TRUE.equals(propValue) || "true".equals(propValue);
+  }
+
+  protected int getNumberOfIndentSpaces(
+      RenderingContext arc
+  )
+  {
+    Object propValue = arc.getSkin().getProperty(
+                                      SkinProperties.AF_BREAD_CRUMBS_INDENT_SPACES);
+
+    int intValue = _INDENT_SPACES;
+    if (propValue != null) {
+      if (propValue instanceof String) {
+        try
+        {
+          intValue = Integer.valueOf((String) propValue);
+        }
+        catch (Exception e) {}
+      }
+      if (propValue instanceof Integer)
+        intValue = (Integer) propValue;
+      if (intValue < 0)
+        intValue = _INDENT_SPACES;
+    }
+
+    return intValue;
   }
 
 
