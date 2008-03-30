@@ -33,6 +33,10 @@ public final class SkinProperties
   // FIXME: Name inconsistency, should be AF_NAVIGATION_PATH
   public static final String AF_NAVIGATIONPATH_SHOW_LAST_ITEM_PROPERTY_KEY =
     "af|breadCrumbs-tr-show-last-item";
+  public static final String AF_BREAD_CRUMBS_SEPARATOR_ON_NEW_LINE =
+    "af|breadCrumbs-tr-separator-on-new-line";
+  public static final String AF_BREAD_CRUMBS_INDENT_SPACES = 
+    "af|breadCrumbs-tr-indent-spaces";
   // FIXME: Name inconsistency, should be AF_PANEL_HEADER
   public static final String AF_PANELHEADER_INDENT_CONTENT = 
     "af|panelHeader-tr-indent-content";

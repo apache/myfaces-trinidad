@@ -635,6 +635,18 @@
                 {-tr-show-last-item:false} will not show the last item in the
                 breadCrumbs.</td>
           </tr>
+          <tr>
+            <td>-tr-separator-on-new-line</td>
+            <td>Valid values are true or false. In the case the orientation is
+                vertical, it determines whether the separator will be shown on
+                the new line (in front of the next path element)</td>
+          </tr>
+          <tr>
+            <td>-tr-indent-spaces</td>
+            <td>Valid values are positive integers. In the case the orientation
+                is vertical, it determines whether the number of nbsp's rendered
+                as an indent</td>
+          </tr>
         </table>
       </subsection>
       <a name="chooseDate"></a>
