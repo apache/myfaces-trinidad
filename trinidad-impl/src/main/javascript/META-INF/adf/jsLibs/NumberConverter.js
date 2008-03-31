@@ -280,6 +280,9 @@ TrNumberConverter.prototype.getAsObject = function(
                          null,
                          label,
                          !this.isIntegerOnly());
+
+    parsedValue = parseFloat(parsedValue.toFixed(this._numberFormat.getMaximumFractionDigits()));
+
     if(this._type=="percent")
     {
       parsedValue = parsedValue / 100;
