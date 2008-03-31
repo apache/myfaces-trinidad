@@ -33,7 +33,7 @@
 <!-- af_objectLegend's required icon uses the generic REQUIRED_TIP key -->
 <!--
   -->
-<!--resource for tr:menuChoice -->
+<!--resource for af:menuChoice -->
 <resource key="af_menuChoice.LABEL" dnt="false">Prepnúť aplikácie</resource>
 <!-- the tip that is on the Go button next to the Switch Applications choice -->
 <resource key="af_menuChoice.GO_TIP" dnt="false">Prejsť na vybranú aplikáciu</resource>
@@ -41,11 +41,44 @@
 <!--resources for the column headers-->
 <resource key="af_tableSelectMany.SELECT_COLUMN_HEADER" dnt="false">Vybrať</resource>
 <resource key="af_tableSelectOne.SELECT_COLUMN_HEADER" dnt="false">Vybrať</resource>
-<!-- The header on the Detail column of tr:table -->
+<!-- The header on the Detail column of af:table -->
 <resource key="af_table.DETAIL_COLUMN_HEADER" dnt="false">Podrobnosti</resource>
-<!-- The header on the Focus column of tr:treeTable -->
+<!-- Resource for Composite Table -->
+<resource key="afr_compositeTable.MENU_VIEW" dnt="false">Zobraziť</resource>
+<resource key="afr_compositeTable.MENU_COLUMNS" dnt="false">Stĺpce</resource>
+<resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWALL" dnt="false">Zobraziť všetko</resource>
+<resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWMORECOLUMNS" dnt="false">Zobraziť ďalšie stĺpce...</resource>
+<resource key="afr_compositeTable.MENUITEM_FREEZE" dnt="false">Zmraziť</resource>
+<resource key="afr_compositeTable.MENUITEM_MAXIMIZE" dnt="false">Maximalizovať</resource>
+<resource key="afr_compositeTable.MENU_SORT" dnt="false">Triediť</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_ASCENDING" dnt="false">Vzostupne</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_DESCENDING" dnt="false">Zostupne</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_ADVANCED" dnt="false">Rozšírené...</resource>
+<resource key="afr_compositeTable.MENUITEM_REORDER" dnt="false">Preusporiadať...</resource>
+<resource key="afr_compositeTable.MENU_TOOLBARS" dnt="false">Panely s nástrojmi</resource>
+<resource key="afr_compositeTable.MENUITEM_TOOLBARS_DEFAULT" dnt="false">Predvolené</resource>
+<resource key="afr_compositeTable.MENUITEM_TOOLBARS_QBE" dnt="false">Dopyt podľa príkladu</resource>
+<resource key="afr_compositeTable.MENU_FORMAT" dnt="false">Formát</resource>
+<resource key="afr_compositeTable.MENUITEM_RESIZECOLUMNS" dnt="false">Zmeniť veľkosť stĺpcov...</resource>
+<resource key="afr_compositeTable.MENUITEM_RESET" dnt="false">Znovunastaviť...</resource>
+<resource key="afr_compositeTable.MENUITEM_WRAP" dnt="false">Zalomiť</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED" dnt="false">Vybraté riadky:</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED_ALL" dnt="false">Všetko</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_HIDDEN" dnt="false">Skryté stĺpce:</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_FROZEN" dnt="false">Zmrazené stĺpce:</resource>
+<!-- Resource for Composite Tree Table -->
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND" dnt="false">Rozbaliť</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE" dnt="false">Zbaliť</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL_BELOW" dnt="false">Rozbaliť všetko pod</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL_BELOW" dnt="false">Zbaliť všetko pod</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL" dnt="false">Rozbaliť všetko</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL" dnt="false">Zbaliť všetko</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_GO_UP" dnt="false">Prejsť nahor</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_SHOW_AS_TOP" dnt="false">Zobraziť na začiatku</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_GO_TO_TOP" dnt="false">Prejsť na začiatok</resource>
+<!-- The header on the Focus column of af:treeTable -->
 <resource key="af_treeTable.FOCUS_COLUMN_HEADER" dnt="false">Zameranie</resource>
-<!-- resources for tr:column -->
+<!-- resources for af:column -->
 <resource key="af_column.SORTED_ASCEND_TIP" dnt="false">Triedené vo vzostupnom poradí</resource>
 <resource key="af_column.SORTED_DESCEND_TIP" dnt="false">Triedené v zostupnom poradí</resource>
 <resource key="af_column.SORTED_SORTABLE_TIP" dnt="false">Netriedené</resource>
@@ -126,9 +159,9 @@
 <!--{0} -> the first record currently viewed (integer)-->
 <!--{1} -> the last record currently viewed (integer)-->
 <!--{2} -> the total number of records (integer) (optional if total records are known) -->
-<resource key="af_selectRangeChoiceBar.CHOICE_FORMAT_TOTAL" dnt="false">{0}-{1} z {2}</resource>
+<resource key="af_selectRangeChoiceBar.CHOICE_FORMAT_TOTAL" dnt="false">{0} - {1} z {2}</resource>
 <resource key="af_selectRangeChoiceBar.CHOICE_FORMAT_NO_TOTAL" dnt="false">{0}-{1}</resource>
-<resource key="af_table.SELECT_RANGE_CHOICE_FORMAT_TOTAL" dnt="false">{0}-{1} z {2}</resource>
+<resource key="af_table.SELECT_RANGE_CHOICE_FORMAT_TOTAL" dnt="false">{0} - {1} z {2}</resource>
 <resource key="af_table.SELECT_RANGE_CHOICE_FORMAT_NO_TOTAL" dnt="false">{0}-{1}</resource>
 <!--e.g., Step 1 of 5 -->
 <resource key="af_train.STEP" dnt="false">Krok</resource>
@@ -137,7 +170,7 @@
 <!-- For example, the user will see a required icon and text next to it -->
 <!-- explaining what the icon means. -->
 <!-- * Indicates required field -->
-<resource key="af_objectLegend.REQUIRED_KEY" dnt="false">Indikuje povinné pole</resource>
+<resource key="af_objectLegend.REQUIRED_KEY" dnt="false">Označuje povinné pole.</resource>
 <!--Alternate text for the "folder" icon in a tree-->
 <resource key="af_tree.FOLDER_TIP" dnt="false">Priečinok</resource>
 <resource key="af_navigationTree.FOLDER_TIP" dnt="false">Priečinok</resource>
@@ -167,7 +200,7 @@
 <!--http://scout.us.oracle.com/appsui/ss_guidelines/specs/keyboard.html#accelerator -->
 <resource key="af_chooseDate.CANCEL" dnt="false">&amp;Zrušiť</resource>
 <!--Tooltip on the date picker button that launches the calendar dialog-->
-<resource key="af_inputDate.LAUNCH_PICKER_TIP" dnt="false">Vyberte na prístup do modulu na výber dátumov</resource>
+<resource key="af_inputDate.LAUNCH_PICKER_TIP" dnt="false">Vyberte na prechod do okna na výber dátumov</resource>
 <!--Title of ColorPicker Dialog-->
 <resource key="af_inputColor.PICKER_TITLE" dnt="false">Vybrať farbu</resource>
 <!--Text for transparent colors-->
@@ -177,7 +210,7 @@
 <!--Tooltip on the color picker button that launches the color palette dialog-->
 <resource key="af_inputColor.LAUNCH_PICKER_TIP" dnt="false">Vyberte na prístup k pipete na farby</resource>
 <!-- Text on the Apply/Cancel buttons on the selectInputColor dialog -->
-<resource key="af_inputColor.APPLY" dnt="false">Použiť</resource>
+<resource key="af_inputColor.APPLY" dnt="false">Aplikovať</resource>
 <resource key="af_inputColor.CANCEL" dnt="false">Zrušiť</resource>
 <!-- resource for a go button in chooseDate. -->
 <!-- This button is rendered when javascript is not supported, and as a result -->
@@ -189,19 +222,22 @@
 <!--defaults strings for showDetail, showDetailHeader, and showDetail in table -->
 <resource key="af_showDetail.DISCLOSED" dnt="false">Skryť</resource>
 <resource key="af_showDetail.UNDISCLOSED" dnt="false">Zobraziť</resource>
-<resource key="af_showDetail.DISCLOSED_TIP" dnt="false">Vyberte na skrytie informácií</resource>
-<resource key="af_showDetail.UNDISCLOSED_TIP" dnt="false">Vyberte na zobrazenie informácií</resource>
+<resource key="af_showDetail.DISCLOSED_TIP" dnt="false">Vyberte, ak chcete skryť informácie</resource>
+<resource key="af_showDetail.UNDISCLOSED_TIP" dnt="false">Vyberte, ak chcete zobraziť informácie</resource>
 <resource key="af_showDetailHeader.DISCLOSED" dnt="false">Skryť</resource>
 <resource key="af_showDetailHeader.UNDISCLOSED" dnt="false">Zobraziť</resource>
-<resource key="af_showDetailHeader.DISCLOSED_TIP" dnt="false">Vyberte na skrytie informácií</resource>
-<resource key="af_showDetailHeader.UNDISCLOSED_TIP" dnt="false">Vyberte na zobrazenie informácií</resource>
+<resource key="af_showDetailHeader.DISCLOSED_TIP" dnt="false">Vyberte, ak chcete skryť informácie</resource>
+<resource key="af_showDetailHeader.UNDISCLOSED_TIP" dnt="false">Vyberte, ak chcete zobraziť informácie</resource>
 <resource key="af_table.DISCLOSED" dnt="false">Skryť</resource>
 <resource key="af_table.UNDISCLOSED" dnt="false">Zobraziť</resource>
-<resource key="af_table.DISCLOSED_TIP" dnt="false">Vyberte na skrytie informácií</resource>
-<resource key="af_table.UNDISCLOSED_TIP" dnt="false">Vyberte na zobrazenie informácií</resource>
-<!--defaults strings for show, hide in showOnePanel -->
-<resource key="af_showOnePanel.DISCLOSED_TIP" dnt="false">Zobrazené informácie</resource>
-<resource key="af_showOnePanel.UNDISCLOSED_TIP" dnt="false">Vyberte na zobrazenie informácií</resource>
+<resource key="af_table.DISCLOSED_TIP" dnt="false">Vyberte, ak chcete skryť informácie</resource>
+<resource key="af_table.UNDISCLOSED_TIP" dnt="false">Vyberte, ak chcete zobraziť informácie</resource>
+<!--defaults strings for show, hide in showOneAccordion -->
+<resource key="af_showOneAccordion.DISCLOSED_TIP" dnt="false">Zobrazené informácie</resource>
+<resource key="af_showOneAccordion.UNDISCLOSED_TIP" dnt="false">Vyberte, ak chcete zobraziť informácie</resource>
+<!--defaults strings for show, hide in showOneAccordion -->
+<resource key="af_panelAccordion.DISCLOSED_TIP" dnt="false">Zobrazené informácie</resource>
+<resource key="af_panelAccordion.UNDISCLOSED_TIP" dnt="false">Vyberte, ak chcete zobraziť informácie</resource>
 <!--Alt tag for reordering items up to top-->
 <resource key="af_selectOrderShuttle.REORDER_UP_ALL_TIP" dnt="false">Premiestniť vybrané položky na začiatok zoznamu</resource>
 <!--Alt tag for reordering items up one-->
@@ -232,8 +268,8 @@
 <resource key="af_selectManyShuttle.REMOVE_ALL_TIP" dnt="false">Odstrániť všetky položky zo zoznamu</resource>
 <resource key="af_selectOrderShuttle.REMOVE_ALL_TIP" dnt="false">Odstrániť všetky položky zo zoznamu</resource>
 <!--Alt tag for removing selected items-->
-<resource key="af_selectManyShuttle.REMOVE_TIP" dnt="false">Odstrániť vybrané položky zo zoznamu</resource>
-<resource key="af_selectOrderShuttle.REMOVE_TIP" dnt="false">Odstrániť vybrané položky zo zoznamu</resource>
+<resource key="af_selectManyShuttle.REMOVE_TIP" dnt="false">Odstrániť vybraté položky zo zoznamu</resource>
+<resource key="af_selectOrderShuttle.REMOVE_TIP" dnt="false">Odstrániť vybraté položky zo zoznamu</resource>
 <!--Link text for moving all the items-->
 <resource key="af_selectManyShuttle.MOVE_ALL" dnt="false">Premiestniť všetko</resource>
 <resource key="af_selectOrderShuttle.MOVE_ALL" dnt="false">Premiestniť všetko</resource>
@@ -253,7 +289,7 @@
 <resource key="af_progressIndicator.DETERMINATE_TIP" dnt="false">{0}% hotovo</resource>
 <!--Header text when messageType is processing -->
 <!--also, Alt text for the progressIndicator component -->
-<resource key="af_progressIndicator.PROCESSING" dnt="false">Prebieha spracovanie</resource>
+<resource key="af_progressIndicator.PROCESSING" dnt="false">Spracovanie</resource>
 <resource key="af_panelTip.TIP" dnt="false">TIP</resource>
 <!--QuickLinks-->
 <!--Alt tag for returning to the top-->
@@ -333,13 +369,14 @@
 <!-- alt text for the icon that indicates a readOnly checkbox in the unchecked state -->
 <resource key="af_selectBooleanCheckbox.READONLY_NOT_CHECKED_TIP" dnt="false">Políčko Len na čítanie nie je začiarknuté</resource>
 <!-- alt text for the icon that indicates a readOnly radioButton in the selected state -->
-<resource key="af_selectBooleanRadio.READONLY_CHECKED_TIP" dnt="false">Prepínač Len na čítanie je vybraný</resource>
+<resource key="af_selectBooleanRadio.READONLY_CHECKED_TIP" dnt="false">Prepínač Iba na čítanie je vybratý</resource>
 <!-- alt text for the icon that indicates a readOnly radioButton in the unselected state -->
-<resource key="af_selectBooleanRadio.READONLY_NOT_CHECKED_TIP" dnt="false">Prepínač Len na čítanie nie je vybraný</resource>
+<resource key="af_selectBooleanRadio.READONLY_NOT_CHECKED_TIP" dnt="false">Prepínač Iba na čítanie nie je vybratý</resource>
 <!-- This is the title of the link at the top of a page that a screen-reader
        user would use to skip all the navigation links and jump to the
        content -->
 <resource key="af_panelPage.SKIP_PAST_NAVIGATION" dnt="false">Vynechať navigačné prvky k obsahu stránky</resource>
+<resource key="af_panelPopup.CLOSE" dnt="false">Skryť</resource>
 <!-- Nav block titles for screenReader mode -->
 <resource key="af_menuButtons.BLOCK_TITLE" dnt="false">Globálne tlačidlá</resource>
 <resource key="af_panelButtonBar.BLOCK_TITLE" dnt="false">Globálne tlačidlá</resource>
@@ -364,7 +401,7 @@
 <!--title above a confirmation message box-->
 <resource key="af_messages.CONFIRMATION" dnt="false">Potvrdenie</resource>
 <!-- text when the processing component is in indeterminate mode in simple skin -->
-<resource key="af_panelHeader.PROCESSING" dnt="false">Prebieha spracovanie</resource>
+<resource key="af_panelHeader.PROCESSING" dnt="false">Spracovanie</resource>
 <!--error string for form submission-->
 <resource key="af_form.SUBMIT_ERRORS" dnt="false">Zlyhania pri overení formulára:</resource>
 <!--resource strings for afh:frameBorderLayout-->
@@ -378,7 +415,7 @@
 <!-- See FirePartialAction.renderTrigger -->
 <resource key="PPR_TRIGGER_LABEL" dnt="false">Prejsť</resource>
 <!-- Icons are used in the prompts for message components -->
-<!-- e.g., tr:inputText, tr:selectOneChoice -->
+<!-- e.g., af:inputText, af:selectOneChoice -->
 <!--Alternate text for the "error" icon-->
 <resource key="ERROR_TIP" dnt="false">Chyba</resource>
 <!--Alternate text for the "warning" icon-->
@@ -412,12 +449,22 @@
 <resource key="SHUTTLE_NO_ITEMS_FEEDBACK" dnt="false">Neexistujú žiadne položky na presun.</resource>
 <!--Feedback in javascript alert when user tries to use move/remove buttons without selecting items-->
 <resource key="SHUTTLE_NO_ITEM_SELECTED_FEEDBACK" dnt="false">Najprv vyberte položky na presun.</resource>
+<!--resource for af:chart -->
+<resource key="af_chart.IE_SVG_PLUGIN_ERROR_HTML" dnt="false">
+<![CDATA[<H4>Unable to load SVG plugin. Please install the plugin from <a href='#' onclick="window.open('http://www.adobe.com/svg/viewer/install/main.html')">Adobe</a><H4>]]>
+</resource>
+<resource key="af_chart.SVG_ENABLED_BROWSER_ERROR_HTML" dnt="false">
+<![CDATA[<H4>This component needs an SVG enabled browser like Internet Explorer, Firefox 1.5+ or Opera 9.0+<H4>]]>
+</resource>
+<resource key="af_chart.SVG_LOADING_STATUS_HTML" dnt="false">
+<![CDATA[<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>]]>
+</resource>
 <!-- OLD KEYS FOR NOT YET IMPLEMENTED IN ADF FACES -->
 <!--  ******************************************** -->
 <!-- the components that used these keys in 2.2 are not in 3.0 yet -->
 <!-- some might never be (addTableRow, for example). -->
 <!-- Don't delete until the code that uses them is deleted -->
-<!-- resource for tr:treeTOC -->
+<!-- resource for af:treeTOC -->
 <resource key="af_treeTOC.LABEL" dnt="false">Prehľadávať</resource>
 <resource key="af_treeTOC.CATEGORY_LABEL" dnt="false">Kategórie</resource>
 <resource key="af_treeTOC.ITEM_LABEL" dnt="false">Položky</resource>
@@ -428,7 +475,7 @@
 <!--table total row button text for updating display-->
 <resource key="TABLE_TOTAL_ROW_BUTTON_TEXT" dnt="false">Prepočítať</resource>
 <!--table add row button text for adding more than one row-->
-<resource key="TABLE_TOTAL_ROW_TEXT" dnt="false">Súčet</resource>
+<resource key="TABLE_TOTAL_ROW_TEXT" dnt="false">Celkovo</resource>
 <!--LOVChoice-->
 <!--Text for the lovChoice More... option  -->
 <resource key="LOV_CHOICE_MORE_OPTION" dnt="false">Ďalšie...</resource>
@@ -444,14 +491,14 @@
 <resource key="RTE_CENTER_ALIGN_BUTTON_TEXT" dnt="false">Zarovnať na stred</resource>
 <resource key="RTE_RIGHT_ALIGN_BUTTON_TEXT" dnt="false">Zarovnať doprava</resource>
 <resource key="RTE_HR_BUTTON_TEXT" dnt="false">Vodorovné pravítko</resource>
-<resource key="RTE_NUMBERING_BUTTON_TEXT" dnt="false">Číslovaný zoznam</resource>
+<resource key="RTE_NUMBERING_BUTTON_TEXT" dnt="false">Zoznam poradových čísel</resource>
 <resource key="RTE_BULLETS_BUTTON_TEXT" dnt="false">Zoznam s odrážkami</resource>
 <resource key="RTE_DECREASE_INDENT_BUTTON_TEXT" dnt="false">Zmenšiť zarážku</resource>
 <resource key="RTE_INCREASE_INDENT_BUTTON_TEXT" dnt="false">Zväčšiť zarážku</resource>
 <resource key="RTE_CREATE_HYPERLINK_BUTTON_TEXT" dnt="false">Vytvoriť hypertextový odkaz</resource>
-<resource key="RTE_HYPERLINK_POPUP_TEXT" dnt="false">Zadajte umiestnenie prepojenia (napr. http://www.oracle.com)</resource>
+<resource key="RTE_HYPERLINK_POPUP_TEXT" dnt="false">Zadať umiestnenie prepojenia (napr. http://www.oracle.com)</resource>
 <resource key="RTE_CLICK_THRU_URL_BUTTON_TEXT" dnt="false">Kliknúť na cieľové URL</resource>
-<resource key="RTE_UPLOAD_IMAGE_BUTTON_TEXT" dnt="false">Odovzdať obrázok</resource>
+<resource key="RTE_UPLOAD_IMAGE_BUTTON_TEXT" dnt="false">Odovzdať obraz</resource>
 <resource key="RTE_FONT_CHOICE_TEXT" dnt="false">Písmo</resource>
 <resource key="RTE_FONT_SIZE_CHOICE_TEXT" dnt="false">Veľkosť písma</resource>
 <resource key="RTE_FONT_COLOR_CHOICE_TEXT" dnt="false">Farba písma</resource>
@@ -466,7 +513,7 @@
 <!--Text for sub header in LOV Window-->
 <resource key="SEARCH_TEXT" dnt="false">Vyhľadávanie</resource>
 <!--Text for simple search half of the search area toggle button -->
-<resource key="SIMPLE_SEARCH_TEXT" dnt="false">Jednoduché vyhľadávanie</resource>
+<resource key="SIMPLE_SEARCH_TEXT" dnt="false">Jednoduché hľadanie</resource>
 <!--Text for advanced search half of the search area toggle button -->
 <resource key="ADVANCED_SEARCH_TEXT" dnt="false">Rozšírené vyhľadávanie</resource>
 <!--Text for search category choice in  LOV Window Header-->
@@ -539,4 +586,6 @@
 <!-- {0} = message summary                                        -->
 <!-- {1} = message detail                                         -->
 <resource key="af_messages.GLOBAL_MESSAGE_FORMAT" dnt="false">{0} - {1}</resource>
+<resource key="af_statusIndicator.BUSY" dnt="false">Stránka sa spracováva</resource>
+<resource key="af_statusIndicator.READY" dnt="false">Stránka je pripravená</resource>
 </resources>

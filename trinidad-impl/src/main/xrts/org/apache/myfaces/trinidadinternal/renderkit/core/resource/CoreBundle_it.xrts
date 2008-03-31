@@ -33,7 +33,7 @@
 <!-- af_objectLegend's required icon uses the generic REQUIRED_TIP key -->
 <!--
   -->
-<!--resource for tr:menuChoice -->
+<!--resource for af:menuChoice -->
 <resource key="af_menuChoice.LABEL" dnt="false">Cambia applicazione</resource>
 <!-- the tip that is on the Go button next to the Switch Applications choice -->
 <resource key="af_menuChoice.GO_TIP" dnt="false">Vai all&apos;applicazione selezionata</resource>
@@ -41,11 +41,44 @@
 <!--resources for the column headers-->
 <resource key="af_tableSelectMany.SELECT_COLUMN_HEADER" dnt="false">Seleziona</resource>
 <resource key="af_tableSelectOne.SELECT_COLUMN_HEADER" dnt="false">Seleziona</resource>
-<!-- The header on the Detail column of tr:table -->
+<!-- The header on the Detail column of af:table -->
 <resource key="af_table.DETAIL_COLUMN_HEADER" dnt="false">Dettagli</resource>
-<!-- The header on the Focus column of tr:treeTable -->
+<!-- Resource for Composite Table -->
+<resource key="afr_compositeTable.MENU_VIEW" dnt="false">Visualizza</resource>
+<resource key="afr_compositeTable.MENU_COLUMNS" dnt="false">Colonne</resource>
+<resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWALL" dnt="false">Mostra tutto</resource>
+<resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWMORECOLUMNS" dnt="false">Mostra altre colonne...</resource>
+<resource key="afr_compositeTable.MENUITEM_FREEZE" dnt="false">Blocca</resource>
+<resource key="afr_compositeTable.MENUITEM_MAXIMIZE" dnt="false">Ingrandisci</resource>
+<resource key="afr_compositeTable.MENU_SORT" dnt="false">Ordinamento</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_ASCENDING" dnt="false">Crescente</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_DESCENDING" dnt="false">Decrescente</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_ADVANCED" dnt="false">Avanzate...</resource>
+<resource key="afr_compositeTable.MENUITEM_REORDER" dnt="false">Riordina...</resource>
+<resource key="afr_compositeTable.MENU_TOOLBARS" dnt="false">Barre degli strumenti</resource>
+<resource key="afr_compositeTable.MENUITEM_TOOLBARS_DEFAULT" dnt="false">Predefinite</resource>
+<resource key="afr_compositeTable.MENUITEM_TOOLBARS_QBE" dnt="false">Query By Example</resource>
+<resource key="afr_compositeTable.MENU_FORMAT" dnt="false">Formato</resource>
+<resource key="afr_compositeTable.MENUITEM_RESIZECOLUMNS" dnt="false">Ridimensiona colonne...</resource>
+<resource key="afr_compositeTable.MENUITEM_RESET" dnt="false">Reimposta...</resource>
+<resource key="afr_compositeTable.MENUITEM_WRAP" dnt="false">A capo</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED" dnt="false">Righe selezionate:</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED_ALL" dnt="false">Tutte</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_HIDDEN" dnt="false">Colonne nascoste:</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_FROZEN" dnt="false">Colonne bloccate:</resource>
+<!-- Resource for Composite Tree Table -->
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND" dnt="false">Espandi</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE" dnt="false">Comprimi</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL_BELOW" dnt="false">Espandi tutto in basso</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL_BELOW" dnt="false">Comprimi tutto in basso</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL" dnt="false">Espandi tutto</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL" dnt="false">Comprimi tutto</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_GO_UP" dnt="false">Vai su</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_SHOW_AS_TOP" dnt="false">Mostra come nodo principale</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_GO_TO_TOP" dnt="false">Vai al nodo principale</resource>
+<!-- The header on the Focus column of af:treeTable -->
 <resource key="af_treeTable.FOCUS_COLUMN_HEADER" dnt="false">Elemento attivo</resource>
-<!-- resources for tr:column -->
+<!-- resources for af:column -->
 <resource key="af_column.SORTED_ASCEND_TIP" dnt="false">Ordinato in ordine crescente</resource>
 <resource key="af_column.SORTED_DESCEND_TIP" dnt="false">Ordinato in ordine decrescente</resource>
 <resource key="af_column.SORTED_SORTABLE_TIP" dnt="false">Non ordinato</resource>
@@ -72,9 +105,9 @@
 <resource key="af_table.SELECT_RANGE_NEXT" dnt="false">Successivi {0}</resource>
 <!--navigation bar with no more records going forward.-->
 <!--the following text will be drawn in a disabled font-->
-<resource key="af_selectRangeChoiceBar.DISABLED_NEXT" dnt="false">Successivo</resource>
-<resource key="af_table.SELECT_RANGE_DISABLED_NEXT" dnt="false">Successivo</resource>
-<resource key="af_treeTable.DISABLED_NEXT" dnt="false">Successivo</resource>
+<resource key="af_selectRangeChoiceBar.DISABLED_NEXT" dnt="false">Avanti</resource>
+<resource key="af_table.SELECT_RANGE_DISABLED_NEXT" dnt="false">Avanti</resource>
+<resource key="af_treeTable.DISABLED_NEXT" dnt="false">Avanti</resource>
 <!--navigation bar with no more records going backward.-->
 <!--the following text will be drawn in a disabled font-->
 <resource key="af_selectRangeChoiceBar.DISABLED_PREVIOUS" dnt="false">Precedente</resource>
@@ -142,7 +175,7 @@
 <resource key="af_tree.FOLDER_TIP" dnt="false">Cartella</resource>
 <resource key="af_navigationTree.FOLDER_TIP" dnt="false">Cartella</resource>
 <!-- Contents of summary attribute on calendar table -->
-<resource key="af_chooseDate.SUMMARY" dnt="false">Agenda</resource>
+<resource key="af_chooseDate.SUMMARY" dnt="false">Calendario</resource>
 <!--Tooltip on the Calendar's previous month button-->
 <resource key="af_chooseDate.PREVIOUS_MONTH_TIP" dnt="false">Mese precedente</resource>
 <!--Tooltip on the Calendar's next month button-->
@@ -167,7 +200,7 @@
 <!--http://scout.us.oracle.com/appsui/ss_guidelines/specs/keyboard.html#accelerator -->
 <resource key="af_chooseDate.CANCEL" dnt="false">Annul&amp;la</resource>
 <!--Tooltip on the date picker button that launches the calendar dialog-->
-<resource key="af_inputDate.LAUNCH_PICKER_TIP" dnt="false">Selezionare per accedere alla scelta della data</resource>
+<resource key="af_inputDate.LAUNCH_PICKER_TIP" dnt="false">Selezionare per accedere al selettore data</resource>
 <!--Title of ColorPicker Dialog-->
 <resource key="af_inputColor.PICKER_TITLE" dnt="false">Selezionare un colore</resource>
 <!--Text for transparent colors-->
@@ -175,7 +208,7 @@
 <!-- Prompt for color field in color picker dialog -->
 <resource key="af_inputColor.PICKER_PROMPT" dnt="false">Colore</resource>
 <!--Tooltip on the color picker button that launches the color palette dialog-->
-<resource key="af_inputColor.LAUNCH_PICKER_TIP" dnt="false">Selezionare per accedere alla scelta del colore</resource>
+<resource key="af_inputColor.LAUNCH_PICKER_TIP" dnt="false">Selezionare per accedere al selettore colore</resource>
 <!-- Text on the Apply/Cancel buttons on the selectInputColor dialog -->
 <resource key="af_inputColor.APPLY" dnt="false">Applica</resource>
 <resource key="af_inputColor.CANCEL" dnt="false">Annulla</resource>
@@ -199,9 +232,12 @@
 <resource key="af_table.UNDISCLOSED" dnt="false">Mostra</resource>
 <resource key="af_table.DISCLOSED_TIP" dnt="false">Selezionare per nascondere le informazioni</resource>
 <resource key="af_table.UNDISCLOSED_TIP" dnt="false">Selezionare per mostrare le informazioni</resource>
-<!--defaults strings for show, hide in showOnePanel -->
-<resource key="af_showOnePanel.DISCLOSED_TIP" dnt="false">Informazioni visualizzate</resource>
-<resource key="af_showOnePanel.UNDISCLOSED_TIP" dnt="false">Selezionare per mostrare le informazioni</resource>
+<!--defaults strings for show, hide in showOneAccordion -->
+<resource key="af_showOneAccordion.DISCLOSED_TIP" dnt="false">Informazioni visualizzate</resource>
+<resource key="af_showOneAccordion.UNDISCLOSED_TIP" dnt="false">Selezionare per mostrare le informazioni</resource>
+<!--defaults strings for show, hide in showOneAccordion -->
+<resource key="af_panelAccordion.DISCLOSED_TIP" dnt="false">Informazioni visualizzate</resource>
+<resource key="af_panelAccordion.UNDISCLOSED_TIP" dnt="false">Selezionare per mostrare le informazioni</resource>
 <!--Alt tag for reordering items up to top-->
 <resource key="af_selectOrderShuttle.REORDER_UP_ALL_TIP" dnt="false">Sposta gli elementi selezionati all&apos;inizio della lista</resource>
 <!--Alt tag for reordering items up one-->
@@ -263,7 +299,7 @@
 <resource key="af_panelPage.QUICK_LINKS_RETURN_TOP" dnt="false">Torna all&apos;inizio</resource>
 <!--Format for the quick links alt tag-->
 <!--{0} - the full name of the header-->
-<resource key="af_panelPage.QUICK_LINKS_TIP_FORMAT" dnt="false">Selezionare per spostarsi su &quot;{0}&quot; all&apos;interno della pagina</resource>
+<resource key="af_panelPage.QUICK_LINKS_TIP_FORMAT" dnt="false">Selezionare per andare a &quot;{0}&quot; all&apos;&apos;interno della pagina</resource>
 <!--Train-->
 <!--In all of the following three: {0} - the name of the step-->
 <!--alternate text for a visited-step image in a Train-->
@@ -340,6 +376,7 @@
        user would use to skip all the navigation links and jump to the
        content -->
 <resource key="af_panelPage.SKIP_PAST_NAVIGATION" dnt="false">Vai al contenuto della pagina saltando gli elementi di navigazione</resource>
+<resource key="af_panelPopup.CLOSE" dnt="false">Nascondi</resource>
 <!-- Nav block titles for screenReader mode -->
 <resource key="af_menuButtons.BLOCK_TITLE" dnt="false">Pulsanti globali</resource>
 <resource key="af_panelButtonBar.BLOCK_TITLE" dnt="false">Pulsanti globali</resource>
@@ -378,7 +415,7 @@
 <!-- See FirePartialAction.renderTrigger -->
 <resource key="PPR_TRIGGER_LABEL" dnt="false">Vai</resource>
 <!-- Icons are used in the prompts for message components -->
-<!-- e.g., tr:inputText, tr:selectOneChoice -->
+<!-- e.g., af:inputText, af:selectOneChoice -->
 <!--Alternate text for the "error" icon-->
 <resource key="ERROR_TIP" dnt="false">Errore</resource>
 <!--Alternate text for the "warning" icon-->
@@ -412,12 +449,22 @@
 <resource key="SHUTTLE_NO_ITEMS_FEEDBACK" dnt="false">Nessun elemento da spostare.</resource>
 <!--Feedback in javascript alert when user tries to use move/remove buttons without selecting items-->
 <resource key="SHUTTLE_NO_ITEM_SELECTED_FEEDBACK" dnt="false">Selezionare gli elementi da spostare per primi.</resource>
+<!--resource for af:chart -->
+<resource key="af_chart.IE_SVG_PLUGIN_ERROR_HTML" dnt="false">
+<![CDATA[<H4>Unable to load SVG plugin. Please install the plugin from <a href='#' onclick="window.open('http://www.adobe.com/svg/viewer/install/main.html')">Adobe</a><H4>]]>
+</resource>
+<resource key="af_chart.SVG_ENABLED_BROWSER_ERROR_HTML" dnt="false">
+<![CDATA[<H4>This component needs an SVG enabled browser like Internet Explorer, Firefox 1.5+ or Opera 9.0+<H4>]]>
+</resource>
+<resource key="af_chart.SVG_LOADING_STATUS_HTML" dnt="false">
+<![CDATA[<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>]]>
+</resource>
 <!-- OLD KEYS FOR NOT YET IMPLEMENTED IN ADF FACES -->
 <!--  ******************************************** -->
 <!-- the components that used these keys in 2.2 are not in 3.0 yet -->
 <!-- some might never be (addTableRow, for example). -->
 <!-- Don't delete until the code that uses them is deleted -->
-<!-- resource for tr:treeTOC -->
+<!-- resource for af:treeTOC -->
 <resource key="af_treeTOC.LABEL" dnt="false">Sfoglia</resource>
 <resource key="af_treeTOC.CATEGORY_LABEL" dnt="false">Categorie</resource>
 <resource key="af_treeTOC.ITEM_LABEL" dnt="false">Elementi</resource>
@@ -539,4 +586,6 @@
 <!-- {0} = message summary                                        -->
 <!-- {1} = message detail                                         -->
 <resource key="af_messages.GLOBAL_MESSAGE_FORMAT" dnt="false">{0} - {1}</resource>
+<resource key="af_statusIndicator.BUSY" dnt="false">Pagina occupata, elaborazione in corso</resource>
+<resource key="af_statusIndicator.READY" dnt="false">Pagina pronta</resource>
 </resources>

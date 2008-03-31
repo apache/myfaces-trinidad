@@ -33,19 +33,52 @@
 <!-- af_objectLegend's required icon uses the generic REQUIRED_TIP key -->
 <!--
   -->
-<!--resource for tr:menuChoice -->
+<!--resource for af:menuChoice -->
 <resource key="af_menuChoice.LABEL" dnt="false">تبديل التطبيقات</resource>
 <!-- the tip that is on the Go button next to the Switch Applications choice -->
-<resource key="af_menuChoice.GO_TIP" dnt="false">الانتقال إلى التطبيق المختار</resource>
+<resource key="af_menuChoice.GO_TIP" dnt="false">الانتقال إلى التطبيق المحدد</resource>
 <resource key="af_menuChoice.GO" dnt="false">انتقال</resource>
 <!--resources for the column headers-->
-<resource key="af_tableSelectMany.SELECT_COLUMN_HEADER" dnt="false">اختيار</resource>
-<resource key="af_tableSelectOne.SELECT_COLUMN_HEADER" dnt="false">اختيار</resource>
-<!-- The header on the Detail column of tr:table -->
+<resource key="af_tableSelectMany.SELECT_COLUMN_HEADER" dnt="false">تحديد</resource>
+<resource key="af_tableSelectOne.SELECT_COLUMN_HEADER" dnt="false">تحديد</resource>
+<!-- The header on the Detail column of af:table -->
 <resource key="af_table.DETAIL_COLUMN_HEADER" dnt="false">التفاصيل</resource>
-<!-- The header on the Focus column of tr:treeTable -->
-<resource key="af_treeTable.FOCUS_COLUMN_HEADER" dnt="false">التركيز</resource>
-<!-- resources for tr:column -->
+<!-- Resource for Composite Table -->
+<resource key="afr_compositeTable.MENU_VIEW" dnt="false">عرض</resource>
+<resource key="afr_compositeTable.MENU_COLUMNS" dnt="false">الأعمدة</resource>
+<resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWALL" dnt="false">إظهار الكل</resource>
+<resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWMORECOLUMNS" dnt="false">إظهار أعمدة أكثر..</resource>
+<resource key="afr_compositeTable.MENUITEM_FREEZE" dnt="false">تجميد</resource>
+<resource key="afr_compositeTable.MENUITEM_MAXIMIZE" dnt="false">تكبير</resource>
+<resource key="afr_compositeTable.MENU_SORT" dnt="false">فرز</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_ASCENDING" dnt="false">تصاعدي</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_DESCENDING" dnt="false">تنازلي</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_ADVANCED" dnt="false">متقدم..</resource>
+<resource key="afr_compositeTable.MENUITEM_REORDER" dnt="false">إعادة ترتيب..</resource>
+<resource key="afr_compositeTable.MENU_TOOLBARS" dnt="false">أشرطة الأدوات</resource>
+<resource key="afr_compositeTable.MENUITEM_TOOLBARS_DEFAULT" dnt="false">افتراضي</resource>
+<resource key="afr_compositeTable.MENUITEM_TOOLBARS_QBE" dnt="false">الاستعلام حسب المثال</resource>
+<resource key="afr_compositeTable.MENU_FORMAT" dnt="false">الصيغة</resource>
+<resource key="afr_compositeTable.MENUITEM_RESIZECOLUMNS" dnt="false">إعادة تحجيم الأعمدة..</resource>
+<resource key="afr_compositeTable.MENUITEM_RESET" dnt="false">إعادة تعيين..</resource>
+<resource key="afr_compositeTable.MENUITEM_WRAP" dnt="false">التفاف</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED" dnt="false">الصفوف المحددة:</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED_ALL" dnt="false">الكل</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_HIDDEN" dnt="false">الأعمدة المخفية:</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_FROZEN" dnt="false">الأعمدة المجمدة:</resource>
+<!-- Resource for Composite Tree Table -->
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND" dnt="false">توسيع</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE" dnt="false">طي</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL_BELOW" dnt="false">توسيع الكل أدناه</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL_BELOW" dnt="false">طي الكل أدناه</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL" dnt="false">توسيع الكل</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL" dnt="false">طي الكل</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_GO_UP" dnt="false">انتقال لأعلى</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_SHOW_AS_TOP" dnt="false">عرض في الأعلى</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_GO_TO_TOP" dnt="false">انتقال إلى الأعلى</resource>
+<!-- The header on the Focus column of af:treeTable -->
+<resource key="af_treeTable.FOCUS_COLUMN_HEADER" dnt="false">نقطة التركيز</resource>
+<!-- resources for af:column -->
 <resource key="af_column.SORTED_ASCEND_TIP" dnt="false">تم الفرز بترتيب تصاعدي</resource>
 <resource key="af_column.SORTED_DESCEND_TIP" dnt="false">تم الفرز بترتيب تنازلي</resource>
 <resource key="af_column.SORTED_SORTABLE_TIP" dnt="false">غير مفروز</resource>
@@ -81,22 +114,22 @@
 <resource key="af_table.SELECT_RANGE_DISABLED_PREVIOUS" dnt="false">السابق</resource>
 <resource key="af_treeTable.DISABLED_PREVIOUS" dnt="false">السابق</resource>
 <!--alternate text for a back arrow image link in the navigation bar-->
-<resource key="af_selectRangeChoiceBar.PREVIOUS_TIP" dnt="false">اختر هذا الخيار لعرض المجموعة السابقة</resource>
-<resource key="af_table.SELECT_RANGE_PREVIOUS_TIP" dnt="false">اختر هذا الخيار لعرض المجموعة السابقة</resource>
-<resource key="af_treeTable.PREVIOUS_TIP" dnt="false">اختر هذا الخيار لعرض المجموعة السابقة</resource>
+<resource key="af_selectRangeChoiceBar.PREVIOUS_TIP" dnt="false">حدد هذا الخيار لعرض المجموعة السابقة</resource>
+<resource key="af_table.SELECT_RANGE_PREVIOUS_TIP" dnt="false">حدد هذا الخيار لعرض المجموعة السابقة</resource>
+<resource key="af_treeTable.PREVIOUS_TIP" dnt="false">حدد هذا الخيار لعرض المجموعة السابقة</resource>
 <!--alternate text for a forward arrow image link in the navigation bar-->
-<resource key="af_selectRangeChoiceBar.NEXT_TIP" dnt="false">اختر هذا الخيار لعرض المجموعة التالية</resource>
-<resource key="af_table.SELECT_RANGE_NEXT_TIP" dnt="false">اختر هذا الخيار لعرض المجموعة التالية</resource>
-<resource key="af_treeTable.NEXT_TIP" dnt="false">اختر هذا الخيار لعرض المجموعة التالية</resource>
+<resource key="af_selectRangeChoiceBar.NEXT_TIP" dnt="false">حدد هذا الخيار لعرض المجموعة التالية</resource>
+<resource key="af_table.SELECT_RANGE_NEXT_TIP" dnt="false">حدد هذا الخيار لعرض المجموعة التالية</resource>
+<resource key="af_treeTable.NEXT_TIP" dnt="false">حدد هذا الخيار لعرض المجموعة التالية</resource>
 <!--alternate text for a disabled back arrow image link in the navigation bar-->
-<resource key="af_table.SELECT_RANGE_PREV_DISABLED_TIP" dnt="false">تم تعطيل وظيفة الرجوع للسابق</resource>
-<resource key="af_selectRangeChoiceBar.PREV_DISABLED_TIP" dnt="false">تم تعطيل وظيفة الرجوع للسابق</resource>
+<resource key="af_table.SELECT_RANGE_PREV_DISABLED_TIP" dnt="false">تم تعطيل الوظيفة السابقة</resource>
+<resource key="af_selectRangeChoiceBar.PREV_DISABLED_TIP" dnt="false">تم تعطيل الوظيفة السابقة</resource>
 <!--alternate text for a disabled forward arrow image link in the navigation bar-->
-<resource key="af_table.SELECT_RANGE_NEXT_DISABLED_TIP" dnt="false">تم تعطيل وظيفة التقدم للتالي</resource>
-<resource key="af_selectRangeChoiceBar.NEXT_DISABLED_TIP" dnt="false">تم تعطيل وظيفة التقدم للتالي</resource>
+<resource key="af_table.SELECT_RANGE_NEXT_DISABLED_TIP" dnt="false">الوظيفة التالية معطلة</resource>
+<resource key="af_selectRangeChoiceBar.NEXT_DISABLED_TIP" dnt="false">تم تعطيل الوظيفة التالية</resource>
 <!-- roll over text for the choice in the multi step navbar -->
-<resource key="af_selectRangeChoiceBar.CHOICE_TIP" dnt="false">اختيار مجموعة السجلات</resource>
-<resource key="af_table.SELECT_RANGE_CHOICE_TIP" dnt="false">اختيار مجموعة السجلات</resource>
+<resource key="af_selectRangeChoiceBar.CHOICE_TIP" dnt="false">تحديد مجموعة السجلات</resource>
+<resource key="af_table.SELECT_RANGE_CHOICE_TIP" dnt="false">تحديد مجموعة السجلات</resource>
 <!-- Alternate choice text for displaying rows before first row in choice -->
 <resource key="af_selectRangeChoiceBar.PREVIOUS_OPTION" dnt="false">السابق...</resource>
 <resource key="af_table.SELECT_RANGE_PREVIOUS_OPTION" dnt="false">السابق...</resource>
@@ -139,10 +172,10 @@
 <!-- * Indicates required field -->
 <resource key="af_objectLegend.REQUIRED_KEY" dnt="false">للإشارة إلى الحقل المطلوب</resource>
 <!--Alternate text for the "folder" icon in a tree-->
-<resource key="af_tree.FOLDER_TIP" dnt="false">مجلد</resource>
+<resource key="af_tree.FOLDER_TIP" dnt="false">المجلد</resource>
 <resource key="af_navigationTree.FOLDER_TIP" dnt="false">مجلد</resource>
 <!-- Contents of summary attribute on calendar table -->
-<resource key="af_chooseDate.SUMMARY" dnt="false">تقويم</resource>
+<resource key="af_chooseDate.SUMMARY" dnt="false">التقويم</resource>
 <!--Tooltip on the Calendar's previous month button-->
 <resource key="af_chooseDate.PREVIOUS_MONTH_TIP" dnt="false">الشهر السابق</resource>
 <!--Tooltip on the Calendar's next month button-->
@@ -167,7 +200,7 @@
 <!--http://scout.us.oracle.com/appsui/ss_guidelines/specs/keyboard.html#accelerator -->
 <resource key="af_chooseDate.CANCEL" dnt="false">إل&amp;غاء</resource>
 <!--Tooltip on the date picker button that launches the calendar dialog-->
-<resource key="af_inputDate.LAUNCH_PICKER_TIP" dnt="false">اختر هذا الخيار للوصول إلى منتقي التاريخ</resource>
+<resource key="af_inputDate.LAUNCH_PICKER_TIP" dnt="false">حدد هذا الخيار للوصول إلى منتقي التاريخ</resource>
 <!--Title of ColorPicker Dialog-->
 <resource key="af_inputColor.PICKER_TITLE" dnt="false">انتقاء لون</resource>
 <!--Text for transparent colors-->
@@ -175,7 +208,7 @@
 <!-- Prompt for color field in color picker dialog -->
 <resource key="af_inputColor.PICKER_PROMPT" dnt="false">اللون</resource>
 <!--Tooltip on the color picker button that launches the color palette dialog-->
-<resource key="af_inputColor.LAUNCH_PICKER_TIP" dnt="false">اختر هذا الخيار للوصول إلى منتقي الألوان</resource>
+<resource key="af_inputColor.LAUNCH_PICKER_TIP" dnt="false">حدد هذا الخيار للوصول إلى منتقي الألوان</resource>
 <!-- Text on the Apply/Cancel buttons on the selectInputColor dialog -->
 <resource key="af_inputColor.APPLY" dnt="false">تطبيق</resource>
 <resource key="af_inputColor.CANCEL" dnt="false">إلغاء</resource>
@@ -189,33 +222,36 @@
 <!--defaults strings for showDetail, showDetailHeader, and showDetail in table -->
 <resource key="af_showDetail.DISCLOSED" dnt="false">إخفاء</resource>
 <resource key="af_showDetail.UNDISCLOSED" dnt="false">إظهار</resource>
-<resource key="af_showDetail.DISCLOSED_TIP" dnt="false">اختر هذا الخيار لإخفاء المعلومات</resource>
-<resource key="af_showDetail.UNDISCLOSED_TIP" dnt="false">اختر هذا الخيار لإظهار المعلومات</resource>
+<resource key="af_showDetail.DISCLOSED_TIP" dnt="false">حدد هذا الخيار لإخفاء المعلومات</resource>
+<resource key="af_showDetail.UNDISCLOSED_TIP" dnt="false">حدد هذا الخيار لإظهار المعلومات</resource>
 <resource key="af_showDetailHeader.DISCLOSED" dnt="false">إخفاء</resource>
 <resource key="af_showDetailHeader.UNDISCLOSED" dnt="false">إظهار</resource>
-<resource key="af_showDetailHeader.DISCLOSED_TIP" dnt="false">اختر هذا الخيار لإخفاء المعلومات</resource>
-<resource key="af_showDetailHeader.UNDISCLOSED_TIP" dnt="false">اختر هذا الخيار لإظهار المعلومات</resource>
+<resource key="af_showDetailHeader.DISCLOSED_TIP" dnt="false">حدد هذا الخيار لإخفاء المعلومات</resource>
+<resource key="af_showDetailHeader.UNDISCLOSED_TIP" dnt="false">حدد هذا الخيار لإظهار المعلومات</resource>
 <resource key="af_table.DISCLOSED" dnt="false">إخفاء</resource>
 <resource key="af_table.UNDISCLOSED" dnt="false">إظهار</resource>
-<resource key="af_table.DISCLOSED_TIP" dnt="false">اختر هذا الخيار لإخفاء المعلومات</resource>
-<resource key="af_table.UNDISCLOSED_TIP" dnt="false">اختر هذا الخيار لإظهار المعلومات</resource>
-<!--defaults strings for show, hide in showOnePanel -->
-<resource key="af_showOnePanel.DISCLOSED_TIP" dnt="false">المعلومات المعروضة</resource>
-<resource key="af_showOnePanel.UNDISCLOSED_TIP" dnt="false">اختر هذا الخيار لإظهار المعلومات</resource>
+<resource key="af_table.DISCLOSED_TIP" dnt="false">حدد هذا الخيار لإخفاء المعلومات</resource>
+<resource key="af_table.UNDISCLOSED_TIP" dnt="false">حدد هذا الخيار لإظهار المعلومات</resource>
+<!--defaults strings for show, hide in showOneAccordion -->
+<resource key="af_showOneAccordion.DISCLOSED_TIP" dnt="false">المعلومات المعروضة</resource>
+<resource key="af_showOneAccordion.UNDISCLOSED_TIP" dnt="false">حدد هذا الخيار لإظهار المعلومات</resource>
+<!--defaults strings for show, hide in showOneAccordion -->
+<resource key="af_panelAccordion.DISCLOSED_TIP" dnt="false">المعلومات المعروضة</resource>
+<resource key="af_panelAccordion.UNDISCLOSED_TIP" dnt="false">حدد هذا الخيار لإظهار المعلومات</resource>
 <!--Alt tag for reordering items up to top-->
-<resource key="af_selectOrderShuttle.REORDER_UP_ALL_TIP" dnt="false">نقل العناصر المختارة إلى أعلى القائمة</resource>
+<resource key="af_selectOrderShuttle.REORDER_UP_ALL_TIP" dnt="false">نقل العناصر المحددة إلى أعلى القائمة</resource>
 <!--Alt tag for reordering items up one-->
-<resource key="af_selectOrderShuttle.REORDER_UP_TIP" dnt="false">نقل العناصر المختارة بمقدار صف واحد لأعلى في القائمة</resource>
+<resource key="af_selectOrderShuttle.REORDER_UP_TIP" dnt="false">نقل العناصر المحددة بمقدار صف واحد لأعلى في القائمة</resource>
 <!--Alt tag for reordering items down to bottom-->
-<resource key="af_selectOrderShuttle.REORDER_DOWN_ALL_TIP" dnt="false">نقل العناصر المختارة لأسفل القائمة</resource>
+<resource key="af_selectOrderShuttle.REORDER_DOWN_ALL_TIP" dnt="false">نقل العناصر المحددة لأسفل القائمة</resource>
 <!--Alt tag for reordering items down one-->
-<resource key="af_selectOrderShuttle.REORDER_DOWN_TIP" dnt="false">نقل العناصر المختارة بمقدار صف واحد لأسفل في القائمة</resource>
+<resource key="af_selectOrderShuttle.REORDER_DOWN_TIP" dnt="false">نقل العناصر المحددة بمقدار صف واحد لأسفل في القائمة</resource>
 <!--Text for reordering items to top of list-->
-<resource key="af_selectOrderShuttle.REORDER_UP_ALL" dnt="false">الأعلى</resource>
+<resource key="af_selectOrderShuttle.REORDER_UP_ALL" dnt="false">أعلى</resource>
 <!--Text for reordering items up one position in the list-->
 <resource key="af_selectOrderShuttle.REORDER_UP" dnt="false">لأعلى</resource>
 <!--Text for reordering items to bottom of list-->
-<resource key="af_selectOrderShuttle.REORDER_DOWN_ALL" dnt="false">الأسفل</resource>
+<resource key="af_selectOrderShuttle.REORDER_DOWN_ALL" dnt="false">أسفل</resource>
 <!--Text for reordering items down one position in the list-->
 <resource key="af_selectOrderShuttle.REORDER_DOWN" dnt="false">لأسفل</resource>
 <!-- selectOrderShuttle and selectManyShuttle keys-->
@@ -226,14 +262,14 @@
 <resource key="af_selectManyShuttle.MOVE_ALL_TIP" dnt="false">نقل كافة العناصر للقائمة الأخرى</resource>
 <resource key="af_selectOrderShuttle.MOVE_ALL_TIP" dnt="false">نقل كافة العناصر للقائمة الأخرى</resource>
 <!--Alt tag for moving selected items-->
-<resource key="af_selectManyShuttle.MOVE_TIP" dnt="false">نقل العناصر المختارة للقائمة الأخرى</resource>
-<resource key="af_selectOrderShuttle.MOVE_TIP" dnt="false">نقل العناصر المختارة للقائمة الأخرى</resource>
+<resource key="af_selectManyShuttle.MOVE_TIP" dnt="false">نقل العناصر المحددة للقائمة الأخرى</resource>
+<resource key="af_selectOrderShuttle.MOVE_TIP" dnt="false">نقل العناصر المحددة للقائمة الأخرى</resource>
 <!--Alt tag for removing all the items-->
 <resource key="af_selectManyShuttle.REMOVE_ALL_TIP" dnt="false">إزالة كافة العناصر من القائمة</resource>
 <resource key="af_selectOrderShuttle.REMOVE_ALL_TIP" dnt="false">إزالة كافة العناصر من القائمة</resource>
 <!--Alt tag for removing selected items-->
-<resource key="af_selectManyShuttle.REMOVE_TIP" dnt="false">إزالة العناصر المختارة من القائمة</resource>
-<resource key="af_selectOrderShuttle.REMOVE_TIP" dnt="false">إزالة العناصر المختارة من القائمة</resource>
+<resource key="af_selectManyShuttle.REMOVE_TIP" dnt="false">إزالة العناصر المحددة من القائمة</resource>
+<resource key="af_selectOrderShuttle.REMOVE_TIP" dnt="false">إزالة العناصر المحددة من القائمة</resource>
 <!--Link text for moving all the items-->
 <resource key="af_selectManyShuttle.MOVE_ALL" dnt="false">نقل الكل</resource>
 <resource key="af_selectOrderShuttle.MOVE_ALL" dnt="false">نقل الكل</resource>
@@ -250,7 +286,7 @@
 <resource key="af_poll.MANUAL" dnt="false">خادم التسجيل</resource>
 <!--Progress-->
 <!--Format for the determinate progress icon's alt tag -->
-<resource key="af_progressIndicator.DETERMINATE_TIP" dnt="false">{0}% مكتمل</resource>
+<resource key="af_progressIndicator.DETERMINATE_TIP" dnt="false">اكتمل {0}%</resource>
 <!--Header text when messageType is processing -->
 <!--also, Alt text for the progressIndicator component -->
 <resource key="af_progressIndicator.PROCESSING" dnt="false">معالجة</resource>
@@ -258,12 +294,12 @@
 <!--QuickLinks-->
 <!--Alt tag for returning to the top-->
 <!-- =-=jmw also used in af_page. @todo fix this. -->
-<resource key="af_panelPage.QUICK_LINKS_RETURN_TOP_TIP" dnt="false">اختر هذا الخيار للانتقال لأعلى الصفحة</resource>
+<resource key="af_panelPage.QUICK_LINKS_RETURN_TOP_TIP" dnt="false">حدد هذا الخيار للانتقال لأعلى الصفحة</resource>
 <!--Link text for returning to the top-->
-<resource key="af_panelPage.QUICK_LINKS_RETURN_TOP" dnt="false">العودة للأعلى</resource>
+<resource key="af_panelPage.QUICK_LINKS_RETURN_TOP" dnt="false">العودة إلى أعلى</resource>
 <!--Format for the quick links alt tag-->
 <!--{0} - the full name of the header-->
-<resource key="af_panelPage.QUICK_LINKS_TIP_FORMAT" dnt="false">اختر الانتقال إلى &quot;{0}&quot; داخل الصفحة</resource>
+<resource key="af_panelPage.QUICK_LINKS_TIP_FORMAT" dnt="false">حدد هذا الخيار للانتقال إلى &quot;{0}&quot; داخل الصفحة</resource>
 <!--Train-->
 <!--In all of the following three: {0} - the name of the step-->
 <!--alternate text for a visited-step image in a Train-->
@@ -271,12 +307,12 @@
 <resource key="af_train.VISITED_TIP" dnt="false">{0}: خطوة تمت زيارتها مسبقًا</resource>
 <!--alternate text for the current-step image in a Train-->
 <!-- eg: Billing Information: Active step -->
-<resource key="af_train.ACTIVE_TIP" dnt="false">{0}: الخطوة النشطة</resource>
+<resource key="af_train.ACTIVE_TIP" dnt="false">{0}: خطوة نشطة</resource>
 <!--alternate text for the next-step images in a Train-->
 <!-- eg: Billing Information: Next step -->
 <resource key="af_train.NEXT_TIP" dnt="false">{0}: الخطوة التالية</resource>
 <!-- text for the "More" text in a Train-->
-<resource key="af_train.MORE" dnt="false">المزيد</resource>
+<resource key="af_train.MORE" dnt="false">أكثر</resource>
 <!--text for the "Previous" text in a Train-->
 <resource key="af_train.PREVIOUS" dnt="false">السابق</resource>
 <!--TabBar. For oracle.desktop skin -->
@@ -285,15 +321,15 @@
 <resource key="af_menuTabs.SELECTED_TIP" dnt="false">{0}: علامة التبويب المحددة حاليًا</resource>
 <!--alternate text for an enabled unselected TabBar image-->
 <!--{0} - the tab name. eg: Electronics: Select to go to this tab-->
-<resource key="af_menuTabs.ENABLED_TIP" dnt="false">{0}: اختر هذا الخيار للانتقال إلى علامة التبويب هذه</resource>
+<resource key="af_menuTabs.ENABLED_TIP" dnt="false">{0}: حدد هذا الخيار للانتقال إلى علامة التبويب هذه</resource>
 <!--alternate text for a disabled TabBar image-->
 <!--{0} - the tab name. eg: Electronics: Disabled tab-->
 <resource key="af_menuTabs.DISABLED_TIP" dnt="false">{0}: علامة تبويب معطلة</resource>
 <!--Table/HGrid-->
 <!--Link text for selecting all rows-->
-<resource key="af_tableSelectMany.SELECT_ALL" dnt="false">اختيار الكل</resource>
+<resource key="af_tableSelectMany.SELECT_ALL" dnt="false">تحديد الكل</resource>
 <!--Link text for deselecting all rows-->
-<resource key="af_tableSelectMany.SELECT_NONE" dnt="false">عدم الاختيار</resource>
+<resource key="af_tableSelectMany.SELECT_NONE" dnt="false">عدم التحديد</resource>
 <!--Link text for expanding all rows-->
 <resource key="af_treeTable.EXPAND_ALL" dnt="false">توسيع الكل</resource>
 <!--Link text for collapsing all rows-->
@@ -303,20 +339,20 @@
 <!--Link text for hiding all details-->
 <resource key="af_table.HIDE_ALL_DETAILS" dnt="false">إخفاء كل التفاصيل</resource>
 <!--Alt text for the icon used to expand a tree node-->
-<resource key="af_tree.EXPAND_TIP" dnt="false">اختر هذا الخيار للتوسيع</resource>
-<resource key="af_treeTable.EXPAND_TIP" dnt="false">اختر هذا الخيار للتوسيع</resource>
-<resource key="af_navigationTree.EXPAND_TIP" dnt="false">اختر هذا الخيار للتوسيع</resource>
+<resource key="af_tree.EXPAND_TIP" dnt="false">حدد هذا الخيار للتوسيع</resource>
+<resource key="af_treeTable.EXPAND_TIP" dnt="false">حدد هذا الخيار للتوسيع</resource>
+<resource key="af_navigationTree.EXPAND_TIP" dnt="false">حدد هذا الخيار للتوسيع</resource>
 <!--Alt text for the icon used to collapse a tree node-->
-<resource key="af_tree.COLLAPSE_TIP" dnt="false">اختر هذا الخيار للطي</resource>
-<resource key="af_treeTable.COLLAPSE_TIP" dnt="false">اختر هذا الخيار للطي</resource>
-<resource key="af_navigationTree.COLLAPSE_TIP" dnt="false">اختر هذا الخيار للطي</resource>
+<resource key="af_tree.COLLAPSE_TIP" dnt="false">حدد هذا الخيار للطي</resource>
+<resource key="af_treeTable.COLLAPSE_TIP" dnt="false">حدد هذا الخيار للطي</resource>
+<resource key="af_navigationTree.COLLAPSE_TIP" dnt="false">حدد هذا الخيار للطي</resource>
 <!--Alt text for the icon used for an expanded tree node that cannot be -->
 <!-- collapsed -->
 <resource key="af_tree.DISABLED_COLLAPSE_TIP" dnt="false">نقطة توصيل موسعة</resource>
 <resource key="af_treeTable.DISABLED_COLLAPSE_TIP" dnt="false">نقطة توصيل موسعة</resource>
 <resource key="af_navigationTree.DISABLED_COLLAPSE_TIP" dnt="false">نقطة توصيل موسعة</resource>
 <!--Alt text for the focus icon-->
-<resource key="af_treeTable.FOCUS_TIP" dnt="false">اختر هذا الخيار للتركيز في</resource>
+<resource key="af_treeTable.FOCUS_TIP" dnt="false">حدد هذا الخيار للتركيز في</resource>
 <!--Alt text for the bread crumb start icon-->
 <resource key="af_treeTable.BREADCRUMB_START_TIP" dnt="false">بدء مسار التدرج</resource>
 <!-- NODE_LEVEL_TEXT: Indicates the level of a node from root.   -->
@@ -340,6 +376,7 @@
        user would use to skip all the navigation links and jump to the
        content -->
 <resource key="af_panelPage.SKIP_PAST_NAVIGATION" dnt="false">تخطي عناصر الاستكشاف إلى محتويات الصفحة</resource>
+<resource key="af_panelPopup.CLOSE" dnt="false">إخفاء</resource>
 <!-- Nav block titles for screenReader mode -->
 <resource key="af_menuButtons.BLOCK_TITLE" dnt="false">أزرار عامة</resource>
 <resource key="af_panelButtonBar.BLOCK_TITLE" dnt="false">أزرار عامة</resource>
@@ -348,17 +385,17 @@
 <resource key="af_panelSideBar.BLOCK_TITLE" dnt="false">عناصر استكشاف المستوى الثالث</resource>
 <resource key="af_panelTabbed.BLOCK_TITLE" dnt="false">عناصر استكشاف المستوى الرابع</resource>
 <!-- Header text when messageType is error -->
-<resource key="af_panelHeader.ERROR" dnt="false">خطأ</resource>
+<resource key="af_panelHeader.ERROR" dnt="false">الخطأ</resource>
 <!--title above an error message box-->
-<resource key="af_messages.ERROR" dnt="false">خطأ</resource>
+<resource key="af_messages.ERROR" dnt="false">الخطأ</resource>
 <!-- Header text when messageType is warning -->
 <resource key="af_panelHeader.WARNING" dnt="false">تحذير</resource>
 <!--title above a warning message box-->
 <resource key="af_messages.WARNING" dnt="false">تحذير</resource>
 <!--Header text when messageType is information -->
-<resource key="af_panelHeader.INFORMATION" dnt="false">معلومات</resource>
+<resource key="af_panelHeader.INFORMATION" dnt="false">المعلومات</resource>
 <!--title above an information message box-->
-<resource key="af_messages.INFORMATION" dnt="false">معلومات</resource>
+<resource key="af_messages.INFORMATION" dnt="false">المعلومات</resource>
 <!--Header text when messageType is confirmation -->
 <resource key="af_panelHeader.CONFIRMATION" dnt="false">تأكيد</resource>
 <!--title above a confirmation message box-->
@@ -378,13 +415,13 @@
 <!-- See FirePartialAction.renderTrigger -->
 <resource key="PPR_TRIGGER_LABEL" dnt="false">انتقال</resource>
 <!-- Icons are used in the prompts for message components -->
-<!-- e.g., tr:inputText, tr:selectOneChoice -->
+<!-- e.g., af:inputText, af:selectOneChoice -->
 <!--Alternate text for the "error" icon-->
-<resource key="ERROR_TIP" dnt="false">خطأ</resource>
+<resource key="ERROR_TIP" dnt="false">الخطأ</resource>
 <!--Alternate text for the "warning" icon-->
 <resource key="WARNING_TIP" dnt="false">تحذير</resource>
 <!--Alternate text for the "info" icon-->
-<resource key="INFO_TIP" dnt="false">معلومات</resource>
+<resource key="INFO_TIP" dnt="false">المعلومات</resource>
 <!--Alternate text for the "required" icon-->
 <resource key="REQUIRED_TIP" dnt="false">مطلوب</resource>
 <!--Link Selection Status-->
@@ -392,32 +429,42 @@
 <!-- of span in conjuction with link element while rendering. -->
 <!-- Eg: <a href="www.oracle.com"><span class="x4h">Selected</span>Oracle</a> -->
 <!-- Thus the screen reader reads it as 'Selected Oracle Link' -->
-<resource key="STATUS_SELECTED" dnt="false">مختار</resource>
+<resource key="STATUS_SELECTED" dnt="false">تم الاختيار</resource>
 <!-- This is the title of the link at start of each nav block that a screen-reader
        user would use to skip all the navigation links in current block only -->
 <!-- {0} - One of the strings from resource group *_BLOCK_TITLE below
        eg: Skip all Second level navigation elements -->
 <resource key="SKIP_CURRENT_NAVIGATION_BLOCK" dnt="false">تخطى الكل {0}</resource>
 <!--Text to display in noscript tag -->
-<resource key="NO_SCRIPT_MESSAGE" dnt="false">تستخدم هذه الصفحة جافا سكربت، ومن ثم فهي تتطلب مستعرضًا مدعومًا بجافا سكربت. المستعرض لديك غير مدعوم بجافا سكربت.</resource>
+<resource key="NO_SCRIPT_MESSAGE" dnt="false">تستخدم هذه الصفحة جافا اسكربت، ومن ثم فهي تتطلب متصفحًا مدعومًا بجافا اسكربت. المتصفح لديك غير مدعوم بجافا اسكربت.</resource>
 <!-- Text of the ALT tag for the content frame of popup windows -->
 <resource key="FRAME_CONTENT" dnt="false">المحتويات</resource>
 <!-- A message displayed when we think there's a popup blocker installed -->
 <resource key="WINDOW_CREATION_ERROR" dnt="false">تم اكتشاف مانع للنوافذ المنبثقة في المستعرض الخاص بك. تتداخل موانع النوافذ المنبثقة مع العملية الخاصة بهذا التطبيق. الرجاء تعطيل مانع النوافذ المنبثقة أو السماح بالنوافذ المنبثقة من هذا الموقع.</resource>
 <!-- Text to display in noframes element. This message is set on noframes element,
        when page redirection happens for LOV selection. -->
-<resource key="NO_FRAMES_MESSAGE" dnt="false">لا يدعم المستعرض الأطر. من المطلوب توفر دعم فتح الأطر من خلال المستعرض لتنفيذ هذه الوظيفة</resource>
+<resource key="NO_FRAMES_MESSAGE" dnt="false">لا يدعم المتصفح الأطر. من المطلوب توفر دعم فتح الأطر من خلال المتصفح لتنفيذ هذه الوظيفة</resource>
 <!--Shuttle strings; used for both selectOrderShuttle and selectManyShuttle-->
 <!--Feedback in javascript alert when user tries to use move/remove buttons when there are no items-->
 <resource key="SHUTTLE_NO_ITEMS_FEEDBACK" dnt="false">لا توجد أية عناصر لنقلها.</resource>
 <!--Feedback in javascript alert when user tries to use move/remove buttons without selecting items-->
-<resource key="SHUTTLE_NO_ITEM_SELECTED_FEEDBACK" dnt="false">الرجاء اختيار العناصر المطلوب نقلها أولاً.</resource>
+<resource key="SHUTTLE_NO_ITEM_SELECTED_FEEDBACK" dnt="false">برجاء اختيار العناصر المطلوب نقلها أولاً.</resource>
+<!--resource for af:chart -->
+<resource key="af_chart.IE_SVG_PLUGIN_ERROR_HTML" dnt="false">
+<![CDATA[<H4>Unable to load SVG plugin. Please install the plugin from <a href='#' onclick="window.open('http://www.adobe.com/svg/viewer/install/main.html')">Adobe</a><H4>]]>
+</resource>
+<resource key="af_chart.SVG_ENABLED_BROWSER_ERROR_HTML" dnt="false">
+<![CDATA[<H4>This component needs an SVG enabled browser like Internet Explorer, Firefox 1.5+ or Opera 9.0+<H4>]]>
+</resource>
+<resource key="af_chart.SVG_LOADING_STATUS_HTML" dnt="false">
+<![CDATA[<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>]]>
+</resource>
 <!-- OLD KEYS FOR NOT YET IMPLEMENTED IN ADF FACES -->
 <!--  ******************************************** -->
 <!-- the components that used these keys in 2.2 are not in 3.0 yet -->
 <!-- some might never be (addTableRow, for example). -->
 <!-- Don't delete until the code that uses them is deleted -->
-<!-- resource for tr:treeTOC -->
+<!-- resource for af:treeTOC -->
 <resource key="af_treeTOC.LABEL" dnt="false">استعراض</resource>
 <resource key="af_treeTOC.CATEGORY_LABEL" dnt="false">الفئات</resource>
 <resource key="af_treeTOC.ITEM_LABEL" dnt="false">العناصر</resource>
@@ -439,30 +486,30 @@
 <resource key="RTE_BOLD_BUTTON_TEXT" dnt="false">عريض</resource>
 <resource key="RTE_ITALIC_BUTTON_TEXT" dnt="false">مائل</resource>
 <resource key="RTE_UNDERLINE_BUTTON_TEXT" dnt="false">مسطر</resource>
-<resource key="RTE_BREAK_BUTTON_TEXT" dnt="false">فاصل</resource>
-<resource key="RTE_LEFT_ALIGN_BUTTON_TEXT" dnt="false">محاذاة لليمين</resource>
+<resource key="RTE_BREAK_BUTTON_TEXT" dnt="false">فصل</resource>
+<resource key="RTE_LEFT_ALIGN_BUTTON_TEXT" dnt="false">محاذاة لليسار</resource>
 <resource key="RTE_CENTER_ALIGN_BUTTON_TEXT" dnt="false">محاذاة للوسط</resource>
-<resource key="RTE_RIGHT_ALIGN_BUTTON_TEXT" dnt="false">محاذاة لليسار</resource>
+<resource key="RTE_RIGHT_ALIGN_BUTTON_TEXT" dnt="false">محاذاة لليمين</resource>
 <resource key="RTE_HR_BUTTON_TEXT" dnt="false">مسطرة أفقية</resource>
-<resource key="RTE_NUMBERING_BUTTON_TEXT" dnt="false">قائمة ترتيب رقمية</resource>
-<resource key="RTE_BULLETS_BUTTON_TEXT" dnt="false">قائمة نقطية</resource>
+<resource key="RTE_NUMBERING_BUTTON_TEXT" dnt="false">قائمة ترتيب الأرقام</resource>
+<resource key="RTE_BULLETS_BUTTON_TEXT" dnt="false">قائمة الرموز النقطية</resource>
 <resource key="RTE_DECREASE_INDENT_BUTTON_TEXT" dnt="false">تقليل المسافة البادئة</resource>
 <resource key="RTE_INCREASE_INDENT_BUTTON_TEXT" dnt="false">زيادة المسافة البادئة</resource>
 <resource key="RTE_CREATE_HYPERLINK_BUTTON_TEXT" dnt="false">تكوين ارتباط سريع</resource>
 <resource key="RTE_HYPERLINK_POPUP_TEXT" dnt="false">أدخل موقع الارتباط (على سبيل المثال. http://www.oracle.com)</resource>
-<resource key="RTE_CLICK_THRU_URL_BUTTON_TEXT" dnt="false">انقر على عنوان URL للوصول إلى الوجهة</resource>
+<resource key="RTE_CLICK_THRU_URL_BUTTON_TEXT" dnt="false">انقر على عنوان URL الوجهة</resource>
 <resource key="RTE_UPLOAD_IMAGE_BUTTON_TEXT" dnt="false">تحميل الصورة</resource>
-<resource key="RTE_FONT_CHOICE_TEXT" dnt="false">البنط</resource>
+<resource key="RTE_FONT_CHOICE_TEXT" dnt="false">بنط</resource>
 <resource key="RTE_FONT_SIZE_CHOICE_TEXT" dnt="false">حجم البنط</resource>
 <resource key="RTE_FONT_COLOR_CHOICE_TEXT" dnt="false">لون البنط</resource>
-<resource key="RTE_CHANGE_TO_RICH_TEXT_MODE" dnt="false">التغيير لوضع النص المنسق</resource>
+<resource key="RTE_CHANGE_TO_RICH_TEXT_MODE" dnt="false">تغيير إلى طور النص المنسق</resource>
 <resource key="RTE_CHANGE_TO_TEXT_MODE" dnt="false">التغيير لوضع النص العادي</resource>
 <resource key="RTE_HTML_SOURCE" dnt="false">عرض مصدر HTML</resource>
 <resource key="RTE_RICH_TEXT_MODE_MAX_LENGTH_ALERT" dnt="false">لقد تجاوزت الحد الأقصى لطول الحقل. الرجاء إعادة إدخال قيمة أقل طولاً.</resource>
 <!--ListOfValues Template-->
 <!--Text for main header LOV Window Header-->
 <!--{0}: The label for the search (the title attribute of the template) -->
-<resource key="SEARCH_AND_SELECT_FORMAT" dnt="false">البحث والاختيار: {0}</resource>
+<resource key="SEARCH_AND_SELECT_FORMAT" dnt="false">بحث واختيار: {0}</resource>
 <!--Text for sub header in LOV Window-->
 <resource key="SEARCH_TEXT" dnt="false">بحث</resource>
 <!--Text for simple search half of the search area toggle button -->
@@ -470,7 +517,7 @@
 <!--Text for advanced search half of the search area toggle button -->
 <resource key="ADVANCED_SEARCH_TEXT" dnt="false">بحث متقدم</resource>
 <!--Text for search category choice in  LOV Window Header-->
-<resource key="SEARCH_BY_TEXT" dnt="false">البحث حسب</resource>
+<resource key="SEARCH_BY_TEXT" dnt="false">بحث حسب</resource>
 <!--Text for search text field ALT tag in LOV Window-->
 <resource key="SEARCH_FIELD_SHORT_DESC_TEXT" dnt="false">مصطلح البحث</resource>
 <!--Text for results table header in LOV window-->
@@ -539,4 +586,6 @@
 <!-- {0} = message summary                                        -->
 <!-- {1} = message detail                                         -->
 <resource key="af_messages.GLOBAL_MESSAGE_FORMAT" dnt="false">{0} - {1}</resource>
+<resource key="af_statusIndicator.BUSY" dnt="false">الصفحة مشغولة بالمعالجة</resource>
+<resource key="af_statusIndicator.READY" dnt="false">الصفحة جاهزة</resource>
 </resources>

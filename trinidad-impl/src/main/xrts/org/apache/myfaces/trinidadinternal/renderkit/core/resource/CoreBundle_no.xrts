@@ -33,7 +33,7 @@
 <!-- af_objectLegend's required icon uses the generic REQUIRED_TIP key -->
 <!--
   -->
-<!--resource for tr:menuChoice -->
+<!--resource for af:menuChoice -->
 <resource key="af_menuChoice.LABEL" dnt="false">Bytt applikasjoner</resource>
 <!-- the tip that is on the Go button next to the Switch Applications choice -->
 <resource key="af_menuChoice.GO_TIP" dnt="false">Gå til valgt applikasjon</resource>
@@ -41,11 +41,44 @@
 <!--resources for the column headers-->
 <resource key="af_tableSelectMany.SELECT_COLUMN_HEADER" dnt="false">Velg</resource>
 <resource key="af_tableSelectOne.SELECT_COLUMN_HEADER" dnt="false">Velg</resource>
-<!-- The header on the Detail column of tr:table -->
+<!-- The header on the Detail column of af:table -->
 <resource key="af_table.DETAIL_COLUMN_HEADER" dnt="false">Detaljer</resource>
-<!-- The header on the Focus column of tr:treeTable -->
+<!-- Resource for Composite Table -->
+<resource key="afr_compositeTable.MENU_VIEW" dnt="false">Vis</resource>
+<resource key="afr_compositeTable.MENU_COLUMNS" dnt="false">Kolonner</resource>
+<resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWALL" dnt="false">Vis alle</resource>
+<resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWMORECOLUMNS" dnt="false">Vis flere kolonner.</resource>
+<resource key="afr_compositeTable.MENUITEM_FREEZE" dnt="false">Lås</resource>
+<resource key="afr_compositeTable.MENUITEM_MAXIMIZE" dnt="false">Maksimer</resource>
+<resource key="afr_compositeTable.MENU_SORT" dnt="false">Sorter</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_ASCENDING" dnt="false">Stigende</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_DESCENDING" dnt="false">Synkende</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_ADVANCED" dnt="false">Avansert ...</resource>
+<resource key="afr_compositeTable.MENUITEM_REORDER" dnt="false">Endre rekkefølge ...</resource>
+<resource key="afr_compositeTable.MENU_TOOLBARS" dnt="false">Verktøylinjer</resource>
+<resource key="afr_compositeTable.MENUITEM_TOOLBARS_DEFAULT" dnt="false">Standard</resource>
+<resource key="afr_compositeTable.MENUITEM_TOOLBARS_QBE" dnt="false">Eksempelspørring</resource>
+<resource key="afr_compositeTable.MENU_FORMAT" dnt="false">Format</resource>
+<resource key="afr_compositeTable.MENUITEM_RESIZECOLUMNS" dnt="false">Endre størrelse på kolonner ...</resource>
+<resource key="afr_compositeTable.MENUITEM_RESET" dnt="false">Tilbakestill ...</resource>
+<resource key="afr_compositeTable.MENUITEM_WRAP" dnt="false">Bryt</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED" dnt="false">Valgte rader:</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED_ALL" dnt="false">Alle</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_HIDDEN" dnt="false">Skjulte kolonner:</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_FROZEN" dnt="false">Låste kolonner:</resource>
+<!-- Resource for Composite Tree Table -->
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND" dnt="false">Utvid</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE" dnt="false">Trekk sammen</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL_BELOW" dnt="false">Utvid alle nedenfor</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL_BELOW" dnt="false">Trekk sammen alle nedenfor</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL" dnt="false">Utvid alle</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL" dnt="false">Trekk sammen alle</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_GO_UP" dnt="false">Gå opp</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_SHOW_AS_TOP" dnt="false">Vis øverst</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_GO_TO_TOP" dnt="false">Gå til toppen</resource>
+<!-- The header on the Focus column of af:treeTable -->
 <resource key="af_treeTable.FOCUS_COLUMN_HEADER" dnt="false">Fokus</resource>
-<!-- resources for tr:column -->
+<!-- resources for af:column -->
 <resource key="af_column.SORTED_ASCEND_TIP" dnt="false">Sortert i stigende rekkefølge</resource>
 <resource key="af_column.SORTED_DESCEND_TIP" dnt="false">Sortert i synkende rekkefølge</resource>
 <resource key="af_column.SORTED_SORTABLE_TIP" dnt="false">Ikke sortert</resource>
@@ -89,11 +122,11 @@
 <resource key="af_table.SELECT_RANGE_NEXT_TIP" dnt="false">Vis neste sett</resource>
 <resource key="af_treeTable.NEXT_TIP" dnt="false">Vis neste sett</resource>
 <!--alternate text for a disabled back arrow image link in the navigation bar-->
-<resource key="af_table.SELECT_RANGE_PREV_DISABLED_TIP" dnt="false">Forrige funksjonalitet deaktivert</resource>
-<resource key="af_selectRangeChoiceBar.PREV_DISABLED_TIP" dnt="false">Forrige funksjonalitet deaktivert</resource>
+<resource key="af_table.SELECT_RANGE_PREV_DISABLED_TIP" dnt="false">Forrige-funksjon deaktivert</resource>
+<resource key="af_selectRangeChoiceBar.PREV_DISABLED_TIP" dnt="false">Forrige-funksjon deaktivert</resource>
 <!--alternate text for a disabled forward arrow image link in the navigation bar-->
-<resource key="af_table.SELECT_RANGE_NEXT_DISABLED_TIP" dnt="false">Neste funksjonalitet deaktivert</resource>
-<resource key="af_selectRangeChoiceBar.NEXT_DISABLED_TIP" dnt="false">Neste funksjonalitet deaktivert</resource>
+<resource key="af_table.SELECT_RANGE_NEXT_DISABLED_TIP" dnt="false">Neste-funksjon deaktivert</resource>
+<resource key="af_selectRangeChoiceBar.NEXT_DISABLED_TIP" dnt="false">Neste-funksjon deaktivert</resource>
 <!-- roll over text for the choice in the multi step navbar -->
 <resource key="af_selectRangeChoiceBar.CHOICE_TIP" dnt="false">Velg postsett</resource>
 <resource key="af_table.SELECT_RANGE_CHOICE_TIP" dnt="false">Velg postsett</resource>
@@ -167,7 +200,7 @@
 <!--http://scout.us.oracle.com/appsui/ss_guidelines/specs/keyboard.html#accelerator -->
 <resource key="af_chooseDate.CANCEL" dnt="false">Av&amp;bryt</resource>
 <!--Tooltip on the date picker button that launches the calendar dialog-->
-<resource key="af_inputDate.LAUNCH_PICKER_TIP" dnt="false">Start datovelger</resource>
+<resource key="af_inputDate.LAUNCH_PICKER_TIP" dnt="false">Velg for å åpne datovelgeren</resource>
 <!--Title of ColorPicker Dialog-->
 <resource key="af_inputColor.PICKER_TITLE" dnt="false">Velg en farge</resource>
 <!--Text for transparent colors-->
@@ -175,7 +208,7 @@
 <!-- Prompt for color field in color picker dialog -->
 <resource key="af_inputColor.PICKER_PROMPT" dnt="false">Farge</resource>
 <!--Tooltip on the color picker button that launches the color palette dialog-->
-<resource key="af_inputColor.LAUNCH_PICKER_TIP" dnt="false">Start fargevelger</resource>
+<resource key="af_inputColor.LAUNCH_PICKER_TIP" dnt="false">Velg for å åpne fargevelgeren</resource>
 <!-- Text on the Apply/Cancel buttons on the selectInputColor dialog -->
 <resource key="af_inputColor.APPLY" dnt="false">Bruk</resource>
 <resource key="af_inputColor.CANCEL" dnt="false">Avbryt</resource>
@@ -189,19 +222,22 @@
 <!--defaults strings for showDetail, showDetailHeader, and showDetail in table -->
 <resource key="af_showDetail.DISCLOSED" dnt="false">Skjul</resource>
 <resource key="af_showDetail.UNDISCLOSED" dnt="false">Vis</resource>
-<resource key="af_showDetail.DISCLOSED_TIP" dnt="false">Skjul informasjon</resource>
-<resource key="af_showDetail.UNDISCLOSED_TIP" dnt="false">Vis informasjon</resource>
+<resource key="af_showDetail.DISCLOSED_TIP" dnt="false">Velg for å skjule opplysninger</resource>
+<resource key="af_showDetail.UNDISCLOSED_TIP" dnt="false">Velg for å vise opplysninger</resource>
 <resource key="af_showDetailHeader.DISCLOSED" dnt="false">Skjul</resource>
 <resource key="af_showDetailHeader.UNDISCLOSED" dnt="false">Vis</resource>
-<resource key="af_showDetailHeader.DISCLOSED_TIP" dnt="false">Skjul informasjon</resource>
-<resource key="af_showDetailHeader.UNDISCLOSED_TIP" dnt="false">Vis informasjon</resource>
+<resource key="af_showDetailHeader.DISCLOSED_TIP" dnt="false">Velg for å skjule opplysninger</resource>
+<resource key="af_showDetailHeader.UNDISCLOSED_TIP" dnt="false">Velg for å vise opplysninger</resource>
 <resource key="af_table.DISCLOSED" dnt="false">Skjul</resource>
 <resource key="af_table.UNDISCLOSED" dnt="false">Vis</resource>
-<resource key="af_table.DISCLOSED_TIP" dnt="false">Skjul informasjon</resource>
-<resource key="af_table.UNDISCLOSED_TIP" dnt="false">Vis informasjon</resource>
-<!--defaults strings for show, hide in showOnePanel -->
-<resource key="af_showOnePanel.DISCLOSED_TIP" dnt="false">Vist informasjon</resource>
-<resource key="af_showOnePanel.UNDISCLOSED_TIP" dnt="false">Vis informasjon</resource>
+<resource key="af_table.DISCLOSED_TIP" dnt="false">Velg for å skjule opplysninger</resource>
+<resource key="af_table.UNDISCLOSED_TIP" dnt="false">Velg for å vise opplysninger</resource>
+<!--defaults strings for show, hide in showOneAccordion -->
+<resource key="af_showOneAccordion.DISCLOSED_TIP" dnt="false">Viste opplysninger</resource>
+<resource key="af_showOneAccordion.UNDISCLOSED_TIP" dnt="false">Velg for å vise opplysninger</resource>
+<!--defaults strings for show, hide in showOneAccordion -->
+<resource key="af_panelAccordion.DISCLOSED_TIP" dnt="false">Viste opplysninger</resource>
+<resource key="af_panelAccordion.UNDISCLOSED_TIP" dnt="false">Velg for å vise opplysninger</resource>
 <!--Alt tag for reordering items up to top-->
 <resource key="af_selectOrderShuttle.REORDER_UP_ALL_TIP" dnt="false">Flytt merkede elementer til øverst på listen</resource>
 <!--Alt tag for reordering items up one-->
@@ -303,22 +339,22 @@
 <!--Link text for hiding all details-->
 <resource key="af_table.HIDE_ALL_DETAILS" dnt="false">Skjul alle detaljer</resource>
 <!--Alt text for the icon used to expand a tree node-->
-<resource key="af_tree.EXPAND_TIP" dnt="false">Utvid</resource>
-<resource key="af_treeTable.EXPAND_TIP" dnt="false">Utvid</resource>
-<resource key="af_navigationTree.EXPAND_TIP" dnt="false">Utvid</resource>
+<resource key="af_tree.EXPAND_TIP" dnt="false">Velg denne for å utvide</resource>
+<resource key="af_treeTable.EXPAND_TIP" dnt="false">Velg denne for å utvide</resource>
+<resource key="af_navigationTree.EXPAND_TIP" dnt="false">Velg denne for å utvide</resource>
 <!--Alt text for the icon used to collapse a tree node-->
-<resource key="af_tree.COLLAPSE_TIP" dnt="false">Trekk sammen</resource>
-<resource key="af_treeTable.COLLAPSE_TIP" dnt="false">Trekk sammen</resource>
-<resource key="af_navigationTree.COLLAPSE_TIP" dnt="false">Trekk sammen</resource>
+<resource key="af_tree.COLLAPSE_TIP" dnt="false">Velg denne for å trekke sammen</resource>
+<resource key="af_treeTable.COLLAPSE_TIP" dnt="false">Velg denne for å trekke sammen</resource>
+<resource key="af_navigationTree.COLLAPSE_TIP" dnt="false">Velg denne for å trekke sammen</resource>
 <!--Alt text for the icon used for an expanded tree node that cannot be -->
 <!-- collapsed -->
 <resource key="af_tree.DISABLED_COLLAPSE_TIP" dnt="false">Node utvidet</resource>
 <resource key="af_treeTable.DISABLED_COLLAPSE_TIP" dnt="false">Node utvidet</resource>
-<resource key="af_navigationTree.DISABLED_COLLAPSE_TIP" dnt="false">Node utvidet</resource>
+<resource key="af_navigationTree.DISABLED_COLLAPSE_TIP" dnt="false">Knutepunkt utvidet</resource>
 <!--Alt text for the focus icon-->
-<resource key="af_treeTable.FOCUS_TIP" dnt="false">Fokuser</resource>
+<resource key="af_treeTable.FOCUS_TIP" dnt="false">Velg for å fokusere</resource>
 <!--Alt text for the bread crumb start icon-->
-<resource key="af_treeTable.BREADCRUMB_START_TIP" dnt="false">Start hierarkibane</resource>
+<resource key="af_treeTable.BREADCRUMB_START_TIP" dnt="false">Start på hierarkibane</resource>
 <!-- NODE_LEVEL_TEXT: Indicates the level of a node from root.   -->
 <!-- Makes tree and Hgrid more accesible. Adds the text          -->
 <!--    'Level [depth of the node from root]'                    -->
@@ -340,13 +376,14 @@
        user would use to skip all the navigation links and jump to the
        content -->
 <resource key="af_panelPage.SKIP_PAST_NAVIGATION" dnt="false">Hopp over navigeringselementer til sideinnhold</resource>
+<resource key="af_panelPopup.CLOSE" dnt="false">Skjul</resource>
 <!-- Nav block titles for screenReader mode -->
 <resource key="af_menuButtons.BLOCK_TITLE" dnt="false">Globale knapper</resource>
 <resource key="af_panelButtonBar.BLOCK_TITLE" dnt="false">Globale knapper</resource>
 <resource key="af_menuTabs.BLOCK_TITLE" dnt="false">Navigeringselementer på første nivå</resource>
 <resource key="af_menuBar.BLOCK_TITLE" dnt="false">Navigeringselementer på andre nivå</resource>
 <resource key="af_panelSideBar.BLOCK_TITLE" dnt="false">Navigeringselementer på tredje nivå</resource>
-<resource key="af_panelTabbed.BLOCK_TITLE" dnt="false">Navigeringselementer på fjerde nivå</resource>
+<resource key="af_panelTabbed.BLOCK_TITLE" dnt="false">Navigasjonselementer på fjerde nivå</resource>
 <!-- Header text when messageType is error -->
 <resource key="af_panelHeader.ERROR" dnt="false">Feil</resource>
 <!--title above an error message box-->
@@ -378,7 +415,7 @@
 <!-- See FirePartialAction.renderTrigger -->
 <resource key="PPR_TRIGGER_LABEL" dnt="false">Start</resource>
 <!-- Icons are used in the prompts for message components -->
-<!-- e.g., tr:inputText, tr:selectOneChoice -->
+<!-- e.g., af:inputText, af:selectOneChoice -->
 <!--Alternate text for the "error" icon-->
 <resource key="ERROR_TIP" dnt="false">Feil</resource>
 <!--Alternate text for the "warning" icon-->
@@ -412,12 +449,22 @@
 <resource key="SHUTTLE_NO_ITEMS_FEEDBACK" dnt="false">Det finnes ingen elementer som skal flyttes.</resource>
 <!--Feedback in javascript alert when user tries to use move/remove buttons without selecting items-->
 <resource key="SHUTTLE_NO_ITEM_SELECTED_FEEDBACK" dnt="false">Velg elementene som skal flyttes først.</resource>
+<!--resource for af:chart -->
+<resource key="af_chart.IE_SVG_PLUGIN_ERROR_HTML" dnt="false">
+<![CDATA[<H4>Unable to load SVG plugin. Please install the plugin from <a href='#' onclick="window.open('http://www.adobe.com/svg/viewer/install/main.html')">Adobe</a><H4>]]>
+</resource>
+<resource key="af_chart.SVG_ENABLED_BROWSER_ERROR_HTML" dnt="false">
+<![CDATA[<H4>This component needs an SVG enabled browser like Internet Explorer, Firefox 1.5+ or Opera 9.0+<H4>]]>
+</resource>
+<resource key="af_chart.SVG_LOADING_STATUS_HTML" dnt="false">
+<![CDATA[<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>]]>
+</resource>
 <!-- OLD KEYS FOR NOT YET IMPLEMENTED IN ADF FACES -->
 <!--  ******************************************** -->
 <!-- the components that used these keys in 2.2 are not in 3.0 yet -->
 <!-- some might never be (addTableRow, for example). -->
 <!-- Don't delete until the code that uses them is deleted -->
-<!-- resource for tr:treeTOC -->
+<!-- resource for af:treeTOC -->
 <resource key="af_treeTOC.LABEL" dnt="false">Bla gjennom</resource>
 <resource key="af_treeTOC.CATEGORY_LABEL" dnt="false">Kategorier</resource>
 <resource key="af_treeTOC.ITEM_LABEL" dnt="false">Elementer</resource>
@@ -455,8 +502,8 @@
 <resource key="RTE_FONT_CHOICE_TEXT" dnt="false">Skrift</resource>
 <resource key="RTE_FONT_SIZE_CHOICE_TEXT" dnt="false">Skriftstørrelse</resource>
 <resource key="RTE_FONT_COLOR_CHOICE_TEXT" dnt="false">Skriftfarge</resource>
-<resource key="RTE_CHANGE_TO_RICH_TEXT_MODE" dnt="false">Endre til RTF-modus</resource>
-<resource key="RTE_CHANGE_TO_TEXT_MODE" dnt="false">Endre til modus for vanlig tekst</resource>
+<resource key="RTE_CHANGE_TO_RICH_TEXT_MODE" dnt="false">Endre til modus for rikt tekstformat</resource>
+<resource key="RTE_CHANGE_TO_TEXT_MODE" dnt="false">Endre til modus for rent tekstformat</resource>
 <resource key="RTE_HTML_SOURCE" dnt="false">Vis HTML-kilde</resource>
 <resource key="RTE_RICH_TEXT_MODE_MAX_LENGTH_ALERT" dnt="false">Du har overskredet den maksimale lengden på feltet. Angi en kortere verdi.</resource>
 <!--ListOfValues Template-->
@@ -539,4 +586,6 @@
 <!-- {0} = message summary                                        -->
 <!-- {1} = message detail                                         -->
 <resource key="af_messages.GLOBAL_MESSAGE_FORMAT" dnt="false">{0} - {1}</resource>
+<resource key="af_statusIndicator.BUSY" dnt="false">Siden er opptatt med å behandle</resource>
+<resource key="af_statusIndicator.READY" dnt="false">Siden er klar</resource>
 </resources>

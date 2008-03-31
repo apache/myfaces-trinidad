@@ -33,7 +33,7 @@
 <!-- af_objectLegend's required icon uses the generic REQUIRED_TIP key -->
 <!--
   -->
-<!--resource for tr:menuChoice -->
+<!--resource for af:menuChoice -->
 <resource key="af_menuChoice.LABEL" dnt="false">Tussen applicaties schakelen</resource>
 <!-- the tip that is on the Go button next to the Switch Applications choice -->
 <resource key="af_menuChoice.GO_TIP" dnt="false">Naar geselecteerde applicatie</resource>
@@ -41,18 +41,51 @@
 <!--resources for the column headers-->
 <resource key="af_tableSelectMany.SELECT_COLUMN_HEADER" dnt="false">Selecteren</resource>
 <resource key="af_tableSelectOne.SELECT_COLUMN_HEADER" dnt="false">Selecteren</resource>
-<!-- The header on the Detail column of tr:table -->
+<!-- The header on the Detail column of af:table -->
 <resource key="af_table.DETAIL_COLUMN_HEADER" dnt="false">Details</resource>
-<!-- The header on the Focus column of tr:treeTable -->
+<!-- Resource for Composite Table -->
+<resource key="afr_compositeTable.MENU_VIEW" dnt="false">Bekijken</resource>
+<resource key="afr_compositeTable.MENU_COLUMNS" dnt="false">Kolommen</resource>
+<resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWALL" dnt="false">Alles tonen</resource>
+<resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWMORECOLUMNS" dnt="false">Meer kolommen tonen...</resource>
+<resource key="afr_compositeTable.MENUITEM_FREEZE" dnt="false">Blokkeren</resource>
+<resource key="afr_compositeTable.MENUITEM_MAXIMIZE" dnt="false">Maximaliseren</resource>
+<resource key="afr_compositeTable.MENU_SORT" dnt="false">Sorteren</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_ASCENDING" dnt="false">Oplopend</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_DESCENDING" dnt="false">Aflopend</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_ADVANCED" dnt="false">Uitgebreid...</resource>
+<resource key="afr_compositeTable.MENUITEM_REORDER" dnt="false">Herordenen...</resource>
+<resource key="afr_compositeTable.MENU_TOOLBARS" dnt="false">Werkbalken</resource>
+<resource key="afr_compositeTable.MENUITEM_TOOLBARS_DEFAULT" dnt="false">Standaard</resource>
+<resource key="afr_compositeTable.MENUITEM_TOOLBARS_QBE" dnt="false">Zoeken volgens voorbeeld</resource>
+<resource key="afr_compositeTable.MENU_FORMAT" dnt="false">Opmaak</resource>
+<resource key="afr_compositeTable.MENUITEM_RESIZECOLUMNS" dnt="false">Formaat van kolommen wijzigen...</resource>
+<resource key="afr_compositeTable.MENUITEM_RESET" dnt="false">Opnieuw instellen...</resource>
+<resource key="afr_compositeTable.MENUITEM_WRAP" dnt="false">Terugloop</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED" dnt="false">Geselecteerde rijen:</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED_ALL" dnt="false">Alle</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_HIDDEN" dnt="false">Verborgen kolommen:</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_FROZEN" dnt="false">Bevroren kolommen:</resource>
+<!-- Resource for Composite Tree Table -->
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND" dnt="false">Uitvouwen</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE" dnt="false">Samenvouwen</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL_BELOW" dnt="false">Alle onderstaande uitvouwen</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL_BELOW" dnt="false">Alle onderstaande samenvouwen</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL" dnt="false">Alles uitvouwen</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL" dnt="false">Alles samenvouwen</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_GO_UP" dnt="false">Omhoog</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_SHOW_AS_TOP" dnt="false">Als bovenste tonen</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_GO_TO_TOP" dnt="false">Naar boven</resource>
+<!-- The header on the Focus column of af:treeTable -->
 <resource key="af_treeTable.FOCUS_COLUMN_HEADER" dnt="false">Focus</resource>
-<!-- resources for tr:column -->
+<!-- resources for af:column -->
 <resource key="af_column.SORTED_ASCEND_TIP" dnt="false">Gesorteerd in oplopende volgorde</resource>
 <resource key="af_column.SORTED_DESCEND_TIP" dnt="false">Gesorteerd in aflopende volgorde</resource>
 <resource key="af_column.SORTED_SORTABLE_TIP" dnt="false">Niet gesorteerd</resource>
 <!--the ampersand is used to make the 'k' an accelerator key as described at -->
 <!--http://scout.us.oracle.com/appsui/ss_guidelines/specs/keyboard.html#accelerator -->
-<resource key="af_singleStepButtonBar.BACK" dnt="false">Ter&amp;ug</resource>
-<resource key="af_processChoiceBar.BACK" dnt="false">Ter&amp;ug</resource>
+<resource key="af_singleStepButtonBar.BACK" dnt="false">Te&amp;rug</resource>
+<resource key="af_processChoiceBar.BACK" dnt="false">Te&amp;rug</resource>
 <!--the ampersand is used to make the 'x' an accelerator key as described at -->
 <!--http://scout.us.oracle.com/appsui/ss_guidelines/specs/keyboard.html#accelerator -->
 <resource key="af_singleStepButtonBar.NEXT" dnt="false">V&amp;olgende</resource>
@@ -81,13 +114,13 @@
 <resource key="af_table.SELECT_RANGE_DISABLED_PREVIOUS" dnt="false">Vorige</resource>
 <resource key="af_treeTable.DISABLED_PREVIOUS" dnt="false">Vorige</resource>
 <!--alternate text for a back arrow image link in the navigation bar-->
-<resource key="af_selectRangeChoiceBar.PREVIOUS_TIP" dnt="false">Vorige set bekijken</resource>
-<resource key="af_table.SELECT_RANGE_PREVIOUS_TIP" dnt="false">Vorige set bekijken</resource>
-<resource key="af_treeTable.PREVIOUS_TIP" dnt="false">Vorige set bekijken</resource>
+<resource key="af_selectRangeChoiceBar.PREVIOUS_TIP" dnt="false">Selecteren om vorige set te bekijken</resource>
+<resource key="af_table.SELECT_RANGE_PREVIOUS_TIP" dnt="false">Selecteren om vorige set te bekijken</resource>
+<resource key="af_treeTable.PREVIOUS_TIP" dnt="false">Selecteren om vorige set te bekijken</resource>
 <!--alternate text for a forward arrow image link in the navigation bar-->
-<resource key="af_selectRangeChoiceBar.NEXT_TIP" dnt="false">Volgende set bekijken</resource>
-<resource key="af_table.SELECT_RANGE_NEXT_TIP" dnt="false">Volgende set bekijken</resource>
-<resource key="af_treeTable.NEXT_TIP" dnt="false">Volgende set bekijken</resource>
+<resource key="af_selectRangeChoiceBar.NEXT_TIP" dnt="false">Selecteren om volgende set te bekijken</resource>
+<resource key="af_table.SELECT_RANGE_NEXT_TIP" dnt="false">Selecteren om volgende set te bekijken</resource>
+<resource key="af_treeTable.NEXT_TIP" dnt="false">Selecteren om volgende set te bekijken</resource>
 <!--alternate text for a disabled back arrow image link in the navigation bar-->
 <resource key="af_table.SELECT_RANGE_PREV_DISABLED_TIP" dnt="false">Vorige functionaliteit is inactief.</resource>
 <resource key="af_selectRangeChoiceBar.PREV_DISABLED_TIP" dnt="false">Vorige functionaliteit is inactief.</resource>
@@ -127,9 +160,9 @@
 <!--{1} -> the last record currently viewed (integer)-->
 <!--{2} -> the total number of records (integer) (optional if total records are known) -->
 <resource key="af_selectRangeChoiceBar.CHOICE_FORMAT_TOTAL" dnt="false">{0}-{1} van {2}</resource>
-<resource key="af_selectRangeChoiceBar.CHOICE_FORMAT_NO_TOTAL" dnt="false">{0}-{1} </resource>
+<resource key="af_selectRangeChoiceBar.CHOICE_FORMAT_NO_TOTAL" dnt="false">{0}-{1}</resource>
 <resource key="af_table.SELECT_RANGE_CHOICE_FORMAT_TOTAL" dnt="false">{0}-{1} van {2}</resource>
-<resource key="af_table.SELECT_RANGE_CHOICE_FORMAT_NO_TOTAL" dnt="false">{0}-{1} </resource>
+<resource key="af_table.SELECT_RANGE_CHOICE_FORMAT_NO_TOTAL" dnt="false">{0}-{1}</resource>
 <!--e.g., Step 1 of 5 -->
 <resource key="af_train.STEP" dnt="false">Stap</resource>
 <resource key="af_singleStepButtonBar.STEP" dnt="false">Stap</resource>
@@ -167,7 +200,7 @@
 <!--http://scout.us.oracle.com/appsui/ss_guidelines/specs/keyboard.html#accelerator -->
 <resource key="af_chooseDate.CANCEL" dnt="false">&amp;Annuleren</resource>
 <!--Tooltip on the date picker button that launches the calendar dialog-->
-<resource key="af_inputDate.LAUNCH_PICKER_TIP" dnt="false">Selecteer voor toegang tot datumkiezer</resource>
+<resource key="af_inputDate.LAUNCH_PICKER_TIP" dnt="false">Selecteren voor toegang tot datumkiezer</resource>
 <!--Title of ColorPicker Dialog-->
 <resource key="af_inputColor.PICKER_TITLE" dnt="false">Kleur kiezen</resource>
 <!--Text for transparent colors-->
@@ -185,23 +218,26 @@
 <!-- The user will also need to press the 'Go' button. -->
 <!-- This should be translated as 'Go' in the sense of 'proceed' -->
 <!-- as in 'Go to the next step' not as 'move'                   -->
-<resource key="af_chooseDate.GO_BUTTON_LABEL" dnt="false">Ga naar</resource>
+<resource key="af_chooseDate.GO_BUTTON_LABEL" dnt="false">Zoek</resource>
 <!--defaults strings for showDetail, showDetailHeader, and showDetail in table -->
 <resource key="af_showDetail.DISCLOSED" dnt="false">Verbergen</resource>
 <resource key="af_showDetail.UNDISCLOSED" dnt="false">Tonen</resource>
-<resource key="af_showDetail.DISCLOSED_TIP" dnt="false">Informatie verbergen</resource>
-<resource key="af_showDetail.UNDISCLOSED_TIP" dnt="false">Informatie tonen</resource>
+<resource key="af_showDetail.DISCLOSED_TIP" dnt="false">Selecteren om informatie te verbergen</resource>
+<resource key="af_showDetail.UNDISCLOSED_TIP" dnt="false">Selecteren om informatie te tonen</resource>
 <resource key="af_showDetailHeader.DISCLOSED" dnt="false">Verbergen</resource>
 <resource key="af_showDetailHeader.UNDISCLOSED" dnt="false">Tonen</resource>
-<resource key="af_showDetailHeader.DISCLOSED_TIP" dnt="false">Informatie verbergen</resource>
-<resource key="af_showDetailHeader.UNDISCLOSED_TIP" dnt="false">Informatie tonen</resource>
+<resource key="af_showDetailHeader.DISCLOSED_TIP" dnt="false">Selecteren om informatie te verbergen</resource>
+<resource key="af_showDetailHeader.UNDISCLOSED_TIP" dnt="false">Selecteren om informatie te tonen</resource>
 <resource key="af_table.DISCLOSED" dnt="false">Verbergen</resource>
 <resource key="af_table.UNDISCLOSED" dnt="false">Tonen</resource>
-<resource key="af_table.DISCLOSED_TIP" dnt="false">Informatie verbergen</resource>
-<resource key="af_table.UNDISCLOSED_TIP" dnt="false">Informatie tonen</resource>
-<!--defaults strings for show, hide in showOnePanel -->
-<resource key="af_showOnePanel.DISCLOSED_TIP" dnt="false">Getoonde informatie</resource>
-<resource key="af_showOnePanel.UNDISCLOSED_TIP" dnt="false">Informatie tonen</resource>
+<resource key="af_table.DISCLOSED_TIP" dnt="false">Selecteren om informatie te verbergen</resource>
+<resource key="af_table.UNDISCLOSED_TIP" dnt="false">Selecteren om informatie te tonen</resource>
+<!--defaults strings for show, hide in showOneAccordion -->
+<resource key="af_showOneAccordion.DISCLOSED_TIP" dnt="false">Getoonde informatie</resource>
+<resource key="af_showOneAccordion.UNDISCLOSED_TIP" dnt="false">Selecteren om informatie te tonen</resource>
+<!--defaults strings for show, hide in showOneAccordion -->
+<resource key="af_panelAccordion.DISCLOSED_TIP" dnt="false">Getoonde informatie</resource>
+<resource key="af_panelAccordion.UNDISCLOSED_TIP" dnt="false">Selecteren om informatie te tonen</resource>
 <!--Alt tag for reordering items up to top-->
 <resource key="af_selectOrderShuttle.REORDER_UP_ALL_TIP" dnt="false">Geselecteerde items naar begin van lijst verplaatsen.</resource>
 <!--Alt tag for reordering items up one-->
@@ -258,12 +294,12 @@
 <!--QuickLinks-->
 <!--Alt tag for returning to the top-->
 <!-- =-=jmw also used in af_page. @todo fix this. -->
-<resource key="af_panelPage.QUICK_LINKS_RETURN_TOP_TIP" dnt="false">Naar het begin van de pagina gaan</resource>
+<resource key="af_panelPage.QUICK_LINKS_RETURN_TOP_TIP" dnt="false">Selecteren om naar het begin van de pagina te gaan</resource>
 <!--Link text for returning to the top-->
 <resource key="af_panelPage.QUICK_LINKS_RETURN_TOP" dnt="false">Terug naar boven</resource>
 <!--Format for the quick links alt tag-->
 <!--{0} - the full name of the header-->
-<resource key="af_panelPage.QUICK_LINKS_TIP_FORMAT" dnt="false">Naar &quot;{0}&quot; op deze pagina gaan.</resource>
+<resource key="af_panelPage.QUICK_LINKS_TIP_FORMAT" dnt="false">Selecteren om naar &quot;{0}&quot; op deze pagina te gaan</resource>
 <!--Train-->
 <!--In all of the following three: {0} - the name of the step-->
 <!--alternate text for a visited-step image in a Train-->
@@ -303,20 +339,20 @@
 <!--Link text for hiding all details-->
 <resource key="af_table.HIDE_ALL_DETAILS" dnt="false">Alle details verbergen</resource>
 <!--Alt text for the icon used to expand a tree node-->
-<resource key="af_tree.EXPAND_TIP" dnt="false">Uitvouwen</resource>
-<resource key="af_treeTable.EXPAND_TIP" dnt="false">Uitvouwen</resource>
-<resource key="af_navigationTree.EXPAND_TIP" dnt="false">Uitvouwen</resource>
+<resource key="af_tree.EXPAND_TIP" dnt="false">Selecteren om uit te vouwen</resource>
+<resource key="af_treeTable.EXPAND_TIP" dnt="false">Selecteren om uit te vouwen</resource>
+<resource key="af_navigationTree.EXPAND_TIP" dnt="false">Selecteren om uit te vouwen</resource>
 <!--Alt text for the icon used to collapse a tree node-->
-<resource key="af_tree.COLLAPSE_TIP" dnt="false">Samenvouwen</resource>
-<resource key="af_treeTable.COLLAPSE_TIP" dnt="false">Samenvouwen</resource>
-<resource key="af_navigationTree.COLLAPSE_TIP" dnt="false">Samenvouwen</resource>
+<resource key="af_tree.COLLAPSE_TIP" dnt="false">Selecteren om samen te vouwen</resource>
+<resource key="af_treeTable.COLLAPSE_TIP" dnt="false">Selecteren om samen te vouwen</resource>
+<resource key="af_navigationTree.COLLAPSE_TIP" dnt="false">Selecteren om samen te vouwen</resource>
 <!--Alt text for the icon used for an expanded tree node that cannot be -->
 <!-- collapsed -->
 <resource key="af_tree.DISABLED_COLLAPSE_TIP" dnt="false">Node uitgevouwen</resource>
 <resource key="af_treeTable.DISABLED_COLLAPSE_TIP" dnt="false">Node uitgevouwen</resource>
 <resource key="af_navigationTree.DISABLED_COLLAPSE_TIP" dnt="false">Node uitgevouwen</resource>
 <!--Alt text for the focus icon-->
-<resource key="af_treeTable.FOCUS_TIP" dnt="false">Focus plaatsen</resource>
+<resource key="af_treeTable.FOCUS_TIP" dnt="false">Selecteren om focus te plaatsen</resource>
 <!--Alt text for the bread crumb start icon-->
 <resource key="af_treeTable.BREADCRUMB_START_TIP" dnt="false">Begin van hiërarchiepad</resource>
 <!-- NODE_LEVEL_TEXT: Indicates the level of a node from root.   -->
@@ -340,6 +376,7 @@
        user would use to skip all the navigation links and jump to the
        content -->
 <resource key="af_panelPage.SKIP_PAST_NAVIGATION" dnt="false">Navigatie-elementen voor pagina-inhoud overslaan</resource>
+<resource key="af_panelPopup.CLOSE" dnt="false">Verbergen</resource>
 <!-- Nav block titles for screenReader mode -->
 <resource key="af_menuButtons.BLOCK_TITLE" dnt="false">Algemene knoppen</resource>
 <resource key="af_panelButtonBar.BLOCK_TITLE" dnt="false">Algemene knoppen</resource>
@@ -378,7 +415,7 @@
 <!-- See FirePartialAction.renderTrigger -->
 <resource key="PPR_TRIGGER_LABEL" dnt="false">Ga naar</resource>
 <!-- Icons are used in the prompts for message components -->
-<!-- e.g., tr:inputText, tr:selectOneChoice -->
+<!-- e.g., af:inputText, af:selectOneChoice -->
 <!--Alternate text for the "error" icon-->
 <resource key="ERROR_TIP" dnt="false">Fout</resource>
 <!--Alternate text for the "warning" icon-->
@@ -403,7 +440,7 @@
 <!-- Text of the ALT tag for the content frame of popup windows -->
 <resource key="FRAME_CONTENT" dnt="false">Inhoud</resource>
 <!-- A message displayed when we think there's a popup blocker installed -->
-<resource key="WINDOW_CREATION_ERROR" dnt="false">In uw browser worden popupvensters geblokkeerd, waardoor de applicatie niet goed wordt uitgevoerd. Schakel de optie voor het blokkeren van popupvensters uit of sta de vensters op deze site toe.</resource>
+<resource key="WINDOW_CREATION_ERROR" dnt="false">In uw browser worden pop-upvensters geblokkeerd, waardoor de applicatie niet goed wordt uitgevoerd. Schakel de optie voor het blokkeren van pop-upvensters uit of sta de vensters op deze site toe.</resource>
 <!-- Text to display in noframes element. This message is set on noframes element,
        when page redirection happens for LOV selection. -->
 <resource key="NO_FRAMES_MESSAGE" dnt="false">Uw browser ondersteunt geen frames. Ondersteuning van frames is voor deze functionaliteit noodzakelijk.</resource>
@@ -412,12 +449,22 @@
 <resource key="SHUTTLE_NO_ITEMS_FEEDBACK" dnt="false">Er zijn geen items om te verplaatsen.</resource>
 <!--Feedback in javascript alert when user tries to use move/remove buttons without selecting items-->
 <resource key="SHUTTLE_NO_ITEM_SELECTED_FEEDBACK" dnt="false">Selecteer eerst alle items die u wilt verplaatsen.</resource>
+<!--resource for af:chart -->
+<resource key="af_chart.IE_SVG_PLUGIN_ERROR_HTML" dnt="false">
+<![CDATA[<H4>Unable to load SVG plugin. Please install the plugin from <a href='#' onclick="window.open('http://www.adobe.com/svg/viewer/install/main.html')">Adobe</a><H4>]]>
+</resource>
+<resource key="af_chart.SVG_ENABLED_BROWSER_ERROR_HTML" dnt="false">
+<![CDATA[<H4>This component needs an SVG enabled browser like Internet Explorer, Firefox 1.5+ or Opera 9.0+<H4>]]>
+</resource>
+<resource key="af_chart.SVG_LOADING_STATUS_HTML" dnt="false">
+<![CDATA[<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>]]>
+</resource>
 <!-- OLD KEYS FOR NOT YET IMPLEMENTED IN ADF FACES -->
 <!--  ******************************************** -->
 <!-- the components that used these keys in 2.2 are not in 3.0 yet -->
 <!-- some might never be (addTableRow, for example). -->
 <!-- Don't delete until the code that uses them is deleted -->
-<!-- resource for tr:treeTOC -->
+<!-- resource for af:treeTOC -->
 <resource key="af_treeTOC.LABEL" dnt="false">Bladeren</resource>
 <resource key="af_treeTOC.CATEGORY_LABEL" dnt="false">Categorieën</resource>
 <resource key="af_treeTOC.ITEM_LABEL" dnt="false">Items</resource>
@@ -539,4 +586,6 @@
 <!-- {0} = message summary                                        -->
 <!-- {1} = message detail                                         -->
 <resource key="af_messages.GLOBAL_MESSAGE_FORMAT" dnt="false">{0} - {1}</resource>
+<resource key="af_statusIndicator.BUSY" dnt="false">Pagina wordt verwerkt.</resource>
+<resource key="af_statusIndicator.READY" dnt="false">Pagina is gereed.</resource>
 </resources>

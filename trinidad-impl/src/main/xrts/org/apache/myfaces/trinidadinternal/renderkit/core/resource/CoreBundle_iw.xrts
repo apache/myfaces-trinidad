@@ -33,19 +33,52 @@
 <!-- af_objectLegend's required icon uses the generic REQUIRED_TIP key -->
 <!--
   -->
-<!--resource for tr:menuChoice -->
+<!--resource for af:menuChoice -->
 <resource key="af_menuChoice.LABEL" dnt="false">החלפה בין יישומים</resource>
 <!-- the tip that is on the Go button next to the Switch Applications choice -->
 <resource key="af_menuChoice.GO_TIP" dnt="false">עבור אל היישום הנבחר</resource>
-<resource key="af_menuChoice.GO" dnt="false">בצע</resource>
+<resource key="af_menuChoice.GO" dnt="false">ביצוע</resource>
 <!--resources for the column headers-->
-<resource key="af_tableSelectMany.SELECT_COLUMN_HEADER" dnt="false">בחר</resource>
-<resource key="af_tableSelectOne.SELECT_COLUMN_HEADER" dnt="false">בחר</resource>
-<!-- The header on the Detail column of tr:table -->
+<resource key="af_tableSelectMany.SELECT_COLUMN_HEADER" dnt="false">בחירה</resource>
+<resource key="af_tableSelectOne.SELECT_COLUMN_HEADER" dnt="false">בחירה</resource>
+<!-- The header on the Detail column of af:table -->
 <resource key="af_table.DETAIL_COLUMN_HEADER" dnt="false">פרטים</resource>
-<!-- The header on the Focus column of tr:treeTable -->
+<!-- Resource for Composite Table -->
+<resource key="afr_compositeTable.MENU_VIEW" dnt="false">View</resource>
+<resource key="afr_compositeTable.MENU_COLUMNS" dnt="false">עמודות</resource>
+<resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWALL" dnt="false">הצג הכל</resource>
+<resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWMORECOLUMNS" dnt="false">הצג עוד עמודות.</resource>
+<resource key="afr_compositeTable.MENUITEM_FREEZE" dnt="false">הקפא</resource>
+<resource key="afr_compositeTable.MENUITEM_MAXIMIZE" dnt="false">הגדל</resource>
+<resource key="afr_compositeTable.MENU_SORT" dnt="false">מיין</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_ASCENDING" dnt="false">בסדר עולה</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_DESCENDING" dnt="false">בסדר יורד</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_ADVANCED" dnt="false">מתקדם..</resource>
+<resource key="afr_compositeTable.MENUITEM_REORDER" dnt="false">סדר מחדש..</resource>
+<resource key="afr_compositeTable.MENU_TOOLBARS" dnt="false">סרגלי כלים</resource>
+<resource key="afr_compositeTable.MENUITEM_TOOLBARS_DEFAULT" dnt="false">ברירת מחדל</resource>
+<resource key="afr_compositeTable.MENUITEM_TOOLBARS_QBE" dnt="false">שאילתא לפי דוגמה</resource>
+<resource key="afr_compositeTable.MENU_FORMAT" dnt="false">תבנית</resource>
+<resource key="afr_compositeTable.MENUITEM_RESIZECOLUMNS" dnt="false">שנה גודל עמודות..</resource>
+<resource key="afr_compositeTable.MENUITEM_RESET" dnt="false">אפס..</resource>
+<resource key="afr_compositeTable.MENUITEM_WRAP" dnt="false">גלישה</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED" dnt="false">שורות שנבחרו:</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED_ALL" dnt="false">הכל</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_HIDDEN" dnt="false">עמודות נסתרות:</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_FROZEN" dnt="false">עמודות מוקפאות:</resource>
+<!-- Resource for Composite Tree Table -->
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND" dnt="false">הרחב</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE" dnt="false">כווץ </resource>
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL_BELOW" dnt="false">הרחב הכל מתחת</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL_BELOW" dnt="false">כווץ הכל מתחת</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL" dnt="false">הרחב הכל</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL" dnt="false">כווץ הכל</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_GO_UP" dnt="false">לך למעלה</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_SHOW_AS_TOP" dnt="false">הצג בתור עליון</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_GO_TO_TOP" dnt="false">לך לראש</resource>
+<!-- The header on the Focus column of af:treeTable -->
 <resource key="af_treeTable.FOCUS_COLUMN_HEADER" dnt="false">מוקד</resource>
-<!-- resources for tr:column -->
+<!-- resources for af:column -->
 <resource key="af_column.SORTED_ASCEND_TIP" dnt="false">ממוין בסדר עולה</resource>
 <resource key="af_column.SORTED_DESCEND_TIP" dnt="false">ממוין בסדר יורד</resource>
 <resource key="af_column.SORTED_SORTABLE_TIP" dnt="false">אינו ממוין</resource>
@@ -64,12 +97,12 @@
 <resource key="af_processChoiceBar.CONTINUE" dnt="false">&amp;המשך</resource>
 <!--navigation bar with a known number of previous records going back-->
 <!--{0} -> how many records to go back (integer)-->
-<resource key="af_selectRangeChoiceBar.PREVIOUS" dnt="false">{0} הקודמים</resource>
-<resource key="af_table.SELECT_RANGE_PREVIOUS" dnt="false">{0} הקודמים</resource>
+<resource key="af_selectRangeChoiceBar.PREVIOUS" dnt="false">{0} הקודם</resource>
+<resource key="af_table.SELECT_RANGE_PREVIOUS" dnt="false">{0} הקודם</resource>
 <!--navigation bar with a known number of next records going forward-->
 <!--{0} -> how many records to go forward (integer)-->
-<resource key="af_selectRangeChoiceBar.NEXT" dnt="false">{0} הבאים</resource>
-<resource key="af_table.SELECT_RANGE_NEXT" dnt="false">{0} הבאים</resource>
+<resource key="af_selectRangeChoiceBar.NEXT" dnt="false">{0} הבא</resource>
+<resource key="af_table.SELECT_RANGE_NEXT" dnt="false">{0} הבא</resource>
 <!--navigation bar with no more records going forward.-->
 <!--the following text will be drawn in a disabled font-->
 <resource key="af_selectRangeChoiceBar.DISABLED_NEXT" dnt="false">הבא</resource>
@@ -98,8 +131,8 @@
 <resource key="af_selectRangeChoiceBar.CHOICE_TIP" dnt="false">בחר קבוצת רשומות</resource>
 <resource key="af_table.SELECT_RANGE_CHOICE_TIP" dnt="false">בחר קבוצת רשומות</resource>
 <!-- Alternate choice text for displaying rows before first row in choice -->
-<resource key="af_selectRangeChoiceBar.PREVIOUS_OPTION" dnt="false">שורות קודמות...</resource>
-<resource key="af_table.SELECT_RANGE_PREVIOUS_OPTION" dnt="false">שורות קודמות...</resource>
+<resource key="af_selectRangeChoiceBar.PREVIOUS_OPTION" dnt="false">קודם...</resource>
+<resource key="af_table.SELECT_RANGE_PREVIOUS_OPTION" dnt="false">קודם...</resource>
 <!-- Alternate choice text for displaying rows after last row in choice -->
 <resource key="af_selectRangeChoiceBar.MORE_OPTION" dnt="false">עוד...</resource>
 <resource key="af_table.SELECT_RANGE_MORE_OPTION" dnt="false">עוד...</resource>
@@ -137,10 +170,10 @@
 <!-- For example, the user will see a required icon and text next to it -->
 <!-- explaining what the icon means. -->
 <!-- * Indicates required field -->
-<resource key="af_objectLegend.REQUIRED_KEY" dnt="false">מציין שדה נדרש</resource>
+<resource key="af_objectLegend.REQUIRED_KEY" dnt="false">מציין שדה חובה</resource>
 <!--Alternate text for the "folder" icon in a tree-->
 <resource key="af_tree.FOLDER_TIP" dnt="false">תיקייה</resource>
-<resource key="af_navigation.FOLDER_TIP" dnt="false">תיקייה</resource>
+<resource key="af_navigationTree.FOLDER_TIP" dnt="false">תיקייה</resource>
 <!-- Contents of summary attribute on calendar table -->
 <resource key="af_chooseDate.SUMMARY" dnt="false">לוח שנה</resource>
 <!--Tooltip on the Calendar's previous month button-->
@@ -165,7 +198,7 @@
 <!--Label for cancel button on Choose Date dialog -->
 <!--the ampersand is used to make the 'l' an accelerator key as described at -->
 <!--http://scout.us.oracle.com/appsui/ss_guidelines/specs/keyboard.html#accelerator -->
-<resource key="af_chooseDate.CANCEL" dnt="false">&amp;בטל</resource>
+<resource key="af_chooseDate.CANCEL" dnt="false">&amp;ביטול</resource>
 <!--Tooltip on the date picker button that launches the calendar dialog-->
 <resource key="af_inputDate.LAUNCH_PICKER_TIP" dnt="false">בחר כדי לגשת אל בורר התאריכים</resource>
 <!--Title of ColorPicker Dialog-->
@@ -177,7 +210,7 @@
 <!--Tooltip on the color picker button that launches the color palette dialog-->
 <resource key="af_inputColor.LAUNCH_PICKER_TIP" dnt="false">בחר כדי לגשת אל בורר הצבעים</resource>
 <!-- Text on the Apply/Cancel buttons on the selectInputColor dialog -->
-<resource key="af_inputColor.APPLY" dnt="false">החל</resource>
+<resource key="af_inputColor.APPLY" dnt="false">החלה</resource>
 <resource key="af_inputColor.CANCEL" dnt="false">ביטול</resource>
 <!-- resource for a go button in chooseDate. -->
 <!-- This button is rendered when javascript is not supported, and as a result -->
@@ -185,23 +218,26 @@
 <!-- The user will also need to press the 'Go' button. -->
 <!-- This should be translated as 'Go' in the sense of 'proceed' -->
 <!-- as in 'Go to the next step' not as 'move'                   -->
-<resource key="af_chooseDate.GO_BUTTON_LABEL" dnt="false">בצע</resource>
+<resource key="af_chooseDate.GO_BUTTON_LABEL" dnt="false">ביצוע</resource>
 <!--defaults strings for showDetail, showDetailHeader, and showDetail in table -->
-<resource key="af_showDetail.DISCLOSED" dnt="false">הסתר</resource>
-<resource key="af_showDetail.UNDISCLOSED" dnt="false">הצג</resource>
+<resource key="af_showDetail.DISCLOSED" dnt="false">הסתרה</resource>
+<resource key="af_showDetail.UNDISCLOSED" dnt="false">הצגה</resource>
 <resource key="af_showDetail.DISCLOSED_TIP" dnt="false">בחר כדי להסתיר פרטים</resource>
 <resource key="af_showDetail.UNDISCLOSED_TIP" dnt="false">בחר כדי להציג פרטים</resource>
-<resource key="af_showDetailHeader.DISCLOSED" dnt="false">הסתר</resource>
-<resource key="af_showDetailHeader.UNDISCLOSED" dnt="false">הצג</resource>
+<resource key="af_showDetailHeader.DISCLOSED" dnt="false">הסתרה</resource>
+<resource key="af_showDetailHeader.UNDISCLOSED" dnt="false">הצגה</resource>
 <resource key="af_showDetailHeader.DISCLOSED_TIP" dnt="false">בחר כדי להסתיר פרטים</resource>
 <resource key="af_showDetailHeader.UNDISCLOSED_TIP" dnt="false">בחר כדי להציג פרטים</resource>
-<resource key="af_table.DISCLOSED" dnt="false">הסתר</resource>
-<resource key="af_table.UNDISCLOSED" dnt="false">הצג</resource>
+<resource key="af_table.DISCLOSED" dnt="false">הסתרה</resource>
+<resource key="af_table.UNDISCLOSED" dnt="false">הצגה</resource>
 <resource key="af_table.DISCLOSED_TIP" dnt="false">בחר כדי להסתיר פרטים</resource>
 <resource key="af_table.UNDISCLOSED_TIP" dnt="false">בחר כדי להציג פרטים</resource>
-<!--defaults strings for show, hide in showOnePanel -->
-<resource key="af_showOnePanel.DISCLOSED_TIP" dnt="false">פרטים שהוצגו</resource>
-<resource key="af_showOnePanel.UNDISCLOSED_TIP" dnt="false">בחר כדי להציג פרטים</resource>
+<!--defaults strings for show, hide in showOneAccordion -->
+<resource key="af_showOneAccordion.DISCLOSED_TIP" dnt="false">פרטים שהוצגו</resource>
+<resource key="af_showOneAccordion.UNDISCLOSED_TIP" dnt="false">בחר כדי להציג פרטים</resource>
+<!--defaults strings for show, hide in showOneAccordion -->
+<resource key="af_panelAccordion.DISCLOSED_TIP" dnt="false">פרטים שהוצגו</resource>
+<resource key="af_panelAccordion.UNDISCLOSED_TIP" dnt="false">בחר כדי להציג פרטים</resource>
 <!--Alt tag for reordering items up to top-->
 <resource key="af_selectOrderShuttle.REORDER_UP_ALL_TIP" dnt="false">העבר את הפריטים שנבחרו לראש הרשימה</resource>
 <!--Alt tag for reordering items up one-->
@@ -211,11 +247,11 @@
 <!--Alt tag for reordering items down one-->
 <resource key="af_selectOrderShuttle.REORDER_DOWN_TIP" dnt="false">הורד את הפריטים שנבחרו שלב אחד ברשימה</resource>
 <!--Text for reordering items to top of list-->
-<resource key="af_selectOrderShuttle.REORDER_UP_ALL" dnt="false">עליון</resource>
+<resource key="af_selectOrderShuttle.REORDER_UP_ALL" dnt="false">ראש</resource>
 <!--Text for reordering items up one position in the list-->
 <resource key="af_selectOrderShuttle.REORDER_UP" dnt="false">למעלה</resource>
 <!--Text for reordering items to bottom of list-->
-<resource key="af_selectOrderShuttle.REORDER_DOWN_ALL" dnt="false">תחתון</resource>
+<resource key="af_selectOrderShuttle.REORDER_DOWN_ALL" dnt="false">תחתית</resource>
 <!--Text for reordering items down one position in the list-->
 <resource key="af_selectOrderShuttle.REORDER_DOWN" dnt="false">למטה</resource>
 <!-- selectOrderShuttle and selectManyShuttle keys-->
@@ -244,8 +280,8 @@
 <resource key="af_selectManyShuttle.REMOVE_ALL" dnt="false">הסר הכל</resource>
 <resource key="af_selectOrderShuttle.REMOVE_ALL" dnt="false">הסר הכל</resource>
 <!--Link text for removing selected items-->
-<resource key="af_selectManyShuttle.REMOVE" dnt="false">הסר</resource>
-<resource key="af_selectOrderShuttle.REMOVE" dnt="false">הסר</resource>
+<resource key="af_selectManyShuttle.REMOVE" dnt="false">הסרה</resource>
+<resource key="af_selectOrderShuttle.REMOVE" dnt="false">הסרה</resource>
 <!--Poll. The button text that the user presses to manually ask for a poll of the server -->
 <resource key="af_poll.MANUAL" dnt="false">דגום שרת</resource>
 <!--Progress-->
@@ -263,7 +299,7 @@
 <resource key="af_panelPage.QUICK_LINKS_RETURN_TOP" dnt="false">חזרה אל ראש הדף</resource>
 <!--Format for the quick links alt tag-->
 <!--{0} - the full name of the header-->
-<resource key="af_panelPage.QUICK_LINKS_TIP_FORMAT" dnt="false">בחר כדי לקפוץ אל &quot;{0}&quot; בתרך הדף</resource>
+<resource key="af_panelPage.QUICK_LINKS_TIP_FORMAT" dnt="false">בחר כדי לקפוץ אל &quot;{0}&quot; בתוך הדף</resource>
 <!--Train-->
 <!--In all of the following three: {0} - the name of the step-->
 <!--alternate text for a visited-step image in a Train-->
@@ -276,7 +312,7 @@
 <!-- eg: Billing Information: Next step -->
 <resource key="af_train.NEXT_TIP" dnt="false">{0}: השלב הבא</resource>
 <!-- text for the "More" text in a Train-->
-<resource key="af_train.MORE" dnt="false">אפשרויות נוספות</resource>
+<resource key="af_train.MORE" dnt="false">עוד</resource>
 <!--text for the "Previous" text in a Train-->
 <resource key="af_train.PREVIOUS" dnt="false">הקודם</resource>
 <!--TabBar. For oracle.desktop skin -->
@@ -305,11 +341,11 @@
 <!--Alt text for the icon used to expand a tree node-->
 <resource key="af_tree.EXPAND_TIP" dnt="false">בחר כדי להרחיב</resource>
 <resource key="af_treeTable.EXPAND_TIP" dnt="false">בחר כדי להרחיב</resource>
-<resource key="af_navigationTree.EXPAND_TIP" dnt="false">בחר כדי להרחיב</resource>
+<resource key="af_navigationTree.EXPAND_TIP" dnt="false">בחר להרחבה</resource>
 <!--Alt text for the icon used to collapse a tree node-->
 <resource key="af_tree.COLLAPSE_TIP" dnt="false">בחר כדי לכווץ</resource>
 <resource key="af_treeTable.COLLAPSE_TIP" dnt="false">בחר כדי לכווץ</resource>
-<resource key="af_navigationTree.COLLAPSE_TIP" dnt="false">בחר כדי לכווץ</resource>
+<resource key="af_navigationTree.COLLAPSE_TIP" dnt="false">בחר לכיווץ</resource>
 <!--Alt text for the icon used for an expanded tree node that cannot be -->
 <!-- collapsed -->
 <resource key="af_tree.DISABLED_COLLAPSE_TIP" dnt="false">צומת מורחב</resource>
@@ -340,6 +376,7 @@
        user would use to skip all the navigation links and jump to the
        content -->
 <resource key="af_panelPage.SKIP_PAST_NAVIGATION" dnt="false">דלג על אלמנטים של ניווט אל תוכן הדף</resource>
+<resource key="af_panelPopup.CLOSE" dnt="false">הסתרה</resource>
 <!-- Nav block titles for screenReader mode -->
 <resource key="af_menuButtons.BLOCK_TITLE" dnt="false">לחצנים גלובליים</resource>
 <resource key="af_panelButtonBar.BLOCK_TITLE" dnt="false">לחצנים גלובליים</resource>
@@ -376,17 +413,17 @@
 <!-- This should be translated as 'Go' in the sense of 'proceed' -->
 <!-- as in 'Go to the next step' not as 'move'                   -->
 <!-- See FirePartialAction.renderTrigger -->
-<resource key="PPR_TRIGGER_LABEL" dnt="false">בצע</resource>
+<resource key="PPR_TRIGGER_LABEL" dnt="false">ביצוע</resource>
 <!-- Icons are used in the prompts for message components -->
-<!-- e.g., tr:inputText, tr:selectOneChoice -->
+<!-- e.g., af:inputText, af:selectOneChoice -->
 <!--Alternate text for the "error" icon-->
 <resource key="ERROR_TIP" dnt="false">שגיאה</resource>
 <!--Alternate text for the "warning" icon-->
 <resource key="WARNING_TIP" dnt="false">אזהרה</resource>
 <!--Alternate text for the "info" icon-->
-<resource key="INFO_TIP" dnt="false">מידע</resource>
+<resource key="INFO_TIP" dnt="false">פרטים</resource>
 <!--Alternate text for the "required" icon-->
-<resource key="REQUIRED_TIP" dnt="false">נדרש</resource>
+<resource key="REQUIRED_TIP" dnt="false">דרוש</resource>
 <!--Link Selection Status-->
 <!-- This is used for better screen reader experience. It is identified by use -->
 <!-- of span in conjuction with link element while rendering. -->
@@ -412,26 +449,36 @@
 <resource key="SHUTTLE_NO_ITEMS_FEEDBACK" dnt="false">אין פריטים להעברה.</resource>
 <!--Feedback in javascript alert when user tries to use move/remove buttons without selecting items-->
 <resource key="SHUTTLE_NO_ITEM_SELECTED_FEEDBACK" dnt="false">נא לבחור תחילה את הפריטים להעברה.</resource>
+<!--resource for af:chart -->
+<resource key="af_chart.IE_SVG_PLUGIN_ERROR_HTML" dnt="false">
+<![CDATA[<H4>Unable to load SVG plugin. Please install the plugin from <a href='#' onclick="window.open('http://www.adobe.com/svg/viewer/install/main.html')">Adobe</a><H4>]]>
+</resource>
+<resource key="af_chart.SVG_ENABLED_BROWSER_ERROR_HTML" dnt="false">
+<![CDATA[<H4>This component needs an SVG enabled browser like Internet Explorer, Firefox 1.5+ or Opera 9.0+<H4>]]>
+</resource>
+<resource key="af_chart.SVG_LOADING_STATUS_HTML" dnt="false">
+<![CDATA[<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>]]>
+</resource>
 <!-- OLD KEYS FOR NOT YET IMPLEMENTED IN ADF FACES -->
 <!--  ******************************************** -->
 <!-- the components that used these keys in 2.2 are not in 3.0 yet -->
 <!-- some might never be (addTableRow, for example). -->
 <!-- Don't delete until the code that uses them is deleted -->
-<!-- resource for tr:treeTOC -->
+<!-- resource for af:treeTOC -->
 <resource key="af_treeTOC.LABEL" dnt="false">עיון</resource>
 <resource key="af_treeTOC.CATEGORY_LABEL" dnt="false">קטגוריות</resource>
 <resource key="af_treeTOC.ITEM_LABEL" dnt="false">פריטים</resource>
 <!--table add row button text for adding one row-->
-<resource key="TABLE_ADD_ROW_SINGLE_TEXT" dnt="false">הוסף עוד שורה</resource>
+<resource key="TABLE_ADD_ROW_SINGLE_TEXT" dnt="false">הוסף שורה</resource>
 <!--table add row button text for adding more than one row-->
 <resource key="TABLE_ADD_ROW_MULTI_TEXT" dnt="false">הוסף {0} שורות </resource>
 <!--table total row button text for updating display-->
 <resource key="TABLE_TOTAL_ROW_BUTTON_TEXT" dnt="false">חשב מחדש</resource>
 <!--table add row button text for adding more than one row-->
-<resource key="TABLE_TOTAL_ROW_TEXT" dnt="false">סיכום</resource>
+<resource key="TABLE_TOTAL_ROW_TEXT" dnt="false">סך הכל</resource>
 <!--LOVChoice-->
 <!--Text for the lovChoice More... option  -->
-<resource key="LOV_CHOICE_MORE_OPTION" dnt="false">עוד...</resource>
+<resource key="LOV_CHOICE_MORE_OPTION" dnt="false">שורות נוספות...</resource>
 <!-- Resources added for the Apps RichTextEditor -->
 <resource key="RTE_CUT_BUTTON_TEXT" dnt="false">גזור</resource>
 <resource key="RTE_COPY_BUTTON_TEXT" dnt="false">העתק</resource>
@@ -449,8 +496,8 @@
 <resource key="RTE_DECREASE_INDENT_BUTTON_TEXT" dnt="false">הקטן כניסה</resource>
 <resource key="RTE_INCREASE_INDENT_BUTTON_TEXT" dnt="false">הגדל כניסה</resource>
 <resource key="RTE_CREATE_HYPERLINK_BUTTON_TEXT" dnt="false">צור היפר-קישור</resource>
-<resource key="RTE_HYPERLINK_POPUP_TEXT" dnt="false">הזן מיקום קישור, למשל http://www.oracle.com</resource>
-<resource key="RTE_CLICK_THRU_URL_BUTTON_TEXT" dnt="false">עבור בלחיצה אל URL של יעד </resource>
+<resource key="RTE_HYPERLINK_POPUP_TEXT" dnt="false">הזן מיקום קישור (למשל http://www.oracle.com)</resource>
+<resource key="RTE_CLICK_THRU_URL_BUTTON_TEXT" dnt="false">לחץ על URL של יעד </resource>
 <resource key="RTE_UPLOAD_IMAGE_BUTTON_TEXT" dnt="false">טען תמונה</resource>
 <resource key="RTE_FONT_CHOICE_TEXT" dnt="false">גופן</resource>
 <resource key="RTE_FONT_SIZE_CHOICE_TEXT" dnt="false">גודל הגופן</resource>
@@ -525,7 +572,7 @@
 <!-- e.g. Next 10                                                   -->
 <resource key="af_treeTable.NAV_CELL_FORMAT_NT_NC_private" dnt="false">{0} {1}</resource>
 <!-- format for link description in a javascript alert -->
-<resource key="af_messages.LIST_FORMAT_private" dnt="false">- {0}</resource>
+<resource key="af_messages.LIST_FORMAT_private" dnt="false"> - {0}</resource>
 <!-- format for global messages                                   -->
 <!--                                                              -->
 <!-- Global messages are not associated with a component, so they -->
@@ -539,4 +586,6 @@
 <!-- {0} = message summary                                        -->
 <!-- {1} = message detail                                         -->
 <resource key="af_messages.GLOBAL_MESSAGE_FORMAT" dnt="false">{0} - {1}</resource>
+<resource key="af_statusIndicator.BUSY" dnt="false">הדף עסוק בעיבוד</resource>
+<resource key="af_statusIndicator.READY" dnt="false">הדף מוכן</resource>
 </resources>
