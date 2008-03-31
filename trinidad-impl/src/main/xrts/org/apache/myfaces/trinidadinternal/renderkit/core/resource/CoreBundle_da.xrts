@@ -33,7 +33,7 @@
 <!-- af_objectLegend's required icon uses the generic REQUIRED_TIP key -->
 <!--
   -->
-<!--resource for tr:menuChoice -->
+<!--resource for af:menuChoice -->
 <resource key="af_menuChoice.LABEL" dnt="false">Skift applikationer</resource>
 <!-- the tip that is on the Go button next to the Switch Applications choice -->
 <resource key="af_menuChoice.GO_TIP" dnt="false">Gå til valgt applikation</resource>
@@ -41,11 +41,44 @@
 <!--resources for the column headers-->
 <resource key="af_tableSelectMany.SELECT_COLUMN_HEADER" dnt="false">Vælg</resource>
 <resource key="af_tableSelectOne.SELECT_COLUMN_HEADER" dnt="false">Vælg</resource>
-<!-- The header on the Detail column of tr:table -->
+<!-- The header on the Detail column of af:table -->
 <resource key="af_table.DETAIL_COLUMN_HEADER" dnt="false">Detaljer</resource>
-<!-- The header on the Focus column of tr:treeTable -->
+<!-- Resource for Composite Table -->
+<resource key="afr_compositeTable.MENU_VIEW" dnt="false">Vis</resource>
+<resource key="afr_compositeTable.MENU_COLUMNS" dnt="false">Kolonner</resource>
+<resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWALL" dnt="false">Vis alle</resource>
+<resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWMORECOLUMNS" dnt="false">Vis flere kolonner..</resource>
+<resource key="afr_compositeTable.MENUITEM_FREEZE" dnt="false">Fastfrys</resource>
+<resource key="afr_compositeTable.MENUITEM_MAXIMIZE" dnt="false">Maksimér</resource>
+<resource key="afr_compositeTable.MENU_SORT" dnt="false">Sortér</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_ASCENDING" dnt="false">Stigende</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_DESCENDING" dnt="false">Faldende</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_ADVANCED" dnt="false">Avanceret..</resource>
+<resource key="afr_compositeTable.MENUITEM_REORDER" dnt="false">Reorganisér..</resource>
+<resource key="afr_compositeTable.MENU_TOOLBARS" dnt="false">Værktøjslinjer</resource>
+<resource key="afr_compositeTable.MENUITEM_TOOLBARS_DEFAULT" dnt="false">Standard</resource>
+<resource key="afr_compositeTable.MENUITEM_TOOLBARS_QBE" dnt="false">Forespørg efter eksempel</resource>
+<resource key="afr_compositeTable.MENU_FORMAT" dnt="false">Formatér</resource>
+<resource key="afr_compositeTable.MENUITEM_RESIZECOLUMNS" dnt="false">Tilpas kolonner..</resource>
+<resource key="afr_compositeTable.MENUITEM_RESET" dnt="false">Nulstil..</resource>
+<resource key="afr_compositeTable.MENUITEM_WRAP" dnt="false">Ombryd</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED" dnt="false">Valgte rækker:</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED_ALL" dnt="false">Alle</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_HIDDEN" dnt="false">Skjulte kolonner:</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_FROZEN" dnt="false">Fastfrosne kolonner:</resource>
+<!-- Resource for Composite Tree Table -->
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND" dnt="false">Udvid</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE" dnt="false">Skjul</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL_BELOW" dnt="false">Udvid alle under</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL_BELOW" dnt="false">Skjul alle under</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL" dnt="false">Udvid alle</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL" dnt="false">Skjul alle</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_GO_UP" dnt="false">Op</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_SHOW_AS_TOP" dnt="false">Vis som top</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_GO_TO_TOP" dnt="false">Gå til top</resource>
+<!-- The header on the Focus column of af:treeTable -->
 <resource key="af_treeTable.FOCUS_COLUMN_HEADER" dnt="false">Fokus</resource>
-<!-- resources for tr:column -->
+<!-- resources for af:column -->
 <resource key="af_column.SORTED_ASCEND_TIP" dnt="false">Sorteret i stigende rækkefølge</resource>
 <resource key="af_column.SORTED_DESCEND_TIP" dnt="false">Sorteret i faldende rækkefølge</resource>
 <resource key="af_column.SORTED_SORTABLE_TIP" dnt="false">Ikke sorteret</resource>
@@ -165,7 +198,7 @@
 <!--Label for cancel button on Choose Date dialog -->
 <!--the ampersand is used to make the 'l' an accelerator key as described at -->
 <!--http://scout.us.oracle.com/appsui/ss_guidelines/specs/keyboard.html#accelerator -->
-<resource key="af_chooseDate.CANCEL" dnt="false">Annu&amp;llér</resource>
+<resource key="af_chooseDate.CANCEL" dnt="false">&amp;Annullér</resource>
 <!--Tooltip on the date picker button that launches the calendar dialog-->
 <resource key="af_inputDate.LAUNCH_PICKER_TIP" dnt="false">Vælg for at få adgang til datovælger</resource>
 <!--Title of ColorPicker Dialog-->
@@ -199,23 +232,26 @@
 <resource key="af_table.UNDISCLOSED" dnt="false">Vis</resource>
 <resource key="af_table.DISCLOSED_TIP" dnt="false">Vælg for at skjule oplysninger</resource>
 <resource key="af_table.UNDISCLOSED_TIP" dnt="false">Vælg for at vise oplysninger</resource>
-<!--defaults strings for show, hide in showOnePanel -->
-<resource key="af_showOnePanel.DISCLOSED_TIP" dnt="false">Viste oplysninger</resource>
-<resource key="af_showOnePanel.UNDISCLOSED_TIP" dnt="false">Vælg for at vise oplysninger</resource>
+<!--defaults strings for show, hide in showOneAccordion -->
+<resource key="af_showOneAccordion.DISCLOSED_TIP" dnt="false">Viste oplysninger</resource>
+<resource key="af_showOneAccordion.UNDISCLOSED_TIP" dnt="false">Vælg for at vise oplysninger</resource>
+<!--defaults strings for show, hide in showOneAccordion -->
+<resource key="af_panelAccordion.DISCLOSED_TIP" dnt="false">Viste oplysninger</resource>
+<resource key="af_panelAccordion.UNDISCLOSED_TIP" dnt="false">Vælg for at vise oplysninger</resource>
 <!--Alt tag for reordering items up to top-->
 <resource key="af_selectOrderShuttle.REORDER_UP_ALL_TIP" dnt="false">Flyt valgte elementer til start af liste</resource>
 <!--Alt tag for reordering items up one-->
-<resource key="af_selectOrderShuttle.REORDER_UP_TIP" dnt="false">Flyt valgte elementer en op på liste</resource>
+<resource key="af_selectOrderShuttle.REORDER_UP_TIP" dnt="false">Flyt valgte elementer én plads op på liste</resource>
 <!--Alt tag for reordering items down to bottom-->
 <resource key="af_selectOrderShuttle.REORDER_DOWN_ALL_TIP" dnt="false">Flyt valgte elementer til slutning af liste</resource>
 <!--Alt tag for reordering items down one-->
-<resource key="af_selectOrderShuttle.REORDER_DOWN_TIP" dnt="false">Flyt valgte elementer en ned på liste</resource>
+<resource key="af_selectOrderShuttle.REORDER_DOWN_TIP" dnt="false">Flyt valgte elementer én plads ned på liste</resource>
 <!--Text for reordering items to top of list-->
-<resource key="af_selectOrderShuttle.REORDER_UP_ALL" dnt="false">Øverst</resource>
+<resource key="af_selectOrderShuttle.REORDER_UP_ALL" dnt="false">Top</resource>
 <!--Text for reordering items up one position in the list-->
 <resource key="af_selectOrderShuttle.REORDER_UP" dnt="false">Op</resource>
 <!--Text for reordering items to bottom of list-->
-<resource key="af_selectOrderShuttle.REORDER_DOWN_ALL" dnt="false">Nederst</resource>
+<resource key="af_selectOrderShuttle.REORDER_DOWN_ALL" dnt="false">Bund</resource>
 <!--Text for reordering items down one position in the list-->
 <resource key="af_selectOrderShuttle.REORDER_DOWN" dnt="false">Ned</resource>
 <!-- selectOrderShuttle and selectManyShuttle keys-->
@@ -276,7 +312,7 @@
 <!-- eg: Billing Information: Next step -->
 <resource key="af_train.NEXT_TIP" dnt="false">{0}: Næste trin</resource>
 <!-- text for the "More" text in a Train-->
-<resource key="af_train.MORE" dnt="false">Flere</resource>
+<resource key="af_train.MORE" dnt="false">Mere</resource>
 <!--text for the "Previous" text in a Train-->
 <resource key="af_train.PREVIOUS" dnt="false">Forrige</resource>
 <!--TabBar. For oracle.desktop skin -->
@@ -293,11 +329,11 @@
 <!--Link text for selecting all rows-->
 <resource key="af_tableSelectMany.SELECT_ALL" dnt="false">Vælg alle</resource>
 <!--Link text for deselecting all rows-->
-<resource key="af_tableSelectMany.SELECT_NONE" dnt="false">Vælg Ingen</resource>
+<resource key="af_tableSelectMany.SELECT_NONE" dnt="false">Vælg ingen</resource>
 <!--Link text for expanding all rows-->
 <resource key="af_treeTable.EXPAND_ALL" dnt="false">Udvid alle</resource>
 <!--Link text for collapsing all rows-->
-<resource key="af_treeTable.COLLAPSE_ALL" dnt="false">Formindsk alle</resource>
+<resource key="af_treeTable.COLLAPSE_ALL" dnt="false">Skjul alle</resource>
 <!--Link text for showing all details-->
 <resource key="af_table.SHOW_ALL_DETAILS" dnt="false">Vis alle detaljer</resource>
 <!--Link text for hiding all details-->
@@ -333,13 +369,14 @@
 <!-- alt text for the icon that indicates a readOnly checkbox in the unchecked state -->
 <resource key="af_selectBooleanCheckbox.READONLY_NOT_CHECKED_TIP" dnt="false">Afkrydsningsfeltet Skrivebeskyttet er ikke markeret</resource>
 <!-- alt text for the icon that indicates a readOnly radioButton in the selected state -->
-<resource key="af_selectBooleanRadio.READONLY_CHECKED_TIP" dnt="false">Valgknappen skrivebeskyttet er valgt</resource>
+<resource key="af_selectBooleanRadio.READONLY_CHECKED_TIP" dnt="false">Valgknappen Skrivebeskyttet er valgt</resource>
 <!-- alt text for the icon that indicates a readOnly radioButton in the unselected state -->
 <resource key="af_selectBooleanRadio.READONLY_NOT_CHECKED_TIP" dnt="false">Valgknappen Skrivebeskyttet er ikke valgt</resource>
 <!-- This is the title of the link at the top of a page that a screen-reader
        user would use to skip all the navigation links and jump to the
        content -->
 <resource key="af_panelPage.SKIP_PAST_NAVIGATION" dnt="false">Spring navigeringselementer over til sideindhold</resource>
+<resource key="af_panelPopup.CLOSE" dnt="false">Skjul</resource>
 <!-- Nav block titles for screenReader mode -->
 <resource key="af_menuButtons.BLOCK_TITLE" dnt="false">Globale knapper</resource>
 <resource key="af_panelButtonBar.BLOCK_TITLE" dnt="false">Globale knapper</resource>
@@ -378,7 +415,7 @@
 <!-- See FirePartialAction.renderTrigger -->
 <resource key="PPR_TRIGGER_LABEL" dnt="false">Start</resource>
 <!-- Icons are used in the prompts for message components -->
-<!-- e.g., tr:inputText, tr:selectOneChoice -->
+<!-- e.g., af:inputText, af:selectOneChoice -->
 <!--Alternate text for the "error" icon-->
 <resource key="ERROR_TIP" dnt="false">Fejl</resource>
 <!--Alternate text for the "warning" icon-->
@@ -386,13 +423,13 @@
 <!--Alternate text for the "info" icon-->
 <resource key="INFO_TIP" dnt="false">Oplysninger</resource>
 <!--Alternate text for the "required" icon-->
-<resource key="REQUIRED_TIP" dnt="false">Påkrævet</resource>
+<resource key="REQUIRED_TIP" dnt="false">Obligatorisk</resource>
 <!--Link Selection Status-->
 <!-- This is used for better screen reader experience. It is identified by use -->
 <!-- of span in conjuction with link element while rendering. -->
 <!-- Eg: <a href="www.oracle.com"><span class="x4h">Selected</span>Oracle</a> -->
 <!-- Thus the screen reader reads it as 'Selected Oracle Link' -->
-<resource key="STATUS_SELECTED" dnt="false">Valgt</resource>
+<resource key="STATUS_SELECTED" dnt="false">Valgte</resource>
 <!-- This is the title of the link at start of each nav block that a screen-reader
        user would use to skip all the navigation links in current block only -->
 <!-- {0} - One of the strings from resource group *_BLOCK_TITLE below
@@ -412,17 +449,27 @@
 <resource key="SHUTTLE_NO_ITEMS_FEEDBACK" dnt="false">Der er ingen elementer at flytte.</resource>
 <!--Feedback in javascript alert when user tries to use move/remove buttons without selecting items-->
 <resource key="SHUTTLE_NO_ITEM_SELECTED_FEEDBACK" dnt="false">Vælg de elementer, der skal flyttes først.</resource>
+<!--resource for af:chart -->
+<resource key="af_chart.IE_SVG_PLUGIN_ERROR_HTML" dnt="false">
+<![CDATA[<H4>Unable to load SVG plugin. Please install the plugin from <a href='#' onclick="window.open('http://www.adobe.com/svg/viewer/install/main.html')">Adobe</a><H4>]]>
+</resource>
+<resource key="af_chart.SVG_ENABLED_BROWSER_ERROR_HTML" dnt="false">
+<![CDATA[<H4>This component needs an SVG enabled browser like Internet Explorer, Firefox 1.5+ or Opera 9.0+<H4>]]>
+</resource>
+<resource key="af_chart.SVG_LOADING_STATUS_HTML" dnt="false">
+<![CDATA[<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>]]>
+</resource>
 <!-- OLD KEYS FOR NOT YET IMPLEMENTED IN ADF FACES -->
 <!--  ******************************************** -->
 <!-- the components that used these keys in 2.2 are not in 3.0 yet -->
 <!-- some might never be (addTableRow, for example). -->
 <!-- Don't delete until the code that uses them is deleted -->
-<!-- resource for tr:treeTOC -->
+<!-- resource for af:treeTOC -->
 <resource key="af_treeTOC.LABEL" dnt="false">Gennemse</resource>
 <resource key="af_treeTOC.CATEGORY_LABEL" dnt="false">Kategorier</resource>
 <resource key="af_treeTOC.ITEM_LABEL" dnt="false">Elementer</resource>
 <!--table add row button text for adding one row-->
-<resource key="TABLE_ADD_ROW_SINGLE_TEXT" dnt="false">Tilføj en række mere</resource>
+<resource key="TABLE_ADD_ROW_SINGLE_TEXT" dnt="false">Tilføj endnu en række</resource>
 <!--table add row button text for adding more than one row-->
 <resource key="TABLE_ADD_ROW_MULTI_TEXT" dnt="false">Tilføj {0} rækker </resource>
 <!--table total row button text for updating display-->
@@ -440,9 +487,9 @@
 <resource key="RTE_ITALIC_BUTTON_TEXT" dnt="false">Kursiv</resource>
 <resource key="RTE_UNDERLINE_BUTTON_TEXT" dnt="false">Understreget</resource>
 <resource key="RTE_BREAK_BUTTON_TEXT" dnt="false">Skift</resource>
-<resource key="RTE_LEFT_ALIGN_BUTTON_TEXT" dnt="false">Venstrejusteret</resource>
-<resource key="RTE_CENTER_ALIGN_BUTTON_TEXT" dnt="false">Centreret</resource>
-<resource key="RTE_RIGHT_ALIGN_BUTTON_TEXT" dnt="false">Højrejusteret</resource>
+<resource key="RTE_LEFT_ALIGN_BUTTON_TEXT" dnt="false">Venstrejustér</resource>
+<resource key="RTE_CENTER_ALIGN_BUTTON_TEXT" dnt="false">Centrér</resource>
+<resource key="RTE_RIGHT_ALIGN_BUTTON_TEXT" dnt="false">Højrejustér</resource>
 <resource key="RTE_HR_BUTTON_TEXT" dnt="false">Vandret-regel</resource>
 <resource key="RTE_NUMBERING_BUTTON_TEXT" dnt="false">Nummereret liste</resource>
 <resource key="RTE_BULLETS_BUTTON_TEXT" dnt="false">Punktopstilling</resource>
@@ -539,4 +586,6 @@
 <!-- {0} = message summary                                        -->
 <!-- {1} = message detail                                         -->
 <resource key="af_messages.GLOBAL_MESSAGE_FORMAT" dnt="false">{0} - {1}</resource>
+<resource key="af_statusIndicator.BUSY" dnt="false">Side er i gang med at behandle</resource>
+<resource key="af_statusIndicator.READY" dnt="false">Side er klar</resource>
 </resources>

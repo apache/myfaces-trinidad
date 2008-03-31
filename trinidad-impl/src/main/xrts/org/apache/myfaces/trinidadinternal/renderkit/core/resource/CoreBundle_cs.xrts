@@ -33,7 +33,7 @@
 <!-- af_objectLegend's required icon uses the generic REQUIRED_TIP key -->
 <!--
   -->
-<!--resource for tr:menuChoice -->
+<!--resource for af:menuChoice -->
 <resource key="af_menuChoice.LABEL" dnt="false">Přepnout aplikace</resource>
 <!-- the tip that is on the Go button next to the Switch Applications choice -->
 <resource key="af_menuChoice.GO_TIP" dnt="false">Přejít na vybranou aplikaci</resource>
@@ -41,11 +41,44 @@
 <!--resources for the column headers-->
 <resource key="af_tableSelectMany.SELECT_COLUMN_HEADER" dnt="false">Vybrat</resource>
 <resource key="af_tableSelectOne.SELECT_COLUMN_HEADER" dnt="false">Vybrat</resource>
-<!-- The header on the Detail column of tr:table -->
+<!-- The header on the Detail column of af:table -->
 <resource key="af_table.DETAIL_COLUMN_HEADER" dnt="false">Podrobnosti</resource>
-<!-- The header on the Focus column of tr:treeTable -->
-<resource key="af_treeTable.FOCUS_COLUMN_HEADER" dnt="false">Přiblížit</resource>
-<!-- resources for tr:column -->
+<!-- Resource for Composite Table -->
+<resource key="afr_compositeTable.MENU_VIEW" dnt="false">Zobrazit</resource>
+<resource key="afr_compositeTable.MENU_COLUMNS" dnt="false">Sloupce</resource>
+<resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWALL" dnt="false">Zobrazit vše</resource>
+<resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWMORECOLUMNS" dnt="false">Zobrazit více sloupců...</resource>
+<resource key="afr_compositeTable.MENUITEM_FREEZE" dnt="false">Zmrazit</resource>
+<resource key="afr_compositeTable.MENUITEM_MAXIMIZE" dnt="false">Maximalizovat</resource>
+<resource key="afr_compositeTable.MENU_SORT" dnt="false">Seřadit</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_ASCENDING" dnt="false">Vzestupně</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_DESCENDING" dnt="false">Sestupně</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_ADVANCED" dnt="false">Rozšířené...</resource>
+<resource key="afr_compositeTable.MENUITEM_REORDER" dnt="false">Změnit pořadí...</resource>
+<resource key="afr_compositeTable.MENU_TOOLBARS" dnt="false">Panel nástrojů</resource>
+<resource key="afr_compositeTable.MENUITEM_TOOLBARS_DEFAULT" dnt="false">Výchozí</resource>
+<resource key="afr_compositeTable.MENUITEM_TOOLBARS_QBE" dnt="false">Dotazovat podle příkladu</resource>
+<resource key="afr_compositeTable.MENU_FORMAT" dnt="false">Formát</resource>
+<resource key="afr_compositeTable.MENUITEM_RESIZECOLUMNS" dnt="false">Změnit velikost sloupců...</resource>
+<resource key="afr_compositeTable.MENUITEM_RESET" dnt="false">Obnovit</resource>
+<resource key="afr_compositeTable.MENUITEM_WRAP" dnt="false">Zalomit</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED" dnt="false">Vybrané řádky:</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED_ALL" dnt="false">Vše</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_HIDDEN" dnt="false">Skryté sloupce:</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_FROZEN" dnt="false">Zmrazené sloupce:</resource>
+<!-- Resource for Composite Tree Table -->
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND" dnt="false">Rozbalit</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE" dnt="false">Sbalit</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL_BELOW" dnt="false">Rozbalit vše níže</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL_BELOW" dnt="false">Sbalit vše níže</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL" dnt="false">Rozbalit vše</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL" dnt="false">Sbalit vše</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_GO_UP" dnt="false">Přejít nahoru</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_SHOW_AS_TOP" dnt="false">Zobrazit nahoře</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_GO_TO_TOP" dnt="false">Přejít nahoru</resource>
+<!-- The header on the Focus column of af:treeTable -->
+<resource key="af_treeTable.FOCUS_COLUMN_HEADER" dnt="false">Aktivní</resource>
+<!-- resources for af:column -->
 <resource key="af_column.SORTED_ASCEND_TIP" dnt="false">Seřazeno vzestupně</resource>
 <resource key="af_column.SORTED_DESCEND_TIP" dnt="false">Seřazeno sestupně</resource>
 <resource key="af_column.SORTED_SORTABLE_TIP" dnt="false">Neseřazeno</resource>
@@ -55,8 +88,8 @@
 <resource key="af_processChoiceBar.BACK" dnt="false">Zpě&amp;t</resource>
 <!--the ampersand is used to make the 'x' an accelerator key as described at -->
 <!--http://scout.us.oracle.com/appsui/ss_guidelines/specs/keyboard.html#accelerator -->
-<resource key="af_singleStepButtonBar.NEXT" dnt="false">Da&amp;lší</resource>
-<resource key="af_processChoiceBar.NEXT" dnt="false">Da&amp;lší</resource>
+<resource key="af_singleStepButtonBar.NEXT" dnt="false">&amp;Následující</resource>
+<resource key="af_processChoiceBar.NEXT" dnt="false">&amp;Následující</resource>
 <!--navigation bar with two records displaying the first page -->
 <!--the ampersand is used to make the 'C' an accelerator key as described at -->
 <!--http://scout.us.oracle.com/appsui/ss_guidelines/specs/keyboard.html#accelerator -->
@@ -101,8 +134,8 @@
 <resource key="af_selectRangeChoiceBar.PREVIOUS_OPTION" dnt="false">Předchozí...</resource>
 <resource key="af_table.SELECT_RANGE_PREVIOUS_OPTION" dnt="false">Předchozí...</resource>
 <!-- Alternate choice text for displaying rows after last row in choice -->
-<resource key="af_selectRangeChoiceBar.MORE_OPTION" dnt="false">Více...</resource>
-<resource key="af_table.SELECT_RANGE_MORE_OPTION" dnt="false">Více...</resource>
+<resource key="af_selectRangeChoiceBar.MORE_OPTION" dnt="false">Další...</resource>
+<resource key="af_table.SELECT_RANGE_MORE_OPTION" dnt="false">Další...</resource>
 <!-- Navigation bar text for asking to show all rows, where -->
 <!-- {0} -> the total number of rows (integer) -->
 <resource key="af_selectRangeChoiceBar.SHOW_ALL" dnt="false">Zobrazit všechny {0}</resource>
@@ -199,9 +232,12 @@
 <resource key="af_table.UNDISCLOSED" dnt="false">Zobrazit</resource>
 <resource key="af_table.DISCLOSED_TIP" dnt="false">Tuto volbu vyberte pro skrytí informací</resource>
 <resource key="af_table.UNDISCLOSED_TIP" dnt="false">Tuto volbu vyberte pro zobrazení informací</resource>
-<!--defaults strings for show, hide in showOnePanel -->
-<resource key="af_showOnePanel.DISCLOSED_TIP" dnt="false">Zobrazené informace</resource>
-<resource key="af_showOnePanel.UNDISCLOSED_TIP" dnt="false">Tuto volbu vyberte pro zobrazení informací</resource>
+<!--defaults strings for show, hide in showOneAccordion -->
+<resource key="af_showOneAccordion.DISCLOSED_TIP" dnt="false">Zobrazené informace</resource>
+<resource key="af_showOneAccordion.UNDISCLOSED_TIP" dnt="false">Tuto volbu vyberte pro zobrazení informací</resource>
+<!--defaults strings for show, hide in showOneAccordion -->
+<resource key="af_panelAccordion.DISCLOSED_TIP" dnt="false">Zobrazené informace</resource>
+<resource key="af_panelAccordion.UNDISCLOSED_TIP" dnt="false">Tuto volbu vyberte pro zobrazení informací</resource>
 <!--Alt tag for reordering items up to top-->
 <resource key="af_selectOrderShuttle.REORDER_UP_ALL_TIP" dnt="false">Přesunout vybrané položky na začátek seznamu</resource>
 <!--Alt tag for reordering items up one-->
@@ -213,7 +249,7 @@
 <!--Text for reordering items to top of list-->
 <resource key="af_selectOrderShuttle.REORDER_UP_ALL" dnt="false">Na začátek</resource>
 <!--Text for reordering items up one position in the list-->
-<resource key="af_selectOrderShuttle.REORDER_UP" dnt="false">Nahoru</resource>
+<resource key="af_selectOrderShuttle.REORDER_UP" dnt="false">Vzhůru</resource>
 <!--Text for reordering items to bottom of list-->
 <resource key="af_selectOrderShuttle.REORDER_DOWN_ALL" dnt="false">Na konec</resource>
 <!--Text for reordering items down one position in the list-->
@@ -247,10 +283,10 @@
 <resource key="af_selectManyShuttle.REMOVE" dnt="false">Odebrat</resource>
 <resource key="af_selectOrderShuttle.REMOVE" dnt="false">Odebrat</resource>
 <!--Poll. The button text that the user presses to manually ask for a poll of the server -->
-<resource key="af_poll.MANUAL" dnt="false">Server hlasování</resource>
+<resource key="af_poll.MANUAL" dnt="false">Sledovací server</resource>
 <!--Progress-->
 <!--Format for the determinate progress icon's alt tag -->
-<resource key="af_progressIndicator.DETERMINATE_TIP" dnt="false">{0}% dokončeno</resource>
+<resource key="af_progressIndicator.DETERMINATE_TIP" dnt="false">Dokončeno: {0}%</resource>
 <!--Header text when messageType is processing -->
 <!--also, Alt text for the progressIndicator component -->
 <resource key="af_progressIndicator.PROCESSING" dnt="false">Probíhá zpracování</resource>
@@ -340,6 +376,7 @@
        user would use to skip all the navigation links and jump to the
        content -->
 <resource key="af_panelPage.SKIP_PAST_NAVIGATION" dnt="false">Přeskočit navigační prvky na obsah stránky</resource>
+<resource key="af_panelPopup.CLOSE" dnt="false">Skrýt</resource>
 <!-- Nav block titles for screenReader mode -->
 <resource key="af_menuButtons.BLOCK_TITLE" dnt="false">Globální tlačítka</resource>
 <resource key="af_panelButtonBar.BLOCK_TITLE" dnt="false">Globální tlačítka</resource>
@@ -378,7 +415,7 @@
 <!-- See FirePartialAction.renderTrigger -->
 <resource key="PPR_TRIGGER_LABEL" dnt="false">Přejít</resource>
 <!-- Icons are used in the prompts for message components -->
-<!-- e.g., tr:inputText, tr:selectOneChoice -->
+<!-- e.g., af:inputText, af:selectOneChoice -->
 <!--Alternate text for the "error" icon-->
 <resource key="ERROR_TIP" dnt="false">Chyba</resource>
 <!--Alternate text for the "warning" icon-->
@@ -412,23 +449,33 @@
 <resource key="SHUTTLE_NO_ITEMS_FEEDBACK" dnt="false">Neexistují položky k přesunutí.</resource>
 <!--Feedback in javascript alert when user tries to use move/remove buttons without selecting items-->
 <resource key="SHUTTLE_NO_ITEM_SELECTED_FEEDBACK" dnt="false">Vyberte položky, které se mají přesunout jako první.</resource>
+<!--resource for af:chart -->
+<resource key="af_chart.IE_SVG_PLUGIN_ERROR_HTML" dnt="false">
+<![CDATA[<H4>Unable to load SVG plugin. Please install the plugin from <a href='#' onclick="window.open('http://www.adobe.com/svg/viewer/install/main.html')">Adobe</a><H4>]]>
+</resource>
+<resource key="af_chart.SVG_ENABLED_BROWSER_ERROR_HTML" dnt="false">
+<![CDATA[<H4>This component needs an SVG enabled browser like Internet Explorer, Firefox 1.5+ or Opera 9.0+<H4>]]>
+</resource>
+<resource key="af_chart.SVG_LOADING_STATUS_HTML" dnt="false">
+<![CDATA[<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>]]>
+</resource>
 <!-- OLD KEYS FOR NOT YET IMPLEMENTED IN ADF FACES -->
 <!--  ******************************************** -->
 <!-- the components that used these keys in 2.2 are not in 3.0 yet -->
 <!-- some might never be (addTableRow, for example). -->
 <!-- Don't delete until the code that uses them is deleted -->
-<!-- resource for tr:treeTOC -->
+<!-- resource for af:treeTOC -->
 <resource key="af_treeTOC.LABEL" dnt="false">Procházet</resource>
 <resource key="af_treeTOC.CATEGORY_LABEL" dnt="false">Kategorie</resource>
 <resource key="af_treeTOC.ITEM_LABEL" dnt="false">Položky</resource>
 <!--table add row button text for adding one row-->
 <resource key="TABLE_ADD_ROW_SINGLE_TEXT" dnt="false">Přidat další řádek</resource>
 <!--table add row button text for adding more than one row-->
-<resource key="TABLE_ADD_ROW_MULTI_TEXT" dnt="false">Přidat následující počet řádků: {0} </resource>
+<resource key="TABLE_ADD_ROW_MULTI_TEXT" dnt="false">Přidat {0} řádků</resource>
 <!--table total row button text for updating display-->
 <resource key="TABLE_TOTAL_ROW_BUTTON_TEXT" dnt="false">Přepočítat</resource>
 <!--table add row button text for adding more than one row-->
-<resource key="TABLE_TOTAL_ROW_TEXT" dnt="false">Celkem</resource>
+<resource key="TABLE_TOTAL_ROW_TEXT" dnt="false">Celkový součet </resource>
 <!--LOVChoice-->
 <!--Text for the lovChoice More... option  -->
 <resource key="LOV_CHOICE_MORE_OPTION" dnt="false">Více...</resource>
@@ -449,8 +496,8 @@
 <resource key="RTE_DECREASE_INDENT_BUTTON_TEXT" dnt="false">Zmenšit odsazení</resource>
 <resource key="RTE_INCREASE_INDENT_BUTTON_TEXT" dnt="false">Zvětšit odsazení</resource>
 <resource key="RTE_CREATE_HYPERLINK_BUTTON_TEXT" dnt="false">Vytvořit hypertextový odkaz</resource>
-<resource key="RTE_HYPERLINK_POPUP_TEXT" dnt="false">Zadat umístění odkazu (např. http://www.oracle.com)</resource>
-<resource key="RTE_CLICK_THRU_URL_BUTTON_TEXT" dnt="false">Cílová adresa URL pro průchod klepnutím</resource>
+<resource key="RTE_HYPERLINK_POPUP_TEXT" dnt="false">Zadat umístění odkazu (př. http://www.oracle.com)</resource>
+<resource key="RTE_CLICK_THRU_URL_BUTTON_TEXT" dnt="false">Klepnutím projít přes cílovou adresu URL</resource>
 <resource key="RTE_UPLOAD_IMAGE_BUTTON_TEXT" dnt="false">Zavést obrázek</resource>
 <resource key="RTE_FONT_CHOICE_TEXT" dnt="false">Písmo</resource>
 <resource key="RTE_FONT_SIZE_CHOICE_TEXT" dnt="false">Velikost písma</resource>
@@ -539,4 +586,6 @@
 <!-- {0} = message summary                                        -->
 <!-- {1} = message detail                                         -->
 <resource key="af_messages.GLOBAL_MESSAGE_FORMAT" dnt="false">{0} - {1}</resource>
+<resource key="af_statusIndicator.BUSY" dnt="false">Stránka je zpracovávána</resource>
+<resource key="af_statusIndicator.READY" dnt="false">Stránka je připravena</resource>
 </resources>

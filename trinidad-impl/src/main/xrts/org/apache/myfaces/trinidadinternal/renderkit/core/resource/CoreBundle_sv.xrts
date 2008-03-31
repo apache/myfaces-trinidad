@@ -33,26 +33,59 @@
 <!-- af_objectLegend's required icon uses the generic REQUIRED_TIP key -->
 <!--
   -->
-<!--resource for tr:menuChoice -->
+<!--resource for af:menuChoice -->
 <resource key="af_menuChoice.LABEL" dnt="false">Växla applikation</resource>
 <!-- the tip that is on the Go button next to the Switch Applications choice -->
 <resource key="af_menuChoice.GO_TIP" dnt="false">Gå till vald applikation</resource>
-<resource key="af_menuChoice.GO" dnt="false">OK</resource>
+<resource key="af_menuChoice.GO" dnt="false">Gå till</resource>
 <!--resources for the column headers-->
 <resource key="af_tableSelectMany.SELECT_COLUMN_HEADER" dnt="false">Välj</resource>
 <resource key="af_tableSelectOne.SELECT_COLUMN_HEADER" dnt="false">Välj</resource>
-<!-- The header on the Detail column of tr:table -->
+<!-- The header on the Detail column of af:table -->
 <resource key="af_table.DETAIL_COLUMN_HEADER" dnt="false">Detaljer</resource>
-<!-- The header on the Focus column of tr:treeTable -->
+<!-- Resource for Composite Table -->
+<resource key="afr_compositeTable.MENU_VIEW" dnt="false">Visa</resource>
+<resource key="afr_compositeTable.MENU_COLUMNS" dnt="false">Kolumner</resource>
+<resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWALL" dnt="false">Visa alla</resource>
+<resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWMORECOLUMNS" dnt="false">Visa fler kolumner..</resource>
+<resource key="afr_compositeTable.MENUITEM_FREEZE" dnt="false">Lås</resource>
+<resource key="afr_compositeTable.MENUITEM_MAXIMIZE" dnt="false">Maximera</resource>
+<resource key="afr_compositeTable.MENU_SORT" dnt="false">Sortera</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_ASCENDING" dnt="false">Stigande</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_DESCENDING" dnt="false">Fallande</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_ADVANCED" dnt="false">Avancerat..</resource>
+<resource key="afr_compositeTable.MENUITEM_REORDER" dnt="false">Sortera om..</resource>
+<resource key="afr_compositeTable.MENU_TOOLBARS" dnt="false">Verktygsfält</resource>
+<resource key="afr_compositeTable.MENUITEM_TOOLBARS_DEFAULT" dnt="false">Standard</resource>
+<resource key="afr_compositeTable.MENUITEM_TOOLBARS_QBE" dnt="false">Fråga per exempel</resource>
+<resource key="afr_compositeTable.MENU_FORMAT" dnt="false">Format</resource>
+<resource key="afr_compositeTable.MENUITEM_RESIZECOLUMNS" dnt="false">Ändra storlek på kolumner..</resource>
+<resource key="afr_compositeTable.MENUITEM_RESET" dnt="false">Återställ..</resource>
+<resource key="afr_compositeTable.MENUITEM_WRAP" dnt="false">Dölj</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED" dnt="false">Valda rader:</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED_ALL" dnt="false">Alla</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_HIDDEN" dnt="false">Dolda kolumner:</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_FROZEN" dnt="false">Frysta kolumner:</resource>
+<!-- Resource for Composite Tree Table -->
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND" dnt="false">Expandera</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE" dnt="false">Komprimera</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL_BELOW" dnt="false">Expandera alla nedan</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL_BELOW" dnt="false">Komprimera alla nedan</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL" dnt="false">Expandera alla</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL" dnt="false">Komprimera alla</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_GO_UP" dnt="false">Uppåt</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_SHOW_AS_TOP" dnt="false">Visa överst</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_GO_TO_TOP" dnt="false">Gå till överst</resource>
+<!-- The header on the Focus column of af:treeTable -->
 <resource key="af_treeTable.FOCUS_COLUMN_HEADER" dnt="false">Fokus</resource>
-<!-- resources for tr:column -->
+<!-- resources for af:column -->
 <resource key="af_column.SORTED_ASCEND_TIP" dnt="false">Sorterade i stigande ordning</resource>
 <resource key="af_column.SORTED_DESCEND_TIP" dnt="false">Sorterade i fallande ordning</resource>
 <resource key="af_column.SORTED_SORTABLE_TIP" dnt="false">Inte sorterade </resource>
 <!--the ampersand is used to make the 'k' an accelerator key as described at -->
 <!--http://scout.us.oracle.com/appsui/ss_guidelines/specs/keyboard.html#accelerator -->
-<resource key="af_singleStepButtonBar.BACK" dnt="false">Tillba&amp;ka</resource>
-<resource key="af_processChoiceBar.BACK" dnt="false">Tillba&amp;ka</resource>
+<resource key="af_singleStepButtonBar.BACK" dnt="false">Före&amp;gående</resource>
+<resource key="af_processChoiceBar.BACK" dnt="false">Före&amp;gående</resource>
 <!--the ampersand is used to make the 'x' an accelerator key as described at -->
 <!--http://scout.us.oracle.com/appsui/ss_guidelines/specs/keyboard.html#accelerator -->
 <resource key="af_singleStepButtonBar.NEXT" dnt="false">Nä&amp;sta</resource>
@@ -81,13 +114,13 @@
 <resource key="af_table.SELECT_RANGE_DISABLED_PREVIOUS" dnt="false">Föregående</resource>
 <resource key="af_treeTable.DISABLED_PREVIOUS" dnt="false">Föregående</resource>
 <!--alternate text for a back arrow image link in the navigation bar-->
-<resource key="af_selectRangeChoiceBar.PREVIOUS_TIP" dnt="false">Klicka här för att se föregående uppsättning</resource>
-<resource key="af_table.SELECT_RANGE_PREVIOUS_TIP" dnt="false">Klicka här för att se föregående uppsättning</resource>
-<resource key="af_treeTable.PREVIOUS_TIP" dnt="false">Klicka här för att se föregående uppsättning</resource>
+<resource key="af_selectRangeChoiceBar.PREVIOUS_TIP" dnt="false">Välj för att se föregående uppsättning</resource>
+<resource key="af_table.SELECT_RANGE_PREVIOUS_TIP" dnt="false">Välj för att se föregående uppsättning</resource>
+<resource key="af_treeTable.PREVIOUS_TIP" dnt="false">Välj för att se föregående uppsättning</resource>
 <!--alternate text for a forward arrow image link in the navigation bar-->
-<resource key="af_selectRangeChoiceBar.NEXT_TIP" dnt="false">Klicka här för att se nästa uppsättning</resource>
-<resource key="af_table.SELECT_RANGE_NEXT_TIP" dnt="false">Klicka här för att se nästa uppsättning</resource>
-<resource key="af_treeTable.NEXT_TIP" dnt="false">Klicka här för att se nästa uppsättning</resource>
+<resource key="af_selectRangeChoiceBar.NEXT_TIP" dnt="false">Välj för att se nästa uppsättning</resource>
+<resource key="af_table.SELECT_RANGE_NEXT_TIP" dnt="false">Välj för att se nästa uppsättning</resource>
+<resource key="af_treeTable.NEXT_TIP" dnt="false">Välj för att se nästa uppsättning</resource>
 <!--alternate text for a disabled back arrow image link in the navigation bar-->
 <resource key="af_table.SELECT_RANGE_PREV_DISABLED_TIP" dnt="false">Föregående-funktionen avaktiverad</resource>
 <resource key="af_selectRangeChoiceBar.PREV_DISABLED_TIP" dnt="false">Föregående-funktionen avaktiverad</resource>
@@ -167,7 +200,7 @@
 <!--http://scout.us.oracle.com/appsui/ss_guidelines/specs/keyboard.html#accelerator -->
 <resource key="af_chooseDate.CANCEL" dnt="false">&amp;Avbryt</resource>
 <!--Tooltip on the date picker button that launches the calendar dialog-->
-<resource key="af_inputDate.LAUNCH_PICKER_TIP" dnt="false">Markera för att få tillgång till datumval</resource>
+<resource key="af_inputDate.LAUNCH_PICKER_TIP" dnt="false">Välj för tillgång till datumval</resource>
 <!--Title of ColorPicker Dialog-->
 <resource key="af_inputColor.PICKER_TITLE" dnt="false">Välj en färg</resource>
 <!--Text for transparent colors-->
@@ -175,7 +208,7 @@
 <!-- Prompt for color field in color picker dialog -->
 <resource key="af_inputColor.PICKER_PROMPT" dnt="false">Färg</resource>
 <!--Tooltip on the color picker button that launches the color palette dialog-->
-<resource key="af_inputColor.LAUNCH_PICKER_TIP" dnt="false">Markera för att få tillgång till färgväljare</resource>
+<resource key="af_inputColor.LAUNCH_PICKER_TIP" dnt="false">Välj för att få tillgång till färgväljare</resource>
 <!-- Text on the Apply/Cancel buttons on the selectInputColor dialog -->
 <resource key="af_inputColor.APPLY" dnt="false">Använd</resource>
 <resource key="af_inputColor.CANCEL" dnt="false">Avbryt</resource>
@@ -189,19 +222,22 @@
 <!--defaults strings for showDetail, showDetailHeader, and showDetail in table -->
 <resource key="af_showDetail.DISCLOSED" dnt="false">Dölj</resource>
 <resource key="af_showDetail.UNDISCLOSED" dnt="false">Visa</resource>
-<resource key="af_showDetail.DISCLOSED_TIP" dnt="false">Klicka här för att dölja information</resource>
-<resource key="af_showDetail.UNDISCLOSED_TIP" dnt="false">Klicka här för att visa information</resource>
+<resource key="af_showDetail.DISCLOSED_TIP" dnt="false">Välj för att dölja information</resource>
+<resource key="af_showDetail.UNDISCLOSED_TIP" dnt="false">Välj för att visa information</resource>
 <resource key="af_showDetailHeader.DISCLOSED" dnt="false">Dölj</resource>
 <resource key="af_showDetailHeader.UNDISCLOSED" dnt="false">Visa</resource>
-<resource key="af_showDetailHeader.DISCLOSED_TIP" dnt="false">Klicka här för att dölja information</resource>
-<resource key="af_showDetailHeader.UNDISCLOSED_TIP" dnt="false">Klicka här för att visa information</resource>
+<resource key="af_showDetailHeader.DISCLOSED_TIP" dnt="false">Välj för att dölja information</resource>
+<resource key="af_showDetailHeader.UNDISCLOSED_TIP" dnt="false">Välj för att visa information</resource>
 <resource key="af_table.DISCLOSED" dnt="false">Dölj</resource>
 <resource key="af_table.UNDISCLOSED" dnt="false">Visa</resource>
-<resource key="af_table.DISCLOSED_TIP" dnt="false">Klicka här för att dölja information</resource>
-<resource key="af_table.UNDISCLOSED_TIP" dnt="false">Klicka här för att visa information</resource>
-<!--defaults strings for show, hide in showOnePanel -->
-<resource key="af_showOnePanel.DISCLOSED_TIP" dnt="false">Visad information</resource>
-<resource key="af_showOnePanel.UNDISCLOSED_TIP" dnt="false">Klicka här för att visa information</resource>
+<resource key="af_table.DISCLOSED_TIP" dnt="false">Välj för att dölja information</resource>
+<resource key="af_table.UNDISCLOSED_TIP" dnt="false">Välj för att visa information</resource>
+<!--defaults strings for show, hide in showOneAccordion -->
+<resource key="af_showOneAccordion.DISCLOSED_TIP" dnt="false">Visad information</resource>
+<resource key="af_showOneAccordion.UNDISCLOSED_TIP" dnt="false">Välj för att visa information</resource>
+<!--defaults strings for show, hide in showOneAccordion -->
+<resource key="af_panelAccordion.DISCLOSED_TIP" dnt="false">Visad information</resource>
+<resource key="af_panelAccordion.UNDISCLOSED_TIP" dnt="false">Välj för att visa information</resource>
 <!--Alt tag for reordering items up to top-->
 <resource key="af_selectOrderShuttle.REORDER_UP_ALL_TIP" dnt="false">Flytta de valda objekten överst i listan</resource>
 <!--Alt tag for reordering items up one-->
@@ -250,7 +286,7 @@
 <resource key="af_poll.MANUAL" dnt="false">Omröstningsserver</resource>
 <!--Progress-->
 <!--Format for the determinate progress icon's alt tag -->
-<resource key="af_progressIndicator.DETERMINATE_TIP" dnt="false">{0}% färdigt</resource>
+<resource key="af_progressIndicator.DETERMINATE_TIP" dnt="false">{0}% slutfört</resource>
 <!--Header text when messageType is processing -->
 <!--also, Alt text for the progressIndicator component -->
 <resource key="af_progressIndicator.PROCESSING" dnt="false">Bearbetar</resource>
@@ -258,7 +294,7 @@
 <!--QuickLinks-->
 <!--Alt tag for returning to the top-->
 <!-- =-=jmw also used in af_page. @todo fix this. -->
-<resource key="af_panelPage.QUICK_LINKS_RETURN_TOP_TIP" dnt="false">Välj för att hoppa till överst på sidan</resource>
+<resource key="af_panelPage.QUICK_LINKS_RETURN_TOP_TIP" dnt="false">Välj för att gå högst upp på sidan</resource>
 <!--Link text for returning to the top-->
 <resource key="af_panelPage.QUICK_LINKS_RETURN_TOP" dnt="false">Tillbaka till början</resource>
 <!--Format for the quick links alt tag-->
@@ -303,22 +339,22 @@
 <!--Link text for hiding all details-->
 <resource key="af_table.HIDE_ALL_DETAILS" dnt="false">Dölj alla detaljer</resource>
 <!--Alt text for the icon used to expand a tree node-->
-<resource key="af_tree.EXPAND_TIP" dnt="false">Klicka här för att expandera</resource>
-<resource key="af_treeTable.EXPAND_TIP" dnt="false">Klicka här för att expandera</resource>
-<resource key="af_navigationTree.EXPAND_TIP" dnt="false">Klicka här för att expandera</resource>
+<resource key="af_tree.EXPAND_TIP" dnt="false">Välj för att expandera</resource>
+<resource key="af_treeTable.EXPAND_TIP" dnt="false">Välj för att expandera</resource>
+<resource key="af_navigationTree.EXPAND_TIP" dnt="false">Välj för att expandera</resource>
 <!--Alt text for the icon used to collapse a tree node-->
-<resource key="af_tree.COLLAPSE_TIP" dnt="false">Klicka här för att komprimera</resource>
-<resource key="af_treeTable.COLLAPSE_TIP" dnt="false">Klicka här för att komprimera</resource>
-<resource key="af_navigationTree.COLLAPSE_TIP" dnt="false">Klicka här för att komprimera</resource>
+<resource key="af_tree.COLLAPSE_TIP" dnt="false">Välj för att komprimera</resource>
+<resource key="af_treeTable.COLLAPSE_TIP" dnt="false">Välj för att komprimera</resource>
+<resource key="af_navigationTree.COLLAPSE_TIP" dnt="false">Välj för att komprimera</resource>
 <!--Alt text for the icon used for an expanded tree node that cannot be -->
 <!-- collapsed -->
-<resource key="af_tree.DISABLED_COLLAPSE_TIP" dnt="false">Utökad nod</resource>
-<resource key="af_treeTable.DISABLED_COLLAPSE_TIP" dnt="false">Utökad nod</resource>
-<resource key="af_navigationTree.DISABLED_COLLAPSE_TIP" dnt="false">Utökad nod</resource>
+<resource key="af_tree.DISABLED_COLLAPSE_TIP" dnt="false">Expanderad nod</resource>
+<resource key="af_treeTable.DISABLED_COLLAPSE_TIP" dnt="false">Expanderad nod</resource>
+<resource key="af_navigationTree.DISABLED_COLLAPSE_TIP" dnt="false">Expanderad nod</resource>
 <!--Alt text for the focus icon-->
-<resource key="af_treeTable.FOCUS_TIP" dnt="false">Klicka här för en närmare vy</resource>
+<resource key="af_treeTable.FOCUS_TIP" dnt="false">Välj för en närmare vy</resource>
 <!--Alt text for the bread crumb start icon-->
-<resource key="af_treeTable.BREADCRUMB_START_TIP" dnt="false">Start för hierarkisk sökväg</resource>
+<resource key="af_treeTable.BREADCRUMB_START_TIP" dnt="false">Start för hierarkisökväg</resource>
 <!-- NODE_LEVEL_TEXT: Indicates the level of a node from root.   -->
 <!-- Makes tree and Hgrid more accesible. Adds the text          -->
 <!--    'Level [depth of the node from root]'                    -->
@@ -333,13 +369,14 @@
 <!-- alt text for the icon that indicates a readOnly checkbox in the unchecked state -->
 <resource key="af_selectBooleanCheckbox.READONLY_NOT_CHECKED_TIP" dnt="false">Skrivskyddad kryssruta är inte markerad</resource>
 <!-- alt text for the icon that indicates a readOnly radioButton in the selected state -->
-<resource key="af_selectBooleanRadio.READONLY_CHECKED_TIP" dnt="false">Alternativknapp för skrivskydd vald </resource>
+<resource key="af_selectBooleanRadio.READONLY_CHECKED_TIP" dnt="false">Alternativknapp för skrivskydd valt</resource>
 <!-- alt text for the icon that indicates a readOnly radioButton in the unselected state -->
-<resource key="af_selectBooleanRadio.READONLY_NOT_CHECKED_TIP" dnt="false">Alternativknapp för skrivskydd inte vald </resource>
+<resource key="af_selectBooleanRadio.READONLY_NOT_CHECKED_TIP" dnt="false">Alternativknapp för skrivskydd inte valt </resource>
 <!-- This is the title of the link at the top of a page that a screen-reader
        user would use to skip all the navigation links and jump to the
        content -->
 <resource key="af_panelPage.SKIP_PAST_NAVIGATION" dnt="false">Hoppa över navigationselementen till sidinnehållet</resource>
+<resource key="af_panelPopup.CLOSE" dnt="false">Dölj</resource>
 <!-- Nav block titles for screenReader mode -->
 <resource key="af_menuButtons.BLOCK_TITLE" dnt="false">Globala knappar</resource>
 <resource key="af_panelButtonBar.BLOCK_TITLE" dnt="false">Globala knappar</resource>
@@ -378,7 +415,7 @@
 <!-- See FirePartialAction.renderTrigger -->
 <resource key="PPR_TRIGGER_LABEL" dnt="false">OK</resource>
 <!-- Icons are used in the prompts for message components -->
-<!-- e.g., tr:inputText, tr:selectOneChoice -->
+<!-- e.g., af:inputText, af:selectOneChoice -->
 <!--Alternate text for the "error" icon-->
 <resource key="ERROR_TIP" dnt="false">Fel</resource>
 <!--Alternate text for the "warning" icon-->
@@ -392,7 +429,7 @@
 <!-- of span in conjuction with link element while rendering. -->
 <!-- Eg: <a href="www.oracle.com"><span class="x4h">Selected</span>Oracle</a> -->
 <!-- Thus the screen reader reads it as 'Selected Oracle Link' -->
-<resource key="STATUS_SELECTED" dnt="false">Vald</resource>
+<resource key="STATUS_SELECTED" dnt="false">Valda</resource>
 <!-- This is the title of the link at start of each nav block that a screen-reader
        user would use to skip all the navigation links in current block only -->
 <!-- {0} - One of the strings from resource group *_BLOCK_TITLE below
@@ -403,32 +440,42 @@
 <!-- Text of the ALT tag for the content frame of popup windows -->
 <resource key="FRAME_CONTENT" dnt="false">Innehåll</resource>
 <!-- A message displayed when we think there's a popup blocker installed -->
-<resource key="WINDOW_CREATION_ERROR" dnt="false">En funktion för blockering av popup-fönster har upptäckts i webbläsaren. Popup-blockerare stör funktionen för den här applikationen. Avaktivera din popup-blockering eller tillåt popup-fönster från den här platsen.</resource>
+<resource key="WINDOW_CREATION_ERROR" dnt="false">En funktion för blockering av popuppfönster har upptäckts i webbläsaren. Popuppblockerare stör funktionen för den här applikationen. Avaktivera din popuppblockering eller tillåt popuppfönster från den här platsen.</resource>
 <!-- Text to display in noframes element. This message is set on noframes element,
        when page redirection happens for LOV selection. -->
-<resource key="NO_FRAMES_MESSAGE" dnt="false">Din webbläsare har inte stöd för ramar. Stöd för ramar krävs för den här funktionen.</resource>
+<resource key="NO_FRAMES_MESSAGE" dnt="false">Webbläsaren har inte stöd för ramar. Den här funktionen kräver stöd för ramar</resource>
 <!--Shuttle strings; used for both selectOrderShuttle and selectManyShuttle-->
 <!--Feedback in javascript alert when user tries to use move/remove buttons when there are no items-->
 <resource key="SHUTTLE_NO_ITEMS_FEEDBACK" dnt="false">Det finns inga poster att flytta.</resource>
 <!--Feedback in javascript alert when user tries to use move/remove buttons without selecting items-->
 <resource key="SHUTTLE_NO_ITEM_SELECTED_FEEDBACK" dnt="false">Välj de objekt du vill flytta först.</resource>
+<!--resource for af:chart -->
+<resource key="af_chart.IE_SVG_PLUGIN_ERROR_HTML" dnt="false">
+<![CDATA[<H4>Unable to load SVG plugin. Please install the plugin from <a href='#' onclick="window.open('http://www.adobe.com/svg/viewer/install/main.html')">Adobe</a><H4>]]>
+</resource>
+<resource key="af_chart.SVG_ENABLED_BROWSER_ERROR_HTML" dnt="false">
+<![CDATA[<H4>This component needs an SVG enabled browser like Internet Explorer, Firefox 1.5+ or Opera 9.0+<H4>]]>
+</resource>
+<resource key="af_chart.SVG_LOADING_STATUS_HTML" dnt="false">
+<![CDATA[<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>]]>
+</resource>
 <!-- OLD KEYS FOR NOT YET IMPLEMENTED IN ADF FACES -->
 <!--  ******************************************** -->
 <!-- the components that used these keys in 2.2 are not in 3.0 yet -->
 <!-- some might never be (addTableRow, for example). -->
 <!-- Don't delete until the code that uses them is deleted -->
-<!-- resource for tr:treeTOC -->
+<!-- resource for af:treeTOC -->
 <resource key="af_treeTOC.LABEL" dnt="false">Bläddra</resource>
 <resource key="af_treeTOC.CATEGORY_LABEL" dnt="false">Kategorier</resource>
 <resource key="af_treeTOC.ITEM_LABEL" dnt="false">Objekt</resource>
 <!--table add row button text for adding one row-->
 <resource key="TABLE_ADD_ROW_SINGLE_TEXT" dnt="false">Lägg till en rad</resource>
 <!--table add row button text for adding more than one row-->
-<resource key="TABLE_ADD_ROW_MULTI_TEXT" dnt="false">Lägg till {0} rader  </resource>
+<resource key="TABLE_ADD_ROW_MULTI_TEXT" dnt="false">Lägg till {0} rader </resource>
 <!--table total row button text for updating display-->
 <resource key="TABLE_TOTAL_ROW_BUTTON_TEXT" dnt="false">Räkna om</resource>
 <!--table add row button text for adding more than one row-->
-<resource key="TABLE_TOTAL_ROW_TEXT" dnt="false">Summa</resource>
+<resource key="TABLE_TOTAL_ROW_TEXT" dnt="false">Total</resource>
 <!--LOVChoice-->
 <!--Text for the lovChoice More... option  -->
 <resource key="LOV_CHOICE_MORE_OPTION" dnt="false">Mer...</resource>
@@ -439,19 +486,19 @@
 <resource key="RTE_BOLD_BUTTON_TEXT" dnt="false">Fetstil</resource>
 <resource key="RTE_ITALIC_BUTTON_TEXT" dnt="false">Kursiv</resource>
 <resource key="RTE_UNDERLINE_BUTTON_TEXT" dnt="false">Understrykning</resource>
-<resource key="RTE_BREAK_BUTTON_TEXT" dnt="false">Bryt</resource>
-<resource key="RTE_LEFT_ALIGN_BUTTON_TEXT" dnt="false">Vänster</resource>
+<resource key="RTE_BREAK_BUTTON_TEXT" dnt="false">Brytning</resource>
+<resource key="RTE_LEFT_ALIGN_BUTTON_TEXT" dnt="false">Vänsterjustera</resource>
 <resource key="RTE_CENTER_ALIGN_BUTTON_TEXT" dnt="false">Centrera</resource>
-<resource key="RTE_RIGHT_ALIGN_BUTTON_TEXT" dnt="false">Höger</resource>
+<resource key="RTE_RIGHT_ALIGN_BUTTON_TEXT" dnt="false">Högerjustera</resource>
 <resource key="RTE_HR_BUTTON_TEXT" dnt="false">Vågrät linje</resource>
 <resource key="RTE_NUMBERING_BUTTON_TEXT" dnt="false">Numrerad lista</resource>
 <resource key="RTE_BULLETS_BUTTON_TEXT" dnt="false">Punktlista</resource>
 <resource key="RTE_DECREASE_INDENT_BUTTON_TEXT" dnt="false">Minska indrag</resource>
 <resource key="RTE_INCREASE_INDENT_BUTTON_TEXT" dnt="false">Öka indrag</resource>
 <resource key="RTE_CREATE_HYPERLINK_BUTTON_TEXT" dnt="false">Skapa hyperlänk</resource>
-<resource key="RTE_HYPERLINK_POPUP_TEXT" dnt="false">Ange sökväg för länk (t.ex. http://www.oracle.com)</resource>
-<resource key="RTE_CLICK_THRU_URL_BUTTON_TEXT" dnt="false">Mål-URL för Click Thru</resource>
-<resource key="RTE_UPLOAD_IMAGE_BUTTON_TEXT" dnt="false">Skicka bild</resource>
+<resource key="RTE_HYPERLINK_POPUP_TEXT" dnt="false">Ange länkadress: (t.ex. http://www.oracle.com)</resource>
+<resource key="RTE_CLICK_THRU_URL_BUTTON_TEXT" dnt="false">Destinations-URL för klickning</resource>
+<resource key="RTE_UPLOAD_IMAGE_BUTTON_TEXT" dnt="false">Ladda upp bild</resource>
 <resource key="RTE_FONT_CHOICE_TEXT" dnt="false">Teckensnitt</resource>
 <resource key="RTE_FONT_SIZE_CHOICE_TEXT" dnt="false">Teckenstorlek</resource>
 <resource key="RTE_FONT_COLOR_CHOICE_TEXT" dnt="false">Teckenfärg</resource>
@@ -464,7 +511,7 @@
 <!--{0}: The label for the search (the title attribute of the template) -->
 <resource key="SEARCH_AND_SELECT_FORMAT" dnt="false">Sök och välj: {0}</resource>
 <!--Text for sub header in LOV Window-->
-<resource key="SEARCH_TEXT" dnt="false">Sök i</resource>
+<resource key="SEARCH_TEXT" dnt="false">Sök</resource>
 <!--Text for simple search half of the search area toggle button -->
 <resource key="SIMPLE_SEARCH_TEXT" dnt="false">Enkel sökning</resource>
 <!--Text for advanced search half of the search area toggle button -->
@@ -539,4 +586,6 @@
 <!-- {0} = message summary                                        -->
 <!-- {1} = message detail                                         -->
 <resource key="af_messages.GLOBAL_MESSAGE_FORMAT" dnt="false">{0} - {1}</resource>
+<resource key="af_statusIndicator.BUSY" dnt="false">Sidan håller på att bearbetas</resource>
+<resource key="af_statusIndicator.READY" dnt="false">Sidan är klar</resource>
 </resources>

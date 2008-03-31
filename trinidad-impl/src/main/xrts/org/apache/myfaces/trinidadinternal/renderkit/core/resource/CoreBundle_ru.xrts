@@ -33,7 +33,7 @@
 <!-- af_objectLegend's required icon uses the generic REQUIRED_TIP key -->
 <!--
   -->
-<!--resource for tr:menuChoice -->
+<!--resource for af:menuChoice -->
 <resource key="af_menuChoice.LABEL" dnt="false">Переключение между приложениями</resource>
 <!-- the tip that is on the Go button next to the Switch Applications choice -->
 <resource key="af_menuChoice.GO_TIP" dnt="false">Перейти в выбранное приложение</resource>
@@ -41,11 +41,44 @@
 <!--resources for the column headers-->
 <resource key="af_tableSelectMany.SELECT_COLUMN_HEADER" dnt="false">Выбрать</resource>
 <resource key="af_tableSelectOne.SELECT_COLUMN_HEADER" dnt="false">Выбрать</resource>
-<!-- The header on the Detail column of tr:table -->
+<!-- The header on the Detail column of af:table -->
 <resource key="af_table.DETAIL_COLUMN_HEADER" dnt="false">Сведения</resource>
-<!-- The header on the Focus column of tr:treeTable -->
+<!-- Resource for Composite Table -->
+<resource key="afr_compositeTable.MENU_VIEW" dnt="false">Представление</resource>
+<resource key="afr_compositeTable.MENU_COLUMNS" dnt="false">Столбцы</resource>
+<resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWALL" dnt="false">Показать все</resource>
+<resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWMORECOLUMNS" dnt="false">Отображать дополнительные столбцы..</resource>
+<resource key="afr_compositeTable.MENUITEM_FREEZE" dnt="false">Фиксировать</resource>
+<resource key="afr_compositeTable.MENUITEM_MAXIMIZE" dnt="false">Развернуть</resource>
+<resource key="afr_compositeTable.MENU_SORT" dnt="false">Сортировать</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_ASCENDING" dnt="false">По возрастанию</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_DESCENDING" dnt="false">По убыванию</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_ADVANCED" dnt="false">Дополнительно..</resource>
+<resource key="afr_compositeTable.MENUITEM_REORDER" dnt="false">Изменить порядок..</resource>
+<resource key="afr_compositeTable.MENU_TOOLBARS" dnt="false">Панели инструментов</resource>
+<resource key="afr_compositeTable.MENUITEM_TOOLBARS_DEFAULT" dnt="false">По умолчанию</resource>
+<resource key="afr_compositeTable.MENUITEM_TOOLBARS_QBE" dnt="false">Запросы по примеру</resource>
+<resource key="afr_compositeTable.MENU_FORMAT" dnt="false">Формат</resource>
+<resource key="afr_compositeTable.MENUITEM_RESIZECOLUMNS" dnt="false">Изменить ширину столбцов..</resource>
+<resource key="afr_compositeTable.MENUITEM_RESET" dnt="false">Сброс</resource>
+<resource key="afr_compositeTable.MENUITEM_WRAP" dnt="false">Переносить</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED" dnt="false">Выбрано строк:</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED_ALL" dnt="false">Все</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_HIDDEN" dnt="false">Скрытые столбцы:</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_FROZEN" dnt="false">Столбцы фиксированы:</resource>
+<!-- Resource for Composite Tree Table -->
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND" dnt="false">Развернуть</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE" dnt="false">Свернуть</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL_BELOW" dnt="false">Раскрыть все ниже</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL_BELOW" dnt="false">Свернуть все ниже</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL" dnt="false">Развернуть все</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL" dnt="false">Свернуть все</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_GO_UP" dnt="false">Перейти вверх</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_SHOW_AS_TOP" dnt="false">Показать как верхние</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_GO_TO_TOP" dnt="false">Перейти к верхнему</resource>
+<!-- The header on the Focus column of af:treeTable -->
 <resource key="af_treeTable.FOCUS_COLUMN_HEADER" dnt="false">Точка управления</resource>
-<!-- resources for tr:column -->
+<!-- resources for af:column -->
 <resource key="af_column.SORTED_ASCEND_TIP" dnt="false">Отсортировано по возрастанию</resource>
 <resource key="af_column.SORTED_DESCEND_TIP" dnt="false">Отсортировано по убыванию</resource>
 <resource key="af_column.SORTED_SORTABLE_TIP" dnt="false">Без сортировки</resource>
@@ -72,14 +105,14 @@
 <resource key="af_table.SELECT_RANGE_NEXT" dnt="false">Следующ. {0}</resource>
 <!--navigation bar with no more records going forward.-->
 <!--the following text will be drawn in a disabled font-->
-<resource key="af_selectRangeChoiceBar.DISABLED_NEXT" dnt="false">Далее</resource>
-<resource key="af_table.SELECT_RANGE_DISABLED_NEXT" dnt="false">Далее</resource>
-<resource key="af_treeTable.DISABLED_NEXT" dnt="false">Далее</resource>
+<resource key="af_selectRangeChoiceBar.DISABLED_NEXT" dnt="false">Следующий</resource>
+<resource key="af_table.SELECT_RANGE_DISABLED_NEXT" dnt="false">Следующий</resource>
+<resource key="af_treeTable.DISABLED_NEXT" dnt="false">Следующий</resource>
 <!--navigation bar with no more records going backward.-->
 <!--the following text will be drawn in a disabled font-->
-<resource key="af_selectRangeChoiceBar.DISABLED_PREVIOUS" dnt="false">Назад</resource>
-<resource key="af_table.SELECT_RANGE_DISABLED_PREVIOUS" dnt="false">Назад</resource>
-<resource key="af_treeTable.DISABLED_PREVIOUS" dnt="false">Назад</resource>
+<resource key="af_selectRangeChoiceBar.DISABLED_PREVIOUS" dnt="false">Предыдущий</resource>
+<resource key="af_table.SELECT_RANGE_DISABLED_PREVIOUS" dnt="false">Предыдущий</resource>
+<resource key="af_treeTable.DISABLED_PREVIOUS" dnt="false">Предыдущий</resource>
 <!--alternate text for a back arrow image link in the navigation bar-->
 <resource key="af_selectRangeChoiceBar.PREVIOUS_TIP" dnt="false">Выберите для просмотра предыдущего набора</resource>
 <resource key="af_table.SELECT_RANGE_PREVIOUS_TIP" dnt="false">Выберите для просмотра предыдущего набора</resource>
@@ -175,7 +208,7 @@
 <!-- Prompt for color field in color picker dialog -->
 <resource key="af_inputColor.PICKER_PROMPT" dnt="false">Цвет</resource>
 <!--Tooltip on the color picker button that launches the color palette dialog-->
-<resource key="af_inputColor.LAUNCH_PICKER_TIP" dnt="false">Выберите для доступа к инструменту выбора цветов</resource>
+<resource key="af_inputColor.LAUNCH_PICKER_TIP" dnt="false">Выберите для доступа к инструменту выбора цвета</resource>
 <!-- Text on the Apply/Cancel buttons on the selectInputColor dialog -->
 <resource key="af_inputColor.APPLY" dnt="false">Применить</resource>
 <resource key="af_inputColor.CANCEL" dnt="false">Отмена</resource>
@@ -199,9 +232,12 @@
 <resource key="af_table.UNDISCLOSED" dnt="false">Показать</resource>
 <resource key="af_table.DISCLOSED_TIP" dnt="false">Выберите, чтобы скрыть информацию</resource>
 <resource key="af_table.UNDISCLOSED_TIP" dnt="false">Выберите, чтобы отобразить информацию</resource>
-<!--defaults strings for show, hide in showOnePanel -->
-<resource key="af_showOnePanel.DISCLOSED_TIP" dnt="false">Отображаемая информация</resource>
-<resource key="af_showOnePanel.UNDISCLOSED_TIP" dnt="false">Выберите, чтобы отобразить информацию</resource>
+<!--defaults strings for show, hide in showOneAccordion -->
+<resource key="af_showOneAccordion.DISCLOSED_TIP" dnt="false">Отображаемая информация</resource>
+<resource key="af_showOneAccordion.UNDISCLOSED_TIP" dnt="false">Выберите, чтобы отобразить информацию</resource>
+<!--defaults strings for show, hide in showOneAccordion -->
+<resource key="af_panelAccordion.DISCLOSED_TIP" dnt="false">Отображаемая информация</resource>
+<resource key="af_panelAccordion.UNDISCLOSED_TIP" dnt="false">Выберите, чтобы отобразить информацию</resource>
 <!--Alt tag for reordering items up to top-->
 <resource key="af_selectOrderShuttle.REORDER_UP_ALL_TIP" dnt="false">Переместить выбранные элементы в начало списка</resource>
 <!--Alt tag for reordering items up one-->
@@ -211,11 +247,11 @@
 <!--Alt tag for reordering items down one-->
 <resource key="af_selectOrderShuttle.REORDER_DOWN_TIP" dnt="false">Переместить выбранные элементы на одну позицию вниз в списке</resource>
 <!--Text for reordering items to top of list-->
-<resource key="af_selectOrderShuttle.REORDER_UP_ALL" dnt="false">В начало</resource>
+<resource key="af_selectOrderShuttle.REORDER_UP_ALL" dnt="false">Вверху</resource>
 <!--Text for reordering items up one position in the list-->
 <resource key="af_selectOrderShuttle.REORDER_UP" dnt="false">Вверх</resource>
 <!--Text for reordering items to bottom of list-->
-<resource key="af_selectOrderShuttle.REORDER_DOWN_ALL" dnt="false">В конец</resource>
+<resource key="af_selectOrderShuttle.REORDER_DOWN_ALL" dnt="false">Внизу</resource>
 <!--Text for reordering items down one position in the list-->
 <resource key="af_selectOrderShuttle.REORDER_DOWN" dnt="false">Вниз</resource>
 <!-- selectOrderShuttle and selectManyShuttle keys-->
@@ -253,14 +289,14 @@
 <resource key="af_progressIndicator.DETERMINATE_TIP" dnt="false">{0}% выполнено</resource>
 <!--Header text when messageType is processing -->
 <!--also, Alt text for the progressIndicator component -->
-<resource key="af_progressIndicator.PROCESSING" dnt="false">Выполняется обработка</resource>
+<resource key="af_progressIndicator.PROCESSING" dnt="false">Обработка</resource>
 <resource key="af_panelTip.TIP" dnt="false">СОВЕТ</resource>
 <!--QuickLinks-->
 <!--Alt tag for returning to the top-->
 <!-- =-=jmw also used in af_page. @todo fix this. -->
 <resource key="af_panelPage.QUICK_LINKS_RETURN_TOP_TIP" dnt="false">Выберите для перехода в начало страницы</resource>
 <!--Link text for returning to the top-->
-<resource key="af_panelPage.QUICK_LINKS_RETURN_TOP" dnt="false">Вернуться в начало страницы</resource>
+<resource key="af_panelPage.QUICK_LINKS_RETURN_TOP" dnt="false">Вернуться в начало</resource>
 <!--Format for the quick links alt tag-->
 <!--{0} - the full name of the header-->
 <resource key="af_panelPage.QUICK_LINKS_TIP_FORMAT" dnt="false">Выберите для перехода к &quot;{0}&quot; на странице</resource>
@@ -278,7 +314,7 @@
 <!-- text for the "More" text in a Train-->
 <resource key="af_train.MORE" dnt="false">Дополнительно</resource>
 <!--text for the "Previous" text in a Train-->
-<resource key="af_train.PREVIOUS" dnt="false">Назад</resource>
+<resource key="af_train.PREVIOUS" dnt="false">Предыдущ.</resource>
 <!--TabBar. For oracle.desktop skin -->
 <!--alternate text for the currently selected TabBar image-->
 <!--{0} - the tab name. eg: Electronics: Currently selected tab-->
@@ -340,6 +376,7 @@
        user would use to skip all the navigation links and jump to the
        content -->
 <resource key="af_panelPage.SKIP_PAST_NAVIGATION" dnt="false">Пропустить элементы навигации и перейти к содержимому страницы</resource>
+<resource key="af_panelPopup.CLOSE" dnt="false">Скрыть</resource>
 <!-- Nav block titles for screenReader mode -->
 <resource key="af_menuButtons.BLOCK_TITLE" dnt="false">Глобальные кнопки</resource>
 <resource key="af_panelButtonBar.BLOCK_TITLE" dnt="false">Глобальные кнопки</resource>
@@ -364,12 +401,12 @@
 <!--title above a confirmation message box-->
 <resource key="af_messages.CONFIRMATION" dnt="false">Подтверждение</resource>
 <!-- text when the processing component is in indeterminate mode in simple skin -->
-<resource key="af_panelHeader.PROCESSING" dnt="false">Выполняется обработка</resource>
+<resource key="af_panelHeader.PROCESSING" dnt="false">Обработка</resource>
 <!--error string for form submission-->
 <resource key="af_form.SUBMIT_ERRORS" dnt="false">Ошибки при проверке формы:</resource>
 <!--resource strings for afh:frameBorderLayout-->
-<resource key="af_frameBorderLayout.VERTICAL_FRAMESET_LAYOUT_CONTAINER_TITLE" dnt="false">Контейнер для левого, центрального и правого фреймов</resource>
-<resource key="af_frameBorderLayout.HORIZONTAL_FRAMESET_LAYOUT_CONTAINER_TITLE" dnt="false">Контейнер для верхнего и нижнего фреймов</resource>
+<resource key="af_frameBorderLayout.VERTICAL_FRAMESET_LAYOUT_CONTAINER_TITLE" dnt="false">Контейнер для левого, центрального и правого фрейма</resource>
+<resource key="af_frameBorderLayout.HORIZONTAL_FRAMESET_LAYOUT_CONTAINER_TITLE" dnt="false">Контейнер для верхнего и нижнего фрейма</resource>
 <!-- In this section are keys that are not component-specific -->
 <!-- ******************************************************** -->
 <!-- resource for a go button -->
@@ -378,7 +415,7 @@
 <!-- See FirePartialAction.renderTrigger -->
 <resource key="PPR_TRIGGER_LABEL" dnt="false">Начать</resource>
 <!-- Icons are used in the prompts for message components -->
-<!-- e.g., tr:inputText, tr:selectOneChoice -->
+<!-- e.g., af:inputText, af:selectOneChoice -->
 <!--Alternate text for the "error" icon-->
 <resource key="ERROR_TIP" dnt="false">Ошибка</resource>
 <!--Alternate text for the "warning" icon-->
@@ -386,7 +423,7 @@
 <!--Alternate text for the "info" icon-->
 <resource key="INFO_TIP" dnt="false">Информация</resource>
 <!--Alternate text for the "required" icon-->
-<resource key="REQUIRED_TIP" dnt="false">Обязательно</resource>
+<resource key="REQUIRED_TIP" dnt="false">Обязательное</resource>
 <!--Link Selection Status-->
 <!-- This is used for better screen reader experience. It is identified by use -->
 <!-- of span in conjuction with link element while rendering. -->
@@ -412,46 +449,56 @@
 <resource key="SHUTTLE_NO_ITEMS_FEEDBACK" dnt="false">Отсутствуют элементы для перемещения.</resource>
 <!--Feedback in javascript alert when user tries to use move/remove buttons without selecting items-->
 <resource key="SHUTTLE_NO_ITEM_SELECTED_FEEDBACK" dnt="false">Сначала выберите элементы для перемещения.</resource>
+<!--resource for af:chart -->
+<resource key="af_chart.IE_SVG_PLUGIN_ERROR_HTML" dnt="false">
+<![CDATA[<H4>Unable to load SVG plugin. Please install the plugin from <a href='#' onclick="window.open('http://www.adobe.com/svg/viewer/install/main.html')">Adobe</a><H4>]]>
+</resource>
+<resource key="af_chart.SVG_ENABLED_BROWSER_ERROR_HTML" dnt="false">
+<![CDATA[<H4>This component needs an SVG enabled browser like Internet Explorer, Firefox 1.5+ or Opera 9.0+<H4>]]>
+</resource>
+<resource key="af_chart.SVG_LOADING_STATUS_HTML" dnt="false">
+<![CDATA[<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>]]>
+</resource>
 <!-- OLD KEYS FOR NOT YET IMPLEMENTED IN ADF FACES -->
 <!--  ******************************************** -->
 <!-- the components that used these keys in 2.2 are not in 3.0 yet -->
 <!-- some might never be (addTableRow, for example). -->
 <!-- Don't delete until the code that uses them is deleted -->
-<!-- resource for tr:treeTOC -->
+<!-- resource for af:treeTOC -->
 <resource key="af_treeTOC.LABEL" dnt="false">Обзор</resource>
 <resource key="af_treeTOC.CATEGORY_LABEL" dnt="false">Категории</resource>
 <resource key="af_treeTOC.ITEM_LABEL" dnt="false">Элементы</resource>
 <!--table add row button text for adding one row-->
-<resource key="TABLE_ADD_ROW_SINGLE_TEXT" dnt="false">Добавить дополнительную строку</resource>
+<resource key="TABLE_ADD_ROW_SINGLE_TEXT" dnt="false">Добавить строку</resource>
 <!--table add row button text for adding more than one row-->
 <resource key="TABLE_ADD_ROW_MULTI_TEXT" dnt="false">Добавить {0} строк </resource>
 <!--table total row button text for updating display-->
 <resource key="TABLE_TOTAL_ROW_BUTTON_TEXT" dnt="false">Пересчитать</resource>
 <!--table add row button text for adding more than one row-->
-<resource key="TABLE_TOTAL_ROW_TEXT" dnt="false">Итог</resource>
+<resource key="TABLE_TOTAL_ROW_TEXT" dnt="false">Итого</resource>
 <!--LOVChoice-->
 <!--Text for the lovChoice More... option  -->
 <resource key="LOV_CHOICE_MORE_OPTION" dnt="false">Дополнительно...</resource>
 <!-- Resources added for the Apps RichTextEditor -->
-<resource key="RTE_CUT_BUTTON_TEXT" dnt="false">Вырезать</resource>
-<resource key="RTE_COPY_BUTTON_TEXT" dnt="false">Копировать</resource>
-<resource key="RTE_PASTE_BUTTON_TEXT" dnt="false">Вставить</resource>
+<resource key="RTE_CUT_BUTTON_TEXT" dnt="false">Вырез.</resource>
+<resource key="RTE_COPY_BUTTON_TEXT" dnt="false">Копир.</resource>
+<resource key="RTE_PASTE_BUTTON_TEXT" dnt="false">Встав.</resource>
 <resource key="RTE_BOLD_BUTTON_TEXT" dnt="false">Полужирный</resource>
 <resource key="RTE_ITALIC_BUTTON_TEXT" dnt="false">Курсив</resource>
-<resource key="RTE_UNDERLINE_BUTTON_TEXT" dnt="false">Подчеркнутый</resource>
+<resource key="RTE_UNDERLINE_BUTTON_TEXT" dnt="false">Подчеркн.</resource>
 <resource key="RTE_BREAK_BUTTON_TEXT" dnt="false">Прервать</resource>
-<resource key="RTE_LEFT_ALIGN_BUTTON_TEXT" dnt="false">Выровнять слева</resource>
-<resource key="RTE_CENTER_ALIGN_BUTTON_TEXT" dnt="false">Выровнять по центру</resource>
-<resource key="RTE_RIGHT_ALIGN_BUTTON_TEXT" dnt="false">Выровнять справа</resource>
+<resource key="RTE_LEFT_ALIGN_BUTTON_TEXT" dnt="false">Выровн. влево</resource>
+<resource key="RTE_CENTER_ALIGN_BUTTON_TEXT" dnt="false">Выровн. по центру</resource>
+<resource key="RTE_RIGHT_ALIGN_BUTTON_TEXT" dnt="false">Выровн. вправо</resource>
 <resource key="RTE_HR_BUTTON_TEXT" dnt="false">Горизонтальная линейка</resource>
-<resource key="RTE_NUMBERING_BUTTON_TEXT" dnt="false">Нумерованный список</resource>
+<resource key="RTE_NUMBERING_BUTTON_TEXT" dnt="false">Нумерованный список заказов</resource>
 <resource key="RTE_BULLETS_BUTTON_TEXT" dnt="false">Маркированный список</resource>
 <resource key="RTE_DECREASE_INDENT_BUTTON_TEXT" dnt="false">Уменьшить отступ</resource>
 <resource key="RTE_INCREASE_INDENT_BUTTON_TEXT" dnt="false">Увеличить отступ</resource>
 <resource key="RTE_CREATE_HYPERLINK_BUTTON_TEXT" dnt="false">Создать гиперссылку</resource>
-<resource key="RTE_HYPERLINK_POPUP_TEXT" dnt="false">Ввести местоположение ссылки (например http://www.oracle.com)</resource>
+<resource key="RTE_HYPERLINK_POPUP_TEXT" dnt="false">Ввести местоположение ссылки (например, http://www.oracle.com)</resource>
 <resource key="RTE_CLICK_THRU_URL_BUTTON_TEXT" dnt="false">Щелкнуть на адресе URL назначения</resource>
-<resource key="RTE_UPLOAD_IMAGE_BUTTON_TEXT" dnt="false">Загрузить рисунок</resource>
+<resource key="RTE_UPLOAD_IMAGE_BUTTON_TEXT" dnt="false">Загрузить изображение</resource>
 <resource key="RTE_FONT_CHOICE_TEXT" dnt="false">Шрифт</resource>
 <resource key="RTE_FONT_SIZE_CHOICE_TEXT" dnt="false">Размер шрифта</resource>
 <resource key="RTE_FONT_COLOR_CHOICE_TEXT" dnt="false">Цвет шрифта</resource>
@@ -462,7 +509,7 @@
 <!--ListOfValues Template-->
 <!--Text for main header LOV Window Header-->
 <!--{0}: The label for the search (the title attribute of the template) -->
-<resource key="SEARCH_AND_SELECT_FORMAT" dnt="false">Найти и выбрать: {0}</resource>
+<resource key="SEARCH_AND_SELECT_FORMAT" dnt="false">Поиск по критерию: {0}</resource>
 <!--Text for sub header in LOV Window-->
 <resource key="SEARCH_TEXT" dnt="false">Поиск</resource>
 <!--Text for simple search half of the search area toggle button -->
@@ -539,4 +586,6 @@
 <!-- {0} = message summary                                        -->
 <!-- {1} = message detail                                         -->
 <resource key="af_messages.GLOBAL_MESSAGE_FORMAT" dnt="false">{0} - {1}</resource>
+<resource key="af_statusIndicator.BUSY" dnt="false">Страница занята в обработке</resource>
+<resource key="af_statusIndicator.READY" dnt="false">Страница готова</resource>
 </resources>

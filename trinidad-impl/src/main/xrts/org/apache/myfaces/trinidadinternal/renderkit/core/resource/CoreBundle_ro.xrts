@@ -33,7 +33,7 @@
 <!-- af_objectLegend's required icon uses the generic REQUIRED_TIP key -->
 <!--
   -->
-<!--resource for tr:menuChoice -->
+<!--resource for af:menuChoice -->
 <resource key="af_menuChoice.LABEL" dnt="false">Comutare aplicaţii</resource>
 <!-- the tip that is on the Go button next to the Switch Applications choice -->
 <resource key="af_menuChoice.GO_TIP" dnt="false">Deplasare la aplicaţia selectată</resource>
@@ -41,14 +41,47 @@
 <!--resources for the column headers-->
 <resource key="af_tableSelectMany.SELECT_COLUMN_HEADER" dnt="false">Selectare</resource>
 <resource key="af_tableSelectOne.SELECT_COLUMN_HEADER" dnt="false">Selectare</resource>
-<!-- The header on the Detail column of tr:table -->
+<!-- The header on the Detail column of af:table -->
 <resource key="af_table.DETAIL_COLUMN_HEADER" dnt="false">Detalii</resource>
-<!-- The header on the Focus column of tr:treeTable -->
+<!-- Resource for Composite Table -->
+<resource key="afr_compositeTable.MENU_VIEW" dnt="false">Vizualizare</resource>
+<resource key="afr_compositeTable.MENU_COLUMNS" dnt="false">Coloane</resource>
+<resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWALL" dnt="false">Afişare globală</resource>
+<resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWMORECOLUMNS" dnt="false">Afişare mai multe coloane...</resource>
+<resource key="afr_compositeTable.MENUITEM_FREEZE" dnt="false">Îngheţare</resource>
+<resource key="afr_compositeTable.MENUITEM_MAXIMIZE" dnt="false">Maximizare</resource>
+<resource key="afr_compositeTable.MENU_SORT" dnt="false">Sortare</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_ASCENDING" dnt="false">Crescător</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_DESCENDING" dnt="false">Descrescător</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_ADVANCED" dnt="false">Avansat...</resource>
+<resource key="afr_compositeTable.MENUITEM_REORDER" dnt="false">Reordonare...</resource>
+<resource key="afr_compositeTable.MENU_TOOLBARS" dnt="false">Bare cu instrumente</resource>
+<resource key="afr_compositeTable.MENUITEM_TOOLBARS_DEFAULT" dnt="false">Prestabilit</resource>
+<resource key="afr_compositeTable.MENUITEM_TOOLBARS_QBE" dnt="false">Interogare prin exemplu</resource>
+<resource key="afr_compositeTable.MENU_FORMAT" dnt="false">Format</resource>
+<resource key="afr_compositeTable.MENUITEM_RESIZECOLUMNS" dnt="false">Redimensionare coloane...</resource>
+<resource key="afr_compositeTable.MENUITEM_RESET" dnt="false">Resetare...</resource>
+<resource key="afr_compositeTable.MENUITEM_WRAP" dnt="false">Încadrare</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED" dnt="false">Rânduri selectate:</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED_ALL" dnt="false">Toate</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_HIDDEN" dnt="false">Coloane ascunse:</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_FROZEN" dnt="false">Coloane îngheţate:</resource>
+<!-- Resource for Composite Tree Table -->
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND" dnt="false">Expandare</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE" dnt="false">Restrângere</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL_BELOW" dnt="false">Expandare toate de mai jos</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL_BELOW" dnt="false">Restrângere toate de mai jos</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL" dnt="false">Expandare globală</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL" dnt="false">Restrângere globală</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_GO_UP" dnt="false">Deplasare în sus</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_SHOW_AS_TOP" dnt="false">Afişare în partea de sus</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_GO_TO_TOP" dnt="false">Deplasare în sus</resource>
+<!-- The header on the Focus column of af:treeTable -->
 <resource key="af_treeTable.FOCUS_COLUMN_HEADER" dnt="false">Focalizare</resource>
-<!-- resources for tr:column -->
-<resource key="af_column.SORTED_ASCEND_TIP" dnt="false">Sortate în ordine ascendentă</resource>
-<resource key="af_column.SORTED_DESCEND_TIP" dnt="false">Sortate în ordine descendentă</resource>
-<resource key="af_column.SORTED_SORTABLE_TIP" dnt="false">Nesortat</resource>
+<!-- resources for af:column -->
+<resource key="af_column.SORTED_ASCEND_TIP" dnt="false">Sortare în ordine ascendentă</resource>
+<resource key="af_column.SORTED_DESCEND_TIP" dnt="false">Sortare în ordine descendentă</resource>
+<resource key="af_column.SORTED_SORTABLE_TIP" dnt="false">Fără sortare</resource>
 <!--the ampersand is used to make the 'k' an accelerator key as described at -->
 <!--http://scout.us.oracle.com/appsui/ss_guidelines/specs/keyboard.html#accelerator -->
 <resource key="af_singleStepButtonBar.BACK" dnt="false">Î&amp;napoi</resource>
@@ -72,14 +105,14 @@
 <resource key="af_table.SELECT_RANGE_NEXT" dnt="false">Înainte cu {0}</resource>
 <!--navigation bar with no more records going forward.-->
 <!--the following text will be drawn in a disabled font-->
-<resource key="af_selectRangeChoiceBar.DISABLED_NEXT" dnt="false">Următor</resource>
-<resource key="af_table.SELECT_RANGE_DISABLED_NEXT" dnt="false">Următor</resource>
-<resource key="af_treeTable.DISABLED_NEXT" dnt="false">Următor</resource>
+<resource key="af_selectRangeChoiceBar.DISABLED_NEXT" dnt="false">Înainte</resource>
+<resource key="af_table.SELECT_RANGE_DISABLED_NEXT" dnt="false">Înainte</resource>
+<resource key="af_treeTable.DISABLED_NEXT" dnt="false">Înainte</resource>
 <!--navigation bar with no more records going backward.-->
 <!--the following text will be drawn in a disabled font-->
-<resource key="af_selectRangeChoiceBar.DISABLED_PREVIOUS" dnt="false">Precedent</resource>
-<resource key="af_table.SELECT_RANGE_DISABLED_PREVIOUS" dnt="false">Precedent</resource>
-<resource key="af_treeTable.DISABLED_PREVIOUS" dnt="false">Precedent</resource>
+<resource key="af_selectRangeChoiceBar.DISABLED_PREVIOUS" dnt="false">Înapoi</resource>
+<resource key="af_table.SELECT_RANGE_DISABLED_PREVIOUS" dnt="false">Înapoi</resource>
+<resource key="af_treeTable.DISABLED_PREVIOUS" dnt="false">Înapoi</resource>
 <!--alternate text for a back arrow image link in the navigation bar-->
 <resource key="af_selectRangeChoiceBar.PREVIOUS_TIP" dnt="false">Se selectează pentru a vizualiza setul precedent</resource>
 <resource key="af_table.SELECT_RANGE_PREVIOUS_TIP" dnt="false">Se selectează pentru a vizualiza setul precedent</resource>
@@ -89,17 +122,17 @@
 <resource key="af_table.SELECT_RANGE_NEXT_TIP" dnt="false">Se selectează pentru a vizualiza setul următor</resource>
 <resource key="af_treeTable.NEXT_TIP" dnt="false">Se selectează pentru a vizualiza setul următor</resource>
 <!--alternate text for a disabled back arrow image link in the navigation bar-->
-<resource key="af_table.SELECT_RANGE_PREV_DISABLED_TIP" dnt="false">Funcţionalitatea Precedent este dezactivată</resource>
-<resource key="af_selectRangeChoiceBar.PREV_DISABLED_TIP" dnt="false">Funcţionalitatea Precedent este dezactivată</resource>
+<resource key="af_table.SELECT_RANGE_PREV_DISABLED_TIP" dnt="false">Funcţionalitatea &quot;Înapoi&quot; este dezactivată</resource>
+<resource key="af_selectRangeChoiceBar.PREV_DISABLED_TIP" dnt="false">Funcţionalitatea &quot;Înapoi&quot; este dezactivată</resource>
 <!--alternate text for a disabled forward arrow image link in the navigation bar-->
-<resource key="af_table.SELECT_RANGE_NEXT_DISABLED_TIP" dnt="false">Funcţionalitatea Următor este dezactivată</resource>
-<resource key="af_selectRangeChoiceBar.NEXT_DISABLED_TIP" dnt="false">Funcţionalitatea Următor este dezactivată</resource>
+<resource key="af_table.SELECT_RANGE_NEXT_DISABLED_TIP" dnt="false">Funcţionalitatea &quot;Înainte&quot; este dezactivată</resource>
+<resource key="af_selectRangeChoiceBar.NEXT_DISABLED_TIP" dnt="false">Funcţionalitatea &quot;Înainte&quot; este dezactivată</resource>
 <!-- roll over text for the choice in the multi step navbar -->
 <resource key="af_selectRangeChoiceBar.CHOICE_TIP" dnt="false">Selectare set de înregistrări</resource>
 <resource key="af_table.SELECT_RANGE_CHOICE_TIP" dnt="false">Selectare set de înregistrări</resource>
 <!-- Alternate choice text for displaying rows before first row in choice -->
-<resource key="af_selectRangeChoiceBar.PREVIOUS_OPTION" dnt="false">Precedente...</resource>
-<resource key="af_table.SELECT_RANGE_PREVIOUS_OPTION" dnt="false">Precedente...</resource>
+<resource key="af_selectRangeChoiceBar.PREVIOUS_OPTION" dnt="false">Înapoi...</resource>
+<resource key="af_table.SELECT_RANGE_PREVIOUS_OPTION" dnt="false">Înapoi...</resource>
 <!-- Alternate choice text for displaying rows after last row in choice -->
 <resource key="af_selectRangeChoiceBar.MORE_OPTION" dnt="false">Mai multe...</resource>
 <resource key="af_table.SELECT_RANGE_MORE_OPTION" dnt="false">Mai multe...</resource>
@@ -131,8 +164,8 @@
 <resource key="af_table.SELECT_RANGE_CHOICE_FORMAT_TOTAL" dnt="false">{0}-{1} din {2}</resource>
 <resource key="af_table.SELECT_RANGE_CHOICE_FORMAT_NO_TOTAL" dnt="false">{0}-{1}</resource>
 <!--e.g., Step 1 of 5 -->
-<resource key="af_train.STEP" dnt="false">Pasul</resource>
-<resource key="af_singleStepButtonBar.STEP" dnt="false">Pasul</resource>
+<resource key="af_train.STEP" dnt="false">Pas</resource>
+<resource key="af_singleStepButtonBar.STEP" dnt="false">Pas</resource>
 <!-- Text for the key to the "required" icon-->
 <!-- For example, the user will see a required icon and text next to it -->
 <!-- explaining what the icon means. -->
@@ -189,19 +222,22 @@
 <!--defaults strings for showDetail, showDetailHeader, and showDetail in table -->
 <resource key="af_showDetail.DISCLOSED" dnt="false">Ascundere</resource>
 <resource key="af_showDetail.UNDISCLOSED" dnt="false">Afişare</resource>
-<resource key="af_showDetail.DISCLOSED_TIP" dnt="false">Se selectează pentru a ascunde informaţiile</resource>
-<resource key="af_showDetail.UNDISCLOSED_TIP" dnt="false">Se selectează pentru a afişa informaţiile</resource>
+<resource key="af_showDetail.DISCLOSED_TIP" dnt="false">Se selectează pentru ascunderea informaţiilor</resource>
+<resource key="af_showDetail.UNDISCLOSED_TIP" dnt="false">Se selectează pentru afişarea informaţiilor</resource>
 <resource key="af_showDetailHeader.DISCLOSED" dnt="false">Ascundere</resource>
 <resource key="af_showDetailHeader.UNDISCLOSED" dnt="false">Afişare</resource>
-<resource key="af_showDetailHeader.DISCLOSED_TIP" dnt="false">Se selectează pentru a ascunde informaţiile</resource>
-<resource key="af_showDetailHeader.UNDISCLOSED_TIP" dnt="false">Se selectează pentru a afişa informaţiile</resource>
+<resource key="af_showDetailHeader.DISCLOSED_TIP" dnt="false">Se selectează pentru ascunderea informaţiilor</resource>
+<resource key="af_showDetailHeader.UNDISCLOSED_TIP" dnt="false">Se selectează pentru afişarea informaţiilor</resource>
 <resource key="af_table.DISCLOSED" dnt="false">Ascundere</resource>
 <resource key="af_table.UNDISCLOSED" dnt="false">Afişare</resource>
-<resource key="af_table.DISCLOSED_TIP" dnt="false">Se selectează pentru a ascunde informaţiile</resource>
-<resource key="af_table.UNDISCLOSED_TIP" dnt="false">Se selectează pentru a afişa informaţiile</resource>
-<!--defaults strings for show, hide in showOnePanel -->
-<resource key="af_showOnePanel.DISCLOSED_TIP" dnt="false">Informaţii afişate</resource>
-<resource key="af_showOnePanel.UNDISCLOSED_TIP" dnt="false">Se selectează pentru a afişa informaţiile</resource>
+<resource key="af_table.DISCLOSED_TIP" dnt="false">Se selectează pentru ascunderea informaţiilor</resource>
+<resource key="af_table.UNDISCLOSED_TIP" dnt="false">Se selectează pentru afişarea informaţiilor</resource>
+<!--defaults strings for show, hide in showOneAccordion -->
+<resource key="af_showOneAccordion.DISCLOSED_TIP" dnt="false">Informaţii afişate</resource>
+<resource key="af_showOneAccordion.UNDISCLOSED_TIP" dnt="false">Se selectează pentru a afişa informaţiile</resource>
+<!--defaults strings for show, hide in showOneAccordion -->
+<resource key="af_panelAccordion.DISCLOSED_TIP" dnt="false">Informaţii afişate</resource>
+<resource key="af_panelAccordion.UNDISCLOSED_TIP" dnt="false">Se selectează pentru a afişa informaţiile</resource>
 <!--Alt tag for reordering items up to top-->
 <resource key="af_selectOrderShuttle.REORDER_UP_ALL_TIP" dnt="false">Mutare elemente selectate la începutul listei</resource>
 <!--Alt tag for reordering items up one-->
@@ -211,11 +247,11 @@
 <!--Alt tag for reordering items down one-->
 <resource key="af_selectOrderShuttle.REORDER_DOWN_TIP" dnt="false">Mutare elemente selectate cu o poziţie mai jos în listă</resource>
 <!--Text for reordering items to top of list-->
-<resource key="af_selectOrderShuttle.REORDER_UP_ALL" dnt="false">Începutul listei</resource>
+<resource key="af_selectOrderShuttle.REORDER_UP_ALL" dnt="false">La început</resource>
 <!--Text for reordering items up one position in the list-->
 <resource key="af_selectOrderShuttle.REORDER_UP" dnt="false">Sus</resource>
 <!--Text for reordering items to bottom of list-->
-<resource key="af_selectOrderShuttle.REORDER_DOWN_ALL" dnt="false">Sfârşitul listei</resource>
+<resource key="af_selectOrderShuttle.REORDER_DOWN_ALL" dnt="false">La sfârşit</resource>
 <!--Text for reordering items down one position in the list-->
 <resource key="af_selectOrderShuttle.REORDER_DOWN" dnt="false">Jos</resource>
 <!-- selectOrderShuttle and selectManyShuttle keys-->
@@ -247,7 +283,7 @@
 <resource key="af_selectManyShuttle.REMOVE" dnt="false">Eliminare</resource>
 <resource key="af_selectOrderShuttle.REMOVE" dnt="false">Eliminare</resource>
 <!--Poll. The button text that the user presses to manually ask for a poll of the server -->
-<resource key="af_poll.MANUAL" dnt="false">Server de interogare</resource>
+<resource key="af_poll.MANUAL" dnt="false">Interogare server</resource>
 <!--Progress-->
 <!--Format for the determinate progress icon's alt tag -->
 <resource key="af_progressIndicator.DETERMINATE_TIP" dnt="false">Finalizat {0}%</resource>
@@ -268,21 +304,21 @@
 <!--In all of the following three: {0} - the name of the step-->
 <!--alternate text for a visited-step image in a Train-->
 <!-- eg: Billing Information: Previously visited step -->
-<resource key="af_train.VISITED_TIP" dnt="false">{0}: Pasul vizitat anterior</resource>
+<resource key="af_train.VISITED_TIP" dnt="false">{0}: Pas vizitat anterior</resource>
 <!--alternate text for the current-step image in a Train-->
 <!-- eg: Billing Information: Active step -->
-<resource key="af_train.ACTIVE_TIP" dnt="false">{0}: Pasul curent</resource>
+<resource key="af_train.ACTIVE_TIP" dnt="false">{0}: Pas activ</resource>
 <!--alternate text for the next-step images in a Train-->
 <!-- eg: Billing Information: Next step -->
 <resource key="af_train.NEXT_TIP" dnt="false">{0}: Pasul următor</resource>
 <!-- text for the "More" text in a Train-->
 <resource key="af_train.MORE" dnt="false">Mai multe</resource>
 <!--text for the "Previous" text in a Train-->
-<resource key="af_train.PREVIOUS" dnt="false">Precedent</resource>
+<resource key="af_train.PREVIOUS" dnt="false">Înapoi</resource>
 <!--TabBar. For oracle.desktop skin -->
 <!--alternate text for the currently selected TabBar image-->
 <!--{0} - the tab name. eg: Electronics: Currently selected tab-->
-<resource key="af_menuTabs.SELECTED_TIP" dnt="false">{0}: Filă selectată curent</resource>
+<resource key="af_menuTabs.SELECTED_TIP" dnt="false">{0}: Fila selectată curent</resource>
 <!--alternate text for an enabled unselected TabBar image-->
 <!--{0} - the tab name. eg: Electronics: Select to go to this tab-->
 <resource key="af_menuTabs.ENABLED_TIP" dnt="false">{0}: Selectaţi pentru a vă deplasa la această filă</resource>
@@ -305,11 +341,11 @@
 <!--Alt text for the icon used to expand a tree node-->
 <resource key="af_tree.EXPAND_TIP" dnt="false">Se selectează pentru expandare</resource>
 <resource key="af_treeTable.EXPAND_TIP" dnt="false">Se selectează pentru expandare</resource>
-<resource key="af_navigationTree.EXPAND_TIP" dnt="false">Se selectează pentru expandare</resource>
+<resource key="af_navigationTree.EXPAND_TIP" dnt="false">Selectare pentru expandare</resource>
 <!--Alt text for the icon used to collapse a tree node-->
 <resource key="af_tree.COLLAPSE_TIP" dnt="false">Se selectează pentru restrângere</resource>
 <resource key="af_treeTable.COLLAPSE_TIP" dnt="false">Se selectează pentru restrângere</resource>
-<resource key="af_navigationTree.COLLAPSE_TIP" dnt="false">Se selectează pentru restrângere</resource>
+<resource key="af_navigationTree.COLLAPSE_TIP" dnt="false">Selectare pentru restrângere</resource>
 <!--Alt text for the icon used for an expanded tree node that cannot be -->
 <!-- collapsed -->
 <resource key="af_tree.DISABLED_COLLAPSE_TIP" dnt="false">Nod expandat</resource>
@@ -339,7 +375,8 @@
 <!-- This is the title of the link at the top of a page that a screen-reader
        user would use to skip all the navigation links and jump to the
        content -->
-<resource key="af_panelPage.SKIP_PAST_NAVIGATION" dnt="false">Se ignoră elementele de navigare în conţinutul paginii</resource>
+<resource key="af_panelPage.SKIP_PAST_NAVIGATION" dnt="false">Se omit elementele de navigare la conţinutul paginii</resource>
+<resource key="af_panelPopup.CLOSE" dnt="false">Ascundere</resource>
 <!-- Nav block titles for screenReader mode -->
 <resource key="af_menuButtons.BLOCK_TITLE" dnt="false">Butoane globale</resource>
 <resource key="af_panelButtonBar.BLOCK_TITLE" dnt="false">Butoane globale</resource>
@@ -369,7 +406,7 @@
 <resource key="af_form.SUBMIT_ERRORS" dnt="false">Erori la validarea formularului:</resource>
 <!--resource strings for afh:frameBorderLayout-->
 <resource key="af_frameBorderLayout.VERTICAL_FRAMESET_LAYOUT_CONTAINER_TITLE" dnt="false">Container pt. cadrele din stânga, dreapta şi centru</resource>
-<resource key="af_frameBorderLayout.HORIZONTAL_FRAMESET_LAYOUT_CONTAINER_TITLE" dnt="false">Container pt. cadrele de sus şi de jos</resource>
+<resource key="af_frameBorderLayout.HORIZONTAL_FRAMESET_LAYOUT_CONTAINER_TITLE" dnt="false">Container pt. cadrele de la început şi sfârşit</resource>
 <!-- In this section are keys that are not component-specific -->
 <!-- ******************************************************** -->
 <!-- resource for a go button -->
@@ -378,7 +415,7 @@
 <!-- See FirePartialAction.renderTrigger -->
 <resource key="PPR_TRIGGER_LABEL" dnt="false">Start</resource>
 <!-- Icons are used in the prompts for message components -->
-<!-- e.g., tr:inputText, tr:selectOneChoice -->
+<!-- e.g., af:inputText, af:selectOneChoice -->
 <!--Alternate text for the "error" icon-->
 <resource key="ERROR_TIP" dnt="false">Eroare</resource>
 <!--Alternate text for the "warning" icon-->
@@ -403,7 +440,7 @@
 <!-- Text of the ALT tag for the content frame of popup windows -->
 <resource key="FRAME_CONTENT" dnt="false">Conţinut</resource>
 <!-- A message displayed when we think there's a popup blocker installed -->
-<resource key="WINDOW_CREATION_ERROR" dnt="false">În browser-ul dvs. a fost detectată o funcţie de blocare a ferestrelor pop-up. Funcţiile de blocare a ferestrelor pop-up interferează cu operaţia acestei aplicaţii. Dezactivaţi funcţia de blocare a ferestrelor pop-up sau permiteţi deschiderea ferestrelor pop-up de pe acest site.</resource>
+<resource key="WINDOW_CREATION_ERROR" dnt="false">În browser-ul dvs. a fost detectată o funcţie de blocare a ferestrelor pop-up. Funcţiile de blocare a ferestrelor pop-up interferează cu operaţia acestei aplicaţii. Dezactivaţi funcţia de blocare a ferestrelor pop-up, sau permiteţi deschiderea ferestrelor pop-up de pe acest site.</resource>
 <!-- Text to display in noframes element. This message is set on noframes element,
        when page redirection happens for LOV selection. -->
 <resource key="NO_FRAMES_MESSAGE" dnt="false">Browser-ul dvs. nu acceptă cadre. Această funcţionalitate necesită un browser care acceptă cadre.</resource>
@@ -412,12 +449,22 @@
 <resource key="SHUTTLE_NO_ITEMS_FEEDBACK" dnt="false">Nu există elemente de mutat.</resource>
 <!--Feedback in javascript alert when user tries to use move/remove buttons without selecting items-->
 <resource key="SHUTTLE_NO_ITEM_SELECTED_FEEDBACK" dnt="false">Selectaţi întâi elementele de mutat.</resource>
+<!--resource for af:chart -->
+<resource key="af_chart.IE_SVG_PLUGIN_ERROR_HTML" dnt="false">
+<![CDATA[<H4>Unable to load SVG plugin. Please install the plugin from <a href='#' onclick="window.open('http://www.adobe.com/svg/viewer/install/main.html')">Adobe</a><H4>]]>
+</resource>
+<resource key="af_chart.SVG_ENABLED_BROWSER_ERROR_HTML" dnt="false">
+<![CDATA[<H4>This component needs an SVG enabled browser like Internet Explorer, Firefox 1.5+ or Opera 9.0+<H4>]]>
+</resource>
+<resource key="af_chart.SVG_LOADING_STATUS_HTML" dnt="false">
+<![CDATA[<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>]]>
+</resource>
 <!-- OLD KEYS FOR NOT YET IMPLEMENTED IN ADF FACES -->
 <!--  ******************************************** -->
 <!-- the components that used these keys in 2.2 are not in 3.0 yet -->
 <!-- some might never be (addTableRow, for example). -->
 <!-- Don't delete until the code that uses them is deleted -->
-<!-- resource for tr:treeTOC -->
+<!-- resource for af:treeTOC -->
 <resource key="af_treeTOC.LABEL" dnt="false">Parcurgere</resource>
 <resource key="af_treeTOC.CATEGORY_LABEL" dnt="false">Categorii</resource>
 <resource key="af_treeTOC.ITEM_LABEL" dnt="false">Elemente</resource>
@@ -431,14 +478,14 @@
 <resource key="TABLE_TOTAL_ROW_TEXT" dnt="false">Total</resource>
 <!--LOVChoice-->
 <!--Text for the lovChoice More... option  -->
-<resource key="LOV_CHOICE_MORE_OPTION" dnt="false">Mai multe...</resource>
+<resource key="LOV_CHOICE_MORE_OPTION" dnt="false">Mai mult...</resource>
 <!-- Resources added for the Apps RichTextEditor -->
 <resource key="RTE_CUT_BUTTON_TEXT" dnt="false">Decupare</resource>
 <resource key="RTE_COPY_BUTTON_TEXT" dnt="false">Copiere</resource>
 <resource key="RTE_PASTE_BUTTON_TEXT" dnt="false">Lipire</resource>
 <resource key="RTE_BOLD_BUTTON_TEXT" dnt="false">Aldin</resource>
 <resource key="RTE_ITALIC_BUTTON_TEXT" dnt="false">Cursiv</resource>
-<resource key="RTE_UNDERLINE_BUTTON_TEXT" dnt="false">Subliniat</resource>
+<resource key="RTE_UNDERLINE_BUTTON_TEXT" dnt="false">Subliniere</resource>
 <resource key="RTE_BREAK_BUTTON_TEXT" dnt="false">Întrerupere</resource>
 <resource key="RTE_LEFT_ALIGN_BUTTON_TEXT" dnt="false">Aliniere la stânga</resource>
 <resource key="RTE_CENTER_ALIGN_BUTTON_TEXT" dnt="false">Aliniere în centru</resource>
@@ -456,7 +503,7 @@
 <resource key="RTE_FONT_SIZE_CHOICE_TEXT" dnt="false">Dimensiune font</resource>
 <resource key="RTE_FONT_COLOR_CHOICE_TEXT" dnt="false">Culoare font</resource>
 <resource key="RTE_CHANGE_TO_RICH_TEXT_MODE" dnt="false">Comutare în mod Text formatat</resource>
-<resource key="RTE_CHANGE_TO_TEXT_MODE" dnt="false">Comutare în mod Text simplu</resource>
+<resource key="RTE_CHANGE_TO_TEXT_MODE" dnt="false">Comutare în modul Text simplu</resource>
 <resource key="RTE_HTML_SOURCE" dnt="false">Vizualizare sursă HTML</resource>
 <resource key="RTE_RICH_TEXT_MODE_MAX_LENGTH_ALERT" dnt="false">Aţi depăşit lungimea maximă permisă pentru acest câmp. Introduceţi o valoare mai scurtă.</resource>
 <!--ListOfValues Template-->
@@ -539,4 +586,6 @@
 <!-- {0} = message summary                                        -->
 <!-- {1} = message detail                                         -->
 <resource key="af_messages.GLOBAL_MESSAGE_FORMAT" dnt="false">{0} - {1}</resource>
+<resource key="af_statusIndicator.BUSY" dnt="false">Pagina este ocupată cu procesarea</resource>
+<resource key="af_statusIndicator.READY" dnt="false">Pagina este pregătită</resource>
 </resources>

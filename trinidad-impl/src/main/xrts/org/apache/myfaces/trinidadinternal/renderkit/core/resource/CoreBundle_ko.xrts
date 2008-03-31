@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
- Copyright 2000-2006 The Apache Software Foundation.
- 
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
- 
-      http://www.apache.org/licenses/LICENSE-2.0
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
 
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
 -->
 <!--Resource file for all BLAF resources-->
 <!DOCTYPE resources SYSTEM "rts.dtd">
@@ -29,7 +33,7 @@
 <!-- af_objectLegend's required icon uses the generic REQUIRED_TIP key -->
 <!--
   -->
-<!--resource for tr:menuChoice -->
+<!--resource for af:menuChoice -->
 <resource key="af_menuChoice.LABEL" dnt="false">응용 프로그램 전환</resource>
 <!-- the tip that is on the Go button next to the Switch Applications choice -->
 <resource key="af_menuChoice.GO_TIP" dnt="false">선택된 응용 프로그램으로 이동</resource>
@@ -37,11 +41,44 @@
 <!--resources for the column headers-->
 <resource key="af_tableSelectMany.SELECT_COLUMN_HEADER" dnt="false">선택</resource>
 <resource key="af_tableSelectOne.SELECT_COLUMN_HEADER" dnt="false">선택</resource>
-<!-- The header on the Detail column of tr:table -->
+<!-- The header on the Detail column of af:table -->
 <resource key="af_table.DETAIL_COLUMN_HEADER" dnt="false">세부 정보</resource>
-<!-- The header on the Focus column of tr:treeTable -->
+<!-- Resource for Composite Table -->
+<resource key="afr_compositeTable.MENU_VIEW" dnt="false">보기</resource>
+<resource key="afr_compositeTable.MENU_COLUMNS" dnt="false">열</resource>
+<resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWALL" dnt="false">모두 표시</resource>
+<resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWMORECOLUMNS" dnt="false">추가 열 표시...</resource>
+<resource key="afr_compositeTable.MENUITEM_FREEZE" dnt="false">고정</resource>
+<resource key="afr_compositeTable.MENUITEM_MAXIMIZE" dnt="false">최대화</resource>
+<resource key="afr_compositeTable.MENU_SORT" dnt="false">정렬</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_ASCENDING" dnt="false">오름차순</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_DESCENDING" dnt="false">내림차순</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_ADVANCED" dnt="false">고급...</resource>
+<resource key="afr_compositeTable.MENUITEM_REORDER" dnt="false">재정렬...</resource>
+<resource key="afr_compositeTable.MENU_TOOLBARS" dnt="false">도구 모음</resource>
+<resource key="afr_compositeTable.MENUITEM_TOOLBARS_DEFAULT" dnt="false">기본값</resource>
+<resource key="afr_compositeTable.MENUITEM_TOOLBARS_QBE" dnt="false">QBE(예제별 질의)</resource>
+<resource key="afr_compositeTable.MENU_FORMAT" dnt="false">형식</resource>
+<resource key="afr_compositeTable.MENUITEM_RESIZECOLUMNS" dnt="false">열 크기 조정...</resource>
+<resource key="afr_compositeTable.MENUITEM_RESET" dnt="false">재설정...</resource>
+<resource key="afr_compositeTable.MENUITEM_WRAP" dnt="false">줄바꿈</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED" dnt="false">선택된 행:</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED_ALL" dnt="false">모두</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_HIDDEN" dnt="false">숨겨진 열:</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_FROZEN" dnt="false">고정된 열:</resource>
+<!-- Resource for Composite Tree Table -->
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND" dnt="false">확장</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE" dnt="false">축소</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL_BELOW" dnt="false">아래에 모두 확장</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL_BELOW" dnt="false">아래에 모두 축소</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL" dnt="false">모두 확장</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL" dnt="false">모두 축소</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_GO_UP" dnt="false">위로 이동</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_SHOW_AS_TOP" dnt="false">맨 위로 표시</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_GO_TO_TOP" dnt="false">맨 위로 이동</resource>
+<!-- The header on the Focus column of af:treeTable -->
 <resource key="af_treeTable.FOCUS_COLUMN_HEADER" dnt="false">포커스</resource>
-<!-- resources for tr:column -->
+<!-- resources for af:column -->
 <resource key="af_column.SORTED_ASCEND_TIP" dnt="false">오름차순으로 정렬됨</resource>
 <resource key="af_column.SORTED_DESCEND_TIP" dnt="false">내림차순으로 정렬됨</resource>
 <resource key="af_column.SORTED_SORTABLE_TIP" dnt="false">정렬되지 않음</resource>
@@ -77,13 +114,13 @@
 <resource key="af_table.SELECT_RANGE_DISABLED_PREVIOUS" dnt="false">이전</resource>
 <resource key="af_treeTable.DISABLED_PREVIOUS" dnt="false">이전</resource>
 <!--alternate text for a back arrow image link in the navigation bar-->
-<resource key="af_selectRangeChoiceBar.PREVIOUS_TIP" dnt="false">이전 설정을 보려면 선택</resource>
-<resource key="af_table.SELECT_RANGE_PREVIOUS_TIP" dnt="false">이전 설정을 보려면 선택</resource>
-<resource key="af_treeTable.PREVIOUS_TIP" dnt="false">이전 설정을 보려면 선택</resource>
+<resource key="af_selectRangeChoiceBar.PREVIOUS_TIP" dnt="false">이전 항목을 보려면 선택</resource>
+<resource key="af_table.SELECT_RANGE_PREVIOUS_TIP" dnt="false">이전 항목을 보려면 선택</resource>
+<resource key="af_treeTable.PREVIOUS_TIP" dnt="false">이전 항목을 보려면 선택</resource>
 <!--alternate text for a forward arrow image link in the navigation bar-->
-<resource key="af_selectRangeChoiceBar.NEXT_TIP" dnt="false">다음 설정을 보려면 선택</resource>
-<resource key="af_table.SELECT_RANGE_NEXT_TIP" dnt="false">다음 설정을 보려면 선택</resource>
-<resource key="af_treeTable.NEXT_TIP" dnt="false">다음 설정을 보려면 선택</resource>
+<resource key="af_selectRangeChoiceBar.NEXT_TIP" dnt="false">다음 항목을 보려면 선택</resource>
+<resource key="af_table.SELECT_RANGE_NEXT_TIP" dnt="false">다음 항목을 보려면 선택</resource>
+<resource key="af_treeTable.NEXT_TIP" dnt="false">다음 항목을 보려면 선택</resource>
 <!--alternate text for a disabled back arrow image link in the navigation bar-->
 <resource key="af_table.SELECT_RANGE_PREV_DISABLED_TIP" dnt="false">이전 기능이 비활성화됨</resource>
 <resource key="af_selectRangeChoiceBar.PREV_DISABLED_TIP" dnt="false">이전 기능이 비활성화됨</resource>
@@ -97,8 +134,8 @@
 <resource key="af_selectRangeChoiceBar.PREVIOUS_OPTION" dnt="false">이전...</resource>
 <resource key="af_table.SELECT_RANGE_PREVIOUS_OPTION" dnt="false">이전...</resource>
 <!-- Alternate choice text for displaying rows after last row in choice -->
-<resource key="af_selectRangeChoiceBar.MORE_OPTION" dnt="false">추가...</resource>
-<resource key="af_table.SELECT_RANGE_MORE_OPTION" dnt="false">추가...</resource>
+<resource key="af_selectRangeChoiceBar.MORE_OPTION" dnt="false">자세히...</resource>
+<resource key="af_table.SELECT_RANGE_MORE_OPTION" dnt="false">자세히...</resource>
 <!-- Navigation bar text for asking to show all rows, where -->
 <!-- {0} -> the total number of rows (integer) -->
 <resource key="af_selectRangeChoiceBar.SHOW_ALL" dnt="false">모든 {0} 표시</resource>
@@ -133,7 +170,7 @@
 <!-- For example, the user will see a required icon and text next to it -->
 <!-- explaining what the icon means. -->
 <!-- * Indicates required field -->
-<resource key="af_objectLegend.REQUIRED_KEY" dnt="false">필수 필드를 나타냄</resource>
+<resource key="af_objectLegend.REQUIRED_KEY" dnt="false">필수 필드를 나타냅니다.</resource>
 <!--Alternate text for the "folder" icon in a tree-->
 <resource key="af_tree.FOLDER_TIP" dnt="false">폴더</resource>
 <resource key="af_navigationTree.FOLDER_TIP" dnt="false">폴더</resource>
@@ -195,23 +232,26 @@
 <resource key="af_table.UNDISCLOSED" dnt="false">표시</resource>
 <resource key="af_table.DISCLOSED_TIP" dnt="false">정보를 숨기려면 선택</resource>
 <resource key="af_table.UNDISCLOSED_TIP" dnt="false">정보를 표시하려면 선택</resource>
-<!--defaults strings for show, hide in showOnePanel -->
-<resource key="af_showOnePanel.DISCLOSED_TIP" dnt="false">표시된 정보</resource>
-<resource key="af_showOnePanel.UNDISCLOSED_TIP" dnt="false">정보를 표시하려면 선택</resource>
+<!--defaults strings for show, hide in showOneAccordion -->
+<resource key="af_showOneAccordion.DISCLOSED_TIP" dnt="false">표시된 정보</resource>
+<resource key="af_showOneAccordion.UNDISCLOSED_TIP" dnt="false">정보를 표시하려면 선택</resource>
+<!--defaults strings for show, hide in showOneAccordion -->
+<resource key="af_panelAccordion.DISCLOSED_TIP" dnt="false">표시된 정보</resource>
+<resource key="af_panelAccordion.UNDISCLOSED_TIP" dnt="false">정보를 표시하려면 선택</resource>
 <!--Alt tag for reordering items up to top-->
-<resource key="af_selectOrderShuttle.REORDER_UP_ALL_TIP" dnt="false">목록 상단으로 선택한 항목 이동</resource>
+<resource key="af_selectOrderShuttle.REORDER_UP_ALL_TIP" dnt="false">목록 맨 위로 선택한 항목 이동</resource>
 <!--Alt tag for reordering items up one-->
 <resource key="af_selectOrderShuttle.REORDER_UP_TIP" dnt="false">목록에서 한 단계 위로 선택한 항목 이동</resource>
 <!--Alt tag for reordering items down to bottom-->
-<resource key="af_selectOrderShuttle.REORDER_DOWN_ALL_TIP" dnt="false">목록 하단으로 선택한 항목 이동</resource>
+<resource key="af_selectOrderShuttle.REORDER_DOWN_ALL_TIP" dnt="false">목록 맨 아래로 선택한 항목 이동</resource>
 <!--Alt tag for reordering items down one-->
 <resource key="af_selectOrderShuttle.REORDER_DOWN_TIP" dnt="false">목록에서 한 단계 아래로 선택한 항목 이동</resource>
 <!--Text for reordering items to top of list-->
-<resource key="af_selectOrderShuttle.REORDER_UP_ALL" dnt="false">상단</resource>
+<resource key="af_selectOrderShuttle.REORDER_UP_ALL" dnt="false">맨 위</resource>
 <!--Text for reordering items up one position in the list-->
 <resource key="af_selectOrderShuttle.REORDER_UP" dnt="false">위로</resource>
 <!--Text for reordering items to bottom of list-->
-<resource key="af_selectOrderShuttle.REORDER_DOWN_ALL" dnt="false">하단</resource>
+<resource key="af_selectOrderShuttle.REORDER_DOWN_ALL" dnt="false">맨 아래</resource>
 <!--Text for reordering items down one position in the list-->
 <resource key="af_selectOrderShuttle.REORDER_DOWN" dnt="false">아래로</resource>
 <!-- selectOrderShuttle and selectManyShuttle keys-->
@@ -243,7 +283,7 @@
 <resource key="af_selectManyShuttle.REMOVE" dnt="false">제거</resource>
 <resource key="af_selectOrderShuttle.REMOVE" dnt="false">제거</resource>
 <!--Poll. The button text that the user presses to manually ask for a poll of the server -->
-<resource key="af_poll.MANUAL" dnt="false">설문 서버</resource>
+<resource key="af_poll.MANUAL" dnt="false">서버 폴링</resource>
 <!--Progress-->
 <!--Format for the determinate progress icon's alt tag -->
 <resource key="af_progressIndicator.DETERMINATE_TIP" dnt="false">{0}% 완료</resource>
@@ -254,9 +294,9 @@
 <!--QuickLinks-->
 <!--Alt tag for returning to the top-->
 <!-- =-=jmw also used in af_page. @todo fix this. -->
-<resource key="af_panelPage.QUICK_LINKS_RETURN_TOP_TIP" dnt="false">페이지 상단으로 이동하려면 선택</resource>
+<resource key="af_panelPage.QUICK_LINKS_RETURN_TOP_TIP" dnt="false">페이지 맨 위로 이동하려면 선택</resource>
 <!--Link text for returning to the top-->
-<resource key="af_panelPage.QUICK_LINKS_RETURN_TOP" dnt="false">상단으로 돌아가기</resource>
+<resource key="af_panelPage.QUICK_LINKS_RETURN_TOP" dnt="false">맨 위로 돌아가기</resource>
 <!--Format for the quick links alt tag-->
 <!--{0} - the full name of the header-->
 <resource key="af_panelPage.QUICK_LINKS_TIP_FORMAT" dnt="false">페이지 내의 &quot;{0}&quot;(으)로 이동하려면 선택</resource>
@@ -272,7 +312,7 @@
 <!-- eg: Billing Information: Next step -->
 <resource key="af_train.NEXT_TIP" dnt="false">{0}: 다음 단계</resource>
 <!-- text for the "More" text in a Train-->
-<resource key="af_train.MORE" dnt="false">추가</resource>
+<resource key="af_train.MORE" dnt="false">자세히</resource>
 <!--text for the "Previous" text in a Train-->
 <resource key="af_train.PREVIOUS" dnt="false">이전</resource>
 <!--TabBar. For oracle.desktop skin -->
@@ -336,6 +376,7 @@
        user would use to skip all the navigation links and jump to the
        content -->
 <resource key="af_panelPage.SKIP_PAST_NAVIGATION" dnt="false">페이지 내용으로 이동 요소 건너뛰기</resource>
+<resource key="af_panelPopup.CLOSE" dnt="false">숨기기</resource>
 <!-- Nav block titles for screenReader mode -->
 <resource key="af_menuButtons.BLOCK_TITLE" dnt="false">전역 단추</resource>
 <resource key="af_panelButtonBar.BLOCK_TITLE" dnt="false">전역 단추</resource>
@@ -364,7 +405,7 @@
 <!--error string for form submission-->
 <resource key="af_form.SUBMIT_ERRORS" dnt="false">폼 검증 실패:</resource>
 <!--resource strings for afh:frameBorderLayout-->
-<resource key="af_frameBorderLayout.VERTICAL_FRAMESET_LAYOUT_CONTAINER_TITLE" dnt="false">왼쪽, 중앙 및 오른쪽 프레임에 대한 컨테이너</resource>
+<resource key="af_frameBorderLayout.VERTICAL_FRAMESET_LAYOUT_CONTAINER_TITLE" dnt="false">왼쪽, 가운데 및 오른쪽 프레임에 대한 컨테이너</resource>
 <resource key="af_frameBorderLayout.HORIZONTAL_FRAMESET_LAYOUT_CONTAINER_TITLE" dnt="false">상단 및 하단 프레임에 대한 컨테이너</resource>
 <!-- In this section are keys that are not component-specific -->
 <!-- ******************************************************** -->
@@ -374,7 +415,7 @@
 <!-- See FirePartialAction.renderTrigger -->
 <resource key="PPR_TRIGGER_LABEL" dnt="false">실행</resource>
 <!-- Icons are used in the prompts for message components -->
-<!-- e.g., tr:inputText, tr:selectOneChoice -->
+<!-- e.g., af:inputText, af:selectOneChoice -->
 <!--Alternate text for the "error" icon-->
 <resource key="ERROR_TIP" dnt="false">오류</resource>
 <!--Alternate text for the "warning" icon-->
@@ -408,26 +449,36 @@
 <resource key="SHUTTLE_NO_ITEMS_FEEDBACK" dnt="false">이동할 항목이 없습니다.</resource>
 <!--Feedback in javascript alert when user tries to use move/remove buttons without selecting items-->
 <resource key="SHUTTLE_NO_ITEM_SELECTED_FEEDBACK" dnt="false">먼저 이동할 항목을 선택하십시오.</resource>
+<!--resource for af:chart -->
+<resource key="af_chart.IE_SVG_PLUGIN_ERROR_HTML" dnt="false">
+<![CDATA[<H4>Unable to load SVG plugin. Please install the plugin from <a href='#' onclick="window.open('http://www.adobe.com/svg/viewer/install/main.html')">Adobe</a><H4>]]>
+</resource>
+<resource key="af_chart.SVG_ENABLED_BROWSER_ERROR_HTML" dnt="false">
+<![CDATA[<H4>This component needs an SVG enabled browser like Internet Explorer, Firefox 1.5+ or Opera 9.0+<H4>]]>
+</resource>
+<resource key="af_chart.SVG_LOADING_STATUS_HTML" dnt="false">
+<![CDATA[<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>]]>
+</resource>
 <!-- OLD KEYS FOR NOT YET IMPLEMENTED IN ADF FACES -->
 <!--  ******************************************** -->
 <!-- the components that used these keys in 2.2 are not in 3.0 yet -->
 <!-- some might never be (addTableRow, for example). -->
 <!-- Don't delete until the code that uses them is deleted -->
-<!-- resource for tr:treeTOC -->
+<!-- resource for af:treeTOC -->
 <resource key="af_treeTOC.LABEL" dnt="false">찾아보기</resource>
 <resource key="af_treeTOC.CATEGORY_LABEL" dnt="false">범주</resource>
 <resource key="af_treeTOC.ITEM_LABEL" dnt="false">항목</resource>
 <!--table add row button text for adding one row-->
 <resource key="TABLE_ADD_ROW_SINGLE_TEXT" dnt="false">다른 행 추가</resource>
 <!--table add row button text for adding more than one row-->
-<resource key="TABLE_ADD_ROW_MULTI_TEXT" dnt="false">{0}개 행 추가</resource>
+<resource key="TABLE_ADD_ROW_MULTI_TEXT" dnt="false">{0} 행 추가</resource>
 <!--table total row button text for updating display-->
 <resource key="TABLE_TOTAL_ROW_BUTTON_TEXT" dnt="false">재계산</resource>
 <!--table add row button text for adding more than one row-->
-<resource key="TABLE_TOTAL_ROW_TEXT" dnt="false">전체</resource>
+<resource key="TABLE_TOTAL_ROW_TEXT" dnt="false">합계</resource>
 <!--LOVChoice-->
 <!--Text for the lovChoice More... option  -->
-<resource key="LOV_CHOICE_MORE_OPTION" dnt="false">추가...</resource>
+<resource key="LOV_CHOICE_MORE_OPTION" dnt="false">자세히...</resource>
 <!-- Resources added for the Apps RichTextEditor -->
 <resource key="RTE_CUT_BUTTON_TEXT" dnt="false">잘라내기</resource>
 <resource key="RTE_COPY_BUTTON_TEXT" dnt="false">복사</resource>
@@ -454,7 +505,7 @@
 <resource key="RTE_CHANGE_TO_RICH_TEXT_MODE" dnt="false">서식 있는 텍스트 모드로 변경</resource>
 <resource key="RTE_CHANGE_TO_TEXT_MODE" dnt="false">일반 텍스트 모드로 변경</resource>
 <resource key="RTE_HTML_SOURCE" dnt="false">HTML 소스 보기</resource>
-<resource key="RTE_RICH_TEXT_MODE_MAX_LENGTH_ALERT" dnt="false">필드의 최대 길이를 초과했습니다. 더 짧은 값을 다시 입력하십시오.</resource>
+<resource key="RTE_RICH_TEXT_MODE_MAX_LENGTH_ALERT" dnt="false">필드의 최대 길이를 초과했습니다. 짧은 값으로 다시 입력하십시오.</resource>
 <!--ListOfValues Template-->
 <!--Text for main header LOV Window Header-->
 <!--{0}: The label for the search (the title attribute of the template) -->
@@ -468,7 +519,7 @@
 <!--Text for search category choice in  LOV Window Header-->
 <resource key="SEARCH_BY_TEXT" dnt="false">검색 기준</resource>
 <!--Text for search text field ALT tag in LOV Window-->
-<resource key="SEARCH_FIELD_SHORT_DESC_TEXT" dnt="false">검색 용어</resource>
+<resource key="SEARCH_FIELD_SHORT_DESC_TEXT" dnt="false">검색어</resource>
 <!--Text for results table header in LOV window-->
 <resource key="RESULTS_TEXT" dnt="false">결과</resource>
 <!--navigation bar format mask for a range of strings;  for -->
@@ -535,4 +586,6 @@
 <!-- {0} = message summary                                        -->
 <!-- {1} = message detail                                         -->
 <resource key="af_messages.GLOBAL_MESSAGE_FORMAT" dnt="false">{0} - {1}</resource>
+<resource key="af_statusIndicator.BUSY" dnt="false">페이지가 처리에 사용 중입니다.</resource>
+<resource key="af_statusIndicator.READY" dnt="false">페이지가 준비되었습니다.</resource>
 </resources>

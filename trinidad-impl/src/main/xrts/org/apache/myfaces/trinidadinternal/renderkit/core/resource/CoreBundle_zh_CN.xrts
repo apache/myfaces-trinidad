@@ -33,7 +33,7 @@
 <!-- af_objectLegend's required icon uses the generic REQUIRED_TIP key -->
 <!--
   -->
-<!--resource for tr:menuChoice -->
+<!--resource for af:menuChoice -->
 <resource key="af_menuChoice.LABEL" dnt="false">切换应用程序</resource>
 <!-- the tip that is on the Go button next to the Switch Applications choice -->
 <resource key="af_menuChoice.GO_TIP" dnt="false">转到所选应用程序</resource>
@@ -41,13 +41,46 @@
 <!--resources for the column headers-->
 <resource key="af_tableSelectMany.SELECT_COLUMN_HEADER" dnt="false">选择</resource>
 <resource key="af_tableSelectOne.SELECT_COLUMN_HEADER" dnt="false">选择</resource>
-<!-- The header on the Detail column of tr:table -->
+<!-- The header on the Detail column of af:table -->
 <resource key="af_table.DETAIL_COLUMN_HEADER" dnt="false">详细资料</resource>
-<!-- The header on the Focus column of tr:treeTable -->
+<!-- Resource for Composite Table -->
+<resource key="afr_compositeTable.MENU_VIEW" dnt="false">视图</resource>
+<resource key="afr_compositeTable.MENU_COLUMNS" dnt="false">列</resource>
+<resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWALL" dnt="false">全部显示</resource>
+<resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWMORECOLUMNS" dnt="false">显示更多列...</resource>
+<resource key="afr_compositeTable.MENUITEM_FREEZE" dnt="false">冻结</resource>
+<resource key="afr_compositeTable.MENUITEM_MAXIMIZE" dnt="false">最大化</resource>
+<resource key="afr_compositeTable.MENU_SORT" dnt="false">排序</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_ASCENDING" dnt="false">升序</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_DESCENDING" dnt="false">降序</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_ADVANCED" dnt="false">高级...</resource>
+<resource key="afr_compositeTable.MENUITEM_REORDER" dnt="false">重排...</resource>
+<resource key="afr_compositeTable.MENU_TOOLBARS" dnt="false">工具栏</resource>
+<resource key="afr_compositeTable.MENUITEM_TOOLBARS_DEFAULT" dnt="false">默认值</resource>
+<resource key="afr_compositeTable.MENUITEM_TOOLBARS_QBE" dnt="false">按范例查询</resource>
+<resource key="afr_compositeTable.MENU_FORMAT" dnt="false">格式</resource>
+<resource key="afr_compositeTable.MENUITEM_RESIZECOLUMNS" dnt="false">调整列大小...</resource>
+<resource key="afr_compositeTable.MENUITEM_RESET" dnt="false">重置...</resource>
+<resource key="afr_compositeTable.MENUITEM_WRAP" dnt="false">换行</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED" dnt="false">所选行: </resource>
+<resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED_ALL" dnt="false">全部</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_HIDDEN" dnt="false">隐藏的列:</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_FROZEN" dnt="false">冻结的列:</resource>
+<!-- Resource for Composite Tree Table -->
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND" dnt="false">展开</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE" dnt="false">隐藏</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL_BELOW" dnt="false">在下面全部展开</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL_BELOW" dnt="false">在下面全部隐藏</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL" dnt="false">全部展开</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL" dnt="false">全部隐藏</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_GO_UP" dnt="false">向上</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_SHOW_AS_TOP" dnt="false">显示为顶层</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_GO_TO_TOP" dnt="false">转到顶层</resource>
+<!-- The header on the Focus column of af:treeTable -->
 <resource key="af_treeTable.FOCUS_COLUMN_HEADER" dnt="false">焦点</resource>
-<!-- resources for tr:column -->
-<resource key="af_column.SORTED_ASCEND_TIP" dnt="false">以升序排序</resource>
-<resource key="af_column.SORTED_DESCEND_TIP" dnt="false">以降序排序</resource>
+<!-- resources for af:column -->
+<resource key="af_column.SORTED_ASCEND_TIP" dnt="false">按升序排序</resource>
+<resource key="af_column.SORTED_DESCEND_TIP" dnt="false">按降序排序</resource>
 <resource key="af_column.SORTED_SORTABLE_TIP" dnt="false">未排序</resource>
 <!--the ampersand is used to make the 'k' an accelerator key as described at -->
 <!--http://scout.us.oracle.com/appsui/ss_guidelines/specs/keyboard.html#accelerator -->
@@ -64,12 +97,12 @@
 <resource key="af_processChoiceBar.CONTINUE" dnt="false">继续(&amp;C)</resource>
 <!--navigation bar with a known number of previous records going back-->
 <!--{0} -> how many records to go back (integer)-->
-<resource key="af_selectRangeChoiceBar.PREVIOUS" dnt="false">前 {0} 条记录</resource>
-<resource key="af_table.SELECT_RANGE_PREVIOUS" dnt="false">前 {0} 条记录</resource>
+<resource key="af_selectRangeChoiceBar.PREVIOUS" dnt="false">上一个 {0}</resource>
+<resource key="af_table.SELECT_RANGE_PREVIOUS" dnt="false">上一个 {0}</resource>
 <!--navigation bar with a known number of next records going forward-->
 <!--{0} -> how many records to go forward (integer)-->
-<resource key="af_selectRangeChoiceBar.NEXT" dnt="false">后 {0} 条记录</resource>
-<resource key="af_table.SELECT_RANGE_NEXT" dnt="false">后 {0} 条记录</resource>
+<resource key="af_selectRangeChoiceBar.NEXT" dnt="false">下一个 {0}</resource>
+<resource key="af_table.SELECT_RANGE_NEXT" dnt="false">下一个 {0}</resource>
 <!--navigation bar with no more records going forward.-->
 <!--the following text will be drawn in a disabled font-->
 <resource key="af_selectRangeChoiceBar.DISABLED_NEXT" dnt="false">下一个</resource>
@@ -81,13 +114,13 @@
 <resource key="af_table.SELECT_RANGE_DISABLED_PREVIOUS" dnt="false">上一个</resource>
 <resource key="af_treeTable.DISABLED_PREVIOUS" dnt="false">上一个</resource>
 <!--alternate text for a back arrow image link in the navigation bar-->
-<resource key="af_selectRangeChoiceBar.PREVIOUS_TIP" dnt="false">选择以查看上一个集</resource>
-<resource key="af_table.SELECT_RANGE_PREVIOUS_TIP" dnt="false">选择以查看上一个集</resource>
-<resource key="af_treeTable.PREVIOUS_TIP" dnt="false">选择以查看上一个集</resource>
+<resource key="af_selectRangeChoiceBar.PREVIOUS_TIP" dnt="false">选择以查看上一个集合</resource>
+<resource key="af_table.SELECT_RANGE_PREVIOUS_TIP" dnt="false">选择以查看上一个集合</resource>
+<resource key="af_treeTable.PREVIOUS_TIP" dnt="false">选择以查看上一个集合</resource>
 <!--alternate text for a forward arrow image link in the navigation bar-->
-<resource key="af_selectRangeChoiceBar.NEXT_TIP" dnt="false">选择以查看下一个集</resource>
-<resource key="af_table.SELECT_RANGE_NEXT_TIP" dnt="false">选择以查看下一个集</resource>
-<resource key="af_treeTable.NEXT_TIP" dnt="false">选择以查看下一个集</resource>
+<resource key="af_selectRangeChoiceBar.NEXT_TIP" dnt="false">选择以查看下一个集合</resource>
+<resource key="af_table.SELECT_RANGE_NEXT_TIP" dnt="false">选择以查看下一个集合</resource>
+<resource key="af_treeTable.NEXT_TIP" dnt="false">选择以查看下一个集合</resource>
 <!--alternate text for a disabled back arrow image link in the navigation bar-->
 <resource key="af_table.SELECT_RANGE_PREV_DISABLED_TIP" dnt="false">上一个功能已禁用</resource>
 <resource key="af_selectRangeChoiceBar.PREV_DISABLED_TIP" dnt="false">上一个功能已禁用</resource>
@@ -144,9 +177,9 @@
 <!-- Contents of summary attribute on calendar table -->
 <resource key="af_chooseDate.SUMMARY" dnt="false">日历</resource>
 <!--Tooltip on the Calendar's previous month button-->
-<resource key="af_chooseDate.PREVIOUS_MONTH_TIP" dnt="false">上月</resource>
+<resource key="af_chooseDate.PREVIOUS_MONTH_TIP" dnt="false">上个月</resource>
 <!--Tooltip on the Calendar's next month button-->
-<resource key="af_chooseDate.NEXT_MONTH_TIP" dnt="false">下月</resource>
+<resource key="af_chooseDate.NEXT_MONTH_TIP" dnt="false">下个月</resource>
 <!-- labels for Calendar's month/year combo box -->
 <resource key="af_chooseDate.MONTH_CHOICE_LABEL" dnt="false">选择月</resource>
 <resource key="af_chooseDate.YEAR_CHOICE_LABEL" dnt="false">选择年</resource>
@@ -175,7 +208,7 @@
 <!-- Prompt for color field in color picker dialog -->
 <resource key="af_inputColor.PICKER_PROMPT" dnt="false">颜色</resource>
 <!--Tooltip on the color picker button that launches the color palette dialog-->
-<resource key="af_inputColor.LAUNCH_PICKER_TIP" dnt="false">选择以访问颜色选取器</resource>
+<resource key="af_inputColor.LAUNCH_PICKER_TIP" dnt="false">选中以访问颜色选取器</resource>
 <!-- Text on the Apply/Cancel buttons on the selectInputColor dialog -->
 <resource key="af_inputColor.APPLY" dnt="false">应用</resource>
 <resource key="af_inputColor.CANCEL" dnt="false">取消</resource>
@@ -199,9 +232,12 @@
 <resource key="af_table.UNDISCLOSED" dnt="false">显示</resource>
 <resource key="af_table.DISCLOSED_TIP" dnt="false">选择以隐藏信息</resource>
 <resource key="af_table.UNDISCLOSED_TIP" dnt="false">选择以显示信息</resource>
-<!--defaults strings for show, hide in showOnePanel -->
-<resource key="af_showOnePanel.DISCLOSED_TIP" dnt="false">显示的信息</resource>
-<resource key="af_showOnePanel.UNDISCLOSED_TIP" dnt="false">选择以显示信息</resource>
+<!--defaults strings for show, hide in showOneAccordion -->
+<resource key="af_showOneAccordion.DISCLOSED_TIP" dnt="false">显示的信息</resource>
+<resource key="af_showOneAccordion.UNDISCLOSED_TIP" dnt="false">选择以显示信息</resource>
+<!--defaults strings for show, hide in showOneAccordion -->
+<resource key="af_panelAccordion.DISCLOSED_TIP" dnt="false">显示的信息</resource>
+<resource key="af_panelAccordion.UNDISCLOSED_TIP" dnt="false">选择以显示信息</resource>
 <!--Alt tag for reordering items up to top-->
 <resource key="af_selectOrderShuttle.REORDER_UP_ALL_TIP" dnt="false">将所选项移到列表顶部</resource>
 <!--Alt tag for reordering items up one-->
@@ -211,11 +247,11 @@
 <!--Alt tag for reordering items down one-->
 <resource key="af_selectOrderShuttle.REORDER_DOWN_TIP" dnt="false">将所选项在列表中下移一行</resource>
 <!--Text for reordering items to top of list-->
-<resource key="af_selectOrderShuttle.REORDER_UP_ALL" dnt="false">移到顶部</resource>
+<resource key="af_selectOrderShuttle.REORDER_UP_ALL" dnt="false">顶部</resource>
 <!--Text for reordering items up one position in the list-->
 <resource key="af_selectOrderShuttle.REORDER_UP" dnt="false">上移</resource>
 <!--Text for reordering items to bottom of list-->
-<resource key="af_selectOrderShuttle.REORDER_DOWN_ALL" dnt="false">移到底部</resource>
+<resource key="af_selectOrderShuttle.REORDER_DOWN_ALL" dnt="false">底部</resource>
 <!--Text for reordering items down one position in the list-->
 <resource key="af_selectOrderShuttle.REORDER_DOWN" dnt="false">下移</resource>
 <!-- selectOrderShuttle and selectManyShuttle keys-->
@@ -223,11 +259,11 @@
 <resource key="af_selectManyShuttle.DESCRIPTION_LABEL" dnt="false">说明</resource>
 <resource key="af_selectOrderShuttle.DESCRIPTION_LABEL" dnt="false">说明</resource>
 <!--Alt tag for moving all the items-->
-<resource key="af_selectManyShuttle.MOVE_ALL_TIP" dnt="false">将所有项移到其它列表</resource>
-<resource key="af_selectOrderShuttle.MOVE_ALL_TIP" dnt="false">将所有项移到其它列表</resource>
+<resource key="af_selectManyShuttle.MOVE_ALL_TIP" dnt="false">将所有项移到其他列表</resource>
+<resource key="af_selectOrderShuttle.MOVE_ALL_TIP" dnt="false">将所有项移到其他列表</resource>
 <!--Alt tag for moving selected items-->
-<resource key="af_selectManyShuttle.MOVE_TIP" dnt="false">将所选项移到其它列表</resource>
-<resource key="af_selectOrderShuttle.MOVE_TIP" dnt="false">将所选项移到其它列表</resource>
+<resource key="af_selectManyShuttle.MOVE_TIP" dnt="false">将所选项移到其他列表</resource>
+<resource key="af_selectOrderShuttle.MOVE_TIP" dnt="false">将所选项移到其他列表</resource>
 <!--Alt tag for removing all the items-->
 <resource key="af_selectManyShuttle.REMOVE_ALL_TIP" dnt="false">将所有项从列表中移去</resource>
 <resource key="af_selectOrderShuttle.REMOVE_ALL_TIP" dnt="false">将所有项从列表中移去</resource>
@@ -250,10 +286,10 @@
 <resource key="af_poll.MANUAL" dnt="false">轮询服务器</resource>
 <!--Progress-->
 <!--Format for the determinate progress icon's alt tag -->
-<resource key="af_progressIndicator.DETERMINATE_TIP" dnt="false">完成 {0}%</resource>
+<resource key="af_progressIndicator.DETERMINATE_TIP" dnt="false">{0}% 已完成</resource>
 <!--Header text when messageType is processing -->
 <!--also, Alt text for the progressIndicator component -->
-<resource key="af_progressIndicator.PROCESSING" dnt="false">正在处理</resource>
+<resource key="af_progressIndicator.PROCESSING" dnt="false">处理</resource>
 <resource key="af_panelTip.TIP" dnt="false">提示</resource>
 <!--QuickLinks-->
 <!--Alt tag for returning to the top-->
@@ -278,14 +314,14 @@
 <!-- text for the "More" text in a Train-->
 <resource key="af_train.MORE" dnt="false">更多</resource>
 <!--text for the "Previous" text in a Train-->
-<resource key="af_train.PREVIOUS" dnt="false">上一个</resource>
+<resource key="af_train.PREVIOUS" dnt="false">上一步</resource>
 <!--TabBar. For oracle.desktop skin -->
 <!--alternate text for the currently selected TabBar image-->
 <!--{0} - the tab name. eg: Electronics: Currently selected tab-->
 <resource key="af_menuTabs.SELECTED_TIP" dnt="false">{0}: 当前选中的选项卡</resource>
 <!--alternate text for an enabled unselected TabBar image-->
 <!--{0} - the tab name. eg: Electronics: Select to go to this tab-->
-<resource key="af_menuTabs.ENABLED_TIP" dnt="false">{0}: 选中以转到该选项卡</resource>
+<resource key="af_menuTabs.ENABLED_TIP" dnt="false">{0}: 选择以转到该选项卡</resource>
 <!--alternate text for a disabled TabBar image-->
 <!--{0} - the tab name. eg: Electronics: Disabled tab-->
 <resource key="af_menuTabs.DISABLED_TIP" dnt="false">{0}: 禁用的选项卡</resource>
@@ -340,6 +376,7 @@
        user would use to skip all the navigation links and jump to the
        content -->
 <resource key="af_panelPage.SKIP_PAST_NAVIGATION" dnt="false">跳过导航元素, 直至页内容</resource>
+<resource key="af_panelPopup.CLOSE" dnt="false">隐藏</resource>
 <!-- Nav block titles for screenReader mode -->
 <resource key="af_menuButtons.BLOCK_TITLE" dnt="false">全局按钮</resource>
 <resource key="af_panelButtonBar.BLOCK_TITLE" dnt="false">全局按钮</resource>
@@ -364,11 +401,11 @@
 <!--title above a confirmation message box-->
 <resource key="af_messages.CONFIRMATION" dnt="false">确认</resource>
 <!-- text when the processing component is in indeterminate mode in simple skin -->
-<resource key="af_panelHeader.PROCESSING" dnt="false">正在处理</resource>
+<resource key="af_panelHeader.PROCESSING" dnt="false">处理</resource>
 <!--error string for form submission-->
 <resource key="af_form.SUBMIT_ERRORS" dnt="false">表单验证失败:</resource>
 <!--resource strings for afh:frameBorderLayout-->
-<resource key="af_frameBorderLayout.VERTICAL_FRAMESET_LAYOUT_CONTAINER_TITLE" dnt="false">左, 中和右框架的容器</resource>
+<resource key="af_frameBorderLayout.VERTICAL_FRAMESET_LAYOUT_CONTAINER_TITLE" dnt="false">左框, 中框和右框的容器</resource>
 <resource key="af_frameBorderLayout.HORIZONTAL_FRAMESET_LAYOUT_CONTAINER_TITLE" dnt="false">顶部和底部框架的容器</resource>
 <!-- In this section are keys that are not component-specific -->
 <!-- ******************************************************** -->
@@ -378,7 +415,7 @@
 <!-- See FirePartialAction.renderTrigger -->
 <resource key="PPR_TRIGGER_LABEL" dnt="false">开始</resource>
 <!-- Icons are used in the prompts for message components -->
-<!-- e.g., tr:inputText, tr:selectOneChoice -->
+<!-- e.g., af:inputText, af:selectOneChoice -->
 <!--Alternate text for the "error" icon-->
 <resource key="ERROR_TIP" dnt="false">错误</resource>
 <!--Alternate text for the "warning" icon-->
@@ -386,38 +423,48 @@
 <!--Alternate text for the "info" icon-->
 <resource key="INFO_TIP" dnt="false">信息</resource>
 <!--Alternate text for the "required" icon-->
-<resource key="REQUIRED_TIP" dnt="false">必填</resource>
+<resource key="REQUIRED_TIP" dnt="false">必需</resource>
 <!--Link Selection Status-->
 <!-- This is used for better screen reader experience. It is identified by use -->
 <!-- of span in conjuction with link element while rendering. -->
 <!-- Eg: <a href="www.oracle.com"><span class="x4h">Selected</span>Oracle</a> -->
 <!-- Thus the screen reader reads it as 'Selected Oracle Link' -->
-<resource key="STATUS_SELECTED" dnt="false">已选</resource>
+<resource key="STATUS_SELECTED" dnt="false">所选</resource>
 <!-- This is the title of the link at start of each nav block that a screen-reader
        user would use to skip all the navigation links in current block only -->
 <!-- {0} - One of the strings from resource group *_BLOCK_TITLE below
        eg: Skip all Second level navigation elements -->
 <resource key="SKIP_CURRENT_NAVIGATION_BLOCK" dnt="false">跳过所有 {0}</resource>
 <!--Text to display in noscript tag -->
-<resource key="NO_SCRIPT_MESSAGE" dnt="false">本页使用 JavaScript 并要求启用 JavaScript 的浏览器。您的浏览器未启用 JavaScript。</resource>
+<resource key="NO_SCRIPT_MESSAGE" dnt="false">本页使用 JavaScript 并需要启用 JavaScript 的浏览器。您的浏览器未启用 JavaScript。</resource>
 <!-- Text of the ALT tag for the content frame of popup windows -->
 <resource key="FRAME_CONTENT" dnt="false">内容</resource>
 <!-- A message displayed when we think there's a popup blocker installed -->
 <resource key="WINDOW_CREATION_ERROR" dnt="false">在浏览器中检测到弹出窗口拦截程序。弹出窗口拦截程序会干扰此应用程序的操作。请禁用您的弹出窗口拦截程序或者允许来自此站点的弹出窗口。</resource>
 <!-- Text to display in noframes element. This message is set on noframes element,
        when page redirection happens for LOV selection. -->
-<resource key="NO_FRAMES_MESSAGE" dnt="false">您的浏览器不支持框架。此功能要求提供框架支持</resource>
+<resource key="NO_FRAMES_MESSAGE" dnt="false">您的浏览器不支持框架。此功能需要框架支持</resource>
 <!--Shuttle strings; used for both selectOrderShuttle and selectManyShuttle-->
 <!--Feedback in javascript alert when user tries to use move/remove buttons when there are no items-->
 <resource key="SHUTTLE_NO_ITEMS_FEEDBACK" dnt="false">没有要移动的项。</resource>
 <!--Feedback in javascript alert when user tries to use move/remove buttons without selecting items-->
 <resource key="SHUTTLE_NO_ITEM_SELECTED_FEEDBACK" dnt="false">请先选中要移动的项。</resource>
+<!--resource for af:chart -->
+<resource key="af_chart.IE_SVG_PLUGIN_ERROR_HTML" dnt="false">
+<![CDATA[<H4>Unable to load SVG plugin. Please install the plugin from <a href='#' onclick="window.open('http://www.adobe.com/svg/viewer/install/main.html')">Adobe</a><H4>]]>
+</resource>
+<resource key="af_chart.SVG_ENABLED_BROWSER_ERROR_HTML" dnt="false">
+<![CDATA[<H4>This component needs an SVG enabled browser like Internet Explorer, Firefox 1.5+ or Opera 9.0+<H4>]]>
+</resource>
+<resource key="af_chart.SVG_LOADING_STATUS_HTML" dnt="false">
+<![CDATA[<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>]]>
+</resource>
 <!-- OLD KEYS FOR NOT YET IMPLEMENTED IN ADF FACES -->
 <!--  ******************************************** -->
 <!-- the components that used these keys in 2.2 are not in 3.0 yet -->
 <!-- some might never be (addTableRow, for example). -->
 <!-- Don't delete until the code that uses them is deleted -->
-<!-- resource for tr:treeTOC -->
+<!-- resource for af:treeTOC -->
 <resource key="af_treeTOC.LABEL" dnt="false">浏览</resource>
 <resource key="af_treeTOC.CATEGORY_LABEL" dnt="false">类别</resource>
 <resource key="af_treeTOC.ITEM_LABEL" dnt="false">项</resource>
@@ -514,7 +561,7 @@
 <!--                                                                -->
 <!-- T_C Title and Complete: 0=Title, 1=Direction, 2=Range, 3=Size  -->
 <!-- e.g. Car Division/Brands: Next 6 - 10 of 27                    -->
-<resource key="af_treeTable.NAV_CELL_FORMAT_T_C_private" dnt="false">{3} 的 {0}: {1} {2}</resource>
+<resource key="af_treeTable.NAV_CELL_FORMAT_T_C_private" dnt="false">{0}: {3} 的 {1} {2}</resource>
 <!-- NT_C: No Title but Complete: 0=Direction, 1=Range, 2=Size      -->
 <!-- e.g. Next 6 - 10 of 27                                         -->
 <resource key="af_treeTable.NAV_CELL_FORMAT_NT_C_private" dnt="false">{2} 的 {0} {1}</resource>
@@ -539,4 +586,6 @@
 <!-- {0} = message summary                                        -->
 <!-- {1} = message detail                                         -->
 <resource key="af_messages.GLOBAL_MESSAGE_FORMAT" dnt="false">{0} - {1}</resource>
+<resource key="af_statusIndicator.BUSY" dnt="false">页正忙于处理</resource>
+<resource key="af_statusIndicator.READY" dnt="false">页已就绪</resource>
 </resources>

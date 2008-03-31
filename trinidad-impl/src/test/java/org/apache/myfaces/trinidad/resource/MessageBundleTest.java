@@ -62,7 +62,7 @@ public class MessageBundleTest extends TestCase
 
     setUpAndValidateDefaultBundle(context);
 
-    //_testOtherBundles(qualifiedBundleName, locales);
+    _testOtherBundles(qualifiedBundleName, locales);
   }
 
   private static void setUpAndValidateDefaultBundle(
@@ -356,20 +356,15 @@ public class MessageBundleTest extends TestCase
   private static final Locale[]
     locales = {
                 new Locale("ar"),
-                new Locale("ca"),
                 new Locale("cs"),
                 new Locale("da"),
                 Locale.GERMAN,        //de
                 new Locale("el"),
                 Locale.ENGLISH,       //en
                 new Locale("es"),
-                new Locale("es", "ES"),
                 new Locale("fi"),
                 Locale.FRENCH,        //fr
-                Locale.CANADA_FRENCH, //fr_CA
-                new Locale("hr"),
                 new Locale("hu"),
-                new Locale("is"),
                 new Locale("it"),
                 new Locale("iw"),
                 Locale.JAPANESE,      //ja

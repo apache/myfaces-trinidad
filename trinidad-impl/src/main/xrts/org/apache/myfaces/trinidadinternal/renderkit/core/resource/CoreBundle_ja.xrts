@@ -33,7 +33,7 @@
 <!-- af_objectLegend's required icon uses the generic REQUIRED_TIP key -->
 <!--
   -->
-<!--resource for tr:menuChoice -->
+<!--resource for af:menuChoice -->
 <resource key="af_menuChoice.LABEL" dnt="false">アプリケーションの切替え</resource>
 <!-- the tip that is on the Go button next to the Switch Applications choice -->
 <resource key="af_menuChoice.GO_TIP" dnt="false">選択したアプリケーションに移動</resource>
@@ -41,11 +41,44 @@
 <!--resources for the column headers-->
 <resource key="af_tableSelectMany.SELECT_COLUMN_HEADER" dnt="false">選択</resource>
 <resource key="af_tableSelectOne.SELECT_COLUMN_HEADER" dnt="false">選択</resource>
-<!-- The header on the Detail column of tr:table -->
+<!-- The header on the Detail column of af:table -->
 <resource key="af_table.DETAIL_COLUMN_HEADER" dnt="false">詳細</resource>
-<!-- The header on the Focus column of tr:treeTable -->
+<!-- Resource for Composite Table -->
+<resource key="afr_compositeTable.MENU_VIEW" dnt="false">表示</resource>
+<resource key="afr_compositeTable.MENU_COLUMNS" dnt="false">列</resource>
+<resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWALL" dnt="false">すべて表示</resource>
+<resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWMORECOLUMNS" dnt="false">他の列も表示..</resource>
+<resource key="afr_compositeTable.MENUITEM_FREEZE" dnt="false">固定</resource>
+<resource key="afr_compositeTable.MENUITEM_MAXIMIZE" dnt="false">最大化</resource>
+<resource key="afr_compositeTable.MENU_SORT" dnt="false">ソート</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_ASCENDING" dnt="false">昇順</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_DESCENDING" dnt="false">降順</resource>
+<resource key="afr_compositeTable.MENUITEM_SORT_ADVANCED" dnt="false">詳細..</resource>
+<resource key="afr_compositeTable.MENUITEM_REORDER" dnt="false">並替え..</resource>
+<resource key="afr_compositeTable.MENU_TOOLBARS" dnt="false">ツールバー</resource>
+<resource key="afr_compositeTable.MENUITEM_TOOLBARS_DEFAULT" dnt="false">デフォルト</resource>
+<resource key="afr_compositeTable.MENUITEM_TOOLBARS_QBE" dnt="false">例による問合せ</resource>
+<resource key="afr_compositeTable.MENU_FORMAT" dnt="false">フォーマット</resource>
+<resource key="afr_compositeTable.MENUITEM_RESIZECOLUMNS" dnt="false">列のサイズ変更..</resource>
+<resource key="afr_compositeTable.MENUITEM_RESET" dnt="false">リセット..</resource>
+<resource key="afr_compositeTable.MENUITEM_WRAP" dnt="false">折返し</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED" dnt="false">選択行:</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_ROWS_SELECTED_ALL" dnt="false">すべて</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_HIDDEN" dnt="false">非表示列:</resource>
+<resource key="afr_compositeTable.STATUSBARITEM_COLUMNS_FROZEN" dnt="false">固定列:</resource>
+<!-- Resource for Composite Tree Table -->
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND" dnt="false">開く</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE" dnt="false">閉じる</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL_BELOW" dnt="false">下をすべて開く</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL_BELOW" dnt="false">下をすべて閉じる</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL" dnt="false">すべて開く</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL" dnt="false">すべて閉じる</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_GO_UP" dnt="false">上に移動</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_SHOW_AS_TOP" dnt="false">先頭として表示</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_GO_TO_TOP" dnt="false">先頭に移動</resource>
+<!-- The header on the Focus column of af:treeTable -->
 <resource key="af_treeTable.FOCUS_COLUMN_HEADER" dnt="false">フォーカス</resource>
-<!-- resources for tr:column -->
+<!-- resources for af:column -->
 <resource key="af_column.SORTED_ASCEND_TIP" dnt="false">昇順ソート</resource>
 <resource key="af_column.SORTED_DESCEND_TIP" dnt="false">降順ソート</resource>
 <resource key="af_column.SORTED_SORTABLE_TIP" dnt="false">未ソート</resource>
@@ -116,9 +149,9 @@
 <!--{1} -> the current step (integer)-->
 <!--{2} -> the total number of steps (integer)-->
 <!-- pda's processTrain's format  -->
-<resource key="af_train.FORMAT_TOTAL" dnt="false">{2}の{0} {1}</resource>
+<resource key="af_train.FORMAT_TOTAL" dnt="false">{0} {1}/{2}</resource>
 <resource key="af_train.FORMAT_NO_TOTAL" dnt="false">{0} {1}</resource>
-<resource key="af_singleStepButtonBar.FORMAT_TOTAL" dnt="false">{2}の{0} {1}</resource>
+<resource key="af_singleStepButtonBar.FORMAT_TOTAL" dnt="false">{0} {1}/{2}</resource>
 <resource key="af_singleStepButtonBar.FORMAT_NO_TOTAL" dnt="false">{0} {1}</resource>
 <!--navigation bar format mask for the range string displayed in-->
 <!--a multi step navigation. Examples are "5-10 of 100", and-->
@@ -126,9 +159,9 @@
 <!--{0} -> the first record currently viewed (integer)-->
 <!--{1} -> the last record currently viewed (integer)-->
 <!--{2} -> the total number of records (integer) (optional if total records are known) -->
-<resource key="af_selectRangeChoiceBar.CHOICE_FORMAT_TOTAL" dnt="false">{2}の{0}-{1}</resource>
+<resource key="af_selectRangeChoiceBar.CHOICE_FORMAT_TOTAL" dnt="false">{0}-{1} / {2}</resource>
 <resource key="af_selectRangeChoiceBar.CHOICE_FORMAT_NO_TOTAL" dnt="false">{0}-{1}</resource>
-<resource key="af_table.SELECT_RANGE_CHOICE_FORMAT_TOTAL" dnt="false">{2}の{0}-{1}</resource>
+<resource key="af_table.SELECT_RANGE_CHOICE_FORMAT_TOTAL" dnt="false">{0}-{1} / {2}</resource>
 <resource key="af_table.SELECT_RANGE_CHOICE_FORMAT_NO_TOTAL" dnt="false">{0}-{1}</resource>
 <!--e.g., Step 1 of 5 -->
 <resource key="af_train.STEP" dnt="false">ステップ</resource>
@@ -199,9 +232,12 @@
 <resource key="af_table.UNDISCLOSED" dnt="false">表示</resource>
 <resource key="af_table.DISCLOSED_TIP" dnt="false">情報の非表示を選択</resource>
 <resource key="af_table.UNDISCLOSED_TIP" dnt="false">情報の表示を選択</resource>
-<!--defaults strings for show, hide in showOnePanel -->
-<resource key="af_showOnePanel.DISCLOSED_TIP" dnt="false">表示された情報</resource>
-<resource key="af_showOnePanel.UNDISCLOSED_TIP" dnt="false">情報の表示を選択</resource>
+<!--defaults strings for show, hide in showOneAccordion -->
+<resource key="af_showOneAccordion.DISCLOSED_TIP" dnt="false">表示された情報</resource>
+<resource key="af_showOneAccordion.UNDISCLOSED_TIP" dnt="false">情報の表示を選択</resource>
+<!--defaults strings for show, hide in showOneAccordion -->
+<resource key="af_panelAccordion.DISCLOSED_TIP" dnt="false">表示された情報</resource>
+<resource key="af_panelAccordion.UNDISCLOSED_TIP" dnt="false">情報の表示を選択</resource>
 <!--Alt tag for reordering items up to top-->
 <resource key="af_selectOrderShuttle.REORDER_UP_ALL_TIP" dnt="false">選択項目をリストの最初に移動</resource>
 <!--Alt tag for reordering items up one-->
@@ -268,15 +304,15 @@
 <!--In all of the following three: {0} - the name of the step-->
 <!--alternate text for a visited-step image in a Train-->
 <!-- eg: Billing Information: Previously visited step -->
-<resource key="af_train.VISITED_TIP" dnt="false">{0}: 以前に行ったステップです。</resource>
+<resource key="af_train.VISITED_TIP" dnt="false">{0}: 以前に行ったステップ</resource>
 <!--alternate text for the current-step image in a Train-->
 <!-- eg: Billing Information: Active step -->
-<resource key="af_train.ACTIVE_TIP" dnt="false">{0}: 実行中のステップです</resource>
+<resource key="af_train.ACTIVE_TIP" dnt="false">{0}: 実行中のステップ</resource>
 <!--alternate text for the next-step images in a Train-->
 <!-- eg: Billing Information: Next step -->
-<resource key="af_train.NEXT_TIP" dnt="false">{0}: 次のステップです。</resource>
+<resource key="af_train.NEXT_TIP" dnt="false">{0}: 次のステップ</resource>
 <!-- text for the "More" text in a Train-->
-<resource key="af_train.MORE" dnt="false">追加</resource>
+<resource key="af_train.MORE" dnt="false">詳細</resource>
 <!--text for the "Previous" text in a Train-->
 <resource key="af_train.PREVIOUS" dnt="false">前へ</resource>
 <!--TabBar. For oracle.desktop skin -->
@@ -340,6 +376,7 @@
        user would use to skip all the navigation links and jump to the
        content -->
 <resource key="af_panelPage.SKIP_PAST_NAVIGATION" dnt="false">ページ内容へのナビゲート要素をスキップ</resource>
+<resource key="af_panelPopup.CLOSE" dnt="false">非表示</resource>
 <!-- Nav block titles for screenReader mode -->
 <resource key="af_menuButtons.BLOCK_TITLE" dnt="false">グローバル・ボタン</resource>
 <resource key="af_panelButtonBar.BLOCK_TITLE" dnt="false">グローバル・ボタン</resource>
@@ -378,7 +415,7 @@
 <!-- See FirePartialAction.renderTrigger -->
 <resource key="PPR_TRIGGER_LABEL" dnt="false">実行</resource>
 <!-- Icons are used in the prompts for message components -->
-<!-- e.g., tr:inputText, tr:selectOneChoice -->
+<!-- e.g., af:inputText, af:selectOneChoice -->
 <!--Alternate text for the "error" icon-->
 <resource key="ERROR_TIP" dnt="false">エラー</resource>
 <!--Alternate text for the "warning" icon-->
@@ -401,7 +438,7 @@
 <!--Text to display in noscript tag -->
 <resource key="NO_SCRIPT_MESSAGE" dnt="false">このページではJavaScriptが使用されており、JavaScriptが有効なブラウザが必要です。ご使用のブラウザはJavaScriptが有効ではありません。</resource>
 <!-- Text of the ALT tag for the content frame of popup windows -->
-<resource key="FRAME_CONTENT" dnt="false">内容</resource>
+<resource key="FRAME_CONTENT" dnt="false">コンテンツ</resource>
 <!-- A message displayed when we think there's a popup blocker installed -->
 <resource key="WINDOW_CREATION_ERROR" dnt="false">ブラウザでポップアップ・ウィンドウ・ブロッカが検出されました。ポップアップ・ブロッカはこのアプリケーションの操作を妨げます。このサイトから、ポップアップ・ブロッカを無効にするか、ポップアップを許可してください。</resource>
 <!-- Text to display in noframes element. This message is set on noframes element,
@@ -412,12 +449,22 @@
 <resource key="SHUTTLE_NO_ITEMS_FEEDBACK" dnt="false">移動する項目はありません。</resource>
 <!--Feedback in javascript alert when user tries to use move/remove buttons without selecting items-->
 <resource key="SHUTTLE_NO_ITEM_SELECTED_FEEDBACK" dnt="false">最初に移動する項目を選択してください。</resource>
+<!--resource for af:chart -->
+<resource key="af_chart.IE_SVG_PLUGIN_ERROR_HTML" dnt="false">
+<![CDATA[<H4>Unable to load SVG plugin. Please install the plugin from <a href='#' onclick="window.open('http://www.adobe.com/svg/viewer/install/main.html')">Adobe</a><H4>]]>
+</resource>
+<resource key="af_chart.SVG_ENABLED_BROWSER_ERROR_HTML" dnt="false">
+<![CDATA[<H4>This component needs an SVG enabled browser like Internet Explorer, Firefox 1.5+ or Opera 9.0+<H4>]]>
+</resource>
+<resource key="af_chart.SVG_LOADING_STATUS_HTML" dnt="false">
+<![CDATA[<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>]]>
+</resource>
 <!-- OLD KEYS FOR NOT YET IMPLEMENTED IN ADF FACES -->
 <!--  ******************************************** -->
 <!-- the components that used these keys in 2.2 are not in 3.0 yet -->
 <!-- some might never be (addTableRow, for example). -->
 <!-- Don't delete until the code that uses them is deleted -->
-<!-- resource for tr:treeTOC -->
+<!-- resource for af:treeTOC -->
 <resource key="af_treeTOC.LABEL" dnt="false">参照</resource>
 <resource key="af_treeTOC.CATEGORY_LABEL" dnt="false">カテゴリ</resource>
 <resource key="af_treeTOC.ITEM_LABEL" dnt="false">アイテム</resource>
@@ -462,7 +509,7 @@
 <!--ListOfValues Template-->
 <!--Text for main header LOV Window Header-->
 <!--{0}: The label for the search (the title attribute of the template) -->
-<resource key="SEARCH_AND_SELECT_FORMAT" dnt="false">検索と選択: {0}</resource>
+<resource key="SEARCH_AND_SELECT_FORMAT" dnt="false">検索および選択: {0}</resource>
 <!--Text for sub header in LOV Window-->
 <resource key="SEARCH_TEXT" dnt="false">検索</resource>
 <!--Text for simple search half of the search area toggle button -->
@@ -514,10 +561,10 @@
 <!--                                                                -->
 <!-- T_C Title and Complete: 0=Title, 1=Direction, 2=Range, 3=Size  -->
 <!-- e.g. Car Division/Brands: Next 6 - 10 of 27                    -->
-<resource key="af_treeTable.NAV_CELL_FORMAT_T_C_private" dnt="false">{0}: {3}の{1} {2}</resource>
+<resource key="af_treeTable.NAV_CELL_FORMAT_T_C_private" dnt="false">{0}: {1} {2} / {3}</resource>
 <!-- NT_C: No Title but Complete: 0=Direction, 1=Range, 2=Size      -->
 <!-- e.g. Next 6 - 10 of 27                                         -->
-<resource key="af_treeTable.NAV_CELL_FORMAT_NT_C_private" dnt="false">{2}の{0} {1}</resource>
+<resource key="af_treeTable.NAV_CELL_FORMAT_NT_C_private" dnt="false">{0} {1} / {2}</resource>
 <!-- T_NC: Title but inComplete: 0=Title, 1=Direction, 2=View Size  -->
 <!-- e.g. Car Division/Brands: Next 10                              -->
 <resource key="af_treeTable.NAV_CELL_FORMAT_T_NC_private" dnt="false">{0}: {1} {2}</resource>
@@ -539,4 +586,6 @@
 <!-- {0} = message summary                                        -->
 <!-- {1} = message detail                                         -->
 <resource key="af_messages.GLOBAL_MESSAGE_FORMAT" dnt="false">{0} - {1}</resource>
+<resource key="af_statusIndicator.BUSY" dnt="false">ページ実行中</resource>
+<resource key="af_statusIndicator.READY" dnt="false">ページ準備完了</resource>
 </resources>
