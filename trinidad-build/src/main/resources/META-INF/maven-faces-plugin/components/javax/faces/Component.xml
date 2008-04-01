@@ -41,8 +41,9 @@ must follow a subset of the syntax allowed in HTML:
       </property-extension>
     </property>
     <property>
-      <description>whether the component is rendered. When set to false, no output
-                   will be delivered for this component.
+      <description>whether the component is rendered. When set to false, no output will be
+		delivered for this component (the component will not in any way be rendered,
+		and cannot be made visible on the client). 
       </description>
       <property-name>rendered</property-name>
       <property-class>boolean</property-class>
