@@ -3072,4 +3072,11 @@
     <managed-bean-scope>request</managed-bean-scope>
     <!--oracle-jdev-comment:managed-bean-jsp-link:1demos/testRelativePartialTriggers.jspx-->
   </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>accProfileDemo</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.DemoAccessibilityProfileBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+  
 </faces-config>

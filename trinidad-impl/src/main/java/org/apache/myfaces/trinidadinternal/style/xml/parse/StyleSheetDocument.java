@@ -34,6 +34,7 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.Stack;
 
+import org.apache.myfaces.trinidad.context.AccessibilityProfile;
 import org.apache.myfaces.trinidad.context.LocaleContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
@@ -312,6 +313,7 @@ public class StyleSheetDocument
     int direction = LocaleUtils.getReadingDirection(localeContext);
     int mode = NameUtils.getMode(ModeUtils.getCurrentMode(context));
     TrinidadAgent agent = context.getAgent();
+    AccessibilityProfile accProfile = context.getAccessibilityProfile();
 
     List<StyleSheetNode> v = new ArrayList<StyleSheetNode>(); // List of matching style sheets
     Iterator<StyleSheetNode> e = getStyleSheets();  // Iterator of all style sheets
@@ -321,7 +323,7 @@ public class StyleSheetDocument
     {
       StyleSheetNode styleSheet = e.next();
 
-      if (styleSheet.compareVariants(locale, direction, agent, mode) > 0)
+      if (styleSheet.compareVariants(locale, direction, agent, mode, accProfile) > 0)
         v.add(styleSheet);
     }
 
@@ -336,7 +338,8 @@ public class StyleSheetDocument
                                direction,
                                agent,
                                mode,
-                               _styleSheets);
+                               _styleSheets,
+                               accProfile);
 
     Arrays.sort(styleSheets, comparator);
 
@@ -869,7 +872,8 @@ public class StyleSheetDocument
       int direction,
       TrinidadAgent agent,
       int mode,
-      StyleSheetNode[] styleSheets
+      StyleSheetNode[] styleSheets,
+      AccessibilityProfile accessibilityProfile
       )
     {
       _direction = direction;
@@ -877,6 +881,7 @@ public class StyleSheetDocument
       _agent = agent;
       _styleSheets = styleSheets;
       _mode = mode;
+      _accProfile = accessibilityProfile;
     }
 
     public int compare(StyleSheetNode item1, StyleSheetNode item2)
@@ -887,12 +892,14 @@ public class StyleSheetDocument
       int match1 = item1.compareVariants(_locale, 
                                          _direction, 
                                          _agent, 
-                                         _mode);
+                                         _mode,
+                                         _accProfile);
       
       int match2 = item2.compareVariants(_locale, 
                                          _direction, 
                                          _agent, 
-                                         _mode);
+                                         _mode,
+                                         _accProfile);
 
       if (match1 == match2)
       {
@@ -932,6 +939,7 @@ public class StyleSheetDocument
     // precedence of two stylesheets with the same attributes.
     // Later style sheets take precedence over earlier ones
     private StyleSheetNode[] _styleSheets;
+    private AccessibilityProfile _accProfile;
   }
 
   // Private style class that we use when we're building up

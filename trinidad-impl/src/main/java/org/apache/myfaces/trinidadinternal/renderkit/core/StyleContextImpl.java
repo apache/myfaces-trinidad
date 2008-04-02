@@ -24,12 +24,14 @@ import java.util.concurrent.ConcurrentMap;
 
 import javax.faces.context.FacesContext;
 
+import org.apache.myfaces.trinidad.context.AccessibilityProfile;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.HtmlRenderer;
 import org.apache.myfaces.trinidad.context.LocaleContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
@@ -46,6 +48,10 @@ class StyleContextImpl implements StyleContext
   {
     _arc = arc;
     _generatedFilesPath = generatedFilesPath;
+
+    // Our style/skin code assumes that we have access to a 
+    // non-null accessibility profile.  Check that here.
+    assert(_arc.getAccessibilityProfile() != null);
   }
 
 
@@ -98,6 +104,11 @@ class StyleContextImpl implements StyleContext
   {
     FacesContext fContext = FacesContext.getCurrentInstance();
     return HtmlRenderer.isStandardsModeDisabled(fContext);
+  }
+
+  public AccessibilityProfile getAccessibilityProfile()
+  {
+    return _arc.getAccessibilityProfile();
   }
 
   // Creates a default StyleProvider

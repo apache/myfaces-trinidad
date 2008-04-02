@@ -19,10 +19,13 @@
 package org.apache.myfaces.trinidadinternal.style.xml.parse;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Locale;
+import java.util.Set;
 import java.util.Vector;
 
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser;
 import org.apache.myfaces.trinidadinternal.share.xml.NodeParser;
@@ -58,6 +61,7 @@ public class StyleSheetNodeParser extends BaseNodeParser
     _initBrowsers(attrs.getValue(BROWSERS_ATTR));
     _initVersions(attrs.getValue(VERSIONS_ATTR));
     _initPlatforms(attrs.getValue(PLATFORMS_ATTR));
+    _initAccessibilityProperties(attrs.getValue(ACC_PROFILE_ATTR));
   }
 
   /**
@@ -85,7 +89,8 @@ public class StyleSheetNodeParser extends BaseNodeParser
         _browsers,
         _versions,
         _platforms,
-        _mode
+        _mode,
+        _accProperties
         );
   }
 
@@ -245,6 +250,34 @@ public class StyleSheetNodeParser extends BaseNodeParser
     _platforms = _getIntegers(v);
   }
 
+  // Initialize accessibility profile properties
+  private void _initAccessibilityProperties(String accProfileAttr)
+  {
+    Iterator<String> tokens = _getTokens(accProfileAttr);
+    if (tokens == null)
+      return;
+
+    // The number of accessibility properties is always small - typically
+    // just 1.  Use a small initial capacity.
+    Set<String> props = new HashSet<String>(11);
+
+    while (tokens.hasNext())
+    {
+      String token = tokens.next();
+              
+      if (NameUtils.isAccessibilityPropertyName(token))
+      {
+        props.add(token);
+      }
+      else
+      {
+        _LOG.warning("INVALID_ACC_PROFILE", new Object[]{token});
+      }
+    }
+    
+    _accProperties = props;
+  }
+
   // Copies Integers from a Vector into an int array
   private int[] _getIntegers(Vector<Integer> v)
   {
@@ -279,4 +312,8 @@ public class StyleSheetNodeParser extends BaseNodeParser
   private int[]             _browsers;
   private int[]             _versions;
   private int[]             _platforms;
+  private Set<String>       _accProperties;
+
+  static private final TrinidadLogger _LOG = 
+    TrinidadLogger.createTrinidadLogger(StyleSheetNodeParser.class);
 }

@@ -101,6 +101,15 @@ accessibility mode used by Apache MyFaces Trinidad.
           </annotation>
         </element>
 
+        <element name="accessibility-profile" minOccurs="0" maxOccurs="1"
+                 type="config:accessibilityProfileExpressionType">
+          <annotation>
+            <documentation>The &lt;accessibility-profile&gt; element controls 
+            accessibility profile preferences used by Apache MyFaces Trinidad.
+            </documentation>
+          </annotation>
+        </element>
+
         <element name="oracle-help-servlet-url" minOccurs="0" maxOccurs="1"
                  type="config:anyURIExpressionType">
           <annotation>
@@ -215,6 +224,17 @@ override the locale that converters use for date time, number and currency.
     </restriction>
   </simpleType>
 
+  <simpleType name="accessibilityProfileType">
+    <restriction base="string">
+      <enumeration value="high-contrast"/>
+      <enumeration value="large-fonts"/>
+    </restriction>
+  </simpleType>
+
+  <simpleType name="accessibilityProfileListType">
+    <list itemType="config.accessibilityProfileType"/>
+  </simpleType>
+
   <simpleType name="clientValidationType">
     <restriction base="string">
       <enumeration value="ALERT"/>
@@ -241,6 +261,10 @@ override the locale that converters use for date time, number and currency.
 
   <simpleType name="accessibilityModeExpressionType">
     <union memberTypes="config:accessibilityModeType config:expressionType" />
+  </simpleType>
+
+  <simpleType name="accessibilityProfileExpressionType">
+    <union memberTypes="config:accessibilityProfileListType config:expressionType" />
   </simpleType>
 
   <simpleType name="clientValidationExpressionType">

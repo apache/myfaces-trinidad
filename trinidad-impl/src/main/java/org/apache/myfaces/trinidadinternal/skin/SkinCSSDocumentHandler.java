@@ -21,8 +21,12 @@ package org.apache.myfaces.trinidadinternal.skin;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+import java.util.Set;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
@@ -107,7 +111,8 @@ public class SkinCSSDocumentHandler
          _createCompleteSelectorNode(selector, 
                                      _propertyNodeList,
                                      _selectorAgents,
-                                     _selectorPlatforms);
+                                     _selectorPlatforms,
+                                     _getSelectorAccProperties());
        _completeSelectorNodeList.add(node);
     }
     // reset flags
@@ -182,6 +187,10 @@ public class SkinCSSDocumentHandler
       {
         _parseCustomAtRule(_AT_PLATFORM, atRule);        
       }
+      else if (atRule.startsWith(_AT_ACC_PROFILE))
+      {
+        _parseCustomAtRule(_AT_ACC_PROFILE, atRule);        
+      }
       // for now, ignore other atRules in a skinning css file
       
     }
@@ -198,8 +207,7 @@ public class SkinCSSDocumentHandler
     // save the atRule type, so the document handler code can get to it.
     // run this through parser again
     String content = _getAtRuleContent(atRule);
-    int[] targetTypes = _getAtRuleTargetTypes(type, atRule);
-    _setAtRuleTargetTypes(type, targetTypes);
+    _initAtRuleTargetTypes(type, atRule);
     
     // use this current DocumentHandler. This way we can add to the 
     // CompleteSelectorNode list with agent information.
@@ -211,17 +219,6 @@ public class SkinCSSDocumentHandler
 
   }
   
-  private void _setAtRuleTargetTypes(
-    String type,
-    int[]  targetTypes)
-  {
-    
-    if (_AT_AGENT.equals(type))
-      _selectorAgents = targetTypes;
-    else if (_AT_PLATFORM.equals(type))
-      _selectorPlatforms = targetTypes;
-  }
-  
   private void _resetAtRuleTargetTypes(
     String type)
   {
@@ -229,6 +226,13 @@ public class SkinCSSDocumentHandler
       _selectorAgents = null;
     else if (_AT_PLATFORM.equals(type))
       _selectorPlatforms = null;
+    else if (_AT_ACC_PROFILE.equals(type))
+    {
+      assert(!_selectorAccPropertiesStack.isEmpty());
+      
+      if (!_selectorAccPropertiesStack.isEmpty())
+        _selectorAccPropertiesStack.removeLast();        
+    }
   }
   
    // create a CompleteSelectorNode (this is the selector, properties, and
@@ -237,7 +241,8 @@ public class SkinCSSDocumentHandler
     String selector, 
     List<PropertyNode> propertyNodeList,
     int[] selectorAgents,
-    int[] selectorPlatforms)
+    int[] selectorPlatforms,
+    Set<String> selectorAccProperties)
   {
     // parse the selector to see if there is a :rtl or :ltr ending.
     // if so, then set the reading direction.
@@ -263,7 +268,8 @@ public class SkinCSSDocumentHandler
         propertyNodeList, 
         direction, 
         selectorAgents, 
-        selectorPlatforms);
+        selectorPlatforms,
+        selectorAccProperties);
   }
 
   /**
@@ -287,7 +293,8 @@ public class SkinCSSDocumentHandler
       int direction = completeSelectorNode.getDirection();
       int[] agents = completeSelectorNode.getAgents();
       int[] platforms = completeSelectorNode.getPlatforms();
-         
+      Set<String> accProperties = completeSelectorNode.getAccessibilityProperties();
+
       // loop through the skinStyleSheetNodeList to find a match
       // of direction, agents, platforms, etc.
       boolean match = false;
@@ -297,7 +304,7 @@ public class SkinCSSDocumentHandler
       for (int i=skinStyleSheetNodes.size()-1; i >=0 && !match; i--)
       {
         SkinStyleSheetNode ssNode = skinStyleSheetNodes.get(i);
-        match = ssNode.matches(direction, agents, platforms);
+        match = ssNode.matches(direction, agents, platforms, accProperties);
         if (match)
           ssNode.add(completeSelectorNode.getSkinSelectorPropertiesNode());
       }
@@ -306,7 +313,7 @@ public class SkinCSSDocumentHandler
       {
        // no matching stylesheet node found, so create a new one
         SkinStyleSheetNode ssNode = 
-         new SkinStyleSheetNode(namespaceMap, direction, agents, platforms);
+         new SkinStyleSheetNode(namespaceMap, direction, agents, platforms, accProperties);
         ssNode.add(completeSelectorNode.getSkinSelectorPropertiesNode());
         skinStyleSheetNodes.add(ssNode);
       }       
@@ -315,13 +322,12 @@ public class SkinCSSDocumentHandler
   }
 
   /**
+   * Initialized at rule target types.
    * 
-   * @param type type of the at rule. _AT_AGENT or _AT_PLATFORM
+   * @param type type of the at rule. _AT_AGENT, _AT_PLATFORM, or _AT_ACC_PROFILE
    * @param atRule - the atRule string
-   * @return int[] the target types using AdfFacesAgent constants like
-   * AdfFacesAgent.APPLICATION_IEXPLORER
    */
-  private int[] _getAtRuleTargetTypes(
+  private void _initAtRuleTargetTypes(
     String type, 
     String atRule)
   {
@@ -334,10 +340,11 @@ public class SkinCSSDocumentHandler
     {
       String types = atRule.substring(firstSpace, openBrace);
       String[] typeArray = types.split(",");
-      List<Integer> list = new ArrayList<Integer>();
       
       if (_AT_AGENT.equals(type))
       {
+        List<Integer> list = new ArrayList<Integer>();
+
         for (int i=0; i < typeArray.length; i++)
         {
           int agentInt = NameUtils.getBrowser(typeArray[i].trim());
@@ -345,20 +352,54 @@ public class SkinCSSDocumentHandler
           if (agentInt != TrinidadAgent.APPLICATION_UNKNOWN)
             list.add(agentInt);
         }
+        
+        _selectorAgents = _getIntArray(list);
       }
       else if (_AT_PLATFORM.equals(type))
       {
+        List<Integer> list = new ArrayList<Integer>();
+
         for (int i=0; i < typeArray.length; i++)
         {
           int platformInt = NameUtils.getPlatform(typeArray[i].trim());           
 
           if (platformInt != TrinidadAgent.OS_UNKNOWN)
             list.add(platformInt);
-        }          
+        }
+        
+        _selectorPlatforms = _getIntArray(list);
       }
-      return _getIntArray(list);
-   }
-   else return null;
+      else if (_AT_ACC_PROFILE.equals(type))
+      {
+        // The number of profile properties is always going to be 
+        // very small, so we need to specify some initial capacity -
+        // the default is too large.  Make the hash set twice as
+        // large as the number of properties so that there is some
+        // room to avoid collisions.  This probably isn't especially
+        // effective, but probably doesn't matter much given the
+        // small size of our sets.
+        Set<String> set = new HashSet<String>(typeArray.length * 2);
+
+        for (int i=0; i < typeArray.length; i++)
+        {
+          String accProp = typeArray[i].trim();
+
+          if (NameUtils.isAccessibilityPropertyName(accProp))
+          {
+            set.add(accProp);
+          }
+          else
+          {
+            _LOG.warning("INVALID_ACC_PROFILE", new Object[]{accProp});
+          }
+        }
+        
+        if (!_selectorAccPropertiesStack.isEmpty())
+          set = _mergeAccProperties(_selectorAccPropertiesStack.getLast(), set);
+
+        _selectorAccPropertiesStack.add(set);
+      }
+    }
   }
 
   // Copies Integers from a List of Integers into an int array
@@ -397,7 +438,69 @@ public class SkinCSSDocumentHandler
      return atRule.substring(openBraceIndex+1, endBraceIndex);
    
   }
-   
+
+  // Returns the accessibility properties in effect for the current selector
+  private Set<String> _getSelectorAccProperties()
+  {
+    return _selectorAccPropertiesStack.isEmpty() ? 
+             null : 
+             _selectorAccPropertiesStack.getLast();
+  }
+
+  // When specifying multiple values in an @accessibility-profile rule, eg:
+  //
+  // @accessibility-profile high-contrast, large-fonts {
+  //   .selector { property: value }
+  // }
+  //
+  // We treat the ',' separator as a logical "or" - ie. we match if either
+  // high-contrast or large-fonts is specified by the AccessibilityProfile.
+  //
+  // In order to "and" accessibility profile properties together, we need
+  // to support nested @accessibility-profile rules, eg:
+  //
+  // @accessibility-profile high-contract {
+  //   @accessibility-profile large-fonts {
+  //      .selector { property: value}
+  //   }
+  // }
+  //
+  // Where we only match the inner rule if both the outer rule *and* the
+  // inner rule are matched.  We need some way to represent the fact that
+  // we both rules must match.  We can't simply add the individual values
+  // into the accessibility properties Set - since we will match either
+  // value rather than require that both are present.  Instead we create
+  // new compound values, eg. "high-contrast&large-fonts".  This allows the
+  // accessibility matching logic in StyleSheetNode to detect cases where
+  // multiple properties are required in order to accept the match.
+  private Set<String> _mergeAccProperties(
+    Set<String> oldProperties, 
+    Set<String> newProperties)
+  {
+    // If we don't have any old properties, no merging to do, just use
+    // the new properties.
+    if ((oldProperties == null) || oldProperties.isEmpty())
+      return newProperties;
+
+    // If we don't have any new properties, no merging to do, but we
+    // want to inherit the old properties, so make a copy.
+    if ((newProperties == null) || newProperties.isEmpty())
+      return new HashSet<String>(oldProperties);
+    
+    // We have both old and new properties.  We need to merge
+    // these into a single set.  At the most the merged set contains 
+    // oldProperties.size() * newProperties.size().  (We double this to
+    // avoid collisions/re-allocations.)
+    int mergedSize = oldProperties.size() + newProperties.size();
+    Set<String> mergedProperties = new HashSet<String>(mergedSize * 2);
+    for (String oldProperty : oldProperties)
+    {
+      for (String newProperty : newProperties)
+        mergedProperties.add(oldProperty + "&" + newProperty);
+    }
+
+    return mergedProperties;    
+  }
 
    /**
     * This Class contains a SkinSelectorPropertiesNode and a rtl direction.
@@ -410,7 +513,8 @@ public class SkinCSSDocumentHandler
       List<PropertyNode> propertyNodes,
       int    direction,
       int[]  agents,
-      int[]  platforms
+      int[]  platforms,
+      Set<String> accProperties
       )
     {
       _node = new SkinSelectorPropertiesNode(selectorName, propertyNodes);
@@ -419,6 +523,14 @@ public class SkinCSSDocumentHandler
       // at the end of the @rule parsing.
       _agents = _copyIntArray(agents);
       _platforms = _copyIntArray(platforms);
+      
+      if (accProperties != null)
+      {
+        // Copy acc properties just to be safe.  Note that we don't
+        // bother wrapping in an unmodifiable set - just following
+        // the pattern used for the agents/platforms arrays.
+        _accProperties = new HashSet<String>(accProperties);
+      }
     }
     
     public SkinSelectorPropertiesNode getSkinSelectorPropertiesNode()
@@ -440,7 +552,12 @@ public class SkinCSSDocumentHandler
     {
       return _platforms;
     }
-    
+
+    public Set<String> getAccessibilityProperties()
+    {
+      return _accProperties;
+    }
+
     // Returns a copy of the int array
     private static int[] _copyIntArray(int[] array)
     {
@@ -452,16 +569,18 @@ public class SkinCSSDocumentHandler
     
       return copy;
     }
-     
+
     private SkinSelectorPropertiesNode _node;
     private int _direction;  // the reading direction
     private int[] _agents;
     private int[] _platforms;
+    private Set<String> _accProperties;
 
   }
 
   private static String _AT_AGENT = "@agent";
   private static String _AT_PLATFORM = "@platform";
+  private static String _AT_ACC_PROFILE = "@accessibility-profile";
 
   // below are properties that we set and reset 
   // as the methods of this documentHandler get called.
@@ -471,10 +590,17 @@ public class SkinCSSDocumentHandler
   // list to create a list of SkinStyleSheetNodes
   private List <CompleteSelectorNode> _completeSelectorNodeList = 
     new ArrayList<CompleteSelectorNode>();
-  // these are the selector platform and agents of the selectors we
-  // are currently parsing in this document.
+  // these are the selector platform, agents and accessiblity properties of the 
+  // selectors we are currently parsing in this document.
   private int[] _selectorPlatforms = null;
   private int[] _selectorAgents = null;
+
+  // Stack of accessibility property sets.  While java.util.Stack has the
+  // push/pop API that we want, we don't need the synchronization, so we
+  // just use a LinkedList instead and pretend its a stack.
+  private LinkedList<Set<String>> _selectorAccPropertiesStack =
+    new LinkedList<Set<String>>();
+
   private Map<String, String> _namespaceMap = new HashMap<String, String>();
   private static final TrinidadLogger _LOG = 
     TrinidadLogger.createTrinidadLogger(SkinCSSDocumentHandler.class);

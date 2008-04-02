@@ -26,6 +26,8 @@
   -->
 
   <accessibility-mode>#{prefs.proxy.accessibilityMode}</accessibility-mode>
+  <accessibility-profile>#{prefs.proxy.accessibilityProfile}</accessibility-profile> 
+
   <!-- you can use EL to get the skin. This allows the skin to change between
        requests. -->
 

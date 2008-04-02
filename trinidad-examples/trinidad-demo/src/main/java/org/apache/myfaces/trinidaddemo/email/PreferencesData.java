@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.model.SelectItem;
 
+import org.apache.myfaces.trinidad.context.AccessibilityProfile;
+
 /**
  * Bean which provides preferences data
  *
@@ -109,6 +111,14 @@ public class PreferencesData
     return _accessibilityMode;
   }
 
+  /**
+   * Returns the AccessibilityProfile for this user.
+   */
+  public AccessibilityProfile getAccessibilityProfile()
+  {
+    // For the moment, just use the default profile.
+    return AccessibilityProfile.getDefaultInstance();
+  }
 
   /**
    * Returns the branding type: REGULAR_BRANDING,

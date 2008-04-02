@@ -40,6 +40,7 @@ import org.apache.myfaces.trinidad.change.ChangeManager;
 import org.apache.myfaces.trinidad.change.SessionChangeManager;
 import org.apache.myfaces.trinidad.component.UIXCollection;
 import org.apache.myfaces.trinidad.config.RegionManager;
+import org.apache.myfaces.trinidad.context.AccessibilityProfile;
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.DialogService;
 import org.apache.myfaces.trinidad.context.PageFlowScopeProvider;
@@ -245,6 +246,13 @@ public class RequestContextImpl extends RequestContext
     }
 
     return _ACCESSIBILITY_NAMES.get(name);
+  }
+
+  @Override
+  public AccessibilityProfile getAccessibilityProfile()
+  { 
+    return (AccessibilityProfile) _bean.getProperty(
+      RequestContextBean.ACCESSIBILITY_PROFILE_KEY);
   }
 
   @Override

@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /** Stores information about the .css skin file.
  * namespaceMap, a List of SkinSelectorPropertiesNodes, and direction.
@@ -41,13 +42,15 @@ class SkinStyleSheetNode
       List <SkinSelectorPropertiesNode> skinSelectorNodeList,
       Map<String, String> namespaceMap,
       int  direction,
-      int[] agents
+      int[] agents,
+      Set<String> accProperties
       )
     {
       _skinSelectorNodeList = skinSelectorNodeList;
       _namespaceMap     = namespaceMap;
       _direction        = direction;
       _agents           = agents;
+      _accProperties    = accProperties;
     } 
     
   
@@ -55,13 +58,14 @@ class SkinStyleSheetNode
     Map<String, String> namespaceMap,
     int  direction,
     int[] agents,
-    int[] platforms
+    int[] platforms,
+    Set<String> accProperties
     )
   {
     _namespaceMap     = namespaceMap;
     _direction        = direction;
     _agents           = agents;
-    _platforms        = platforms;
+    _accProperties    = accProperties;
   }     
     
   public void add(SkinSelectorPropertiesNode node)
@@ -107,11 +111,17 @@ class SkinStyleSheetNode
     {
       return _platforms;
     }
-    
+
+    public Set<String> getAcessibilityProperties()
+    {
+      return _accProperties;
+    }
+
     public boolean matches(
       int direction, 
       int[] agents, 
-      int[] platforms)
+      int[] platforms,
+      Set<String> accProperties)
     {
       if (direction == _direction)
       {
@@ -121,7 +131,12 @@ class SkinStyleSheetNode
         {
           boolean platformsMatch = _intArraysEqual(platforms, _platforms);
           if (platformsMatch)
-            return true;
+          {
+            boolean accMatch = _setsEqual(accProperties, _accProperties);
+            
+            if (accMatch)
+              return true;
+          }
         }
       }
       return false;
@@ -137,11 +152,18 @@ class SkinStyleSheetNode
         Arrays.sort(a2);
       return Arrays.equals(a1, a2); 
     }
-    
+
+    private boolean _setsEqual(
+      Set s1, 
+      Set s2)
+    {
+      return (s1 == null) ? (s2 == null) : (s1.equals(s2));
+    }
+
     private Map<String, String> _namespaceMap;
     private List <SkinSelectorPropertiesNode> _skinSelectorNodeList;
     private int  _direction;  // reading direction
     private int[] _agents;
     private int[] _platforms;
-
+    private Set<String> _accProperties;
 }

@@ -54,6 +54,7 @@ object lets a developer receive notification when DOM is
 replaced by PPR.</li>
 <li>A new "mode" attribute on tr:document and trh:html lets you force Trinidad to enable "quirks" mode or to a "strict" DTD.  By default, Trinidad still renders with a transitional DTD but with standards-mode rendering.  Note: "strict" mode does not currently change how Trinidad renders - it simply swaps the DTD.</li>
 <li>The "toolbar" facet is now supported on showDetailItems in panelAccordion.</li>
+<li>A new accessibility "profile" API has been added as a companion to the existing accessibility "mode".  The accessibility profile API provides support for finer-grained accessibility preferences than can be supported by a mode-based API.  The first two accessibility profile preferences are "high-contrast", for users who prefer high contrast styles/content, and "large-fonts", for users who prefer larger/scalable fonts.  The accessibility profile value can be specified/bound in trinidad-config.xml via the new &lt;accessibility-profile&gt; element.  Trinidad skinning has been enhanced to allow accessibility profile-specific styles/icons to be specified via within @accessibility-profile blocks.  Accessibility profile information can be accessed at runtime (eg. from within a Renderer) via the new RequestContext/RenderingContext.getAccessibilityProfile() APIs. </li>
 </ul>
 
 </subsection>

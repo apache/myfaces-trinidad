@@ -145,6 +145,10 @@ public class StyleSheetNodeEqualsTest extends TestCase
     int[] anotherPlatforms = {2, 3, 4};
     int[] differentOrderPlatforms = {2, 4, 3};
 
+    Set<String> accProps = new HashSet<String>(Arrays.asList("high-contrast", "large-fonts"));
+    Set<String> anotherAccProps = new HashSet<String>(Arrays.asList("high-contrast", "large-fonts"));
+    Set<String> differentOrderAccProps = new HashSet<String>(Arrays.asList("large-fonts", "high-contrast"));
+
     
     // The constructor takes these arguments:
     // StyleNode[] styles,
@@ -163,7 +167,8 @@ public class StyleSheetNodeEqualsTest extends TestCase
                          browsers, 
                          versions, 
                          platforms, 
-                         0);
+                         0,
+                         accProps);
     StyleSheetNode anotherStyleSheetNode = 
       new StyleSheetNode(anotherStyleSheetOneNodes,
                          anotherIconNodes,
@@ -172,7 +177,8 @@ public class StyleSheetNodeEqualsTest extends TestCase
                          anotherBrowsersDiffOrder, 
                          anotherVersions,
                          anotherPlatforms, 
-                         0);
+                         0,
+                         anotherAccProps);
     StyleSheetNode sameDiffOrderStyleSheetNode = 
       new StyleSheetNode(anotherStyleSheetOneNodes,
                          anotherIconNodes,
@@ -181,7 +187,8 @@ public class StyleSheetNodeEqualsTest extends TestCase
                          anotherBrowsersDiffOrder, 
                          anotherVersions,
                          anotherPlatforms, 
-                         0);                         
+                         0,
+                         differentOrderAccProps);
       
     // these should be equal
     assertEquals(styleSheetNode.getStyleSheetId() == anotherStyleSheetNode.getStyleSheetId(), true);   

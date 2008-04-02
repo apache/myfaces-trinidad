@@ -30,6 +30,7 @@ import javax.faces.context.FacesContext;
 
 import javax.servlet.ServletContext;
 
+import org.apache.myfaces.trinidad.context.AccessibilityProfile;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidad.context.Agent;
@@ -86,6 +87,12 @@ public class CoreRenderingContext extends RenderingContext
     // Get and cache (since it can be EL-bound)
     _accessibilityMode = afContext.getAccessibilityMode();
     _animationEnabled = afContext.isAnimationEnabled();
+
+    // Initialize the accessibility profile, providing a default
+    // instance if necessary.
+    _accessibilityProfile = afContext.getAccessibilityProfile();
+    if (_accessibilityProfile == null)
+      _accessibilityProfile = AccessibilityProfile.getDefaultInstance();
   }
 
 
@@ -181,6 +188,12 @@ public class CoreRenderingContext extends RenderingContext
   public RequestContext.Accessibility getAccessibilityMode()
   {
     return _accessibilityMode;
+  }
+
+  @Override
+  public AccessibilityProfile getAccessibilityProfile()
+  {
+    return _accessibilityProfile;
   }
 
   @Override
@@ -675,6 +688,7 @@ public class CoreRenderingContext extends RenderingContext
   private Map<String, String> _skinResourceKeyMap;
   private String              _outputMode;
   private RequestContext.Accessibility _accessibilityMode;
+  private AccessibilityProfile         _accessibilityProfile;
   private boolean _animationEnabled;
   private PartialPageContext  _pprContext;
   private LocaleContext       _localeContext;

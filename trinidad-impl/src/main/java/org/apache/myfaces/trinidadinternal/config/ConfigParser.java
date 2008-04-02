@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;
 import java.util.Map;
+import java.util.StringTokenizer;
 import java.util.TimeZone;
 
 import javax.el.ValueExpression;
@@ -32,6 +33,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.context.AccessibilityProfile;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
@@ -248,6 +250,10 @@ public class ConfigParser
                 return;
               }
             }
+            else if (key.getType() == AccessibilityProfile.class)
+            {
+              value = _getAccessibilityProfile(currentText);
+            }
             else
             {
               value = currentText;
@@ -291,6 +297,41 @@ public class ConfigParser
       return value;
     }
 
+    // Parses the text into an AccessibilityProfile.
+    private static AccessibilityProfile _getAccessibilityProfile(
+      String text)
+    {
+      AccessibilityProfile.ColorContrast colorContrast = null;
+      AccessibilityProfile.FontSize fontSize = null;
+
+      // Note: we do the parsing here in the ConfigParser instead of in 
+      // RequestContextImpl so that we can easily detect/log any problems 
+      // once at startup.  Also nice to do this here so that we have some 
+      // chance of actually logging line numbers, though at the moment it 
+      // looks like our Handler doesn't implement Locator.
+      
+      StringTokenizer tokens = new StringTokenizer(text);
+      while (tokens.hasMoreTokens())
+      {
+        String token = tokens.nextToken();
+        
+        if ("high-contrast".equals(token))
+        {
+          colorContrast = AccessibilityProfile.ColorContrast.HIGH;
+        }
+        else if ("large-fonts".equals(token))
+        {
+          fontSize = AccessibilityProfile.FontSize.LARGE;
+        }
+        else
+        {
+          _LOG.warning("INVALID_ACC_PROFILE", new Object[]{token});
+        }
+      }
+
+      return AccessibilityProfile.getInstance(colorContrast, fontSize);
+    }
+  
     private RequestContextBean  _bean;
     private String              _currentText;
     private Map<String, Object> _applicationMap;

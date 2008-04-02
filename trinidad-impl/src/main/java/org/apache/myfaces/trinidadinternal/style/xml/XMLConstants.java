@@ -47,6 +47,7 @@ public interface XMLConstants
   public static final String BROWSERS_ATTR  = "browsers";
   public static final String VERSIONS_ATTR  = "versions";
   public static final String PLATFORMS_ATTR = "platforms";
+  public static final String ACC_PROFILE_ATTR = "accessibilityProfile";
   public static final String HREF_ATTR      = "href";
   public static final String PROPERTY_NAME_ATTR       = "propertyName";
   public static final String LOCAL_PROPERTY_NAME_ATTR = "localPropertyName";
@@ -56,5 +57,9 @@ public interface XMLConstants
   // Some value constants
   public static final String DIRECTION_RIGHTTOLEFT  = "rtl";
   public static final String DIRECTION_LEFTTORIGHT  = "ltr";
+
+  // AccessibilityProfile contstants
+  public static final String ACC_HIGH_CONTRAST  = "high-contrast";
+  public static final String ACC_LARGE_FONTS    = "large-fonts";
 }
 

@@ -1050,13 +1050,13 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
       }
       else
       {
-        _LOG.warning("INVALID_TRANSLATION_SOURCE_VE_TYPE");        
+        _LOG.warning("INVALID_TRANSLATION_SOURCE_VE_TYPE");
       }
     }
 
     public final ValueExpression _translationSourceVE;
   }
-  
+
   private static class ValueBindingTranslationSource implements TranslationSource
   {
 
