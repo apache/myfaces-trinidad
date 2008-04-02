@@ -1222,6 +1222,9 @@ TrDateTimeConverter.prototype._initPatterns  = function(
   if (pattern)
     patterns = patterns.concat(pattern);
 
+  //see TRINIDAD-859  
+  patterns = patterns.concat(["MMMM dd, yy", "dd-MMMM-yy", "MMMM/dd/yy"]);
+
   // Bug 2002065: 
   // Be forgiving of users who prefer a different separator
   // and alternative month styles. We are be lenient by default with ADF Faces
