@@ -154,6 +154,39 @@ of accessibility support to be used.  Accepted values are:
 </ul>
 </p>
         </subsection>
+        <subsection name="accessibility-profile">
+<p>
+The <code>&lt;accessibility-profile&gt;</code> element defines finer-grained
+accessibility preferences than is possible to support with the acccessibility
+mode.  Accepted values are:
+</p>
+<p>
+<ul>
+<li>"high-contrast": Indicates that the end user prefers high contrast-friendly content.</li>
+<li>"large-fonts": Indicates that the end user prefers large fonts (larger fonts than the default font size provided by the skin).</li>
+</ul>
+</p>
+<p>
+Multiple values may be specified using whitespace to separate the values, eg:
+</p>
+<source><![CDATA[
+  <!-- Enable both high-contrast and large-fonts content -->
+  <accessibility-profile>high-contrast large-fonts</accessibility-profile>
+]]>
+</source>
+<p>
+Since accessibility preferences are user-specific, the accessibility-profile is typically bound, similar to the accessibility-mode.  The preferences specified by the accessibility profile can be used at runtime to tune both styles/icons defined by the skin as well as the content produced by Renderers.
+</p>
+<p>
+The typical use case for the "high-contrast" preference is to work around issues relating to CSS background images when platform/browser high contrast features are enabled.  For example, when Windows High Contrast mode is enabled (Control Panel->Accessibility Options->Display->High Contrast->Use High Contrast), all background images are hidden.  In cases where background images are used to convey information, this information is lost to high contrast users.  The high-contrast accessibility profile option allows skin implementations to replace such background images with &lt;img&gt; element-based icons, thus avoiding the loss of information.
+</p>
+<p>
+The typical use case for the "large-fonts" preference is to allow skins which specify small or non-scalable fonts (eg. px-based fonts on IE) to provide an alternate set of fonts for users who find the default fonts insufficient.
+</p>
+<p>
+Note that at the moment, the Trinidad core renderers/skins do not yet take advantage of the accessibility profile preferences.  These properties are primarily provided for skin authors who wish to design skins which provide styles/icons optimized for high contrast/large font users.
+</p>
+        </subsection>
         <subsection name="oracle-help-servlet-url">
 <p>
 The <code>&lt;oracle-help-servlet-url&gt;</code> element defines

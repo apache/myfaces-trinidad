@@ -20,6 +20,7 @@ package org.apache.myfaces.trinidaddemo;
 
 import java.util.Collections;
 
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
@@ -31,27 +32,41 @@ public class PreferencesProxy
 {
   public Object getProxy()
   {
-    // If we're in the e-mail demo, use its preferences
     FacesContext context = FacesContext.getCurrentInstance();
-    if ((context.getViewRoot() != null) &&
-        (context.getViewRoot().getViewId().indexOf("/email/") >= 0))
-    {
-      ValueBinding vb =
-        context.getApplication().createValueBinding("#{email.preferences}");
-      return vb.getValue(context);
-    }
-    // If we are showing the SkinDemo page, get the skinFamily from the 
-    // sessionScope.
-    else if ((context.getViewRoot() != null) &&
-        (context.getViewRoot().getViewId().indexOf("SkinDemo") >= 0))
-    {
-      ValueBinding vb =
-        context.getApplication().createValueBinding("#{sessionScope}");
-      return vb.getValue(context);     
-    }
-    // Otherwise, go to an empty map (blank preferences)
-    else
-      return Collections.EMPTY_MAP;
+    String viewId = _getViewId(context);
 
+    if (viewId != null)
+    {
+      // Certain views have their own preferences
+      // storage.  Figure out which preferences
+      // we are proxying.
+      String preferencesExpression = null;
+      
+      if (viewId.indexOf("/email/") >= 0)
+        preferencesExpression = "#{email.preferences}";
+      else if (viewId.indexOf("SkinDemo") >= 0)
+        preferencesExpression = "#{sessionScope}";
+      else if (viewId.indexOf("accessibilityProfileDemo") >= 0)
+        preferencesExpression = "#{accProfileDemo}";
+
+      if (preferencesExpression != null)
+      {
+        ValueBinding vb =
+          context.getApplication().createValueBinding(preferencesExpression);
+        return vb.getValue(context);
+      }
+    }
+    
+    return Collections.EMPTY_MAP;
+  }
+
+  // Returns the current viewId.  
+  private String _getViewId(FacesContext context)
+  {
+    UIViewRoot viewRoot = context.getViewRoot();
+    if (viewRoot != null)
+      return viewRoot.getViewId();
+    
+    return null;
   }
 }

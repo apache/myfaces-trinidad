@@ -155,6 +155,17 @@ public class MockRequestContext extends RequestContext
   }
 
   @Override
+  public AccessibilityProfile getAccessibilityProfile()
+  {
+    return _accProfile;
+  }
+
+  public void setAccessibilityProfile(AccessibilityProfile accProfile)
+  {
+    _accProfile = accProfile;
+  }
+
+  @Override
   public boolean isRightToLeft()
   {
     return _rtl;
@@ -342,6 +353,7 @@ public class MockRequestContext extends RequestContext
 
   private String _skin;
   private Accessibility _accMode;
+  private AccessibilityProfile _accProfile;
   private Agent _agent;
   private boolean _rtl = false;
   private boolean _animationEnabled = true;

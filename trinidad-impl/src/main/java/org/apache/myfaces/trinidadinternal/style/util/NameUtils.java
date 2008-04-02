@@ -29,6 +29,7 @@ import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 
+import org.apache.myfaces.trinidadinternal.style.xml.XMLConstants;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetNode;
 
@@ -316,6 +317,9 @@ public class NameUtils
     boolean browserMatch = _isBrowserMatch(context, styleSheets);
     boolean versionMatch = _isVersionMatch(context, styleSheets);
     boolean platformMatch = _isPlatformMatch(context, styleSheets);
+    boolean highContrastMatch = _isHighContrastMatch(context, styleSheets);
+    boolean largeFontsMatch = _isLargeFontsMatch(context, styleSheets);
+    
     boolean needSeparator = false;
 
     StringBuffer buffer = new StringBuffer();
@@ -385,7 +389,33 @@ public class NameUtils
       needSeparator = true;
     }
 
+    if(highContrastMatch)
+    {
+      if(needSeparator)
+        buffer.append(_VARIANT_SEPARATOR);
+      buffer.append(_getHighContrastString(context));
+      needSeparator = true;
+    }
+
+    if(largeFontsMatch)
+    {
+      if(needSeparator)
+        buffer.append(_VARIANT_SEPARATOR);
+      buffer.append(_getLargeFontsString(context));
+      needSeparator = true;
+    }
+
     return buffer.toString();
+  }
+  
+  /**
+   * Tests whether the specified name is a valid accessibility profile
+   * property name (eg. "high-contrast" or "large-fonts").
+   */
+  public static boolean isAccessibilityPropertyName(String name)
+  {
+    return (XMLConstants.ACC_HIGH_CONTRAST.equals(name) || 
+            XMLConstants.ACC_LARGE_FONTS.equals(name));
   }
 
   // Get the locale as a String
@@ -472,6 +502,24 @@ public class NameUtils
       return _UNKNOWN_NAME;
 
     return name;
+  }
+
+  // Get the platform as a String
+  private static String _getHighContrastString(StyleContext context)
+  {
+    if (context.getAccessibilityProfile().isHighContrast())
+      return _ACC_HIGH_CONTRAST;
+    
+    return _UNKNOWN_NAME;
+  }
+
+  // Get the platform as a String
+  private static String _getLargeFontsString(StyleContext context)
+  {
+    if (context.getAccessibilityProfile().isLargeFonts())
+      return _ACC_LARGE_FONTS;
+    
+    return _UNKNOWN_NAME;
   }
 
   // Tests whether the locale specified in the context match the
@@ -612,6 +660,48 @@ public class NameUtils
     return false;
   }
 
+  // Tests whether the high contrast value specified in the context matches
+  // the high contrast value of any matching style sheet
+  private static boolean _isHighContrastMatch(
+      StyleContext context,
+      StyleSheetNode[] styleSheets)
+  {
+    if (!context.getAccessibilityProfile().isHighContrast())
+      return false;
+
+    // If the high-contrast accessibility profile property is specified
+    // on any style sheet, we have a match.
+    for (int i = 0; i < styleSheets.length; i++)
+    {
+      if (styleSheets[i].getAccessibilityProperties().contains(
+            XMLConstants.ACC_HIGH_CONTRAST))
+        return true;
+    }
+
+    return false;
+  }
+
+  // Tests whether the high contrast value specified in the context matches
+  // the high contrast value of any matching style sheet
+  private static boolean _isLargeFontsMatch(
+      StyleContext context,
+      StyleSheetNode[] styleSheets)
+  {
+    if (!context.getAccessibilityProfile().isLargeFonts())
+      return false;
+
+    // If the large-fonts accessibility profile property is specified
+    // on any style sheet, we have a match.
+    for (int i = 0; i < styleSheets.length; i++)
+    {
+      if (styleSheets[i].getAccessibilityProperties().contains(
+            XMLConstants.ACC_LARGE_FONTS))
+        return true;
+    }
+
+    return false;
+  }
+
   // Direction constants
   private static final String _DIRECTION_RTL = "rtl";
 
@@ -646,6 +736,11 @@ public class NameUtils
   private static final String _PLATFORM_PPC = "ppc";
 
   private static final String _PLATFORM_BLACKBERRY = "blackberry";
+
+  // Accessibility constants
+  private static final String _ACC_HIGH_CONTRAST = "hc";
+
+  private static final String _ACC_LARGE_FONTS = "lf";
 
   // Name for unknown values (ie. browser, platforms, etc...)
   private static final String _UNKNOWN_NAME = "0";

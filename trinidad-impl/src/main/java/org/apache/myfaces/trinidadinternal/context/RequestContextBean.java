@@ -24,6 +24,7 @@ import java.util.TimeZone;
 import org.apache.myfaces.trinidad.bean.FacesBeanImpl;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 
+import org.apache.myfaces.trinidad.context.AccessibilityProfile;
 import org.apache.myfaces.trinidad.context.RequestContext;
 
 public class RequestContextBean extends FacesBeanImpl
@@ -47,6 +48,9 @@ public class RequestContextBean extends FacesBeanImpl
     TYPE.registerKey("look-and-feel");
   static public final PropertyKey ACCESSIBILITY_MODE_KEY =
     TYPE.registerKey("accessibility-mode");
+  static public final PropertyKey ACCESSIBILITY_PROFILE_KEY =
+    TYPE.registerKey("accessibility-profile",
+                     AccessibilityProfile.class);
   static public final PropertyKey RIGHT_TO_LEFT_KEY =
     TYPE.registerKey("right-to-left", Boolean.class);
   static public final PropertyKey FORMATTING_LOCALE_KEY =

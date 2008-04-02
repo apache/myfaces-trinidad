@@ -272,7 +272,8 @@ class SkinStyleSheetParserUtils
                              skinSSNode.getAgents(),
                              null,/*versions, not supported*/
                              skinSSNode.getPlatforms(),
-                             0);
+                             0,
+                             skinSSNode.getAcessibilityProperties());
         ssNodeList.add(ssNode);
       }
  

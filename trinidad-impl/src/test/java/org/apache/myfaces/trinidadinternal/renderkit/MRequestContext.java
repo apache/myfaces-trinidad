@@ -30,6 +30,7 @@ import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.change.ChangeManager;
 import org.apache.myfaces.trinidad.config.RegionManager;
+import org.apache.myfaces.trinidad.context.AccessibilityProfile;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.PageResolver;
@@ -155,6 +156,17 @@ public class MRequestContext extends RequestContext
   public void setAccessibilityMode(Accessibility accMode)
   {
     _accMode = accMode;
+  }
+
+  @Override
+  public AccessibilityProfile getAccessibilityProfile()
+  {
+    return _accProfile;
+  }
+
+  public void setAccessibilityProfile(AccessibilityProfile accProfile)
+  {
+    _accProfile = accProfile;
   }
 
   @Override
@@ -316,6 +328,7 @@ public class MRequestContext extends RequestContext
 
   private String _skin;
   private Accessibility _accMode;
+  private AccessibilityProfile _accProfile;
   private ClientValidation _clientValidation = ClientValidation.ALERT;
   private Agent _agent;
   private boolean _rtl = false;

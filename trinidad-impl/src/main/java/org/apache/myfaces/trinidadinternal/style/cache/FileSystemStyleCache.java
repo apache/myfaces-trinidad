@@ -45,6 +45,7 @@ import java.util.concurrent.ConcurrentMap;
 
 import javax.faces.context.FacesContext;
 
+import org.apache.myfaces.trinidad.context.AccessibilityProfile;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
@@ -1062,8 +1063,8 @@ public class FileSystemStyleCache implements StyleProvider
     public Key(StyleContext context)
     {
       TrinidadAgent agent = context.getAgent();
-
       LocaleContext localeContext = context.getLocaleContext();
+      AccessibilityProfile accProfile = context.getAccessibilityProfile();
 
       _init(
        localeContext.getTranslationLocale(),
@@ -1071,7 +1072,8 @@ public class FileSystemStyleCache implements StyleProvider
        agent.getAgentApplication(),
        agent.getAgentMajorVersion(),
        agent.getAgentOS(),
-       true);
+       true,
+       accProfile);
     }
 
     @Override
@@ -1084,7 +1086,8 @@ public class FileSystemStyleCache implements StyleProvider
                (_browser  << 2)            ^
                (_version  << 4)            ^
                (_platform << 8)            ^
-               shortHash);
+               shortHash                   ^
+               _accProfile.hashCode());
     }
 
     @Override
@@ -1103,7 +1106,8 @@ public class FileSystemStyleCache implements StyleProvider
             (_browser != key._browser)     ||
             (_version != key._version)     ||
             (_platform != key._platform)   ||
-            !_locale.equals(key._locale))
+            !_locale.equals(key._locale)   ||
+            !_accProfile.equals(key._accProfile))
         {
           return false;
         }
@@ -1118,7 +1122,8 @@ public class FileSystemStyleCache implements StyleProvider
       int browser,
       int version,
       int platform,
-      boolean useShort
+      boolean useShort,
+      AccessibilityProfile accessibilityProfile
       )
     {
       // Make sure direction is non-null
@@ -1134,6 +1139,7 @@ public class FileSystemStyleCache implements StyleProvider
       _version = version;
       _platform = platform;
       _short = useShort;
+      _accProfile = accessibilityProfile;
     }
 
     private Locale         _locale;
@@ -1142,6 +1148,7 @@ public class FileSystemStyleCache implements StyleProvider
     private int            _version;
     private int            _platform;
     private boolean        _short;  // Do we use short style classes?
+    private AccessibilityProfile _accProfile;
   }
 
   // Cache entry class

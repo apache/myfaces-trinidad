@@ -90,4 +90,15 @@
     <skin-addition>
       <skin-id>purpleBigFont.desktop</skin-id>
     </skin-addition>
+
+    <!-- A skin which demonstrates accessibility features,
+         eg. @accessibility-profile -->
+    <skin>
+      <id>accdemo.desktop</id>
+      <family>accdemo</family>
+        <extends>minimal.desktop</extends>
+      <render-kit-id>org.apache.myfaces.trinidad.desktop</render-kit-id>
+      <style-sheet-name>skins/accdemo/accdemo.css</style-sheet-name>
+    </skin>
+
 </skins>

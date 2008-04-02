@@ -634,6 +634,8 @@
 
 <resource key="INVALID_ENUM_IN_CONFIG">The value ''{0}'' is not a legal value for &lt;''{1}''&gt;</resource>
 
+<resource key="INVALID_ACC_PROFILE">The value ''{0}'' is not a valid accessibility-profile property</resource>
+
  <!-- MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS -->
  <resource key="MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS">mergeCapabilities() may only be used with Agents created by this class.</resource>
  

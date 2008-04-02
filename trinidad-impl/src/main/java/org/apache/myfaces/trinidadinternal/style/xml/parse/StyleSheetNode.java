@@ -29,12 +29,17 @@ import java.util.Locale;
 
 import java.util.Set;
 
+import java.util.StringTokenizer;
+
+import org.apache.myfaces.trinidad.context.AccessibilityProfile;
+
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 
 import org.apache.myfaces.trinidadinternal.style.util.ModeUtils;
 import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
+import org.apache.myfaces.trinidadinternal.style.xml.XMLConstants;
 
 
 /**
@@ -59,7 +64,8 @@ public class StyleSheetNode
     int[] browsers,
     int[] versions,
     int[] platforms,
-    int mode
+    int mode,
+    Set<String> accessibilityProperties
     )
   {
     // StyleNodes order might matter so this is a List
@@ -106,6 +112,14 @@ public class StyleSheetNode
     }
     else
       _platforms = Collections.emptySet();
+
+    if (accessibilityProperties != null)
+    {
+      Set<String> accPropsSet = _copyAccessibilityProperties(accessibilityProperties);
+      _accProps = Collections.unmodifiableSet(accPropsSet);
+    }
+    else
+      _accProps = Collections.emptySet();
       
     _mode = mode;
     _direction = direction;
@@ -173,6 +187,14 @@ public class StyleSheetNode
     return _platforms;
   }
 
+  /**
+   * Returns the accessibility properties for this StyleSheetNode.
+   */
+  public Collection<String> getAccessibilityProperties()
+  {
+    return _accProps;
+  }
+
 
   /**
    * Tests whether this StyleSheet matches the specified variants.
@@ -186,7 +208,8 @@ public class StyleSheetNode
     Locale locale, 
     int direction, 
     TrinidadAgent agent, 
-    int mode)
+    int mode,
+    AccessibilityProfile accessibilityProfile)
   {
     int localeMatch = _compareLocale(locale);
     if (localeMatch == 0)
@@ -220,7 +243,11 @@ public class StyleSheetNode
     if (osMatch == 0)
       return 0;
 
-    return (localeMatch | browserMatch | versionMatch | osMatch);
+    int accessibilityMatch = _compareAccessibility(accessibilityProfile);
+    if (accessibilityMatch == 0)
+      return 0;
+
+    return (localeMatch | browserMatch | versionMatch | osMatch | accessibilityMatch);
   }
 
   @Override  
@@ -268,7 +295,9 @@ public class StyleSheetNode
       "versions="  + _versions.toString()  + ", " +
       "platforms=" + _platforms.toString() + ", " +
       "styles="    + _styles.toString()    + ", " +
-      "icons="     + _icons.toString()     + "]";
+      "icons="     + _icons.toString()     + ", " +
+      "accessibility-profile=" + _accProps.toString() + "]";
+
   }
 
   /**
@@ -305,6 +334,7 @@ public class StyleSheetNode
     hash = 37*hash + _platforms.hashCode();
     hash = 37*hash + _versions.hashCode();
     hash = 37*hash + _styles.hashCode();
+    hash = 37*hash + _accProps.hashCode();
     
     return hash;
   }  
@@ -418,6 +448,73 @@ public class StyleSheetNode
     return 0;
   }
 
+  // Compares accessibilty profile against supported variants.
+  private int _compareAccessibility(AccessibilityProfile accProfile)
+  {
+    // If we don't have any accessibility properties, we match anything.
+    if (_accProps.isEmpty())
+      return _ACC_UNKNOWN_MATCH;
+
+    // If we match any property, the style sheet is a match
+    for (String accProp : _accProps)
+    {
+      if (_isCompoundAccessibilityProperty(accProp))
+      {
+        if (_matchCompoundAccessibilityProperty(accProp, accProfile))
+          return _ACC_EXACT_MATCH;
+      }
+      else if (_matchAccessibilityProperty(accProp, accProfile))
+        return _ACC_EXACT_MATCH;
+    }
+
+    return 0;
+  }
+
+  // Tests whether the specified property is a compound accessibility property.
+  private boolean _isCompoundAccessibilityProperty(String propertyName)
+  {
+    // Compund acc properties use "&" to separate the individual properties
+    return (propertyName.contains("&"));
+  }
+  
+  // Tests whether the we have a match for a compound accessibility property.
+  private boolean _matchCompoundAccessibilityProperty(
+    String               propertyName,
+    AccessibilityProfile accProfile
+    )
+  {
+    StringTokenizer tokens = new StringTokenizer(propertyName, "&");
+
+    while (tokens.hasMoreTokens())
+    {
+      // If any piece of the compound property fails to match, the
+      // compound property fails to match
+      if (!_matchAccessibilityProperty(tokens.nextToken(), accProfile))
+        return false;
+    }
+    
+    // Everything matched - the compound property matches.
+    return true;
+  }
+
+  // Tests whether we have a match for a particular accessibility
+  // property.
+  private boolean _matchAccessibilityProperty(
+    String               propertyName,
+    AccessibilityProfile accProfile
+    )
+  {
+    if (XMLConstants.ACC_HIGH_CONTRAST.equals(propertyName))
+      return accProfile.isHighContrast();
+    if (XMLConstants.ACC_LARGE_FONTS.equals(propertyName))
+      return accProfile.isLargeFonts();
+
+    // Should never reach here (did we add a new property?)    
+    assert(false);
+    
+    return false;
+  }
+
   // Get a String representing the direction
   private String _getDirectionString()
   {
@@ -471,6 +568,12 @@ public class StyleSheetNode
    return set;
   }   
 
+  // Copies accessibility properties from an array into a set.
+  private static Set<String> _copyAccessibilityProperties(Set<String> accProps)
+  {
+    return new HashSet<String>(accProps);
+  }
+
   // Tests whether the specified Agent.OS value is a Unix platform
   private static boolean _isUnixPlatform(int os)
   {
@@ -486,20 +589,25 @@ public class StyleSheetNode
   private final Set<Integer>    _versions;   // The version variants
   private final Set<Integer>    _platforms;  // The platform variants
   private final int             _mode;       // The mode  
+  private final Set<String>     _accProps;   // Accessibility profile properties
   private final int             _id;         // The cached style sheet id
 
-  // Constants for locale matches - 0x000f0000 bits
+  // Constants for accessibility matches - 0x0f000000 bits
+  private static final int _ACC_EXACT_MATCH         = 0x02000000;
+  private static final int _ACC_UNKNOWN_MATCH       = 0x01000000;
+
+  // Constants for mode matches - 0x00f00000 bits  
+  private static final int _MODE_EXACT_MATCH        = 0x00200000;
+  private static final int _MODE_UNKNOWN_MATCH      = 0x00100000;
+
+  // Constants for locale matches - 0x000f0000 bits  
   private static final int _LOCALE_EXACT_MATCH      = 0x00040000;
   private static final int _LOCALE_PARTIAL_MATCH    = 0x00020000;
   private static final int _LOCALE_UNKNOWN_MATCH    = 0x00010000;
 
-  // Constants for locale matches - 0x0000f000 bits
+  // Constants for direction matches - 0x0000f000 bits
   private static final int _DIRECTION_EXACT_MATCH   = 0x00002000;
   private static final int _DIRECTION_UNKNOWN_MATCH = 0x00001000;
-  
-  private static final int _MODE_EXACT_MATCH        = 0x00200000;
-  private static final int _MODE_UNKNOWN_MATCH      = 0x00100000;
-  
   
   // Constants for browser matches - 0x00000f00 bits
   private static final int _BROWSER_EXACT_MATCH     = 0x00000200;

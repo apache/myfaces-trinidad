@@ -268,6 +268,11 @@ abstract public class RequestContext
   public abstract Accessibility getAccessibilityMode();
 
   /**
+   * Returns the accessibility profile for the current request.
+   */
+  public abstract AccessibilityProfile getAccessibilityProfile();
+
+  /**
    * Returns the name of the current client validation mode.
    */
   public abstract ClientValidation getClientValidation();
