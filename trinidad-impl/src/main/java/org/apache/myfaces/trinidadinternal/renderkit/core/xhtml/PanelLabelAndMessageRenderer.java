@@ -108,16 +108,11 @@ public class PanelLabelAndMessageRenderer extends LabelAndMessageRenderer
     // +------------------+-----------+
     // | indexed children | end facet |
     // +------------------+-----------+
-    // | help facet                   |
-    // +------------------------------+
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement("table", component);
     OutputUtils.renderLayoutTableAttributes(context, arc, "0", null/*width*/);
 
     UIComponent end = getFacet(component, CorePanelLabelAndMessage.END_FACET);
-    UIComponent help = getFacet(component, CorePanelLabelAndMessage.HELP_FACET);
-
-    short helpColSpan = 1;
 
     // Build the main row:
     rw.startElement("tr", null);
@@ -126,24 +121,11 @@ public class PanelLabelAndMessageRenderer extends LabelAndMessageRenderer
     rw.endElement("td");
     if (end != null)
     {
-      helpColSpan = 2;
       rw.startElement("td", null);
       // =-= mcc TODO apply className for "af|panelLabelAndMessage::end-facet"
       // renderStyleClass(context, arc, ...);
       //apply className for "af|panelLabelAndMessage::help-facet"     
       encodeChild(context, end);
-      rw.endElement("td");
-    }
-
-    // Build the help row:
-    if (help != null)
-    {
-      rw.endElement("tr");
-      rw.startElement("tr", null);
-      rw.startElement("td", null);
-      rw.writeAttribute("colspan", helpColSpan, null);      
-      renderStyleClass(context, arc, SkinSelectors.AF_PANEL_LABEL_AND_MESSAGE_HELP_FACET_STYLE_CLASS);
-      encodeChild(context, help);
       rw.endElement("td");
     }
 
