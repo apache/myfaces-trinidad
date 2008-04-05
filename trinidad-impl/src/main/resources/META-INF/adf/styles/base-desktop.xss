@@ -1633,7 +1633,54 @@
   </style>
   <style selector="af|panelFormLayout::message-cell">
     <includeStyle selector="af|panelFormLayout::cell"/>
-  </style> 
+  </style>
+  
+  <!--
+    panelBorderLayout styles
+
+    Note: the skin is used to reduce the DOM size. The positioned elements
+    depend on these CSS styles to render correctly.
+  -->
+  <style selector="af|panelBorderLayout-positioned">
+    <property name="position">relative</property>
+    <property name="height">480px</property>
+    <property name="width">640px</property>
+  </style>
+  <style selector="af|panelBorderLayout-positioned::top">
+    <property name="position">absolute</property>
+    <property name="top">0px</property>
+    <property name="width">100%</property>
+  </style>
+  <style selector="af|panelBorderLayout-positioned::inner-top">
+    <includeStyle selector="af|panelBorderLayout-positioned::top" />
+  </style>
+  <style selector="af|panelBorderLayout-positioned::bottom">
+    <property name="position">absolute</property>
+    <property name="bottom">0px</property>
+    <property name="width">100%</property>
+  </style>
+  <style selector="af|panelBorderLayout-positioned::inner-bottom">
+    <includeStyle selector="af|panelBorderLayout-positioned::bottom" />
+  </style>
+  <style selector="af|panelBorderLayout-positioned::start">
+    <includeStyle name="AFPanelBorderLayoutStart" />
+  </style>
+  <style selector="af|panelBorderLayout-positioned::inner-start">
+    <includeStyle name="AFPanelBorderLayoutStart" />
+  </style>
+  <style selector="af|panelBorderLayout-positioned::end">
+    <includeStyle name="AFPanelBorderLayoutEnd" />
+  </style>
+  <style selector="af|panelBorderLayout-positioned::inner-end">
+    <includeStyle name="AFPanelBorderLayoutEnd" />
+  </style>
+  <style selector="af|panelBorderLayout-positioned::center">
+    <property name="position">absolute</property>
+  </style>
+  <style selector="af|panelBorderLayout-positioned::inner-center">
+    <includeStyle selector="af|panelBorderLayout-positioned::center" />
+  </style>
+  
    <!--
       panelBox Styles
   
@@ -3873,6 +3920,17 @@
 
 </styleSheet>
 
+<styleSheet direction="ltr">
+  <style name="AFPanelBorderLayoutStart">
+    <property name="position">absolute</property>
+    <property name="left">0px</property>
+  </style>
+  <style name="AFPanelBorderLayoutEnd">
+    <property name="position">absolute</property>
+    <property name="right">0px</property>
+  </style>
+</styleSheet>
+
 <styleSheet direction="rtl">
 
   <style name="LTROverride">
@@ -3963,7 +4021,17 @@
   <style selector=".p_OraHeaderImage">
     <property name="margin">0pt 0pt 0pt 2pt</property>
   </style>
+
+  <style name="AFPanelBorderLayoutStart">
+    <property name="position">absolute</property>
+    <property name="right">0px</property>
+  </style>
   
+  <style name="AFPanelBorderLayoutEnd">
+    <property name="position">absolute</property>
+    <property name="left">0px</property>
+  </style>
+
 </styleSheet>
 
 <styleSheet browsers="ie">

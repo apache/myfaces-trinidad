@@ -83,6 +83,55 @@
             </f:verbatim>
           </tr:panelBorderLayout>
           <jsp:directive.include file="editor.jspf"/>
+          <tr:panelHeader text="Positioned layout with 90% width:">
+            <tr:panelBorderLayout
+              layout="positioned"
+              inlineStyle="height: 300px; width: 90%; position: relative; border: 2px solid black;">
+              <f:facet name="top">
+                <tr:outputText
+                  value="Top facet"
+                  inlineStyle="position:absolute;display:block;height:100%;width:100%;background-color:#F00;" />
+              </f:facet>
+              <f:facet name="innerTop">
+                <tr:outputText
+                  value="Inner top facet"
+                  inlineStyle="position:absolute;display:block;height:100%;width:100%;background-color:#800;color:white;" />
+              </f:facet>
+              <f:facet name="bottom">
+                <tr:outputText
+                  value="Bottom facet"
+                  inlineStyle="position:absolute;display:block;height:100%;width:100%;background-color:#0F0;" />
+              </f:facet>
+              <f:facet name="innerBottom">
+                <tr:outputText
+                  value="Inner bottom facet"
+                  inlineStyle="position:absolute;display:block;height:100%;width:100%;background-color:#080;color:white;" />
+              </f:facet>
+              <f:facet name="left">
+                <tr:outputText
+                  value="Left facet"
+                  inlineStyle="position:absolute;display:block;height:100%;width:100%;background-color:#00F;color:white;" />
+              </f:facet>
+              <f:facet name="innerLeft">
+                <tr:outputText
+                  value="Inner left facet"
+                  inlineStyle="position:absolute;display:block;height:100%;width:100%;background-color:#008;color:white;" />
+              </f:facet>
+              <f:facet name="right">
+                <tr:outputText
+                  value="Right facet"
+                  inlineStyle="position:absolute;display:block;height:100%;width:100%;background-color:#CCC;" />
+              </f:facet>
+              <f:facet name="innerRight">
+                <tr:outputText
+                  value="Inner right facet"
+                  inlineStyle="position:absolute;display:block;height:100%;width:100%;background-color:#555;color:white;" />
+              </f:facet>
+              <tr:outputText
+                value="Child"
+                inlineStyle="position:absolute;display:block;height:100%;width:100%;background-color:yellow;" />
+            </tr:panelBorderLayout>
+          </tr:panelHeader>
         </tr:panelGroupLayout>
       </tr:form>
     </tr:document>

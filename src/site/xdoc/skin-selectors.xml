@@ -1706,6 +1706,66 @@
           </tr>
         </table>
       </subsection>
+      <a name="panelBorderLayout"></a>
+      <subsection name="tr:panelBorderLayout">
+        <p>The panel border layout currently only has skin selectors for the positioned layout.
+        </p>
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|panelBorderLayout-positioned</td>
+            <td>The default style class for the root element</td>
+          </tr>
+          <tr>
+            <td>af|panelBorderLayout-positioned::top</td>
+            <td>The style class for the top facet element</td>
+          </tr>
+          <tr>
+            <td>af|panelBorderLayout-positioned::inner-top</td>
+            <td>The style class for the inner top facet element</td>
+          </tr>
+          <tr>
+            <td>af|panelBorderLayout-positioned::bottom</td>
+            <td>The style class for the bottom facet element</td>
+          </tr>
+          <tr>
+            <td>af|panelBorderLayout-positioned::inner-bottom</td>
+            <td>The style class for the bottom facet element</td>
+          </tr>
+          <tr>
+            <td>af|panelBorderLayout-positioned::start</td>
+            <td>The style class for the start (or left/right depending on text direction) facet element</td>
+          </tr>
+          <tr>
+            <td>af|panelBorderLayout-positioned::inner-start</td>
+            <td>The style class for the start (or left/right depending on text direction) facet element</td>
+          </tr>
+          <tr>
+            <td>af|panelBorderLayout-positioned::end</td>
+            <td>The style class for the start (or left/right depending on text direction) facet element</td>
+          </tr>
+          <tr>
+            <td>af|panelBorderLayout-positioned::inner-end</td>
+            <td>The style class for the start (or left/right depending on text direction) facet element</td>
+          </tr>
+          <tr>
+            <td>af|panelBorderLayout-positioned::center</td>
+            <td>The style class for the center element that contains the inner facets and content</td>
+          </tr>
+          <tr>
+            <td>af|panelBorderLayout-positioned::inner-center</td>
+            <td>The style class for the element that holds the component children</td>
+          </tr>
+        </table>
+      </subsection>
       <a name="panelBox"></a>
       <subsection name="tr:panelBox">
         <p>The panelBox contains the body region, which

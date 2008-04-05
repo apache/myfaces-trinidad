@@ -159,6 +159,211 @@
       </facet-extension>
     </facet>
 
+    <property>
+      <description>
+        <![CDATA[Changes how the panel is rendered. The default is to expand the panel to fix the size of its contents.
+        Setting the value to positioned will force the panel to use the size given to it via CSS (either via the
+        styleClass, inlineStyle or via the skin). The facets are sized using the height and width attributes and
+        the center is given the remainder. With a positioned layout the height and width should be set and the
+        position should be set to relative or absolute. Note that due to limitations in IE6, the positioned layout
+        uses JavaScript resizing that will affect performance. Expand is the default.]]>
+      </description>
+      <property-name>layout</property-name>
+      <property-class>java.lang.String</property-class>
+      <default-value>expand</default-value>
+      <property-extension>
+        <mfp:required>false</mfp:required>
+        <mfp:property-metadata>
+          <mfp:property-values>expand positioned</mfp:property-values>
+          <mfp:preferred>true</mfp:preferred>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
+    <property>
+      <description>
+        <![CDATA[Specifies the CSS height to give to the top facet in valid CSS units.
+        Used if the layout is positioned and the top facet is present and rendered. Defaults to 25%.]]>
+      </description>
+      <property-name>topHeight</property-name>
+      <property-class>java.lang.String</property-class>
+      <default-value>25%</default-value>
+      <property-extension>
+        <mfp:required>false</mfp:required>
+        <mfp:property-metadata>
+          <mfp:preferred>true</mfp:preferred>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
+    <property>
+      <description>
+        <![CDATA[Specifies the CSS height to give to the bottom facet in valid CSS units.
+        Used if the layout is positioned and the bottom facet is present and rendered. Defaults to 25%.]]>
+      </description>
+      <property-name>bottomHeight</property-name>
+      <property-class>java.lang.String</property-class>
+      <default-value>25%</default-value>
+      <property-extension>
+        <mfp:required>false</mfp:required>
+        <mfp:property-metadata>
+          <mfp:preferred>true</mfp:preferred>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
+    <property>
+      <description>
+        <![CDATA[Specifies the CSS height to give to the inner top facet in valid CSS units.
+        Used if the layout is positioned and the inner top facet is present and rendered. Defaults to 25%.]]>
+      </description>
+      <property-name>innerTopHeight</property-name>
+      <property-class>java.lang.String</property-class>
+      <default-value>25%</default-value>
+      <property-extension>
+        <mfp:required>false</mfp:required>
+        <mfp:property-metadata>
+          <mfp:preferred>true</mfp:preferred>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
+    <property>
+      <description>
+        <![CDATA[Specifies the CSS height to give to the inner bottom facet in valid CSS units.
+        Used if the layout is positioned and the inner bottom facet is present and rendered. Defaults to 25%.]]>
+      </description>
+      <property-name>innerBottomHeight</property-name>
+      <property-class>java.lang.String</property-class>
+      <default-value>25%</default-value>
+      <property-extension>
+        <mfp:required>false</mfp:required>
+        <mfp:property-metadata>
+          <mfp:preferred>true</mfp:preferred>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
+    <property>
+      <description>
+        <![CDATA[Specifies the CSS width to give to the start facet in valid CSS units.
+        Used if the layout is positioned and the start facet is present and rendered and the left or right facet
+        is not used instead. Defaults to 25%.]]>
+      </description>
+      <property-name>startWidth</property-name>
+      <property-class>java.lang.String</property-class>
+      <default-value>25%</default-value>
+      <property-extension>
+        <mfp:required>false</mfp:required>
+        <mfp:property-metadata>
+          <mfp:preferred>true</mfp:preferred>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
+    <property>
+      <description>
+        <![CDATA[Specifies the CSS width to give to the end facet in valid CSS units.
+        Used if the layout is positioned and the end facet is present and rendered and the left or right facet
+        is not used instead. Defaults to 25%.]]>
+      </description>
+      <property-name>endWidth</property-name>
+      <property-class>java.lang.String</property-class>
+      <default-value>25%</default-value>
+      <property-extension>
+        <mfp:required>false</mfp:required>
+        <mfp:property-metadata>
+          <mfp:preferred>true</mfp:preferred>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
+    <property>
+      <description>
+        <![CDATA[Specifies the CSS width to give to the left facet in valid CSS units.
+        Used if the layout is positioned and the left facet is present and rendered. Defaults to 25%.]]>
+      </description>
+      <property-name>leftWidth</property-name>
+      <property-class>java.lang.String</property-class>
+      <default-value>25%</default-value>
+      <property-extension>
+        <mfp:required>false</mfp:required>
+        <mfp:property-metadata>
+          <mfp:preferred>true</mfp:preferred>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
+    <property>
+      <description>
+        <![CDATA[Specifies the CSS width to give to the right facet in valid CSS units.
+        Used if the layout is positioned and the right facet is present and rendered. Defaults to 25%.]]>
+      </description>
+      <property-name>rightWidth</property-name>
+      <property-class>java.lang.String</property-class>
+      <default-value>25%</default-value>
+      <property-extension>
+        <mfp:required>false</mfp:required>
+        <mfp:property-metadata>
+          <mfp:preferred>true</mfp:preferred>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
+    <property>
+      <description>
+        <![CDATA[Specifies the CSS width to give to the inner start facet in valid CSS units.
+        Used if the layout is positioned and the inner start facet is present and rendered and the inner left or right facet
+        is not used instead. Defaults to 25%.]]>
+      </description>
+      <property-name>innerStartWidth</property-name>
+      <property-class>java.lang.String</property-class>
+      <default-value>25%</default-value>
+      <property-extension>
+        <mfp:required>false</mfp:required>
+        <mfp:property-metadata>
+          <mfp:preferred>true</mfp:preferred>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
+    <property>
+      <description>
+        <![CDATA[Specifies the CSS width to give to the inner end facet in valid CSS units.
+        Used if the layout is positioned and the inner end facet is present and rendered and the inner left or right facet
+        is not used instead. Defaults to 25%.]]>
+      </description>
+      <property-name>innerEndWidth</property-name>
+      <property-class>java.lang.String</property-class>
+      <default-value>25%</default-value>
+      <property-extension>
+        <mfp:required>false</mfp:required>
+        <mfp:property-metadata>
+          <mfp:preferred>true</mfp:preferred>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
+    <property>
+      <description>
+        <![CDATA[Specifies the CSS width to give to the inner left facet in valid CSS units.
+        Used if the layout is positioned and the inner left facet is present and rendered. Defaults to 25%.]]>
+      </description>
+      <property-name>innerLeftWidth</property-name>
+      <property-class>java.lang.String</property-class>
+      <default-value>25%</default-value>
+      <property-extension>
+        <mfp:required>false</mfp:required>
+        <mfp:property-metadata>
+          <mfp:preferred>true</mfp:preferred>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
+    <property>
+      <description>
+        <![CDATA[Specifies the CSS width to give to the inner right facet in valid CSS units.
+        Used if the layout is positioned and the inner right facet is present and rendered. Defaults to 25%.]]>
+      </description>
+      <property-name>innerRightWidth</property-name>
+      <property-class>java.lang.String</property-class>
+      <default-value>25%</default-value>
+      <property-extension>
+        <mfp:required>false</mfp:required>
+        <mfp:property-metadata>
+          <mfp:preferred>true</mfp:preferred>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
+
     <xi:include href="includes/CommonAttrs.xml" xpointer="/faces-config/component/*"/>
     <xi:include href="includes/CoreJSEvents.xml" xpointer="/faces-config/component/*"/>
 

@@ -19,7 +19,7 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 /**
- * This class contains all skin selectors used by the various Trinidad 
+ * This class contains all skin selectors used by the various Trinidad
  * components.
  * 
  */
@@ -31,12 +31,12 @@ public final class SkinSelectors
   
   private SkinSelectors(){}
 
-  /* The selectors are sorted by component, alphabetically. 
+  /* The selectors are sorted by component, alphabetically.
    * 
-   * The selectors not linked to any specific components like aliases are 
+   * The selectors not linked to any specific components like aliases are
    * presented before any component specific selectors.
    * 
-   * The selector regarding the style classes are presented first, the 
+   * The selector regarding the style classes are presented first, the
    * selectors concerning the icons are presented after.
    */
   //                                                                         //
@@ -61,17 +61,17 @@ public final class SkinSelectors
    "AFAccessKeyStyle";
   public static final String AF_LINKACCESSKEY_STYLE_CLASS =
    "AFLinkAccessKeyStyle";
-  public static final String ERROR_ICON_STYLE_CLASS = 
+  public static final String ERROR_ICON_STYLE_CLASS =
     "AFErrorIconStyle";
-  public static final String INFO_ICON_STYLE_CLASS = 
+  public static final String INFO_ICON_STYLE_CLASS =
     "AFInfoIconStyle";
-  public static final String WARNING_ICON_STYLE_CLASS = 
+  public static final String WARNING_ICON_STYLE_CLASS =
     "AFWarningIconStyle";
-  public static final String QUICK_SELECT_DISABLED_ICON_STYLE_CLASS = 
+  public static final String QUICK_SELECT_DISABLED_ICON_STYLE_CLASS =
     "AFQuickSelectDisabledIconStyle";
-  public static final String QUICK_SELECT_ICON_STYLE_CLASS = 
+  public static final String QUICK_SELECT_ICON_STYLE_CLASS =
     "AFQuickSelectIconStyle";
-  public static final String REQUIRED_ICON_STYLE_CLASS = 
+  public static final String REQUIRED_ICON_STYLE_CLASS =
     "AFRequiredIconStyle";
   public static final String SORTABLE_HEADER_SORT_ICON_STYLE_CLASS =
     "AFSortableHeaderSortIcon";
@@ -109,41 +109,41 @@ public final class SkinSelectors
     "OraPageStampText";
   public static final String TABLE_BAND_SELECT_CELL_STYLE =
     "OraTableCellSelectBand";
-  public static final String TABLE_BORDER_0001_STYLE = 
+  public static final String TABLE_BORDER_0001_STYLE =
     "OraTableBorder0001";
-  public static final String TABLE_BORDER_0010_STYLE = 
+  public static final String TABLE_BORDER_0010_STYLE =
     "OraTableBorder0010";
-  public static final String TABLE_BORDER_0011_STYLE = 
+  public static final String TABLE_BORDER_0011_STYLE =
     "OraTableBorder0011";
-  public static final String TABLE_BORDER_0100_STYLE = 
+  public static final String TABLE_BORDER_0100_STYLE =
     "OraTableBorder0100";
-  public static final String TABLE_BORDER_0101_STYLE = 
+  public static final String TABLE_BORDER_0101_STYLE =
     "OraTableBorder0101";
-  public static final String TABLE_BORDER_0110_STYLE = 
+  public static final String TABLE_BORDER_0110_STYLE =
     "OraTableBorder0110";
-  public static final String TABLE_BORDER_0111_STYLE = 
+  public static final String TABLE_BORDER_0111_STYLE =
     "OraTableBorder0111";
-  public static final String TABLE_BORDER_1000_STYLE = 
+  public static final String TABLE_BORDER_1000_STYLE =
     "OraTableBorder1000";
-  public static final String TABLE_BORDER_1001_STYLE = 
+  public static final String TABLE_BORDER_1001_STYLE =
     "OraTableBorder1001";
-  public static final String TABLE_BORDER_1010_STYLE = 
+  public static final String TABLE_BORDER_1010_STYLE =
     "OraTableBorder1010";
-  public static final String TABLE_BORDER_1011_STYLE = 
+  public static final String TABLE_BORDER_1011_STYLE =
     "OraTableBorder1011";
-  public static final String TABLE_BORDER_1100_STYLE = 
+  public static final String TABLE_BORDER_1100_STYLE =
     "OraTableBorder1100";
-  public static final String TABLE_BORDER_1101_STYLE = 
+  public static final String TABLE_BORDER_1101_STYLE =
     "OraTableBorder1101";
-  public static final String TABLE_BORDER_1110_STYLE = 
+  public static final String TABLE_BORDER_1110_STYLE =
     "OraTableBorder1110";
-  public static final String TABLE_BORDER_1111_STYLE = 
+  public static final String TABLE_BORDER_1111_STYLE =
     "OraTableBorder1111";
   public static final String TABLE_SELECT_CELL_STYLE =
     "OraTableCellSelect";
-  public static final String TIP_TEXT_STYLE_CLASS = 
+  public static final String TIP_TEXT_STYLE_CLASS =
     "OraTipText";
-  public static final String TIP_LABEL_STYLE_CLASS  = 
+  public static final String TIP_LABEL_STYLE_CLASS  =
     "OraTipLabel";
 
 
@@ -152,7 +152,7 @@ public final class SkinSelectors
     "p_OraColorFieldSwatch";
   public static final String DISABLED_STYLE_CLASS =
     "p_OraDisabled";
-  public static final String HEADER_NEST_STYLE_CLASS = 
+  public static final String HEADER_NEST_STYLE_CLASS =
     "p_OraHeaderNest";
   public static final String HIDDEN_LABEL_STYLE_CLASS =
     "p_OraHiddenLabel";
@@ -164,17 +164,17 @@ public final class SkinSelectors
     "p_OraProcessingStatus";
   public static final String QUICK_SEARCH_BOX_STYLE_CLASS =
     "p_OraQuickSearchBox";
-  public static final String STATE_DISABLED = 
+  public static final String STATE_DISABLED =
     STATE_PREFIX + "Disabled";
-  public static final String STATE_READ_ONLY = 
+  public static final String STATE_READ_ONLY =
     STATE_PREFIX + "ReadOnly";
-  public static final String STATE_REQUIRED = 
+  public static final String STATE_REQUIRED =
     STATE_PREFIX + "Required";
-  public static final String P_AF_DISABLED = 
+  public static final String P_AF_DISABLED =
     STATE_DISABLED;
 
   // ================================ Icons ================================ //
-  public static final String BUSY_ICON_ALIAS_NAME = 
+  public static final String BUSY_ICON_ALIAS_NAME =
     "AFBusyIcon";
   public static final String DETAIL_DISCLOSED_ICON_ALIAS_NAME =
     "AFDetailDisclosedIcon";
@@ -204,7 +204,7 @@ public final class SkinSelectors
     "AFQuickSelectDisabledIcon";
   public static final String QUICK_SELECT_ICON_NAME =
     "AFQuickSelectIcon";
-  public static final String READY_ICON_ALIAS_NAME = 
+  public static final String READY_ICON_ALIAS_NAME =
     "AFReadyIcon";
   public static final String REQUIRED_ICON_ALIAS_NAME =
     "AFRequiredIcon";
@@ -229,15 +229,15 @@ public final class SkinSelectors
   //                                                                         //
   private static final String AF_DIALOG_ROOT_STYLE_CLASS = "af|dialog";
 
-  public static final String AF_DIALOG_CONTAINER_STYLE_CLASS = 
+  public static final String AF_DIALOG_CONTAINER_STYLE_CLASS =
     AF_DIALOG_ROOT_STYLE_CLASS + "::container";
-  public static final String AF_DIALOG_CONTENT_STYLE_CLASS = 
+  public static final String AF_DIALOG_CONTENT_STYLE_CLASS =
     AF_DIALOG_ROOT_STYLE_CLASS + "::content";
-  public static final String AF_DIALOG_TITLEBAR_STYLE_CLASS = 
+  public static final String AF_DIALOG_TITLEBAR_STYLE_CLASS =
     AF_DIALOG_ROOT_STYLE_CLASS + "::title-bar";
-  public static final String AF_DIALOG_TITLE_STYLE_CLASS = 
+  public static final String AF_DIALOG_TITLE_STYLE_CLASS =
     AF_DIALOG_ROOT_STYLE_CLASS + "::title-text";
-  public static final String AF_DIALOG_CLOSE_ICON_STYLE_CLASS = 
+  public static final String AF_DIALOG_CLOSE_ICON_STYLE_CLASS =
     AF_DIALOG_ROOT_STYLE_CLASS + "::close-icon";
   public static final String AF_DIALOG_BLOCKED_AREA_STYLE_CLASS =
     AF_DIALOG_ROOT_STYLE_CLASS + "::blocked-area";
@@ -498,11 +498,11 @@ public final class SkinSelectors
      "af|menuBar::disabled";
    public static final String AF_MENU_BAR_ENABLED_STYLE_CLASS =
      "af|menuBar::enabled";
-   public static final String AF_MENU_BAR_EMPTY_STYLE_CLASS = 
+   public static final String AF_MENU_BAR_EMPTY_STYLE_CLASS =
      "af|menuBar::empty";
-   public static final String AF_MENU_BAR_BODY_STYLE_CLASS = 
+   public static final String AF_MENU_BAR_BODY_STYLE_CLASS =
      "af|menuBar::body";
-   public static final String AF_MENU_BAR_TITLE_STYLE_CLASS = 
+   public static final String AF_MENU_BAR_TITLE_STYLE_CLASS =
      "af|menuBar::title";
    public static final String AF_MENU_BAR_SELECTED_STYLE_CLASS =
      "af|menuBar::selected";
@@ -569,7 +569,7 @@ public final class SkinSelectors
    // ============================ Style classes ============================ //
    public static final String AF_MESSAGES_STYLE_CLASS =
      "af|messages";
-   public static final String AF_MESSAGES_BODY_STYLE_CLASS = 
+   public static final String AF_MESSAGES_BODY_STYLE_CLASS =
      "af|messages::body";
    public static final String AF_MESSAGES_ERROR_STYLE_CLASS =
      "af|messages::error";
@@ -730,13 +730,13 @@ public final class SkinSelectors
    //                                                                         //
    
    // ============================ Style classes ============================ //
-   public static final String AF_OUTPUT_DOCUMENT_STYLE_CLASS = 
+   public static final String AF_OUTPUT_DOCUMENT_STYLE_CLASS =
      "af|outputDocument";
-   public static final String AF_OUTPUT_DOCUMENT_PARAGRAPH_STYLE_CLASS = 
+   public static final String AF_OUTPUT_DOCUMENT_PARAGRAPH_STYLE_CLASS =
      "af|outputDocument::paragraph";
-   public static final String AF_OUTPUT_DOCUMENT_SEPARATOR_STYLE_CLASS = 
+   public static final String AF_OUTPUT_DOCUMENT_SEPARATOR_STYLE_CLASS =
      "af|outputDocument::separator";
-   public static final String AF_OUTPUT_DOCUMENT_TITLE_STYLE_CLASS = 
+   public static final String AF_OUTPUT_DOCUMENT_TITLE_STYLE_CLASS =
      "af|outputDocument::title";
 
    
@@ -765,6 +765,34 @@ public final class SkinSelectors
    public static final String AF_PANELACCORDION_TOOLBAR_STYLE_CLASS =
      "af|panelAccordion::toolbar";
 
+   
+   //                                                                         //
+   //                                                                         //
+   // ============================= tr:panelBorderLayout ==================== //
+   //                                                                         //
+   //                                                                         //
+   public static final String AF_PANEL_BORDER_POSITIONED_ROOT_STYLE_CLASS =
+     "af|panelBorderLayout-positioned";
+   public static final String AF_PANEL_BORDER_POSITIONED_TOP_STYLE_CLASS =
+     "af|panelBorderLayout-positioned::top";
+   public static final String AF_PANEL_BORDER_POSITIONED_INNER_TOP_STYLE_CLASS =
+     "af|panelBorderLayout-positioned::inner-top";
+   public static final String AF_PANEL_BORDER_POSITIONED_BOTTOM_STYLE_CLASS =
+     "af|panelBorderLayout-positioned::bottom";
+   public static final String AF_PANEL_BORDER_POSITIONED_INNER_BOTTOM_STYLE_CLASS =
+     "af|panelBorderLayout-positioned::inner-bottom";
+   public static final String AF_PANEL_BORDER_POSITIONED_START_STYLE_CLASS =
+     "af|panelBorderLayout-positioned::start";
+   public static final String AF_PANEL_BORDER_POSITIONED_INNER_START_STYLE_CLASS =
+     "af|panelBorderLayout-positioned::inner-start";
+   public static final String AF_PANEL_BORDER_POSITIONED_END_STYLE_CLASS =
+     "af|panelBorderLayout-positioned::end";
+   public static final String AF_PANEL_BORDER_POSITIONED_INNER_END_STYLE_CLASS =
+     "af|panelBorderLayout-positioned::inner-end";
+   public static final String AF_PANEL_BORDER_POSITIONED_CENTER_STYLE_CLASS =
+     "af|panelBorderLayout-positioned::center";
+   public static final String AF_PANEL_BORDER_POSITIONED_INNER_CENTER_STYLE_CLASS =
+     "af|panelBorderLayout-positioned::inner-center";
 
    //                                                                         //
    //                                                                         //
@@ -946,7 +974,7 @@ public final class SkinSelectors
    // ============================ Style classes ============================ //
    public static final String AF_PANEL_SIDE_BAR_STYLE_CLASS =
      "af|panelSideBar";
-   public static final String AF_PANEL_SIDE_BAR_BODY_STYLE_CLASS = 
+   public static final String AF_PANEL_SIDE_BAR_BODY_STYLE_CLASS =
      "af|panelSideBar::body";
    
    //                                                                         //
@@ -978,19 +1006,19 @@ public final class SkinSelectors
   //                                                                         //
   private static final String AF_PANEL_POPUP_ROOT_STYLE_CLASS = "af|panelPopup";
 
-  public static final String AF_PANEL_POPUP_LINK_STYLE_CLASS = 
+  public static final String AF_PANEL_POPUP_LINK_STYLE_CLASS =
     AF_PANEL_POPUP_ROOT_STYLE_CLASS + "::link";
-  public static final String AF_PANEL_POPUP_TRIGGER_STYLE_CLASS = 
+  public static final String AF_PANEL_POPUP_TRIGGER_STYLE_CLASS =
     AF_PANEL_POPUP_ROOT_STYLE_CLASS + "::trigger";
-  public static final String AF_PANEL_POPUP_CONTAINER_STYLE_CLASS = 
+  public static final String AF_PANEL_POPUP_CONTAINER_STYLE_CLASS =
     AF_PANEL_POPUP_ROOT_STYLE_CLASS + "::container";
-  public static final String AF_PANEL_POPUP_CONTENT_STYLE_CLASS = 
+  public static final String AF_PANEL_POPUP_CONTENT_STYLE_CLASS =
     AF_PANEL_POPUP_ROOT_STYLE_CLASS + "::content";
-  public static final String AF_PANEL_POPUP_TITLEBAR_STYLE_CLASS = 
+  public static final String AF_PANEL_POPUP_TITLEBAR_STYLE_CLASS =
     AF_PANEL_POPUP_ROOT_STYLE_CLASS + "::title-bar";
-  public static final String AF_PANEL_POPUP_TITLE_STYLE_CLASS = 
+  public static final String AF_PANEL_POPUP_TITLE_STYLE_CLASS =
     AF_PANEL_POPUP_ROOT_STYLE_CLASS + "::title-text";
-  public static final String AF_PANEL_POPUP_CLOSE_ICON_STYLE_CLASS = 
+  public static final String AF_PANEL_POPUP_CLOSE_ICON_STYLE_CLASS =
     AF_PANEL_POPUP_ROOT_STYLE_CLASS + "::close-icon";
 
    //                                                                         //
@@ -1337,7 +1365,7 @@ public final class SkinSelectors
    // ============================ Style classes ============================ //
    // Root class
    public static final String AF_TRAIN_ROOT_STYLE_CLASS =
-     DEFAULT_NAMESPACE + "|train";  
+     DEFAULT_NAMESPACE + "|train";
    
    // Joins
    public static final String AF_TRAIN_JOIN_STYLE_CLASS =
@@ -1509,7 +1537,7 @@ public final class SkinSelectors
     "p_OraTreeRowSelected";
   public static final String TREE_ICON_STYLE_CLASS = "p_OraTreeIcon";
   public static final String TREE_DISCLOSED_SYMBOL_STYLE_CLASS =
-    "p_OraTreeDisclosedSymbol";  
+    "p_OraTreeDisclosedSymbol";
 
   // ================================ Icons ================================ //
   public static final String AF_TREE_EXPANDED_ICON =
