@@ -30,6 +30,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.output.CoreOutputLabel;
 
+import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.FormData;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.context.RequestContext;
@@ -182,10 +183,7 @@ public class OutputLabelRenderer extends ValueRenderer
     boolean isInline = (RequestContext.getCurrentInstance().getClientValidation() ==
         RequestContext.ClientValidation.INLINE);
 
-    if ((null != messageType) &&
-        !"none".equals(messageType) ||
-        ((forId != null) &&
-        isInline))
+    if (_shouldRenderMessageSymbol(arc, messageType, isInline, forId))
     {
       String vAlign = getDefaultValign(bean);
       String destination  = getMessageDescUrl(bean);
@@ -456,6 +454,40 @@ public class OutputLabelRenderer extends ValueRenderer
     return null;
   }    
 
+  private boolean _shouldRenderMessageSymbol(
+    RenderingContext  arc,
+    String            messageType,
+    boolean           isInline,
+    String            forId)
+  {
+    // BlackBerry does not support inline style "display:none".
+    // BlackBerry supports some inline styles and thus test by
+    // calling XhtmlRenderer.supportsStyleAttributes() is not
+    // sufficient.
+    // If rendering for BlackBerry and the span has inline style
+    // "display:none", do not render the span. If rendered, the
+    // message icon is always visible.
+    // If rendering for non-BlackBerry OR rendering BlackBerry
+    // but the condition
+    // (null == messageType || "none".equals(messageType))
+    // does not meet, return true, so that caller renders the
+    // span element.
+    Agent agent = arc.getAgent();
+
+    if ((null != messageType) &&
+        !"none".equals(messageType) ||
+        ((forId != null) &&
+        isInline))
+    {
+      if ((agent != null) &&
+             Agent.AGENT_BLACKBERRY.equals(agent.getAgentName()) &&
+          (null == messageType || "none".equals(messageType)))
+      {
+        return false;
+      }
+    }
+    return true;
+  }
 
   private PropertyKey _accessKeyKey;
   private PropertyKey _forKey;

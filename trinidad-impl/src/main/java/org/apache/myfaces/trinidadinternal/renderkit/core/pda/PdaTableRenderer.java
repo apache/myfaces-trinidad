@@ -32,6 +32,8 @@ import org.apache.myfaces.trinidad.component.UIXTable;
 import org.apache.myfaces.trinidad.component.core.data.CoreColumn;
 import org.apache.myfaces.trinidad.component.core.data.CoreTable;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TableRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
@@ -52,6 +54,39 @@ public class PdaTableRenderer extends TableRenderer
     super(CoreTable.TYPE);
   }
   
+
+  /**
+   * renders attributes on the outermost table element.
+   * this includes width, cellpadding, cellspacing, border.
+   */
+  @Override
+  protected void renderTableAttributes(
+    FacesContext        context,
+    RenderingContext arc,
+    UIComponent  component,
+    FacesBean    bean,
+    Object       cellPadding,
+    Object       border
+    ) throws IOException
+  {
+    Object width = getWidth(bean);
+
+    // On mobile devices, table width is set to full browser width unless
+    // the width is specified.
+    if (width == null || width == "")
+    {
+      width = "100%";
+    }
+
+
+    OutputUtils.renderLayoutTableAttributes(context,
+                                            arc,
+                                            cellPadding,
+                                            "0",    // cell spacing
+                                            border,
+                                            width); // table width
+  }
+
   @Override
   protected final void renderControlBar(
     FacesContext          context,

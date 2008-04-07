@@ -167,16 +167,27 @@ TrXMLRequest._createXmlHttpRequest = function()
 {
   var xmlhttp;
 
-  // TODO: for IE 7, use XMLHttpRequest
-  if (_agent.isIE)
-  {
-    xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
-  }
-  else
+  if (window.XMLHttpRequest)
   {
     xmlhttp = new XMLHttpRequest();
   }
-  
+  else if (window.ActiveXObject)
+  {
+    try
+    {
+      xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+    }
+    catch (e)
+    {
+      try
+      {
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+      }
+      catch (e)
+      {
+      }
+    }
+  }
   return xmlhttp;
 }
 
@@ -194,4 +205,5 @@ TrXMLRequest.prototype.cleanup =function()
   this.callback = null
   delete this.xmlhttp;
 }
+
 

@@ -6,6 +6,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -18,7 +19,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -129,6 +129,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -141,7 +142,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -253,6 +253,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -265,7 +266,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -377,6 +377,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -389,7 +390,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -501,6 +501,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -513,7 +514,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -625,6 +625,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -637,7 +638,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -749,6 +749,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -761,7 +762,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -873,6 +873,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -885,7 +886,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -997,6 +997,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -1009,7 +1010,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1121,6 +1121,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -1133,7 +1134,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1245,6 +1245,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -1257,7 +1258,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1369,6 +1369,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -1381,7 +1382,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1493,6 +1493,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -1505,7 +1506,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1617,6 +1617,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -1629,7 +1630,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1741,6 +1741,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -1753,7 +1754,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1865,6 +1865,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -1877,7 +1878,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1988,6 +1988,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -2005,7 +2006,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -2116,6 +2116,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -2128,7 +2129,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -2239,6 +2239,7 @@
            class="af_inputNumberSpinbox"
            id="id_val__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -2251,7 +2252,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -2363,6 +2363,7 @@
            id="mainId__xc_"
            style="background-color:red"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -2375,7 +2376,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -2486,6 +2486,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -2503,7 +2504,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -2615,6 +2615,7 @@
            id="mainId__xc_"
            summary=""
            title="shortDesc_val"
+           width="100%"
           >
         
         <tr
@@ -2627,7 +2628,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -2739,6 +2739,7 @@
            class="styleClass_val af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -2751,7 +2752,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -2862,6 +2862,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -2874,7 +2875,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -2986,6 +2986,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -2998,7 +2999,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -3109,6 +3109,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -3121,7 +3122,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -3238,6 +3238,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -3250,7 +3251,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -3361,6 +3361,7 @@
            class="af_inputNumberSpinbox p_AFRequired"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -3379,7 +3380,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -3490,6 +3490,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -3502,7 +3503,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -3613,6 +3613,7 @@
            class="af_inputNumberSpinbox p_AFRequired"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -3631,7 +3632,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -3742,6 +3742,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -3754,7 +3755,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -3865,6 +3865,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -3877,7 +3878,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -3989,6 +3989,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -4001,7 +4002,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -4113,6 +4113,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -4125,7 +4126,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -4237,6 +4237,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -4249,7 +4250,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -4361,6 +4361,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -4373,7 +4374,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -4485,6 +4485,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -4497,7 +4498,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -4609,6 +4609,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -4621,7 +4622,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -4733,6 +4733,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -4745,7 +4746,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -4857,6 +4857,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -4869,7 +4870,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -4981,6 +4981,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -4993,7 +4994,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -5105,6 +5105,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -5117,7 +5118,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -5229,6 +5229,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -5241,7 +5242,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -5353,6 +5353,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -5365,7 +5366,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -5477,6 +5477,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -5489,7 +5490,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -5601,6 +5601,7 @@
            class="OraErrorText af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -5613,7 +5614,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -5724,6 +5724,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -5736,7 +5737,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -5847,6 +5847,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -5859,7 +5860,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -5970,6 +5970,7 @@
            class="af_inputNumberSpinbox p_AFDisabled"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -5982,7 +5983,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -6076,6 +6076,7 @@
            class="af_inputNumberSpinbox"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -6088,7 +6089,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -6199,6 +6199,7 @@
            class="af_inputNumberSpinbox p_AFReadOnly"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -6211,7 +6212,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             

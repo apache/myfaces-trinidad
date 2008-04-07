@@ -6,6 +6,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -18,7 +19,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -56,6 +56,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -68,7 +69,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -107,6 +107,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -119,7 +120,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -158,6 +158,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -170,7 +171,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -209,6 +209,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -221,7 +222,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -260,6 +260,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -272,7 +273,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -311,6 +311,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -323,7 +324,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -362,6 +362,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -374,7 +375,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -413,6 +413,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -425,7 +426,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -464,6 +464,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -476,7 +477,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -515,6 +515,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -527,7 +528,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -566,6 +566,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -578,7 +579,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -617,6 +617,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -629,7 +630,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -668,6 +668,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -680,7 +681,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -719,6 +719,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -731,7 +732,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -770,6 +770,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -782,7 +783,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -820,6 +820,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -837,7 +838,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -875,6 +875,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -887,7 +888,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -925,6 +925,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -937,7 +938,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -976,6 +976,7 @@
            class="af_inputText"
            id="id_val__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -988,7 +989,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1027,6 +1027,7 @@
            id="mainId__xc_"
            style="background-color:red"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -1039,7 +1040,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1077,6 +1077,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -1094,7 +1095,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1133,6 +1133,7 @@
            id="mainId__xc_"
            summary=""
            title="shortDesc_val"
+           width="100%"
           >
         
         <tr
@@ -1145,7 +1146,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1184,6 +1184,7 @@
            class="styleClass_val af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -1196,7 +1197,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1234,6 +1234,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -1246,7 +1247,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1285,6 +1285,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -1297,7 +1298,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1335,6 +1335,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -1347,7 +1348,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1387,6 +1387,7 @@
            id="mainId__xc_"
            summary=""
            title="test-shortDesc"
+           width="100%"
           >
         
         <tr
@@ -1399,7 +1400,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1438,6 +1438,7 @@
            class="af_inputText p_AFReadOnly"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -1450,7 +1451,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1484,6 +1484,7 @@
            class="af_inputText p_AFReadOnly"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -1496,7 +1497,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1532,6 +1532,7 @@
            id="mainId__xc_"
            summary=""
            title="test-shortDesc"
+           width="100%"
           >
         
         <tr
@@ -1544,7 +1545,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1579,6 +1579,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -1591,7 +1592,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1629,6 +1629,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -1641,7 +1642,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1685,6 +1685,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -1697,7 +1698,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1735,6 +1735,7 @@
            class="af_inputText p_AFRequired"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -1753,7 +1754,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1791,6 +1791,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -1803,7 +1804,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1841,6 +1841,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -1853,7 +1854,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1892,6 +1892,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -1904,7 +1905,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1942,6 +1942,7 @@
            class="af_inputText p_AFRequired"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -1960,7 +1961,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1998,6 +1998,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -2010,7 +2011,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -2048,6 +2048,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -2060,7 +2061,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -2099,6 +2099,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -2111,7 +2112,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -2150,6 +2150,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -2162,7 +2163,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -2201,6 +2201,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -2213,7 +2214,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -2252,6 +2252,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -2264,7 +2265,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -2303,6 +2303,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -2315,7 +2316,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -2354,6 +2354,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -2366,7 +2367,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -2405,6 +2405,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -2417,7 +2418,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -2456,6 +2456,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -2468,7 +2469,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -2507,6 +2507,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -2519,7 +2520,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -2558,6 +2558,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -2570,7 +2571,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -2609,6 +2609,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -2621,7 +2622,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -2660,6 +2660,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -2672,7 +2673,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -2711,6 +2711,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -2723,7 +2724,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -2762,6 +2762,7 @@
            class="OraErrorText af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -2774,7 +2775,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -2812,6 +2812,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -2824,7 +2825,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -2862,6 +2862,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -2874,7 +2875,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -2912,6 +2912,7 @@
            class="af_inputText p_AFDisabled"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -2924,7 +2925,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -2963,6 +2963,7 @@
            class="af_inputText"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -2975,7 +2976,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -3013,6 +3013,7 @@
            class="af_inputText p_AFReadOnly"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -3025,7 +3026,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             

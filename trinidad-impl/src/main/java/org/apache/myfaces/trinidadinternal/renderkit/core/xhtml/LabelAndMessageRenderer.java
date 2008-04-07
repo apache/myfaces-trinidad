@@ -229,6 +229,12 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
           // =-=AEW THIS DOESN'T SEEM RIGHT - IT SHOULD GO ON THE INPUT FIELD
           // ONLY, RIGHT?  Matching UIX 2.2 behavior here.
           rw.writeAttribute("title", getShortDesc(bean), "title");
+          if (!isDesktop(arc))
+          {
+            // On PDA browsers label and message pair is always
+            // rendered in full width.
+            rw.writeAttribute("width", "100%", null);
+          }
           renderId(context, component);
           
           // put the outer style class here, like af_inputText, styleClass,
@@ -367,7 +373,10 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
 
     rw.writeAttribute("valign", valign, null);
     if (isDesktop(arc))
+    {
+      // On PDA browsers where width is limited, the label is allowed to wrap.
       rw.writeAttribute("nowrap", Boolean.TRUE, null);
+    }
 
     if (labelExists)
     {
@@ -396,7 +405,12 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     rw.startElement("td", null);
 
     rw.writeAttribute("valign", "top", null);
-    rw.writeAttribute("nowrap", Boolean.TRUE, null);
+    if (isDesktop(arc))
+    {
+      // On PDA browsers where width is limited, the field data is
+      // allowed to wrap.
+      rw.writeAttribute("nowrap", Boolean.TRUE, null);
+    }
 
     renderStyleClass(context, arc, SkinSelectors.AF_CONTENT_CELL_STYLE_CLASS );
 

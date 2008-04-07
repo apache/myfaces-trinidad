@@ -6,6 +6,7 @@
            class="af_inputColor"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -18,7 +19,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -56,6 +56,7 @@
            class="af_inputColor"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -68,7 +69,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -106,6 +106,7 @@
            class="af_inputColor"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -118,7 +119,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -156,6 +156,7 @@
            class="af_inputColor"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -168,7 +169,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -206,6 +206,7 @@
            class="af_inputColor"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -218,7 +219,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -256,6 +256,7 @@
            class="af_inputColor p_AFDisabled"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -268,7 +269,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -307,6 +307,7 @@
            class="af_inputColor"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -324,7 +325,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -362,6 +362,7 @@
            class="af_inputColor"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -374,7 +375,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -412,6 +412,7 @@
            class="af_inputColor p_AFReadOnly"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -424,7 +425,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -458,6 +458,7 @@
            class="af_inputColor"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -470,7 +471,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -508,6 +508,7 @@
            class="af_inputColor p_AFRequired"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -526,7 +527,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -564,6 +564,7 @@
            class="af_inputColor"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -576,7 +577,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -614,6 +614,7 @@
            class="af_inputColor"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -626,7 +627,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -664,6 +664,7 @@
            class="af_inputColor p_AFRequired"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -682,7 +683,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -720,6 +720,7 @@
            class="af_inputColor p_AFRequired"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -738,7 +739,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -776,6 +776,7 @@
            class="af_inputColor p_AFRequired"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -794,7 +795,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -832,6 +832,7 @@
            class="af_inputColor p_AFRequired"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -850,7 +851,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -888,6 +888,7 @@
            class="af_inputColor"
            id="test-id__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -900,7 +901,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -939,6 +939,7 @@
            id="mainId__xc_"
            style="background-color:red"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -951,7 +952,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -990,6 +990,7 @@
            id="mainId__xc_"
            summary=""
            title="test-shortDesc"
+           width="100%"
           >
         
         <tr
@@ -1002,7 +1003,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1041,6 +1041,7 @@
            class="af_inputColor"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -1053,7 +1054,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1061,7 +1061,7 @@
                  class="af_inputColor_content"
                  id="mainId"
                  name="mainId"
-                 onblur="return _chain('_fixCFF(this);','test-onblur',this,event)"
+                 onblur="return _chain('_fixCFF(this);','test-onblur',this,null)"
                  size="11"
                  type="text"
                 >
@@ -1091,6 +1091,7 @@
            class="af_inputColor"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -1103,7 +1104,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1142,6 +1142,7 @@
            class="af_inputColor"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -1154,7 +1155,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1193,6 +1193,7 @@
            class="af_inputColor"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -1205,7 +1206,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1244,6 +1244,7 @@
            class="af_inputColor"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -1256,7 +1257,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1295,6 +1295,7 @@
            class="af_inputColor"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -1307,7 +1308,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1346,6 +1346,7 @@
            class="af_inputColor"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -1358,7 +1359,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1397,6 +1397,7 @@
            class="af_inputColor"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -1409,7 +1410,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1448,6 +1448,7 @@
            class="af_inputColor"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -1460,7 +1461,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             

@@ -25,24 +25,33 @@ public class PdaRenderKit extends RenderKitDecorator
 {
   public PdaRenderKit()
   {
-    addRenderer("org.apache.myfaces.trinidad.Table",
-		"org.apache.myfaces.trinidad.Table",
-                "org.apache.myfaces.trinidadinternal.renderkit.core.pda.PdaTableRenderer");
-    addRenderer("org.apache.myfaces.trinidad.Process",
-                "org.apache.myfaces.trinidad.Train",
-                "org.apache.myfaces.trinidadinternal.renderkit.core.pda.TrainRenderer");
-    addRenderer("org.apache.myfaces.trinidad.FrameBorderLayout",
-                "org.apache.myfaces.trinidad.FrameBorderLayout",
-                "org.apache.myfaces.trinidadinternal.renderkit.core.pda.PdaFrameBorderLayoutRenderer");
-    addRenderer("org.apache.myfaces.trinidad.Frame",
-                "org.apache.myfaces.trinidad.Frame",
-                "org.apache.myfaces.trinidadinternal.renderkit.core.pda.FrameRenderer");
-    addRenderer("org.apache.myfaces.trinidad.Panel",
-                "org.apache.myfaces.trinidad.ButtonBar",
-                "org.apache.myfaces.trinidadinternal.renderkit.core.pda.PanelButtonBarRenderer");
-    addRenderer("org.apache.myfaces.trinidad.NavigationLevel",
-                "org.apache.myfaces.trinidad.Pane",
-                "org.apache.myfaces.trinidadinternal.renderkit.core.pda.PdaNavigationPaneRenderer");
+    _addRenderer("Frame",
+                 "Frame",             "FrameRenderer");
+    _addRenderer("Panel",
+                 "ButtonBar",         "PanelButtonBarRenderer");
+    _addRenderer("Column",
+                 "Column",            "PdaColumnRenderer");
+    _addRenderer("FrameBorderLayout",
+                 "FrameBorderLayout", "PdaFrameBorderLayoutRenderer");
+    _addRenderer("Messages",
+                 "Messages",          "PdaMessageBoxRenderer");
+    _addRenderer("NavigationLevel",
+                 "Pane",              "PdaNavigationPaneRenderer");
+    _addRenderer("Table",
+                 "Table",             "PdaTableRenderer");
+    _addRenderer("Process",
+                 "Train",             "TrainRenderer");
+  }
+
+  private void _addRenderer(
+     String family,
+     String rendererType,
+     String rendererClassName)
+  {
+
+    addRenderer(_trBase + family,
+                _trBase + rendererType,
+                _pdaBase + rendererClassName);
   }
 
   @Override
@@ -51,4 +60,7 @@ public class PdaRenderKit extends RenderKitDecorator
     return CoreRenderKit.BASE_RENDER_KIT_ID;
   }
 
+  static private final String _trBase = "org.apache.myfaces.trinidad.";
+  static private final String _pdaBase =
+             "org.apache.myfaces.trinidadinternal.renderkit.core.pda.";
 }

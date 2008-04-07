@@ -244,10 +244,26 @@ public class XhtmlUtils
     outBuilder.append("','");
     _escapeSingleQuotes(outBuilder, evh2);
 
-    if ( shortCircuit )
-      outBuilder.append("',this,event,true)");
+    RenderingContext arc = RenderingContext.getCurrentInstance();
+    boolean isDesktop = (arc.getAgent().getType().equals(Agent.TYPE_DESKTOP));
+
+    if (isDesktop)
+    {
+      if ( shortCircuit )
+        outBuilder.append("',this,event,true)");
+      else
+        outBuilder.append("',this,event)");
+    }
     else
-      outBuilder.append("',this,event)");
+    {
+      // Some mobile browsers do not support DOM Event object.
+      // If event is passed, the script crushes before the function gains
+      // control.
+      if ( shortCircuit )
+        outBuilder.append("',this,null,true)");
+      else
+        outBuilder.append("',this,null)");
+    }
 
     return outBuilder.toString();
   }

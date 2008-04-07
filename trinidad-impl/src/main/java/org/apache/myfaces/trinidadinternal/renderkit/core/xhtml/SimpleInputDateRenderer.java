@@ -436,8 +436,6 @@ public class SimpleInputDateRenderer
       columnsInteger = _DEFAULT_COLUMNS;
     }
     
-    columnsInteger = getColumnsAdjustedForAgent(arc,bean,columnsInteger);
-    
     return columnsInteger;
   }
 

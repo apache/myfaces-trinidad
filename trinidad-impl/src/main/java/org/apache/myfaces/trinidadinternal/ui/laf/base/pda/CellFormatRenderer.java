@@ -48,12 +48,12 @@ public class CellFormatRenderer
     //
     renderAttribute(context, node, "width",  WIDTH_ATTR);
     renderAttribute(context, node, "height", HEIGHT_ATTR);
-    
-    
-    if ( supportsWrappingDisabled( context ))
-    {
-      renderAttribute(context, node, "nowrap",  WRAPPING_DISABLED_ATTR);
-    }
-    
+
+
+    //  nowrap in cell causes various display problems on PDA.
+    //  On BlackBerry, rows wraps if a cell is wide and make it difficult read.
+    //  On other PDA devices, horizontal scroll should be minimized.
+    //  Do not add nowrap attribute.
   }
+    
 }

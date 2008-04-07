@@ -320,6 +320,7 @@ public final class ColumnData
     TableRenderingContext tContext,
     RenderingContext   arc,
     boolean               noWrap,
+    boolean               allowHeaderWrap,
     String                formatType)
   {
     // make sure that no-one called any of the get methods on this object,
@@ -328,7 +329,7 @@ public final class ColumnData
 
     int physicalIndex = getPhysicalColumnIndex();
     Data d = _create(physicalIndex);
-    d.headerNoWrap = true;
+    d.headerNoWrap = !allowHeaderWrap;
     d.noWrap       = noWrap;
     _setDataFormat(d, formatType);
     d.width        = _getSpecialWidth(tContext, arc);

@@ -17,8 +17,6 @@
  *  under the License.
  */
 
-var _pprUnsupported = false;
-
 // Flag used by partial page rendering and the back issue
 // to indicate whether or not we need to restore the saved inline scripts.
 var _pprBackRestoreInlineScripts = false;
@@ -210,31 +208,77 @@ function _agentInit()
   // we do not currently specify the BlackBerry platform
   // because it is not necessary (if we decide to support
   // other browsers on the BlackBerry platform it may become necessary)
-  var isOpera      = false;
-  var isIE         = false;
-  var isNav        = false;
-  var isGecko      = false;
-  var isSafari     = false;
-  var isPIE        = false;
-  var isBlackBerry = false;
-  var kind         = "unknown";
-  var isWindows    = false;
-  var isSolaris    = false;
-  var isMac        = false;
+  var isBlackBerry      = false;
+  var isGecko           = false;
+  var isIE              = false;
+  var isMac             = false;
+  var isNav             = false;
+  var isOpera           = false;
+  var isPIE             = false;
+  var isSafari          = false;
+  var isSolaris         = false;
+  var isWindows         = false;
+  var isWindowsMobile6  = false;
+  var kind              = "unknown";
+
+  // Group IE and IE based browsers such as IE Mobile on WM5 and WM6
+  var isIEGroup         = false;
+
+  // Indicate browser's PPR capability support
+  var pprUnsupported    = false;
+
+  // Flag to indicate that document object is sufficiently implemented to
+  // provide good level of access to HTML, XHTML and XML document.
+  // For example, Windows Mobile 5 and Blackberry does not implement
+  // document.body, document.forms or document.documentElement and this
+  // flag is set to false. Some features implemented in Core.js and
+  // Page.js are not executed for the browsers when it is set to false.
+  var supportsDomDocument = true;
+
+  // Identifies browsers that do not support node.nodeType
+  var supportsNodeType    = true;
+
+  // Indicate browser's validation capability support
+  var supportsValidation  = true;
 
   if (agentString.indexOf("msie") != -1)
   {
     // extract ie's version from the ie string
     var matches = agentString.match(/msie (.*);/);
     version = parseFloat(matches[1]);
-    if (agentString.indexOf("ppc") != -1 &&
-        agentString.indexOf("windows ce") != -1 &&
-        version >= 4.0)
+    isIEGroup = true;
+
+    // All IE based mobile browsers
+    if (agentString.indexOf("windows ce") != -1)
     {
-      isPIE = true;
-      kind = "pie";
+      supportsNodeType = false;
+      supportsDomDocument = false;
+      supportsValidation = false;
+
+      // PPC200X and Windows Mobile 5
+      if (agentString.indexOf("ppc") != -1 &&
+          version >= 4.0)
+      {
+        // This user agent indicates the browser is WindowsMobile 5 or
+        // earlier version of PIE
+        isPIE = true;
+
+        // Windows Mobile 5 DOM and XMLHttpRequest support are not
+        // sufficient to support PPR in this framework effectively.
+        pprUnsupported = true;
+        kind = "pie";
+      }
+      else
+      {
+        // This user agent indicates the browser is WindowsMobile 6 PIE
+        isWindowsMobile6 = true;
+        // A new kind string was given to WM6 browser as the
+        // capability is significantly different from predecessors.
+        kind = "iemobile";
+      }
     }
-    else {
+    else
+    {
       isIE = true;
       kind = "ie";
     }
@@ -257,20 +301,24 @@ function _agentInit()
     version = 1.0;
   }
   else if(agentString.indexOf("blackberry") != -1)
-    {
-      // if we support non-BlackBerry Browser agents on blackberry
-      // devices in the future, we may need to revisit this because
-      // those agents may include "blackberry" in the User-Agent
-      // string; we can't just check if the User-Agent "starts with"
-      // blackberry because navigator.userAgent on BlackBery Browser 4.0
-      // starts with Mozilla/4.0 (even though the User-Agent sent to the
-      // server starts with BlackBerry<model>/<version>)
+  {
+    // if we support non-BlackBerry Browser agents on blackberry
+    // devices in the future, we may need to revisit this because
+    // those agents may include "blackberry" in the User-Agent
+    // string; we can't just check if the User-Agent "starts with"
+    // blackberry because navigator.userAgent on BlackBery Browser 4.0
+    // starts with Mozilla/4.0 (even though the User-Agent sent to the
+    // server starts with BlackBerry<model>/<version>)
     
-      // BlackBerry Browser 4.0+ supports navigator.appVersion,
-      // and earlier versions don't support script, so we can
-      // leave the version as defined above
-      isBlackBerry = true;
-      kind = "blackberry";
+    // BlackBerry Browser 4.0+ supports navigator.appVersion,
+    // and earlier versions don't support script, so we can
+    // leave the version as defined above
+    pprUnsupported = true;
+    isBlackBerry = true;
+    kind = "blackberry";
+    mobileBrowser = true;
+    supportsDomDocument = false;
+    supportsValidation = false;
   }
   else if ((agentString.indexOf('mozilla')    != -1) &&
            (agentString.indexOf('spoofer')    == -1) &&
@@ -301,21 +349,27 @@ function _agentInit()
     isSolaris = true;
   }
 
-  _agent.isIE = isIE;
-  _agent.isNav = isNav;
-  _agent.isOpera = isOpera;
-  _agent.isPIE = isPIE;
-  _agent.isGecko = isGecko;
-  _agent.isSafari = isSafari;
-  _agent.isBlackBerry = isBlackBerry;
-  _agent.version = version
-  _agent.kind = kind;
-  _agent.isWindows = isWindows;
-  _agent.isSolaris = isSolaris;
-  _agent.isMac = isMac;
+  _agent.isBlackBerry           = isBlackBerry;
+  _agent.isGecko                = isGecko;
+  _agent.isIE                   = isIE;
+  _agent.isIEGroup              = isIEGroup;
+  _agent.isMac                  = isMac;
+  _agent.isNav                  = isNav;
+  _agent.isOpera                = isOpera;
+  _agent.isPIE                  = isPIE;
+  _agent.isSafari               = isSafari;
+  _agent.isSolaris              = isSolaris;
+  _agent.isWindows              = isWindows;
+  _agent.isWindowsMobile6       = isWindowsMobile6;
+  _agent.kind                   = kind;
+  _agent.pprUnsupported         = pprUnsupported;
+  _agent.supportsDomDocument    = supportsDomDocument;
+  _agent.supportsNodeType       = supportsNodeType;
+  _agent.supportsValidation     = supportsValidation;
+  _agent.version                = version;
 
-  _agent.atLeast = _atLeast;
-  _agent.atMost  = _atMost;
+  _agent.atLeast                = _atLeast;
+  _agent.atMost                 = _atMost;
 }
 
 
@@ -850,25 +904,28 @@ function _checkUnload(
 
     parentWindow.onfocus = null;
 
-    var parentBody = parentWindow.document.body;
-
-    // release the ie mouse grab
-    if (_agent.atLeast("ie", 4))
+    if (_agent.supportsDomDocument)
     {
-      if (_agent.atLeast("ie", 5) && _agent.isWindows)
-      {
-        parentBody.onlosecapture = null;
+      var parentBody = parentWindow.document.body;
 
-        _removeModalCaptureIE(parentBody);
+      // release the ie mouse grab
+      if (_agent.atLeast("ie", 4))
+      {
+        if (_agent.atLeast("ie", 5) && _agent.isWindows)
+        {
+          parentBody.onlosecapture = null;
+
+          _removeModalCaptureIE(parentBody);
+        }
+        parentBody.style.filter = null;
       }
-      parentBody.style.filter = null;
-    }
 
-    if (_agent.isGecko)
-    {
-      if (parentBody != (void 0))
+      if (_agent.isGecko)
       {
-        _removeModalCaptureGecko(parentWindow, parentBody);
+        if (parentBody != (void 0))
+        {
+          _removeModalCaptureGecko(parentWindow, parentBody);
+        }
       }
     }
   }
@@ -1155,6 +1212,14 @@ function _validateForm(
   source
   )
 {
+  // Blackberry does not set valiation script in the fields
+  // and it is not possible to execute validation.
+  // Return true if validation is not supported.
+  if (!_agent.supportsValidation)
+  {
+    return true;
+  }
+
   var funcName = '_' + _getJavascriptId(_getFormName(form)) + 'Validator';
   var formWind = window[funcName];
   if (formWind)
@@ -1551,7 +1616,7 @@ function submitForm(
   // timeout handler will cancel the event submission if the data no longer
   // exists.
   var pending = true;
-  if (_agent.isIE)
+  if (_agent.isIEGroup)
   {
     pending = false;
     // keep track of whether there was a pending event
@@ -1675,7 +1740,10 @@ function submitForm(
     // reset any hidden form values before submitting
     TrPage.getInstance()._resetHiddenValues(form);
 
-    if (isPartial)
+    // While WM6 can support PPR, WM5 and PPC lacks enough support
+    // for DOM and/or HMLHTTP. Disable partial form post for PPC and
+    // WM5.
+    if (isPartial && _supportsPPR())
     {
       TrPage.getInstance().sendPartialFormPost(form, parameters);
     }
@@ -1707,8 +1775,7 @@ function submitForm(
             var hiddenField = form.elements[paramName];
             if (_agent.isPIE)
             {
-              var element = form.elements[paramName];
-              element.value = paramValue;
+              hiddenField.value = paramValue;
             }
             else
             {
@@ -2300,7 +2367,7 @@ function _multiValidate(
   {
     for (var id in validators)
     {
-      if(document.getElementById(id) == null)
+      if(_getElementById(document, id) == null)
       {
           continue;
       }
@@ -2539,7 +2606,7 @@ function _getGlobalErrorString(
        return false;
    
    // determine visibility from style information
-   if (_agent.isIE)
+   if (_agent.isIEGroup)
    {
      var node = input;
 
@@ -2565,7 +2632,7 @@ function _getGlobalErrorString(
      return true;
    }
 
-   if (_agent.isGecko || _agent.isSafari)
+   if (_agent.isGecko || _agent.isSafari || _agent.BlackBerry)
    {
      // Radio buttons:  it'll be an array
      if (!input.ownerDocument && input.length)
@@ -3035,10 +3102,11 @@ function _getElementById(
     
     return doc.getElementById(id);    
   }   
-  //PH:if agent is PIE get elements this way since getElementById is 
-  //not supported
-  if(_agent.isPIE)
+  else if (typeof(doc.all) == 'undefined')
   {
+    // Browser does not support getElementById nor DOM documnet.all object.
+    // One example of such browser today is BlackBerry 4.0 browser.
+
     //if element is not within a form
     if(doc.forms.length == 0)
       return window[id];
@@ -3054,9 +3122,12 @@ function _getElementById(
     //element is not within the form but form(s) is(are) present. 
     return window[id];   
   }  
-  
-  return doc.all[id];  
-  
+  else
+  {
+    // Browser does not support getElementById but supports DOM documnet.all
+    // object. One example of such browser today is Windows Mobile browser.
+    return doc.all[id];
+  }
 }
 
 // A recursive method which searches the entire DOM tree
@@ -3193,7 +3264,14 @@ function _pprInstallBlockingHandlers(win, install)
   if (doc == (void 0))
     return;
 
-  if (_agent.isIE)
+  // Some mobile browser do not support attaching event listner
+  // to document
+  if (!doc.attachEvent && !doc.addEventListener)
+  {
+    return;
+  }
+
+  if (doc.attachEvent) // IE
   {
     var el = win._pprConsumeFirstClick;
     if (install)
@@ -3319,7 +3397,7 @@ function _doPprStartBlocking (win)
       win._pprBlockingTimeout = win.setTimeout("_pprStopBlocking(window);",
                                                8000);
     }
-    else if (_agent.isIE)
+    else if (_agent.isIEGroup)
     {    
       // save off the element we'll return focus to
       _pprEventElement = window.document.activeElement;
@@ -3366,7 +3444,7 @@ function _pprStopBlocking(win)
  */
 function _pprFocus(node, doc)
 {
-  if (_agent.isIE)
+  if (_agent.isIEGroup)
   {
     // If the node's parent has changed through a DOM update then
     // this node hasn't been fully added to the tree yet so we
@@ -3541,8 +3619,7 @@ function _pprChoiceChangeEvent(event)
 // Tests whether a partial submit should be performed
 function _supportsPPR()
 {
-  // TODO: handle platforms that do not support PPR
-  return !_pprUnsupported;
+  return !_agent.pprUnsupported;
 }
 
 
@@ -3581,10 +3658,7 @@ function _submitPartialChange(
   parameters = _addFormParameter(parameters, "partial", "true");
 
   // block all mouse clicks until the submit is done
-  if (!_agent.isPIE)
-  {
     _pprStartBlocking(window);
-  }
 
   // Submit the form
   var submitted = submitForm(form, doValidate, parameters, true);
@@ -3592,10 +3666,7 @@ function _submitPartialChange(
   // If the form wasn't actually submitted, update the ref count
   if (!submitted)
   {
-    if (!_agent.isPIE)
-    {
-      _pprStopBlocking(window);
-    }
+    _pprStopBlocking(window);
   }
 }
 
@@ -3832,8 +3903,10 @@ function _eval(targetWindow, code)
   // IE too, but IE's implementation of eval() always executes
   // the script in the current context, even if some other
   // window is specified.
-  if (_agent.isIE)
+  if (_agent.isIEGroup)
+  {
     targetWindow.execScript(code);
+  }
   else
     targetWindow.eval(code);
 }
@@ -3968,8 +4041,8 @@ function _resetOnEscape(event)
 function _checkLoadNoPPR()
 {
   if(_initialFocusID != null)
-    _setFocus(_getElementById(document,_initialFocusID)); 
-  _pprUnsupported = true;
+    _setFocus(_getElementById(document,_initialFocusID));
+  _agent.pprUnsupported = true;
 }
 
 /**
@@ -4000,7 +4073,7 @@ function _checkLoad()
 
   // IE has a document.activeElement property. Most other
   // browsers do not (though Firefox 3.0 will).
-  if (!_agent.isIE && document.addEventListener)
+  if (!_agent.isIEGroup && document.addEventListener)
   {
     document.addEventListener("keyup", _trTrackActiveElement, false);
     document.addEventListener("mousedown", _trTrackActiveElement, false);

@@ -322,7 +322,7 @@ public class ColumnRenderer extends ColumnGroupRenderer
 
     writer.writeAttribute("style", userInlineStyle, null);
 
-    if (colData.getNoWrap(physicalIndex))
+    if (colData.getNoWrap(physicalIndex) && !getShouldWrap())
       writer.writeAttribute(XhtmlConstants.NOWRAP_ATTRIBUTE, Boolean.TRUE, null);
 
     CellUtils.renderSpan(context, true /*isRowSpan*/, rowSpan);
@@ -367,6 +367,8 @@ public class ColumnRenderer extends ColumnGroupRenderer
     UIComponent           component,
     FacesBean             bean)
   {
+    boolean shouldWrap = getShouldWrap();
+
     UIComponent header = getFacet(component, CoreColumn.HEADER_FACET);
     Object headerText = getHeaderText(bean);
 
@@ -381,15 +383,16 @@ public class ColumnRenderer extends ColumnGroupRenderer
     {
       colData.setSpecialColumnData(tContext,
                                    arc,
-                                   getNoWrap(bean),
+                                   getNoWrap(bean) && !shouldWrap,
+                                   shouldWrap,
                                    getFormatType(bean));
     }
     else
     {
       colData.setColumnData(getWidth(bean),
                             getFormatType(bean),
-                            getNoWrap(bean),
-                            getHeaderNoWrap(bean),
+                            getNoWrap(bean) && !shouldWrap,
+                            getHeaderNoWrap(bean) && !shouldWrap,
                             getSeparateRows(bean),
                             getRowHeader(bean));
     }
@@ -569,6 +572,11 @@ public class ColumnRenderer extends ColumnGroupRenderer
     renderStyleClass(context, arc, cellClass);
     return cellClass;
 
+  }
+
+  protected boolean getShouldWrap()
+  {
+    return false;
   }
 
   private ColumnGroupRenderer _columnGroupRenderer =
