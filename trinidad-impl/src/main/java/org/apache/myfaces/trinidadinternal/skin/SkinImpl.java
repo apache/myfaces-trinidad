@@ -1209,6 +1209,12 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
       SkinProperties.AF_TABLE_SELECTION_BAR_IN_TABLE, Boolean.class);
     _PROPERTY_CLASS_TYPE_MAP.put(
       SkinProperties.AF_TABLE_REPEAT_CONTROL_BAR, Boolean.class);
+    _PROPERTY_CLASS_TYPE_MAP.put(
+      SkinProperties.AF_TREE_SHOW_LINES, Boolean.class);
+    _PROPERTY_CLASS_TYPE_MAP.put(
+      SkinProperties.AF_BREAD_CRUMBS_SEPARATOR_ON_NEW_LINE, Boolean.class);
+    _PROPERTY_CLASS_TYPE_MAP.put(
+      SkinProperties.AF_BREAD_CRUMBS_INDENT_SPACES, Integer.class);
   }
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(SkinImpl.class);
