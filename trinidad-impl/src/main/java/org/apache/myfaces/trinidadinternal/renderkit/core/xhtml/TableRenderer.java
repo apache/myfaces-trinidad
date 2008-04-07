@@ -391,17 +391,21 @@ abstract public class TableRenderer extends XhtmlRenderer
         formData.addNeededValue(XhtmlConstants.STATE_PARAM);
         formData.addNeededValue(XhtmlConstants.VALUE_PARAM);
 
-        rw.startElement(XhtmlConstants.SCRIPT_ELEMENT, null);
-        renderScriptDeferAttribute(context, arc);
-        // Bug #3426092:
-        // render the type="text/javascript" attribute in accessibility mode
-        renderScriptTypeAttribute(context, arc);
+        //HKuhn - no need for scripts in printable mode
+        if (supportsScripting(arc))
+        {
+          rw.startElement(XhtmlConstants.SCRIPT_ELEMENT, null);
+          renderScriptDeferAttribute(context, arc);
+          // Bug #3426092:
+          // render the type="text/javascript" attribute in accessibility mode
+          renderScriptTypeAttribute(context, arc);
 
-        String formName = formData.getName();
+          String formName = formData.getName();
 
-        rw.writeText(tContext.getJSVarName()+"="+
-                     TreeUtils.createNewJSCollectionComponentState(formName, tid)+";", null);
-        rw.endElement(XhtmlConstants.SCRIPT_ELEMENT);
+          rw.writeText(tContext.getJSVarName()+"="+
+                 TreeUtils.createNewJSCollectionComponentState(formName, tid)+";", null);
+          rw.endElement(XhtmlConstants.SCRIPT_ELEMENT);
+        }
       }
 
       int first = tContext.getCollectionComponent().getFirst();

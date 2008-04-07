@@ -453,7 +453,9 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     //  that the only reason desktop renders it in both places
     //  was for Netscape.  If I'm right, then really this decision should
     //  be driven off an "event bubbling" agent property.
-    if (!isPDA(arc))
+    // - HKuhn if printable mode (supportScripting is disabled),
+    // then no need for rendering onclick
+    if (!isPDA(arc) && supportsScripting(arc))
       rw.writeAttribute("onclick", sortOnclick, null);
 
     // TODO: we should pass in null for "event bubbling" systems

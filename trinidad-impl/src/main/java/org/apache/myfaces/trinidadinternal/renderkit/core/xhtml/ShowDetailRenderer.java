@@ -346,13 +346,16 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
     RenderingContext arc,
     String           onclickString ) throws IOException
   {
-    if (!supportsNavigation(arc))
-      return;
-
     ResponseWriter rw = context.getResponseWriter();
-    rw.startElement("a", null);
-    rw.writeAttribute("onclick", onclickString, null);
-    rw.writeURIAttribute("href", "#", null);
+    if (!supportsNavigation(arc)) {
+      rw.startElement("span", null);
+    }
+    else
+    {
+      rw.startElement("a", null);
+      rw.writeAttribute("onclick", onclickString, null);
+      rw.writeURIAttribute("href", "#", null);
+    }
   }
 
   private String _generateOnClickString(
@@ -413,10 +416,11 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
     FacesContext        context,
     RenderingContext arc) throws IOException
   {
+    ResponseWriter rw = context.getResponseWriter();
     if (!supportsNavigation(arc))
-      return;
-
-    context.getResponseWriter().endElement("a");
+      rw.endElement("span");
+    else
+      rw.endElement("a");
   }
 
   /**

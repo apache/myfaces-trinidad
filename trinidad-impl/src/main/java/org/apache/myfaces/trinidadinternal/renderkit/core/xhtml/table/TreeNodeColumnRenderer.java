@@ -117,9 +117,12 @@ public class TreeNodeColumnRenderer extends ColumnRenderer
       // disable the link's text decoration
       renderStyleClass(context, arc,
                        SkinSelectors.AF_TREE_TABLE_EXPANSION_ICON_STYLE_CLASS);
-
-      writer.writeAttribute("onclick", onclick, null);
-      writer.writeURIAttribute("href", "#", null);
+      //HKuhn - don't render onclick in printable mode
+      if (XhtmlRenderer.supportsScripting(arc))
+      {
+        writer.writeAttribute("onclick", onclick, null);
+        writer.writeURIAttribute("href", "#", null);
+      }
 
       // Render the expand/collapse Icon
       _renderExpansionIcon(context, arc, disclosed, onclick);

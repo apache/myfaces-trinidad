@@ -166,12 +166,16 @@ public class FormRenderer extends XhtmlRenderer
 
     rw.writeAttribute("method", "POST", null);
 
-    rw.writeAttribute("onkeypress",
+    //only render onkeypress if supports scripting (not in printable mode)
+    if (supportsScripting(arc))
+    {
+      rw.writeAttribute("onkeypress",
                       getFullOnkeypress(context,
                                         comp,
                                         bean,
                                         formName),
                       "onkeypress");
+    }
 
     // render the autocomplete attribute
     if (supportsAutoCompleteFormElements(arc))
