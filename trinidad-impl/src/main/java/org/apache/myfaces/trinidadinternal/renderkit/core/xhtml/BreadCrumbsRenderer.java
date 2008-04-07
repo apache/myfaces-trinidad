@@ -411,7 +411,7 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
   {
     Object propValue = arc.getSkin().getProperty(
                                   SkinProperties.AF_BREAD_CRUMBS_SEPARATOR_ON_NEW_LINE);
-    return Boolean.TRUE.equals(propValue) || "true".equals(propValue);
+    return Boolean.TRUE.equals(propValue);
   }
 
   protected int getNumberOfIndentSpaces(
@@ -422,16 +422,9 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
                                       SkinProperties.AF_BREAD_CRUMBS_INDENT_SPACES);
 
     int intValue = _INDENT_SPACES;
-    if (propValue != null) {
-      if (propValue instanceof String) {
-        try
-        {
-          intValue = Integer.valueOf((String) propValue);
-        }
-        catch (Exception e) {}
-      }
-      if (propValue instanceof Integer)
-        intValue = (Integer) propValue;
+    if (propValue != null && propValue instanceof Integer)
+    {
+      intValue = (Integer) propValue;
       if (intValue < 0)
         intValue = _INDENT_SPACES;
     }

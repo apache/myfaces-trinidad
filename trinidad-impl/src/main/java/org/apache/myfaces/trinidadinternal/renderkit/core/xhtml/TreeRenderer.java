@@ -262,6 +262,17 @@ public class TreeRenderer extends XhtmlRenderer
   }
 
   /**
+   * Returns true if the tree connecting lines should be rendered
+   * @param rc the RenderingContext
+   * @return the value of the AF_TREE_SHOW_LINES skin property
+   */
+  protected boolean isShowLines( RenderingContext rc)
+  {
+    Object showLines = rc.getSkin().getProperty(SkinProperties.AF_TREE_SHOW_LINES);
+    return showLines == null || showLines.equals(Boolean.TRUE);
+  }
+
+  /**
    * Returns the URI of the vertical line icon
    *
    * @param context     the FacesContext
@@ -277,11 +288,7 @@ public class TreeRenderer extends XhtmlRenderer
       boolean leftToRight
   )
   {
-    if (!isLine)
-      return null;
-    Object showLines = rc.getSkin().getProperty(SkinProperties.AF_TREE_SHOW_LINES);
-    if (showLines == null ||
-        !(showLines.equals(Boolean.TRUE) || showLines.equals("true")))
+    if (!isLine || !isShowLines(rc))
       return null;
     Icon icon = rc.getIcon(SkinSelectors.AF_TREE_LINE_ICON);
     return (icon == null) ? null : icon.getImageURI(context, rc).toString();
@@ -304,8 +311,7 @@ public class TreeRenderer extends XhtmlRenderer
   )
   {
     Object showLines = rc.getSkin().getProperty(SkinProperties.AF_TREE_SHOW_LINES);
-    if (showLines == null || 
-        !(showLines.equals(Boolean.TRUE) || showLines.equals("true")))
+    if (!isShowLines(rc))
       return null;
     Icon nodeBackgroundIcon = rc.getIcon(isLastSibling
         ? SkinSelectors.AF_TREE_LINE_LAST_ICON : SkinSelectors.AF_TREE_LINE_MIDDLE_ICON);
