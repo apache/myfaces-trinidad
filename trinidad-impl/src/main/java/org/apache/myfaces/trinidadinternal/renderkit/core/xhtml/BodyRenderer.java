@@ -33,7 +33,6 @@ import org.apache.myfaces.trinidad.component.html.HtmlBody;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
-import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.util.Service;
 
@@ -202,7 +201,7 @@ public class BodyRenderer extends PanelPartialRootRenderer
     else
       onload = toString(bean.getProperty(_onloadKey));
 
-    String checkLoad;
+    String checkLoad = "";
 
     //PH: Currently, if a browser supports PPR, _checkLoad function is called
     //that sets initialFocus if set.For non-PPR browsers like blackBerry 4.0,
@@ -221,7 +220,10 @@ public class BodyRenderer extends PanelPartialRootRenderer
     }
     else
     {
-      checkLoad = "_checkLoadNoPPR()"; 
+      //HKuhn - in printable mode we don't need PPR checking
+      // Check only, if Agents supports Navigation or Editing
+      if (supportsNavigation(arc) || supportsEditing(arc))
+        checkLoad = "_checkLoadNoPPR()";
     }
     
     onload = XhtmlUtils.getChainedJS(checkLoad, onload, false);

@@ -192,26 +192,30 @@ public class TreeRenderer extends XhtmlRenderer
                   leftToRight, (i == 0), (i == rootSize - 1), 0);
     }
 
-    rw.startElement("script", null);
-    renderScriptDeferAttribute(context, rc);
-    renderScriptTypeAttribute(context, rc);
+    //HKuhn - not needed in printable mode (scripting disabled)
+    if (supportsScripting(rc))
+    {
+      rw.startElement("script", null);
+      renderScriptDeferAttribute(context, rc);
+      renderScriptTypeAttribute(context, rc);
 
-    _renderTreeJS(context, rc, bean);
+      _renderTreeJS(context, rc, bean);
 
-    //out.writeText("_setNodes('"+name+"','"+nodesRendered+"');");
+      //out.writeText("_setNodes('"+name+"','"+nodesRendered+"');");
 
-    String selectedParam =
-      id + NamingContainer.SEPARATOR_CHAR + SELECTED_PARAM;
+      String selectedParam =
+        id + NamingContainer.SEPARATOR_CHAR + SELECTED_PARAM;
 
-    rw.writeText("var " + varName + " = " +
-                     _createNewJSSelectionState(formName, id,
-                                                selectedParam), null);
-    rw.endElement("script");
+      rw.writeText("var " + varName + " = " +
+                       _createNewJSSelectionState(formName, id,
+                                                  selectedParam), null);
+      rw.endElement("script");
+
+      fd.addNeededValue(selectedParam);
+    }
     rw.endElement("div");
 
-    fd.addNeededValue(selectedParam);
     fd.addNeededValue(_PATH_PARAM);
-
 
   }
 

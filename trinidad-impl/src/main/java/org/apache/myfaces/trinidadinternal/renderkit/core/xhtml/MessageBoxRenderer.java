@@ -104,7 +104,7 @@ public class MessageBoxRenderer extends XhtmlRenderer
     if (renderMsgBox)
     {
 
-      if (!isGlobalOnly && inlineValidation)
+      if (!isGlobalOnly && inlineValidation && supportsScripting(arc))
       {
         writer.startElement(XhtmlConstants.SCRIPT_ELEMENT, null);
         renderScriptDeferAttribute(context, arc);

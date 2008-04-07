@@ -168,7 +168,9 @@ public class TreeTableRenderer extends DesktopTableRenderer
     super.encodeAll(context, arc, component, bean);
 
     // have we rendered the script before?
-    if (arc.getProperties().put(_JS_LIBS_KEY, Boolean.TRUE) == null)
+    // and are we not in printable mode (scripting disabled)?
+    if (arc.getProperties().put(_JS_LIBS_KEY, Boolean.TRUE) == null
+        && supportsScripting(arc))
     {
       ResponseWriter writer = context.getResponseWriter();
       writer.startElement(XhtmlConstants.SCRIPT_ELEMENT, null);
@@ -250,7 +252,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
     boolean hasExpandAll = isExpandAllEnabled(component);
     super.renderControlBarLinks(context, arc, tContext, component,
                                 hasExpandAll || useDivider);
-    if (hasExpandAll)
+    if (hasExpandAll && supportsScripting(arc)) //not in printable mode
     {
       // must render these IDs so that PPR can restore the focus correctly:
       String preId = component.getClientId(context) + NamingContainer.SEPARATOR_CHAR;

@@ -124,10 +124,10 @@ public class PanelPopupRenderer extends XhtmlRenderer
   protected void encodeAll(FacesContext context, RenderingContext arc,
       UIComponent component, FacesBean bean) throws IOException
   {
-    // Currently, we require scripting to render anything
+    //HKuhn - in printable mode (scripting is disabled) we need only the trigger
     if (!supportsScripting(arc))
     {
-      _LOG.severe("Agent requires Script Support - unable to render.");
+      renderTrigger(context, arc, component, bean);
       return;
     }
 
