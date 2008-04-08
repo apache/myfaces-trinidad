@@ -408,7 +408,14 @@ public class TreeRenderer extends XhtmlRenderer
     }
 
     if (iconURI == null && icon != null)
-      iconURI = icon.getImageURI(context, rc).toString();
+    {
+      //This can be null so we need to check for it before doing toString
+      Object o = icon.getImageURI(context, rc);
+      if(o != null)
+      {
+        iconURI = o.toString();
+      }
+    }
 
     backgroundIconURI = getConnectingBackgroundIcon(context, rc, !isLastSibling, true);
     nodeBackgroundIconURI = getIconBackgroundIcon(context, rc, isLastSibling, true);
