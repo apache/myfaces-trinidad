@@ -385,7 +385,6 @@ public class SimpleInputColorRenderer
       columnsInteger = _DEFAULT_COLUMNS;
     }
     
-    columnsInteger = getColumnsAdjustedForAgent(arc,bean,columnsInteger);
     return columnsInteger;
   }
 

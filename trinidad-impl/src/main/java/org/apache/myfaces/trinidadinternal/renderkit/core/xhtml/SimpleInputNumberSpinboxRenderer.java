@@ -110,9 +110,7 @@ public class SimpleInputNumberSpinboxRenderer extends SimpleInputListOfValuesRen
 	RenderingContext arc,
 	FacesBean bean)
   {
-    Integer columnsInteger = 
-      getColumnsAdjustedForAgent(arc,bean,_DEFAULT_COLUMNS);
-    return columnsInteger;
+    return _DEFAULT_COLUMNS;
   }
 
   @Override

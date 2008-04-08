@@ -5,6 +5,7 @@
            cellspacing="0"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -17,7 +18,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -41,6 +41,7 @@
                        class="af_selectBooleanCheckbox"
                        id="_idXXX__xc_"
                        summary=""
+                       width="100%"
                       >
                     
                     <tr
@@ -53,7 +54,6 @@
                       </td>
                       <td
                            class="AFContentCell"
-                           nowrap="nowrap"
                            valign="top"
                           >
                         
@@ -98,6 +98,7 @@
                        class="af_selectBooleanCheckbox"
                        id="_idXXX__xc_"
                        summary=""
+                       width="100%"
                       >
                     
                     <tr
@@ -110,7 +111,6 @@
                       </td>
                       <td
                            class="AFContentCell"
-                           nowrap="nowrap"
                            valign="top"
                           >
                         
@@ -159,6 +159,7 @@
                        class="af_inputText"
                        id="_idXXX__xc_"
                        summary=""
+                       width="100%"
                       >
                     
                     <tr
@@ -171,7 +172,6 @@
                       </td>
                       <td
                            class="AFContentCell"
-                           nowrap="nowrap"
                            valign="top"
                           >
                         
@@ -225,6 +225,7 @@
            cellspacing="0"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -242,7 +243,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -266,6 +266,7 @@
                        class="af_selectBooleanCheckbox"
                        id="_idXXX__xc_"
                        summary=""
+                       width="100%"
                       >
                     
                     <tr
@@ -278,7 +279,6 @@
                       </td>
                       <td
                            class="AFContentCell"
-                           nowrap="nowrap"
                            valign="top"
                           >
                         
@@ -323,6 +323,7 @@
                        class="af_selectBooleanCheckbox"
                        id="_idXXX__xc_"
                        summary=""
+                       width="100%"
                       >
                     
                     <tr
@@ -335,7 +336,6 @@
                       </td>
                       <td
                            class="AFContentCell"
-                           nowrap="nowrap"
                            valign="top"
                           >
                         
@@ -384,6 +384,7 @@
                        class="af_inputText"
                        id="_idXXX__xc_"
                        summary=""
+                       width="100%"
                       >
                     
                     <tr
@@ -396,7 +397,6 @@
                       </td>
                       <td
                            class="AFContentCell"
-                           nowrap="nowrap"
                            valign="top"
                           >
                         
@@ -450,6 +450,7 @@
            cellspacing="0"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -463,7 +464,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -487,6 +487,7 @@
                        class="af_selectBooleanCheckbox"
                        id="_idXXX__xc_"
                        summary=""
+                       width="100%"
                       >
                     
                     <tr
@@ -499,7 +500,6 @@
                       </td>
                       <td
                            class="AFContentCell"
-                           nowrap="nowrap"
                            valign="top"
                           >
                         
@@ -544,6 +544,7 @@
                        class="af_selectBooleanCheckbox"
                        id="_idXXX__xc_"
                        summary=""
+                       width="100%"
                       >
                     
                     <tr
@@ -556,7 +557,6 @@
                       </td>
                       <td
                            class="AFContentCell"
-                           nowrap="nowrap"
                            valign="top"
                           >
                         
@@ -605,6 +605,7 @@
                        class="af_inputText"
                        id="_idXXX__xc_"
                        summary=""
+                       width="100%"
                       >
                     
                     <tr
@@ -617,7 +618,6 @@
                       </td>
                       <td
                            class="AFContentCell"
-                           nowrap="nowrap"
                            valign="top"
                           >
                         
@@ -671,6 +671,7 @@
            cellspacing="0"
            id="test-id__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -683,7 +684,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -707,6 +707,7 @@
                        class="af_selectBooleanCheckbox"
                        id="_idXXX__xc_"
                        summary=""
+                       width="100%"
                       >
                     
                     <tr
@@ -719,7 +720,6 @@
                       </td>
                       <td
                            class="AFContentCell"
-                           nowrap="nowrap"
                            valign="top"
                           >
                         
@@ -764,6 +764,7 @@
                        class="af_selectBooleanCheckbox"
                        id="_idXXX__xc_"
                        summary=""
+                       width="100%"
                       >
                     
                     <tr
@@ -776,7 +777,6 @@
                       </td>
                       <td
                            class="AFContentCell"
-                           nowrap="nowrap"
                            valign="top"
                           >
                         
@@ -825,6 +825,7 @@
                        class="af_inputText"
                        id="_idXXX__xc_"
                        summary=""
+                       width="100%"
                       >
                     
                     <tr
@@ -837,7 +838,6 @@
                       </td>
                       <td
                            class="AFContentCell"
-                           nowrap="nowrap"
                            valign="top"
                           >
                         
@@ -893,6 +893,7 @@
            cellspacing="0"
            id="mainId__xc_"
            summary=""
+           width="100%"
           >
         
         <tr
@@ -905,7 +906,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -929,6 +929,7 @@
                        class="af_selectBooleanCheckbox"
                        id="_idXXX__xc_"
                        summary=""
+                       width="100%"
                       >
                     
                     <tr
@@ -941,7 +942,6 @@
                       </td>
                       <td
                            class="AFContentCell"
-                           nowrap="nowrap"
                            valign="top"
                           >
                         
@@ -986,6 +986,7 @@
                        class="af_selectBooleanCheckbox"
                        id="_idXXX__xc_"
                        summary=""
+                       width="100%"
                       >
                     
                     <tr
@@ -998,7 +999,6 @@
                       </td>
                       <td
                            class="AFContentCell"
-                           nowrap="nowrap"
                            valign="top"
                           >
                         
@@ -1047,6 +1047,7 @@
                        class="af_inputText"
                        id="_idXXX__xc_"
                        summary=""
+                       width="100%"
                       >
                     
                     <tr
@@ -1059,7 +1060,6 @@
                       </td>
                       <td
                            class="AFContentCell"
-                           nowrap="nowrap"
                            valign="top"
                           >
                         
@@ -1114,6 +1114,7 @@
            id="mainId__xc_"
            summary=""
            title="test-shortDesc"
+           width="100%"
           >
         
         <tr
@@ -1126,7 +1127,6 @@
           </td>
           <td
                class="AFContentCell"
-               nowrap="nowrap"
                valign="top"
               >
             
@@ -1150,6 +1150,7 @@
                        class="af_selectBooleanCheckbox"
                        id="_idXXX__xc_"
                        summary=""
+                       width="100%"
                       >
                     
                     <tr
@@ -1162,7 +1163,6 @@
                       </td>
                       <td
                            class="AFContentCell"
-                           nowrap="nowrap"
                            valign="top"
                           >
                         
@@ -1207,6 +1207,7 @@
                        class="af_selectBooleanCheckbox"
                        id="_idXXX__xc_"
                        summary=""
+                       width="100%"
                       >
                     
                     <tr
@@ -1219,7 +1220,6 @@
                       </td>
                       <td
                            class="AFContentCell"
-                           nowrap="nowrap"
                            valign="top"
                           >
                         
@@ -1268,6 +1268,7 @@
                        class="af_inputText"
                        id="_idXXX__xc_"
                        summary=""
+                       width="100%"
                       >
                     
                     <tr
@@ -1280,7 +1281,6 @@
                       </td>
                       <td
                            class="AFContentCell"
-                           nowrap="nowrap"
                            valign="top"
                           >
                         

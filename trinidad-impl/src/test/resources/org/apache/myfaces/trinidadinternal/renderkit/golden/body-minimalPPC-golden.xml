@@ -191,7 +191,7 @@
 
   <body
        id="mainId"
-       onload="return _chain('_checkLoad()','test-onload',this,event)"
+       onload="return _chain('_checkLoad()','test-onload',this,null)"
        onunload="_checkUnload(event)"
       >
     
@@ -335,7 +335,7 @@
   <body
        id="mainId"
        onload="_checkLoad()"
-       onunload="return _chain('_checkUnload(event)','test-onunload',this,event)"
+       onunload="return _chain('_checkUnload(event)','test-onunload',this,null)"
       >
     
     <a

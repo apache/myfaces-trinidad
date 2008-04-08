@@ -8,6 +8,7 @@
              cellpadding="0"
              cellspacing="0"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -116,6 +117,7 @@
              cellspacing="0"
              class="af_table_content"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -133,7 +135,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:test-id"
-                 nowrap="nowrap"
                 >
               StringHeader&#xa0;
               <a
@@ -157,7 +158,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:separate-id"
-                 nowrap="nowrap"
                 >
               IntHeader&#xa0;
               <a
@@ -434,6 +434,7 @@
              cellpadding="0"
              cellspacing="0"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -542,6 +543,7 @@
              cellspacing="0"
              class="af_table_content"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -550,7 +552,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:test-id"
-                 nowrap="nowrap"
                 >
               StringHeader&#xa0;
               <a
@@ -583,7 +584,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:separate-id"
-                 nowrap="nowrap"
                 >
               IntHeader&#xa0;
               <a
@@ -860,6 +860,7 @@
              cellpadding="0"
              cellspacing="0"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -968,6 +969,7 @@
              cellspacing="0"
              class="af_table_content"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -985,7 +987,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:test-id"
-                 nowrap="nowrap"
                  width="30%"
                 >
               StringHeader&#xa0;
@@ -1010,7 +1011,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:separate-id"
-                 nowrap="nowrap"
                 >
               IntHeader&#xa0;
               <a
@@ -1287,6 +1287,7 @@
              cellpadding="0"
              cellspacing="0"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -1395,6 +1396,7 @@
              cellspacing="0"
              class="af_table_content"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -1412,7 +1414,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:test-id"
-                 nowrap="nowrap"
                 >
               StringHeader&#xa0;
               <a
@@ -1436,7 +1437,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:separate-id"
-                 nowrap="nowrap"
                 >
               IntHeader&#xa0;
               <a
@@ -1753,6 +1753,7 @@
              cellpadding="0"
              cellspacing="0"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -1861,6 +1862,7 @@
              cellspacing="0"
              class="af_table_content"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -1878,7 +1880,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:test-id"
-                 nowrap="nowrap"
                 >
               StringHeader&#xa0;
               <a
@@ -1902,7 +1903,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:separate-id"
-                 nowrap="nowrap"
                 >
               IntHeader&#xa0;
               <a
@@ -2179,6 +2179,7 @@
              cellpadding="0"
              cellspacing="0"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -2287,6 +2288,7 @@
              cellspacing="0"
              class="af_table_content"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -2304,7 +2306,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:test-id"
-                 nowrap="nowrap"
                 >
               StringHeader&#xa0;
               <a
@@ -2328,7 +2329,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:separate-id"
-                 nowrap="nowrap"
                 >
               IntHeader&#xa0;
               <a
@@ -2605,6 +2605,7 @@
              cellpadding="0"
              cellspacing="0"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -2713,6 +2714,7 @@
              cellspacing="0"
              class="af_table_content"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -2730,7 +2732,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:test-id"
-                 nowrap="nowrap"
                 >
               StringHeader&#xa0;
               <a
@@ -2754,7 +2755,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:separate-id"
-                 nowrap="nowrap"
                 >
               IntHeader&#xa0;
               <a
@@ -3036,6 +3036,7 @@
              cellpadding="0"
              cellspacing="0"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -3144,6 +3145,7 @@
              cellspacing="0"
              class="af_table_content"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -3161,7 +3163,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:test-id"
-                 nowrap="nowrap"
                 >
               StringHeader&#xa0;
               <a
@@ -3185,7 +3186,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:separate-id"
-                 nowrap="nowrap"
                 >
               IntHeader&#xa0;
               <a
@@ -3462,6 +3462,7 @@
              cellpadding="0"
              cellspacing="0"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -3570,6 +3571,7 @@
              cellspacing="0"
              class="af_table_content"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -3587,7 +3589,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:test-id"
-                 nowrap="nowrap"
                 >
               StringHeader&#xa0;
               <a
@@ -3611,7 +3612,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:separate-id"
-                 nowrap="nowrap"
                 >
               IntHeader&#xa0;
               <a
@@ -3888,6 +3888,7 @@
              cellpadding="0"
              cellspacing="0"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -3996,6 +3997,7 @@
              cellspacing="0"
              class="af_table_content"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -4013,7 +4015,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:test-id"
-                 nowrap="nowrap"
                 >
               StringHeader&#xa0;
               <a
@@ -4037,7 +4038,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:separate-id"
-                 nowrap="nowrap"
                 >
               IntHeader&#xa0;
               <a
@@ -4404,6 +4404,7 @@
              cellpadding="0"
              cellspacing="0"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -4512,6 +4513,7 @@
              cellspacing="0"
              class="af_table_content"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -4529,7 +4531,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:test-id"
-                 nowrap="nowrap"
                 >
               StringHeader&#xa0;
               <a
@@ -4553,7 +4554,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:separate-id"
-                 nowrap="nowrap"
                 >
               IntHeader&#xa0;
               <a
@@ -4830,6 +4830,7 @@
              cellpadding="0"
              cellspacing="0"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -4938,6 +4939,7 @@
              cellspacing="0"
              class="af_table_content"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -4955,7 +4957,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:test-id"
-                 nowrap="nowrap"
                 >
               StringHeader&#xa0;
               <a
@@ -4979,7 +4980,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:separate-id"
-                 nowrap="nowrap"
                 >
               IntHeader&#xa0;
               <a
@@ -5256,6 +5256,7 @@
              cellpadding="0"
              cellspacing="0"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -5364,6 +5365,7 @@
              cellspacing="0"
              class="af_table_content"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -5381,7 +5383,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:test-id"
-                 nowrap="nowrap"
                 >
               StringHeader&#xa0;
               <a
@@ -5405,7 +5406,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:separate-id"
-                 nowrap="nowrap"
                 >
               IntHeader&#xa0;
               <a
@@ -5682,6 +5682,7 @@
              cellpadding="0"
              cellspacing="0"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -5790,6 +5791,7 @@
              cellspacing="0"
              class="af_table_content"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -5807,7 +5809,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:test-id"
-                 nowrap="nowrap"
                 >
               StringHeader&#xa0;
               <a
@@ -5831,7 +5832,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:separate-id"
-                 nowrap="nowrap"
                 >
               IntHeader&#xa0;
               <a
@@ -6108,6 +6108,7 @@
              cellpadding="0"
              cellspacing="0"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -6216,6 +6217,7 @@
              cellspacing="0"
              class="af_table_content"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -6233,7 +6235,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:test-id"
-                 nowrap="nowrap"
                 >
               StringHeader&#xa0;
               <a
@@ -6257,7 +6258,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:separate-id"
-                 nowrap="nowrap"
                 >
               IntHeader&#xa0;
               <a
@@ -6534,6 +6534,7 @@
              cellpadding="0"
              cellspacing="0"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -6642,6 +6643,7 @@
              cellspacing="0"
              class="af_table_content"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -6659,7 +6661,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:test-id"
-                 nowrap="nowrap"
                 >
               StringHeader&#xa0;
               <a
@@ -6683,7 +6684,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:separate-id"
-                 nowrap="nowrap"
                 >
               IntHeader&#xa0;
               <a
@@ -6960,6 +6960,7 @@
              cellpadding="0"
              cellspacing="0"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -7068,6 +7069,7 @@
              cellspacing="0"
              class="af_table_content"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -7085,7 +7087,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:test-id"
-                 nowrap="nowrap"
                 >
               StringHeader&#xa0;
               <a
@@ -7109,7 +7110,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:separate-id"
-                 nowrap="nowrap"
                 >
               IntHeader&#xa0;
               <a
@@ -7513,7 +7513,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:test-id"
-                 nowrap="nowrap"
                 >
               StringHeader&#xa0;
               <a
@@ -7537,7 +7536,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:separate-id"
-                 nowrap="nowrap"
                 >
               IntHeader&#xa0;
               <a
@@ -7814,6 +7812,7 @@
              cellpadding="0"
              cellspacing="0"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -7922,6 +7921,7 @@
              cellspacing="0"
              class="af_table_content"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -7939,7 +7939,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:test-id"
-                 nowrap="nowrap"
                 >
               StringHeader&#xa0;
               <a
@@ -7963,7 +7962,6 @@
             <th
                  class="af_column_sorted-header-text"
                  id="mainId:separate-id"
-                 nowrap="nowrap"
                 >
               IntHeader&#xa0;
               <a
@@ -8240,6 +8238,7 @@
              cellpadding="0"
              cellspacing="0"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -8348,6 +8347,7 @@
              cellspacing="0"
              class="af_table_content"
              summary=""
+             width="100%"
             >
           
           <tr
@@ -8365,7 +8365,6 @@
             <th
                  class="af_column_sorted-header-text"
                  id="mainId:test-id"
-                 nowrap="nowrap"
                 >
               StringHeader&#xa0;
               <a
@@ -8389,7 +8388,6 @@
             <th
                  class="af_column_sortable-header-text"
                  id="mainId:separate-id"
-                 nowrap="nowrap"
                 >
               IntHeader&#xa0;
               <a

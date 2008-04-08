@@ -71,16 +71,23 @@ TrPage.prototype._requestStatusChanged = function(requestEvent)
     // code is returned as part of the HTTP prototcol.
     if (statusCode == 200)
     {
-      // TODO: clean this up
-      if (!_agent.isPIE)
-      {
-        _pprStopBlocking(window);
-      }
+      _pprStopBlocking(window);
 
       if (requestEvent.isPprResponse())
       {
         var responseDocument = requestEvent.getResponseXML();
-        this._handlePprResponse(responseDocument.documentElement);
+
+        // Though not yet supported, Nokia browser sometimes fails to get
+        // XML content. (Currently being investigated.) When that happens,
+        // the function should simply return without calling
+        // _handlePprResponse rather than crushing the function with null
+        // pointer reference.
+        // This is a temporary workaround and should be revisited when
+        // Nokia browser is officially supported.
+        if (responseDocument != null)
+        {
+          this._handlePprResponse(responseDocument.documentElement);
+        }
       }
       else
       {
@@ -92,15 +99,10 @@ TrPage.prototype._requestStatusChanged = function(requestEvent)
       // The RequestQueue logs these for us, so
       // we don't need to take action here.  IMO, that's probably
       // wrong - we should do the handling here
-
-      // TODO: clean this up
-      if (!_agent.isPIE)
-      {
-        _pprStopBlocking(window);
-      }
-
+      _pprStopBlocking(window);
     }
-  }                             
+
+  }
 }
 
 TrPage.prototype._handlePprResponse = function(documentElement)
@@ -297,61 +299,109 @@ TrPage.prototype._handlePprResponseAction = function(contentNode)
 // Handles a single fragment node in a ppr response.
 TrPage.prototype._handlePprResponseFragment = function(fragmentNode)
 {
-  // Convert the content of the fragment node into an HTML node that
-  // we can insert into the document
-  var sourceNode = this._getFirstElementFromFragment(fragmentNode);
-
-  // In theory, all fragments should have one element with an ID.
-  // Unfortunately, the PPRResponseWriter isn't that smart.  If
-  // someone calls startElement() with the write component, but never
-  // passed an ID, we get an element with no ID.  And, even
-  // worse, if someone calls startElement() with a <span> that
-  // never gets any attributes on it, we actually strip that
-  // span, so we can get something that has no elements at all!
-  if (!sourceNode)
-     return;
-
-  // Grab the id of the source node - we need this to locate the
-  // target node that will be replaced
-  var id = sourceNode.getAttribute("id");
-  // As above, we might get a node with no ID.  So don't crash
-  // and burn, just return.
-  if (!id)
-    return;
-
-  // assert((id != null), "null id in response fragment"); 
-
-  // Find the target node
   var doc = window.document;
-  var targetNode = doc.getElementById(id);
-  var activeNode = _getActiveElement();
+  var targetNode;
+  var activeNode;
   var refocusId = null;
-  if (activeNode && TrPage._isDomAncestorOf(activeNode, targetNode))
-    refocusId = activeNode.id;
-  
-  if (targetNode == null)
+
+  // Due to the limitation of DOM implementation of WM6,
+  // a special code is needed here.
+  // Note: This code segment is a good candidate to be emcapsulated in to
+  // either WM6-specific agent or TrPage subclass.
+  if (_agent.isWindowsMobile6)
   {
-    // log.severe("unable to locate target node: " + id);
+    // Get the first child node in fragmentNote
+    var firstFragmenChildNode = fragmentNode.childNodes[0];
+    if (!firstFragmenChildNode)
+       return;
+
+    var outerHTML = firstFragmenChildNode.data;
+
+    // Windows Mobile 6 requires the element to be a child of
+    // document.body to allow setting its innerHTML property.
+    tempDiv = doc.createElement("div");
+    tempDiv.id = "tempDiv";
+    tempDiv.hidden = "true";
+
+    var bodyElement = doc.body;
+
+    // Temporarily append the new DIV element containing
+    // the data in the first child of the fragement to body
+    bodyElement.appendChild(tempDiv);
+    tempDiv.innerHTML = outerHTML;
+
+    var sourceNode = TrPage._getFirstElementWithId(tempDiv);
+
+    var targetNode = _getElementById(doc, sourceNode.id);
+    if (!targetNode)
+    {
+      return;
+    }
+
+    activeNode = _getActiveElement();
+    if (activeNode && TrPage._isDomAncestorOf(activeNode, targetNode))
+      refocusId = activeNode.id;
+
+    // Insert the new element
+    targetNode.parentNode.insertBefore(sourceNode, targetNode);
+
+    // Remove the element to be replaced
+    // innderHTML needs to be reset to work around the problem
+    // of WM6 DOM. removeChild is not sufficient.
+    targetNode.innerHTML = "";
+    targetNode.parentNode.removeChild(targetNode);
+
+    // Remove the temporary element
+    tempDiv.innerHTML = "";
+    bodyElement.removeChild(tempDiv);
   }
   else
   {
+    // Convert the content of the fragment node into an HTML node that
+    // we can insert into the document
+    var sourceNode = this._getFirstElementFromFragment(fragmentNode);
+
+    // In theory, all fragments should have one element with an ID.
+    // Unfortunately, the PPRResponseWriter isn't that smart.  If
+    // someone calls startElement() with the write component, but never
+    // passed an ID, we get an element with no ID.  And, even
+    // worse, if someone calls startElement() with a <span> that
+    // never gets any attributes on it, we actually strip that
+    // span, so we can get something that has no elements at all!
+    if (!sourceNode)
+       return;
+
+    // Grab the id of the source node - we need this to locate the
+    // target node that will be replaced
+    var id = sourceNode.getAttribute("id");
+    // As above, we might get a node with no ID.  So don't crash
+    // and burn, just return.
+    if (!id)
+      return;
+
+    // Find the target node
+    targetNode = _getElementById(doc, id);
+    activeNode = _getActiveElement();
+    if (activeNode && TrPage._isDomAncestorOf(activeNode, targetNode))
+      refocusId = activeNode.id;
     // replace the target node with the new source node
-    targetNode.parentNode.replaceChild(sourceNode, targetNode);
-    // Call all the DOM replace listeners
-    var listeners = this._domReplaceListeners;
-    if (listeners)
+    if (targetNode)
+      targetNode.parentNode.replaceChild(sourceNode, targetNode);
+  }
+  // Call all the DOM replace listeners
+  var listeners = this._domReplaceListeners;
+  if (listeners)
+  {
+    for (var i = 0; i < listeners.length; i+=2)
     {
-      for (var i = 0; i < listeners.length; i+=2)
-      {
-        var currListener = listeners[i];
-        var currInstance = listeners[i+1];
-        if (currInstance != null)
-          currListener.call(currInstance, targetNode, sourceNode);
-        else
-          currListener(targetNode, sourceNode);
-      }
+      var currListener = listeners[i];
+      var currInstance = listeners[i+1];
+      if (currInstance != null)
+        currListener.call(currInstance, targetNode, sourceNode);
+      else
+        currListener(targetNode, sourceNode);
     }
-  }  
+  }
 
   // TODO: handle nodes that don't have ID, but do take the focus?
   if (refocusId)
@@ -436,17 +486,22 @@ TrPage._getFirstElementWithId = function(domNode)
   for (var i = 0; i < length; i++)
   {
     var childNode = childNodes[i];
- 
-    // Check for ELEMENT nodes (nodeType == 1)   
-    if (childNode.nodeType == 1)
+    if (childNode.id)
     {
-      if (childNode.id)
+      if (!_agent.supportsNodeType)
+      {
         return childNode;
-        
-      return TrPage._getFirstElementWithId(childNode);
+      }
+      // Check for ELEMENT nodes (nodeType == 1) if nodeType is
+      // supported
+      else if (childNode.nodeType == 1)
+      {
+        return childNode;
+      }
     }
+    return TrPage._getFirstElementWithId(childNode);
   }
-  
+
   return null;
 }
 
@@ -539,32 +594,47 @@ TrPage._getTextContent = function(element)
 
 TrPage._collectLoadedLibraries = function()
 {
-  var loadedLibraries = new Object();
+  if (!_agent.supportsDomDocument)
+  {
+    // There is not enough DOM support (e.g. document object does not
+    // implement essential properties/methods such as body, documentElement
+    // and firstChild) and it is not possible to implement this function.
+    return null;
+  }
+  else
+  {
+    var loadedLibraries = new Object();
 
   // We use document.getElementsByTagName() to locate all scripts
   // in the page.  In theory this could be slow if the DOM is huge,
   // but so far seems extremely efficient.
-  var domDocument = window.document;
-  var scripts = domDocument.getElementsByTagName("script");
+    var domDocument = window.document;
+    var scripts = domDocument.getElementsByTagName("script");
 
-  for (var i = 0; i < scripts.length; i++)
-  {
-    // Note: we use node.getAttribute("src") instead of node.src as
-    // FF returns a fully-resolved URI for node.src.  In theory we could
-    // fully resolve/normalize all script src values (both here and 
-    // in rich responses), but this seems like overkill.  Instead, we
-    // just use whatever value happens to show up in the HTML src attribute,
-    // whether it is fully resolved or not.  In theory this could mean that
-    // we could evalute a library an extra time (if it appears once fully
-    // resolved and another time as a relative URI), but this seems like 
-    // an unlikely case which does not warrant extra code.
-    var src = scripts[i].getAttribute("src");
+    if (scripts != null)
+    {
+      for (var i = 0; i < scripts.length; i++)
+      {
+        // Note: we use node.getAttribute("src") instead of node.src as
+        // FF returns a fully-resolved URI for node.src.  In theory we could
+        // fully resolve/normalize all script src values (both here and
+        // in rich responses), but this seems like overkill.  Instead, we
+        // just use whatever value happens to show up in the HTML src attribute,
+        // whether it is fully resolved or not.  In theory this could mean that
+        // we could evalute a library an extra time (if it appears once fully
+        // resolved and another time as a relative URI), but this seems like
+        // an unlikely case which does not warrant extra code.
 
-    if (src)
-      loadedLibraries[src] = true;
+        var src = scripts[i].getAttribute("src");
+
+        if (src)
+        {
+          loadedLibraries[src] = true;
+        }
+      }
+    }
+    return loadedLibraries;
   }
-  
-  return loadedLibraries;  
 }
 
 /**

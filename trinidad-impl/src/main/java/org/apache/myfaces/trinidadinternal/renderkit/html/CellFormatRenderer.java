@@ -91,7 +91,13 @@ public class CellFormatRenderer extends XhtmlRenderer
     if (rowspan > 1)
       rw.writeAttribute("rowspan", rowspan, "rowSpan");
     if (isWrappingDisabled(bean))
-      rw.writeAttribute("nowrap", Boolean.TRUE, "wrappingDisabled");
+    {
+      // On PDA browser where the width is limited, nowrap will not be set.
+      if (isDesktop(arc))
+      {
+        rw.writeAttribute("nowrap", Boolean.TRUE, "wrappingDisabled");
+      }
+    }
 
     encodeAllChildren(context, component);
 

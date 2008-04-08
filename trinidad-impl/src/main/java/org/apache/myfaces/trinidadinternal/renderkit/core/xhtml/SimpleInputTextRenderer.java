@@ -268,15 +268,9 @@ public class SimpleInputTextRenderer extends FormInputRenderer
    */
   protected Integer getDefaultColumns(RenderingContext arc, FacesBean bean)
   {
-
-    // for efficiency, since we know the logic in getColumnsAdjustedForAgent
-    // only applies to certain PDA's, we'll only call that method if the
-    // agent type is PDA
     if (isPDA(arc))
     {
-      Integer toReturn =
-        getColumnsAdjustedForAgent(arc,bean,_DEFAULT_PDA_COLUMNS);
-      return toReturn;
+      return _DEFAULT_PDA_COLUMNS;
     }
 
     return _DEFAULT_COLUMNS;
@@ -453,59 +447,6 @@ public class SimpleInputTextRenderer extends FormInputRenderer
       }
     }
   }
-
-  /**
-   * A method to adjust the columns for the given agent.  This may be used 
-   * internally and by subclasses to get around quirks in certain agents if
-   * the subclass does not want to do any agent-specific detection on its own.
-   * In general this method should NOT be used to adjust user-specified 
-   * columns.  Rather, it is primarily used to adjust the default values that 
-   * a renderer may specify.  Its use is NOT mandatory by subclasses, but serves
-   * as a convenience.
-   * @return
-   */
-  protected Integer getColumnsAdjustedForAgent(
-    RenderingContext arc, 
-    FacesBean bean,
-    Integer columns)
-  {
-
-    if(columns == null)  
-    {
-      return null;
-    }
-    
-    Agent agent = arc.getAgent();
-    
-    // for input type="text" on the BlackBerry Browser, the size attribute
-    // is not honored properly; it generally shows many more characters
-    // than specified; note that this only affects input type="text", not
-    // textareas
-    if(agent != null && Agent.AGENT_BLACKBERRY.equals(agent.getAgentName()))
-    {
-      boolean isTextArea = isTextArea(bean);
-      if(!isTextArea)
-      {
-        // the 1.7 factor provides a good approximation for various
-        // conditions on the BlackBerry--it won't be perfect in all situations
-        double colDouble = columns.doubleValue();
-        double colAdjust = Math.round(colDouble / 1.7);
-          
-        // if the columns was specified, we want to leave it as specified,
-        // but at a minimum value
-        if(colDouble > 0 && colAdjust == 0)
-        {
-          colAdjust = 1;
-        }
-          
-        columns = (int) colAdjust;
-      }
-    }
-    
-    return columns;
-  
-  }
-  
 
   private void _writeTextWithBreaks(
     FacesContext     context,

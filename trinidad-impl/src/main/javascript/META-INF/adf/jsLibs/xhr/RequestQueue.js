@@ -158,6 +158,12 @@ TrRequestQueue.prototype.sendFormPost = function(
  */
 TrRequestQueue.prototype._isMultipartForm = function(actionForm)
 {
+  // If there not enough DOM support, namely getElementsByTagName() being
+  // not supported, this function does not work. Return false for such case.
+  if (!_agent.supportsDomDocument)
+  {
+    return false;
+  }
   // Use enctype - supported on IE >= 6, Moz, and Safari.
   // encoding is not supported on Safari.
   if (actionForm.enctype.toLowerCase() != "multipart/form-data")

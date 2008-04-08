@@ -401,7 +401,13 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     boolean hasSortingIcon = (sortIcon != null) && !sortIcon.isNull();
 
     // we do not want to wrap if there is an icon on the header:
-    isNoWrap = isNoWrap || hasSortingIcon;
+    // On PDA, where screen width is limited, we cannot afford not to
+    // wrap.  isPDA check is used in several places in this class.
+    // PDA specific logic will be moved to PDA render kit in the future.
+    if (!isPDA(arc))
+    {
+      isNoWrap = isNoWrap || hasSortingIcon;
+    }
     //       || getRequired(bean);
     //       || getMessageType(bean);
 
