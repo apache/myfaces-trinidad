@@ -224,8 +224,20 @@ abstract public class RequestContext
 
   public enum Accessibility
   {
+    /**
+     * Output supports accessibility features
+     */
     DEFAULT("default"),
+    
+    /**
+     * Accessibility-specific constructs are stripped out to optimize output size
+     */
     INACCESSIBLE("inaccessible"),
+    
+    /**
+     * Accessibility-specific constructs are added to improve behavior under a screen reader 
+     * (but may affect other users negatively)
+     */
     SCREEN_READER("screenReader");
 
     Accessibility(String name)
