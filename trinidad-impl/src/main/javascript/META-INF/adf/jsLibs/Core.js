@@ -2874,8 +2874,7 @@ function _formatErrorString(
     var currValue = tokens[currToken];
 
     // if the token has no value 
-    // or !typeof string, replace it with the empty string (see TRINIDAD-873)
-    if (!currValue || !(typeof currValue == "string"))
+    if (!currValue)
     {
       currValue = "";
     }
@@ -2883,8 +2882,12 @@ function _formatErrorString(
     // TRINIDAD-829:
     // we replace '{' and '}' to ensure, that tokens containing values
     // like {3} aren't parsed more than once...
+    // Only do this if it is typeof string (see TRINIDAD-873)
+    if (typeof currValue == "string")
+    {
     currValue = currValue.replace("{","{'");
     currValue = currValue.replace("}","'}");
+    }
 
     // the tokens are delimited by '{' before and '}' after the token
     var currRegExp = "{" + currToken + "}";
