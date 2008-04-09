@@ -51,7 +51,7 @@
 
         <section name="Model">
           The train takes a model of type
-          <html:code>org.apache.myfaces.adf.model.MenuModel</html:code>. The
+          <html:code>org.apache.myfaces.trinidad.model.MenuModel</html:code>. The
           last node along the focusPath and its siblings are rendered.
           <html:p>
           MenuModel extends TreeModel, but it also knows how to go from the
@@ -79,8 +79,8 @@
               </html:li>
             </html:ul>
 
-            The class <html:code>org.apache.myfaces.adf.model.ProcessMenuModel</html:code>
-            and <html:code>org.apache.myfaces.adf.model.ProcessUtils</html:code>
+            The class <html:code>org.apache.myfaces.trinidad.model.ProcessMenuModel</html:code>
+            and <html:code>org.apache.myfaces.trinidad.model.ProcessUtils</html:code>
             were created to support the &quot;Plus One&quot; and
             &quot;Max Visited&quot; scenarios. Please see the javadoc for these
             classes for more information.
@@ -98,14 +98,14 @@
         <mfp:source-description>This is an example of a train.</mfp:source-description>
         <mfp:source-code>
           <![CDATA[
-<af:train var="node" value="#{processMenuModel}">
+<tr:train var="node" value="#{processMenuModel}">
   <f:facet name="nodeStamp">
-    <af:commandNavigationItem text="#{node.label}"
+    <tr:commandNavigationItem text="#{node.label}"
       action="#{node.getOutcome}"
       immediate="#{processMenuModel.immediate}"
       readOnly="#{processMenuModel.readOnly}"/>
   </f:facet>
-</af:train>
+</tr:train>
           ]]>
         </mfp:source-code>
       </mfp:example>
