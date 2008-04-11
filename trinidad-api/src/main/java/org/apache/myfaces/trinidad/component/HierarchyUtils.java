@@ -55,11 +55,18 @@ public final class HierarchyUtils
       // However, getSize() can be called, and will return -1 if it's
       // expensive.  We should likely use getSize() first, see if it's
       // >= 0 and < 100, then otherwise go into this code
-      for(Object key : added)
+      
+      size = added.getSize();
+      if(size < 0)
       {
-        if (++size > 100)
-          break;
-      }
+        size = 0;
+        for(Object key : added)
+        {
+          if (++size > 100)
+            break;
+        }
+      }      
+      
       if (size < 100)
         state.addAll(added);
       else
