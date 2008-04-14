@@ -21,6 +21,8 @@ package org.apache.myfaces.trinidadinternal.taglib.listener;
 import java.io.BufferedOutputStream;
 import java.io.OutputStream;
 
+import java.util.Map;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.component.StateHolder;
 import javax.faces.context.FacesContext;
@@ -37,6 +39,7 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.ComponentUtils;
 import org.apache.myfaces.trinidad.util.MessageFactory;
+import org.apache.myfaces.trinidadinternal.util.MimeUtility;
 
 
 /**
@@ -96,10 +99,18 @@ public class FileDownloadActionListener extends FacesBeanImpl
         if (contentType != null)
           // TODO: encoding?
           hsr.setContentType(contentType);
+          
         if (filename != null)
-          // TODO: what about non-ASCII characters in the filename?
+        {
+          boolean isIE = false;
+          Map<String, String> headers = context.getExternalContext().getRequestHeaderMap();
+          if (headers.get("User-Agent").contains("MSIE"))
+            isIE = true;
+          // boolean isIE = CoreRenderer.isIE(RenderingContext.getCurrentInstance());
           hsr.setHeader("Content-Disposition",
-                        "attachment; filename=" + filename);
+                        "attachment; filename=" + MimeUtility.encodeHTTPHeader(filename, isIE));
+        }
+
         MethodBinding method = getMethod();
         OutputStream out = new BufferedOutputStream(hsr.getOutputStream());
           method.invoke(context, new Object[]{context, out});
