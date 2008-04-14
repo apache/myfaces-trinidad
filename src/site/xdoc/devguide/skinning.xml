@@ -729,13 +729,60 @@ public class SkinTranslationMapDemo
       <section name="Skinning CSS features">
         
         <P>
-        You can do things in a skin css file beyond what you can do in a regular css file. The skin's
-        css file is processed by the skinning framework to pull out skinning properties and icons and 
-        register them with the Skin object. The skinning framework merges styles together that use 
-        the -tr-rule-ref property. You can write blocks of skin css code in your css for skinning
-        for a particular agent. This section will go into more detail on the features.
+        You can do things in a skin css file beyond what you can do in a regular css file. 
+        At runtime the skin framework processes the skin's css file and 
+        skin framework pulls out skinning properties and icons and registers them with the Skin object. 
+        The skinning framework merges styles together that use the -tr-rule-ref property. 
+        The skinning framework picks the styles based on the HTTP request information, like agent
+        and platform and merges them with the non-specific styles.
+        This section will go into more detail on these features and how you can use them in your 
+        skinning css file.
         </P>
         <P>
+        <ul>
+        <li>
+        Skin properties e.g., af|breadcrumbs{<strong>-tr-show-last-item:false</strong>}.
+        Skin properties for a component are documented in the skin-selectors documentation. Skin
+        properties are useful if you want to control the rendering of a component that css alone
+        cannot do, like displaying the last item or not (well, css might be able to do that). 
+        The writer of the renderer may choose to expose skin properties to enable the application
+        developer to have more control over the way the component renders without having to 
+        write their own renderer. Another example is af|train {-tr-visible-stop-count: 10}. This 
+        allows you to change the number of visible train stops.
+        </li> 
+        <li>
+        <strong>-tr-inhibit</strong> - > e.g., af|foo {-tr-inhibit: padding; color: red}
+        This css property is used to inhibit/reset css properties that you are inheriting from a base skin.
+        "-tr-inhibit: all" will clear out all the inherited properties. "-tr-inhibit: <i>property-name</i>" will inhibit the 
+        property name; "-tr-inhibit: padding", for example, will clear out any padding
+        that you have inherited. You need to make sure your <i>property-name</i> matches that in the base skin. If the
+        base skin has padding-right: 6px and you inhibit padding, you will still get the padding-right. You need
+        to inhibit padding-right. Also note that inhibitions happen when the skinning framework processes the skin's css file,
+        and not based on cascading rules in the browser. Therefore the skin selector has to match and the property name has
+        to match exactly to what you are inhibiting.
+        </li>        
+        <li>
+        <strong>-tr-rule-ref</strong> - > This is used to include other styles in your style see :alias
+        section. Application developers probably won't use this. This is meant for component developers to use when
+        they are setting up the base skin for their components. 
+        </li>
+        </ul>
+        <P>
+        You might not want your selector's css properties to be applied to all browsers, all platforms, 
+        all locales, and both reading-directions. For example, you
+        might have to tweak some padding in IE that you don't need on any other browser. 
+        You might want the font-style to be different on Windows than it is on other platforms.
+
+        To style a selector for a particular user environment, you put that skinning information 
+        inside a skinning framework @rule or ':rtl' pseudo-class.
+        The skinning framework picks the styles based on the HTTP request information, like agent
+        and platform and merges them with the styles without rules.       
+        These css properties that match the 'rules' get merged with those outside of any 'rules'; 
+        the most specific rules that match a user's environment take precedence. 
+        (See an example in the css code below.)
+
+        The skinning framework currently supports these 'rules':
+        </P>
         <ul>
         <li>
         <strong>@platform</strong> {/skin definitions go here/} - > 
@@ -760,24 +807,6 @@ public class SkinTranslationMapDemo
         you use the :rtl pseudo-class at the end of your selector and point it to a flipped-looking image.
         </li>
         <li>
-        Skin properties e.g., af|breadcrumbs{<strong>-tr-show-last-item:false</strong>}   
-        </li> 
-        <li>
-        <strong>-tr-inhibit</strong> - > This is used to inhibit/reset css properties that you are inheriting from a base skin.
-        "-tr-inhibit: all" will clear out all the inherited properties. "-tr-inhibit: <i>property-name</i>" will inhibit the 
-        property name; "-tr-inhibit: padding", for example, will clear out any padding
-        that you have inherited. You need to make sure your <i>property-name</i> matches that in the base skin. If the
-        base skin has padding-right: 6px and you inhibit padding, you will still get the padding-right. You need
-        to inhibit padding-right. Also note that inhibitions happen when the skinning framework processes the skin's css file,
-        and not based on cascading rules in the browser. Therefore the skin selector has to match and the property name has
-        to match exactly to what you are inhibiting.
-        </li>        
-        <li>
-        <strong>-tr-rule-ref</strong> - > This is used to include other styles in your style see :alias
-        section. Application developers probably won't use this. This is meant for component developers to use when
-        they are setting up the base skin for their components. 
-        </li>
-        <li>
         :lang or @locale  - >  Not yet implemented in Trinidad.         
         </li>          
         </ul>
@@ -791,6 +820,16 @@ public class SkinTranslationMapDemo
             af|inputText::content {background-color:pink}
           }
         }
+        
+        af|someComponent {color: red; width: 10px; padding: 4px}
+        
+        /* for ie, we need to increase the width, so we override the width. 
+        We still want the color and padding; this gets merged in. We want to add height in IE.  */
+        @agent ie
+        {
+          af|someComponent {width: 25px; height: 10px}
+        }
+        
         /* The following selectors are for all platforms and all browsers */
         
          /* rounded corners on the top-start and top-end */
