@@ -240,7 +240,7 @@ public class SkinCSSDocumentHandler
   private CompleteSelectorNode _createCompleteSelectorNode(
     String selector, 
     List<PropertyNode> propertyNodeList,
-    int[] selectorAgents,
+    Map<Integer, Set<Integer>> selectorAgents,
     int[] selectorPlatforms,
     Set<String> selectorAccProperties)
   {
@@ -291,7 +291,7 @@ public class SkinCSSDocumentHandler
     {
       // we add to the ssNodeList in this method.
       int direction = completeSelectorNode.getDirection();
-      int[] agents = completeSelectorNode.getAgents();
+      Map<Integer, Set<Integer>> agents = completeSelectorNode.getAgents();
       int[] platforms = completeSelectorNode.getPlatforms();
       Set<String> accProperties = completeSelectorNode.getAccessibilityProperties();
 
@@ -343,17 +343,27 @@ public class SkinCSSDocumentHandler
       
       if (_AT_AGENT.equals(type))
       {
-        List<Integer> list = new ArrayList<Integer>();
+        _selectorAgents = new HashMap<Integer, Set<Integer>>();
 
         for (int i=0; i < typeArray.length; i++)
         {
-          int agentInt = NameUtils.getBrowser(typeArray[i].trim());
+          //each agent specification is composed by a string identifying its type
+          //followed by space separated integers (the agent versions)
+          String[] typeAndVersions = typeArray[i].trim().split(" ");
+          int agentInt = NameUtils.getBrowser(typeAndVersions[0].trim());
           
-          if (agentInt != TrinidadAgent.APPLICATION_UNKNOWN)
-            list.add(agentInt);
+          if (agentInt != TrinidadAgent.APPLICATION_UNKNOWN) {
+            Set<Integer> versions = new HashSet<Integer>(typeAndVersions.length - 1);
+            _selectorAgents.put(agentInt, versions);
+
+            for (int j=1; j< typeAndVersions.length; j++) {
+              try {
+                versions.add(Integer.valueOf(typeAndVersions[j].trim()));
+              }
+              catch (NumberFormatException e) {}
+            }
+          }
         }
-        
-        _selectorAgents = _getIntArray(list);
       }
       else if (_AT_PLATFORM.equals(type))
       {
@@ -512,7 +522,7 @@ public class SkinCSSDocumentHandler
       String selectorName,
       List<PropertyNode> propertyNodes,
       int    direction,
-      int[]  agents,
+      Map<Integer, Set<Integer>>  agents,
       int[]  platforms,
       Set<String> accProperties
       )
@@ -521,7 +531,9 @@ public class SkinCSSDocumentHandler
       _direction = direction;
       // copy the agents and platforms because these get nulled out 
       // at the end of the @rule parsing.
-      _agents = _copyIntArray(agents);
+      _agents = agents != null
+          ? new HashMap<Integer, Set<Integer>>(agents)
+          : new HashMap<Integer, Set<Integer>>();
       _platforms = _copyIntArray(platforms);
       
       if (accProperties != null)
@@ -542,8 +554,11 @@ public class SkinCSSDocumentHandler
     {
       return _direction;
     }
-    
-    public int[] getAgents()
+
+    /**
+     * @return browser types mapped to their sets of versions
+     */
+    public Map<Integer, Set<Integer>> getAgents()
     {
       return _agents;
     }
@@ -572,7 +587,7 @@ public class SkinCSSDocumentHandler
 
     private SkinSelectorPropertiesNode _node;
     private int _direction;  // the reading direction
-    private int[] _agents;
+    private Map<Integer, Set<Integer>> _agents;
     private int[] _platforms;
     private Set<String> _accProperties;
 
@@ -593,7 +608,10 @@ public class SkinCSSDocumentHandler
   // these are the selector platform, agents and accessiblity properties of the 
   // selectors we are currently parsing in this document.
   private int[] _selectorPlatforms = null;
-  private int[] _selectorAgents = null;
+
+  //As we need to be able to have multiple versions to an agent
+  // we store a map of agents and their version sets
+  private Map<Integer, Set<Integer>> _selectorAgents = null;
 
   // Stack of accessibility property sets.  While java.util.Stack has the
   // push/pop API that we want, we don't need the synchronization, so we

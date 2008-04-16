@@ -42,7 +42,7 @@ class SkinStyleSheetNode
       List <SkinSelectorPropertiesNode> skinSelectorNodeList,
       Map<String, String> namespaceMap,
       int  direction,
-      int[] agents,
+      Map<Integer, Set<Integer>> agents,
       Set<String> accProperties
       )
     {
@@ -57,7 +57,7 @@ class SkinStyleSheetNode
   SkinStyleSheetNode(
     Map<String, String> namespaceMap,
     int  direction,
-    int[] agents,
+    Map<Integer, Set<Integer>> agents,
     int[] platforms,
     Set<String> accProperties
     )
@@ -65,6 +65,7 @@ class SkinStyleSheetNode
     _namespaceMap     = namespaceMap;
     _direction        = direction;
     _agents           = agents;
+    _platforms        = platforms;
     _accProperties    = accProperties;
   }     
     
@@ -101,8 +102,11 @@ class SkinStyleSheetNode
     {
       return _direction;
     }
-    
-    public int[] getAgents()
+
+    /**
+     * @return a map of agent types mapped to their version sets
+     */
+    public Map<Integer, Set<Integer>> getAgents()
     {
       return _agents;
     }
@@ -119,13 +123,13 @@ class SkinStyleSheetNode
 
     public boolean matches(
       int direction, 
-      int[] agents, 
+      Map<Integer, Set<Integer>> agents,
       int[] platforms,
       Set<String> accProperties)
     {
       if (direction == _direction)
       {
-        boolean agentsMatch = _intArraysEqual(agents, _agents);
+        boolean agentsMatch = _mapsEqual(agents, _agents);
         
         if (agentsMatch)
         {
@@ -160,10 +164,17 @@ class SkinStyleSheetNode
       return (s1 == null) ? (s2 == null) : (s1.equals(s2));
     }
 
+    private boolean _mapsEqual(
+      Map m1,
+      Map m2)
+    {
+      return (m1 == null) ? (m2 == null) : (m1.equals(m2));
+    }
+
     private Map<String, String> _namespaceMap;
     private List <SkinSelectorPropertiesNode> _skinSelectorNodeList;
     private int  _direction;  // reading direction
-    private int[] _agents;
+    private Map<Integer, Set<Integer>> _agents;
     private int[] _platforms;
     private Set<String> _accProperties;
 }

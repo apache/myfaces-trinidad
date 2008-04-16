@@ -24,6 +24,8 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Set;
 import java.util.Vector;
+import java.util.Map;
+import java.util.HashMap;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
@@ -81,13 +83,27 @@ public class StyleSheetNodeParser extends BaseNodeParser
       _styles.copyInto(styles);
     }
 
+    int versionCount = (_versions != null) ? _versions.length : 0;
+
+   Set<Integer> versions = new HashSet<Integer>(versionCount);
+   for (int i=0; i < versionCount ; i++)
+     versions.add(_versions[i]);
+
+    int browserCount = (_browsers != null) ? _browsers.length : 0;
+    Map<Integer, Set<Integer>> browsers
+        = new HashMap<Integer, Set<Integer>>(browserCount);
+
+   //in XSS there's now way of having multiple browsers and multiple versions
+   //if encountered, we map all versions to each browser (it works for 1 browser)
+   for (int i=0; i < browserCount ; i++)
+     browsers.put(_browsers[i], new HashSet<Integer>(versions));
+
     return new StyleSheetNode(
         styles,
         null,      // icons only supported in skin CSS - not XSS
         _locales,
         _direction,
-        _browsers,
-        _versions,
+        browsers,
         _platforms,
         _mode,
         _accProperties

@@ -28,6 +28,7 @@ import java.util.Locale;
 
 
 import java.util.Set;
+import java.util.Map;
 
 import java.util.StringTokenizer;
 
@@ -61,8 +62,7 @@ public class StyleSheetNode
     Collection<IconNode> icons,
     Locale[] locales,
     int direction,
-    int[] browsers,
-    int[] versions,
+    Map<Integer, Set<Integer>> browsers,
     int[] platforms,
     int mode,
     Set<String> accessibilityProperties
@@ -90,21 +90,12 @@ public class StyleSheetNode
 
     if (browsers != null)
     {
-      Set browsersSet = _copyIntArrayToSet(browsers);
-      _browsers = Collections.unmodifiableSet(browsersSet);
+      _browsers = Collections.unmodifiableMap(browsers);
     }
     else
-      _browsers = Collections.emptySet();
+      _browsers = Collections.emptyMap();
 
 
-    if (versions != null)
-    {
-      Set versionsSet = _copyIntArrayToSet(versions);
-      _versions = Collections.unmodifiableSet(versionsSet);
-    }
-    else
-      _versions = Collections.emptySet();
-    
     if (platforms != null)
     {
       Set platformsSet = _copyIntArrayToSet(platforms);
@@ -164,19 +155,12 @@ public class StyleSheetNode
   }
 
   /**
-   * Implementation of StyleSheetNode.getBrowsers(). 
+   * Implementation of StyleSheetNode.getBrowsers().
+   * @return a map containing each browser type mapped to its versions set
    */
-  public Collection<Integer> getBrowsers()
+  public Map<Integer, Set<Integer>> getBrowsers()
   {
     return _browsers;
-  }
-
-  /**
-   * Implementation of StyleSheetNode.getVersions().
-   */
-  public Collection<Integer> getVersions()
-  {
-    return _versions;
   }
 
   /**
@@ -220,25 +204,14 @@ public class StyleSheetNode
       return 0;
 
     int browser = agent.getAgentApplication();
-    int browserMatch = _compareBrowser(browser);
-    if (browserMatch == 0)
+    int version = agent.getAgentMajorVersion();
+    int browserAndVersionMatch = _compareBrowserAndVersion(browser, version);
+    if (browserAndVersionMatch == 0)
       return 0;
     int modeMatch = _compareMode(mode);
     if(modeMatch == 0)
       return 0;
-    int versionMatch = 0;
 
-    // We only consider version if browser is known.  This allows
-    // clients to generate a "default" style sheet - for cases where
-    // the browser/version isn't known.  Since there is no Agent
-    // VERSION_UNKNOWN constant, we cue off of APPLICATION_UNKNOWN.
-    if (browser != TrinidadAgent.APPLICATION_UNKNOWN)
-    {
-      versionMatch = _compareVersion(agent.getAgentMajorVersion());
-      if (versionMatch == 0)
-      return 0;
-    }
-    
     int osMatch = _compareOS(agent.getAgentOS());
     if (osMatch == 0)
       return 0;
@@ -247,7 +220,7 @@ public class StyleSheetNode
     if (accessibilityMatch == 0)
       return 0;
 
-    return (localeMatch | browserMatch | versionMatch | osMatch | accessibilityMatch);
+    return (localeMatch | browserAndVersionMatch | osMatch | accessibilityMatch);
   }
 
   @Override  
@@ -289,14 +262,14 @@ public class StyleSheetNode
   public String toString()
   {
     return getClass().getName() + "[" +
-      "locales="   + _locales.toString()   + ", " +
+      "locales="   + (_locales != null ? _locales.toString() : "")    + ", " +
       "direction=" + _getDirectionString() + ", " +
-      "browsers="  + _browsers.toString()  + ", " +
-      "versions="  + _versions.toString()  + ", " +
-      "platforms=" + _platforms.toString() + ", " +
-      "styles="    + _styles.toString()    + ", " +
-      "icons="     + _icons.toString()     + ", " +
-      "accessibility-profile=" + _accProps.toString() + "]";
+      "browsers="  + (_browsers != null ? _browsers.toString() : "")  + ", " +
+//      "versions="  + _versions.toString()  + ", " +
+      "platforms=" + (_platforms != null ? _platforms.toString() : "") + ", " +
+      "styles="    + (_styles != null ? _styles.toString() : "") + ", " +
+      "icons="     + (_icons != null ? _icons.toString() :"")     + ", " +
+      "accessibility-profile=" + (_accProps != null ? _accProps.toString() : "") + "]";
 
   }
 
@@ -332,7 +305,6 @@ public class StyleSheetNode
     hash = 37*hash + _locales.hashCode();
     hash = 37*hash + _browsers.hashCode();
     hash = 37*hash + _platforms.hashCode();
-    hash = 37*hash + _versions.hashCode();
     hash = 37*hash + _styles.hashCode();
     hash = 37*hash + _accProps.hashCode();
     
@@ -398,9 +370,8 @@ public class StyleSheetNode
     return 0;
   }
 
-  // Compares the specified browser against the supported variants
-  private int _compareBrowser(int browser)
-  {
+  //Compares the browser and its version against the supported variants
+  private int _compareBrowserAndVersion(int browser, int version) {
     // If we don't have a browser specified, we match anything
     if (_browsers.isEmpty())
       return _BROWSER_UNKNOWN_MATCH;
@@ -409,23 +380,19 @@ public class StyleSheetNode
     // the client browser is not known, we don't have a match
     if (browser == TrinidadAgent.APPLICATION_UNKNOWN)
       return 0;
-    if (_browsers.contains(Integer.valueOf(browser)))
-      return _BROWSER_EXACT_MATCH;
+    //If we have browser exact match, compare versions
+    if (_browsers.keySet().contains(Integer.valueOf(browser))) {
+      Set<Integer> versions = _browsers.get(Integer.valueOf(browser));
+      if (versions.isEmpty())
+        return _BROWSER_EXACT_MATCH | _VERSION_UNKNOWN_MATCH;
+      if (versions.contains(Integer.valueOf(version)))
+        return _BROWSER_EXACT_MATCH | _VERSION_EXACT_MATCH;
+      return 0;
+    }
 
     return 0;
   }
 
-  // Compares the specified version against the supported variants
-  private int _compareVersion(int version)
-  {
-    if (_versions.isEmpty())
-      return _VERSION_UNKNOWN_MATCH;
-
-    if (_versions.contains(Integer.valueOf(version)))
-      return _VERSION_EXACT_MATCH;
-
-    return 0;
-  }
 
   // Compares the specified OS against the supported variants
   private int _compareOS(int os)
@@ -585,8 +552,8 @@ public class StyleSheetNode
   // Order does not matter for locales, browsers, versions, platforms
   private final Set<Locale>     _locales;    // The locale variants
   private final int             _direction;  // The reading direction
-  private final Set<Integer>    _browsers;   // The browsers
-  private final Set<Integer>    _versions;   // The version variants
+  // The browsers mapped to their versions (multiple versions for browser supported)
+  private final Map<Integer, Set<Integer>>    _browsers;
   private final Set<Integer>    _platforms;  // The platform variants
   private final int             _mode;       // The mode  
   private final Set<String>     _accProps;   // Accessibility profile properties
