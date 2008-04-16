@@ -18,8 +18,10 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.convert.ConverterException;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 
@@ -27,6 +29,7 @@ import org.apache.myfaces.trinidad.component.core.input.CoreInputFile;
 
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.model.UploadedFile;
+import org.apache.myfaces.trinidad.util.MessageFactory;
 import org.apache.myfaces.trinidadinternal.config.upload.UploadedFiles;
 
 /**
@@ -86,6 +89,12 @@ public class SimpleInputFileRenderer extends SimpleInputTextRenderer
     if (submittedValue == Boolean.FALSE)
       return null;
 
+    UploadedFile file = (UploadedFile) submittedValue;
+    if(file.getLength() == -1)
+    {
+      FacesMessage fm = MessageFactory.getMessage(context, "org.apache.myfaces.trinidad.UPLOAD");
+      throw new ConverterException(fm);
+    }
     return submittedValue;
   }
 

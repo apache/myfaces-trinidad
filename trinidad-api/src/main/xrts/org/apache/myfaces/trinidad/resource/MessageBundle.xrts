@@ -70,6 +70,10 @@
   <resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION">Conversion Failed</resource>
   <resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION_detail">Enter a value like {2}.</resource>
 
+  <!-- Upload ConversionException messages -->
+  <resource key="org.apache.myfaces.trinidad.UPLOAD">File too large</resource>
+  <resource key="org.apache.myfaces.trinidad.UPLOAD_detail">The size of the uploaded file was too large. Please contact the system administrator.</resource>
+
   <!-- hints for validators -->
   <resource key="org.apache.myfaces.trinidad.validator.RangeValidator.MAXIMUM_HINT">Enter a value less than or equal to {0}.</resource>
   <resource key="org.apache.myfaces.trinidad.validator.RangeValidator.MINIMUM_HINT">Enter a value  greater than or equal to {0}.</resource>
