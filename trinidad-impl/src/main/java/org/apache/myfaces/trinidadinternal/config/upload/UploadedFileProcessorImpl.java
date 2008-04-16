@@ -124,10 +124,18 @@ public class UploadedFileProcessorImpl implements UploadedFileProcessor
     // Process one new file, loading only as much as can fit
     // in the remaining memory and disk space.
     UploadedFileImpl file = new UploadedFileImpl();
-    file.loadFile(tempFile,
-                  _maxMemory - info.totalBytesInMemory,
-                  _maxDiskSpace - info.totalBytesOnDisk,
-                  _tempDir);
+    try
+    {
+      file.loadFile(tempFile,
+                    _maxMemory - info.totalBytesInMemory,
+                    _maxDiskSpace - info.totalBytesOnDisk,
+                    _tempDir);
+    }
+    catch(IOException ioe)
+    {
+      _LOG.severe(ioe);
+      return new ErrorFile();
+    }
 
     // Keep a tally of how much we've stored in memory and on disk.
     long length = file.getLength();
