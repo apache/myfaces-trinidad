@@ -23,13 +23,12 @@ import java.util.ArrayList;
 import junit.framework.TestCase;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
-import java.util.Vector;
+import java.util.Map;
+import java.util.HashMap;
 
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidadinternal.skin.icon.ContextImageIcon;
@@ -133,13 +132,18 @@ public class StyleSheetNodeEqualsTest extends TestCase
     Locale[] anotherLocalesArray = getAnotherLocalesArray();
     Locale[] diffOrderLocalesArray = getDiffOrderLocalesArray();
      
-    // create a browsers array
-    int[] browsers = {1, 2};
-    int[] anotherBrowsers = {1, 2};
-    int[] anotherBrowsersDiffOrder = {2, 1};
-    
-    int[] versions = {6};
-    int[] anotherVersions = {6};
+    // create a browsers map
+    Map<Integer, Set<Integer>> browsers = new HashMap<Integer, Set<Integer>>();
+    browsers.put(1, new HashSet<Integer>(Arrays.asList(5, 6)));
+    browsers.put(2, new HashSet<Integer>(Arrays.asList(7, 8)));
+    Map<Integer, Set<Integer>> anotherBrowsers = new HashMap<Integer, Set<Integer>>();
+    anotherBrowsers.put(1, new HashSet<Integer>(Arrays.asList(5, 6)));
+    anotherBrowsers.put(2, new HashSet<Integer>(Arrays.asList(7, 8)));
+    Map<Integer, Set<Integer>> anotherBrowsersDiffOrder
+        = new HashMap<Integer, Set<Integer>>();
+    anotherBrowsersDiffOrder.put(2, new HashSet<Integer>(Arrays.asList(8, 7)));
+    anotherBrowsersDiffOrder.put(1, new HashSet<Integer>(Arrays.asList(6, 5)));
+
 
     int[] platforms = {2, 3, 4};
     int[] anotherPlatforms = {2, 3, 4};
@@ -155,7 +159,6 @@ public class StyleSheetNodeEqualsTest extends TestCase
     // Locale[] locales,
     // int direction,
     // int[] browsers,
-    // int[] versions,
     // int[] platforms,
     // int mode
     
@@ -164,8 +167,7 @@ public class StyleSheetNodeEqualsTest extends TestCase
                          iconNodes,
                          localesArray, 
                          0, 
-                         browsers, 
-                         versions, 
+                         browsers,
                          platforms, 
                          0,
                          accProps);
@@ -174,8 +176,7 @@ public class StyleSheetNodeEqualsTest extends TestCase
                          anotherIconNodes,
                          anotherLocalesArray,
                          0, 
-                         anotherBrowsersDiffOrder, 
-                         anotherVersions,
+                         anotherBrowsersDiffOrder,
                          anotherPlatforms, 
                          0,
                          anotherAccProps);
@@ -184,9 +185,8 @@ public class StyleSheetNodeEqualsTest extends TestCase
                          anotherIconNodes,
                          diffOrderLocalesArray,
                          0, 
-                         anotherBrowsersDiffOrder, 
-                         anotherVersions,
-                         anotherPlatforms, 
+                         anotherBrowsersDiffOrder,
+                         differentOrderPlatforms, 
                          0,
                          differentOrderAccProps);
       

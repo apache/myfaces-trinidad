@@ -21,6 +21,7 @@ package org.apache.myfaces.trinidadinternal.style.util;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Vector;
+import java.util.Set;
 
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
@@ -314,8 +315,9 @@ public class NameUtils
     int localeMatch = _isLocaleMatch(context, styleSheets);
     boolean directionMatch = _isDirectionMatch(styleSheets);
     boolean modeMatch  = _isModeMatch(styleSheets);
-    boolean browserMatch = _isBrowserMatch(context, styleSheets);
-    boolean versionMatch = _isVersionMatch(context, styleSheets);
+    boolean[] browserAndVersionMatch = _isBrowserAndVersionMatch(context, styleSheets);
+    boolean browserMatch = browserAndVersionMatch[0];
+    boolean versionMatch = browserAndVersionMatch[1];
     boolean platformMatch = _isPlatformMatch(context, styleSheets);
     boolean highContrastMatch = _isHighContrastMatch(context, styleSheets);
     boolean largeFontsMatch = _isLargeFontsMatch(context, styleSheets);
@@ -600,44 +602,40 @@ public class NameUtils
     return false;
   }
 
-  // Tests whether the browser specified in the context matches
-  // the browser variant of any matching style sheet
-  private static boolean _isBrowserMatch(StyleContext context,
+  /**
+   * Tests whether the browser specified in the context matches
+   * the browser variant of any matching style sheet
+   * @return a boolean array with the first value beeing the browser match
+   *          and the second value beeing the version match
+   */
+  private static boolean[] _isBrowserAndVersionMatch(StyleContext context,
       StyleSheetNode[] styleSheets)
   {
     int browser = context.getAgent().getAgentApplication();
+    int version = context.getAgent().getAgentMajorVersion();
     if (browser == TrinidadAgent.APPLICATION_UNKNOWN)
-      return false;
+      return new boolean[]{false, false};
 
+    boolean browserMatched = false;
     // If any style sheet has a non-null browser variant, we must
     // have a browser match.
     for (int i = 0; i < styleSheets.length; i++)
     {
-      if (!(styleSheets[i].getBrowsers().isEmpty()))
-        return true;
+      if (!(styleSheets[i].getBrowsers().isEmpty())) {
+        Set<Integer> versions
+            = styleSheets[i].getBrowsers().get(Integer.valueOf(browser));
+        if (versions != null) {
+          browserMatched = true;
+          //if this node has this version explicitly return true,true
+          //else continue searching for a node with explicit version
+          if (versions.contains(Integer.valueOf(version))) {
+            return new boolean[]{true, true};
+          }
+        }
+      }
     }
 
-    return false;
-  }
-
-  // Tests whether the version specified in the context matches
-  // the version variant of any matching style sheet
-  private static boolean _isVersionMatch(StyleContext context,
-      StyleSheetNode[] styleSheets)
-  {
-    int version = context.getAgent().getAgentMajorVersion();
-    if (version == 0)
-      return false;
-
-    // If any style sheet has a non-null version variant, we must
-    // have a version match.
-    for (int i = 0; i < styleSheets.length; i++)
-    {
-      if (!(styleSheets[i].getVersions().isEmpty()))
-        return true;
-    }
-
-    return false;
+    return new boolean[]{browserMatched, false};
   }
 
   // Tests whether the platform specified in the context matches

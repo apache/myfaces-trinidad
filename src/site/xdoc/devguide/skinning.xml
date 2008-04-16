@@ -792,7 +792,9 @@ public class SkinTranslationMapDemo
         <li>
         <strong>@agent</strong> {/skin definitions go here/} - > 
         Possible values are: netscape, ie, mozilla, gecko, webkit (maps to safari), ice. 
-        This is to define styles only for a particular agent.          
+        This is to define styles only for a particular agent.
+        Agent type can be followed by a space separated list of version numbers.
+        Several agents can be specified separated by commas.
         </li>
         <li>
         <strong>@accessibility-profile</strong> {/skin definitions go here/} - > 
@@ -828,6 +830,12 @@ public class SkinTranslationMapDemo
         @agent ie
         {
           af|someComponent {width: 25px; height: 10px}
+        }
+
+        /* for ie 5 and 6, we also need some margins.*/
+        @agent ie 5 6
+        {
+          af|someComponent {margin: 5px;}
         }
         
         /* The following selectors are for all platforms and all browsers */
