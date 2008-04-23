@@ -18,6 +18,9 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * This class contains all valid predefined skin properties used by Trinidad.
  * The properties are sorted alphabetically.
@@ -56,4 +59,26 @@ public final class SkinProperties
     "af|treeTable-tr-spacer-width";
   public static final String AF_TREE_SHOW_LINES =
     "af|tree-tr-show-lines";
+  
+  // Map of property to class type
+  public static final Map<String, Class<?>> PROPERTY_CLASS_TYPE_MAP;
+  static
+  {
+    PROPERTY_CLASS_TYPE_MAP = new HashMap<String, Class<?>>();
+
+    PROPERTY_CLASS_TYPE_MAP.put(
+      AF_NAVIGATIONPATH_SHOW_LAST_ITEM_PROPERTY_KEY, Boolean.class);
+    PROPERTY_CLASS_TYPE_MAP.put(
+      AF_TABLE_SELECTION_BAR_IN_TABLE, Boolean.class);
+    PROPERTY_CLASS_TYPE_MAP.put(
+      AF_TABLE_REPEAT_CONTROL_BAR, Boolean.class);
+    PROPERTY_CLASS_TYPE_MAP.put(
+      AF_TREE_SHOW_LINES, Boolean.class);
+    PROPERTY_CLASS_TYPE_MAP.put(
+      AF_BREAD_CRUMBS_SEPARATOR_ON_NEW_LINE, Boolean.class);
+    PROPERTY_CLASS_TYPE_MAP.put(
+      AF_BREAD_CRUMBS_INDENT_SPACES, Integer.class);
+  }
+
+
 }

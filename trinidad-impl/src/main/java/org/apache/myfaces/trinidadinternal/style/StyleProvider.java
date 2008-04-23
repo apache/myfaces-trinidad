@@ -91,4 +91,17 @@ public interface StyleProvider
    *  specified context.
    */
   public ConcurrentMap<String, Icon> getIcons(StyleContext context);
+
+  /**
+   * Returns a map of skin property keys to skin property Object instances.
+   * 
+   * The returned map is both mutable and threadsafe.  This allows
+   * request/context-specific skin properties to be cached on the skin property map.
+   * 
+   * @param context The context which describes the target end user 
+   *   environment
+   * @return A ConcurrentMap which exposes the skin properties for the
+   *  specified context.
+   */
+  public ConcurrentMap<Object, Object> getSkinProperties(StyleContext context);  
 }

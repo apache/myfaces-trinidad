@@ -72,6 +72,7 @@ import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
 import org.apache.myfaces.trinidadinternal.style.xml.StyleSheetDocumentUtils;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.IconNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.PropertyNode;
+import org.apache.myfaces.trinidadinternal.style.xml.parse.SkinPropertyNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetNode;
@@ -180,7 +181,21 @@ public class FileSystemStyleCache implements StyleProvider
 
     return entry.map;
   }
+  
+  /**
+   * Implementation of StyleProvider.getSkinProperties()
+   */
+  public ConcurrentMap<Object, Object> getSkinProperties(StyleContext context)
+  {
 
+    Entry entry = _getEntry(context);
+
+    if (entry == null)
+      return null;
+
+    return entry.skinProperties;    
+  }
+  
   /**
    * Implementation of StyleProvider.getIcons()
    */
@@ -487,13 +502,20 @@ public class FileSystemStyleCache implements StyleProvider
                                        checkModified);
 
     _LOG.fine("Finished processing stylesheet {0}", uri);
-
-    ConcurrentMap<String, Icon> icons = _getStyleContextResolvedIcons(context, document);
+    
+    
+    // Next, get the fully resolved icons and skin properties for this context.
+    // This will be those Icons and Skin Properties that match the locale, direction,
+    // browser, etc -- the info that is in the StyleContext
+    ConcurrentMap<String, Icon> icons = 
+      _getStyleContextResolvedIcons(context, document);
+    ConcurrentMap<Object, Object> skinProperties = 
+      _getStyleContextResolvedSkinProperties(context, document);
 
     // Create a new entry and cache it in the "normal" cache. The "normal" cache is one
     // where the key is the Key object which is built based on information from the StyleContext,
     // like browser, agent, locale, direction.
-    Entry entry = new Entry(uri, new StyleMapImpl(), icons);
+    Entry entry = new Entry(uri, new StyleMapImpl(), icons, skinProperties);
     cache.put(key, entry);
 
     // Also, cache the new entry in the entry cache
@@ -622,15 +644,43 @@ public class FileSystemStyleCache implements StyleProvider
     return v.toArray(new StyleNode[v.size()]);
   }
 
+  // Returns a Map of skin property names to values for the specified
+  // styleSheetNodes that have been filtered from the StyleContext and StyleSheetDocument.
+  private ConcurrentMap<Object, Object> _getStyleContextResolvedSkinProperties(
+    StyleContext       context,
+    StyleSheetDocument document
+    )
+  {
+    Iterator<StyleSheetNode> styleSheetNodes = document.getStyleSheets(context);
+
+    ConcurrentMap<Object, Object> skinProperties = new ConcurrentHashMap<Object, Object>();
+    while (styleSheetNodes.hasNext())
+    {
+      StyleSheetNode styleSheetNode = styleSheetNodes.next();
+      Collection<SkinPropertyNode> skinPropertyNodes = styleSheetNode.getSkinProperties();
+      
+      if (skinPropertyNodes != null)
+      {
+        for (SkinPropertyNode skinPropertyNode : skinPropertyNodes)
+        {
+          skinProperties.put(skinPropertyNode.getKey(), skinPropertyNode.getValue());
+        }
+      }
+    }
+
+    return skinProperties;
+  }
+
   // Returns a Map of icon names to Icons for the specified
-  // StyleContext and StyleSheetDocument.
+  // styleSheetNodes that have been filtered from the StyleContext and StyleSheetDocument.
   private ConcurrentMap<String, Icon> _getStyleContextResolvedIcons(
     StyleContext       context,
     StyleSheetDocument document
     )
   {
-    ConcurrentMap<String, Icon> icons = new ConcurrentHashMap<String, Icon>();
     Iterator<StyleSheetNode> styleSheetNodes = document.getStyleSheets(context);
+
+    ConcurrentMap<String, Icon> icons = new ConcurrentHashMap<String, Icon>();
     while (styleSheetNodes.hasNext())
     {
       StyleSheetNode styleSheetNode = styleSheetNodes.next();
@@ -1157,12 +1207,18 @@ public class FileSystemStyleCache implements StyleProvider
     public final String uri;
     public final StyleMap map;
     public final ConcurrentMap<String, Icon> icons;
+    public final ConcurrentMap<Object, Object> skinProperties;
 
-    public Entry(String uri, StyleMap map, ConcurrentMap<String, Icon> icons)
+    public Entry(
+      String uri, 
+      StyleMap map, 
+      ConcurrentMap<String, Icon> icons,
+      ConcurrentMap<Object, Object> skinProperties)
     {
       this.uri = uri;
       this.map = map;
       this.icons = icons;
+      this.skinProperties = skinProperties;
     }
   }
 

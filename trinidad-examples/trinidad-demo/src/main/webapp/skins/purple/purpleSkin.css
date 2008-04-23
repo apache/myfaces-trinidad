@@ -473,8 +473,10 @@ af|inputDate::launch-icon:rtl
 
 /* use special properties to change the ui **/
 /* don't show the last item in breadCrumbs (the default is to show it)*/
-
+@agent gecko
+{
 af|breadCrumbs {-tr-show-last-item:false}
+}
 
 af|breadCrumbs::step {color: purple;}
 af|breadCrumbs::step:hover {color: green}
@@ -887,6 +889,15 @@ af|navigationPane::tabs-inactive af|navigationPane::tabs-bottom-end-content {
 .AFFooIcon:alias {content:url(/skins/purple/images/btns.gif); width:7px; height:18px}
 .AFBarIcon {content:url(/skins/purple/images/btns.gif); width:7px; height:18px}
 
+@agent ie
+{
+af|tree {
+  -tr-show-lines:true;
+}
+}
+@agent gecko
+{
 af|tree {
   -tr-show-lines:false;
+}
 }

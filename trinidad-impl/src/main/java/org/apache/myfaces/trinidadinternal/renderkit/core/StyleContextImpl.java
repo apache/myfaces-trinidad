@@ -167,7 +167,12 @@ class StyleContextImpl implements StyleContext
     {
       return null;
     }
-
+    
+    public ConcurrentMap<Object, Object> getSkinProperties(StyleContext context)
+    {
+      return null;
+    }
+    
     private static StyleProvider _sInstance;
   }
 
