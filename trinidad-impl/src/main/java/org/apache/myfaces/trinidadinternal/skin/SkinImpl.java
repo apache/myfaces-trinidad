@@ -52,9 +52,7 @@ import org.apache.myfaces.trinidad.skin.SkinAddition;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinProperties;
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
-import org.apache.myfaces.trinidadinternal.share.expl.Coercions;
 import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
-import org.apache.myfaces.trinidadinternal.skin.parse.SkinPropertyNode;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.StyleProvider;
 import org.apache.myfaces.trinidadinternal.style.xml.StyleSheetDocumentUtils;
@@ -519,48 +517,6 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
     return modified;
   }
 
-  private void _registerPropertiesFromStyleSheetEntry(
-    StyleSheetEntry entry)
-  {
-    // register the properties if there are any.
-    if (entry != null)
-    {
-      // register properties
-      List<SkinPropertyNode> skinProperties = entry.getSkinProperties();
-
-      if (skinProperties != null)
-      {
-        for(SkinPropertyNode property : skinProperties)
-        {
-          Object propValueObj = property.getPropertyValue();
-          // Store the property selector + property Name as the Skin Property Key.
-          // e.g., use af|breadCrumbs-tr-show-last-item
-
-          String key = property.getPropertySelector() +
-                       property.getPropertyName();
-          // look up in map to get conversion
-          Class<?> type = _PROPERTY_CLASS_TYPE_MAP.get(key);
-          if (type != null)
-          {
-            try
-            {
-              // coerce the value to the type
-              propValueObj = Coercions.coerce(null, (String)propValueObj,
-                            type);
-            }
-            catch (IllegalArgumentException ex)
-            {
-              if (_LOG.isWarning())
-                _LOG.warning(ex);
-            }
-          }
-
-
-          setProperty(key, propValueObj);
-        }
-      }
-    }
-  }
 
   // Creates the StyleSheetDocument for this Skin
   // (as a side effect, this also registers icons and skin properties
@@ -580,7 +536,6 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
       if (styleSheetName != null)
       {
         _skinStyleSheet = StyleSheetEntry.createEntry(context, styleSheetName);
-        _registerPropertiesFromStyleSheetEntry(_skinStyleSheet);
       }
 
       // Now create entries for skin-addition-specific style sheets.
@@ -603,11 +558,8 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
         StyleSheetEntry entry = _skinAdditionStyleSheets[i];
         if (entry != null)
         {
-          // add the icons and properties that are in the
-          // skin-addition's StyleSheetEntry
-           _registerPropertiesFromStyleSheetEntry(entry);
-
-          // now merge the css properties
+          // Merge the skin-addition's StyleSheetDocument on top of
+          // the current StyleSheetDocument.
           StyleSheetDocument additionDocument = entry.getDocument();
 
           if (additionDocument != null)
@@ -1197,25 +1149,6 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
   // HashMap of Skin properties
   private ConcurrentHashMap<Object, Object> _properties= new ConcurrentHashMap<Object, Object>();
 
-  // Map of property to class type
-  private static final Map<String, Class<?>> _PROPERTY_CLASS_TYPE_MAP;
-  static
-  {
-    _PROPERTY_CLASS_TYPE_MAP = new HashMap<String, Class<?>>();
-
-    _PROPERTY_CLASS_TYPE_MAP.put(
-      SkinProperties.AF_NAVIGATIONPATH_SHOW_LAST_ITEM_PROPERTY_KEY, Boolean.class);
-    _PROPERTY_CLASS_TYPE_MAP.put(
-      SkinProperties.AF_TABLE_SELECTION_BAR_IN_TABLE, Boolean.class);
-    _PROPERTY_CLASS_TYPE_MAP.put(
-      SkinProperties.AF_TABLE_REPEAT_CONTROL_BAR, Boolean.class);
-    _PROPERTY_CLASS_TYPE_MAP.put(
-      SkinProperties.AF_TREE_SHOW_LINES, Boolean.class);
-    _PROPERTY_CLASS_TYPE_MAP.put(
-      SkinProperties.AF_BREAD_CRUMBS_SEPARATOR_ON_NEW_LINE, Boolean.class);
-    _PROPERTY_CLASS_TYPE_MAP.put(
-      SkinProperties.AF_BREAD_CRUMBS_INDENT_SPACES, Integer.class);
-  }
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(SkinImpl.class);
 }

@@ -38,15 +38,15 @@ import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
 
 /**
  * This is a Skin decorator which is used to store request-specific
- * skin state.  In particular, the set of icons to use varies from
+ * skin state.  For example, the set of icons to use varies from
  * request to request, eg. based on the browser/platform.  We cannot
  * store such request-specific state on our shared Skin instances.
  * Instead, SkinFactoryImpl wraps shared Skin instances in RequestSkinWrappers
  * so that request-specific state can be stored locally in the wrapper.
  * 
- * At the moment, the only piece of request-specific state is that 
- * icon map, which is retrieved from the StyleProvider one time per
- * request and stored here.
+ * Currently, the request-specific state for a skin is the icon map and the skin property map.
+ * They are retrieved from the StyleProvider one time per request and stored here.
+ * @see org.apache.myfaces.trinidadinternal.style.cache.FileSystemStyleCache
  */
 public class RequestSkinWrapper extends Skin implements DocumentProviderSkin
 {
@@ -164,7 +164,7 @@ public class RequestSkinWrapper extends Skin implements DocumentProviderSkin
   {
     // We look for the icon in two places:
     //
-    // 1. In the the icon map provided by the StyleProvider.
+    // 1. In the icon map provided by the StyleProvider.
     //    The StyleProvider serves up icons that are 
     //    specific to this particular request, including
     //    agent-specific icons.
@@ -205,20 +205,6 @@ public class RequestSkinWrapper extends Skin implements DocumentProviderSkin
   }
 
   @Override  
-  public Object getProperty(Object key)
-  {
-    return _skin.getProperty(key);
-  }
-
-  @Override  
-  public void setProperty(
-    Object key,
-    Object value)
-  {
-    _skin.setProperty(key, value);
-  }
-
-  @Override  
   public void registerIcon(
     String  iconName,
     Icon    icon)
@@ -232,7 +218,7 @@ public class RequestSkinWrapper extends Skin implements DocumentProviderSkin
     // will look up the non-directional version of the icon and register
     // that under the rtl name to avoid repeated lookups.
     //
-    // 2. RequestSkingWrapper.getIcon() calls registerIcon() to register
+    // 2. RequestSkinWrapper.getIcon() calls registerIcon() to register
     // icons which were not found in the StyleProvider's icon map.  This
     // also is done as a performance optimization - to repeatedly looking
     // up icons first in the StyleProvider icon map and then in the 
@@ -248,8 +234,52 @@ public class RequestSkinWrapper extends Skin implements DocumentProviderSkin
     if (icons != _NULL_ICONS)
       icons.put(iconName, (icon == null) ? _NULL_ICON : icon);
   }
+  
+  @Override
+  public Object getProperty(Object key)
+  {
+    // We look for the skin properties in two places:
+    //
+    // 1. In the skin property map provided by the StyleProvider (see _getRequestSkinProperties).
+    //    The StyleProvider serves up skin properties that are 
+    //    specific to this particular request, including
+    //    agent-specific skin properties.
+    // 2. In the wrapped Skin instance.  Any skin properties that are
+    //    manually registered via a call to setProperty(Object, Object)
+    //    will be stored in the wrapped skin.
+    
+    // Note: no synchronization needed since we are in a
+    // a request-specific object.    
+    Map<Object, Object> properties = _getRequestSkinProperties();
+    assert(properties != null);
+
+    Object propertyValue = properties.get(key);
+    
+    if (propertyValue == null)
+    {  
+      propertyValue = _skin.getProperty(key);
+    }
+
+    return propertyValue;
+  }
 
   @Override  
+  public void setProperty(
+    Object key,
+    Object value)
+  {
+    Map<Object, Object> properties = _getRequestSkinProperties();
+    if (properties != _NULL_PROPERTIES)
+      properties.put(key, value);
+  }
+
+  
+
+   
+  /**
+  * @deprecated Use addSkinAddition instead
+  * */
+  @Override 
   public void registerStyleSheet(
     String styleSheetName
     )
@@ -318,6 +348,43 @@ public class RequestSkinWrapper extends Skin implements DocumentProviderSkin
 
     return _icons;
   }
+  
+  // Returns request-specific map of skin property key/values
+  private Map<Object, Object> _getRequestSkinProperties()
+  {
+    if (_properties == null)
+    {
+      // We get to the request-specific properties via the
+      // StyleProvider.  We need a CoreRenderingContext
+      // instance to get at the StyleProvider.  This
+      // implementation assumes that the RenderingContext
+      // is going to be an instanceof CoreRenderingContext.
+      // This is a pretty good bet, since the only
+      // RenderingContext provided by Trinidad is
+      // CoreRenderingContext, and given the complexity of
+      // the CoreRenderingContext implementation, it seems
+      // unlikely that anyone would attempt to replace the
+     // implementation.
+      RenderingContext rc = RenderingContext.getCurrentInstance();
+      assert(rc instanceof CoreRenderingContext);
+      
+      CoreRenderingContext crc = (CoreRenderingContext)rc;
+      StyleContext styleContext = crc.getStyleContext();
+      StyleProvider styleProvider = styleContext.getStyleProvider();
+      // skin properties are stored in an Map<Object, Object>
+      _properties = styleProvider.getSkinProperties(styleContext);
+      
+      // Under normal circumstances, the StyleProvider will return
+      // a non-null, modifiable map.  If the skin/style subsystem
+      // has failed to initialize, however, the map may be null.
+      // Substitute an empty map so we don't need to check for null
+      // later.
+      if (_properties == null)
+        _properties = _NULL_PROPERTIES;
+    }
+
+    return _properties;
+  }
 
   // The wrapped skin 
   private final Skin _skin;
@@ -326,9 +393,16 @@ public class RequestSkinWrapper extends Skin implements DocumentProviderSkin
   // up by the StyleProvider.
   private Map<String, Icon> _icons;
   
+  // The skin properties map specific to this request as served
+  // up by the StyleProvider.
+  private Map<Object, Object> _properties;
+  
   // Marker used to cache nulls.
   private static final Icon _NULL_ICON = new NullIcon();
   
   // Empty map used when StyleProvider.getIcons() fails;
   private static final Map<String, Icon> _NULL_ICONS = Collections.emptyMap();
+  
+  // Empty map used when StyleProvider.getSkinProperties() fails;
+  private static final Map<Object, Object> _NULL_PROPERTIES = Collections.emptyMap();
 }

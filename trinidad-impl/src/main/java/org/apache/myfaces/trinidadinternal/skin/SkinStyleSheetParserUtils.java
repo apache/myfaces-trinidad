@@ -38,6 +38,8 @@ import java.util.regex.Pattern;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
 
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinProperties;
+import org.apache.myfaces.trinidadinternal.share.expl.Coercions;
 import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
 import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
 import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
@@ -47,6 +49,7 @@ import org.apache.myfaces.trinidadinternal.style.CSSStyle;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.IconNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.IncludeStyleNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.PropertyNode;
+import org.apache.myfaces.trinidadinternal.style.xml.parse.SkinPropertyNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetNode;
@@ -54,7 +57,6 @@ import org.apache.myfaces.trinidadinternal.skin.icon.ContextImageIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.NullIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.TextIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.URIImageIcon;
-import org.apache.myfaces.trinidadinternal.skin.parse.SkinPropertyNode;
 import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
 import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
@@ -162,15 +164,15 @@ class SkinStyleSheetParserUtils
   }
 
   /**
-   * Given a List of StyleSheetNodes, create StyleSheetEntry.
+   * Given a List of SkinStyleSheetNode, create StyleSheetEntry.
    * A StyleSheetEntry is an object that contains:
-   * styleSheetName, StyleSheetDocument, List<IconNode>, List<SkinPropertyNode>
+   * styleSheetName, StyleSheetDocument
    * A StyleSheetDocument contains StyleSheetNodes. A StyleSheetNode contains
    * a list css style selectors and their properties and additional info like
    * the direction, locale, etc. for this list of selectors.
    * @param context
    * @param sourceName
-   * @param styleSheetNodes
+   * @param skinSSNodeList
    * @return
    */
   private static StyleSheetEntry _createStyleSheetEntry(
@@ -185,10 +187,10 @@ class SkinStyleSheetParserUtils
     // styleNodeList. Also, build one iconNodeList and one skinPropertyNodeList.
     
     // initialize
-    List<SkinPropertyNode> skinPropertyNodeList = new ArrayList<SkinPropertyNode>();
     List<StyleSheetNode> ssNodeList = new ArrayList<StyleSheetNode>();
     String baseSourceURI = CSSUtils.getBaseSkinStyleSheetURI(sourceName);
     
+    // loop through the selectors and its properties
     for (SkinStyleSheetNode skinSSNode : skinSSNodeList) 
     {
   
@@ -200,11 +202,15 @@ class SkinStyleSheetParserUtils
       // initialize
       List <StyleNode> styleNodeList = new ArrayList<StyleNode>();
       List<IconNode> iconNodeList = new ArrayList<IconNode>();
+      // trSkinPropertyNodeList, e.g., af|foo {-tr-show-last-item: true}
+      List<SkinPropertyNode> trSkinPropertyNodeList = new ArrayList<SkinPropertyNode>();
   
+      // process each selector and all its name+values
       for (SkinSelectorPropertiesNode cssSelector : selectorNodeList) 
       {
 
         String selectorName = cssSelector.getSelectorName();
+        // PropertyNode is the name+value, like font-size: 8px
         List<PropertyNode> propertyList = cssSelector.getPropertyNodes();
         int direction     = skinSSNode.getDirection();
   
@@ -212,7 +218,8 @@ class SkinStyleSheetParserUtils
           _resolveProperties(selectorName,
                              propertyList);
   
-        skinPropertyNodeList.addAll(resolvedProperties.getSkinPropertyNodeList());
+        
+        trSkinPropertyNodeList.addAll(resolvedProperties.getSkinPropertyNodeList());
   
         List<PropertyNode> noTrPropertyList = 
           resolvedProperties.getNoTrPropertyList();
@@ -257,7 +264,8 @@ class SkinStyleSheetParserUtils
         }
       }
       
-      if ((styleNodeList.size() > 0) || (iconNodeList.size() > 0))
+      if ((styleNodeList.size() > 0) || (iconNodeList.size() > 0) 
+          || (trSkinPropertyNodeList.size() > 0))
       {
         // we need to deal with the styleNodeList by building a StyleSheetNode
         // with this information.
@@ -266,6 +274,7 @@ class SkinStyleSheetParserUtils
         StyleSheetNode ssNode = 
           new StyleSheetNode(styleNodeArray,
                              iconNodeList,
+                             trSkinPropertyNodeList,
                              null,/*locales, not yet supported*/
                              skinSSNode.getDirection(),
                              skinSSNode.getAgents(),
@@ -283,8 +292,7 @@ class SkinStyleSheetParserUtils
       _createStyleSheetDocument(context, ssNodeList);
 
     return new StyleSheetEntry(sourceName,
-                               ssDocument,
-                               skinPropertyNodeList);
+                               ssDocument);
 
 
 
@@ -359,10 +367,9 @@ class SkinStyleSheetParserUtils
           }
           else
           {
-            SkinPropertyNode node =
-              new SkinPropertyNode(selectorName,
-                                   propertyName,
-                                   propertyValue);
+            // create the SkinPropertyNode
+            SkinPropertyNode node = 
+              _createSkinPropertyNode(selectorName, propertyName, propertyValue);
   
             skinPropertyNodeList.add(node);
           }
@@ -628,6 +635,40 @@ class SkinStyleSheetParserUtils
     styleNodeList.add(styleNode);
 
   }
+  
+  private static SkinPropertyNode _createSkinPropertyNode(
+    String selector,
+    String name,
+    String value)
+  {
+    // Store the property selector + property Name as the Skin Property Key.
+    // e.g., use af|breadCrumbs-tr-show-last-item
+    StringBuilder keyBuilder = new StringBuilder(selector.length() + name.length());
+    keyBuilder.append(selector);
+    keyBuilder.append(name);
+    String key = keyBuilder.toString();
+    
+    // look up in map to get conversion
+    Class<?> type = SkinProperties.PROPERTY_CLASS_TYPE_MAP.get(key);
+    Object propValueObj = null;
+    if (type != null)
+    {
+      try
+      {
+        // coerce the value to the type
+        propValueObj = Coercions.coerce(null, value, type);
+      }
+      catch (IllegalArgumentException ex)
+      {
+        if (_LOG.isWarning())
+          _LOG.warning(ex);
+      }
+    }
+
+    SkinPropertyNode node = new SkinPropertyNode(key, 
+                                                 propValueObj != null ? propValueObj : value);
+    return node;
+  }
 
   // This is for -tr-rule-ref properties on styles.
   private static void _addIncludeStyleNodes(
@@ -884,6 +925,7 @@ class SkinStyleSheetParserUtils
   
   private static final Pattern _SPACE_PATTERN = Pattern.compile("\\s"); 
   private static final Pattern _SELECTOR_PATTERN = Pattern.compile("selector\\(");
+
 
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(

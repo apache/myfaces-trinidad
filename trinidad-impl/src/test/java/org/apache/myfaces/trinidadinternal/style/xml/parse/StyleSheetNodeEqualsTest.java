@@ -165,6 +165,7 @@ public class StyleSheetNodeEqualsTest extends TestCase
     StyleSheetNode styleSheetNode = 
       new StyleSheetNode(styleSheetOneNodes,
                          iconNodes,
+                         null,
                          localesArray, 
                          0, 
                          browsers,
@@ -173,7 +174,8 @@ public class StyleSheetNodeEqualsTest extends TestCase
                          accProps);
     StyleSheetNode anotherStyleSheetNode = 
       new StyleSheetNode(anotherStyleSheetOneNodes,
-                         anotherIconNodes,
+                         anotherIconNodes, 
+                         null,
                          anotherLocalesArray,
                          0, 
                          anotherBrowsersDiffOrder,
@@ -183,6 +185,7 @@ public class StyleSheetNodeEqualsTest extends TestCase
     StyleSheetNode sameDiffOrderStyleSheetNode = 
       new StyleSheetNode(anotherStyleSheetOneNodes,
                          anotherIconNodes,
+                         null,
                          diffOrderLocalesArray,
                          0, 
                          anotherBrowsersDiffOrder,

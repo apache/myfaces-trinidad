@@ -60,6 +60,7 @@ public class StyleSheetNode
   public StyleSheetNode(
     StyleNode[] styles,
     Collection<IconNode> icons,
+    Collection<SkinPropertyNode> skinProperties,
     Locale[] locales,
     int direction,
     Map<Integer, Set<Integer>> browsers,
@@ -78,6 +79,13 @@ public class StyleSheetNode
       _icons = Collections.unmodifiableList(new ArrayList<IconNode>(icons));
     else
       _icons = Collections.emptyList();
+
+
+    if (skinProperties != null)
+      _skinProperties = Collections.unmodifiableList(
+        new ArrayList<SkinPropertyNode>(skinProperties));
+    else
+      _skinProperties = Collections.emptyList();
 
     // locales, browsers, versions, platforms order does not matter, so these are Sets.
     if (locales != null)
@@ -133,6 +141,18 @@ public class StyleSheetNode
     return _icons;
   }
 
+  /**
+   * Returns the SkinProperties List for this
+   * StyleSheetEntry. This is a list of SkinProperyNodes
+   * a node contains the selector, the -tr- property, and the value.
+   * e.g, selector: af|breadCrumbs, property: -tr-show-last-item,
+   * value: true
+   */
+  public Collection<SkinPropertyNode> getSkinProperties()
+  {
+    return _skinProperties;
+  }
+  
   /**
    * Implementation of StyleSheetNode.getReadingDirection();
    */
@@ -549,6 +569,9 @@ public class StyleSheetNode
 
   private final List<StyleNode> _styles;     // The styles contained within this node
   private final List<IconNode>  _icons;      // The icons contained within this node
+  // List of -tr- properties that the skin can be set on the skin.
+  // This is a List of SkinPropertyNodes
+  private List <SkinPropertyNode> _skinProperties;
   // Order does not matter for locales, browsers, versions, platforms
   private final Set<Locale>     _locales;    // The locale variants
   private final int             _direction;  // The reading direction

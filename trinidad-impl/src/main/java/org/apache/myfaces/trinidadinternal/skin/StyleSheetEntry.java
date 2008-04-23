@@ -30,8 +30,6 @@ import org.apache.myfaces.trinidadinternal.share.xml.JaxpXMLProvider;
 import org.apache.myfaces.trinidadinternal.share.xml.ParseContextImpl;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLProvider;
 
-import org.apache.myfaces.trinidadinternal.skin.parse.SkinPropertyNode;
-
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.xml.StyleSheetDocumentUtils;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
@@ -82,7 +80,6 @@ class StyleSheetEntry
       if (context.checkStylesModified())
         return new CheckModifiedEntry(styleSheetName,
                                       skinStyleSheet.getDocument(),
-                                      skinStyleSheet.getSkinProperties(),
                                       resolver);
 
       return skinStyleSheet;
@@ -98,20 +95,17 @@ class StyleSheetEntry
   // in CheckModifiedEntry. changing it to package private
   StyleSheetEntry(
     String                 styleSheetName,
-    StyleSheetDocument     document,
-    List<SkinPropertyNode> skinProperties
-
+    StyleSheetDocument     document
     )
   {
     _name       = styleSheetName;
     _document   = document;
-    _skinProperties = skinProperties;
 
   }
 
   StyleSheetEntry(String styleSheetName)
   {
-    this(styleSheetName, null, null);
+    this(styleSheetName, null);
   }
 
   // Use full constructor
@@ -138,18 +132,6 @@ class StyleSheetEntry
   }
 
   /**
-   * Returns the SkinProperties List for this
-   * StyleSheetEntry. This is a list of SkinProperyNodes
-   * a node contains the selector, the -tr- property, and the value.
-   * e.g, selector: af|breadCrumbs, property: -tr-show-last-item,
-   * value: true
-   */
-  public List <SkinPropertyNode> getSkinProperties()
-  {
-    return _skinProperties;
-  }
-
-  /**
    * Checks whether the underlying style sheet source file
    * has been modified and if so, reloads the StyleSheetDocument.
    * Returns true if the document has been modified (and the
@@ -164,12 +146,6 @@ class StyleSheetEntry
   void __setDocument(StyleSheetDocument document)
   {
     _document = document;
-  }
-
-  // Called by CheckModifiedEntry when the style sheet has changed
-  void __setSkinProperties(List <SkinPropertyNode> skinProperties)
-  {
-    _skinProperties = skinProperties;
   }
 
   // Creates the SkinStyleSheet (a private static inner class that
@@ -195,8 +171,7 @@ class StyleSheetEntry
       else
       {
         skinStyleSheet = new StyleSheetEntry(styleSheetName,
-                                             document,
-                                             null);
+                                             document);
       }
 
     }
@@ -297,11 +272,10 @@ class StyleSheetEntry
     public CheckModifiedEntry(
       String                 styleSheetName,
       StyleSheetDocument     document,
-      List<SkinPropertyNode> properties,
       NameResolver           resolver
       )
     {
-      super(styleSheetName, document, properties);
+      super(styleSheetName, document);
 
       // We need the InputStreamProvider in order to check
       // for modifications.  Get it from the NameResolver.
@@ -321,7 +295,6 @@ class StyleSheetEntry
         // Throw away the old InputStreamProvider and StyleSheetDocument
         _provider = null;
         __setDocument(null);
-        __setSkinProperties(null);
 
         // Get a new NameResolver
         NameResolver resolver = _getNameResolver(context);
@@ -342,7 +315,6 @@ class StyleSheetEntry
           {
             _provider = _getInputStreamProvider(resolver);
             __setDocument(skinStyleSheet.getDocument());
-            __setSkinProperties(skinStyleSheet.getSkinProperties());
           }
 
           return true;
@@ -386,9 +358,6 @@ class StyleSheetEntry
   private String              _name;
   private StyleSheetDocument  _document;
 
-  // List of -tr- properties that the skin can be set on the skin.
-  // This is a List of SkinPropertyNodes
-  private List <SkinPropertyNode> _skinProperties;
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(StyleSheetEntry.class);
 
