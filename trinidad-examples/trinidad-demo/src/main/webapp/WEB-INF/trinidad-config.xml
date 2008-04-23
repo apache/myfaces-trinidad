@@ -30,10 +30,9 @@
 
   <!-- you can use EL to get the skin. This allows the skin to change between
        requests. -->
-<!--
+
   <skin-family>#{prefs.proxy.skinFamily}</skin-family>  
-  -->
-  <skin-family>purple</skin-family>
+
 
   <!--
   <output-mode>portlet</output-mode>
