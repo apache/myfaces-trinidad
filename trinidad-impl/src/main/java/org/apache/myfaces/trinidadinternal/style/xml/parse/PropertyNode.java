@@ -37,7 +37,11 @@ public class PropertyNode
     if (name == null || "".equals(name))
       throw new IllegalArgumentException(_LOG.getMessage(
         "PROPERTYNODE_NAME_CANNOT_BE_NULL_OR_EMPTY", new Object[]{name, value}));
-    _name = name;
+
+    // intern() name because many of the property names are the same,
+    // like color, background-color, background-image, font-size, etc.
+    // This will improve the memory used.
+    _name = name.intern();
     _value = value;
   }
 
