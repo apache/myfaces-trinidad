@@ -26,7 +26,7 @@ import javax.faces.event.FacesEvent;
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/component/TableRowEvent.java#0 $) $Date: 10-nov-2005.19:09:48 $
  * @todo To be removed when DataGrid is available in JSF (maybe!)
  */
-final class TableRowEvent extends WrapperEvent
+public final class TableRowEvent extends WrapperEvent
 {
   public TableRowEvent(
     UIComponent source,

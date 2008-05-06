@@ -27,7 +27,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 /**
  * This class wraps a FacesEvent
  */
-class WrapperEvent extends FacesEvent
+public class WrapperEvent extends FacesEvent
 {
   public WrapperEvent(UIComponent source, FacesEvent wrappedEvent)
   {
