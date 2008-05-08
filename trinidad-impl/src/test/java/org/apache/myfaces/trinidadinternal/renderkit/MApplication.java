@@ -164,7 +164,7 @@ public class MApplication extends Application
   @Override
   public StateManager getStateManager()
   {
-    throw new UnsupportedOperationException("Not implemented yet");
+    return _stateManager;
   }
 
   @Override
@@ -467,5 +467,6 @@ public class MApplication extends Application
   static private MApplication _INSTANCE = new MApplication();
   private Map<Object, Object> _converterIdMap = new HashMap<Object, Object>();
   private Map<Object, Object> _converterTypeMap = new HashMap<Object, Object>();
+  private StateManager _stateManager = new MStateManager();
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(StateUtils.class);
 }
