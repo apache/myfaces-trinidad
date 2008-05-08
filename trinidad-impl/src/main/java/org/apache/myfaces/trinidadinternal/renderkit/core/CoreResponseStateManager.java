@@ -34,6 +34,8 @@ import java.io.StringWriter;
 import java.io.BufferedWriter;
 
 
+import java.io.ObjectStreamClass;
+
 import java.util.zip.GZIPOutputStream;
 import java.util.zip.GZIPInputStream;
 
@@ -43,6 +45,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidad.util.Base64InputStream;
 import org.apache.myfaces.trinidad.util.Base64OutputStream;
+import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 
 /**
  * ResponseStateManager implementation for the Core RenderKit.
@@ -182,7 +185,20 @@ public class CoreResponseStateManager extends ResponseStateManager
         {
           ObjectInputStream ois;
           ois = new ObjectInputStream( new GZIPInputStream( b64_in,
-                                                            _BUFFER_SIZE ));
+                                                            _BUFFER_SIZE ))
+            {
+              protected Class<?> resolveClass(ObjectStreamClass desc)
+                                       throws IOException,
+                                              ClassNotFoundException
+              {
+                // TRINIDAD-1062 It has been noticed that in OC4J and Weblogic that the
+                // classes being resolved are having problems by not finding
+                // them using the context class loader. Therefore, we are adding
+                // this work-around until the problem with these application
+                // servers can be better understood
+                return ClassLoaderUtils.loadClass(desc.getName());
+              }
+            };
 
           Object structure = ois.readObject();
           Object state = ois.readObject();
