@@ -472,21 +472,22 @@ public class OutputLabelRenderer extends ValueRenderer
     // (null == messageType || "none".equals(messageType))
     // does not meet, return true, so that caller renders the
     // span element.
-    Agent agent = arc.getAgent();
-
     if ((null != messageType) &&
         !"none".equals(messageType) ||
         ((forId != null) &&
         isInline))
     {
+      Agent agent = arc.getAgent();
+
       if ((agent != null) &&
              Agent.AGENT_BLACKBERRY.equals(agent.getAgentName()) &&
           (null == messageType || "none".equals(messageType)))
       {
         return false;
       }
+      return true;
     }
-    return true;
+    return false;
   }
 
   private PropertyKey _accessKeyKey;
