@@ -25,22 +25,17 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-
-
-import java.util.Set;
 import java.util.Map;
-
+import java.util.Set;
 import java.util.StringTokenizer;
 
 import org.apache.myfaces.trinidad.context.AccessibilityProfile;
-
-import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
-
+import org.apache.myfaces.trinidad.context.Version;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
-
 import org.apache.myfaces.trinidadinternal.style.util.ModeUtils;
 import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
 import org.apache.myfaces.trinidadinternal.style.xml.XMLConstants;
+import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 
 /**
@@ -63,7 +58,7 @@ public class StyleSheetNode
     Collection<SkinPropertyNode> skinProperties,
     Locale[] locales,
     int direction,
-    Map<Integer, Set<Integer>> browsers,
+    Map<Integer, Set<Version>> agentVersions,
     int[] platforms,
     int mode,
     Set<String> accessibilityProperties
@@ -90,24 +85,23 @@ public class StyleSheetNode
     // locales, browsers, versions, platforms order does not matter, so these are Sets.
     if (locales != null)
     {
-      Set localesSet = _copyLocaleArrayToSet(locales);
+      Set<Locale> localesSet = _copyLocaleArrayToSet(locales);
       _locales = Collections.unmodifiableSet(localesSet);
     }
     else
       _locales = Collections.emptySet();
 
-    if (browsers != null)
+    if (agentVersions != null)
     {
-      _browsers = Collections.unmodifiableMap(browsers);
+      _agentVersions = Collections.unmodifiableMap(agentVersions);
     }
     else
-      _browsers = Collections.emptyMap();
-
+      _agentVersions = Collections.emptyMap();
 
     if (platforms != null)
     {
-      Set platformsSet = _copyIntArrayToSet(platforms);
-      _platforms = Collections.unmodifiableSet(platformsSet); 
+      Set<Integer> platformsSet = _copyIntArrayToSet(platforms);
+      _platforms = Collections.unmodifiableSet(platformsSet);
     }
     else
       _platforms = Collections.emptySet();
@@ -175,12 +169,12 @@ public class StyleSheetNode
   }
 
   /**
-   * Implementation of StyleSheetNode.getBrowsers().
+   * Implementation of StyleSheetNode.getAgentVersions().
    * @return a map containing each browser type mapped to its versions set
    */
-  public Map<Integer, Set<Integer>> getBrowsers()
+  public Map<Integer, Set<Version>> getAgentVersions()
   {
-    return _browsers;
+    return _agentVersions;
   }
 
   /**
@@ -206,13 +200,13 @@ public class StyleSheetNode
    * Zero means there is no match.  Larger numbers indicate
    * better matches.  The value returned by compareVariants is used to
    * sort style sheets according to precedence.
-   * @param mode 
+   * @param mode
    */
   public int compareVariants(
-    Locale locale, 
-    int direction, 
-    TrinidadAgent agent, 
-    int mode,
+    Locale               locale,
+    int                  direction,
+    TrinidadAgent        agent,
+    int                  mode,
     AccessibilityProfile accessibilityProfile)
   {
     int localeMatch = _compareLocale(locale);
@@ -224,7 +218,8 @@ public class StyleSheetNode
       return 0;
 
     int browser = agent.getAgentApplication();
-    int version = agent.getAgentMajorVersion();
+    Version version = new Version(agent.getAgentVersion());
+    
     int browserAndVersionMatch = _compareBrowserAndVersion(browser, version);
     if (browserAndVersionMatch == 0)
       return 0;
@@ -243,13 +238,13 @@ public class StyleSheetNode
     return (localeMatch | browserAndVersionMatch | osMatch | accessibilityMatch);
   }
 
-  @Override  
+  @Override
   public final boolean equals(Object obj)
   {
     // A single StyleSheetNode is created for each "style sheet"
     // section in a StyleSheetDocument.  As such, we have no need
-    // for a logical equality test.  We always want to perform 
-    // identity comparisons when determining the equality of 
+    // for a logical equality test.  We always want to perform
+    // identity comparisons when determining the equality of
     // two StyleSheetNodes.  We use the default Object.equals()
     // implementation to achieve this.
     
@@ -267,7 +262,7 @@ public class StyleSheetNode
   public final int hashCode()
   {
     // Since unique StyleSheetNode instance is created for each "style sheet"
-    // section in a StyleSheetDocument, and since we have no need for 
+    // section in a StyleSheetDocument, and since we have no need for
     // logical equality comparisions, the default hashCode() implementation
     // is sufficient for our needs.
     
@@ -284,7 +279,7 @@ public class StyleSheetNode
     return getClass().getName() + "[" +
       "locales="   + (_locales != null ? _locales.toString() : "")    + ", " +
       "direction=" + _getDirectionString() + ", " +
-      "browsers="  + (_browsers != null ? _browsers.toString() : "")  + ", " +
+      "agentVersions="  + (_agentVersions != null ? _agentVersions.toString() : "")  + ", " +
 //      "versions="  + _versions.toString()  + ", " +
       "platforms=" + (_platforms != null ? _platforms.toString() : "") + ", " +
       "styles="    + (_styles != null ? _styles.toString() : "") + ", " +
@@ -297,23 +292,23 @@ public class StyleSheetNode
    * Returns an int-based id which can be used by StyleSheetDocument.getDocumentId()
    * to (semi-)uniquely identify this StyleSheetNode.  This id is very similar
    * to a hash code, though is not exactly the same, as some StyleSheetNode
-   * properties (such as icons) are intentionally excluded from the style sheet 
+   * properties (such as icons) are intentionally excluded from the style sheet
    * id.
    * 
    * @return An integer value suitable for use by StyleSheetDocument.getDocumentId().
    */
   public int getStyleSheetId()
   {
-    return _id;    
+    return _id;
   }
 
-  // Compute the style sheet id and return it.  
+  // Compute the style sheet id and return it.
   private int _computeStyleSheetId()
   {
     // This is very similar to computing a hash code.  However, we
     // explicitly exclude properties which have no impact on the
     // generated style sheet, such as icons.  The reason for this
-    // is that the generated style sheet version produced by 
+    // is that the generated style sheet version produced by
     // StyleSheetDocument.getDocumentId() should not change unless
     // the generated style sheet itself changes.  Since icons do not
     // impact the generated style sheet, these are excluded form the
@@ -323,13 +318,13 @@ public class StyleSheetNode
     hash = 37*hash + _mode;
     hash = 37*hash + _direction;
     hash = 37*hash + _locales.hashCode();
-    hash = 37*hash + _browsers.hashCode();
+    hash = 37*hash + _agentVersions.hashCode();
     hash = 37*hash + _platforms.hashCode();
     hash = 37*hash + _styles.hashCode();
     hash = 37*hash + _accProps.hashCode();
     
     return hash;
-  }  
+  }
 
   // Compares the specified locale against the supported variants
   private int _compareLocale(Locale locale)
@@ -391,22 +386,33 @@ public class StyleSheetNode
   }
 
   //Compares the browser and its version against the supported variants
-  private int _compareBrowserAndVersion(int browser, int version) {
+  private int _compareBrowserAndVersion(int browser, Version version)
+  {
     // If we don't have a browser specified, we match anything
-    if (_browsers.isEmpty())
+    if (_agentVersions.isEmpty())
       return _BROWSER_UNKNOWN_MATCH;
 
     // On the other hand, if we do have a browser specified, but
     // the client browser is not known, we don't have a match
     if (browser == TrinidadAgent.APPLICATION_UNKNOWN)
       return 0;
+    
     //If we have browser exact match, compare versions
-    if (_browsers.keySet().contains(Integer.valueOf(browser))) {
-      Set<Integer> versions = _browsers.get(Integer.valueOf(browser));
+    Integer browserNum = Integer.valueOf(browser);
+    if (_agentVersions.containsKey(browserNum))
+    {
+      Set<Version> versions = _agentVersions.get(browserNum);
       if (versions.isEmpty())
         return _BROWSER_EXACT_MATCH | _VERSION_UNKNOWN_MATCH;
-      if (versions.contains(Integer.valueOf(version)))
-        return _BROWSER_EXACT_MATCH | _VERSION_EXACT_MATCH;
+      
+      for (Version av : versions)
+      {
+        if (av.compareTo(version) == 0)
+        {
+          return _BROWSER_EXACT_MATCH | _VERSION_EXACT_MATCH;
+        }
+      }
+      
       return 0;
     }
 
@@ -496,7 +502,7 @@ public class StyleSheetNode
     if (XMLConstants.ACC_LARGE_FONTS.equals(propertyName))
       return accProfile.isLargeFonts();
 
-    // Should never reach here (did we add a new property?)    
+    // Should never reach here (did we add a new property?)
     assert(false);
     
     return false;
@@ -538,7 +544,7 @@ public class StyleSheetNode
      set.add(array[i]);
 
    return set;
-  } 
+  }
   
   // Returns a copy of the Locale array into a Set<Locale>
   private static Set<Locale> _copyLocaleArrayToSet(Locale[] array)
@@ -553,7 +559,7 @@ public class StyleSheetNode
      set.add(array[i]);
 
    return set;
-  }   
+  }
 
   // Copies accessibility properties from an array into a set.
   private static Set<String> _copyAccessibilityProperties(Set<String> accProps)
@@ -576,9 +582,9 @@ public class StyleSheetNode
   private final Set<Locale>     _locales;    // The locale variants
   private final int             _direction;  // The reading direction
   // The browsers mapped to their versions (multiple versions for browser supported)
-  private final Map<Integer, Set<Integer>>    _browsers;
+  private final Map<Integer, Set<Version>>    _agentVersions;
   private final Set<Integer>    _platforms;  // The platform variants
-  private final int             _mode;       // The mode  
+  private final int             _mode;       // The mode
   private final Set<String>     _accProps;   // Accessibility profile properties
   private final int             _id;         // The cached style sheet id
 
@@ -586,11 +592,11 @@ public class StyleSheetNode
   private static final int _ACC_EXACT_MATCH         = 0x02000000;
   private static final int _ACC_UNKNOWN_MATCH       = 0x01000000;
 
-  // Constants for mode matches - 0x00f00000 bits  
+  // Constants for mode matches - 0x00f00000 bits
   private static final int _MODE_EXACT_MATCH        = 0x00200000;
   private static final int _MODE_UNKNOWN_MATCH      = 0x00100000;
 
-  // Constants for locale matches - 0x000f0000 bits  
+  // Constants for locale matches - 0x000f0000 bits
   private static final int _LOCALE_EXACT_MATCH      = 0x00040000;
   private static final int _LOCALE_PARTIAL_MATCH    = 0x00020000;
   private static final int _LOCALE_UNKNOWN_MATCH    = 0x00010000;

@@ -19,14 +19,15 @@
 package org.apache.myfaces.trinidadinternal.style.xml.parse;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
-import java.util.Map;
-import java.util.HashMap;
 
+import org.apache.myfaces.trinidad.context.Version;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser;
@@ -85,18 +86,22 @@ public class StyleSheetNodeParser extends BaseNodeParser
 
     int versionCount = (_versions != null) ? _versions.length : 0;
 
-   Set<Integer> versions = new HashSet<Integer>(versionCount);
-   for (int i=0; i < versionCount ; i++)
+   Set<Version> versions = new HashSet<Version>(versionCount);
+   for (int i = 0; i < versionCount ; i++)
+   {
      versions.add(_versions[i]);
-
+   }
+   
     int browserCount = (_browsers != null) ? _browsers.length : 0;
-    Map<Integer, Set<Integer>> browsers
-        = new HashMap<Integer, Set<Integer>>(browserCount);
+    Map<Integer, Set<Version>> browsers
+        = new HashMap<Integer, Set<Version>>(browserCount);
 
    //in XSS there's now way of having multiple browsers and multiple versions
    //if encountered, we map all versions to each browser (it works for 1 browser)
    for (int i=0; i < browserCount ; i++)
-     browsers.put(_browsers[i], new HashSet<Integer>(versions));
+   {
+     browsers.put(_browsers[i], new HashSet<Version>(versions));
+   }
 
     return new StyleSheetNode(
         styles,
@@ -220,25 +225,18 @@ public class StyleSheetNodeParser extends BaseNodeParser
 
     // -= Simon Lessard =-
     // TODO: Check if synchronization is really needed.
-    Vector<Integer> v = new Vector<Integer>();
+    
+    Vector<Version> v = new Vector<Version>();
     while (versions.hasNext())
     {
-      int version = 0;
-
-      try
+      String version = versions.next();
+      if (version != null)
       {
-        version = Integer.parseInt(versions.next());
+        v.add(new Version(version, "*"));
       }
-      catch (NumberFormatException e)
-      {
-        ;
-      }
-
-      if (version != 0)
-        v.addElement(version);
     }
-
-    _versions = _getIntegers(v);
+    
+    _versions = v.toArray(new Version[v.size()]);
   }
 
   // Initialize platforms
@@ -320,17 +318,17 @@ public class StyleSheetNodeParser extends BaseNodeParser
     return (Arrays.asList(XMLUtils.parseNameTokens(attr))).iterator();
   }
 
-  // -= Simon Lessard =- 
+  // -= Simon Lessard =-
   // TODO: Check if synchronization is really needed.
   private Vector<StyleNode> _styles;
   private Locale[]          _locales;
   private int               _direction;
   private int               _mode;
   private int[]             _browsers;
-  private int[]             _versions;
+  private Version[]         _versions;
   private int[]             _platforms;
   private Set<String>       _accProperties;
 
-  static private final TrinidadLogger _LOG = 
+  static private final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(StyleSheetNodeParser.class);
 }

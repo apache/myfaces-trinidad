@@ -20,6 +20,7 @@ package org.apache.myfaces.trinidaddemo.email;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.faces.model.SelectItem;
 
 import org.apache.myfaces.trinidad.context.AccessibilityProfile;
@@ -64,7 +65,7 @@ public class PreferencesData
     _displaySenderColumn = true;
     _displayDateColumn = true;
     _displaySizeColumn = true;
-    _skinFamily = "oracle";
+    _skinFamily = "suede";
     _accessibilityMode = "default";
   }
 

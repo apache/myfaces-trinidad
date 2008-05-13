@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,12 +34,9 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  */
 public class SkinCSSParser
 {
-
-
   public SkinCSSParser()
   {
   }
-
 
   public void parseCSSDocument(
     Reader in,
@@ -147,9 +143,9 @@ public class SkinCSSParser
     // first, parse out any comments
     Matcher matcher = _COMMENT_PATTERN.matcher(properties);
     properties = matcher.replaceAll("");
-    // split into name and value (don't skip whitespace since properties like padding: 0px 5px 
+    // split into name and value (don't skip whitespace since properties like padding: 0px 5px
     // need the spaces)
-    String[] property = _splitString(properties, ';', false);    
+    String[] property = _splitString(properties, ';', false);
     
     for (int i=0; i < property.length; i++)
     {
@@ -175,10 +171,10 @@ public class SkinCSSParser
    * around matches of the charDelimiter
    */
   private static String[] _splitString (
-    String  in, 
+    String  in,
     char    charDelimiter,
     boolean skipWhitespace)
-  {   
+  {
     // return a String[] with each piece that is deliminated by the inChar.
     int length = in.length();
     StringBuffer buffer = new StringBuffer(length);
@@ -193,7 +189,7 @@ public class SkinCSSParser
         splitList.add(buffer.toString());
         buffer = new StringBuffer(length);
       }
-      else 
+      else
       {
         // it's ok to put the character in the buffer if we don't want to skip whitespace
         // or if it isn't whitespace to begin with.
@@ -492,15 +488,15 @@ public class SkinCSSParser
   private SkinCSSDocumentHandler _documentHandler;
   private CSSScanner             _scanner;
   private int                    _currentType;
-  // this is the pattern for finding comments. We want to strip out 
+  // this is the pattern for finding comments. We want to strip out
   // comments from the properties, and we use this pattern to do it.
-  private static final Pattern  _COMMENT_PATTERN = 
-     Pattern.compile("(?s)/\\*.*?\\*/"); 
+  private static final Pattern  _COMMENT_PATTERN =
+     Pattern.compile("(?s)/\\*.*?\\*/");
      
   private static final String[] _EMPTY_STRING_ARRAY = new String[0];
 
      
-  private static final TrinidadLogger _LOG = 
+  private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(SkinCSSParser.class);
 
 

@@ -25,7 +25,6 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -38,28 +37,26 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
-
 import java.util.concurrent.ConcurrentHashMap;
-
 import java.util.concurrent.ConcurrentMap;
 
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.context.AccessibilityProfile;
+import org.apache.myfaces.trinidad.context.LocaleContext;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.skin.Icon;
+import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.StyleSheetRenderer;
 import org.apache.myfaces.trinidadinternal.share.io.CachingNameResolver;
 import org.apache.myfaces.trinidadinternal.share.io.DefaultNameResolver;
 import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
 import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
-import org.apache.myfaces.trinidad.context.LocaleContext;
-import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidad.skin.Icon;
-import org.apache.myfaces.trinidad.skin.Skin;
-import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.StyleSheetRenderer;
 import org.apache.myfaces.trinidadinternal.share.xml.JaxpXMLProvider;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLProvider;
 import org.apache.myfaces.trinidadinternal.style.CSSStyle;
@@ -83,7 +80,7 @@ import org.xml.sax.SAXException;
  * The FileSystemStyleCache is a StyleProvider implementation which
  * caches generated CSS style sheets on the file system.
  * 
- * Note that StyleProviders are responsible for providing access 
+ * Note that StyleProviders are responsible for providing access
  * both to style information (eg. getStyleSheetURI(), getStyleMap()) as
  * well as to icons registered via style sheets (see getIcons()).
  *
@@ -193,7 +190,7 @@ public class FileSystemStyleCache implements StyleProvider
     if (entry == null)
       return null;
 
-    return entry.skinProperties;    
+    return entry.skinProperties;
   }
   
   /**
@@ -207,7 +204,7 @@ public class FileSystemStyleCache implements StyleProvider
     if (entry == null)
       return null;
 
-    return entry.icons;    
+    return entry.icons;
   }
 
   /**
@@ -507,9 +504,9 @@ public class FileSystemStyleCache implements StyleProvider
     // Next, get the fully resolved icons and skin properties for this context.
     // This will be those Icons and Skin Properties that match the locale, direction,
     // browser, etc -- the info that is in the StyleContext
-    ConcurrentMap<String, Icon> icons = 
+    ConcurrentMap<String, Icon> icons =
       _getStyleContextResolvedIcons(context, document);
-    ConcurrentMap<Object, Object> skinProperties = 
+    ConcurrentMap<Object, Object> skinProperties =
       _getStyleContextResolvedSkinProperties(context, document);
 
     // Create a new entry and cache it in the "normal" cache. The "normal" cache is one
@@ -526,7 +523,7 @@ public class FileSystemStyleCache implements StyleProvider
   }
 
   // Look in the entry cache for a compatible entry.
-  // A compatible entry is one with the same DerivationKey, which is essentially the 
+  // A compatible entry is one with the same DerivationKey, which is essentially the
   // same StyleSheetNodes.
   private Entry _getCompatibleEntry(
     StyleContext             context,
@@ -810,7 +807,7 @@ public class FileSystemStyleCache implements StyleProvider
     CoreRenderKit.OUTPUT_MODE_PORTLET.equals(skin.getRenderKitId());
 
     return (!"true".equals(disableContentCompression)) &&
-                                             !isPortletSkin;    
+                                             !isPortletSkin;
   }
 
   // Returns the name of the output file to use for the
@@ -1084,7 +1081,7 @@ public class FileSystemStyleCache implements StyleProvider
   // Method to put styleclasses in the shortened map.
   // We don't put 'state' styleclasses in the shortened map. Those are styleclasses
   // that start with SkinSelectors.STATE_PREFIX. The reason is that those
-  // are likely to be added and removed on the client as the state changes, and 
+  // are likely to be added and removed on the client as the state changes, and
   // we don't want to require the shortened map on the client.
   private static void _putStyleClassInShortMap(String styleClass, Map map)
   {
@@ -1092,8 +1089,8 @@ public class FileSystemStyleCache implements StyleProvider
         !styleClass.startsWith(SkinSelectors.STATE_PREFIX) &&
         !map.containsKey(styleClass))
     {
-      map.put(styleClass, _getShortStyleClass(map.size())); 
-    } 
+      map.put(styleClass, _getShortStyleClass(map.size()));
+    }
   }
 
   // Helper method used by _getShortStyleClassMap().  Returns a new
@@ -1120,7 +1117,7 @@ public class FileSystemStyleCache implements StyleProvider
        localeContext.getTranslationLocale(),
        LocaleUtils.getReadingDirection(localeContext),
        agent.getAgentApplication(),
-       agent.getAgentMajorVersion(),
+       agent.getAgentVersion(),
        agent.getAgentOS(),
        true,
        accProfile);
@@ -1134,7 +1131,7 @@ public class FileSystemStyleCache implements StyleProvider
       return (_locale.hashCode()           ^
                (_direction)                ^
                (_browser  << 2)            ^
-               (_version  << 4)            ^
+               (_version.hashCode())       ^
                (_platform << 8)            ^
                shortHash                   ^
                _accProfile.hashCode());
@@ -1170,7 +1167,7 @@ public class FileSystemStyleCache implements StyleProvider
       Locale locale,
       int direction,
       int browser,
-      int version,
+      String version,
       int platform,
       boolean useShort,
       AccessibilityProfile accessibilityProfile
@@ -1195,7 +1192,7 @@ public class FileSystemStyleCache implements StyleProvider
     private Locale         _locale;
     private int            _direction;
     private int            _browser;
-    private int            _version;
+    private String         _version;
     private int            _platform;
     private boolean        _short;  // Do we use short style classes?
     private AccessibilityProfile _accProfile;
@@ -1210,8 +1207,8 @@ public class FileSystemStyleCache implements StyleProvider
     public final ConcurrentMap<Object, Object> skinProperties;
 
     public Entry(
-      String uri, 
-      StyleMap map, 
+      String uri,
+      StyleMap map,
       ConcurrentMap<String, Icon> icons,
       ConcurrentMap<Object, Object> skinProperties)
     {
