@@ -21,31 +21,31 @@ package org.apache.myfaces.trinidadinternal.skin;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-
 import java.net.URL;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-
 import java.util.regex.Pattern;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
-
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinProperties;
 import org.apache.myfaces.trinidadinternal.share.expl.Coercions;
 import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
 import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
 import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
-
+import org.apache.myfaces.trinidadinternal.skin.icon.ContextImageIcon;
+import org.apache.myfaces.trinidadinternal.skin.icon.NullIcon;
+import org.apache.myfaces.trinidadinternal.skin.icon.TextIcon;
+import org.apache.myfaces.trinidadinternal.skin.icon.URIImageIcon;
 import org.apache.myfaces.trinidadinternal.style.CSSStyle;
+import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
+import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.IconNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.IncludeStyleNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.PropertyNode;
@@ -53,22 +53,14 @@ import org.apache.myfaces.trinidadinternal.style.xml.parse.SkinPropertyNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetNode;
-import org.apache.myfaces.trinidadinternal.skin.icon.ContextImageIcon;
-import org.apache.myfaces.trinidadinternal.skin.icon.NullIcon;
-import org.apache.myfaces.trinidadinternal.skin.icon.TextIcon;
-import org.apache.myfaces.trinidadinternal.skin.icon.URIImageIcon;
-import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
-import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
-import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 import org.apache.myfaces.trinidadinternal.util.URLUtils;
+import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/skin/SkinStyleSheetParserUtils.java#0 $) $Date: 10-nov-2005.18:59:00 $
  */
 class SkinStyleSheetParserUtils
 {
-
-
   /**
    * Parses a Skin style-sheet that is in the CSS-3 format.
    * @param context the current ParseContext
@@ -98,14 +90,12 @@ class SkinStyleSheetParserUtils
     if ((cached != null) && expectedType.isInstance(cached))
       return cached;
 
-
     InputStream stream = provider.openInputStream();
 
     try
     {
-
       // Store a resolver relative to the file we're about to parse
-      // Store the inputStreamProvider on the context; 
+      // Store the inputStreamProvider on the context;
       // this will be used to get the document's timestamp later on
       XMLUtils.setResolver(context, resolver.getResolver(sourceName));
       XMLUtils.setInputStreamProvider(context, provider);
@@ -119,11 +109,9 @@ class SkinStyleSheetParserUtils
       List <SkinStyleSheetNode> skinSSNodeList = _parseCSSStyleSheet(in);
       in.close();
   
-   
       // process the SkinStyleSheetNodes to create a StyleSheetEntry object
-      StyleSheetEntry styleSheetEntry = 
+      StyleSheetEntry styleSheetEntry =
         _createStyleSheetEntry(context, sourceName, skinSSNodeList);
-  
 
       // Store the cached result (if successful)
       // otherwise, if we don't do this, we will keep reparsing. Somehow
@@ -141,10 +129,10 @@ class SkinStyleSheetParserUtils
       stream.close();
     }
   }
-
-
-    /** trim the leading/ending quotes, if any.
-   * */
+  
+  /**
+   * Trim the leading/ending quotes, if any.
+   */
   public static String trimQuotes(String in)
   {
     int length = in.length();
@@ -191,7 +179,7 @@ class SkinStyleSheetParserUtils
     String baseSourceURI = CSSUtils.getBaseSkinStyleSheetURI(sourceName);
     
     // loop through the selectors and its properties
-    for (SkinStyleSheetNode skinSSNode : skinSSNodeList) 
+    for (SkinStyleSheetNode skinSSNode : skinSSNodeList)
     {
   
       // selector and its properties
@@ -206,7 +194,7 @@ class SkinStyleSheetParserUtils
       List<SkinPropertyNode> trSkinPropertyNodeList = new ArrayList<SkinPropertyNode>();
   
       // process each selector and all its name+values
-      for (SkinSelectorPropertiesNode cssSelector : selectorNodeList) 
+      for (SkinSelectorPropertiesNode cssSelector : selectorNodeList)
       {
 
         String selectorName = cssSelector.getSelectorName();
@@ -221,7 +209,7 @@ class SkinStyleSheetParserUtils
         
         trSkinPropertyNodeList.addAll(resolvedProperties.getSkinPropertyNodeList());
   
-        List<PropertyNode> noTrPropertyList = 
+        List<PropertyNode> noTrPropertyList =
           resolvedProperties.getNoTrPropertyList();
   
         if (_isIcon(selectorName))
@@ -248,7 +236,7 @@ class SkinStyleSheetParserUtils
                           resolvedProperties.getTrRuleRefList(),
                           resolvedProperties.getInhibitedProperties(),
                           resolvedProperties.isTrTextAntialias(),
-                          styleNodeList);           
+                          styleNodeList);
           }
         }
         else
@@ -264,20 +252,20 @@ class SkinStyleSheetParserUtils
         }
       }
       
-      if ((styleNodeList.size() > 0) || (iconNodeList.size() > 0) 
+      if ((styleNodeList.size() > 0) || (iconNodeList.size() > 0)
           || (trSkinPropertyNodeList.size() > 0))
       {
         // we need to deal with the styleNodeList by building a StyleSheetNode
         // with this information.
         // create a StyleSheetNode, add to the ssNodeList
         StyleNode[] styleNodeArray = styleNodeList.toArray(new StyleNode[0]);
-        StyleSheetNode ssNode = 
+        StyleSheetNode ssNode =
           new StyleSheetNode(styleNodeArray,
                              iconNodeList,
                              trSkinPropertyNodeList,
                              null,/*locales, not yet supported*/
                              skinSSNode.getDirection(),
-                             skinSSNode.getAgents(),
+                             skinSSNode.getAgentVersions(),
                              skinSSNode.getPlatforms(),
                              0,
                              skinSSNode.getAcessibilityProperties());
@@ -288,7 +276,7 @@ class SkinStyleSheetParserUtils
     
     
     // StyleSheetDocument contains StyleSheetNode[] styleSheets
-    StyleSheetDocument ssDocument = 
+    StyleSheetDocument ssDocument =
       _createStyleSheetDocument(context, ssNodeList);
 
     return new StyleSheetEntry(sourceName,
@@ -297,8 +285,6 @@ class SkinStyleSheetParserUtils
 
 
   }
-
-
 
   /**
    * Loop thru every property in the propertyList and store them in
@@ -315,20 +301,20 @@ class SkinStyleSheetParserUtils
     List<PropertyNode> noTrPropertyList = new ArrayList<PropertyNode>();
     List<String> trRuleRefList = new ArrayList<String>();
     Set<String> inhibitedPropertySet = new TreeSet<String>();
-    List<SkinPropertyNode> skinPropertyNodeList = 
+    List<SkinPropertyNode> skinPropertyNodeList =
       new ArrayList<SkinPropertyNode>();
     
     boolean trTextAntialias = false;
 
     // loop through each property in the propertyList
     // and resolve into
-    // noTrPropertyList (properties that do not start with -tr-. 
+    // noTrPropertyList (properties that do not start with -tr-.
     //                  (or -ora- for backwards compatibility))
     // trRuleRefList (properties that start with -tr-rule-ref
     //                (or -ora-rule-ref for backwards compatibility))
-    // boolean trTextAntialias (property value for -tr-text-antialias 
+    // boolean trTextAntialias (property value for -tr-text-antialias
     //                      (or -ora-text-antialias for backwards compatibility)
-    // skinPropertyNodeList (all other properties that start with -tr- 
+    // skinPropertyNodeList (all other properties that start with -tr-
     //                       (or -ora- for backwards compatibility))
     // These properties are stored in the ResolvedSkinProperties inner class.
 
@@ -342,9 +328,9 @@ class SkinStyleSheetParserUtils
         boolean oraProperty = propertyName.startsWith(_ORA_PROPERTY_PREFIX);
         boolean trProperty = propertyName.startsWith(_TR_PROPERTY_PREFIX);
         if( oraProperty || trProperty)
-        {   
-          int suffixIndex = (oraProperty) ? 
-                              _ORA_PROPERTY_PREFIX.length() : 
+        {
+          int suffixIndex = (oraProperty) ?
+                              _ORA_PROPERTY_PREFIX.length() :
                               _TR_PROPERTY_PREFIX.length();
           String propertyNameSuffix = propertyName.substring(suffixIndex);
           if (propertyNameSuffix.equals(_PROPERTY_RULE_REF))
@@ -368,7 +354,7 @@ class SkinStyleSheetParserUtils
           else
           {
             // create the SkinPropertyNode
-            SkinPropertyNode node = 
+            SkinPropertyNode node =
               _createSkinPropertyNode(selectorName, propertyName, propertyValue);
   
             skinPropertyNodeList.add(node);
@@ -665,7 +651,7 @@ class SkinStyleSheetParserUtils
       }
     }
 
-    SkinPropertyNode node = new SkinPropertyNode(key, 
+    SkinPropertyNode node = new SkinPropertyNode(key,
                                                  propValueObj != null ? propValueObj : value);
     return node;
   }
@@ -736,9 +722,7 @@ class SkinStyleSheetParserUtils
                                     null,
                                     timestamp);
   }
-
-
-
+  
   // Returns the document timestamp for the style sheet that
   // is currently being parsed, taking into account timestamps
   // of any imported style sheets. (copied from StyleSheetDocumentParser)
@@ -803,10 +787,10 @@ class SkinStyleSheetParserUtils
 
   private static List <SkinStyleSheetNode> _parseCSSStyleSheet(Reader reader)
   {
-      SkinCSSParser parser = new SkinCSSParser();
-      SkinCSSDocumentHandler documentHandler = new SkinCSSDocumentHandler();
-      parser.parseCSSDocument(reader, documentHandler);
-      return documentHandler.getSkinStyleSheetNodes();
+    SkinCSSParser parser = new SkinCSSParser();
+    SkinCSSDocumentHandler documentHandler = new SkinCSSDocumentHandler();
+    parser.parseCSSDocument(reader, documentHandler);
+    return documentHandler.getSkinStyleSheetNodes();
   }
 
 
@@ -843,7 +827,7 @@ class SkinStyleSheetParserUtils
     // -icon: is a condition because it could be -icon:hover.
     return  (selectorName.endsWith("-icon")  ||
             (selectorName.indexOf("-icon:") > -1) ||
-            selectorName.indexOf("Icon:alias") > -1);    
+            selectorName.indexOf("Icon:alias") > -1);
   }
 
   /**
@@ -861,7 +845,7 @@ class SkinStyleSheetParserUtils
     int pxPosition = propertyValue.indexOf("px");
     if (pxPosition > -1)
       propertyValue = propertyValue.substring(0, pxPosition);
-    return Integer.valueOf(propertyValue);    
+    return Integer.valueOf(propertyValue);
   }
   private static class ResolvedSkinProperties
   {
@@ -913,7 +897,7 @@ class SkinStyleSheetParserUtils
     private boolean                _trTextAntialias;
   }
 
-  // Custom Trinidad css properties: 
+  // Custom Trinidad css properties:
   //-tr-rule-ref, -tr-inhibit, -tr-text-antialias
   private static final String _TR_PROPERTY_PREFIX = "-tr-";
   // For backwards compatibility, keep the -ora- css properties in
@@ -923,10 +907,8 @@ class SkinStyleSheetParserUtils
   private static final String _PROPERTY_INHIBIT = "inhibit";
   private static final String _PROPERTY_TEXT_ANTIALIAS = "text-antialias";
   
-  private static final Pattern _SPACE_PATTERN = Pattern.compile("\\s"); 
+  private static final Pattern _SPACE_PATTERN = Pattern.compile("\\s");
   private static final Pattern _SELECTOR_PATTERN = Pattern.compile("selector\\(");
-
-
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     SkinStyleSheetParserUtils.class);

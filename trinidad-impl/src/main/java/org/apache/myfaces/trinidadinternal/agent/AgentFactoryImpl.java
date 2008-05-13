@@ -21,10 +21,9 @@ package org.apache.myfaces.trinidadinternal.agent;
 import java.util.Collections;
 import java.util.Map;
 
-import org.apache.myfaces.trinidad.context.Agent;
-
 import javax.faces.context.FacesContext;
 
+import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
@@ -67,7 +66,7 @@ public class AgentFactoryImpl implements AgentFactory
     return agent;
   }
 
-  // The headerMap is the RequestHeaderMap from the externalContext. It is 
+  // The headerMap is the RequestHeaderMap from the externalContext. It is
   // consulted to correctly populate the agent
   private void _populateAgentImpl(Map<String, String> headerMap, AgentImpl agent)
   {
@@ -163,7 +162,7 @@ public class AgentFactoryImpl implements AgentFactory
     //userAgent = "Mozilla/4.0 (compatible; MSIE 4.01; Windows CE; PPC; 240x320)";
     if (userAgent.indexOf("Windows CE") != -1)
     {
-      // for PocketPC and Windows Mobile, try to grab the header UA-pixels to 
+      // for PocketPC and Windows Mobile, try to grab the header UA-pixels to
       // determine width/height
       String uaPixels = headerMap.get("UA-pixels");
       _populatePocketPCAgentImpl(userAgent,uaPixels,agent);
@@ -198,7 +197,7 @@ public class AgentFactoryImpl implements AgentFactory
       return;
     }
 
-    if (userAgent.startsWith("Opera")) 
+    if (userAgent.startsWith("Opera"))
     {
         _populateOperaAgentImpl(userAgent,agent);
         return;
@@ -432,7 +431,7 @@ public class AgentFactoryImpl implements AgentFactory
       agentObj.setAgentVersion(version);
       agentObj.setPlatform(Agent.PLATFORM_BLACKBERRY);
       agentObj.setMakeModel(makeModel);
-    }  
+    }
 
   /**
    * returns the data for the Palm NetFront browser request
@@ -615,15 +614,24 @@ public class AgentFactoryImpl implements AgentFactory
     //    that would be equivalent to current browser for Gecko-based browsers)
     //  - But assumes PPR Support in all Gecko versions.
 
+    //Change 2008-05-13:
+    // We need the rv to support @agent versioning in CSS as the date makes no sense,
+    // so look for the rv:, not the Gecko build date
+    
     agentObj.setType(Agent.TYPE_DESKTOP);
     agentObj.setAgent(Agent.AGENT_GECKO);
 
-    int geckoIndex = agent.indexOf("Gecko/");
-    agentObj.setAgentVersion(agent.substring(geckoIndex+6, // skip over 'Gecko/'
-            geckoIndex+14)); // always 8 chars length
-
-    //int start = agent.indexOf("rv:");
-    //entry._agentVersion = _getVersion(agent, start + 2);
+    int start = agent.indexOf("rv:");
+    if (start >= 0)
+    {
+      agentObj.setAgentVersion(_getVersion(agent, start + 2));
+    }
+    else
+    {
+      int geckoIndex = agent.indexOf("Gecko/");
+      agentObj.setAgentVersion(agent.substring(geckoIndex+6, // skip over 'Gecko/'
+              geckoIndex+14)); // always 8 chars length
+    }
 
     int paren = agent.indexOf('(');
 

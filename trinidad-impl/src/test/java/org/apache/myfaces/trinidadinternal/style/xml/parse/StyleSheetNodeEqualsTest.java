@@ -19,24 +19,24 @@
 package org.apache.myfaces.trinidadinternal.style.xml.parse;
 
 import java.util.ArrayList;
-
-import junit.framework.TestCase;
-
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 import java.util.Map;
-import java.util.HashMap;
+import java.util.Set;
 
+import junit.framework.TestCase;
+
+import org.apache.myfaces.trinidad.context.Version;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidadinternal.skin.icon.ContextImageIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.TextIcon;
 
 /**
- * Test the getStyleSheetId() method on the StyleSheetNode object. 
- * The id of the StyleSheetNode object is used to create a StyleSheetDocument 
+ * Test the getStyleSheetId() method on the StyleSheetNode object.
+ * The id of the StyleSheetNode object is used to create a StyleSheetDocument
  * id.
  */
 public class StyleSheetNodeEqualsTest extends TestCase
@@ -51,14 +51,14 @@ public class StyleSheetNodeEqualsTest extends TestCase
    */
   public void testIncludePropertyNodeEquals() throws Exception
   {
-    IncludePropertyNode node = 
+    IncludePropertyNode node =
       new IncludePropertyNode(null, "AFDefaultColor", "background-color", "color");
-    IncludePropertyNode anotherNode = 
+    IncludePropertyNode anotherNode =
       new IncludePropertyNode(null, "AFDefaultColor", "background-color", "color");
-    IncludePropertyNode unequalNode = 
+    IncludePropertyNode unequalNode =
       new IncludePropertyNode(null, "AFDefaultColor", "background-color", "border-color");
 
-    assertEquals(node.hashCode() == anotherNode.hashCode(), true);   
+    assertEquals(node.hashCode() == anotherNode.hashCode(), true);
     assertEquals(node.equals(anotherNode), true);
     assertEquals(anotherNode.equals(node), true);
     assertEquals(node.equals(unequalNode), false);
@@ -70,20 +70,20 @@ public class StyleSheetNodeEqualsTest extends TestCase
    */
   public void testIncludeStyleNodeEquals() throws Exception
   {
-    IncludeStyleNode node = 
+    IncludeStyleNode node =
       new IncludeStyleNode("name", null);
-    IncludeStyleNode anotherNode = 
-      new IncludeStyleNode("name", null);      
-    IncludeStyleNode unequalNode = 
-      new IncludeStyleNode(null, "anotherSelector");      
+    IncludeStyleNode anotherNode =
+      new IncludeStyleNode("name", null);
+    IncludeStyleNode unequalNode =
+      new IncludeStyleNode(null, "anotherSelector");
     
-    assertEquals(node.hashCode() == anotherNode.hashCode(), true);   
+    assertEquals(node.hashCode() == anotherNode.hashCode(), true);
     assertEquals(node.equals(anotherNode), true);
     assertEquals(anotherNode.equals(node), true);
     assertEquals(node.equals(unequalNode), false);
     assertEquals(node.equals("Hello"), false);
 
-  }  
+  }
   
   /**
    * test the StyleNode hashCode and equals
@@ -93,13 +93,13 @@ public class StyleSheetNodeEqualsTest extends TestCase
 
     StyleNode afDefaultFontNode = getAfDefaultFontStyleNode();
                     
-    StyleNode afDefaultFontNodeReset = getAfDefaultFontResetStyleNode();                    
+    StyleNode afDefaultFontNodeReset = getAfDefaultFontResetStyleNode();
                     
     StyleNode afOutputLabelNode = getOutputLabelStyleNode();
      
     StyleNode anotherOutputLabelNode = getAnotherOutputLabelStyleNode();
      
-    assertEquals(anotherOutputLabelNode.hashCode() == afOutputLabelNode.hashCode(), true);   
+    assertEquals(anotherOutputLabelNode.hashCode() == afOutputLabelNode.hashCode(), true);
      
     assertEquals(anotherOutputLabelNode.equals(afOutputLabelNode), true);
     assertEquals(afOutputLabelNode.equals(anotherOutputLabelNode), true);
@@ -114,12 +114,12 @@ public class StyleSheetNodeEqualsTest extends TestCase
   
   public void testStyleSheetNodeEquals() throws Exception
   {
-    StyleNode[] styleSheetOneNodes = {getAfDefaultFontStyleNode(), 
+    StyleNode[] styleSheetOneNodes = {getAfDefaultFontStyleNode(),
                                       getAfDefaultFontResetStyleNode(),
                                       getOutputLabelStyleNode(),
                                       getAnotherOutputLabelStyleNode()};
-    StyleNode[] anotherStyleSheetOneNodes = 
-                                      {getAfDefaultFontStyleNode(), 
+    StyleNode[] anotherStyleSheetOneNodes =
+                                      {getAfDefaultFontStyleNode(),
                                       getAfDefaultFontResetStyleNode(),
                                       getOutputLabelStyleNode(),
                                       getAnotherOutputLabelStyleNode()};
@@ -133,16 +133,16 @@ public class StyleSheetNodeEqualsTest extends TestCase
     Locale[] diffOrderLocalesArray = getDiffOrderLocalesArray();
      
     // create a browsers map
-    Map<Integer, Set<Integer>> browsers = new HashMap<Integer, Set<Integer>>();
-    browsers.put(1, new HashSet<Integer>(Arrays.asList(5, 6)));
-    browsers.put(2, new HashSet<Integer>(Arrays.asList(7, 8)));
-    Map<Integer, Set<Integer>> anotherBrowsers = new HashMap<Integer, Set<Integer>>();
-    anotherBrowsers.put(1, new HashSet<Integer>(Arrays.asList(5, 6)));
-    anotherBrowsers.put(2, new HashSet<Integer>(Arrays.asList(7, 8)));
-    Map<Integer, Set<Integer>> anotherBrowsersDiffOrder
-        = new HashMap<Integer, Set<Integer>>();
-    anotherBrowsersDiffOrder.put(2, new HashSet<Integer>(Arrays.asList(8, 7)));
-    anotherBrowsersDiffOrder.put(1, new HashSet<Integer>(Arrays.asList(6, 5)));
+    Map<Integer, Set<Version>> browsers = new HashMap<Integer, Set<Version>>();
+    browsers.put(1, new HashSet<Version>(Arrays.asList(new Version("5"), new Version("6"))));
+    browsers.put(2, new HashSet<Version>(Arrays.asList(new Version("7"), new Version("8"))));
+    Map<Integer, Set<Version>> anotherBrowsers = new HashMap<Integer, Set<Version>>();
+    anotherBrowsers.put(1, new HashSet<Version>(Arrays.asList(new Version("5"), new Version("6"))));
+    anotherBrowsers.put(2, new HashSet<Version>(Arrays.asList(new Version("7"), new Version("8"))));
+    Map<Integer, Set<Version>> anotherBrowsersDiffOrder
+        = new HashMap<Integer, Set<Version>>();
+    anotherBrowsersDiffOrder.put(2, new HashSet<Version>(Arrays.asList(new Version("8"), new Version("7"))));
+    anotherBrowsersDiffOrder.put(1, new HashSet<Version>(Arrays.asList(new Version("6"), new Version("5"))));
 
 
     int[] platforms = {2, 3, 4};
@@ -162,50 +162,50 @@ public class StyleSheetNodeEqualsTest extends TestCase
     // int[] platforms,
     // int mode
     
-    StyleSheetNode styleSheetNode = 
+    StyleSheetNode styleSheetNode =
       new StyleSheetNode(styleSheetOneNodes,
                          iconNodes,
                          null,
-                         localesArray, 
-                         0, 
+                         localesArray,
+                         0,
                          browsers,
-                         platforms, 
+                         platforms,
                          0,
                          accProps);
-    StyleSheetNode anotherStyleSheetNode = 
+    StyleSheetNode anotherStyleSheetNode =
       new StyleSheetNode(anotherStyleSheetOneNodes,
-                         anotherIconNodes, 
+                         anotherIconNodes,
                          null,
                          anotherLocalesArray,
-                         0, 
+                         0,
                          anotherBrowsersDiffOrder,
-                         anotherPlatforms, 
+                         anotherPlatforms,
                          0,
                          anotherAccProps);
-    StyleSheetNode sameDiffOrderStyleSheetNode = 
+    StyleSheetNode sameDiffOrderStyleSheetNode =
       new StyleSheetNode(anotherStyleSheetOneNodes,
                          anotherIconNodes,
                          null,
                          diffOrderLocalesArray,
-                         0, 
+                         0,
                          anotherBrowsersDiffOrder,
-                         differentOrderPlatforms, 
+                         differentOrderPlatforms,
                          0,
                          differentOrderAccProps);
       
     // these should be equal
-    assertEquals(styleSheetNode.getStyleSheetId() == anotherStyleSheetNode.getStyleSheetId(), true);   
-    assertEquals(styleSheetNode.getStyleSheetId() == sameDiffOrderStyleSheetNode.getStyleSheetId(), true);   
+    assertEquals(styleSheetNode.getStyleSheetId() == anotherStyleSheetNode.getStyleSheetId(), true);
+    assertEquals(styleSheetNode.getStyleSheetId() == sameDiffOrderStyleSheetNode.getStyleSheetId(), true);
         
     // Note that StyleSheetNode.equals() explicitly uses the default
     // identity comparison since we never care about logical equivalence
     // of two StyleSheetNode instances.  The StyleSheetNode equality
-    // tests below enforce that StyleSheetNode.equals() implements identity 
+    // tests below enforce that StyleSheetNode.equals() implements identity
     // rather that logical equality.
-    assertEquals(styleSheetNode.equals(styleSheetNode), true);  
+    assertEquals(styleSheetNode.equals(styleSheetNode), true);
     assertEquals(anotherStyleSheetNode.equals(styleSheetNode), false);
-    assertEquals(styleSheetNode.equals(anotherStyleSheetNode), false); 
-    assertEquals(sameDiffOrderStyleSheetNode.equals(anotherStyleSheetNode), false); 
+    assertEquals(styleSheetNode.equals(anotherStyleSheetNode), false);
+    assertEquals(sameDiffOrderStyleSheetNode.equals(anotherStyleSheetNode), false);
     assertEquals(styleSheetNode.equals(sameDiffOrderStyleSheetNode), false);
 
     // these should be false
@@ -219,21 +219,21 @@ public class StyleSheetNodeEqualsTest extends TestCase
     
   }
   
-  // returns a StyleNode for "AFDefaultFont" name, null selector, resetProperties = false  
+  // returns a StyleNode for "AFDefaultFont" name, null selector, resetProperties = false
   private StyleNode getAfDefaultFontStyleNode()
   {
     PropertyNode fontSize = new PropertyNode("font-size", "10pt");
-    PropertyNode fontWeight = new PropertyNode("font-weight", "normal");    
+    PropertyNode fontWeight = new PropertyNode("font-weight", "normal");
     PropertyNode[] defaultFontPropertyNodes = { fontSize, fontWeight };
 
-    IncludeStyleNode[] defaultFontIncludeStyles = 
+    IncludeStyleNode[] defaultFontIncludeStyles =
       { new IncludeStyleNode("AFDefaultFontFamily", null) };
       
-    IncludePropertyNode[] defaultFontIncludeProperty = 
+    IncludePropertyNode[] defaultFontIncludeProperty =
       { new IncludePropertyNode("AFVeryDarkBackground", null, "background-color", "color") };
 
     return
-      new StyleNode("AFDefaultFont", null, defaultFontPropertyNodes, 
+      new StyleNode("AFDefaultFont", null, defaultFontPropertyNodes,
                     defaultFontIncludeStyles, defaultFontIncludeProperty, null, false);
     
   }
@@ -242,20 +242,20 @@ public class StyleSheetNodeEqualsTest extends TestCase
   private StyleNode getAfDefaultFontResetStyleNode()
   {
     PropertyNode fontSize = new PropertyNode("font-size", "10pt");
-    PropertyNode fontWeight = new PropertyNode("font-weight", "normal");    
+    PropertyNode fontWeight = new PropertyNode("font-weight", "normal");
     PropertyNode[] defaultFontPropertyNodes = { fontSize, fontWeight };
 
-    IncludeStyleNode[] defaultFontIncludeStyles = 
+    IncludeStyleNode[] defaultFontIncludeStyles =
       { new IncludeStyleNode("AFDefaultFontFamily", null) };
       
-    IncludePropertyNode[] defaultFontIncludeProperty = 
+    IncludePropertyNode[] defaultFontIncludeProperty =
       { new IncludePropertyNode("AFVeryDarkBackground", null, "background-color", "color") };
 
     return
-      new StyleNode("AFDefaultFont", null, defaultFontPropertyNodes, 
+      new StyleNode("AFDefaultFont", null, defaultFontPropertyNodes,
                     defaultFontIncludeStyles, defaultFontIncludeProperty, null, true);
     
-  }  
+  }
   
   // returns a StyleNode for "af|outputLabel:error" selector
   private StyleNode getOutputLabelStyleNode()
@@ -270,7 +270,7 @@ public class StyleSheetNodeEqualsTest extends TestCase
 
       
     return
-        new StyleNode(null, "af|outputLabel:error", labelPropertyNodes, labelIncludeStyles, 
+        new StyleNode(null, "af|outputLabel:error", labelPropertyNodes, labelIncludeStyles,
                       null, labelInhibitedProperties, false);
   }
   
@@ -284,18 +284,17 @@ public class StyleSheetNodeEqualsTest extends TestCase
     anotherInhibitedProperties.add("background-color");
     anotherInhibitedProperties.add("font-size");
     
-    return  new StyleNode(null, "af|outputLabel:error", anotherPropertyNodes, anotherIncludeStyles, 
+    return  new StyleNode(null, "af|outputLabel:error", anotherPropertyNodes, anotherIncludeStyles,
                           null, anotherInhibitedProperties, false);
   }
-  
   
   private Set<Locale> getLocalesSet()
   {
     Set<Locale> set = new HashSet<Locale>();
     set.add(new Locale("zh", "TW"));
     set.add(new Locale("zh", "CN"));
-    return set; 
-  }  
+    return set;
+  }
   
   private Set<Locale> getDiffOrderLocalesSet()
   {
@@ -303,24 +302,24 @@ public class StyleSheetNodeEqualsTest extends TestCase
     set.add(new Locale("zh", "CN"));
     set.add(new Locale("zh", "TW"));
 
-    return set;  
+    return set;
   }
   
   // same as above
   private Locale[] getLocalesArray()
   {
-    return new Locale[] {new Locale("tw", "TW"), new Locale("zh", "CN")};  
-  }  
+    return new Locale[] {new Locale("tw", "TW"), new Locale("zh", "CN")};
+  }
   
   private Locale[] getAnotherLocalesArray()
   {
-    return new Locale[] {new Locale("tw", "TW"), new Locale("zh", "CN")};  
-  }  
+    return new Locale[] {new Locale("tw", "TW"), new Locale("zh", "CN")};
+  }
   
   // same as above, different order
   private Locale[] getDiffOrderLocalesArray()
   {
-    return new Locale[] {new Locale("zh", "CN"), new Locale("tw", "TW")};  
+    return new Locale[] {new Locale("zh", "CN"), new Locale("tw", "TW")};
   }
 
   private List<IconNode> _getIconNodes()

@@ -20,19 +20,16 @@ package org.apache.myfaces.trinidadinternal.style.util;
 
 import java.util.Iterator;
 import java.util.Locale;
-import java.util.Vector;
 import java.util.Set;
+import java.util.Vector;
 
-import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
-import org.apache.myfaces.trinidad.util.IntegerUtils;
-
+import org.apache.myfaces.trinidad.context.Version;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
-
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
-
 import org.apache.myfaces.trinidadinternal.style.xml.XMLConstants;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetNode;
+import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 /**
  * Utilities for converting between variant names and ids
@@ -247,13 +244,13 @@ public class NameUtils
   }
 
   /**
-   * Returns name for the specified context, suitable for inclusion 
+   * Returns name for the specified context, suitable for inclusion
    * in a file name.
    * <p>
-   * This utility method generates the context-specific portion of 
+   * This utility method generates the context-specific portion of
    * a style sheet file name. It combines that locale, direction,
    * agent and color scheme information provided by the context,
-   * and returns a name which can be embedded in a file name 
+   * and returns a name which can be embedded in a file name
    * - eg. "en_US-ltr-ie-4-windows-red".
    * 
    * @param context The context for which a name is generated.
@@ -264,30 +261,30 @@ public class NameUtils
     buffer.append(_getLocaleString(context));
     buffer.append(_VARIANT_SEPARATOR);
     buffer.append(_getDirectionString(context));
-    buffer.append(_VARIANT_SEPARATOR);    
+    buffer.append(_VARIANT_SEPARATOR);
     buffer.append(_getBrowserString(context));
     buffer.append(_VARIANT_SEPARATOR);
     buffer.append(_getVersionString(context));
     buffer.append(_VARIANT_SEPARATOR);
     buffer.append(_getPlatformString(context));
     buffer.append(_getModeString(context));
-    buffer.append(_VARIANT_SEPARATOR);   
+    buffer.append(_VARIANT_SEPARATOR);
 
     return buffer.toString();
   }
 
   /**
-   * Returns name for the specified context, based on the actual 
+   * Returns name for the specified context, based on the actual
    * matching style sheets in the document.
    * <p>
-   * Like getContextName(StyleContext), this utility method generates 
+   * Like getContextName(StyleContext), this utility method generates
    * the context-specific portion of a style sheet file name. However,
-   * getContextName(StyleContext) always returns a fully specified 
-   * name. This version of getContextName() returns a partially 
-   * specified name - only those variants which match the underlying 
+   * getContextName(StyleContext) always returns a fully specified
+   * name. This version of getContextName() returns a partially
+   * specified name - only those variants which match the underlying
    * style sheets are included in the returned name.
    * <p>
-   * So, where getContextName(StyleContext) might return a name 
+   * So, where getContextName(StyleContext) might return a name
    * with placeholders for unknown variants, eg:
    * <P>
    * styles-en_US-ie-0-0-0-default.css
@@ -416,7 +413,7 @@ public class NameUtils
    */
   public static boolean isAccessibilityPropertyName(String name)
   {
-    return (XMLConstants.ACC_HIGH_CONTRAST.equals(name) || 
+    return (XMLConstants.ACC_HIGH_CONTRAST.equals(name) ||
             XMLConstants.ACC_LARGE_FONTS.equals(name));
   }
 
@@ -485,13 +482,12 @@ public class NameUtils
   private static String _getVersionString(StyleContext context)
   {
     TrinidadAgent agent = context.getAgent();
-    int version = agent.getAgentMajorVersion();
+    String version = agent.getAgentVersion();
 
-    // Zero indicates that the version is not known
-    if (version == 0)
+    if (version == null)
       return _UNKNOWN_NAME;
 
-    return IntegerUtils.getString(version);
+    return version;
   }
 
   // Get the platform as a String
@@ -605,37 +601,45 @@ public class NameUtils
   /**
    * Tests whether the browser specified in the context matches
    * the browser variant of any matching style sheet
-   * @return a boolean array with the first value beeing the browser match
-   *          and the second value beeing the version match
+   * @return a boolean array with the first value being the browser match
+   *          and the second value being the version match
    */
   private static boolean[] _isBrowserAndVersionMatch(StyleContext context,
       StyleSheetNode[] styleSheets)
   {
     int browser = context.getAgent().getAgentApplication();
-    int version = context.getAgent().getAgentMajorVersion();
+    Version version = new Version(context.getAgent().getAgentVersion());
     if (browser == TrinidadAgent.APPLICATION_UNKNOWN)
-      return new boolean[]{false, false};
+    {
+      return new boolean[] { false, false };
+    }
 
     boolean browserMatched = false;
+    Integer browserNum = Integer.valueOf(browser);
+    
     // If any style sheet has a non-null browser variant, we must
     // have a browser match.
     for (int i = 0; i < styleSheets.length; i++)
     {
-      if (!(styleSheets[i].getBrowsers().isEmpty())) {
-        Set<Integer> versions
-            = styleSheets[i].getBrowsers().get(Integer.valueOf(browser));
-        if (versions != null) {
+      if (!styleSheets[i].getAgentVersions().isEmpty())
+      {
+        Set<Version> versions = styleSheets[i].getAgentVersions().get(browserNum);
+        
+        if (versions != null)
+        {
           browserMatched = true;
-          //if this node has this version explicitly return true,true
-          //else continue searching for a node with explicit version
-          if (versions.contains(Integer.valueOf(version))) {
-            return new boolean[]{true, true};
+          for (Version av : versions)
+          {
+            if (av.compareTo(version) == 0)
+            {
+              return new boolean[] { true, true };
+            }
           }
         }
       }
     }
 
-    return new boolean[]{browserMatched, false};
+    return new boolean[] { browserMatched, false };
   }
 
   // Tests whether the platform specified in the context matches
