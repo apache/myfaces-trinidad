@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.apache.myfaces.trinidad.component;
+package org.apache.myfaces.trinidadinternal.context;
 
 import java.util.Set;
 
@@ -29,9 +29,11 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import org.apache.myfaces.trinidad.component.UIXCommand;
+import org.apache.myfaces.trinidad.component.UIXInput;
+import org.apache.myfaces.trinidad.component.UIXPanel;
+import org.apache.myfaces.trinidad.component.UIXTable;
 import org.apache.myfaces.trinidad.context.RequestContext;
-import org.apache.myfaces.trinidadinternal.context.RequestContextFactoryImpl;
-import org.apache.myfaces.trinidadinternal.context.TestPageFlowScopeProvider;
 
 public class PartialTriggersTest extends TestCase
 {
@@ -139,7 +141,7 @@ public class PartialTriggersTest extends TestCase
      *     <f:subview id="nc1">
      *     <tr:inputText id="inputA" pT="::commandButton1"/>
            <tr:panelGroupLayout>
-             <tr:inputText 
+             <tr:inputText
              id="inputText1"
              partialTriggers="::commandButton1"/>
            </tr:panelGroupLayout>
@@ -165,7 +167,7 @@ public class PartialTriggersTest extends TestCase
       TestNamingContainer nc = new TestNamingContainer(); nc.setId("nc1");
       UIXInput inputA = new UIXInput(); inputA.setId("inputA");
       UIXPanel panel = new UIXPanel(); panel.setId("panel1");
-      UIXInput input = new UIXInput(); input.setId("input1");  
+      UIXInput input = new UIXInput(); input.setId("input1");
       ncRoot.getChildren().add(nc);
       nc.getChildren().add(inputA);
       nc.getChildren().add(panel);

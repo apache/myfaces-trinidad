@@ -16,21 +16,20 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.apache.myfaces.trinidad.component;
+package org.apache.myfaces.trinidad.render;
 
 
 import javax.faces.component.NamingContainer;
-
 import javax.faces.context.FacesContext;
-
 import javax.faces.render.Renderer;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import org.apache.myfaces.trinidad.component.core.nav.CoreCommandButton;
-import org.apache.myfaces.trinidad.render.RenderUtils;
+import org.apache.myfaces.trinidad.component.UIXForm;
+import org.apache.myfaces.trinidad.component.UIXInput;
+import org.apache.myfaces.trinidad.component.UIXPanel;
 
 
 public class RenderUtilsTest extends TestCase
@@ -64,8 +63,8 @@ public class RenderUtilsTest extends TestCase
       return clientId;
     }
     
-    public String getContainerClientId(FacesContext p1) 
-    { 
+    public String getContainerClientId(FacesContext p1)
+    {
       return getId();
     }
     
@@ -105,43 +104,43 @@ public class RenderUtilsTest extends TestCase
       tableChild.setId("tableChildId");
       table1.getChildren().add(tableChild);
     
-    String relativeId = 
+    String relativeId =
       RenderUtils.getRelativeId(null, button1, "table1");
     assertEquals("table1", relativeId);
     
-    relativeId = 
+    relativeId =
       RenderUtils.getRelativeId(null, button1, ":table1");
     assertEquals("table1", relativeId);
     
     // new way would find nothing, so we'd have to get something logical
-    relativeId = 
+    relativeId =
       RenderUtils.getRelativeId(null, table1, "someRandomId");
     assertEquals("table1_Client:someRandomId", relativeId);
     
-    relativeId = 
+    relativeId =
       RenderUtils.getRelativeId(null, table1, ":commandButton1");
     assertEquals("commandButton1", relativeId);
 
-    // to get to the commandButton from the table, you need to pop out of the 
-    // table  
-    relativeId = 
+    // to get to the commandButton from the table, you need to pop out of the
+    // table
+    relativeId =
       RenderUtils.getRelativeId(null, table1, "::commandButton1");
     assertEquals("commandButton1", relativeId);
     
     // backward compatibility test -- this was the old syntax for siblings to the table.
     // this should be found by looking at the nc's parent from findRelativeComponent
-    relativeId = 
+    relativeId =
       RenderUtils.getRelativeId(null, table1, "commandButton1");
     assertEquals("commandButton1", relativeId);
        
     // backward compatibility test -- this was the old syntax for children to the table.
-    relativeId = 
+    relativeId =
       RenderUtils.getRelativeId(null, table1, "table1:tableChildId");
-    assertEquals("table1:tableChildId", relativeId); 
+    assertEquals("table1:tableChildId", relativeId);
      // this is the new syntax for children to the table
-    relativeId = 
+    relativeId =
       RenderUtils.getRelativeId(null, table1, "tableChildId");
-    assertEquals("table1:tableChildId", relativeId); 
+    assertEquals("table1:tableChildId", relativeId);
 
   }
 
@@ -168,7 +167,7 @@ public class RenderUtilsTest extends TestCase
       ncRoot.getChildren().add(button1);
       ncRoot.getChildren().add(button2);
 
-      TestNamingContainer nc1 = new TestNamingContainer(); 
+      TestNamingContainer nc1 = new TestNamingContainer();
       nc1.setId("nc1");
 
           
@@ -193,43 +192,43 @@ public class RenderUtilsTest extends TestCase
           </f:subview>
        </f:subview>
        rootButton
-     */ 
+     */
       
-    String relativeId = 
+    String relativeId =
       RenderUtils.getRelativeId(null, input1, "::button1");
     // new way should pop OUT of ONE naming container and will find it
-    assertEquals("ncRoot:button1", relativeId); 
+    assertEquals("ncRoot:button1", relativeId);
 
     
-    relativeId = 
+    relativeId =
       RenderUtils.getRelativeId(null, input1, ":::button1");
     // new way should pop OUT of TWO naming containers and will find not find it
     // since it is in ncRoot and the base is now the view root.
     // so it goes to the old findRelativeComponent, and this will find it.
-    assertEquals("ncRoot:button1", relativeId); 
+    assertEquals("ncRoot:button1", relativeId);
 
 
-    relativeId = 
+    relativeId =
       RenderUtils.getRelativeId(null, input1, "randomPeer");
-    // randomPeer doesn't exist, so new way won't find it. 
+    // randomPeer doesn't exist, so new way won't find it.
     // uses code that doesn't need to find the component to return this:
-    assertEquals("nc1_Client:randomPeer", relativeId);  
+    assertEquals("nc1_Client:randomPeer", relativeId);
     
-    relativeId = 
+    relativeId =
       RenderUtils.getRelativeId(null, input1, "::randomPeer");
-    // randomPeer doesn't exist, so new way won't find it. 
+    // randomPeer doesn't exist, so new way won't find it.
     // uses code that doesn't need to find the component to return this:
-    assertEquals("ncRoot_Client:randomPeer", relativeId); 
+    assertEquals("ncRoot_Client:randomPeer", relativeId);
  
     // rootButton is child of form and sibling to ncRoot. It's 2 nc up from input1
-    relativeId = 
+    relativeId =
       RenderUtils.getRelativeId(null, input1, ":::rootButton");
     // new way should pop OUT of both NC with ::: and will find it
-    assertEquals("rootButton", relativeId); 
+    assertEquals("rootButton", relativeId);
 
  
     // rootButton is child of form and sibling to ncRoot. It's 2 nc up from input1
-    relativeId = 
+    relativeId =
       RenderUtils.getRelativeId(null, input1, "::rootButton");
     // new way should pop OUT of one NC with ::, so it can't find it
     // the 'old' findRelativeComponent can't find it either.
@@ -240,19 +239,19 @@ public class RenderUtilsTest extends TestCase
 
     
     // rootButton is child of form and sibling to ncRoot. It's 2 nc up from input1
-    relativeId = 
+    relativeId =
       RenderUtils.getRelativeId(null, input1, "::::rootButton");
     // new way should pop OUT of ALL NCs and will find it.
     assertEquals("rootButton", relativeId);
     
 
     
-    relativeId = 
+    relativeId =
       RenderUtils.getRelativeId(null, input1, "::::button1");
     // new way should return this
-    assertEquals("button1", relativeId);    
+    assertEquals("button1", relativeId);
     
-    relativeId = 
+    relativeId =
       RenderUtils.getRelativeId(null, input1, ":::::button1");
     assertEquals("button1", relativeId);
   }
