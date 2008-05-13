@@ -833,9 +833,15 @@ public class SkinTranslationMapDemo
         }
 
         /* for ie 5 and 6, we also need some margins.*/
-        @agent ie 5 6
+        @agent ie (version: 5) and (version: 6)
         {
           af|someComponent {margin: 5px;}
+        }
+        
+        /* for Firefox 3 (gecko 1.9) use a smaller margin.*/
+        @agent gecko (version: 1.9)
+        {
+          af|someComponent {margin: 4px;}
         }
         
         /* The following selectors are for all platforms and all browsers */
