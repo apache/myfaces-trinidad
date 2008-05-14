@@ -486,6 +486,19 @@
   </distributionManagement>
 
   <profiles>
+  <!-- This profile can be used for the release:prepare.  It enables the assembly and examples
+       projects but does not allow trinidad-assembly to compile -->
+    <profile>
+      <id>prepare-release</id>
+      <modules>
+        <module>trinidad-assembly</module>
+        <module>trinidad-examples</module>
+      </modules>
+      <properties>
+        <dependencies.disable>true</dependencies.disable>
+      </properties>
+    </profile>
+
     <profile>
       <id>release</id>
       <!--
