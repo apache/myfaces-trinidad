@@ -40,6 +40,69 @@
           <name>!dependency.disable</name>
         </property>
       </activation>
+      <dependencies>
+        <dependency>
+          <groupId>org.apache.myfaces.trinidad</groupId>
+          <artifactId>trinidad-build</artifactId>
+          <version>${project.version}</version>
+          <exclusions>
+            <exclusion>
+              <groupId>javax.servlet</groupId>
+              <artifactId>jsp-api</artifactId>
+            </exclusion>
+            <exclusion>
+              <groupId>javax.servlet</groupId>
+              <artifactId>servlet-api</artifactId>
+            </exclusion>
+          </exclusions>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.myfaces.trinidad</groupId>
+          <artifactId>trinidad-api</artifactId>
+          <version>${project.version}</version>
+          <exclusions>
+            <exclusion>
+              <groupId>javax.servlet</groupId>
+              <artifactId>jsp-api</artifactId>
+            </exclusion>
+            <exclusion>
+              <groupId>javax.servlet</groupId>
+              <artifactId>servlet-api</artifactId>
+            </exclusion>
+          </exclusions>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.myfaces.trinidad</groupId>
+          <artifactId>trinidad-impl</artifactId>
+          <version>${project.version}</version>
+          <exclusions>
+            <exclusion>
+              <groupId>javax.servlet</groupId>
+              <artifactId>jsp-api</artifactId>
+            </exclusion>
+            <exclusion>
+              <groupId>javax.servlet</groupId>
+              <artifactId>servlet-api</artifactId>
+            </exclusion>
+          </exclusions>
+        </dependency>
+        <!--dependency>
+          <groupId>org.apache.myfaces.trinidad</groupId>
+          <artifactId>trinidad-demo</artifactId>
+          <version>${project.version}</version>
+          <exclusions>
+            <exclusion>
+              <groupId>javax.servlet</groupId>
+              <artifactId>jsp-api</artifactId>
+            </exclusion>
+            <exclusion>
+              <groupId>javax.servlet</groupId>
+              <artifactId>servlet-api</artifactId>
+            </exclusion>
+          </exclusions>
+        </dependency-->
+      </dependencies>
+
       <build>
         <plugins>
           <plugin>
@@ -127,68 +190,4 @@
       </build>
     </profile>
   </profiles>
-  <dependencies>
-    <dependency>
-      <groupId>org.apache.myfaces.trinidad</groupId>
-      <artifactId>trinidad-build</artifactId>
-      <version>${project.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jsp-api</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>javax.servlet</groupId>
-          <artifactId>servlet-api</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.myfaces.trinidad</groupId>
-      <artifactId>trinidad-api</artifactId>
-      <version>${project.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jsp-api</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>javax.servlet</groupId>
-          <artifactId>servlet-api</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.myfaces.trinidad</groupId>
-      <artifactId>trinidad-impl</artifactId>
-      <version>${project.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jsp-api</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>javax.servlet</groupId>
-          <artifactId>servlet-api</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <!--dependency>
-      <groupId>org.apache.myfaces.trinidad</groupId>
-      <artifactId>trinidad-demo</artifactId>
-      <version>${project.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jsp-api</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>javax.servlet</groupId>
-          <artifactId>servlet-api</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency-->
-  </dependencies>
-
-
 </project>
