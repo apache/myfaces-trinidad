@@ -36,6 +36,17 @@
 
   <profiles>
     <profile>
+      <id>prepare-release</id>
+      <modules>
+        <module>trinidad-blank</module>
+        <module>trinidad-demo</module>
+        <module>trinidad-example-assembly</module>
+      </modules>
+      <properties>
+        <dependencies.disable>true</dependencies.disable>
+      </properties>
+    </profile>
+    <profile>
       <id>release</id>
       <modules>
         <module>trinidad-blank</module>
@@ -44,5 +55,4 @@
       </modules>
     </profile>
   </profiles>
-
 </project>
