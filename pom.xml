@@ -239,6 +239,14 @@
         </execution>
       </executions>
     </plugin>
+    <plugins>
+        <plugin>
+          <artifactId>maven-release-plugin</artifactId>
+          <configuration>
+            <tagBase>https://svn.apache.org/repos/asf/myfaces/trinidad/tags</tagBase>
+          </configuration>
+        </plugin>
+      </plugins>
   </plugins>
   </build>
 
