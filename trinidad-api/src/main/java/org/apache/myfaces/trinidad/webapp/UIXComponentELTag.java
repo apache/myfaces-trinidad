@@ -26,23 +26,26 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
-
+import java.util.LinkedList;
 import java.util.TimeZone;
 
 import javax.el.MethodExpression;
 import javax.el.ValueExpression;
 
+import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
+import javax.faces.webapp.UIComponentClassicTagBase;
 import javax.faces.webapp.UIComponentELTag;
 
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.Tag;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.change.AddComponentChange;
-import org.apache.myfaces.trinidad.change.AttributeComponentChange;
+import org.apache.myfaces.trinidad.change.ChangeMarker;
 import org.apache.myfaces.trinidad.change.ComponentChange;
 import org.apache.myfaces.trinidad.component.UIXComponent;
 import org.apache.myfaces.trinidad.context.RequestContext;
@@ -80,7 +83,7 @@ abstract public class UIXComponentELTag extends UIComponentELTag
   public int doEndTag() throws JspException
   {
     UIComponent component = getComponentInstance();
-    if (getCreated())
+    if (getCreated() || _forceApplyChanges)
       _applyChanges(getFacesContext(), component);
     return super.doEndTag();
   }
@@ -396,38 +399,153 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     return list.toArray(new String[list.size()]);
   }
 
-  private static void _applyChanges(
-    FacesContext facesContext,
+  /**
+   * Locate and return the nearest enclosing UIComponentClassicTagBase for a given tag if any;
+   *  otherwise, return null.
+   * @param tag The tag to start the walk up from
+   * @return The nearest enclosing UIXComponentELTag instance
+   */
+  private UIComponentClassicTagBase _getParentUIComponentClassicTagBase(
+    UIComponentClassicTagBase tag)
+  {
+    if (tag == null)
+      return null;
+
+    Tag result = tag.getParent();
+    while (result != null)
+    {
+      if (result instanceof UIComponentClassicTagBase)
+        return (UIComponentClassicTagBase) result;
+      result = result.getParent();
+    }
+    return null;
+  }
+
+  /**
+   * Walks up the tree, starting from a supplied startTag and finds an enclosing tag matching the
+   * supplied absolute idPath.
+   * @param startTag The tag from where to start the tag tree walk up from.
+   * @param idPath   An array of id's that represents the absolute id of the enclosing tag.
+   * @return         The UIXComponentELTag that matches the absolute id if find was successful, 
+   *                  null otherwise.
+   */
+  private UIXComponentELTag _findEnclosingTag(
+    UIXComponentELTag startTag,
+    String[] idPath)
+  {
+    if (startTag == null || idPath == null || idPath.length == 0)
+      return null;
+
+    LinkedList<UIComponentClassicTagBase> enclosingTags = 
+      new LinkedList<UIComponentClassicTagBase>();
+    // The last entry will be the id of the tag to be found.
+    String targetId = idPath[idPath.length - 1];
+
+    // Step 1: Move up and build a list of all enclosing tags for the startTag.
+    for(UIComponentClassicTagBase currComponentTag = startTag;
+        currComponentTag != null;
+        currComponentTag = _getParentUIComponentClassicTagBase(currComponentTag))
+    {
+      enclosingTags.addFirst(currComponentTag);
+    }
+    
+    // Bail out if we could not build a trace path of enclosing tags.
+    if (enclosingTags.isEmpty())
+      return null;
+
+    // Step 2: Walk forward the list of enclosing tags to find the target.
+    Iterator<UIComponentClassicTagBase> iter = enclosingTags.iterator();
+
+    // Step 2a: If there are tags corresponding to NamingContainers in list, skip the expected
+    //  number of such NamingContainer tags.
+    int namingContainerIndex = 0;
+    for(UIComponentClassicTagBase currComponentTag = iter.next();
+        currComponentTag != null;
+        currComponentTag = iter.next())
+    {
+      UIComponent currComponent = currComponentTag.getComponentInstance();
+      
+      if (currComponent instanceof NamingContainer)
+      {
+        // If the id of this 'NamingContainer' tag does not match the next segment in sequence,
+        //  we would never be able to reach target, bail out.
+        if (! currComponent.getId().equals(idPath[namingContainerIndex]))
+          return null;
+        else
+        {
+          namingContainerIndex++;
+          if (namingContainerIndex == idPath.length - 1)
+            break;
+        }
+      }
+    }
+
+    // Did not find all of our path elements, something very messed up.
+    if (namingContainerIndex < idPath.length - 1)
+      return null;
+    
+    // Step 2b: Look for the target tag from here on.
+    for (UIComponentClassicTagBase currComponentTag = iter.next();
+         currComponentTag != null;
+         currComponentTag = iter.next())
+    {
+      if (targetId.equals(currComponentTag.getComponentInstance().getId()))
+      {
+        // If we are here, we reached the target, and it is very likely a UIXComponentELTag.
+        return (currComponentTag instanceof UIXComponentELTag) ? 
+          (UIXComponentELTag)currComponentTag : null;
+      }
+    }
+
+    // If we reached here, we could not find the target.
+    return null;
+  }
+
+  private void _applyChanges(
+    FacesContext facesContext, 
     UIComponent uiComponent)
   {
     RequestContext afc = RequestContext.getCurrentInstance();
     Iterator<ComponentChange> changeIter =
-                  afc.getChangeManager().getComponentChanges(facesContext, uiComponent);
+      afc.getChangeManager().getComponentChanges(facesContext, uiComponent);
 
     if (changeIter == null)
       return;
     while (changeIter.hasNext())
     {
       ComponentChange change = changeIter.next();
-      
-      change.changeComponent(uiComponent);
-      
-      //pu: In case this Change has added a new component/facet, the added
-      //  component could have its own Changes, that may need to be applied here.
-      if (change instanceof AddComponentChange)
-      {
-        UIComponent newAddedComponent =
-          ( (AddComponentChange)change ).getComponent();
 
-        if (newAddedComponent != null)
+      // If this is just a marker change, find and flag the target component.
+      if (change instanceof ChangeMarker)
+      {
+        String id = ((ChangeMarker) change).getChangeTargetComponentScopedId();
+        String[] idPath = id.split(String.valueOf(NamingContainer.SEPARATOR_CHAR));
+        UIXComponentELTag targetTag = _findEnclosingTag(this, idPath);
+        if (targetTag != null)
+          targetTag._forceApplyChanges = true;
+      }
+      else
+      {
+        change.changeComponent(uiComponent);
+
+        // In case this Change has added a new component/facet, the added
+        //  component could have its own Changes, that may need to be applied here.
+        if (change instanceof AddComponentChange)
         {
-          _applyChanges(facesContext, newAddedComponent);
+          UIComponent newAddedComponent =
+            ((AddComponentChange) change).getComponent();
+
+          if (newAddedComponent != null)
+          {
+            _applyChanges(facesContext, newAddedComponent);
+          }
         }
       }
     }
   }
 
-  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(UIXComponentTag.class);
+  private static final TrinidadLogger _LOG = 
+    TrinidadLogger.createTrinidadLogger(UIXComponentELTag.class);
 
   // We rely strictly on ISO 8601 formats
   private static DateFormat _getDateFormat()
@@ -439,6 +557,9 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     return sdf;
   }
 
+  // Use if change application needs to be forced on the tag regardless of whether the 
+  //  corresponding component is newly created during tag execution.
+  private boolean           _forceApplyChanges;
   private MethodExpression  _attributeChangeListener;
   private String            _validationError;
 }
