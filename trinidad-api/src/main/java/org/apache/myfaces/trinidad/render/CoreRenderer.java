@@ -536,22 +536,22 @@ public class CoreRenderer extends Renderer
 
   static public boolean isDesktop(RenderingContext arc)
   {
-    return (arc.getAgent().getType().equals(Agent.TYPE_DESKTOP));
+    return (Agent.TYPE_DESKTOP.equals(arc.getAgent().getType()));
   }
 
   static public boolean isPDA(RenderingContext arc)
   {
-    return (arc.getAgent().getType().equals(Agent.TYPE_PDA));
+    return (Agent.TYPE_PDA.equals(arc.getAgent().getType()));
   }
 
   static public boolean isIE(RenderingContext arc)
   {
-    return (arc.getAgent().getAgentName().equals(Agent.AGENT_IE));
+    return (Agent.AGENT_IE.equals(arc.getAgent().getAgentName()));
   }
 
   static public boolean isGecko(RenderingContext arc)
   {
-    return (arc.getAgent().getAgentName().equals(Agent.AGENT_GECKO));
+    return (Agent.AGENT_GECKO.equals(arc.getAgent().getAgentName()));
   }
 
   static public boolean isInaccessibleMode(RenderingContext arc)
