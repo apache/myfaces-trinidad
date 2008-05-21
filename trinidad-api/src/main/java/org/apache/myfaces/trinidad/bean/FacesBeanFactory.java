@@ -195,8 +195,7 @@ public class FacesBeanFactory
   {
     if (rendererType != null)
     {
-      int length = beanType.length() + 1 + rendererType.length();
-      StringBuilder typeKeyBuilder = new StringBuilder(length);
+      StringBuilder typeKeyBuilder = _getSharedStringBuilder();
       
       typeKeyBuilder.append(beanType).append('|').append(rendererType);
       
@@ -219,10 +218,61 @@ public class FacesBeanFactory
       _TYPES_CLASS.put(typeKey, bean.getClass());
     }
   }
+  
+  /**
+   * <p>
+   * This gets a single threadlocal shared stringbuilder instance, each time you call
+   * _getSharedStringBuilder it sets the length of the stringBuilder instance to 0.
+   * </p><p>
+   * This allows you to use the same StringBuilder instance over and over.
+   * You must call toString on the instance before calling _getSharedStringBuilder again.
+   * </p>
+   * Example that works
+   * <pre><code>
+   * StringBuilder sb1 = _getSharedStringBuilder();
+   * sb1.append(a).append(b);
+   * String c = sb1.toString();
+   *
+   * StringBuilder sb2 = _getSharedStringBuilder();
+   * sb2.append(b).append(a);
+   * String d = sb2.toString();
+   * </code></pre>
+   * <br><br>
+   * Example that doesn't work, you must call toString on sb1 before
+   * calling __getSharedStringBuilder again.
+   * <pre><code>
+   * StringBuilder sb1 = _getSharedStringBuilder();
+   * StringBuilder sb2 = _getSharedStringBuilder();
+   *
+   * sb1.append(a).append(b);
+   * String c = sb1.toString();
+   *
+   * sb2.append(b).append(a);
+   * String d = sb2.toString();
+   * </code></pre>
+   *
+   */
+  static private StringBuilder _getSharedStringBuilder()
+  {
+    StringBuilder sb = _STRING_BUILDER.get();
+
+    if (sb == null)
+    {
+      sb = new StringBuilder();
+      _STRING_BUILDER.set(sb);
+    }
+
+    // clear out the stringBuilder by setting the length to 0
+    sb.setLength(0);
+
+    return sb;
+  }
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(FacesBeanFactory.class);
   static private Map<Object, Object> _TYPES_MAP;
   static private Map<String, Class<?>> _TYPES_CLASS = new ConcurrentHashMap<String, Class<?>>();
+  static private final ThreadLocal<StringBuilder> _STRING_BUILDER =
+                                                        new ThreadLocal<StringBuilder>();
 
   static
   {
