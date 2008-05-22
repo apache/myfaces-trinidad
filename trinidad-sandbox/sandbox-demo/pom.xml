@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.apache.myfaces.trinidad</groupId>
     <artifactId>trinidad-sandbox</artifactId>
-    <version>1.0.8-SNAPSHOT</version>
+    <version>1.0.9-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
