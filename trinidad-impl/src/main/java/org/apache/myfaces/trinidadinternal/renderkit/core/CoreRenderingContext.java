@@ -203,12 +203,11 @@ public class CoreRenderingContext extends RenderingContext
   }
 
   /**
-   * This will create a FormData object if it's null.
+   * This can return null if there is no form data
    */
   @Override
   public FormData getFormData()
   {
-    assert(_formData != null);
     return _formData;
   }
 
