@@ -817,7 +817,7 @@ TrDateRestrictionValidator.prototype.validate  = function(
       {
         var allWeekdays = ['mon','tue','wed','thu','fri','sat','sun'];
         TrCollections.removeValuesFromArray(this._weekdaysValue, allWeekdays);
-        var days = this._translate(allWeekdays, this._translatedWeekdaysMap, converter.getLocaleSymbols().getWeekdays());
+        var days = _trToString(this._translate(allWeekdays, this._translatedWeekdaysMap, converter.getLocaleSymbols().getWeekdays()));
 
         var facesMessage;
         var key = "org.apache.myfaces.trinidad.validator.DateRestrictionValidator.WEEKDAY";
@@ -852,7 +852,7 @@ TrDateRestrictionValidator.prototype.validate  = function(
       {
         var allMonth = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
         TrCollections.removeValuesFromArray(this._monthValue, allMonth);
-        var month = this._translate(allMonth, this._translatedMonthMap, converter.getLocaleSymbols().getMonths());
+        var month = _trToString(this._translate(allMonth, this._translatedMonthMap, converter.getLocaleSymbols().getMonths()));
         
         var facesMessage;
         var key = "org.apache.myfaces.trinidad.validator.DateRestrictionValidator.MONTH";
@@ -1142,6 +1142,19 @@ function _returnRangeHints(
   );
   
 }
+
+function _trToString(param) 
+{
+  if (Array.prototype.isPrototypeOf(param))
+  {
+    return param.join(", ");
+  }
+  else
+  {
+    return "" + param;
+  }
+}
+
 function _returnHints(
   messages,
   max,
@@ -1161,7 +1174,7 @@ function _returnHints(
       hints.push(
         TrMessageFactory.createCustomMessage(
           messages[maxHint],
-          ""+max)
+          _trToString(max))
       );
     }
     else
@@ -1169,7 +1182,7 @@ function _returnHints(
       hints.push(
         TrMessageFactory.createMessage(
           maxKey,
-          ""+max)
+          _trToString(max))
       );
     }
     
@@ -1185,7 +1198,7 @@ function _returnHints(
       hints.push(
         TrMessageFactory.createCustomMessage(
           messages[minHint],
-          ""+min)
+          _trToString(min))
        );
     }
     else
@@ -1193,7 +1206,7 @@ function _returnHints(
       hints.push(
         TrMessageFactory.createMessage(
           minKey,
-          ""+min)
+          _trToString(min))
        );
     }
   }
