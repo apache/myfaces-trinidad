@@ -140,7 +140,7 @@ TrMessageBox.prototype.removeMessages = function(inputId)
 {
   var listElement = this._getMessageList();
   
-  if (!listElement.hasChildNodes())
+  if (!listElement || !listElement.hasChildNodes())
     return;
     
   var lineName = this._getMessageNameForInput(inputId);
