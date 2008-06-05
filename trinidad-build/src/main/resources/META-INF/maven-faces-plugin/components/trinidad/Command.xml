@@ -65,7 +65,10 @@
       </property-extension>
     </property>
     <property>
-      <description><![CDATA[a method reference to an return listener]]></description>
+      <description><![CDATA[a method reference to a return listener.This method
+      is used to process dialog returnEvents which are generated as a result of either
+      calling org.apache.myfaces.trinidad.context.RequestContext.returnFromDialog
+      directly or declaratively through the use of a returnActionListener tag.]]></description>
       <property-name>returnListener</property-name>
       <property-class>javax.faces.el.MethodBinding</property-class>
       <property-extension>
