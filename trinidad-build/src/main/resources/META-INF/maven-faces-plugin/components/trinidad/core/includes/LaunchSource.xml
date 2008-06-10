@@ -23,7 +23,10 @@
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin">
   <component>
     <property>
-      <description><![CDATA[Indicates whether processes launched by this command should be launched in a secondary dialog window.]]></description>
+      <description><![CDATA[Indicates whether processes launched by this command should be
+        launched in a secondary dialog window. 'useWindow' requires that the "action"
+        attribute start with "dialog:". Set useWindow to 'false' for the outcome of
+        the action to be targeted to the existing window.]]></description>
       <property-name>useWindow</property-name>
       <property-class>boolean</property-class>
       <property-extension>
