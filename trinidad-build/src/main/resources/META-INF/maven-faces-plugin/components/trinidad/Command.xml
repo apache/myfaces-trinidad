@@ -35,7 +35,8 @@
     <component-class>org.apache.myfaces.trinidad.component.UIXCommand</component-class>
     <property>
       <description><![CDATA[a reference to an action method sent by the command component,
-              or the static outcome of an action]]>
+              or the static outcome of an action. If the action starts with "dialog:",
+              useWindow attribute must be set to true.]]>
       </description>
       <property-name>actionExpression</property-name>
       <property-class>javax.el.MethodExpression</property-class>
@@ -148,5 +149,6 @@ in page navigation.
     </component-extension>
   </component>
 </faces-config>
+
 
 
