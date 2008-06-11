@@ -19,16 +19,16 @@
 	   
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"> 
+  <modelVersion>4.0.0</modelVersion>
+
+  <name>Apache MyFaces Trinidad Sandbox Build</name>
+  <description>Apache MyFaces Trinidad Sandbox Build</description>
+
   <parent>
     <groupId>org.apache.myfaces.trinidad</groupId>
     <artifactId>trinidad-sandbox</artifactId>
     <version>1.2.9-SNAPSHOT</version>
   </parent>
-
-  <modelVersion>4.0.0</modelVersion>
-
-  <name>Apache MyFaces Trinidad Sandbox Build</name>
-  <description>Apache MyFaces Trinidad Sandbox Build</description>
 
   <artifactId>sandbox-build</artifactId>
   <packaging>jar</packaging>
@@ -43,7 +43,7 @@
             <exclude>**/includes/**</exclude>
           </excludes>
           <force>true</force>
-          <jsfVersion>1.2</jsfVersion>
+          <jsfVersion>${jsf-spec.version}</jsfVersion>
         </configuration>
         <executions>
           <execution>

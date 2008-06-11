@@ -36,8 +36,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.UIXEditableValue;
@@ -56,8 +55,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 public class TableFormLayoutRenderer extends XhtmlRenderer
 {
 
-    private static final Log LOG = LogFactory
-            .getLog(TableFormLayoutRenderer.class);
+    private static final TrinidadLogger LOG = TrinidadLogger.createTrinidadLogger(TableFormLayoutRenderer.class);
 
     public static final String USED = "used";
 
@@ -1440,7 +1438,7 @@ public class TableFormLayoutRenderer extends XhtmlRenderer
                 // set the width of the cell
                 boolean firstPut = false;
 
-                LOG.info("ROW:" + rowIndex);
+                LOG.info("ROW: " + rowIndex);
 
                 int usedcells = 0;
                 int componentcells = 0;
@@ -2481,23 +2479,23 @@ public class TableFormLayoutRenderer extends XhtmlRenderer
 
             if (end > columns)
             {
-                LOG.error("Error in Jsp (end > columns). "
+                LOG.severe("Error in Jsp (end > columns). "
                         + "Try to insert more spanX as possible.");
-                LOG.error("start:   " + start);
-                LOG.error("end:     " + end);
-                LOG.error("columns: " + columns);
-                LOG.error("Actual cells:");
+                LOG.severe("start:   " + start);
+                LOG.severe("end:     " + end);
+                LOG.severe("columns: " + columns);
+                LOG.severe("Actual cells:");
                 for (Object component : cells)
                 {
                     if (component instanceof UIComponent)
                     {
-                        LOG.error("Cell-ID: "
+                        LOG.severe("Cell-ID: "
                                 + ((UIComponent) component).getId() + " "
                                 + ((UIComponent) component).getRendererType());
                     }
                     else
                     {
-                        LOG.error("Cell:    " + component); // e.g. marker
+                        LOG.severe("Cell:    " + component); // e.g. marker
                     }
                 }
 

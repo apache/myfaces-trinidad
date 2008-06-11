@@ -19,26 +19,83 @@
 	   
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"> 
+  <modelVersion>4.0.0</modelVersion>
+
+  <name>Apache MyFaces Trinidad API</name>
+  <description>Public API for the Apache MyFaces Trinidad project</description>
+  
   <parent>
     <groupId>org.apache.myfaces.trinidad</groupId>
     <artifactId>trinidad</artifactId>
     <version>1.2.9-SNAPSHOT</version>
   </parent>
 
-  <modelVersion>4.0.0</modelVersion>
-
-  <name>Apache MyFaces Trinidad API</name>
-  <description>Public API for the Apache MyFaces Trinidad project</description>
-
   <artifactId>trinidad-api</artifactId>
   <packaging>jar</packaging>
+
+  <dependencies>
+  
+    <dependency>
+      <groupId>org.apache.myfaces.trinidad</groupId>
+      <artifactId>trinidad-build</artifactId>
+    </dependency>
+    
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.servlet.jsp</groupId>
+      <artifactId>jsp-api</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>portlet-api</groupId>
+      <artifactId>portlet-api</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.faces</groupId>
+      <artifactId>jsf-api</artifactId>
+      <scope>provided</scope> <!-- force provided scope here -->
+    </dependency>
+
+    <!-- "test" scope dependencies -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.shale</groupId>
+      <artifactId>shale-test</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>jmock</groupId>
+      <artifactId>jmock</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>jmock</groupId>
+      <artifactId>jmock-cglib</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-beanutils</groupId>
+      <artifactId>commons-beanutils</artifactId>
+      <version>1.7.0</version>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
 
   <build>
     <plugins>
       <plugin>
         <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-jdev-plugin</artifactId>
-        <version>1.2.3</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -59,10 +116,10 @@
           </execution>
         </executions>
       </plugin>
+
       <plugin>
         <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-xrts-plugin</artifactId>
-        <!-- TODO: move up to parent after MNG-985 is resolved -->
         <executions>
           <execution>
             <goals>
@@ -72,6 +129,7 @@
           </execution>
         </executions>
       </plugin>
+      
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
         <configuration>
@@ -79,15 +137,9 @@
         </configuration>
       </plugin>
 
-      <!-- TODO: remove once issue MNG-237 is resolved -->
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
-<!-- Uncomment the following to run with assertions;  however,
-     do not do so with maven 2.0.6, as you get a LinkageError
-          <argLine>-enableassertions</argLine>
-          <forkMode>once</forkMode>
--->
           <includes implementation="java.util.ArrayList">
             <include implementation="java.lang.String">**/*Test.java</include>
           </includes>
@@ -100,7 +152,7 @@
         <configuration>
           <typePrefix>org.apache</typePrefix>
           <packageContains>org.apache</packageContains>
-          <jsfVersion>1.2</jsfVersion>
+          <jsfVersion>#{jsf-spec.version}</jsfVersion>
           <!--suppressListenerMethods>true</suppressListenerMethods-->
           <force>true</force>
         </configuration>
@@ -132,78 +184,16 @@
     </plugins>
   </build>
 
-  <dependencies>
-
-    <dependency>
-      <groupId>org.apache.myfaces.trinidad</groupId>
-      <artifactId>trinidad-build</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>servlet-api</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>javax.servlet.jsp</groupId>
-      <artifactId>jsp-api</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>portlet-api</groupId>
-      <artifactId>portlet-api</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.myfaces.core</groupId>
-      <artifactId>myfaces-api</artifactId>
-    </dependency>
-
-    <!-- "test" scope dependencies -->
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.shale</groupId>
-      <artifactId>shale-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>commons-beanutils</groupId>
-      <artifactId>commons-beanutils</artifactId>
-      <version>1.7.0</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>jmock</groupId>
-      <artifactId>jmock</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>jmock</groupId>
-      <artifactId>jmock-cglib</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-  </dependencies>
-
   <reporting>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-project-info-reports-plugin</artifactId>
       </plugin>
+
       <plugin>
         <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-tagdoc-plugin</artifactId>
-        <version>1.2.3</version>
         <configuration>
           <taglibs>
             <tr>http://myfaces.apache.org/trinidad</tr>
@@ -229,16 +219,8 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
-        <configuration>
-          <targetJdk>1.5</targetJdk>
-        </configuration>
       </plugin>
-<!--
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-      </plugin>
--->
+
     </plugins>
   </reporting>
 </project>

@@ -19,45 +19,25 @@
 	   
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"> 
+  <modelVersion>4.0.0</modelVersion>
+
+  <name>Apache MyFaces Trinidad Sandbox Impl</name>
+  <description>Private implementation of the Apache MyFaces Trinidad project</description>
+
   <parent>
     <groupId>org.apache.myfaces.trinidad</groupId>
     <artifactId>trinidad-sandbox</artifactId>
     <version>1.2.9-SNAPSHOT</version>
   </parent>
 
-  <modelVersion>4.0.0</modelVersion>
-
-  <name>Apache MyFaces Trinidad Sandbox Impl</name>
-  <description>Private implementation of the Apache MyFaces Trinidad project</description>
-
   <artifactId>sandbox-impl</artifactId>
   <packaging>jar</packaging>
 
   <build>
     <plugins>
-    <!-- 
-      <plugin>
-        <groupId>org.apache.myfaces.trinidadbuild</groupId>
-        <artifactId>maven-jdev-plugin</artifactId>
-        <version>1.2.3</version>
-        <configuration>
-          <sourceRoots>
-            <sourceRoot>src/main/java-templates/</sourceRoot>
-          </sourceRoots>
-          <resourceRoots>
-            <resourceRoot>src/main/javascript/</resourceRoot>
-          </resourceRoots>
-        </configuration>
-      </plugin>
-       -->
-      <plugin>
+       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
-<!-- Uncomment the following to run with assertions;  however,
-     do not do so with maven 2.0.6, as you get a LinkageError
-          <argLine>-enableassertions</argLine>
-          <forkMode>once</forkMode>
--->
           <systemProperties>
             <!-- Trinidad currently fails proper HTML ID validity,
 		 and rather badly - so turn that test off -->
@@ -128,7 +108,7 @@
           <renderKitPrefix>org.apache</renderKitPrefix>
           <packageContains>org.apache.myfaces.trinidadinternal.sandbox</packageContains>
           <removeRenderers>false</removeRenderers>
-          <jsfVersion>1.2</jsfVersion>
+          <jsfVersion>${jsf-spec.version}</jsfVersion>
           <force>true</force>
         </configuration>
         <executions>
@@ -142,24 +122,6 @@
           </execution>
         </executions>
       </plugin>
-      <!-- 
-      <plugin>
-        <groupId>org.apache.myfaces.trinidadbuild</groupId>
-        <artifactId>maven-i18n-plugin</artifactId>
-        <configuration>
-          <force>true</force>
-          <targetPath>META-INF/adf/jsLibs/resources</targetPath>
-        </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>generate-locale-elements</goal>
-              <goal>generate-javascript-locales</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-       -->
       <plugin>
         <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-javascript-plugin</artifactId>
@@ -218,8 +180,6 @@
     <dependency>
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
-      <version>2.1</version>
-      <scope>compile</scope>
     </dependency>
 
     <dependency>
@@ -237,15 +197,15 @@
       <artifactId>trinidad-impl</artifactId>
     </dependency>
 
-
     <dependency>
       <groupId>org.apache.myfaces.trinidad</groupId>
       <artifactId>sandbox-api</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.apache.myfaces.core</groupId>
-      <artifactId>myfaces-api</artifactId>
+      <groupId>javax.faces</groupId>
+      <artifactId>jsf-api</artifactId>
+      <scope>provided</scope> <!-- force provided scope here -->
     </dependency>
 
     <!-- "test" scope dependencies -->
@@ -259,32 +219,27 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <scope>test</scope>
     </dependency>
 
     <dependency>
       <groupId>org.apache.shale</groupId>
       <artifactId>shale-test</artifactId>
-      <scope>test</scope>
     </dependency>
 
     <dependency>
       <groupId>jmock</groupId>
       <artifactId>jmock</artifactId>
-      <scope>test</scope>
     </dependency>
 
     <dependency>
       <groupId>jmock</groupId>
       <artifactId>jmock-cglib</artifactId>
-      <scope>test</scope>
     </dependency>
 
     <dependency>
       <groupId>com.sun.facelets</groupId>
       <artifactId>jsf-facelets</artifactId>
     </dependency>
-
   </dependencies>
 
   <reporting>
@@ -297,7 +252,7 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
         <configuration>
-          <targetJdk>1.5</targetJdk>
+          <targetJdk>${jdk.version}</targetJdk>
         </configuration>
       </plugin>
     </plugins>

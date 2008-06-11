@@ -33,47 +33,33 @@
   <artifactId>sandbox-demo</artifactId>
   <packaging>war</packaging>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.myfaces.trinidadbuild</groupId>
-        <artifactId>maven-jdev-plugin</artifactId>
-        <version>1.2.3</version>
-        <configuration>
-          <libraries>
-            <library>JSP Runtime</library>
-          </libraries>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-
+  <!-- Project dependencies -->
   <dependencies>
     <dependency>
-      <groupId>${pom.groupId}</groupId>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+    </dependency>
+  
+    <!-- Apache Trinidad -->
+    <dependency>
+      <groupId>org.apache.myfaces.trinidad</groupId>
       <artifactId>trinidad-api</artifactId>
-      <version>${pom.version}</version>
     </dependency>
 
     <dependency>
-      <groupId>${pom.groupId}</groupId>
+      <groupId>org.apache.myfaces.trinidad</groupId>
       <artifactId>trinidad-impl</artifactId>
-      <version>${pom.version}</version>
     </dependency>
-
+    
     <dependency>
       <groupId>${pom.groupId}</groupId>
       <artifactId>sandbox-api</artifactId>
-      <version>${pom.version}</version>
     </dependency>
 
     <dependency>
       <groupId>${pom.groupId}</groupId>
       <artifactId>sandbox-impl</artifactId>
-      <version>${pom.version}</version>
     </dependency>
-
-
 
     <dependency>
       <groupId>javax.mail</groupId>
@@ -90,76 +76,100 @@
     <dependency>
       <groupId>jstl</groupId>
       <artifactId>jstl</artifactId>
-      <scope>runtime</scope>
-    </dependency>
-
-<!-- Dependencies pulled in via myfaces/ri pom
-    <dependency>
-      <groupId>commons-beanutils</groupId>
-      <artifactId>commons-beanutils</artifactId>
-      <version>1.6</version>
-      <scope>runtime</scope>
     </dependency>
 
     <dependency>
-      <groupId>commons-digester</groupId>
-      <artifactId>commons-digester</artifactId>
-      <version>1.5</version>
-      <scope>runtime</scope>
+      <groupId>org.apache.myfaces.portlet-bridge</groupId>
+      <artifactId>portlet-bridge-api</artifactId>
+    </dependency>
+      
+    <dependency>
+      <groupId>org.apache.myfaces.portlet-bridge</groupId>
+      <artifactId>portlet-bridge-impl</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>commons-logging</groupId>
-      <artifactId>commons-logging</artifactId>
-      <version>1.0.4</version>
-      <scope>runtime</scope>
-    </dependency>
-    
-    <dependency>
-      <groupId>commons-collections</groupId>
-      <artifactId>commons-collections</artifactId>
-      <version>2.1</version>
-      <scope>runtime</scope>
-    </dependency>
--->
-
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>servlet-api</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>javax.servlet.jsp</groupId>
-      <artifactId>jsp-api</artifactId>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
     </dependency>
 
     <!-- For SourceCodeServlet -->
     <dependency>
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
-      <version>2.1</version>
-      <scope>compile</scope>
     </dependency>
-  </dependencies>
+  </dependencies>  
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.myfaces.trinidadbuild</groupId>
+        <artifactId>maven-jdev-plugin</artifactId>
+        <configuration>
+          <libraries>
+            <library>JSP Runtime</library>
+          </libraries>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 
   <profiles>
-     <profile>
-       <id>jettyConfig</id>
+    <profile>
+      <id>jettyConfig</id>
+      <dependencyManagement>
+        <dependencies>
+          <dependency>
+            <groupId>javax.faces</groupId>
+            <artifactId>jsf-api</artifactId>
+            <version>${jsf-ri.version}</version>
+            <scope>compile</scope>
+          </dependency>
+
+          <dependency>
+            <groupId>javax.faces</groupId>
+            <artifactId>jsf-impl</artifactId>
+            <version>${jsf-ri.version}</version>
+            <scope>runtime</scope>
+          </dependency>
+
+          <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-api</artifactId>
+            <version>${jsf-myfaces.version}</version>
+            <scope>compile</scope>
+          </dependency>
+
+          <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-impl</artifactId>
+            <version>${jsf-myfaces.version}</version>
+            <scope>runtime</scope>
+          </dependency>
+         </dependencies>
+       </dependencyManagement>
+
        <build>
          <plugins>
            <plugin>
              <groupId>org.mortbay.jetty</groupId>
              <artifactId>maven-jetty-plugin</artifactId>
-             <version>6.1.2rc0</version>
              <configuration>
                <scanIntervalSeconds>10</scanIntervalSeconds>
              </configuration>
            </plugin>
-        </plugins>
-      </build>
-    </profile>
+         </plugins>
+       </build>
+     </profile>
 
-    <!-- By default the war examples use myfaces! :) -->
+    <!--
+      This profile activates MyFaces as the release to use for these demos.  By default
+      MyFaces is used when these examples are run in Jetty and/or used with the -PincludeJSF
+      flag.  To invoke this profile, simply do not include a -Djsf= property on your maven
+      command line.  Execute this profile like this:
+      
+      mvn -PjettyConfig jetty:run
+    -->    
     <profile>
       <id>myfaces</id>
       <activation>
@@ -168,22 +178,25 @@
         </property>
       </activation>
       <dependencies>
-
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-api</artifactId>
-          <scope>compile</scope>
         </dependency>
-
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-impl</artifactId>
-          <scope>runtime</scope>
         </dependency>
       </dependencies>
     </profile>
 
-    <!-- To use the examples using the Sun's JSF Reference Implementation: -Djsf=ri -->
+    <!--
+      This profile activates the JSF RI as the release to use for these demos.  When activated
+      the JSF RI is used when these examples are run in Jetty and/or used with the 
+      -PincludeJSF flag.  To invoke this profile, simply do include a -Djsf=ri property on 
+      your maven command line.  Execute this profile like this:
+      
+      mvn -PjettyConfig -Djsf=ri jetty:run
+    -->    
     <profile>
       <id>jsfri</id>
       <activation>
@@ -196,28 +209,12 @@
         <dependency>
           <groupId>javax.faces</groupId>
           <artifactId>jsf-api</artifactId>
-          <version>1.2_04</version>
         </dependency>
         <dependency>
           <groupId>javax.faces</groupId>
           <artifactId>jsf-impl</artifactId>
-          <version>1.2_04</version>
         </dependency>
-      </dependencies>
-
-      <repositories>
-        <repository>
-          <id>java.net</id>
-          <name>java.net Maven 1 Repository</name>
-          <url>https://maven-repository.dev.java.net/nonav/repository</url>
-          <layout>legacy</layout>
-        </repository>
-      </repositories>
-
-      <properties>
-        <jsf_implementation>JSF-RI</jsf_implementation>
-      </properties>
+      </dependencies>      
     </profile>
   </profiles>
-
 </project>
