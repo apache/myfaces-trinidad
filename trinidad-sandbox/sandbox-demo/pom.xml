@@ -19,16 +19,16 @@
     under the License.
 	   
 -->
+  <modelVersion>4.0.0</modelVersion>
+
+  <name>Apache MyFaces Trinidad Sandbox Demo</name>
+  <description>Apache MyFaces Trinidad Sandbox Demo</description>
+
   <parent>
     <groupId>org.apache.myfaces.trinidad</groupId>
     <artifactId>trinidad-sandbox</artifactId>
     <version>1.2.9-SNAPSHOT</version>
   </parent>
-
-  <modelVersion>4.0.0</modelVersion>
-
-  <name>Apache MyFaces Trinidad Sandbox Demo</name>
-  <description>Apache MyFaces Trinidad Sandbox Demo</description>
 
   <artifactId>sandbox-demo</artifactId>
   <packaging>war</packaging>
@@ -39,26 +39,31 @@
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
     </dependency>
-  
-    <!-- Apache Trinidad -->
+
     <dependency>
-      <groupId>org.apache.myfaces.trinidad</groupId>
-      <artifactId>trinidad-api</artifactId>
+      <groupId>javax.servlet.jsp</groupId>
+      <artifactId>jsp-api</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.apache.myfaces.trinidad</groupId>
-      <artifactId>trinidad-impl</artifactId>
-    </dependency>
-    
-    <dependency>
-      <groupId>${pom.groupId}</groupId>
-      <artifactId>sandbox-api</artifactId>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>${pom.groupId}</groupId>
-      <artifactId>sandbox-impl</artifactId>
+      <groupId>org.apache.myfaces.portlet-bridge</groupId>
+      <artifactId>portlet-bridge-api</artifactId>
+    </dependency>
+      
+    <dependency>
+      <groupId>org.apache.myfaces.portlet-bridge</groupId>
+      <artifactId>portlet-bridge-impl</artifactId>
+    </dependency>
+
+    <!-- For SourceCodeServlet -->
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
     </dependency>
 
     <dependency>
@@ -73,32 +78,28 @@
       <version>1.1</version>
     </dependency>
 
+    <!-- Apache Trinidad -->
     <dependency>
-      <groupId>jstl</groupId>
-      <artifactId>jstl</artifactId>
+      <groupId>org.apache.myfaces.trinidad</groupId>
+      <artifactId>trinidad-api</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.apache.myfaces.portlet-bridge</groupId>
-      <artifactId>portlet-bridge-api</artifactId>
-    </dependency>
-      
-    <dependency>
-      <groupId>org.apache.myfaces.portlet-bridge</groupId>
-      <artifactId>portlet-bridge-impl</artifactId>
+      <groupId>org.apache.myfaces.trinidad</groupId>
+      <artifactId>trinidad-impl</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
+      <groupId>${pom.groupId}</groupId>
+      <artifactId>sandbox-api</artifactId>
     </dependency>
 
-    <!-- For SourceCodeServlet -->
     <dependency>
-      <groupId>commons-lang</groupId>
-      <artifactId>commons-lang</artifactId>
+      <groupId>${pom.groupId}</groupId>
+      <artifactId>sandbox-impl</artifactId>
     </dependency>
-  </dependencies>  
+
+  </dependencies>
 
   <build>
     <plugins>

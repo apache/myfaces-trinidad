@@ -16,13 +16,12 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <name>Apache MyFaces Trinidad 1.2</name>
-  <description>JSF 1.2 branch of Apache MyFaces Trinidad</description>
+  <description>Apache MyFaces Trinidad for JSF 1.2</description>
   <url>http://myfaces.apache.org/trinidad/trinidad-1_2</url>
   <inceptionYear>2001</inceptionYear>
 
@@ -83,7 +82,7 @@
       </notifier>
     </notifiers>
   </ciManagement>
-  
+
   <mailingLists>
     <mailingList>
       <name>MyFaces Users (use [Trinidad] prefix)</name>
@@ -134,12 +133,13 @@
   </mailingLists>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad/tags/trinidad-1.2.8</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad/tags/trinidad-1.2.8</developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/myfaces/trinidad/tags/trinidad-1.2.8</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad/trunk_1.2.x/</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad/trunk_1.2.x/</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/myfaces/trinidad/trunk_1.2.x/</url>
   </scm>
 
   <repositories>
+    <!--Fixme: This repository is pretty bad.  We should move require artifacts to repo1. -->
     <repository>
       <id>java.net</id>
       <url>http://download.java.net/maven/1</url>
@@ -150,22 +150,16 @@
       <name>Apache Snapshot Repository</name>
       <url>http://people.apache.org/repo/m2-snapshot-repository</url>
     </repository>
-    <repository>
-      <id>apache.snapshots</id>
-      <name>Apache Snapshot Repository</name>
-      <url>http://people.apache.org/repo/m2-snapshot-repository</url>
-    </repository>
   </repositories>
 
   <pluginRepositories>
     <pluginRepository>
-      <id>apache.stage</id>
-      <name>Apache Stage Repository</name>
-      <url>http://people.apache.org/repo/m2-incubating-repository</url>
-      <layout>default</layout>
+      <id>apache.snapshots</id>
+      <name>Apache Snapshot Repository</name>
+      <url>http://people.apache.org/repo/m2-snapshot-repository</url>
     </pluginRepository>
   </pluginRepositories>
-    
+
   <distributionManagement>
     <site>
       <id>apache-site</id>
@@ -190,12 +184,12 @@
       </dependency>
 
       <dependency>
-        <groupId>portlet-api</groupId>
-        <artifactId>portlet-api</artifactId>
-        <version>${portlet.version}</version>
+        <groupId>javax.servlet</groupId>
+        <artifactId>jstl</artifactId>
+        <version>${jstl.version}</version>
         <scope>provided</scope>
       </dependency>
-      
+
       <dependency>
         <groupId>javax.servlet.jsp</groupId>
         <artifactId>jsp-api</artifactId>
@@ -204,12 +198,12 @@
       </dependency>
 
       <dependency>
-        <groupId>jstl</groupId>
-        <artifactId>jstl</artifactId>
-        <version>${jstl.version}</version>
+        <groupId>javax.portlet</groupId>
+        <artifactId>portlet-api</artifactId>
+        <version>${portlet.version}</version>
         <scope>provided</scope>
       </dependency>
-
+      
       <dependency>
         <groupId>javax.faces</groupId>
         <artifactId>jsf-api</artifactId>
@@ -272,13 +266,13 @@
         <version>${pom.version}</version>
         <scope>provided</scope>
       </dependency>
-      
+
       <dependency>
         <groupId>org.apache.myfaces.trinidad</groupId>
         <artifactId>trinidad-api</artifactId>
         <version>${pom.version}</version>
       </dependency>
-      
+
       <dependency>
         <groupId>org.apache.myfaces.trinidad</groupId>
         <artifactId>trinidad-impl</artifactId>
@@ -292,7 +286,7 @@
         <type>test-jar</type>
         <scope>test</scope>
       </dependency>
-      
+
       <dependency>
         <groupId>org.apache.shale</groupId>
         <artifactId>shale-test</artifactId>
@@ -361,7 +355,7 @@
             <url>scpexe://minotaur.apache.org/www/people.apache.org/builds/myfaces/nightly</url>
           </configuration>
         </plugin>
-        
+
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-xrts-plugin</artifactId>
@@ -385,7 +379,7 @@
           <artifactId>maven-jdev-plugin</artifactId>
           <version>${trinidad-plugins.version}</version>
         </plugin>
-        
+
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-i18n-plugin</artifactId>
@@ -399,7 +393,7 @@
           <version>${trinidad-plugins.version}</version>
           <inherited>true</inherited>
         </plugin>
-        
+
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-tagdoc-plugin</artifactId>
@@ -413,10 +407,10 @@
           <configuration>
             <source>${jdk.version}</source>
             <target>${jdk.version}</target>
-<!--
+            <!--
             <showWarnings>true</showWarnings>
-            <compilerArgument>-Xlint:all,-serial,-fallthrough,-deprecation</compilerArgument>
--->
+            <compilerArgument>-Xlint:all,-serial,-fallthrough</compilerArgument>
+            -->
           </configuration>
         </plugin>
 
@@ -436,6 +430,18 @@
           <configuration>
             <filtering>false</filtering>
           </configuration>
+        </plugin>
+
+        <plugin>
+            <artifactId>maven-source-plugin</artifactId>
+            <executions>
+                <execution>
+                    <id>attach-source</id>
+                    <goals>
+                        <goal>jar</goal>
+                    </goals>
+                </execution>
+            </executions>
         </plugin>
 
         <plugin>
@@ -482,7 +488,7 @@
       </plugin>
     </plugins>
   </build>
-  
+
   <reporting>
     <plugins>
       <plugin>
@@ -493,15 +499,18 @@
           <threshold>Low</threshold>
         </configuration>
       </plugin>
+
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>rat-maven-plugin</artifactId>
       </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-project-info-reports-plugin</artifactId>
         <version>2.0.1</version>
       </plugin>
+
       <plugin>
         <artifactId>maven-pmd-plugin</artifactId>
         <version>2.3</version>
@@ -512,7 +521,7 @@
           </rulesets>
           <linkXref>true</linkXref>
           <minimumTokens>100</minimumTokens>
-          <targetJdk>{jdk.version}</targetJdk>
+          <targetJdk>${jdk.version}</targetJdk>
         </configuration>
       </plugin>
     </plugins>
@@ -556,7 +565,7 @@
         <module>trinidad-sandbox</module>
       </modules>
     </profile>
-    
+
     <!-- 
       This profile is for building the release artifacts for review.  Execute this profile 
       like this:
@@ -606,7 +615,7 @@
         </plugins>
       </build>
     </profile>
-    
+
     <!--
       This profile enables asserts in the surefire tests. Do not use this with Maven 2.0.6 or
       you will get an error.  Execute this profile like this:

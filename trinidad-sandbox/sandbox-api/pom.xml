@@ -55,7 +55,7 @@
     </dependency>
 
     <dependency>
-      <groupId>portlet-api</groupId>
+      <groupId>javax.portlet</groupId>
       <artifactId>portlet-api</artifactId>
     </dependency>
 
@@ -94,7 +94,7 @@
     </dependency>
     
   </dependencies>
-  
+
   <build>
     <plugins>
       <plugin>
@@ -186,8 +186,6 @@
 
     </plugins>
   </build>
-
-
 
   <reporting>
     <plugins>

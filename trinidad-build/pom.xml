@@ -42,6 +42,7 @@
           <excludes>
             <exclude>**/includes/**</exclude>
           </excludes>
+          <force>true</force>
         </configuration>
         <executions>
           <execution>

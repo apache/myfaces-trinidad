@@ -28,7 +28,7 @@
     <artifactId>trinidad</artifactId>
     <version>1.2.9-SNAPSHOT</version>
   </parent>
-  
+
   <artifactId>trinidad-assembly</artifactId>
   <packaging>pom</packaging>
 
@@ -163,7 +163,8 @@
                       <classifier>sources</classifier>
                     </artifactItem>
                   </artifactItems>
-                  <outputDirectory>${project.build.directory}/src
+                  <outputDirectory>
+                    ${project.build.directory}/src
                   </outputDirectory>
                 </configuration>
               </execution>

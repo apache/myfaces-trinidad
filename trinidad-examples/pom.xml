@@ -29,7 +29,7 @@
     <artifactId>trinidad</artifactId>
     <version>1.2.9-SNAPSHOT</version>
   </parent>
-  
+
   <artifactId>trinidad-example</artifactId>
   <packaging>pom</packaging>
 
@@ -60,7 +60,7 @@
     </dependency>
     
     <dependency>
-      <groupId>jstl</groupId>
+      <groupId>javax.servlet</groupId>
       <artifactId>jstl</artifactId>
     </dependency>
 
@@ -78,7 +78,7 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
     </dependency>
-  </dependencies>  
+  </dependencies>
   
   <modules>
     <module>trinidad-blank</module>
