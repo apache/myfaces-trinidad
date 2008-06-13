@@ -16,10 +16,14 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-     
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
+  <name>Apache MyFaces Trinidad</name>
+  <description>Apache MyFaces Trinidad</description>
+  <url>http://myfaces.apache.org/trinidad</url>
+  <inceptionYear>2001</inceptionYear>
 
   <parent>
     <groupId>org.apache.myfaces</groupId>
@@ -29,11 +33,35 @@
 
   <groupId>org.apache.myfaces.trinidad</groupId>
   <artifactId>trinidad</artifactId>
-  <packaging>pom</packaging>
-  <name>Apache MyFaces Trinidad</name>
   <version>1.0.9-SNAPSHOT</version>
-  <description>Apache MyFaces Trinidad</description>
-  <url>http://myfaces.apache.org/trinidad</url>
+  <packaging>pom</packaging>
+
+  <properties>
+    <!-- Standards -->
+    <jdk.version>1.5</jdk.version>    
+    <servlet.version>2.4</servlet.version>
+    <portlet.version>1.0</portlet.version>
+    <jsp.version>2.1</jsp.version>
+    <jstl.version>1.1.2</jstl.version>
+    <jsf-spec.version>1.1</jsf-spec.version>
+    <jsf-ri.version>1.1_02</jsf-ri.version>
+    <jsf-myfaces.version>1.1.5</jsf-myfaces.version>
+    <jsf-facelets.version>1.1.11</jsf-facelets.version>
+    <commons-lang.version>2.4</commons-lang.version>
+    
+    <!-- Testing -->
+    <shale.version>1.0.4</shale.version>
+    <jmock.version>1.2.0</jmock.version>
+    <junit.version>4.4</junit.version>
+    
+    <!-- Plugins -->
+    <trinidad-plugins.version>1.2.6</trinidad-plugins.version>
+    <wagon-plugin.version>1.0.6</wagon-plugin.version>
+    <jetty-plugin.version>6.1.7</jetty-plugin.version>
+    
+    <!-- Other -->
+    <jdev.release>11.1.1.0.0</jdev.release>
+  </properties>
 
   <issueManagement>
     <system>jira</system>
@@ -53,8 +81,6 @@
       </notifier>
     </notifiers>
   </ciManagement>
-
-  <inceptionYear>2001</inceptionYear>
 
   <mailingLists>
     <mailingList>
@@ -111,22 +137,186 @@
     <url>http://svn.apache.org/viewcvs.cgi/myfaces/trinidad/trunk/</url>
   </scm>
 
+  <repositories>
+    <!--repository>
+      <id>java.net</id>
+      <url>http://download.java.net/maven/1</url>
+      <layout>legacy</layout>
+    </repository-->
+    <repository>
+      <id>apache.snapshots</id>
+      <name>Apache Snapshot Repository</name>
+      <url>http://people.apache.org/repo/m2-snapshot-repository</url>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>apache.snapshots</id>
+      <name>Apache Snapshot Repository</name>
+      <url>http://people.apache.org/repo/m2-snapshot-repository</url>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <distributionManagement>
+    <site>
+      <id>apache-site</id>
+      <name>Apache Website</name>
+      <url>scpexe://minotaur.apache.org/www/myfaces.apache.org/trinidad</url>
+    </site>
+    <snapshotRepository>
+      <uniqueVersion>false</uniqueVersion>
+      <id>apache-maven-snapshots</id>
+      <name>Apache Maven Snapshot Repository</name>
+      <url>scpexe://minotaur.apache.org/www/people.apache.org/repo/m2-snapshot-repository</url>
+    </snapshotRepository>
+  </distributionManagement>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>servlet-api</artifactId>
+        <version>${servlet.version}</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>jstl</artifactId>
+        <version>${jstl.version}</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>javax.servlet.jsp</groupId>
+        <artifactId>jsp-api</artifactId>
+        <version>${jsp.version}</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>javax.portlet</groupId>
+        <artifactId>portlet-api</artifactId>
+        <version>${portlet.version}</version>
+        <scope>provided</scope>
+      </dependency>
+      
+      <dependency>
+        <groupId>javax.faces</groupId>
+        <artifactId>jsf-api</artifactId>
+        <version>${jsf-ri.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>javax.faces</groupId>
+        <artifactId>jsf-impl</artifactId>
+        <version>${jsf-ri.version}</version>
+        <scope>runtime</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.myfaces.core</groupId>
+        <artifactId>myfaces-api</artifactId>
+        <version>${jsf-myfaces.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.myfaces.core</groupId>
+        <artifactId>myfaces-impl</artifactId>
+        <version>${jsf-myfaces.version}</version>
+        <scope>runtime</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>com.sun.facelets</groupId>
+        <artifactId>jsf-facelets</artifactId>
+        <version>${jsf-facelets.version}</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>commons-lang</groupId>
+        <artifactId>commons-lang</artifactId>
+        <version>${commons-lang.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.myfaces.trinidad</groupId>
+        <artifactId>trinidad-build</artifactId>
+        <version>${pom.version}</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.myfaces.trinidad</groupId>
+        <artifactId>trinidad-api</artifactId>
+        <version>${pom.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.myfaces.trinidad</groupId>
+        <artifactId>trinidad-impl</artifactId>
+        <version>${pom.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.myfaces.trinidad</groupId>
+        <artifactId>trinidad-api</artifactId>
+        <version>${pom.version}</version>
+        <type>test-jar</type>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.shale</groupId>
+        <artifactId>shale-test</artifactId>
+        <version>${shale.version}</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>jmock</groupId>
+        <artifactId>jmock</artifactId>
+        <version>${jmock.version}</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>jmock</groupId>
+        <artifactId>jmock-cglib</artifactId>
+        <version>${jmock.version}</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit.version}</version>
+        <scope>test</scope>
+      </dependency>      
+    </dependencies>
+  </dependencyManagement>
+
+  <modules>
+    <module>trinidad-build</module>
+    <module>trinidad-api</module>
+    <module>trinidad-impl</module>
+  </modules>
+
   <build>
     <pluginManagement>
       <plugins>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-site-plugin</artifactId>
+          <inherited>true</inherited>
           <configuration>
             <outputEncoding>UTF-8</outputEncoding>
           </configuration>
         </plugin>
 
-        <!-- To work around "No Java test frameworks found" problem with 2.2 -->
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
-          <version>2.3.1</version>
           <inherited>true</inherited>
           <configuration>
             <!-- set the forkMode to "always" to validate new tests,
@@ -137,34 +327,54 @@
         </plugin>
 
         <plugin>
+          <groupId>org.apache.myfaces.maven</groupId>
+          <artifactId>wagon-maven-plugin</artifactId>
+          <version>${wagon-plugin.version}</version>
+          <inherited>true</inherited>
+          <configuration>
+            <id>myfaces-nightly-builds</id>
+            <url>scpexe://minotaur.apache.org/www/people.apache.org/builds/myfaces/nightly</url>
+          </configuration>
+        </plugin>
+
+        <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-xrts-plugin</artifactId>
           <version>${trinidad-plugins.version}</version>
           <inherited>true</inherited>
         </plugin>
+        
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-faces-plugin</artifactId>
           <version>${trinidad-plugins.version}</version>
           <inherited>true</inherited>
+          <configuration>
+            <force>true</force>
+            <jsfVersion>${jsf-spec.version}</jsfVersion>
+          </configuration>
         </plugin>
+
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-jdev-plugin</artifactId>
           <version>${trinidad-plugins.version}</version>
         </plugin>
+
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-i18n-plugin</artifactId>
           <version>${trinidad-plugins.version}</version>
           <inherited>true</inherited>
         </plugin>
+
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-javascript-plugin</artifactId>
           <version>${trinidad-plugins.version}</version>
           <inherited>true</inherited>
         </plugin>
+
         <plugin>
           <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-tagdoc-plugin</artifactId>
@@ -176,18 +386,21 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <inherited>true</inherited>
           <configuration>
-            <source>1.5</source>
-            <target>1.5</target>
+            <source>${jdk.version}</source>
+            <target>${jdk.version}</target>
+            <!--
             <showWarnings>true</showWarnings>
             <compilerArgument>-Xlint:all,-serial,-fallthrough</compilerArgument>
+            -->
           </configuration>
         </plugin>
+
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-pmd-plugin</artifactId>
           <inherited>true</inherited>
           <configuration>
-            <targetJdk>1.5</targetJdk>
+            <targetJdk>${jdk.version}</targetJdk>
           </configuration>
         </plugin>
 
@@ -212,9 +425,29 @@
             </executions>
         </plugin>
 
+        <plugin>
+          <groupId>org.mortbay.jetty</groupId>
+          <artifactId>maven-jetty-plugin</artifactId>
+          <version>${jetty-plugin.version}</version>
+        </plugin>
       </plugins>
     </pluginManagement>
+    
     <plugins>
+      <!-- is this right? -->      
+      <plugin>
+        <groupId>org.apache.myfaces.trinidadbuild</groupId>
+        <artifactId>maven-xrts-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate-sources</goal>
+              <goal>generate-test-sources</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+        
       <plugin>
         <artifactId>maven-remote-resources-plugin</artifactId>
         <version>1.0-alpha-6</version>
@@ -224,51 +457,18 @@
               <goal>process</goal>
             </goals>
             <configuration>
-            <resourceBundles>
-              <resourceBundle>org.apache:apache-jar-resource-bundle:1.3</resourceBundle>
-            </resourceBundles>
-            <properties>
-              <addLicense>true</addLicense>
-            </properties>
-          </configuration>
-        </execution>
-      </executions>
-    </plugin>
-  </plugins>
+              <resourceBundles>
+                <resourceBundle>org.apache:apache-jar-resource-bundle:1.3</resourceBundle>
+              </resourceBundles>
+              <properties>
+                <addLicense>true</addLicense>
+              </properties>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
   </build>
-
-  <modules>
-    <module>trinidad-api</module>
-    <module>trinidad-build</module>
-    <module>trinidad-impl</module>
-    <module>trinidad-examples</module>
-  </modules>
-
-  <repositories>
-    <repository>
-      <id>java.net</id>
-      <url>http://download.java.net/maven/1</url>
-      <layout>legacy</layout>
-    </repository>
-    <repository>
-      <id>apache.snapshots</id>
-      <name>Apache Snapshot Repository</name>
-      <url>http://people.apache.org/repo/m2-snapshot-repository</url>
-    </repository>
-    <repository>
-      <id>apache.snapshots</id>
-      <name>Apache Snapshot Repository</name>
-      <url>http://people.apache.org/repo/m2-snapshot-repository</url>
-    </repository>
-  </repositories>
-
-  <pluginRepositories>
-    <pluginRepository>
-      <id>apache.snapshots</id>
-      <name>Apache Snapshot Repository</name>
-      <url>http://people.apache.org/repo/m2-snapshot-repository</url>
-    </pluginRepository>
-  </pluginRepositories>
 
   <reporting>
     <plugins>
@@ -280,15 +480,18 @@
           <threshold>Low</threshold>
         </configuration>
       </plugin>
+
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>rat-maven-plugin</artifactId>
       </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-project-info-reports-plugin</artifactId>
         <version>2.0.1</version>
       </plugin>
+
       <plugin>
         <artifactId>maven-pmd-plugin</artifactId>
         <version>2.3</version>
@@ -299,212 +502,74 @@
           </rulesets>
           <linkXref>true</linkXref>
           <minimumTokens>100</minimumTokens>
-          <targetJdk>1.5</targetJdk>
-        </configuration>
-      </plugin>
-      <!--plugin>
-        <inherited>false</inherited>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-doap-plugin</artifactId>
-        <configuration>
-          <category>web-framework</category>
-          <language>Java</language>
-          <shortdesc>Set of user interface components based on JSF.</shortdesc>
-          <pmc>http://myfaces.apache.org</pmc>
-        </configuration>
-      </plugin-->
-    </plugins>
-  </reporting>
-<!--  I'm not having any luck getting checkstyle to actually
-      pick up the checkstyle.xml from inside adf-faces-build,
-      so let's just turn this off for now.
-  <reporting>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-        <configuration>
-          <configLocation>adf-faces/checkstyle.xml</configLocation>
+          <targetJdk>${jdk.version}</targetJdk>
         </configuration>
       </plugin>
     </plugins>
   </reporting>
--->
 
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>servlet-api</artifactId>
-        <version>2.4</version>
-        <scope>provided</scope>
-      </dependency>
-
-      <dependency>
-        <groupId>portlet-api</groupId>
-        <artifactId>portlet-api</artifactId>
-        <version>1.0</version>
-        <scope>provided</scope>
-      </dependency>
-
-      <dependency>
-        <groupId>org.apache.myfaces.core</groupId>
-        <artifactId>myfaces-api</artifactId>
-        <version>${myfaces.version}</version>
-        <scope>provided</scope>
-      </dependency>
-
-      <dependency>
-        <groupId>org.apache.myfaces.core</groupId>
-        <artifactId>myfaces-impl</artifactId>
-        <version>${myfaces.version}</version>
-        <scope>provided</scope>
-      </dependency>
-
-      <dependency>
-        <groupId>org.apache.shale</groupId>
-        <artifactId>shale-test</artifactId>
-        <version>1.0.3</version>
-        <scope>test</scope>
-      </dependency>
-
-      <dependency>
-        <groupId>jmock</groupId>
-        <artifactId>jmock</artifactId>
-        <version>1.2.0</version>
-        <scope>test</scope>
-      </dependency>
-
-      <dependency>
-        <groupId>jmock</groupId>
-        <artifactId>jmock-cglib</artifactId>
-        <version>1.2.0</version>
-        <scope>test</scope>
-      </dependency>
-
-      <dependency>
-        <groupId>org.apache.myfaces.trinidad</groupId>
-        <artifactId>trinidad-build</artifactId>
-        <version>${pom.version}</version>
-        <scope>provided</scope>
-      </dependency>
-
-      <dependency>
-        <groupId>org.apache.myfaces.trinidad</groupId>
-        <artifactId>trinidad-api</artifactId>
-        <version>${pom.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.apache.myfaces.trinidad</groupId>
-        <artifactId>trinidad-api</artifactId>
-        <version>${pom.version}</version>
-        <type>test-jar</type>
-        <scope>test</scope>
-      </dependency>
-
-      <dependency>
-        <groupId>org.apache.myfaces.trinidad</groupId>
-        <artifactId>trinidad-impl</artifactId>
-        <version>${pom.version}</version>
-      </dependency>
-
-
-      <dependency>
-        <groupId>javax.servlet.jsp</groupId>
-        <artifactId>jsp-api</artifactId>
-        <!-- Use 2.1 so we have access to the EL APIs -->
-        <version>2.1</version>
-        <scope>provided</scope>
-      </dependency>
-
-
-      <dependency>
-        <groupId>com.sun.facelets</groupId>
-        <artifactId>jsf-facelets</artifactId>
-        <version>1.1.14</version>
-        <scope>provided</scope>
-      </dependency>
-
-<!--
-      <dependency>
-        <groupId>javax.el</groupId>
-        <artifactId>el-api</artifactId>
-        <version>1.0alpha</version>
-      </dependency>
-
-      <dependency>
-        <groupId>javax.el</groupId>
-        <artifactId>el-ri</artifactId>
-        <version>1.0alpha</version>
-      </dependency>
--->
-      <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>4.4</version>
-        <scope>test</scope>
-      </dependency>
-
-    </dependencies>
-  </dependencyManagement>
-
-  <distributionManagement>
-    <site>
-      <id>apache-site</id>
-      <name>Apache Website</name>
-      <url>scpexe://minotaur.apache.org/www/myfaces.apache.org/trinidad</url>
-    </site>
-    <snapshotRepository>
-      <uniqueVersion>false</uniqueVersion>
-      <id>apache-maven-snapshots</id>
-      <name>Apache Maven Snapshot Repository</name>
-      <url>scpexe://minotaur.apache.org/www/people.apache.org/repo/m2-snapshot-repository</url>
-    </snapshotRepository>
-  </distributionManagement>
-
-  <!-- This profile can be used for the release:prepare.  It enables the assembly and examples
-       projects but does not allow trinidad-assembly to compile -->
   <profiles>
+    <!--
+      This profile builds the examples when NOT performing a release.  Execute this profile
+      by making sure that there is no -DperformRelease property on the maven command.  If
+      there is, it may manually be invoked by adding a -PbuildExamples.
+    -->
     <profile>
-      <id>prepare-release</id>
+      <id>buildExamples</id>
+      <activation>
+        <property>
+          <name>!performRelease</name>
+        </property>
+      </activation>
+      
       <modules>
-        <module>trinidad-assembly</module>
         <module>trinidad-examples</module>
       </modules>
-      <properties>
-        <dependencies.disable>true</dependencies.disable>
-      </properties>
     </profile>
 
+    <!-- 
+      This profile is for preparing a release.  Execute this profile like this:
+      
+      mvn release:prepare -DprepareRelease=true
+    -->
     <profile>
-      <id>release</id>
-      <!--
-      NOTE: Execute this profile like
-            mvn clean source:jar install deploy -DaltDeploymentRepository=matzew::default::file://FOLDER -Prelease
-       -->
+      <id>prepare-release</id>
+
+      <activation>
+        <property>
+          <name>prepareRelease</name>
+        </property>
+      </activation>
+           
       <modules>
         <module>trinidad-assembly</module>
-        <module>trinidad-examples</module>
+        <module>trinidad-sandbox</module>
       </modules>
+    </profile>
+
+    <!-- 
+      This profile is for building the release artifacts for review.  Execute this profile 
+      like this:
+      
+      mvn clean source:jar install deploy -DaltDeploymentRepository=matzew::default::file://FOLDER -PperformRelease=true
+      
+      Issuing this command will also perform the "sign-artifacts" profile from the master pom.
+    -->
+    <profile>
+      <id>release</id>
+      <activation>
+        <property>
+          <name>performRelease</name>
+          <value>true</value>
+        </property>
+      </activation>
       <build>
         <plugins>
           <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-gpg-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>sign-artifacts</id>
-                <phase>verify</phase>
-                <goals>
-                  <goal>sign</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
             <artifactId>maven-javadoc-plugin</artifactId>
-            <version>2.2</version>
+            <configuration>
+              <excludePackageNames>org.apache.myfaces.trinidadinternal.*</excludePackageNames>
+            </configuration>
             <executions>
               <execution>
                 <id>attach-javadocs</id>
@@ -514,6 +579,7 @@
               </execution>
             </executions>
           </plugin>
+
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-scm-plugin</artifactId>
@@ -530,6 +596,93 @@
         </plugins>
       </build>
     </profile>
+
+    <!--
+      This profile enables asserts in the surefire tests. Do not use this with Maven 2.0.6 or
+      you will get an error.  Execute this profile like this:
+      
+      mvn install -PenableAssert
+    -->
+    <profile>
+      <id>enableAssert</id>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+              <inherited>true</inherited>
+              <configuration>
+                <forkMode>once</forkMode>
+                <argLine>-enableassertions</argLine>
+                <parallel>false</parallel>
+              </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
+    </profile>
+    
+    <!--
+      This marks the JSF libraries for inclusion into the example projects.  Execute this profile
+      like this:
+      
+      mvn install -PincludeJSF
+    -->    
+    <profile>
+      <id>includeJSF</id>
+      <dependencyManagement>
+        <dependencies>
+          <dependency>
+            <groupId>javax.faces</groupId>
+            <artifactId>jsf-api</artifactId>
+            <version>${jsf-ri.version}</version>
+            <scope>compile</scope>
+          </dependency>
+
+          <dependency>
+            <groupId>javax.faces</groupId>
+            <artifactId>jsf-impl</artifactId>
+            <version>${jsf-ri.version}</version>
+            <scope>runtime</scope>
+          </dependency>
+
+          <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-api</artifactId>
+            <version>${jsf-myfaces.version}</version>
+            <scope>compile</scope>
+          </dependency>
+
+          <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-impl</artifactId>
+            <version>${jsf-myfaces.version}</version>
+            <scope>runtime</scope>
+          </dependency>
+        </dependencies>
+      </dependencyManagement>
+    </profile>
+    
+    <!--
+      This marks the JSTL libraries for inclusion into the example projects.  Execute this profile
+      like this:
+      
+      mvn install -PincludeJSTL
+    -->
+    <profile>
+      <id>includeJSTL</id>
+      <dependencyManagement>
+        <dependencies>
+          <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>${jstl.version}</version>
+            <scope>compile</scope>
+          </dependency>
+        </dependencies>
+      </dependencyManagement>
+    </profile>
+    
     <profile>
       <id>jdk14-compatible</id>
       <activation>
@@ -561,10 +714,4 @@
         </build>
       </profile>    
   </profiles>
-
-  <properties>
-    <trinidad-plugins.version>1.2.6</trinidad-plugins.version>
-    <myfaces.version>1.1.5</myfaces.version>
-  </properties>
-
 </project>

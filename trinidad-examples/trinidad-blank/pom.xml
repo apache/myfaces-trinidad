@@ -1,4 +1,3 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
@@ -18,127 +17,42 @@
     under the License.
 	   
 -->
-  <parent>
-    <groupId>org.apache.myfaces.trinidad</groupId>
-    <artifactId>trinidad</artifactId>
-    <version>1.0.9-SNAPSHOT</version>
-  </parent>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <name>Apache MyFaces Trinidad Blank Demo</name>
   <description>Apache MyFaces Trinidad Blank Demo</description>
 
+  <parent>
+    <groupId>org.apache.myfaces.trinidad</groupId>
+    <artifactId>trinidad-example</artifactId>
+    <version>1.0.9-SNAPSHOT</version>
+  </parent>
+
   <artifactId>trinidad-blank</artifactId>
   <packaging>war</packaging>
 
-
   <!-- Profile to run jetty, so the tomcat jars are included in the bundle. They are not included by default -->
   <profiles>
-    <profile>
-      <id>jettyConfig</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.mortbay.jetty</groupId>
-            <artifactId>maven-jetty-plugin</artifactId>
-            <version>6.1.0</version>
-            <configuration>
-              <connectors>
-                <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
-                <port>8181</port>
-                <maxIdleTime>60000</maxIdleTime>
-              </connector>
-              </connectors>            
+     <profile>
+       <id>jettyConfig</id>
+       <build>
+         <plugins>
+           <plugin>
+             <groupId>org.mortbay.jetty</groupId>
+             <artifactId>maven-jetty-plugin</artifactId>
+             <configuration>
+               <connectors>
+                 <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+                 <port>8181</port>
+                 <maxIdleTime>60000</maxIdleTime>
+                </connector>
+               </connectors>            
               <scanIntervalSeconds>2</scanIntervalSeconds>
-            </configuration>
-          </plugin>
+             </configuration>
+           </plugin>
         </plugins>
       </build>
-
-      <dependencies>
-
-        <dependency>
-          <groupId>tomcat</groupId>
-          <artifactId>jasper-compiler</artifactId>
-          <version>5.5.9</version>
-          <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-          <groupId>tomcat</groupId>
-          <artifactId>jasper-runtime</artifactId>
-          <version>5.5.9</version>
-          <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-          <groupId>tomcat</groupId>
-          <artifactId>jasper-compiler-jdt</artifactId>
-          <version>5.5.9</version>
-          <scope>compile</scope>
-        </dependency>
-      </dependencies>
-
-      <pluginRepositories>
-      <!-- Repository to get the jetty plugin -->
-        <pluginRepository>
-          <id>mortbay-repo</id>
-          <name>mortbay-repo</name>
-          <url>http://www.mortbay.org/maven2/snapshot</url>
-        </pluginRepository>
-      </pluginRepositories>
-
     </profile>
   </profiles>
-
-  <repositories>
-    <repository>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <id>apache-maven-snapshots</id>
-      <url>http://people.apache.org/repo/m2-snapshot-repository/</url>
-    </repository>
-  </repositories>
-
-  <!-- Project dependencies -->
-  <dependencies>
-    <dependency>
-      <groupId>org.apache.myfaces.core</groupId>
-      <artifactId>myfaces-api</artifactId>
-      <version>1.1.5</version>
-      <scope>compile</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.myfaces.core</groupId>
-      <artifactId>myfaces-impl</artifactId>
-      <version>1.1.5</version>
-      <scope>compile</scope>
-    </dependency>
-
-    <!-- Apache Trinidad -->
-    <dependency>
-      <groupId>org.apache.myfaces.trinidad</groupId>
-      <artifactId>trinidad-api</artifactId>
-      <scope>compile</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.myfaces.trinidad</groupId>
-      <artifactId>trinidad-impl</artifactId>
-      <scope>compile</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.0</version>
-      <scope>test</scope>
-    </dependency>
-
-  </dependencies>
 </project>

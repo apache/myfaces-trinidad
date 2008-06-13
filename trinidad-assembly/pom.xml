@@ -19,8 +19,7 @@
 	   
 -->
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>trinidad-assembly</artifactId>
-  <packaging>pom</packaging>
+
   <name>Apache MyFaces Trinidad Assembly</name>
   <description>This is the Apache MyFaces Trinidad Assembly</description>
 
@@ -30,11 +29,13 @@
     <version>1.0.9-SNAPSHOT</version>
   </parent>
 
+  <artifactId>trinidad-assembly</artifactId>
+  <packaging>pom</packaging>
+
   <build>
     <plugins>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
-        <version>2.0.1</version>
         <configuration>
           <descriptors>
             <descriptor>src/main/assembly/dep.xml</descriptor>
@@ -45,28 +46,31 @@
           <workDirectory>target/assembly/work</workDirectory>
         </configuration>
       </plugin>
+
+      <!-- todo: what does this do and how is it activated? -->      
       <plugin>
         <groupId>org.apache.myfaces.maven</groupId>
         <artifactId>wagon-maven-plugin</artifactId>
-        <version>1.0.1</version>
         <configuration>
-          <id>myfaces-nightly-builds</id>
-          <url>scpexe://minotaur.apache.org/www/people.apache.org/builds/myfaces/nightly</url>
           <inputDirectory>target/assembly/out</inputDirectory>
         </configuration>
       </plugin>
-    </plugins>  
+    </plugins>
   </build>
-  
+
   <profiles>
-    <!-- The project does nothing if dependencies are disabled.  This helps with predeployment. -->
     <profile>
-      <id>release</id>
+      <id>assemble</id>
+      <activation>
+        <property>
+          <name>!prepareRelease</name>
+        </property>
+      </activation>
+
       <dependencies>
         <dependency>
           <groupId>org.apache.myfaces.trinidad</groupId>
           <artifactId>trinidad-build</artifactId>
-          <version>${project.version}</version>
           <exclusions>
             <exclusion>
               <groupId>javax.servlet</groupId>
@@ -81,7 +85,6 @@
         <dependency>
           <groupId>org.apache.myfaces.trinidad</groupId>
           <artifactId>trinidad-api</artifactId>
-          <version>${project.version}</version>
           <exclusions>
             <exclusion>
               <groupId>javax.servlet</groupId>
@@ -96,7 +99,6 @@
         <dependency>
           <groupId>org.apache.myfaces.trinidad</groupId>
           <artifactId>trinidad-impl</artifactId>
-          <version>${project.version}</version>
           <exclusions>
             <exclusion>
               <groupId>javax.servlet</groupId>
@@ -108,21 +110,6 @@
             </exclusion>
           </exclusions>
         </dependency>
-        <!--dependency>
-          <groupId>org.apache.myfaces.trinidad</groupId>
-          <artifactId>trinidad-demo</artifactId>
-          <version>${project.version}</version>
-          <exclusions>
-            <exclusion>
-              <groupId>javax.servlet</groupId>
-              <artifactId>jsp-api</artifactId>
-            </exclusion>
-            <exclusion>
-              <groupId>javax.servlet</groupId>
-              <artifactId>servlet-api</artifactId>
-            </exclusion>
-          </exclusions>
-        </dependency-->
       </dependencies>
 
       <build>
