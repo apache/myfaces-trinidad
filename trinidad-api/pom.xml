@@ -23,7 +23,7 @@
 
   <name>Apache MyFaces Trinidad API</name>
   <description>Public API for the Apache MyFaces Trinidad project</description>
-  
+
   <parent>
     <groupId>org.apache.myfaces.trinidad</groupId>
     <artifactId>trinidad</artifactId>
@@ -34,7 +34,7 @@
   <packaging>jar</packaging>
 
   <dependencies>
-  
+
     <dependency>
       <groupId>org.apache.myfaces.trinidad</groupId>
       <artifactId>trinidad-build</artifactId>
@@ -51,7 +51,7 @@
     </dependency>
 
     <dependency>
-      <groupId>portlet-api</groupId>
+      <groupId>javax.portlet</groupId>
       <artifactId>portlet-api</artifactId>
     </dependency>
 
@@ -82,13 +82,6 @@
       <artifactId>jmock-cglib</artifactId>
     </dependency>
 
-    <dependency>
-      <groupId>commons-beanutils</groupId>
-      <artifactId>commons-beanutils</artifactId>
-      <version>1.7.0</version>
-      <scope>test</scope>
-    </dependency>
-
   </dependencies>
 
   <build>
@@ -97,6 +90,7 @@
         <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-jdev-plugin</artifactId>
       </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
