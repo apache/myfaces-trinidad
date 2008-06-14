@@ -36,6 +36,12 @@
     <param-value>.jspx</param-value>
   </context-param>
 
+  <!-- Set to true for using the lightweight dialog feature -->
+  <context-param>
+    <param-name>org.apache.myfaces.trinidad.ENABLE_LIGHTWEIGHT_DIALOGS</param-name>
+    <param-value>false</param-value>
+  </context-param>
+
   <!-- Parameter to set the maximum number of client view state tokens.
        Uncomment this to test low-token-count scenarios.
   <context-param>
