@@ -32,6 +32,7 @@ import javax.faces.FactoryFinder;
 import javax.faces.application.ApplicationFactory;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
+import javax.faces.model.DataModelListener;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
@@ -134,6 +135,21 @@ public class SortableModel extends CollectionModel
   public void setRowKey(Object key)
   {
     _model.setRowIndex(_toRowIndex(key));
+  }
+
+  public void addDataModelListener(DataModelListener listener)
+  {
+    _model.addDataModelListener(listener);
+  }
+
+  public DataModelListener[] getDataModelListeners()
+  {
+    return _model.getDataModelListeners();
+  }
+
+  public void removeDataModelListener(DataModelListener listener)
+  {
+    _model.removeDataModelListener(listener);
   }
 
   /**
