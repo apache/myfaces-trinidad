@@ -1148,12 +1148,12 @@ public class FileSystemStyleCache implements StyleProvider
         Key key = (Key)o;
 
         // Check the easy stuff first
-        if ((key._short != _short)         ||
-            (_direction != key._direction) ||
-            (_browser != key._browser)     ||
-            (_version != key._version)     ||
-            (_platform != key._platform)   ||
-            !_locale.equals(key._locale)   ||
+        if ((key._short != _short)           ||
+            (_direction != key._direction)   ||
+            (_browser != key._browser)       ||
+            (!_version.equals(key._version)) ||
+            (_platform != key._platform)     ||
+            !_locale.equals(key._locale)     ||
             !_accProfile.equals(key._accProfile))
         {
           return false;
