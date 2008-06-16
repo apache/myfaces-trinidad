@@ -203,7 +203,7 @@ public class DateTimeConverter extends
         // only create the _dfs object if it doesn't exist, so we don't
         // wipe out _dfs[xxx] values if we ppr the first date field on a
         // page with multiple date fields.
-        buff.append("if(window['_dfs'] == undefined){var _dfs=new Object();}if(window['_dl'] == undefined){var _dl=new Object();}");
+        buff.append("if(window['_dfs'] == undefined){window['_dfs']=new Object();}if(window['_dl'] == undefined){window['_dl']=new Object();}");
       }
 
       buff.append("_dfs[\"");
