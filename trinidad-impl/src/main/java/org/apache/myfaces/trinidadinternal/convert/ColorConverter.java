@@ -88,7 +88,7 @@ public class ColorConverter extends org.apache.myfaces.trinidad.convert.ColorCon
         // only create the _cfs object if it doesn't exist, so we don't
         // wipe out _cfs[xxx] values if we ppr the first color field on a
         // page with multiple color fields.
-        buff.append("if(window['_cfs']==undefined){var _cfs=new Object();var _cfts=new Object();}");
+        buff.append("if(window['_cfs']==undefined){window['_cfs']=new Object();window['_cfts']=new Object();}");
       }
 
       String[] patterns = getPatterns();
