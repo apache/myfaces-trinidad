@@ -554,6 +554,11 @@ public class CoreRenderer extends Renderer
     return (Agent.AGENT_GECKO.equals(arc.getAgent().getAgentName()));
   }
 
+  static public boolean isWebKit(RenderingContext arc)
+  {
+    return (Agent.AGENT_WEBKIT.equals(arc.getAgent().getAgentName()));
+  }
+
   static public boolean isInaccessibleMode(RenderingContext arc)
   {
     return (arc.getAccessibilityMode() ==

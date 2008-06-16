@@ -549,6 +549,11 @@ public class HtmlResponseWriter extends ResponseWriter
     "col",
   };
 
+  static private String[] _eNames = new String[]
+  {
+    "embed",
+  };
+
   static private String[] _fNames = new String[]
   {
     "frame",
@@ -589,6 +594,8 @@ public class HtmlResponseWriter extends ResponseWriter
     _emptyElementArr['B'] = _bNames;
     _emptyElementArr['c'] = _cNames;
     _emptyElementArr['C'] = _cNames;
+    _emptyElementArr['e'] = _eNames;
+    _emptyElementArr['E'] = _eNames;
     _emptyElementArr['f'] = _fNames;
     _emptyElementArr['F'] = _fNames;
     _emptyElementArr['h'] = _hNames;
