@@ -70,6 +70,7 @@
       </description>
       <property-name>immediate</property-name>
       <property-class>boolean</property-class>
+      <default-value>false</default-value>
     </property>
     <property>
       <description><![CDATA[a method reference to a rangeChange listener that
@@ -153,5 +154,6 @@ which range of rows to display to the user.]]>
     </component-extension>
   </component>
 </faces-config>
+
 
 

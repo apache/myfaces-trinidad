@@ -73,6 +73,7 @@
       </description>
       <property-name>immediate</property-name>
       <property-class>boolean</property-class>
+      <default-value>false</default-value>
     </property>
     <property>
       <description><![CDATA[a method reference to a disclosure listener]]></description>
@@ -106,5 +107,6 @@ by the user.</mfp:description>
     </component-extension>
   </component>
 </faces-config>
+
 
 

@@ -116,6 +116,7 @@
       </description>
       <property-name>immediate</property-name>
       <property-class>boolean</property-class>
+      <default-value>false</default-value>
     </property>
     <component-extension>
       <mfp:component-family>org.apache.myfaces.trinidad.Command</mfp:component-family>
