@@ -234,7 +234,7 @@
                  id="mainId"
                  name="mainId"
                  onchange="return _checkLength(this,4,event)"
-                 onkeypress="return _checkLength(this,4,event)"
+                 onkeyup="return _checkLength(this,4,event)"
                  rows="5"
                 >
               Text

@@ -521,22 +521,22 @@ public class SimpleInputTextRenderer extends FormInputRenderer
   }
 
   @Override
-  protected String getOnkeypress(
+  protected String getOnkeyup(
     FacesBean bean
     )
   {
-    String onKeyPress = super.getOnkeypress(bean);
+    String onKeyup = super.getOnkeyup(bean);
     if (isTextArea(bean))
     {
       Number maxLength = getMaximumLength(bean);
       if (maxLength != null)
       {
-        onKeyPress = _getMaxLengthFunction(onKeyPress,
-                                           maxLength.intValue());
+        onKeyup = _getMaxLengthFunction(onKeyup,
+                                        maxLength.intValue());
       }
     }
 
-    return onKeyPress;
+    return onKeyup;
   }
 
   @Override
