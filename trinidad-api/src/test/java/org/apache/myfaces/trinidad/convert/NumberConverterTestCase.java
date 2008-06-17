@@ -134,6 +134,18 @@ public abstract class NumberConverterTestCase extends ConverterTestCase
         nconv.setLocale(locales[i]);
         
         Object convValue = nconv.getAsObject(facesContext, component, inputValues[i]);
+
+        // Trinidad does BigDecimal, for some reasons.
+        // see TRINIDAD-1124
+        if(i==2)
+        {
+          convValue = ((Number) convValue).doubleValue();
+        }
+        else
+        {
+          convValue = ((Number) convValue).longValue();
+        }
+
         assertEquals(expectedValues[i], convValue);
         
         String outValue = nconv.getAsString(facesContext, component, expectedValues[i]);
@@ -410,7 +422,7 @@ public abstract class NumberConverterTestCase extends ConverterTestCase
       // if we get a valid object, implies locale was indeed picked up.
       // otherwise we would have got a null pointer exception or other exception
       Object value = converter.getAsObject(facesContext, component, input);
-      assertEquals(new Double(1234.56), value);
+      assertEquals(new Double(1234.56), ((Number)value).doubleValue());
     }
     finally
     {

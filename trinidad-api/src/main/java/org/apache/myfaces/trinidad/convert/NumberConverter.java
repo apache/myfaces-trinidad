@@ -208,6 +208,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     NumberFormat fmt = _getNumberFormat(pattern, type, locale, reqCtx);
     
     DecimalFormat df = (DecimalFormat)fmt;
+    df.setParseBigDecimal(true);
     DecimalFormatSymbols dfs = df.getDecimalFormatSymbols();
 
     // We change the grouping_separator b/c TRINIDAD-849
