@@ -143,7 +143,7 @@ public abstract class NumberConverterTestCase extends ConverterTestCase
         }
         else
         {
-            convValue = ((Number) convValue).longValue();
+          convValue = ((Number) convValue).longValue();
         }
 
         assertEquals(expectedValues[i], convValue);
