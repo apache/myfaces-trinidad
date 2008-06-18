@@ -115,19 +115,19 @@ Verifying signatures
 
 	  <<<
 	  % pgpk -a KEYS
-	  % pgpv trinidad-1.0.8-dist.tar.gz.asc
+	  % pgpv trinidad-1.0.8-dist.tar.gz.asc trinidad-1.0.8-dist.tar.gz
 	  >>>
 
 	  <or>
 
 	  <<<
 	  % pgp -ka KEYS
-	  % pgp trinidad-1.0.8-dist.tar.gz.asc
+	  % pgp trinidad-1.0.8-dist.tar.gz.asc trinidad-1.0.8-dist.tar.gz
 	  >>>
 
 	  <or>
 
 	  <<<
   	% gpg --import KEYS
-	  % gpg --verify trinidad-1.0.8-dist.tar.gz.asc
+	  % gpg --verify trinidad-1.0.8-dist.tar.gz.asc trinidad-1.0.8-dist.tar.gz
 	  >>>
