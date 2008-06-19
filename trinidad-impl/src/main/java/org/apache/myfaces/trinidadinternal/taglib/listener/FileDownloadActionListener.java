@@ -102,13 +102,16 @@ public class FileDownloadActionListener extends FacesBeanImpl
           
         if (filename != null)
         {
-          boolean isIE = false;
+          // check for supported user agents. Currently IE, Gecko, and WebKit.
+          // IE and WebKit use UTF-8 encoding.
+          boolean isGecko = true;
           Map<String, String> headers = context.getExternalContext().getRequestHeaderMap();
-          if (headers.get("User-Agent").contains("MSIE"))
-            isIE = true;
+          String agentName = headers.get("User-Agent").toLowerCase();
+          if (agentName.contains("msie") || agentName.contains("applewebkit") || agentName.contains("safari"))
+            isGecko = false;
           // boolean isIE = CoreRenderer.isIE(RenderingContext.getCurrentInstance());
           hsr.setHeader("Content-Disposition",
-                        "attachment; filename=" + MimeUtility.encodeHTTPHeader(filename, isIE));
+                        "attachment; filename=" + MimeUtility.encodeHTTPHeader(filename, !isGecko));
         }
 
         MethodBinding method = getMethod();
