@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
@@ -965,14 +966,21 @@ public class FormRenderer extends XhtmlRenderer
         = component.findComponent(defaultCommand);
     }
 
-    if (defaultCommandComponent != null)
+    if (defaultCommandComponent != null && (defaultCommandComponent instanceof ActionSource))
     {
       // Get the true clientId
       String defaultCommandId =
         defaultCommandComponent.getClientId(context);
+      int immediate = 1;
+
+      if(((ActionSource) defaultCommandComponent).isImmediate())
+      {
+        immediate = 0;
+      }
       submitFunc = "return _submitOnEnter"
                      + "(event,'"  + clientId
-                     + "'," + "'" + defaultCommandId + "');";
+                     + "'," + "'" + defaultCommandId
+                     + "'," + immediate +");";
     }
     else
     {

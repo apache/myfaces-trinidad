@@ -1861,9 +1861,9 @@ function submitForm(
  * This function is called when enter key is hit on any form input element.
  * @src if non-null, the ID of the object to fire
  */
-function _submitOnEnter(e, frm,src)
+function _submitOnEnter(e, frm, src, immediate)
 {
-  if (window.event != (void 0))
+  if (window.event != null)
     e = window.event;
 
   var eventSource;
@@ -1884,13 +1884,13 @@ function _submitOnEnter(e, frm,src)
   {
     if (_getKC(e)==13)
     {
-      if (src != (void 0))
+      if (src != null)
       {
         var params = new Object();
         params[src] = src;
         params['source'] = src;
 
-        submitForm(frm,0,params);
+        submitForm(frm,immediate,params);
       }
 
       return false;
