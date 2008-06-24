@@ -55,6 +55,7 @@
       </description>
       <property-name>required</property-name>
       <property-class>boolean</property-class>
+      <default-value>false</default-value>
       <property-extension/>
     </property>
     <property>
