@@ -366,6 +366,9 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
   public void restoreState(FacesContext context, Object state)
   {
     _facesBean.restoreState(context, state);
+    // Done for TRINIDAD-1129
+    super.setMaximum(getMaximum());
+    super.setMinimum(getMinimum());
   }
 
   /**
