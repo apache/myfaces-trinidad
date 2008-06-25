@@ -31,7 +31,6 @@ import javax.faces.validator.ValidatorException;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.util.ComponentUtils;
-import org.apache.myfaces.trinidad.util.IntegerUtils;
 import org.apache.myfaces.trinidad.util.MessageFactory;
 
 /**
@@ -132,8 +131,6 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
   public int getMaximum()
   {
     Object maxInt = _facesBean.getProperty(_MAXIMUM_KEY);
-    if (maxInt == null)
-      maxInt = _MAXIMUM_KEY.getDefault();
     return ComponentUtils.resolveInteger(maxInt);
   }
 
@@ -146,7 +143,6 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
   @Override
   public void setMaximum(int maximum)
   {
-    super.setMaximum(maximum);
     _facesBean.setProperty(_MAXIMUM_KEY, Integer.valueOf(maximum));
   }
 
@@ -160,8 +156,6 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
   public int getMinimum()
   {
     Object minInt = _facesBean.getProperty(_MINIMUM_KEY);
-    if (minInt == null)
-      minInt = _MINIMUM_KEY.getDefault();
     return ComponentUtils.resolveInteger(minInt);
   }
 
@@ -174,7 +168,6 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
   @Override
   public void setMinimum(int minimum)
   {
-    super.setMinimum(minimum);
     _facesBean.setProperty(_MINIMUM_KEY, Integer.valueOf(minimum));
   }
 
@@ -370,39 +363,46 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
     Object value
     ) throws ValidatorException
   {
-    try
+    if ((context == null) || (component == null))
     {
-      super.validate(context, component, value);
+      throw new NullPointerException();
     }
-    catch (ValidatorException ve)
+
+    if(value != null)
     {
-      // We don't really care about the value.  It
-      // failed validation in the superclass, so we just
-      // care about what sort of message to show
-      int min = getMinimum();
       int max = getMaximum();
-      
-      // FIXME: the default of max should be zero, not MAX_VALUE,
-      // at least according to the superclass
-      if (max != Integer.MAX_VALUE)
+      int min = getMinimum();
+      int length = value instanceof String ?
+        ((String)value).length() : value.toString().length();
+
+      // range validation
+      if(isMaximumSet() && isMinimumSet())
       {
-        if (min > 0)
+        if(length<min || length>max)
         {
           throw new ValidatorException(
             _getNotInRangeMessage(context, component, value, min, max));
         }
-        else
+      }
+      // too short
+      if(isMinimumSet())
+      {
+        if (length < min)
+        {
+          throw new ValidatorException(
+            _getMinimumMessage(context, component, value, max));
+        }
+      }
+      // too long
+      if(isMaximumSet())
+      {
+        if (length > max)
         {
           throw new ValidatorException(
             _getMaximumMessage(context, component, value, max));
         }
       }
-      else
-      {
-        throw new ValidatorException(
-          _getMinimumMessage(context, component, value, min));
-      }
-    }     
+    }
   }
 
   //  StateHolder Methods
@@ -506,6 +506,15 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
     _transientValue = transientValue;
   }
 
+  protected boolean isMaximumSet()
+  {
+    return _facesBean.getProperty(_MAXIMUM_KEY) != null;
+  }
+
+  protected boolean isMinimumSet()
+  {
+    return _facesBean.getProperty(_MINIMUM_KEY) != null;
+  }
 
   private FacesMessage _getNotInRangeMessage(
       FacesContext context,
@@ -612,7 +621,7 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
   private static final PropertyKey _MAXIMUM_KEY =
     _TYPE.registerKey("maximum", Integer.class,
                       // Don't rely on autoboxing: there's a method overload
-                      Integer.valueOf(Integer.MAX_VALUE));
+                      Integer.valueOf(0));
 
   private static final PropertyKey _MAXIMUM_MESSAGE_DETAIL_KEY =
     _TYPE.registerKey("messageDetailMaximum", String.class);

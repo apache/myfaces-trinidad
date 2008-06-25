@@ -30,6 +30,7 @@ import javax.faces.validator.ValidatorException;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.util.ComponentUtils;
+import org.apache.myfaces.trinidad.util.IntegerUtils;
 import org.apache.myfaces.trinidad.util.MessageFactory;
 
 /**
@@ -75,6 +76,12 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
   public static final String NOT_IN_RANGE_MESSAGE_ID =
       "org.apache.myfaces.trinidad.validator.DoubleRangeValidator.NOT_IN_RANGE";
 
+  /**
+   * <p>The message identifier of the FacesMessage to be created if
+   * the value cannot be converted
+   */
+  public static final String CONVERT_MESSAGE_ID =
+      "org.apache.myfaces.trinidad.convert.DoubleConverter.CONVERT";
   
   /**
    * Construct a {@link Validator} with no preconfigured limits.
@@ -118,7 +125,7 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
   {
     Object maxDouble = _facesBean.getProperty(_MAXIMUM_KEY);
     if(maxDouble == null)
-      maxDouble = Double.MAX_VALUE;
+      maxDouble = _MAXIMUM_KEY.getDefault();
     return ComponentUtils.resolveDouble(maxDouble);
   }
 
@@ -131,7 +138,6 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
   @Override
   public void setMaximum(double maximum)
   {
-    super.setMaximum(maximum);
     _facesBean.setProperty(_MAXIMUM_KEY, Double.valueOf(maximum));
   }
 
@@ -146,7 +152,7 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
   {
     Object minDouble = _facesBean.getProperty(_MINIMUM_KEY);
     if(minDouble == null)
-      minDouble = Double.MIN_VALUE;
+      minDouble = _MINIMUM_KEY.getDefault();
     return ComponentUtils.resolveDouble(minDouble);
   }
 
@@ -159,7 +165,6 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
   @Override
   public void setMinimum(double minimum)
   {
-    super.setMinimum(minimum);
     _facesBean.setProperty(_MINIMUM_KEY, Double.valueOf(minimum));
   }
 
@@ -305,53 +310,53 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
     Object value
     ) throws ValidatorException
   {
-    try
+    if ((context == null) || (component == null))
     {
-      super.validate(context, component, value);
+      throw new NullPointerException();
     }
-    catch (ValidatorException ve)
+
+    if (value == null)
     {
-         
-      if (value != null && value instanceof Number)
+      return;
+    }
+    if (value instanceof Number)
+    {
+      double doubleValue = ((Number)value).doubleValue(); 
+      double min = getMinimum();
+      double max = getMaximum();
+
+      if(isMaximumSet() && isMinimumSet())
       {
-        double doubleValue = ((Number)value).doubleValue(); 
-        
-        double min = getMinimum();
-        double max = getMaximum();
-        
+        if(doubleValue < min || doubleValue > max)
+        {
+          throw new ValidatorException(
+            _getNotInRangeMessage(context, component, value, min, max));
+        }
+      }
+      
+      if(isMaximumSet())
+      {
         if (doubleValue > max)
         {
-          if (min != Double.MIN_VALUE)//the default...
-          {
-             throw new ValidatorException
-                        (_getNotInRangeMessage(context, component, value, min, max));
-          }
-          else
-          {
-             throw new ValidatorException
-                        (_getMaximumMessage(context, component, value, max));
-          }
+          throw new ValidatorException(
+            _getMaximumMessage(context, component, value, max));
         }
-
+      }
+      
+      if(isMinimumSet())
+      {
         if (doubleValue < min)
         {
-          if (max != Double.MAX_VALUE)//the default...
-          {
-            throw new ValidatorException
-                        (_getNotInRangeMessage(context, component, value, min, max));
-          }
-          else
-          {
-            FacesMessage msg = _getMinimumMessage(context, component, value, min);
-            throw new ValidatorException(msg);
-          }
+          throw new ValidatorException(
+            _getMinimumMessage(context, component, value, min));
         }
       }
-      else
-      {
-        throw ve;
-      }
-    }     
+    }
+    else
+    {
+      FacesMessage msg = _getNotCorrectType(context);
+      throw new ValidatorException(msg);
+    }
   }
 
   //  StateHolder Methods
@@ -455,13 +460,29 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
     _transientValue = transientValue;
   }
 
+  protected boolean isMaximumSet()
+  {
+    return _facesBean.getProperty(_MAXIMUM_KEY) != null;
+  }
+
+  protected boolean isMinimumSet()
+  {
+    return _facesBean.getProperty(_MINIMUM_KEY) != null;
+  }
+
+  private FacesMessage _getNotCorrectType(
+    FacesContext context)
+  {
+    return MessageFactory.getMessage(context, CONVERT_MESSAGE_ID);
+  }
+  
   private FacesMessage _getNotInRangeMessage(
-      FacesContext context,
-      UIComponent component,
-      Object value,
-      Object min,
-      Object max)
-    {
+    FacesContext context,
+    UIComponent component,
+    Object value,
+    Object min,
+    Object max)
+  {
       Object msg   = _getRawNotInRangeMessageDetail();
       Object label = ValidatorUtils.getComponentLabel(component);
 
@@ -469,7 +490,7 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
 
       return MessageFactory.getMessage(context, NOT_IN_RANGE_MESSAGE_ID,
                                         msg, params, component);
-    }
+  }
 
 
     
@@ -526,10 +547,14 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
   private static final FacesBean.Type _TYPE = new FacesBean.Type();
 
   private static final PropertyKey _MINIMUM_KEY =
-    _TYPE.registerKey("minimum", Double.class);
+    _TYPE.registerKey("minimum", Double.class,
+                                 // Don't rely on autoboxing: there's a method overload
+                                 Double.valueOf(Double.MIN_VALUE));
 
   private static final PropertyKey _MAXIMUM_KEY =
-    _TYPE.registerKey("maximum", Double.class);
+    _TYPE.registerKey("maximum", Double.class,
+                                 // Don't rely on autoboxing: there's a method overload
+                                 Double.valueOf(Double.MAX_VALUE));
 
   private static final PropertyKey _MAXIMUM_MESSAGE_DETAIL_KEY =
     _TYPE.registerKey("messageDetailMaximum", String.class);
