@@ -77,6 +77,14 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
 
   
   /**
+   * <p>The message identifier of the FacesMessage to be created if
+   * the value cannot be converted to an integer
+   */
+  public static final String CONVERT_MESSAGE_ID =
+      "org.apache.myfaces.trinidad.convert.LongConverter.CONVERT";
+
+
+  /**
    * Construct a {@link Validator} with no preconfigured limits.
    */
   public LongRangeValidator()
@@ -131,7 +139,6 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
   @Override
   public void setMaximum(long maximum)
   {
-    super.setMaximum(maximum);
     _facesBean.setProperty(_MAXIMUM_KEY, Long.valueOf(maximum));
   }
 
@@ -159,7 +166,6 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
   @Override
   public void setMinimum(long minimum)
   {
-    super.setMinimum(minimum);
     _facesBean.setProperty(_MINIMUM_KEY, Long.valueOf(minimum));
   }
 
@@ -305,53 +311,54 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
     Object value
     ) throws ValidatorException
   {
-    try
+    if ((context == null) || (component == null))
     {
-      super.validate(context, component, value);
+      throw new NullPointerException();
     }
-    catch (ValidatorException ve)
+
+    if (value == null)
     {
-         
-      if (value != null && value instanceof Number)
+      return;
+    }
+
+    if (value instanceof Number)
+    {
+      long longValue = ((Number)value).longValue();
+      long min = getMinimum();
+      long max = getMaximum();
+      
+      if(isMaximumSet() && isMinimumSet())
       {
-        long longValue = ((Number)value).longValue(); 
-        
-        long min = getMinimum();
-        long max = getMaximum();
-        
+        if(longValue<min || longValue>max)
+        {
+          throw new ValidatorException(
+            _getNotInRangeMessage(context, component, value, min, max));
+        }
+      }
+      
+      if(isMaximumSet())
+      {
         if (longValue > max)
         {
-          if (min != Long.MIN_VALUE)//the default...
-          {
-             throw new ValidatorException
-                        (_getNotInRangeMessage(context, component, value, IntegerUtils.getString(min), IntegerUtils.getString(max)));
-          }
-          else
-          {
-             throw new ValidatorException
-                        (_getMaximumMessage(context, component, value, IntegerUtils.getString(max)));
-          }
+          throw new ValidatorException(
+            _getMaximumMessage(context, component, value, IntegerUtils.getString(max)));
         }
-
+      }
+      
+      if(isMinimumSet())
+      {
         if (longValue < min)
         {
-          if (max != Long.MAX_VALUE)//the default...
-          {
-            throw new ValidatorException
-                        (_getNotInRangeMessage(context, component, value, IntegerUtils.getString(min), IntegerUtils.getString(max)));
-          }
-          else
-          {
-            FacesMessage msg = _getMinimumMessage(context, component, value, IntegerUtils.getString(min));
-            throw new ValidatorException(msg);
-          }
+            throw new ValidatorException(
+              _getMinimumMessage(context, component, value, IntegerUtils.getString(min)));
         }
       }
-      else
-      {
-        throw ve;
-      }
-    }     
+    }
+    else
+    {
+      FacesMessage msg = _getNotCorrectType(context);
+      throw new ValidatorException(msg);
+    }
   }
 
   //  StateHolder Methods
@@ -414,6 +421,22 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
   public void setTransient(boolean transientValue)
   {
     _transientValue = transientValue;
+  }
+
+  protected boolean isMaximumSet()
+  {
+    return _facesBean.getProperty(_MAXIMUM_KEY) != null;
+  }
+
+  protected boolean isMinimumSet()
+  {
+    return _facesBean.getProperty(_MINIMUM_KEY) != null;
+  }
+
+  private FacesMessage _getNotCorrectType(
+    FacesContext context)
+  {
+    return MessageFactory.getMessage(context, CONVERT_MESSAGE_ID);
   }
 
   private FacesMessage _getNotInRangeMessage(
