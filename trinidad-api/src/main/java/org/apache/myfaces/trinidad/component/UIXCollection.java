@@ -136,6 +136,12 @@ public abstract class UIXCollection extends UIXComponentBase
   public void broadcast(FacesEvent event)
     throws AbortProcessingException
   {
+    // If the UIXCollection component is used as a stamp of another collection component,
+    // we could be pointing to the wrong model based on the the last stamp state from 
+    // parent's decode/validate/update processing. Flush the cached model to get the correct model 
+    // based on the parent's currency
+    _flushCachedModel();
+    
     // For "TableRowEvents", set up the data before firing the
     // event to the actual component.
     if (event instanceof TableRowEvent)
