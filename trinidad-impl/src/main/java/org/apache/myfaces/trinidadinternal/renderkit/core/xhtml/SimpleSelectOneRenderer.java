@@ -408,16 +408,16 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
       }
       else
       {
-        // TODO Don't throw exception: message!
-        throw new IndexOutOfBoundsException(_LOG.getMessage(
-          "SELECTONE_SUBMITTEDVALUE_INDEX_OUTSIDE_BOUNDS", new Object[]{index, (selectItems.size() - 1)}));
+        if (_LOG.isWarning())
+          _LOG.warning("SELECTONE_SUBMITTEDVALUE_INDEX_OUTSIDE_BOUNDS", new Object[]{index, (selectItems.size() - 1)});
+        return -1;
       }
     }
     catch (NumberFormatException ne)
     {
-      // TODO Don't throw exception: message!
-      throw new NumberFormatException(_LOG.getMessage(
-        "SELECTONE_CANNOT_CONVERT_SUBMITTEDVALUE_INDEX_INTO_INTEGER", new Object[]{submittedValue.toString(), ne}));
+      if (_LOG.isWarning())
+        _LOG.warning("SELECTONE_CANNOT_CONVERT_SUBMITTEDVALUE_INDEX_INTO_INTEGER", new Object[]{submittedValue.toString(), ne});
+      return -1;
     }
   }
 
