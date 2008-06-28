@@ -354,7 +354,7 @@ public class RegExpValidator implements StateHolder, Validator
     = _TYPE.registerKey("messageDetailNoMatch", String.class);
 
   private static final PropertyKey  _HINT_PATTERN_KEY =
-    _TYPE.registerKey("hintPattern", String.class);
+    _TYPE.registerKey("hint", String.class);
 
   private FacesBean _facesBean = ValidatorUtils.getFacesBean(_TYPE);
 
