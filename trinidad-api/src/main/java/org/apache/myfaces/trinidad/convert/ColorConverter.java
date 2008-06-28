@@ -689,7 +689,7 @@ public class ColorConverter implements Converter, StateHolder
     = _TYPE.registerKey("messageDetailConvert", String.class);
 
   private static final PropertyKey  _HINT_FORMAT_KEY =
-    _TYPE.registerKey("hintFormat", String.class);
+    _TYPE.registerKey("hint", String.class);
 
   private FacesBean _facesBean = ConverterUtils.getFacesBean(_TYPE);
 
