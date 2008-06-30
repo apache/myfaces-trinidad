@@ -957,7 +957,7 @@ public class FormRenderer extends XhtmlRenderer
 
     String defaultCommand = getDefaultCommand(bean);
 
-    String submitFunc;
+    String submitFunc = null;
 
     UIComponent defaultCommandComponent = null;
     if (defaultCommand != null)
@@ -977,10 +977,25 @@ public class FormRenderer extends XhtmlRenderer
       {
         immediate = 0;
       }
-      submitFunc = "return _submitOnEnter"
-                     + "(event,'"  + clientId
-                     + "'," + "'" + defaultCommandId
-                     + "'," + immediate +");";
+      //PPR
+      Boolean ppr = (Boolean) defaultCommandComponent.getAttributes().get("partialSubmit");
+      if(ppr != null && ppr)
+      {
+        submitFunc = "return _submitOnEnter"
+            + "(event,'"  + clientId
+            + "'," + "'" + defaultCommandId
+            + "'," + immediate
+            + "," + true +");";
+      }
+      //no PPR
+      else
+      {
+        submitFunc = "return _submitOnEnter"
+            + "(event,'"  + clientId
+            + "'," + "'" + defaultCommandId
+            + "'," + immediate
+            + "," + false +");";
+      }
     }
     else
     {

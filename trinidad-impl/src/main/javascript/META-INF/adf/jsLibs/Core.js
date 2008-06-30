@@ -1861,7 +1861,7 @@ function submitForm(
  * This function is called when enter key is hit on any form input element.
  * @src if non-null, the ID of the object to fire
  */
-function _submitOnEnter(e, frm, src, immediate)
+function _submitOnEnter(e, frm, src, immediate, ppr)
 {
   if (window.event != null)
     e = window.event;
@@ -1890,7 +1890,14 @@ function _submitOnEnter(e, frm, src, immediate)
         params[src] = src;
         params['source'] = src;
 
-        submitForm(frm,immediate,params);
+        if(ppr != true)
+        {
+          submitForm(frm,immediate,params);
+        }
+        else
+        {
+          TrPage._autoSubmit(frm, src, e, immediate, params);
+        }
       }
 
       return false;
