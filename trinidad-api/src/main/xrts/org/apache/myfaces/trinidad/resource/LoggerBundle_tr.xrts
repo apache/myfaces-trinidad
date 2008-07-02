@@ -270,4 +270,6 @@
 <resource key="RESOURCE_PATH_OUTSIDE_ROOT" dnt="false">Kaynak dizin yolu ({0}) &quot;..&quot; içeriyor ve kök dizinin dışında olacak şekilde çözülüyor; bu güvenli değildir. Bu nedenle dizin yolu yok sayıldı.</resource>
 <!-- RESOURCE_PATH_CONTAINS_DOTS -->
 <resource key="RESOURCE_PATH_DOTS" dnt="false">Kaynak dizin yolu ({0}) &quot;..&quot; içeriyor. Tarayıcılar &quot;..&quot; bölümünü çözüyor, bu nedenle bu şüpheli bir dizin yoludur.</resource>
+<!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
+<resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">{1} öğesinde desteklenen sözdizimine sahip {0} kapsam No&apos;&apos;lu bileşen bulunamadı. Onaylanmayan sözdizimine sahip bileşen bulundu. Lütfen desteklenen sözdizimini kullanın.</resource>
 </resources>

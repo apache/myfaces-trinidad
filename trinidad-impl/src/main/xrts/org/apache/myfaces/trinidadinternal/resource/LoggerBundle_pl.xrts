@@ -702,8 +702,8 @@
 <resource key="CANNOT_FIND_TIMEZONE" dnt="false">Zażądano strefy czasowej o identyfikatorze {0}, lecz nie jest ona dostępna za pomocą interfejsu API TimeZone.getTimeZone(ID napisowo). Proszę sprawdzić, czy identyfikator jest zgodny (z uwzględnieniem wielkości liter) z identyfikatorem zwróconym przez funkcję TimeZone.getAvailableIDs()</resource>
 <!-- INVALID_TIMEZONE_IN_CONFIG -->
 <resource key="INVALID_TIMEZONE_IN_CONFIG" dnt="false">Plik trinidad-config.xml zawiera niepoprawną wartość strefy czasowej ({0}). Zamiast niej zostanie użyta domyślna strefa czasowa.</resource>
-<!-- DEPRECATED_PARTIAL_TRIGGER_SYNTAX -->
-<resource key="DEPRECATED_PARTIAL_TRIGGER_SYNTAX" dnt="false">Wyszukując elementy powiązane ze składnikiem, nie znaleziono częściowego wyzwalacza {0} z {1}. Znaleziono wyzwalacz częściowy powiązany z nadrzędnym obiektem składnika, lecz jest to już nieakceptowane. Proszę zmienić wyzwalacz częściowy, tak aby odnosił się do składnika, a nie do jego obiektu nadrzędnego.</resource>
+<!-- DEPRECATED_TRIGGER_SYNTAX -->
+<resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">Nie znaleziono wyzwalacza częściowego {0} z {1}, mającego obsługiwaną składnię wyzwalaczy częściowych (partialTrigger). Znaleziono wyzwalacz częściowy z już nieobsługiwaną składnią. Proszę użyć obsługiwanej składni.</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">DateTimeRangeValidator - aby zapewnić poprawną weryfikację klienta - wymaga, żeby składnikiem był EditableValueHolder. Weryfikacja klienta zostanie wyłączona dla składnika &quot;{0}&quot;.</resource>
 </resources>

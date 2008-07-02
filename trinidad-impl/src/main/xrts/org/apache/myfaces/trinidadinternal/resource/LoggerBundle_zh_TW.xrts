@@ -702,8 +702,8 @@
 <resource key="CANNOT_FIND_TIMEZONE" dnt="false">要求 ID 為 {0} 的時區, 但無法透過 TimeZone.getTimeZone(String id) API 取得. 請檢查 ID 是否與 TimeZone.getAvailableIDs() 傳回的 ID 相符 (包括大小寫).</resource>
 <!-- INVALID_TIMEZONE_IN_CONFIG -->
 <resource key="INVALID_TIMEZONE_IN_CONFIG" dnt="false">trinidad-config.xml 中的時區值無效 ({0}). 將改用預設時區.</resource>
-<!-- DEPRECATED_PARTIAL_TRIGGER_SYNTAX -->
-<resource key="DEPRECATED_PARTIAL_TRIGGER_SYNTAX" dnt="false">從元件相關的 {1} 搜尋中找不到部分觸發程式 {0}. 部分觸發程式與元件的父項相關, 但已不再使用. 請將部分觸發程式變更為與元件相關, 而不是與父項相關.</resource>
+<!-- DEPRECATED_TRIGGER_SYNTAX -->
+<resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">在 {1} 找不到使用支援之 partialTriggers 語法的部分觸發程式 {0}. 找到的部分觸發程式使用已不再使用的語法. 請使用支援的語法.</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">DateTimeRangeValidator 要求元件必須是 EditableValueHolder, 才能進行從屬端驗證. 將停用元件 {0} 的從屬端驗證.</resource>
 </resources>

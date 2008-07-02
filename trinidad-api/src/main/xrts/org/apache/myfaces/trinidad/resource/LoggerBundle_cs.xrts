@@ -270,4 +270,6 @@
 <resource key="RESOURCE_PATH_OUTSIDE_ROOT" dnt="false">Cesta ke zdroji {0} obsahuje &quot;..&quot; a je vyhodnocena jako vně kořenového adresáře, což není bezpečné. Tato cesta je proto ignorována.</resource>
 <!-- RESOURCE_PATH_CONTAINS_DOTS -->
 <resource key="RESOURCE_PATH_DOTS" dnt="false">Cesta ke zdroji {0} obsahuje &quot;..&quot;. Prohlížeče vyhodnocují &quot;..&quot; jako vnější, takže se jedná o podezřelou cestu.</resource>
+<!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
+<resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">Nebylo možné najít komponentu se scopedId {0} v {1} s podporovanou syntaxí. Byla nalezena komponenta s neschvalovanou syntaxí. Použijte podporovanou syntaxi.</resource>
 </resources>

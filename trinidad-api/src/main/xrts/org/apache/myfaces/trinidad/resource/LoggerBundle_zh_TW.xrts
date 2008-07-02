@@ -270,4 +270,6 @@
 <resource key="RESOURCE_PATH_OUTSIDE_ROOT" dnt="false">資源路徑 {0} 包含 &quot;..&quot;, 這導致解析為根目錄以外的不安全目錄. 因此已忽略此路徑.</resource>
 <!-- RESOURCE_PATH_CONTAINS_DOTS -->
 <resource key="RESOURCE_PATH_DOTS" dnt="false">資源路徑 {0} 包含 &quot;..&quot;. 瀏覽器無法解析 &quot;..&quot;, 因此視為可疑路徑.</resource>
+<!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
+<resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">在 {1} 找不到使用支援語法之 scopedId {0} 的元件. 找到的的元件使用已不再使用的語法. 請使用支援的語法.</resource>
 </resources>

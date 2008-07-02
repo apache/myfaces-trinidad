@@ -270,4 +270,6 @@
 <resource key="RESOURCE_PATH_OUTSIDE_ROOT" dnt="false">O caminho do recurso {0} contém &quot;..&quot; e resolve ficar fora do diretório-raiz e que é inseguro. Por isso, o caminho será ignorado.</resource>
 <!-- RESOURCE_PATH_CONTAINS_DOTS -->
 <resource key="RESOURCE_PATH_DOTS" dnt="false">O caminho do recurso {0} contém &quot;..&quot;. Os browsers resolvem o &quot;..&quot;, por isso, este é um caminho suspeito.</resource>
+<!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
+<resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">Não foi possível localizar o componente com o scopedId {0} de {1} com a sintaxe suportada. O componente foi encontrado com a sintaxe obsoleta. Use a sintaxe suportada.</resource>
 </resources>

@@ -702,8 +702,8 @@
 <resource key="CANNOT_FIND_TIMEZONE" dnt="false">Der blev anmodet om en tidszone med ID&apos;&apos;et {0}, men den er ikke tilgængelig gennem TimeZone.getTimeZone(streng-ID)-API&apos;&apos;en. Tjek, at ID&apos;&apos;et matcher, herunder små og store bogstaver, et ID, der returneres af TimeZone.getAvailableIDs()</resource>
 <!-- INVALID_TIMEZONE_IN_CONFIG -->
 <resource key="INVALID_TIMEZONE_IN_CONFIG" dnt="false">Filen trinidad-config.xml indeholder en ugyldig værdi for time-zone ({0}). Standardtidszonen bruges i stedet.</resource>
-<!-- DEPRECATED_PARTIAL_TRIGGER_SYNTAX -->
-<resource key="DEPRECATED_PARTIAL_TRIGGER_SYNTAX" dnt="false">Kunne ikke finde den partielle trigger {0} fra {1} ved søgning efter relativ i forhold til komponenten. Den partielle trigger var relativ i forhold til komponentens overordnede, men dette ønskes ikke. Ændr den partielle trigger, så den er relativ i forhold til komponent, ikke relativ i forhold til overordnet.</resource>
+<!-- DEPRECATED_TRIGGER_SYNTAX -->
+<resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">Kunne ikke finde den partielle trigger {0} fra {1} med den understøttede partialTriggers-syntaks. Den partielle trigger blev fundet med den uønskede syntaks. Brug den understøttede syntaks.</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">DateTimeRangeValidator kræver, at komponenten er en EditableValueHolder til klientvalidering for at kunne fungere. Klientvalidering deaktiveres for komponenten {0}.</resource>
 </resources>

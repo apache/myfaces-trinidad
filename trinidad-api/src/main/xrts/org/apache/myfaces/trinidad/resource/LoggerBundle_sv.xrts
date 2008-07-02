@@ -270,4 +270,6 @@
 <resource key="RESOURCE_PATH_OUTSIDE_ROOT" dnt="false">Resurssökvägen {0} innehåller &quot;..&quot; och det löses till att vara utanför rotkatalogen och det är inte säkert. Sökvägen ignoreras därför.</resource>
 <!-- RESOURCE_PATH_CONTAINS_DOTS -->
 <resource key="RESOURCE_PATH_DOTS" dnt="false">Resurssökvägen {0} innehåller &quot;..&quot;. Webbläsaren löser ut &quot;..&quot;, så det här är en misstänkt sökväg.</resource>
+<!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
+<resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">Kunde inte hitta komponenten med scopedId {0} från {1} med syntax som stöds. Komponenten hittades med inaktuell syntax. Använd syntax som stöds.</resource>
 </resources>

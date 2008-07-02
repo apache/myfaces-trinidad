@@ -702,8 +702,8 @@
 <resource key="CANNOT_FIND_TIMEZONE" dnt="false">Ζητήθηκε ζώνη ώρας με αναγνωριστικό &quot;{0}&quot; αλλά δεν είναι διαθέσιμη μέσω του TimeZone.getTimeZone(String id) API. Βεβαιωθείτε ότι το αναγνωριστικό ταιριάζει, λαμβάνοντας υπόψη και τη διάκριση πεζών-κεφαλαίων, με ένα αναγνωριστικό που επιστρέφει η μέθοδος TimeZone.getAvailableIDs().</resource>
 <!-- INVALID_TIMEZONE_IN_CONFIG -->
 <resource key="INVALID_TIMEZONE_IN_CONFIG" dnt="false">Το αρχείο trinidad-config.xml περιέχει μη αποδεκτή τιμή για τη ζώνη ώρας ({0}). Θα χρησιμοποιηθεί η προεπιλεγμένη ζώνη ώρας.</resource>
-<!-- DEPRECATED_PARTIAL_TRIGGER_SYNTAX -->
-<resource key="DEPRECATED_PARTIAL_TRIGGER_SYNTAX" dnt="false">Δεν ήταν δυνατή η εύρεση του τμηματικού trigger &quot;{0}&quot; από την αναζήτηση &quot;{1}&quot; όσον αφορά το συστατικό στοιχείο. Το τμηματικό trigger που βρέθηκε αφορά το γονικό στοιχείο του συστατικού στοιχείου αλλά αυτό δεν ισχύει πλέον. Αλλάξτε το τμηματικό trigger ώστε να αφορά το ίδιο το συστατικό στοιχείο και όχι το γονικό του στοιχείο.</resource>
+<!-- DEPRECATED_TRIGGER_SYNTAX -->
+<resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">Δεν είναι δυνατή η εύρεση του τμηματικού trigger {0} από το {1} με την υποστηριζόμενη σύνταξη partialTriggers. Το τμηματικό trigger εντοπίστηκε με καταργημένη σύνταξη. Χρησιμοποιήστε την υποστηριζόμενη σύνταξη.</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">Η κλάση DateTimeRangeValidator απαιτεί συστατικό στοιχείο EditableValueHolder ώστε να είναι δυνατή η επικύρωση του client. Η επικύρωση του client θα απενεργοποιηθεί για το συστατικό στοιχείο &quot;{0}&quot;.</resource>
 </resources>

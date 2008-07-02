@@ -57,7 +57,7 @@
 <!-- CANNOT_LOAD_VIEWHANDLER -->
 <resource key="CANNOT_LOAD_VIEWHANDLER" dnt="false">ViewHandler {0}을(를) 로드할 수 없습니다.</resource>
 <!-- TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION -->
-<resource key="TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION" dnt="false">시간 기록 검사가 활성화된 상태로 Apache Trinidad가 실행되고 있습니다. 운용 환경에서는 사용하지 않아야 합니다. WEB-INF/web.xml의 {0} 속성을 참조하십시오.</resource>
+<resource key="TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION" dnt="false">시간 기록 검사가 사용으로 설정된 상태로 Apache Trinidad가 실행되고 있습니다. 운용 환경에서는 사용하지 않아야 합니다. WEB-INF/web.xml의 {0} 속성을 참조하십시오.</resource>
 <!-- CANNOT_LOAD_URL -->
 <resource key="CANNOT_LOAD_URL" dnt="false">{0}을(를) 로드할 수 없습니다.</resource>
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
@@ -216,7 +216,7 @@
 <!-- UNABLE_ENCODE_URL -->
 <resource key="UNABLE_ENCODE_URL" dnt="false">&apos;&apos;{1}&apos;&apos; 인코딩을 사용하여 URL &apos;&apos;{0}&apos;&apos;을(를) 인코딩할 수 없습니다.</resource>
 <!-- SORTING_DISABLED_TABLE_NOT_IN_FORM -->
-<resource key="SORTING_DISABLED_TABLE_NOT_IN_FORM" dnt="false">정렬이 비활성화되었습니다. 테이블이 폼에 없습니다.</resource>
+<resource key="SORTING_DISABLED_TABLE_NOT_IN_FORM" dnt="false">정렬이 사용 안함으로 설정되었습니다. 테이블이 폼에 없습니다.</resource>
 <!-- COMPONENT_COLUMN_OUTSIDE_TABLE -->
 <resource key="COMPONENT_COLUMN_OUTSIDE_TABLE" dnt="false">{0}: 열이 테이블 밖에 사용되었습니다.</resource>
 <!-- NULL_NODE_NAME_CANNOT_ADD_CONVERTER_AND_VALIDATOR -->
@@ -702,8 +702,8 @@
 <resource key="CANNOT_FIND_TIMEZONE" dnt="false">ID {0}을(를) 사용하는 시간대가 요청되었지만 이 시간대는 TimeZone.getTimeZone(String id) API를 통해 사용할 수 없습니다. 대소문자를 포함하여 ID가 TimeZone.getAvailableIDs()에 의해 반환된 ID와 일치하는지 확인하십시오.</resource>
 <!-- INVALID_TIMEZONE_IN_CONFIG -->
 <resource key="INVALID_TIMEZONE_IN_CONFIG" dnt="false">trinidad-config.xml에 부적합한 시간대 값({0})이 포함되어 있습니다. 기본 시간대가 대신 사용됩니다.</resource>
-<!-- DEPRECATED_PARTIAL_TRIGGER_SYNTAX -->
-<resource key="DEPRECATED_PARTIAL_TRIGGER_SYNTAX" dnt="false">구성 요소에 대해 상대적인 {1} 검색에서 부분 트리거 {0}을(를) 찾을 수 없습니다. 부분 트리거는 구성 요소의 상위에 대해 상대적인 것으로 나타나지만 해당 상위는 더 이상 사용되지 않습니다. 부분 트리거가 구성 요소의 상위가 아닌 구성 요소에 대해 상대적이 되도록 변경하십시오.</resource>
+<!-- DEPRECATED_TRIGGER_SYNTAX -->
+<resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">{1}에서 지원되는 partialTriggers 구문을 사용하는 부분 트리거 {0}을(를) 찾을 수 없습니다. 사용되지 않는 구문을 사용하는 부분 트리거가 발견되었습니다. 지원되는 구문을 사용하십시오.</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">클라이언트 검증이 작동하려면 DateTimeRangeValidator에서 구성 요소가 EditableValueHolder여야 합니다. {0} 구성 요소에 대해서는 클라이언트 검증이 비활성화됩니다.</resource>
 </resources>

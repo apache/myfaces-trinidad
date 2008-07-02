@@ -270,4 +270,6 @@
 <resource key="RESOURCE_PATH_OUTSIDE_ROOT" dnt="false">Ścieżka zasobów &quot;{0}&quot; zawiera &quot;..&quot;, czyli prowadzi poza katalog główny, a to jest działanie niebezpieczne. Dlatego ścieżka ta zostanie zignorowana.</resource>
 <!-- RESOURCE_PATH_CONTAINS_DOTS -->
 <resource key="RESOURCE_PATH_DOTS" dnt="false">Ścieżka zasobów &quot;{0}&quot; zawiera &quot;..&quot;. Przeglądarki przyjmują, że &quot;..&quot; prowadzą na zewnątrz i dlatego ścieżka ta jest podejrzana.</resource>
+<!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
+<resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">Nie znaleziono składnika o scopedId {0} z {1}, mającego obsługiwaną składnię. Znaleziono składnik z już nieobsługiwaną składnią. Proszę użyć obsługiwanej składni.</resource>
 </resources>

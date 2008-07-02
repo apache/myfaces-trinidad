@@ -122,11 +122,11 @@
 <resource key="af_table.SELECT_RANGE_NEXT_TIP" dnt="false">다음 항목을 보려면 선택</resource>
 <resource key="af_treeTable.NEXT_TIP" dnt="false">다음 항목을 보려면 선택</resource>
 <!--alternate text for a disabled back arrow image link in the navigation bar-->
-<resource key="af_table.SELECT_RANGE_PREV_DISABLED_TIP" dnt="false">이전 기능이 비활성화됨</resource>
-<resource key="af_selectRangeChoiceBar.PREV_DISABLED_TIP" dnt="false">이전 기능이 비활성화됨</resource>
+<resource key="af_table.SELECT_RANGE_PREV_DISABLED_TIP" dnt="false">이전 기능이 사용 안함으로 설정됨</resource>
+<resource key="af_selectRangeChoiceBar.PREV_DISABLED_TIP" dnt="false">이전 기능이 사용 안함으로 설정됨</resource>
 <!--alternate text for a disabled forward arrow image link in the navigation bar-->
-<resource key="af_table.SELECT_RANGE_NEXT_DISABLED_TIP" dnt="false">다음 기능이 비활성화됨</resource>
-<resource key="af_selectRangeChoiceBar.NEXT_DISABLED_TIP" dnt="false">다음 기능이 비활성화됨</resource>
+<resource key="af_table.SELECT_RANGE_NEXT_DISABLED_TIP" dnt="false">다음 기능이 사용 안함으로 설정됨</resource>
+<resource key="af_selectRangeChoiceBar.NEXT_DISABLED_TIP" dnt="false">다음 기능이 사용 안함으로 설정됨</resource>
 <!-- roll over text for the choice in the multi step navbar -->
 <resource key="af_selectRangeChoiceBar.CHOICE_TIP" dnt="false">레코드 집합 선택</resource>
 <resource key="af_table.SELECT_RANGE_CHOICE_TIP" dnt="false">레코드 집합 선택</resource>
@@ -324,7 +324,7 @@
 <resource key="af_menuTabs.ENABLED_TIP" dnt="false">{0}: 이 탭으로 이동하려면 선택</resource>
 <!--alternate text for a disabled TabBar image-->
 <!--{0} - the tab name. eg: Electronics: Disabled tab-->
-<resource key="af_menuTabs.DISABLED_TIP" dnt="false">{0}: 비활성화된 탭</resource>
+<resource key="af_menuTabs.DISABLED_TIP" dnt="false">{0}: 사용 안함으로 설정된 탭</resource>
 <!--Table/HGrid-->
 <!--Link text for selecting all rows-->
 <resource key="af_tableSelectMany.SELECT_ALL" dnt="false">모두 선택</resource>
@@ -436,11 +436,11 @@
        eg: Skip all Second level navigation elements -->
 <resource key="SKIP_CURRENT_NAVIGATION_BLOCK" dnt="false">모든 {0} 건너뛰기</resource>
 <!--Text to display in noscript tag -->
-<resource key="NO_SCRIPT_MESSAGE" dnt="false">이 페이지는 JavaScript를 사용하며 JavaScript 가능 브라우저가 필요합니다. 브라우저가 JavaScript 가능 브라우저가 아닙니다.</resource>
+<resource key="NO_SCRIPT_MESSAGE" dnt="false">이 페이지는 JavaScript를 사용하며 JavaScript 가능 브라우저가 필요합니다. 브라우저가 JavaScript가 사용으로 설정된 브라우저가 아닙니다.</resource>
 <!-- Text of the ALT tag for the content frame of popup windows -->
-<resource key="FRAME_CONTENT" dnt="false">컨텐트</resource>
+<resource key="FRAME_CONTENT" dnt="false">콘텐츠</resource>
 <!-- A message displayed when we think there's a popup blocker installed -->
-<resource key="WINDOW_CREATION_ERROR" dnt="false">브라우저에서 팝업 창 차단 기능이 감지되었습니다. 팝업 차단 기능은 이 응용 프로그램의 작업을 방해합니다. 팝업 차단 기능을 비활성화하거나 이 사이트에서 팝업을 허용하십시오.</resource>
+<resource key="WINDOW_CREATION_ERROR" dnt="false">브라우저에서 팝업 창 차단 기능이 감지되었습니다. 팝업 차단 기능은 이 응용 프로그램의 작업을 방해합니다. 팝업 차단 기능을 사용 안함으로 설정하거나 이 사이트에서 팝업을 허용하십시오.</resource>
 <!-- Text to display in noframes element. This message is set on noframes element,
        when page redirection happens for LOV selection. -->
 <resource key="NO_FRAMES_MESSAGE" dnt="false">브라우저에서 프레임을 지원하지 않습니다. 이 기능을 사용하려면 프레임 지원이 필요합니다.</resource>

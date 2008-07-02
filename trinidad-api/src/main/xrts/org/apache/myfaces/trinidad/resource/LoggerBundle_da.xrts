@@ -270,4 +270,6 @@
 <resource key="RESOURCE_PATH_OUTSIDE_ROOT" dnt="false">Ressourcestien {0} indeholder &quot;..&quot; og fortolkes til at være uden for rodkataloget, hvilket ikke er sikkert. Derfor ignoreres stien.</resource>
 <!-- RESOURCE_PATH_CONTAINS_DOTS -->
 <resource key="RESOURCE_PATH_DOTS" dnt="false">Ressourcestien {0} indeholder &quot;..&quot;. Browsere fortolker, at &quot;..&quot; er uden for, hvilket gør den mistænkelig.</resource>
+<!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
+<resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">Kunne ikke finde komponenten med scopedId {0} fra {1} med den understøttede syntaks. Komponenten blev fundet med den uønskede syntaks. Brug den understøttede syntaks.</resource>
 </resources>

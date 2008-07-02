@@ -702,8 +702,8 @@
 <resource key="CANNOT_FIND_TIMEZONE" dnt="false">Bylo požadováno časové pásmo s ID {0}, není však k dispozici prostřednictvím TimeZone.getTimeZone(ID řetězce) API. Přesvědčte se, že dané ID odpovídá (včetně malých a velkých písmen) ID, které vrací TimeZone.getAvailableIDs()</resource>
 <!-- INVALID_TIMEZONE_IN_CONFIG -->
 <resource key="INVALID_TIMEZONE_IN_CONFIG" dnt="false">Soubor trinidad-config.xml obsahuje neplatnou hodnotu pro časové-pásmo ({0}). Použije se proto výchozí časové pásmo.</resource>
-<!-- DEPRECATED_PARTIAL_TRIGGER_SYNTAX -->
-<resource key="DEPRECATED_PARTIAL_TRIGGER_SYNTAX" dnt="false">Nelze nalézt částečný spouštěcí modul {0} z hledání {1} vztahující se k dané komponentě. Byl nalezen částečný spouštěcí modul vztahující se k nadřazené komponentě, který je však zamítnut. Změňte částečný spouštěcí modul, aby se vztahoval k příslušné komponentě, nikoliv k nadřazené.</resource>
+<!-- DEPRECATED_TRIGGER_SYNTAX -->
+<resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">Nelze najít částečné vyvolání {0} z {1} s podporovanou syntaxí partialTriggers. Bylo zjištěno částečné spuštění s neschvalovanou syntaxí. Použijte podporovanou syntaxi.</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">Aby fungovalo ověření klienta, DateTimeRangeValidator vyžaduje, aby komponenta byla EditableValueHolder. Ověření klienta bude pro komponentu {0} zablokováno.</resource>
 </resources>

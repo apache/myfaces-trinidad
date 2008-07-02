@@ -702,8 +702,8 @@
 <resource key="CANNOT_FIND_TIMEZONE" dnt="false">มีการส่งคำขอโซนเวลาที่มี ID {0} แต่ไม่มีค่านี้ใน TimeZone.getTimeZone(String id) API โปรดตรวจสอบว่า ID นี้ตรงกับ ID ที่ได้รับจาก TimeZone.getAvailableIDs() โดยพิจารณาขนาดของตัวพิมพ์ด้วย</resource>
 <!-- INVALID_TIMEZONE_IN_CONFIG -->
 <resource key="INVALID_TIMEZONE_IN_CONFIG" dnt="false">trinidad-config.xml มีค่าที่ไม่ถูกต้องสำหรับโซนเวลา ({0}) ระบบจะใช้โซนเวลาดีฟอลต์แทน</resource>
-<!-- DEPRECATED_PARTIAL_TRIGGER_SYNTAX -->
-<resource key="DEPRECATED_PARTIAL_TRIGGER_SYNTAX" dnt="false">ไม่พบทริกเกอร์บางส่วน {0} จากการค้นหา {1} ที่เกี่ยวกับองค์ประกอบ ระบบพบทริกเกอร์บางส่วนที่เกี่ยวกับรายการระดับบนขององค์ประกอบแต่เป็นข้อมูลที่เลิกใช้แล้ว โปรดเปลี่ยนทริกเกอร์บางส่วนให้เกี่ยวข้องกับองค์ประกอบ ไม่ใช่รายการระดับบน</resource>
+<!-- DEPRECATED_TRIGGER_SYNTAX -->
+<resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">ไม่พบทริกเกอร์บางส่วน {0} จาก {1} ที่มีรูปแบบคำสั่ง partialTriggers ที่รองรับ พบทริกเกอร์บางส่วนที่มีรูปแบบคำสั่งที่เลิกใช้แล้ว โปรดใช้รูปแบบคำสั่งที่รองรับ</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">DateTimeRangeValidator กำหนดให้องค์ประกอบเป็น EditableValueHolder เพื่อให้การตรวจสอบความถูกต้องของไคลเอนต์ทำงานได้ การตรวจสอบไคลเอนต์จะถูกเลิกใช้สำหรับองค์ประกอบ {0}</resource>
 </resources>

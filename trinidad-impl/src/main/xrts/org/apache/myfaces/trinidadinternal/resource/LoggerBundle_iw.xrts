@@ -702,8 +702,8 @@
 <resource key="CANNOT_FIND_TIMEZONE" dnt="false">הוגשה בקשה לאזור זמן עם הזיהוי {0}, אבל הוא אינו זמין באמצעות ה-API TimeZone.getTimeZone(String id). ודא שהזיהוי תואם, לרבות אותיות קטנות/גדולות, לזיהוי שמוחזר על ידי TimeZone.getAvailableIDs()</resource>
 <!-- INVALID_TIMEZONE_IN_CONFIG -->
 <resource key="INVALID_TIMEZONE_IN_CONFIG" dnt="false">trinidad-config.xml מכיל ערך לא תקף של אזור זמן ({0}). המערכת תשתמש בברירת המחדל של אזור הזמן.</resource>
-<!-- DEPRECATED_PARTIAL_TRIGGER_SYNTAX -->
-<resource key="DEPRECATED_PARTIAL_TRIGGER_SYNTAX" dnt="false">לא נמצא טריגר חלקי {0} בחיפוש {1} שהוא יחסי לרכיב. הטריגר החלקי נמצא יחסי לאב של הרכיב אך הוא נדחה. שנה את הרכיב החלקי כך שיהיה יחסי לרכיב ולא יחסי לאב.</resource>
+<!-- DEPRECATED_TRIGGER_SYNTAX -->
+<resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">לא נמצא טריגר חלקי {0} מ-{1} בתחביר הנתמך של partialTriggers. נמצא שהתחביר של הטריגר החלקי הוא תחביר שנדחה. השתמש בתחביר הנתמך.</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">DateTimeRangeValidator דורש שהרכיב יהיה EditableValueHolder כדי שאימות הלקוח יפעל. אימות הלקוח ייחסם לרכיב {0}.</resource>
 </resources>

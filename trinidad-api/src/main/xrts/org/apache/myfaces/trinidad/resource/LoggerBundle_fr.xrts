@@ -270,4 +270,6 @@
 <resource key="RESOURCE_PATH_OUTSIDE_ROOT" dnt="false">Le chemin de ressource {0} contient &quot;..&quot; et est résolu en un élément situé en dehors du répertoire racine, ce qui n&apos;&apos;est pas sécurisé. Par conséquent, le chemin n&apos;&apos;est pas pris en compte.</resource>
 <!-- RESOURCE_PATH_CONTAINS_DOTS -->
 <resource key="RESOURCE_PATH_DOTS" dnt="false">Le chemin de ressource {0} contient &quot;..&quot;. Les navigateurs Web excluent &quot;..&quot;. Ce chemin est donc suspect.</resource>
+<!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
+<resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">Impossible de trouver le composant avec {0} comme scopedId à partir de {1} avec la syntaxe prise en charge. Ce composant a été trouvé avec la syntaxe en phase d&apos;&apos;abandon. Utilisez la syntaxe prise en charge.</resource>
 </resources>

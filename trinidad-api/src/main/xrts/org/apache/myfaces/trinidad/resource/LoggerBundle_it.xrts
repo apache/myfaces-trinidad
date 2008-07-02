@@ -270,4 +270,6 @@
 <resource key="RESOURCE_PATH_OUTSIDE_ROOT" dnt="false">Il percorso di risorsa {0} contiene &quot;..&quot; e indica una posizione esterna alla directory radice. Questa configurazione non è sicura, pertanto il percorso viene ignorato.</resource>
 <!-- RESOURCE_PATH_CONTAINS_DOTS -->
 <resource key="RESOURCE_PATH_DOTS" dnt="false">Il percorso di risorsa {0} contiene &quot;..&quot;. I browser puntano a posizione esterne a &quot;..&quot;, pertanto il percorso risulta sospetto.</resource>
+<!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
+<resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">Impossibile trovare il componente con scopedId {0} da {1} con la sintassi supportata. Il componente è stato trovato con la sintassi che non è più valida. Utilizzare la sintassi supportata.</resource>
 </resources>

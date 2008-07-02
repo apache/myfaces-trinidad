@@ -56,7 +56,7 @@
 <!-- {0} the label that identifies the component               -->
 <!-- {1} value entered by the user                             -->
 <!-- {2} the message string returned by the ConverterException -->
-<resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION" dnt="false">Konverteringen misslyckades.</resource>
+<resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION" dnt="false">Konverteringen utfördes inte.</resource>
 <resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION_detail" dnt="false">Ange ett värde som {2}.</resource>
 <!-- hints for validators -->
 <resource key="org.apache.myfaces.trinidad.validator.RangeValidator.MAXIMUM_HINT" dnt="false">Ange ett värde som är lägre än eller lika med {0}.</resource>
@@ -250,7 +250,7 @@
 <resource key="org.apache.myfaces.trinidad.convert.ColorConverter.CONVERT" dnt="false"> Ogiltigt färgformat</resource>
 <resource key="org.apache.myfaces.trinidad.convert.ColorConverter.CONVERT_detail" dnt="false">Giltigt exempel: {2}</resource>
 <!-- Color converter transparent string -->
-<resource key="org.apache.myfaces.trinidad.convert.ColorConverter.TRANSPARENT" dnt="false">Genomskinlig</resource>
+<resource key="org.apache.myfaces.trinidad.convert.ColorConverter.TRANSPARENT" dnt="false">Transparent</resource>
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
 <resource key="org.apache.myfaces.trinidad.convert.IntegerConverter.CONVERT" dnt="false">Inte ett heltal.</resource>

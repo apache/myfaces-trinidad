@@ -702,8 +702,8 @@
 <resource key="CANNOT_FIND_TIMEZONE" dnt="false">تم طلب المنطقة الزمنية ذات المعرف {0}، ولكنها غير متاحة من خلال واجهة API لـ TimeZone.getTimeZone(معرف السلسلة). الرجاء التحقق من تطابق المعرف، شاملاً حالة الأحرف والمعرف المرجع بواسطة TimeZone.getAvailableIDs()</resource>
 <!-- INVALID_TIMEZONE_IN_CONFIG -->
 <resource key="INVALID_TIMEZONE_IN_CONFIG" dnt="false">يشتمل ملف trinidad-config.xml على قيمة غير صالحة للمنطقة الزمنية ({0}). وسيتم استخدام المنطقة الزمنية الافتراضية بدلاً منه.</resource>
-<!-- DEPRECATED_PARTIAL_TRIGGER_SYNTAX -->
-<resource key="DEPRECATED_PARTIAL_TRIGGER_SYNTAX" dnt="false">تعذر العثور على المشغل الجزئي {0} من بحث {1} ذي الصلة بالمكون. وقد تم العثور على المشغل الجزئي ذي الصلة بالعنصر الرئيسي للمكون ولكن تم إسقاطه. قم بتغيير المشغل الجزئي حتى يكون ذا صلة بالمكون وليس بالعنصر الرئيسي.</resource>
+<!-- DEPRECATED_TRIGGER_SYNTAX -->
+<resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">تعذر العثور على المشغل الجزئي {0} من {1} بصياغة partialTriggers المدعومة. وقد تم العثور على المشغل الجزئي بالصياغة التي تم إسقاطها. الرجاء استخدام الصياغة المدعومة.</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">يتطلب DateTimeRangeValidator أن يكون المكون EditableValueHolder حتى يتم التدقيق للعميل. وسيتم تعطيل تدقيق العميل بالنسبة للمكون {0}.</resource>
 </resources>

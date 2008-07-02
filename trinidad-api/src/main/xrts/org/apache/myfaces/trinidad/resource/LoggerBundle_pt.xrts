@@ -270,4 +270,6 @@
 <resource key="RESOURCE_PATH_OUTSIDE_ROOT" dnt="false">O percurso do recurso {0} contém &quot;..&quot; e é decifrado de modo a ficar fora do directório raiz, o que não é seguro. Assim, o percurso é ignorado.</resource>
 <!-- RESOURCE_PATH_CONTAINS_DOTS -->
 <resource key="RESOURCE_PATH_DOTS" dnt="false">O percurso do recurso {0} contém &quot;..&quot;. Os navegadores excluem os &quot;..&quot; e, por isso, este percurso é suspeito.</resource>
+<!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
+<resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">Não foi possível encontrar o componente com a scopedId {0} a partir de {1} com a sintaxe suportada. O componente foi encontrado com a sintaxe recusada. Utilize a sintaxe suportada.</resource>
 </resources>

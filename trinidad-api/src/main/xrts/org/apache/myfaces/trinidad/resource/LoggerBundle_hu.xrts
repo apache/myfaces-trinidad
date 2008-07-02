@@ -157,9 +157,9 @@
 <!-- FACET_NAME_MUST_SPECIFIED -->
 <resource key="FACET_NAME_MUST_SPECIFIED" dnt="false">Az oldal nevét meg kell adni</resource>
 <!-- INDEX_SIZE -->
-<resource key="INDEX_SIZE" dnt="false">index:{0} size:{1}</resource>
+<resource key="INDEX_SIZE" dnt="false">index: {0}, méret: {1}</resource>
 <!-- BAD_PHASEID -->
-<resource key="BAD_PHASEID" dnt="false">Hibás PhaseId:{0}</resource>
+<resource key="BAD_PHASEID" dnt="false">Hibás PhaseId: {0}</resource>
 <!-- ILLEGAL_ID -->
 <resource key="ILLEGAL_ID" dnt="false">Érvénytelen azonosító: {0}</resource>
 <!-- WRAPPEDEVENT -->
@@ -270,4 +270,6 @@
 <resource key="RESOURCE_PATH_OUTSIDE_ROOT" dnt="false">A(z) {0} erőforrás-elérési útvonalban &quot;..&quot; szerepel, amely a gyökérkönyvtáron kívülre mutat, ezért nem biztonságos. A rendszer figyelmen kívül hagyja az útvonalat.</resource>
 <!-- RESOURCE_PATH_CONTAINS_DOTS -->
 <resource key="RESOURCE_PATH_DOTS" dnt="false">A(z) {0} erőforrás-elérési útvonalban &quot;..&quot; szerepel. A böngészők ezt külső helyre mutató útvonalként értelmezik, ezért gyanúsnak tekintik.</resource>
+<!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
+<resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">A támogatott szintaxissal nem található {0} scopedId értékkel rendelkező összetevő a következő helyen: {1}. Az összetevő csak az elavult szintaxissal található meg. Javítsa ki a támogatott szintaxisra.</resource>
 </resources>

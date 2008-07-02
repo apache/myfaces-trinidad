@@ -702,8 +702,8 @@
 <resource key="CANNOT_FIND_TIMEZONE" dnt="false">A fost solicitat fusul orar cu ID-ul {0}, dar nu este disponibil prin API-ul TimeZone.getTimeZone(String id). Verificaţi dacă ID-ul corespunde, inclusiv pentru majuscule/minuscule, un ID returnat de TimeZone.getAvailableIDs()</resource>
 <!-- INVALID_TIMEZONE_IN_CONFIG -->
 <resource key="INVALID_TIMEZONE_IN_CONFIG" dnt="false">Fişierul trinidad-config.xml conţine o valoare nevalidă pentru fusul orar ({0}). Va fi utilizat fusul orar prestabilit.</resource>
-<!-- DEPRECATED_PARTIAL_TRIGGER_SYNTAX -->
-<resource key="DEPRECATED_PARTIAL_TRIGGER_SYNTAX" dnt="false">Trigger-ul parţial {0} din{1} nu poate fi găsit căutând pe baza componentei. Trigger-ul parţial a fost găsit bazat pe componenta părinte, dar aceasta este perimată. Modificaţi trigger-ul parţial astfel încât să fie corelat cu componenta, nu cu părintele.</resource>
+<!-- DEPRECATED_TRIGGER_SYNTAX -->
+<resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">Nu s-a putut găsi trigger-ul parţial {0} din {1} cu sintaxa partialTriggers acceptată. Trigger-ul parţial a fost găsit cu sintaxa perimată. Utilizaţi sintaxa acceptată.</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">DateTimeRangeValidator necesită o componentă de tip EditableValueHolder pentru ca validarea clientului să fie efectuată. Validarea clientului va fi dezactivată pentru componenta {0}.</resource>
 </resources>

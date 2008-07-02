@@ -702,8 +702,8 @@
 <resource key="CANNOT_FIND_TIMEZONE" dnt="false">Pyydettiin aikavyöhykettä, jonka tunnus on {0}, mutta sitä ei voi käyttää TimeZone.getTimeZone(String id)-API-liittymän kautta. Varmista, että tunnus on sama kuin jokin TimeZone.getAvailableIDs()-menetelmän palauttamista tunnuksista. Kirjainkoko huomioidaan.</resource>
 <!-- INVALID_TIMEZONE_IN_CONFIG -->
 <resource key="INVALID_TIMEZONE_IN_CONFIG" dnt="false">trinidad-config.xml sisältää virheellisen time-zone-arvon ({0}). Oletusaikavyöhykettä käytetään.</resource>
-<!-- DEPRECATED_PARTIAL_TRIGGER_SYNTAX -->
-<resource key="DEPRECATED_PARTIAL_TRIGGER_SYNTAX" dnt="false">Osittaista herätintä {0} ei löydy kohteesta {1} komponenttiin liittyvällä haulla. Osittainen herätin löytyi komponentin päätasoon liittyvällä haulla, mutta se on vanhentunut. Muuta osittaista herätintä siten, että se liittyy komponenttiin komponentin päätason sijasta.</resource>
+<!-- DEPRECATED_TRIGGER_SYNTAX -->
+<resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">Osittaista herätintä {0} ei löydy kohteesta {1} tuetulla partialTriggers-syntaksilla. Osittainen herätin löydettiin vanhentuneella syntaksilla. Käytä tuettua syntaksia.</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">DateTimeRangeValidator edellyttää, että komponentti on EditableValueHolder, jotta työaseman tarkistus toimisi. Komponentin {0} työaseman tarkistus poistetaan käytöstä.</resource>
 </resources>

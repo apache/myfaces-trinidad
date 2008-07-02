@@ -270,4 +270,6 @@
 <resource key="RESOURCE_PATH_OUTSIDE_ROOT" dnt="false">리소스 경로 {0}에 &quot;..&quot;이 포함되어 있어 루트 디렉토리 외부에 있는 것으로 분석되는데 이는 안전하지 않은 경로입니다. 따라서 해당 경로는 무시됩니다.</resource>
 <!-- RESOURCE_PATH_CONTAINS_DOTS -->
 <resource key="RESOURCE_PATH_DOTS" dnt="false">리소스 경로 {0}에 &quot;..&quot;이 포함되어 있습니다. 브라우저는 &quot;..&quot;을 외부로 분석하므로 이는 의심스러운 경로입니다.</resource>
+<!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
+<resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">{1}에서 지원되는 구문을 사용하는 scopedId가 {0}인 구성 요소를 찾을 수 없습니다. 사용되지 않는 구문을 사용하는 구성 요소가 발견되었습니다. 지원되는 구문을 사용하십시오.</resource>
 </resources>
