@@ -270,4 +270,6 @@
 <resource key="RESOURCE_PATH_OUTSIDE_ROOT" dnt="false">Cesta prostriedku {0} obsahuje znaky \&quot;..\&quot; a vyhodnotí sa ako cesta mimo hlavného adresára, ktorá nie je bezpečná. Preto sa táto cesta bude ignorovať.</resource>
 <!-- RESOURCE_PATH_CONTAINS_DOTS -->
 <resource key="RESOURCE_PATH_DOTS" dnt="false">Cesta prostriedku {0} obsahuje znaky \&quot;..\&quot;. Na základe znakov \&quot;..\&quot; vyhodnotia prehľadávače cestu ako podozrivú.</resource>
+<!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
+<resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">Komponent so scopedId {0} z {1} s podporovanou syntaxou sa nenašiel. Komponent sa našiel so zastaranou syntaxou. Použite podporovanú syntax.</resource>
 </resources>

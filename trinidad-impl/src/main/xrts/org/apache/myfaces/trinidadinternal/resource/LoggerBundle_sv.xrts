@@ -529,7 +529,7 @@
 <!-- UNKNOWN_READING_DIRECTION -->
 <resource key="UNKNOWN_READING_DIRECTION" dnt="false">Okänd läsningsriktning: {0}</resource>
 <!-- FORMAT_PARSEOBJECT_FAIL -->
-<resource key="FORMAT_PARSEOBJECT_FAIL" dnt="false">Format.parseObject(String) misslyckades</resource>
+<resource key="FORMAT_PARSEOBJECT_FAIL" dnt="false">Format.parseObject(String) utfördes inte</resource>
 <!-- CANNOT_FORMAT_GIVEN_OBJECT_AS_A_COLOR -->
 <resource key="CANNOT_FORMAT_GIVEN_OBJECT_AS_A_COLOR" dnt="false">Kan inte formatera angivet objekt som en färg</resource>
 <!-- ILLEGAL_PATTERN_CHARACTER -->
@@ -702,8 +702,8 @@
 <resource key="CANNOT_FIND_TIMEZONE" dnt="false">Tidszon med id:t {0} har efterfrågats men är inte tillgänglig via API:t TimeZone.getTimeZone(String id). Kontrollera att id matchar, inklusive skiftläge, ett id som returneras av TimeZone.getAvailableIDs()</resource>
 <!-- INVALID_TIMEZONE_IN_CONFIG -->
 <resource key="INVALID_TIMEZONE_IN_CONFIG" dnt="false">Filen trinidad-config.xml innehåller ett ogiltigt värde för tidszonen ({0}). Standardtidszon används i stället.</resource>
-<!-- DEPRECATED_PARTIAL_TRIGGER_SYNTAX -->
-<resource key="DEPRECATED_PARTIAL_TRIGGER_SYNTAX" dnt="false">Kunde inte hitta partiell utlösare {0} från {1} sökning som är relativ till komponenten. Den partiella utlösaren hittades relativt till komponentens överordnade men den är inte aktuell. Ändra den partiella utlösaren så att den är relativ till komponenten, inte relativ till överordnad.</resource>
+<!-- DEPRECATED_TRIGGER_SYNTAX -->
+<resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">Kunde inte hitta den partiella utlösaren {0} från {1} med partialTriggers-syntax som stöds. Den partiella utlösaren hittades med inaktuell syntax. Använd den syntax som stöds.</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">För DateTimeRangeValidator krävs att komponenten är en EditableValueHolder om klientvalideringen ska fungera. Klientvalidering avaktiveras för komponenten {0}.</resource>
 </resources>

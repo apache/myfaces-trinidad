@@ -270,4 +270,6 @@
 <resource key="RESOURCE_PATH_OUTSIDE_ROOT" dnt="false">La ruta de acceso de recurso {0} contiene &quot;..&quot;. Se ha resuelto que está fuera del directorio raíz y que no es segura, por lo que se ignorará la ruta de acceso.</resource>
 <!-- RESOURCE_PATH_CONTAINS_DOTS -->
 <resource key="RESOURCE_PATH_DOTS" dnt="false">La ruta de acceso de recurso {0} contiene &quot;..&quot;. Los exploradores resuelven que &quot;..&quot;, por lo que es una ruta de acceso sospechosa.</resource>
+<!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
+<resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">No se ha encontrado el componente con scopedId {0} de {1} con la sintaxis soportada. Se ha encontrado el componente con la sintaxis anticuada. Utilice la sintaxis soportada.</resource>
 </resources>

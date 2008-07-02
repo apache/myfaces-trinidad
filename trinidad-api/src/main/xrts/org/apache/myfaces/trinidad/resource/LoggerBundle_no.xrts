@@ -270,4 +270,6 @@
 <resource key="RESOURCE_PATH_OUTSIDE_ROOT" dnt="false">Ressursbanen {0} inneholder &quot;..&quot; og tolkes til å være utenfor rotkatalogen, og dette er ikke trygt. Derfor ignoreres banen.</resource>
 <!-- RESOURCE_PATH_CONTAINS_DOTS -->
 <resource key="RESOURCE_PATH_DOTS" dnt="false">Ressursbanen {0} inneholder &quot;..&quot;. Lesere tolker bort &quot;..&quot;, så dette er en mistenkelig bane.</resource>
+<!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
+<resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">Finner ikke komponenten med scopedId {0} fra {1} med den støttede syntaksen. Komponenten ble funnet med en syntaks som frarådes. Bruk den støttede syntaksen.</resource>
 </resources>

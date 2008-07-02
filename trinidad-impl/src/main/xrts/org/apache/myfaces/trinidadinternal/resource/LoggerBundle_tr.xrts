@@ -702,8 +702,8 @@
 <resource key="CANNOT_FIND_TIMEZONE" dnt="false">{0} no&apos;&apos;lu saat dilimi istendi, ancak bu saat dilimi TimeZone.getTimeZone(String id) API üzerinden kullanılamaz. Lütfen durum da dahil No&apos;&apos;nun eşleştiğinden emin olunan ID returned by TimeZone.getAvailableIDs()</resource>
 <!-- INVALID_TIMEZONE_IN_CONFIG -->
 <resource key="INVALID_TIMEZONE_IN_CONFIG" dnt="false">trinidad-config.xml dosyası time-zone ({0}) için geçersiz bir değer içeriyor. Bunu yerine saat dilimi öndeğeri kullanılacak.</resource>
-<!-- DEPRECATED_PARTIAL_TRIGGER_SYNTAX -->
-<resource key="DEPRECATED_PARTIAL_TRIGGER_SYNTAX" dnt="false">Bileşenle bağlantılı {1} aramasında {0} kısmi tetikleyicisi bulunamadı. Bileşenin üst öğesiyle bağlantılı kısmi tetikleyici bulundu ancak bu onaylanmadı. Kısmi tetikleyiciyi, üst öğeyle değil bileşenle bağlantılı olacak şekilde değiştirin.</resource>
+<!-- DEPRECATED_TRIGGER_SYNTAX -->
+<resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">{1} öğesinde desteklenen partialTriggers sözdizimine sahip {0} kısmi tetikleyicisi bulunamadı. Onaylanmayan sözdizimine sahip kısmi tetikleyici bulundu. Lütfen desteklenen sözdizimini kullanın.</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">İstemci doğrulamasının çalışması için DateTimeRangeValidator, bileşenin EditableValueHolder olmasını gerektirir. İstemci doğrulaması {0} bileşeni için devre dışı bırakılacak.</resource>
 </resources>

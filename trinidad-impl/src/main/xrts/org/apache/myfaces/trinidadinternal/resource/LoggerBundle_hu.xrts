@@ -702,8 +702,8 @@
 <resource key="CANNOT_FIND_TIMEZONE" dnt="false">A kért {0} azonosítójú időzóna nem érhető el a TimeZone.getTimeZone(karakterlánc-azonosító) API-n keresztül. Ellenőrizze, hogy az azonosító (a kis- és nagybetűk figyelembevételével) megegyezik-e a TimeZone.getAvailableIDs() által visszaadott azonosítók valamelyikével.</resource>
 <!-- INVALID_TIMEZONE_IN_CONFIG -->
 <resource key="INVALID_TIMEZONE_IN_CONFIG" dnt="false">A trinidad-config.xml érvénytelen értékű time-zone elemet tartalmaz ({0}). A rendszer helyette az alapértelmezett időzónát használja.</resource>
-<!-- DEPRECATED_PARTIAL_TRIGGER_SYNTAX -->
-<resource key="DEPRECATED_PARTIAL_TRIGGER_SYNTAX" dnt="false">Az összetevőre vonatkozó keresés során nem található részleges {0} trigger a következő helyen: {1}. Csak az összetevő szülőjére vonatkozóan van részleges trigger, de az elavult. Módosítsa úgy a részleges triggert, hogy az magára az összetevőre, és ne a szülőjére vonatkozzék.</resource>
+<!-- DEPRECATED_TRIGGER_SYNTAX -->
+<resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">A támogatott partialTriggers szintaxissal nem található részleges {0} trigger a következő helyen: {1}. A részletes trigger csak az elavult szintaxissal található meg. Javítsa ki a támogatott szintaxisra.</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">Ahhoz, hogy az ügyfél-érvényesítés működjék, a DateTimeRangeValidator EditableValueHolder típusú összetevőt igényel. A rendszer letiltja az ügyfél-érvényesítést a(z) {0} összetevő esetén.</resource>
 </resources>

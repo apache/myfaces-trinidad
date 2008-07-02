@@ -270,4 +270,6 @@
 <resource key="RESOURCE_PATH_OUTSIDE_ROOT" dnt="false">Der Ressourcenpfad {0} enthält &quot;..&quot;. Er wird als außerhalb des Root-Verzeichnisses befindlich aufgelöst. Dies ist unsicher. Deshalb wird der Pfad ignoriert.</resource>
 <!-- RESOURCE_PATH_CONTAINS_DOTS -->
 <resource key="RESOURCE_PATH_DOTS" dnt="false">Der Ressourcenpfad {0} enthält &quot;..&quot;. Browser filtern &quot;..&quot; aus. Deshalb ist dies ein verdächtiger Pfad.</resource>
+<!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
+<resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">Die Komponente mit der scopedId {0} von {1} konnte nicht in der unterstützen Syntax gefunden werden. Die Komponente wurde in der verworfenen Syntax gefunden. Verwenden Sie die unterstützte Syntax.</resource>
 </resources>

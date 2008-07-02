@@ -207,7 +207,7 @@
 <!-- CLASS_REQUIRED -->
 <resource key="CLASS_REQUIRED" dnt="false">De klasse is verplicht.</resource>
 <!-- PACKAGE_REQUIRED -->
-<resource key="PACKAGE_REQUIRED" dnt="false">Het pakket is verplicht.</resource>
+<resource key="PACKAGE_REQUIRED" dnt="false">Het package is verplicht.</resource>
 <!-- NULL_ROWDATA -->
 <resource key="NULL_ROWDATA" dnt="false">rowData is NULL.</resource>
 <!-- CANNOT_EXIT_ROOT_CONTAINER -->
@@ -270,4 +270,6 @@
 <resource key="RESOURCE_PATH_OUTSIDE_ROOT" dnt="false">Het resourcepad {0} bevat &quot;..&quot;. Hieruit wordt afgeleid dat het pad buiten de startdirectory ligt. Omdat dit onveilig is, wordt het pad genegeerd.</resource>
 <!-- RESOURCE_PATH_CONTAINS_DOTS -->
 <resource key="RESOURCE_PATH_DOTS" dnt="false">Het resourcepad {0} bevat &quot;..&quot;. Omdat &quot;..&quot; door browsers wordt verwijderd, is dit een verdacht pad.</resource>
+<!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
+<resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">Kan de component met scopedId {0} van {1} niet vinden met de ondersteunde syntaxis. De component is gevonden met de afgekeurde syntaxis. Gebruik de ondersteunde syntaxis.</resource>
 </resources>

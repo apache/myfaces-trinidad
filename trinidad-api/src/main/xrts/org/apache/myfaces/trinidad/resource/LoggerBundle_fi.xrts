@@ -270,4 +270,6 @@
 <resource key="RESOURCE_PATH_OUTSIDE_ROOT" dnt="false">Resurssipolku {0} sisältää merkit &quot;..&quot;, joten se osoittaa juurihakemiston ulkopuolelle ja muodostaa turvallisuusriskin. Polku ohitetaan.</resource>
 <!-- RESOURCE_PATH_CONTAINS_DOTS -->
 <resource key="RESOURCE_PATH_DOTS" dnt="false">Resurssipolku {0} sisältää merkit &quot;..&quot;. Selaimet tulkitsevat merkit, joten polku on epäilyttävä.</resource>
+<!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
+<resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">Komponenttia, jolla on scopedId-tunnus {0}, ei löydy kohteesta {1} tuetulla syntaksilla. Komponentti löydettiin vanhentuneella syntaksilla. Käytä tuettua syntaksia.</resource>
 </resources>

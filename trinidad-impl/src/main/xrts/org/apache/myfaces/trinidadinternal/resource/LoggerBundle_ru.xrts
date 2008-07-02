@@ -702,8 +702,8 @@
 <resource key="CANNOT_FIND_TIMEZONE" dnt="false">Запрошен часовой пояс с идентификатором {0}, но он не доступен через API TimeZone.getTimeZone(строковый идентификатор). Проверьте соответствие данного идентификатора (включая соответствие регистра) идентификатору, возвращенному функцией TimeZone.getAvailableIDs()</resource>
 <!-- INVALID_TIMEZONE_IN_CONFIG -->
 <resource key="INVALID_TIMEZONE_IN_CONFIG" dnt="false">Файл trinidad-config.xml содержит недопустимое значение time-zone ({0}). Вместо него будет использоваться часовой пояс по умолчанию.</resource>
-<!-- DEPRECATED_PARTIAL_TRIGGER_SYNTAX -->
-<resource key="DEPRECATED_PARTIAL_TRIGGER_SYNTAX" dnt="false">Невозможно найти триггер по частичному результату {0} из {1} при поиске относительно данного компонента. Частичный триггер найден относительно родительского компонента данного компонента, но это неверно. Измените частичный триггер таким образом, чтобы он был задан относительно данного компонента, а не относительно его родительского компонента.</resource>
+<!-- DEPRECATED_TRIGGER_SYNTAX -->
+<resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">Невозможно найти частичный триггер {0} из {1} с поддерживаемым синтаксисом partialTriggers. Был обнаружен частичный триггер с устаревшим синтаксисом. Используйте поддерживаемый синтаксис.</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">Для работоспособности проверки клиента требуется, чтобы для DateTimeRangeValidator данный компонент являлся EditableValueHolder. Для компонента {0} проверка клиента будет отключена.</resource>
 </resources>

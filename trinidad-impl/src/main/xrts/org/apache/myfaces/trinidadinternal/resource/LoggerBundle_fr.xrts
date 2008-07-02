@@ -702,8 +702,8 @@
 <resource key="CANNOT_FIND_TIMEZONE" dnt="false">Le fuseau horaire avec l&apos;&apos;ID {0} était demandé, mais n&apos;&apos;est pas disponible via l&apos;&apos;API TimeZone.getTimeZone(String id). Vérifiez que cet ID correspond (notamment la casse) à un ID renvoyé par TimeZone.getAvailableIDs()</resource>
 <!-- INVALID_TIMEZONE_IN_CONFIG -->
 <resource key="INVALID_TIMEZONE_IN_CONFIG" dnt="false">Le fichier trinidad-config.xml contient une valeur de fuseau horaire non valide ({0}). Le fuseau horaire par défaut sera utilisé à la place.</resource>
-<!-- DEPRECATED_PARTIAL_TRIGGER_SYNTAX -->
-<resource key="DEPRECATED_PARTIAL_TRIGGER_SYNTAX" dnt="false">Impossible de trouver le déclencheur partiel {0} à partir de la recherche {1} relative au composant. Il s&apos;&apos;est avéré que le déclencheur partiel était relatif au parent du composant mais ceci est obsolète. Modifiez le déclencheur partiel afin qu&apos;&apos;il soit relatif au composant et non au parent.</resource>
+<!-- DEPRECATED_TRIGGER_SYNTAX -->
+<resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">Impossible de trouver le déclencheur partiel {0} à partir de {1} avec la syntaxe partialTriggers prise en charge. Le déclencheur partiel a été trouvé avec la syntaxe en phase d&apos;&apos;abandon. Utilisez la syntaxe prise en charge.</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">Pour que la validation client fonctionne, DateTimeRangeValidator requiert que le composant soit une valeur EditableValueHolder. La validation client va être désactivée pour le composant {0}.</resource>
 </resources>

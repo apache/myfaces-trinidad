@@ -270,4 +270,6 @@
 <resource key="RESOURCE_PATH_OUTSIDE_ROOT" dnt="false">Calea resursei {0} conţine &quot;..&quot; şi este în afara directorului rădăcină, iar aceasta duce la nesecurizare. În consecinţă, calea este ignorată.</resource>
 <!-- RESOURCE_PATH_CONTAINS_DOTS -->
 <resource key="RESOURCE_PATH_DOTS" dnt="false">Calea resursei {0} conţine &quot;..&quot;. Browserele au ca rezultat &quot;..&quot;, în consecinţă, aceasta este o cale nesecurizată.</resource>
+<!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
+<resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">Nu s-a putut găsi componenta cu scopedId {0} din {1} cu sintaxa acceptată. Componenta a fost găsită cu sintaxa perimată. Utilizaţi sintaxa acceptată.</resource>
 </resources>

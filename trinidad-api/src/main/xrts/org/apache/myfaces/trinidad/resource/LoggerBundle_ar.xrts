@@ -270,4 +270,6 @@
 <resource key="RESOURCE_PATH_OUTSIDE_ROOT" dnt="false">يشتمل مسار المورد {0} على &quot;..&quot; وانتهى تحليله إلى أن يكون خارج الدليل الأولي، وهو وضع غير آمن. وبالتالي تم تجاهل المسار.</resource>
 <!-- RESOURCE_PATH_CONTAINS_DOTS -->
 <resource key="RESOURCE_PATH_DOTS" dnt="false">يشتمل مسار المورد {0} على &quot;..&quot;. وتقوم المتصفحات باستبعاد &quot;..&quot; عند التحليل، لذا يعد هذا مسارًا مريبًا.</resource>
+<!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
+<resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">تعذر العثور على المكون ذي scopedId {0} من {1} بالصياغة المدعومة. حيث تم العثور على المكون بالصياغة التي تم إسقاطها. الرجاء استخدام الصياغة المدعومة.</resource>
 </resources>

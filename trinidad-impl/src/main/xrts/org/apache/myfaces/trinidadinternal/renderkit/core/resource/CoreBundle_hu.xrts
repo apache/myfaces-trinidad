@@ -56,7 +56,7 @@
 <resource key="afr_compositeTable.MENUITEM_SORT_ADVANCED" dnt="false">Összetett...</resource>
 <resource key="afr_compositeTable.MENUITEM_REORDER" dnt="false">Átrendezés...</resource>
 <resource key="afr_compositeTable.MENU_TOOLBARS" dnt="false">Eszköztárak</resource>
-<resource key="afr_compositeTable.MENUITEM_TOOLBARS_DEFAULT" dnt="false">Alapértelmezés</resource>
+<resource key="afr_compositeTable.MENUITEM_TOOLBARS_DEFAULT" dnt="false">Alapértelmezett</resource>
 <resource key="afr_compositeTable.MENUITEM_TOOLBARS_QBE" dnt="false">Lekérdezés példa alapján</resource>
 <resource key="afr_compositeTable.MENU_FORMAT" dnt="false">Formátum</resource>
 <resource key="afr_compositeTable.MENUITEM_RESIZECOLUMNS" dnt="false">Oszlopok átméretezése...</resource>

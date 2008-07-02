@@ -119,7 +119,7 @@
 <!-- {1} value entered by the user               -->
 <!-- {2} represents the minimum allowed date     -->
 <!-- {3} represents the maximum allowed date     -->
-<resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.NOT_IN_RANGE" dnt="false"> Tarih geçerli aralığın dışında</resource>
+<resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.NOT_IN_RANGE" dnt="false">Tarih geçerli aralığın dışında</resource>
 <resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.NOT_IN_RANGE_detail" dnt="false">{2} veya {3} tarihine eşit veya bu tarihler arasında olan bir tarih girin.</resource>
 <!-- The validator has a list with dates, which are not allowed. In case of that the entered date is part of the list, this message will be shown -->
 <!-- {0} the label that identifies the component -->
@@ -130,7 +130,7 @@
 <!-- {0} the label that identifies the component           -->
 <!-- {1} represent Date which the user has set             -->
 <resource key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.MONTH" dnt="false"> Geçersiz Ay</resource>
-<resource key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.MONTH_detail" dnt="false"> Şu aylardan bir tarih girin: {2}.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.MONTH_detail" dnt="false">Şu aylardan bir tarih girin: {2}.</resource>
 <!-- Validator can check if a date is an invalid weekday    -->
 <!-- {0} the label that identifies the component            -->
 <!-- {1} date value entered by the user                     -->
@@ -140,7 +140,7 @@
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
 <!-- {2} represents the maximum allowed number     -->
-<resource key="org.apache.myfaces.trinidad.validator.DoubleRangeValidator.MAXIMUM" dnt="false"> Değer Çok Büyük</resource>
+<resource key="org.apache.myfaces.trinidad.validator.DoubleRangeValidator.MAXIMUM" dnt="false">Değer Çok Büyük</resource>
 <resource key="org.apache.myfaces.trinidad.validator.DoubleRangeValidator.MAXIMUM_detail" dnt="false">{2} değerinden düşük veya buna eşit bir değer girin.</resource>
 <!-- Number exceeds number range error                -->
 <!-- {0} the label that identifies the component   -->
@@ -184,13 +184,13 @@
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
 <!-- {2} represents the maximum allowed number     -->
-<resource key="org.apache.myfaces.trinidad.validator.LongRangeValidator.MAXIMUM" dnt="false"> Değer Çok Büyük</resource>
+<resource key="org.apache.myfaces.trinidad.validator.LongRangeValidator.MAXIMUM" dnt="false">Değer Çok Büyük</resource>
 <resource key="org.apache.myfaces.trinidad.validator.LongRangeValidator.MAXIMUM_detail" dnt="false"> {2} değerinden düşük veya buna eşit bir değer girin.</resource>
 <!-- Number exceeds number range error                -->
 <!-- {0} the label that identifies the component   -->
 <!-- {1} represent Number which the user has set     -->
 <!-- {2} represents the minimum allowed number       -->
-<resource key="org.apache.myfaces.trinidad.validator.LongRangeValidator.MINIMUM" dnt="false"> Değer Çok Küçük</resource>
+<resource key="org.apache.myfaces.trinidad.validator.LongRangeValidator.MINIMUM" dnt="false">Değer Çok Küçük</resource>
 <resource key="org.apache.myfaces.trinidad.validator.LongRangeValidator.MINIMUM_detail" dnt="false"> {2} değerinden büyük veya buna eşit bir değer girin.</resource>
 <!-- Number outside number range error               -->
 <!-- {0} the label that identifies the component -->
@@ -263,11 +263,11 @@
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
 <!-- {2} the maximum number allowed              -->
-<resource key="org.apache.myfaces.trinidad.convert.IntegerConverter.MAXIMUM" dnt="false"> Değer Çok Büyük</resource>
+<resource key="org.apache.myfaces.trinidad.convert.IntegerConverter.MAXIMUM" dnt="false">Değer Çok Büyük</resource>
 <resource key="org.apache.myfaces.trinidad.convert.IntegerConverter.MAXIMUM_detail" dnt="false"> {2} değerinden düşük veya buna eşit bir değer girin.</resource>
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
-<resource key="org.apache.myfaces.trinidad.convert.LongConverter.CONVERT" dnt="false"> Tamsayı değil</resource>
+<resource key="org.apache.myfaces.trinidad.convert.LongConverter.CONVERT" dnt="false">Tamsayı değil</resource>
 <resource key="org.apache.myfaces.trinidad.convert.LongConverter.CONVERT_detail" dnt="false">Tamsayı değil.</resource>
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
@@ -330,7 +330,7 @@
 <resource key="org.apache.myfaces.trinidad.convert.DoubleConverter.CONVERT_detail" dnt="false">Sayı girin.</resource>
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
-<resource key="org.apache.myfaces.trinidad.convert.FloatConverter.CONVERT" dnt="false">Sayı değil. </resource>
+<resource key="org.apache.myfaces.trinidad.convert.FloatConverter.CONVERT" dnt="false">Sayı değil.</resource>
 <resource key="org.apache.myfaces.trinidad.convert.FloatConverter.CONVERT_detail" dnt="false">Girdiğiniz değer bir sayı değil.</resource>
 <!-- format for message in a javascript alert window                 -->
 <!-- This should match the af_messages.LIST_FORMAT_private           -->

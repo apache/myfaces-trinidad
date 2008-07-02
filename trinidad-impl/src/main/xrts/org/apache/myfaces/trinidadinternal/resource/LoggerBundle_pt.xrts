@@ -702,8 +702,8 @@
 <resource key="CANNOT_FIND_TIMEZONE" dnt="false">Foi solicitado o fuso horário com a ID {0}, mas não está disponível através da API TimeZone.getTimeZone(String id). Verifique se a ID corresponde, incluindo maiúsculas/minúsculas, a uma ID devolvida por TimeZone.getAvailableIDs()</resource>
 <!-- INVALID_TIMEZONE_IN_CONFIG -->
 <resource key="INVALID_TIMEZONE_IN_CONFIG" dnt="false">O trinidad-config.xml contém um valor inválido para time-zone ({0}). Será utilizado o fuso horário por omissão.</resource>
-<!-- DEPRECATED_PARTIAL_TRIGGER_SYNTAX -->
-<resource key="DEPRECATED_PARTIAL_TRIGGER_SYNTAX" dnt="false">Não foi possível encontrar o trigger parcial {0} a partir de {1} na pesquisa do trigger parcial relativo ao componente. Foi encontrado o trigger parcial relativo ao pai do componente, mas foi recusado. Altere o trigger parcial de modo a ser relativo ao componente, e não relativo ao pai.</resource>
+<!-- DEPRECATED_TRIGGER_SYNTAX -->
+<resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">Não foi possível encontrar o trigger parcial {0} a partir de {1} com a sintaxe partialTriggers suportada. O trigger parcial foi encontrado com a sintaxe recusada. Utilize a sintaxe suportada.</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">O DateTimeRangeValidator necessita que o componente seja um EditableValueHolder para que a validação do cliente funcione. A validação do cliente será desactivada para o componente {0}.</resource>
 </resources>

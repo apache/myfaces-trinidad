@@ -270,4 +270,6 @@
 <resource key="RESOURCE_PATH_OUTSIDE_ROOT" dnt="false">Путь к ресурсам {0} содержит &quot;..&quot; и при преобразовании к полной форме оказывается за пределами корневого каталога, что нарушает безопасность. Поэтому путь игнорируется.</resource>
 <!-- RESOURCE_PATH_CONTAINS_DOTS -->
 <resource key="RESOURCE_PATH_DOTS" dnt="false">Путь к ресурсу {0} содержит &quot;..&quot;. Разрешение неоднозначности путей с &quot;..&quot; выполняется браузерами, поэтому этот путь является подозрительным.</resource>
+<!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
+<resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">Невозможно найти компонент с scopedId {0} из {1} с поддерживаемым синтаксисом. Был обнаружен компонент с устаревшим синтаксисом. Используйте поддерживаемый синтаксис.</resource>
 </resources>

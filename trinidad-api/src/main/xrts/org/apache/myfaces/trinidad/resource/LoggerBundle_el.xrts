@@ -270,4 +270,6 @@
 <resource key="RESOURCE_PATH_OUTSIDE_ROOT" dnt="false">Η διαδρομή πόρου {0} περιλαμβάνει &quot;..&quot; και παραπέμπει εκτός του κεντρικού καταλόγου, γεγονός που δεν είναι ασφαλές. Επομένως η διαδρομή δεν θα ληφθεί υπόψη.</resource>
 <!-- RESOURCE_PATH_CONTAINS_DOTS -->
 <resource key="RESOURCE_PATH_DOTS" dnt="false">Η διαδρομή πόρου {0} περιλαμβάνει &quot;..&quot;. Τα προγράμματα περιήγησης δεν υποστηρίζουν &quot;..&quot;, και επομένως η συγκεκριμένη διαδρομή κρίνεται ύποπτη.</resource>
+<!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
+<resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">Δεν είναι δυνατή η εύρεση του συστατικού στοιχείου με scopedId {0} από το {1} με την υποστηριζόμενη σύνταξη. Το συστατικό στοιχείο εντοπίστηκε με καταργημένη σύνταξη. Χρησιμοποιήστε την υποστηριζόμενη σύνταξη.</resource>
 </resources>

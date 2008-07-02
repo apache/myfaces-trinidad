@@ -270,4 +270,6 @@
 <resource key="RESOURCE_PATH_OUTSIDE_ROOT" dnt="false">资源路径 {0} 中包含 &quot;..&quot;, 该路径将解析为根目录外部的路径, 这是不安全的。因此将忽略该路径。</resource>
 <!-- RESOURCE_PATH_CONTAINS_DOTS -->
 <resource key="RESOURCE_PATH_DOTS" dnt="false">资源路径 {0} 中包含 &quot;..&quot;。浏览器无法解析 &quot;..&quot;, 因此该路径是可疑路径。</resource>
+<!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
+<resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">在 {1} 中找不到 scopedId 为 {0}, 具有受支持语法的组件。找到了具有过时语法的组件。请使用支持的语法。</resource>
 </resources>

@@ -270,4 +270,6 @@
 <resource key="RESOURCE_PATH_OUTSIDE_ROOT" dnt="false">נתיב המשאב {0} מכיל &quot;..&quot; והוא מפוענח כנמצא מחוץ לספריית השורש, ולכן כנתיב לא מאובטח. לפיכך, המערכת מתעלמת מהנתיב.</resource>
 <!-- RESOURCE_PATH_CONTAINS_DOTS -->
 <resource key="RESOURCE_PATH_DOTS" dnt="false">נתיב המשאב {0} מכיל &quot;..&quot;. דפדפנים מפענחים את  &quot;..&quot; כנתיב חשוד.</resource>
+<!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
+<resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">לא נמצא רכיב עם scopedId {0} מ-{1} בתחביר הנתמך. נמצא שתחביר הרכיב הוא תחביר שנדחה. השתמש בתחביר הנתמך.</resource>
 </resources>

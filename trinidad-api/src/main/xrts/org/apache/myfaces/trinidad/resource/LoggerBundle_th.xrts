@@ -270,4 +270,6 @@
 <resource key="RESOURCE_PATH_OUTSIDE_ROOT" dnt="false">พาธของทรัพยากร {0} มี &quot;..&quot; ซึ่งแปลค่าว่าอยู่ภายนอกรูทไดเรคทอรี และไม่ปลอดภัย ระบบจึงไม่ประมวลผลพาธนี้</resource>
 <!-- RESOURCE_PATH_CONTAINS_DOTS -->
 <resource key="RESOURCE_PATH_DOTS" dnt="false">พาธของทรัพยากร {0} มี &quot;..&quot; เบราเซอร์แปลค่า &quot;..&quot; ซึ่งทำให้เป็นพาธที่ไม่ปลอดภัย</resource>
+<!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
+<resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">ไม่พบองค์ประกอบที่มี scopedId {0} จาก {1} ที่มีรูปแบบคำสั่งที่รองรับ พบองค์ประกอบที่มีรูปแบบคำสั่งที่เลิกใช้แล้ว โปรดใช้รูปแบบคำสั่งที่รองรับ</resource>
 </resources>
