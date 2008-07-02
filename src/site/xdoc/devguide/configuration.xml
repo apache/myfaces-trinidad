@@ -476,7 +476,7 @@ language (EL).  In JSF, what state saving remembers isn't the
 result of evaluating an EL expression  - it's the EL expression
 itself. So, when you see:
 <source><![CDATA[
-  <af:outputText value="#{mybean.value}"/>
+  <tr:outputText value="#{mybean.value}"/>
 ]]>
 </source>
 ... all that's being saved is "#{mybean.value}", and that state is
@@ -525,11 +525,11 @@ The following JSP includes two potential examples of the first problem:
     <h:outputText value="You're in an English locale"/>
   </c:if>
 
-  <af:selectOneListbox value="#{someValue}">
-    <af:forEach var="item" items="#{model.listOfItems}">
-      <af:selectItem value="#{item.value}" text="#{item.text}"/>
-    </af:forEach>
-  </af:selectOneListbox>
+  <tr:selectOneListbox value="#{someValue}">
+    <tr:forEach var="item" items="#{model.listOfItems}">
+      <tr:selectItem value="#{item.value}" text="#{item.text}"/>
+    </tr:forEach>
+  </tr:selectOneListbox>
 ]]>
 </source>
 The &lt;c:if&gt; will show "You're in an English locale" if the locale's
@@ -543,7 +543,7 @@ which is always a recommended JSF best-practice:
                   rendered="#{user.locale.language == 'en'}"/>
 ]]>
 </source>
-The example using &lt;af:forEach&gt; is less clear-cut, and 
+The example using &lt;tr:forEach&gt; is less clear-cut, and 
 less easily resolved.  If "model.listOfItems" always has the
 same <em>number</em> of items when a page gets shown at first,
 then there are no issues with this particular code sample.  But
@@ -551,9 +551,9 @@ if the number of items does vary from one user to another,
 then the page, as written, cannot support the Application View Cache.
 In this particular case, there's also a simple workaround:
 <source><![CDATA[
-  <af:selectOneListbox value="#{someValue}">
+  <tr:selectOneListbox value="#{someValue}">
     <f:selectItems value="#{model.listOfSelectItems}"/>
-  </af:selectOneListbox>
+  </tr:selectOneListbox>
 ]]>
 </source>
 </p>
