@@ -27,9 +27,6 @@ function _dfsv(
   if ((dateField == (void 0)) || (newValue == (void 0)))
     return;
     
-  // adjust day light saving, if any
-  newValue += _getDayLightSavOffset(newValue);
-
   // Add back in the time
   // offset,since we don't want to overwrite the user's time when 
   // they pick a new date from the calendar. 
@@ -38,7 +35,7 @@ function _dfsv(
   // compare the time zone that is on the client with the time zone that
   // came from the localeContext on the server and adjust if necessary.
   // bug 3167883
-  newValue += _getLocaleTimeZoneDifference();
+  newValue += _getLocaleTimeZoneDifference2();
 
   var newDate = new Date(newValue);
 
@@ -344,7 +341,7 @@ function _getTimePortion(dateField)
  * server instead of the timezone we get from javascript's getTimezoneOffset.
  * see bug 3167883
  */
-function _getLocaleTimeZoneDifference()
+function _getLocaleTimeZoneDifference2()
 {
   var currentDate = new Date();
   // timeZoneOffset in javascript appears to give

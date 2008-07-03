@@ -199,6 +199,9 @@ public class SimpleInputDateRenderer
     // =-=AEW What's this one?
     XhtmlUtils.addLib(context, arc, "_dfsv()");
     XhtmlUtils.addLib(context, arc, "_fixDFF()");
+    XhtmlUtils.addLib(context,
+                      arc,
+                      _DATE_TIME_ZONE_OFFSET_KEY);
     super.encodeAllAsElement(context, arc, component, bean);
 
     if (!getDisabled(bean))
@@ -218,9 +221,6 @@ public class SimpleInputDateRenderer
     XhtmlUtils.addLib(context,
                       arc,
                       ConfigurationScriptlet.sharedInstance().getScriptletKey());
-    XhtmlUtils.addLib(context,
-                      arc,
-                      _DATE_TIME_ZONE_OFFSET_KEY);
 
     // Add the dialog styles so the picker window is skinned correctly
     if (CoreRenderKit.usePopupForDialog(context, RequestContext.getCurrentInstance()))
