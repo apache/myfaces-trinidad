@@ -18,7 +18,7 @@
  */
 package org.apache.myfaces.trinidadinternal.style.util;
 
-import java.util.regex.Pattern;
+import org.apache.myfaces.trinidad.util.StringUtils;
 
 /**
  * Generic style utilities.
@@ -44,13 +44,12 @@ public class StyleUtils
     
     if (selector == null) return null;
     selector = selector.replace('|', '_');
-    // This is the code that's actually getting called by String.replaceAll();
-    // this code is way too heavy.
-    if (selector.indexOf("::") > 0)
-      selector = _DOUBLE_COLON_PATTERN.matcher(selector).replaceAll("_");
+
+    if (selector.indexOf(_DOUBLE_COLON) > 0)
+      selector = StringUtils.replace(selector, _DOUBLE_COLON, "_");
 
     return selector;
   }
 
-  static private final Pattern _DOUBLE_COLON_PATTERN = Pattern.compile("::");
+  static private final String _DOUBLE_COLON = "::";
 }

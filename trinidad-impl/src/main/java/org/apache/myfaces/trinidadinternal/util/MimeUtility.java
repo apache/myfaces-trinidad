@@ -22,6 +22,8 @@ import java.io.UnsupportedEncodingException;
 
 import java.net.URLEncoder;
 
+import org.apache.myfaces.trinidad.util.StringUtils;
+
 
 final public class MimeUtility
 {
@@ -40,7 +42,7 @@ final public class MimeUtility
       try
       {
         // IE does not understand "+ = space", workaround here
-        return URLEncoder.encode(word, "UTF-8").replace("+", "%20");
+        return StringUtils.replace(URLEncoder.encode(word, "UTF-8"), "+", "%20");
       }
       catch (UnsupportedEncodingException e)
       {
