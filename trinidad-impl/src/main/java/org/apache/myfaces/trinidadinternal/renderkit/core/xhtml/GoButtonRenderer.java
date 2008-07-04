@@ -27,6 +27,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
+import org.apache.myfaces.trinidad.util.StringUtils;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.nav.CoreGoButton;
@@ -280,7 +281,7 @@ public class GoButtonRenderer extends GoLinkRenderer
     else
     {
       // Escape the destination in case there's any quotes
-      destination = destination.replace("'", "\\'");
+      destination = StringUtils.replace(destination, "'", "\\'");
 
       String targetFrame = getTargetFrame(bean);
       // Look for target frames with well-known names, like
