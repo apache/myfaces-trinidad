@@ -116,7 +116,7 @@ public class HeadRenderer extends XhtmlRenderer
     
     writer.startElement("meta", null);
     writer.writeAttribute("name", "generator", null);
-    writer.writeAttribute("content", "Apache Trinidad", null);
+    writer.writeAttribute("content", "Apache MyFaces Trinidad", null);
     writer.endElement("meta");
   }
 
