@@ -158,6 +158,7 @@ TrPage.prototype._handlePprResponse = function(documentElement)
   else
   {
     // FIXME: log an error
+    window.location.reload(true);
   }
 }
 
