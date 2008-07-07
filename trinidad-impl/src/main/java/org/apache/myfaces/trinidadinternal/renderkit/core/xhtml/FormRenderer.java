@@ -47,7 +47,6 @@ import org.apache.myfaces.trinidad.context.FormData;
 import org.apache.myfaces.trinidad.context.PartialPageContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreResponseStateManager;
-import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContextImpl;
 import org.apache.myfaces.trinidadinternal.renderkit.uix.SubformRenderer;
 
 // TODO: Remove this class
@@ -96,6 +95,7 @@ public class FormRenderer extends XhtmlRenderer
     super.findTypeConstants(type);
 
     _usesUploadKey = type.findKey("usesUpload");
+    _autoCompleteKey = type.findKey("autoComplete");
     _defaultCommandKey = type.findKey("defaultCommand");
     _onsubmitKey = type.findKey("onsubmit");
     _targetFrameKey = type.findKey("targetFrame");
@@ -181,11 +181,10 @@ public class FormRenderer extends XhtmlRenderer
     // render the autocomplete attribute
     if (supportsAutoCompleteFormElements(arc))
     {
-      // TODO: support autocomplete
-      boolean noAutocomplete = getNoAutocomplete(bean);
-      if (noAutocomplete)
+      String autocomplete = getAutoComplete(bean);
+      if (autocomplete.toLowerCase().equals(CoreForm.AUTO_COMPLETE_OFF))
       {
-        rw.writeAttribute("autocomplete", "off", "noAutocomplete");
+        rw.writeAttribute("autocomplete", "off", "autoComplete");
       }
     }
 
@@ -394,8 +393,6 @@ public class FormRenderer extends XhtmlRenderer
 
     if (resetCallCount != 0)
     {
-      String jsID = XhtmlUtils.getJSIdentifier(fData.getName());
-
       ResponseWriter writer = context.getResponseWriter();
       writer.startElement("script", null);
       renderScriptDeferAttribute(context, arc);
@@ -1017,13 +1014,13 @@ public class FormRenderer extends XhtmlRenderer
     return null;
   }
 
-  protected boolean getNoAutocomplete(FacesBean bean)
+  protected String getAutoComplete(FacesBean bean)
   {
-    // TODO: Support disabling autocomplete
-    return false;
+    Object o = bean.getProperty(_autoCompleteKey);
+    if (o == null)
+      o = _autoCompleteKey.getDefault();
+    return o.toString();
   }
-
-
 
   private static void _renderHiddenField(
     ResponseWriter writer,
@@ -1139,6 +1136,7 @@ public class FormRenderer extends XhtmlRenderer
   public static final Object USES_UPLOAD_KEY = new Object();
 
   private PropertyKey _usesUploadKey;
+  private PropertyKey _autoCompleteKey;
   private PropertyKey _defaultCommandKey;
   private PropertyKey _onsubmitKey;
   private PropertyKey _targetFrameKey;

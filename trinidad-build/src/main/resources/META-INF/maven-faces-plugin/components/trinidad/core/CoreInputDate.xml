@@ -59,6 +59,18 @@
       <default-value>false</default-value>
     </property>
     <property>
+      <description><![CDATA[whether previous values of text fields in the form
+          should be remembered and offered for auto completion.]]>
+      </description>
+      <property-name>autoComplete</property-name>
+      <property-class>java.lang.String</property-class>
+      <default-value>on</default-value>
+      <property-extension>
+        <mfp:required>false</mfp:required>
+        <mfp:property-values>on off</mfp:property-values>
+      </property-extension>
+    </property>
+    <property>
       <description><![CDATA[the label of the bean.]]></description>
       <property-name>label</property-name>
       <property-class>java.lang.String</property-class>
