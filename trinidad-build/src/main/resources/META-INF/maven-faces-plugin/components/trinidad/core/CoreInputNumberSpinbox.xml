@@ -46,6 +46,18 @@ it is used to enter numbers and it has a spinbox to quickly increment or decreme
       <default-value>false</default-value>
     </property>
     <property>
+      <description><![CDATA[whether previous values of text fields in the form
+          should be remembered and offered for auto completion.]]>
+      </description>
+      <property-name>autoComplete</property-name>
+      <property-class>java.lang.String</property-class>
+      <default-value>on</default-value>
+      <property-extension>
+        <mfp:required>false</mfp:required>
+        <mfp:property-values>on off</mfp:property-values>
+      </property-extension>
+    </property>
+    <property>
       <description><![CDATA[the short description of the bean.  This text
          is commonly used by user agents to display tooltip help text.]]>
       </description>

@@ -31,7 +31,6 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 
 import org.apache.myfaces.trinidad.component.core.input.CoreInputText;
 
-import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
 
@@ -59,6 +58,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
     _wrapKey = type.findKey("wrap");
     _secretKey = type.findKey("secret");
     _maximumLengthKey = type.findKey("maximumLength");
+    _autoCompleteKey = type.findKey("autoComplete");
     _onselectKey = type.findKey("onselect");
 
   }
@@ -160,11 +160,11 @@ public class SimpleInputTextRenderer extends FormInputRenderer
   @Override
   protected void renderAllAttributes(
     FacesContext        context,
-    RenderingContext arc,
+    RenderingContext    rc,
     FacesBean           bean,
     boolean             renderStyleAttrs) throws IOException
   {
-    super.renderAllAttributes(context, arc, bean, false);
+    super.renderAllAttributes(context, rc, bean, false);
 
     ResponseWriter rw = context.getResponseWriter();
 
@@ -173,7 +173,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
 
     if (columns == null)
     {
-      columns = getDefaultColumns(arc, bean);
+      columns = getDefaultColumns(rc, bean);
     }
     else
     {
@@ -222,19 +222,20 @@ public class SimpleInputTextRenderer extends FormInputRenderer
 
       // render the readonly attribute
       if ((getReadOnly(context, bean) || 
-           !supportsEditing(arc)) &&
-          supportsReadonlyFormElements(arc))
+           !supportsEditing(rc)) &&
+          supportsReadonlyFormElements(rc))
         rw.writeAttribute("readonly", Boolean.TRUE, "readOnly");
     }
     else
     {
       // render the autocomplete attribute
-      if (supportsAutoCompleteFormElements(arc))
+      if (supportsAutoCompleteFormElements(rc))
       {
-        // BUG 4019675: support autocomplete
-        if (getNoAutoComplete(bean))
+        // TODO: check for CoreForm...
+        String autocomplete = getAutoComplete(bean);
+        if (autocomplete.toLowerCase().equals(CoreInputText.AUTO_COMPLETE_OFF))
         {
-          rw.writeAttribute("autocomplete", "off", null);
+          rw.writeAttribute("autocomplete", "off", "autoComplete");
         }
       }
       
@@ -705,13 +706,14 @@ public class SimpleInputTextRenderer extends FormInputRenderer
     return false;
   }
 
-  /**
-   * @todo Support in Trinidad?
-   */
-  protected boolean getNoAutoComplete(FacesBean bean)
+  protected String getAutoComplete(FacesBean bean)
   {
-    return false;
+    Object o = bean.getProperty(_autoCompleteKey);
+    if (o == null)
+      o = _autoCompleteKey.getDefault();
+    return o.toString();
   }
+
   /*
    * Is this a simple input text component? We need to know so that subclasses
    * that contain a inputText won't wrap the input in a span.
@@ -796,6 +798,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
   private PropertyKey _wrapKey;
   private PropertyKey _secretKey;
   private PropertyKey _maximumLengthKey;
+  private PropertyKey _autoCompleteKey;
   private PropertyKey _onselectKey;
 
   static private final Integer _DEFAULT_PDA_COLUMNS = Integer.valueOf(11);

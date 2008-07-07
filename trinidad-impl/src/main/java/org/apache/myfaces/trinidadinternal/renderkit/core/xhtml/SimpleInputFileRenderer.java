@@ -26,6 +26,7 @@ import javax.faces.convert.ConverterException;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 
 import org.apache.myfaces.trinidad.component.core.input.CoreInputFile;
+import org.apache.myfaces.trinidad.component.core.input.CoreInputText;
 
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.model.UploadedFile;
@@ -77,6 +78,11 @@ public class SimpleInputFileRenderer extends SimpleInputTextRenderer
       result = file;
 
     return result;
+  }
+
+  protected String getAutoComplete(FacesBean bean)
+  {
+    return CoreInputText.AUTO_COMPLETE_ON;
   }
 
   @Override

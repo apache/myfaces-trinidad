@@ -229,6 +229,18 @@ tip), and may use simpler layout primitives]]>
       </property-extension>
     </property>
     <property>
+      <description><![CDATA[whether previous values of text fields in the form
+          should be remembered and offered for auto completion.]]>
+      </description>
+      <property-name>autoComplete</property-name>
+      <property-class>java.lang.String</property-class>
+      <default-value>on</default-value>
+      <property-extension>
+        <mfp:required>false</mfp:required>
+        <mfp:property-values>on off</mfp:property-values>
+      </property-extension>
+    </property>
+    <property>
       <description><![CDATA[event handler for when text becomes selected.]]></description>
       <property-name>onselect</property-name>
       <property-class>java.lang.String</property-class>

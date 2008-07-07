@@ -46,6 +46,18 @@
       </property-extension>
     </property>
     <property>
+      <description><![CDATA[whether previous values of text fields in the form
+          should be remembered and offered for auto completion.]]>
+      </description>
+      <property-name>autoComplete</property-name>
+      <property-class>java.lang.String</property-class>
+      <default-value>on</default-value>
+      <property-extension>
+        <mfp:required>false</mfp:required>
+        <mfp:property-values>on off</mfp:property-values>
+      </property-extension>
+    </property>
+    <property>
       <description><![CDATA[The id attribute of the command button whose action would be invoked by default for form submit on hitting enter on any of the input fields of the form.]]>
       </description>
       <property-name>defaultCommand</property-name>
