@@ -31,7 +31,7 @@ public class RequestContextBean extends FacesBeanImpl
 {
   static public final Type TYPE = new Type();
   static public final PropertyKey PAGE_FLOW_SCOPE_LIFETIME_KEY =
-    TYPE.registerKey("process-scope-lifetime",
+    TYPE.registerKey("page-flow-scope-lifetime",
                      Integer.class,
                      PropertyKey.CAP_NOT_BOUND);
   static public final PropertyKey DEBUG_OUTPUT_KEY =
