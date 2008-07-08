@@ -233,7 +233,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
       {
         // TODO: check for CoreForm...
         String autocomplete = getAutoComplete(bean);
-        if (autocomplete.toLowerCase().equals(CoreInputText.AUTO_COMPLETE_OFF))
+        if (autocomplete.equalsIgnoreCase(CoreInputText.AUTO_COMPLETE_OFF))
         {
           rw.writeAttribute("autocomplete", "off", "autoComplete");
         }
