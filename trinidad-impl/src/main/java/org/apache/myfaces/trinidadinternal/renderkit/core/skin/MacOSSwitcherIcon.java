@@ -54,13 +54,13 @@ class MacOSSwitcherIcon extends Icon
   @Override
   public void renderIcon(
     FacesContext context,
-    RenderingContext arc,
+    RenderingContext rc,
     Map<String, ? extends Object> attrs
     ) throws IOException
   {
-    Icon icon = _getIcon(arc);
+    Icon icon = _getIcon(rc);
 
-    icon.renderIcon(context, arc, attrs);
+    icon.renderIcon(context, rc, attrs);
   }
 
   /**
@@ -69,33 +69,33 @@ class MacOSSwitcherIcon extends Icon
   @Override
   public Object getImageURI(
     FacesContext        context,
-    RenderingContext arc)
+    RenderingContext rc)
   {
-    Icon icon = _getIcon(arc);
+    Icon icon = _getIcon(rc);
 
-    return icon.getImageURI(context, arc);
+    return icon.getImageURI(context, rc);
   }
 
   /**
    * Override of Icon.getImageWidth().
    */
   @Override
-  public Integer getImageWidth(RenderingContext arc)
+  public Integer getImageWidth(RenderingContext rc)
   {
-    Icon icon = _getIcon(arc);
+    Icon icon = _getIcon(rc);
 
-    return icon.getImageWidth(arc);
+    return icon.getImageWidth(rc);
   }
 
   /**
    * Override of Icon.getImageHeight().
    */
   @Override
-  public Integer getImageHeight(RenderingContext arc)
+  public Integer getImageHeight(RenderingContext rc)
   {
-    Icon icon = _getIcon(arc);
+    Icon icon = _getIcon(rc);
 
-    return icon.getImageHeight(arc);
+    return icon.getImageHeight(rc);
   }
 
   // Returns the Icon to use
