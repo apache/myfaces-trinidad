@@ -182,7 +182,7 @@ public class FormRenderer extends XhtmlRenderer
     if (supportsAutoCompleteFormElements(arc))
     {
       String autocomplete = getAutoComplete(bean);
-      if (autocomplete.toLowerCase().equals(CoreForm.AUTO_COMPLETE_OFF))
+      if (autocomplete.equalsIgnoreCase(CoreForm.AUTO_COMPLETE_OFF))
       {
         rw.writeAttribute("autocomplete", "off", "autoComplete");
       }
