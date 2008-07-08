@@ -99,12 +99,11 @@ class MacOSSwitcherIcon extends Icon
   }
 
   // Returns the Icon to use
-  private Icon _getIcon(RenderingContext arc)
+  private Icon _getIcon(RenderingContext rc)
   {
-    return (arc.getAgent().getPlatformName().equals(
-                                 Agent.PLATFORM_MACOS)) ?
-             _macOSIcon :
-             _icon;
+    return (Agent.PLATFORM_MACOS.equals(rc.getAgent().getPlatformName())) ?
+      _macOSIcon :
+      _icon;
   }
 
   private Icon _icon;
