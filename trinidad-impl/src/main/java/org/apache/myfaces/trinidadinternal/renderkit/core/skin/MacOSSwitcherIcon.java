@@ -101,10 +101,9 @@ class MacOSSwitcherIcon extends Icon
   // Returns the Icon to use
   private Icon _getIcon(RenderingContext arc)
   {
-    return (arc.getAgent().getPlatformName().equals(
-                                 Agent.PLATFORM_MACOS)) ?
-             _macOSIcon :
-             _icon;
+    return (Agent.PLATFORM_MACOS.equals(arc.getAgent().getPlatformName())) ?
+      _macOSIcon :
+      _icon;
   }
 
   private Icon _icon;
