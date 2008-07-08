@@ -68,7 +68,7 @@ public class UploadedFileProcessorImpl implements UploadedFileProcessor
       {
         try
         {
-          _maxMemory = Integer.parseInt(maxMemory);
+          _maxMemory = Long.parseLong(maxMemory);
         }
         catch (NumberFormatException nfe)
         {
@@ -88,7 +88,7 @@ public class UploadedFileProcessorImpl implements UploadedFileProcessor
       {
         try
         {
-          _maxDiskSpace = Integer.parseInt(maxDiskSpace);
+          _maxDiskSpace = Long.parseLong(maxDiskSpace);
         }
         catch (NumberFormatException nfe)
         {
