@@ -85,19 +85,21 @@ public class ClassLoaderResourceLoader extends ResourceLoader
   protected URL findResource(
     String path) throws IOException
   {
+    // Strip off leading slash, since this can
+    // trip up ClassLoader.getResource().
+    if (path.charAt(0) == '/')
+      path = path.substring(1);
+
     if (_resourcePrefix != null)
     {
-      if (path.charAt(0) == '/')
+      if (_resourcePrefix.endsWith("/"))
+      {
         path = _resourcePrefix + path;
+      }
       else
+      {
         path = _resourcePrefix + "/" + path;
-    }
-    else
-    {
-      // String off leading slash, since this can
-      // trip up ClassLoader.getResource()
-      if (path.charAt(0) == '/')
-        path = path.substring(1);
+      }
     }
 
     if (!_isPathWithinRoot(path))
@@ -122,7 +124,7 @@ public class ClassLoaderResourceLoader extends ResourceLoader
 
   /**
    * Converts root package into a resource prefix.  For example, converts
-   * the package "org.example" into resource prefix "org/example/".
+   * the package "org.example" into resource prefix "org/example".
    *
    * @param rootPackage  the root package
    *
