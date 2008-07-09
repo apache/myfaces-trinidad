@@ -159,6 +159,16 @@ public class SimpleInputColorRenderer
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
+    if (!_colorScriptletsRegistered) 
+    {
+        ColorFieldInfoScriptlet.sharedInstance().registerSelf();
+        (new AliasedScriptlet(_COLOR_FIELD_LIB, null,
+                              new String[]{"openWindow()",
+                                           "_getColorFieldFormat()",
+                                           ColorFieldInfoScriptlet.COLOR_FIELD_INFO_KEY
+                                           })).registerSelf();    
+        _colorScriptletsRegistered = true;    
+    }
     String chooseId = _computeChooseId(context, component, bean);
     arc.getProperties().put(_CACHED_CHOOSE_ID, chooseId);
 
@@ -615,18 +625,7 @@ public class SimpleInputColorRenderer
   private PropertyKey _compactKey;
 
   private static final String _COLOR_FIELD_LIB = "ColorField";
-
-  static
-  {
-    ColorFieldInfoScriptlet.sharedInstance().registerSelf();
-    (new AliasedScriptlet(_COLOR_FIELD_LIB, null,
-                          new String[]{"openWindow()",
-                                       "_getColorFieldFormat()",
-                                       ColorFieldInfoScriptlet.COLOR_FIELD_INFO_KEY
-                                       })).registerSelf();
-  }
-
-
+  private static boolean _colorScriptletsRegistered = false;
   private static final Integer _DEFAULT_COLUMNS = 11;
 
   // AdfRenderingContext property key for the Map which tracks whether

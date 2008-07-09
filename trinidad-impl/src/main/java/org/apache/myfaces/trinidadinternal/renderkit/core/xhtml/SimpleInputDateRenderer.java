@@ -185,6 +185,14 @@ public class SimpleInputDateRenderer
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
+
+    if (!_dateScriptletsRegistered) 
+    {
+      // Register our scriptlet
+      DateTimeZoneOffsetScriptlet.sharedInstance().registerSelf();
+      _dateScriptletsRegistered = true;
+    }
+    
     String chooseId = _computeChooseId(context, component, bean);
     arc.getProperties().put(_CACHED_CHOOSE_ID, chooseId);
 
@@ -688,12 +696,8 @@ public class SimpleInputDateRenderer
 
   // name for our scriptlet
   private static final String _DATE_TIME_ZONE_OFFSET_KEY = "dateTimeZoneOffset";
-  static
-  {
-    // Register our scriptlet
-    DateTimeZoneOffsetScriptlet.sharedInstance().registerSelf();
-  }
-
+  private static boolean _dateScriptletsRegistered = false;
+  
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(SimpleInputDateRenderer.class);
 
