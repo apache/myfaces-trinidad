@@ -49,6 +49,7 @@ public class CoreClassLoaderResourceLoader extends ClassLoaderResourceLoader
   protected URL findResource(
     String path) throws IOException
   {
+    // Strip the version string, since it is not present in the actual file name.
     String version = CoreRenderKitResourceLoader.__getVersion();
     int index = path.indexOf(version);
     if (index >= 0)
@@ -57,6 +58,38 @@ public class CoreClassLoaderResourceLoader extends ClassLoaderResourceLoader
               path.substring(index + version.length()));
     }
 
+    // Fix up "jsLibs/Debug" -> "jsLibsDebug/".
+    path = _fixJavaScriptDebugPath(path);
+
     return super.findResource(path);
   }
+
+  // LibraryScriptlet prefixes debug JS libraries with the prefix
+  // "Debug".  So, for example,  the "Foo.js" library ends up being
+  // referred to via an URL of the form "<base>/jsLibs/DebugFoo.js".
+  // Unfortunately, this is out of sync with reality, since our
+  // JS libraries actually live under a "jsLibsDebug" directory,
+  // ie. the debug "Foo.js" lives at "META-INF/adf/jsLibsDebug/Foo.js".
+  // As a result, CoreClassLoaderResourceLoader fails to locate
+  // scripts that are rendered via a LibraryScriptlet.
+  //
+  // To work around this problem, this code converts paths of the
+  // form "jsLibs/Debug" to "jsLibsDebug/", which allows our
+  // library look ups to succeed.
+  //
+  // Note that an alternate approach might be to tweak LibraryScriptlet
+  // to generate the paths that CoreClassLoaderResourceLoader expects.
+  // One issue with this is that our "Common" and "LocaleInfo" libraries
+  // are handled somewhat differently, so any changes to LibraryScriptlet
+  // will impact at least those scripts as well.  Performing this mapping
+  // here seems the least intrusive.
+  private String _fixJavaScriptDebugPath(String path)
+  {
+    return (path.indexOf(_JS_DEBUG_PATH) >= 0) ?
+      path.replaceFirst(_JS_DEBUG_PATH, _FIXED_JS_DEBUG_PATH) :
+      path;
+  }
+
+  private static final String _JS_DEBUG_PATH = "jsLibs/Debug";
+  private static final String _FIXED_JS_DEBUG_PATH = "jsLibsDebug/";
 }
