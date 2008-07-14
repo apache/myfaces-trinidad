@@ -149,23 +149,29 @@ abstract public class UIXTreeTemplate extends UIXHierarchy
   {
     if (isInitiallyExpanded() && !Boolean.TRUE.equals(getAttributes().get(EXPAND_ONCE_KEY)))
     {
-      Object rowKey = getFocusRowKey();
-      if (rowKey == null)
+      Object oldRowKey = getRowKey();
+      try
       {
-        int oldIndex = getRowIndex();
-        setRowIndex(0);
-        rowKey = getRowKey();
-        setRowIndex(oldIndex);
+        Object rowKey = getFocusRowKey();
+        if (rowKey == null)
+        {
+          setRowIndex(0);
+          rowKey = getRowKey();
+        }
+
+        setRowKey(rowKey);
+        RowKeySet old = getDisclosedRowKeys();
+        RowKeySet newset = old.clone();
+        newset.addAll();
+
+        // use an event to ensure the row disclosure listener is called
+        broadcast(new RowDisclosureEvent(old, newset, this));
+      }
+      finally
+      {
+        setRowKey(oldRowKey);
       }
 
-      setRowKey(rowKey);
-      RowKeySet old = getDisclosedRowKeys();
-      RowKeySet newset = old.clone();
-      newset.addAll();
-      
-      // use an event to ensure the row disclosure listener is called 
-      broadcast(new RowDisclosureEvent(old, newset, this));
-      
       // use attributes to store that we have processed the initial expansion
       // as there is no support for private properties in the plug-in at the
       // moment
