@@ -102,6 +102,16 @@ This facet may not always line up perfectly, especially if the labels or fields 
         <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>
       </property-extension>
     </property>
+    <property>
+      <description><![CDATA[The alignment of label prompts for the form items.]]>
+      </description>
+      <property-name>labelAlignment</property-name>
+      <property-class>java.lang.String</property-class>
+      <property-extension>
+        <mfp:required>false</mfp:required>
+        <mfp:property-values>start top</mfp:property-values>
+      </property-extension>
+    </property>
 
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Panel</mfp:component-supertype>
