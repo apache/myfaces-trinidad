@@ -67,27 +67,6 @@
       </facet-extension>
     </facet>
     <facet>
-      <description><![CDATA[The auxiliary content for the primary layer.]]></description>
-      <facet-name>auxiliary1</facet-name>
-      <facet-extension>
-        <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
-      </facet-extension>
-    </facet>
-    <facet>
-      <description><![CDATA[The auxiliary content for the secondary layer.]]></description>
-      <facet-name>auxiliary2</facet-name>
-      <facet-extension>
-        <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
-      </facet-extension>
-    </facet>
-    <facet>
-      <description><![CDATA[The auxiliary content for the global layer.]]></description>
-      <facet-name>auxiliaryGlobal</facet-name>
-      <facet-extension>
-        <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
-      </facet-extension>
-    </facet>
-    <facet>
       <description><![CDATA[The branding region of the page.  This section typically
                 contains a horizontal panelGroup for an image of a logo and an
                 outputText for a title.]]>
@@ -98,20 +77,6 @@
           <mfp:preferred>true</mfp:preferred>
           <mfp:preferred-children>tr:panelGroupLayout tr:image tr:outputText</mfp:preferred-children>
         </mfp:facet-metadata>
-      </facet-extension>
-    </facet>
-    <facet>
-      <description><![CDATA[The global contextual region of the page.]]></description>
-      <facet-name>contextGlobal</facet-name>
-      <facet-extension>
-        <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
-      </facet-extension>
-    </facet>
-    <facet>
-      <description><![CDATA[An optional horizontally oriented region of contexual components for the main content.]]></description>
-      <facet-name>contextLocal</facet-name>
-      <facet-extension>
-        <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </facet-extension>
     </facet>
     <facet>
@@ -221,27 +186,6 @@
         <mfp:facet-metadata>
           <mfp:preferred-children>tr:inputText</mfp:preferred-children>
         </mfp:facet-metadata>
-        <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
-      </facet-extension>
-    </facet>
-    <facet>
-      <description><![CDATA[This location typically is a toolbar for the primary layer.]]></description>
-      <facet-name>toolbar1</facet-name>
-      <facet-extension>
-        <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
-      </facet-extension>
-    </facet>
-    <facet>
-      <description><![CDATA[This location typically is a toolbar for the secondary layer.]]></description>
-      <facet-name>toolbar2</facet-name>
-      <facet-extension>
-        <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
-      </facet-extension>
-    </facet>
-    <facet>
-      <description><![CDATA[This location typically is a toolbar for the global layer.]]></description>
-      <facet-name>toolbarGlobal</facet-name>
-      <facet-extension>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </facet-extension>
     </facet>
