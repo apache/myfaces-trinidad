@@ -28,7 +28,6 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.MimeTypes;
 import org.apache.myfaces.trinidadinternal.share.util.CaboHttpUtils;
 
 /**
