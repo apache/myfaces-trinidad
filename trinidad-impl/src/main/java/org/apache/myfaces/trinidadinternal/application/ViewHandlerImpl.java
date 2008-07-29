@@ -148,6 +148,18 @@ public class ViewHandlerImpl extends ViewHandlerWrapper
     UIViewRoot   viewToRender) throws IOException, FacesException
   {
     _initIfNeeded(context);
+    
+    // Check whether Trinidad's ViewHandler is registered more than once.
+    // This happens when the implementation jar is loaded multiple times.
+    Map<String, Object> reqMap = context.getExternalContext().getRequestMap();
+    if (reqMap.get(_RENDER_VIEW_MARKER) != null)
+    {
+      _LOG.warning("DUPLICATE_VIEWHANDLER_REGISTRATION");
+    }
+    else
+    {
+      reqMap.put(_RENDER_VIEW_MARKER, Boolean.TRUE);
+    }
 
     // See if there is a possiblity of short-circuiting the current
     // Render Response
@@ -185,6 +197,9 @@ public class ViewHandlerImpl extends ViewHandlerWrapper
           service.encodeFinally(context);
       }
     }
+    
+    // Remove the 'marker' from the request map just in case the entire tree is rendered again
+    reqMap.remove(_RENDER_VIEW_MARKER);
   }
 
   @Override
@@ -517,4 +532,5 @@ public class ViewHandlerImpl extends ViewHandlerWrapper
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ViewHandlerImpl.class);
   private static final Long   _NOT_FOUND = Long.valueOf(0);
+  private static final String _RENDER_VIEW_MARKER = "__trRenderViewEntry";
 }

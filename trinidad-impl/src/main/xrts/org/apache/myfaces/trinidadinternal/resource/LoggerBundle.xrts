@@ -75,6 +75,9 @@
 <!-- CANNOT_LOAD_VIEWHANDLER -->
 <resource key="CANNOT_LOAD_VIEWHANDLER">Could not load ViewHandler {0}</resource>
 
+<!-- DUPLICATE_VIEWHANDLER_REGISTRATION -->
+<resource key="DUPLICATE_VIEWHANDLER_REGISTRATION">Trinidad's ViewHandler is registered more than once. To avoid initialization problems, make sure that only one Trinidad implementation jar is loaded</resource>
+
 <!-- TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION -->
 <resource key="TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION">Apache Trinidad is running with time-stamp checking enabled. This should not be used in a production environment. See the {0} property in WEB-INF/web.xml</resource>
 
