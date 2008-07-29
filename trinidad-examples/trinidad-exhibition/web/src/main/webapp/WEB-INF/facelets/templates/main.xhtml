@@ -1,0 +1,161 @@
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+-->
+<tr:document
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:c="http://java.sun.com/jstl/core"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:tr="http://myfaces.apache.org/trinidad"
+  xmlns:trh="http://myfaces.apache.org/trinidad/html"
+  xmlns:tre="http://myfaces.apache.org/trinidad/exhibition"
+  inlineStyle="height: 100%; width: 100%; margin: 0px; padding: 0px;">
+  <f:facet name="metaContainer">
+    <tr:group>
+      <ui:insert name="head" />
+      <style type="text/css">
+HTML,
+BODY,
+FORM {
+  height: 100%;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+  overflow: auto;
+}
+DIV.templateBody {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
+.aboutLabel,
+.aboutValue {
+  text-align: left;
+  vertical-align: top;
+}
+.aboutLabel {
+  font-weight: bold;
+}
+.aboutValue {
+  width: 100%;
+}
+      </style>
+    </tr:group>
+  </f:facet>
+  <tr:form id="mainForm">
+    <tr:panelBorderLayout
+      id="templateFrame"
+      layout="positioned"
+      inlineStyle="height: 99.9%; width: 99.9%; position: absolute; top: 0px; left: 0px;"
+      topHeight="45px"
+      rightWidth="225px"
+      bottomHeight="30px"
+      innerTopHeight="6px"
+      innerRightWidth="6px"
+      innerBottomHeight="6px"
+      innerLeftWidth="6px">
+      <f:facet name="top">
+        <tr:panelBorderLayout
+          layout="positioned"
+          inlineStyle="height: 100%; width: 100%; position: absolute; top: 0px; left: 0px;"
+          leftWidth="114px"
+          rightWidth="150px">
+          <f:facet
+            name="left">
+            <tr:group>
+              <div class="AFTitleBarLogo">
+                <h:outputText value="&#160;" escape="false" />
+              </div>
+            </tr:group>
+          </f:facet>
+          <f:facet
+            name="right">
+            <tr:panelGroupLayout
+              inlineStyle="white-space: nowrap; display: block; overflow: hidden;
+                height: 100%; position: relative; padding-right: 6px;"
+              styleClass="AFTitleBar">
+              <f:facet name="separator">
+                <tr:outputText value="&#160;|&#160;" escape="false" />
+              </f:facet>
+              <tr:panelPopup
+                triggerType="hover"
+                text="#{msgs.template_main_main_menu_text}">
+                <tr:iterator
+                  var="_item"
+                  value="#{menus.mainMenuItems}">
+                  <tr:commandLink
+                    partialSubmit="true"
+                    immediate="true"
+                    text="#{_item.label}"
+                    action="#{_item.value}"
+                    styleClass="popupMenuLink" />
+                </tr:iterator>
+              </tr:panelPopup>
+              <tr:panelPopup
+                id="aboutDialog"
+                text="#{msgs.template_main_about_link}"
+                modal="true"
+                width="450"
+                position="centered"
+                triggerType="click"
+                title="#{msgs.template_main_about_title}">
+                <h:panelGrid
+                  columns="2"
+                  columnClasses="aboutLabel, aboutValue"
+                  styleClass="AFLogoWatermark"
+                  style="height: 200px; width: 100%;">
+                  <tr:outputText
+                    value="#{msgs.template_main_about_version}" />
+                  <tr:outputText
+                    value="#{metaData.version}" />
+                </h:panelGrid>
+              </tr:panelPopup>
+            </tr:panelGroupLayout>
+          </f:facet>
+          <div class="AFTitleBarFade">
+            <tr:icon name="AFTitleBarFadeIcon" />
+          </div>
+        </tr:panelBorderLayout>
+      </f:facet>
+      <f:facet name="right">
+        <tr:group>
+          <div class="templateRight">
+            <ui:insert name="right" />
+          </div>
+        </tr:group>
+      </f:facet>
+      <f:facet name="innerTop"><tr:outputText value="&#160;" escape="false" /></f:facet>
+      <f:facet name="innerRight"><tr:outputText value="&#160;" escape="false" /></f:facet>
+      <f:facet name="innerBottom"><tr:outputText value="&#160;" escape="false" /></f:facet>
+      <f:facet name="innerLeft"><tr:outputText value="&#160;" escape="false" /></f:facet>
+      <f:facet name="bottom">
+        <tr:outputText
+          value="#{msgs.copyright}"
+          inlineStyle="display: block; padding-left: 8px;"
+          styleClass="AFPageFooter"/>
+      </f:facet>
+      <div
+        class="templateBody">
+        <ui:insert name="body" />
+      </div>
+    </tr:panelBorderLayout>
+  </tr:form>
+</tr:document>

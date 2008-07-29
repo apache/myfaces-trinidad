@@ -1,0 +1,9 @@
+This is not a real skin, but a way for developers to change and test the myfaces skin
+without having to re-deploy the skin jar over and over again.
+
+To use, execute this command from the trinidad-exhibition working copy directory on a Linux OS:
+(cd web/src/main/webapp/skins/test-myfaces/ && \
+ln -snf ../../../../../../../../trinidad-skins/myfaces-skin/src/main/resources/META-INF/style/myfaces-desktop.css \
+test-myfaces.css) 
+
+Now all changes to this test skin will be made to the real one.

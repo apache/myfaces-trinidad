@@ -1,0 +1,8 @@
+/* This file holds the extensions to the myfaces skin that are specific to the demo */
+
+.OraLink.popupMenuLink {
+  display: block;
+  white-space: nowrap;
+  padding: 0px 8px;
+  padding-top: 2px;
+}

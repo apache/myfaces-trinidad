@@ -321,6 +321,7 @@
     <module>trinidad-build</module>
     <module>trinidad-api</module>
     <module>trinidad-impl</module>
+    <module>trinidad-skins</module>
   </modules>
 
   <build>

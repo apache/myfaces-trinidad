@@ -1,0 +1,315 @@
+/*
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+*/
+.AFBackgroundLightGradientStart:alias {
+  background-color: #ecf2e4;
+}
+.AFBackgroundLightGradientEnd:alias {
+  background-color: #dae5cb;
+}
+.AFLightTextColor:alias {
+  color: #669900;
+}
+.AFLightTextDisabledColor:alias {
+  color: #8c9973
+}
+.AFDarkTextColor:alias {
+  color: #705F38;
+}
+.AFDarkTextDisabledColor:alias {
+  color: #706b5f;
+}
+.AFTextColorHover:alias {
+  color: #FF9900;
+}
+.AFLightElementBorder:alias {
+  border: 1px solid #669900;
+}
+
+.AFDefaultLink:alias {
+  text-decoration: none;
+  -tr-rule-ref:selector(".AFLightTextColor:alias");
+}
+.AFDefaultLinkHover:alias {
+  text-decoration: none;
+  -tr-rule-ref:selector(".AFTextColorHover:alias");
+}
+.AFDefaultLinkDisabled:alias {
+  text-decoration: none;
+  -tr-rule-ref:selector(".AFLightTextDisabledColor:alias");
+}
+
+.AFLinkAccessKeyStyle:alias {
+  text-decoration: underline;
+}
+.OraLink,
+.OraLink:link,
+.OraLinkText,
+.OraLink:visited,
+.p_OraTreeRow A,
+.p_OraTreeRow A:link,
+.p_OraTreeRow A:visited,
+.OraNavBarActiveLink {
+  -tr-rule-ref:selector(".AFDefaultLink:alias");
+  -tr-rule-ref:selector(".AFDefaultFont:alias");
+}
+.OraLink:hover,
+.p_OraTreeRow A:hover,
+.OraNavBarActiveLink:hover {
+  -tr-rule-ref:selector(".AFDefaultLinkHover:alias");
+}
+.OraLinkDisabled,
+.OraLinkDisabled:hover {
+  -tr-rule-ref:selector(".AFDefaultLinkDisabled:alias");
+}
+
+.AFFormControlContent {
+  width: 150px;
+  background-position: top;
+  background-repeat: repeat-x;
+}
+af|inputText::content {
+  -tr-rule-ref:selector(".AFFormControlContent:alias");
+  -tr-rule-ref:selector(".AFLightElementBorder:alias");
+  /*background-image: TODO */
+}
+
+.AFRequiredIcon:alias {
+  content: '*';
+}
+.AFTitleBar,
+.AFTitleBar .OraLink,
+.AFTitleBar .OraLink:link,
+.AFTitleBar .OraLink:visited {
+  color: white;
+}
+.AFTitleBar .OraLink:hover {
+  text-decoration: underline;
+}
+
+.AFTitleBar {
+  background-image: url(/myfaces_skin/title-bg.png);
+  background-position: top;
+  background-repeat: repeat-x;
+  height: 45px;
+  line-height: 45px;
+  text-align: right;
+}
+.AFTitleBarLogo {
+  background-image: url(/myfaces_skin/myfaces-logo-with-text-small.png);
+  background-position: top left;
+  background-repeat: no-repeat;
+  height: 45px;
+  line-height: 45px;
+  width: 114px;
+}
+.AFTitleBarFade IMG {
+  /* Use an indirect selector as percentages are not allowed for icons */
+  height: 45px;
+  width: 100%;
+}
+.AFTitleBarFadeIcon:alias {
+  content: url(/myfaces_skin/title-bg-fade.png);
+}
+.AFLogoWatermark {
+  background-image: url(/myfaces_skin/myfaces-logo-with-text-watermark.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color: white;
+  color: black;
+}
+.AFPageFooter {
+  height: 30px;
+  line-height: 30px;
+  background-image: url(/myfaces_skin/footer-bg.png);
+  background-position: bottom;
+  background-repeat: repeat-x;
+  color: white;
+  font-size: x-small;
+}
+
+/* af|panelPopup */
+af|panelPopup::title-bar {
+  background-color: #51822c;
+  border-width: 0px;
+}
+af|panelPopup::title-text {
+  font-weight: bold;
+  color: white;
+}
+af|panelPopup::content {
+  background-color: white;
+}
+af|panelPopup::container {
+  -tr-rule-ref:selector('.AFLightElementBorder:alias');
+}
+af|panelPopup::close-icon {
+  content: url(/myfaces_skin/dialog-close.png);
+}
+
+/* af|panelBox */
+.AFPanelBoxCorner:alias {
+  width: 10px;
+  height: 10px;
+  background-repeat: no-repeat;
+}
+.AFPanelBoxTopBottom:alias {
+  height: 10px;
+  background-repeat: repeat-x;
+}
+.AFPanelBoxLeftRight:alias {
+  width: 10px;
+  background-repeat: repeat-y;
+  background-position: top;
+}
+.AFPanelBoxCenter:alias {
+  background-position: top;
+  background-repeat: repeat-x;
+}
+af|panelBox::dark af|panelBox::body {
+  background-image: url(/myfaces_skin/panel-box-dark-center.png);
+  color: white;
+  -tr-rule-ref:selector('.AFPanelBoxCenter:alias');
+}
+af|panelBox::dark af|panelBox::top-start:ltr,
+af|panelBox::dark af|panelBox::top-end:rtl {
+  background-image: url(/myfaces_skin/panel-box-dark-top-left.png);
+  -tr-rule-ref:selector('.AFPanelBoxCorner:alias');
+}
+af|panelBox::dark af|panelBox::top-end:ltr,
+af|panelBox::dark af|panelBox::top-start:rtl {
+  background-image: url(/myfaces_skin/panel-box-dark-top-right.png);
+  -tr-rule-ref:selector('.AFPanelBoxCorner:alias');
+}
+af|panelBox::dark af|panelBox::bottom-start:ltr,
+af|panelBox::dark af|panelBox::bottom-end:rtl {
+  background-image: url(/myfaces_skin/panel-box-dark-bottom-left.png);
+  -tr-rule-ref:selector('.AFPanelBoxCorner:alias');
+}
+af|panelBox::dark af|panelBox::bottom-end:ltr,
+af|panelBox::dark af|panelBox::bottom-start:rtl {
+  background-image: url(/myfaces_skin/panel-box-dark-bottom-right.png);
+  -tr-rule-ref:selector('.AFPanelBoxCorner:alias');
+}
+af|panelBox::dark af|panelBox::top {
+  background-image: url(/myfaces_skin/panel-box-dark-top.png);
+  -tr-rule-ref:selector('.AFPanelBoxTopBottom:alias');
+}
+af|panelBox::dark af|panelBox::bottom {
+  background-image: url(/myfaces_skin/panel-box-dark-bottom.png);
+  -tr-rule-ref:selector('.AFPanelBoxTopBottom:alias');
+}
+af|panelBox::dark af|panelBox::start:ltr,
+af|panelBox::dark af|panelBox::end:rtl {
+  background-image: url(/myfaces_skin/panel-box-dark-left.png);
+  -tr-rule-ref:selector('.AFPanelBoxLeftRight:alias');
+}
+af|panelBox::dark af|panelBox::end:ltr,
+af|panelBox::dark af|panelBox::start:rtl {
+  background-image: url(/myfaces_skin/panel-box-dark-right.png);
+  -tr-rule-ref:selector('.AFPanelBoxLeftRight:alias');
+}
+af|panelBox::medium af|panelBox::body {
+  background-image: url(/myfaces_skin/panel-box-medium-center.png);
+  color: black;
+  background-color: #f4f1ea;
+  -tr-rule-ref:selector('.AFPanelBoxCenter:alias');
+}
+af|panelBox::medium af|panelBox::top-start:ltr,
+af|panelBox::medium af|panelBox::top-end:rtl {
+  background-image: url(/myfaces_skin/panel-box-medium-top-left.png);
+  -tr-rule-ref:selector('.AFPanelBoxCorner:alias');
+}
+af|panelBox::medium af|panelBox::top-end:ltr,
+af|panelBox::medium af|panelBox::top-start:rtl {
+  background-image: url(/myfaces_skin/panel-box-medium-top-right.png);
+  -tr-rule-ref:selector('.AFPanelBoxCorner:alias');
+}
+af|panelBox::medium af|panelBox::bottom-start:ltr,
+af|panelBox::medium af|panelBox::bottom-end:rtl {
+  background-image: url(/myfaces_skin/panel-box-medium-bottom-left.png);
+  -tr-rule-ref:selector('.AFPanelBoxCorner:alias');
+}
+af|panelBox::medium af|panelBox::bottom-end:ltr,
+af|panelBox::medium af|panelBox::bottom-start:rtl {
+  background-image: url(/myfaces_skin/panel-box-medium-bottom-right.png);
+  -tr-rule-ref:selector('.AFPanelBoxCorner:alias');
+}
+af|panelBox::medium af|panelBox::top {
+  background-image: url(/myfaces_skin/panel-box-medium-top.png);
+  -tr-rule-ref:selector('.AFPanelBoxTopBottom:alias');
+}
+af|panelBox::medium af|panelBox::bottom {
+  background-image: url(/myfaces_skin/panel-box-medium-bottom.png);
+  -tr-rule-ref:selector('.AFPanelBoxTopBottom:alias');
+}
+af|panelBox::medium af|panelBox::start:ltr,
+af|panelBox::medium af|panelBox::end:rtl {
+  background-image: url(/myfaces_skin/panel-box-medium-left.png);
+  -tr-rule-ref:selector('.AFPanelBoxLeftRight:alias');
+}
+af|panelBox::medium af|panelBox::end:ltr,
+af|panelBox::medium af|panelBox::start:rtl {
+  background-image: url(/myfaces_skin/panel-box-medium-right.png);
+  -tr-rule-ref:selector('.AFPanelBoxLeftRight:alias');
+}
+af|panelBox::light af|panelBox::body {
+  background-image: url(/myfaces_skin/panel-box-light-center.png);
+  color: black;
+  background-color: #fafafa;
+  -tr-rule-ref:selector('.AFPanelBoxCenter:alias');
+}
+af|panelBox::light af|panelBox::top-start:ltr,
+af|panelBox::light af|panelBox::top-end:rtl {
+  background-image: url(/myfaces_skin/panel-box-light-top-left.png);
+  -tr-rule-ref:selector('.AFPanelBoxCorner:alias');
+}
+af|panelBox::light af|panelBox::top-end:ltr,
+af|panelBox::light af|panelBox::top-start:rtl {
+  background-image: url(/myfaces_skin/panel-box-light-top-right.png);
+  -tr-rule-ref:selector('.AFPanelBoxCorner:alias');
+}
+af|panelBox::light af|panelBox::bottom-start:ltr,
+af|panelBox::light af|panelBox::bottom-end:rtl {
+  background-image: url(/myfaces_skin/panel-box-light-bottom-left.png);
+  -tr-rule-ref:selector('.AFPanelBoxCorner:alias');
+}
+af|panelBox::light af|panelBox::bottom-end:ltr,
+af|panelBox::light af|panelBox::bottom-start:rtl {
+  background-image: url(/myfaces_skin/panel-box-light-bottom-right.png);
+  -tr-rule-ref:selector('.AFPanelBoxCorner:alias');
+}
+af|panelBox::light af|panelBox::top {
+  background-image: url(/myfaces_skin/panel-box-light-top.png);
+  -tr-rule-ref:selector('.AFPanelBoxTopBottom:alias');
+}
+af|panelBox::light af|panelBox::bottom {
+  background-image: url(/myfaces_skin/panel-box-light-bottom.png);
+  -tr-rule-ref:selector('.AFPanelBoxTopBottom:alias');
+}
+af|panelBox::light af|panelBox::start:ltr,
+af|panelBox::light af|panelBox::end:rtl {
+  background-image: url(/myfaces_skin/panel-box-light-left.png);
+  -tr-rule-ref:selector('.AFPanelBoxLeftRight:alias');
+}
+af|panelBox::light af|panelBox::end:ltr,
+af|panelBox::light af|panelBox::start:rtl {
+  background-image: url(/myfaces_skin/panel-box-light-right.png);
+  -tr-rule-ref:selector('.AFPanelBoxLeftRight:alias');
+}

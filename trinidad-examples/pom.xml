@@ -83,6 +83,7 @@
   <modules>
     <module>trinidad-blank</module>
     <module>trinidad-demo</module>
+    <module>trinidad-exhibition</module>
   </modules>
 
   <profiles>
