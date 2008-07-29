@@ -26,9 +26,7 @@
   
   <modelVersion>4.0.0</modelVersion>
   
-  <groupId>org.apache.myfaces.trinidad</groupId>
   <artifactId>trinidad-exhibition-parent</artifactId>
-  <version>1.2.8-SNAPSHOT</version>
 
   <name>Trinidad Exhibition</name>
   <description>
@@ -40,7 +38,7 @@
     <groupId>org.apache.myfaces.trinidad</groupId>
     <artifactId>trinidad-example</artifactId>
     <!-- TODO: change version to match Trinidad after moving to the trunk -->
-    <version>1.2.8-SNAPSHOT</version>
+    <version>1.2.9-SNAPSHOT</version>
   </parent>
 
   <packaging>pom</packaging>
@@ -121,15 +119,15 @@
     </dependency>
     
     <dependency>
-      <groupId>${pom.groupId}</groupId>
+      <groupId>org.apache.myfaces.trinidad</groupId>
       <artifactId>trinidad-api</artifactId>
-      <version>${trinidad-version}</version>
+      <version>${pom.version}</version>
     </dependency>
     
     <dependency>
-      <groupId>${pom.groupId}</groupId>
+      <groupId>org.apache.myfaces.trinidad</groupId>
       <artifactId>trinidad-impl</artifactId>
-      <version>${trinidad-version}</version>
+      <version>${pom.version}</version>
     </dependency>
     
     <dependency>
@@ -230,9 +228,8 @@
   
   <properties>
     <jsf-ri-scope>provided</jsf-ri-scope>
-    <jsf-ri-version>1.2_07</jsf-ri-version>
+    <jsf-ri-version>1.2_09</jsf-ri-version>
     <myfaces-scope>compile</myfaces-scope>
-    <trinidad-version>1.2.8-SNAPSHOT</trinidad-version>
     <myfaces-version>1.2.2</myfaces-version>
     <slf4j-version>1.4.3</slf4j-version>
     <snapshotUpdatePolicy>daily</snapshotUpdatePolicy>

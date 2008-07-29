@@ -40,7 +40,7 @@
     <groupId>org.apache.myfaces.trinidad</groupId>
     <artifactId>trinidad-exhibition-parent</artifactId>
     <!-- TODO: change version to match Trinidad after moving to the trunk -->
-    <version>1.2.8-SNAPSHOT</version>
+    <version>1.2.9-SNAPSHOT</version>
   </parent>
 
   <build>

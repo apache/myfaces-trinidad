@@ -41,18 +41,18 @@
     <groupId>org.apache.myfaces.trinidad</groupId>
     <artifactId>trinidad-exhibition-parent</artifactId>
     <!-- TODO: change version to match Trinidad after moving to the trunk -->
-    <version>1.2.8-SNAPSHOT</version>
+    <version>1.2.9-SNAPSHOT</version>
   </parent>
   
   <dependencies>
     
     <dependency>
-      <groupId>${pom.groupId}</groupId>
+      <groupId>org.apache.myfaces.trinidad</groupId>
       <artifactId>trinidad-exhibition-impl</artifactId>
       <version>${pom.version}</version>
       <exclusions>
         <exclusion>
-          <groupId>${pom.groupId}</groupId>
+          <groupId>org.apache.myfaces.trinidad</groupId>
           <artifactId>trinidad-exhibition-build</artifactId>
         </exclusion>
       </exclusions>
@@ -66,14 +66,14 @@
     </dependency>
     
     <dependency>
-      <groupId>${pom.groupId}</groupId>
+      <groupId>org.apache.myfaces.trinidad</groupId>
       <artifactId>trinidad-myfaces-skin</artifactId>
       <version>${pom.version}</version>
     </dependency>
     
     <dependency>
-      <groupId>${pom.groupId}</groupId>
-      <artifactId>sandbox-impl</artifactId>
+      <groupId>org.apache.myfaces.trinidad</groupId>
+      <artifactId>trinidad-sandbox-impl</artifactId>
       <version>${pom.version}</version>
     </dependency>
     
@@ -145,13 +145,13 @@
         <dependency>
           <groupId>javax.faces</groupId>
           <artifactId>jsf-api</artifactId>
-          <version>1.2_07</version>
+          <version>1.2_09</version>
           <scope>compile</scope>
         </dependency>
         <dependency>
           <groupId>javax.faces</groupId>
           <artifactId>jsf-impl</artifactId>
-          <version>1.2_07</version>
+          <version>1.2_09</version>
           <scope>runtime</scope>
         </dependency>
       </dependencies>
