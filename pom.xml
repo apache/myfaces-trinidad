@@ -44,7 +44,7 @@
     <jsp.version>2.1</jsp.version>
     <jstl.version>1.2</jstl.version>
     <jsf-spec.version>1.2</jsf-spec.version>
-    <jsf-ri.version>1.2_07</jsf-ri.version>
+    <jsf-ri.version>1.2_08</jsf-ri.version>
     <jsf-myfaces.version>1.2.3</jsf-myfaces.version>
     <jsf-facelets.version>1.1.14</jsf-facelets.version>
     <portlet-bridge.version>1.0.0-alpha-2</portlet-bridge.version>
@@ -56,7 +56,7 @@
     <junit.version>4.4</junit.version>
     
     <!-- Plugins -->
-    <trinidad-plugins.version>1.2.6</trinidad-plugins.version>
+    <trinidad-plugins.version>1.2.7</trinidad-plugins.version>
     <wagon-plugin.version>1.0.6</wagon-plugin.version>
     <jetty-plugin.version>6.1.7</jetty-plugin.version>
     
