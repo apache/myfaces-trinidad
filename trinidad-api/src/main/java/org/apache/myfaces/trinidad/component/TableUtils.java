@@ -309,124 +309,47 @@ public final class TableUtils
     }          
   }  
 
-  /**
-   * Determine if the target component is inside the table header/footer facet
-   * @param parent
-   * @param target
-   * @return
-   */
-  static boolean __isInTableHeaderFooterFacet(UIXCollection parent, UIComponent target)
+  static void cacheHeaderFooterFacets(UIComponent parent, Map<UIComponent, Boolean> cache)
   {
-    return __isInHeaderFooterFacet(parent, target);
-  }
-
-  /**
-   * Determine if the target component is inside a column header/footer facet
-   * @param parent
-   * @param target
-   * @return
-   */
-  static boolean __isInColumnHeaderFooterFacet(UIXCollection parent, UIComponent target)
-  {
-    List<UIComponent> children = new ArrayList<UIComponent>();
-    children = _getColumns(parent, children);
-    for (UIComponent child : children)
-    {
-      if (__isInHeaderFooterFacet(child, target))
-        return true;
-    }
-
-    return false;
-  }
-  
-  /**
-   * Determine if the target component is in the treeTable nodeStamp column
-   * header/footer
-   * @param tree
-   * @param target
-   * @return
-   */
-  static boolean __isInNodeStampHeaderFooterFacet(UIXTree tree, UIComponent target)
-  {
-    UIComponent nodeStamp = tree.getNodeStamp();
-    if (nodeStamp != null)
-    {
-      if (__isInHeaderFooterFacet(nodeStamp, target))
-        return true;      
-    }
-    
-    return false;
-  }
-
-  /**
-   * Determine if the target component is inside the parent header/footer facet
-   * @param parent
-   * @param target
-   * @return
-   */
-  static boolean __isInHeaderFooterFacet(UIComponent parent, UIComponent target)
-  {
+    // grab the header facet and it's children
     UIComponent headerFacet = parent.getFacets().get("header");
     if (headerFacet != null)
     {
-      if (target == headerFacet || _isDescendant(headerFacet, target, null))
-        return true;
+      _cacheDescendants(headerFacet, cache, true);
     }
 
+    // grab the footer facet and it's children
     UIComponent footerFacet = parent.getFacets().get("footer");
     if (footerFacet != null)
     {
-      if (target == footerFacet || _isDescendant(footerFacet, target, null))
-        return true;
+      _cacheDescendants(footerFacet, cache, true);
     }
-
-    return false;
   }
 
-  /**
-   * Returns all columns including column groups
-   * @param parent
-   * @param columns
-   * @return
-   */
-  static private List<UIComponent> _getColumns(UIComponent parent, List<UIComponent> columns)
+  static void cacheColumnHeaderFooterFacets(UIComponent parent, Map<UIComponent, Boolean> cache)
   {
     List<UIComponent> children = parent.getChildren();
     for (UIComponent child : children)
     {
       if (child instanceof UIXColumn)
       {
-        columns.add(child);
-        columns = _getColumns(child, columns);
+        cacheHeaderFooterFacets(child, cache);
+        cacheColumnHeaderFooterFacets(child, cache);
       }
     }
-    return columns;
   }
   
-  /**
-   * Determine if target is a descendant of the parent parameter by recursively walking
-   * the parent's children. Optionally skip children of type skipType
-   * @param parent
-   * @param target
-   * @param skipType
-   * @return
-   */
-  static private <T> boolean _isDescendant(UIComponent parent, UIComponent target, Class<T> skipType)
+
+  private static void _cacheDescendants(UIComponent parent, Map<UIComponent, Boolean> cache, boolean inclusive)
   {
+    if(inclusive)
+      cache.put(parent, Boolean.TRUE);
+    
     List<UIComponent> children = parent.getChildren();
     for (UIComponent child : children)
     {
-      if ( (skipType == null || !skipType.isInstance(child)) && child == target)
-      {
-        return true;
-      }
-      else
-      {
-        if (_isDescendant(child, target, skipType))
-          return true;
-      }
+      _cacheDescendants(child, cache, true);
     }
-    return false;    
   }
 
   /**

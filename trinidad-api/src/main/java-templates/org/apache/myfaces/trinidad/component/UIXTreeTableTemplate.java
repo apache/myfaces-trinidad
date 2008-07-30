@@ -18,9 +18,12 @@
  */
 package org.apache.myfaces.trinidad.component;
 
+import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,11 +52,55 @@ abstract public class UIXTreeTableTemplate extends UIXTree
 /**/  public abstract int[] getRowsByDepth();
 /**/  abstract public MethodExpression getRangeChangeListener();
 
+  /**
+   * Override to update the container client id cache before decode
+   */
+  @Override
+  public void decode(FacesContext context)
+  {
+    _resetContainerClientIdCache();
+    super.decode(context);    
+  }
+  
+  /**
+   * Override to update the container client id cache before validations
+   */
+  @Override
+  public void processValidators(FacesContext context)
+  {
+    _resetContainerClientIdCache();
+    super.processValidators(context);
+  }
+  
+  /**
+   * Override to update the container client id cache before updates
+   */  
+  @Override
+  public void processUpdates(FacesContext context)
+  {
+    _resetContainerClientIdCache();
+    super.processUpdates(context);
+  }  
+
+  /**
+   * Override to update the container client id cache before encode
+   */
+  @Override
+  protected void __encodeBegin(FacesContext context) throws IOException
+  {
+    _resetContainerClientIdCache();
+    super.__encodeBegin(context);
+  }
+
+
+  /**
+   * Override to return clientd ids with no currency for items in header/footer facets
+   */
   @Override
   public String getContainerClientId(FacesContext context, UIComponent child)
   {
     String id;
-    if (_isStampedChild(child))
+    if (_containerClientIdCache == null || _isStampedChild(child))
     {   
       // call the UIXCollection getContainerClientId, which attaches currency string to the client id
       id = getContainerClientId(context);
@@ -349,23 +396,43 @@ abstract public class UIXTreeTableTemplate extends UIXTree
     return parentKey;
   }
 
+  /**
+   * Is target a stamped child UIComponent in the treeTable body
+   */
   private boolean _isStampedChild(UIComponent target)
   {
-    // Not stamped if target is in table header/footer:
-    if (TableUtils.__isInTableHeaderFooterFacet(this, target))
-      return false;
+    assert _containerClientIdCache != null;
+    return !_containerClientIdCache.containsKey(target);
+  }
 
-    // Not stamped if target is in a column header/footer:
-    if (TableUtils.__isInColumnHeaderFooterFacet(this, target))
-      return false;
+  /**
+   * Reset the cache of child components used in getContainerClientId
+   */
+  private void _resetContainerClientIdCache()
+  {
+    if(_containerClientIdCache == null)
+      _containerClientIdCache = new IdentityHashMap<UIComponent, Boolean>();
+    else
+      _containerClientIdCache.clear();
 
-    // Not stamped if target is in the nodeStamp column header/footer:
-    if (TableUtils.__isInNodeStampHeaderFooterFacet(this, target))
-      return false;
+    // cache treeTable header/footer items
+    TableUtils.cacheHeaderFooterFacets(this, _containerClientIdCache);
+    // cache child column header/footer items, including nested columns
+    TableUtils.cacheColumnHeaderFooterFacets(this, _containerClientIdCache);
 
-    return true;
+    UIComponent nodeStamp = getNodeStamp();
+    if(nodeStamp != null)
+    {
+      // cache nodeStamp header/footer items
+      TableUtils.cacheHeaderFooterFacets(nodeStamp, _containerClientIdCache);
+      // cache any nested columns in nodeStamp facet
+      TableUtils.cacheColumnHeaderFooterFacets(nodeStamp, _containerClientIdCache);      
+    }
   }
 
 
   private Map<Object, Integer> _firstMap = Collections.emptyMap();
+  // cache of child components inside this treeTable header/footer facets and column header/footer
+  // facets
+  transient private IdentityHashMap<UIComponent, Boolean> _containerClientIdCache = null;
 }

@@ -18,7 +18,10 @@
  */
 package org.apache.myfaces.trinidad.component;
 
+import java.io.IOException;
+
 import java.util.ArrayList;
+import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -51,11 +54,56 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
   implements CollectionComponent
 {
 
+
+  /**
+   * Override to update the container client id cache before decode
+   */
+  @Override
+  public void decode(FacesContext context)
+  {
+    _resetContainerClientIdCache();
+    super.decode(context);    
+  }
+  
+  /**
+   * Override to update the container client id cache before validations
+   */
+  @Override
+  public void processValidators(FacesContext context)
+  {
+    _resetContainerClientIdCache();
+    super.processValidators(context);
+  }
+  
+
+  /**
+   * Override to update the container client id cache before updates
+   */  
+  @Override
+  public void processUpdates(FacesContext context)
+  {
+    _resetContainerClientIdCache();
+    super.processUpdates(context);
+  }  
+  
+  /**
+   * Override to update the container client id cache before encode
+   */
+  @Override
+  void __encodeBegin(FacesContext context) throws IOException
+  {
+    _resetContainerClientIdCache();
+    super.__encodeBegin(context);
+  }
+  
+  /**
+   * Override to return clientd ids with no currency for items in header/footer facets
+   */
   @Override
   public String getContainerClientId(FacesContext context, UIComponent child)
   {
     String id;
-    if (_isStampedChild(child))
+    if (_containerClientIdCache == null || _isStampedChild(child))
     {   
       // call the UIXCollection getContainerClientId, which attaches currency string to the client id
       id = getContainerClientId(context);
@@ -421,19 +469,30 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
     }
   }
 
+  /**
+   * Is target a stamped child UIComponent in the table body
+   */
   private boolean _isStampedChild(UIComponent target)
   {
-    // Not stamped if target is in table header/footer:
-    if (TableUtils.__isInTableHeaderFooterFacet(this, target))
-      return false;
-
-    // Not stamped if target is in a column header/footer:
-    if (TableUtils.__isInColumnHeaderFooterFacet(this, target))
-      return false;
-
-    return true;
+    assert _containerClientIdCache != null;
+    return !_containerClientIdCache.containsKey(target);
   }
 
+  /**
+   * Reset the cache of child components used in getContainerClientId
+   */
+  private void _resetContainerClientIdCache()
+  {
+    if(_containerClientIdCache == null)
+      _containerClientIdCache = new IdentityHashMap<UIComponent, Boolean>();
+    else
+      _containerClientIdCache.clear();
+
+    TableUtils.cacheHeaderFooterFacets(this, _containerClientIdCache);
+    TableUtils.cacheColumnHeaderFooterFacets(this, _containerClientIdCache);
+  }
+
+  
   @Override
   void __init()
   {
@@ -449,4 +508,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
   }
 
   transient private List<SortCriterion> _sortCriteria = null;
+  // cache of child components inside this table header/footer facets and column header/footer
+  // facets
+  transient private IdentityHashMap<UIComponent, Boolean> _containerClientIdCache = null;
 }
