@@ -1036,7 +1036,7 @@ public abstract class UIXCollection extends UIXComponentBase
     if (clientId.startsWith(thisClientId) &&
         (clientId.charAt(thisClientIdLength) == NamingContainer.SEPARATOR_CHAR))
     {
-      if (!_getAndMarkFirstInvokeForRequest(context, clientId))
+      if (!_getAndMarkFirstInvokeForRequest(context, thisClientId))
       {
         // Call _init() since _flushCachedModel() assumes that
         // selectedRowKeys and disclosedRowKeys are initialized to be non-null
