@@ -52,9 +52,7 @@
 No.   Apache MyFaces Trinidad runs on any implementation
 of the JSF 1.1 specification (or later).  Apache Trinidad can be used
 with either the Sun Reference Implementation or MyFaces.  Apache Trinidad
-offers a JSF 1.2-based branch that requires a JavaEE 5 engine.  As
-of the current date (May 14, 2007) it has not yet been tested with
-the MyFaces 1.2 implementation.
+offers a JSF 1.2-based branch that requires a JavaEE 5 engine.
 </p>
 </subsection>
 <subsection name="1.2. What runtime or design time tools can I use to run the demo WAR?">
