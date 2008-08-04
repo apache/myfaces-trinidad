@@ -36,7 +36,6 @@
   <version>1.2.9</version>
   <packaging>pom</packaging>
 
-
   <properties>
     <!-- Standards -->
     <jdk.version>1.5</jdk.version>    
