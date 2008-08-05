@@ -40,6 +40,7 @@ import org.apache.myfaces.trinidad.component.UIXNavigationLevel;
 import org.apache.myfaces.trinidad.component.core.nav.CoreNavigationPane;
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.render.RenderUtils;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 
@@ -578,6 +579,28 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     renderEncodedResourceURI(context, "src", resolvedIconUri);
     rw.endElement("img");
   }
+  
+  @SuppressWarnings("unchecked")
+  private void _renderCommandChildren(
+    FacesContext context,
+    UIXCommand uiComp) throws IOException
+  {
+    for(UIComponent child : (List<UIComponent>)uiComp.getChildren())
+    {
+      RenderUtils.encodeRecursive(context, child);
+    }
+  }
+  
+  private void _renderText(
+    ResponseWriter rw,
+    Map<String, Object> itemData) throws IOException
+  {
+    String text = toString(itemData.get("text"));
+    if(text != null)
+    {
+      rw.write(text);
+    }
+  }
 
   private void _writeItemLink(
     FacesContext context,
@@ -587,13 +610,14 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     boolean isDisabled
     ) throws IOException
   {
+    UIXCommand commandChild = (UIXCommand)itemData.get("component");
     if (isDisabled)
     {
-      rw.write(toString(itemData.get("text")));
+      _renderText(rw, itemData);
+      _renderCommandChildren(context, commandChild);
       return;
     }
 
-    UIXCommand commandChild = (UIXCommand)itemData.get("component");
     String destination = toString(itemData.get("destination"));
     boolean immediate = false;
     boolean partialSubmit = false;
@@ -658,7 +682,8 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     {
       rw.writeAttribute("accessKey", accessKey, null);
     }
-    rw.write(toString(itemData.get("text")));
+    _renderText(rw, itemData);
+    _renderCommandChildren(context, commandChild);
     rw.endElement("a"); // linkElement
 
     if (destination == null)
@@ -1064,7 +1089,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
         }
       }
 
-      rw.write(toString(itemData.get("text")));
+      _renderText(rw, itemData);
       rw.endElement("option");
     }
   }
