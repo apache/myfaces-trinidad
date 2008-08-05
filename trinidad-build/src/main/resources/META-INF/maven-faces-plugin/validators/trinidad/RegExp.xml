@@ -22,7 +22,9 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin">
   <validator>
-    <description><![CDATA[Validate expression using Java regular expression syntax.]]></description>
+    <description><![CDATA[Validate expression using Java regular expression syntax.
+    If you want to match a metacharacter in a pattern, escape it with \\.
+    E.g. to match [ your regular expression pattern would be \\[.]]></description>
     <display-name>validateRegularExpression</display-name>
     <validator-id>org.apache.myfaces.trinidad.RegExp</validator-id>
     <validator-class>org.apache.myfaces.trinidadinternal.validator.RegExpValidator</validator-class>
