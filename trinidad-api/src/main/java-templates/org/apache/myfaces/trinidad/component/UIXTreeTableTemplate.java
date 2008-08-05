@@ -430,6 +430,33 @@ abstract public class UIXTreeTableTemplate extends UIXTree
     }
   }
 
+  /**
+   * Gets the internal state of this component.
+   */
+  @Override
+  Object __getMyStampState()
+  {
+    Object[] state = new Object[2];
+    state[0] = super.__getMyStampState();
+    state[1] = (_firstMap.isEmpty()) ? null : _firstMap;
+
+    return state;
+  }
+  
+  /**
+   * Sets the internal state of this component.
+   * @param stampState the internal state is obtained from this object.
+   */
+  @Override
+  @SuppressWarnings("unchecked")
+  void __setMyStampState(Object stampState)
+  {
+    Object[] state = (Object[]) stampState;
+    super.__setMyStampState(state[0]);
+    _firstMap = (Map<Object, Integer>) state[1];
+    if (_firstMap == null)
+      _firstMap = Collections.emptyMap();
+  }
 
   private Map<Object, Integer> _firstMap = Collections.emptyMap();
   // cache of child components inside this treeTable header/footer facets and column header/footer
