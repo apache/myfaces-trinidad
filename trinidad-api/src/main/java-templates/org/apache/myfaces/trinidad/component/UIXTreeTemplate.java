@@ -139,6 +139,37 @@ abstract public class UIXTreeTemplate extends UIXHierarchy
       setSelectedRowKeys(new RowKeySetTreeImpl());
   }
   
+  
+  /**
+   * Gets the internal state of this component.
+   */
+  @Override
+  Object __getMyStampState()
+  {
+    Object[] state = new Object[4];
+    state[0] = super.__getMyStampState();
+    state[1] = getFocusRowKey();    
+    state[2] = getSelectedRowKeys();
+    state[3] = getDisclosedRowKeys();
+    return state;
+  }
+  
+  /**
+   * Sets the internal state of this component.
+   * @param stampState the internal state is obtained from this object.
+   */
+  @Override
+  @SuppressWarnings("unchecked")
+  void __setMyStampState(Object stampState)
+  {
+    Object[] state = (Object[]) stampState;
+    super.__setMyStampState(state[0]);
+    setFocusRowKey(state[1]);
+    setSelectedRowKeys((RowKeySet) state[2]);
+    setDisclosedRowKeys((RowKeySet) state[3]);
+  }
+  
+ 
   private final static String EXPAND_ONCE_KEY = "initialExpandCompleted";
 
   /**
