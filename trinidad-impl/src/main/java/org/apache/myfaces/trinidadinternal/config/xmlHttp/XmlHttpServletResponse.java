@@ -36,11 +36,11 @@ final class XmlHttpServletResponse extends HttpServletResponseWrapper
   {
     super((HttpServletResponse)response);
     
-    String contentType = "text/xml;charset=utf-8";
+    _contentType = "text/xml;charset=utf-8";
     
     // must set contentType here since
     // setContentType is ignored when inside an included page (bug 5591124)    
-    this.getResponse().setContentType(contentType);
+    this.setContentType(_contentType);
   }
   
   @Override
@@ -73,6 +73,7 @@ final class XmlHttpServletResponse extends HttpServletResponseWrapper
     // attempts to set the contentType, since the contentType
     // must be text/xml:
     _LOG.finer("ignoring setContentType:{0}", type);
+    super.setContentType(_contentType);
   }
   
   @Override
@@ -95,6 +96,7 @@ final class XmlHttpServletResponse extends HttpServletResponseWrapper
     rw.close();    
   }
   
+  private String _contentType = null;
   static private final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(XmlHttpServletResponse.class); 
 }
