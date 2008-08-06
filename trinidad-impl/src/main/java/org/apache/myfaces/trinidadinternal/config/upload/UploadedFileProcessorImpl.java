@@ -23,6 +23,7 @@ import java.io.IOException;
 
 import java.util.Map;
 
+import javax.portlet.ActionRequest;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequest;
 
@@ -120,7 +121,11 @@ public class UploadedFileProcessorImpl implements UploadedFileProcessor
       Object request, UploadedFile tempFile) throws IOException
   {
     RequestInfo info = _getRequestInfo(request);
-
+    int contentLength = getContentLength(request);
+    if(contentLength>_maxDiskSpace)
+    {
+      return new ErrorFile();
+    }
     // Process one new file, loading only as much as can fit
     // in the remaining memory and disk space.
     UploadedFileImpl file = new UploadedFileImpl();
@@ -151,6 +156,21 @@ public class UploadedFileProcessorImpl implements UploadedFileProcessor
     return file;
   }
 
+  private int getContentLength(Object request)
+  {
+    int length = -1;
+    if (_PORTLET_REQUEST_CLASS != null && _PORTLET_REQUEST_CLASS.isInstance(request))
+    {
+      length = _getPortletRequestLength(request);
+    }
+    else
+    {
+      length = _getServletRequestLength(request);
+    }
+
+    return length;
+  }
+  
   private RequestInfo _getRequestInfo(Object request)
   {
     Map<String, Object> attributes;
@@ -209,6 +229,20 @@ public class UploadedFileProcessorImpl implements UploadedFileProcessor
     return new PortletRequestMap((PortletRequest) request);
   }
 
+  private static final int _getServletRequestLength(final Object request)
+  {
+    assert(request instanceof ServletRequest);
+
+    return ((ServletRequest) request).getContentLength();
+  }
+
+  private static final int _getPortletRequestLength(final Object request)
+  {
+    if (!(request instanceof ActionRequest))
+      return -1;
+
+    return ((ActionRequest) request).getContentLength();
+  }
 
   static private class RequestInfo
   {
