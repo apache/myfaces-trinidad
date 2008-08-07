@@ -207,6 +207,7 @@
         <groupId>javax.faces</groupId>
         <artifactId>jsf-api</artifactId>
         <version>${jsf-ri.version}</version>
+        <scope>provided</scope>
       </dependency>
 
       <dependency>
