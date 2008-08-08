@@ -18,22 +18,21 @@
  */
 package org.apache.myfaces.trinidadinternal.util;
 
-import java.io.InputStream;
-import java.io.IOException;
 import java.io.File;
+import java.io.IOException;
 
-import java.net.UnknownServiceException;
+import java.net.JarURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class URLUtils
+@Deprecated
+public final class URLUtils
 {
   private URLUtils()
   {
   }
 
-
-  static public long getLastModified(URL url) throws IOException
+  public static long getLastModified(URL url) throws IOException
   {
     if ("file".equals(url.getProtocol()))
     {
@@ -45,25 +44,49 @@ public class URLUtils
     }
     else
     {
-      URLConnection connection = url.openConnection();
-      long modified = connection.getLastModified();
+      return getLastModified(url.openConnection());
+    }
+  }
+
+  public static long getLastModified(URLConnection connection) throws IOException
+  {
+    long modified;
+    if (connection instanceof JarURLConnection)
+    {
+      // The following hack is required to work-around a JDK bug.
+      // getLastModified() on a JAR entry URL delegates to the actual JAR file
+      // rather than the JAR entry.
+      // This opens internally, and does not close, an input stream to the JAR
+      // file.
+      // In turn, you cannot close it by yourself, because it's internal.
+      // The work-around is to get the modification date of the JAR file
+      // manually,
+      // and then close that connection again.
+
+      URL jarFileUrl = ((JarURLConnection) connection).getJarFileURL();
+      URLConnection jarFileConnection = jarFileUrl.openConnection();
+
       try
       {
-        InputStream is = connection.getInputStream();
-        if (is != null)
-          is.close();
+        modified = jarFileConnection.getLastModified();
       }
-      // If the connection doesn't support getInputStream(),
-      // or there's an IOException (Tomcat throws an exception
-      // on directory views, for example), that's OK.
-      catch (UnknownServiceException use)
+      finally
       {
+        try
+        {
+          jarFileConnection.getInputStream().close();
+        }
+        catch (Exception exception)
+        {
+          // Ignored
+        }
       }
-      catch (IOException ioe)
-      {
-      }
-
-      return modified;
     }
+    else
+    {
+      modified = connection.getLastModified();
+    }
+
+    return modified;
   }
 }
