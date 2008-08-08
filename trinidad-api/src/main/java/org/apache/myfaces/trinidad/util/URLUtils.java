@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.apache.myfaces.trinidadinternal.util;
+package org.apache.myfaces.trinidad.util;
 
 import java.io.File;
 import java.io.IOException;
