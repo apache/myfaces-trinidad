@@ -33,6 +33,8 @@ import java.util.regex.Pattern;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
+import org.apache.myfaces.trinidad.util.URLUtils;
+
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinProperties;
 import org.apache.myfaces.trinidadinternal.share.expl.Coercions;
 import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
@@ -53,7 +55,6 @@ import org.apache.myfaces.trinidadinternal.style.xml.parse.SkinPropertyNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetNode;
-import org.apache.myfaces.trinidadinternal.util.URLUtils;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 /**

@@ -35,6 +35,7 @@ import org.xml.sax.SAXParseException;
 
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.util.URLUtils;
 
 import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
 import org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser;
@@ -44,8 +45,6 @@ import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
 
 import org.apache.myfaces.trinidadinternal.style.StyleConstants;
 import org.apache.myfaces.trinidadinternal.style.xml.XMLConstants;
-
-import org.apache.myfaces.trinidadinternal.util.URLUtils;
 
 /**
  * NodeParser for style sheet document nodes

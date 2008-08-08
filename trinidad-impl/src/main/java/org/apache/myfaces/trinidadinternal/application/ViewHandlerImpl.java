@@ -44,10 +44,10 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
 import org.apache.myfaces.trinidad.render.InternalView;
 import org.apache.myfaces.trinidad.util.Service;
+import org.apache.myfaces.trinidad.util.URLUtils;
 import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
 import org.apache.myfaces.trinidadinternal.context.TrinidadPhaseListener;
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
-import org.apache.myfaces.trinidadinternal.util.URLUtils;
 
 /**
  * ViewHandler that adds modification detection to the existing ViewHandler,
