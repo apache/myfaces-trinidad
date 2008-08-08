@@ -29,7 +29,6 @@ import java.io.Reader;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.net.SocketException;
-import java.net.UnknownServiceException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
@@ -56,6 +55,7 @@ import org.apache.myfaces.trinidad.resource.CachingResourceLoader;
 import org.apache.myfaces.trinidad.resource.DirectoryResourceLoader;
 import org.apache.myfaces.trinidad.resource.ResourceLoader;
 import org.apache.myfaces.trinidad.resource.ServletContextResourceLoader;
+import org.apache.myfaces.trinidad.util.URLUtils;
 
 /**
  * A Servlet which serves up web application resources (images, style sheets,
@@ -243,23 +243,7 @@ public class ResourceServlet extends HttpServlet
       if (url == null)
         return super.getLastModified(request);
 
-      URLConnection connection = url.openConnection();
-      connection.setDoInput(false);
-      connection.setDoOutput(false);
-
-      long lastModified = connection.getLastModified();
-      // Make sure the connection is closed
-      try
-      {
-        InputStream is = connection.getInputStream();
-        if (is != null)
-          is.close();
-      }
-      catch (UnknownServiceException use)
-      {
-      }
-
-      return lastModified;
+      return URLUtils.getLastModified(url);
     }
     catch (IOException e)
     {
@@ -448,7 +432,16 @@ public class ResourceServlet extends HttpServlet
     if (contentLength >= 0)
       response.setContentLength(contentLength);
 
-    long lastModified = connection.getLastModified();
+    long lastModified;
+    try
+    {
+      lastModified = URLUtils.getLastModified(connection);
+    }
+    catch (IOException exception)
+    {
+      lastModified = -1;
+    }
+
     if (lastModified >= 0)
       response.setDateHeader("Last-Modified", lastModified);
 

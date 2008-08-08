@@ -29,6 +29,8 @@ import java.util.Map;
 import java.io.OutputStream;
 import java.security.Permission;
 
+import org.apache.myfaces.trinidad.util.URLUtils;
+
 /**
  * A resource loader implementation that proxies another
  * resource loader, controlling the URLConnection.
@@ -224,7 +226,14 @@ public class ProxyResourceLoader extends ResourceLoader
     @Override
     public long getLastModified()
     {
-      return getURLConnection().getLastModified();
+      try
+      {
+        return URLUtils.getLastModified(getURLConnection());
+      }
+      catch (IOException exception)
+      {
+        return -1;
+      }
     }
 
     @Override
