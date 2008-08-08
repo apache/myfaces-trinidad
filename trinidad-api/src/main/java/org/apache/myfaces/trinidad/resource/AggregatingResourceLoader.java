@@ -31,6 +31,7 @@ import java.util.Enumeration;
 import java.util.NoSuchElementException;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.util.URLUtils;
 
 /**
  * A resource loader implementation which combines multiple resources
@@ -290,7 +291,17 @@ public class AggregatingResourceLoader extends DynamicResourceLoader
 
       for (int i=0, len = _connections.length; i < len; i++)
       {
-        long lastModified = _connections[i].getLastModified();
+        long lastModified;
+        try
+        {
+          lastModified = URLUtils.getLastModified(_connections[i]);
+        }
+        catch (IOException exception)
+        {
+          maxLastModified = -1;
+          break;
+        }
+
         if (lastModified < 0)
         {
           maxLastModified = lastModified;
