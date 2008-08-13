@@ -25,7 +25,8 @@
   <faces-config-extension>
     <mfp:event>
       <mfp:event-type>org.apache.myfaces.trinidad.RowDisclosure</mfp:event-type>
-      <mfp:description>The Expansion event is generated when detail facet for the rows are expanded or collapsed.</mfp:description>
+      <mfp:description>The expansion event is generated for a table when the detail facet of a row is expanded or collapsed. For tree or a treeTable, the expansion
+                       event is generated when tree nodes are expanded or collapsed.</mfp:description>
       <mfp:event-class>org.apache.myfaces.trinidad.event.RowDisclosureEvent</mfp:event-class>
       <mfp:event-listener-class>org.apache.myfaces.trinidad.event.RowDisclosureListener</mfp:event-listener-class>
     </mfp:event>
