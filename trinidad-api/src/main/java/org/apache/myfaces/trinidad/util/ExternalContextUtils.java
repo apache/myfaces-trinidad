@@ -23,6 +23,8 @@ import java.io.InputStream;
 
 import javax.faces.context.ExternalContext;
 import javax.portlet.ActionRequest;
+import javax.portlet.PortletContext;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -63,6 +65,31 @@ public class ExternalContextUtils
       }
     }
 
+    return null;
+  }
+  
+  /**
+   * Returns the name of the underlying context
+   * @param externalContext the ExternalContex
+   * @return the name or null
+   */
+  public static String getContextName(final ExternalContext externalContext)
+  {
+    try
+    {
+      if (isPortlet(externalContext))
+      {
+        return ((PortletContext) externalContext.getContext()).getPortletContextName();
+      }
+      else
+      {
+        return ((ServletContext) externalContext.getContext()).getServletContextName();
+      }
+    }
+    catch (final ClassCastException e)
+    {
+      _LOG.severe(e);
+    }
     return null;
   }
 
