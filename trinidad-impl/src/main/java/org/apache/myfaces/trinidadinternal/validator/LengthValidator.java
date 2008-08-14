@@ -61,6 +61,11 @@ public class LengthValidator extends org.apache.myfaces.trinidad.validator.Lengt
   {
     int max = getMaximum();
     int min = getMinimum();
+    // If min is specified, and max is not, it implies that max is Integer.MAX_VALUE
+    if (min > 0 && max == 0) 
+    {
+      max = Integer.MAX_VALUE;
+    }
 
     // Only pass down the messages that are relevant to this
     // validator instance, based on the min and max
