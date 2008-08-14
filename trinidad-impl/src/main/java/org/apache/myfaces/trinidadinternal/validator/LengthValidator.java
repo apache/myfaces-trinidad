@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -61,6 +61,11 @@ public class LengthValidator extends org.apache.myfaces.trinidad.validator.Lengt
   {
     int max = getMaximum();
     int min = getMinimum();
+    // If min is specified, and max is not, it implies that max is Integer.MAX_VALUE
+    if (min > 0 && max == 0)
+    {
+      max = Integer.MAX_VALUE;
+    }
 
     // Only pass down the messages that are relevant to this
     // validator instance, based on the min and max
@@ -100,7 +105,7 @@ public class LengthValidator extends org.apache.myfaces.trinidad.validator.Lengt
       detail = getMessageDetailMaximum();
       hint = getHintMaximum();
     }
-    
+
     Map<String, String> cMessages = null;
     if ((detail != null) || (hint != null))
     {
@@ -114,13 +119,13 @@ public class LengthValidator extends org.apache.myfaces.trinidad.validator.Lengt
     return _getTrLengthValidator(context, component, max, min, cMessages);
 
   }
-  
+
   public String getClientLibrarySource(
    FacesContext context)
   {
     return null;
   }
-  
+
   private static String _getTrLengthValidator(
     FacesContext context,
     UIComponent component,
