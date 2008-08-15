@@ -1063,7 +1063,10 @@ TrRegExpValidator.prototype.validate  = function(
   // parseString becomes a integer type, so get away with it.  
   parseString = parseString + '';
   
-  var matchArr = parseString.match(this._pattern); 
+  // We intend that the pattern provided is matched exactly
+  var exactPattern = "^(" + this._pattern + ")$";
+
+  var matchArr = parseString.match(exactPattern); 
         
   if ((matchArr != (void 0)) && (matchArr[0] == parseString))
   {
