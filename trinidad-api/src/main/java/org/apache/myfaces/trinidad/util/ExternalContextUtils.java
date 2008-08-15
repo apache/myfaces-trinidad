@@ -26,6 +26,7 @@ import javax.portlet.ActionRequest;
 import javax.portlet.PortletContext;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
@@ -37,6 +38,25 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  */
 public final class ExternalContextUtils
 {
+
+  /**
+   * Returns the requestURI of the HttpServletRequest or null for portlet requests
+   *
+   * @param externalContext
+   * @return
+   */
+  public static String getRequestURI(final ExternalContext externalContext)
+  {
+    if (!isPortlet(externalContext))
+    {
+      return ((HttpServletRequest) externalContext.getRequest()).getRequestURI();
+    }
+    else
+    {
+      return null;
+    }
+  }
+
   /**
    * Returns the character encoding or null if there isn't any
    *
