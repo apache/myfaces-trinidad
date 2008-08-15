@@ -40,6 +40,42 @@ public final class ExternalContextUtils
 {
 
   /**
+   * Returns the contextPath of the ServletContext or null for portlets
+   *
+   * @param externalContext
+   * @return
+   */
+  public static String getServletContextPath(final ExternalContext externalContext)
+  {
+    if(!isPortlet(externalContext))
+    {
+      return ((ServletContext) externalContext.getRequest()).getContextPath();
+    }
+    else
+    {
+      return null;
+    }
+  }
+
+  /**
+   * Returns the contextPath of the ServletRequest or null for portlet requests
+   *
+   * @param externalContext
+   * @return
+   */
+  public static String getRequestContextPath(final ExternalContext externalContext)
+  {
+    if(!isPortlet(externalContext))
+    {
+      return ((HttpServletRequest) externalContext.getRequest()).getContextPath();
+    }
+    else
+    {
+     return null;
+    }
+  }
+
+  /**
    * Returns the requestURI of the HttpServletRequest or null for portlet requests
    *
    * @param externalContext
