@@ -49,7 +49,7 @@ public final class ExternalContextUtils
   {
     if(!isPortlet(externalContext))
     {
-      return ((ServletContext) externalContext.getRequest()).getContextPath();
+      return ((ServletContext) externalContext.getContext()).getContextPath();
     }
     else
     {
