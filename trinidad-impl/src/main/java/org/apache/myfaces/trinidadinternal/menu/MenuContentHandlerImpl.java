@@ -232,7 +232,7 @@ public class MenuContentHandlerImpl extends DefaultHandler
           // Set the local model (created when parsing a sharedNode)
           // on the node in case the node needs to get back to its
           // local model.
-          // menuNode.setModel(getModel());
+          menuNode.setModelId(getModelId());
 
           List<MenuNode> list = _menuNodes.get(_nodeDepth-1);
           list.add(menuNode);
@@ -595,7 +595,7 @@ public class MenuContentHandlerImpl extends DefaultHandler
     Map<String, Object> requestMap =
       facesContext.getExternalContext().getRequestMap();
 
-    return (XMLMenuModel) requestMap.get(getModelUri());
+    return (XMLMenuModel) requestMap.get(getModelId());
   }
 
   /**
@@ -603,19 +603,19 @@ public class MenuContentHandlerImpl extends DefaultHandler
    *
    * @return sharedNode's XMLMenuModel Uri
    */
-  public String getModelUri()
+  public String getModelId()
   {
-    return _localModelUri;
+    return _localModelId;
   }
 
   /**
-   * Sets the local (sharedNode's) menu Model's Uri.
+   * Sets the local (sharedNode's) menu Model's System Id.
    *
-   * @param localModelUri - String the root, top-level menu model's Uri.
+   * @param localModelId - String the root, top-level menu model's Uri.
    */
-  public void setModelUri(String localModelUri)
+  public void setModelId(String localModelId)
   {
-    _localModelUri = localModelUri;
+    _localModelId = localModelId;
   }
 
   /**
@@ -850,7 +850,7 @@ public class MenuContentHandlerImpl extends DefaultHandler
       );
 
     String mapTreeKeySave    = _currentTreeModelMapKey;
-    String localModelUriSave = _localModelUri;
+    String localModelIdSave = _localModelId;
     String handlerId         = _handlerId;
     String resBundleName     = _resBundleName;
     String resBundleKey      = _resBundleKey;
@@ -858,7 +858,7 @@ public class MenuContentHandlerImpl extends DefaultHandler
     _saveDataStack.push(menuNodesSave);
     _saveDataStack.push(menuListSave);
     _saveDataStack.push(mapTreeKeySave);
-    _saveDataStack.push(localModelUriSave);
+    _saveDataStack.push(localModelIdSave);
     _saveDataStack.push(handlerId);
     _saveDataStack.push(resBundleName);
     _saveDataStack.push(resBundleKey);
@@ -879,7 +879,7 @@ public class MenuContentHandlerImpl extends DefaultHandler
     _resBundleKey           = (String) _saveDataStack.pop();
     _resBundleName          = (String) _saveDataStack.pop();
     _handlerId              = (String) _saveDataStack.pop();
-    _localModelUri          = (String) _saveDataStack.pop();
+    _localModelId          = (String) _saveDataStack.pop();
     _currentTreeModelMapKey = (String) _saveDataStack.pop();
     _menuList               = (ArrayList<MenuNode>) _saveDataStack.pop();
     _menuNodes              = (ArrayList<List<MenuNode>>) _saveDataStack.pop();
@@ -1018,7 +1018,7 @@ public class MenuContentHandlerImpl extends DefaultHandler
 
 
   // Local (shared) Menu models Uri
-  private String _localModelUri = null;
+  private String _localModelId = null;
 
   // Root Menu model's Session map key
   private String _rootModelKey  = null;
