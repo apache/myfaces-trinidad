@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-            xmlns:afmenu="http://myfaces.apache.org/trinidad/menu"
+            xmlns:trmenu="http://myfaces.apache.org/trinidad/menu"
             targetNamespace="http://myfaces.apache.org/trinidad/menu"
             elementFormDefault="qualified">
 
@@ -18,26 +18,26 @@
   </xsd:simpleType>
 
   <xsd:simpleType name="stringOrElExpression">
-    <xsd:union memberTypes="xsd:string afmenu:elExpression"/>
+    <xsd:union memberTypes="xsd:string trmenu:elExpression"/>
   </xsd:simpleType>
 
   <xsd:simpleType name="charOrElExpression">
-    <xsd:union memberTypes="afmenu:char afmenu:elExpression"/>
+    <xsd:union memberTypes="trmenu:char trmenu:elExpression"/>
   </xsd:simpleType>
 
   <xsd:simpleType name="booleanOrElExpression">
-    <xsd:union memberTypes="xsd:boolean afmenu:elExpression"/>
+    <xsd:union memberTypes="xsd:boolean trmenu:elExpression"/>
   </xsd:simpleType>
 
   <xsd:simpleType name="intOrElExpression">
-    <xsd:union memberTypes="xsd:int afmenu:elExpression"/>
+    <xsd:union memberTypes="xsd:int trmenu:elExpression"/>
   </xsd:simpleType>
 <!-- end custom types -->
 
- <xsd:element name="base" type="afmenu:baseType">
+ <xsd:element name="base" type="trmenu:baseType">
     <xsd:annotation>
       <xsd:documentation>
-        Base node for all afmenu elements
+        Base node for all trmenu elements
       </xsd:documentation>
     </xsd:annotation>
   </xsd:element>
