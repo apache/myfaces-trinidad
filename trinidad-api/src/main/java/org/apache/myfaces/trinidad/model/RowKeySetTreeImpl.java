@@ -26,9 +26,12 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.NoSuchElementException;
 import java.util.Set;
+import java.util.Stack;
+
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
@@ -82,7 +85,10 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
   @Override
   public Iterator<Object> iterator()
   {
-    return new PathIterator();
+    if(_root.isDefaultContained)
+      return new PathIterator();
+    else
+      return new NodeIterator();
   }
     
   /**
@@ -537,6 +543,43 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
     }
   }
 
+  /**
+   * Check for "default contained" nodes in the set
+   * @return true if there are "default contained" nodes
+   */
+  private boolean _containsDefaultNodes()
+  {
+    if(_root.isDefaultContained)
+      return true;
+    
+    SetLoop loop = new SetLoop()
+    {
+      protected boolean next(Object rowKey, Node<Object> value)
+      {
+        return value.isDefaultContained;
+      }
+    };
+    return loop.run(_root);
+  }
+  
+  /**
+   * Utility to dump Node attributes
+   */
+  private void _dumpFlags()
+  {
+    System.out.println("root " + _root.isDefaultContained + " " + _root.isDifferent);
+    SetLoop loop = new SetLoop()
+    {
+      protected boolean next(Object rowKey, Node<Object> value)
+      {
+        System.out.println(rowKey + " " + value.isDefaultContained + " " + value.isDifferent);
+        return false;
+      }
+    };
+    loop.run(_root);
+  }
+  
+
   // Needs to be Serializable and Cloneable - but HashMap already is
   private static final class Node<K> extends HashMap<K, Node<K>>
      /* implements Serializable, Cloneable */
@@ -626,11 +669,42 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
     }
   }
 
-  private final class PathIterator implements Iterator<Object>
+  /**
+   * Loop (depth first) over the set or a subset and call a callback function 
+   * for each node
+   */
+  private static abstract class SetLoop
+  {
+    public SetLoop()
+    {
+    }
+    
+    public boolean run (Node<Object> set)
+    {
+      for(Entry<Object, Node<Object>> en : set.entrySet())
+      {
+        Object keyEnt = en.getKey();
+        Node<Object> subset = en.getValue();
+        if(next(keyEnt, subset))
+          return true;
+        if(run(subset))
+          return true;
+      }
+      return false;
+    }
+    
+    protected abstract boolean next(Object rowKey, Node<Object> value );
+  }
+
+  private class PathIterator implements Iterator<Object>
   {
     PathIterator()
     {
-      _value = _next(); // initialize;
+      _value = isEmpty() ? null : nextItem(); // initialize;
+    }
+
+    PathIterator(Object noop)
+    {
     }
 
     public Object next()
@@ -638,7 +712,7 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
       if (!hasNext())
         throw new NoSuchElementException();
       Object value = _value;
-      _value = _next();
+      _value = nextItem();
       return value;
     }
     
@@ -650,6 +724,39 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
     public void remove()
     {
       throw new UnsupportedOperationException();
+    }
+    
+    
+    protected Object nextItem()
+    {
+      return nextModelKey(0);
+    }
+    
+    protected Object nextModelKey(int minDepth)
+    {
+      TreeModel model = getCollectionModel();
+      if (model == null)
+        return null;
+
+      Object oldPath = model.getRowKey();
+      try 
+      {
+        model.setRowKey(_currPath);
+        while(true)
+        {
+          boolean searchChildren = _containsSubtree(_currPath);
+          boolean hasMore = _advanceToNextItem(model, minDepth, searchChildren);
+          if (!hasMore)
+            return null;
+
+          _currPath = model.getRowKey();
+          if (contains(_currPath))
+            return _currPath;
+        }
+      } finally 
+      {
+        model.setRowKey(oldPath);
+      }
     }
     
     private boolean _containsSubtree(Object rowkey)
@@ -667,36 +774,77 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
         ((!current.isEmpty()) || current.isDefaultContained);
     }
     
-    private Object _next()
+    protected Object _value;
+    protected Object _currPath = null;
+  }
+    
+  /**
+   * An iterator which avoids looping over the model by default (like the
+   * PathIterator does). Instead NodeIterator loops over the model only for nodes that are "default contained".
+   * Otherwise, it just does a depth first walk of the set and returns "isDifferent" nodes.
+   */
+  private class NodeIterator extends PathIterator
+  {
+    public NodeIterator()
     {
-      TreeModel model = getCollectionModel();
-      if (model == null)
-        return null;
-
-      Object oldPath = model.getRowKey();
-      try 
+      super(null);
+      _currIterator = _root.entrySet().iterator();
+      _value = isEmpty() ? null : nextItem(); // initialize;
+    }
+        
+    protected Object nextItem()
+    {
+      Object nextKey = null;
+      
+      while(((nextKey = _nextEntry()) == null) && _iteratorStack.size() > 0)
+        if(_currPath == null)
+          _currIterator = _iteratorStack.pop();
+      return nextKey;
+  }
+  
+    private Object _nextEntry()
+    {
+      Object nextKey = null;
+      if(_currPath != null)
       {
-        model.setRowKey(_currPath);
-        while(true)
+        nextKey = nextModelKey(_minDepth);
+        if(nextKey == null)
         {
-          boolean searchChildren = _containsSubtree(_currPath);
-          boolean hasMore = _advanceToNextItem(model, 0, searchChildren);
-          if (!hasMore)
-            return null;
-
-          _currPath = model.getRowKey();
-          if (contains(_currPath))
-            return _currPath;
+          _currPath = null;
+          _nextEntry();          
         }
-      } finally 
-      {
-        model.setRowKey(oldPath);
       }
+      else
+      {      
+        Map.Entry<Object, Node<Object>> nextNode;
+        while(nextKey == null && _currIterator.hasNext())
+        {
+          nextNode = _currIterator.next();        
+          if(_isContained(nextNode.getKey()))
+            nextKey = nextNode.getKey();
+          _iteratorStack.push(_currIterator);
+          _currIterator = nextNode.getValue().entrySet().iterator();
+          if(nextNode.getValue().isDefaultContained)
+          {
+            _currPath = nextNode.getKey();
+            TreeModel model = getCollectionModel();
+            Object oldPath = model.getRowKey();
+            model.setRowKey(_currPath);
+            _minDepth = model.getDepth()+1;
+            model.setRowKey(oldPath);
+            return nextKey;
+          }
+        }
+      }
+      return nextKey;      
     }
     
-    private Object _value;
-    private Object _currPath = null;
+    private Stack<Iterator <Map.Entry<Object, Node<Object>>>> _iteratorStack = 
+      new Stack<Iterator <Map.Entry<Object, Node<Object>>>>();
+    private Iterator <Map.Entry<Object, Node<Object>>> _currIterator;
+    private int _minDepth;
   }
+  
   
   private Node<Object> _root;
   private transient TreeModel _model = null;
