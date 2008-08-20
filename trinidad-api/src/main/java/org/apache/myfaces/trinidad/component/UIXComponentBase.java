@@ -21,7 +21,6 @@ package org.apache.myfaces.trinidad.component;
 import java.io.InputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -558,8 +557,6 @@ abstract public class UIXComponentBase extends UIXComponent
     return _facets.keySet().iterator();
   }
 
-
-  // TODO: Optimize to a compound iterator
   @SuppressWarnings("unchecked")
   @Override
   public Iterator getFacetsAndChildren()
@@ -578,23 +575,8 @@ abstract public class UIXComponentBase extends UIXComponent
         return _facets.values().iterator();
     }
 
-    ArrayList<UIComponent> childrenAndFacets = new ArrayList<UIComponent>();
-    for(UIComponent facet : _facets.values())
-    {
-      childrenAndFacets.add(facet);
-    }
-
-    for(UIComponent child : _children)
-    {
-      childrenAndFacets.add(child);
-    }
-
-    if (childrenAndFacets.isEmpty())
-      return _EMPTY_UICOMPONENT_ITERATOR;
-
-    return childrenAndFacets.iterator();
+    return new CompositeIterator<UIComponent>(_children.iterator(), _facets.values().iterator());
   }
-
 
   // ------------------------------------------- Event processing methods
 
