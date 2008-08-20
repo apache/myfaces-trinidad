@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-            xmlns:md="http://xmlns.oracle.com/bali/xml/metadata"
-            targetNamespace="http://myfaces.apache.org/trinidad/menu"
             xmlns:afmenu="http://myfaces.apache.org/trinidad/menu"
+            targetNamespace="http://myfaces.apache.org/trinidad/menu"
             elementFormDefault="qualified">
 
-<!-- Additional types for ADF Faces commandNavigationItems -->  
+<!-- Additional types for Trinidad commandNavigationItems -->
   <xsd:simpleType name="char">
     <xsd:restriction base="xsd:string">
       <xsd:length value="1"/>
     </xsd:restriction>
   </xsd:simpleType>
-  
+
   <xsd:simpleType name="elExpression">
     <xsd:restriction base="xsd:string">
       <xsd:pattern value="#\{.+\}"/>
@@ -25,7 +24,7 @@
   <xsd:simpleType name="charOrElExpression">
     <xsd:union memberTypes="afmenu:char afmenu:elExpression"/>
   </xsd:simpleType>
-  
+
   <xsd:simpleType name="booleanOrElExpression">
     <xsd:union memberTypes="xsd:boolean afmenu:elExpression"/>
   </xsd:simpleType>

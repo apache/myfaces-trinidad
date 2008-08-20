@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-            xmlns:md="http://xmlns.oracle.com/bali/xml/metadata"
-            targetNamespace="http://myfaces.apache.org/trinidad/menu"
             xmlns:afmenu="http://myfaces.apache.org/trinidad/menu"
-            elementFormDefault="qualified"
-            xmlns:xml="http://www.w3.org/XML/1998/namespace">
+            xmlns:xml="http://www.w3.org/XML/1998/namespace"
+            targetNamespace="http://myfaces.apache.org/trinidad/menu"
+            elementFormDefault="qualified">
   <xsd:include schemaLocation="base.xsd"/>
 
   <xsd:element name="menuNode" type="afmenu:menuNodeType">
@@ -12,14 +11,6 @@
       <xsd:documentation>
         A menu node.  It will be either an itemNode or a groupNode.
       </xsd:documentation>
-      <xsd:appinfo>
-        <md:elementMetadata>
-          <md:favoriteProperty>label</md:favoriteProperty>
-          <md:preferredChildren>
-            afmenu:menuNode
-          </md:preferredChildren>
-        </md:elementMetadata>
-      </xsd:appinfo>
     </xsd:annotation>
   </xsd:element>
     <xsd:complexType name="menuNodeType">
