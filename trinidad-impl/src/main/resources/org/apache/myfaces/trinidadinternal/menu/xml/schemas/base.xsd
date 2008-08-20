@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:afmenu="http://myfaces.apache.org/trinidad/menu"
+            targetNamespace="http://myfaces.apache.org/trinidad/menu"
+            elementFormDefault="qualified">
+
+<!-- Additional types for Trinidad commandNavigationItems -->
+  <xsd:simpleType name="char">
+    <xsd:restriction base="xsd:string">
+      <xsd:length value="1"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="elExpression">
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="#\{.+\}"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="stringOrElExpression">
+    <xsd:union memberTypes="xsd:string afmenu:elExpression"/>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="charOrElExpression">
+    <xsd:union memberTypes="afmenu:char afmenu:elExpression"/>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="booleanOrElExpression">
+    <xsd:union memberTypes="xsd:boolean afmenu:elExpression"/>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="intOrElExpression">
+    <xsd:union memberTypes="xsd:int afmenu:elExpression"/>
+  </xsd:simpleType>
+<!-- end custom types -->
+
+ <xsd:element name="base" type="afmenu:baseType">
+    <xsd:annotation>
+      <xsd:documentation>
+        Base node for all afmenu elements
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="baseType"/>
+</xsd:schema>
