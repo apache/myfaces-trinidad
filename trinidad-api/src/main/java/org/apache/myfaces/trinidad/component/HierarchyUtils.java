@@ -40,35 +40,12 @@ public final class HierarchyUtils
     RowKeySet     state,
     MethodBinding disclosureListener) throws AbortProcessingException
   {
-  
-        // Notify the specified disclosure listener method (if any)
+    // Notify the specified disclosure listener method (if any)
     if (event instanceof RowDisclosureEvent)
     {
       RowDisclosureEvent dEvent = (RowDisclosureEvent) event;
       state.removeAll(dEvent.getRemovedSet());
-      RowKeySet added = dEvent.getAddedSet();
-      int size = 0;
-      // only do an unbounded expandAll if the number of new nodes is not
-      // too large:
-      // FIXME: Wouldn't .size() do the work instead of looping 100 times...
-      // FIXME RESPONSE: .size() can be expensive for RowKeySets.
-      // However, getSize() can be called, and will return -1 if it's
-      // expensive.  We should likely use getSize() first, see if it's
-      // >= 0 and < 100, then otherwise go into this code
-      for(Object key : added)
-      {
-        if (++size > 100)
-          break;
-      }
-      if (size < 100)
-        state.addAll(added);
-      else
-      {
-        // TODO : this method counts the nodes in a subtree again.
-        // optimize by just expanding the direct children, without
-        // having to count all over again:
-        TableUtils.__doSafeExpandAll(comp.getTreeModel(), state, 100);
-      }
+      state.addAll(dEvent.getAddedSet());
       //pu: Implicitly record a Change for 'disclosedRowKeys' attribute
       comp.addAttributeChange("disclosedRowKeys", state);
       comp.broadcastToMethodBinding(event, disclosureListener);
