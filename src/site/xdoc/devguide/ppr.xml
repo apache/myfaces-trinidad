@@ -463,7 +463,7 @@ use the RequestQueue object off of the Page object:
 * @param headerParams  Option HTTP header parameters to attach to the request
 * @param content     the content of the Asynchronous XML HTTP Post
 */
-  // Send an AJXAX request to example.org with one query parameter,
+  // Send an AJAX request to example.org with one query parameter,
   // and no headers or content.  Call myCompletionMethod with "this"
   // set up correctly.
   queue.sendRequest(this, this.myCompletionMethod,
