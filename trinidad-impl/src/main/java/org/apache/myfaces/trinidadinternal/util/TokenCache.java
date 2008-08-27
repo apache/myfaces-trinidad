@@ -139,9 +139,9 @@ public class TokenCache implements Serializable
    * @param targetStore the map used for storing the value
    * @return the token used to store the value
    */
-  public String addNewEntry(
-      Object value, 
-      Map<String, Object> targetStore)
+  public <V> String addNewEntry(
+      V value, 
+      Map<String, V> targetStore)
   {
     return addNewEntry(value, targetStore, null);
   }
@@ -156,9 +156,9 @@ public class TokenCache implements Serializable
    *    will not be freed until this current token is also freed
    * @return the token used to store the value
    */
-  public String addNewEntry(
-      Object value, 
-      Map<String, Object> targetStore,
+  public <V> String addNewEntry(
+      V value, 
+      Map<String, V> targetStore,
       String pinnedToken)
   {
     String remove = null;
@@ -218,11 +218,11 @@ public class TokenCache implements Serializable
    * Remove a token if is ready:  there are no pinned references to it.
    * Note that it will be absent from the LRUCache.
    */
-  synchronized private Object _removeTokenIfReady(
-      Map<String, Object> targetStore, 
+  synchronized private <V> V _removeTokenIfReady(
+      Map<String, V> targetStore, 
       String              token)
   {
-    Object removedValue;
+    V removedValue;
     
     // See if it's pinned to something still in memory
     if (!_pinned.containsValue(token))
@@ -252,9 +252,9 @@ public class TokenCache implements Serializable
    * Removes a value from the cache.
    * @return previous value associated with the token, if any
    */
-  public Object removeOldEntry(
+  public <V> V removeOldEntry(
       String token, 
-      Map<String, Object> targetStore)
+      Map<String, V> targetStore)
   {
     synchronized (this)
     {
@@ -269,7 +269,7 @@ public class TokenCache implements Serializable
   /**
    * Clear a cache, without resetting the token.
    */
-  public void clear(Map<String, Object> targetStore)
+  public <V> void clear(Map<String, V> targetStore)
   {
     synchronized (this)
     {

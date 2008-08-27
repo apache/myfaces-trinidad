@@ -41,7 +41,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  * "flaw" is actually relied on by PageFlowScopeMap (since it provides
  * a handy way to clear out all descendents), so don't "fix" it!
  */
-final public class SubKeyMap extends AbstractMap<String, Object>
+final public class SubKeyMap<V> extends AbstractMap<String, V>
 {
   public SubKeyMap(Map<String, Object> base, String prefix)
   {
@@ -70,25 +70,25 @@ final public class SubKeyMap extends AbstractMap<String, Object>
   }
 
   @Override
-  public Object get(Object key)
+  public V get(Object key)
   {
     key = _getBaseKey(key);
-    return _base.get(key);
+    return (V)_base.get(key);
   }
 
   @Override
-  public Object put(String key, Object value)
+  public V put(String key, V value)
   {
     key = _getBaseKey(key);
-    return _base.put(key, value);
+    return (V)_base.put(key, value);
   }
 
   @Override
-  public Object remove(Object key)
+  public V remove(Object key)
   {
     key = _getBaseKey(key);
     _LOG.finest("Removing {0}", key);
-    return _base.remove(key);
+    return (V)_base.remove(key);
   }
 
   @Override
@@ -101,10 +101,10 @@ final public class SubKeyMap extends AbstractMap<String, Object>
   }
 
   @Override
-  public Set<Map.Entry<String, Object>> entrySet()
+  public Set<Map.Entry<String, V>> entrySet()
   {
     if (_entrySet == null)
-      _entrySet = new Entries();
+      _entrySet = new Entries<V>();
     return _entrySet;
   }
 
@@ -131,21 +131,21 @@ final public class SubKeyMap extends AbstractMap<String, Object>
   //
   // Set implementation for SubkeyMap.entrySet()
   //
-  private class Entries extends AbstractSet<Map.Entry<String, Object>>
+  private class Entries<V> extends AbstractSet<Map.Entry<String, V>>
   {
     public Entries()
     {
     }
 
     @Override
-    public Iterator<Map.Entry<String, Object>> iterator()
+    public Iterator<Map.Entry<String, V>> iterator()
     {
       // Sadly, if you just try to use a filtering approach
       // on the iterator, you'll get concurrent modification
       // exceptions.  Consequently, gather the keys in a list
       // and iterator over that.
       List<String> keyList = _gatherKeys();
-      return new EntryIterator(keyList.iterator());
+      return new EntryIterator<V>(keyList.iterator());
     }
 
     @Override
@@ -193,7 +193,7 @@ final public class SubKeyMap extends AbstractMap<String, Object>
     }
   }
 
-  private class EntryIterator implements Iterator<Map.Entry<String, Object>>
+  private class EntryIterator<V> implements Iterator<Map.Entry<String, V>>
   {
     public EntryIterator(Iterator<String> iterator)
     {
@@ -205,11 +205,11 @@ final public class SubKeyMap extends AbstractMap<String, Object>
       return _iterator.hasNext();
     }
 
-    public Map.Entry<String, Object> next()
+    public Map.Entry<String, V> next()
     {
       String baseKey = _iterator.next();
       _currentKey = baseKey;
-      return new Entry(baseKey);
+      return new Entry<V>(baseKey);
     }
 
     public void remove()
@@ -226,7 +226,7 @@ final public class SubKeyMap extends AbstractMap<String, Object>
     private String    _currentKey;
   }
 
-  private class Entry implements Map.Entry<String, Object>
+  private class Entry<V> implements Map.Entry<String, V>
   {
     public Entry(String baseKey)
     {
@@ -240,14 +240,14 @@ final public class SubKeyMap extends AbstractMap<String, Object>
       return _key;
     }
 
-    public Object getValue()
+    public V getValue()
     {
-      return _base.get(_baseKey);
+      return (V)_base.get(_baseKey);
     }
 
-    public Object setValue(Object value)
+    public V setValue(V value)
     {
-      return _base.put(_baseKey, value);
+      return (V)_base.put(_baseKey, value);
     }
 
     @SuppressWarnings("unchecked")
@@ -256,7 +256,7 @@ final public class SubKeyMap extends AbstractMap<String, Object>
     {
       if (!(o instanceof Map.Entry))
         return false;
-      Map.Entry<String, Object> e = (Map.Entry<String, Object>)o;
+      Map.Entry<String, V> e = (Map.Entry<String, V>)o;
       return _equals(getKey(), e.getKey()) &&
       _equals(getValue(), e.getValue());
     }
@@ -283,7 +283,7 @@ final public class SubKeyMap extends AbstractMap<String, Object>
 
   private final Map<String, Object> _base;
   private final String _prefix;
-  private Set<Map.Entry<String, Object>> _entrySet;
+  private Set<Map.Entry<String, V>> _entrySet;
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(SubKeyMap.class);
 }
