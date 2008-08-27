@@ -242,8 +242,8 @@ public class StateManagerImpl extends StateManager
 
     // See if we're going to use the application view cache for
     // this request
-    Map<String, Object> applicationViewCache = null;
-    Map<String, Object> perSessionApplicationViewCache = null;
+    Map<String, PageState> applicationViewCache = null;
+    Map<String, PageState> perSessionApplicationViewCache = null;
     if (_useApplicationViewCache(context))
     {
       // OK, we are: so find the application cache and
@@ -256,7 +256,7 @@ public class StateManagerImpl extends StateManager
       {
         // If we've already got a copy of the state stored, then
         // we just need to make sure it's mirrored on the session
-        Object applicationState = applicationViewCache.get(root.getViewId());
+        PageState applicationState = applicationViewCache.get(root.getViewId());
         if (applicationState != null)
         {
           // Note that we've got no work to do...
@@ -284,7 +284,7 @@ public class StateManagerImpl extends StateManager
         assert(cache != null);
 
         // Store bits of the session as subkeys off of the session
-        Map<String, Object> stateMap = new SubKeyMap(
+        Map<String, PageState> stateMap = new SubKeyMap<PageState>(
                          context.getExternalContext().getSessionMap(),
                          _VIEW_CACHE_KEY + ".");
         // Sadly, we can't save just a SerializedView, because we should
@@ -297,6 +297,17 @@ public class StateManagerImpl extends StateManager
             // Save the view root into the page state as a transient
             // if this feature has not been disabled
             _useViewRootCache(context) ? root : null);
+
+        // clear out all of the previous PageStates' UIViewRoots and add this page
+        // state as an active page state.  This is necessary to avoid UIViewRoots
+        // laying around if the user navigates off of a page using a GET
+        synchronized(this)
+        {
+          if (_activePageState != null)
+            _activePageState.clearViewRootState();
+          
+          _activePageState = pageState;
+        }
 
         String requestToken = _getRequestTokenForResponse(context);
         // If we have a cached token that we want to reuse,
@@ -330,7 +341,7 @@ public class StateManagerImpl extends StateManager
       else
       {
         // use null viewRoot since this state is shared across users:
-        Object applicationState = new PageState(context, structure, state, null);
+        PageState applicationState = new PageState(context, structure, state, null);
         // If we need to, stash the state off in our cache
         if (!dontSave)
         {
@@ -473,8 +484,8 @@ public class StateManagerImpl extends StateManager
       // Load from the application cache
       if (_APPLICATION_CACHE_TOKEN.equals(token))
       {
-        Map<String, Object> cache = _getApplicationViewCache(context);
-        Map<String, Object> perSessionCache =
+        Map<String, PageState> cache = _getApplicationViewCache(context);
+        Map<String, PageState> perSessionCache =
           _getPerSessionApplicationViewCache(context);
 
         // Synchronize on the application-level cache.
@@ -482,7 +493,7 @@ public class StateManagerImpl extends StateManager
         synchronized (cache)
         {
           // Look first in the per-session cache
-          viewState = (PageState) perSessionCache.get(viewId);
+          viewState = cache.get(viewId);
           if (viewState == null)
           {
             // Nope, it's not there.  Look in the application cache
@@ -502,10 +513,10 @@ public class StateManagerImpl extends StateManager
       }
       else
       {
-        Map<String, Object> stateMap = new SubKeyMap(
+        Map<String, PageState> stateMap = new SubKeyMap<PageState>(
                          context.getExternalContext().getSessionMap(),
                          _VIEW_CACHE_KEY + ".");
-        viewState = (PageState) stateMap.get(token);
+        viewState = stateMap.get(token);
 
         if (viewState != null)
           _updateRequestTokenForResponse(context, (String) token);
@@ -693,15 +704,15 @@ public class StateManagerImpl extends StateManager
   // @todo a static size is bad
   //
   @SuppressWarnings("unchecked")
-  static private Map<String, Object> _getApplicationViewCache(FacesContext context)
+  static private Map<String, PageState> _getApplicationViewCache(FacesContext context)
   {
     synchronized (_APPLICATION_VIEW_CACHE_LOCK)
     {
       Map<String, Object> appMap = context.getExternalContext().getApplicationMap();
-      Map<String, Object> cache = (Map<String, Object>) appMap.get(_APPLICATION_VIEW_CACHE_KEY);
+      Map<String, PageState> cache = (Map<String, PageState>)appMap.get(_APPLICATION_VIEW_CACHE_KEY);
       if (cache == null)
       {
-        cache = new HashMap<String, Object>(128);
+        cache = new HashMap<String, PageState>(128);
         appMap.put(_APPLICATION_VIEW_CACHE_KEY, cache);
       }
 
@@ -710,19 +721,19 @@ public class StateManagerImpl extends StateManager
   }
 
   @SuppressWarnings("unchecked")
-  static private Map<String, Object> _getPerSessionApplicationViewCache(FacesContext context)
+  static private Map<String, PageState> _getPerSessionApplicationViewCache(FacesContext context)
   {
     ExternalContext external = context.getExternalContext();
     Object session = external.getSession(true);
     assert(session != null);
 
-    Map<String, Object> cache;
+    Map<String, PageState> cache;
     // Synchronize on the session object to ensure that
     // we don't ever create two different caches
     synchronized (session)
     {
       Map<String, Object> sessionMap = external.getSessionMap();
-      cache = (Map<String, Object>) sessionMap.get(_APPLICATION_VIEW_CACHE_KEY);
+      cache = (Map<String, PageState>) sessionMap.get(_APPLICATION_VIEW_CACHE_KEY);
       if (cache == null)
       {
         cache = _createPerSessionApplicationViewCache();
@@ -737,9 +748,9 @@ public class StateManagerImpl extends StateManager
   // For the per-session mirror of the application view cache,
   // use an LRU LinkedHashMap to store the latest 16 pages.
   //
-  static private Map<String, Object> _createPerSessionApplicationViewCache()
+  static private Map<String, PageState> _createPerSessionApplicationViewCache()
   {
-    return new LRUCache<String, Object>(_MAX_PER_SESSION_APPLICATION_SIZE);
+    return new LRUCache<String, PageState>(_MAX_PER_SESSION_APPLICATION_SIZE);
   }
 
   static private final int _MAX_PER_SESSION_APPLICATION_SIZE = 16;
@@ -902,25 +913,50 @@ public class StateManagerImpl extends StateManager
                                                      state);
   }
 
+  private static final class ViewRootState
+  {
+    public ViewRootState(FacesContext context, UIViewRoot viewRoot)
+    {
+      if (viewRoot == null)
+        throw new NullPointerException();
+      
+      _viewRoot = viewRoot;
+      _viewRootState = viewRoot.saveState(context);
+    }
+
+    public UIViewRoot getViewRoot()
+    {
+      return _viewRoot;
+    }
+
+    public Object getViewRootState()
+    {
+      return _viewRootState;
+    }
+
+    private final UIViewRoot _viewRoot;
+    private final Object _viewRootState;
+  }
+
   private static final class PageState implements Serializable
   {
     private static final long serialVersionUID = 1L;
 
     private final Object _structure, _state;
+
     // use transient since UIViewRoots are not Serializable.
-    private transient UIViewRoot _root;
-    // If the UIViewRoot is lost, then this state is useless, so mark it
-    // transient as well:
-    private transient Object _viewRootState;
+    private transient ViewRootState _cachedState;
 
     public PageState(FacesContext fc, Object structure, Object state, UIViewRoot root)
     {
       _structure = structure;
       _state = state;
-      _root = root;
       // we need this state, as we are going to recreate the UIViewRoot later. see
       // the popRoot() method:
-      _viewRootState = (root != null) ? root.saveState(fc) : null;
+      _cachedState = (root != null)
+                       ? new ViewRootState(fc, root)
+                       : null;
+
     }
 
     public Object getStructure()
@@ -933,6 +969,14 @@ public class StateManagerImpl extends StateManager
       return _state;
     }
 
+    public void clearViewRootState()
+    {
+      synchronized(this)
+      {
+        _cachedState = null;
+      }
+    }
+
     @SuppressWarnings("unchecked")
     public UIViewRoot popRoot(FacesContext fc)
     {
@@ -942,16 +986,15 @@ public class StateManagerImpl extends StateManager
       // which is shared between simultaneous requests from the same user:
       synchronized(this)
       {
-        if (_root != null)
+        if (_cachedState != null)
         {
-          root = _root;
-          viewRootState = _viewRootState;
+          root = _cachedState.getViewRoot();
+          viewRootState = _cachedState.getViewRootState();
           // we must clear the cached viewRoot. This is because UIComponent trees
           // are mutable and if the back button
           // is used to come back to an old PageState, then it would be
           // really bad if we reused that component tree:
-          _root = null;
-          _viewRootState = null;
+          _cachedState = null;
         }
       }
       
@@ -1038,7 +1081,7 @@ public class StateManagerImpl extends StateManager
   private       Boolean      _useViewRootCache;
   private       Boolean      _useApplicationViewCache;
   private       Boolean      _structureGeneratedByTemplate;
-
+  private       PageState    _activePageState;
 
   private static final int _DEFAULT_CACHE_SIZE = 15;
 
