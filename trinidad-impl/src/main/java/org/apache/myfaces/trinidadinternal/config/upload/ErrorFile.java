@@ -20,10 +20,11 @@ package org.apache.myfaces.trinidadinternal.config.upload;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 
 import org.apache.myfaces.trinidad.model.UploadedFile;
 
-public class ErrorFile implements UploadedFile
+public class ErrorFile implements UploadedFile, Serializable
 {
 
   public void dispose()
