@@ -193,11 +193,12 @@ public class SkinStyleProvider extends FileSystemStyleCache
   @Override
   protected String getTargetStyleSheetName(
     StyleContext       context,
-    StyleSheetDocument document
+    StyleSheetDocument document,
+    int                partNumber
     )
   {
     // Get the base name from the FileSystemStyleCache.
-    String name = super.getTargetStyleSheetName(context, document);
+    String name = super.getTargetStyleSheetName(context, document, partNumber);
 
     // Use the LAF's id as a prefix
     String id = _skin.getId();

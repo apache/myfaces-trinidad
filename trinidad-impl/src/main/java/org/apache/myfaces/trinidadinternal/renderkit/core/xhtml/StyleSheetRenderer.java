@@ -19,7 +19,7 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
-
+import java.util.List;
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
@@ -29,11 +29,9 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.core.CoreStyleSheet;
-
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
-
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.StyleProvider;
 
@@ -88,7 +86,7 @@ public class StyleSheetRenderer extends XhtmlRenderer
     StyleProvider provider = sContext.getStyleProvider();
     if (provider != null)
     {
-      String href = provider.getStyleSheetURI(sContext);
+      List<String> hrefs = provider.getStyleSheetURIs(sContext);
 
       // If the requestMap has a skin-id, a skin's stylesheet's id and suppressStylesheet
       // is true, and the skin information matches our current skin, then it is safe
@@ -97,40 +95,45 @@ public class StyleSheetRenderer extends XhtmlRenderer
       boolean suppressStylesheet = _isSuppressStylesheet(context, arc);
       if (!suppressStylesheet)
       {
-        if (href != null)
+        if (hrefs != null && !hrefs.isEmpty())
         {
           ExternalContext externalContext = context.getExternalContext();
           String contextUri = externalContext.getRequestContextPath();
           String baseURL = contextUri + XhtmlConstants.STYLES_CACHE_DIRECTORY;
 
           String outputMode = arc.getOutputMode();
-          // =-=AEW Don't like hardcoding facet names...
-          if (XhtmlConstants.OUTPUT_MODE_PORTLET.equals(outputMode) &&
-              supportsScripting(arc))
+          boolean asScript = XhtmlConstants.OUTPUT_MODE_PORTLET.equals(outputMode) 
+              && supportsScripting(arc);
+          
+          for (String href : hrefs)
           {
-            writer.startElement("script", null);
-            writer.writeText("var _adfSS;if(!_adfSS){_adfSS=1;document.write(\"" +
-                          "<link rel=\\\"stylesheet\\\" "+
-                          "charset=\\\"UTF-8\\\" type=\\\"text/css\\\" " +
-                          "href=\\\"",
-              null);
-            String uri = context.getExternalContext().encodeResourceURL(baseURL+href);
-            writer.writeText(uri, null);
-            writer.writeText("\\\">\")}", null);
-            writer.endElement("script");
-          }
-          else
-          {
-            writer.startElement("link", null);
-            renderId(context, comp);
-            writer.writeAttribute("rel", "stylesheet", null);
-            writer.writeAttribute("charset", "UTF-8", null);
+            String url = baseURL + href;
+            if (asScript)
+            {
+              writer.startElement("script", null);
+              writer.writeText("var _adfSS;if(!_adfSS){_adfSS=1;document.write(\"" +
+                            "<link rel=\\\"stylesheet\\\" "+
+                            "charset=\\\"UTF-8\\\" type=\\\"text/css\\\" " +
+                            "href=\\\"",
+                null);
+              String uri = context.getExternalContext().encodeResourceURL(url);
+              writer.writeText(uri, null);
+              writer.writeText("\\\">\")}", null);
+              writer.endElement("script");
+            }
+            else
+            {
+              writer.startElement("link", null);
+              renderId(context, comp);
+              writer.writeAttribute("rel", "stylesheet", null);
+              writer.writeAttribute("charset", "UTF-8", null);
 
-            String type = provider.getContentStyleType(sContext);
-            writer.writeAttribute("type", type, null);
+              String type = provider.getContentStyleType(sContext);
+              writer.writeAttribute("type", type, null);
 
-            renderEncodedResourceURI(context, "href", baseURL + href);
-            writer.endElement("link");
+              renderEncodedResourceURI(context, "href", url);
+              writer.endElement("link");
+            }
           }
         }
         else

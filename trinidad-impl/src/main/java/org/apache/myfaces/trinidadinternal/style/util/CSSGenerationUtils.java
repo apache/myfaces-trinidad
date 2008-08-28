@@ -69,16 +69,16 @@ public class CSSGenerationUtils
    * @param afSelectorMap A Map which maps the namespaced component selectors
    *   to their base names (e.g., 'af|menuPath::step' maps to 'af|menuPath A')
    */
-  public static void writeCSS(
-    StyleContext        context,
-    String              styleSheetName,
-    StyleNode[]         styles,
-    PrintWriter         out,
-    boolean             compressStyles,
-    Map<String, String> shortStyleClassMap,
-    String[]            namespacePrefixArray,
-    Map<String, String> afSelectorMap
-    )
+  public static void writeCSS(StyleContext        context,
+                              String              styleSheetName,
+                              StyleNode[]         styles,
+                              PrintWriter         out,
+                              boolean             compressStyles,
+                              Map<String, String> shortStyleClassMap,
+                              String[]            namespacePrefixArray,
+                              Map<String, String> afSelectorMap,
+                              int 				        startIndex,
+                              int					        count)
   {
     // writeCSS() attempts to produce a minimal set of style rules
     // by combining selectors with identical properties into a
@@ -103,20 +103,31 @@ public class CSSGenerationUtils
     // During the second pass over the styles, we write out all matching
     // selectors for each style followed by the shared set of properties.
 
+    if (startIndex < 0)
+    {
+    	throw new IllegalArgumentException("startIndex must be positive");
+    }
+    
+    if (count <= 0)
+    {
+    	throw new IllegalArgumentException("count must be strictly positive");
+    }
+	
     // We track styles with matching properties in the following HashMap
     // which maps property strings to StyleNode[]s.
-    HashMap<String, StyleNode[]> matchingStylesMap =
-      new HashMap<String, StyleNode[]>(101);
+    HashMap<String, StyleNode[]> matchingStylesMap = new HashMap<String, StyleNode[]>(101);
 
     // We also keep an array of the property strings that we generate
     // during this pass, since we need these strings during the second
     // pass to find matching StyleNodes.
-    String[] propertyStrings = new String[styles.length];
-     // Keep track of the number of selectors written out. The reason? IE has a 4095 limit,
-     // and we want to warn when we get to that limit.
-     int numberSelectorsWritten = 0;
-
-    for (int i = 0; i < styles.length; i++)
+    String[] propertyStrings = new String[count];
+    
+    // Keep track of the number of selectors written out. The reason? IE has a 4095 limit,
+    // and we want to warn when we get to that limit.
+    int numberSelectorsWritten = 0;
+    int endIndex = startIndex + count;
+    
+    for (int i = startIndex; i < styles.length && i < endIndex; i++)
     {
       StyleNode style = styles[i];
 
@@ -133,7 +144,7 @@ public class CSSGenerationUtils
         {
           // If we don't already have matching StyleNodes, add this
           // StyleNode to the map.
-          propertyStrings[i] = propertyString;
+          propertyStrings[i - startIndex] = propertyString;
           matchingStyles = new StyleNode[1];
           matchingStyles[0] = style;
         }
@@ -167,10 +178,10 @@ public class CSSGenerationUtils
     // Get the baseURI up front so we don't have to recalculate it every time we find
     // a property value that contains url() and need to resolve the uri.
     String baseURI = CSSUtils.getBaseSkinStyleSheetURI(styleSheetName);
-    for (int i = 0; i < styles.length; i++)
+    for (int i = startIndex; i < styles.length && i < endIndex; i++)
     {
       StyleNode style = styles[i];
-      String propertyString = propertyStrings[i];
+      String propertyString = propertyStrings[i - startIndex];
 
       // We only write out styles for which we have a property string.
       // All other entries correspond to styles which don't have selectors -

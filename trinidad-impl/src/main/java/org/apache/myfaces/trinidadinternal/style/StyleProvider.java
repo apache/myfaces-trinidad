@@ -18,8 +18,8 @@
  */
 package org.apache.myfaces.trinidadinternal.style;
 
+import java.util.List;
 import java.util.Map;
-
 import java.util.concurrent.ConcurrentMap;
 
 import org.apache.myfaces.trinidad.skin.Icon;
@@ -60,13 +60,13 @@ public interface StyleProvider
   public Map<String, String> getShortStyleClasses(StyleContext context);
 
   /**
-   * Returns the URI of the CSS style sheet to use for the
+   * Returns the URIs of the CSS style sheet to use for the
    * end user environment specified via the StyleContext.
    * @param context The context which describes the end user 
    *   environment for this request
    * @return A CSS style sheet URI
    */
-  public String getStyleSheetURI(StyleContext context);
+  public List<String> getStyleSheetURIs(StyleContext context);
 
   /**
    * Returns a StyleMap object, which can be used to 
