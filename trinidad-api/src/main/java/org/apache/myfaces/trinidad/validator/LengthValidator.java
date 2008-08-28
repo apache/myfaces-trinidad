@@ -393,7 +393,7 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
         if (length < min)
         {
           throw new ValidatorException(
-            _getMinimumMessage(context, component, value, max));
+            _getMinimumMessage(context, component, value, min));
         }
       }
       // too long
