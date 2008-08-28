@@ -245,8 +245,7 @@ public class CoreRenderingContext extends RenderingContext
     if (_styleContext == null)
     {
       FacesContext fContext = FacesContext.getCurrentInstance();
-      _styleContext = new StyleContextImpl(this,
-                                           getTemporaryDirectory(fContext));
+      _styleContext = new StyleContextImpl(this, getTemporaryDirectory(fContext));
     }
 
     return _styleContext;

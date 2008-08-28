@@ -18,27 +18,25 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core;
 
+import java.util.List;
 import java.util.Map;
-
 import java.util.concurrent.ConcurrentMap;
 
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.context.AccessibilityProfile;
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
-import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
-import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.HtmlRenderer;
 import org.apache.myfaces.trinidad.context.LocaleContext;
-import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.HtmlRenderer;
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadinternal.skin.SkinStyleProvider;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
-import org.apache.myfaces.trinidadinternal.style.StyleProvider;
 import org.apache.myfaces.trinidadinternal.style.StyleMap;
+import org.apache.myfaces.trinidadinternal.style.StyleProvider;
 
 class StyleContextImpl implements StyleContext
 {
@@ -153,7 +151,7 @@ class StyleContextImpl implements StyleContext
       return null;
     }
     
-    public String getStyleSheetURI(StyleContext context)
+    public List<String> getStyleSheetURIs(StyleContext context)
     {
       return null;
     }

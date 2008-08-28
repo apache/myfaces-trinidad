@@ -22,6 +22,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -154,7 +155,7 @@ public class FileSystemStyleCache implements StyleProvider
   /**
    * Implementation of StyleCache.getStyleSheetURI().
    */
-  public String getStyleSheetURI(StyleContext context)
+  public List<String> getStyleSheetURIs(StyleContext context)
   {
 
     Entry entry = _getEntry(context);
@@ -162,7 +163,7 @@ public class FileSystemStyleCache implements StyleProvider
     if (entry == null)
       return null;
 
-    return entry.uri;
+    return entry.uriList;
   }
 
   /**
@@ -304,10 +305,9 @@ public class FileSystemStyleCache implements StyleProvider
    * @param context The StyleContext
    * @param document The StyleSheetDocument which provides the styles
    */
-  protected String getTargetStyleSheetName(
-    StyleContext       context,
-    StyleSheetDocument document
-    )
+  protected String getTargetStyleSheetName(StyleContext       context,
+                                           StyleSheetDocument document, 
+                                           int 			          partNumber)
   {
     StringBuffer buffer = new StringBuffer();
 
@@ -323,13 +323,20 @@ public class FileSystemStyleCache implements StyleProvider
 
       buffer.append(contextName);
     }
+    
     if (_isCompressStyles(null))
     {
       if (baseName != null || contextName != null)
         buffer.append(_NAME_SEPARATOR);
       buffer.append(_COMPRESSED);
     }
-
+    
+    if (partNumber > 1)
+    {
+        buffer.append(_NAME_SEPARATOR);
+        buffer.append(partNumber);
+    }
+    
     buffer.append(_CSS_EXTENSION);
 
     return buffer.toString();
@@ -444,25 +451,56 @@ public class FileSystemStyleCache implements StyleProvider
     Key                   key,
     boolean               checkModified)
   {
+    return _getEntryInternal(cache, key, checkModified);
+  }
+
+  private Entry _getEntryInternal(Hashtable<?, Entry> cache, Object key, boolean checkModified)
+  {
     Entry entry = cache.get(key);
     if (entry == null)
-      return null;
-
-    // Make sure the entry's file exists.  If it no longer
-    // exists, we remove the entry from the cache
-    if (checkModified &&
-         (entry.uri != null) &&
-         !(new File(_targetPath, entry.uri).exists()))
     {
-      synchronized (cache)
-      {
-        if (cache.get(key) == entry)
-          cache.remove(key);
-      }
-
       return null;
     }
+    
+    if (checkModified)
+    {
+      List<String> uris = entry.uriList;
+      assert uris != null;
+      assert !uris.isEmpty();
 
+      boolean valid = true;
+      List<File> existing = new ArrayList<File>(uris.size());
+      // Make sure the entry's file exists.  If it no longer
+      // exists, we remove the entry from the cache
+      for (String name : uris)
+      {
+        File file = new File(_targetPath, name);
+        if (file.exists())
+        {
+          existing.add(file);
+        }
+        else
+        {
+          valid = false;
+        }
+      }
+      
+      if (!valid)
+      {
+        _deleteAll(existing);
+        
+        synchronized (cache)
+        {
+          if (cache.get(key) == entry)
+          {
+            cache.remove(key);
+          }
+        }
+
+        return null;
+      }
+    }
+    
     return entry;
   }
 
@@ -487,32 +525,29 @@ public class FileSystemStyleCache implements StyleProvider
     // info that is in the StyleContext.
     StyleNode[] styles = _getStyleContextResolvedStyles(context, document);
     if (styles == null)
+    {
       return null;
+    }
 
     // Generate the style sheet file, if it isn't already generated,
     // and return the uri.
-    String uri = _createStyleSheetFile(context,
-                                       document,
-                                       styles,
-                                       shortStyleClassMap,
-                                       namespacePrefixes,
-                                       checkModified);
+    List<String> fileNames = _createStyleSheetFile(context, document, styles,
+                                                   shortStyleClassMap, namespacePrefixes, 
+                                                   checkModified);
 
-    _LOG.fine("Finished processing stylesheet {0}", uri);
+    _LOG.fine("Finished processing stylesheets {0}", fileNames);
     
     
     // Next, get the fully resolved icons and skin properties for this context.
     // This will be those Icons and Skin Properties that match the locale, direction,
     // browser, etc -- the info that is in the StyleContext
-    ConcurrentMap<String, Icon> icons =
-      _getStyleContextResolvedIcons(context, document);
-    ConcurrentMap<Object, Object> skinProperties =
-      _getStyleContextResolvedSkinProperties(context, document);
+    ConcurrentMap<String, Icon> icons = _getStyleContextResolvedIcons(context, document);
+    ConcurrentMap<Object, Object> skinProperties = _getStyleContextResolvedSkinProperties(context, document);
 
     // Create a new entry and cache it in the "normal" cache. The "normal" cache is one
     // where the key is the Key object which is built based on information from the StyleContext,
     // like browser, agent, locale, direction.
-    Entry entry = new Entry(uri, new StyleMapImpl(), icons, skinProperties);
+    Entry entry = new Entry(fileNames, new StyleMapImpl(), icons, skinProperties);
     cache.put(key, entry);
 
     // Also, cache the new entry in the entry cache
@@ -535,28 +570,13 @@ public class FileSystemStyleCache implements StyleProvider
     )
   {
     DerivationKey derivationKey = _getDerivationKey(context, document);
-    Entry entry = entryCache.get(derivationKey);
-    if (entry == null)
-      return null;
-
-    // Make sure the entry's file exists.  If the file no
-    // longer exists, we remove the entry from the entry cache.
-    if (checkModified &&
-         (entry.uri != null) &&
-         !(new File(_targetPath, entry.uri).exists()))
+    Entry entry = _getEntryInternal(entryCache, derivationKey, checkModified);
+    if (entry != null)
     {
-      synchronized (this)
-      {
-        if (entryCache.get(derivationKey) == entry)
-          entryCache.remove(derivationKey);
-      }
-
-      return null;
+      // If we've got a compatible entry, cache it
+      cache.put(key, entry);
     }
-
-    // If we've got a compatible entry, cache it
-    cache.put(key, entry);
-
+    
     return entry;
   }
 
@@ -697,7 +717,7 @@ public class FileSystemStyleCache implements StyleProvider
 
   // Generates the CSS file for the specified context and styles.
   // Returns the name of the generated CSS file.
-  private String        _createStyleSheetFile(
+  private List<String> _createStyleSheetFile(
     StyleContext        context,
     StyleSheetDocument  document,
     StyleNode[]         styles,
@@ -705,89 +725,95 @@ public class FileSystemStyleCache implements StyleProvider
     String[]            namespacePrefixes,
     boolean             checkModified)
   {
+	  int maxSelectorPerFile;
+	  if (TrinidadAgent.APPLICATION_IEXPLORER == context.getAgent().getAgentApplication())
+	  {
+		  maxSelectorPerFile = _MSIE_SELECTOR_LIMIT;
+	  }
+	  else
+	  {
+	    maxSelectorPerFile = styles.length;
+	  }
+	  
     // Get a name for the new style sheet
-    File outputFile = _getOutputFile(context, document);
-    String name = outputFile.getName();
-
-    // If the output file already exists, check the last modified time.
-    if (outputFile.exists())
+    File[] outputFiles = _getOutputFiles(context, document, styles.length, maxSelectorPerFile);
+    if (outputFiles[0].exists())
     {
-      if (checkModified)
+      if (_isDirty(document, outputFiles[0], checkModified))
       {
-        if (!_checkSourceModified(document, outputFile))
-          return name;
-
-        // If the output file is older than the source file, we
-        // need to regenerate the output file.  But first we
-        // need to delete the old output file before we attempt to
-        // create a new version.
-        outputFile.delete();
+        _deleteAll(outputFiles);
       }
       else
-        return name;
+      {
+        return getFileNames(outputFiles);
+      }
     }
-
-    // Now, try to create the file
-    boolean created = false;
-
-    try
-    {
-      // Make sure the output directory exists in case it's been
-      // blown away since the creation of the cache
-      File outputDir = outputFile.getParentFile();
-      if (!outputDir.exists())
-        outputDir.mkdirs();
-
-      // If we can't create the new file, bail
-      created = outputFile.createNewFile();
-    }
-    catch (IOException e)
-    {
-      if (_LOG.isWarning())
-        _LOG.warning("IOEXCEPTION_CREATING_FILE", outputFile);
-        _LOG.warning(e);
-    }
-
-    if (!created)
-    {
-      if (_LOG.isWarning())
-        _LOG.warning("\nUnable to generate the style sheet "
-                     + outputFile.getName() + " in cache directory\n"
-                     + outputFile.getParent() + ".\n"
-                     + "Please make sure that the cache directory exists "
-                     + "and is writable.\n" );
-      return null;
-    }
-
-    // Get the Writer to output to
-    PrintWriter out = _getWriter(outputFile);
-    if (out == null)
-      return null;
-
-    // Write out the style sheet
+    
+    Skin skin = RenderingContext.getCurrentInstance().getSkin();
+    
     // First figure out whether or not we need to compress the style classes.
     // We don't compress the style classes if the content compression flag is disabled or
     // if the skin is a portlet skin.
-    Skin skin = RenderingContext.getCurrentInstance().getSkin();
     boolean compressStyles = _isCompressStyles(skin);
 
-    CSSGenerationUtils.writeCSS(context,
-                                skin.getStyleSheetName(),
-                                styles,
-                                out,
-                                compressStyles,
-                                shortStyleClassMap,
-                                namespacePrefixes,
-                                _STYLE_KEY_MAP
-                                );
+    List<File> createdFiles = new ArrayList<File>(outputFiles.length);
+    for (int i = 0; i < outputFiles.length; i++)
+    {
+      File file = outputFiles[i];
+      
+      // Now, try to create the files and get the writer to output to
+      PrintWriter writer = _getWriterToNewFile(file);
+      if (writer == null)
+      {
+        _deleteAll(createdFiles);
+        return null;
+      }
+      
+      try
+      {
+        // Write out the style sheet
+        CSSGenerationUtils.writeCSS(context, skin.getStyleSheetName(), styles, writer,
+                                    compressStyles, shortStyleClassMap, namespacePrefixes,
+                                    _STYLE_KEY_MAP, i * maxSelectorPerFile, maxSelectorPerFile);
+      }
+      finally
+      {
+        writer.close();
+      }
 
-    out.close();
+      // We never want to do anything other then read it or delete it:
+      file.setReadOnly();
+    }
 
-    // We never want to do anything other then read it or delete it:
-    outputFile.setReadOnly();
-
-    // Return the name of the new style sheet
-    return name;
+    return getFileNames(outputFiles);
+  }
+  
+  private boolean _isDirty(StyleSheetDocument document, File file, boolean checkModified)
+  {
+	  // If the output file already exists, check the last modified time.
+		return checkModified && _checkSourceModified(document, file);
+  }
+  
+  private void _deleteAll(File[] files)
+  {
+    for (File file : files)
+    {
+      if (file.exists())
+      {
+        file.delete();
+      }
+    }
+  }
+  
+  private void _deleteAll(Iterable<File> files)
+  {
+    for (File file : files)
+    {
+      if (file.exists())
+      {
+        file.delete();
+      }
+    }
   }
   
   // First figure out whether or not we need to compress the style classes.
@@ -812,35 +838,64 @@ public class FileSystemStyleCache implements StyleProvider
 
   // Returns the name of the output file to use for the
   // style sheet associated with the specified context
-  private File _getOutputFile(
+  private File[] _getOutputFiles(
     StyleContext context,
-    StyleSheetDocument document
+    StyleSheetDocument document,
+    int selectorCount,
+    int maxSelectorPerFile
     )
   {
-    String name = getTargetStyleSheetName(context, document);
+    int fileCount = selectorCount / maxSelectorPerFile;
+    if (selectorCount % maxSelectorPerFile != 0)
+    {
+      fileCount++;
+    }
+	  
+	  File[] outputFiles = new File[fileCount];
+	  
+	  for (int i = 0; i < fileCount; i++)
+	  {
+		  String name = getTargetStyleSheetName(context, document, i + 1);
+		  outputFiles[i] = new File(_targetPath, name);
+	  }
 
-    return new File(_targetPath, name);
+	  return outputFiles;
   }
 
   // Returns the PrintWriter to use for the specified file
-  private PrintWriter _getWriter(File file)
+  private PrintWriter _getWriterToNewFile(File file)
   {
-    PrintWriter out = null;
 
     try
     {
       File parentFile = file.getParentFile();
       if (parentFile != null)
+      {
         parentFile.mkdirs();
+      }
 
-      FileOutputStream fos = new FileOutputStream(file);
-      OutputStreamWriter writer = null;
+      if (!file.createNewFile())
+      {
+        if (_LOG.isWarning())
+        {
+          _LOG.warning("\nUnable to generate the style sheet "
+                       + file.getName() + " in cache directory\n"
+                       + file.getParent() + ".\n"
+                       + "Please make sure that the cache directory exists "
+                       + "and is writable.\n" );
+        }
+        
+        return null;
+      }
+      
+      OutputStream ostream = new FileOutputStream(file);
+      
+      OutputStreamWriter writer;
 
-      // Use UTF8 encoding for output, in case font names have non-ascii
-      // characters.
+      // Use UTF8 encoding for output, in case font names have non-ascii characters.
       try
       {
-        writer = new OutputStreamWriter(fos, _UTF8_ENCODING);
+        writer = new OutputStreamWriter(ostream, _UTF8_ENCODING);
       }
       catch (UnsupportedEncodingException e)
       {
@@ -848,19 +903,21 @@ public class FileSystemStyleCache implements StyleProvider
         assert false;
 
         // Just use default encoding instead
-        writer = new OutputStreamWriter(fos);
+        writer = new OutputStreamWriter(ostream);
       }
 
-      out = new PrintWriter(new BufferedWriter(writer));
+      return new PrintWriter(new BufferedWriter(writer));
     }
     catch (IOException e)
     {
       if (_LOG.isWarning())
+      {
         _LOG.warning("IOEXCEPTION_OPENNING_FILE", file);
         _LOG.warning(e);
+      }
     }
-
-    return out;
+    
+    return null;
   }
 
   // Checks to see whether the source file has been modified
@@ -937,6 +994,17 @@ public class FileSystemStyleCache implements StyleProvider
       v.addElement(e.next());
 
     return v;
+  }
+  
+  private static List<String> getFileNames(File[] files)
+  {
+    List<String> names = new ArrayList<String>(files.length);
+    for (File file : files)
+    {
+      names.add(file.getName());
+    }
+    
+    return Collections.unmodifiableList(names);
   }
 
   // Create an array of all the namespace prefixes in the xss/css file. E.g., "af|" or "tr|"
@@ -1083,7 +1151,7 @@ public class FileSystemStyleCache implements StyleProvider
   // that start with SkinSelectors.STATE_PREFIX. The reason is that those
   // are likely to be added and removed on the client as the state changes, and
   // we don't want to require the shortened map on the client.
-  private static void _putStyleClassInShortMap(String styleClass, Map map)
+  private static void _putStyleClassInShortMap(String styleClass, Map<String, String> map)
   {
     if (styleClass != null &&
         !styleClass.startsWith(SkinSelectors.STATE_PREFIX) &&
@@ -1102,8 +1170,7 @@ public class FileSystemStyleCache implements StyleProvider
     // of style classes and not the style class itself.
     return _SHORT_CLASS_PREFIX + Integer.toString(count, Character.MAX_RADIX);
   }
-
-
+  
   // Key class used for hashing style sheet URIs
   private static class Key
   {
@@ -1201,18 +1268,18 @@ public class FileSystemStyleCache implements StyleProvider
   // Cache entry class
   private static class Entry
   {
-    public final String uri;
+    public final List<String> uriList;
     public final StyleMap map;
     public final ConcurrentMap<String, Icon> icons;
     public final ConcurrentMap<Object, Object> skinProperties;
 
     public Entry(
-      String uri,
+      List<String> uriList,
       StyleMap map,
       ConcurrentMap<String, Icon> icons,
       ConcurrentMap<Object, Object> skinProperties)
     {
-      this.uri = uri;
+      this.uriList = uriList;
       this.map = map;
       this.icons = icons;
       this.skinProperties = skinProperties;
@@ -1433,6 +1500,7 @@ public class FileSystemStyleCache implements StyleProvider
   // Prefix to use for short style classes
   private static final String _SHORT_CLASS_PREFIX = "x";
 
+  private static final int _MSIE_SELECTOR_LIMIT = 4095;
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(FileSystemStyleCache.class);
 
 
