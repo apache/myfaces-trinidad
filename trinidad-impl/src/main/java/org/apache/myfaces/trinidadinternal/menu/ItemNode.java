@@ -20,6 +20,10 @@ package org.apache.myfaces.trinidadinternal.menu;
 
 import java.util.Map;
 
+import javax.el.ELContext;
+import javax.el.ExpressionFactory;
+import javax.el.MethodExpression;
+import javax.faces.context.FacesContext;
 import javax.faces.webapp.UIComponentTag;
 
 /**
@@ -66,14 +70,17 @@ public class ItemNode extends MenuNode
   {
     String value = _action;
 
-    // Could be EL expression
-    if (   value != null
-        && UIComponentTag.isValueReference(value)
-       ) 
+    if (value != null)
     {
-      // Value of action is EL method binding, so we 
-      // need to evaluate it
-      value = MenuUtils.getBoundValue(value, String.class);
+      FacesContext facesContext = FacesContext.getCurrentInstance();
+      ExpressionFactory expressionFactory =
+          facesContext.getApplication().getExpressionFactory();
+      ELContext context = facesContext.getELContext();
+      MethodExpression methodExpression =
+          expressionFactory.createMethodExpression(context, value,
+              String.class, new Class<?>[]
+              {});
+      value = (String) methodExpression.invoke(context, null);
     }
 
     // Post me as the selected Node for the request
