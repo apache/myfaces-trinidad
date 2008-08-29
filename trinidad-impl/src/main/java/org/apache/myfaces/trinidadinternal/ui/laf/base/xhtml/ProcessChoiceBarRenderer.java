@@ -136,18 +136,23 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
       boolean isNewPath = setNewPath(context, node, component);
       if (isNewPath)
       {
+        // The postrender will only close out the DOM is newPath is non-null so we should only
+        // prerender if newPath is also non-null.
         Object newPath = component.getRowKey();
-        context.setLocalProperty(_NEW_PATH_KEY, newPath);
-        component.setRowKey(oldPath);
+        if (newPath != null)
+        {
+          context.setLocalProperty(_NEW_PATH_KEY, newPath);
+          component.setRowKey(oldPath);
 
-        // add core.js
-        XhtmlLafUtils.addLib(context, "_commandChoice()");
-        renderPreChoice(context, node);
-        CommandNavigationItemRenderer.setNavigationItemRendererType(context,
-                                   CommandNavigationItemRenderer.OPTION_TYPE);
+          // add core.js
+          XhtmlLafUtils.addLib(context, "_commandChoice()");
+          renderPreChoice(context, node);
+          CommandNavigationItemRenderer.setNavigationItemRendererType(context,
+                                     CommandNavigationItemRenderer.OPTION_TYPE);
 
-        // start drop-down rendering...
-        super.prerender(context, node);
+          // start drop-down rendering...
+          super.prerender(context, node);
+        }
       }
     }
   }
