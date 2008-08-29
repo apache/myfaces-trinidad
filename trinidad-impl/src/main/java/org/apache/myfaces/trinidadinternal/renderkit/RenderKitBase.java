@@ -23,6 +23,7 @@ import java.io.IOException;
 
 import java.net.URL;
 
+import java.util.Enumeration;
 import java.util.Map;
 import java.util.Properties;
 
@@ -218,52 +219,62 @@ abstract public class RenderKitBase extends RenderKit
     if (loader == null)
       loader = getClass().getClassLoader();
 
-    URL resource = loader.getResource(fileName);
-    if (resource != null)
+    try
     {
-      try
-      {
-        Properties properties = new Properties();
-        _LOG.fine("Loading renderkit map from {0}",  resource);
-        InputStream is = resource.openStream();
-        try
+        for (Enumeration e = loader.getResources(fileName) ; e.hasMoreElements() ;) 
         {
-          properties.load(is);
-        }
-        finally
-        {
-          is.close();
-        }
+            URL resource = (URL)e.nextElement();
+            if (resource != null)
+            {
+              try
+              {
+                Properties properties = new Properties();
+                _LOG.fine("Loading renderkit map from {0}",  resource);
+                InputStream is = resource.openStream();
+                try
+                {
+                  properties.load(is);
+                }
+                finally
+                {
+                  is.close();
+                }
+                
+                for (Map.Entry<Object, Object> entry : properties.entrySet())
+                {
+                  String key = (String) entry.getKey();
+                  int barIndex = key.indexOf('|');
+                  if (barIndex < 0)
+                  {
+                    _LOG.warning("Invalid renderkit map entry: {0}", key);
+                    continue;
+                  }
         
-        for (Map.Entry<Object, Object> entry : properties.entrySet())
-        {
-          String key = (String) entry.getKey();
-          int barIndex = key.indexOf('|');
-          if (barIndex < 0)
-          {
-            _LOG.warning("Invalid renderkit map entry: {0}", key);
-            continue;
-          }
-
-          String componentFamily = key.substring(0, barIndex);
-          String rendererType = key.substring(barIndex + 1);
-          
-          String className = (String) entry.getValue();
-
-          addRenderer(componentFamily, rendererType, className);
+                  String componentFamily = key.substring(0, barIndex);
+                  String rendererType = key.substring(barIndex + 1);
+                  
+                  String className = (String) entry.getValue();
+        
+                  addRenderer(componentFamily, rendererType, className);
+                }
+              }
+              catch (IOException ioe)
+              {
+                _LOG.severe("CANNOT_LOAD_URL", resource);
+                _LOG.severe(ioe);
+              }
+            }
+            else
+            {
+              _LOG.severe("CANNOT_LOAD_URL", resource);
+            }
         }
-      }
-      catch (IOException ioe)
-      {
-        _LOG.severe("CANNOT_LOAD_URL", fileName);
-        _LOG.severe(ioe);
-      }
     }
-    else
+    catch(IOException ioe) 
     {
-      _LOG.severe("CANNOT_LOAD_URL", fileName);
+        _LOG.severe("CANNOT_LOAD_RESOURCES", fileName);
+        _LOG.severe(ioe);
     }
-
   }
 
 
