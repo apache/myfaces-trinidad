@@ -171,6 +171,20 @@ public class FileUploadConfiguratorImpl extends Configurator
 
     return externalContext;
   }
+  
+  /* (non-Javadoc)
+   * @see org.apache.myfaces.trinidad.config.Configurator#beginRequest(javax.faces.context.ExternalContext)
+   */
+  @Override
+  public void endRequest(ExternalContext externalContext)
+  {
+    // TODO matzew check portlet env.
+    if(!ExternalContextUtils.isPortlet(externalContext))
+    {
+      UploadedFiles files = UploadedFiles.getUploadedFiles(externalContext);
+      files.dispose();
+    }
+  }
 
   /* (non-Javadoc)
    * @see org.apache.myfaces.trinidad.config.Configurator#init(javax.faces.context.ExternalContext)
