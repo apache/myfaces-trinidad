@@ -423,6 +423,8 @@ public class ResourceServlet extends HttpServlet
       String resourcePath = url.getPath();
       if(resourcePath.endsWith(".css"))
         contentType = "text/css";
+      else if(resourcePath.endsWith(".js"))
+        contentType = "application/x-javascript";
       else
         contentType = getServletContext().getMimeType(resourcePath);
     }
