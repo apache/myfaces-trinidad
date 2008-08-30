@@ -173,7 +173,7 @@ public class FileUploadConfiguratorImpl extends Configurator
   }
   
   /* (non-Javadoc)
-   * @see org.apache.myfaces.trinidad.config.Configurator#beginRequest(javax.faces.context.ExternalContext)
+   * @see org.apache.myfaces.trinidad.config.Configurator#endRequest(javax.faces.context.ExternalContext)
    */
   @Override
   public void endRequest(ExternalContext externalContext)
