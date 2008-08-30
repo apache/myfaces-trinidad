@@ -50,8 +50,17 @@ final public class UploadedFiles
   @SuppressWarnings("unchecked")
   static public UploadedFiles getUploadedFiles(FacesContext context)
   {
+    return getUploadedFiles(context.getExternalContext());
+  }
+
+  /**
+   * Returns the map of uploaded files for the current request.
+   */
+  @SuppressWarnings("unchecked")
+  static public UploadedFiles getUploadedFiles(ExternalContext context)
+  {
     Map<String, Object> requestMap =
-      context.getExternalContext().getRequestMap();
+      context.getRequestMap();
     return (UploadedFiles) requestMap.get(_UPLOADED_FILES_KEY);
   }
 
