@@ -179,7 +179,8 @@ public class FileUploadConfiguratorImpl extends Configurator
     if(!ExternalContextUtils.isPortlet(externalContext))
     {
       UploadedFiles files = UploadedFiles.getUploadedFiles(externalContext);
-      files.dispose();
+      if(files != null)
+        files.dispose();
     }
   }
 
