@@ -604,7 +604,7 @@
               <input
                    id="mainId:0"
                    name="mainId:selected"
-                   onclick="TrPage._autoSubmit('formId','mainId',event,1);return true;"
+                   onclick="TrPage._autoSubmit('formId','mainId',null,1);return true;"
                    title="Select"
                    type="radio"
                    value="0"
@@ -628,7 +628,7 @@
               <input
                    id="mainId:1"
                    name="mainId:selected"
-                   onclick="TrPage._autoSubmit('formId','mainId',event,1);return true;"
+                   onclick="TrPage._autoSubmit('formId','mainId',null,1);return true;"
                    title="Select"
                    type="radio"
                    value="1"
@@ -652,7 +652,7 @@
               <input
                    id="mainId:2"
                    name="mainId:selected"
-                   onclick="TrPage._autoSubmit('formId','mainId',event,1);return true;"
+                   onclick="TrPage._autoSubmit('formId','mainId',null,1);return true;"
                    title="Select"
                    type="radio"
                    value="2"

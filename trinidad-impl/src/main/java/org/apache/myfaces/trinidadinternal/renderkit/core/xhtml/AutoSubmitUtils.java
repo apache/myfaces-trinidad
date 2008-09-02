@@ -27,6 +27,7 @@ import javax.faces.component.UIParameter;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
+import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.FormData;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.Scriptlet;
@@ -228,7 +229,15 @@ public class AutoSubmitUtils
     builder.append(formName);
     builder.append("',");
     _appendJSParameter(builder, source);
-    builder.append(",event,");
+    boolean isDesktop = (arc.getAgent().getType().equals(Agent.TYPE_DESKTOP));
+    if (isDesktop)
+    {
+      builder.append(",event,");
+    } 
+    else  
+    {
+      builder.append(",null,");
+    }
     builder.append(immediate ? "0" : "1");
     if (extraParams != null)
     {
@@ -237,7 +246,6 @@ public class AutoSubmitUtils
       builder.append("}");
     }
     builder.append(returnTrue ? _TRUE_END : _FALSE_END);
-
     return builder.toString();
   }
 
