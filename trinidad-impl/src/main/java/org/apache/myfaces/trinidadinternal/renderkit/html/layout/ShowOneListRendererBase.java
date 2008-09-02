@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -32,12 +32,14 @@ import org.apache.myfaces.trinidad.component.UIXShowDetail;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.render.RenderUtils;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
 import org.apache.myfaces.trinidadinternal.uinode.UINodeRendererBase;
+
 
 /**
  *  Base Renderer for ShowOneChoice and PanelRadio
@@ -154,9 +156,22 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
     ResponseWriter out = context.getResponseWriter();
 
     String disclosedItemId = _getDisclosedItemId(context, component);
+    RenderingContext arc = RenderingContext.getCurrentInstance();
+    boolean isDesktop = (arc.getAgent().getType().equals(Agent.TYPE_DESKTOP));
 
+    // Wrap the table element with a div tag for mobile browsers since some of it 
+    // doesn't support PPR for table element. 
+    if(!isDesktop )
+    {
+      out.startElement("div", component);
+      out.writeAttribute("id", component.getClientId(context), null);
+    }
     out.startElement("table", component);
-    out.writeAttribute("id", component.getClientId(context), null);
+    if(isDesktop )
+    {
+      out.writeAttribute("id", component.getClientId(context), null);
+    }
+
     String shortDesc = (String) component.getAttributes().get("shortDesc");
     if (shortDesc != null)
     {
@@ -171,7 +186,7 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
     out.writeAttribute("cellpadding", "0", null);
 
     String styleClass = (String) component.getAttributes().get("styleClass");
-    RenderingContext arc = RenderingContext.getCurrentInstance();
+    
     if (styleClass != null)
     {
       XhtmlRenderer.renderStyleClass(context, arc, styleClass);
@@ -255,6 +270,10 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
 
     out.endElement("tr");
     out.endElement("table");
+    if(!isDesktop )
+    { 
+      out.endElement("div");
+    }
   }
 
   /**
@@ -382,11 +401,11 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
           //ADFFACES-153: use default style (underline) for access key
           out.startElement ("span", null);
           XhtmlRenderer.renderStyleClass (FacesContext.getCurrentInstance(),
-                                          RenderingContext.getCurrentInstance(),  
+                                          RenderingContext.getCurrentInstance(),
                                           SkinSelectors.AF_ACCESSKEY_STYLE_CLASS);
           out.writeText (accessChar.toString(), null);
           out.endElement ("span");
-          
+
           out.writeText(strAfterAccessKey, null);
         }
       }
@@ -588,7 +607,7 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
     {
       return null;
     }
-    
+
     for(UIComponent child : (List<UIComponent>)component.getChildren())
     {
       String childId = child.getClientId(context);

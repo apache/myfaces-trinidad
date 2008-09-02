@@ -1,1529 +1,1593 @@
 <results>
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
+      <div
            id="mainId"
-           summary=""
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             summary=""
             >
           
-          <td
-               valign="middle"
+          <tr
               >
             
-            <table
-                 border="0"
-                 cellpadding="0"
-                 cellspacing="0"
-                 id="mainId_soc_tbl"
-                 summary=""
+            <td
+                 valign="middle"
                 >
               
-              <tr
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   id="mainId_soc_tbl"
+                   summary=""
                   >
                 
-                <td
-                     align="left"
-                     nowrap="nowrap"
+                <tr
                     >
                   
-                  <span
-                       class="AFLabelText"
+                  <td
+                       align="left"
+                       nowrap="nowrap"
                       >
                     
-                    <label
-                         for="mainId_soc_tbl_chc"
+                    <span
+                         class="AFLabelText"
                         >
                       
-                    </label>
-                  </span>
-                </td>
-                <td
-                     width="12"
-                    >
-                  
-                </td>
-                <td
-                     nowrap="nowrap"
-                     valign="top"
-                    >
-                  
-                  <select
-                       class="AFFieldText"
-                       id="mainId_soc_tbl_chc"
-                       name="mainId_soc_tbl_chc"
-                       onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
+                      <label
+                           for="mainId_soc_tbl_chc"
+                          >
+                        
+                      </label>
+                    </span>
+                  </td>
+                  <td
+                       width="12"
                       >
                     
-                    <option
-                         id="_idXXX"
-                         selected="selected"
+                  </td>
+                  <td
+                       nowrap="nowrap"
+                       valign="top"
+                      >
+                    
+                    <select
+                         class="AFFieldText"
+                         id="mainId_soc_tbl_chc"
+                         name="mainId_soc_tbl_chc"
+                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
                         >
-                      1
-                    </option>
-                    <option
-                         id="_idXXX"
-                        >
-                      2
-                    </option>
-                    <option
-                         id="_idXXX"
-                        >
-                      3
-                    </option>
-                  </select>
-                </td>
-              </tr>
-            </table>
-          </td>
-          <td
-               width="8"
-              >
-            
-          </td>
-          <td
-               align="left"
-              >
-            
-          </td>
-        </tr>
-      </table>
+                      
+                      <option
+                           id="_idXXX"
+                           selected="selected"
+                          >
+                        1
+                      </option>
+                      <option
+                           id="_idXXX"
+                          >
+                        2
+                      </option>
+                      <option
+                           id="_idXXX"
+                          >
+                        3
+                      </option>
+                    </select>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                 width="8"
+                >
+              
+            </td>
+            <td
+                 align="left"
+                >
+              
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onclick,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
+      <div
            id="mainId"
-           onclick="test-onclick"
-           summary=""
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             onclick="test-onclick"
+             summary=""
             >
           
-          <td
-               valign="middle"
+          <tr
               >
             
-            <table
-                 border="0"
-                 cellpadding="0"
-                 cellspacing="0"
-                 id="mainId_soc_tbl"
-                 summary=""
+            <td
+                 valign="middle"
                 >
               
-              <tr
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   id="mainId_soc_tbl"
+                   summary=""
                   >
                 
-                <td
-                     align="left"
-                     nowrap="nowrap"
+                <tr
                     >
                   
-                  <span
-                       class="AFLabelText"
+                  <td
+                       align="left"
+                       nowrap="nowrap"
                       >
                     
-                    <label
-                         for="mainId_soc_tbl_chc"
+                    <span
+                         class="AFLabelText"
                         >
                       
-                    </label>
-                  </span>
-                </td>
-                <td
-                     width="12"
-                    >
-                  
-                </td>
-                <td
-                     nowrap="nowrap"
-                     valign="top"
-                    >
-                  
-                  <select
-                       class="AFFieldText"
-                       id="mainId_soc_tbl_chc"
-                       name="mainId_soc_tbl_chc"
-                       onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
+                      <label
+                           for="mainId_soc_tbl_chc"
+                          >
+                        
+                      </label>
+                    </span>
+                  </td>
+                  <td
+                       width="12"
                       >
                     
-                    <option
-                         id="_idXXX"
-                         selected="selected"
+                  </td>
+                  <td
+                       nowrap="nowrap"
+                       valign="top"
+                      >
+                    
+                    <select
+                         class="AFFieldText"
+                         id="mainId_soc_tbl_chc"
+                         name="mainId_soc_tbl_chc"
+                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
                         >
-                      1
-                    </option>
-                    <option
-                         id="_idXXX"
-                        >
-                      2
-                    </option>
-                    <option
-                         id="_idXXX"
-                        >
-                      3
-                    </option>
-                  </select>
-                </td>
-              </tr>
-            </table>
-          </td>
-          <td
-               width="8"
-              >
-            
-          </td>
-          <td
-               align="left"
-              >
-            
-          </td>
-        </tr>
-      </table>
+                      
+                      <option
+                           id="_idXXX"
+                           selected="selected"
+                          >
+                        1
+                      </option>
+                      <option
+                           id="_idXXX"
+                          >
+                        2
+                      </option>
+                      <option
+                           id="_idXXX"
+                          >
+                        3
+                      </option>
+                    </select>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                 width="8"
+                >
+              
+            </td>
+            <td
+                 align="left"
+                >
+              
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[ondblclick,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
+      <div
            id="mainId"
-           ondblclick="test-ondblclick"
-           summary=""
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             ondblclick="test-ondblclick"
+             summary=""
             >
           
-          <td
-               valign="middle"
+          <tr
               >
             
-            <table
-                 border="0"
-                 cellpadding="0"
-                 cellspacing="0"
-                 id="mainId_soc_tbl"
-                 summary=""
+            <td
+                 valign="middle"
                 >
               
-              <tr
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   id="mainId_soc_tbl"
+                   summary=""
                   >
                 
-                <td
-                     align="left"
-                     nowrap="nowrap"
+                <tr
                     >
                   
-                  <span
-                       class="AFLabelText"
+                  <td
+                       align="left"
+                       nowrap="nowrap"
                       >
                     
-                    <label
-                         for="mainId_soc_tbl_chc"
+                    <span
+                         class="AFLabelText"
                         >
                       
-                    </label>
-                  </span>
-                </td>
-                <td
-                     width="12"
-                    >
-                  
-                </td>
-                <td
-                     nowrap="nowrap"
-                     valign="top"
-                    >
-                  
-                  <select
-                       class="AFFieldText"
-                       id="mainId_soc_tbl_chc"
-                       name="mainId_soc_tbl_chc"
-                       onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
+                      <label
+                           for="mainId_soc_tbl_chc"
+                          >
+                        
+                      </label>
+                    </span>
+                  </td>
+                  <td
+                       width="12"
                       >
                     
-                    <option
-                         id="_idXXX"
-                         selected="selected"
+                  </td>
+                  <td
+                       nowrap="nowrap"
+                       valign="top"
+                      >
+                    
+                    <select
+                         class="AFFieldText"
+                         id="mainId_soc_tbl_chc"
+                         name="mainId_soc_tbl_chc"
+                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
                         >
-                      1
-                    </option>
-                    <option
-                         id="_idXXX"
-                        >
-                      2
-                    </option>
-                    <option
-                         id="_idXXX"
-                        >
-                      3
-                    </option>
-                  </select>
-                </td>
-              </tr>
-            </table>
-          </td>
-          <td
-               width="8"
-              >
-            
-          </td>
-          <td
-               align="left"
-              >
-            
-          </td>
-        </tr>
-      </table>
+                      
+                      <option
+                           id="_idXXX"
+                           selected="selected"
+                          >
+                        1
+                      </option>
+                      <option
+                           id="_idXXX"
+                          >
+                        2
+                      </option>
+                      <option
+                           id="_idXXX"
+                          >
+                        3
+                      </option>
+                    </select>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                 width="8"
+                >
+              
+            </td>
+            <td
+                 align="left"
+                >
+              
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onkeydown,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
+      <div
            id="mainId"
-           onkeydown="test-onkeydown"
-           summary=""
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             onkeydown="test-onkeydown"
+             summary=""
             >
           
-          <td
-               valign="middle"
+          <tr
               >
             
-            <table
-                 border="0"
-                 cellpadding="0"
-                 cellspacing="0"
-                 id="mainId_soc_tbl"
-                 summary=""
+            <td
+                 valign="middle"
                 >
               
-              <tr
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   id="mainId_soc_tbl"
+                   summary=""
                   >
                 
-                <td
-                     align="left"
-                     nowrap="nowrap"
+                <tr
                     >
                   
-                  <span
-                       class="AFLabelText"
+                  <td
+                       align="left"
+                       nowrap="nowrap"
                       >
                     
-                    <label
-                         for="mainId_soc_tbl_chc"
+                    <span
+                         class="AFLabelText"
                         >
                       
-                    </label>
-                  </span>
-                </td>
-                <td
-                     width="12"
-                    >
-                  
-                </td>
-                <td
-                     nowrap="nowrap"
-                     valign="top"
-                    >
-                  
-                  <select
-                       class="AFFieldText"
-                       id="mainId_soc_tbl_chc"
-                       name="mainId_soc_tbl_chc"
-                       onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
+                      <label
+                           for="mainId_soc_tbl_chc"
+                          >
+                        
+                      </label>
+                    </span>
+                  </td>
+                  <td
+                       width="12"
                       >
                     
-                    <option
-                         id="_idXXX"
-                         selected="selected"
+                  </td>
+                  <td
+                       nowrap="nowrap"
+                       valign="top"
+                      >
+                    
+                    <select
+                         class="AFFieldText"
+                         id="mainId_soc_tbl_chc"
+                         name="mainId_soc_tbl_chc"
+                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
                         >
-                      1
-                    </option>
-                    <option
-                         id="_idXXX"
-                        >
-                      2
-                    </option>
-                    <option
-                         id="_idXXX"
-                        >
-                      3
-                    </option>
-                  </select>
-                </td>
-              </tr>
-            </table>
-          </td>
-          <td
-               width="8"
-              >
-            
-          </td>
-          <td
-               align="left"
-              >
-            
-          </td>
-        </tr>
-      </table>
+                      
+                      <option
+                           id="_idXXX"
+                           selected="selected"
+                          >
+                        1
+                      </option>
+                      <option
+                           id="_idXXX"
+                          >
+                        2
+                      </option>
+                      <option
+                           id="_idXXX"
+                          >
+                        3
+                      </option>
+                    </select>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                 width="8"
+                >
+              
+            </td>
+            <td
+                 align="left"
+                >
+              
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onkeypress,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
+      <div
            id="mainId"
-           onkeypress="test-onkeypress"
-           summary=""
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             onkeypress="test-onkeypress"
+             summary=""
             >
           
-          <td
-               valign="middle"
+          <tr
               >
             
-            <table
-                 border="0"
-                 cellpadding="0"
-                 cellspacing="0"
-                 id="mainId_soc_tbl"
-                 summary=""
+            <td
+                 valign="middle"
                 >
               
-              <tr
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   id="mainId_soc_tbl"
+                   summary=""
                   >
                 
-                <td
-                     align="left"
-                     nowrap="nowrap"
+                <tr
                     >
                   
-                  <span
-                       class="AFLabelText"
+                  <td
+                       align="left"
+                       nowrap="nowrap"
                       >
                     
-                    <label
-                         for="mainId_soc_tbl_chc"
+                    <span
+                         class="AFLabelText"
                         >
                       
-                    </label>
-                  </span>
-                </td>
-                <td
-                     width="12"
-                    >
-                  
-                </td>
-                <td
-                     nowrap="nowrap"
-                     valign="top"
-                    >
-                  
-                  <select
-                       class="AFFieldText"
-                       id="mainId_soc_tbl_chc"
-                       name="mainId_soc_tbl_chc"
-                       onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
+                      <label
+                           for="mainId_soc_tbl_chc"
+                          >
+                        
+                      </label>
+                    </span>
+                  </td>
+                  <td
+                       width="12"
                       >
                     
-                    <option
-                         id="_idXXX"
-                         selected="selected"
+                  </td>
+                  <td
+                       nowrap="nowrap"
+                       valign="top"
+                      >
+                    
+                    <select
+                         class="AFFieldText"
+                         id="mainId_soc_tbl_chc"
+                         name="mainId_soc_tbl_chc"
+                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
                         >
-                      1
-                    </option>
-                    <option
-                         id="_idXXX"
-                        >
-                      2
-                    </option>
-                    <option
-                         id="_idXXX"
-                        >
-                      3
-                    </option>
-                  </select>
-                </td>
-              </tr>
-            </table>
-          </td>
-          <td
-               width="8"
-              >
-            
-          </td>
-          <td
-               align="left"
-              >
-            
-          </td>
-        </tr>
-      </table>
+                      
+                      <option
+                           id="_idXXX"
+                           selected="selected"
+                          >
+                        1
+                      </option>
+                      <option
+                           id="_idXXX"
+                          >
+                        2
+                      </option>
+                      <option
+                           id="_idXXX"
+                          >
+                        3
+                      </option>
+                    </select>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                 width="8"
+                >
+              
+            </td>
+            <td
+                 align="left"
+                >
+              
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onkeyup,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
+      <div
            id="mainId"
-           onkeyup="test-onkeyup"
-           summary=""
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             onkeyup="test-onkeyup"
+             summary=""
             >
           
-          <td
-               valign="middle"
+          <tr
               >
             
-            <table
-                 border="0"
-                 cellpadding="0"
-                 cellspacing="0"
-                 id="mainId_soc_tbl"
-                 summary=""
+            <td
+                 valign="middle"
                 >
               
-              <tr
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   id="mainId_soc_tbl"
+                   summary=""
                   >
                 
-                <td
-                     align="left"
-                     nowrap="nowrap"
+                <tr
                     >
                   
-                  <span
-                       class="AFLabelText"
+                  <td
+                       align="left"
+                       nowrap="nowrap"
                       >
                     
-                    <label
-                         for="mainId_soc_tbl_chc"
+                    <span
+                         class="AFLabelText"
                         >
                       
-                    </label>
-                  </span>
-                </td>
-                <td
-                     width="12"
-                    >
-                  
-                </td>
-                <td
-                     nowrap="nowrap"
-                     valign="top"
-                    >
-                  
-                  <select
-                       class="AFFieldText"
-                       id="mainId_soc_tbl_chc"
-                       name="mainId_soc_tbl_chc"
-                       onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
+                      <label
+                           for="mainId_soc_tbl_chc"
+                          >
+                        
+                      </label>
+                    </span>
+                  </td>
+                  <td
+                       width="12"
                       >
                     
-                    <option
-                         id="_idXXX"
-                         selected="selected"
+                  </td>
+                  <td
+                       nowrap="nowrap"
+                       valign="top"
+                      >
+                    
+                    <select
+                         class="AFFieldText"
+                         id="mainId_soc_tbl_chc"
+                         name="mainId_soc_tbl_chc"
+                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
                         >
-                      1
-                    </option>
-                    <option
-                         id="_idXXX"
-                        >
-                      2
-                    </option>
-                    <option
-                         id="_idXXX"
-                        >
-                      3
-                    </option>
-                  </select>
-                </td>
-              </tr>
-            </table>
-          </td>
-          <td
-               width="8"
-              >
-            
-          </td>
-          <td
-               align="left"
-              >
-            
-          </td>
-        </tr>
-      </table>
+                      
+                      <option
+                           id="_idXXX"
+                           selected="selected"
+                          >
+                        1
+                      </option>
+                      <option
+                           id="_idXXX"
+                          >
+                        2
+                      </option>
+                      <option
+                           id="_idXXX"
+                          >
+                        3
+                      </option>
+                    </select>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                 width="8"
+                >
+              
+            </td>
+            <td
+                 align="left"
+                >
+              
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onmousedown,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
+      <div
            id="mainId"
-           onmousedown="test-onmousedown"
-           summary=""
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             onmousedown="test-onmousedown"
+             summary=""
             >
           
-          <td
-               valign="middle"
+          <tr
               >
             
-            <table
-                 border="0"
-                 cellpadding="0"
-                 cellspacing="0"
-                 id="mainId_soc_tbl"
-                 summary=""
+            <td
+                 valign="middle"
                 >
               
-              <tr
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   id="mainId_soc_tbl"
+                   summary=""
                   >
                 
-                <td
-                     align="left"
-                     nowrap="nowrap"
+                <tr
                     >
                   
-                  <span
-                       class="AFLabelText"
+                  <td
+                       align="left"
+                       nowrap="nowrap"
                       >
                     
-                    <label
-                         for="mainId_soc_tbl_chc"
+                    <span
+                         class="AFLabelText"
                         >
                       
-                    </label>
-                  </span>
-                </td>
-                <td
-                     width="12"
-                    >
-                  
-                </td>
-                <td
-                     nowrap="nowrap"
-                     valign="top"
-                    >
-                  
-                  <select
-                       class="AFFieldText"
-                       id="mainId_soc_tbl_chc"
-                       name="mainId_soc_tbl_chc"
-                       onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
+                      <label
+                           for="mainId_soc_tbl_chc"
+                          >
+                        
+                      </label>
+                    </span>
+                  </td>
+                  <td
+                       width="12"
                       >
                     
-                    <option
-                         id="_idXXX"
-                         selected="selected"
+                  </td>
+                  <td
+                       nowrap="nowrap"
+                       valign="top"
+                      >
+                    
+                    <select
+                         class="AFFieldText"
+                         id="mainId_soc_tbl_chc"
+                         name="mainId_soc_tbl_chc"
+                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
                         >
-                      1
-                    </option>
-                    <option
-                         id="_idXXX"
-                        >
-                      2
-                    </option>
-                    <option
-                         id="_idXXX"
-                        >
-                      3
-                    </option>
-                  </select>
-                </td>
-              </tr>
-            </table>
-          </td>
-          <td
-               width="8"
-              >
-            
-          </td>
-          <td
-               align="left"
-              >
-            
-          </td>
-        </tr>
-      </table>
+                      
+                      <option
+                           id="_idXXX"
+                           selected="selected"
+                          >
+                        1
+                      </option>
+                      <option
+                           id="_idXXX"
+                          >
+                        2
+                      </option>
+                      <option
+                           id="_idXXX"
+                          >
+                        3
+                      </option>
+                    </select>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                 width="8"
+                >
+              
+            </td>
+            <td
+                 align="left"
+                >
+              
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onmousemove,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
+      <div
            id="mainId"
-           onmousemove="test-onmousemove"
-           summary=""
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             onmousemove="test-onmousemove"
+             summary=""
             >
           
-          <td
-               valign="middle"
+          <tr
               >
             
-            <table
-                 border="0"
-                 cellpadding="0"
-                 cellspacing="0"
-                 id="mainId_soc_tbl"
-                 summary=""
+            <td
+                 valign="middle"
                 >
               
-              <tr
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   id="mainId_soc_tbl"
+                   summary=""
                   >
                 
-                <td
-                     align="left"
-                     nowrap="nowrap"
+                <tr
                     >
                   
-                  <span
-                       class="AFLabelText"
+                  <td
+                       align="left"
+                       nowrap="nowrap"
                       >
                     
-                    <label
-                         for="mainId_soc_tbl_chc"
+                    <span
+                         class="AFLabelText"
                         >
                       
-                    </label>
-                  </span>
-                </td>
-                <td
-                     width="12"
-                    >
-                  
-                </td>
-                <td
-                     nowrap="nowrap"
-                     valign="top"
-                    >
-                  
-                  <select
-                       class="AFFieldText"
-                       id="mainId_soc_tbl_chc"
-                       name="mainId_soc_tbl_chc"
-                       onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
+                      <label
+                           for="mainId_soc_tbl_chc"
+                          >
+                        
+                      </label>
+                    </span>
+                  </td>
+                  <td
+                       width="12"
                       >
                     
-                    <option
-                         id="_idXXX"
-                         selected="selected"
+                  </td>
+                  <td
+                       nowrap="nowrap"
+                       valign="top"
+                      >
+                    
+                    <select
+                         class="AFFieldText"
+                         id="mainId_soc_tbl_chc"
+                         name="mainId_soc_tbl_chc"
+                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
                         >
-                      1
-                    </option>
-                    <option
-                         id="_idXXX"
-                        >
-                      2
-                    </option>
-                    <option
-                         id="_idXXX"
-                        >
-                      3
-                    </option>
-                  </select>
-                </td>
-              </tr>
-            </table>
-          </td>
-          <td
-               width="8"
-              >
-            
-          </td>
-          <td
-               align="left"
-              >
-            
-          </td>
-        </tr>
-      </table>
+                      
+                      <option
+                           id="_idXXX"
+                           selected="selected"
+                          >
+                        1
+                      </option>
+                      <option
+                           id="_idXXX"
+                          >
+                        2
+                      </option>
+                      <option
+                           id="_idXXX"
+                          >
+                        3
+                      </option>
+                    </select>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                 width="8"
+                >
+              
+            </td>
+            <td
+                 align="left"
+                >
+              
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onmouseout,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
+      <div
            id="mainId"
-           onmouseout="test-onmouseout"
-           summary=""
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             onmouseout="test-onmouseout"
+             summary=""
             >
           
-          <td
-               valign="middle"
+          <tr
               >
             
-            <table
-                 border="0"
-                 cellpadding="0"
-                 cellspacing="0"
-                 id="mainId_soc_tbl"
-                 summary=""
+            <td
+                 valign="middle"
                 >
               
-              <tr
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   id="mainId_soc_tbl"
+                   summary=""
                   >
                 
-                <td
-                     align="left"
-                     nowrap="nowrap"
+                <tr
                     >
                   
-                  <span
-                       class="AFLabelText"
+                  <td
+                       align="left"
+                       nowrap="nowrap"
                       >
                     
-                    <label
-                         for="mainId_soc_tbl_chc"
+                    <span
+                         class="AFLabelText"
                         >
                       
-                    </label>
-                  </span>
-                </td>
-                <td
-                     width="12"
-                    >
-                  
-                </td>
-                <td
-                     nowrap="nowrap"
-                     valign="top"
-                    >
-                  
-                  <select
-                       class="AFFieldText"
-                       id="mainId_soc_tbl_chc"
-                       name="mainId_soc_tbl_chc"
-                       onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
+                      <label
+                           for="mainId_soc_tbl_chc"
+                          >
+                        
+                      </label>
+                    </span>
+                  </td>
+                  <td
+                       width="12"
                       >
                     
-                    <option
-                         id="_idXXX"
-                         selected="selected"
+                  </td>
+                  <td
+                       nowrap="nowrap"
+                       valign="top"
+                      >
+                    
+                    <select
+                         class="AFFieldText"
+                         id="mainId_soc_tbl_chc"
+                         name="mainId_soc_tbl_chc"
+                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
                         >
-                      1
-                    </option>
-                    <option
-                         id="_idXXX"
-                        >
-                      2
-                    </option>
-                    <option
-                         id="_idXXX"
-                        >
-                      3
-                    </option>
-                  </select>
-                </td>
-              </tr>
-            </table>
-          </td>
-          <td
-               width="8"
-              >
-            
-          </td>
-          <td
-               align="left"
-              >
-            
-          </td>
-        </tr>
-      </table>
+                      
+                      <option
+                           id="_idXXX"
+                           selected="selected"
+                          >
+                        1
+                      </option>
+                      <option
+                           id="_idXXX"
+                          >
+                        2
+                      </option>
+                      <option
+                           id="_idXXX"
+                          >
+                        3
+                      </option>
+                    </select>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                 width="8"
+                >
+              
+            </td>
+            <td
+                 align="left"
+                >
+              
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onmouseover,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
+      <div
            id="mainId"
-           onmouseover="test-onmouseover"
-           summary=""
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             onmouseover="test-onmouseover"
+             summary=""
             >
           
-          <td
-               valign="middle"
+          <tr
               >
             
-            <table
-                 border="0"
-                 cellpadding="0"
-                 cellspacing="0"
-                 id="mainId_soc_tbl"
-                 summary=""
+            <td
+                 valign="middle"
                 >
               
-              <tr
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   id="mainId_soc_tbl"
+                   summary=""
                   >
                 
-                <td
-                     align="left"
-                     nowrap="nowrap"
+                <tr
                     >
                   
-                  <span
-                       class="AFLabelText"
+                  <td
+                       align="left"
+                       nowrap="nowrap"
                       >
                     
-                    <label
-                         for="mainId_soc_tbl_chc"
+                    <span
+                         class="AFLabelText"
                         >
                       
-                    </label>
-                  </span>
-                </td>
-                <td
-                     width="12"
-                    >
-                  
-                </td>
-                <td
-                     nowrap="nowrap"
-                     valign="top"
-                    >
-                  
-                  <select
-                       class="AFFieldText"
-                       id="mainId_soc_tbl_chc"
-                       name="mainId_soc_tbl_chc"
-                       onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
+                      <label
+                           for="mainId_soc_tbl_chc"
+                          >
+                        
+                      </label>
+                    </span>
+                  </td>
+                  <td
+                       width="12"
                       >
                     
-                    <option
-                         id="_idXXX"
-                         selected="selected"
+                  </td>
+                  <td
+                       nowrap="nowrap"
+                       valign="top"
+                      >
+                    
+                    <select
+                         class="AFFieldText"
+                         id="mainId_soc_tbl_chc"
+                         name="mainId_soc_tbl_chc"
+                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
                         >
-                      1
-                    </option>
-                    <option
-                         id="_idXXX"
-                        >
-                      2
-                    </option>
-                    <option
-                         id="_idXXX"
-                        >
-                      3
-                    </option>
-                  </select>
-                </td>
-              </tr>
-            </table>
-          </td>
-          <td
-               width="8"
-              >
-            
-          </td>
-          <td
-               align="left"
-              >
-            
-          </td>
-        </tr>
-      </table>
+                      
+                      <option
+                           id="_idXXX"
+                           selected="selected"
+                          >
+                        1
+                      </option>
+                      <option
+                           id="_idXXX"
+                          >
+                        2
+                      </option>
+                      <option
+                           id="_idXXX"
+                          >
+                        3
+                      </option>
+                    </select>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                 width="8"
+                >
+              
+            </td>
+            <td
+                 align="left"
+                >
+              
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[onmouseup,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
+      <div
            id="mainId"
-           onmouseup="test-onmouseup"
-           summary=""
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             onmouseup="test-onmouseup"
+             summary=""
             >
           
-          <td
-               valign="middle"
+          <tr
               >
             
-            <table
-                 border="0"
-                 cellpadding="0"
-                 cellspacing="0"
-                 id="mainId_soc_tbl"
-                 summary=""
+            <td
+                 valign="middle"
                 >
               
-              <tr
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   id="mainId_soc_tbl"
+                   summary=""
                   >
                 
-                <td
-                     align="left"
-                     nowrap="nowrap"
+                <tr
                     >
                   
-                  <span
-                       class="AFLabelText"
+                  <td
+                       align="left"
+                       nowrap="nowrap"
                       >
                     
-                    <label
-                         for="mainId_soc_tbl_chc"
+                    <span
+                         class="AFLabelText"
                         >
                       
-                    </label>
-                  </span>
-                </td>
-                <td
-                     width="12"
-                    >
-                  
-                </td>
-                <td
-                     nowrap="nowrap"
-                     valign="top"
-                    >
-                  
-                  <select
-                       class="AFFieldText"
-                       id="mainId_soc_tbl_chc"
-                       name="mainId_soc_tbl_chc"
-                       onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
+                      <label
+                           for="mainId_soc_tbl_chc"
+                          >
+                        
+                      </label>
+                    </span>
+                  </td>
+                  <td
+                       width="12"
                       >
                     
-                    <option
-                         id="_idXXX"
-                         selected="selected"
+                  </td>
+                  <td
+                       nowrap="nowrap"
+                       valign="top"
+                      >
+                    
+                    <select
+                         class="AFFieldText"
+                         id="mainId_soc_tbl_chc"
+                         name="mainId_soc_tbl_chc"
+                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
                         >
-                      1
-                    </option>
-                    <option
-                         id="_idXXX"
-                        >
-                      2
-                    </option>
-                    <option
-                         id="_idXXX"
-                        >
-                      3
-                    </option>
-                  </select>
-                </td>
-              </tr>
-            </table>
-          </td>
-          <td
-               width="8"
-              >
-            
-          </td>
-          <td
-               align="left"
-              >
-            
-          </td>
-        </tr>
-      </table>
+                      
+                      <option
+                           id="_idXXX"
+                           selected="selected"
+                          >
+                        1
+                      </option>
+                      <option
+                           id="_idXXX"
+                          >
+                        2
+                      </option>
+                      <option
+                           id="_idXXX"
+                          >
+                        3
+                      </option>
+                    </select>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                 width="8"
+                >
+              
+            </td>
+            <td
+                 align="left"
+                >
+              
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[accessKey,a,AttributeTest[label,label_val]]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
+      <div
            id="mainId"
-           summary=""
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             summary=""
             >
           
-          <td
-               valign="middle"
+          <tr
               >
             
-            <table
-                 border="0"
-                 cellpadding="0"
-                 cellspacing="0"
-                 id="mainId_soc_tbl"
-                 summary=""
+            <td
+                 valign="middle"
                 >
               
-              <tr
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   id="mainId_soc_tbl"
+                   summary=""
                   >
                 
-                <td
-                     align="left"
-                     nowrap="nowrap"
+                <tr
                     >
                   
-                  <span
-                       class="AFLabelText"
+                  <td
+                       align="left"
+                       nowrap="nowrap"
                       >
                     
-                    <label
-                         accessKey="a"
-                         for="mainId_soc_tbl_chc"
+                    <span
+                         class="AFLabelText"
                         >
-                      l
-                      <span
-                           class="AFAccessKeyStyle"
+                      
+                      <label
+                           accessKey="a"
+                           for="mainId_soc_tbl_chc"
                           >
-                        a
-                      </span>bel_val
-                    </label>
-                  </span>
-                </td>
-                <td
-                     width="12"
-                    >
-                  
-                </td>
-                <td
-                     nowrap="nowrap"
-                     valign="top"
-                    >
-                  
-                  <select
-                       class="AFFieldText"
-                       id="mainId_soc_tbl_chc"
-                       name="mainId_soc_tbl_chc"
-                       onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
+                        l
+                        <span
+                             class="AFAccessKeyStyle"
+                            >
+                          a
+                        </span>bel_val
+                      </label>
+                    </span>
+                  </td>
+                  <td
+                       width="12"
                       >
                     
-                    <option
-                         id="_idXXX"
-                         selected="selected"
+                  </td>
+                  <td
+                       nowrap="nowrap"
+                       valign="top"
+                      >
+                    
+                    <select
+                         class="AFFieldText"
+                         id="mainId_soc_tbl_chc"
+                         name="mainId_soc_tbl_chc"
+                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
                         >
-                      1
-                    </option>
-                    <option
-                         id="_idXXX"
-                        >
-                      2
-                    </option>
-                    <option
-                         id="_idXXX"
-                        >
-                      3
-                    </option>
-                  </select>
-                </td>
-              </tr>
-            </table>
-          </td>
-          <td
-               width="8"
-              >
-            
-          </td>
-          <td
-               align="left"
-              >
-            
-          </td>
-        </tr>
-      </table>
+                      
+                      <option
+                           id="_idXXX"
+                           selected="selected"
+                          >
+                        1
+                      </option>
+                      <option
+                           id="_idXXX"
+                          >
+                        2
+                      </option>
+                      <option
+                           id="_idXXX"
+                          >
+                        3
+                      </option>
+                    </select>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                 width="8"
+                >
+              
+            </td>
+            <td
+                 align="left"
+                >
+              
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[position,top]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
+      <div
            id="mainId"
-           summary=""
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             summary=""
             >
           
-          <td
-               align="center"
+          <tr
               >
             
-            <table
-                 border="0"
-                 cellpadding="0"
-                 cellspacing="0"
-                 id="mainId_soc_tbl"
-                 summary=""
+            <td
+                 align="center"
                 >
               
-              <tr
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   id="mainId_soc_tbl"
+                   summary=""
                   >
                 
-                <td
-                     align="left"
-                     nowrap="nowrap"
+                <tr
                     >
                   
-                  <span
-                       class="AFLabelText"
+                  <td
+                       align="left"
+                       nowrap="nowrap"
                       >
                     
-                    <label
-                         for="mainId_soc_tbl_chc"
+                    <span
+                         class="AFLabelText"
                         >
                       
-                    </label>
-                  </span>
-                </td>
-                <td
-                     width="12"
-                    >
-                  
-                </td>
-                <td
-                     nowrap="nowrap"
-                     valign="top"
-                    >
-                  
-                  <select
-                       class="AFFieldText"
-                       id="mainId_soc_tbl_chc"
-                       name="mainId_soc_tbl_chc"
-                       onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
+                      <label
+                           for="mainId_soc_tbl_chc"
+                          >
+                        
+                      </label>
+                    </span>
+                  </td>
+                  <td
+                       width="12"
                       >
                     
-                    <option
-                         id="_idXXX"
-                         selected="selected"
+                  </td>
+                  <td
+                       nowrap="nowrap"
+                       valign="top"
+                      >
+                    
+                    <select
+                         class="AFFieldText"
+                         id="mainId_soc_tbl_chc"
+                         name="mainId_soc_tbl_chc"
+                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
                         >
-                      1
-                    </option>
-                    <option
-                         id="_idXXX"
-                        >
-                      2
-                    </option>
-                    <option
-                         id="_idXXX"
-                        >
-                      3
-                    </option>
-                  </select>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-        <tr
-            >
-          
-          <td
-               height="8"
+                      
+                      <option
+                           id="_idXXX"
+                           selected="selected"
+                          >
+                        1
+                      </option>
+                      <option
+                           id="_idXXX"
+                          >
+                        2
+                      </option>
+                      <option
+                           id="_idXXX"
+                          >
+                        3
+                      </option>
+                    </select>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr
               >
             
-          </td>
-        </tr>
-        <tr
-            >
-          
-          <td
+            <td
+                 height="8"
+                >
+              
+            </td>
+          </tr>
+          <tr
               >
             
-          </td>
-        </tr>
-      </table>
+            <td
+                >
+              
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[position,start]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
+      <div
            id="mainId"
-           summary=""
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             summary=""
             >
           
-          <td
-               valign="middle"
+          <tr
               >
             
-            <table
-                 border="0"
-                 cellpadding="0"
-                 cellspacing="0"
-                 id="mainId_soc_tbl"
-                 summary=""
+            <td
+                 valign="middle"
                 >
               
-              <tr
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   id="mainId_soc_tbl"
+                   summary=""
                   >
                 
-                <td
-                     align="left"
-                     nowrap="nowrap"
+                <tr
                     >
                   
-                  <span
-                       class="AFLabelText"
+                  <td
+                       align="left"
+                       nowrap="nowrap"
                       >
                     
-                    <label
-                         for="mainId_soc_tbl_chc"
+                    <span
+                         class="AFLabelText"
                         >
                       
-                    </label>
-                  </span>
-                </td>
-                <td
-                     width="12"
-                    >
-                  
-                </td>
-                <td
-                     nowrap="nowrap"
-                     valign="top"
-                    >
-                  
-                  <select
-                       class="AFFieldText"
-                       id="mainId_soc_tbl_chc"
-                       name="mainId_soc_tbl_chc"
-                       onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
+                      <label
+                           for="mainId_soc_tbl_chc"
+                          >
+                        
+                      </label>
+                    </span>
+                  </td>
+                  <td
+                       width="12"
                       >
                     
-                    <option
-                         id="_idXXX"
-                         selected="selected"
+                  </td>
+                  <td
+                       nowrap="nowrap"
+                       valign="top"
+                      >
+                    
+                    <select
+                         class="AFFieldText"
+                         id="mainId_soc_tbl_chc"
+                         name="mainId_soc_tbl_chc"
+                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
                         >
-                      1
-                    </option>
-                    <option
-                         id="_idXXX"
-                        >
-                      2
-                    </option>
-                    <option
-                         id="_idXXX"
-                        >
-                      3
-                    </option>
-                  </select>
-                </td>
-              </tr>
-            </table>
-          </td>
-          <td
-               width="8"
-              >
-            
-          </td>
-          <td
-               align="left"
-              >
-            
-          </td>
-        </tr>
-      </table>
+                      
+                      <option
+                           id="_idXXX"
+                           selected="selected"
+                          >
+                        1
+                      </option>
+                      <option
+                           id="_idXXX"
+                          >
+                        2
+                      </option>
+                      <option
+                           id="_idXXX"
+                          >
+                        3
+                      </option>
+                    </select>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                 width="8"
+                >
+              
+            </td>
+            <td
+                 align="left"
+                >
+              
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[styleClass,myStyleClass]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
-           class="myStyleClass"
+      <div
            id="mainId"
-           summary=""
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="myStyleClass"
+             summary=""
             >
           
-          <td
-               valign="middle"
+          <tr
               >
             
-            <table
-                 border="0"
-                 cellpadding="0"
-                 cellspacing="0"
-                 id="mainId_soc_tbl"
-                 summary=""
+            <td
+                 valign="middle"
                 >
               
-              <tr
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   id="mainId_soc_tbl"
+                   summary=""
                   >
                 
-                <td
-                     align="left"
-                     nowrap="nowrap"
+                <tr
                     >
                   
-                  <span
-                       class="AFLabelText"
+                  <td
+                       align="left"
+                       nowrap="nowrap"
                       >
                     
-                    <label
-                         for="mainId_soc_tbl_chc"
+                    <span
+                         class="AFLabelText"
                         >
                       
-                    </label>
-                  </span>
-                </td>
-                <td
-                     width="12"
-                    >
-                  
-                </td>
-                <td
-                     nowrap="nowrap"
-                     valign="top"
-                    >
-                  
-                  <select
-                       class="AFFieldText"
-                       id="mainId_soc_tbl_chc"
-                       name="mainId_soc_tbl_chc"
-                       onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
+                      <label
+                           for="mainId_soc_tbl_chc"
+                          >
+                        
+                      </label>
+                    </span>
+                  </td>
+                  <td
+                       width="12"
                       >
                     
-                    <option
-                         id="_idXXX"
-                         selected="selected"
+                  </td>
+                  <td
+                       nowrap="nowrap"
+                       valign="top"
+                      >
+                    
+                    <select
+                         class="AFFieldText"
+                         id="mainId_soc_tbl_chc"
+                         name="mainId_soc_tbl_chc"
+                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
                         >
-                      1
-                    </option>
-                    <option
-                         id="_idXXX"
-                        >
-                      2
-                    </option>
-                    <option
-                         id="_idXXX"
-                        >
-                      3
-                    </option>
-                  </select>
-                </td>
-              </tr>
-            </table>
-          </td>
-          <td
-               width="8"
-              >
-            
-          </td>
-          <td
-               align="left"
-              >
-            
-          </td>
-        </tr>
-      </table>
+                      
+                      <option
+                           id="_idXXX"
+                           selected="selected"
+                          >
+                        1
+                      </option>
+                      <option
+                           id="_idXXX"
+                          >
+                        2
+                      </option>
+                      <option
+                           id="_idXXX"
+                          >
+                        3
+                      </option>
+                    </select>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                 width="8"
+                >
+              
+            </td>
+            <td
+                 align="left"
+                >
+              
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[inlineStyle,background-color:red;border:5px;]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
+      <div
            id="mainId"
-           style="background-color:red;border:5px;"
-           summary=""
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             style="background-color:red;border:5px;"
+             summary=""
             >
           
-          <td
-               valign="middle"
+          <tr
               >
             
-            <table
-                 border="0"
-                 cellpadding="0"
-                 cellspacing="0"
-                 id="mainId_soc_tbl"
-                 summary=""
+            <td
+                 valign="middle"
                 >
               
-              <tr
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   id="mainId_soc_tbl"
+                   summary=""
                   >
                 
-                <td
-                     align="left"
-                     nowrap="nowrap"
+                <tr
                     >
                   
-                  <span
-                       class="AFLabelText"
+                  <td
+                       align="left"
+                       nowrap="nowrap"
                       >
                     
-                    <label
-                         for="mainId_soc_tbl_chc"
+                    <span
+                         class="AFLabelText"
                         >
                       
-                    </label>
-                  </span>
-                </td>
-                <td
-                     width="12"
-                    >
-                  
-                </td>
-                <td
-                     nowrap="nowrap"
-                     valign="top"
-                    >
-                  
-                  <select
-                       class="AFFieldText"
-                       id="mainId_soc_tbl_chc"
-                       name="mainId_soc_tbl_chc"
-                       onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
+                      <label
+                           for="mainId_soc_tbl_chc"
+                          >
+                        
+                      </label>
+                    </span>
+                  </td>
+                  <td
+                       width="12"
                       >
                     
-                    <option
-                         id="_idXXX"
-                         selected="selected"
+                  </td>
+                  <td
+                       nowrap="nowrap"
+                       valign="top"
+                      >
+                    
+                    <select
+                         class="AFFieldText"
+                         id="mainId_soc_tbl_chc"
+                         name="mainId_soc_tbl_chc"
+                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
                         >
-                      1
-                    </option>
-                    <option
-                         id="_idXXX"
-                        >
-                      2
-                    </option>
-                    <option
-                         id="_idXXX"
-                        >
-                      3
-                    </option>
-                  </select>
-                </td>
-              </tr>
-            </table>
-          </td>
-          <td
-               width="8"
-              >
-            
-          </td>
-          <td
-               align="left"
-              >
-            
-          </td>
-        </tr>
-      </table>
+                      
+                      <option
+                           id="_idXXX"
+                           selected="selected"
+                          >
+                        1
+                      </option>
+                      <option
+                           id="_idXXX"
+                          >
+                        2
+                      </option>
+                      <option
+                           id="_idXXX"
+                          >
+                        3
+                      </option>
+                    </select>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                 width="8"
+                >
+              
+            </td>
+            <td
+                 align="left"
+                >
+              
+            </td>
+          </tr>
+        </table>
+      </div>
 </results>
