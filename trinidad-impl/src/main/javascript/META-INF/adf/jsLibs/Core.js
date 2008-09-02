@@ -2958,6 +2958,7 @@ function _formatErrorString(
   return currString.replace(twoSingleQuotes, "'");
 }
 
+
 /**
  * Chain two functions together returning whether the default
  * event handling should occur
@@ -2971,12 +2972,10 @@ function _chain(
   )
 {
   var result1 = _callChained(evh1, target, event);
-
   if ( shortCircuit && (result1 == false))
     return false;
-
   var result2 = _callChained(evh2, target, event);
-
+  
   // since undefined results should be evaluated as true,
   // return false only if either result1 or result2 return false
   return !((result1 == false) || (result2 == false));
@@ -2988,12 +2987,14 @@ function _callChained(
   event
   )
 {
+
   if (handler && (handler.length > 0))
-  {
+  { 
     // handle ie case, where we have no event parameter
-    if (event == (void 0))
+
+    if( (typeof(event) == 'undefined') || (event == (void 0) ) )
     {
-      event = target.window.event;
+      event = window.event;
     }
 
     // create function so that "return" is handled correctly,
@@ -3018,7 +3019,10 @@ function _callChained(
   {
     return true;
   }
+
 }
+
+
 
 // Enforce the maximum length of a form element
 // Returns true if event processing should continue, false otherwise.

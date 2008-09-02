@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -35,12 +35,13 @@ import org.apache.myfaces.trinidad.component.UIXPanel;
 import org.apache.myfaces.trinidad.component.UIXSelectItem;
 import org.apache.myfaces.trinidad.component.UIXSelectRange;
 import org.apache.myfaces.trinidad.component.core.data.CoreSelectRangeChoiceBar;
-import org.apache.myfaces.trinidad.context.RequestContext;
-import org.apache.myfaces.trinidad.event.RangeChangeEvent;
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.FormData;
 import org.apache.myfaces.trinidad.context.PartialPageContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidad.event.RangeChangeEvent;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
 import org.apache.myfaces.trinidadinternal.util.Range;
@@ -72,9 +73,9 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
   @Override
   public void decode(FacesContext context, UIComponent component)
   {
-    Map<String, String> parameters = 
+    Map<String, String> parameters =
       context.getExternalContext().getRequestParameterMap();
-    
+
     Object event = parameters.get(XhtmlConstants.EVENT_PARAM);
 
     // get the goto event parameter values and queue a RangeChangeEvent.
@@ -456,11 +457,24 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
       // render the subIDs. So we need to keep track of this.
       boolean renderedId = false;
 
+      // If the request is from a desktop browser we don't need to wrap up
+      // with a div tag
+      boolean isDesktop = false;
+
       // if we need to render standalone, create a table and table row...
       if (renderAsTable)
       {
+        isDesktop = (arc.getAgent().getType().equals(Agent.TYPE_DESKTOP));
+        // Few mobile browsers doesn't support PPR for Table element
+        // so lets wrap it up with a div tag
+        if(!isDesktop )
+        {
+          writer.startElement("div", component);
+          writer.writeAttribute("id", id, "id");
+        }
         writer.startElement("table", component);
         OutputUtils.renderLayoutTableAttributes(context, arc, "0", null);
+
         // =-=AEW Where do these attrs get written out when
         // we're inside a PanelPageButton?
         renderAllAttributes(context, arc, bean);
@@ -469,7 +483,10 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
         // to make sure that the ID is rendered if the NavBar is being
         // used to navigate a TableBean, since we explicitly target
         // TableBean NavBars when using PPR to re-render TableBeans...
-        writer.writeAttribute("id", id, "id");
+        if(isDesktop )
+        {
+          writer.writeAttribute("id", id, "id");
+        }
         renderedId = true;
 
         writer.startElement("tr", null);
@@ -569,6 +586,12 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
         writer.endElement("tr");
         writer.endElement("table");
       }
+
+      if(renderAsTable && !isDesktop )
+      {
+        writer.endElement("div");
+      }
+
     }
     // Make sure we always restore the row index correctly
     finally
@@ -633,7 +656,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
     }
     else
     {
-      List<SelectItem> items = 
+      List<SelectItem> items =
         new ArrayList<SelectItem>((int) _MAX_VISIBLE_OPTIONS);
 
       int selectedIndex = _getItems(context, arc, component, items,
@@ -1156,7 +1179,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
       {
         Map<String, Object> requestMap =
           context.getExternalContext().getRequestMap();
-        
+
         if (old == null)
           requestMap.remove(var);
         else

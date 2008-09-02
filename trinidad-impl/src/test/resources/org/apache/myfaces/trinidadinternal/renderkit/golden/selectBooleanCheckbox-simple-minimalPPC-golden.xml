@@ -79,7 +79,7 @@
           <input
                id="mainId"
                name="mainId"
-               onclick="TrPage._autoSubmit('formId','mainId',event,1);return true;"
+               onclick="TrPage._autoSubmit('formId','mainId',null,1);return true;"
                type="checkbox"
                value="t"
               >
@@ -101,7 +101,7 @@
           <input
                id="mainId"
                name="mainId"
-               onclick="TrPage._autoSubmit('formId','mainId',event,0);return true;"
+               onclick="TrPage._autoSubmit('formId','mainId',null,0);return true;"
                type="checkbox"
                value="t"
               >

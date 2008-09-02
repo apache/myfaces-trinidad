@@ -90,7 +90,7 @@
       </script>
       <input
            class="af_commandButton"
-           onclick="TrPage._autoSubmit('formId','mainId',event,1);return false;"
+           onclick="TrPage._autoSubmit('formId','mainId',null,1);return false;"
            type="submit"
            value="ButtonText"
            id="uri-attr:mainId"

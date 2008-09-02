@@ -25,87 +25,91 @@
                      valign="middle"
                     >
                   
-                  <table
-                       border="0"
-                       cellpadding="0"
-                       cellspacing="0"
+                  <div
                        id="mainId-nb"
-                       summary=""
                       >
                     
-                    <tr
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                         summary=""
                         >
                       
-                      <td
-                           nowrap="nowrap"
-                           valign="middle"
+                      <tr
                           >
                         
-                        <span
-                             class="OraNavBarInactiveLink"
-                            >
-                          Previous
-                        </span>
-                      </td>
-                      <td
-                          >
-                        &#xa0;
-                      </td>
-                      <td
-                           nowrap="nowrap"
-                           valign="middle"
-                          >
-                        
-                        <select
-                             class="AFFieldText"
-                             id="mainId-nb__xc_c"
-                             onchange="_navChoiceSubmit(this, 'formId','goto','mainId',1)"
-                             onfocus="this._lastValue = this.selectedIndex"
-                             title="Select record set"
+                        <td
+                             nowrap="nowrap"
+                             valign="middle"
                             >
                           
-                          <option
-                               value="all"
+                          <span
+                               class="OraNavBarInactiveLink"
                               >
-                            Show All 6
-                          </option>
-                          <option
-                               selected="selected"
-                               value="1"
-                              >
-                            1-3 of 6
-                          </option>
-                          <option
-                               value="4"
-                              >
-                            4-6 of 6
-                          </option>
-                        </select>
-                        <script
-                             type="text/javascript"
+                            Previous
+                          </span>
+                        </td>
+                        <td
                             >
-                          _setSelectIndexById("mainId-nb__xc_c",1)
-                        </script>
-                      </td>
-                      <td
-                          >
-                        &#xa0;
-                      </td>
-                      <td
-                           nowrap="nowrap"
-                           valign="middle"
-                          >
-                        
-                        <a
-                             class="OraNavBarActiveLink"
-                             onclick="_navSubmit('formId', 'goto', 'mainId',1,'4');return false"
-                             href="uri-attr:#"
+                          &#xa0;
+                        </td>
+                        <td
+                             nowrap="nowrap"
+                             valign="middle"
                             >
-                          Next 3
-                        </a>
-                      </td>
-                    </tr>
-                  </table>
+                          
+                          <select
+                               class="AFFieldText"
+                               id="mainId-nb__xc_c"
+                               onchange="_navChoiceSubmit(this, 'formId','goto','mainId',1)"
+                               onfocus="this._lastValue = this.selectedIndex"
+                               title="Select record set"
+                              >
+                            
+                            <option
+                                 value="all"
+                                >
+                              Show All 6
+                            </option>
+                            <option
+                                 selected="selected"
+                                 value="1"
+                                >
+                              1-3 of 6
+                            </option>
+                            <option
+                                 value="4"
+                                >
+                              4-6 of 6
+                            </option>
+                          </select>
+                          <script
+                               type="text/javascript"
+                              >
+                            _setSelectIndexById("mainId-nb__xc_c",1)
+                          </script>
+                        </td>
+                        <td
+                            >
+                          &#xa0;
+                        </td>
+                        <td
+                             nowrap="nowrap"
+                             valign="middle"
+                            >
+                          
+                          <a
+                               class="OraNavBarActiveLink"
+                               onclick="_navSubmit('formId', 'goto', 'mainId',1,'4');return false"
+                               href="uri-attr:#"
+                              >
+                            Next 3
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
                 </div>
               </div>
             </td>
@@ -271,87 +275,91 @@
                      valign="middle"
                     >
                   
-                  <table
-                       border="0"
-                       cellpadding="0"
-                       cellspacing="0"
+                  <div
                        id="mainId-nb"
-                       summary=""
                       >
                     
-                    <tr
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                         summary=""
                         >
                       
-                      <td
-                           nowrap="nowrap"
-                           valign="middle"
+                      <tr
                           >
                         
-                        <span
-                             class="OraNavBarInactiveLink"
-                            >
-                          Previous
-                        </span>
-                      </td>
-                      <td
-                          >
-                        &#xa0;
-                      </td>
-                      <td
-                           nowrap="nowrap"
-                           valign="middle"
-                          >
-                        
-                        <select
-                             class="AFFieldText"
-                             id="mainId-nb__xc_c"
-                             onchange="_navChoiceSubmit(this, 'formId','goto','mainId',1)"
-                             onfocus="this._lastValue = this.selectedIndex"
-                             title="Select record set"
+                        <td
+                             nowrap="nowrap"
+                             valign="middle"
                             >
                           
-                          <option
-                               value="all"
+                          <span
+                               class="OraNavBarInactiveLink"
                               >
-                            Show All 6
-                          </option>
-                          <option
-                               selected="selected"
-                               value="1"
-                              >
-                            1-3 of 6
-                          </option>
-                          <option
-                               value="4"
-                              >
-                            4-6 of 6
-                          </option>
-                        </select>
-                        <script
-                             type="text/javascript"
+                            Previous
+                          </span>
+                        </td>
+                        <td
                             >
-                          _setSelectIndexById("mainId-nb__xc_c",1)
-                        </script>
-                      </td>
-                      <td
-                          >
-                        &#xa0;
-                      </td>
-                      <td
-                           nowrap="nowrap"
-                           valign="middle"
-                          >
-                        
-                        <a
-                             class="OraNavBarActiveLink"
-                             onclick="_navSubmit('formId', 'goto', 'mainId',1,'4');return false"
-                             href="uri-attr:#"
+                          &#xa0;
+                        </td>
+                        <td
+                             nowrap="nowrap"
+                             valign="middle"
                             >
-                          Next 3
-                        </a>
-                      </td>
-                    </tr>
-                  </table>
+                          
+                          <select
+                               class="AFFieldText"
+                               id="mainId-nb__xc_c"
+                               onchange="_navChoiceSubmit(this, 'formId','goto','mainId',1)"
+                               onfocus="this._lastValue = this.selectedIndex"
+                               title="Select record set"
+                              >
+                            
+                            <option
+                                 value="all"
+                                >
+                              Show All 6
+                            </option>
+                            <option
+                                 selected="selected"
+                                 value="1"
+                                >
+                              1-3 of 6
+                            </option>
+                            <option
+                                 value="4"
+                                >
+                              4-6 of 6
+                            </option>
+                          </select>
+                          <script
+                               type="text/javascript"
+                              >
+                            _setSelectIndexById("mainId-nb__xc_c",1)
+                          </script>
+                        </td>
+                        <td
+                            >
+                          &#xa0;
+                        </td>
+                        <td
+                             nowrap="nowrap"
+                             valign="middle"
+                            >
+                          
+                          <a
+                               class="OraNavBarActiveLink"
+                               onclick="_navSubmit('formId', 'goto', 'mainId',1,'4');return false"
+                               href="uri-attr:#"
+                              >
+                            Next 3
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
                 </div>
               </div>
             </td>
@@ -517,87 +525,91 @@
                      valign="middle"
                     >
                   
-                  <table
-                       border="0"
-                       cellpadding="0"
-                       cellspacing="0"
+                  <div
                        id="mainId-nb"
-                       summary=""
                       >
                     
-                    <tr
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                         summary=""
                         >
                       
-                      <td
-                           nowrap="nowrap"
-                           valign="middle"
+                      <tr
                           >
                         
-                        <span
-                             class="OraNavBarInactiveLink"
-                            >
-                          Previous
-                        </span>
-                      </td>
-                      <td
-                          >
-                        &#xa0;
-                      </td>
-                      <td
-                           nowrap="nowrap"
-                           valign="middle"
-                          >
-                        
-                        <select
-                             class="AFFieldText"
-                             id="mainId-nb__xc_c"
-                             onchange="_navChoiceSubmit(this, 'formId','goto','mainId',1)"
-                             onfocus="this._lastValue = this.selectedIndex"
-                             title="Select record set"
+                        <td
+                             nowrap="nowrap"
+                             valign="middle"
                             >
                           
-                          <option
-                               value="all"
+                          <span
+                               class="OraNavBarInactiveLink"
                               >
-                            Show All 6
-                          </option>
-                          <option
-                               selected="selected"
-                               value="1"
-                              >
-                            1-3 of 6
-                          </option>
-                          <option
-                               value="4"
-                              >
-                            4-6 of 6
-                          </option>
-                        </select>
-                        <script
-                             type="text/javascript"
+                            Previous
+                          </span>
+                        </td>
+                        <td
                             >
-                          _setSelectIndexById("mainId-nb__xc_c",1)
-                        </script>
-                      </td>
-                      <td
-                          >
-                        &#xa0;
-                      </td>
-                      <td
-                           nowrap="nowrap"
-                           valign="middle"
-                          >
-                        
-                        <a
-                             class="OraNavBarActiveLink"
-                             onclick="_navSubmit('formId', 'goto', 'mainId',1,'4');return false"
-                             href="uri-attr:#"
+                          &#xa0;
+                        </td>
+                        <td
+                             nowrap="nowrap"
+                             valign="middle"
                             >
-                          Next 3
-                        </a>
-                      </td>
-                    </tr>
-                  </table>
+                          
+                          <select
+                               class="AFFieldText"
+                               id="mainId-nb__xc_c"
+                               onchange="_navChoiceSubmit(this, 'formId','goto','mainId',1)"
+                               onfocus="this._lastValue = this.selectedIndex"
+                               title="Select record set"
+                              >
+                            
+                            <option
+                                 value="all"
+                                >
+                              Show All 6
+                            </option>
+                            <option
+                                 selected="selected"
+                                 value="1"
+                                >
+                              1-3 of 6
+                            </option>
+                            <option
+                                 value="4"
+                                >
+                              4-6 of 6
+                            </option>
+                          </select>
+                          <script
+                               type="text/javascript"
+                              >
+                            _setSelectIndexById("mainId-nb__xc_c",1)
+                          </script>
+                        </td>
+                        <td
+                            >
+                          &#xa0;
+                        </td>
+                        <td
+                             nowrap="nowrap"
+                             valign="middle"
+                            >
+                          
+                          <a
+                               class="OraNavBarActiveLink"
+                               onclick="_navSubmit('formId', 'goto', 'mainId',1,'4');return false"
+                               href="uri-attr:#"
+                              >
+                            Next 3
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
                 </div>
               </div>
             </td>
@@ -646,7 +658,7 @@
               <input
                    id="mainId:0"
                    name="mainId:_s"
-                   onclick="TrPage._autoSubmit('formId','mainId',event,1);return true;"
+                   onclick="TrPage._autoSubmit('formId','mainId',null,1);return true;"
                    title="Select"
                    type="checkbox"
                    value="0"
@@ -677,7 +689,7 @@
               <input
                    id="mainId:1"
                    name="mainId:_s"
-                   onclick="TrPage._autoSubmit('formId','mainId',event,1);return true;"
+                   onclick="TrPage._autoSubmit('formId','mainId',null,1);return true;"
                    title="Select"
                    type="checkbox"
                    value="1"
@@ -708,7 +720,7 @@
               <input
                    id="mainId:2"
                    name="mainId:_s"
-                   onclick="TrPage._autoSubmit('formId','mainId',event,1);return true;"
+                   onclick="TrPage._autoSubmit('formId','mainId',null,1);return true;"
                    title="Select"
                    type="checkbox"
                    value="2"
