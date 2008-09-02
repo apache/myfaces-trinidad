@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -42,6 +42,7 @@ import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.render.RenderUtils;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
+import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 
 public class NavigationPaneRenderer extends XhtmlRenderer
@@ -140,7 +141,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
             // collect the information needed to render this nav item:
             _collectNavItemData(navItemData, navItem, -1, component);
           }
-          else if(renderingHint == NavigationPaneRenderer._HINT_BAR || 
+          else if(renderingHint == NavigationPaneRenderer._HINT_BAR ||
                   renderingHint == NavigationPaneRenderer._HINT_BUTTONS)
           {
             navItemData.addItemData(null);
@@ -178,11 +179,11 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       {
         int startIndex = component.getFirst();
         int endIndex = TableUtils.getLast(component, startIndex);
-        
+
         for (int i = startIndex; i <= endIndex; i++)
         {
           component.setRowIndex(i);
-          
+
           if (navStamp.isRendered())
           {
             // collect the information needed to render this nav item:
@@ -231,8 +232,8 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       boolean previousActive = false;
       int nextActiveIndex = navItemData.getEffectiveActiveIndex() - 1;
       Object oldPath = component.getRowKey();
-      
-      _setStartDepthPath(component, 
+
+      _setStartDepthPath(component,
                            ((UIXNavigationLevel)component).getLevel());
 
       Iterator<UIComponent> iter = nonNavItemList.iterator();
@@ -294,17 +295,17 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     String renderingHint = _getHint(bean);
     if (NavigationPaneRenderer._HINT_TABS.equals(renderingHint))
     {
-      renderStyleAttributes(context, arc, bean, 
+      renderStyleAttributes(context, arc, bean,
                             SkinSelectors.AF_NAVIGATION_LEVEL_TABS_STYLE_CLASS);
     }
     else if (NavigationPaneRenderer._HINT_BAR.equals(renderingHint))
     {
-      renderStyleAttributes(context, arc, bean, 
+      renderStyleAttributes(context, arc, bean,
                             SkinSelectors.AF_NAVIGATION_LEVEL_BAR_STYLE_CLASS);
     }
     else
     {
-      renderStyleAttributes(context, arc, bean, 
+      renderStyleAttributes(context, arc, bean,
                             SkinSelectors.AF_NAVIGATION_LEVEL_STYLE_CLASS);
     }
   }
@@ -351,7 +352,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
   private Object _getFocusRowKey(
     UIXHierarchy component
     )
-  {  
+  {
     return component.getFocusRowKey();
   }
 
@@ -579,7 +580,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     renderEncodedResourceURI(context, "src", resolvedIconUri);
     rw.endElement("img");
   }
-  
+
   @SuppressWarnings("unchecked")
   private void _renderCommandChildren(
     FacesContext context,
@@ -590,7 +591,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       RenderUtils.encodeRecursive(context, child);
     }
   }
-  
+
   private void _renderText(
     ResponseWriter rw,
     Map<String, Object> itemData) throws IOException
@@ -610,6 +611,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     boolean isDisabled
     ) throws IOException
   {
+
     UIXCommand commandChild = (UIXCommand)itemData.get("component");
     if (isDisabled)
     {
@@ -628,19 +630,28 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       if (partialSubmit)
       {
         AutoSubmitUtils.writeDependencies(context, arc);
-      } 
+      }
       String clientId = commandChild.getClientId(context);
       // Make sure we don't have anything to save
       assert(arc.getCurrentClientId() == null);
       arc.setCurrentClientId(clientId);
 
-      // Find the params up front, and save them off - 
+      // Find the params up front, and save them off -
       // getOnClick() doesn't have access to the UIComponent
       String extraParams = AutoSubmitUtils.getParameters(commandChild);
       arc.getProperties().put(_EXTRA_SUBMIT_PARAMS_KEY, extraParams);
     }
 
+    boolean isActive = getBooleanFromProperty(itemData.get("isActive"));
+    boolean isDesktop = (arc.getAgent().getType().equals(Agent.TYPE_DESKTOP));
     rw.startElement("a", commandChild); // linkElement
+
+    // Few mobile browsers couldn't apply css property for active elements
+    // so making it inline
+    if (isActive && !isDesktop)
+    {
+      writeInlineStyles(rw, null,"font-weight: bold;");
+    }
     _renderCommandChildId(context, commandChild);
 
     if (destination == null)
@@ -657,6 +668,8 @@ public class NavigationPaneRenderer extends XhtmlRenderer
         rw.writeAttribute("target", targetFrame, null);
       }
     }
+
+
 
     // Cannot use super.renderEventHandlers(context, bean); because the wrong
     // property keys would be in use so must do it this way:
@@ -939,7 +952,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     rw.endElement("tbody");
     rw.endElement("table");
   }
-  
+
   /**
    * encodes non command children of navigationPane.
    * This is used only for hint="bar" and hint="buttons"
@@ -968,11 +981,11 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     rw.startElement("tbody", null);
     _writeInlineTbodyStyles(arc, rw);
     rw.startElement("tr", null);
-    rw.startElement("td", null); 
+    rw.startElement("td", null);
     rw.startElement("div", null);
     encodeChild(context, child);
-    rw.endElement("div"); 
-    rw.endElement("td"); 
+    rw.endElement("div");
+    rw.endElement("td");
     if(!isLastItem)
     {
       rw.startElement("td", null); // rightCell
@@ -987,14 +1000,14 @@ public class NavigationPaneRenderer extends XhtmlRenderer
         renderStyleClass(context, arc,
           SkinSelectors.AF_NAVIGATION_LEVEL_BUTTONS_SEPARATOR_STYLE_CLASS);
       }
-      
+
       rw.write("|");
       rw.endElement("div"); // rightContent
       rw.endElement("td"); // rightCell
     }
     rw.endElement("tr");
     rw.endElement("tbody");
-    rw.endElement("table");   
+    rw.endElement("table");
   }
 
   private void _renderChoiceItem(
@@ -1008,7 +1021,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     boolean isDisabled = getBooleanFromProperty(itemData.get("isDisabled"));
     // If the agent, doesn't support disabled options, don't render anything
     // for such options
-    if ( !isDisabled || 
+    if ( !isDisabled ||
          Boolean.TRUE.equals(arc.getAgent().getCapabilities().get(
                 TrinidadAgent.CAP_SUPPORTS_DISABLED_OPTIONS)))
     {
@@ -1035,13 +1048,13 @@ public class NavigationPaneRenderer extends XhtmlRenderer
           if (partialSubmit)
           {
             AutoSubmitUtils.writeDependencies(context, arc);
-          } 
+          }
           String clientId = commandChild.getClientId(context);
           // Make sure we don't have anything to save
           assert(arc.getCurrentClientId() == null);
           arc.setCurrentClientId(clientId);
 
-          // Find the params up front, and save them off - 
+          // Find the params up front, and save them off -
           // getOnClick() doesn't have access to the UIComponent
           String extraParams = AutoSubmitUtils.getParameters(commandChild);
           arc.getProperties().put(_EXTRA_SUBMIT_PARAMS_KEY, extraParams);
@@ -1142,7 +1155,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     //if it is not
     boolean useButtonTag = supportsAdvancedForms(arc);
     String element = useButtonTag ? "button" : "input";
-      
+
     rw.startElement(element, null);
     renderStyleClass(context, arc,
       SkinSelectors.AF_NAVIGATION_LEVEL_CHOICE_BUTTON_STYLE_CLASS);
@@ -1151,7 +1164,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       _GO_BUTTON_LABEL_KEY);
 
     rw.writeAttribute("type", useButtonTag ? "button"  : "submit", null);
-    
+
     // The onclick handler will evaluate the value of the selected option:
     rw.writeAttribute(
       "onclick",
@@ -1162,21 +1175,21 @@ public class NavigationPaneRenderer extends XhtmlRenderer
 
     if (useButtonTag)
     {
-      rw.write(goText);        
+      rw.write(goText);
     }
     else
     {
       rw.writeAttribute("value", goText, "text");
-    }           
-    
+    }
+
     rw.endElement(element);
-    
+
     if (isRtl)
     {
       _renderSpace(rw);
     }
   }
-  
+
   private void _renderSpace(
     ResponseWriter rw
     ) throws IOException
@@ -1439,8 +1452,8 @@ public class NavigationPaneRenderer extends XhtmlRenderer
   {
     boolean isNewPath = false;
     Object focusKey = component.getFocusRowKey();
-    
-    if (focusKey != null )  
+
+    if (focusKey != null )
     {
       List<Object> focusPath = component.getAllAncestorContainerRowKeys(focusKey);
       focusPath = new ArrayList<Object>(focusPath);
@@ -1449,29 +1462,29 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       if ( focusSize > startDepth )
       {
         isNewPath = true;
-        component.setRowKey(focusPath.get(startDepth));  
+        component.setRowKey(focusPath.get(startDepth));
       }
       else if ( focusSize == startDepth )
       {
         isNewPath = true;
-        component.setRowKey(focusKey);  
+        component.setRowKey(focusKey);
         component.enterContainer();
       }
-    }      
-    else  
-    {      
+    }
+    else
+    {
       if (startDepth  == 0)
       {
         isNewPath = true;
-        component.setRowKey(null); 
+        component.setRowKey(null);
       }
     }
-    
+
     return isNewPath;
-  }  
+  }
 
   /**
-   * Check if a component is on a focus path 
+   * Check if a component is on a focus path
    */
   private static boolean _isOnFocusPath(UIXHierarchy component)
   {
@@ -1480,7 +1493,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     Object currentRowKey = component.getRowKey();
     if (focusKey != null)
     {
-      List<Object> focusPath = 
+      List<Object> focusPath =
                 component.getAllAncestorContainerRowKeys(focusKey);
       focusPath = new ArrayList<Object>(focusPath);
       focusPath.add(focusKey);
