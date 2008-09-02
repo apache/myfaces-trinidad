@@ -27,7 +27,7 @@
     <description><![CDATA[The subform tag represents an independently submittable
 region of a page.  The contents of a subform will only be validated
 (or otherwise processed) if a component inside of the subform is
-responsible for submitting the page.]]>
+responsible for submitting the page or if the default attribute is set to true.]]>
     </description>
     <icon>
       <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/subform.png</small-icon -->
@@ -43,7 +43,7 @@ responsible for submitting the page.]]>
 The CoreSubform represents an independently submittable
 region of a page.  The contents of a subform will only be validated
 (or otherwise processed) if a component inside of the subform is
-responsible for submitting the page.  This allows for comparatively
+responsible for submitting the page or if the default attribute is set to true. This allows for comparatively
 fine-grained control of which components will be validated and pushed
 into the model without the compromises of using entirely separate form
 elements.

@@ -43,7 +43,7 @@
     </property>
     <property>
       <description><![CDATA[whether the subform should assume it
-has been submitted.  When set to "default", "submitted" will be
+has been submitted.  When set to "true", "submitted" will be
 considered true if no other subform has been submitted.]]>
       </description>
       <property-name>default</property-name>
