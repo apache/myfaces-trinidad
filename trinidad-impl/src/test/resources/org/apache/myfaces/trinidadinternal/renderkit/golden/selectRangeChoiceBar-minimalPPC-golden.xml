@@ -1,58 +1,62 @@
 <results>
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
+      <div
            id="mainId"
-           summary=""
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             summary=""
             >
           
-          <td
-               nowrap="nowrap"
-               valign="middle"
+          <tr
               >
             
-            <span
-                 class="OraNavBarInactiveLink"
+            <td
+                 nowrap="nowrap"
+                 valign="middle"
                 >
-              Previous
-            </span>
-          </td>
-          <td
-              >
-            &#xa0;
-          </td>
-          <td
-               nowrap="nowrap"
-               valign="middle"
-              >
-            
-            <span
-                 class="AFFieldText"
+              
+              <span
+                   class="OraNavBarInactiveLink"
+                  >
+                Previous
+              </span>
+            </td>
+            <td
                 >
-              1-4 of 4
-            </span>
-          </td>
-          <td
-              >
-            &#xa0;
-          </td>
-          <td
-               nowrap="nowrap"
-               valign="middle"
-              >
-            
-            <span
-                 class="OraNavBarInactiveLink"
+              &#xa0;
+            </td>
+            <td
+                 nowrap="nowrap"
+                 valign="middle"
                 >
-              Next
-            </span>
-          </td>
-        </tr>
-      </table>
+              
+              <span
+                   class="AFFieldText"
+                  >
+                1-4 of 4
+              </span>
+            </td>
+            <td
+                >
+              &#xa0;
+            </td>
+            <td
+                 nowrap="nowrap"
+                 valign="middle"
+                >
+              
+              <span
+                   class="OraNavBarInactiveLink"
+                  >
+                Next
+              </span>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[first,1]-->
 
       <script
@@ -65,249 +69,265 @@
           >
         function _navChoiceSubmit(choice, formName, event, id, vld){if (!_navSubmit(formName, event, id, vld, choice.options[choice.selectedIndex].value)){choice.selectedIndex = choice._lastValue;}}
       </script>
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
+      <div
            id="mainId"
-           summary=""
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             summary=""
             >
           
-          <td
-               nowrap="nowrap"
-               valign="middle"
+          <tr
               >
             
-            <a
-                 class="OraNavBarActiveLink"
-                 onclick="_navSubmit('formId', 'goto', 'mainId',1,'1');return false"
-                 href="uri-attr:#"
-                >
-              Previous 1
-            </a>
-          </td>
-          <td
-              >
-            &#xa0;
-          </td>
-          <td
-               nowrap="nowrap"
-               valign="middle"
-              >
-            
-            <select
-                 class="AFFieldText"
-                 id="mainId__xc_c"
-                 onchange="_navChoiceSubmit(this, 'formId','goto','mainId',1)"
-                 onfocus="this._lastValue = this.selectedIndex"
-                 title="Select record set"
+            <td
+                 nowrap="nowrap"
+                 valign="middle"
                 >
               
-              <option
-                   value="all"
+              <a
+                   class="OraNavBarActiveLink"
+                   onclick="_navSubmit('formId', 'goto', 'mainId',1,'1');return false"
+                   href="uri-attr:#"
                   >
-                Show All 4
-              </option>
-              <option
-                   value="1"
-                  >
-                1-1 of 4
-              </option>
-              <option
-                   selected="selected"
-                   value="2"
-                  >
-                2-4 of 4
-              </option>
-            </select>
-            <script
-                 type="text/javascript"
+                Previous 1
+              </a>
+            </td>
+            <td
                 >
-              _setSelectIndexById("mainId__xc_c",2)
-            </script>
-          </td>
-          <td
-              >
-            &#xa0;
-          </td>
-          <td
-               nowrap="nowrap"
-               valign="middle"
-              >
-            
-            <span
-                 class="OraNavBarInactiveLink"
+              &#xa0;
+            </td>
+            <td
+                 nowrap="nowrap"
+                 valign="middle"
                 >
-              Next
-            </span>
-          </td>
-        </tr>
-      </table>
+              
+              <select
+                   class="AFFieldText"
+                   id="mainId__xc_c"
+                   onchange="_navChoiceSubmit(this, 'formId','goto','mainId',1)"
+                   onfocus="this._lastValue = this.selectedIndex"
+                   title="Select record set"
+                  >
+                
+                <option
+                     value="all"
+                    >
+                  Show All 4
+                </option>
+                <option
+                     value="1"
+                    >
+                  1-1 of 4
+                </option>
+                <option
+                     selected="selected"
+                     value="2"
+                    >
+                  2-4 of 4
+                </option>
+              </select>
+              <script
+                   type="text/javascript"
+                  >
+                _setSelectIndexById("mainId__xc_c",2)
+              </script>
+            </td>
+            <td
+                >
+              &#xa0;
+            </td>
+            <td
+                 nowrap="nowrap"
+                 valign="middle"
+                >
+              
+              <span
+                   class="OraNavBarInactiveLink"
+                  >
+                Next
+              </span>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[rows,0]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
+      <div
            id="mainId"
-           summary=""
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             summary=""
             >
           
-          <td
-               nowrap="nowrap"
-               valign="middle"
+          <tr
               >
             
-            <span
-                 class="OraNavBarInactiveLink"
+            <td
+                 nowrap="nowrap"
+                 valign="middle"
                 >
-              Previous
-            </span>
-          </td>
-          <td
-              >
-            &#xa0;
-          </td>
-          <td
-               nowrap="nowrap"
-               valign="middle"
-              >
-            &#xa0;
-          </td>
-          <td
-              >
-            &#xa0;
-          </td>
-          <td
-               nowrap="nowrap"
-               valign="middle"
-              >
-            
-            <span
-                 class="OraNavBarInactiveLink"
+              
+              <span
+                   class="OraNavBarInactiveLink"
+                  >
+                Previous
+              </span>
+            </td>
+            <td
                 >
-              Next
-            </span>
-          </td>
-        </tr>
-      </table>
+              &#xa0;
+            </td>
+            <td
+                 nowrap="nowrap"
+                 valign="middle"
+                >
+              &#xa0;
+            </td>
+            <td
+                >
+              &#xa0;
+            </td>
+            <td
+                 nowrap="nowrap"
+                 valign="middle"
+                >
+              
+              <span
+                   class="OraNavBarInactiveLink"
+                  >
+                Next
+              </span>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[id,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
+      <div
            id="test-id"
-           summary=""
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             summary=""
             >
           
-          <td
-               nowrap="nowrap"
-               valign="middle"
+          <tr
               >
             
-            <span
-                 class="OraNavBarInactiveLink"
+            <td
+                 nowrap="nowrap"
+                 valign="middle"
                 >
-              Previous
-            </span>
-          </td>
-          <td
-              >
-            &#xa0;
-          </td>
-          <td
-               nowrap="nowrap"
-               valign="middle"
-              >
-            
-            <span
-                 class="AFFieldText"
+              
+              <span
+                   class="OraNavBarInactiveLink"
+                  >
+                Previous
+              </span>
+            </td>
+            <td
                 >
-              1-4 of 4
-            </span>
-          </td>
-          <td
-              >
-            &#xa0;
-          </td>
-          <td
-               nowrap="nowrap"
-               valign="middle"
-              >
-            
-            <span
-                 class="OraNavBarInactiveLink"
+              &#xa0;
+            </td>
+            <td
+                 nowrap="nowrap"
+                 valign="middle"
                 >
-              Next
-            </span>
-          </td>
-        </tr>
-      </table>
+              
+              <span
+                   class="AFFieldText"
+                  >
+                1-4 of 4
+              </span>
+            </td>
+            <td
+                >
+              &#xa0;
+            </td>
+            <td
+                 nowrap="nowrap"
+                 valign="middle"
+                >
+              
+              <span
+                   class="OraNavBarInactiveLink"
+                  >
+                Next
+              </span>
+            </td>
+          </tr>
+        </table>
+      </div>
 <!--AttributeTest[shortDesc,null]-->
 
-      <table
-           border="0"
-           cellpadding="0"
-           cellspacing="0"
+      <div
            id="mainId"
-           summary=""
-           title="test-shortDesc"
           >
         
-        <tr
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             summary=""
+             title="test-shortDesc"
             >
           
-          <td
-               nowrap="nowrap"
-               valign="middle"
+          <tr
               >
             
-            <span
-                 class="OraNavBarInactiveLink"
+            <td
+                 nowrap="nowrap"
+                 valign="middle"
                 >
-              Previous
-            </span>
-          </td>
-          <td
-              >
-            &#xa0;
-          </td>
-          <td
-               nowrap="nowrap"
-               valign="middle"
-              >
-            
-            <span
-                 class="AFFieldText"
+              
+              <span
+                   class="OraNavBarInactiveLink"
+                  >
+                Previous
+              </span>
+            </td>
+            <td
                 >
-              1-4 of 4
-            </span>
-          </td>
-          <td
-              >
-            &#xa0;
-          </td>
-          <td
-               nowrap="nowrap"
-               valign="middle"
-              >
-            
-            <span
-                 class="OraNavBarInactiveLink"
+              &#xa0;
+            </td>
+            <td
+                 nowrap="nowrap"
+                 valign="middle"
                 >
-              Next
-            </span>
-          </td>
-        </tr>
-      </table>
+              
+              <span
+                   class="AFFieldText"
+                  >
+                1-4 of 4
+              </span>
+            </td>
+            <td
+                >
+              &#xa0;
+            </td>
+            <td
+                 nowrap="nowrap"
+                 valign="middle"
+                >
+              
+              <span
+                   class="OraNavBarInactiveLink"
+                  >
+                Next
+              </span>
+            </td>
+          </tr>
+        </table>
+      </div>
 </results>
