@@ -24,7 +24,6 @@
             
             <span
                  class="af_selectBooleanRadio_content"
-                 id="mainId__xc_r"
                 >
               
               <input
@@ -78,7 +77,6 @@
             
             <span
                  class="af_selectBooleanRadio_content"
-                 id="mainId__xc_r"
                 >
               
               <input
@@ -132,7 +130,6 @@
             
             <span
                  class="af_selectBooleanRadio_content"
-                 id="mainId__xc_r"
                 >
               
               <script
@@ -192,7 +189,6 @@
             
             <span
                  class="af_selectBooleanRadio_content"
-                 id="mainId__xc_r"
                 >
               
               <input
@@ -247,7 +243,6 @@
             
             <span
                  class="af_selectBooleanRadio_content"
-                 id="mainId__xc_r"
                 >
               
               <input
@@ -301,7 +296,6 @@
             
             <span
                  class="af_selectBooleanRadio_content"
-                 id="mainId__xc_r"
                 >
               
               <input
@@ -361,7 +355,6 @@
             
             <span
                  class="af_selectBooleanRadio_content"
-                 id="mainId__xc_r"
                 >
               
               <input
@@ -415,7 +408,6 @@
             
             <span
                  class="af_selectBooleanRadio_content"
-                 id="mainId__xc_r"
                 >
               
               <input
@@ -469,7 +461,6 @@
             
             <span
                  class="af_selectBooleanRadio_content"
-                 id="mainId__xc_r"
                 >
               
               <input
@@ -523,7 +514,6 @@
             
             <div
                  class="af_selectBooleanRadio_content"
-                 id="mainId__xc_r"
                 >
               
               <img
@@ -579,7 +569,6 @@
             
             <span
                  class="af_selectBooleanRadio_content"
-                 id="mainId__xc_r"
                 >
               
               <input
@@ -639,7 +628,6 @@
             
             <span
                  class="af_selectBooleanRadio_content"
-                 id="mainId__xc_r"
                 >
               
               <input
@@ -693,7 +681,6 @@
             
             <span
                  class="af_selectBooleanRadio_content"
-                 id="mainId__xc_r"
                 >
               
               <input
@@ -747,7 +734,6 @@
             
             <span
                  class="af_selectBooleanRadio_content"
-                 id="mainId__xc_r"
                 >
               
               <input
@@ -802,7 +788,6 @@
             
             <span
                  class="af_selectBooleanRadio_content"
-                 id="mainId__xc_r"
                 >
               
               <input
@@ -862,7 +847,6 @@
             
             <span
                  class="af_selectBooleanRadio_content"
-                 id="mainId__xc_r"
                 >
               
               <input
@@ -921,7 +905,6 @@
             
             <span
                  class="af_selectBooleanRadio_content"
-                 id="mainId__xc_r"
                 >
               
               <input
@@ -981,7 +964,6 @@
             
             <span
                  class="af_selectBooleanRadio_content"
-                 id="mainId__xc_r"
                 >
               
               <input
@@ -1035,7 +1017,6 @@
             
             <span
                  class="af_selectBooleanRadio_content"
-                 id="test-id__xc_r"
                 >
               
               <input
@@ -1090,7 +1071,6 @@
             
             <span
                  class="af_selectBooleanRadio_content"
-                 id="mainId__xc_r"
                 >
               
               <input
@@ -1145,7 +1125,6 @@
             
             <span
                  class="af_selectBooleanRadio_content"
-                 id="mainId__xc_r"
                 >
               
               <input
@@ -1200,7 +1179,6 @@
             
             <span
                  class="af_selectBooleanRadio_content"
-                 id="mainId__xc_r"
                  ondblclick="test-ondblclick"
                 >
               
@@ -1255,7 +1233,6 @@
             
             <span
                  class="af_selectBooleanRadio_content"
-                 id="mainId__xc_r"
                 >
               
               <input
@@ -1310,7 +1287,6 @@
             
             <span
                  class="af_selectBooleanRadio_content"
-                 id="mainId__xc_r"
                 >
               
               <input
@@ -1365,7 +1341,6 @@
             
             <span
                  class="af_selectBooleanRadio_content"
-                 id="mainId__xc_r"
                  onkeydown="test-onkeydown"
                 >
               
@@ -1420,7 +1395,6 @@
             
             <span
                  class="af_selectBooleanRadio_content"
-                 id="mainId__xc_r"
                  onkeypress="test-onkeypress"
                 >
               
@@ -1475,7 +1449,6 @@
             
             <span
                  class="af_selectBooleanRadio_content"
-                 id="mainId__xc_r"
                  onmousedown="test-onmousedown"
                 >
               
@@ -1530,7 +1503,6 @@
             
             <span
                  class="af_selectBooleanRadio_content"
-                 id="mainId__xc_r"
                  onmousemove="test-onmousemove"
                 >
               
@@ -1585,7 +1557,6 @@
             
             <span
                  class="af_selectBooleanRadio_content"
-                 id="mainId__xc_r"
                  onmouseout="test-onmouseout"
                 >
               
@@ -1640,7 +1611,6 @@
             
             <span
                  class="af_selectBooleanRadio_content"
-                 id="mainId__xc_r"
                  onmouseover="test-onmouseover"
                 >
               
@@ -1695,7 +1665,6 @@
             
             <span
                  class="af_selectBooleanRadio_content"
-                 id="mainId__xc_r"
                  onmouseup="test-onmouseup"
                 >
               

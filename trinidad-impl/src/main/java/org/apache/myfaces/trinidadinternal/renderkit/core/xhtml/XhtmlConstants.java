@@ -106,8 +106,9 @@ public final class XhtmlConstants
   public static final String STATE_PARAM           = "state";
   public static final String TYPE_PARAM            = "type";
   public static final String VALUE_PARAM           = "value";
-  
-  
+  public static final String TARGETITEM_PARAM      = "targetItem";
+
+
   //
   // parameter values
   //
@@ -150,6 +151,7 @@ public final class XhtmlConstants
    */
   public static final String V_ALIGN_TOP = "top";
   
+
 
   // MAX_VALUE_ATTR
   public static final int MAX_VALUE_UNKNOWN = -1;
@@ -218,6 +220,7 @@ public final class XhtmlConstants
   
   public static final String SELECTED_KEY = "selected";
   
+
 
   // ===================== End of copy from UIConstants =======================
 
