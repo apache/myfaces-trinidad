@@ -32,10 +32,13 @@ import org.apache.myfaces.trinidad.component.UIXShowDetail;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelAccordion;
 import org.apache.myfaces.trinidad.component.core.layout.CoreShowDetailItem;
 import org.apache.myfaces.trinidad.context.Agent;
+import org.apache.myfaces.trinidad.context.FormData;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.DisclosureEvent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 
 /**
  * Renderer for PanelAccordion
@@ -93,9 +96,10 @@ public class PanelAccordionRenderer extends XhtmlRenderer
             {
               (new DisclosureEvent(child, isDisclosed)).queue();
               RequestContext rc = RequestContext.getCurrentInstance();
-              // We're not using PPR on PDAs, even if they support it,
-              // so don't force PPR on!
-              if (!rc.getAgent().getType().equals(Agent.TYPE_PDA))
+
+              // Don't force PPR on for the browsers that do not support Ajax
+              Object cap = rc.getAgent().getCapabilities().get(TrinidadAgent.CAP_PARTIAL_RENDERING);
+              if ((cap != null) && (Boolean.TRUE.equals(cap)))
               {
                 RequestContext.getCurrentInstance().addPartialTarget(component);
                 PartialPageUtils.forcePartialRendering(context);
@@ -152,11 +156,25 @@ public class PanelAccordionRenderer extends XhtmlRenderer
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
-    String formName = arc.getFormData().getName();
-    if (formName == null)
+    FormData fData = arc.getFormData();
+    String formName = "";
+
+    if (fData != null)
     {
-      _LOG.warning("PANELACCORDION_MUST_INSIDE_FORM");
-      return;
+      formName = fData.getName();
+      if (formName == null)
+      {
+        _LOG.warning("PANELACCORDION_MUST_INSIDE_FORM");
+        return;
+      }
+      // Hidden field to store parameter targetItem is needed for non
+      // Ajax browsers to pass the target item Id back to the server.
+      boolean pprEnabled =
+        PartialPageUtils.supportsPartialRendering(arc);
+      if (!pprEnabled)
+      {
+        fData.addNeededValue(XhtmlConstants.TARGETITEM_PARAM);
+      }
     }
 
     List<UIComponent> children = component.getChildren();
@@ -456,10 +474,7 @@ public class PanelAccordionRenderer extends XhtmlRenderer
       validate = "0";
     }
 
-    if (pprEnabled && 
-        //PPR on PocketIE and IE Mobile does not work properly. Therefore, 
-        //do a full page submission.
-        !isPDA(arc))
+    if (pprEnabled)
     {
       StringBuilder onClickHandlerBuff =
             new StringBuilder("_submitPartialChange('")
@@ -483,11 +498,11 @@ public class PanelAccordionRenderer extends XhtmlRenderer
                                   .append("',")
                                   .append(validate)
                                   .append(", {event:'")
-	                          .append(event)
-	                          .append("',source:'")
-	                          .append(compId)
-	                          .append("',targetItem:'")
-	                          .append(detailItemId)
+	                            .append(event)
+	                            .append("',source:'")
+	                            .append(compId)
+	                            .append("',targetItem:'")
+	                            .append(detailItemId)
                                   .append("'});return false;");
 
       onClickHandler = onClickHandlerBuff.toString();

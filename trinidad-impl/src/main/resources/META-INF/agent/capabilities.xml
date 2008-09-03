@@ -84,12 +84,14 @@
       <include src="pixo.xml" />
     </capabilities>
 
+    <!-- Windows Mobile 5 only (No PPR support) -->
     <capabilities id="pocketie" agents="ie" platforms="ppc">
       <include refid="pda"/>
       <include src="pocketie.xml"/>
     </capabilities>
 
-    <capabilities id="pocketie03" agents="ie/4+" platforms="ppc">
+    <!-- Windows Mobile 6 only (With PPR support) -->
+    <capabilities id="pocketie03" agents="ie/6+" platforms="ppc">
       <include refid="pocketie"/>
       <include src="pocketie03.xml"/>
     </capabilities>

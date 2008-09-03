@@ -24,8 +24,15 @@
   <!--PH:pocket IE do not support advanced forms-->
   <capability name="-adfinternal-advancedForms" value="false"/> 
   <capability name="-adfinternal-intrinsicEvents" value="true"/> 
-  <capability name="-adfinternal-disabledFormElements" value="false"/>
   <capability name="-adfinternal-readonlyFormElements" value="false"/> 
   <capability name="-adfinternal-valign" value="true"/>
-  <capability name="-adfinternal-onclickOnImgInput" value="false"/>    
+  <capability name="-adfinternal-onclickOnImgInput" value="false"/> 
+  <capability name="-adfinternal-id" value="true"/>
+  <capability name="-adfinternal-disabledFormElements" value="true"/>
+  <capability name="-adfinternal-cssSelectors" value="multiple"/>
+  <capability name="-adfinternal-styleAttributes" value="external"/>
+  <capability name="-adfinternal-scriptingSpeed" value="slow"/>
+  <capability name="-adfinternal-partialRendering" value="false"/>
+  <capability name="-adfinternal-xmldom" value="true"/>  
+  <capability name="-adfinternal-onclick-input" value="true"/>  
 </capabilityData>

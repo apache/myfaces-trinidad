@@ -58,7 +58,7 @@
                          class="AFFieldText"
                          id="mainId_soc_tbl_chc"
                          name="mainId_soc_tbl_chc"
-                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
+                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  submitForm('formId','1',{event:'show',source:selectedOption});return true;"
                         >
                       
                       <option
@@ -157,7 +157,7 @@
                          class="AFFieldText"
                          id="mainId_soc_tbl_chc"
                          name="mainId_soc_tbl_chc"
-                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
+                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  submitForm('formId','1',{event:'show',source:selectedOption});return true;"
                         >
                       
                       <option
@@ -256,7 +256,7 @@
                          class="AFFieldText"
                          id="mainId_soc_tbl_chc"
                          name="mainId_soc_tbl_chc"
-                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
+                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  submitForm('formId','1',{event:'show',source:selectedOption});return true;"
                         >
                       
                       <option
@@ -355,7 +355,7 @@
                          class="AFFieldText"
                          id="mainId_soc_tbl_chc"
                          name="mainId_soc_tbl_chc"
-                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
+                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  submitForm('formId','1',{event:'show',source:selectedOption});return true;"
                         >
                       
                       <option
@@ -454,7 +454,7 @@
                          class="AFFieldText"
                          id="mainId_soc_tbl_chc"
                          name="mainId_soc_tbl_chc"
-                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
+                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  submitForm('formId','1',{event:'show',source:selectedOption});return true;"
                         >
                       
                       <option
@@ -553,7 +553,7 @@
                          class="AFFieldText"
                          id="mainId_soc_tbl_chc"
                          name="mainId_soc_tbl_chc"
-                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
+                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  submitForm('formId','1',{event:'show',source:selectedOption});return true;"
                         >
                       
                       <option
@@ -652,7 +652,7 @@
                          class="AFFieldText"
                          id="mainId_soc_tbl_chc"
                          name="mainId_soc_tbl_chc"
-                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
+                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  submitForm('formId','1',{event:'show',source:selectedOption});return true;"
                         >
                       
                       <option
@@ -751,7 +751,7 @@
                          class="AFFieldText"
                          id="mainId_soc_tbl_chc"
                          name="mainId_soc_tbl_chc"
-                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
+                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  submitForm('formId','1',{event:'show',source:selectedOption});return true;"
                         >
                       
                       <option
@@ -850,7 +850,7 @@
                          class="AFFieldText"
                          id="mainId_soc_tbl_chc"
                          name="mainId_soc_tbl_chc"
-                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
+                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  submitForm('formId','1',{event:'show',source:selectedOption});return true;"
                         >
                       
                       <option
@@ -949,7 +949,7 @@
                          class="AFFieldText"
                          id="mainId_soc_tbl_chc"
                          name="mainId_soc_tbl_chc"
-                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
+                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  submitForm('formId','1',{event:'show',source:selectedOption});return true;"
                         >
                       
                       <option
@@ -1048,7 +1048,7 @@
                          class="AFFieldText"
                          id="mainId_soc_tbl_chc"
                          name="mainId_soc_tbl_chc"
-                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
+                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  submitForm('formId','1',{event:'show',source:selectedOption});return true;"
                         >
                       
                       <option
@@ -1152,7 +1152,7 @@
                          class="AFFieldText"
                          id="mainId_soc_tbl_chc"
                          name="mainId_soc_tbl_chc"
-                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
+                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  submitForm('formId','1',{event:'show',source:selectedOption});return true;"
                         >
                       
                       <option
@@ -1250,7 +1250,7 @@
                          class="AFFieldText"
                          id="mainId_soc_tbl_chc"
                          name="mainId_soc_tbl_chc"
-                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
+                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  submitForm('formId','1',{event:'show',source:selectedOption});return true;"
                         >
                       
                       <option
@@ -1355,7 +1355,7 @@
                          class="AFFieldText"
                          id="mainId_soc_tbl_chc"
                          name="mainId_soc_tbl_chc"
-                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
+                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  submitForm('formId','1',{event:'show',source:selectedOption});return true;"
                         >
                       
                       <option
@@ -1454,7 +1454,7 @@
                          class="AFFieldText"
                          id="mainId_soc_tbl_chc"
                          name="mainId_soc_tbl_chc"
-                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
+                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  submitForm('formId','1',{event:'show',source:selectedOption});return true;"
                         >
                       
                       <option
@@ -1553,7 +1553,7 @@
                          class="AFFieldText"
                          id="mainId_soc_tbl_chc"
                          name="mainId_soc_tbl_chc"
-                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  _submitPartialChange('formId','1', {partialTargets:'mainId', event:'show',source:selectedOption});return true;"
+                         onchange="var selectedOption = _socGetSelection('mainId_soc_tbl_chc');  submitForm('formId','1',{event:'show',source:selectedOption});return true;"
                         >
                       
                       <option
