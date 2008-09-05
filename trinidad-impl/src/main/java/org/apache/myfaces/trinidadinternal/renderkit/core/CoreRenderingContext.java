@@ -58,6 +58,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.share.nls.MutableDecimalFormatContext;
 import org.apache.myfaces.trinidadinternal.share.nls.MutableLocaleContext;
+import org.apache.myfaces.trinidadinternal.skin.RequestSkinWrapper;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 public class CoreRenderingContext extends RenderingContext
@@ -455,7 +456,7 @@ public class CoreRenderingContext extends RenderingContext
             // directory. Otherwise the following code would get an error when it
             // tries to getStyleDir. This could possibly be done better.
             getStyleContext().getStyleProvider();
-            
+
             String skinForPortalStyleSheetId = requestedSkin.getStyleSheetDocumentId(this);
             if (skinForPortalStyleSheetId != null &&
                 skinForPortalStyleSheetId.equals(requestMapStyleSheetId))
@@ -466,7 +467,9 @@ public class CoreRenderingContext extends RenderingContext
                 _LOG.fine("The skin " +requestedSkinId+
                   " specified on the requestMap will be used.");
               _requestMapSkin = requestedSkin;
-              return requestedSkin;
+              // wrap in the RequestSkinWrapper, else we get property/icon
+              // not found errors
+              return new RequestSkinWrapper(requestedSkin);
             }
             else
             {
