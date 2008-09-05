@@ -58,6 +58,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.share.nls.MutableDecimalFormatContext;
 import org.apache.myfaces.trinidadinternal.share.nls.MutableLocaleContext;
+import org.apache.myfaces.trinidadinternal.skin.RequestSkinWrapper;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 public class CoreRenderingContext extends RenderingContext
@@ -245,7 +246,8 @@ public class CoreRenderingContext extends RenderingContext
     if (_styleContext == null)
     {
       FacesContext fContext = FacesContext.getCurrentInstance();
-      _styleContext = new StyleContextImpl(this, getTemporaryDirectory(fContext));
+      _styleContext = new StyleContextImpl(this,
+                                           getTemporaryDirectory(fContext));
     }
 
     return _styleContext;
@@ -465,7 +467,9 @@ public class CoreRenderingContext extends RenderingContext
                 _LOG.fine("The skin " +requestedSkinId+
                   " specified on the requestMap will be used.");
               _requestMapSkin = requestedSkin;
-              return requestedSkin;
+              // wrap in the RequestSkinWrapper, else we get property/icon
+              // not found errors
+              return new RequestSkinWrapper(requestedSkin);
             }
             else
             {
