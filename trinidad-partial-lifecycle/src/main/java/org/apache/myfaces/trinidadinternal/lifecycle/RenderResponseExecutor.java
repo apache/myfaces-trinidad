@@ -20,6 +20,7 @@ package org.apache.myfaces.trinidadinternal.lifecycle;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
 import org.apache.myfaces.trinidad.util.Service;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreResponseStateManager;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.CoreFormData;
@@ -38,6 +39,7 @@ import java.util.Map;
 
 public class RenderResponseExecutor implements PhaseExecutor
 {
+  private static final TrinidadLogger LOG = TrinidadLogger.createTrinidadLogger(RenderResponseExecutor.class);
   private ContextCallback contextCallback = new RenderResponseCallback();
 
   public boolean execute(FacesContext facesContext)
@@ -105,6 +107,7 @@ public class RenderResponseExecutor implements PhaseExecutor
 
             for (String clientId : partialTargets)
             {
+              LOG.info("Rendering partialTarget " + clientId);
               facesContext.getViewRoot().invokeOnComponent(facesContext, clientId, contextCallback);
             }
 

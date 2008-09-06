@@ -64,7 +64,7 @@ public class PartialLifecycle extends Lifecycle
 
     for (PhaseExecutor executor : lifecycleExecutors)
     {
-      System.err.println("Execute Phase " + executor);
+      LOG.info("Execute Phase " + executor.getPhase());
       if (executePhase(facesContext, executor, phaseListenerMgr))
       {
         return;

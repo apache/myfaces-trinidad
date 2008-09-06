@@ -48,6 +48,16 @@ class ApplyRequestValuesExecutor implements PhaseExecutor
       UIViewRoot viewRoot = facesContext.getViewRoot();
       UIComponent source = viewRoot.findComponent(sourceName);
       // TODO partialRequest from inside Tree or Table
+
+      // TODO navigationTree
+
+      for (String partialTarget : partialTargets)
+      {
+        viewRoot.invokeOnComponent(facesContext, partialTarget, contextCallback);
+      }
+
+      // TODO how to check that source and form already included in a partialTarget
+
       if (source != null && !Arrays.asList(partialTargets).contains(sourceName))
       {
         // TODO source inside a partialTarget
@@ -55,23 +65,14 @@ class ApplyRequestValuesExecutor implements PhaseExecutor
       }
 
 
-
       String formName = parameterMap.get(CoreResponseStateManager.FORM_FIELD_NAME);
       UIComponent form = viewRoot.findComponent(formName);
 
-      if (form != null)
+      if (form != null && !Arrays.asList(partialTargets).contains(formName))
       {
         // TODO form inside partialTarget
         // SubForm set submitted by queueEvent
         form.decode(facesContext);
-      }
-
-      
-      // TODO navigationTree
-
-      for (String partialTarget : partialTargets)
-      {
-        viewRoot.invokeOnComponent(facesContext, partialTarget, contextCallback);
       }
 
       // TODO broadcast Events UIViewRoot has no public method
