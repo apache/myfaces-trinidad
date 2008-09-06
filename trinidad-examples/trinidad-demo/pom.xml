@@ -15,11 +15,11 @@
 
   <dependencies>
     
-    <dependency>
+    <!--<dependency>
       <groupId>org.apache.myfaces.trinidad</groupId>
       <artifactId>trinidad-partial-lifecycle</artifactId>
       <version>${project.version}</version>
-    </dependency>
+    </dependency>-->
 
     <dependency>
       <groupId>javax.mail</groupId>
