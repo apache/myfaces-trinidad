@@ -24,6 +24,8 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreResponseStateManager;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.CoreFormData;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
 
 import javax.faces.FacesException;
 import javax.faces.application.Application;
@@ -76,6 +78,7 @@ public class RenderResponseExecutor implements PhaseExecutor
 
             ResponseWriter responseWriter =
                 facesContext.getRenderKit().createResponseWriter(response.getWriter(), contentType, encoding);
+            LOG.info("ResponseWriter class: " + responseWriter.getClass().getName());
             facesContext.setResponseWriter(responseWriter);
 
             ResponseWriter rw = facesContext.getResponseWriter();
@@ -95,9 +98,17 @@ public class RenderResponseExecutor implements PhaseExecutor
             if (form != null)
             {
               // TODO find a better way
-              CoreFormData fData = new CoreFormData(formName);
+              CoreFormData formData = new CoreFormData(formName);
+              // FIXME
+              formData.addNeededValue(XhtmlConstants.PARTIAL_PARAM);
+              formData.addNeededValue(XhtmlConstants.STATE_PARAM);
+              formData.addNeededValue(XhtmlConstants.VALUE_PARAM);
               RenderingContext renderingContext = RenderingContext.getCurrentInstance();
-              renderingContext.setFormData(fData);
+              renderingContext.setFormData(formData);
+              // FIXME
+              if (PartialPageUtils.isPartialRenderingPass(renderingContext)) {
+                PartialPageUtils.markPPRActive(facesContext);
+              }
               if (renderingContext instanceof CoreRenderingContext)
               {
                 Map<String, String> shortStyles = renderingContext.getSkin().getStyleClassMap(renderingContext);

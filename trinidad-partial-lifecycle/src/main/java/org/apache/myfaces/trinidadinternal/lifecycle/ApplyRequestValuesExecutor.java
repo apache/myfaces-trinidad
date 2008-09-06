@@ -19,9 +19,9 @@ package org.apache.myfaces.trinidadinternal.lifecycle;
 
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreResponseStateManager;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import javax.faces.component.ContextCallback;
-import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
@@ -35,8 +35,9 @@ import java.util.Map;
  */
 class ApplyRequestValuesExecutor implements PhaseExecutor
 {
-
-  private ContextCallback contextCallback = new ApplyRequestValuesCallback();
+  private static final TrinidadLogger LOG = TrinidadLogger.createTrinidadLogger(ApplyRequestValuesExecutor.class);
+  private ContextCallback processDecodesCallback = new ApplyRequestValuesCallback();
+  private ContextCallback decodeCallback = new DecodeCallback();
 
   public boolean execute(FacesContext facesContext)
   {
@@ -44,41 +45,43 @@ class ApplyRequestValuesExecutor implements PhaseExecutor
     if (partialTargets != null)
     {
       Map<String, String> parameterMap = facesContext.getExternalContext().getRequestParameterMap();
-      String sourceName = parameterMap.get("source");
       UIViewRoot viewRoot = facesContext.getViewRoot();
-      UIComponent source = viewRoot.findComponent(sourceName);
       // TODO partialRequest from inside Tree or Table
 
       // TODO navigationTree
 
       for (String partialTarget : partialTargets)
       {
-        viewRoot.invokeOnComponent(facesContext, partialTarget, contextCallback);
+        viewRoot.invokeOnComponent(facesContext, partialTarget, processDecodesCallback);
       }
 
       // TODO how to check that source and form already included in a partialTarget
-
-      if (source != null && !Arrays.asList(partialTargets).contains(sourceName))
+      String sourceName = parameterMap.get("source");
+      if (sourceName != null && !Arrays.asList(partialTargets).contains(sourceName))
       {
         // TODO source inside a partialTarget
-        source.decode(facesContext);
+        boolean found = viewRoot.invokeOnComponent(facesContext, sourceName, decodeCallback);
+        if (!found) {
+          LOG.warning("No source UIComponent found for '" + sourceName + "'");
+        }
       }
 
-
       String formName = parameterMap.get(CoreResponseStateManager.FORM_FIELD_NAME);
-      UIComponent form = viewRoot.findComponent(formName);
-
-      if (form != null && !Arrays.asList(partialTargets).contains(formName))
+      if (formName != null && !Arrays.asList(partialTargets).contains(formName))
       {
         // TODO form inside partialTarget
         // SubForm set submitted by queueEvent
-        form.decode(facesContext);
+        boolean found = viewRoot.invokeOnComponent(facesContext, formName, decodeCallback);
+        if (!found) {
+          LOG.warning("No form UIComponent found for '" + formName + "'");
+        }
       }
 
       // TODO broadcast Events UIViewRoot has no public method
       //viewRoot.broadcastEventsForPhase(facesContext, PhaseId.APPLY_REQUEST_VALUES);
 
-    } else
+    }
+    else
     {
       facesContext.getViewRoot().processDecodes(facesContext);
     }
