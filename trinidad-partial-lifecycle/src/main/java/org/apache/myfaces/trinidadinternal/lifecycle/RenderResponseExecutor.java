@@ -88,6 +88,11 @@ public class RenderResponseExecutor implements PhaseExecutor
               // add messages to partialTargets
             }
 
+            RenderingContext renderingContext = RenderingContext.getCurrentInstance();
+            // ensure mark PPR active
+            if (PartialPageUtils.isPartialRenderingPass(renderingContext)) {
+              PartialPageUtils.markPPRActive(facesContext);
+            }
             rw.startDocument();
 
             Map<String, String> parameterMap = facesContext.getExternalContext().getRequestParameterMap();
@@ -97,18 +102,15 @@ public class RenderResponseExecutor implements PhaseExecutor
             // TODO form inside partial Target
             if (form != null)
             {
-              // TODO find a better way
+              // TODO find a better way or should form.encodeBegin called?
               CoreFormData formData = new CoreFormData(formName);
               // FIXME
               formData.addNeededValue(XhtmlConstants.PARTIAL_PARAM);
               formData.addNeededValue(XhtmlConstants.STATE_PARAM);
               formData.addNeededValue(XhtmlConstants.VALUE_PARAM);
-              RenderingContext renderingContext = RenderingContext.getCurrentInstance();
+
               renderingContext.setFormData(formData);
               // FIXME
-              if (PartialPageUtils.isPartialRenderingPass(renderingContext)) {
-                PartialPageUtils.markPPRActive(facesContext);
-              }
               if (renderingContext instanceof CoreRenderingContext)
               {
                 Map<String, String> shortStyles = renderingContext.getSkin().getStyleClassMap(renderingContext);
