@@ -18,12 +18,12 @@ package org.apache.myfaces.trinidadinternal.lifecycle;
  */
 
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.context.FormData;
 import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
 import org.apache.myfaces.trinidad.util.Service;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreResponseStateManager;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.CoreFormData;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
 
@@ -51,6 +51,7 @@ public class RenderResponseExecutor implements PhaseExecutor
     {
       if (partialTargets != null)
       {
+        // Most of this is a copy from ViewHandlerImpl
         // See if there is a possiblity of short-circuiting the current
         // Render Response
         ExtendedRenderKitService service = Service.getService(facesContext.getRenderKit(), ExtendedRenderKitService.class);
@@ -102,14 +103,21 @@ public class RenderResponseExecutor implements PhaseExecutor
             // TODO form inside partial Target
             if (form != null)
             {
+
               // TODO find a better way or should form.encodeBegin called?
-              CoreFormData formData = new CoreFormData(formName);
+              //CoreFormData formData = new CoreFormData(formName);
               // FIXME
+              //formData.addNeededValue(XhtmlConstants.PARTIAL_PARAM);
+              //formData.addNeededValue(XhtmlConstants.STATE_PARAM);
+              //formData.addNeededValue(XhtmlConstants.VALUE_PARAM);
+
+              //renderingContext.setFormData(formData);
+              form.encodeBegin(facesContext);
+              FormData formData = renderingContext.getFormData();
               formData.addNeededValue(XhtmlConstants.PARTIAL_PARAM);
               formData.addNeededValue(XhtmlConstants.STATE_PARAM);
               formData.addNeededValue(XhtmlConstants.VALUE_PARAM);
 
-              renderingContext.setFormData(formData);
               // FIXME
               if (renderingContext instanceof CoreRenderingContext)
               {
