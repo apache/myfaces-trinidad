@@ -195,7 +195,7 @@ TrNumberConverter.prototype.getAsString = function(
     }
     else
     {
-      return this._numberFormat.format(number);
+      return this._numberFormat.format(parseFloat(number.toFixed(this._numberFormat.getMaximumFractionDigits())));
     }
   }
   else
