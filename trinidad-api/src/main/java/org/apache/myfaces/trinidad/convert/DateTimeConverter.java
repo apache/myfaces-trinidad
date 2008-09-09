@@ -1666,7 +1666,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
       // We will change shortish to short only at place where it is required.
       // Otherwise we may end up throwing convert exception for case where
       // dateStyle is invalid. So evaluating only at the required place.
-      if ( null == pattern )
+      if ( null == pattern || "".equals(pattern))
       {
         int type = _getType(getType());
 
