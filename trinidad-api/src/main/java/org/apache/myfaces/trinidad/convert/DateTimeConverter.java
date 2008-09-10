@@ -713,7 +713,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
       patterns.add(pattern);
 
       // we apply some patterns for convenience reasons (see TRINIDAD-859)
-      patterns.addAll(CONVENIENCE_PATTERNS);
+      patterns.addAll(_CONVENIENCE_PATTERNS);
 
       List<String> lenientPatterns = new ArrayList<String>();
       for (String tmpPattern : patterns)
@@ -1866,7 +1866,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
 
   private static final TrinidadLogger _LOG  = TrinidadLogger.createTrinidadLogger(DateTimeConverter.class);
   private static final Date _EXAMPLE_DATE;
-  private static final List<String> CONVENIENCE_PATTERNS =
+  private static final List<String> _CONVENIENCE_PATTERNS =
     Arrays.asList("MMMM dd, yy", "dd-MMMM-yy", "MMMM/dd/yy");
 
   static
