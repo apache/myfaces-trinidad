@@ -215,9 +215,18 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
 
     SelectItem item = selectItems.get(index);
     if (item != null)
-      return item.getValue();
+    {
+      Object converted = item.getValue();
+      if (converter != null)
+      {
+        converted = converter.getAsObject(context, component, converted.toString());
+      }
+      return converted;
+    }
     else
+    {
       return null;
+    }
   }
 
 
