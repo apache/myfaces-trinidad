@@ -22,6 +22,7 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
@@ -103,7 +104,26 @@ public class SimpleInputFileRenderer extends SimpleInputTextRenderer
       FacesMessage fm = MessageFactory.getMessage(context, "org.apache.myfaces.trinidad.UPLOAD"); 
       throw new ConverterException(fm);
     }
-    return submittedValue;
+
+    FacesBean bean = getFacesBean(component);
+    Converter converter = getConverter(bean);
+    // support converter for the <inputFile> component
+    if(converter != null)
+    {
+      // create a unique key (component class name + filename) and use this
+      // key to add the actual uploaded file to the requestMap
+      String fileNameKey = component.getClass().getName() + "." + file.getFilename();
+      context.getExternalContext().getRequestMap().put(fileNameKey, file);
+      
+      // applying the above convention. The String here is just the
+      // unique key which the converter has to use to look for the
+      // actual uploaded file.
+      return converter.getAsObject(context, component, fileNameKey);
+    }
+    else
+    {
+      return file;
+    }
   }
 
 
