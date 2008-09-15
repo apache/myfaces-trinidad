@@ -323,9 +323,9 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
       return;
     }
 
-    if (value instanceof Number)
+    try
     {
-      long longValue = ((Number)value).longValue();
+      long longValue = _convertValueToLong(value);
       long min = getMinimum();
       long max = getMaximum();
       
@@ -356,7 +356,7 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
         }
       }
     }
-    else
+    catch (NumberFormatException nfe)
     {
       FacesMessage msg = _getNotCorrectType(context);
       throw new ValidatorException(msg);
@@ -478,6 +478,28 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
     FacesContext context)
   {
     return MessageFactory.getMessage(context, CONVERT_MESSAGE_ID);
+  }
+  
+  /**
+   * Try to call longValue() from java.lang.Number. Since not all
+   * "number" implement java.lang.Number, we try to call string
+   * and parse the String representation of the "number". If that fails
+   * we aren't working with a number so we throw a NumberFormatException  
+   * 
+   * @param value the number value
+   * @return parsed number value
+   * @throws NumberFormatException if the value is not a number
+   */
+  private long _convertValueToLong(Object value) throws NumberFormatException
+  {
+    if(value instanceof Number)
+    {
+      return ((Number)value).longValue();
+    }
+    else
+    {
+      return Long.parseLong(value.toString());
+    }
   }
 
   private FacesMessage _getNotInRangeMessage(
