@@ -320,9 +320,10 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
     {
       return;
     }
-    if (value instanceof Number)
+
+    try
     {
-      double doubleValue = ((Number)value).doubleValue(); 
+      double doubleValue = _convertValueToDouble(value); 
       double min = getMinimum();
       double max = getMaximum();
 
@@ -353,7 +354,7 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
         }
       }
     }
-    else
+    catch (NumberFormatException nfe)
     {
       FacesMessage msg = _getNotCorrectType(context);
       throw new ValidatorException(msg);
@@ -431,6 +432,28 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
     return MessageFactory.getMessage(context, CONVERT_MESSAGE_ID);
   }
   
+  /**
+   * Try to call doubleValue() from java.lang.Number. Since not all
+   * "number" implement java.lang.Number, we try to call string
+   * and parse the String representation of the "number". If that fails
+   * we aren't working with a number so we throw a NumberFormatException  
+   * 
+   * @param value the number value
+   * @return parsed number value
+   * @throws NumberFormatException if the value is not a number
+   */
+  private double _convertValueToDouble(Object value) throws NumberFormatException
+  {
+    if(value instanceof Number)
+    {
+      return ((Number)value).doubleValue();
+    }
+    else
+    {
+      return Double.parseDouble(value.toString());
+    }
+  }
+
   @Override
   public void setTransient(boolean transientValue)
   {
