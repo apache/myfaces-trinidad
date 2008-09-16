@@ -182,6 +182,21 @@ public class LongRangeValidatorTest extends ValidatorTestCase
     }
   }
 
+  public void testStringBasedValues()
+  {
+    LongRangeValidator validator = new LongRangeValidator();
+    Mock mock = buildMockUIComponent();
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
+
+    String values[]   = {"200","500"};
+    validator.setMinimum(199);
+    for (int i = 0; i < values.length ; i++)
+    {
+      doTestValidate(validator, facesContext, wrapper, values[i]);
+    }
+  }
+
   public void testStateHolderSaveRestore()
   {
     LongRangeValidator validator = new LongRangeValidator();
