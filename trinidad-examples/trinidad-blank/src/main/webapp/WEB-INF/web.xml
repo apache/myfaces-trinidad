@@ -81,11 +81,6 @@
     <servlet-name>faces</servlet-name>
   </filter-mapping>
 
-  <!-- Listener, to allow Jetty serving MyFaces apps -->
-  <listener>
-    <listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
-  </listener>
-
   <!-- Faces Servlet -->
   <servlet>
     <servlet-name>faces</servlet-name>
