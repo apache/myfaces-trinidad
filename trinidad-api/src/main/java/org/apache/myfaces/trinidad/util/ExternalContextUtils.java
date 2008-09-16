@@ -321,6 +321,22 @@ public final class ExternalContextUtils
 
     return _PORTLET_CONTEXT_CLASS.isInstance(externalContext.getContext());
   }
+  
+  /**
+   * Returns wherther of not this external context represents a true HttpServletRequest or
+   * not.  Some portal containers implement the PortletRequest/Response objects as 
+   * HttpServletRequestWrappers, and those objects should not be treated as an
+   * HttpServlerRequest.  As such, this method first tests to see if the request is
+   * a portlet request and, if not, then tests to see if the request is an instanceof
+   * HttpServletRequest.
+   * 
+   * @param request
+   * @return
+   */
+  public static boolean isHttpServletRequest(final ExternalContext externalContext)
+  {
+    return (!isPortlet(externalContext) && (externalContext.getRequest() instanceof HttpServletRequest));
+  }
 
   private static final String _getPortletCharacterEncoding(final Object request)
   {
