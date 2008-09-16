@@ -448,9 +448,12 @@ public final class GlobalConfiguratorImpl extends Configurator
     // Physical request has now ended
     // Clear the in-request flag
     ec.getRequestMap().remove(_IN_REQUEST);
-    for (final Configurator config : _services)
+    if(_services != null)
     {
-      config.endRequest(ec);
+      for (final Configurator config : _services)
+      {
+        config.endRequest(ec);
+      }
     }
   }
 
