@@ -188,6 +188,8 @@ public class NameUtils
       platform = TrinidadAgent.OS_WINDOWS;
     else if (_PLATFORM_MACOS.equals(platformName))
       platform = TrinidadAgent.OS_MACOS;
+    else if (_PLATFORM_IPHONE.equals(platformName))
+      platform = TrinidadAgent.OS_IPHONE;
     else if (_PLATFORM_LINUX.equals(platformName))
       platform = TrinidadAgent.OS_LINUX;
     else if (_PLATFORM_SOLARIS.equals(platformName))
@@ -219,6 +221,9 @@ public class NameUtils
       break;
     case TrinidadAgent.OS_MACOS:
       name = _PLATFORM_MACOS;
+      break;
+    case TrinidadAgent.OS_IPHONE:
+      name = _PLATFORM_IPHONE;
       break;
     case TrinidadAgent.OS_LINUX:
       name = _PLATFORM_LINUX;
@@ -728,6 +733,8 @@ public class NameUtils
   private static final String _PLATFORM_WINDOWS = "windows";
 
   private static final String _PLATFORM_MACOS = "macos";
+
+  private static final String _PLATFORM_IPHONE = "iphone";
 
   private static final String _PLATFORM_LINUX = "linux";
 

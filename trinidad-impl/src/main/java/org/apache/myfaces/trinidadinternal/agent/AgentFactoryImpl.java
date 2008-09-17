@@ -714,11 +714,16 @@ public class AgentFactoryImpl implements AgentFactory
       start = agent.indexOf('/', start);
     }
 
+    // At the moment all known iPhone agent strings contain "iPhone".
+    String platform = (agent.indexOf("iPhone") < 0) ? 
+                        Agent.PLATFORM_MACOS :
+                        Agent.PLATFORM_IPHONE;
+
     String version = _getVersion(agent, start);
     agentObj.setType(Agent.TYPE_DESKTOP);
     agentObj.setAgent(Agent.AGENT_WEBKIT);
     agentObj.setAgentVersion(version);
-    agentObj.setPlatform(Agent.PLATFORM_MACOS);
+    agentObj.setPlatform(platform);
   }
 
   /**
