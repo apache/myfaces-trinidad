@@ -50,4 +50,5 @@ public interface StyleContext
   public StyleProvider getStyleProvider();
   public StyleMap getStyleMap();
   public AccessibilityProfile getAccessibilityProfile();
+  public boolean isPortletMode();
 }

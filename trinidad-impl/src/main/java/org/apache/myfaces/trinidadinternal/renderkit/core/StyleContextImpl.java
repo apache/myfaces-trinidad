@@ -127,6 +127,11 @@ class StyleContextImpl implements StyleContext
     return NullStyleProvider.getInstance();
   }
 
+  public boolean isPortletMode()
+  {
+    return CoreRenderKit.OUTPUT_MODE_PORTLET.equals(_arc.getOutputMode());
+  }
+
   // Implementation of StyleProvider which does nothing - used as a
   // placeholder when we can't get the real StyleProvider
   static private class NullStyleProvider implements StyleProvider
