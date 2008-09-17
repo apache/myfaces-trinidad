@@ -103,6 +103,11 @@ public class AgentNameUtil
       return TrinidadAgent.OS_MACOS;
     }
 
+    if (TrinidadAgent.PLATFORM_IPHONE.equals(platformName))
+    {
+      return TrinidadAgent.OS_IPHONE;
+    }
+
     if (TrinidadAgent.PLATFORM_LINUX.equals(platformName))
     {
       return TrinidadAgent.OS_LINUX;
@@ -204,6 +209,8 @@ public class AgentNameUtil
         return TrinidadAgent.PLATFORM_WINDOWS;
       case TrinidadAgent.OS_MACOS:
         return TrinidadAgent.PLATFORM_MACOS;
+      case TrinidadAgent.OS_IPHONE:
+        return TrinidadAgent.PLATFORM_IPHONE;
       case TrinidadAgent.OS_LINUX:
         return TrinidadAgent.PLATFORM_LINUX;
       case TrinidadAgent.OS_SOLARIS:

@@ -361,6 +361,10 @@ public interface TrinidadAgent extends Agent
    */
   static public final int OS_BLACKBERRY = 7;
 
+  /**
+   * OS constant for iPhone
+   */
+  static public final int OS_IPHONE   = 8;
 
 
   /**
