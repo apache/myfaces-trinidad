@@ -99,6 +99,8 @@ public class SetFacetChildDocumentChange extends AddComponentDocumentChange
       facetElement.setAttributeNS(_XMLNS_NAMESPACE, "xmlns:f",
                                   _JSF_CORE_NAMESPACE);
       
+      facetElement.setAttribute(_FACET_ATTRIBUTE_NAME, _facetName);
+
       componentNode.appendChild(facetElement);
     }
     
@@ -118,6 +120,7 @@ public class SetFacetChildDocumentChange extends AddComponentDocumentChange
 
   private static final String _JSF_CORE_NAMESPACE = "http://java.sun.com/jsf/core";
   private static final String _XMLNS_NAMESPACE = "http://www.w3.org/2000/xmlns/";
+  private static final String _FACET_ATTRIBUTE_NAME = "name";
 
   private final String _facetName;
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
