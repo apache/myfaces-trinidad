@@ -18,8 +18,11 @@
  */
 package org.apache.myfaces.trinidad.bean;
 
+import java.io.Serializable;
+
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
@@ -130,7 +133,9 @@ public class PropertyKey
         "CAPABILITY_MASK_NOT_UNDERSTOOD", (capabilities & ~_CAPS_ALL)));
 
     // Lists cannot be bound
-    if ((capabilities & CAP_LIST) != 0)
+    boolean hasListCapability = (capabilities & CAP_LIST) != 0;
+                                                               
+    if (hasListCapability)
       capabilities = capabilities | CAP_NOT_BOUND;
 
     _name = name;
@@ -139,6 +144,8 @@ public class PropertyKey
     _capabilities = capabilities;
     _index = index;
     
+    // save using StatUtils.saveList if the value is of type list
+    _serializeAsList = hasListCapability || LIST_CLASS.isAssignableFrom(_type);
     _hashCode = _name.hashCode();
   }
 
@@ -214,8 +221,15 @@ public class PropertyKey
     if ((_capabilities & CAP_STATE_HOLDER) != 0)
       return StateUtils.saveStateHolder(context, value);
 
-    if (isList())
+    // only serialize as list if this really is a list.  This is necessary because value
+    // could be a ValueExpression
+    if (this._serializeAsList && (value instanceof List))
       return StateUtils.saveList(context, value);
+
+    // warn if we are state saving non-serializable values, as this will cause client
+    // state saving and fail-over to fail.  See JIRA 1236
+    if (!(value instanceof Serializable) && _LOG.isWarning())
+      _LOG.warning("Unserializable value:" + value + " on property key:" + this);
 
     return value;
   }
@@ -227,7 +241,7 @@ public class PropertyKey
     if ((_capabilities & CAP_STATE_HOLDER) != 0)
       return StateUtils.restoreStateHolder(context, savedValue);
 
-    if (isList())
+    if (this._serializeAsList && (savedValue instanceof Object[]))
       return StateUtils.restoreList(context, savedValue);
 
     return savedValue;
@@ -342,8 +356,12 @@ public class PropertyKey
   private final int      _capabilities;
   private final Class<?> _type;
   private final Object   _default;
+  // true if we should use StateUtils.saveList() to save the state
+  private final boolean  _serializeAsList;
   private       FacesBean.Type _owner;
 
+  private static final Class<List> LIST_CLASS = List.class;
+  
   static private final int _CAPS_DEFAULT = 
     0;
   
@@ -359,4 +377,5 @@ public class PropertyKey
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     PropertyKey.class);
 }
+
 
