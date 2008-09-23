@@ -75,7 +75,6 @@
       <property-extension>
         <mfp:property-metadata>
           <mfp:translatable>true</mfp:translatable>
-          <mfp:preferred>true</mfp:preferred>
         </mfp:property-metadata>
       </property-extension>
     </property>
