@@ -105,7 +105,7 @@ public class PasswordValidator implements Validator, ClientValidator
     {
       o = component.getAttributes().get("label");
       if (o == null)
-        o = component.getValueBinding("label");
+        o = component.getValueExpression("label");
     }
     return o;
   }
