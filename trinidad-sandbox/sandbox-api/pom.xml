@@ -33,20 +33,6 @@
   <artifactId>trinidad-sandbox-api</artifactId>
   <packaging>jar</packaging>
 
-  <repositories>
-    <!-- TODO: why is this needed in each child project for continuum? (continuum build breaks if this is not here) -->
-    <repository>
-      <id>java.net</id>
-      <url>http://download.java.net/maven/1</url>
-      <layout>legacy</layout>
-    </repository>
-    <repository>
-      <id>apache.snapshots</id>
-      <name>Apache Snapshot Repository</name>
-      <url>http://people.apache.org/repo/m2-snapshot-repository</url>
-    </repository>
-  </repositories>
-
   <dependencies>
     <dependency>
       <groupId>org.apache.myfaces.trinidad</groupId>
