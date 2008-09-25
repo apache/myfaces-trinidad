@@ -39,6 +39,9 @@
           <tr:panelHeader text="Sandbox Component Demos">
             <tr:panelGroupLayout layout="vertical">
               <tr:goLink
+                text="partialRendered"
+                destination="components/partialRendered.jspx"/>
+              <tr:goLink
                 text="partialTrigger"
                 destination="components/partialTrigger.jspx"/>
               <tr:commandLink text="tableFormLayout" action="guide.tableFormLayout"/>
