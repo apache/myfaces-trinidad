@@ -30,7 +30,7 @@
     <version>1.2.10-SNAPSHOT</version>
   </parent>
 
-  <artifactId>sandbox-demo</artifactId>
+  <artifactId>trinidad-sandbox-demo</artifactId>
   <packaging>war</packaging>
 
   <!-- Project dependencies -->
@@ -91,12 +91,12 @@
 
     <dependency>
       <groupId>${pom.groupId}</groupId>
-      <artifactId>sandbox-api</artifactId>
+      <artifactId>trinidad-sandbox-api</artifactId>
     </dependency>
 
     <dependency>
       <groupId>${pom.groupId}</groupId>
-      <artifactId>sandbox-impl</artifactId>
+      <artifactId>trinidad-sandbox-impl</artifactId>
     </dependency>
 
   </dependencies>

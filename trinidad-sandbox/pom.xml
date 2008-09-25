@@ -33,24 +33,58 @@
   <artifactId>trinidad-sandbox</artifactId>
   <packaging>pom</packaging>
 
+  <scm>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad/trunk_1.2.x/trinidad-sandbox</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad/trunk_1.2.x/trinidad-sandbox</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/myfaces/trinidad/trunk_1.2.x/trinidad-sandbox</url>
+  </scm>
+
+  <issueManagement>
+    <system>jira</system>
+    <url>http://issues.apache.org/jira/browse/TRINIDAD</url>
+  </issueManagement>
+
+  <ciManagement>
+    <system>continuum</system>
+    <url>http://myfaces.zones.apache.org:8080/continuum</url>
+    <notifiers>
+      <notifier>
+        <type>mail</type>
+        <sendOnSuccess>true</sendOnSuccess>
+        <configuration>
+          <address>commits@myfaces.apache.org</address>
+        </configuration>
+      </notifier>
+    </notifiers>
+  </ciManagement>
+  
+  <distributionManagement>
+    <snapshotRepository>
+      <uniqueVersion>false</uniqueVersion>
+      <id>apache-maven-snapshots</id>
+      <name>Apache Maven Snapshot Repository</name>
+      <url>scpexe://minotaur.apache.org/www/people.apache.org/repo/m2-snapshot-repository</url>
+    </snapshotRepository>
+  </distributionManagement>
+
   <dependencyManagement>
     <dependencies>
       <dependency>
         <groupId>org.apache.myfaces.trinidad</groupId>
-        <artifactId>sandbox-build</artifactId>
+        <artifactId>trinidad-sandbox-build</artifactId>
         <version>${pom.version}</version>
         <scope>provided</scope>
       </dependency>
 
       <dependency>
         <groupId>org.apache.myfaces.trinidad</groupId>
-        <artifactId>sandbox-api</artifactId>
+        <artifactId>trinidad-sandbox-api</artifactId>
         <version>${pom.version}</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.myfaces.trinidad</groupId>
-        <artifactId>sandbox-api</artifactId>
+        <artifactId>trinidad-sandbox-api</artifactId>
         <version>${pom.version}</version>
         <type>test-jar</type>
         <scope>test</scope>
@@ -58,7 +92,7 @@
 
       <dependency>
         <groupId>org.apache.myfaces.trinidad</groupId>
-        <artifactId>sandbox-impl</artifactId>
+        <artifactId>trinidad-sandbox-impl</artifactId>
         <version>${pom.version}</version>
       </dependency>
     </dependencies>
