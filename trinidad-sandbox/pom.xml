@@ -57,6 +57,20 @@
       </notifier>
     </notifiers>
   </ciManagement>
+
+  <repositories>
+    <!--Fixme: This repository is pretty bad.  We should move require artifacts to repo1. -->
+    <repository>
+      <id>java.net</id>
+      <url>http://download.java.net/maven/1</url>
+      <layout>legacy</layout>
+    </repository>
+    <repository>
+      <id>apache.snapshots</id>
+      <name>Apache Snapshot Repository</name>
+      <url>http://people.apache.org/repo/m2-snapshot-repository</url>
+    </repository>
+  </repositories>
   
   <distributionManagement>
     <snapshotRepository>
