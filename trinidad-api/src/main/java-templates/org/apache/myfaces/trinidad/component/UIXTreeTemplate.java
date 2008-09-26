@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -28,6 +28,9 @@ import javax.faces.el.MethodBinding;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
+
+import org.apache.myfaces.trinidad.bean.FacesBean;
+import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.event.RowDisclosureEvent;
 import org.apache.myfaces.trinidad.event.SelectionEvent;
 import org.apache.myfaces.trinidad.model.CollectionModel;
@@ -50,19 +53,21 @@ abstract public class UIXTreeTemplate extends UIXHierarchy
 /**/  public abstract MethodExpression getRowDisclosureListener();
 /**/  public abstract UIComponent getNodeStamp();
 /**/  public abstract boolean isInitiallyExpanded();
+/**/  static public final PropertyKey DISCLOSED_ROW_KEYS_KEY = null;
+/**/  static public final PropertyKey SELECTED_ROW_KEYS_KEY = null;
 
   @Deprecated
   public void setRowDisclosureListener(MethodBinding binding)
   {
     setRowDisclosureListener(adaptMethodBinding(binding));
   }
-  
+
   @Deprecated
   public void setSelectionListener(MethodBinding binding)
   {
     setSelectionListener(adaptMethodBinding(binding));
   }
-  
+
   /**
    * Sets the phaseID of UI events depending on the "immediate" property.
    */
@@ -80,7 +85,7 @@ abstract public class UIXTreeTemplate extends UIXHierarchy
    */
   @Override
   public void broadcast(FacesEvent event) throws AbortProcessingException
-  { 
+  {
     if (event instanceof SelectionEvent)
     {
       //pu: Implicitly record a Change for 'selectionState' attribute
@@ -90,17 +95,17 @@ abstract public class UIXTreeTemplate extends UIXHierarchy
       broadcastToMethodExpression(event, getSelectionListener());
     }
 
-    HierarchyUtils.__handleBroadcast(this, 
-                                      event, 
-                                      getDisclosedRowKeys(), 
+    HierarchyUtils.__handleBroadcast(this,
+                                      event,
+                                      getDisclosedRowKeys(),
                                       getRowDisclosureListener());
     super.broadcast(event);
   }
- 
+
   @Override
   public CollectionModel createCollectionModel(CollectionModel current, Object value)
   {
-    
+
     TreeModel model = ModelUtils.toTreeModel(value);
     model.setRowKey(null);
 
@@ -135,9 +140,9 @@ abstract public class UIXTreeTemplate extends UIXHierarchy
     // instead process the "nodeStamp" facet as many times as necessary:
     Object oldPath = getRowKey();
     setRowKey(null);
-    HierarchyUtils.__iterateOverTree(context, 
-                                     phaseId, 
-                                     this, 
+    HierarchyUtils.__iterateOverTree(context,
+                                     phaseId,
+                                     this,
                                      getDisclosedRowKeys(),
                                      true);
     setRowKey(oldPath);
@@ -152,8 +157,8 @@ abstract public class UIXTreeTemplate extends UIXHierarchy
     if (getSelectedRowKeys() == null)
       setSelectedRowKeys(new RowKeySetTreeImpl());
   }
-  
-  
+
+
   /**
    * Gets the internal state of this component.
    */
@@ -162,12 +167,12 @@ abstract public class UIXTreeTemplate extends UIXHierarchy
   {
     Object[] state = new Object[4];
     state[0] = super.__getMyStampState();
-    state[1] = getFocusRowKey();    
+    state[1] = getFocusRowKey();
     state[2] = getSelectedRowKeys();
     state[3] = getDisclosedRowKeys();
     return state;
   }
-  
+
   /**
    * Sets the internal state of this component.
    * @param stampState the internal state is obtained from this object.
@@ -182,9 +187,91 @@ abstract public class UIXTreeTemplate extends UIXHierarchy
     setSelectedRowKeys((RowKeySet) state[2]);
     setDisclosedRowKeys((RowKeySet) state[3]);
   }
-  
-  
-  private final static String EXPAND_ONCE_KEY = "initialExpandCompleted";
+
+  @Override
+  protected FacesBean createFacesBean(String rendererType)
+  {
+    return new RowKeyFacesBeanWrapper(super.createFacesBean(rendererType));
+  }
+
+  private class RowKeyFacesBeanWrapper
+    extends FacesBeanWrapper
+  {
+    private boolean _retrievingDisclosedRows = false;
+    private boolean _retrievingSelectedRows = false;
+
+    RowKeyFacesBeanWrapper(FacesBean bean)
+    {
+      super(bean);
+    }
+
+    @Override
+    public Object getProperty(PropertyKey key)
+    {
+      Object value = super.getProperty(key);
+      if (key == DISCLOSED_ROW_KEYS_KEY)
+      {
+        if (!_retrievingDisclosedRows && value instanceof RowKeySet)
+        {
+          // Ensure that when we are retrieving and setting the collection model, this property
+          // is not asked for which would create an infinite loop
+          _retrievingDisclosedRows = true;
+
+          try
+          {
+            RowKeySet rowKeys = (RowKeySet) value;
+            // row key sets need the most recent collection model, but there is no one common entry
+            // point to set this on the set besides when code asks for the value from the bean
+            rowKeys.setCollectionModel(getCollectionModel());
+          }
+          finally
+          {
+            _retrievingDisclosedRows = false;
+          }
+        }
+      }
+      else if (key == SELECTED_ROW_KEYS_KEY)
+      {
+        if (!_retrievingSelectedRows && value instanceof RowKeySet)
+        {
+          // Ensure that when we are retrieving and setting the collection model, this property
+          // is not asked for which would create an infinite loop
+          _retrievingSelectedRows = true;
+
+          try
+          {
+            RowKeySet rowKeys = (RowKeySet) value;
+            // row key sets need the most recent collection model, but there is no one common entry
+            // point to set this on the set besides when code asks for the value from the bean
+            rowKeys.setCollectionModel(getCollectionModel());
+          }
+          finally
+          {
+            _retrievingSelectedRows = false;
+          }
+        }
+      }
+      return value;
+    }
+
+    @Override
+    public Object saveState(FacesContext context)
+    {
+      RowKeySet rowKeys = (RowKeySet)super.getProperty(DISCLOSED_ROW_KEYS_KEY);
+      if (rowKeys != null)
+      {
+        // make sure the set does not pin the model in memory
+        rowKeys.setCollectionModel(null);
+      }
+      rowKeys = (RowKeySet)super.getProperty(SELECTED_ROW_KEYS_KEY);
+      if (rowKeys != null)
+      {
+        // make sure the set does not pin the model in memory
+        rowKeys.setCollectionModel(null);
+      }
+      return super.saveState(context);
+    }
+  }
 
   /**
    * @see org.apache.myfaces.trinidad.component.UIXCollection#__encodeBegin(javax.faces.context.FacesContext)
@@ -222,6 +309,8 @@ abstract public class UIXTreeTemplate extends UIXHierarchy
       // moment
       getAttributes().put(EXPAND_ONCE_KEY, Boolean.TRUE);
     }
-    super.__encodeBegin(context);    
+    super.__encodeBegin(context);
   }
+
+  private final static String EXPAND_ONCE_KEY = "initialExpandCompleted";
 }

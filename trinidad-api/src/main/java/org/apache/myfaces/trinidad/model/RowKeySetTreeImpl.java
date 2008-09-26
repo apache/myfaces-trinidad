@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -41,7 +41,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  * <P>
  * The generic type E is the type of a rowKey.
  */
-public class RowKeySetTreeImpl extends RowKeySet implements Serializable 
+public class RowKeySetTreeImpl extends RowKeySet implements Serializable
 {
   /**
    * Creates a new Set that is initially empty.
@@ -50,7 +50,7 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
   {
     this(false);
   }
-  
+
   /**
    * Creates a new Set, that may contain every rowKey by default.
    * @param addAll if this is true, every rowKey is initially added to this set.
@@ -90,7 +90,7 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
     else
       return new NodeIterator();
   }
-    
+
   /**
    * Adds the given rowKey to this Set.
    * @return false if the given rowKey was already in this Set.
@@ -100,9 +100,9 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
   @Override
   public boolean add(Object rowKey)
   {
-    return _setContained(rowKey, true);    
+    return _setContained(rowKey, true);
   }
-  
+
   /**
    * Removes the given rowKey from this Set.
    * @return false if the given rowKey was already not in this Set.
@@ -112,7 +112,7 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
   @Override
   public boolean remove(Object rowKey)
   {
-    return _setContained(rowKey, false);    
+    return _setContained(rowKey, false);
   }
 
   /**
@@ -176,11 +176,11 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
 
   private boolean _processOperation(Node<Object> set1, Node<Object> set2, boolean add)
   {
-    /*      
+    /*
      * setXdef = setX.isDefaultContained
      * setXdif = setX.isDifferent
      * asterisks (*) indicate changes.
-     * 
+     *
      * TABLE ---------------------------------------------------
      |-----------Inputs---------|--------Outputs---------------|
      | set1def | set2def | add  | removeAll | addAll | set1def |
@@ -194,7 +194,7 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
      |    1    |    1    |  0   |     1     |   1    |    0*   |
      |---------------------------------------------------------|
      */
-  
+
     boolean hasChanges = false;
 
     // See TABLE (above) 'removeAll' column:
@@ -210,16 +210,16 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
     // Similarly, if set1 has nothing by default and we're removing set2,
     // then there is no point processing any set2-deltas not already in set1.
     // So only process the set2-deltas if we're doing an add (and set1
-    // does not contain everything) or we're doing a remove (and set1 
+    // does not contain everything) or we're doing a remove (and set1
     // has everything):
     boolean addAll = add ^ set1.isDefaultContained;
-    
+
     for(Entry<Object, Node<Object>> en:set2.entrySet())
     {
       Object segment = en.getKey();
       Node<Object> subset2 = en.getValue();
       Node<Object> subset1 = set1.get(segment);
-      
+
       if (subset1 == null)
       {
         if (addAll)
@@ -272,7 +272,7 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
 
   /**
    * Gets the number of elements contained by this set.
-   * Does not force the underlying model to compute its size. 
+   * Does not force the underlying model to compute its size.
    * @return -1 if the number of elements is unknown.
    */
   @Override
@@ -293,7 +293,7 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
   }
 
   @Override
-  public boolean isEmpty() 
+  public boolean isEmpty()
   {
     return (getSize() == 0);
   }
@@ -305,7 +305,7 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
   @Override
   public final void setCollectionModel(CollectionModel model)
   {
-    if (!(model instanceof TreeModel))
+    if (model != null && !(model instanceof TreeModel))
       throw new IllegalArgumentException();
 
     _model = (TreeModel) model;
@@ -348,10 +348,10 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
 
   /**
    * Gets the total number of nodes in the subtree of the given TreeModel.
-   * 
+   *
    * WARNING: this method changes the TreeModel's currency.
    * The caller is responsible for restoring the model currency.
-   * 
+   *
    * @param exclusions any rowKeys present in this Set are excluded from the count.
    */
   @SuppressWarnings("unchecked")
@@ -388,7 +388,7 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
     {
       if (!fetchall)
         return -1;
-        
+
       Object old = model.getRowKey();
       try
       {
@@ -409,7 +409,7 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
         model.setRowKey(old);
       }
     }
-    
+
     for(Entry<Object, Node<Object>> en:set.entrySet())
     {
       Object newrowkey = en.getKey();
@@ -423,7 +423,7 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
   }
 
   /**
-   * adds or removes all the paths rooted at the current path 
+   * adds or removes all the paths rooted at the current path
    * @param isSelectAll if true does an add-all. else does remove-all.
    */
   private void _selectAll(final boolean isSelectAll)
@@ -438,7 +438,7 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
         // to store a delta:
         return (parent.isDefaultContained != isSelectAll);
       }
-      
+
       @Override
       protected Node<Object> found(Node<Object> child)
       {
@@ -451,7 +451,7 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
 
     TreeModel model = getCollectionModel();
     Object rowkey = model.getRowKey();
-    search.find(rowkey);    
+    search.find(rowkey);
   }
 
   private boolean _isContained(Object rowkey)
@@ -463,22 +463,22 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
       {
         return parent.isDefaultContained ? parent : null;
       }
-      
+
       @Override
       protected Node<Object> found(Node<Object> child)
       {
         return (child.isDefaultContained ^ child.isDifferent) ? child : null;
       }
     };
-    
+
     return (search.find(rowkey) != null);
   }
-  
+
   /**
    * Adds or removes the given path from this set.
    * @param isContained If true, the current path is added. Otherwise,
    * it is removed.
-   * @return true if this Set changed due to this operation. 
+   * @return true if this Set changed due to this operation.
    */
   private boolean _setContained(Object rowkey, final boolean isContained)
   {
@@ -491,7 +491,7 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
         // default is wrong:
         return parent.isDefaultContained != isContained;
       }
-      
+
       @Override
       protected Node<Object> notFound(Node<Object> parent, Object rowkey)
       {
@@ -522,7 +522,7 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
     TreeModel model, int minDepth, boolean recurseChildren)
   {
     assert minDepth >= 0;
-    
+
     if (recurseChildren && model.isRowAvailable() && model.isContainer())
     {
       model.enterContainer();
@@ -534,11 +534,11 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
       model.setRowIndex(ri+1);
       if (model.isRowAvailable())
         return true;
-        
+
       int depth = model.getDepth();
       if (depth <= minDepth)
         return false;
-        
+
       model.exitContainer();
     }
   }
@@ -551,7 +551,7 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
   {
     if(_root.isDefaultContained)
       return true;
-    
+
     SetLoop loop = new SetLoop()
     {
       protected boolean next(Object rowKey, Node<Object> value)
@@ -561,7 +561,7 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
     };
     return loop.run(_root);
   }
-  
+
   /**
    * Utility to dump Node attributes
    */
@@ -578,7 +578,6 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
     };
     loop.run(_root);
   }
-  
 
   // Needs to be Serializable and Cloneable - but HashMap already is
   private static final class Node<K> extends HashMap<K, Node<K>>
@@ -591,13 +590,13 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
     {
       this.isDefaultContained = isDefaultContained;
     }
-    
+
     public Node(Node<K> parent, K segment)
     {
       this(parent.isDefaultContained);
       parent.put(segment, this);
     }
-    
+
     // clone all the values as well:
     private void _deepClone(Node<K> root)
     {
@@ -608,7 +607,7 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
         en.setValue(clone);
       }
     }
-    
+
     @SuppressWarnings("unchecked")
     @Override
     public Node<K> clone()
@@ -626,7 +625,7 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
     public Search()
     {
     }
-    
+
     protected boolean create(Node<Object> parent, Object rowkey)
     {
       return false;
@@ -658,7 +657,7 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
           if (next == null)
           {
             if (create(current, key))
-              next = new Node<Object>(current, key);       
+              next = new Node<Object>(current, key);
             else
               return notFound(current, key);
           }
@@ -670,7 +669,7 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
   }
 
   /**
-   * Loop (depth first) over the set or a subset and call a callback function 
+   * Loop (depth first) over the set or a subset and call a callback function
    * for each node
    */
   private static abstract class SetLoop
@@ -678,7 +677,7 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
     public SetLoop()
     {
     }
-    
+
     public boolean run (Node<Object> set)
     {
       for(Entry<Object, Node<Object>> en : set.entrySet())
@@ -692,7 +691,7 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
       }
       return false;
     }
-    
+
     protected abstract boolean next(Object rowKey, Node<Object> value );
   }
 
@@ -715,23 +714,22 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
       _value = nextItem();
       return value;
     }
-    
+
     public boolean hasNext()
     {
       return (_value != null);
     }
-    
+
     public void remove()
     {
       throw new UnsupportedOperationException();
     }
-    
-    
+
     protected Object nextItem()
     {
       return nextModelKey(0);
     }
-    
+
     protected Object nextModelKey(int minDepth)
     {
       TreeModel model = getCollectionModel();
@@ -739,7 +737,7 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
         return null;
 
       Object oldPath = model.getRowKey();
-      try 
+      try
       {
         model.setRowKey(_currPath);
         while(true)
@@ -753,12 +751,13 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
           if (contains(_currPath))
             return _currPath;
         }
-      } finally 
+      }
+      finally
       {
         model.setRowKey(oldPath);
       }
     }
-    
+
     private boolean _containsSubtree(Object rowkey)
     {
       Search search = new Search()
@@ -770,14 +769,14 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
         }
       };
       Node<Object> current = search.find(rowkey);
-      return (current != null) && 
+      return (current != null) &&
         ((!current.isEmpty()) || current.isDefaultContained);
     }
-    
+
     protected Object _value;
     protected Object _currPath = null;
   }
-    
+
   /**
    * An iterator which avoids looping over the model by default (like the
    * PathIterator does). Instead NodeIterator loops over the model only for nodes that are "default contained".
@@ -791,16 +790,16 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
       _currIterator = _root.entrySet().iterator();
       _value = isEmpty() ? null : nextItem(); // initialize;
     }
-        
+
     protected Object nextItem()
     {
       Object nextKey = null;
-      
+
       while(((nextKey = _nextEntry()) == null) && _iteratorStack.size() > 0)
         if(_currPath == null)
           _currIterator = _iteratorStack.pop();
       return nextKey;
-  }
+    }
   
     private Object _nextEntry()
     {
@@ -811,15 +810,15 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
         if(nextKey == null)
         {
           _currPath = null;
-          _nextEntry();          
+          _nextEntry();
         }
       }
       else
-      {      
+      {
         Map.Entry<Object, Node<Object>> nextNode;
         while(nextKey == null && _currIterator.hasNext())
         {
-          nextNode = _currIterator.next();        
+          nextNode = _currIterator.next();
           if(_isContained(nextNode.getKey()))
             nextKey = nextNode.getKey();
           _iteratorStack.push(_currIterator);
@@ -836,16 +835,15 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
           }
         }
       }
-      return nextKey;      
+      return nextKey;
     }
-    
-    private Stack<Iterator <Map.Entry<Object, Node<Object>>>> _iteratorStack = 
+
+    private Stack<Iterator <Map.Entry<Object, Node<Object>>>> _iteratorStack =
       new Stack<Iterator <Map.Entry<Object, Node<Object>>>>();
     private Iterator <Map.Entry<Object, Node<Object>>> _currIterator;
     private int _minDepth;
   }
-  
-  
+
   private Node<Object> _root;
   private transient TreeModel _model = null;
   private static final long serialVersionUID = 1L;

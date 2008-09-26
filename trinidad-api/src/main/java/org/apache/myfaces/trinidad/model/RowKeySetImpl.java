@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -31,6 +31,7 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+
 
 /**
  * Implements a set of rowKeys. This set is connected with a CollectionModel
@@ -248,7 +249,11 @@ public final class RowKeySetImpl extends RowKeySet implements Externalizable
   {
     _model = model;
     if (model == null)
-      _LOG.warning("COLLECTIONMODEL_SET_NULL");
+    {
+      // use a fine warning as null is used to clear the collection model during the
+      // component's state being saved
+      _LOG.fine("COLLECTIONMODEL_SET_NULL");
+    }
   }
 
   /**
