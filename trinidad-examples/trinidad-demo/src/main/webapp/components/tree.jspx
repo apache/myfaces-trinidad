@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
@@ -42,11 +42,11 @@
           </tr:panelGroupLayout>
           <tr:outputFormatted styleUsage="instruction" value="&lt;b>tree&lt;/b>"/>
           <!--
-            <tr:tree value="#{tree.model}" binding="#{editor.component}" />
-            <jsp:directive.include file="editor.jspf" />    
+            <tr:tree value="#{demoTree.model}" binding="#{editor.component}" />
+            <jsp:directive.include file="editor.jspf" />
 -->
           <tr:outputFormatted styleUsage="instruction" value="&lt;b>Tree with TreeModel&lt;/b>"/>
-          <tr:tree binding="#{editor.component}" var="foo" value="#{tree.model}">
+          <tr:tree binding="#{editor.component}" var="foo" value="#{demoTree.model}">
             <f:facet name="nodeStamp">
               <tr:inputText value="#{foo.text}" shortDesc="Enter text"/>
             </f:facet>

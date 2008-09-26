@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
@@ -186,7 +186,7 @@
                       </tr:panelHeader>
                     </tr:showDetailItem>
                   </tr:panelTabbed>
-                  <tr:tree var="foo" value="#{tree.model}">
+                  <tr:tree var="foo" value="#{demoTree.model}">
                       <f:facet name="nodeStamp">
                         <tr:outputText value="#{foo.text}"/>
                       </f:facet>

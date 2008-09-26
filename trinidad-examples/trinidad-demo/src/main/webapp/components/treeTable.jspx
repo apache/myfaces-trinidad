@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
@@ -40,16 +40,16 @@
                        text="Skinning Key Documentation"/>
           </tr:panelGroupLayout>
           <!--
-            <tr:treeTable var="foo" value="#{tree.model}" binding="#{editor.component}">
+            <tr:treeTable var="foo" value="#{demoTree.model}" binding="#{editor.component}">
               <f:facet name="nodeStamp">
                 <tr:outputText value="#{foo.text}"/>
               </f:facet>
             </tr:treeTable>
-            <jsp:directive.include file="editor.jspf" />    
+            <jsp:directive.include file="editor.jspf" />
 -->
           <tr:outputFormatted styleUsage="instruction"
                               value="&lt;b>Editable treeTable with Record Set Navigation&lt;/b>"/>
-          <tr:treeTable binding="#{editor.component}" var="foo" value="#{tree.model}"
+          <tr:treeTable binding="#{editor.component}" var="foo" value="#{demoTree.model}"
                         rendered="true" rowsByDepth="3" summary="Demo of treeTable">
             <f:facet name="nodeStamp">
               <tr:column>
@@ -77,7 +77,7 @@
           </tr:treeTable>
           <jsp:directive.include file="editor.jspf"/>
           <tr:outputFormatted styleUsage="instruction" value="&lt;b>No Focus Column&lt;/b>"/>
-          <tr:treeTable var="foo" value="#{tree.model}" rendered="true" summary="Second treeTable">
+          <tr:treeTable var="foo" value="#{demoTree.model}" rendered="true" summary="Second treeTable">
             <f:facet name="nodeStamp">
               <tr:column>
                 <f:facet name="header">

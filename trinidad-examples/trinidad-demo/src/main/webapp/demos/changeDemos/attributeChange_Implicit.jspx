@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
@@ -30,7 +30,7 @@
         <tr:panelPage>
          <f:facet name="navigationGlobal">
           <tr:navigationPane hint="buttons">
-            <tr:commandNavigationItem 
+            <tr:commandNavigationItem
               text="Return to Change Persistence demo index page"
               immediate="true"
               action="demos.changePersistence"/>
@@ -43,21 +43,21 @@
             <f:facet name="separator">
               <tr:separator/>
             </f:facet>
-            <tr:showDetail 
-              id="hs1" 
+            <tr:showDetail
+              id="hs1"
               partialTriggers="hs1"
               disclosedText="Click to hide me"
               undisclosedText="Click to disclose me">
               <h:outputText value="This showDetail is now Disclosed"/>
             </tr:showDetail>
-            <tr:table 
-              summary="Periodic table" 
+            <tr:table
+              summary="Periodic table"
               id="ta1"
               binding="#{tableActions.table}"
               rowSelection="multiple"
               value="#{periodicTable.tableData}" var="row" rows="10">
               <f:facet name="footer">
-                <tr:commandButton 
+                <tr:commandButton
                   text="Report"
                   actionListener="#{tableActions.performReport}"/>
               </f:facet>
@@ -74,7 +74,7 @@
                 <tr:outputText value="#{row.symbol}"/>
               </tr:column>
             </tr:table>
-            <tr:tree id="tr1" var="foo" value="#{tree.model}">
+            <tr:tree id="tr1" var="foo" value="#{demoTree.model}">
               <f:facet name="nodeStamp">
                 <tr:inputText simple="true" shortDesc="Example" value="#{foo.text}"/>
               </f:facet>
