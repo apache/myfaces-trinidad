@@ -41,7 +41,7 @@
             <descriptor>src/main/assembly/dep.xml</descriptor>
             <descriptor>src/main/assembly/src-all.xml</descriptor>
           </descriptors>
-          <finalName>trinidad-${version}</finalName>
+          <finalName>trinidad-${project.version}</finalName>
           <outputDirectory>target/assembly/out</outputDirectory>
           <workDirectory>target/assembly/work</workDirectory>
         </configuration>

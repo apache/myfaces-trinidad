@@ -40,7 +40,7 @@
         <version>2.0-beta-1</version>
         <configuration>
           <descriptor>src/main/assembly/dep.xml</descriptor>
-          <finalName>trinidad-${version}</finalName>
+          <finalName>trinidad-${project.version}</finalName>
           <outputDirectory>target/assembly/out</outputDirectory>
           <workDirectory>target/assembly/work</workDirectory>
         </configuration>
