@@ -559,6 +559,11 @@ public class CoreRenderer extends Renderer
     return (Agent.AGENT_WEBKIT.equals(arc.getAgent().getAgentName()));
   }
 
+  static public boolean isIPhone(RenderingContext arc)
+  {
+    return (Agent.PLATFORM_IPHONE.equals(arc.getAgent().getPlatformName()));
+  }
+
   static public boolean isInaccessibleMode(RenderingContext arc)
   {
     return (arc.getAccessibilityMode() ==
