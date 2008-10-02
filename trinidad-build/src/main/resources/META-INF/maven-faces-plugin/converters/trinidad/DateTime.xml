@@ -56,11 +56,6 @@
       </description>
       <property-name>messageDetailConvertDate</property-name>
       <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
-      </property-extension>
     </property>
     <property>
       <description><![CDATA[<html><p>
@@ -89,11 +84,6 @@
       </description>
       <property-name>messageDetailConvertTime</property-name>
       <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
-      </property-extension>
     </property>
     <property>
       <description><![CDATA[<html><p>
@@ -122,11 +112,6 @@
       </description>
       <property-name>messageDetailConvertBoth</property-name>
       <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
-      </property-extension>
     </property>
     <property>
       <description><![CDATA[Predefined formatting style which determines how the date component
@@ -150,11 +135,6 @@
       </description>
       <property-name>locale</property-name>
       <property-class>java.util.Locale</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
-      </property-extension>
     </property>
     <property>
       <description><![CDATA[Custom formatting pattern which determines how the date/time string
@@ -175,11 +155,6 @@
       </description>
       <property-name>secondaryPattern</property-name>
       <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
-      </property-extension>
     </property>
     <property>
       <description><![CDATA[Predefined formatting style which determines how the time component of

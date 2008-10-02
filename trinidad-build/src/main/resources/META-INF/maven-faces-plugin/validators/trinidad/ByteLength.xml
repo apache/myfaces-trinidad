@@ -72,11 +72,6 @@
       </description>
       <property-name>messageDetailMaximum</property-name>
       <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
-      </property-extension>
     </property>
    <validator-extension>
       <mfp:tag-name>tr:validateByteLength</mfp:tag-name>

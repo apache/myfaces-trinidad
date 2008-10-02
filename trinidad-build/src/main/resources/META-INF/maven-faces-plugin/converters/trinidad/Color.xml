@@ -83,11 +83,6 @@ user's locale.]]>
       </description>
       <property-name>messageDetailConvert</property-name>
       <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
-      </property-extension>
     </property>
     <converter-extension>
       <mfp:tag-name>tr:convertColor</mfp:tag-name>

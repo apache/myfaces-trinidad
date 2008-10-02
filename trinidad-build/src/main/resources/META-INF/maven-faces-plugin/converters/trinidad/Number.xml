@@ -38,6 +38,11 @@
       </description>
       <property-name>currencyCode</property-name>
       <property-class>java.lang.String</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:preferred>true</mfp:preferred>
+        </mfp:property-metadata>
+      </property-extension>      
     </property>
     <property>
       <description><![CDATA[<html><p>
@@ -64,11 +69,6 @@
       </description>
       <property-name>messageDetailConvertCurrency</property-name>
       <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
-      </property-extension>
     </property>
     <property>
       <description><![CDATA[<html><p>
@@ -94,11 +94,6 @@
       </description>
       <property-name>messageDetailConvertNumber</property-name>
       <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
-      </property-extension>
     </property>
     <property>
       <description><![CDATA[<html><p>
@@ -126,11 +121,6 @@
       </description>
       <property-name>messageDetailConvertPattern</property-name>
       <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
-      </property-extension>
     </property>
     <property>
       <description><![CDATA[<html><p>
@@ -157,13 +147,8 @@
       </description>
       <property-name>messageDetailConvertPercent</property-name>
       <property-class>java.lang.String</property-class>
-      <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
-      </property-extension>
     </property>
-    <property>
+    <property>    
       <description><![CDATA[Currency symbol, is applied only when formatting currencies.
           If currency code is set then symbol will be ignored.]]>
       </description>
@@ -184,6 +169,11 @@
       </description>
       <property-name>integerOnly</property-name>
       <property-class>boolean</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:preferred>true</mfp:preferred>
+        </mfp:property-metadata>
+      </property-extension>      
       <default-value>false</default-value>
     </property>
     <property>
@@ -200,6 +190,11 @@
       </description>
       <property-name>maxFractionDigits</property-name>
       <property-class>int</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:preferred>true</mfp:preferred>
+        </mfp:property-metadata>
+      </property-extension>      
     </property>
     <property>
       <description><![CDATA[Maximum number of digits that will be formatted in the integer portion of the
@@ -207,6 +202,11 @@
       </description>
       <property-name>maxIntegerDigits</property-name>
       <property-class>int</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:preferred>true</mfp:preferred>
+        </mfp:property-metadata>
+      </property-extension>      
     </property>
     <property>
       <description><![CDATA[Minimum number of digits that will be formatted in the fractional portion of
@@ -214,6 +214,11 @@
       </description>
       <property-name>minFractionDigits</property-name>
       <property-class>int</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:preferred>true</mfp:preferred>
+        </mfp:property-metadata>
+      </property-extension>      
     </property>
     <property>
       <description><![CDATA[Minimum number of digits that will be formatted in the integer portion of the
@@ -221,6 +226,11 @@
       </description>
       <property-name>minIntegerDigits</property-name>
       <property-class>int</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:preferred>true</mfp:preferred>
+        </mfp:property-metadata>
+      </property-extension>      
     </property>
     <property>
       <description><![CDATA[Custom formatting pattern which determins how the number string should be
@@ -228,6 +238,11 @@
       </description>
       <property-name>pattern</property-name>
       <property-class>java.lang.String</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:preferred>true</mfp:preferred>
+        </mfp:property-metadata>
+      </property-extension>      
     </property>
     <property>
       <description><![CDATA[Specifies how the number string will be formatted and parsed.
@@ -236,6 +251,11 @@
       </description>
       <property-name>type</property-name>
       <property-class>java.lang.String</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:preferred>true</mfp:preferred>
+        </mfp:property-metadata>
+      </property-extension>      
       <default-value>number</default-value>
     </property>
     <converter-extension>
