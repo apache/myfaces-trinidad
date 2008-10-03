@@ -218,9 +218,8 @@ public class StyleSheetNode
       return 0;
 
     int browser = agent.getAgentApplication();
-    Version version = new Version(agent.getAgentVersion());
     
-    int browserAndVersionMatch = _compareBrowserAndVersion(browser, version);
+    int browserAndVersionMatch = _compareBrowserAndVersion(browser, agent);
     if (browserAndVersionMatch == 0)
       return 0;
     int modeMatch = _compareMode(mode);
@@ -386,7 +385,7 @@ public class StyleSheetNode
   }
 
   //Compares the browser and its version against the supported variants
-  private int _compareBrowserAndVersion(int browser, Version version)
+  private int _compareBrowserAndVersion(int browser, TrinidadAgent agent)
   {
     // If we don't have a browser specified, we match anything
     if (_agentVersions.isEmpty())
@@ -405,6 +404,8 @@ public class StyleSheetNode
       if (versions.isEmpty())
         return _BROWSER_EXACT_MATCH | _VERSION_UNKNOWN_MATCH;
       
+      Version version = new Version(agent.getAgentVersion());
+        
       for (Version av : versions)
       {
         if (av.compareTo(version) == 0)
