@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.w3.org/2001/XMLSchema"
             xmlns:skin="http://myfaces.apache.org/trinidad/skin"
@@ -45,7 +45,7 @@
     </xsd:sequence>
   </xsd:complexType>
   <xsd:complexType name="skinType">
-    <xsd:sequence>
+    <xsd:all>
       <xsd:element name="id" type="string" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
           <xsd:documentation>A string identifier which uniquely identifies this custom skin
@@ -78,25 +78,8 @@
                              skin.</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:choice>
-        <xsd:element name="bundle-name" type="string" minOccurs="0" maxOccurs="1">
-          <xsd:annotation>
-            <xsd:documentation>Name of the bundle for this skin. By default, the custom skin
-                               inherits the translations that are provided by the its parent skin.
-                               The custom skin can override any customizable message by defining its
-                               own ResourceBundles.</xsd:documentation>
-          </xsd:annotation>
-        </xsd:element>
-        <xsd:element name="translation-source" type="string" minOccurs="0" maxOccurs="1">
-          <xsd:annotation>
-            <xsd:documentation>This is an EL binding that can point to a Map or a ResourceBundle.
-                               You can use this instead of the bundle-name if you would like to be
-                               more dynamic in your skin translations at runtime. bundle-name takes
-                               precedence.</xsd:documentation>
-          </xsd:annotation>
-        </xsd:element>
-      </xsd:choice>
-    </xsd:sequence>
+      <xsd:element ref="skin:bundleSource" minOccurs="0" maxOccurs="1" />
+    </xsd:all>
   </xsd:complexType>
   <xsd:complexType name="skinAdditionType">
     <xsd:sequence>
@@ -112,23 +95,28 @@
                              addition.</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:choice>
-        <xsd:element name="bundle-name" type="string" minOccurs="0" maxOccurs="1">
-          <xsd:annotation>
-            <xsd:documentation>Name of the bundle for this skin addition.</xsd:documentation>
-          </xsd:annotation>
-        </xsd:element>
-        <xsd:element name="translation-source" type="string" minOccurs="0" maxOccurs="1">
-          <xsd:annotation>
-            <xsd:documentation>This is an EL binding that can point to a Map or a ResourceBundle.
-                               You can use this instead of the bundle-name if you would like to be
-                               more dynamic in your skin translations at runtime. bundle-name takes
-                               precedence.</xsd:documentation>
-          </xsd:annotation>
-        </xsd:element>
-      </xsd:choice>
+      <xsd:element ref="skin:bundleSource" minOccurs="0" maxOccurs="1" />
     </xsd:sequence>
   </xsd:complexType>
+  <!-- Use XSD "inheritance" of the substitution group to avoid the use of xsd:choice as it
+    is not allowed in an xsd:all element -->
+  <xsd:element name="bundleSource" type="xsd:string" abstract="true" />
+  <xsd:element name="bundle-name" type="xsd:string" substitutionGroup="skin:bundleSource">
+    <xsd:annotation>
+      <xsd:documentation>Name of the bundle for this skin or skin addition. For skins, by default,
+                         the custom skin inherits the translations that are provided by the
+                         its parent skin. The custom skin can override any customizable message
+                         by defining its own ResourceBundles.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="translation-source" type="xsd:string" substitutionGroup="skin:bundleSource">
+    <xsd:annotation>
+      <xsd:documentation>This is an EL binding that can point to a Map or a ResourceBundle.
+                         You can use this instead of the bundle-name if you would like to be
+                         more dynamic in your skin translations at runtime. bundle-name takes
+                         precedence.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
 </xsd:schema>
 
 
