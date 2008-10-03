@@ -18,22 +18,13 @@
  */
 package org.apache.myfaces.trinidadinternal.config.dispatch;
 
-import java.io.IOException;
 import java.util.Map;
 
-import javax.faces.FacesException;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.portlet.PortletContext;
-import javax.portlet.PortletException;
-import javax.portlet.PortletRequestDispatcher;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
 
 import org.apache.myfaces.trinidad.config.Configurator;
-import org.apache.myfaces.trinidad.context.ExternalContextDecorator;
 import org.apache.myfaces.trinidad.util.ExternalContextUtils;
-import org.apache.myfaces.trinidadinternal.webapp.wrappers.PortletContextWrapper;
 
 /**
  * TODO: Document this

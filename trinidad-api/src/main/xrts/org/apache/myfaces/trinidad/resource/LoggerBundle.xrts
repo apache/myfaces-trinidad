@@ -399,4 +399,16 @@
 <!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
 <resource key="DEPRECATED_RELATIVE_ID_SYNTAX">Could not find the component with scopedId {0} from {1} with the supported syntax. The component was found with the deprecated syntax. Please use the supported syntax.</resource>
 
+<!-- UNSERIALIZABLE_PROPERTY_VALUE -->
+<resource key="UNSERIALIZABLE_PROPERTY_VALUE">Unserializable value:{0} on property key:{1}</resource>
+
+<!-- COMPONENT_SAVED_STATE_FAILED -->
+<resource key="COMPONENT_SAVED_STATE_FAILED">Failed to save state for component:{0}</resource>
+
+<!-- COMPONENT_CHILDREN_SAVED_STATE_FAILED -->
+<resource key="COMPONENT_CHILDREN_SAVED_STATE_FAILED">Failed to save state for children of component:{0}</resource>
+
+<!-- COMPONENT_TREE_SERIALIZATION_FAILED -->
+<resource key="COMPONENT_TREE_SERIALIZATION_FAILED">Failed to serialize component tree state</resource>
+
 </resources>

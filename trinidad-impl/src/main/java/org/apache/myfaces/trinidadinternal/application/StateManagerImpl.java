@@ -48,6 +48,11 @@ import org.apache.myfaces.trinidadinternal.util.TokenCache;
 
 import com.sun.facelets.FaceletViewHandler;
 
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectOutputStream;
+
+import org.apache.myfaces.trinidad.bean.util.StateUtils;
+
 /**
  * StateManager that handles a hybrid client/server strategy:  a
  * SerializedView is stored on the server, and only a small token
@@ -978,6 +983,22 @@ public class StateManagerImpl extends StateManagerWrapper
     {
       _structure = structure;
       _state = state;
+      
+      // if component tree serialization checking is on (in order to validate
+      // fail over support, attempt to Serialize all of the component state
+      //  immediately
+      if (StateUtils.checkComponentTreeStateSerialization(fc))
+      {
+        try
+        {
+          new ObjectOutputStream(new ByteArrayOutputStream()).writeObject(state);
+        }
+        catch (IOException e)
+        {          
+          throw new RuntimeException(_LOG.getMessage("COMPONENT_TREE_SERIALIZATION_FAILED"), e);
+        }
+      }
+                  
       // we need this state, as we are going to recreate the UIViewRoot later. see
       // the popRoot() method:
       _cachedState = (root != null)
@@ -1065,53 +1086,6 @@ public class StateManagerImpl extends StateManagerWrapper
       return null;
     }    
   }
-
-  /* =-=AEW A utility function to dump out all the state that's getting
-     sent over.  To compile, you need to make most of TreeState public */
-  /*
-  static private void _dumpState(Object state, int depth)
-  {
-    String out = _SPACES.substring(0, depth * 2);
-    Object objectState = state;
-
-    if (state instanceof org.apache.myfaces.trinidad.component.TreeState)
-      objectState = ((org.apache.myfaces.trinidad.component.TreeState) state)._state;
-
-    if (objectState == null)
-      out += "null";
-    else if (objectState instanceof Object[])
-      out += "array";
-    else
-      out += objectState.toString() + "(" + objectState.getClass() + ")";
-
-    if (objectState instanceof Object[])
-    {
-      Object[] array = (Object[]) objectState;
-      for (int i = 0; i < array.length; i++)
-        _dumpState(array[i], depth + 1);
-    }
-
-
-    if (state instanceof org.apache.myfaces.trinidad.component.TreeState)
-    {
-      Object[] array = ((org.apache.myfaces.trinidad.component.TreeState)state)._children;
-      if (array != null)
-      {
-        for (int i = 0; i < array.length; i++)
-          _dumpState(array[i], depth + 1);
-      }
-
-      array = ((org.apache.myfaces.trinidad.component.TreeState)state)._facets;
-      if (array != null)
-      {
-        for (int i = 0; i < array.length; i++)
-          _dumpState(array[i], depth + 1);
-      }
-    }
-  }
-
-  static private final String _SPACES = "                                                                            ";
-  */
 
   private final StateManager _delegate;
   private       Boolean      _useViewRootCache;

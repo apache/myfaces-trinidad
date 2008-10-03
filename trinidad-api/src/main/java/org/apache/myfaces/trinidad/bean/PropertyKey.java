@@ -228,9 +228,9 @@ public class PropertyKey
     
     // warn if we are state saving non-serializable values, as this will cause client
     // state saving and fail-over to fail.  See JIRA 1236
-    if (!(value instanceof Serializable) && _LOG.isWarning())
-      _LOG.warning("Unserializable value:" + value + " on property key:" + this);
-
+    if ((value != null) && !(value instanceof Serializable) && _LOG.isWarning())
+      _LOG.warning(_LOG.getMessage("UNSERIALIZABLE_PROPERTY_VALUE", new Object[]{value, this}));
+    
     return value;
   }
 
@@ -377,5 +377,6 @@ public class PropertyKey
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     PropertyKey.class);
 }
+
 
 

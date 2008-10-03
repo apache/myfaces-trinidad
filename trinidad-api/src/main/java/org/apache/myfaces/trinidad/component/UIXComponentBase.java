@@ -18,8 +18,11 @@
  */
 package org.apache.myfaces.trinidad.component;
 
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+
 import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
@@ -47,6 +50,7 @@ import javax.faces.render.Renderer;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.FacesBeanFactory;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.bean.util.StateUtils;
 import org.apache.myfaces.trinidad.bean.util.ValueMap;
 import org.apache.myfaces.trinidad.change.AttributeComponentChange;
 import org.apache.myfaces.trinidad.context.RequestContext;
@@ -831,21 +835,52 @@ abstract public class UIXComponentBase extends UIXComponent
 
     if (_LOG.isFiner())
       _LOG.finer("processSaveState() on " + this);
-
-    if (((_children == null) || _children.isEmpty()) &&
-        ((_facets == null) || _facets.isEmpty()))
+    
+    Object state = null;
+    
+    try
     {
-      return saveState(context);
+      if (((_children == null) || _children.isEmpty()) &&
+          ((_facets == null) || _facets.isEmpty()))
+      {
+        state = saveState(context);
+      }
+      else
+      {
+        TreeState treeState = new TreeState();
+        treeState.saveState(context, this);
+        if (treeState.isEmpty())
+          state = null;
+  
+        state = treeState;
+      }
     }
-    else
+    catch (RuntimeException e)
     {
-      TreeState state = new TreeState();
-      state.saveState(context, this);
-      if (state.isEmpty())
-        return null;
-
-      return state;
+      _LOG.warning(_LOG.getMessage("COMPONENT_CHILDREN_SAVED_STATE_FAILED", this));
+      
+      throw e;
     }
+    
+    // if component state serialization checking is on, attempt to Serialize the
+    // component state immediately in order to determine which component's state
+    // failed state saving.  Note that since our parent will attempt this same
+    // serialization, turning this on is expensive and should only be used once
+    // a serialization error has been detected and we want to know which
+    // component's state failed
+    if (StateUtils.checkComponentStateSerialization(context))
+    {
+      try
+      {
+        new ObjectOutputStream(new ByteArrayOutputStream()).writeObject(state);  
+      }
+      catch (IOException e)
+      {
+        throw new RuntimeException(_LOG.getMessage("COMPONENT_SAVED_STATE_FAILED", this), e);
+      }
+    }
+
+    return state;
   }
 
   // TODO  will have deep problems if UIComponent.saveState() ever
