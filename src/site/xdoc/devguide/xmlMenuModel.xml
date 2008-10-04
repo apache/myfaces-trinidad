@@ -78,7 +78,7 @@ using this model.</p>
 
 <source><![CDATA[
 <?xml version="1.0" encoding="iso-8859-1"?>
-<menu xmlns:"http://myfaces.apache.org/trinidad/menu">
+<menu xmlns="http://myfaces.apache.org/trinidad/menu">
   <itemNode id="gin0" label="Global 0" action="goToGlobal0"
             focusViewId="/menuDemo/global0.jspx">
     <itemNode id="in1" label="Tab 1" action="goToTab1"
@@ -149,16 +149,16 @@ look like:</p>
        <managed-bean-name>root_menu</managed-bean-name>
        <managed-bean-class>org.apache.myfaces.trinidad.model.XMLMenuModel</managed-bean-class>
        <managed-bean-scope>request</managed-bean-scope>
-       <managed-attribute>
-         <attribute-name>source</attribute-name>
+       <managed-property>
+         <property-name>source</property-name>
          <value>/WEB-INF/menu-metadata.xml</value>
-       </managed-attribute>
+       </managed-property>
      </managed-bean>
 ]]></source>
 
 <p>The "setSource" method of the XMLMenuModel will be called with the
 location of the menu model's metadata, as specified in the
-"managed-attribute" element. IMPORTANT NOTE: the scope for the menu
+"managed-property" element. IMPORTANT NOTE: the scope for the menu
 model <strong>must</strong> be "request".</p>
 </subsection>
 
@@ -334,7 +334,7 @@ because the sharedNode is at the same level as the global itemNodes
 
 <source><![CDATA[
 <?xml version="1.0" encoding="iso-8859-1"?>
-<menu "http://myfaces.apache.org/trinidad/menu">
+<menu xmlns="http://myfaces.apache.org/trinidad/menu">
   <itemNode id="gin1" label="one" action="goToPageOne"
             focusViewId="/menuDemo/page_one.jspx"/>
   <sharedNode ref="#{xmlMenuModel_subMenu}"/>
@@ -365,7 +365,7 @@ version of the original metadata sample:</p>
 
 <source><![CDATA[
 <?xml version="1.0" encoding="iso-8859-1"?>
-<menu xmlns:"http://myfaces.apache.org/trinidad/menu"
+<menu xmlns="http://myfaces.apache.org/trinidad/menu"
       resourceBundle="org.apache.myfaces.trinidaddemo.xmlMenuModelDemo.resource.MenuBundle"
       var="bundle"/>
   <itemNode id="gin0" label="#{bundle.GLOBAL_TAB_0}" action="goToGlobal0"
