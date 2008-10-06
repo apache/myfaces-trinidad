@@ -41,7 +41,7 @@ class ApplyRequestValuesExecutor implements PhaseExecutor
 
   public boolean execute(FacesContext facesContext)
   {
-    String[] partialTargets = PartialLivecycleUtils.getPartialTargets(facesContext);
+    String[] partialTargets = PartialLifecycleUtils.getPartialTargets(facesContext);
     if (partialTargets != null)
     {
       Map<String, String> parameterMap = facesContext.getExternalContext().getRequestParameterMap();

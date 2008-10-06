@@ -29,7 +29,7 @@ public class UpdateModelValuesExecutor implements PhaseExecutor
 
   public boolean execute(FacesContext facesContext)
   {
-    String[] partialTargets = PartialLivecycleUtils.getPartialTargets(facesContext);
+    String[] partialTargets = PartialLifecycleUtils.getPartialTargets(facesContext);
     if (partialTargets != null)
     {
       for (String clientId : partialTargets)

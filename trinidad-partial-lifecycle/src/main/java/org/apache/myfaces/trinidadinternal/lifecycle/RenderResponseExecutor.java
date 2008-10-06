@@ -46,7 +46,7 @@ public class RenderResponseExecutor implements PhaseExecutor
 
   public boolean execute(FacesContext facesContext)
   {
-    String[] partialTargets = PartialLivecycleUtils.getPartialTargets(facesContext);
+    String[] partialTargets = PartialLifecycleUtils.getPartialTargets(facesContext);
     try
     {
       if (partialTargets != null)
