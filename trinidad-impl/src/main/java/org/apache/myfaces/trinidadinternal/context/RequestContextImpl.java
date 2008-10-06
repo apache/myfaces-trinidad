@@ -19,6 +19,9 @@
 package org.apache.myfaces.trinidadinternal.context;
 
 import java.awt.Color;
+
+import java.io.Serializable;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -38,7 +41,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.myfaces.trinidad.change.ChangeManager;
 import org.apache.myfaces.trinidad.change.SessionChangeManager;
-import org.apache.myfaces.trinidad.component.UIXCollection;
 import org.apache.myfaces.trinidad.config.RegionManager;
 import org.apache.myfaces.trinidad.context.AccessibilityProfile;
 import org.apache.myfaces.trinidad.context.Agent;
@@ -66,6 +68,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 import org.apache.myfaces.trinidadinternal.share.config.UIXCookie;
 import org.apache.myfaces.trinidadinternal.ui.expl.ColorPaletteUtils;
 import org.apache.myfaces.trinidad.util.ExternalContextUtils;
+import org.apache.myfaces.trinidad.util.TransientHolder;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 import org.apache.myfaces.trinidadinternal.webapp.TrinidadFilterImpl;
 
@@ -335,13 +338,15 @@ public class RequestContextImpl extends RequestContext
   {
     FacesContext context = __getFacesContext();
     Map<String, Object> appMap = context.getExternalContext().getApplicationMap();
-    ChangeManager changeManager = (ChangeManager)appMap.get(_CHANGE_MANAGER_KEY);
-
+    ChangeManager changeManager = _getHeldProperty(appMap, _CHANGE_MANAGER_KEY, ChangeManager.class);
+    
     if (changeManager == null)
     {
       changeManager = _createChangeManager();
-      appMap.put(_CHANGE_MANAGER_KEY, changeManager);
+      
+      _setHeldProperty(appMap, _CHANGE_MANAGER_KEY, changeManager);
     }
+    
     return changeManager;
   }
 
@@ -823,6 +828,52 @@ public class RequestContextImpl extends RequestContext
         _addPartialTargets(sofar, target);
       }
     }
+  }
+
+  /**
+   * Convenience function for cached properties potentially held using a TransientHolder 
+   * that hides the TransientHolder.getValue() step from the caller
+   * @param stateMap Map containing TransientHolders to retrieve value from
+   * @param key Key value/TransientHolder value is held under
+   * @param clazz Class of the value
+   * @return The value of the TransientHolder or <Code>null</code> if the TransientHolder doesn't
+   * exist or has the <code>null</code> value (which could happen if the TransientHolder has
+   * been Serialized)
+   */
+  private static <S> S _getHeldProperty(
+    Map<String, ?> stateMap,
+    String         key,
+    Class<S>       clazz)
+  {
+    Object value =  stateMap.get(key);
+
+    if (value != null)
+    {
+      // if the value is already the right class, return it
+      if (clazz.isAssignableFrom(value.getClass()))
+        return (S)value;
+      else
+      {
+        // if the value is helpd in a TransientHolder, return it
+        if (value instanceof TransientHolder)
+        {
+          return ((TransientHolder<S>)value).getValue();
+        }
+      }
+    }
+    
+    return null;
+  }
+
+  private static <S> void _setHeldProperty(
+    Map<String, Object> stateMap,
+    String key,
+    Object value)
+  {
+    if (!(value instanceof Serializable))
+      value = TransientHolder.newTransientHolder(value);
+    
+    stateMap.put(key, value);
   }
 
 

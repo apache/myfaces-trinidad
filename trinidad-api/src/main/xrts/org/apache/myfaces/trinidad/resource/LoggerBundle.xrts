@@ -400,7 +400,22 @@
 <resource key="DEPRECATED_RELATIVE_ID_SYNTAX">Could not find the component with scopedId {0} from {1} with the supported syntax. The component was found with the deprecated syntax. Please use the supported syntax.</resource>
 
 <!-- UNSERIALIZABLE_PROPERTY_VALUE -->
-<resource key="UNSERIALIZABLE_PROPERTY_VALUE">Unserializable value:{0} on property key:{1}</resource>
+<resource key="UNSERIALIZABLE_PROPERTY_VALUE">Unserializable value:{0} for key:{1} in container:{2}</resource>
+
+<!-- UNSERIALIZABLE_PROPERTY_VALUE_NO_CONTAINER -->
+<resource key="UNSERIALIZABLE_PROPERTY_VALUE_NO_CONTAINER">Unserializable value:{0} for key:{1}</resource>
+
+<!-- UNSERIALIZABLE_PROPERTY_KEY -->
+<resource key="UNSERIALIZABLE_PROPERTY_KEY">Unserializable key:{0} in container:{1}</resource>
+
+<!-- FAILED_SERIALIZATION_PROPERTY_VALUE -->
+<resource key="FAILED_SERIALIZATION_PROPERTY_VALUE">Failed to serialize value:{0} for property key:{1} in container:{2}</resource>
+
+<!-- FAILED_SERIALIZATION_PROPERTY_KEY -->
+<resource key="FAILED_SERIALIZATION_PROPERTY_KEY">Failed to serialize key:{0} in container:{1}</resource>
+
+<!-- UNSERIALIZABLE_PROPERTY_KEY -->
+<resource key="UNSERIALIZABLE_PROPERTY_KEY">Unserializable key:{0} on container:{1}</resource>
 
 <!-- COMPONENT_SAVED_STATE_FAILED -->
 <resource key="COMPONENT_SAVED_STATE_FAILED">Failed to save state for component:{0}</resource>

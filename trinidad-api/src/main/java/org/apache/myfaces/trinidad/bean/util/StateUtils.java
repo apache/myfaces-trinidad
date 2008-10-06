@@ -56,6 +56,7 @@ public final class StateUtils
     boolean checkComponentStateSerialization = false;
     boolean checkComponentTreeStateSerialization = false;
     boolean checkSessionSerialization = false;
+    boolean checkApplicationSerialization = false;
 
     String checkSerializationProperty;
 
@@ -75,7 +76,8 @@ public final class StateUtils
     {
       checkSerializationProperty = checkSerializationProperty.toUpperCase();
       
-      String[] paramArray = checkSerializationProperty.split(",");
+      // comma-separated list with allowed whitespace
+      String[] paramArray = checkSerializationProperty.split(",\\s*");
       
       Set<String> serializationFlags = new HashSet<String>(Arrays.asList(paramArray));
       
@@ -87,6 +89,7 @@ public final class StateUtils
           checkComponentStateSerialization = true;
           checkComponentTreeStateSerialization = true;
           checkSessionSerialization = true;
+          checkApplicationSerialization = true;
         }
         else
         {
@@ -94,6 +97,7 @@ public final class StateUtils
           checkComponentStateSerialization = serializationFlags.contains("COMPONENT");
           checkComponentTreeStateSerialization = serializationFlags.contains("TREE");       
           checkSessionSerialization = serializationFlags.contains("SESSION");
+          checkApplicationSerialization = serializationFlags.contains("APPLICATION");
         }
       }
     }
@@ -102,12 +106,14 @@ public final class StateUtils
     _CHECK_COMPONENT_STATE_SERIALIZATION = checkComponentStateSerialization;
     _CHECK_COMPONENT_TREE_STATE_SERIALIZATION = checkComponentTreeStateSerialization;
     _CHECK_SESSION_SERIALIZATION = checkSessionSerialization;
+    _CHECK_APPLICATION_SERIALIZATION = checkApplicationSerialization;
   }
 
   private static final boolean _CHECK_COMPONENT_TREE_STATE_SERIALIZATION;
   private static final boolean _CHECK_COMPONENT_STATE_SERIALIZATION;
   private static final boolean _CHECK_PROPERTY_STATE_SERIALIZATION;
   private static final boolean _CHECK_SESSION_SERIALIZATION;
+  private static final boolean _CHECK_APPLICATION_SERIALIZATION;
 
   /**
    * Returns <code>true</code> if properties should be checked for
@@ -179,8 +185,8 @@ public final class StateUtils
   }
 
   /**
-   * Returns <code>true</code> if Object written to the SessionMap should be checked for
-   * Serializability when <code>put</code> is called.
+   * Returns <code>true</code> if Object written to the ExternalContext's Session Map should be
+   * checked for Serializability when <code>put</code> is called.
    * <p>
    * Configuring this property allows this aspect of high-availability to be tested without
    * configuring the server to run in high-availability mode.
@@ -193,10 +199,33 @@ public final class StateUtils
    * @return
    * @see #checkComponentStateSerialization
    * @see #checkComponentTreeStateSerialization
+   * @see #checkApplicationSerialization
    */
   public static boolean checkSessionSerialization(ExternalContext extContext)
   {
     return _CHECK_SESSION_SERIALIZATION;
+  }
+
+  /**
+   * Returns <code>true</code> if Object written to the ExternalContext's Application Map should be
+   * checked for Serializability when <code>put</code> is called.
+   * <p>
+   * Configuring this property allows this aspect of high-availability to be tested without
+   * configuring the server to run in high-availability mode.
+   * <p>
+   * By default application serialization checking is off.  It can be
+   * enabled by setting the system property
+   * <code>org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION</code>
+   * to <code>all</code> or, more commonly, adding <code>application</code> to the
+   * comma-separated list of serialization checks to perform.
+   * @return
+   * @see #checkComponentStateSerialization
+   * @see #checkComponentTreeStateSerialization
+   * @see #checkSessionSerialization
+   */
+  public static boolean checkApplicationSerialization(ExternalContext extContext)
+  {
+    return _CHECK_APPLICATION_SERIALIZATION;
   }
 
   /**
@@ -283,7 +312,7 @@ public final class StateUtils
         catch (IOException e)
         {          
           throw new RuntimeException(_LOG.getMessage("UNSERIALIZABLE_PROPERTY_VALUE",
-                                                     new Object[]{saveValue, key}),
+                                                     new Object[]{saveValue, key, map}),
                                      e);
         }
       }
@@ -561,5 +590,6 @@ public final class StateUtils
 
 
 }
+
 
 

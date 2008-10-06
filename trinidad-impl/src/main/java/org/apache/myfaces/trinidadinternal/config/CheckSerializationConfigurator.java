@@ -28,6 +28,7 @@ import javax.faces.context.ExternalContext;
 import org.apache.myfaces.trinidad.bean.util.StateUtils;
 import org.apache.myfaces.trinidad.config.Configurator;
 import org.apache.myfaces.trinidad.context.ExternalContextDecorator;
+import org.apache.myfaces.trinidad.util.CollectionUtils;
 
 /**
  * Configurator that uses a wrapped ExternalContext to return a Session Map that validates that
@@ -45,9 +46,12 @@ public final class CheckSerializationConfigurator extends Configurator
   @Override
   public ExternalContext getExternalContext(ExternalContext externalContext)
   {
-    if (StateUtils.checkSessionSerialization(externalContext))
+    boolean checkSession = StateUtils.checkSessionSerialization(externalContext);
+    boolean checkApplication = StateUtils.checkApplicationSerialization(externalContext);
+      
+    if (checkSession || checkApplication)
     {
-      return new SessionSerializationChecker(externalContext);
+      return new SessionSerializationChecker(externalContext, checkSession, checkApplication);
     }
     else
     {
@@ -60,29 +64,65 @@ public final class CheckSerializationConfigurator extends Configurator
    */
   private static class SessionSerializationChecker extends ExternalContextDecorator
   {
-    public SessionSerializationChecker(ExternalContext extContext)
+    public SessionSerializationChecker(
+      ExternalContext extContext,
+      boolean checkSession,
+      boolean checkApplication)
     {
       _extContext = extContext;
       
-      // skank using type erasure to finess the fact that Collections.checkedMap() expects and
-      // will return a Map<String, Serializable> when in fact, we should be returning a
-      // Map<String, Onject>.  Using checkedMap also has the disadvantage that a ClassCastException
-      // is thrown when we would really prefer to throw a more-explanatory message
-      Map erasedMap = extContext.getSessionMap();
-      _sessionMap = (Map)Collections.checkedMap(erasedMap, String.class, Serializable.class);
-    }
+      Map<String, Object> sessionMap = extContext.getSessionMap();
+      
+      if (checkSession)
+      {
+        // skank using type erasure to finess the fact that Collections.checkedMap() expects and
+        // will return a Map<String, Serializable> when in fact, we should be returning a
+        // Map<String, Onject>.  Using checkedMap also has the disadvantage that a ClassCastException
+        // is thrown when we would really prefer to throw a more-explanatory message
+        //Map erasedMap = sessionMap;
+        //_sessionMap = (Map)Collections.checkedMap(erasedMap, String.class, Serializable.class);
+        _sessionMap =  CollectionUtils.getCheckedSerializationMap(sessionMap);
+      }
+      else
+      {
+        _sessionMap = sessionMap;
+      }
+ 
+      Map<String, Object> applicationMap = extContext.getApplicationMap();
+      
+      if (checkApplication)
+      {
+        // skank using type erasure to finess the fact that Collections.checkedMap() expects and
+        // will return a Map<String, Serializable> when in fact, we should be returning a
+        // Map<String, Onject>.  Using checkedMap also has the disadvantage that a ClassCastException
+        // is thrown when we would really prefer to throw a more-explanatory message
+        //Map erasedMap = applicationMap;
+        //_applicationMap = (Map)Collections.checkedMap(erasedMap, String.class, Serializable.class);
+        _applicationMap =  CollectionUtils.getCheckedSerializationMap(applicationMap);
+      }
+      else
+      {
+        _applicationMap = applicationMap;
+      }
+   }
 
     protected ExternalContext getExternalContext()
     {
       return _extContext;
     }
 
-    public Map getSessionMap()
+    public Map<String, Object> getSessionMap()
     {
       return _sessionMap;
     }
-    
+
+    public Map<String, Object> getApplicationMap()
+    {
+      return _applicationMap;
+    }
+   
     private final ExternalContext _extContext;
     private final Map _sessionMap;
+    private final Map _applicationMap;
   }
 }
