@@ -77,7 +77,7 @@ public final class StateUtils
       checkSerializationProperty = checkSerializationProperty.toUpperCase();
       
       // comma-separated list with allowed whitespace
-      String[] paramArray = checkSerializationProperty.split(",\\s*");
+      String[] paramArray = checkSerializationProperty.split(",");
       
       Set<String> serializationFlags = new HashSet<String>(Arrays.asList(paramArray));
       
@@ -590,6 +590,7 @@ public final class StateUtils
 
 
 }
+
 
 
 

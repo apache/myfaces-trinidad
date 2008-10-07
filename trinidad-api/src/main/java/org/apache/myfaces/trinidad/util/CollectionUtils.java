@@ -27,8 +27,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
@@ -74,6 +76,43 @@ public final class CollectionUtils
 
   /**
    * Returns a List based on the passed in List <code>l</code>,
+   * guaranteed to be Serializable. List <code>l</code> will be
+   * wrapped in a List that implements Serializable and upon
+   * Serialization the contents of <code>l</code> will be copied into
+   * the result.
+   * <p>
+   * If <code>l</code> implements RandomAccess, any returned List will also
+   * implement RandomAccess.
+   * <p>
+   * The results is very similar to creating a new ArrayList with the
+   * contents of <code>l</code>, but no wrapper is created unless necessary
+   * and the actual creation of the Serializable copy is deferred until
+   * Serialization occurs.
+   * <p>
+   * Code that calls List.subList() and needs the result to be Serializable should always
+   * use <code>newSerializableList</code> rather than <code>getSerializableList</code> because
+   * the <code>java.util.Collections</code> implementations of <code>checkedList</code>,
+   * <code>unmodifiableList</code>, and <code>synchronizedList</code> all lie and always implement
+   * Serializable, regardless of the serializability of their backing List.
+   * @param l The List to get a Serializable version of
+   * @return A Serializable version of List <code>l</code>
+   * @see #getSerializableList
+   * @see #getSerializableCollection
+   */
+  public static <T> List<T> newSerializableList(List<T> l)
+  {
+    if (l instanceof RandomAccess)
+    {
+      return new SerializableRandomAccessList<T>(l);
+    }
+    else
+    {
+      return new SerializableList<T>(l);
+    }
+  }
+
+  /**
+   * Returns a List based on the passed in List <code>l</code>,
    * guaranteed to be Serializable. If <code>l</code> is Serializable,
    * <code>l</code> will be returned, otherwise, <code>l</code> will be
    * wrapped in a List that implements Serializable and upon
@@ -87,24 +126,29 @@ public final class CollectionUtils
    * contents of <code>l</code>, but no wrapper is created unless necessary
    * and the actual creation of the Serializable copy is deferred until
    * Serialization occurs.
+   * <p>
+   * Code that calls List.subList() and needs the result to be Serializable should always
+   * use <code>newSerializableList</code> rather than <code>getSerializableList</code> because
+   * the <code>java.util.Collections</code> implementations of <code>checkedList</code>,
+   * <code>unmodifiableList</code>, and <code>synchronizedList</code> all lie and always implement
+   * Serializable, regardless of the serializability of their backing List.
    * @param l The List to get a Serializable version of
    * @return A Serializable version of List <code>l</code>
+   * @see #newSerializableList
    * @see #getSerializableCollection
    */
   public static <T> List<T> getSerializableList(List<T> l)
   {
-    if (l instanceof Serializable)
+    // because we can't trust the implementations of the checked, unmodifiable, and synchronized
+    // versions, always create a Serializable wrapper if we see one of these classes
+    if ((l instanceof Serializable) &&
+         !_CHECKED_LIST.isInstance(l) &&
+         !_UNMODIFIABLE_LIST.isInstance(l) &&
+         !_SYNCHRONIZED_LIST.isInstance(l))
       return l;
     else
     {
-      if (l instanceof RandomAccess)
-      {
-        return new SerializableRandomAccessList<T>(l);
-      }
-      else
-      {
-        return new SerializableList<T>(l);
-      }
+      return newSerializableList(l);
     }
   }
   
@@ -224,12 +268,11 @@ public final class CollectionUtils
   {
     SerializableCollection(Collection<E> delegate)
     {
+      // we don't check that the delegate is Serializable because of the Collections
+      // classes that lie about Serializability
       if (delegate == null)
         throw new NullPointerException();
-      
-      if (delegate instanceof Serializable)
-        throw new IllegalArgumentException();
-      
+           
       _delegate = delegate;
     }
 
@@ -667,6 +710,25 @@ public final class CollectionUtils
     private final Map<K, V> _delegate;
   }
 
+  //
+  // Build up references to implementation classes used by Collections to implement the following
+  // features.  This way we can detect when these classes are used and work around problems.
+  //
+  private static final Class<? extends List> _CHECKED_LIST;
+  private static final Class<? extends List> _UNMODIFIABLE_LIST;
+  private static final Class<? extends List> _SYNCHRONIZED_LIST;
+  
+  static
+  {
+    // use a LinkedList as it doesn't implement RandomAccess, so that we don't accidentally get
+    // the RandomAccess subclasses
+    LinkedList<Object> dummyList = new LinkedList<Object>();
+    
+    _CHECKED_LIST      = Collections.checkedList(dummyList, Object.class).getClass();
+    _UNMODIFIABLE_LIST = Collections.unmodifiableList(dummyList).getClass();
+    _SYNCHRONIZED_LIST = Collections.synchronizedList(dummyList).getClass();
+  }
+  
   private static final TrinidadLogger _LOG = 
                                         TrinidadLogger.createTrinidadLogger(CollectionUtils.class);
 

@@ -192,7 +192,7 @@ public class ChildPropertyTreeModel extends TreeModel
 
     // wrap sublist in a Serializable copy, since sublist usually returns non-Serializable
     // instances
-    return CollectionUtils.getSerializableList(path.subList(0, path.size() - 1));
+    return CollectionUtils.newSerializableList(path.subList(0, path.size() - 1));
   }
 
   @Override
