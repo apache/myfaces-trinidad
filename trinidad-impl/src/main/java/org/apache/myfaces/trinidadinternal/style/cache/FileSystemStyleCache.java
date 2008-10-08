@@ -1547,6 +1547,7 @@ public class FileSystemStyleCache implements StyleProvider
       if (_out != null)
       {
         _out.close();
+        _out = null;
       }
     }
   }
