@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -22,7 +22,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.myfaces.trinidad.skin.Skin;
-
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.StyleProvider;
 import org.apache.myfaces.trinidadinternal.style.cache.FileSystemStyleCache;
@@ -40,20 +39,20 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 public class SkinStyleProvider extends FileSystemStyleCache
 {
   /**
-   * Returns a shared instance of the SkinStyleProvider. 
+   * Returns a shared instance of the SkinStyleProvider.
    * The StyleProvider combines styles from two sources.  First,
    * styles are pulled from the current Skin, which is
    * retrieved from the RenderingContext.  Then, styles are pulled
    * from the custom style sheet, as identified by the (possibly null)
    * customStyleSheetPath argument.  Styles specified by the custom
-   * style sheet take precedence over styles provided by the 
+   * style sheet take precedence over styles provided by the
    * Skin.
-   * 
+   *
    * @param context The current RenderingContext, which provides
    *          access to the current Skin.
    * @param targetDirectoryPath The full file system path of the
    *          directory where generated CSS files are stored.
-   *          If the directory does not exist and cannot be 
+   *          If the directory does not exist and cannot be
    *          created, an IllegalArgumentException is thrown.
    * @throws IllegalArgumentException This exception is thrown
    *         if no Skin is found, or if either of the
@@ -78,7 +77,7 @@ public class SkinStyleProvider extends FileSystemStyleCache
 
     // Create the key object that we use to look up our
     // shared SkinStyleProvider instance
-    ProviderKey key = new ProviderKey(skin, 
+    ProviderKey key = new ProviderKey(skin,
                                       targetDirectoryPath);
 
     // Get our cache of existing StyleProviders
@@ -106,7 +105,7 @@ public class SkinStyleProvider extends FileSystemStyleCache
   }
 
   /**
-   * Creates SkinStyleProvider instance.  
+   * Creates SkinStyleProvider instance.
    * Only subclasses should call this method.  All other
    * clients should use getSkinStyleProvider().
    * @param skin The Skin which defines the
@@ -156,7 +155,7 @@ public class SkinStyleProvider extends FileSystemStyleCache
     synchronized (this)
     {
       // gets the skin's StyleSheetDocument (it creates it if needed)
-      skinDocument = _skinDocument = 
+      skinDocument = _skinDocument =
         ((DocumentProviderSkin) _skin).getStyleSheetDocument(context);
     }
 
@@ -182,7 +181,7 @@ public class SkinStyleProvider extends FileSystemStyleCache
     // Synchronize access to _skinDocument
     synchronized (this)
     {
-      return (_skinDocument != 
+      return (_skinDocument !=
               ((DocumentProviderSkin) _skin).getStyleSheetDocument(context));
     }
   }
@@ -216,12 +215,12 @@ public class SkinStyleProvider extends FileSystemStyleCache
 
     return name;
   }
-  
+
   // Returns a Map which hashes ProviderKeys to shared instances
   // of SkinStyleProviders.
   private static Map<ProviderKey, StyleProvider> _getProviders()
   {
-    // =-=ags For now, we just use a global variable.  But 
+    // =-=ags For now, we just use a global variable.  But
     //        really, our cache should probably be hanging off
     //        of the ServletContext.
     return _sSharedProviders;
@@ -246,7 +245,7 @@ public class SkinStyleProvider extends FileSystemStyleCache
     {
       if (o == this)
         return true;
-      
+
       if (!(o instanceof ProviderKey))
         return false;
 
@@ -281,15 +280,15 @@ public class SkinStyleProvider extends FileSystemStyleCache
     private Skin _skin;
     private String      _targetDirectoryPath;
   }
- 
+
   // The Skin which provides styles
   private Skin _skin;
 
-  // The Skin-specific StyleSheetDocument 
+  // The Skin-specific StyleSheetDocument
   private StyleSheetDocument _skinDocument;
 
   // Cache of shared SkinStyleProvider instances
-  private static final Map<ProviderKey, StyleProvider> _sSharedProviders = 
+  private static final Map<ProviderKey, StyleProvider> _sSharedProviders =
     new HashMap<ProviderKey, StyleProvider>(31);
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     SkinStyleProvider.class);

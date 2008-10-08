@@ -476,7 +476,7 @@ public class CSSGenerationUtils
     String              namespace,
     Map<String, String> afSelectorMap)
   {
-  if (selector == null)
+    if (selector == null)
       return null;
     int afIndex = selector.indexOf(namespace);
 
