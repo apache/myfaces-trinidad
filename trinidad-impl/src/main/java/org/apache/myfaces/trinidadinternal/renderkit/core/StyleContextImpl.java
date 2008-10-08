@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -38,6 +38,7 @@ import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.StyleMap;
 import org.apache.myfaces.trinidadinternal.style.StyleProvider;
 
+
 class StyleContextImpl implements StyleContext
 {
   public StyleContextImpl(
@@ -47,7 +48,7 @@ class StyleContextImpl implements StyleContext
     _arc = arc;
     _generatedFilesPath = generatedFilesPath;
 
-    // Our style/skin code assumes that we have access to a 
+    // Our style/skin code assumes that we have access to a
     // non-null accessibility profile.  Check that here.
     assert(_arc.getAccessibilityProfile() != null);
   }
@@ -145,12 +146,12 @@ class StyleContextImpl implements StyleContext
     {
       return null;
     }
-    
+
     public Map<String, String> getShortStyleClasses(StyleContext context)
     {
       return null;
     }
-    
+
     public List<String> getStyleSheetURIs(StyleContext context)
     {
       return null;
@@ -165,12 +166,12 @@ class StyleContextImpl implements StyleContext
     {
       return null;
     }
-    
+
     public ConcurrentMap<Object, Object> getSkinProperties(StyleContext context)
     {
       return null;
     }
-    
+
     private static StyleProvider _sInstance;
   }
 
