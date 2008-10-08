@@ -149,7 +149,7 @@ abstract public class FacesBeanImpl implements FacesBean
     if (ve instanceof ValueBindingValueExpression)
       return ((ValueBindingValueExpression) ve).getValueBinding();
       
-    return new ValueExpressionValueBinding(ve);
+    return ValueExpressionValueBinding.newValueExpressionValueBinding(ve);
   }
 
   final public void setValueBinding(PropertyKey key, ValueBinding binding)
@@ -162,7 +162,7 @@ abstract public class FacesBeanImpl implements FacesBean
     }
     else
     {
-      ve = new ValueBindingValueExpression(binding);
+      ve = ValueBindingValueExpression.newValueBindingValueExpression(binding);
     }
 
     setValueExpression(key, ve);

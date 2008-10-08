@@ -18,19 +18,43 @@
  */
 package org.apache.myfaces.trinidad.bean;
 
+import java.io.Serializable;
+
 import javax.el.ELException;
 import javax.el.ValueExpression;
 
+import javax.faces.component.StateHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.el.EvaluationException;
 import javax.faces.el.ValueBinding;
 
 @Deprecated
-public class ValueExpressionValueBinding
-  extends ValueBinding
+public class ValueExpressionValueBinding extends ValueBinding
 {
-  public ValueExpressionValueBinding(ValueExpression ve)
+  public static ValueExpressionValueBinding newValueExpressionValueBinding(ValueExpression ve)
   {
+    if (ve instanceof StateHolder)
+    {
+      if (ve instanceof Serializable)
+        return new SerializableStateHolderValueExpressionValueBinding(ve);
+      else
+        return new StateHolderValueExpressionValueBinding(ve);      
+    }
+    else if (ve instanceof Serializable)
+    {
+      return new SerializableValueExpressionValueBinding(ve);
+    }
+    else
+    {
+      return new ValueExpressionValueBinding(ve);      
+    }    
+  }
+  
+  private ValueExpressionValueBinding(ValueExpression ve)
+  {
+    if (ve == null)
+      throw new NullPointerException();
+    
     _ve = ve;
   }
 
@@ -90,6 +114,79 @@ public class ValueExpressionValueBinding
       throw new EvaluationException(ee.getMessage(), ee.getCause());
     }
   }
+
+  public boolean equals(Object o)
+  {
+    if (o == this)
+      return true;
+    
+    if (!(o instanceof ValueExpressionValueBinding))
+      return false;
+      
+    ValueExpressionValueBinding that = (ValueExpressionValueBinding) o;
+    return that._ve.equals(_ve);
+  }
+
+  public int hashCode()
+  {
+    return _ve.hashCode();
+  }
   
+  public String toString()
+  {
+    return super.toString() + ", expression=" + _ve;
+  }
+
+  private static class SerializableValueExpressionValueBinding extends ValueExpressionValueBinding
+                                                               implements Serializable                                                 
+  {
+    public SerializableValueExpressionValueBinding(ValueExpression ve)
+    {
+      super(ve);
+    }
+  }
+  
+  private static class StateHolderValueExpressionValueBinding extends ValueExpressionValueBinding
+                                                              implements StateHolder
+  {
+    public StateHolderValueExpressionValueBinding(ValueExpression ve)
+    {
+      super(ve);
+      _stateHolder = (StateHolder)ve;
+    }
+    
+    public Object saveState(FacesContext facesContext)
+    {
+      return _stateHolder.saveState(facesContext);
+    }
+
+    public void restoreState(FacesContext facesContext, Object object)
+    {
+      _stateHolder.restoreState(facesContext, object);
+    }
+
+    public boolean isTransient()
+    {
+      return _stateHolder.isTransient();
+    }
+
+    public void setTransient(boolean b)
+    {
+      _stateHolder.setTransient(b);
+    }
+    
+    private final StateHolder _stateHolder;
+  }
+  
+  private static class SerializableStateHolderValueExpressionValueBinding extends 
+                                                             StateHolderValueExpressionValueBinding
+                                                              implements Serializable
+  {
+    public SerializableStateHolderValueExpressionValueBinding(ValueExpression ve)
+    {
+      super(ve);
+    }
+  }
+
   private final ValueExpression _ve;
 }
