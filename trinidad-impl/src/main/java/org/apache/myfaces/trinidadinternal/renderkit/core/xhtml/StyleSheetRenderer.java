@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
+
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +35,7 @@ import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.StyleProvider;
+
 
 /**
  * Renderer for meta data section of the document--a.k.a &lt;head&gt;.
@@ -86,7 +88,7 @@ public class StyleSheetRenderer extends XhtmlRenderer
     StyleProvider provider = sContext.getStyleProvider();
     if (provider != null)
     {
-      List<String> hrefs = provider.getStyleSheetURIs(sContext);
+      List<String> uris = provider.getStyleSheetURIs(sContext);
 
       // If the requestMap has a skin-id, a skin's stylesheet's id and suppressStylesheet
       // is true, and the skin information matches our current skin, then it is safe
@@ -95,33 +97,36 @@ public class StyleSheetRenderer extends XhtmlRenderer
       boolean suppressStylesheet = _isSuppressStylesheet(context, arc);
       if (!suppressStylesheet)
       {
-        if (hrefs != null && !hrefs.isEmpty())
+        if (uris != null && !uris.isEmpty())
         {
           ExternalContext externalContext = context.getExternalContext();
           String contextUri = externalContext.getRequestContextPath();
           String baseURL = contextUri + XhtmlConstants.STYLES_CACHE_DIRECTORY;
 
           String outputMode = arc.getOutputMode();
-          boolean asScript = XhtmlConstants.OUTPUT_MODE_PORTLET.equals(outputMode) 
-              && supportsScripting(arc);
-          
-          for (String href : hrefs)
+          // =-=AEW Don't like hardcoding facet names...
+          if (XhtmlConstants.OUTPUT_MODE_PORTLET.equals(outputMode) &&
+              supportsScripting(arc))
           {
-            String url = baseURL + href;
-            if (asScript)
+            writer.startElement("script", null);
+            writer.writeText("var _adfSS;if(!_adfSS){_adfSS=1;", null);
+            for (String uri : uris)
             {
-              writer.startElement("script", null);
-              writer.writeText("var _adfSS;if(!_adfSS){_adfSS=1;document.write(\"" +
+              writer.writeText("document.write(\"" +
                             "<link rel=\\\"stylesheet\\\" "+
                             "charset=\\\"UTF-8\\\" type=\\\"text/css\\\" " +
                             "href=\\\"",
                 null);
-              String uri = context.getExternalContext().encodeResourceURL(url);
+              uri = context.getExternalContext().encodeResourceURL(baseURL + uri);
               writer.writeText(uri, null);
-              writer.writeText("\\\">\")}", null);
-              writer.endElement("script");
+              writer.writeText("\\\">\");", null);
             }
-            else
+            writer.writeText("}", null);
+            writer.endElement("script");
+          }
+          else
+          {
+            for (String uri : uris)
             {
               writer.startElement("link", null);
               renderId(context, comp);
@@ -131,7 +136,7 @@ public class StyleSheetRenderer extends XhtmlRenderer
               String type = provider.getContentStyleType(sContext);
               writer.writeAttribute("type", type, null);
 
-              renderEncodedResourceURI(context, "href", url);
+              renderEncodedResourceURI(context, "href", baseURL + uri);
               writer.endElement("link");
             }
           }
@@ -160,11 +165,11 @@ public class StyleSheetRenderer extends XhtmlRenderer
   }
 
   // returns true if we want to suppress the stylesheet.
-  // It checks for suppressStylesheet flag on the request map and 
+  // It checks for suppressStylesheet flag on the request map and
   // for the skin-id on the request map to exist identically on the server.
   //
   // This is usually called in a portal environment when we want to suppress the
-  // producer (portlet)'s stylesheet and use the consumer (portal container)'s 
+  // producer (portlet)'s stylesheet and use the consumer (portal container)'s
   // instead for performance enhancements.
   private boolean _isSuppressStylesheet(FacesContext context,  RenderingContext arc)
   {

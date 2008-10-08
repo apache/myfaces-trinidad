@@ -31,35 +31,29 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 
 import org.apache.myfaces.trinidad.context.AccessibilityProfile;
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
 import org.apache.myfaces.trinidad.context.Agent;
-import org.apache.myfaces.trinidad.context.RequestContext;
-
 import org.apache.myfaces.trinidad.context.FormData;
 import org.apache.myfaces.trinidad.context.LocaleContext;
-import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.context.PartialPageContext;
-
+import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.SkinFactory;
-import org.apache.myfaces.trinidad.skin.Icon;
-
+import org.apache.myfaces.trinidadinternal.agent.AgentUtil;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgentImpl;
-import org.apache.myfaces.trinidadinternal.agent.AgentUtil;
-
-
-import org.apache.myfaces.trinidadinternal.skin.SkinNotAvailable;
-
-import org.apache.myfaces.trinidadinternal.style.StyleContext;
-import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.share.nls.MutableDecimalFormatContext;
 import org.apache.myfaces.trinidadinternal.share.nls.MutableLocaleContext;
 import org.apache.myfaces.trinidadinternal.skin.RequestSkinWrapper;
+import org.apache.myfaces.trinidadinternal.skin.SkinNotAvailable;
+import org.apache.myfaces.trinidadinternal.style.StyleContext;
+import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
+
 
 public class CoreRenderingContext extends RenderingContext
 {
@@ -246,8 +240,7 @@ public class CoreRenderingContext extends RenderingContext
     if (_styleContext == null)
     {
       FacesContext fContext = FacesContext.getCurrentInstance();
-      _styleContext = new StyleContextImpl(this,
-                                           getTemporaryDirectory(fContext));
+      _styleContext = new StyleContextImpl(this, getTemporaryDirectory(fContext));
     }
 
     return _styleContext;
@@ -456,7 +449,7 @@ public class CoreRenderingContext extends RenderingContext
             // directory. Otherwise the following code would get an error when it
             // tries to getStyleDir. This could possibly be done better.
             getStyleContext().getStyleProvider();
-            
+
             String skinForPortalStyleSheetId = requestedSkin.getStyleSheetDocumentId(this);
             if (skinForPortalStyleSheetId != null &&
                 skinForPortalStyleSheetId.equals(requestMapStyleSheetId))

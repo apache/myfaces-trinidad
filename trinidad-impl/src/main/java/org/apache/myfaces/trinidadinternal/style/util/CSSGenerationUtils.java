@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidadinternal.style.util;
 
 import java.io.PrintWriter;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -30,16 +31,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
-
 import java.util.regex.Pattern;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.PropertyNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleNode;
+
 
 /**
  * CSS-generation related utilities used when we write out our css-2 stylesheet
@@ -50,17 +50,15 @@ import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleNode;
 
 public class CSSGenerationUtils
 {
-
-
   /**
-    * Converts the specified set of StyleNodes to CSS. We output either full styleclass names or
-    * compressed styleclass names.
+   * Converts the specified set of StyleNodes to CSS. We output either full styleclass names or
+   * compressed styleclass names.
    *
    * @param context The current StyleContext
    * @param styleSheetName The stylesheet name that is registered with the skin.
    *     e.g. skins/purple/purpleSkin.css
    * @param styles The style nodes to convert
-   * @param out The PrintWriter to write to
+   * @param writerFactory The factory to obtain {@link PrintWriter} instances
    * @param compressStyles This tells us whether or not we want to output the short names.
    * @param shortStyleClassMap A Map which maps style
    *   class names to short names.
@@ -69,17 +67,23 @@ public class CSSGenerationUtils
    * @param afSelectorMap A Map which maps the namespaced component selectors
    *   to their base names (e.g., 'af|menuPath::step' maps to 'af|menuPath A')
    */
-  public static void writeCSS(StyleContext        context,
-                              String              styleSheetName,
-                              StyleNode[]         styles,
-                              PrintWriter         out,
-                              boolean             compressStyles,
-                              Map<String, String> shortStyleClassMap,
-                              String[]            namespacePrefixArray,
-                              Map<String, String> afSelectorMap,
-                              int 				        startIndex,
-                              int					        count)
+  public static void writeCSS(
+    StyleContext        context,
+    String              styleSheetName,
+    StyleNode[]         styles,
+    StyleWriterFactory  writerFactory,
+    boolean             compressStyles,
+    Map<String, String> shortStyleClassMap,
+    String[]            namespacePrefixArray,
+    Map<String, String> afSelectorMap
+    )
   {
+    PrintWriter out = writerFactory.createWriter();
+    if (out == null)
+    {
+      return;
+    }
+
     // writeCSS() attempts to produce a minimal set of style rules
     // by combining selectors with identical properties into a
     // single rule.  For example, we convert the following two
@@ -103,31 +107,17 @@ public class CSSGenerationUtils
     // During the second pass over the styles, we write out all matching
     // selectors for each style followed by the shared set of properties.
 
-    if (startIndex < 0)
-    {
-    	throw new IllegalArgumentException("startIndex must be positive");
-    }
-    
-    if (count <= 0)
-    {
-    	throw new IllegalArgumentException("count must be strictly positive");
-    }
-	
     // We track styles with matching properties in the following HashMap
     // which maps property strings to StyleNode[]s.
-    HashMap<String, StyleNode[]> matchingStylesMap = new HashMap<String, StyleNode[]>(101);
+    HashMap<String, StyleNode[]> matchingStylesMap =
+      new HashMap<String, StyleNode[]>(101);
 
     // We also keep an array of the property strings that we generate
     // during this pass, since we need these strings during the second
     // pass to find matching StyleNodes.
-    String[] propertyStrings = new String[count];
-    
-    // Keep track of the number of selectors written out. The reason? IE has a 4095 limit,
-    // and we want to warn when we get to that limit.
-    int numberSelectorsWritten = 0;
-    int endIndex = startIndex + count;
-    
-    for (int i = startIndex; i < styles.length && i < endIndex; i++)
+    String[] propertyStrings = new String[styles.length];
+
+    for (int i = 0; i < styles.length; i++)
     {
       StyleNode style = styles[i];
 
@@ -144,7 +134,7 @@ public class CSSGenerationUtils
         {
           // If we don't already have matching StyleNodes, add this
           // StyleNode to the map.
-          propertyStrings[i - startIndex] = propertyString;
+          propertyStrings[i] = propertyString;
           matchingStyles = new StyleNode[1];
           matchingStyles[0] = style;
         }
@@ -174,14 +164,18 @@ public class CSSGenerationUtils
     Date date = new Date();
     out.println("/* This CSS file generated on " + date + " */");
 
+    // Keep track of the number of selectors written out. The reason? IE has a 4095 limit,
+    // and we want to warn when we get to that limit.
+    int numberSelectorsWritten = 0;
+
     // This is the second pass in which we write out the style rules
     // Get the baseURI up front so we don't have to recalculate it every time we find
     // a property value that contains url() and need to resolve the uri.
     String baseURI = CSSUtils.getBaseSkinStyleSheetURI(styleSheetName);
-    for (int i = startIndex; i < styles.length && i < endIndex; i++)
+    for (int i = 0; i < styles.length; i++)
     {
       StyleNode style = styles[i];
-      String propertyString = propertyStrings[i - startIndex];
+      String propertyString = propertyStrings[i];
 
       // We only write out styles for which we have a property string.
       // All other entries correspond to styles which don't have selectors -
@@ -194,29 +188,62 @@ public class CSSGenerationUtils
         // Actually, we should always have at least one StyleNode here
         assert (matchingStyles != null);
 
+        // determine if the current CSS file can fit all of the CSS selectors, or if a new
+        // one will be needed.
+        // TODO: figure out why we write both the uncompressed & compressed styles for styles
+        // without a '|' character, shouldn't the uncompressed be enough on its own? This results
+        // in some ugly code here
+        int stylesToBeWritten = 0;
+        String[] selectors = new String[matchingStyles.length];
+        String[] mappedSelectors = new String[matchingStyles.length];
+
+        for (int j = 0; j < matchingStyles.length; j++)
+        {
+          selectors[j] = matchingStyles[j].getSelector();
+
+          // We should always have a selector at this point
+          assert (selectors[j] != null);
+
+          mappedSelectors[j] = _getMappedSelector(afSelectorMap,
+                                                     namespacePrefixArray,
+                                                     selectors[j]);
+
+          if (compressStyles && (mappedSelectors[j].indexOf('|') == -1))
+          {
+            stylesToBeWritten += 2;
+          }
+          else
+          {
+            stylesToBeWritten++;
+          }
+        }
+
+        if (numberSelectorsWritten + matchingStyles.length >= _MSIE_SELECTOR_LIMIT
+          && TrinidadAgent.APPLICATION_IEXPLORER == context.getAgent().getAgentApplication())
+        {
+          out.println("/* The number of CSS selectors in this file is " +
+                      numberSelectorsWritten + " */");
+          out = writerFactory.createWriter();
+          if (out == null)
+          {
+            return;
+          }
+          numberSelectorsWritten = 0;
+        }
+
         // Write out all of the style selectors for this property string
         for (int j = 0; j < matchingStyles.length; j++)
         {
-          StyleNode matchingStyle = matchingStyles[j];
-          String selector = matchingStyle.getSelector();
-          
-          // We should always have a selector at this point
-          assert (selector != null);
-
-          String mappedSelector = _getMappedSelector(afSelectorMap,
-                                                     namespacePrefixArray,
-                                                     selector);
-
           String validFullNameSelector = null;
 
           // write out the full selector if we aren't compressing styles or
           // it doesn't have a '|' in the name which means it may be a user's public styleclass
           // and we don't want to compress those; we will also write out the compressed
           // version the public styleclasses in the next step.
-          if (!compressStyles || (mappedSelector.indexOf('|') == -1))
+          if (!compressStyles || (mappedSelectors[j].indexOf('|') == -1))
           {
             validFullNameSelector =
-              _getValidFullNameSelector(mappedSelector, namespacePrefixArray);
+              _getValidFullNameSelector(mappedSelectors[j], namespacePrefixArray);
 
             if (validFullNameSelector != null)
             {
@@ -237,11 +264,11 @@ public class CSSGenerationUtils
           // e.g., .Foo:hover -> .x0:hover
           if (compressStyles)
           {
-            String shortSelector = _getShortSelector(mappedSelector,
+            String shortSelector = _getShortSelector(mappedSelectors[j],
                                                      shortStyleClassMap);
 
             if (shortSelector == null)
-              shortSelector = mappedSelector;
+              shortSelector = mappedSelectors[j];
 
             // run it through a shortener one more time to shorten any
             // of the af component selectors.
@@ -265,7 +292,7 @@ public class CSSGenerationUtils
             {
               String validShortSelector =
                 _getValidFullNameSelector(shortSelector, namespacePrefixArray);
-              
+
               // if we wrote out a full style, check to see if we need to write out the short, too.
               // if it is something different, write out the short, too.
               if (validFullNameSelector != null)
@@ -334,18 +361,6 @@ public class CSSGenerationUtils
       }
     }
     out.println("/* The number of CSS selectors in this file is " + numberSelectorsWritten + " */");
-    if (numberSelectorsWritten > 4095 &&
-      (TrinidadAgent.APPLICATION_IEXPLORER == context.getAgent().getAgentApplication()))
-    {
-
-      out.println("/* ERROR: The number of CSS selectors is more than IE's limit of 4095. " +
-      "The selectors after that will be ignored. */");
-      if (_LOG.isWarning())
-      {
-        _LOG.warning("CSS_FILE_HIT_IE_LIMIT_OF_CSS_SELECTOR", numberSelectorsWritten);
-      }
-    }
-
   }
 
   /**
@@ -461,7 +476,7 @@ public class CSSGenerationUtils
     String              namespace,
     Map<String, String> afSelectorMap)
   {
-	if (selector == null)
+  if (selector == null)
       return null;
     int afIndex = selector.indexOf(namespace);
 
@@ -757,7 +772,7 @@ public class CSSGenerationUtils
     {
       String[] selectorArray =
         _orderPseudoElementsAndClasses(selector);
-      
+
       // map selectors, if needed
       // any of the selectors that start with a namespace prefix will
       // be mapped.
@@ -778,14 +793,14 @@ public class CSSGenerationUtils
       StringBuilder b = new StringBuilder();
       for(int i = 0; i < selector.length(); i++)
       {
-        char c = selector.charAt(i); 
+        char c = selector.charAt(i);
         if (c == ' ' )
         {
           if (start == i)
           {
             //group of spaces
-            start = i+1; //Skip space                       
-          } 
+            start = i+1; //Skip space
+          }
           else
           {
             String subSelector = selector.substring(start,i);
@@ -796,7 +811,7 @@ public class CSSGenerationUtils
           }
         }
       } // end for loop
-      
+
       // We reached the end of the selector, now convert the last bit
       if (start == 0)
       {
@@ -1300,7 +1315,7 @@ public class CSSGenerationUtils
     if (lastString.length() > 0)
       splitList.add(lastString);
 
-    return splitList.toArray(_EMPTY_STRING_ARRAY);      
+    return splitList.toArray(_EMPTY_STRING_ARRAY);
 
   }
 
@@ -1381,6 +1396,7 @@ public class CSSGenerationUtils
   private static final Pattern _SPACE_PATTERN = Pattern.compile("\\s");
   private static final Pattern _DASH_PATTERN =  Pattern.compile("-");
   private static final String[] _EMPTY_STRING_ARRAY = new String[0];
+  private static final int _MSIE_SELECTOR_LIMIT = 4095;
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(CSSGenerationUtils.class);
 }
