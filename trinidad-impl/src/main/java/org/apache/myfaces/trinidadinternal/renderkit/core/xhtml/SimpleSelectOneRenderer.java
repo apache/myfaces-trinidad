@@ -69,7 +69,9 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
     Object submittedValue = super.getSubmittedValue(context,
                                                     component,
                                                     clientId);
-    if (submittedValue == null)
+    boolean valuePassThru = getValuePassThru(getFacesBean(component));
+
+    if (submittedValue == null && valuePassThru)
       submittedValue = "";
 
     return submittedValue;
