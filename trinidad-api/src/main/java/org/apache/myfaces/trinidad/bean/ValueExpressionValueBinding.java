@@ -28,12 +28,22 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.EvaluationException;
 import javax.faces.el.ValueBinding;
 
-@Deprecated
 public class ValueExpressionValueBinding extends ValueBinding
 {
-  public static ValueExpressionValueBinding newValueExpressionValueBinding(ValueExpression ve)
+  /**
+   * Given a ValueExpression <code>ve</code>, return a ValueBinding.
+   * The returned ValueBinding will implement StateHolder and Serializable interfaces if
+   * <code>ve</code> implements these interfaces.
+   * @param ve  The ValueExpression
+   * @return a ValueBinding equivalent to the ValueExpression
+   */
+  public static ValueBinding getValueBinding(ValueExpression ve)
   {
-    if (ve instanceof StateHolder)
+    // if we previously wrapped a ValueBinding, unwrap it and return it, otherwise create the
+    // correct subclass of ValueBinding
+    if (ve instanceof ValueBindingValueExpression)
+      return ((ValueBindingValueExpression)ve).getValueBinding();
+    else if (ve instanceof StateHolder)
     {
       if (ve instanceof Serializable)
         return new SerializableStateHolderValueExpressionValueBinding(ve);
@@ -50,6 +60,7 @@ public class ValueExpressionValueBinding extends ValueBinding
     }    
   }
   
+  @SuppressWarnings("deprecation")
   private ValueExpressionValueBinding(ValueExpression ve)
   {
     if (ve == null)
@@ -63,6 +74,7 @@ public class ValueExpressionValueBinding extends ValueBinding
     return _ve;
   }
   
+  @SuppressWarnings("deprecation")
   public Object getValue(FacesContext facesContext)
   {
     try
@@ -76,6 +88,7 @@ public class ValueExpressionValueBinding extends ValueBinding
     }    
   }
 
+  @SuppressWarnings("deprecation")
   public void setValue(FacesContext facesContext, Object object)
   {
     try
@@ -89,6 +102,7 @@ public class ValueExpressionValueBinding extends ValueBinding
     }    
   }
 
+  @SuppressWarnings("deprecation")
   public boolean isReadOnly(FacesContext facesContext)
   {
     try
@@ -102,6 +116,7 @@ public class ValueExpressionValueBinding extends ValueBinding
     }    
   }
 
+  @SuppressWarnings("deprecation")
   public Class getType(FacesContext facesContext)
   {
     try

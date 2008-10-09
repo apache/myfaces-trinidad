@@ -140,18 +140,23 @@ abstract public class FacesBeanImpl implements FacesBean
 
   }
   
+  @SuppressWarnings("deprecation")
   final public ValueBinding getValueBinding(PropertyKey key)
   {
     ValueExpression ve = getValueExpression(key);
+
     if (ve == null)
+    {
       return null;
-      
-    if (ve instanceof ValueBindingValueExpression)
-      return ((ValueBindingValueExpression) ve).getValueBinding();
-      
-    return ValueExpressionValueBinding.newValueExpressionValueBinding(ve);
+    }
+    else
+    {
+      // wrap the ValueExpression if necessary
+      return ValueExpressionValueBinding.getValueBinding(ve);
+    }
   }
 
+  @SuppressWarnings("deprecation")
   final public void setValueBinding(PropertyKey key, ValueBinding binding)
   {
     ValueExpression ve;
@@ -162,7 +167,7 @@ abstract public class FacesBeanImpl implements FacesBean
     }
     else
     {
-      ve = ValueBindingValueExpression.newValueBindingValueExpression(binding);
+      ve = ValueBindingValueExpression.getValueExpression(binding);
     }
 
     setValueExpression(key, ve);
@@ -291,7 +296,7 @@ abstract public class FacesBeanImpl implements FacesBean
       PropertyKey toKey = _convertKey(fromKey);
       if (toKey.getSupportsBinding())
       {
-        setValueBinding(toKey, from.getValueBinding(fromKey));
+        setValueExpression(toKey, from.getValueExpression(fromKey));
       }
     }
   }

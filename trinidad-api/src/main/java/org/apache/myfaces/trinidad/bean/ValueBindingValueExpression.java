@@ -30,12 +30,22 @@ import javax.faces.el.EvaluationException;
 import javax.faces.el.ValueBinding;
 
 
-@Deprecated
 class ValueBindingValueExpression extends ValueExpression
 {
-  public static ValueBindingValueExpression newValueBindingValueExpression(ValueBinding binding)
+  /**
+   * Given a ValueBinding <code>binding</code>, return a ValueExpression.
+   * The returned ValueExpression will implement StateHolder and Serializable interfaces if
+   * <code>ve</code> implements these interfaces.
+   * @param binding  The ValueBinding
+   * @return a ValueExpression equivalent to the ValueBinding
+   */
+  public static ValueExpression getValueExpression(ValueBinding binding)
   {
-    if (binding instanceof StateHolder)
+    // if we previously wrapped a ValueExpression, unwrap it and return it, otherwise create the
+    // correct subclass of ValueBindingValueExpression
+    if (binding instanceof ValueExpressionValueBinding)
+      return ((ValueExpressionValueBinding)binding).getValueExpression();
+    else if (binding instanceof StateHolder)
     {
       if (binding instanceof Serializable)
         return new SerializableStateHolderValueBindingValueExpression(binding);
@@ -65,6 +75,7 @@ class ValueBindingValueExpression extends ValueExpression
     return _binding;
   }
   
+  @SuppressWarnings("deprecation")
   public Object getValue(ELContext elContext)
   {
     try
@@ -78,6 +89,7 @@ class ValueBindingValueExpression extends ValueExpression
     }
   }
 
+  @SuppressWarnings("deprecation")
   public void setValue(ELContext elContext, Object object)
   {
     try
@@ -91,6 +103,7 @@ class ValueBindingValueExpression extends ValueExpression
     }
   }
 
+  @SuppressWarnings("deprecation")
   public boolean isReadOnly(ELContext elContext)
   {
     try
@@ -104,6 +117,7 @@ class ValueBindingValueExpression extends ValueExpression
     }
   }
 
+  @SuppressWarnings("deprecation")
   public Class<?> getType(ELContext elContext)
   {
     try
@@ -122,6 +136,7 @@ class ValueBindingValueExpression extends ValueExpression
     return null;
   }
 
+  @SuppressWarnings("deprecation")
   public String getExpressionString()
   {
     return _binding.getExpressionString();
@@ -206,4 +221,5 @@ class ValueBindingValueExpression extends ValueExpression
 
   private final ValueBinding _binding;
 }
+
 
