@@ -57,8 +57,21 @@ class StyleContextImpl implements StyleContext
   public StyleProvider getStyleProvider()
   {
     if (_styleProvider == null)
-      _styleProvider = _getDefaultStyleProvider(((CoreRenderingContext) _arc).getSkin());
+    {
+      Skin skin = ((CoreRenderingContext) _arc).getSkin();
+      _styleProvider = _getDefaultStyleProvider(skin);
+    }
     return _styleProvider;
+  }
+
+  /* added this in case we switch the skin after the styleProvider was cached above. */
+  /* we want to recompute, not get it from the cache. */
+  public StyleProvider getStyleProvider(boolean recompute)
+  {
+    if (recompute)
+      _styleProvider = null;
+    
+    return getStyleProvider();
   }
 
   public StyleMap getStyleMap()
