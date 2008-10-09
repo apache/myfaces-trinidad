@@ -222,12 +222,17 @@ public class CoreRenderingContext extends RenderingContext
   @Override
   public Skin getSkin()
   {
+    // this might switch the skin from portlet to desktop depending upon the request map parameters.
     if(!_checkedRequestMapSkin)
     {
       Skin requestedSkin = getRequestMapSkin();
       _checkedRequestMapSkin = true;
       if (requestedSkin != null)
+      {
         _skin = requestedSkin;
+        // recompute the cached style provider with the new skin
+        getStyleContext().getStyleProvider(true);
+      }
     }
     return _skin;
   }

@@ -48,6 +48,7 @@ public interface StyleContext
   public boolean disableStandardsMode();
 
   public StyleProvider getStyleProvider();
+  public StyleProvider getStyleProvider(boolean recompute);
   public StyleMap getStyleMap();
   public AccessibilityProfile getAccessibilityProfile();
   public boolean isPortletMode();
