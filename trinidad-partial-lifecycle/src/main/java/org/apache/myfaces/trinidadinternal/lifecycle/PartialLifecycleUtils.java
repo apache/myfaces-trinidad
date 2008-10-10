@@ -23,8 +23,13 @@ import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
 import javax.faces.context.FacesContext;
 import java.util.Map;
 
-public class PartialLifecycleUtils
+public final class PartialLifecycleUtils
 {
+
+  private PartialLifecycleUtils()
+  {
+    // no-op
+  }
 
   public static String[] getPartialTargets(FacesContext facesContext)
   {
