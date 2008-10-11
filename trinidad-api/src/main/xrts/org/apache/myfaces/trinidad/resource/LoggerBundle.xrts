@@ -405,9 +405,6 @@
 <!-- UNSERIALIZABLE_PROPERTY_VALUE_NO_CONTAINER -->
 <resource key="UNSERIALIZABLE_PROPERTY_VALUE_NO_CONTAINER">Unserializable value:{0} for key:{1}</resource>
 
-<!-- UNSERIALIZABLE_PROPERTY_KEY -->
-<resource key="UNSERIALIZABLE_PROPERTY_KEY">Unserializable key:{0} in container:{1}</resource>
-
 <!-- FAILED_SERIALIZATION_PROPERTY_VALUE -->
 <resource key="FAILED_SERIALIZATION_PROPERTY_VALUE">Failed to serialize value:{0} for property key:{1} in container:{2}</resource>
 
