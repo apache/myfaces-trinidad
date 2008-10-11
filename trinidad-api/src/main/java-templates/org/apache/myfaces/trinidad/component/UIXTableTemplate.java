@@ -275,7 +275,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
   /**
    * Gets the data for the first selected row.
    * This is useful when using EL to get at column data for the selected
-   * row when using a tableSelectOne.
+   * row when using a table with single selection.
    * @return null if there is nothing selected in the table.
    */
   public Object getSelectedRowData()
