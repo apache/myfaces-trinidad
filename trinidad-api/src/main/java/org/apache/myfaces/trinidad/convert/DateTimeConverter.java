@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -23,14 +23,15 @@ import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
-import java.util.Set;
 import java.util.TimeZone;
 
 import javax.faces.application.FacesMessage;
@@ -681,14 +682,6 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
     }
   }
 
-  private void _addConveniencePattern(Set<String> patterns)
-  {
-    //see TRINIDAD-859
-    patterns.add("MMMM dd, yy");
-    patterns.add("dd-MMMM-yy");
-    patterns.add("MMMM/dd/yy");
-  }
-  
   private Date _doLenientParse(
     FacesContext context,
     UIComponent component,
@@ -713,15 +706,15 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
       // Let us save this exception to throw, if in case we have exhausted
       // all possible patterns
       ce = convException;
-      
-      Set<String> patterns = new HashSet<String>();
-      Set<String> lenientPatterns = new HashSet<String>();
+
+      List<String> patterns = new ArrayList<String>();
       patterns.add(pattern);
-      
-      // we apply some patterns for convenience reasons 
-      // (see TRINIDAD-859)
-      _addConveniencePattern(patterns);
-      
+
+      // we apply some patterns for convenience reasons (see TRINIDAD-859)
+      patterns.addAll(_CONVENIENCE_PATTERNS);
+
+      List<String> lenientPatterns = new ArrayList<String>();
+      lenientPatterns.add(pattern);
       for (String tmpPattern : patterns)
       {
         lenientPatterns.addAll(_getLenientPatterns(tmpPattern));
@@ -1263,7 +1256,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
     return obj == null? 0 : obj.hashCode();
   }
 
-  private static Set<String> _getLenientPatterns(String pattern)
+  private static List<String> _getLenientPatterns(String pattern)
   {
     //Create patterns so as to be lenient.
     // allow for
@@ -1273,7 +1266,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
     // 03/Oct/99 --> 03-Oct-99
     // 03.Oct.99 --> 03-Oct-99
 
-    Set<String> patterns = new HashSet<String>();
+    List<String> patterns = new ArrayList<String>();
 
     String[] leniencyApplicablePatterns = new String[1];
     leniencyApplicablePatterns[0] = pattern;
@@ -1352,7 +1345,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
     return MessageFactory.getMessage(context, key, msgPattern,
                                      params, component);
   }
-  
+
   private String _getExample(FacesContext context, String pattern)
   {
     DateFormat format = _getDateFormat(context, pattern, false);
@@ -1386,7 +1379,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
       throw new IllegalArgumentException(_LOG.getMessage(
         "ILLEGAL_MESSAGE_ID", key));
     }
-      
+
     return msgPattern;
   }
 
@@ -1805,7 +1798,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
 
   private static final PropertyKey _CONVERT_BOTH_MESSAGE_DETAIL_KEY
     = _TYPE.registerKey("messageDetailConvertBoth", String.class);
-  
+
   private static final PropertyKey  _HINT_DATE_KEY =
     _TYPE.registerKey("hintDate", String.class);
 
@@ -1834,6 +1827,8 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
 
   private static final TrinidadLogger _LOG  = TrinidadLogger.createTrinidadLogger(DateTimeConverter.class);
   private static final Date _EXAMPLE_DATE;
+  private static final List<String> _CONVENIENCE_PATTERNS =
+    Arrays.asList("MMMM dd, yy", "dd-MMMM-yy", "MMMM/dd/yy");
 
   static
   {
