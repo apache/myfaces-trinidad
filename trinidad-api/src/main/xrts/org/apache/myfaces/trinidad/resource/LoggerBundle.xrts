@@ -399,6 +399,9 @@
 <!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
 <resource key="DEPRECATED_RELATIVE_ID_SYNTAX">Could not find the component with scopedId {0} from {1} with the supported syntax. The component was found with the deprecated syntax. Please use the supported syntax.</resource>
 
+<!-- UNSERIALIZABLE_VALUE -->
+<resource key="UNSERIALIZABLE_VALUE">Unserializable value:{0}</resource>
+
 <!-- UNSERIALIZABLE_PROPERTY_VALUE -->
 <resource key="UNSERIALIZABLE_PROPERTY_VALUE">Unserializable value:{0} for key:{1} in container:{2}</resource>
 

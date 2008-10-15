@@ -18,7 +18,15 @@
  */
 package org.apache.myfaces.trinidad.change;
 
+import java.io.Serializable;
+
+import java.util.Map;
+
+import javax.el.ValueExpression;
+
 import javax.faces.component.UIComponent;
+import javax.faces.el.ValueBinding;
+
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
@@ -35,8 +43,12 @@ public class AttributeComponentChange extends ComponentChange
    *         to be restored.
    * @param attributeValue The value of the attribute that needs to be restored.
    *         This value should be of type java.io.Serializable in order to be 
-   *         persisted.
-   * @throws IllegalArgumentException if specified attributeName were to be null.
+   *         persisted.  If the value is of type ValueExpression or ValueBinding,
+   *         the component's ValueBinding or ValueExpression for the attribute
+   *         will be updated and the current attribute value, if any, removed so
+   *         that the new ValueExpression or ValueBinding can take precedence.
+   * @throws IllegalArgumentException if specified attributeName were to be null or
+   *         the specified attributeValue isn't serializable
    */
   public AttributeComponentChange(
     String attributeName,
@@ -46,6 +58,11 @@ public class AttributeComponentChange extends ComponentChange
     if ((attributeName == null) || (attributeName.length() == 0))
       throw new IllegalArgumentException(_LOG.getMessage(
         "CANNOT_CONSTRUCT_ATTRIBUTECHANGE_WITH_NULL_NAME"));
+    
+    if (!(attributeValue instanceof Serializable))
+      throw new IllegalArgumentException(_LOG.getMessage(
+        "UNSERIALIZABLE_VALUE", attributeValue));
+      
     _attributeName = attributeName;
     _attributeValue = attributeValue;
   }
@@ -69,11 +86,30 @@ public class AttributeComponentChange extends ComponentChange
   /**
    * {@inheritDoc}
    */
-  @SuppressWarnings("unchecked")
   @Override
+  @SuppressWarnings("deprecation")
   public void changeComponent(UIComponent uiComponent)
   {
-    uiComponent.getAttributes().put(_attributeName, _attributeValue);
+    Map<String, Object> attributeMap = uiComponent.getAttributes();
+    
+    // if the attributevalue is a ValueExpression or ValueBinding, use the
+    // appropriate setValueExpression/setValueBinding call and remove the
+    // current attribute value, if any, so that the ValueExpression/ValueBinding
+    // can take precedence
+    if (_attributeValue instanceof ValueExpression)
+    {
+      uiComponent.setValueExpression(_attributeName, (ValueExpression)_attributeValue);
+      attributeMap.remove(_attributeName);
+    }
+    else if (_attributeValue instanceof ValueBinding)
+    {
+      uiComponent.setValueBinding(_attributeName, (ValueBinding)_attributeValue);
+      attributeMap.remove(_attributeName);
+    }
+    else
+    {
+      attributeMap.put(_attributeName, _attributeValue);
+    }
   }
 
   private final String _attributeName;
