@@ -700,7 +700,7 @@ public class AgentFactoryImpl implements AgentFactory
   /**
    * returns the AgentEntry for Safari
    */
-  private void  _populateSafariAgentImpl(String agent, AgentImpl agentObj)
+  private void _populateSafariAgentImpl(String agent, AgentImpl agentObj)
   {
     int start = agent.indexOf("AppleWebKit");
 
@@ -714,16 +714,31 @@ public class AgentFactoryImpl implements AgentFactory
       start = agent.indexOf('/', start);
     }
 
-    // At the moment all known iPhone agent strings contain "iPhone".
-    String platform = (agent.indexOf("iPhone") < 0) ? 
-                        Agent.PLATFORM_MACOS :
-                        Agent.PLATFORM_IPHONE;
+    if (agent.indexOf("iPhone") > 0)
+    {
+      // At the moment, all known iPhone and iPod touch agent strings contain "iPhone"
+      agentObj.setPlatform(Agent.PLATFORM_IPHONE);
+    }
+    else if (agent.indexOf("Win") > 0)
+    {
+      // At the moment, this includes Safari and Google Chrome
+      agentObj.setPlatform(Agent.PLATFORM_WINDOWS);
+    }
+    else if (agent.indexOf("Linux") > 0)
+    {
+      // At the moment, this includes Android
+      agentObj.setPlatform(Agent.PLATFORM_LINUX);
+    }
+    else if (agent.indexOf("Mac") > 0)
+    {
+      // At the moment, this includes Safari
+      agentObj.setPlatform(Agent.PLATFORM_MACOS);
+    }
 
     String version = _getVersion(agent, start);
     agentObj.setType(Agent.TYPE_DESKTOP);
     agentObj.setAgent(Agent.AGENT_WEBKIT);
     agentObj.setAgentVersion(version);
-    agentObj.setPlatform(platform);
   }
 
   /**
