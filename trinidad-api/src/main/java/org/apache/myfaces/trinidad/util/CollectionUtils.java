@@ -25,7 +25,6 @@ import java.io.ObjectStreamException;
 import java.io.Serializable;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.ConcurrentModificationException;
@@ -629,7 +628,7 @@ public final class CollectionUtils
         // attempt to copy any of its contents into the output array
         T[] outTypeArray = (inputSize == 0)
                              ? a
-                             : Arrays.copyOf(a, 0);
+                             : TrinidadArrays.copyOf(a, 0);
         
         Object[] delegateEntries = super.toArray(outTypeArray);
         
