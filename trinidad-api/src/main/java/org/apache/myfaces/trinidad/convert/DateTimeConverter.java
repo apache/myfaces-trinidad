@@ -28,8 +28,10 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
@@ -498,6 +500,25 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
     return null;
   }
 
+  private Locale _extractConverterLocale(
+    FacesContext context)
+  {
+    Locale locale = getLocale();
+    if (null == locale)
+    {
+      RequestContext reqContext = RequestContext.getCurrentInstance();  
+      if (reqContext != null)
+      {
+        locale = reqContext.getFormattingLocale();
+      }
+      if (locale == null)
+      {
+        locale = context.getViewRoot().getLocale();
+      }
+    }
+    return locale;
+  }
+
   private Date _getParsedDate(FacesContext context,
                               UIComponent component,
                               String value)
@@ -710,9 +731,14 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
       List<String> patterns = new ArrayList<String>();
       patterns.add(pattern);
 
-      // we apply some patterns for convenience reasons (see TRINIDAD-859)
-      patterns.addAll(_CONVENIENCE_PATTERNS);
-
+      Locale locale = _extractConverterLocale(context);
+          
+      // we apply some patterns for convenience reasons (see TRINIDAD-859, 1262)
+      if (_CONVENIENCE_PATTERNS.containsKey(locale)) 
+      {
+        patterns.addAll(_CONVENIENCE_PATTERNS.get(locale));          
+      }
+        
       List<String> lenientPatterns = new ArrayList<String>();
       lenientPatterns.add(pattern);
       for (String tmpPattern : patterns)
@@ -1592,19 +1618,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
     boolean forParsing
     )
   {
-    RequestContext reqContext = RequestContext.getCurrentInstance();
-
-    Locale locale = getLocale();
-    if (null == locale)
-    {
-      if (reqContext != null)
-        locale = reqContext.getFormattingLocale();
-      if (locale == null)
-      {
-        locale = context.getViewRoot().getLocale();
-      }
-    }
-
+    Locale locale = _extractConverterLocale(context);
     TimeZone tZone = _getTimeZone();
 
     DateFormat format = _getCachedFormat(locale, tZone, pattern);
@@ -1671,6 +1685,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
         }
 
         Calendar cal;
+        RequestContext reqContext = RequestContext.getCurrentInstance();
         if (reqContext == null)
         {
           cal = null;
@@ -1827,7 +1842,9 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
 
   private static final TrinidadLogger _LOG  = TrinidadLogger.createTrinidadLogger(DateTimeConverter.class);
   private static final Date _EXAMPLE_DATE;
-  private static final List<String> _CONVENIENCE_PATTERNS =
+  private static final Map<Locale, List<String>> _CONVENIENCE_PATTERNS = 
+    new HashMap<Locale, List<String>>();
+  private static final List<String> _US_CONVENIENCE_PATTERNS =
     Arrays.asList("MMMM dd, yy", "dd-MMMM-yy", "MMMM/dd/yy");
 
   static
@@ -1835,5 +1852,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
     Calendar dateFactory = Calendar.getInstance();
     dateFactory.set(1998, 10, 29, 15, 45);
     _EXAMPLE_DATE = dateFactory.getTime();
+    _CONVENIENCE_PATTERNS.put(Locale.US, _US_CONVENIENCE_PATTERNS);
+
   }
 }
