@@ -503,8 +503,7 @@ public class StateManagerImpl extends StateManagerWrapper
       Object token = rsm.getTreeStructureToRestore(context, viewId);
       if (token == null)
       {
-        _LOG.finest("No token in the request for view \"{0}\";  " +
-                    "probably a first view.", viewId);
+        _LOG.finest("No token in the request for view \"{0}\";  probably a first view.", viewId);
         return null;
       }
 

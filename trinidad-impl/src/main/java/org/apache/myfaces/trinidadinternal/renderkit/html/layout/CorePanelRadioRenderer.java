@@ -53,8 +53,7 @@ public class CorePanelRadioRenderer extends ShowOneListRendererBase
                                    String disclosedChildId)
     throws IOException
   {
-    _LOG.finest("CorePanelRadioRenderer.renderRadioFacet: " +
-                "disclosedChildId: {0}" + disclosedChildId);
+    _LOG.finest("CorePanelRadioRenderer.renderRadioFacet: disclosedChildId: {0}", disclosedChildId);
 
     // This renders the select controls alongwith javascript onchange handler.
     UIXRenderingContext rCtx = getRenderingContext(context, component);
