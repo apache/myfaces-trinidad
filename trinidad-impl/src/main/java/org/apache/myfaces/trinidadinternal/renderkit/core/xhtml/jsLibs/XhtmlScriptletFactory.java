@@ -30,7 +30,6 @@ public class XhtmlScriptletFactory
 
   static final String LOCALE_LIB                   = "Locale";
   static final String LOCALE_INFO_LIB              = "LocaleInfoLib";
-  static final String COOKIES_LIB                  = "Cookies";
   static final String CORE_FORMAT_LIB              = "CoreFormat";
   static final String CHAR_SETS_LIB                = "CharSets";
   static final String DATE_FORMAT_LIB              = "DateFormat";
@@ -60,7 +59,6 @@ public class XhtmlScriptletFactory
     AliasedScriptlet.registerAliases();
     _sLocaleScriptlet.registerSelf();
     _sCoreScriptlet.registerSelf();
-    _sCoreScriptlet.registerSelfWithKey(COOKIES_LIB);
     _sDateFormatScriptlet.registerSelf();
     _sCoreFormatScriptlet.registerSelf();
     _sCharSetsScriptlet.registerSelf();
@@ -75,7 +73,6 @@ public class XhtmlScriptletFactory
     NamedLocaleInfoScriptlet.registerNamedLocales();
     ColorFormatInfoScriptlet.sharedInstance().registerSelf();
     DateFormatInfoScriptlet.sharedInstance().registerSelf();
-    DefaultTimeZoneScriptlet.sharedInstance().registerSelf();
     JspDirScriptlet.sharedInstance().registerSelf();
     ConfigurationScriptlet.sharedInstance().registerSelf();
     GlobalVariablesScriptlet.sharedInstance().registerSelf();

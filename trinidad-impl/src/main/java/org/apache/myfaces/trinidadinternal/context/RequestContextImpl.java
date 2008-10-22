@@ -36,8 +36,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.myfaces.trinidad.change.ChangeManager;
 import org.apache.myfaces.trinidad.change.SessionChangeManager;
@@ -54,6 +52,8 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.render.CoreRenderer;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidad.util.ComponentUtils;
+import org.apache.myfaces.trinidad.util.ExternalContextUtils;
+import org.apache.myfaces.trinidad.util.TransientHolder;
 import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
 import org.apache.myfaces.trinidadinternal.agent.AgentFactory;
 import org.apache.myfaces.trinidadinternal.agent.AgentFactoryImpl;
@@ -65,12 +65,10 @@ import org.apache.myfaces.trinidadinternal.el.HelpProvider;
 import org.apache.myfaces.trinidadinternal.el.OracleHelpProvider;
 import org.apache.myfaces.trinidadinternal.metadata.RegionMetadata;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
-import org.apache.myfaces.trinidadinternal.share.config.UIXCookie;
 import org.apache.myfaces.trinidadinternal.ui.expl.ColorPaletteUtils;
-import org.apache.myfaces.trinidad.util.ExternalContextUtils;
-import org.apache.myfaces.trinidad.util.TransientHolder;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 import org.apache.myfaces.trinidadinternal.webapp.TrinidadFilterImpl;
+
 
 /**
  */
@@ -238,16 +236,7 @@ public class RequestContextImpl extends RequestContext
   { 
     String name = (String) _bean.getProperty(
       RequestContextBean.ACCESSIBILITY_MODE_KEY);
-    if (name == null)
-    {
-      UIXCookie cookie = _getUIXCookie();
-      if (cookie != null)
-      {
-        if (cookie.getAccessibilityMode() != null)
-          name = cookie.getAccessibilityMode().toString();
-      }
-    }
-
+    
     return _ACCESSIBILITY_NAMES.get(name);
   }
 
@@ -777,25 +766,6 @@ public class RequestContextImpl extends RequestContext
       component = component.getParent();
     }
     return component;
-  }
-
-  private UIXCookie _getUIXCookie()
-  {
-    FacesContext fContext = __getFacesContext();
-    if (fContext == null)
-      return null;
-
-    Object request = fContext.getExternalContext().getRequest();
-    Object response = fContext.getExternalContext().getResponse();
-
-    if ((request instanceof HttpServletRequest) &&
-        (response instanceof HttpServletResponse))
-    {
-      return UIXCookie.getUIXCookie((HttpServletRequest) request,
-                                    (HttpServletResponse) response);
-    }
-
-    return null;
   }
 
   private Map<UIComponent, Set<UIComponent>> _getPartialListeners()
