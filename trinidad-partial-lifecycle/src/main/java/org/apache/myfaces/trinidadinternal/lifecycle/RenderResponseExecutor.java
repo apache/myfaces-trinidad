@@ -17,27 +17,15 @@ package org.apache.myfaces.trinidadinternal.lifecycle;
  * limitations under the License.
  */
 
-import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidad.context.FormData;
-import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
-import org.apache.myfaces.trinidad.util.Service;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
-import org.apache.myfaces.trinidadinternal.renderkit.core.CoreResponseStateManager;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
 
 import javax.faces.FacesException;
 import javax.faces.application.Application;
 import javax.faces.application.ViewHandler;
 import javax.faces.component.ContextCallback;
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import javax.faces.event.PhaseId;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Map;
 
 public class RenderResponseExecutor implements PhaseExecutor
 {
@@ -46,9 +34,11 @@ public class RenderResponseExecutor implements PhaseExecutor
 
   public boolean execute(FacesContext facesContext)
   {
-    String[] partialTargets = PartialLifecycleUtils.getPartialTargets(facesContext);
+
     try
     {
+      // TODO partial rendering
+      /*String[] partialTargets = PartialLifecycleUtils.getPartialTargets(facesContext);
       if (partialTargets != null)
       {
         // Most of this is a copy from ViewHandlerImpl
@@ -154,11 +144,11 @@ public class RenderResponseExecutor implements PhaseExecutor
           }
         }
       } else
-      {
+      { */
         Application application = facesContext.getApplication();
         ViewHandler viewHandler = application.getViewHandler();
         viewHandler.renderView(facesContext, facesContext.getViewRoot());
-      }
+      //}
     } catch (IOException e)
     {
       throw new FacesException(e.getMessage(), e);
