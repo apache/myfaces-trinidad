@@ -747,5 +747,69 @@
         </dependencies>
       </dependencyManagement>      
     </profile>
+
+    <!-- allow people that use Java6 (or above) as their default JRE to specify
+      a Java5 home in their maven settings.xml. This makes the javac
+      run from that location (forked). This will fail if running on
+      Java6 without the Java5 home set. This only affects the compiler,
+      all tests and other maven plugins will still run it the active
+      JDK (java6). The property that is needed is "jdk5.home"
+      
+      Example usage in your settings.xml:
+<settings>
+  <profiles>
+    <profile>
+      <id>java5.home</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <jdk5.home>/usr/lib/jvm/java-1.5.0-sun</jdk5.home>
+      </properties>
+    </profile>
+  </profiles>
+</settings>
+      -->
+    <profile>
+      <id>java5compilerFor6</id>
+      <activation>
+        <jdk>1.6</jdk>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <inherited>true</inherited>
+            <configuration>
+              <fork>true</fork>
+              <executable>${jdk5.home}/bin/javac</executable>
+              <compilerVersion>${jdk.version}</compilerVersion>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <!-- repeat for JDK 1.7 -->
+    <profile>
+      <id>java5compilerFor7</id>
+      <activation>
+        <jdk>1.7</jdk>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <inherited>true</inherited>
+            <configuration>
+              <fork>true</fork>
+              <executable>${jdk5.home}/bin/javac</executable>
+              <compilerVersion>${jdk.version}</compilerVersion>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
   </profiles>
 </project>
