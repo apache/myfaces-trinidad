@@ -27,6 +27,7 @@ import java.io.UnsupportedEncodingException;
 
 import java.util.BitSet;
 
+import org.apache.myfaces.trinidad.util.ThreadLocalUtils;
 
 /**
  * Utility functions for encoding URLs for output.
@@ -184,7 +185,19 @@ public class EncoderUtils
   {
     _encodeString(out, text, encoding, start, _DONT_ENCODE_SET, true, forHtml);
   }
-
+  
+  /**
+   * Writes a query parameter to the String Builder
+  */
+  static public void writeQueryParametersToStringBuilder(
+    StringBuilder       sbout,
+    char[]              cArray,
+    String              encoding,
+    int                 start,
+    boolean             forHtml)  throws IOException, UnsupportedEncodingException
+  {
+    _encodeStringToStringBuilder(sbout, cArray, encoding, start, _DONT_ENCODE_SET, true, forHtml);
+  }
 
   /**
    * Partially encodes a query parameter.  The characters '%',
@@ -314,7 +327,7 @@ public class EncoderUtils
     }
   }
 
-
+    
   static private void _writeURL(
     Writer      out,
     String      text,
@@ -325,10 +338,31 @@ public class EncoderUtils
     boolean     forHtml) throws IOException, UnsupportedEncodingException
   {
     int length = text.length();
-
+    //Get the shared String Builder
+    StringBuilder sbout = __getSharedStringBuilder(length * 3/2);
+    //Convert to char array for faster access
+    char[] cArray = text.toCharArray();
+    //Write the URL to the StringBuilder   
+    _writeURLtoStringBuilder(sbout, cArray, queryEncoding, useISOForBody, start, inAnchor, forHtml); 
+    //Write to the writer
+    out.write(sbout.toString());
+  }
+    
+    
+  static private void _writeURLtoStringBuilder(
+    StringBuilder      sbout,
+    char[]      cArray,
+    String      queryEncoding,
+    boolean     useISOForBody,
+    int         start,
+    boolean     inAnchor,
+    boolean     forHtml) throws IOException, UnsupportedEncodingException
+  {
+    int length = cArray.length;
+    
     for (int i = start; i < length; i++)
     {
-      char ch = text.charAt(i);
+      char ch = cArray[i]; 
 
       // Following code derived from Xalan 2.0 SerializerToHTML,
       // Apache Software Foundation, http://www.apache.org/
@@ -338,7 +372,7 @@ public class EncoderUtils
         {
           // ISO-8859-1.  Blindly assume the character will be < 255.
           // Not much we can do if it isn't.
-          _writeDoubleHex(out, ch);
+          _writeDoubleHex(sbout, ch);
         }
         else
         {
@@ -349,7 +383,7 @@ public class EncoderUtils
 
           if (ch <= 0x7F)
           {
-            _writeDoubleHex(out, ch);
+            _writeDoubleHex(sbout, ch);
           }
           else if (ch <= 0x7FF)
           {
@@ -358,8 +392,8 @@ public class EncoderUtils
             int high = (ch >> 6) | 0xC0;
             int low = (ch & 0x3F) | 0x80; // First 6 bits, + high bit
 
-            _writeDoubleHex(out, high);
-            _writeDoubleHex(out, low);
+            _writeDoubleHex(sbout, high);
+            _writeDoubleHex(sbout, low);
           }
           // high surrogate
           else if ((ch & 0xFC00) == 0xD800)
@@ -383,7 +417,7 @@ public class EncoderUtils
             // Get low surrogate character.
             i++;
             if (i < length)
-              ch = text.charAt(i);
+              ch = cArray[i];
             else
               // =-=AEW Shouldn't happen
               ch = 0;
@@ -403,19 +437,19 @@ public class EncoderUtils
             int byte3 = 0x80 | yyyyyy;
             int byte4 = 0x80 | xxxxxx;
 
-            _writeDoubleHex(out, byte1);
-            _writeDoubleHex(out, byte2);
-            _writeDoubleHex(out, byte3);
-            _writeDoubleHex(out, byte4);
+            _writeDoubleHex(sbout, byte1);
+            _writeDoubleHex(sbout, byte2);
+            _writeDoubleHex(sbout, byte3);
+            _writeDoubleHex(sbout, byte4);
           }
           else
           {
             int high = (ch >> 12) | 0xE0; // top 4 bits
             int middle = ((ch & 0x0FC0) >> 6) | 0x80; // middle 6 bits
             int low = (ch & 0x3F) | 0x80; // First 6 bits, + high bit
-            _writeDoubleHex(out, high);
-            _writeDoubleHex(out, middle);
-            _writeDoubleHex(out, low);
+            _writeDoubleHex(sbout, high);
+            _writeDoubleHex(sbout, middle);
+            _writeDoubleHex(sbout, low);
           }
         }
       }
@@ -431,34 +465,34 @@ public class EncoderUtils
       */
       else if (ch == '"')
       {
-        out.write("%22");
+        sbout.append("%22");
       }
       else if (ch == '?')
       {
         if (inAnchor)
         {
-          out.write("%3F");
+          sbout.append("%3F");
         }
         else
         {
           // AEW: And - everything in the query parameters is interpreted
           // as if it were in the request's character set.  So use
           // the real encoding for those!
-          out.write('?');
-          writeQueryParameters(out, text, queryEncoding, i + 1, forHtml);
+          sbout.append('?');
+          writeQueryParametersToStringBuilder(sbout, cArray, queryEncoding, i + 1, forHtml);
           return;
         }
       }
       else if (ch == '&')
       {
         if (forHtml)
-          out.write("&amp;");
+          sbout.append("&amp;");
         else
-          out.write(ch);
+          sbout.append(ch);
       }
       else
       {
-        out.write(ch);
+        sbout.append(ch);
       }
     }
   }
@@ -631,9 +665,9 @@ public class EncoderUtils
 
 
 
-  static private void _encodeString(
-    Writer       out,
-    String       text,
+  static private void _encodeStringToStringBuilder(
+    StringBuilder       sbout,
+    char[]       cArray,
     String       encoding,
     int          start,
     BitSet       dontEncodeSet,
@@ -645,28 +679,28 @@ public class EncoderUtils
     OutputStreamWriter writer    = null;
     char[]             charArray = null;
 
-    int length = text.length();
+    int length = cArray.length;
     for (int i = start; i < length; i++)
     {
-      char ch = text.charAt(i);
+      char ch = cArray[i];
 
       // If we care about anchors and find one, abort here
       // and start writing out the rest of the text with _writeURL()
       if (lookForAnchor && ('#' == ch))
       {
-        out.write(ch);
-        _writeURL(out, text, encoding, false, i + 1, true, forHtml);
+        sbout.append(ch);
+        _writeURLtoStringBuilder(sbout, cArray, encoding, false, i + 1, true, forHtml);
         return;
       }
       else if (dontEncodeSet.get(ch))
       {
         if (forHtml && (ch == '&'))
         {
-          out.write("&amp;");
+          sbout.append("&amp;");
         }
         else
         {
-          out.write(ch);
+          sbout.append(ch);
         }
       }
       else
@@ -701,7 +735,7 @@ public class EncoderUtils
         byte[] ba = buf.toByteArray();
         for (int j = 0; j < ba.length; j++)
         {
-          _writeDoubleHex(out, ba[j] + 256);
+          _writeDoubleHex(sbout, ba[j] + 256);
         }
 
         buf.reset();
@@ -709,7 +743,85 @@ public class EncoderUtils
     }
   }
 
+    static private void _encodeString(
+      Writer       out,
+      String       text,
+      String       encoding,
+      int          start,
+      BitSet       dontEncodeSet,
+      boolean      lookForAnchor,
+      boolean      forHtml)
+        throws IOException, UnsupportedEncodingException
+    {
+      ByteArrayOutputStream buf    = null;
+      OutputStreamWriter writer    = null;
+      char[]             charArray = null;
 
+      int length = text.length();
+      for (int i = start; i < length; i++)
+      {
+        char ch = text.charAt(i);
+
+        // If we care about anchors and find one, abort here
+        // and start writing out the rest of the text with _writeURL()
+        if (lookForAnchor && ('#' == ch))
+        {
+          out.write(ch);
+          _writeURL(out, text, encoding, false, i + 1, true, forHtml);
+          return;
+        }
+        else if (dontEncodeSet.get(ch))
+        {
+          if (forHtml && (ch == '&'))
+          {
+            out.write("&amp;");
+          }
+          else
+          {
+            out.write(ch);
+          }
+        }
+        else
+        {
+          if (buf == null)
+          {
+            buf = new ByteArrayOutputStream(_MAX_BYTES_PER_CHAR);
+
+            if (encoding != null)
+              writer = new OutputStreamWriter(buf, encoding);
+            else
+              writer = new OutputStreamWriter(buf);
+            charArray = new char[1];
+          }
+
+          // convert to external encoding before hex conversion
+          try
+          {
+            // An inspection of OutputStreamWriter reveals
+            // that write(char) always allocates a one element
+            // character array.  We can reuse our own.
+            charArray[0] = ch;
+            writer.write(charArray, 0, 1);
+            writer.flush();
+          }
+          catch(IOException e)
+          {
+            buf.reset();
+            continue;
+          }
+
+          byte[] ba = buf.toByteArray();
+          for (int j = 0; j < ba.length; j++)
+          {
+            _writeDoubleHex(out, ba[j] + 256);
+          }
+
+          buf.reset();
+        }
+      }
+    }
+    
+    
   static private void _writeDoubleHex(
     Writer  out,
     int     i) throws IOException
@@ -717,6 +829,15 @@ public class EncoderUtils
     out.write('%');
     out.write(_getHex((i >> 4) % 0x10));
     out.write(_getHex(i % 0x10));
+  }
+  
+  static private void _writeDoubleHex(
+    StringBuilder  sb,
+    int     i) throws IOException
+  {
+    sb.append('%');
+    sb.append(_getHex((i >> 4) % 0x10));
+    sb.append(_getHex(i % 0x10));
   }
 
   static private char _getHex(
@@ -739,7 +860,24 @@ public class EncoderUtils
     return (byte) (10 + (ch - 'A'));
   }
 
+  static StringBuilder __getSharedStringBuilder(int capacity)
+  {
+    StringBuilder sb = _STRING_BUILDER.get();
 
+    if (sb == null)
+    {
+      sb = new StringBuilder(capacity);
+      _STRING_BUILDER.set(sb);
+    }
+    else 
+    {
+      sb.ensureCapacity(capacity);   
+    }
+    // clear out the stringBuilder by setting the length to 0
+    sb.setLength(0);
+
+    return sb;
+  }
 
   static private final int    _MAX_BYTES_PER_CHAR = 10;
   static private final BitSet _DONT_ENCODE_SET = new BitSet(256);
@@ -796,4 +934,6 @@ public class EncoderUtils
     _DONT_ENCODE_SET.set(')');
     _DONT_ENCODE_SET.set(';'); //ADFFACES-235 ";" are valid chars in querystrings
   }
+  
+  static private final ThreadLocal<StringBuilder> _STRING_BUILDER = ThreadLocalUtils.newRequestThreadLocal();
 }
