@@ -33,11 +33,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.webapp.UIComponentTag;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.util.ThreadLocalUtils;
 
 /**
  * Menu Utilities used by the Menu Model internal code.
  * All classes are package private.
- * 
+ *
  */
 class MenuUtils
 {
@@ -299,7 +300,7 @@ class MenuUtils
   @SuppressWarnings("unchecked")
   static void loadBundle(String resBundleName, String resBundleKey)
   {
-    ThreadLocal<String> bundleKey = new ThreadLocal<String>();
+    ThreadLocal<String> bundleKey = ThreadLocalUtils.newRequestThreadLocal();
     
     bundleKey.set(resBundleKey);    
     loadBundle(resBundleName, bundleKey);
@@ -452,6 +453,7 @@ class MenuUtils
   private final static TrinidadLogger _LOG = 
                         TrinidadLogger.createTrinidadLogger(MenuUtils.class);
 }
+
 
 
 

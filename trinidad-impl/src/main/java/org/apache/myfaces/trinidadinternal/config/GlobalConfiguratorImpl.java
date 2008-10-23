@@ -23,6 +23,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 import javax.faces.context.ExternalContext;
 
 import javax.servlet.ServletRequest;
@@ -383,6 +385,19 @@ public final class GlobalConfiguratorImpl extends Configurator
   }
 
   /**
+   * Hackily called by the ThreadLocalResetter to register itself so that the
+   * GlobalConfiguratorImpl can tell the ThreadLocalResetter to clean up the
+   * ThreadLocals at the appropriate time.
+   */
+  void __setThreadLocalResetter(ThreadLocalResetter resetter)
+  {
+    if (resetter == null)
+      throw new NullPointerException();
+    
+    _threadResetter.set(resetter);
+  }
+    
+  /**
    * @param externalContext
    * @return
    */
@@ -401,6 +416,10 @@ public final class GlobalConfiguratorImpl extends Configurator
         _LOG.warning("REQUESTCONTEXT_NOT_PROPERLY_RELEASED");
       }
       context.release();
+      ThreadLocalResetter resetter = _threadResetter.get();
+      
+      if (resetter != null)
+        resetter.__removeRequestThreadLocals();
     }
 
     // See if we've got a cached RequestContext instance; if so,
@@ -440,6 +459,13 @@ public final class GlobalConfiguratorImpl extends Configurator
     {
       context.release();
       assert RequestContext.getCurrentInstance() == null;
+
+      // now that the request is over, clean up all of the request-scoped
+      // ThreadLocals.
+      ThreadLocalResetter resetter = _threadResetter.get();
+      
+      if (resetter != null)
+        resetter.__removeRequestThreadLocals();
     }
   }
 
@@ -719,6 +745,10 @@ public final class GlobalConfiguratorImpl extends Configurator
       ".TEST_PARAM";
   }
 
+  // hacky reference to the ThreadLocalResetter used to clean up request-scoped
+  // ThreadLocals
+  private AtomicReference<ThreadLocalResetter> _threadResetter = 
+                                                        new AtomicReference<ThreadLocalResetter>();
 
   static private final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(GlobalConfiguratorImpl.class);

@@ -59,7 +59,7 @@ import org.apache.myfaces.trinidad.event.AttributeChangeListener;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.render.ExtendedRenderer;
 import org.apache.myfaces.trinidad.render.LifecycleRenderer;
-
+import org.apache.myfaces.trinidad.util.ThreadLocalUtils;
 
 /**
  * Base implementation of components for all of Trinidad.  UIXComponentBase
@@ -1474,7 +1474,7 @@ abstract public class UIXComponentBase extends UIXComponent
 
 
   static private final ThreadLocal<StringBuilder> _STRING_BUILDER =
-                                                        new ThreadLocal<StringBuilder>();
+                                                          ThreadLocalUtils.newRequestThreadLocal();
 
   static private FacesBean.Type _createType()
   {

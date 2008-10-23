@@ -25,6 +25,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.Icon;
+import org.apache.myfaces.trinidad.util.ThreadLocalUtils;
 
 /**
  */
@@ -150,7 +151,7 @@ abstract public class RenderingContext
 
 
   static private final ThreadLocal<RenderingContext> _CURRENT_CONTEXT = 
-    new ThreadLocal<RenderingContext>();
+                                                           ThreadLocalUtils.newRequestThreadLocal();  
   
   static private final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(RenderingContext.class);

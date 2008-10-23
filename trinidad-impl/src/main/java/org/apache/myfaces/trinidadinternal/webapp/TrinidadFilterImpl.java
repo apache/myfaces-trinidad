@@ -288,11 +288,7 @@ public class TrinidadFilterImpl implements Filter
     "org.apache.myfaces.trinidadinternal.webapp.AdfacesFilterImpl.EXECUTED";
 
   private static ThreadLocal<PseudoFacesContext> _PSEUDO_FACES_CONTEXT = 
-    new ThreadLocal<PseudoFacesContext>()
-  {
-    @Override
-    protected PseudoFacesContext initialValue() { return null; }
-  };
+    new ThreadLocal<PseudoFacesContext>();
 
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(TrinidadFilterImpl.class);
