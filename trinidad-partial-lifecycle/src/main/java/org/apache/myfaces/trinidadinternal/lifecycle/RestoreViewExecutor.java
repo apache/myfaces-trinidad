@@ -124,6 +124,7 @@ class RestoreViewExecutor implements PhaseExecutor
    * This has been filed as an issue against the spec. Until this
    * issue is resolved, we'll add a new marker-interface for components
    * to allow them to define their interest in handling children bindings themselves.
+   *
    * @param facesContext
    * @param parent
    */
@@ -174,7 +175,7 @@ class RestoreViewExecutor implements PhaseExecutor
    */
   private static Method getBindingMethod(UIComponent parent)
   {
-    for (Class clazz: parent.getClass().getInterfaces())
+    for (Class clazz : parent.getClass().getInterfaces())
     {
       if (clazz.getName().indexOf("BindingAware") != -1)
       {

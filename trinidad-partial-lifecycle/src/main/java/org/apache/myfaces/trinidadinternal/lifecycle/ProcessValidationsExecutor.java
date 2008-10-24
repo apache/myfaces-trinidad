@@ -24,7 +24,6 @@ import javax.faces.event.PhaseId;
 
 public class ProcessValidationsExecutor implements PhaseExecutor
 {
-
   private ContextCallback contextCallback = new ProcessValidationsCallback();
 
   public boolean execute(FacesContext facesContext)

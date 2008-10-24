@@ -48,6 +48,7 @@ class PhaseListenerManager
 
   /**
    * Creates a new instance of PhaseListenerManager
+   *
    * @param lifecycle
    * @param facesContext
    * @param phaseListeners

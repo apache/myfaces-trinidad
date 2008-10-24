@@ -19,13 +19,15 @@ package org.apache.myfaces.trinidadinternal.lifecycle;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import javax.faces.context.FacesContext;
 import java.util.Map;
+import java.util.Arrays;
 
 public final class PartialLifecycleUtils
 {
-
+  private static final TrinidadLogger LOG = TrinidadLogger.createTrinidadLogger(PartialLifecycleUtils.class);
   private PartialLifecycleUtils()
   {
     // no-op
@@ -33,13 +35,25 @@ public final class PartialLifecycleUtils
 
   public static String[] getPartialTargets(FacesContext facesContext)
   {
-    // TODO Is partialTarget a valid choice for the parameter name? 
+    if (facesContext.getExternalContext().getRequestMap().containsKey(PartialLifecycleUtils.class.getName()))
+    {
+      return (String[]) facesContext.getExternalContext().getRequestMap().get(PartialLifecycleUtils.class.getName());
+    }
+    // TODO Is partialTarget a valid choice for the parameter name?
     Map<String, String> parameterMap = facesContext.getExternalContext().getRequestParameterMap();
     String partialTargetsStr = parameterMap.get(XhtmlConstants.PARTIAL_TARGETS_PARAM);
     if (partialTargetsStr != null && partialTargetsStr.length() > 0)
     {
-      return XMLUtils.parseNameTokens(partialTargetsStr);
+      String[] partialTargets = XMLUtils.parseNameTokens(partialTargetsStr);
+      setPartialTargets(facesContext, partialTargets);
+      return partialTargets;
     }
     return null;
+  }
+
+  public static void setPartialTargets(FacesContext facesContext, String[] partialTargets)
+  {
+    LOG.info("Found Partial Targets {0}", Arrays.asList(partialTargets));
+    facesContext.getExternalContext().getRequestMap().put(PartialLifecycleUtils.class.getName(), partialTargets);
   }
 }

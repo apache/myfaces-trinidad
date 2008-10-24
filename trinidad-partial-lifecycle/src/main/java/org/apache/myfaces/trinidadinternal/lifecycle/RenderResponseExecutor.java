@@ -145,9 +145,9 @@ public class RenderResponseExecutor implements PhaseExecutor
         }
       } else
       { */
-        Application application = facesContext.getApplication();
-        ViewHandler viewHandler = application.getViewHandler();
-        viewHandler.renderView(facesContext, facesContext.getViewRoot());
+      Application application = facesContext.getApplication();
+      ViewHandler viewHandler = application.getViewHandler();
+      viewHandler.renderView(facesContext, facesContext.getViewRoot());
       //}
     } catch (IOException e)
     {

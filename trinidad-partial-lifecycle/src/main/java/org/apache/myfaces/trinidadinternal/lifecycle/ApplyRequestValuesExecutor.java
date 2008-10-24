@@ -18,15 +18,20 @@ package org.apache.myfaces.trinidadinternal.lifecycle;
  */
 
 
-import org.apache.myfaces.trinidadinternal.renderkit.core.CoreResponseStateManager;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreResponseStateManager;
 
 import javax.faces.component.ContextCallback;
+import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Implements the lifecycle as described in Spec. 1.0 PFD Chapter 2
@@ -41,6 +46,7 @@ class ApplyRequestValuesExecutor implements PhaseExecutor
 
   public boolean execute(FacesContext facesContext)
   {
+
     String[] partialTargets = PartialLifecycleUtils.getPartialTargets(facesContext);
     if (partialTargets != null)
     {
@@ -61,7 +67,8 @@ class ApplyRequestValuesExecutor implements PhaseExecutor
       {
         // TODO source inside a partialTarget
         boolean found = viewRoot.invokeOnComponent(facesContext, sourceName, decodeCallback);
-        if (!found) {
+        if (!found)
+        {
           LOG.warning("No source UIComponent found for '" + sourceName + "'");
         }
       }
@@ -72,7 +79,8 @@ class ApplyRequestValuesExecutor implements PhaseExecutor
         // TODO form inside partialTarget
         // SubForm set submitted by queueEvent
         boolean found = viewRoot.invokeOnComponent(facesContext, formName, decodeCallback);
-        if (!found) {
+        if (!found)
+        {
           LOG.warning("No form UIComponent found for '" + formName + "'");
         }
       }
@@ -80,10 +88,31 @@ class ApplyRequestValuesExecutor implements PhaseExecutor
       // TODO broadcast Events UIViewRoot has no public method
       //viewRoot.broadcastEventsForPhase(facesContext, PhaseId.APPLY_REQUEST_VALUES);
 
-    }
-    else
+    } else
     {
       facesContext.getViewRoot().processDecodes(facesContext);
+      // after a normal decode check for partialTargets
+      final RequestContext requestContext = RequestContext.getCurrentInstance();
+      if (!(facesContext.getResponseComplete() || facesContext.getRenderResponse())
+          && requestContext.isPartialRequest(facesContext))
+      {
+        UIViewRoot viewRoot = facesContext.getViewRoot();
+        UIComponent source =
+            viewRoot.findComponent(facesContext.getExternalContext().getRequestParameterMap().get("source"));
+        if (source != null)
+        {
+          List<String> list = new ArrayList<String>();
+          Set<UIComponent> components = requestContext.getPartialTargets(source);
+          for (UIComponent component : components)
+          {
+            list.add(component.getClientId(facesContext));
+          }
+          if (list.size() > 0)
+          {
+            PartialLifecycleUtils.setPartialTargets(facesContext, list.toArray(new String[list.size()]));
+          }
+        }
+      }
     }
     return false;
   }
