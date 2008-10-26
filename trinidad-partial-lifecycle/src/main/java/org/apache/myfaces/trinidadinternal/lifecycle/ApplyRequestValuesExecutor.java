@@ -24,7 +24,6 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.CoreResponseStateManag
 
 import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import java.util.ArrayList;
@@ -48,45 +47,53 @@ class ApplyRequestValuesExecutor implements PhaseExecutor
   {
 
     String[] partialTargets = PartialLifecycleUtils.getPartialTargets(facesContext);
-    if (partialTargets != null)
+    if (!(facesContext.getViewRoot() instanceof UIViewRoot)) {
+      LOG.severe("ViewRoot is not instanceof " + UIViewRoot.class.getName() + " skipping partial lifecycle");
+    }
+    if (partialTargets != null && facesContext.getViewRoot() instanceof UIViewRoot)
     {
       Map<String, String> parameterMap = facesContext.getExternalContext().getRequestParameterMap();
-      UIViewRoot viewRoot = facesContext.getViewRoot();
-      // TODO partialRequest from inside Tree or Table
+      UIViewRoot viewRoot = (UIViewRoot) facesContext.getViewRoot();
 
-      // TODO navigationTree
-
-      for (String partialTarget : partialTargets)
+      if (!viewRoot.notifyListeners(facesContext, PhaseId.APPLY_REQUEST_VALUES,
+          viewRoot.getBeforePhaseListener(), true))
       {
-        viewRoot.invokeOnComponent(facesContext, partialTarget, processDecodesCallback);
-      }
+        // TODO partialRequest from inside Tree or Table
 
-      // TODO how to check that source and form already included in a partialTarget
-      String sourceName = parameterMap.get("source");
-      if (sourceName != null && !Arrays.asList(partialTargets).contains(sourceName))
-      {
-        // TODO source inside a partialTarget
-        boolean found = viewRoot.invokeOnComponent(facesContext, sourceName, decodeCallback);
-        if (!found)
+        // TODO navigationTree
+
+        for (String partialTarget : partialTargets)
         {
-          LOG.warning("No source UIComponent found for '" + sourceName + "'");
+          viewRoot.invokeOnComponent(facesContext, partialTarget, processDecodesCallback);
         }
-      }
 
-      String formName = parameterMap.get(CoreResponseStateManager.FORM_FIELD_NAME);
-      if (formName != null && !Arrays.asList(partialTargets).contains(formName))
-      {
-        // TODO form inside partialTarget
-        // SubForm set submitted by queueEvent
-        boolean found = viewRoot.invokeOnComponent(facesContext, formName, decodeCallback);
-        if (!found)
+        // TODO how to check that source and form already included in a partialTarget
+        String sourceName = parameterMap.get("source");
+        if (sourceName != null && !Arrays.asList(partialTargets).contains(sourceName))
         {
-          LOG.warning("No form UIComponent found for '" + formName + "'");
+          // TODO source inside a partialTarget
+          boolean found = viewRoot.invokeOnComponent(facesContext, sourceName, decodeCallback);
+          if (!found)
+          {
+            LOG.warning("No source UIComponent found for '" + sourceName + "'");
+          }
         }
-      }
 
-      // TODO broadcast Events UIViewRoot has no public method
-      //viewRoot.broadcastEventsForPhase(facesContext, PhaseId.APPLY_REQUEST_VALUES);
+        String formName = parameterMap.get(CoreResponseStateManager.FORM_FIELD_NAME);
+        if (formName != null && !Arrays.asList(partialTargets).contains(formName))
+        {
+          // TODO form inside partialTarget
+          // SubForm set submitted by queueEvent
+          boolean found = viewRoot.invokeOnComponent(facesContext, formName, decodeCallback);
+          if (!found)
+          {
+            LOG.warning("No form UIComponent found for '" + formName + "'");
+          }
+        }
+        viewRoot.broadcastForPhase(PhaseId.APPLY_REQUEST_VALUES);
+      }
+      viewRoot.clearEvents(facesContext);
+      viewRoot.notifyListeners(facesContext, PhaseId.APPLY_REQUEST_VALUES, viewRoot.getBeforePhaseListener(), false);
 
     } else
     {
@@ -96,9 +103,8 @@ class ApplyRequestValuesExecutor implements PhaseExecutor
       if (!(facesContext.getResponseComplete() || facesContext.getRenderResponse())
           && requestContext.isPartialRequest(facesContext))
       {
-        UIViewRoot viewRoot = facesContext.getViewRoot();
-        UIComponent source =
-            viewRoot.findComponent(facesContext.getExternalContext().getRequestParameterMap().get("source"));
+        UIComponent source = facesContext.getViewRoot()
+            .findComponent(facesContext.getExternalContext().getRequestParameterMap().get("source"));
         if (source != null)
         {
           List<String> list = new ArrayList<String>();

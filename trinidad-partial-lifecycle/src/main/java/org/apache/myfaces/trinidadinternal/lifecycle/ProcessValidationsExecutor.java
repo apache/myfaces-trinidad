@@ -29,15 +29,20 @@ public class ProcessValidationsExecutor implements PhaseExecutor
   public boolean execute(FacesContext facesContext)
   {
     String[] partialTargets = PartialLifecycleUtils.getPartialTargets(facesContext);
-    if (partialTargets != null)
+    if (partialTargets != null && facesContext.getViewRoot() instanceof UIViewRoot)
     {
-      for (String clientId : partialTargets)
+      UIViewRoot viewRoot = (UIViewRoot) facesContext.getViewRoot();
+      if (!viewRoot.notifyListeners(facesContext, PhaseId.PROCESS_VALIDATIONS,
+          viewRoot.getBeforePhaseListener(), true))
       {
-        facesContext.getViewRoot().invokeOnComponent(facesContext, clientId, contextCallback);
+        for (String clientId : partialTargets)
+        {
+          facesContext.getViewRoot().invokeOnComponent(facesContext, clientId, contextCallback);
+        }
+        viewRoot.broadcastForPhase(PhaseId.PROCESS_VALIDATIONS);
       }
-      //UIViewRoot viewRoot = facesContext.getViewRoot();
-      // TODO broadcast Events UIViewRoot has no public method
-      //viewRoot.broadcastEventsForPhase(facesContext, PROCESS_VALIDATIONS);
+      viewRoot.clearEvents(facesContext);
+      viewRoot.notifyListeners(facesContext, PhaseId.PROCESS_VALIDATIONS, viewRoot.getBeforePhaseListener(), false);
     } else
     {
       facesContext.getViewRoot().processValidators(facesContext);
