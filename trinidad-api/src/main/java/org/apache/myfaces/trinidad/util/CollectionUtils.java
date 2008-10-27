@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.ObjectStreamException;
 import java.io.Serializable;
+import java.lang.reflect.Array;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -170,6 +171,21 @@ public final class CollectionUtils
       return map;
     else
       return new CheckedSerializationMap<K,V>(map);
+  }
+  
+  protected static <T> T[] copyOf(T[] original, int newLength)
+  {
+    return (T[]) copyOf(original, newLength, original.getClass());
+  }
+
+  protected static <T,U> T[] copyOf(U[] original, int newLength, Class<? extends T[]> newType)
+  {
+    T[] copy = ((Object)newType == (Object)Object[].class)
+        ? (T[]) new Object[newLength]
+        : (T[]) Array.newInstance(newType.getComponentType(), newLength);
+    System.arraycopy(original, 0, copy, 0,
+                     Math.min(original.length, newLength));
+    return copy;
   }
 
   protected abstract static class DelegatingCollection<E> implements Collection<E>
@@ -628,7 +644,7 @@ public final class CollectionUtils
         // attempt to copy any of its contents into the output array
         T[] outTypeArray = (inputSize == 0)
                              ? a
-                             : TrinidadArrays.copyOf(a, 0);
+                             : CollectionUtils.copyOf(a, 0);
         
         Object[] delegateEntries = super.toArray(outTypeArray);
         
