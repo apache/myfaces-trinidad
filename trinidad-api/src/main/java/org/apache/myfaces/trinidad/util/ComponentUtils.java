@@ -25,6 +25,8 @@ import java.util.TimeZone;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 
+import javax.faces.component.UIViewRoot;
+
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
@@ -372,13 +374,13 @@ public final class ComponentUtils
       // naming container if there is are multiple colons.
       if (!(from instanceof NamingContainer))
       {
-        from = _getParentNamingContainer(from);
+        from = _getParentNamingContainerOrViewRoot(from);
       }
       
       // pop out of the naming containers if there are multiple colons
       for (int j = 1; j < colonCount; j++)
       {
-        from = _getParentNamingContainer(from);
+        from = _getParentNamingContainerOrViewRoot(from);
       }
     }
 
@@ -397,10 +399,115 @@ public final class ComponentUtils
     
   }
   
+  /**
+   * Gets the scoped identifier for the target component. The scoping will be
+   * within a subtree rooted by the supplied base component. If the supplied
+   * base component were to be the view root, the returned id will be the 
+   * absolute id and hence prefixed with NamingContainer.SEPARATOR_CHARACTER.
+   * 
+   * This algorithm reverse matches that of UIComponent.findComponent(). 
+   * In other words, the scoped id returned by this method can be safely used 
+   * in calls to findComponent() on the baseComponent, if it were to be
+   * enclosing the targetComponent.
+   * 
+   * This method assumes that the supplied baseComponent definitely encloses the
+   * targetComponent, return value is not reliable if this is not the case.
+   * 
+   * Examples of id returned: ':foo:bar:baz'/'foo:baz'/'foo'
+   * 
+   * @param targetComponent The component for which the scoped id needs to be
+   * determined.
+   * @param baseComponent The component relative to which the scoped id for the
+   * targetComponent needs to be determined.
+   * @return The scoped id for target component. Returns null if the supplied
+   * targetComponent was null or did not have an id.
+   */
+  public static String getScopedIdForComponent(
+    UIComponent targetComponent,
+    UIComponent baseComponent)
+  {
+    String targetComponentId = targetComponent.getId();
+    
+    if (targetComponent == null || 
+        targetComponentId == null ||
+        targetComponentId.length() == 0)
+      return null;
+    
+    // Optimize when both arguments are the same
+    if (targetComponent.equals(baseComponent))
+      return targetComponentId;
+
+    StringBuilder builder = new StringBuilder(100);
+    
+    // Add a leading ':' if the baseComponent is the view root
+    if (baseComponent instanceof UIViewRoot)
+      builder.append(NamingContainer.SEPARATOR_CHAR);
+
+    _buildScopedId(targetComponent, baseComponent, builder);
+    
+    return builder.toString();
+  }
+
+  /**
+   * Builds the scoped id. Adds the naming container's id and the separator char
+   * in a recursive fashion.
+   * @param targetComponent The component for which the scoped id needs to be
+   * built.
+   * @param baseComponent The component relative to which the scoped id for the
+   * targetComponent needs to be built.
+   * @param builder The StringBuilder which is to store the scoped id.
+   * @return The String value of the scoped id
+   */
+  private static void _buildScopedId(
+    UIComponent  targetComponent,
+    UIComponent  baseComponent,
+    StringBuilder builder)
+  {
+    UIComponent namingContainer = 
+      _getParentNamingContainer(targetComponent, baseComponent);
+
+    if (namingContainer != null)
+    {
+      _buildScopedId(namingContainer, baseComponent, builder);
+      builder.append(NamingContainer.SEPARATOR_CHAR);
+    }
+      
+    builder.append(targetComponent.getId());
+  }
+
+  /**
+   * Returns the naming container of the component. This method makes sure that
+   * we don't go beyond the root component. 
+   * @param component the UIComponent 
+   * @param baseComponent The component to limit the search up to.
+   * @return the naming container of the component which has to be in the 
+   * hierarchy of the root parent
+   */
+  private static UIComponent _getParentNamingContainer(
+    UIComponent component,
+    UIComponent baseComponent)
+  {
+    UIComponent checkedParent = component.getParent();
+    
+    while(checkedParent != null)
+    {
+      if (checkedParent instanceof NamingContainer)
+        break;
+      
+      // We hit the base component, abort.
+      if (checkedParent == baseComponent)
+        return null;
+      
+      checkedParent = checkedParent.getParent();
+    }
+    
+    return checkedParent;
+  }
+  
   // given a component, get its naming container. If the component
   // is a naming container, it will get its naming container.
   // if no parent naming containers exist, it stops at the ViewRoot.
-  private static UIComponent _getParentNamingContainer (
+  private static UIComponent _getParentNamingContainerOrViewRoot (
     UIComponent from)
   {
     while (from.getParent() != null)
