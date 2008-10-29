@@ -99,7 +99,7 @@ class ApplyRequestValuesExecutor implements PhaseExecutor
     {
       facesContext.getViewRoot().processDecodes(facesContext);
       // after a normal decode check for partialTargets
-      final RequestContext requestContext = RequestContext.getCurrentInstance();
+      /*final RequestContext requestContext = RequestContext.getCurrentInstance();
       if (!(facesContext.getResponseComplete() || facesContext.getRenderResponse())
           && requestContext.isPartialRequest(facesContext))
       {
@@ -118,7 +118,7 @@ class ApplyRequestValuesExecutor implements PhaseExecutor
             PartialLifecycleUtils.setPartialTargets(facesContext, list.toArray(new String[list.size()]));
           }
         }
-      }
+      }*/
     }
     return false;
   }
