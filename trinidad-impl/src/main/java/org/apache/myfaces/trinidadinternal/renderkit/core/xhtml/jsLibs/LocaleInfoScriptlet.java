@@ -153,7 +153,7 @@ public class LocaleInfoScriptlet extends LibraryScriptlet
     RenderingContext rc
     )
   {
-    return arc.getLocaleContext().getFormattingLocale();
+    return rc.getLocaleContext().getFormattingLocale();
   }
 
   /**
