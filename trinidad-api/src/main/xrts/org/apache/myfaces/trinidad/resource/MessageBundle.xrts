@@ -451,4 +451,8 @@
   <resource key="org.apache.myfaces.trinidad.event.FileDownloadActionListener.DOWNLOAD_ERROR">An error occurred downloading the file.</resource>
   <resource key="org.apache.myfaces.trinidad.event.FileDownloadActionListener.DOWNLOAD_ERROR_detail">The file was not downloaded or was not downloaded correctly.</resource>  
 
+  <!-- message for error while uploading a file -->
+  <resource key="org.apache.myfaces.trinidad.component.core.input.CoreInputFile.INPUT_FILE_ERROR">An error occurred uploading the file.</resource>
+  <resource key="org.apache.myfaces.trinidad.component.core.input.CoreInputFile.INPUT_FILE_ERROR_detail">A file upload error has occurred, please verify your upload data and file name.</resource>  
+
 </resources>
