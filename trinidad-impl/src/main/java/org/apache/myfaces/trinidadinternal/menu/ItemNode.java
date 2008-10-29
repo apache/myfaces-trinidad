@@ -24,7 +24,8 @@ import javax.el.ELContext;
 import javax.el.ExpressionFactory;
 import javax.el.MethodExpression;
 import javax.faces.context.FacesContext;
-import javax.faces.webapp.UIComponentTag;
+
+import org.apache.myfaces.trinidad.util.ContainerUtils;
 
 /**
  * Code specific to a Menu Model's ItemNode.
@@ -114,7 +115,7 @@ public class ItemNode extends MenuNode
 
     // Could be EL expression
     if (   value != null
-        && UIComponentTag.isValueReference(value)
+        && ContainerUtils.isValueReference(value)
        )
     {
       // Value of action is EL method binding, so we 
@@ -151,7 +152,7 @@ public class ItemNode extends MenuNode
 
     // Could be EL expression
     if (   value != null
-        && UIComponentTag.isValueReference(value)
+        && ContainerUtils.isValueReference(value)
        )
     {
       // Value of action is EL method binding, so we 
@@ -188,7 +189,7 @@ public class ItemNode extends MenuNode
 
     // Could be EL expression
     if (   value != null
-        && UIComponentTag.isValueReference(value)
+        && ContainerUtils.isValueReference(value)
        )
     {
       // Value of action is EL method binding, so we 
@@ -374,7 +375,7 @@ public class ItemNode extends MenuNode
       
     // Could be EL expression
     if (   value != null
-        && UIComponentTag.isValueReference(value)
+        && ContainerUtils.isValueReference(value)
        ) 
     {
       // Value of action is EL method binding, so we 
@@ -410,7 +411,7 @@ public class ItemNode extends MenuNode
     
     // Could be EL expression
     if (   value != null
-        && UIComponentTag.isValueReference(value)
+        && ContainerUtils.isValueReference(value)
        )
     {
       // Value of destination is EL value binding, so we 

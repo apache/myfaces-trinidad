@@ -30,9 +30,9 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 import javax.faces.context.FacesContext;
-import javax.faces.webapp.UIComponentTag;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.util.ContainerUtils;
 import org.apache.myfaces.trinidad.util.ThreadLocalUtils;
 
 /**
@@ -151,7 +151,7 @@ class MenuUtils
   static boolean evalBoolean (String boolStr, boolean defaultVal)
   {
     if (   boolStr != null 
-        && UIComponentTag.isValueReference(boolStr)
+        && ContainerUtils.isValueReference(boolStr)
        )
     {
       Boolean bValue = getBoundValue(boolStr, Boolean.class);
@@ -175,7 +175,7 @@ class MenuUtils
   static String evalString(String propVal)
   {
     if (   propVal != null 
-        && UIComponentTag.isValueReference(propVal)
+        && ContainerUtils.isValueReference(propVal)
        )
     {
       String elVal = getBoundValue(propVal, String.class);
@@ -193,7 +193,7 @@ class MenuUtils
   static int evalInt(String propVal)
   {
     if (   propVal != null 
-        && UIComponentTag.isValueReference(propVal)
+        && ContainerUtils.isValueReference(propVal)
        )
     {
       Integer elVal = getBoundValue(propVal, Integer.class);
@@ -258,7 +258,7 @@ class MenuUtils
     if (resBundle != null) 
     {
       // if _bundleName is an EL, then get its value
-      if (UIComponentTag.isValueReference(resBundle)) 
+      if (ContainerUtils.isValueReference(resBundle)) 
       {
         bundleName = MenuUtils.getBoundValue(resBundle, String.class);
       } 
@@ -453,6 +453,7 @@ class MenuUtils
   private final static TrinidadLogger _LOG = 
                         TrinidadLogger.createTrinidadLogger(MenuUtils.class);
 }
+
 
 
 

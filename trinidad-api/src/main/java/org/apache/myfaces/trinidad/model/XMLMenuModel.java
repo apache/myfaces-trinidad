@@ -31,12 +31,11 @@ import javax.el.ELContext;
 import javax.el.ELResolver;
 import javax.el.PropertyNotFoundException;
 
-import javax.faces.application.Application;
 import javax.faces.context.FacesContext;
-import javax.faces.webapp.UIComponentTag;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
+import org.apache.myfaces.trinidad.util.ContainerUtils;
 
 
 /**
@@ -510,7 +509,7 @@ public class XMLMenuModel extends BaseMenuModel
     // If it is an EL expression, we must evaluate it
     // and return its value
     if (   value != null
-        && UIComponentTag.isValueReference(value)
+        && ContainerUtils.isValueReference(value)
        )
      {
        Object elValue = null;

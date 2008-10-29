@@ -23,9 +23,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
-import javax.faces.webapp.UIComponentTag;
 
 import org.apache.myfaces.trinidad.model.XMLMenuModel;
+import org.apache.myfaces.trinidad.util.ContainerUtils;
 
 /**
  * Code generic to a Menu Nodes of the menu model.
@@ -74,7 +74,7 @@ public class MenuNode
     }
 
     if (   _label != null
-        && UIComponentTag.isValueReference(_label)
+        && ContainerUtils.isValueReference(_label)
        )
     {
       // do not set _label to the evaluated EL.
@@ -340,7 +340,7 @@ public class MenuNode
   public void setAccessKey (String accessKey)
   {
     if (   accessKey != null
-        && UIComponentTag.isValueReference(accessKey)
+        && ContainerUtils.isValueReference(accessKey)
        )
     {
        // EL Expression
@@ -400,7 +400,7 @@ public class MenuNode
 
     // if EL expression, set it and the label to the same thing
     if (   labelAndAccessKey != null
-        && UIComponentTag.isValueReference(labelAndAccessKey)
+        && ContainerUtils.isValueReference(labelAndAccessKey)
        )
     {
       _labelAndAccessKey   = labelAndAccessKey;
