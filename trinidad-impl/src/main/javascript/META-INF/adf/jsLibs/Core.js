@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -309,7 +309,7 @@ function _agentInit()
     // blackberry because navigator.userAgent on BlackBery Browser 4.0
     // starts with Mozilla/4.0 (even though the User-Agent sent to the
     // server starts with BlackBerry<model>/<version>)
-    
+
     // BlackBerry Browser 4.0+ supports navigator.appVersion,
     // and earlier versions don't support script, so we can
     // leave the version as defined above
@@ -666,7 +666,7 @@ function _getParentWindow(currWindow)
   {
     // dummy read to test security error
     parentWindow.name;
-    
+
     return parentWindow;
   }
   catch (e)
@@ -845,7 +845,7 @@ function _checkUnload(
 {
   //PH:set the right event object;
   event = _getEventObj();
-  
+
   // Make sure we don't run through this function twice
   // when we close a dialog. The
   // _unloadADFDialog function blocks a second run
@@ -1060,7 +1060,7 @@ function _isModalAbandoned()
   // within a frame.  So, we check for the _abandoned property
   // on the "top" window.
   var topWindow = _getTop(self);
-  
+
   return topWindow._abandoned;
 }
 
@@ -1186,12 +1186,12 @@ function _getJavascriptId(name)
 function _getFormName(form)
 {
   var name = form.name;
-  
+
   if ((typeof name) != 'string')
   {
     if (_agent.isIE)
     {
-      name = form.attributes['name'].nodeValue; 
+      name = form.attributes['name'].nodeValue;
     }
     else
     {
@@ -1288,7 +1288,7 @@ function _validateAlert(
     validators = _getValidators(form);
 
   var failureMap = _multiValidate(form, source,  validators);
-  
+
   var firstFailure = true;
   var failureString = errorTitle + '\n';
 
@@ -1303,7 +1303,7 @@ function _validateAlert(
     var currInput = _getFormElement(form, currId);
     if (!currInput)
       continue;
-      
+
     // Get the label text for this input
     var label = validators[currId].label;
 
@@ -1319,12 +1319,12 @@ function _validateAlert(
 
       // Get the current message
       var facesMessage = messages[j];
-    
-      var errorString = _getGlobalErrorString(currInput, 
-                          globalMessage, 
+
+      var errorString = _getGlobalErrorString(currInput,
+                          globalMessage,
                           facesMessage.getDetail(),
-                          label);   
-    
+                          label);
+
       failureString += errorString + '\n';
     }
   }
@@ -1339,7 +1339,7 @@ function _validateAlert(
   _recordValidation(true, 0);
   alert(failureString);
   _recordValidation(true, 0);
-  
+
   return false;
 }
 
@@ -1354,7 +1354,7 @@ function _validateInline(
     validators = _getValidators(form);
 
   var failureMap = _multiValidate(form, source,  validators);
-  
+
   var noFailures = true;
 
   for (var currId in validators)
@@ -1366,14 +1366,14 @@ function _validateInline(
 
     // If component hasn't got a message element, then skip
     var msgElem = _getElementById(document, currId+ "::msg");
-      
+
     // Clear any existing inline message
     if (msgElem)
       msgElem.innerHTML = "";
-      
-    // Clear any existing messages from the MessageBox  
+
+    // Clear any existing messages from the MessageBox
     TrMessageBox.removeMessages(currId);
-    
+
     // Get the messages array for currId, skip if none
     var messages = failureMap[currId];
     if (!messages || messages.length==0)
@@ -1385,12 +1385,12 @@ function _validateInline(
         iconElem.style.display = "none";
       continue;
     }
-    
+
     // Get the input element
     var currInput = _getFormElement(form, currId);
     if (!currInput)
       continue;
-      
+
     // Get the label text for this input
     var label = validators[currId].label;
 
@@ -1416,11 +1416,11 @@ function _validateInline(
       // summary or detail, then pop an alert to warn the page developer
       if (!msgElem && !TrMessageBox.isPresent())
         alert("Field Error [" + currId + "] - " + facesMessage.getDetail());
-      
+
       // Add the message to the MessageBox
       TrMessageBox.addMessage(currId, label, facesMessage);
     }
-    
+
     // If we got this far, we know there's something to display so
     // make the inline message and icon visible.
     if (msgElem)
@@ -1437,12 +1437,12 @@ function _validateInline(
  * the appropriate message will be displayed in the message component for this
  * input field.
  * <p>
- * The simplest usage of this method is from the onblur attribute of the 
+ * The simplest usage of this method is from the onblur attribute of the
  * input component. e.g. onblur="_validateInput(event);"
  * <p>
  * @param event(Event) The event object provided by the event handler.
  * @param falseOnFail(boolean) Force method to return false if validation failed.
- * @return boolean, false if validation failed and falseOnFail set to true, otherwise true. 
+ * @return boolean, false if validation failed and falseOnFail set to true, otherwise true.
  */
 // TODO: make this a public function only after hanging it on
 // a namespaced object, *and* making it not specific to inline
@@ -1451,10 +1451,10 @@ function _validateInput(event, falseOnFail)
 {
   if (!event)
     return true;
-    
+
   // Get the element associated with the event
   var inputElem = event.target || event.srcElement;
-  
+
   if (!inputElem || !inputElem.id)
     return true;
 
@@ -1465,7 +1465,7 @@ function _validateInput(event, falseOnFail)
   var validators = _getValidators(form);
   if (!validators)
     return true;
-    
+
   var id = inputElem.id;
 
   var descriptor = validators[id];
@@ -1487,8 +1487,8 @@ function _validateInput(event, falseOnFail)
 
   // Call inline validation using only the appropriate validators
   var retval = _validateInline(form, null, validatorsToRun, 1, null);
-  
-  // Only return the actual outcome if asked to do so 
+
+  // Only return the actual outcome if asked to do so
   if (falseOnFail)
     return retval;
 }
@@ -1832,7 +1832,31 @@ function submitForm(
       if(_agent.isIE && window.external)
         window.external.AutoCompleteSaveForm(form);
 
-      form.submit();
+      try
+      {
+        form.submit();
+      }
+      catch (e)
+      {
+        if (TrPage.getInstance().getRequestQueue()._isMultipartForm(form))
+        {
+          // IE will fail on an input file submission of a file that does not exist
+          var facesMessage = _createFacesMessage(
+            'org.apache.myfaces.trinidad.component.core.input.CoreInputFile.INPUT_FILE_ERROR');
+          // if there's nowhere to display the message in either
+          // summary or detail, then pop an alert to warn the page developer
+          if (!TrMessageBox.isPresent())
+            alert(facesMessage.getDetail());
+          else
+            // Add the message to the MessageBox
+            TrMessageBox.addMessage(null, null, facesMessage);
+        }
+        else
+        {
+          throw e;
+        }
+      }
+
       if (_blockOnEverySubmit)
         _pprStartBlocking(window);
 
@@ -2016,7 +2040,7 @@ function createNameValueString(form) {
           }
           else if (element.type.indexOf("select") != -1)
           {
-            //PH:selectdata must be initialized to "". Otherwise, results for 
+            //PH:selectdata must be initialized to "". Otherwise, results for
             //selectdata+="stringtoconcatenate" is "undefinedstringtoconcatenate"
             var selectdata ="" ;
             for (var j = 0; j < element.options.length; j++)
@@ -2242,7 +2266,7 @@ function _setFocus(currInput)
     if (currInput.focus)
       currInput.focus();
 
-    //PH:element["value"] is not supported for PIE,IEM and BB. Therefore 
+    //PH:element["value"] is not supported for PIE,IEM and BB. Therefore
     //use element.value which is supported by all
     if ((currInput.type == "text")
         && (currInput.value != (void 0))
@@ -2265,12 +2289,12 @@ function _addValidators(formName, validators, validations, labels, formats)
   if (!validatorMap)
     validatorMap = new Object();
 
-  // Now, iterate through the array we've been given  
+  // Now, iterate through the array we've been given
   for (var i = 0; i < validators.length; i += 5)
   {
     var id = validators[i];
     var descriptor = new Object();
-   
+
     // If the field is required, replace the format index with the
     // actual message
     if (validators[i + 1])
@@ -2283,7 +2307,7 @@ function _addValidators(formName, validators, validations, labels, formats)
     // If the converter exists, change it from an index to a converter
     var converterIndex = validators[i + 3];
     if (converterIndex != null)
-    { 
+    {
       descriptor.converter = validations[converterIndex];
     }
 
@@ -2313,7 +2337,7 @@ function _addValidators(formName, validators, validations, labels, formats)
     {
       var inputElem = _getElementById(document, id);
       if (inputElem)
-      { 
+      {
         _addEvent(inputElem, "change", _validateInput);
       }
     }
@@ -2378,7 +2402,7 @@ function _multiValidate(
       {
           continue;
       }
-        
+
       var isIgnored = false;
       // If this field is one that's specifically being ignored,
       // then don't validate here.
@@ -2411,7 +2435,7 @@ function _multiValidate(
 
       //Initialize the failure array for this input
       var inputFailures = new Array();
-   
+
       var descriptor = validators[id];
       var label = descriptor.label;
 
@@ -2436,9 +2460,9 @@ function _multiValidate(
         // get the formatted error string for the current input and
         var requiredErrorString = _getErrorString(currInput, label,
                                                   descriptor.requiredFormat);
-                                                  
+
         // Populate the failureMap with the current error
-        inputFailures[inputFailures.length] = 
+        inputFailures[inputFailures.length] =
             new TrFacesMessage(requiredErrorString, requiredErrorString);
       }
       else
@@ -2463,13 +2487,13 @@ function _multiValidate(
             }
             catch (e)
             {
-              converterError = true; 
+              converterError = true;
                  // Populate the failureMap with the current error
               inputFailures[inputFailures.length] = e.getFacesMessage();
             }
           }
         }
-        
+
         if ( converterError == false)
         {
           var validatorArray = descriptor.validators;
@@ -2488,13 +2512,13 @@ function _multiValidate(
                 if (validatorConstructor && value !== undefined)
                 {
                   var validator = eval(validatorConstructor);
-                  
-                  try 
+
+                  try
                   {
                     validator.validate(value, label, converter);
                   }
                   catch (e)
-                  {  
+                  {
                     // Populate the failureMap with the current error
                     inputFailures[inputFailures.length] = e.getFacesMessage();
                   }
@@ -2504,7 +2528,7 @@ function _multiValidate(
           }
         }
       }
-      
+
       // if there were failures, then add the current input to the failuresMap
       if (inputFailures.length > 0)
       {
@@ -2514,7 +2538,7 @@ function _multiValidate(
       }
     }
   }
-  
+
   return failureMap;
 }
 
@@ -2530,10 +2554,10 @@ function _createFacesMessage(
   key,
   label,
   value,
-  param2,  
+  param2,
   param3
 )
-{  
+{
   var summary = TrMessageFactory.getSummaryString(key);
   var detail = TrMessageFactory.getDetailString(key);
   // format the detail error string
@@ -2541,8 +2565,8 @@ function _createFacesMessage(
   {
     detail = TrFastMessageFormatUtils.format(detail, label, value, param2, param3);
   }
-  return new TrFacesMessage(summary, 
-                          detail, 
+  return new TrFacesMessage(summary,
+                          detail,
                           TrFacesMessage.SEVERITY_ERROR);
 }
 
@@ -2559,18 +2583,18 @@ function _createCustomFacesMessage(
   detail,
   label,
   value,
-  param2,  
+  param2,
   param3
 )
-{  
+{
 
   // format the detail error string
   if (detail != null)
   {
     detail = TrFastMessageFormatUtils.format(detail, label, value, param2, param3);
   }
-  
-  return new TrFacesMessage(summary, 
+
+  return new TrFacesMessage(summary,
                           detail,
                           TrFacesMessage.SEVERITY_ERROR);
 }
@@ -2583,7 +2607,7 @@ function _getGlobalErrorString(
   label
   )
 {
-  var form = _getForm(input);  
+  var form = _getForm(input);
   if (errorFormat && label != null)
   {
     return _formatErrorString(errorFormat,
@@ -2592,9 +2616,9 @@ function _getGlobalErrorString(
                                "1":errorString
                              });
   }
-  
-  return errorString;  
-}                
+
+  return errorString;
+}
 
 
 /**
@@ -2603,15 +2627,15 @@ function _getGlobalErrorString(
  */
  function _isShowing(
    input)
- { 
-   //PH: removed !input.focus because firstly, focus() function is supported by 
-   //all browsers (PIE,IEM,BB,FF,IE) and secondly, _isShowing should be treated 
-   //as a function to test visibility only. If there is a case where one really 
-   //wants to test whether focus function exists or not, do it in an if 
+ {
+   //PH: removed !input.focus because firstly, focus() function is supported by
+   //all browsers (PIE,IEM,BB,FF,IE) and secondly, _isShowing should be treated
+   //as a function to test visibility only. If there is a case where one really
+   //wants to test whether focus function exists or not, do it in an if
    //statement and call _isShowing within it.
    if (input.type == 'hidden')
        return false;
-   
+
    // determine visibility from style information
    if (_agent.isIEGroup)
    {
@@ -2647,12 +2671,12 @@ function _getGlobalErrorString(
 
      var computedStyle = input.ownerDocument.defaultView.getComputedStyle(input,
                                                                           null);
-     
+
      // either of these styles will prevent focus from succeeding
      return ((computedStyle["visibility"] != "hidden") &&
              (computedStyle["display"] != "none"));
    }
-   
+
    return true;
  }
 
@@ -2669,7 +2693,7 @@ function _getGlobalErrorString(
    {
      return input.name;
    }
-   
+
    // for non-Netscape return the ID directly
    var id = input.id;
 
@@ -2721,7 +2745,7 @@ function _getGlobalErrorString(
 
    return form;
  }
- 
+
 /**
  * Returns the element of name elementName for the given form
  */
@@ -2745,7 +2769,7 @@ function _getGlobalErrorString(
   }
   return formElement;
 }
- 
+
 
 /**
  * Returns the name of an input element on either IE or Netscape, dealing
@@ -2785,7 +2809,7 @@ function _instanceof(
 {
   if (type == (void 0))
     return false;
-    
+
   if (obj == (void 0))
     return false;
 
@@ -2880,7 +2904,7 @@ function _formatErrorString(
   {
     var currValue = tokens[currToken];
 
-    // if the token has no value 
+    // if the token has no value
     if (!currValue)
     {
       currValue = "";
@@ -2913,24 +2937,24 @@ function _formatErrorString(
      for (i=0; i<currValue.length; i++)
      {
        b1 = b1 + 'placeHolderString';
-     }  
-   
+     }
+
      while (indexOf >= 0)
     {
       currString=(currString.substring(0,indexOf)
            + b1
            + currString.substring(indexOf+currRegExp.length));
-      indexOf = currString.indexOf(currRegExp);   
-    }    
-   
+      indexOf = currString.indexOf(currRegExp);
+    }
+
     indexOf = currString.indexOf(b1);
-   
+
     while (indexOf >= 0)
-    {  
+    {
       currString =(currString.substring(0,indexOf)
            + currValue
-           + currString.substring(indexOf+b1.length));      
-      indexOf = currString.indexOf(b1);   
+           + currString.substring(indexOf+b1.length));
+      indexOf = currString.indexOf(b1);
     }
   }
   else
@@ -2954,7 +2978,7 @@ function _formatErrorString(
   // And now take any doubled-up single quotes down to one,
   // to handle escaping
   var twoSingleQuotes = /''/g;
-  
+
   return currString.replace(twoSingleQuotes, "'");
 }
 
@@ -2975,7 +2999,7 @@ function _chain(
   if ( shortCircuit && (result1 == false))
     return false;
   var result2 = _callChained(evh2, target, event);
-  
+
   // since undefined results should be evaluated as true,
   // return false only if either result1 or result2 return false
   return !((result1 == false) || (result2 == false));
@@ -2989,7 +3013,7 @@ function _callChained(
 {
 
   if (handler && (handler.length > 0))
-  { 
+  {
     // handle ie case, where we have no event parameter
 
     if( (typeof(event) == 'undefined') || (event == (void 0) ) )
@@ -3097,25 +3121,25 @@ function _getElementById(
     //
     //PH:exclude BlackBerry
     if (((_agent.kind != "ie") || (_agent.version >= 5)) && (!_agent.isBlackBerry))
-    {    
-      var element = doc.getElementById(id);     
-    
+    {
+      var element = doc.getElementById(id);
+
       // IE's implementation of getElementById() is buggy.  If
       // the page contains an anchor which has the same name
       // as the requested id, IE will return the anchor, even
       // if the anchor's id attribute is not set.  So, make
       // sure that we actually get back an element with the
-      // correct id.  
+      // correct id.
       if ((element == null) || (element.id == id))
         return element;
-      // If we get here, that means that IE has probably returned 
+      // If we get here, that means that IE has probably returned
       // an anchor instead of the desired element.  Let's scan
       // the entire DOM tree to find the element we want.
       return _findElementById(doc, id);
     }
-    
-    return doc.getElementById(id);    
-  }   
+
+    return doc.getElementById(id);
+  }
   else if (typeof(doc.all) == 'undefined')
   {
     // Browser does not support getElementById nor DOM documnet.all object.
@@ -3130,12 +3154,12 @@ function _getElementById(
       {
         var f = doc.forms[i];
         if(f[id])
-          return f[id];        
+          return f[id];
       }
-      
-    //element is not within the form but form(s) is(are) present. 
-    return window[id];   
-  }  
+
+    //element is not within the form but form(s) is(are) present.
+    return window[id];
+  }
   else
   {
     // Browser does not support getElementById but supports DOM documnet.all
@@ -3372,7 +3396,7 @@ function _pprStartBlocking(win)
     // blocking starts. Use a timeout to allow the update.
     win._pprTimeoutFunc = win.setTimeout("_doPprStartBlocking(window);",
                                              1);
-    return;        
+    return;
   }
   else
   {
@@ -3412,7 +3436,7 @@ function _doPprStartBlocking (win)
                                                8000);
     }
     else if (_agent.isIEGroup)
-    {    
+    {
       // save off the element we'll return focus to
       _pprEventElement = window.document.activeElement;
     }
@@ -4117,7 +4141,7 @@ function _checkLoad()
   // If we're inside a frameset, and the top frame wants
   // reloads blocked, install a _noReload handler.
   var topWindow = _getTop(self);
-  
+
   if ((self != topWindow) && topWindow["_blockReload"])
   {
     document.onkeydown = _noReload;
@@ -4131,7 +4155,7 @@ function _checkLoad()
     //PH: Set Focus on element for all browsers.
     if(myElement)
       _setFocus(myElement);
-  }  
+  }
 
   // Initialize ourselves if we're in a PopupDialog
   TrPopupDialog._initDialogPage();
@@ -4442,9 +4466,9 @@ function _radioSet_adfspu(f,v,e,s,o)
 }
 
 /** This function is called from _spinboxRepeat.
- * This function increments or decrements the value that is in the 
- * input field by the stepSize. If the max/min is reached, check circular.  
- * If circular is true, then circle the number around. 
+ * This function increments or decrements the value that is in the
+ * input field by the stepSize. If the max/min is reached, check circular.
+ * If circular is true, then circle the number around.
  * we default circular for now, because we do not support it yet.
  * Else, stop at the max or min.
  */
@@ -4459,7 +4483,7 @@ function _stepSpinboxValue(id, increment, stepSize, min, max)
       {
         alert("value, stepSize, min, and max must all be numbers. value: "+
                value+", stepSize: "+stepSize+", min: "+min+", max: "+max);
-        return false; 
+        return false;
       }
       if (increment)
       {
@@ -4467,17 +4491,17 @@ function _stepSpinboxValue(id, increment, stepSize, min, max)
         if (incrementedValue < max)
               input.value = incrementedValue;
         else if (circular)
-              input.value = min;   
+              input.value = min;
         else input.value = max;
       }
       else
       {
         var decrementedValue = parseFloat(value) - parseFloat(stepSize);
-        
+
         if (decrementedValue > min)
           input.value = decrementedValue;
         else if (circular)
-          input.value = max; 
+          input.value = max;
         else input.value = min;
       }
       return true;
@@ -4485,9 +4509,9 @@ function _stepSpinboxValue(id, increment, stepSize, min, max)
    return false;
 }
 
-/* This function is called when the inputNumberSpinbox component's spinbox 
+/* This function is called when the inputNumberSpinbox component's spinbox
  * buttons are released (onmouseup).
- * This function stops the spinboxTimer. 
+ * This function stops the spinboxTimer.
  * The spinboxTimer calls _stepSpinboxValue in one second increments.
  */
 function _clearSpinbox()
@@ -4497,14 +4521,14 @@ function _clearSpinbox()
 }
 
 /**
-  * This function is called when the inputNumberSpinbox component's 
-  * spinbox buttons are pressed. This is called onmousedown. 
+  * This function is called when the inputNumberSpinbox component's
+  * spinbox buttons are pressed. This is called onmousedown.
   * It calls the _stepSpinboxValue function to increment or decrement
   * the input element's value. We call this repeatedly every second.
   * onmouseup the component calls _clearSpinbox which clears the timeout.
   */
 function _spinboxRepeat(id, increment, stepSize, min, max)
-{ 
+{
   // increment/decrement
   var success = _stepSpinboxValue(id, increment, stepSize, min, max);
   // if not successful, then clear the timeout and return
@@ -4517,7 +4541,7 @@ function _spinboxRepeat(id, increment, stepSize, min, max)
     if (_spinboxRepeat.functionString == null)
     {
       // setup the function to pass to the timeout.
-      _spinboxRepeat.functionString = 
+      _spinboxRepeat.functionString =
           "_spinboxRepeat('"+id+"',"+increment+
           ","+stepSize+","+min+","+max+");";
     }
@@ -4532,9 +4556,9 @@ function _getEventObj()
 {
   if(typeof(event) == 'undefined')
     return window.event;
-  else     
+  else
     return event;
-  
+
   return null;
 }
 
@@ -4585,13 +4609,13 @@ TrUIUtils.createCallback = function(thisObj, func)
 /**
  * Get the client window size.
  * TODO - make this public?
- * 
+ *
  * @return {Object} the client size of the window. The returned object will have w and h properties.
  */
 TrUIUtils._getWindowClientSize = function()
 {
   var func;
-  
+
   if (TrUIUtils['_getWinClientSize'] == null)
   {
     // IE is abnormal
@@ -4611,15 +4635,15 @@ TrUIUtils._getWindowClientSize = function()
       }
     }
   }
-  
+
   return TrUIUtils._getWinClientSize();
 }
 
 /**
  * Return the offset bounds of an element
  * TODO - make this public?
- * 
- * @param elem {String or Element} the ID of an element or an element reference 
+ *
+ * @param elem {String or Element} the ID of an element or an element reference
  * @return {Object} the returned object will have x, y, w and h properties.
  * Returns null if the element does not exist
  */
@@ -4641,8 +4665,8 @@ TrUIUtils._getElementBounds = function(elem)
  * Get the location of an element in relation to the view port.
  * This will return the same co-ordinates as browser events (i.e. mouse event locations).
  * TODO - make this public?
- * 
- * @param elem {String or Element} the ID of an element or an element reference 
+ *
+ * @param elem {String or Element} the ID of an element or an element reference
  * @return {Object} the location on the page. The returned object will have x and y properties.
  * Returns null if the element does not exist
  */
@@ -4656,9 +4680,9 @@ TrUIUtils._getElementLocation = function(elem)
   {
     return null;
   }
-  
+
   var func;
-  
+
   if (TrUIUtils['_getElemLoc'] == null)
   {
     // if possible, use more accurate browser specific methods
@@ -4684,7 +4708,7 @@ TrUIUtils._getElementLocation = function(elem)
         var loc = { x: rect.left, y: rect.top };
         var docElem = doc.documentElement;
         var scrollLeft = docElem.scrollLeft;
-        
+
         var rtl = docElem["dir"] == "rtl";
         // IE scroll bar adjustment
         if (rtl)
@@ -4700,7 +4724,7 @@ TrUIUtils._getElementLocation = function(elem)
     {
       TrUIUtils._getElemLoc = function(elem)
       {
-        var win = elem.ownerDocument.contentWindow;  
+        var win = elem.ownerDocument.contentWindow;
         // use offset* properties to determine location
         var curleft = 0;
         var curtop = 0;
@@ -4713,7 +4737,7 @@ TrUIUtils._getElementLocation = function(elem)
       }
     }
   }
-  
+
   return TrUIUtils._getElemLoc(elem);
 }
 
@@ -4732,7 +4756,7 @@ TrUIUtils._cssToJs = function(prop)
       upperNext = true;
       continue;
     }
-    
+
     if (upperNext)
     {
       jsProp += prop.charAt(c).toUpperCase();
@@ -4741,10 +4765,10 @@ TrUIUtils._cssToJs = function(prop)
     {
       jsProp += prop.charAt(c);
     }
-      
+
     upperNext = false;
   }
-  
+
   return jsProp;
 }
 

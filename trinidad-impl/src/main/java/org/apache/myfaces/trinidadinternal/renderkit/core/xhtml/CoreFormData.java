@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,6 +19,7 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -43,6 +44,7 @@ import org.apache.myfaces.trinidad.util.FastMessageFormat;
 import org.apache.myfaces.trinidad.util.MessageFactory;
 import org.apache.myfaces.trinidad.validator.ClientValidator;
 import org.apache.myfaces.trinidadinternal.share.data.ServletRequestParameters;
+
 
 /**
  * Implementation of FormData from the CoreRenderKit (or,
@@ -415,12 +417,12 @@ public class CoreFormData extends FormData
       component = new org.apache.myfaces.trinidad.component.UIXInput();
       component.setId(clientId);
 
-    }    
-    
+    }
+
     // write out the lib(s) and script
-    String libURI = submitConverter.getClientLibrarySource(context);  
+    String libURI = submitConverter.getClientLibrarySource(context);
     String clientScript = submitConverter.getClientScript(context, component);
-    Collection<String> libRefs = submitConverter.getClientImportNames();  
+    Collection<String> libRefs = submitConverter.getClientImportNames();
     _addClientScripts(context, rc, libURI, clientScript, libRefs, "TrConverter()");
 
     String converter = submitConverter.getClientConversion(context,
@@ -434,7 +436,7 @@ public class CoreFormData extends FormData
     }
   }
 
-  
+
   private void _addClientScripts(
     FacesContext        context,
     RenderingContext    rc,
@@ -446,16 +448,9 @@ public class CoreFormData extends FormData
   {
     if (libURI != null)
     {
-      // check if it's already been written
-      Map<Object, Object> props = rc.getProperties();
-      if( props.get(libURI) == null)
-      {        
-        // put the lib name in the property map so it won't be written out again
-        props.put(libURI, Boolean.TRUE);
-        XhtmlUtils.writeLibImport(context, rc, libURI);          
-      } 
+      XhtmlUtils.writeLibImport(context, rc, libURI);
     }
-  
+
     if(libRefs != null)
     {
       _writeDependencies(context, rc, libRefs);
@@ -464,14 +459,14 @@ public class CoreFormData extends FormData
     {
       _writeDependencies(context, rc, defaultLibRef);
     }
-    
+
     if ( clientScript != null)
     {
       List<String> clientDependencies = getClientDependencies(true);
       clientDependencies.add(clientScript);
     }
   }
-  
+
 
 
   /**
@@ -488,13 +483,13 @@ public class CoreFormData extends FormData
     String                    clientId
     ) throws IOException
   {
-        
+
     // write out the lib(s) and script
-    String libURI = submitValidator.getClientLibrarySource(context);  
+    String libURI = submitValidator.getClientLibrarySource(context);
     String clientScript = submitValidator.getClientScript(context, component);
-    Collection<String> libRefs = submitValidator.getClientImportNames();  
+    Collection<String> libRefs = submitValidator.getClientImportNames();
     _addClientScripts(context, rc, libURI, clientScript, libRefs, "TrValidator()");
- 
+
     String validator = submitValidator.getClientValidation(context,
                                                            component);
 
@@ -692,7 +687,7 @@ public class CoreFormData extends FormData
                         libReference);
     }
   }
-  
+
   /**
     * Opportunity for the ClientConverter or Validator to write any of its dependencies
     * to the output.  For HTML, this will typically be imports of
@@ -712,10 +707,10 @@ public class CoreFormData extends FormData
        Object[] libRefArray = libRefs.toArray();
        for (int i = 0; i < libRefArray.length; i++)
        {
-         XhtmlUtils.addLib(context, rc, libRefArray[i]);    
-       } 
+         XhtmlUtils.addLib(context, rc, libRefArray[i]);
+       }
      }
-   }  
+   }
 
   private int _inputTextCount = 0;
   private boolean _hasImmediateComponent = false;

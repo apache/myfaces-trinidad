@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -30,21 +30,16 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
-import org.apache.myfaces.trinidad.component.UIXIterator;
 import org.apache.myfaces.trinidad.component.UIXComponentRef;
+import org.apache.myfaces.trinidad.component.UIXIterator;
 import org.apache.myfaces.trinidad.component.UIXSubform;
 import org.apache.myfaces.trinidad.component.UIXSwitcher;
-
 import org.apache.myfaces.trinidad.context.Agent;
-
-import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidad.context.RenderingContext;
-
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.Scriptlet;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.XhtmlScriptletFactory;
-
 import org.apache.myfaces.trinidadinternal.share.util.FastMessageFormat;
 
 
@@ -144,19 +139,27 @@ public class XhtmlUtils
 
   /**
    * Write out a script element importing a library.
+   * The given URL will only be written once to the page.
    */
   public static void writeLibImport(
-    FacesContext        context,
-    RenderingContext arc,
-    Object              libURL) throws IOException
+    FacesContext     context,
+    RenderingContext rc,
+    Object           libURL) throws IOException
   {
+    // check if it's already been written
+    Map<Object, Object> props = rc.getProperties();
+    if (props.containsKey(libURL)) { return; }
+
+    // put the lib name in the property map so it won't be written out again
+    props.put(libURL, Boolean.TRUE);
+
     ResponseWriter writer = context.getResponseWriter();
 
     writer.startElement("script", null);
-    XhtmlRenderer.renderScriptDeferAttribute(context, arc);
+    XhtmlRenderer.renderScriptDeferAttribute(context, rc);
     // Bug #3426092:
     // render the type="text/javascript" attribute in accessibility mode
-    XhtmlRenderer.renderScriptTypeAttribute(context, arc);
+    XhtmlRenderer.renderScriptTypeAttribute(context, rc);
 
     // For portlets, we want to make sure that we only import
     // each script once.  Employ document.write() to achieve this
@@ -164,11 +167,11 @@ public class XhtmlUtils
     // problems when resizing windows - but we're done with Netscape 4)
     libURL = context.getExternalContext().encodeResourceURL(libURL.toString());
 
-    if (XhtmlConstants.FACET_PORTLET.equals(arc.getOutputMode()))
+    if (XhtmlConstants.FACET_PORTLET.equals(rc.getOutputMode()))
     {
-      if (arc.getProperties().get(_PORTLET_LIB_TABLE_KEY) == null)
+      if (rc.getProperties().get(_PORTLET_LIB_TABLE_KEY) == null)
       {
-        arc.getProperties().put(_PORTLET_LIB_TABLE_KEY, Boolean.TRUE);
+        rc.getProperties().put(_PORTLET_LIB_TABLE_KEY, Boolean.TRUE);
         writer.writeText("var _uixJSL;" +
                          "if(!_uixJSL)_uixJSL={};" +
                          "function _addJSL(u)" +

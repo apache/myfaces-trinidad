@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -38,7 +38,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.LocaleList;
 
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/xhtml/jsLibs/LocaleInfoScriptlet.java#0 $) $Date: 10-nov-2005.19:02:47 $
  */
-class LocaleInfoScriptlet extends LibraryScriptlet
+public class LocaleInfoScriptlet extends LibraryScriptlet
 {
   static public final String LOCALE_INFO_KEY          = "LocaleInfo";
 
@@ -56,7 +56,7 @@ class LocaleInfoScriptlet extends LibraryScriptlet
   /**
    * @todo Revisit separate translation and internationalization
    * locales.
-   */ 
+   */
   @Override
   protected void outputScriptletImpl(
     FacesContext        context,
@@ -134,9 +134,9 @@ class LocaleInfoScriptlet extends LibraryScriptlet
     buffer.append(locStr);
     return buffer.toString();
   }
-  
 
-  /* return extra parameter "?loc=en", so that we can know what locale 
+
+  /* return extra parameter "?loc=en", so that we can know what locale
    * the translations in LocaleElements should be in. */
   protected String getExtraParameters(
   FacesContext        context,
@@ -147,11 +147,14 @@ class LocaleInfoScriptlet extends LibraryScriptlet
     String extraParams = "?loc=" + locStr;
 
     return extraParams;
-  }  
+  }
 
-    protected Locale getFormattingLocale(RenderingContext arc) {
-      return arc.getLocaleContext().getFormattingLocale();
-    }
+  protected Locale getFormattingLocale(
+    RenderingContext rc
+    )
+  {
+    return arc.getLocaleContext().getFormattingLocale();
+  }
 
   /**
    * Returns the locale variant type to use when formatting dates. The locale
@@ -175,7 +178,7 @@ class LocaleInfoScriptlet extends LibraryScriptlet
 
     return null;
   }
-  
+
   /**
    * Returns the Locale to use for loading a JavaScript resource,
    * given an input Locale
@@ -184,9 +187,9 @@ class LocaleInfoScriptlet extends LibraryScriptlet
     Locale inLocale
     )
   {
-    HashMap<Locale, Locale> supportedMap = 
+    HashMap<Locale, Locale> supportedMap =
       LocaleList.getSupportedLocales();
-    
+
     Locale outLocale = inLocale;
     if(supportedMap.containsKey(outLocale))
     {
@@ -196,19 +199,19 @@ class LocaleInfoScriptlet extends LibraryScriptlet
     {
       String variant  = outLocale.getVariant();
       String language = outLocale.getLanguage();
-      
+
       boolean isSupportedLocale = false;
-      
+
       if (variant.length() != 0)
-      {        
+      {
         outLocale = new Locale(language, outLocale.getCountry());
         isSupportedLocale = supportedMap.containsKey(outLocale);
       }
-      
+
       if (!isSupportedLocale)
-      {        
+      {
         outLocale = new Locale(language, "");
-        
+
         if (!supportedMap.containsKey(outLocale))
         {
           // use default Locale
@@ -217,9 +220,9 @@ class LocaleInfoScriptlet extends LibraryScriptlet
       }
 
       return outLocale;
-    }        
+    }
   }
-  
+
 
   static private final String    _RESOURCE_BASE = "resources/LocaleElements_";
   static private final Scriptlet _sInstance = new LocaleInfoScriptlet();

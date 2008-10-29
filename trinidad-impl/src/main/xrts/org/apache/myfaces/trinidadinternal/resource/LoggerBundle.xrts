@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <!DOCTYPE resources SYSTEM "rts.dtd">
 <resources xmlns="http://myfaces.apache.org/trinidad/rts" package="org.apache.myfaces.trinidadinternal.resource">
@@ -632,408 +632,408 @@
 
  <!-- MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS -->
  <resource key="MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS">mergeCapabilities() may only be used with Agents created by this class.</resource>
- 
+
  <!-- INVALID_NAMESPACE -->
  <resource key="INVALID_NAMESPACE">Invalid Namespace: {0}</resource>
- 
+
  <!-- INVALID_ROOT_ELEMENT -->
  <resource key="INVALID_ROOT_ELEMENT">Invalid Root Element: {0} {1}</resource>
- 
+
  <!-- UNEXPECTED -->
  <resource key="UNEXPECTED_BACKSLASH">Unexpected '\'.</resource>
- 
+
  <!-- UNEXPECTED_CHARACTER -->
  <resource key="EXPECTED_PERIOD_OR_BACKSLASH">Unexpected character. Expecting '.' or '\'</resource>
- 
+
  <!-- UNEXPECTED_CHARACTER_EXPECTING -->
  <resource key="EXPECTED_ASTERISK">Unexpected character. Expecting '*'</resource>
- 
+
  <!-- EXPECTING_CHAR -->
  <resource key="EXPECTING_CHAR">Expecting char</resource>
- 
+
  <!-- UNTERMINATED_QUOTE -->
  <resource key="UNTERMINATED_QUOTE">Unterminated quote.</resource>
- 
+
  <!-- UNEXPECTED_CHAR -->
  <resource key="UNEXPECTED_CHAR">Unexpected character</resource>
- 
+
  <!-- INVALID_SAVED_STATE_OBJECT -->
  <resource key="INVALID_SAVED_STATE_OBJECT">Invalid saved state object</resource>
- 
+
  <!-- PER_REQUEST_DISK_SPACE_LIMITS_EXCEEDED -->
  <resource key="PER_REQUEST_DISK_SPACE_LIMITS_EXCEEDED">Per-request disk space limits exceeded.</resource>
- 
+
  <!-- POPVIEW_NO_VIEW_PUSHED -->
  <resource key="POPVIEW_NO_VIEW_PUSHED">popView(): No view has been pushed.</resource>
- 
+
  <!-- POPVIEW_NO_VIEW_PUSHED -->
  <resource key=">POPVIEW_NO_VIEW_PUSHED">popView(): No view has been pushed.</resource>
- 
- 
+
+
  <!-- ONLY_HTTPSERVLETREQUEST_SUPPORTED -->
  <resource key="ONLY_HTTPSERVLETREQUEST_SUPPORTED">Only HttpServletRequest supported</resource>
- 
+
  <!-- ONLY_HTTPSERVLETRESPONSE_SUPPORTED -->
  <resource key="ONLY_HTTPSERVLETRESPONSE_SUPPORTED">Only HttpServletResponse supported</resource>
- 
+
 
  <!-- CANNOT_BE_NULL -->
  <resource key="CANNOT_BE_NULL">{0} can not be null.</resource>
- 
+
  <!-- NULL_REQUEST_ON_THIS_CONTEXT -->
  <resource key="NULL_REQUEST_ON_THIS_CONTEXT">Request is null on this context.</resource>
- 
+
  <!-- NULL_RESPONSE_ON_THIS_CONTEXT -->
  <resource key="NULL_RESPONSE_ON_THIS_CONTEXT">Response is null on this context.</resource>
- 
+
  <!-- UNSUPPORTED_CONVERSION -->
  <resource key="UNSUPPORTED_CONVERSION">Unsupported conversion from:{0} to:{1}</resource>
-  
+
  <!-- NULL_NAME -->
  <resource key="NULL_NAME">Null name</resource>
- 
+
  <!-- NULL_VALUE -->
  <resource key="NULL_VALUE">Null value</resource>
- 
+
  <!-- PUTALL_OPERATION_NOT_SUPPORTED_FOR_WRAPPING -->
  <resource key="PUTALL_OPERATION_NOT_SUPPORTED_FOR_WRAPPING">putAll operation not supported for WrappingMap</resource>
- 
+
  <!-- CLEAROPERATION -->
  <resource key="CLEAROPERATION">clear operation not supported for WrappingMap</resource>
- 
+
  <!-- PROBLEM_LOADING -->
  <resource key="PROBLEM_LOADING">Problem loading...</resource>
- 
+
  <!-- GRABBING_PIXELS -->
  <resource key="GRABBING_PIXELS">While grabbing pixels:</resource>
- 
+
  <!-- ERROR_FETCHING_IMAGE -->
  <resource key="ERROR_FETCHING_IMAGE">Error while fetching image. grabbed {0} pixel values of the {1} x {2} image.</resource>
- 
+
  <!-- EXCEEDED_GIF_COLOR_LIMIT -->
  <resource key="EXCEEDED_GIF_COLOR_LIMIT">Exceeded gif color limit.</resource>
- 
+
  <!-- NO_SPACE_LEFT_FOR_TRANSPARENCY -->
  <resource key="NO_SPACE_LEFT_FOR_TRANSPARENCY">No space left for transparency</resource>
- 
+
  <!-- DIFFERENT_LENGTHS_SOURCECOLORS_TARGETCOLORS -->
  <resource key="DIFFERENT_LENGTHS_SOURCECOLORS_TARGETCOLORS">Different lengths - sourceColors and targetColors</resource>
- 
+
  <!-- REGION_METADATA_CANNOT_NEST -->
  <resource key="REGION_METADATA_CANNOT_NEST">Cannot yet nest:{0} elements</resource>
- 
+
  <!-- DUPLICATE_RENDERER_TYPE -->
  <resource key="DUPLICATE_RENDERER_TYPE">Duplicate renderer type "{0}" for family "{1}"</resource>
- 
+
  <!-- NO_RETURNID_AVAILABLE_FOR_RETURNING_FROM_DIALOG -->
  <resource key="NO_RETURNID_AVAILABLE_FOR_RETURNING_FROM_DIALOG">No returnId is available for returning from the dialog;  this usually means that you aren't in a dialog in the first place, or that the pageFlowScope is not available.</resource>
- 
+
  <!-- TRAINRENDERER_ONLY_RENDERS_INSTANCE -->
  <resource key="TRAINRENDERER_ONLY_RENDERS_INSTANCE">TrainRenderer only renders instances of {0}, found {1}</resource>
- 
+
  <!-- SELECTONE_SUBMITTEDVALUE_INDEX_OUTSIDE_BOUNDS -->
  <resource key="SELECTONE_SUBMITTEDVALUE_INDEX_OUTSIDE_BOUNDS">SelectOne submittedValue''s index {0} is out of bounds. It should be between 0 and {1}</resource>
- 
+
  <!-- SELECTONE_CANNOT_CONVERT_SUBMITTEDVALUE_INDEX_INTO_INTEGER -->
  <resource key="SELECTONE_CANNOT_CONVERT_SUBMITTEDVALUE_INDEX_INTO_INTEGER">SelectOne could not convert submittedValue''s index {0} into int {1}</resource>
- 
+
  <!-- DONOT_CALL_THIS_FOR_COLUMN_HEADERS -->
  <resource key="DONOT_CALL_THIS_FOR_COLUMN_HEADERS">Don't call this for column headers</resource>
- 
+
  <!-- NULL_CONTEXT_URL -->
  <resource key="NULL_CONTEXT_URL">contextURI is null</resource>
- 
+
  <!-- CONTEXT_URI_ENDS_WITH_SLASH -->
  <resource key="CONTEXT_URI_ENDS_WITH_SLASH">context URI for {0} ends with a slash</resource>
- 
+
  <!-- NULL_CONTEXTPATH -->
  <resource key="NULL_CONTEXTPATH">contextPath is null {0}</resource>
- 
+
  <!-- REGISTERED_NULL_URI -->
  <resource key="REGISTERED_NULL_URI">Registered null URI</resource>
- 
+
  <!-- NULL_PATH_REGISTERED -->
  <resource key="NULL_PATH_REGISTERED">A null path was registered for {0}</resource>
- 
+
  <!-- NO_BASE_PATH_REGISTERED -->
  <resource key="NO_BASE_PATH_REGISTERED">No base path registered</resource>
- 
+
  <!-- KEYS_AND_VALUES_MUST_MATCH -->
  <resource key="KEYS_AND_VALUES_MUST_MATCH"># of keys and values must match</resource>
- 
+
  <!-- NOT_A_CHARACTER -->
  <resource key="NOT_A_CHARACTER">{0} is not a character</resource>
- 
+
  <!-- CANNOT_BE_PARSED -->
  <resource key="CANNOT_BE_PARSED">{0} cannot be parsed into a {1}</resource>
- 
+
  <!-- NULL_TYPE -->
  <resource key="NULL_TYPE">type is null</resource>
- 
+
  <!-- CANNOT_COERCE_VALUE_OF_TYPE -->
  <resource key="CANNOT_COERCE_VALUE_OF_TYPE">Could not coerce value of type {0} into type {1}</resource>
- 
+
  <!-- CANNOT_BE_COERCED -->
  <resource key="CANNOT_BE_COERCED">{0} cannot be coerced into a java.awt.Color</resource>
- 
+
  <!-- CANNOT_FIND_FILE -->
  <resource key="CANNOT_FIND_FILE">Could not find {1}</resource>
- 
+
  <!-- DECIMALFORMATCONTEXT_NOT_CLONEABLE -->
  <resource key="DECIMALFORMATCONTEXT_NOT_CLONEABLE">DecimalFormatContext is not cloneable!</resource>
- 
+
  <!-- USER_DEFINED_SUBCLASSES_NOT_SUPOORTED -->
  <resource key="USER_DEFINED_SUBCLASSES_NOT_SUPOORTED">User-defined subclasses not supported.</resource>
- 
+
  <!-- UNKNOWN_READING_DIRECTION -->
  <resource key="UNKNOWN_READING_DIRECTION">Unknown reading direction: {0}</resource>
- 
+
  <!-- FORMAT_PARSEOBJECT_FAIL -->
  <resource key="FORMAT_PARSEOBJECT_FAIL">Format.parseObject(String) failed</resource>
- 
+
  <!-- CANNOT_FORMAT_GIVEN_OBJECT_AS_A_COLOR -->
  <resource key="CANNOT_FORMAT_GIVEN_OBJECT_AS_A_COLOR">Cannot format given Object as a Color</resource>
- 
+
  <!-- ILLEGAL_PATTERN_CHARACTER -->
  <resource key="ILLEGAL_PATTERN_CHARACTER">Illegal pattern character ''{0}''</resource>
- 
+
  <!-- >ILLEGAL_PATTERN_CHARACTER -->
  <resource key=">ILLEGAL_PATTERN_CHARACTER">Illegal pattern character ''{0}''</resource>
- 
+
  <!-- CONTENT_NOT_MULTIPART_FORM_DATA -->
  <resource key="CONTENT_NOT_MULTIPART_FORM_DATA">Content is not multipart form data</resource>
- 
+
  <!-- ITEM_NOT_A_FILE -->
  <resource key="ITEM_NOT_A_FILE">Item is not a file</resource>
- 
+
  <!-- ITEM_ALREADY_BEEN_READ_PAST -->
  <resource key="ITEM_ALREADY_BEEN_READ_PAST">Item has already been read past.</resource>
- 
+
  <!-- INPUT_STREAM_ALREADY_REQUESTED -->
  <resource key="INPUT_STREAM_ALREADY_REQUESTED">Input stream has already been requested.</resource>
- 
+
  <!-- UPLOADED_FILE_EXCEEDED_MAXIMUM_ALLOWED_LENGTH -->
  <resource key="UPLOADED_FILE_EXCEEDED_MAXIMUM_ALLOWED_LENGTH">Uploaded file of length {0} bytes exceeded maximum allowed length ({1} bytes)</resource>
- 
+
  <!-- ITEM_ALREDY_BEEN_READ_PAST -->
  <resource key="ITEM_ALREDY_BEEN_READ_PAST">Item has already been read past.</resource>
- 
+
  <!-- END_OF_FILE -->
  <resource key="END_OF_FILE">End Of File</resource>
- 
+
  <!-- UNDECLARED_PREFIX -->
  <resource key="UNDECLARED_PREFIX">Undeclared prefix: {0}</resource>
- 
+
  <!-- NULL_PARSER -->
  <resource key="NULL_PARSER">parser is null</resource>
- 
+
  <!-- NULL_ROOTCLASS_ROOTPARSER -->
  <resource key="NULL_ROOTCLASS_ROOTPARSER">Both rootClass and rootParser are null</resource>
- 
+
  <!-- CIRCULAR_INCLUDE_DETECTED -->
  <resource key="CIRCULAR_INCLUDE_DETECTED">Circular include of {0} detected!</resource>
- 
+
  <!-- NULL_SKIN_ID -->
  <resource key="NULL_SKIN_ID">Null id</resource>
- 
+
  <!-- NULL_LOCALE_CONTEXT -->
  <resource key="NULL_LOCALE_CONTEXT">Null locale context</resource>
- 
+
  <!-- NULL_ICONNAME -->
  <resource key="NULL_ICONNAME">Null iconName</resource>
- 
+
  <!-- NULL_STYLESHEETNAME -->
  <resource key="NULL_STYLESHEETNAME">Null styleSheetName</resource>
- 
+
  <!-- NO_SKIN_SPECIFIED -->
  <resource key="NO_SKIN_SPECIFIED">No Skin specified.</resource>
- 
+
  <!-- NO_INPUTSTREAM -->
  <resource key="NO_INPUTSTREAM">Null inputStream</resource>
- 
+
  <!-- NULL_PARSEMANAGER -->
  <resource key="NULL_PARSEMANAGER">Null parserManager</resource>
- 
+
  <!-- REQUIRED_XSS_FILE_SOURCE_NOT_EXIST -->
  <resource key="REQUIRED_XSS_FILE_SOURCE_NOT_EXIST">Required XSS file {0} does not exist.</resource>
- 
+
  <!-- NULL_SOURCENAME -->
  <resource key="NULL_SOURCENAME">Null sourceName</resource>
- 
+
  <!-- NULL_PROPERTYNAME -->
  <resource key="NULL_PROPERTYNAME">Null propertyName</resource>
- 
+
  <!-- PROPERTYNODE_NAME_CANNOT_BE_NULL_OR_EMPTY -->
  <resource key="PROPERTYNODE_NAME_CANNOT_BE_NULL_OR_EMPTY">PropertyNode''s name cannot be null or the empty string.name is ''{0}'' and value is ''{1}''</resource>
- 
+
  <!-- CHILD_NOT_PROPERTYNODE_INSTANCE -->
  <resource key="CHILD_NOT_PROPERTYNODE_INSTANCE">child not instance of PropertyNode</resource>
- 
+
  <!-- CHIL_NOT_INCLUDEPROEPRTYNODE_INSTANCE -->
  <resource key="CHIL_NOT_INCLUDEPROEPRTYNODE_INSTANCE">child not an instance of IncludePropertyNode</resource>
- 
+
  <!-- NOT_NESTED_IN_UICOMPONENTTAG -->
  <resource key="NOT_NESTED_IN_UICOMPONENTTAG">Not nested in a UIComponentTag</resource>
- 
+
  <!-- NO_COMPONENT_ASSOCIATED_WITH_UICOMPONENTTAG -->
  <resource key="NO_COMPONENT_ASSOCIATED_WITH_UICOMPONENTTAG">No component associated with UIComponentTag</resource>
- 
+
  <!-- NAME_ATTRIBUTE_CANNOT_BE_EL_BOUND -->
  <resource key="NAME_ATTRIBUTE_CANNOT_BE_EL_BOUND">Name attribute cannot be EL bound</resource>
- 
+
  <!-- COMPOENENTDEF_CANNOT_RUN_AS_STANDALONE -->
  <resource key="COMPOENENTDEF_CANNOT_RUN_AS_STANDALONE">componentDef cannot be run as a stand-alone. It must be included inside a JSF component tree.</resource>
- 
+
  <!-- COMPONENTDEF_MUST_BE_INCLUDED_AS_CHILD_OF -->
  <resource key="COMPONENTDEF_MUST_BE_INCLUDED_AS_CHILD_OF">componentDef must be included as a child of an &lt;tr:componentRef>.</resource>
- 
+
  <!-- COMPONENTDEF_NOT_SUPPORT_EL -->
  <resource key="COMPONENTDEF_NOT_SUPPORT_EL">tr:componentDef does not support EL on 'var'</resource>
- 
+
  <!-- MUST_BE_SIMPLE_JSF_EL_EXPRESSION -->
  <resource key="MUST_BE_SIMPLE_JSF_EL_EXPRESSION">items must be a simple JSF EL expression</resource>
- 
+
  <!-- VAR_CANNOT_BE_EXPRESSION -->
  <resource key="VAR_CANNOT_BE_EXPRESSION">"var" cannot be an expression</resource>
- 
+
  <!-- VARSTATUS_CANNOT_BE_EXPRESSION -->
  <resource key="VARSTATUS_CANNOT_BE_EXPRESSION">"varStatus" cannot be an expression</resource>
- 
+
  <!-- MUST_POINT_TO_LIST_OR_ARRAY -->
  <resource key="MUST_POINT_TO_LIST_OR_ARRAY">"items" must point to a List or array</resource>
- 
+
  <!-- MUST_SPECIFY_BEGIN_AND_END -->
  <resource key="MUST_SPECIFY_BEGIN_AND_END">'begin' and 'end' should be specified if 'items' is not specified</resource>
- 
+
  <!-- MUST_NOT_HAVE_SAME_VALUE -->
  <resource key="MUST_NOT_HAVE_SAME_VALUE">'var' and 'varStatus' must not have same value</resource>
- 
+
  <!-- BEGIN_BELOW_ZERO -->
  <resource key="BEGIN_BELOW_ZERO">'begin' &lt; 0</resource>
- 
+
  <!-- STEP_BELOW_ONE -->
  <resource key="STEP_BELOW_ONE">'step' &lt; 1</resource>
- 
+
  <!-- RESETACTIONLISTENER_MUST_INSIDE_UICOMPONENT_TAG -->
  <resource key="RESETACTIONLISTENER_MUST_INSIDE_UICOMPONENT_TAG">ResetActionListener must be inside of a UIComponent tag.</resource>
- 
+
  <!-- RETURNACTIONLISTENER_MUST_INSIDE_UICOMPONENT_TAG -->
  <resource key="RETURNACTIONLISTENER_MUST_INSIDE_UICOMPONENT_TAG">returnActionListener must be inside of a UIComponent tag.</resource>
- 
+
  <!-- SETACTIONLISTENER_MUST_INSIDE_UICOMPONENT_TAG -->
  <resource key="SETACTIONLISTENER_MUST_INSIDE_UICOMPONENT_TAG">setActionListener must be inside of a UIComponent tag.</resource>
- 
+
  <!-- SETACTIONLISTENERS_TO_MUST_BE_EL_EXPRESSION -->
  <resource key="SETACTIONLISTENERS_TO_MUST_BE_EL_EXPRESSION">setActionListener's 'to' attribute must be an EL expression.</resource>
- 
+
  <!-- COLOR_CODE_DOES_NOT_START_WITH_POUNDSIGN -->
  <resource key="COLOR_CODE_DOES_NOT_START_WITH_POUNDSIGN">Color code {0} in ''{1}'' does not start with a ''#''</resource>
- 
+
  <!-- METHOD_CHANGED_TO_GETRENDERER -->
  <resource key="METHOD_CHANGED_TO_GETRENDERER">This method changed to getRenderer(RenderingContext, UINode)</resource>
- 
+
  <!-- REPLACED_BY_GETINDEXEDNODELIST -->
  <resource key="REPLACED_BY_GETINDEXEDNODELIST">Replaced in 2.0 by getIndexedNodeList()</resource>
- 
+
  <!-- REUSING_ROLE_INDEX -->
  <resource key="REUSING_ROLE_INDEX">Reusing role index</resource>
- 
+
  <!-- ATTEMP_TO_REGISTER_NULL_RENDERER -->
  <resource key="ATTEMP_TO_REGISTER_NULL_RENDERER">Attempt to register a null renderer for {0}</resource>
- 
+
  <!-- ONLY_CONTEXTBASEDCONFIGURATION_SUPPORTED -->
  <resource key="ONLY_CONTEXTBASEDCONFIGURATION_SUPPORTED">Only ContextBasedConfiguration is supported</resource>
- 
+
  <!-- FACET_MAY_NOT_BE_SET_AFTER_RENDERERMANAGER_HAS_BEEN_ASSIGNED -->
  <resource key="FACET_MAY_NOT_BE_SET_AFTER_RENDERERMANAGER_HAS_BEEN_ASSIGNED">The facet may not be set after the RendererManager has been assigned.</resource>
- 
+
  <!-- ILLEGAL_TO_SET_CHILDREN -->
  <resource key="ILLEGAL_TO_SET_CHILDREN">It is illegal to set children on a {0}</resource>
- 
+
  <!-- ILLEGAL_TO_ADD_CHILDREN -->
  <resource key="ILLEGAL_TO_ADD_CHILDREN">It is illegal to add children to a {0}</resource>
- 
+
  <!-- ILLEGAL_TO_REMOVE_CHILDREN -->
  <resource key="ILLEGAL_TO_REMOVE_CHILDREN">It is illegal to remove children from a {0}</resource>
- 
+
  <!-- ILLEGAL_TO_SET_CHILDREN_ON_UNMODIFIABLECOMPOUNDNODELIST -->
  <resource key="ILLEGAL_TO_SET_CHILDREN_ON_UNMODIFIABLECOMPOUNDNODELIST">It is illegal to set children on an UnmodifiableCompoundNodeList</resource>
- 
+
  <!-- ILLEGAL_TO_ADD_CHILDREN_ON_UNMODIFIABLECOMPOUNDNODELIST -->
  <resource key="ILLEGAL_TO_ADD_CHILDREN_ON_UNMODIFIABLECOMPOUNDNODELIST">It is illegal to add children to an UnmodifiableCompoundNodeList</resource>
- 
+
  <!-- ILLEGAL_TO_REMOVE_CHILDREN_ON_UNMODIFIABLECOMPOUNDNODELIST -->
  <resource key="ILLEGAL_TO_REMOVE_CHILDREN_ON_UNMODIFIABLECOMPOUNDNODELIST">It is illegal to remove children from an UnmodifiableCompoundNodeList</resource>
- 
+
  <!-- ADAPTER_CLASS_NOT_IMPLEMENT_BEANDOADAPTER -->
  <resource key="ADAPTER_CLASS_NOT_IMPLEMENT_BEANDOADAPTER">Adapter class doesn't implement BeanDOAdapter</resource>
- 
+
  <!-- NOT_AN_INSTANCE -->
  <resource key="NOT_AN_INSTANCE">{0} is not an instance of {1}</resource>
- 
+
  <!-- NULL_LEFTSIDEVALUE -->
  <resource key="NULL_LEFTSIDEVALUE">leftSideValue is null</resource>
- 
+
  <!-- NULL_RIGHTSIDEVALUE -->
  <resource key="NULL_RIGHTSIDEVALUE">rightSideValue is null</resource>
- 
+
  <!-- UNKNOWN_COMPARISON -->
  <resource key="UNKNOWN_COMPARISON">Unknown comparison</resource>
- 
+
  <!-- TEST_BOUNDVALUE_REQUIRED -->
  <resource key="TEST_BOUNDVALUE_REQUIRED">test BoundValue required</resource>
- 
+
  <!-- NULL_LIST_ARGUMENT -->
  <resource key="NULL_LIST_ARGUMENT">Null list argument</resource>
- 
+
  <!-- NULL_DATA_OBJECT_ARGUMENT -->
  <resource key="NULL_DATA_OBJECT_ARGUMENT">Null data object argument</resource>
- 
+
  <!-- NO_FACTORY_REGISTERED -->
  <resource key="NO_FACTORY_REGISTERED">No factory registered for {0}</resource>
- 
+
  <!-- NULL_BASESCORER -->
  <resource key="NULL_BASESCORER">Null baseScorer</resource>
- 
+
  <!-- NULL_BASESCORE -->
  <resource key="NULL_BASESCORE">Null baseScore</resource>
- 
+
  <!-- FACET_NOT_SUPPORTED -->
  <resource key="FACET_NOT_SUPPORTED">Facet {0} is not supported on {1}</resource>
- 
+
  <!-- NUMBER_OF_KEYS_AND_VALUES_MUCH_MATCH -->
  <resource key="NUMBER_OF_KEYS_AND_VALUES_MUCH_MATCH"># of keys and values much match</resource>
- 
+
  <!-- CHILD_NOT_NULL_NOT_ICONNODE_INSTANCE -->
  <resource key="CHILD_NOT_NULL_NOT_ICONNODE_INSTANCE">child is not null and not an instance of IconNode</resource>
-  
+
  <!-- NULL_FAMILY -->
  <resource key="NULL_FAMILY">Null family</resource>
- 
+
  <!-- NON_NULL_CHILD_NOT_SKINPROPERTYNODE_INSTANCE -->
  <resource key="NON_NULL_CHILD_NOT_SKINPROPERTYNODE_INSTANCE">Non-null child and child not an instance of SkinPropertyNode</resource>
- 
+
  <!-- RENDERINGCONTEXT_HAS_BEEN_CREATED -->
  <resource key="RENDERINGCONTEXT_HAS_BEEN_CREATED">RenderingContext has already been created!</resource>
- 
+
  <!-- NOT_SUPERCLASS_OF -->
  <resource key="NOT_SUPERCLASS_OF">{0} not superclass of {1}</resource>
- 
+
  <!-- UNEXPECTED_REFLECTION -->
  <resource key="UNEXPECTED_REFLECTION">Unexpected reflection exception: {0}</resource>
- 
+
  <!-- JAVASCRIPT_NOT_SUPPORT_NULL_KEYS -->
  <resource key="JAVASCRIPT_NOT_SUPPORT_NULL_KEYS">Javascript does not support null keys</resource>
- 
+
  <!-- ENCODING_UNSUPPORTED_BY_JVM -->
  <resource key="ENCODING_UNSUPPORTED_BY_JVM">Encoding: {0} is unsupported by JVM</resource>
 
  <!-- FILE_DOWNLOAD_LISTENER_REQUIRES_SERVLET -->
  <resource key="FILE_DOWNLOAD_LISTENER_REQUIRES_SERVLET">The fileDownloadActionListener only supports the Servlet API.</resource>
- 
+
  <!-- FILEDOWNLOADACTIONLISTENER_MUST_INSIDE_UICOMPONENT_TAG -->
  <resource key="FILEDOWNLOADACTIONLISTENER_MUST_INSIDE_UICOMPONENT_TAG">fileDownloadActionListener must be inside of a UIComponent tag for a "command" component.</resource>
- 
+
  <!-- FILEDOWNLOADACTIONLISTENERS_METHOD_MUST_BE_EL_EXPRESSION -->
  <resource key="FILEDOWNLOADACTIONLISTENERS_METHOD_MUST_BE_EL_EXPRESSION">fileDownloadActionListener's 'method' attribute must be an EL expression.</resource>
 

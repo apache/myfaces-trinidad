@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -18,18 +18,18 @@
  */
 
 /**
- * The RequestQueue class is a service to serialize the XML HTTP 
+ * The RequestQueue class is a service to serialize the XML HTTP
  * request communication from the client to the server.
  */
 function TrRequestQueue(domWindow)
-{  
+{
   this._state = TrRequestQueue.STATE_READY;
   this._requestQueue = new Array();
   // listeners that are interested in the state change of this service object
   this._stateChangeListeners = null;
   //this._iframeLoadCallback = undefined;
 
-  // Stash away the DOM window for later reference.  
+  // Stash away the DOM window for later reference.
   this._window = domWindow;
 }
 
@@ -38,7 +38,7 @@ TrRequestQueue.STATE_READY = 0;
 TrRequestQueue.STATE_BUSY = 1;
 // frame used for multi-part form post
 TrRequestQueue._MULTIPART_FRAME = "_trDTSFrame";
-  
+
 TrRequestQueue._XMLHTTP_TYPE = 0;
 TrRequestQueue._MULTIPART_TYPE = 1;
 
@@ -53,7 +53,7 @@ TrRequestQueue.prototype.dispose = function()
 
 TrRequestQueue._RequestItem = function(
   type,
-  context, 
+  context,
   actionURL,
   headerParams,
   content,
@@ -88,7 +88,7 @@ TrRequestQueue.prototype._broadcastRequestStatusChanged = function(
 
 TrRequestQueue.prototype._addRequestToQueue = function(
   type,
-  context, 
+  context,
   listener,
   actionURL,
   content,
@@ -98,20 +98,20 @@ TrRequestQueue.prototype._addRequestToQueue = function(
   var newRequest = new TrRequestQueue._RequestItem(
                           type, context, actionURL, headerParams, content, listener);
   this._requestQueue.push(newRequest);
-  
+
   try
   {
     var dtsRequestEvent = new TrXMLRequestEvent(
                     TrXMLRequestEvent.STATUS_QUEUED,
                     null); // no xmlhttp object at this time
-                    
+
     this._broadcastRequestStatusChanged(context, listener, dtsRequestEvent);
-  }  
+  }
   catch(e)
   {
     TrRequestQueue._logError("Error on listener callback invocation - STATUS_QUEUED", e);
   }
-  
+
   if(this._state == TrRequestQueue.STATE_READY)
   {
     this._state = TrRequestQueue.STATE_BUSY;
@@ -144,7 +144,7 @@ TrRequestQueue.prototype.sendFormPost = function(
   {
     var content = this._getPostbackContent(actionForm, params);
 
-    // IE BUG, see TRINIDAD-704  
+    // IE BUG, see TRINIDAD-704
     if(_agent.isIE && window.external)
       window.external.AutoCompleteSaveForm(actionForm);
 
@@ -169,9 +169,9 @@ TrRequestQueue.prototype._isMultipartForm = function(actionForm)
   if (actionForm.enctype.toLowerCase() != "multipart/form-data")
     return false;
 
-  var inputs = actionForm.getElementsByTagName("input"), 
+  var inputs = actionForm.getElementsByTagName("input"),
       inputCount = inputs.length, multiPartForm = null;
-  
+
   for (var i = 0; i < inputCount; ++i)
   {
     var inputElem = inputs[i];
@@ -180,7 +180,7 @@ TrRequestQueue.prototype._isMultipartForm = function(actionForm)
       return true;
     }
   }
-  
+
   return false;
 }
 
@@ -193,7 +193,7 @@ TrRequestQueue.prototype._isMultipartForm = function(actionForm)
 TrRequestQueue.prototype._getPostbackContent = function(actionForm, params)
 {
   var formElements = actionForm.elements;
-  
+
   // 1. build up formParams
   var formParams = {};
   if (formElements)
@@ -201,7 +201,7 @@ TrRequestQueue.prototype._getPostbackContent = function(actionForm, params)
     for (var elementIndex = 0; elementIndex < formElements.length; elementIndex++)
     {
       var input = formElements[elementIndex];
-      
+
       // todo: do not post values for non-triggering submit buttons
       // TRINIDAD-874 skip input.type="submit" fields
       if (input.name && !input.disabled && !(input.tagName=="INPUT" && input.type=="submit"))
@@ -223,11 +223,11 @@ TrRequestQueue.prototype._getPostbackContent = function(actionForm, params)
         // if this happens to be an unselected checkbox or radio then
         // skip it. Otherwise, if it is any other form control, or it is
         // a selected checkbox or radio than add it:
-        else if (!((input.type == "checkbox" || 
-                    input.type == "radio") && 
+        else if (!((input.type == "checkbox" ||
+                    input.type == "radio") &&
                    !input.checked))
         {
-          // the value might already have been set (because of a 
+          // the value might already have been set (because of a
           // multi-select checkbox group:
           var current = formParams[input.name];
           if (current)
@@ -254,14 +254,14 @@ TrRequestQueue.prototype._getPostbackContent = function(actionForm, params)
       }
     }
   }
-  
+
   // 2. override formParams with params
   for (var key in params)
   {
     var value = params[key];
     formParams[key] = params[key];
   }
-  
+
   // 3. create form submit payload
   var content = "";
   for (var key in formParams)
@@ -297,7 +297,7 @@ TrRequestQueue._appendUrlFormEncoded = function(
   {
     buffer = buffer + "&";
   }
-  
+
   return buffer + key + "=" + value.toString().replace(/\%/g, '%25')
                                            .replace(/\+/g, '%2B')
                                            .replace(/\//g, '%2F')
@@ -312,7 +312,7 @@ TrRequestQueue._appendUrlFormEncoded = function(
 
 /**
 * Performs Asynchronous XML HTTP Request with the Server
-* @param context    any object that is sent back to the callback when the request 
+* @param context    any object that is sent back to the callback when the request
 *  is complete. This object can be null.
 * @param method   Javascript method
 * @param actionURL   the url to send the request to
@@ -332,10 +332,10 @@ TrRequestQueue.prototype.sendRequest = function(
 
 /**
 * Performs Asynchronous HTTP Request with the Server for multipart data
-* @param context    any object that is sent back to the callback when the request 
+* @param context    any object that is sent back to the callback when the request
 *  is complete. This object can be null.
 * @param actionURL  this is the appropriate action url
-* @param htmlForm    the form containing multi-part data. The action attribute 
+* @param htmlForm    the form containing multi-part data. The action attribute
 *   of the form is used for send the request to the server
 * @param params     additional parameters that need to be sent to the server
 * @param method   Javascript method
@@ -365,10 +365,10 @@ TrRequestQueue.prototype._doRequest = function()
     case TrRequestQueue._XMLHTTP_TYPE:
       this._doXmlHttpRequest(requestItem);
       break;
-    
-    case TrRequestQueue._MULTIPART_TYPE:    
+
+    case TrRequestQueue._MULTIPART_TYPE:
       this._doRequestThroughIframe(requestItem);
-      break;   
+      break;
   }
 }
 
@@ -379,19 +379,19 @@ TrRequestQueue.prototype._doXmlHttpRequest = function(requestItem)
   xmlHttp.__dtsRequestMethod = requestItem._method;
   var callback = TrUIUtils.createCallback(this, this._handleRequestCallback);
   xmlHttp.setCallback(callback);
-  
+
   // xmlhttp request uses the same charset as its parent document's charset.
   // There is no need to set the charset.
   xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  
+
   var headerParams = requestItem._headerParams;
-  
+
   if (headerParams != null)
   {
     for (var headerName in headerParams)
     {
       var currHeader =  headerParams[headerName];
-      
+
       // handle array parameters by joining them together with comma separators
       // Test if it's an array via the "join" method
       if (currHeader["join"])
@@ -400,7 +400,7 @@ TrRequestQueue.prototype._doXmlHttpRequest = function(requestItem)
       xmlHttp.setRequestHeader(headerName, currHeader);
     }
   }
-  
+
   xmlHttp.send(requestItem._actionURL, requestItem._content);
 }
 
@@ -424,10 +424,10 @@ TrRequestQueue.prototype._doRequestThroughIframe = function(requestItem)
     frameStyle.width = frameStyle.height = '1px'
     frameStyle.position = 'absolute';
     frameStyle.visibility = "hidden";
-    
+
     domDocument.body.appendChild(hiddenFrame);
   }
-  
+
   if (agentIsIE)
   {
     // Why these lines happen to work, I can't say - but remove them,
@@ -443,7 +443,7 @@ TrRequestQueue.prototype._doRequestThroughIframe = function(requestItem)
   else
   {
     iframeDoc = hiddenFrame.contentDocument;
-  }    
+  }
 
   // We may not have a document yet for the IFRAME, since
   // nothing has been loaded (appears to work this way on Safari)
@@ -456,15 +456,15 @@ TrRequestQueue.prototype._doRequestThroughIframe = function(requestItem)
   this._htmlForm = htmlForm;
   this._savedActionUrl = htmlForm.action;
   this._savedTarget = htmlForm.target;
-     
+
   // FIXME: why are the next two lines at all necessary?  The form
   // should already be set to post, and if the action has been
-  // updated since this was queued 
+  // updated since this was queued
   htmlForm.method = "POST";
   htmlForm.action = actionURL;
 
   htmlForm.target = frameName;
-  
+
   this._appendParamNode(domDocument, htmlForm, "Tr-XHR-Message", "true");
   // FIXME: the "partial" parameter is unnecessary
   this._appendParamNode(domDocument, htmlForm, "partial", "true");
@@ -476,30 +476,54 @@ TrRequestQueue.prototype._doRequestThroughIframe = function(requestItem)
       this._appendParamNode(domDocument, htmlForm, key, params[key]);
     }
   }
-  
+
   if(this._iframeLoadCallback == null)
     this._iframeLoadCallback = TrUIUtils.createCallback(this, this._handleIFrameLoad);
 
-  // IE BUG, see TRINIDAD-704  
+  // IE BUG, see TRINIDAD-704
   if(_agent.isIE && window.external)
     window.external.AutoCompleteSaveForm(htmlForm);
-  htmlForm.submit();
-  
+
+  try
+  {
+    htmlForm.submit();
+  }
+  catch (e)
+  {
+    if (this._isMultipartForm(htmlForm))
+    {
+      // IE will fail on an input file submission of a file that does not exist
+      var facesMessage = _createFacesMessage(
+        'org.apache.myfaces.trinidad.component.core.input.CoreInputFile.INPUT_FILE_ERROR');
+      // if there's nowhere to display the message in either
+      // summary or detail, then pop an alert to warn the page developer
+      if (!TrMessageBox.isPresent())
+        alert(facesMessage.getDetail());
+      else
+        // Add the message to the MessageBox
+        TrMessageBox.addMessage(null, null, facesMessage);
+    }
+    else
+    {
+      throw e;
+    }
+  }
+
   this._window.setTimeout(this._iframeLoadCallback, 50);
 }
 
 TrRequestQueue.prototype._appendParamNode = function(domDocument, form, name, value)
 {
   // assert(form!=null);
-  
+
   var nodes = this._paramNodes;
-  
+
   if(!nodes)
   {
     nodes = new Array();
     this._paramNodes = nodes;
   }
-  
+
   var node = domDocument.createElement("input");
   node.type = "hidden";
   node.name = name;
@@ -511,17 +535,17 @@ TrRequestQueue.prototype._appendParamNode = function(domDocument, form, name, va
 TrRequestQueue.prototype._clearParamNodes = function()
 {
   var nodes = this._paramNodes;
-  
+
   if(nodes)
   {
     var form = nodes[0].parentNode;
     var count = nodes.length;
-    
+
     for (var i = 0; i < count; i++)
     {
       form.removeChild(nodes[i]);
     }
-    
+
     delete this._paramNodes;
   }
 }
@@ -542,10 +566,10 @@ TrRequestQueue.prototype._handleIFrameLoad = function()
     hiddenFrame = domDocument.getElementById(frameName);
     iframeDoc = hiddenFrame.contentDocument;
   }
-  
+
   try
   {
-    if(!iframeDoc.documentElement || !iframeDoc.documentElement.firstChild 
+    if(!iframeDoc.documentElement || !iframeDoc.documentElement.firstChild
       || (agentIsIE && iframeDoc.readyState != "complete"))
     {
       this._window.setTimeout(this._iframeLoadCallback, 50);
@@ -572,10 +596,10 @@ TrRequestQueue.prototype._onIFrameLoadComplete = function(
   requestMethod)
 {
   try
-  {    
+  {
     var dtsRequestEvent = new TrIFrameXMLRequestEvent(
                               iframeDoc);
-                
+
     this._broadcastRequestStatusChanged(context, requestMethod,dtsRequestEvent);
   }
   finally
@@ -596,10 +620,10 @@ TrRequestQueue.prototype._handleRequestCallback = function(
   )
 {
   var httpState = xmlHttp.getCompletionState();
-  
+
   if(httpState != TrXMLRequest.COMPLETED)
     return;
-  
+
   var statusCode = 0;
   var failedConnectionText = TrRequestQueue._getFailedConnectionText();
   try
@@ -611,7 +635,7 @@ TrRequestQueue.prototype._handleRequestCallback = function(
     // Drop the exception without logging anything.
     // Firefox will throw an exception on attempting
     // to get the status of an XMLHttpRequest if
-    // the Http connection  has been closed    
+    // the Http connection  has been closed
   }
 
   if ((statusCode != 200) && (statusCode != 0))
@@ -622,16 +646,16 @@ TrRequestQueue.prototype._handleRequestCallback = function(
                           ") while performing request\n",
                          xmlHttp.getResponseText());
   }
-  
+
   try
-  { 
+  {
     if (statusCode != 0)
     {
       var dtsRequestEvent = new TrXMLRequestEvent(
                   TrXMLRequestEvent.STATUS_COMPLETE,
                   xmlHttp);
       this._broadcastRequestStatusChanged(
-        xmlHttp.__dtsRequestContext, 
+        xmlHttp.__dtsRequestContext,
         xmlHttp.__dtsRequestMethod,
         dtsRequestEvent);
     }
@@ -663,7 +687,7 @@ TrRequestQueue.prototype._requestDone = function()
 
 /**
 * Adds a listener to the request queue that is interested in its state change.
-* The listners are notified in the order that they are added. A listener can cancel 
+* The listners are notified in the order that they are added. A listener can cancel
 * notification to other listeners in the chain by returning false.
 *
 * @param {function} listener  listener function to remove
@@ -673,15 +697,15 @@ TrRequestQueue.prototype.addStateChangeListener = function(listener, instance)
 {
   // assertFunction(listener);
   // assertObjectOrNull(instance);
-  
+
   var stateChangeListeners = this._stateChangeListeners;
-  
+
   if (!stateChangeListeners)
   {
     stateChangeListeners = new Array();
     this._stateChangeListeners = stateChangeListeners;
   }
-  
+
   stateChangeListeners.push(listener);
   stateChangeListeners.push(instance);
 }
@@ -698,27 +722,27 @@ TrRequestQueue.prototype.removeStateChangeListener = function(listener, instance
 
   // remove the listener/instance combination
   var stateChangeListeners = this._stateChangeListeners;
-  
+
   // assert(stateChangeListeners, "stateChangeListeners must exist");
 
   var length = stateChangeListeners.length;
-  
+
   for (var i = 0; i < length; i++)
   {
     var currListener = stateChangeListeners[i];
     i++;
-    
+
     if (currListener == listener)
     {
       var currInstance = stateChangeListeners[i];
-      
+
       if (currInstance === instance)
       {
         stateChangeListeners.splice(i - 1, 2);
       }
     }
   }
-  
+
   // remove array, if empty
   if (stateChangeListeners.length == 0)
   {
@@ -741,12 +765,12 @@ TrRequestQueue.prototype.getDTSState = function()
 TrRequestQueue.prototype._broadcastStateChangeEvent = function(state)
 {
   var stateChangeListeners = this._stateChangeListeners;
-  
+
   // deliver the state change event to the listeners
   if (stateChangeListeners)
   {
     var listenerCount = stateChangeListeners.length;
-    
+
     for (var i = 0; i < listenerCount; i++)
     {
       try
@@ -754,7 +778,7 @@ TrRequestQueue.prototype._broadcastStateChangeEvent = function(state)
         var currListener = stateChangeListeners[i];
         i++;
         var currInstance = stateChangeListeners[i];
-        
+
         if (currInstance != null)
           currListener.call(currInstance, state);
         else
