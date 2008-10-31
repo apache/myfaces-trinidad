@@ -459,7 +459,7 @@ public class XMLMenuModel extends BaseMenuModel
       return null;
 
     // This needs to be public because the nodes call into this map
-    return idNodeMap.get(id + _getModelId());
+    return idNodeMap.get(id);
   }
 
   /**
