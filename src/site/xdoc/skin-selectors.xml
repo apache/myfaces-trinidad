@@ -910,10 +910,10 @@
             disabled by using this selector: "af|inputColor:disabled::label"</td>
           </tr>
           <tr>
-            <td>af|inputColor:readOnly</td>
+            <td>af|inputColor:read-only</td>
             <td>Style on the root element of the tr:inputColor component when its readOnly attribute 
             is set to 'true'. For example, you can style the label when the component is 
-            readOnly by using this selector: "af|inputColor:readOnly::label"</td>
+            readOnly by using this selector: "af|inputColor:read-only::label"</td>
           </tr>
           <tr>
             <td>af|inputColor::content</td>
@@ -971,10 +971,10 @@
             disabled by using this selector: "af|inputDate:disabled::label"</td>
           </tr>
           <tr>
-            <td>af|inputDate:readOnly</td>
+            <td>af|inputDate:read-only</td>
             <td>Style on the root element of the tr:inputDate component when its readOnly attribute 
             is set to 'true'. For example, you can style the label when the component is 
-            readOnly by using this selector: "af|inputDate:readOnly::label"</td>
+            readOnly by using this selector: "af|inputDate:read-only::label"</td>
           </tr>
           <tr>
             <td>af|inputDate::content</td>
@@ -1042,10 +1042,10 @@
             disabled by using this selector: "af|inputListOfValues:disabled::label"</td>
           </tr>
           <tr>
-            <td>af|inputListOfValues:readOnly</td>
+            <td>af|inputListOfValues:read-only</td>
             <td>Style on the root element of the tr:inputListOfValues component when its readOnly attribute 
             is set to 'true'. For example, you can style the label when the component is 
-            readOnly by using this selector: "af|inputListOfValues:readOnly::label"</td>
+            readOnly by using this selector: "af|inputListOfValues:read-only::label"</td>
           </tr>
           <tr>
             <td>af|inputListOfValues::content</td>
@@ -1096,10 +1096,10 @@
             disabled by using this selector: "af|inputNumberSpinbox:disabled::label"</td>
           </tr>
           <tr>
-            <td>af|inputNumberSpinbox:readOnly</td>
+            <td>af|inputNumberSpinbox:read-only</td>
             <td>Style on the root element of the tr:inputNumberSpinbox component when its readOnly attribute 
             is set to 'true'. For example, you can style the label when the component is 
-            readOnly by using this selector: "af|inputNumberSpinbox:readOnly::label"</td>
+            readOnly by using this selector: "af|inputNumberSpinbox:read-only::label"</td>
           </tr>
 
           <tr>
@@ -1149,10 +1149,10 @@
             disabled by using this selector: "af|inputText:disabled::label"</td>
           </tr>
           <tr>
-            <td>af|inputText:readOnly</td>
+            <td>af|inputText:read-only</td>
             <td>Style on the root element of the tr:inputText component when its readOnly attribute 
             is set to 'true'. For example, you can style the label when the component is 
-            readOnly by using this selector: "af|inputText:readOnly::label"</td>
+            readOnly by using this selector: "af|inputText:read-only::label"</td>
           </tr>
 
           <tr>
@@ -2593,11 +2593,11 @@
             "af|selectBooleanCheckbox:disabled af|selectBooleanCheckbox::label"</td>
           </tr>
           <tr>
-            <td>af|selectBooleanCheckbox:readOnly</td>
+            <td>af|selectBooleanCheckbox:read-only</td>
             <td>Style on the root element of the tr:selectBooleanCheckbox component when its readOnly attribute 
             is set to 'true'. For example, you can style the label when the component is 
             readOnly by using this selector: 
-            "af|selectBooleanCheckbox:readOnly af|selectBooleanCheckbox::label"</td>
+            "af|selectBooleanCheckbox:read-only af|selectBooleanCheckbox::label"</td>
           </tr>
           <tr>
             <td>af|selectBooleanCheckbox::content</td>
@@ -2663,11 +2663,11 @@
             "af|selectBooleanRadio:disabled af|selectBooleanRadio::label"</td>
           </tr>
           <tr>
-            <td>af|selectBooleanRadio:readOnly</td>
+            <td>af|selectBooleanRadio:read-only</td>
             <td>Style on the root element of the tr:selectBooleanRadio component when its readOnly attribute 
             is set to 'true'. For example, you can style the label when the component is 
             readOnly by using this selector: 
-            "af|selectBooleanRadio:readOnly af|selectBooleanRadio::label"</td>
+            "af|selectBooleanRadio:read-only af|selectBooleanRadio::label"</td>
           </tr>
           <tr>
             <td>af|selectBooleanRadio::content</td>
@@ -2733,11 +2733,11 @@
             "af|selectManyCheckbox:disabled af|selectManyCheckbox::label"</td>
           </tr>
           <tr>
-            <td>af|selectManyCheckbox:readOnly</td>
+            <td>af|selectManyCheckbox:read-only</td>
             <td>Style on the root element of the tr:selectManyCheckbox component when its readOnly attribute 
             is set to 'true'. For example, you can style the label when the component is 
             readOnly by using this selector: 
-            "af|selectManyCheckbox:readOnly af|selectManyCheckbox::label"</td>
+            "af|selectManyCheckbox:read-only af|selectManyCheckbox::label"</td>
           </tr>
           <tr>
             <td>af|selectManyCheckbox::content</td>
@@ -2774,11 +2774,11 @@
             "af|selectManyListbox:disabled af|selectManyListbox::label"</td>
           </tr>
           <tr>
-            <td>af|selectManyListbox:readOnly</td>
+            <td>af|selectManyListbox:read-only</td>
             <td>Style on the root element of the tr:selectManyListbox component when its readOnly attribute 
             is set to 'true'. For example, you can style the label when the component is 
             readOnly by using this selector: 
-            "af|selectManyListbox:readOnly af|selectManyListbox::label"</td>
+            "af|selectManyListbox:read-only af|selectManyListbox::label"</td>
           </tr>
           <tr>
             <td>af|selectManyListbox::content</td>
@@ -2973,11 +2973,11 @@
             "af|selectOneChoice:disabled af|selectOneChoice::label"</td>
           </tr>
           <tr>
-            <td>af|selectOneChoice:readOnly</td>
+            <td>af|selectOneChoice:read-only</td>
             <td>Style on the root element of the tr:selectOneChoice component when its readOnly attribute 
             is set to 'true'. For example, you can style the label when the component is 
             readOnly by using this selector: 
-            "af|selectOneChoice:readOnly af|selectOneChoice::label"</td>
+            "af|selectOneChoice:read-only af|selectOneChoice::label"</td>
           </tr>
           <tr>
             <td>af|selectOneChoice::content</td>
@@ -3014,11 +3014,11 @@
             "af|selectOneListbox:disabled af|selectOneListbox::label"</td>
           </tr>
           <tr>
-            <td>af|selectOneListbox:readOnly</td>
+            <td>af|selectOneListbox:read-only</td>
             <td>Style on the root element of the tr:selectOneListbox component when its readOnly attribute 
             is set to 'true'. For example, you can style the label when the component is 
             readOnly by using this selector: 
-            "af|selectOneListbox:readOnly af|selectOneListbox::label"</td>
+            "af|selectOneListbox:read-only af|selectOneListbox::label"</td>
           </tr>
           <tr>
             <td>af|selectOneListbox::content</td>
@@ -3055,11 +3055,11 @@
             "af|selectOneRadio:disabled af|selectOneRadio::label"</td>
           </tr>
           <tr>
-            <td>af|selectOneRadio:readOnly</td>
+            <td>af|selectOneRadio:read-only</td>
             <td>Style on the root element of the tr:selectOneRadio component when its readOnly attribute 
             is set to 'true'. For example, you can style the label when the component is 
             readOnly by using this selector: 
-            "af|selectOneRadio:readOnly af|selectOneRadio::label"</td>
+            "af|selectOneRadio:read-only af|selectOneRadio::label"</td>
           </tr>
           <tr>
             <td>af|selectOneRadio::content</td>

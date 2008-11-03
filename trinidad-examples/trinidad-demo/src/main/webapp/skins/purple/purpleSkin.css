@@ -456,6 +456,11 @@ af|selectBooleanCheckbox::disabled-only-checked-icon
 {
   content:url(/skins/purple/images/checkdc.gif);
 }
+/** selectOneRadio **/
+af|selectOneRadio:read-only::label {
+  color: aqua;
+  font-weight: bold;
+}
 
 /** selectInputDate launch icon **/
 af|inputDate::launch-icon
