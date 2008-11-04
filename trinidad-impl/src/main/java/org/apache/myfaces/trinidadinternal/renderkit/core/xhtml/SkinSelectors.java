@@ -1055,13 +1055,13 @@ public final class SkinSelectors
    // FIXME: Check if those selectors are ok. Constant names suggest radio button
    //        while selector suggest checkbox
    public static final String AF_SELECT_BOOLEAN_RADIO_DISABLED_SELECTED_ICON_NAME =
-     "af|selectBooleanCheckbox::disabled-selected-icon";
+     "af|selectBooleanRadio::disabled-selected-icon";
    public static final String AF_SELECT_BOOLEAN_RADIO_DISABLED_UNSELECTED_ICON_NAME =
-     "af|selectBooleanCheckbox::disabled-unselected-icon";
+     "af|selectBooleanRadio::disabled-unselected-icon";
    public static final String AF_SELECT_BOOLEAN_RADIO_READONLY_SELECTED_ICON_NAME =
-     "af|selectBooleanCheckbox::read-only-selected-icon";
+     "af|selectBooleanRadio::read-only-selected-icon";
    public static final String AF_SELECT_BOOLEAN_RADIO_READONLY_UNSELECTED_ICON_NAME =
-     "af|selectBooleanCheckbox::read-only-unselected-icon";
+     "af|selectBooleanRadio::read-only-unselected-icon";
 
    
    //                                                                         //
