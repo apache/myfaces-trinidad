@@ -299,16 +299,21 @@ public class StateManagerImpl extends StateManagerWrapper
     if (_saveAsToken(context))
     {
       String token;
+      ExternalContext extContext = context.getExternalContext();
+
+
       if (applicationViewCache == null)
       {
         assert(!dontSave);
         TokenCache cache = _getViewCache(context);
         assert(cache != null);
 
+        Map<String, Object> sessionMap = extContext.getSessionMap();
+
         // Store bits of the session as subkeys off of the session
-        Map<String, PageState> stateMap = new SubKeyMap<PageState>(
-                         context.getExternalContext().getSessionMap(),
-                         _VIEW_CACHE_KEY + ".");
+        Map<String, PageState> stateMap = new SubKeyMap<PageState>(sessionMap,
+                                                                   _VIEW_CACHE_KEY + ".");
+
         // Sadly, we can't save just a SerializedView, because we should
         // save a serialized object, and SerializedView is a *non*-static
         // inner class of StateManager
@@ -323,12 +328,14 @@ public class StateManagerImpl extends StateManagerWrapper
         // clear out all of the previous PageStates' UIViewRoots and add this page
         // state as an active page state.  This is necessary to avoid UIViewRoots
         // laying around if the user navigates off of a page using a GET
-        synchronized(this)
+        synchronized(extContext.getSession(true))
         {
-          if (_activePageState != null)
-            _activePageState.clearViewRootState();
-          
-          _activePageState = pageState;
+          PageState activePageState = (PageState)sessionMap.get(_ACTIVE_PAGE_STATE_SESSION_KEY);
+
+          if (activePageState != null)
+            activePageState.clearViewRootState();
+
+          sessionMap.put(_ACTIVE_PAGE_STATE_SESSION_KEY, pageState);
         }
         
         String requestToken = _getRequestTokenForResponse(context);
@@ -352,8 +359,7 @@ public class StateManagerImpl extends StateManagerWrapper
         else
         {
           // See if we should pin this new state to any old state
-          String pinnedToken = (String)
-            context.getExternalContext().getRequestMap().get(_PINNED_STATE_TOKEN_KEY);
+          String pinnedToken = (String)extContext.getRequestMap().get(_PINNED_STATE_TOKEN_KEY);
           token = cache.addNewEntry(pageState,
                                     stateMap,
                                     pinnedToken);
@@ -387,8 +393,7 @@ public class StateManagerImpl extends StateManagerWrapper
       view = new SerializedView(token, null);
       
       // And store the token for this request
-      context.getExternalContext().getRequestMap().put(_REQUEST_STATE_TOKEN_KEY,
-                                                       token);
+      extContext.getRequestMap().put(_REQUEST_STATE_TOKEN_KEY, token);
     }
     else
     {
@@ -1090,7 +1095,6 @@ public class StateManagerImpl extends StateManagerWrapper
   private       Boolean      _useViewRootCache;
   private       Boolean      _useApplicationViewCache;
   private       Boolean      _structureGeneratedByTemplate;
-  private       PageState    _activePageState;
 
   private static final int _DEFAULT_CACHE_SIZE = 15;
 
@@ -1113,6 +1117,9 @@ public class StateManagerImpl extends StateManagerWrapper
   private static final String _REUSE_REQUEST_TOKEN_FOR_RESPONSE_KEY =
     "org.apache.myfaces.trinidadinternal.application.REUSE_REQUEST_TOKEN_FOR_RESPONSE";
 
+  // key for saving the PageState for the last accessed view in this Session
+  private static final String _ACTIVE_PAGE_STATE_SESSION_KEY =
+              "org.apache.myfaces.trinidadinternal.application.StateManagerImp.ACTIVE_PAGE_STATE";
 
   private static final String _APPLICATION_CACHE_TOKEN = "_a_";
 
