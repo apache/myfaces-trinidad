@@ -2409,6 +2409,7 @@
   
   <style selector="af|commandButton">
     <includeStyle name="AFDefaultFont"/>
+    <property name="white-space">nowrap</property>
   </style>
 
   <style selector="af|goButton">
