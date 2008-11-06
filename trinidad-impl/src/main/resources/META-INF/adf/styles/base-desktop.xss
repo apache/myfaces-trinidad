@@ -4056,7 +4056,7 @@
   </style>
 
   <style selector="af|navigationPane">
-    <property name="height">25px</property>
+    <property name="height">100%</property>
   </style>
 </styleSheet>
 
