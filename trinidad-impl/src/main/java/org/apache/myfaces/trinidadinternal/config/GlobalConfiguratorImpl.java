@@ -241,20 +241,28 @@ public final class GlobalConfiguratorImpl extends Configurator
   {
     if (_initialized)
     {
-      for (final Configurator config : _services)
+      try
       {
-        try
+        for (final Configurator config : _services)
         {
-          config.destroy();
+          try
+          {
+            config.destroy();
+          }
+          catch (final Throwable t)
+          {
+            // we always want to continue to destroy things, so log errors and continue
+            _LOG.severe(t);
+          }
         }
-        catch (final Throwable t)
-        {
-          // we always want to continue to destroy things, so log errors and continue
-          _LOG.severe(t);
-        }
+        _services = null;
+        _initialized = false;
       }
-      _services = null;
-      _initialized = false;
+      finally
+      {
+        //release any managed threadlocals that may have been used durring destroy
+        _releaseManagedThreadLocals();
+      }
     }
   }
 
@@ -272,15 +280,21 @@ public final class GlobalConfiguratorImpl extends Configurator
     {
       if (!_isDisabled(externalContext))
       {
-        final RequestType type = RequestType.getType(externalContext);
-
-        // Do not end services at the end of a portal action request
-        if (type != RequestType.PORTAL_ACTION)
+        try
         {
-          _endConfiguratorServiceRequest(externalContext);
+          final RequestType type = RequestType.getType(externalContext);
+  
+          // Do not end services at the end of a portal action request
+          if (type != RequestType.PORTAL_ACTION)
+          {
+            _endConfiguratorServiceRequest(externalContext);
+          }
         }
-
-        _releaseRequestContext(externalContext);
+        finally
+        {
+          _releaseRequestContext(externalContext);
+          _releaseManagedThreadLocals();
+        }
       }
       RequestType.clearType(externalContext);
     }
@@ -348,35 +362,44 @@ public final class GlobalConfiguratorImpl extends Configurator
 
     if (!_initialized)
     {
-      _services = ClassLoaderUtils.getServices(Configurator.class.getName());
-
-      // Create a new RequestContextFactory is needed
-      if (RequestContextFactory.getFactory() == null)
+      try
       {
-        RequestContextFactory.setFactory(new RequestContextFactoryImpl());
+        _services = ClassLoaderUtils.getServices(Configurator.class.getName());
+  
+        // Create a new RequestContextFactory is needed
+        if (RequestContextFactory.getFactory() == null)
+        {
+          RequestContextFactory.setFactory(new RequestContextFactoryImpl());
+        }
+  
+        // Create a new SkinFactory if needed.
+        if (SkinFactory.getFactory() == null)
+        {
+          SkinFactory.setFactory(new SkinFactoryImpl());
+        }
+  
+        // register the base skins
+        SkinUtils.registerBaseSkins();
+  
+        for (final Configurator config : _services)
+        {
+          config.init(externalContext);
+        }
+  
+        // after the 'services' filters are initialized, then register
+        // the skin extensions found in trinidad-skins.xml. This
+        // gives a chance to the 'services' filters to create more base
+        // skins that the skins in trinidad-skins.xml can extend.
+        SkinUtils.registerSkinExtensions(externalContext);
+        _initialized = true;
       }
-
-      // Create a new SkinFactory if needed.
-      if (SkinFactory.getFactory() == null)
+      finally
       {
-        SkinFactory.setFactory(new SkinFactoryImpl());
+        
+        //Do cleanup of anything which may have use the thread local manager durring
+        //init.
+        _releaseManagedThreadLocals();
       }
-
-      // register the base skins
-      SkinUtils.registerBaseSkins();
-
-      for (final Configurator config : _services)
-      {
-        config.init(externalContext);
-      }
-
-      // after the 'services' filters are initialized, then register
-      // the skin extensions found in trinidad-skins.xml. This
-      // gives a chance to the 'services' filters to create more base
-      // skins that the skins in trinidad-skins.xml can extend.
-      SkinUtils.registerSkinExtensions(externalContext);
-
-      _initialized = true;
     }
     else
     {
@@ -416,12 +439,9 @@ public final class GlobalConfiguratorImpl extends Configurator
         _LOG.warning("REQUESTCONTEXT_NOT_PROPERLY_RELEASED");
       }
       context.release();
-      ThreadLocalResetter resetter = _threadResetter.get();
-      
-      if (resetter != null)
-        resetter.__removeRequestThreadLocals();
+      _releaseManagedThreadLocals();
     }
-
+    
     // See if we've got a cached RequestContext instance; if so,
     // reattach it
     final Object cachedRequestContext = externalContext.getRequestMap().get(
@@ -460,15 +480,19 @@ public final class GlobalConfiguratorImpl extends Configurator
       context.release();
       assert RequestContext.getCurrentInstance() == null;
 
-      // now that the request is over, clean up all of the request-scoped
-      // ThreadLocals.
-      ThreadLocalResetter resetter = _threadResetter.get();
-      
-      if (resetter != null)
-        resetter.__removeRequestThreadLocals();
     }
   }
 
+  private void _releaseManagedThreadLocals() 
+  {
+    ThreadLocalResetter resetter = _threadResetter.get();
+    
+    if (resetter != null)
+    {
+      resetter.__removeThreadLocals();
+    }
+  }
+  
   private void _endConfiguratorServiceRequest(final ExternalContext ec)
   {
     // Physical request has now ended

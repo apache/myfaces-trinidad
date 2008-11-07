@@ -20,7 +20,6 @@ package org.apache.myfaces.trinidadinternal.config;
 
 import java.util.concurrent.atomic.AtomicReference;
 
-import org.apache.myfaces.trinidad.util.ThreadLocalUtils;
 import org.apache.myfaces.trinidad.util.ThreadLocalUtils.ThreadLocalLifecycle;
 import org.apache.myfaces.trinidad.util.ThreadLocalUtils.ThreadLocalManager;
 
@@ -60,7 +59,7 @@ public class ThreadLocalResetter extends ThreadLocalLifecycle
    * Called by the GlobalConfiguratorImpl when the request is finished so that the
    * ThreadLocalResetter can ask the ThreadLocalManager to clean itself up
    */
-  void __removeRequestThreadLocals()
+  void __removeThreadLocals()
   {
     ThreadLocalManager threadLocalManager = _threadLocalManager.get();
     
