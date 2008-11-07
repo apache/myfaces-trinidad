@@ -92,18 +92,28 @@ TrMessageBox.prototype.addMessage = function(inputId, label, facesMessage)
     if (!label)
       label = facesMessage.getSummary();    
 
-    // Create a clickable anchor
-    var anchor = document.createElement("a");
-    anchor.className = TrMessageBox._LINK_STYLE;
-    anchor.href = "#" + inputId;
-    anchor.innerHTML = label;
-    line.appendChild(anchor);
-  
+    var textNode;
+    // Check that the label actually contains text
+    if (label && label.length > 0)
+    {
+      // Create a clickable anchor
+      var anchor = document.createElement("a");
+      anchor.className = TrMessageBox._LINK_STYLE;
+      anchor.href = "#" + inputId;
+      anchor.innerHTML = label;
+      line.appendChild(anchor);
+   
+      // Populate the text on the line
+      textNode = document.createTextNode(" - " + facesMessage.getSummary());
+    }
+    else
+    {
+      // don't append the " - "
+      textNode = document.createTextNode(facesMessage.getSummary());
+    }
+    
     // Give it a name we can remember so we can remove it later
     line.name = this._getMessageNameForInput(inputId);
-    
-    // Populate the text on the line
-    var textNode = document.createTextNode(" - " + facesMessage.getSummary());
     line.appendChild(textNode);
   }
   else
@@ -111,7 +121,14 @@ TrMessageBox.prototype.addMessage = function(inputId, label, facesMessage)
     // Treat message as global message, which can't be individually removed
 
     // Populate the text on the line
-    var textNode = document.createTextNode(facesMessage.getSummary() + " - " + facesMessage.getDetail());
+    var summary = facesMessage.getSummary();   
+    var textNode;
+    
+    if (summary && summary.length > 0)
+      textNode = document.createTextNode(summary + " - " + facesMessage.getDetail());
+    else
+      textNode = document.createTextNode(facesMessage.getDetail());
+      
     line.appendChild(textNode);
   }
 
