@@ -262,6 +262,26 @@ public class MessageBoxRenderer extends XhtmlRenderer
         _renderMessageAnchor(context, arc, msg, id);
 
         String text = MessageUtils.getClientMessage(arc, msg.getSummary(), msg.getDetail());
+        
+        // If the first two characters are "- ", assume it's due to af_messages.LIST_FORMAT_private;
+        // alternatively, we could change the value of this key in CoreBundle.xrts, located in:
+        // trinidad-impl\src\main\xrts\org\apache\myfaces\trinidadinternal\renderkit\core\resource
+        // If the label is null, then we don't want to render the "- ".
+        boolean isNullLabel = false;
+        if (msg instanceof LabeledFacesMessage)
+        {
+          LabeledFacesMessage labeledMsg = (LabeledFacesMessage) msg;
+          String labelString = labeledMsg.getLabelAsString(context);
+          if (labelString == null || labelString.length() == 0)
+            isNullLabel = true;
+        }
+        else
+        {
+          isNullLabel = true;
+        }
+
+        if (isNullLabel && text.charAt(0) == '-' && text.charAt(1) == ' ')
+          text = text.substring(2);
 
         renderPossiblyFormattedText(context, text);
 
@@ -296,7 +316,7 @@ public class MessageBoxRenderer extends XhtmlRenderer
     {
       LabeledFacesMessage labeledMsg = (LabeledFacesMessage)msg;
       String labelString = labeledMsg.getLabelAsString(context);
-      if (labelString != null)
+      if (labelString != null && labelString.length() > 0) // check for empty string
       {
         String anchor = MessageUtils.getAnchor(componentId);
         writer.startElement(XhtmlConstants.LINK_ELEMENT, null);
@@ -304,6 +324,7 @@ public class MessageBoxRenderer extends XhtmlRenderer
         writer.writeAttribute(XhtmlConstants.HREF_ATTRIBUTE, "#" + anchor, null);
         writer.write(labelString);
         writer.endElement(XhtmlConstants.LINK_ELEMENT);
+        writer.write(' ');
       }
     }
   }
