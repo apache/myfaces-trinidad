@@ -787,6 +787,13 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     if (!isList)
     {
       appendedStyle = "display: inline;"; // style to make the table inline
+      
+      // In Safari and webkit browsers display:inline doesn't work as expected, and 
+      // display:inline-block need to be used to make the table inline.
+      if (arc.getAgent().getAgentName() == Agent.AGENT_WEBKIT)
+      {
+        appendedStyle = "display: inline-block;";
+      }
     }
     writeInlineStyles(rw, toString(itemData.get("inlineStyle")),
       appendedStyle); // user's style + what we must have on top of it
@@ -976,7 +983,14 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     rw.startElement("table", null);
     OutputUtils.renderLayoutTableAttributes(context, arc, "0", null);
     String appendedStyle = null;
-    appendedStyle = "display: inline;"; // style to make the table inline
+    appendedStyle = "display: inline;"; // style to make the table inline    
+      
+    // In Safari and webkit browsers display:inline doesn't work as expected, and 
+    // display:inline-block need to be used to make the table inline.
+    if (arc.getAgent().getAgentName() == Agent.AGENT_WEBKIT)
+    {
+      appendedStyle = "display: inline-block;";
+    }
     writeInlineStyles(rw, null, appendedStyle);
     rw.startElement("tbody", null);
     _writeInlineTbodyStyles(arc, rw);
@@ -1210,8 +1224,17 @@ public class NavigationPaneRenderer extends XhtmlRenderer
   {
     rw.startElement("table", null);
     OutputUtils.renderLayoutTableAttributes(context, arc, "0", null);
+    
+    String appendedStyle = "display: inline;";    
+      
+    // In Safari and webkit browsers display:inline doesn't work as expected, and 
+    // display:inline-block need to be used to make the table inline.
+    if (arc.getAgent().getAgentName() == Agent.AGENT_WEBKIT)
+    {
+      appendedStyle = "display: inline-block;";
+    }
     writeInlineStyles(rw, toString(itemData.get("inlineStyle")),
-      "display: inline;"); // user's style + what we must have on top of it
+      appendedStyle); // user's style + what we must have on top of it
     rw.writeAttribute("title", itemData.get("shortDesc"), null);
     StringBuilder itemStyleClass = new StringBuilder();
     String userStyleClass = toString(itemData.get("styleClass"));
