@@ -197,13 +197,12 @@ public final class ThreadLocalUtils
       {
         ThreadLocal<?> threadLocal = iterator.next().get();
         
-        if (threadLocal == null)
-        {
-          // the threadLocal has been released, so remove this entry.  It will be
-          // readded if the ThreadLocal is ever recreated
-          iterator.remove();
-        }
-        else
+        // if the threadLocal is null, that means it has been released and we would really
+        // like to reclaim the entry, however remove isn't supported on CopyOnWriteArrayLists
+        // and the synchronization required to safely remove this item probably isn't
+        // worthy the small increase in memory of keeping around this empty item, so we don't
+        // bother cleaning up this entry
+        if (threadLocal != null)
         {
           // reset the threadlocal for this thread
           threadLocal.remove();
