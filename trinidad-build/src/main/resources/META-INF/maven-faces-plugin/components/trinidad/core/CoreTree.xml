@@ -41,7 +41,7 @@
       <mfp:tag-name>tr:tree</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.data.CoreTreeTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
-          The ADF Tree is used to display data that is structured in a hierarchical format.
+          The Trinidad Tree is used to display data that is structured in a hierarchical format.
           This component supports multiple root elements, and it has a
           simple user interface (UI) - each element in the Tree is appropriately indented to indicate
           its level in the hierarchy, and is connected to its parent.
