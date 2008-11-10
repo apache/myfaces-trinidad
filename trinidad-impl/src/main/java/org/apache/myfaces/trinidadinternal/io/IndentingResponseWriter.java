@@ -255,6 +255,7 @@ public class IndentingResponseWriter extends ResponseWriterDecorator
     _WHITESPACE_SENSITIVE_ELEMENTS.add("a");
     _WHITESPACE_SENSITIVE_ELEMENTS.add("br");
     _WHITESPACE_SENSITIVE_ELEMENTS.add("span");
+    _WHITESPACE_SENSITIVE_ELEMENTS.add("select");
     _WHITESPACE_SENSITIVE_ELEMENTS.add("div");
     _WHITESPACE_SENSITIVE_ELEMENTS.add("area");
     _WHITESPACE_SENSITIVE_ELEMENTS.add("u");
