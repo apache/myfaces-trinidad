@@ -553,7 +553,7 @@
       This profile is for building the release artifacts for review.  Execute this profile 
       like this:
       
-      mvn clean source:jar install deploy -DaltDeploymentRepository=matzew::default::file://FOLDER -PperformRelease=true
+      mvn clean source:jar install deploy -DaltDeploymentRepository=matzew::default::file://FOLDER -DperformRelease=true
       
       Issuing this command will also perform the "sign-artifacts" profile from the master pom.
     -->
