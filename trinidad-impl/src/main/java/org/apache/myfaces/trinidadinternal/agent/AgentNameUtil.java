@@ -82,6 +82,16 @@ public class AgentNameUtil
       return TrinidadAgent.APPLICATION_BLACKBERRY;
     }
 
+    if (TrinidadAgent.AGENT_NOKIA_S60.equals(agentName))
+    {
+      return TrinidadAgent.APPLICATION_NOKIA_S60;
+    }
+
+    if(TrinidadAgent.AGENT_GENERICPDA.equals(agentName))
+    {
+      return TrinidadAgent.APPLICATION_GENERICPDA;
+    }
+
     return TrinidadAgent.APPLICATION_UNKNOWN;
   }
 
@@ -131,6 +141,16 @@ public class AgentNameUtil
     if (TrinidadAgent.PLATFORM_BLACKBERRY.equals(platformName))
     {
         return TrinidadAgent.OS_BLACKBERRY;
+    }
+
+    if (TrinidadAgent.PLATFORM_NOKIA_S60.equals(platformName))
+    {
+      return TrinidadAgent.OS_NOKIA_S60;
+    }
+
+    if (TrinidadAgent.PLATFORM_GENERICPDA.equals(platformName))
+    {
+        return TrinidadAgent.OS_GENERICPDA;
     }
 
     return TrinidadAgent.OS_UNKNOWN;
@@ -187,6 +207,10 @@ public class AgentNameUtil
         return TrinidadAgent.AGENT_WEBKIT;
       case TrinidadAgent.APPLICATION_BLACKBERRY:
         return TrinidadAgent.AGENT_BLACKBERRY;
+      case TrinidadAgent.APPLICATION_NOKIA_S60:
+        return TrinidadAgent.AGENT_NOKIA_S60;
+      case TrinidadAgent.APPLICATION_GENERICPDA:
+        return TrinidadAgent.AGENT_GENERICPDA;
        default:
         return null;
     }
@@ -221,6 +245,10 @@ public class AgentNameUtil
         return TrinidadAgent.PLATFORM_PPC;
       case TrinidadAgent.OS_BLACKBERRY:
         return TrinidadAgent.PLATFORM_BLACKBERRY;
+      case TrinidadAgent.OS_NOKIA_S60:
+        return TrinidadAgent.PLATFORM_NOKIA_S60;
+      case TrinidadAgent.OS_GENERICPDA:
+        return TrinidadAgent.PLATFORM_GENERICPDA;
       default:
         return null;
     }

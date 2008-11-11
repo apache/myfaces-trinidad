@@ -126,16 +126,6 @@ public class AgentFactoryImpl implements AgentFactory
        return;
     }
 
-    // I need to search for more than just "WebPro" because ie's header can be
-    // altered to include "FunWebProducts" in which case ie desktop was being
-    // mapped to a pda
-    // see bug 3362116
-    if (userAgent.indexOf("NetFront/3.") != -1)
-    {
-      _populateNetFrontAgentImpl(userAgent,agent);
-      return;
-    }
-
     // Web Pro
     //userAgent = "Mozilla/4.76 (compatible; MSIE 6.0; U; Windows 95; PalmSource; PalmOS; WebPro; Tungsten Proxyless 1.1 320x320x16)";
     if ( (userAgent.indexOf( "WebPro") != -1 &&
@@ -185,6 +175,51 @@ public class AgentFactoryImpl implements AgentFactory
       return;
     }
 
+    if(userAgent.startsWith("BlackBerry"))
+    {
+        _populateBlackberryAgentImpl(userAgent,agent);
+        return;
+    }
+
+    if (userAgent.indexOf("Opera") > -1)
+    {
+        _populateOperaAgentImpl(userAgent,agent);
+        return;
+    }
+
+    // Generic Mobile Browser Detection
+    // The user agent signature varies depending on the
+    // device manufacturer and carrier. Use case insensitive
+    // string matching.
+    // Some of the browsers listed below support higher capabilities
+    // than basic HTML browser capabilities. However, those browsers
+    // are treated as basic HTML browser here for maximam compatibility
+    // and performance.
+    // We do not support WAP1.X browsers (WML).
+
+    String userAgentLowercase = userAgent.toLowerCase();
+
+    if ((userAgentLowercase.indexOf("wap1.") < 0) &&
+        (userAgentLowercase.indexOf("wap2.") > -1  ||
+         userAgentLowercase.indexOf("up.browser") > -1 ||
+         userAgentLowercase.indexOf("nokia") > -1 ||
+         userAgentLowercase.startsWith("mot-") ||
+         userAgentLowercase.indexOf("symbian") > -1 ||
+         userAgentLowercase.indexOf("sonyeri") > -1 ||
+         userAgentLowercase.indexOf("netfront/") > -1 ||
+         userAgentLowercase.startsWith("samsang-") ||
+         userAgentLowercase.startsWith("lg-") ||
+         userAgentLowercase.indexOf("obigo") > -1||
+         userAgentLowercase.indexOf("vodafone") > -1 ||
+         userAgentLowercase.indexOf("kddi") > -1 ||
+         userAgentLowercase.indexOf("openwave") > -1))
+    {
+      _populateGenericPDAAgentImpl(userAgent,agent);
+      return;
+    }
+
+    // Gecko and Mozilla tests should be placed following more specific
+    // uiser-agent test.
     if (userAgent.indexOf("Gecko/") != -1)
     {
       _populateGeckoAgentImpl(userAgent,agent);
@@ -197,19 +232,17 @@ public class AgentFactoryImpl implements AgentFactory
       return;
     }
 
-    if (userAgent.startsWith("Opera"))
-    {
-        _populateOperaAgentImpl(userAgent,agent);
-        return;
-    }
-    
-    if(userAgent.startsWith("BlackBerry"))
-    {
-        _populateBlackberryAgentImpl(userAgent,agent);
-        return;
-    }
-
     _populateUnknownAgentImpl(userAgent, agent);
+  }
+
+
+  private void _populateGenericPDAAgentImpl(String userAgent, AgentImpl agent)
+  {
+    // Generic PDA browser
+    agent.setType(Agent.TYPE_PDA);
+    agent.setAgent(Agent.AGENT_GENERICPDA);
+    agent.setAgentVersion("1"); // Version does not matter
+    agent.setPlatform(Agent.PLATFORM_GENERICPDA);
   }
 
   private void _populateUnknownAgentImpl(String userAgent, AgentImpl agent)
@@ -434,46 +467,6 @@ public class AgentFactoryImpl implements AgentFactory
     }
 
   /**
-   * returns the data for the Palm NetFront browser request
-   */
-  private void _populateNetFrontAgentImpl(String agent, AgentImpl agentObj)
-  {
-    agentObj.setType(Agent.TYPE_PDA);
-    agentObj.setAgent(TrinidadAgent.AGENT_NETFRONT);
-
-    int start = agent.indexOf("NetFront/");
-
-    if (start > -1)
-    {
-      agentObj.setAgentVersion(_getVersion(agent, start + 8));
-    }
-
-    int paren = agent.indexOf('(');
-
-    if (paren >= 0)
-    {
-      // try to determine the OS
-      if (agent.indexOf("Windows CE", paren) > 0)
-      {
-        agentObj.setPlatform(Agent.PLATFORM_PPC);
-      }
-/*
-      //Embedded Linux is not be same as Linux
-      //so leave it as unknown
-      else if (agent.indexOf("Embedix", paren) > 0)
-      {
-        entry._platform = Agent.PLATFORM_LINUX;
-      }
-*/
-      else if (agent.indexOf("Palm", paren) > 0)
-      {
-        agentObj.setPlatform(Agent.PLATFORM_PALM);
-      }
-    }
-
-  }
-
-  /**
    * returns the data for the Palm Web Pro browser request
    */
   private void _populatePalmWebBrowserProAgentImpl(String agent,AgentImpl agentObj)
@@ -663,36 +656,51 @@ public class AgentFactoryImpl implements AgentFactory
   
   private void _populateOperaAgentImpl(String agent,AgentImpl agentObj)
   {
-    agentObj.setType(Agent.TYPE_DESKTOP);
-    agentObj.setAgent(Agent.AGENT_GECKO);
-    
-    int operaIndex = agent.indexOf("Opera/");
-    int firstSpace = agent.indexOf(" ");
-    if (operaIndex >= 0 && firstSpace >=0 )
+    int start = agent.indexOf("Opera Mini");
+    if (start > -1)
     {
-        agentObj.setAgentVersion(agent.substring(operaIndex + 6,firstSpace));
+      // Opera Mini supports JavaScript. However, generic PDA capability
+      // will be assigned to maximize the compatibility until fully certified.
+      start = agent.indexOf('/', start);
+      String version = _getVersion(agent, start);
+      agentObj.setAgentVersion(version);
+      agentObj.setType(Agent.TYPE_PDA);
+      agentObj.setAgent(Agent.AGENT_GENERICPDA);
+      agentObj.setPlatform(Agent.PLATFORM_GENERICPDA);
     }
-
-    int paren = agent.indexOf('(');
-
-    if (paren >= 0)
+    else
     {
-      // try to determine the OS
-      if (agent.indexOf("Win", paren) > 0)
+      agentObj.setType(Agent.TYPE_DESKTOP);
+      agentObj.setAgent(Agent.AGENT_GECKO);
+
+      int operaIndex = agent.indexOf("Opera/");
+      int firstSpace = agent.indexOf(" ");
+      if (operaIndex >= 0 && firstSpace >=0 )
       {
-        agentObj.setPlatform(Agent.PLATFORM_WINDOWS);
+        agentObj.setAgentVersion(agent.substring(operaIndex + 6,firstSpace));
       }
-      else if (agent.indexOf("Mac", paren) > 0)
+
+      int paren = agent.indexOf('(');
+
+      if (paren >= 0)
       {
-        agentObj.setPlatform(Agent.PLATFORM_MACOS);
-      }
-      else if (agent.indexOf("Linux", paren) > 0)
-      {
-        agentObj.setPlatform(Agent.PLATFORM_LINUX);
-      }
-      else if (agent.indexOf("Sun", paren) > 0)
-      {
-        agentObj.setPlatform(Agent.PLATFORM_SOLARIS);
+        // try to determine the OS
+        if (agent.indexOf("Win", paren) > 0)
+        {
+          agentObj.setPlatform(Agent.PLATFORM_WINDOWS);
+        }
+        else if (agent.indexOf("Mac", paren) > 0)
+        {
+          agentObj.setPlatform(Agent.PLATFORM_MACOS);
+        }
+        else if (agent.indexOf("Linux", paren) > 0)
+        {
+          agentObj.setPlatform(Agent.PLATFORM_LINUX);
+        }
+        else if (agent.indexOf("Sun", paren) > 0)
+        {
+          agentObj.setPlatform(Agent.PLATFORM_SOLARIS);
+        }
       }
     }
   }
@@ -737,7 +745,14 @@ public class AgentFactoryImpl implements AgentFactory
 
     String version = _getVersion(agent, start);
     agentObj.setType(Agent.TYPE_DESKTOP);
-    agentObj.setAgent(Agent.AGENT_WEBKIT);
+    if (agent.indexOf("Symbian") > -1)
+    {
+      agentObj.setAgent(Agent.AGENT_NOKIA_S60);
+    }
+    else
+    {
+      agentObj.setAgent(Agent.AGENT_WEBKIT);
+    }
     agentObj.setAgentVersion(version);
   }
 

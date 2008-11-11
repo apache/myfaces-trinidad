@@ -109,6 +109,17 @@ public interface Agent
   public static final String PLATFORM_BLACKBERRY = "blackberry";
 
   /**
+  /**
+   * Constant for Nokia S60 platform
+   */
+  public static final String PLATFORM_NOKIA_S60 = "nokia_s60";
+
+  /**
+   * Constant for generic PDA device browser
+   */
+  public static final String PLATFORM_GENERICPDA = "genericpda";
+
+  /**
    * Constant for Internet Explorer agent
    */
   public static final String AGENT_IE = "ie";
@@ -131,6 +142,17 @@ public interface Agent
    */
   public static final String AGENT_BLACKBERRY = "blackberry";
    
+
+  /**
+   * Constant for Symbian Nokia S60 agent. Used for Nokia Series 60
+   * 3rd Edition or later
+   */
+  public static final String AGENT_NOKIA_S60 = "nokia_s60";
+
+  /**
+   * Constant for basic HTML (without JavaScript) Browser agent.
+   */
+  public static final String AGENT_GENERICPDA = "genericpda";
 
   /**
    *

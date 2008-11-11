@@ -316,9 +316,19 @@ public interface TrinidadAgent extends Agent
   static public final int APPLICATION_SAFARI = 11;
 
   /**
-   * Application constant for the Safari browser.
+   * Application constant for the BlackBerry browser.
    */
   static public final int APPLICATION_BLACKBERRY = 12;
+
+  /**
+   * Application constant for the Nokia S60 browser.
+   */
+  static public final int APPLICATION_NOKIA_S60 = 13;
+
+  /**
+   * Application constant for the basic HTMLbrowser.
+   */
+  static public final int APPLICATION_GENERICPDA = 14;
 
 
   /**
@@ -365,6 +375,16 @@ public interface TrinidadAgent extends Agent
    * OS constant for iPhone
    */
   static public final int OS_IPHONE   = 8;
+
+  /**
+   * OS constant for Symbian
+   */
+  static public final int OS_NOKIA_S60   = 9;
+
+  /**
+   * OS constant for generic PDA
+   */
+  static public final int OS_GENERICPDA   = 10;
 
 
   /**

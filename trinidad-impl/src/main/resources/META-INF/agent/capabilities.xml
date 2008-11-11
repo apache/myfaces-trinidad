@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+     
 -->
 <capabilitiesDocument xmlns="http://myfaces.apache.org/trinidad/agent/capabilities">
   <agentCapabilities>
@@ -69,15 +69,23 @@
       <include src="webkit312.xml"/>
     </capabilities>
 
+    <capabilities id="nokia_s60" agents="nokia_s60">
+      <include refid="webkit312"/>
+      <include src="nokia_S60.xml"/>
+    </capabilities>
+
     <capabilities id="netscape" agents="netscape">
       <include refid="html" />
       <include src="netscape.xml"/>
     </capabilities>
-
+    
+    <!-- Netfront browser is treated as basic HTML browser for 
+         performance
     <capabilities id="netfront" agents="netfront/3+ webpro blazer/3+">
       <include refid="pda" />
       <include src="netfront.xml" />
     </capabilities>
+    -->
 
     <capabilities id="pixo" agents="pixo">
       <include refid="pda" />
@@ -90,42 +98,43 @@
       <include src="pocketie.xml"/>
     </capabilities>
 
-    <!-- Windows Mobile 6 only (With PPR support) -->
-    <capabilities id="pocketie03" agents="ie/6+" platforms="ppc">
+    <!-- Windows Mobile 6 only -->
+    <capabilities id="wm6" agents="ie/6+" platforms="ppc">
       <include refid="pocketie"/>
-      <include src="pocketie03.xml"/>
+      <include src="wm6.xml"/>
     </capabilities>
+   
+   
+    <!-- BlackBerry Browser pre-4.0; 3.6 and 3.7 include support for
+    XHTML Basic; 3.2 and 3.3 support cHTML; we do not provide
+    explicit support for these browsers, but we use the "pda"
+    capabilities because it provides a stripped set of features
+    close to XHTML Basic -->
+    <capabilities id="blackberry" agents="blackberry" platforms="blackberry">
+      <include refid="htmlBasic"/>
+      <include src="pdaGeneric.xml"/>
+    </capabilities>
+
+    
+    <!-- BlackBerry Browser BlackBerry Curve and Perl devices -->
+    <!-- BlackBerry Curve and Perl are treated as basic HTML browsers for 
+         performance
+    <capabilities id="blackberry4" agents="blackberry/4+" platforms="blackberry">
+      <include refid="pda"/>
+      <include src="blackberry4.xml"/>
+    </capabilities>
+    -->
+
+    <!-- BlackBerry Browser BlackBerry Bold devices -->
+    <capabilities id="blackberryBold" agents="blackberry/4.6+" platforms="blackberry">
+      <include refid="html"/>
+      <include src="blackberry9000.xml"/>
+    </capabilities>
+
+    <capabilities id="genericpda" agents="genericpda">
+      <include refid="htmlBasic"/>
+      <include src="pdaGeneric.xml"/>
+    </capabilities>
+
   </agentCapabilities>
-
-   
-   <!-- BlackBerry Browser pre-4.0; 3.6 and 3.7 include support for
-        XHTML Basic; 3.2 and 3.3 support cHTML; we do not provide
-        explicit support for these browsers, but we use the "pda"
-        capabilities because it provides a stripped set of features
-        close to XHTML Basic -->
-   <capabilities id="blackberry" agents="blackberry" platforms="blackberry">
-     <include refid="pda"/>
-   </capabilities>
-
-   
-   <!-- BlackBerry Browser 4.0+ on BlackBerry devices -->
-   <capabilities id="blackberry4" agents="blackberry/4+" platforms="blackberry">
-     <include refid="pda"/>
-     <include src="blackberry4.xml"/>
-   </capabilities>
-
-
-
-  <!--devices>
-    <device id="Nokia6600" model="nokia6600">
-      <component type="browser">
-        <include refid="htmlBasic"/>
-        <include src="nokia6600-browser.xml"/>
-      </component>
-      <component type="push">
-        <include src="nokia6600-push.xml"/>
-      </component>
-    </device>
-  </devices-->
-
 </capabilitiesDocument>
