@@ -119,9 +119,14 @@ public class PanelHorizontalLayoutRenderer extends XhtmlRenderer
 
     boolean needSeparator = false;
     boolean isFirstChild = true;
-    
+    /**
+     * To fix the overlapping of the separator with first child,
+     * ignore endAligment(<td width = 100%>) in PDA
+     */
     boolean isEndAlignment;
-    if (CorePanelHorizontalLayout.HALIGN_END.equals(hAlign))
+    if (isPDA(arc))
+      isEndAlignment = false;
+    else if (CorePanelHorizontalLayout.HALIGN_END.equals(hAlign))
       isEndAlignment = true;
     else if (CorePanelHorizontalLayout.HALIGN_LEFT.equals(hAlign))
       isEndAlignment = arc.isRightToLeft();
