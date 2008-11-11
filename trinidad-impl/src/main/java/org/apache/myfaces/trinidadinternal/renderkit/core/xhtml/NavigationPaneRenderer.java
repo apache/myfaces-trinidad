@@ -547,12 +547,12 @@ public class NavigationPaneRenderer extends XhtmlRenderer
   {
     if ( (iconUri != null) && !isRtl )
     {
-      _appendIcon(context, rw, iconUri, isRtl);
+      _appendIcon(context, rw, iconUri, isRtl, arc);
     }
-    _writeItemLink(context, arc, rw, itemData, isDisabled);
+     _writeItemLink(context, arc, rw, itemData, isDisabled);
     if ( (iconUri != null) && isRtl )
     {
-      _appendIcon(context, rw, iconUri, isRtl);
+      _appendIcon(context, rw, iconUri, isRtl, arc);
     }
   }
 
@@ -560,20 +560,38 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     FacesContext context,
     ResponseWriter rw,
     String iconUri,
-    boolean isRtl
+    boolean isRtl,
+    RenderingContext arc
     ) throws IOException
   {
+    String styleAppender = "";
     rw.startElement("img", null);
     rw.writeAttribute("border", "0", null);
     rw.writeAttribute("align", "absmiddle", null);
-    if (isRtl)
+
+    if (isPDA(arc))
     {
-      rw.writeAttribute("style", "padding-left: 5px; float: right;", null);
+      if (isRtl)
+      {
+        rw.writeAttribute("style", "padding-left: 5px;", null);
+      }
+      else
+      {
+        rw.writeAttribute("style", "padding-right: 5px;", null);
+      }
     }
     else
     {
-      rw.writeAttribute("style", "padding-right: 5px; float: left;", null);
+      if (isRtl)
+      {
+        rw.writeAttribute("style", "padding-left: 5px; float: right;", null);
+      }
+      else
+      {
+        rw.writeAttribute("style", "padding-right: 5px; float: left;", null);
+      }
     }
+
     Application application = context.getApplication();
     ViewHandler handler = application.getViewHandler();
     String resolvedIconUri = handler.getResourceURL(context, iconUri);
