@@ -1066,7 +1066,17 @@ public class XhtmlRenderer extends CoreRenderer
     }
   }
 
-
+  /**
+   * Returns true if the agent supports the "onclick" JS Handler in an "input" 
+   * HTML element of type "image"
+   */
+  static public boolean supportsOnClickOnImgInput(RenderingContext arc)
+  {
+    Object cap = arc.getAgent().getCapabilities().get(
+                      TrinidadAgent.CAP_ONCLICK_IMG_INPUT);
+    return !Boolean.FALSE.equals(cap);
+  }
+  
   private PropertyKey _shortDescKey;
   private PropertyKey _styleClassKey;
   private PropertyKey _inlineStyleKey;

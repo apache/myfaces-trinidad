@@ -96,16 +96,20 @@
       </input>
 <!--AttributeTest[icon,/foo.gif]-->
 
-      <input
+      <a
            class="af_goButton"
            onclick="document.location='encoded-action-url:http://www.oracle.com'"
-           type="button"
-           value="ButtonText"
+           href="uri-attr:encoded-action-url:#"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
         
-      </input>
+        <img
+             src="uri-attr:encoded-resource-url:/test-context-path/foo.gif"
+            >
+          
+        </img>
+      </a>
 <!--AttributeTest[onblur,null]-->
 
       <input
