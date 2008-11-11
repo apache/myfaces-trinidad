@@ -63,6 +63,10 @@ public class NameUtils
       browser = TrinidadAgent.APPLICATION_SAFARI;
     else if (_BROWSER_BLACKBERRY.equals(browserName))
       browser = TrinidadAgent.APPLICATION_BLACKBERRY;
+    else if (_BROWSER_NOKIA_S60.equals(browserName))
+      browser = TrinidadAgent.APPLICATION_NOKIA_S60;
+    else if (_BROWSER_GENERICPDA.equals(browserName))
+      browser = TrinidadAgent.APPLICATION_GENERICPDA;
     else
     {
       // Either a new or an invalid browser
@@ -98,6 +102,12 @@ public class NameUtils
       break;
     case TrinidadAgent.APPLICATION_BLACKBERRY:
       name = _BROWSER_BLACKBERRY;
+      break;
+    case TrinidadAgent.APPLICATION_NOKIA_S60:
+      name = _BROWSER_NOKIA_S60;
+      break;
+    case TrinidadAgent.APPLICATION_GENERICPDA:
+      name = _BROWSER_GENERICPDA;
       break;
     case TrinidadAgent.APPLICATION_UNKNOWN:
       // This case is only here to avoid the default assertion
@@ -198,6 +208,12 @@ public class NameUtils
       platform = TrinidadAgent.OS_PPC;
     else if (_PLATFORM_BLACKBERRY.equals(platformName))
       platform = TrinidadAgent.OS_BLACKBERRY;
+    else if (_PLATFORM_NOKIA_S60.equals(platformName))
+      platform = TrinidadAgent.OS_NOKIA_S60;
+    else if (_PLATFORM_GENERICPDA.equals(platformName))
+      platform = TrinidadAgent.OS_GENERICPDA;
+
+
     else if (!_PLATFORM_UNIX.equals(platformName))
     {
       // Either a new or an invalid platform
@@ -236,6 +252,12 @@ public class NameUtils
       break;
     case TrinidadAgent.OS_BLACKBERRY:
       name = _PLATFORM_BLACKBERRY;
+      break;
+    case TrinidadAgent.OS_NOKIA_S60:
+      name = _PLATFORM_NOKIA_S60;
+      break;
+    case TrinidadAgent.OS_GENERICPDA:
+      name = _PLATFORM_GENERICPDA;
       break;
     case TrinidadAgent.OS_UNKNOWN:
       // This case is only here to avoid the default assertion
@@ -729,6 +751,10 @@ public class NameUtils
 
   private static final String _BROWSER_BLACKBERRY = "blackberry";
   
+  private static final String _BROWSER_NOKIA_S60 = "nokia_s60";
+
+  private static final String _BROWSER_GENERICPDA = "genericpda";
+
   // Platform constants
   private static final String _PLATFORM_WINDOWS = "windows";
 
@@ -745,6 +771,10 @@ public class NameUtils
   private static final String _PLATFORM_PPC = "ppc";
 
   private static final String _PLATFORM_BLACKBERRY = "blackberry";
+
+  private static final String _PLATFORM_NOKIA_S60 = "nokia_s60";
+
+  private static final String _PLATFORM_GENERICPDA = "genericpda";
 
   // Accessibility constants
   private static final String _ACC_HIGH_CONTRAST = "hc";
