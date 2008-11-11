@@ -81,43 +81,71 @@ public class GoButtonRenderer extends GoLinkRenderer
     arc.setCurrentClientId(clientId);
 
     String element;
-    boolean useButton;
-    boolean isFormElement = false;	
+    boolean useButton = false;  
+    boolean useInput = false;
+    boolean supportScriptEvents = false;
+    boolean imageLink = false;
+    boolean iconAvailable = false;
+    String icon = getIcon(bean);
+
+    if (icon != null)
+    {
+      iconAvailable = true;
+    }
     if ((supportsScripting(arc) && supportsIntrinsicEvents(arc)))
     {
-       if (supportsAdvancedForms(arc))
-       {
-          element = XhtmlLafConstants.BUTTON_ELEMENT;
-       }
-       else
-       {
-          element = XhtmlLafConstants.INPUT_ELEMENT;
-          isFormElement  = true;
-        }
-
+      supportScriptEvents = true;
+    }
+    
+    if (supportScriptEvents)
+    {
+      if (supportsAdvancedForms(arc))
+      {
+        element = XhtmlLafConstants.BUTTON_ELEMENT;
         useButton = true;
+      }
+      //if icon is set, render as an image element within a link element
+      //since "buttons" html element is not supported and "input" element of
+      //type=image does not support "onClick" JS handler.
+      else if (iconAvailable && !supportsOnClickOnImgInput(arc)) 
+      {
+        element = XhtmlLafConstants.LINK_ELEMENT;
+        imageLink = true;
+      }
+      else
+      {
+        element = XhtmlLafConstants.INPUT_ELEMENT;
+        useInput = true;
+      }
     }
     else
     {
-       element = XhtmlLafConstants.LINK_ELEMENT;
-       useButton = false;
+      element = XhtmlLafConstants.LINK_ELEMENT;
     }
-
+  
     ResponseWriter rw = context.getResponseWriter();
+    boolean disabled = getDisabled(bean);
     rw.startElement(element, component);
     renderId(context, component);
-    boolean disabled = getDisabled(bean);
-    if (useButton)
-    {
-      rw.writeAttribute("type", "button", null);
-      if (disabled)
+    
+    if (supportScriptEvents)
+    { 
+      if (useInput && iconAvailable)
+      {
+        rw.writeAttribute("type", "image", null);
+      } 
+      //For any element like <button> or <input> except <a> set type to "button" 
+      else if (!imageLink)
+      {
+        rw.writeAttribute("type", "button", null);   
+      }
+      // If disabled, render "disable" only for <input> and <button> elements 
+      if (!imageLink && disabled)
+      {
         rw.writeAttribute("disabled", Boolean.TRUE, "disabled");
+      }
     }
-    else
-    {
-      renderEncodedActionURI(context, "href", getDestination(bean));
-    }
-
+       
     if (disabled || !supportsNavigation(arc))
     {
       // Skip over event attributes when disabled
@@ -126,12 +154,18 @@ public class GoButtonRenderer extends GoLinkRenderer
     else
     {
       renderAllAttributes(context, arc, bean);
-      if (useButton)
+      if (supportScriptEvents)
       {
         rw.writeAttribute("onclick", getButtonOnclick(bean), null);
+        if (imageLink)
+        {
+          renderEncodedActionURI(context, XhtmlConstants.HREF_ATTRIBUTE, "#");
+        }
       }
       else
       {
+        renderEncodedActionURI(context, XhtmlConstants.HREF_ATTRIBUTE, getDestination(bean));
+        
         if (supportsTarget(arc))
         {
           rw.writeAttribute("target", getTargetFrame(bean), null);
@@ -158,29 +192,56 @@ public class GoButtonRenderer extends GoLinkRenderer
     }
 
     String text = getText(bean);
-    String icon = getIcon(bean);
-
-    if(!isFormElement){
-        AccessKeyUtils.renderAccessKeyText(context,
-                                           text,
-                                           accessKey,
-                                           SkinSelectors.AF_ACCESSKEY_STYLE_CLASS);
-
-        if (icon != null)
-          OutputUtils.renderImage(context, arc, icon, null, null, null,
+    
+    if (useButton)
+    {
+      
+      AccessKeyUtils.renderAccessKeyText(context,
+                                         text,
+                                         accessKey,
+                                         SkinSelectors.AF_ACCESSKEY_STYLE_CLASS);
+      if (icon != null)
+        OutputUtils.renderImage(context, arc, icon, null, null, null,
                                   getShortDesc(bean));
     }
-    else {
-        if (icon != null && text == null){
-            renderEncodedResourceURI(context, "src", icon);
-        }
-        else{
-            rw.writeAttribute("value", text, "text");
-        }
+    // For PDAs, render only the image if icon is available
+    else if (!supportScriptEvents) 
+    {
+      if(iconAvailable)
+      {
+        
+       OutputUtils.renderImage(context, arc, icon, null, null, null,
+                                  getShortDesc(bean));
+      }
+      else
+      {
+        
+       AccessKeyUtils.renderAccessKeyText(context,
+                                         text,
+                                         accessKey,
+                                         SkinSelectors.AF_ACCESSKEY_STYLE_CLASS); 
+      }
+    }
+    else 
+    {
+      // Render an image tag inside the anchor tag
+      if (imageLink)
+      {
+        OutputUtils.renderImage(context, arc, icon, null, null, null,
+                                getShortDesc(bean));
+      }
+      // For input element render src attribute to the url of the icon 
+      else if (iconAvailable)
+      {
+        renderEncodedResourceURI(context, "src", icon);
+      }
+      else
+      {
+        rw.writeAttribute("value", text, "text");
+      }
     }
 
     rw.endElement(element);
-
     arc.setCurrentClientId(null);
   }
 
