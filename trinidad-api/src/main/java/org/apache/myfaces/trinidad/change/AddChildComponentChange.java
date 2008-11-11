@@ -24,6 +24,7 @@ import javax.faces.component.UIComponent;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
+
 /**
  * Change specialization for adding a child component.
  * While applying this Change, the child component is re-created and added to
@@ -89,10 +90,13 @@ public class AddChildComponentChange extends AddComponentChange
     //  to-be-added child, remove it and get the new one added.
     UIComponent removableChild = ChangeUtils.getChildForId(uiComponent, newChildId);
   
+    // Users can add component themselves in addition to adding a ComponentChange
+    //  This could cause duplicates, which is fine. Handle this gracefully with 
+    //  a info log and replacement
     if (removableChild != null)
     {
-      throw new IllegalStateException(_LOG.getMessage(
-        "ATTEMP_ADD_DUPLICATE_ID", newChildId));
+      _LOG.info("ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID", newChildId);
+      children.remove(removableChild);
     }
     
     if (_insertBeforeId == null)

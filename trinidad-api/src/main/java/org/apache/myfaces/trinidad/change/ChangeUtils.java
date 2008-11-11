@@ -20,19 +20,21 @@ package org.apache.myfaces.trinidad.change;
 
 import java.util.List;
 
+import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
+
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
 /**
  * Utility functions for use by Changes.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/change/ChangeUtils.java#0 $) $Date: 10-nov-2005.19:09:58 $
  */
-class ChangeUtils 
+final class ChangeUtils 
 {
   private ChangeUtils()
   {
@@ -119,6 +121,50 @@ class ChangeUtils
   }
   
   /**
+   * Search the supplied Node and its descendants for an Element Node with the 
+   * scopedTargetId.
+   * @param baseNode The base Node of the subtree relative to which the target
+   * Node is to be found.
+   * @param scopedTargetId The scoped id of the target node which is to be found. 
+   * This id should be relative from the base Node of the search, with 
+   * NamingContainer.SEPARATOR_CHAR being the separator for fragments. If the
+   * targetId starts with a NamingContainer.SEPARATOR_CHAR, it is considered
+   * as an absolute id, and the owner Document will be the base Node of search.
+   * Examples of scopedTargetId values: 'foo:bar:baz'/':foo:bar:baz'/'foo'.
+   * @param searchDepth The integer which indicates till how many levels deeper 
+   * from the baseNode, the search has to be performed.
+   * @return The target Node with the given scopedTargetId if found within the
+   * permitted searchDepth, else null 
+   */
+  static Node __findNodeByScopedId(
+    Node baseNode,
+    String scopedTargetId,
+    int searchDepth)
+  {
+    if (baseNode == null || 
+        scopedTargetId == null || 
+        scopedTargetId.length() == 0)
+      return null;
+     
+    // Check if we have received an absolute id.
+    if (NamingContainer.SEPARATOR_CHAR == scopedTargetId.charAt(0))
+    {
+      // If so directly deal with the owner Document.
+      if (baseNode.getNodeType() != Node.DOCUMENT_NODE)
+        baseNode = baseNode.getOwnerDocument();
+
+      // Remove leading ':'
+      scopedTargetId = scopedTargetId.substring(1);
+    }
+
+    // 'foo:bar:baz' -> ['foo'],['bar'},['baz']
+    String[] idFrags = 
+      scopedTargetId.split(String.valueOf(NamingContainer.SEPARATOR_CHAR));
+    
+    return _traceNodeByIdPath(baseNode, idFrags, 0, searchDepth);
+  }
+  
+  /**
    * Given a node representing a component, returns the named facet's Element.
    * @param componentNode The node to search for a facet contained in it.
    * @param facetName The name of the facet to search for.
@@ -171,7 +217,67 @@ class ChangeUtils
     }
   }
 
+  /**
+   * Traces for the targetNode recursively in the subtree rooted by baseNode.
+   * Trace path is also controlled by the id path fragments and the fragIndex. 
+   * Trace stops when the permitted searchDepth is reached, or when the trace 
+   * faled.
+   * @returns The traget node of the search. Returns null if the target Node is
+   * not to be found, or if we have exceeded the search depth.
+   */
+  private static Node _traceNodeByIdPath(
+    Node baseNode,
+    String[] idFrags,
+    int fragIndex,
+    int searchDepth)
+  {
+    if ((baseNode.getNodeType() == Node.ELEMENT_NODE) && 
+        idFrags[fragIndex].equals(((Element)baseNode).getAttribute(_ID_ATTRIB_NAME)))
+    {
+      if (idFrags.length == fragIndex + 1)
+      {
+        // This is the node for the last of the id fragments, so we found the 
+        // target now.
+        return baseNode;
+      }
+      else 
+      {
+        // This is the intermediate node matching the path, start looking for 
+        //  nodes with id's matching rest of fragments.
+        fragIndex++;
+      }
+    }
+
+    // Check child Nodes
+    if (searchDepth > 0)
+    {
+      searchDepth--;
+
+      Node currChild  = baseNode.getFirstChild();
+     
+      while (currChild != null)
+      {
+        if (Node.ELEMENT_NODE == currChild.getNodeType())
+        {
+          Node targetNode = _traceNodeByIdPath(currChild,
+                                               idFrags,
+                                               fragIndex,
+                                               searchDepth);
+          if (targetNode != null)
+            return targetNode;
+        }
+
+        currChild = currChild.getNextSibling();
+      }
+    }
+    
+    // We are past the permitted search depth, or we searched the entire subtree 
+    // in vain, abort.
+    return null;
+  }
+
   static final String __JSF_CORE_NAMESPACE = "http://java.sun.com/jsf/core";
+  private static final String _ID_ATTRIB_NAME = "id";
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     ChangeUtils.class);
 }

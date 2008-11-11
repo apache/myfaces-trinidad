@@ -18,13 +18,23 @@
  */
 package org.apache.myfaces.trinidad.change;
 
+import java.io.Serializable;
+
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.util.ComponentUtils;
+
 import org.w3c.dom.Document;
+
 
 /**
  * A ChangeManager implementation that manages
@@ -35,48 +45,66 @@ import org.w3c.dom.Document;
 public class SessionChangeManager extends BaseChangeManager
 {
   /**
-   * The Map used to store the Changes.  The Map is stored as
-   * key=ComponentCompositeId, value=ChangesList (List)
-   * 
-   * @param facesContext FacesContext for request
-   * @param viewId viewID for request
-   * @param createIfNecessary <code>true</code> if Map should be created if not
-   *        already present
-   * @return Synchronized Map of componentID tokens to Lists of Changes
+   * {@inheritDoc}
+   * @param facesContext The FacesContext instance for the current request.
    */
-  @SuppressWarnings("unchecked")
   @Override
-  protected Map<String, List<ComponentChange>> getComponentToChangesMapForView(
-    FacesContext facesContext,
-    String viewId,
-    boolean createIfNecessary)
+  public void applyComponentChangesForCurrentView(FacesContext facesContext)
   {
-    Map<String, Object> sessMap = facesContext.getExternalContext().getSessionMap();
-    //pu: Get datastructure #1 described at the end of this file.
-    Map<String, Map<String, List<ComponentChange>>> viewToChangesMap = 
-      (Map<String, Map<String, List<ComponentChange>>>)sessMap.get(_CHANGE_KEY);
-    if (viewToChangesMap == null)
-    {
-      if (!createIfNecessary)
-        return null;
-      viewToChangesMap = new ConcurrentHashMap<String, Map<String, List<ComponentChange>>>();
-      sessMap.put(_CHANGE_KEY, viewToChangesMap);
-    }
+    UIViewRoot viewRoot = facesContext.getViewRoot();
     
-    //pu: Get datastructure #2 described at the end of this file.
-    Map<String, List<ComponentChange>> componentToChangesMap = viewToChangesMap.get(viewId);
-    if (componentToChangesMap == null)
+    List<QualifiedComponentChange> componentChangesForView = 
+      _getComponentChangesForView(facesContext, viewRoot.getViewId(), false);
+    
+    for (QualifiedComponentChange qualifiedChange : componentChangesForView)
     {
-      if (!createIfNecessary)
-        return null;
-      componentToChangesMap = new ConcurrentHashMap<String, List<ComponentChange>>();
-      viewToChangesMap.put(viewId, componentToChangesMap);
+      UIComponent targetComponent = 
+        viewRoot.findComponent(qualifiedChange.getTargetComponentScopedId());
+      // Possible that the target component no more exists in the view
+      if (targetComponent != null)
+      {
+        ComponentChange componentChange = qualifiedChange.getComponentChange();
+        componentChange.changeComponent(targetComponent);
+      }
+      else
+      {
+        _LOG.info(this.getClass().getName(),
+                  "applyComponentChangesForCurrentView",
+                  "TARGET_COMPONENT_MISSING_CHANGE_FAILED",
+                  qualifiedChange.getTargetComponentScopedId());
+      }
     }
-    return componentToChangesMap;
+  }
+
+  /**
+   * Adds a ComponentChange and registers against the supplied component.
+   * Changes added thus live at Session scope.
+   * Use applyComponentChangesForCurrentView() to apply these changes.
+   * @param facesContext The FacesContext instance for the current request.
+   * @param targetComponent The target component against which this change needs 
+   * to be registered and applied later on.
+   * @param componentChange The ComponentChange to add.
+   */
+  protected void addComponentChangeImpl(
+    FacesContext facesContext,
+    UIComponent targetComponent,
+    ComponentChange componentChange)
+  {
+    String viewId = facesContext.getViewRoot().getViewId();
+    
+    List<QualifiedComponentChange> componentChangesForView = 
+      _getComponentChangesForView(facesContext, viewId, true);
+
+    String scopedIdForTargetComponent = 
+      ComponentUtils.getScopedIdForComponent(targetComponent, null);
+
+    componentChangesForView.add(
+      new QualifiedComponentChange(scopedIdForTargetComponent, 
+                                   componentChange));
   }
 
   /** 
-   * We don't support DocumentAspect persistence
+   * We don't support DocumentChange persistence
    */
   @Override
   protected Document getDocument(FacesContext context)
@@ -84,14 +112,96 @@ public class SessionChangeManager extends BaseChangeManager
     return null;
   }
 
-  
-  static private final String _CHANGE_KEY =
-    "org.apache.myfaces.trinidadinternal.Change";
+  /**
+   * Gets the in-order list of component changes for the given view.
+   * @param facesContext The FacesContext instance for this request.
+   * @param viewId The id of the view for which changes are required.
+   * @param createIfNecessary Indicates whether the underlying datastructures
+   * that store the component changes needs to be created if absent.
+   * @return The in-order list of component changes for the supplied view. This
+   * will be in the same order in which the component changes were added through
+   * calls to <code>addComponentChange()</code>.
+   */
+  private List<QualifiedComponentChange> _getComponentChangesForView(
+    FacesContext facesContext,
+    String viewId,
+    boolean createIfNecessary)
+  {
+    Object session = facesContext.getExternalContext().getSession(true);
     
-  //pu: DataStructure:
-  //  1. Session holds a Map instance named by _CHANGE_KEY 
-  //      [ key=viewId(String), value=ComponenChangesMap(Map) ]
-  //  2. ComponenChangesMap is a Map 
-  //      [ key=ComponentCompositeId, value=ChangesList (List) ]
-  //  3. ChangesList is a List of Changes for the given component.
+    // Key is view id and value is list of component changes for that view
+    ConcurrentHashMap<String, List<QualifiedComponentChange>> 
+      componentChangesMapForSession;
+    
+    synchronized(session)
+    {
+      Map<String, Object> sessMap = 
+        facesContext.getExternalContext().getSessionMap();
+      
+      componentChangesMapForSession = 
+        (ConcurrentHashMap<String, List<QualifiedComponentChange>>)
+          (sessMap.get(_COMPONENT_CHANGES_MAP_FOR_SESSION_KEY));
+      
+      if (componentChangesMapForSession == null)
+      {
+        if (!createIfNecessary)
+          return Collections.emptyList();
+  
+        componentChangesMapForSession = 
+          new ConcurrentHashMap<String, List<QualifiedComponentChange>>();
+        sessMap.put(_COMPONENT_CHANGES_MAP_FOR_SESSION_KEY, 
+                    componentChangesMapForSession);
+      }
+    }
+
+    if (!componentChangesMapForSession.containsKey(viewId))
+    {
+      if (!createIfNecessary)
+        return Collections.emptyList();
+      
+      // Writes are per change addition, not very frequent, using 
+      // CopyOnWriteArrayList should suffice.
+      componentChangesMapForSession.putIfAbsent(
+        viewId,
+        new CopyOnWriteArrayList<QualifiedComponentChange>());
+    }
+    
+    return componentChangesMapForSession.get(viewId);
+  }
+  
+  private static final class QualifiedComponentChange implements Serializable
+  {
+    public QualifiedComponentChange(String targetComponentScopedId,
+                                    ComponentChange componentChange)
+    {
+      // NO-TRANS : Class is private and inner, no translated message required
+      if (targetComponentScopedId == null || componentChange == null)
+        throw new IllegalArgumentException("Target component scoped id and " +
+                                           "component change is required");
+      
+      _targetComponentScopedId = targetComponentScopedId;
+      _componentChange = componentChange;
+    }
+    
+    public String getTargetComponentScopedId()
+    {
+      return _targetComponentScopedId;
+    }
+
+    public ComponentChange getComponentChange()
+    {
+      return _componentChange;
+    }
+
+    private final String _targetComponentScopedId;
+    private final ComponentChange _componentChange;
+
+    private static final long serialVersionUID = 1L;
+  }
+
+  private static final String _COMPONENT_CHANGES_MAP_FOR_SESSION_KEY =
+    "org.apache.myfaces.trinidadinternal.ComponentChangesMapForSession";
+    
+  private static final TrinidadLogger _LOG = 
+    TrinidadLogger.createTrinidadLogger(SessionChangeManager.class);
 }

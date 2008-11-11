@@ -18,23 +18,18 @@
  */
 package org.apache.myfaces.trinidad.change;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.CopyOnWriteArrayList;
-
-import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.w3c.dom.Document;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+
+import org.w3c.dom.Document;
 
 
 /**
  * Base ChangeManager implementation that manages the bookkeeping for
  * supporting both ComponentChanges and DocumentChanges.
- * subclasses must implement getComponentToChangesMapForView to implement
+ * subclasses must implement addComponentChangeImpl() to implement
  * the ComponentChange support.  To support DocumentChanges,
  * <code>getDocument</code> must be implemented.
  *
@@ -45,7 +40,6 @@ abstract class BaseChangeManager extends ChangeManager
   /**
    * {@inheritDoc}
    */
-  // TODO : Maybe we need to allow adding Changes for specific viewId's
   @Override
   public void addComponentChange(
     FacesContext facesContext,
@@ -57,7 +51,7 @@ abstract class BaseChangeManager extends ChangeManager
         "CANNOT_ADD_CHANGE_WITH_FACECONTEXT_OR_UICOMPONENT_OR_NULL"));
 
     // add the change to the component
-    _addComponentChangeImpl(facesContext, uiComponent, change);
+    addComponentChangeImpl(facesContext, uiComponent, change);
 
     if (supportsDocumentPersistence(facesContext))
     {
@@ -81,89 +75,19 @@ abstract class BaseChangeManager extends ChangeManager
   }
 
   /**
-   * {@inheritDoc}
+   * A no-op implementation of adding a ComponentChange. Sub-classers should
+   * override and provide an implementation if they support component changes.
+   * @param facesContext The FacesContext for this request.
+   * @param targetComponent The target component against which this change needs 
+   * to be registered and applied later on.
+   * @param componentChange The ComponentChange to add
    */
-  @Override
-  public Iterator<ComponentChange> getComponentChanges(
+   protected void addComponentChangeImpl(
     FacesContext facesContext,
-    UIComponent uiComponent)
+    UIComponent targetComponent,
+    ComponentChange componentChange)
   {
-    if (uiComponent == null)
-      return null;
-
-    String viewId = facesContext.getViewRoot().getViewId();
-    Map<String, List<ComponentChange>> componentToChangesMap =
-       getComponentToChangesMapForView(facesContext, viewId, false);
-
-    if (componentToChangesMap == null)
-      return null;
-
-    String uniqueIdForComponent = _getUniqueIdForComponent(uiComponent);
-    List<ComponentChange> changesList = componentToChangesMap.get(uniqueIdForComponent);
-    if (changesList == null)
-      return null;
-
-    return changesList.iterator();
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public Iterator<String> getComponentIdsWithChanges(FacesContext facesContext)
-  {
-    String viewId = facesContext.getViewRoot().getViewId();
-    Map<String, List<ComponentChange>> componentToChangesMap =
-       getComponentToChangesMapForView(facesContext, viewId, false);
-
-    if (componentToChangesMap == null)
-      return null;
-
-    return componentToChangesMap.keySet().iterator();
-  }
-
-  /**
-   * The Map used to store the Changes.  The Map is stored as
-   * key=ComponentCompositeId, value=ChangesList (List)
-   *
-   * @param facesContext FacesContext for request
-   * @param viewId viewID for request
-   * @param createIfNecessary <code>true</code> if Map should be created if not
-   *        already present
-   * @return Map of componentID tokens to Lists of Changes
-   */
-  protected abstract Map<String, List<ComponentChange>> getComponentToChangesMapForView(
-    FacesContext facesContext,
-    String viewId,
-    boolean createIfNecessary);
-
-  /**
-   * Implementation of adding a ComponentChange
-   * @param change ComponentChange to add
-   */
-  private void _addComponentChangeImpl(
-    FacesContext facesContext,
-    UIComponent uiComponent,
-    ComponentChange change)
-  {
-    String viewId = facesContext.getViewRoot().getViewId();
-
-    Map<String, List<ComponentChange>> componentToChangesMap = getComponentToChangesMapForView(facesContext,
-                                                                viewId,
-                                                                true);
-
-    String uniqueIdForComponent = _getUniqueIdForComponent(uiComponent);
-
-    List<ComponentChange> changeListForComponent = 
-      componentToChangesMap.get(uniqueIdForComponent);
-
-    if (changeListForComponent == null)
-    {
-      changeListForComponent = new CopyOnWriteArrayList<ComponentChange>();
-      componentToChangesMap.put(uniqueIdForComponent, changeListForComponent);
-    }
-
-    changeListForComponent.add(change);
+    //no-op
   }
 
   // =-= bts Testing hack hook
@@ -171,26 +95,6 @@ abstract class BaseChangeManager extends ChangeManager
     FacesContext facesContext)
   {
     // noop
-  }
-
-  static private String _getUniqueIdForComponent(UIComponent uiComponent)
-  {
-    //pu: If this component were to be a NamingContainer, we treat itself as its
-    //  own closest ancestor that is a NamingContainer. Matches algorithm of
-    //  UIComponent.findComponent().
-    UIComponent ancestor = uiComponent;
-    StringBuffer uniqueIdBuffer = new StringBuffer();
-    uniqueIdBuffer.append(uiComponent.getId());
-    while (ancestor != null)
-    {
-      if (ancestor instanceof NamingContainer)
-      {
-        uniqueIdBuffer.insert(0,new StringBuffer().append(ancestor.getId()).
-          append(NamingContainer.SEPARATOR_CHAR));
-      }
-      ancestor = ancestor.getParent();
-    }
-    return uniqueIdBuffer.toString();
   }
 
   /**

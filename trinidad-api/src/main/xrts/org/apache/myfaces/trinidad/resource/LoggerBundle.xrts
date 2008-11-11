@@ -177,8 +177,8 @@
  <!-- INVALID_INDEX -->
  <resource key="INVALID_INDEX">Invalid index</resource>
  
- <!-- ATTEMP_ADD_DUPLICATE_ID -->
- <resource key="ATTEMP_ADD_DUPLICATE_ID">Attempt to add a duplicate ID {0}</resource>
+ <!-- ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID -->
+ <resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID">Adding a child when a child with same ID already exists. Old child will be removed and new child added. {0}</resource>
  
  <!-- NO_NODE_SPECIFIED -->
  <resource key="NO_NODE_SPECIFIED">No node specified</resource>
@@ -225,6 +225,27 @@
  <!-- FACET_NAME_MUST_SPECIFIED -->
  <resource key="FACET_NAME_MUST_SPECIFIED">Facet name must be specified</resource>
  
+ <!-- MOVABLE_CHILD_REQUIRED -->
+ <resource key="MOVABLE_CHILD_REQUIRED">Child component to be moved is required.</resource>
+
+ <!-- DESTINATION_CONTAINER_REQUIRED -->
+ <resource key="DESTINATION_CONTAINER_REQUIRED">Destination container component is required.</resource>
+
+ <!-- MOVE_PARTICIPANTS_WITHOUT_ID -->
+ <resource key="MOVE_PARTICIPANTS_WITHOUT_ID">One or more of the participating components in MoveChildComponentChange does not have id.</resource>
+
+ <!-- COMMON_PARENT_NOT_FOUND -->
+ <resource key="COMMON_PARENT_NOT_FOUND">Could not find a common parent between the movable child and destination container: {0}.</resource>
+
+ <!-- MOVABLE_CHILD_NOT_FOUND -->
+ <resource key="MOVABLE_CHILD_NOT_FOUND">Child to be moved could not be found: {0}.</resource>
+
+ <!-- DESTINATION_CONTAINER_NOT_FOUND -->
+ <resource key="DESTINATION_CONTAINER_NOT_FOUND">Destination container could not be found: {0}.</resource>
+
+ <!-- INSERT_BEFORE_NOT_FOUND -->
+ <resource key="INSERT_BEFORE_NOT_FOUND">Insert before component or node could not be found: {0}.</resource>
+
  <!-- INDEX_SIZE -->
  <resource key="INDEX_SIZE">index:{0} size:{1}</resource>
  

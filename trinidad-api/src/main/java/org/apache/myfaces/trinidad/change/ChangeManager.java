@@ -19,12 +19,15 @@
 package org.apache.myfaces.trinidad.change;
 
 import java.util.HashMap;
-import java.util.Iterator;
+
+import javax.el.ValueExpression;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+
 
 /**
  * The base class for all ChangeManagers.
@@ -132,8 +135,6 @@ public abstract class ChangeManager
     return null;
   }
 
-
-
   /**
    * Add a ComponentChange to this current request for a specified component.
    * @throws IllegalArgumentException if any of the supplied parameters were to
@@ -160,26 +161,16 @@ public abstract class ChangeManager
   }
 
   /**
-   * Retrieve the ComponentChanges available for specified component on this
-   *  request.
-   * @return An Iterator of ComponentChanges in the order in which they
-   *         are associated with the UIComponent.
-   *         Returns <code>null<code> if there are no such Changes
+   * Applies all the ComponentChanges added so far for the current view.
+   * Developers should not need to call this method. Internal implementation
+   * will call it as the component tree is built and is ready to take changes.
+   * @param facesContext The FacesContext instance for the current request.
    */
-  public abstract Iterator<ComponentChange> getComponentChanges(
-    FacesContext facesContext,
-    UIComponent uiComponent);
-
-  /**
-  * Retrieve the identifiers of all components on this request that have Changes
-  *  associated with them for the viewId specified in the facesContext.
-  * @param facesContext
-  * @return An Iterator that can be used to access the collection of component
-  *          identifiers. Returns null if there are no such components.
-  */
-  public abstract Iterator<String> getComponentIdsWithChanges(
-    FacesContext facesContext);
-
+  public void applyComponentChangesForCurrentView(FacesContext facesContext)
+  {
+    throw new UnsupportedOperationException("Subclassers must implement");
+  }
+  
   private static class AttributeConverter extends DocumentChangeFactory
   {
     @Override
@@ -192,18 +183,26 @@ public abstract class ChangeManager
         Object value = change.getAttributeValue();
 
         // =-= bts TODO add registration of attribute converters
+        String valueString = null;
         if ((value == null) ||
             (value instanceof CharSequence) ||
             (value instanceof Number) ||
             (value instanceof Boolean))
         {
-          String valueString = (value != null)
-                                ? value.toString()
-                                : null;
-
+          valueString = (value != null)? value.toString() : null;
+        }
+        else if (value instanceof ValueExpression)
+        {
+          valueString = ((ValueExpression)value).getExpressionString();
+        }
+        else if (value instanceof ValueBinding)
+        {
+          valueString = ((ValueBinding)value).getExpressionString();
+        }
+        
+        if (valueString != null)
           return new AttributeDocumentChange(change.getAttributeName(),
                                              valueString);
-        }
       }
 
       // no conversion possible
