@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<assembly>
+  <id>src-all</id>
+  <formats>
+    <format>tar.gz</format>
+    <format>zip</format>
+  </formats>
+  <includeBaseDirectory>true</includeBaseDirectory>
+  <dependencySets>
+    <dependencySet>
+      <outputDirectory>lib</outputDirectory>
+      <scope>optional</scope>
+    </dependencySet>
+    <dependencySet>
+      <outputDirectory>lib</outputDirectory>
+      <scope>compile</scope>
+    </dependencySet>
+    <dependencySet>
+      <outputDirectory>lib</outputDirectory>
+      <scope>provided</scope>
+    </dependencySet>
+  </dependencySets>
+  <fileSets>
+
+      <fileSet>
+          <directory>src/main/resources</directory>
+          <outputDirectory></outputDirectory>
+          <includes>
+              <include>LICENSE*</include>
+              <include>NOTICE*</include>
+          </includes>
+      </fileSet>
+
+      <!-- Include the source code in the assembly -->
+      <fileSet>
+        <directory>../</directory>
+        <outputDirectory>src/</outputDirectory>
+        <includes>
+          <include>pom.xml</include>
+          <include>src/</include>
+        </includes>
+      </fileSet>
+      <fileSet>
+        <directory>../trinidad-build</directory>
+        <outputDirectory>src/trinidad-build</outputDirectory>
+        <includes>
+          <include>pom.xml</include>
+          <include>src/</include>
+        </includes>
+      </fileSet>
+      <fileSet>
+        <directory>../trinidad-api</directory>
+        <outputDirectory>src/trinidad-api</outputDirectory>
+        <includes>
+          <include>pom.xml</include>
+          <include>src/</include>
+        </includes>
+      </fileSet>
+      <fileSet>
+        <directory>../trinidad-impl</directory>
+        <outputDirectory>src/trinidad-impl</outputDirectory>
+        <includes>
+          <include>pom.xml</include>
+          <include>src/</include>
+        </includes>
+      </fileSet>
+      <fileSet>
+        <directory>../trinidad-assembly</directory>
+        <outputDirectory>src/trinidad-assembly</outputDirectory>
+        <includes>
+          <include>pom.xml</include>
+          <include>src/</include>
+        </includes>
+      </fileSet>
+
+
+      <fileSet>
+        <directory>../trinidad-examples</directory>
+        <outputDirectory>src/trinidad-examples</outputDirectory>
+        <includes>
+          <include>pom.xml</include>
+          <include>src/</include>
+        </includes>
+      </fileSet>
+      <fileSet>
+        <directory>../trinidad-examples/trinidad-blank</directory>
+        <outputDirectory>src/trinidad-examples/trinidad-blank</outputDirectory>
+        <includes>
+          <include>pom.xml</include>
+          <include>src/</include>
+        </includes>
+      </fileSet>
+      <fileSet>
+        <directory>../trinidad-examples/trinidad-demo</directory>
+        <outputDirectory>src/trinidad-examples/trinidad-demo</outputDirectory>
+        <includes>
+          <include>pom.xml</include>
+          <include>src/</include>
+        </includes>
+      </fileSet>
+      <fileSet>
+        <directory>../trinidad-examples/trinidad-example-assembly</directory>
+        <outputDirectory>src/trinidad-examples/trinidad-example-assembly</outputDirectory>
+        <includes>
+          <include>pom.xml</include>
+          <include>src/</include>
+        </includes>
+      </fileSet>
+  </fileSets>
+</assembly>

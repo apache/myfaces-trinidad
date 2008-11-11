@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<document>
+  <properties>
+    <title>Apache Trinidad XMLMenuModel</title>
+  </properties>
+
+  <body>
+    <section name="Table of Contents">
+      <p>
+        <ul>
+          <li><a href="#Introduction">Introduction</a></li>
+          <li><a href="#Example">Example</a></li>
+          <li><a href="#Metadata Reference">Metadata Reference</a></li>
+          <li><a href="#Localizing an XMLMenuModel">Localizing an XMLMenuModel</a></li>
+          <li><a href="#Custom Node Attributes">Custom Node Attributes</a></li>
+        </ul>
+      </p>
+    </section>
+
+<section name="Introduction">
+
+<p>The goal of the XMLMenuModel is to allow application developers to
+create a hierarchical representation of a menu in XML format external
+to the page metadata. Having menus external to the page allows for
+better reuse and easier management of the menu metadata. By creating a
+hierarchical representation of the menu, developers will be able to
+visualize the relationship of the nodes in the menu but not tie the
+menu to any one UI at runtime.</p>
+
+<p>The XMLMenuModel defines an implementation of a Trinidad MenuModel,
+which is described in <a href="navigation.html">another chapter of the
+Trinidad developer's guide</a>.  You might want to read that chapter
+over first, but much of the goal of the XMLMenuModel is to hide the
+complexity of building a MenuModel.  As an introduction, originally
+navigations menus did not have a separate model and menu items were
+tied directly to each page and individual elements within each page.
+Global changes to the menus of an application required each page to be
+changed. Attribute values such as "selected" had to be set
+individually on each page. This way is obviously not easily
+maintained.  What if a page is moved from one place to another in the
+tree?</p>
+
+<p>What was needed is a model object that knows the application
+hierarchy and also knows how to say what is the current "focus path"
+in that hierarchy. With the current model, changes are isolated to the
+model, which will be reflected throughout all pages of an application
+using this model.</p>
+</section>
+
+<section name="Example">
+
+<p>Here is an example of a tree structure representing a menu:</p>
+
+<img src="menutree.gif" alt="menu tree example" />
+
+<subsection name="metadata">
+
+<p>The metadata for such a structure would look like this:</p>
+
+<source><![CDATA[
+<?xml version="1.0" encoding="iso-8859-1"?>
+<menu xmlns="http://myfaces.apache.org/trinidad/menu">
+  <itemNode id="gin0" label="Global 0" action="goToGlobal0"
+            focusViewId="/menuDemo/global0.jspx">
+    <itemNode id="in1" label="Tab 1" action="goToTab1"
+              focusViewId="/menuDemo/tab1.jspx">
+      <itemNode id="in11" label="Subtab 1" action="goToSubTab1"
+                focusViewId="/menuDemo/subtab1.jspx"/>
+      <itemNode id="in12" label="Subtab 2" action="goToSubTab2"
+                focusViewId="/menuDemo/subtab2.jspx"
+                customAttribute1="myCustomAttrValue"/> <!-- example custom attribute -->
+    </itemNode>
+    <itemNode id="in2" label="Tab 2" destination="/faces/menuDemo/tab2.jspx"/
+              focusViewId="/menuDemo/tab2.jspx"/>
+  </itemNode>
+  <itemNode id="gin1" label="Global 1" icon="/components/images/globalhelp.gif"
+            action="goToGlobal1"
+            focusViewId="/menuDemo/global1.jspx"/>
+  <itemNode id="gin2" label="Global 2" icon="/components/images/globalprefs.gif
+            destination="/faces/menuDemo/global2.jspx"
+            focusViewId="/menuDemo/global2.jspx"/>
+</menu>
+]]></source>
+</subsection>
+
+<subsection name="Referring to the XMLMenuModel">
+<p>The menu model is specified in the tr:navigationPane (for each
+area: global, primary tabs, menubar, and navbar/list) and
+tr:breadCrumbs components of the .jspx file as follows:</p>
+
+<source>
+<![CDATA[
+                       .
+                       .
+                       .
+          <!-- Navbar or list -->
+          <f:facet name="navigation3">
+            <tr:navigationPane var="foo" value="#{root_menu}" level="3" hint="list">
+              <f:facet name="nodeStamp">
+                <tr:commandNavigationItem
+                  text="#{foo.label}"
+                  action="#{foo.doAction}"/>
+              </f:facet>
+            </tr:navigationPane>
+          </f:facet>
+
+          <!-- Breadcrumbs -->
+          <f:facet name="location">
+            <tr:breadCrumbs var="foo" value="#{root_menu}">
+              <f:facet name="nodeStamp">
+                <tr:commandNavigationItem
+                  text="#{foo.label}"
+                  action="#{foo.doAction}"/>
+              </f:facet>
+            </tr:breadCrumbs>
+          </f:facet>
+]]></source>
+</subsection>
+
+<subsection name="Creating the XMLMenuModel">
+<p>The XMLMenuModel is created as a simple managed bean.
+The EL expression of the "value" attribute, "#{root_menu}",
+references an entry in the faces-config.xml file, which would
+look like:</p>
+
+<source>
+<![CDATA[
+      <!-- managed bean menu model -->
+     <managed-bean>
+       <managed-bean-name>root_menu</managed-bean-name>
+       <managed-bean-class>org.apache.myfaces.trinidad.model.XMLMenuModel</managed-bean-class>
+       <managed-bean-scope>request</managed-bean-scope>
+       <managed-property>
+         <property-name>source</property-name>
+         <value>/WEB-INF/menu-metadata.xml</value>
+       </managed-property>
+     </managed-bean>
+]]></source>
+
+<p>The "setSource" method of the XMLMenuModel will be called with the
+location of the menu model's metadata, as specified in the
+"managed-property" element. IMPORTANT NOTE: the scope for the menu
+model <strong>must</strong> be "request".</p>
+</subsection>
+
+</section>
+
+<section name="Metadata Reference">
+
+<p>There are four possible, different node types in a menu model's metdata:</p>
+
+<ol>
+<li>menu</li>
+<li>groupNode</li>
+<li>itemNode</li>
+<li>sharedNode</li>
+</ol>
+
+<p>The following are descriptions, attributes and value types for each
+node type. Please note that almost every groupNode and itemNode
+attribute corresponds to an equivalent attribute of the
+tr:commandNavigationItem.</p>
+
+<subsection name="menu">
+
+<p>Top-level, root-node of the model. This is a required node and only
+one per model is allowed. This node is not rendered/visible.
+Attributes are:</p>
+
+<ul>
+<li><strong>xmlns</strong>: must be "http://myfaces.apache.org/trinidad/menu"</li>
+
+<li><strong>resourceBundle</strong>: resource bundle to be loaded for visible text,
+e.g. tab labels.</li>
+
+<li><strong>var</strong>: String id for the resource bundle. Used in EL expressions to
+identify the resource bundle. </li>
+
+</ul>
+</subsection>
+
+<subsection name="Attributes Common to groupNodes and itemNodes">
+<ul>
+
+<li><strong>id</strong>: a required, user-defined, string value identifier for the
+component, which must be unique in the entire menu.</li>
+
+<li><strong>label</strong>: a user-defined, string value for the text that appears for
+the menu item. EL expression is OK.</li>
+
+<li><strong>accessKey</strong>: One of the characters in the label used to activate
+the menu item via the keyboard. Also known as a "mnemonic". EL
+expression is OK.</li>
+
+<li><strong>labelAndAccessKey</strong>: a user-defined, string value for the text that
+appears for the menu item. EL expression is OK.</li>
+
+<li><strong>icon</strong>: a URI value reference to the file used to display the
+icon. EL expression is OK.</li>
+
+<li><strong>rendered</strong>: a boolean value whose default value is true. EL
+expression is OK.</li>
+
+<li> <strong>disabled</strong>: a boolean value whose default value is false. EL
+expression is OK.</li>
+
+<li> <strong>readOnly</strong>: a boolean value whose default value is false. EL
+expression is OK.</li>
+</ul>
+</subsection>
+
+<subsection name="groupNode">
+
+<p>This type of node simply points to child node through its "idref"
+attribute. When selected by a user, the implementation follows the
+"idref" attribute value to a referree child node. The referree can be
+also be a groupNode, which also refers to one of its children, until
+an itemNode is reached. A groupNode only navigates indirectly, it does
+not have an "action", "destination", or "focusViewId" attribute. The
+node that actually results in navigation (the only node that performs
+a GET or POST) is the itemNode.</p>
+
+
+<p>groupNode-specific Attributes:</p>
+<ul>
+
+<li> <strong>idref</strong>: a user-defined, string value reference to the "id" of one
+its child node or nodes. The referred to node can either be another
+group node or an itemNode.</li>
+
+</ul>
+</subsection>
+<subsection name="itemNode">
+
+<p>Performs navigation upon user selection. When the "destination"
+attribute is used, menu item selection performs a GET and directly
+navigates to the destination attribute value. When the "action"
+attribute is used, menu item selection performs a POST and navigation
+is done via an outcome. If both attributes are set on an itemNode, the
+"destination" attribute takes precedence and a GET is done.</p>
+
+<p>itemNode-specific Node Attributes:</p>
+<ul>
+<li> <strong>action</strong>: a user-defined, string value reference to:
+  <ol>
+     <li>an EL method binding expression. This method should return a
+     string reference (from-outcome) to a navigation case/navigation
+     rule in faces-config.xml.</li>
+
+     <li> a from-outcome for a navigation-rule in a navigation-case in
+     faces-config.xml</li>
+
+  </ol>
+</li>
+
+<li> <strong>destination</strong>: a user-defined, string value reference to:
+<ol>
+
+  <li>a URI of the page that will be navigated to when the menu item
+  is clicked. IMPORTANT NOTE: if the destination is a "faces" page,
+  the URI should begin with "/faces...", or whatever specific
+  FacesServlet mapping you're using. </li>
+
+  <li>an EL value binding expression. This method must return a URI
+  as described in item #1 above.</li>
+</ol>
+</li>
+
+
+<li> <strong>defaultFocusPath</strong>: a boolean value whose default value is false,
+used to specify the focus path to be used by the model when navigation
+into the model occurs from outside the model. EL expression is
+OK.</li>
+
+<li> <strong>focusViewId</strong>: a required URI that must match the node's
+navigational result.
+
+<p>When using the "destination" attribute, this should map to
+the target viewId.  For example, if you're using "/faces/*"
+as the FacesServlet mapping and the destination was "/faces/foo.jspx",
+the viewId should be "/foo.jspx".  But ifthe destination's URI is to a
+page outside of the menu, e.g. http://www.yahoo.com, the focusViewId should
+be left blank.</p>
+
+<p>When using the "action" attribute, the focusViewId should be
+the viewId that will result after navigating, if it is known, or
+left blank if it is not.</p>
+</li>
+
+<li> <strong>actionListener</strong>: an EL expression that is a method reference to an action listener.</li>
+<li> <strong>launchListener</strong>: an EL expression that is a method reference to a launch listener.</li>
+<li> <strong>returnListener</strong>: an EL expression that is a method reference to a return listener.</li>
+<li> <strong>immediate</strong>: boolean value or EL expression returning a boolean value that indicates whether or not data validation (client-side or server-side) should take place when events are generated by this component.</li>
+<li> <strong>useWindow</strong>: boolean value or EL expression returning a boolean value indicating whether to use a new window when launching dialogs.</li>
+<li> <strong>windowHeight</strong>: int or EL expression returning an int which is the height of the window, if this command is used to launch a window.</li>
+<li> <strong>windowWidth</strong>: int or EL expression returning an int which is the width of the window, if this command is used to launch a window.</li>
+</ul>
+
+</subsection>
+<subsection name="sharedNode">
+
+<p>Not a true node. It is tantamount to an include of another menu metadata model. This will result in another "submenu" menu model being created, attached to the main menu model, and rendered.  Its sole attribute is:</p>
+
+<ul>
+<li><strong>ref</strong>: a required, user-defined, string value reference to another
+menu model. The menu constructed by the referenced menu model will be
+a submenu of the current menu.  It references the Menu Model used,
+e.g. "#{xmlMenuModel_shared}".</li>
+</ul>
+
+<p>A sharedNode can be added anywhere within a menu hierarchy. The
+following adds a submenu as a global menu item to the main menu
+because the sharedNode is at the same level as the global itemNodes
+(level 0). Its usage is as follows:</p>
+
+<source><![CDATA[
+<?xml version="1.0" encoding="iso-8859-1"?>
+<menu xmlns="http://myfaces.apache.org/trinidad/menu">
+  <itemNode id="gin1" label="one" action="goToPageOne"
+            focusViewId="/menuDemo/page_one.jspx"/>
+  <sharedNode ref="#{xmlMenuModel_subMenu}"/>
+  <itemNode id="gin2" label="two" action="goToPageTwo"
+            focusViewId="/menuDemo/page_two.jspx"/>
+</menu>]]>
+</source>
+
+</subsection>
+</section>
+
+
+<section name="Localizing an XMLMenuModel">
+
+<p>Strings that are viewed in the application at runtime should not be
+"hard-coded" in the metadata. In the sample menudata above the "label"
+attribute values of the nodes should not hard-coded for a real
+application. Strings such as these must be externalized in a resource
+bundle so that they can be translated. A mechanism for loading a
+resource bundle to obtain attribute value strings is implemented by
+using the "resourceBundle" and "var" attributes of the top-level, root
+node of the model. Values can be obtained from the resource bundle
+through the use of the appropriate EL expression.</p>
+
+<p>Typically, an attribute whose value needs to be externalized for
+translation is the "label" attribute. The following is a localized
+version of the original metadata sample:</p>
+
+<source><![CDATA[
+<?xml version="1.0" encoding="iso-8859-1"?>
+<menu xmlns="http://myfaces.apache.org/trinidad/menu"
+      resourceBundle="org.apache.myfaces.trinidaddemo.xmlMenuModelDemo.resource.MenuBundle"
+      var="bundle"/>
+  <itemNode id="gin0" label="#{bundle.GLOBAL_TAB_0}" action="goToGlobal0"
+            focusViewId="/menuDemo/global0.jspx">
+    <itemNode id="in1" label="#{bundle.PRIMARY_TAB_0}" action="goToTab1"
+              focusViewId="/menuDemo/tab1.jspx">
+      <itemNode id="in11" label="#{bundle.LEVEL2_TAB_0}" action="goToSubTab1"
+                viewId="/menuDemo/subtab1.jspx"/>
+      <itemNode id="in12" label="#{bundle.LEVEL2_TAB_1}" action="goToSubTab2"
+                focusViewId="/menuDemo/subtab2.jspx"/>
+    </itemNode>
+    <itemNode id="in2" label="#{bundle.PRIMARY_TAB_1}" destination="/faces/menuDemo/tab2.jspx"
+              focusViewId="/menuDemo/tab2.jspx"/>
+  </itemNode>
+  <itemNode id="gin1" label="#{bundle.GLOBAL_TAB_1}" icon="/components/images/globalhelp.gif"
+            action="goToGlobal1"
+            focusViewId="/menuDemo/global1.jspx"/>
+  <itemNode id="gin2" label="#{bundle.GLOBAL_TAB_2}" icon="/components/images/globalprefs.gif
+            destination="/faces/menuDemo/global2.jspx"
+            focusViewId="/menuDemo/global2.jspx"/>
+</menu>
+]]></source>
+
+<p>Multiple menu models may be nested through the use of the "ref"
+attribute of a sharedNode. It is quite possible that these nested
+models will use the same value for the "var" attribute of the
+top-level, root menu node. This is handled during parsing where it is
+ensured that each resource bundle has a unique hash key, so that the
+correct resource bundle is always being used.</p>
+</section>
+
+
+<section name="Custom Node Attributes">
+
+<p>Customers using the menu model may want to add custom attributes to
+nodes in their metadata. This can only be done on
+itemNodes. SharedNodes and menuNodes are not real nodes, so they
+cannot have custom attributes. GroupNodes point to child nodes, which
+are either groupNodes or itemNodes. The itemNodes are the nodes that
+do that actual navigation, so they are the nodes that can use custom
+attributes.</p>
+
+<p>Custom attributes appear as any other pre-defined attribute (described
+above), a name followed by a value, e.g. 'context="Human
+Resources"'. Custom attributes support values of type String or an EL
+expressions returning a String. It will be up to the customer to
+convert the string to the typed desired by the customer (e.g. (String)
+"true" -> (boolean) true).</p>
+
+<p>Customers of the menu model may have different uses and purposes for
+custom attributes. The menu model currently has one API,
+getCustomProperty(), that takes a node and a name of a custom
+attribute as arguments, returning the value of the named
+attribute. Typical scenarios for finding a node or nodes with a
+particular custom attribute could be:</p>
+
+<ul>
+    <li>Get the tree from the menu model by caling its
+    getWrappedData() API. Traverse the tree, calling
+    getCustomProperty() on each node to find nodes that contain the
+    desired custom attribute.</li>
+
+    <li>Get the tree from the menu model by calling its
+    getWrappedData() API. Call the getFocusRowKey() API to get the
+    current focus path. Use this focus path to traverse the tree and
+    return a list of nodes in the focus path (See below for
+    sample code). Test one or more of these nodes for custom
+    attribute(s) by calling the getCustomProperty() API.</li>
+</ul>
+
+<p>Customers needing custom behavior from the menu model will probably
+have to extend XMLMenuModel and operate on the model's tree to get the
+desired behaviors.</p>
+
+<source>
+<![CDATA[
+   /**
+    * Returns the nodes corresponding to a focus path
+    * 
+    * @param tree
+    * @param focusPath
+    */
+    public List getNodesFromFocusPath(TreeModel tree, ArrayList focusPath)
+    {
+      if (focusPath == null || focusPath.size() == 0)
+        return null;
+
+      // Clone the focusPath cause we remove elements
+      ArrayList fp = (ArrayList) focusPath.clone();
+  
+      // List of nodes to return
+      List nodeList = new ArrayList<Object>(fp.size());
+  
+      // Convert String rowkey to int and point to the
+      // node (row) corresponding to this index
+      int targetNodeIdx = Integer.parseInt((String)fp.get(0));
+      tree.setRowIndex(targetNodeIdx);
+
+      // Get the node
+      Object node = tree.getRowData()
+
+      // put the Node in the List
+      nodeList.add(node);
+
+      // Remove the 0th rowkey from the focus path
+      // leaving the remaining focus path
+      fp.remove(0);
+  
+      // traverse into children 
+      if (   fp.size() > 0
+          && tree.isContainer() 
+          && !tree.isContainerEmpty()
+         )
+      {
+        tree.enterContainer();
+  
+        // get list of nodes in remaining focusPath
+        List childList = getNodesFromFocusPath(tree, fp);
+  
+        // Add this list to the nodeList
+        nodeList.addAll(childList);
+  
+        tree.exitContainer();
+      }
+  
+      return nodeList;
+    } 
+
+  public String getElementLabel(XMLMenuModel model, Object myVal, String myProp)
+  {
+     TreeModel tree = model.getWrappedData();
+     
+     Object node = findNodeByPropertyValue(tree, myVal, myProp);
+
+     FacesContext context = FacesContext.getCurrentInstance();
+     PropertyResolver resolver = context.getApplication().getPropertyResolver();
+     
+     String label = (String) resolver.getValue(node, _LABEL_ATTR);
+     
+     return label;
+  }
+
+  public Object findNodeByPropertyValue(TreeModel tree, Object myVal, String myProp)
+  {
+    FacesContext context = FacesContext.getCurrentInstance();
+    PropertyResolver resolver = context.getApplication().getPropertyResolver();
+    
+    for ( int i = 0; i < tree.getRowCount(); i++)
+    {
+      tree.setRowIndex(i);
+subsection
+      // Get a node
+      Object node = tree.getRowData();
+      
+      // Get the value of the attribute of the node
+      Obect propVal = resolver.getValue(node, myProp);
+      
+      if (propVal == myVal)
+      { 
+        return node;
+      }        
+      
+      if (tree.isContainer() && !tree.isContainerEmpty())
+      {
+        tree.enterContainer();
+        node = findNodeByPropertyValue(tree, myVal, myProp);
+
+        if (node != null)
+          return node;
+
+        tree.exitContainer();
+      }
+    }
+    return null;
+  }  
+]]></source>
+</section>
+
+
+</body>
+</document>

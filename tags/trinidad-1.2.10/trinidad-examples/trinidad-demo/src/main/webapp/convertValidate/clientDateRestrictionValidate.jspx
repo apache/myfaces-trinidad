@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:tr="http://myfaces.apache.org/trinidad"
+          xmlns:trdemo="http://myfaces.apache.org/trinidaddemo">
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <tr:document title="Client-side Date Restriction Validator">
+        <tr:form usesUpload="true">
+          <tr:panelPage>
+            <tr:messages/>
+            <f:facet name="navigationGlobal">
+              <tr:navigationPane hint="buttons">
+                <tr:commandNavigationItem text="Converters and Validators"
+                                    action="convertValidateDemos"
+                                    immediate="true"/>
+              </tr:navigationPane>
+            </f:facet>
+           <tr:panelHeader text="Client-side Date Restriction Validator">
+            <tr:outputText styleClass="AFInstructionText"
+                           value="In the following examples, the date Restriction validator runs on the client, avoiding a round trip."/>
+            <tr:spacer height="10"/>
+            <tr:panelHeader text="Client Validators"/>
+            <tr:spacer height="10"/>
+            <tr:panelFormLayout>
+
+              <tr:inputDate id="month" value="#{dateRestrictionValidator.testInvalidMonth}"
+                                  label="Select a date!">
+                <f:facet name="help">
+                  <tr:outputText value="November/December dates are not allowed here!"/>
+                </f:facet>
+                <tr:convertDateTime pattern="yyyy-MM-dd"/>
+                <tr:validateDateRestriction  invalidMonths="Nov Dec" />
+              </tr:inputDate>
+              
+              <tr:inputDate id="daysOfWeek" value="#{dateRestrictionValidator.testInvalidDaysOfWeek}"
+                                  label="Select a date!">
+                <f:facet name="help">
+                  <tr:outputText value="Please no Mondays...!"/>
+                </f:facet>
+                <tr:convertDateTime pattern="yyyy-MM-dd"/>
+                <tr:validateDateRestriction  invalidDaysOfWeek="Mon"/>
+              </tr:inputDate>
+
+            </tr:panelFormLayout>
+           </tr:panelHeader>
+            <tr:panelButtonBar>
+              <tr:commandButton text="Submit"/>
+            </tr:panelButtonBar>
+          </tr:panelPage>
+        </tr:form>
+    </tr:document>
+  </f:view>
+</jsp:root>

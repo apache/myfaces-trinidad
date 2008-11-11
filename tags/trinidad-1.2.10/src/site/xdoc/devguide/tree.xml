@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<document>
+  <properties>
+    <title>Using the Apache Trinidad Tree Component</title>
+  </properties>
+
+  <body>
+    <section name="Using the Apache Trinidad Tree Component">
+      <p>
+        <ul>
+          <li><a href="#Introduction">Introduction</a></li>
+          <li><a href="#The Tree Model">The Tree Model</a></li>
+          <li><a href="#Tree">Tree</a>
+            <ul>
+              <li><a href="#Data">Data</a></li>
+              <li><a href="#RowDisclosureEvent">RowDisclosureEvent</a></li>
+              <li><a href="#SelectionEvent">SelectionEvent</a></li>
+            </ul>
+          </li>
+          <li><a href="#TreeTable">TreeTable</a>
+            <ul>
+              <li><a href="#RowDisclosureEvent - TreeTable">RowDisclosureEvent</a></li>
+              <li><a href="#SelectionEvent - TreeTable">SelectionEvent</a></li>
+            </ul>
+          </li>
+          <li><a href="#Expand/Collapse State">Expand/Collapse State</a></li>
+          <li><a href="#Selection State">Selection State</a></li>
+          <li><a href="#Grid Lines and Banding">Grid Lines and Banding</a></li>
+        </ul>
+      </p>
+    </section>
+
+
+    <section name="Introduction">
+      <P>
+        Apache Trinidad tree components are used to display hierarchical data. For
+        example, if we have a personnel organization chart depicting all the
+        direct reports under each employee, we could use a tree component to
+        display this chart. Each element (employee) in the hierarchy may have
+        any number of child elements (direct reports). In addition several
+        parent elements may share the same child elements.
+      </P>
+
+      <P>
+        Apache Trinidad currently provides two tree components: Tree and TreeTable. 
+        The Apache Trinidad Tree component supports multiple root elements, and it has a
+        simple user interface (UI) - each element in the Tree is appropriately indented to indicate
+        its level in the hierarchy, and is connected to its parent.
+        The features of the Tree component include mechanisms for expanding and
+        collapsing portions of the hierarchy.
+      </P>
+
+      <P>
+        The Apache Trinidad TreeTable component displays a hierarchy
+        in a UI similar to an Apache Trinidad Table, and is more elaborate than the Tree component. TreeTable supports displaying columns of data per element in the hierarchy. The features of the TreeTable
+        component include mechanisms for focusing in on subtrees (within the main
+        tree), as well as expanding and collapsing elements in the hierarchy.
+      </P>
+
+      <P>
+        We recommend that you familiarize yourself with the <a
+        href="table.html">Table component</a> before reading the rest of this chapter.
+      </P>
+    </section>
+
+    <section name="The Tree Model">
+      <P>
+        The Apache Trinidad tree components use a model to access the data in the
+        underlying hierarchy.  The specific model class is
+        <code>org.apache.myfaces.trinidad.model.TreeModel</code>.
+        <code>TreeModel</code> extends <code>CollectionModel</code> (see <a
+        href="table.html">Using Apache Trinidad Tables</a> for more information
+        about the <code>CollectionModel</code>). In other words, the
+        <code>TreeModel</code> is a collection of rows. It has an
+        <code>isContainer</code> method that returns <code>true</code> if the
+        current row contains child rows. The children of the current row can
+        be accessed by calling the <code>enterContainer</code> method. Once
+        this method is called the <code>TreeModel</code> instance will change
+        to be a collection of the child rows. To jump back up to the parent
+        collection, call the <code>exitContainer</code> method.
+      </P>
+
+      <P>
+        You may find the
+        <code>org.apache.myfaces.trinidad.model.ChildPropertyTreeModel</code> class
+        useful when constructing a <code>TreeModel</code>.
+      </P>
+
+    </section>
+
+    <section name="Tree">
+      <P>
+        The Tree component displays a multi-root hierarchy in a simple UI
+        where each element in the hierarchy is indented relative to
+        the corresponding parent element.
+      </P>
+
+      <subsection name="Data">
+        <P>
+          The Tree uses a stamping strategy similar to the Apache Trinidad Table
+          component.  The "nodeStamp" facet of the Tree is used to display the
+          data for each element in the tree. The Tree does not create
+          components per element; instead, the "nodeStamp" is repeatedly
+          rendered (stamped) once per element. Because of this stamping
+          behavior, only certain types of components are supported as
+          children inside a Tree. Supported components include all
+          components with no behavior and most components that implement the
+          ValueHolder or ActionSource interfaces.
+        </P>
+        <P>
+          Each time the "nodeStamp" is stamped, the data for the current
+          element (see <code>getRowData()</code> in <a href="table.html">Using
+          Apache Trinidad Tables</a>) is copied into an EL reachable property.  The
+          name of this property is defined by the <code>var</code> property on
+          the Tree. Once the Tree has completed rendering, this property is
+          removed (or reverted back to its previous value). In the following
+          example, the data for each element is placed under the EL property
+          "node". The "nodeStamp" displays the data for each element by
+          getting further properties from the "node" property:
+        </P>
+        <source><![CDATA[
+<tr:tree var="node">
+  <f:facet name="nodeStamp">
+    <tr:outputText value="#{node.firstname}"/>
+  </f:facet>
+</tr:tree>]]>
+        </source>
+      </subsection>
+      <subsection name="RowDisclosureEvent">
+        <P>
+          The Tree renders expand/collapse icons that the user can click on to
+          expand or collapse a subtree. When these icons are clicked, the Tree
+          generates a <code>RowDisclosureEvent</code>. This event has two <code>
+          RowKeySet</code> objects. One, called RemovedSet, for all the collapsed
+          nodes and one, called AddedSet, for all the expanded nodes. The Tree 
+          expands the subtrees under all nodes in the added set and collapses the
+          subtrees under all nodes in the removed set.
+        </P>
+        <p>
+          You can register custom <code>RowDisclosureListener</code> instances
+          (that can do post processing) on the Tree component.
+        </p>
+      </subsection>
+
+      <subsection name="SelectionEvent">
+        <P>
+          The Tree supports a <code>rowSelection</code> attribute. Valid
+          values for the <code>rowSelection</code> attribute are: single, multiple,
+          and none. If a Tree is selectable, clicking on a node causes the tree to 
+          highlight the node and render it as selected. ctrl-click and shift-click
+          operations are supported for trees which support multiple selections. 
+          When nodes are selected/unselected, the Tree fires a <code>SelectionEvent
+          </code>. This event has two <code>RowKeySet</code> objects. One, called 
+          RemovedSet, for all the unselected nodes and one, called AddedSet, 
+          for all the selected nodes.
+        </P>
+        <p>
+          You can register custom <code>SelectionListener</code> instances
+          (that can do post processing) on the Tree component.
+        </p>
+      </subsection>
+
+    </section>
+    
+    <section name="TreeTable">
+      <P>
+        The TreeTable component displays a hierarchy in a UI 
+        similar to Table. Like the Table, the TreeTable's children must be Apache Trinidad
+        Column components (Please see <a
+        href="table.html#Columns">Table Columns</a>). Like the Tree, the TreeTable has a "nodeStamp"
+        facet which renders the "Object Name" Column. The TreeTable has a
+        "pathStamp" facet for rendering the focus path.
+      </P>
+      <P>
+        The "Object Name" Column contains the primary identifier of an element
+        in the hierarchy. For example, in an organization chart of employees, the "Object Name"
+        Column might be the employee name.
+      </P>
+      <P>
+        The TreeTable supports the same stamping behavior as the
+        Tree component. In the following example, The "Object Name" Column is
+        the "Employee Name" Column. For each element (that is, employee) the
+        TreeTable stamps out the name, ID and the department.
+      </P>
+      <source><![CDATA[
+<tr:treeTable var="node">
+  <f:facet name="nodeStamp">
+    <tr:column>
+      <f:facet name="header">
+        <tr:outputText value="Employee Name"/>
+      </f:facet>
+      <tr:outputText value="#{node.ename}"/>
+    </tr:column>
+  </f:facet>
+  <f:facet name="pathStamp">
+    <tr:outputText value="#{node.ename}"/>
+  </f:facet>
+  <tr:column>
+    <f:facet name="header">
+      <tr:outputText value="Employee Id"/>
+    </f:facet>
+    <tr:outputText value="#{node.empid}"/>
+  </tr:column>
+  <tr:column>
+    <f:facet name="header">
+      <tr:outputText value="Department"/>
+    </f:facet>
+    <tr:outputText value="#{node.dname}"/>
+  </tr:column>
+</tr:treeTable>]]>
+      </source>
+      <P>
+        The TreeTable supports all the formatting properties that are supported by the
+        Column component.  Please see <a
+        href="table.html#Columns">Using Apache Trinidad Tables</a> for more
+        information about the Apache Trinidad Column component.
+      </P>
+
+     <subsection name="FocusEvent">  	 
+        <P> 	 
+          In addition to displaying expand/collapse icons, the TreeTable also 	 
+          renders a column containing "focus" icons that a user can click to 	 
+          focus on (or zoom into) a particular element's subtree of children. 	 
+        </P> 	 
+        <p> 	 
+          To focus (or zoom) out of a subtree, the user can click on 	 
+          path links that are rendered above the TreeTable. These path links 	 
+          are rendered by the "pathStamp" facet. If this facet is not provided 	 
+          the focus column and the path links are not rendered. 	 
+        </p> 	 
+        <P> 	 
+          The TreeTable has a "focusPath" property that controls which element 	 
+          has the current focus. This property is a 	 
+          <code>java.util.List</code> of row-keys that describe a path from 	 
+          the root to the element that has the focus. 	 
+        </P> 	 
+        <P> 	 
+          When the user focuses in or out, the TreeTable generates a 	 
+          <code>FocusEvent</code>. The element that the user focused in, is 	 
+          made current before the event is delievered. The TreeTable responds 	 
+          to this event by modifying the "focusPath" property appropriately. 	 
+          Subsequently, any registered <code>FocusListener</code> instances 	 
+          are called. 	 
+        </P> 	 
+      </subsection>
+
+     <subsection name="DisclosureAllEvent">
+        <P> 	 
+          The TreeTable allows the user to expand or collapse all the subtrees 	 
+          by clicking on special "expand-all" or "collapse-all" links. In 	 
+          response to this, the TreeTable generates a 	 
+          <code>DisclosureAllEvent</code>. This event has an 	 
+          <code>isExpandAll</code> method that returns whether the user wants 	 
+          to show or hide all the subtrees. 	 
+        </P> 	 
+        <P>
+          The TreeTable responds to this by expanding or collapsing all the
+          elements under the current focus root. If the tree is massive, the
+          expand-all operation will not propagate beyond the children of the
+          current focus root.
+        </P>
+      </subsection>
+
+      <subsection name="RowDisclosureEvent - TreeTable">
+        <P>
+          Like the Tree component the TreeTable generates a
+          <code>RowDisclosureEvent</code>. Please see the Tree's <a
+          href="#RowDisclosureEvent">RowDisclosureEvent</a> description for more
+          information about this event.
+        </P>
+      </subsection>
+
+      <subsection name="SelectionEvent - TreeTable">
+        <P>
+          Like the Tree component the TreeTable generates a
+          <code>SelectionEvent</code>. Please see the Tree's <a
+          href="#SelectionEvent">SelectionEvent</a> description for more
+          information about this event.
+        </P>
+      </subsection>
+
+    </section>
+
+    <section name="Expand/Collapse State">
+      <P>
+        The Apache Trinidad tree components use an instance of the
+        <code>org.apache.myfaces.trinidad.model.RowKeySet</code> class to keep track
+        of which elements are expanded. This instance is stored as the
+        "disclosedRowKeys" attribute on the component. You may use this instance to
+        programmatically control the expand/collapse state of an element in
+        the hierarchy. Any element contained by the <code>RowKeySet</code>
+        instance is deemed expanded. All other elements are collapsed.  This
+        class also supports operations like <code>addAll()</code> and
+        <code>removeAll()</code>.
+      </P>
+    </section>
+
+    <section name="Selection State">
+      <P>
+        The Apache Trinidad tree components use an instance of the
+        <code>org.apache.myfaces.trinidad.model.RowKeySet</code> class to keep track
+        of which elements are selected. This instance is stored as the
+        "selectedRowKeys" attribute on the component. You may use this instance to
+        programmatically control the selection state of an element in
+        the hierarchy. Any element contained by the <code>RowKeySet</code>
+        instance is deemed selected. All other elements are not selected.  This
+        class also supports operations like <code>addAll()</code> and
+        <code>removeAll()</code>.
+      </P>
+
+    </section>
+
+    <section name="Grid Lines and Banding">
+        Like the Table component, the TreeTable component supports vertical and horizontal
+        grid lines and banding. Please see <a
+        href="table.html#Grid Lines and Banding">Table Grid Lines and Banding</a> for more
+        information.
+    </section>
+
+  </body>
+</document>

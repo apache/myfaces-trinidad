@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <trh:html>
+      <trh:head title="SelectManyCheckbox Demo"/>
+      <trh:body>
+        <tr:form>
+          <tr:panelGroupLayout layout="vertical">
+            <f:facet name="separator">
+              <tr:separator/>
+            </f:facet>
+            <tr:panelGroupLayout layout="horizontal">
+              <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+              <tr:spacer width="10"/>
+              <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_selectManyCheckbox.html"
+                         text="Tag Documentation"/>
+              <tr:spacer width="10"/>
+              <tr:goLink destination="http://myfaces.apache.org/trinidad/skin-selectors.html#selectManyCheckbox"
+                         text="Skinning Key Documentation"/>
+            </tr:panelGroupLayout>
+            <tr:outputFormatted styleUsage="instruction"
+                                value="&lt;b>selectManyCheckbox bound to integer array&lt;/b>"/>
+            <tr:selectManyCheckbox binding="#{editor.component}" label="Label"
+                                   valueChangeListener="#{list.valueChanged}"
+                                   value="#{list.intArray}">
+              <tr:selectItem label="First" value="1"/>
+              <tr:selectItem label="Second" value="2"/>
+              <tr:selectItem label="Third" value="3"/>
+            </tr:selectManyCheckbox>
+            <tr:outputFormatted styleUsage="instruction"
+                                value="&lt;b>selectManyCheckbox bound to string array&lt;/b>"/>
+            <tr:selectManyCheckbox label="Label" valueChangeListener="#{list.valueChanged}"
+                                   value="#{list.stringArray}">
+              <tr:selectItem label="First" value="foo"/>
+              <tr:selectItem label="Second" value="bar"/>
+              <tr:selectItem label="Third" value="baz"/>
+            </tr:selectManyCheckbox>
+            <tr:outputFormatted styleUsage="instruction"
+                                value="&lt;b>selectManyCheckbox bound to list&lt;/b>"/>
+            <tr:selectManyCheckbox label="Label" valueChangeListener="#{list.valueChanged}"
+                                   value="#{list.objectList}">
+              <tr:selectItem label="First" value="foo"/>
+              <tr:selectItem label="Second" value="bar"/>
+              <tr:selectItem label="Third" value="baz"/>
+            </tr:selectManyCheckbox>
+            <tr:commandButton text="Submit"/>
+            <jsp:directive.include file="editor.jspf"/>
+            <tr:outputFormatted styleUsage="instruction"
+                                value="selectManyCheckbox with f:selectItems bound to a List of SelectItem custom object"/>
+            <tr:selectManyCheckbox label="Cars" valueChangeListener="#{list.valueChanged}"
+                                   value="#{list.selectedCars}">
+              <f:selectItems value="#{list.makes}"/>
+            </tr:selectManyCheckbox>
+            <tr:outputFormatted styleUsage="instruction"
+                                value="selectManyCheckbox with tr:selectItem bound to SelectItem custom object"/>
+            <tr:selectManyCheckbox label="Cars" valueChangeListener="#{list.valueChanged}"
+                                   value="#{list.selectedCars}">
+              <tr:selectItem value="#{list.firstSelectItemCar}"/>
+              <tr:selectItem value="#{list.secondSelectItemCar}"/>
+              <tr:selectItem value="#{list.thirdSelectItemCar}"/>
+            </tr:selectManyCheckbox>
+            <tr:outputFormatted styleUsage="instruction"
+                                value="selectManyCheckbox with tr:selectItem bound to SelectItem Strings. 
+                                In this test case, the valuePassThru attribute is set to true, therefore the value is passed through
+                                to the client. If you  need to have the value on the client, one reason might be
+                                if you are relying on the value for javascript, then set valuePassThru to true.
+                                Otherwise, it defaults to false, and the client-side value will be an index, and converted
+                                automatically on the server. valuePassThru=false allows the component to be bound to
+                                custom Objects. valuePassThru=true works ok when the value is bound to Strings. "/>
+            <tr:selectManyCheckbox label="Strings, valuePassThru is true" valuePassThru="true"
+                                   valueChangeListener="#{list.valueChanged}"
+                                   value="#{list.selectedSelectItems}">
+              <tr:selectItem value="#{list.firstSelectItemString}"/>
+              <tr:selectItem value="#{list.secondSelectItemString}"/>
+              <tr:selectItem value="#{list.thirdSelectItemString}"/>
+            </tr:selectManyCheckbox>
+            <tr:commandButton text="Submit"/>
+          </tr:panelGroupLayout>
+        </tr:form>
+      </trh:body>
+    </trh:html>
+  </f:view>
+</jsp:root>

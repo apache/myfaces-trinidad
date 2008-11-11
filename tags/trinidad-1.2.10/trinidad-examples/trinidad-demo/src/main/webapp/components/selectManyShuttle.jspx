@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <tr:document title="SelectManyShuttle Demo">
+      <tr:form>
+        <tr:panelGroupLayout layout="vertical">
+          <f:facet name="separator">
+            <tr:separator/>
+          </f:facet>
+          <tr:panelGroupLayout layout="horizontal">
+            <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_selectManyShuttle.html"
+                       text="Tag Documentation"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/skin-selectors.html#selectManyShuttle"
+                       text="Skinning Key Documentation"/>
+          </tr:panelGroupLayout>
+          <tr:outputFormatted styleUsage="instruction"
+                              value="&lt;b>selectManyShuttle bound to string array&lt;/b>"/>
+          <tr:messages/>
+          <tr:selectManyShuttle id="shuttle1" leadingHeader="Available values:"
+                                trailingHeader="Selected values:" binding="#{editor.component}"
+                                label="Selected Values" valueChangeListener="#{list.valueChanged}"
+                                value="#{list.stringArray}">
+            <tr:selectItem shortDesc="The First Item" label="First" value="foo"/>
+            <tr:selectItem label="Second" value="bar"/>
+            <tr:selectItem label="Third" value="baz"/>
+          </tr:selectManyShuttle>
+          <tr:message for="shuttle1"/>
+          <jsp:directive.include file="editor.jspf"/>
+          <tr:outputFormatted styleUsage="instruction"
+                              value="&lt;b>selectManyShuttle bound to list&lt;/b>"/>
+          <tr:selectManyShuttle id="shuttle2" leadingHeader="Available values:"
+                                trailingHeader="Selected values:"
+                                valueChangeListener="#{list.valueChanged}"
+                                value="#{list.objectList}">
+            <tr:selectItem label="First" value="foo"/>
+            <tr:selectItem label="Second" value="bar"/>
+            <tr:selectItem label="Third" value="baz"/>
+          </tr:selectManyShuttle>
+          <tr:message for="shuttle2"/>
+          <!--
+            <tr:outputFormatted styleUsage="instruction" value="&lt;b>selectManyShuttle bound to integer array&lt;/b>"/>
+              
+             <tr:selectManyShuttle id="shuttle3"
+                                 leadingHeader="Available values:"
+                                 trailingHeader="Selected values:"
+                                 valueChangeListener="#{list.valueChanged}"
+                                 value="#{list.intArray}">
+              <tr:selectItem label="First" value="#{1}"/>
+              <tr:selectItem label="Second" value="#{2}"/>
+              <tr:selectItem label="Third" value="#{3}"/>
+            </tr:selectManyShuttle>
+             <tr:message for="shuttle3"/>
+-->
+          <tr:commandButton text="Submit"/>
+        </tr:panelGroupLayout>
+      </tr:form>
+    </tr:document>
+  </f:view>
+</jsp:root>

@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<document>
+  <properties>
+    <title>Apache Trinidad Partial Page Rendering (PPR)</title>
+  </properties>
+  <body>
+    <section name="Apache Trinidad Partial Page Rendering (PPR)">
+      <p>
+        <ul>
+          <li>
+            <a href="#Overview">Overview</a>
+          </li>
+          <li>
+            <a href="#partialSubmit and partialTriggers">partialSubmit and partialTriggers</a>
+          </li>
+          <li>
+            <a href="#autoSubmit">autoSubmit</a>
+          </li>
+          <li>
+            <a href="#Built-in PPR">Built-in PPR</a>
+          </li>
+          <li>
+            <a href="#Polling">Polling</a>
+          </li>
+          <li>
+            <a href="#tr:statusIndicator">tr:statusIndicator component</a>
+          </li>
+          <li>
+            <a href="#Using RequestContext">Using RequestContext</a>
+          </li>
+          <li>
+            <a href="#Javascript APIs for PPR">Javascript APIs for PPR</a>
+          </li>
+          <li>
+            <a href="#Coming Features">Coming Features</a>
+          </li>
+          <li>
+            <a href="#Implementation Notes">Implementation Notes</a>
+          </li>
+        </ul>
+      </p>
+    </section>
+
+    <section name="Overview">
+      <p>
+AJAX (Asynchronous-Javascript-And-XMLHttp) is a widespread
+technique in web applications today.  Trinidad makes AJAX
+easy by building it into its components and giving you many ways
+to request AJAX updates of non-AJAX components.  Trinidad calls
+this "Partial Page Rendering", or PPR for short.
+     </p>
+
+    </section>
+    <section name="partialSubmit and partialTriggers">
+<p>
+The simplest example of PPR in Trinidad is the partialSubmit
+property on the Trinidad commandLink and commandButton components.
+When set to true, the ActionEvents delivered by these components
+will happen by an AJAX event.
+</p>
+<source>
+  &lt;tr:commandButton text="Do Something"
+                       partialSubmit="true"
+                       actionListener="#{myBean.doSomething}"/&gt;
+</source>
+<p>
+This will send a notification to the server, but will not
+change any content in the page.  To do that, you have to
+tell Trinidad what needs to be redrawn in response to
+this.  The easiest way to do this is with the partialTriggers
+property, which connects components that must be repainted
+with the component that is the reason for them to repaint.
+</p>
+<p>This is a two-step process.  First, make sure the source
+(here, a commandButton) has an ID.  Second, set the partialTriggers
+attribute on each component that has to be repainted to that ID:
+</p>
+<source>
+  &lt;tr:commandButton text="Do Something"
+                       id="myButton"
+                       partialSubmit="true"
+                       actionListener="#{myBean.doSomething}"/&gt;
+
+  &lt;-- repaint the outputText any time 'myButton' has an event --&gt;
+  &lt;tr:outputText value="#{myBean.textValue}"
+                    partialTriggers="myButton"/&gt;
+
+
+public void doSomething(ActionEvent event)
+{
+  // Change the text value
+  this.textValue = "A new value";
+}
+</source>
+
+<p>We might also  want to disable myButton in response
+to its own click.  For that, just mark it as its own partialTrigger:
+</p>
+<source>
+  &lt;tr:commandButton text="Do Something"
+                       id="myButton"
+                       partialSubmit="true"
+                       partialTriggers="myButton"
+                       actionListener="#{myBean.doSomething}"/&gt;
+
+  &lt;-- repaint the outputText any time 'myButton' has an event --&gt;
+  &lt;tr:outputText value="#{myBean.textValue}"
+                    partialTriggers="myButton"/&gt;
+
+
+public void doSomething(ActionEvent event)
+{
+  ((CoreCommandButton) event.getSource()).setDisabled(true);
+  // Change the text value
+  this.textValue = "A new value";
+}
+</source>
+
+<p>All these examples are with action events, but PPR is not
+restricted to action events by any means.  partialTriggers will
+be fired if <em>any</em> server-side event is queued for the
+triggering component - ValueChangeEvent, SortEvent, anything.
+partialSubmit itself only happens to exist for ActionEvent components,
+though.  (See below for other component events.)</p>
+
+<subsection name="partialTriggers: more details">
+<P>
+It's possible to have a component that is affected by multiple triggers
+(hence, the attribute name "partialTriggers", not just "partialTrigger").
+For this, just separate each ID with a space:
+</P>
+<source>
+  &lt;tr:outputText value="#{myBean.textValue}"
+                    partialTriggers="myButton1 myLink2"/&gt;
+</source>
+
+<P>
+Also, if you've got JSF NamingContainers (e.g., f:subview) between the trigger and its target,
+you'll need to incorporate that into the partialTriggers definition. The syntax is:
+<ul>
+<li>If you need to go down through a naming container to get to the trigger, include the naming container's ID with a colon (e.g., partialTriggers="theSubform:theLink"</li>
+<li>If you need to start at the root of the page to get the trigger component, start with a single colon (e.g., partialTriggers=":someRootComponent"</li>
+<li>If you need to go up and out of a naming container to get the trigger component, start with two colons. (e.g., partialTriggers="::someComponentOutsideNamingContainer")
+This includes the current component if the component is a NamingContainer. (e.g., tr:table partialTriggers="::mySiblingComponent" pops out of the table to get to the sibling)</li>
+<li>If you need to go up and out of two naming containers to get the trigger component, start with three colons.
+To pop out of three naming containers, start with four colons, and so on. (e.g., partialTriggers=":::someOtherComponent" pops out of two naming containers)</li>
+</ul>
+
+Here are some examples:
+</P>
+<source>
+<![CDATA[
+  <f:view>
+    <tr:document title="Relative partialTriggers Test">
+      <tr:form>
+        <f:subview id="wrapperAroundEverything">
+          <tr:panelGroupLayout layout="vertical">
+            <!-- Button 1 is the component that all of the other buttons have partialTriggers
+                 for. -->
+            <f:subview id="button1WrapperA">
+              <f:subview id="button1WrapperB">
+                <tr:commandButton
+                  partialSubmit="true"
+                  id="button1"
+                  text="button 1 (click me then view errors in server console)"/>
+              </f:subview>
+            </f:subview>
+
+            <!-- Button 2's partialTrigger starts with ':::'. 
+            Two colons to pop it out of button2WrapperB, another colon to pop it out of buttons2WrapperA.
+            commandButton is not a NamingContainer -->
+            <f:subview id="button2WrapperA">
+              <f:subview id="button2WrapperB">
+                <tr:commandButton
+                  partialTriggers=":::button1WrapperA:button1WrapperB:button1"
+                  partialSubmit="true"
+                  id="button2"
+                  text="button 2"/>
+              </f:subview>
+            </f:subview>
+        ....
+            <!-- table is a NamingContainer. Two colons pop out of the table.
+            Two more to pop it out of the two subviews.
+            -->
+            <f:subview id="table7WrapperA">
+              <f:subview id="table7WrapperB">
+                <tr:panelGroupLayout layout="vertical">
+                  <tr:table
+                    value="#{facesContext.externalContext.requestMap.cookies}"
+                    var="row"
+                    partialTriggers="::::button1WrapperA:button1WrapperB:button1"
+                    id="table7">
+                    <tr:column headerText="Column">
+                      <tr:outputText value="#{row.name}"/>
+                    </tr:column>
+                  </tr:table>
+                </tr:panelGroupLayout>
+              </f:subview>
+            </f:subview>
+            ]]>
+</source>
+
+<P>Finally, a cool thing about partialTriggers when you're
+inside a table row.  If an event in one column needs to repaint
+a component in a different column, partialTriggers works great,
+no code required:
+
+<source>
+  &lt;tr:column&gt;
+    &lt;tr:outputText value="#{row.textValue}"
+                      partialTriggers="myLink"/&gt;
+  &lt;/tr:column&gt;
+
+  &lt;tr:column&gt;
+    &lt;tr:commandLink text="Increment Value"
+                       id="myLink"
+                       partialSubmit="true"
+                       actionListener="#{myBean.incrementRowVal}"/&gt;
+  &lt;/tr:column&gt;
+</source>
+This works in h:dataTable, tr:table, tr:tree or tr:treeTable, the Facelets ui:repeat, etc.  However, if you need to redraw a component in a <em>different</em> row, then you'll need to write some Java code (see RequestContext.addPartialTarget(), below).
+</P>
+</subsection>
+<subsection name="PPR and 'rendered'">
+<p>
+There's one important limitation of PPR that needs to be
+mentioned up front.  You can use PPR to modify just about
+any property on a component.  However, you can't use
+PPR to directly modify the "rendered" property of a component.
+If you need to do this, you either have to:
+<ul>
+<li>Put partialTriggers on the parent of the component
+where "rendered" is changing - which might require
+that you wrap the component in something simple
+like a panelGroupLayout.</li>
+<li>Use an alternative CSS technique like adding
+"display:none" to the inlineStyle</li>
+</ul>
+See the Implementation Notes section for the reason for this
+limitation.
+</p>
+</subsection>
+</section>
+<section name="autoSubmit">
+<p>
+The next most common use of PPR is the autoSubmit attribute.  This is
+supported by all Trinidad input components, and will result in an
+AJAX request any time the value of the field changes.  To minimize
+AJAX chattiness, autoSubmit on inputText will only fire when you've
+changed the value and tabbed out of the field.  In the following
+example, a button will automatically become enabled when the field's
+quantity is greater than zero.
+</p>
+<source>
+  &lt;tr:inputText value="#{myBean.quantity}" autoSubmit="true"
+                   id="quantity"/&gt;
+
+  &lt;tr:commandButton text="Put One Back"
+                       disabled="#{myBean.quantity le 0}"
+                       partialTriggers="quantity"
+                       actionListener="#{myBean.putOneBack}"/&gt;
+</source>
+
+<p>
+autoSubmit is also supported on the table and treeTable
+components.  For these, it identifies whether changes
+in the table selection should fire an AJAX request
+(and notify the selectionListener, if you have one.)
+</p>
+</section>
+
+<section name="Built-in PPR">
+<p>
+Many components in Trinidad automatically use PPR without
+any configuration required.  As of Trinidad 1.0.2, this list is:
+<ul>
+<li>table/treeTable/selectRangeChoicebar: paging through rows</li>
+<li>table/treeTable: sorting</li>
+<li>showDetail/showDetailHeader/table/tree/treeTable: expanding or
+collapsing content</li>
+<li>panelTabbed/panelAccordion: showing tabs or panes</li>
+<li>poll: polling</li>
+<li>chooseDate: paging through months</li>
+<li>Dialog framework: all return events from dialogs</li>
+</ul>
+</p>
+</section>
+
+<section name="Polling">
+<p>
+The poll component provides a trivial way to set up a heartbeat
+or request regular updates on a page as needed.  Poll events can
+be set to be delivered at any required interval, and multiple
+poll components with different intervals can be specified.
+</p>
+</section>
+
+<section name="tr:statusIndicator">
+<p>
+The statusIndicator component shows when an AJAX request
+is busy.  It can be placed anywhere on a page - or in multiple
+locations, if you really need it.  You can use skinning
+to replace the built-in icons - override both of the
+"af|statusIndicator::busy-icon" and "af|statusIndicator::ready-icon"
+keys in your skin.
+</p>
+</section>
+
+<section name="Using RequestContext">
+<p>
+At times, you may not want to or be able to use partialTriggers to
+identify components.  For example:
+<ul>
+<li>You may not know which component needs to be updated
+ until you process on the server.</li>
+<li>You may only want to update a component in some cases,
+not on all updates to the value.  For example, in the "Quantity" example
+above, the button will be repainted every time the quantity
+changes, not just if the state really changed.</li>
+<li>Updating a row of a table other than the one where the event
+happened cannot be done with partialTriggers</li>
+</ul>
+</p>
+<p>For these cases (and any others you come up with), you
+can always programatically force a component to be repainted
+with RequestContext.addPartialTarget():
+<source>
+  if (_needToRepaint())
+  {
+    // Repaint another component programatically
+    RequestContext rc = RequestContext.getCurrentInstance();
+    rc.addPartialTarget(anotherComponent);
+  }
+</source>
+
+<source>
+  if (_needToRepaintAParticularRow())
+  {
+    // Repaint a component on a row programatically
+    RequestContext rc = RequestContext.getCurrentInstance();
+    Object oldRowKey = table.getRowKey();
+    table.setRowIndex(rowToRepaint);
+    rc.addPartialTarget(componentWithinRow);
+    
+    // Restore the row key
+    table.setRowKey(oldRowKey);
+  }
+</source>
+</p>
+
+<p>
+If you call this method outside of a partial-page request, no harm done - it
+will just be ignored, since the whole page is being repainted anyway.  Speaking
+of that:  if you want to find out if this is a partial-page request,
+call isPartialRequest(facesContext) on the RequestContext.
+</p>
+<p>
+Finally, if you're implementing a custom component, you aren't
+extending the Trinidad UIXComponentBase base class or one of its
+subclasses, and you want to support partialTriggers, you'll need 
+to use addPartialTriggerListeners().  If you deliver
+events, and you want to support being the target of partialTriggers,
+you'll need to use partialUpdateNotify().
+
+<source>
+  // This override is needed to support a partialTriggers attribute
+  public void decode(FacesContext context)
+  {
+    // Find all the partialTriggers and save on the request context
+    Object triggers = getAttributes().get("partialTriggers");
+    if (triggers instanceof String[])
+    {
+      RequestContext rc = RequestContext.getCurrentInstance();
+      if (rc != null)
+        rc.addPartialTriggerListeners(this, (String[]) triggers);
+    }
+
+    super.decode(context);
+  }
+
+  // This override is needed if you want to be the trigger 
+  // for another component's partialTriggers
+  public void broadcast(FacesEvent event)
+    throws AbortProcessingException
+  {
+    super.broadcast(event);
+    RequestContext rc = RequestContext.getCurrentInstance();
+    if (rc != null)
+      rc.partialUpdateNotify(this);
+  }
+</source>
+</p>
+
+</section>
+<section name="Javascript APIs for PPR">
+<p>
+If you're writing a custom component, you may want to be able
+to send a PPR request from the client.  Or, as a page author, you
+may want to add custom PPR behavior.  Trinidad provides some hooks
+for this:
+</p>
+<subsection name="Sending a PPR request">
+<p>
+Send a PPR request with the following invocation:
+<source>
+/**
+ * Post the form for partial postback.  Supports both standard AJAX
+ * posts and, for multipart/form posts, IFRAME-based transmission.
+ * @param actionForm{FormElement} the HTML form to post
+ * @param params{Object} additional parameters to send
+ * @param headerParams{Object} HTTP headers to include (ignored if 
+ *   the request must be a multipart/form post)
+ */
+  TrPage.getInstance().sendPartialFormPost(
+     theForm,
+     {param1: "value1", param2: "value2"},
+     {header1: "headerValue1", header2: "headerValue2"}); 
+</source>
+This will automatically gather up all form fields on the page
+and include their values with the postback.  In addition,
+it will pass any parameters along with this postback.
+The headers are completely optional, and can be omitted.
+The parameters are also optional, but usually you'll want
+at least one.  If the content of the form happens to include a
+non-empty file upload component (input type="file"), the request will
+automatically switch to an alternative IFRAME-based method
+that supports file upload, without any required change in your code
+on the server or client.</p>
+</subsection>
+<subsection name="Sending an AJAX request">
+<p>If you wish to send an AJAX request on your own, without
+posting back to the server or going through the JSF lifecycle,
+use the RequestQueue object off of the Page object:
+<source>
+  // Get the shared request queue
+  var queue = TrPage.getInstance().getRequestQueue();
+
+/**
+* Performs Asynchronous XML HTTP Request with the Server
+* @param context    any object that is sent back to the callback when the request 
+*  is complete. This object can be null.
+* @param method   Javascript method
+* @param actionURL   the url to send the request to
+* @param headerParams  Option HTTP header parameters to attach to the request
+* @param content     the content of the Asynchronous XML HTTP Post
+*/
+  // Send an AJAX request to example.org with one query parameter,
+  // and no headers or content.  Call myCompletionMethod with "this"
+  // set up correctly.
+  queue.sendRequest(this, this.myCompletionMethod,
+             "http://example.org?foo=bar");
+</source>
+
+The completion method will be called with an instance of TrXMLRequestEvent,
+which supports the following methods:
+<ul>
+<li>getStatus(): returns one of TrXMLRequestEvent.STATUS_QUEUED,
+.STATUS_SEND_BEFORE, .STATUS_SEND_AFTER, and .STATUS_COMPLETE</li>
+<li>getResponseXML(): returns the XML document</li>
+<li>getResponseText(): returns the text of the reply</li>
+<li>getResponseStatusCode(): returns the HTTP status code</li>
+<li>getResponseHeader(): returns an HTTP header</li>
+<li>getResponseContentType(): returns the content type of the response</li>
+</ul>
+</p>
+
+
+</subsection>
+<subsection name="Monitoring AJAX requests">
+<p>
+If you want to be notified when the client is busy waiting
+for an AJAX response, add a "state change listener" to the
+request queue:
+<source>
+    TrPage.getInstance().getRequestQueue().addStateChangeListener(myCallback);
+</source>
+Your callback will be passed a single parameter, which will be either
+TrRequestQueue.STATE_READY or TrRequestQueue.STATE_BUSY, depending
+on the current state of the request queue.  The statusIndicator
+component uses exactly this mechanism to know when to start
+and stop spinning its indicator.  You can optionally pass a
+second parameter to addStateChangeListener() for the "this"
+you want active when your callback is notified.
+</p>
+<p>
+Trinidad also lets you get notified when DOM is replaced
+after an AJAX response by adding a "DOM replace listener"
+on the page:
+<source>
+    function myCallback(oldDom, newDom) { ... }
+
+    TrPage.getInstance().addDomReplaceListener(myCallback);
+</source> 
+The callback is passed two parameters:  the old DOM element
+and the new DOM element that is replacing it.  This callback
+is invoked after the replacement has happened.
+As with addStateChangeListener(), a second argument can be
+passed if you need a "this" to be active when your callback
+is notified.
+</p>
+</subsection>
+</section>
+
+<section name="Coming Features">
+<p>
+The following features are planned enhancements:
+<ul>
+<li>Optimized postback lifecycle (at least in JSF 1.2)</li>
+<li>Support for explicitly requesting PPR of component from client</li>
+</ul>
+</p>
+</section>
+
+<section name="Implementation Notes">
+<p>
+Trinidad uses a ResponseWriter decorator to catch sections
+of the page that needs to be replaced.  Specifically, it 
+looks for calls to ReponseWriter.startElement() to
+extract those components that need to be redrawn.  Then,
+on the client, IDs are used to match up new content
+with DOM already in the page.  As a result, there are
+the following requirements and limitations:
+<ul>
+<li>Renderers <strong>must</strong> pass their UIComponent
+to ResponseWriter.startElement(), at least for any root
+elements in their content.</li>
+<li>Renderers <strong>must</strong> write out a unique ID
+on any root element.</li>
+<li>We cannot directly toggle "rendered" via PPR.  When
+rendered="false", no DOM content is available.  So,
+for instance, when going from "false" to "true", there's
+no DOM in the page to know where to insert the new content.
+Nor is there any content to replace the existing content
+when toggling from "true" to "false".</li>
+</ul>
+Scripts that are rendered during PPR - both libraries and inline
+scripts - will automatically be executed once the content
+is loaded.  This includes scripts added using
+the ExtendedRenderKitService's addScript() method.  Script
+libraries will only be loaded once per page - either
+from the initial page's contents, or on the first PPR
+request that loads that library.
+</p>
+</section>
+
+
+  </body>
+</document>

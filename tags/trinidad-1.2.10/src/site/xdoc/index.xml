@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<document>
+  <properties>
+    <title>Index</title>
+  </properties>
+
+  <body>
+    <section name="Contents">
+      <p>
+        <ul>
+          <li>
+            <a href="#Overview">Overview</a>
+          </li>
+          <li>
+            <a href="release.html">Releases</a>
+          </li>
+          <li>
+            <a href="http://www.irian.at/trinidad-demo/faces/index.jspx">Live Demos</a>
+          </li>
+          <li>
+            <a href="#FAQ and Support">FAQ and Support</a>
+          </li>
+        </ul>
+      </p>
+      </section>
+
+      <section name="Overview">
+        <p>
+      Apache MyFaces Trinidad is a JSF framework including a large, enterprise quality component library, supporting critical features such as accessibility (e.g. Section 508), right-to-left languages, etc.  It also includes a set of framework features, including :
+<ul>
+<li>Partial-page rendering support for the entire component set</li>
+<li>Integrated client-side validation</li>
+<li>A dialog framework</li>
+<li>pageFlowScope, for communicating between pages</li>
+</ul>
+      </p>
+      </section>
+
+      <section name="Documentation">
+       <p>In addition to <a href="trinidad-api/apidocs/index.html">Javadoc</a>
+and <a href="trinidad-api/tagdoc.html">tag documentation</a>, Trinidad includes
+a <a href="devguide/index.html">developer's guide</a> with chapters on subjects
+like AJAX and partial-page rendering, the dialog framework, file upload, pageFlowScope, tables, etc.
+       </p>
+      </section>
+
+      <section name="FAQ and Support">
+        <p>
+Please see the <a href="FAQ.html" >Apache MyFaces Trinidad FAQ</a> for help.
+        </p>
+        <p>
+If the FAQ is insufficient, please send e-mail to the <a href="mail-lists.html">users</a> mailing list.
+        </p>
+      </section>
+  </body>
+</document>

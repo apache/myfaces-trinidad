@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<skins xmlns="http://myfaces.apache.org/trinidad/skin">
+    <skin>
+        <id>
+            purple.desktop
+        </id>
+        <family>
+            purple
+        </family>
+        <render-kit-id>
+            org.apache.myfaces.trinidad.desktop
+        </render-kit-id>
+        <style-sheet-name>
+            skins/purple/purpleSkin.css
+        </style-sheet-name>
+        <bundle-name>
+            org.apache.myfaces.trinidaddemo.resource.SkinBundle
+        </bundle-name>
+    </skin>
+    <!-- You can extend any skin you want. Here we want the purple
+    skin, but with a bigger font size -->
+    <skin>
+        <id>
+            purpleBigFont.desktop
+        </id>
+        <family>
+            purpleBigFont
+        </family>
+        <extends>
+            purple.desktop
+        </extends>
+        <render-kit-id>
+            org.apache.myfaces.trinidad.desktop
+        </render-kit-id>
+        <style-sheet-name>
+            skins/purple/purpleBigFontSkin.css
+        </style-sheet-name>
+        <translation-source>#{skinTranslationMap.contents}</translation-source>
+    </skin>    
+    <skin>
+        <id>
+            beach.desktop
+        </id>
+        <family>
+            beach
+        </family>
+        <render-kit-id>
+            org.apache.myfaces.trinidad.desktop
+        </render-kit-id>
+        <style-sheet-name>
+            skins/beach/beach.css
+        </style-sheet-name>
+        <translation-source>#{skinTranslationMap.resourceBundle}</translation-source>
+
+    </skin>
+    <skin>
+        <id>
+            suede.desktop
+        </id>
+        <family>
+            suede
+        </family>
+        <render-kit-id>
+            org.apache.myfaces.trinidad.desktop
+        </render-kit-id>
+        <style-sheet-name>
+            skins/suede/suede.css
+        </style-sheet-name>
+        <translation-source>#{skinTranslationMap.resourceBundle}</translation-source>
+    </skin>
+    <skin-addition>
+      <skin-id>purpleBigFont.desktop</skin-id>
+    </skin-addition>
+
+    <!-- A skin which demonstrates accessibility features,
+         eg. @accessibility-profile -->
+    <skin>
+      <id>accdemo.desktop</id>
+      <family>accdemo</family>
+        <extends>minimal.desktop</extends>
+      <render-kit-id>org.apache.myfaces.trinidad.desktop</render-kit-id>
+      <style-sheet-name>skins/accdemo/accdemo.css</style-sheet-name>
+    </skin>
+
+</skins>

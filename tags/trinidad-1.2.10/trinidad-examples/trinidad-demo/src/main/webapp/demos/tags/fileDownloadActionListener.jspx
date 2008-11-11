@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+     
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:tr="http://myfaces.apache.org/trinidad" version="1.2">
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <tr:document title="fileDownloadActionListener Demo">
+      <tr:form>
+        <tr:panelGroupLayout layout="vertical">
+          <f:facet name="separator">
+            <tr:separator/>
+          </f:facet>
+          <tr:panelGroupLayout layout="horizontal">
+            <tr:goLink text="Feature Demos" destination="../demos.jspx"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_fileDownloadActionListener.html"
+                       text="Tag Documentation"/>
+          </tr:panelGroupLayout>
+          <tr:messages/>
+          <tr:outputFormatted styleUsage="instruction"
+                              value="&lt;b>fileDownloadActionListener&lt;/b>"/>
+          <tr:outputText value="Click any command component to download a file"/>
+          <tr:commandLink immediate="true" text="Command Link">
+            <tr:fileDownloadActionListener contentType="text/plain" filename="button.txt"
+                                           method="#{fileDownload.sendHelloFile}"/>
+          </tr:commandLink>
+          <tr:commandButton immediate="true" text="Command Button">
+            <tr:fileDownloadActionListener contentType="text/plain" filename="button.txt"
+                                           method="#{fileDownload.sendHelloFile}"/>
+          </tr:commandButton>
+          <tr:spacer height="20px"/>
+          <tr:outputText value="The example below shows the behavior if there is an error while processing on the server"/>
+          <tr:commandButton immediate="true" text="Click for Error">
+            <tr:fileDownloadActionListener contentType="text/plain" filename="button.txt"
+                                           method="#{fileDownload.errorHelloFile}"/>
+          </tr:commandButton>
+        </tr:panelGroupLayout>
+      </tr:form>
+    </tr:document>
+  </f:view>
+</jsp:root>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:tr="http://myfaces.apache.org/trinidad">
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <tr:document title="InputDate Demo">
+      <tr:form>
+        <tr:panelPage>
+          <tr:messages/>
+          <tr:panelGroupLayout layout="vertical">
+            <f:facet name="separator">
+              <tr:separator/>
+            </f:facet>
+            <tr:panelGroupLayout layout="horizontal">
+              <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+              <tr:spacer width="10"/>
+              <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_inputDate.html"
+                         text="Tag Documentation"/>
+              <tr:spacer width="10"/>
+              <tr:goLink destination="http://myfaces.apache.org/trinidad/skin-selectors.html#inputDate"
+                         text="Skinning Key Documentation"/>
+            </tr:panelGroupLayout>
+            <tr:outputFormatted styleUsage="instruction"
+                                value="&lt;b>A basic inputDate, no converter &lt;/b>"/>
+            <tr:inputDate binding="#{editor.component}" id="mdf1" value="#{date.date1}"
+                          label="no converter"/>
+            <jsp:directive.include file="editor.jspf"/>
+            <tr:outputFormatted styleUsage="instruction"
+                                value="&lt;b>A inputDate with a converter attached that has dateStyle set to 'long' &lt;/b>"/>
+            <tr:inputDate id="mdf2" value="#{date.date2}" label="has converter">
+              <f:convertDateTime dateStyle="long"/>
+            </tr:inputDate>
+            <tr:outputFormatted styleUsage="instruction"
+                                value="&lt;b>A inputDate with a validator that sets a maximum date&lt;/b>"/>
+            <tr:inputDate id="mdf3" value="#{date.date3}" label="max validator">
+              <tr:validateDateTimeRange maximum="#{date.maxDate}"/>
+            </tr:inputDate>
+            <tr:outputFormatted styleUsage="instruction"
+                                value="&lt;b>A inputDate with a validator that sets a minimum date&lt;/b>"/>
+            <tr:inputDate id="mdf4" value="#{date.date4}" label="min validator">
+              <tr:validateDateTimeRange minimum="#{date.minDate}"/>
+            </tr:inputDate>
+            <tr:outputFormatted styleUsage="instruction" value="&lt;b>A inputDate with a converter attached 
+                  that has pattern as 'yyyy/M/d' and secondary pattern as 'd/M/yyyy' &lt;/b>"/>
+            <tr:inputDate id="mdf5" value="2004/09/06" label="attached converter">
+              <tr:convertDateTime secondaryPattern="d/M/yyyy" pattern="yyyy/M/d"/>
+            </tr:inputDate>
+            <tr:outputFormatted styleUsage="instruction"
+                                value="&lt;b>A inputDate with a converter attached from fr_FR locale (has 2-digit display for hours)&lt;/b>"/>
+            <tr:inputDate id="mdf6" value="#{date.date5}"
+                          label="attached converter with locale fr_FR">
+              <tr:convertDateTime locale="fr_FR" type="both" dateStyle="full"/>
+            </tr:inputDate>
+            <tr:outputFormatted styleUsage="instruction"
+                                value="&lt;b>A inputDate with a converter attached from fr_BE locale (has 1-digit display for hours)&lt;/b>"/>
+            <tr:inputDate id="mdf7" value="#{date.date5}"
+                          label="attached converter with locale fr_BE">
+              <tr:convertDateTime locale="fr_BE" type="both" dateStyle="full"/>
+            </tr:inputDate>
+            <tr:outputFormatted styleUsage="instruction"
+                                value="&lt;b>A inputDate with a converter attached from ja locale&lt;/b>"/>
+            <tr:inputDate id="mdf8" value="#{date.date5}" label="attached converter with locale ja">
+              <tr:convertDateTime locale="ja" type="date" dateStyle="full"/>
+            </tr:inputDate>
+          </tr:panelGroupLayout>
+          <tr:commandButton text="Submit"/>
+        </tr:panelPage>
+      </tr:form>
+    </tr:document>
+  </f:view>
+</jsp:root>

@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <trh:html>
+      <trh:head title="Skin Demo">
+        <!-- the beach skin is defined in beach.css. If you want to add your own
+     custom style classes, you can add it to beach.css or to your own css
+     file, like what we demo here in beachCustomStyles.css -->
+        <link rel="stylesheet" charset="UTF-8" type="text/css"
+              href="/adf-faces-demo-context-root/skins/beach/CustomStyles.css"/>
+      </trh:head>
+      <trh:body>
+        <tr:form>
+          <tr:panelGroupLayout layout="vertical">
+            <f:facet name="separator">
+              <tr:separator/>
+            </f:facet>
+            <tr:commandLink immediate="true" text="Component Guide"
+                            action="guide"/>
+            <tr:panelGroupLayout layout="vertical">
+              <tr:panelGroupLayout layout="horizontal" styleClass="tabsPanelGroup">
+                <tr:navigationPane hint="tabs" shortDesc="Select tab">
+                  <tr:commandNavigationItem text="Home" action="guide.navigationPane"
+                                      selected="true"/>
+                  <tr:commandNavigationItem text="Clothing" action="guide.navigationPane"/>
+                  <tr:commandNavigationItem text="Equipment" action="guide.navigationPane"/>
+                </tr:navigationPane>
+                <tr:panelGroupLayout>
+                  <tr:commandNavigationItem text="Your Account"
+                                      action="guide.navigationPane"/>
+                  <tr:outputText value="|"/>
+                  <tr:icon name="required"/>
+                  <tr:commandNavigationItem text="SALES!" action="guide.navigationPane"/>
+                  <tr:icon name="required"/>
+                  <tr:outputText value="|"/>
+                  <tr:commandNavigationItem text="Help" action="guide.navigationPane"/>
+                </tr:panelGroupLayout>
+              </tr:panelGroupLayout>
+              <!--tr:navigationPane hint="bar">
+                <tr:commandNavigationItem text="Jackets" action="guide.navigationPane"
+                                    selected="true"/>
+                <tr:commandNavigationItem text="Pants" action="guide.navigationPane"/>
+                <tr:commandNavigationItem text="Shirts" action="guide.navigationPane"/>
+                <tr:commandNavigationItem text="Shoes" action="guide.navigationPane"/>
+                <tr:commandNavigationItem text="Swimwear" action="guide.navigationPane"/>
+                <tr:commandNavigationItem text="Sale Items" action="guide.navigationPane"/>
+              </tr:navigationPane-->
+              <tr:panelGroupLayout layout="horizontal"
+                             styleClass="adfFacesDemoSearchPanelGroup">
+                <f:facet name="separator">
+                  <tr:spacer width="10px"/>
+                </f:facet>
+                <tr:selectOneChoice label="Search">
+                  <tr:selectItem label="Cycling"/>
+                  <tr:selectItem label="Climbing"/>
+                </tr:selectOneChoice>
+                <tr:selectOneChoice label="Skin-family:" autoSubmit="false"
+                                    value="#{sessionScope.skinFamily}">
+                  <tr:selectItem label="simple" value="simple"/>
+                  <tr:selectItem label="minimal" value="minimal"/>
+                  <tr:selectItem label="purple" value="purple"/>
+                  <tr:selectItem label="purpleBigFont" value="purpleBigFont"/>
+                  <tr:selectItem label="beach" value="beach"/>
+                  <tr:selectItem label="suede" value="suede"/>
+                </tr:selectOneChoice>
+                <tr:commandButton text="Go"/>
+              </tr:panelGroupLayout>
+              <tr:panelGroupLayout layout="horizontal" styleClass="welcomePanel">
+                <tr:outputFormatted styleUsage="instruction"
+                                    value="&lt;b>Welcome!&lt;/b> We hope you find something you like."></tr:outputFormatted>
+              </tr:panelGroupLayout>
+              <tr:panelHorizontalLayout valign="top" inlineStyle="padding:5px;">
+                <tr:panelBox background="medium" text="Browse" inlineStyle="width:160px">
+                  <tr:outputText value="Recent Purchases"
+                                 styleClass="panelBoxHeader"/>
+                  <tr:panelList>
+                    <tr:goLink text="flip flops"
+                               destination="http://www.apache.org"/>
+                    <tr:goLink text="sandals"
+                               destination="http://www.apache.org"/>
+                    <tr:goLink text="trail shoes"
+                               destination="http://www.apache.org"/>
+                  </tr:panelList>
+                  <tr:outputText value="Equipment" styleClass="panelBoxHeader"/>
+                  <tr:panelList>
+                    <tr:goLink text="Cycling"
+                               destination="http://www.apache.org"/>
+                    <tr:goLink text="Climbing"
+                               destination="http://www.apache.org"/>
+                    <tr:goLink text="Kayaking"
+                               destination="http://www.apache.org"/>
+                    <tr:goLink text="Camping"
+                               destination="http://www.apache.org"/>
+                  </tr:panelList>
+                  <tr:outputText value="Clothing" styleClass="panelBoxHeader"/>
+                  <tr:panelList>
+                    <tr:goLink text="Shirts"
+                               destination="http://www.apache.org"/>
+                    <tr:goLink text="Shoes"
+                               destination="http://www.apache.org"/>
+                  </tr:panelList>
+                </tr:panelBox>
+                <tr:panelGroupLayout layout="vertical">
+                  <tr:panelHeader text="Recommendations for you">
+                    <tr:outputText value="Everything in Camping  is on sale! Enjoy huge savings on our most popular tents                     and sleeping bags. We even have dried food and mattresses"
+                                   styleClass="mainContentText"/>
+                  </tr:panelHeader>
+                  <tr:spacer height="5px"/>
+                  <tr:panelHeader text="New in Down Jackets!">
+                    <tr:outputText value="You might be sweltering in 100 degree heat, but think ahead to the cold winters and buy                     a down jacket!"
+                                   styleClass="mainContentText"/>
+                  </tr:panelHeader>
+                  <tr:spacer height="15px"/>
+                  <tr:panelTabbed>
+                    <tr:showDetailItem text="Tab 1">
+                      <tr:panelHeader text="Tab Header 1">
+                        <tr:panelFormLayout>
+                          <tr:inputText readOnly="true" label="Label 2-1"
+                                        value="Value" styleClass="AFFieldTextMarker"/>
+                          <tr:inputText readOnly="true"
+                                        label="Date/Time from last partial refresh"
+                                        value="#{date.currentDate}"
+                                        styleClass="AFFieldTextMarker">
+                            <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
+                          </tr:inputText>
+                          <tr:inputDate label="Birthdate:"/>
+                        </tr:panelFormLayout>
+                      </tr:panelHeader>
+                    </tr:showDetailItem>
+                    <tr:showDetailItem text="Tab 2" disclosed="true">
+                      <tr:panelHeader text="PanelTabbed details">
+                        <tr:outputText value="Everything in Camping  is on sale!  Enjoy huge savings on our most popular tents                     and sleeping bags. We even have dried food and mattresses"
+                                       styleClass="mainContentText"/>
+                        <tr:panelGroupLayout layout="horizontal">
+                          <tr:goButton text="Sorry, Disabled" disabled="true"/>
+                          <tr:spacer width="10px"/>
+                          <tr:goButton text="Go!" disabled="false"/>
+                        </tr:panelGroupLayout>
+                      </tr:panelHeader>
+                    </tr:showDetailItem>
+                    <tr:showDetailItem text="Tab 4" disabled="true"/>
+                    <tr:showDetailItem text="Tab 5">
+                      <tr:panelHeader text="Header 5">
+
+            <tr:table allDetailsEnabled="true" var="row"
+                      rowBandingInterval="2"
+                      value="#{periodicTable.tableData}" rows="10"
+                      summary="Element information">
+              <f:facet name="actions">
+                <tr:outputText value="(Actions)"/>
+              </f:facet>
+              <tr:column headerText="Name">
+                <tr:outputText value="#{row.name}"/>
+              </tr:column>
+              <f:facet name="detailStamp" >
+                <tr:panelGroupLayout layout="vertical" >
+                  <tr:outputText value="Element Name: #{row.name}"/>
+                </tr:panelGroupLayout>
+              </f:facet>
+            </tr:table>
+
+                      </tr:panelHeader>
+                    </tr:showDetailItem>
+                  </tr:panelTabbed>
+                  <tr:tree var="foo" value="#{demoTree.model}">
+                      <f:facet name="nodeStamp">
+                        <tr:outputText value="#{foo.text}"/>
+                      </f:facet>
+                    </tr:tree>
+                </tr:panelGroupLayout>
+                <tr:panelGroupLayout layout="vertical">
+                  <f:facet name="separator">
+                    <tr:spacer height="10px"/>
+                  </f:facet>
+                  <tr:panelBox background="medium" inlineStyle="width:160px">
+                    <tr:panelGroupLayout layout="vertical">
+                      <tr:outputText value="New Releases"
+                                     styleClass="panelBoxHeader"/>
+                      <tr:image source="/skins/beach/images/otn_logo_small.gif"/>
+                      <tr:outputFormatted styleUsage="instruction"
+                                          value="Check this out!"/>
+                    </tr:panelGroupLayout>
+                  </tr:panelBox>
+                  <tr:panelBox background="medium" inlineStyle="width:160px">
+                    <tr:panelGroupLayout layout="vertical">
+                      <tr:outputText value="More Stuff"
+                                     styleClass="panelBoxHeader"/>
+                      <tr:image source="/skins/beach/images/otn_logo_small.gif"/>
+                      <tr:outputFormatted styleUsage="instruction"
+                                          value="Check this out!"/>
+                    </tr:panelGroupLayout>
+                  </tr:panelBox>
+                  <tr:panelBox background="medium" inlineStyle="width:160px">
+                    <tr:panelGroupLayout layout="vertical">
+                      <tr:outputText value="Your New Releases"
+                                     styleClass="panelBoxHeader"/>
+                      <tr:image source="/skins/beach/images/otn_logo_small.gif"/>
+                      <tr:outputFormatted styleUsage="instruction"
+                                          value="Check this out!"/>
+                    </tr:panelGroupLayout>
+                  </tr:panelBox>
+                </tr:panelGroupLayout>
+              </tr:panelHorizontalLayout>
+            </tr:panelGroupLayout>
+          </tr:panelGroupLayout>
+        </tr:form>
+      </trh:body>
+    </trh:html>
+  </f:view>
+</jsp:root>

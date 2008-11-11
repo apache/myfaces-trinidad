@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+-->
+
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd"
+              version="1.2">
+  <component>
+    <component-type>javax.faces.ViewRoot</component-type>
+    <component-class>org.apache.myfaces.trinidadinternal.lifecycle.UIViewRoot</component-class>
+    <property>
+         <description><![CDATA[The locale for this view.
+<p>
+Defaults to the default locale specified in the faces configuration file.
+</p>]]></description>
+         <property-name>locale</property-name>
+         <property-class>java.util.Locale</property-class>
+    </property>
+    <property>
+         <description><![CDATA[Defines what renderkit should be used to render this view.]]></description>
+         <property-name>renderKitId</property-name>
+         <property-class>java.lang.String</property-class>
+    </property>
+    <property>
+         <description><![CDATA[MethodBinding pointing to a method that takes a
+javax.faces.event.PhaseEvent and returns void,
+called before every phase except for restore view.]]></description>
+         <property-name>beforePhaseListener</property-name>
+         <property-class>javax.el.MethodExpression</property-class>
+    </property>
+    <property>
+         <description><![CDATA[MethodBinding pointing to a method that takes a
+javax.faces.event.PhaseEvent and returns void,
+called after every phase except for restore view.]]></description>
+         <property-name>afterPhaseListener</property-name>
+         <property-class>javax.el.MethodExpression</property-class>
+    </property>
+    <property>
+         <property-name>transient</property-name>
+         <property-class>boolean</property-class>
+    </property>
+  </component>
+</faces-config>

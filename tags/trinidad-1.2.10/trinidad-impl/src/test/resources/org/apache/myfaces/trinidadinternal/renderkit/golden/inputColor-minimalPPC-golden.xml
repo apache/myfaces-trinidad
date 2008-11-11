@@ -1,0 +1,1493 @@
+<results>
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputColor"
+           id="mainId__xc_"
+           summary=""
+           width="100%"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputColor_label"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputColor_content"
+                 id="mainId"
+                 name="mainId"
+                 onblur="_fixCFF(this);"
+                 size="11"
+                 type="text"
+                >
+              
+            </input>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[chooseId,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputColor"
+           id="mainId__xc_"
+           summary=""
+           width="100%"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputColor_label"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputColor_content"
+                 id="mainId"
+                 name="mainId"
+                 onblur="_fixCFF(this);"
+                 size="11"
+                 type="text"
+                >
+              
+            </input>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[compact,false]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputColor"
+           id="mainId__xc_"
+           summary=""
+           width="100%"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputColor_label"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputColor_content"
+                 id="mainId"
+                 name="mainId"
+                 onblur="_fixCFF(this);"
+                 size="11"
+                 type="text"
+                >
+              
+            </input>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[compact,true]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputColor"
+           id="mainId__xc_"
+           summary=""
+           width="100%"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputColor_label"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputColor_content"
+                 id="mainId"
+                 name="mainId"
+                 onblur="_fixCFF(this);"
+                 size="11"
+                 type="text"
+                >
+              
+            </input>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[disabled,false]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputColor"
+           id="mainId__xc_"
+           summary=""
+           width="100%"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputColor_label"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputColor_content"
+                 id="mainId"
+                 name="mainId"
+                 onblur="_fixCFF(this);"
+                 size="11"
+                 type="text"
+                >
+              
+            </input>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[disabled,true]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputColor p_AFDisabled"
+           id="mainId__xc_"
+           summary=""
+           width="100%"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputColor_label"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputColor_content"
+                 disabled="disabled"
+                 id="mainId"
+                 name="mainId"
+                 onblur="_fixCFF(this);"
+                 size="11"
+                 type="text"
+                >
+              
+            </input>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[label,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputColor"
+           id="mainId__xc_"
+           summary=""
+           width="100%"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputColor_label"
+              >
+            
+            <label
+                 for="mainId"
+                >
+              test-label
+            </label>
+          </td>
+          <td
+               class="AFContentCell"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputColor_content"
+                 id="mainId"
+                 name="mainId"
+                 onblur="_fixCFF(this);"
+                 size="11"
+                 type="text"
+                >
+              
+            </input>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[readOnly,false]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputColor"
+           id="mainId__xc_"
+           summary=""
+           width="100%"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputColor_label"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputColor_content"
+                 id="mainId"
+                 name="mainId"
+                 onblur="_fixCFF(this);"
+                 size="11"
+                 type="text"
+                >
+              
+            </input>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[readOnly,true]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputColor p_AFReadOnly"
+           id="mainId__xc_"
+           summary=""
+           width="100%"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputColor_label"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               valign="top"
+              >
+            
+            <div
+                 class="af_inputColor_content"
+                 id="mainId"
+                >
+              
+            </div>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[required,false]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputColor"
+           id="mainId__xc_"
+           summary=""
+           width="100%"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputColor_label"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputColor_content"
+                 id="mainId"
+                 name="mainId"
+                 onblur="_fixCFF(this);"
+                 size="11"
+                 type="text"
+                >
+              
+            </input>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[required,true]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputColor p_AFRequired"
+           id="mainId__xc_"
+           summary=""
+           width="100%"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputColor_label"
+              >
+            
+            <span
+                 class="AFRequiredIconStyle"
+                 title="Required"
+                >
+              *
+            </span>
+          </td>
+          <td
+               class="AFContentCell"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputColor_content"
+                 id="mainId"
+                 name="mainId"
+                 onblur="_fixCFF(this);"
+                 size="11"
+                 type="text"
+                >
+              
+            </input>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[showRequired,false]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputColor"
+           id="mainId__xc_"
+           summary=""
+           width="100%"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputColor_label"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputColor_content"
+                 id="mainId"
+                 name="mainId"
+                 onblur="_fixCFF(this);"
+                 size="11"
+                 type="text"
+                >
+              
+            </input>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[required,false]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputColor"
+           id="mainId__xc_"
+           summary=""
+           width="100%"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputColor_label"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputColor_content"
+                 id="mainId"
+                 name="mainId"
+                 onblur="_fixCFF(this);"
+                 size="11"
+                 type="text"
+                >
+              
+            </input>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[required,true]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputColor p_AFRequired"
+           id="mainId__xc_"
+           summary=""
+           width="100%"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputColor_label"
+              >
+            
+            <span
+                 class="AFRequiredIconStyle"
+                 title="Required"
+                >
+              *
+            </span>
+          </td>
+          <td
+               class="AFContentCell"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputColor_content"
+                 id="mainId"
+                 name="mainId"
+                 onblur="_fixCFF(this);"
+                 size="11"
+                 type="text"
+                >
+              
+            </input>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[showRequired,true]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputColor p_AFRequired"
+           id="mainId__xc_"
+           summary=""
+           width="100%"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputColor_label"
+              >
+            
+            <span
+                 class="AFRequiredIconStyle"
+                 title="Required"
+                >
+              *
+            </span>
+          </td>
+          <td
+               class="AFContentCell"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputColor_content"
+                 id="mainId"
+                 name="mainId"
+                 onblur="_fixCFF(this);"
+                 size="11"
+                 type="text"
+                >
+              
+            </input>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[showRequired,true,AttributeTest[required,false]]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputColor p_AFRequired"
+           id="mainId__xc_"
+           summary=""
+           width="100%"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputColor_label"
+              >
+            
+            <span
+                 class="AFRequiredIconStyle"
+                 title="Required"
+                >
+              *
+            </span>
+          </td>
+          <td
+               class="AFContentCell"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputColor_content"
+                 id="mainId"
+                 name="mainId"
+                 onblur="_fixCFF(this);"
+                 size="11"
+                 type="text"
+                >
+              
+            </input>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[showRequired,true,AttributeTest[required,true]]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputColor p_AFRequired"
+           id="mainId__xc_"
+           summary=""
+           width="100%"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputColor_label"
+              >
+            
+            <span
+                 class="AFRequiredIconStyle"
+                 title="Required"
+                >
+              *
+            </span>
+          </td>
+          <td
+               class="AFContentCell"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputColor_content"
+                 id="mainId"
+                 name="mainId"
+                 onblur="_fixCFF(this);"
+                 size="11"
+                 type="text"
+                >
+              
+            </input>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[id,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputColor"
+           id="test-id__xc_"
+           summary=""
+           width="100%"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputColor_label"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputColor_content"
+                 id="test-id"
+                 name="test-id"
+                 onblur="_fixCFF(this);"
+                 size="11"
+                 type="text"
+                >
+              
+            </input>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[inlineStyle,background-color:red]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputColor"
+           id="mainId__xc_"
+           style="background-color:red"
+           summary=""
+           width="100%"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputColor_label"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputColor_content"
+                 id="mainId"
+                 name="mainId"
+                 onblur="_fixCFF(this);"
+                 size="11"
+                 type="text"
+                >
+              
+            </input>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[shortDesc,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputColor"
+           id="mainId__xc_"
+           summary=""
+           title="test-shortDesc"
+           width="100%"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputColor_label"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputColor_content"
+                 id="mainId"
+                 name="mainId"
+                 onblur="_fixCFF(this);"
+                 size="11"
+                 title="test-shortDesc"
+                 type="text"
+                >
+              
+            </input>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onblur,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputColor"
+           id="mainId__xc_"
+           summary=""
+           width="100%"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputColor_label"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputColor_content"
+                 id="mainId"
+                 name="mainId"
+                 onblur="return _chain('_fixCFF(this);','test-onblur',this,null)"
+                 size="11"
+                 type="text"
+                >
+              
+            </input>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[ondblclick,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputColor"
+           id="mainId__xc_"
+           summary=""
+           width="100%"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputColor_label"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputColor_content"
+                 id="mainId"
+                 name="mainId"
+                 onblur="_fixCFF(this);"
+                 ondblclick="test-ondblclick"
+                 size="11"
+                 type="text"
+                >
+              
+            </input>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onkeydown,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputColor"
+           id="mainId__xc_"
+           summary=""
+           width="100%"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputColor_label"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputColor_content"
+                 id="mainId"
+                 name="mainId"
+                 onblur="_fixCFF(this);"
+                 onkeydown="test-onkeydown"
+                 size="11"
+                 type="text"
+                >
+              
+            </input>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onkeypress,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputColor"
+           id="mainId__xc_"
+           summary=""
+           width="100%"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputColor_label"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputColor_content"
+                 id="mainId"
+                 name="mainId"
+                 onblur="_fixCFF(this);"
+                 onkeypress="test-onkeypress"
+                 size="11"
+                 type="text"
+                >
+              
+            </input>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onmousedown,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputColor"
+           id="mainId__xc_"
+           summary=""
+           width="100%"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputColor_label"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputColor_content"
+                 id="mainId"
+                 name="mainId"
+                 onblur="_fixCFF(this);"
+                 onmousedown="test-onmousedown"
+                 size="11"
+                 type="text"
+                >
+              
+            </input>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onmousemove,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputColor"
+           id="mainId__xc_"
+           summary=""
+           width="100%"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputColor_label"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputColor_content"
+                 id="mainId"
+                 name="mainId"
+                 onblur="_fixCFF(this);"
+                 onmousemove="test-onmousemove"
+                 size="11"
+                 type="text"
+                >
+              
+            </input>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onmouseout,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputColor"
+           id="mainId__xc_"
+           summary=""
+           width="100%"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputColor_label"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputColor_content"
+                 id="mainId"
+                 name="mainId"
+                 onblur="_fixCFF(this);"
+                 onmouseout="test-onmouseout"
+                 size="11"
+                 type="text"
+                >
+              
+            </input>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onmouseover,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputColor"
+           id="mainId__xc_"
+           summary=""
+           width="100%"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputColor_label"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputColor_content"
+                 id="mainId"
+                 name="mainId"
+                 onblur="_fixCFF(this);"
+                 onmouseover="test-onmouseover"
+                 size="11"
+                 type="text"
+                >
+              
+            </input>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onmouseup,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputColor"
+           id="mainId__xc_"
+           summary=""
+           width="100%"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputColor_label"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputColor_content"
+                 id="mainId"
+                 name="mainId"
+                 onblur="_fixCFF(this);"
+                 onmouseup="test-onmouseup"
+                 size="11"
+                 type="text"
+                >
+              
+            </input>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+</results>

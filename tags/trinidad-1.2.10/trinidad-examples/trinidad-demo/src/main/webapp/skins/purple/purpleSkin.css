@@ -1,0 +1,908 @@
+/*
+ *  Licensed to the Apache Software Foundation (ASF) under one
+ *  or more contributor license agreements.  See the NOTICE file
+ *  distributed with this work for additional information
+ *  regarding copyright ownership.  The ASF licenses this file
+ *  to you under the Apache License, Version 2.0 (the
+ *  "License"); you may not use this file except in compliance
+ *  with the License.  You may obtain a copy of the License at
+ * 
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ */
+
+
+/** Change the colors to purple **/
+
+/** All these styles/icons/properties are overrides of the simple skin */
+
+/** :alias means that this class or icon is not used directly. It is included
+in other component's style selectors or other component's icons. It is 
+meant to be a fast way to change styles. The alternative is to style each 
+component. **/
+.AFInstructionText
+{
+  font-size: medium;
+}
+
+.AFDarkForeground:alias {color:#035D5C;}
+.AFDarkBackground:alias {background-color:Purple;}
+/** In the base styles, AFDarkBorder uses the background-color of 
+    AFDarkBackground for its border color, so no need to set it directly. */
+    
+/* make up a color for hovering over menuTabs and menuBars */
+/* put the extension :alias so it won't get written out to the final css file,
+   cuz I know it won't be used directly. Instead it will be included in
+   other style definions using the -tr-rule-ref property. */
+.MyLinkHoverColor:alias { color:Lime; }
+
+
+/* a teal color */
+.AFLinkForeground:alias {color:#008080}
+
+/** BUTTON STYLES. Notice the right to left icons are specified with the
+:rtl pseudo-class. If :rtl icons are not specified, we default to non-:rtl icons. **/
+
+/** use this to color the button background and text **/
+.AFButtonServerText:alias {background-color:#CECFCE; color:#25009E}
+/* antialias the text for our disabled buttons */
+.AFButtonServerTextDisabled:alias {background-color:#F0F0F0; color:gray;-tr-text-antialias:true}
+
+
+.AFButtonStartIcon:alias {content:url(/skins/purple/images/btns.gif); width:7px; height:18px}
+
+.AFButtonStartIcon:alias:rtl {content:url(/skins/purple/images/btne.gif); width:7px; height:18px}
+
+.AFButtonEndIcon:alias {content:url(/skins/purple/images/btne.gif); width:7px; height:18px}
+.AFButtonEndIcon:alias:rtl {content:url(/skins/purple/images/btns.gif); width:7px; height:18px}
+
+.AFButtonTopBackgroundIcon:alias {content:url(/skins/purple/images/btntb.gif); width:1px; height:2px}
+.AFButtonTopBackgroundIcon:alias:rtl {content:url(/skins/purple/images/btntb.gif); width:1px; height:2px}
+
+.AFButtonBottomBackgroundIcon:alias {content:url(/skins/purple/images/btnbb.gif); width:1px; height:2px}
+.AFButtonBottomBackgroundIcon:alias:rtl {content:url(/skins/purple/images/btnbb.gif); width:1px; height:2px}
+
+.AFButtonDisabledStartIcon:alias {content:url(/skins/purple/images/btnds.gif); width:7px; height:18px}
+.AFButtonDisabledStartIcon:alias:rtl {content:url(/skins/purple/images/btnde.gif); width:7px; height:18px}
+.AFButtonDisabledEndIcon:alias {content:url(/skins/purple/images/btnde.gif); width:7px; height:18px}
+.AFButtonDisabledEndIcon:alias:rtl {content:url(/skins/purple/images/btnds.gif); width:7px; height:18px}
+
+.AFButtonDisabledTopBackgroundIcon:alias {content:url(/skins/purple/images/btndtb.gif); width:1px; height:2px}
+
+.AFButtonDisabledBottomBackgroundIcon:alias {content:url(/skins/purple/images/btndbb.gif); width:1px; height:2px}
+
+
+/** panelTabbed **/
+/** ---------- **/
+/** .AFPanelTabbed:alias is included in af|panelTabbed::orientation-top and 
+    af|panelTabbed::orientation-bottom which are the styles on the table. **/
+.AFPanelTabbed:alias {
+  background-color:#BB95BB; 
+  text-align:center;
+}
+/** make the top tab bar have a solid border underneath **/
+af|panelTabbed::orientation-top
+{
+  border-bottom: 3px solid black;
+}
+/** make the bottom tab bar have a solid border on top **/
+af|panelTabbed::orientation-bottom
+{
+  border-top: 3px solid black;
+}
+
+af|panelTabbed::separator {
+  margin:4px;
+  border-top: #BB95BB; solid 4pt ;
+  border-bottom: #BB95BB; solid 4pt ;
+  BACKGROUND-COLOR: white;
+  PADDING-LEFT: 1px;}
+
+af|panelTabbed::tab {
+  font-weight:bold;
+  font-family:Tahoma; 
+  padding:2px 8px;
+}
+
+af|panelTabbed::tab-selected {
+  font-family:Tahoma;
+  padding:2px 8px; 
+  text-decoration: none; 
+  background-color:white
+}  
+
+af|panelTabbed::tab-link {
+  color:white;
+  text-decoration: none;
+}
+
+af|panelTabbed::tab-link:hover
+{
+  -tr-rule-ref:selector(".MyLinkHoverColor:alias");
+}
+
+/* put some space in the
+first cell */
+af|panelTabbed::cell-start {
+  background-color:transparent; 
+  padding-left:10px
+}
+/** put some space between the tabs and the body */
+af|panelTabbed::body
+{
+  padding: 10px;
+}
+
+/** panelPage's footer area **/
+/** ----------------------- **/
+.AFFooterMessageText:alias
+{
+  padding:2px 6px;
+}
+
+/** menuTabs **/
+/** -------- **/
+/** You can create borders, and have image-free tabs, or you can use the
+    icon keys (e.g., af|menuTabs::selected-start-icon)to create tabs with
+    rounded borders. The icons are used below,
+    but you can comment them out if you want. */
+/** this isn't needed when we are using icons for the tabs(but the padding helps!)
+.AFTabBarItem:alias
+{
+  border-style:solid; 
+  border-color:#5D025E;
+  border-width: 3px 2px 0px 2px;
+  padding:2px 6px;
+  background-color: Purple;
+}
+**/
+.AFTabBarItem:alias
+{
+  line-height:100%;
+  padding:2px 6px;
+}
+/* Remove the text decoration from all tabBar links  */
+.AFTabBarLink:alias
+{
+  text-decoration:none;
+}
+/* Make the selected tab bold */
+af|menuTabs::selected-link
+{
+  font-weight: bold;
+  font-size: 14pt;
+  color: white;
+}
+af|menuTabs::enabled-link
+{
+  color: white;
+}
+
+af|menuTabs::enabled-link:hover
+{
+  -tr-rule-ref:selector(".MyLinkHoverColor:alias");
+}
+
+
+/** menuTabs that use icons are define like the following */
+af|menuTabs::enabled-start-icon
+{
+  content:url(/skins/purple/images/menuTabsEnabledStart.gif); width:8px; height: 26px;
+}
+af|menuTabs::enabled-start-icon:rtl
+{
+  content:url(/skins/purple/images/menuTabsEnabledEnd.gif); width:8px; height: 26px;
+}
+af|menuTabs::enabled-end-icon
+{
+  content:url(/skins/purple/images/menuTabsEnabledEnd.gif); width:8px; height: 26px;
+}
+af|menuTabs::enabled-end-icon:rtl
+{
+  content:url(/skins/purple/images/menuTabsEnabledStart.gif); width:8px; height: 26px;
+}
+af|menuTabs::enabled-join-icon
+{
+  content:url(/skins/purple/images/menuTabsEnabledJoin.gif); width:15px; height: 26px;
+}
+af|menuTabs::enabled-background-icon
+{
+  content:url(/skins/purple/images/menuTabsEnabledBackgroundGrdt.gif); width:1px; height: 26px;
+}
+
+af|menuTabs::selected-enabled-join-icon
+{
+  content:url(/skins/purple/images/menuTabsSelectedEnabledJoin.gif); width:15px; height: 26px;
+}
+af|menuTabs::selected-enabled-join-icon:rtl
+{
+  content:url(/skins/purple/images/menuTabsEnabledSelectedJoin.gif); width:15px; height: 26px;
+}
+af|menuTabs::enabled-selected-join-icon
+{
+  content:url(/skins/purple/images/menuTabsEnabledSelectedJoin.gif); width:15px; height: 26px;
+}
+af|menuTabs::enabled-selected-join-icon:rtl
+{
+  content:url(/skins/purple/images/menuTabsSelectedEnabledJoin.gif); width:15px; height: 26px;
+}
+
+
+af|menuTabs::selected-start-icon
+{
+  content:url(/skins/purple/images/menuTabsSelectedStart.gif); width:8px; height: 26px;
+}
+af|menuTabs::selected-start-icon:rtl
+{
+  content:url(/skins/purple/images/menuTabsSelectedEnd.gif); width:8px; height: 26px;
+}
+af|menuTabs::selected-end-icon
+{
+  content:url(/skins/purple/images/menuTabsSelectedEnd.gif); width:8px; height: 26px;
+}
+af|menuTabs::selected-end-icon:rtl
+{
+  content:url(/skins/purple/images/menuTabsSelectedStart.gif); width:8px; height: 26px;
+}
+
+af|menuTabs::selected-join-icon
+{
+  content:url(/skins/purple/images/menuTabsSelectedJoin.gif); width:15px; height: 26px;
+}
+af|menuTabs::selected-join-icon
+{
+  content:url(/skins/purple/images/menuTabSelectedJoin.gif); width:15px; height: 26px;
+}
+af|menuTabs::selected-background-icon
+{
+  content:url(/skins/purple/images/menuTabsSelectedBackground.gif); width:1px; height: 26px;
+}
+/** menuBar **/
+/** ------- **/
+af|menuBar
+{
+  border-width: 3px 2px 0px 2px;
+  border-style:solid;
+  -tr-rule-ref:selector(".AFDarkBorder:alias");
+  padding: 12px;
+}
+
+af|menuBar::selected-link
+{
+  font-weight:bold;
+}
+af|menuBar::enabled-link:hover
+{
+  -tr-rule-ref:selector(".MyLinkHoverColor:alias");
+}
+af|menuBar::separator
+{
+    padding: 0px 2px 0px 2px;
+}
+
+/** menuButtons **/
+/** ----------- **/
+.AFMenuButtons:alias
+{
+  padding:0px 2px 2px 4px;
+}
+
+/** panelBox **/
+/*  ------------   */
+
+/* Only skin the panelBox in medium mode. Other modes have their default values. */
+
+/* rounded corners on the top-start and top-end */
+af|panelBox::medium af|panelBox::top-start,
+af|panelBox::medium af|panelBox::top-end:rtl {
+  background-image: url(/skins/purple/images/panelBoxStart.gif);
+  width:8px; 
+  height:8px
+}
+
+af|panelBox::medium af|panelBox::top-end,
+af|panelBox::medium af|panelBox::top-start:rtl {
+  background-image: url(/skins/purple/images/panelBoxEnd.gif);
+  height: 8px;
+  width:  8px;
+}
+
+af|panelBox::medium af|panelBox::top {
+  background-color: purple;
+}
+
+/* make the bottom have a background color and some padding, no rounded corners */
+af|panelBox::medium  af|panelBox::bottom-start, 
+af|panelBox::medium af|panelBox::bottom-end,
+af|panelBox::medium af|panelBox::bottom {
+  background-color: purple;
+  padding-top: 8px;
+}
+
+
+af|panelBox::medium af|panelBox::start,
+af|panelBox::medium af|panelBox::end {
+  background-color: pink;
+}
+
+af|panelBox::medium af|panelBox::content {
+  background-color: #E7E4EA;
+  border-color: purple;
+  border-style: dashed;
+  border-width:1px;
+  padding-right: 6px;
+  padding-left: 6px;
+}
+
+af|panelBox::medium af|panelBox::header {
+  background-color: Aqua;
+}
+
+/* for all panelBox headers, make the font bold */
+af|panelBox::header {
+  font-weight: bold;
+  padding: 2px;
+}
+
+af|panelBox::medium af|panelBox::body {
+  padding: 6px;
+  background-color: pink;
+}
+/* for all body, if doesn't have medium set, use yellow for the background-color */
+.AFPanelBoxBody:alias {
+ background-color: yellow; 
+}
+
+/* for panelBox without a header and shuttles */
+.AFBoxContentBody:alias
+{
+  background-color: white;
+  border-color: #E7E4EA;
+  border-style:solid;
+  border-width:3px;
+  margin:2px; 
+  padding:5px;
+}
+
+/* shuttle */
+/** Icons unique to the selectOrderShuttle for re-ordering user selections **/
+/* Purposely use different urls to test different configurations */
+/* this is relative to this skin file */
+af|selectOrderShuttle::reorder-top-icon {
+	content: url(images/shuttleOrderTop.png);
+	width: 16px;
+	height: 16px;
+}
+/* this is relative to the application context */
+af|selectOrderShuttle::reorder-up-icon {
+	content: url(/skins/purple/images/shuttleOrderUp.png);
+	width: 16px;
+	height: 16px;
+  border: 2px black solid;
+}
+
+af|selectOrderShuttle::reorder-down-icon {
+	content: url(images/shuttleOrderDown.png);
+	width: 16px;
+	height: 16px;
+}
+
+af|selectOrderShuttle::reorder-bottom-icon {
+	content: url(../purple/images/shuttleOrderBottom.png);
+	width: 16px;
+	height: 16px;
+}
+
+/** panelHeader **/
+/** ----------- **/
+af|panelHeader
+{
+  -tr-rule-ref:selector(".AFDarkAccentBorder:alias");
+   border-width:0px 0px 1px 0px;
+   border-style:solid;
+   vertical-align:bottom;
+   margin-bottom:3px;
+   padding:0px 3px;
+   font-weight:bolder;
+   font-size:larger;
+}
+
+
+/** train **/
+/** ------------ **/
+/**  We override the AFTrainStation alias style to add some
+       padding, and also to display the station indicator
+       using a top border **/
+.AFTrainStation:alias
+{
+  border-style:solid;
+  border-width:3px 0px 0px 0px;
+  padding:3pt;
+}
+af|train::visited af|train::link
+{
+  color: Fuchsia;
+}
+
+/** selectBooleanCheckbox **/
+/** ---------------------  **/
+af|selectBooleanCheckbox::read-only-unchecked-icon
+{
+  content:url(/skins/purple/images/checkrn.gif);
+  border-width: 3px;
+  border-style: dashed;
+  border-color: purple;
+}
+af|selectBooleanCheckbox::read-only-checked-icon
+{
+  /*content:url(/skins/purple/images/checkrc.gif);*/
+  content: "X";
+  border-width: 3px;
+  border-style: dashed;
+  border-color: aqua;
+}
+
+af|selectBooleanCheckbox::disabled-only-unchecked-icon
+{
+  content:url(/skins/purple/images/checkdn.gif);
+}
+af|selectBooleanCheckbox::disabled-only-checked-icon
+{
+  content:url(/skins/purple/images/checkdc.gif);
+}
+/** selectOneRadio **/
+af|selectOneRadio:read-only::label {
+  color: aqua;
+  font-weight: bold;
+}
+
+/** selectInputDate launch icon **/
+af|inputDate::launch-icon
+{
+  content:url(/skins/purple/images/dateButtonPurple.gif); 
+  width:19px; 
+  height:24px
+}
+af|inputDate::launch-icon:rtl
+{
+  content:url(/skins/purple/images/dateButtonPurpleRTL.gif); 
+  width:19px; 
+  height:24px
+}
+
+/* use special properties to change the ui **/
+/* don't show the last item in breadCrumbs (the default is to show it)*/
+@agent gecko
+{
+af|breadCrumbs {-tr-show-last-item:false}
+}
+
+af|breadCrumbs::step {color: purple;}
+af|breadCrumbs::step:hover {color: green}
+af|breadCrumbs::selected-step:hover {color: green;}
+
+af|treeTable::path-step {color: purple; text-decoration:none}
+af|treeTable::path-step:hover {color: green}
+af|treeTable::path-selected-step:hover {color: green;}
+
+
+/** if, for some reason, you don't want an icon to show up, you
+    can hide it like this (this feature will be more useful when skins can
+    extends other skins besides simple)
+
+af|breadCrumbs::separator-icon {content:inhibit}    
+*/
+
+.AFHeaderErrorIcon:alias 
+{
+  content:url(/skins/purple/images/errorl.gif); width:18px; height: 18px;
+
+}
+
+af|messages
+{
+  -tr-rule-ref: selector("AFVeryDarkAccentBorder:alias");
+  border-style:solid;
+  border-width:1px;
+  padding:5px;
+  margin:5px 0px 0px;
+}
+
+af|messages::header
+{
+  -tr-rule-ref: selector("AFDarkAccentBorder:alias");
+  border-width:0px 0px 1px 0px;
+  border-style:solid;
+  vertical-align:bottom;
+  margin-bottom:3px;
+  padding:0px 3px;
+}
+
+.AFHeaderText:alias
+{
+  -tr-rule-ref: selector("AFDarkForeground:alias");
+  font-weight:bold;
+  padding: 0px;
+  margin: 0px;
+}
+
+/* custom styles that I made up and set on the styleClass attribute of various
+Trinidad components */
+.adfFacesDemoSearchPanelGroup
+{
+  width:100%;
+  background-color:#B1A9BC;
+  padding:8px 0px 8px 12px;
+  border-color:purple;border-style:solid; border-width:2px;
+}
+
+
+.welcomePanel
+{
+  padding-left:0px;
+  width:100%;
+  background-color:#E7E4EA;
+  margin-bottom:10px;
+  padding-bottom:10px;
+  padding-top:10px;
+  text-align:center;
+
+}
+.panelBoxHeader
+{
+  font-family: verdana,arial,helvetica,sans-serif; 
+  color:#035D5C;
+  font-weight:bold; 
+  font-size:small;
+}
+
+af|chooseDate::prev-icon 
+{
+  content:url(/skins/purple/images/prev.png); width:11px; height: 15px;
+}
+
+af|chooseDate::next-icon 
+{
+  content:url(/skins/purple/images/next.png); width:11px; height: 15px;
+}
+
+af|chooseDate::prev-disabled-icon 
+{
+  content:url(/skins/purple/images/prevDisabled.png); width:11px; height: 15px;
+}
+
+af|chooseDate::next-disabled-icon 
+{
+  content:url(/skins/purple/images/nextDisabled.png); width:11px; height: 15px;
+}
+
+af|objectSeparator
+{
+  -tr-rule-ref: selector(".AFDarkBorder:alias");
+  border-style: dashed none none;
+  border-width: 1px 0px 0px;
+  height: 1px;
+  padding: 0px;
+} 
+
+/* test :rtl for styles */
+.AFEndPadding:alias:rtl
+{
+  padding: 0px 0px 0px 20px;
+}
+af|inputText::content:rtl
+{
+  color: red; 
+}
+af|inputText::label:rtl
+{
+  font-weight:bold;
+}
+
+af|inputNumberSpinbox::increment-cell, af|inputNumberSpinbox::decrement-cell
+{
+  background-color:pink;
+}
+
+/* change borders for the header on table */
+af|column::sortable-header-text {
+    border-style: solid;
+    border-color: red;
+    border-width: 1px;
+    background-color: yellow;
+    border-width: 1px 1px 1px 1px;
+}
+/* The base style had a special style set for gecko, and so we need to override it here. 
+Is this a bug? It seems like it */
+@agent gecko {
+af|column::sortable-header-text {
+    border-style: solid;
+}
+
+  af|tree::collapsed-icon {
+    content:url(/skins/purple/images/collapsed.gif);
+    width:18px;
+    height:19px    
+  }
+
+  af|tree::expanded-icon {
+    content:url(/skins/purple/images/expanded.gif);
+    width:18px;
+    height:19px    
+  }
+}
+
+
+/* test @agent and @platform styles */
+/* possible values for @agent are: 
+netscape, ie, mozilla, gecko, webkit, ice */
+/* possible values for @platform are: 
+windows, macos, linux, solaris, ppc */
+
+@agent ie
+{
+  af|panelBox::header
+  {
+    text-overflow: ellipsis;
+  }
+
+  .DropShadowStyle
+  {
+    width: 357; 
+    height: 50; 
+    font-size: 36pt; 
+    font-family: Arial Black; 
+    color: blue; 
+    Filter: DropShadow(Color=#FF0000, OffX=2, OffY=2, Positive=1); 
+    
+  }
+}
+
+
+@platform windows, linux, solaris
+{
+  /** for ie and gecko on windows, linux and solaris, make the color pink **/
+  @agent ie, gecko
+  {
+    af|inputText::content {background-color:pink}
+  }
+}
+
+/* Test -tr-inhibit: all and -tr-inhibit a specific css property */
+
+/* this should end up with  .portlet-form-input-field {padding: 8px} */
+.portlet-form-input-field {
+/* This should first inhibit all inherited styles. Then everything else
+   should be included.*/
+  -tr-inhibit: all;
+  padding: 8px;
+  /* This should inhibit the background-color that is inherited and/or included, 
+  like in .AFLightAccentBackground:alias
+  The order of this does not matter. */
+  -tr-inhibit: background-color;
+  -tr-rule-ref: selector(".AFLightAccentBackground:alias");
+}
+
+/* This test inhibits the text-decoration property that is defined in the base skin */
+.PortletHeaderLink {
+  -tr-inhibit: text-decoration;
+  color: pink;
+}
+
+/* this tests what happens when we add :rtl to the end of a style class. */
+
+/* When the browser's language is set to a left-to-right language like English,
+then we will use this style. We generate .testRightToLeft {color: blue;} when the browser's language
+is a left-to-right language. */
+.testRightToLeft {
+  color: blue;
+}
+/* If the language is right-to-left, then add this rtl specific css definition to the one
+above. We generate .testRightToLeft {color: blue; font-size: 24em} when the browser's language
+is a right-to-left language. */
+.testRightToLeft:rtl {
+  font-size: 24em;
+}
+/* test css parsing only */
+.AFPanelNavigationHorizontal ul li.on:hover ul {
+    background: #224d6f;
+} 
+
+af|navigationPane::bar {
+  background-color: pink;
+}
+af|navigationPane::bar-active-enabled af|navigationPane::bar-content {
+  font-style: italic;
+  font-size: 14px;
+}
+
+af|navigationPane::bar-active-enabled af|navigationPane::bar-content A {
+  color: blue;
+}
+
+af|navigationPane::bar-active-enabled af|navigationPane::bar-content A:hover {
+  color: purple;
+}
+
+af|navigationPane::bar-content {
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+af|navigationPane::bar-separator {
+  color: aqua;
+}
+
+/* navigationPane::tabs */
+
+/* style the disabled tabs' text green */
+af|navigationPane::tabs-active:disabled af|navigationPane::tabs-mid {
+  color: green;
+}
+
+af|navigationPane::tabs-inactive:disabled af|navigationPane::tabs-mid {
+  color: green;
+}
+
+/* Skin the by clearing out the background image */
+af|navigationPane::tabs-active af|navigationPane::tabs-start {
+  -tr-inhibit: background-image;
+  border-bottom: Black solid 1px;
+  /* background-image: url('/adf/images/tab3-start-selected.gif'); */
+}
+
+
+af|navigationPane::tabs-active af|navigationPane::tabs-start-join {
+  -tr-inhibit: background-image;
+  border-bottom: 2px green solid;
+  /* background-image: url('/adf/images/tab3-start-join-selected.gif'); */
+}
+
+af|navigationPane::tabs-active af|navigationPane::tabs-bottom-start {
+  -tr-inhibit: background-image;
+  background-color: lime;
+  /* background-image: url('/adf/images/tab3-bot-mid-selected.gif'); */
+}
+
+af|navigationPane::tabs-active af|navigationPane::tabs-bottom-start-content {
+  -tr-inhibit: background-image;  
+/* background-image: url('/adf/images/tab3-bot-start-selected.gif');*/
+}
+
+
+af|navigationPane::tabs-active af|navigationPane::tabs-mid {
+  background-color: purple;
+  border-top: black solid 1px;
+  border-left: black solid 2px;
+  border-right: black solid 2px;
+  -tr-inhibit: background-image;
+  padding-right: 10px;
+  padding-left: 10px;
+  /* background-image: url('/adf/images/tab3-mid-selected.gif'); */
+}  
+  
+af|navigationPane::tabs-active af|navigationPane::tabs-bottom-mid {
+  -tr-inhibit: background-image;
+ /* background-image: url('/adf/images/tab3-bot-mid-selected.gif'); */ 
+}
+   
+
+/* Styles the end of the last tab if it is active */
+af|navigationPane::tabs-active af|navigationPane::tabs-end {
+  -tr-inhibit: background-image;
+    border-bottom: Black solid 1px;
+  /* background-image: url('/adf/images/tab3-end-selected.gif'); */
+}
+  
+af|navigationPane::tabs-active af|navigationPane::tabs-bottom-end {
+  -tr-inhibit: background-image;
+
+  /* background-image: url('/adf/images/tab3-bot-mid-selected.gif'); */
+}
+
+af|navigationPane::tabs-active af|navigationPane::tabs-bottom-end-join {
+  -tr-inhibit: background-image;
+    border-bottom: 2px blue solid;
+  /* background-image: url('/adf/images/tab3-bot-deselected.gif'); */
+}
+  
+  
+af|navigationPane::tabs-active af|navigationPane::tabs-bottom-end-content {
+  -tr-inhibit: background-image;
+      background-color: Lime;
+  /*background-image: url('/adf/images/tab3-bot-end-selected.gif');*/
+}
+  
+  
+af|navigationPane::tabs-inactive af|navigationPane::tabs-start {
+  -tr-inhibit: background-image;
+  /* background-image: url('/adf/images/tab3-start-deselected.gif');*/
+}
+  
+  
+af|navigationPane::tabs-inactive af|navigationPane::tabs-bottom-start {
+  -tr-inhibit: background-image;
+  background-color: red;
+  /* background-image: url('/adf/images/tab3-bot-deselected.gif');*/
+}
+  
+  
+af|navigationPane::tabs-inactive af|navigationPane::tabs-bottom-start-content {
+  -tr-inhibit: background-image;
+  background-color: gray;
+  /* background-image: none;*/
+}
+  
+af|navigationPane::tabs-inactive af|navigationPane::tabs-mid {
+  background-color: pink;
+  border-top: black solid 1px;
+  border-left: black solid 2px;
+  border-right: black solid 2px;
+  padding-right: 10px;
+  padding-left: 10px;
+  -tr-inhibit: background-image;
+  /* background-image: url('/adf/images/tab3-mid-deselected.gif');*/
+}
+  
+af|navigationPane::tabs-bottom-mid {
+  background-color: pink;
+}
+    
+  
+af|navigationPane::tabs-inactive af|navigationPane::tabs-start-join-from-active,
+af|navigationPane::tabs-inactive af|navigationPane::tabs-start-join-from-inactive,
+af|navigationPane::tabs-inactive af|navigationPane::tabs-end-join-to-inactive,
+af|navigationPane::tabs-active af|navigationPane::tabs-end-join-to-inactive {
+  -tr-inhibit: background-image;
+  /* background-image: url('/adf/images/tab3-end-join-deselected-to-deselected.gif');*/
+}
+  
+  
+af|navigationPane::tabs-inactive af|navigationPane::tabs-end {
+  -tr-inhibit: background-image;
+ /*  background-image: url('/adf/images/tab3-end-deselected.gif');*/
+}
+  
+  
+af|navigationPane::tabs-inactive af|navigationPane::tabs-bottom-end {
+  -tr-inhibit: background-image;
+  background-color: gray;
+ /*  background-image: url('/adf/images/tab3-bot-deselected.gif');*/
+}
+  
+  
+af|navigationPane::tabs-inactive af|navigationPane::tabs-bottom-end-join {
+    border-bottom: Fuchsia 3px solid;
+  -tr-inhibit: background-image;
+ /*  background-image: url('/adf/images/tab3-bot-deselected.gif');*/
+}
+
+  
+  
+af|navigationPane::tabs-inactive af|navigationPane::tabs-bottom-end-content {
+  -tr-inhibit: background-image;
+  background-color: red;
+ /*  background-image: none;*/
+}
+
+.AFFooIcon:alias {content:url(/skins/purple/images/btns.gif); width:7px; height:18px}
+.AFBarIcon {content:url(/skins/purple/images/btns.gif); width:7px; height:18px}
+
+@agent ie
+{
+af|tree {
+  -tr-show-lines:true;
+}
+}
+@agent gecko
+{
+af|tree {
+  -tr-show-lines:false;
+}
+}

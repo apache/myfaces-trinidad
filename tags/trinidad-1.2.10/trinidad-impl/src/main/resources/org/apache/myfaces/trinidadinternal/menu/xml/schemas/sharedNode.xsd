@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:trmenu="http://myfaces.apache.org/trinidad/menu"
+            targetNamespace="http://myfaces.apache.org/trinidad/menu"
+            elementFormDefault="qualified">
+  <xsd:include schemaLocation="base.xsd"/>
+  <xsd:element name="sharedNode" type="trmenu:sharedNodeType">
+    <xsd:annotation>
+      <xsd:documentation>
+        A menu node that points to another menu model
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="sharedNodeType">
+    <xsd:complexContent>
+      <xsd:extension base="trmenu:baseType">
+        <xsd:attribute name="id" type="xsd:id" />
+        <xsd:attribute name="ref" type="xsd:string" use="required"/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+</xsd:schema>

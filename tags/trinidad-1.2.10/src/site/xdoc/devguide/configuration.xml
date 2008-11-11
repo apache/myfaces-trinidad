@@ -1,0 +1,693 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+     
+-->
+<document>
+  <properties>
+    <title>Configuring Apache Trinidad</title>
+  </properties>
+
+  <body>
+    <section name="Configuring Apache Trinidad">
+      <p>
+        <ul>
+          <li>
+            <a href="#trinidad-config.xml">trinidad-config.xml</a>
+          </li>
+          <li>
+            <a href="#web.xml">web.xml</a>
+          </li>
+          <li>
+            <a href="#Configuring Apache Trinidad for Performance">Configuring Apache Trinidad for Performance</a>
+          </li>
+          <li>
+            <a href="#RequestContext">RequestContext</a>
+          </li>
+          <li>
+            <a href="#The &quot;requestContext&quot; EL object">The 'requestContext' EL object</a>
+          </li>
+        </ul>
+      </p>
+    </section>
+    <section name="trinidad-config.xml">
+      <p>
+
+      Apache Trinidad is configured with an
+      <code>trinidad-config.xml</code> file. 
+      If you need an
+      <code>trinidad-config.xml</code> file then it must be placed in
+      the WEB-INF directory of your web application.  This file has a
+      very simple XML structure that relies on the JSF expression
+      language (EL) for flexibility.  Each configurable property can be
+      defined either inline with a static, constant value, or with a
+      JSF EL expression that is re-evaluated on each request.
+      </p>
+      <subsection name="Example file">
+<source><![CDATA[
+<?xml version="1.0"?>
+<trinidad-config xmlns="http://myfaces.apache.org/trinidad/config">
+  <!-- Enable debug output -->
+  <debug-output>true</debug-output>
+
+  <!-- Pick accessibility options based on a per-user managed bean -->
+  <accessibility-mode>#{user.accessibilityMode}</accessibility-mode>
+
+  <!-- A silly use of EL: English users get one appearance, -->
+  <!-- others get another -->
+  <skin-family>
+    #{view.locale.language=='en' ?  'minimal' : 'customSkin'}
+  </skin-family>
+</trinidad-config>
+]]>
+</source>
+      </subsection>
+      <subsection name="Definition of subelements">
+        <p>
+        All <code>trinidad-config.xml</code> files must begin with
+an <code>&lt;trinidad-config&gt;</code> element in the 
+<code>http://myfaces.apache.org/trinidad/config</code> XML namespace.
+The order of elements inside of <code>&lt;trinidad-config&gt;</code>
+doesn't matter.
+        </p>
+        <subsection name="debug-output">
+<p>
+The <code>&lt;debug-output&gt;</code> element controls whether output is enhanced for
+debugging.  Apache Trinidad adds a variety of features to aid in debugging,
+including:
+<ul>
+<li>Automatically indenting output</li>
+<li>Adding comments identifying which component was responsible
+ for a block of HTML</li>
+<li>Detecting unbalanced elements, repeated use of the
+ same attribute in a single element, or other malformed markup
+ problems</li>
+<li>Detecting common HTML errors (like &lt;form&gt; tags
+inside other &lt;form&gt; tags, &lt;tr&gt; or &lt;td&gt; tags
+used in illegal locations, etc.)</li>
+</ul>
+</p>
+        </subsection>
+        <subsection name="client-validation">
+<p>
+The <code>&lt;client-validation&gt;</code> element controls how client-side converters and validators are run.  Three values are supported:
+<ul>
+<li>"INLINE": validation is shown inline in a page (the default)</li>
+<li>"ALERT": validation is shown in an Javascript alert</li>
+<li>"DISABLED": validation is only handled on the server</li>
+</ul>
+</p>
+        </subsection>
+        <subsection name="client-validation-disabled">
+<p>
+The <code>&lt;client-validation-disabled&gt;</code> element controls whether client side converters and validators are run.   This element is deprecated - please use &lt;client-validation&gt;.
+</p>
+        </subsection>
+        <subsection name="output-mode">
+<p>
+The <code>&lt;output-mode&gt;</code> element configures what "Output Mode"
+Apache Trinidad is using.  Accepted values include:
+<ul>
+<li>"default" (or null): the default output mode</li>
+<li>"printable": an output mode suitable for printable pages</li>
+<li>"email": an output mode suitable for e-mailing a page's content</li>
+</ul>
+</p>
+        </subsection>
+        <subsection name="skin-family">
+<p>
+The <code>&lt;skin-family&gt;</code> element configures the skin
+to be used.  Accepted values include:
+<ul>
+<li>"minimal": a more minimal skin </li>
+</ul>
+Future releases of Apache Trinidad will define public APIs for extending
+the set of available skins. Currently, you can create your own skin
+by creating the skin definition in a file named trinidad-skins.xml.
+See the Apache Trinidad demos for examples.
+</p>
+        </subsection>
+        <subsection name="accessibility-mode">
+<p>
+The <code>&lt;accessibility-mode&gt;</code> element defines the level
+of accessibility support to be used.  Accepted values are:
+<ul>
+<li>"default": Output supports accessibility features</li>
+<li>"inaccessible": Accessibility-specific constructs are stripped out to optimize output size</li>
+<li>"screenReader": Accessibility-specific constructs are added to improve behavior under a screen reader (but
+  may affect other users negatively)</li>
+</ul>
+</p>
+        </subsection>
+        <subsection name="accessibility-profile">
+<p>
+The <code>&lt;accessibility-profile&gt;</code> element defines finer-grained
+accessibility preferences than is possible to support with the acccessibility
+mode.  Accepted values are:
+</p>
+<p>
+<ul>
+<li>"high-contrast": Indicates that the end user prefers high contrast-friendly content.</li>
+<li>"large-fonts": Indicates that the end user prefers large fonts (larger fonts than the default font size provided by the skin).</li>
+</ul>
+</p>
+<p>
+Multiple values may be specified using whitespace to separate the values, eg:
+</p>
+<source><![CDATA[
+  <!-- Enable both high-contrast and large-fonts content -->
+  <accessibility-profile>high-contrast large-fonts</accessibility-profile>
+]]>
+</source>
+<p>
+Since accessibility preferences are user-specific, the accessibility-profile is typically bound, similar to the accessibility-mode.  The preferences specified by the accessibility profile can be used at runtime to tune both styles/icons defined by the skin as well as the content produced by Renderers.
+</p>
+<p>
+The typical use case for the "high-contrast" preference is to work around issues relating to CSS background images when platform/browser high contrast features are enabled.  For example, when Windows High Contrast mode is enabled (Control Panel->Accessibility Options->Display->High Contrast->Use High Contrast), all background images are hidden.  In cases where background images are used to convey information, this information is lost to high contrast users.  The high-contrast accessibility profile option allows skin implementations to replace such background images with &lt;img&gt; element-based icons, thus avoiding the loss of information.
+</p>
+<p>
+The typical use case for the "large-fonts" preference is to allow skins which specify small or non-scalable fonts (eg. px-based fonts on IE) to provide an alternate set of fonts for users who find the default fonts insufficient.
+</p>
+<p>
+Note that at the moment, the Trinidad core renderers/skins do not yet take advantage of the accessibility profile preferences.  These properties are primarily provided for skin authors who wish to design skins which provide styles/icons optimized for high contrast/large font users.
+</p>
+        </subsection>
+        <subsection name="oracle-help-servlet-url">
+<p>
+The <code>&lt;oracle-help-servlet-url&gt;</code> element defines
+an URL to an installation of Oracle Help for the Web (OHW).
+Apache Trinidad supports OHW Version 2.0 as well as earlier versions.
+Once this is configured, page content can be trivially attached
+to any JSF tag that accepts an URL by using the "requestContext" EL
+object. For example:
+<source><![CDATA[
+     <h:outputLink value="#{requestContext.helpTopic.someTopicID}">
+       <h:outputText value="Get Help"/>
+     </h:outputLink>]]></source>
+</p>
+        </subsection>
+        <subsection name="page-flow-scope-lifetime">
+<p>
+The <code>&lt;page-flow-scope-lifetime&gt;</code> element
+controls the maximum number of pageFlowScope instances that will be
+kept active at any one time.  The default is 15.  Unlike other
+<code>&lt;trinidad-config&gt;</code> elements,
+<code>&lt;page-flow-scope&gt;</code> lifetime does not support EL
+expressions - it must be configured statically.
+</p>
+        </subsection>
+        <subsection name="time-zone">
+<p>
+The <code>&lt;time-zone&gt;</code> element defines the default
+time zone used for date processing and date display.  Apache Trinidad
+will attempt to default the time zone to the time zone used
+by the client browser, but this property may be bound by
+an EL expression to a <code>TimeZone</code> object if needed.
+This value is used by <code>org.apache.myfaces.trinidad.converter.DateTimeConverter</code>
+while converting strings to Date.
+</p>
+        </subsection>
+
+        <subsection name="two-digit-year-start">
+<p>
+The <code>&lt;two-digit-year-start&gt;</code> element defines the 
+year offset that should be used for parsing years with only two digits.
+If it is not set, it is defaulted to year <code>1950</code>. This value is 
+used by <code>org.apache.myfaces.trinidad.converter.DateTimeConverter</code>
+while converting strings to Date. This property may also
+be explicitly configured with an EL expression that returns 
+Integer object if needed or can be directly harcoded to a integer value.
+</p>
+        </subsection>
+        <subsection name="right-to-left">
+<p>
+The <code>&lt;right-to-left&gt;</code> element defines whether pages
+will be rendered in left-to-right mode (most languages) or
+right-to-left mode (Arabic and Hebrew, for example).  While Apache Trinidad
+will automatically pick the reading direction for you (sufficient for
+the vast majority of developers), if you need a different
+default association of language to reading direction you can use an EL
+expression here that returns a Boolean object, or hardcode it to either 
+"true" or "false".
+</p>
+        </subsection>
+        <subsection name="number-grouping-separator">
+<p>
+The <code>&lt;number-grouping-separator&gt;</code> element defines the
+separator used for groups of numbers.  Apache Trinidad will automatically
+derive the separator from the current locale, but it may also
+be hardcoded or can be explicitly configured with an EL expression that returns
+a Character object. If set, this value is used by 
+<code>org.apache.myfaces.trinidad.converter.NumberConverter</code> while parsing 
+and formatting.
+</p>
+        </subsection>
+        <subsection name="decimal-separator">
+<p>
+
+The <code>&lt;decimal-separator&gt;</code> element defines the
+separator used for the decimal point.  Apache Trinidad will automatically
+derive the separator from the current locale, but it may also
+be hardcoded or can be explicitly configured with an EL expression that returns
+a Character object. If set, this value is used by 
+<code>org.apache.myfaces.trinidad.converter.NumberConverter</code> while parsing 
+and formatting.
+
+</p>
+        </subsection>
+        <subsection name="currency-code">
+<p>
+
+The <code>&lt;currency-code&gt;</code> element defines the
+ISO 4217 currency code used by default for formatting
+currency fields when those fields do not specify an explicit
+currency field via their converter. If this value is not specified
+in the converter and is set here, then this value is used by 
+<code>org.apache.myfaces.trinidad.converter.NumberConverter</code> while  
+formatting. This value can be hardcoded or can be explicitly configured 
+with an EL expression that returns a String object.
+
+</p>
+        </subsection>
+
+        <subsection name="uploaded-file-processor">
+<p>
+
+The <code>&lt;uploaded-file-processor&gt;</code> element must
+be the name of a class that implements the
+<code>org.apache.myfaces.trinidad.webapp.UploadedFileProcessor</code>
+interface.  This API is responsible for processing each individual
+uploaded file as they come from the incoming request and making
+its contents available for the rest of the request.  Most developers
+will find the default <code>UploadedFileProcessor</code> sufficient
+for their purposes, but applications that need to support uploading
+very large files may improve their performance by immediately
+storing files in their final destination, instead of requiring
+Apache Trinidad to handle temporary storage during the request.
+</p>
+        </subsection>
+        <subsection name="formatting-locale">
+<p>
+The <code>&lt;formatting-locale&gt;</code> element is used by converters without
+an explicit locale to format values.  Values for this follow the same format as
+locale values in faces-config.xml (ie en_US).
+</p>
+        </subsection>
+      </subsection>
+    </section>
+    <section name="web.xml">
+<p>
+
+Some Apache Trinidad configuration options are set instead with
+<code>&lt;context-param&gt;</code> elements in your
+<code>WEB-INF/web.xml</code>file.
+</p>
+<subsection name="org.apache.myfaces.trinidad.CACHE_VIEW_ROOT">
+<p>
+Enables or disables UIViewRoot caching;  defaults to true.
+</p>
+<p>
+When "token" client-side state saving is enabled, Trinidad applies
+an additional optimization by caching an entire UIViewRoot tree
+with each token.  (Care has been taken to ensure that this
+does not affect thread safety or session failover.)
+This is a major optimization for AJAX-intensive
+systems, as postbacks can be processed far more rapidly without
+the need to reinstantiate the UIViewRoot tree.  However, 
+it is known to interfere with some other JSF technologies.
+In particular, the Apache MyFaces Tomahawk <code>saveState</code> component
+does not work, and template text in Facelets may appear in duplicate.
+This optimization can be disabled by setting this context parameter
+to <code>false</code>.
+</p>
+</subsection>
+
+<subsection name="org.apache.myfaces.trinidad.CLIENT_STATE_METHOD">
+<p>
+Chooses the type of client-side state saving used when client-side state saving is enabled (with the JSF standard <code>javax.faces.STATE_SAVING_METHOD</code>
+parameter).  Two values are accepted:
+<ul>
+<li>"token":  the default, which stores page state in the session,
+but persists a token to the client that lets Apache Trinidad disambiguate
+the same page appearing multiple times.  Failover is supported.
+</li>
+<li>"all": stores all state in the client in a (potentially large)
+hidden form field.  This matches the default behavior of the JSF reference
+implementation, and can be useful for developers avoiding any
+use of <code>HttpSession</code>.
+</li>
+</ul>
+</p>
+</subsection>
+<subsection name="org.apache.myfaces.trinidad.CLIENT_STATE_MAX_TOKENS">
+<p>
+In "token"-based client-side state saving, chooses how many tokens
+should be preserved at any one time.  The default value is 15.
+When this is exceeded, state will have effectively been "forgotten"
+for the least recently viewed pages, which can impact users
+that actively use the Back button or that have multiple windows
+open simultaneously.  Developers building HTML applications that
+rely heavily on frames will likely need to increase this value.
+</p>
+</subsection>
+<subsection name="org.apache.myfaces.trinidad.USE_APPLICATION_VIEW_CACHE">
+<p>
+This configuration option enables an optimized strategy for caching some
+view state at an application level, which significantly improves
+scalability.  However, it makes it harder to develop (updates to
+pages will not be noticed until the server is restarted), and in
+some rare cases cannot be used for some pages.  See below for
+more information about this option.
+</p>
+</subsection>
+<subsection name="org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT">
+<p>
+Apache Trinidad by default obfuscates the Javascript it delivers
+to the client, as well as stripping comments and whitespace.
+This dramatically reduces the size of our Javascript download,
+but also makes it tricky to debug the Javascript.  This
+flag can be set to true to turn off the obfuscation.
+</p>
+</subsection>
+<subsection name="org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION">
+<p>
+Apache Trinidad by default compresses the style class names inside the css that
+is generated on the server.  However, when developing custom Trinidad skins, it
+is much easier to work with the non-compressed style class names, which much more
+directly relate to those used in the skin css file.  This flag can be set to turn
+off automatic compression of style class names.
+</p>
+</subsection>
+<subsection name="org.apache.myfaces.trinidad.CHECK_FILE_MODIFICATION">
+<p>
+If this parameter is enabled by setting to "true", Apache Trinidad will automatically
+check the modification date of your JSPs and skinning CSS files, and discard saved
+state when they change;  this makes development easier,
+but adds overhead that should be avoided when your application
+is deployed.
+</p>
+</subsection>
+<subsection name="org.apache.myfaces.trinidad.ENABLE_LIGHTWEIGHT_DIALOGS">
+<p>
+Trinidad supports two dialog implementations.  The default implementation pops a new
+browser window, but may be subject to popup blocking issues depending on the browser.
+The alternative lightweight implementation uses a skinnable modal iframe that hovers 
+over the existing page.  This flag can be set to turn on lightweight dialogs.
+</p>
+</subsection>
+<subsection name="File upload configuration">
+<p>
+For options affecting Apache Trinidad support of file uploads, please
+see the <a href="fileUpload.html#Configuration">Configuration section
+of the "Processing file uploads" document</a>.
+</p>
+</subsection>
+    </section>
+    <section name="Configuring Apache Trinidad for Performance">
+<p>
+When configuring Apache Trinidad for deployment, it is most critical
+that debug options have been turned off.  Specifically:
+<ul>
+<li>&lt;debug-output&gt; should be removed or set to false.</li>
+<li>org.apache.myfaces.trinidad.CHECK_FILE_MODIFICATION should be
+   removed or set to false.
+</li>
+<li>org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT should be removed or set to false.
+</li>
+</ul>
+</p>
+
+<p>In general, we strongly recommend that all clients use
+client-side state saving with Apache Trinidad, not server-side 
+state saving.  In practice, server-side state saving is
+in fact somewhat more performant, but it suffers from
+critical limitations that make it inadvisable in the
+real world:  for example, there is no support for failover, 
+the back button is only supported very, very poorly, and
+users cannot properly show multiple windows at one time.
+</p>
+
+<p>When using client-side state saving with Apache Trinidad, the "token"
+version of state-saving generally results in much better server
+performance, because the CPU and I/O consumption is much lower.
+However, "token"-based state saving does consume significantly more
+memory, so memory-limited servers may in some cases benefit from using
+"all" client-side state saving.</p>
+
+<subsection name="The Application View Cache">
+<p>
+Apache Trinidad supports a special Application View Cache feature
+that can increase scalability significantly.  However, it
+can, in some unusual cases, break an otherwise functioning
+application, so it is important to understand how it works
+to understand whether it can be enabled for your pages.
+</p>
+<p>
+In conventional JSF state saving, a page's UI state is saved 
+the same way every time it is used.  It doesn't matter if 
+state is being saved for an initial render of a page, or if 
+state is being saved after a user has posted back to that page.
+No two postbacks are necessarily the same - the user may
+have entered entirely different data, navigated to
+a different set of rows in the table, etc.  So, it is extremely
+difficult to share state among postback requests.</p>
+
+<p>However, most of the time, all initial renders of any
+one page have exactly the same view state.  It doesn't matter
+if the page is showing different data, or responding to
+different query parameters, and so forth, because in JSF
+those are conventionally accessed using the JSF expression
+language (EL).  In JSF, what state saving remembers isn't the
+result of evaluating an EL expression  - it's the EL expression
+itself. So, when you see:
+<source><![CDATA[
+  <tr:outputText value="#{mybean.value}"/>
+]]>
+</source>
+... all that's being saved is "#{mybean.value}", and that state is
+the same no matter what that expression evaluates to.
+</p>
+<p>
+The Application View Cache takes advantage of this, and caches
+the state for these initial renders at an application scope.
+Once the page has been viewed once, all users can reuse that
+same state coming and going, saving some CPU (the CPU cost 
+of saving the state each time) and more importantly the
+memory overhead of keeping separate copies for each user.
+State saving for postback is still separated per user,
+but keep in mind that if the result of a postback is
+that you navigate to a new page, the Application View
+Cache is still in effect - it is only disabled when a postback
+remains on a page (for example, because of a validation
+failure).
+</p>
+<p>
+Perhaps even more importantly, the Application View Cache enables
+the use of web Proxy Caches in front of
+your application server.  Token-based client-side state saving
+defeats web proxy caches, because each user may have a different
+token for any one page, defeating cacheability.  The Application
+View Cache uses the same token across all users.
+</p>
+<p>All this should raise the question of why anyone would ever
+not use the Application View Cache.  First, the technology
+currently does not invalidate itself if the page is modified;
+it requires a server restart.  This makes it difficult to use
+during development.  Beyond this, however, there are some
+JSF coding techniques that break the core assumption of
+the Application View Cache - the assumption that the initial
+view state of any one page is always the same, no matter who
+views it:
+<ol>
+<li>Conditional tags that may not evaluate identically for each user</li>
+<li>JSF components that pull EL results into page state</li>
+</ol>
+</p>
+<p>
+The following JSP includes two potential examples of the first problem:
+<source><![CDATA[
+  <c:if test="${user.locale.language='en'}">
+    <h:outputText value="You're in an English locale"/>
+  </c:if>
+
+  <tr:selectOneListbox value="#{someValue}">
+    <tr:forEach var="item" items="#{model.listOfItems}">
+      <tr:selectItem value="#{item.value}" text="#{item.text}"/>
+    </tr:forEach>
+  </tr:selectOneListbox>
+]]>
+</source>
+The &lt;c:if&gt; will show "You're in an English locale" if the locale's
+language is English.  This means that in English, a user's version of
+the page will have an extra component over users who aren't
+using English;  the state will vary accordingly.  This sort of
+problem can cleanly be resolved by using "rendered" instead of &lt;c:if&gt;,
+which is always a recommended JSF best-practice:
+<source><![CDATA[
+    <h:outputText value="You're in an English locale"
+                  rendered="#{user.locale.language == 'en'}"/>
+]]>
+</source>
+The example using &lt;tr:forEach&gt; is less clear-cut, and 
+less easily resolved.  If "model.listOfItems" always has the
+same <em>number</em> of items when a page gets shown at first,
+then there are no issues with this particular code sample.  But
+if the number of items does vary from one user to another,  
+then the page, as written, cannot support the Application View Cache.
+In this particular case, there's also a simple workaround:
+<source><![CDATA[
+  <tr:selectOneListbox value="#{someValue}">
+    <f:selectItems value="#{model.listOfSelectItems}"/>
+  </tr:selectOneListbox>
+]]>
+</source>
+</p>
+<p>
+In addition to problems with non-JSF tags that manipulate the
+page, you can run into problems with some JSF tags that
+directly manipulate page state.  A particular example of this
+is the MyFaces &lt;x:save_state&gt; tag.  This tag will
+evaluate an EL expression and save it directly as part
+of the page's view state.  This is very nice functionality,
+but it does directly and necessarily conflict with the
+technique of the Application View Cache.
+</p>
+
+
+<p>At the moment, the Application View Cache can only
+be enabled or disabled globally.  We are considering
+adding support for disabling (or enabling) the view cache 
+on a page-by-page basis.</p>
+
+</subsection>
+
+    </section>
+    <section name="RequestContext">
+<p>
+
+All the properties defined in an <code>trinidad-config.xml</code>
+file can be retrieved programatically with the
+<code>org.apache.myfaces.trinidad.context.RequestContext</code> class.
+One instance of this class exists per request, and it can
+be retrieved using the static <code>getCurrentInstance()</code>
+method (just like a <code>FacesContext</code>).  Despite the name,
+<code>RequestContext</code> does <em>not</em> actually extend
+<code>FacesContext</code>.
+<source><![CDATA[
+         RequestContext context = RequestContext.getCurrentInstance();
+
+         // Get the time zone
+         TimeZone zone = context.getTimeZone();
+
+         // Are we in a right-to-left language?
+         if (context.isRightToLeft())
+         {
+           ...
+         }
+]]>
+</source>
+In addition to the configuration properties described above, the
+<code>RequestContext</code> object also exposes several properties
+of type <code>java.util.Map</code> that help users write EL
+expressions (see the next section for information on this 
+use). For more information, see the Javadoc for this class.
+</p>
+    </section>
+    <section name="The &quot;requestContext&quot; EL object">
+<p>
+Apache Trinidad exposes a number of values into the JSF EL language.  All
+are grouped underneath a single "requestContext" EL variable.
+</p>
+      <subsection name="#{requestContext}">
+<p>The EL expression <code>#{requestContext}</code> returns
+the RequestContext object itself.</p>
+      </subsection>
+
+      <subsection name="#{requestContext.helpTopic['foo']}">
+<p>The EL expression <code>#{requestContext.helpTopic['foo']}</code> returns
+an URL to the help topic "foo".  Before using this, you
+must configure the <code>&lt;oracle-help-servlet-url&gt;</code> element
+in <code>trinidad-config.xml</code>.
+</p>
+      </subsection>
+      <subsection name="#{requestContext.helpSystem['frontPage']}">
+<p>The EL expression <code>#{requestContext.helpSystem['frontPage']}</code> returns
+an URL to the front page of the help system.  Before using this, you
+must configure the <code>&lt;oracle-help-servlet-url&gt;</code> element
+in <code>trinidad-config.xml</code>.  (Other subproperties of
+"helpSystem" may be added in the future.)
+</p>
+      </subsection>
+
+
+      <subsection name="#{requestContext.colorPalette}">
+<p>The EL expression <code>#{requestContext.colorPalette}</code> returns
+a Map of color palettes, each of which is an array of
+<code>java.awt.Color</code> objects.  Palette names include:
+<ul>
+<li>"web216": the 216 web-safe colors</li>
+<li>"default49": a 49 color palette, including a fully transparent entry</li>
+<li>"opaque49": a 49 color palette, without a transparent entry</li>
+<li>"default80": an 80 color palette</li>
+</ul>
+These color palettes can be used with the "selectInputColor" Apache Trinidad tag.
+</p>
+      </subsection>
+
+      <subsection name="#{requestContext.formatter}">
+
+<p>The EL expression <code>#{requestContext.formatter}</code> returns an
+object that can be used for applying message formatting.  For
+example, the following EL expression:
+<source><![CDATA[    <h:outputText value="#{requestContext.formatter['One{0}Three']['Two']}"/>]]></source>
+
+... will result in the output:
+
+<source><![CDATA[OneTwoThree]]></source>
+At this time, the "formatter" can only support formatting messages
+containing a single parameter.
+</p>
+      </subsection>
+
+    <subsection name="#{requestContext.agent}">
+
+<p>The EL expression <code>#{requestContext.agent}</code> returns an object that describes the client agent that is making the request and is to display the rendered output. The agent object describes the following, 
+  <ul>
+    <li>agent type: Possible values "desktop", "pda", "phone" and "unknown"</li>
+    <li>agent name and version: Agent names include "ie", "gecko" (for all gecko based browsers including Mozilla, Firefox, and Netscape 6+ versions), "webkit" (for all webkit based browsers including safari), "netfront", "blazer"</li>
+    <li>platform name and version: Platform names include "windows", "linux", "mac", "palm", "solaris", "ppc"</li>
+    <li>(mobile) device make and model when available, and</li> 
+    <li>capabilities : Capability names include 
+        <ul>
+          <li>"dom" : dom level support (possible values are "none", "level1", "level2")</li>
+          <li>"tables" : table layout support (possible values "basic", "advanced")</li>
+          <li>"frames" : frames support (boolean value, "true" or "false"</li>
+          <li>"iframes" : iframes support (boolean value, "true" or "false"</li>
+          <li>"width" and "height" : screen resolution of the (mobile) device (integer value)</li>
+        </ul>
+    </li>
+  </ul>
+</p>
+      </subsection>
+
+    </section>
+    
+  </body>
+</document>
+
+

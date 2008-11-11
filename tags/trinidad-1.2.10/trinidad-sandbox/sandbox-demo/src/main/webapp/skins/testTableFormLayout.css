@@ -1,0 +1,10 @@
+
+af|tableFormLayout::content-cell{
+    background-color: red;
+    font-size: larger;    
+}
+
+af|tableFormLayout::label-cell{
+    background-color: blue;
+    font-size: larger;  
+}

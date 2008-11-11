@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+ <tr:document title="Nested Table Demo">
+        <tr:form >
+          <tr:messages/>
+          <tr:panelGroupLayout layout="vertical">
+            <f:facet name="separator">
+              <tr:separator />
+            </f:facet>   
+            <tr:panelGroupLayout layout="horizontal">
+            <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/trinidad-api/tagdoc/tr_table.html"
+                       text="Tag Documentation"/>
+            <tr:spacer width="10"/>
+            <tr:goLink destination="http://myfaces.apache.org/trinidad/skin-selectors.html#table"
+                       text="Skinning Key Documentation"/>
+          </tr:panelGroupLayout> 
+  
+            <tr:outputFormatted styleUsage="instruction" value="&lt;b>Nested table&lt;/b>"/>
+            <tr:table var="row"
+                      value="#{periodicTable.tableData}" rows="10"
+                      summary="Element data">
+              <tr:column>
+                <f:facet name="header">
+                  <tr:outputText value="Name"/>
+                </f:facet>
+                <tr:inputText value="#{row.name}" shortDesc="#{row.name}"/>
+              </tr:column>
+              <tr:column>
+                <f:facet name="header">
+                  <tr:outputText value="Symbol"/>
+                </f:facet>
+                <tr:inputText value="#{row.symbol}" shortDesc="#{row.symbol}"/>
+              </tr:column>
+              <f:facet name="detailStamp" >
+                <tr:table var="sub"
+                          value="#{periodicTable.tableData}" rows="3"
+                          summary="Detail element information">
+                  <tr:column>
+                    <f:facet name="header">
+                      <tr:outputText value="#{row.name}:Name"/>
+                    </f:facet>
+                    <tr:inputText value="#{sub.name}" shortDesc="#{sub.name}"/>
+                  </tr:column>
+                  <tr:column>
+                    <f:facet name="header">
+                      <tr:outputText value="Symbol"/>
+                    </f:facet>
+                    <tr:inputText value="#{sub.symbol}" shortDesc="#{sub.symbol}"/>
+                  </tr:column>
+                </tr:table>
+              </f:facet>
+            </tr:table>
+
+
+            <tr:commandButton text="Submit"/>
+
+
+            
+          </tr:panelGroupLayout>    
+        </tr:form>
+ </tr:document>
+  </f:view>
+</jsp:root>

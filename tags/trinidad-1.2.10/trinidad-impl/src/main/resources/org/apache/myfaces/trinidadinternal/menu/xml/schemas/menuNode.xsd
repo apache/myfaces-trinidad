@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:trmenu="http://myfaces.apache.org/trinidad/menu"
+            xmlns:xml="http://www.w3.org/XML/1998/namespace"
+            targetNamespace="http://myfaces.apache.org/trinidad/menu"
+            elementFormDefault="qualified">
+  <xsd:include schemaLocation="base.xsd"/>
+
+  <xsd:element name="menuNode" type="trmenu:menuNodeType">
+    <xsd:annotation>
+      <xsd:documentation>
+        A menu node.  It will be either an itemNode or a groupNode.
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+    <xsd:complexType name="menuNodeType">
+    <xsd:complexContent>
+      <xsd:extension base="trmenu:baseType">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+          <xsd:element ref="trmenu:itemNode"/>
+          <xsd:element ref="trmenu:groupNode"/>
+          <xsd:element ref="trmenu:sharedNode"/>
+        </xsd:choice>
+        <xsd:attribute name="id" type="xsd:id" use="required"/>
+        <xsd:attribute name="label" type="trmenu:stringOrElExpression"/>
+        <xsd:attribute name="icon" type="xsd:anyURI"/>
+        <xsd:attribute name="readOnly" default="false"
+                       type="trmenu:booleanOrElExpression"/>
+        <xsd:attribute name="rendered" default="true"
+                       type="trmenu:booleanOrElExpression"/>
+        <xsd:attribute name="disabled" default="false"
+                       type="trmenu:booleanOrElExpression"/>
+        <xsd:attribute name="accessKey" type="trmenu:charOrElExpression"/>
+        <xsd:attribute name="labelAndAccessKey"
+                       type="trmenu:stringOrElExpression"/>
+        <xsd:attribute name="visible" type="trmenu:booleanOrElExpression"
+                       default="true"/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+</xsd:schema>

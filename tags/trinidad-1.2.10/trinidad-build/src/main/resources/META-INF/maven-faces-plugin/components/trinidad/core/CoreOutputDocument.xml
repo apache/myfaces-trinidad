@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+-->
+<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
+              xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
+              xmlns:xhtml="http://www.w3.org/1999/xhtml"
+              xmlns:xi="http://www.w3.org/2001/XInclude">
+  <component>
+    <description><![CDATA[The outputDocument component supports styled text with line breaks.]]></description>
+    <icon>
+      <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/outputText.png</small-icon -->
+    </icon>
+    <component-type>org.apache.myfaces.trinidad.CoreOutputDocument</component-type>
+    <component-class>org.apache.myfaces.trinidad.component.core.output.CoreOutputDocument</component-class>
+    <facet>
+      <description><![CDATA[The title of the document.]]>
+      </description>
+      <facet-name>title</facet-name>
+      <facet-extension>
+        <mfp:facet-metadata>
+          <mfp:preferred>true</mfp:preferred>
+          <mfp:preferred-children>tr:outputText</mfp:preferred-children>
+        </mfp:facet-metadata>
+      </facet-extension>
+    </facet>
+    <facet>
+      <description><![CDATA[The object used to separate paragraphs of the document.]]>
+      </description>
+      <facet-name>separator</facet-name>
+      <facet-extension>
+        <mfp:facet-metadata>
+          <mfp:preferred>true</mfp:preferred>
+          <mfp:preferred-children>tr:image tr:separator</mfp:preferred-children>
+        </mfp:facet-metadata>
+      </facet-extension>
+    </facet>
+
+    <property>
+      <description><![CDATA[the style class of the title. This property will be
+         considered only if a title facet is used.]]>
+      </description>
+      <property-name>titleClass</property-name>
+      <property-class>java.lang.String</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:group>${md:getTranslatedString("CORE_GROUP")}</mfp:group>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
+    <property>
+      <description><![CDATA[the style class of the separator. This property will be
+         considered only if a separator facet is used.]]>
+      </description>
+      <property-name>separatorClass</property-name>
+      <property-class>java.lang.String</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:group>${md:getTranslatedString("CORE_GROUP")}</mfp:group>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
+
+    <xi:include href="includes/CommonAttrs.xml" xpointer="/faces-config/component/*"/>
+    <xi:include href="includes/CoreJSEvents.xml" xpointer="/faces-config/component/*"/>
+
+    <component-extension>
+      <mfp:component-supertype>org.apache.myfaces.trinidad.Output</mfp:component-supertype>
+      <mfp:renderer-type>org.apache.myfaces.trinidad.Document</mfp:renderer-type>
+      <mfp:tag-name>tr:outputDocument</mfp:tag-name>
+      <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.output.CoreOutputDocumentTag</mfp:tag-class>
+      <mfp:long-description><![CDATA[The outputText component supports styled text.  The text
+can optionally be left unescaped, and supports
+conversion to and from Java objects.]]>
+      </mfp:long-description>
+      <mfp:example>
+        <mfp:source-code>
+          <![CDATA[
+<tr:outputDocument value="A long text including"
+                   styleClass="AFFieldText"/>
+          ]]>
+        </mfp:source-code>
+      </mfp:example>
+      <mfp:author>Simon Lessard</mfp:author>
+      <mfp:component-metadata>
+        <mfp:accepts-child-components>false</mfp:accepts-child-components>
+        <mfp:favorite-property>value</mfp:favorite-property>
+        <mfp:group>${md:getTranslatedString("PALETTE_OUTPUT")}</mfp:group>
+      </mfp:component-metadata>
+      <mfp:uix2-local-name>outputDocument</mfp:uix2-local-name>
+    </component-extension>
+  </component>
+</faces-config>

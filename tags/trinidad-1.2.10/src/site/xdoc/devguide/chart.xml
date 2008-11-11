@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<document>
+  <properties>
+    <title>Using the Apache Trinidad Chart Component</title>
+  </properties>
+
+  <body>
+    <section name="Using the Apache Trinidad Chart Component">
+      <p>
+        <ul>
+          <li><a href="#Introduction">Introduction</a></li>
+          <li><a href="#The Chart Model">The Chart Model</a></li>
+          <li><a href="#Labeling">Labeling</a></li>
+          <li><a href="#Grid Lines">Grid Lines</a></li>
+          <li><a href="#Legend">Legend</a></li>
+          <li><a href="#Perspective">Perspecitve (2.5D)</a></li>
+          <li><a href="#Animation">Animation</a></li>
+          <li><a href="#Skinning">Skinning</a></li>
+          <li><a href="#Tooltips">Tooltips</a></li>
+          <li><a href="#Drilldown">Drilldown</a></li>
+        </ul>
+      </p>
+    </section>
+
+
+    <section name="Introduction">
+      <P>
+        The Apache Trinidad Chart component provides charting solution in a JSF environment.
+        It uses W3C standard Scalable Vector Graphics to display charts on the client browser.
+        Currently SVG is supported on the following browsers:
+        <ul>
+          <li>IE 6+ through Adobe SVG plugin. The Apache Trinidad Chart component automatically detects 
+          if the adobe plugin is not present and provides a link to download the plugin.</li>
+          <li>Firefox 1.5+</li>
+          <li>Opera 9.0+</li>
+        </ul>
+      </P>
+      <P>
+        The Apache Trinidad Chart supports the following chart types:
+        <ul>
+          <li><b>verticalBar</b> - A verticalBar chart uses a series of columns to compare values across groups. Groups are organized horizontally while values are displayed vertically in 
+              order to place more emphasis on comparing values and less emphasis on time. </li>
+          <li><b>horizontalBar</b> - A horizontalBar chart uses a series of bars to compare values across groups. Groups are organized vertically while values are displayed horizontally in 
+              order to place more emphasis on comparing values and less emphasis on time.</li>
+          <li><b>stackedVerticalBar</b> - A stacked vertical chart is used to compare the contribution of each value to a total across a series. </li>
+          <li><b>stackedHorizontalBar</b> - Simlar to stackedVerticalBar except that the series and the groups are flipped</li>
+          <li><b>pie</b> - One of the most widely used chart types, pie charts show how proportions of data contribute to a whole.</li>
+          <li><b>area</b> - Area charts emphasize the degree of change over time, and also shows the relationship of parts to a whole.</li>
+          <li><b>stackedArea</b> - A stacked area chart is an area chart that uses two or more data series and can be used to compare the degree of change to a total across a series</li>
+          <li><b>line</b> - A line chart illustrates trends in data with the passing of time. </li>
+          <li><b>barLine</b> - A barLine chart shows the combination of vertical bar and line chart. Each value from a series is alternated from a bar to a line, with the first series value displayed as a bar.</li>
+          <li><b>XYLine</b> - An XYLine chart illustrates trends in data with the passing of time. It diffentiates from a normal line chart by having the X Values dictate the display along the X Axis. </li>
+          <li><b>scatterPlot</b> - A scatterPlot chart uses value points to represent data. This chart needs both values along X and Y axis.</li>
+          <li><b>radar</b> - A radar chart is a circular graph on which data are displayed in terms of values and angles.It is a circular chart used primarily as a comparative tool.</li>
+          <li><b>radarArea</b> - This is similar to a radar chart except for the fact that the area enclosed by a series is filled.</li>
+          <li><b>funnel</b> - A funnel charts show how proportions of data contribute to a whole. It is similar to a pie chart but displays as a funnel.</li>
+          <li><b>circularGauge</b> - A circularGuage displays data in a gauge. It has a pivot point, around which a value is rotated so that it can be displayed in relation to maximum and a minimum.</li>
+          <li><b>semiCircularGauge</b> - Similar to a circularGauge except for the fact that the gauge is semiCircular in shape.</li>
+        </ul>
+      </P>
+    </section>
+
+    <section name="The Chart Model">
+      <P>
+        The Apache Trinidad chart component uses a model to access the data for displaying a chart.
+        The specific model class must extend the abstract class
+        <code>org.apache.myfaces.trinidad.model.ChartModel</code>.
+      </P>
+      <P>
+        The chart values are draw using yValues 2D array returned by the chart modal. 
+        Each element in this array must contain an array of doubles. These values in this array represent a 
+        series values with in a group. For XYLine and Scatter plots xValues 2D array are also required.
+      </P>
+      <P>
+        For Pie chart and Funnel chart if the yValues array length is more than one, multiple charts are shown.
+        Each array element in the yValues is used to draw one chart. 
+      </P>
+      <P>
+        For circular and semiCircular gauge charts only one series in the yValues is used.
+        Multiple charts are displayed if size of yValues array is greater than one. 
+        Each array element in the yValues is used to draw one chart.
+      </P>
+    </section>
+
+    <section name="Labeling">
+        <P>
+        The Apache Trinidad chart provides flexibility for labeling of chart data. The yValues and
+        group labels are the two types of labels used in a chart.
+        </P>
+        
+        <subsection name="YValue Labeling"> 
+        The yValues(y axis labels for verticalBar, area, line etc. and x axis labels for horizontalBar) are labeled based on the YMajorGridLineCount. The maximum and minimum values are
+        displayed for the yValues even if the YMajorGridLineCount=0.
+        </subsection>
+        
+        <subsection name="Group Labeling"> 
+        The group labels(x axis labels for verticalBar, area, line etc. and y axis labels for horizontalBar) are controlled by getGroupLabels method returned by the chart model.
+        Please note that the size of the groupLabels may not match the size of the yValues.  If the groupLabels size is larger than the yvalues size, the chart will display
+        blank after the missing values. This is sometimes useful to chart incomplete data. The groupLabels array may also contain blanks or nulls so that
+        label for an index is ignored. If the groupLabels size is less than the yValues, the axis is divided into portions equal to the size of groupLabels.
+        This feature is useful for labeling large data set.          
+        </subsection>
+    </section>
+
+    <section name="Grid Lines">
+      <P>
+        The Apache Trinidad chart component displays displays vertical and horizontal grid lines inside charts. 
+        
+        <subsection name="YValues Grid Lines">
+        <p>
+          The grid line for yValues(y axis for verticalBar, area, line etc. and x axis for horizontalBar) are controlled by YMajorGridLineCount.
+          The number of yValue labels displayed are also controlled by this attribute. The maximum and minimum values are displayed and then 
+          a value is displayed corresponding to each major grid line.
+        </p>
+        <p>
+          For gauge charts minor grid lines are displayed within a major grid section. YMinorGridLineCount attribute is used to control this feature.
+        </p>
+        </subsection>
+
+        <subsection name="X Grid Lines">
+        The attribute XMajorGridLineCount attribute controls the number of vertical major grid lines displayed in the chart.
+        The default value is -1, which implies that the vertical major grid lines are controlled by the groupLabels in the chart model.
+        </subsection>
+      </P>
+      <source><![CDATA[
+<tr:chart YMajorGridLineCount="3" XMajorGridLineCount="-1".../>
+<tr:chart type="circularGauge" YMajorGridLineCount="8" yMinorGridLineCount="3".../>]]>
+      </source>
+    </section>
+    
+    <section name="Legend">
+      <P>
+        The Apache Trinidad chart component displays the series labels as a legend. The legendPosition attribute of the chart component
+        controls the display of the legend. The legend can be turned off by setting this attribute to "none".
+        
+        Please note that legend is never displayed for circular and semicircular gauge chart since these charts display only one series.
+      </P>
+      <source><![CDATA[
+<tr:chart legendPosition="none|start|end|top|left" .../>]]>
+      </source>
+    </section>
+    
+    <section name="Perspective">
+      <P>
+        The Apache Trinidad chart component can be displayed in perspective(2.5D) or in 2D. The perspective is purely a visual representation and
+        does not provide any additional detail from a chart in 2D.
+        
+        Please note that perspective flag does not have any effect on radar and gauge charts.
+      </P>
+      <source><![CDATA[
+<tr:chart perspective="true|false" .../>]]>
+      </source>
+    </section>
+    
+    <section name="Animation">
+      <P>
+        The Apache Trinidad chart component provides support for animation during initial load. The animation is controlled by
+        animationDuration attribute. Setting this attribute to 0 will turn off animation.
+      </P>
+      <P>  
+        Please note that the animation should be used with caution, it should not be used at the expense of usability. For e.g. 
+        if a page is periodically updating charts using a poll component, animation will effect the usability of the chart.
+      </P>
+      <source><![CDATA[
+<tr:chart animationDuration="1000" .../>]]>
+      </source>
+    </section>
+
+    <section name="Skinning">
+      <P>
+        The Apache Trinidad chart component provides support for skinning of the chart elements. The chart elements are rendered by cloning elements
+        from a template document. The template document can be changed through templateSource source attribute. 
+      </P>
+      <P>  
+        The chart component chooses a default template if templateSource attribute is not specified. The default template is chosen based
+        on whether the gradientsUsed attribute is true or false.
+      </P>
+      <source><![CDATA[
+<tr:chart templateSource="/components/svg/myTemplate.svg" .../>]]>
+      </source>
+    </section>
+        
+    <section name="Tooltips">
+      <P>
+        The Apache Trinidad chart component displays tooltips in response to the user moving the mouse on the chart data. 
+        The chart component may display multiple tooltips for area and radarArea charts if the user moves the mouse inside an area
+        that is enclosed by multiple series. For line chart and area charts the tooltips display interpolated values.
+        The tooltips display can be turned off by setting tooltipsVisible attribute to "false".
+      </P>
+      <source><![CDATA[
+<tr:chart tooltipsVisible="true|false" .../>]]>
+      </source>
+    </section>
+
+    <section name="DrillDown">
+      <P>
+        The &lt;tr:chart&gt; component triggers ChartDrillDownEvent when
+        the user drills clicks on the chart data. Listeners for this event may be registered on the table
+        using the "chartDrillDownListener" attribute or by adding the listener to
+        the chart using the "addChartDrillDownListener" method. 
+        The listener must take a parameter of type <code>org.apache.myfaces.trinidad.event.ChartDrillDownEvent</code>
+      </P>
+      <source><![CDATA[
+<tr:chart chartDrillDownListener="#{myBean.drillDown}" .../>]]>
+      </source>
+    </section>
+    
+  </body>
+</document>

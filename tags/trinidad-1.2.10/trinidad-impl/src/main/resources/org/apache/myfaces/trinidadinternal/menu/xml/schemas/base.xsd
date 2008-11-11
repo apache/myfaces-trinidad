@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:trmenu="http://myfaces.apache.org/trinidad/menu"
+            targetNamespace="http://myfaces.apache.org/trinidad/menu"
+            elementFormDefault="qualified">
+
+<!-- Additional types for Trinidad commandNavigationItems -->
+  <xsd:simpleType name="char">
+    <xsd:restriction base="xsd:string">
+      <xsd:length value="1"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="elExpression">
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="#\{.+\}"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="stringOrElExpression">
+    <xsd:union memberTypes="xsd:string trmenu:elExpression"/>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="charOrElExpression">
+    <xsd:union memberTypes="trmenu:char trmenu:elExpression"/>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="booleanOrElExpression">
+    <xsd:union memberTypes="xsd:boolean trmenu:elExpression"/>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="intOrElExpression">
+    <xsd:union memberTypes="xsd:int trmenu:elExpression"/>
+  </xsd:simpleType>
+<!-- end custom types -->
+
+ <xsd:element name="base" type="trmenu:baseType">
+    <xsd:annotation>
+      <xsd:documentation>
+        Base node for all trmenu elements
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="baseType"/>
+</xsd:schema>

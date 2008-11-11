@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+ <tr:document title="Components using style resource maps">
+        <tr:form>
+          <tr:panelGroupLayout layout="vertical">
+            <f:facet name="separator">
+              <tr:separator/>
+            </f:facet>
+
+            <tr:commandLink immediate="true" text="Component Guide"
+                action="guide"/>
+                <tr:outputFormatted styleUsage="instruction" value="&lt;b>Simple messages demo&lt;/b>"/>
+
+            <tr:messages/>
+
+            <tr:inputText label="Label:">
+              <f:facet name="help">
+                <tr:outputText value="Type 'cat' to see an error in the message box"/>
+              </f:facet>
+              <f:converter converterId="javax.faces.BigInteger"/>
+            </tr:inputText>
+
+            <tr:commandButton text="Submit"/>
+
+            <tr:outputFormatted styleUsage="instruction"
+                               value="&lt;b>basic panelPage &lt;/b>"/>
+
+            <tr:panelPage binding="#{editor.component}">
+              <f:facet name="navigation1">
+                <tr:navigationPane hint="tabs">
+                  <tr:commandNavigationItem text="tab 1" action="guide.navigationPane"/>
+                  <tr:commandNavigationItem text="tab 2" action="guide.navigationPane"
+                                   selected="true" />
+                  <tr:commandNavigationItem text="tab 3" action="guide.navigationPane"/>
+                  <tr:commandNavigationItem text="tab 4" action="guide.navigationPane"/>
+                  <tr:commandNavigationItem text="tab 5" action="guide.navigationPane"/>
+                  <tr:commandNavigationItem text="tab 6" action="guide.navigationPane"
+                                   disabled="true" />
+                </tr:navigationPane>
+              </f:facet>
+              <f:facet name="navigation2">
+                <tr:navigationPane hint="bar">
+                  <tr:commandNavigationItem text="item 1" action="guide.navigationPane"
+                                   selected="true" />
+                  <tr:commandNavigationItem text="item 2" action="guide.navigationPane"
+                                   disabled="true" />
+                  <tr:commandNavigationItem text="item 3" action="guide.navigationPane"/>
+                  <tr:commandNavigationItem text="item 4" action="guide.navigationPane"/>
+                </tr:navigationPane>
+              </f:facet>
+              <f:facet name="navigation3">
+                <tr:navigationPane hint="list">
+                  <tr:commandNavigationItem text="item 1" action="guide.navigationPane"
+                                   selected="true" />
+                  <tr:commandNavigationItem text="item 2" action="guide.navigationPane"
+                                   disabled="true" />
+                  <tr:commandNavigationItem text="item 3" action="guide.navigationPane"/>
+                  <tr:commandNavigationItem text="item 4" action="guide.navigationPane"/>
+                </tr:navigationPane>
+              </f:facet>
+              <f:facet name="navigationGlobal">
+                <tr:navigationPane hint="buttons">
+                  <tr:commandNavigationItem text="help"
+                                    icon="/components/images/globalhelp.gif"
+                                    action="guide.navigationPane"/>
+                  <tr:commandNavigationItem text="help more"
+                                    icon="/components/images/globalhelp.gif"
+                                    action="guide.navigationPane"/>
+                </tr:navigationPane>
+              </f:facet>
+              <f:facet name="branding">
+                <tr:outputFormatted value="Customer &lt;b&gt;InContextBranding Company - Menlo Park&lt;/b&gt;"
+                                   styleUsage="inContextBranding"/>
+              </f:facet>
+              <f:facet name="location">
+                <tr:breadCrumbs>
+                  <tr:commandNavigationItem text="item 1" action="guide.breadCrumbs" />
+                  <tr:commandNavigationItem text="item 2" action="guide.breadCrumbs" />
+                  <tr:commandNavigationItem text="item 3" action="guide.breadCrumbs" />
+                  <tr:commandNavigationItem text="item 4" action="guide.breadCrumbs" />
+                </tr:breadCrumbs>
+              </f:facet>
+              <f:facet name="appCopyright">
+                <tr:outputText value="copyright facet"/>
+              </f:facet>
+              <f:facet name="appPrivacy">
+                <tr:commandLink text="privacy facet" action="action.none" />
+              </f:facet>
+              <f:facet name="appAbout">
+                <tr:commandLink text="about facet" action="action.none" />
+              </f:facet>
+              <tr:panelHeader text="Title">
+                <tr:outputText value="Content here" />
+              </tr:panelHeader>
+            </tr:panelPage>
+
+
+            <tr:outputFormatted styleUsage="instruction" value="&lt;b>SelectManyShuttle bound to list&lt;/b>"/>
+
+            <tr:selectManyShuttle id="shuttle2" valuePassThru="true"
+                                 leadingHeader="Available values:"
+                                 trailingHeader="Selected values:"
+                                 valueChangeListener="#{list.valueChanged}"
+                                 value="#{list.objectList}">
+               <tr:selectItem label="First" value="foo"/>
+               <tr:selectItem label="Second" value="bar"/>
+               <tr:selectItem label="Third" value="baz"/>
+            </tr:selectManyShuttle>
+
+           <tr:outputFormatted styleUsage="instruction" value="&lt;b>SelectOrderShuttle bound to list&lt;/b>"/>
+
+           <tr:selectOrderShuttle id="shuttle3" valuePassThru="true"
+                                 leadingHeader="Available values:"
+                                 trailingHeader="Selected values:"
+                                 valueChangeListener="#{list.valueChanged}"
+                                 value="#{list.objectList}" leadingDescShown="true"
+                                 >
+               <tr:selectItem label="First" value="foo"/>
+               <tr:selectItem label="Second" value="bar"/>
+               <tr:selectItem label="Third" value="baz"/>
+           </tr:selectOrderShuttle>
+
+
+           <tr:outputFormatted styleUsage="instruction"
+              value="&lt;b>Editable treeTable with Record Set Navigation&lt;/b>"/>
+           <tr:treeTable var="foo" value="#{demoTree.model}" rendered="true"
+              rowsByDepth="3" summary="Demo of treeTable"
+              >
+              <f:facet name="nodeStamp">
+                <tr:column>
+                  <f:facet name="header">
+                    <tr:outputText value="Text"/>
+                  </f:facet>
+                  <tr:outputFormatted value="&lt;b>text:#{foo.text}&lt;/b>"/>
+                </tr:column>
+              </f:facet>
+              <f:facet name="pathStamp">
+                <tr:outputFormatted value="&lt;b>text:#{foo.text}&lt;/b>"/>
+              </f:facet>
+
+              <tr:column>
+                <f:facet name="header">
+                  <tr:outputText value="Foo Column"/>
+                </f:facet>
+                <tr:inputText value="#{foo.text}"/>
+              </tr:column>
+
+              <tr:column>
+                <f:facet name="header">
+                  <h:outputText value="Bar Column"/>
+                </f:facet>
+                <h:outputText value="#{foo.text} Bar"/>
+              </tr:column>
+         </tr:treeTable>
+
+         <tr:commandButton text="Submit"/>
+
+      <tr:outputFormatted styleUsage="instruction" value="&lt;b>Giant treeTable&lt;/b>"/>
+         <tr:treeTable var="foo" value="#{largeTree.model}"
+               summary="Giant treeTable"
+              rendered='true'>
+              <f:facet name="nodeStamp">
+                <tr:column>
+                  <f:facet name="header">
+                    <tr:outputText value="Label"/>
+                  </f:facet>
+                <tr:outputFormatted value="&lt;b>#{foo.label}&lt;/b>"/>
+                </tr:column>
+              </f:facet>
+              <f:facet name="pathStamp">
+                <tr:outputFormatted value="&lt;b>#{foo.label}&lt;/b>"/>
+              </f:facet>
+
+              <tr:column>
+                <f:facet name="header">
+                  <tr:outputText value="Parent"/>
+                </f:facet>
+                <tr:outputText value="#{foo.parentLabel}"/>
+              </tr:column>
+
+              <tr:column>
+                <f:facet name="header">
+                  <h:outputText value="Index"/>
+                </f:facet>
+                <h:outputText value="#{foo.index}"/>
+              </tr:column>
+              <tr:column>
+                <f:facet name="header">
+                  <h:outputText value="Depth"/>
+                </f:facet>
+                <h:outputText value="#{foo.depth}"/>
+              </tr:column>
+          </tr:treeTable>
+
+            <jsp:directive.include file="../components/editor.jspf" />
+
+          </tr:panelGroupLayout>
+
+        </tr:form>
+ </tr:document>
+  </f:view>
+</jsp:root>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<jsp:root
+  xmlns:jsp="http://java.sun.com/JSP/Page"
+  version="2.1"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:tr="http://myfaces.apache.org/trinidad">
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <tr:document title="Show only one detail">
+      <tr:form>
+        <tr:panelPage>
+          <tr:messages/>
+          <tr:panelHeader
+            id="panelHeader"
+            text="Backing bean enforcing only one disclosed">
+            <tr:panelLabelAndMessage 
+              labelAndAccessKey="&amp;Current key">
+              <tr:inputText
+                simple="true"
+                immediate="true"
+                value="#{showDetailDisclosureBean.disclosureKey}" />
+              <f:facet name="end">
+                <tr:commandButton
+                  id="manualUpdate"
+                  textAndAccessKey="&amp;Update"
+                  partialSubmit="true" />
+              </f:facet>
+            </tr:panelLabelAndMessage>
+            <tr:panelHeader text="Iterator:">
+              <tr:iterator
+                id="iterator"
+                value="#{showDetailDisclosureBean.keys}"
+                var="_val">
+                <tr:showDetail
+                  id="showDetialComponent"
+                  disclosedTransient="true"
+                  disclosureListener="#{showDetailDisclosureBean.handleDisclosure}"
+                  disclosed="#{showDetailDisclosureBean.disclosureKey eq _val}"
+                  disclosedText="#{_val}"
+                  undisclosedText="#{_val}">
+                  <f:attribute name="disclosureKey" value="#{_val}" />
+                  <tr:outputText value="Disclosed" />
+                </tr:showDetail>
+              </tr:iterator>
+            </tr:panelHeader>
+            <tr:panelHeader text="Tabs:">
+              <tr:panelTabbed>
+                <tr:showDetailItem
+                  disclosedTransient="true"
+                  disclosureListener="#{showDetailDisclosureBean.handleDisclosure}"
+                  disclosed="#{showDetailDisclosureBean.disclosureKey eq 'ItemA'}"
+                  text="ItemA">
+                  <f:attribute name="disclosureKey" value="ItemA" />
+                  <tr:outputText value="ItemA" />
+                </tr:showDetailItem>
+                <tr:showDetailItem
+                  disclosedTransient="true"
+                  disclosureListener="#{showDetailDisclosureBean.handleDisclosure}"
+                  disclosed="#{showDetailDisclosureBean.disclosureKey eq 'ItemB'}"
+                  text="ItemB">
+                  <f:attribute name="disclosureKey" value="ItemB" />
+                  <tr:outputText value="ItemB" />
+                </tr:showDetailItem>
+                <tr:showDetailItem
+                  disclosedTransient="true"
+                  disclosureListener="#{showDetailDisclosureBean.handleDisclosure}"
+                  disclosed="#{showDetailDisclosureBean.disclosureKey eq 'ItemC'}"
+                  text="ItemC">
+                  <f:attribute name="disclosureKey" value="ItemC" />
+                  <tr:outputText value="ItemC" />
+                </tr:showDetailItem>
+                <tr:showDetailItem
+                  disclosedTransient="true"
+                  disclosureListener="#{showDetailDisclosureBean.handleDisclosure}"
+                  disclosed="#{showDetailDisclosureBean.disclosureKey eq 'ItemD'}"
+                  text="ItemD">
+                  <f:attribute name="disclosureKey" value="ItemD" />
+                  <tr:outputText value="ItemD" />
+                </tr:showDetailItem>
+              </tr:panelTabbed>
+            </tr:panelHeader>
+          </tr:panelHeader>
+        </tr:panelPage>
+      </tr:form>
+    </tr:document>
+  </f:view>
+</jsp:root>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:trmenu="http://myfaces.apache.org/trinidad/menu"
+            targetNamespace="http://myfaces.apache.org/trinidad/menu"
+            elementFormDefault="qualified">
+  <xsd:include schemaLocation="itemNode.xsd"/>
+  <xsd:include schemaLocation="groupNode.xsd"/>
+  <xsd:include schemaLocation="sharedNode.xsd"/>
+  <xsd:element name="menu" type="trmenu:menuType">
+    <xsd:annotation>
+      <xsd:documentation>
+        Top level tag for a menu model.
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="menuType">
+    <xsd:choice minOccurs="0" maxOccurs="unbounded">
+      <xsd:element ref="trmenu:itemNode"/>
+      <xsd:element ref="trmenu:groupNode"/>
+      <xsd:element ref="trmenu:sharedNode"/>
+    </xsd:choice>
+    <xsd:attribute name="xmlns" type="xsd:anyURI"
+                   default="http://myfaces.apache.org/trinidad/menu"/>
+    <xsd:attribute name="var" type="xsd:string"/>
+    <xsd:attribute name="resourceBundle" type="xsd:anyURI"/>
+  </xsd:complexType>
+</xsd:schema>

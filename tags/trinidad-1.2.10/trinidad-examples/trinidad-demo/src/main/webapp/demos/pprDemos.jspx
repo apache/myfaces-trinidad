@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
+ <jsp:directive.page contentType="text/html;charset=utf-8"/>
+ <f:view>
+  <tr:document title="Partial Page Rendering Demos">
+    <tr:form>
+
+     <tr:panelPage>
+      <f:facet name="navigationGlobal">
+       <tr:navigationPane hint="buttons">
+        <tr:commandNavigationItem text="Return to Feature Demos page"
+                                immediate="true"
+                                action="demos"/>
+       </tr:navigationPane>
+      </f:facet>
+
+    <tr:panelHeader text="Welcome to the Apache Trinidad Partial Page Rendering Demos">
+      <tr:outputFormatted styleUsage="instruction"
+                          value="These demos illustrate Partial Page Refresh capabilities using the autoSubmit attribute of various input components."/>
+      <tr:panelGroupLayout layout="vertical">
+
+       <tr:panelHeader text="Status Indicator">
+       <tr:outputFormatted styleUsage="instruction"
+                           value="This demo contains a statusIndicator component.  It will spin while a PPR request fires, and can be placed anywhere on a page (or in multiple places if needed).  The image can be replaced with skinning."/>
+       <tr:statusIndicator/>
+       </tr:panelHeader>
+
+       <tr:panelHeader text="Radio Buttons">
+       <tr:outputFormatted styleUsage="instruction"
+                           value="This demo shows a two sets of radio buttons which use autoSubmit. There is also an output component which is listening on updates to the radio buttons and displaying status text accordingly."/>
+        <tr:panelGroupLayout layout="horizontal">
+         <tr:panelGroupLayout layout="vertical">
+          <tr:panelGroupLayout layout="horizontal">
+           <tr:outputFormatted styleUsage="instruction"
+                               value="selectBooleanRadio buttons"/>
+           <tr:panelGroupLayout layout="vertical">
+            <tr:selectBooleanRadio id="rb1"
+                                   group="theGroup"
+                                   selected="false"
+                                   text="item 1"
+                                   autoSubmit="true"
+                                   valueChangeListener="#{partialDemoUtil.valueChanged}"/>
+            <tr:selectBooleanRadio id="rb2"
+                                   group="theGroup"
+                                   text="item 2"
+                                   selected="false"
+                                   autoSubmit="true"
+                                   valueChangeListener="#{partialDemoUtil.valueChanged}"/>
+            <tr:selectBooleanRadio id="rb3"
+                                   group="theGroup"
+                                   text="item 3"
+                                   selected="false"
+                                   autoSubmit="true"
+                                   valueChangeListener="#{partialDemoUtil.valueChanged}"/>
+           </tr:panelGroupLayout>
+          </tr:panelGroupLayout>
+          <tr:spacer width="30" height="10"/>
+          <tr:panelGroupLayout layout="vertical">
+           <tr:selectOneRadio id="sor1"
+                              label="selectOneRadio buttons"
+                              autoSubmit="true"
+                              valueChangeListener="#{partialDemoUtil.valueChanged}">
+            <tr:selectItem label="item 1" value="1" />
+            <tr:selectItem label="item 2" value="2" />
+            <tr:selectItem label="item 3" value="3" />
+           </tr:selectOneRadio>
+          </tr:panelGroupLayout>
+         </tr:panelGroupLayout>
+         <tr:spacer width="30" height="10"/>
+         <tr:panelLabelAndMessage label="Selected: ">
+          <tr:outputFormatted id="rbTarget"
+                              partialTriggers="rb1 rb2 rb3 sor1"
+                              styleUsage="instruction"
+                              value="#{partialDemoUtil.status.radioStateText}">
+           <f:convertDateTime pattern="HH:mm:ss"/>
+          </tr:outputFormatted>
+         </tr:panelLabelAndMessage>
+        </tr:panelGroupLayout>
+       </tr:panelHeader>
+       <tr:panelHeader text="InputText">
+       <tr:outputFormatted styleUsage="instruction"
+                           value="This demo shows an autoSubmitting text field."/>
+        <trh:tableLayout width="80%">
+         <trh:rowLayout>
+          <tr:inputText id="itxt"
+                        autoSubmit="true"
+                        value="#{partialDemoUtil.status.textValue}"
+                        label="Enter text here and tab out: "
+                        valueChangeListener="#{partialDemoUtil.valueChanged}"/>
+          <tr:panelLabelAndMessage label="You entered: ">
+           <tr:outputFormatted id="itTarget"
+                               partialTriggers="itxt"
+                               styleUsage="instruction"
+                               value="#{partialDemoUtil.status.textStateText}"/>
+          </tr:panelLabelAndMessage>
+         </trh:rowLayout>
+        </trh:tableLayout>
+       </tr:panelHeader>
+       <tr:panelHeader text="selectOneChoice">
+       <tr:outputFormatted styleUsage="instruction"
+                           value="This demo illustrates PPR from a choice component."/>
+        <tr:panelGroupLayout layout="horizontal">
+         <tr:selectOneChoice id="selOne"
+                             autoSubmit="true"
+                             label="Choose one"
+                             valueChangeListener="#{partialDemoUtil.valueChanged}"
+                             value="#{partialDemoUtil.status.choiceInt}">
+          <tr:selectItem label="First" value="1"/>
+          <tr:selectItem label="Second" value="2"/>
+          <tr:selectItem label="Third" value="3"/>
+         </tr:selectOneChoice>
+         <tr:spacer width="30" height="10"/>
+         <tr:panelLabelAndMessage label="You picked: ">
+          <tr:outputFormatted partialTriggers="selOne"
+                              styleUsage="instruction"
+                              value="#{partialDemoUtil.status.choiceText}"/>
+         </tr:panelLabelAndMessage>
+        </tr:panelGroupLayout>
+       </tr:panelHeader>
+
+       <tr:panelHeader text="selectManyListbox">
+       <tr:outputFormatted styleUsage="instruction"
+
+
+                           value="This demo also shows a multiple select list box component that is bound to a value that will be updated by the ValueChangeEvent listener. This demo only shows the multi-select listbox, but the single select (selectOneListbox) works in exactly the same way."/>
+        <tr:panelGroupLayout layout="horizontal">
+         <tr:selectManyListbox id="smlb"
+                               autoSubmit="true"
+                               label="Choose one or more values: "
+                               valueChangeListener="#{partialDemoUtil.valueChanged}">
+          <tr:selectItem label="One"   value="1"/>
+          <tr:selectItem label="Two"   value="2"/>
+          <tr:selectItem label="Three" value="3"/>
+          <tr:selectItem label="Four"  value="4"/>
+         </tr:selectManyListbox>
+         <tr:spacer width="30" height="10"/>
+         <tr:panelLabelAndMessage label="List items selected: ">
+          <tr:outputFormatted id="smlbTarget"
+                              styleUsage="instruction"
+                              binding="#{partialDemoUtil.listUpdate}"
+                              value="nothing yet."/>
+         </tr:panelLabelAndMessage>
+        </tr:panelGroupLayout>
+       </tr:panelHeader>
+       <tr:panelHeader text="SelectBooleanCheckbox">
+       <tr:outputFormatted styleUsage="instruction"
+                           value="This demo shows a simple checkbox which uses autoSubmit. There are two components listening on the change to the checkbox, one is now visible, the other will become visible after the first click. This also illustrates a cascading PPR update."/>
+
+        <tr:panelGroupLayout layout="horizontal">
+         <tr:selectBooleanCheckbox id="cb1"
+                                   value="#{partialDemoUtil.status.checked}"
+                                   label="This PPR checkbox"
+                                   valueChangeListener="#{partialDemoUtil.valueChanged}"
+                                   autoSubmit="true"/>
+         <tr:outputFormatted id="cbTarget"
+                             partialTriggers="cb1"
+                             styleUsage="instruction"
+                             value="#{partialDemoUtil.status.checkBoxStateText}"/>
+         <tr:spacer width="20"/>
+         <tr:panelGroupLayout id="pg1" partialTriggers="cbTarget">
+          <tr:outputFormatted styleUsage="instruction"
+                              rendered="#{partialDemoUtil.status.checkBoxUpdateCount > 0}"
+                              value="(clicked #{partialDemoUtil.status.checkBoxUpdateCount} time"/>
+          <tr:outputFormatted styleUsage="instruction"
+                              rendered="#{partialDemoUtil.status.checkBoxUpdateCount > 1}"
+                              value="s"/>
+          <tr:outputFormatted styleUsage="instruction"
+                              rendered="#{partialDemoUtil.status.checkBoxUpdateCount > 0}"
+                              value=")"/>
+         </tr:panelGroupLayout>
+        </tr:panelGroupLayout>
+       </tr:panelHeader>
+
+       <tr:panelHeader text="Command components with partialSubmit">
+        <tr:outputFormatted styleUsage="instruction"
+                            value="This demo shows how command links and buttons can be used to generate partial events."/>
+        <tr:panelGroupLayout layout="horizontal">
+         <tr:panelGroupLayout layout="vertical">
+          <tr:commandLink id="pSub_link"
+                          immediate="true"
+                          partialSubmit="true"
+                          text="Do a partial Submit."
+                          actionListener="#{partialDemoUtil.action}"/>
+          <tr:spacer height="6"/>
+          <tr:commandButton id="pSub_button"
+                            immediate="true"
+                            partialSubmit="true"
+                            text="partialSubmit Button"
+                            actionListener="#{partialDemoUtil.action}"/>
+         </tr:panelGroupLayout>
+         <tr:spacer width="30" height="10"/>
+         <tr:panelGroupLayout>
+          <tr:panelLabelAndMessage label="last link click: ">
+           <tr:outputFormatted id="cmdTarget"
+                               partialTriggers="pSub_link pSub_button"
+                               styleUsage="instruction"
+                               value="#{partialDemoUtil.status.linkUpdate}">
+            <f:convertDateTime pattern="HH:mm:ss"/>
+           </tr:outputFormatted>
+          </tr:panelLabelAndMessage>
+         </tr:panelGroupLayout>
+        </tr:panelGroupLayout>
+       </tr:panelHeader>
+       <tr:panelHeader text="Command components with partialSubmit going to another page.">
+        <tr:panelGroupLayout layout="vertical">
+         <tr:commandLink immediate="true"
+                         partialSubmit="true"
+                         action="home"
+                         text="Go to Trinidad demos home page."/>
+         <tr:spacer height="6"/>
+         <tr:commandLink immediate="true"
+                         partialSubmit="true"
+                         action="demos.direct"
+                         text="Go to feature demos page (no redirect)."/>
+         <tr:spacer height="6"/>
+         <tr:commandButton immediate="true"
+                           partialSubmit="true"
+                           action="demos"
+                           text="Go to feature demos page."/>
+         </tr:panelGroupLayout>
+       </tr:panelHeader>
+       <tr:panelHeader text="Naming container tests; partial triggers are the previous command components with partialSubmit"> 
+         <tr:panelGroupLayout layout="vertical">
+           <f:subview id="sub">
+             <!-- use '::' in front of the identifier to pop out of the current naming container.
+             Additional colons continue to pop. -->
+             <tr:outputFormatted  partialTriggers="::pSub_link ::pSub_button"
+                                  styleUsage="instruction"
+                                  value="#{partialDemoUtil.status.linkUpdate}">
+               <f:convertDateTime pattern="HH:mm:ss"/>
+             </tr:outputFormatted>
+           </f:subview>
+             <!-- use '::' in front of the identifier to get to the parent naming
+             container, add ':::' to get to the grandparent naming container, etc.
+             This works for non-Naming Container components. -->
+           <f:subview id="sub2">
+            <f:subview id="sub3">
+             <tr:outputFormatted  partialTriggers=":::pSub_link :::pSub_button"
+                                  styleUsage="instruction"
+                                  value="#{partialDemoUtil.status.linkUpdate}">
+               <f:convertDateTime pattern="HH:mm:ss"/>
+             </tr:outputFormatted>
+             </f:subview>
+           </f:subview>          
+         </tr:panelGroupLayout>
+       </tr:panelHeader>
+       <tr:panelHeader text="This Reset button will reset all values on the page.">
+        <tr:commandButton id="reset"
+                          text="Reset"
+                          immediate="true"
+                          actionListener="#{partialDemoUtil.reset}">
+         <tr:resetActionListener/>
+        </tr:commandButton>
+       </tr:panelHeader>
+       <tr:panelHeader text="Changing the value of this selectOneChoice will navigate to another page.">
+         <tr:selectOneChoice autoSubmit="true"
+                             label="Navigate"
+                             unselectedLabel="Nowhere"
+                             valueChangeListener="#{partialDemoUtil.navigate}">
+          <tr:selectItem label="Index" value="/index.jspx"/>
+          <tr:selectItem label="Component Demos" value="/componentDemos.jspx"/>
+         </tr:selectOneChoice>
+       </tr:panelHeader>
+        <tr:panelHeader text="More ppr demos showing partialTriggers syntax with regard to NamingContainers.">
+        <tr:goLink text="Relative Partial Triggers Demo"
+                destination="testRelativePartialTriggers.jspx" />      
+       </tr:panelHeader>
+      </tr:panelGroupLayout>
+     </tr:panelHeader>
+     </tr:panelPage>
+    </tr:form>
+  </tr:document>
+ </f:view>
+</jsp:root>

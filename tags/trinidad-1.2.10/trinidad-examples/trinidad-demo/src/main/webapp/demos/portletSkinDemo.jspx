@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+  Copyright 2006 The Apache Software Foundation.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:f="http://java.sun.com/jsf/core" 
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+
+    <trh:html>
+      <trh:head title="Portlet Skin Demo">
+        <link rel="stylesheet" charset="UTF-8" type="text/css"
+              href="/trinidad-demo-context-root/faces/demos/CustomPortletStyles.css"/>
+      </trh:head>
+      <trh:body>
+
+        <tr:form>
+          <tr:panelGroupLayout layout="vertical">
+            <f:facet name="separator">
+              <tr:separator/>
+            </f:facet>
+            <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+
+            <tr:panelGroupLayout layout="vertical">
+              <tr:outputText styleClass="portlet-font"
+                             value="When &lt;output-mode&gt;portlet&lt;/output-mode> 
+                             is defined in trinidad-config.xml's, all components map
+                             their styleclasses to portlet style classes. This way a Trinidad page 
+                             will look like a portlet when it is running within a portlet.  
+                             This page contains a test portlet css file that defines portlet 
+                             styles like portlet-table-header and portlet-font.  "/>
+              <tr:panelGroupLayout layout="horizontal">
+                <tr:navigationPane hint="tabs" shortDesc="Select tab">
+                  <tr:commandNavigationItem text="Home" action="guide.menuTabs"
+                                            shortDesc="class=portlet-menu-item-selected"
+                                            selected="true"/>
+                  <tr:commandNavigationItem text="Clothing" action="guide.menuTabs"
+                                            shortDesc="class=portlet-menu-item"/>
+                  <tr:commandNavigationItem text="Equipment" action="guide.menuTabs"
+                                            shortDesc="class=portlet-menu-item"/>
+                </tr:navigationPane>
+              </tr:panelGroupLayout>
+              <tr:navigationPane hint="bar">
+                <tr:commandNavigationItem text="MenuBar" action="guide.menuBar" selected="true"
+                                          shortDesc="class=portlet-menu-cascade-item-selected"/>
+                <tr:commandNavigationItem text="MenuBar" action="guide.menuBar"
+                                          shortDesc="portlet-menu-cascade-item"/>
+                <tr:commandNavigationItem text="MenuBar" action="guide.menuBar"/>
+              </tr:navigationPane>
+              <tr:panelGroupLayout layout="horizontal" styleClass="adfFacesDemoSearchPanelGroup">
+                <f:facet name="separator">
+                  <tr:spacer width="10px"/>
+                </f:facet>
+                <tr:panelGroupLayout>
+                  <tr:selectManyCheckbox label="Search" shortDesc="portlet-form-label/portlet-font">
+                    <tr:selectItem label="Cycling"/>
+                    <tr:selectItem label="Climbing"/>
+                  </tr:selectManyCheckbox>
+                  <tr:selectOneRadio label="Search" shortDesc="portlet-form-label/portlet-font">
+                    <tr:selectItem label="Cycling"/>
+                    <tr:selectItem label="Climbing"/>
+                  </tr:selectOneRadio>
+                  <tr:selectBooleanCheckbox label="quick search?"/>
+                  <tr:selectOneChoice label="Skin-family:" autoSubmit="false"
+                                      shortDesc="portlet-form-label/portlet-font"
+                                      value="#{sessionScope.skinFamily}">
+                    <tr:selectItem label="simple" value="simple"/>
+                    <tr:selectItem label="minimal" value="minimal"/>
+                    <tr:selectItem label="purple" value="purple"/>
+                  </tr:selectOneChoice>
+                  <tr:panelLabelAndMessage>
+                    <tr:commandButton text="Go"/>
+                  </tr:panelLabelAndMessage>
+                  <tr:inputText label="Name:"
+                                shortDesc="portlet-form-label/portlet-form-input-field"/>
+                  <tr:chooseDate id="idp1" shortDesc="Choose Date"/>
+
+                  <tr:panelGroupLayout layout="horizontal" inlineStyle="padding:5px;">
+                    <tr:panelBox background="medium" text="Browse" inlineStyle="width:160px">
+                      <tr:outputText value="Recent Purchases" styleClass="AFInstructionText"/>
+                      <tr:panelList>
+                        <tr:goLink text="flip flops" destination="http://www.oracle.com"/>
+                        <tr:goLink text="sandals" destination="http://www.oracle.com"/>
+                      </tr:panelList>
+                    </tr:panelBox>
+                    <tr:panelGroupLayout layout="vertical">
+                      <tr:panelHeader text="table uses portlet-table-* styles when in portlet output-mode">
+                        <tr:table allDetailsEnabled="true" var="row" rowBandingInterval="2"
+                                  value="#{periodicTable.tableData}" rows="5"
+                                  summary="Element information">
+                          <tr:column>
+                            <f:facet name="header">
+                              <tr:outputText value="Name"/>
+                            </f:facet>
+                            <tr:outputText value="#{row.name}"/>
+                          </tr:column>
+                          <tr:column>
+                            <f:facet name="header">
+                              <tr:outputText value="Symbol"/>
+                            </f:facet>
+                            <tr:outputText value="#{row.symbol}"/>
+                          </tr:column>
+                          <tr:column>
+                            <f:facet name="header">
+                              <tr:outputText value="Action Column"/>
+                            </f:facet>
+                            <tr:commandButton text="Action" action="#{row.action}"/>
+                          </tr:column>
+                          <f:facet name="detailStamp">
+                            <tr:panelGroupLayout layout="vertical">
+                              <tr:outputText value="Element Name: #{row.name}"/>
+                              <tr:outputText value="Atomic Number: #{row.number}"/>
+                              <tr:outputText value="Symbol: #{row.symbol}"/>
+                              <tr:outputText value="Group: #{row.group}"/>
+                            </tr:panelGroupLayout>
+                          </f:facet>
+                        </tr:table>
+                      </tr:panelHeader>
+                      <tr:spacer height="5px"/>
+                      <tr:panelHeader text="showOneTab renders links"></tr:panelHeader>
+                      <tr:spacer height="15px"/>
+                      <tr:panelTabbed>
+                        <tr:showDetailItem text="Tab 1">
+                          <tr:panelHeader text="chooseDate uses portlet-table styles">
+                            <tr:panelFormLayout>
+                              <tr:chooseDate id="idp1" shortDesc="Choose Date"/>
+                            </tr:panelFormLayout>
+                          </tr:panelHeader>
+                        </tr:showDetailItem>
+                        <tr:showDetailItem text="Tab 2" disclosed="true">
+                          <tr:panelHeader text="ShowOneTab details">
+                            <tr:outputText value="Everything in Camping  is on sale!  Enjoy huge savings on our most popular tents                     and sleeping bags. We even have dried food and mattresses"
+                                           styleClass="AFInstructionText"/>
+                            <tr:panelGroupLayout layout="horizontal">
+                              <tr:goButton text="Sorry, Disabled" disabled="true"/>
+                              <tr:spacer width="10px"/>
+                              <tr:goButton text="Go!" disabled="false"/>
+                            </tr:panelGroupLayout>
+                            <tr:panelHeader text="subheader"></tr:panelHeader>
+                          </tr:panelHeader>
+                        </tr:showDetailItem>
+                        <tr:showDetailItem text="Tab 4" disabled="true"/>
+                        <tr:showDetailItem text="Tab 5">
+                          <tr:panelHeader text="Header 5">
+                            <tr:panelFormLayout>
+                              <tr:inputText readOnly="true" label="Label 5-1" value="Value"
+                                            styleClass="AFFieldTextMarker"/>
+                              <tr:inputText 
+                                            label="Date/Time from last partial refresh"
+                                            value="#{date.currentDate}" styleClass="AFFieldTextMarker">
+                                <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
+                              </tr:inputText>
+                              <!--
+                              <tr:inputDate label="InputDate"/>
+                              <tr:inputColor label="InputColor"/>
+                              -->
+                            </tr:panelFormLayout>
+                          </tr:panelHeader>
+                        </tr:showDetailItem>
+                      </tr:panelTabbed>
+                      <tr:showDetailHeader text="showDetailHeader">
+                        <tr:showDetailHeader text="showDetailHeader again"/>
+                      </tr:showDetailHeader>
+                    </tr:panelGroupLayout>
+                  </tr:panelGroupLayout>
+                </tr:panelGroupLayout>
+              </tr:panelGroupLayout>
+            </tr:panelGroupLayout>
+              
+          </tr:panelGroupLayout>
+               
+        </tr:form>
+
+        
+      </trh:body>
+    </trh:html>
+    
+  </f:view>
+</jsp:root>

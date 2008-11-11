@@ -1,0 +1,3069 @@
+<?xml version="1.0"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+-->
+<!DOCTYPE faces-config PUBLIC
+  "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN"
+  "http://java.sun.com/dtd/web-facesconfig_1_1.dtd" >
+<faces-config>
+
+  <application>
+    <!-- Use the Trinidad RenderKit -->
+    <default-render-kit-id>
+      org.apache.myfaces.trinidad.core
+    </default-render-kit-id>
+
+    <!-- DEFAULT/SUPPORTED LOCALE/S FOR THE DEMO -->
+    <locale-config>
+      <default-locale>en</default-locale>
+      <supported-locale>ar</supported-locale>
+      <supported-locale>ca</supported-locale>
+      <supported-locale>cs</supported-locale>
+      <supported-locale>da</supported-locale>
+      <supported-locale>de</supported-locale>
+      <supported-locale>el</supported-locale>
+      <supported-locale>es</supported-locale>
+      <supported-locale>es_ES</supported-locale>
+      <supported-locale>fi</supported-locale>
+      <supported-locale>fr</supported-locale>
+      <supported-locale>fr_CA</supported-locale>
+      <supported-locale>hr</supported-locale>
+      <supported-locale>hu</supported-locale>
+      <supported-locale>is</supported-locale>
+      <supported-locale>it</supported-locale>
+      <supported-locale>iw</supported-locale>
+      <supported-locale>ja</supported-locale>
+      <supported-locale>ko</supported-locale>
+      <supported-locale>nl</supported-locale>
+      <supported-locale>no</supported-locale>
+      <supported-locale>pl</supported-locale>
+      <supported-locale>pt</supported-locale>
+      <supported-locale>pt_BR</supported-locale>
+      <supported-locale>ro</supported-locale>
+      <supported-locale>ru</supported-locale>
+      <supported-locale>sk</supported-locale>
+      <supported-locale>sv</supported-locale>
+      <supported-locale>th</supported-locale>
+      <supported-locale>tr</supported-locale>
+      <supported-locale>zh_CN</supported-locale>
+      <supported-locale>zh_TW</supported-locale>
+    </locale-config>
+
+  </application>
+  <component>
+    <component-type>org.apache.myfaces.trinidaddemo.DateField</component-type>
+    <component-class>org.apache.myfaces.trinidaddemo.composite.DateField</component-class>
+  </component>
+
+  <render-kit>
+    <renderer>
+      <component-family>javax.faces.Input</component-family>
+      <renderer-type>org.apache.myfaces.trinidaddemo.DateField</renderer-type>
+      <renderer-class>org.apache.myfaces.trinidaddemo.composite.DateFieldAsRenderer</renderer-class>
+    </renderer>
+  </render-kit>
+
+  <converter>
+   <display-name>SSN Converter</display-name>
+   <converter-id>org.apache.myfaces.trinidaddemo.SSN</converter-id>
+   <converter-class>org.apache.myfaces.trinidaddemo.convertValidate.SSNConverter</converter-class>
+  </converter>
+  <validator>
+   <display-name>Password Validator</display-name>
+   <validator-id>org.apache.myfaces.trinidaddemo.PasswordValidator</validator-id>
+   <validator-class>org.apache.myfaces.trinidaddemo.convertValidate.PasswordValidator</validator-class>
+  </validator>
+
+  <!-- Global preferences object that proxies to others -->
+  <managed-bean>
+    <managed-bean-name>prefs</managed-bean-name>
+    <managed-bean-class>
+       org.apache.myfaces.trinidaddemo.PreferencesProxy
+    </managed-bean-class>
+    <managed-bean-scope>
+       application
+    </managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>germanHolidays</managed-bean-name>
+    <managed-bean-class>
+       org.apache.myfaces.trinidaddemo.GermanHolidayDateListProvider
+    </managed-bean-class>
+    <managed-bean-scope>
+       application
+    </managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>dateRestrictionValidator</managed-bean-name>
+    <managed-bean-class>
+       org.apache.myfaces.trinidaddemo.DateRestrictionValidatorBean
+    </managed-bean-class>
+    <managed-bean-scope>
+       request
+    </managed-bean-scope>
+    <managed-property>
+      <property-name>nationalHolidays</property-name>
+      <value>#{germanHolidays}</value>
+    </managed-property>
+    <managed-property>
+      <property-name>country</property-name>
+      <value>German</value>
+    </managed-property>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>action</managed-bean-name>
+    <managed-bean-class>
+       org.apache.myfaces.trinidaddemo.ActionBean
+    </managed-bean-class>
+    <managed-bean-scope>
+       application
+    </managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>selectItemTest</managed-bean-name>
+    <managed-bean-class>
+       org.apache.myfaces.trinidaddemo.SelectItemTestBean
+    </managed-bean-class>
+    <managed-bean-scope>
+       application
+    </managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>ui</managed-bean-name>
+    <managed-bean-class>
+       org.apache.myfaces.trinidaddemo.UIBean
+    </managed-bean-class>
+    <managed-bean-scope>
+       request
+    </managed-bean-scope>
+    <managed-property>
+      <property-name>state</property-name>
+      <value>#{uiState}</value>
+    </managed-property>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>uiState</managed-bean-name>
+    <managed-bean-class>
+       org.apache.myfaces.trinidaddemo.UIBeanState
+    </managed-bean-class>
+    <managed-bean-scope>
+       session
+    </managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>fileDownload</managed-bean-name>
+    <managed-bean-class>
+       org.apache.myfaces.trinidaddemo.tagDemos.TestFileDownloadBean
+    </managed-bean-class>
+    <managed-bean-scope>
+       session
+    </managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>messages</managed-bean-name>
+    <managed-bean-class>
+       org.apache.myfaces.trinidaddemo.MessagesBean
+    </managed-bean-class>
+    <managed-bean-scope>
+       session
+    </managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>table</managed-bean-name>
+    <managed-bean-class>
+       java.util.ArrayList
+    </managed-bean-class>
+    <managed-bean-scope>
+       application
+    </managed-bean-scope>
+    <list-entries>
+      <value-class>org.apache.myfaces.trinidaddemo.DataBean</value-class>
+      <value>#{tablerow}</value>
+      <value>#{tablerow}</value>
+      <value>#{tablerow}</value>
+      <value>#{tablerow}</value>
+      <value>#{tablerow}</value>
+      <value>#{tablerow}</value>
+      <value>#{tablerow}</value>
+      <value>#{tablerow}</value>
+      <value>#{tablerow}</value>
+      <value>#{tablerow}</value>
+      <value>#{tablerow}</value>
+      <value>#{tablerow}</value>
+      <value>#{tablerow}</value>
+      <value>#{tablerow}</value>
+      <value>#{tablerow}</value>
+      <value>#{tablerow}</value>
+      <value>#{tablerow}</value>
+      <value>#{tablerow}</value>
+    </list-entries>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>listRef</managed-bean-name>
+    <managed-bean-class>java.util.ArrayList</managed-bean-class>
+    <managed-bean-scope>application</managed-bean-scope>
+    <list-entries>
+      <value-class>org.apache.myfaces.trinidaddemo.DataBean</value-class>
+      <value>#{tablerow}</value>
+      <value>#{tablerow}</value>
+      <value>#{tablerow}</value>
+      <value>#{tablerow}</value>
+      <value>#{tablerow}</value>
+    </list-entries>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>listOfLists</managed-bean-name>
+    <managed-bean-class>java.util.ArrayList</managed-bean-class>
+    <managed-bean-scope>application</managed-bean-scope>
+    <list-entries>
+      <value-class>java.util.ArrayList</value-class>
+      <value>#{listRef}</value>
+      <value>#{listRef}</value>
+      <value>#{listRef}</value>
+    </list-entries>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>tablerow</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.DataBean</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>data</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.DataBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+
+  <managed-bean>
+    <managed-bean-name>data2</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.DataBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+
+  <!-- processChoiceBar Demo start -->
+  <managed-bean>
+    <managed-bean-name>processChoiceBarPageList</managed-bean-name>
+    <managed-bean-class>
+       java.util.ArrayList
+    </managed-bean-class>
+    <managed-bean-scope>
+       application
+    </managed-bean-scope>
+    <list-entries>
+      <value-class>org.apache.myfaces.trinidaddemo.survey.SurveyPage</value-class>
+      <value>#{processChoiceBar1}</value>
+      <value>#{processChoiceBar2}</value>
+      <value>#{processChoiceBar3}</value>
+    </list-entries>
+  </managed-bean>
+
+  <!-- create the menuModel -->
+  <managed-bean>
+    <managed-bean-name>processMenuModel</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidad.model.ProcessMenuModel</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+    <managed-property>
+      <property-name>viewIdProperty</property-name>
+      <value>viewId</value>
+    </managed-property>
+    <managed-property>
+      <property-name>wrappedData</property-name>
+      <value>#{processChoiceBarPageList}</value>
+    </managed-property>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>processChoiceBar1</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.survey.SurveyPage</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/components/processChoiceBar.jspx</value>
+    </managed-property>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>First Step</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>guide.processChoiceBar</value>
+    </managed-property>
+  </managed-bean>
+  <managed-bean>
+    <managed-bean-name>processChoiceBar2</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.survey.SurveyPage</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/components/processChoiceBar2.jspx</value>
+    </managed-property>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>Second Step</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>guide.processChoiceBar2</value>
+    </managed-property>
+  </managed-bean>
+  <managed-bean>
+    <managed-bean-name>processChoiceBar3</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.survey.SurveyPage</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/components/processChoiceBar3.jspx</value>
+    </managed-property>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>Third Step</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>guide.processChoiceBar3</value>
+    </managed-property>
+  </managed-bean>
+
+  <!-- processChoiceBar Demo end -->
+
+
+  <!-- train Demo start -->
+
+  <managed-bean>
+    <managed-bean-name>processTrainList</managed-bean-name>
+    <managed-bean-class>
+       java.util.ArrayList
+    </managed-bean-class>
+    <managed-bean-scope>
+       none
+    </managed-bean-scope>
+    <list-entries>
+      <value-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</value-class>
+      <value>#{processTrain1}</value>
+      <value>#{processTrain2}</value>
+      <value>#{processTrain3}</value>
+      <value>#{processTrain4}</value>
+      <value>#{processTrain5}</value>
+      <value>#{processTrain6}</value>
+      <value>#{processTrain7}</value>
+      <value>#{processTrain8}</value>
+    </list-entries>
+  </managed-bean>
+
+ <managed-bean>
+    <managed-bean-name>processTrainTree</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidad.model.ChildPropertyTreeModel</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>childProperty</property-name>
+      <value>children</value>
+    </managed-property>
+    <managed-property>
+      <property-name>wrappedData</property-name>
+      <value>#{processTrainList}</value>
+    </managed-property>
+  </managed-bean>
+
+  <!-- create the menuModel -->
+  <managed-bean>
+    <managed-bean-name>processTrainMenuModel</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidad.model.ProcessMenuModel</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+    <managed-property>
+      <property-name>viewIdProperty</property-name>
+      <value>viewId</value>
+    </managed-property>
+    <managed-property>
+      <property-name>wrappedData</property-name>
+      <value>#{processTrainTree}</value>
+    </managed-property>
+    <managed-property>
+      <property-name>maxPathKey</property-name>
+      <value>TRAIN_DEMO_MAX_PATH_KEY</value>
+    </managed-property>
+  </managed-bean>
+
+
+  <managed-bean>
+    <managed-bean-name>processTrain1</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/components/train.jspx</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>guide.train</value>
+    </managed-property>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>First Step</value>
+    </managed-property>
+  </managed-bean>
+  <managed-bean>
+    <managed-bean-name>processTrain2</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/components/train2.jspx</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>guide.train2</value>
+    </managed-property>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>Second Step</value>
+    </managed-property>
+  </managed-bean>
+  <managed-bean>
+    <managed-bean-name>processTrain3</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/components/train3.jspx</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>guide.train3</value>
+    </managed-property>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>Third Step</value>
+    </managed-property>
+  </managed-bean>
+  <managed-bean>
+    <managed-bean-name>processTrain4</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/components/train4.jspx</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>guide.train4</value>
+    </managed-property>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>Fourth Step</value>
+    </managed-property>
+    <managed-property>
+      <property-name>children</property-name>
+      <list-entries>
+        <value-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</value-class>
+        <value>#{processTrain4a}</value>
+        <value>#{processTrain4b}</value>
+        <value>#{processTrain4c}</value>
+      </list-entries>
+    </managed-property>
+  </managed-bean>
+  <managed-bean>
+    <managed-bean-name>processTrain4a</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/components/train4a.jspx</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>guide.train4a</value>
+    </managed-property>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>Step 4A</value>
+    </managed-property>
+  </managed-bean>
+  <managed-bean>
+    <managed-bean-name>processTrain4b</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/components/train4b.jspx</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>guide.train4b</value>
+    </managed-property>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>Step 4B</value>
+    </managed-property>
+  </managed-bean>
+  <managed-bean>
+    <managed-bean-name>processTrain4c</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/components/train4c.jspx</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>guide.train4c</value>
+    </managed-property>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>Step 4C</value>
+    </managed-property>
+  </managed-bean>
+   <managed-bean>
+    <managed-bean-name>processTrain5</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/components/train5.jspx</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>guide.train5</value>
+    </managed-property>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>Fifth Step</value>
+    </managed-property>
+  </managed-bean>
+  <managed-bean>
+    <managed-bean-name>processTrain6</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/components/train6.jspx</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>guide.train6</value>
+    </managed-property>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>Sixth Step</value>
+    </managed-property>
+  </managed-bean>
+  <managed-bean>
+    <managed-bean-name>processTrain7</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/components/train7.jspx</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>guide.train7</value>
+    </managed-property>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>Seventh Step</value>
+    </managed-property>
+  </managed-bean>
+   <managed-bean>
+    <managed-bean-name>processTrain8</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/components/train8.jspx</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>guide.train8</value>
+    </managed-property>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>Eighth Step</value>
+    </managed-property>
+  </managed-bean>
+
+
+
+  <!-- train Demo end -->
+
+  <!-- inputListOfValues Demo start -->
+  <navigation-rule>
+    <from-view-id>/components/inputListOfValues.jspx</from-view-id>
+    <navigation-case>
+      <from-outcome>dialog:periodicTable</from-outcome>
+      <to-view-id>/components/inputListOfValues_dialog.jspx</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+  <managed-bean>
+    <managed-bean-name>periodicDialog</managed-bean-name>
+    <managed-bean-class>
+       org.apache.myfaces.trinidaddemo.dialog.PeriodicDialogBean
+    </managed-bean-class>
+    <managed-bean-scope>
+       request
+    </managed-bean-scope>
+  </managed-bean>
+  <!-- inputListOfValues Demo end -->
+
+  <managed-bean>
+    <managed-bean-name>color</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.ColorBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>date</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.DateBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+    <managed-bean>
+     <managed-bean-name>chart</managed-bean-name>
+     <managed-bean-class>org.apache.myfaces.trinidaddemo.ChartBean</managed-bean-class>
+     <managed-bean-scope>session</managed-bean-scope>
+   </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>toggle</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.ToggleBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>animals</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.AnimalsBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+  <managed-bean>
+    <managed-bean-name>list</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.ListTestBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>testTree</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.DemoTreeData</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>partialDemoUtil</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.PartialDemoUtilBean</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+    <managed-property>
+      <property-name>status</property-name>
+      <value>#{partialDemoStatus}</value>
+    </managed-property>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>partialDemoStatus</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.PartialDemoStatusBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>poll</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.PollBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>change</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.change.ChangeBean</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>progress</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.ProgressBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>progressSteps</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.ProgressStepsBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>demoTree</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.TreeModelAdapter</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+    <managed-property>
+      <property-name>childProperty</property-name>
+      <value>children</value>
+    </managed-property>
+    <managed-property>
+      <property-name>instance</property-name>
+      <value>#{testTree}</value>
+    </managed-property>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>testTree2</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.InfiniteTree</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>largeTree</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.TreeModelAdapter</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+    <managed-property>
+      <property-name>childProperty</property-name>
+      <value>kids</value>
+    </managed-property>
+    <managed-property>
+      <property-name>instance</property-name>
+      <value>#{testTree2}</value>
+    </managed-property>
+
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>tableActions</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.TableBean</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>editor</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.ComponentEditorHandler</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+    <managed-property>
+      <property-name>javascriptShown</property-name>
+      <value>false</value>
+    </managed-property>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>demoCommandNavigationItem</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.DemoCommandNavigationItemBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>clientValidation</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.ClientValidationBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>converterValidator</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.ConverterValidatorBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>messageCustomization</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.CustomMessageConvertValidateBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+   <!-- BEGIN component tree -->
+  <managed-bean>
+    <managed-bean-name>componentTreeBean</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.ComponentTree</managed-bean-class>
+    <managed-bean-scope>application</managed-bean-scope>
+    <managed-property>
+      <property-name>fileList</property-name>
+      <list-entries>
+        <value-class>java.lang.String</value-class>
+        <value>chart.jspx</value>
+        <value>chooseColor.jspx</value>
+        <value>chooseDate.jspx</value>
+        <value>column.jspx</value>
+        <value>commandButton.jspx</value>
+        <value>commandLink.jspx</value>
+        <value>commandNavigationItem.jspx</value>
+        <value>form.jspx</value>
+        <value>goButton.jspx</value>
+        <value>goLink.jspx</value>
+        <value>group.jspx</value>
+        <value>inputFile.jspx</value>
+        <value>inputHidden.jspx</value>
+        <value>inputNumberSpinbox.jspx</value>
+        <value>inputText.jspx</value>
+        <value>iterator.jspx</value>
+        <value>message.jspx</value>
+        <value>messages.jspx</value>
+        <value>navigationPane.jspx</value>
+        <value>breadCrumbs.jspx</value>
+        <value>navigationTree.jspx</value>
+        <value>icon.jspx</value>
+        <value>image.jspx</value>
+        <value>legend.jspx</value>
+        <value>media.jspx</value>
+        <value>separator.jspx</value>
+        <value>spacer.jspx</value>
+        <value>outputDocument.jspx</value>
+        <value>outputFormatted.jspx</value>
+        <value>outputLabel.jspx</value>
+        <value>outputText.jspx</value>
+        <value>page.jspx</value>
+        <value>panelAccordion.jspx</value>
+        <value>panelAccordion_discloseMany.jspx</value>
+        <value>panelBorderLayout.jspx</value>
+        <value>panelBox.jspx</value>
+        <value>panelButtonBar.jspx</value>
+        <value>panelCaptionGroup.jspx</value>
+        <value>panelFormLayout.jspx</value>
+        <value>panelGroupLayout.jspx</value>
+        <value>panelHeader.jspx</value>
+        <value>panelHorizontalLayout.jspx</value>
+        <value>panelLabelAndMessage.jspx</value>
+        <value>panelList.jspx</value>
+        <value>panelPage.jspx</value>
+        <value>panelPageHeader.jspx</value>
+        <value>panelPopup.jspx</value>
+        <value>panelSideBar.jspx</value>
+        <value>panelTip.jspx</value>
+        <value>poll.jspx</value>
+        <value>processChoiceBar.jspx</value>
+        <value>train.jspx</value>
+        <value>progressIndicator.jspx</value>
+        <!--value>region.jspx</value -->
+        <value>resetButton.jspx</value>
+        <value>selectBooleanCheckbox.jspx</value>
+        <value>selectBooleanRadio.jspx</value>
+        <value>inputColor.jspx</value>
+        <value>inputDate.jspx</value>
+        <value>inputListOfValues.jspx</value>
+        <value>selectItem.jspx</value>
+        <value>selectManyCheckbox.jspx</value>
+        <value>selectManyListbox.jspx</value>
+        <value>selectManyShuttle.jspx</value>
+        <value>selectOneChoice.jspx</value>
+        <value>selectOneListbox.jspx</value>
+        <value>selectOneRadio.jspx</value>
+        <value>selectOrderShuttle.jspx</value>
+        <value>selectRangeChoiceBar.jspx</value>
+        <value>showDetail.jspx</value>
+        <value>showDetailHeader.jspx</value>
+        <value>showDetailItem.jspx</value>
+        <value>panelChoice.jspx</value>
+        <value>panelRadio.jspx</value>
+        <value>panelTabbed.jspx</value>
+        <value>singleStepButtonBar.jspx</value>
+        <value>statusIndicator.jspx</value>
+        <value>styleSheet.jspx</value>
+        <value>table.jspx</value>
+        <value>table_selection.jspx</value>
+        <value>table_dynamic.jspx</value>
+        <value>table_nested.jspx</value>
+        <value>tree.jspx</value>
+        <value>treeTable.jspx</value>
+        <value>treeTable_selection.jspx</value>
+      </list-entries>
+    </managed-property>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>componentTree</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.TreeModelAdapter</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+    <managed-property>
+      <property-name>childProperty</property-name>
+      <value>components</value>
+    </managed-property>
+    <managed-property>
+      <property-name>instance</property-name>
+      <value>#{componentTreeBean.components}</value>
+    </managed-property>
+  </managed-bean>
+  <!-- END component tree -->
+
+  <!-- create the menuModel  for the navigationTree demo, which uses the component guide tree-->
+  <managed-bean>
+    <managed-bean-name>navigationTree</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidad.model.ViewIdPropertyMenuModel</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+    <managed-property>
+      <property-name>viewIdProperty</property-name>
+      <value>viewId</value>
+    </managed-property>
+    <managed-property>
+      <property-name>wrappedData</property-name>
+      <value>#{componentTree.model}</value>
+    </managed-property>
+  </managed-bean>
+
+  <!-- START menuModel/Page component demo -->
+
+
+  <!--
+  This demo shows how much can be defined declaritively, a real application
+  does not need to use a managed bean to define each item.
+
+  This is a visual representation of the data tree being built below
+
+
+                 a1                          a2               a3       a4
+            /          \                  /      \
+         a1b1          a1b2           a2b1         a2b2
+        /    \        /    \
+    a1b1c1  a1b1c2  a1b2c1 a1b2c2
+      |       |
+  a1b1c1d1   a1b1c2d1
+
+  To add a new page you need to:
+   - stop the servlet engine
+   - create a new .jspx page
+   - In faces-config.xml
+       - add a navigation case for the new page
+       - using the managed bean facility create a node to add to the menuModel
+       - either attach the node created above to a parent node or add it as a root node
+
+  -->
+
+
+   <!-- create the menuModel nodes -->
+
+   <managed-bean>
+    <managed-bean-name>navItem_a1b1c1d1</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>a1b1c1d1</value>
+    </managed-property>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/components/page_a1b1c1d1.jspx</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>guide.page_a1b1c1d1</value>
+    </managed-property>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>navItem_a1b1c2d1</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>a1b1c2d1</value>
+    </managed-property>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/components/page_a1b1c2d1.jspx</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>guide.page_a1b1c2d1</value>
+    </managed-property>
+  </managed-bean>
+
+   <managed-bean>
+    <managed-bean-name>navItem_a1b1c1</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>children</property-name>
+      <list-entries>
+        <value-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</value-class>
+        <value>#{navItem_a1b1c1d1}</value>
+      </list-entries>
+    </managed-property>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>a1b1c1</value>
+    </managed-property>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/components/page_a1b1c1.jspx</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>guide.page_a1b1c1</value>
+    </managed-property>
+  </managed-bean>
+
+   <managed-bean>
+    <managed-bean-name>navItem_a1b1c2</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>children</property-name>
+      <list-entries>
+        <value-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</value-class>
+        <value>#{navItem_a1b1c2d1}</value>
+      </list-entries>
+    </managed-property>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>a1b1c2</value>
+    </managed-property>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/components/page_a1b1c2.jspx</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>guide.page_a1b1c2</value>
+    </managed-property>
+  </managed-bean>
+
+   <managed-bean>
+    <managed-bean-name>navItem_a1b2c1</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>a1b2c1</value>
+    </managed-property>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/components/page_a1b2c1.jspx</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>guide.page_a1b2c1</value>
+    </managed-property>
+  </managed-bean>
+
+   <managed-bean>
+    <managed-bean-name>navItem_a1b2c2</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>a1b2c2</value>
+    </managed-property>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/components/page_a1b2c2.jspx</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>guide.page_a1b2c2</value>
+    </managed-property>
+  </managed-bean>
+
+   <managed-bean>
+    <managed-bean-name>navItem_a1b1</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>children</property-name>
+      <list-entries>
+        <value-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</value-class>
+        <value>#{navItem_a1b1c1}</value>
+        <value>#{navItem_a1b1c2}</value>
+      </list-entries>
+    </managed-property>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>a1b1</value>
+    </managed-property>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/components/page_a1b1.jspx</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>guide.page_a1b1</value>
+    </managed-property>
+  </managed-bean>
+
+   <managed-bean>
+    <managed-bean-name>navItem_a1b2</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>children</property-name>
+      <list-entries>
+        <value-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</value-class>
+        <value>#{navItem_a1b2c1}</value>
+        <value>#{navItem_a1b2c2}</value>
+      </list-entries>
+    </managed-property>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>a1b2</value>
+    </managed-property>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/components/page_a1b2.jspx</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>guide.page_a1b2</value>
+    </managed-property>
+  </managed-bean>
+
+   <managed-bean>
+    <managed-bean-name>navItem_a2b1</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>a2b1</value>
+    </managed-property>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/components/page_a2b1.jspx</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>guide.page_a2b1</value>
+    </managed-property>
+  </managed-bean>
+
+
+   <managed-bean>
+    <managed-bean-name>navItem_a2b2</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>a2b2</value>
+    </managed-property>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/components/page_a2b2.jspx</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>guide.page_a2b2</value>
+    </managed-property>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>navItem_a1</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>children</property-name>
+      <list-entries>
+        <value-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</value-class>
+        <value>#{navItem_a1b1}</value>
+        <value>#{navItem_a1b2}</value>
+      </list-entries>
+    </managed-property>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>a1</value>
+    </managed-property>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/components/page_a1.jspx</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>guide.page_a1</value>
+    </managed-property>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>navItem_a2</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>children</property-name>
+      <list-entries>
+        <value-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</value-class>
+        <value>#{navItem_a2b1}</value>
+        <value>#{navItem_a2b2}</value>
+      </list-entries>
+    </managed-property>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>a2</value>
+    </managed-property>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/components/page_a2.jspx</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>guide.page_a2</value>
+    </managed-property>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>navItem_a3</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>a3</value>
+    </managed-property>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/components/page_a3.jspx</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>guide.page_a3</value>
+    </managed-property>
+    <managed-property>
+      <property-name>ico</property-name>
+      <value>/components/images/globalhelp.gif</value>
+    </managed-property>
+  </managed-bean>
+
+ <managed-bean>
+    <managed-bean-name>navItem_a4</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>a4</value>
+    </managed-property>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/components/page_a4.jspx</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>guide.page_a4</value>
+    </managed-property>
+    <managed-property>
+      <property-name>ico</property-name>
+      <value>/components/images/globalhelp.gif</value>
+    </managed-property>
+  </managed-bean>
+
+  <!-- create the treemodel -->
+
+ <managed-bean>
+    <managed-bean-name>navTreeList</managed-bean-name>
+    <managed-bean-class>
+       java.util.ArrayList
+    </managed-bean-class>
+    <managed-bean-scope>
+       none
+    </managed-bean-scope>
+     <list-entries>
+        <value-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</value-class>
+        <value>#{navItem_a1}</value>
+        <value>#{navItem_a2}</value>
+        <value>#{navItem_a3}</value>
+        <value>#{navItem_a4}</value>
+      </list-entries>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>navTreeModel</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidad.model.ChildPropertyTreeModel</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>childProperty</property-name>
+      <value>children</value>
+    </managed-property>
+    <managed-property>
+      <property-name>wrappedData</property-name>
+      <value>#{navTreeList}</value>
+    </managed-property>
+  </managed-bean>
+
+  <!-- create the menuModel -->
+
+  <managed-bean>
+    <managed-bean-name>viewIdMenuModel</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidad.model.ViewIdPropertyMenuModel</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>viewIdProperty</property-name>
+      <value>viewId</value>
+    </managed-property>
+    <managed-property>
+      <property-name>wrappedData</property-name>
+      <value>#{navTreeModel}</value>
+    </managed-property>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>menuModel</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.MenuModelAdapter</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+    <managed-property>
+      <property-name>model</property-name>
+      <value>#{viewIdMenuModel}</value>
+    </managed-property>
+    <managed-property>
+      <property-name>aliasList</property-name>
+      <list-entries>
+        <value-class>java.lang.String</value-class>
+        <value>/components/page_p1.jspx</value>
+        <value>#{navItem_a2b1.viewId}</value>
+        <value>/components/page_p2.jspx</value>
+        <value>#{navItem_a2b1.viewId}</value>
+        <value>/components/page_p3.jspx</value>
+        <value>#{navItem_a2b1.viewId}</value>
+        <value>/components/page_p4.jspx</value>
+        <value>#{navItem_a2b1.viewId}</value>
+      </list-entries>
+    </managed-property>
+
+  </managed-bean>
+
+
+
+  <!-- create the navigation rules -->
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>guide.page</from-outcome>
+      <to-view-id>/components/page.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>guide.page_a1</from-outcome>
+      <to-view-id>/components/page_a1.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>guide.page_a2</from-outcome>
+      <to-view-id>/components/page_a2.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>guide.page_a3</from-outcome>
+      <to-view-id>/components/page_a3.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>guide.page_a4</from-outcome>
+      <to-view-id>/components/page_a4.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+     <navigation-case>
+      <from-outcome>guide.page_a1b1</from-outcome>
+      <to-view-id>/components/page_a1b1.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+     <navigation-case>
+      <from-outcome>guide.page_a1b2</from-outcome>
+      <to-view-id>/components/page_a1b2.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+     <navigation-case>
+      <from-outcome>guide.page_a2b1</from-outcome>
+      <to-view-id>/components/page_a2b1.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+     <navigation-case>
+      <from-outcome>guide.page_a2b2</from-outcome>
+      <to-view-id>/components/page_a2b2.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+     <navigation-case>
+      <from-outcome>guide.page_a1b1c1</from-outcome>
+      <to-view-id>/components/page_a1b1c1.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+     <navigation-case>
+      <from-outcome>guide.page_a1b1c2</from-outcome>
+      <to-view-id>/components/page_a1b1c2.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+     <navigation-case>
+      <from-outcome>guide.page_a1b2c1</from-outcome>
+      <to-view-id>/components/page_a1b2c1.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+     <navigation-case>
+      <from-outcome>guide.page_a1b2c2</from-outcome>
+      <to-view-id>/components/page_a1b2c2.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+     <navigation-case>
+      <from-outcome>guide.page_a1b1c1d1</from-outcome>
+      <to-view-id>/components/page_a1b1c1d1.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+     <navigation-case>
+      <from-outcome>guide.page_a1b1c2d1</from-outcome>
+      <to-view-id>/components/page_a1b1c2d1.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+  </navigation-rule>
+
+  <!-- process pages -->
+
+  <managed-bean>
+    <managed-bean-name>processItem_p1</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.survey.SurveyPage</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/components/page_p1.jspx</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>guide.page_p1</value>
+    </managed-property>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>First Step</value>
+    </managed-property>
+  </managed-bean>
+  <managed-bean>
+    <managed-bean-name>processItem_p2</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.survey.SurveyPage</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/components/page_p2.jspx</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>guide.page_p2</value>
+    </managed-property>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>Second Step</value>
+    </managed-property>
+  </managed-bean>
+ <managed-bean>
+    <managed-bean-name>processItem_p3</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.survey.SurveyPage</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/components/page_p3.jspx</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>guide.page_p3</value>
+    </managed-property>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>Third Step</value>
+    </managed-property>
+  </managed-bean>
+ <managed-bean>
+    <managed-bean-name>processItem_p4</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.survey.SurveyPage</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/components/page_p4.jspx</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>guide.page_p4</value>
+    </managed-property>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>Fourth Step</value>
+    </managed-property>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>processPageList</managed-bean-name>
+    <managed-bean-class>
+       java.util.ArrayList
+    </managed-bean-class>
+    <managed-bean-scope>
+       application
+    </managed-bean-scope>
+    <list-entries>
+      <value-class>org.apache.myfaces.trinidaddemo.survey.SurveyPage</value-class>
+      <value>#{processItem_p1}</value>
+      <value>#{processItem_p2}</value>
+      <value>#{processItem_p3}</value>
+      <value>#{processItem_p4}</value>
+    </list-entries>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>processPageMenuModel</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidad.model.ProcessMenuModel</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+    <managed-property>
+      <property-name>viewIdProperty</property-name>
+      <value>viewId</value>
+    </managed-property>
+    <managed-property>
+      <property-name>wrappedData</property-name>
+      <value>#{processPageList}</value>
+    </managed-property>
+
+  </managed-bean>
+
+  <navigation-rule>
+     <navigation-case>
+      <from-outcome>guide.page_p1</from-outcome>
+      <to-view-id>/components/page_p1.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+     <navigation-case>
+      <from-outcome>guide.page_p2</from-outcome>
+      <to-view-id>/components/page_p2.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+     <navigation-case>
+      <from-outcome>guide.page_p3</from-outcome>
+      <to-view-id>/components/page_p3.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+     <navigation-case>
+      <from-outcome>guide.page_p4</from-outcome>
+      <to-view-id>/components/page_p4.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+  </navigation-rule>
+
+
+  <!-- END menuModel/Page component demo -->
+
+
+  <!-- START OF SURVEY DEMO -->
+  <managed-bean>
+    <managed-bean-name>survey</managed-bean-name>
+    <managed-bean-class>
+       org.apache.myfaces.trinidaddemo.survey.SurveyBean
+    </managed-bean-class>
+    <managed-bean-scope>
+       session
+    </managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>surveyPageList</managed-bean-name>
+    <managed-bean-class>
+       java.util.ArrayList
+    </managed-bean-class>
+    <managed-bean-scope>
+       application
+    </managed-bean-scope>
+    <list-entries>
+      <value-class>org.apache.myfaces.trinidaddemo.survey.SurveyPage</value-class>
+      <value>#{survey1}</value>
+      <value>#{survey2}</value>
+      <value>#{survey3}</value>
+      <value>#{survey4}</value>
+      <value>#{survey5}</value>
+    </list-entries>
+  </managed-bean>
+
+  <!-- create the menuModel -->
+  <managed-bean>
+    <managed-bean-name>surveyMenuModel</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidad.model.ViewIdPropertyMenuModel</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+    <managed-property>
+      <property-name>viewIdProperty</property-name>
+      <value>viewId</value>
+    </managed-property>
+    <managed-property>
+      <property-name>wrappedData</property-name>
+      <value>#{surveyPageList}</value>
+    </managed-property>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>survey1</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.survey.SurveyPage</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/surveydemo/surveyPage1.jspx</value>
+    </managed-property>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>First Step</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>survey1</value>
+    </managed-property>
+  </managed-bean>
+  <managed-bean>
+    <managed-bean-name>survey2</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.survey.SurveyPage</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/surveydemo/surveyPage2.jspx</value>
+    </managed-property>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>Second Step</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>survey2</value>
+    </managed-property>
+  </managed-bean>
+  <managed-bean>
+    <managed-bean-name>survey3</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.survey.SurveyPage</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/surveydemo/surveyPage3.jspx</value>
+    </managed-property>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>Third Step</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>survey3</value>
+    </managed-property>
+  </managed-bean>
+  <managed-bean>
+    <managed-bean-name>survey4</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.survey.SurveyPage</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/surveydemo/surveyPage4.jspx</value>
+    </managed-property>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>Fourth Step</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>survey4</value>
+    </managed-property>
+  </managed-bean>
+  <managed-bean>
+    <managed-bean-name>survey5</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.survey.SurveyPage</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+      <property-name>viewId</property-name>
+      <value>/surveydemo/surveyPage5.jspx</value>
+    </managed-property>
+    <managed-property>
+      <property-name>label</property-name>
+      <value>Fifth Step</value>
+    </managed-property>
+    <managed-property>
+      <property-name>outcome</property-name>
+      <value>survey5</value>
+    </managed-property>
+  </managed-bean>
+
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>survey1</from-outcome>
+      <to-view-id>/surveydemo/surveyPage1.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>survey2</from-outcome>
+      <to-view-id>/surveydemo/surveyPage2.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>survey3</from-outcome>
+      <to-view-id>/surveydemo/surveyPage3.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>survey4</from-outcome>
+      <to-view-id>/surveydemo/surveyPage4.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>survey5</from-outcome>
+      <to-view-id>/surveydemo/surveyPage5.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+  </navigation-rule>
+
+   <navigation-rule>
+      <from-view-id>/surveydemo/surveyStart.jspx</from-view-id>
+      <navigation-case>
+        <from-outcome>start</from-outcome>
+        <to-view-id>/surveydemo/surveyPage1.jspx</to-view-id>
+        <redirect/>
+      </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
+      <from-view-id>/surveydemo/surveyPage1.jspx</from-view-id>
+      <navigation-case>
+        <from-outcome>next</from-outcome>
+        <to-view-id>/surveydemo/surveyPage2.jspx</to-view-id>
+        <redirect/>
+      </navigation-case>
+  </navigation-rule>
+
+    <navigation-rule>
+      <from-view-id>/surveydemo/surveyPage2.jspx</from-view-id>
+      <navigation-case>
+        <from-outcome>next</from-outcome>
+        <to-view-id>/surveydemo/surveyPage3.jspx</to-view-id>
+        <redirect/>
+      </navigation-case>
+      <navigation-case>
+        <from-outcome>back</from-outcome>
+        <to-view-id>/surveydemo/surveyPage1.jspx</to-view-id>
+        <redirect/>
+      </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
+      <from-view-id>/surveydemo/surveyPage3.jspx</from-view-id>
+      <navigation-case>
+        <from-outcome>next</from-outcome>
+        <to-view-id>/surveydemo/surveyPage4.jspx</to-view-id>
+        <redirect/>
+      </navigation-case>
+      <navigation-case>
+        <from-outcome>back</from-outcome>
+        <to-view-id>/surveydemo/surveyPage2.jspx</to-view-id>
+        <redirect/>
+      </navigation-case>
+  </navigation-rule>
+
+    <navigation-rule>
+      <from-view-id>/surveydemo/surveyPage4.jspx</from-view-id>
+      <navigation-case>
+        <from-outcome>next</from-outcome>
+        <to-view-id>/surveydemo/surveyPage5.jspx</to-view-id>
+        <redirect/>
+      </navigation-case>
+      <navigation-case>
+        <from-outcome>back</from-outcome>
+        <to-view-id>/surveydemo/surveyPage3.jspx</to-view-id>
+        <redirect/>
+      </navigation-case>
+  </navigation-rule>
+
+ <navigation-rule>
+      <from-view-id>/surveydemo/surveyPage5.jspx</from-view-id>
+      <navigation-case>
+        <from-outcome>finish</from-outcome>
+        <to-view-id>/surveydemo/surveyResults.jspx</to-view-id>
+        <redirect/>
+      </navigation-case>
+      <navigation-case>
+        <from-outcome>back</from-outcome>
+        <to-view-id>/surveydemo/surveyPage4.jspx</to-view-id>
+        <redirect/>
+      </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
+      <from-view-id>/surveydemo/surveyResults.jspx</from-view-id>
+      <navigation-case>
+        <from-outcome>start</from-outcome>
+        <to-view-id>/surveydemo/surveyPage1.jspx</to-view-id>
+        <redirect/>
+      </navigation-case>
+  </navigation-rule>
+
+  <validator>
+      <description>Validates user's responses to survey questions</description>
+      <display-name>Survey Demo Answer Validator</display-name>
+      <validator-id>survey answer validator</validator-id>
+      <validator-class>org.apache.myfaces.trinidaddemo.survey.AnswerValidator</validator-class>
+      <attribute>
+          <attribute-name>questionIndex</attribute-name>
+          <attribute-class>java.lang.String</attribute-class>
+      </attribute>
+  </validator>
+
+
+
+  <!-- Global navigation rules -->
+  <navigation-rule>
+
+
+    <navigation-case>
+        <from-outcome>app1</from-outcome>
+        <to-view-id>/components/table.jspx</to-view-id>
+        <redirect/>
+    </navigation-case>
+    <navigation-case>
+        <from-outcome>app2</from-outcome>
+        <to-view-id>/components/tree.jspx</to-view-id>
+        <redirect/>
+    </navigation-case>
+    <!-- Top level navigation -->
+    <navigation-case>
+      <from-outcome>home</from-outcome>
+      <to-view-id>/index.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>survey</from-outcome>
+      <to-view-id>/surveydemo/surveyStart.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide</from-outcome>
+      <to-view-id>/componentDemos.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>emaildemo</from-outcome>
+      <to-view-id>/email/login.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>progressEnd</from-outcome>
+      <to-view-id>/components/progressEnd.jspx?taskStatus=completed</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>progressCancel</from-outcome>
+      <to-view-id>/components/progressEnd.jspx?taskStatus=cancelled</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>colorConverter</from-outcome>
+      <to-view-id>/components/chooseColor.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>convertValidate</from-outcome>
+      <to-view-id>/convertValidate/convertValidate.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>clientConvert</from-outcome>
+      <to-view-id>/convertValidate/clientConvert.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>dateRestrictionValidate</from-outcome>
+      <to-view-id>/convertValidate/dateRestrictionValidate.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>clientDateRestrictionValidate</from-outcome>
+      <to-view-id>/convertValidate/clientDateRestrictionValidate.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>convertValidateDemos</from-outcome>
+      <to-view-id>/convertValidate/index.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>messageCustomization</from-outcome>
+      <to-view-id>/convertValidate/convertValidateMessageCustomization.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <!-- Nav to Component Demos -->
+    <navigation-case>
+      <from-outcome>guide.body</from-outcome>
+      <to-view-id>/components/html/body.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.separator</from-outcome>
+      <to-view-id>/components/separator.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.selectItem</from-outcome>
+      <to-view-id>/components/selectItem.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.showDetailItem</from-outcome>
+      <to-view-id>/components/showDetailItem.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.goButton</from-outcome>
+      <to-view-id>/components/goButton.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.panelBorderLayout</from-outcome>
+      <to-view-id>/components/panelBorderLayout.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.panelLabelAndMessage</from-outcome>
+      <to-view-id>/components/panelLabelAndMessage.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.panelGroupLayout</from-outcome>
+      <to-view-id>/components/panelGroupLayout.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.panelHorizontalLayout</from-outcome>
+      <to-view-id>/components/panelHorizontalLayout.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>guide.poll</from-outcome>
+      <to-view-id>/components/poll.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.progressIndicator</from-outcome>
+      <to-view-id>/components/progressIndicator.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.navigationPane</from-outcome>
+      <to-view-id>/components/navigationPane.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.breadCrumbs</from-outcome>
+      <to-view-id>/components/breadCrumbs.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.panelList</from-outcome>
+      <to-view-id>/components/panelList.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.cellFormat</from-outcome>
+      <to-view-id>/components/html/cellFormat.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+     <navigation-case>
+       <from-outcome>guide.chart</from-outcome>
+       <to-view-id>/components/chart.jspx</to-view-id>
+       <redirect/>
+     </navigation-case>
+
+
+    <navigation-case>
+      <from-outcome>guide.chooseColor</from-outcome>
+      <to-view-id>/components/chooseColor.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.column</from-outcome>
+      <to-view-id>/components/column.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.column.group</from-outcome>
+      <to-view-id>/components/column_group.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.column.rowHeader</from-outcome>
+      <to-view-id>/components/column_rowHeader.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.column.sortable</from-outcome>
+      <to-view-id>/components/column_sortable.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.column.footer</from-outcome>
+      <to-view-id>/components/column_footer.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.commandButton</from-outcome>
+      <to-view-id>/components/commandButton.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.commandLink</from-outcome>
+      <to-view-id>/components/commandLink.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.commandNavigationItem</from-outcome>
+      <to-view-id>/components/commandNavigationItem.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.panelBox</from-outcome>
+      <to-view-id>/components/panelBox.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.panelCaptionGroup</from-outcome>
+      <to-view-id>/components/panelCaptionGroup.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.panelPopup</from-outcome>
+      <to-view-id>/components/panelPopup.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.form</from-outcome>
+      <to-view-id>/components/form.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.frameBorderLayout</from-outcome>
+      <to-view-id>/components/html/frameBorderLayout.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.panelHeader</from-outcome>
+      <to-view-id>/components/panelHeader.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.treeTable</from-outcome>
+      <to-view-id>/components/treeTable.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.showDetail</from-outcome>
+      <to-view-id>/components/showDetail.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.showDetailHeader</from-outcome>
+      <to-view-id>/components/showDetailHeader.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.html</from-outcome>
+      <to-view-id>/components/html/html.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.icon</from-outcome>
+      <to-view-id>/components/icon.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.legend</from-outcome>
+      <to-view-id>/components/legend.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.image</from-outcome>
+      <to-view-id>/components/image.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.inputFile</from-outcome>
+      <to-view-id>/components/inputFile.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.inputHidden</from-outcome>
+      <to-view-id>/components/inputHidden.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.inputNumberSpinbox</from-outcome>
+      <to-view-id>/components/inputNumberSpinbox.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.inputText</from-outcome>
+      <to-view-id>/components/inputText.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.iterator</from-outcome>
+      <to-view-id>/components/iterator.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.chooseDate</from-outcome>
+      <to-view-id>/components/chooseDate.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.goLink</from-outcome>
+      <to-view-id>/components/goLink.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+
+    <navigation-case>
+      <from-outcome>guide.group</from-outcome>
+      <to-view-id>/components/group.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.media</from-outcome>
+      <to-view-id>/components/media.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.navigationTree</from-outcome>
+      <to-view-id>/components/navigationTree.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.messages</from-outcome>
+      <to-view-id>/components/messages.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.message</from-outcome>
+      <to-view-id>/components/message.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <!-- the navegation rules for page are next to the menu managed beans -->
+
+    <navigation-case>
+      <from-outcome>guide.panelFormLayout</from-outcome>
+      <to-view-id>/components/panelFormLayout.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.table_selection</from-outcome>
+      <to-view-id>/components/table_selection.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.treeTable_selection</from-outcome>
+      <to-view-id>/components/treeTable_selection.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.outputDocument</from-outcome>
+      <to-view-id>/components/outputDocument.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.outputFormatted</from-outcome>
+      <to-view-id>/components/outputFormatted.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.outputLabel</from-outcome>
+      <to-view-id>/components/outputLabel.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.outputText</from-outcome>
+      <to-view-id>/components/outputText.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.panelButtonBar</from-outcome>
+      <to-view-id>/components/panelButtonBar.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.panelPageHeader</from-outcome>
+      <to-view-id>/components/panelPageHeader.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.panelPage</from-outcome>
+      <to-view-id>/components/panelPage.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.processChoiceBar</from-outcome>
+      <to-view-id>/components/processChoiceBar.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.processChoiceBar2</from-outcome>
+      <to-view-id>/components/processChoiceBar2.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.processChoiceBar3</from-outcome>
+      <to-view-id>/components/processChoiceBar3.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.train</from-outcome>
+      <to-view-id>/components/train.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>guide.train2</from-outcome>
+      <to-view-id>/components/train2.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>guide.train3</from-outcome>
+      <to-view-id>/components/train3.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>guide.train4</from-outcome>
+      <to-view-id>/components/train4.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>guide.train4a</from-outcome>
+      <to-view-id>/components/train4a.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>guide.train4b</from-outcome>
+      <to-view-id>/components/train4b.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>guide.train4c</from-outcome>
+      <to-view-id>/components/train4c.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>guide.train5</from-outcome>
+      <to-view-id>/components/train5.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>guide.train6</from-outcome>
+      <to-view-id>/components/train6.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>guide.train7</from-outcome>
+      <to-view-id>/components/train7.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>guide.train8</from-outcome>
+      <to-view-id>/components/train8.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.resetButton</from-outcome>
+      <to-view-id>/components/resetButton.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.region</from-outcome>
+      <to-view-id>/components/region.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.rowLayout</from-outcome>
+      <to-view-id>/components/html/rowLayout.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.selectBooleanCheckbox</from-outcome>
+      <to-view-id>/components/selectBooleanCheckbox.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.selectBooleanRadio</from-outcome>
+      <to-view-id>/components/selectBooleanRadio.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+
+    <navigation-case>
+      <from-outcome>guide.inputColor</from-outcome>
+      <to-view-id>/components/inputColor.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.inputDate</from-outcome>
+      <to-view-id>/components/inputDate.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.inputListOfValues</from-outcome>
+      <to-view-id>/components/inputListOfValues.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.selectOneListbox</from-outcome>
+      <to-view-id>/components/selectOneListbox.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.selectOneChoice</from-outcome>
+      <to-view-id>/components/selectOneChoice.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.selectOneRadio</from-outcome>
+      <to-view-id>/components/selectOneRadio.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.selectManyCheckbox</from-outcome>
+      <to-view-id>/components/selectManyCheckbox.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.selectManyListbox</from-outcome>
+      <to-view-id>/components/selectManyListbox.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+
+    <navigation-case>
+      <from-outcome>guide.selectManyShuttle</from-outcome>
+      <to-view-id>/components/selectManyShuttle.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+
+    <navigation-case>
+      <from-outcome>guide.selectOrderShuttle</from-outcome>
+      <to-view-id>/components/selectOrderShuttle.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.selectRangeChoiceBar</from-outcome>
+      <to-view-id>/components/selectRangeChoiceBar.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.panelSideBar</from-outcome>
+      <to-view-id>/components/panelSideBar.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.tableLayout</from-outcome>
+      <to-view-id>/components/html/tableLayout.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.singleStepButtonBar</from-outcome>
+      <to-view-id>/components/singleStepButtonBar.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.statusIndicator</from-outcome>
+      <to-view-id>/components/statusIndicator.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.styleSheet</from-outcome>
+      <to-view-id>/components/styleSheet.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.spacer</from-outcome>
+      <to-view-id>/components/spacer.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.panelAccordion_discloseMany</from-outcome>
+      <to-view-id>/components/panelAccordion_discloseMany.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.panelAccordion</from-outcome>
+      <to-view-id>/components/panelAccordion.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.panelChoice</from-outcome>
+      <to-view-id>/components/panelChoice.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.panelRadio</from-outcome>
+      <to-view-id>/components/panelRadio.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.panelTabbed</from-outcome>
+      <to-view-id>/components/panelTabbed.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.table</from-outcome>
+      <to-view-id>/components/table.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.table_dynamic</from-outcome>
+      <to-view-id>/components/table_dynamic.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.panelTip</from-outcome>
+      <to-view-id>/components/panelTip.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+
+    <navigation-case>
+      <from-outcome>guide.tree</from-outcome>
+      <to-view-id>/components/tree.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <!-- Nav to feature Demos -->
+    <navigation-case>
+      <from-outcome>demos</from-outcome>
+      <to-view-id>/demos/demos.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>demos.direct</from-outcome>
+      <to-view-id>/demos/demos.jspx</to-view-id>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>demos.ppr</from-outcome>
+      <to-view-id>/demos/pprDemos.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>demos.skin</from-outcome>
+      <to-view-id>/demos/panelPageSkinDemo.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>demos.dialog</from-outcome>
+      <to-view-id>/demos/launchDialog.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>demos.progressSteps</from-outcome>
+      <to-view-id>/demos/progressSteps.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>demos.changePersistence</from-outcome>
+      <to-view-id>/demos/changeDemos/changePersistence.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>demos.attributeChange_Implicit</from-outcome>
+      <to-view-id>/demos/changeDemos/attributeChange_Implicit.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>demos.attributeChange_Explicit</from-outcome>
+      <to-view-id>/demos/changeDemos/attributeChange_Explicit.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>demos.addRemoveReorderChildrenChange_Explicit</from-outcome>
+      <to-view-id>/demos/changeDemos/addRemoveReorderChildrenChange_Explicit.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>demos.addRemoveFacetsChange_Explicit</from-outcome>
+      <to-view-id>/demos/changeDemos/addRemoveFacetsChange_Explicit.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>demos.tableDemos</from-outcome>
+      <to-view-id>/demos/tableDemos/WelCome.jspx</to-view-id>
+      </navigation-case>
+    <navigation-case>
+      <from-outcome>guide.table_nested</from-outcome>
+      <to-view-id>/components/table_nested.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+  </navigation-rule>
+
+   <navigation-rule>
+    <from-view-id>/demos/tableDemos/WelCome.jspx</from-view-id>
+    <navigation-case>
+      <from-outcome>addRow</from-outcome>
+      <to-view-id>/demos/tableDemos/addRow.jspx</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>totalRow</from-outcome>
+      <to-view-id>/demos/tableDemos/totalRow.jspx</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+  <!--Composite Demo -->
+  <managed-bean>
+    <managed-bean-name>compositeTest</managed-bean-name>
+    <managed-bean-class>
+       org.apache.myfaces.trinidaddemo.composite.CompositeTest
+    </managed-bean-class>
+    <managed-bean-scope>
+       request
+    </managed-bean-scope>
+  </managed-bean>
+
+  <!-- START OF EMAIL DEMO -->
+
+  <managed-bean>
+    <managed-bean-name>email</managed-bean-name>
+    <managed-bean-class>
+       org.apache.myfaces.trinidaddemo.email.AccountData
+    </managed-bean-class>
+    <managed-bean-scope>
+       session
+    </managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>showMessageBacking</managed-bean-name>
+    <managed-bean-class>
+       org.apache.myfaces.trinidaddemo.email.ShowMessageBackingBean
+    </managed-bean-class>
+    <managed-bean-scope>
+       request
+    </managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>messagesBacking</managed-bean-name>
+    <managed-bean-class>
+       org.apache.myfaces.trinidaddemo.email.MessagesBackingBean
+    </managed-bean-class>
+    <managed-bean-scope>
+       request
+    </managed-bean-scope>
+    <managed-property>
+      <property-name>folder</property-name>
+      <value>#{email.currentFolder}</value>
+    </managed-property>
+  </managed-bean>
+
+
+  <managed-bean>
+    <managed-bean-name>newMessageBacking</managed-bean-name>
+    <managed-bean-class>
+       org.apache.myfaces.trinidaddemo.email.NewMessageBackingBean
+    </managed-bean-class>
+    <managed-bean-scope>
+       request
+    </managed-bean-scope>
+    <managed-property>
+      <property-name>account</property-name>
+      <value>#{email}</value>
+    </managed-property>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>replyToMessageBacking</managed-bean-name>
+    <managed-bean-class>
+       org.apache.myfaces.trinidaddemo.email.ReplyToMessageBackingBean
+    </managed-bean-class>
+    <managed-bean-scope>
+       request
+    </managed-bean-scope>
+    <managed-property>
+      <property-name>account</property-name>
+      <value>#{email}</value>
+    </managed-property>
+  </managed-bean>
+<!--Table Demos-->
+  <managed-bean>
+    <managed-bean-name>Backer</managed-bean-name>
+    <managed-bean-class>
+       org.apache.myfaces.trinidaddemo.tableDemos.EmployeeTableBean
+    </managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>TotalBacker</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.tableDemos.EmployeeTableBean</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>csv</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.tableDemos.CSVBean</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean>
+
+
+  <!-- Navigation rules for all cases -->
+  <navigation-rule>
+      <from-view-id>/email/*</from-view-id>
+      <navigation-case>
+        <from-outcome>messages</from-outcome>
+        <to-view-id>/email/messages.jspx</to-view-id>
+        <redirect/>
+      </navigation-case>
+      <navigation-case>
+        <from-outcome>newMessage</from-outcome>
+        <to-view-id>/email/newMessage.jspx</to-view-id>
+        <redirect/>
+      </navigation-case>
+      <navigation-case>
+        <from-outcome>loggedOut</from-outcome>
+        <to-view-id>/email/login.jspx</to-view-id>
+        <redirect/>
+      </navigation-case>
+      <navigation-case>
+        <from-outcome>preferences</from-outcome>
+        <to-view-id>/email/preferences.jspx</to-view-id>
+        <redirect/>
+      </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
+      <from-view-id>/email/login.jspx</from-view-id>
+      <navigation-case>
+        <from-outcome>success</from-outcome>
+        <to-view-id>/email/messages.jspx</to-view-id>
+        <redirect/>
+      </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
+      <from-view-id>/email/preferences.jspx</from-view-id>
+      <navigation-case>
+        <from-outcome>success</from-outcome>
+        <to-view-id>/email/messages.jspx</to-view-id>
+        <redirect/>
+      </navigation-case>
+  </navigation-rule>
+
+
+  <navigation-rule>
+    <from-view-id>/email/messages.jspx</from-view-id>
+    <navigation-case>
+      <from-outcome>showMessage</from-outcome>
+      <to-view-id>/email/showMessage.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
+    <from-view-id>/email/newMessage.jspx</from-view-id>
+    <navigation-case>
+      <from-outcome>sentMessage</from-outcome>
+      <to-view-id>/email/confirmSent.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>cancel</from-outcome>
+      <to-view-id>/email/messages.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
+    <from-view-id>/email/replyToMessage.jspx</from-view-id>
+    <navigation-case>
+      <from-outcome>sentMessage</from-outcome>
+      <to-view-id>/email/confirmSent.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>cancel</from-outcome>
+      <to-view-id>/email/messages.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
+    <from-view-id>/email/showMessage.jspx</from-view-id>
+    <navigation-case>
+      <from-outcome>reply</from-outcome>
+      <to-view-id>/email/replyToMessage.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+  </navigation-rule>
+
+  <converter>
+    <converter-id>org.apache.myfaces.trinidaddemo.email.RelativeDate</converter-id>
+    <converter-class>org.apache.myfaces.trinidaddemo.email.RelativeDateConverter</converter-class>
+  </converter>
+
+  <converter>
+    <converter-id>org.apache.myfaces.trinidaddemo.email.EmailDisplay</converter-id>
+    <converter-class>org.apache.myfaces.trinidaddemo.email.EmailDisplayConverter</converter-class>
+  </converter>
+  <!-- END OF EMAIL DEMO -->
+
+
+  <!-- CAR DEMO -->
+  <managed-bean>
+    <managed-bean-name>carBacking</managed-bean-name>
+    <managed-bean-class>
+      org.apache.myfaces.trinidaddemo.CarBackingBean
+    </managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>carOptionsBacking</managed-bean-name>
+    <managed-bean-class>
+      org.apache.myfaces.trinidaddemo.CarOptionsBackingBean
+    </managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean>
+
+  <navigation-rule>
+    <from-view-id>/demos/carDemo.jspx</from-view-id>
+    <navigation-case>
+      <from-outcome>dialog:optionsDialog</from-outcome>
+      <to-view-id>/demos/optionsDialog.jspx</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+
+  <!-- DIALOG DEMO -->
+  <managed-bean>
+    <managed-bean-name>chooseInteger</managed-bean-name>
+    <managed-bean-class>
+       org.apache.myfaces.trinidaddemo.dialog.ChooseIntegerBean
+    </managed-bean-class>
+    <managed-bean-scope>
+       request
+    </managed-bean-scope>
+    <managed-property>
+      <property-name>value1</property-name>
+      <value>#{pageFlowScope.value}</value>
+    </managed-property>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>launchDialog</managed-bean-name>
+    <managed-bean-class>
+       org.apache.myfaces.trinidaddemo.dialog.LaunchDialogBean
+    </managed-bean-class>
+    <managed-bean-scope>
+       request
+    </managed-bean-scope>
+  </managed-bean>
+
+  <navigation-rule>
+    <from-view-id>*</from-view-id>
+    <navigation-case>
+      <from-outcome>dialog:chooseInteger</from-outcome>
+      <to-view-id>/demos/chooseInteger.jspx</to-view-id>
+<!--      <redirect/> -->
+    </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
+    <from-view-id>*</from-view-id>
+    <navigation-case>
+      <from-outcome>dialog:simpleDialog</from-outcome>
+      <to-view-id>/demos/simpleDialog.jspx</to-view-id>
+<!--      <redirect/> -->
+    </navigation-case>
+  </navigation-rule>
+
+  <managed-bean>
+    <managed-bean-name>dynamicTable</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.table.DynamicModel</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>periodicTable</managed-bean-name>
+    <managed-bean-class>
+       org.apache.myfaces.trinidaddemo.table.TableBuilder
+    </managed-bean-class>
+    <managed-bean-scope>
+       session
+    </managed-bean-scope>
+    <managed-property>
+      <property-name>beanClass</property-name>
+      <value>
+         org.apache.myfaces.trinidaddemo.AtomBean
+      </value>
+    </managed-property>
+    <managed-property>
+      <property-name>beanProperties</property-name>
+      <list-entries>
+        <value-class>java.lang.String</value-class>
+        <value>name</value>
+        <value>symbol</value>
+        <value>number</value>
+        <value>group</value>
+      </list-entries>
+    </managed-property>
+    <managed-property>
+      <property-name>beanData</property-name>
+      <list-entries>
+        <value-class>java.lang.String</value-class>
+        <value>Hydrogen</value>
+        <value>H</value>
+        <value>1</value>
+        <value>Non Metal</value>
+
+        <value>Carbon</value>
+        <value>C</value>
+        <value>6</value>
+        <value>Non Metal</value>
+
+        <value>Nitrogen</value>
+        <value>N</value>
+        <value>7</value>
+        <value>Non Metal</value>
+
+        <value>Oxygen</value>
+        <value>O</value>
+        <value>8</value>
+        <value>Non Metal</value>
+
+        <value>Phosphorus</value>
+        <value>P</value>
+        <value>15</value>
+        <value>Non Metal</value>
+
+        <value>Sulphur</value>
+        <value>S</value>
+        <value>16</value>
+        <value>Non Metal</value>
+
+        <value>Helium</value>
+        <value>He</value>
+        <value>2</value>
+        <value>Noble Gas</value>
+
+        <value>Neon</value>
+        <value>Ne</value>
+        <value>10</value>
+        <value>Noble Gas</value>
+
+        <value>Argon</value>
+        <value>Ar</value>
+        <value>18</value>
+        <value>Noble Gas</value>
+
+        <value>Krypton</value>
+        <value>Kr</value>
+        <value>36</value>
+        <value>Noble Gas</value>
+
+        <value>Xenon</value>
+        <value>Xe</value>
+        <value>54</value>
+        <value>Noble Gas</value>
+
+        <value>Radon</value>
+        <value>Rn</value>
+        <value>86</value>
+        <value>Noble Gas</value>
+
+        <value>Lithium</value>
+        <value>Li</value>
+        <value>3</value>
+        <value>Alkali Metal</value>
+
+        <value>Sodium</value>
+        <value>Na</value>
+        <value>11</value>
+        <value>Alkali Metal</value>
+
+        <value>Potassium</value>
+        <value>K</value>
+        <value>19</value>
+        <value>Alkali Metal</value>
+
+        <value>Beryllium</value>
+        <value>Be</value>
+        <value>4</value>
+        <value>Alkaline Earth</value>
+
+        <value>Magnesium</value>
+        <value>Mg</value>
+        <value>12</value>
+        <value>Alkaline Earth</value>
+
+        <value>Calcium</value>
+        <value>Ca</value>
+        <value>20</value>
+        <value>Alkaline Earth</value>
+
+        <value>Florine</value>
+        <value>Fl</value>
+        <value>9</value>
+        <value>Halogen</value>
+
+        <value>Chlorine</value>
+        <value>Cl</value>
+        <value>17</value>
+        <value>Halogen</value>
+
+        <value>Aluminum</value>
+        <value>Al</value>
+        <value>13</value>
+        <value>Other Metals</value>
+
+        <value>Gallium</value>
+        <value>Ga</value>
+        <value>31</value>
+        <value>Other Metals</value>
+
+        <value>Germanium</value>
+        <value>Ge</value>
+        <value>32</value>
+        <value>Other Metals</value>
+
+        <value>Arsenic</value>
+        <value>As</value>
+        <value>33</value>
+        <value>Other Metals</value>
+
+
+        <value>Selenium</value>
+        <value>Se</value>
+        <value>34</value>
+        <value>Other Metals</value>
+
+
+        <value>Bromine</value>
+        <value>Br</value>
+        <value>35</value>
+        <value>Other Metals</value>
+
+      </list-entries>
+    </managed-property>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>skinTranslationMap</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.resource.SkinTranslationMapDemo</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+  <managed-bean>
+    <managed-bean-name>showDetailDisclosureBean</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.DemoShowDetailDisclosureBean</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean>
+  <managed-bean>
+    <managed-bean-name>testTriggers</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.TestRelativePartialTriggers</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>accProfileDemo</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.DemoAccessibilityProfileBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+</faces-config>

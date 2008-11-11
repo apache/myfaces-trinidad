@@ -1,0 +1,107 @@
+<?xml version = "1.0" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<!DOCTYPE taglib
+PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
+"http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+<taglib>
+  <tlib-version>1.0</tlib-version>
+  <jsp-version>1.2</jsp-version>
+  <short-name>trinidad demo</short-name>
+  <uri>http://myfaces.apache.org/trinidaddemo</uri>
+  <display-name>trinidaddemo</display-name>    
+
+    <tag>
+      <name>dateField</name>
+      <tag-class>org.apache.myfaces.trinidaddemo.composite.DateFieldTag</tag-class>
+      <attribute>
+        <name>id</name>
+        <rtexprvalue>false</rtexprvalue>
+        <description>the identifier for the component</description>
+      </attribute>
+      <attribute>
+        <name>immediate</name>
+        <rtexprvalue>false</rtexprvalue>
+        <description>whether the value is converted and validated immediately in the Apply Request Values phase, or in the Process Validators phase.
+            </description>
+      </attribute>
+      <attribute>
+        <name>required</name>
+        <rtexprvalue>false</rtexprvalue>
+        <description>whether a non-null, non-empty value must be entered
+            </description>
+      </attribute>
+      <attribute>
+        <name>validator</name>
+        <rtexprvalue>false</rtexprvalue>
+        <description>a method reference to a validator method</description>
+      </attribute>
+      <attribute>
+        <name>valueChangeListener</name>
+        <rtexprvalue>false</rtexprvalue>
+        <description>a method reference to an value change listener</description>
+      </attribute>
+      <attribute>
+        <name>value</name>
+        <rtexprvalue>false</rtexprvalue>
+        <description>
+              the value of the component
+            </description>
+      </attribute>
+      <attribute>
+        <name>rendered</name>
+        <rtexprvalue>false</rtexprvalue>
+        <description>
+          whether the bean is rendered.  When set to false,
+          no output will be delivered for this bean.
+        </description>
+      </attribute>
+      <attribute>
+        <name>transient</name>
+        <rtexprvalue>false</rtexprvalue>
+        <description>
+          whether the component should have its state saved across requests.
+        </description>
+      </attribute>
+      <attribute>
+        <name>binding</name>
+        <rtexprvalue>false</rtexprvalue>
+        <description>
+          a binding reference to store the component instance
+        </description>
+      </attribute>
+    </tag>
+    <tag>
+      <name>convertSSN</name>   
+      <tag-class>org.apache.myfaces.trinidaddemo.convertValidate.ConvertSSNTag</tag-class>
+      <body-content>empty</body-content>
+      <description>
+        The convertSSN tag converts to/from a social security number.
+      </description>
+    </tag>    
+    <tag>
+      <name>validatePassword</name>   
+      <tag-class>org.apache.myfaces.trinidaddemo.convertValidate.ValidatePasswordTag</tag-class>
+      <body-content>empty</body-content>
+      <description>
+        The validatePassword tag checks to see that a password contains at least on number.
+      </description>
+    </tag>    
+</taglib>

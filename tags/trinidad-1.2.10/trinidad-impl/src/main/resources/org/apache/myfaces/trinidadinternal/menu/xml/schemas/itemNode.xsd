@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:trmenu="http://myfaces.apache.org/trinidad/menu"
+            targetNamespace="http://myfaces.apache.org/trinidad/menu"
+            elementFormDefault="qualified">
+  <xsd:include schemaLocation="menuNode.xsd"/>
+  <xsd:element name="itemNode" type="trmenu:itemNodeType"
+               substitutionGroup="trmenu:menuNode">
+    <xsd:annotation>
+      <xsd:documentation>
+        A menu node that specifies an action or a destination when the menu item
+        is clicked.
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="itemNodeType">
+    <xsd:complexContent>
+      <xsd:extension base="trmenu:menuNodeType">
+        <xsd:attribute name="action" type="trmenu:stringOrElExpression"/>
+        <xsd:attribute name="destination" type="xsd:string"/>
+        <xsd:attribute name="actionListener" type="trmenu:elExpression"/>
+        <xsd:attribute name="launchListener" type="trmenu:elExpression"/>
+        <xsd:attribute name="returnListener" type="trmenu:elExpression"/>
+        <xsd:attribute name="immediate" default="false"
+                       type="trmenu:booleanOrElExpression"/>
+        <xsd:attribute name="useWindow" default="false"
+                       type="trmenu:booleanOrElExpression"/>
+        <xsd:attribute name="windowHeight" type="trmenu:intOrElExpression"/>
+        <xsd:attribute name="windowWidth"  type="trmenu:intOrElExpression"/>
+        <xsd:attribute name="focusViewId" type="xsd:anyURI" use="required"/>
+        <xsd:attribute name="defaultFocusPath" default="false"
+                       type="trmenu:booleanOrElExpression"/>
+        <xsd:attribute name="targetFrame" type="trmenu:stringOrElExpression"/>
+        <xsd:anyAttribute/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+</xsd:schema>

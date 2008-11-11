@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+-->
+<!-- Resource file for all BLAF resources -->
+
+<!-- order of parameters is:   -->
+<!-- label                     -->
+<!-- input value (if present)  -->
+<!-- min value (if present)    -->
+<!-- max value (if present)    -->
+<!-- pattern (if present)      -->
+
+
+<!DOCTYPE resources SYSTEM "rts.dtd">
+<resources xmlns="http://myfaces.apache.org/trinidad/rts" package="org.apache.myfaces.trinidad.resource">
+<!-- The FacesMessage class supports both summary and detailed messages. -->
+<!-- The convention is that the summary will be the main key. The key    -->
+<!-- value will be of the form <classname>.MSG_KEY, and the detailed     -->
+<!-- message will be of the form <classname>.MSG_KEY_detail.             -->
+<!-- {0} the label that identifies the selection  -->
+<resource key="org.apache.myfaces.trinidad.UIXEditableValue.REQUIRED" dnt="false">必須要輸入值</resource>
+<resource key="org.apache.myfaces.trinidad.UIXEditableValue.REQUIRED_detail" dnt="false">輸入一個值.</resource>
+<!-- {0} the label that identifies the selection  -->
+<resource key="org.apache.myfaces.trinidad.UIXSelectMany.REQUIRED" dnt="false">必須選取項目</resource>
+<resource key="org.apache.myfaces.trinidad.UIXSelectMany.REQUIRED_detail" dnt="false">至少選取一個值.</resource>
+<!-- {0} the label that identifies the selection  -->
+<resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED" dnt="false">必須選取項目</resource>
+<resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED_detail" dnt="false">選取一個值.</resource>
+<!-- {0} the label that identifies the selection  -->
+<resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED" dnt="false">必須選取資料列</resource>
+<resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED_detail" dnt="false">選取一個資料列.</resource>
+<!-- {0} the label that identifies the selection  -->
+<resource key="org.apache.myfaces.trinidad.UIXTableSelectMany.REQUIRED" dnt="false">必須選取一個資料列</resource>
+<resource key="org.apache.myfaces.trinidad.UIXTableSelectMany.REQUIRED_detail" dnt="false">至少選取一個資料列.</resource>
+<!-- SelectManyRenderer ConversionException messages -->
+<!-- {0} modelClass                                  -->
+<resource key="org.apache.myfaces.trinidad.UIXSelectMany.UNSUPPORTED_MODEL_TYPE" dnt="false">不支援的模型類型.</resource>
+<resource key="org.apache.myfaces.trinidad.UIXSelectMany.UNSUPPORTED_MODEL_TYPE_detail" dnt="false">SelectMany 不支援類型為 {0} 的模型.</resource>
+<!-- {0} the label that identifies the component               -->
+<!-- {1} value entered by the user                             -->
+<!-- {2} the message string returned by the ConverterException -->
+<resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION" dnt="false">轉換失敗</resource>
+<resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION_detail" dnt="false">輸入一個類似 {2} 的值.</resource>
+<!-- hints for validators -->
+<resource key="org.apache.myfaces.trinidad.validator.RangeValidator.MAXIMUM_HINT" dnt="false">輸入小於或等於 {0} 的值.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.RangeValidator.MINIMUM_HINT" dnt="false">輸入大於或等於 {0} 的值.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.RangeValidator.RANGE_HINT" dnt="false">輸入 {0} 到 {1} 之間的值.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.LengthValidator.MAXIMUM_HINT" dnt="false">輸入不超過 {0} 個字元的值.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.LengthValidator.MINIMUM_HINT" dnt="false">輸入 {0} 個或更多個字元的值.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.LengthValidator.EXACT_HINT" dnt="false">輸入 {0} 個字元的值.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.LengthValidator.RANGE_HINT" dnt="false">輸入 {0} 至 {1} 個字元的值.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MAXIMUM_HINT" dnt="false">輸入 {0} 當日或之前的日期.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MINIMUM_HINT" dnt="false">輸入 {0} 當日或之後的日期.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.RANGE_HINT" dnt="false">輸入介於 {0} 與 {1} 之間的日期.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.WEEKDAY_HINT" dnt="false">輸入下列工作日間的日期: {0}.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.MONTH_HINT" dnt="false">輸入下列月份間的日期: {0}.</resource>
+<!-- resource key="org.apache.myfaces.trinidad.validator.RegExpValidator.NO_MATCH_HINT">The value must match this pattern: {0}.</resource-->
+<!-- resource key="org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM_HINT">The maximum allowed byte length for this value is {0}.</resource-->
+<!-- messages for validators -->
+<!-- Note: The parameter numbers of these faces messages do not match -->
+<!-- the parameter numbers of the rest of the ADF Faces messages      -->
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} the minimum number allowed              -->
+<resource key="javax.faces.validator.LongRangeValidator.MINIMUM" dnt="false">值太小</resource>
+<resource key="javax.faces.validator.LongRangeValidator.MINIMUM_detail" dnt="false">輸入大於或等於 {2} 的值.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} the maximum number allowed              -->
+<resource key="javax.faces.validator.LongRangeValidator.MAXIMUM" dnt="false">值太大</resource>
+<resource key="javax.faces.validator.LongRangeValidator.MAXIMUM_detail" dnt="false">輸入小於或等於 {2} 的值.</resource>
+<!-- {0} the label that identifies the component  -->
+<!-- {1} value entered by the user                -->
+<!-- NOTE: The format of this message must match the format of the    -->
+<!-- general javascript messages (see  VALIDATION_ALERT_FORMAT below) -->
+<resource key="javax.faces.LongRange" dnt="false">不是整數</resource>
+<resource key="javax.faces.LongRange_detail" dnt="false">輸入一個整數.</resource>
+<!-- E.g. for input value "test" and maximum value set to "3" -->
+<!--      the message would be:                               -->
+<!-- The length of the value entered, "test", exceeds the     -->
+<!--  maximum allowed byte length of 3                        -->
+<!--                                                          -->
+<!-- {0} the label that identifies the component              -->
+<!-- {1} value entered by the user                            -->
+<!-- {2} the maximum length                                   -->
+<resource key="org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM" dnt="false">值太長</resource>
+<resource key="org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM_detail" dnt="false">輸入之值的長度超過 {2} 允許的位元組長度上限.</resource>
+<!-- Date exceeds date range error               -->
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} represents the maximum allowed date     -->
+<resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MAXIMUM" dnt="false">有效範圍之後的日期</resource>
+<resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MAXIMUM_detail" dnt="false">輸入 {2} 當日或之前的日期.</resource>
+<!-- Date preceeds date range error                -->
+<!-- {0} the label that identifies the component   -->
+<!-- {1} represent Date which the user has set     -->
+<!-- {2} represents the minimum allowed date       -->
+<resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MINIMUM" dnt="false"> 有效範圍之前的日期.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MINIMUM_detail" dnt="false"> 輸入 {2} 當日或之後的日期.</resource>
+<!-- Date outside date range error               -->
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} represents the minimum allowed date     -->
+<!-- {3} represents the maximum allowed date     -->
+<resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.NOT_IN_RANGE" dnt="false">日期超出有效範圍</resource>
+<resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.NOT_IN_RANGE_detail" dnt="false">輸入 {2} 或 {3} 當日或介於兩者之間的日期.</resource>
+<!-- The validator has a list with dates, which are not allowed. In case of that the entered date is part of the list, this message will be shown -->
+<!-- {0} the label that identifies the component -->
+<!-- {1} date value entered by the user          -->
+<resource key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.DAY" dnt="false">不允許日期.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.DAY_detail" dnt="false">不允許您輸入的日期.</resource>
+<!-- Validator can check if a date is in an invalid month  -->
+<!-- {0} the label that identifies the component           -->
+<!-- {1} represent Date which the user has set             -->
+<resource key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.MONTH" dnt="false"> 無效的月份</resource>
+<resource key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.MONTH_detail" dnt="false">輸入下列月份間的日期: {2}.</resource>
+<!-- Validator can check if a date is an invalid weekday    -->
+<!-- {0} the label that identifies the component            -->
+<!-- {1} date value entered by the user                     -->
+<resource key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.WEEKDAY" dnt="false"> 無效的工作日</resource>
+<resource key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.WEEKDAY_detail" dnt="false"> 輸入下列工作日間的日期: {2}.</resource>
+<!-- Number exceeds number range error               -->
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} represents the maximum allowed number     -->
+<resource key="org.apache.myfaces.trinidad.validator.DoubleRangeValidator.MAXIMUM" dnt="false">值太大</resource>
+<resource key="org.apache.myfaces.trinidad.validator.DoubleRangeValidator.MAXIMUM_detail" dnt="false">輸入小於或等於 {2} 的值.</resource>
+<!-- Number exceeds number range error                -->
+<!-- {0} the label that identifies the component   -->
+<!-- {1} represent Number which the user has set     -->
+<!-- {2} represents the minimum allowed number       -->
+<resource key="org.apache.myfaces.trinidad.validator.DoubleRangeValidator.MINIMUM" dnt="false">值太小</resource>
+<resource key="org.apache.myfaces.trinidad.validator.DoubleRangeValidator.MINIMUM_detail" dnt="false">輸入大於或等於 {2} 的值.</resource>
+<!-- Number outside number range error               -->
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} represents the minimum allowed number     -->
+<!-- {3} represents the maximum allowed number     -->
+<resource key="org.apache.myfaces.trinidad.validator.DoubleRangeValidator.NOT_IN_RANGE" dnt="false"> 值超出有效範圍</resource>
+<resource key="org.apache.myfaces.trinidad.validator.DoubleRangeValidator.NOT_IN_RANGE_detail" dnt="false">輸入介於 {2} 和 {3} 之間的值.</resource>
+<!-- Strign too long error               -->
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} represents the maximum allowed length     -->
+<resource key="org.apache.myfaces.trinidad.validator.LengthValidator.MAXIMUM" dnt="false">值太長</resource>
+<resource key="org.apache.myfaces.trinidad.validator.LengthValidator.MAXIMUM_detail" dnt="false">輸入不超過 {2} 個字元的值.</resource>
+<!-- String too short error                -->
+<!-- {0} the label that identifies the component   -->
+<!-- {1} value entered by the user               -->
+<!-- {2} represents the minimum allowed length       -->
+<resource key="org.apache.myfaces.trinidad.validator.LengthValidator.MINIMUM" dnt="false">值太短</resource>
+<resource key="org.apache.myfaces.trinidad.validator.LengthValidator.MINIMUM_detail" dnt="false"> 輸入 {2} 個或更多個字元的值.</resource>
+<!-- String outside length range error               -->
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} represents the minimum allowed length     -->
+<!-- {3} represents the maximum allowed length     -->
+<resource key="org.apache.myfaces.trinidad.validator.LengthValidator.NOT_IN_RANGE" dnt="false">長度無效的值</resource>
+<resource key="org.apache.myfaces.trinidad.validator.LengthValidator.NOT_IN_RANGE_detail" dnt="false">輸入 {2} 至 {3} 個字元的值.</resource>
+<!-- String not of correct length error               -->
+<!-- {0} the label that identifies the component     -->
+<!-- {1} value entered by the user                   -->
+<!-- {2} represents the required length              -->
+<resource key="org.apache.myfaces.trinidad.validator.LengthValidator.EXACT" dnt="false">長度無效的值</resource>
+<resource key="org.apache.myfaces.trinidad.validator.LengthValidator.EXACT_detail" dnt="false"> 輸入 {2} 個字元的值.</resource>
+<!-- Number exceeds number range error               -->
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} represents the maximum allowed number     -->
+<resource key="org.apache.myfaces.trinidad.validator.LongRangeValidator.MAXIMUM" dnt="false">值太大</resource>
+<resource key="org.apache.myfaces.trinidad.validator.LongRangeValidator.MAXIMUM_detail" dnt="false"> 輸入小於或等於 {2} 的值.</resource>
+<!-- Number exceeds number range error                -->
+<!-- {0} the label that identifies the component   -->
+<!-- {1} represent Number which the user has set     -->
+<!-- {2} represents the minimum allowed number       -->
+<resource key="org.apache.myfaces.trinidad.validator.LongRangeValidator.MINIMUM" dnt="false">值太小</resource>
+<resource key="org.apache.myfaces.trinidad.validator.LongRangeValidator.MINIMUM_detail" dnt="false"> 輸入大於或等於 {2} 的值.</resource>
+<!-- Number outside number range error               -->
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} represents the minimum allowed number     -->
+<!-- {3} represents the maximum allowed number     -->
+<resource key="org.apache.myfaces.trinidad.validator.LongRangeValidator.NOT_IN_RANGE" dnt="false"> 值超出有效範圍</resource>
+<resource key="org.apache.myfaces.trinidad.validator.LongRangeValidator.NOT_IN_RANGE_detail" dnt="false">輸入介於 {2} 和 {3} 之間的值.</resource>
+<!-- Input does not match regular expression error                        -->
+<!-- {0} the label that identifies the component                          -->
+<!-- {1} represents the input value                                       -->
+<!-- {2} represents the 'pattern' expected in the input                   -->
+<!-- E.g. for input value "9912" and pattern "[9]*" the message would be: -->
+<!--  9912 does not match patern [9]*                                     -->
+<resource key="org.apache.myfaces.trinidad.validator.RegExpValidator.NO_MATCH" dnt="false">值不符合樣式.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.RegExpValidator.NO_MATCH_detail" dnt="false">您輸入的值不符合一般表示式樣式 &quot;{2}&quot;.</resource>
+<!-- hints for converters -->
+<!-- default hint for DateTimeConverter-->
+<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.DATE_HINT" dnt="false">範例: {0}</resource>
+<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.TIME_HINT" dnt="false">範例: {0}</resource>
+<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.BOTH_HINT" dnt="false">格式範例: {0}</resource>
+<!-- default hint for ColorConverter-->
+<resource key="org.apache.myfaces.trinidad.convert.ColorConverter.FORMAT_HINT" dnt="false">格式範例: {0}</resource>
+<!-- default hint for NumberConverter-->
+<resource key="org.apache.myfaces.trinidad.convert.NumberConverter.FORMAT_HINT" dnt="false">格式範例: {0}</resource>
+<!-- default hint for IntegerConverter-->
+<!-- resource key="org.apache.myfaces.trinidad.convert.IntegerConverter.FORMAT_HINT">The entered value must be a integer</resource-->
+<!-- default hint for LongConverter-->
+<!-- resource key="org.apache.myfaces.trinidad.convert.LongConverter.FORMAT_HINT">The entered value must be a long</resource-->
+<!-- default hint for ShortConverter-->
+<!-- resource key="org.apache.myfaces.trinidad.convert.ShortConverter.FORMAT_HINT">The entered value must be a short</resource-->
+<!-- default hint for ByteConverter-->
+<!-- resource key="org.apache.myfaces.trinidad.convert.ByteConverter.FORMAT_HINT">The entered value must be a byte</resource-->
+<!-- default hint for DoubleConverter-->
+<!-- resource key="org.apache.myfaces.trinidad.convert.DoubleConverter.FORMAT_HINT">The entered value must be a double</resource-->
+<!-- default hint for FloatConverter-->
+<!-- resource key="org.apache.myfaces.trinidad.convert.FloatConverter.FORMAT_HINT">The entered value must be a float</resource-->
+<!-- messages for converters -->
+<!-- {0} the label that identifies the component             -->
+<!-- {1} value entered by the user                           -->
+<!-- {2} an example of the format the converter is expecting -->
+<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_DATE" dnt="false">無效的日期格式</resource>
+<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_DATE_detail" dnt="false">有效範例: {2}</resource>
+<!-- {0} the label that identifies the component             -->
+<!-- {1} value entered by the user                           -->
+<!-- {2} an example of the format the converter is expecting -->
+<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_TIME" dnt="false">無效的時間格式</resource>
+<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_TIME_detail" dnt="false">有效範例: {2}</resource>
+<!-- {0} the label that identifies the component             -->
+<!-- {1} value entered by the user                           -->
+<!-- {2} an example of the format the converter is expecting -->
+<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_BOTH" dnt="false">無效的日期時間格式</resource>
+<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_BOTH_detail" dnt="false">有效範例: {2}</resource>
+<!-- {0} the label that identifies the component    -->
+<!-- {1} value entered by the user                  -->
+<!-- {2} the pattern the converter is expecting     -->
+<resource key="org.apache.myfaces.trinidad.convert.ColorConverter.CONVERT" dnt="false"> 無效的顏色格式</resource>
+<resource key="org.apache.myfaces.trinidad.convert.ColorConverter.CONVERT_detail" dnt="false">有效範例: {2}</resource>
+<!-- Color converter transparent string -->
+<resource key="org.apache.myfaces.trinidad.convert.ColorConverter.TRANSPARENT" dnt="false">透明</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<resource key="org.apache.myfaces.trinidad.convert.IntegerConverter.CONVERT" dnt="false">不是整數</resource>
+<resource key="org.apache.myfaces.trinidad.convert.IntegerConverter.CONVERT_detail" dnt="false">輸入一個整數.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} the minimum number allowed              -->
+<resource key="org.apache.myfaces.trinidad.convert.IntegerConverter.MINIMUM" dnt="false">值太小</resource>
+<resource key="org.apache.myfaces.trinidad.convert.IntegerConverter.MINIMUM_detail" dnt="false"> 輸入大於或等於 {2} 的值.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} the maximum number allowed              -->
+<resource key="org.apache.myfaces.trinidad.convert.IntegerConverter.MAXIMUM" dnt="false">值太大</resource>
+<resource key="org.apache.myfaces.trinidad.convert.IntegerConverter.MAXIMUM_detail" dnt="false"> 輸入小於或等於 {2} 的值.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<resource key="org.apache.myfaces.trinidad.convert.LongConverter.CONVERT" dnt="false">不是整數</resource>
+<resource key="org.apache.myfaces.trinidad.convert.LongConverter.CONVERT_detail" dnt="false">輸入一個整數.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} the minimum number allowed              -->
+<resource key="org.apache.myfaces.trinidad.convert.LongConverter.MINIMUM" dnt="false">值太小</resource>
+<resource key="org.apache.myfaces.trinidad.convert.LongConverter.MINIMUM_detail" dnt="false">輸入大於或等於 {2} 的值.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} the maximum number allowed              -->
+<resource key="org.apache.myfaces.trinidad.convert.LongConverter.MAXIMUM" dnt="false">值太大</resource>
+<resource key="org.apache.myfaces.trinidad.convert.LongConverter.MAXIMUM_detail" dnt="false">輸入小於或等於 {2} 的值.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} the specified conversion pattern        -->
+<resource key="org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_PATTERN" dnt="false">不是數字</resource>
+<resource key="org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_PATTERN_detail" dnt="false">您輸入的值不是符合樣式 &quot;{2}&quot; 的數字.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<resource key="org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_NUMBER" dnt="false">不是數字</resource>
+<resource key="org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_NUMBER_detail" dnt="false">輸入數字.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<resource key="org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_CURRENCY" dnt="false">無效的貨幣格式</resource>
+<resource key="org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_CURRENCY_detail" dnt="false">有效範例: {2}</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<resource key="org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_PERCENT" dnt="false">無效的百分比格式</resource>
+<resource key="org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_PERCENT_detail" dnt="false">有效範例: {2}</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<resource key="org.apache.myfaces.trinidad.convert.ShortConverter.CONVERT" dnt="false">不是整數</resource>
+<resource key="org.apache.myfaces.trinidad.convert.ShortConverter.CONVERT_detail" dnt="false">輸入一個整數.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} the minimum number allowed              -->
+<resource key="org.apache.myfaces.trinidad.convert.ShortConverter.MINIMUM" dnt="false">值太小</resource>
+<resource key="org.apache.myfaces.trinidad.convert.ShortConverter.MINIMUM_detail" dnt="false">輸入大於或等於 {2} 的值.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} the maximum number allowed              -->
+<resource key="org.apache.myfaces.trinidad.convert.ShortConverter.MAXIMUM" dnt="false">值太大</resource>
+<resource key="org.apache.myfaces.trinidad.convert.ShortConverter.MAXIMUM_detail" dnt="false">輸入小於或等於 {2} 的值.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<resource key="org.apache.myfaces.trinidad.convert.ByteConverter.CONVERT" dnt="false">不是整數</resource>
+<resource key="org.apache.myfaces.trinidad.convert.ByteConverter.CONVERT_detail" dnt="false">輸入一個整數.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} the minimum number allowed              -->
+<resource key="org.apache.myfaces.trinidad.convert.ByteConverter.MINIMUM" dnt="false">值太小</resource>
+<resource key="org.apache.myfaces.trinidad.convert.ByteConverter.MINIMUM_detail" dnt="false">輸入大於或等於 {2} 的值.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} the maximum number allowed              -->
+<resource key="org.apache.myfaces.trinidad.convert.ByteConverter.MAXIMUM" dnt="false">值太大</resource>
+<resource key="org.apache.myfaces.trinidad.convert.ByteConverter.MAXIMUM_detail" dnt="false">輸入小於或等於 {2} 的值.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<resource key="org.apache.myfaces.trinidad.convert.DoubleConverter.CONVERT" dnt="false">不是數字</resource>
+<resource key="org.apache.myfaces.trinidad.convert.DoubleConverter.CONVERT_detail" dnt="false">輸入數字.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<resource key="org.apache.myfaces.trinidad.convert.FloatConverter.CONVERT" dnt="false">不是數字.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.FloatConverter.CONVERT_detail" dnt="false">您輸入的值不是數字.</resource>
+<!-- format for message in a javascript alert window                 -->
+<!-- This should match the af_messages.LIST_FORMAT_private           -->
+<!-- in BLAFBundle.xrts!!                                            -->
+<!-- Both summary and detail are here, but the detail is never used  -->
+<!-- {0} = label of the component                                    -->
+<!-- {1} = full formatted error message detail                       -->
+<resource key="org.apache.myfaces.trinidad.convert.ALERT_FORMAT" dnt="false">{0} - {1}</resource>
+<resource key="org.apache.myfaces.trinidad.convert.ALERT_FORMAT_detail" dnt="false">{0} - {1}</resource>
+</resources>

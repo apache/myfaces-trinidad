@@ -1,0 +1,1317 @@
+<results>
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           id="mainId__xc_"
+           summary=""
+           width="100%"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_panelLabelAndMessage_label"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               valign="top"
+              >
+            
+            <table
+                 border="0"
+                 cellpadding="0"
+                 cellspacing="0"
+                 summary=""
+                >
+              
+              <tr
+                  >
+                
+                <td
+                    >
+                  
+                  <table
+                       border="0"
+                       cellpadding="0"
+                       cellspacing="0"
+                       class="af_selectBooleanCheckbox"
+                       id="_idXXX__xc_"
+                       summary=""
+                       width="100%"
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_selectBooleanCheckbox_label"
+                          >
+                        
+                      </td>
+                      <td
+                           class="AFContentCell"
+                           valign="top"
+                          >
+                        
+                        <span
+                             class="af_selectBooleanCheckbox_content"
+                            >
+                          
+                          <input
+                               id="_idXXX"
+                               name="_idXXX"
+                               type="checkbox"
+                               value="t"
+                              >
+                            
+                          </input>
+                          <label
+                               for="_idXXX"
+                              >
+                            Checkbox 1
+                          </label>
+                        </span>
+                        <div
+                            >
+                          
+                          <img
+                               alt=""
+                               height="0"
+                               width="1"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                              >
+                            
+                          </img>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                  <table
+                       border="0"
+                       cellpadding="0"
+                       cellspacing="0"
+                       class="af_selectBooleanCheckbox"
+                       id="_idXXX__xc_"
+                       summary=""
+                       width="100%"
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_selectBooleanCheckbox_label"
+                          >
+                        
+                      </td>
+                      <td
+                           class="AFContentCell"
+                           valign="top"
+                          >
+                        
+                        <span
+                             class="af_selectBooleanCheckbox_content"
+                            >
+                          
+                          <input
+                               id="_idXXX"
+                               name="_idXXX"
+                               type="checkbox"
+                               value="t"
+                              >
+                            
+                          </input>
+                          <label
+                               for="_idXXX"
+                              >
+                            Checkbox 2
+                          </label>
+                        </span>
+                        <div
+                            >
+                          
+                          <img
+                               alt=""
+                               height="0"
+                               width="1"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                              >
+                            
+                          </img>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td
+                    >
+                  
+                  <table
+                       border="0"
+                       cellpadding="0"
+                       cellspacing="0"
+                       class="af_inputText"
+                       id="_idXXX__xc_"
+                       summary=""
+                       width="100%"
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_inputText_label"
+                          >
+                        
+                      </td>
+                      <td
+                           class="AFContentCell"
+                           valign="top"
+                          >
+                        
+                        <input
+                             class="af_inputText_content"
+                             id="_idXXX"
+                             name="_idXXX"
+                             size="11"
+                             type="text"
+                            >
+                          
+                        </input>
+                        <div
+                            >
+                          
+                          <img
+                               alt=""
+                               height="0"
+                               width="1"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                              >
+                            
+                          </img>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[label,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           id="mainId__xc_"
+           summary=""
+           width="100%"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_panelLabelAndMessage_label"
+              >
+            
+            <label
+                 for="_idXXX"
+                >
+              test-label
+            </label>
+          </td>
+          <td
+               class="AFContentCell"
+               valign="top"
+              >
+            
+            <table
+                 border="0"
+                 cellpadding="0"
+                 cellspacing="0"
+                 summary=""
+                >
+              
+              <tr
+                  >
+                
+                <td
+                    >
+                  
+                  <table
+                       border="0"
+                       cellpadding="0"
+                       cellspacing="0"
+                       class="af_selectBooleanCheckbox"
+                       id="_idXXX__xc_"
+                       summary=""
+                       width="100%"
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_selectBooleanCheckbox_label"
+                          >
+                        
+                      </td>
+                      <td
+                           class="AFContentCell"
+                           valign="top"
+                          >
+                        
+                        <span
+                             class="af_selectBooleanCheckbox_content"
+                            >
+                          
+                          <input
+                               id="_idXXX"
+                               name="_idXXX"
+                               type="checkbox"
+                               value="t"
+                              >
+                            
+                          </input>
+                          <label
+                               for="_idXXX"
+                              >
+                            Checkbox 1
+                          </label>
+                        </span>
+                        <div
+                            >
+                          
+                          <img
+                               alt=""
+                               height="0"
+                               width="1"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                              >
+                            
+                          </img>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                  <table
+                       border="0"
+                       cellpadding="0"
+                       cellspacing="0"
+                       class="af_selectBooleanCheckbox"
+                       id="_idXXX__xc_"
+                       summary=""
+                       width="100%"
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_selectBooleanCheckbox_label"
+                          >
+                        
+                      </td>
+                      <td
+                           class="AFContentCell"
+                           valign="top"
+                          >
+                        
+                        <span
+                             class="af_selectBooleanCheckbox_content"
+                            >
+                          
+                          <input
+                               id="_idXXX"
+                               name="_idXXX"
+                               type="checkbox"
+                               value="t"
+                              >
+                            
+                          </input>
+                          <label
+                               for="_idXXX"
+                              >
+                            Checkbox 2
+                          </label>
+                        </span>
+                        <div
+                            >
+                          
+                          <img
+                               alt=""
+                               height="0"
+                               width="1"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                              >
+                            
+                          </img>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td
+                    >
+                  
+                  <table
+                       border="0"
+                       cellpadding="0"
+                       cellspacing="0"
+                       class="af_inputText"
+                       id="_idXXX__xc_"
+                       summary=""
+                       width="100%"
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_inputText_label"
+                          >
+                        
+                      </td>
+                      <td
+                           class="AFContentCell"
+                           valign="top"
+                          >
+                        
+                        <input
+                             class="af_inputText_content"
+                             id="_idXXX"
+                             name="_idXXX"
+                             size="11"
+                             type="text"
+                            >
+                          
+                        </input>
+                        <div
+                            >
+                          
+                          <img
+                               alt=""
+                               height="0"
+                               width="1"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                              >
+                            
+                          </img>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[labelStyle,vertical-align: top;]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           id="mainId__xc_"
+           summary=""
+           width="100%"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_panelLabelAndMessage_label"
+               style="vertical-align: top;"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               valign="top"
+              >
+            
+            <table
+                 border="0"
+                 cellpadding="0"
+                 cellspacing="0"
+                 summary=""
+                >
+              
+              <tr
+                  >
+                
+                <td
+                    >
+                  
+                  <table
+                       border="0"
+                       cellpadding="0"
+                       cellspacing="0"
+                       class="af_selectBooleanCheckbox"
+                       id="_idXXX__xc_"
+                       summary=""
+                       width="100%"
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_selectBooleanCheckbox_label"
+                          >
+                        
+                      </td>
+                      <td
+                           class="AFContentCell"
+                           valign="top"
+                          >
+                        
+                        <span
+                             class="af_selectBooleanCheckbox_content"
+                            >
+                          
+                          <input
+                               id="_idXXX"
+                               name="_idXXX"
+                               type="checkbox"
+                               value="t"
+                              >
+                            
+                          </input>
+                          <label
+                               for="_idXXX"
+                              >
+                            Checkbox 1
+                          </label>
+                        </span>
+                        <div
+                            >
+                          
+                          <img
+                               alt=""
+                               height="0"
+                               width="1"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                              >
+                            
+                          </img>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                  <table
+                       border="0"
+                       cellpadding="0"
+                       cellspacing="0"
+                       class="af_selectBooleanCheckbox"
+                       id="_idXXX__xc_"
+                       summary=""
+                       width="100%"
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_selectBooleanCheckbox_label"
+                          >
+                        
+                      </td>
+                      <td
+                           class="AFContentCell"
+                           valign="top"
+                          >
+                        
+                        <span
+                             class="af_selectBooleanCheckbox_content"
+                            >
+                          
+                          <input
+                               id="_idXXX"
+                               name="_idXXX"
+                               type="checkbox"
+                               value="t"
+                              >
+                            
+                          </input>
+                          <label
+                               for="_idXXX"
+                              >
+                            Checkbox 2
+                          </label>
+                        </span>
+                        <div
+                            >
+                          
+                          <img
+                               alt=""
+                               height="0"
+                               width="1"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                              >
+                            
+                          </img>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td
+                    >
+                  
+                  <table
+                       border="0"
+                       cellpadding="0"
+                       cellspacing="0"
+                       class="af_inputText"
+                       id="_idXXX__xc_"
+                       summary=""
+                       width="100%"
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_inputText_label"
+                          >
+                        
+                      </td>
+                      <td
+                           class="AFContentCell"
+                           valign="top"
+                          >
+                        
+                        <input
+                             class="af_inputText_content"
+                             id="_idXXX"
+                             name="_idXXX"
+                             size="11"
+                             type="text"
+                            >
+                          
+                        </input>
+                        <div
+                            >
+                          
+                          <img
+                               alt=""
+                               height="0"
+                               width="1"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                              >
+                            
+                          </img>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[id,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           id="test-id__xc_"
+           summary=""
+           width="100%"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_panelLabelAndMessage_label"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               valign="top"
+              >
+            
+            <table
+                 border="0"
+                 cellpadding="0"
+                 cellspacing="0"
+                 summary=""
+                >
+              
+              <tr
+                  >
+                
+                <td
+                    >
+                  
+                  <table
+                       border="0"
+                       cellpadding="0"
+                       cellspacing="0"
+                       class="af_selectBooleanCheckbox"
+                       id="_idXXX__xc_"
+                       summary=""
+                       width="100%"
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_selectBooleanCheckbox_label"
+                          >
+                        
+                      </td>
+                      <td
+                           class="AFContentCell"
+                           valign="top"
+                          >
+                        
+                        <span
+                             class="af_selectBooleanCheckbox_content"
+                            >
+                          
+                          <input
+                               id="_idXXX"
+                               name="_idXXX"
+                               type="checkbox"
+                               value="t"
+                              >
+                            
+                          </input>
+                          <label
+                               for="_idXXX"
+                              >
+                            Checkbox 1
+                          </label>
+                        </span>
+                        <div
+                            >
+                          
+                          <img
+                               alt=""
+                               height="0"
+                               width="1"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                              >
+                            
+                          </img>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                  <table
+                       border="0"
+                       cellpadding="0"
+                       cellspacing="0"
+                       class="af_selectBooleanCheckbox"
+                       id="_idXXX__xc_"
+                       summary=""
+                       width="100%"
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_selectBooleanCheckbox_label"
+                          >
+                        
+                      </td>
+                      <td
+                           class="AFContentCell"
+                           valign="top"
+                          >
+                        
+                        <span
+                             class="af_selectBooleanCheckbox_content"
+                            >
+                          
+                          <input
+                               id="_idXXX"
+                               name="_idXXX"
+                               type="checkbox"
+                               value="t"
+                              >
+                            
+                          </input>
+                          <label
+                               for="_idXXX"
+                              >
+                            Checkbox 2
+                          </label>
+                        </span>
+                        <div
+                            >
+                          
+                          <img
+                               alt=""
+                               height="0"
+                               width="1"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                              >
+                            
+                          </img>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td
+                    >
+                  
+                  <table
+                       border="0"
+                       cellpadding="0"
+                       cellspacing="0"
+                       class="af_inputText"
+                       id="_idXXX__xc_"
+                       summary=""
+                       width="100%"
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_inputText_label"
+                          >
+                        
+                      </td>
+                      <td
+                           class="AFContentCell"
+                           valign="top"
+                          >
+                        
+                        <input
+                             class="af_inputText_content"
+                             id="_idXXX"
+                             name="_idXXX"
+                             size="11"
+                             type="text"
+                            >
+                          
+                        </input>
+                        <div
+                            >
+                          
+                          <img
+                               alt=""
+                               height="0"
+                               width="1"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                              >
+                            
+                          </img>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[rendered,false]-->
+
+<!--AttributeTest[rendered,true]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           id="mainId__xc_"
+           summary=""
+           width="100%"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_panelLabelAndMessage_label"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               valign="top"
+              >
+            
+            <table
+                 border="0"
+                 cellpadding="0"
+                 cellspacing="0"
+                 summary=""
+                >
+              
+              <tr
+                  >
+                
+                <td
+                    >
+                  
+                  <table
+                       border="0"
+                       cellpadding="0"
+                       cellspacing="0"
+                       class="af_selectBooleanCheckbox"
+                       id="_idXXX__xc_"
+                       summary=""
+                       width="100%"
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_selectBooleanCheckbox_label"
+                          >
+                        
+                      </td>
+                      <td
+                           class="AFContentCell"
+                           valign="top"
+                          >
+                        
+                        <span
+                             class="af_selectBooleanCheckbox_content"
+                            >
+                          
+                          <input
+                               id="_idXXX"
+                               name="_idXXX"
+                               type="checkbox"
+                               value="t"
+                              >
+                            
+                          </input>
+                          <label
+                               for="_idXXX"
+                              >
+                            Checkbox 1
+                          </label>
+                        </span>
+                        <div
+                            >
+                          
+                          <img
+                               alt=""
+                               height="0"
+                               width="1"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                              >
+                            
+                          </img>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                  <table
+                       border="0"
+                       cellpadding="0"
+                       cellspacing="0"
+                       class="af_selectBooleanCheckbox"
+                       id="_idXXX__xc_"
+                       summary=""
+                       width="100%"
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_selectBooleanCheckbox_label"
+                          >
+                        
+                      </td>
+                      <td
+                           class="AFContentCell"
+                           valign="top"
+                          >
+                        
+                        <span
+                             class="af_selectBooleanCheckbox_content"
+                            >
+                          
+                          <input
+                               id="_idXXX"
+                               name="_idXXX"
+                               type="checkbox"
+                               value="t"
+                              >
+                            
+                          </input>
+                          <label
+                               for="_idXXX"
+                              >
+                            Checkbox 2
+                          </label>
+                        </span>
+                        <div
+                            >
+                          
+                          <img
+                               alt=""
+                               height="0"
+                               width="1"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                              >
+                            
+                          </img>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td
+                    >
+                  
+                  <table
+                       border="0"
+                       cellpadding="0"
+                       cellspacing="0"
+                       class="af_inputText"
+                       id="_idXXX__xc_"
+                       summary=""
+                       width="100%"
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_inputText_label"
+                          >
+                        
+                      </td>
+                      <td
+                           class="AFContentCell"
+                           valign="top"
+                          >
+                        
+                        <input
+                             class="af_inputText_content"
+                             id="_idXXX"
+                             name="_idXXX"
+                             size="11"
+                             type="text"
+                            >
+                          
+                        </input>
+                        <div
+                            >
+                          
+                          <img
+                               alt=""
+                               height="0"
+                               width="1"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                              >
+                            
+                          </img>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[shortDesc,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           id="mainId__xc_"
+           summary=""
+           title="test-shortDesc"
+           width="100%"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_panelLabelAndMessage_label"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               valign="top"
+              >
+            
+            <table
+                 border="0"
+                 cellpadding="0"
+                 cellspacing="0"
+                 summary=""
+                >
+              
+              <tr
+                  >
+                
+                <td
+                    >
+                  
+                  <table
+                       border="0"
+                       cellpadding="0"
+                       cellspacing="0"
+                       class="af_selectBooleanCheckbox"
+                       id="_idXXX__xc_"
+                       summary=""
+                       width="100%"
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_selectBooleanCheckbox_label"
+                          >
+                        
+                      </td>
+                      <td
+                           class="AFContentCell"
+                           valign="top"
+                          >
+                        
+                        <span
+                             class="af_selectBooleanCheckbox_content"
+                            >
+                          
+                          <input
+                               id="_idXXX"
+                               name="_idXXX"
+                               type="checkbox"
+                               value="t"
+                              >
+                            
+                          </input>
+                          <label
+                               for="_idXXX"
+                              >
+                            Checkbox 1
+                          </label>
+                        </span>
+                        <div
+                            >
+                          
+                          <img
+                               alt=""
+                               height="0"
+                               width="1"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                              >
+                            
+                          </img>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                  <table
+                       border="0"
+                       cellpadding="0"
+                       cellspacing="0"
+                       class="af_selectBooleanCheckbox"
+                       id="_idXXX__xc_"
+                       summary=""
+                       width="100%"
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_selectBooleanCheckbox_label"
+                          >
+                        
+                      </td>
+                      <td
+                           class="AFContentCell"
+                           valign="top"
+                          >
+                        
+                        <span
+                             class="af_selectBooleanCheckbox_content"
+                            >
+                          
+                          <input
+                               id="_idXXX"
+                               name="_idXXX"
+                               type="checkbox"
+                               value="t"
+                              >
+                            
+                          </input>
+                          <label
+                               for="_idXXX"
+                              >
+                            Checkbox 2
+                          </label>
+                        </span>
+                        <div
+                            >
+                          
+                          <img
+                               alt=""
+                               height="0"
+                               width="1"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                              >
+                            
+                          </img>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td
+                    >
+                  
+                  <table
+                       border="0"
+                       cellpadding="0"
+                       cellspacing="0"
+                       class="af_inputText"
+                       id="_idXXX__xc_"
+                       summary=""
+                       width="100%"
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_inputText_label"
+                          >
+                        
+                      </td>
+                      <td
+                           class="AFContentCell"
+                           valign="top"
+                          >
+                        
+                        <input
+                             class="af_inputText_content"
+                             id="_idXXX"
+                             name="_idXXX"
+                             size="11"
+                             type="text"
+                            >
+                          
+                        </input>
+                        <div
+                            >
+                          
+                          <img
+                               alt=""
+                               height="0"
+                               width="1"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                              >
+                            
+                          </img>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   width="1"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+</results>

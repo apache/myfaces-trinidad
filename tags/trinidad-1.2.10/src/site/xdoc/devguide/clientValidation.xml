@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<document>
+  <properties>
+    <title>Client-side Converters and Validators</title>
+  </properties>
+
+  <body>
+    <section name="Client-side Converters and Validators">
+      <p>
+        <ul>
+          <li><a href="#Introduction">Introduction</a></li>
+          <li><a href="#Client-side Converters">Client-side Converters</a></li>
+          <li><a href="#Client-side Validators">Client-side Validators</a></li>
+        </ul>
+      </p>
+    </section>
+
+
+    <section name="Introduction">
+      <P>
+      One of the benefits of Apache Trinidad is that it supports client-side versions of converters and validators. This means that errors can be caught on the client and a round trip avoided. This chapter will explain how a developer can write their own converters and validators in such a way to take advantage of this feature. This chapter assumes knowledge of JSF converters and validators, so please make sure you understand how they work before continuing. Also note that javascript objects in Trinidad are prefixed with "Tr" in order to avoid name collisions.
+      </P>
+      <p>
+      The basic idea of Apache Trinidad client conversion and validation is that it works on the client in a very similar way to how it works on the server, except the language on the client is javascript instead of java. There are javascript converter objects that support the methods getAsString() and getAsObject(). A TrConverter can throw a TrConverterException. There are javascript validator objects that support the validate() method. A TrValidator can throw a TrValidatorException. 
+      </p>
+    </section>
+
+    <section name="Client-side Converters">
+    <p>
+      Let's say you've written a javax.faces.convert.Converter implementation and now you want to add client-side conversion. The first thing to do is write a version of the converter in javascript. The main difference between converters on the client and server is that on the client there is no access to a component. The label of the field is therefore passed to the converter for use in formatting the error string. Here is the javascript code for the converter "interface".
+    </p>
+      <p>
+ <source>
+/**
+ * Converter "interface" similar to javax.faces.convert.Converter,
+ * except that all relevant information must be passed to the constructor
+ * as the context and component are not passed to the getAsString or getAsObject method 
+ *
+ */
+function TrConverter()
+{
+}
+
+
+/**
+ * Convert the specified model object value, into a String for display
+ *
+ * @param value Model object value to be converted 
+ * @param label label to identify the editableValueHolder to the user 
+ * 
+ * @return the value as a string or undefined in case of no converter mechanism is
+ * available (see TrNumberConverter).
+ */
+TrConverter.prototype.getAsString = function(value, label){}
+
+/**
+ * Convert the specified string value into a model data object 
+ * which can be passed to validators
+ *
+ * @param value String value to be converted 
+ * @param label label to identify the editableValueHolder to the user 
+ * 
+ * @return the converted value or undefined in case of no converter mechanism is
+ * available (see TrNumberConverter).
+ */
+TrConverter.prototype.getAsObject = function(value, label){}
+
+</source>
+TrConverters can throw a TrConverterException, which should contain a TrFacesMessage. Here is the signature for TrFacesMessage:
+<source>
+/**
+ * Message similar to javax.faces.application.FacesMessage
+ *
+ * @param summary - Localized summary message text
+ * @param detail - Localized detail message text 
+ * @param severity - An optional severity for this message.  Use constants
+ *                   SEVERITY_INFO, SEVERITY_WARN, SEVERITY_ERROR, and
+ *                   SEVERITY_FATAL from the FacesMessage class.  Default is
+ *                   SEVERITY_INFO
+ */
+function TrFacesMessage(
+  summary,
+  detail,
+  severity
+  )
+</source>
+Here is the signature for TrConverterException:
+<source>
+/** 
+ * TrConverterException is an exception thrown by the getAsObject() or getAsString() 
+ * method of a Converter, to indicate that the requested conversion cannot be performed.
+ *
+ * @param facesMessage the TrFacesMessage associated with this exception
+ * @param summary Localized summary message text, used to create only if facesMessage is null
+ * @param detail Localized detail message text, used only if facesMessage is null
+ */
+function TrConverterException(
+  facesMessage, 
+  summary,
+  detail
+  )
+  
+</source>
+
+Another useful API can be used to format messages. 
+
+<source>
+/**
+ * TrFastMessageFormatUtils is a greatly reduced version
+ * of the java.text.MessageFormat class, but delivered as a utility. 
+ * &lt;p&gt;
+ * The only syntax supported by this class is simple index-based
+ * replacement, namely:
+ * &lt;pre&gt;
+ *     some{1}text{0}here{2}andthere
+ * &lt;/pre&gt;
+ * as well as escaping using single quotes.  Like MessageFormat,
+ * a single quote must be represented using two consecutive single
+ * quotes, but the contents of any text between single quotes
+ * will not be interpreted.  So, the following pattern could
+ * be used to include a left bracket:
+ * &lt;pre&gt;
+ *     some'{'text{0}
+ * &lt;/pre&gt;
+ */
+function TrFastMessageFormatUtils()
+
+ /**
+  * Formats the given array of strings based on the initial
+  * pattern.  
+  * @param {String} String to format
+  * @param {any...:undefined} Varargs objects to substitute for positional parameters.
+  * Each parameter will be converted to a String and substituted into the format.
+  */
+TrFastMessageFormatUtils.format = function(
+  formatString, // error format string with embedded indexes to be replaced
+  parameters    // {any...:undefined} Varargs objects to substitute for positional parameters.
+  )
+</source>
+      </p>
+      <p>
+      Let's say we have implemented a social security number converter which converts a String to/from an Integer. To get a version of this working on the client we would need two things, a javascript implementation of the converter and a javascript constructor for each instance of the converter on the page. 
+      </p>
+      <p>
+      Let's take a look at an example of a javascript converter implementation for our social security number converter:
+      <source>
+      function ssnGetAsString(value, label)
+      {
+        return value.substring(0,3) + '-' + value.substring(3,5) + '-' + value.substring(5);
+      }
+      
+      function ssnGetAsObject(value, label)
+      { 
+        if (!value)return null;
+        var len=value.length;
+        var messageKey = SSNConverter.NOT;
+        if (len &lt; 9 )
+          messageKey = SSNConverter.SHORT;
+        else if (len &gt; 11)
+          messageKey = SSNConverter.LONG;
+        else if (len == 9)
+        { if (!isNaN(value))
+            return value;
+        }
+        else if (len == 11 &amp;&amp; value.charAt(3) == '-' &amp;&amp; 
+                  value.charAt(6) == '-')
+        {
+          var result = value.substring(0,3) + value.substring(4,6) + 
+                      value.substring(7);
+          if (!isNaN(result))
+            return result;
+        }
+        if (messageKey!=null &amp;&amp; this._messages!=null)
+        { 
+          // format the detail error string
+          var detail = this._messages[messageKey];
+          if (detail != null)
+          {
+            detail = TrFastMessageFormatUtils.format(detail, label, value);
+          }
+        
+          var facesMessage = new TrFacesMessage(
+                              this._messages[SSNConverter.SUMMARY],
+                              detail,
+                              TrFacesMessage.SEVERITY_ERROR)
+         throw new TrConverterException(facesMessage);
+       }
+       return null;
+      }
+      function SSNConverter(messages)
+        {this._messages = messages;}
+      SSNConverter.prototype = new TrConverter();
+      SSNConverter.prototype.getAsString = ssnGetAsString;
+      SSNConverter.prototype.getAsObject = ssnGetAsObject;
+      SSNConverter.SUMMARY = 'SUM';
+      SSNConverter.SHORT = 'S';
+      SSNConverter.LONG  = 'L';
+      SSNConverter.NOT   = 'N';
+
+      </source>
+      </p>
+      <p>
+      And here's an example of a javascript constructor to get an instance of the javascript converter defined above:
+      <source>
+           new SSNConverter({SUM:\'Invalid social security number.\',
+                             S:\'Value "{1}" is too short.\',
+                             L:\'Value "{1}" is too long.\',
+                             N:\'Value "{1}" is not a valid social security number.\'})
+      </source>
+      </p>      
+      <p>
+       At this point we have the javascript to use on the client, but we need a way to provide it from our Java Converter object. This is achieved by implementing the interface <code>org.apache.myfaces.trinidad.converter.ClientConverter</code>, which has four methods. The first method is <code>getClientLibrarySource()</code>, which is expected to return a library that includes an implementation of the javascript Converter object. The second method is <code>getClientConversion()</code>, which is expected to return a  javascript constructor which will be used to instantiate an instance of the converter. Also provided are <code>getClientScript()</code> which can be used to write out inline javascript, and <code>getClientImportNames()</code> which is used to import the built-in scripts provided by Apache Trinidad.</p>
+      <p>
+       Continuing with our social security number converter example, here's our social security number converter Java class(the details of the Java code has been removed from the getAsObject() and getAsString() methods) which implements ClientConverter. Assume the javascript implementation above is in a javascript library named ssnConverter.js, :
+      <source>
+    package org.apache.myfaces.trinidaddemo.convertValidate;
+    
+    
+    import javax.faces.application.FacesMessage;
+    import javax.faces.component.UIComponent;
+    import javax.faces.context.FacesContext;
+    import javax.faces.convert.Converter;
+    import javax.faces.convert.ConverterException;
+    
+    import org.apache.myfaces.trinidad.converter.ClientConverter;
+    
+    
+    /**
+     * &lt;p&gt;Social Security number converter.&lt;/p&gt;
+     * 
+     */
+    public class SSNConverter implements Converter, ClientConverter
+    {
+        public static final String CONVERTER_ID = "org.apache.myfaces.trinidaddemo.SSN";
+    
+        public Object getAsObject(
+          FacesContext context, 
+          UIComponent component, 
+          String value)
+        {
+          // some Java code ...
+        }    
+        
+        public String getAsString(
+          FacesContext context, 
+          UIComponent component, 
+          Object value)
+        {
+          // some Java code ...
+        }
+     
+         public Collection&lt;String&gt; getClientImportNames()
+         {
+           return null;
+         }
+ 
+         public String getClientLibrarySource(
+          FacesContext context)
+         {
+           return context.getExternalContext().getRequestContextPath() + 
+                   "/jsLibs/ssnConverter.js";    
+         }
+ 
+         public String getClientConversion(
+           FacesContext context,
+           UIComponent component)
+         {
+ 
+           // in a real app the messages would be translated
+           return ("new SSNConverter({"
+                   + "SUM:'Invalid social security number.',"
+                   + "S:'Value \"{1}\" is too short.',"
+                   + "L:'Value \"{1}\" is too long.',"
+                   + "N:'Value \"{1}\" is not a valid social security number.'})"
+                   );
+         }
+ 
+         public String getClientScript(
+          FacesContext context,
+          UIComponent component)
+         {
+           return null;
+         }
+          
+    }
+
+      </source>
+      </p>      
+      <p>
+      Now assuming we've created a tag for this converter named convertSSN, we'd get client conversion just by attaching the converter in the normal way, for example: 
+      <source>
+
+&lt;tr:inputText value="#{data.ssn}" 
+            label="ssn converter"&gt;
+  &lt;trdemo:convertSSN/&gt;              
+&lt;/tr:inputText&gt;              
+      </source>
+      </p>
+      
+    </section>
+    
+    <section name="Client-side Validators">
+      <P> 
+      The general idea of writing client validators is almost exactly the same as writing client converters. Let's say you've written a javax.faces.validator.Validator implementation and now you want to add client-side validation. The first thing to do is write a version of the validator in javascript. Here is the javascript code for the TrValidator "interface".
+      <source>
+/**
+ * Validator "interface" similar to javax.faces.validator.Validator,
+ * except that all relevant information must be passed to the constructor
+ * as the context and component are not passed to the validate method 
+ *
+ */
+function TrValidator()
+
+/**
+ * Perform the correctness checks implemented by this Validator. 
+ * If any violations are found, a TrValidatorException will be thrown 
+ * containing the TrFacesMessage describing the failure. 
+ * @param value value to be validated 
+ * @param label label to identify the editableValueHolder to the user
+ * @param converter converter to format error string properly
+ */
+TrValidator.prototype.validate = function(value, label, converter){}
+      </source>
+      
+      The validator can throw javascript TrValidatorException objects:
+<source>      
+/**
+ * A TrValidatorException is an exception thrown by the validate() method of 
+ * a Validator to indicate that validation failed.
+ *
+ * @param facesMessage the FacesMessage associated with this exception
+ * @param summary Localized summary message text, used only if facesMessage is null
+ * @param detail Localized detail message text, used only if facesMessage is null
+ */
+function TrValidatorException(
+  facesMessage,
+  summary, 
+  detail
+  )
+</source>
+      </P>
+      <p>
+      Once you have a javascript implementation of the validator and constructor, they are plugged in to the Java code using <code>org.apache.myfaces.trinidad.validator.ClientValidator</code>, which has similar methods to ClientConverter, and functions in exactly the same way. Please see the client-side converters section of this document for more information. An example will be provided in a future version of this document.
+      </p>
+    </section>
+    
+
+  </body>
+</document>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <!-- 
+  Load a resource bundle localized for the Locale of the current view, 
+  and expose it (as a Map) in the request attributes of the current request. 
+  Please note that we are not localizing every string in this demo. We want
+  to show you an example of how to do this, but also make the demo an
+  example that is easy to follow.
+  -->  
+  <f:loadBundle var="nls"
+                basename="org.apache.myfaces.trinidaddemo.email.resource.EmailDemoBundle"/>
+  
+  <f:view>
+    <tr:document title="Message List">
+       <tr:form>
+       
+        <tr:panelPage>
+          <tr:messages/>
+          
+          <f:facet name="branding">
+            <tr:panelGroupLayout layout="vertical">
+              <tr:panelGroupLayout>
+                <tr:outputFormatted value="#{nls.EMAIL_DEMO_TITLE}" styleClass="AFHeaderLevelOne"/>
+                <tr:image source="/email/images/pbs.gif"/>
+              </tr:panelGroupLayout>
+              <tr:outputFormatted value="Customer &lt;b&gt;Foo - Anywhere, U.S.A. &lt;/b&gt;"
+                                 styleUsage="inContextBranding"/>
+            </tr:panelGroupLayout>
+          </f:facet>
+          
+          <f:facet name="navigationGlobal">
+              <tr:navigationPane hint="buttons">
+                <tr:commandNavigationItem text="Return to Index"
+                    immediate="true"
+                    action="home"/>
+                <tr:commandNavigationItem text="Logout" 
+                                  action="#{email.logout}"/>
+                <tr:commandNavigationItem text="Preferences"
+                                  action="preferences"/>
+                <tr:commandNavigationItem text="Help"
+                                  action="action.none"/>
+              </tr:navigationPane>
+            </f:facet>
+            
+            <f:facet name="infoUser">
+              <tr:outputFormatted value="Logged in as #{email.username}"
+                                  styleUsage="pageStamp"/>
+            </f:facet>
+             <f:facet name="navigation3">
+                <tr:tree var="currentFolder" value="#{email.folderModel}">
+                  <f:facet name="nodeStamp">
+                    <tr:commandLink 
+                           disabled="#{!currentFolder.holdsMessages}"
+                           action="#{currentFolder.viewMessages}">
+                      <tr:outputText value="#{currentFolder.name}"/>
+                      <tr:outputText
+                         rendered="#{currentFolder.unreadMessageCount &gt; 0}"
+                         value=" (#{currentFolder.unreadMessageCount})"/>
+                    </tr:commandLink>
+                  </f:facet>
+                </tr:tree>
+            </f:facet>
+           <tr:panelHeader text="View Messages for Folder #{email.currentFolder.name}">
+            <tr:table rows="#{email.preferences.rowsShown}"
+                      var="currentMessage"
+                      value="#{email.currentFolder.messageListModel}"
+                      binding="#{messagesBacking.messagesTable}"
+                      first="#{email.currentFolder.startIndex}"
+                      rangeChangeListener="#{messagesBacking.saveFirst}"
+                      width="85%"
+                      summary="Messages table"
+                      emptyText="No messages."
+                      rowSelection="multiple"
+                      rowBandingInterval = "1">
+              <f:facet name="footer">
+                <tr:commandButton text="Delete"
+                        actionListener="#{messagesBacking.performDelete}"/>
+              </f:facet>
+              <tr:column  noWrap="true">
+                <f:facet name="header">
+                  <tr:outputText value="Subject"/>
+                </f:facet>
+                <tr:panelGroupLayout>
+                  <tr:image rendered="#{currentMessage.deleted}"
+                                  source="/email/images/deleted.gif"/>
+                  <tr:commandLink action="showMessage">
+                    <tr:outputText
+                       styleClass="#{currentMessage.read ? null : 'AFFieldTextMarker'}"
+                       truncateAt="25" value="#{currentMessage.subject}"
+                       shortDesc="#{currentMessage.subject}"/>
+                    <tr:setActionListener from="#{currentMessage}"
+                                          to="#{pageFlowScope.message}"/>
+                  </tr:commandLink>
+                </tr:panelGroupLayout>
+              </tr:column>
+              <tr:column rendered="#{email.preferences.displaySenderColumn}">
+                <f:facet name="header">
+                  <tr:outputText value="Sender"/>
+                </f:facet>
+                <tr:outputText value="#{currentMessage.sender}">
+                  <f:converter converterId="org.apache.myfaces.trinidaddemo.email.EmailDisplay"/>
+                </tr:outputText>
+              </tr:column>
+              <tr:column noWrap="true"
+                         rendered="#{email.preferences.displayDateColumn}">
+                <f:facet name="header">
+                  <tr:outputText value="Sent"/>
+                </f:facet>
+                <tr:outputText value="#{currentMessage.sentDate}">
+                  <f:converter converterId="org.apache.myfaces.trinidaddemo.email.RelativeDate"/>
+                </tr:outputText>
+              </tr:column>
+              <tr:column rendered="#{email.preferences.displaySizeColumn}">
+                <f:facet name="header">
+                  <tr:outputText value="Size"/>
+                </f:facet>
+                <tr:outputText value="#{currentMessage.size} kB"/>
+              </tr:column>
+            </tr:table>
+           </tr:panelHeader>
+          <tr:panelButtonBar>
+            <tr:commandButton text="First"
+                              disabled="#{!messagesBacking.firstEnabled}"
+                              action="#{messagesBacking.first}"/>
+            <tr:commandButton text="Last"
+                              disabled="#{!messagesBacking.lastEnabled}"
+                              action="#{messagesBacking.last}"/>
+            <tr:commandButton text="New Message" action="newMessage"/>
+            <tr:commandButton text="Refresh"
+                              action="#{messagesBacking.refresh}"/>
+            <tr:commandButton text="Compact"
+                              action="#{messagesBacking.compact}"/>
+          </tr:panelButtonBar>
+        </tr:panelPage>
+    
+       </tr:form>
+    </tr:document>
+  </f:view>
+</jsp:root>

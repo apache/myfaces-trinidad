@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="iso-8859-1"  standalone="yes" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<jsp:root version="1.2" xmlns:tr="http://myfaces.apache.org/trinidad"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:jsp="http://java.sun.com/JSP/Page">
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <tr:document title=" Trinidad Converters and Validators">
+        <tr:form>
+          <tr:panelPage>
+            <tr:messages/>
+            <f:facet name="navigationGlobal">
+              <tr:navigationPane hint="buttons">
+                <tr:commandNavigationItem text="Validators and Converters"
+                                    action="convertValidateDemos"
+                                    immediate="true"/>
+              </tr:navigationPane>
+            </f:facet>
+          <tr:panelHeader text="Converters and Validators">
+            <tr:panelHeader text="Server Side Number Converter"/>
+            <tr:panelFormLayout>
+              <tr:inputText value="99.99" label="number converter1">
+                <f:facet name="help">
+                  <tr:outputText value="type='number' integerOnly='true' - This will result in fraction part to be omitted"/>
+                </f:facet>
+                <f:convertNumber type="number" integerOnly="true"/>
+              </tr:inputText>
+              <tr:inputText value="#{converterValidator.currencyValue}"
+                            label="number converter2" readOnly="true">
+                <f:facet name="help">
+                  <tr:outputText value="type='currency' locale='en_US' currencyCode='EUR' - This results in EUR prefix before value"/>
+                </f:facet>
+                <f:convertNumber type="currency" locale="en_US"
+                                 currencyCode="EUR"/>
+              </tr:inputText>
+              <tr:inputText value="#{converterValidator.percentValue}"
+                            label="number converter3">
+                <f:facet name="help">
+                  <tr:outputText value="type='percent' locale='en_US' - This results in fraction displayed as integer value with % symbol"/>
+                </f:facet>
+                <f:convertNumber type="percent" locale="en_US"/>
+              </tr:inputText>
+              <tr:inputText value="#{converterValidator.groupValue}"
+                            label="number converter4">
+                <f:facet name="help">
+                  <tr:outputText value="type='number' locale='en_US'"/>
+                </f:facet>
+                <f:convertNumber type="number" locale="en_US"/>
+              </tr:inputText>
+              <tr:inputText value="#{converterValidator.currencyValue}"
+                            label="number converter5" readOnly="true">
+                <f:facet name="help">
+                  <tr:outputText value="type='currency' locale='en_US' currencySymbol='#' - This results in # as prefix for value"/>
+                </f:facet>
+                <f:convertNumber type="currency" locale="en_US"
+                                 currencySymbol="#"/>
+              </tr:inputText>
+            </tr:panelFormLayout>
+            <tr:panelHeader text="Validators"/>
+            <tr:panelFormLayout>
+              <tr:inputText value="9999" label="reg exp validator">
+                <f:facet name="help">
+                  <tr:outputText value="pattern='[9]*'"/>
+                </f:facet>
+                <tr:validateRegExp pattern="[9]*"/>
+              </tr:inputText>
+              <tr:inputText value="Four" label="byte length validator">
+                <f:facet name="help">
+                  <tr:outputText value="maximum='4' encoding='ISO-8859-1'"/>
+                </f:facet>
+                <tr:validateByteLength encoding="ISO-8859-1" maximum="4"/>
+              </tr:inputText>
+              <tr:inputText value="424" label="multiple validators">
+                <f:facet name="help">
+                  <tr:outputText value="Attached reg exp and long range validator. Allow three digit value with middle number being '2' and value not exceeding 920"/>
+                </f:facet>
+                <tr:validateRegExp pattern="[1-9][2][0-9]"/>
+                <f:validateLongRange maximum="920"/>
+              </tr:inputText>
+            </tr:panelFormLayout>
+            <tr:panelHeader text="Date time range validator with ISO date format support"/>
+            <tr:panelFormLayout>
+              <tr:inputDate id="mdf3" value="2004-11-25"
+                                  label="Submission period">
+                <f:facet name="help">
+                  <tr:outputText value="min=2004-11-16  max=2004-12-16"/>
+                </f:facet>
+                <tr:convertDateTime pattern="yyyy-MM-dd"/>
+                <tr:validateDateTimeRange minimum="2004-11-16"
+                                          maximum="2004-12-16"
+                                          messageDetailNotInRange='Date "{1}" does not fall within {2} : {3}'/>
+              </tr:inputDate>
+            </tr:panelFormLayout>
+           </tr:panelHeader>
+           <tr:commandButton text="Submit"/>
+          </tr:panelPage>
+        </tr:form>
+    </tr:document>
+  </f:view>
+</jsp:root>

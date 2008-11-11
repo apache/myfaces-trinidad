@@ -1,0 +1,730 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<document>
+  <properties>
+    <title>Navigation in Apache Trinidad</title>
+  </properties>
+
+  <body>
+    <section name="Navigation in Apache Trinidad">
+      <p>
+        <ul>
+          <li><a href="#Introduction">Introduction</a></li>
+          <li><a href="#Navigation Components and Children">Navigation Components and Children</a></li>
+          <li><a href="#The Navigation Model">The Navigation Model</a></li>
+          <li><a href="#Navigation Components and the MenuModel">Navigation Components and the MenuModel</a></li>
+          <li><a href="#Page">Page</a></li>
+        </ul>
+      </p>
+    </section>
+
+  <section name="Introduction">
+    <p>Pages are not written in isolation, an application consists of many pages. Often these pages are organized in a tree, and the user drills down into the tree to access more specific information. The figure below represents a tree of pages. 
+
+  <a name="fig1"></a>
+<source>
+Depth 0:                            <b>a1</b>                         a2        a3    a4
+                            /                \                /  \
+Depth 1:                a1b1                  <b>a1b2</b>         a2b1  a2b2
+                     /        \             /      \
+Depth 2:          a1b1c1    a1b1c2    <b>a1b2c1</b>  a1b2c2
+                 /      \
+Depth 3:    a1b1c1d1  a1b1c2d1
+</source>
+<div align="center">
+<strong >Figure 1</strong>
+</div>
+<br></br>
+Here's an example at the kind of navigation rules you might find in faces-config for the group of pages above.
+
+<source>
+&lt;navigation-rule&gt;
+    &lt;navigation-case&gt;
+      &lt;from-outcome&gt;guide.navigationModel_root&lt;/from-outcome&gt;
+      &lt;to-view-id&gt;/components/navmodel/page.jspx&lt;/to-view-id&gt;
+      &lt;redirect/&gt;
+    &lt;/navigation-case&gt;
+    &lt;navigation-case&gt;
+      &lt;from-outcome&gt;guide.navigationModel_a1&lt;/from-outcome&gt;
+      &lt;to-view-id&gt;/components/navmodel/page_a1.jspx&lt;/to-view-id&gt;
+      &lt;redirect/&gt;
+    &lt;/navigation-case&gt;
+    &lt;navigation-case&gt;
+      &lt;from-outcome&gt;guide.navigationModel_a2&lt;/from-outcome&gt;
+      &lt;to-view-id&gt;/components/navmodel/page_a2.jspx&lt;/to-view-id&gt;
+      &lt;redirect/&gt;
+    &lt;/navigation-case&gt;
+    &lt;navigation-case&gt;
+      &lt;from-outcome&gt;guide.navigationModel_a3&lt;/from-outcome&gt;
+      &lt;to-view-id&gt;/components/navmodel/page_a3.jspx&lt;/to-view-id&gt;
+      &lt;redirect/&gt;
+    &lt;/navigation-case&gt;
+    &lt;navigation-case&gt;
+      &lt;from-outcome&gt;guide.navigationModel_a4&lt;/from-outcome&gt;
+      &lt;to-view-id&gt;/components/navmodel/page_a4.jspx&lt;/to-view-id&gt;
+      &lt;redirect/&gt;
+    &lt;/navigation-case&gt;
+     &lt;navigation-case&gt;
+      &lt;from-outcome&gt;guide.navigationModel_a1b1&lt;/from-outcome&gt;
+      &lt;to-view-id&gt;/components/navmodel/page_a1b1.jspx&lt;/to-view-id&gt;
+      &lt;redirect/&gt;
+    &lt;/navigation-case&gt;
+     &lt;navigation-case&gt;
+      &lt;from-outcome&gt;guide.navigationModel_a1b2&lt;/from-outcome&gt;
+      &lt;to-view-id&gt;/components/navmodel/page_a1b2.jspx&lt;/to-view-id&gt;
+      &lt;redirect/&gt;
+    &lt;/navigation-case&gt;
+     &lt;navigation-case&gt;
+      &lt;from-outcome&gt;guide.navigationModel_a2b1&lt;/from-outcome&gt;
+      &lt;to-view-id&gt;/components/navmodel/page_a2b1.jspx&lt;/to-view-id&gt;
+      &lt;redirect/&gt;
+    &lt;/navigation-case&gt;
+     &lt;navigation-case&gt;
+      &lt;from-outcome&gt;guide.navigationModel_a2b2&lt;/from-outcome&gt;
+      &lt;to-view-id&gt;/components/navmodel/page_a2b2.jspx&lt;/to-view-id&gt;
+      &lt;redirect/&gt;
+    &lt;/navigation-case&gt;
+     &lt;navigation-case&gt;
+      &lt;from-outcome&gt;guide.navigationModel_a1b1c1&lt;/from-outcome&gt;
+      &lt;to-view-id&gt;/components/navmodel/page_a1b1c1.jspx&lt;/to-view-id&gt;
+      &lt;redirect/&gt;
+    &lt;/navigation-case&gt;
+     &lt;navigation-case&gt;
+      &lt;from-outcome&gt;guide.navigationModel_a1b1c2&lt;/from-outcome&gt;
+      &lt;to-view-id&gt;/components/navmodel/page_a1b1c2.jspx&lt;/to-view-id&gt;
+      &lt;redirect/&gt;
+    &lt;/navigation-case&gt;
+     &lt;navigation-case&gt;
+      &lt;from-outcome&gt;guide.navigationModel_a1b2c1&lt;/from-outcome&gt;
+      &lt;to-view-id&gt;/components/navmodel/page_a1b2c1.jspx&lt;/to-view-id&gt;
+      &lt;redirect/&gt;
+    &lt;/navigation-case&gt;
+     &lt;navigation-case&gt;
+      &lt;from-outcome&gt;guide.navigationModel_a1b2c2&lt;/from-outcome&gt;
+      &lt;to-view-id&gt;/components/navmodel/page_a1b2c2.jspx&lt;/to-view-id&gt;
+      &lt;redirect/&gt;
+    &lt;/navigation-case&gt;
+     &lt;navigation-case&gt;
+      &lt;from-outcome&gt;guide.navigationModel_a1b1c1d1&lt;/from-outcome&gt;
+      &lt;to-view-id&gt;/components/navmodel/page_a1b1c1d1.jspx&lt;/to-view-id&gt;
+      &lt;redirect/&gt;
+    &lt;/navigation-case&gt;
+     &lt;navigation-case&gt;
+      &lt;from-outcome&gt;guide.navigationModel_a1b1c2d1&lt;/from-outcome&gt;
+      &lt;to-view-id&gt;/components/navmodel/page_a1b1c2d1.jspx&lt;/to-view-id&gt;
+      &lt;redirect/&gt;
+    &lt;/navigation-case&gt;
+  &lt;/navigation-rule&gt;
+</source>
+<br></br>
+<p>
+So what components should be used in Apache Trinidad to achieve the layout above?  There are multiple options: use panelPage and navigation components that take a series of commandNavigationItem children, use panelPage and navigation components that use a navigation model and a single commandNavigationItem child in the nodeStamp facet, or use the page component with a navigation model and a single commandNavigationItem child in the nodeStamp facet.  These techniques are discussed in this chapter.
+</p>
+</p>
+</section>
+<section name="Navigation Components and Children">
+<p>
+The panelPage component organizes the content of an entire page.  The panelPage has multiple facets which are used to render the navigation areas of the page (among other navigation-related areas).  The navigation components then go inside these facets.  The "intuitive" way to build up the navigation components is to just add children to the navigation components.   The example that follows should produce the same output as seen in <a href="#fig2">figure 2</a>.
+
+<source>
+&lt;?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?&gt;
+&lt;jsp:root version="1.2"
+  xmlns:jsp="http://java.sun.com/JSP/Page"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:tr="http://myfaces.apache.org/"&gt;
+  &lt;jsp:directive.page contentType="text/html;charset=utf-8"/&gt;
+  &lt;f:view&gt;
+    &lt;tr:document title="MenuModel Demo" maximized="true"&gt;
+      &lt;tr:form&gt;
+        &lt;tr:panelPage&gt;
+          &lt;f:facet name="branding"&gt;
+            &lt;tr:panelGroup layout="horizontal"&gt;
+              &lt;tr:objectIcon name="logo"/&gt;
+              &lt;tr:outputText value="MenuModel Demo"/&gt;
+            &lt;/tr:panelGroup&gt;
+          &lt;/f:facet&gt;
+          &lt;f:facet name="navigationGlobal"&gt;
+            &lt;tr:navigationLevel&gt;
+              &lt;tr:commandNavigationItem text="a1" action="guide.navigationModel_a1"
+                selected="true"/&gt;
+              &lt;tr:commandNavigationItem text="a2" action="guide.navigationModel_a2"/&gt;
+              &lt;tr:commandNavigationItem text="a3" action="guide.navigationModel_a3"/&gt;
+              &lt;tr:commandNavigationItem text="a4" action="guide.navigationModel_a4"/&gt;
+            &lt;/tr:navigationLevel&gt;
+          &lt;/f:facet&gt;
+          &lt;f:facet name="navigation1"&gt;
+            &lt;tr:navigationLevel&gt;
+              &lt;tr:commandNavigationItem text="a1b1" action="guide.navigationModel_a1b1"/&gt;
+              &lt;tr:commandNavigationItem text="a1b2" action="guide.navigationModel_a1b2"
+                selected="true"/&gt;
+            &lt;/tr:navigationLevel&gt;
+          &lt;/f:facet&gt;
+          &lt;f:facet name="navigation2"&gt;
+            &lt;tr:navigationLevel&gt;
+              &lt;tr:commandNavigationItem text="a1b2c1" action="guide.navigationModel_a1b2c1"
+                selected="true"/&gt;
+              &lt;tr:commandNavigationItem text="a1b2c2" action="guide.navigationModel_a1b2c2"/&gt;
+            &lt;/tr:navigationLevel&gt;
+          &lt;/f:facet&gt;
+          &lt;f:facet name="location"&gt;
+            &lt;tr:navigationPath&gt;
+              &lt;tr:commandNavigationItem text="a1" action="guide.navigationModel_a1"/&gt;
+              &lt;tr:commandNavigationItem text="a1b2" action="guide.navigationModel_a1b2"/&gt;
+              &lt;tr:commandNavigationItem text="a1b2c1" action="guide.navigationModel_a1b2c1"/&gt;
+            &lt;/tr:navigationPath&gt;
+          &lt;/f:facet&gt;
+        &lt;/tr:panelPage&gt;
+      &lt;/tr:form&gt;
+    &lt;/tr:document&gt;
+  &lt;/f:view&gt;
+&lt;/jsp:root&gt;
+</source>
+
+  </p>
+</section>
+<section name="Navigation Model">
+<p>
+  <b>NOTE</b>: Work on modeling navigation continues and it is very possible that there will be changes in a future release. 
+   </p>
+   
+  <p>So what is wrong with the panelPage approach described above? It's simple and easy to understand and it works. The problem is that it's not easy to get things right. For example the page author must take care to show the correct nodes as "selected". It's also not easily maintained. What if  a page is moved from one place to another in the tree (see <a href="#fig1">figure 1</a>)?  
+  </p>
+  
+  <p>
+  What is needed is a model object that knows the application hierarchy and also knows how to say what is the current "focus path" in that hierarchy. The MenuModel class was created for this purpose. MenuModel extends TreeModel, so if you are not familiar with the model for the tree it is important that you first read the <a href="tree.html">tree</a> chapter.
+  </p>
+
+  <p>
+  The navigation model knows how to go from the current viewId to the focus path. For example if I am on page a1b2c1, a call to getFocusRowKey() will return the focus path of a1, a1b2, and a1b2c1. 
+   </p>
+ 
+  <p>Notice that the navigationModel has no special knowledge of page navigation and places no requirements on the nodes that go into the tree. The components that take a navigationModel use a commandNavigationItem component to stamp out the data in the tree. The default actionListener mechanism is used for page navigation.
+  </p>
+ 
+  <p>
+  The following example shows how a navigation model can be created in faces-config. The DemoNavigationItem class is a bean. The TreeModelAdapter class creates a ChildPropertyTreeModel instance, and the MenuModelAdapter creates a ViewIdPropertyMenuModel instance which can be retrieved by calling MenuModelAdapter.getModel(). Please see the javadoc for more information on ChildPropertyTreeModel and ViewIdPropertyMenuModel.
+  </p>
+
+  <p><a href="#endfacesconfig">Skip to end of faces-config fragment.</a></p>
+<source>
+   &lt;!-- create the navigationModel nodes --&gt;
+
+   &lt;managed-bean&gt;
+    &lt;managed-bean-name&gt;navItem_a1b1c1d1&lt;/managed-bean-name&gt;
+    &lt;managed-bean-class&gt;org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem&lt;/managed-bean-class&gt;
+    &lt;managed-bean-scope&gt;none&lt;/managed-bean-scope&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;label&lt;/property-name&gt;
+      &lt;value&gt;a1b1c1d1&lt;/value&gt;
+    &lt;/managed-property&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;viewId&lt;/property-name&gt;
+      &lt;value&gt;/components/navmodel/page_a1b1c1d1.jspx&lt;/value&gt;
+    &lt;/managed-property&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;outcome&lt;/property-name&gt;
+      &lt;value&gt;guide.navigationModel_a1b1c1d1&lt;/value&gt;
+    &lt;/managed-property&gt;
+  &lt;/managed-bean&gt;
+
+  &lt;managed-bean&gt;
+    &lt;managed-bean-name&gt;navItem_a1b1c2d1&lt;/managed-bean-name&gt;
+    &lt;managed-bean-class&gt;org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem&lt;/managed-bean-class&gt;
+    &lt;managed-bean-scope&gt;none&lt;/managed-bean-scope&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;label&lt;/property-name&gt;
+      &lt;value&gt;a1b1c2d1&lt;/value&gt;
+    &lt;/managed-property&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;viewId&lt;/property-name&gt;
+      &lt;value&gt;/components/navmodel/page_a1b1c2d1.jspx&lt;/value&gt;
+    &lt;/managed-property&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;outcome&lt;/property-name&gt;
+      &lt;value&gt;guide.navigationModel_a1b1c2d1&lt;/value&gt;
+    &lt;/managed-property&gt;
+  &lt;/managed-bean&gt;
+
+   &lt;managed-bean&gt;
+    &lt;managed-bean-name&gt;navItem_a1b1c1&lt;/managed-bean-name&gt;
+    &lt;managed-bean-class&gt;org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem&lt;/managed-bean-class&gt;
+    &lt;managed-bean-scope&gt;none&lt;/managed-bean-scope&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;children&lt;/property-name&gt;
+      &lt;list-entries&gt;
+        &lt;value-class&gt;org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem&lt;/value-class&gt;
+        &lt;value&gt;#{navItem_a1b1c1d1}&lt;/value&gt;
+      &lt;/list-entries&gt;
+    &lt;/managed-property&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;label&lt;/property-name&gt;
+      &lt;value&gt;a1b1c1&lt;/value&gt;
+    &lt;/managed-property&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;viewId&lt;/property-name&gt;
+      &lt;value&gt;/components/navmodel/page_a1b1c1.jspx&lt;/value&gt;
+    &lt;/managed-property&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;outcome&lt;/property-name&gt;
+      &lt;value&gt;guide.navigationModel_a1b1c1&lt;/value&gt;
+    &lt;/managed-property&gt;
+  &lt;/managed-bean&gt;
+
+   &lt;managed-bean&gt;
+    &lt;managed-bean-name&gt;navItem_a1b1c2&lt;/managed-bean-name&gt;
+    &lt;managed-bean-class&gt;org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem&lt;/managed-bean-class&gt;
+    &lt;managed-bean-scope&gt;none&lt;/managed-bean-scope&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;children&lt;/property-name&gt;
+      &lt;list-entries&gt;
+        &lt;value-class&gt;org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem&lt;/value-class&gt;
+        &lt;value&gt;#{navItem_a1b1c2d1}&lt;/value&gt;
+      &lt;/list-entries&gt;
+    &lt;/managed-property&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;label&lt;/property-name&gt;
+      &lt;value&gt;a1b1c2&lt;/value&gt;
+    &lt;/managed-property&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;viewId&lt;/property-name&gt;
+      &lt;value&gt;/components/navmodel/page_a1b1c2.jspx&lt;/value&gt;
+    &lt;/managed-property&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;outcome&lt;/property-name&gt;
+      &lt;value&gt;guide.navigationModel_a1b1c2&lt;/value&gt;
+    &lt;/managed-property&gt;
+  &lt;/managed-bean&gt;
+
+   &lt;managed-bean&gt;
+    &lt;managed-bean-name&gt;navItem_a1b2c1&lt;/managed-bean-name&gt;
+    &lt;managed-bean-class&gt;org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem&lt;/managed-bean-class&gt;
+    &lt;managed-bean-scope&gt;none&lt;/managed-bean-scope&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;label&lt;/property-name&gt;
+      &lt;value&gt;a1b2c1&lt;/value&gt;
+    &lt;/managed-property&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;viewId&lt;/property-name&gt;
+      &lt;value&gt;/components/navmodel/page_a1b2c1.jspx&lt;/value&gt;
+    &lt;/managed-property&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;outcome&lt;/property-name&gt;
+      &lt;value&gt;guide.navigationModel_a1b2c1&lt;/value&gt;
+    &lt;/managed-property&gt;
+  &lt;/managed-bean&gt;
+
+   &lt;managed-bean&gt;
+    &lt;managed-bean-name&gt;navItem_a1b2c2&lt;/managed-bean-name&gt;
+    &lt;managed-bean-class&gt;org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem&lt;/managed-bean-class&gt;
+    &lt;managed-bean-scope&gt;none&lt;/managed-bean-scope&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;label&lt;/property-name&gt;
+      &lt;value&gt;a1b2c2&lt;/value&gt;
+    &lt;/managed-property&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;viewId&lt;/property-name&gt;
+      &lt;value&gt;/components/navmodel/page_a1b2c2.jspx&lt;/value&gt;
+    &lt;/managed-property&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;outcome&lt;/property-name&gt;
+      &lt;value&gt;guide.navigationModel_a1b2c2&lt;/value&gt;
+    &lt;/managed-property&gt;
+  &lt;/managed-bean&gt;
+
+   &lt;managed-bean&gt;
+    &lt;managed-bean-name&gt;navItem_a1b1&lt;/managed-bean-name&gt;
+    &lt;managed-bean-class&gt;org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem&lt;/managed-bean-class&gt;
+    &lt;managed-bean-scope&gt;none&lt;/managed-bean-scope&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;children&lt;/property-name&gt;
+      &lt;list-entries&gt;
+        &lt;value-class&gt;org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem&lt;/value-class&gt;
+        &lt;value&gt;#{navItem_a1b1c1}&lt;/value&gt;
+        &lt;value&gt;#{navItem_a1b1c2}&lt;/value&gt;
+      &lt;/list-entries&gt;
+    &lt;/managed-property&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;label&lt;/property-name&gt;
+      &lt;value&gt;a1b1&lt;/value&gt;
+    &lt;/managed-property&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;viewId&lt;/property-name&gt;
+      &lt;value&gt;/components/navmodel/page_a1b1.jspx&lt;/value&gt;
+    &lt;/managed-property&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;outcome&lt;/property-name&gt;
+      &lt;value&gt;guide.navigationModel_a1b1&lt;/value&gt;
+    &lt;/managed-property&gt;
+  &lt;/managed-bean&gt;
+
+   &lt;managed-bean&gt;
+    &lt;managed-bean-name&gt;navItem_a1b2&lt;/managed-bean-name&gt;
+    &lt;managed-bean-class&gt;org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem&lt;/managed-bean-class&gt;
+    &lt;managed-bean-scope&gt;none&lt;/managed-bean-scope&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;children&lt;/property-name&gt;
+      &lt;list-entries&gt;
+        &lt;value-class&gt;org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem&lt;/value-class&gt;
+        &lt;value&gt;#{navItem_a1b2c1}&lt;/value&gt;
+        &lt;value&gt;#{navItem_a1b2c2}&lt;/value&gt;
+      &lt;/list-entries&gt;
+    &lt;/managed-property&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;label&lt;/property-name&gt;
+      &lt;value&gt;a1b2&lt;/value&gt;
+    &lt;/managed-property&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;viewId&lt;/property-name&gt;
+      &lt;value&gt;/components/navmodel/page_a1b2.jspx&lt;/value&gt;
+    &lt;/managed-property&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;outcome&lt;/property-name&gt;
+      &lt;value&gt;guide.navigationModel_a1b2&lt;/value&gt;
+    &lt;/managed-property&gt;
+  &lt;/managed-bean&gt;
+
+   &lt;managed-bean&gt;
+    &lt;managed-bean-name&gt;navItem_a2b1&lt;/managed-bean-name&gt;
+    &lt;managed-bean-class&gt;org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem&lt;/managed-bean-class&gt;
+    &lt;managed-bean-scope&gt;none&lt;/managed-bean-scope&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;label&lt;/property-name&gt;
+      &lt;value&gt;a2b1&lt;/value&gt;
+    &lt;/managed-property&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;viewId&lt;/property-name&gt;
+      &lt;value&gt;/components/navmodel/page_a2b1.jspx&lt;/value&gt;
+    &lt;/managed-property&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;outcome&lt;/property-name&gt;
+      &lt;value&gt;guide.navigationModel_a2b1&lt;/value&gt;
+    &lt;/managed-property&gt;
+  &lt;/managed-bean&gt;
+
+
+   &lt;managed-bean&gt;
+    &lt;managed-bean-name&gt;navItem_a2b2&lt;/managed-bean-name&gt;
+    &lt;managed-bean-class&gt;org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem&lt;/managed-bean-class&gt;
+    &lt;managed-bean-scope&gt;none&lt;/managed-bean-scope&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;label&lt;/property-name&gt;
+      &lt;value&gt;a2b2&lt;/value&gt;
+    &lt;/managed-property&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;viewId&lt;/property-name&gt;
+      &lt;value&gt;/components/navmodel/page_a2b2.jspx&lt;/value&gt;
+    &lt;/managed-property&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;outcome&lt;/property-name&gt;
+      &lt;value&gt;guide.navigationModel_a2b2&lt;/value&gt;
+    &lt;/managed-property&gt;
+  &lt;/managed-bean&gt;
+
+  &lt;managed-bean&gt;
+    &lt;managed-bean-name&gt;navItem_a1&lt;/managed-bean-name&gt;
+    &lt;managed-bean-class&gt;org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem&lt;/managed-bean-class&gt;
+    &lt;managed-bean-scope&gt;none&lt;/managed-bean-scope&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;children&lt;/property-name&gt;
+      &lt;list-entries&gt;
+        &lt;value-class&gt;org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem&lt;/value-class&gt;
+        &lt;value&gt;#{navItem_a1b1}&lt;/value&gt;
+        &lt;value&gt;#{navItem_a1b2}&lt;/value&gt;
+      &lt;/list-entries&gt;
+    &lt;/managed-property&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;label&lt;/property-name&gt;
+      &lt;value&gt;a1&lt;/value&gt;
+    &lt;/managed-property&gt;
+    &lt;!-- For a one-and-only-one selected navigation item behavior, remove the
+         "viewId" declaration and modify the "outcome" declaration so that it
+         takes the user to a deeper page, e.g. guide.navigationModel_a1b2.
+         Doing this eliminates the page_a1.jspx, so it could be deleted too.
+         This would also need to be done for all of the other navigation item
+         definitions (i.e. not just "navItem_a1"). --&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;viewId&lt;/property-name&gt;
+      &lt;value&gt;/components/navmodel/page_a1.jspx&lt;/value&gt;
+    &lt;/managed-property&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;outcome&lt;/property-name&gt;
+      &lt;value&gt;guide.navigationModel_a1&lt;/value&gt;
+    &lt;/managed-property&gt;
+  &lt;/managed-bean&gt;
+
+  &lt;managed-bean&gt;
+    &lt;managed-bean-name&gt;navItem_a2&lt;/managed-bean-name&gt;
+    &lt;managed-bean-class&gt;org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem&lt;/managed-bean-class&gt;
+    &lt;managed-bean-scope&gt;none&lt;/managed-bean-scope&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;children&lt;/property-name&gt;
+      &lt;list-entries&gt;
+        &lt;value-class&gt;org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem&lt;/value-class&gt;
+        &lt;value&gt;#{navItem_a2b1}&lt;/value&gt;
+        &lt;value&gt;#{navItem_a2b2}&lt;/value&gt;
+      &lt;/list-entries&gt;
+    &lt;/managed-property&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;label&lt;/property-name&gt;
+      &lt;value&gt;a2&lt;/value&gt;
+    &lt;/managed-property&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;viewId&lt;/property-name&gt;
+      &lt;value&gt;/components/navmodel/page_a2.jspx&lt;/value&gt;
+    &lt;/managed-property&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;outcome&lt;/property-name&gt;
+      &lt;value&gt;guide.navigationModel_a2&lt;/value&gt;
+    &lt;/managed-property&gt;
+  &lt;/managed-bean&gt;
+
+  &lt;managed-bean&gt;
+    &lt;managed-bean-name&gt;navItem_a3&lt;/managed-bean-name&gt;
+    &lt;managed-bean-class&gt;org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem&lt;/managed-bean-class&gt;
+    &lt;managed-bean-scope&gt;none&lt;/managed-bean-scope&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;label&lt;/property-name&gt;
+      &lt;value&gt;a3&lt;/value&gt;
+    &lt;/managed-property&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;viewId&lt;/property-name&gt;
+      &lt;value&gt;/components/navmodel/page_a3.jspx&lt;/value&gt;
+    &lt;/managed-property&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;outcome&lt;/property-name&gt;
+      &lt;value&gt;guide.navigationModel_a3&lt;/value&gt;
+    &lt;/managed-property&gt;
+  &lt;/managed-bean&gt;
+
+ &lt;managed-bean&gt;
+    &lt;managed-bean-name&gt;navItem_a4&lt;/managed-bean-name&gt;
+    &lt;managed-bean-class&gt;org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem&lt;/managed-bean-class&gt;
+    &lt;managed-bean-scope&gt;none&lt;/managed-bean-scope&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;label&lt;/property-name&gt;
+      &lt;value&gt;a4&lt;/value&gt;
+    &lt;/managed-property&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;viewId&lt;/property-name&gt;
+      &lt;value&gt;/components/navmodel/page_a4.jspx&lt;/value&gt;
+    &lt;/managed-property&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;outcome&lt;/property-name&gt;
+      &lt;value&gt;guide.navigationModel_a4&lt;/value&gt;
+    &lt;/managed-property&gt;
+  &lt;/managed-bean&gt;
+
+  &lt;!-- create the treemodel --&gt;
+  
+ &lt;managed-bean&gt;
+    &lt;managed-bean-name&gt;navTreeList&lt;/managed-bean-name&gt;
+    &lt;managed-bean-class&gt;
+       java.util.ArrayList
+    &lt;/managed-bean-class&gt;
+    &lt;managed-bean-scope&gt;
+       none
+    &lt;/managed-bean-scope&gt;
+     &lt;list-entries&gt;
+        &lt;value-class&gt;org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem&lt;/value-class&gt;
+        &lt;value&gt;#{navItem_a1}&lt;/value&gt;
+        &lt;value&gt;#{navItem_a2}&lt;/value&gt;
+        &lt;value&gt;#{navItem_a3}&lt;/value&gt;
+        &lt;value&gt;#{navItem_a4}&lt;/value&gt;
+      &lt;/list-entries&gt;
+  &lt;/managed-bean&gt;
+  
+  &lt;managed-bean&gt;
+    &lt;managed-bean-name&gt;navTreeModel&lt;/managed-bean-name&gt;
+    &lt;managed-bean-class&gt;org.apache.myfaces.trinidad.model.ChildPropertyTreeModel&lt;/managed-bean-class&gt;
+    &lt;managed-bean-scope&gt;none&lt;/managed-bean-scope&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;childProperty&lt;/property-name&gt;
+      &lt;value&gt;children&lt;/value&gt;
+    &lt;/managed-property&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;wrappedData&lt;/property-name&gt;
+      &lt;value&gt;#{navTreeList}&lt;/value&gt;
+    &lt;/managed-property&gt;
+  &lt;/managed-bean&gt;
+
+  &lt;!-- create the navigationModel --&gt;
+  
+  &lt;managed-bean&gt;
+    &lt;managed-bean-name&gt;viewIdMenuModel&lt;/managed-bean-name&gt;
+    &lt;managed-bean-class&gt;org.apache.myfaces.trinidad.model.ViewIdPropertyMenuModel&lt;/managed-bean-class&gt;
+    &lt;managed-bean-scope&gt;none&lt;/managed-bean-scope&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;viewIdProperty&lt;/property-name&gt;
+      &lt;value&gt;viewId&lt;/value&gt;
+    &lt;/managed-property&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;wrappedData&lt;/property-name&gt;
+      &lt;value&gt;#{navTreeModel}&lt;/value&gt;
+    &lt;/managed-property&gt;    
+  &lt;/managed-bean&gt;  
+  
+  &lt;managed-bean&gt;
+    &lt;managed-bean-name&gt;navigationModel&lt;/managed-bean-name&gt;
+    &lt;managed-bean-class&gt;org.apache.myfaces.trinidaddemo.nav.MenuModelAdapter&lt;/managed-bean-class&gt;
+    &lt;managed-bean-scope&gt;session&lt;/managed-bean-scope&gt;   
+    &lt;managed-property&gt;
+      &lt;property-name&gt;model&lt;/property-name&gt;
+      &lt;value&gt;#{viewIdMenuModel}&lt;/value&gt;
+    &lt;/managed-property&gt;
+    &lt;managed-property&gt;
+      &lt;property-name&gt;aliasList&lt;/property-name&gt;
+      &lt;list-entries&gt;
+        &lt;value-class&gt;java.lang.String&lt;/value-class&gt;
+        &lt;value&gt;/components/navmodel/page_p1.jspx&lt;/value&gt;
+        &lt;value&gt;#{navItem_a2b1.viewId}&lt;/value&gt;
+        &lt;value&gt;/components/navmodel/page_p2.jspx&lt;/value&gt;
+        &lt;value&gt;#{navItem_a2b1.viewId}&lt;/value&gt;
+        &lt;value&gt;/components/navmodel/page_p3.jspx&lt;/value&gt;
+        &lt;value&gt;#{navItem_a2b1.viewId}&lt;/value&gt;
+        &lt;value&gt;/components/navmodel/page_p4.jspx&lt;/value&gt;
+        &lt;value&gt;#{navItem_a2b1.viewId}&lt;/value&gt;
+      &lt;/list-entries&gt;
+    &lt;/managed-property&gt;
+
+  &lt;/managed-bean&gt;
+</source>
+  <a name="endfacesconfig"></a>
+  </section>
+  <section name="Navigation Components and the MenuModel">
+  <p>
+  <b>Note</b>: In a subsequent release the use of the level and startLevel attributes will almost certainly be replaced with an el expression in the 'value' attribute.
+  </p>
+  <p>
+  As in the first example, we are still using the panelPage and navigation components, but in the example that follows we are binding the navigation components to a navigationModel.  Notice it is the commandNavigationItem component stamp which renders the data in the node.  The example that follows should produce the same output as seen in <a href="#fig2">figure 2</a>.
+<source>
+&lt;?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?&gt;
+&lt;jsp:root version="1.2"
+  xmlns:jsp="http://java.sun.com/JSP/Page"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:tr="http://myfaces.apache.org/trinidad"&gt;
+  &lt;jsp:directive.page contentType="text/html;charset=utf-8"/&gt;
+  &lt;f:view&gt;
+    &lt;tr:document title="MenuModel Demo" maximized="true"&gt;
+      &lt;tr:form&gt;
+        &lt;tr:panelPage&gt;
+          &lt;f:facet name="branding"&gt;
+            &lt;tr:panelGroup layout="horizontal"&gt;
+              &lt;tr:objectIcon name="logo"/&gt;
+              &lt;tr:outputText value="MenuModel Demo"/&gt;
+            &lt;/tr:panelGroup&gt;
+          &lt;/f:facet&gt;
+          &lt;f:facet name="navigationGlobal"&gt;
+            &lt;tr:navigationLevel var="foo" value="#{navigationModel.model}"&gt;
+              &lt;f:facet name="nodeStamp"&gt;
+                &lt;tr:commandNavigationItem
+                  text="#{foo.label}"
+                  action="#{foo.getOutcome}"/&gt;
+              &lt;/f:facet&gt;
+            &lt;/tr:navigationLevel&gt;
+          &lt;/f:facet&gt;
+          &lt;f:facet name="navigation1"&gt;
+            &lt;tr:navigationLevel var="foo" value="#{navigationModel.model}" level="1"&gt;
+              &lt;f:facet name="nodeStamp"&gt;
+                &lt;tr:commandNavigationItem
+                  text="#{foo.label}"
+                  action="#{foo.getOutcome}"/&gt;
+              &lt;/f:facet&gt;
+            &lt;/tr:navigationLevel&gt;
+          &lt;/f:facet&gt;
+          &lt;f:facet name="navigation2"&gt;
+            &lt;tr:navigationLevel var="foo" value="#{navigationModel.model}" level="2"&gt;
+              &lt;f:facet name="nodeStamp"&gt;
+                &lt;tr:commandNavigationItem
+                  text="#{foo.label}"
+                  action="#{foo.getOutcome}"/&gt;
+              &lt;/f:facet&gt;
+            &lt;/tr:navigationLevel&gt;
+          &lt;/f:facet&gt; 
+          &lt;f:facet name="navigation3"&gt;
+            &lt;tr:navigationLevel var="foo" value="#{navigationModel.model}" level="3"&gt;
+              &lt;f:facet name="nodeStamp"&gt;
+                &lt;tr:commandNavigationItem
+                  text="#{foo.label}"
+                  action="#{foo.getOutcome}"/&gt;
+              &lt;/f:facet&gt;
+            &lt;/tr:navigationLevel&gt;
+          &lt;/f:facet&gt;
+          &lt;f:facet name="location"&gt;
+            &lt;tr:navigationPath var="foo" value="#{navigationModel.model}"&gt;
+              &lt;f:facet name="nodeStamp"&gt;
+                &lt;tr:commandNavigationItem
+                  text="#{foo.label}"
+                  action="#{foo.getOutcome}"/&gt;
+              &lt;/f:facet&gt;
+            &lt;/tr:navigationPath&gt;
+          &lt;/f:facet&gt;
+        &lt;/tr:panelPage&gt;
+      &lt;/tr:form&gt;
+    &lt;/tr:document&gt;
+  &lt;/f:view&gt;
+&lt;/jsp:root&gt;
+</source>
+  </p>
+  </section>
+  <section name="Page">
+  <p>
+  <p>
+  Using the navigationModel with navigation components has made some things easier, but it hasn't solved all our problems.  For example, if we were looking at page a1b1c1 instead of a1b2c1 (see <a href="#fig1">figure 1</a>), we should use a navigationTree in the navigation3 facet rather than a navigationLevel.  If we were looking at page a1, we don't need anything at all in the navigation3 facet. 
+  </p>
+  <p>
+  More importantly, what if we want to make a dramatic change the way navigation looks.  Maybe we want the page component to render cascading popups, meaning list of items that drop down off of an item when you click it.  Using the panelPage and navigation components ties you to specific renderers for the navigation components. 
+  </p>
+  The page component is more flexible still, binding to a navigationModel and stamping out the navigation items.  The advantages of using a page componenent are that the renderer could render the navigation items in many different ways, for example it could render the cascading popups described above.  Also, the page author doesn't need to know anything about where this page is in the hierarchy of pages.  To render a1b1c1 or a1 we would use the exact same syntax as below.
+  </p>
+  <p>
+The example that follows should produce the same output as seen in <a href="#fig2">figure 2</a>.
+<source>
+&lt;?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?&gt;
+&lt;jsp:root version="1.2"
+  xmlns:jsp="http://java.sun.com/JSP/Page"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:tr="http://myfaces.apache.org/trinidad"&gt;
+  &lt;jsp:directive.page contentType="text/html;charset=utf-8"/&gt;
+  &lt;f:view&gt;
+    &lt;tr:document title="MenuModel Demo" maximized="true"&gt;
+      &lt;tr:form&gt;
+        &lt;tr:page&gt;
+          &lt;f:facet name="branding"&gt;
+            &lt;tr:panelGroup layout="horizontal"&gt;
+              &lt;tr:objectIcon name="logo"/&gt;
+              &lt;tr:outputText value="MenuModel Demo"/&gt;
+            &lt;/tr:panelGroup&gt;
+          &lt;/f:facet&gt;
+          &lt;f:facet name="nodeStamp"&gt;
+            &lt;tr:commandNavigationItem
+              text="#{foo.label}"
+              action="#{foo.getOutcome}"/&gt;
+          &lt;/f:facet&gt;
+        &lt;/tr:page&gt;
+      &lt;/tr:form&gt;
+    &lt;/tr:document&gt;
+  &lt;/f:view&gt;
+&lt;/jsp:root&gt;
+</source>
+  </p>
+  </section>
+  </body>
+</document>
