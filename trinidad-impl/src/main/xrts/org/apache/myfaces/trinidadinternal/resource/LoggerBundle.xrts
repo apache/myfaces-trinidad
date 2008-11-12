@@ -1061,4 +1061,19 @@
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER">The DateTimeRangeValidator requires the component to be an EditableValueHolder for client validation to work. Client validation will be disabled for component {0}.</resource>
 
+<!-- INVALID_LOCALE_LANG_LENGTH  -->
+<resource key="INVALID_LOCALE_LANG_LENGTH">Invalid language for Locale identifier {0} - language code must be 2 characters, see Locale javadoc for correct format. Will use current page locale.</resource>
+
+<!-- INVALID_LOCALE_LANG_CASE  -->
+<resource key="INVALID_LOCALE_LANG_CASE">Invalid language for Locale identifier {0} - language code must be in lowercase, see Locale javadoc for correct format. Will use current page locale.</resource>
+
+<!-- INVALID_LOCALE_COUNTRY_LENGTH  -->
+<resource key="INVALID_LOCALE_COUNTRY_LENGTH">Invalid country for Locale identifier {0} - country code must be 2 characters, see Locale javadoc for correct format. Will use empty string for country</resource>
+
+<!-- INVALID_LOCALE_COUNTRY_CASE  -->
+<resource key="INVALID_LOCALE_COUNTRY_CASE">Invalid country for Locale identifier {0} - country code must be in uppercase, see Locale javadoc for correct format. Will use empty string for country</resource>
+
+<!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
+<resource key="INVALID_LOCALE_VARIANT_HAS_SLASH">Invalid variant for Locale identifier {0} - cannot contain slashes to avoid XSS attack. Will use empty string for variant.</resource>
+
 </resources>
