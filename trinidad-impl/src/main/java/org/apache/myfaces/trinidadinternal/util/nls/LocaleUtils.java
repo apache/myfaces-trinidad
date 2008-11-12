@@ -21,6 +21,8 @@ package org.apache.myfaces.trinidadinternal.util.nls;
 import java.util.Locale;
 
 import org.apache.myfaces.trinidad.context.LocaleContext;
+import javax.faces.context.FacesContext;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Utility class dealing with Locale-related issues, including
@@ -123,7 +125,67 @@ public final class LocaleUtils
       }
     }
 
+    /*
+     * Validate the rules for Locale per its Javadoc:
+     * - The language argument is a valid ISO Language Code.
+     *   These codes are the lower-case, two-letter codes as defined by ISO-639.
+     * - The country argument is a valid ISO Country Code. These
+     *   codes are the upper-case, two-letter codes as defined by ISO-3166.
+     *   
+     *   Rather than checking a list, we check the length and case and ignore
+     *   the arguments which fail to meet those criteria (use defaults instead).
+     */
+    if (language.length() != 2)
+    {
+      language = "";
+      _LOG.warning("INVALID_LOCALE_LANG_LENGTH", ianaString);
+    }
+    else
+    {
+      if (Character.isUpperCase(language.charAt(0)) ||
+         Character.isUpperCase(language.charAt(1)))
+      {
+        language = "";
+        _LOG.warning("INVALID_LOCALE_LANG_CASE", ianaString);
+      }
+    }
+    if (language.length() == 0)
+    {
+      Locale defaultLocale =
+        FacesContext.getCurrentInstance().getViewRoot().getLocale();
+      return defaultLocale;
+    }
+
+    if (country.length() > 0)
+    {
+      if (country.length() != 2)
+      {
+        country = "";
+        _LOG.warning("INVALID_LOCALE_COUNTRY_LENGTH", ianaString);
+      }
+      else
+      {
+        if (Character.isLowerCase(country.charAt(0)) ||
+            Character.isLowerCase(country.charAt(1)))
+        {
+          country = "";
+          _LOG.warning("INVALID_LOCALE_COUNTRY_CASE", ianaString);
+        }
+      }
+    }
+
+    if (variant.indexOf('/') > 0)
+    {
+      // Disallow slashes in the variant to avoid XSS
+      variant = "";
+      _LOG.warning("INVALID_LOCALE_VARIANT_HAS_SLASH", ianaString);
+    }
+
+
+
     return new Locale(language, country, variant);
   }
+
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(LocaleUtils.class);
 
 }
