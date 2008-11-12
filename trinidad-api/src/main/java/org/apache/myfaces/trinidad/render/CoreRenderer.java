@@ -563,6 +563,11 @@ public class CoreRenderer extends Renderer
   {
     return (Agent.PLATFORM_IPHONE.equals(arc.getAgent().getPlatformName()));
   }
+  
+  static public boolean isGenericPDA(RenderingContext arc)
+  {
+    return (Agent.PLATFORM_GENERICPDA.equals(arc.getAgent().getPlatformName()));
+  }
 
   static public boolean isInaccessibleMode(RenderingContext arc)
   {
