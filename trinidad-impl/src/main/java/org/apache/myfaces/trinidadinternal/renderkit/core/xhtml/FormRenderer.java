@@ -206,6 +206,7 @@ public class FormRenderer extends XhtmlRenderer
     UIComponent         comp,
     FacesBean           bean) throws IOException
   {
+    String noJavaScriptSupport = "false";
     ResponseWriter writer = context.getResponseWriter();
 
     String formName = arc.getFormData().getName();
@@ -217,6 +218,18 @@ public class FormRenderer extends XhtmlRenderer
     writer.writeAttribute("type", "hidden", null);
     writer.writeAttribute("name", CoreResponseStateManager.FORM_FIELD_NAME, null);
     writer.writeAttribute("value", formName, null);
+    writer.endElement("input");
+    
+    // set the hidden parameter noJavaScriptSupport as true for Non-JavaScript
+    // browsers
+    if( !supportsScripting(arc))
+    {
+      noJavaScriptSupport = XhtmlConstants.NON_JS_BROWSER_TRUE;
+    }
+    writer.startElement("input", null);
+    writer.writeAttribute("type", "hidden", null);
+    writer.writeAttribute("name", XhtmlConstants.NON_JS_BROWSER,null );
+    writer.writeAttribute("value", noJavaScriptSupport, null);
     writer.endElement("input");
 
     // Check to see if this is a partial page render.  If so, we need

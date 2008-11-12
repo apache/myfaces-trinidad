@@ -526,6 +526,15 @@ public class XhtmlUtils
     FastMessageFormat formatter = new FastMessageFormat(pattern);
     return formatter.format(parameters);
   }
+  
+  /*
+   * This method returns the encoded parameter name or paramater value
+   * for the Non-JavaScript browsers
+   */
+  public static String getEncodedParameter(String param)
+  {
+    return param + XhtmlConstants.NO_JS_PARAMETER_KEY;
+  }
 
   /** HashMap mapping names to their scriptlets */
   private static Map<Object, Scriptlet> _sScriptletTable =

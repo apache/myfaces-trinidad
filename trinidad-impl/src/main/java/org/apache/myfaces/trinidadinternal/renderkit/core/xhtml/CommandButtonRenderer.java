@@ -169,9 +169,23 @@ public class CommandButtonRenderer extends CommandLinkRenderer
         {
           renderEncodedResourceURI(context, "src", icon);
         }
+        
+        // For Non-JavaScript browsers, encode the name attribute with the 
+        // parameter name and value thus it would enable the browsers to 
+        // include the name of this element in its payLoad if it submits the
+        // page.
+         
+        else if(!supportsScripting(arc))
+        {
+          rw.writeAttribute("name", XhtmlUtils.getEncodedParameter
+                                      (XhtmlConstants.SOURCE_PARAM)
+                                       + clientId, null);
+
+          rw.writeAttribute("value", text, "text");
+        }
         else
         {
-          rw.writeAttribute("value", text, "text");
+          rw.writeAttribute("value", text, "text");;
         }
       }
  
