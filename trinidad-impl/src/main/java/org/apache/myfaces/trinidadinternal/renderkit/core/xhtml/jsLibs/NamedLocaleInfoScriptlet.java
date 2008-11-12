@@ -74,18 +74,18 @@ class NamedLocaleInfoScriptlet extends LocaleInfoScriptlet
   /*
    * Append an argument to the URL to indicate if this is the page locale
    */
-  protected String getLibraryURL(
-    FacesContext        context,
-    RenderingContext arc)
+  protected String getExtraParameters(
+  FacesContext        context,
+  RenderingContext    arc)
   {
-    StringBuffer sb = new StringBuffer (super.getLibraryURL(context, arc));
+    StringBuffer sb = new StringBuffer (super.getExtraParameters (context, arc));
     if (!(_locale.equals(arc.getLocaleContext().getFormattingLocale())))
     {
-      sb.append("?skipTranslations=true");
+      sb.append("&skipTranslations=true");
     }
     return sb.toString();
   }
-
+  
   /* Register as a distinct scriptlet for each locale, i.e. <country, language, Oraclevariant> */
   @Override
   public Object getScriptletKey()
