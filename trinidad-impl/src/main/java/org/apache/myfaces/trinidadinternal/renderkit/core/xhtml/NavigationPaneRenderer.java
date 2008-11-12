@@ -222,6 +222,15 @@ public class NavigationPaneRenderer extends XhtmlRenderer
 
         rw.startElement("select", null);
         rw.writeAttribute("id", choiceSelectId, null);
+           
+        // For Non-JavaScript browsers, render the name attribute thus it would
+        // enable the browsers to include the name and value of this element
+        // in its payLoad.
+
+        if ( !supportsScripting(arc) )
+        {
+          rw.writeAttribute("name", choiceSelectId, null);
+        }
         renderStyleClass(context, arc,
           SkinSelectors.AF_NAVIGATION_LEVEL_CHOICE_OPTIONS_STYLE_CLASS);
         if (getDisabled(bean))
@@ -662,61 +671,115 @@ public class NavigationPaneRenderer extends XhtmlRenderer
 
     boolean isActive = getBooleanFromProperty(itemData.get("isActive"));
     boolean isDesktop = (arc.getAgent().getType().equals(Agent.TYPE_DESKTOP));
-    rw.startElement("a", commandChild); // linkElement
-
-    // Few mobile browsers couldn't apply css property for active elements
-    // so making it inline
-    if (isActive && !isDesktop)
+    
+    boolean nonJavaScriptSubmit = (!supportsScripting(arc))
+                                             && (destination == null);    
+    
+    // For non-javascript browsers, we need to render a submit element
+    // instead of an anchor tag if the anchor tag doesn't have a destination
+    
+    if (nonJavaScriptSubmit)
     {
-      writeInlineStyles(rw, null,"font-weight: bold;");
-    }
-    _renderCommandChildId(context, commandChild);
-
-    if (destination == null)
-    {
-      rw.writeURIAttribute("href", "#", null); // required for IE to support ":hover" styles
+    
+      rw.startElement("input", commandChild);
+    
+      rw.writeAttribute("type", "submit", null);
+      rw.writeAttribute("value", toString(itemData.get("text")), "text");
+    
+      String clientId = getClientId(context, commandChild);
+      rw.writeAttribute("id", clientId, "id");
+      
+      
+      
+      // For Non-JavaScript browsers, encode the name attribute with the 
+      // parameter name and value thus it would enable the browsers to 
+      // include the name of this element in its payLoad if it submits the
+      // page.
+       
+      rw.writeAttribute("name", XhtmlUtils.getEncodedParameter
+                                  (XhtmlConstants.SOURCE_PARAM)
+                                   + clientId, null);
+    
+      String linkConverter = 
+             "border:none;background:inherit;text-decoration:underline;";
+    
+      // Few mobile browsers couldn't apply css property for active elements
+      // so making it inline
+      if (isActive && !isDesktop)
+      {
+        linkConverter = linkConverter + "font-weight: bold;";
+      }
+    
+      writeInlineStyles(rw, null,linkConverter);
+    
     }
     else
     {
-      renderEncodedActionURI(context, "href", destination);
-      String targetFrame = toString(itemData.get("targetFrame"));
-      if ( (targetFrame != null) && !Boolean.FALSE.equals(
-        arc.getAgent().getCapabilities().get(TrinidadAgent.CAP_TARGET)) )
+      rw.startElement("a", commandChild); // linkElement
+
+      // Few mobile browsers couldn't apply css property for active elements
+      // so making it inline
+      if (isActive && !isDesktop)
       {
-        rw.writeAttribute("target", targetFrame, null);
+        writeInlineStyles(rw, null,"font-weight: bold;");
       }
+      _renderCommandChildId(context, commandChild);
+
+      if (destination == null)
+      {
+        rw.writeURIAttribute("href", "#", null); // required for IE to support ":hover" styles
+      }
+      else
+      {
+        renderEncodedActionURI(context, "href", destination);
+        String targetFrame = toString(itemData.get("targetFrame"));
+        if ( (targetFrame != null) && !Boolean.FALSE.equals(
+          arc.getAgent().getCapabilities().get(TrinidadAgent.CAP_TARGET)) )
+        {
+          rw.writeAttribute("target", targetFrame, null);
+        }
+      }
+
+
+
+      // Cannot use super.renderEventHandlers(context, bean); because the wrong
+      // property keys would be in use so must do it this way:
+      _writeOnclickProperty(
+        arc,
+        rw,
+        commandChild,
+        (destination == null),
+        immediate,
+        partialSubmit); // special for actions!
+      _writeCommandChildProperty(rw, commandChild, "ondblclick");
+      _writeCommandChildProperty(rw, commandChild, "onkeydown");
+      _writeCommandChildProperty(rw, commandChild, "onkeyup");
+      _writeCommandChildProperty(rw, commandChild, "onkeypress");
+      _writeCommandChildProperty(rw, commandChild, "onmousedown");
+      _writeCommandChildProperty(rw, commandChild, "onmousemove");
+      _writeCommandChildProperty(rw, commandChild, "onmouseout");
+      _writeCommandChildProperty(rw, commandChild, "onmouseover");
+      _writeCommandChildProperty(rw, commandChild, "onmouseup");
     }
-
-
-
-    // Cannot use super.renderEventHandlers(context, bean); because the wrong
-    // property keys would be in use so must do it this way:
-    _writeOnclickProperty(
-      arc,
-      rw,
-      commandChild,
-      (destination == null),
-      immediate,
-      partialSubmit); // special for actions!
-    _writeCommandChildProperty(rw, commandChild, "ondblclick");
-    _writeCommandChildProperty(rw, commandChild, "onkeydown");
-    _writeCommandChildProperty(rw, commandChild, "onkeyup");
-    _writeCommandChildProperty(rw, commandChild, "onkeypress");
-    _writeCommandChildProperty(rw, commandChild, "onmousedown");
-    _writeCommandChildProperty(rw, commandChild, "onmousemove");
-    _writeCommandChildProperty(rw, commandChild, "onmouseout");
-    _writeCommandChildProperty(rw, commandChild, "onmouseover");
-    _writeCommandChildProperty(rw, commandChild, "onmouseup");
-
+    
     String accessKey = toString(itemData.get("accessKey"));
     if ( !isDisabled && (accessKey != null) )
     {
       rw.writeAttribute("accessKey", accessKey, null);
     }
-    _renderText(rw, itemData);
-    _renderCommandChildren(context, commandChild);
-    rw.endElement("a"); // linkElement
-
+    
+    if (nonJavaScriptSubmit)
+    { 
+      _renderCommandChildren(context, commandChild);
+      rw.endElement("input"); 
+    }
+    else
+    {
+      _renderText(rw, itemData);
+      _renderCommandChildren(context, commandChild);
+      rw.endElement("a"); // linkElement
+    }
+    
     if (destination == null)
     {
       arc.setCurrentClientId(null);
@@ -1093,7 +1156,15 @@ public class NavigationPaneRenderer extends XhtmlRenderer
         }
         _renderCommandChildId(context, commandChild);
         String selectionScript;
-        if (destination == null)
+        
+        // For Non-javaScript browsers, set the value attribute to the id of 
+        // the element instead of a javascript code
+         
+        if (!supportsScripting(arc))
+        {
+          selectionScript = arc.getCurrentClientId();
+        }
+        else if (destination == null)
         {
           selectionScript = _getAutoSubmitScript(arc, immediate, partialSubmit);
 
@@ -1196,14 +1267,32 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       _GO_BUTTON_LABEL_KEY);
 
     rw.writeAttribute("type", useButtonTag ? "button"  : "submit", null);
-
-    // The onclick handler will evaluate the value of the selected option:
-    rw.writeAttribute(
-      "onclick",
-      "var navLevelSelect = document.getElementById('" +
-        choiceSelectId +
-        "'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;",
-      null);
+    
+    // For Non-JavaScript browsers, encode the name attribute with the 
+    // parameter name and value thus it would enable the browsers to 
+    // include the name of this element in its payLoad if it submits
+    // the page.
+    
+    if (!supportsScripting(arc) )
+    {
+    
+      String nameAttri = XhtmlUtils.getEncodedParameter
+                                     (XhtmlConstants.MULTIPLE_VALUE_PARAM)
+                                     + choiceSelectId;
+    
+      rw.writeAttribute("name", nameAttri, null);
+    
+    }
+    else
+    {
+      // The onclick handler will evaluate the value of the selected option:
+      rw.writeAttribute(
+        "onclick",
+        "var navLevelSelect = document.getElementById('" +
+          choiceSelectId +
+          "'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;",
+        null);
+    }
 
     if (useButtonTag)
     {

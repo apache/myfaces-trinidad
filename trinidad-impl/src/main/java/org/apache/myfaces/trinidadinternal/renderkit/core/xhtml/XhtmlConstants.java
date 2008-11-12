@@ -222,6 +222,8 @@ public final class XhtmlConstants
   
 
 
+
+
   // ===================== End of copy from UIConstants =======================
 
   public static final String STYLES_CACHE_DIRECTORY = "/adf/styles/cache/";
@@ -299,4 +301,13 @@ public final class XhtmlConstants
   // context property to indicate that form elements are repeated and the
   // data needs to be kept in sync
   public static final Object REPEAT_PROPERTY = new Object();
+
+
+  //Constants for Non JavaScript browser support
+  public static final String NO_JS_PARAMETER_KEY = "_parameterkey";
+  public static final String NO_JS_PARAMETER_KEY_BUTTON = "go";
+  public static final String MULTIPLE_VALUE_PARAM = "multipleValueParam";
+  public static final String NON_JS_BROWSER = "_noJavaScript";
+  public static final String NON_JS_BROWSER_TRUE = "true";
+
 }
