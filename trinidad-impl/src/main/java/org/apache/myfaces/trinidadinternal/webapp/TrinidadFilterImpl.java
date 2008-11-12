@@ -45,6 +45,8 @@ import org.apache.myfaces.trinidadinternal.config.xmlHttp.XmlHttpConfigurator;
 import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
 import org.apache.myfaces.trinidadinternal.context.external.ServletExternalContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.webapp.wrappers.BasicHTMLBrowserRequestWrapper;
 
 /**
  * Actual implementation of the Trinidad servlet filter.
@@ -111,6 +113,15 @@ public class TrinidadFilterImpl implements Filter
     ServletResponse response,
     FilterChain     chain) throws IOException, ServletException
   {
+    String noJavaScript = request.getParameter(XhtmlConstants.NON_JS_BROWSER);
+    
+    //Wrap the request only for Non-javaScript browsers
+    if(noJavaScript != null &&
+               XhtmlConstants.NON_JS_BROWSER_TRUE.equals(noJavaScript))
+    {
+      request = new BasicHTMLBrowserRequestWrapper((HttpServletRequest)request);
+    }    
+    
     //Execute the filter services
     if (!_filters.isEmpty())
       chain = new FilterListChain(_filters, chain);

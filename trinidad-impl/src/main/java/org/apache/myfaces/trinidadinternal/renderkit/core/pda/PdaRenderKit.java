@@ -41,6 +41,8 @@ public class PdaRenderKit extends RenderKitDecorator
                  "Table",             "PdaTableRenderer");
     _addRenderer("Process",
                  "Train",             "TrainRenderer");
+    _addRenderer("Command",
+                 "Link",              "PdaCommandLinkRenderer");
   }
 
   private void _addRenderer(

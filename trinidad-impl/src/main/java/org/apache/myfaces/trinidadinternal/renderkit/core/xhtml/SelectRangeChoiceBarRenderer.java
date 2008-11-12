@@ -535,7 +535,16 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
         renderedId = true;
         writer.writeAttribute("valign", "middle", null);
         writer.writeAttribute("nowrap", Boolean.TRUE, null);
-        _renderLink(context, arc, false, prevOnClick, prevRecords, id);
+        
+        _renderLink(context,
+                    arc, 
+                    false, 
+                    prevOnClick,
+                    prevRecords, 
+                    id, 
+                    source, 
+                    backValue);
+                    
         writer.endElement("td");
         _renderSpacerCell(context, arc);
       }
@@ -566,7 +575,16 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
         _renderStartTableCell(writer, id, true);
         writer.writeAttribute("valign", "middle", null);
         writer.writeAttribute("nowrap", Boolean.TRUE, null);
-        _renderLink(context, arc, true, nextOnClick, nextRecords, id);
+        
+        _renderLink(context,
+                    arc, 
+                    true, 
+                    nextOnClick,
+                    nextRecords, 
+                    id,
+                    source,
+                    nextValue);
+                  
         writer.endElement("td");
 
         Icon nextIcon = getIcon(arc, true, (nextOnClick != null));
@@ -587,7 +605,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
         writer.endElement("table");
       }
 
-      if(renderAsTable && !isDesktop )
+      if (renderAsTable && !isDesktop )
       {
         writer.endElement("div");
       }
@@ -638,22 +656,6 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
     {
       writer.writeText(XhtmlConstants.NBSP_STRING, null);
     }
-    else if (/*(maxValue == MAX_VALUE_UNKNOWN) ||*/ !supportsScripting(arc))
-    {
-      // we don't know the size, so use a label
-      String rangeString = _getRangeString(context,
-                                           arc,
-                                           component,
-                                           currentValue,
-                                           blockSize,
-                                           maxValue,
-                                           rangeLabel);
-
-      writer.startElement("span", null);
-      renderStyleClass(context, arc, SkinSelectors.NAV_BAR_VIEW_STYLE_CLASS);
-      writer.writeText(rangeString, null);
-      writer.endElement("span");
-    }
     else
     {
       List<SelectItem> items =
@@ -669,13 +671,15 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
         String choiceId = XhtmlUtils.getCompositeId(id, _CHOICE_ID_SUFFIX);
         String onChange = ProcessUtils.getChoiceOnChangeFormSubmitted(
                              form, source, validate);
+        boolean javaScriptSupport = supportsScripting(arc);
 
         writer.startElement("select", null);
         writer.writeAttribute("title", choiceTip, null);
         renderStyleClass(context, arc,
                          SkinSelectors.AF_FIELD_TEXT_STYLE_CLASS);
 
-        if (onChange != null)
+        
+        if (onChange != null && javaScriptSupport)
         {
           // set the onchange handler
           writer.writeAttribute("onchange", onChange, null);
@@ -684,6 +688,15 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
         }
 
         writer.writeAttribute("id", choiceId, null);
+        
+        // For Non-JavaScript browsers, render the name attribute thus it
+        // would enable the browsers to include the name and value of this 
+        // element in its payLoad.
+     
+        if (!javaScriptSupport)
+        {
+          writer.writeAttribute("name", choiceId, null);
+        }
 
         _writeSelectItems(context, items, selectedIndex);
 
@@ -697,16 +710,45 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
                                              choiceTip,
                                              null);
         }
+        
+        
+        // For Non-JavaScript browsers, render a input element(type= submit) to 
+        // submit the page. Encode the name attribute with the parameter name 
+        // and value thus it would enable the browsers to include the name of 
+        // this element in its payLoad if it submits the page.
+        
+        if (!javaScriptSupport)
+        {
+          String nameAttri =  XhtmlUtils.getEncodedParameter
+                                          (XhtmlConstants.MULTIPLE_VALUE_PARAM)
+                              + XhtmlUtils.getEncodedParameter(choiceId)
+                              + XhtmlUtils.getEncodedParameter
+                                          (XhtmlConstants.SOURCE_PARAM)
+                              + XhtmlUtils.getEncodedParameter(source)
+                              + XhtmlUtils.getEncodedParameter
+                                          (XhtmlConstants.EVENT_PARAM)
+                              + XhtmlConstants.GOTO_EVENT;
 
-        writer.startElement("script", null);
-        renderScriptDeferAttribute(context, arc);
-        renderScriptTypeAttribute(context, arc);
-        writer.writeText("_setSelectIndexById(\"", null);
-        writer.writeText(choiceId, null);
-        writer.writeText("\",", null);
-        writer.writeText(IntegerUtils.getString(selectedIndex), null);
-        writer.writeText(")", null);
-        writer.endElement("script");
+          writer.startElement("span", null);
+          writer.startElement("input", null);
+          writer.writeAttribute("value",XhtmlConstants.NO_JS_PARAMETER_KEY_BUTTON , null);
+          writer.writeAttribute("type","submit", null);
+          writer.writeAttribute("name", nameAttri, null);
+          writer.endElement("input");
+          writer.endElement("span");
+        }
+        else
+        {
+          writer.startElement("script", null);
+          renderScriptDeferAttribute(context, arc);
+          renderScriptTypeAttribute(context, arc);
+          writer.writeText("_setSelectIndexById(\"", null);
+          writer.writeText(choiceId, null);
+          writer.writeText("\",", null);
+          writer.writeText(IntegerUtils.getString(selectedIndex), null);
+          writer.writeText(")", null);
+          writer.endElement("script");
+        }
       }
       else if (count == 1)
       {
@@ -718,7 +760,6 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
       }
     }
   }
-
 
   private void _writeSelectItems(
     FacesContext     context,
@@ -956,11 +997,17 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
     boolean             isNext,
     String              onclick,
     int                 records,
-    String              id) throws IOException
+    String              id,
+    String              source,
+    long                 value ) throws IOException
   {
+
     String text = getBlockString(arc, isNext, records);
     boolean isEnabled = ((onclick != null) && (records > 0));
     ResponseWriter writer = context.getResponseWriter();
+   
+    // if we have more than one record and browser is js capable then
+    // render as a link
     if (isEnabled)
     {
       writer.startElement("a", null);
@@ -978,24 +1025,49 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
       }
 
       renderStyleClass(context, arc, SkinSelectors.NAV_BAR_ALINK_STYLE_CLASS);
+      writer.writeText(text, null);
+      writer.endElement("a");
     }
-    else
+    // if we don't have any record then just render as <span> element
+    else if (records < 1)
     {
       writer.startElement("span", null);
       renderStyleClass(context, arc, SkinSelectors.NAV_BAR_ILINK_STYLE_CLASS);
-    }
-
-    writer.writeText(text, null);
-
-    if (isEnabled)
-    {
-      writer.endElement("a");
-    }
-    else
-    {
+      writer.writeText(text, null);
       writer.endElement("span");
     }
-  }
+   
+    // For Non-JavaScript browsers, render a submit element
+    // (<input type = "submit"/> ). Encode the the name attribute with the 
+    // parameter name and value thus it would enable the browsers to 
+    // include the name of this element in its payLoad if it submits the
+     
+    else
+    {
+      String nameAttri = XhtmlUtils.getEncodedParameter
+                                       (XhtmlConstants.SOURCE_PARAM)
+                         + XhtmlUtils.getEncodedParameter(source)
+                         + XhtmlUtils.getEncodedParameter
+                                       (XhtmlConstants.EVENT_PARAM)
+                         + XhtmlUtils.getEncodedParameter
+                                       (XhtmlConstants.GOTO_EVENT)
+                         + XhtmlUtils.getEncodedParameter
+                                       (XhtmlConstants.VALUE_PARAM)
+                         + IntegerUtils.getString(value);
+
+      writer.startElement("input", null);
+      writer.writeAttribute("type", "submit", null);
+      writer.writeAttribute("name", nameAttri, null);
+      writer.writeAttribute("value", text, "text");
+      // This style makes a button to appear as a link
+      writer.writeAttribute("style",
+        "border:none;background:inherit;text-decoration:underline;",null);
+      renderStyleClass(context, arc, SkinSelectors.NAV_BAR_ALINK_STYLE_CLASS);
+      writer.endElement("input");
+    }
+
+ }
+
 
   /**
    */

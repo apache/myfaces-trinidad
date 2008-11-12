@@ -32,6 +32,9 @@ import org.apache.myfaces.trinidad.render.CoreRenderer;
 import org.apache.myfaces.trinidad.render.RenderUtils;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafUtils;
@@ -258,7 +261,49 @@ public class CorePanelRadioRenderer extends ShowOneListRendererBase
       out.endElement("td");
       out.endElement("tr");
     }
-
+    
+    // For Non-JavaScript browsers, render a input element(type= submit) to 
+    // submit the page. Encode the name attribute with the parameter name 
+    // and value thus it would enable the browsers to include the name of 
+    // this element in its payLoad if it submits the page.
+    
+    if (!XhtmlRenderer.supportsScripting
+                      (RenderingContext.getCurrentInstance()))
+    {
+      out.startElement("tr", component);
+      out.startElement("td", component);
+    
+      if (BaseLafUtils.isRightToLeft(rCtx))
+      {
+        out.writeAttribute("align", "right", null);
+      }
+      else
+      {
+        out.writeAttribute("align", "left", null);
+      }
+    
+      out.writeAttribute("valign", "top", null);
+      out.writeAttribute("nowrap", Boolean.TRUE, null);
+    
+      String nameAttri = XhtmlUtils.getEncodedParameter
+                                       (XhtmlConstants.MULTIPLE_VALUE_PARAM)
+                         + XhtmlUtils.getEncodedParameter(compId)
+                         + XhtmlUtils.getEncodedParameter
+                                       (XhtmlConstants.EVENT_PARAM)
+                         + XhtmlConstants.SHOW_EVENT;
+    
+      out.startElement("span", null);
+      out.startElement("input", null);
+      out.writeAttribute("value",XhtmlConstants.NO_JS_PARAMETER_KEY_BUTTON , null);
+      out.writeAttribute("type","submit", null);
+      out.writeAttribute("name", nameAttri, null);
+      out.endElement("input");
+      out.endElement("span");
+      out.endElement("td");
+      out.endElement("tr");
+    
+    }
+     
     out.endElement("table");
     out.endElement("td");
   }
