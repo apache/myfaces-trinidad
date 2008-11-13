@@ -1122,6 +1122,23 @@ public class NavigationPaneRenderer extends XhtmlRenderer
                 TrinidadAgent.CAP_SUPPORTS_DISABLED_OPTIONS)))
     {
       boolean isActive = getBooleanFromProperty(itemData.get("isActive"));
+      UIXCommand commandChild = null;
+      String destination = null;
+      boolean partialSubmit = false;
+      if (!isDisabled)
+      {  
+         // Write the script to evaluate once the item is selected
+         commandChild = (UIXCommand)itemData.get("component");
+         destination = toString(itemData.get("destination"));
+         if (destination == null)
+         { 
+           partialSubmit = getBooleanFromProperty(itemData.get("partialSubmit"));
+           if (partialSubmit)
+           {
+             AutoSubmitUtils.writeDependencies(context, arc);
+           }
+         }
+      }
       rw.startElement("option", null);
       if (isActive)
       {
@@ -1132,19 +1149,10 @@ public class NavigationPaneRenderer extends XhtmlRenderer
 
       if (!isDisabled)
       {
-        // Write the script to evaluate once the item is selected
-        UIXCommand commandChild = (UIXCommand)itemData.get("component");
-        String destination = toString(itemData.get("destination"));
         boolean immediate = false;
-        boolean partialSubmit = false;
         if (destination == null)
         {
           immediate = getBooleanFromProperty(itemData.get("immediate"));
-          partialSubmit = getBooleanFromProperty(itemData.get("partialSubmit"));
-          if (partialSubmit)
-          {
-            AutoSubmitUtils.writeDependencies(context, arc);
-          }
           String clientId = commandChild.getClientId(context);
           // Make sure we don't have anything to save
           assert(arc.getCurrentClientId() == null);
