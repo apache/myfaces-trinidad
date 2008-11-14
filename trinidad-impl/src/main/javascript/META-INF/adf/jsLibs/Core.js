@@ -1368,7 +1368,7 @@ function _validateInline(
     var msgElem = _getElementById(document, currId+ "::msg");
 
     // Clear any existing inline message
-    if (msgElem)
+    if (msgElem && msgElem.innerHTML !="")
       msgElem.innerHTML = "";
 
     // Clear any existing messages from the MessageBox
