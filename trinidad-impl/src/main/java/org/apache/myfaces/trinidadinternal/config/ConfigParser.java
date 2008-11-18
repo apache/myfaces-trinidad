@@ -28,7 +28,6 @@ import java.util.TimeZone;
 import javax.el.ValueExpression;
 
 import javax.faces.context.ExternalContext;
-import javax.faces.el.ValueBinding;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 
@@ -72,9 +71,7 @@ public class ConfigParser
         input.setByteStream(in);
         input.setPublicId(_CONFIG_FILE);
 
-        SAXParserFactory factory = SAXParserFactory.newInstance();
-        factory.setNamespaceAware(true);
-        XMLReader reader = factory.newSAXParser().getXMLReader();
+        XMLReader reader = _SAX_PARSER_FACTORY.newSAXParser().getXMLReader();
 
         reader.setContentHandler(new Handler(bean,externalContext));
         reader.parse(input);
@@ -336,6 +333,13 @@ public class ConfigParser
     private String              _currentText;
     private Map<String, Object> _applicationMap;
   }
+  
+  private static final SAXParserFactory _SAX_PARSER_FACTORY;
+  static
+  {
+      _SAX_PARSER_FACTORY = SAXParserFactory.newInstance();
+      _SAX_PARSER_FACTORY.setNamespaceAware(true);
+  } 
 
   static private final String _CONFIG_FILE = "/WEB-INF/trinidad-config.xml";
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ConfigParser.class);

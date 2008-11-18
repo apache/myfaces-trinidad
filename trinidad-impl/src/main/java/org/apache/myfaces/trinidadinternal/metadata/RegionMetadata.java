@@ -181,10 +181,8 @@ public final class RegionMetadata extends RegionManager
       input.setByteStream(in);
       input.setPublicId(publicId);
 
-      SAXParserFactory factory = SAXParserFactory.newInstance();
-      factory.setNamespaceAware(true);
       DefaultHandler handler = new Handler(bean);
-      factory.newSAXParser().parse(input, handler);
+      _SAX_PARSER_FACTORY.newSAXParser().parse(input, handler);
     }
     catch (IOException ioe)
     {
@@ -601,6 +599,14 @@ public final class RegionMetadata extends RegionManager
   // package private for testing purposes:
   // the leading "/" is needed when classpath points to a jar file:
   static final String __CONFIG_FILE_OTHER = "/META-INF/region-metadata.xml";
+  
+  private static final SAXParserFactory _SAX_PARSER_FACTORY;
+  static
+  {
+      _SAX_PARSER_FACTORY = SAXParserFactory.newInstance();
+      _SAX_PARSER_FACTORY.setNamespaceAware(true);
+  } 
+  
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(RegionMetadata.class);
   private static final String _KEY = RegionMetadata.class.getName();
 }

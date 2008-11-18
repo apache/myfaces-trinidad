@@ -40,8 +40,6 @@ import javax.faces.context.FacesContext;
 
 import javax.el.ValueExpression;
 
-import javax.xml.parsers.SAXParserFactory;
-
 import org.apache.myfaces.trinidad.skin.SkinFactory;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
@@ -236,10 +234,7 @@ public class SkinUtils
     {
       InputSource input = new InputSource();
       input.setByteStream(inputStream);
-      input.setPublicId(configFile);
-
-      SAXParserFactory factory = SAXParserFactory.newInstance();
-      factory.setNamespaceAware(true);   
+      input.setPublicId(configFile);  
       
       ParseContextImpl context = new ParseContextImpl();
 
@@ -895,5 +890,5 @@ public class SkinUtils
   static private final String _RENDER_KIT_ID_PDA = "org.apache.myfaces.trinidad.pda";
   static private final String _SIMPLE_PDA_SKIN_ID = "simple.pda";
   static private final String _SIMPLE_DESKTOP_SKIN_ID = "simple.desktop";
-
+   
 }
