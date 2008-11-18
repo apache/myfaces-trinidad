@@ -501,8 +501,7 @@ public class MenuContentHandlerImpl extends DefaultHandler
     {
       // Get a parser.  NOTE: we are using the jdk's 1.5 SAXParserFactory
       // and SAXParser here.
-      SAXParserFactory factory = SAXParserFactory.newInstance();
-      SAXParser parser = factory.newSAXParser();
+      SAXParser parser = _SAX_PARSER_FACTORY.newSAXParser();
              
       // Call the local menu model's getStream() method. This is a model
       // method so that it can be overridden by any model extending 
@@ -1054,6 +1053,12 @@ public class MenuContentHandlerImpl extends DefaultHandler
   private final static String _DEFAULT_FOCUS_PATH_ATTR  = "defaultFocusPath";
   private final static String _VISIBLE_ATTR        = "visible";
     
+  private static final SAXParserFactory _SAX_PARSER_FACTORY;
+  static
+  {
+      _SAX_PARSER_FACTORY = SAXParserFactory.newInstance();
+  }
+  
   private final static TrinidadLogger _LOG = 
                         TrinidadLogger.createTrinidadLogger(MenuContentHandlerImpl.class);
   

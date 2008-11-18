@@ -48,9 +48,7 @@ public class JaxpXMLProvider implements XMLProvider
   {
     try
     {
-      SAXParserFactory factory = SAXParserFactory.newInstance();
-      factory.setNamespaceAware(true);
-      return factory.newSAXParser().getXMLReader();
+      return _SAX_PARSER_FACTORY.newSAXParser().getXMLReader();
     }
     catch (ParserConfigurationException pce)
     {
@@ -92,6 +90,13 @@ public class JaxpXMLProvider implements XMLProvider
     return null;
   }
 
+  private static final SAXParserFactory _SAX_PARSER_FACTORY;
+  static
+  {
+      _SAX_PARSER_FACTORY = SAXParserFactory.newInstance();
+      _SAX_PARSER_FACTORY.setNamespaceAware(true);
+  } 
+  
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(JaxpXMLProvider.class);
 }

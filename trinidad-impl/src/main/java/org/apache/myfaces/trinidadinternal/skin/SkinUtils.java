@@ -237,9 +237,6 @@ public class SkinUtils
       InputSource input = new InputSource();
       input.setByteStream(inputStream);
       input.setPublicId(configFile);
-
-      SAXParserFactory factory = SAXParserFactory.newInstance();
-      factory.setNamespaceAware(true);   
       
       ParseContextImpl context = new ParseContextImpl();
 
