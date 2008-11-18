@@ -18,38 +18,12 @@
  */
 package org.apache.myfaces.trinidadinternal.change;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-
-import org.apache.myfaces.trinidad.change.ChangeManager;
-import org.apache.myfaces.trinidad.change.ComponentChange;
-
-
-/**
- * An ChangeManager implementation that is all a no-op.
- *
- */
-public class NullChangeManager extends ChangeManager
+ /**
+  *  For backwards compatibility only. Deprecated in 1.x.10, and will soon be removed. 
+  * @deprecated
+  */
+ @Deprecated
+public class NullChangeManager extends org.apache.myfaces.trinidad.change.NullChangeManager
 {
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void addComponentChange(
-    FacesContext facesContext,
-    UIComponent uiComponent,
-    ComponentChange change)
-  {
-    // do nothing
-  }
 
-  /**
-   * {@inheritDoc}
-   * @param facesContext The FacesContext instance for the current request.
-   */
-  @Override
-  public void applyComponentChangesForCurrentView(FacesContext facesContext)
-  {
-    //no-op
-  }
 }
