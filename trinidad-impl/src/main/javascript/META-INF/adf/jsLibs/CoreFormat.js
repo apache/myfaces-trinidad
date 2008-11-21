@@ -1066,7 +1066,7 @@ TrRegExpValidator.prototype.validate  = function(
   // We intend that the pattern provided is matched exactly
   var exactPattern = "^(" + this._pattern + ")$";
 
-  var matchArr = parseString.match(this.exactPattern); 
+  var matchArr = parseString.match(exactPattern); 
         
   if ((matchArr != (void 0)) && (matchArr[0] == parseString))
   {
