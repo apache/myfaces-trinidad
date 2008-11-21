@@ -51,7 +51,7 @@
       component.</p>
 
    <p>
-   <img source="mobileSkinningHeader.png"/>
+   <img source="../images/mobileSkinningHeader.PNG"/>
    </p>
 
    <a name="Header_Style_Classes"></a>
@@ -191,7 +191,7 @@
     </p>
 
     <p>
-    <img source="mobileSkinningPaneList.png"/>
+    <img source="../images/mobileSkinningPaneList.PNG"/>
     </p>
 
     <p>
@@ -303,7 +303,7 @@
    </div>
 
     <p>
-    <img source="mobileSkinningTableList.png"/>
+    <img source="../images/mobileSkinningTableList.PNG"/>
     </p>
 
     <source>
@@ -372,7 +372,7 @@
     </p>
 
     <p>
-    <img source="mobileSkinningFieldSet.png"/>
+    <img source="../images/mobileSkinningFieldSet.PNG"/>
     </p>
 
     <p>
