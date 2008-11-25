@@ -39,7 +39,8 @@
 
     <menu name="">
       <item name="Download" href="download.html"/>
-      <item name="Release Notes" href="release-notes.html" />
+      <item name="Current Release Notes" href="download.html"/>
+      <item name="Supported Browsers" href="browsers.html" />
       <item name="Overview" href="spec-diff.html" />
       <item name="Javadoc" href="trinidad-api/apidocs/index.html" />
       <item name="Tag Documentation" href="trinidad-api/tagdoc.html" />
