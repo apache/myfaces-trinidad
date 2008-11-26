@@ -630,7 +630,10 @@ public class MessageFactory
         
         // Since that string will get parsed by FastMessageFormat, the { } 
         // of the EL must be escaped
-        detailMsgPattern = '\'' + detailMsgPattern + '\'';
+        //detailMsgPattern = '\'' + detailMsgPattern + '\'';
+        
+        // No need to format this string, just return it here.
+        return detailMsgPattern;
       }
       
       Object[] params = super.getParameters();
