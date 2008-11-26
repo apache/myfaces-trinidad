@@ -58,19 +58,20 @@ public class FastMessageFormat
 
 
   /**
-   * Formats the given array of strings based on the initial
-   * pattern.   It is legal for this array to be shorter
-   * than that indicated by the pattern, or to have null
-   * entries - these will simply be ignored.
+   * This formatter will only replace patterns of the type "{[0-9]}"
+   * for which there is an associated token.
+   * Any other use of '{}' will be interpreted as literal text.
+   * This aims to have the same behavior as TrFastMessageFormatUtils.format
+   * on the client.
    * <p>
-   * @param source an array of strings
+   * @param source an array of strings (tokens)
    */
   public String format(Object[] source)
   {
     int formatLength = _formatText.length;
     int length = 0;
-    int sourceCount = source.length;
-    for (int i = 0; i < sourceCount; i++)
+    int tokenCount = source.length;
+    for (int i = 0; i < tokenCount; i++)
     {
       Object sourceString = source[i];
       if (sourceString != null)
@@ -79,87 +80,34 @@ public class FastMessageFormat
       }
     }
 
-    StringBuffer buffer = new StringBuffer(length + formatLength);
+    // The following buffer size is just an initial estimate. It is legal for
+    // any given pattern, such as {0}, to occur more than once, in which case
+    // the buffer size will expand automatically if need be.
+    StringBuilder buffer = new StringBuilder(length + formatLength);
 
     int lastStart = 0;
-    boolean inQuote = false;
     for (int i = 0; i < formatLength; i++)
     {
       char ch = _formatText[i];
-      if (inQuote)
+      if (ch == '{')
       {
-        if (ch == '\'')
+        // Only check for single digit patterns that have an associated token.
+        if (i + 2 < formatLength && _formatText[i + 2] == '}')
         {
-          buffer.append(_formatText, lastStart, i - lastStart);
-          i++;
-          lastStart = i;
-          inQuote = false;
-        }
-      }
-      else
-      {
-        if (ch == '\'')
-        {
-          buffer.append(_formatText, lastStart, i - lastStart);
-          i++;
-          lastStart = i;
-
-          // Check for doubled-up quotes
-          if ((i < formatLength) && (_formatText[i] == '\''))
+          int tokenIndex = _formatText[i + 1] - '0';
+          if (tokenIndex >= 0 && tokenIndex < tokenCount)
           {
-            // Do nothing;  we'll add the doubled-up quote later
-            ;
-          }
-          else
-          {
-            inQuote = true;
-          }
-        }
-        else if (ch == '{')
-        {
-          buffer.append(_formatText, lastStart, i - lastStart);
-
-          int sourceIndex = 0;
-          int j = i + 1;
-          for (; j < formatLength; j++)
-          {
-            char patternChar = _formatText[j];
-            if (patternChar == '}')
-            {
-              break;
-            }
-            else
-            {
-              if ((patternChar < '0') ||
-                  (patternChar > '9'))
-                throw new IllegalArgumentException(_LOG.getLogger().getResourceBundle().getString(
-                  "FASTMESSAGEFORMAT_ONLY_SUPPORT_NUMERIC_ARGUMENTS"));
-              sourceIndex = (sourceIndex * 10) + (patternChar - '0');
-            }
-          }
-
-          if (j == formatLength)
-            throw new IllegalArgumentException(_LOG.getLogger().getResourceBundle().getString(
-              "END_OF_PATTERN_NOT_FOUND"));
-          if (j == i + 1)
-            throw new IllegalArgumentException(_LOG.getLogger().getResourceBundle().getString(
-              "FASTMESSAGEFORMAT_FIND_EMPTY_ARGUMENT"));
-          if (sourceIndex < sourceCount)
-          {
-            Object sourceString = source[sourceIndex];
+            buffer.append(_formatText, lastStart, i - lastStart);
+            Object sourceString = source[tokenIndex];
             if (sourceString != null)
               buffer.append(sourceString.toString());
+
+            i += 2;
+            lastStart = i + 1;
           }
-          
-          i = j;
-          lastStart = i + 1;
-        }
-        else
-        {
-           // Do nothing.  The character will be added in later
-          ;
         }
       }
+      // ELSE: Do nothing. The character will be added in later.
     }
 
     buffer.append(_formatText, lastStart, formatLength - lastStart);

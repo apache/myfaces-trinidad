@@ -824,8 +824,11 @@ TrFacesMessage.prototype.setSeverity =
 var TrFastMessageFormatUtils = new Object();
 
  /**
-  * Formats the given array of strings based on the initial
-  * pattern.  
+  * This formatter will only replace patterns of the type "{[0-9]}" 
+  * for which there is an associated token.
+  * Any other use of '{}' will be interpreted as literal text.
+  * This aims to have the same behavior as FastMessageFormat.format 
+  * on the server.
   * @param {String} String to format
   * @param {any...:undefined} Varargs objects to substitute for positional parameters.
   * Each parameter will be converted to a String and substituted into the format.
@@ -835,17 +838,50 @@ TrFastMessageFormatUtils.format = function(
   parameters    // {any...:undefined} Varargs objects to substitute for positional parameters.
   )
 {
-  // I need to create an array here because I have to strip the first arg
-  var tempArray = new Array();
+  // There are arguments.length - 1 tokens:
+  // arguments[1], ..., arguments[arguments.length-1]
+  var formatLength = formatString.length;
+  var tokenCount = arguments.length - 1;
   
-  for ( var i = 1; i < arguments.length; i++)
+  // Use the javascript StringBuffer technique.
+  var buffer = [];
+
+  var lastStart = 0;
+  for (var i = 0; i < formatLength; i++)
   {
-    tempArray[i -1] = arguments[i];
+    var ch = formatString[i];
+    if (ch == '{')
+    {
+      // Only check for single digit patterns that have an associated token.
+      if (i + 2 < formatLength && formatString[i+2] == '}')
+      {
+        var tokenIndex = formatString[i+1] - '0';
+        if (tokenIndex >= 0 && tokenIndex < tokenCount)
+        {            
+          // Use the javascript StringBuffer technique for append(string)
+          var substr = formatString.substring(lastStart, i);
+          buffer.push(substr);
+          
+          var token = arguments[tokenIndex+1];
+          if (token != null)
+            buffer.push(token);
+
+          i += 2;
+          lastStart = i + 1;
+        }
+      }
+    }
+    // ELSE: Do nothing. The character will be added in later.
   }
   
-  // TODO - move the code of the function below into here after 
-  //        simplifying it
-  return _formatErrorString(formatString, tempArray);
+  if (lastStart < formatLength)
+  {
+    var substr = formatString.substring(lastStart);
+    buffer.push(substr);
+  }
+
+  // Use the javascript StringBuffer technique for toString()
+  return buffer.join("");
 }
 
 var TrMessageFactory = new Object();
