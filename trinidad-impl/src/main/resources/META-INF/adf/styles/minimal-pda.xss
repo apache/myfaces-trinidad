@@ -420,4 +420,14 @@
       <property name="font-size">xx-small</property>    
     </style>    
   </styleSheet>    
+  
+  <styleSheet platforms="genericpda">
+  
+    <style selector="af|showDetailItem::selected">
+      <includeStyle name="AFDefaultBoldFont"/>
+      <includeStyle name="AFDarkForeground"/>
+    </style>
+    
+  </styleSheet>  
+  
 </styleSheetDocument>

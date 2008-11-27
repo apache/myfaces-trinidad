@@ -444,8 +444,12 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     if (rowSpan > 1)
       rw.writeAttribute("rowspan", IntegerUtils.getString(rowSpan), null);
 
-
-    String sortOnclick = getSortingOnclick(arc, tContext, column, sortability);
+    String sortOnclick = "";
+    if (supportsScripting(arc))
+    {
+      sortOnclick = getSortingOnclick(arc, tContext, column, sortability);
+    }
+     
     //=-=AEW Review: Does this need to support any other handlers?
 
     //=-=AEW Apparently in PDA, we don't bother rendering
@@ -507,24 +511,8 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     String value    = getSortProperty(bean);
     // Note that "state" refers to the current state, not
     // the state will be set after clicking
-    String state;
-    if (sortability == SORT_ASCENDING)
-    {
-      state = XhtmlConstants.SORTABLE_ASCENDING;
-    }
-    else if (sortability == SORT_DESCENDING)
-    {
-      state = XhtmlConstants.SORTABLE_DESCENDING;
-    }
-    else if ("descending".equals(getDefaultSortOrder(bean)))
-    {
-      state = XhtmlConstants.SORTABLE_ASCENDING;
-    }
-    else
-    {
-      state = "";
-    }
-
+    String state = findSortState(sortability, bean);
+    
     StringBuffer buffer = new StringBuffer(33+
                                            formName.length() +
                                            source.length() +
@@ -575,15 +563,20 @@ public class ColumnGroupRenderer extends XhtmlRenderer
         rw.writeText(headerText, "headerText");
     }
 
-    renderSortOrderSymbol(context, arc, sortability, sortIcon, sortOnclick);
+     renderSortOrderSymbol(context, arc, column, tContext,
+                                    sortability, sortIcon, sortOnclick);
+    
   }
-
+  
+  
   /**
    * @todo IMPLEMENT
    */
   protected void renderSortOrderSymbol(
     FacesContext       context,
     RenderingContext arc,
+    UIComponent           column,
+    TableRenderingContext tContext,
     int                 sortability,
     Icon                icon,
     String              sortOnclick
@@ -593,15 +586,76 @@ public class ColumnGroupRenderer extends XhtmlRenderer
       return;
 
     ResponseWriter writer = context.getResponseWriter();
-    boolean renderAnchor = supportsNavigation(arc);
-    if (renderAnchor)
+    boolean supportNav = supportsNavigation(arc);
+    boolean NonJavaScriptBrowser = false;
+    boolean renderedInput = false;
+    if (supportNav)
     {
       if (isPDA(arc))
         writer.writeText(XhtmlConstants.NBSP_STRING, null);
+        
+      NonJavaScriptBrowser = !supportsScripting(arc);  
+      if (NonJavaScriptBrowser)
+      {
+        renderedInput = true;
+        writer.startElement("input", null);
+        writer.writeAttribute("type", "submit", null);
+        String source = tContext.getTableId();
+        FacesBean bean = getFacesBean(column);
+        String value = getSortProperty(bean);
+        String state = findSortState(sortability, bean);
+        String nameAttri;
+        if (state != "")
+        {
+          nameAttri =  XhtmlUtils.getEncodedParameter
+                                   (XhtmlConstants.SOURCE_PARAM)
+                       + XhtmlUtils.getEncodedParameter(source)
+                       + XhtmlUtils.getEncodedParameter
+                                   (XhtmlConstants.VALUE_PARAM)
+                       + XhtmlUtils.getEncodedParameter(value)
+                       + XhtmlUtils.getEncodedParameter
+                                   (XhtmlConstants.EVENT_PARAM)
+                       + XhtmlUtils.getEncodedParameter
+                                   (XhtmlConstants.SORT_EVENT)
+                       + XhtmlUtils.getEncodedParameter
+                                   (XhtmlConstants.STATE_PARAM)
+                       + state;
+        }
+        else
+        {
+          nameAttri =  XhtmlUtils.getEncodedParameter
+                                    (XhtmlConstants.SOURCE_PARAM)
+                       + XhtmlUtils.getEncodedParameter(source)
+                       + XhtmlUtils.getEncodedParameter
+                                    (XhtmlConstants.EVENT_PARAM)
+                       + XhtmlUtils.getEncodedParameter
+                                    (XhtmlConstants.SORT_EVENT)
+                       + XhtmlUtils.getEncodedParameter
+                                    (XhtmlConstants.VALUE_PARAM)
+                       + value;
+        }
 
-      writer.startElement("a", null);
-      writer.writeURIAttribute("href", "#", null);
-      writer.writeAttribute("onclick", sortOnclick, null);
+        writer.writeAttribute("name", nameAttri, null);
+        if (state.equals(XhtmlConstants.SORTABLE_ASCENDING))
+        {
+          writer.writeAttribute("value",
+                                    XhtmlConstants.NON_JS_DESC_ICON, null); 
+        }
+        else
+        {
+          writer.writeAttribute("value", 
+                                    XhtmlConstants.NON_JS_ASC_ICON, null); 
+        }
+
+        writer.writeAttribute("class", 
+             SkinSelectors.SORTABLE_HEADER_SORT_ICON_STYLE_CLASS, null);
+      }
+      else
+      {
+        writer.startElement("a", null);
+        writer.writeURIAttribute("href", "#", null);
+        writer.writeAttribute("onclick", sortOnclick, null);
+      }
     }
 
     String altTextKey = null;
@@ -622,20 +676,33 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     String altText = arc.getTranslatedString(altTextKey);
 
     Object align = OutputUtils.getMiddleIconAlignment(arc);
+    
+    //Don't render any child element for input element
+    if (!renderedInput)
+    {
+      // Render the icon, specifying embedded=true.  This
+      // allows text-based Icons to render their style class
+      // and altText directly on the anchor itself
+      OutputUtils.renderIcon(context,
+                             arc,
+                             icon,
+                             altText,
+                             align,
+                             true);
+    }
 
-    // Render the icon, specifying embedded=true.  This
-    // allows text-based Icons to render their style class
-    // and altText directly on the anchor itself
-    OutputUtils.renderIcon(context,
-                           arc,
-                           icon,
-                           altText,
-                           align,
-                           true);
-
-    // If we're an anchor, render the destination
-    if (renderAnchor)
-      writer.endElement("a");
+    if (supportNav)
+    {
+      if(NonJavaScriptBrowser)
+      {
+        writer.writeAttribute("title", altText, null);
+        writer.endElement("input");
+      }
+      else
+      {
+        writer.endElement("a");
+      }
+    }
 
   }
 
@@ -902,6 +969,34 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     {
       return _kids[index];
     }
+  }
+  
+  /**
+   * @return the state of the sorting after the page submition 
+   */
+  private String findSortState(
+     int sortability, 
+     FacesBean bean )
+  {
+    String state;
+    if (sortability == SORT_ASCENDING)
+    {
+      state = XhtmlConstants.SORTABLE_ASCENDING;
+    }
+    else if (sortability == SORT_DESCENDING)
+    {
+      state = XhtmlConstants.SORTABLE_DESCENDING;
+    }
+    else if ("descending".equals(getDefaultSortOrder(bean)))
+    {
+      state = XhtmlConstants.SORTABLE_ASCENDING;
+    }
+    else
+    {
+      state = "";
+    }
+    
+    return state;
   }
 
   private PropertyKey _headerTextKey;

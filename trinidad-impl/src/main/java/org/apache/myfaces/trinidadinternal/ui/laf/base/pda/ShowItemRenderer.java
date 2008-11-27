@@ -20,12 +20,15 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.pda;
 
 import java.io.IOException;
 
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
-import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
-import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafUtils;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.FormValueRenderer;
-import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.LinkRenderer;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.LinkUtils;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 /**
  * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
@@ -82,5 +85,80 @@ public class ShowItemRenderer extends LinkRenderer
                                       sourceParamKey, null,null);
 
     return partialChangeScript;
+  }
+
+  @Override
+  protected void renderAttributes(
+    UIXRenderingContext context,
+    UINode           node
+    ) throws IOException
+  { 
+    // For Non-JavaScript browsers, render an input element(type=submit) to 
+    // submit the page. Encode the name attribute with the parameter name 
+    // and value thus it would enable the browsers to include the name of 
+    // this element in its payLoad if it submits the page.
+    if (!supportsScripting(context))
+    {    
+      // render the id
+      renderID(context, node);
+      renderAttributesExceptID(context, node);
+      renderAttribute(context, "type", "submit");
+      String sourceParam = BaseLafUtils.getStringAttributeValue(
+                                        context, node, ID_ATTR);
+      String nameAttri =  XhtmlUtils.getEncodedParameter
+                                      (XhtmlConstants.SOURCE_PARAM)
+                          + XhtmlUtils.getEncodedParameter(sourceParam)
+                          + XhtmlUtils.getEncodedParameter
+                                      (XhtmlConstants.EVENT_PARAM)
+                          + SHOW_EVENT;
+      renderAttribute(context, "name", nameAttri);
+      renderAttribute(context, "value", getText(context,node));
+      String linkConverter = 
+              "border: none; background: inherit; text-decoration: underline;";
+      renderAttribute(context, "style", linkConverter);
+      if (isDisabled(context, node))
+      {  
+        renderAttribute(context, "disabled", Boolean.TRUE);
+      }
+    }
+    else
+    {
+      super.renderAttributes(context, node);
+    }
+  }
+
+  /**
+   * Returns the StyleClass to use to render this node.
+   */
+  @Override
+  protected Object getStyleClass(
+    UIXRenderingContext context,
+    UINode           node
+    )
+  {
+    // Handle CSS for Basic HTML browser separately since we are rendering   
+    // input element for Basic HTML browser instead of an anchor element
+    if (!supportsScripting(context) && 
+          Boolean.TRUE.equals(node.getAttributeValue(context, DISCLOSED_ATTR)))
+    {
+      return SkinSelectors.AF_SHOW_DETAIL_ITEM_SELECTED;
+    }
+    
+    String nodeStyleClass = 
+      (String)node.getAttributeValue(context, STYLE_CLASS_ATTR);
+    if (nodeStyleClass != null)
+      return nodeStyleClass;
+
+    String styleClass = null;
+
+    // We provide a default style class for links, as long
+    // as our parent hasn't explicitly disabled this.
+    if (!LinkUtils.isDefaultStyleClassDisabled(context))
+    {
+      styleClass = (isDisabled(context, node)) ? 
+                      LINK_DISABLED_STYLE_CLASS :
+                      LINK_STYLE_CLASS;
+    }
+    return styleClass;
   }
 }

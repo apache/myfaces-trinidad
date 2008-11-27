@@ -1213,6 +1213,15 @@ public final class SkinSelectors
    public static final String AF_SHOW_DETAIL_DISCLOSURE_ICON_LINK_STYLE_CLASS =
      "af|showDetail::disclosure-icon-link";
    
+     
+   //                                                                         //
+   //                                                                         //
+   // ============================ tr:showDetailItem ============================ //
+   //                                                                         //
+   //                                                                         //   
+   public static final String AF_SHOW_DETAIL_ITEM_SELECTED =
+     "af|showDetailItem::selected";
+    
    // ================================ Icons ================================ //
    public static final String AF_SHOW_DETAIL_DISCLOSED_ICON_NAME =
      "af|showDetail::disclosed-icon";

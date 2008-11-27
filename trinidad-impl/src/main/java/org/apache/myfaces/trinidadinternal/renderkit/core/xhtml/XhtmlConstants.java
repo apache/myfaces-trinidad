@@ -309,5 +309,8 @@ public final class XhtmlConstants
   public static final String MULTIPLE_VALUE_PARAM = "multipleValueParam";
   public static final String NON_JS_BROWSER = "_noJavaScript";
   public static final String NON_JS_BROWSER_TRUE = "true";
-
+  public static final String NON_JS_DETAIL_DISCLOSED_ICON = "-";
+  public static final String NON_JS_DETAIL_UNDISCLOSED_ICON = "+";
+  public static final String NON_JS_ASC_ICON = "v";
+  public static final String NON_JS_DESC_ICON = "^";
 }
