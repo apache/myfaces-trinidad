@@ -130,8 +130,8 @@ public class FredJSP
 
     CoreOutputText headEnd = new CoreOutputText();
     root.getChildren().add(headEnd);
-    headStart.setEscape(false);
-    headStart.setValue("</head>");
+    headEnd.setEscape(false);
+    headEnd.setValue("</head>");
 
     HtmlFrame contentFrame = new HtmlFrame();
     String contentStr = arc.getTranslatedString(_FRAME_CONTENT);
