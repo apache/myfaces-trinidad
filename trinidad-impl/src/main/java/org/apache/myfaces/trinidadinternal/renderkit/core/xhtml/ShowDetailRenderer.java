@@ -67,6 +67,8 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
+    
+    boolean javaScriptSupport = supportsScripting(arc);
     boolean disclosed = getDisclosed(bean);
 
     ResponseWriter rw = context.getResponseWriter();
@@ -75,13 +77,31 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
       renderId(context, component);
 
     renderPromptStart(context, arc, component, bean);
-    _renderScripts(context, arc, component);
-    String onClickString =
-               _generateOnClickString(context, arc, component, bean, disclosed);
     String sourceValue = getClientId(context, component);
     String linkId = getLinkId(sourceValue, disclosed);
+    
+    String parameterString;
+    if (javaScriptSupport)
+    {
+      _renderScripts(context, arc, component);
+      parameterString = _generateOnClickString(context, 
+                                               arc, 
+                                               component, 
+                                               bean, 
+                                               disclosed);
+    }
+    else
+    { 
+      parameterString = _encodedParam(context, 
+                                      arc, 
+                                      component, 
+                                      bean, 
+                                      disclosed);
 
-    _renderLinkStart(context, arc, onClickString);
+    }
+    
+    _renderLinkStart(context, arc, parameterString);
+
     if (linkId != null)
       rw.writeAttribute("id", linkId, null);
 
@@ -100,11 +120,20 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
       if (text != null)
       {
         if (!isTableAllDisclosure())
-          _renderLinkStart(context, arc, onClickString);
+          _renderLinkStart(context, arc, parameterString);
         renderStyleClasses(context, arc, getLinkStyleClasses());
-        rw.writeText(text,
+        if (javaScriptSupport)
+        {
+          rw.writeText(text,
                      disclosed ? "disclosedText" : "undisclosedText");
-
+        }
+        else
+        {
+          // Since for Non-JavaScript browsers we render an input tag, set the 
+          // value attribute to text
+          rw.writeAttribute("value", text, 
+                           disclosed ? "disclosedText" : "undisclosedText");
+        }
         _renderLinkEnd(context, arc);
       }
     }
@@ -169,19 +198,33 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
     boolean             disclosed,
     String              disclosedAltTextKey,
     String              undisclosedAltTextKey) throws IOException
-  {
-    Icon icon = _getDisclosureIcon(arc, disclosed);
-
-    if (icon != null)
+  { 
+    String key = disclosed ? disclosedAltTextKey : undisclosedAltTextKey;
+    // Get the alt text
+    String altText = arc.getTranslatedString(key);
+    // Since we render input element for Non-JavaScript browsers, we cannot
+    // render image element as its child. So set the value attribute of 
+    // input element to the icon symbol 
+    if (!supportsScripting(arc))
     {
-      // Get the alt text
-      String key = disclosed ? disclosedAltTextKey : undisclosedAltTextKey;
-      String altText = arc.getTranslatedString(key);
-      // Get the align
-      String align = OutputUtils.getMiddleIconAlignment(arc);
-
-      // Render the icon with the specified attrs
-      OutputUtils.renderIcon(context, arc, icon, altText, align);
+      ResponseWriter rw = context.getResponseWriter();
+      String icon = disclosed ? XhtmlConstants.NON_JS_DETAIL_DISCLOSED_ICON :
+                                XhtmlConstants.NON_JS_DETAIL_UNDISCLOSED_ICON;  
+      rw.writeAttribute("title", altText, null);
+      rw.writeAttribute("value", icon, null);
+      String linkConverter = "border: none; background: inherit;";
+      rw.writeAttribute("style", linkConverter,null);
+    }
+    else
+    {
+      Icon icon = _getDisclosureIcon(arc, disclosed);
+      if (icon != null)
+      {
+        // Get the align
+        String align = OutputUtils.getMiddleIconAlignment(arc);
+        // Render the icon with the specified attrs
+        OutputUtils.renderIcon(context, arc, icon, altText, align);
+      }
     }
   }
 
@@ -344,17 +387,27 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
   private void _renderLinkStart(
     FacesContext        context,
     RenderingContext arc,
-    String           onclickString ) throws IOException
+    String           parameterString ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
     if (!supportsNavigation(arc)) {
       rw.startElement("span", null);
     }
-    else
+    else if (supportsScripting(arc))
     {
       rw.startElement("a", null);
-      rw.writeAttribute("onclick", onclickString, null);
+      rw.writeAttribute("onclick", parameterString, null);
       rw.writeURIAttribute("href", "#", null);
+    }
+    // For Non-JavaScript browsers, render an input element(type=submit) to 
+    // submit the page. Encode the name attribute with the parameter name 
+    // and value thus it would enable the browsers to include the name of 
+    // this element in its payLoad if it submits the page.
+    else
+    {
+      rw.startElement("input", null);
+      rw.writeAttribute("type", "submit", null);
+      rw.writeURIAttribute("name", parameterString, null);
     }
   }
 
@@ -419,8 +472,45 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
     ResponseWriter rw = context.getResponseWriter();
     if (!supportsNavigation(arc))
       rw.endElement("span");
-    else
+    else if (supportsScripting(arc))
       rw.endElement("a");
+    else
+      rw.endElement("input");
+  }
+  
+  /**
+   * @return encoded parameter name and value pairs for Non-JavaScript
+   * browsers 
+   */
+  private String _encodedParam(
+    FacesContext        context,
+    RenderingContext arc,
+    UIComponent         component,
+    FacesBean           bean,
+    boolean             disclosed)
+  {
+    FormData fData = arc.getFormData();
+    if (fData == null)
+       return null;
+       
+    String sourceValue = getClientId(context, component);
+    String eventValue = (disclosed
+                         ? XhtmlConstants.HIDE_EVENT
+                         : XhtmlConstants.SHOW_EVENT);
+                         
+    String valueValue = getValueParameter(component);
+    String linkId = getLinkId(sourceValue, disclosed);
+  
+    String nameAttri = XhtmlUtils.getEncodedParameter
+                                  (XhtmlConstants.SOURCE_PARAM)
+                       + XhtmlUtils.getEncodedParameter(sourceValue)
+                       + XhtmlUtils.getEncodedParameter
+                                  (XhtmlConstants.EVENT_PARAM)
+                       + XhtmlUtils.getEncodedParameter(eventValue)
+                       + XhtmlUtils.getEncodedParameter
+                                  (XhtmlConstants.VALUE_PARAM)
+                       + valueValue;  
+    return nameAttri;
   }
 
   /**
