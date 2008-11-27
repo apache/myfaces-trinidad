@@ -307,9 +307,23 @@ public class PanelAccordionRenderer extends XhtmlRenderer
         encodeChild(context, toolbar);
         out.endElement("div");
       }
-
-      out.startElement("a", null);
-      out.writeAttribute("name", detailItemId, null);
+      
+      boolean javaScriptSupport = supportsScripting(arc);
+      
+      if (javaScriptSupport)
+      {
+        out.startElement("a", null);
+        out.writeAttribute("name", detailItemId, null);
+      }
+      else
+      {
+        // For Non-JavaScript browsers, render an input element(type=submit) to 
+        // submit the page. Encode the name attribute with the parameter name 
+        // and value thus it would enable the browsers to include the name of 
+        // this element in its payLoad if it submits the page.
+        out.startElement("input", null);
+        out.writeAttribute("type", "submit", null);
+      }
 
       renderStyleClass(context, arc,
                        disabled
@@ -323,32 +337,74 @@ public class PanelAccordionRenderer extends XhtmlRenderer
       {
         boolean isImmediate = detailItem.isImmediate();
         String event = disclosed ? "hide" : "show";
-        String onClickHandler = _getFormSubmitScript(component,
-                                                     arc,
-                                                     event,
-                                                     detailItemId,
-                                                     formName,
-                                                     compId,
-                                                     isImmediate);
-        out.writeAttribute("onclick", onClickHandler, null);
-        out.writeAttribute("href", "#", null);
-      }
-
-      // =-=rbaranwa Per the UI Review, no icon to be rendered when
-      // panel is disabled.
-      if (! disabled)
-      {
-        ShowDetailRenderer.renderDisclosureIcon(context,
-                                                arc,
-                                                disclosed,
-                                                getDisclosedTipKey(),
-                                                getUndisclosedTipKey());
+        
+        if (javaScriptSupport)
+        {
+          String onClickHandler = _getFormSubmitScript(component,
+                                                       arc,
+                                                       event,
+                                                       detailItemId,
+                                                       formName,
+                                                       compId,
+                                                       isImmediate);
+          out.writeAttribute("onclick", onClickHandler, null);
+          out.writeAttribute("href", "#", null);
+        }
+        else
+        {
+          String nameAttri = XhtmlUtils.getEncodedParameter
+                                          (XhtmlConstants.SOURCE_PARAM)
+                             + XhtmlUtils.getEncodedParameter(compId)
+                             + XhtmlUtils.getEncodedParameter
+                                         (XhtmlConstants.EVENT_PARAM)
+                             + XhtmlUtils.getEncodedParameter(event)
+                             + XhtmlUtils.getEncodedParameter
+                                         (XhtmlConstants.TARGETITEM_PARAM)
+                             + detailItemId;
+                             
+          out.writeAttribute("name", nameAttri, null);
+        }
       }
       
-      if (titleText != null)
-        out.writeText(titleText, null);
-      out.endElement("a");
-
+      if (javaScriptSupport)
+      { 
+        // =-=rbaranwa Per the UI Review, no icon to be rendered when
+        // panel is disabled.
+        if (! disabled)
+        {
+          ShowDetailRenderer.renderDisclosureIcon(context,
+                                                   arc,
+                                                   disclosed,
+                                                   getDisclosedTipKey(),
+                                                   getUndisclosedTipKey());
+        }
+        if (titleText != null)
+        {
+          out.writeText(titleText, null);
+        }
+        out.endElement("a");
+      }
+      else
+      {
+        // Since we cannot render any image element as a child of input element, 
+        // just render the icon symbol along with the text.
+        String icon = disclosed ? XhtmlConstants.NON_JS_DETAIL_DISCLOSED_ICON :
+                                  XhtmlConstants.NON_JS_DETAIL_UNDISCLOSED_ICON;
+        if (titleText != null)
+        {
+          icon = icon + titleText;
+        }
+        
+        out.writeAttribute("value", icon, null);
+        
+        if (disabled)
+        {
+          out.writeAttribute("disabled", Boolean.TRUE, "disabled");
+        }
+        
+        out.endElement("input");
+      }
+      
       out.endElement("div"); // Ending div for an individual panel
 
 
@@ -498,11 +554,11 @@ public class PanelAccordionRenderer extends XhtmlRenderer
                                   .append("',")
                                   .append(validate)
                                   .append(", {event:'")
-	                            .append(event)
-	                            .append("',source:'")
-	                            .append(compId)
-	                            .append("',targetItem:'")
-	                            .append(detailItemId)
+                              .append(event)
+                              .append("',source:'")
+                              .append(compId)
+                              .append("',targetItem:'")
+                              .append(detailItemId)
                                   .append("'});return false;");
 
       onClickHandler = onClickHandlerBuff.toString();
