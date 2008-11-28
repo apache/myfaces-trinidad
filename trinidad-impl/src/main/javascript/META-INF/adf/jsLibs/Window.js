@@ -626,8 +626,11 @@ function _sizeWin(
       newWidth += body.offsetWidth - body.clientWidth + 16;
       // add in the margins (MS bogusly uses Strings for these)
 
-      newHeight += parseInt(body.topMargin) + parseInt(body.bottomMargin);
-      newWidth  += parseInt(body.leftMargin) + parseInt(body.rightMargin);
+      if(body.tagName=='BODY')
+      {
+        newHeight += parseInt(body.topMargin) + parseInt(body.bottomMargin);
+        newWidth  += parseInt(body.leftMargin) + parseInt(body.rightMargin);
+      }
     }
     //
     // allow the size to be a little bigger than currently necessary.
