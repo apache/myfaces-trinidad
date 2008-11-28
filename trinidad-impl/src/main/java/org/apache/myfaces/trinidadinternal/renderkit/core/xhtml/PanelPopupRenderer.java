@@ -51,6 +51,7 @@ public class PanelPopupRenderer extends XhtmlRenderer
   {
     super.findTypeConstants(type);
     _textKey = type.findKey("text");
+    _iconKey = type.findKey("icon");
     _titleKey = type.findKey("title");
     _triggerTypeKey = type.findKey("triggerType");
     _positionKey = type.findKey("position");
@@ -66,6 +67,11 @@ public class PanelPopupRenderer extends XhtmlRenderer
   protected String getText(FacesBean bean)
   {
     return toString(resolveProperty(bean, _textKey));
+  }
+
+  protected String getIcon(FacesBean bean)
+  {
+    return toResourceUri(FacesContext.getCurrentInstance(), resolveProperty(bean, _iconKey));
   }
 
   protected String getTitle(FacesBean bean)
@@ -203,7 +209,11 @@ public class PanelPopupRenderer extends XhtmlRenderer
         CorePanelPopup.TRIGGER_FACET);
     if (triggerFacet != null)
       encodeChild(context, triggerFacet);
-
+    
+    //render trigger icon
+    OutputUtils.renderImage(context, arc, getIcon(bean), null, null, null, "",
+                            component, null, SkinSelectors.AF_PANEL_POPUP_ICON_STYLE_CLASS);
+    
     delegateRendererEnd(context, arc, component, bean, _triggerRenderer);
   }
 
@@ -385,6 +395,7 @@ public class PanelPopupRenderer extends XhtmlRenderer
   private PropertyKey _vertOffsetKey;
   private XhtmlRenderer _triggerRenderer;
   
+  private PropertyKey _iconKey;
   private static final String _POPUP_CONTAINER_ID_SUFFIX = "_popupContainer";
 
   private static final String _POPUP_TRIGGER_ID_SUFFIX = "_popupTrigger";
