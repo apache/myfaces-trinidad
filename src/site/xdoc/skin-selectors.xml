@@ -2252,6 +2252,10 @@
             <td>Styles the text within the title-bar.</td>
           </tr>
           <tr>
+            <td>af|panelPopup::icon-style</td>
+            <td>Styles the trigger icon that is rendered alongwith trigger-text.</td>
+          </tr>
+          <tr>
             <td>af|panelPopup::close-icon</td>
             <td>Styles the clickable icon that closes the popup.</td>
           </tr>

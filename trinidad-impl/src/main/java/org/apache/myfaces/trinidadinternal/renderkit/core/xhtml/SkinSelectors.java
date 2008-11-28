@@ -1008,6 +1008,8 @@ public final class SkinSelectors
 
   public static final String AF_PANEL_POPUP_LINK_STYLE_CLASS =
     AF_PANEL_POPUP_ROOT_STYLE_CLASS + "::link";
+  public static final String AF_PANEL_POPUP_ICON_STYLE_CLASS =
+    AF_PANEL_POPUP_ROOT_STYLE_CLASS + "::icon-style";
   public static final String AF_PANEL_POPUP_TRIGGER_STYLE_CLASS =
     AF_PANEL_POPUP_ROOT_STYLE_CLASS + "::trigger";
   public static final String AF_PANEL_POPUP_CONTAINER_STYLE_CLASS =
