@@ -19,8 +19,6 @@
       <xsd:element ref="trmenu:groupNode"/>
       <xsd:element ref="trmenu:sharedNode"/>
     </xsd:choice>
-    <xsd:attribute name="xmlns" type="xsd:anyURI"
-                   default="http://myfaces.apache.org/trinidad/menu"/>
     <xsd:attribute name="var" type="xsd:string"/>
     <xsd:attribute name="resourceBundle" type="xsd:anyURI"/>
   </xsd:complexType>
