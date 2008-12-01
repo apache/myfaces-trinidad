@@ -85,6 +85,9 @@ public class ShowDetailHeaderRenderer
     throws IOException
   {
     delegateRenderer(context, arc, component, bean, _detailRenderer);
+    //render the showDetailHeader icon. It uses skinning key af|panelHeader::icon-style
+    //we can introduce new skinning key af|showDetailHeader::icon-style, if needed.
+    super.renderIcon(context, arc, component, bean, messageType);
   }
 
   @Override
