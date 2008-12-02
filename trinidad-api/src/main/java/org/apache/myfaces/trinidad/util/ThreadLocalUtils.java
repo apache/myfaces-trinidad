@@ -26,7 +26,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * Utility functions related to ThreadLocals.
@@ -166,7 +166,7 @@ public final class ThreadLocalUtils
     public ResettableThreadLocalManager()
     {
       // create the list of resettable ThreadLocals for this group
-      _threadLocals = new CopyOnWriteArrayList<WeakReference<ThreadLocal<?>>>();
+      _threadLocals = new ConcurrentLinkedQueue<WeakReference<ThreadLocal<?>>>();
     }
     
     /**
