@@ -32,13 +32,10 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  * <pre>
  *     some{1}text{0}here{2}andthere
  * </pre>
- * as well as escaping using single quotes.  Like MessageFormat,
- * a single quote must be represented using two consecutive single
- * quotes, but the contents of any text between single quotes
- * will not be interpreted.  So, the following pattern could
- * be used to include a left bracket:
+ * Unlike MessageFormat, single quotes are NOT used for escaping.  
+ * So, the following pattern could be used to include a left bracket:
  * <pre>
- *     some'{'text{0}
+ *     some{text{0}
  * </pre>
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/util/FastMessageFormat.java#0 $) $Date: 10-nov-2005.19:08:37 $
