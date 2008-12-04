@@ -812,13 +812,10 @@ TrFacesMessage.prototype.setSeverity =
  * <pre>
  *     some{1}text{0}here{2}andthere
  * </pre>
- * as well as escaping using single quotes.  Like MessageFormat,
- * a single quote must be represented using two consecutive single
- * quotes, but the contents of any text between single quotes
- * will not be interpreted.  So, the following pattern could
- * be used to include a left bracket:
+ * Unlike MessageFormat, single quotes are NOT used for escaping.  
+ * So, the following pattern could be used to include a left bracket:
  * <pre>
- *     some'{'text{0}
+ *     some{text{0}
  * </pre>
  */
 var TrFastMessageFormatUtils = new Object();
@@ -849,13 +846,14 @@ TrFastMessageFormatUtils.format = function(
   var lastStart = 0;
   for (var i = 0; i < formatLength; i++)
   {
-    var ch = formatString[i];
+    // IE7 does not support the string[index] syntax, so use string.charAt(index) instead.
+    var ch = formatString.charAt(i);
     if (ch == '{')
     {
       // Only check for single digit patterns that have an associated token.
-      if (i + 2 < formatLength && formatString[i+2] == '}')
+      if (i + 2 < formatLength && formatString.charAt(i+2) == '}')
       {
-        var tokenIndex = formatString[i+1] - '0';
+        var tokenIndex = formatString.charAt(i+1) - '0';
         if (tokenIndex >= 0 && tokenIndex < tokenCount)
         {            
           // Use the javascript StringBuffer technique for append(string)
