@@ -838,6 +838,12 @@
   <style selector="af|inputListOfValues::content">
     <includeStyle name="AFFormControlContent"/>
   </style>  
+  <style selector="af|selectBooleanRadio::content">
+    <includeStyle name="AFFormControlContent"/>
+  </style>
+  <style selector="af|selectBooleanCheckbox::content">
+    <includeStyle name="AFFormControlContent"/>
+  </style>
   <style selector="af|selectManyCheckbox::content">
     <includeStyle name="AFFormControlContent"/>
   </style> 
