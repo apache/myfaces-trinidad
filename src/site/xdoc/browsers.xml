@@ -30,9 +30,8 @@
 <p>Trinidad is currently supported on the following user agents.  We'd very
 much like to add additional platforms to this list -  omission doesn't
 mean it that it doesn't work, just that it hasn't been tested.
-(NOTE: PDA support is definitely longer than just this list -
-Blackberry support was recently added.  A separate table of 
-PDA support should be added once that's been gathered.) </p>
+In addition, various mobile browsers are supported. See the section below 
+for the complete <a href="#mobile">mobile browser support</a>.</p>
 
 <table summary="" border="1" cellspacing="0" cellpadding="5">
 <!--
@@ -50,21 +49,12 @@ PDA support should be added once that's been gathered.) </p>
     <td>Mac OS X</td>
 
     <td>Red Hat Linux</td>
-
-    <td>Windows Mobile</td>
-
-    <td>Palm OS</td>
   </tr>
   <tr>
     <td>Internet Explorer</td>
     <td align="center">6.0<span style="vertical-align:super;">*</span></td>
     <td align="center">-</td>
     <td align="center">-</td>
-
-    <td align="center">2003+</td>
-
-    <td align="center">-</td>
-
   </tr>
 
   <tr>
@@ -75,11 +65,6 @@ PDA support should be added once that's been gathered.) </p>
     <td align="center">1.7.x</td>
 
     <td align="center">1.7.x</td>
-
-    <td align="center">-</td>
-
-
-    <td align="center">-</td>
   </tr>
 
   <tr>
@@ -90,11 +75,6 @@ PDA support should be added once that's been gathered.) </p>
     <td align="center">1.0.x</td>
 
     <td align="center">1.0.x</td>
-
-
-    <td align="center">-</td>
-
-    <td align="center">-</td>
   </tr>
 
   <tr>
@@ -107,27 +87,8 @@ PDA support should be added once that's been gathered.) </p>
 
 
     <td align="center">-</td>
-
-    <td align="center">-</td>
-
-    <td align="center">-</td>
   </tr>
 
-
-  <tr>
-    <td>WebPro (Mobile)</td>
-
-    <td align="center">-</td>
-
-    <td align="center">-</td>
-
-    <td align="center">-</td>
-
-    <td align="center">-</td>
-
-    <td align="center">3.0</td>
-
-  </tr>
 </table>
 <p>
 <table>
@@ -139,7 +100,52 @@ PDA support should be added once that's been gathered.) </p>
 </tr>
 </table>
 </p>
-
 </section>
+<a name="mobile"></a>
+<section name="Mobile Browser Support">
+   <P>
+    Trinidad supports wide range of mobile browsers. Some mobile devices are 
+    explicitly tested and supported. Others are grouped as basic browsers and 
+    Trinidad renders pages so that the page works with or without browser 
+    features, such as supports for AJAX, DOM, JavasScript or even CSS. 
+    </P>
+    <P>
+    Trinidad explicitly supports the following devices: 
+    </P>
+    <ul>
+     <li>Apple iPhone</li>
+     <li>Microsoft Windows Mobile 5 and 6, Microsoft Pocket Internet Explorer</li>
+     <li>Nokia S60 devices</li>
+     <li>RIM BlackBerry Browser 4.6 and above</li>
+     <li>Android Based Phones</li>
+    </ul>
+   <P>
+    In addition, it supports mobile browsers that support Basic XHTML or 
+    XHTML Mobile Profile. WAP 2.0 phone browsers are included in this category. 
+    Because of the hardware performance limitation, Trinidad does not download 
+    or use JavaScript library on such devices.
+    </P>
+    <P>
+    The following list shows the examples of Basic XHTML mobile browsers.
+    </P>
+    <ul>
+     <li>KDDI Phones</li>
+     <li>Motorola Phone Browsers</li>
+     <li>Nokia S40 Phone Browser</li>
+     <li>Obigo Browser</li>
+     <li>OpenWave Mobile Browser</li>
+     <li>Opera Mini Browser</li>
+     <li>Netfront Browser</li>
+     <li>RIM BlackBerry Browser 4.2 ~ 4.5</li>
+     <li>SonyEricsson Phone Browser</li>
+     <li>Vodafone Phones</li>
+    </ul>
+   <div style="margin:0px 50px 0px 50px; padding:10px; border:2px solid ">
+    <strong>Note:</strong>
+    WAP1.0 (WML) browsers are not supported.
+   </div>
+</section>
+
+
   </body>
 </document>
