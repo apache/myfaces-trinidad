@@ -126,13 +126,10 @@ public class BodyRenderer extends PanelPartialRootRenderer
     // Since we are supporting Non-JavaScript browsers of generic PDA, 
     // we don't need to prompt any message in the client side regarding 
     // the JavaScript capability of generic PDA browsers.
-    if (!isGenericPDA(arc))
-    {
-      _renderNoScript(context, arc);
-    }
 
     if (supportsScripting(arc))
     {
+      _renderNoScript(context, arc);
       _storeInitialFocus(arc, bean);
     }
 
