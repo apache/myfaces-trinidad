@@ -49,17 +49,26 @@ public class PageHeaderLayoutRenderer extends UINodeRenderer
       ContextPoppingUINode.getUINode(BRANDING_CHILD));
     brandingFlow.addIndexedChild(
       ContextPoppingUINode.getUINode(BRANDING_APP_CHILD));
+    brandingFlow.addIndexedChild(
+      ContextPoppingUINode.getUINode(BRANDING_APP_CONTEXTUAL_CHILD));
 
     MarlinBean compositeRoot = new MarlinBean(STACK_LAYOUT_NAME);
 
     // delegate all of the attributes to the RootAttribtueMap
     compositeRoot.setAttributeMap(RootAttributeMap.getAttributeMap());
 
+    compositeRoot.addIndexedChild(
+      ContextPoppingUINode.getUINode(NAVIGATION_GLOBAL_CHILD));
+    brandingFlow.addIndexedChild(
+      ContextPoppingUINode.getUINode(MENU_SWITCH_CHILD));
+
     compositeRoot.addIndexedChild(brandingFlow);
     compositeRoot.addIndexedChild(
       ContextPoppingUINode.getUINode(NAVIGATION1_CHILD));
     compositeRoot.addIndexedChild(
       ContextPoppingUINode.getUINode(NAVIGATION2_CHILD));
+    compositeRoot.addIndexedChild(
+      ContextPoppingUINode.getUINode(SEARCH_CHILD));
 
     return compositeRoot;
   }
