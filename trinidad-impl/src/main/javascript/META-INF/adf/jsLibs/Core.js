@@ -187,6 +187,7 @@ function _supportsDOM()
   else if(_agent.isBlackBerry)
   {
     retVal = false;
+    retVal = _agent.version >= 4.6;
   }
 
   return retVal;
