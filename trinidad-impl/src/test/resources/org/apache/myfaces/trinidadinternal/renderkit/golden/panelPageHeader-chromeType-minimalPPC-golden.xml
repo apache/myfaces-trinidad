@@ -21,6 +21,10 @@
             >
           
         </img>
+        <div
+            >
+          
+        </div>the search facet
       </span>
 <!--AttributeTest[chromeType,compact]-->
 
@@ -46,6 +50,10 @@
             >
           
         </img>
+        <div
+            >
+          
+        </div>the search facet
       </span>
 <!--AttributeTest[chromeType,expanded]-->
 
@@ -71,5 +79,9 @@
             >
           
         </img>
+        <div
+            >
+          
+        </div>the search facet
       </span>
 </results>

@@ -48,25 +48,51 @@ public class PageLayoutRenderer extends UINodeRenderer
   private static UINode _createCompositeUINode()
   {
 
+    MarlinBean globalNavigation = new MarlinBean(TABLE_LAYOUT_NAME);
+    globalNavigation.setAttributeValue(WIDTH_ATTR, ONE_HUNDRED_PERCENT_ATTRIBUTE_VALUE);
+    globalNavigation.addIndexedChild(_fullWidthTableRow(NAVIGATION_GLOBAL_CHILD));
     //
     // Create the page header layout
     //
     MarlinBean headerLayout = new MarlinBean(PAGE_HEADER_LAYOUT_NAME);
 
-    headerLayout.setNamedChild(NAVIGATION_GLOBAL_CHILD,
-                    ContextPoppingUINode.getUINode(NAVIGATION_GLOBAL_CHILD));
+    headerLayout.setNamedChild(MENU_SWITCH_CHILD,
+                    ContextPoppingUINode.getUINode(MENU_SWITCH_CHILD));
+
+    headerLayout.setNamedChild(BRANDING_CHILD,
+                    ContextPoppingUINode.getUINode(BRANDING_CHILD));
+    
+    headerLayout.setNamedChild(BRANDING_APP_CHILD,
+                    ContextPoppingUINode.getUINode(BRANDING_APP_CHILD));
+    
+    headerLayout.setNamedChild(BRANDING_APP_CONTEXTUAL_CHILD,
+                    ContextPoppingUINode.getUINode(BRANDING_APP_CONTEXTUAL_CHILD));
+
     headerLayout.setNamedChild(NAVIGATION1_CHILD,
                     ContextPoppingUINode.getUINode(NAVIGATION1_CHILD));
 
     headerLayout.setNamedChild(NAVIGATION2_CHILD, _createGlobalHeaders());
 
-    headerLayout.setNamedChild(BRANDING_CHILD,
-                    ContextPoppingUINode.getUINode(BRANDING_CHILD));
-    headerLayout.setNamedChild(BRANDING_APP_CHILD,
-                    ContextPoppingUINode.getUINode(BRANDING_APP_CHILD));
+    headerLayout.setNamedChild(SEARCH_CHILD, 
+                    ContextPoppingUINode.getUINode(SEARCH_CHILD));
 
     // =-= bts a little bogus since this isn't really an attribute of PageHeader
     headerLayout.setAttributeValue(WIDTH_ATTR, "100%");
+
+    //
+    // Create layout used for locators at the top of the page
+    //
+    MarlinBean locatorLayout = new MarlinBean(STACK_LAYOUT_NAME);
+    locatorLayout.addIndexedChild(
+                   ContextPoppingUINode.getUINode(LOCATION_CHILD));
+    locatorLayout.addIndexedChild(
+                   ContextPoppingUINode.getUINode(INFO_USER_CHILD));
+    locatorLayout.addIndexedChild(
+                   ContextPoppingUINode.getUINode(MESSAGES_CHILD));
+    locatorLayout.addIndexedChild(
+                   ContextPoppingUINode.getUINode(INFO_SUPPLEMENTAL_CHILD));
+    locatorLayout.addIndexedChild(
+                   ContextPoppingUINode.getUINode(INFO_STATUS_CHILD));
 
     //
     // Create the content container containing all of the indexed children
@@ -84,54 +110,16 @@ public class PageLayoutRenderer extends UINodeRenderer
     MarlinBean pageButtonsLine = new MarlinBean(SEPARATOR_NAME);
     pageButtonsLine.setAttributeValue(
             RENDERED_ATTR,
-             new OrBoundValue(
-         PdaHtmlLafUtils.createIsRenderedBoundValue(ACTIONS_CHILD),
-         PdaHtmlLafUtils.createIsRenderedBoundValue(INFO_RETURN_CHILD)));
-
-
-
+             new OrBoundValue(new BoundValue[]{
+         PdaHtmlLafUtils.createIsRenderedBoundValue(INFO_RETURN_CHILD)}));
 
     // Create the area containing the footer
 
     MarlinBean footerTable = new MarlinBean(TABLE_LAYOUT_NAME);
     footerTable.setAttributeValue( WIDTH_ATTR, ONE_HUNDRED_PERCENT_ATTRIBUTE_VALUE);
-
-    MarlinBean globalButtonsRow = new MarlinBean(ROW_LAYOUT_NAME);
-    MarlinBean globalButtonsCell = new MarlinBean(CELL_FORMAT_NAME);
-    globalButtonsCell.setAttributeValue( H_ALIGN_ATTR, CENTER_ATTRIBUTE_VALUE);
-    globalButtonsCell.addIndexedChild(
-                        ContextPoppingUINode.getUINode(NAVIGATION_GLOBAL_CHILD));
-    globalButtonsRow.addIndexedChild( globalButtonsCell);
-    footerTable.addIndexedChild( globalButtonsRow);
-
-    MarlinBean copyrightRow = new MarlinBean(ROW_LAYOUT_NAME);
-    MarlinBean copyrightCell = new MarlinBean(CELL_FORMAT_NAME);
-    copyrightCell.setAttributeValue( H_ALIGN_ATTR, CENTER_ATTRIBUTE_VALUE);
-    copyrightCell.setStyleClass( AF_PANEL_PAGE_COPYRIGHT_STYLE_CLASS ) ;
-    copyrightCell.addIndexedChild(ContextPoppingUINode.getUINode(APP_COPYRIGHT_CHILD));
-    copyrightRow.addIndexedChild( copyrightCell);
-    footerTable.addIndexedChild( copyrightRow);
-
-
-    MarlinBean privacyRow = new MarlinBean(ROW_LAYOUT_NAME);
-    MarlinBean privacyCell = new MarlinBean(CELL_FORMAT_NAME);
-    privacyCell.setAttributeValue( H_ALIGN_ATTR, CENTER_ATTRIBUTE_VALUE);
-    privacyCell.setStyleClass( AF_PANEL_PAGE_PRIVACY_STYLE_CLASS ) ;
-    privacyCell.addIndexedChild(ContextPoppingUINode.getUINode(APP_PRIVACY_CHILD));
-    privacyRow.addIndexedChild( privacyCell);
-    footerTable.addIndexedChild( privacyRow);
-
-
-    MarlinBean aboutRow = new MarlinBean(ROW_LAYOUT_NAME);
-    MarlinBean aboutCell = new MarlinBean(CELL_FORMAT_NAME);
-    aboutCell.setAttributeValue( H_ALIGN_ATTR, CENTER_ATTRIBUTE_VALUE);
-    aboutCell.setStyleClass( AF_PANEL_PAGE_ABOUT_STYLE_CLASS ) ;
-    aboutCell.addIndexedChild(ContextPoppingUINode.getUINode(APP_ABOUT_CHILD));
-    aboutRow.addIndexedChild( aboutCell);
-    footerTable.addIndexedChild( aboutRow);
-
-
-
+    footerTable.addIndexedChild(_fullWidthTableRow(APP_COPYRIGHT_CHILD));
+    footerTable.addIndexedChild(_fullWidthTableRow(APP_PRIVACY_CHILD));
+    footerTable.addIndexedChild(_fullWidthTableRow(APP_ABOUT_CHILD));
 
     MarlinBean footer = new MarlinBean(FLOW_LAYOUT_NAME);
     MarlinBean footerLine = new MarlinBean(CONTENT_FOOTER_NAME);
@@ -141,44 +129,68 @@ public class PageLayoutRenderer extends UINodeRenderer
     BoundValue renderFooter = new OrBoundValue(new BoundValue[]{
                PdaHtmlLafUtils.createIsRenderedBoundValue(APP_PRIVACY_CHILD),
                PdaHtmlLafUtils.createIsRenderedBoundValue(APP_ABOUT_CHILD),
-               PdaHtmlLafUtils.createIsRenderedBoundValue(APP_COPYRIGHT_CHILD),
-               PdaHtmlLafUtils.createIsRenderedBoundValue(NAVIGATION_GLOBAL_CHILD)
-                   });
+               PdaHtmlLafUtils.createIsRenderedBoundValue(APP_COPYRIGHT_CHILD)});
+               
     footer.setAttributeValue( RENDERED_ATTR, renderFooter);
 
-
-
-
     MarlinBean content = new MarlinBean(STACK_LAYOUT_NAME);
-     content.addIndexedChild( ContextPoppingUINode.getUINode(LOCATION_CHILD));
-    content.addIndexedChild( contentRoot );
+    content.addIndexedChild(contentRoot);
+    content.addIndexedChild(
+                  ContextPoppingUINode.getUINode(INFO_FOOTNOTE_CHILD));
+
+
     content.addIndexedChild(pageButtonsLine);
 
     //
     // Add the footer children
     //
     content.addIndexedChild(
-                       ContextPoppingUINode.getUINode(ACTIONS_CHILD));
-    content.addIndexedChild(
                        ContextPoppingUINode.getUINode(INFO_RETURN_CHILD));
+
+
+    MarlinBean action = new MarlinBean(TABLE_LAYOUT_NAME);
+    action.setAttributeValue( WIDTH_ATTR, ONE_HUNDRED_PERCENT_ATTRIBUTE_VALUE);
+
+    MarlinBean actionButtonRow = new MarlinBean(ROW_LAYOUT_NAME);
+    MarlinBean actionButtonCell = new MarlinBean(CELL_FORMAT_NAME);
+    actionButtonCell.setAttributeValue( H_ALIGN_ATTR, CENTER_ATTRIBUTE_VALUE);
+    actionButtonCell.addIndexedChild(
+                        ContextPoppingUINode.getUINode(ACTIONS_CHILD));
+    actionButtonRow.addIndexedChild( actionButtonCell);
+    action.addIndexedChild( actionButtonRow);
+
 
     MarlinBean compositeRoot = new MarlinBean(FLOW_LAYOUT_NAME);
 
     // delegate all of the attributes to the RootAttribtueMap
     compositeRoot.setAttributeMap(RootAttributeMap.getAttributeMap());
 
+    compositeRoot.addIndexedChild(globalNavigation);
     compositeRoot.addIndexedChild(headerLayout);
-
-    compositeRoot.addIndexedChild(
-                             ContextPoppingUINode.getUINode( MESSAGES_CHILD ));
-
+    compositeRoot.addIndexedChild(locatorLayout);
     compositeRoot.addIndexedChild(content);
-
+    compositeRoot.addIndexedChild(action);
     compositeRoot.addIndexedChild(footer);
 
     return compositeRoot;
   }
 
+  /**
+   * Creates a faced in a table cell that occupied full width of screen for the
+   * facet name in the parameter.
+   */
+  private static MarlinBean _fullWidthTableRow (
+    String childName)
+  {
+    MarlinBean row = new MarlinBean(ROW_LAYOUT_NAME);
+    MarlinBean cell = new MarlinBean(CELL_FORMAT_NAME);
+    cell.setAttributeValue(H_ALIGN_ATTR, CENTER_ATTRIBUTE_VALUE);
+    cell.addIndexedChild(
+                        ContextPoppingUINode.getUINode(childName));
+    row.addIndexedChild(cell);
+    return row;
+  }
+    
 
   /**
    * Create the global headers to use to render the page.  The first child is

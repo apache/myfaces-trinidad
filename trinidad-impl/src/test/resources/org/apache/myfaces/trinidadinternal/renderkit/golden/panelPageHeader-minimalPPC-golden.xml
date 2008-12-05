@@ -3,6 +3,79 @@
            id="mainId"
           >
         
+        <div
+             class="af_navigationPane"
+            >
+          
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button1
+              </a>
+            </span>
+            <span
+                 class="af_navigationPane_buttons-separator"
+                >
+              |
+            </span>
+          </span>
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button2
+              </a>
+            </span>
+            <span
+                 class="af_navigationPane_buttons-separator"
+                >
+              |
+            </span>
+          </span>
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button3
+              </a>
+            </span>
+          </span>
+        </div>
+        <div
+            >
+          
+        </div>
         <img
              src="uri-attr:encoded-resource-url:/test-context-path/foo/foo.gif"
             >
@@ -21,6 +94,76 @@
             >
           
         </img>
+        <img
+             alt=""
+             height="1"
+             width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            >
+          
+        </img>
+        <span
+             class="p_InContextBrandingText"
+            >
+          Customer 
+          <b
+              >
+            InContextBranding Company - Menlo Park
+          </b>
+        </span>
+        <img
+             alt=""
+             height="1"
+             width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            >
+          
+        </img>
+        <div
+             class="af_navigationPane"
+            >
+          
+          <select
+               class="af_navigationPane_choice-options"
+               id="_idXXX_af_choice_select"
+              >
+            
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice1
+            </option>
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice2
+            </option>
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice3
+            </option>
+          </select>
+          <span
+               style="width: 5px;"
+              >
+             
+          </span>
+          <input
+               class="af_navigationPane_choice-button"
+               onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+               type="submit"
+               value="Go"
+              >
+            
+          </input>
+        </div>
         <div
             >
           
@@ -167,6 +310,10 @@
             </span>
           </span>
         </div>
+        <div
+            >
+          
+        </div>the search facet
       </span>
 <!--AttributeTest[id,myid]-->
 
@@ -174,6 +321,79 @@
            id="myid"
           >
         
+        <div
+             class="af_navigationPane"
+            >
+          
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button1
+              </a>
+            </span>
+            <span
+                 class="af_navigationPane_buttons-separator"
+                >
+              |
+            </span>
+          </span>
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button2
+              </a>
+            </span>
+            <span
+                 class="af_navigationPane_buttons-separator"
+                >
+              |
+            </span>
+          </span>
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button3
+              </a>
+            </span>
+          </span>
+        </div>
+        <div
+            >
+          
+        </div>
         <img
              src="uri-attr:encoded-resource-url:/test-context-path/foo/foo.gif"
             >
@@ -192,6 +412,76 @@
             >
           
         </img>
+        <img
+             alt=""
+             height="1"
+             width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            >
+          
+        </img>
+        <span
+             class="p_InContextBrandingText"
+            >
+          Customer 
+          <b
+              >
+            InContextBranding Company - Menlo Park
+          </b>
+        </span>
+        <img
+             alt=""
+             height="1"
+             width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            >
+          
+        </img>
+        <div
+             class="af_navigationPane"
+            >
+          
+          <select
+               class="af_navigationPane_choice-options"
+               id="_idXXX_af_choice_select"
+              >
+            
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice1
+            </option>
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice2
+            </option>
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice3
+            </option>
+          </select>
+          <span
+               style="width: 5px;"
+              >
+             
+          </span>
+          <input
+               class="af_navigationPane_choice-button"
+               onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+               type="submit"
+               value="Go"
+              >
+            
+          </input>
+        </div>
         <div
             >
           
@@ -338,6 +628,10 @@
             </span>
           </span>
         </div>
+        <div
+            >
+          
+        </div>the search facet
       </span>
 <!--AttributeTest[shortDesc,my short desc]-->
 
@@ -346,6 +640,79 @@
            title="my short desc"
           >
         
+        <div
+             class="af_navigationPane"
+            >
+          
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button1
+              </a>
+            </span>
+            <span
+                 class="af_navigationPane_buttons-separator"
+                >
+              |
+            </span>
+          </span>
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button2
+              </a>
+            </span>
+            <span
+                 class="af_navigationPane_buttons-separator"
+                >
+              |
+            </span>
+          </span>
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button3
+              </a>
+            </span>
+          </span>
+        </div>
+        <div
+            >
+          
+        </div>
         <img
              src="uri-attr:encoded-resource-url:/test-context-path/foo/foo.gif"
             >
@@ -364,6 +731,76 @@
             >
           
         </img>
+        <img
+             alt=""
+             height="1"
+             width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            >
+          
+        </img>
+        <span
+             class="p_InContextBrandingText"
+            >
+          Customer 
+          <b
+              >
+            InContextBranding Company - Menlo Park
+          </b>
+        </span>
+        <img
+             alt=""
+             height="1"
+             width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            >
+          
+        </img>
+        <div
+             class="af_navigationPane"
+            >
+          
+          <select
+               class="af_navigationPane_choice-options"
+               id="_idXXX_af_choice_select"
+              >
+            
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice1
+            </option>
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice2
+            </option>
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice3
+            </option>
+          </select>
+          <span
+               style="width: 5px;"
+              >
+             
+          </span>
+          <input
+               class="af_navigationPane_choice-button"
+               onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+               type="submit"
+               value="Go"
+              >
+            
+          </input>
+        </div>
         <div
             >
           
@@ -510,6 +947,10 @@
             </span>
           </span>
         </div>
+        <div
+            >
+          
+        </div>the search facet
       </span>
 <!--AttributeTest[styleClass,mystyle]-->
 
@@ -518,6 +959,79 @@
            id="mainId"
           >
         
+        <div
+             class="af_navigationPane"
+            >
+          
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button1
+              </a>
+            </span>
+            <span
+                 class="af_navigationPane_buttons-separator"
+                >
+              |
+            </span>
+          </span>
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button2
+              </a>
+            </span>
+            <span
+                 class="af_navigationPane_buttons-separator"
+                >
+              |
+            </span>
+          </span>
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button3
+              </a>
+            </span>
+          </span>
+        </div>
+        <div
+            >
+          
+        </div>
         <img
              src="uri-attr:encoded-resource-url:/test-context-path/foo/foo.gif"
             >
@@ -536,6 +1050,76 @@
             >
           
         </img>
+        <img
+             alt=""
+             height="1"
+             width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            >
+          
+        </img>
+        <span
+             class="p_InContextBrandingText"
+            >
+          Customer 
+          <b
+              >
+            InContextBranding Company - Menlo Park
+          </b>
+        </span>
+        <img
+             alt=""
+             height="1"
+             width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            >
+          
+        </img>
+        <div
+             class="af_navigationPane"
+            >
+          
+          <select
+               class="af_navigationPane_choice-options"
+               id="_idXXX_af_choice_select"
+              >
+            
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice1
+            </option>
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice2
+            </option>
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice3
+            </option>
+          </select>
+          <span
+               style="width: 5px;"
+              >
+             
+          </span>
+          <input
+               class="af_navigationPane_choice-button"
+               onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+               type="submit"
+               value="Go"
+              >
+            
+          </input>
+        </div>
         <div
             >
           
@@ -682,6 +1266,10 @@
             </span>
           </span>
         </div>
+        <div
+            >
+          
+        </div>the search facet
       </span>
 <!--AttributeTest[onclick,null]-->
 
@@ -690,6 +1278,79 @@
            onclick="test-onclick"
           >
         
+        <div
+             class="af_navigationPane"
+            >
+          
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button1
+              </a>
+            </span>
+            <span
+                 class="af_navigationPane_buttons-separator"
+                >
+              |
+            </span>
+          </span>
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button2
+              </a>
+            </span>
+            <span
+                 class="af_navigationPane_buttons-separator"
+                >
+              |
+            </span>
+          </span>
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button3
+              </a>
+            </span>
+          </span>
+        </div>
+        <div
+            >
+          
+        </div>
         <img
              src="uri-attr:encoded-resource-url:/test-context-path/foo/foo.gif"
             >
@@ -708,6 +1369,76 @@
             >
           
         </img>
+        <img
+             alt=""
+             height="1"
+             width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            >
+          
+        </img>
+        <span
+             class="p_InContextBrandingText"
+            >
+          Customer 
+          <b
+              >
+            InContextBranding Company - Menlo Park
+          </b>
+        </span>
+        <img
+             alt=""
+             height="1"
+             width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            >
+          
+        </img>
+        <div
+             class="af_navigationPane"
+            >
+          
+          <select
+               class="af_navigationPane_choice-options"
+               id="_idXXX_af_choice_select"
+              >
+            
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice1
+            </option>
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice2
+            </option>
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice3
+            </option>
+          </select>
+          <span
+               style="width: 5px;"
+              >
+             
+          </span>
+          <input
+               class="af_navigationPane_choice-button"
+               onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+               type="submit"
+               value="Go"
+              >
+            
+          </input>
+        </div>
         <div
             >
           
@@ -854,6 +1585,10 @@
             </span>
           </span>
         </div>
+        <div
+            >
+          
+        </div>the search facet
       </span>
 <!--AttributeTest[ondblclick,null]-->
 
@@ -862,6 +1597,79 @@
            ondblclick="test-ondblclick"
           >
         
+        <div
+             class="af_navigationPane"
+            >
+          
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button1
+              </a>
+            </span>
+            <span
+                 class="af_navigationPane_buttons-separator"
+                >
+              |
+            </span>
+          </span>
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button2
+              </a>
+            </span>
+            <span
+                 class="af_navigationPane_buttons-separator"
+                >
+              |
+            </span>
+          </span>
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button3
+              </a>
+            </span>
+          </span>
+        </div>
+        <div
+            >
+          
+        </div>
         <img
              src="uri-attr:encoded-resource-url:/test-context-path/foo/foo.gif"
             >
@@ -880,6 +1688,76 @@
             >
           
         </img>
+        <img
+             alt=""
+             height="1"
+             width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            >
+          
+        </img>
+        <span
+             class="p_InContextBrandingText"
+            >
+          Customer 
+          <b
+              >
+            InContextBranding Company - Menlo Park
+          </b>
+        </span>
+        <img
+             alt=""
+             height="1"
+             width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            >
+          
+        </img>
+        <div
+             class="af_navigationPane"
+            >
+          
+          <select
+               class="af_navigationPane_choice-options"
+               id="_idXXX_af_choice_select"
+              >
+            
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice1
+            </option>
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice2
+            </option>
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice3
+            </option>
+          </select>
+          <span
+               style="width: 5px;"
+              >
+             
+          </span>
+          <input
+               class="af_navigationPane_choice-button"
+               onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+               type="submit"
+               value="Go"
+              >
+            
+          </input>
+        </div>
         <div
             >
           
@@ -1026,6 +1904,10 @@
             </span>
           </span>
         </div>
+        <div
+            >
+          
+        </div>the search facet
       </span>
 <!--AttributeTest[onkeydown,null]-->
 
@@ -1034,6 +1916,79 @@
            onkeydown="test-onkeydown"
           >
         
+        <div
+             class="af_navigationPane"
+            >
+          
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button1
+              </a>
+            </span>
+            <span
+                 class="af_navigationPane_buttons-separator"
+                >
+              |
+            </span>
+          </span>
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button2
+              </a>
+            </span>
+            <span
+                 class="af_navigationPane_buttons-separator"
+                >
+              |
+            </span>
+          </span>
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button3
+              </a>
+            </span>
+          </span>
+        </div>
+        <div
+            >
+          
+        </div>
         <img
              src="uri-attr:encoded-resource-url:/test-context-path/foo/foo.gif"
             >
@@ -1052,6 +2007,76 @@
             >
           
         </img>
+        <img
+             alt=""
+             height="1"
+             width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            >
+          
+        </img>
+        <span
+             class="p_InContextBrandingText"
+            >
+          Customer 
+          <b
+              >
+            InContextBranding Company - Menlo Park
+          </b>
+        </span>
+        <img
+             alt=""
+             height="1"
+             width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            >
+          
+        </img>
+        <div
+             class="af_navigationPane"
+            >
+          
+          <select
+               class="af_navigationPane_choice-options"
+               id="_idXXX_af_choice_select"
+              >
+            
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice1
+            </option>
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice2
+            </option>
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice3
+            </option>
+          </select>
+          <span
+               style="width: 5px;"
+              >
+             
+          </span>
+          <input
+               class="af_navigationPane_choice-button"
+               onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+               type="submit"
+               value="Go"
+              >
+            
+          </input>
+        </div>
         <div
             >
           
@@ -1198,6 +2223,10 @@
             </span>
           </span>
         </div>
+        <div
+            >
+          
+        </div>the search facet
       </span>
 <!--AttributeTest[onkeypress,null]-->
 
@@ -1206,6 +2235,79 @@
            onkeypress="test-onkeypress"
           >
         
+        <div
+             class="af_navigationPane"
+            >
+          
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button1
+              </a>
+            </span>
+            <span
+                 class="af_navigationPane_buttons-separator"
+                >
+              |
+            </span>
+          </span>
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button2
+              </a>
+            </span>
+            <span
+                 class="af_navigationPane_buttons-separator"
+                >
+              |
+            </span>
+          </span>
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button3
+              </a>
+            </span>
+          </span>
+        </div>
+        <div
+            >
+          
+        </div>
         <img
              src="uri-attr:encoded-resource-url:/test-context-path/foo/foo.gif"
             >
@@ -1224,6 +2326,76 @@
             >
           
         </img>
+        <img
+             alt=""
+             height="1"
+             width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            >
+          
+        </img>
+        <span
+             class="p_InContextBrandingText"
+            >
+          Customer 
+          <b
+              >
+            InContextBranding Company - Menlo Park
+          </b>
+        </span>
+        <img
+             alt=""
+             height="1"
+             width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            >
+          
+        </img>
+        <div
+             class="af_navigationPane"
+            >
+          
+          <select
+               class="af_navigationPane_choice-options"
+               id="_idXXX_af_choice_select"
+              >
+            
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice1
+            </option>
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice2
+            </option>
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice3
+            </option>
+          </select>
+          <span
+               style="width: 5px;"
+              >
+             
+          </span>
+          <input
+               class="af_navigationPane_choice-button"
+               onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+               type="submit"
+               value="Go"
+              >
+            
+          </input>
+        </div>
         <div
             >
           
@@ -1370,6 +2542,10 @@
             </span>
           </span>
         </div>
+        <div
+            >
+          
+        </div>the search facet
       </span>
 <!--AttributeTest[onkeyup,null]-->
 
@@ -1378,6 +2554,79 @@
            onkeyup="test-onkeyup"
           >
         
+        <div
+             class="af_navigationPane"
+            >
+          
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button1
+              </a>
+            </span>
+            <span
+                 class="af_navigationPane_buttons-separator"
+                >
+              |
+            </span>
+          </span>
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button2
+              </a>
+            </span>
+            <span
+                 class="af_navigationPane_buttons-separator"
+                >
+              |
+            </span>
+          </span>
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button3
+              </a>
+            </span>
+          </span>
+        </div>
+        <div
+            >
+          
+        </div>
         <img
              src="uri-attr:encoded-resource-url:/test-context-path/foo/foo.gif"
             >
@@ -1396,6 +2645,76 @@
             >
           
         </img>
+        <img
+             alt=""
+             height="1"
+             width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            >
+          
+        </img>
+        <span
+             class="p_InContextBrandingText"
+            >
+          Customer 
+          <b
+              >
+            InContextBranding Company - Menlo Park
+          </b>
+        </span>
+        <img
+             alt=""
+             height="1"
+             width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            >
+          
+        </img>
+        <div
+             class="af_navigationPane"
+            >
+          
+          <select
+               class="af_navigationPane_choice-options"
+               id="_idXXX_af_choice_select"
+              >
+            
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice1
+            </option>
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice2
+            </option>
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice3
+            </option>
+          </select>
+          <span
+               style="width: 5px;"
+              >
+             
+          </span>
+          <input
+               class="af_navigationPane_choice-button"
+               onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+               type="submit"
+               value="Go"
+              >
+            
+          </input>
+        </div>
         <div
             >
           
@@ -1542,6 +2861,10 @@
             </span>
           </span>
         </div>
+        <div
+            >
+          
+        </div>the search facet
       </span>
 <!--AttributeTest[onmousedown,null]-->
 
@@ -1550,6 +2873,79 @@
            onmousedown="test-onmousedown"
           >
         
+        <div
+             class="af_navigationPane"
+            >
+          
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button1
+              </a>
+            </span>
+            <span
+                 class="af_navigationPane_buttons-separator"
+                >
+              |
+            </span>
+          </span>
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button2
+              </a>
+            </span>
+            <span
+                 class="af_navigationPane_buttons-separator"
+                >
+              |
+            </span>
+          </span>
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button3
+              </a>
+            </span>
+          </span>
+        </div>
+        <div
+            >
+          
+        </div>
         <img
              src="uri-attr:encoded-resource-url:/test-context-path/foo/foo.gif"
             >
@@ -1568,6 +2964,76 @@
             >
           
         </img>
+        <img
+             alt=""
+             height="1"
+             width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            >
+          
+        </img>
+        <span
+             class="p_InContextBrandingText"
+            >
+          Customer 
+          <b
+              >
+            InContextBranding Company - Menlo Park
+          </b>
+        </span>
+        <img
+             alt=""
+             height="1"
+             width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            >
+          
+        </img>
+        <div
+             class="af_navigationPane"
+            >
+          
+          <select
+               class="af_navigationPane_choice-options"
+               id="_idXXX_af_choice_select"
+              >
+            
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice1
+            </option>
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice2
+            </option>
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice3
+            </option>
+          </select>
+          <span
+               style="width: 5px;"
+              >
+             
+          </span>
+          <input
+               class="af_navigationPane_choice-button"
+               onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+               type="submit"
+               value="Go"
+              >
+            
+          </input>
+        </div>
         <div
             >
           
@@ -1714,6 +3180,10 @@
             </span>
           </span>
         </div>
+        <div
+            >
+          
+        </div>the search facet
       </span>
 <!--AttributeTest[onmousemove,null]-->
 
@@ -1722,6 +3192,79 @@
            onmousemove="test-onmousemove"
           >
         
+        <div
+             class="af_navigationPane"
+            >
+          
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button1
+              </a>
+            </span>
+            <span
+                 class="af_navigationPane_buttons-separator"
+                >
+              |
+            </span>
+          </span>
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button2
+              </a>
+            </span>
+            <span
+                 class="af_navigationPane_buttons-separator"
+                >
+              |
+            </span>
+          </span>
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button3
+              </a>
+            </span>
+          </span>
+        </div>
+        <div
+            >
+          
+        </div>
         <img
              src="uri-attr:encoded-resource-url:/test-context-path/foo/foo.gif"
             >
@@ -1740,6 +3283,76 @@
             >
           
         </img>
+        <img
+             alt=""
+             height="1"
+             width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            >
+          
+        </img>
+        <span
+             class="p_InContextBrandingText"
+            >
+          Customer 
+          <b
+              >
+            InContextBranding Company - Menlo Park
+          </b>
+        </span>
+        <img
+             alt=""
+             height="1"
+             width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            >
+          
+        </img>
+        <div
+             class="af_navigationPane"
+            >
+          
+          <select
+               class="af_navigationPane_choice-options"
+               id="_idXXX_af_choice_select"
+              >
+            
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice1
+            </option>
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice2
+            </option>
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice3
+            </option>
+          </select>
+          <span
+               style="width: 5px;"
+              >
+             
+          </span>
+          <input
+               class="af_navigationPane_choice-button"
+               onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+               type="submit"
+               value="Go"
+              >
+            
+          </input>
+        </div>
         <div
             >
           
@@ -1886,6 +3499,10 @@
             </span>
           </span>
         </div>
+        <div
+            >
+          
+        </div>the search facet
       </span>
 <!--AttributeTest[onmouseout,null]-->
 
@@ -1894,6 +3511,79 @@
            onmouseout="test-onmouseout"
           >
         
+        <div
+             class="af_navigationPane"
+            >
+          
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button1
+              </a>
+            </span>
+            <span
+                 class="af_navigationPane_buttons-separator"
+                >
+              |
+            </span>
+          </span>
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button2
+              </a>
+            </span>
+            <span
+                 class="af_navigationPane_buttons-separator"
+                >
+              |
+            </span>
+          </span>
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button3
+              </a>
+            </span>
+          </span>
+        </div>
+        <div
+            >
+          
+        </div>
         <img
              src="uri-attr:encoded-resource-url:/test-context-path/foo/foo.gif"
             >
@@ -1912,6 +3602,76 @@
             >
           
         </img>
+        <img
+             alt=""
+             height="1"
+             width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            >
+          
+        </img>
+        <span
+             class="p_InContextBrandingText"
+            >
+          Customer 
+          <b
+              >
+            InContextBranding Company - Menlo Park
+          </b>
+        </span>
+        <img
+             alt=""
+             height="1"
+             width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            >
+          
+        </img>
+        <div
+             class="af_navigationPane"
+            >
+          
+          <select
+               class="af_navigationPane_choice-options"
+               id="_idXXX_af_choice_select"
+              >
+            
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice1
+            </option>
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice2
+            </option>
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice3
+            </option>
+          </select>
+          <span
+               style="width: 5px;"
+              >
+             
+          </span>
+          <input
+               class="af_navigationPane_choice-button"
+               onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+               type="submit"
+               value="Go"
+              >
+            
+          </input>
+        </div>
         <div
             >
           
@@ -2058,6 +3818,10 @@
             </span>
           </span>
         </div>
+        <div
+            >
+          
+        </div>the search facet
       </span>
 <!--AttributeTest[onmouseover,null]-->
 
@@ -2066,6 +3830,79 @@
            onmouseover="test-onmouseover"
           >
         
+        <div
+             class="af_navigationPane"
+            >
+          
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button1
+              </a>
+            </span>
+            <span
+                 class="af_navigationPane_buttons-separator"
+                >
+              |
+            </span>
+          </span>
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button2
+              </a>
+            </span>
+            <span
+                 class="af_navigationPane_buttons-separator"
+                >
+              |
+            </span>
+          </span>
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button3
+              </a>
+            </span>
+          </span>
+        </div>
+        <div
+            >
+          
+        </div>
         <img
              src="uri-attr:encoded-resource-url:/test-context-path/foo/foo.gif"
             >
@@ -2084,6 +3921,76 @@
             >
           
         </img>
+        <img
+             alt=""
+             height="1"
+             width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            >
+          
+        </img>
+        <span
+             class="p_InContextBrandingText"
+            >
+          Customer 
+          <b
+              >
+            InContextBranding Company - Menlo Park
+          </b>
+        </span>
+        <img
+             alt=""
+             height="1"
+             width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            >
+          
+        </img>
+        <div
+             class="af_navigationPane"
+            >
+          
+          <select
+               class="af_navigationPane_choice-options"
+               id="_idXXX_af_choice_select"
+              >
+            
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice1
+            </option>
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice2
+            </option>
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice3
+            </option>
+          </select>
+          <span
+               style="width: 5px;"
+              >
+             
+          </span>
+          <input
+               class="af_navigationPane_choice-button"
+               onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+               type="submit"
+               value="Go"
+              >
+            
+          </input>
+        </div>
         <div
             >
           
@@ -2230,6 +4137,10 @@
             </span>
           </span>
         </div>
+        <div
+            >
+          
+        </div>the search facet
       </span>
 <!--AttributeTest[onmouseup,null]-->
 
@@ -2238,6 +4149,79 @@
            onmouseup="test-onmouseup"
           >
         
+        <div
+             class="af_navigationPane"
+            >
+          
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button1
+              </a>
+            </span>
+            <span
+                 class="af_navigationPane_buttons-separator"
+                >
+              |
+            </span>
+          </span>
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button2
+              </a>
+            </span>
+            <span
+                 class="af_navigationPane_buttons-separator"
+                >
+              |
+            </span>
+          </span>
+          <span
+               class="af_navigationPane_buttons-inactive-enabled"
+              >
+            
+            <span
+                 class="af_navigationPane_buttons-content"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
+                   href="uri-attr:#"
+                   id="uri-attr:_idXXX:_idXXX"
+                   name="uri-attr:_idXXX:_idXXX"
+                  >
+                button3
+              </a>
+            </span>
+          </span>
+        </div>
+        <div
+            >
+          
+        </div>
         <img
              src="uri-attr:encoded-resource-url:/test-context-path/foo/foo.gif"
             >
@@ -2256,6 +4240,76 @@
             >
           
         </img>
+        <img
+             alt=""
+             height="1"
+             width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            >
+          
+        </img>
+        <span
+             class="p_InContextBrandingText"
+            >
+          Customer 
+          <b
+              >
+            InContextBranding Company - Menlo Park
+          </b>
+        </span>
+        <img
+             alt=""
+             height="1"
+             width="5"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
+            >
+          
+        </img>
+        <div
+             class="af_navigationPane"
+            >
+          
+          <select
+               class="af_navigationPane_choice-options"
+               id="_idXXX_af_choice_select"
+              >
+            
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice1
+            </option>
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice2
+            </option>
+            <option
+                 value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
+                 id="uri-attr:_idXXX:_idXXX"
+                 name="uri-attr:_idXXX:_idXXX"
+                >
+              choice3
+            </option>
+          </select>
+          <span
+               style="width: 5px;"
+              >
+             
+          </span>
+          <input
+               class="af_navigationPane_choice-button"
+               onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+               type="submit"
+               value="Go"
+              >
+            
+          </input>
+        </div>
         <div
             >
           
@@ -2402,5 +4456,9 @@
             </span>
           </span>
         </div>
+        <div
+            >
+          
+        </div>the search facet
       </span>
 </results>
