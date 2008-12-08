@@ -19,6 +19,7 @@
 	   
 -->
 <styleSheetDocument xmlns="http://myfaces.apache.org/uix/style">
+  <import href="simple-desktop.xss"/>
   <import href="minimal-desktop.xss"/>
 
   <!-- A custom style sheet which overrides AFDefaultFontFamily -->
@@ -34,7 +35,6 @@
    <style name="AFDefaultFontFamily">
      <property name="font-family"/>
    </style>
-
 
    <!-- The default font -->
    <style name="AFDefaultFont">
@@ -78,6 +78,16 @@
      <property name="font-size">+3pt</property>
    </style>
 
+
+    <!-- darken to make visible on lcd displays -->
+    <style name="AFLightAccentBackground">
+      <property name="background-color">#ffffcc</property>
+    </style>
+       
+    <style name="AFEndPadding">
+      <property name="padding">0px 2px 0px 0px</property>
+    </style> 
+
     <!-- set the text style on the body so that it doesn' -->
     <!-- have to be repeated -->
     <style selector="BODY">
@@ -102,10 +112,43 @@
     </style>
     
     <!-- Header Text -->
-    <!-- this is the same as simple-pda, so we don't need to define it here -->
+    <!-- for pda, this is the level-one style -->
+     <style name="AFHeaderText">
+        <property name="padding"/>
+        <property name="border-style"/>
+        <property name="border-color"/>
+        <property name="border-width"/>
+        <property name="font-weight">bold</property>
+        <includeStyle name="AFDarkForeground"/>
+        <property name="margin-top">0px</property>
+    </style> 
+    <style selector=".AFHeaderLevelTwo">
+      <property name="margin-top">4px</property>
+    </style> 
+    <style selector=".AFHeaderLevelThreePlus">
+      <includeStyle name="AFSmallFont"/>
+      <property name="margin-top">4px</property>
+    </style> 
 
+   <style selector="af|panelHeader::error">
+      <property name="margin-top">0px</property>
+   </style>
     
-
+  <style selector="af|messages::error">
+    <includeStyle name="AFDefaultFont"/>
+    <includeStyle name="AFErrorTextForeground"/>
+  </style> 
+  
+  <style selector="af|messages::header">
+    <includeStyle name="AFDefaultFont"/>
+    <includeStyle name="AFDarkForeground"/>
+  </style>  
+  
+  <!--PH:include styling for body background of a message box-->
+  <style selector="af|messages::body">
+      <includeStyle name="AFLightAccentBackground"/>
+  </style>  
+  
     <!-- Page Sub Header Text TBD -->
     <!-- Page Content Header TBD -->
     <!-- Instruction Text == .AFInstructionText, OK -->
@@ -113,18 +156,19 @@
     <!-- Subtext TBD -->
 
     <!-- Label -->
-
-    <style selector=".AFLabelText"> 
+    <style selector=".AFLabelText">
       <includeStyle name="AFVerySmallFont"/>
       <property name="font-weight">bold</property>
     </style>
-
-    <style selector=".AFLabelTextDisabled"> 
+    
+    <!-- Label -->
+    <style selector=".AFLabelTextDisabled">
       <includeStyle name="AFVerySmallFont"/>
       <property name="font-weight">bold</property>
-    </style>
+    </style>    
 
     <!-- Link == A:link, OraLinkText, OK -->
+    <!-- MicroLink == .OraGlobalButtonText..., Others? -->
     <!-- Column Header == af|column::header-text, OK -->
     <!-- Error! == OraErrorNameText, OK --> 
     <!-- Error Message Font == OraMessageBoxErrorText, OK --> 
@@ -143,6 +187,42 @@
       <includeStyle name="AFSmallFont"/>
       <property name="color">#000000</property>
     </style>
+
+    <!-- menuButtons -->
+  
+    <style selector="af|menuButtons::text">
+      <includeStyle name="SmallLinkFont"/>
+      <includeStyle name="AFLinkForeground"/>
+      <property name="padding"/>
+      <property name="vertical-align"/>
+    </style>
+
+    <!-- Can't change link color, so setting to bold -->
+   <style selector="af|menuButtons::text-selected">
+      <includeStyle name="AFSmallFont"/>
+      <includeStyle name="AFDarkForeground"/>
+      <property name="font-weight">bold</property>
+      <property name="padding"/>
+      <property name="vertical-align"/>
+    </style>
+
+   <style selector="af|menuButtons::text-disabled">
+      <includeStyle name="AFSmallFont"/>
+      <includeStyle name="AFVeryDarkAccentForeground"/>
+      <property name="padding"/>
+      <property name="vertical-align"/>
+    </style>
+    
+    <!-- styles used in af|panelPage::privacy, copyright, and about -->
+    <style name="AFFooterMessageText">
+      <property name="text-align">center</property>
+      <property name="padding"/>
+    </style>
+  
+    <style name="AFFooterMessageLink">
+      <includeStyle name="AFLinkForeground"/>
+    </style>
+
 
     <style selector=".OraCrumbsSelected">
       <includeStyle name="AFVerySmallFont"/>
@@ -211,8 +291,8 @@
       <includeStyle name="AFVeryDarkForeground"/>
     <property name="text-decoration">none</property>
     </style>
-          
-   <style selector="af|menuTabs::selected">
+      
+    <style selector="af|menuTabs::selected">
       <property name="background-color"/>
       <property name="border-color"/>
     </style>
@@ -221,6 +301,17 @@
       <includeStyle name="AFVeryDarkForeground"/>
     <property name="text-decoration">none</property>
     </style>
+  
+    <style selector="af|menuTabs::selected-active">
+      <includeStyle name="AFVeryDarkForeground"/>
+    <property name="text-decoration">none</property>
+    </style>
+  
+    <style selector="af|menuTabs::selected-visited">
+      <includeStyle name="AFVeryDarkForeground"/>
+    <property name="text-decoration">none</property>
+    </style>
+      
 
     <style selector="af|menuTabs::enabled">
       <property name="background-color"/>
@@ -230,7 +321,18 @@
       <includeStyle name="AFVeryDarkForeground"/>
     <property name="text-decoration">none</property>
     </style>
-
+  
+    <style selector="af|menuTabs::enabled-active">
+      <includeStyle name="AFVeryDarkForeground"/>
+    <property name="text-decoration">none</property>
+    </style>
+  
+    <style selector="af|menuTabs::enabled-visited">
+      <includeStyle name="AFVeryDarkForeground"/>
+    <property name="text-decoration">none</property>
+    </style>
+      
+    
     <style selector="af|menuBar::selected">
       <property name="background-color"/>
     </style>
@@ -239,6 +341,17 @@
       <includeStyle name="AFVeryDarkForeground"/>
     <property name="text-decoration">none</property>
     </style>
+  
+    <style selector="af|menuBar::selected-active">
+      <includeStyle name="AFVeryDarkForeground"/>
+    <property name="text-decoration">none</property>
+    </style>
+  
+    <style selector="af|menuBar::selected-visited">
+      <includeStyle name="AFVeryDarkForeground"/>
+    <property name="text-decoration">none</property>
+    </style>
+      
 
     <style selector="af|menuBar::enabled">
       <property name="background-color"/>
@@ -248,8 +361,17 @@
       <includeStyle name="AFVeryDarkForeground"/>
     <property name="text-decoration">none</property>
     </style>
- 
-    
+  
+    <style selector="af|menuBar::enabled-active">
+      <includeStyle name="AFVeryDarkForeground"/>
+    <property name="text-decoration">none</property>
+    </style>
+  
+    <style selector="af|menuBar::enabled-visited">
+      <includeStyle name="AFVeryDarkForeground"/>
+    <property name="text-decoration">none</property>
+    </style>
+         
     <style selector="af|table::control-bar-top">
       <property name="background-color"/>
       <property name="border-style"/>
