@@ -150,6 +150,7 @@ public class PanelPopupRenderer extends XhtmlRenderer
     writer.startElement(XhtmlConstants.SPAN_ELEMENT, component);
     writer.writeAttribute(XhtmlConstants.ID_ATTRIBUTE + _POPUP_TRIGGER_ID_SUFFIX, 
         XhtmlUtils.getJSIdentifier(clientId), null);
+    renderStyleClass(context, arc, SkinSelectors.AF_PANEL_POPUP_TRIGGER_STYLE_CLASS);
   
     renderTrigger(context, arc, component, bean);
     
@@ -347,6 +348,12 @@ public class PanelPopupRenderer extends XhtmlRenderer
     protected String getStyleClass(FacesBean bean)
     {
       return PanelPopupRenderer.this.getStyleClass(bean);
+    }
+    
+    @Override
+    protected String getDefaultStyleClass(FacesBean bean)
+    {
+      return SkinSelectors.AF_PANEL_POPUP_LINK_STYLE_CLASS;
     }
     
     protected String getTriggerScript(FacesBean bean, String componentId)
