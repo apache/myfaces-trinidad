@@ -2234,6 +2234,16 @@
             <th>Description</th>
           </tr>
           <tr>
+            <td>af|panelPopup::trigger</td>
+            <td>Styles the trigger facet of the panelPopup.  Use this selector to control border and margin/padding 
+            around the trigger.</td>
+          </tr>
+          <tr>
+            <td>af|panelPopup::link</td>
+            <td>Styles the link element of the trigger.  Use this selector to control border, color and background 
+            around the trigger-link.</td>
+          </tr>
+          <tr>
             <td>af|panelPopup::container</td>
             <td>Styles the outer element of the popup.  Use this selector to control border and margin/padding 
             around the entire popup.</td>
