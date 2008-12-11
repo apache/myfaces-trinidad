@@ -744,22 +744,26 @@ public class NavigationPaneRenderer extends XhtmlRenderer
 
       // Cannot use super.renderEventHandlers(context, bean); because the wrong
       // property keys would be in use so must do it this way:
-      _writeOnclickProperty(
-        arc,
-        rw,
-        commandChild,
-        (destination == null),
-        immediate,
-        partialSubmit); // special for actions!
-      _writeCommandChildProperty(rw, commandChild, "ondblclick");
-      _writeCommandChildProperty(rw, commandChild, "onkeydown");
-      _writeCommandChildProperty(rw, commandChild, "onkeyup");
-      _writeCommandChildProperty(rw, commandChild, "onkeypress");
-      _writeCommandChildProperty(rw, commandChild, "onmousedown");
-      _writeCommandChildProperty(rw, commandChild, "onmousemove");
-      _writeCommandChildProperty(rw, commandChild, "onmouseout");
-      _writeCommandChildProperty(rw, commandChild, "onmouseover");
-      _writeCommandChildProperty(rw, commandChild, "onmouseup");
+      // Also render the events only if the browser supports JavaScript
+      if (supportsScripting(arc))
+      {
+        _writeOnclickProperty(
+          arc,
+          rw,
+          commandChild,
+          (destination == null),
+          immediate,
+          partialSubmit); // special for actions!
+        _writeCommandChildProperty(rw, commandChild, "ondblclick");
+        _writeCommandChildProperty(rw, commandChild, "onkeydown");
+        _writeCommandChildProperty(rw, commandChild, "onkeyup");
+        _writeCommandChildProperty(rw, commandChild, "onkeypress");
+        _writeCommandChildProperty(rw, commandChild, "onmousedown");
+        _writeCommandChildProperty(rw, commandChild, "onmousemove");
+        _writeCommandChildProperty(rw, commandChild, "onmouseout");
+        _writeCommandChildProperty(rw, commandChild, "onmouseover");
+        _writeCommandChildProperty(rw, commandChild, "onmouseup");
+      }
     }
     
     String accessKey = toString(itemData.get("accessKey"));

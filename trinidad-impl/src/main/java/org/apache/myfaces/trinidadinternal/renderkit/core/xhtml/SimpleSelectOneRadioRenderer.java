@@ -229,8 +229,12 @@ public class SimpleSelectOneRadioRenderer extends SimpleSelectOneRenderer
     // We could optimize SelectOneRadio a bit by gathering
     // up the "form event handlers" in one pass (seems to be about
     // 8% slower this way)
-    rw.writeAttribute("onclick", itemOnclick, null);
-    renderItemFormEventHandlers(context, bean);
+    // render the events only if the browser supports JavaScript
+    if (supportsScripting(arc))
+    {
+      rw.writeAttribute("onclick", itemOnclick, null);
+      renderItemFormEventHandlers(context, bean);
+    }
 
     rw.endElement("input");
 
