@@ -226,8 +226,12 @@ public class SimpleSelectManyCheckboxRenderer extends SimpleSelectManyRenderer
     // We could optimize SelectManyCheckbox a bit by gathering
     // up the "form event handlers" in one pass (seems to be about
     // 8% sower this way)
-    rw.writeAttribute("onclick", itemOnclick, null);
-    renderItemFormEventHandlers(context, bean);
+    // Also render the events only if the browser supports JavaScript
+    if (supportsScripting(arc))
+    {
+      rw.writeAttribute("onclick", itemOnclick, null);
+      renderItemFormEventHandlers(context, bean);
+    }
 
     rw.endElement("input");
 

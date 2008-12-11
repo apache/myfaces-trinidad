@@ -104,7 +104,13 @@ public abstract class SimpleSelectBooleanRenderer extends FormInputRenderer
     // Added span around the entire element
     // for the Visual Editor and PPR. See bug # 2222541.
     writer.startElement("span", component);
-    renderSpanEventHandlers(context, bean);
+    
+    // render the events only if the browser supports JavaScript
+    if (supportsScripting(arc))
+    {
+      renderSpanEventHandlers(context, bean);
+    }
+    
     renderStyleClass(context, arc, getContentStyleClass(bean)); 
     renderInlineStyleAttribute(context, arc, getContentStyle(bean));
 
@@ -127,7 +133,12 @@ public abstract class SimpleSelectBooleanRenderer extends FormInputRenderer
     renderId(context, component);
     // Not calling super.renderAllAttributes or style classes are written out
     renderShortDescAttribute(context, arc, bean);
-    renderInputEventHandlers(context, bean);
+    
+    // render the events only if the browser supports JavaScript
+    if (supportsScripting(arc))
+    {
+      renderInputEventHandlers(context, bean);
+    }
     renderDisabledAttribute(context, arc, bean);
     if (!shouldRenderName(context, component))
       renderNameAttribute(context, arc, bean);    

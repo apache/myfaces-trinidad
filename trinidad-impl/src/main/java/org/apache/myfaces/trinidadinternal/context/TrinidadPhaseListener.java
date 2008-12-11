@@ -24,6 +24,7 @@ import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.config.xmlHttp.XmlHttpConfigurator;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 
@@ -65,6 +66,7 @@ public class TrinidadPhaseListener implements PhaseListener
     {
       // Store off the current ViewRoot so we can check for a full page
       // render in response to a partial event.
+_LOG.severe("\n\nJo..... in the Trinidad dude");
       context.getExternalContext().getRequestMap().put(INITIAL_VIEW_ROOT_KEY,
                                                        context.getViewRoot());
     }
@@ -111,7 +113,10 @@ public class TrinidadPhaseListener implements PhaseListener
   {
     return PhaseId.ANY_PHASE;
   }
-  
+
+ static private final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(TrinidadPhaseListener.class);
+
   static public final String INITIAL_VIEW_ROOT_KEY =
     "org.apache.myfaces.trinidadinternal.InitialViewRoot";
 
