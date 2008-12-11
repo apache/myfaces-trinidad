@@ -113,8 +113,11 @@ public class IconRenderer extends XhtmlRenderer
         // get rendered on the icon itself.  If none are present,
         // our ResponseWriter will trim the unneeded span
         else
-        {
-          renderEventHandlers(context, bean);
+        { // render the events only if the browser supports JavaScript
+          if (supportsScripting(arc))
+          {
+            renderEventHandlers(context, bean);
+          }
         }
 
         // inlineStyle, if set, always goes on the span (today)

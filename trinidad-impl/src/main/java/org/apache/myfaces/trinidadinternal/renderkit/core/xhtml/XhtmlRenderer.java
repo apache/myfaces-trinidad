@@ -347,7 +347,11 @@ public class XhtmlRenderer extends CoreRenderer
     boolean             renderStyleAttrs) throws IOException
   {
     renderShortDescAttribute(context, arc, bean);
-    renderEventHandlers(context, bean);
+    // render the events only if the browser supports JavaScript
+    if (supportsScripting(arc))
+    {
+      renderEventHandlers(context, bean);
+    }
     if (renderStyleAttrs)
       renderStyleAttributes(context, arc, bean);
 
