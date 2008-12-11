@@ -66,7 +66,6 @@ public class TrinidadPhaseListener implements PhaseListener
     {
       // Store off the current ViewRoot so we can check for a full page
       // render in response to a partial event.
-_LOG.severe("\n\nJo..... in the Trinidad dude");
       context.getExternalContext().getRequestMap().put(INITIAL_VIEW_ROOT_KEY,
                                                        context.getViewRoot());
     }
