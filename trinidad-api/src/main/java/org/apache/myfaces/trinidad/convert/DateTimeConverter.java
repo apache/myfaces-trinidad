@@ -1293,6 +1293,8 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
     // 03.Oct.99 --> 03-Oct-99
 
     List<String> patterns = new ArrayList<String>();
+    // Don't forget to add the actual pattern.
+    patterns.add(pattern);
 
     String[] leniencyApplicablePatterns = new String[1];
     leniencyApplicablePatterns[0] = pattern;
@@ -1311,26 +1313,34 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
       patterns.add(str2);
     }
 
-    // Apply the leninecy to the above obtained patterns which was obtained
+    // Apply the leninecy (German for leniency?) to the above obtained patterns which was obtained
     // after replacing MMM -> MM and MMM -> M and the actual pattern
-    for (int i = 0; i < leniencyApplicablePatterns.length ; i++)
+    int len = leniencyApplicablePatterns.length;
+    if (pattern.indexOf('/') != -1)
     {
-      if (leniencyApplicablePatterns[i].indexOf('/') != -1)
-      {
+      for (int i = 0; i < len; i++)
         patterns.add(leniencyApplicablePatterns[i].replaceAll("/", "-"));
+      
+      for (int i = 0; i < len; i++)
         patterns.add(leniencyApplicablePatterns[i].replaceAll("/", "."));
-      }
-      if (leniencyApplicablePatterns[i].indexOf('-') != -1)
-      {
-        patterns.add(leniencyApplicablePatterns[i].replaceAll("-","/"));
-        patterns.add(leniencyApplicablePatterns[i].replaceAll("-","."));
-      }
-      if (leniencyApplicablePatterns[i].indexOf('.') != -1)
-      {
-        patterns.add(leniencyApplicablePatterns[i].replaceAll("\\.","/"));
-        patterns.add(leniencyApplicablePatterns[i].replaceAll("\\.", "-"));
-      }
     }
+    else if (pattern.indexOf('-') != -1)
+    {
+      for (int i = 0; i < len; i++)
+        patterns.add(leniencyApplicablePatterns[i].replaceAll("-", "/"));
+      
+      for (int i = 0; i < len; i++)
+        patterns.add(leniencyApplicablePatterns[i].replaceAll("-", "."));
+    }
+    else if (pattern.indexOf('.') != -1)
+    {
+      for (int i = 0; i < len; i++)
+        patterns.add(leniencyApplicablePatterns[i].replaceAll("\\.", "/"));
+      
+      for (int i = 0; i < len; i++)
+        patterns.add(leniencyApplicablePatterns[i].replaceAll("\\.", "-"));
+    }
+      
     return patterns;
   }
 
@@ -1842,16 +1852,25 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
 
   private static final TrinidadLogger _LOG  = TrinidadLogger.createTrinidadLogger(DateTimeConverter.class);
   private static final Date _EXAMPLE_DATE;
+  /**
+   * All entries added to this map MUST also be added to the client map:
+   * trinidad-impl\src\main\javascript\META-INF\adf\jsLibs\DateFormat.js->_CONVENIENCE_PATTERNS
+   * (in TrDateTimeConverter.prototype._initConveniencePatterns)
+   */
   private static final Map<Locale, List<String>> _CONVENIENCE_PATTERNS = 
     new HashMap<Locale, List<String>>();
   private static final List<String> _US_CONVENIENCE_PATTERNS =
-    Arrays.asList("MMMM dd, yy", "dd-MMMM-yy", "MMMM/dd/yy");
+    Arrays.asList("MMMM dd, yy", "MMMM/dd/yy", "dd-MMMM-yy");
 
   static
   {
     Calendar dateFactory = Calendar.getInstance();
     dateFactory.set(1998, 10, 29, 15, 45);
     _EXAMPLE_DATE = dateFactory.getTime();
+
+    // All entries added to this map MUST also be added to the client map:
+    // trinidad-impl\src\main\javascript\META-INF\adf\jsLibs\DateFormat.js->_CONVENIENCE_PATTERNS
+    // (in TrDateTimeConverter.prototype._initConveniencePatterns)
     _CONVENIENCE_PATTERNS.put(Locale.US, _US_CONVENIENCE_PATTERNS);
 
   }
