@@ -1023,6 +1023,12 @@ function _getPaddedNumber(
 
 
 /**
+ * External variable for TrDateTimeConverter. Maps locales to lists of 
+ * convenience patterns.
+ */
+var _CONVENIENCE_PATTERNS = null; 
+
+/**
  * Construct a TrDateTimeConverter with the specifed date pattern for
  * the specified locale.
  */
@@ -1050,7 +1056,7 @@ function TrDateTimeConverter(
   if (pattern == null)
     pattern = this._localeSymbols.getShortDatePatternString();
 
-  var patterns = this._initPatterns(pattern);
+  var patterns = this._initPatterns(pattern, locale);
 
   // Stash away the patterns for later use.
   this._pattern = patterns;
@@ -1202,7 +1208,7 @@ TrDateTimeConverter.prototype.getAsObject  = function(
 
 
 TrDateTimeConverter.prototype._initPatterns  = function(
-  pattern)
+  pattern, locale)
 {
   // We need to build up an Array of all acceptable patterns,
   // which we'll stash away for later use.  If we do lenient
@@ -1220,52 +1226,123 @@ TrDateTimeConverter.prototype._initPatterns  = function(
   // Note that concat() will do the right thing whether "pattern"
   // is a string or an Array of strings.
   if (pattern)
-    patterns = patterns.concat(pattern);
-
-  //see TRINIDAD-859  
-  patterns = patterns.concat(["MMMM dd, yy", "dd-MMMM-yy", "MMMM/dd/yy"]);
-
-  // Bug 2002065: 
-  // Be forgiving of users who prefer a different separator
-  // and alternative month styles. We are be lenient by default with ADF Faces
-    
-  // now we have guaranteed an array, we can extend it to include
-  // more forgiving patterns
-
-  // first add in replacements for month parsing
-  var baseCount = patterns.length;
-  for (var i=0; i < baseCount; i++)
   {
-    if (patterns[i].indexOf('MMM') != -1)
+    patterns = patterns.concat(pattern);
+    
+    // Bug 2002065: 
+    // Be forgiving of users who prefer a different separator and alternative 
+    // month styles. We are to be lenient by default with ADF Faces.
+    
+    // We should add all the leniency patterns for this default pattern first.
+    // First add in replacements for month parsing.
+    if (pattern.indexOf('MMM') != -1)
     {
-          patterns[patterns.length] = patterns[i].replace(/MMM/g, 'MM');
-          patterns[patterns.length] = patterns[i].replace(/MMM/g, 'M');
+      patterns[1] = pattern.replace(/MMM/g, 'MM');
+      patterns[2] = pattern.replace(/MMM/g, 'M');
+    }
+    
+    // Now add support for all of the above with any of the separators below. 
+    // The separator is the same for all patterns since we only replaced month.
+    var baseCount = patterns.length;
+    if (pattern.indexOf('/') !=  - 1)
+    {
+      for (var i = 0; i < baseCount; i++)
+        patterns[patterns.length] = patterns[i].replace(/\//g, '-');
+      
+      for (var i = 0; i < baseCount; i++)
+        patterns[patterns.length] = patterns[i].replace(/\//g, '.');
+    }
+    else if (pattern.indexOf('-') !=  - 1)
+    {
+      for (var i = 0; i < baseCount; i++)
+        patterns[patterns.length] = patterns[i].replace(/-/g, '/');
+      
+      for (var i = 0; i < baseCount; i++)
+        patterns[patterns.length] = patterns[i].replace(/-/g, '.');
+    }
+    else if (pattern.indexOf('.') !=  - 1)
+    {
+      for (var i = 0; i < baseCount; i++)
+        patterns[patterns.length] = patterns[i].replace(/\./g, '/');
+      
+      for (var i = 0; i < baseCount; i++)
+        patterns[patterns.length] = patterns[i].replace(/\./g, '-');   
     }
   }
 
-  // now add support for all of the above with any of
-  // the separators below.
-  var baseCount = patterns.length;
-  for (var i=0; i < baseCount; i++)
+  // At this point 'locale' is the value of the locale attribute; if 'locale' is 
+  // null, we should make sure to grab the same locale that was grabbed by getLocaleSymbols() (i.e.,getJavaLanguage)
+  if (!locale)
+    locale = getJavaLanguage(locale);
+  
+  // Make sure the static map of convenience patterns has been initialized.
+  if (!_CONVENIENCE_PATTERNS)
+    this._initConveniencePatterns();
+  
+  // see TRINIDAD-859 
+  var convPatterns = _CONVENIENCE_PATTERNS[locale];
+
+  if (!convPatterns)
+    return patterns;
+  
+  // Add the convenience patterns and all their lenient pattern variants.
+  var len = convPatterns.length;
+  for (var c = 0; c < len; c++)
   {
-    if (patterns[i].indexOf('/') != -1)
+    var convPattern = convPatterns[c];
+    patterns[patterns.length] = convPattern;
+    var baseCount = 1;
+    
+    if (convPattern.indexOf('MMM') != -1)
     {
-          patterns[patterns.length] = patterns[i].replace(/\//g, '-');
-          patterns[patterns.length] = patterns[i].replace(/\//g, '.');
+      patterns[patterns.length] = convPattern.replace(/MMM/g, 'MM');
+      patterns[patterns.length] = convPattern.replace(/MMM/g, 'M');
+      baseCount = 3;
     }
-    if (patterns[i].indexOf('-') != -1)
+    
+    var idx = patterns.length - baseCount;
+    if (convPattern.indexOf('/') !=  - 1)
     {
-          patterns[patterns.length] = patterns[i].replace(/-/g, '/');
-          patterns[patterns.length] = patterns[i].replace(/-/g, '.');
+      for (var i = idx; i < idx + baseCount; i++)
+        patterns[patterns.length] = patterns[i].replace(/\//g, '-');
+      
+      for (var i = idx; i < idx + baseCount; i++)
+        patterns[patterns.length] = patterns[i].replace(/\//g, '.');
     }
-    if (patterns[i].indexOf('.') != -1)
+    else if (convPattern.indexOf('-') !=  - 1)
     {
-          patterns[patterns.length] = patterns[i].replace(/\./g, '-');
-          patterns[patterns.length] = patterns[i].replace(/\./g, '/');
+      for (var i = idx; i < idx + baseCount; i++)
+        patterns[patterns.length] = patterns[i].replace(/-/g, '/');
+      
+      for (var i = idx; i < idx + baseCount; i++)
+        patterns[patterns.length] = patterns[i].replace(/-/g, '.');
+    }
+    else if (convPattern.indexOf('.') !=  - 1)
+    {
+      for (var i = idx; i < idx + baseCount; i++)
+        patterns[patterns.length] = patterns[i].replace(/\./g, '-');
+      
+      for (var i = idx; i < idx + baseCount; i++)
+        patterns[patterns.length] = patterns[i].replace(/\./g, '/');
     }
   }
   
   return patterns;
+}
+
+/**
+ * Initialize the static map of convenience patterns. This should only be called 
+ * if _CONVENIENCE_PATTERNS is null (so that this map is recreated only when the 
+ * page is reloaded). All map entries MUST match those of the server map:
+ * trinidad-api\src\main\java\org\apache\myfaces\trinidad\convert\DateTimeConverter.java->_CONVENIENCE_PATTERNS
+ */
+TrDateTimeConverter.prototype._initConveniencePatterns = function() 
+{
+  _CONVENIENCE_PATTERNS = new Object();
+  
+  // All map entries added here MUST match the entries added to the server map:
+  // trinidad-api\src\main\java\org\apache\myfaces\trinidad\convert\DateTimeConverter.java->_CONVENIENCE_PATTERNS
+  _CONVENIENCE_PATTERNS.en_US = ["MMMM dd, yy", "MMMM/dd/yy", "dd-MMMM-yy"];  
 }
 
 TrDateTimeConverter.prototype._simpleDateParseImpl = function(
