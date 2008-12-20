@@ -181,8 +181,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     UIComponent component,
     String value)
   {
-
-    if ( null == context || null == component )
+    if (null == context || null == component)
     {
       throw new NullPointerException(_LOG.getMessage(
         "NULL_FACESCONTEXT_OR_UICOMPONENT"));
@@ -210,30 +209,63 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     NumberFormat fmt = _getNumberFormat(pattern, type, locale, reqCtx);
     
     DecimalFormat df = (DecimalFormat)fmt;
-    df.setParseBigDecimal(true);
+    df.setParseBigDecimal(true); // TODO What does this do?
     DecimalFormatSymbols dfs = df.getDecimalFormatSymbols();
-
+    
     // We change the grouping_separator b/c TRINIDAD-849
-    // we parse a second-time, once the first run fails
     // source is this JDK bug: 4510618.
     boolean changed = false;
-    if(dfs.getGroupingSeparator() == '\u00a0')
+    if (dfs.getGroupingSeparator() == '\u00a0')
     {
+      // In some locales, such as fr_FR, the grouping separator is '\u00a0', a 
+      // non-breaking space. However, users will normally enter a regular space 
+      // character into an input field, so in order for the input to be parsed 
+      // correctly, we set the grouping separator to a regular space character. 
       dfs.setGroupingSeparator(' ');
       df.setDecimalFormatSymbols(dfs);
+      
+      // In the (rare) case that the user actually enters a non-breaking space, 
+      // we replace it with a regular space. This should be fine, since the 
+      // percent format for fr_FR is " %" (regular space followed by percent).
+      value = value.replace('\u00a0', ' ');
+      
       changed = true;
     }
-    ParsePosition pp = new ParsePosition(0);
-    Number num = (Number) fmt.parseObject(value,pp);
-    if(changed)
+    
+    ParsePosition pp = new ParsePosition(0);  
+    Number num = (Number)fmt.parseObject(value, pp);   
+    
+    // The following determines whether the percent/currency symbol was left off.
+    int typeIdx = _getType(pattern, type);
+    if (num == null && (typeIdx == _CURRENCY_TYPE || typeIdx == _PERCENT_TYPE))
+    {
+      // For parsing 'value' as a Number when the percent/currency symbol is left off.
+      NumberFormat nfmt = NumberFormat.getNumberInstance(locale);
+      DecimalFormat ndf = (DecimalFormat)nfmt;
+      ndf.setParseBigDecimal(true); // TODO What does this do?
+      DecimalFormatSymbols ndfs = null;
+      
+      if (changed)
+      {
+        ndfs = ndf.getDecimalFormatSymbols();
+        ndfs.setGroupingSeparator(' ');
+        ndf.setDecimalFormatSymbols(ndfs);
+      }
+      
+      // Assume the percent/currency symbol was left off, in which case we should 
+      // be able to parse 'value' as a Number.
+      // An error occured, so the index of pp should still be 0.
+      num = (Number)nfmt.parseObject(value, pp);      
+      if("percent".equals(type) && num != null)
+        num = num.doubleValue() / 100.0;
+    }
+    
+    // Change it back, since we could have been handed a cached reference. This 
+    // may not be thread-safe, but it probably doesn't have to be.
+    if (changed)
     {
       dfs.setGroupingSeparator('\u00a0');
       df.setDecimalFormatSymbols(dfs);
-    }
-    
-    if(num == null)
-    {
-      num = (Number) fmt.parseObject(value, pp);
     }
 
     if (pp.getIndex() != value.length())
@@ -257,6 +289,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
       throw new ConverterException(
         getConvertMessage(context, component, value, params));
     }
+
     // if we set setParseIntegerOnly(isIntegerOnly()) - This may result in
     // the formatter stopping to parse after the first decimal point.
     // that is number of value 222.22 which is legitimate, hence our test would
@@ -269,8 +302,8 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
       return Long.valueOf(num.longValue());
 
     return num;
-
   }
+
   /**
    *
    * @param context {@link FacesContext} for the request being processed
