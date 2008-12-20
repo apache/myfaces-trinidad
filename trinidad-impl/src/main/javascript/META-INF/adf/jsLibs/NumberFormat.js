@@ -238,6 +238,22 @@ TrNumberFormat.prototype.parse = function(string)
     return this.stringToPercentage(string);
   else if (this._type=="currency")
     return this.stringToCurrency(string);
+    
+  // ELSE: assume this._type=="number"
+  return this.stringToNumber(string);
+}
+
+/**
+ * Formats a number string into a number.
+ */
+TrNumberFormat.prototype.stringToNumber = function(numberString)
+{
+  numberString = parseFloat(numberString);
+  if(isNaN(numberString))
+  {
+    throw new TrParseException("not able to parse number");
+  }
+  return numberString;
 }
 
 /**
