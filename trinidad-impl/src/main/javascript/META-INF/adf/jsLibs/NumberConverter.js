@@ -234,50 +234,55 @@ TrNumberConverter.prototype.getAsObject = function(
     var parsedValue;
     if(this._type=="percent" || this._type=="currency")
     {
+      // TODO matzew - see TRINIDAD-682
+      // Remove the thousands separator - which Javascript doesn't want to see
+      var groupingSeparator = getLocaleSymbols().getGroupingSeparator();
+      var grouping = new RegExp("\\" + groupingSeparator, "g");
+      numberString = numberString.replace(grouping, "");
+
+      // Then change the decimal separator into a period, the only
+      // decimal separator allowed by JS
+      var decimalSeparator = getLocaleSymbols().getDecimalSeparator();
+      var decimal = new RegExp("\\" + decimalSeparator, "g");
+      numberString = numberString.replace(decimal, ".");
+      
       try
       {
-        //TODO matzew - see TRINIDAD-682
-        // Remove the thousands separator - which Javascript doesn't want to see
-        var groupingSeparator = getLocaleSymbols().getGroupingSeparator();
-        var grouping = new RegExp("\\" + groupingSeparator,  "g");
-        numberString = numberString.replace(grouping, "");
-
-        // Then change the decimal separator into a period, the only
-        // decimal separator allowed by JS
-        var decimalSeparator = getLocaleSymbols().getDecimalSeparator();
-        var decimal = new RegExp("\\" + decimalSeparator,  "g");
-        numberString = numberString.replace(decimal, ".");
-
-        //parse the numberString
-        numberString = this._numberFormat.parse(numberString)+"";
-
-        //to be able to pass the _decimalParse, we replace the decimal separator...
-        var jsSeparator = new RegExp("\\" + ".",  "g");
-        numberString = numberString.replace(jsSeparator, decimalSeparator);
+        // parse the numberString
+        numberString = this._numberFormat.parse(numberString)+"";     
       }
       catch(e)
       {
-        var facesMessage;
-        var example = this._numberFormat.format(this._example);
-        var key = "org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_" + this._type.toUpperCase();
-        if(this._messages && this._messages[this._type])
+        // The user could have just left off the percent/currency symbol, so try 
+        // parsing 'numberString' as a Number instead; if it still fails, then 
+        // throw a converter exception.
+        try
         {
-          facesMessage = _createCustomFacesMessage(TrMessageFactory.getSummaryString(key),
-                                                  this._messages[this._type],
-                                                  label,
-                                                  numberString,
-                                                  example);
+          numberString = TrNumberFormat.getNumberInstance().parse(numberString)+"";
         }
-        else
+        catch (e)
         {
-          facesMessage = _createFacesMessage(key,
-                                            label,
-                                            numberString,
-                                            example);
-        }
+          var facesMessage;
+          var example = this._numberFormat.format(this._example);
+          var key = "org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_" + this._type.toUpperCase();
+          if (this._messages && this._messages[this._type])
+          {
+            facesMessage = _createCustomFacesMessage(TrMessageFactory.getSummaryString(key), this._messages[this._type], label, numberString, example);
+          }
+          else 
+          {
+            facesMessage = _createFacesMessage(key, label, numberString, example);
+          }
+
           throw new TrConverterException(facesMessage);
+        }
       }
+      
+      // to be able to pass the _decimalParse, we replace the decimal separator...
+      var jsSeparator = new RegExp("\\" + ".",  "g");
+      numberString = numberString.replace(jsSeparator, decimalSeparator);
     }
+    
     parsedValue = _decimalParse(numberString, 
                          this._messages,
                          "org.apache.myfaces.trinidad.convert.NumberConverter",
