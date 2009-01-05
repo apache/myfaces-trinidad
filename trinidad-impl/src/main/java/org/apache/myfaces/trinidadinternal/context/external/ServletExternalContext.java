@@ -462,7 +462,12 @@ public class ServletExternalContext extends ExternalContext
     if (_servletResponse instanceof HttpServletResponse)
     {
       _httpServletResponse.sendRedirect(url);
-      FacesContext.getCurrentInstance().responseComplete();
+      
+      FacesContext fc = FacesContext.getCurrentInstance();
+      if(fc != null)
+      {
+        fc.responseComplete();
+      }
     }
     else
     {

@@ -206,22 +206,19 @@ public class ViewHandlerImpl extends ViewHandlerWrapper
   public UIViewRoot restoreView(
     FacesContext context,
     String       viewId)
-  {
-    // If we're being asked to re-run the lifecycle for a "return"
-    // event, always restore the "launch view", which was set
-    // over in RequestContextImpl
-    UIViewRoot launchView = (UIViewRoot)
-      context.getExternalContext().getRequestMap().get(
-        RequestContextImpl.LAUNCH_VIEW);
-
-    if (launchView != null)
+  {    
+    //This code processes a "return" event.  Most of this logic was moved to 
+    //StateManagerImpl because we ran into a problem with JSF where it didn't 
+    //set up the JSF mapping properly if we didn't delegate to the default 
+    //ViewHandler.  There may be other logic associated with the internalView
+    //which might need to be moved to the StateManager as well.  This might also
+    //be able to be further optimized if all the other logic in this method passes
+    //through.
+    if(context.getExternalContext().getRequestMap().get(RequestContextImpl.LAUNCH_VIEW) != null)
     {
-      context.getExternalContext().getRequestMap().remove(
-        RequestContextImpl.LAUNCH_VIEW);
-      TrinidadPhaseListener.markPostback(context);
-      return launchView;
+      return super.restoreView(context, viewId);
     }
-
+    
     InternalView internal = _getInternalView(context, viewId);
     if (internal != null)
     {

@@ -52,6 +52,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.ObjectOutputStream;
 
 import org.apache.myfaces.trinidad.bean.util.StateUtils;
+import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
+import org.apache.myfaces.trinidadinternal.context.TrinidadPhaseListener;
 
 /**
  * StateManager that handles a hybrid client/server strategy:  a
@@ -495,6 +497,16 @@ public class StateManagerImpl extends StateManagerWrapper
   public UIViewRoot restoreView(FacesContext context, String viewId,
                                 String renderKitId)
   {
+    // If we're being asked to execute a "return" event from, say, a dialog, always 
+    // restore the "launch view", which was set over in the TrinidadFilter.
+    UIViewRoot launchView = (UIViewRoot)
+      context.getExternalContext().getRequestMap().remove(RequestContextImpl.LAUNCH_VIEW);
+    if (launchView != null)
+    {
+      TrinidadPhaseListener.markPostback(context);
+      return launchView;
+    }
+    
     if (!isSavingStateInClient(context))
       return _delegate.restoreView(context, viewId, renderKitId);
 
