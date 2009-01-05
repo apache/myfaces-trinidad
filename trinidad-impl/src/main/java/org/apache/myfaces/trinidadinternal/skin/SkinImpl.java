@@ -21,7 +21,6 @@ package org.apache.myfaces.trinidadinternal.skin;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -50,7 +49,6 @@ import org.apache.myfaces.trinidad.skin.Skin;
 
 import org.apache.myfaces.trinidad.skin.SkinAddition;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinProperties;
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
@@ -312,18 +310,19 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
      RenderingContext arc
      )
    {
-     ExternalContext external  = FacesContext.getCurrentInstance().getExternalContext();
-     if (!"true".equals(
-          external.getInitParameter(
-            Configuration.DISABLE_CONTENT_COMPRESSION)))
+     FacesContext context = FacesContext.getCurrentInstance();
+     if (!_isDisableContentCompressionParameterTrue(context))
      {
-       StyleContext sContext = ((CoreRenderingContext)arc).getStyleContext();
-       StyleProvider sProvider = sContext.getStyleProvider();
-       return sProvider.getShortStyleClasses(sContext);
+        StyleContext sContext = ((CoreRenderingContext)arc).getStyleContext();
+        StyleProvider sProvider = sContext.getStyleProvider();  
+        // make sure that we want to disable style compression - there could be other
+        // reasons that the styleContext knows about.
+        if (!(sContext.isDisableStyleCompression()))
+          return sProvider.getShortStyleClasses(sContext);
      }
      return null;
    }
-
+   
   /**
    * Returns the StyleSheetDocument object which defines all of the
    * styles for this Skin, including any styles that are
@@ -916,6 +915,15 @@ abstract public class SkinImpl extends Skin implements DocumentProviderSkin
         }
       }
     }
+  }
+  
+  // returns true if the web.xml explicitly has DISABLE_CONTENT_COMPRESSION set to true.
+  // else return false.
+  private boolean _isDisableContentCompressionParameterTrue(FacesContext context)
+  {
+    ExternalContext external  = context.getExternalContext();
+
+    return "true".equals(external.getInitParameter(Configuration.DISABLE_CONTENT_COMPRESSION));
   }
 
   // a TranslationSource fills in the keyValueMap differently depending upon

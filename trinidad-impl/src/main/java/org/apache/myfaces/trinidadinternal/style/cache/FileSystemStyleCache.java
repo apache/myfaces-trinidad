@@ -43,8 +43,6 @@ import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import javax.faces.context.FacesContext;
-
 import org.apache.myfaces.trinidad.context.AccessibilityProfile;
 import org.apache.myfaces.trinidad.context.LocaleContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
@@ -52,10 +50,8 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
-import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.StyleSheetRenderer;
 import org.apache.myfaces.trinidadinternal.share.io.CachingNameResolver;
 import org.apache.myfaces.trinidadinternal.share.io.DefaultNameResolver;
 import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
@@ -331,7 +327,7 @@ public class FileSystemStyleCache implements StyleProvider
     }
 
 
-    boolean compressedStyles = _isCompressStyles(null);
+    boolean compressedStyles = _isCompressStyles(context);
     if (compressedStyles)
     {
       if (baseName != null || contextName != null)
@@ -777,8 +773,9 @@ public class FileSystemStyleCache implements StyleProvider
     // First figure out whether or not we need to compress the style classes.
     // We don't compress the style classes if the content compression flag is disabled or
     // if the skin is a portlet skin.
-    Skin skin = RenderingContext.getCurrentInstance().getSkin();
-    boolean compressStyles = _isCompressStyles(skin);
+    RenderingContext arc = RenderingContext.getCurrentInstance();
+    Skin skin = arc.getSkin();
+    boolean compressStyles = _isCompressStyles(context);
 
     StyleWriterFactoryImpl writerFactory = new StyleWriterFactoryImpl(_targetPath,
       getTargetStyleSheetName(context, document));
@@ -835,21 +832,11 @@ public class FileSystemStyleCache implements StyleProvider
    * We don't compress the style classes if the content compression flag is disabled or
    * if the skin is a portlet skin.
    */
-  private boolean _isCompressStyles(Skin skin)
+  private boolean _isCompressStyles(StyleContext sContext)
   {
-    if (skin == null)
-      skin = RenderingContext.getCurrentInstance().getSkin();
+    // if we are not disabling style compression, then we are compressing the styles
+    return !(sContext.isDisableStyleCompression());
 
-
-    String disableContentCompression =
-      FacesContext.getCurrentInstance().getExternalContext().
-      getInitParameter(StyleSheetRenderer.DISABLE_CONTENT_COMPRESSION);
-    // we do not compress if it is a portlet skin
-    boolean isPortletSkin =
-    CoreRenderKit.OUTPUT_MODE_PORTLET.equals(skin.getRenderKitId());
-
-    return (!"true".equals(disableContentCompression)) &&
-                                             !isPortletSkin;
   }
 
   private List<String> _getFileNames(List<File> files)

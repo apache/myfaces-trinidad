@@ -21,7 +21,6 @@ package org.apache.myfaces.trinidadinternal.style;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidad.context.AccessibilityProfile;
 import org.apache.myfaces.trinidad.context.LocaleContext;
-import org.apache.myfaces.trinidad.skin.Skin;
 
 /**
  * The StyleContext interface is used to provide information
@@ -52,4 +51,5 @@ public interface StyleContext
   public StyleMap getStyleMap();
   public AccessibilityProfile getAccessibilityProfile();
   public boolean isPortletMode();
+  public boolean isDisableStyleCompression();
 }
