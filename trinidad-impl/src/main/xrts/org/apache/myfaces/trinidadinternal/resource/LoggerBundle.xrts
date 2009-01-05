@@ -238,11 +238,14 @@
 <!-- NO_SKIN_FACTORY -->
 <resource key="NO_SKIN_FACTORY">There is no SkinFactory</resource>
 
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN">The skin {0} specified on the requestMap will not be used because the styleSheetDocument id on the requestMap does not match the local skin''s styleSheetDocument''s id. It could mean the jars are not identical. For example, one might have trinidad-skins.xml''s skin-additions in a jar file on the class path that the other does not have.</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN">
+The skin {0} specified on the requestMap will be used even though the consumer''s skin''s styleSheetDocumentId on the requestMap does not match the local skin''s styleSheetDocument''s id.  This will impact performance since the consumer and prodcuer stylesheets cannot be shared. The producer styleclasses will not be compressed to avoid conflicts. A reason the ids do not match may be the jars are not identical on the producer and the consumer. For example, one might have trinidad-skins.xml''s skin-additions in a jar file on the class path that the other does not have.</resource>
 
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP">The skin {0} specified on the requestMap will not be used because its styleSheetDocument id was not in the requestMap and it is needed to compare with the local skin''s styleSheetDocument''s id to make sure the skins are the same.</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP">
+The skin {0} specified on the requestMap will be used even though the consumer''s skin''s styleSheetDocumentId was not in the requestMap. This will impact performance since the stylesheets cannot be shared between the producer and the consumer.</resource>
+
 
 <!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST -->
 <resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST">The skin {0} specified on the requestMap will not be used because it does not exist.</resource>

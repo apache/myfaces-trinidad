@@ -31,7 +31,6 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.core.CoreStyleSheet;
 import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.StyleProvider;
@@ -78,7 +77,7 @@ public class StyleSheetRenderer extends XhtmlRenderer
   @Override
   protected void encodeAll(
     FacesContext        context,
-    RenderingContext arc,
+    RenderingContext    arc,
     UIComponent         comp,
     FacesBean           bean) throws IOException
   {
@@ -90,10 +89,8 @@ public class StyleSheetRenderer extends XhtmlRenderer
     {
       List<String> uris = provider.getStyleSheetURIs(sContext);
 
-      // If the requestMap has a skin-id, a skin's stylesheet's id and suppressStylesheet
-      // is true, and the skin information matches our current skin, then it is safe
-      // to not write out the css. This means that it will be written out by the external
-      // source, like the portal container.
+      // Check if we want to write out the css into the page or not. In portlet mode the 
+      // producer tries to share the consumer's stylesheet if it matches exactly.
       boolean suppressStylesheet = _isSuppressStylesheet(context, arc);
       if (!suppressStylesheet)
       {
@@ -164,27 +161,26 @@ public class StyleSheetRenderer extends XhtmlRenderer
     }
   }
 
-  // returns true if we want to suppress the stylesheet.
-  // It checks for suppressStylesheet flag on the request map and
-  // for the skin-id on the request map to exist identically on the server.
-  //
-  // This is usually called in a portal environment when we want to suppress the
-  // producer (portlet)'s stylesheet and use the consumer (portal container)'s
-  // instead for performance enhancements.
-  private boolean _isSuppressStylesheet(FacesContext context,  RenderingContext arc)
+
+  // In the portlet environment, the consumer might like the producers to share its stylesheet
+  // for performance reasons. To indicate this the producer sends a 
+  // suppress stylesheet parameter on the request map.
+  // returns true if the stylesheet should be suppressed and not written out in the page.
+  private boolean _isSuppressStylesheet(FacesContext context, RenderingContext arc)
   {
 
-    Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
-
-    boolean suppressStylesheet = "true".equals(requestMap.get(_SUPPRESS_STYLESHEET_ID_PARAM));
-    if (suppressStylesheet)
-    {
-      // getRequestMapSkin --
-      // See if a skin-id is requested on the requestMap. If so, then see if the Skin
-      // with that id exists on the server, and if it does, and if it is an exact match
-      // (styleSheetDocumentIds match), then it returns the Skin. Otherwise, it returns null
-      Skin requestMapSkin = ((CoreRenderingContext) arc).getRequestMapSkin();
-      return (requestMapSkin != null) ? true : false;
+    String outputMode = arc.getOutputMode();
+    if (XhtmlConstants.OUTPUT_MODE_PORTLET.equals(outputMode))
+    {  
+      Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
+      boolean suppressStylesheet = "true".equals(requestMap.get(_SUPPRESS_STYLESHEET_ID_PARAM));
+      if (suppressStylesheet)
+      {
+        // the portlet producer requests that we suppress the stylesheet if the producer's skin
+        // and the consumer's skin match exactly.
+        return ((CoreRenderingContext) arc).isRequestMapStyleSheetIdAndSkinEqual(
+                                              context, arc.getSkin());
+      }
     }
     return false;
   }

@@ -401,21 +401,25 @@ public class CoreRenderingContext extends RenderingContext
 
   /**
    * Returns the skin that is requested on the request map if the exact skin exists.
+   * This only does something if the outputMode is portlet. Otherwise it returns null.
    * <p>
    * If we are in a portlet, then we might need to recalculate the skin.
-   * The portal container might have its own skin that it wants us to use instead
+   * The portal container might have its own skin that it wants us (the producer) to use instead
    * of what we picked based on the skin-family and render-kit-id.
    * If it does, it will send the skin-id and the skin's styleSheetDocument id
    * in the request map.
    * </p>
    * <p>
    * If we have the skin with that id and the stylesheetdocument's id match,
-   * then we return that skin; else we return null, indicating that there is no
-   * requestMap skin.
+   * then we return that skin (but we won't compress the style classes so they won't clash with the
+   * consumer's style classes which should be compressed). If we have the skin but the
+   * stylesheetdocument ids do not match, we still return that skin;
+   * else we return null, indicating that there is no requestMap skin that exists.
+   *
    * </p>
    * @return null if there is no local skin that matches the requestMap skin, if any.
    *         skin that is requested to be used on the requestMap if we can find that
-   *         exact skin with the same stylesheetdocument id locally.
+   *         exact skin.
    */
   public Skin getRequestMapSkin()
   {
@@ -435,6 +439,7 @@ public class CoreRenderingContext extends RenderingContext
       Object requestedSkinId = requestMap.get(_SKIN_ID_PARAM);
       if (requestedSkinId != null)
       {
+
         SkinFactory factory = SkinFactory.getFactory();
         if (factory == null)
         {
@@ -445,41 +450,24 @@ public class CoreRenderingContext extends RenderingContext
         Skin requestedSkin = factory.getSkin(context, requestedSkinId.toString());
         if (requestedSkin != null)
         {
-          // Get the skin's stylesheet id from the request Map and then compare it
-          // to the local skin's stylesheet id to make sure they match.
-          Object requestMapStyleSheetId = requestMap.get(_SKIN_STYLESHEET_ID_PARAM);
-          if (requestMapStyleSheetId != null)
-          {
-            // set up the styleProvider first, so that it will create the /adf/style
-            // directory. Otherwise the following code would get an error when it
-            // tries to getStyleDir. This could possibly be done better.
-            getStyleContext().getStyleProvider();
+          // In portlet mode, we will switch to using the requestedSkin
+          // (the skin requested by the portlet's producer on the requestMap) if it exists.
+          // Otherwise we'll use the portal skin.
+          if (_LOG.isFine())
+            _LOG.fine("The skin " +requestedSkinId+ " specified on the requestMap will be used.");
+          _requestMapSkin = requestedSkin;
 
-            String skinForPortalStyleSheetId = requestedSkin.getStyleSheetDocumentId(this);
-            if (skinForPortalStyleSheetId != null &&
-                skinForPortalStyleSheetId.equals(requestMapStyleSheetId))
-            {
-              // it is ok to use this skin
-              // Switch the _skin here to be the tmpRequestedSkin
-              if (_LOG.isFine())
-                _LOG.fine("The skin " +requestedSkinId+
-                  " specified on the requestMap will be used.");
-              _requestMapSkin = requestedSkin;
-              // wrap in the RequestSkinWrapper, else we get property/icon
-              // not found errors
-              return new RequestSkinWrapper(requestedSkin);
-            }
-            else
-            {
-              if (_LOG.isWarning())
-                _LOG.warning("REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN",requestedSkinId);
-            }
-          }
-          else
-          {
-            if (_LOG.isSevere())
-              _LOG.severe("REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP",requestedSkinId);
-          }
+          // Check here if the stylesheet ids match. This method logs a warning if we cannot
+          // share the skin stylesheet between producer and consumer.
+          isRequestMapStyleSheetIdAndSkinEqual(context, requestedSkin);
+
+          // wrap in the RequestSkinWrapper, else we get property/icon
+          // not found errors
+          return new RequestSkinWrapper(requestedSkin);
+          // todo Should I wrap it in something that says that we don't need to compress. In FileSystemStyleCache,
+          // we could look to see what kind of skin it is??? Portal skins have a styleClassMap, but they
+          // do not want compression.
+
         }// end requestedSkin != null
         else
         {
@@ -492,6 +480,61 @@ public class CoreRenderingContext extends RenderingContext
 
     } // end outputMode == portlet
     return null;
+  }
+
+  /**
+   * This helps figure out if the portlet producer can share the portlet consumer's stylesheet.
+   * @param context
+   * @param requestedSkin The skin that the portlet consumer wants the producer to share.
+   * @return true if the skin stylesheet id parameter on the request map is equal to
+                  the requestedSkin's stylesheetId.
+   */
+  public boolean isRequestMapStyleSheetIdAndSkinEqual(
+    FacesContext context,
+    Skin         requestedSkin)
+  {
+    if (CoreRenderKit.OUTPUT_MODE_PORTLET.equals(getOutputMode()))
+    {
+      // check the stylesheetids for a match.
+      if (_styleSheetDocumentIdMatch == null)
+      {
+        // first default to false and override later on if the stylesheetids match.
+        _styleSheetDocumentIdMatch = Boolean.FALSE;
+        if (requestedSkin != null)
+        {
+          Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
+          Object requestMapStyleSheetId = requestMap.get(_SKIN_STYLESHEET_ID_PARAM);
+
+          if (requestMapStyleSheetId != null)
+          {
+            String skinForPortalStyleSheetId = requestedSkin.getStyleSheetDocumentId(this);
+            if (skinForPortalStyleSheetId != null &&
+              skinForPortalStyleSheetId.equals(requestMapStyleSheetId))
+            {
+              _styleSheetDocumentIdMatch = Boolean.TRUE;
+            }
+            else
+            {
+              if (_LOG.isWarning())
+              {
+                _LOG.warning("STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN", requestedSkin.getId());
+              }
+            }
+          }
+          else
+          {
+            if (_LOG.isWarning())
+            {
+              _LOG.warning("STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP", requestedSkin.getId());
+            }
+          }
+        }
+
+      }
+      return Boolean.TRUE.equals(_styleSheetDocumentIdMatch);
+    }
+
+    return false;
   }
 
   /**
@@ -682,6 +725,7 @@ public class CoreRenderingContext extends RenderingContext
   private Skin                _skin;
   private boolean             _checkedRequestMapSkin = false;
   private Skin                _requestMapSkin;
+  private Object              _styleSheetDocumentIdMatch;
   private FormData            _formData;
   private TrinidadAgent       _agent;
   private Map<String, String> _styleMap;
