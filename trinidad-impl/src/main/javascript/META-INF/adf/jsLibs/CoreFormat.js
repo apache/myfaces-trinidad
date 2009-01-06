@@ -256,6 +256,7 @@ TrDoubleConverter.prototype.getAsObject = function(
                        this._maxValue,
                        this._minValue,
                        label,
+                       true,
                        true);
 }
 function TrFloatConverter(
@@ -308,6 +309,7 @@ TrFloatConverter.prototype.getAsObject = function(
                        this._maxValue,
                        this._minValue,
                        label,
+                       true,
                        true);
 }
 
@@ -887,7 +889,8 @@ function _decimalParse(
   maxValue,
   minValue,
   label,
-  parsefloat
+  parsefloat,
+  ignoreLocaleSymbols
   )
 {
   // The following are from the javadoc for TrNumberConverter
@@ -904,7 +907,7 @@ function _decimalParse(
 
   // Get LocaleSymbols (from Locale.js)
   var symbols = getLocaleSymbols();
-  if (symbols)
+  if (symbols && (ignoreLocaleSymbols != true))
   {
     // We don't want leading or trailing grouping separators
     var grouping = symbols.getGroupingSeparator();
