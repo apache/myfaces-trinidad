@@ -33,11 +33,19 @@
           <tr:table var="row" binding="#{csv.table}"
                     value="#{periodicTable.tableData}" rows="10">
             <f:facet name="actions">
+              <tr:panelGroupLayout layout="horizontal">
               <tr:commandButton text="Export as CSV">
                 <tr:fileDownloadActionListener contentType="text/csv; charset=utf-8"
-                                    filename="content.csv"
+                                    filename="content.csv"                                   
                                     method="#{csv.sendContent}"/>           
               </tr:commandButton>
+              <tr:commandButton text="Export as CSV long filename test">
+                <tr:fileDownloadActionListener contentType="text/csv; charset=utf-8"
+                                    filename="This-is-a-long-filename-that-should-still-download-property.csv"
+                                    
+                                    method="#{csv.sendContent}"/>           
+              </tr:commandButton>
+              </tr:panelGroupLayout>
             </f:facet>
             <tr:column headerText="Name">
               <tr:outputText value="#{row.name}"/>

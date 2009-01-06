@@ -109,8 +109,12 @@ public class FileDownloadActionListener extends FacesBeanImpl
           if (agentName.contains("msie") || agentName.contains("applewebkit") || agentName.contains("safari"))
             isGecko = false;
           // boolean isIE = CoreRenderer.isIE(RenderingContext.getCurrentInstance());
+          String encodeHTTPHeaderFilename = MimeUtility.encodeHTTPHeader(filename, !isGecko);
+          // double quotes are needed in case the filename is long. otherwise the filename gets
+          // truncated in Firefox.
           hsr.setHeader("Content-Disposition",
-                        "attachment; filename=" + MimeUtility.encodeHTTPHeader(filename, !isGecko));
+                        "attachment; filename=\""+encodeHTTPHeaderFilename + "\"");
+
         }
         MethodExpression method = getMethod();
         OutputStream out = new BufferedOutputStream(hsr.getOutputStream());
