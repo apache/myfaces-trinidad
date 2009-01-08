@@ -1222,53 +1222,12 @@ TrDateTimeConverter.prototype._initPatterns  = function(
   // Array and append all supported patterns into this Array.
   var patterns = new Array();
 
-  // If pattern is non-null, append it to the patterns Array.
-  // Note that concat() will do the right thing whether "pattern"
-  // is a string or an Array of strings.
+  // Array from which the patterns array will be constructed.
+  var tmpPatterns = new Array();
+  
+  // If pattern is non-null, append it to the tmpPatterns array.
   if (pattern)
-  {
-    patterns = patterns.concat(pattern);
-    
-    // Bug 2002065: 
-    // Be forgiving of users who prefer a different separator and alternative 
-    // month styles. We are to be lenient by default with ADF Faces.
-    
-    // We should add all the leniency patterns for this default pattern first.
-    // First add in replacements for month parsing.
-    if (pattern.indexOf('MMM') != -1)
-    {
-      patterns[1] = pattern.replace(/MMM/g, 'MM');
-      patterns[2] = pattern.replace(/MMM/g, 'M');
-    }
-    
-    // Now add support for all of the above with any of the separators below. 
-    // The separator is the same for all patterns since we only replaced month.
-    var baseCount = patterns.length;
-    if (pattern.indexOf('/') !=  - 1)
-    {
-      for (var i = 0; i < baseCount; i++)
-        patterns[patterns.length] = patterns[i].replace(/\//g, '-');
-      
-      for (var i = 0; i < baseCount; i++)
-        patterns[patterns.length] = patterns[i].replace(/\//g, '.');
-    }
-    else if (pattern.indexOf('-') !=  - 1)
-    {
-      for (var i = 0; i < baseCount; i++)
-        patterns[patterns.length] = patterns[i].replace(/-/g, '/');
-      
-      for (var i = 0; i < baseCount; i++)
-        patterns[patterns.length] = patterns[i].replace(/-/g, '.');
-    }
-    else if (pattern.indexOf('.') !=  - 1)
-    {
-      for (var i = 0; i < baseCount; i++)
-        patterns[patterns.length] = patterns[i].replace(/\./g, '/');
-      
-      for (var i = 0; i < baseCount; i++)
-        patterns[patterns.length] = patterns[i].replace(/\./g, '-');   
-    }
-  }
+    tmpPatterns = tmpPatterns.concat(pattern);
 
   // At this point 'locale' is the value of the locale attribute; if 'locale' is 
   // null, we should make sure to grab the same locale that was grabbed by getLocaleSymbols() (i.e.,getJavaLanguage)
@@ -1279,20 +1238,25 @@ TrDateTimeConverter.prototype._initPatterns  = function(
   if (!_CONVENIENCE_PATTERNS)
     this._initConveniencePatterns();
   
-  // see TRINIDAD-859 
+  // see TRINIDAD-859
   var convPatterns = _CONVENIENCE_PATTERNS[locale];
-
-  if (!convPatterns)
-    return patterns;
+  if (convPatterns)
+    tmpPatterns = tmpPatterns.concat(convPatterns);
   
-  // Add the convenience patterns and all their lenient pattern variants.
-  var len = convPatterns.length;
+  // Add the tmp patterns and all their lenient pattern variants.
+  var len = tmpPatterns.length;
   for (var c = 0; c < len; c++)
   {
-    var convPattern = convPatterns[c];
+    var convPattern = tmpPatterns[c];
     patterns[patterns.length] = convPattern;
     var baseCount = 1;
     
+    // Bug 2002065: 
+    // Be forgiving of users who prefer a different separator and alternative 
+    // month styles. We are to be lenient by default with ADF Faces.
+    
+    // We should add all the leniency patterns for this default pattern first.
+    // First add in replacements for month parsing.
     if (convPattern.indexOf('MMM') != -1)
     {
       patterns[patterns.length] = convPattern.replace(/MMM/g, 'MM');
@@ -1300,6 +1264,8 @@ TrDateTimeConverter.prototype._initPatterns  = function(
       baseCount = 3;
     }
     
+    // Now add support for all of the above with any of the separators below. 
+    // The separator is the same for all patterns since we only replaced month.
     var idx = patterns.length - baseCount;
     if (convPattern.indexOf('/') !=  - 1)
     {
