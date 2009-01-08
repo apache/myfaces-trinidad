@@ -647,7 +647,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       return;
     }
 
-    String destination = toString(itemData.get("destination"));
+    String destination = toResourceUri(context, (itemData.get("destination")));
     boolean immediate = false;
     boolean partialSubmit = false;
     if (destination == null)
