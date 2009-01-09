@@ -21,6 +21,8 @@
 <project name="Apache MyFaces Trinidad 1.2">
   <bannerLeft>
     <name>Apache MyFaces Trinidad 1.2</name>
+    <src>images/trinidad_logo.png</src>
+    <href>http://myfaces.apache.org/trinidad/trinidad-1_2</href>
   </bannerLeft>
   <bannerRight>
     <name>Apache MyFaces</name>
