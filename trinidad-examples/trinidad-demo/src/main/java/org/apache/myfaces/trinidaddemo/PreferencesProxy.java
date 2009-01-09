@@ -52,7 +52,7 @@ public class PreferencesProxy
       if (preferencesExpression != null)
       {
         ValueExpression ve =
-          context.getApplication().getExpressionFactory().createValueExpression(preferencesExpression, Object.class);
+          context.getApplication().getExpressionFactory().createValueExpression(context.getELContext(), preferencesExpression, Object.class);
         return ve.getValue(context.getELContext());
       }
     }
