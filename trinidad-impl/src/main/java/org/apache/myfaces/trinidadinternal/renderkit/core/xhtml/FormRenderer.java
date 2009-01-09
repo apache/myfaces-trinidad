@@ -973,7 +973,7 @@ public class FormRenderer extends XhtmlRenderer
     String submitFunc = null;
 
     UIComponent defaultCommandComponent = null;
-    if (defaultCommand != null)
+    if (defaultCommand != null && !"".equals(defaultCommand))
     {
       defaultCommandComponent
         = component.findComponent(defaultCommand);
