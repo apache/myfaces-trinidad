@@ -24,6 +24,7 @@ import javax.el.ELContext;
 import javax.el.ExpressionFactory;
 import javax.el.MethodExpression;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
 import org.apache.myfaces.trinidad.util.ContainerUtils;
 
@@ -125,6 +126,25 @@ public class ItemNode extends MenuNode
     }
 
     return value;
+  }
+  
+  public void actionListener(ActionEvent event)
+  {
+    String value = _actionListener;
+    if (value != null)
+    {
+      FacesContext facesContext = FacesContext.getCurrentInstance();
+      ExpressionFactory expressionFactory =
+          facesContext.getApplication().getExpressionFactory();
+      ELContext context = facesContext.getELContext();
+
+      MethodExpression methodExpression =
+          expressionFactory.createMethodExpression(context, value, Void.TYPE,
+              new Class<?>[]
+              { ActionEvent.class });
+      methodExpression.invoke(context, new Object[]{ event });
+    }
+
   }
   
   /**
