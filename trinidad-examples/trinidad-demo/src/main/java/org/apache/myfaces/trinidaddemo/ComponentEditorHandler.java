@@ -31,10 +31,14 @@ import java.util.List;
 
 import javax.faces.component.UIComponent;
 
+import org.apache.myfaces.trinidad.context.RequestContext;
+
 public class ComponentEditorHandler
 {
   public String update()
   {
+    boolean rendered = _editedComponent.isRendered();
+
     List<PropertyOfComponent> list = _list;
     if (list != null)
     {
@@ -43,6 +47,14 @@ public class ComponentEditorHandler
         prop.flushToComponent();
       }
     }
+
+    RequestContext rc = RequestContext.getCurrentInstance();
+    
+    // If we toggled rendered, we'd better toggle the parent
+    if (rendered != _editedComponent.isRendered())
+      rc.addPartialTarget(_editedComponent.getParent());
+    else
+      rc.addPartialTarget(_editedComponent);
 
     return null;
   }

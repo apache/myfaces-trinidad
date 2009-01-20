@@ -51,27 +51,8 @@ public abstract class UIXComponentRefTemplate extends UIXComponentBase
                                    ContextCallback callback)
     throws FacesException
   {
-    String thisClientId = getClientId(context);
-
-    if (clientId.equals(thisClientId))
-    {
-      callback.invokeContextCallback(context, this);
-      return true;
-    }
-
-    // This component is a naming container. If the client id shows it's inside this naming container,
-    // then process further.
-    // Otherwise we know the client id we're looking for is not in this naming container,
-    // so for improved performance short circuit and return false.
-    else if (clientId.startsWith(thisClientId) &&
-             (clientId.charAt(thisClientId.length()) ==
-              NamingContainer.SEPARATOR_CHAR))
-    {
-
-      return super.invokeOnComponent(context, clientId, callback);
-    }
-
-    return false;
+    // optimize case where clientId isn't in NamingContainer
+    return invokeOnNamingContainerComponent(context, clientId, callback);
   }
 
   @Override

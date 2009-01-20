@@ -42,6 +42,12 @@
     <param-value>false</param-value>
   </context-param>
 
+  <!-- Temporary internal flag to set to enabled and test Optimized PPR -->
+  <context-param>
+    <param-name>org.apache.myfaces.trinidadinternal.ENABLE_PPR_OPTIMIZATION</param-name>
+    <param-value>false</param-value>
+  </context-param>
+
   <!-- Parameter to set the maximum number of client view state tokens.
        Uncomment this to test low-token-count scenarios.
   <context-param>

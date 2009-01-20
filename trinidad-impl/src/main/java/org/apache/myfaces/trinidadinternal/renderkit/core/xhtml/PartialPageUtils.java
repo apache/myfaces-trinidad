@@ -23,14 +23,13 @@ import java.util.Map;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.RequestContext;
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
-
-import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
 
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.context.PartialPageContext;
@@ -45,6 +44,31 @@ public final class PartialPageUtils
 {
   private PartialPageUtils()
   {
+  }
+
+  /**
+   * Returns <code>true</code> if optimized PPR is enabled for this request
+   * @return
+   */
+  public static boolean isOptimizedPPREnabled(FacesContext context, boolean checkIsPPR)
+  {
+    boolean optimizedPPREnabled = false;
+          
+    if (!checkIsPPR ||
+        (PartialPageUtils.isPartialRequest(context) && PartialPageUtils.isPPRActive(context)))
+    {
+      ExternalContext external = context.getExternalContext();
+    
+      // see if PPR optimization is enabled for the servlet (the default is off)
+      if ("true".equalsIgnoreCase(external.getInitParameter(_INIT_PROP_PPR_OPTIMIZATION_ENABLED)))
+      {
+        // see if PPR optimization is enabled for the application (the default is on)
+        optimizedPPREnabled = !Boolean.TRUE.equals(
+                          external.getApplicationMap().get(_APP_PROP_PPR_OPTIMIZATION_DISABLED));
+      } 
+    }
+    
+    return optimizedPPREnabled;
   }
 
   /**
@@ -114,7 +138,7 @@ public final class PartialPageUtils
     if (isPartialRequest(context))
     {
       // Create the PartialPageContext
-      return new PartialPageContextImpl(afContext);
+      return new PartialPageContextImpl(context, afContext);
     }
 
     return null;
@@ -193,6 +217,14 @@ public final class PartialPageUtils
     
     requestScope.put(_PPR_ACTIVE_FLAG_NAME, Boolean.TRUE);
   }
+
+  // temporary servlet initialization flag controlling whether PPR optimization is enabled for the servlet
+  private static final String _INIT_PROP_PPR_OPTIMIZATION_ENABLED = 
+                                      "org.apache.myfaces.trinidadinternal.ENABLE_PPR_OPTIMIZATION";
+
+  // temporaty application property controlling whether PPR optimization is enabled for the application
+  private static final String _APP_PROP_PPR_OPTIMIZATION_DISABLED =
+                                     "org.apache.myfaces.trinidadinternal.DISABLE_PPR_OPTIMIZATION";
 
   // Flag used to store info on the context about whether
   // an iFrame is built yet.

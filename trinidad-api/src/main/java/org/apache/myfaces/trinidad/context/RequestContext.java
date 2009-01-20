@@ -19,6 +19,8 @@
 package org.apache.myfaces.trinidad.context;
 
 import java.awt.Color;
+
+import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -32,10 +34,13 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
+import javax.faces.event.PhaseId;
+
 import org.apache.myfaces.trinidad.change.ChangeManager;
+import org.apache.myfaces.trinidad.component.visit.VisitContext;
+import org.apache.myfaces.trinidad.component.visit.VisitHint;
 import org.apache.myfaces.trinidad.config.RegionManager;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-import org.apache.myfaces.trinidad.util.ComponentUtils;
 import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
 
 /**
@@ -474,6 +479,25 @@ abstract public class RequestContext
   //
   // Miscellaneous functionality
   //
+
+  /**
+   * <p>Creates a VisitContext instance for use with 
+   * {@link org.apache.myfaces.trinidad.component.UIXComponent#visitTree UIComponent.visitTree()}.</p>
+   *
+   * @param context the FacesContext for the current request
+   * @param ids the client ids of the components to visit.  If null,
+   *   all components will be visited.
+   * @param hints the VisitHints to apply to the visit
+   * @param phaseId.  PhaseId if any for this visit.  If PhaseId is specified,
+   * hints must contain VisitHint.EXECUTE_LIFECYCLE
+   * @return a VisitContext instance that is initialized with the 
+   *   specified ids and hints.
+   */
+  public abstract VisitContext createVisitContext(
+    FacesContext context,
+    Collection<String> ids,
+    Set<VisitHint> hints,
+    PhaseId phaseId);
 
   public abstract UploadedFileProcessor getUploadedFileProcessor();
 

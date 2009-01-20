@@ -66,14 +66,14 @@
           <!-- A link to show the options;  it starts out disabled -->
           <tr:commandLink id="launchOptions" disabled="true"
                          shortDesc="Click to pick new options"
-                         partialTriggers="modelsChoice makeChoice"
+                         partialTriggers="modelsChoice makesChoice"
                          returnListener="#{carBacking.returnOptions}"
                          binding="#{carBacking.launchOptions}"
                          useWindow="true"
                          action="dialog:optionsDialog" text="Pick options: "/>
           <tr:outputText id="options"
                          binding="#{carBacking.options}"
-                         partialTriggers="launchOptions modelsChoice makeChoice"/>
+                         partialTriggers="launchOptions modelsChoice makesChoice"/>
          </tr:panelGroupLayout>
 
         </tr:panelPage>

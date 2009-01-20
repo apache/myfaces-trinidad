@@ -20,6 +20,8 @@ package org.apache.myfaces.trinidad.context;
 
 import java.util.Iterator;
 
+import org.apache.myfaces.trinidad.component.visit.VisitContext;
+
 
 /**
  * Context object which is used to track the targets of a partial
@@ -43,10 +45,33 @@ abstract public class PartialPageContext
   }
 
   /**
-   * Tests whether the specified id is the client id of a UIComponent that
+   * Tests whether the specified client id is the client id of a UIComponent that
    * should be rendered as part of the partial rendering pass.
+   * @return <code>true</code> if a compoennt with this client id should be rendered.
+   * @see #isPossiblePartialTarget
    */
-  abstract public boolean isPartialTarget(String id);
+  abstract public boolean isPartialTarget(String clientId);
+
+  /**
+   * <p>
+   * Tests whether the specified component id is a component id of a UIComponent that
+   * might be rendered in this partial rendering pass.
+   * </p>
+   * <p>
+   * As calculating clientIds is expensive, this method allows a cheap test to reject components
+   * that shouldn't be rendered. If this method returns true, a more
+   * exact test using <code>isPartialTarget</code> with the desired clientId should be performed.
+   * </p>
+   * @return <code>true</code> if a component with this id should be rendered.
+   * @see #isPartialTarget
+   */
+  abstract public boolean isPossiblePartialTarget(String componentId);
+
+  /**
+   * Returns <code>true</code> if all of the partial targets have been rendered.
+   * @return <code>true</code> if all of the partial targets have been rendered.
+   */
+  public abstract boolean areAllTargetsProcessed();
 
   /**
    * Returns the set of partial targets for this rendering pass.
@@ -80,5 +105,15 @@ abstract public class PartialPageContext
    */
   abstract public void addRenderedPartialTarget(String id);
 
+  /**
+   * Returns the client ids of the partial targets that have been rendered so far.
+   * @return the client ids of the partial targets that have been rendered so far.
+   */
   abstract public Iterator<String> getRenderedPartialTargets();
+  
+  /**
+   * Returns the VisitContext to use when partial rendering.
+   * @return the VisitContext to use when partial rendering.
+   */
+  abstract public VisitContext getVisitContext();
 }
