@@ -35,6 +35,8 @@ import javax.el.ELException;
 import javax.el.MethodExpression;
 import javax.el.ValueExpression;
 
+import javax.faces.FacesException;
+import javax.faces.component.ContextCallback;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -1289,6 +1291,130 @@ abstract public class UIXComponentBase extends UIXComponent
       }
     }
   }
+
+  /**
+   * Convenience method to call <code>invokeOnComponent</code> on all of the
+   * children of a component.  This is useful when a component sometimes optimizes
+   * away calling <code>invokeOnComponent</code> on its children
+   */
+  protected final boolean invokeOnChildrenComponents(
+    FacesContext context,
+    String clientId,
+    ContextCallback callback)
+    throws FacesException
+  {
+    Iterator<UIComponent> children = getFacetsAndChildren();
+    
+    boolean found = false;
+    
+    while (children.hasNext() && !found)
+    {
+      found = children.next().invokeOnComponent(context, clientId, callback);
+    }
+    
+    return found;
+  }
+
+  /**
+   * <p>
+   * Optimized implementation of <code>invokeOnComponent</code> for NamingContainers.
+   * If the clientId isn't within the NamingContainer, invocation of the
+   * NamingContainer's children is skipped.
+   * </p>
+   * <p>Subclasses implementing NamingContainer should override
+   * <code>invokeOnComponent</code> and delegate to this method.</p>
+   */
+  protected final boolean invokeOnNamingContainerComponent(
+    FacesContext context,
+    String clientId,
+    ContextCallback callback)
+    throws FacesException
+  {
+    assert this instanceof NamingContainer : "Only use invokeOnNamingContainerComponent on NamingContainers";
+    
+    String thisClientId = getClientId(context);
+
+    if (clientId.equals(thisClientId))
+    {
+      // this is the component we want, so invoke the callback
+      callback.invokeContextCallback(context, this);
+      return true;
+    }
+    else
+    {
+      // if this is a NamingContainer, only traverse into it if the clientId we are looking for
+      // is inside of it
+      if ((!clientId.startsWith(thisClientId) ||
+          (clientId.charAt(thisClientId.length()) != NamingContainer.SEPARATOR_CHAR)))
+      {
+        return false;
+      }
+
+      boolean invokedComponent = false;
+      
+      // set up the context for visiting the children
+      setupVisitingContext(context);
+            
+      try
+      {
+        // iterate through children. We inline this code instead of calling super in order
+        // to avoid making an extra call to getClientId().
+        invokedComponent = invokeOnChildrenComponents(context, clientId, callback);
+      }
+      finally
+      {
+        // teardown the context now that we have visited the children
+        tearDownVisitingContext(context);
+      }
+      
+      return invokedComponent;
+    }
+  }
+  
+
+  /**
+   * Override to calls the hooks for setting up and tearing down the
+   * context before the children are visited.
+   * @see #setupVisitingContext
+   * @see #tearDownVisitingContext
+   */
+  @Override
+  public boolean invokeOnComponent(
+    FacesContext context,
+    String clientId,
+    ContextCallback callback)
+    throws FacesException
+  {    
+    String thisClientId = getClientId(context);
+
+    if (clientId.equals(thisClientId))
+    {
+      callback.invokeContextCallback(context, this);
+      return true;
+    }
+    else
+    {
+      boolean invokedComponent = false;
+      
+      // set up the context for visiting the children
+      setupVisitingContext(context);
+            
+      try
+      {
+        // iterate through children. We inline this code instead of calling super in order
+        // to avoid making an extra call to getClientId().
+        invokedComponent = invokeOnChildrenComponents(context, clientId, callback);
+      }
+      finally
+      {
+        // teardown the context now that we have visited the children
+        tearDownVisitingContext(context);
+      }
+      
+      return invokedComponent;
+    }
+  }
+
 
 
   /**

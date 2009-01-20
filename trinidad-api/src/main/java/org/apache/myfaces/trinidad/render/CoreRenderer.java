@@ -30,7 +30,11 @@ import javax.faces.render.Renderer;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.UIXComponent;
+import org.apache.myfaces.trinidad.component.visit.VisitCallback;
+import org.apache.myfaces.trinidad.component.visit.VisitContext;
+import org.apache.myfaces.trinidad.component.visit.VisitResult;
 import org.apache.myfaces.trinidad.context.Agent;
+import org.apache.myfaces.trinidad.context.PartialPageContext;
 import org.apache.myfaces.trinidad.context.RequestContext;
 
 import org.apache.myfaces.trinidad.context.RenderingContext;
@@ -50,7 +54,89 @@ public class CoreRenderer extends Renderer
   {
   }
 
+  /**
+   * <p>
+   * Called when visiting the CoreRenderer's component during optimized partial page encoding so
+   * that the CoreRenderer can modify what is actually encoded.  For example tab controls often
+   * render the tabs for the ShowDetailItems in the tab bar before delegating to the
+   * disclosed ShowDetailItem to render the tab content.  As a result, the tab control
+   * needs to encode its tab bar if any of its ShowDetailItems are partial targets so that
+   * the tab labels, for example, are up-to-date.
+   * </p>
+   * <p>
+   * The default implementation calls the VisitCallback and returns its result if this UIXComponent
+   * is a partial target of the current encoding.
+   * </p>
+   * @param visitContext VisitContext to pass to the VisitCallback
+   * @param partialContext PartialPageContext for the current partial encoding
+   * @param component The component for the CoreRenderer to visit
+   * @param callback VisitCallback to call if this component is a partial target
+   * @return The VisitResult controlling continued iteration of the visit.
+   */
+  public VisitResult partialEncodeVisit(
+    VisitContext visitContext,
+    PartialPageContext partialContext,
+    UIComponent component,
+    VisitCallback callback)
+  {
+    if (partialContext.isPossiblePartialTarget(component.getId()) &&
+        partialContext.isPartialTarget(component.getClientId(visitContext.getFacesContext())))
+    {
+      // visit the component instance
+      return callback.visit(visitContext, component);      
+    }
+    else      
+    {
+      // Not visiting this component, but allow visit to
+      // continue into this subtree in case we've got
+      // visit targets there.
+      return VisitResult.ACCEPT;
+    }
+  }
 
+  /**
+   * <p>
+   * Called before rendering the current component's children in order to set
+   * up any special context.
+   * </p>
+   * <p>If <code>setupEncodingContext</code> succeeds then
+   * <code>tearDownEncodingContext</code> will be called for the same component.
+   * </p>
+   * <p>The default implementation does nothing</p>
+   * @param context FacesContext for this request
+   * @param rc RenderingContext for this encoding pass
+   * @ param component Component to encode using this Renderer
+   * @see #tearDownEncodingContext
+   */
+  public void setupEncodingContext(
+    FacesContext context,
+    RenderingContext rc,
+    UIXComponent component)
+  {
+  }
+
+  /**
+   * <p>
+   * Called after rendering the current component's children in order to tear
+   * down any special context.
+   * </p>
+   * <p>
+   * <code>tearDownEncodingContext</code> will be called on the component if
+   * <code>setupEncodingContext</code> succeeded.
+   * </p>
+   * <p>The default implementation does nothing</p>
+   * @param context FacesContext for this request
+   * @param rc RenderingContext for this encoding pass
+   * @ param component Component to encode using this Renderer
+   * @see #setupEncodingContext
+   */
+  public void tearDownEncodingContext(
+    FacesContext context,
+    RenderingContext rc,
+    UIXComponent     component)
+  {
+  }
+  
   //
   // COERCION HELPERS
   //
@@ -186,7 +272,7 @@ public class CoreRenderer extends Renderer
   @Override
   public final void encodeBegin(FacesContext context,
                           UIComponent component) throws IOException
-  {
+  {    
     if (!getRendersChildren())
     {
       RenderingContext arc = RenderingContext.getCurrentInstance();
@@ -596,7 +682,9 @@ public class CoreRenderer extends Renderer
     RenderingContext arc,
     UIComponent      component,
     FacesBean        bean)
-  {}
+  {
+    setupEncodingContext(context, arc, (UIXComponent)component);
+  }
   
   /**
    * Hook method that gets invoked after the component is encoded
@@ -609,7 +697,9 @@ public class CoreRenderer extends Renderer
     RenderingContext arc,
     UIComponent      component,
     FacesBean        bean)
-  {}
+  {
+    tearDownEncodingContext(context, arc, (UIXComponent)component);
+  }
 
   //
   // Rendering convenience methods.

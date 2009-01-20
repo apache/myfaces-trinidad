@@ -25,6 +25,7 @@ import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.lang.reflect.Array;
 
+import java.util.AbstractQueue;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -34,7 +35,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
-import java.util.Map.Entry;
+import java.util.NoSuchElementException;
+import java.util.Queue;
 import java.util.RandomAccess;
 import java.util.Set;
 
@@ -48,6 +50,49 @@ public final class CollectionUtils
   private CollectionUtils()
   {
     // no-op
+  }
+  
+  /**
+   * Returns an ArrayList containing all of the elements of the
+   * Iterator
+   * @param iterator Iterator to copy the contexts of
+   * @return an ArrayList containing a copy of the iterator contents
+   */
+  public static <T> ArrayList<T> arrayList(Iterator<T> iterator)
+  {
+    ArrayList<T> arrayList = new ArrayList<T>();
+    
+    while (iterator.hasNext())
+      arrayList.add(iterator.next());
+    
+    return arrayList;
+  }
+
+  /**
+   * Returns an empty, unmodifiable, Serializable Queue.
+   * @return an empty, unmodifiable, Serializable Queue.
+   */
+  public static <T> Queue<T> emptyQueue()
+  {
+    return (Queue<T>)_EMPTY_QUEUE;
+  }
+
+  /**
+   * Returns an empty, unmodifiable, Iterator.
+   * @return an empty, unmodifiable, Iterator.
+   */
+  public static <T> Iterator<T> emptyIterator()
+  {
+    return (Iterator<T>)_EMPTY_ITERATOR;
+  }
+
+  /**
+   * Returns an empty, unmodifiable, ListIterator.
+   * @return an empty, unmodifiable, ListIterator.
+   */
+  public static <T> ListIterator<T> emptyListIterator()
+  {
+    return (ListIterator<T>)_EMPTY_LIST_ITERATOR;
   }
 
   /**
@@ -725,6 +770,104 @@ public final class CollectionUtils
     private final Map<K, V> _delegate;
   }
 
+  private static class EmptyIterator implements Iterator
+  {
+    public boolean hasNext()
+    {
+      return false;
+    }
+
+    public Object next()
+    {
+      throw new NoSuchElementException();
+    }
+
+    public void remove()
+    {
+      throw new UnsupportedOperationException();
+    }
+  }
+  
+  private static final class EmptyListIterator extends EmptyIterator implements ListIterator
+  {
+    public boolean hasPrevious()
+    {
+      return false;
+    }
+
+    public Object previous()
+    {
+      throw new NoSuchElementException();
+    }
+
+    public int nextIndex()
+    {
+      return 0;
+    }
+
+    public int previousIndex()
+    {
+      return -1;
+    }
+
+    public void set(Object e)
+    {
+      throw new UnsupportedOperationException();
+    }
+
+    public void add(Object e)
+    {
+      throw new UnsupportedOperationException();
+    }
+  }
+
+  private static final class EmptyQueue extends AbstractQueue implements Serializable
+  {
+    public Iterator iterator()
+    {
+      return _EMPTY_ITERATOR;
+    }
+
+    public int size()
+    {
+      return 0;
+    }
+
+    @Override
+    public boolean isEmpty()
+    {
+      return true;
+    }
+    
+    @Override
+    public boolean contains(Object o)
+    {
+      return false;
+    }
+
+    public boolean offer(Object e)
+    {
+      throw new UnsupportedOperationException();
+    }
+
+    public Object poll()
+    {
+      return null;
+    }
+
+    public Object peek()
+    {
+      return null;
+    }
+    
+    private Object readResolve()
+    {
+      return _EMPTY_QUEUE;
+    }
+
+    private static final long serialVersionUID = 0L;
+  }
+
   //
   // Build up references to implementation classes used by Collections to implement the following
   // features.  This way we can detect when these classes are used and work around problems.
@@ -732,6 +875,10 @@ public final class CollectionUtils
   private static final Class<? extends List> _CHECKED_LIST;
   private static final Class<? extends List> _UNMODIFIABLE_LIST;
   private static final Class<? extends List> _SYNCHRONIZED_LIST;
+  private static final Queue _EMPTY_QUEUE = new EmptyQueue();
+  private static final Iterator _EMPTY_ITERATOR = new EmptyIterator();
+  private static final Iterator _EMPTY_LIST_ITERATOR = new EmptyListIterator();
+   
   
   static
   {

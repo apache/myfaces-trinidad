@@ -47,6 +47,6 @@
           </tr:column>
           <f:facet name="footer">
             <tr:commandButton  text="Update"
-                              action="#{editor.update}"/>
+                              action="#{editor.update}" partialSubmit="true"/>
           </f:facet>
         </tr:table>

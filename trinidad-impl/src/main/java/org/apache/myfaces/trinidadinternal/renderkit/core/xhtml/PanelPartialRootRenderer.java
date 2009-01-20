@@ -20,21 +20,20 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
 
-import java.util.List;
-
+import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import javax.faces.render.RenderKit;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
+import org.apache.myfaces.trinidad.component.UIXComponent;
+import org.apache.myfaces.trinidad.component.visit.VisitCallback;
+import org.apache.myfaces.trinidad.component.visit.VisitContext;
+import org.apache.myfaces.trinidad.component.visit.VisitResult;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
-import org.apache.myfaces.trinidad.util.Service;
 import org.apache.myfaces.trinidad.context.PartialPageContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PPRResponseWriter;
-import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.ScriptBufferingResponseWriter;
 
 
 /**
@@ -61,7 +60,40 @@ public class PanelPartialRootRenderer extends XhtmlRenderer
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
-    encodeAllChildren(context, component);
+    // determinie whether we should try and optimize the PPR rendering
+    boolean encodeAllChildren = !PartialPageUtils.isOptimizedPPREnabled(context, true);
+    
+    if (encodeAllChildren)
+    {
+      // No PPR optimization, so encode all children
+      encodeAllChildren(context, component);
+    }
+    else
+    {
+      // perform an optimized partial visit of the children
+      PartialPageContext pprContext = arc.getPartialPageContext();
+      
+      VisitContext visitContext = pprContext.getVisitContext();
+                  
+      try
+      {
+        for (UIComponent currChild : component.getChildren())
+        {
+          if (UIXComponent.visitTree(visitContext, currChild, _ENCODE_ALL_CALLBACK))
+            break;
+        }
+      }
+      catch (FacesException e)
+      {
+        Throwable cause = e.getCause();
+        
+        // unwrap and throw IOExceptions
+        if (cause instanceof IOException)
+          throw (IOException)cause;
+        else
+          throw e;
+      }
+    }
   }
 
   @Override
@@ -180,6 +212,36 @@ public class PanelPartialRootRenderer extends XhtmlRenderer
     }
   }
 
+  /**
+   * Callback for encoding subtrees during optimized PPR tree visits
+   */
+  private static final class EncodeAllCallback implements VisitCallback
+  {
+    public VisitResult visit(VisitContext context, UIComponent target)
+    {
+      try
+      {
+        // we have the subtree we want, render it
+        target.encodeAll(context.getFacesContext());
+      }
+      catch (IOException ioe)
+      {
+        // launder the IOException as a FacesException, we'll unwrap this later
+        throw new FacesException(ioe);
+      }
+      
+      PartialPageContext pprContext = RenderingContext.getCurrentInstance().getPartialPageContext();
+      
+      // if we finished rendering all of the destired targets, return that we are
+      // done.  Otherwise, reject this subtree so that we don't traverse into it, since
+      // we have already rendered all of the targets in it
+      if (pprContext.areAllTargetsProcessed())
+        return VisitResult.COMPLETE;
+      else
+        return VisitResult.REJECT;
+    }
+  }
+
 
 
   // Div element used for blocking
@@ -189,6 +251,9 @@ public class PanelPartialRootRenderer extends XhtmlRenderer
   private static final String _PARTIAL_DIV_EAT_KEY_HANDLER = "return false;";
   private static final String _PARTIAL_DIV_STYLE =
           "position:absolute;left:0;top:0;width:0;height:0;cursor:wait;";
+
+  // callback used to render optimized PPR  
+  private static final VisitCallback _ENCODE_ALL_CALLBACK = new EncodeAllCallback();
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
    PanelPartialRootRenderer.class);

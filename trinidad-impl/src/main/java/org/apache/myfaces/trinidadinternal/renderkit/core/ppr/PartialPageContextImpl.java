@@ -18,6 +18,10 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.ppr;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -25,6 +29,17 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
+import javax.faces.component.NamingContainer;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.event.PhaseId;
+
+import org.apache.myfaces.trinidad.component.UIXComponent;
+import org.apache.myfaces.trinidad.component.visit.VisitCallback;
+import org.apache.myfaces.trinidad.component.visit.VisitContext;
+import org.apache.myfaces.trinidad.component.visit.VisitHint;
+import org.apache.myfaces.trinidad.component.visit.VisitResult;
 import org.apache.myfaces.trinidad.context.RequestContext;
 
 import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
@@ -50,38 +65,52 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  */
 public class PartialPageContextImpl extends PartialPageContext
 {
-  PartialPageContextImpl()
-  {
-    _targets = new HashMap<String, Boolean>();
-    _renderedTargets = new HashSet<String>();
-
-    // Pre-allocate the rendered stack
-    _currentTargetStack = new Stack<String>();
-  }
-
   /**
    * Creates a PartialPageContext to use to render the partial targets with
    * the specified ids.
    */
   public PartialPageContextImpl(
+    FacesContext   context,
     RequestContext reqContext)
   {
-    this();
+    _targets = new HashMap<String, Boolean>();
+    _renderedTargets = new HashSet<String>();
+    _targetIds = new HashSet<String>();
 
-    // Components may add themselves to the partialTargets list in earlier
-    // phases (we don't get here until render response). If so, the IDs have
-    // been kept on the RequestContext. We'll grab them now and add them to the
-    // target list.
-    RequestContextImpl requestContext =
-      (RequestContextImpl) reqContext;
-    Iterator<String> targetIter = requestContext.getPartialTargets();
-    while (targetIter.hasNext())
-      _targets.put(targetIter.next(), Boolean.FALSE);
+    // Intialize subtreeClientIds collection
+    _subtreeClientIds = new HashMap<String, Collection<String>>();
+    
+    // Pre-allocate the rendered stack
+    _currentTargetStack = new Stack<String>();
+    
+    // Create the VisitContext delegating back to the
+    // PartialPageContext
+    _visitContext = new PartialPageVisitContext();
 
+    _context = (context != null)
+                ? context
+                : FacesContext.getCurrentInstance(); 
+    
+    if (reqContext instanceof RequestContextImpl)
+    {
+      // Components may add themselves to the partialTargets list in earlier
+      // phases (we don't get here until render response). If so, the IDs have
+      // been kept on the RequestContext. We'll grab them now and add them to the
+      // target list.
+      RequestContextImpl requestContext =
+        (RequestContextImpl) reqContext;
+      Iterator<String> targetIter = requestContext.getPartialTargets();
+      while (targetIter.hasNext())
+        addPartialTarget(targetIter.next());
+    }
+    
     if (_targets.isEmpty())
     {
       _LOG.fine("PPR is about to render without any targets");
     }
+    
+    // unmodifiable list of targets for use from VisitContext
+    _unmodifiableTargets = Collections.unmodifiableSet(_targets.keySet());
   }
 
   /**
@@ -100,9 +129,28 @@ public class PartialPageContextImpl extends PartialPageContext
    * should be rendered as part of the partial rendering pass.
    */
   @Override
-  public boolean isPartialTarget(String id)
+  public boolean isPartialTarget(String clientId)
   {
-    return (id != null) && _targets.containsKey(id);
+    return (clientId != null) && _targets.containsKey(clientId);
+  }
+
+  /**
+   * <p>
+   * Tests whether the specified component id is a component id of a UIComponent that
+   * might be rendered in this partial rendering pass.
+   * </p>
+   * <p>
+   * As calculating clientIds is expensive, this method allows a cheap test to reject components
+   * that shouldn't be rendered. If this method returns true, a more
+   * exact test using <code>isPartialTarget</code> with the desired clientId should be performed.
+   * </p>
+   * @return <code>true</code> if a component with this id should be rendered.
+   * @see #isPartialTarget
+   */
+  @Override
+  public boolean isPossiblePartialTarget(String componentId)
+  {
+    return (componentId != null) && _targetIds.contains(componentId);
   }
 
   /**
@@ -115,6 +163,16 @@ public class PartialPageContextImpl extends PartialPageContext
   }
 
   /**
+   * Returns <code>true</code> if all of the partial targets have been rendered.
+   * @return <code>true</code> if all of the partial targets have been rendered.
+   */
+  @Override
+  public boolean areAllTargetsProcessed()
+  {
+    return _renderedTargets.size() == _targets.size();
+  }
+
+  /**
    * Adds a new partial target to render.
    * <p>
    * This method may be called during the partial rendering pass to
@@ -123,13 +181,23 @@ public class PartialPageContextImpl extends PartialPageContext
    * whether the partial rendering pass has finished by calling
    * isPartialPassComplete() before calling this method.
    *
-   * @param id The id of the partial target to render
-   * @see #isPartialPassComplete
+   * @param clientId The clientId of the partial target to render
    */
   @Override
-  public void addPartialTarget(String id)
+  public void addPartialTarget(String clientId)
   {
-    _targets.put(id, Boolean.FALSE);
+    _targets.put(clientId, Boolean.FALSE);
+    
+    int lastFragmentIndex = clientId.lastIndexOf(NamingContainer.SEPARATOR_CHAR);
+    
+    String id = (lastFragmentIndex != -1)
+                  ? clientId.substring(lastFragmentIndex + 1)
+                  : clientId;
+    
+    _targetIds.add(id);
+
+    // Update the subtree ids collection
+    _addSubtreeClientId(clientId);
   }
 
   /**
@@ -147,15 +215,25 @@ public class PartialPageContextImpl extends PartialPageContext
    * up to the top element (or elements).
    */
   @Override
-  public void addRenderedPartialTarget(String id)
+  public void addRenderedPartialTarget(String clientId)
   {
-    _renderedTargets.add(id);
+    _renderedTargets.add(clientId);
   }
 
   @Override
   public Iterator<String> getRenderedPartialTargets()
   {
     return _renderedTargets.iterator();
+  }
+  
+  /**
+   * Returns the VisitContext to use when partial rendering.
+   * @return the VisitContext to use when partial rendering.
+   */
+  @Override
+  public VisitContext getVisitContext()
+  {
+    return _visitContext;
   }
 
   /**
@@ -166,26 +244,25 @@ public class PartialPageContextImpl extends PartialPageContext
    * rendering pass when a partial target is about to be rendered.
    * Clients should never need to call this method.
    *
-   * @param context the current FacesContext
-   * @param id The ID of the partial target that is about to be rendered
+   * @param clientId The clientId of the partial target that is about to be rendered
    * @see #popRenderedPartialTarget
    */
   public void pushRenderedPartialTarget(
-    String id
+    String clientId
     )
   {
     if (_LOG.isFine())
     {
-      if (!_targets.containsKey(id))
-        _LOG.fine("Rendering partial target {0}, which was not requested", id);
+      if (!_targets.containsKey(clientId))
+        _LOG.fine("Rendering partial target {0}, which was not requested", clientId);
     }
 
-    _targets.put(id, Boolean.TRUE);
-    _currentTargetStack.push(id);
+    _targets.put(clientId, Boolean.TRUE);
+    _currentTargetStack.push(clientId);
 
     if (_LOG.isFiner())
     {
-      _LOG.finer("Pushed rendered PPR target " + id);
+      _LOG.finer("Pushed rendered PPR target " + clientId);
     }
   }
 
@@ -196,8 +273,6 @@ public class PartialPageContextImpl extends PartialPageContext
    * This method is called automatically by Trinidad during the partial
    * rendering pass when a partial target has finished rendering.
    * Clients should never need to call this method.
-   *
-   * @param context the current FacesContext
    */
   public void popRenderedPartialTarget()
   {
@@ -217,13 +292,187 @@ public class PartialPageContextImpl extends PartialPageContext
     return _currentTargetStack.peek();
   }
 
-  private Map<String, Boolean> _targets;
-  private Set<String> _renderedTargets;
+  // Given a single client id, populate the subtree map with all possible
+  // subtree client ids
+  private void _addSubtreeClientId(String clientId)
+  {
+    // Loop over the client id and find the substring corresponding to
+    // each ancestor NamingContainer client id.  For each ancestor
+    // NamingContainer, add an entry into the map for the full client
+    // id.
+    char separator = NamingContainer.SEPARATOR_CHAR;
+    
+    int length = clientId.length();
+
+    for (int i = 0; i < length; i++)
+    {
+      if (clientId.charAt(i) == separator)
+      {
+        // We found an ancestor NamingContainer client id - add 
+        // an entry to the map.
+        String namingContainerClientId = clientId.substring(0, i);
+
+        // Check to see whether we've already ids under this
+        // NamingContainer client id.  If not, create the 
+        // Collection for this NamingContainer client id and
+        // stash it away in our map
+        Collection<String> c = _subtreeClientIds.get(namingContainerClientId);
+
+        if (c == null)
+        {
+          // TODO: smarter initial size?
+          c = new ArrayList<String>();
+          _subtreeClientIds.put(namingContainerClientId, c);
+        }
+
+        // Stash away the client id
+        c.add(clientId);
+      }
+    }
+  }
+
+  /**
+   * Internal implementation of VisitContext used for optimised PPR rendering
+   * ensuring a single source of truth by delegating back to the PartialPageContext
+   * so that additions to the PartialPageContext's partial targets are reflected
+   * in the set of visited components
+   */
+  private class PartialPageVisitContext extends VisitContext
+  {
+    public FacesContext getFacesContext()
+    {
+      return _context;
+    }
+
+    public PhaseId getPhaseId()
+    {
+      return PhaseId.RENDER_RESPONSE;
+    }
+
+    public Collection<String> getIdsToVisit()
+    {
+      // because we don't delegate back to the PartialPageContextImpl, this needs to
+      // prevent modification
+      return _unmodifiableTargets;
+    }
+
+    public Collection<String> getSubtreeIdsToVisit(UIComponent component)
+    {
+      // Make sure component is a NamingContainer
+      if (!(component instanceof NamingContainer))
+      {
+        throw new IllegalArgumentException("Component is not a NamingContainer: " + component);
+      }
+
+      String clientId = component.getClientId(getFacesContext());
+      Collection<String> ids = _subtreeClientIds.get(clientId);
+
+      if (ids == null)
+        return Collections.emptyList();
+      else
+        return Collections.unmodifiableCollection(ids);     
+    }
+
+    public VisitResult invokeVisitCallback(UIComponent component,
+                                           VisitCallback callback)
+    {
+      // First sure that we should visit this component - ie.
+      // that this component is represented in our id set.
+      String clientId = _getVisitId(component);
+
+      VisitResult result;
+     
+      if (component instanceof UIXComponent)
+      {
+        // delegate to the UIXComponent to let it control partial encoding behavior
+        result = ((UIXComponent)component).partialEncodeVisit(this,
+                                                              PartialPageContextImpl.this,
+                                                              callback);
+      }
+      else
+      {
+        // check that this component should be encoded
+        if (_targetIds.contains(component.getId()) &&
+            _targets.containsKey(component.getClientId(_context)))
+        {
+          // If we made it this far, the component matches one of
+          // client ids, so perform the visit.
+          result = callback.visit(this, component);         
+        }
+        else
+        {
+          // Not visiting this component, but allow visit to
+          // continue into this subtree in case we've got
+          // visit targets there.
+          result = VisitResult.ACCEPT;
+        }
+      }
+
+      // If we've encoded everything.
+      // Return VisitResult.COMPLETE to terminate the visit.
+      if (areAllTargetsProcessed())
+        return VisitResult.COMPLETE;
+      else
+      {
+        // Otherwise, just return the callback's result 
+        return result;
+      }
+    }
+
+    public Set<VisitHint> getHints()
+    {
+      return _PPR_VISIT_HINTS;
+    }
+
+    // Tests whether the specified component should be visited.
+    // If so, returns its client id.  If not, returns null.
+    private String _getVisitId(UIComponent component)
+    {
+      // We first check to see whether the component's id
+      // is in our id collection.  We do this before checking
+      // for the full client id because getting the full client id
+      // is more expensive than just getting the local id.
+      String id = component.getId();
+
+      if ((id != null) && !_targetIds.contains(id))
+        return null;
+
+      // The id was a match - now check the client id.
+      // note that client id should never be null (should be
+      // generated even if id is null, so asserting this.)
+      String clientId = component.getClientId(getFacesContext());
+      assert(clientId != null);
+
+      return _targets.containsKey(clientId) ? clientId : null;
+    }                                                                      
+  }
+
+  private static final Set<VisitHint> _PPR_VISIT_HINTS = EnumSet.of(VisitHint.SKIP_UNRENDERED,
+                                                                    VisitHint.EXECUTE_LIFECYCLE);
+  private final FacesContext _context;
+  
+  // if the value is TRUE, then this target has been rendered.  If false, it has yet to be rendered
+  private final Map<String, Boolean> _targets;
+  private final Set<String> _renderedTargets;
+  
+  // Set of target ids to render.  This is an optimization so allow
+  // fewer calls to getClientId
+  private final Set<String> _targetIds;
+  private final Set<String> _unmodifiableTargets;
+
+  // This map contains the information needed by getIdsToVisit().
+  // The keys in this map are NamingContainer client ids.  The values
+  // are collections containing all of the client ids to visit within
+  // corresponding naming container.
+  private final Map<String, Collection<String>> _subtreeClientIds;
 
   // The stack of partial targets that are currently being rendered
   // -= Simon Lessard =-
   // FIXME: java.util.Stack... enough said... ArrayList or LinkedList please
-  private Stack<String> _currentTargetStack;
+  // =-= btsulliv Wait until we can use ArrayDeque
+  private final Stack<String> _currentTargetStack;
 
+  private final VisitContext _visitContext;
+  
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(PartialPageContextImpl.class);
 }

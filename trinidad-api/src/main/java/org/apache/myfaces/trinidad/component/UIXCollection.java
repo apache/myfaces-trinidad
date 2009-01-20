@@ -1030,32 +1030,45 @@ public abstract class UIXCollection extends UIXComponentBase
     if (clientId.startsWith(thisClientId) &&
         (clientId.charAt(thisClientIdLength) == NamingContainer.SEPARATOR_CHAR))
     {
-      if (!_getAndMarkFirstInvokeForRequest(context, thisClientId))
-      {
-        // Call _init() since _flushCachedModel() assumes that
-        // selectedRowKeys and disclosedRowKeys are initialized to be non-null
-        _init();
-
-        _flushCachedModel();
-      }
-
-      String postId = clientId.substring(thisClientIdLength + 1);
-      int sepIndex = postId.indexOf(NamingContainer.SEPARATOR_CHAR);
-      // If there's no separator character afterwards, then this
-      // isn't a row key
-      if (sepIndex < 0)
-        return super.invokeOnComponent(context, clientId, callback);
-      String currencyString = postId.substring(0, sepIndex);
-      Object oldRowKey = getRowKey();
+      setupVisitingContext(context);
+      
       try
       {
-        setCurrencyString(currencyString);
-        return super.invokeOnComponent(context, clientId, callback);
+        if (!_getAndMarkFirstInvokeForRequest(context, thisClientId))
+        {
+          // Call _init() since _flushCachedModel() assumes that
+          // selectedRowKeys and disclosedRowKeys are initialized to be non-null
+          _init();
+  
+          _flushCachedModel();
+        }
+  
+        String postId = clientId.substring(thisClientIdLength + 1);
+        int sepIndex = postId.indexOf(NamingContainer.SEPARATOR_CHAR);
+        // If there's no separator character afterwards, then this
+        // isn't a row key
+        if (sepIndex < 0)
+          return invokeOnChildrenComponents(context, clientId, callback);
+        else
+        {
+          String currencyString = postId.substring(0, sepIndex);
+          Object oldRowKey = getRowKey();
+          try
+          {
+            setCurrencyString(currencyString);
+            
+            return invokeOnChildrenComponents(context, clientId, callback);
+          }
+          finally
+          {
+            // And restore the currency
+            setRowKey(oldRowKey);
+          }
+        }
       }
       finally
       {
-        // And restore the currency
-        setRowKey(oldRowKey);
+        tearDownVisitingContext(context);
       }
     }
 

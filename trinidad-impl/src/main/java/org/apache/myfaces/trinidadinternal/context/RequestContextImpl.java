@@ -22,6 +22,7 @@ import java.awt.Color;
 
 import java.io.Serializable;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -37,9 +38,13 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
+import javax.faces.event.PhaseId;
+
 import org.apache.myfaces.trinidad.change.ChangeManager;
 import org.apache.myfaces.trinidad.change.NullChangeManager;
 import org.apache.myfaces.trinidad.change.SessionChangeManager;
+import org.apache.myfaces.trinidad.component.visit.VisitContext;
+import org.apache.myfaces.trinidad.component.visit.VisitHint;
 import org.apache.myfaces.trinidad.config.RegionManager;
 import org.apache.myfaces.trinidad.context.AccessibilityProfile;
 import org.apache.myfaces.trinidad.context.Agent;
@@ -619,6 +624,32 @@ public class RequestContextImpl extends RequestContext
     return _partialTargets;
   }
 
+  /**
+   * <p>Creates a VisitContext instance for use with 
+   * {@link org.apache.myfaces.trinidad.component.UIXComponent#visitTree UIComponent.visitTree()}.</p>
+   *
+   * @param context the FacesContext for the current request
+   * @param ids the client ids of the components to visit.  If null,
+   *   all components will be visited.
+   * @param hints the VisitHints to apply to the visit
+   * @param phaseId.  PhaseId if any for this visit.  If PhaseId is specified,
+   * hints must contain VisitHint.EXECUTE_LIFECYCLE
+   * @return a VisitContext instance that is initialized with the 
+   *   specified ids and hints.
+   */
+   @Override
+  public VisitContext createVisitContext(
+    FacesContext context,
+    Collection<String> ids,
+    Set<VisitHint> hints,
+    PhaseId phaseId)
+  {
+    if ((ids == null) || ids.isEmpty())
+      return new FullVisitContext(context, hints, phaseId);
+    else
+      return new PartialVisitContext(context, ids, hints, phaseId);
+  }
+
   @Override
   public Map<String, List<Color>> getColorPalette()
   {
@@ -857,7 +888,7 @@ public class RequestContextImpl extends RequestContext
 
   private PageResolver        _pageResolver;
   private PageFlowScopeProvider _pageFlowScopeProvider;
-
+  
   //todo: get factory from configuration (else implementations have to provide their own RequestContext)
   static private final AgentFactory _agentFactory = new AgentFactoryImpl();
 

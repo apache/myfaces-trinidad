@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import javax.servlet.ServletContext;
@@ -68,6 +69,9 @@ public class CoreRenderingContext extends RenderingContext
     FacesContext context = FacesContext.getCurrentInstance();
     RequestContext afContext = RequestContext.getCurrentInstance();
 
+    _facesContext = context;
+    _requestContext = afContext;
+    
     _properties = new HashMap<Object, Object>();
 
     _outputMode = afContext.getOutputMode();
@@ -88,6 +92,22 @@ public class CoreRenderingContext extends RenderingContext
     _accessibilityProfile = afContext.getAccessibilityProfile();
     if (_accessibilityProfile == null)
       _accessibilityProfile = AccessibilityProfile.getDefaultInstance();
+  }
+  
+  /**
+   * Cached access to FacesContext.
+   */
+  public final FacesContext getFacesContext()
+  {
+    return _facesContext;
+  }
+  
+  /**
+   * Cached access to RequestContext
+   */
+  public final RequestContext getRequestContext()
+  {
+    return _requestContext;
   }
 
 
@@ -169,7 +189,7 @@ public class CoreRenderingContext extends RenderingContext
       return _localeContext.isRightToLeft();
     }
 
-    return RequestContext.getCurrentInstance().isRightToLeft();
+    return getRequestContext().isRightToLeft();
   }
 
   @Override
@@ -244,8 +264,7 @@ public class CoreRenderingContext extends RenderingContext
   {
     if (_styleContext == null)
     {
-      FacesContext fContext = FacesContext.getCurrentInstance();
-      _styleContext = new StyleContextImpl(this, getTemporaryDirectory(fContext));
+      _styleContext = new StyleContextImpl(this, getTemporaryDirectory(getFacesContext()));
     }
 
     return _styleContext;
@@ -260,8 +279,7 @@ public class CoreRenderingContext extends RenderingContext
     // the RenderingContext gets created
     if (_localeContext == null)
     {
-      _initializeLocaleContext(FacesContext.getCurrentInstance(),
-                               RequestContext.getCurrentInstance());
+      _initializeLocaleContext(getFacesContext(), getRequestContext());
     }
 
     return _localeContext;
@@ -432,7 +450,8 @@ public class CoreRenderingContext extends RenderingContext
 
     if (CoreRenderKit.OUTPUT_MODE_PORTLET.equals(getOutputMode()))
     {
-      FacesContext context = FacesContext.getCurrentInstance();
+      FacesContext context = getFacesContext();
+
       Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
 
       // Get the requested Skin Id from the request Map
@@ -446,7 +465,7 @@ public class CoreRenderingContext extends RenderingContext
           _LOG.warning("NO_SKIN_FACTORY");
           return null;
         }
-
+        
         Skin requestedSkin = factory.getSkin(context, requestedSkinId.toString());
         if (requestedSkin != null)
         {
@@ -652,8 +671,9 @@ public class CoreRenderingContext extends RenderingContext
   {
     String path = null;
 
-    Map<String, Object> applicationMap =
-      fContext.getExternalContext().getApplicationMap();
+    ExternalContext external = fContext.getExternalContext();
+    
+    Map<String, Object> applicationMap = external.getApplicationMap();
 
     if (applicationMap != null)
     {
@@ -670,7 +690,7 @@ public class CoreRenderingContext extends RenderingContext
         // In design-time land, just write to the temporary directory.
         // But what
         if (Beans.isDesignTime() ||
-            !(fContext.getExternalContext().getContext() instanceof ServletContext))
+            !(external.getContext() instanceof ServletContext))
         {
           tempdir = new File(System.getProperty("java.io.tmpdir"));
           path = tempdir.getAbsolutePath();
@@ -740,6 +760,8 @@ public class CoreRenderingContext extends RenderingContext
   private Map<Object, Object> _properties;
   private int                 _linkStyleDisabledCount = 0;
   private boolean             _isLinkDisabled = false;
+  private final FacesContext _facesContext;
+  private final RequestContext _requestContext;
 
   static private final String _SKIN_ID_PARAM =
     "org.apache.myfaces.trinidad.skin.id";
