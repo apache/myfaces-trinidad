@@ -21,9 +21,9 @@ package org.apache.myfaces.trinidadinternal.webapp;
 import java.io.IOException;
 import java.io.Serializable;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-
 import java.util.UUID;
 
 import javax.faces.component.UIViewRoot;
@@ -48,6 +48,7 @@ import org.apache.myfaces.trinidadinternal.config.dispatch.DispatchServletRespon
 import org.apache.myfaces.trinidadinternal.config.upload.FileUploadConfiguratorImpl;
 import org.apache.myfaces.trinidadinternal.config.upload.UploadRequestWrapper;
 import org.apache.myfaces.trinidadinternal.config.xmlHttp.XmlHttpConfigurator;
+import org.apache.myfaces.trinidadinternal.context.DialogServiceImpl;
 import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
 import org.apache.myfaces.trinidadinternal.context.external.ServletExternalContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
@@ -283,8 +284,12 @@ public class TrinidadFilterImpl implements Filter
       if(data != null)
       {
         Map<String, Object> requestMap = ec.getRequestMap();
-        requestMap.put(_IS_RETURNING_KEY, Boolean.TRUE);
-        requestMap.put(RequestContextImpl.LAUNCH_VIEW, data.getLaunchView());
+        
+        UIViewRoot launchView = data.getLaunchView();
+        if(launchView != null)
+        { 
+          requestMap.put(RequestContextImpl.LAUNCH_VIEW, data.getLaunchView());
+        }
         
         return new ReplaceParametersRequestWrapper(
              (HttpServletRequest) ec.getRequest(), 
@@ -299,8 +304,8 @@ public class TrinidadFilterImpl implements Filter
     throws IOException
   {
     Map<String, Object> reqMap = ec.getRequestMap();
-    Map<String, String[]> launchParameters = (Map<String, String[]>)reqMap.get(RequestContextImpl.LAUNCH_PARAMETERS);
-    if(launchParameters != null && !Boolean.TRUE.equals(reqMap.get(_IS_RETURNING_KEY)))
+    
+    if(Boolean.TRUE.equals(reqMap.get(DialogServiceImpl.DIALOG_RETURN)))
     {
       /**
        * We use pageflow scope so that if something fails on the redirect, we
@@ -309,7 +314,7 @@ public class TrinidadFilterImpl implements Filter
        */
       Map<String, Object> sessionMap = ec.getSessionMap();
       String uid = UUID.randomUUID().toString();
-      LaunchData data = new LaunchData((UIViewRoot)reqMap.get(RequestContextImpl.LAUNCH_VIEW), launchParameters);
+      LaunchData data = new LaunchData((UIViewRoot)reqMap.get(RequestContextImpl.LAUNCH_VIEW), (Map<String, String[]>) reqMap.get(RequestContextImpl.LAUNCH_PARAMETERS));
       sessionMap.put(_getKey(uid), data);
       
       //Construct URL
@@ -341,7 +346,14 @@ public class TrinidadFilterImpl implements Filter
     public LaunchData(UIViewRoot launchView, Map<String, String[]> launchParam)
     {
       _launchView = launchView;
-      _launchParam = launchParam;
+      if(launchParam != null)
+      {
+        _launchParam = launchParam;
+      }
+      else
+      {
+        _launchParam = Collections.emptyMap();
+      }
     }
 
     private UIViewRoot getLaunchView()
