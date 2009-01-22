@@ -45,6 +45,8 @@ import org.apache.myfaces.trinidadinternal.webapp.TrinidadFilterImpl;
 
 public class DialogServiceImpl extends DialogService
 {
+  public static final String DIALOG_RETURN = "org.apache.myfaces.trinidad.DialogReturn";
+    
   public DialogServiceImpl(RequestContextImpl context)
   {
     _context = context;
@@ -188,13 +190,13 @@ public class DialogServiceImpl extends DialogService
     Map<Object, Object> launchParameters = (Map<Object, Object>)
       poppedView.getAttributes().get(RequestContextImpl.LAUNCH_PARAMETERS);
 
+    Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
     if (launchParameters != null)
     {
       // Store the parameters and the UIViewRoot for (respectively)
       // AdfFacesFilterImpl and ViewHandlerImpl
       poppedView.getAttributes().remove(RequestContextImpl.LAUNCH_PARAMETERS);
 
-      Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
       requestMap.put(RequestContextImpl.LAUNCH_PARAMETERS, launchParameters);
       requestMap.put(RequestContextImpl.LAUNCH_VIEW, poppedView);
 
@@ -202,6 +204,8 @@ public class DialogServiceImpl extends DialogService
       _LOG.fine("Returned from dialog and re-executing lifecycle for {0}",
                 poppedView.getViewId());
     }
+    
+    requestMap.put(DIALOG_RETURN, Boolean.TRUE);
 
     return false;
 
