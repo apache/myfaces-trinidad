@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -29,6 +29,7 @@ import javax.faces.el.ValueBinding;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
+
 /**
  * Change specialization for change in attributes.
  * While applying this Change, the specified attribute state is  restored.
@@ -37,12 +38,12 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 public class AttributeComponentChange extends ComponentChange
 {
   /**
-   * Constructs an AttributeChange with the given attributeName and 
+   * Constructs an AttributeChange with the given attributeName and
    *  attributeValue.
    * @param attributeName The name of the attribute for which the value needs
    *         to be restored.
    * @param attributeValue The value of the attribute that needs to be restored.
-   *         This value should be of type java.io.Serializable in order to be 
+   *         This value should be of type java.io.Serializable in order to be
    *         persisted.  If the value is of type ValueExpression or ValueBinding,
    *         the component's ValueBinding or ValueExpression for the attribute
    *         will be updated and the current attribute value, if any, removed so
@@ -58,15 +59,15 @@ public class AttributeComponentChange extends ComponentChange
     if ((attributeName == null) || (attributeName.length() == 0))
       throw new IllegalArgumentException(_LOG.getMessage(
         "CANNOT_CONSTRUCT_ATTRIBUTECHANGE_WITH_NULL_NAME"));
-    
-    if (!(attributeValue instanceof Serializable))
+
+    if (attributeValue != null && !(attributeValue instanceof Serializable))
       throw new IllegalArgumentException(_LOG.getMessage(
         "UNSERIALIZABLE_VALUE", attributeValue));
-      
+
     _attributeName = attributeName;
     _attributeValue = attributeValue;
   }
-  
+
   /**
    * Returns the name of the attribute that represents this Change.
    */
@@ -82,7 +83,7 @@ public class AttributeComponentChange extends ComponentChange
   {
     return _attributeValue;
   }
-  
+
   /**
    * {@inheritDoc}
    */
@@ -91,7 +92,7 @@ public class AttributeComponentChange extends ComponentChange
   public void changeComponent(UIComponent uiComponent)
   {
     Map<String, Object> attributeMap = uiComponent.getAttributes();
-    
+
     // if the attributevalue is a ValueExpression or ValueBinding, use the
     // appropriate setValueExpression/setValueBinding call and remove the
     // current attribute value, if any, so that the ValueExpression/ValueBinding
@@ -113,7 +114,7 @@ public class AttributeComponentChange extends ComponentChange
   }
 
   private final String _attributeName;
-  
+
   //=-=pu: Should we disallow non-serializable values during construction itself
   //      and throw IllegalArgumentException ?
   // Current known cases:
