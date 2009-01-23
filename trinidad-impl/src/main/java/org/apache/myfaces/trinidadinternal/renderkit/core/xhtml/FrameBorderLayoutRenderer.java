@@ -284,14 +284,15 @@ public class FrameBorderLayoutRenderer extends XhtmlRenderer
                                          String attr,
                                          StringBuffer result)
   {
-    String val = frame.getAttributes().get(attr).toString();
+    Object val = frame.getAttributes().get(attr);
 
-    if ((val==null))
+    if (val == null)
     {
       if (_LOG.isWarning())
-        _LOG.warning("FRAME_MISSING_ATTRIBUTE", new Object[]{frame.getId(), attr});
-      val="0";
+        _LOG.warning("FRAME_MISSING_ATTRIBUTE", new Object[] { frame.getId(), attr });
+      val = "0";
     }
+
     result.append(val);
     return result;
   }
