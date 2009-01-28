@@ -128,5 +128,30 @@ public class PdaCommandLinkRenderer extends CommandLinkRenderer
     rw.endElement(element);
     arc.setCurrentClientId(null);
   }
+  
+  /**
+   * Renders the client ID as both "id" and "name"
+   * @param context the FacesContext object
+   * @param component the UIComponent object
+   * @throws IOException
+   */
+  @Override
+  protected void renderId(
+    FacesContext context,
+    UIComponent  component) throws IOException
+  { 
+    if (shouldRenderId(context, component))
+    {
+      String clientId = getClientId(context, component);
+      context.getResponseWriter().writeURIAttribute("id", clientId, "id");
+      RenderingContext arc = RenderingContext.getCurrentInstance();
+      // For Non-JavaScript browsers, name attribute is handled separately 
+      // so skip it here
+      if (supportsScripting(arc))
+      {
+        context.getResponseWriter().writeURIAttribute("name", clientId, "id");
+      }
+    } 
+  }
 
 }
