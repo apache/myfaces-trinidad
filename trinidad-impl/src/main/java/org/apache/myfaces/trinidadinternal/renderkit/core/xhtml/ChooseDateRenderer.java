@@ -24,6 +24,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import java.util.TimeZone;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -113,6 +115,15 @@ public class ChooseDateRenderer extends XhtmlRenderer
     if (isInline && !isInlineSupported(arc))
       return;
 
+    // TRINIDAD-1349: The client converter assumes a fixed timezone offset
+    // between the server and itself. It calculates that by passing the
+    // server's timezone offset at the current date-time, as _uixLocaleTZ. 
+    // However, if we are rendering a month in which daylight savings occurs in 
+    // the application timezone, the offset value may be different. In that case
+    // pass the new offset value for the client to use. 
+    TimeZone tz = arc.getLocaleContext().getTimeZone();
+    int baseTZOffsetMinutes = tz.getOffset(System.currentTimeMillis())/(1000*60);
+
     boolean isDesktop = isDesktop(arc);
     ResponseWriter writer = context.getResponseWriter();
     writer.startElement("table", component);
@@ -135,7 +146,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
 
     // get the currently selected Time
     long selectedTime = _getSelectedTime(arc, bean, minTime, maxTime);
-
+    
     // get the id
     String id = getClientId(context, component);
 
@@ -156,19 +167,22 @@ public class ChooseDateRenderer extends XhtmlRenderer
                                                        maxTime,
                                                        selectedTime);
 
-    long displayedTime = displayedCalendar.getTime().getTime();
-
-    // determine the day of this month that is selected
-    int dom = displayedCalendar.get(Calendar.DAY_OF_MONTH);
-
     int firstDOM = _getActualMinimumDayOfMonth(displayedCalendar);
     int lastDOM  = _getActualMaximumDayOfMonth(displayedCalendar);
-
+    
     // determine the the starting times and ending times of the first and
     // last days of the month
-    long firstDOMTime = displayedTime + (firstDOM - dom) * _MILLIS_IN_DAY;
-    long lastDOMTime = displayedTime +
-                       ((long)(lastDOM + 1 - dom)) * _MILLIS_IN_DAY - 1;
+    // Create a copy of the calendar so we don't hammer the current values
+    Calendar calcCal = (Calendar) displayedCalendar.clone();
+    // First is easy
+    calcCal.set(Calendar.DAY_OF_MONTH, firstDOM);
+    long firstDOMTime = calcCal.getTimeInMillis();
+
+    // Last not just the last day of this month, it's the first day of next
+    // month minus a millisecond.
+    calcCal.set(Calendar.DAY_OF_MONTH, lastDOM);
+    calcCal.add(Calendar.DATE, 1);
+    long lastDOMTime = calcCal.getTimeInMillis() - 1;
 
     DateFormatSymbols dateSymbols = _getDateFormatSymbols(arc);
 
@@ -325,7 +339,8 @@ public class ChooseDateRenderer extends XhtmlRenderer
 
     int  currDOM    = firstDOM;
     long currTime   = firstDOMTime;
-    long nextTime   = currTime + _MILLIS_IN_DAY;
+    displayedCalendar.add(Calendar.DAY_OF_MONTH, 1);
+    long nextTime   = displayedCalendar.getTimeInMillis();
     int currLastDOW = firstDOWInMonth + dowCount;
 
     String[] keysAndValues = new String[]{
@@ -376,10 +391,12 @@ public class ChooseDateRenderer extends XhtmlRenderer
           // a date in the date field. (see bug #1482511)
           //
           writer.startElement("a", null);
-          renderSelectDayAttributes(context,
+          renderSelectDayAttributes(arc,
+                                    context,
                                     keysAndValues,
                                     id,
                                     currTime,
+                                    baseTZOffsetMinutes,
                                     isInline,
                                     isDesktop,
                                     destString);
@@ -407,7 +424,8 @@ public class ChooseDateRenderer extends XhtmlRenderer
 
         // move to the next day in time
         currTime = nextTime;
-        nextTime += _MILLIS_IN_DAY;
+        displayedCalendar.add(Calendar.DAY_OF_MONTH, 1);
+        nextTime = displayedCalendar.getTimeInMillis();
       }
 
       if (currDOM <= lastDOM)
@@ -425,6 +443,9 @@ public class ChooseDateRenderer extends XhtmlRenderer
         break;
       }
     } while (true);
+    
+    // Reset the calendar
+    displayedCalendar.set(Calendar.DAY_OF_MONTH, firstDOM);
 
     //
     // output the days from the next month in the last week
@@ -465,18 +486,24 @@ public class ChooseDateRenderer extends XhtmlRenderer
 
 
   protected void renderSelectDayAttributes(
+    RenderingContext arc,
     FacesContext context,
     String[] keysAndValues,
     String id,
     long currTime,
+    int baseTZOffsetMinutes,
     boolean isInline,
     boolean isDesktop,
     String destString
     ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
+    
     if (isDesktop)
     {
+      TimeZone tz = arc.getLocaleContext().getTimeZone();
+      int tzOffsetMinutes = tz.getOffset(currTime)/(1000*60);
+
       StringBuilder clickRef = new StringBuilder(30);
       writer.writeURIAttribute("href", "#", null);
 
@@ -502,6 +529,8 @@ public class ChooseDateRenderer extends XhtmlRenderer
       }
 
       clickRef.append(currTime);
+      if (tzOffsetMinutes != baseTZOffsetMinutes)
+        clickRef.append (", " + tzOffsetMinutes);
       clickRef.append(')');
       writer.writeAttribute("onclick", clickRef, null);
     }
@@ -817,7 +846,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
       currentTime.set(Calendar.MONTH, currMonth);
 
 
-      String value = String.valueOf(currentTime.getTime().getTime() - offset);
+      String value = String.valueOf(currentTime.getTimeInMillis() - offset);
       writer.writeAttribute("value", value, null );
 
       writer.writeText(months[currMonth], null);
@@ -982,7 +1011,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
     currentTime.set(Calendar.YEAR, year);
 
     writer.writeAttribute("value",
-                          String.valueOf(currentTime.getTime().getTime()),
+                          String.valueOf(currentTime.getTimeInMillis()),
               null);
 
     // output the label for the after item

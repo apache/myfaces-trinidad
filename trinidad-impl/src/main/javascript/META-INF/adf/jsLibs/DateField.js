@@ -20,24 +20,45 @@
 // _dfsv(): Date Field Set Value function.  
 function _dfsv(
   dateField,
-  newValue
+  newValue,
+  serverOffsetInMins
   )
 {
   // Make sure we have valid values
   if ((dateField == (void 0)) || (newValue == (void 0)))
     return;
+
+  // Hold on to the initial date value
+  var baseDate = new Date(newValue);
+  
+  // We need to compare the time zone that is on the client with the time
+  // zone that came from the localeContext on the server and adjust if
+  // necessary
+  var tzd = _getLocaleTimeZoneDifference2(baseDate, serverOffsetInMins);
+    
+  // _getTimePortion below expects that newValue is time zero (midnight) on the given
+  // day. The code changes to handle the new Daylight Savings Time dates (as of
+  // 2007, DST was extended by a couple of weeks) broke the calculations for
+  // 2006 and prior on Windows. This yields an off-by-one-hour problem on the
+  // day after the DST switch. Here we adjust for that.
+   newValue = _dfGetMidnight(newValue + tzd);  
     
   // Add back in the time
   // offset,since we don't want to overwrite the user's time when 
   // they pick a new date from the calendar. 
   newValue += _getTimePortion(dateField);
-  
-  // compare the time zone that is on the client with the time zone that
-  // came from the localeContext on the server and adjust if necessary.
-  // bug 3167883
-  newValue += _getLocaleTimeZoneDifference2();
 
   var newDate = new Date(newValue);
+  
+  // If the date used for the time-of-day calculation is different from the
+  // timezone (daylight savings or standard time) of the base date, then we'll
+  // be off by an hour. Here we adjust for that hour. Note this is different
+  // from the check in the _getTimePortion method, that only checks for a
+  // timezone change on the particular day used for the calculation. Both
+  // checks are needed.
+  var tzDiffOffset = _getTimezoneDiff(baseDate, newDate);
+  if (tzDiffOffset != 0)
+    newDate = new Date (newValue - tzDiffOffset);
 
   //
   // get the format to use to format the result
@@ -139,7 +160,11 @@ function _returnCalendarValue(
       dateField = _savedField1879034;
     }
 
-    _dfsv(dateField, newValue);
+    var serverOffset = closingWindow.serverOffsetInMins;
+    if (serverOffset != (void 0))
+      _dfsv(dateField, newValue, serverOffset);
+    else
+      _dfsv(dateField, newValue);    
   }
 }
 
@@ -227,8 +252,10 @@ function _ldp(
   }
   
   // add the current time in Millis since 1970
-  destination += "&value=" + oldValue.getTime();
+  var timeval = oldValue.getTime() - _getLocaleTimeZoneDifference(oldValue);
+  destination += "&value=" + timeval
   
+    
   // add the locale
   destination += "&loc=" + _locale;
     
@@ -329,8 +356,14 @@ function _getTimePortion(dateField)
                                     oldValue.getDate());
       
   // get only the time portion of the date in the field.
+  var diff = oldValue-oldValueDateOnly;
 
-  return oldValue-oldValueDateOnly;
+  // If the timezone changed today, subtract out the offset.
+  // This will only happen on the day that we switch from standard time to
+  // daylight savings time, or back again.
+  diff -= _getTimezoneDiff(oldValue, oldValueDateOnly);
+
+  return diff;
 }
 
 /**
@@ -340,19 +373,57 @@ function _getTimePortion(dateField)
  * the date field to use the timezone set on the locale context on the 
  * server instead of the timezone we get from javascript's getTimezoneOffset.
  * see bug 3167883
+ * TRINIDAD-1349:_uixLocaleTZ stores the timezone offset of the server at
+ * the time the page was displayed (Current time), and currentDateTZOffset
+ * is the timezone offset of client at the current time as well. However,
+ * the timezone offsets for both client and server can differ for the
+ * date that was picked due to daylight savings rules. For example, the
+ * current time is 3 Dec 2008 and the server is in PST (UTC -8) and 
+ * client is in Perth (AWDT, UTC + 9) so the difference is 17h. But if 
+ * the user picks Apr 25, the server is actually in PDT then (UTC-7) and
+ * the client in AWST (UTC +8) so the difference is actually 15h. The original 
+ * code would subtract 17h, which would cause the resulting date to move
+ * to the previous day. * 
  */
-function _getLocaleTimeZoneDifference2()
+function _getLocaleTimeZoneDifference2(clientDate, serverOffset)
 {
-  var currentDate = new Date();
   // timeZoneOffset in javascript appears to give
   // the wrong sign, so I am switching it.
   // the timeZoneOffset is in minutes.
-  var currentDateTzOffset = currentDate.getTimezoneOffset() * -1;
+  var clientOffset = clientDate.getTimezoneOffset() * -1;
   var tzOffsetDiff = 0;
-  if (_uixLocaleTZ)
-    tzOffsetDiff = (_uixLocaleTZ - currentDateTzOffset)*60*1000;
+  if (serverOffset != void(0))
+    tzOffsetDiff = (serverOffset - clientOffset)*60*1000;
+  else if (_uixLocaleTZ != (void(0)))
+    tzOffsetDiff = (_uixLocaleTZ - clientOffset)*60*1000;
   
   return tzOffsetDiff;
+}
+
+/**
+ * Just find the difference in millis between the timezone of two dates
+ */
+function _getTimezoneDiff(oldDate, newDate)
+{
+  return (oldDate.getTimezoneOffset() - newDate.getTimezoneOffset()) * 60000;
+}
+
+/**
+ * _dfGetMidnight: Date Field Get Midnight
+ *                 Returns the date val for midnight on the date given by the
+ *                 input dateVal.
+ */
+function _dfGetMidnight(dateVal)
+{
+  var baseDate = new Date(dateVal);
+  // Just zero out the date
+  baseDate.setHours(0);
+  baseDate.setMinutes(0);
+  baseDate.setSeconds(0);
+  baseDate.setMilliseconds(0);
+
+  // and return the corresponding date value
+  return baseDate.getTime();
 }
 
 /**
@@ -420,7 +491,7 @@ function _dfa(dateField, calendarID)
  * - source is the id of the calendar
  * - value is the date value to select
  */
-function _calsd(source, value)
+function _calsd(source, value, serverOffsetInMins)
 {
 
   if (window._calActiveDateFields != (void 0))
@@ -428,7 +499,7 @@ function _calsd(source, value)
     var dateField = window._calActiveDateFields[source];
 
     if (dateField)
-      _dfsv(dateField, value);
+      _dfsv(dateField, value, serverOffsetInMins);
   }
 
   return false;
@@ -462,18 +533,20 @@ function _doCancel()
   return false;
 }
 
-function _selectDate(dateTime)
+function _selectDate(dateTime, serverOffsetInMins)
 {
   var dialog = parent.TrPopupDialog.getInstance();
   if (dialog)
   {
     dialog.returnValue = dateTime;
+    dialog.serverOffsetInMins = serverOffsetInMins;
     //TODO - Need Cleaner way to close dialogs using via getInstance()
     parent.TrPopupDialog._returnFromDialog();
   }
   else
   {
     top.returnValue = dateTime;
+    top.serverOffsetInMins = serverOffsetInMins;    
     top._unloadADFDialog(window.event);
     top.close();
   }
