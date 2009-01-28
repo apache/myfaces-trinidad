@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -44,7 +44,7 @@
       </facet-extension>
     </facet>
     <property>
-      <description><![CDATA[the hierarchy of navigation data - must be of type 
+      <description><![CDATA[the hierarchy of navigation data - must be of type
             org.apache.myfaces.trinidad.model.MenuModel]]>
       </description>
       <property-name>value</property-name>
@@ -61,6 +61,7 @@
       </description>
       <property-name>level</property-name>
       <property-class>int</property-class>
+      <default-value>0</default-value>
       <property-extension>
         <mfp:property-metadata>
           <mfp:preferred>true</mfp:preferred>
@@ -76,7 +77,7 @@
           removed (or reverted back to its previous value).
           The VarStatus provides contextual information about the state of the
           component to EL expressions. For components that iterate, varStatus
-          also provides loop counter information.  Please see the this 
+          also provides loop counter information.  Please see the this
           component's documentation for the specific properties on the varStatus.
           The common properties on varStatus include:<ul><li>"model" - returns the CollectionModel for this component</li><li>"index" - returns the zero based row index</li></ul></html>]]>
       </description>
