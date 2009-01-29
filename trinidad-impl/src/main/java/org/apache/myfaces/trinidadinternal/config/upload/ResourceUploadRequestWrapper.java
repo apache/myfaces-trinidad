@@ -1,21 +1,3 @@
-/*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  "License"); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
- */
 package org.apache.myfaces.trinidadinternal.config.upload;
 
 import java.io.UnsupportedEncodingException;
@@ -27,23 +9,21 @@ import java.util.Map;
 
 import javax.faces.context.ExternalContext;
 
-import javax.portlet.ActionRequest;
-import javax.portlet.ActionResponse;
-
-import javax.portlet.filter.ActionRequestWrapper;
+import javax.portlet.ResourceRequest;
+import javax.portlet.ResourceResponse;
+import javax.portlet.filter.ResourceRequestWrapper;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.share.util.CaboHttpUtils;
 
-public class ActionUploadRequestWrapper
-  extends ActionRequestWrapper
+public class ResourceUploadRequestWrapper
+  extends ResourceRequestWrapper
 {
-  public ActionUploadRequestWrapper(
-      ExternalContext ec,
-      Map<String, String[]> params)
+  public ResourceUploadRequestWrapper(ExternalContext ec,
+                                      Map<String, String[]> params)
   {
-    super((ActionRequest)ec.getRequest());
-    _response = (ActionResponse)ec.getResponse();
+    super((ResourceRequest) ec.getRequest());
+    _response = (ResourceResponse) ec.getResponse();
 
     @SuppressWarnings("unchecked")
     Map<String, String[]> origionalMap = super.getParameterMap();
@@ -81,7 +61,7 @@ public class ActionUploadRequestWrapper
     // If the encoding is already right, we can bail
     if (encoding.equals(_encoding))
       return;
-    
+
     // Don't call super.setCharacterEncoding() - it's too late
     // and we'll get a warning
     _encoding = encoding;
@@ -89,11 +69,11 @@ public class ActionUploadRequestWrapper
       _LOG.fine("Switching encoding of wrapper to " + encoding);
 
     _extractedAndDecodedParams =
-      new HashMap<String, String[]>(_extractedParams.size());
+        new HashMap<String, String[]>(_extractedParams.size());
 
     byte[] buffer = new byte[256];
 
-    for(Map.Entry<String, String[]> entry : _extractedParams.entrySet())
+    for (Map.Entry<String, String[]> entry: _extractedParams.entrySet())
     {
       String key = entry.getKey();
       key = CaboHttpUtils.decodeRequestParameter(key, encoding, buffer);
@@ -103,9 +83,9 @@ public class ActionUploadRequestWrapper
       String[] newValue = new String[length];
       for (int i = 0; i < length; i++)
       {
-        newValue[i] = CaboHttpUtils.decodeRequestParameter(oldValue[i],
-                                                           encoding,
-                                                           buffer);
+        newValue[i] =
+            CaboHttpUtils.decodeRequestParameter(oldValue[i], encoding,
+                                                 buffer);
         if (_LOG.isFinest())
           _LOG.finest("Parameter " + key + ":" + newValue[i]);
       }
@@ -169,10 +149,10 @@ public class ActionUploadRequestWrapper
 
   private Map<String, String[]> _extractedAndDecodedParams;
   private Map<String, String[]> _extractedParams;
-  private ActionResponse _response;
-  private String         _encoding;
+  private ResourceResponse _response;
+  private String _encoding;
   private static final String _WWW_FORM_URLENCODED_TYPE =
     "application/x-www-form-urlencoded";
   private static final TrinidadLogger _LOG =
-     TrinidadLogger.createTrinidadLogger(ActionUploadRequestWrapper.class);
+    TrinidadLogger.createTrinidadLogger(ResourceUploadRequestWrapper.class);
 }

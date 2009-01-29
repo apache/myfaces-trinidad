@@ -61,6 +61,16 @@
       <scope>provided</scope> <!-- force provided scope here -->
     </dependency>
 
+    <dependency>
+      <groupId>org.apache.myfaces.portlet-bridge</groupId>
+      <artifactId>portlet-bridge-api</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.myfaces.commons</groupId>
+      <artifactId>myfaces-commons-utils12</artifactId>
+    </dependency>
+
     <!-- "test" scope dependencies -->
     <dependency>
       <groupId>junit</groupId>

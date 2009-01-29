@@ -30,11 +30,14 @@ import javax.portlet.faces.annotation.ExcludeFromManagedRequestScope;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.myfaces.commons.util.ExternalContextUtils;
+
+import org.apache.myfaces.commons.util.RequestType;
 import org.apache.myfaces.trinidad.config.Configurator;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.UploadedFile;
-import org.apache.myfaces.trinidad.util.ExternalContextUtils;
+import org.apache.myfaces.trinidad.util.RequestStateMap;
 import org.apache.myfaces.trinidadinternal.share.util.MultipartFormHandler;
 import org.apache.myfaces.trinidadinternal.share.util.MultipartFormItem;
 
@@ -55,7 +58,7 @@ public class FileUploadConfiguratorImpl extends Configurator
   static public Map<String, String[]> getAddedParameters(ExternalContext externalContext)
   {
     @SuppressWarnings("unchecked")
-    Map<String, String[]> map = (Map<String, String[]>) externalContext.getRequestMap().get(_PARAMS);
+    Map<String, String[]> map = (Map<String, String[]>) RequestStateMap.getInstance(externalContext).get(_PARAMS);
 
     return map;
   }
@@ -68,7 +71,7 @@ public class FileUploadConfiguratorImpl extends Configurator
    */
   static public boolean isApplied(ExternalContext context)
   {
-    return (context.getRequestMap().get(_APPLIED)!=null);
+    return (RequestStateMap.getInstance(context).get(_APPLIED)!=null);
   }
 
   /**
@@ -77,7 +80,7 @@ public class FileUploadConfiguratorImpl extends Configurator
   @SuppressWarnings("unchecked")
   static public void apply(ExternalContext context)
   {
-    context.getRequestMap().put(_APPLIED, AppliedClass.APPLIED);
+    RequestStateMap.getInstance(context).put(_APPLIED, AppliedClass.APPLIED);
   }
 
   /* (non-Javadoc)
@@ -87,6 +90,8 @@ public class FileUploadConfiguratorImpl extends Configurator
   @SuppressWarnings("unchecked")
   public void beginRequest(ExternalContext externalContext)
   {
+    RequestType type = ExternalContextUtils.getRequestType(externalContext);
+    
     /*
      * Note: This class does not do a dispose on the file uploads.  The
      * reason for this is that in a portal environment, multiple render-requests
@@ -100,7 +105,7 @@ public class FileUploadConfiguratorImpl extends Configurator
     // as possible is a good thing
     //Process MultipartForm if need be
     if (MultipartFormHandler.isMultipartRequest(externalContext) &&
-       (externalContext.getRequest() instanceof HttpServletRequest || ExternalContextUtils.isPortlet(externalContext)))
+       (ExternalContextUtils.isHttpServletRequest(externalContext) || type.isPortlet()))
     {
       try
       {
@@ -110,7 +115,7 @@ public class FileUploadConfiguratorImpl extends Configurator
         // AdamWiner: looks like the previous Trinidad incarnation
         // of this code didn't have any allowed configuration...
         mfh.setMaximumAllowedBytes(_maxAllowedBytes);
-        mfh.setCharacterEncoding(ExternalContextUtils.getCharacterEncoding(externalContext));
+        mfh.setCharacterEncoding(externalContext.getRequestCharacterEncoding());
 
         final HashMap<String, String[]> parameters = new HashMap<String, String[]>();
         MultipartFormItem item;
@@ -223,24 +228,23 @@ public class FileUploadConfiguratorImpl extends Configurator
 
   static private ExternalContext _getExternalContextWrapper(ExternalContext externalContext, Map<String, String[]> addedParams)
   {
+    /**
+     * Only need to support Servlet, Action, and Resource (for ppr) Requests.
+     */
     if(!isApplied(externalContext))
     {
-      if(!ExternalContextUtils.isPortlet(externalContext))
-      {  
-        externalContext.setRequest(new UploadRequestWrapper(
-            (HttpServletRequest)externalContext.getRequest(),
-            addedParams));        
-      }
-      else if(ExternalContextUtils.isAction(externalContext))
+      switch(ExternalContextUtils.getRequestType(externalContext))
       {
-        /*
-         * We only need to do this if we have an action request.  Why?
-         * Because durring the ActionRequest, the wrapper will set the
-         * RenderParameters.  This is a cool thing because subsequent
-         * render requests will retain these parameters for us.
-         */
-        externalContext.setRequest(new ActionUploadRequestWrapper(externalContext,
-           addedParams));
+        case SERVLET:
+          externalContext.setRequest(new UploadRequestWrapper((HttpServletRequest)externalContext.getRequest(), addedParams));
+          break;
+        
+        case ACTION:
+          externalContext.setRequest(new ActionUploadRequestWrapper(externalContext, addedParams));
+          break;
+        
+        case RESOURCE:
+          externalContext.setRequest(new ResourceUploadRequestWrapper(externalContext, addedParams));
       }
       apply(externalContext);        
     }

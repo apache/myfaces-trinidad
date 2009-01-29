@@ -81,6 +81,11 @@
       <artifactId>jsf-facelets</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>org.apache.myfaces.commons</groupId>
+      <artifactId>myfaces-commons-utils12</artifactId>
+    </dependency>
+
     <!-- "test" scope dependencies -->
     <dependency>
       <groupId>org.apache.myfaces.trinidad</groupId>

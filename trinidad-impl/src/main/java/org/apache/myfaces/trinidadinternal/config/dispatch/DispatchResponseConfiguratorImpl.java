@@ -24,7 +24,8 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.config.Configurator;
-import org.apache.myfaces.trinidad.util.ExternalContextUtils;
+import org.apache.myfaces.commons.util.ExternalContextUtils;
+import org.apache.myfaces.trinidad.util.RequestStateMap;
 
 /**
  * TODO: Document this
@@ -40,18 +41,22 @@ public class DispatchResponseConfiguratorImpl extends Configurator
   {
     if(!isApplied(externalContext))
     {
-      if(ExternalContextUtils.isPortlet(externalContext))
+      switch(ExternalContextUtils.getRequestType(externalContext))
       {
-        if(!ExternalContextUtils.isAction(externalContext))
-        {
+        case RENDER:
+          //TODO: not sure if this is needed
           externalContext.setResponse(new DispatchRenderResponse(externalContext));
-        }
+          break;
+          
+        case RESOURCE:
+          //TODO: Not sure if this is needed
+          externalContext.setResponse(new DispatchResourceResponse(externalContext));
+          break;
+          
+        case SERVLET:
+          externalContext.setResponse(new DispatchServletResponse(externalContext));
       }
-      else
-      {
-        externalContext.setResponse(new DispatchServletResponse(externalContext));
-      }
-
+      
       apply(externalContext);
     }
 
@@ -75,7 +80,7 @@ public class DispatchResponseConfiguratorImpl extends Configurator
    */
   static public boolean isApplied(ExternalContext context)
   {
-    return (context.getRequestMap().get(_APPLIED)!=null);
+    return (RequestStateMap.getInstance(context).get(_APPLIED)!=null);
   }
 
   /**
@@ -84,7 +89,7 @@ public class DispatchResponseConfiguratorImpl extends Configurator
   @SuppressWarnings("unchecked")
   static public void apply(ExternalContext context)
   {
-    context.getRequestMap().put(_APPLIED, Boolean.TRUE);
+    RequestStateMap.getInstance(context).put(_APPLIED, Boolean.TRUE);
   }
 
   static private final String _APPLIED =
