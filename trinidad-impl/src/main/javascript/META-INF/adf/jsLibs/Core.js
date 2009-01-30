@@ -220,6 +220,7 @@ function _agentInit()
   var isSolaris         = false;
   var isWindows         = false;
   var isWindowsMobile6  = false;
+  var isNokiaPhone      = false; 
   var kind              = "unknown";
 
   // Group IE and IE based browsers such as IE Mobile on WM5 and WM6
@@ -349,6 +350,12 @@ function _agentInit()
   {
     isSolaris = true;
   }
+  else if ((agentString.indexOf('symbian') != -1) ||
+           (agentString.indexOf('nokia') != -1)) 
+  { 
+     isNokiaPhone = true;
+     pprUnsupported = true;
+  } 
 
   _agent.isBlackBerry           = isBlackBerry;
   _agent.isGecko                = isGecko;
@@ -356,6 +363,7 @@ function _agentInit()
   _agent.isIEGroup              = isIEGroup;
   _agent.isMac                  = isMac;
   _agent.isNav                  = isNav;
+  _agent.isNokiaPhone           = isNokiaPhone;
   _agent.isOpera                = isOpera;
   _agent.isPIE                  = isPIE;
   _agent.isSafari               = isSafari;
@@ -1223,9 +1231,29 @@ function _validateForm(
 
   var funcName = '_' + _getJavascriptId(_getFormName(form)) + 'Validator';
   var formWind = window[funcName];
-  if (formWind)
-    return formWind(form, source);
-
+  if (formWind)  
+  {
+    try
+    {
+      ret = formWind(form, source);
+    }
+    catch (e)
+    {
+      // Validator did not execute normally.
+      // In case for mobile devices, BlackBerry, Nokia, Windows Mobile and PPC
+      // return true in order to submit the form.
+      if (_agent.isPIE || _agent.isNokiaPhone || _agent.isBlackBerry)
+      {
+        ret = true;
+      }
+      else
+      {
+        ret = false;
+      }
+    }
+      return ret;
+  }
+  
   return false;
 }
 
@@ -1320,12 +1348,22 @@ function _validateAlert(
 
       // Get the current message
       var facesMessage = messages[j];
-
-      var errorString = _getGlobalErrorString(currInput,
-                          globalMessage,
-                          facesMessage.getDetail(),
-                          label);
-
+                         
+      if (_agent.isNokiaPhone)
+      {
+        errorString = _getGlobalErrorString(currInput,
+                            globalMessage,
+                            facesMessage,
+                            label);
+      }
+      else
+      {
+        errorString = _getGlobalErrorString(currInput,
+                            globalMessage,
+                            facesMessage.getDetail(),
+                            label);
+      }                      
+   
       failureString += errorString + '\n';
     }
   }
@@ -1411,12 +1449,30 @@ function _validateInline(
       var facesMessage = messages[j];
 
       if (msgElem)
-        msgElem.innerHTML += facesMessage.getDetail();
+      {
+        if (_agent.isNokiaPhone)
+        {
+          msgElem.innerHTML = facesMessage;
+        }
+        else
+        {
+          msgElem.innerHTML = facesMessage.getDetail();
+        }
+      }
 
       // if there's nowhere to display the message in either
       // summary or detail, then pop an alert to warn the page developer
       if (!msgElem && !TrMessageBox.isPresent())
-        alert("Field Error [" + currId + "] - " + facesMessage.getDetail());
+      {
+        if (_agent.isNokiaPhone)
+        {
+          alert("Field Error [" + currId + "] - " + facesMessage);
+        }
+        else
+        {
+          alert("Field Error [" + currId + "] - " + facesMessage.getDetail());
+        }
+      }  
 
       // Add the message to the MessageBox
       TrMessageBox.addMessage(currId, label, facesMessage);
@@ -2489,8 +2545,15 @@ function _multiValidate(
             catch (e)
             {
               converterError = true;
-                 // Populate the failureMap with the current error
-              inputFailures[inputFailures.length] = e.getFacesMessage();
+              // Populate the failureMap with the current error
+             if (_agent.isPIE || _agent.isNokiaPhone || _agent.isBlackBerry)
+             {
+               inputFailures[inputFailures.length] = e.message;
+             }
+             else
+             {
+               inputFailures[inputFailures.length] = e.getFacesMessage();
+             } 
             }
           }
         }
@@ -2521,7 +2584,14 @@ function _multiValidate(
                   catch (e)
                   {
                     // Populate the failureMap with the current error
-                    inputFailures[inputFailures.length] = e.getFacesMessage();
+                    if (_agent.isPIE || _agent.isNokiaPhone || _agent.isBlackBerry)
+                    {
+                      inputFailures[inputFailures.length] = e.message;
+                    }
+                    else
+                    {
+                      inputFailures[inputFailures.length] = e.getFacesMessage();
+                    }
                   }
                 }
               }
@@ -3391,6 +3461,10 @@ function _pprConsumeClick(event)
 //
 function _pprStartBlocking(win)
 {
+  // No blocking is performed on WM, Nokia, PPC and BlackBerry devices
+  if (_agent.isPIE || _agent.isNokiaPhone || _agent.isBlackBerry)
+    return; 
+
   if (_agent.isIE)
   {
     // see TRINIDAD-952 - IE does not update the activeElement in time before
@@ -3452,6 +3526,11 @@ function _doPprStartBlocking (win)
 //
 function _pprStopBlocking(win)
 {
+ 
+  // No blocking is performed on Nokia, PPC and BlackBerry devices
+  if (_agent.isPIE || _agent.isNokiaPhone || _agent.isBlackBerry)
+    return;
+  
   var doc = win.document;
 
   if (win._pprBlocking)
@@ -4158,8 +4237,11 @@ function _checkLoad()
       _setFocus(myElement);
   }
 
-  // Initialize ourselves if we're in a PopupDialog
-  TrPopupDialog._initDialogPage();
+  // Initialize ourselves if we're in a PopupDialog except for Nokia
+  if (!_agent.isNokiaPhone)
+  {
+    TrPopupDialog._initDialogPage();
+  }
 }
 
 

@@ -535,6 +535,45 @@ public class XhtmlUtils
   {
     return param + XhtmlConstants.NO_JS_PARAMETER_KEY;
   }
+   
+  /*
+   * This method returns the name attribute of HTML elements for Non-JavaScript
+   * browsers. It is encoded with parameter name and value pair. 
+   */
+  public static String getEncodedNameAttribute(String param[])
+  {
+    // The incoming array(param[]) must contain parameter name and value pair
+    // in the order of <<name1>>, <<value1>>, <<name2>>, <<value2>>,...
+    // The encoded parameter name and value for the above would be 
+    // <<name1>><<encodingKey>><<value1>><<encodingKey>>
+    // <<name2>><<encodingKey>><<value2>>
+            
+    int noOfParam = param.length;
+    int bufferLen = 0;
+    
+    // Calculate what would be the length of the encoded param name and  
+    // value pair. We need it to initialize the buffer size of StringBuilder.
+    for(int i = 0; i < noOfParam; i++)
+    {
+      bufferLen += param[i].length();
+    }
+    // If there are N parameter names and values, there would be N-1 
+    // encoding key so add its length also
+    bufferLen  += (noOfParam -1) * XhtmlConstants.NO_JS_PARAMETER_KEY.length();
+   
+    StringBuilder nameAttri = new StringBuilder(bufferLen);
+    
+    //Encode all the parameter names and values except the last parameter value
+    for(int i = 0; i < noOfParam-1; i++)
+    {
+      nameAttri.append(getEncodedParameter(param[i]));
+    }
+    
+    nameAttri.append(param[noOfParam-1]);
+  
+    return(nameAttri.toString());
+  }
+  
 
   /** HashMap mapping names to their scriptlets */
   private static Map<Object, Scriptlet> _sScriptletTable =
