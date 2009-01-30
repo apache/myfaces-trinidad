@@ -18,18 +18,21 @@
  */
 package org.apache.myfaces.trinidadinternal.util;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.Serializable;
+
+import java.math.BigInteger;
+
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 
 import java.util.Map;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-
-import javax.servlet.http.HttpSession;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
@@ -80,25 +83,41 @@ public class TokenCache implements Serializable
       cache = (TokenCache) external.getSessionMap().get(cacheName);
       if ((cache == null) && createIfNeeded)
       {
-        // Seed the token cache with the session ID (if available)
-        int seed = 0;
-        if (_USE_SESSION_TO_SEED_ID)
-        {
-          if (session instanceof HttpSession)
-          {
-            String id = ((HttpSession) session).getId();
-            if (id != null)
-              seed = id.hashCode();
-          }
-        }
-
-        cache = new TokenCache(defaultSize, seed);
+        // create the TokenCache with the crytographically random seed
+        cache = new TokenCache(defaultSize, _getSeed());
 
         external.getSessionMap().put(cacheName, cache);
       }
     }
 
     return cache;
+  }
+  
+  /**
+   * Returns a cryptographically secure random number to use as the TokenCache seed
+   */
+  private static long _getSeed()
+  {
+    SecureRandom rng;
+    
+    try
+    {
+      // try SHA1 first
+      rng = SecureRandom.getInstance("SHA1PRNG");
+    }
+    catch (NoSuchAlgorithmException e)
+    {
+      // SHA1 not present, so try the default (which could potentially not be
+      // cryptographically secure)
+      rng = new SecureRandom();
+    }
+    
+    // use 48 bits for strength and fill them in
+    byte[] randomBytes = new byte[6];
+    rng.nextBytes(randomBytes);
+    
+    // convert to a long
+    return new BigInteger(randomBytes).longValue();
   }
 
 
@@ -107,28 +126,42 @@ public class TokenCache implements Serializable
    */
   public TokenCache()
   {
-    this(_DEFAULT_SIZE, 0);
+    this(_DEFAULT_SIZE, 0L);
   }
 
 
   /**
-   * Create a TokenCache that will store the last "size" entries.
+   * Create a TokenCache that will store the last "size" entries.  This version should
+   * not be used if the token cache is externally accessible (since the seed always 
+   * starts at 0).  Use the
+   * constructor with the long seed instead.
    */
   public TokenCache(int size)
   {
-    this(size, 0);
+    this(size, 0L);
   }
 
   /**
    * Create a TokenCache that will store the last "size" entries,
    * and begins its tokens based on the seed (instead of always
    * starting at "0").
+   * @Deprecated Use version using a long size instead for greater security
    */
   public TokenCache(int size, int seed)
   {
+    this(size, (long)seed);
+  }
+
+ /**
+  * Create a TokenCache that will store the last "size" entries,
+  * and begins its tokens based on the seed (instead of always
+  * starting at "0").
+  */
+ public TokenCache(int size, long seed)
+  {
     _cache = new LRU(size);
     _pinned = new ConcurrentHashMap<String, String>(size);
-    _count = seed;
+    _count = new AtomicLong(seed);
   }
 
   /**
@@ -285,19 +318,11 @@ public class TokenCache implements Serializable
 
   private String _getNextToken()
   {
-    synchronized (_lock)
-    {
-      _count = _count + 1;
-      return Integer.toString(_count, 16);
-    }
-  }
-
-  private void readObject(ObjectInputStream in)
-    throws ClassNotFoundException, IOException
-  {
-    in.defaultReadObject();
-    // Re-create the lock, which was transient
-    _lock = new Object();
+    // atomically increment the value
+    long nextToken = _count.incrementAndGet();
+    
+    // convert using base 36 because it is a fast efficient subset of base-64
+    return Long.toString(nextToken, 36);
   }
 
   private class LRU extends LRUCache<String, String>
@@ -322,14 +347,13 @@ public class TokenCache implements Serializable
   // stored, and the values are the tokens that are pinned.  This is 
   // an N->1 ratio:  the values may appear multiple times.
   private final Map<String, String> _pinned;
-  private int      _count;
-  private transient Object   _lock = new Object();
+  
+  // the current token value
+  private final AtomicLong _count;
 
   // Hack instance parameter used to communicate between the LRU cache's
   // removing() method, and the addNewEntry() method that may trigger it
   private transient String _removed;
-
-  static private final boolean _USE_SESSION_TO_SEED_ID = true;
 
   static private final int _DEFAULT_SIZE = 15;
   static private final long serialVersionUID = 1L;

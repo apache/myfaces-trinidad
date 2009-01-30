@@ -1,5 +1,6 @@
 package org.apache.myfaces.trinidad.change;
 
+import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
@@ -92,6 +93,7 @@ public final class MoveChildComponentChange
                                             _commonParent);
     _destinationContainerScopedId = 
       ComponentUtils.getScopedIdForComponent(destinationContainer, _commonParent);
+          
     _commonParentScopedId = 
       ComponentUtils.getScopedIdForComponent(_commonParent, null);
 
@@ -102,9 +104,56 @@ public final class MoveChildComponentChange
       throw new IllegalArgumentException(
         _LOG.getMessage("MOVE_PARTICIPANTS_WITHOUT_ID"));
 
+    // calculate the absolute scoped ids for the source and destination so that we can
+    // handle remapping scoped ids in the SessionChangeManager    
+    String commonParentPrefix = _getScopedIdPrefix(_commonParent, _commonParentScopedId);
+      
+    _sourceAbsoluteScopedId = (commonParentPrefix != null)
+                                 ? new StringBuilder(commonParentPrefix).
+                                           append(NamingContainer.SEPARATOR_CHAR).
+                                           append(_movableChildScopedId).toString()
+                                 : _movableChildScopedId;
+    
+    // calculate the absolute scoped id of the destination
+    String destinationContainerPrefix = _getScopedIdPrefix(destinationContainer,
+                                                           _destinationContainerScopedId);
+    
+    StringBuilder destinationScopedIdBuilder = new StringBuilder();
+    
+    if (commonParentPrefix != null)
+    {
+      destinationScopedIdBuilder.append(commonParentPrefix).append(NamingContainer.SEPARATOR_CHAR);
+    }
+    
+    if (destinationContainerPrefix != null)
+    {
+      destinationScopedIdBuilder.append(destinationContainerPrefix).append(NamingContainer.SEPARATOR_CHAR);
+    }
+    
+    _destinationAbsoluteScopedId = destinationScopedIdBuilder.append(movableChild.getId()).toString();
+
     // For insertBeforeComponent, we do not care to obtain scoped id.
     _insertBeforeId = (insertBeforeComponent == null) ? 
       null:insertBeforeComponent.getId();
+  }
+  
+  private String _getScopedIdPrefix(UIComponent component, String scopedId)
+  {
+    if (component instanceof NamingContainer)
+      return scopedId;
+    else
+    {
+      // remove the component's id from the end
+      int separatorIndex = scopedId.lastIndexOf(NamingContainer.SEPARATOR_CHAR);
+      
+      if (separatorIndex >= 0)
+        return scopedId.substring(0, separatorIndex);
+      else
+      {
+        // component was at top level
+        return null;
+      }
+    }
   }
   
   /**
@@ -388,6 +437,23 @@ public final class MoveChildComponentChange
   }
   
   /**
+   * Returns the absolute scopedId of the source component
+   */
+  public String getSourceScopedId()
+  {
+    return _sourceAbsoluteScopedId;
+  }
+
+    
+  /**
+   * Returns the absolute scopedId of the source component at its destination
+   */
+  public String getDestinationScopedId()
+  {
+    return _destinationAbsoluteScopedId;
+  }
+  
+  /**
    * Returns the depth of a UIComponent in the tree. 
    * @param comp the UIComponent whose depth has to be calculated
    * @return the depth of the passed in UIComponent
@@ -427,7 +493,8 @@ public final class MoveChildComponentChange
   private final String _destinationContainerScopedId;
   private final String _commonParentScopedId;
   private final String _insertBeforeId;
-  
+  private final String _sourceAbsoluteScopedId;
+  private final String _destinationAbsoluteScopedId;
   private static final long serialVersionUID = 1L;
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
