@@ -25,14 +25,15 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.component.UIXCollection;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.Scriptlet;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 import org.apache.myfaces.trinidadinternal.share.url.FormEncoder;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
-import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.Scriptlet;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
 
 /**
@@ -72,17 +73,20 @@ public class ProcessUtils
     submitButton.setAttributeValue(UIConstants.TEXT_ATTR, buttonText);
     submitButton.setAttributeValue(UIConstants.ACCESS_KEY_ATTR,
                                    buttonAccessKey);
-
-    submitButton.setAttributeValue(UIConstants.NAME_VALUES_ATTR,
-                                   _createKeyValueArray(eventKey,
-                                                        sourceKey,
-                                                        source,
-                                                        valueKey,
-                                                        value,
-                                                        sizeKey,
-                                                        size,
-                                                        null,
-                                                        null));
+                                   
+    String nameAttri = XhtmlUtils.getEncodedNameAttribute (
+                      //Array should be in the order of parameter name and value pair
+                              new String[]{sourceKey,
+                                           source,
+                                           eventKey,
+                                           UIConstants.GOTO_EVENT,
+                                           valueKey,
+                                           Long.toString(value),
+                                           sizeKey,
+                                           Integer.toString(size)});
+                                               
+    submitButton.setAttributeValue(UIConstants.NAME_ATTR, nameAttri);
+    
     return submitButton;
   }
 

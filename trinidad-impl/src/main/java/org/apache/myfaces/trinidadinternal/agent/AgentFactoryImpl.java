@@ -749,9 +749,10 @@ public class AgentFactoryImpl implements AgentFactory
 
     String version = _getVersion(agent, start);
     agentObj.setType(Agent.TYPE_DESKTOP);
-    if (agent.indexOf("Symbian") > -1)
+    if ((agent.indexOf("Symbian") > -1) || (agent.indexOf("Nokia") > -1))
     {
       agentObj.setAgent(Agent.AGENT_NOKIA_S60);
+      agentObj.setPlatform(Agent.AGENT_NOKIA_S60);
     }
     else
     {

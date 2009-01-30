@@ -328,6 +328,7 @@ public class TreeRenderer extends XhtmlRenderer
   protected void renderExpandCell(
       FacesContext context,
       RenderingContext rc,
+      UIXHierarchy tree,
       int expanded,
       boolean isLastSibling,
       String onclick
@@ -348,8 +349,9 @@ public class TreeRenderer extends XhtmlRenderer
     Object altText = null;
 
     String text = null;
-
-    boolean isMacOS = rc.getAgent().getPlatformName().equals(Agent.PLATFORM_MACOS);
+    
+    boolean isMacOS = 
+               Agent.PLATFORM_MACOS.equals(rc.getAgent().getPlatformName());
     // add in the expandability
     switch (expanded)
     {
@@ -428,7 +430,7 @@ public class TreeRenderer extends XhtmlRenderer
                             altText, _ICON_WIDTH, iconHeight, onclick);
     } else
     {
-      _renderTextCell(context, rc, text, altText, _ICON_WIDTH, onclick,
+      _renderTextCell(context, rc, tree, expanded, text, altText, _ICON_WIDTH, onclick,
                       SkinSelectors.TREE_DISCLOSED_SYMBOL_STYLE_CLASS);
     }
 
@@ -437,6 +439,8 @@ public class TreeRenderer extends XhtmlRenderer
 
   private void _renderTextCell(FacesContext context,
                                RenderingContext rc,
+                               UIXHierarchy tree,
+                               int expanded,
                                String text,
                                Object altText, String width,
                                String onclick, String styleClass)
@@ -448,20 +452,49 @@ public class TreeRenderer extends XhtmlRenderer
     writer.writeAttribute(XhtmlConstants.WIDTH_ATTRIBUTE, width, null);
     writer.writeAttribute("title", altText, null);
     renderStyleClass(context, rc, styleClass);
+    boolean jsSupport = supportsScripting(rc);
 
     if (onclick != null)
     {
-      writer.startElement(XhtmlConstants.LINK_ELEMENT, null);
-      writer.writeAttribute(XhtmlConstants.HREF_ATTRIBUTE, "#", null);
-      writer.writeAttribute(XhtmlConstants.ONCLICK_ATTRIBUTE, onclick, null);
+      if (jsSupport)
+      {
+        writer.startElement(XhtmlConstants.LINK_ELEMENT, null);
+        writer.writeAttribute(XhtmlConstants.HREF_ATTRIBUTE, "#", null);
+        writer.writeAttribute(XhtmlConstants.ONCLICK_ATTRIBUTE, onclick, null);
+      }
+      else
+      {
+        // For Non-JavaScript browsers, render an input element(type= submit) to 
+        // submit the page. Encode the name attribute with the parameter name 
+        // and value thus it would enable the browsers to include the name of 
+        // this element in its payLoad if it submits the page.
+        String nameAttr = TreeUtils.renderEncodedNameAttri(
+                                        context,
+                                        rc, 
+                                        tree,
+                                        getClientId(context, tree),
+                                        expanded == EXPAND_CLOSED);
+                
+        writer.startElement("input", null);
+        writer.writeAttribute("type", "submit",null);
+        writer.writeAttribute("name", nameAttr, null);
+        writer.writeAttribute("value", text, null);
+      }
     }
 
-    if (text != null)
+    if (text != null && jsSupport)
       writer.writeText(text, null);
 
     if (onclick != null)
     {
-      writer.endElement(XhtmlConstants.LINK_ELEMENT);
+      if (jsSupport)
+      {
+        writer.endElement(XhtmlConstants.LINK_ELEMENT);
+      }
+      else
+      {
+        writer.endElement("input");
+      }
     }
 
     writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
@@ -710,7 +743,7 @@ public class TreeRenderer extends XhtmlRenderer
                                      (expand == EXPAND_CLOSED));
     }
 
-    renderExpandCell(context, rc, expand, isLastSibling, onclickExpand);
+    renderExpandCell(context, rc, tree, expand, isLastSibling, onclickExpand);
 
 
     //    DataObject curData = BeanAdapterUtils.getAdapter(context, tree.getRowData());
@@ -886,7 +919,11 @@ public class TreeRenderer extends XhtmlRenderer
     //    out.writeAttribute(ID_ATTRIBUTE,
     //                       treename + IntegerUtils.getString(renderedIndex));
     renderStyleClass(context, rc, treeStyle);
-    writer.writeAttribute(XhtmlConstants.ONCLICK_ATTRIBUTE, onClick, null);
+    
+    if (supportsScripting(rc))
+    {
+      writer.writeAttribute(XhtmlConstants.ONCLICK_ATTRIBUTE, onClick, null);
+    }
 
     // if screen reader mode render the stamp with level of node from root
     _renderStampBasedOnAccessibilty(context, rc, stamp, nodeDepth);

@@ -46,20 +46,14 @@ public class SubmitButtonRenderer extends ResetButtonRenderer
   {
     super.renderAttributes(context, node);
 
-    // if we don't support scripting, we have to generate a special
-    // compound name for the submit button
+    // For Non-JavaScript browsers, render the name atttribute which is
+    // encoded with parameter name and value pair.
     if (!supportsScripting(context))
     {
-      String compoundName = XhtmlLafUtils.createCompoundName(
-                              context,
-                              getParentFormName(context),
-                              getNameValues(context, node),
-                              null);
-
-      context.getResponseWriter().writeAttribute("name", compoundName, null);
-    }
+      context.getResponseWriter().writeAttribute("name", 
+                  node.getAttributeValue(context, NAME_ATTR), null);
+    } 
   }
-
 
   /**
    * Override to change the type of the button

@@ -292,12 +292,12 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
                                                      null,
                                                      formName,
                                                      false,
-                                                     eventKey,
-                                                     sourceKey,
+                                                     EVENT_PARAM,
+                                                     SOURCE_PARAM,
                                                      nameString,
-                                                     valueKey,
+                                                     VALUE_PARAM,
                                                      selectedIndex - 1,
-                                                     sizeKey,
+                                                     SIZE_PARAM,
                                                      0);
       }
     }
@@ -370,12 +370,12 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
                                                      buttonID,
                                                      formName,
                                                      false,
-                                                     eventKey,
-                                                     sourceKey,
+                                                     EVENT_PARAM,
+                                                     SOURCE_PARAM,
                                                      nameString,
-                                                     valueKey,
+                                                     VALUE_PARAM,
                                                      selectedIndex + 1,
-                                                     sizeKey,
+                                                     SIZE_PARAM,
                                                      1);
       }
 

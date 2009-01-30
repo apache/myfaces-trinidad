@@ -359,6 +359,31 @@ public final class TreeUtils
 
     preserve.run((UIXHierarchy) tree);
   }
+  
+  /**
+   * Returns <code>String</code> object containing encoded 
+   * parameter name and value pair for Non-JavaScript browsers.
+   */   
+  public static String renderEncodedNameAttri(
+                    FacesContext context,
+                    RenderingContext rc,
+                    UIXHierarchy tree,
+                    String treeName,
+                    boolean isExpand) 
+    throws IOException
+  {
+
+    return XhtmlUtils.getEncodedNameAttribute ( 
+                       // Array should be in the order of name
+                       // and value pair
+                          new String[]{ XhtmlConstants.SOURCE_PARAM,
+                                        treeName,
+                                        XhtmlConstants.EVENT_PARAM,
+                                        isExpand ? _SHOW : _HIDE,
+                                        _PATH_PARAM,
+                                        _getPathParam(tree)});
+                                        
+  }
 
   private static RowKeySet _getExpandedRowKeys(UIXHierarchy tree)
   {
