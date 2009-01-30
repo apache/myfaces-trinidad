@@ -108,6 +108,16 @@ public class FormRenderer extends XhtmlRenderer
     RenderingContext rc,
     UIXComponent component)
   {
+    // temp hack
+    setupEncodingContext(context, rc, (UIComponent)component);
+  }
+  
+  @Override
+  public void setupEncodingContext(
+    FacesContext context,
+    RenderingContext rc,
+    UIComponent component)
+  {
     String formName = getClientId(context, component);
 
     CoreFormData fData = new CoreFormData(formName);
@@ -390,6 +400,16 @@ public class FormRenderer extends XhtmlRenderer
     FacesContext context,
     RenderingContext rc,
     UIXComponent     component)
+  {
+    // temp hack
+    tearDownEncodingContext(context, rc, (UIComponent)component);
+  }
+  
+  @Override
+  public void tearDownEncodingContext(
+    FacesContext context,
+    RenderingContext rc,
+    UIComponent     component)
   {
     // Clear out the form name property
     rc.getProperties().remove(XhtmlConstants.FORM_NAME_PROPERTY);

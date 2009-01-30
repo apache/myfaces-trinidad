@@ -115,6 +115,18 @@ public class CoreRenderer extends Renderer
   {
   }
 
+  public void setupEncodingContext(
+    FacesContext context,
+    RenderingContext rc,
+    UIComponent component)
+  {
+    // temporary hack to change UIComponent.  Once the change has propagated through, we will
+    // remove the UIXComponent version.
+    // We need to support UIComponents so that we can use CoreRenderers against non-UIXComponents
+    if (component instanceof UIXComponent)
+      setupEncodingContext(context, rc, (UIXComponent)component);
+  }
+
   /**
    * <p>
    * Called after rendering the current component's children in order to tear
@@ -136,6 +148,19 @@ public class CoreRenderer extends Renderer
     UIXComponent     component)
   {
   }
+  
+  public void tearDownEncodingContext(
+    FacesContext context,
+    RenderingContext rc,
+    UIComponent     component)
+  {
+    // temporary hack to change UIComponent.  Once the change has propagated through, we will
+    // remove the UIXComponent version.
+    // We need to support UIComponents so that we can use CoreRenderers against non-UIXComponents
+    if (component instanceof UIXComponent)
+      tearDownEncodingContext(context, rc, (UIXComponent)component);
+  }
+
   
   //
   // COERCION HELPERS
@@ -683,7 +708,7 @@ public class CoreRenderer extends Renderer
     UIComponent      component,
     FacesBean        bean)
   {
-    setupEncodingContext(context, arc, (UIXComponent)component);
+    setupEncodingContext(context, arc, component);
   }
   
   /**
@@ -698,7 +723,7 @@ public class CoreRenderer extends Renderer
     UIComponent      component,
     FacesBean        bean)
   {
-    tearDownEncodingContext(context, arc, (UIXComponent)component);
+    tearDownEncodingContext(context, arc, component);
   }
 
   //
