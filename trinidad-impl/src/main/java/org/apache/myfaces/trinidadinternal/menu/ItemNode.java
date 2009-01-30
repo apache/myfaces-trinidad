@@ -21,6 +21,7 @@ package org.apache.myfaces.trinidadinternal.menu;
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.el.MethodBinding;
 import javax.faces.webapp.UIComponentTag;
 
@@ -120,6 +121,18 @@ public class ItemNode extends MenuNode
     }
 
     return value;
+  }
+  
+  public void actionListener(ActionEvent event)
+  {
+    String listener = _actionListener;
+    if (listener != null && UIComponentTag.isValueReference(listener)) 
+    {
+      FacesContext facesContext = FacesContext.getCurrentInstance();
+      MethodBinding methodBinding = facesContext.getApplication()
+      .createMethodBinding(listener,new Class[] { ActionEvent.class });
+      methodBinding.invoke(facesContext, new Object[] { event });
+    }
   }
   
   /**
