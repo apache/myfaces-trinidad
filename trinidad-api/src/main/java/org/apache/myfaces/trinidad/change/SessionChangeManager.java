@@ -20,10 +20,15 @@ package org.apache.myfaces.trinidad.change;
 
 import java.io.Serializable;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
+import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.faces.component.UIComponent;
@@ -31,6 +36,7 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.util.CollectionUtils;
 import org.apache.myfaces.trinidad.util.ComponentUtils;
 
 import org.w3c.dom.Document;
@@ -53,13 +59,15 @@ public class SessionChangeManager extends BaseChangeManager
   {
     UIViewRoot viewRoot = facesContext.getViewRoot();
     
-    List<QualifiedComponentChange> componentChangesForView = 
-      _getComponentChangesForView(facesContext, viewRoot.getViewId(), false);
+    // retrieve the ComponentChanges for this current viewid
+    ChangesForView changesForView = _getChangesForView(facesContext, viewRoot.getViewId(), false);
     
-    for (QualifiedComponentChange qualifiedChange : componentChangesForView)
+    // loop through the viewId's changes, applying the changes
+    for (QualifiedComponentChange qualifiedChange : changesForView.getComponentChangesForView())
     {
       UIComponent targetComponent = 
         viewRoot.findComponent(qualifiedChange.getTargetComponentScopedId());
+      
       // Possible that the target component no more exists in the view
       if (targetComponent != null)
       {
@@ -92,15 +100,90 @@ public class SessionChangeManager extends BaseChangeManager
   {
     String viewId = facesContext.getViewRoot().getViewId();
     
-    List<QualifiedComponentChange> componentChangesForView = 
-      _getComponentChangesForView(facesContext, viewId, true);
+    // get the ComponentChanges for the current viewId
+    ChangesForView changesForView = _getChangesForView(facesContext, viewId, true);
 
+    // get the absolute scopedId for the target component so that we have a unique identifier
+    // to compare
     String scopedIdForTargetComponent = 
-      ComponentUtils.getScopedIdForComponent(targetComponent, null);
+                                     ComponentUtils.getScopedIdForComponent(targetComponent, null);
 
-    componentChangesForView.add(
-      new QualifiedComponentChange(scopedIdForTargetComponent, 
-                                   componentChange));
+    // try to collapse AttributeComponentChanges, handling component movement so that
+    // we can collapse any attribute change on the same component
+    if (componentChange instanceof AttributeComponentChange)
+    {
+      AttributeComponentChange attributeChange = (AttributeComponentChange)componentChange;
+      String attributeName = attributeChange.getAttributeName();
+ 
+      // would really rather use a Deque here and iterate backwards, which would also make
+      // handling the rename changes easier
+      Iterator<QualifiedComponentChange> changes =
+                                            changesForView.getComponentChangesForView().iterator();
+      
+      // list of changes that have renamed the scoped id of this component.  We need to
+      // handle this aliasing when traversing through the changes looking for matches
+      Iterator<MoveChildComponentChange> renameChanges =
+                                       changesForView.getRenameChanges(scopedIdForTargetComponent);
+      
+      // we need to look through the rename list to map from the current names to
+      // the new names
+      MoveChildComponentChange nextRenameChange;
+      String currTargetScopedId;
+      
+      if (renameChanges.hasNext())
+      {
+        // we have at least one rename change, so get it and find the name that this
+        // component was originally known by
+        nextRenameChange = renameChanges.next();
+        currTargetScopedId = nextRenameChange.getSourceScopedId();
+      }
+      else
+      {
+        nextRenameChange = null;
+        currTargetScopedId = scopedIdForTargetComponent;
+      }
+      
+      // loop forward through the changes looking for AttributeChanges to collapse
+      while (changes.hasNext())
+      {
+        QualifiedComponentChange currQualifiedChange = changes.next();
+        
+        if (currQualifiedChange.getComponentChange() == nextRenameChange)
+        {
+          // we got a match, so update the scoped id we should be looking for
+          currTargetScopedId = nextRenameChange.getDestinationScopedId();
+          
+          nextRenameChange = (renameChanges.hasNext())
+                               ? renameChanges.next()
+                               : null;
+        }
+        else if (currQualifiedChange.getTargetComponentScopedId().equals(currTargetScopedId))
+        {
+          // found a change on the same component.  Check if it's an AttributeChange
+          ComponentChange currChange = currQualifiedChange.getComponentChange();
+          
+          if (currChange instanceof AttributeComponentChange)
+          {
+            AttributeComponentChange currAttributeChange = (AttributeComponentChange)currChange;
+            
+            // Check if the AttributeChange is for the same attribute
+            if (attributeName.equals(currAttributeChange.getAttributeName()))
+            {
+              // the old AttributeChange is for the same attribute, so remove it since the
+              // new AttributeChange would eclipse it anyway.
+              changes.remove();
+              break;
+            }
+          }
+        }
+      }
+    }
+
+    QualifiedComponentChange newQualifiedChange = new QualifiedComponentChange(
+                                                                      scopedIdForTargetComponent,
+                                                                      componentChange);
+    
+    changesForView.addChange(newQualifiedChange);
   }
 
   /** 
@@ -118,11 +201,12 @@ public class SessionChangeManager extends BaseChangeManager
    * @param viewId The id of the view for which changes are required.
    * @param createIfNecessary Indicates whether the underlying datastructures
    * that store the component changes needs to be created if absent.
-   * @return The in-order list of component changes for the supplied view. This
+   * @return The ChangesForView object containing information about the changes for the specified
+   * viewId, including in-order list of component changes for the supplied view. This
    * will be in the same order in which the component changes were added through
    * calls to <code>addComponentChange()</code>.
    */
-  private List<QualifiedComponentChange> _getComponentChangesForView(
+  private ChangesForView _getChangesForView(
     FacesContext facesContext,
     String viewId,
     boolean createIfNecessary)
@@ -130,25 +214,22 @@ public class SessionChangeManager extends BaseChangeManager
     Object session = facesContext.getExternalContext().getSession(true);
     
     // Key is view id and value is list of component changes for that view
-    ConcurrentHashMap<String, List<QualifiedComponentChange>> 
-      componentChangesMapForSession;
+    ConcurrentHashMap<String, ChangesForView> componentChangesMapForSession;
     
     synchronized(session)
     {
       Map<String, Object> sessMap = 
         facesContext.getExternalContext().getSessionMap();
       
-      componentChangesMapForSession = 
-        (ConcurrentHashMap<String, List<QualifiedComponentChange>>)
-          (sessMap.get(_COMPONENT_CHANGES_MAP_FOR_SESSION_KEY));
+      componentChangesMapForSession = (ConcurrentHashMap<String, ChangesForView>)
+                                       sessMap.get(_COMPONENT_CHANGES_MAP_FOR_SESSION_KEY);
       
       if (componentChangesMapForSession == null)
       {
         if (!createIfNecessary)
-          return Collections.emptyList();
+          return _EMPTY_CHANGES;
   
-        componentChangesMapForSession = 
-          new ConcurrentHashMap<String, List<QualifiedComponentChange>>();
+        componentChangesMapForSession = new ConcurrentHashMap<String, ChangesForView>();
         sessMap.put(_COMPONENT_CHANGES_MAP_FOR_SESSION_KEY, 
                     componentChangesMapForSession);
       }
@@ -157,19 +238,124 @@ public class SessionChangeManager extends BaseChangeManager
     if (!componentChangesMapForSession.containsKey(viewId))
     {
       if (!createIfNecessary)
-        return Collections.emptyList();
+        return _EMPTY_CHANGES;
       
-      // Writes are per change addition, not very frequent, using 
-      // CopyOnWriteArrayList should suffice.
-      componentChangesMapForSession.putIfAbsent(
-        viewId,
-        new CopyOnWriteArrayList<QualifiedComponentChange>());
+      componentChangesMapForSession.putIfAbsent(viewId, new ChangesForView(true));
     }
     
     return componentChangesMapForSession.get(viewId);
   }
   
-  private static final class QualifiedComponentChange implements Serializable
+  /**
+   * Tracks the component changes for a particular view as well as all the movement
+   * changes so that component aliasing can be tracked
+   */
+  private static final class ChangesForView implements Serializable
+  {
+    protected ChangesForView(boolean rw)
+    {      
+      if (rw)
+      {
+        _componentChangesForView = new ConcurrentLinkedQueue<QualifiedComponentChange>();
+        _renameChanges = new CopyOnWriteArrayList<MoveChildComponentChange>();
+      }
+      else
+      {
+        _componentChangesForView = CollectionUtils.emptyQueue();
+        _renameChanges = null;
+      }
+    }
+    
+    /** 
+     * Returns the QualifiedComponentChanges for this viewId
+     */
+    protected Iterable<QualifiedComponentChange> getComponentChangesForView()
+    {
+      return _componentChangesForView;
+    }
+    
+    /** 
+     * Adds a change to the QualifiedComponentChanges for this viewId, handling
+     * MoveChildComponentChanges specially to handle cases where the clientId
+     * of a component changes as a result of a rename operation
+     */
+    protected void addChange(QualifiedComponentChange qualifiedChange)
+    {
+      _componentChangesForView.add(qualifiedChange);
+      
+      ComponentChange componentChange = qualifiedChange.getComponentChange();
+      
+      if (componentChange instanceof MoveChildComponentChange)
+      {
+        // we only need to remove moves that actually changed the absolute scoped id of the
+        // component
+        MoveChildComponentChange moveComponentChange = (MoveChildComponentChange)componentChange;
+        
+        if (!moveComponentChange.getSourceScopedId().equals(moveComponentChange.getDestinationScopedId()))
+        {
+          _renameChanges.add(moveComponentChange);
+        }
+      }
+    }
+
+    /**
+     * Returns the Iterator of rename changes that affect the current scoped id in ComponentChange order
+     * @return
+     */
+    protected Iterator<MoveChildComponentChange> getRenameChanges(String targetScopedId)
+    {
+      if (_renameChanges != null)
+      {
+        String currTargetScopedId = targetScopedId;
+        List renameChanges = null;
+        
+        // iterate from the back of the List determining the MoveChildComponentChange
+        // that are aliased to this scoped id
+        ListIterator<MoveChildComponentChange> moveChanges =
+                                                _renameChanges.listIterator(_renameChanges.size());
+        
+        while (moveChanges.hasPrevious())
+        {
+          MoveChildComponentChange currMoveChange = moveChanges.previous();
+          
+          if (currTargetScopedId.equals(currMoveChange.getDestinationScopedId()))
+          {
+            // lazily create the list the first time we need it
+            if (renameChanges == null)
+              renameChanges = new ArrayList<MoveChildComponentChange>();
+            
+            renameChanges.add(currMoveChange);
+            
+            // get the new id to search for
+            currTargetScopedId = currMoveChange.getSourceScopedId();
+          }
+        }
+        
+        if (renameChanges != null)
+        {
+          if (renameChanges.size() > 1)
+          {
+            // reverse the list to match the order that we will see these items when traversing
+            // the changes from the forward direction
+            Collections.reverse(renameChanges);
+          }
+          
+          return renameChanges.iterator();
+        }  
+      }
+      
+      return CollectionUtils.emptyIterator();
+    }
+    
+    private final Queue<QualifiedComponentChange> _componentChangesForView;
+    private final List<MoveChildComponentChange> _renameChanges;
+
+    private static final long serialVersionUID = 1L;
+  }
+  
+  private static final ChangesForView _EMPTY_CHANGES = new ChangesForView(false);
+    
+  private static class QualifiedComponentChange implements Serializable
   {
     public QualifiedComponentChange(String targetComponentScopedId,
                                     ComponentChange componentChange)
@@ -198,7 +384,7 @@ public class SessionChangeManager extends BaseChangeManager
 
     private static final long serialVersionUID = 1L;
   }
-
+  
   private static final String _COMPONENT_CHANGES_MAP_FOR_SESSION_KEY =
     "org.apache.myfaces.trinidadinternal.ComponentChangesMapForSession";
     
