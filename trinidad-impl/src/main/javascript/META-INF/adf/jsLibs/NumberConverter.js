@@ -58,7 +58,7 @@ function TrNumberConverter(
     this._groupingUsed = true;
     
   //init the TrNumberFormat
-  this._initNumberFormat();
+  this._initNumberFormat(locale);
   
   // for debugging
   this._class = "TrNumberConverter";
@@ -234,15 +234,17 @@ TrNumberConverter.prototype.getAsObject = function(
     var parsedValue;
     if(this._type=="percent" || this._type=="currency")
     {
+      var localeSymbols = getLocaleSymbols(this._locale);
+      
       // TODO matzew - see TRINIDAD-682
       // Remove the thousands separator - which Javascript doesn't want to see
-      var groupingSeparator = getLocaleSymbols().getGroupingSeparator();
+      var groupingSeparator = localeSymbols.getGroupingSeparator();
       var grouping = new RegExp("\\" + groupingSeparator, "g");
       numberString = numberString.replace(grouping, "");
 
       // Then change the decimal separator into a period, the only
       // decimal separator allowed by JS
-      var decimalSeparator = getLocaleSymbols().getDecimalSeparator();
+      var decimalSeparator = localeSymbols.getDecimalSeparator();
       var decimal = new RegExp("\\" + decimalSeparator, "g");
       numberString = numberString.replace(decimal, ".");
       
@@ -279,8 +281,9 @@ TrNumberConverter.prototype.getAsObject = function(
       }
       
       // to be able to pass the _decimalParse, we replace the decimal separator...
+      // Note that _decimalParse uses the page locale.
       var jsSeparator = new RegExp("\\" + ".",  "g");
-      numberString = numberString.replace(jsSeparator, decimalSeparator);
+      numberString = numberString.replace(jsSeparator, getLocaleSymbols().getDecimalSeparator());
     }
     
     parsedValue = _decimalParse(numberString, 
@@ -317,34 +320,28 @@ TrNumberConverter.prototype.getAsObject = function(
  */
 TrNumberConverter.prototype._isConvertible = function()
 {
-  if((this._pattern == null) && (this._locale == null))
-  {
-    return true;
-  }
-  else
-  {
-    return false;
-  }
+  // The locale attribute is now supported on convertNumber.
+  return (this._pattern == null);
 }
 
 /**
  * runs the creation of the used TrNumberFormat class
  */
-TrNumberConverter.prototype._initNumberFormat = function()
+TrNumberConverter.prototype._initNumberFormat = function(locale)
 {
   if(this._type=="percent")
   {
     this._example = 0.3423;
-    this._numberFormat = TrNumberFormat.getPercentInstance();
+    this._numberFormat = TrNumberFormat.getPercentInstance(locale);
   }
   else if(this._type=="currency")
   {
     this._example = 10250;
-    this._numberFormat = TrNumberFormat.getCurrencyInstance();
+    this._numberFormat = TrNumberFormat.getCurrencyInstance(locale);
   }
   else if(this._type=="number")
   {
-  	this._numberFormat = TrNumberFormat.getNumberInstance();
+  	this._numberFormat = TrNumberFormat.getNumberInstance(locale);
   }
 
   this._numberFormat.setGroupingUsed(this.isGroupingUsed());

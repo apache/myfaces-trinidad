@@ -18,16 +18,20 @@
  */
 package org.apache.myfaces.trinidadinternal.convert;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 
+import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.convert.ClientConverter;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
 import org.apache.myfaces.trinidadinternal.util.JsonUtils;
 
@@ -96,6 +100,21 @@ public class NumberConverter extends org.apache.myfaces.trinidad.convert.NumberC
 
   public Collection<String> getClientImportNames()
   {
+    // Load the library for the different locale, so that the locale elements
+    // are available for the client converter and validator.
+    if (_isDifferentLocale())
+    {
+      ArrayList<String> names = new ArrayList<String>(2);
+      names.add("TrNumberConverter()");
+      // Load NamedLocaleInfoScriptlet  "LocaleInfo_<locale>"
+      String sloc = getLocale().toString();
+      StringBuffer sb = new StringBuffer(11 + sloc.length());
+      sb.append("LocaleInfo_");
+      sb.append(sloc);
+      names.add(sb.toString());
+      return names;
+    }
+    
     return _IMPORT_NAMES;
   }
 
@@ -204,5 +223,28 @@ public class NumberConverter extends org.apache.myfaces.trinidad.convert.NumberC
       }
       return outBuffer.toString();
     }
+  
+  /*
+   * This method returns true if the locale specified for NumberConverter is
+   * different from the locale specified in Adf-faces-config or the client
+   * locale. If both are same or if no locale is specified for
+   * NumberConverter, then this returns false.
+   */
+  private boolean _isDifferentLocale()
+  {
+    Locale converterLocale = getLocale();
+    if (converterLocale != null)
+    {
+      Locale defaultLocale = RenderingContext.getCurrentInstance()
+          .getLocaleContext().getFormattingLocale();
+      return !converterLocale.equals(defaultLocale);
+    }
+
+    return false;
+  }
+  
+  private static final TrinidadLogger _LOG = TrinidadLogger
+      .createTrinidadLogger(NumberConverter.class);
+  
   private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "TrNumberConverter()" );
 }
