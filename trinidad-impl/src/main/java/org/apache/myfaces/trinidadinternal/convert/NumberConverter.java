@@ -137,7 +137,7 @@ public class NumberConverter extends org.apache.myfaces.trinidad.convert.NumberC
    * formatted numbers, like currencyCode or maximumIntegerDigits.
    * 
    */
-  private Object[] _getClientConstructorParams(Map<?, ?> messages)
+  private Object[] _getClientConstructorParams(FacesContext context, Map<?, ?> messages)
   {
     Object[] params;
     boolean formating = _formatingAttributesSet();
@@ -146,7 +146,11 @@ public class NumberConverter extends org.apache.myfaces.trinidad.convert.NumberC
       params = new Object[12];
     else
       params = new Object[4];
-    params[0] = this.getPattern();
+    
+    // We call this since the pattern may contain the generic currency sign '¤', which we don't 
+    // want to display to the user.
+    params[0] = getLocalizedPattern(context, getPattern(), null);
+    
     params[1] = this.getType();
     params[2] = this.getLocale() != null ? this.getLocale().toString() : null;
     params[3] = messages;
@@ -203,7 +207,7 @@ public class NumberConverter extends org.apache.myfaces.trinidad.convert.NumberC
       else
       {
 
-        Object[] params = _getClientConstructorParams(messages);
+        Object[] params = _getClientConstructorParams(context, messages);
         
         outBuffer.append("new TrNumberConverter(");
 

@@ -28,6 +28,8 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import java.util.regex.Matcher;
+
 import javax.el.ValueExpression;
 
 import javax.faces.application.FacesMessage;
@@ -256,7 +258,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
       // be able to parse 'value' as a Number.
       // An error occured, so the index of pp should still be 0.
       num = (Number)nfmt.parseObject(value, pp);      
-      if("percent".equals(type) && num != null)
+      if (typeIdx == _PERCENT_TYPE && num != null)
         num = num.doubleValue() / 100.0;
     }
     
@@ -270,21 +272,34 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
 
     if (pp.getIndex() != value.length())
     {
+      // According to the comments in 
+      // trinidad-api\src\main\xrts\org\apache\myfaces\trinidad\resource\MessageBundle.xrts,
+      // the substitution parameters are supposed to be:
+      // {0} the label that identifies the component
+      // {1} value entered by the user
       Object label = ConverterUtils.getComponentLabel(component);
       Object[] params = null;
-      if("currency".equals(type))
+      
+      if (typeIdx == _PATTERN_TYPE)
       {
-        params = new Object[] {label, getPattern(), fmt.format(_EXAMPLE_CURRENCY)};
-      }
-      else if("percent".equals(type))
-      {
-        params = new Object[] {label, getPattern(), fmt.format(_EXAMPLE_PERCENT)};
-      }
-      else
-      {
-        params = new Object[] {label, getPattern()};
-      }
+        // We call this since the pattern may contain the generic currency sign '¤', which we don't 
+        // want to display to the user.
+        pattern = getLocalizedPattern(context, pattern, dfs);
         
+        params = new Object[] {label, value, pattern};
+      }
+      else if (typeIdx == _NUMBER_TYPE)
+      {
+        params = new Object[] {label, value};
+      }
+      else if (typeIdx == _CURRENCY_TYPE)
+      {
+        params = new Object[] {label, value, fmt.format(_EXAMPLE_CURRENCY)};
+      }
+      else if (typeIdx == _PERCENT_TYPE)
+      {
+        params = new Object[] {label, value, fmt.format(_EXAMPLE_PERCENT)};
+      }
         
       throw new ConverterException(
         getConvertMessage(context, component, value, params));
@@ -732,6 +747,59 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
   {
     Object pattern = _facesBean.getProperty(_PATTERN_KEY);
     return ComponentUtils.resolveString(pattern);
+  }
+  
+  /**
+   * If <code>pattern</code> contains the generic currency sign '¤', this method will replace it 
+   * with the localized currency symbol (if one exists). 
+   * @param context the FacesContext
+   * @param pattern the pattern to be localized
+   * @param dfs the DecimalFormatSymbols; if null, will be constructed from the <code>context</code>
+   * @return
+   */
+  public String getLocalizedPattern(FacesContext context, String pattern, DecimalFormatSymbols dfs)
+  {
+    if (pattern == null)
+      return null;
+    
+    // If the pattern contains the generic currency sign '¤', replace it with the localized 
+    // currency symbol (if one exists), so that when the pattern is displayed (such as in an error 
+    // message), it is more meaningful to the user.
+    // If the pattern contains '¤¤', replace it with the international currency symbol. 
+    // For an explanation of this behavior, see section "Special Pattern Characters" at: 
+    // http://java.sun.com/javase/6/docs/api/java/text/DecimalFormat.html
+    // The unicode for '¤' is: \u00A4
+    // The xml hex is        : &#xA4;
+    int idx = pattern.indexOf("¤");
+    if (idx == -1)
+      return pattern;
+    
+    if (dfs == null)
+    {
+      String type = getType();
+      RequestContext reqCtx = RequestContext.getCurrentInstance();
+      Locale locale = _getLocale(reqCtx, context);
+      NumberFormat fmt = _getNumberFormat(pattern, type, locale, reqCtx);
+      DecimalFormat df = (DecimalFormat) fmt;
+      dfs = df.getDecimalFormatSymbols();
+    }
+    
+    if (idx + 1 < pattern.length() && pattern.charAt(idx + 1) == '¤')
+    {
+      // Matcher.quoteReplacement ensures that the replacement string is properly escaped.
+      String symbol = dfs.getInternationalCurrencySymbol();
+      if (symbol.length() > 0)
+        pattern = pattern.replaceFirst("¤¤", Matcher.quoteReplacement(symbol));
+    }
+    else
+    {
+      // Matcher.quoteReplacement ensures that the replacement string is properly escaped.
+      String symbol = dfs.getCurrencySymbol();
+      if (symbol.length() > 0)
+        pattern = pattern.replaceFirst("¤", Matcher.quoteReplacement(symbol));
+    }
+    
+    return pattern;
   }
 
   @Override
