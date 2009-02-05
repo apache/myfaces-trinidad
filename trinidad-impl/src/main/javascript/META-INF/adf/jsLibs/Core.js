@@ -1773,17 +1773,26 @@ function submitForm(
   {
     // create function so that "return" is handled correctly,
     var func = new Function("doValidate", onSubmit);
+    var handlerResult;
+    
+    // WindowsMobile 5 doesn't support installing Funtion object
+    // to "this", so just invoke the Function object instead.
+    if (_agent.isPIE)
+    {
+      handlerResult = func(event);
+    }
+    else
+    {
+      // install the function on the object so that "this" is
+      // handled correctly
+      form._tempFunc = func;
 
-    // install the function on the object so that "this" is
-    // handled correctly
-    form._tempFunc = func;
+      // call the submit handler with the doValidate flag,
+      handlerResult = form._tempFunc(doValidate);
 
-    // call the submit handler with the doValidate flag,
-    var handlerResult = form._tempFunc(doValidate);
-
-    // uninstall the temporary function
-    form._tempFunc = (void 0);
-
+      // uninstall the temporary function
+      form._tempFunc = (void 0);
+    }
     // if we're validating and the handler returns false,
     // don't submit the form
     if (doValidate && (handlerResult == false))
@@ -3096,16 +3105,26 @@ function _callChained(
     // use event parameter so that both ie and netscape
     // functions work
     var func = new Function("event", handler);
+    var result;
+    
+    // WindowsMobile 5 doesn't support installing Funtion object
+    // to "this", so just invoke the Function object instead.
+    if (_agent.isPIE)
+    {
+      result = func(event);
+    }
+    else
+    {
+      // install the function on the object so that "this" is
+      // handled correctly
+      target._tempFunc = func;
 
-    // install the function on the object so that "this" is
-    // handled correctly
-    target._tempFunc = func;
+      // evaluate the result
+      result = target._tempFunc(event);
 
-    // evaluate the result
-    var result = target._tempFunc(event);
-
-    // clear the temporary function
-    target._tempFunc = (void 0);
+      // clear the temporary function
+      target._tempFunc = (void 0);
+    }  
 
     // undefined results should be evaluated as true,
     return !(result == false);
