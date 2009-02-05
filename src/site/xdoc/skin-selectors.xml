@@ -1373,7 +1373,6 @@
       </subsection>
       <a name="navigationPane"></a>
       <subsection name="tr:navigationPane hint='buttons'">
-      <p>Not yet documented.</p>
         <table>
           <tr>
             <th colspan="2">
@@ -1383,12 +1382,39 @@
           <tr>
             <th>Name</th>
             <th>Description</th>
-          </tr>           
+          </tr>
+          <tr>
+            <td>af|navigationPane::buttons</td>
+            <td>The style on the root dom element of the navigationPane hint="buttons"</td>
+          </tr>
+          <tr>
+            <td>af|navigationPane::buttons-active-disabled</td>
+            <td>The style on a table around the item when the item is active and disabled.</td>
+          </tr>
+          <tr>
+            <td>af|navigationPane::buttons-active-enabled</td>
+            <td>The style on a table around the item when the item is active and enabled.</td>
+          </tr>
+          <tr>
+            <td>af|navigationPane::buttons-inactive-disabled</td>
+            <td>The style on a table around the item when the item is inactive and disabled.</td>
+          </tr>          
+          <tr>
+            <td>af|navigationPane::buttons-inactive-enabled</td>
+            <td>The style on a table around the item when the item is inactive and enabled.</td>
+          </tr>
+          <tr>
+            <td>af|navigationPane::buttons-content</td>
+            <td>Styles the cell of the buttons content. To change the style of an individual item eg. an active and disabled item, you can use descendent selectors such as "af|navigationPane::buttons-active-disabled af|navigationPane::buttons-content".</td>
+          </tr>
+          <tr>
+            <td>af|navigationPane::buttons-separator</td>
+            <td>Styles the separator bar between the items in the navigationPane buttons.</td>
+          </tr>
         </table>
       </subsection> 
       <a name="navigationPane"></a>
       <subsection name="tr:navigationPane hint='choice'">
-      <p>Not yet documented.</p>
         <table>
           <tr>
             <th colspan="2">
@@ -1398,12 +1424,22 @@
           <tr>
             <th>Name</th>
             <th>Description</th>
-          </tr>           
+          </tr>
+          <tr>
+            <td>af|navigationPane::choice-label</td>
+            <td>The style on the label of navigationPane hint="choice".</td>
+          </tr>
+          <tr>
+            <td>af|navigationPane::choice-options</td>
+            <td>The style on the option items of navigationPane hint="choice".</td>
+          </tr>
+          <tr>
+            <td>af|navigationPane::choice-button</td>
+            <td>The style on the button item of navigationPane hint="choice".</td>
+          </tr>
         </table>
       </subsection> 
-      
       <subsection name="tr:navigationPane hint='list'">
-      <p>Not yet documented.</p>
         <table>
           <tr>
             <th colspan="2">
@@ -1413,7 +1449,35 @@
           <tr>
             <th>Name</th>
             <th>Description</th>
-          </tr>           
+          </tr>
+          <tr>
+            <td>af|navigationPane::list</td>
+            <td>The style on the root dom element of the navigationPane hint="list".</td>
+          </tr>
+          <tr>
+            <td>af|navigationPane::list-active-disabled</td>
+            <td>The style on a table around the item when the item is active and disabled.</td>
+          </tr>          
+          <tr>
+            <td>af|navigationPane::list-active-enabled</td>
+            <td>The style on a table around the item when the item is active and enabled.</td>
+          </tr>          
+          <tr>
+            <td>af|navigationPane::list-inactive-disabled</td>
+            <td>The style on a table around the item when the item is inactive and disabled.</td>
+          </tr>          
+          <tr>
+            <td>af|navigationPane::list-inactive-enabled</td>
+            <td>The style on a table around the item when the item is inactive and enabled.</td>
+          </tr>          
+          <tr>
+            <td>af|navigationPane::list-content</td>
+            <td>Styles the cell of the list content. To change the style of an individual item eg. an active and disabled item, you can use descendent selectors such as "af|navigationPane::list-active-disabled af|navigationPane::list-content".</td>
+          </tr>          
+          <tr>
+            <td>af|navigationPane::list-bullet</td>
+            <td>The style on the cell which contains the bullet for list of the component with hint "list".</td>
+          </tr>          
         </table>
       </subsection>
       
