@@ -74,7 +74,7 @@ public class TableLayoutRenderer extends XhtmlRenderer
     renderHAlign(context, arc, getHalign(bean));
     // TODO: if TABLES_CAP_ADVANCED and TABLES_CAP_ADVANCED_ATTRS
     // are both false, don't render cell padding, cell spacing, or border
-    OutputUtils.renderLayoutTableAttributes(context,
+    OutputUtils.renderDataTableAttributes(context,
                                             arc,
                                             getCellPadding(bean),
                                             getCellSpacing(bean),

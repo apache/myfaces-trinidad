@@ -4,6 +4,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_train"
+           datatable="0"
            id="mainId"
            summary=""
           >
@@ -26,6 +27,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -74,6 +76,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -122,6 +125,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -207,6 +211,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_train"
+           datatable="0"
            id="myid"
            summary=""
           >
@@ -229,6 +234,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -277,6 +283,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -325,6 +332,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -410,6 +418,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_train"
+           datatable="0"
            id="mainId"
            summary=""
            title="my short desc"
@@ -433,6 +442,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -481,6 +491,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -529,6 +540,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -614,6 +626,7 @@
            cellpadding="0"
            cellspacing="0"
            class="mystyle af_train"
+           datatable="0"
            id="mainId"
            summary=""
           >
@@ -636,6 +649,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -684,6 +698,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -732,6 +747,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -817,6 +833,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_train"
+           datatable="0"
            id="mainId"
            onclick="test-onclick"
            summary=""
@@ -840,6 +857,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -888,6 +906,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -936,6 +955,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -1021,6 +1041,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_train"
+           datatable="0"
            id="mainId"
            ondblclick="test-ondblclick"
            summary=""
@@ -1044,6 +1065,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -1092,6 +1114,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -1140,6 +1163,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -1225,6 +1249,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_train"
+           datatable="0"
            id="mainId"
            onkeydown="test-onkeydown"
            summary=""
@@ -1248,6 +1273,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -1296,6 +1322,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -1344,6 +1371,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -1429,6 +1457,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_train"
+           datatable="0"
            id="mainId"
            onkeypress="test-onkeypress"
            summary=""
@@ -1452,6 +1481,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -1500,6 +1530,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -1548,6 +1579,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -1633,6 +1665,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_train"
+           datatable="0"
            id="mainId"
            onkeyup="test-onkeyup"
            summary=""
@@ -1656,6 +1689,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -1704,6 +1738,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -1752,6 +1787,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -1837,6 +1873,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_train"
+           datatable="0"
            id="mainId"
            onmousedown="test-onmousedown"
            summary=""
@@ -1860,6 +1897,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -1908,6 +1946,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -1956,6 +1995,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -2041,6 +2081,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_train"
+           datatable="0"
            id="mainId"
            onmousemove="test-onmousemove"
            summary=""
@@ -2064,6 +2105,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -2112,6 +2154,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -2160,6 +2203,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -2245,6 +2289,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_train"
+           datatable="0"
            id="mainId"
            onmouseout="test-onmouseout"
            summary=""
@@ -2268,6 +2313,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -2316,6 +2362,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -2364,6 +2411,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -2449,6 +2497,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_train"
+           datatable="0"
            id="mainId"
            onmouseover="test-onmouseover"
            summary=""
@@ -2472,6 +2521,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -2520,6 +2570,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -2568,6 +2619,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -2653,6 +2705,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_train"
+           datatable="0"
            id="mainId"
            onmouseup="test-onmouseup"
            summary=""
@@ -2676,6 +2729,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -2724,6 +2778,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >
@@ -2772,6 +2827,7 @@
                    border="0"
                    cellpadding="0"
                    cellspacing="0"
+                   datatable="0"
                    style="width: 100%"
                    summary=""
                   >

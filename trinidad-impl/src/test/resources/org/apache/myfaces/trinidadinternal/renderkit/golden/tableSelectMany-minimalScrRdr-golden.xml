@@ -7,6 +7,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             datatable="0"
              summary=""
             >
           
@@ -21,6 +22,7 @@
                    cellpadding="0"
                    cellspacing="0"
                    class="af_table_control-bar-top"
+                   datatable="0"
                    summary=""
                    width="100%"
                   >
@@ -42,6 +44,7 @@
                          border="0"
                          cellpadding="0"
                          cellspacing="0"
+                         datatable="0"
                          id="mainId-nb"
                          summary=""
                         >
@@ -157,6 +160,7 @@
                    cellpadding="0"
                    cellspacing="0"
                    class="af_table_sub-control-bar"
+                   datatable="0"
                    summary=""
                    width="100%"
                   >
@@ -355,6 +359,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             datatable="0"
              summary=""
             >
           
@@ -369,6 +374,7 @@
                    cellpadding="0"
                    cellspacing="0"
                    class="af_table_control-bar-top"
+                   datatable="0"
                    summary=""
                    width="100%"
                   >
@@ -390,6 +396,7 @@
                          border="0"
                          cellpadding="0"
                          cellspacing="0"
+                         datatable="0"
                          id="mainId-nb"
                          summary=""
                         >
@@ -505,6 +512,7 @@
                    cellpadding="0"
                    cellspacing="0"
                    class="af_table_sub-control-bar"
+                   datatable="0"
                    summary=""
                    width="100%"
                   >
@@ -703,6 +711,7 @@
              border="0"
              cellpadding="0"
              cellspacing="0"
+             datatable="0"
              summary=""
             >
           
@@ -717,6 +726,7 @@
                    cellpadding="0"
                    cellspacing="0"
                    class="af_table_control-bar-top"
+                   datatable="0"
                    summary=""
                    width="100%"
                   >
@@ -738,6 +748,7 @@
                          border="0"
                          cellpadding="0"
                          cellspacing="0"
+                         datatable="0"
                          id="mainId-nb"
                          summary=""
                         >
@@ -853,6 +864,7 @@
                    cellpadding="0"
                    cellspacing="0"
                    class="af_table_sub-control-bar"
+                   datatable="0"
                    summary=""
                    width="100%"
                   >

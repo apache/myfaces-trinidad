@@ -126,29 +126,68 @@ public class OutputUtils
   }
 
   /**
-   * All layout tables should call this method, so that a special summary tag
-   * (which silences OAC) is rendered
+   * Render layout table attributes. Includes appropriate attributes for layout table accessibility.
    */
   public static void renderLayoutTableAttributes(
     FacesContext        context,
-    RenderingContext arc,
+    RenderingContext    arc,
     Object              cellpadding,
     Object              cellspacing,
     Object              border,
     Object              tableWidth
     ) throws IOException
   {
-    renderLayoutTableAttributes(context, arc, cellpadding, cellspacing, border,
-                                tableWidth, "" /* summary */ );
+    _renderTableAttributes(context, arc, cellpadding, cellspacing, border, tableWidth, 
+                           "" /* summary */ );
+
+    //if in screen reader mode, also indicate that this table is not a data table
+    if (CoreRenderer.isScreenReaderMode(arc))
+    {
+      ResponseWriter writer = context.getResponseWriter();
+      writer.writeAttribute("datatable", "0", null);
+    }
   }
 
   /**
-   * all data tables should call this one, so that a summary tag is written
-   * out
+   * @deprecated replaced by @link #renderDataTableAttributes(FacesContext, RenderingContext, Object, Object, Object, Object, Object)
    */
   public static void renderLayoutTableAttributes(
     FacesContext        context,
+    RenderingContext    arc,
+    Object              cellpadding,
+    Object              cellspacing,
+    Object              border,
+    Object              tableWidth,
+    Object              summary
+    ) throws IOException
+  {
+    renderDataTableAttributes(context, arc, cellpadding, cellspacing, border, tableWidth, summary);
+  }
+
+  /**
+   * Render data table attributes. Includes appropriate attributes for data table accessibility.
+   */
+  public static void renderDataTableAttributes(
+    FacesContext        context,
     RenderingContext arc,
+    Object              cellpadding,
+    Object              cellspacing,
+    Object              border,
+    Object              tableWidth,
+    Object              summary
+    ) throws IOException
+  {
+    _renderTableAttributes(context, arc, cellpadding, cellspacing, border, tableWidth, summary);
+  }
+
+  /**
+   * Generic method for rendering common table attributes. The desire here is that renderers don't 
+   * call this method, but call in to either the renderLayoutTableAttributes or 
+   * renderDataTableAttributes depending on the type of table.
+   */
+  private static void _renderTableAttributes(
+    FacesContext        context,
+    RenderingContext    arc,
     Object              cellpadding,
     Object              cellspacing,
     Object              border,
@@ -167,6 +206,7 @@ public class OutputUtils
       writer.writeAttribute("summary", summary, null);
     }
   }
+
   /**
   * Renders only the alt attribute
   * if that can be used as a tooltip on an image.

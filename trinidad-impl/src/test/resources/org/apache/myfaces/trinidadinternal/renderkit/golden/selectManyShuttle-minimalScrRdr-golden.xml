@@ -4,6 +4,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectManyShuttle"
+           datatable="0"
            id="mainId"
            summary=""
            width="10%"
@@ -40,6 +41,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -85,6 +87,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -325,6 +328,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -370,6 +374,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -514,6 +519,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectManyShuttle"
+           datatable="0"
            id="mainId"
            summary=""
            width="10%"
@@ -550,6 +556,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -595,6 +602,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -835,6 +843,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -880,6 +889,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -1024,6 +1034,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectManyShuttle p_AFDisabled"
+           datatable="0"
            id="mainId"
            summary=""
            width="10%"
@@ -1060,6 +1071,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -1105,6 +1117,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -1338,6 +1351,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -1383,6 +1397,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -1528,6 +1543,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectManyShuttle"
+           datatable="0"
            id="mainId"
            summary=""
            width="10%"
@@ -1564,6 +1580,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -1609,6 +1626,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -1849,6 +1867,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -1894,6 +1913,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -2038,6 +2058,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectManyShuttle"
+           datatable="0"
            id="mainId"
            summary=""
            width="10%"
@@ -2074,6 +2095,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -2119,6 +2141,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -2430,6 +2453,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -2475,6 +2499,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -2689,6 +2714,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectManyShuttle"
+           datatable="0"
            id="mainId"
            summary=""
            width="10%"
@@ -2725,6 +2751,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -2770,6 +2797,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -3017,6 +3045,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -3062,6 +3091,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -3206,6 +3236,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectManyShuttle"
+           datatable="0"
            id="mainId"
            summary=""
            width="10%"
@@ -3242,6 +3273,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -3287,6 +3319,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -3527,6 +3560,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -3572,6 +3606,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -3716,6 +3751,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectManyShuttle p_AFReadOnly"
+           datatable="0"
            id="mainId"
            summary=""
            width="10%"
@@ -3752,6 +3788,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -3797,6 +3834,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -4030,6 +4068,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -4075,6 +4114,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -4220,6 +4260,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectManyShuttle"
+           datatable="0"
            id="mainId"
            summary=""
            width="10%"
@@ -4256,6 +4297,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -4301,6 +4343,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -4541,6 +4584,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -4586,6 +4630,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -4730,6 +4775,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectManyShuttle p_AFRequired"
+           datatable="0"
            id="mainId"
            summary=""
            width="10%"
@@ -4780,6 +4826,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -4825,6 +4872,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -5065,6 +5113,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -5110,6 +5159,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -5254,6 +5304,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectManyShuttle"
+           datatable="0"
            id="mainId"
            summary=""
            width="10%"
@@ -5290,6 +5341,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -5335,6 +5387,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -5575,6 +5628,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -5620,6 +5674,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -5764,6 +5819,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectManyShuttle"
+           datatable="0"
            id="mainId"
            summary=""
            width="10%"
@@ -5800,6 +5856,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -5845,6 +5902,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -6085,6 +6143,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -6130,6 +6189,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -6274,6 +6334,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectManyShuttle"
+           datatable="0"
            id="mainId"
            summary=""
            width="10%"
@@ -6310,6 +6371,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -6355,6 +6417,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -6665,6 +6728,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -6710,6 +6774,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -6925,6 +6990,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectManyShuttle"
+           datatable="0"
            id="mainId"
            summary=""
            width="10%"
@@ -6961,6 +7027,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -7006,6 +7073,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -7246,6 +7314,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -7291,6 +7360,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -7442,6 +7512,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectManyShuttle"
+           datatable="0"
            id="test-id"
            summary=""
            width="10%"
@@ -7478,6 +7549,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -7523,6 +7595,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -7763,6 +7836,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -7808,6 +7882,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -7952,6 +8027,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectManyShuttle"
+           datatable="0"
            id="mainId"
            style="background-color:red"
            summary=""
@@ -7989,6 +8065,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -8034,6 +8111,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -8274,6 +8352,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -8319,6 +8398,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -8463,6 +8543,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectManyShuttle"
+           datatable="0"
            id="mainId"
            summary=""
            title="test-shortDesc"
@@ -8500,6 +8581,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -8545,6 +8627,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -8785,6 +8868,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -8830,6 +8914,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -8980,6 +9065,7 @@
            cellpadding="0"
            cellspacing="0"
            class="test-styleClass af_selectManyShuttle"
+           datatable="0"
            id="mainId"
            summary=""
            width="10%"
@@ -9016,6 +9102,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -9061,6 +9148,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -9301,6 +9389,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -9346,6 +9435,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -9490,6 +9580,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectManyShuttle"
+           datatable="0"
            id="mainId"
            onblur="test-onblur"
            summary=""
@@ -9527,6 +9618,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -9572,6 +9664,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -9813,6 +9906,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -9858,6 +9952,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -10003,6 +10098,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectManyShuttle"
+           datatable="0"
            id="mainId"
            onchange="test-onchange"
            summary=""
@@ -10040,6 +10136,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -10085,6 +10182,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -10325,6 +10423,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -10370,6 +10469,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -10514,6 +10614,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectManyShuttle"
+           datatable="0"
            id="mainId"
            onclick="test-onclick"
            summary=""
@@ -10551,6 +10652,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  onclick="test-onclick"
                  style="width:100%"
                  summary=""
@@ -10597,6 +10699,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -10838,6 +10941,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  onclick="test-onclick"
                  style="width:100%"
                  summary=""
@@ -10884,6 +10988,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -11029,6 +11134,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectManyShuttle"
+           datatable="0"
            id="mainId"
            ondblclick="test-ondblclick"
            summary=""
@@ -11066,6 +11172,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  ondblclick="test-ondblclick"
                  style="width:100%"
                  summary=""
@@ -11112,6 +11219,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -11352,6 +11460,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  ondblclick="test-ondblclick"
                  style="width:100%"
                  summary=""
@@ -11398,6 +11507,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -11542,6 +11652,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectManyShuttle"
+           datatable="0"
            id="mainId"
            onfocus="test-onfocus"
            summary=""
@@ -11579,6 +11690,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -11624,6 +11736,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -11865,6 +11978,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  style="width:100%"
                  summary=""
                 >
@@ -11910,6 +12024,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -12055,6 +12170,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectManyShuttle"
+           datatable="0"
            id="mainId"
            onkeydown="test-onkeydown"
            summary=""
@@ -12092,6 +12208,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  onkeydown="test-onkeydown"
                  style="width:100%"
                  summary=""
@@ -12138,6 +12255,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -12379,6 +12497,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  onkeydown="test-onkeydown"
                  style="width:100%"
                  summary=""
@@ -12425,6 +12544,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -12570,6 +12690,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectManyShuttle"
+           datatable="0"
            id="mainId"
            onkeypress="test-onkeypress"
            summary=""
@@ -12607,6 +12728,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  onkeypress="test-onkeypress"
                  style="width:100%"
                  summary=""
@@ -12653,6 +12775,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -12894,6 +13017,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  onkeypress="test-onkeypress"
                  style="width:100%"
                  summary=""
@@ -12940,6 +13064,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -13085,6 +13210,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectManyShuttle"
+           datatable="0"
            id="mainId"
            onkeyup="test-onkeyup"
            summary=""
@@ -13122,6 +13248,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  onkeyup="test-onkeyup"
                  style="width:100%"
                  summary=""
@@ -13168,6 +13295,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -13409,6 +13537,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  onkeyup="test-onkeyup"
                  style="width:100%"
                  summary=""
@@ -13455,6 +13584,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -13600,6 +13730,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectManyShuttle"
+           datatable="0"
            id="mainId"
            onmousedown="test-onmousedown"
            summary=""
@@ -13637,6 +13768,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  onmousedown="test-onmousedown"
                  style="width:100%"
                  summary=""
@@ -13683,6 +13815,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -13924,6 +14057,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  onmousedown="test-onmousedown"
                  style="width:100%"
                  summary=""
@@ -13970,6 +14104,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -14115,6 +14250,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectManyShuttle"
+           datatable="0"
            id="mainId"
            onmousemove="test-onmousemove"
            summary=""
@@ -14152,6 +14288,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  onmousemove="test-onmousemove"
                  style="width:100%"
                  summary=""
@@ -14198,6 +14335,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -14439,6 +14577,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  onmousemove="test-onmousemove"
                  style="width:100%"
                  summary=""
@@ -14485,6 +14624,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -14630,6 +14770,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectManyShuttle"
+           datatable="0"
            id="mainId"
            onmouseout="test-onmouseout"
            summary=""
@@ -14667,6 +14808,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  onmouseout="test-onmouseout"
                  style="width:100%"
                  summary=""
@@ -14713,6 +14855,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -14954,6 +15097,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  onmouseout="test-onmouseout"
                  style="width:100%"
                  summary=""
@@ -15000,6 +15144,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -15145,6 +15290,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectManyShuttle"
+           datatable="0"
            id="mainId"
            onmouseover="test-onmouseover"
            summary=""
@@ -15182,6 +15328,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  onmouseover="test-onmouseover"
                  style="width:100%"
                  summary=""
@@ -15228,6 +15375,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -15469,6 +15617,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  onmouseover="test-onmouseover"
                  style="width:100%"
                  summary=""
@@ -15515,6 +15664,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -15660,6 +15810,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectManyShuttle"
+           datatable="0"
            id="mainId"
            onmouseup="test-onmouseup"
            summary=""
@@ -15697,6 +15848,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  onmouseup="test-onmouseup"
                  style="width:100%"
                  summary=""
@@ -15743,6 +15895,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         
@@ -15984,6 +16137,7 @@
                  cellpadding="0"
                  cellspacing="0"
                  class="af_selectManyShuttle_box"
+                 datatable="0"
                  onmouseup="test-onmouseup"
                  style="width:100%"
                  summary=""
@@ -16030,6 +16184,7 @@
                       <table
                            border="0"
                            cellpadding="0"
+                           datatable="0"
                            summary=""
                           >
                         

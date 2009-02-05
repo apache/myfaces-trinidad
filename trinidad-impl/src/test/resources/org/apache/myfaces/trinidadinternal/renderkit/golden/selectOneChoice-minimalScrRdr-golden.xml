@@ -4,6 +4,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectOneChoice"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -60,6 +61,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectOneChoice"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -112,6 +114,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectOneChoice"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -168,6 +171,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectOneChoice"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -224,6 +228,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectOneChoice"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -280,6 +285,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectOneChoice"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -342,6 +348,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectOneChoice"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -398,6 +405,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectOneChoice p_AFDisabled"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -455,6 +463,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectOneChoice"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -516,6 +525,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectOneChoice"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -572,6 +582,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectOneChoice"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -628,6 +639,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectOneChoice p_AFReadOnly"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -663,6 +675,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectOneChoice"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -719,6 +732,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectOneChoice p_AFRequired"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -781,6 +795,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectOneChoice"
+           datatable="0"
            id="test-id__xc_"
            summary=""
           >
@@ -837,6 +852,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectOneChoice"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -893,6 +909,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectOneChoice"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -949,6 +966,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectOneChoice p_AFRequired"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -1011,6 +1029,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectOneChoice p_AFRequired"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -1073,6 +1092,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectOneChoice p_AFRequired"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -1135,6 +1155,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectOneChoice p_AFRequired"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -1197,6 +1218,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectOneChoice"
+           datatable="0"
            id="mainId__xc_"
            style="background-color:red"
            summary=""
@@ -1254,6 +1276,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectOneChoice"
+           datatable="0"
            id="mainId__xc_"
            summary=""
            title="test-shortDesc"
@@ -1318,6 +1341,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectOneChoice"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -1375,6 +1399,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectOneChoice"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -1432,6 +1457,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectOneChoice"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -1489,6 +1515,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectOneChoice"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -1546,6 +1573,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectOneChoice"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -1603,6 +1631,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectOneChoice"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -1660,6 +1689,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectOneChoice"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -1717,6 +1747,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectOneChoice"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -1774,6 +1805,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectOneChoice"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -1831,6 +1863,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectOneChoice"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -1888,6 +1921,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_selectOneChoice"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >

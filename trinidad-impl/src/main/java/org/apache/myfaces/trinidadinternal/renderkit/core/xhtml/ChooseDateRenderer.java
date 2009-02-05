@@ -262,7 +262,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
 
     writer.startElement("table", null);
     //fix for bug 4410632: added summary attribute
-    OutputUtils.renderLayoutTableAttributes(context,
+    OutputUtils.renderDataTableAttributes(context,
                                             arc,
                                             "0", "0", "0", "100%",
                         arc.getTranslatedString("af_chooseDate.SUMMARY"));
