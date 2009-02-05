@@ -4,6 +4,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -43,6 +44,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -82,6 +84,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -126,6 +129,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -165,6 +169,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -206,6 +211,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText"
+           datatable="0"
            id="id_val__xc_"
            summary=""
           >
@@ -245,6 +251,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText"
+           datatable="0"
            id="mainId__xc_"
            style="background-color:red"
            summary=""
@@ -285,6 +292,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -329,6 +337,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText"
+           datatable="0"
            id="mainId__xc_"
            summary=""
            title="shortDesc_val"
@@ -376,6 +385,7 @@
            cellpadding="0"
            cellspacing="0"
            class="styleClass_val af_inputText"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -415,6 +425,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -454,6 +465,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -499,6 +511,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -538,6 +551,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText p_AFDisabled"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -578,6 +592,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -617,6 +632,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText p_AFReadOnly"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -656,6 +672,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -696,6 +713,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -736,6 +754,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -776,6 +795,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -815,6 +835,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText p_AFRequired"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -860,6 +881,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -899,6 +921,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText p_AFRequired"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -944,6 +967,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -983,6 +1007,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -1023,6 +1048,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -1063,6 +1089,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -1103,6 +1130,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -1143,6 +1171,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -1183,6 +1212,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -1223,6 +1253,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -1263,6 +1294,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -1303,6 +1335,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -1343,6 +1376,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -1383,6 +1417,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -1423,6 +1458,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -1463,6 +1499,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -1503,6 +1540,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -1543,6 +1581,7 @@
            cellpadding="0"
            cellspacing="0"
            class="OraErrorText af_inputText"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -1582,6 +1621,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -1621,6 +1661,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -1660,6 +1701,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText p_AFDisabled"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -1700,6 +1742,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -1739,6 +1782,7 @@
            cellpadding="0"
            cellspacing="0"
            class="af_inputText p_AFReadOnly"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >

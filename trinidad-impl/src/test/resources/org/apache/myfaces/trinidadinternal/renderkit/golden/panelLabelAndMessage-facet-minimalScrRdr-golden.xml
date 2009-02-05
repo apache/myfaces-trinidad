@@ -3,6 +3,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
+           datatable="0"
            id="mainId__xc_"
            summary=""
           >
@@ -26,6 +27,7 @@
                  border="0"
                  cellpadding="0"
                  cellspacing="0"
+                 datatable="0"
                  summary=""
                 >
               
@@ -40,6 +42,7 @@
                        cellpadding="0"
                        cellspacing="0"
                        class="af_selectBooleanCheckbox"
+                       datatable="0"
                        id="_idXXX__xc_"
                        summary=""
                       >
@@ -86,6 +89,7 @@
                        cellpadding="0"
                        cellspacing="0"
                        class="af_selectBooleanCheckbox"
+                       datatable="0"
                        id="_idXXX__xc_"
                        summary=""
                       >
@@ -136,6 +140,7 @@
                        cellpadding="0"
                        cellspacing="0"
                        class="af_inputText"
+                       datatable="0"
                        id="_idXXX__xc_"
                        summary=""
                       >

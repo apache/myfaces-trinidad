@@ -327,7 +327,7 @@ public class DesktopTableRenderer extends TableRenderer
     String summary = getSummary(bean);
 
     Object cellPadding = getTablePadding(table);
-    OutputUtils.renderLayoutTableAttributes(
+    OutputUtils.renderDataTableAttributes(
        context, arc, cellPadding,
        "0", // cell spacing
        "0", //border
