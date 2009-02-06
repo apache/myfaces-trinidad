@@ -117,10 +117,13 @@
 
     
     <!-- BlackBerry Browser BlackBerry Curve and Perl devices -->
+    <!-- BlackBerry Curve and Perl are treated as basic HTML browsers for 
+         performance
     <capabilities id="blackberry4" agents="blackberry/4+" platforms="blackberry">
       <include refid="pda"/>
       <include src="blackberry4.xml"/>
     </capabilities>
+    -->
 
     <!-- BlackBerry Browser BlackBerry Bold devices -->
     <capabilities id="blackberryBold" agents="blackberry/4.6+" platforms="blackberry">
