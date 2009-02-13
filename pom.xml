@@ -770,7 +770,7 @@
   </profiles>
 </settings>
       -->
-    <profile>
+    <!--profile>
       <id>java5compilerFor6</id>
       <activation>
         <jdk>1.6</jdk>
@@ -789,9 +789,9 @@
           </plugin>
         </plugins>
       </build>
-    </profile>
+    </profile-->
     <!-- repeat for JDK 1.7 -->
-    <profile>
+    <!--profile>
       <id>java5compilerFor7</id>
       <activation>
         <jdk>1.7</jdk>
@@ -810,6 +810,6 @@
           </plugin>
         </plugins>
       </build>
-    </profile>
+    </profile-->
   </profiles>
 </project>
