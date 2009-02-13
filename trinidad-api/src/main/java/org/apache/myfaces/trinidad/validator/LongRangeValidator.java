@@ -18,10 +18,13 @@
  */
 package org.apache.myfaces.trinidad.validator;
 
+import javax.el.ValueExpression;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
+
 
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
@@ -75,7 +78,6 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
   public static final String NOT_IN_RANGE_MESSAGE_ID =
       "org.apache.myfaces.trinidad.validator.LongRangeValidator.NOT_IN_RANGE";
 
-  
   /**
    * <p>The message identifier of the FacesMessage to be created if
    * the value cannot be converted to an integer
@@ -126,7 +128,7 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
   {
     Object maxLong = _facesBean.getProperty(_MAXIMUM_KEY);
     if(maxLong == null)
-      maxLong = Long.MAX_VALUE;
+      maxLong = _MAXIMUM_KEY.getDefault();
     return ComponentUtils.resolveLong(maxLong);
   }
 
@@ -153,7 +155,7 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
   {
     Object minLong = _facesBean.getProperty(_MINIMUM_KEY);
     if(minLong == null)
-      minLong = Long.MIN_VALUE;
+      minLong = _MINIMUM_KEY.getDefault();
     return ComponentUtils.resolveLong(minLong);
   }
 
@@ -376,6 +378,43 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
   }
 
   /**
+   * <p>Set the {@link ValueExpression} used to calculate the value for the
+   * specified attribute if any.</p>
+   *
+   * @param name Name of the attribute for which to set a {@link ValueExpression}
+   * @param expression The {@link ValueExpression} to set, or <code>null</code>
+   *  to remove any currently set {@link ValueExpression}
+   *
+   * @exception NullPointerException if <code>name</code>
+   *  is <code>null</code>
+   * @exception IllegalArgumentException if <code>name</code> is not a valid
+   *            attribute of this converter
+   */
+  public void setValueExpression(String name, ValueExpression expression)
+  {
+    ValidatorUtils.setValueExpression(_facesBean, name, expression) ;
+  }
+
+
+  /**
+   * <p>Return the {@link ValueExpression} used to calculate the value for the
+   * specified attribute name, if any.</p>
+   *
+   * @param name Name of the attribute or property for which to retrieve a
+   *  {@link ValueExpression}
+   *
+   * @exception NullPointerException if <code>name</code>
+   *  is <code>null</code>
+   * @exception IllegalArgumentException if <code>name</code> is not a valid
+   * attribute of this converter
+   */
+  public ValueExpression getValueExpression(String name)
+  {
+    return ValidatorUtils.getValueExpression(_facesBean, name);
+  }
+
+
+  /**
    * <p>Set the {@link ValueBinding} used to calculate the value for the
    * specified attribute if any.</p>
    *
@@ -387,6 +426,7 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
    *  is <code>null</code>
    * @exception IllegalArgumentException if <code>name</code> is not a valid
    *            attribute of this validator
+   * @deprecated
    */
   public void setValueBinding(String name, ValueBinding binding)
   {
@@ -404,6 +444,7 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
    *  is <code>null</code>
    * @exception IllegalArgumentException if <code>name</code> is not a valid
    * attribute of this validator
+   * @deprecated
    */
   public ValueBinding getValueBinding(String name)
   {
@@ -438,7 +479,7 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
   {
     return MessageFactory.getMessage(context, CONVERT_MESSAGE_ID);
   }
-
+  
   /**
    * Try to call longValue() from java.lang.Number. Since not all
    * "number" implement java.lang.Number, we try to call string
@@ -532,10 +573,14 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
   private static final FacesBean.Type _TYPE = new FacesBean.Type();
 
   private static final PropertyKey _MINIMUM_KEY =
-    _TYPE.registerKey("minimum", Long.class);
+    _TYPE.registerKey("minimum", Long.class,
+                                 // Don't rely on autoboxing: there's a method overload
+                                 Long.valueOf(Long.MIN_VALUE));
 
   private static final PropertyKey _MAXIMUM_KEY =
-    _TYPE.registerKey("maximum", Long.class);
+    _TYPE.registerKey("maximum", Long.class,
+                                 // Don't rely on autoboxing: there's a method overload
+                                 Long.valueOf(Long.MAX_VALUE));
 
   private static final PropertyKey _MAXIMUM_MESSAGE_DETAIL_KEY =
     _TYPE.registerKey("messageDetailMaximum", String.class);

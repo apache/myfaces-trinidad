@@ -18,8 +18,10 @@
  */
 package org.apache.myfaces.trinidadinternal.taglib.convert;
 
+import javax.faces.application.Application;
 import javax.faces.convert.Converter;
-import javax.faces.webapp.ConverterTag;
+import javax.faces.context.FacesContext;
+import javax.faces.webapp.ConverterELTag;
 
 import javax.servlet.jsp.JspException;
 import org.apache.myfaces.trinidadinternal.convert.IntegerConverter;
@@ -28,18 +30,11 @@ import org.apache.myfaces.trinidadinternal.convert.IntegerConverter;
 
  * @version 2.0 (1.0) 2000/03/16 23:23:33
  */
-public class ConvertIntegerTag extends ConverterTag
+public class ConvertIntegerTag extends ConverterELTag
 {
 
   public ConvertIntegerTag()
   {
-  }
-
-  @Override
-  public int doStartTag() throws JspException
-  {
-    super.setConverterId(IntegerConverter.CONVERTER_ID);
-    return super.doStartTag();
   }
 
   /**
@@ -48,8 +43,9 @@ public class ConvertIntegerTag extends ConverterTag
   @Override
   protected Converter createConverter() throws JspException
   {
-    IntegerConverter converter =
-                              (IntegerConverter)super.createConverter();
+    Application application = FacesContext.getCurrentInstance().getApplication();
+    IntegerConverter converter = (IntegerConverter)
+      application.createConverter(IntegerConverter.CONVERTER_ID);
     return converter;
   }
 }

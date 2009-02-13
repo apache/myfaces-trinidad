@@ -56,3 +56,4 @@ public class FastMessageFormatTest
     assertEquals(result, "beef {{3} isn't {} {a} {12a}kosher {");
   }
 }
+

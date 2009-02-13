@@ -280,13 +280,19 @@ public class UIComponentTestCase extends FacesTestCase
       mockRenderer.expects(never()).method("decode");
     }
 
-    doTestApplyRequestValues(facesContext, root, component);
+    try
+    {
+      setCurrentContext(facesContext);
+      doTestApplyRequestValues(facesContext, root, component);
+    }
+    finally
+    {
+      setCurrentContext(null);
+    }
 
     mockRenderKitFactory.verify();
     mockRenderkit.verify();
     mockRenderer.verify();
-
-    setCurrentContext(null);
   }
 
 

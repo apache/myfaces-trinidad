@@ -63,7 +63,7 @@ public class SimpleInputListOfValuesRenderer extends SimpleInputTextRenderer
     super.findTypeConstants(type);
     _searchDescKey = type.findKey("searchDesc");
     _iconKey = type.findKey("icon");
-    _actionKey = type.findKey("action");
+    _actionExpressionKey = type.findKey("actionExpression");
   }
 
   //
@@ -360,9 +360,9 @@ public class SimpleInputListOfValuesRenderer extends SimpleInputTextRenderer
     return true;
   }
 
-  protected Object getAction(FacesBean bean)
+  protected Object getActionExpression(FacesBean bean)
   {
-    return bean.getProperty(_actionKey);
+    return bean.getProperty(_actionExpressionKey);
   }
 
   protected String getSearchDesc(
@@ -395,7 +395,7 @@ public class SimpleInputListOfValuesRenderer extends SimpleInputTextRenderer
     return "af|inputListOfValues::content";
   }
 
-  private PropertyKey _actionKey;
+  private PropertyKey _actionExpressionKey;
   private PropertyKey _iconKey;
   private PropertyKey _searchDescKey;
 

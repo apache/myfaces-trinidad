@@ -532,7 +532,7 @@ TrNumberFormat.prototype._formatFractions = function(fracs)
   var maxFra = this.getMaximumFractionDigits();
   var minFra = this.getMinimumFractionDigits();
 
-  if(fracsLength > maxFra  && maxFra>minFra)
+  if(fracsLength > maxFra && maxFra>minFra)
   {
     fracs = fracs.substring(0, maxFra);
   }

@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- *
+ * 
  *  http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -26,7 +26,6 @@ import junit.textui.TestRunner;
 
 import org.apache.myfaces.trinidad.component.UIComponentTestCase;
 import org.apache.myfaces.trinidad.component.UIXTableTest.DoNotCallBinding;
-import org.apache.myfaces.trinidad.context.MockRequestContext;
 
 /**
  * Unit tests for UIXTree
@@ -42,27 +41,19 @@ public class UIXTreeTest extends UIComponentTestCase
   {
     super(testName);
   }
-
-
-
-  private MockRequestContext _mafct;
-
+  
   @Override
-  public void setUp() throws Exception
+  protected void setUp() throws Exception
   {
     super.setUp();
-    _mafct = new MockRequestContext();
   }
-
+  
   @Override
-  public void tearDown() throws Exception
+  protected void tearDown() throws Exception
   {
-    _mafct.release();
-    _mafct = null;
     super.tearDown();
   }
-
-
+  
   public static Test suite()
   {
     return new TestSuite(UIXTreeTest.class);

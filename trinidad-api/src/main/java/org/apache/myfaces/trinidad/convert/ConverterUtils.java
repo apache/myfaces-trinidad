@@ -18,6 +18,7 @@
  */
 package org.apache.myfaces.trinidad.convert;
 
+import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.el.ValueBinding;
 
@@ -59,6 +60,19 @@ final class ConverterUtils
    return bean;
  } 
  
+  static void setValueExpression(FacesBean bean, String name, ValueExpression expression)
+  {   
+    PropertyKey key = _getPropertyKey(bean, name, true);
+    bean.setValueExpression(key, expression);
+  }
+ 
+  static ValueExpression getValueExpression(FacesBean bean, String name)
+  {
+    PropertyKey key = _getPropertyKey(bean, name, true);
+    return bean.getValueExpression(key);
+  }
+
+
   static void setValueBinding(FacesBean bean, String name, ValueBinding binding)
   {   
     PropertyKey key = _getPropertyKey(bean, name, true);

@@ -24,10 +24,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.el.ValueExpression;
+
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
-import javax.faces.el.ValueBinding;
 import javax.faces.render.RenderKit;
 
 import org.apache.myfaces.trinidad.context.RequestContext;
@@ -44,6 +45,8 @@ import org.apache.myfaces.trinidadinternal.webapp.TrinidadFilterImpl;
 
 public class DialogServiceImpl extends DialogService
 {
+  public static final String DIALOG_RETURN = "org.apache.myfaces.trinidad.DialogReturn";
+    
   public DialogServiceImpl(RequestContextImpl context)
   {
     _context = context;
@@ -187,13 +190,13 @@ public class DialogServiceImpl extends DialogService
     Map<Object, Object> launchParameters = (Map<Object, Object>)
       poppedView.getAttributes().get(RequestContextImpl.LAUNCH_PARAMETERS);
 
+    Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
     if (launchParameters != null)
     {
       // Store the parameters and the UIViewRoot for (respectively)
       // AdfFacesFilterImpl and ViewHandlerImpl
       poppedView.getAttributes().remove(RequestContextImpl.LAUNCH_PARAMETERS);
 
-      Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
       requestMap.put(RequestContextImpl.LAUNCH_PARAMETERS, launchParameters);
       requestMap.put(RequestContextImpl.LAUNCH_VIEW, poppedView);
 
@@ -201,6 +204,8 @@ public class DialogServiceImpl extends DialogService
       _LOG.fine("Returned from dialog and re-executing lifecycle for {0}",
                 poppedView.getViewId());
     }
+    
+    requestMap.put(DIALOG_RETURN, Boolean.TRUE);
 
     return false;
 
@@ -213,8 +218,9 @@ public class DialogServiceImpl extends DialogService
     FacesContext context = _getFacesContext();
     if (TrinidadFilterImpl.isExecutingDialogReturn(context))
     {
-      Map<String, Object> parameterMap = context.getExternalContext().getRequestParameterMap();
-      Object returnParam = parameterMap.get(_RETURN_PARAM);
+      Map<String, String> parameterMap =
+        context.getExternalContext().getRequestParameterMap();
+      String returnParam = parameterMap.get(_RETURN_PARAM);
       if (returnParam == null)
         return null;
 
@@ -394,7 +400,7 @@ public class DialogServiceImpl extends DialogService
       // Save the parameters used to launch the dialog so we can
       // simulate a postback when coming back to the dialog;  and
       // write in a "returnId" with the "id" that will be used.
-      Map<String, Object> savedRequestParameters = new HashMap<String, Object>();
+      Map<String, String[]> savedRequestParameters = new HashMap<String, String[]>();
       savedRequestParameters.putAll(
             context.getExternalContext().getRequestParameterValuesMap());
       if (source != null)
@@ -464,9 +470,9 @@ public class DialogServiceImpl extends DialogService
   @SuppressWarnings("unchecked")
   private void _executeBindings(FacesContext context, UIComponent component)
   {
-    ValueBinding binding = component.getValueBinding("binding");
-    if (binding != null)
-      binding.setValue(context, component);
+    ValueExpression expression = component.getValueExpression("binding");
+    if (expression != null)
+      expression.setValue(context.getELContext(), component);
 
     Iterator<UIComponent> kids = component.getFacetsAndChildren();
     while (kids.hasNext())

@@ -102,7 +102,7 @@ TrMessageBox.prototype.addMessage = function(inputId, label, facesMessage)
       anchor.href = "#" + inputId;
       anchor.innerHTML = label;
       line.appendChild(anchor);
-      
+   
       // Populate the text on the line
       textNode = document.createTextNode(" - " + facesMessage.getSummary());
     }
@@ -111,7 +111,7 @@ TrMessageBox.prototype.addMessage = function(inputId, label, facesMessage)
       // don't append the " - "
       textNode = document.createTextNode(facesMessage.getSummary());
     }
-  
+    
     // Give it a name we can remember so we can remove it later
     line.name = this._getMessageNameForInput(inputId);
     line.appendChild(textNode);
@@ -128,7 +128,7 @@ TrMessageBox.prototype.addMessage = function(inputId, label, facesMessage)
       textNode = document.createTextNode(summary + " - " + facesMessage.getDetail());
     else
       textNode = document.createTextNode(facesMessage.getDetail());
-
+      
     line.appendChild(textNode);
   }
 

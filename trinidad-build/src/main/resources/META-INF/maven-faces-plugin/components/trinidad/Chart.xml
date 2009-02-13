@@ -43,7 +43,6 @@
         <mfp:property-metadata>
           <mfp:preferred>true</mfp:preferred>
         </mfp:property-metadata>
-        <mfp:required>true</mfp:required>
       </property-extension>
     </property>
     <property>
@@ -51,7 +50,7 @@
          will be called when the user drills down into the chart data.The method must take a parameter of type <code>org.apache.myfaces.trinidad.event.ChartDrillDownEvent</code>.]]>
       </description>
       <property-name>chartDrillDownListener</property-name>
-      <property-class>javax.faces.el.MethodBinding</property-class>
+      <property-class>javax.el.MethodExpression</property-class>
       <property-extension>
         <mfp:method-binding-signature>
           <mfp:parameter-type>org.apache.myfaces.trinidad.event.ChartDrillDownEvent</mfp:parameter-type>
@@ -60,7 +59,6 @@
         <mfp:property-metadata>
           <mfp:preferred>true</mfp:preferred>
         </mfp:property-metadata>
-        <mfp:state-holder>yes</mfp:state-holder>
       </property-extension>
     </property>
     <component-extension>

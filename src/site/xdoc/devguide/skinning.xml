@@ -625,6 +625,17 @@ so the medium panelBox's body will be pink, not yellow */
                 content: '?';
               }            
             </source>
+            <P>
+            There are some limitations with skinning icons that do not exist when skinning styles.
+            The main limitation is that the icon's properties do not get merged together with the icon's 
+            properties from a base skin, like they do for styles. 
+            For example, let's say the base skin's icon has 'width: 19px' set and you skin the icon.
+            You will need to explicitly set 'width: 19px' even though it is set in the base skin,
+            because icon properties do not get inherited.
+            Also, you cannot use the skin properties like -tr-rule-ref and -tr-inhibit when skinning icons
+            though you can when skinning style selectors. These limitations should some day be fixed and this
+            documentation will be updated then.
+            </P>
         </subsection>
       </section>
 
@@ -759,12 +770,14 @@ public class SkinTranslationMapDemo
         base skin has padding-right: 6px and you inhibit padding, you will still get the padding-right. You need
         to inhibit padding-right. Also note that inhibitions happen when the skinning framework processes the skin's css file,
         and not based on cascading rules in the browser. Therefore the skin selector has to match and the property name has
-        to match exactly to what you are inhibiting.
+        to match exactly to what you are inhibiting. -tr-inhibit works for style selectors but not
+        for icons (selectors that end with -icon) or skinning properties.
         </li>        
         <li>
         <strong>-tr-rule-ref</strong> - > This is used to include other styles in your style see :alias
         section. Application developers probably won't use this. This is meant for component developers to use when
-        they are setting up the base skin for their components. 
+        they are setting up the base skin for their components. -tr-rule-ref works for style selectors but not
+        for icons (selectors that end with -icon) or skinning properties.
         </li>
         </ul>
         <P>

@@ -61,7 +61,7 @@ public class DateFieldAsRenderer extends Renderer
   {
     _addChildren(context, component);
 
-    Map<String, UIComponent> attrs = component.getAttributes();
+    Map<String, Object> attrs = component.getAttributes();
     if (Boolean.TRUE.equals(attrs.get("readOnly")) ||
         Boolean.TRUE.equals(attrs.get("disabled")))
       return;

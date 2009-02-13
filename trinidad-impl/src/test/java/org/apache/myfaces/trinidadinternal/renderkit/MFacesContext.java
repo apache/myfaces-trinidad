@@ -41,16 +41,18 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.render.RenderKit;
 
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
+import org.apache.myfaces.trinidadbuild.test.MockFacesContext12;
 import org.apache.shale.test.mock.MockExternalContext;
 import org.apache.shale.test.mock.MockFacesContext;
 
 /**
  * Mock faces context for use with unit tests
  */
-public class MFacesContext extends MockFacesContext
+public class MFacesContext extends MockFacesContext12
 {
-  public MFacesContext(boolean testMode)
+  public MFacesContext(Application application, boolean testMode)
   {
+    super(application);
     setCurrentInstance(this);
     _external = new External(testMode);
   }

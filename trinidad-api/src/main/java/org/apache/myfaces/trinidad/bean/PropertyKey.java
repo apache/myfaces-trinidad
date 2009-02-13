@@ -220,17 +220,18 @@ public class PropertyKey
   {
     if ((_capabilities & CAP_STATE_HOLDER) != 0)
       return StateUtils.saveStateHolder(context, value);
-
+    
     // only serialize as list if this really is a list.  This is necessary because value
     // could be a ValueExpression
     if (this._serializeAsList && (value instanceof List))
       return StateUtils.saveList(context, value);
-
+    
     // warn if we are state saving non-serializable values, as this will cause client
     // state saving and fail-over to fail.  See JIRA 1236
-    if (!(value instanceof Serializable) && _LOG.isWarning())
-      _LOG.warning("Unserializable value:" + value + " on property key:" + this);
-
+    if ((value != null) && !(value instanceof Serializable) && _LOG.isWarning())
+      _LOG.warning(_LOG.getMessage("UNSERIALIZABLE_PROPERTY_VALUE_NO_CONTAINER",
+                                   new Object[]{value, this}));
+    
     return value;
   }
 
@@ -377,5 +378,7 @@ public class PropertyKey
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     PropertyKey.class);
 }
+
+
 
 

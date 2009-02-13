@@ -18,6 +18,8 @@
  */
 package org.apache.myfaces.trinidad.validator;
 
+import javax.el.ValueExpression;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -29,7 +31,6 @@ import javax.faces.validator.ValidatorException;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.util.ComponentUtils;
-import org.apache.myfaces.trinidad.util.IntegerUtils;
 import org.apache.myfaces.trinidad.util.MessageFactory;
 
 /**
@@ -130,8 +131,6 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
   public int getMaximum()
   {
     Object maxInt = _facesBean.getProperty(_MAXIMUM_KEY);
-    if (maxInt == null)
-      maxInt = _MAXIMUM_KEY.getDefault();
     return ComponentUtils.resolveInteger(maxInt);
   }
 
@@ -157,8 +156,6 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
   public int getMinimum()
   {
     Object minInt = _facesBean.getProperty(_MINIMUM_KEY);
-    if (minInt == null)
-      minInt = _MINIMUM_KEY.getDefault();
     return ComponentUtils.resolveInteger(minInt);
   }
 
@@ -423,6 +420,43 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
   }
 
   /**
+   * <p>Set the {@link ValueExpression} used to calculate the value for the
+   * specified attribute if any.</p>
+   *
+   * @param name Name of the attribute for which to set a {@link ValueExpression}
+   * @param expression The {@link ValueExpression} to set, or <code>null</code>
+   *  to remove any currently set {@link ValueExpression}
+   *
+   * @exception NullPointerException if <code>name</code>
+   *  is <code>null</code>
+   * @exception IllegalArgumentException if <code>name</code> is not a valid
+   *            attribute of this converter
+   */
+  public void setValueExpression(String name, ValueExpression expression)
+  {
+    ValidatorUtils.setValueExpression(_facesBean, name, expression) ;
+  }
+
+
+  /**
+   * <p>Return the {@link ValueExpression} used to calculate the value for the
+   * specified attribute name, if any.</p>
+   *
+   * @param name Name of the attribute or property for which to retrieve a
+   *  {@link ValueExpression}
+   *
+   * @exception NullPointerException if <code>name</code>
+   *  is <code>null</code>
+   * @exception IllegalArgumentException if <code>name</code> is not a valid
+   * attribute of this converter
+   */
+  public ValueExpression getValueExpression(String name)
+  {
+    return ValidatorUtils.getValueExpression(_facesBean, name);
+  }
+
+
+  /**
    * <p>Set the {@link ValueBinding} used to calculate the value for the
    * specified attribute if any.</p>
    *
@@ -434,6 +468,7 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
    *  is <code>null</code>
    * @exception IllegalArgumentException if <code>name</code> is not a valid
    *            attribute of this validator
+   * @deprecated
    */
   public void setValueBinding(String name, ValueBinding binding)
   {
@@ -451,6 +486,7 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
    *  is <code>null</code>
    * @exception IllegalArgumentException if <code>name</code> is not a valid
    * attribute of this validator
+   * @deprecated
    */
   public ValueBinding getValueBinding(String name)
   {
@@ -585,7 +621,7 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
   private static final PropertyKey _MAXIMUM_KEY =
     _TYPE.registerKey("maximum", Integer.class,
                       // Don't rely on autoboxing: there's a method overload
-                      Integer.valueOf(Integer.MAX_VALUE));
+                      Integer.valueOf(0));
 
   private static final PropertyKey _MAXIMUM_MESSAGE_DETAIL_KEY =
     _TYPE.registerKey("messageDetailMaximum", String.class);

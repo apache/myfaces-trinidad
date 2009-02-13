@@ -23,15 +23,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
 
-import java.util.TimeZone;
+import javax.el.MethodExpression;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
 import javax.faces.el.ValueBinding;
 import javax.faces.webapp.UIComponentTag;
@@ -41,12 +38,10 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
-import org.apache.myfaces.trinidad.change.AddComponentChange;
-import org.apache.myfaces.trinidad.change.ComponentChange;
 import org.apache.myfaces.trinidad.component.UIXComponent;
-import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.AttributeChangeEvent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+
 
 /**
  * Subclass of UIComponentTag to add convenience methods,
@@ -112,24 +107,6 @@ abstract public class UIXComponentTag extends UIComponentTag
   }
 
   @Override
-  public int doEndTag() throws JspException
-  {
-    UIComponent component = getComponentInstance();
-    if (isSuppressed() && getCreated())
-      _applyChanges(getFacesContext(), component);
-    return super.doEndTag();
-  }
-
-  @Override
-  protected void encodeBegin() throws java.io.IOException
-  {
-    UIComponent component = getComponentInstance();
-    if (!isSuppressed() && getCreated())
-      _applyChanges(getFacesContext(), component);
-    super.encodeBegin();
-  }
-
-  @Override
   protected final void setProperties(UIComponent component)
   {
     if (component instanceof UIViewRoot)
@@ -144,10 +121,14 @@ abstract public class UIXComponentTag extends UIComponentTag
 
     if (_attributeChangeListener != null)
     {
-      MethodBinding mb =
-        createMethodBinding(_attributeChangeListener,
-                            new Class[]{AttributeChangeEvent.class});
-      uixComponent.setAttributeChangeListener(mb);
+      MethodExpression me = getFacesContext().getApplication().
+         getExpressionFactory().createMethodExpression(
+             getFacesContext().getELContext(),
+             _attributeChangeListener,
+             null,
+             new Class[]{AttributeChangeEvent.class});
+
+      uixComponent.setAttributeChangeListener(me);
     }
 
 
@@ -444,43 +425,6 @@ abstract public class UIXComponentTag extends UIComponentTag
     }
   }
 
-  /**
-   * Set a property of type java.util.Date.  If the value
-   * is an EL expression, it will be stored as a ValueBinding.
-   * Otherwise, it will parsed as an ISO 8601 date (yyyy-MM-dd)
-   * and the time components (hour, min, second, millisecond) maximized.
-   * Null values are ignored.
-   */
-  protected void setMaxDateProperty(
-    FacesBean   bean,
-    PropertyKey key,
-    String      value)
-  {
-    if (value == null)
-      return;
-
-    if (isValueReference(value))
-    {
-      bean.setValueBinding(key, createValueBinding(value));
-    }
-    else
-    {
-      Date d = _parseISODate(value);
-      Calendar c = Calendar.getInstance();
-      TimeZone tz = RequestContext.getCurrentInstance().getTimeZone();
-      if (tz != null)
-        c.setTimeZone(tz);
-       // Original value had 00:00:00 for hours,mins, seconds now maximize those
-       // to get the latest time value for the date supplied.
-      c.setTime(d);
-      c.set (Calendar.HOUR_OF_DAY, 23);
-      c.set (Calendar.MINUTE, 59);
-      c.set (Calendar.SECOND, 59);
-      c.set (Calendar.MILLISECOND, 999);
-      bean.setProperty(key, c.getTime());
-    }
-  }
-
 
   // TODO Handle syntax exceptions gracefully?
   protected final ValueBinding createValueBinding(String string)
@@ -595,47 +539,12 @@ abstract public class UIXComponentTag extends UIComponentTag
     return list.toArray(new String[list.size()]);
   }
 
-  private static void _applyChanges(
-    FacesContext facesContext,
-    UIComponent uiComponent)
-  {
-    RequestContext afc = RequestContext.getCurrentInstance();
-    Iterator<ComponentChange> changeIter =
-                  afc.getChangeManager().getComponentChanges(facesContext, uiComponent);
-
-    if (changeIter == null)
-      return;
-    while (changeIter.hasNext())
-    {
-      ComponentChange change = changeIter.next();
-      
-      change.changeComponent(uiComponent);
-      
-      //pu: In case this Change has added a new component/facet, the added
-      //  component could have its own Changes, that may need to be applied here.
-      if (change instanceof AddComponentChange)
-      {
-        UIComponent newAddedComponent =
-          ( (AddComponentChange)change ).getComponent();
-
-        if (newAddedComponent != null)
-        {
-          _applyChanges(facesContext, newAddedComponent);
-        }
-      }
-    }
-  }
-
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(UIXComponentTag.class);
 
   // We rely strictly on ISO 8601 formats
   private static DateFormat _getDateFormat()
   {
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    TimeZone tz = RequestContext.getCurrentInstance().getTimeZone();
-    if (tz != null)
-      sdf.setTimeZone(tz);
-    return sdf;
+    return new SimpleDateFormat("yyyy-MM-dd");
   }
 
   private String       _rendered;

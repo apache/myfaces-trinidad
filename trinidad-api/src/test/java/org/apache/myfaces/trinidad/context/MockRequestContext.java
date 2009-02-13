@@ -19,17 +19,24 @@
 package org.apache.myfaces.trinidad.context;
 
 import java.awt.Color;
+
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.TimeZone;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
+import javax.faces.event.PhaseId;
+
 import org.apache.myfaces.trinidad.change.ChangeManager;
+import org.apache.myfaces.trinidad.component.visit.VisitContext;
+import org.apache.myfaces.trinidad.component.visit.VisitHint;
 import org.apache.myfaces.trinidad.config.RegionManager;
 import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
 
@@ -287,6 +294,12 @@ public class MockRequestContext extends RequestContext
   }
 
   @Override
+  public Set<UIComponent> getPartialTargets(UIComponent from)
+  {
+    throw new UnsupportedOperationException("Not implemented yet");
+  }
+
+  @Override
   public void addPartialTriggerListeners(UIComponent listener, String[] trigger)
   {
     throw new UnsupportedOperationException("Should not be called during rendering");
@@ -337,6 +350,16 @@ public class MockRequestContext extends RequestContext
 
   @Override
   public UIComponent restoreComponent(Object state)
+  {
+    throw new UnsupportedOperationException("Not implemented yet");
+  }
+
+  @Override
+  public VisitContext createVisitContext(
+   FacesContext context,
+   Collection<String> ids,
+   Set<VisitHint> hints,
+   PhaseId phaseId)
   {
     throw new UnsupportedOperationException("Not implemented yet");
   }

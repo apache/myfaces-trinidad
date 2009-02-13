@@ -47,7 +47,7 @@
             </tr:inputText>
           </tr:panelFormLayout>
           <tr:panelTabbed>
-            <tr:showDetailItem binding="#{editor.component}" text="Tab 1">
+            <tr:showDetailItem id="editedComponent" binding="#{editor.component}" text="Tab 1">
               <tr:panelHeader text="Header 1">
                 <tr:panelFormLayout>
                   <tr:inputText readOnly="true" label="Label 1-1" value="Value"

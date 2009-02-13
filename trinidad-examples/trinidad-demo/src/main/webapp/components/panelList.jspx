@@ -87,6 +87,13 @@
               </tr:panelList>
             </tr:panelGroupLayout>
           </tr:panelList>
+          <tr:outputFormatted styleUsage="instruction"
+                              value="&lt;b>Iterated children&lt;/b>"/>
+          <tr:panelList rows="1" maxColumns="3" listStyle="list-style-type: decimal;">
+            <tr:iterator var="row" varStatus="stat" value="#{periodicTable.tableData}">
+              <tr:outputText value="#{row.symbol} - #{row.name}"/>
+            </tr:iterator>
+          </tr:panelList>
         </tr:panelGroupLayout>
       </tr:form>
     </tr:document>

@@ -20,9 +20,9 @@ package org.apache.myfaces.trinidad.component;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.el.MethodExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.el.MethodBinding;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
@@ -38,7 +38,7 @@ public final class HierarchyUtils
     UIXHierarchy  comp, 
     FacesEvent    event,
     RowKeySet     state,
-    MethodBinding disclosureListener) throws AbortProcessingException
+    MethodExpression method) throws AbortProcessingException
   {
     // Notify the specified disclosure listener method (if any)
     if (event instanceof RowDisclosureEvent)
@@ -48,7 +48,7 @@ public final class HierarchyUtils
       state.addAll(dEvent.getAddedSet());
       //pu: Implicitly record a Change for 'disclosedRowKeys' attribute
       comp.addAttributeChange("disclosedRowKeys", state);
-      comp.broadcastToMethodBinding(event, disclosureListener);
+      comp.broadcastToMethodExpression(event, method);
     }
   }
 

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee">
+  <application>
+    <default-render-kit-id>org.apache.myfaces.trinidad.core</default-render-kit-id>
+  </application>
+  
+  <!-- SHOPPING CART -->
+  <navigation-rule>
+    <from-view-id>/cart.jspx</from-view-id>
+    <navigation-case>
+      <from-outcome>checkout</from-outcome>
+      <to-view-id>/login.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+  </navigation-rule>
+  
+  <!-- LOGIN -->
+  <navigation-rule>
+    <from-view-id>/login.jspx</from-view-id>
+    <navigation-case>
+      <from-outcome>loggedIn</from-outcome>
+      <to-view-id>/items.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>newUser</from-outcome>
+      <to-view-id>/register.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+  </navigation-rule>
+  
+  <!-- REGISTER -->
+  <navigation-rule>
+    <from-view-id>/register.jspx</from-view-id>
+    <navigation-case>
+      <from-outcome>loggedIn</from-outcome>
+      <to-view-id>/items.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+  </navigation-rule>
+  
+  <!-- ITEMS LIST -->
+  <navigation-rule>
+    <from-view-id>/items.jspx</from-view-id>
+    <navigation-case>
+      <from-outcome>next</from-outcome>
+      <to-view-id>/credit.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+  </navigation-rule>
+  
+  <!-- CREDIT CARD -->
+  <navigation-rule>
+    <from-view-id>/credit.jspx</from-view-id>
+    <navigation-case>
+      <from-outcome>next</from-outcome>
+      <to-view-id>/billing.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>previous</from-outcome>
+      <to-view-id>/items.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+  </navigation-rule>
+  
+  <!-- BILLING -->
+  <navigation-rule>
+    <from-view-id>/billing.jspx</from-view-id>
+    <navigation-case>
+      <from-outcome>next</from-outcome>
+      <to-view-id>/shipping.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>previous</from-outcome>
+      <to-view-id>/credit.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+  </navigation-rule>
+  
+  <!-- SHIPPING -->
+  <navigation-rule>
+    <from-view-id>/shipping.jspx</from-view-id>
+    <navigation-case>
+      <from-outcome>next</from-outcome>
+      <to-view-id>/review.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>previous</from-outcome>
+      <to-view-id>/billing.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+  </navigation-rule>
+  
+  <!-- REVIEW -->
+  <navigation-rule>
+    <from-view-id>/review.jspx</from-view-id>
+    <navigation-case>
+      <from-outcome>previous</from-outcome>
+      <to-view-id>/shipping.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>confirm</from-outcome>
+      <to-view-id>/confirm.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+  </navigation-rule>
+  
+  <!-- ORDER BEAN FOR SHOPPING CART CHECKOUT -->
+  <managed-bean>
+    <managed-bean-name>order</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.OrderBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+  
+  <!-- END OF CART -->
+  <managed-bean>
+    <managed-bean-name>dynamic</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.DynamicBean</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean>
+</faces-config>

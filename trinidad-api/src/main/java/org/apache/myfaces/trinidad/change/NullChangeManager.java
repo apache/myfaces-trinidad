@@ -18,17 +18,8 @@
  */
 package org.apache.myfaces.trinidad.change;
 
-import java.util.Iterator;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import java.util.Iterator;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-
-import org.apache.myfaces.trinidad.change.ChangeManager;
-import org.apache.myfaces.trinidad.change.ComponentChange;
 
 /**
  * An ChangeManager implementation that is all a no-op.
@@ -47,23 +38,14 @@ public class NullChangeManager extends ChangeManager
   {
     // do nothing
   }
-  
+
   /**
    * {@inheritDoc}
+   * @param facesContext The FacesContext instance for the current request.
    */
   @Override
-  public Iterator<ComponentChange> getComponentChanges(FacesContext facesContext,
-                             UIComponent uiComponent)
+  public void applyComponentChangesForCurrentView(FacesContext facesContext)
   {
-    return null;
-  }
-  
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public Iterator<String> getComponentIdsWithChanges(FacesContext facesContext)
-  {
-    return null;
+    //no-op
   }
 }

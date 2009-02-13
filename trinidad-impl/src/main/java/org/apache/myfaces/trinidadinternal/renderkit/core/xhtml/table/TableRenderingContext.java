@@ -32,6 +32,7 @@ import org.apache.myfaces.trinidad.component.core.data.CoreTable;
 import org.apache.myfaces.trinidad.model.RowKeySet;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.render.CoreRenderer;
+import org.apache.myfaces.trinidad.util.ThreadLocalUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
@@ -597,5 +598,5 @@ public class TableRenderingContext
 
 
   static private final ThreadLocal<TableRenderingContext> _CURRENT_CONTEXT = 
-    new ThreadLocal<TableRenderingContext>();
+    ThreadLocalUtils.newRequestThreadLocal();
 }

@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
 import org.apache.shale.test.jmock.AbstractJmockJsfTestCase;
@@ -50,6 +51,27 @@ public abstract class AbstractBaseTestCase extends AbstractJmockJsfTestCase
     )
   {
     return buildMockUIComponent(iterations, new String[] {"label"});
+  }
+
+  @Override
+  protected void setUp() throws Exception
+  {
+    super.setUp();
+    // Set up a JSF 1.2 FacesContext
+    FacesContext oldFacesContext = facesContext;
+    UIViewRoot oldViewRoot = oldFacesContext.getViewRoot();
+    oldFacesContext.release();
+    facesContext = new MockFacesContext12(externalContext,
+                                          lifecycle,
+                                          application);
+    facesContext.setViewRoot(oldViewRoot);
+    facesContext.setApplication(application);
+  }
+
+  @Override
+  protected void tearDown() throws Exception
+  {
+    super.tearDown();
   }
 
   /**

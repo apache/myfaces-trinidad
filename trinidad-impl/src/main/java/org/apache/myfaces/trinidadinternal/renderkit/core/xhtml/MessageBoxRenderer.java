@@ -34,6 +34,7 @@ import org.apache.myfaces.trinidad.component.core.output.CoreMessages;
 
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.util.LabeledFacesMessage;
 import org.apache.myfaces.trinidadinternal.util.MessageUtils;
 
@@ -270,7 +271,7 @@ public class MessageBoxRenderer extends XhtmlRenderer
         boolean isNullLabel = false;
         if (msg instanceof LabeledFacesMessage)
         {
-          LabeledFacesMessage labeledMsg = (LabeledFacesMessage) msg;
+          LabeledFacesMessage labeledMsg = (LabeledFacesMessage)msg;
           String labelString = labeledMsg.getLabelAsString(context);
           if (labelString == null || labelString.length() == 0)
             isNullLabel = true;
@@ -279,7 +280,7 @@ public class MessageBoxRenderer extends XhtmlRenderer
         {
           isNullLabel = true;
         }
-
+        
         if (isNullLabel && text.charAt(0) == '-' && text.charAt(1) == ' ')
           text = text.substring(2);
 
@@ -457,7 +458,7 @@ public class MessageBoxRenderer extends XhtmlRenderer
       // Ensure the MessageBox is hidden for inline mode when there are no messages
       if (inlineStyle != null)
         return inlineStyle + ";display:none;";
-
+      
       return "display:none;";
     }
 

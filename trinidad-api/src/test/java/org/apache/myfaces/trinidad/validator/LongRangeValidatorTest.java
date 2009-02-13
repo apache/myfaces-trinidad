@@ -165,21 +165,6 @@ public class LongRangeValidatorTest extends ValidatorTestCase
     mock.verify();
   }
 
-  public void testStringBasedValues()
-  {
-    LongRangeValidator validator = new LongRangeValidator();
-    Mock mock = buildMockUIComponent();
-    UIComponent component = (UIComponent) mock.proxy();
-    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
-
-    String values[]   = {"200","500"};
-    validator.setMinimum(190);
-    for (int i = 0; i < values.length ; i++)
-    {
-      doTestValidate(validator, facesContext, wrapper, values[i]);
-    }
-  }
-
   public void testSanitySuccess()
   {
     //some very basic sanity test
@@ -191,6 +176,21 @@ public class LongRangeValidatorTest extends ValidatorTestCase
 
     Long values[]   = {200l,500l};
     validator.setMinimum(2);
+    for (int i = 0; i < values.length ; i++)
+    {
+      doTestValidate(validator, facesContext, wrapper, values[i]);
+    }
+  }
+
+  public void testStringBasedValues()
+  {
+    LongRangeValidator validator = new LongRangeValidator();
+    Mock mock = buildMockUIComponent();
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
+
+    String values[]   = {"200","500"};
+    validator.setMinimum(199);
     for (int i = 0; i < values.length ; i++)
     {
       doTestValidate(validator, facesContext, wrapper, values[i]);

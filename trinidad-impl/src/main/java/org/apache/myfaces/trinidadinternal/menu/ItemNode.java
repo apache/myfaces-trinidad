@@ -20,10 +20,13 @@ package org.apache.myfaces.trinidadinternal.menu;
 
 import java.util.Map;
 
+import javax.el.ELContext;
+import javax.el.ExpressionFactory;
+import javax.el.MethodExpression;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.faces.el.MethodBinding;
-import javax.faces.webapp.UIComponentTag;
+
+import org.apache.myfaces.trinidad.util.ContainerUtils;
 
 /**
  * Code specific to a Menu Model's ItemNode.
@@ -69,15 +72,17 @@ public class ItemNode extends MenuNode
   {
     String value = _action;
 
-    // Could be EL expression
-    if (   value != null
-        && UIComponentTag.isValueReference(value)
-       ) 
+    if (value != null)
     {
       FacesContext facesContext = FacesContext.getCurrentInstance();
-      MethodBinding methodBinding = facesContext.getApplication().createMethodBinding(value,null);
-      
-      value = (String) methodBinding.invoke(facesContext, null);
+      ExpressionFactory expressionFactory =
+          facesContext.getApplication().getExpressionFactory();
+      ELContext context = facesContext.getELContext();
+      MethodExpression methodExpression =
+          expressionFactory.createMethodExpression(context, value,
+              String.class, new Class<?>[]
+              {});
+      value = (String) methodExpression.invoke(context, null);
     }
 
     // Post me as the selected Node for the request
@@ -111,12 +116,12 @@ public class ItemNode extends MenuNode
 
     // Could be EL expression
     if (   value != null
-        && UIComponentTag.isValueReference(value)
+        && ContainerUtils.isValueReference(value)
        )
     {
       // Value of action is EL method binding, so we 
       // need to evaluate it
-      value = (String)MenuUtils.getBoundValue(value);
+      value = MenuUtils.getBoundValue(value, String.class);
       setActionListener(value);
     }
 
@@ -125,14 +130,21 @@ public class ItemNode extends MenuNode
   
   public void actionListener(ActionEvent event)
   {
-    String listener = _actionListener;
-    if (listener != null && UIComponentTag.isValueReference(listener)) 
+    String value = _actionListener;
+    if (value != null)
     {
       FacesContext facesContext = FacesContext.getCurrentInstance();
-      MethodBinding methodBinding = facesContext.getApplication()
-      .createMethodBinding(listener,new Class[] { ActionEvent.class });
-      methodBinding.invoke(facesContext, new Object[] { event });
+      ExpressionFactory expressionFactory =
+          facesContext.getApplication().getExpressionFactory();
+      ELContext context = facesContext.getELContext();
+
+      MethodExpression methodExpression =
+          expressionFactory.createMethodExpression(context, value, Void.TYPE,
+              new Class<?>[]
+              { ActionEvent.class });
+      methodExpression.invoke(context, new Object[]{ event });
     }
+
   }
   
   /**
@@ -160,12 +172,12 @@ public class ItemNode extends MenuNode
 
     // Could be EL expression
     if (   value != null
-        && UIComponentTag.isValueReference(value)
+        && ContainerUtils.isValueReference(value)
        )
     {
       // Value of action is EL method binding, so we 
       // need to evaluate it
-      value = (String)MenuUtils.getBoundValue(value);
+      value = MenuUtils.getBoundValue(value, String.class);
       setLaunchListener(value);
     }
 
@@ -197,12 +209,12 @@ public class ItemNode extends MenuNode
 
     // Could be EL expression
     if (   value != null
-        && UIComponentTag.isValueReference(value)
+        && ContainerUtils.isValueReference(value)
        )
     {
       // Value of action is EL method binding, so we 
       // need to evaluate it
-      value = (String)MenuUtils.getBoundValue(value);
+      value = MenuUtils.getBoundValue(value, String.class);
       setReturnListener(value);
     }
 
@@ -383,12 +395,12 @@ public class ItemNode extends MenuNode
       
     // Could be EL expression
     if (   value != null
-        && UIComponentTag.isValueReference(value)
+        && ContainerUtils.isValueReference(value)
        ) 
     {
       // Value of action is EL method binding, so we 
       // need to evaluate it
-      value = (String)MenuUtils.getBoundValue(value);
+      value = MenuUtils.getBoundValue(value, String.class);
     }
 
     // Appending nodeId to URL so that we can identify the node
@@ -419,12 +431,12 @@ public class ItemNode extends MenuNode
     
     // Could be EL expression
     if (   value != null
-        && UIComponentTag.isValueReference(value)
+        && ContainerUtils.isValueReference(value)
        )
     {
       // Value of destination is EL value binding, so we 
       // need to evaluate it
-      value = (String)MenuUtils.getBoundValue(value);
+      value = MenuUtils.getBoundValue(value, String.class);
       setTargetFrame(value);
     }
      

@@ -27,7 +27,7 @@
   <parent>
     <groupId>org.apache.myfaces.trinidad</groupId>
     <artifactId>trinidad</artifactId>
-    <version>1.0.11-SNAPSHOT</version>
+    <version>1.2.11-SNAPSHOT</version>
   </parent>
 
   <artifactId>trinidad-example</artifactId>
@@ -62,6 +62,16 @@
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>jstl</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.myfaces.portlet-bridge</groupId>
+      <artifactId>portlet-bridge-api</artifactId>
+    </dependency>
+      
+    <dependency>
+      <groupId>org.apache.myfaces.portlet-bridge</groupId>
+      <artifactId>portlet-bridge-impl</artifactId>
     </dependency>
 
     <dependency>

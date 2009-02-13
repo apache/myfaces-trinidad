@@ -4395,62 +4395,6 @@ function _setCookie(name, value)
 
 
 //
-// Set a single value in the Trinidad cookie
-//
-function _setTrCookie(index, value)
-{
-  var arry = _getTrCookie();
-  arry[index] = value;
-
-  // Rebuild the encoded value
-  var encodedValue = arry[0];
-  for (var i = 1; i < arry.length; i++)
-  {
-    encodedValue = encodedValue + "^" + arry[i];
-  }
-
-  _setCookie("oracle.uix", encodedValue);
-}
-
-
-//
-// Extract the decoded form of the Trinidad cookie
-//
-function _getTrCookie()
-{
-  var encodedValue = _getCookie("oracle.uix");
-  var arry;
-  if (encodedValue)
-    arry = encodedValue.split("^");
-  else
-    arry = new Array("0", "", "");
-
-  return arry;
-}
-
-
-//
-// Defaults the time zone
-//
-function _defaultTZ()
-{
-  var tz = _getTrCookie()[2];
-
-  // If the time zone has already been set, then bail:  however,
-  // time zones that start with "GMT" are inherently unreliable,
-  // because they won't track daylight savings.  For such time zones,
-  // always replace the value.
-  if (tz && (tz.indexOf("GMT") != 0))
-  {
-    return;
-  }
-
-  // Set the correct time zone.
-  _setTrCookie(2, _getTimeZoneID());
-}
-
-
-//
 // Compute the time zone ID, of form GMT+-XX:YY
 //
 function _getTimeZoneID()

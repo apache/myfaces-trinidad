@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -18,11 +18,15 @@
  */
 package org.apache.myfaces.trinidad.component;
 
+import java.io.IOException;
+
 import java.util.ArrayList;
+import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.List;
-
 import java.util.Set;
+
+import javax.el.MethodExpression;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -31,6 +35,8 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 
+import org.apache.myfaces.trinidad.bean.FacesBean;
+import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.event.RowDisclosureEvent;
 import org.apache.myfaces.trinidad.event.RangeChangeEvent;
 import org.apache.myfaces.trinidad.event.SelectionEvent;
@@ -49,6 +55,69 @@ import org.apache.myfaces.trinidad.model.SortCriterion;
 abstract public class UIXTableTemplate extends UIXIteratorTemplate
   implements CollectionComponent
 {
+
+
+  /**
+   * Override to update the container client id cache before decode
+   */
+  @Override
+  public void decode(FacesContext context)
+  {
+    _resetContainerClientIdCache();
+    super.decode(context);
+  }
+
+  /**
+   * Override to update the container client id cache before validations
+   */
+  @Override
+  public void processValidators(FacesContext context)
+  {
+    _resetContainerClientIdCache();
+    super.processValidators(context);
+  }
+
+
+  /**
+   * Override to update the container client id cache before updates
+   */
+  @Override
+  public void processUpdates(FacesContext context)
+  {
+    _resetContainerClientIdCache();
+    super.processUpdates(context);
+  }
+
+  /**
+   * Override to update the container client id cache before encode
+   */
+  @Override
+  void __encodeBegin(FacesContext context) throws IOException
+  {
+    _resetContainerClientIdCache();
+    super.__encodeBegin(context);
+  }
+
+  /**
+   * Override to return clientd ids with no currency for items in header/footer facets
+   */
+  @Override
+  public String getContainerClientId(FacesContext context, UIComponent child)
+  {
+    String id;
+    if (_containerClientIdCache == null || _isStampedChild(child))
+    {
+      // call the UIXCollection getContainerClientId, which attaches currency string to the client id
+      id = getContainerClientId(context);
+    }
+    else
+    {
+      // The target is not a stamped child, so return a client id with no currency string
+      id = getClientId(context);
+    }
+
+    return id;
+  }
 
   @Override
   public void setSortCriteria(List<SortCriterion> criteria)
@@ -89,7 +158,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
       setFirst(first);
       //pu: Implicitly record a Change for 'first' attribute
       addAttributeChange("first", Integer.valueOf(first));
-      
+
       if ((first == 0) && (rEvent.getNewEnd() == getRowCount()))
       {
         setShowAll(true);
@@ -104,8 +173,8 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
       }
       // since the range is now different we can clear the currency cache:
       clearCurrencyStringCache();
-      
-      broadcastToMethodBinding(event, getRangeChangeListener());
+
+      broadcastToMethodExpression(event, getRangeChangeListener());
     }
     else if (event instanceof RowDisclosureEvent)
     {
@@ -113,20 +182,20 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
       RowKeySet set = getDisclosedRowKeys();
       set.addAll(eEvent.getAddedSet());
       set.removeAll(eEvent.getRemovedSet());
-      broadcastToMethodBinding(event, getRowDisclosureListener());
+      broadcastToMethodExpression(event, getRowDisclosureListener());
     }
     else if (event instanceof SortEvent)
     {
       SortEvent sEvent = (SortEvent) event;
       setSortCriteria(sEvent.getSortCriteria());
-      broadcastToMethodBinding(event, getSortListener());
+      broadcastToMethodExpression(event, getSortListener());
     }
     else if (event instanceof SelectionEvent)
     {
       //pu: Implicitly record a Change for 'selectionState' attribute
       addAttributeChange("selectedRowKeys",
                          getSelectedRowKeys());
-      broadcastToMethodBinding(event, getSelectionListener());
+      broadcastToMethodExpression(event, getSelectionListener());
     }
 
     super.broadcast(event);
@@ -141,11 +210,37 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
 /**/  abstract public void setShowAll(boolean showAll);
 /**/  abstract public boolean isShowAll();
 /**/  abstract public UIComponent getDetailStamp();
-/**/  public abstract MethodBinding getRangeChangeListener();
-/**/  public abstract MethodBinding getSortListener();
-/**/  public abstract MethodBinding getRowDisclosureListener();
-/**/  public abstract MethodBinding getSelectionListener();
+/**/  public abstract MethodExpression getRangeChangeListener();
+/**/  public abstract MethodExpression getSortListener();
+/**/  public abstract MethodExpression getRowDisclosureListener();
+/**/  public abstract MethodExpression getSelectionListener();
 /**/  public abstract boolean isImmediate();
+/**/  static public final PropertyKey DISCLOSED_ROW_KEYS_KEY = null;
+/**/  static public final PropertyKey SELECTED_ROW_KEYS_KEY = null;
+
+  @Deprecated
+  public void setRangeChangeListener(MethodBinding binding)
+  {
+    setRangeChangeListener(adaptMethodBinding(binding));
+  }
+
+  @Deprecated
+  public void setSortListener(MethodBinding binding)
+  {
+    setSortListener(adaptMethodBinding(binding));
+  }
+
+  @Deprecated
+  public void setRowDisclosureListener(MethodBinding binding)
+  {
+    setRowDisclosureListener(adaptMethodBinding(binding));
+  }
+
+  @Deprecated
+  public void setSelectionListener(MethodBinding binding)
+  {
+    setSelectionListener(adaptMethodBinding(binding));
+  }
 
   @Override
   @SuppressWarnings("unchecked")
@@ -176,18 +271,18 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
     _sortCriteria = criteria;
   }
 
-  
+
   /**
    * Gets the data for the first selected row.
    * This is useful when using EL to get at column data for the selected
    * row when using a table with single selection.
    * @return null if there is nothing selected in the table.
    */
-  public Object getSelectedRowData() 
+  public Object getSelectedRowData()
   {
     RowKeySet state = getSelectedRowKeys();
     Iterator<Object> keys = state.iterator();
-    if (keys.hasNext()) 
+    if (keys.hasNext())
     {
       Object key = keys.next();
       CollectionModel model = getCollectionModel();
@@ -284,7 +379,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
     CollectionModel current,
     Object value)
   {
-    CollectionModel model = super.createCollectionModel(current, value); 
+    CollectionModel model = super.createCollectionModel(current, value);
 
     RowKeySet selectedRowKeys = getSelectedRowKeys();
 
@@ -329,7 +424,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
     state[5] = getDisclosedRowKeys();
     return state;
   }
-  
+
   /**
    * Sets the internal state of this component.
    * @param stampState the internal state is obtained from this object.
@@ -378,6 +473,30 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
     }
   }
 
+  /**
+   * Is target a stamped child UIComponent in the table body
+   */
+  private boolean _isStampedChild(UIComponent target)
+  {
+    assert _containerClientIdCache != null;
+    return !_containerClientIdCache.containsKey(target);
+  }
+
+  /**
+   * Reset the cache of child components used in getContainerClientId
+   */
+  private void _resetContainerClientIdCache()
+  {
+    if(_containerClientIdCache == null)
+      _containerClientIdCache = new IdentityHashMap<UIComponent, Boolean>();
+    else
+      _containerClientIdCache.clear();
+
+    TableUtils.cacheHeaderFooterFacets(this, _containerClientIdCache);
+    TableUtils.cacheColumnHeaderFooterFacets(this, _containerClientIdCache);
+  }
+
+
   @Override
   void __init()
   {
@@ -386,11 +505,100 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
       setSelectedRowKeys(new RowKeySetImpl());
     if (getDisclosedRowKeys() == null)
       setDisclosedRowKeys(new RowKeySetImpl());
-    // if "first" is valueBound, we can't deal with it changing 
+    // if "first" is valueBound, we can't deal with it changing
     // during the lifecycle. So stash it as a local value.
     // see bug 4537121:
     setFirst(getFirst());
   }
 
+  @Override
+  protected FacesBean createFacesBean(String rendererType)
+  {
+    return new RowKeyFacesBeanWrapper(super.createFacesBean(rendererType));
+  }
+
+  private class RowKeyFacesBeanWrapper
+    extends FacesBeanWrapper
+  {
+    private boolean _retrievingDisclosedRows = false;
+    private boolean _retrievingSelectedRows = false;
+
+    RowKeyFacesBeanWrapper(FacesBean bean)
+    {
+      super(bean);
+    }
+
+    @Override
+    public Object getProperty(PropertyKey key)
+    {
+      Object value = super.getProperty(key);
+      if (key == DISCLOSED_ROW_KEYS_KEY)
+      {
+        if (!_retrievingDisclosedRows && value instanceof RowKeySet)
+        {
+          // Ensure that when we are retrieving and setting the collection model, this property
+          // is not asked for which would create an infinite loop
+          _retrievingDisclosedRows = true;
+
+          try
+          {
+            RowKeySet rowKeys = (RowKeySet) value;
+            // row key sets need the most recent collection model, but there is no one common entry
+            // point to set this on the set besides when code asks for the value from the bean
+            rowKeys.setCollectionModel(getCollectionModel());
+          }
+          finally
+          {
+            _retrievingDisclosedRows = false;
+          }
+        }
+      }
+      else if (key == SELECTED_ROW_KEYS_KEY)
+      {
+        if (!_retrievingSelectedRows && value instanceof RowKeySet)
+        {
+          // Ensure that when we are retrieving and setting the collection model, this property
+          // is not asked for which would create an infinite loop
+          _retrievingSelectedRows = true;
+
+          try
+          {
+            RowKeySet rowKeys = (RowKeySet) value;
+            // row key sets need the most recent collection model, but there is no one common entry
+            // point to set this on the set besides when code asks for the value from the bean
+            rowKeys.setCollectionModel(getCollectionModel());
+          }
+          finally
+          {
+            _retrievingSelectedRows = false;
+          }
+        }
+      }
+
+      return value;
+    }
+
+    @Override
+    public Object saveState(FacesContext context)
+    {
+      RowKeySet rowKeys = (RowKeySet)super.getProperty(DISCLOSED_ROW_KEYS_KEY);
+      if (rowKeys != null)
+      {
+        // make sure the set does not pin the model in memory
+        rowKeys.setCollectionModel(null);
+      }
+      rowKeys = (RowKeySet)super.getProperty(SELECTED_ROW_KEYS_KEY);
+      if (rowKeys != null)
+      {
+        // make sure the set does not pin the model in memory
+        rowKeys.setCollectionModel(null);
+      }
+      return super.saveState(context);
+    }
+  }
+
   transient private List<SortCriterion> _sortCriteria = null;
+  // cache of child components inside this table header/footer facets and column header/footer
+  // facets
+  transient private IdentityHashMap<UIComponent, Boolean> _containerClientIdCache = null;
 }

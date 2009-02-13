@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+     
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -72,6 +72,11 @@
       </description>
       <property-name>messageDetailMaximum</property-name>
       <property-class>java.lang.String</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:translatable>true</mfp:translatable>
+        </mfp:property-metadata>
+      </property-extension>
     </property>
    <validator-extension>
       <mfp:tag-name>tr:validateByteLength</mfp:tag-name>

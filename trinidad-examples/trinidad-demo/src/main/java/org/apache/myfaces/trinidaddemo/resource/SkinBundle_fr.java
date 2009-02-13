@@ -30,15 +30,10 @@ public class SkinBundle_fr extends ListResourceBundle
 
   static private final Object[][] _CONTENTS =
   {
-    {"af_tableSelectMany.SELECT_COLUMN_HEADER", "French Select A Lot"},
-    {"af_tableSelectOne.SELECT_COLUMN_HEADER", "French Select Just One"},
-    {"af_inputDate.LAUNCH_PICKER_TIP", "French Launch Picker"},
-    {"Birds.SELECT_MANY", "French Select Many"},
-    {"af_showDetail.DISCLOSED_TIP", "French Hide Tip"},
-    {"af_showDetail.DISCLOSED", "French Hide"},
-    {"af_showDetail.UNDISCLOSED_TIP", "French Show Tip"},
-    {"af_showDetail.UNDISCLOSED", "French Show"},
+    {"af_tableSelectMany.SELECT_COLUMN_HEADER", "Select A Lot"},
+    {"af_tableSelectOne.SELECT_COLUMN_HEADER", "Select Just One"},
+    {"af_inputDate.LAUNCH_PICKER_TIP", "French Purple Launch Picker"},
+    {"Birds.SELECT_MANY", "Purple French Select Many"},
   };
 }
-
 

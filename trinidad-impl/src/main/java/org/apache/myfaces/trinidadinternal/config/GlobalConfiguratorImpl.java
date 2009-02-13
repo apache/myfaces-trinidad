@@ -23,15 +23,30 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 import javax.faces.context.ExternalContext;
 
+import javax.servlet.ServletRequest;
+
+import javax.servlet.ServletRequestWrapper;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.myfaces.trinidad.config.Configurator;
+import org.apache.myfaces.trinidad.context.ExternalContextDecorator;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.context.RequestContextFactory;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.SkinFactory;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidadinternal.context.RequestContextFactoryImpl;
+import org.apache.myfaces.trinidadinternal.context.external.ServletCookieMap;
+import org.apache.myfaces.trinidadinternal.context.external.ServletRequestHeaderMap;
+import org.apache.myfaces.trinidadinternal.context.external.ServletRequestHeaderValuesMap;
+import org.apache.myfaces.trinidadinternal.context.external.ServletRequestMap;
+import org.apache.myfaces.trinidadinternal.context.external.ServletRequestParameterMap;
+import org.apache.myfaces.trinidadinternal.context.external.ServletRequestParameterValuesMap;
 import org.apache.myfaces.trinidadinternal.skin.SkinFactoryImpl;
 import org.apache.myfaces.trinidadinternal.skin.SkinUtils;
 import org.apache.myfaces.trinidad.util.ExternalContextUtils;
@@ -226,20 +241,28 @@ public final class GlobalConfiguratorImpl extends Configurator
   {
     if (_initialized)
     {
-      for (final Configurator config : _services)
+      try
       {
-        try
+        for (final Configurator config : _services)
         {
-          config.destroy();
+          try
+          {
+            config.destroy();
+          }
+          catch (final Throwable t)
+          {
+            // we always want to continue to destroy things, so log errors and continue
+            _LOG.severe(t);
+          }
         }
-        catch (final Throwable t)
-        {
-          // we always want to continue to destroy things, so log errors and continue
-          _LOG.severe(t);
-        }
+        _services = null;
+        _initialized = false;
       }
-      _services = null;
-      _initialized = false;
+      finally
+      {
+        //release any managed threadlocals that may have been used durring destroy
+        _releaseManagedThreadLocals();
+      }
     }
   }
 
@@ -257,15 +280,21 @@ public final class GlobalConfiguratorImpl extends Configurator
     {
       if (!_isDisabled(externalContext))
       {
-        final RequestType type = RequestType.getType(externalContext);
-
-        // Do not end services at the end of a portal action request
-        if (type != RequestType.PORTAL_ACTION)
+        try
         {
-          _endConfiguratorServiceRequest(externalContext);
+          final RequestType type = RequestType.getType(externalContext);
+  
+          // Do not end services at the end of a portal action request
+          if (type != RequestType.PORTAL_ACTION)
+          {
+            _endConfiguratorServiceRequest(externalContext);
+          }
         }
-        
-        _releaseRequestContext(externalContext);
+        finally
+        {
+          _releaseRequestContext(externalContext);
+          _releaseManagedThreadLocals();
+        }
       }
       RequestType.clearType(externalContext);
     }
@@ -293,6 +322,17 @@ public final class GlobalConfiguratorImpl extends Configurator
 
     if (!_isDisabled(externalContext))
     {
+      if(!ExternalContextUtils.isPortlet(externalContext) && _isSetRequestBugPresent(externalContext))
+      {
+        //This handles bug 493 against the JSF-RI 1.2_03 and earlier.  If the bug
+        //is present in the current system, add a wrapper to fix it
+
+        //TODO sobryan this is somewhat inefficient so should be removed when we
+        //are no longer dependant on JSF1.2_03 or earlier.  Still, we only wrap
+        //when we have to so it should be no biggy under normal circumstances.
+        externalContext = new ClearRequestExternalContext(externalContext);
+      }
+
       // Wrap ExternalContexts
       for (final Configurator config : _services)
       {
@@ -322,35 +362,44 @@ public final class GlobalConfiguratorImpl extends Configurator
 
     if (!_initialized)
     {
-      _services = ClassLoaderUtils.getServices(Configurator.class.getName());
-
-      // Create a new RequestContextFactory is needed
-      if (RequestContextFactory.getFactory() == null)
+      try
       {
-        RequestContextFactory.setFactory(new RequestContextFactoryImpl());
+        _services = ClassLoaderUtils.getServices(Configurator.class.getName());
+  
+        // Create a new RequestContextFactory is needed
+        if (RequestContextFactory.getFactory() == null)
+        {
+          RequestContextFactory.setFactory(new RequestContextFactoryImpl());
+        }
+  
+        // Create a new SkinFactory if needed.
+        if (SkinFactory.getFactory() == null)
+        {
+          SkinFactory.setFactory(new SkinFactoryImpl());
+        }
+  
+        // register the base skins
+        SkinUtils.registerBaseSkins();
+  
+        for (final Configurator config : _services)
+        {
+          config.init(externalContext);
+        }
+  
+        // after the 'services' filters are initialized, then register
+        // the skin extensions found in trinidad-skins.xml. This
+        // gives a chance to the 'services' filters to create more base
+        // skins that the skins in trinidad-skins.xml can extend.
+        SkinUtils.registerSkinExtensions(externalContext);
+        _initialized = true;
       }
-
-      // Create a new SkinFactory if needed.
-      if (SkinFactory.getFactory() == null)
+      finally
       {
-        SkinFactory.setFactory(new SkinFactoryImpl());
+        
+        //Do cleanup of anything which may have use the thread local manager durring
+        //init.
+        _releaseManagedThreadLocals();
       }
-
-      // register the base skins
-      SkinUtils.registerBaseSkins();
-
-      for (final Configurator config : _services)
-      {
-        config.init(externalContext);
-      }
-
-      // after the 'services' filters are initialized, then register
-      // the skin extensions found in trinidad-skins.xml. This
-      // gives a chance to the 'services' filters to create more base
-      // skins that the skins in trinidad-skins.xml can extend.
-      SkinUtils.registerSkinExtensions(externalContext);
-
-      _initialized = true;
     }
     else
     {
@@ -358,6 +407,19 @@ public final class GlobalConfiguratorImpl extends Configurator
     }
   }
 
+  /**
+   * Hackily called by the ThreadLocalResetter to register itself so that the
+   * GlobalConfiguratorImpl can tell the ThreadLocalResetter to clean up the
+   * ThreadLocals at the appropriate time.
+   */
+  void __setThreadLocalResetter(ThreadLocalResetter resetter)
+  {
+    if (resetter == null)
+      throw new NullPointerException();
+    
+    _threadResetter.set(resetter);
+  }
+    
   /**
    * @param externalContext
    * @return
@@ -377,8 +439,9 @@ public final class GlobalConfiguratorImpl extends Configurator
         _LOG.warning("REQUESTCONTEXT_NOT_PROPERLY_RELEASED");
       }
       context.release();
+      _releaseManagedThreadLocals();
     }
-
+    
     // See if we've got a cached RequestContext instance; if so,
     // reattach it
     final Object cachedRequestContext = externalContext.getRequestMap().get(
@@ -401,7 +464,7 @@ public final class GlobalConfiguratorImpl extends Configurator
 
     assert RequestContext.getCurrentInstance() == context;
   }
-  
+
   private void _releaseRequestContext(final ExternalContext ec)
   {
     //If it's not a portal action, we should remove the cached request because
@@ -410,15 +473,26 @@ public final class GlobalConfiguratorImpl extends Configurator
     {
       ec.getRequestMap().remove(_REQUEST_CONTEXT);
     }
-    
+
     final RequestContext context = RequestContext.getCurrentInstance();
     if (context != null)
     {
       context.release();
       assert RequestContext.getCurrentInstance() == null;
-    }    
+
+    }
   }
 
+  private void _releaseManagedThreadLocals() 
+  {
+    ThreadLocalResetter resetter = _threadResetter.get();
+    
+    if (resetter != null)
+    {
+      resetter.__removeThreadLocals();
+    }
+  }
+  
   private void _endConfiguratorServiceRequest(final ExternalContext ec)
   {
     // Physical request has now ended
@@ -449,15 +523,174 @@ public final class GlobalConfiguratorImpl extends Configurator
     }
   }
 
-  private boolean            _initialized;
-  private List<Configurator> _services;
-  static private final Map<ClassLoader, GlobalConfiguratorImpl> _CONFIGURATORS = new HashMap<ClassLoader, GlobalConfiguratorImpl>();
-  static private final String _IN_REQUEST    = GlobalConfiguratorImpl.class
-                                                         .getName()
-                                                         + ".IN_REQUEST";
-  static private final String _REQUEST_CONTEXT = GlobalConfiguratorImpl.class.getName()
-                                                         +".REQUEST_CONTEXT";
-  static private final TrinidadLogger _LOG  = TrinidadLogger.createTrinidadLogger(GlobalConfiguratorImpl.class);
+  static private boolean _isSetRequestBugPresent(ExternalContext ec)
+  {
+    // This first check is here in order to skip synchronization until
+    // absolutely necessary.
+    if(!_sSetRequestBugTested)
+    {
+      synchronized(GlobalConfiguratorImpl.class)
+      {
+        //This second check is here in case a couple of things enter before the
+        //boolean is set.  This is only an exception case and will make it so
+        //the initialization code runs only once.
+        if(!_sSetRequestBugTested)
+        {
+          ServletRequest orig = (ServletRequest)ec.getRequest();
+          // Call getInitParameterMap() up front
+          ec.getInitParameterMap();
+
+          ec.setRequest(new TestRequest(orig));
+
+          _sHasSetRequestBug = !TestRequest.isTestParamPresent(ec);
+          _sSetRequestBugTested = true;
+
+          ec.setRequest(orig);
+        }
+      }
+    }
+
+    return _sHasSetRequestBug;
+  }
+
+  // This handles an issue with the ExternalContext object prior to
+  // JSF1.2_04.
+  static private class ClearRequestExternalContext extends ExternalContextDecorator
+  {
+    private ExternalContext _ec;
+    private Map<String, Object>         _requestCookieMap;
+    private Map<String, String>         _requestHeaderMap;
+    private Map<String, String[]>       _requestHeaderValuesMap;
+    private Map<String, Object>         _requestMap;
+    private Map<String, String>         _requestParameterMap;
+    private Map<String, String[]>       _requestParameterValuesMap;
+
+    public ClearRequestExternalContext(ExternalContext ec)
+    {
+      _ec = ec;
+    }
+
+    @Override
+    protected ExternalContext getExternalContext()
+    {
+      return _ec;
+    }
+
+    @Override
+    public void setRequest(Object request)
+    {
+      super.setRequest(request);
+
+      // And clear out any of the cached maps, since we should
+      // go back and look in the map
+      _requestCookieMap = null;
+      _requestHeaderMap = null;
+      _requestHeaderValuesMap = null;
+      _requestMap = null;
+      _requestParameterMap = null;
+      _requestParameterValuesMap = null;
+    }
+
+    @Override
+    public Map<String, Object> getRequestCookieMap()
+    {
+      _checkRequest();
+      if (_requestCookieMap == null)
+      {
+
+        _requestCookieMap = new ServletCookieMap(_getHttpServletRequest());
+      }
+      return _requestCookieMap;
+    }
+
+    @Override
+    public Map<String, String> getRequestHeaderMap()
+    {
+      if (_requestHeaderMap == null)
+      {
+        _requestHeaderMap = new ServletRequestHeaderMap(_getHttpServletRequest());
+      }
+      return _requestHeaderMap;
+    }
+
+    @Override
+    public Map<String, String[]> getRequestHeaderValuesMap()
+    {
+      if (_requestHeaderValuesMap == null)
+      {
+        _requestHeaderValuesMap = new ServletRequestHeaderValuesMap(_getHttpServletRequest());
+      }
+      return _requestHeaderValuesMap;
+    }
+
+    @Override
+    public Map<String, Object> getRequestMap()
+    {
+      _checkRequest();
+      if (_requestMap == null)
+      {
+        _requestMap = new ServletRequestMap((ServletRequest)getRequest());
+      }
+      return _requestMap;
+    }
+
+    @Override
+    public Map<String, String> getRequestParameterMap()
+    {
+      _checkRequest();
+      if (_requestParameterMap == null)
+      {
+        _requestParameterMap = new ServletRequestParameterMap((ServletRequest)getRequest());
+      }
+      return _requestParameterMap;
+    }
+
+    @Override
+    public Map<String, String[]> getRequestParameterValuesMap()
+    {
+      _checkRequest();
+      if (_requestParameterValuesMap == null)
+      {
+        _requestParameterValuesMap = new ServletRequestParameterValuesMap((ServletRequest)getRequest());
+      }
+      return _requestParameterValuesMap;
+    }
+
+    private void _checkRequest()
+    {
+      if(super.getRequest() == null)
+      {
+        throw new UnsupportedOperationException("Request is null on this context.");
+      }
+    }
+
+    private HttpServletRequest _getHttpServletRequest()
+    {
+      _checkRequest();
+      if ( !(getRequest() instanceof HttpServletRequest))
+      {
+         throw new IllegalArgumentException("Only HttpServletRequest supported");
+      }
+
+      return (HttpServletRequest)getRequest();
+    }
+  }
+
+
+  private static volatile boolean _sSetRequestBugTested = false;
+  private static boolean _sHasSetRequestBug = false;
+
+  private boolean             _initialized;
+  private List<Configurator>  _services;
+  static private final Map<ClassLoader, GlobalConfiguratorImpl> _CONFIGURATORS =
+     new HashMap<ClassLoader, GlobalConfiguratorImpl>();
+  static private final String _IN_REQUEST    =
+     GlobalConfiguratorImpl.class.getName()
+     + ".IN_REQUEST";
+  static private final String _REQUEST_CONTEXT =
+     GlobalConfiguratorImpl.class.getName()
+     + ".REQUEST_CONTEXT";
+
 
   private enum RequestType
   {
@@ -508,4 +741,39 @@ public final class GlobalConfiguratorImpl extends Configurator
     static private final String _REQUEST_TYPE = GlobalConfiguratorImpl.class.getName()
                                                   + ".REQUEST_TYPE";
   }
+
+  static private class TestRequest extends ServletRequestWrapper
+  {
+    public TestRequest(ServletRequest request)
+    {
+      super(request);
+    }
+
+    @Override
+    public String getParameter(String string)
+    {
+      if(_TEST_PARAM.equals(string))
+      {
+        return "passed";
+      }
+
+      return super.getParameter(string);
+    }
+
+    static public final boolean isTestParamPresent(ExternalContext ec)
+    {
+      return ec.getRequestParameterMap().get(_TEST_PARAM) != null;
+    }
+
+    static private String _TEST_PARAM = TestRequest.class.getName()+
+      ".TEST_PARAM";
+  }
+
+  // hacky reference to the ThreadLocalResetter used to clean up request-scoped
+  // ThreadLocals
+  private AtomicReference<ThreadLocalResetter> _threadResetter = 
+                                                        new AtomicReference<ThreadLocalResetter>();
+
+  static private final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(GlobalConfiguratorImpl.class);
 }

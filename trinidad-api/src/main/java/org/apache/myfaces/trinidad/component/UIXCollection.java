@@ -28,6 +28,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.faces.FacesException;
+import javax.faces.component.ContextCallback;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -661,9 +663,9 @@ public abstract class UIXCollection extends UIXComponentBase
      * @return the local clientId
      */
   @Override
-  protected final String getLocalClientId()
+  public final String getContainerClientId(FacesContext context)
   {
-    String id = super.getLocalClientId();
+    String id = getClientId(context);
     String key = getClientRowKey();
     if (key != null)
     {
@@ -1002,6 +1004,77 @@ public abstract class UIXCollection extends UIXComponentBase
     return iState._clientKeyMgr;
   }
 
+  public boolean invokeOnComponent(FacesContext context,
+                                   String clientId,
+                                   ContextCallback callback)
+    throws FacesException
+  {
+    String thisClientId = getClientId(context);
+    if (clientId.equals(thisClientId))
+    {
+      if (!_getAndMarkFirstInvokeForRequest(context, clientId))
+      {
+        // Call _init() since _flushCachedModel() assumes that
+        // selectedRowKeys and disclosedRowKeys are initialized to be non-null
+        _init();
+
+        _flushCachedModel();
+      }
+
+      callback.invokeContextCallback(context, this);
+      return true;
+    }
+    // If we're on a row, set the currency, and invoke
+    // inside
+    int thisClientIdLength = thisClientId.length();
+    if (clientId.startsWith(thisClientId) &&
+        (clientId.charAt(thisClientIdLength) == NamingContainer.SEPARATOR_CHAR))
+    {
+      setupVisitingContext(context);
+      
+      try
+      {
+        if (!_getAndMarkFirstInvokeForRequest(context, thisClientId))
+        {
+          // Call _init() since _flushCachedModel() assumes that
+          // selectedRowKeys and disclosedRowKeys are initialized to be non-null
+          _init();
+  
+          _flushCachedModel();
+        }
+  
+        String postId = clientId.substring(thisClientIdLength + 1);
+        int sepIndex = postId.indexOf(NamingContainer.SEPARATOR_CHAR);
+        // If there's no separator character afterwards, then this
+        // isn't a row key
+        if (sepIndex < 0)
+          return invokeOnChildrenComponents(context, clientId, callback);
+        else
+        {
+          String currencyString = postId.substring(0, sepIndex);
+          Object oldRowKey = getRowKey();
+          try
+          {
+            setCurrencyString(currencyString);
+            
+            return invokeOnChildrenComponents(context, clientId, callback);
+          }
+          finally
+          {
+            // And restore the currency
+            setRowKey(oldRowKey);
+          }
+        }
+      }
+      finally
+      {
+        tearDownVisitingContext(context);
+      }
+    }
+
+    return false;
+  }
+
   /**
    * Gets the CollectionModel to use with this component.
    *
@@ -1110,6 +1183,21 @@ public abstract class UIXCollection extends UIXComponentBase
     }
  }
 
+  /**
+   * Hook for subclasses like UIXIterator to initialize and flush the cache when visting flattened
+   * children when parented by a renderer that needs to use
+   * UIXComponent.processFlattenedChildren().
+   * This is to mimic what happens in the non flattening case where similar logic is invoked
+   * during encodeBegin().
+   */
+  void __processFlattenedChildrenBegin()
+  {
+    // Call _init() since _flushCachedModel() assumes that
+    // selectedRowKeys and disclosedRowKeys are initialized to be non-null.
+    _init();
+    _flushCachedModel();
+  }
+
   private void _init()
   {
     InternalState iState = _getInternalState(true);
@@ -1130,6 +1218,25 @@ public abstract class UIXCollection extends UIXComponentBase
       iState._value = value;
       iState._model = createCollectionModel(iState._model, value);
     }
+  }
+
+  //
+  // Returns true if this is the first request to invokeOnComponent()
+  //
+  static private boolean _getAndMarkFirstInvokeForRequest(
+    FacesContext context, String clientId)
+  {
+    // See if the request contains a marker that we've hit this
+    // method already for this clientId
+    Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
+    String key = _INVOKE_KEY + clientId;
+    // Yep, we have, so return true
+    if (requestMap.containsKey(key))
+      return true;
+
+    // Stash TRUE for next time, and return false
+    requestMap.put(key, Boolean.TRUE);
+    return false;
   }
 
   /**
@@ -1421,6 +1528,9 @@ public abstract class UIXCollection extends UIXComponentBase
   // be Serializable:
   private static final Object _NULL = new Object();
   private static final Object[] _EMPTY_ARRAY = new Object[0];
+  private static final String _INVOKE_KEY =
+    UIXCollection.class.getName() + ".INVOKE";
+
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(UIXCollection.class);
 
   // An enum to throw into state-saving so that we get a nice

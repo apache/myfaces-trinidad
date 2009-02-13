@@ -43,6 +43,7 @@
       <description><![CDATA[Type of layout, either "vertical", "horizontal" (no wrapping) or"default" (horizontal with wrapping).]]></description>
       <property-name>layout</property-name>
       <property-class>java.lang.String</property-class>
+      <default-value>default</default-value>
       <property-extension>
         <mfp:required>false</mfp:required>
         <mfp:property-values>horizontal default vertical</mfp:property-values>

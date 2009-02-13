@@ -24,6 +24,16 @@
   <f:view>
     <tr:document title="PanelFormLayout Demo">
       <tr:form>
+
+        <!-- initialize session variables -->
+        <jsp:scriptlet>
+        if (session.getAttribute("flagInitialized") == null)
+        {
+          session.setAttribute("flag8", true);
+          session.setAttribute("flagInitialized", "done");
+        }
+        </jsp:scriptlet>
+
         <tr:panelGroupLayout layout="vertical">
           <f:facet name="separator">
             <tr:separator/>
@@ -60,7 +70,8 @@
               <tr:selectItem label="option 3"/>
               <tr:selectItem label="option 4"/>
             </tr:selectManyListbox>
-            <tr:panelLabelAndMessage label="label 5">
+            <tr:panelLabelAndMessage label="label 5"
+                                     labelStyle="vertical-align:top;padding-top:0.4em;">
               <f:facet name="help">
                 <tr:outputText value="tip 5"/>
               </f:facet>
@@ -68,25 +79,34 @@
             </tr:panelLabelAndMessage>
             <tr:inputText rows="2" label="label 6" secret="true"/>
             <tr:selectBooleanRadio id="rb" group="rbGroup" shortDesc="Label 7" label="label 7"/>
-            <tr:selectBooleanCheckbox shortDesc="label 8" label="label 8"/>
-            <tr:inputText styleClass="AFFieldTextMarker" label="label 9" value="hi"
-                          readOnly="true"/>
-            <tr:inputText styleClass="AFFieldTextMarker" label="label 10" value="hi again"
-                          readOnly="true"/>
-            <tr:panelLabelAndMessage label="label 11">
-              <tr:selectBooleanCheckbox shortDesc="option 1" label="option 1"/>
-              <tr:panelFormLayout>
-                <tr:inputText styleClass="AFFieldTextMarker" label="sub item 1" value="hello"/>
-                <tr:inputText styleClass="AFFieldTextMarker" label="sub item 2" value="world"/>
-                <tr:selectOneChoice label="sub item 3">
-                  <tr:selectItem label="coffee" value="bean" shortDesc="Coffee from Kona"/>
-                  <f:selectItem itemLabel="tea" itemValue="leaf" itemDescription="Tea from China"/>
-                  <tr:selectItem label="milk" value="moo" rendered="false"/>
-                  <f:selectItems value="#{demoInput.selectItems}"/>
-                </tr:selectOneChoice>
-              </tr:panelFormLayout>
-              <tr:selectBooleanCheckbox shortDesc="option 2" label="option 2"/>
-              <tr:selectBooleanCheckbox shortDesc="option 3" label="option 3"/>
+            <tr:selectBooleanCheckbox id="trCheckbox" shortDesc="label 8" label="label 8"
+                                      value="#{sessionScope.flag8}" autoSubmit="true"
+                                      immediate="true"/>
+            <tr:panelLabelAndMessage label="label 9">
+              <tr:outputText partialTriggers="trCheckbox partialSaveTr"
+                             value="flag8 = #{sessionScope.flag8}"/>
+              <tr:commandButton id="partialSaveTr" text="Partial Submit" partialSubmit="true"/>
+            </tr:panelLabelAndMessage>
+            <tr:inputText id="trInput" label="label 10 #{sessionScope.flag8}"
+                          value="#{sessionScope.flag8}" partialTriggers="trCheckbox partialSaveTr"
+                          disabled="#{!sessionScope.flag8}" required="#{sessionScope.flag8}"/>
+            <tr:panelLabelAndMessage label="label 11"
+                                     labelStyle="vertical-align:top;padding-top:0.3em;">
+              <tr:panelGroupLayout layout="vertical">
+                <tr:selectBooleanCheckbox shortDesc="option 1" text="option 1" simple="true"/>
+                <tr:panelFormLayout>
+                  <tr:inputText styleClass="AFFieldTextMarker" label="sub item 1" value="hello"/>
+                  <tr:inputText styleClass="AFFieldTextMarker" label="sub item 2" value="world"/>
+                  <tr:selectOneChoice label="sub item 3">
+                    <tr:selectItem label="coffee" value="bean" shortDesc="Coffee from Kona"/>
+                    <f:selectItem itemLabel="tea" itemValue="leaf" itemDescription="Tea from China"/>
+                    <tr:selectItem label="milk" value="moo" rendered="false"/>
+                    <f:selectItems value="#{demoInput.selectItems}"/>
+                  </tr:selectOneChoice>
+                </tr:panelFormLayout>
+                <tr:selectBooleanCheckbox shortDesc="option 2" text="option 2" simple="true"/>
+                <tr:selectBooleanCheckbox shortDesc="option 3" text="option 3" simple="true"/>
+              </tr:panelGroupLayout>
             </tr:panelLabelAndMessage>
             <f:facet name="footer">
               <tr:group>
@@ -107,6 +127,29 @@
             </f:facet>
           </tr:panelFormLayout>
           <jsp:directive.include file="editor.jspf"/>
+          <tr:outputFormatted styleUsage="instruction"
+                              value="&lt;b>Iterated children&lt;/b>"/>
+          <tr:panelFormLayout rows="1" maxColumns="4">
+            <tr:iterator var="row" varStatus="status" value="#{periodicTable.tableData}">
+              <tr:group>
+                <tr:panelLabelAndMessage label="Count">
+                  <tr:outputText value="#{status.count}"/>
+                </tr:panelLabelAndMessage>
+                <tr:panelLabelAndMessage label="Element">
+                  <tr:outputText value="#{row.name}"/>
+                </tr:panelLabelAndMessage>
+                <tr:panelLabelAndMessage label="Atomic Number">
+                  <tr:outputText value="#{row.number}"/>
+                </tr:panelLabelAndMessage>
+                <tr:panelLabelAndMessage label="Symbol">
+                  <tr:outputText value="#{row.symbol}"/>
+                </tr:panelLabelAndMessage>
+                <tr:panelLabelAndMessage label="Group">
+                  <tr:outputText value="#{row.group}"/>
+                </tr:panelLabelAndMessage>
+              </tr:group>
+            </tr:iterator>
+          </tr:panelFormLayout>
         </tr:panelGroupLayout>
       </tr:form>
     </tr:document>

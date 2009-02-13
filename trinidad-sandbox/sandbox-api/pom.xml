@@ -27,10 +27,10 @@
   <parent>
     <groupId>org.apache.myfaces.trinidad</groupId>
     <artifactId>trinidad-sandbox</artifactId>
-    <version>1.0.11-SNAPSHOT</version>
+    <version>1.2.11-SNAPSHOT</version>
   </parent>
 
-  <artifactId>sandbox-api</artifactId>
+  <artifactId>trinidad-sandbox-api</artifactId>
   <packaging>jar</packaging>
 
   <dependencies>
@@ -41,7 +41,7 @@
 
     <dependency>
       <groupId>org.apache.myfaces.trinidad</groupId>
-      <artifactId>sandbox-build</artifactId>
+      <artifactId>trinidad-sandbox-build</artifactId>
     </dependency>
     
     <dependency>

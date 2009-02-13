@@ -22,7 +22,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import com.sun.facelets.FaceletContext;
-import com.sun.facelets.el.LegacyValueBinding;
 import com.sun.facelets.tag.Metadata;
 import com.sun.facelets.tag.MetadataTarget;
 import com.sun.facelets.tag.MetaRule;
@@ -30,8 +29,6 @@ import com.sun.facelets.tag.TagAttribute;
 import com.sun.facelets.tag.TagAttributeException;
 
 import javax.el.ValueExpression;
-
-import javax.faces.el.ValueBinding;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
@@ -65,7 +62,6 @@ final class AccessKeyPropertyTagRule extends MetaRule
     public void applyMetadata(FaceletContext ctx, Object instance)
     {
       ValueExpression expr = _attribute.getValueExpression(ctx, String.class);
-      ValueBinding vb = new LegacyValueBinding(expr);
       UIXComponent uixcomp = (UIXComponent) instance;
       FacesBean bean = uixcomp.getFacesBean();
       PropertyKey mainKey = bean.getType().findKey(_mainMethodName);
@@ -77,7 +73,7 @@ final class AccessKeyPropertyTagRule extends MetaRule
       if (accessKeyKey == null)
         throw new TagAttributeException(_attribute,
                                         "No support for 'accessKey' attribute on " + instance);
-      VirtualAttributeUtils.setAccessKeyAttribute(bean, vb, mainKey, accessKeyKey);
+      VirtualAttributeUtils.setAccessKeyAttribute(bean, expr, mainKey, accessKeyKey);
     }
 
     private final String       _mainMethodName;

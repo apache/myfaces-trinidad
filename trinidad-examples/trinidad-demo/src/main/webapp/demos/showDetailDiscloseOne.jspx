@@ -20,7 +20,7 @@
 -->
 <jsp:root
   xmlns:jsp="http://java.sun.com/JSP/Page"
-  version="2.0"
+  version="2.1"
   xmlns:f="http://java.sun.com/jsf/core"
   xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
@@ -57,7 +57,7 @@
                   disclosed="#{showDetailDisclosureBean.disclosureKey eq _val}"
                   disclosedText="#{_val}"
                   undisclosedText="#{_val}">
-                  <tr:attribute name="disclosureKey" value="#{_val}" />
+                  <f:attribute name="disclosureKey" value="#{_val}" />
                   <tr:outputText value="Disclosed" />
                 </tr:showDetail>
               </tr:iterator>
@@ -69,7 +69,7 @@
                   disclosureListener="#{showDetailDisclosureBean.handleDisclosure}"
                   disclosed="#{showDetailDisclosureBean.disclosureKey eq 'ItemA'}"
                   text="ItemA">
-                  <tr:attribute name="disclosureKey" value="ItemA" />
+                  <f:attribute name="disclosureKey" value="ItemA" />
                   <tr:outputText value="ItemA" />
                 </tr:showDetailItem>
                 <tr:showDetailItem
@@ -77,7 +77,7 @@
                   disclosureListener="#{showDetailDisclosureBean.handleDisclosure}"
                   disclosed="#{showDetailDisclosureBean.disclosureKey eq 'ItemB'}"
                   text="ItemB">
-                  <tr:attribute name="disclosureKey" value="ItemB" />
+                  <f:attribute name="disclosureKey" value="ItemB" />
                   <tr:outputText value="ItemB" />
                 </tr:showDetailItem>
                 <tr:showDetailItem
@@ -85,7 +85,7 @@
                   disclosureListener="#{showDetailDisclosureBean.handleDisclosure}"
                   disclosed="#{showDetailDisclosureBean.disclosureKey eq 'ItemC'}"
                   text="ItemC">
-                  <tr:attribute name="disclosureKey" value="ItemC" />
+                  <f:attribute name="disclosureKey" value="ItemC" />
                   <tr:outputText value="ItemC" />
                 </tr:showDetailItem>
                 <tr:showDetailItem
@@ -93,7 +93,7 @@
                   disclosureListener="#{showDetailDisclosureBean.handleDisclosure}"
                   disclosed="#{showDetailDisclosureBean.disclosureKey eq 'ItemD'}"
                   text="ItemD">
-                  <tr:attribute name="disclosureKey" value="ItemD" />
+                  <f:attribute name="disclosureKey" value="ItemD" />
                   <tr:outputText value="ItemD" />
                 </tr:showDetailItem>
               </tr:panelTabbed>

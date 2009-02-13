@@ -206,4 +206,5 @@ public class CachingResourceLoader extends ResourceLoader
     private final URLConnection        _conn;
     private final URLStreamHandlerImpl _handler;
   }
+
 }

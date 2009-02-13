@@ -20,7 +20,7 @@ package org.apache.myfaces.trinidadinternal.taglib.listener;
 
 import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
-import javax.faces.webapp.UIComponentTag;
+import javax.faces.webapp.UIComponentClassicTagBase;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
@@ -34,7 +34,7 @@ public class ResetActionListenerTag extends TagSupport
   @Override
   public int doStartTag() throws JspException
   {
-    UIComponentTag tag = UIComponentTag.getParentUIComponentTag(pageContext);
+    UIComponentClassicTagBase tag = UIComponentClassicTagBase.getParentUIComponentClassicTagBase(pageContext);
     if (tag == null)
     {
       throw new JspException(_LOG.getMessage(

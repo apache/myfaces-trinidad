@@ -29,6 +29,7 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidadinternal.io.XhtmlResponseWriter;
 import org.apache.myfaces.trinidadinternal.renderkit.FacesConfigInfo;
+import org.apache.myfaces.trinidadinternal.renderkit.MApplication;
 import org.apache.myfaces.trinidadinternal.renderkit.MFacesContext;
 import org.apache.myfaces.trinidadinternal.renderkit.MRequestContext;
 import org.apache.myfaces.trinidadinternal.renderkit.NullWriter;
@@ -61,7 +62,8 @@ public class XhtmlLafUtilsTest extends TestCase
     
     RenderKitBootstrap.clearFactories();
     RenderKitBootstrap.setFactories(_bootstrap.getFacesConfigInfo());
-    _facesContext = new MFacesContext(true);
+
+    _facesContext = new MFacesContext(MApplication.sharedInstance(), true);
     _requestContext = new MRequestContext();
     _requestContext.setSkinFamily("minimal");
     _requestContext.setAgent(RenderKitBootstrap.getGeckoAgent());

@@ -23,9 +23,8 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.Stack;
 
+import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
-import javax.faces.el.ValueBinding;
-
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.context.LocaleContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
@@ -101,7 +100,7 @@ public class SkinExtension extends SkinImpl
     _renderKitId = renderKitId;
     _styleSheetName = styleSheetName;
     _bundleName = resourceBundleName;
-    _translationSourceVB = null;
+    _translationSourceVE = null;
   }
   
   /**
@@ -129,8 +128,8 @@ public class SkinExtension extends SkinImpl
    *               Must be non-null.
    * @param renderKitId The render-kit-id that this Skin is designed for.
    * @param styleSheetName The name of the stylesheet for this Skin.
-   * @param translationSourceValueBinding 
-   *          A ValueBinding that points to a translation source of type
+   * @param translationSourceValueExpression
+   *          A ValueExpression that points to a translation source of type
    *          Map or ResourceBundle. This can be used instead of a 
    *          resource bundle name.
    * @throws NullPointerException if baseSkin, id, or family is null.
@@ -142,7 +141,7 @@ public class SkinExtension extends SkinImpl
     String family,
     String renderKitId,
     String styleSheetName,
-    ValueBinding translationSourceValueBinding
+    ValueExpression translationSourceValueExpression
     )
   {
     if (baseSkin == null)
@@ -161,7 +160,7 @@ public class SkinExtension extends SkinImpl
     _renderKitId = renderKitId;
     _styleSheetName = styleSheetName;
     _bundleName = null;
-    _translationSourceVB = translationSourceValueBinding;
+    _translationSourceVE = translationSourceValueExpression;
   }
 
   
@@ -218,7 +217,7 @@ public class SkinExtension extends SkinImpl
     _renderKitId = renderKitId;
     _styleSheetName = styleSheetName;
     _bundleName = null;
-    _translationSourceVB = null;
+    _translationSourceVE = null;
   }
   /**
    * Creates a Skin which extends the specified base
@@ -331,15 +330,15 @@ public class SkinExtension extends SkinImpl
   }
 
   /**
-   * Returns the translation source ValueBinding for the SkinExtension.
+   * Returns the translation source ValueExpression for the SkinExtension.
    * Note: A skin cannot have both a bundleName and a translation source
-   * value binding. If they do, then the bundlename takes precedence.
+   * value expression. If they do, then the bundlename takes precedence.
    * A translation source can be a map of keys/values or a ResourceBundle.
    */
   @Override
-  public ValueBinding getTranslationSourceValueBinding()
+  public ValueExpression getTranslationSourceValueExpression()
   {
-    return _translationSourceVB;
+    return _translationSourceVE;
   }
   
   /**
@@ -386,7 +385,7 @@ public class SkinExtension extends SkinImpl
     // Look for the skin's translated value 
     // -first Skin's translation source, then SkinAddition translation sources.
     // A translation source is either a bundleName or 
-    // a translationSourceValueBinding
+    // a translationSourceValueExpression
     // If that's not found, then look in the base skin's translated value.
     // getCachedTranslatedValue will protect against MissingResourceExceptions
 
@@ -651,7 +650,7 @@ public class SkinExtension extends SkinImpl
   private SkinImpl        _baseSkin;
   private String          _styleSheetName;
   private String          _bundleName;
-  private ValueBinding    _translationSourceVB;
+  private ValueExpression _translationSourceVE;
 
 
 

@@ -188,7 +188,6 @@ TrXMLRequest._createXmlHttpRequest = function()
       }
     }
   }
-  
   return xmlhttp;
 }
 

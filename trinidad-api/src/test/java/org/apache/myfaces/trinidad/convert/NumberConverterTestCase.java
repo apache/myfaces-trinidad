@@ -134,7 +134,7 @@ public abstract class NumberConverterTestCase extends ConverterTestCase
         nconv.setLocale(locales[i]);
         
         Object convValue = nconv.getAsObject(facesContext, component, inputValues[i]);
-
+        
         // Trinidad does BigDecimal, for some reasons.
         // see TRINIDAD-1124
         if(i==2)
@@ -296,13 +296,10 @@ public abstract class NumberConverterTestCase extends ConverterTestCase
       assertEquals("DEM99.00", outPut);
       try
       {
-        if(converter.getAsObject(facesContext, component, "DEM99.00") instanceof Number)
-        {
-          // FIXME =-= sobryan:  this is not reporting an error as of
-          // JSF 1.1_02 - should it? I'm thinking not because adam documented
-          // that the error was not reported in JSF 1.2 either.
-          //fail("Exception should occur - since currency should not be considered while formatting");
-        }
+        Number outValue = (Number)converter.getAsObject(facesContext, component, "DEM99.00");
+        // FIXME =-= AdamWiner:  this is not reporting an error as of
+        // JSF 1.2 - should it?
+        //        fail("Exception should occur - since currency should not be considered while formatting");
       }
       catch(Exception e)
       {
@@ -412,11 +409,11 @@ public abstract class NumberConverterTestCase extends ConverterTestCase
     Mock mock = mock(UIComponent.class);
     UIComponent component = (UIComponent) mock.proxy();
 
-    facesContext.getViewRoot().setLocale(Locale.US);
-
     String input = "1234.56";
 
     setFacesContext(facesContext);
+    facesContext.getViewRoot().setLocale(Locale.US);
+
     try
     {
       // if we get a valid object, implies locale was indeed picked up.

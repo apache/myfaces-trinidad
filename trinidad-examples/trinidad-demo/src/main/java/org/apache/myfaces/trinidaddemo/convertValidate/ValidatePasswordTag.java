@@ -18,23 +18,18 @@
  */
 package org.apache.myfaces.trinidaddemo.convertValidate;
 
+import javax.faces.application.Application;
+import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
-import javax.faces.webapp.ValidatorTag;
+import javax.faces.webapp.ValidatorELTag;
 import javax.servlet.jsp.JspException;
 
 
-public class ValidatePasswordTag extends ValidatorTag
+public class ValidatePasswordTag extends ValidatorELTag
 {
 
   public ValidatePasswordTag()
   {
-  }
-
-  @Override
-  public int doStartTag() throws JspException
-  {
-    super.setValidatorId(PasswordValidator.VALIDATOR_ID);
-    return super.doStartTag();
   }
 
   /**
@@ -43,8 +38,9 @@ public class ValidatePasswordTag extends ValidatorTag
   @Override
   protected Validator createValidator() throws JspException
   {
+    Application app = FacesContext.getCurrentInstance().getApplication();
     PasswordValidator validator =
-                              (PasswordValidator)super.createValidator();
+                (PasswordValidator)app.createValidator(PasswordValidator.VALIDATOR_ID);
     return validator;
   }
 }

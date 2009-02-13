@@ -20,6 +20,7 @@ package org.apache.myfaces.trinidad.context;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.Principal;
@@ -56,9 +57,33 @@ abstract public class ExternalContextDecorator extends ExternalContext
   }
   
   @Override
+  public String getRequestCharacterEncoding()
+  {
+    return getExternalContext().getRequestCharacterEncoding(); 
+  }
+  
+  @Override
+  public String getRequestContentType()
+  {
+    return getExternalContext().getRequestContentType(); 
+  }
+  
+  @Override
   public Object getResponse()
   {
     return getExternalContext().getResponse();
+  }
+  
+  @Override
+  public String getResponseCharacterEncoding()
+  {
+    return getExternalContext().getResponseCharacterEncoding(); 
+  }
+  
+  @Override
+  public String getResponseContentType()
+  {
+    return getExternalContext().getResponseContentType(); 
   }
   
   @Override
@@ -226,6 +251,31 @@ abstract public class ExternalContextDecorator extends ExternalContext
   public Locale getRequestLocale()
   {
     return getExternalContext().getRequestLocale();
+  }
+
+  @Override
+  public void setRequest(Object request)
+  {
+    getExternalContext().setRequest(request);
+  }
+
+  @SuppressWarnings("unchecked")
+  @Override
+  public void setRequestCharacterEncoding(String encoding) throws UnsupportedEncodingException 
+  {
+    getExternalContext().setRequestCharacterEncoding(encoding);
+  }
+
+  @Override
+  public void setResponse(Object response)
+  {
+    getExternalContext().setResponse(response);
+  }
+
+  @Override
+  public void setResponseCharacterEncoding(String encoding)
+  {
+    getExternalContext().setResponseCharacterEncoding(encoding);
   }
 
   @SuppressWarnings("unchecked")

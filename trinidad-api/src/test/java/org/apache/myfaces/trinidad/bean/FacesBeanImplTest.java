@@ -29,13 +29,15 @@ import java.util.Iterator;
 import javax.faces.el.ValueBinding;
 
 import org.apache.myfaces.trinidad.bean.PropertyKey;
-import org.apache.myfaces.trinidad.context.MockRequestContext;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-public class FacesBeanImplTest extends TestCase
+import org.apache.myfaces.trinidad.context.MockRequestContext;
+import org.apache.myfaces.trinidadbuild.test.FacesTestCase;
+
+public class FacesBeanImplTest extends FacesTestCase
 {
   public static final Test suite()
   {
@@ -57,14 +59,14 @@ public class FacesBeanImplTest extends TestCase
   private MockRequestContext _mafct;
 
   @Override
-  public void setUp() throws Exception
+  protected void setUp() throws Exception
   {
     super.setUp();
     _mafct = new MockRequestContext();
   }
 
   @Override
-  public void tearDown() throws Exception
+  protected void tearDown() throws Exception
   {
     _mafct.release();
     _mafct = null;

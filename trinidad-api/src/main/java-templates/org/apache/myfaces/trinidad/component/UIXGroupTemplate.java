@@ -30,7 +30,8 @@ import javax.faces.context.FacesContext;
  * <p>
  * @version $Name:  $ ($Revision: 429530 $) $Date: 2006-08-07 18:44:54 -0600 (Mon, 07 Aug 2006) $
  */
-abstract public class UIXGroupTemplate extends UIXComponentBase
+abstract public class UIXGroupTemplate extends UIXComponentBase implements FlattenedComponent
+
 {
   /**
    * Overridden to return true.
@@ -38,6 +39,44 @@ abstract public class UIXGroupTemplate extends UIXComponentBase
    */
   @Override
   public boolean getRendersChildren()
+  {
+    return true;
+  }
+
+  /**
+   * Sets up the grouping context and processes all of the
+   * UIXGroup's children
+   */
+  public <S> boolean processFlattenedChildren(
+    FacesContext context,
+    ComponentProcessingContext cpContext,
+    ComponentProcessor<S> childProcessor,
+    S callBackContext
+    ) throws IOException
+  {
+    cpContext.pushGroup();
+    
+    try
+    {
+      // bump up the group depth and render all of the children
+      return UIXComponent.processFlattenedChildren(context,
+                                                   cpContext,
+                                                   childProcessor,
+                                                   this.getChildren(),
+                                                   callBackContext);
+    }
+    finally
+    {
+      cpContext.popGroup();      
+    }
+  }
+
+  /**
+   * Returns <code>true</code> if this FlattenedComponent is currently flattening its children
+   * @param context FacesContext
+   * @return <code>true</code> if this FlattenedComponent is currently flattening its children
+   */
+  public boolean isFlatteningChildren(FacesContext context)
   {
     return true;
   }
@@ -67,4 +106,5 @@ abstract public class UIXGroupTemplate extends UIXComponentBase
     }
   }
 }
+
 

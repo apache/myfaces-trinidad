@@ -75,6 +75,9 @@
 <!-- CANNOT_LOAD_VIEWHANDLER -->
 <resource key="CANNOT_LOAD_VIEWHANDLER">Could not load ViewHandler {0}</resource>
 
+<!-- DUPLICATE_VIEWHANDLER_REGISTRATION -->
+<resource key="DUPLICATE_VIEWHANDLER_REGISTRATION">Trinidad's ViewHandler is registered more than once. To avoid initialization problems, make sure that only one Trinidad implementation jar is loaded</resource>
+
 <!-- TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION -->
 <resource key="TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION">Apache Trinidad is running with time-stamp checking enabled. This should not be used in a production environment. See the {0} property in WEB-INF/web.xml</resource>
 
@@ -125,15 +128,6 @@
 
 <!-- CANNOT_FIND_PARTIAL_TRIGGER -->
 <resource key="CANNOT_FIND_PARTIAL_TRIGGER">Could not find partial trigger {0} from {1}</resource>
-
-<!-- FAIL_SET_CHARACTER_ENCODING -->
-<resource key="FAIL_SET_CHARACTER_ENCODING">Failed to set character encoding {0}</resource>
-
-<!-- REQUEST_CHARACTER_ENCODING_DIABLED -->
-<resource key="REQUEST_CHARACTER_ENCODING_DIABLED">Detecting request character encoding is disable.</resource>
-
-<!-- FAIL_OBTAIN_SERVLETREQUEST_METHOD -->
-<resource key="FAIL_OBTAIN_SERVLETREQUEST_METHOD">Failed to obtain ServletRequest#setCharacterEncoding() method: {0}</resource>
 
 <!-- NEEDED_COMPONENT_NULL_NO_SCRIPT_WRITTEN -->
 <resource key="NEEDED_COMPONENT_NULL_NO_SCRIPT_WRITTEN">The component is null, but it is needed for the client id, so no script written</resource>
@@ -244,11 +238,14 @@
 <!-- NO_SKIN_FACTORY -->
 <resource key="NO_SKIN_FACTORY">There is no SkinFactory</resource>
 
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN">The skin {0} specified on the requestMap will not be used because the styleSheetDocument id on the requestMap does not match the local skin''s styleSheetDocument''s id. It could mean the jars are not identical. For example, one might have trinidad-skins.xml''s skin-additions in a jar file on the class path that the other does not have.</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN">
+The skin {0} specified on the requestMap will be used even though the consumer''s skin''s styleSheetDocumentId on the requestMap does not match the local skin''s styleSheetDocument''s id.  This will impact performance since the consumer and prodcuer stylesheets cannot be shared. The producer styleclasses will not be compressed to avoid conflicts. A reason the ids do not match may be the jars are not identical on the producer and the consumer. For example, one might have trinidad-skins.xml''s skin-additions in a jar file on the class path that the other does not have.</resource>
 
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP">The skin {0} specified on the requestMap will not be used because its styleSheetDocument id was not in the requestMap and it is needed to compare with the local skin''s styleSheetDocument''s id to make sure the skins are the same.</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP">
+The skin {0} specified on the requestMap will be used even though the consumer''s skin''s styleSheetDocumentId was not in the requestMap. This will impact performance since the stylesheets cannot be shared between the producer and the consumer.</resource>
+
 
 <!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST -->
 <resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST">The skin {0} specified on the requestMap will not be used because it does not exist.</resource>

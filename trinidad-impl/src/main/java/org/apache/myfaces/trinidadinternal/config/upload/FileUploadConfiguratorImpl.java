@@ -1,5 +1,4 @@
 /*
-/*
  *  Licensed to the Apache Software Foundation (ASF) under one
  *  or more contributor license agreements.  See the NOTICE file
  *  distributed with this work for additional information
@@ -17,6 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
+
 package org.apache.myfaces.trinidadinternal.config.upload;
 
 import java.io.IOException;
@@ -25,15 +25,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.faces.context.ExternalContext;
+
+import javax.portlet.faces.annotation.ExcludeFromManagedRequestScope;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.myfaces.trinidad.config.Configurator;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.UploadedFile;
+import org.apache.myfaces.trinidad.util.ExternalContextUtils;
 import org.apache.myfaces.trinidadinternal.share.util.MultipartFormHandler;
 import org.apache.myfaces.trinidadinternal.share.util.MultipartFormItem;
-import org.apache.myfaces.trinidad.util.ExternalContextUtils;
 
 /**
  * This configurator will handle the FileUploads for Trinidad.
@@ -74,7 +77,7 @@ public class FileUploadConfiguratorImpl extends Configurator
   @SuppressWarnings("unchecked")
   static public void apply(ExternalContext context)
   {
-    context.getRequestMap().put(_APPLIED, Boolean.TRUE);
+    context.getRequestMap().put(_APPLIED, AppliedClass.APPLIED);
   }
 
   /* (non-Javadoc)
@@ -168,7 +171,7 @@ public class FileUploadConfiguratorImpl extends Configurator
 
     return externalContext;
   }
-
+  
   /* (non-Javadoc)
    * @see org.apache.myfaces.trinidad.config.Configurator#endRequest(javax.faces.context.ExternalContext)
    */
@@ -223,8 +226,10 @@ public class FileUploadConfiguratorImpl extends Configurator
     if(!isApplied(externalContext))
     {
       if(!ExternalContextUtils.isPortlet(externalContext))
-      {
-        return new ServletUploadedExternalContext(externalContext, addedParams);
+      {  
+        externalContext.setRequest(new UploadRequestWrapper(
+            (HttpServletRequest)externalContext.getRequest(),
+            addedParams));        
       }
       else if(ExternalContextUtils.isAction(externalContext))
       {
@@ -234,13 +239,22 @@ public class FileUploadConfiguratorImpl extends Configurator
          * RenderParameters.  This is a cool thing because subsequent
          * render requests will retain these parameters for us.
          */
-        return new PortletUploadedExternalContext(externalContext, addedParams);
+        externalContext.setRequest(new ActionUploadRequestWrapper(externalContext,
+           addedParams));
       }
+      apply(externalContext);        
     }
 
     //If we don't have any wrapped params or we have a render portal request,
     //return the origional external context
     return externalContext;
+  }
+  
+  //This will ensure the property is removed on the next request
+  @ExcludeFromManagedRequestScope
+  static private class AppliedClass
+  {
+    static public final AppliedClass APPLIED = new AppliedClass();
   }
 
   static private class TempUploadedFile implements UploadedFile
@@ -287,5 +301,6 @@ public class FileUploadConfiguratorImpl extends Configurator
   static private final String _APPLIED = FileUploadConfiguratorImpl.class.getName()+".APPLIED";
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(FileUploadConfiguratorImpl.class);
   static private final String _PARAMS = FileUploadConfiguratorImpl.class.getName()+".PARAMS";
+  
   private long _maxAllowedBytes = 1L << 27;
 }

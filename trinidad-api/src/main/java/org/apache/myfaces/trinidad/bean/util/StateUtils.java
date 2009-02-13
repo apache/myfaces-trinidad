@@ -18,16 +18,23 @@
  */
 package org.apache.myfaces.trinidad.bean.util;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import java.util.concurrent.ConcurrentMap;
 
 import javax.faces.component.StateHolder;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
@@ -40,8 +47,187 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 /**
  * Utilities for handling state persistance.
  */
-public class StateUtils
+public final class StateUtils
 {
+  static
+  {
+    // initialize checks for serialization verification
+    boolean checkPropertyStateSerialization = false;
+    boolean checkComponentStateSerialization = false;
+    boolean checkComponentTreeStateSerialization = false;
+    boolean checkSessionSerialization = false;
+    boolean checkApplicationSerialization = false;
+
+    String checkSerializationProperty;
+
+    // determine if we need to aggressively check the serialization of components
+    // we wrap the check in a try/catch in case of weird ecurity managers
+    try
+    {
+      checkSerializationProperty = 
+                       System.getProperty("org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION");
+    }
+    catch (Throwable t)
+    {
+      checkSerializationProperty = null;
+    }
+
+    if (checkSerializationProperty != null)
+    {
+      checkSerializationProperty = checkSerializationProperty.toUpperCase();
+      
+      // comma-separated list with allowed whitespace
+      String[] paramArray = checkSerializationProperty.split(",");
+      
+      Set<String> serializationFlags = new HashSet<String>(Arrays.asList(paramArray));
+      
+      if (!serializationFlags.contains("NONE"))
+      {
+        if (serializationFlags.contains("ALL"))
+        {
+          checkPropertyStateSerialization = true;
+          checkComponentStateSerialization = true;
+          checkComponentTreeStateSerialization = true;
+          checkSessionSerialization = true;
+          checkApplicationSerialization = true;
+        }
+        else
+        {
+          checkPropertyStateSerialization = serializationFlags.contains("PROPERTY");
+          checkComponentStateSerialization = serializationFlags.contains("COMPONENT");
+          checkComponentTreeStateSerialization = serializationFlags.contains("TREE");       
+          checkSessionSerialization = serializationFlags.contains("SESSION");
+          checkApplicationSerialization = serializationFlags.contains("APPLICATION");
+        }
+      }
+    }
+
+    _CHECK_PROPERTY_STATE_SERIALIZATION = checkPropertyStateSerialization;
+    _CHECK_COMPONENT_STATE_SERIALIZATION = checkComponentStateSerialization;
+    _CHECK_COMPONENT_TREE_STATE_SERIALIZATION = checkComponentTreeStateSerialization;
+    _CHECK_SESSION_SERIALIZATION = checkSessionSerialization;
+    _CHECK_APPLICATION_SERIALIZATION = checkApplicationSerialization;
+  }
+
+  private static final boolean _CHECK_COMPONENT_TREE_STATE_SERIALIZATION;
+  private static final boolean _CHECK_COMPONENT_STATE_SERIALIZATION;
+  private static final boolean _CHECK_PROPERTY_STATE_SERIALIZATION;
+  private static final boolean _CHECK_SESSION_SERIALIZATION;
+  private static final boolean _CHECK_APPLICATION_SERIALIZATION;
+
+  /**
+   * Returns <code>true</code> if properties should be checked for
+   * serializability when when generating the view's state object.
+   * <p>
+   * By default property state serialization checking is off.  It can be
+   * enabled by setting the system property
+   * <code>org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION</code>
+   * to <code>all</code> or, more rately, adding <code>property</code> to the
+   * comma-separated list of serialization checks to perform.
+   * <p>
+   * As property serialization checking is expensive, it is usually
+   * only enabled after component tree serialization checking has detected
+   * a problem
+   * @return
+   * @see #checkComponentStateSerialization
+   * @see #checkComponentTreeStateSerialization
+   */
+  private static boolean _checkPropertyStateSerialization()
+  {
+    return _CHECK_PROPERTY_STATE_SERIALIZATION;
+  }
+
+  /**
+   * Returns <code>true</code> if components should be checked for
+   * serializability when when generating the view's state object.
+   * <p>
+   * By default component state serialization checking is off.  It can be
+   * enabled by setting the system property
+   * <code>org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION</code>
+   * to <code>all</code> or, more rarely, adding <code>component</code> to the
+   * comma-separated list of serialization checks to perform.
+   * <p>
+   * As property serialization checking is expensive, it is usually
+   * only enabled after component tree serialization checking has detected
+   * a problem.  In addition, since component serialization checking only
+   * detects the problem component, it is usually combined with
+   * property state serialization checking either by specifying <code>all</code>.
+   * @return
+   * @see #checkComponentTreeStateSerialization
+   */
+  public static boolean checkComponentStateSerialization(FacesContext context)
+  {
+    return _CHECK_COMPONENT_STATE_SERIALIZATION;
+  }
+
+  /**
+   * Returns <code>true</code> if the component tree should be checked for
+   * serializability when when generating the view's state object.
+   * <p>
+   * By default component tree state serialization checking is off.  It can be
+   * enabled by setting the system property
+   * <code>org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION</code>
+   * to <code>all</code> or, more commonly, adding <code>tree</code> to the
+   * comma-separated list of serialization checks to perform.
+   * <p>
+   * Because unserializable objects defeat fail-over, it is important to
+   * check for serializability when testing applications.  While component
+   * tree state serializability checking isn't cheap, it is much faster to
+   * initially only enable checking of the component tree and then switch
+   * to <code>all</code> testing to determine the problem component and 
+   * property when the component tree testing determines a problem.
+   * @return
+   * @see #checkComponentStateSerialization
+   */
+  public static boolean checkComponentTreeStateSerialization(FacesContext context)
+  {
+    return _CHECK_COMPONENT_TREE_STATE_SERIALIZATION;
+  }
+
+  /**
+   * Returns <code>true</code> if Object written to the ExternalContext's Session Map should be
+   * checked for Serializability when <code>put</code> is called.
+   * <p>
+   * Configuring this property allows this aspect of high-availability to be tested without
+   * configuring the server to run in high-availability mode.
+   * <p>
+   * By default session serialization checking is off.  It can be
+   * enabled by setting the system property
+   * <code>org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION</code>
+   * to <code>all</code> or, more commonly, adding <code>session</code> to the
+   * comma-separated list of serialization checks to perform.
+   * @return
+   * @see #checkComponentStateSerialization
+   * @see #checkComponentTreeStateSerialization
+   * @see #checkApplicationSerialization
+   */
+  public static boolean checkSessionSerialization(ExternalContext extContext)
+  {
+    return _CHECK_SESSION_SERIALIZATION;
+  }
+
+  /**
+   * Returns <code>true</code> if Object written to the ExternalContext's Application Map should be
+   * checked for Serializability when <code>put</code> is called.
+   * <p>
+   * Configuring this property allows this aspect of high-availability to be tested without
+   * configuring the server to run in high-availability mode.
+   * <p>
+   * By default application serialization checking is off.  It can be
+   * enabled by setting the system property
+   * <code>org.apache.myfaces.trinidad.CHECK_STATE_SERIALIZATION</code>
+   * to <code>all</code> or, more commonly, adding <code>application</code> to the
+   * comma-separated list of serialization checks to perform.
+   * @return
+   * @see #checkComponentStateSerialization
+   * @see #checkComponentTreeStateSerialization
+   * @see #checkSessionSerialization
+   */
+  public static boolean checkApplicationSerialization(ExternalContext extContext)
+  {
+    return _CHECK_APPLICATION_SERIALIZATION;
+  }
+
   /**
    * Persists a property key.
    */
@@ -109,10 +295,30 @@ public class StateUtils
         _LOG.finest("SAVE {" + key + "=" + value + "}");
       }
 
+      Object saveValue;
+      
       if (useStateHolder)
-        values[i + 1] = saveStateHolder(context, value);
+        saveValue = saveStateHolder(context, value);
       else
-        values[i + 1] = key.saveValue(context, value);
+        saveValue = key.saveValue(context, value);
+
+      // aggressively check the serializability of the value
+      if (_checkPropertyStateSerialization())
+      {
+        try
+        {
+          new ObjectOutputStream(new ByteArrayOutputStream()).writeObject(saveValue);
+        }
+        catch (IOException e)
+        {          
+          throw new RuntimeException(_LOG.getMessage("UNSERIALIZABLE_PROPERTY_VALUE",
+                                                     new Object[]{saveValue, key, map}),
+                                     e);
+        }
+      }
+      
+      values[i + 1] = saveValue;
+      
       i+=2;
     }
 
@@ -384,4 +590,7 @@ public class StateUtils
 
 
 }
+
+
+
 

@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -25,6 +25,8 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
+import javax.faces.FacesException;
+import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
@@ -37,8 +39,21 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  *
  */
 public abstract class UIXComponentRefTemplate extends UIXComponentBase
+                                              implements NamingContainer
 {
 /**/  public abstract String getVar();
+
+
+
+  @Override
+  public boolean invokeOnComponent(FacesContext context,
+                                   String clientId,
+                                   ContextCallback callback)
+    throws FacesException
+  {
+    // optimize case where clientId isn't in NamingContainer
+    return invokeOnNamingContainerComponent(context, clientId, callback);
+  }
 
   @Override
   public void queueEvent(FacesEvent event)

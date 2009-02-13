@@ -20,9 +20,9 @@ package org.apache.myfaces.trinidaddemo;
 
 import java.util.Collections;
 
+import javax.el.ValueExpression;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
-import javax.faces.el.ValueBinding;
 
 /**
  * A proxy class to ask the e-mail demo for preferences information,
@@ -51,16 +51,16 @@ public class PreferencesProxy
 
       if (preferencesExpression != null)
       {
-        ValueBinding vb =
-          context.getApplication().createValueBinding(preferencesExpression);
-        return vb.getValue(context);
+        ValueExpression ve =
+          context.getApplication().getExpressionFactory().createValueExpression(context.getELContext(), preferencesExpression, Object.class);
+        return ve.getValue(context.getELContext());
       }
     }
     
     return Collections.EMPTY_MAP;
   }
 
-  // Returns the current viewId.  
+  // Returns the current viewId.
   private String _getViewId(FacesContext context)
   {
     UIViewRoot viewRoot = context.getViewRoot();

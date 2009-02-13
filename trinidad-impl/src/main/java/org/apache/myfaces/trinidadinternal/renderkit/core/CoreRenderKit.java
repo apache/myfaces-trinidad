@@ -174,7 +174,7 @@ public class CoreRenderKit extends RenderKitDecorator
   {
     return RenderKitFactory.HTML_BASIC_RENDER_KIT;
   }
-
+  
   @Override
   protected String getRenderKitMap()
   {
@@ -604,8 +604,7 @@ public class CoreRenderKit extends RenderKitDecorator
       }
       else
       {
-        PartialPageContext ppc = rc.getPartialPageContext();
-        if (ppc != null)
+        if (isPartialRequest(fContext.getExternalContext()))
           rw = new PPRResponseWriter(rw, rc);
       }
       

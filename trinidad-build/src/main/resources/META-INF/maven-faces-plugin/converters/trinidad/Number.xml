@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-
+     
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -42,7 +42,7 @@
         <mfp:property-metadata>
           <mfp:preferred>true</mfp:preferred>
         </mfp:property-metadata>
-      </property-extension>
+      </property-extension>                  
     </property>
     <property>
       <description><![CDATA[<html><p>
@@ -69,6 +69,11 @@
       </description>
       <property-name>messageDetailConvertCurrency</property-name>
       <property-class>java.lang.String</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:translatable>true</mfp:translatable>
+        </mfp:property-metadata>
+      </property-extension>
     </property>
     <property>
       <description><![CDATA[<html><p>
@@ -94,6 +99,11 @@
       </description>
       <property-name>messageDetailConvertNumber</property-name>
       <property-class>java.lang.String</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:translatable>true</mfp:translatable>
+        </mfp:property-metadata>
+      </property-extension>
     </property>
     <property>
       <description><![CDATA[<html><p>
@@ -121,6 +131,11 @@
       </description>
       <property-name>messageDetailConvertPattern</property-name>
       <property-class>java.lang.String</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:translatable>true</mfp:translatable>
+        </mfp:property-metadata>
+      </property-extension>
     </property>
     <property>
       <description><![CDATA[<html><p>
@@ -147,6 +162,11 @@
       </description>
       <property-name>messageDetailConvertPercent</property-name>
       <property-class>java.lang.String</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:translatable>true</mfp:translatable>
+        </mfp:property-metadata>
+      </property-extension>
     </property>
     <property>
       <description><![CDATA[Currency symbol, is applied only when formatting currencies.
@@ -174,7 +194,7 @@
         <mfp:property-metadata>
           <mfp:preferred>true</mfp:preferred>
         </mfp:property-metadata>
-      </property-extension>
+      </property-extension>                  
     </property>
     <property>
       <description><![CDATA[Locale whose predefined styles for numbers are used during formatting and parsing.
@@ -194,7 +214,7 @@
         <mfp:property-metadata>
           <mfp:preferred>true</mfp:preferred>
         </mfp:property-metadata>
-      </property-extension>
+      </property-extension>                  
     </property>
     <property>
       <description><![CDATA[Maximum number of digits that will be formatted in the integer portion of the
@@ -206,7 +226,7 @@
         <mfp:property-metadata>
           <mfp:preferred>true</mfp:preferred>
         </mfp:property-metadata>
-      </property-extension>
+      </property-extension>                  
     </property>
     <property>
       <description><![CDATA[Minimum number of digits that will be formatted in the fractional portion of
@@ -218,7 +238,7 @@
         <mfp:property-metadata>
           <mfp:preferred>true</mfp:preferred>
         </mfp:property-metadata>
-      </property-extension>
+      </property-extension>                  
     </property>
     <property>
       <description><![CDATA[Minimum number of digits that will be formatted in the integer portion of the
@@ -230,7 +250,7 @@
         <mfp:property-metadata>
           <mfp:preferred>true</mfp:preferred>
         </mfp:property-metadata>
-      </property-extension>
+      </property-extension>            
     </property>
     <property>
       <description><![CDATA[Custom formatting pattern which determins how the number string should be
@@ -242,7 +262,7 @@
         <mfp:property-metadata>
           <mfp:preferred>true</mfp:preferred>
         </mfp:property-metadata>
-      </property-extension>
+      </property-extension>                  
     </property>
     <property>
       <description><![CDATA[Specifies how the number string will be formatted and parsed.
@@ -256,7 +276,7 @@
         <mfp:property-metadata>
           <mfp:preferred>true</mfp:preferred>
         </mfp:property-metadata>
-      </property-extension>
+      </property-extension>                  
     </property>
     <converter-extension>
       <mfp:tag-name>tr:convertNumber</mfp:tag-name>

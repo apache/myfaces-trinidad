@@ -89,7 +89,7 @@ public class JaxpXMLProvider implements XMLProvider
 
     return null;
   }
-
+  
   private static final SAXParserFactory _SAX_PARSER_FACTORY;
   static
   {

@@ -18,6 +18,7 @@
  */
 package org.apache.myfaces.trinidad.component;
 
+import javax.el.ValueExpression;
 import javax.faces.el.ValueBinding;
 
 import org.jmock.Mock;
@@ -68,6 +69,23 @@ public class UIXInputTest extends UIComponentTestCase
     assertNull(input.getSubmittedValue());
     assertNull(input.getLocalValue());
     assertNull(input.getValue());
+  }
+
+
+  public void testValueExpressions()
+  {
+    Mock mockExpression = mock(ValueExpression.class);
+    ValueExpression expr = (ValueExpression) mockExpression.proxy();
+    mockExpression.expects(atLeastOnce()).method("getValue").will(returnValue("socks"));
+    mockExpression.expects(atLeastOnce()).method("isLiteralText").will(returnValue(Boolean.TRUE));
+
+    UIXInput input = new UIXInput();
+    input.setValueExpression("value", expr);
+    assertEquals("socks", input.getValue());
+    input.setValue("shoes");
+    assertEquals("shoes", input.getValue());
+    input.setValueExpression("value", null);
+    assertEquals("shoes", input.getValue());    
   }
 
   /**

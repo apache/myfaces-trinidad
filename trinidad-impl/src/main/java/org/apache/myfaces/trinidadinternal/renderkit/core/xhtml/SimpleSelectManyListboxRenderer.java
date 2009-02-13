@@ -110,7 +110,6 @@ public class SimpleSelectManyListboxRenderer extends SimpleSelectManyRenderer
           SimpleSelectOneRenderer.encodeOption(
                context, arc, component, items[j], converter,
                valuePassThru, counter++, selected);
-
         }
         writer.endElement("optgroup");
       }

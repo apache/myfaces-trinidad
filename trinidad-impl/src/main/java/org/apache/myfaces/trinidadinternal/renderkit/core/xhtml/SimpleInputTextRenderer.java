@@ -526,18 +526,18 @@ public class SimpleInputTextRenderer extends FormInputRenderer
     FacesBean bean
     )
   {
-    String onKeyup = super.getOnkeyup(bean);
+    String onKeyUp = super.getOnkeyup(bean);
     if (isTextArea(bean))
     {
       Number maxLength = getMaximumLength(bean);
       if (maxLength != null)
       {
-        onKeyup = _getMaxLengthFunction(onKeyup,
+        onKeyUp = _getMaxLengthFunction(onKeyUp,
                                         maxLength.intValue());
       }
     }
 
-    return onKeyup;
+    return onKeyUp;
   }
 
   @Override

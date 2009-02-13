@@ -25,13 +25,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.el.ValueExpression;
+
 import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectItem;
 import javax.faces.component.UISelectItems;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.el.ValueBinding;
 import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
 
@@ -45,25 +46,25 @@ public class SelectItemSupport
   }
 
   /**
-   * 
+   *
    * @param component  UIComponent
-   * @param converter For UISelectItem and UIXSelectItem children of the 
-   *                  component, use the converter to convert itemValue Strings 
+   * @param converter For UISelectItem and UIXSelectItem children of the
+   *                  component, use the converter to convert itemValue Strings
    *                  when creating the javax.faces.model.SelectItem Object if
    *                  the child's value is not an instanceof SelectItem.
-   * @return a List of javax.faces.model.SelectItem Objects that we get or 
+   * @return a List of javax.faces.model.SelectItem Objects that we get or
    *         create from the component's children.
-   *         OR 
+   *         OR
    *         java.util.Collections.emptyList if component has no children or
    *         the component isn't a javax.faces.component.ValueHolder. else
    */
-  @SuppressWarnings("unchecked")
-  static public List<SelectItem> getSelectItems(
-           UIComponent  component,
-           Converter    converter)
-  {
-    return getSelectItems( component, converter, false );
-  }
+   @SuppressWarnings("unchecked")
+   static public List<SelectItem> getSelectItems(
+            UIComponent  component,
+            Converter    converter)
+   {
+     return getSelectItems( component, converter, false );
+   }
 
   /**
    *
@@ -79,12 +80,13 @@ public class SelectItemSupport
    *         java.util.Collections.emptyList if component has no children or
    *         the component isn't a javax.faces.component.ValueHolder. else
    */
+  @SuppressWarnings("unchecked")
   static public List<SelectItem> getSelectItems(
     UIComponent  component,
     Converter    converter,
     boolean filteredItems)
-  { 
-    
+  {
+
     int childCount = component.getChildCount();
     if (childCount == 0)
       return Collections.emptyList();
@@ -355,7 +357,7 @@ public class SelectItemSupport
       }
     }
   }
-
+ 
   private static void resolveAndAddItems(SelectItemGroup group, List<SelectItem> items)
   {
      for(SelectItem item: group.getSelectItems())
@@ -439,13 +441,13 @@ public class SelectItemSupport
     Converter converter = null;
     Class<?> modelClass = null;
     
-    ValueBinding binding = component.getValueBinding("value");
-    if (binding != null)
+    ValueExpression expression = component.getValueExpression("value");
+    if (expression != null)
     {
-      modelClass = binding.getType(fContext);
+      modelClass = expression.getType(fContext.getELContext());
       if (modelClass == null)
       {
-        Object o = binding.getValue(fContext);
+        Object o = expression.getValue(fContext.getELContext());
         if (o != null)
         {
           modelClass = o.getClass();

@@ -19,6 +19,10 @@
 package org.apache.myfaces.trinidadinternal.context;
 
 import java.awt.Color;
+
+import java.io.Serializable;
+
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -33,13 +37,14 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
+import javax.faces.event.PhaseId;
 
 import org.apache.myfaces.trinidad.change.ChangeManager;
 import org.apache.myfaces.trinidad.change.NullChangeManager;
 import org.apache.myfaces.trinidad.change.SessionChangeManager;
-import org.apache.myfaces.trinidad.component.UIXCollection;
+import org.apache.myfaces.trinidad.component.visit.VisitContext;
+import org.apache.myfaces.trinidad.component.visit.VisitHint;
 import org.apache.myfaces.trinidad.config.RegionManager;
 import org.apache.myfaces.trinidad.context.AccessibilityProfile;
 import org.apache.myfaces.trinidad.context.Agent;
@@ -53,6 +58,8 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.render.CoreRenderer;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidad.util.ComponentUtils;
+import org.apache.myfaces.trinidad.util.ExternalContextUtils;
+import org.apache.myfaces.trinidad.util.TransientHolder;
 import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
 import org.apache.myfaces.trinidadinternal.agent.AgentFactory;
 import org.apache.myfaces.trinidadinternal.agent.AgentFactoryImpl;
@@ -63,11 +70,10 @@ import org.apache.myfaces.trinidadinternal.el.HelpProvider;
 import org.apache.myfaces.trinidadinternal.el.OracleHelpProvider;
 import org.apache.myfaces.trinidadinternal.metadata.RegionMetadata;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
-import org.apache.myfaces.trinidadinternal.share.config.UIXCookie;
 import org.apache.myfaces.trinidadinternal.ui.expl.ColorPaletteUtils;
-import org.apache.myfaces.trinidad.util.ExternalContextUtils;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 import org.apache.myfaces.trinidadinternal.webapp.TrinidadFilterImpl;
+
 
 /**
  */
@@ -235,16 +241,7 @@ public class RequestContextImpl extends RequestContext
   { 
     String name = (String) _bean.getProperty(
       RequestContextBean.ACCESSIBILITY_MODE_KEY);
-    if (name == null)
-    {
-      UIXCookie cookie = _getUIXCookie();
-      if (cookie != null)
-      {
-        if (cookie.getAccessibilityMode() != null)
-          name = cookie.getAccessibilityMode().toString();
-      }
-    }
-
+    
     return _ACCESSIBILITY_NAMES.get(name);
   }
 
@@ -335,13 +332,15 @@ public class RequestContextImpl extends RequestContext
   {
     FacesContext context = __getFacesContext();
     Map<String, Object> appMap = context.getExternalContext().getApplicationMap();
-    ChangeManager changeManager = (ChangeManager)appMap.get(_CHANGE_MANAGER_KEY);
-
+    ChangeManager changeManager = _getHeldProperty(appMap, _CHANGE_MANAGER_KEY, ChangeManager.class);
+    
     if (changeManager == null)
     {
       changeManager = _createChangeManager();
-      appMap.put(_CHANGE_MANAGER_KEY, changeManager);
+      
+      _setHeldProperty(appMap, _CHANGE_MANAGER_KEY, changeManager);
     }
+    
     return changeManager;
   }
 
@@ -485,24 +484,7 @@ public class RequestContextImpl extends RequestContext
 
     // find the nearest ancestor that generates html markup:
     newTarget = _getNearestPPRTarget(newTarget);
-
-    Object savedKey = null;
-    // =-=AEW Force the rowkey of a collection back to null so that the clientId
-    // will be correct.  Note that in JSF 1.2, this will be unnecessary
-    if (newTarget instanceof UIXCollection)
-    {
-      savedKey = ((UIXCollection) newTarget).getRowKey();
-      if (savedKey != null)
-        ((UIXCollection) newTarget).setRowKey(null);
-    }
-
     String clientId = newTarget.getClientId(fContext);
-
-    // Restore the row key
-    if (savedKey != null)
-    {
-      ((UIXCollection) newTarget).setRowKey(savedKey);
-    }
 
     _LOG.finer("Adding partial target: {0}", newTarget);
 
@@ -538,6 +520,17 @@ public class RequestContextImpl extends RequestContext
     }
   }
 
+  /**
+   * Returns the set of partial targets related to a given UIComponent.
+   */
+  @Override
+  public Set<UIComponent> getPartialTargets(UIComponent source)
+  {
+    HashSet<UIComponent> set = new HashSet<UIComponent>();
+    _addPartialTargets(set, source);
+    return set;    
+  }
+  
   @Override
   public void addPartialTriggerListeners
     (UIComponent listener,
@@ -551,13 +544,8 @@ public class RequestContextImpl extends RequestContext
     for (int i = 0; i < triggers.length; i++)
     {
       String trigger = triggers[i];
+            
 
-      // Look for the master component.  Note that if the listener is itself 
-      // a naming container, we don't want to restrict ourselves to looking
-      // inside - we want to look outside instead (at least, that was
-      // the old ADF Faces rules, and now we should stick with it for
-      // backwards compatibility even within Trinidad)
-      
       UIComponent master = ComponentUtils.findRelativeComponent(listener, trigger);
       
       boolean deprecatedFind = false;
@@ -568,12 +556,12 @@ public class RequestContextImpl extends RequestContext
         // backward compatible code
         // The old rule is "if the component is a naming container, search relative 
         // to the parent; otherwise, search relative to the component." 
-      if (listener instanceof NamingContainer)
-      {
-        from = listener.getParent();
-        master = ComponentUtils.findRelativeComponent(from, trigger);
-        deprecatedFind = true;
-      }
+        if (listener instanceof NamingContainer)
+        {
+          from = listener.getParent();
+          master = ComponentUtils.findRelativeComponent(from, trigger);
+          deprecatedFind = true;
+        } 
       }
 
       if (master == null)
@@ -634,6 +622,32 @@ public class RequestContextImpl extends RequestContext
   public Set<String> getPartialUpdates()
   {
     return _partialTargets;
+  }
+
+  /**
+   * <p>Creates a VisitContext instance for use with 
+   * {@link org.apache.myfaces.trinidad.component.UIXComponent#visitTree UIComponent.visitTree()}.</p>
+   *
+   * @param context the FacesContext for the current request
+   * @param ids the client ids of the components to visit.  If null,
+   *   all components will be visited.
+   * @param hints the VisitHints to apply to the visit
+   * @param phaseId.  PhaseId if any for this visit.  If PhaseId is specified,
+   * hints must contain VisitHint.EXECUTE_LIFECYCLE
+   * @return a VisitContext instance that is initialized with the 
+   *   specified ids and hints.
+   */
+   @Override
+  public VisitContext createVisitContext(
+    FacesContext context,
+    Collection<String> ids,
+    Set<VisitHint> hints,
+    PhaseId phaseId)
+  {
+    if ((ids == null) || ids.isEmpty())
+      return new FullVisitContext(context, hints, phaseId);
+    else
+      return new PartialVisitContext(context, ids, hints, phaseId);
   }
 
   @Override
@@ -785,25 +799,6 @@ public class RequestContextImpl extends RequestContext
     return component;
   }
 
-  private UIXCookie _getUIXCookie()
-  {
-    FacesContext fContext = __getFacesContext();
-    if (fContext == null)
-      return null;
-
-    Object request = fContext.getExternalContext().getRequest();
-    Object response = fContext.getExternalContext().getResponse();
-
-    if ((request instanceof HttpServletRequest) &&
-        (response instanceof HttpServletResponse))
-    {
-      return UIXCookie.getUIXCookie((HttpServletRequest) request,
-                                    (HttpServletResponse) response);
-    }
-
-    return null;
-  }
-
   private Map<UIComponent, Set<UIComponent>> _getPartialListeners()
   {
     if (_partialListeners == null)
@@ -811,7 +806,78 @@ public class RequestContextImpl extends RequestContext
 
     return _partialListeners;
   }
-  
+
+  //
+  // Recursively builds up the set of partial targets of
+  // a given component
+  //
+  private void _addPartialTargets(
+    Set<UIComponent> sofar, UIComponent from)
+  {
+    Map<UIComponent, Set<UIComponent>> pl = _getPartialListeners();
+    Set<UIComponent> listeners = pl.get(from);
+    if (listeners == null)
+      return;
+    
+    for (UIComponent target : listeners)
+    {
+      // If we haven't encountered this target yet, add
+      // it, and continue recursively.
+      if (!sofar.contains(target))
+      {
+        sofar.add(target);
+        _addPartialTargets(sofar, target);
+      }
+    }
+  }
+
+  /**
+   * Convenience function for cached properties potentially held using a TransientHolder 
+   * that hides the TransientHolder.getValue() step from the caller
+   * @param stateMap Map containing TransientHolders to retrieve value from
+   * @param key Key value/TransientHolder value is held under
+   * @param clazz Class of the value
+   * @return The value of the TransientHolder or <Code>null</code> if the TransientHolder doesn't
+   * exist or has the <code>null</code> value (which could happen if the TransientHolder has
+   * been Serialized)
+   */
+  private static <S> S _getHeldProperty(
+    Map<String, ?> stateMap,
+    String         key,
+    Class<S>       clazz)
+  {
+    Object value =  stateMap.get(key);
+
+    if (value != null)
+    {
+      // if the value is already the right class, return it
+      if (clazz.isAssignableFrom(value.getClass()))
+        return (S)value;
+      else
+      {
+        // if the value is helpd in a TransientHolder, return it
+        if (value instanceof TransientHolder)
+        {
+          return ((TransientHolder<S>)value).getValue();
+        }
+      }
+    }
+    
+    return null;
+  }
+
+  private static <S> void _setHeldProperty(
+    Map<String, Object> stateMap,
+    String key,
+    Object value)
+  {
+    if (!(value instanceof Serializable))
+      value = TransientHolder.newTransientHolder(value);
+    
+    stateMap.put(key, value);
+  }
+
+
   private RequestContextBean _bean;
   private HelpProvider        _provider;
   private Map<UIComponent, Set<UIComponent>> _partialListeners;
@@ -822,7 +888,7 @@ public class RequestContextImpl extends RequestContext
 
   private PageResolver        _pageResolver;
   private PageFlowScopeProvider _pageFlowScopeProvider;
-
+  
   //todo: get factory from configuration (else implementations have to provide their own RequestContext)
   static private final AgentFactory _agentFactory = new AgentFactoryImpl();
 

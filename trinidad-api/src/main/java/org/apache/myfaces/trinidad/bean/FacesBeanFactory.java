@@ -32,6 +32,7 @@ import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.util.ThreadLocalUtils;
 
 
 /**
@@ -272,7 +273,7 @@ public class FacesBeanFactory
   static private Map<Object, Object> _TYPES_MAP;
   static private Map<String, Class<?>> _TYPES_CLASS = new ConcurrentHashMap<String, Class<?>>();
   static private final ThreadLocal<StringBuilder> _STRING_BUILDER =
-                                                        new ThreadLocal<StringBuilder>();
+                                                         ThreadLocalUtils.newRequestThreadLocal();
 
   static
   {

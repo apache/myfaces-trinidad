@@ -112,6 +112,16 @@ public class IndentingResponseWriter extends ResponseWriterDecorator
    * Writes a String, escaped properly for this method.
    */
   @Override
+  public void writeText(Object text, UIComponent component, String componentPropertyName) throws IOException
+  {
+    _seeIfJustEndedElement();
+    super.writeText(text, component, componentPropertyName);
+  }
+
+  /**
+   * Writes a String, escaped properly for this method.
+   */
+  @Override
   public void writeText(Object text, String componentPropertyName) throws IOException
   {
     _seeIfJustEndedElement();

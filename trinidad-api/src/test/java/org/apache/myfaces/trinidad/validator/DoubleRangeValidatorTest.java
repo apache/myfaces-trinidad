@@ -165,21 +165,6 @@ public class DoubleRangeValidatorTest extends ValidatorTestCase
     mock.verify();
   }
 
-  public void testStringBasedValues()
-  {
-    DoubleRangeValidator validator = new DoubleRangeValidator();
-    Mock mock = buildMockUIComponent();
-    UIComponent component = (UIComponent) mock.proxy();
-    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
-
-    String values[]   = {"200.05","500.00"};
-    validator.setMinimum(200);
-    for (int i = 0; i < values.length ; i++)
-    {
-      doTestValidate(validator, facesContext, wrapper, values[i]);
-    }
-  }
-
   public void testSanitySuccess()
   {
     //some very basic sanity test
@@ -197,6 +182,35 @@ public class DoubleRangeValidatorTest extends ValidatorTestCase
     }
   }
 
+  public void testStringBasedValues()
+  {
+    DoubleRangeValidator validator = new DoubleRangeValidator();
+    Mock mock = buildMockUIComponent();
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
+
+    String values[]   = {"200.05","500.00"};
+    validator.setMinimum(200);
+    for (int i = 0; i < values.length ; i++)
+    {
+      doTestValidate(validator, facesContext, wrapper, values[i]);
+    }
+  }
+
+  public void testStateHolderSaveRestore()
+  {
+    DoubleRangeValidator validator = new DoubleRangeValidator();
+    Mock mock = buildMockUIComponent();
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
+
+    validator.setMaximum(5);
+    validator.setMessageDetailMaximum("Validation failed");
+    DoubleRangeValidator restoreValidator = new  DoubleRangeValidator();
+
+    doTestStateHolderSaveRestore(validator, restoreValidator,
+                                 facesContext, wrapper);
+  }
 }
   //////////////////////////////////////////////////////////////////////////////
   //                             MOCK OBJECTS

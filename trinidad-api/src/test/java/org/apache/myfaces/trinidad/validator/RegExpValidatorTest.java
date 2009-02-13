@@ -124,6 +124,18 @@ public class RegExpValidatorTest extends ValidatorTestCase
     mock.verify();
   }
 
+  public void testWithPattern()
+  {
+    Mock mock = mock(UIComponent.class); 
+    UIComponent component = (UIComponent) mock.proxy();
+
+    RegExpValidator validator = new RegExpValidator();
+    validator.setPattern("[1-9]|[1-9][0-9]|[1-9][0-9][0-9]");
+    validator.validate(facesContext, component, "15");
+
+    mock.verify();
+  }
+
   /**
    * Test that pattern when set to "" should fail validation
    */

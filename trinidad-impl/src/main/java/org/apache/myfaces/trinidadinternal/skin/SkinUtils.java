@@ -38,9 +38,7 @@ import java.util.Stack;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import javax.faces.el.ValueBinding;
-
-import javax.xml.parsers.SAXParserFactory;
+import javax.el.ValueExpression;
 
 import org.apache.myfaces.trinidad.skin.SkinFactory;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -49,7 +47,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.SkinAddition;
-import org.apache.myfaces.trinidadinternal.config.LazyValueBinding;
+import org.apache.myfaces.trinidadinternal.config.LazyValueExpression;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.MinimalDesktopSkinExtension;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.MinimalPdaSkinExtension;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.MinimalPortletSkinExtension;
@@ -236,7 +234,7 @@ public class SkinUtils
     {
       InputSource input = new InputSource();
       input.setByteStream(inputStream);
-      input.setPublicId(configFile);
+      input.setPublicId(configFile);  
       
       ParseContextImpl context = new ParseContextImpl();
 
@@ -597,21 +595,21 @@ public class SkinUtils
     }
     else
     {
-      ValueBinding translationSourceVB = null;
+      ValueExpression translationSourceVE = null;
       if (translationSourceExpression != null)
       {
-        translationSourceVB = 
-          _createTranslationSourceValueBinding(translationSourceExpression);
+        translationSourceVE = 
+          _createTranslationSourceValueExpression(translationSourceExpression);
       }
       
-      if (translationSourceVB != null)
+      if (translationSourceVE != null)
       {
         skin = new SkinExtension(baseSkin,
                                  id,
                                  family,
                                  renderKitId,
                                  styleSheetName,
-                                 translationSourceVB);         
+                                 translationSourceVE);         
       }
       else
       {
@@ -629,15 +627,16 @@ public class SkinUtils
     skinFactory.addSkin(id, skin);    
   }
   
-  private static ValueBinding
-  _createTranslationSourceValueBinding(
+  private static ValueExpression
+  _createTranslationSourceValueExpression(
     String translationSourceExpression)
   {    
       if (translationSourceExpression != null)
       {
         translationSourceExpression = translationSourceExpression.trim();
          
-        return LazyValueBinding.createValueBinding(translationSourceExpression);
+        return LazyValueExpression.createValueExpression(translationSourceExpression, 
+                                                         Object.class);
       }
       else
         return null;
@@ -678,7 +677,7 @@ public class SkinUtils
         
     List<SkinsNode> allSkinsNodes = new ArrayList<SkinsNode>(); 
     ClassLoader loader = Thread.currentThread().getContextClassLoader();     
-    
+
     try
     {
   
@@ -705,25 +704,25 @@ public class SkinUtils
         {
           _LOG.finest("Processing skin URL:{0}", url);
           InputStream in = url.openStream();
-        try
-        {
-          // parse the config file and register the skin's additional stylesheets.
-  
-          if (in != null)
+          try
           {
-            SkinsNode  metaInfSkinsNode = 
-              _getSkinsNodeFromInputStream(null, null, in, _getDefaultManager(), 
-                                           _META_INF_CONFIG_FILE);
+            // parse the config file and register the skin's additional stylesheets.
+  
+            if (in != null)
+            {
+              SkinsNode  metaInfSkinsNode = 
+                _getSkinsNodeFromInputStream(null, null, in, _getDefaultManager(), 
+                                             _META_INF_CONFIG_FILE);
+  
+              allSkinsNodes.add(metaInfSkinsNode);
               
-            allSkinsNodes.add(metaInfSkinsNode);
-              
+            }
           }
-        }
-        catch (Exception e)
-        {
-         _LOG.warning("ERR_PARSING", url);
-         _LOG.warning(e);
-        }
+          catch (Exception e)
+          {
+           _LOG.warning("ERR_PARSING", url);
+           _LOG.warning(e);
+          }
           finally
           {
             in.close();
@@ -739,7 +738,7 @@ public class SkinUtils
     
     return allSkinsNodes;
   } 
-
+  
   private static Skin _getDefaultBaseSkin(
     SkinFactory factory,
     String      renderKitId)
@@ -826,17 +825,17 @@ public class SkinUtils
         }
         else
         {
-          ValueBinding translationSourceVB = null;
+          ValueExpression translationSourceVE = null;
           if (translationSourceExpression != null)
           {
-            translationSourceVB = 
-              _createTranslationSourceValueBinding(translationSourceExpression);
+            translationSourceVE = 
+              _createTranslationSourceValueExpression(translationSourceExpression);
           }
           
-          if (translationSourceVB != null)
+          if (translationSourceVE != null)
           {
             // Create a SkinAddition with translationSourceVE 
-            addition = new SkinAddition(styleSheetName, translationSourceVB);
+            addition = new SkinAddition(styleSheetName, translationSourceVE);
 
           }
           else
@@ -891,5 +890,5 @@ public class SkinUtils
   static private final String _RENDER_KIT_ID_PDA = "org.apache.myfaces.trinidad.pda";
   static private final String _SIMPLE_PDA_SKIN_ID = "simple.pda";
   static private final String _SIMPLE_DESKTOP_SKIN_ID = "simple.desktop";
-
+   
 }

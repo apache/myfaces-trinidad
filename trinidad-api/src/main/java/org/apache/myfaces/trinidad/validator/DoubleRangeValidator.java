@@ -18,6 +18,8 @@
  */
 package org.apache.myfaces.trinidad.validator;
 
+import javax.el.ValueExpression;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -28,6 +30,7 @@ import javax.faces.validator.ValidatorException;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.util.ComponentUtils;
+import org.apache.myfaces.trinidad.util.IntegerUtils;
 import org.apache.myfaces.trinidad.util.MessageFactory;
 
 /**
@@ -73,15 +76,13 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
   public static final String NOT_IN_RANGE_MESSAGE_ID =
       "org.apache.myfaces.trinidad.validator.DoubleRangeValidator.NOT_IN_RANGE";
 
-  
   /**
    * <p>The message identifier of the FacesMessage to be created if
    * the value cannot be converted
    */
   public static final String CONVERT_MESSAGE_ID =
       "org.apache.myfaces.trinidad.convert.DoubleConverter.CONVERT";
-
-
+  
   /**
    * Construct a {@link Validator} with no preconfigured limits.
    */
@@ -137,7 +138,6 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
   @Override
   public void setMaximum(double maximum)
   {
-    super.setMaximum(maximum);
     _facesBean.setProperty(_MAXIMUM_KEY, Double.valueOf(maximum));
   }
 
@@ -165,7 +165,6 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
   @Override
   public void setMinimum(double minimum)
   {
-    super.setMinimum(minimum);
     _facesBean.setProperty(_MINIMUM_KEY, Double.valueOf(minimum));
   }
 
@@ -320,7 +319,7 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
     {
       return;
     }
-
+    
     try
     {
       double doubleValue = _convertValueToDouble(value); 
@@ -376,6 +375,43 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
   }
 
   /**
+   * <p>Set the {@link ValueExpression} used to calculate the value for the
+   * specified attribute if any.</p>
+   *
+   * @param name Name of the attribute for which to set a {@link ValueExpression}
+   * @param expression The {@link ValueExpression} to set, or <code>null</code>
+   *  to remove any currently set {@link ValueExpression}
+   *
+   * @exception NullPointerException if <code>name</code>
+   *  is <code>null</code>
+   * @exception IllegalArgumentException if <code>name</code> is not a valid
+   *            attribute of this converter
+   */
+  public void setValueExpression(String name, ValueExpression expression)
+  {
+    ValidatorUtils.setValueExpression(_facesBean, name, expression) ;
+  }
+
+
+  /**
+   * <p>Return the {@link ValueExpression} used to calculate the value for the
+   * specified attribute name, if any.</p>
+   *
+   * @param name Name of the attribute or property for which to retrieve a
+   *  {@link ValueExpression}
+   *
+   * @exception NullPointerException if <code>name</code>
+   *  is <code>null</code>
+   * @exception IllegalArgumentException if <code>name</code> is not a valid
+   * attribute of this converter
+   */
+  public ValueExpression getValueExpression(String name)
+  {
+    return ValidatorUtils.getValueExpression(_facesBean, name);
+  }
+
+
+  /**
    * <p>Set the {@link ValueBinding} used to calculate the value for the
    * specified attribute if any.</p>
    *
@@ -387,6 +423,7 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
    *  is <code>null</code>
    * @exception IllegalArgumentException if <code>name</code> is not a valid
    *            attribute of this validator
+   * @deprecated
    */
   public void setValueBinding(String name, ValueBinding binding)
   {
@@ -404,6 +441,7 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
    *  is <code>null</code>
    * @exception IllegalArgumentException if <code>name</code> is not a valid
    * attribute of this validator
+   * @deprecated
    */
   public ValueBinding getValueBinding(String name)
   {
@@ -414,6 +452,13 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
   public boolean isTransient()
   {
     return (_transientValue);
+  }
+
+
+  @Override
+  public void setTransient(boolean transientValue)
+  {
+    _transientValue = transientValue;
   }
 
   protected boolean isMaximumSet()
@@ -431,7 +476,7 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
   {
     return MessageFactory.getMessage(context, CONVERT_MESSAGE_ID);
   }
-  
+
   /**
    * Try to call doubleValue() from java.lang.Number. Since not all
    * "number" implement java.lang.Number, we try to call string
@@ -454,19 +499,13 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
     }
   }
 
-  @Override
-  public void setTransient(boolean transientValue)
-  {
-    _transientValue = transientValue;
-  }
-
   private FacesMessage _getNotInRangeMessage(
-      FacesContext context,
-      UIComponent component,
-      Object value,
-      Object min,
-      Object max)
-    {
+    FacesContext context,
+    UIComponent component,
+    Object value,
+    Object min,
+    Object max)
+  {
       Object msg   = _getRawNotInRangeMessageDetail();
       Object label = ValidatorUtils.getComponentLabel(component);
 
@@ -474,7 +513,7 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
 
       return MessageFactory.getMessage(context, NOT_IN_RANGE_MESSAGE_ID,
                                         msg, params, component);
-    }
+  }
 
 
     

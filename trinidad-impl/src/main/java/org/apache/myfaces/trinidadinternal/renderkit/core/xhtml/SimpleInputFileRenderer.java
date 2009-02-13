@@ -16,6 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
+
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import javax.faces.application.FacesMessage;
@@ -86,6 +87,7 @@ public class SimpleInputFileRenderer extends SimpleInputTextRenderer
     return CoreInputText.AUTO_COMPLETE_ON;
   }
 
+  
   @Override
   public Object getConvertedValue(
     FacesContext context,
@@ -99,7 +101,7 @@ public class SimpleInputFileRenderer extends SimpleInputTextRenderer
     UploadedFile file = (UploadedFile) submittedValue;
     if(file.getLength() == -1)
     {
-      FacesMessage fm = MessageFactory.getMessage(context, "org.apache.myfaces.trinidad.UPLOAD");
+      FacesMessage fm = MessageFactory.getMessage(context, "org.apache.myfaces.trinidad.UPLOAD"); 
       throw new ConverterException(fm);
     }
 

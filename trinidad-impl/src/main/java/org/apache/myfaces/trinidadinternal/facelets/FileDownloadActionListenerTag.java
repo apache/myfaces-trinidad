@@ -33,8 +33,6 @@ import org.apache.myfaces.trinidadinternal.taglib.listener.FileDownloadActionLis
 
 import com.sun.facelets.FaceletContext;
 import com.sun.facelets.FaceletException;
-import com.sun.facelets.el.LegacyMethodBinding;
-import com.sun.facelets.el.LegacyValueBinding;
 import com.sun.facelets.tag.TagAttribute;
 import com.sun.facelets.tag.TagConfig;
 import com.sun.facelets.tag.TagHandler;
@@ -54,7 +52,6 @@ public class FileDownloadActionListenerTag extends TagHandler
     _method = getRequiredAttribute("method");
   }
 
-  @SuppressWarnings("deprecation")
   public void apply(FaceletContext faceletContext,
           UIComponent parent) throws IOException, FacesException, FaceletException, ELException
   {
@@ -69,8 +66,8 @@ public class FileDownloadActionListenerTag extends TagHandler
         {
           ValueExpression valueExp = _filename.getValueExpression(faceletContext,
                                                                   Object.class);
-          listener.setValueBinding(FileDownloadActionListener.FILENAME_KEY,
-                                   new LegacyValueBinding(valueExp));
+          listener.setValueExpression(FileDownloadActionListener.FILENAME_KEY,
+                                     valueExp);
         }
       }
 
@@ -82,15 +79,15 @@ public class FileDownloadActionListenerTag extends TagHandler
         {
           ValueExpression valueExp = _contentType.getValueExpression(faceletContext,
                                                                   Object.class);
-          listener.setValueBinding(FileDownloadActionListener.CONTENT_TYPE_KEY,
-                                   new LegacyValueBinding(valueExp));
+          listener.setValueExpression(FileDownloadActionListener.CONTENT_TYPE_KEY,
+                                      valueExp);
         }
       }
       
       MethodExpression me = _method.getMethodExpression(faceletContext,
                                                         Object.class,
                                                         _METHOD_PARAMS);
-      listener.setMethod(new LegacyMethodBinding(me));
+      listener.setMethod(me);
 
       ActionSource actionSource = (ActionSource)parent;
       actionSource.addActionListener(listener);

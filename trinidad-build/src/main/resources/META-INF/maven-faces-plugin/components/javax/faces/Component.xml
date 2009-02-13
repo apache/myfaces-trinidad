@@ -59,7 +59,7 @@ must follow a subset of the syntax allowed in HTML:
 bean.  This can be used to give programmatic access to a component
 from a backing bean, or to move creation of the component to a backing bean.</description>
       <property-name>binding</property-name>
-      <property-class>javax.faces.el.ValueBinding</property-class>
+      <property-class>javax.faces.component.UIComponent</property-class>
     </property>
     <property>
       <property-name>transient</property-name>

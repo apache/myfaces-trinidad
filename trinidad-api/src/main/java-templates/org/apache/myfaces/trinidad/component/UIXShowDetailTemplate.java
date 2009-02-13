@@ -18,6 +18,7 @@
  */
 package org.apache.myfaces.trinidad.component;
 
+import javax.el.MethodExpression;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
 import javax.faces.event.AbortProcessingException;
@@ -38,8 +39,14 @@ abstract public class UIXShowDetailTemplate extends UIXComponentBase
 /**/  abstract public boolean isDisclosed();
 /**/  abstract public void setDisclosed(boolean setDisclosed);
 /**/  abstract public boolean isImmediate();
-/**/  abstract public MethodBinding getDisclosureListener();
+/**/  abstract public MethodExpression getDisclosureListener();
 /**/  abstract public boolean isDisclosedTransient();
+
+  @Deprecated
+  public void setDisclosureListener(MethodBinding binding)
+  {
+    setDisclosureListener(adaptMethodBinding(binding));
+  }
 
   @Override
   public void processDecodes(FacesContext context)
@@ -104,7 +111,7 @@ abstract public class UIXShowDetailTemplate extends UIXComponentBase
         getFacesContext().renderResponse();
 
       // Notify the specified disclosure listener method (if any)
-      broadcastToMethodBinding(event, getDisclosureListener());
+      broadcastToMethodExpression(event, getDisclosureListener());
     }
   }
 

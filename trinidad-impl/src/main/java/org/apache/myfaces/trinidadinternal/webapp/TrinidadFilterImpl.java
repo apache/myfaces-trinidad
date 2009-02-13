@@ -19,9 +19,14 @@
 package org.apache.myfaces.trinidadinternal.webapp;
 
 import java.io.IOException;
+import java.io.Serializable;
+
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.Filter;
@@ -36,12 +41,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
+import org.apache.myfaces.trinidad.util.ExternalContextUtils;
 import org.apache.myfaces.trinidadinternal.config.GlobalConfiguratorImpl;
 import org.apache.myfaces.trinidadinternal.config.dispatch.DispatchResponseConfiguratorImpl;
 import org.apache.myfaces.trinidadinternal.config.dispatch.DispatchServletResponse;
 import org.apache.myfaces.trinidadinternal.config.upload.FileUploadConfiguratorImpl;
 import org.apache.myfaces.trinidadinternal.config.upload.UploadRequestWrapper;
 import org.apache.myfaces.trinidadinternal.config.xmlHttp.XmlHttpConfigurator;
+import org.apache.myfaces.trinidadinternal.context.DialogServiceImpl;
 import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
 import org.apache.myfaces.trinidadinternal.context.external.ServletExternalContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
@@ -106,6 +113,7 @@ public class TrinidadFilterImpl implements Filter
     _filters = null;
   }
 
+
   @SuppressWarnings("unchecked")
   public void doFilter(
     ServletRequest  request,
@@ -119,8 +127,7 @@ public class TrinidadFilterImpl implements Filter
                XhtmlConstants.NON_JS_BROWSER_TRUE.equals(noJavaScript))
     {
       request = new BasicHTMLBrowserRequestWrapper((HttpServletRequest)request);
-    } 
-    
+    }    
     
     //Execute the filter services
     if (!_filters.isEmpty())
@@ -137,43 +144,29 @@ public class TrinidadFilterImpl implements Filter
     //To maintain backward compatibilty, wrap the request at the filter level
     Map<String, String[]> addedParams = FileUploadConfiguratorImpl.getAddedParameters(externalContext);
     
-    boolean isPartialRequest;
     if(addedParams != null)
     {
       FileUploadConfiguratorImpl.apply(externalContext);
       request = new UploadRequestWrapper((HttpServletRequest)request, addedParams);
-      isPartialRequest = CoreRenderKit.isPartialRequest(addedParams);
-    }
-    else
-    {
-      // Only test for AJAX request, since file uploads *should* be
-      // handled by the above test.  NOTE: this will not necessarily
-      // work if someone is using Trinidad PPR with non-Trinidad 
-      // file upload!  I've no idea currently how to cleanly handle
-      // that combination in JSF 1.1.  We don't want to ask if
-      // its a partial request here, as this requires getting a
-      // query parameter, but that could block setting
-      // the character set later in the request in some app servers!
-      isPartialRequest = CoreRenderKit.isAjaxRequest(externalContext);
-      if (isPartialRequest)
-      {
-        request = XmlHttpConfigurator.getAjaxServletRequest(request);
-      }
-    }
-
-    if (isPartialRequest)
-    {
-      XmlHttpConfigurator.beginRequest(externalContext);
-      response = XmlHttpConfigurator.getWrappedServletResponse(response);
     }
 
     try
     {
-      
       _doFilterImpl(request, response, chain);
     }
+    // For PPR errors, handle the request specially
     catch (Throwable t)
     {
+      boolean isPartialRequest;
+      if (addedParams != null)
+      {
+        isPartialRequest = CoreRenderKit.isPartialRequest(addedParams);
+      }
+      else
+      {
+        isPartialRequest = CoreRenderKit.isPartialRequest(externalContext);
+      }
+
       if (isPartialRequest)
       {
         XmlHttpConfigurator.handleError(externalContext, t);
@@ -213,60 +206,166 @@ public class TrinidadFilterImpl implements Filter
     // -= Scott O'Bryan =-
     // Added for backward compatibility
     ExternalContext ec = new ServletExternalContext(_servletContext, request, response);
-    HttpServletResponse dispatch = new DispatchServletResponse(ec);
-    DispatchResponseConfiguratorImpl.apply(ec);
-
-    _invokeDoFilter(request, dispatch, chain);
-
-    // If there are existing "launchParameters", then that means
-    // we've returned from a "launch", and we need to re-execute the
-    // faces lifecycle.  ViewHandlerImpl will be responsible for ensuring
-    // that we re-execute the lifecycle on the correct page.
-    // -= Simon Lessard =-
-    // FIXME: Using <String, String[]> for now to accomodate ReplaceParametersRequestWrapper.
-    //        However, the Servlet specification suggest <String, Object> so this 
-    //        could lead to some nasty problems one day. Especially if JEE spec includes 
-    //        generics for its Servlet API soon.
-    //
-    // -= Scott O'Bryan =- 
-    // TODO: The following should be made available to the Portal.  This is not trivial 
-    //       because this just re-invokes the filter chain with a new set of parameters.
-    //       In the portal environment, this must rerun the portlet without the use of 
-    //       filters until Portlet 2.0.
-    Map<String, String[]> launchParameters = (Map<String, String[]>)
-      request.getAttribute(RequestContextImpl.LAUNCH_PARAMETERS);
-    if (launchParameters != null)
+    boolean isHttpReq = ExternalContextUtils.isHttpServletRequest(ec);
+    
+    if(isHttpReq)
     {
-      request.removeAttribute(RequestContextImpl.LAUNCH_PARAMETERS);
-      request.setAttribute(_IS_RETURNING_KEY, Boolean.TRUE);
-      request = new ReplaceParametersRequestWrapper(
-               (HttpServletRequest) request, launchParameters);
-      _invokeDoFilter(request, dispatch, chain);
-      request.removeAttribute(_IS_RETURNING_KEY);
+      response = _getResponse(ec);
+      ec.setResponse(response);
     }
-  }
-
-  private void _invokeDoFilter(
-    ServletRequest  request,
-    ServletResponse response,
-    FilterChain     chain) throws IOException, ServletException
-  {
+     
     // Set up a PseudoFacesContext with the actual request and response
     // so that RequestContext can be more functional in the interval
     // between now and when the FacesServlet starts.
-    PseudoFacesContext pfc = new PseudoFacesContext(
-      new ServletExternalContext(_servletContext, request, response));
+    PseudoFacesContext pfc = new PseudoFacesContext(ec);
     _PSEUDO_FACES_CONTEXT.set(pfc);
     try
     {
+      if(isHttpReq)
+      {
+        // If there are existing "launchParameters", then that means
+        // we've returned from a "launch", and we need to re-execute the
+        // faces lifecycle.  ViewHandlerImpl will be responsible for ensuring
+        // that we re-execute the lifecycle on the correct page.
+        // -= Simon Lessard =-
+        // FIXME: Using <String, String[]> for now to accomodate ReplaceParametersRequestWrapper.
+        //        However, the Servlet specification suggest <String, Object> so this 
+        //        could lead to some nasty problems one day. Especially if JEE spec includes 
+        //        generics for its Servlet API soon.
+        //
+        // -= Scott O'Bryan =- 
+        // TODO: The following should be made available to the Portal.  This is not trivial 
+        //       because this just re-invokes the filter chain with a new set of parameters.
+        //       In the portal environment, this must rerun the portlet without the use of 
+        //       filters until Portlet 2.0.
+        request = _getRequest(ec);
+        ec.setRequest(request);
+      }
+      
       chain.doFilter(request, response);
+
+      if(isHttpReq)
+      {
+        _handleDialogReturn(ec);
+      }
     }
     finally
     {
       _PSEUDO_FACES_CONTEXT.remove();
     }
   }
+  
+  private String _getKey(String uid)
+  {
+    return _LAUNCH_KEY+"_"+uid;
+  }
+  
+  private ServletResponse _getResponse(ExternalContext ec)
+  {
+    HttpServletResponse dispatch = new DispatchServletResponse(ec);
+    DispatchResponseConfiguratorImpl.apply(ec);
+    return dispatch;
+  }
+  
+  private ServletRequest _getRequest(ExternalContext ec)
+  {
+    String uid = ec.getRequestParameterMap().get(_LAUNCH_KEY);
+    if(uid != null)
+    {
+      /**
+       * We use pageflow scope so that if something fails on the redirect, we
+       * have a chance of getting cleaned up early.  This will not always happen
+       * so the object may stick around for a while.
+       */
+      Map<String, Object> sessionMap = ec.getSessionMap();
+      
+      LaunchData data = (LaunchData)sessionMap.remove(_getKey(uid));
+      
+      if(data != null)
+      {
+        Map<String, Object> requestMap = ec.getRequestMap();
+        
+        UIViewRoot launchView = data.getLaunchView();
+        if(launchView != null)
+        { 
+          requestMap.put(RequestContextImpl.LAUNCH_VIEW, data.getLaunchView());
+        }
+        
+        return new ReplaceParametersRequestWrapper(
+             (HttpServletRequest) ec.getRequest(), 
+             data.getLaunchParam());
+      }
+    }
+    
+    return (ServletRequest)ec.getRequest();
+  }
+  
+  private void _handleDialogReturn(ExternalContext ec)
+    throws IOException
+  {
+    Map<String, Object> reqMap = ec.getRequestMap();
+    
+    if(Boolean.TRUE.equals(reqMap.get(DialogServiceImpl.DIALOG_RETURN)))
+    {
+      /**
+       * We use pageflow scope so that if something fails on the redirect, we
+       * have a chance of getting cleaned up early.  This will not always happen
+       * so the object may stick around for a while.
+       */
+      Map<String, Object> sessionMap = ec.getSessionMap();
+      String uid = UUID.randomUUID().toString();
+      LaunchData data = new LaunchData((UIViewRoot)reqMap.get(RequestContextImpl.LAUNCH_VIEW), (Map<String, String[]>) reqMap.get(RequestContextImpl.LAUNCH_PARAMETERS));
+      sessionMap.put(_getKey(uid), data);
+      
+      //Construct URL
+      //TODO: sobryan I believe some of this can be added to the RequestContextUtils to allow
+      //      this url to be constructed for both portlet and servlet environments.  We'll want to research.
+      HttpServletRequest req = (HttpServletRequest) ec.getRequest();
+      StringBuffer url = req.getRequestURL().append("?");
+      String queryStr = req.getQueryString();
+      if((queryStr != null) && (queryStr.trim().length() >0))
+      {
+        url.append(queryStr)
+           .append("&");
+      }
+      
+      url.append(_LAUNCH_KEY)
+         .append("=")
+         .append(uid);
+      
+      ec.redirect(url.toString());
+    }
+  }
+  
+  private static final class LaunchData implements Serializable
+  {
+    private UIViewRoot _launchView;
+    private Map<String, String[]> _launchParam;
+    
+    
+    public LaunchData(UIViewRoot launchView, Map<String, String[]> launchParam)
+    {
+      _launchView = launchView;
+      if(launchParam != null)
+      {
+        _launchParam = launchParam;
+      }
+      else
+      {
+        _launchParam = Collections.emptyMap();
+      }
+    }
 
+    private UIViewRoot getLaunchView()
+    {
+      return _launchView;
+    }
+
+    private Map<String, String[]> getLaunchParam()
+    {
+      return _launchParam;
+    }
+  }
 
   private static final class FilterListChain implements FilterChain
   {
@@ -306,17 +405,14 @@ public class TrinidadFilterImpl implements Filter
   private ServletContext _servletContext;
   private List<Filter> _filters = null;
 
+  private static final String _LAUNCH_KEY = "_dlgDta";
   private static final String _IS_RETURNING_KEY =
     "org.apache.myfaces.trinidadinternal.webapp.AdfacesFilterImpl.IS_RETURNING";
   private static final String _FILTER_EXECUTED_KEY =
     "org.apache.myfaces.trinidadinternal.webapp.AdfacesFilterImpl.EXECUTED";
 
   private static ThreadLocal<PseudoFacesContext> _PSEUDO_FACES_CONTEXT = 
-    new ThreadLocal<PseudoFacesContext>()
-  {
-    @Override
-    protected PseudoFacesContext initialValue() { return null; }
-  };
+    new ThreadLocal<PseudoFacesContext>();
 
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(TrinidadFilterImpl.class);

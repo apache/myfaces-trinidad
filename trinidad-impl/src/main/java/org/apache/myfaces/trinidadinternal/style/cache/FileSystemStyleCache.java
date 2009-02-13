@@ -27,6 +27,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -42,8 +43,6 @@ import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import javax.faces.context.FacesContext;
-
 import org.apache.myfaces.trinidad.context.AccessibilityProfile;
 import org.apache.myfaces.trinidad.context.LocaleContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
@@ -51,10 +50,8 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
-import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.StyleSheetRenderer;
 import org.apache.myfaces.trinidadinternal.share.io.CachingNameResolver;
 import org.apache.myfaces.trinidadinternal.share.io.DefaultNameResolver;
 import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
@@ -84,7 +81,7 @@ import org.xml.sax.SAXException;
 /**
  * The FileSystemStyleCache is a StyleProvider implementation which
  * caches generated CSS style sheets on the file system.
- * 
+ *
  * Note that StyleProviders are responsible for providing access
  * both to style information (eg. getStyleSheetURI(), getStyleMap()) as
  * well as to icons registered via style sheets (see getIcons()).
@@ -183,7 +180,7 @@ public class FileSystemStyleCache implements StyleProvider
 
     return entry.map;
   }
-  
+
   /**
    * Implementation of StyleProvider.getSkinProperties()
    */
@@ -197,7 +194,7 @@ public class FileSystemStyleCache implements StyleProvider
 
     return entry.skinProperties;
   }
-  
+
   /**
    * Implementation of StyleProvider.getIcons()
    */
@@ -314,7 +311,7 @@ public class FileSystemStyleCache implements StyleProvider
     StyleSheetDocument document
     )
   {
-    StringBuffer buffer = new StringBuffer();
+    StringBuilder buffer = new StringBuilder();
 
     String baseName = _baseName;
     if (baseName != null)
@@ -328,19 +325,29 @@ public class FileSystemStyleCache implements StyleProvider
 
       buffer.append(contextName);
     }
-    
-    if (_isCompressStyles(null))
+
+
+    boolean compressedStyles = _isCompressStyles(context);
+    if (compressedStyles)
     {
       if (baseName != null || contextName != null)
         buffer.append(_NAME_SEPARATOR);
       buffer.append(_COMPRESSED);
     }
-    
+
+    if (context.isPortletMode())
+    {
+      if (baseName != null || contextName != null || compressedStyles)
+        buffer.append(_NAME_SEPARATOR);
+
+      buffer.append(_PORTLET);
+    }
+
     buffer.append(_CSS_EXTENSION);
 
     return buffer.toString();
   }
-  
+
   // Returns the current StyleSheetDocument - used by StyleMapImpl only
   StyleSheetDocument __getStyleSheetDocument()
   {
@@ -451,7 +458,7 @@ public class FileSystemStyleCache implements StyleProvider
     {
       return null;
     }
-    
+
     if (checkModified)
     {
       List<String> uris = entry.uris;
@@ -473,11 +480,11 @@ public class FileSystemStyleCache implements StyleProvider
           valid = false;
         }
       }
-      
+
       if (!valid)
       {
         _deleteAll(existing);
-        
+
         synchronized (cache)
         {
           if (cache.get(key) == entry)
@@ -489,7 +496,7 @@ public class FileSystemStyleCache implements StyleProvider
         return null;
       }
     }
-    
+
     return entry;
   }
 
@@ -512,8 +519,8 @@ public class FileSystemStyleCache implements StyleProvider
     )
   {
     // Next, get the fully resolved styles for this context. This will be
-    // those StyleNodes that match the locale, direction, browser, etc -- the
-    // info that is in the StyleContext.
+    // those StyleNodes that match the locale, direction, browser, portlet mode
+    // etc -- the info that is in the StyleContext.
     StyleNode[] styles = _getStyleContextResolvedStyles(context, document);
     if (styles == null)
       return null;
@@ -525,11 +532,11 @@ public class FileSystemStyleCache implements StyleProvider
                                        styles,
                                        shortStyleClassMap,
                                        namespacePrefixes,
-                                                   checkModified);
+                                       checkModified);
 
     _LOG.fine("Finished processing stylesheet {0}", uris);
-    
-    
+
+
     // Next, get the fully resolved icons and skin properties for this context.
     // This will be those Icons and Skin Properties that match the locale, direction,
     // browser, etc -- the info that is in the StyleContext
@@ -557,12 +564,12 @@ public class FileSystemStyleCache implements StyleProvider
    * same StyleSheetNodes.
    */
   private Entry _getCompatibleEntry(
-    StyleContext             context,
-    StyleSheetDocument       document,
+    StyleContext       context,
+    StyleSheetDocument document,
     Map<Key, Entry>    cache,
-    Key                      key,
+    Key                key,
     Map<Object, Entry> entryCache,
-    boolean                  checkModified
+    boolean            checkModified
     )
   {
     DerivationKey derivationKey = _getDerivationKey(context, document);
@@ -678,7 +685,7 @@ public class FileSystemStyleCache implements StyleProvider
     {
       StyleSheetNode styleSheetNode = styleSheetNodes.next();
       Collection<SkinPropertyNode> skinPropertyNodes = styleSheetNode.getSkinProperties();
-      
+
       if (skinPropertyNodes != null)
       {
         for (SkinPropertyNode skinPropertyNode : skinPropertyNodes)
@@ -707,7 +714,7 @@ public class FileSystemStyleCache implements StyleProvider
     {
       StyleSheetNode styleSheetNode = styleSheetNodes.next();
       Collection<IconNode> iconNodes = styleSheetNode.getIcons();
-      
+
       if (iconNodes != null)
       {
         for (IconNode iconNode : iconNodes)
@@ -737,13 +744,13 @@ public class FileSystemStyleCache implements StyleProvider
 
     // If at least one output file exists, check the last modified time.
     if (!outputFiles.isEmpty())
-	  {
+    {
       if (checkModified)
-	  {
+      {
         if (!_checkSourceModified(document, outputFiles.get(0)))
         {
           return _getFileNames(outputFiles);
-	  }
+        }
         // If the output file is older than the source file, we
         // need to regenerate the output file.  But first we
         // need to delete the old output file before we attempt to
@@ -755,19 +762,20 @@ public class FileSystemStyleCache implements StyleProvider
         return _getFileNames(outputFiles);
       }
     }
-    
+
     // Make sure the output directory exists in case it's been
     // blown away since the creation of the cache
     File outputDir = new File(_targetPath);
     if (!outputDir.exists())
       outputDir.mkdirs();
-    
+
     // Write out the style sheet
     // First figure out whether or not we need to compress the style classes.
     // We don't compress the style classes if the content compression flag is disabled or
     // if the skin is a portlet skin.
-    Skin skin = RenderingContext.getCurrentInstance().getSkin();
-    boolean compressStyles = _isCompressStyles(skin);
+    RenderingContext arc = RenderingContext.getCurrentInstance();
+    Skin skin = arc.getSkin();
+    boolean compressStyles = _isCompressStyles(context);
 
     StyleWriterFactoryImpl writerFactory = new StyleWriterFactoryImpl(_targetPath,
       getTargetStyleSheetName(context, document));
@@ -780,34 +788,34 @@ public class FileSystemStyleCache implements StyleProvider
                                 namespacePrefixes,
                                 _STYLE_KEY_MAP
                                 );
-      
+
     writerFactory.close();
 
     // Return the name of the new style sheet
     return _getFileNames(writerFactory.getFiles());
-      }
-      
+  }
+
   private File _getOutputFile(String name, int number)
-      {
+  {
     assert number >= 1;
     if (number == 1)
-      {
+    {
       return new File(_targetPath, name);
-      }
+    }
     int index = name.lastIndexOf(".");
     if (index < 0)
-  {
+    {
       return new File(_targetPath, name + number);
-  }
+    }
     else
-  {
+    {
       // file name + number + file extension
       return new File(_targetPath,
         new StringBuilder(name.length() + 2).append(name.substring(0, index)).append(number)
           .append(name.substring(index)).toString());
-      }
     }
-  
+  }
+
   private void _deleteAll(Iterable<File> files)
   {
     for (File file : files)
@@ -818,27 +826,17 @@ public class FileSystemStyleCache implements StyleProvider
       }
     }
   }
-  
+
   /**
    * First figure out whether or not we need to compress the style classes.
    * We don't compress the style classes if the content compression flag is disabled or
    * if the skin is a portlet skin.
    */
-  private boolean _isCompressStyles(Skin skin)
+  private boolean _isCompressStyles(StyleContext sContext)
   {
-    if (skin == null)
-      skin = RenderingContext.getCurrentInstance().getSkin();
-      
+    // if we are not disabling style compression, then we are compressing the styles
+    return !(sContext.isDisableStyleCompression());
 
-    String disableContentCompression =
-      FacesContext.getCurrentInstance().getExternalContext().
-      getInitParameter(StyleSheetRenderer.DISABLE_CONTENT_COMPRESSION);
-    // we do not compress if it is a portlet skin
-    boolean isPortletSkin =
-    CoreRenderKit.OUTPUT_MODE_PORTLET.equals(skin.getRenderKitId());
-
-    return (!"true".equals(disableContentCompression)) &&
-                                             !isPortletSkin;
   }
 
   private List<String> _getFileNames(List<File> files)
@@ -874,11 +872,11 @@ public class FileSystemStyleCache implements StyleProvider
       if (f.exists())
       {
         files.add(f);
-    }
+      }
       else
-	  {
+      {
         break;
-	  }
+      }
     }
 
     return files;
@@ -899,7 +897,7 @@ public class FileSystemStyleCache implements StyleProvider
 
       FileOutputStream fos = new FileOutputStream(file);
       OutputStreamWriter writer = null;
-        
+
       // Use UTF8 encoding for output, in case font names have non-ascii
       // characters.
       try
@@ -922,8 +920,8 @@ public class FileSystemStyleCache implements StyleProvider
       if (_LOG.isWarning())
         _LOG.warning("IOEXCEPTION_OPENNING_FILE", file);
         _LOG.warning(e);
-      }
-    
+    }
+
     return out;
   }
 
@@ -990,7 +988,7 @@ public class FileSystemStyleCache implements StyleProvider
         resolver = new CachingNameResolver(resolver,
                                            new Hashtable<Object, InputStreamProvider>(17),
                                            true);
-      
+
         _resolver = resolver;
       }
     }
@@ -1010,7 +1008,7 @@ public class FileSystemStyleCache implements StyleProvider
 
     return v;
   }
-  
+
   /**
    * Create an array of all the namespace prefixes in the xss/css file. E.g., "af|" or "tr|"
    */
@@ -1153,7 +1151,7 @@ public class FileSystemStyleCache implements StyleProvider
     // each time it is requested.
     return Collections.unmodifiableMap(map);
   }
-  
+
   /**
    * Method to put styleclasses in the shortened map.
    * We don't put 'state' styleclasses in the shortened map. Those are styleclasses
@@ -1182,7 +1180,7 @@ public class FileSystemStyleCache implements StyleProvider
     // of style classes and not the style class itself.
     return _SHORT_CLASS_PREFIX + Integer.toString(count, Character.MAX_RADIX);
   }
-  
+
 
   /**
    * Key class used for hashing style sheet URIs
@@ -1202,21 +1200,28 @@ public class FileSystemStyleCache implements StyleProvider
        agent.getAgentVersion(),
        agent.getAgentOS(),
        true,
-       accProfile);
+       accProfile,
+       context.isPortletMode());
     }
 
     @Override
     public int hashCode()
     {
-      int shortHash = (_short ? 1 : 0);
+      if(_noHash)
+      {
+        //don't worry about synchronizing this
+        _hashCode =    (_locale.hashCode()         ^
+                       (_direction)                ^
+                       (_browser  << 2)            ^
+                       (_version.hashCode())       ^
+                       (_platform << 8)            ^
+                       (_short ? 1 : 0)            ^
+                       (_accProfile.hashCode())    ^
+                       (_portlet ? 1:0));
 
-      return (_locale.hashCode()           ^
-               (_direction)                ^
-               (_browser  << 2)            ^
-               (_version.hashCode())       ^
-               (_platform << 8)            ^
-               shortHash                   ^
-               _accProfile.hashCode());
+        _noHash = false;
+      }
+      return _hashCode;
     }
 
     @Override
@@ -1225,24 +1230,22 @@ public class FileSystemStyleCache implements StyleProvider
       if (this == o)
         return true;
 
-      if (o instanceof Key)
+      //Improved performance of this check
+      if ((o.hashCode() == hashCode()) &&  (o instanceof Key))
       {
         Key key = (Key)o;
-
         // Check the easy stuff first
-        if ((key._short != _short)           ||
-            (_direction != key._direction)   ||
-            (_browser != key._browser)       ||
-            (!_version.equals(key._version)) ||
-            (_platform != key._platform)     ||
-            !_locale.equals(key._locale)     ||
-            !_accProfile.equals(key._accProfile))
-        {
-          return false;
-        }
+        return ((_short == key._short)           &&
+                (_portlet == key._portlet)       &&
+                (_direction == key._direction)   &&
+                (_browser == key._browser)       &&
+                (_platform == key._platform)     &&
+                _version.equals(key._version)    &&
+                _locale.equals(key._locale)      &&
+                _accProfile.equals(key._accProfile));
       }
 
-      return true;
+      return false;
     }
 
     private void _init(
@@ -1252,7 +1255,8 @@ public class FileSystemStyleCache implements StyleProvider
       String version,
       int platform,
       boolean useShort,
-      AccessibilityProfile accessibilityProfile
+      AccessibilityProfile accessibilityProfile,
+      boolean portlet
       )
     {
       // Make sure direction is non-null
@@ -1269,7 +1273,12 @@ public class FileSystemStyleCache implements StyleProvider
       _platform = platform;
       _short = useShort;
       _accProfile = accessibilityProfile;
+      _portlet     = portlet;
     }
+
+    //is immutable, we should cache this, will make things faster in the long run
+    private boolean        _noHash = true;
+    private int            _hashCode;
 
     private Locale         _locale;
     private int            _direction;
@@ -1278,6 +1287,7 @@ public class FileSystemStyleCache implements StyleProvider
     private int            _platform;
     private boolean        _short;  // Do we use short style classes?
     private AccessibilityProfile _accProfile;
+    private boolean        _portlet; //kind of a hack but tells whether this was created in portal mode
   }
 
   /**
@@ -1315,6 +1325,7 @@ public class FileSystemStyleCache implements StyleProvider
       _styleSheets = new StyleSheetNode[styleSheets.length];
       System.arraycopy(styleSheets, 0, _styleSheets, 0, styleSheets.length);
       _short = true;
+      _portlet = context.isPortletMode();
     }
 
     @Override
@@ -1323,43 +1334,52 @@ public class FileSystemStyleCache implements StyleProvider
       if (o == this)
         return true;
 
-      if (!(o instanceof DerivationKey))
-        return false;
-
-      DerivationKey key = (DerivationKey)o;
-
-      if ((_short != key._short) ||
-          (_styleSheets.length != key._styleSheets.length))
-        return false;
-
-      // Test each StyleSheetNode for equality.  We start
-      // at the end of the list, as the last style sheet
-      // is more likely to be different.  (The first entry
-      // is probably the common base style sheet.)
-      for (int i = _styleSheets.length - 1; i >= 0; i--)
+      if ((o.hashCode() == hashCode()) && (o instanceof DerivationKey))
       {
-        if (!_styleSheets[i].equals(key._styleSheets[i]))
+        DerivationKey key = (DerivationKey)o;
+
+        if ((_short != key._short) ||
+            (_portlet != key._portlet) ||
+            (_styleSheets.length != key._styleSheets.length))
           return false;
+
+        // Test each StyleSheetNode for equality.  We start
+        // at the end of the list, as the last style sheet
+        // is more likely to be different.  (The first entry
+        // is probably the common base style sheet.)
+        for (int i = _styleSheets.length - 1; i >= 0; i--)
+        {
+          if (!_styleSheets[i].equals(key._styleSheets[i]))
+            return false;
+        }
+
+        return true;
       }
 
-      return true;
+      return false;
     }
 
     @Override
     public int hashCode()
     {
-      int hashCode = 0;
+      if(_noHash)
+      {
+        _hashCode = Arrays.hashCode(_styleSheets) ^
+                    (_short ? 1 : 0)              ^
+                    (_portlet ? 1 : 0);
+        _noHash = false;
+      }
 
-      for (int i = 0; i < _styleSheets.length; i++)
-        hashCode ^= _styleSheets[i].hashCode();
-
-      int shortHash = (_short ? 1 : 0);
-
-      return hashCode ^ shortHash;
+      return _hashCode;
     }
 
+    //This object is immutable. So we can cache the hashcode to make it faster
+    private boolean _noHash = false;
+    private int     _hashCode;
+
     private StyleSheetNode[] _styleSheets;
-    private boolean          _short;   // Do we use short style classes?
+    private boolean _portlet;
+    private boolean _short;   // Do we use short style classes?
   }
 
   /**
@@ -1551,6 +1571,7 @@ public class FileSystemStyleCache implements StyleProvider
   // Separator for variants in file names
   private static final char _NAME_SEPARATOR = '-';
   private static final String _COMPRESSED = "cmp";
+  private static final String _PORTLET = "prtl";
 
   /** Extension for CSS files */
   private static final String _CSS_EXTENSION = ".css";
@@ -1566,7 +1587,7 @@ public class FileSystemStyleCache implements StyleProvider
    * Style used to represent misses in the StyleMap.
    * Package private to allow access from nested StyleMapImpl class
    */
-          static final Style _MISS = new CSSStyle();
+  static final Style _MISS = new CSSStyle();
 
   /** Prefix to use for short style classes */
   private static final String _SHORT_CLASS_PREFIX = "x";

@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -18,32 +18,32 @@
  */
 package org.apache.myfaces.trinidadinternal.uinode;
 
+import java.io.IOException;
 import java.io.InputStream;
+
 import java.net.URL;
+
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-import javax.faces.context.FacesContext;
-import javax.faces.component.UIComponent;
-
-import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-import org.apache.myfaces.trinidad.util.ArrayMap;
-
-import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
-import org.apache.myfaces.trinidadinternal.ui.NodeRole;
-import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
-import org.apache.myfaces.trinidadinternal.ui.UIConstants;
-import org.apache.myfaces.trinidadinternal.ui.UINode;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
-
+import org.apache.myfaces.trinidad.component.FacesBeanWrapper;
 import org.apache.myfaces.trinidad.component.UIXComponent;
 import org.apache.myfaces.trinidad.component.UIXComponentBase;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.util.ArrayMap;
+import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
+import org.apache.myfaces.trinidadinternal.ui.NodeRole;
+import org.apache.myfaces.trinidadinternal.ui.UIConstants;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 
 /**
@@ -343,6 +343,11 @@ private void _setTranslationKeyTest(
     if (component instanceof UIXComponent)
     {
       FacesBean bean = ((UIXComponent) component).getFacesBean();
+
+      // Since we are using instanceof, unwrap the bean if using the public bean wrapper from
+      // the API project
+      for (; bean instanceof FacesBeanWrapper; bean = ((FacesBeanWrapper)bean).getWrappedBean());
+
       if (bean instanceof UINodeFacesBean)
         return ((UINodeFacesBean) bean).getUINode();
     }
@@ -393,8 +398,8 @@ private void _setTranslationKeyTest(
         Properties properties = new Properties();
         properties.load(propertyStream);
         propertyStream.close();
-        
-        Iterator<Map.Entry<Object, Object>> keys = 
+
+        Iterator<Map.Entry<Object, Object>> keys =
           properties.entrySet().iterator();
         while (keys.hasNext())
         {

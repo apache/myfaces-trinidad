@@ -65,12 +65,12 @@ public class TrinidadDateTimeConverterTest extends DateTimeConverterTestCase
   {
     return new TestSuite(TrinidadDateTimeConverterTest.class);
   }
-  
+
   public void testConveniencePatterns()
   {
     DateTimeConverter dtConv   = new DateTimeConverter();
     dtConv.setLocale(Locale.US);
-    
+
     //this is what SimpleInputDateRenderer does
     if(dtConv.getTimeZone() == null)
     {
@@ -80,7 +80,7 @@ public class TrinidadDateTimeConverterTest extends DateTimeConverterTestCase
         tz = TimeZone.getDefault();
       dtConv.setTimeZone(tz);
     }
-    
+
     Mock mock = buildMockUIComponent();
     UIComponent component = (UIComponent) mock.proxy();
     String[] inputValue = {"15/2/2002", "January 4, 2004", "4-JAnuARY-2004", "JANUARY/4/2007", "Jan 4, 2004",
@@ -98,7 +98,7 @@ public class TrinidadDateTimeConverterTest extends DateTimeConverterTestCase
   {
     DateTimeConverter dtConv   = new DateTimeConverter();
     dtConv.setLocale(Locale.US);
-    
+
     //this is what SimpleInputDateRenderer does
     if(dtConv.getTimeZone() == null)
     {
@@ -108,7 +108,7 @@ public class TrinidadDateTimeConverterTest extends DateTimeConverterTestCase
         tz = TimeZone.getDefault();
       dtConv.setTimeZone(tz);
     }
-    
+
     Mock mock = buildMockUIComponent();
     UIComponent component = (UIComponent) mock.proxy();
     String[] inputValue = {"15/2/2002", "January 4, 2004", "4-JAnuARY-2004", "JANUARY/4/2007"};
@@ -183,7 +183,6 @@ public class TrinidadDateTimeConverterTest extends DateTimeConverterTestCase
     dtConv.setDateStyle("Let us unset it ");
     dtConv.setType("Let us un set it");
     dtConv.setSecondaryPattern(secondaryPattern);
-
     // This should work fine
     Date dt = (Date) dtConv.getAsObject(facesContext, component, inputValue);
     assertEquals(true, isEqual(date, dt));

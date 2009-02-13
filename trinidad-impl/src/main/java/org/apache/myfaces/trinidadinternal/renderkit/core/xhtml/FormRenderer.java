@@ -37,6 +37,7 @@ import javax.faces.validator.Validator;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.component.UIXComponent;
 import org.apache.myfaces.trinidad.component.UIXForm;
 import org.apache.myfaces.trinidad.component.core.CoreForm;
 import org.apache.myfaces.trinidad.context.RequestContext;
@@ -47,7 +48,6 @@ import org.apache.myfaces.trinidad.context.FormData;
 import org.apache.myfaces.trinidad.context.PartialPageContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreResponseStateManager;
-import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContextImpl;
 import org.apache.myfaces.trinidadinternal.renderkit.uix.SubformRenderer;
 
 // TODO: Remove this class
@@ -103,6 +103,64 @@ public class FormRenderer extends XhtmlRenderer
   }
 
   @Override
+  public void setupEncodingContext(
+    FacesContext context,
+    RenderingContext rc,
+    UIXComponent component)
+  {
+    // temp hack
+    setupEncodingContext(context, rc, (UIComponent)component);
+  }
+  
+  @Override
+  public void setupEncodingContext(
+    FacesContext context,
+    RenderingContext rc,
+    UIComponent component)
+  {
+    String formName = getClientId(context, component);
+
+    CoreFormData fData = new CoreFormData(formName);
+    rc.setFormData(fData);
+
+    if (formName != null)
+    {
+      // =-=AEW This should get removed in favor of solely using FormData;
+      // but keep it around for now
+      rc.getProperties().put(XhtmlConstants.FORM_NAME_PROPERTY, formName);
+    }
+
+    // Check to see if this is a partial page render.  If so, we need
+    // to push the ID of the postscript onto the partial target stack
+    final String postscriptId = _getPostscriptId(rc, formName);
+    
+    PartialPageContext pprContext = rc.getPartialPageContext();
+
+    if (pprContext != null)
+    {
+      if (!pprContext.isInsidePartialTarget())
+      {
+        pprContext.addPartialTarget(postscriptId);
+
+        // if optimized PPR is enabled, we will never call encodeall at this point, so we need
+        // no force the postscript element to render now
+        if (PartialPageUtils.isOptimizedPPREnabled(context, false))
+        {
+          try
+          {
+            _renderPostscriptElement(context, rc, context.getResponseWriter(), postscriptId);
+          }
+          catch (IOException e)
+          {
+            // wrap IOException because we aren't allowed to throw IOExceptions
+            throw new RuntimeException(e);
+          }
+        }
+      }
+    }
+  }
+
+  @Override
   protected void encodeBegin(
     FacesContext        context,
     RenderingContext arc,
@@ -111,25 +169,15 @@ public class FormRenderer extends XhtmlRenderer
   {
     ResponseWriter rw = context.getResponseWriter();
 
-    String formName = getClientId(context, comp);
-
-    CoreFormData fData = new CoreFormData(formName);
-    arc.setFormData(fData);
-
-    if (formName != null)
-    {
-      // =-=AEW This should get removed in favor of solely using FormData;
-      // but keep it around for now
-      arc.getProperties().put(XhtmlConstants.FORM_NAME_PROPERTY, formName);
-    }
-
+    String formName = arc.getFormData().getName();
+    
     if (supportsScripting(arc))
     {
       // we depend on the form submission library
       XhtmlUtils.addLib(context, arc, "submitForm()");
       XhtmlUtils.addLib(context, arc, "_submitOnEnter()");
 
-      // if the onSubmit attribute is set, generate the JavaSCript variable
+      // if the onSubmit attribute is set, generate the JavaScript variable
       // with the source code to execute when submitting.  We do this,
       // because the normal onSubmit handler on forms is NOT called if
       // the form is submitted programatically
@@ -219,9 +267,10 @@ public class FormRenderer extends XhtmlRenderer
     writer.writeAttribute("name", CoreResponseStateManager.FORM_FIELD_NAME, null);
     writer.writeAttribute("value", formName, null);
     writer.endElement("input");
-    
-    // set the hidden parameter noJavaScriptSupport as true for Non-JavaScript
-    // browsers
+    /*
+     * set the hidden parameter noJavaScriptSupport as true for Non-JavaScript
+     * browsers
+     */
     if( !supportsScripting(arc))
     {
       noJavaScriptSupport = XhtmlConstants.NON_JS_BROWSER_TRUE;
@@ -232,57 +281,10 @@ public class FormRenderer extends XhtmlRenderer
     writer.writeAttribute("value", noJavaScriptSupport, null);
     writer.endElement("input");
 
-    // Check to see if this is a partial page render.  If so, we need
-    // to push the ID of the postscript onto the partial target stack
     final String postscriptId = _getPostscriptId(arc, formName);
-    if (pprContext != null)
-    {
-      if (!pprContext.isInsidePartialTarget())
-      {
-        pprContext.addPartialTarget(postscriptId);
-      }
-    }
 
-    if (postscriptId != null)
-    {
-      // We wrap all of our values/scripts inside of a span so that
-      // they can be easily updated during a partial page render.
-      // Note: it is essential that we call context.getResponseWriter()
-      // *after* calling _startPartialPostscriptRender().  Otherwise,
-      // we'll end up writing to the null output method.
-      writer.startElement("span", new CoreForm()
-      {
-        public String getClientId(FacesContext context)
-        {
-          return postscriptId;
-        }
-      });
-      writer.writeAttribute("id", postscriptId, null);
-    }
-
-    // Include JSF state.
-    context.getApplication().getViewHandler().writeState(context);
-
-    // Render any needed values
-    //VAC this condition is needed for bug 4526850- It ensures that only
-    //state token and form name parameters are overwritten when there is
-    //a partial page submission.
-    //PH:include condition that browser is not blackberry
-    if (!isPDA(arc))
-    {
-      _renderNeededValues(context, arc);
-    }
-
-
-    // Render any validation scripts
-    _renderValidationScripts(context, arc);
-
-    // Render reset calls
-    _renderResetCalls(context, arc);
-
-    // Close up our postscript span if we have one
-    if (postscriptId != null)
-      writer.endElement("span");
+    // render postscript element containing the state and the
+    _renderPostscriptElement(context, arc, writer, postscriptId);
 
     //this condition is needed for bug 4526850- It ensures that only
     //state token and form name parameters are overwritten when there is
@@ -336,12 +338,84 @@ public class FormRenderer extends XhtmlRenderer
 
     // Close up the form
     writer.endElement("form");
+  }
 
+  /**
+   * Renders the postscript element containing the state and javascript
+   * @param context
+   * @param rw
+   * @param postscriptId
+   * @throws IOException
+   */
+  private void _renderPostscriptElement(
+    FacesContext context,
+    RenderingContext rc,
+    ResponseWriter rw,
+    final String postscriptId) throws IOException
+  {
+    if (postscriptId != null)
+    {
+      // We wrap all of our values/scripts inside of a span so that
+      // they can be easily updated during a partial page render.
+      // Note: it is essential that we call context.getResponseWriter()
+      // *after* calling _startPartialPostscriptRender().  Otherwise,
+      // we'll end up writing to the null output method.
+      rw.startElement("span", new CoreForm()
+      {
+        public String getClientId(FacesContext context)
+        {
+          return postscriptId;
+        }
+      });
+      rw.writeAttribute("id", postscriptId, null);
+    }
+
+    // Include JSF state.
+    context.getApplication().getViewHandler().writeState(context);
+
+    // Render any needed values
+    //VAC this condition is needed for bug 4526850- It ensures that only
+    //state token and form name parameters are overwritten when there is
+    //a partial page submission.
+    //PH:include condition that browser is not blackberry
+    if (!isPDA(rc))
+    {
+      _renderNeededValues(context, rc);
+    }
+
+
+    // Render any validation scripts
+    _renderValidationScripts(context, rc);
+
+    // Render reset calls
+    _renderResetCalls(context, rc);
+
+    // Close up our postscript span if we have one
+    if (postscriptId != null)
+      rw.endElement("span");
+  }
+
+  @Override
+  public void tearDownEncodingContext(
+    FacesContext context,
+    RenderingContext rc,
+    UIXComponent     component)
+  {
+    // temp hack
+    tearDownEncodingContext(context, rc, (UIComponent)component);
+  }
+  
+  @Override
+  public void tearDownEncodingContext(
+    FacesContext context,
+    RenderingContext rc,
+    UIComponent     component)
+  {
     // Clear out the form name property
-    arc.getProperties().remove(XhtmlConstants.FORM_NAME_PROPERTY);
+    rc.getProperties().remove(XhtmlConstants.FORM_NAME_PROPERTY);
 
     // clear out form data:;
-    arc.clearFormData();
+    rc.clearFormData();
   }
 
 
@@ -407,8 +481,6 @@ public class FormRenderer extends XhtmlRenderer
 
     if (resetCallCount != 0)
     {
-      String jsID = XhtmlUtils.getJSIdentifier(fData.getName());
-
       ResponseWriter writer = context.getResponseWriter();
       writer.startElement("script", null);
       renderScriptDeferAttribute(context, arc);
@@ -990,14 +1062,15 @@ public class FormRenderer extends XhtmlRenderer
       {
         immediate = 0;
       }
+      
       //PPR
-      Boolean ppr = (Boolean) defaultCommandComponent.getAttributes().get("partialSubmit");
+      Boolean ppr = (Boolean) defaultCommandComponent.getAttributes().get("partialSubmit"); 
       if(ppr != null && ppr)
       {
         submitFunc = "return _submitOnEnter"
             + "(event,'"  + clientId
             + "'," + "'" + defaultCommandId
-            + "'," + immediate
+            + "'," + immediate 
             + "," + true +");";
       }
       //no PPR
@@ -1006,7 +1079,7 @@ public class FormRenderer extends XhtmlRenderer
         submitFunc = "return _submitOnEnter"
             + "(event,'"  + clientId
             + "'," + "'" + defaultCommandId
-            + "'," + immediate
+            + "'," + immediate 
             + "," + false +");";
       }
     }

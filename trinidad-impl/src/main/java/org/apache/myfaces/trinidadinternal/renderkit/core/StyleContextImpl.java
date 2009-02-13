@@ -32,6 +32,7 @@ import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.HtmlRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.StyleSheetRenderer;
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadinternal.skin.SkinStyleProvider;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
@@ -69,7 +70,12 @@ class StyleContextImpl implements StyleContext
   public StyleProvider getStyleProvider(boolean recompute)
   {
     if (recompute)
+    {
       _styleProvider = null;
+      _isDisableStyleCompression = null;
+      // recalculate in case the skin switched in the portlet case
+      isDisableStyleCompression();
+    }
     
     return getStyleProvider();
   }
@@ -141,6 +147,68 @@ class StyleContextImpl implements StyleContext
     return NullStyleProvider.getInstance();
   }
 
+  public boolean isPortletMode()
+  {
+    return CoreRenderKit.OUTPUT_MODE_PORTLET.equals(_arc.getOutputMode());
+  }
+  
+  /**
+   *
+   * @return true if we should disable style compression. e.g., 
+   * if StyleSheetRenderer.DISABLE_CONTENT_COMPRESSION is true or the skin is a portlet skin
+   * or we are in portlet mode and not doing skin sharing.
+   */
+  public boolean isDisableStyleCompression()
+  {
+    if (_isDisableStyleCompression == null)
+    {
+      FacesContext context = FacesContext.getCurrentInstance();
+      String disableContentCompression =
+        context.getExternalContext().
+        getInitParameter(StyleSheetRenderer.DISABLE_CONTENT_COMPRESSION);
+      boolean disableContentCompressionBoolean = "true".equals(disableContentCompression);
+      
+      // the user wants to explicitly disable the content compression and show the full styleclass
+      // names
+      if (disableContentCompressionBoolean)
+        _isDisableStyleCompression = Boolean.TRUE;
+      
+      // we still need to check if we don't want to compress even if the disable content 
+      // compression flag is true
+      if (CoreRenderKit.OUTPUT_MODE_PORTLET.equals(_arc.getOutputMode()))
+      {
+        Skin skin = ((CoreRenderingContext) _arc).getSkin();
+        boolean isPortletSkin =
+        CoreRenderKit.OUTPUT_MODE_PORTLET.equals(skin.getRenderKitId());
+
+        if (isPortletSkin)
+          _isDisableStyleCompression = Boolean.TRUE;
+        else
+        {
+          // we must be skin sharing. Check if the stylesheetids of the producer and consumer skin
+          // match.
+          // if so then we do whatever the disableContentCompression says to do.
+          // if not, we must not compress so that we don't have conflicts with the producer
+          // stylesheet which does compress.
+
+          if (!(((CoreRenderingContext) _arc).
+            isRequestMapStyleSheetIdAndSkinEqual(context, skin)))
+          {
+            _isDisableStyleCompression = Boolean.TRUE;
+          }
+        }
+      }
+    }
+    // if _isDisableStyleCompression is still null, 
+    // default it to false since disabling styling compression defaults to false
+    
+    if (_isDisableStyleCompression == null)
+      _isDisableStyleCompression = Boolean.FALSE;
+
+    return Boolean.TRUE.equals(_isDisableStyleCompression);
+
+  }
+
   // Implementation of StyleProvider which does nothing - used as a
   // placeholder when we can't get the real StyleProvider
   static private class NullStyleProvider implements StyleProvider
@@ -193,7 +261,8 @@ class StyleContextImpl implements StyleContext
   private String  _generatedFilesPath;
   private StyleProvider _styleProvider;
   private StyleMap _styleMap;
-
+  private Boolean  _isDisableStyleCompression;
+  
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(StyleContextImpl.class);
 }

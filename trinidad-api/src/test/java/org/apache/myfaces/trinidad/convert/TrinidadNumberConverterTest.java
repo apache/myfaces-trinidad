@@ -29,6 +29,7 @@ import javax.faces.component.UIViewRoot;
 
 import org.apache.myfaces.trinidad.context.MockRequestContext;
 import org.apache.myfaces.trinidadbuild.test.MockUIComponentWrapper;
+import org.apache.myfaces.trinidadbuild.test.MockFacesContext12;
 import org.apache.shale.test.mock.MockFacesContext;
 import org.jmock.Mock;
 
@@ -133,7 +134,7 @@ public class TrinidadNumberConverterTest extends NumberConverterTestCase
      context.getViewRoot().setLocale(locale);
      try
      {
-       // Trinidad Converter is not lenient.
+       // ADF Converter is not lenient.
        converter.getAsObject(context, wrapper.getUIComponent(), inputValue);
        fail("Expected converter exception");
      }
@@ -151,43 +152,53 @@ public class TrinidadNumberConverterTest extends NumberConverterTestCase
 
     for (int i = 0; i < failingValues.length ; i++)
     {
-      MockFacesContext context  = new MockFacesContext();
-      Mock mock = buildMockUIComponent(3);
-      UIComponent component = (UIComponent) mock.proxy();
-
-
-      org.apache.myfaces.trinidad.convert.NumberConverter converter =
-        new org.apache.myfaces.trinidad.convert.NumberConverter();
-
-      UIViewRoot root = facesContext.getViewRoot();
-      root.setLocale(Locale.US);
-      
-
-      for (int j = 0; j < 3; j++)
-      {
-        context.setViewRoot(root);
-      }
+      MockFacesContext12 context  = new MockFacesContext12(externalContext,
+                                                           lifecycle,
+                                                           application);
 
       try
       {
-         // Trinidad Converter is not lenient.
-         converter.setMessageDetailConvertNumber(customMessage[0]);
-         converter.setMessageDetailConvertPercent(customMessage[1]);
-         converter.setMessageDetailConvertCurrency(customMessage[2]);
-         converter.setMessageDetailConvertPattern(customMessage[3]);
+        Mock mock = buildMockUIComponent(3);
+        UIComponent component = (UIComponent) mock.proxy();
+        MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
+        
+        
+        org.apache.myfaces.trinidad.convert.NumberConverter converter =
+          new org.apache.myfaces.trinidad.convert.NumberConverter();
+        
+        UIViewRoot root = facesContext.getViewRoot();
+        root.setLocale(Locale.US);
 
-         if ("pattern".equals(types[i]))
+        for (int j = 0; j < 3; j++)
+        {
+          context.setViewRoot(root);
+        }
+        
+        try
+        {
+          // ADF Converter is not lenient.
+          converter.setMessageDetailConvertNumber(customMessage[0]);
+          converter.setMessageDetailConvertPercent(customMessage[1]);
+          converter.setMessageDetailConvertCurrency(customMessage[2]);
+          converter.setMessageDetailConvertPattern(customMessage[3]);
+          
+          if ("pattern".equals(types[i]))
             converter.setPattern("##.000");
-         else
-          converter.setType(types[i]);
+          else
+            converter.setType(types[i]);
 
-         converter.getAsObject(context, component, failingValues[i]);
-         fail("Expected converter exception");
+          Object obj = converter.getAsObject(context, component, failingValues[i]);
+          fail("Expected converter exception");
+        }
+        catch (ConverterException ce)
+        {
+          // We expected a exception to occur
+          assertEquals(ce.getFacesMessage().getDetail(), customMessage[i]);
+        }
       }
-      catch (ConverterException ce)
+      finally
       {
-        // We expected a exception to occur
-        assertEquals(ce.getFacesMessage().getDetail(), customMessage[i]);
+        context.release();
       }
     }
   }

@@ -19,24 +19,17 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
-import java.util.TimeZone;
 
 import javax.faces.component.UIComponent;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.html.HtmlHead;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.myfaces.trinidadinternal.share.config.UIXCookie;
-
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.render.CoreRenderer;
+
 
 /**
  * Renderer for meta data section of the document--a.k.a <head>.
@@ -85,8 +78,6 @@ public class HeadRenderer extends XhtmlRenderer
     _writeGeneratorTag(context);
 
     delegateRenderer(context, arc, comp, bean, _styleSheetRenderer);
-
-    _writeCookieScript(context, arc);
   }
 
   @Override
@@ -122,62 +113,6 @@ public class HeadRenderer extends XhtmlRenderer
 
 
 
-  static private void _writeCookieScript(
-   FacesContext context, RenderingContext arc)
-    throws IOException
-  { 
-    if (_needsCookieScript(context, arc))
-    {
-      XhtmlUtils.addLib(context, arc, "defaultTimeZone");
-    }
-  }
-
-  static private boolean _needsCookieScript(
-    FacesContext context,
-    RenderingContext arc)
-  {
-    ExternalContext externalContext = context.getExternalContext();
-    
-    // Disable the Cookie script for portlets
-    // =-=AEW Right or wrong?
-    String outputMode = arc.getOutputMode();
-    if (XhtmlConstants.OUTPUT_MODE_PORTLET.equals(outputMode))
-      return false;
-
-    // Do not need the cookie script when we have a PartialPageContext
-    if (arc.getPartialPageContext() != null)
-      return false;
-    
-    Object request = externalContext.getRequest();
-    Object response = externalContext.getResponse();
-    if ((request instanceof HttpServletRequest) &&
-        (response instanceof HttpServletResponse))
-    {
-      UIXCookie cookie = UIXCookie.getUIXCookie(
-         (HttpServletRequest) request,
-         (HttpServletResponse) response, false);
-
-      return (((cookie == null) || 
-               _timeZoneIsDefaulting(cookie)) &&
-              _supportsUIXCookie());
-    }
-    
-    return false;
-  }
-
-  static private boolean _timeZoneIsDefaulting(UIXCookie cookie)
-  {
-    TimeZone tz = cookie.getTimeZone();
-    return ((tz == null) || 
-            tz.getID().startsWith("GMT"));
-  }
-
-  static private boolean _supportsUIXCookie()
-  {
-    // =-=AEW We used to have a configuration hook for disabling
-    // the cookie.
-    return true;
-  }
 
   private CoreRenderer _styleSheetRenderer = new StyleSheetRenderer()
   {

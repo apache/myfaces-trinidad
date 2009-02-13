@@ -27,10 +27,10 @@
   <parent>
     <groupId>org.apache.myfaces.trinidad</groupId>
     <artifactId>trinidad-sandbox</artifactId>
-    <version>1.0.11-SNAPSHOT</version>
+    <version>1.2.11-SNAPSHOT</version>
   </parent>
 
-  <artifactId>sandbox-demo</artifactId>
+  <artifactId>trinidad-sandbox-demo</artifactId>
   <packaging>war</packaging>
 
   <!-- Project dependencies -->
@@ -48,6 +48,16 @@
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>jstl</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.myfaces.portlet-bridge</groupId>
+      <artifactId>portlet-bridge-api</artifactId>
+    </dependency>
+      
+    <dependency>
+      <groupId>org.apache.myfaces.portlet-bridge</groupId>
+      <artifactId>portlet-bridge-impl</artifactId>
     </dependency>
 
     <!-- For SourceCodeServlet -->
@@ -81,12 +91,12 @@
 
     <dependency>
       <groupId>${pom.groupId}</groupId>
-      <artifactId>sandbox-api</artifactId>
+      <artifactId>trinidad-sandbox-api</artifactId>
     </dependency>
 
     <dependency>
       <groupId>${pom.groupId}</groupId>
-      <artifactId>sandbox-impl</artifactId>
+      <artifactId>trinidad-sandbox-impl</artifactId>
     </dependency>
 
   </dependencies>

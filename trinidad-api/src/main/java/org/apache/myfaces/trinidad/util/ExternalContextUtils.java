@@ -37,7 +37,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  *
  * @version $Revision$ $Date$
  */
-public class ExternalContextUtils
+public final class ExternalContextUtils
 {
 
   /**
@@ -73,6 +73,60 @@ public class ExternalContextUtils
     else
     {
       return ((HttpServletRequest) externalContext.getRequest()).isRequestedSessionIdValid();
+    }
+  }
+
+  /**
+   * Returns the contextPath of the ServletContext or null for portlets
+   *
+   * @param externalContext
+   * @return
+   */
+  public static String getServletContextPath(final ExternalContext externalContext)
+  {
+    if(!isPortlet(externalContext))
+    {
+      return ((ServletContext) externalContext.getContext()).getContextPath();
+    }
+    else
+    {
+      return null;
+    }
+  }
+
+  /**
+   * Returns the contextPath of the ServletRequest or null for portlet requests
+   *
+   * @param externalContext
+   * @return
+   */
+  public static String getRequestContextPath(final ExternalContext externalContext)
+  {
+    if(!isPortlet(externalContext))
+    {
+      return ((HttpServletRequest) externalContext.getRequest()).getContextPath();
+    }
+    else
+    {
+     return null;
+    }
+  }
+
+  /**
+   * Returns the requestURI of the HttpServletRequest or null for portlet requests
+   *
+   * @param externalContext
+   * @return
+   */
+  public static String getRequestURI(final ExternalContext externalContext)
+  {
+    if (!isPortlet(externalContext))
+    {
+      return ((HttpServletRequest) externalContext.getRequest()).getRequestURI();
+    }
+    else
+    {
+      return null;
     }
   }
 
@@ -266,6 +320,22 @@ public class ExternalContextUtils
     }
 
     return _PORTLET_CONTEXT_CLASS.isInstance(externalContext.getContext());
+  }
+  
+  /**
+   * Returns wherther of not this external context represents a true HttpServletRequest or
+   * not.  Some portal containers implement the PortletRequest/Response objects as 
+   * HttpServletRequestWrappers, and those objects should not be treated as an
+   * HttpServlerRequest.  As such, this method first tests to see if the request is
+   * a portlet request and, if not, then tests to see if the request is an instanceof
+   * HttpServletRequest.
+   * 
+   * @param request
+   * @return
+   */
+  public static boolean isHttpServletRequest(final ExternalContext externalContext)
+  {
+    return (!isPortlet(externalContext) && (externalContext.getRequest() instanceof HttpServletRequest));
   }
 
   private static final String _getPortletCharacterEncoding(final Object request)

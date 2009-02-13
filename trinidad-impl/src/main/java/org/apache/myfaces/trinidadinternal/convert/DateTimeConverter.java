@@ -38,7 +38,7 @@ import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
-import javax.faces.el.ValueBinding;
+import javax.el.ValueExpression;
 
 import org.apache.myfaces.trinidad.component.UIXEditableValue;
 import org.apache.myfaces.trinidad.context.RenderingContext;
@@ -117,10 +117,10 @@ public class DateTimeConverter extends
       UIComponent component, String strValue, Object value) throws ConverterException
   {
     assert value != null;
-    ValueBinding binding = component.getValueBinding("value");
-    if (binding != null)
+    ValueExpression expression = component.getValueExpression("value");
+    if (expression != null)
     {
-      Class<?> expectedType = binding.getType(context);
+      Class<?> expectedType = expression.getType(context.getELContext());
       // Sometimes the type might be null, if it cannot be determined:
       if ((expectedType != null)
           && (!expectedType.isAssignableFrom(value.getClass())))
@@ -184,10 +184,8 @@ public class DateTimeConverter extends
     if (clientId != null)
     {
       // =-=AEW Only if Javascript...
-      // -= Simon Lessard =-
-      // FIXME: JSF 1.2 specifies <String, Object>
-      Map<Object, Object> requestMap = context.getExternalContext()
-          .getRequestMap();
+      Map<String, Object> requestMap =
+        context.getExternalContext().getRequestMap();
 
       // this fetch could be at the place where we append, but has been
       // moved ahead to optimize use of StringBuilder
@@ -614,7 +612,7 @@ public class DateTimeConverter extends
 
   // RenderingContext key indicating the _dateFormat object
   // has been created
-  private static final Object _PATTERN_WRITTEN_KEY = "org.apache.myfaces.trinidadinternal.convert.DateTimeConverter._PATTERN_WRITTEN";
+  private static final String _PATTERN_WRITTEN_KEY = "org.apache.myfaces.trinidadinternal.convert.DateTimeConverter._PATTERN_WRITTEN";
 
   // String indicating that NO_JS_PATTERN is available
   private static final String _NO_JS_PATTERN = new String();

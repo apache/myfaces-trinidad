@@ -576,7 +576,7 @@ to expire:
     ViewHandler viewHandler = context.getApplication().getViewHandler();
     UIViewRoot dialog = viewHandler.createView(context, "/sessionExpiring.jspx");
     
-    Map properties = new HashMap();
+    HashMap properties = new HashMap();
     properties.put("width", new Integer(250));
     properties.put("height", new Integer(150));
 

@@ -18,6 +18,7 @@
  */
 package org.apache.myfaces.trinidad.component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -307,6 +308,49 @@ public final class TableUtils
       }
     }          
   }  
+
+  static void cacheHeaderFooterFacets(UIComponent parent, Map<UIComponent, Boolean> cache)
+  {
+    // grab the header facet and it's children
+    UIComponent headerFacet = parent.getFacets().get("header");
+    if (headerFacet != null)
+    {
+      _cacheDescendants(headerFacet, cache, true);
+    }
+
+    // grab the footer facet and it's children
+    UIComponent footerFacet = parent.getFacets().get("footer");
+    if (footerFacet != null)
+    {
+      _cacheDescendants(footerFacet, cache, true);
+    }
+  }
+
+  static void cacheColumnHeaderFooterFacets(UIComponent parent, Map<UIComponent, Boolean> cache)
+  {
+    List<UIComponent> children = parent.getChildren();
+    for (UIComponent child : children)
+    {
+      if (child instanceof UIXColumn)
+      {
+        cacheHeaderFooterFacets(child, cache);
+        cacheColumnHeaderFooterFacets(child, cache);
+      }
+    }
+  }
+  
+
+  private static void _cacheDescendants(UIComponent parent, Map<UIComponent, Boolean> cache, boolean inclusive)
+  {
+    if(inclusive)
+      cache.put(parent, Boolean.TRUE);
+    
+    List<UIComponent> children = parent.getChildren();
+    for (UIComponent child : children)
+    {
+      _cacheDescendants(child, cache, true);
+    }
+  }
 
   /**
    * Checks to see if the given event could possible be affected by the 

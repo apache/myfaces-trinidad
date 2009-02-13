@@ -53,10 +53,10 @@ public class DemoCommandNavigationItemBean
       }
     }
 
-    List<UIXCommand> children = parent.getChildren();
-    for (UIXCommand child : children)
+    List<UIComponent> children = parent.getChildren();
+    for (UIComponent child : children)
     {
-      FacesBean childFacesBean = child.getFacesBean();
+      FacesBean childFacesBean = ((UIXCommand) child).getFacesBean();
       FacesBean.Type type = childFacesBean.getType();
       PropertyKey selectedKey = type.findKey("selected");
       if (selectedKey != null)

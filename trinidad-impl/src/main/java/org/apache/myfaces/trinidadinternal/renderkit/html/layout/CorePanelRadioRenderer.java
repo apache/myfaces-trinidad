@@ -56,8 +56,7 @@ public class CorePanelRadioRenderer extends ShowOneListRendererBase
                                    String disclosedChildId)
     throws IOException
   {
-    _LOG.finest("CorePanelRadioRenderer.renderRadioFacet: " +
-                "disclosedChildId: {0}" + disclosedChildId);
+    _LOG.finest("CorePanelRadioRenderer.renderRadioFacet: disclosedChildId: {0}", disclosedChildId);
 
     // This renders the select controls alongwith javascript onchange handler.
     UIXRenderingContext rCtx = getRenderingContext(context, component);
@@ -262,18 +261,18 @@ public class CorePanelRadioRenderer extends ShowOneListRendererBase
       out.endElement("td");
       out.endElement("tr");
     }
-
+    
     // For Non-JavaScript browsers, render a input element(type= submit) to 
     // submit the page. Encode the name attribute with the parameter name 
     // and value thus it would enable the browsers to include the name of 
     // this element in its payLoad if it submits the page.
-
+    
     if (!XhtmlRenderer.supportsScripting
                       (RenderingContext.getCurrentInstance()))
     {
       out.startElement("tr", component);
       out.startElement("td", component);
-
+    
       if (BaseLafUtils.isRightToLeft(rCtx))
       {
         out.writeAttribute("align", "right", null);
@@ -282,17 +281,17 @@ public class CorePanelRadioRenderer extends ShowOneListRendererBase
       {
         out.writeAttribute("align", "left", null);
       }
-
+    
       out.writeAttribute("valign", "top", null);
       out.writeAttribute("nowrap", Boolean.TRUE, null);
-
+    
       String nameAttri = XhtmlUtils.getEncodedParameter
                                        (XhtmlConstants.MULTIPLE_VALUE_PARAM)
                          + XhtmlUtils.getEncodedParameter(compId)
                          + XhtmlUtils.getEncodedParameter
                                        (XhtmlConstants.EVENT_PARAM)
                          + XhtmlConstants.SHOW_EVENT;
-
+    
       out.startElement("span", null);
       out.startElement("input", null);
       out.writeAttribute("value",XhtmlConstants.NO_JS_PARAMETER_KEY_BUTTON , null);
@@ -302,9 +301,9 @@ public class CorePanelRadioRenderer extends ShowOneListRendererBase
       out.endElement("span");
       out.endElement("td");
       out.endElement("tr");
-
+    
     }
-
+     
     out.endElement("table");
     out.endElement("td");
   }

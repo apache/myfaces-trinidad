@@ -26,6 +26,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import javax.el.ValueExpression;
+
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
@@ -59,11 +61,11 @@ abstract public class FacesBeanImpl implements FacesBean
     // Look for a binding if and only if the key supports bindings
     if (key.getSupportsBinding())
     {
-      ValueBinding binding = getValueBinding(key);
-      if (binding != null)
+      ValueExpression expression = getValueExpression(key);
+      if (expression != null)
       {
         FacesContext context = FacesContext.getCurrentInstance();
-        return binding.getValue(context);
+        return expression.getValue(context.getELContext());
       }
     }
 
@@ -82,7 +84,7 @@ abstract public class FacesBeanImpl implements FacesBean
       return local;
 
     // Look for a binding if and only if the key supports bindings
-    return key.getSupportsBinding() ? getValueBinding(key) : null;
+    return key.getSupportsBinding() ? getValueExpression(key) : null;
   }
 
 
@@ -103,18 +105,19 @@ abstract public class FacesBeanImpl implements FacesBean
     return getLocalPropertyImpl(key);
   }
 
-  final public ValueBinding getValueBinding(PropertyKey key)
+  final public ValueExpression getValueExpression(PropertyKey key)
   {
     _checkNotListKey(key);
 
-    PropertyMap map = _getBindingsMap(false);
+    PropertyMap map = _getExpressionsMap(false);
     if (map == null)
       return null;
 
-    return (ValueBinding) map.get(key);
+    return (ValueExpression) map.get(key);    
   }
 
-  final public void setValueBinding(PropertyKey key, ValueBinding binding)
+  final public void setValueExpression(PropertyKey key,
+                                       ValueExpression expression)
   {
     _checkNotListKey(key);
 
@@ -124,17 +127,50 @@ abstract public class FacesBeanImpl implements FacesBean
         "CANNOT_FIND_PROPERTY", key.getName()));
     }
 
-    if (binding == null)
+    if (expression == null)
     {
-      PropertyMap map = _getBindingsMap(false);
+      PropertyMap map = _getExpressionsMap(false);
       if (map != null)
         map.remove(key);
     }
     else
     {
-      _getBindingsMap(true).put(key, binding);
+      _getExpressionsMap(true).put(key, expression);
     }
 
+  }
+  
+  @SuppressWarnings("deprecation")
+  final public ValueBinding getValueBinding(PropertyKey key)
+  {
+    ValueExpression ve = getValueExpression(key);
+
+    if (ve == null)
+    {
+      return null;
+    }
+    else
+    {
+      // wrap the ValueExpression if necessary
+      return ValueExpressionValueBinding.getValueBinding(ve);
+    }
+  }
+
+  @SuppressWarnings("deprecation")
+  final public void setValueBinding(PropertyKey key, ValueBinding binding)
+  {
+    ValueExpression ve;
+    
+    if (binding == null)
+    {
+      ve = null;
+    }
+    else
+    {
+      ve = ValueBindingValueExpression.getValueExpression(binding);
+    }
+
+    setValueExpression(key, ve);
   }
 
 
@@ -260,7 +296,7 @@ abstract public class FacesBeanImpl implements FacesBean
       PropertyKey toKey = _convertKey(fromKey);
       if (toKey.getSupportsBinding())
       {
-        setValueBinding(toKey, from.getValueBinding(fromKey));
+        setValueExpression(toKey, from.getValueExpression(fromKey));
       }
     }
   }
@@ -276,10 +312,10 @@ abstract public class FacesBeanImpl implements FacesBean
   @SuppressWarnings("unchecked")
   final public Set<PropertyKey> bindingKeySet()
   {
-    if (_bindings == null)
+    if (_expressions == null)
       return Collections.emptySet();
 
-    return _bindings.keySet();
+    return _expressions.keySet();
   }
 
 
@@ -290,8 +326,8 @@ abstract public class FacesBeanImpl implements FacesBean
     if (_properties != null)
       _properties.markInitialState();
 
-    if (_bindings != null)
-      _bindings.markInitialState();
+    if (_expressions != null)
+      _expressions.markInitialState();
   }
 
   public void restoreState(FacesContext context, Object state)
@@ -309,7 +345,7 @@ abstract public class FacesBeanImpl implements FacesBean
         Object propertyState = asArray[0];
         Object bindingsState = asArray[1];
         _getPropertyMap().restoreState(context, getType(), propertyState);
-        _getBindingsMap(true).restoreState(context, getType(), bindingsState);
+        _getExpressionsMap(true).restoreState(context, getType(), bindingsState);
         return;
       }
       else if (asArray.length == 1)
@@ -334,9 +370,9 @@ abstract public class FacesBeanImpl implements FacesBean
     Object propertyState = (_properties == null)
                             ? null
                             : _properties.saveState(context);
-    Object bindingsState = (_bindings == null)
+    Object bindingsState = (_expressions == null)
                             ? null
-                            : _bindings.saveState(context);
+                            : _expressions.saveState(context);
 
     if (bindingsState != null)
     {
@@ -385,11 +421,9 @@ abstract public class FacesBeanImpl implements FacesBean
     return new FlaggedPropertyMap();
   }
 
-  protected PropertyMap createBindingsMap()
+  protected PropertyMap createExpressionsMap()
   {
-    FlaggedPropertyMap bindings = new FlaggedPropertyMap();
-    bindings.setUseStateHolder(true);
-    return bindings;
+    return new FlaggedPropertyMap();
   }
 
   // "listKey" is unused, but it seems plausible that
@@ -440,17 +474,17 @@ abstract public class FacesBeanImpl implements FacesBean
     return _properties;
   }
 
-  private PropertyMap _getBindingsMap(boolean createIfNew)
+  private PropertyMap _getExpressionsMap(boolean createIfNew)
   {
-    if (_bindings == null)
+    if (_expressions == null)
     {
       if (createIfNew)
       {
-        _bindings = createBindingsMap();
+        _expressions = createExpressionsMap();
       }
     }
 
-    return _bindings;
+    return _expressions;
   }
 
 
@@ -471,7 +505,7 @@ abstract public class FacesBeanImpl implements FacesBean
   }
 
   private PropertyMap  _properties;
-  private PropertyMap  _bindings;
+  private PropertyMap  _expressions;
   private transient boolean  _initialStateMarked;
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(FacesBeanImpl.class);

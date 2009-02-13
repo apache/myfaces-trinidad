@@ -60,7 +60,7 @@ public class PropertyNode
   {
     return _value;
   }
-  
+
   @Override
   public boolean equals(Object obj)
   {
@@ -89,11 +89,11 @@ public class PropertyNode
   @Override
   public String toString()
   {
-    return 
+    return
       "[name="   + _name   + ", " +
       "value=" + _value + "]";
   }
-  
+
   private final String _name;
   private final String _value;
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(

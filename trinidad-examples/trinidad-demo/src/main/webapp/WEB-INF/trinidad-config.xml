@@ -33,6 +33,7 @@
 
   <skin-family>#{prefs.proxy.skinFamily}</skin-family>  
 
+
   <!--
   <output-mode>portlet</output-mode>
   -->

@@ -73,30 +73,22 @@
   <a name="Mobile_Browsers"></a>
   <section name="Mobile Browsers">
    <P>
-    Trinidad supports wide range of mobile browsers. Some mobile devices are 
-    explicitly tested and supported. Others are grouped as basic browsers and 
-    Trinidad renders pages so that the page works with or without browser 
-    features, such as supports for AJAX, DOM, JavasScript or even CSS. 
-    </P>
-    <P>
-    Trinidad explicitly supports the following devices: 
-    </P>
+    Trinidad supports the following devices:
     <ul>
-     <li>Apple iPhone</li>
      <li>Microsoft Windows Mobile 5 and 6, Microsoft Pocket Internet Explorer</li>
-     <li>Nokia S60 devices</li>
-     <li>RIM BlackBerry Browser 4.6 and above</li>
+     <li>Symbian S60 devices</li>
+     <li>Apple iPhone</li>
+     <li>RIM BlackBerry Browser 4.6</li>
+     <li>RIM BlackBerry Browser 4.7</li>
      <li>Android Based Phones</li>
     </ul>
+   </P>
    <P>
-    In addition, it supports mobile browsers that support Basic XHTML or 
-    XHTML Mobile Profile. WAP 2.0 phone browsers are included in this category. 
-    Because of the hardware performance limitation, Trinidad does not download 
-    or use JavaScript library on such devices.
-    </P>
-    <P>
-    The following list shows the examples of Basic XHTML mobile browsers.
-    </P>
+    In addition, it supports mobile browsers that supports Basic XHTML or XHTML
+    Mobile Profile. WAP 2.0 phone browsers are included in this category.
+    Because of the hardware performance limitation, Trinidad does not dowload or
+    use JavaScript library on such devices. The folloing list shows the example
+    of Basic XHTML mobile browsers.
     <ul>
      <li>KDDI Phones</li>
      <li>Motorola Phone Browsers</li>
@@ -109,6 +101,7 @@
      <li>SonyEricsson Phone Browser</li>
      <li>Vodafone Phones</li>
     </ul>
+   </P>
    <div style="margin:0px 50px 0px 50px; padding:10px; border:2px solid ">
     <strong>Note:</strong>
     WAP1.0 (WML) browsers are not supported.

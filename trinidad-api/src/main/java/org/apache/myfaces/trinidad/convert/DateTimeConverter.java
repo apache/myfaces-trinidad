@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- *
+ * 
  *  http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -35,6 +35,8 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
+
+import javax.el.ValueExpression;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.StateHolder;
@@ -499,7 +501,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
     }
     return null;
   }
-
+  
   private Locale _extractConverterLocale(
     FacesContext context)
   {
@@ -732,15 +734,12 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
       patterns.add(pattern);
 
       Locale locale = _extractConverterLocale(context);
-          
       // we apply some patterns for convenience reasons (see TRINIDAD-859, 1262)
       if (_CONVENIENCE_PATTERNS.containsKey(locale)) 
       {
         patterns.addAll(_CONVENIENCE_PATTERNS.get(locale));          
-      }
-        
+      }        
       List<String> lenientPatterns = new ArrayList<String>();
-      lenientPatterns.add(pattern);
       for (String tmpPattern : patterns)
       {
         lenientPatterns.addAll(_getLenientPatterns(tmpPattern));
@@ -975,6 +974,42 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
   }
 
   /**
+   * <p>Set the {@link ValueExpression} used to calculate the value for the
+   * specified attribute if any.</p>
+   *
+   * @param name Name of the attribute for which to set a {@link ValueExpression}
+   * @param expression The {@link ValueExpression} to set, or <code>null</code>
+   *  to remove any currently set {@link ValueExpression}
+   *
+   * @exception NullPointerException if <code>name</code>
+   *  is <code>null</code>
+   * @exception IllegalArgumentException if <code>name</code> is not a valid
+   *            attribute of this converter
+   */
+  public void setValueExpression(String name, ValueExpression expression)
+  {
+    ConverterUtils.setValueExpression(_facesBean, name, expression) ;
+  }
+
+
+  /**
+   * <p>Return the {@link ValueExpression} used to calculate the value for the
+   * specified attribute name, if any.</p>
+   *
+   * @param name Name of the attribute or property for which to retrieve a
+   *  {@link ValueExpression}
+   *
+   * @exception NullPointerException if <code>name</code>
+   *  is <code>null</code>
+   * @exception IllegalArgumentException if <code>name</code> is not a valid
+   * attribute of this converter
+   */
+  public ValueExpression getValueExpression(String name)
+  {
+    return ConverterUtils.getValueExpression(_facesBean, name);
+  }
+
+  /**
    * <p>Set the {@link ValueBinding} used to calculate the value for the
    * specified attribute if any.</p>
    *
@@ -986,6 +1021,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    *  is <code>null</code>
    * @exception IllegalArgumentException if <code>name</code> is not a valid
    *            attribute of this converter
+   * @deprecated
    */
   public void setValueBinding(String name, ValueBinding binding)
   {
@@ -1004,6 +1040,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    *  is <code>null</code>
    * @exception IllegalArgumentException if <code>name</code> is not a valid
    * attribute of this converter
+   * @deprecated
    */
   public ValueBinding getValueBinding(String name)
   {
@@ -1381,7 +1418,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
     return MessageFactory.getMessage(context, key, msgPattern,
                                      params, component);
   }
-
+  
   private String _getExample(FacesContext context, String pattern)
   {
     DateFormat format = _getDateFormat(context, pattern, false);
@@ -1415,7 +1452,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
       throw new IllegalArgumentException(_LOG.getMessage(
         "ILLEGAL_MESSAGE_ID", key));
     }
-
+      
     return msgPattern;
   }
 
@@ -1643,7 +1680,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
       // We will change shortish to short only at place where it is required.
       // Otherwise we may end up throwing convert exception for case where
       // dateStyle is invalid. So evaluating only at the required place.
-      if ( null == pattern )
+      if ( null == pattern || "".equals(pattern))
       {
         int type = _getType(getType());
 
@@ -1823,7 +1860,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
 
   private static final PropertyKey _CONVERT_BOTH_MESSAGE_DETAIL_KEY
     = _TYPE.registerKey("messageDetailConvertBoth", String.class);
-
+  
   private static final PropertyKey  _HINT_DATE_KEY =
     _TYPE.registerKey("hintDate", String.class);
 
@@ -1867,11 +1904,10 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
     Calendar dateFactory = Calendar.getInstance();
     dateFactory.set(1998, 10, 29, 15, 45);
     _EXAMPLE_DATE = dateFactory.getTime();
-
+    
     // All entries added to this map MUST also be added to the client map:
     // trinidad-impl\src\main\javascript\META-INF\adf\jsLibs\DateFormat.js->_CONVENIENCE_PATTERNS
     // (in TrDateTimeConverter.prototype._initConveniencePatterns)
-    _CONVENIENCE_PATTERNS.put(Locale.US, _US_CONVENIENCE_PATTERNS);
-
+    _CONVENIENCE_PATTERNS.put(Locale.US, _US_CONVENIENCE_PATTERNS);  
   }
 }

@@ -152,11 +152,13 @@ public class ConverterUtils
     FacesContext context,
     Class<?>     converterType)
   {
-    // Don't bother for Strings and Objects;  note that the 1.1_01 RI
+    // Don't bother for Objects;  note that the 1.1_01 RI
     // returns null, but the spec requires a FacesException, and MyFaces
     // correctly implements that.
+	  
+	// https://issues.apache.org/jira/browse/TRINIDAD-1117
+	// Note - JSF 1.2 allows converter for String: https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=131   
     if (converterType == null ||
-        converterType == String.class ||
         converterType == Object.class)
     {
       return null;

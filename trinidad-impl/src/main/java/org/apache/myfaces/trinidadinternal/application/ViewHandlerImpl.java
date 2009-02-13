@@ -18,6 +18,7 @@
  */
 package org.apache.myfaces.trinidadinternal.application;
 
+import java.io.File;
 import java.io.InputStream;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -33,6 +34,7 @@ import java.util.Properties;
 
 import javax.faces.FacesException;
 import javax.faces.application.ViewHandler;
+import javax.faces.application.ViewHandlerWrapper;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -42,10 +44,10 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
 import org.apache.myfaces.trinidad.render.InternalView;
 import org.apache.myfaces.trinidad.util.Service;
+import org.apache.myfaces.trinidad.util.URLUtils;
 import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
 import org.apache.myfaces.trinidadinternal.context.TrinidadPhaseListener;
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
-import org.apache.myfaces.trinidadinternal.util.URLUtils;
 
 /**
  * ViewHandler that adds modification detection to the existing ViewHandler,
@@ -57,10 +59,9 @@ import org.apache.myfaces.trinidadinternal.util.URLUtils;
  * @todo Rename something less generic
  * @todo Support extension mapping (*.faces)
  * @todo The modification detection only works for a single user.  That's
- *   OK for now, because it's intended for use while developing, not while
- *   deployed - yet it's on all the time.  Hrm.
+ *   OK for now, because it's intended for use while developing
  */
-public class ViewHandlerImpl extends ViewHandler
+public class ViewHandlerImpl extends ViewHandlerWrapper
 {
   static public final String ALTERNATE_VIEW_HANDLER =
     "org.apache.myfaces.trinidad.ALTERNATE_VIEW_HANDLER";
@@ -73,16 +74,9 @@ public class ViewHandlerImpl extends ViewHandler
     _loadInternalViews();
   }
 
-  @Override
-  public Locale calculateLocale(FacesContext context)
+  protected ViewHandler getWrapped()
   {
-    return _delegate.calculateLocale(context);
-  }
-
-  @Override
-  public String calculateRenderKitId(FacesContext context)
-  {
-    return _delegate.calculateRenderKitId(context);
+    return _delegate;
   }
 
   @Override
@@ -121,13 +115,13 @@ public class ViewHandlerImpl extends ViewHandler
       }
     }
 
-    return _delegate.createView(context, viewId);
+    return super.createView(context, viewId);
   }
 
   @Override
   public String getActionURL(FacesContext context, String viewId)
   {
-    String actionURL = _delegate.getActionURL(context, viewId);
+    String actionURL = super.getActionURL(context, viewId);
     RequestContext afContext = RequestContext.getCurrentInstance();
     if (afContext != null)
     {
@@ -144,7 +138,7 @@ public class ViewHandlerImpl extends ViewHandler
     FacesContext context,
     String       path)
   {
-    return _delegate.getResourceURL(context, path);
+    return super.getResourceURL(context, path);
   }
 
 
@@ -154,6 +148,18 @@ public class ViewHandlerImpl extends ViewHandler
     UIViewRoot   viewToRender) throws IOException, FacesException
   {
     _initIfNeeded(context);
+    
+    // Check whether Trinidad's ViewHandler is registered more than once.
+    // This happens when the implementation jar is loaded multiple times.
+    Map<String, Object> reqMap = context.getExternalContext().getRequestMap();
+    if (reqMap.get(_RENDER_VIEW_MARKER) != null)
+    {
+      _LOG.warning("DUPLICATE_VIEWHANDLER_REGISTRATION");
+    }
+    else
+    {
+      reqMap.put(_RENDER_VIEW_MARKER, Boolean.TRUE);
+    }
 
     // See if there is a possiblity of short-circuiting the current
     // Render Response
@@ -179,7 +185,7 @@ public class ViewHandlerImpl extends ViewHandler
         }
         else
         {
-          _delegate.renderView(context, viewToRender);
+          super.renderView(context, viewToRender);
         }
 
         if (service != null)
@@ -191,28 +197,28 @@ public class ViewHandlerImpl extends ViewHandler
           service.encodeFinally(context);
       }
     }
+    
+    // Remove the 'marker' from the request map just in case the entire tree is rendered again
+    reqMap.remove(_RENDER_VIEW_MARKER);
   }
 
   @Override
   public UIViewRoot restoreView(
     FacesContext context,
     String       viewId)
-  {
-    // If we're being asked to re-run the lifecycle for a "return"
-    // event, always restore the "launch view", which was set
-    // over in RequestContextImpl
-    UIViewRoot launchView = (UIViewRoot)
-      context.getExternalContext().getRequestMap().get(
-        RequestContextImpl.LAUNCH_VIEW);
-
-    if (launchView != null)
+  {    
+    //This code processes a "return" event.  Most of this logic was moved to 
+    //StateManagerImpl because we ran into a problem with JSF where it didn't 
+    //set up the JSF mapping properly if we didn't delegate to the default 
+    //ViewHandler.  There may be other logic associated with the internalView
+    //which might need to be moved to the StateManager as well.  This might also
+    //be able to be further optimized if all the other logic in this method passes
+    //through.
+    if(context.getExternalContext().getRequestMap().get(RequestContextImpl.LAUNCH_VIEW) != null)
     {
-      context.getExternalContext().getRequestMap().remove(
-        RequestContextImpl.LAUNCH_VIEW);
-      TrinidadPhaseListener.markPostback(context);
-      return launchView;
+      return super.restoreView(context, viewId);
     }
-
+    
     InternalView internal = _getInternalView(context, viewId);
     if (internal != null)
     {
@@ -263,7 +269,7 @@ public class ViewHandlerImpl extends ViewHandler
       return null;
     }
 
-    UIViewRoot result = _delegate.restoreView(context, viewId);
+    UIViewRoot result = super.restoreView(context, viewId);
     // If we've successfully restored a view, then assume that
     // this is a postback request.
     if (result != null)
@@ -292,7 +298,7 @@ public class ViewHandlerImpl extends ViewHandler
         service.isStateless(context))
       return;
 
-    _delegate.writeState(context);
+    super.writeState(context);
   }
 
   synchronized private void _initIfNeeded(FacesContext context)
@@ -523,4 +529,5 @@ public class ViewHandlerImpl extends ViewHandler
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ViewHandlerImpl.class);
   private static final Long   _NOT_FOUND = Long.valueOf(0);
+  private static final String _RENDER_VIEW_MARKER = "__trRenderViewEntry";
 }

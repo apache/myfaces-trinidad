@@ -222,16 +222,15 @@ public class NavigationPaneRenderer extends XhtmlRenderer
 
         rw.startElement("select", null);
         rw.writeAttribute("id", choiceSelectId, null);
-        
+           
         // For Non-JavaScript browsers, render the name attribute thus it would
         // enable the browsers to include the name and value of this element
         // in its payLoad.
-       
+
         if ( !supportsScripting(arc) )
         {
           rw.writeAttribute("name", choiceSelectId, null);
         }
-        
         renderStyleClass(context, arc,
           SkinSelectors.AF_NAVIGATION_LEVEL_CHOICE_OPTIONS_STYLE_CLASS);
         if (getDisabled(bean))
@@ -674,7 +673,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     boolean isDesktop = (arc.getAgent().getType().equals(Agent.TYPE_DESKTOP));
     
     boolean nonJavaScriptSubmit = (!supportsScripting(arc))
-                                              && (destination == null);    
+                                             && (destination == null);    
     
     // For non-javascript browsers, we need to render a submit element
     // instead of an anchor tag if the anchor tag doesn't have a destination
@@ -717,7 +716,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     else
     {
       rw.startElement("a", commandChild); // linkElement
-  
+
       // Few mobile browsers couldn't apply css property for active elements
       // so making it inline
       if (isActive && !isDesktop)
@@ -725,7 +724,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
         writeInlineStyles(rw, null,"font-weight: bold;");
       }
       _renderCommandChildId(context, commandChild);
-  
+
       if (destination == null)
       {
         rw.writeURIAttribute("href", "#", null); // required for IE to support ":hover" styles
@@ -740,11 +739,14 @@ public class NavigationPaneRenderer extends XhtmlRenderer
           rw.writeAttribute("target", targetFrame, null);
         }
       }
-  
+
+
+
+      // Cannot use super.renderEventHandlers(context, bean); because the wrong
+      // property keys would be in use so must do it this way:
+      // Also render the events only if the browser supports JavaScript
       if (supportsScripting(arc))
       {
-        // Cannot use super.renderEventHandlers(context, bean); because the wrong
-        // property keys would be in use so must do it this way:
         _writeOnclickProperty(
           arc,
           rw,
@@ -1169,10 +1171,10 @@ public class NavigationPaneRenderer extends XhtmlRenderer
         
         // For Non-javaScript browsers, set the value attribute to the id of 
         // the element instead of a javascript code
-        
+         
         if (!supportsScripting(arc))
         {
-         selectionScript = arc.getCurrentClientId();
+          selectionScript = arc.getCurrentClientId();
         }
         else if (destination == null)
         {
@@ -1303,7 +1305,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
           "'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;",
         null);
     }
- 
+
     if (useButtonTag)
     {
       rw.write(goText);

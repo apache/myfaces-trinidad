@@ -202,7 +202,7 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
   private Object _convertIndexedSubmittedValue(
     FacesContext context,
     UIComponent  component,
-    Object       submittedValue)
+    Object       submittedValue) throws ConverterException
   {
     FacesBean bean = getFacesBean(component);
     Converter converter = getConverter(bean);
@@ -217,9 +217,18 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
 
     SelectItem item = selectItems.get(index);
     if (item != null)
-      return item.getValue();
+    {
+      Object converted = item.getValue();
+      if (converter != null && converted != null)
+      {
+        converted = converter.getAsObject(context, component, converted.toString());
+      }
+      return converted;
+    }
     else
+    {
       return null;
+    }
   }
 
 

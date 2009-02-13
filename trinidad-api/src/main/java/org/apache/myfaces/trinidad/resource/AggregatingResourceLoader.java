@@ -33,7 +33,6 @@ import java.util.NoSuchElementException;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.URLUtils;
 
-
 /**
  * A resource loader implementation which combines multiple resources
  * into a single stream.  This version leverages the DynamicResourceLoader.

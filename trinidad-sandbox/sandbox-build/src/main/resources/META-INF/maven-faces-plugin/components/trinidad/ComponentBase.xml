@@ -46,7 +46,7 @@
     </property>
     <component-extension>
       <mfp:component-supertype>javax.faces.Component</mfp:component-supertype>
-      <mfp:tag-class>org.apache.myfaces.trinidad.webapp.UIXComponentTag</mfp:tag-class>
+      <mfp:tag-class>org.apache.myfaces.trinidad.webapp.UIXComponentELTag</mfp:tag-class>
       <mfp:component-class-modifier>abstract</mfp:component-class-modifier>
       <mfp:event>
         <mfp:event-type>org.apache.myfaces.trinidad.AttributeChange</mfp:event-type>

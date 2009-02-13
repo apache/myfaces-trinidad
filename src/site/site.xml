@@ -18,11 +18,11 @@
     under the License.
 	   
 -->
-<project name="Apache MyFaces Trinidad">
+<project name="Apache MyFaces Trinidad 1.2">
   <bannerLeft>
-    <name>Apache MyFaces Trinidad</name>
+    <name>Apache MyFaces Trinidad 1.2</name>
     <src>images/trinidad_logo.png</src>
-    <href>http://myfaces.apache.org/trinidad</href>
+    <href>http://myfaces.apache.org/trinidad/trinidad-1_2</href>
   </bannerLeft>
   <bannerRight>
     <name>Apache MyFaces</name>
@@ -40,17 +40,11 @@
     </links>
 
     <menu name="">
-      <item name="Download" href="download.html"/>
-      <item name="Current Release Notes" href="download.html"/>
-      <item name="Supported Browsers" href="browsers.html" />
-      <item name="Overview" href="spec-diff.html" />
+      <item name="Download" href="../download.html"/>
       <item name="Javadoc" href="trinidad-api/apidocs/index.html" />
       <item name="Tag Documentation" href="trinidad-api/tagdoc.html" />
-      <item name="Skinning Selectors" href="skin-selectors.html" />
-      <item name="Developer Guide" href="devguide/index.html" />
-      <item name="Plugins" href="plugins/index.html"/>
-      <item name="Trinidad 1.2.x" href="trinidad-1_2/index.html"/>
-      <item name="Live Demos" href="http://www.irian.at/trinidad-demo/faces/index.jspx" />
+      <item name="Skinning Selectors" href="../skin-selectors.html" />
+      <item name="Developer Guide" href="../devguide/index.html" />
     </menu>
 
     <menu name="Foundation">

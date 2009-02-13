@@ -77,7 +77,7 @@
          will be called when a new range is selected.]]>
       </description>
       <property-name>rangeChangeListener</property-name>
-      <property-class>javax.faces.el.MethodBinding</property-class>
+      <property-class>javax.el.MethodExpression</property-class>
       <property-extension>
         <mfp:method-binding-signature>
           <mfp:parameter-type>org.apache.myfaces.trinidad.event.RangeChangeEvent</mfp:parameter-type>
@@ -86,7 +86,6 @@
         <mfp:property-metadata>
           <mfp:preferred>true</mfp:preferred>
         </mfp:property-metadata>
-        <mfp:state-holder>yes</mfp:state-holder>
       </property-extension>
     </property>
     <property>
@@ -106,7 +105,6 @@ The specific model class is
         <mfp:property-metadata>
           <mfp:preferred>true</mfp:preferred>
         </mfp:property-metadata>
-        <mfp:required>true</mfp:required>
       </property-extension>
     </property>
     <property>
@@ -154,6 +152,5 @@ which range of rows to display to the user.]]>
     </component-extension>
   </component>
 </faces-config>
-
 
 

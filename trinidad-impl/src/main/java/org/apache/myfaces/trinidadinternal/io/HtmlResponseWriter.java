@@ -81,6 +81,7 @@ public class HtmlResponseWriter extends ResponseWriter
   public void flush() throws IOException
   {
     _closeStartIfNecessary();
+    _out.flush();
   }
 
 

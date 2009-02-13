@@ -23,11 +23,11 @@ import java.io.OutputStream;
 
 import java.util.Map;
 
+import javax.el.MethodExpression;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.component.StateHolder;
 import javax.faces.context.FacesContext;
-import javax.faces.el.MethodBinding;
-import javax.faces.el.ValueBinding;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
 
@@ -55,14 +55,14 @@ public class FileDownloadActionListener extends FacesBeanImpl
   static public final FacesBean.Type TYPE = new FacesBean.Type();
   static public final PropertyKey FILENAME_KEY =
     TYPE.registerKey("filename");
-  // Must be a ValueBinding
+  // Must be a ValueExpression
   static public final PropertyKey CONTENT_TYPE_KEY =
     TYPE.registerKey("contentType");
   static public final PropertyKey METHOD_KEY =
     TYPE.registerKey("method",
-                     MethodBinding.class,
-                     PropertyKey.CAP_NOT_BOUND | PropertyKey.CAP_STATE_HOLDER);
-
+                     MethodExpression.class,
+                     PropertyKey.CAP_NOT_BOUND);
+  
 
   /**
     * <p>The message identifier of the {@link FacesMessage} to be created when
@@ -99,7 +99,6 @@ public class FileDownloadActionListener extends FacesBeanImpl
         if (contentType != null)
           // TODO: encoding?
           hsr.setContentType(contentType);
-          
         if (filename != null)
         {
           // check for supported user agents. Currently IE, Gecko, and WebKit.
@@ -115,12 +114,12 @@ public class FileDownloadActionListener extends FacesBeanImpl
           // truncated in Firefox.
           hsr.setHeader("Content-Disposition",
                         "attachment; filename=\""+encodeHTTPHeaderFilename + "\"");
-        }
 
-        MethodBinding method = getMethod();
+        }
+        MethodExpression method = getMethod();
         OutputStream out = new BufferedOutputStream(hsr.getOutputStream());
-          method.invoke(context, new Object[]{context, out});
-          out.close();
+        method.invoke(context.getELContext(), new Object[]{context, out});
+        out.close();
          
       }
       catch (Exception e)
@@ -137,12 +136,12 @@ public class FileDownloadActionListener extends FacesBeanImpl
     context.responseComplete();
   }
 
-  public MethodBinding getMethod()
+  public MethodExpression getMethod()
   {
-    return (MethodBinding) getProperty(METHOD_KEY);
+    return (MethodExpression) getProperty(METHOD_KEY);
   }
 
-  public void setMethod(MethodBinding method)
+  public void setMethod(MethodExpression method)
   {
     setProperty(METHOD_KEY, method);
   }

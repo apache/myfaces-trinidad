@@ -50,11 +50,6 @@ public class XmlHttpConfigurator
   {
   }
 
-  public static ServletResponse getWrappedServletResponse(ServletResponse response)
-  {
-    return new XmlHttpServletResponse(response);
-  }
-
   public static ServletRequest getAjaxServletRequest(ServletRequest request)
   {
     return new XmlHttpServletRequest(request);
@@ -63,6 +58,12 @@ public class XmlHttpConfigurator
   public static void beginRequest(ExternalContext externalContext)
   {
     StateManagerImpl.reuseRequestTokenForResponse(externalContext);
+    Object response = externalContext.getResponse();
+    if (response instanceof ServletResponse)
+    {
+      externalContext.setResponse(
+         new XmlHttpServletResponse((ServletResponse) response));
+    }
   }
 
   /**

@@ -25,8 +25,9 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
 
+import javax.el.ValueExpression;
+
 import javax.faces.context.ExternalContext;
-import javax.faces.el.ValueBinding;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 
@@ -195,9 +196,10 @@ public class ConfigParser
             }
             else
             {
-              ValueBinding binding =
-                LazyValueBinding.createValueBinding(currentText);
-              _bean.setValueBinding(key, binding);
+              ValueExpression expression =
+                LazyValueExpression.createValueExpression(_currentText, 
+                                                          key.getType());
+              _bean.setValueExpression(key, expression);
             }
           }
           else
@@ -326,12 +328,12 @@ public class ConfigParser
 
       return AccessibilityProfile.getInstance(colorContrast, fontSize);
     }
-
+  
     private RequestContextBean  _bean;
     private String              _currentText;
     private Map<String, Object> _applicationMap;
   }
-
+  
   private static final SAXParserFactory _SAX_PARSER_FACTORY;
   static
   {

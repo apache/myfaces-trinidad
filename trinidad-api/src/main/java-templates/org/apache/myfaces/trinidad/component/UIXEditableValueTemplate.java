@@ -20,6 +20,8 @@ package org.apache.myfaces.trinidad.component;
 
 import java.util.Iterator;
 
+import javax.el.ValueExpression;
+
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.EditableValueHolder;
@@ -28,7 +30,6 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.el.EvaluationException;
 import javax.faces.el.MethodBinding;
-import javax.faces.el.ValueBinding;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.ValueChangeEvent;
@@ -113,6 +114,7 @@ abstract public class UIXEditableValueTemplate
 
     // Submitted value == null means "the component was not submitted
     // at all";  validation should not continue
+
     Object submittedValue = getSubmittedValue();
     if (submittedValue == null)
       return;
@@ -238,21 +240,21 @@ abstract public class UIXEditableValueTemplate
     if (!isValid() || !isLocalValueSet())
       return;
 
-    ValueBinding binding = getFacesBean().getValueBinding(VALUE_KEY);
-    if (binding == null)
+    ValueExpression expression = getFacesBean().getValueExpression(VALUE_KEY);
+    if (expression == null)
       return;
 
     try
     {
       Object localValue = getLocalValue();
-      binding.setValue(context, localValue);
+      expression.setValue(context.getELContext(), localValue);
       setValue(null);
       setLocalValueSet(false);
       if (_LOG.isFiner())
       {
         _LOG.finer("Wrote value {0} to model {1} in component {2}",
                    new Object[]{localValue,
-                                binding.getExpressionString(),
+                                expression.getExpressionString(),
                                 this});
       }
     }
@@ -262,8 +264,8 @@ abstract public class UIXEditableValueTemplate
       // bean attribute level validation:
       if (_LOG.isFine())
       {
-        _LOG.fine("Error updating binding ({0})",
-                    binding.getExpressionString());
+        _LOG.fine("Error updating expression ({0})",
+                    expression.getExpressionString());
         _LOG.fine(e);
       }
 
@@ -380,7 +382,6 @@ abstract public class UIXEditableValueTemplate
     {
       newValue = renderer.getConvertedValue(context, this,
                                             submittedValue);
-
       if (_LOG.isFine())
       {
         _LOG.fine("Renderer " + renderer + " returned value " + newValue + "(" +
@@ -465,7 +466,7 @@ abstract public class UIXEditableValueTemplate
   {
     Object o = getAttributes().get("label");
     if (o == null)
-      o = getValueBinding("label");
+      o = getValueExpression("label");
 
     return o;
   }
@@ -474,7 +475,7 @@ abstract public class UIXEditableValueTemplate
   {
     Object o = getAttributes().get("requiredMessageDetail");
       if (o == null)
-       o = getValueBinding("requiredMessageDetail");
+       o = getValueExpression("requiredMessageDetail");
 
     return o;
   }
@@ -526,13 +527,13 @@ abstract public class UIXEditableValueTemplate
       return converter;
     }
 
-    ValueBinding valueBinding = getValueBinding("value");
-    if (valueBinding == null)
+    ValueExpression valueExpression = getValueExpression("value");
+    if (valueExpression == null)
     {
       return null;
     }
 
-    Class<?> converterType = valueBinding.getType(context);
+    Class<?> converterType = valueExpression.getType(context.getELContext());
     // if converterType is null, String, or Object, assume
     // no conversion is needed
     if (converterType == null ||

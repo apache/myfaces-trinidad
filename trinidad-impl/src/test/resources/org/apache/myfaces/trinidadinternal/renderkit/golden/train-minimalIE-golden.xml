@@ -182,7 +182,7 @@
               
               <a
                    class="af_train_link"
-                   onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                   onclick="submitForm('formId',1,{source:'mainId:1:j_idXXX'});return false;"
                    href="uri-attr:encoded-action-url:#"
                   >
                 Second
@@ -388,7 +388,7 @@
               
               <a
                    class="af_train_link"
-                   onclick="submitForm('formId',1,{source:'myid:1:_idXXX'});return false;"
+                   onclick="submitForm('formId',1,{source:'myid:1:j_idXXX'});return false;"
                    href="uri-attr:encoded-action-url:#"
                   >
                 Second
@@ -595,7 +595,7 @@
               
               <a
                    class="af_train_link"
-                   onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                   onclick="submitForm('formId',1,{source:'mainId:1:j_idXXX'});return false;"
                    href="uri-attr:encoded-action-url:#"
                   >
                 Second
@@ -801,7 +801,7 @@
               
               <a
                    class="af_train_link"
-                   onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                   onclick="submitForm('formId',1,{source:'mainId:1:j_idXXX'});return false;"
                    href="uri-attr:encoded-action-url:#"
                   >
                 Second
@@ -1008,7 +1008,7 @@
               
               <a
                    class="af_train_link"
-                   onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                   onclick="submitForm('formId',1,{source:'mainId:1:j_idXXX'});return false;"
                    href="uri-attr:encoded-action-url:#"
                   >
                 Second
@@ -1215,7 +1215,7 @@
               
               <a
                    class="af_train_link"
-                   onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                   onclick="submitForm('formId',1,{source:'mainId:1:j_idXXX'});return false;"
                    href="uri-attr:encoded-action-url:#"
                   >
                 Second
@@ -1422,7 +1422,7 @@
               
               <a
                    class="af_train_link"
-                   onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                   onclick="submitForm('formId',1,{source:'mainId:1:j_idXXX'});return false;"
                    href="uri-attr:encoded-action-url:#"
                   >
                 Second
@@ -1629,7 +1629,7 @@
               
               <a
                    class="af_train_link"
-                   onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                   onclick="submitForm('formId',1,{source:'mainId:1:j_idXXX'});return false;"
                    href="uri-attr:encoded-action-url:#"
                   >
                 Second
@@ -1836,7 +1836,7 @@
               
               <a
                    class="af_train_link"
-                   onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                   onclick="submitForm('formId',1,{source:'mainId:1:j_idXXX'});return false;"
                    href="uri-attr:encoded-action-url:#"
                   >
                 Second
@@ -2043,7 +2043,7 @@
               
               <a
                    class="af_train_link"
-                   onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                   onclick="submitForm('formId',1,{source:'mainId:1:j_idXXX'});return false;"
                    href="uri-attr:encoded-action-url:#"
                   >
                 Second
@@ -2250,7 +2250,7 @@
               
               <a
                    class="af_train_link"
-                   onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                   onclick="submitForm('formId',1,{source:'mainId:1:j_idXXX'});return false;"
                    href="uri-attr:encoded-action-url:#"
                   >
                 Second
@@ -2457,7 +2457,7 @@
               
               <a
                    class="af_train_link"
-                   onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                   onclick="submitForm('formId',1,{source:'mainId:1:j_idXXX'});return false;"
                    href="uri-attr:encoded-action-url:#"
                   >
                 Second
@@ -2664,7 +2664,7 @@
               
               <a
                    class="af_train_link"
-                   onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                   onclick="submitForm('formId',1,{source:'mainId:1:j_idXXX'});return false;"
                    href="uri-attr:encoded-action-url:#"
                   >
                 Second
@@ -2871,7 +2871,7 @@
               
               <a
                    class="af_train_link"
-                   onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                   onclick="submitForm('formId',1,{source:'mainId:1:j_idXXX'});return false;"
                    href="uri-attr:encoded-action-url:#"
                   >
                 Second

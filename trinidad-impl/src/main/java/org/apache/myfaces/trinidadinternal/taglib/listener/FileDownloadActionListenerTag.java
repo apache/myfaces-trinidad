@@ -22,6 +22,9 @@ import org.apache.myfaces.trinidadinternal.taglib.util.TagUtils;
 
 import java.io.OutputStream;
 
+import javax.el.MethodExpression;
+import javax.el.ValueExpression;
+
 import javax.servlet.jsp.tagext.TagSupport;
 import javax.servlet.jsp.JspException;
 
@@ -38,17 +41,17 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  */
 public class FileDownloadActionListenerTag extends TagSupport
 {
-  public void setContentType(String contentType)
+  public void setContentType(ValueExpression contentType)
   {
     _contentType = contentType;
   }
 
-  public void setFilename(String filename)
+  public void setFilename(ValueExpression filename)
   {
     _filename = filename;
   }
 
-  public void setMethod(String method)
+  public void setMethod(MethodExpression method)
   {
     _method = method;
   }
@@ -84,53 +87,17 @@ public class FileDownloadActionListenerTag extends TagSupport
 
     if (_filename != null)
     {
-      if (TagUtils.isValueReference(_filename))
-      {
-        String filename = _filename;
-        if (parentELContext != null)
-          filename = parentELContext.transformExpression(filename);
-
-        listener.setValueBinding(FileDownloadActionListener.FILENAME_KEY,
-                                 application.createValueBinding(filename));
-      }
-      else
-      {
-        listener.setFilename(_filename);
-      }
+      listener.setValueExpression(FileDownloadActionListener.FILENAME_KEY,
+                                  _filename);
     }
 
     if (_contentType != null)
     {
-      if (TagUtils.isValueReference(_contentType))
-      {
-        String contentType = _contentType;
-        if (parentELContext != null)
-          contentType = parentELContext.transformExpression(contentType);
-
-        listener.setValueBinding(FileDownloadActionListener.CONTENT_TYPE_KEY,
-                                 application.createValueBinding(contentType));
-      }
-      else
-      {
-        listener.setContentType(_contentType);
-      }
+      listener.setValueExpression(FileDownloadActionListener.CONTENT_TYPE_KEY,
+                                  _contentType);
     }
 
-
-    if (TagUtils.isValueReference(_method))
-    {
-      String method = _method;
-      if (parentELContext != null)
-          method = parentELContext.transformExpression(method);
-      
-      listener.setMethod(application.createMethodBinding(method,
-                  new Class[]{FacesContext.class, OutputStream.class}));
-    }
-    else
-    {
-      throw new JspException(_LOG.getMessage(
-        "FILEDOWNLOADACTIONLISTENERS_METHOD_MUST_BE_EL_EXPRESSION"));
-    }
+    listener.setMethod(_method);
 
     ((ActionSource) component).addActionListener(listener);
 
@@ -146,9 +113,10 @@ public class FileDownloadActionListenerTag extends TagSupport
     _method = null;
   }
 
-  private String _contentType;
-  private String _filename;
-  private String _method;
+  private ValueExpression _contentType;
+  private ValueExpression _filename;
+  private MethodExpression _method;
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     FileDownloadActionListenerTag.class);
 }
+

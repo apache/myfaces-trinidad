@@ -20,7 +20,7 @@ package org.apache.myfaces.trinidadinternal.taglib;
 
 import javax.faces.component.UIComponent;
 import javax.faces.webapp.FacetTag;
-import javax.faces.webapp.UIComponentTag;
+import javax.faces.webapp.UIComponentClassicTagBase;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.Tag;
@@ -49,7 +49,7 @@ public class FacetRefTag extends TagSupport
   @Override
   public int doStartTag() throws JspException
   {
-    UIComponentTag tag = UIComponentTag.getParentUIComponentTag(pageContext);
+    UIComponentClassicTagBase tag = UIComponentClassicTagBase.getParentUIComponentClassicTagBase(pageContext);
     if (tag == null)
     {
       _LOG.warning("FACETREF_MUST_INSIDE_UICOMPONENT");

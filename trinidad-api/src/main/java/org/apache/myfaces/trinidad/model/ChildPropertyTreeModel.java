@@ -23,10 +23,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.faces.el.PropertyResolver;
 import javax.faces.model.DataModel;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.util.CollectionUtils;
 
 /**
  * Creates a TreeModel from a List of beans.
@@ -189,9 +189,10 @@ public class ChildPropertyTreeModel extends TreeModel
     List<Object> path = (List<Object>) childKey;
     if ((path == null) || (path.size() <= 1))
       return null;
-    // Make a copy of the sublist - subList does not return
-    // a serializable object
-    return new ArrayList<Object>(path.subList(0, path.size() - 1));
+
+    // wrap sublist in a Serializable copy, since sublist usually returns non-Serializable
+    // instances
+    return CollectionUtils.newSerializableList(path.subList(0, path.size() - 1));
   }
 
   @Override
@@ -341,8 +342,7 @@ public class ChildPropertyTreeModel extends TreeModel
     if (prop == null)
       return null;
     
-    PropertyResolver resolver = SortableModel.__getPropertyResolver();
-    return resolver.getValue(parentData, prop);
+    return SortableModel.__resolveProperty(parentData, prop);
   }
 
   /**

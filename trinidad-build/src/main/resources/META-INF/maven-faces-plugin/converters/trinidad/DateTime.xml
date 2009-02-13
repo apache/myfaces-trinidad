@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+     
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
@@ -56,6 +56,11 @@
       </description>
       <property-name>messageDetailConvertDate</property-name>
       <property-class>java.lang.String</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:translatable>true</mfp:translatable>
+        </mfp:property-metadata>
+      </property-extension>
     </property>
     <property>
       <description><![CDATA[<html><p>
@@ -84,6 +89,11 @@
       </description>
       <property-name>messageDetailConvertTime</property-name>
       <property-class>java.lang.String</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:translatable>true</mfp:translatable>
+        </mfp:property-metadata>
+      </property-extension>
     </property>
     <property>
       <description><![CDATA[<html><p>
@@ -112,6 +122,11 @@
       </description>
       <property-name>messageDetailConvertBoth</property-name>
       <property-class>java.lang.String</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:translatable>true</mfp:translatable>
+        </mfp:property-metadata>
+      </property-extension>
     </property>
     <property>
       <description><![CDATA[Predefined formatting style which determines how the date component

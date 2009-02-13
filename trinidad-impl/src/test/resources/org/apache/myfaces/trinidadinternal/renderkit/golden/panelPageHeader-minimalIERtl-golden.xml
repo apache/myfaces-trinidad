@@ -120,7 +120,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -164,7 +164,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -208,7 +208,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -232,7 +232,7 @@
                       
                       <button
                            class="af_navigationPane_choice-button"
-                           onclick="var navLevelSelect = document.getElementById('_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+                           onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
                            type="button"
                           >
                         Go
@@ -248,21 +248,21 @@
                           >
                         
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
                           choice1
                         </option>
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
                           choice2
                         </option>
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
@@ -271,7 +271,7 @@
                       </select>
                       <button
                            class="af_navigationPane_choice-button"
-                           onclick="var navLevelSelect = document.getElementById('_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+                           onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
                            type="button"
                           >
                         Go
@@ -376,7 +376,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -522,7 +522,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -668,7 +668,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -783,7 +783,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -827,7 +827,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -871,7 +871,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -1060,7 +1060,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -1104,7 +1104,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -1148,7 +1148,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -1172,7 +1172,7 @@
                       
                       <button
                            class="af_navigationPane_choice-button"
-                           onclick="var navLevelSelect = document.getElementById('_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+                           onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
                            type="button"
                           >
                         Go
@@ -1188,21 +1188,21 @@
                           >
                         
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
                           choice1
                         </option>
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
                           choice2
                         </option>
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
@@ -1211,7 +1211,7 @@
                       </select>
                       <button
                            class="af_navigationPane_choice-button"
-                           onclick="var navLevelSelect = document.getElementById('_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+                           onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
                            type="button"
                           >
                         Go
@@ -1316,7 +1316,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -1462,7 +1462,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -1608,7 +1608,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -1723,7 +1723,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -1767,7 +1767,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -1811,7 +1811,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -2001,7 +2001,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -2045,7 +2045,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -2089,7 +2089,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -2113,7 +2113,7 @@
                       
                       <button
                            class="af_navigationPane_choice-button"
-                           onclick="var navLevelSelect = document.getElementById('_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+                           onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
                            type="button"
                           >
                         Go
@@ -2129,21 +2129,21 @@
                           >
                         
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
                           choice1
                         </option>
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
                           choice2
                         </option>
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
@@ -2152,7 +2152,7 @@
                       </select>
                       <button
                            class="af_navigationPane_choice-button"
-                           onclick="var navLevelSelect = document.getElementById('_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+                           onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
                            type="button"
                           >
                         Go
@@ -2257,7 +2257,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -2403,7 +2403,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -2549,7 +2549,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -2664,7 +2664,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -2708,7 +2708,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -2752,7 +2752,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -2942,7 +2942,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -2986,7 +2986,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -3030,7 +3030,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -3054,7 +3054,7 @@
                       
                       <button
                            class="af_navigationPane_choice-button"
-                           onclick="var navLevelSelect = document.getElementById('_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+                           onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
                            type="button"
                           >
                         Go
@@ -3070,21 +3070,21 @@
                           >
                         
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
                           choice1
                         </option>
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
                           choice2
                         </option>
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
@@ -3093,7 +3093,7 @@
                       </select>
                       <button
                            class="af_navigationPane_choice-button"
-                           onclick="var navLevelSelect = document.getElementById('_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+                           onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
                            type="button"
                           >
                         Go
@@ -3198,7 +3198,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -3344,7 +3344,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -3490,7 +3490,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -3605,7 +3605,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -3649,7 +3649,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -3693,7 +3693,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -3883,7 +3883,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -3927,7 +3927,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -3971,7 +3971,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -3995,7 +3995,7 @@
                       
                       <button
                            class="af_navigationPane_choice-button"
-                           onclick="var navLevelSelect = document.getElementById('_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+                           onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
                            type="button"
                           >
                         Go
@@ -4011,21 +4011,21 @@
                           >
                         
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
                           choice1
                         </option>
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
                           choice2
                         </option>
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
@@ -4034,7 +4034,7 @@
                       </select>
                       <button
                            class="af_navigationPane_choice-button"
-                           onclick="var navLevelSelect = document.getElementById('_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+                           onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
                            type="button"
                           >
                         Go
@@ -4139,7 +4139,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -4285,7 +4285,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -4431,7 +4431,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -4546,7 +4546,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -4590,7 +4590,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -4634,7 +4634,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -4824,7 +4824,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -4868,7 +4868,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -4912,7 +4912,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -4936,7 +4936,7 @@
                       
                       <button
                            class="af_navigationPane_choice-button"
-                           onclick="var navLevelSelect = document.getElementById('_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+                           onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
                            type="button"
                           >
                         Go
@@ -4952,21 +4952,21 @@
                           >
                         
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
                           choice1
                         </option>
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
                           choice2
                         </option>
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
@@ -4975,7 +4975,7 @@
                       </select>
                       <button
                            class="af_navigationPane_choice-button"
-                           onclick="var navLevelSelect = document.getElementById('_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+                           onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
                            type="button"
                           >
                         Go
@@ -5080,7 +5080,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -5226,7 +5226,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -5372,7 +5372,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -5487,7 +5487,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -5531,7 +5531,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -5575,7 +5575,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -5765,7 +5765,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -5809,7 +5809,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -5853,7 +5853,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -5877,7 +5877,7 @@
                       
                       <button
                            class="af_navigationPane_choice-button"
-                           onclick="var navLevelSelect = document.getElementById('_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+                           onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
                            type="button"
                           >
                         Go
@@ -5893,21 +5893,21 @@
                           >
                         
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
                           choice1
                         </option>
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
                           choice2
                         </option>
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
@@ -5916,7 +5916,7 @@
                       </select>
                       <button
                            class="af_navigationPane_choice-button"
-                           onclick="var navLevelSelect = document.getElementById('_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+                           onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
                            type="button"
                           >
                         Go
@@ -6021,7 +6021,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -6167,7 +6167,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -6313,7 +6313,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -6428,7 +6428,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -6472,7 +6472,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -6516,7 +6516,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -6706,7 +6706,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -6750,7 +6750,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -6794,7 +6794,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -6818,7 +6818,7 @@
                       
                       <button
                            class="af_navigationPane_choice-button"
-                           onclick="var navLevelSelect = document.getElementById('_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+                           onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
                            type="button"
                           >
                         Go
@@ -6834,21 +6834,21 @@
                           >
                         
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
                           choice1
                         </option>
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
                           choice2
                         </option>
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
@@ -6857,7 +6857,7 @@
                       </select>
                       <button
                            class="af_navigationPane_choice-button"
-                           onclick="var navLevelSelect = document.getElementById('_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+                           onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
                            type="button"
                           >
                         Go
@@ -6962,7 +6962,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -7108,7 +7108,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -7254,7 +7254,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -7369,7 +7369,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -7413,7 +7413,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -7457,7 +7457,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -7647,7 +7647,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -7691,7 +7691,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -7735,7 +7735,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -7759,7 +7759,7 @@
                       
                       <button
                            class="af_navigationPane_choice-button"
-                           onclick="var navLevelSelect = document.getElementById('_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+                           onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
                            type="button"
                           >
                         Go
@@ -7775,21 +7775,21 @@
                           >
                         
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
                           choice1
                         </option>
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
                           choice2
                         </option>
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
@@ -7798,7 +7798,7 @@
                       </select>
                       <button
                            class="af_navigationPane_choice-button"
-                           onclick="var navLevelSelect = document.getElementById('_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+                           onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
                            type="button"
                           >
                         Go
@@ -7903,7 +7903,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -8049,7 +8049,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -8195,7 +8195,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -8310,7 +8310,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -8354,7 +8354,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -8398,7 +8398,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -8588,7 +8588,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -8632,7 +8632,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -8676,7 +8676,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -8700,7 +8700,7 @@
                       
                       <button
                            class="af_navigationPane_choice-button"
-                           onclick="var navLevelSelect = document.getElementById('_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+                           onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
                            type="button"
                           >
                         Go
@@ -8716,21 +8716,21 @@
                           >
                         
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
                           choice1
                         </option>
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
                           choice2
                         </option>
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
@@ -8739,7 +8739,7 @@
                       </select>
                       <button
                            class="af_navigationPane_choice-button"
-                           onclick="var navLevelSelect = document.getElementById('_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+                           onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
                            type="button"
                           >
                         Go
@@ -8844,7 +8844,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -8990,7 +8990,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -9136,7 +9136,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -9251,7 +9251,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -9295,7 +9295,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -9339,7 +9339,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -9529,7 +9529,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -9573,7 +9573,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -9617,7 +9617,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -9641,7 +9641,7 @@
                       
                       <button
                            class="af_navigationPane_choice-button"
-                           onclick="var navLevelSelect = document.getElementById('_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+                           onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
                            type="button"
                           >
                         Go
@@ -9657,21 +9657,21 @@
                           >
                         
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
                           choice1
                         </option>
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
                           choice2
                         </option>
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
@@ -9680,7 +9680,7 @@
                       </select>
                       <button
                            class="af_navigationPane_choice-button"
-                           onclick="var navLevelSelect = document.getElementById('_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+                           onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
                            type="button"
                           >
                         Go
@@ -9785,7 +9785,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -9931,7 +9931,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -10077,7 +10077,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -10192,7 +10192,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -10236,7 +10236,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -10280,7 +10280,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -10470,7 +10470,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -10514,7 +10514,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -10558,7 +10558,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -10582,7 +10582,7 @@
                       
                       <button
                            class="af_navigationPane_choice-button"
-                           onclick="var navLevelSelect = document.getElementById('_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+                           onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
                            type="button"
                           >
                         Go
@@ -10598,21 +10598,21 @@
                           >
                         
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
                           choice1
                         </option>
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
                           choice2
                         </option>
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
@@ -10621,7 +10621,7 @@
                       </select>
                       <button
                            class="af_navigationPane_choice-button"
-                           onclick="var navLevelSelect = document.getElementById('_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+                           onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
                            type="button"
                           >
                         Go
@@ -10726,7 +10726,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -10872,7 +10872,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -11018,7 +11018,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -11133,7 +11133,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -11177,7 +11177,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -11221,7 +11221,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -11411,7 +11411,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -11455,7 +11455,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -11499,7 +11499,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -11523,7 +11523,7 @@
                       
                       <button
                            class="af_navigationPane_choice-button"
-                           onclick="var navLevelSelect = document.getElementById('_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+                           onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
                            type="button"
                           >
                         Go
@@ -11539,21 +11539,21 @@
                           >
                         
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
                           choice1
                         </option>
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
                           choice2
                         </option>
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
@@ -11562,7 +11562,7 @@
                       </select>
                       <button
                            class="af_navigationPane_choice-button"
-                           onclick="var navLevelSelect = document.getElementById('_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+                           onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
                            type="button"
                           >
                         Go
@@ -11667,7 +11667,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -11813,7 +11813,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -11959,7 +11959,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -12074,7 +12074,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -12118,7 +12118,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -12162,7 +12162,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -12352,7 +12352,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -12396,7 +12396,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -12440,7 +12440,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -12464,7 +12464,7 @@
                       
                       <button
                            class="af_navigationPane_choice-button"
-                           onclick="var navLevelSelect = document.getElementById('_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+                           onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
                            type="button"
                           >
                         Go
@@ -12480,21 +12480,21 @@
                           >
                         
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
                           choice1
                         </option>
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
                           choice2
                         </option>
                         <option
-                             value="submitForm('formId',1,{source:'_idXXX:_idXXX'});"
+                             value="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});"
                              id="uri-attr:_idXXX:_idXXX"
                              name="uri-attr:_idXXX:_idXXX"
                             >
@@ -12503,7 +12503,7 @@
                       </select>
                       <button
                            class="af_navigationPane_choice-button"
-                           onclick="var navLevelSelect = document.getElementById('_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+                           onclick="var navLevelSelect = document.getElementById('j_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
                            type="button"
                           >
                         Go
@@ -12608,7 +12608,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -12754,7 +12754,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -12900,7 +12900,7 @@
                                   >
                                 
                                 <a
-                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                      href="uri-attr:#"
                                      id="uri-attr:_idXXX:_idXXX"
                                      name="uri-attr:_idXXX:_idXXX"
@@ -13015,7 +13015,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -13059,7 +13059,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"
@@ -13103,7 +13103,7 @@
                             >
                           
                           <a
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               onclick="submitForm('formId',1,{source:'j_idXXX:j_idXXX'});return false;"
                                href="uri-attr:#"
                                id="uri-attr:_idXXX:_idXXX"
                                name="uri-attr:_idXXX:_idXXX"

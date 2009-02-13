@@ -18,24 +18,19 @@
  */
 package org.apache.myfaces.trinidaddemo.convertValidate;
 
+import javax.faces.application.Application;
+import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.webapp.ConverterTag;
+import javax.faces.webapp.ConverterELTag;
 
 import javax.servlet.jsp.JspException;
 
 
-public class ConvertSSNTag extends ConverterTag
+public class ConvertSSNTag extends ConverterELTag
 {
 
   public ConvertSSNTag()
   {
-  }
-
-  @Override
-  public int doStartTag() throws JspException
-  {
-    super.setConverterId(SSNConverter.CONVERTER_ID);
-    return super.doStartTag();
   }
 
   /**
@@ -44,8 +39,8 @@ public class ConvertSSNTag extends ConverterTag
   @Override
   protected Converter createConverter() throws JspException
   {
-    SSNConverter converter =
-                              (SSNConverter)super.createConverter();
+    Application app = FacesContext.getCurrentInstance().getApplication();
+    SSNConverter converter = (SSNConverter)app.createConverter(SSNConverter.CONVERTER_ID);
     return converter;
   }
 }

@@ -161,7 +161,7 @@ public class SSNConverter implements Converter, ClientConverter
       Object label = null;
       label = component.getAttributes().get("label");
       if (label == null)
-        label = component.getValueBinding("label");
+        label = component.getValueExpression("label");
       if (label != null)
         lfm.setLabel(label);
     }

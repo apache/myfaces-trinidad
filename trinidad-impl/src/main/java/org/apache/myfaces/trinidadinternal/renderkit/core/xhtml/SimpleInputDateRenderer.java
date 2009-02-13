@@ -79,7 +79,7 @@ public class SimpleInputDateRenderer
   {
     FacesBean bean = getFacesBean(component);
     // If there's a non-default action, then just launch away
-    if (getAction(bean) != null)
+    if (getActionExpression(bean) != null)
     {
       super.queueActionEvent(context, component);
     }
@@ -185,6 +185,7 @@ public class SimpleInputDateRenderer
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
+
     if (!_dateScriptletsRegistered) 
     {
       // Register our scriptlet
@@ -199,9 +200,7 @@ public class SimpleInputDateRenderer
     // =-=AEW What's this one?
     XhtmlUtils.addLib(context, arc, "_dfsv()");
     XhtmlUtils.addLib(context, arc, "_fixDFF()");
-    XhtmlUtils.addLib(context,
-                      arc,
-                      _DATE_TIME_ZONE_OFFSET_KEY);
+    XhtmlUtils.addLib(context, arc, _DATE_TIME_ZONE_OFFSET_KEY);
     super.encodeAllAsElement(context, arc, component, bean);
 
     if (!getDisabled(bean))
@@ -221,6 +220,9 @@ public class SimpleInputDateRenderer
     XhtmlUtils.addLib(context,
                       arc,
                       ConfigurationScriptlet.sharedInstance().getScriptletKey());
+//    XhtmlUtils.addLib(context,
+//                      arc,
+//                      _DATE_TIME_ZONE_OFFSET_KEY);
 
     // Add the dialog styles so the picker window is skinned correctly
     if (CoreRenderKit.usePopupForDialog(context, RequestContext.getCurrentInstance()))
@@ -364,7 +366,7 @@ public class SimpleInputDateRenderer
     // If the field has an action, use the default behavior.  Or,
     // if the field doesn't support launching a window at all,
     // use the default behavior.
-    if ((getAction(bean) != null) ||
+    if ((getActionExpression(bean) != null) ||
         !Boolean.TRUE.equals(
             arc.getAgent().getCapabilities().get(TrinidadAgent.CAP_MULTIPLE_WINDOWS)))
       return super.getLaunchOnclick(context, arc, component, bean);
@@ -695,7 +697,7 @@ public class SimpleInputDateRenderer
   // name for our scriptlet
   private static final String _DATE_TIME_ZONE_OFFSET_KEY = "dateTimeZoneOffset";
   private static boolean _dateScriptletsRegistered = false;
-
+  
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(SimpleInputDateRenderer.class);
 

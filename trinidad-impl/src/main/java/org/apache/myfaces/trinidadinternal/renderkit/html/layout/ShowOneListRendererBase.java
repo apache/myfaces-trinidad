@@ -150,8 +150,8 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
       position = _POSITION_DEFAULT_VALUE;
     }
 
-    _LOG.finest("ShowOneListRendererBase.encodeChildren: alignment: {0} , " +
-                "position: {1} ", new Object[]{alignment, position} );
+    _LOG.finest("ShowOneListRendererBase.encodeChildren: alignment: {0}, position: {1} ",
+                new Object[]{alignment, position} );
 
     ResponseWriter out = context.getResponseWriter();
 

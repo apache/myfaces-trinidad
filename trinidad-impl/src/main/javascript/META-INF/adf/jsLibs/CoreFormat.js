@@ -256,7 +256,7 @@ TrDoubleConverter.prototype.getAsObject = function(
                        this._maxValue,
                        this._minValue,
                        label,
-                       true,
+                       true, 
                        true);
 }
 function TrFloatConverter(
@@ -1065,7 +1065,7 @@ TrRegExpValidator.prototype.validate  = function(
   //For some reason when using digits as input values 
   // parseString becomes a integer type, so get away with it.  
   parseString = parseString + '';
-
+  
   // We intend that the pattern provided is matched exactly
   var exactPattern = "^(" + this._pattern + ")$";
 
