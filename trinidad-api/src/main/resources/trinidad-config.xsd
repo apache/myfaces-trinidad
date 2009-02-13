@@ -232,7 +232,7 @@ override the locale that converters use for date time, number and currency.
   </simpleType>
 
   <simpleType name="accessibilityProfileListType">
-    <list itemType="config.accessibilityProfileType"/>
+    <list itemType="config:accessibilityProfileType"/>
   </simpleType>
 
   <simpleType name="clientValidationType">
