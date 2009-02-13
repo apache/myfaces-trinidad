@@ -364,7 +364,8 @@ public class CoreRenderKit extends RenderKitDecorator
 
         String viewId = context.getViewRoot().getViewId();
         String redirect = vh.getActionURL(context, viewId);
-        ec.redirect(redirect);
+        String encodedRedirect = ec.encodeActionURL(redirect);
+        ec.redirect(encodedRedirect);
         if (_LOG.isFine())
         {
           _LOG.fine("Page navigation to {0} happened during a PPR request " +

@@ -21,6 +21,8 @@ package org.apache.myfaces.trinidad.config;
 import javax.faces.context.ExternalContext;
 import javax.servlet.ServletRequest;
 
+import org.apache.myfaces.trinidad.util.RequestStateMap;
+
 /**
  * This defines an abstract class for the Configurator. Classes implementing
  * this abstraction should be listed in the jar's /META-INF/services folder
@@ -158,7 +160,7 @@ public abstract class Configurator
    */
   public static final void disableConfiguratorServices(ServletRequest srq)
   {
-    srq.setAttribute(_DISABLE_SERVICES, Boolean.TRUE);
+    RequestStateMap.getInstance(srq).put(_DISABLE_SERVICES, Boolean.TRUE);
   }
 
   /**
@@ -180,7 +182,7 @@ public abstract class Configurator
    */
   protected static final boolean isConfiguratorServiceDisabled(ExternalContext ec)
   {
-    return Boolean.TRUE.equals(ec.getRequestMap().get(_DISABLE_SERVICES));
+    return Boolean.TRUE.equals(RequestStateMap.getInstance(ec).get(_DISABLE_SERVICES));
   }
 
   static private final String _DISABLE_SERVICES =  Configurator.class.getName()+".DISABLE_SERVICES";

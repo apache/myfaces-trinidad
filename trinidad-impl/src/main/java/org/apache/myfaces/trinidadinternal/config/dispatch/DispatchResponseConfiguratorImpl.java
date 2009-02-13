@@ -25,6 +25,7 @@ import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.config.Configurator;
 import org.apache.myfaces.trinidad.util.ExternalContextUtils;
+import org.apache.myfaces.trinidad.util.RequestStateMap;
 
 /**
  * TODO: Document this
@@ -63,8 +64,7 @@ public class DispatchResponseConfiguratorImpl extends Configurator
   static public String getContentType(
     FacesContext context)
   {
-    Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
-    return (String) requestMap.get(__CONTENT_TYPE_KEY);
+    return (String) RequestStateMap.getInstance(context.getExternalContext()).get(__CONTENT_TYPE_KEY);
   }
 
   /**
@@ -75,7 +75,7 @@ public class DispatchResponseConfiguratorImpl extends Configurator
    */
   static public boolean isApplied(ExternalContext context)
   {
-    return (context.getRequestMap().get(_APPLIED)!=null);
+    return (RequestStateMap.getInstance(context).get(_APPLIED)!=null);
   }
 
   /**
@@ -84,7 +84,7 @@ public class DispatchResponseConfiguratorImpl extends Configurator
   @SuppressWarnings("unchecked")
   static public void apply(ExternalContext context)
   {
-    context.getRequestMap().put(_APPLIED, Boolean.TRUE);
+    RequestStateMap.getInstance(context).put(_APPLIED, Boolean.TRUE);
   }
 
   static private final String _APPLIED =

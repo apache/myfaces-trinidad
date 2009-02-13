@@ -299,7 +299,7 @@ public final class ExternalContextUtils
       return request instanceof ServletRequest;
     }
 
-    return request instanceof ServletRequest || _PORTLET_ACTION_REQUEST_CLASS.isInstance(request);
+    return (!isPortlet(externalContext) && request instanceof ServletRequest) || _PORTLET_ACTION_REQUEST_CLASS.isInstance(request);
   }
 
   /**

@@ -47,7 +47,7 @@
     <jsf-ri.version>1.2_09</jsf-ri.version>
     <jsf-myfaces.version>1.2.4</jsf-myfaces.version>
     <jsf-facelets.version>1.1.14</jsf-facelets.version>
-    <portlet-bridge.version>1.0.0-alpha-2</portlet-bridge.version>
+    <portlet-bridge.version>1.0.0-beta</portlet-bridge.version>
     <commons-lang.version>2.4</commons-lang.version>
     
     <!-- Testing -->
