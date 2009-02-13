@@ -50,6 +50,7 @@ import org.apache.myfaces.trinidadinternal.context.external.ServletRequestParame
 import org.apache.myfaces.trinidadinternal.skin.SkinFactoryImpl;
 import org.apache.myfaces.trinidadinternal.skin.SkinUtils;
 import org.apache.myfaces.trinidad.util.ExternalContextUtils;
+import org.apache.myfaces.trinidad.util.RequestStateMap;
 
 /**
  * This is the implementation of the Trinidad's Global configurator. It provides the entry point for
@@ -134,7 +135,7 @@ public final class GlobalConfiguratorImpl extends Configurator
    */
   static private final boolean _isDisabled(final ExternalContext ec)
   {
-    final Boolean inRequest = (Boolean) ec.getRequestMap().get(_IN_REQUEST);
+    final Boolean inRequest = (Boolean) RequestStateMap.getInstance(ec).get(_IN_REQUEST);
 
     if (inRequest == null)
     {
@@ -203,7 +204,7 @@ public final class GlobalConfiguratorImpl extends Configurator
 
         _attachRequestContext(externalContext);
 
-        if (externalContext.getRequestMap().get(_IN_REQUEST) == null)
+        if (RequestStateMap.getInstance(externalContext).get(_IN_REQUEST) == null)
         {
           _startConfiguratorServiceRequest(externalContext);
         }
@@ -292,6 +293,7 @@ public final class GlobalConfiguratorImpl extends Configurator
         }
         finally
         {
+          RequestStateMap.getInstance(externalContext).saveState(externalContext);
           _releaseRequestContext(externalContext);
           _releaseManagedThreadLocals();
         }
@@ -444,7 +446,7 @@ public final class GlobalConfiguratorImpl extends Configurator
     
     // See if we've got a cached RequestContext instance; if so,
     // reattach it
-    final Object cachedRequestContext = externalContext.getRequestMap().get(
+    final Object cachedRequestContext = RequestStateMap.getInstance(externalContext).get(
         _REQUEST_CONTEXT);
 
     // Catch both the null scenario and the
@@ -459,9 +461,9 @@ public final class GlobalConfiguratorImpl extends Configurator
       final RequestContextFactory factory = RequestContextFactory.getFactory();
       assert factory != null;
       context = factory.createContext(externalContext);
-      externalContext.getRequestMap().put(_REQUEST_CONTEXT, context);
+      RequestStateMap.getInstance(externalContext).put(_REQUEST_CONTEXT, context);
     }
-
+    
     assert RequestContext.getCurrentInstance() == context;
   }
 
@@ -471,7 +473,7 @@ public final class GlobalConfiguratorImpl extends Configurator
     //well want to create a new one next request
     if(RequestType.getType(ec) != RequestType.PORTAL_ACTION)
     {
-      ec.getRequestMap().remove(_REQUEST_CONTEXT);
+      RequestStateMap.getInstance(ec).remove(_REQUEST_CONTEXT);
     }
 
     final RequestContext context = RequestContext.getCurrentInstance();
@@ -479,7 +481,6 @@ public final class GlobalConfiguratorImpl extends Configurator
     {
       context.release();
       assert RequestContext.getCurrentInstance() == null;
-
     }
   }
 
@@ -497,7 +498,7 @@ public final class GlobalConfiguratorImpl extends Configurator
   {
     // Physical request has now ended
     // Clear the in-request flag
-    ec.getRequestMap().remove(_IN_REQUEST);
+    RequestStateMap.getInstance(ec).remove(_IN_REQUEST);
     if(_services != null)
     {
       for (final Configurator config : _services)
@@ -514,7 +515,7 @@ public final class GlobalConfiguratorImpl extends Configurator
     final boolean disabled = isConfiguratorServiceDisabled(ec);
 
     // Tell whether the services were disabled when the requests had begun
-    ec.getRequestMap().put(_IN_REQUEST, disabled);
+    RequestStateMap.getInstance(ec).put(_IN_REQUEST, disabled);
 
     // If this hasn't been initialized then please initialize
     for (final Configurator config : _services)
@@ -700,12 +701,12 @@ public final class GlobalConfiguratorImpl extends Configurator
 
     public static void clearType(final ExternalContext ec)
     {
-      ec.getRequestMap().remove(_REQUEST_TYPE);
+      RequestStateMap.getInstance(ec).remove(_REQUEST_TYPE);
     }
 
     public static RequestType getType(final ExternalContext ec)
     {
-      return (RequestType) ec.getRequestMap().get(_REQUEST_TYPE);
+      return (RequestType) RequestStateMap.getInstance(ec).get(_REQUEST_TYPE);
     }
 
     public static boolean isCorrectType(final ExternalContext ec)
@@ -716,7 +717,7 @@ public final class GlobalConfiguratorImpl extends Configurator
     @SuppressWarnings("unchecked")
     public static void setType(final ExternalContext ec)
     {
-      ec.getRequestMap().put(_REQUEST_TYPE, _findType(ec));
+      RequestStateMap.getInstance(ec).put(_REQUEST_TYPE, _findType(ec));
     }
 
     private static final RequestType _findType(final ExternalContext ec)
@@ -762,7 +763,7 @@ public final class GlobalConfiguratorImpl extends Configurator
 
     static public final boolean isTestParamPresent(ExternalContext ec)
     {
-      return ec.getRequestParameterMap().get(_TEST_PARAM) != null;
+      return RequestStateMap.getInstance(ec).get(_TEST_PARAM) != null;
     }
 
     static private String _TEST_PARAM = TestRequest.class.getName()+

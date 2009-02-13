@@ -1075,10 +1075,12 @@ public class StateManagerImpl extends StateManagerWrapper
         //This code handles automatic namespacing in a JSR-301 environment
         if(ExternalContextUtils.isPortlet(fc.getExternalContext())) 
         {
-          //To avoid introducing a runtime dependency on the bridge,
+          //IMPORTANT: To avoid introducing a runtime dependency on the bridge,
           //this method should only be executed when we have a portlet
           //request.  If we do have a portlet request then the bridge
-          //should be available anyway.
+          //should be available anyway. Trinidad has a compile-time dependency
+          //on the PortletBridge API but DOES NOT have a runtime dependency on
+          //those clases.  It is very important to keep this seperation.
           newRoot = PortletUtils.getPortletViewRoot(newRoot);
         }
 

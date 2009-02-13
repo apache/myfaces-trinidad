@@ -35,6 +35,7 @@ import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.UploadedFile;
 import org.apache.myfaces.trinidad.util.ExternalContextUtils;
+import org.apache.myfaces.trinidad.util.RequestStateMap;
 import org.apache.myfaces.trinidadinternal.share.util.MultipartFormHandler;
 import org.apache.myfaces.trinidadinternal.share.util.MultipartFormItem;
 
@@ -68,7 +69,7 @@ public class FileUploadConfiguratorImpl extends Configurator
    */
   static public boolean isApplied(ExternalContext context)
   {
-    return (context.getRequestMap().get(_APPLIED)!=null);
+    return (RequestStateMap.getInstance(context).get(_APPLIED)!=null);
   }
 
   /**
@@ -77,7 +78,7 @@ public class FileUploadConfiguratorImpl extends Configurator
   @SuppressWarnings("unchecked")
   static public void apply(ExternalContext context)
   {
-    context.getRequestMap().put(_APPLIED, AppliedClass.APPLIED);
+    RequestStateMap.getInstance(context).put(_APPLIED, AppliedClass.APPLIED);
   }
 
   /* (non-Javadoc)

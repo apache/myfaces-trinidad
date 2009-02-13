@@ -2,6 +2,8 @@ package org.apache.myfaces.trinidadinternal.application;
 
 import javax.faces.component.UIViewRoot;
 
+import javax.faces.context.FacesContext;
+
 import javax.portlet.faces.component.PortletNamingContainerUIViewRoot;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -34,14 +36,21 @@ class PortletUtils
    */
   public static final UIViewRoot getPortletViewRoot(UIViewRoot root) 
   {
-    Class<? extends UIViewRoot> rootClass = root.getClass();
     //If the current root is not the real UIViewRoot object in faces then
     //is no need to escape it.  It is assumed it handles namespacing on its
-    //own.  This is the same as the logic in the JSR-301 Bridge spec.
-    if(rootClass == UIViewRoot.class) 
+    //own.  This is the same as the logic in the JSR-301 Bridge Impl.
+    if(root.getClass() == UIViewRoot.class) 
     {
-      _LOG.fine("Creating PortletUIViewRoot for use with the portal.");
-      root = new PortletNamingContainerUIViewRoot(root);
+      FacesContext fc = FacesContext.getCurrentInstance();
+      _LOG.fine("Creating PortletNamingContainerUIViewRoot for use with the portal.");
+      fc.getApplication().addComponent(
+                      UIViewRoot.COMPONENT_TYPE,
+                      PortletNamingContainerUIViewRoot.class.getName());
+      root = (UIViewRoot) fc.getApplication().createComponent(
+                      UIViewRoot.COMPONENT_TYPE);
+      // Restore original mapping.
+      fc.getApplication().addComponent(
+                      UIViewRoot.COMPONENT_TYPE, UIViewRoot.class.getName());
     }
     
     //TODO: Do we need a warning here if the view root is not annotated 
