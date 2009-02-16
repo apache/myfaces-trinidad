@@ -1895,8 +1895,8 @@ function submitForm(
         }
       }
       // IE BUG, see TRINIDAD-704
-      if(_agent.isIE && window.external)
-        window.external.AutoCompleteSaveForm(form);
+      if(_agent.isIE)
+        _autoCompleteForm(form);
 
       try
       {
@@ -1945,6 +1945,20 @@ function submitForm(
   }
 
   return doSubmit;
+}
+
+/**
+ * Internet Explorer has a bug, that the autocomplete does not work when
+ * using JavaScript to submit a form.
+ */
+function _autoCompleteForm(form)
+{
+  var theExternal = window.external;
+
+  if (theExternal && (typeof theExternal.AutoCompleteSaveForm != "undefined"))
+  {
+    theExternal.AutoCompleteSaveForm(form);
+  }
 }
 
 /**

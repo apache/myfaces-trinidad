@@ -145,10 +145,24 @@ TrRequestQueue.prototype.sendFormPost = function(
     var content = this._getPostbackContent(actionForm, params);
 
     // IE BUG, see TRINIDAD-704
-    if(_agent.isIE && window.external)
-      window.external.AutoCompleteSaveForm(actionForm);
+    if(_agent.isIE)
+      this._autoCompleteForm(actionForm);
 
     this.sendRequest(context, method, actionForm.action, content, headerParams);
+  }
+}
+
+/**
+ * Internet Explorer has a bug, that the autocomplete does not work when
+ * using JavaScript to submit a form.
+ */
+TrRequestQueue.prototype._autoCompleteForm = function(form)
+{
+  var theExternal = window.external;
+
+  if (theExternal && (typeof theExternal.AutoCompleteSaveForm != "undefined"))
+  {
+    theExternal.AutoCompleteSaveForm(form);
   }
 }
 
@@ -481,8 +495,8 @@ TrRequestQueue.prototype._doRequestThroughIframe = function(requestItem)
     this._iframeLoadCallback = TrUIUtils.createCallback(this, this._handleIFrameLoad);
 
   // IE BUG, see TRINIDAD-704
-  if(_agent.isIE && window.external)
-    window.external.AutoCompleteSaveForm(htmlForm);
+  if(_agent.isIE)
+    this._autoCompleteForm(htmlForm);
 
   try
   {
