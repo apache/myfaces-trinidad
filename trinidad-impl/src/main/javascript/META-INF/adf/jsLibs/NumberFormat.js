@@ -387,12 +387,25 @@ TrNumberFormat.prototype.percentageToString = function(number)
 {
   number = number * 100;
   number = this.getRounded(number);
-  if(isNaN(number))
+  if (isNaN(number))
   {
     throw new TrParseException("not able to parse number");
+  } 
+  
+  // Get the percent suffix. I.e. in French the suffix is " %", not just "%". The following assumes 
+  // the percent suffix is the same when the number is positive or negative. It also assumes that 
+  // the locale indeed uses a percent suffix (and not a percent prefix); if that assumption is 
+  // wrong, we should be notified by the following exception. If any changes need to be made, you 
+  // should start by looking at _getPercentData() in:
+  // maven-i18n-plugin\src\main\java\org\apache\myfaces\trinidadbuild\plugin\i18n\uixtools\JSLocaleElementsGenerator.java
+  var suffix = getLocaleSymbols().getPercentSuffix();
+  if (!suffix || suffix == "")
+  {
+    throw new TrParseException("percent suffix undefined or empty");
   }
+  
   number = this.numberToString(number);
-  return number + '%';
+  return number + suffix;
 }
 
 /**

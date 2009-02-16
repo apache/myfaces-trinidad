@@ -396,6 +396,11 @@ function _getPercent()
   return this.getLocaleElements()["NumberElements"][3];
 }
 
+function _getPercentSuffix()
+{
+  return this.getLocaleElements()["PercentElements"][0];
+}
+
 function _getZeroDigit()
 {
   return this.getLocaleElements()["NumberElements"][4];
@@ -537,6 +542,7 @@ LocaleSymbols.prototype.getDecimalSeparator = _getDecimalSeparator;
 LocaleSymbols.prototype.getGroupingSeparator = _getGroupingSeparator;
 LocaleSymbols.prototype.getPatternSeparator = _getPatternSeparator;
 LocaleSymbols.prototype.getPercent = _getPercent;
+LocaleSymbols.prototype.getPercentSuffix = _getPercentSuffix;
 LocaleSymbols.prototype.getZeroDigit = _getZeroDigit;
 LocaleSymbols.prototype.getDigit = _getDigit;
 LocaleSymbols.prototype.getMinusSign = _getMinusSign;
