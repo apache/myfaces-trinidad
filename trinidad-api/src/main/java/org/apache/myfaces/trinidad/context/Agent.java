@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -45,7 +45,7 @@ public interface Agent
    * Constant for telnet device type
    */
   public static final Object TYPE_TELNET = "telnet";
-  
+
   /**
    * Constant for desktop devices
    */
@@ -102,7 +102,7 @@ public interface Agent
    * Constant for pocket pc platform
    */
   public static final String PLATFORM_PPC = "ppc";
-  
+
   /**
    * Constant for blackberry platform
    */
@@ -120,6 +120,16 @@ public interface Agent
   public static final String PLATFORM_GENERICPDA = "genericpda";
 
   /**
+   * Constant for when the agent is not supported or not recognized
+   */
+  public static final String AGENT_UNKNOWN = "unknown";
+
+  /**
+   * Constant for Konqueror agent
+   */
+  public static final String AGENT_KONQUEROR = "konqueror";
+
+  /**
    * Constant for Internet Explorer agent
    */
   public static final String AGENT_IE = "ie";
@@ -133,7 +143,7 @@ public interface Agent
    * Constant for Apple Webkit agent. Used for all Webkit based agent like Safari
    */
   public static final String AGENT_WEBKIT = "webkit";
-  
+
   /**
    * Constant for BlackBerry Browser agent.  (Note the distinction from the
    * BlackBerry platform.  The BlackBerry Browser agent runs on the
@@ -141,7 +151,6 @@ public interface Agent
    * BlackBerry platform.)
    */
   public static final String AGENT_BLACKBERRY = "blackberry";
-   
 
   /**
    * Constant for Symbian Nokia S60 agent. Used for Nokia Series 60

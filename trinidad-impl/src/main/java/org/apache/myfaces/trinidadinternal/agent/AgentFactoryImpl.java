@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -37,7 +37,7 @@ public class AgentFactoryImpl implements AgentFactory
   public Agent createAgent(Map<String, String> headerMap)
   {
     // this method primarily exists for use during testing
-    
+
     AgentImpl agent = new AgentImpl();
     _populateAgentImpl(headerMap,agent);
     return agent;
@@ -70,7 +70,7 @@ public class AgentFactoryImpl implements AgentFactory
   // consulted to correctly populate the agent
   private void _populateAgentImpl(Map<String, String> headerMap, AgentImpl agent)
   {
-    
+
     String userAgent = headerMap.get("User-Agent");
 
     if ((userAgent != null) && userAgent.startsWith("PTG"))
@@ -95,7 +95,7 @@ public class AgentFactoryImpl implements AgentFactory
       _populateUnknownAgentImpl(null, agent);
       return;
     }
-    
+
     //the useragent string for telnet and PDA design time will start with
     //OracleJDevMobile because in each of these cases we know we have an
     //exact match in the device repository for the agent name.  This is
@@ -250,7 +250,7 @@ public class AgentFactoryImpl implements AgentFactory
     // Log warning message that we are setting the agent entry to unknown attributes
     _LOG.warning("UNKNOWN_AGENT_ATTRIBUTES_CREATE_WITH_UNKNOWN", userAgent);
     agent.setAgentEntryToNULL();
-    agent.setAgent(_UNKNOWN);
+    agent.setAgent(Agent.AGENT_UNKNOWN);
     agent.setType(_UNKNOWN);
     agent.setAgentVersion(_UNKNOWN);
     agent.setPlatform(_UNKNOWN);
@@ -385,7 +385,7 @@ public class AgentFactoryImpl implements AgentFactory
     agentObj.setAgent(Agent.AGENT_IE);
     agentObj.setAgentVersion(version);
     agentObj.setPlatform(Agent.PLATFORM_PPC);
-    
+
     if(uaPixels != null && uaPixels.length() > 0)
     {
       // UA-pixels is defined as <width>x<height>
@@ -409,7 +409,7 @@ public class AgentFactoryImpl implements AgentFactory
           _LOG.fine(ex);
         }
       }
-      
+
       if(width != null && height != null)
       {
         agentObj.__addRequestCapability(TrinidadAgent.CAP_WIDTH,width);
@@ -421,7 +421,7 @@ public class AgentFactoryImpl implements AgentFactory
       }
     }
   }
-  
+
     /**
      * populates data from a Blackberry browser request
      */
@@ -432,9 +432,9 @@ public class AgentFactoryImpl implements AgentFactory
       // model, e.g. for the BlackBerry browser 4.1.0 on
       // the BlackBerry 8700 device, the User-Agent string begins with
       // BlackBerry8700/4.1.0
-      
+
       int start = agent.indexOf("BlackBerry");
-      
+
       String version = null;
       String makeModel = null;
 
@@ -449,13 +449,13 @@ public class AgentFactoryImpl implements AgentFactory
             // BlackBerry<model> (e.g. BlackBerry8700), which we will
             // use as the Agent hardwareMakeModel
             makeModel = agent.substring(start,slashLoc);
-            
+
             // _getVersion assumes the location of the slash is passed in,
             // and starts looking for the version at the NEXT character
             version = _getVersion(agent, slashLoc);
         }
       }
-      
+
       // note that the agent and platform are both BLACKBERRY
       // this is because it is the BlackBerry Browser running on the
       // BlackBerry device
@@ -610,7 +610,7 @@ public class AgentFactoryImpl implements AgentFactory
     //Change 2008-05-13:
     // We need the rv to support @agent versioning in CSS as the date makes no sense,
     // so look for the rv:, not the Gecko build date
-    
+
     agentObj.setType(Agent.TYPE_DESKTOP);
     agentObj.setAgent(Agent.AGENT_GECKO);
 
@@ -649,11 +649,11 @@ public class AgentFactoryImpl implements AgentFactory
       }
     }
   }
-  
+
   /**
    * Returns an AgentEntry for the Opera browser.
    */
-  
+
   private void _populateOperaAgentImpl(String agent,AgentImpl agentObj)
   {
     int start = agent.indexOf("Opera Mini");
@@ -783,7 +783,13 @@ public class AgentFactoryImpl implements AgentFactory
       boolean isJDevVE = agent.indexOf("JDeveloper", paren) > 0;
       boolean isJDevJSVE = agent.indexOf("JDeveloper JS", paren) > 0;
 
-      if (agent.startsWith("compatible", paren))
+      if (agent.indexOf("Konqueror", paren) >= 0)
+      {
+        agentObj.setType(Agent.TYPE_DESKTOP);
+        agentObj.setAgent(Agent.AGENT_KONQUEROR);
+        agentObj.setAgentVersion(_getVersion(agent, agent.lastIndexOf('/')));
+      }
+      else if (agent.startsWith("compatible", paren))
       {
         int ieIndex = agent.indexOf("MSIE", paren);
 
@@ -844,7 +850,7 @@ public class AgentFactoryImpl implements AgentFactory
           agentObj.__addRequestCapability(TrinidadAgent.CAP_IS_JDEV_JAVASCRIPT_VE,
                                           Boolean.TRUE);
         }
-          
+
       }
     }
   }
@@ -862,7 +868,7 @@ public class AgentFactoryImpl implements AgentFactory
   {
     // start should be the character BEFORE the version portion
     // (typically a slash character after the agent name)
-    
+
     if (start < 0)
     {
       return null;
