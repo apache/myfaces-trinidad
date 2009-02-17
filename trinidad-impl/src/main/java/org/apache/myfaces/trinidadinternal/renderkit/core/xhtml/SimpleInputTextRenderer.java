@@ -529,11 +529,11 @@ public class SimpleInputTextRenderer extends FormInputRenderer
     String onKeyUp = super.getOnkeyup(bean);
     if (isTextArea(bean))
     {
-      Number maxLength = getMaximumLength(bean);
-      if (maxLength != null)
+      Number maximumLength = getMaximumLength(bean);
+      if(maximumLength != null && maximumLength.intValue()> 0)
       {
         onKeyUp = _getMaxLengthFunction(onKeyUp,
-                                        maxLength.intValue());
+                                        maximumLength.intValue());
       }
     }
 
@@ -600,7 +600,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
     if (isTextArea(bean))
     {
       Number maxLength = getMaximumLength(bean);
-      if (maxLength != null)
+      if (maxLength != null && maxLength.intValue()> 0)
       {
         onchange = _getMaxLengthFunction(onchange,
                                          maxLength.intValue());
