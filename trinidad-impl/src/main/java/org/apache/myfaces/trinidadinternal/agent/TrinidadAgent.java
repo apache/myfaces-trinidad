@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -33,7 +33,7 @@ public interface TrinidadAgent extends Agent
 
   static public final CapabilityKey CAP_ONCLICK_IMG_INPUT =
           CapabilityKey.getCapabilityKey("-adfinternal-onclickOnImgInput", true);
-            
+
   static public final CapabilityKey CAP_XMLDOM =
           CapabilityKey.getCapabilityKey("-adfinternal-xmldom", true);
 
@@ -124,7 +124,7 @@ public interface TrinidadAgent extends Agent
   static public final CapabilityKey CAP_SCRIPTING_SPEED =
           CapabilityKey.getCapabilityKey("-adfinternal-scriptingSpeed", true);
 
-  
+
   /**
    * true if multiple windows can be opened
    */
@@ -144,26 +144,26 @@ public interface TrinidadAgent extends Agent
   // width/height to a percentage.
   static public final CapabilityKey CAP_IMAGE_STRETCH =
           CapabilityKey.getCapabilityKey("-adfinternal-imageStretch", true);
-  
+
   static public final CapabilityKey CAP_GIF_TYPE_IMAGE =
           CapabilityKey.getCapabilityKey("-adfinternal-gifImage", true);
-  
+
   static public final CapabilityKey CAP_JPEG_TYPE_IMAGE =
           CapabilityKey.getCapabilityKey("-adfinternal-jpegImage", true);
-  
-  static public final CapabilityKey CAP_PNG_TYPE_IMAGE = 
+
+  static public final CapabilityKey CAP_PNG_TYPE_IMAGE =
           CapabilityKey.getCapabilityKey("-adfinternal-pngImage", true);
 
   static public final CapabilityKey CAP_TRANSPARENT_PNG_TYPE_IMAGE =
           CapabilityKey.getCapabilityKey("-adfinternal-transparentPngImage", true);
-  
+
   static public final CapabilityKey CAP_BMP_TYPE_IMAGE =
                CapabilityKey.getCapabilityKey("-adfinternal-bmpImage", true);
-  
+
   static public final CapabilityKey CAP_SUPPORTS_DISABLED_OPTIONS = CapabilityKey
     .getCapabilityKey("-adfinternal-supportsDisabledOptions", true);
 
-  
+
   static public final CapabilityKey CAP_IS_JDEV_VE = CapabilityKey
     .getCapabilityKey("-adfinternal-isJDevVE", true);
 
@@ -330,6 +330,10 @@ public interface TrinidadAgent extends Agent
    */
   static public final int APPLICATION_GENERICPDA = 14;
 
+  /**
+   * Application constant for Konqueror.
+   */
+  static public final int APPLICATION_KONQUEROR = 15;
 
   /**
    * OS constant for an unknown operating system.
@@ -365,7 +369,7 @@ public interface TrinidadAgent extends Agent
    * OS constant for any Windows Pocket PC
    */
   static public final int OS_PPC = 6;
-  
+
   /**
    * OS constant for any BlackBerry device
    */

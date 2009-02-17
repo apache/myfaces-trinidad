@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -76,7 +76,7 @@ public class AgentNameUtil
     {
       return TrinidadAgent.APPLICATION_SAFARI;
     }
-    
+
     if(TrinidadAgent.AGENT_BLACKBERRY.equals(agentName))
     {
       return TrinidadAgent.APPLICATION_BLACKBERRY;
@@ -90,6 +90,11 @@ public class AgentNameUtil
     if(TrinidadAgent.AGENT_GENERICPDA.equals(agentName))
     {
       return TrinidadAgent.APPLICATION_GENERICPDA;
+    }
+
+    if(TrinidadAgent.AGENT_KONQUEROR.equals(agentName))
+    {
+      return TrinidadAgent.APPLICATION_KONQUEROR;
     }
 
     return TrinidadAgent.APPLICATION_UNKNOWN;
@@ -137,7 +142,7 @@ public class AgentNameUtil
     {
       return TrinidadAgent.OS_PPC;
     }
-    
+
     if (TrinidadAgent.PLATFORM_BLACKBERRY.equals(platformName))
     {
         return TrinidadAgent.OS_BLACKBERRY;
@@ -187,8 +192,6 @@ public class AgentNameUtil
   public static String getAgentName(int agentId)
   {
     switch (agentId) {
-      case TrinidadAgent.APPLICATION_UNKNOWN:
-        return null;
       case TrinidadAgent.APPLICATION_NETSCAPE:
         return TrinidadAgent.AGENT_NETSCAPE;
       case TrinidadAgent.APPLICATION_IEXPLORER:
@@ -211,12 +214,12 @@ public class AgentNameUtil
         return TrinidadAgent.AGENT_NOKIA_S60;
       case TrinidadAgent.APPLICATION_GENERICPDA:
         return TrinidadAgent.AGENT_GENERICPDA;
-       default:
-        return null;
+      case TrinidadAgent.APPLICATION_KONQUEROR:
+        return TrinidadAgent.AGENT_KONQUEROR;
+      default:
+        return TrinidadAgent.AGENT_UNKNOWN;
     }
   }
-
-
 
   /**
    * utility method to get platform name string from AdfFacesAgent application constant (int)

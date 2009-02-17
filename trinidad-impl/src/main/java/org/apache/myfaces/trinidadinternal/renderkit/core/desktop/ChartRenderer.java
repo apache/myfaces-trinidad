@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -21,14 +21,11 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.desktop;
 import java.awt.Color;
 
 import java.io.IOException;
-
 import java.io.StringWriter;
 
 import java.util.Collection;
-
 import java.util.HashMap;
 import java.util.Iterator;
-
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
@@ -38,12 +35,12 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.data.CoreChart;
+import org.apache.myfaces.trinidad.context.FormData;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.event.ChartDrillDownEvent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.ChartModel;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
-import org.apache.myfaces.trinidad.context.FormData;
-import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
@@ -87,7 +84,7 @@ public class ChartRenderer extends XhtmlRenderer
 
   /**
    * @todo Decode the chart drill down event
-   * 
+   *
    */
   @SuppressWarnings("unchecked")
   @Override
@@ -95,9 +92,9 @@ public class ChartRenderer extends XhtmlRenderer
     FacesContext context,
     UIComponent component)
   {
-    Map<String, String> parameters =  
+    Map<String, String> parameters =
       context.getExternalContext().getRequestParameterMap();
-    
+
     String source = parameters.get(XhtmlConstants.SOURCE_PARAM);
     String id = component.getClientId(context);
     if (!id.equals(source))
@@ -105,9 +102,9 @@ public class ChartRenderer extends XhtmlRenderer
     Object eventParam = parameters.get(XhtmlConstants.EVENT_PARAM);
     if (XhtmlConstants.CHART_DRILL_DOWN_EVENT.equals(eventParam))
     {
-      int[] seriesIndices = null; 
-      int[] yValueIndices = null; 
-      double[] yValues = null; 
+      int[] seriesIndices = null;
+      int[] yValueIndices = null;
+      double[] yValues = null;
       double[] xValues = null;
       String value = parameters.get(XhtmlConstants.VALUE_PARAM);
       String[] tokens = value.split(_DELIMITER);
@@ -132,7 +129,7 @@ public class ChartRenderer extends XhtmlRenderer
         }
       }
       ChartDrillDownEvent event =
-        new ChartDrillDownEvent(component, seriesIndices, 
+        new ChartDrillDownEvent(component, seriesIndices,
                                 yValueIndices, yValues, xValues);
       event.queue();
     }
@@ -142,7 +139,7 @@ public class ChartRenderer extends XhtmlRenderer
   {
     int[] indices = new int[tokens.length-1];
     for(int i=1; i<tokens.length; ++i)
-      indices[i-1] = Integer.parseInt(tokens[i]);    
+      indices[i-1] = Integer.parseInt(tokens[i]);
     return indices;
   }
 
@@ -150,10 +147,10 @@ public class ChartRenderer extends XhtmlRenderer
   {
     double[] values = new double[tokens.length-1];
     for(int i=1; i<tokens.length; ++i)
-      values[i-1] = Double.parseDouble(tokens[i]);    
+      values[i-1] = Double.parseDouble(tokens[i]);
     return values;
   }
-  
+
    /**
     * @return
     */
@@ -162,7 +159,7 @@ public class ChartRenderer extends XhtmlRenderer
    {
      return true;
    }
- 
+
    /**
     * Overrriden to always generate an id
     */
@@ -173,7 +170,7 @@ public class ChartRenderer extends XhtmlRenderer
   {
     return true;
   }
-   
+
   /**
    * render all pieces of the chart
    */
@@ -188,7 +185,7 @@ public class ChartRenderer extends XhtmlRenderer
       return;
 
     ResponseWriter rw = context.getResponseWriter();
-    rw.startElement(XhtmlConstants.DIV_ELEMENT, component); 
+    rw.startElement(XhtmlConstants.DIV_ELEMENT, component);
     renderId(context, component);
     renderStyleAttributes(context, arc, bean, SkinSelectors.AF_CHART_STYLE_CLASS);
     // We need the number convertor so that we can format numbers on the client
@@ -206,7 +203,7 @@ public class ChartRenderer extends XhtmlRenderer
     renderScriptDeferAttribute(context, arc);
     renderScriptTypeAttribute(context, arc);
     rw.write(sw.toString());
-    rw.endElement(XhtmlConstants.SCRIPT_ELEMENT);    
+    rw.endElement(XhtmlConstants.SCRIPT_ELEMENT);
     rw.endElement(XhtmlConstants.DIV_ELEMENT);
   }
 
@@ -226,7 +223,7 @@ public class ChartRenderer extends XhtmlRenderer
     templateURL = context.getExternalContext().encodeResourceURL(templateURL);
     sw.append(templateURL);
     sw.append("\",\"width:100%; height:100%;\"");
-    sw.append(",null);\n"); 
+    sw.append(",null);\n");
   }
 
   protected void _outputJSChartModel(
@@ -299,7 +296,7 @@ public class ChartRenderer extends XhtmlRenderer
     sw.append("var chartId = ");
     _writeJSObject(sw, "svgChart"+clientId);
     sw.append(";\n");
-    
+
     sw.append("var isPerspective = ");
     _writeJSObject(sw, isPerspective(bean));
     sw.append(";\n");
@@ -344,22 +341,22 @@ public class ChartRenderer extends XhtmlRenderer
       formName =  null;
     else
       formName = fData.getName();
-    
+
     if(formName!=null)
     {
       sw.append("apacheChart.setFormName(");
       _writeJSObject(sw, formName);
       sw.append(");\n");
     }
-    
+
     if(!PartialPageUtils.isPPRActive(context))
     {
       sw.append("apacheChart.setPartialSubmit(");
       _writeJSObject(sw, false);
-      sw.append(");\n");    
+      sw.append(");\n");
     }
-    
-    if(arc.getAgent().getAgentName() == TrinidadAgent.AGENT_IE)
+
+    if(TrinidadAgent.AGENT_IE.equals(arc.getAgent().getAgentName()))
     {
       sw.append("apacheChart.setErrorHtml(");
       _writeJSObject(sw, arc.getTranslatedString("af_chart.IE_SVG_PLUGIN_ERROR_HTML"));
@@ -371,15 +368,15 @@ public class ChartRenderer extends XhtmlRenderer
       _writeJSObject(sw, arc.getTranslatedString("af_chart.SVG_ENABLED_BROWSER_ERROR_HTML"));
       sw.append(");\n");
     }
-    
+
     sw.append("apacheChart.setStatusHtml(");
     _writeJSObject(sw, arc.getTranslatedString("af_chart.SVG_LOADING_STATUS_HTML"));
     sw.append(");\n");
-    
+
     // finally draw the chart
     sw.append("apacheChart.draw();\n");
   }
-  
+
   @SuppressWarnings("unchecked")
   static private void _writeJSObject(
     StringWriter sw,
@@ -542,7 +539,7 @@ public class ChartRenderer extends XhtmlRenderer
   {
     sw.append(String.valueOf(value));
   }
-  
+
   /**
    * Encodes a boolean in JavaScript Object Notation.
    *
@@ -586,7 +583,7 @@ public class ChartRenderer extends XhtmlRenderer
     sw.append(String.valueOf(color.getBlue()));
     sw.append(")\"");
   }
-  
+
   /**
    * Encodes a Collection in JavaScript Object Notation.
    *
@@ -620,7 +617,7 @@ public class ChartRenderer extends XhtmlRenderer
       sw.append(']');
     }
   }
-  
+
   private static Object _getProperty(FacesBean bean, PropertyKey key)
   {
     Object ret = bean.getProperty(key);
@@ -628,7 +625,7 @@ public class ChartRenderer extends XhtmlRenderer
       ret = key.getDefault();
     return ret;
   }
-  
+
   protected String getType(FacesBean bean)
   {
     return toString(_getProperty(bean, _typeKey));
@@ -639,7 +636,7 @@ public class ChartRenderer extends XhtmlRenderer
     Object ret = bean.getProperty(_templateSourceKey);
     String uri;
     if (ret==null)
-    {      
+    {
       if(isGradientsUsed(bean))
         uri = _TEMPLATE_DOC;
       else
@@ -691,12 +688,12 @@ public class ChartRenderer extends XhtmlRenderer
   {
     return (Integer)_getProperty(bean, _YMinorGridLineCountKey);
   }
-  
+
   protected Integer getMaxPrecision(FacesBean bean)
   {
     return (Integer)_getProperty(bean, _maxPrecisionKey);
   }
-  
+
   private Scriptlet chartLib;
 
   private PropertyKey _typeKey;
@@ -710,7 +707,7 @@ public class ChartRenderer extends XhtmlRenderer
   private PropertyKey _XMajorGridLineCountKey;
   private PropertyKey _YMinorGridLineCountKey;
   private PropertyKey _maxPrecisionKey;
-  
+
   private static final String _DELIMITER = "\\$adf\\$";
   private static final String _TEMPLATE_DOC = "/adf/svg/chart.svg";
   private static final String _TEMPLATE_DOC_NOGRADIENT = "/adf/svg/chartNoGradient.svg";

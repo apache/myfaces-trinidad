@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -43,8 +43,8 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 public class CoreRenderer extends Renderer
 {
   // TODO Move elsewhere?
-  static public final char CHAR_UNDEFINED = (char) -1;  
-  static public final int NO_CHILD_INDEX = -1;    
+  static public final char CHAR_UNDEFINED = (char) -1;
+  static public final int NO_CHILD_INDEX = -1;
 
   protected CoreRenderer()
   {
@@ -72,9 +72,9 @@ public class CoreRenderer extends Renderer
   {
     if (o == null)
       return null;
-    
+
     String uri = o.toString();
-    
+
     // Treat two slashes as server-relative
     if (uri.startsWith("//"))
     {
@@ -93,9 +93,9 @@ public class CoreRenderer extends Renderer
   {
     if (o == null)
       return null;
-    
+
     String uri = o.toString();
-    
+
     // Treat two slashes as server-relative
     if (uri.startsWith("//"))
     {
@@ -119,7 +119,7 @@ public class CoreRenderer extends Renderer
 
 
   /**
-   * Returns the integer value of an object;  this does 
+   * Returns the integer value of an object;  this does
    * not support null (which must be substituted with a default
    * before calling).
    */
@@ -131,7 +131,7 @@ public class CoreRenderer extends Renderer
 
 
   /**
-   * Returns the integer value of an object;  this does 
+   * Returns the integer value of an object;  this does
    * not support null (which must be substituted with a default
    * before calling).
    */
@@ -148,7 +148,7 @@ public class CoreRenderer extends Renderer
   {
     if (o == null)
       return CHAR_UNDEFINED;
-    
+
     char c;
     if (o instanceof Character)
     {
@@ -189,15 +189,15 @@ public class CoreRenderer extends Renderer
   {
     if (!getRendersChildren())
     {
-      RenderingContext arc = RenderingContext.getCurrentInstance();
-      if (arc == null)
+      RenderingContext rc = RenderingContext.getCurrentInstance();
+      if (rc == null)
         throw new IllegalStateException(_LOG.getMessage(
           "NO_RENDERINGCONTEXT"));
-      
+
       FacesBean bean = getFacesBean(component);
-      
-      beforeEncode(context, arc, component, bean);      
-      encodeBegin(context, arc, component, bean);
+
+      beforeEncode(context, rc, component, bean);
+      encodeBegin(context, rc, component, bean);
     }
   }
 
@@ -212,31 +212,31 @@ public class CoreRenderer extends Renderer
   public final void encodeEnd(FacesContext context,
                         UIComponent component) throws IOException
   {
-    RenderingContext arc = RenderingContext.getCurrentInstance();
-    if (arc == null)
+    RenderingContext rc = RenderingContext.getCurrentInstance();
+    if (rc == null)
       throw new IllegalStateException(_LOG.getMessage(
         "NO_RENDERINGCONTEXT"));
 
     FacesBean bean = getFacesBean(component);
     if (getRendersChildren())
     {
-      beforeEncode(context, arc, component, bean);
-      encodeAll(context, arc, component, bean);
+      beforeEncode(context, rc, component, bean);
+      encodeAll(context, rc, component, bean);
     }
     else
     {
-      encodeEnd(context, arc, component, bean);
+      encodeEnd(context, rc, component, bean);
     }
-    afterEncode(context, arc, component, bean);      
+    afterEncode(context, rc, component, bean);
   }
 
   /**
-   * Hook for rendering the start of a component;  only 
+   * Hook for rendering the start of a component;  only
    * called if getRendersChildren() is <em>false</em>.
    */
   protected void encodeBegin(
     FacesContext        context,
-    RenderingContext arc,
+    RenderingContext rc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -245,12 +245,12 @@ public class CoreRenderer extends Renderer
   }
 
   /**
-   * Hook for rendering the end of a component;  only 
+   * Hook for rendering the end of a component;  only
    * called if getRendersChildren() is <em>false</em>.
    */
   protected void encodeEnd(
     FacesContext        context,
-    RenderingContext arc,
+    RenderingContext rc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -260,12 +260,12 @@ public class CoreRenderer extends Renderer
 
 
   /**
-   * Hook for rendering all of a component;  only 
+   * Hook for rendering all of a component;  only
    * called if getRendersChildren() is <em>true</em>.
    */
   protected void encodeAll(
     FacesContext        context,
-    RenderingContext arc,
+    RenderingContext rc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -300,7 +300,7 @@ public class CoreRenderer extends Renderer
         }
       }
     }
-    
+
     child.encodeEnd(context);
   }
 
@@ -313,7 +313,7 @@ public class CoreRenderer extends Renderer
     int childCount = component.getChildCount();
     if (childCount == 0)
       return;
-    
+
     for(UIComponent child : (List<UIComponent>)component.getChildren())
     {
       if (child.isRendered())
@@ -325,24 +325,24 @@ public class CoreRenderer extends Renderer
 
   protected void delegateRenderer(
     FacesContext        context,
-    RenderingContext arc,
+    RenderingContext rc,
     UIComponent         component,
     FacesBean           bean,
     CoreRenderer        renderer) throws IOException
   {
     if (renderer.getRendersChildren())
     {
-      renderer.encodeAll(context, arc, component, bean);
+      renderer.encodeAll(context, rc, component, bean);
     }
     else
     {
       throw new IllegalStateException();
     }
   }
-    
+
   protected void delegateRendererBegin(
     FacesContext        context,
-    RenderingContext arc,
+    RenderingContext rc,
     UIComponent         component,
     FacesBean           bean,
     CoreRenderer        renderer) throws IOException
@@ -353,13 +353,13 @@ public class CoreRenderer extends Renderer
     }
     else
     {
-      renderer.encodeBegin(context, arc, component, bean);
+      renderer.encodeBegin(context, rc, component, bean);
     }
   }
 
   protected void delegateRendererEnd(
     FacesContext        context,
-    RenderingContext arc,
+    RenderingContext rc,
     UIComponent         component,
     FacesBean           bean,
     CoreRenderer        renderer) throws IOException
@@ -370,7 +370,7 @@ public class CoreRenderer extends Renderer
     }
     else
     {
-      renderer.encodeEnd(context, arc, component, bean);
+      renderer.encodeEnd(context, rc, component, bean);
     }
   }
 
@@ -413,7 +413,7 @@ public class CoreRenderer extends Renderer
     // Otherwise, if ID isn't set, don't bother
     if (id == null)
       return false;
-    
+
     // ... or if the ID was generated, don't bother
     if (id.startsWith(UIViewRoot.UNIQUE_ID_PREFIX))
       return false;
@@ -432,18 +432,18 @@ public class CoreRenderer extends Renderer
   }
 
   static protected final Object getRenderingProperty(
-    RenderingContext arc,
+    RenderingContext rc,
     Object              key)
   {
-    return arc.getProperties().get(key);
+    return rc.getProperties().get(key);
   }
 
   static protected final Object setRenderingProperty(
-    RenderingContext arc,
+    RenderingContext rc,
     Object              key,
     Object              value)
   {
-    return arc.getProperties().put(key, value);
+    return rc.getProperties().put(key, value);
   }
 
   /**
@@ -459,7 +459,7 @@ public class CoreRenderer extends Renderer
 
     return facet;
   }
-  
+
   /**
    * Returns true if the component has children and at least
    * one has rendered=="true".
@@ -470,7 +470,7 @@ public class CoreRenderer extends Renderer
     int count = component.getChildCount();
     if (count == 0)
       return false;
-      
+
     for(UIComponent child : (List<UIComponent>)component.getChildren())
     {
       if (child.isRendered())
@@ -478,7 +478,7 @@ public class CoreRenderer extends Renderer
         return true;
       }
     }
-    
+
     return false;
   }
 
@@ -491,7 +491,7 @@ public class CoreRenderer extends Renderer
     int count = component.getChildCount();
     if (count == 0)
       return 0;
-      
+
     int total = 0;
     for(UIComponent child : (List<UIComponent>)component.getChildren())
     {
@@ -500,14 +500,14 @@ public class CoreRenderer extends Renderer
         total++;
       }
     }
-    
+
     return total;
   }
 
 
  /**
    * @param afterChildIndex The children coming after this index, will
-   * be considered. 
+   * be considered.
    * @return the index of the next child that must be rendered, or
    * {@link #NO_CHILD_INDEX} if there is none.
    */
@@ -534,79 +534,84 @@ public class CoreRenderer extends Renderer
   // AGENT CAPABILITY CONVENIENCE METHODS
   //
 
-  static public boolean isDesktop(RenderingContext arc)
+  static public boolean isDesktop(RenderingContext rc)
   {
-    return (Agent.TYPE_DESKTOP.equals(arc.getAgent().getType()));
+    return (Agent.TYPE_DESKTOP.equals(rc.getAgent().getType()));
   }
 
-  static public boolean isPDA(RenderingContext arc)
+  static public boolean isPDA(RenderingContext rc)
   {
-    return (Agent.TYPE_PDA.equals(arc.getAgent().getType()));
+    return (Agent.TYPE_PDA.equals(rc.getAgent().getType()));
   }
 
-  static public boolean isIE(RenderingContext arc)
+  static public boolean isIE(RenderingContext rc)
   {
-    return (Agent.AGENT_IE.equals(arc.getAgent().getAgentName()));
+    return (Agent.AGENT_IE.equals(rc.getAgent().getAgentName()));
   }
 
-  static public boolean isGecko(RenderingContext arc)
+  static public boolean isKonqueror(RenderingContext rc)
   {
-    return (Agent.AGENT_GECKO.equals(arc.getAgent().getAgentName()));
+    return (Agent.AGENT_KONQUEROR.equals(rc.getAgent().getAgentName()));
   }
 
-  static public boolean isWebKit(RenderingContext arc)
+  static public boolean isGecko(RenderingContext rc)
   {
-    return (Agent.AGENT_WEBKIT.equals(arc.getAgent().getAgentName()));
+    return (Agent.AGENT_GECKO.equals(rc.getAgent().getAgentName()));
   }
 
-  static public boolean isIPhone(RenderingContext arc)
+  static public boolean isWebKit(RenderingContext rc)
   {
-    return (Agent.PLATFORM_IPHONE.equals(arc.getAgent().getPlatformName()));
-  }
-  
-  static public boolean isGenericPDA(RenderingContext arc)
-  {
-    return (Agent.PLATFORM_GENERICPDA.equals(arc.getAgent().getPlatformName()));
+    return (Agent.AGENT_WEBKIT.equals(rc.getAgent().getAgentName()));
   }
 
-  static public boolean isInaccessibleMode(RenderingContext arc)
+  static public boolean isIPhone(RenderingContext rc)
   {
-    return (arc.getAccessibilityMode() ==
+    return (Agent.PLATFORM_IPHONE.equals(rc.getAgent().getPlatformName()));
+  }
+
+  static public boolean isGenericPDA(RenderingContext rc)
+  {
+    return (Agent.PLATFORM_GENERICPDA.equals(rc.getAgent().getPlatformName()));
+  }
+
+  static public boolean isInaccessibleMode(RenderingContext rc)
+  {
+    return (rc.getAccessibilityMode() ==
             RequestContext.Accessibility.INACCESSIBLE);
   }
 
-  static public boolean isScreenReaderMode(RenderingContext arc)
+  static public boolean isScreenReaderMode(RenderingContext rc)
   {
-    return (arc.getAccessibilityMode() ==
+    return (rc.getAccessibilityMode() ==
             RequestContext.Accessibility.SCREEN_READER);
   }
 
   //
   // Encoding hook methods for sub-classes
   //
-  
+
   /**
    * Hook method that gets invoked before the component is encoded
-   * 
+   *
    * @see #encodeBegin(FacesContext, RederingContext, UIComponent, FacesBean)
    * @see #encodeAll(FacesContext, RederingContext, UIComponent, FacesBean)
    */
   protected void beforeEncode(
     FacesContext     context,
-    RenderingContext arc,
+    RenderingContext rc,
     UIComponent      component,
     FacesBean        bean)
   {}
-  
+
   /**
    * Hook method that gets invoked after the component is encoded
-   * 
+   *
    * @see #encodeEnd(FacesContext, RederingContext, UIComponent, FacesBean)
    * @see #encodeAll(FacesContext, RederingContext, UIComponent, FacesBean)
    */
   protected void afterEncode(
     FacesContext     context,
-    RenderingContext arc,
+    RenderingContext rc,
     UIComponent      component,
     FacesBean        bean)
   {}
@@ -650,12 +655,12 @@ public class CoreRenderer extends Renderer
    */
   static public void renderStyleClass(
     FacesContext        context,
-    RenderingContext arc,
+    RenderingContext rc,
     String              styleClass) throws IOException
   {
     if (styleClass != null)
     {
-      styleClass = arc.getStyleClass(styleClass);
+      styleClass = rc.getStyleClass(styleClass);
       context.getResponseWriter().writeAttribute("class", styleClass, null);
     }
   }
@@ -673,7 +678,7 @@ public class CoreRenderer extends Renderer
     int length = styleClasses.length;
     if (length == 0)
       return;
-    
+
     String value;
     // Optimize one-element arrays
     if (length == 1)
@@ -702,7 +707,7 @@ public class CoreRenderer extends Renderer
           }
         }
       }
-      
+
       if (builder.length() == 0)
         value = null;
       else
