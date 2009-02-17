@@ -295,6 +295,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
 
     ResponseWriter rw = context.getResponseWriter();
     rw.writeAttribute("onselect", getOnselect(bean), "onselect");
+    rw.writeAttribute("onpaste", getOnpaste(bean), "onpaste");
   }
 
   @Override
@@ -608,6 +609,23 @@ public class SimpleInputTextRenderer extends FormInputRenderer
     }
 
     return onchange;
+  }
+
+  protected String getOnpaste(
+    FacesBean bean
+    )
+  {
+    String onpaste = null;
+    if (isTextArea(bean))
+    {
+      Number maximumLength = getMaximumLength(bean);
+      if(maximumLength != null && maximumLength.intValue()> 0)
+      {
+        onpaste = _getMaxLengthFunction(null,
+                                        maximumLength.intValue());
+      }
+    }
+    return onpaste;
   }
 
   protected String getOnselect(
