@@ -47,7 +47,7 @@ final class XmlHttpServletResponse extends HttpServletResponseWrapper
   public void sendRedirect(
     final String url) throws IOException
   {
-    XmlHttpConfigurator.__sendRedirect(getWriter(), url);
+    XmlHttpConfigurator.sendXmlRedirect(getWriter(), url);
   }
   
   @Override

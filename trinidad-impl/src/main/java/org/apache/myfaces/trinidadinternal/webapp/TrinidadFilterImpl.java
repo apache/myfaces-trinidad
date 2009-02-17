@@ -39,6 +39,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidad.util.ExternalContextUtils;
@@ -281,9 +282,14 @@ public class TrinidadFilterImpl implements Filter
       
       LaunchData data = (LaunchData)sessionMap.remove(_getKey(uid));
       
+      //We are returning from a dialog:
       if(data != null)
       {
         Map<String, Object> requestMap = ec.getRequestMap();
+
+        //Setting the flag to properly support isExecutingDialogReturn.
+        //This is needed for isExecutingDialogReturn.
+        requestMap.put(_IS_RETURNING_KEY, Boolean.TRUE);  
         
         UIViewRoot launchView = data.getLaunchView();
         if(launchView != null)
@@ -332,8 +338,17 @@ public class TrinidadFilterImpl implements Filter
       url.append(_LAUNCH_KEY)
          .append("=")
          .append(uid);
-      
-      ec.redirect(url.toString());
+
+      if (!RequestContext.getCurrentInstance().isPartialRequest(_PSEUDO_FACES_CONTEXT.get()))
+      {
+        //Special handling for XmlHttpRequest.  Would be cool to handle this much cleaner.
+        HttpServletResponse resp = (HttpServletResponse) ec.getResponse();
+        XmlHttpConfigurator.sendXmlRedirect(resp.getWriter(), url.toString());
+      }
+      else
+      {
+        ec.redirect(url.toString());
+      }
     }
   }
   
