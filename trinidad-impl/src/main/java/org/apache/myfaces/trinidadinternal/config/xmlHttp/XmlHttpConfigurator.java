@@ -69,7 +69,7 @@ public class XmlHttpConfigurator
   /**
    * Sends a <redirect> element to the server
    */
-  static void __sendRedirect(final PrintWriter writer, final String url)
+  public static void sendXmlRedirect(final PrintWriter writer, final String url)
     throws IOException
   {
     XmlResponseWriter rw = new XmlResponseWriter(writer, "UTF-8");
