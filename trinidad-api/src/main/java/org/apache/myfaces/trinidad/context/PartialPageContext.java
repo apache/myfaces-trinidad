@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -38,6 +38,7 @@ import org.apache.myfaces.trinidad.component.visit.VisitContext;
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/ppr/PartialPageContext.java#0 $) $Date: 10-nov-2005.19:02:58 $
  */
+// TODO why is this an abstract class and not an interface?
 abstract public class PartialPageContext
 {
   protected PartialPageContext()
@@ -110,7 +111,7 @@ abstract public class PartialPageContext
    * @return the client ids of the partial targets that have been rendered so far.
    */
   abstract public Iterator<String> getRenderedPartialTargets();
-  
+
   /**
    * Returns the VisitContext to use when partial rendering.
    * @return the VisitContext to use when partial rendering.
