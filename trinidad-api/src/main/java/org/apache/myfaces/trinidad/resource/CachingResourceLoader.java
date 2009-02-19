@@ -21,14 +21,12 @@ package org.apache.myfaces.trinidad.resource;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-
 import java.io.InputStream;
 import java.net.URL;
-
 import java.net.URLConnection;
 import java.net.URLStreamHandler;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import org.apache.myfaces.trinidad.util.URLUtils;
 
@@ -49,7 +47,7 @@ public class CachingResourceLoader extends ResourceLoader
   {
     super(parent);
 
-    _cache = new HashMap<String, URL>();
+    _cache = new ConcurrentHashMap<String, URL>();
   }
 
   /**
@@ -76,14 +74,14 @@ public class CachingResourceLoader extends ResourceLoader
       if (url != null)
       {
         url = new URL("cache", null, -1, path, new URLStreamHandlerImpl(url));
-        _cache.put(path, url);
+        _cache.putIfAbsent(path, url);
       }
     }
 
     return url;
   }
 
-  private final Map<String, URL> _cache;
+  private final ConcurrentMap<String, URL> _cache;
 
   /**
    * URLStreamHandler to cache URL contents and URLConnection headers.
