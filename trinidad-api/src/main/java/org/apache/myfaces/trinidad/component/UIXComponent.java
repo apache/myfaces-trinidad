@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -23,14 +23,12 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
 
-import javax.faces.component.UIComponent;
-
 import javax.el.MethodExpression;
 
 import javax.faces.component.NamingContainer;
+import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
-
 import javax.faces.event.PhaseId;
 import javax.faces.render.Renderer;
 
@@ -43,6 +41,7 @@ import org.apache.myfaces.trinidad.context.PartialPageContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.event.AttributeChangeListener;
 import org.apache.myfaces.trinidad.render.CoreRenderer;
+
 
 /**
  * Pure abstract base class for all UIX components.
@@ -108,7 +107,7 @@ abstract public class UIXComponent extends UIComponent
     S callbackContext) throws IOException
   {
     if (child.isRendered())
-    {      
+    {
        // component is an action FlattenedComponent.  Ask it to flatten its children
       if ((child instanceof FlattenedComponent) &&
           ((FlattenedComponent)child).isFlatteningChildren(context))
@@ -130,7 +129,7 @@ abstract public class UIXComponent extends UIComponent
           // if startDepth is > 0, only the first visible child will be marked as starting a group
           cpContext.resetStartDepth();
         }
-        
+
         return true;
       }
     }
@@ -195,7 +194,7 @@ abstract public class UIXComponent extends UIComponent
   {
     // we haven't processed a child yet
     boolean processedChild = false;
-    
+
     for (UIComponent currChild : children)
     {
       // latch processed child to the first child processed
@@ -204,7 +203,7 @@ abstract public class UIXComponent extends UIComponent
                                                  currChild,
                                                  callbackContext);
     }
-    
+
     return processedChild;
   }
 
@@ -237,7 +236,7 @@ abstract public class UIXComponent extends UIComponent
   {
     return visitTree(visitContext, this, callback);
   }
-  
+
   /**
   * <p>Perform a tree visit starting at the specified node in the tree.</p>
   *
@@ -272,7 +271,7 @@ abstract public class UIXComponent extends UIComponent
     if (component instanceof UIXComponent)
     {
       uixComponent = (UIXComponent)component;
-      
+
       // delegate to the UIXComponent
       if (!uixComponent.isVisitable(visitContext))
         return false;
@@ -282,10 +281,10 @@ abstract public class UIXComponent extends UIComponent
       // use generic isVisitable implemetation
       if (!_isVisitable(visitContext, component))
         return false;
-      
+
       uixComponent = null;
     }
-    
+
     // invoke the callback for this component
     VisitResult result = visitContext.invokeVisitCallback(component, callback);
 
@@ -299,7 +298,7 @@ abstract public class UIXComponent extends UIComponent
       RenderingContext rc = (PhaseId.RENDER_RESPONSE == phaseId)
                               ? RenderingContext.getCurrentInstance()
                               : null;
-      
+
       if (uixComponent != null)
       {
         // assume that all UIXComponent NamingContainers always act as NamingContainers,
@@ -311,7 +310,7 @@ abstract public class UIXComponent extends UIComponent
           if (visitContext.getSubtreeIdsToVisit(uixComponent).isEmpty())
             return false;
         }
-        
+
         // UIXComponents are allowed to set up their context differently for encoding
         // than normal processing, so behave differently if this is the RenderResponse
         // phase
@@ -334,22 +333,22 @@ abstract public class UIXComponent extends UIComponent
             return false;
         }
       }
-      
+
       // visit the children of the component
       try
       {
         Iterator<UIComponent> kids = component.getFacetsAndChildren();
-              
+
         while(kids.hasNext())
         {
           boolean done;
-          
+
           UIComponent currChild = kids.next();
-          
+
           if (currChild instanceof UIXComponent)
           {
             UIXComponent uixChild = (UIXComponent)currChild;
-            
+
             // delegate to UIXComponent's visitTree implementation to allow
             // subclassses to modify the behavior
             done = uixChild.visitTree(visitContext, callback);
@@ -359,7 +358,7 @@ abstract public class UIXComponent extends UIComponent
             // use generic visit implementation
             done = visitTree(visitContext, currChild, callback);
           }
-          
+
           // If any kid visit returns true, we are done.
           if (done)
           {
@@ -385,15 +384,53 @@ abstract public class UIXComponent extends UIComponent
     }
     else
     {
-      assert(result == VisitResult.REJECT);      
+      assert(result == VisitResult.REJECT);
     }
 
     // if we got this far, we're not done
     return false;
   }
 
-  
-  
+  /**
+   * Add a component as a partial target to the current request. This code handles the
+   * delegation to {@link #setPartialTarget(FacesContext, PartialPageContext)}
+   * for UIXComponents or assumes for {@link UIComponent} that components with a renderer
+   * type are able to produce DOM elements that have IDs that can be replaced.
+   *
+   * @param facesContext the faces context
+   * @param partialContext the partial page context
+   * @param component the component to add as a target
+   */
+  public static void addPartialTarget(FacesContext facesContext,
+    PartialPageContext partialContext, UIComponent component)
+  {
+    if (component instanceof UIXComponent)
+    {
+      ((UIXComponent)component).setPartialTarget(facesContext, partialContext);
+    }
+    else
+    {
+      // default to using the renderer type implementation
+      _addPartialTargetImpl(facesContext, partialContext, component);
+    }
+  }
+
+  /**
+   * Marks this component as a partial target for this request. Typically called
+   * by the {@link org.apache.myfaces.trinidad.context.RequestContext RequestContext}.
+   * The component should add the client ID the desired rendered component to the context.
+   * This allows components that do not render a replacable DOM element with an ID
+   * to choose an alternative component, like a parent.
+   *
+   * @param facesContext the faces context
+   * @param partialContext the partial page context
+   */
+  protected void setPartialTarget(FacesContext facesContext,
+    PartialPageContext partialContext)
+  {
+    UIXComponent._addPartialTargetImpl(facesContext, partialContext, this);
+  }
+
   /**
    * <p>Called by
    * {@link UIXComponent#visitTree UIXComponent.visitTree()} to determine
@@ -413,7 +450,29 @@ abstract public class UIXComponent extends UIComponent
   {
     return _isVisitable(visitContext, this);
   }
-  
+
+  /**
+   * @see #addPartialTarget(FacesContext, PartialPageContext, UIComponent)
+   * @see #setPartialTarget(FacesContext, PartialPageContext)
+   */
+  private static void _addPartialTargetImpl(
+    FacesContext facesContext, PartialPageContext partialContext, UIComponent component)
+  {
+    if (component.getRendererType() == null)
+    {
+      if (component.getParent() != null)
+      {
+        // delegate to the parent component, assuming that no renderer type means that
+        // there is no suitable replacable DOM element for this component
+        addPartialTarget(facesContext, partialContext, component.getParent());
+      }
+    }
+    else
+    {
+      partialContext.addPartialTarget(component.getClientId(facesContext));
+    }
+  }
+
   /**
    * default implementation checking the <code>VisitHint.SKIP_TRANSIENT</code> and
    * <code>VisitHint.SKIP_UNRENDERED</code> hints.
@@ -421,16 +480,16 @@ abstract public class UIXComponent extends UIComponent
   private static boolean _isVisitable(VisitContext visitContext, UIComponent component)
   {
     Collection<VisitHint> hints = visitContext.getHints();
-    
+
     if (hints.contains(VisitHint.SKIP_TRANSIENT) && component.isTransient())
       return false;
-    
+
     if (hints.contains(VisitHint.SKIP_UNRENDERED) && !component.isRendered())
       return false;
-    
+
     return true;
   }
-  
+
   /**
    * <p>
    * Called when visiting the component during optimized partial page encoding so that the
@@ -457,7 +516,7 @@ abstract public class UIXComponent extends UIComponent
   {
     FacesContext context  = visitContext.getFacesContext();
     Renderer     renderer = getRenderer(context);
-    
+
     if (renderer instanceof CoreRenderer)
     {
       // delegate to the CoreRenderer
@@ -500,7 +559,7 @@ abstract public class UIXComponent extends UIComponent
   {
     // do nothing
   }
-  
+
   /**
    * <p>Tears down context created in order to visit or invoke the component
    * for all phases.</p>
@@ -513,11 +572,11 @@ abstract public class UIXComponent extends UIComponent
    * @see #setUpEncodingContext
    * @see #tearDownEncodingContext
    */
-  protected void tearDownVisitingContext(FacesContext context) 
+  protected void tearDownVisitingContext(FacesContext context)
   {
     // do nothing
   }
-  
+
   /**
    * <p>Sets up the context necessary to encode the component.</p>
    * <p>The default implementation delegates to
@@ -535,13 +594,13 @@ abstract public class UIXComponent extends UIComponent
   protected void setUpEncodingContext(FacesContext context, RenderingContext rc)
   {
     setupVisitingContext(context);
-    
+
     Renderer renderer = getRenderer(context);
-    
+
     if (renderer instanceof CoreRenderer)
     {
       CoreRenderer coreRenderer = (CoreRenderer)renderer;
-      
+
       coreRenderer.setupEncodingContext(context, rc, this);
     }
   }
@@ -565,15 +624,15 @@ abstract public class UIXComponent extends UIComponent
     RenderingContext rc)
   {
     Renderer renderer = getRenderer(context);
-    
+
     try
     {
       if (renderer instanceof CoreRenderer)
       {
         CoreRenderer coreRenderer = (CoreRenderer)renderer;
-      
+
         coreRenderer.tearDownEncodingContext(context, rc, this);
-      } 
+      }
     }
     finally
     {
@@ -606,7 +665,7 @@ abstract public class UIXComponent extends UIComponent
 
   /**
    * Gets the registered AttributeChangeListeners.
-   */ 
+   */
   abstract public AttributeChangeListener[] getAttributeChangeListeners();
 
   /**
@@ -630,11 +689,11 @@ abstract public class UIXComponent extends UIComponent
   abstract public MethodExpression getAttributeChangeListener();
 
   abstract public void markInitialState();
-  
+
   /**
-   * Provides additional context (the target child component for which the container 
+   * Provides additional context (the target child component for which the container
    * client ID is requested) to a naming container for constructing a client ID.
-   * This is useful for components such as @link UIXTable and @link UIXTreeTable which need 
+   * This is useful for components such as @link UIXTable and @link UIXTreeTable which need
    * to return different container client IDs for stamped and non-stamped child components.
    * @see UIXComponentBase#getClientId(FacesContext context)
    */
