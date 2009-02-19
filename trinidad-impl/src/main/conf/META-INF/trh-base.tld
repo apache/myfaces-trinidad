@@ -24,7 +24,7 @@
   xsi:schemaLocation="http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
   version="2.1">
   <display-name>Apache Trinidad HTML</display-name>
-  <tlib-version>1.2.10</tlib-version>
+  <tlib-version>1.2.12</tlib-version>
   <short-name>trh</short-name>
   <uri>http://myfaces.apache.org/trinidad/html</uri>
 </taglib>
