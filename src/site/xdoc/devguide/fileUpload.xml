@@ -47,7 +47,7 @@
     <section name="Overview">
 
       <p>
-The JavaServer Faces (JSF) 1.1 specification provides no direct support for
+The JavaServer Faces (JSF) specification provides no direct support for
 file uploads.  (And, unfortunately, nothing else in the J2EE
 technology stack does either.)  MyFaces Trinidad provides integrated support
 for processing file uploads in a manner natural to JSF applications,
