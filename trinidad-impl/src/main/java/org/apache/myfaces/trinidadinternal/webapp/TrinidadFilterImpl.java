@@ -43,6 +43,7 @@ import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidad.util.ExternalContextUtils;
+import org.apache.myfaces.trinidad.util.RequestStateMap;
 import org.apache.myfaces.trinidadinternal.config.GlobalConfiguratorImpl;
 import org.apache.myfaces.trinidadinternal.config.dispatch.DispatchResponseConfiguratorImpl;
 import org.apache.myfaces.trinidadinternal.config.dispatch.DispatchServletResponse;
@@ -339,7 +340,10 @@ public class TrinidadFilterImpl implements Filter
          .append("=")
          .append(uid);
 
-      if (!RequestContext.getCurrentInstance().isPartialRequest(_PSEUDO_FACES_CONTEXT.get()))
+      //Extensions to Trinidad may have alternatve means of handling PPR.  This
+      //flag allows those extensions to for the <redirect> AJAX message to be returned.
+      if (RequestContext.getCurrentInstance().isPartialRequest(_PSEUDO_FACES_CONTEXT.get()) || 
+          Boolean.TRUE.equals(RequestStateMap.getInstance(ec).get(_FORCE_PPR_DIALOG_RETURN)))
       {
         //Special handling for XmlHttpRequest.  Would be cool to handle this much cleaner.
         HttpServletResponse resp = (HttpServletResponse) ec.getResponse();
@@ -425,6 +429,10 @@ public class TrinidadFilterImpl implements Filter
     "org.apache.myfaces.trinidadinternal.webapp.AdfacesFilterImpl.IS_RETURNING";
   private static final String _FILTER_EXECUTED_KEY =
     "org.apache.myfaces.trinidadinternal.webapp.AdfacesFilterImpl.EXECUTED";
+  
+  //This allows extension which do not use Trinidad's PPR to for an XML dialog return
+  private static final String _FORCE_PPR_DIALOG_RETURN =
+    "org.apache.myfaces.trinidad.webapp.FORCE_XML_DIALOG_RETURN";
 
   private static ThreadLocal<PseudoFacesContext> _PSEUDO_FACES_CONTEXT = 
     new ThreadLocal<PseudoFacesContext>();
