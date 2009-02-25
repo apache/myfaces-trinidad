@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- *
+ * 
  *  http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -56,7 +56,7 @@ import org.apache.myfaces.trinidadinternal.util.JsonUtils;
  * pushes all relevant information to the client side so that conversion can be
  * enabled at the client side.
  * </p>
- *
+ * 
  * @version $Name: $ ($Revision:
  *          adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/convert/DateTimeConverter.java#0 $)
  *          $Date: 10-nov-2005.19:06:22 $
@@ -120,14 +120,7 @@ public class DateTimeConverter extends
     ValueExpression expression = component.getValueExpression("value");
     if (expression != null)
     {
-      Class<?> expectedType = expression.getExpectedType();
-
-      // If the expectedType is Object ask for the type which may be more specific
-      if(expectedType == Object.class)
-      {
-        expectedType = expression.getType(context.getELContext());
-      }
-
+      Class<?> expectedType = expression.getType(context.getELContext());
       // Sometimes the type might be null, if it cannot be determined:
       if ((expectedType != null)
           && (!expectedType.isAssignableFrom(value.getClass())))
@@ -157,8 +150,8 @@ public class DateTimeConverter extends
             Throwable cause = e.getCause();
             if (cause == null)
               cause = e;
-
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+           
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, 
                                                 MessageFactory.getString(context, UIXEditableValue.CONVERSION_MESSAGE_ID),
                                                 cause.getLocalizedMessage());
             throw new ConverterException(msg, e);
@@ -178,8 +171,8 @@ public class DateTimeConverter extends
       _LOG
           .severe("The component is null, but it is needed for the client id, so no script written");
       return null;
-    }
-
+    }    
+        
     // Add a JavaScript Object to store the datefield formats
     // on the client-side. We currently store the format string
     // for each and every field. It'd be more efficient to have
@@ -264,7 +257,7 @@ public class DateTimeConverter extends
             component);
         detailMessage = XhtmlLafUtils.escapeJS(msg.getDetail());
       }
-
+      
       String exampleString = XhtmlLafUtils.escapeJS(getExample(context));
       String escapedType = XhtmlLafUtils.escapeJS(getType().toUpperCase());
 
@@ -276,7 +269,7 @@ public class DateTimeConverter extends
       {
         outBuffer.append(",'");
         outBuffer.append (loc.toString());
-        outBuffer.append ("','");
+        outBuffer.append ("','");        
       }
       else
       {
@@ -291,8 +284,8 @@ public class DateTimeConverter extends
       {
         messages.put("detail", detailMessage);
         messages.put("hint", hintFormat);
-        outBuffer.append(',');
-
+        outBuffer.append(','); 
+        
         try
         {
           JsonUtils.writeMap(outBuffer, messages, false);
@@ -536,7 +529,7 @@ public class DateTimeConverter extends
     XhtmlUtils.escapeJS(buffer, pattern);
     buffer.append('\'');
   }
-
+  
   private String _getHint()
   {
     String type = getType();
@@ -548,7 +541,7 @@ public class DateTimeConverter extends
     {
       return getHintBoth();
     }
-    else
+    else 
     {
       return getHintTime();
     }
@@ -571,7 +564,7 @@ public class DateTimeConverter extends
     }
     return buffer.toString();
   }
-
+  
   private String _getLocaleString (FacesContext context)
   {
     Locale dateTimeConverterLocale = getLocale();
@@ -589,7 +582,7 @@ public class DateTimeConverter extends
         return (sb.toString());
       }
     }
-    return "null";
+    return "null";    
   }
 
   // Bug 4570591
