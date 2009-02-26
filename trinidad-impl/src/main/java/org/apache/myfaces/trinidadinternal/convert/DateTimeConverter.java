@@ -120,7 +120,14 @@ public class DateTimeConverter extends
     ValueExpression expression = component.getValueExpression("value");
     if (expression != null)
     {
-      Class<?> expectedType = expression.getType(context.getELContext());
+      Class<?> expectedType = expression.getExpectedType();  
+           
+      // If the expectedType is Object ask for the type which may be more specific
+      if(expectedType == Object.class) 
+      {
+        expectedType = expression.getType(context.getELContext());
+      } 
+        
       // Sometimes the type might be null, if it cannot be determined:
       if ((expectedType != null)
           && (!expectedType.isAssignableFrom(value.getClass())))
