@@ -20,15 +20,17 @@
 /**
  * constructor for TrNumberFormat.
  */
- function TrNumberFormat(type)
+ function TrNumberFormat(type, locale)
 {
   if(!type)
     alert("type for TrNumberFormat not defined!");
   this._type = type;
-  this._pPre = getLocaleSymbols().getPositivePrefix();
-  this._pSuf = getLocaleSymbols().getPositiveSuffix();
-  this._nPre = getLocaleSymbols().getNegativePrefix();
-  this._nSuf = getLocaleSymbols().getNegativeSuffix();
+  
+  this._localeSymbols = getLocaleSymbols(locale);
+  this._pPre = this._localeSymbols.getPositivePrefix();
+  this._pSuf = this._localeSymbols.getPositiveSuffix();
+  this._nPre = this._localeSymbols.getNegativePrefix();
+  this._nSuf = this._localeSymbols.getNegativeSuffix();
 
   //default values, similar to JDK (values from Apache Harmony)
   this._maxFractionDigits = 3;
@@ -45,25 +47,25 @@
 /**
  * Returns a number formater.
  */
-TrNumberFormat.getNumberInstance = function()
+TrNumberFormat.getNumberInstance = function(locale)
 {
-  return new TrNumberFormat("number");
+  return new TrNumberFormat("number", locale);
 }
 
 /**
  * Returns a currency formater.
  */
-TrNumberFormat.getCurrencyInstance = function()
+TrNumberFormat.getCurrencyInstance = function(locale)
 {
-  return new TrNumberFormat("currency");
+  return new TrNumberFormat("currency", locale);
 }
 
 /**
  * Returns a percent formater.
  */
-TrNumberFormat.getPercentInstance = function()
+TrNumberFormat.getPercentInstance = function(locale)
 {
-  return new TrNumberFormat("percent");
+  return new TrNumberFormat("percent", locale);
 }
 
 /**
@@ -347,7 +349,7 @@ TrNumberFormat.prototype.numberToString = function(number)
   ints  = this._formatIntegers(ints);
   fracs = this._formatFractions(fracs)
   
-  var decimalSeparator = getLocaleSymbols().getDecimalSeparator();
+  var decimalSeparator = this._localeSymbols.getDecimalSeparator();
 
   if(fracs!="")
     numberString = (ints+decimalSeparator+fracs);
@@ -398,7 +400,7 @@ TrNumberFormat.prototype.percentageToString = function(number)
   // wrong, we should be notified by the following exception. If any changes need to be made, you 
   // should start by looking at _getPercentData() in:
   // maven-i18n-plugin\src\main\java\org\apache\myfaces\trinidadbuild\plugin\i18n\uixtools\JSLocaleElementsGenerator.java
-  var suffix = getLocaleSymbols().getPercentSuffix();
+  var suffix = this._localeSymbols.getPercentSuffix();
   if (!suffix || suffix == "")
   {
     throw new TrParseException("percent suffix undefined or empty");
@@ -585,7 +587,7 @@ TrNumberFormat.prototype._addGroupingSeparators = function(ints)
     toFormat = ints;
   }
 
-  var groupingSeparator = getLocaleSymbols().getGroupingSeparator();
+  var groupingSeparator = this._localeSymbols.getGroupingSeparator();
   for(i=0; i < toFormat.length; i++)
   {
     if(i%3==0 && i!=0)
