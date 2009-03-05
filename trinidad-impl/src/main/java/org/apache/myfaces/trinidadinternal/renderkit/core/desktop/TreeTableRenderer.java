@@ -185,6 +185,11 @@ public class TreeTableRenderer extends DesktopTableRenderer
     }
   }
 
+  @Override
+  protected String getDefaultStyleClass(FacesBean bean) {
+    return null;
+  }
+
   protected boolean isImmediate(UIComponent component, FacesBean bean)
   {
     return  Boolean.TRUE.equals(bean.getProperty(_immediateKey));

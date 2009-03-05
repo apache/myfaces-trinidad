@@ -3599,6 +3599,10 @@
           </tr>
 
           <tr>
+            <td>af|table</td>
+            <td>Style on the root element of the tr:table component.</td>
+          </tr>
+          <tr>
             <td>af|table::content</td>
             <td>This style class is applied to the inner HTML table which
                 contains the table data (column headers, row headers, and data

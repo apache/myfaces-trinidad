@@ -1314,6 +1314,8 @@ public final class SkinSelectors
    //                                                                         //
    
    // ============================ Style classes ============================ //
+   public static final String AF_TABLE_STYLE =
+     "af|table";
    public static final String AF_TABLE_COLUMN_FOOTER_STYLE =
      "af|table::column-footer";
    public static final String AF_TABLE_CONTENT_STYLE =

@@ -465,6 +465,10 @@ abstract public class TableRenderer extends XhtmlRenderer
 
   }
 
+  @Override
+  protected String getDefaultStyleClass(FacesBean bean) {
+    return SkinSelectors.AF_TABLE_STYLE;
+  }
 
   /**
    * renders attributes on the outermost table element.

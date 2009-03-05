@@ -1,5 +1,6 @@
 <results>
       <div
+           class="af_table"
            id="mainId"
           >
         
@@ -261,6 +262,7 @@
 <!--AttributeTest[autoSubmit,false]-->
 
       <div
+           class="af_table"
            id="mainId"
           >
         
@@ -522,6 +524,7 @@
 <!--AttributeTest[autoSubmit,true]-->
 
       <div
+           class="af_table"
            id="mainId"
           >
         

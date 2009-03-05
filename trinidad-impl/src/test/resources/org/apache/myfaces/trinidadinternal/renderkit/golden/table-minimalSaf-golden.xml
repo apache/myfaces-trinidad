@@ -1,5 +1,6 @@
 <results>
       <div
+           class="af_table"
            id="mainId"
           >
         
@@ -460,6 +461,7 @@
 <!--AttributeTest[rowHeader,true]-->
 
       <div
+           class="af_table"
            id="mainId"
           >
         
@@ -920,6 +922,7 @@
 <!--AttributeTest[width,30%]-->
 
       <div
+           class="af_table"
            id="mainId"
           >
         
@@ -1381,6 +1384,7 @@
 <!--AttributeTest[separateRows,true]-->
 
       <div
+           class="af_table"
            id="mainId"
           >
         
@@ -1881,6 +1885,7 @@
 <!--AttributeTest[separateRows,false]-->
 
       <div
+           class="af_table"
            id="mainId"
           >
         
@@ -2341,6 +2346,7 @@
 <!--AttributeTest[styleClass,null]-->
 
       <div
+           class="af_table"
            id="mainId"
           >
         
@@ -2801,6 +2807,7 @@
 <!--AttributeTest[inlineStyle,null]-->
 
       <div
+           class="af_table"
            id="mainId"
           >
         
@@ -3266,6 +3273,7 @@
 <!--AttributeTest[allDetailsEnabled,false]-->
 
       <div
+           class="af_table"
            id="mainId"
           >
         
@@ -3726,6 +3734,7 @@
 <!--AttributeTest[allDetailsEnabled,true]-->
 
       <div
+           class="af_table"
            id="mainId"
           >
         
@@ -4230,6 +4239,7 @@
 <!--AttributeTest[disclosedRowKeys,#{disclosureState}]-->
 
       <div
+           class="af_table"
            id="mainId"
           >
         
@@ -4790,6 +4800,7 @@
 <!--AttributeTest[rowBandingInterval,1]-->
 
       <div
+           class="af_table"
            id="mainId"
           >
         
@@ -5250,6 +5261,7 @@
 <!--AttributeTest[columnBandingInterval,1]-->
 
       <div
+           class="af_table"
            id="mainId"
           >
         
@@ -5710,6 +5722,7 @@
 <!--AttributeTest[columnBandingInterval,0]-->
 
       <div
+           class="af_table"
            id="mainId"
           >
         
@@ -6170,6 +6183,7 @@
 <!--AttributeTest[horizontalGridVisible,false]-->
 
       <div
+           class="af_table"
            id="mainId"
           >
         
@@ -6630,6 +6644,7 @@
 <!--AttributeTest[verticalGridVisible,false]-->
 
       <div
+           class="af_table"
            id="mainId"
           >
         
@@ -7090,6 +7105,7 @@
 <!--AttributeTest[verticalGridVisible,false,AttributeTest[horizontalGridVisible,false]]-->
 
       <div
+           class="af_table"
            id="mainId"
           >
         
@@ -7550,6 +7566,7 @@
 <!--AttributeTest[summary,testTableSummary]-->
 
       <div
+           class="af_table"
            id="mainId"
           >
         
@@ -8011,6 +8028,7 @@
 <!--AttributeTest[width,70%]-->
 
       <div
+           class="af_table"
            id="mainId"
           >
         
@@ -8472,6 +8490,7 @@
 <!--AttributeTest[tableSortCriteria,int true]-->
 
       <div
+           class="af_table"
            id="mainId"
           >
         
@@ -8941,6 +8960,7 @@
 <!--AttributeTest[tableSortCriteria,string false]-->
 
       <div
+           class="af_table"
            id="mainId"
           >
         
