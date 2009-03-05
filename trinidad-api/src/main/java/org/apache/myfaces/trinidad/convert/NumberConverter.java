@@ -770,7 +770,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     // http://java.sun.com/javase/6/docs/api/java/text/DecimalFormat.html
     // The unicode for '¤' is: \u00A4
     // The xml hex is        : &#xA4;
-    int idx = pattern.indexOf("¤");
+    int idx = pattern.indexOf('\u00A4');
     if (idx == -1)
       return pattern;
     
@@ -784,19 +784,19 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
       dfs = df.getDecimalFormatSymbols();
     }
     
-    if (idx + 1 < pattern.length() && pattern.charAt(idx + 1) == '¤')
+    if (idx + 1 < pattern.length() && pattern.charAt(idx + 1) == '\u00A4')
     {
       // Matcher.quoteReplacement ensures that the replacement string is properly escaped.
       String symbol = dfs.getInternationalCurrencySymbol();
       if (symbol.length() > 0)
-        pattern = pattern.replaceFirst("¤¤", Matcher.quoteReplacement(symbol));
+        pattern = pattern.replaceAll(new String(new char[] {'\u00A4', '\u00A4'}), Matcher.quoteReplacement(symbol));
     }
     else
     {
       // Matcher.quoteReplacement ensures that the replacement string is properly escaped.
       String symbol = dfs.getCurrencySymbol();
       if (symbol.length() > 0)
-        pattern = pattern.replaceFirst("¤", Matcher.quoteReplacement(symbol));
+        pattern = pattern.replaceAll(new String(new char[] {'\u00A4'}), Matcher.quoteReplacement(symbol));
     }
     
     return pattern;
