@@ -397,7 +397,7 @@ public class PanelAccordionRenderer extends XhtmlRenderer
         
         out.writeAttribute("value", icon, null);
         
-        if (disabled)
+        if (disabled || !disclosable)
         {
           out.writeAttribute("disabled", Boolean.TRUE, "disabled");
         }

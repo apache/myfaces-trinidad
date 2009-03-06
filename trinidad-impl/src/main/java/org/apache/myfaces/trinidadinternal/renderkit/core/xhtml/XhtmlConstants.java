@@ -305,8 +305,12 @@ public final class XhtmlConstants
 
   //Constants for Non JavaScript browser support
   public static final String NO_JS_PARAMETER_KEY = "_parameterkey";
-  public static final String NO_JS_PARAMETER_KEY_BUTTON = "go";
+  public static final String NO_JS_INPUT_IMAGE_KEY = "_inputImagekey";
   public static final String MULTIPLE_VALUE_PARAM = "multipleValueParam";
+  public static final String NO_JS_PARAMETER_KEY_BUTTON = "Go";
+  public static final String NO_JS_PARAMETER_BACK_BUTTON = "Back";
+  public static final String NO_JS_PARAMETER_NEXT_BUTTON = "Next";
+  
   public static final String NON_JS_BROWSER = "_noJavaScript";
   public static final String NON_JS_BROWSER_TRUE = "true";
   public static final String NON_JS_DETAIL_DISCLOSED_ICON = "-";

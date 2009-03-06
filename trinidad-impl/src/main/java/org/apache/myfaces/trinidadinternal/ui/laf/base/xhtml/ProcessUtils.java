@@ -73,20 +73,6 @@ public class ProcessUtils
     submitButton.setAttributeValue(UIConstants.TEXT_ATTR, buttonText);
     submitButton.setAttributeValue(UIConstants.ACCESS_KEY_ATTR,
                                    buttonAccessKey);
-                                   
-    String nameAttri = XhtmlUtils.getEncodedNameAttribute (
-                      //Array should be in the order of parameter name and value pair
-                              new String[]{sourceKey,
-                                           source,
-                                           eventKey,
-                                           UIConstants.GOTO_EVENT,
-                                           valueKey,
-                                           Long.toString(value),
-                                           sizeKey,
-                                           Integer.toString(size)});
-                                               
-    submitButton.setAttributeValue(UIConstants.NAME_ATTR, nameAttri);
-    
     return submitButton;
   }
 

@@ -67,11 +67,28 @@ public class BasicHTMLBrowserRequestWrapper extends HttpServletRequestWrapper
     while (enumeration.hasMoreElements() && findSubmit)
     {
       paramName = (String)enumeration.nextElement();
-      //Search for name attribute that contains encoded parameters 
+      
+      // Search for name attribute that contains encoded parameters 
       if (paramName.indexOf(XhtmlConstants.NO_JS_PARAMETER_KEY) != -1)
       {
         encodedParameterName = paramName;
         paramDetail = paramName.split(XhtmlConstants.NO_JS_PARAMETER_KEY);
+        findSubmit = false;
+      }
+      
+      // If a page is submitted by an input element of type 'image', browser 
+      // will generate two parameter names from the element's name attribute  
+      // that contains encoded parameters. Each of the parameter name generated 
+      // represents the coordinate of the image that was activated. Example,
+      // if the name attribute of the element is 'paramName', browser will 
+      // create two parameter names like 'paramName.x' and 'paramName.y'.
+      else if (paramName.indexOf(XhtmlConstants.NO_JS_INPUT_IMAGE_KEY) != -1)
+      {
+        encodedParameterName = paramName;
+        
+        // Remove '.x' or '.y' from the parameter name before decoding
+        paramName = paramName.substring(0, paramName.length()-2);  
+        paramDetail = paramName.split(XhtmlConstants.NO_JS_INPUT_IMAGE_KEY);
         findSubmit = false;
       }
     }
@@ -198,6 +215,3 @@ public class BasicHTMLBrowserRequestWrapper extends HttpServletRequestWrapper
   // This map is the integration of decodedParamMap and payLoad's parameterMap
   private Map<String, String[]> modifiableParameterMap;  
 }
-
-
-

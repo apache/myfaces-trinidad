@@ -468,8 +468,20 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
       {
         value = XhtmlLafUtils.getFormEncodedValue(context, transName, value);
       }
-
-      renderValue(context, node, value);
+      
+      // In the case of Non-JavaScript browsers, skip the renderValue method 
+      // call since it appends the index of option element to the value 
+      // attribute.
+      if (!supportsScripting(context)) 
+      {
+        FacesContext fContext = context.getFacesContext();
+        ResponseWriter out = fContext.getResponseWriter();
+        out.writeAttribute("value", value, null);
+      }
+      else
+      {
+        renderValue(context, node, value);
+      }
     }
     
     protected void renderValue(

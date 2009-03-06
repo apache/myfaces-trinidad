@@ -28,12 +28,15 @@ import org.apache.myfaces.trinidad.component.UIXCommand;
 import org.apache.myfaces.trinidad.component.UIXProcess;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelButtonBar;
 
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 import org.apache.myfaces.trinidadinternal.share.url.FormEncoder;
 import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
 import org.apache.myfaces.trinidadinternal.ui.MutableUINode;
 import org.apache.myfaces.trinidadinternal.ui.NodeUtils;
-import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
 import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
 import org.apache.myfaces.trinidadinternal.ui.data.bind.AccessKeyBoundValue;
@@ -284,22 +287,6 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
                                     null,
                                     null));
       }
-      else
-      {
-        backButton = ProcessUtils.createSubmitButton(context,
-                                                     buttonTextBV,
-                                                     buttonAccessKeyBV,
-                                                     null,
-                                                     formName,
-                                                     false,
-                                                     EVENT_PARAM,
-                                                     SOURCE_PARAM,
-                                                     nameString,
-                                                     VALUE_PARAM,
-                                                     selectedIndex - 1,
-                                                     SIZE_PARAM,
-                                                     0);
-      }
     }
 
     UINode nextButton = null;
@@ -360,27 +347,28 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
           mutableNextButton.setID(buttonID);
         }
         nextButton = mutableNextButton;
+        context.setLocalProperty(_NEXT_BUTTON_KEY, nextButton);
       }
       else
       {
-
-        nextButton = ProcessUtils.createSubmitButton(context,
-                                                     buttonTextBV,
-                                                     buttonAccessKeyBV,
-                                                     buttonID,
-                                                     formName,
-                                                     false,
-                                                     EVENT_PARAM,
-                                                     SOURCE_PARAM,
-                                                     nameString,
-                                                     VALUE_PARAM,
-                                                     selectedIndex + 1,
-                                                     SIZE_PARAM,
-                                                     1);
+        // For Non-JavaScript browsers, encode the parameter name and value
+        // pairs required for the next button's funtionality. This encoded  
+        // value would be used as the name attribute of the element that    
+        // would be rendered for the next button's funtionality.
+        String nameAttri = XhtmlUtils.getEncodedNameAttribute (
+                             // Array should be in the order of parameter 
+                             // name and value pair
+                                 new String[]{SOURCE_PARAM,
+                                              nameString,
+                                              EVENT_PARAM,
+                                              UIConstants.GOTO_EVENT,
+                                              VALUE_PARAM,
+                                              Long.toString(selectedIndex + 1),
+                                              SIZE_PARAM,
+                                              Integer.toString(1)});
+                                                          
+        context.setLocalProperty(_NON_JS_NEXT_BUTTON_NAME_ATTR, nameAttri);
       }
-
-      context.setLocalProperty(_NEXT_BUTTON_KEY, nextButton);
-
     }
 
     // start the rendering
@@ -403,7 +391,34 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
     if (showBackButton)
     {
 
-      backButton.render(context);
+      if (supportsScripting)
+      {
+        backButton.render(context);
+      } 
+      else
+      {
+        // For Non-JavaScript browsers, render an input element(type= submit)
+        // to submit the page. The name attribute of this element is encoded 
+        // with parameter name and value pairs thus it would enable browsers
+        // to include the name of this element in its payLoad if it submits the
+        // page.
+        String nameAttri = XhtmlUtils.getEncodedNameAttribute (
+                            // Array should be in the order of parameter name 
+                            // and value pair
+                               new String[]{SOURCE_PARAM,
+                                            nameString,
+                                            EVENT_PARAM,
+                                            UIConstants.GOTO_EVENT,
+                                            VALUE_PARAM,
+                                            Long.toString(selectedIndex - 1),
+                                            SIZE_PARAM,
+                                            Integer.toString(0)});
+                                                   
+        _renderSubmitButtonNonJSBrowser(
+                             context, 
+                             XhtmlConstants.NO_JS_PARAMETER_BACK_BUTTON, 
+                             nameAttri );
+      }
       writer.endElement("td");
 
       _renderSpacerCell(context);
@@ -448,12 +463,14 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
     UINode           node
     ) throws IOException
   {
+    // start rendering
+    ResponseWriter writer = context.getResponseWriter();
+    boolean renderAsTable = _renderAsTable(context, node);
+    
+    if (supportsScripting(context))
+    {
       UINode nextButton =
                     (UINode)context.getLocalProperty(0,_NEXT_BUTTON_KEY, null);
-
-      // start rendering
-      ResponseWriter writer = context.getResponseWriter();
-      boolean renderAsTable = _renderAsTable(context, node);
       // don't render the next button on last step
       if (nextButton != null)
       {
@@ -467,14 +484,59 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
         context.setLocalProperty(_NEXT_BUTTON_KEY, null);
 
       }
-
+    }
+    else  
+    {
       writer.endElement("td");
+      writer.startElement("td", null);
+      
+      // For Non-JavaScript browsers, render an input element(type= submit)
+      // to submit the page. The name attribute of this element is encoded 
+      // with parameter name and value pairs thus it would enable browsers
+      // to include the name of this element in its payLoad if it submits the
+      // page.
+      String nameAttri = 
+               XhtmlUtils.getEncodedNameAttribute (
+               // Array should be in the order of parameter name and value pair
+                      new String[]{ XhtmlConstants.MULTIPLE_VALUE_PARAM,
+                                    BaseLafUtils.getStringAttributeValue
+                                    (context, node, NAME_ATTR)});
 
-      if (renderAsTable)
+      _renderSubmitButtonNonJSBrowser(
+                           context, 
+                           XhtmlConstants.NO_JS_PARAMETER_KEY_BUTTON, 
+                           nameAttri);
+      
+      String nextButtonNameAttr =
+                         (String)context.getLocalProperty(
+                                 0, _NON_JS_NEXT_BUTTON_NAME_ATTR, null);
+                                  
+      if (nextButtonNameAttr != null)
       {
-        writer.endElement("tr");
-        writer.endElement("table");
+        
+        writer.endElement("td");
+       
+        _renderSpacerCell(context);
+       
+        writer.startElement("td", null);
+       
+        _renderSubmitButtonNonJSBrowser(
+                            context, 
+                            XhtmlConstants.NO_JS_PARAMETER_NEXT_BUTTON, 
+                            nextButtonNameAttr );
+                                       
+        context.setLocalProperty(_NON_JS_NEXT_BUTTON_NAME_ATTR, null);
+        
       }
+    }
+    
+    writer.endElement("td");
+
+    if (renderAsTable)
+    {
+      writer.endElement("tr");
+      writer.endElement("table");
+    }
 
   }
 
@@ -722,6 +784,32 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
 
   }
 
+  /**
+    * @param context a <code>UIXRenderingContext</code>
+    * @param valueAttri a <code>String</code> it is the value attribute  
+    *  of the submit button 
+    * @param nameAttri  a <code>String</code> it is the name attribute  
+    *  of the submit button 
+    *
+    * This method renders an input element(type= submit) to submit the page.
+    * The name attribute of this element is encoded with parameter name and
+    * value pairs thus it would enable browsers to include the name of this 
+    * element in its payLoad if it submits the page.
+    *
+    */
+  private void _renderSubmitButtonNonJSBrowser(
+    UIXRenderingContext context,
+    String         valueAttri,
+    String         nameAttri
+    ) throws IOException
+  {
+    ResponseWriter writer = context.getResponseWriter();
+    writer.startElement("input", null);
+    renderAttribute(context, "type", "submit");
+    renderAttribute(context, "value", valueAttri);
+    renderAttribute(context, "name", nameAttri);
+    writer.endElement("input");
+  }
 
   //
   // Private variables
@@ -737,5 +825,6 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
 
   static private final Object _NEXT_BUTTON_KEY = new Object();
   static private final Object _NEW_PATH_KEY = new Object();
+  static private final Object _NON_JS_NEXT_BUTTON_NAME_ATTR = new Object();
 
 }
