@@ -315,12 +315,30 @@ function _agentInit()
     // BlackBerry Browser 4.0+ supports navigator.appVersion,
     // and earlier versions don't support script, so we can
     // leave the version as defined above
-    pprUnsupported = true;
+
+    // BlackBerryXXXX/Y.Y.Y.Y is the BlackBerry user agent format
+    // XXXX is the model number and Y.Y.Y.Y is the OS version number.
+    // At this moment, BlackBerry below version 4.6 is regarded as 
+    // basic HTML browser for the JS performance reason.
+    // The following lines should be uncommented when we decide to 
+    // handle BlackBerry version 4.0~4.5 separate from the batch of
+    // Basic HTML browsers after its JS performance improves.
+    /*
+    var versionStart = agentString.substring(agentString.indexOf(
+                                                      "blackberry") + 9);
+    versionStart = versionStart.substring(versionStart.indexOf("/") + 1);
+    version = parseFloat(versionStart);
+
+    if (version < 4.6)
+    {
+      pprUnsupported = true;
+      supportsDomDocument = false;
+      supportsValidation = false;
+    }
+    */
+    
     isBlackBerry = true;
     kind = "blackberry";
-    mobileBrowser = true;
-    supportsDomDocument = false;
-    supportsValidation = false;
   }
   else if ((agentString.indexOf('mozilla')    != -1) &&
            (agentString.indexOf('spoofer')    == -1) &&
