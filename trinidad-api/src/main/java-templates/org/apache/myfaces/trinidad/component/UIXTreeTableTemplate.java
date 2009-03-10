@@ -260,10 +260,6 @@ abstract public class UIXTreeTableTemplate extends UIXTree
     {
       RangeChangeEvent rce = (RangeChangeEvent) event;
       setFirst(rce.getNewStart());
-      //pu: Implicitly record a Change for 'first' attribute
-      //=-=pu: This ain't getting restored. Check with Arj or file a bug.
-      addAttributeChange("first",
-                         Integer.valueOf(rce.getNewStart()));
       broadcastToMethodExpression(event, getRangeChangeListener());
     }
 
