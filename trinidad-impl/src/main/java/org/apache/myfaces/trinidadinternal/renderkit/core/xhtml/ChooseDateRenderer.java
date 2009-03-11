@@ -75,6 +75,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
     _maxValueKey = type.findKey("maxValue");
     _minValueKey = type.findKey("minValue");
     _valueKey = PropertyKey.createPropertyKey("value");
+    _currTimeKey = PropertyKey.createPropertyKey("currTime");
     _scrolledValueKey = PropertyKey.createPropertyKey("scrolledValue");
     _destinationKey = PropertyKey.createPropertyKey("destination");
   }
@@ -122,7 +123,17 @@ public class ChooseDateRenderer extends XhtmlRenderer
     // the application timezone, the offset value may be different. In that case
     // pass the new offset value for the client to use. 
     TimeZone tz = arc.getLocaleContext().getTimeZone();
-    int baseTZOffsetMinutes = tz.getOffset(System.currentTimeMillis())/(1000*60);
+    
+    // TRINIDAD-1419: chooseDate golden files should stay the same even if
+    // the server runs in different timezones. 
+    long currTimeMillis = 0;
+    Object currTimeValue =  bean.getProperty (_currTimeKey);
+    if (currTimeValue != null)
+      currTimeMillis = ((Date) currTimeValue).getTime();
+    else
+      currTimeMillis = System.currentTimeMillis();
+    
+    int baseTZOffsetMinutes = tz.getOffset(currTimeMillis/(1000*60));
 
     boolean isDesktop = isDesktop(arc);
     ResponseWriter writer = context.getResponseWriter();
@@ -1588,6 +1599,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
   private PropertyKey _maxValueKey;
   private PropertyKey _minValueKey;
   private PropertyKey _valueKey;
+  private PropertyKey _currTimeKey;
   private PropertyKey _scrolledValueKey;
   private PropertyKey _destinationKey;
 

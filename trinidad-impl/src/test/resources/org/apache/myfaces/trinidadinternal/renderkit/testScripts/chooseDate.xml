@@ -3,6 +3,7 @@
        agentNotSupported="pda">
  <base-component tr:type="org.apache.myfaces.trinidad.CoreChooseDate"
      value="#{midDate}" minValue="#{oldDate}" maxValue="#{newDate}"
+     currTime="#{currTime}" 
      scrolledValue="#{null}"/>
   <attribute-test name="id" value="dateid"/>
   <attribute-test name="inlineStyle"/>
