@@ -33,7 +33,7 @@ import org.apache.myfaces.trinidadinternal.image.ImageProviderRequest;
 import org.apache.myfaces.trinidadinternal.image.ImageProviderResponse;
 
 import org.apache.myfaces.trinidadinternal.style.PropertyParseException;
-import org.apache.myfaces.trinidadinternal.style.Style;
+import org.apache.myfaces.trinidadinternal.style.CoreStyle;
 import org.apache.myfaces.trinidadinternal.style.StyleMap;
 
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
@@ -265,12 +265,12 @@ public abstract class AccentedLafIconProvider extends ColorizedLafIconProvider
 
     if (map != null)
     {
-      Style style = map.getStyleByClass(context.getStyleContext(), styleClass);
+      CoreStyle style = (CoreStyle)map.getStyleByClass(context.getStyleContext(), styleClass);
       if (style != null)
       {
         try
         {
-          color = (Color)style.getParsedProperty(Style.BACKGROUND_KEY);
+          color = (Color)style.getParsedProperty(CoreStyle.BACKGROUND_KEY);
         }
         catch (PropertyParseException e)
         {

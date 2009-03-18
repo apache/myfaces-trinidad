@@ -39,7 +39,7 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
-import org.apache.myfaces.trinidadinternal.style.Style;
+import org.apache.myfaces.trinidadinternal.style.CoreStyle;
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
 import org.apache.myfaces.trinidadinternal.ui.NodeRole;
 import org.apache.myfaces.trinidadinternal.ui.NodeUtils;
@@ -493,7 +493,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
         // any of the same styles as the styleClass.  This is a
         // bad assumption which may eventually break, but it makes
         // this function much, much more efficient.
-        Style inlineStyleClass = XhtmlLafUtils.getClassStyle(context,
+        CoreStyle inlineStyleClass = XhtmlLafUtils.getClassStyle(context,
                                                              styleClass);
         renderInlineStyleAttribute(context, inlineStyleClass);
 
@@ -775,7 +775,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
     for ( ; j < styleClasses.length; j++ )
     {
       Object styleClass = styleClasses[j];
-      Style inlineStyle = XhtmlLafUtils.getClassStyle(context, styleClass);
+      CoreStyle inlineStyle = XhtmlLafUtils.getClassStyle(context, styleClass);
 
       if (inlineStyle != null )
         inline.append(inlineStyle.toInlineString());
@@ -955,7 +955,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    */
   protected final void startRenderingStyleElements(
     UIXRenderingContext context,
-    Style            inlineStyle,
+    CoreStyle            inlineStyle,
     Object           className
     ) throws IOException
   {

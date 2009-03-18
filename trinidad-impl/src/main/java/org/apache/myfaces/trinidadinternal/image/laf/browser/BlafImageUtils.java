@@ -41,7 +41,7 @@ import org.apache.myfaces.trinidadinternal.image.painter.ImmInsets;
 
 import org.apache.myfaces.trinidadinternal.style.ParsedPropertyKey;
 import org.apache.myfaces.trinidadinternal.style.PropertyParseException;
-import org.apache.myfaces.trinidadinternal.style.Style;
+import org.apache.myfaces.trinidadinternal.style.CoreStyle;
 import org.apache.myfaces.trinidadinternal.style.StyleMap;
 
 
@@ -158,7 +158,7 @@ public class BlafImageUtils implements ImageConstants
     String       styleClass
     )
   {
-    return _getColor(context, styleClass, Style.FOREGROUND_KEY, false);
+    return _getColor(context, styleClass, CoreStyle.FOREGROUND_KEY, false);
   }
 
   // Returns the foreground Color from the specified style
@@ -167,7 +167,7 @@ public class BlafImageUtils implements ImageConstants
     String       styleClass
     )
   {
-    return _getColor(context, styleClass, Style.BACKGROUND_KEY, false);
+    return _getColor(context, styleClass, CoreStyle.BACKGROUND_KEY, false);
   }
 
   // Returns the foreground Color from the specified style
@@ -176,7 +176,7 @@ public class BlafImageUtils implements ImageConstants
     String       styleName
     )
   {
-    return _getColor(context, styleName, Style.FOREGROUND_KEY, true);
+    return _getColor(context, styleName, CoreStyle.FOREGROUND_KEY, true);
   }
 
   // Returns the foreground Color from the specified style
@@ -185,7 +185,7 @@ public class BlafImageUtils implements ImageConstants
     String       styleName
     )
   {
-    return _getColor(context, styleName, Style.BACKGROUND_KEY, true);
+    return _getColor(context, styleName, CoreStyle.BACKGROUND_KEY, true);
   }
 
   // Get a mnemonic index given a String and access char.
@@ -370,12 +370,12 @@ public class BlafImageUtils implements ImageConstants
       return null;
     }
 
-    Style style = null;
+    CoreStyle style = null;
 
     if (isNamed)
-      style = map.getStyleByName(context.getStyleContext(), styleID);
+      style = (CoreStyle)map.getStyleByName(context.getStyleContext(), styleID);
     else
-      style = map.getStyleByClass(context.getStyleContext(), styleID);
+      style = (CoreStyle)map.getStyleByClass(context.getStyleContext(), styleID);
 
     if (style == null)
     {

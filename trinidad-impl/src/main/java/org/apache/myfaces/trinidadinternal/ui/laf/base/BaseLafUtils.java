@@ -32,6 +32,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.style.Style;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
@@ -39,7 +40,7 @@ import org.apache.myfaces.trinidadinternal.share.data.ServletRequestParameters;
 import org.apache.myfaces.trinidadinternal.share.url.EncoderUtils;
 import org.apache.myfaces.trinidadinternal.share.util.FastMessageFormat;
 import org.apache.myfaces.trinidadinternal.style.PropertyParseException;
-import org.apache.myfaces.trinidadinternal.style.Style;
+import org.apache.myfaces.trinidadinternal.style.CoreStyle;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.StyleMap;
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
@@ -901,7 +902,7 @@ public class BaseLafUtils implements UIConstants
   public static void pushStyleAttrs(
     UIXRenderingContext context,
     String           styleClass,
-    Style            inlineStyle
+    CoreStyle            inlineStyle
     )
   {
     _getStyleStack(context).push(styleClass, inlineStyle);
@@ -969,7 +970,7 @@ public class BaseLafUtils implements UIConstants
     // Push style attributes onto the stack
     public void push(
       String styleClass,
-      Style  inlineStyle
+      CoreStyle  inlineStyle
       )
     {
       // It really seems like it would be more efficient to
@@ -1051,7 +1052,7 @@ public class BaseLafUtils implements UIConstants
           StyleContext styleContext = context.getStyleContext();
           Style style = map.getStyleByClass(styleContext, entry.styleClass);
 
-          background = _getBackground(style);
+          background = _getBackground((CoreStyle)style);
         }
       }
 
@@ -1066,13 +1067,13 @@ public class BaseLafUtils implements UIConstants
     }
 
     // Gets the background color from a Style object
-    private static Color _getBackground(Style style)
+    private static Color _getBackground(CoreStyle style)
     {
       if (style != null)
       {
         try
         {
-          return (Color)style.getParsedProperty(Style.BACKGROUND_KEY);
+          return (Color)style.getParsedProperty(CoreStyle.BACKGROUND_KEY);
         }
         catch (PropertyParseException e)
         {
@@ -1089,11 +1090,11 @@ public class BaseLafUtils implements UIConstants
     private static class Entry
     {
       public final String styleClass;
-      public final Style  inlineStyle;
+      public final CoreStyle  inlineStyle;
       public       Color  background;
       public       Entry  next;
 
-      public Entry(String styleClass, Style inlineStyle, Entry next)
+      public Entry(String styleClass, CoreStyle inlineStyle, Entry next)
       {
         this.styleClass = styleClass;
         this.inlineStyle = inlineStyle;

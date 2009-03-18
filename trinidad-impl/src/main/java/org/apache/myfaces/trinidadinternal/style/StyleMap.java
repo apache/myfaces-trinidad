@@ -18,6 +18,8 @@
  */
 package org.apache.myfaces.trinidadinternal.style;
 
+import org.apache.myfaces.trinidad.style.Style;
+
 /**
  * The StyleMap is a type-safe map interface for obtaining 
  * Style objects based on a style selector.  Context-specific

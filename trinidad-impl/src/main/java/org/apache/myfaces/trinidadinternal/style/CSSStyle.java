@@ -23,6 +23,8 @@ import java.util.Map;
 import java.util.Collections;
 import java.util.Iterator;
 
+import org.apache.myfaces.trinidad.style.Style;
+
 import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
 
 
@@ -129,27 +131,27 @@ public class CSSStyle extends BaseStyle
   {
     Object value = null;
 
-    if (key == Style.BACKGROUND_KEY)
+    if (key == CoreStyle.BACKGROUND_KEY)
     {
       value = CSSUtils.parseColor(getProperty(_BACKGROUND_NAME));
     }
-    else if (key == Style.FOREGROUND_KEY)
+    else if (key == CoreStyle.FOREGROUND_KEY)
     {
       value = CSSUtils.parseColor(getProperty(_FOREGROUND_NAME));
     }
-    else if (key == Style.FONT_SIZE_KEY)
+    else if (key == CoreStyle.FONT_SIZE_KEY)
     {
       value = CSSUtils.parseFontSize(getProperty(_FONT_SIZE_NAME));
     }
-    else if (key == Style.FONT_STYLE_KEY)
+    else if (key == CoreStyle.FONT_STYLE_KEY)
     {
       value = CSSUtils.parseFontStyle(getProperty(_FONT_STYLE_NAME));
     }
-    else if (key == Style.FONT_WEIGHT_KEY)
+    else if (key == CoreStyle.FONT_WEIGHT_KEY)
     {
       value = CSSUtils.parseFontWeight(getProperty(_FONT_WEIGHT_NAME));
     }
-    else if (key == Style.FONT_FAMILIES_KEY)
+    else if (key == CoreStyle.FONT_FAMILIES_KEY)
     {
       String[] families = CSSUtils.parseFontFamilies(getProperty(
                                                      _FONT_FAMILY_NAME));
@@ -157,7 +159,7 @@ public class CSSStyle extends BaseStyle
       if (families != null)
         value = Collections.unmodifiableList(Arrays.asList(families));
     }
-    else if (key == Style.TEXT_ANTIALIAS_KEY)
+    else if (key == CoreStyle.TEXT_ANTIALIAS_KEY)
     {
       String antialiased = getProperty(_TEXT_ANTIALIAS_NAME);
       if ((antialiased != null) && "true".equalsIgnoreCase(antialiased))

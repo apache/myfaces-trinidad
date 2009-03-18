@@ -25,7 +25,7 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.component.UIXHierarchy;
 import org.apache.myfaces.trinidad.component.UIXNavigationLevel;
 
-import org.apache.myfaces.trinidadinternal.style.Style;
+import org.apache.myfaces.trinidadinternal.style.CoreStyle;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.BaseDesktopConstants;
@@ -151,7 +151,7 @@ public class GlobalHeaderRenderer extends XhtmlLafRenderer
     if ( renderStyleElements(context))
     {
 
-      Style classStyle = XhtmlLafUtils.getClassStyle(context,
+      CoreStyle classStyle = XhtmlLafUtils.getClassStyle(context,
                                                      _GLOBAL_HEADER_STYLE_CLASS);
 
       if (classStyle != null)

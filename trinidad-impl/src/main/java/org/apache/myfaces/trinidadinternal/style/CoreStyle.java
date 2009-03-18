@@ -18,11 +18,11 @@
  */
 package org.apache.myfaces.trinidadinternal.style;
 
-import java.util.Iterator;
+import org.apache.myfaces.trinidad.style.Style;
 
 /**
- * A Style object defines a set of visual (or aural) style properties.
- * The Style interface exposes two method for retrieving properties:
+ * A CoreStyle object defines a set of visual (or aural) style properties.
+ * The CoreStyle interface exposes two method for retrieving properties:
  * getProperty() and getParsedProperty().  getProperty()
  * takes a String property name and returns a String property value.
  * getParsedProperty() takes a key object (eg. FONT_WEIGHT_KEY) and
@@ -33,7 +33,7 @@ import java.util.Iterator;
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/Style.java#0 $) $Date: 10-nov-2005.18:57:56 $
  */
-public interface Style
+public interface CoreStyle extends Style
 {
   /**
    * Key for obtaining the Color object which corresponds to the
@@ -114,22 +114,6 @@ public interface Style
   public static final Object BOLD_FONT_WEIGHT  = 1;
 
   /**
-   * Returns the names of the properties defined by this style.
-   */
-  // -= Simon Lessard =-
-  // FIXME: This should be changed to <String> once the issues 
-  //        with ArrayMap are fixed. ATM (2006-08-04) ArrayMap 
-  //        have huge problem working with anything but Object
-  public Iterator<Object> getPropertyNames();
-
-  /**
-   * Returns the value of the property with the specified name.
-   *
-   * @param name The property name for the property to return
-   */
-  public String getProperty(String name);
-
-  /**
    * Returns a parsed Java object corresponding to the specified
    * property key.
    * <p>
@@ -148,9 +132,4 @@ public interface Style
   public Object getParsedProperty(ParsedPropertyKey key)
     throws PropertyParseException;
 
-  /**
-   * Converts the style to a String suitable for use as an inline style
-   * attribute value.
-   */
-  public String toInlineString();
 }

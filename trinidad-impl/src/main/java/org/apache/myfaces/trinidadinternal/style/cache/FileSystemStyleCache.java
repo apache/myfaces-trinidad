@@ -49,6 +49,7 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
+import org.apache.myfaces.trinidad.style.Style;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
@@ -59,7 +60,6 @@ import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
 import org.apache.myfaces.trinidadinternal.share.xml.JaxpXMLProvider;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLProvider;
 import org.apache.myfaces.trinidadinternal.style.CSSStyle;
-import org.apache.myfaces.trinidadinternal.style.Style;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.StyleMap;
 import org.apache.myfaces.trinidadinternal.style.StyleProvider;
@@ -521,12 +521,19 @@ public class FileSystemStyleCache implements StyleProvider
     // Next, get the fully resolved styles for this context. This will be
     // those StyleNodes that match the locale, direction, browser, portlet mode
     // etc -- the info that is in the StyleContext.
+    // These styles contain all the StyleNodes, that is, where selector or
+    // name (aka alias) are non-null.
     StyleNode[] styles = _getStyleContextResolvedStyles(context, document);
     if (styles == null)
       return null;
 
+
     // Generate the style sheet file, if it isn't already generated,
     // and return the uri.
+    // Only the StyleNodes with non-null selectors get written to the 
+    // generated css file.
+    // Named styles (StyleNode where name != null) do not get 
+    // written to the generated css file.
     List<String> uris = _createStyleSheetFiles(context,
                                        document,
                                        styles,
@@ -548,7 +555,7 @@ public class FileSystemStyleCache implements StyleProvider
     // Create a new entry and cache it in the "normal" cache. The "normal" cache is one
     // where the key is the Key object which is built based on information from the StyleContext,
     // like browser, agent, locale, direction.
-    Entry entry = new Entry(uris, new StyleMapImpl(), icons, skinProperties);
+    Entry entry = new Entry(uris, new StyleMapImpl(styles), icons, skinProperties);
     cache.put(key, entry);
 
     // Also, cache the new entry in the entry cache
@@ -1387,6 +1394,48 @@ public class FileSystemStyleCache implements StyleProvider
    */
   private class StyleMapImpl implements StyleMap
   {
+    /**
+     * This constructor takes an array of StyleNode where each StyleNode has
+     * already been resolved based on the StyleContext. Therefore there is no
+     * more merging that needs to be done, and the 'included' properties on
+     * StyleNode are all null. This way we do not have to resolve the 
+     * styles based on the StyleContext when someone calls getStyleBySelector,
+     * etc.
+     * TODO This is just a test for now to see if we can get rid of the StyleContext
+     * from the API.
+     * @param resolvedStyles
+     */
+    public StyleMapImpl(StyleNode[] resolvedStyles) 
+    {
+      _resolvedStyles = resolvedStyles;   
+      // TODO create a map right here (aggressively versus lazily)
+      // else I could make a List out of this and then I could create
+      // it lazily from then on.
+      // Loop through each StyleNode and use it to add to the StyleMap.
+      for (int i=0; i < _resolvedStyles.length; i++)
+      {
+        String selector = _resolvedStyles[i].getSelector();
+        if (selector != null)
+        {
+         // System.out.println("Add selector to _resolvedStyles " + selector);
+          // create a Style Object from the StyleNode object
+          Style style = _convertStyleNode(_resolvedStyles[i]);
+          _resolvedStyleMap.put(selector, style);
+
+ 
+        }
+        else
+        {
+          String name = _resolvedStyles[i].getName();
+          // create a Style Object from the StyleNode object
+          Style style = _convertStyleNode(_resolvedStyles[i]);
+          _resolvedStyleMap.put(name, style);
+
+        }
+      }
+      //System.out.println("----");
+    }
+    
     // Implementation of StyleMap.getStyleBySelector()
     public Style getStyleBySelector(
       StyleContext context,
@@ -1396,7 +1445,10 @@ public class FileSystemStyleCache implements StyleProvider
       if (_selectorMap == null)
         _selectorMap = _createMap();
 
-      return _getStyle(context, _selectorMap, selector, "", false);
+      Style oldStyle = _getStyle(context, _selectorMap, selector, "", false);
+      Style newStyle = _resolvedStyleMap.get(selector);
+      return newStyle;
+      //return _getStyle(context, _selectorMap, selector, "", false);
     }
 
     // Implementation of StyleMap.getStyleByClass()
@@ -1424,6 +1476,8 @@ public class FileSystemStyleCache implements StyleProvider
     }
 
     // Do all of the real work
+    // TODO if using the _resolvedStyles works, then we can get rid of all the
+    // excess code in StyleSheetDocument to getStyleByName, etc.
     private Style _getStyle(
       StyleContext       context,
       Map<String, Style> map,
@@ -1477,8 +1531,28 @@ public class FileSystemStyleCache implements StyleProvider
       map.put(id, style);
       return style;
     }
+    
+    public Style _convertStyleNode(StyleNode styleNode)
+    {
+      // Convert the styleNode into a Style
+      CSSStyle style = new CSSStyle();
+
+      // Add in the properties for the style
+      Iterable<PropertyNode> propertyNodeList = styleNode.getProperties();
+      for (PropertyNode property : propertyNodeList)
+      {
+        String name = property.getName();
+        String value = property.getValue();
+
+        style.setProperty(name, value);
+      }
+      
+      return style;
+
+    }
 
     // Creates a map of the specified size
+    // TODO why only 19? Do we think we are only going to ask for 19 styles?
     private Hashtable<String, Style> _createMap()
     {
       return new Hashtable<String, Style>(19);
@@ -1491,6 +1565,11 @@ public class FileSystemStyleCache implements StyleProvider
     private Hashtable<String, Style> _selectorMap;
     private Hashtable<String, Style> _classMap;
     private Hashtable<String, Style> _nameMap;
+    
+    private ConcurrentMap<String, Style> _resolvedStyleMap = 
+      new ConcurrentHashMap<String, Style>();
+    
+    private StyleNode[] _resolvedStyles;
   }
 
   private class StyleWriterFactoryImpl

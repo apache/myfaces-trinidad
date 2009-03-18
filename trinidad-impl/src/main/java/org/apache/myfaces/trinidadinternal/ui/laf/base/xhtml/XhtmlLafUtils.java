@@ -44,7 +44,7 @@ import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadinternal.share.data.ServletRequestParameters;
 import org.apache.myfaces.trinidadinternal.share.url.FormEncoder;
 import org.apache.myfaces.trinidadinternal.style.ParsedPropertyKey;
-import org.apache.myfaces.trinidadinternal.style.Style;
+import org.apache.myfaces.trinidadinternal.style.CoreStyle;
 import org.apache.myfaces.trinidadinternal.style.StyleMap;
 import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
@@ -210,7 +210,7 @@ public class XhtmlLafUtils extends BaseLafUtils
   /**
    * Resolves the class name to the appropriate Style object
    */
-  public static Style getClassStyle(
+  public static CoreStyle getClassStyle(
     UIXRenderingContext context,
     Object           className
     )
@@ -220,7 +220,7 @@ public class XhtmlLafUtils extends BaseLafUtils
       StyleMap map = context.getStyleContext().getStyleMap();
       if (map != null)
       {
-        return map.getStyleByClass(context.getStyleContext(),
+        return (CoreStyle)map.getStyleByClass(context.getStyleContext(),
                                    className.toString());
       }
     }
@@ -239,7 +239,7 @@ public class XhtmlLafUtils extends BaseLafUtils
     String           propertyName
     )
   {
-      Style classStyle = getClassStyle(context,
+      CoreStyle classStyle = getClassStyle(context,
                                        className);
       if (classStyle != null)
       {
@@ -375,8 +375,8 @@ public class XhtmlLafUtils extends BaseLafUtils
    */
   public static void startRenderingStyleElements(
     UIXRenderingContext context,
-    Style            inlineStyle,
-    Style            classStyle
+    CoreStyle            inlineStyle,
+    CoreStyle            classStyle
     ) throws IOException
   {
     Stack[] styleInfo = _getStyleInfo(context);
@@ -391,19 +391,17 @@ public class XhtmlLafUtils extends BaseLafUtils
     {
       // handle BACKGROUND_KEY
       Object fontStyle = _getParsedStyleProperty(inlineStyle,
-                                                 classStyle,
-                                                 Style.FONT_STYLE_KEY);
+                                                 classStyle, CoreStyle.FONT_STYLE_KEY);
 
-      Boolean isItalic = (Style.ITALIC_FONT_STYLE == fontStyle)
+      Boolean isItalic = (CoreStyle.ITALIC_FONT_STYLE == fontStyle)
                            ? Boolean.TRUE
                            : null;
 
 
       Object fontWeight = _getParsedStyleProperty(inlineStyle,
-                                                  classStyle,
-                                                  Style.FONT_WEIGHT_KEY);
+                                                  classStyle, CoreStyle.FONT_WEIGHT_KEY);
 
-      Boolean isBold = (Style.BOLD_FONT_WEIGHT == fontWeight)
+      Boolean isBold = (CoreStyle.BOLD_FONT_WEIGHT == fontWeight)
                          ? Boolean.TRUE
                          : null;
 
@@ -462,8 +460,7 @@ public class XhtmlLafUtils extends BaseLafUtils
             // element
             Integer pixelSize = (Integer)_getParsedStyleProperty(
                                                inlineStyle,
-                                               classStyle,
-                                               Style.FONT_SIZE_KEY);
+                                               classStyle, CoreStyle.FONT_SIZE_KEY);
 
             if (pixelSize != null)
             {
@@ -549,8 +546,8 @@ public class XhtmlLafUtils extends BaseLafUtils
    * Style2, if Style1 doesn't return a value.
    */
   private static Object _getParsedStyleProperty(
-    Style             style1,
-    Style             style2,
+    CoreStyle             style1,
+    CoreStyle             style2,
     ParsedPropertyKey stylePropertyKey
     )
   {
@@ -580,8 +577,8 @@ public class XhtmlLafUtils extends BaseLafUtils
    * Style2, if Style1 doesn't return a value.
    */
   public static String getStyleProperty(
-    Style  style1,
-    Style  style2,
+    CoreStyle  style1,
+    CoreStyle  style2,
     String stylePropertyName
     )
   {

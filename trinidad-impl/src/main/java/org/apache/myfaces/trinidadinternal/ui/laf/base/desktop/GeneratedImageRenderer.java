@@ -35,7 +35,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.style.ParsedPropertyKey;
 import org.apache.myfaces.trinidadinternal.style.PropertyParseException;
-import org.apache.myfaces.trinidadinternal.style.Style;
+import org.apache.myfaces.trinidadinternal.style.CoreStyle;
 import org.apache.myfaces.trinidadinternal.style.StyleMap;
 
 import org.apache.myfaces.trinidadinternal.image.ImageConstants;
@@ -314,7 +314,7 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
   }
 
   // Returns the style for the specified name
-  static protected Style getStyle(
+  static protected CoreStyle getStyle(
     UIXRenderingContext context,
     UINode           node,
     String           name
@@ -327,7 +327,7 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
     if (map == null)
       return null;
 
-    return map.getStyleByName(context.getStyleContext(), name);
+    return (CoreStyle)map.getStyleByName(context.getStyleContext(), name);
   }
 
   // Returns the vertical alignment
@@ -339,8 +339,8 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
   static protected int getFontStyle(
     UIXRenderingContext context,
     UINode node,
-    Style classStyle,
-    Style inlineStyle,
+    CoreStyle classStyle,
+    CoreStyle inlineStyle,
     String styleName
     )
   {
@@ -353,7 +353,7 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
     // First, try getting font-style and font-weight from inline style
     if (inlineStyle != null)
     {
-      value = _parseValue(inlineStyle, null, Style.FONT_STYLE_KEY);
+      value = _parseValue(inlineStyle, null, CoreStyle.FONT_STYLE_KEY);
 
       if (value != null)
       {
@@ -361,7 +361,7 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
         gotStyle = true;
       }
 
-      value = _parseValue(inlineStyle, null, Style.FONT_WEIGHT_KEY);
+      value = _parseValue(inlineStyle, null, CoreStyle.FONT_WEIGHT_KEY);
       if (value != null)
       {
         fontWeight = _getAWTFontWeight(value);
@@ -374,8 +374,7 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
       if (!gotStyle)
       {
         value = _parseValue(classStyle,
-                            styleName,
-                            Style.FONT_STYLE_KEY);
+                            styleName, CoreStyle.FONT_STYLE_KEY);
         if (value != null)
           fontStyle = _getAWTFontStyle(value);
       }
@@ -383,8 +382,7 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
       if (!gotWeight)
       {
         value = _parseValue(classStyle,
-                            styleName,
-                            Style.FONT_WEIGHT_KEY);
+                            styleName, CoreStyle.FONT_WEIGHT_KEY);
 
         if (value != null)
           fontWeight = _getAWTFontWeight(value);
@@ -397,8 +395,8 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
   static protected int getFontSize(
     UIXRenderingContext context,
     UINode node,
-    Style classStyle,
-    Style inlineStyle,
+    CoreStyle classStyle,
+    CoreStyle inlineStyle,
     String styleName
     )
   {
@@ -406,8 +404,7 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
     if (inlineStyle != null)
     {
       Object value = _parseValue(inlineStyle,
-                                 null,
-                                 Style.FONT_SIZE_KEY);
+                                 null, CoreStyle.FONT_SIZE_KEY);
 
       if (value instanceof Integer)
         return ((Integer)value).intValue();
@@ -416,8 +413,7 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
     if (styleName != null)
     {
       Object value = _parseValue(classStyle,
-                                 styleName,
-                                 Style.FONT_SIZE_KEY);
+                                 styleName, CoreStyle.FONT_SIZE_KEY);
 
       if (value instanceof Integer)
         return ((Integer)value).intValue();
@@ -430,20 +426,20 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
   static protected Collection<Object> getFontFamilies(
     UIXRenderingContext context,
     UINode node,
-    Style  style,
+    CoreStyle  style,
     String styleName
     )
   {
     if (style != null)
     {
-      if(_parseValue(style, null, Style.FONT_FAMILIES_KEY) instanceof Collection)
+      if(_parseValue(style, null, CoreStyle.FONT_FAMILIES_KEY) instanceof Collection)
       {
-        return  (Collection<Object>)_parseValue(style, null, Style.FONT_FAMILIES_KEY);
+        return  (Collection<Object>)_parseValue(style, null, CoreStyle.FONT_FAMILIES_KEY);
       }
       else
       {
         Collection<Object> parsedValueList = new ArrayList<Object>();
-        parsedValueList.add(_parseValue(style, null, Style.FONT_FAMILIES_KEY));
+        parsedValueList.add(_parseValue(style, null, CoreStyle.FONT_FAMILIES_KEY));
         return  parsedValueList;
       }
     }
@@ -454,45 +450,43 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
   static protected Color getBackground(
     UIXRenderingContext context,
     UINode node,
-    Style classStyle,
-    Style inlineStyle,
+    CoreStyle classStyle,
+    CoreStyle inlineStyle,
     String styleName
     )
   {
     if (inlineStyle != null)
     {
       Color background = (Color)_parseValue(inlineStyle,
-                                            null,
-                                            Style.BACKGROUND_KEY);
+                                            null, CoreStyle.BACKGROUND_KEY);
       if (background != null)
         return background;
 
     }
 
     return (Color)
-      _parseValue(classStyle, styleName, Style.BACKGROUND_KEY);
+      _parseValue(classStyle, styleName, CoreStyle.BACKGROUND_KEY);
   }
 
   static protected Color getForeground(
     UIXRenderingContext context,
     UINode node,
-    Style classStyle,
-    Style inlineStyle,
+    CoreStyle classStyle,
+    CoreStyle inlineStyle,
     String styleName
     )
   {
     if (inlineStyle != null)
     {
       Color foreground = (Color)_parseValue(inlineStyle,
-                                            null,
-                                            Style.FOREGROUND_KEY);
+                                            null, CoreStyle.FOREGROUND_KEY);
       if (foreground != null)
         return foreground;
 
     }
 
     return (Color)
-      _parseValue(classStyle, styleName, Style.FOREGROUND_KEY);
+      _parseValue(classStyle, styleName, CoreStyle.FOREGROUND_KEY);
   }
 
   static protected Color getSurroundingColor(UIXRenderingContext context)
@@ -506,19 +500,19 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
   static protected boolean isTextAntialiased(
     UIXRenderingContext context,
     UINode node,
-    Style classStyle,
-    Style inlineStyle
+    CoreStyle classStyle,
+    CoreStyle inlineStyle
     )
   {
     if (inlineStyle != null)
     {
-      Object value = inlineStyle.getParsedProperty(Style.TEXT_ANTIALIAS_KEY);
+      Object value = inlineStyle.getParsedProperty(CoreStyle.TEXT_ANTIALIAS_KEY);
       return Boolean.TRUE.equals(value);
     }
 
     if (classStyle != null)
     {
-      Object value = classStyle.getParsedProperty(Style.TEXT_ANTIALIAS_KEY);
+      Object value = classStyle.getParsedProperty(CoreStyle.TEXT_ANTIALIAS_KEY);
       return Boolean.TRUE.equals(value);
     }
 
@@ -526,7 +520,7 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
   }
 
   static private Object _parseValue(
-    Style style,
+    CoreStyle style,
     String styleName,
     ParsedPropertyKey key
     )
@@ -554,7 +548,7 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
 
   static private int _getAWTFontStyle(Object style)
   {
-    if (style == Style.ITALIC_FONT_STYLE)
+    if (style == CoreStyle.ITALIC_FONT_STYLE)
       return Font.ITALIC;
 
     return Font.PLAIN;
@@ -562,7 +556,7 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
 
   static private int _getAWTFontWeight(Object weight)
   {
-    if (weight == Style.BOLD_FONT_WEIGHT)
+    if (weight == CoreStyle.BOLD_FONT_WEIGHT)
       return Font.BOLD;
 
     return Font.PLAIN;

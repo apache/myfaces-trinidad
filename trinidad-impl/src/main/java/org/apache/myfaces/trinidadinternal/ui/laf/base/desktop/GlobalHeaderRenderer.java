@@ -23,7 +23,7 @@ import java.io.IOException;
 import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.component.UIXNavigationLevel;
-import org.apache.myfaces.trinidadinternal.style.Style;
+import org.apache.myfaces.trinidadinternal.style.CoreStyle;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.LinkUtils;
@@ -325,7 +325,7 @@ public class GlobalHeaderRenderer extends HtmlLafRenderer
     }
     else if (isIE(context))
     {
-      Style style = XhtmlLafUtils.getClassStyle(context, 
+      CoreStyle style = XhtmlLafUtils.getClassStyle(context, 
                                                 AF_MENU_BAR_STYLE_CLASS);
       if (style != null)
       {

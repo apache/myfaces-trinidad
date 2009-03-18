@@ -117,6 +117,9 @@ public class CSSGenerationUtils
     // pass to find matching StyleNodes.
     String[] propertyStrings = new String[styles.length];
 
+    // at this point the styles StyleNode[] can contain both Styles with
+    // non-null selector or non-null name(aka alias). We only generate
+    // the styles where getSelector is non-null.
     for (int i = 0; i < styles.length; i++)
     {
       StyleNode style = styles[i];

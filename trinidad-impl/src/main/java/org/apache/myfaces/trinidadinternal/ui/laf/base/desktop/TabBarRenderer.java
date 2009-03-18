@@ -25,7 +25,7 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.component.UIXHierarchy;
 import org.apache.myfaces.trinidad.component.UIXNavigationLevel;
 
-import org.apache.myfaces.trinidadinternal.style.Style;
+import org.apache.myfaces.trinidadinternal.style.CoreStyle;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.StyleMap;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
@@ -402,7 +402,7 @@ public class TabBarRenderer extends HtmlLafRenderer
     if (styleMap != null)
     {
       StyleContext styleContext = context.getStyleContext();
-      Style style = styleMap.getStyleByClass(styleContext,
+      CoreStyle style = (CoreStyle)styleMap.getStyleByClass(styleContext,
                                              AF_MENU_TABS_SEPARATOR_STYLE_CLASS);
 
       if (style != null)

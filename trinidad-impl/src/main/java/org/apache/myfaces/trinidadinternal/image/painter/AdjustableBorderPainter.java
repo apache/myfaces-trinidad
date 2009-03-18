@@ -24,7 +24,7 @@ import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 import org.apache.myfaces.trinidadinternal.style.PropertyParseException;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
-import org.apache.myfaces.trinidadinternal.style.Style;
+import org.apache.myfaces.trinidadinternal.style.CoreStyle;
 import org.apache.myfaces.trinidadinternal.style.StyleMap;
 import org.apache.myfaces.trinidadinternal.style.StyleProvider;
 import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
@@ -96,7 +96,7 @@ public class AdjustableBorderPainter extends AbstractBorderPainter
     int bottom = _defaultInsets.bottom;
     int right = _defaultInsets.right;
 
-    Style style = _getPaddingStyle(context);
+    CoreStyle style = _getPaddingStyle(context);
     if (style != null)
     {
       top = _getPadding(style, _TOP_PADDING, top);
@@ -114,7 +114,7 @@ public class AdjustableBorderPainter extends AbstractBorderPainter
 
   // Get the Style object which contains padding information
   // for this specific paint.
-  private Style _getPaddingStyle(PaintContext context)
+  private CoreStyle _getPaddingStyle(PaintContext context)
   {
     // First, get the StyleProvider from the context
     ImageContext imageContext = context.getImageContext();
@@ -131,7 +131,7 @@ public class AdjustableBorderPainter extends AbstractBorderPainter
         Font font = context.getPaintFont();
         String name = _styleNamePrefix + font.getName();
 
-        return map.getStyleByName(styleContext, name);
+        return (CoreStyle)map.getStyleByName(styleContext, name);
       }
     }
 
@@ -144,7 +144,7 @@ public class AdjustableBorderPainter extends AbstractBorderPainter
   // value can not be converted to an int, the
   // defaultValue is used.
   private static int _getPadding(
-    Style  style,
+    CoreStyle  style,
     String propertyName,
     int    defaultValue
     )
