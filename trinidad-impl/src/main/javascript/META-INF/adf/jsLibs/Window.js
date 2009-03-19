@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -328,7 +328,10 @@ function openWindow(
 
       // Set up an onlosecapture handler so that we can
       // restore the capture if we unexpectedly lose it.
-      parentBody.onlosecapture = _onModalLoseCapture;
+      // this code has been removed as it caused IE to "lock up" when
+      // IE7 is set to force new windows to open in tabs instead of new
+      // windows.
+      //parentBody.onlosecapture = _onModalLoseCapture;
 
       // Popup blockers!
       // BUG 4428033 - ECM: MENUS BECOM DISABLED AFTER RAISING A DIALOG
@@ -425,35 +428,6 @@ function _pollWhenModalDependentCloses()
     self.setTimeout("_pollWhenModalDependentCloses()", 1000);
   }
 }
-
-// Called on IE when we lose the capture.  As seen in bugs
-// 3613614 and 3540569, IE may unexpectedly lose its capture
-// while a modal window is being displayed.  When this occurs,
-// we attempt to restore the capture so that users won't be
-// able to interact with the parent window while a modal child
-// is present.
-function _onModalLoseCapture()
-{
-  // We've lost our mouse capture.  Check to see whether
-  // we still have any modal child windows.
-  var modalDependent = _getValidModalDependent(self);
-
-  if (modalDependent)
-  {
-    // If we still have a modal child, we need to re-apply
-    // our mouse capture.  To do this, we just call _onModalFocus(),
-    // which has the necessary code to set the capture.
-    //
-    // Note, however, that IE doesn't seem to honor the new mouse capture
-    // if it is applied from within the onlosecapture handler.  To work
-    // around this, we queue the call to _onModalFocus().  That way,
-    // the capture will be applied after the onlosecapture event
-    // has been handled, and IE seems to be happy.
-
-    window.setTimeout("_onModalFocus()", 1);
-  }
-}
-
 
 /**
  * onFocus override when modal windows are up.
@@ -676,7 +650,16 @@ function _sizeWin(
 
     // Finally, we can resize the window.
     // theWindow.parent.resizeTo(newWidth, newHeight);
-    newWin.resizeTo(newWidth, newHeight);
+    try
+    {
+      newWin.resizeTo(newWidth, newHeight);
+    }
+    catch (e)
+    {
+      // ignore errors. An error will be throw if the new window opened in a tab
+      // instead of a new browser window as resizing the main window is prohibited by security
+      ;
+    }
 
     // Check to make sure that our resize hasn't put the
     // window partially off screen.

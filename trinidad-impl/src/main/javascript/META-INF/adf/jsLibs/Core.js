@@ -220,7 +220,7 @@ function _agentInit()
   var isSolaris         = false;
   var isWindows         = false;
   var isWindowsMobile6  = false;
-  var isNokiaPhone      = false; 
+  var isNokiaPhone      = false;
   var kind              = "unknown";
 
   // Group IE and IE based browsers such as IE Mobile on WM5 and WM6
@@ -318,9 +318,9 @@ function _agentInit()
 
     // BlackBerryXXXX/Y.Y.Y.Y is the BlackBerry user agent format
     // XXXX is the model number and Y.Y.Y.Y is the OS version number.
-    // At this moment, BlackBerry below version 4.6 is regarded as 
+    // At this moment, BlackBerry below version 4.6 is regarded as
     // basic HTML browser for the JS performance reason.
-    // The following lines should be uncommented when we decide to 
+    // The following lines should be uncommented when we decide to
     // handle BlackBerry version 4.0~4.5 separate from the batch of
     // Basic HTML browsers after its JS performance improves.
     /*
@@ -336,7 +336,7 @@ function _agentInit()
       supportsValidation = false;
     }
     */
-    
+
     isBlackBerry = true;
     kind = "blackberry";
   }
@@ -369,11 +369,11 @@ function _agentInit()
     isSolaris = true;
   }
   else if ((agentString.indexOf('symbian') != -1) ||
-           (agentString.indexOf('nokia') != -1)) 
-  { 
+           (agentString.indexOf('nokia') != -1))
+  {
      isNokiaPhone = true;
      pprUnsupported = true;
-  } 
+  }
 
   _agent.isBlackBerry           = isBlackBerry;
   _agent.isGecko                = isGecko;
@@ -996,6 +996,8 @@ function _addModalCaptureIE(element)
   window._modalSavedListeners = savedListeners;
 
   // Set the capture
+  window._trIeCapture = element;
+  window._trIeCaptureCurrent = true;
   element.setCapture();
 }
 
@@ -1023,14 +1025,30 @@ function _removeModalCaptureIE(element)
 
     window._modalSavedListeners = null;
   }
+  window._trIeCapture = undefined;
 }
-
 
 // Captures (and consumes) events during modal grabs
 // on IE browsers
 function _captureEventIE()
 {
-  window.event.cancelBubble = true;
+  // do not capture events outside the document body, this leads to the inability for users
+  // to click on IE toolbars, menubars, etc.
+  var event = window.event;
+  if (event.screenY >= window.screenTop && event.screenX >= window.screenLeft)
+  {
+    if (!window._trIeCaptureCurrent && window._trIeCapture)
+    {
+      window._trIeCaptureCurrent = true;
+      window._trIeCapture.setCapture();
+    }
+    event.cancelBubble = true;
+  }
+  else if (window._trIeCapture)
+  {
+    window._trIeCaptureCurrent = false;
+    window._trIeCapture.releaseCapture();
+  }
 }
 
 // Adds a (Gecko-specific) capture to the specified element
@@ -1249,7 +1267,7 @@ function _validateForm(
 
   var funcName = '_' + _getJavascriptId(_getFormName(form)) + 'Validator';
   var formWind = window[funcName];
-  if (formWind)  
+  if (formWind)
   {
     try
     {
@@ -1271,7 +1289,7 @@ function _validateForm(
     }
       return ret;
   }
-  
+
   return false;
 }
 
@@ -1366,7 +1384,7 @@ function _validateAlert(
 
       // Get the current message
       var facesMessage = messages[j];
-                         
+
       if (_agent.isNokiaPhone)
       {
         errorString = _getGlobalErrorString(currInput,
@@ -1380,8 +1398,8 @@ function _validateAlert(
                             globalMessage,
                             facesMessage.getDetail(),
                             label);
-      }                      
-   
+      }
+
       failureString += errorString + '\n';
     }
   }
@@ -1490,7 +1508,7 @@ function _validateInline(
         {
           alert("Field Error [" + currId + "] - " + facesMessage.getDetail());
         }
-      }  
+      }
 
       // Add the message to the MessageBox
       TrMessageBox.addMessage(currId, label, facesMessage);
@@ -1792,7 +1810,7 @@ function submitForm(
     // create function so that "return" is handled correctly,
     var func = new Function("doValidate", onSubmit);
     var handlerResult;
-    
+
     // WindowsMobile 5 doesn't support installing Funtion object
     // to "this", so just invoke the Function object instead.
     if (_agent.isPIE)
@@ -2594,7 +2612,7 @@ function _multiValidate(
              else
              {
                inputFailures[inputFailures.length] = e.getFacesMessage();
-             } 
+             }
             }
           }
         }
@@ -3138,7 +3156,7 @@ function _callChained(
     // functions work
     var func = new Function("event", handler);
     var result;
-    
+
     // WindowsMobile 5 doesn't support installing Funtion object
     // to "this", so just invoke the Function object instead.
     if (_agent.isPIE)
@@ -3156,7 +3174,7 @@ function _callChained(
 
       // clear the temporary function
       target._tempFunc = (void 0);
-    }  
+    }
 
     // undefined results should be evaluated as true,
     return !(result == false);
@@ -3514,7 +3532,7 @@ function _pprStartBlocking(win)
 {
   // No blocking is performed on WM, Nokia, PPC and BlackBerry devices
   if (_agent.isPIE || _agent.isNokiaPhone || _agent.isBlackBerry)
-    return; 
+    return;
 
   if (_agent.isIE)
   {
@@ -3577,11 +3595,11 @@ function _doPprStartBlocking (win)
 //
 function _pprStopBlocking(win)
 {
- 
+
   // No blocking is performed on Nokia, PPC and BlackBerry devices
   if (_agent.isPIE || _agent.isNokiaPhone || _agent.isBlackBerry)
     return;
-  
+
   var doc = win.document;
 
   if (win._pprBlocking)
