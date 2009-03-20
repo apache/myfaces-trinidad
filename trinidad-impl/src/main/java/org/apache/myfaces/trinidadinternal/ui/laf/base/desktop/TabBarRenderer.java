@@ -407,7 +407,7 @@ public class TabBarRenderer extends HtmlLafRenderer
 
       if (style != null)
       {
-        String width = style.getProperty("width");
+        String width = style.getProperties().get("width");
 
         // As an optimization, we do not render the tabBar
         // separator if the af|menuTabs::separator's width is 0px.

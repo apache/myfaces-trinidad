@@ -76,7 +76,7 @@ public class TabBarRenderer extends XhtmlLafRenderer
 
         // write the cell's background color property
         writer.writeAttribute("bgcolor",
-                              classStyle.getProperty("background-color"), null);
+                              classStyle.getProperties().get("background-color"), null);
       }
     }
     else

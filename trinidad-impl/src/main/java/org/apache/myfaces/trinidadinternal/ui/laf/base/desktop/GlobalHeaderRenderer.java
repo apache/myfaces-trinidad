@@ -20,6 +20,8 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 
 import java.io.IOException;
 
+import java.util.Map;
+
 import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.component.UIXNavigationLevel;
@@ -329,7 +331,7 @@ public class GlobalHeaderRenderer extends HtmlLafRenderer
                                                 AF_MENU_BAR_STYLE_CLASS);
       if (style != null)
       {
-        String minHeight = style.getProperty("min-height");
+        String minHeight = style.getProperties().get("min-height");
         renderSpacer(context, null, minHeight);
       }
     }

@@ -1420,7 +1420,7 @@ public class FileSystemStyleCache implements StyleProvider
          // System.out.println("Add selector to _resolvedStyles " + selector);
           // create a Style Object from the StyleNode object
           Style style = _convertStyleNode(_resolvedStyles[i]);
-          _resolvedStyleMap.put(selector, style);
+          _resolvedSelectorStyleMap.put(selector, style);
 
  
         }
@@ -1429,7 +1429,7 @@ public class FileSystemStyleCache implements StyleProvider
           String name = _resolvedStyles[i].getName();
           // create a Style Object from the StyleNode object
           Style style = _convertStyleNode(_resolvedStyles[i]);
-          _resolvedStyleMap.put(name, style);
+          _resolvedNamedSelectorsStyleMap.put(name, style);
 
         }
       }
@@ -1445,8 +1445,7 @@ public class FileSystemStyleCache implements StyleProvider
       if (_selectorMap == null)
         _selectorMap = _createMap();
 
-      Style oldStyle = _getStyle(context, _selectorMap, selector, "", false);
-      Style newStyle = _resolvedStyleMap.get(selector);
+      Style newStyle = _resolvedSelectorStyleMap.get(selector);
       return newStyle;
       //return _getStyle(context, _selectorMap, selector, "", false);
     }
@@ -1460,7 +1459,8 @@ public class FileSystemStyleCache implements StyleProvider
       if (_classMap == null)
         _classMap = _createMap();
       String prefix = (styleClass.indexOf('|') > -1) ? "" : ".";
-      return _getStyle(context, _classMap, styleClass, prefix , false);
+      return _resolvedSelectorStyleMap.get(prefix+styleClass);
+      //return _getStyle(context, _classMap, styleClass, prefix , false);
     }
 
     // Implementation of StyleMap.getStyleByClass()
@@ -1471,13 +1471,15 @@ public class FileSystemStyleCache implements StyleProvider
     {
       if (_nameMap == null)
         _nameMap = _createMap();
-
-      return _getStyle(context, _nameMap, name, "", true);
+      Style newStyle = _resolvedNamedSelectorsStyleMap.get(name);
+      return newStyle;
+      //return _getStyle(context, _nameMap, name, "", true);
     }
 
     // Do all of the real work
     // TODO if using the _resolvedStyles works, then we can get rid of all the
     // excess code in StyleSheetDocument to getStyleByName, etc.
+    /**** jmw. Won't need this with the new APIs.
     private Style _getStyle(
       StyleContext       context,
       Map<String, Style> map,
@@ -1531,6 +1533,7 @@ public class FileSystemStyleCache implements StyleProvider
       map.put(id, style);
       return style;
     }
+*/
     
     public Style _convertStyleNode(StyleNode styleNode)
     {
@@ -1566,7 +1569,9 @@ public class FileSystemStyleCache implements StyleProvider
     private Hashtable<String, Style> _classMap;
     private Hashtable<String, Style> _nameMap;
     
-    private ConcurrentMap<String, Style> _resolvedStyleMap = 
+    private ConcurrentMap<String, Style> _resolvedSelectorStyleMap = 
+      new ConcurrentHashMap<String, Style>();
+    private ConcurrentMap<String, Style> _resolvedNamedSelectorsStyleMap = 
       new ConcurrentHashMap<String, Style>();
     
     private StyleNode[] _resolvedStyles;

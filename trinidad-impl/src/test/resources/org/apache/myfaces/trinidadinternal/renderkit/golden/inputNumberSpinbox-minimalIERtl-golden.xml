@@ -93,7 +93,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -204,7 +204,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -315,7 +315,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -426,7 +426,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -537,7 +537,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -648,7 +648,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -759,7 +759,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -870,7 +870,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -981,7 +981,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -1092,7 +1092,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -1203,7 +1203,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -1314,7 +1314,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -1425,7 +1425,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -1536,7 +1536,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -1647,7 +1647,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -1757,7 +1757,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -1878,7 +1878,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -1988,7 +1988,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -2098,7 +2098,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -2209,7 +2209,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -2324,7 +2324,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -2442,7 +2442,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -2552,7 +2552,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -2663,7 +2663,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -2773,7 +2773,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -2889,7 +2889,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -2999,7 +2999,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -3115,7 +3115,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -3225,7 +3225,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -3341,7 +3341,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -3451,7 +3451,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -3562,7 +3562,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -3673,7 +3673,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -3784,7 +3784,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -3895,7 +3895,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -4006,7 +4006,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -4117,7 +4117,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -4228,7 +4228,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -4339,7 +4339,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -4450,7 +4450,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -4561,7 +4561,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -4672,7 +4672,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -4783,7 +4783,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -4894,7 +4894,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -5005,7 +5005,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -5115,7 +5115,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -5225,7 +5225,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -5335,7 +5335,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -5429,7 +5429,7 @@
                          alt="decrement disabled"
                          border="0"
                          height="5"
-                         style="display:block;padding-top:2px"
+                         style="padding-top:2px;display:block"
                          width="5"
                          src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdnd.png"
                         >
@@ -5538,7 +5538,7 @@
                            alt="decrement"
                            border="0"
                            height="5"
-                           style="display:block;padding-top:2px"
+                           style="padding-top:2px;display:block"
                            width="5"
                            src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                           >
@@ -5663,7 +5663,7 @@
                        alt="decrement"
                        border="0"
                        height="5"
-                       style="display:block;padding-top:2px"
+                       style="padding-top:2px;display:block"
                        width="5"
                        src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                       >
@@ -5752,7 +5752,7 @@
                        alt="decrement"
                        border="0"
                        height="5"
-                       style="display:block;padding-top:2px"
+                       style="padding-top:2px;display:block"
                        width="5"
                        src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                       >
@@ -5841,7 +5841,7 @@
                        alt="decrement"
                        border="0"
                        height="5"
-                       style="display:block;padding-top:2px"
+                       style="padding-top:2px;display:block"
                        width="5"
                        src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                       >
@@ -5930,7 +5930,7 @@
                        alt="decrement"
                        border="0"
                        height="5"
-                       style="display:block;padding-top:2px"
+                       style="padding-top:2px;display:block"
                        width="5"
                        src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                       >
@@ -6019,7 +6019,7 @@
                        alt="decrement"
                        border="0"
                        height="5"
-                       style="display:block;padding-top:2px"
+                       style="padding-top:2px;display:block"
                        width="5"
                        src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                       >
@@ -6108,7 +6108,7 @@
                        alt="decrement"
                        border="0"
                        height="5"
-                       style="display:block;padding-top:2px"
+                       style="padding-top:2px;display:block"
                        width="5"
                        src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                       >
@@ -6197,7 +6197,7 @@
                        alt="decrement"
                        border="0"
                        height="5"
-                       style="display:block;padding-top:2px"
+                       style="padding-top:2px;display:block"
                        width="5"
                        src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                       >
@@ -6286,7 +6286,7 @@
                        alt="decrement"
                        border="0"
                        height="5"
-                       style="display:block;padding-top:2px"
+                       style="padding-top:2px;display:block"
                        width="5"
                        src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                       >
@@ -6375,7 +6375,7 @@
                        alt="decrement"
                        border="0"
                        height="5"
-                       style="display:block;padding-top:2px"
+                       style="padding-top:2px;display:block"
                        width="5"
                        src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                       >
@@ -6464,7 +6464,7 @@
                        alt="decrement"
                        border="0"
                        height="5"
-                       style="display:block;padding-top:2px"
+                       style="padding-top:2px;display:block"
                        width="5"
                        src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                       >
@@ -6553,7 +6553,7 @@
                        alt="decrement"
                        border="0"
                        height="5"
-                       style="display:block;padding-top:2px"
+                       style="padding-top:2px;display:block"
                        width="5"
                        src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                       >
@@ -6642,7 +6642,7 @@
                        alt="decrement"
                        border="0"
                        height="5"
-                       style="display:block;padding-top:2px"
+                       style="padding-top:2px;display:block"
                        width="5"
                        src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                       >
@@ -6731,7 +6731,7 @@
                        alt="decrement"
                        border="0"
                        height="5"
-                       style="display:block;padding-top:2px"
+                       style="padding-top:2px;display:block"
                        width="5"
                        src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                       >
@@ -6820,7 +6820,7 @@
                        alt="decrement"
                        border="0"
                        height="5"
-                       style="display:block;padding-top:2px"
+                       style="padding-top:2px;display:block"
                        width="5"
                        src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                       >
@@ -6909,7 +6909,7 @@
                        alt="decrement"
                        border="0"
                        height="5"
-                       style="display:block;padding-top:2px"
+                       style="padding-top:2px;display:block"
                        width="5"
                        src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                       >
@@ -6997,7 +6997,7 @@
                        alt="decrement"
                        border="0"
                        height="5"
-                       style="display:block;padding-top:2px"
+                       style="padding-top:2px;display:block"
                        width="5"
                        src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                       >
@@ -7085,7 +7085,7 @@
                        alt="decrement"
                        border="0"
                        height="5"
-                       style="display:block;padding-top:2px"
+                       style="padding-top:2px;display:block"
                        width="5"
                        src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                       >
@@ -7173,7 +7173,7 @@
                        alt="decrement"
                        border="0"
                        height="5"
-                       style="display:block;padding-top:2px"
+                       style="padding-top:2px;display:block"
                        width="5"
                        src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                       >
@@ -7245,7 +7245,7 @@
                      alt="decrement disabled"
                      border="0"
                      height="5"
-                     style="display:block;padding-top:2px"
+                     style="padding-top:2px;display:block"
                      width="5"
                      src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdnd.png"
                     >
@@ -7332,7 +7332,7 @@
                        alt="decrement"
                        border="0"
                        height="5"
-                       style="display:block;padding-top:2px"
+                       style="padding-top:2px;display:block"
                        width="5"
                        src="uri-attr:encoded-resource-url:/test-context-path/adf/images/spbxdn.png"
                       >

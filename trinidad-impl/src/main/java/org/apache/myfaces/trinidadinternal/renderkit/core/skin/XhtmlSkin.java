@@ -18,6 +18,9 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.skin;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinProperties;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.skin.icon.ContextImageIcon;
@@ -102,17 +105,26 @@ public class XhtmlSkin extends BaseSkin
                  null,
                  SkinSelectors.QUICK_SELECT_DISABLED_ICON_STYLE_CLASS,
                  null);
-
-  private static final CSSStyle spinboxTopStyle = new CSSStyle();
-  private static final CSSStyle spinboxBottomStyle = new CSSStyle();
-
+  
+  private static final Map<String, String> _spinboxTopStyleMap;
+  private static final Map<String, String> _spinboxBottomStyleMap;
+  
   static
   {
+    // does this matter if it's not an ArrayMap?
+    _spinboxTopStyleMap = new HashMap<String, String>();
+    _spinboxTopStyleMap.put("display", "block");
     // this is needed for the image
-    spinboxTopStyle.setProperty("display", "block");
-    spinboxBottomStyle.setProperty("display", "block");
-    spinboxBottomStyle.setProperty("padding-top", "2px");
+    _spinboxBottomStyleMap = new HashMap<String, String>();
+    _spinboxBottomStyleMap.put("display", "block");
+    _spinboxBottomStyleMap.put("padding-top", "2px");
+
   }
+  
+  private static final CSSStyle spinboxTopStyle = new CSSStyle(_spinboxTopStyleMap);
+  private static final CSSStyle spinboxBottomStyle = new CSSStyle(_spinboxBottomStyleMap);
+
+
 
   // Icons array
   private static final Object[] _CUSTOMIZABLE_ICONS = new Object[]

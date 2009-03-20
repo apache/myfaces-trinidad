@@ -19,36 +19,22 @@ package org.apache.myfaces.trinidad.style;
  *  under the License.
  */
 
-import java.util.Iterator;
+import java.util.Map;
 
 /**
  * A Style object defines a set of visual (or aural) style properties.
  * The Style interface exposes one method for retrieving properties:
- * getProperty().  getProperty() takes a String property name and 
- * returns a String property value. You can get an Iterator of PropertyNames
- * by calling getPropretyNames(). 
+ * getProperties().  getProperties() returns a Map&lt;String, String> of the propery name as the
+ * key and the property value as the value.
  *
  */
 public interface Style
 {
 
   /**
-   * Returns the names of the properties defined by this style.
+   * Returns a Map of the properties (name/value) defined by this style.
    */
-  // -= Simon Lessard =-
-  // FIXME: This should be changed to <String> once the issues 
-  //        with ArrayMap are fixed. ATM (2006-08-04) ArrayMap 
-  //        have huge problem working with anything but Object???
-  // TODO???
-  public Iterator<Object> getPropertyNames();
-
-  /**
-   * Returns the value of the property with the specified name.
-   *
-   * @param name The property name for the property to return
-   */
-  public String getProperty(String name);
-
+  public Map<String, String> getProperties();
 
   /**
    * Converts the style to a String suitable for use as an inline style

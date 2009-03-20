@@ -22,15 +22,16 @@ import org.apache.myfaces.trinidad.style.Style;
 
 /**
  * A CoreStyle object defines a set of visual (or aural) style properties.
- * The CoreStyle interface exposes two method for retrieving properties:
- * getProperty() and getParsedProperty().  getProperty()
- * takes a String property name and returns a String property value.
+ * The CoreStyle interface exposes one method for retrieving properties:
+ * getParsedProperty().
  * getParsedProperty() takes a key object (eg. FONT_WEIGHT_KEY) and
  * returns the parsed, typed, Java object which represents the
  * property value.  The type of the returned object is key-specific,
  * eg. for FONT_WEIGHT_KEY, an java.lang.Integer is returned.
  * For BACKGROUND_KEY, a java.awt.Color is returned.
- *
+ * @deprecated Use the Style interface instead. The parsedProperties should
+ * not be used in new code. It's only used now in the image generation code
+ * that is not used.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/Style.java#0 $) $Date: 10-nov-2005.18:57:56 $
  */
 public interface CoreStyle extends Style

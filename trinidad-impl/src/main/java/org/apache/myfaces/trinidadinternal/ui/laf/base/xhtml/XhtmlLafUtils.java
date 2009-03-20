@@ -243,7 +243,7 @@ public class XhtmlLafUtils extends BaseLafUtils
                                        className);
       if (classStyle != null)
       {
-        return classStyle.getProperty(propertyName);
+        return classStyle.getProperties().get(propertyName);
       }
 
       return null;
@@ -582,10 +582,13 @@ public class XhtmlLafUtils extends BaseLafUtils
     String stylePropertyName
     )
   {
-    String value = (style1 != null)
-                     ? style1.getProperty(stylePropertyName)
-                     : null;
+    String value = null;
+    if (style1 != null)
+    {
+      value = style1.getProperties().get(stylePropertyName);
+    }
 
+    
     if (value != null)
     {
       return value;
@@ -594,7 +597,8 @@ public class XhtmlLafUtils extends BaseLafUtils
     {
       if (style2 != null)
       {
-        return style2.getProperty(stylePropertyName);
+        
+        return style2.getProperties().get(stylePropertyName);
       }
       else
       {

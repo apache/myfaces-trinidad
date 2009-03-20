@@ -157,10 +157,11 @@ public class GlobalHeaderRenderer extends XhtmlLafRenderer
       if (classStyle != null)
       {
         ResponseWriter writer = context.getResponseWriter();
+        
 
         // write the cell's background color property
         writer.writeAttribute("bgcolor",
-                              classStyle.getProperty("background-color"), null);
+                              classStyle.getProperties().get("background-color"), null);
       }
     }
     else

@@ -19,60 +19,59 @@
 package org.apache.myfaces.trinidadinternal.style;
 
 import java.io.Serializable;
-import java.util.Map;
-import java.util.Iterator;
 
-import org.apache.myfaces.trinidad.style.Style;
+import java.util.Collections;
+import java.util.Map;
 
 import org.apache.myfaces.trinidad.util.ArrayMap;
 
 /**
  * Base class for Style implementations
+ * TODO Remove the ParsedProperty code from Trinidad. It is only used for
+ * the un-used image generation code.
+ * TODO Then remove CoreStyle and implement the public Style object instead.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/BaseStyle.java#0 $) $Date: 10-nov-2005.18:57:54 $
  */
 abstract public class BaseStyle implements CoreStyle, Serializable
 {
   /**
-   * Creates an empty BaseStyle.
+   * Creates an empty BaseStyle. For better performance, 
+   * use the Base(Map&lt;String, String>) constructor.
    */
   public BaseStyle()
   {
+    _propertiesMap = Collections.emptyMap();
   }
 
   /**
    * Creates a BaseStyle with the specified properties
    *
-   * @param properties The properties of this style.  The
-   *   values must be Strings.
+   * @param propertiesMap The properties of this style.  The
+   *   name and values must be Strings.
    */
-  public BaseStyle(Map<String, String> properties)
+  public BaseStyle(Map<String, String> propertiesMap)
   {
-    if ((properties != null) && (properties.size() > 0))
+    if ((propertiesMap != null) && (propertiesMap.size() > 0))
     {
-      // Initialize the properties array
-      int length = properties.size() * 2;
-      _properties = new String[length];
-
-      int i = 0;
-      for(Map.Entry<String, String> entry : properties.entrySet())
-      {
-        String key   = entry.getKey();
-        String value = entry.getValue();
-
-        // -= Simon Lessard =-
-        // FIXME: If key is ever null, NullPointerException will occurs
-        _properties[i*2]   = key.toLowerCase();
-        _properties[i*2+1] = value;
-        i++;
-      }
+      // Initialize the propertiesMap with an ArrayMap implementation.
+      // ArrayMap is fast reads.
+      int length = propertiesMap.size() * 2;
+      _propertiesMap = new ArrayMap<String, String>(length);
+      
+      _propertiesMap.putAll(propertiesMap);
     }
+    else
+      _propertiesMap = Collections.emptyMap();
   }
 
   /**
    * Creates a BaseStyle from an arbitrary Style object.
    */
+   /***
   public BaseStyle(Style style)
   {
+    System.out.println("BaseStyle with constructor style is called");
+
     if ( style != null)
     {
 
@@ -107,26 +106,16 @@ abstract public class BaseStyle implements CoreStyle, Serializable
 
       _properties = properties;
     }
+
   }
+    **/
 
   /**
-   * Returns the names of the properties defined by this style.
-   * <p>
-   * The property names can be any valid property name.
+   * Returns an UnmodifiableMap
    */
-  public Iterator<Object> getPropertyNames()
+  public Map<String, String> getProperties()
   {
-    return ArrayMap.getKeys(_properties);
-  }
-
-  /**
-   * Returns the value of the property with the specified name.
-   *
-   * @param name The property name for the property to return
-   */
-  public String getProperty(String name)
-  {
-    return (String)ArrayMap.get(_properties, name.toLowerCase());
+    return Collections.unmodifiableMap(_propertiesMap);
   }
 
 
@@ -196,10 +185,13 @@ abstract public class BaseStyle implements CoreStyle, Serializable
 
     synchronized (this)
     {
-      _properties = ArrayMap.remove(_properties, name);
+      if (_propertiesMap == null || _propertiesMap.isEmpty())
+        _propertiesMap = new ArrayMap<String, String>();
+      _propertiesMap.put(name, value);
+      //_properties = ArrayMap.remove(_properties, name);
 
-      if (value != null)
-        _properties = ArrayMap.put(_properties, name, value);
+     // if (value != null)
+      //  _properties = ArrayMap.put(_properties, name, value);
 
       // We need to reset to parsed properties if our properties change
       // Really, we could just null out the corresponding parsed property
@@ -222,7 +214,7 @@ abstract public class BaseStyle implements CoreStyle, Serializable
   abstract protected Object parseProperty(Object key)
     throws PropertyParseException;
 
-  private Object[] _properties;
+  private Map<String, String> _propertiesMap;
   transient private Object[] _parsedProperties;
 
   // Count of parsed properties defined by Style

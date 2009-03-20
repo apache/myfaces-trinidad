@@ -58,10 +58,13 @@ public class CSSStyle extends BaseStyle
    * All of the properties from the specified Style object are
    * copied into this CSSStyle.
    */
+   /********
   public CSSStyle(Style style)
   {
     super(style);
   }
+***/
+
 
   /**
    * Converts the style to a String suitable for use as an inline style
@@ -74,27 +77,23 @@ public class CSSStyle extends BaseStyle
 
     if (inline != null)
       return inline;
-
-    Iterator<Object> e = getPropertyNames();
+    
+    Map<String, String> properties = getProperties();
     StringBuffer buffer = new StringBuffer(_DEFAULT_BUFFER_SIZE);
-    boolean first = true;
-
-    if ( e != null )
+    boolean first = true;   
+    
+    for (Map.Entry<String, String> entrySet : properties.entrySet())
     {
-      while (e.hasNext())
-      {
-        if (first)
-          first = false;
-        else
-          buffer.append(";");
 
-        String name = (String)e.next();
-        String value = getProperty(name);
-
-        buffer.append(name);
-        buffer.append(":");
-        buffer.append(value);
-      }
+      if (first)
+        first = false;
+      else
+        buffer.append(";");
+      String name = entrySet.getKey();
+      String value = entrySet.getValue();
+      buffer.append(name);
+      buffer.append(":");
+      buffer.append(value);
     }
 
     inline = buffer.toString();
@@ -108,7 +107,9 @@ public class CSSStyle extends BaseStyle
   }
 
   /**
-   * Sets the specified property value.
+   * Sets the specified property value. If the properties are all known up front,
+   * it is better for performance to use the CSSStyle(Map&lt;String, String> properties) constructor
+   * than to create an empty CSSStyle and call setProperty for each property.
    */
   @Override
   public void setProperty(String name, String value)
@@ -130,30 +131,33 @@ public class CSSStyle extends BaseStyle
     throws PropertyParseException
   {
     Object value = null;
+    
+    Map<String, String> properties = getProperties();
+    
 
     if (key == CoreStyle.BACKGROUND_KEY)
     {
-      value = CSSUtils.parseColor(getProperty(_BACKGROUND_NAME));
+      value = CSSUtils.parseColor(properties.get(_BACKGROUND_NAME));
     }
     else if (key == CoreStyle.FOREGROUND_KEY)
     {
-      value = CSSUtils.parseColor(getProperty(_FOREGROUND_NAME));
+      value = CSSUtils.parseColor(properties.get(_FOREGROUND_NAME));
     }
     else if (key == CoreStyle.FONT_SIZE_KEY)
     {
-      value = CSSUtils.parseFontSize(getProperty(_FONT_SIZE_NAME));
+      value = CSSUtils.parseFontSize(properties.get(_FONT_SIZE_NAME));
     }
     else if (key == CoreStyle.FONT_STYLE_KEY)
     {
-      value = CSSUtils.parseFontStyle(getProperty(_FONT_STYLE_NAME));
+      value = CSSUtils.parseFontStyle(properties.get(_FONT_STYLE_NAME));
     }
     else if (key == CoreStyle.FONT_WEIGHT_KEY)
     {
-      value = CSSUtils.parseFontWeight(getProperty(_FONT_WEIGHT_NAME));
+      value = CSSUtils.parseFontWeight(properties.get(_FONT_WEIGHT_NAME));
     }
     else if (key == CoreStyle.FONT_FAMILIES_KEY)
     {
-      String[] families = CSSUtils.parseFontFamilies(getProperty(
+      String[] families = CSSUtils.parseFontFamilies(properties.get(
                                                      _FONT_FAMILY_NAME));
 
       if (families != null)
@@ -161,7 +165,7 @@ public class CSSStyle extends BaseStyle
     }
     else if (key == CoreStyle.TEXT_ANTIALIAS_KEY)
     {
-      String antialiased = getProperty(_TEXT_ANTIALIAS_NAME);
+      String antialiased = properties.get(_TEXT_ANTIALIAS_NAME);
       if ((antialiased != null) && "true".equalsIgnoreCase(antialiased))
       {
         value = Boolean.TRUE;

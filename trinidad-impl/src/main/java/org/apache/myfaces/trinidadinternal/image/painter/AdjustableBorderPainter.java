@@ -151,7 +151,7 @@ public class AdjustableBorderPainter extends AbstractBorderPainter
   {
     if (style != null)
     {
-      String value = style.getProperty(propertyName);
+      String value = style.getProperties().get(propertyName);
 
       if (value != null)
       {
