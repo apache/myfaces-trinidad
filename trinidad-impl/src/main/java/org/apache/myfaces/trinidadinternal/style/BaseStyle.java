@@ -41,6 +41,7 @@ abstract public class BaseStyle implements CoreStyle, Serializable
   public BaseStyle()
   {
     _propertiesMap = Collections.emptyMap();
+    // TODO is this needed? Otherwise, when we return the property map, we can set it there.
   }
 
   /**
@@ -48,6 +49,7 @@ abstract public class BaseStyle implements CoreStyle, Serializable
    *
    * @param propertiesMap The properties of this style.  The
    *   name and values must be Strings.
+   *   TODO Should I make sure the property name is all lower case?
    */
   public BaseStyle(Map<String, String> propertiesMap)
   {
@@ -188,6 +190,9 @@ abstract public class BaseStyle implements CoreStyle, Serializable
       if (_propertiesMap == null || _propertiesMap.isEmpty())
         _propertiesMap = new ArrayMap<String, String>();
       _propertiesMap.put(name, value);
+      
+      
+      // jmw comment this out because we don't want to use ArrayMap's static methods anymore
       //_properties = ArrayMap.remove(_properties, name);
 
      // if (value != null)

@@ -50,6 +50,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.style.Style;
+import org.apache.myfaces.trinidad.style.Styles;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
@@ -83,7 +84,7 @@ import org.xml.sax.SAXException;
  * caches generated CSS style sheets on the file system.
  *
  * Note that StyleProviders are responsible for providing access
- * both to style information (eg. getStyleSheetURI(), getStyleMap()) as
+ * both to style information (eg. getStyleSheetURI(), getStyles()) as
  * well as to icons registered via style sheets (see getIcons()).
  *
  * @see org.apache.myfaces.trinidadinternal.style.StyleProvider
@@ -143,7 +144,7 @@ public class FileSystemStyleCache implements StyleProvider
     // If the target directory does not exist, create it now.
     // Note: If we can't create the target directory, we just
     // plug along anyway instead of throwing an IllegalArgumentException.
-    // That way, we can still use the StyleMap for this style sheet
+    // That way, we can still use the Styles for this style sheet
     // even if the style sheet isn't generated.
     File targetDirectory = new File(target);
     if (!targetDirectory.exists())
@@ -179,6 +180,20 @@ public class FileSystemStyleCache implements StyleProvider
       return null;
 
     return entry.map;
+  }
+
+  /**
+   * Implementation of StyleProvider.getStyles().
+   */
+  public Styles getStyles(StyleContext context)
+  {
+
+    Entry entry = _getEntry(context);
+
+    if (entry == null)
+      return null;
+
+    return entry.styles;
   }
 
   /**
@@ -555,7 +570,7 @@ public class FileSystemStyleCache implements StyleProvider
     // Create a new entry and cache it in the "normal" cache. The "normal" cache is one
     // where the key is the Key object which is built based on information from the StyleContext,
     // like browser, agent, locale, direction.
-    Entry entry = new Entry(uris, new StyleMapImpl(styles), icons, skinProperties);
+    Entry entry = new Entry(uris, new StyleMapImpl(styles), new StylesImpl(styles), icons, skinProperties);
     cache.put(key, entry);
 
     // Also, cache the new entry in the entry cache
@@ -1304,17 +1319,20 @@ public class FileSystemStyleCache implements StyleProvider
   {
     public final List<String> uris;
     public final StyleMap map;
+    public final Styles styles;
     public final ConcurrentMap<String, Icon> icons;
     public final ConcurrentMap<Object, Object> skinProperties;
 
     public Entry(
       List<String> uris,
       StyleMap map,
+      Styles styles,
       ConcurrentMap<String, Icon> icons,
       ConcurrentMap<Object, Object> skinProperties)
     {
       this.uris = uris;
       this.map = map;
+      this.styles = styles;
       this.icons = icons;
       this.skinProperties = skinProperties;
     }
@@ -1389,8 +1407,109 @@ public class FileSystemStyleCache implements StyleProvider
     private boolean _short;   // Do we use short style classes?
   }
 
+
+
+
   /**
-   * A StyleMap implemenation which creates Style objects as needed
+   * A Styles implementation that adds the resolved (merged together based on the StyleContext)
+   * StyleNodes to a Map. Only the style selectors and not the aliased (aka named) styles 
+   * are added to this map.
+   */
+  private class StylesImpl extends Styles
+  {
+    /**
+     * This constructor takes an array of StyleNode where each StyleNode has
+     * already been resolved based on the StyleContext. Therefore there is no
+     * more merging that needs to be done, and the 'included' properties on
+     * StyleNode are all null. This way we do not have to resolve the 
+     * styles based on the StyleContext when someone calls getStyles,
+     * etc.
+     * @param resolvedStyles
+     */
+    public StylesImpl(StyleNode[] resolvedStyles) 
+    {
+      _resolvedStyles = resolvedStyles;   
+      // TODO create a map right here (aggressively versus lazily)
+      // else I could make a List out of this and then I could create
+      // it lazily from then on.
+      // Loop through each StyleNode and use it to add to the StyleMap.
+      for (int i=0; i < _resolvedStyles.length; i++)
+      {
+        String selector = _resolvedStyles[i].getSelector();
+        if (selector != null)
+        {
+          // create a Style Object from the StyleNode object
+          Style style = _convertStyleNode(_resolvedStyles[i]);
+          _resolvedSelectorStyleMap.put(selector, style);
+
+ 
+        }
+        /*
+        else
+        {
+          // For now, do not add the named styles to the map. If we do add the named styles
+          // to the map then we should in SkinStyleSheetParserUtils put the full name in
+          // the StyleNode, not strip out the '.' or the ':alias'.
+          
+          String name = _resolvedStyles[i].getName();
+          if (name != null)
+          {
+            //System.out.println("Add name to _resolvedStyles " + name);
+
+            // create a Style Object from the StyleNode object
+            Style style = _convertStyleNode(_resolvedStyles[i]);
+            _resolvedSelectorStyleMap.put(name, style);
+          }
+        }
+        */
+      }
+    }
+    
+    /**
+     * Returns a Map containing the selector String as the key and the Style Object
+     * (contains all the css property names/values) as the value. This Map can then be used
+     * to get all the selector keys, or to get the Style Object for a Selector, or to 
+     * get all the selectors that match some criteria, like they contain a certain simple selector.
+     * 
+     * @return unmodifiableMamp of the resolved Selector -> Style map.
+     */
+    public Map<String, Style> getSelectorStyleMap()
+    {
+      return Collections.unmodifiableMap(_resolvedSelectorStyleMap);
+    }  
+
+    // TODO Do I need ConcurrentHashMap??
+    public Style _convertStyleNode(StyleNode styleNode)
+    {
+      Map<String, String> styleProperties = new ConcurrentHashMap<String, String>();
+      // Add in the properties for the style
+      Iterable<PropertyNode> propertyNodeList = styleNode.getProperties();
+      for (PropertyNode property : propertyNodeList)
+      {
+        String name = property.getName();
+        String value = property.getValue();
+        // We get a NPE in CSSStyle(styleProperties) -> putAll if we add a value that is null.
+        // See the BaseStyle(Map<String, String> propertiesMap) constructor.
+        if (name != null && value != null)
+          styleProperties.put(name, value);
+
+      }
+      
+      return new CSSStyle(styleProperties);
+
+    }
+    
+    private ConcurrentMap<String, Style> _resolvedSelectorStyleMap = 
+      new ConcurrentHashMap<String, Style>();
+    
+    private StyleNode[] _resolvedStyles;
+
+
+  }
+  
+  /**
+   * A StyleMap implementation which creates Style objects as needed.
+   * This is not used anymore in the current code. It's only used in obsolete code.
    */
   private class StyleMapImpl implements StyleMap
   {
@@ -1399,7 +1518,7 @@ public class FileSystemStyleCache implements StyleProvider
      * already been resolved based on the StyleContext. Therefore there is no
      * more merging that needs to be done, and the 'included' properties on
      * StyleNode are all null. This way we do not have to resolve the 
-     * styles based on the StyleContext when someone calls getStyleBySelector,
+     * styles based on the StyleContext when someone calls getStyles,
      * etc.
      * TODO This is just a test for now to see if we can get rid of the StyleContext
      * from the API.
@@ -1422,7 +1541,7 @@ public class FileSystemStyleCache implements StyleProvider
           Style style = _convertStyleNode(_resolvedStyles[i]);
           _resolvedSelectorStyleMap.put(selector, style);
 
- 
+  
         }
         else
         {
@@ -1533,7 +1652,7 @@ public class FileSystemStyleCache implements StyleProvider
       map.put(id, style);
       return style;
     }
-*/
+  */
     
     public Style _convertStyleNode(StyleNode styleNode)
     {
@@ -1546,7 +1665,7 @@ public class FileSystemStyleCache implements StyleProvider
       {
         String name = property.getName();
         String value = property.getValue();
-
+        
         style.setProperty(name, value);
       }
       
@@ -1575,7 +1694,9 @@ public class FileSystemStyleCache implements StyleProvider
       new ConcurrentHashMap<String, Style>();
     
     private StyleNode[] _resolvedStyles;
+
   }
+
 
   private class StyleWriterFactoryImpl
     implements StyleWriterFactory

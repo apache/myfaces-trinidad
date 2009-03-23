@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 
 import org.apache.myfaces.trinidad.skin.Icon;
+import org.apache.myfaces.trinidad.style.Styles;
 
 
 /**
@@ -79,6 +80,8 @@ public interface StyleProvider
    *  specified context.
    */
   public StyleMap getStyleMap(StyleContext context);
+  
+  public Styles getStyles(StyleContext context);
 
   /**
    * Returns a map of icon names to Icon instances.

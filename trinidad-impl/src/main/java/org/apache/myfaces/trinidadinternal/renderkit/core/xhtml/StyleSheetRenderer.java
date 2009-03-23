@@ -23,6 +23,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import java.util.Set;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -32,6 +34,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.core.CoreStyleSheet;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.style.Style;
+import org.apache.myfaces.trinidad.style.Styles;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.StyleMap;
@@ -87,6 +90,7 @@ public class StyleSheetRenderer extends XhtmlRenderer
 
     StyleContext sContext = ((CoreRenderingContext) arc).getStyleContext();
     StyleProvider provider = sContext.getStyleProvider();
+    _testGetSelectorStyleMap(arc);
     if (provider != null)
     {
       List<String> uris = provider.getStyleSheetURIs(sContext);
@@ -210,7 +214,53 @@ public class StyleSheetRenderer extends XhtmlRenderer
       }
     }
 
+  // TODO DELETE THIS TEST
+  private void _testGetSelectorStyleMap(RenderingContext arc)
+    {
+      StyleContext sContext = ((CoreRenderingContext) arc).getStyleContext();
+      StyleProvider provider = sContext.getStyleProvider();
+      if (provider != null)
+      {
 
+        // Check if we want to write out the css into the page or not. In portlet mode the 
+        // producer tries to share the consumer's stylesheet if it matches exactly.
+        // jmw
+        Styles styles = arc.getStyles();
+        String[] selectors = {".AFInstructionText", // selector
+                              "af|inputText::content", // selector
+                              "af|treeTable::expansion", // selector
+                              "af|treeTable::locator", // selector
+                              "af|inputText:disabled.AFFieldTextMarker::content",  // selector
+                              "af|foo af|bar", // selector
+                              ".AFDefaultFont:alias", // nothing, since currently it's in the wrong format to be a named sele ctor
+                              ".AFDefaultFont",// nothing, since currently it's in the wrong format to be a named sele ctor
+                              "AFDefaultFont"};// name
+          
+        System.out.println("getSelectorStyleMap NEW. Gets all the selectors, then find the one you want");
+        Map<String, Style> selectorStyleMap = styles.getSelectorStyleMap();
+        
+        for (int i=0; i< selectors.length; i++)
+        {
+          String selector = selectors[i];
+          Style style = selectorStyleMap.get(selector);
+          if (style != null)
+            System.out.println(selector+" inlineString is " + style.toInlineString());
+          else
+            System.out.println("no styles for " + selector);
+        }
+        
+        
+        // now try to get the getSelectorsForSimpleSelector to see if we can get the selectors with a certain key like af|inputText
+        Set<String> selectorSet = styles.getSelectorsForSimpleSelector("af|inputText");
+        System.out.println("All the selectors that have af|inputText in it: ");
+        for (String eachSelector : selectorSet)
+        {
+          System.out.println(eachSelector);
+        }
+      
+
+      }
+    }
 
 
   // In the portlet environment, the consumer might like the producers to share its stylesheet

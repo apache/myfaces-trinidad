@@ -30,6 +30,7 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
+import org.apache.myfaces.trinidad.style.Styles;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.HtmlRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.StyleSheetRenderer;
@@ -79,14 +80,20 @@ class StyleContextImpl implements StyleContext
     
     return getStyleProvider();
   }
-
+  
   public StyleMap getStyleMap()
   {
     if (_styleMap == null)
       _styleMap = getStyleProvider().getStyleMap(this);
     return _styleMap;
   }
-
+  
+  public Styles getStyles()
+  {
+    if (_styles == null)
+      _styles = getStyleProvider().getStyles(this);
+    return _styles;
+  }
 
   /**
    * Returns the end user's locale.
@@ -243,6 +250,11 @@ class StyleContextImpl implements StyleContext
       return null;
     }
 
+    public Styles getStyles(StyleContext context)
+    {
+      return null;
+    }
+    
     public ConcurrentMap<String, Icon> getIcons(StyleContext context)
     {
       return null;
@@ -261,6 +273,7 @@ class StyleContextImpl implements StyleContext
   private String  _generatedFilesPath;
   private StyleProvider _styleProvider;
   private StyleMap _styleMap;
+  private Styles _styles;
   private Boolean  _isDisableStyleCompression;
   
   private static final TrinidadLogger _LOG =

@@ -25,6 +25,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.Icon;
+import org.apache.myfaces.trinidad.style.Styles;
 import org.apache.myfaces.trinidad.util.ThreadLocalUtils;
 
 /**
@@ -88,6 +89,11 @@ abstract public class RenderingContext
 
 
   abstract public String getStyleClass(String styleClass);
+  /**
+   *  Return the Styles object that is attached to this RenderingContext. 
+   * @return Styles
+   */
+  abstract public Styles getStyles();
   abstract public void   setSkinResourceKeyMap(Map<String, String> mapping);
   abstract public Map<String, String> getSkinResourceKeyMap();
   abstract public boolean isRightToLeft();
