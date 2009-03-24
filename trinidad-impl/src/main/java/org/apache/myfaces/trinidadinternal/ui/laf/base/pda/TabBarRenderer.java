@@ -25,6 +25,7 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.component.UIXHierarchy;
 import org.apache.myfaces.trinidad.component.UIXNavigationLevel;
 
+import org.apache.myfaces.trinidad.style.Style;
 import org.apache.myfaces.trinidadinternal.style.CoreStyle;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
@@ -67,7 +68,7 @@ public class TabBarRenderer extends XhtmlLafRenderer
     if ( renderStyleElements(context))
     {
 
-      CoreStyle classStyle = XhtmlLafUtils.getClassStyle(context,
+      Style classStyle = XhtmlLafUtils.getClassStyle(context,
                                                      _TAB_BAR_STYLE_CLASS);
 
       if (classStyle != null)

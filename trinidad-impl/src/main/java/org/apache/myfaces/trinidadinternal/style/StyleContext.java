@@ -49,7 +49,6 @@ public interface StyleContext
 
   public StyleProvider getStyleProvider();
   public StyleProvider getStyleProvider(boolean recompute);
-  public StyleMap getStyleMap();
   public Styles getStyles();
   public AccessibilityProfile getAccessibilityProfile();
   public boolean isPortletMode();

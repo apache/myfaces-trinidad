@@ -18,18 +18,13 @@
  */
 package org.apache.myfaces.trinidadinternal.image.painter;
 
-import java.awt.Font;
 
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 import org.apache.myfaces.trinidadinternal.style.PropertyParseException;
-import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.CoreStyle;
-import org.apache.myfaces.trinidadinternal.style.StyleMap;
-import org.apache.myfaces.trinidadinternal.style.StyleProvider;
 import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
 
-import org.apache.myfaces.trinidadinternal.image.ImageContext;
 
 /**
  * A border that insets painting of the wrapped painter by an amount
@@ -41,6 +36,7 @@ import org.apache.myfaces.trinidadinternal.image.ImageContext;
  * for the "Dialog" font.  Padding values for each inset are defined using
  * the CSS style properties "padding-top", "padding-bottom", "padding-left"
  * and "padding-right".
+ * This class and everything in its package needs to be deleted.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/painter/AdjustableBorderPainter.java#0 $) $Date: 10-nov-2005.19:04:53 $
  */
@@ -116,25 +112,6 @@ public class AdjustableBorderPainter extends AbstractBorderPainter
   // for this specific paint.
   private CoreStyle _getPaddingStyle(PaintContext context)
   {
-    // First, get the StyleProvider from the context
-    ImageContext imageContext = context.getImageContext();
-    StyleContext styleContext = imageContext.getStyleContext();
-    StyleProvider provider = styleContext.getStyleProvider();
-    if (provider != null)
-    {
-      // Get the StyleMap
-      StyleMap map = provider.getStyleMap(styleContext);
-
-      if (map != null)
-      {
-        // Derive the style name to use from the font name.
-        Font font = context.getPaintFont();
-        String name = _styleNamePrefix + font.getName();
-
-        return (CoreStyle)map.getStyleByName(styleContext, name);
-      }
-    }
-
     return null;
   }
 

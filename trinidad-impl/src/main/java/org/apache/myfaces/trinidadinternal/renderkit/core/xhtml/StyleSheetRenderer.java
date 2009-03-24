@@ -37,7 +37,6 @@ import org.apache.myfaces.trinidad.style.Style;
 import org.apache.myfaces.trinidad.style.Styles;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
-import org.apache.myfaces.trinidadinternal.style.StyleMap;
 import org.apache.myfaces.trinidadinternal.style.StyleProvider;
 
 
@@ -90,7 +89,7 @@ public class StyleSheetRenderer extends XhtmlRenderer
 
     StyleContext sContext = ((CoreRenderingContext) arc).getStyleContext();
     StyleProvider provider = sContext.getStyleProvider();
-    _testGetSelectorStyleMap(arc);
+    _testGetSelectorStyleMap(context, arc);
     if (provider != null)
     {
       List<String> uris = provider.getStyleSheetURIs(sContext);
@@ -168,60 +167,19 @@ public class StyleSheetRenderer extends XhtmlRenderer
     }
   }
 
+
+
   // TODO DELETE THIS TEST
-  private void _testGetStyleBySelector(RenderingContext arc)
-    {
+  private void _testGetSelectorStyleMap(FacesContext context, RenderingContext arc)
+    throws IOException
+  {
       StyleContext sContext = ((CoreRenderingContext) arc).getStyleContext();
       StyleProvider provider = sContext.getStyleProvider();
       if (provider != null)
       {
 
-        // Check if we want to write out the css into the page or not. In portlet mode the 
-        // producer tries to share the consumer's stylesheet if it matches exactly.
-        // jmw
-        StyleMap styleMap = provider.getStyleMap(sContext);
-        String[] selectors = {".AFInstructionText", // selector
-                              "af|inputText::content", // selector
-                              "af|treeTable::expansion", // selector
-                              "af|treeTable::locator", // selector
-                              "af|inputText:disabled.AFFieldTextMarker::content",  // selector
-                              "af|foo af|bar", // selector
-                              ".AFDefaultFont:alias", // nothing, since currently it's in the wrong format to be a named sele ctor
-                              ".AFDefaultFont",// nothing, since currently it's in the wrong format to be a named sele ctor
-                              "AFDefaultFont"};// name
-          
-        System.out.println("getStyleBySelector");
-        for (int i=0; i < selectors.length; i++)
-        {
-          String selector = selectors[i];
-          Style style = styleMap.getStyleBySelector(sContext,selector);
-          if (style != null)
-            System.out.println(selector+" inlineString is " + style.toInlineString());
-          else
-            System.out.println("no styles for " + selector);
-        }
-        System.out.println("");
-        System.out.println("getStyleByName");
-        for (int i=0; i < selectors.length; i++)
-        {
-          String selector = selectors[i];
-          Style style = styleMap.getStyleByName(sContext,selector);
-          if (style != null)
-            System.out.println(selector+" inlineString is " + style.toInlineString());
-          else
-            System.out.println("no styles for " + selector);
-        }
-      }
-    }
 
-  // TODO DELETE THIS TEST
-  private void _testGetSelectorStyleMap(RenderingContext arc)
-    {
-      StyleContext sContext = ((CoreRenderingContext) arc).getStyleContext();
-      StyleProvider provider = sContext.getStyleProvider();
-      if (provider != null)
-      {
-
+        ResponseWriter writer = context.getResponseWriter();
         // Check if we want to write out the css into the page or not. In portlet mode the 
         // producer tries to share the consumer's stylesheet if it matches exactly.
         // jmw
@@ -250,13 +208,36 @@ public class StyleSheetRenderer extends XhtmlRenderer
         }
         
         
+        String[] simpleSelectorsToInline = {"af|document",
+                                            "af|panelHeader",
+                                            "af|showDetailHeader", 
+                                            "af|inputText",
+                                            "af|selectOneChoice", 
+                                            "af|panelLabelAndMessage", 
+                                            "af|image", 
+                                            "af|table", 
+                                            "af|column", 
+                                            "af|goLink"};
+        
         // now try to get the getSelectorsForSimpleSelector to see if we can get the selectors with a certain key like af|inputText
-        Set<String> selectorSet = styles.getSelectorsForSimpleSelector("af|inputText");
-        System.out.println("All the selectors that have af|inputText in it: ");
-        for (String eachSelector : selectorSet)
+        writer.startElement("style", null);
+        for (int i=0; i< simpleSelectorsToInline.length; i++)
         {
-          System.out.println(eachSelector);
+          System.out.println("Get styles for " + simpleSelectorsToInline[i]);
+          Set<String> selectorSet = styles.getSelectorsForSimpleSelector(simpleSelectorsToInline[i]);
+          for (String eachSelector : selectorSet)
+          {
+            System.out.print(eachSelector + "{");
+            writer.write(eachSelector);
+            writer.write("{");
+            String cssInlineProperties = selectorStyleMap.get(eachSelector).toInlineString();
+            System.out.print(cssInlineProperties);
+            System.out.println("}");
+            writer.write(cssInlineProperties);
+            writer.write("}");
+          }
         }
+        writer.endElement("style");
       
 
       }

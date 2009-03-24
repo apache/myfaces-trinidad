@@ -40,13 +40,12 @@ import org.apache.myfaces.trinidadinternal.image.cache.PropertiesFilter;
 import org.apache.myfaces.trinidadinternal.image.painter.ImmInsets;
 
 import org.apache.myfaces.trinidadinternal.style.ParsedPropertyKey;
-import org.apache.myfaces.trinidadinternal.style.PropertyParseException;
 import org.apache.myfaces.trinidadinternal.style.CoreStyle;
-import org.apache.myfaces.trinidadinternal.style.StyleMap;
 
 
 /**
  * Utilities for Browser Look And Feel support.
+ * This class and everything in the image package needs to be deleted.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/laf/browser/BlafImageUtils.java#0 $) $Date: 10-nov-2005.19:05:04 $
  */
@@ -360,40 +359,6 @@ public class BlafImageUtils implements ImageConstants
     boolean      isNamed
     )
   {
-    StyleMap map = context.getStyleContext().getStyleMap();
-
-    if (map == null)
-    {
-// =-=ags Don't log this condition for now.  The ImageGenerator doesn't
-//        set up the StyleMap yet, so let's blow this off for now
-//      _LOG.fine(_MAP_ERROR);
-      return null;
-    }
-
-    CoreStyle style = null;
-
-    if (isNamed)
-      style = (CoreStyle)map.getStyleByName(context.getStyleContext(), styleID);
-    else
-      style = (CoreStyle)map.getStyleByClass(context.getStyleContext(), styleID);
-
-    if (style == null)
-    {
-      if (_LOG.isFine())
-        _LOG.fine(_STYLE_ERROR + styleID);
-
-      return null;
-    }
-
-    try
-    {
-      return (Color)style.getParsedProperty(key);
-    }
-    catch (PropertyParseException e)
-    {
-      _LOG.warning(e);
-    }
-
     return null;
   }
 

@@ -37,7 +37,6 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.StyleSheetRender
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadinternal.skin.SkinStyleProvider;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
-import org.apache.myfaces.trinidadinternal.style.StyleMap;
 import org.apache.myfaces.trinidadinternal.style.StyleProvider;
 
 
@@ -79,13 +78,6 @@ class StyleContextImpl implements StyleContext
     }
     
     return getStyleProvider();
-  }
-  
-  public StyleMap getStyleMap()
-  {
-    if (_styleMap == null)
-      _styleMap = getStyleProvider().getStyleMap(this);
-    return _styleMap;
   }
   
   public Styles getStyles()
@@ -245,11 +237,6 @@ class StyleContextImpl implements StyleContext
       return null;
     }
 
-    public StyleMap getStyleMap(StyleContext context)
-    {
-      return null;
-    }
-
     public Styles getStyles(StyleContext context)
     {
       return null;
@@ -272,7 +259,6 @@ class StyleContextImpl implements StyleContext
   private RenderingContext _arc;
   private String  _generatedFilesPath;
   private StyleProvider _styleProvider;
-  private StyleMap _styleMap;
   private Styles _styles;
   private Boolean  _isDisableStyleCompression;
   

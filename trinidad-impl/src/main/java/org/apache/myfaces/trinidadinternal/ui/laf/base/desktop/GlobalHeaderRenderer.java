@@ -20,22 +20,20 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 
 import java.io.IOException;
 
-import java.util.Map;
-
 import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.component.UIXNavigationLevel;
-import org.apache.myfaces.trinidadinternal.style.CoreStyle;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.LinkUtils;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
 import org.apache.myfaces.trinidad.skin.Icon;
+import org.apache.myfaces.trinidad.style.Style;
 
 /**
- * GlobalHeader Renderer for the desktop implementation of the 
+ * GlobalHeader Renderer for the desktop implementation of the
  * Base Look And Feel.
- * 
+ *
  * The base.desktop.GlobalHeaderRenderer exposes a single customizable
  * icon:
  * <ul>
@@ -327,8 +325,8 @@ public class GlobalHeaderRenderer extends HtmlLafRenderer
     }
     else if (isIE(context))
     {
-      CoreStyle style = XhtmlLafUtils.getClassStyle(context, 
-                                                AF_MENU_BAR_STYLE_CLASS);
+      Style style =XhtmlLafUtils.getClassStyle(context, 
+                                              AF_MENU_BAR_STYLE_CLASS);
       if (style != null)
       {
         String minHeight = style.getProperties().get("min-height");

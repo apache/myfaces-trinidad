@@ -36,6 +36,7 @@ import org.apache.myfaces.trinidadinternal.image.ImageProviderRequest;
 import org.apache.myfaces.trinidadinternal.image.ImageProviderResponse;
 import org.apache.myfaces.trinidad.context.PartialPageContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.style.Style;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
@@ -775,7 +776,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
     for ( ; j < styleClasses.length; j++ )
     {
       Object styleClass = styleClasses[j];
-      CoreStyle inlineStyle = XhtmlLafUtils.getClassStyle(context, styleClass);
+      Style inlineStyle = XhtmlLafUtils.getClassStyle(context, styleClass);
 
       if (inlineStyle != null )
         inline.append(inlineStyle.toInlineString());

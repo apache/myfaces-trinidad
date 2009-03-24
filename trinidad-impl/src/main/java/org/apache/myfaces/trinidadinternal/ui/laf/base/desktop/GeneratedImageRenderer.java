@@ -36,7 +36,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.style.ParsedPropertyKey;
 import org.apache.myfaces.trinidadinternal.style.PropertyParseException;
 import org.apache.myfaces.trinidadinternal.style.CoreStyle;
-import org.apache.myfaces.trinidadinternal.style.StyleMap;
 
 import org.apache.myfaces.trinidadinternal.image.ImageConstants;
 import org.apache.myfaces.trinidadinternal.image.ImageProviderResponse;
@@ -48,6 +47,7 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 /**
  * Base class for Renderers that generate images.
+ * This class needs to be deleted. Trinidad does not generate images.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/oracle/desktop/TecateRenderer.java#1 $) $Date: 11-nov-2005.14:59:38 $
  * @deprecated This class comes from the old Java 1.2 UIX codebase and should not be used anymore.
@@ -320,14 +320,7 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
     String           name
     )
   {
-    if (name == null)
       return null;
-
-    StyleMap map = context.getStyleContext().getStyleMap();
-    if (map == null)
-      return null;
-
-    return (CoreStyle)map.getStyleByName(context.getStyleContext(), name);
   }
 
   // Returns the vertical alignment

@@ -62,7 +62,6 @@ import org.apache.myfaces.trinidadinternal.share.xml.JaxpXMLProvider;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLProvider;
 import org.apache.myfaces.trinidadinternal.style.CSSStyle;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
-import org.apache.myfaces.trinidadinternal.style.StyleMap;
 import org.apache.myfaces.trinidadinternal.style.StyleProvider;
 import org.apache.myfaces.trinidadinternal.style.util.CSSGenerationUtils;
 import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
@@ -166,20 +165,6 @@ public class FileSystemStyleCache implements StyleProvider
     }
 
     return entry.uris;
-  }
-
-  /**
-   * Implementation of StyleProvider.getStyleMap().
-   */
-  public StyleMap getStyleMap(StyleContext context)
-  {
-
-    Entry entry = _getEntry(context);
-
-    if (entry == null)
-      return null;
-
-    return entry.map;
   }
 
   /**
@@ -570,7 +555,7 @@ public class FileSystemStyleCache implements StyleProvider
     // Create a new entry and cache it in the "normal" cache. The "normal" cache is one
     // where the key is the Key object which is built based on information from the StyleContext,
     // like browser, agent, locale, direction.
-    Entry entry = new Entry(uris, new StyleMapImpl(styles), new StylesImpl(styles), icons, skinProperties);
+    Entry entry = new Entry(uris, new StylesImpl(styles), icons, skinProperties);
     cache.put(key, entry);
 
     // Also, cache the new entry in the entry cache
@@ -1318,20 +1303,17 @@ public class FileSystemStyleCache implements StyleProvider
   private static class Entry
   {
     public final List<String> uris;
-    public final StyleMap map;
     public final Styles styles;
     public final ConcurrentMap<String, Icon> icons;
     public final ConcurrentMap<Object, Object> skinProperties;
 
     public Entry(
       List<String> uris,
-      StyleMap map,
       Styles styles,
       ConcurrentMap<String, Icon> icons,
       ConcurrentMap<Object, Object> skinProperties)
     {
       this.uris = uris;
-      this.map = map;
       this.styles = styles;
       this.icons = icons;
       this.skinProperties = skinProperties;
@@ -1507,197 +1489,6 @@ public class FileSystemStyleCache implements StyleProvider
 
   }
   
-  /**
-   * A StyleMap implementation which creates Style objects as needed.
-   * This is not used anymore in the current code. It's only used in obsolete code.
-   */
-  private class StyleMapImpl implements StyleMap
-  {
-    /**
-     * This constructor takes an array of StyleNode where each StyleNode has
-     * already been resolved based on the StyleContext. Therefore there is no
-     * more merging that needs to be done, and the 'included' properties on
-     * StyleNode are all null. This way we do not have to resolve the 
-     * styles based on the StyleContext when someone calls getStyles,
-     * etc.
-     * TODO This is just a test for now to see if we can get rid of the StyleContext
-     * from the API.
-     * @param resolvedStyles
-     */
-    public StyleMapImpl(StyleNode[] resolvedStyles) 
-    {
-      _resolvedStyles = resolvedStyles;   
-      // TODO create a map right here (aggressively versus lazily)
-      // else I could make a List out of this and then I could create
-      // it lazily from then on.
-      // Loop through each StyleNode and use it to add to the StyleMap.
-      for (int i=0; i < _resolvedStyles.length; i++)
-      {
-        String selector = _resolvedStyles[i].getSelector();
-        if (selector != null)
-        {
-         // System.out.println("Add selector to _resolvedStyles " + selector);
-          // create a Style Object from the StyleNode object
-          Style style = _convertStyleNode(_resolvedStyles[i]);
-          _resolvedSelectorStyleMap.put(selector, style);
-
-  
-        }
-        else
-        {
-          String name = _resolvedStyles[i].getName();
-          // create a Style Object from the StyleNode object
-          Style style = _convertStyleNode(_resolvedStyles[i]);
-          _resolvedNamedSelectorsStyleMap.put(name, style);
-
-        }
-      }
-      //System.out.println("----");
-    }
-    
-    // Implementation of StyleMap.getStyleBySelector()
-    public Style getStyleBySelector(
-      StyleContext context,
-      String       selector
-      )
-    {
-      if (_selectorMap == null)
-        _selectorMap = _createMap();
-
-      Style newStyle = _resolvedSelectorStyleMap.get(selector);
-      return newStyle;
-      //return _getStyle(context, _selectorMap, selector, "", false);
-    }
-
-    // Implementation of StyleMap.getStyleByClass()
-    public Style getStyleByClass(
-      StyleContext context,
-      String       styleClass
-      )
-    {
-      if (_classMap == null)
-        _classMap = _createMap();
-      String prefix = (styleClass.indexOf('|') > -1) ? "" : ".";
-      return _resolvedSelectorStyleMap.get(prefix+styleClass);
-      //return _getStyle(context, _classMap, styleClass, prefix , false);
-    }
-
-    // Implementation of StyleMap.getStyleByClass()
-    public Style getStyleByName(
-      StyleContext context,
-      String       name
-      )
-    {
-      if (_nameMap == null)
-        _nameMap = _createMap();
-      Style newStyle = _resolvedNamedSelectorsStyleMap.get(name);
-      return newStyle;
-      //return _getStyle(context, _nameMap, name, "", true);
-    }
-
-    // Do all of the real work
-    // TODO if using the _resolvedStyles works, then we can get rid of all the
-    // excess code in StyleSheetDocument to getStyleByName, etc.
-    /**** jmw. Won't need this with the new APIs.
-    private Style _getStyle(
-      StyleContext       context,
-      Map<String, Style> map,
-      String             id,
-      String             prefix,
-      boolean            isName
-      )
-    {
-      CSSStyle style = (CSSStyle)map.get(id);
-
-      if (style == _MISS)
-        return null;
-      if (style != null)
-        return style;
-
-      // Next, try getting the Style from the StyleSheetDocument
-      StyleSheetDocument document = __getStyleSheetDocument();
-      if (document == null)
-        return null;
-
-      StyleNode styleNode = null;
-
-      if (isName)
-      {
-        styleNode = document.getStyleByName(context, id);
-      }
-      else
-      {
-        styleNode = document.getStyleBySelector(context, prefix + id);
-      }
-
-      if (styleNode == null)
-      {
-        map.put(id, _MISS);
-        return null;
-      }
-
-      // Convert the styleNode into a Style
-      style = new CSSStyle();
-
-      // Add in the properties for the style
-      Iterable<PropertyNode> propertyNodeList = styleNode.getProperties();
-      for (PropertyNode property : propertyNodeList)
-      {
-        String name = property.getName();
-        String value = property.getValue();
-
-        style.setProperty(name, value);
-      }
-
-      map.put(id, style);
-      return style;
-    }
-  */
-    
-    public Style _convertStyleNode(StyleNode styleNode)
-    {
-      // Convert the styleNode into a Style
-      CSSStyle style = new CSSStyle();
-
-      // Add in the properties for the style
-      Iterable<PropertyNode> propertyNodeList = styleNode.getProperties();
-      for (PropertyNode property : propertyNodeList)
-      {
-        String name = property.getName();
-        String value = property.getValue();
-        
-        style.setProperty(name, value);
-      }
-      
-      return style;
-
-    }
-
-    // Creates a map of the specified size
-    // TODO why only 19? Do we think we are only going to ask for 19 styles?
-    private Hashtable<String, Style> _createMap()
-    {
-      return new Hashtable<String, Style>(19);
-    }
-
-
-    // Our local Style maps
-    // -= Simon Lessard =-
-    // TODO: Check if synchronization is truly needed
-    private Hashtable<String, Style> _selectorMap;
-    private Hashtable<String, Style> _classMap;
-    private Hashtable<String, Style> _nameMap;
-    
-    private ConcurrentMap<String, Style> _resolvedSelectorStyleMap = 
-      new ConcurrentHashMap<String, Style>();
-    private ConcurrentMap<String, Style> _resolvedNamedSelectorsStyleMap = 
-      new ConcurrentHashMap<String, Style>();
-    
-    private StyleNode[] _resolvedStyles;
-
-  }
-
-
   private class StyleWriterFactoryImpl
     implements StyleWriterFactory
   {

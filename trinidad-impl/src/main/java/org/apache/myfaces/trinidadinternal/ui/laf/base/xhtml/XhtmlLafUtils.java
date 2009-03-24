@@ -33,6 +33,8 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
+import org.apache.myfaces.trinidad.style.Style;
+import org.apache.myfaces.trinidad.style.Styles;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.AutoSubmitUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormRenderer;
@@ -45,7 +47,6 @@ import org.apache.myfaces.trinidadinternal.share.data.ServletRequestParameters;
 import org.apache.myfaces.trinidadinternal.share.url.FormEncoder;
 import org.apache.myfaces.trinidadinternal.style.ParsedPropertyKey;
 import org.apache.myfaces.trinidadinternal.style.CoreStyle;
-import org.apache.myfaces.trinidadinternal.style.StyleMap;
 import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
 import org.apache.myfaces.trinidadinternal.ui.MutableUINode;
@@ -217,11 +218,12 @@ public class XhtmlLafUtils extends BaseLafUtils
   {
     if (className != null)
     {
-      StyleMap map = context.getStyleContext().getStyleMap();
-      if (map != null)
+      Styles styles = context.getStyleContext().getStyles();
+      if (styles != null)
       {
-        return (CoreStyle)map.getStyleByClass(context.getStyleContext(),
-                                   className.toString());
+        Map<String, Style> map = styles.getSelectorStyleMap();
+        if (map != null)
+          return (CoreStyle)map.get(className.toString());
       }
     }
 
@@ -239,7 +241,7 @@ public class XhtmlLafUtils extends BaseLafUtils
     String           propertyName
     )
   {
-      CoreStyle classStyle = getClassStyle(context,
+      Style classStyle = getClassStyle(context,
                                        className);
       if (classStyle != null)
       {

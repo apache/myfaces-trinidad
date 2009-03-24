@@ -20,14 +20,14 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 
 import java.io.IOException;
 
+
 import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.component.UIXHierarchy;
 import org.apache.myfaces.trinidad.component.UIXNavigationLevel;
 
-import org.apache.myfaces.trinidadinternal.style.CoreStyle;
-import org.apache.myfaces.trinidadinternal.style.StyleContext;
-import org.apache.myfaces.trinidadinternal.style.StyleMap;
+import org.apache.myfaces.trinidad.style.Style;
+import org.apache.myfaces.trinidad.style.Styles;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.LinkUtils;
@@ -398,12 +398,10 @@ public class TabBarRenderer extends HtmlLafRenderer
     // is defined
     boolean doRenderSep = false;
 
-    StyleMap styleMap = context.getStyleContext().getStyleMap();
-    if (styleMap != null)
+    Styles styles = context.getStyleContext().getStyles();
+    if (styles != null)
     {
-      StyleContext styleContext = context.getStyleContext();
-      CoreStyle style = (CoreStyle)styleMap.getStyleByClass(styleContext,
-                                             AF_MENU_TABS_SEPARATOR_STYLE_CLASS);
+      Style style = styles.getSelectorStyleMap().get(AF_MENU_TABS_SEPARATOR_STYLE_CLASS);
 
       if (style != null)
       {

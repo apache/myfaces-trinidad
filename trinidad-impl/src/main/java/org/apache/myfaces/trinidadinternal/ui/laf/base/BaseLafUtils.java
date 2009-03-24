@@ -42,7 +42,6 @@ import org.apache.myfaces.trinidadinternal.share.util.FastMessageFormat;
 import org.apache.myfaces.trinidadinternal.style.PropertyParseException;
 import org.apache.myfaces.trinidadinternal.style.CoreStyle;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
-import org.apache.myfaces.trinidadinternal.style.StyleMap;
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
 import org.apache.myfaces.trinidadinternal.ui.MutableUINode;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
@@ -1045,6 +1044,7 @@ public class BaseLafUtils implements UIConstants
       // style, check the style class
       if ((background == null) && (entry.styleClass != null))
       {
+        /** =-=jmw removed StyleMap
         // We need to look up the style class in the style map
         StyleMap map = context.getStyleContext().getStyleMap();
         if (map != null)
@@ -1053,7 +1053,9 @@ public class BaseLafUtils implements UIConstants
           Style style = map.getStyleByClass(styleContext, entry.styleClass);
 
           background = _getBackground((CoreStyle)style);
+         
         }
+         */
       }
 
 
