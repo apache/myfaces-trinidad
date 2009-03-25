@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -28,16 +28,14 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.FacesEvent;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.UIXCollection;
 import org.apache.myfaces.trinidad.component.UIXTable;
 import org.apache.myfaces.trinidad.component.UIXTree;
-import org.apache.myfaces.trinidad.component.core.data.CoreTable;
-import org.apache.myfaces.trinidad.event.SelectionEvent;
-import org.apache.myfaces.trinidad.model.RowKeySet;
-
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.event.SelectionEvent;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.model.RowKeySet;
 import org.apache.myfaces.trinidad.render.CoreRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SimpleSelectBooleanCheckboxRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
@@ -76,9 +74,9 @@ public class TableSelectOneRenderer extends XhtmlRenderer
 
       String selectionParam = __getSelectionParameterName(context, table);
 
-      Map<String, String> parameters =  
+      Map<String, String> parameters =
         context.getExternalContext().getRequestParameterMap();
-      
+
       _LOG.finest("Params:{0}", parameters);
 
       String selection = parameters.get(selectionParam);
@@ -92,7 +90,10 @@ public class TableSelectOneRenderer extends XhtmlRenderer
           state = ((UIXTree) table).getSelectedRowKeys();
 
         table.setClientRowKey(selection);
-        if (!state.isContained())
+        // If the key is not already selected, or the state is more than one
+        // (someone changed the table selection from multiple to single),
+        // update the keys
+        if (!state.isContained() || state.size() > 1)
         {
           RowKeySet unselected = state.clone();
           // TODO : do not mutate the selectedRowKeys here.
