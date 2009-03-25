@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:f="http://java.sun.com/jsf/core"
@@ -50,7 +50,7 @@
                        text="Skinning Key Documentation"/>
           </tr:panelGroupLayout>
           <tr:outputFormatted styleUsage="instruction" value="&lt;b>breadCrumbs&lt;/b>"/>
-          <tr:breadCrumbs binding="#{editor.component}">
+          <tr:breadCrumbs id="breadCrumbExample" binding="#{editor.component}">
             <tr:commandNavigationItem text="breadCrumbs Demo" action="guide.breadCrumbs"/>
             <tr:commandNavigationItem text="Apache.org" destination="http://www.apache.org" targetFrame="_new"/>
             <tr:commandNavigationItem text="Disabled Item" disabled="true" action="guide.tree"/>
