@@ -27,10 +27,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
+
+import java.util.Set;
 
 import javax.faces.FacesException;
 import javax.faces.application.ViewHandler;
@@ -83,6 +86,8 @@ public class ViewHandlerImpl extends ViewHandlerWrapper
   public UIViewRoot createView(FacesContext context, String viewId)
   {
     _initIfNeeded(context);
+    
+    _storeInternalViewIds(context);
 
     InternalView internal = _getInternalView(context, viewId);
     if (internal != null)
@@ -207,6 +212,8 @@ public class ViewHandlerImpl extends ViewHandlerWrapper
     FacesContext context,
     String       viewId)
   {    
+    _storeInternalViewIds(context);
+    
     //This code processes a "return" event.  Most of this logic was moved to 
     //StateManagerImpl because we ran into a problem with JSF where it didn't 
     //set up the JSF mapping properly if we didn't delegate to the default 
@@ -299,6 +306,28 @@ public class ViewHandlerImpl extends ViewHandlerWrapper
       return;
 
     super.writeState(context);
+  }
+  
+  public static boolean isInternalViewId(FacesContext context, String id)
+  {
+    if (id == null)
+      return false;
+    
+    Set<String> ids = 
+        (Set<String>)context.getExternalContext().getRequestMap().get(_INTERNAL_VIEW_ID_SET);
+    
+    if (ids == null)
+      return false;
+    
+    return ids.contains(id);
+  }
+  
+  private void _storeInternalViewIds(FacesContext context)
+  {
+    // Save internal view Ids on the request map, so that we can retrieve them later
+    // (see RequestContext.isInternalViewRequest())
+    Set<String> ids = new HashSet<String>(_internalViews.keySet());
+    context.getExternalContext().getRequestMap().put(_INTERNAL_VIEW_ID_SET, ids);
   }
 
   synchronized private void _initIfNeeded(FacesContext context)
@@ -530,4 +559,5 @@ public class ViewHandlerImpl extends ViewHandlerWrapper
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ViewHandlerImpl.class);
   private static final Long   _NOT_FOUND = Long.valueOf(0);
   private static final String _RENDER_VIEW_MARKER = "__trRenderViewEntry";
+  private static final String _INTERNAL_VIEW_ID_SET = "org.apache.myfaces.trinidadinternal.application._INTERNAL_IDS";
 }

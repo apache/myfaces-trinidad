@@ -226,6 +226,13 @@ abstract public class RequestContext
    * Returns the name of the preferred skin family.
    */
   public abstract String getSkinFamily();
+  
+  /**
+   * Determines whether the current View Root is an internal view
+   * @param context Faces context
+   * @return true if the current View Root is an internal view, false otherwise
+   */
+  public abstract boolean isInternalViewRequest(FacesContext context);
 
   public enum Accessibility
   {

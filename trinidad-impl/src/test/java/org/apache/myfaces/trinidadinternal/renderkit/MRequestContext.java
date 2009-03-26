@@ -351,6 +351,13 @@ public class MRequestContext extends RequestContext
     throw new UnsupportedOperationException("Not implemented yet");
   }
 
+  @Override
+  public boolean isInternalViewRequest(FacesContext context)
+  {
+    return false;
+  }
+
+
   private String _skin;
   private Accessibility _accMode;
   private AccessibilityProfile _accProfile;

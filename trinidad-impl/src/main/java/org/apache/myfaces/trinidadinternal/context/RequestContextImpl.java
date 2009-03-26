@@ -66,6 +66,7 @@ import org.apache.myfaces.trinidadinternal.agent.AgentFactory;
 import org.apache.myfaces.trinidadinternal.agent.AgentFactoryImpl;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgentImpl;
 import org.apache.myfaces.trinidadinternal.application.StateManagerImpl;
+import org.apache.myfaces.trinidadinternal.application.ViewHandlerImpl;
 import org.apache.myfaces.trinidadinternal.el.FormatterMap;
 import org.apache.myfaces.trinidadinternal.el.HelpProvider;
 import org.apache.myfaces.trinidadinternal.el.OracleHelpProvider;
@@ -703,6 +704,16 @@ public class RequestContextImpl extends RequestContext
   {
     return StateManagerImpl.restoreComponentTree(__getFacesContext(),
                                                  state);
+  }
+  
+  @Override
+  public boolean isInternalViewRequest(FacesContext context)
+  {
+    UIViewRoot root = context.getViewRoot();
+    if (root == null)
+      return false;
+    
+    return ViewHandlerImpl.isInternalViewId(context, root.getViewId());
   }
 
   void __setPageResolver(PageResolver pageResolver)

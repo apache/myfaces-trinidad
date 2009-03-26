@@ -363,6 +363,12 @@ public class MockRequestContext extends RequestContext
   {
     throw new UnsupportedOperationException("Not implemented yet");
   }
+  
+  @Override
+  public boolean isInternalViewRequest(FacesContext context)
+  {
+    return false;
+  }
 
 
   static private final TimeZone _FIXED_TIME_ZONE =
