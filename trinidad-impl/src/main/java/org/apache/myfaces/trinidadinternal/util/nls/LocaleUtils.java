@@ -20,9 +20,13 @@ package org.apache.myfaces.trinidadinternal.util.nls;
 
 import java.util.Locale;
 
-import org.apache.myfaces.trinidad.context.LocaleContext;
 import javax.faces.context.FacesContext;
+
+import javax.servlet.ServletRequest;
+
+import org.apache.myfaces.trinidad.context.LocaleContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+
 
 /**
  * Utility class dealing with Locale-related issues, including
@@ -151,9 +155,25 @@ public final class LocaleUtils
     }
     if (language.length() == 0)
     {
-      Locale defaultLocale =
-        FacesContext.getCurrentInstance().getViewRoot().getLocale();
-      return defaultLocale;
+      FacesContext fc = FacesContext.getCurrentInstance();
+      if (fc.getViewRoot() != null)
+      {
+        return (fc.getViewRoot().getLocale());
+      }
+      else
+      {
+        // ViewRoot may be null, e.g. when TranslationsResourceLoader is called 
+        // from the ResourceServlet. 
+        //
+        // Cast to a servletRequest here because this should only happen
+        // when run from the Trinidad ResourceServlet.  Even in a portlet
+        // environment we should have a servlet request in this circumstance.    
+        // If we need to handle getting the locale from portlet objects, we
+        // should add a utility to do so in ExternalContextUtils.
+        ServletRequest req = (ServletRequest)
+                             fc.getExternalContext().getRequest();
+        return (req.getLocale());         
+      }
     }
 
     if (country.length() > 0)
