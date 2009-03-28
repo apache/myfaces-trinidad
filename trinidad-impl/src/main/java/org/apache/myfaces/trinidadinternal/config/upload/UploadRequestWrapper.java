@@ -78,6 +78,10 @@ public class UploadRequestWrapper extends HttpServletRequestWrapper
   public void setCharacterEncoding(String encoding)
     throws UnsupportedEncodingException
   {
+    // If the encoding is already right, we can bail
+    if (encoding.equals(_encoding))
+      return;
+
     // It is illegal to set the character encoding after parameters
     // have been retrieved.  This is an annoying restriction,
     // but we shouldn't break it
@@ -87,10 +91,6 @@ public class UploadRequestWrapper extends HttpServletRequestWrapper
       return;
     }
 
-    // If the encoding is already right, we can bail
-    if (encoding.equals(_encoding))
-      return;
-    
     // Don't call super.setCharacterEncoding() - it's too late
     // and we'll get a warning
     _encoding = encoding;
