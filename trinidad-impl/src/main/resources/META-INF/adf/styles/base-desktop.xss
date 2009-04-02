@@ -4148,7 +4148,7 @@
   <style selector="af|breadCrumbs">
     <property name="display">table</property>
   </style>
-  <style selector="af|breadCrumbs DIV">
+  <style selector="af|breadCrumbs > DIV">
     <property name="display">table-row</property>
   </style>
 </styleSheet>
@@ -4324,7 +4324,7 @@
   <style selector="af|breadCrumbs">
     <property name="display">table</property>
   </style>
-  <style selector="af|breadCrumbs DIV">
+  <style selector="af|breadCrumbs > DIV">
     <property name="display">table-row</property>
   </style>
 </styleSheet>
