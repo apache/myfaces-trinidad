@@ -32,7 +32,7 @@ import org.apache.myfaces.trinidad.util.ArrayMap;
  * TODO Then remove CoreStyle and implement the public Style object instead.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/BaseStyle.java#0 $) $Date: 10-nov-2005.18:57:54 $
  */
-abstract public class BaseStyle implements CoreStyle, Serializable
+abstract public class BaseStyle extends CoreStyle implements Serializable 
 {
   /**
    * Creates an empty BaseStyle. For better performance, 

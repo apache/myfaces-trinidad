@@ -49,6 +49,7 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
+import org.apache.myfaces.trinidad.style.Selector;
 import org.apache.myfaces.trinidad.style.Style;
 import org.apache.myfaces.trinidad.style.Styles;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
@@ -555,7 +556,7 @@ public class FileSystemStyleCache implements StyleProvider
     // Create a new entry and cache it in the "normal" cache. The "normal" cache is one
     // where the key is the Key object which is built based on information from the StyleContext,
     // like browser, agent, locale, direction.
-    Entry entry = new Entry(uris, new StylesImpl(styles), icons, skinProperties);
+    Entry entry = new Entry(uris, new StylesImpl(styles, namespacePrefixes, _STYLE_KEY_MAP), icons, skinProperties);
     cache.put(key, entry);
 
     // Also, cache the new entry in the entry cache
@@ -1408,21 +1409,32 @@ public class FileSystemStyleCache implements StyleProvider
      * etc.
      * @param resolvedStyles
      */
-    public StylesImpl(StyleNode[] resolvedStyles) 
+    public StylesImpl(
+        StyleNode[]         resolvedStyles,
+        String[]            namespacePrefixArray,
+        Map<String, String> afSelectorMap
+      ) 
     {
-      _resolvedStyles = resolvedStyles;   
-      // TODO create a map right here (aggressively versus lazily)
-      // else I could make a List out of this and then I could create
-      // it lazily from then on.
+      _resolvedStyles = resolvedStyles; 
+      _namespacePrefixArray = namespacePrefixArray;
+      _afSelectorMap = afSelectorMap;
+
+      // create a map right here (aggressively versus lazily)
+
       // Loop through each StyleNode and use it to add to the StyleMap.
       for (int i=0; i < _resolvedStyles.length; i++)
       {
         String selector = _resolvedStyles[i].getSelector();
         if (selector != null)
         {
-          // create a Style Object from the StyleNode object
-          Style style = _convertStyleNode(_resolvedStyles[i]);
-          _resolvedSelectorStyleMap.put(selector, style);
+          Style style = _convertStyleNodeToStyle(_resolvedStyles[i]);
+          _resolvedSelectorStyleMap.put(Selector.createSelector(selector), style);
+
+          // TODO create a map for native selectors. Given a selector, return
+          // the native selector?
+          // I might need a map of native selectors to styles, but for now I
+          // think I only need to given a selector, return the native selector.
+          // store the _namespacePrefixArray and the _afSelectorMap.
 
  
         }
@@ -1455,13 +1467,38 @@ public class FileSystemStyleCache implements StyleProvider
      * 
      * @return unmodifiableMamp of the resolved Selector -> Style map.
      */
-    public Map<String, Style> getSelectorStyleMap()
+    @Override
+    public Map<Selector, Style> getSelectorStyleMap()
     {
       return Collections.unmodifiableMap(_resolvedSelectorStyleMap);
     }  
+    
+    // Given a Selector, return the uncompressed valid css2-formatted selectors.
+    // TODO is it necessary to return shortened styles if there is a shortened 
+    // map??
+    // Right now we plan to use this to write out selectors in the html
+    // page for emailable page, and that is uncompressed, but I suppose 
+    // it could be compressed somehow.
+    // TODO This will need to move to the public API when we need it.
+    // TODO should we build up a Map as we go along?
+    // Right now we plan to get the style selectors in their css-3 skin format
+    // and we'll need to convert it to something that is writeable to the page.
+    public String getNativeSelector(Selector selector)
+    {
+      // convert the selector to a valid css2 selector like the ones we write
+      // to the generated css file.
+      if (selector == null)
+        throw new IllegalArgumentException("selector cannot be null");
+      // run the selector through a conversion map so the selector is closer to
+      // what we write out to the css. e.g., af|inputText:error::content becomes
+      // af|inputText.p_AFError af|inputText::content. This way we don't have to 
+      // do this when we write the css inline. We have the information now.
+      return CSSGenerationUtils.getMappedSelector(
+        _afSelectorMap, _namespacePrefixArray, selector.toString());
+    }
 
     // TODO Do I need ConcurrentHashMap??
-    public Style _convertStyleNode(StyleNode styleNode)
+    public Style _convertStyleNodeToStyle(StyleNode styleNode)
     {
       Map<String, String> styleProperties = new ConcurrentHashMap<String, String>();
       // Add in the properties for the style
@@ -1481,12 +1518,12 @@ public class FileSystemStyleCache implements StyleProvider
 
     }
     
-    private ConcurrentMap<String, Style> _resolvedSelectorStyleMap = 
-      new ConcurrentHashMap<String, Style>();
+    private ConcurrentMap<Selector, Style> _resolvedSelectorStyleMap = 
+      new ConcurrentHashMap<Selector, Style>();
     
     private StyleNode[] _resolvedStyles;
-
-
+    private Map<String, String> _afSelectorMap;
+    private String[] _namespacePrefixArray;
   }
   
   private class StyleWriterFactoryImpl

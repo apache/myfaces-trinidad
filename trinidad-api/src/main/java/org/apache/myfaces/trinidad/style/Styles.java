@@ -21,7 +21,6 @@ package org.apache.myfaces.trinidad.style;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -38,9 +37,12 @@ public abstract class Styles
    * to get all the selector keys, or to get the Style Object for a Selector, or to 
    * get all the selectors that match some criteria, like they contain a certain simple selector.
    * 
-   * @return unmodifiableMamp of the resolved Selector -> Style map.
+   * @return unmodifiableMap of the resolved Selector -> Style map.
    */
-  public abstract Map<String, Style> getSelectorStyleMap();
+  public abstract Map<Selector, Style> getSelectorStyleMap();
+  
+  // Returns the Selector in String form, converted to a css-2 style.
+  public abstract String getNativeSelector(Selector selector);
   
   /**
    * Given a simple selector (as opposed to a complex selector) like "af|inputText", this method
@@ -51,26 +53,27 @@ public abstract class Styles
    * @param simpleSelector
    * @return
    */
-  public Set<String> getSelectorsForSimpleSelector(String simpleSelector)
+  public Set<Selector> getSelectorsForSimpleSelector(String simpleSelector)
   {
-    Map<String, Style> selectorStyleMap = getSelectorStyleMap();
-    Set<String> set = null;
+    Map<Selector, Style> selectorStyleMap = getSelectorStyleMap();
+    Set<Selector> set = null;
     
     // loop through each entry and find all simple selectors
-    for (Map.Entry<String, Style> entry : selectorStyleMap.entrySet())
+    for (Map.Entry<Selector, Style> entry : selectorStyleMap.entrySet())
     {
-      String completeSelector = entry.getKey();
-      if (completeSelector.indexOf(simpleSelector) > -1)
+      Selector completeSelector = entry.getKey();
+      String completeSelectorString = completeSelector.toString();
+      if (completeSelectorString.indexOf(simpleSelector) > -1)
       {
         // split based on . and space and :?
-        String[] selectorsSplit = _SPACE_PATTERN.split(completeSelector);
+        String[] selectorsSplit = _SPACE_PATTERN.split(completeSelectorString);
         
         for(String selector : selectorsSplit)
         {
           if (selector.indexOf(simpleSelector) > -1)
           {
             if (set == null)
-              set = new HashSet<String>(); 
+              set = new HashSet<Selector>(); 
             set.add(completeSelector);
             break;
           }

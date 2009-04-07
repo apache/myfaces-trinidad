@@ -33,6 +33,7 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
+import org.apache.myfaces.trinidad.style.Selector;
 import org.apache.myfaces.trinidad.style.Style;
 import org.apache.myfaces.trinidad.style.Styles;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
@@ -221,9 +222,9 @@ public class XhtmlLafUtils extends BaseLafUtils
       Styles styles = context.getStyleContext().getStyles();
       if (styles != null)
       {
-        Map<String, Style> map = styles.getSelectorStyleMap();
+        Map<Selector, Style> map = styles.getSelectorStyleMap();
         if (map != null)
-          return (CoreStyle)map.get(className.toString());
+          return (CoreStyle)map.get(Selector.createSelector(className.toString()));
       }
     }
 

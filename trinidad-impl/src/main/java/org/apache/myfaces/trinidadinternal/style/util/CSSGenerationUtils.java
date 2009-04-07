@@ -207,9 +207,9 @@ public class CSSGenerationUtils
           // We should always have a selector at this point
           assert (selectors[j] != null);
 
-          mappedSelectors[j] = _getMappedSelector(afSelectorMap,
-                                                     namespacePrefixArray,
-                                                     selectors[j]);
+          mappedSelectors[j] = getMappedSelector(afSelectorMap,
+                                                 namespacePrefixArray,
+                                                 selectors[j]);
 
           if (compressStyles && (mappedSelectors[j].indexOf('|') == -1))
           {
@@ -246,7 +246,7 @@ public class CSSGenerationUtils
           if (!compressStyles || (mappedSelectors[j].indexOf('|') == -1))
           {
             validFullNameSelector =
-              _getValidFullNameSelector(mappedSelectors[j], namespacePrefixArray);
+              getValidFullNameSelector(mappedSelectors[j], namespacePrefixArray);
 
             if (validFullNameSelector != null)
             {
@@ -294,7 +294,7 @@ public class CSSGenerationUtils
             if (shortSelector != null)
             {
               String validShortSelector =
-                _getValidFullNameSelector(shortSelector, namespacePrefixArray);
+                getValidFullNameSelector(shortSelector, namespacePrefixArray);
 
               // if we wrote out a full style, check to see if we need to write out the short, too.
               // if it is something different, write out the short, too.
@@ -745,6 +745,7 @@ public class CSSGenerationUtils
     // return the original selector if this isn't shorter.
     return isShorter ? buffer.toString() : selector;
   }
+  
   /**
    * Runs a selector through a map. It returns the selector unchanged (except for converted
    * pseudo-classes) if there is no namespace in the selector.
@@ -756,16 +757,17 @@ public class CSSGenerationUtils
    * We call this method first with the public->internal map, and then
    * to shorten it.
    * Only the pieces of the selector that start with the namespace are mapped.
-   * @param map         if shortenPass is true, then this map shortens the
-   *                    af| selector. else, it maps the public af| selector
-   *                    to the internal selector.
-   * @param namespace   most likely, "af|". The selectors with this namespace
-   *                    are the ones we map.
+   * @param afSelectorMap if shortenPass is true, then this map shortens the
+   *                 af| selector. else, it maps the public af| selector
+   *                 to the internal selector (a selector that is closer to what is written to the
+*                    CSS file. 
+*                    e.g., af|inputText:error::content becomes 
+*                    af|inputText.p_AFError af|inputText::content
+   * @param namespacePrefixArray   most likely, "af|". The selectors with this namespace
+   *                               are the ones we map.
    * @param selector    selector to map.
-   * @param shorten     if true, then we'll add the "." to the mapped selector.
-   * @return            the selector, mapped.
    */
-  private static String _getMappedSelector (
+  public static String getMappedSelector (
     Map<String, String> afSelectorMap,
     String[]            namespacePrefixArray,
     String              selector)
@@ -1104,7 +1106,7 @@ public class CSSGenerationUtils
    * @param selector
    * @return
    */
-  private static String _getValidFullNameSelector(
+  public static String getValidFullNameSelector(
     String selector,
     String[] namespacePrefixArray)
   {

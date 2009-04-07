@@ -33,6 +33,7 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.core.CoreStyleSheet;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.style.Selector;
 import org.apache.myfaces.trinidad.style.Style;
 import org.apache.myfaces.trinidad.style.Styles;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
@@ -89,7 +90,8 @@ public class StyleSheetRenderer extends XhtmlRenderer
 
     StyleContext sContext = ((CoreRenderingContext) arc).getStyleContext();
     StyleProvider provider = sContext.getStyleProvider();
-    _testGetSelectorStyleMap(context, arc);
+    //System.out.println("TEST THE GET SELECTOR STYLE MAP");
+    //_testGetSelectorStyleMap(context, arc);
     if (provider != null)
     {
       List<String> uris = provider.getStyleSheetURIs(sContext);
@@ -195,7 +197,7 @@ public class StyleSheetRenderer extends XhtmlRenderer
                               "AFDefaultFont"};// name
           
         System.out.println("getSelectorStyleMap NEW. Gets all the selectors, then find the one you want");
-        Map<String, Style> selectorStyleMap = styles.getSelectorStyleMap();
+        Map<Selector, Style> selectorStyleMap = styles.getSelectorStyleMap();
         
         for (int i=0; i< selectors.length; i++)
         {
@@ -223,12 +225,13 @@ public class StyleSheetRenderer extends XhtmlRenderer
         writer.startElement("style", null);
         for (int i=0; i< simpleSelectorsToInline.length; i++)
         {
-          System.out.println("Get styles for " + simpleSelectorsToInline[i]);
-          Set<String> selectorSet = styles.getSelectorsForSimpleSelector(simpleSelectorsToInline[i]);
-          for (String eachSelector : selectorSet)
+          System.out.println("xGet styles for " + simpleSelectorsToInline[i]);
+          Set<Selector> selectorSet = styles.getSelectorsForSimpleSelector(simpleSelectorsToInline[i]);
+          for (Selector eachSelector : selectorSet)
           {
-            System.out.print(eachSelector + "{");
-            writer.write(eachSelector);
+            String validSelector = styles.getNativeSelector(eachSelector);
+            System.out.print(validSelector + "{");
+            writer.write(validSelector);
             writer.write("{");
             String cssInlineProperties = selectorStyleMap.get(eachSelector).toInlineString();
             System.out.print(cssInlineProperties);

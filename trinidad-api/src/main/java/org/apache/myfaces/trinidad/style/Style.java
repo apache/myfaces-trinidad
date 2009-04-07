@@ -8,9 +8,9 @@ package org.apache.myfaces.trinidad.style;
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -28,18 +28,20 @@ import java.util.Map;
  * key and the property value as the value.
  *
  */
-public interface Style
+public abstract class Style
 {
 
   /**
    * Returns a Map of the properties (name/value) defined by this style.
    */
-  public Map<String, String> getProperties();
+  abstract public Map<String, String> getProperties();
+
 
   /**
    * Converts the style to a String suitable for use as an inline style
    * attribute value.
    */
-  public String toInlineString();
+  abstract public String toInlineString();
+
 }
 

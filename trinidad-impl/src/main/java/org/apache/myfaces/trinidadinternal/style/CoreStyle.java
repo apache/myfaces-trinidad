@@ -34,7 +34,7 @@ import org.apache.myfaces.trinidad.style.Style;
  * that is not used.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/Style.java#0 $) $Date: 10-nov-2005.18:57:56 $
  */
-public interface CoreStyle extends Style
+public abstract class CoreStyle extends Style
 {
   /**
    * Key for obtaining the Color object which corresponds to the
@@ -130,7 +130,7 @@ public interface CoreStyle extends Style
    * @param throws PropertyParseException Thrown if the property value
    *   can not be parsed.
    */
-  public Object getParsedProperty(ParsedPropertyKey key)
+  abstract public Object getParsedProperty(ParsedPropertyKey key)
     throws PropertyParseException;
 
 }
