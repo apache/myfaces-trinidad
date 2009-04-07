@@ -100,7 +100,7 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
 
     }
     
-    _renderLinkStart(context, arc, parameterString);
+    _renderLinkStart(context, arc, bean, parameterString);
 
     if (linkId != null)
       rw.writeAttribute("id", linkId, null);
@@ -120,7 +120,7 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
       if (text != null)
       {
         if (!isTableAllDisclosure())
-          _renderLinkStart(context, arc, parameterString);
+          _renderLinkStart(context, arc, bean, parameterString);
         renderStyleClasses(context, arc, getLinkStyleClasses());
         if (javaScriptSupport)
         {
@@ -387,6 +387,7 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
   private void _renderLinkStart(
     FacesContext        context,
     RenderingContext arc,
+    FacesBean bean,
     String           parameterString ) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
@@ -395,8 +396,10 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
     }
     else if (supportsScripting(arc))
     {
+      String onclick = getOnclick(bean);
       rw.startElement("a", null);
-      rw.writeAttribute("onclick", parameterString, null);
+      onclick = XhtmlUtils.getChainedJS(onclick, parameterString, true);
+      rw.writeAttribute("onclick", onclick, null);
       rw.writeURIAttribute("href", "#", null);
     }
     // For Non-JavaScript browsers, render an input element(type=submit) to 
