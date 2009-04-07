@@ -451,6 +451,12 @@ public class SimpleInputDateRenderer
   @Override
   protected String getButtonIconName()
   {
+    // Currently, date picker is not working for any PDA devices. An issue
+    // (TRINIDAD-1203) was created to fix this problem, so until it is fixed  
+    // let's skip date picker rendering for PDA. 
+    if (isPDA(RenderingContext.getCurrentInstance()))
+      return null;
+       
     return SkinSelectors.AF_SELECT_INPUT_DATE_LAUNCH_ICON_NAME;
   }
 

@@ -105,18 +105,20 @@ public class PdaTableRenderer extends TableRenderer
 
       // start control bar row
       writer.startElement("tr", null);
-      writer.startElement("td", null);
-
       // start control bar
-      writer.startElement("div", null);
+      writer.startElement("td", null);
       renderStyleClass(context, arc,
                        SkinSelectors.AF_TABLE_CONTROL_BAR_TOP_STYLE);
 
       if (action != null)
       {
-        writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
         encodeChild(context, action);
-        writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
+        writer.endElement("td");
+        writer.endElement("tr");
+        writer.startElement("tr", null);
+        writer.startElement("td", null);
+        renderStyleClass(context, arc,
+            SkinSelectors.AF_TABLE_CONTROL_BAR_TOP_STYLE);
       }
 
       if ( hasNav)
@@ -136,8 +138,6 @@ public class PdaTableRenderer extends TableRenderer
         writer.endElement("div");
       }
 
-      writer.endElement("div");
-      
       // end control bar row
       writer.endElement("td");
       writer.endElement("tr");

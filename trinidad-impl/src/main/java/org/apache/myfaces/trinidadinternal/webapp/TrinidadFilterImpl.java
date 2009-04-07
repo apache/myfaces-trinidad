@@ -122,15 +122,6 @@ public class TrinidadFilterImpl implements Filter
     ServletResponse response,
     FilterChain     chain) throws IOException, ServletException
   {
-    String noJavaScript = request.getParameter(XhtmlConstants.NON_JS_BROWSER);
-    
-    //Wrap the request only for Non-javaScript browsers
-    if(noJavaScript != null &&
-               XhtmlConstants.NON_JS_BROWSER_TRUE.equals(noJavaScript))
-    {
-      request = new BasicHTMLBrowserRequestWrapper((HttpServletRequest)request);
-    }    
-    
     //Execute the filter services
     if (!_filters.isEmpty())
       chain = new FilterListChain(_filters, chain);
@@ -142,6 +133,15 @@ public class TrinidadFilterImpl implements Filter
     ExternalContext externalContext = new ServletExternalContext(_servletContext, request, response);    
     GlobalConfiguratorImpl config = GlobalConfiguratorImpl.getInstance();
     config.beginRequest(externalContext);
+    
+    String noJavaScript = request.getParameter(XhtmlConstants.NON_JS_BROWSER);
+        
+    // Wrap the request only for Non-javaScript browsers
+    if(noJavaScript != null &&
+              XhtmlConstants.NON_JS_BROWSER_TRUE.equals(noJavaScript))
+    {
+      request = new BasicHTMLBrowserRequestWrapper((HttpServletRequest)request);
+    } 
     
     //To maintain backward compatibilty, wrap the request at the filter level
     Map<String, String[]> addedParams = FileUploadConfiguratorImpl.getAddedParameters(externalContext);

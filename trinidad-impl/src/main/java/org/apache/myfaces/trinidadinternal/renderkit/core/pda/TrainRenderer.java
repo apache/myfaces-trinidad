@@ -101,9 +101,11 @@ public class TrainRenderer
         }
 
         ResponseWriter writer = context.getResponseWriter();
+        writer.startElement("span", null);
+        renderInlineStyle(context, arc, bean);
         String outputText = XhtmlUtils.getFormattedString(pattern, parameters); 
         writer.writeText(outputText, null);
-        
+        writer.endElement("span");
         process.setRowKey(oldPath);
       }
     }

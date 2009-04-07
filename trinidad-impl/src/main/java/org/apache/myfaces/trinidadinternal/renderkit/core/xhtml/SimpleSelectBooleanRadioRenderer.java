@@ -198,17 +198,31 @@ public class SimpleSelectBooleanRadioRenderer extends SimpleSelectBooleanRendere
     FacesBean    bean) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
-    
+    String onClick = getOnclick(bean); 
+     
     //PH: this condition is needed to set onclick on radio rather than on 
     // enclosing span in an IE Mobile and PIE since these browsers don't have 
     // onclick support on a span. 
     if(isPDA(RenderingContext.getCurrentInstance()))
-    {
+    { 
       if ( isAutoSubmit(bean))
-        writer.writeAttribute("onclick", getAutoSubmitScript(bean) , null);
+      { 
+        String auto = getAutoSubmitScript(bean);
+      
+        if (onClick == null)
+        {
+          onClick = auto;
+        }
+        else
+        {
+          // Since we have both onClick script and autosubmit script to execute,  
+          // we need to chain the execution of these scripts.
+          onClick = XhtmlUtils.getChainedJS(onClick, auto, true);
+        }
+      }
     }
-    
-    writer.writeAttribute("onclick", getOnclick(bean),  "onclick");
+   
+    writer.writeAttribute("onclick", onClick, "onclick");
     writer.writeAttribute("onblur", getOnblur(bean),  "onblur");
     writer.writeAttribute("onfocus", getOnfocus(bean),  "onfocus");
     writer.writeAttribute("onchange", getOnchange(bean),  "onchange");

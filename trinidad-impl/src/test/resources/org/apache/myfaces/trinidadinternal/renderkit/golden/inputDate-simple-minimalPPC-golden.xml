@@ -21,23 +21,6 @@
             >
           
         </img>
-        <a
-             onclick="submitForm('formId',0,{source:'mainId',part:'b'});return false;"
-             href="uri-attr:#"
-            >
-          
-          <img
-               align="middle"
-               alt="Select to access date picker"
-               border="0"
-               height="18"
-               title="Select to access date picker"
-               width="17"
-               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/dp.gif"
-              >
-            
-          </img>
-        </a>
       </span>
 <!--AttributeTest[chooseId,null]-->
 
@@ -86,23 +69,6 @@
             >
           
         </img>
-        <a
-             onclick="submitForm('formId',0,{source:'mainId',part:'b'});return false;"
-             href="uri-attr:#"
-            >
-          
-          <img
-               align="middle"
-               alt="Select to access date picker"
-               border="0"
-               height="18"
-               title="Select to access date picker"
-               width="17"
-               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/dp.gif"
-              >
-            
-          </img>
-        </a>
       </span>
 <!--AttributeTest[disabled,true]-->
 
@@ -146,23 +112,6 @@
             >
           
         </img>
-        <a
-             onclick="submitForm('formId',0,{source:'mainId',part:'b'});return false;"
-             href="uri-attr:#"
-            >
-          
-          <img
-               align="middle"
-               alt="Select to access date picker"
-               border="0"
-               height="18"
-               title="Select to access date picker"
-               width="17"
-               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/dp.gif"
-              >
-            
-          </img>
-        </a>
       </span>
 <!--AttributeTest[readOnly,false]-->
 
@@ -188,23 +137,6 @@
             >
           
         </img>
-        <a
-             onclick="submitForm('formId',0,{source:'mainId',part:'b'});return false;"
-             href="uri-attr:#"
-            >
-          
-          <img
-               align="middle"
-               alt="Select to access date picker"
-               border="0"
-               height="18"
-               title="Select to access date picker"
-               width="17"
-               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/dp.gif"
-              >
-            
-          </img>
-        </a>
       </span>
 <!--AttributeTest[readOnly,true]-->
 
@@ -243,23 +175,6 @@
             >
           
         </img>
-        <a
-             onclick="submitForm('formId',0,{source:'test-id',part:'b'});return false;"
-             href="uri-attr:#"
-            >
-          
-          <img
-               align="middle"
-               alt="Select to access date picker"
-               border="0"
-               height="18"
-               title="Select to access date picker"
-               width="17"
-               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/dp.gif"
-              >
-            
-          </img>
-        </a>
       </span>
 <!--AttributeTest[inlineStyle,background-color:red]-->
 
@@ -286,23 +201,6 @@
             >
           
         </img>
-        <a
-             onclick="submitForm('formId',0,{source:'mainId',part:'b'});return false;"
-             href="uri-attr:#"
-            >
-          
-          <img
-               align="middle"
-               alt="Select to access date picker"
-               border="0"
-               height="18"
-               title="Select to access date picker"
-               width="17"
-               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/dp.gif"
-              >
-            
-          </img>
-        </a>
       </span>
 <!--AttributeTest[shortDesc,null]-->
 
@@ -329,23 +227,6 @@
             >
           
         </img>
-        <a
-             onclick="submitForm('formId',0,{source:'mainId',part:'b'});return false;"
-             href="uri-attr:#"
-            >
-          
-          <img
-               align="middle"
-               alt="Select to access date picker"
-               border="0"
-               height="18"
-               title="Select to access date picker"
-               width="17"
-               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/dp.gif"
-              >
-            
-          </img>
-        </a>
       </span>
 <!--AttributeTest[styleClass,null]-->
 
@@ -371,23 +252,6 @@
             >
           
         </img>
-        <a
-             onclick="submitForm('formId',0,{source:'mainId',part:'b'});return false;"
-             href="uri-attr:#"
-            >
-          
-          <img
-               align="middle"
-               alt="Select to access date picker"
-               border="0"
-               height="18"
-               title="Select to access date picker"
-               width="17"
-               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/dp.gif"
-              >
-            
-          </img>
-        </a>
       </span>
 <!--AttributeTest[onblur,null]-->
 
@@ -413,23 +277,6 @@
             >
           
         </img>
-        <a
-             onclick="submitForm('formId',0,{source:'mainId',part:'b'});return false;"
-             href="uri-attr:#"
-            >
-          
-          <img
-               align="middle"
-               alt="Select to access date picker"
-               border="0"
-               height="18"
-               title="Select to access date picker"
-               width="17"
-               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/dp.gif"
-              >
-            
-          </img>
-        </a>
       </span>
 <!--AttributeTest[onchange,null]-->
 
@@ -456,23 +303,6 @@
             >
           
         </img>
-        <a
-             onclick="submitForm('formId',0,{source:'mainId',part:'b'});return false;"
-             href="uri-attr:#"
-            >
-          
-          <img
-               align="middle"
-               alt="Select to access date picker"
-               border="0"
-               height="18"
-               title="Select to access date picker"
-               width="17"
-               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/dp.gif"
-              >
-            
-          </img>
-        </a>
       </span>
 <!--AttributeTest[ondblclick,null]-->
 
@@ -499,23 +329,6 @@
             >
           
         </img>
-        <a
-             onclick="submitForm('formId',0,{source:'mainId',part:'b'});return false;"
-             href="uri-attr:#"
-            >
-          
-          <img
-               align="middle"
-               alt="Select to access date picker"
-               border="0"
-               height="18"
-               title="Select to access date picker"
-               width="17"
-               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/dp.gif"
-              >
-            
-          </img>
-        </a>
       </span>
 <!--AttributeTest[onfocus,null]-->
 
@@ -542,23 +355,6 @@
             >
           
         </img>
-        <a
-             onclick="submitForm('formId',0,{source:'mainId',part:'b'});return false;"
-             href="uri-attr:#"
-            >
-          
-          <img
-               align="middle"
-               alt="Select to access date picker"
-               border="0"
-               height="18"
-               title="Select to access date picker"
-               width="17"
-               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/dp.gif"
-              >
-            
-          </img>
-        </a>
       </span>
 <!--AttributeTest[onkeydown,null]-->
 
@@ -585,23 +381,6 @@
             >
           
         </img>
-        <a
-             onclick="submitForm('formId',0,{source:'mainId',part:'b'});return false;"
-             href="uri-attr:#"
-            >
-          
-          <img
-               align="middle"
-               alt="Select to access date picker"
-               border="0"
-               height="18"
-               title="Select to access date picker"
-               width="17"
-               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/dp.gif"
-              >
-            
-          </img>
-        </a>
       </span>
 <!--AttributeTest[onkeypress,null]-->
 
@@ -628,23 +407,6 @@
             >
           
         </img>
-        <a
-             onclick="submitForm('formId',0,{source:'mainId',part:'b'});return false;"
-             href="uri-attr:#"
-            >
-          
-          <img
-               align="middle"
-               alt="Select to access date picker"
-               border="0"
-               height="18"
-               title="Select to access date picker"
-               width="17"
-               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/dp.gif"
-              >
-            
-          </img>
-        </a>
       </span>
 <!--AttributeTest[onmousedown,null]-->
 
@@ -671,23 +433,6 @@
             >
           
         </img>
-        <a
-             onclick="submitForm('formId',0,{source:'mainId',part:'b'});return false;"
-             href="uri-attr:#"
-            >
-          
-          <img
-               align="middle"
-               alt="Select to access date picker"
-               border="0"
-               height="18"
-               title="Select to access date picker"
-               width="17"
-               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/dp.gif"
-              >
-            
-          </img>
-        </a>
       </span>
 <!--AttributeTest[onmousemove,null]-->
 
@@ -714,23 +459,6 @@
             >
           
         </img>
-        <a
-             onclick="submitForm('formId',0,{source:'mainId',part:'b'});return false;"
-             href="uri-attr:#"
-            >
-          
-          <img
-               align="middle"
-               alt="Select to access date picker"
-               border="0"
-               height="18"
-               title="Select to access date picker"
-               width="17"
-               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/dp.gif"
-              >
-            
-          </img>
-        </a>
       </span>
 <!--AttributeTest[onmouseout,null]-->
 
@@ -757,23 +485,6 @@
             >
           
         </img>
-        <a
-             onclick="submitForm('formId',0,{source:'mainId',part:'b'});return false;"
-             href="uri-attr:#"
-            >
-          
-          <img
-               align="middle"
-               alt="Select to access date picker"
-               border="0"
-               height="18"
-               title="Select to access date picker"
-               width="17"
-               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/dp.gif"
-              >
-            
-          </img>
-        </a>
       </span>
 <!--AttributeTest[onmouseover,null]-->
 
@@ -800,23 +511,6 @@
             >
           
         </img>
-        <a
-             onclick="submitForm('formId',0,{source:'mainId',part:'b'});return false;"
-             href="uri-attr:#"
-            >
-          
-          <img
-               align="middle"
-               alt="Select to access date picker"
-               border="0"
-               height="18"
-               title="Select to access date picker"
-               width="17"
-               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/dp.gif"
-              >
-            
-          </img>
-        </a>
       </span>
 <!--AttributeTest[onmouseup,null]-->
 
@@ -843,22 +537,5 @@
             >
           
         </img>
-        <a
-             onclick="submitForm('formId',0,{source:'mainId',part:'b'});return false;"
-             href="uri-attr:#"
-            >
-          
-          <img
-               align="middle"
-               alt="Select to access date picker"
-               border="0"
-               height="18"
-               title="Select to access date picker"
-               width="17"
-               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/dp.gif"
-              >
-            
-          </img>
-        </a>
       </span>
 </results>

@@ -161,7 +161,8 @@ public class MessageRenderer extends ValueRenderer
     }
 
     // Handle rendering the message text (or the empty placeholder)
-    if (hasMessage || isInline)
+    // Skip if there is no message for PDA
+    if (hasMessage || (isInline && !isPDA(arc)))
     {
 
       // Write the root level element for the help
