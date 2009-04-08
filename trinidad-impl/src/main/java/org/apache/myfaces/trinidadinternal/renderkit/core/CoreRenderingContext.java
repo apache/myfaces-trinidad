@@ -823,6 +823,9 @@ public class CoreRenderingContext extends RenderingContext
                             TrinidadAgent.SCRIPTING_SPEED_CAP_NONE);
     _EMAIL_CAPABILITIES.put(TrinidadAgent.CAP_EDITING,
                             Boolean.FALSE);
+    // email clients cannot handle external css files, but they can
+    // handle the 'class' attribute, as long as the css definitions are
+    // in the html documents
     _EMAIL_CAPABILITIES.put(TrinidadAgent.CAP_STYLE_ATTRIBUTES,
                             TrinidadAgent.STYLES_INTERNAL);
     _EMAIL_CAPABILITIES.put(TrinidadAgent.CAP_PARTIAL_RENDERING,

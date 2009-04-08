@@ -36,6 +36,7 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.style.Selector;
 import org.apache.myfaces.trinidad.style.Style;
 import org.apache.myfaces.trinidad.style.Styles;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.StyleProvider;
@@ -96,10 +97,10 @@ public class StyleSheetRenderer extends XhtmlRenderer
     {
       List<String> uris = provider.getStyleSheetURIs(sContext);
 
-      // Check if we want to write out the css into the page or not. In portlet mode the 
+      // Check if we want to write out the css into the page or not. In portlet mode the
       // producer tries to share the consumer's stylesheet if it matches exactly.
       boolean suppressStylesheet = _isSuppressStylesheet(context, arc);
-            
+
       if (!suppressStylesheet)
       {
         if (uris != null && !uris.isEmpty())
@@ -182,7 +183,7 @@ public class StyleSheetRenderer extends XhtmlRenderer
 
 
         ResponseWriter writer = context.getResponseWriter();
-        // Check if we want to write out the css into the page or not. In portlet mode the 
+        // Check if we want to write out the css into the page or not. In portlet mode the
         // producer tries to share the consumer's stylesheet if it matches exactly.
         // jmw
         Styles styles = arc.getStyles();
@@ -195,10 +196,10 @@ public class StyleSheetRenderer extends XhtmlRenderer
                               ".AFDefaultFont:alias", // nothing, since currently it's in the wrong format to be a named sele ctor
                               ".AFDefaultFont",// nothing, since currently it's in the wrong format to be a named sele ctor
                               "AFDefaultFont"};// name
-          
+
         System.out.println("getSelectorStyleMap NEW. Gets all the selectors, then find the one you want");
         Map<Selector, Style> selectorStyleMap = styles.getSelectorStyleMap();
-        
+
         for (int i=0; i< selectors.length; i++)
         {
           String selector = selectors[i];
@@ -208,19 +209,19 @@ public class StyleSheetRenderer extends XhtmlRenderer
           else
             System.out.println("no styles for " + selector);
         }
-        
-        
+
+
         String[] simpleSelectorsToInline = {"af|document",
                                             "af|panelHeader",
-                                            "af|showDetailHeader", 
+                                            "af|showDetailHeader",
                                             "af|inputText",
-                                            "af|selectOneChoice", 
-                                            "af|panelLabelAndMessage", 
-                                            "af|image", 
-                                            "af|table", 
-                                            "af|column", 
+                                            "af|selectOneChoice",
+                                            "af|panelLabelAndMessage",
+                                            "af|image",
+                                            "af|table",
+                                            "af|column",
                                             "af|goLink"};
-        
+
         // now try to get the getSelectorsForSimpleSelector to see if we can get the selectors with a certain key like af|inputText
         writer.startElement("style", null);
         for (int i=0; i< simpleSelectorsToInline.length; i++)
@@ -241,22 +242,29 @@ public class StyleSheetRenderer extends XhtmlRenderer
           }
         }
         writer.endElement("style");
-      
+
 
       }
     }
 
 
   // In the portlet environment, the consumer might like the producers to share its stylesheet
-  // for performance reasons. To indicate this the producer sends a 
+  // for performance reasons. To indicate this the producer sends a
   // suppress stylesheet parameter on the request map.
+  // Also, if the Agent Capability cannot handle external css files, this will
+  // return true.
   // returns true if the stylesheet should be suppressed and not written out in the page.
   private boolean _isSuppressStylesheet(FacesContext context, RenderingContext arc)
   {
+    // first see if the agent's capability does not support external css files.
+    if (!_supportsExternalStylesheet(arc))
+      return true;
 
+    // next check if in portlet mode, and if the suppress stylesheet parameter
+    // is set, and it's valid to suppress the stylesheet.
     String outputMode = arc.getOutputMode();
     if (XhtmlConstants.OUTPUT_MODE_PORTLET.equals(outputMode))
-    {  
+    {
       Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
       boolean suppressStylesheet = "true".equals(requestMap.get(_SUPPRESS_STYLESHEET_ID_PARAM));
       if (suppressStylesheet)
@@ -268,6 +276,18 @@ public class StyleSheetRenderer extends XhtmlRenderer
       }
     }
     return false;
+  }
+
+  // Get the Capability from the agent and return true if the
+  // TrinidadAgent.CAP_STYLE_ATTRIBUTES == STYLES_EXTERNAL.
+  // Defaults to true in case no capability is set.
+  static private boolean _supportsExternalStylesheet(RenderingContext arc)
+  {
+    Object styleCapability = arc.getAgent().getCapabilities().get(
+            TrinidadAgent.CAP_STYLE_ATTRIBUTES);
+
+    return (styleCapability == null ||
+            TrinidadAgent.STYLES_EXTERNAL == styleCapability);
   }
 
   static private final String _SUPPRESS_STYLESHEET_ID_PARAM =
