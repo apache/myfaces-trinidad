@@ -24,13 +24,18 @@ import java.io.Serializable;
 import java.net.URL;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.el.ELContext;
 import javax.el.ELResolver;
 import javax.el.PropertyNotFoundException;
 
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -81,6 +86,8 @@ import org.apache.myfaces.trinidad.util.ContainerUtils;
  *  &lt;/managed-bean&gt;
  * </pre>
  *
+ * Objects of this class are not thread safe and should be used
+ * only in request scope.
  *
  */
 
@@ -130,7 +137,7 @@ import org.apache.myfaces.trinidad.util.ContainerUtils;
  * have the currently selected node!
  */
 public class XMLMenuModel extends BaseMenuModel
-                          implements Serializable
+                          
 {
   public XMLMenuModel()
   {
@@ -169,7 +176,7 @@ public class XMLMenuModel extends BaseMenuModel
     // There is no need to create the hashmaps or anything
     // on the child menu models.  A lot of overhead (performance and
     // memory) would be wasted.
-    if (this == _getRootModel())
+    if (_isRoot)
     {
       _viewIdFocusPathMap = _contentHandler.getViewIdFocusPathMap(_mdSource);
       _nodeFocusPathMap   = _contentHandler.getNodeFocusPathMap(_mdSource);
@@ -565,7 +572,7 @@ public class XMLMenuModel extends BaseMenuModel
    */
   public Map<String, List<Object>> getViewIdFocusPathMap()
   {
-    if (this != _getRootModel() || _contentHandler == null)
+    if (!_isRoot || _contentHandler == null)
       return null;
 
     if (_viewIdFocusPathMap == null)
@@ -574,13 +581,60 @@ public class XMLMenuModel extends BaseMenuModel
     return _viewIdFocusPathMap;
   }
 
+  /**
+ * Returns the map of content handlers
+ * which hold the state of one XML tree.
+ * @param scopeMap
+ * @return
+ */
+  protected Map<Object, List<MenuContentHandler> > getContentHandlerMap()
+  {
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    ExternalContext externalContext = facesContext.getExternalContext();
+    Map<String, Object> scopeMap =
+        externalContext.getApplicationMap();
+   Object lock  = externalContext.getContext();
+   
+   // cannot use double checked lock here as
+   // we cannot mark the reference as volatile
+   // therefore any reads should happen inside
+   // a synchronized block.
+   synchronized (lock)
+   {
+      Map contentHandlerMap = (Map) scopeMap.get(_CACHED_MODELS_KEY);
+      if (contentHandlerMap == null)
+      {
+        contentHandlerMap =
+            new ConcurrentHashMap<String, List<MenuContentHandler>>();
+        scopeMap.put(_CACHED_MODELS_KEY, contentHandlerMap);
+        scopeMap.put(_CACHED_MODELS_ID_CNTR_KEY,new AtomicInteger(-1));
+      }
+      return contentHandlerMap;
+    }
+    
+  }
+  
+  protected int getContentHandlerId()
+  {
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    ExternalContext externalContext = facesContext.getExternalContext();
+    Map<String, Object> scopeMap =
+        externalContext.getApplicationMap();
+    AtomicInteger counter = (AtomicInteger) scopeMap.get(_CACHED_MODELS_ID_CNTR_KEY);
+    return counter.getAndIncrement();
+  }
+  protected Object getCacheKey()
+  {
+    return _mdSource;
+  }
+  
   /* ====================================================================
    * Private Methods
    * ==================================================================== */
 
   private  Map<String, Object> _getIdNodeMap()
   {
-    return (this == _getRootModel()) ? _idNodeMap : null;
+    return (_isRoot) ? _idNodeMap : null;
   }
 
   /**
@@ -613,7 +667,33 @@ public class XMLMenuModel extends BaseMenuModel
   {
     try
     {
-      if (_contentHandler == null)
+      // this block of code handles the injection of the 
+      // correct content handler for this xml menu model.
+      _isRoot = _isThisRootModel();
+      
+      boolean newHandlerCreated = false;
+      List<MenuContentHandler> listOfHandlers = getContentHandlerMap().get(getCacheKey());
+      Map<Integer,XMLMenuModel> requestModelMap = _getRootModelMap();
+      if(listOfHandlers != null)
+      {
+        if(requestModelMap == null)
+          _contentHandler = listOfHandlers.get(0);
+        else
+        {
+          
+          for (MenuContentHandler handler : listOfHandlers)
+          {
+            int id = handler.getId();
+            if (!requestModelMap.containsKey(id))
+            {
+              _contentHandler = handler;
+              break;
+            }
+          }
+        }
+      }
+      
+      if(_contentHandler == null)
       {
         List<MenuContentHandler> services =
           ClassLoaderUtils.getServices(_MENUCONTENTHANDLER_SERVICE);
@@ -629,18 +709,59 @@ public class XMLMenuModel extends BaseMenuModel
         {
           throw new NullPointerException();
         }
+        newHandlerCreated = true;
+      }
+      
+      if(_isRoot)
+      {
+        if(listOfHandlers == null)
+        {
+          listOfHandlers =  Collections.synchronizedList(new ArrayList<MenuContentHandler>());
+          getContentHandlerMap().put(getCacheKey(), listOfHandlers);
+        }
+        if(newHandlerCreated)
+        {
+          listOfHandlers.add(_contentHandler);
+          _contentHandler.setRootHandler(true);
+          _contentHandler.setId(getContentHandlerId());
+        }
+        
       }
 
       // Set the root, top-level menu model's URI on the contentHandler.
       // In this model, the menu content handler and nodes need to have
       // access to the model's data structures and to notify the model
       // of the currently selected node (in the case of a POST).
+      _populateRootModelMap();
       _setRootModelKey(_contentHandler);
 
       // Set the local model (model created by a sharedNode) on the
       // contentHandler so that nodes can get back to their local model
       // if necessary.
-      _setModelId(_contentHandler);
+      
+      // Nodes never get back to their local models,which is good
+      // because if they did they would not have found them as the 
+      // hash code of newly created XMLMenuModels would be different
+      // and hence the modelIds of the menu nodes would be stale
+      // as they are longer lived than the menu models
+      
+      // On the other hand the content handler does refer to it's
+      // local model during parsing at which time it is guaranteed
+      // to be referring to just one model due to synchronization
+      // of the parsing activity.
+      
+      // Therefore we only set the model id if this is a newly
+      // created content handler,as we know it will start parsing
+      // shortly.This is also necessary so that the model id of
+      // the content handler does not change during the time it
+      // is initializing it's state by parsing.Thus we can do
+      // without synchronization here as the protection is needed only during
+      // parsing.Any other request thread for the same meta-data URI will
+      // find the content handler already published on the concurrent hash map
+      // of content handlers.
+     
+      if(newHandlerCreated)
+        _setModelId(_contentHandler);
 
       TreeModel treeModel = _contentHandler.getTreeModel(_mdSource);
       setWrappedData(treeModel);
@@ -653,6 +774,7 @@ public class XMLMenuModel extends BaseMenuModel
     }
   }
 
+  
   /**
    * _setRootModelKey - sets the top-level, menu model's Key on the
    * menu content handler. This is so nodes will only operate
@@ -662,22 +784,43 @@ public class XMLMenuModel extends BaseMenuModel
   @SuppressWarnings("unchecked")
   private void _setRootModelKey(MenuContentHandler contentHandler)
   {
-    if (_getRootModel() == null)
+    contentHandler.setRootModelKey(_ROOT_MODEL_KEY);
+  }
+  
+
+  /*
+   * sets the model into the requestMap
+   */
+  private void _populateRootModelMap()
+  {
+    if (_isRoot)
     {
-      // Put the root model on the Request Map so that it
-      // Can be picked up by the nodes to call back into the
-      // root model
-      FacesContext facesContext = FacesContext.getCurrentInstance();
-      Map<String, Object> requestMap =
-        facesContext.getExternalContext().getRequestMap();
-
-      requestMap.put(_ROOT_MODEL_KEY, this);
-
-      // Set the key to the root model on the content
-      // handler so that it can then be set on each of the nodes
-      contentHandler.setRootModelKey(_ROOT_MODEL_KEY);
+      Map<String, Object> requestMap = _getRequestMap();
+      Map<Integer, XMLMenuModel> modelMap =
+          (Map<Integer, XMLMenuModel>) requestMap.get(_ROOT_MODEL_KEY);
+      if(modelMap == null)
+      {
+        modelMap =  new HashMap<Integer,XMLMenuModel>();
+        requestMap.put(_ROOT_MODEL_KEY, modelMap);
+      }
+      modelMap.put(_contentHandler.getId(), this);
     }
   }
+  
+  private boolean _isThisRootModel()
+  {
+   Map<String, Object> requestMap = _getRequestMap();
+   return !requestMap.containsKey(SHARED_MODEL_INDICATOR_KEY);
+  }
+  
+  private Map<String, Object> _getRequestMap()
+  {
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    Map<String, Object> requestMap =
+      facesContext.getExternalContext().getRequestMap();
+    return requestMap;
+  }
+  
 
   /**
    * Returns the root menu model.
@@ -687,10 +830,17 @@ public class XMLMenuModel extends BaseMenuModel
   @SuppressWarnings("unchecked")
   private XMLMenuModel _getRootModel()
   {
+    Map<Integer, XMLMenuModel> map = _getRootModelMap();
+    return map.get(_contentHandler.getId());
+  }
+  
+  private Map<Integer,XMLMenuModel> _getRootModelMap()
+  {
     FacesContext facesContext = FacesContext.getCurrentInstance();
     Map<String, Object> requestMap =
       facesContext.getExternalContext().getRequestMap();
-    return (XMLMenuModel) requestMap.get(_ROOT_MODEL_KEY);
+    Map<Integer,XMLMenuModel> map = (Map<Integer,XMLMenuModel>) requestMap.get(_ROOT_MODEL_KEY);
+    return map;
   }
 
 
@@ -833,6 +983,20 @@ public class XMLMenuModel extends BaseMenuModel
      * @return the Model's viewIdFocusPathMap
      */
     public Map<String, List<Object>> getViewIdFocusPathMap(Object modelKey);
+    
+    public void setRootHandler(boolean isRoot);
+    
+    /**
+     * sets the id of this content handler
+     */
+    public void setId(int id);
+    
+    /**
+     * gets the id of this content handler
+     * @return the id
+     */
+    public int getId();
+    
   }
 
   private Object  _currentNode       = null;
@@ -847,13 +1011,31 @@ public class XMLMenuModel extends BaseMenuModel
   private Map<Object, List<Object>> _nodeFocusPathMap;
   private Map<String, Object>       _idNodeMap;
 
-  static private MenuContentHandler _contentHandler  = null;
+  private MenuContentHandler _contentHandler  = null;
+  private boolean _isRoot;
+  
 
   // Only set this if _currentNode is a duplicate
-  static private Object             _prevRequestNode = null;
+   private Object             _prevRequestNode = null;
 
+   // this key is used to store the map of models in the request.
   static private final String _ROOT_MODEL_KEY =
     "org.apache.myfaces.trinidad.model.XMLMenuModel.__root_menu__";
+  
+  // this key is used to store the map of content handlers in the scope map
+  static private final String _CACHED_MODELS_KEY =
+    "org.apache.myfaces.trinidad.model.XMLMenuModel.__handler_key__";
+  
+  // this supplies the id of the content handlers
+  static private final String _CACHED_MODELS_ID_CNTR_KEY =
+    "org.apache.myfaces.trinidad.model.XMLMenuModel.__id_cntr_key__";
+  
+/**
+ * This key is used to store information about the included xml menu
+ * models which are constructed during parsing.
+ */
+  static public final String SHARED_MODEL_INDICATOR_KEY =
+    "org.apache.myfaces.trinidad.model.XMLMenuModel.__indicator_key__";
 
   static private final String _NODE_ID_PROPERTY     = "nodeId";
   static private final String _METHOD_GET           = "get";
@@ -865,5 +1047,5 @@ public class XMLMenuModel extends BaseMenuModel
 
   static private final TrinidadLogger _LOG =
          TrinidadLogger.createTrinidadLogger(XMLMenuModel.class);
-  private static final long serialVersionUID = 1L;
+  
 }

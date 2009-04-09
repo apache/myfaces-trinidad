@@ -573,6 +573,107 @@ public class MenuNode
     _modelId = modelId;
   }
 
+  public int getRootId()
+  {
+	  return _rootId;
+  }
+  public void setRootId(int id)
+  {
+	  _rootId = id;
+  }
+
+  
+  public final String getLabelProperty()
+  {
+    return _label;
+  }
+
+  public final String getIconProperty()
+  {
+    return _icon;
+  }
+
+  public final List<MenuNode> getChildrenProperty()
+  {
+    return _children;
+  }
+
+  public final String getFocusViewIdProperty()
+  {
+    return _focusViewId;
+  }
+
+  public final String getRenderedProperty()
+  {
+    return _renderedStr;
+  }
+
+  public final String getDisabledProperty()
+  {
+    return _disabledStr;
+  }
+
+  public final String getVisibleProperty()
+  {
+    return _visibleStr;
+  }
+
+  public final String getReadOnlyProperty()
+  {
+    return _readOnlyStr;
+  }
+
+  public final String getHandlerIdProperty()
+  {
+    return _handlerId;
+  }
+
+  public final String getBundleKeyProperty()
+  {
+    return _bundleKey;
+  }
+
+  public final String getBundleNameProperty()
+  {
+    return _bundleName;
+  }
+
+  public final String getAccessKeyProperty()
+  {
+    return _accessKey;
+  }
+
+  public final String getIdProperty()
+  {
+    return _id;
+  }
+
+  public final String getModelIdProperty()
+  {
+    return _modelId;
+  }
+
+  
+  public final String getLabelAndAccessKeyProperty()
+  {
+    return _labelAndAccessKey;
+  }
+
+  public final String getDefaultFocusPathProperty()
+  {
+    return _defaultFocusPathStr;
+  }
+
+  public final String getRootModelKeyProperty()
+  {
+    return _rootModelKey;
+  }
+
+  public final int getRootIdProperty()
+  {
+    return _rootId;
+  }
+  
   /**
    * setResBundleKey - sets the name of the resource bundle used in
    * obtaining the node's label text. Used, along with the handerId,
@@ -655,10 +756,20 @@ public class MenuNode
     Map<String, Object> requestMap =
       facesContext.getExternalContext().getRequestMap();
 
-    XMLMenuModel model =  (XMLMenuModel) requestMap.get(getRootModelKey());
+    Map map =  (Map) requestMap.get(getRootModelKey());
+    XMLMenuModel model = (XMLMenuModel) map.get(getRootId());
     return model;
   }
 
+  /**
+   * Construct a thread safe version
+   * of this object and return it.
+   * @return a thread safe copy of this object. 
+   */
+  protected MenuNode getThreadSafeCopy()
+  {
+    return null;
+  }
   /**
    * _joinLabelAndAccessKey - takes a string label and string accessKey
    * and combines them into a single labelAndAccessKey string.
@@ -778,4 +889,7 @@ public class MenuNode
 
   // Root Menu model's Request Map Key
   private String _rootModelKey  = null;
+  
+  private int _rootId;
+
 }

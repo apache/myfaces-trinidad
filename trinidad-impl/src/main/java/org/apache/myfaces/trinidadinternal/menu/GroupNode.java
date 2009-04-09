@@ -191,7 +191,18 @@ public class GroupNode extends MenuNode
   {
     return _idref;
   }
+  
+  public String[] getIdRefListProperty()
+  {
+    return _idrefList;
+  }
 
+  @Override
+  protected MenuNode getThreadSafeCopy()
+  {
+    return new ImmutableGroupNode(this);
+  }
+  
   /* =============================================================
    * Private methods
    * =============================================================*/

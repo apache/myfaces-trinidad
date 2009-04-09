@@ -454,6 +454,61 @@ public class ItemNode extends MenuNode
     return _customPropList;
   }
   
+  
+  public final Map<String, String> getCustomPropListProperty()
+  {
+    return _customPropList;
+  }
+
+  public final String getDestinationProperty()
+  {
+    return _destination;
+  }
+
+  public final String getTargetFrameProperty()
+  {
+    return _targetFrame;
+  }
+
+  public final String getActionProperty()
+  {
+    return _action;
+  }
+
+  public final String getActionListenerProperty()
+  {
+    return _actionListener;
+  }
+
+  public final String getLaunchListenerProperty()
+  {
+    return _launchListener;
+  }
+
+  public final String getReturnListenerProperty()
+  {
+    return _returnListener;
+  }
+
+  public final String getImmediateProperty()
+  {
+    return _immediateStr;
+  }
+
+  public final String getUseWindowProperty()
+  {
+    return _useWindowStr;
+  }
+
+  public final String getWindowHeightProperty()
+  {
+    return _windowHeightStr;
+  }
+
+  public final String getWindowWidthProperty()
+  {
+    return _windowWidthStr;
+  }
   /**
    * Set the list of custom attributes.
    * 
@@ -463,6 +518,11 @@ public class ItemNode extends MenuNode
   protected void setCustomPropList(Map<String, String> attrMap)
   {
     _customPropList = attrMap;
+  }
+  
+  protected MenuNode getThreadSafeCopy()
+  {
+    return new ImmutableItemNode(this);
   }
   
   // Map for Custom attributes (properties)
@@ -478,4 +538,6 @@ public class ItemNode extends MenuNode
   private String _useWindowStr    = null;
   private String _windowHeightStr = null;
   private String _windowWidthStr  = null;
+  
+ 
 }

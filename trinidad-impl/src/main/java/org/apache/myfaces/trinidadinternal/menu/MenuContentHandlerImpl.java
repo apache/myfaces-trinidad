@@ -20,8 +20,10 @@ package org.apache.myfaces.trinidadinternal.menu;
 
 import java.io.InputStream;
 import java.io.IOException;
+import java.io.Serializable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -100,8 +102,9 @@ import org.xml.sax.SAXException;
   * selected.
   */
 public class MenuContentHandlerImpl extends DefaultHandler
-                                    implements MenuContentHandler
+                                    implements MenuContentHandler,Serializable
 {
+
   /**
     * Constructs a Menu Content Handler.
     */
@@ -109,11 +112,6 @@ public class MenuContentHandlerImpl extends DefaultHandler
   {
     super();
 
-    // Init the essential maps.
-    _treeModelMap = new HashMap<String, TreeModel>();
-    _viewIdFocusPathMapMap = new HashMap<Object, Map<String, List<Object>>>();
-    _nodeFocusPathMapMap = new HashMap<Object, Map<Object, List<Object>>>();
-    _idNodeMapMap = new HashMap<Object, Map<String, Object>>();
   }
 
   /**
@@ -234,8 +232,19 @@ public class MenuContentHandlerImpl extends DefaultHandler
           // local model.
           menuNode.setModelId(getModelId());
 
+          // menu nodes need to know how to refer
+          // back to the specific xml menu model
+          // so that they can mutate them.
+          FacesContext facesContext = FacesContext.getCurrentInstance();
+          Map<String, Object> requestMap =
+            facesContext.getExternalContext().getRequestMap();
+          if(!requestMap.containsKey(XMLMenuModel.SHARED_MODEL_INDICATOR_KEY))
+            menuNode.setRootId( (getId() ) );
+          else
+            menuNode.setRootId((Integer) requestMap.get(XMLMenuModel.SHARED_MODEL_INDICATOR_KEY));
+
           List<MenuNode> list = _menuNodes.get(_nodeDepth-1);
-          list.add(menuNode);
+          list.add(menuNode.getThreadSafeCopy());
         }
       }
       else if (_SHARED_NODE.equals(qualifiedElemName))
@@ -247,6 +256,20 @@ public class MenuContentHandlerImpl extends DefaultHandler
         // recursively call into this MenuContentHandlerImpl when parsing the
         // submenu's metadata.
         String expr = attrList.getValue(_REF_ATTR);
+        
+        // push this only when we are root model
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        Map<String, Object> requestMap =
+          facesContext.getExternalContext().getRequestMap();
+        Integer recurseLevel = (Integer) requestMap.get(_RECURSE_COUNTER);
+        if(recurseLevel == null) 
+          recurseLevel = 0;
+        if(recurseLevel == 0)
+          requestMap.put(XMLMenuModel.SHARED_MODEL_INDICATOR_KEY, this.getId());
+        
+        recurseLevel++;
+        requestMap.put(_RECURSE_COUNTER, recurseLevel);
+        
 
         // Need to push several items onto the stack now as we recurse
         // into another menu model.
@@ -260,6 +283,14 @@ public class MenuContentHandlerImpl extends DefaultHandler
         // Now must pop the values cause we are back to the parent
         // model.
         _restoreModelData();
+        
+        recurseLevel = (Integer) requestMap.get(_RECURSE_COUNTER);
+        recurseLevel --;
+        requestMap.put(_RECURSE_COUNTER, recurseLevel);
+        
+        if(recurseLevel == 0)
+          requestMap.remove(XMLMenuModel.SHARED_MODEL_INDICATOR_KEY);
+        
 
         // Name of the managed bean that is the sub menu XMLMenuModel.
         String modelStr = expr.substring(expr.indexOf('{')+1,
@@ -407,11 +438,8 @@ public class MenuContentHandlerImpl extends DefaultHandler
       // later NPEs if menu model methods are called.
       _LOG.warning ("CREATE_TREE_WARNING: Empty Tree!");
 
-      // Create empty treeModel
-      ChildPropertyTreeModel treeModel = new ChildPropertyTreeModel();
-
-      // Put it in the map
-      _treeModelMap.put(_currentTreeModelMapKey, treeModel);
+      List<MenuNode> list = Collections.emptyList();
+      _menuList = list;
     }
     else
     {
@@ -421,14 +449,8 @@ public class MenuContentHandlerImpl extends DefaultHandler
       ChildPropertyTreeModel treeModel =
                     new ChildPropertyTreeModel(_menuList, "children");
 
-      // Put it in the map
-      _treeModelMap.put(_currentTreeModelMapKey, treeModel);
 
-      // If Model is the Root, then build Model's hashmaps
-      // and set them on the Root Model.
-      XMLMenuModel rootModel = getRootModel();
-
-      if (rootModel == getModel())
+      if (_isRootHandler)
       {
         _viewIdFocusPathMap = new HashMap<String,List<Object>>();
         _nodeFocusPathMap   = new HashMap<Object, List<Object>>();
@@ -439,13 +461,6 @@ public class MenuContentHandlerImpl extends DefaultHandler
 
         // Populate the maps
         _addToMaps(treeModel, _viewIdFocusPathMap, _nodeFocusPathMap, _idNodeMap);
-
-        // Cache the maps.  There is a possibility of multiple
-        // root models so we must cache the maps on a per root model
-        // basis.
-        _viewIdFocusPathMapMap.put(_currentTreeModelMapKey, _viewIdFocusPathMap);
-        _nodeFocusPathMapMap.put(_currentTreeModelMapKey, _nodeFocusPathMap);
-        _idNodeMapMap.put(_currentTreeModelMapKey, _idNodeMap);
 
         treeModel.setRowKey(oldPath);
       }
@@ -459,7 +474,7 @@ public class MenuContentHandlerImpl extends DefaultHandler
    */
   public Map<String, List<Object>> getViewIdFocusPathMap(Object modelKey)
   {
-    return _viewIdFocusPathMapMap.get(modelKey);
+    return _viewIdFocusPathMap;
   }
 
   /**
@@ -469,7 +484,7 @@ public class MenuContentHandlerImpl extends DefaultHandler
    */
   public Map<Object, List<Object>> getNodeFocusPathMap(Object modelKey)
   {
-    return _nodeFocusPathMapMap.get(modelKey);
+    return _nodeFocusPathMap;
   }
 
   /**
@@ -479,7 +494,7 @@ public class MenuContentHandlerImpl extends DefaultHandler
    */
   public Map<String, Object> getIdNodeMap(Object modelKey)
   {
-    return _idNodeMapMap.get(modelKey);
+    return _idNodeMap;
   }
 
   /**
@@ -489,51 +504,53 @@ public class MenuContentHandlerImpl extends DefaultHandler
     */
   public TreeModel getTreeModel(String uri)
   {
-    TreeModel model = _treeModelMap.get(uri);
-
+     List<MenuNode> list = _menuList;
+     
     // If we have a cached model, return it.
-    if (model != null)
-      return model;
+    if (list != null)
+      return new ChildPropertyTreeModel(list,"children");
 
-    // Build a Tree model.  Parsing puts the tree model
-    // in the map, see method endDocument().
-    _currentTreeModelMapKey = uri;
-
-    try
+    synchronized(this)
     {
-      // Get a parser.  NOTE: we are using the jdk's 1.5 SAXParserFactory
-      // and SAXParser here.
-      SAXParser parser = _SAX_PARSER_FACTORY.newSAXParser();
+      list = _menuList;
+      if (list == null)// double check inside lock
+      {
+        // Build a Tree model.  Parsing puts the tree model
+        // in the map, see method endDocument().
+        _currentTreeModelMapKey = uri;
+        try
+        {
+          // Get a parser.  NOTE: we are using the jdk's 1.5 SAXParserFactory
+          // and SAXParser here.
+          SAXParser parser = _SAX_PARSER_FACTORY.newSAXParser();
 
-      // Call the local menu model's getStream() method. This is a model
-      // method so that it can be overridden by any model extending
-      // XmlMenuModel.
-      InputStream inStream = getModel().getStream(uri);
+          // Call the local menu model's getStream() method. This is a model
+          // method so that it can be overridden by any model extending
+          // XmlMenuModel.
+          InputStream inStream = getModel().getStream(uri);
 
-      // Parse the metadata
-      parser.parse(inStream, this);
+          // Parse the metadata
+          parser.parse(inStream, this);
 
-      inStream.close();
+          inStream.close();
+        } catch (SAXException saxex)
+        {
+          _LOG.severe("SAX Parse Exception parsing " + uri + ": " +
+              saxex.getMessage(), saxex);
+        } catch (IOException ioe)
+        {
+          _LOG.severe("Unable to open an InputStream to " + uri, ioe);
+        } catch (IllegalArgumentException iae)
+        {
+          _LOG.severe("InputStream to " + iae + " is null", iae);
+        } catch (ParserConfigurationException pce)
+        {
+          _LOG.severe("Unable to create SAX parser for " + uri, pce);
+        }
+        list = _menuList;
+      }
     }
-    catch (SAXException saxex)
-    {
-      _LOG.severe ( "SAX Parse Exception parsing " + uri + ": " +
-                    saxex.getMessage(), saxex);
-    }
-    catch (IOException ioe)
-    {
-      _LOG.severe ( "Unable to open an InputStream to " + uri, ioe);
-    }
-    catch (IllegalArgumentException iae)
-    {
-      _LOG.severe("InputStream to " + iae + " is null", iae);
-    }
-    catch (ParserConfigurationException pce)
-    {
-      _LOG.severe ( "Unable to create SAX parser for " + uri, pce);
-    }
-
-    return _treeModelMap.get(uri);
+    return new ChildPropertyTreeModel(list,"children");
   }
 
   /**
@@ -549,8 +566,11 @@ public class MenuContentHandlerImpl extends DefaultHandler
     Map<String, Object> requestMap =
       facesContext.getExternalContext().getRequestMap();
 
-    XMLMenuModel model = (XMLMenuModel) requestMap.get(getRootModelKey());
-    return model;
+    Map<String,XMLMenuModel> modelMap = (Map<String,XMLMenuModel>) requestMap.get(getRootModelKey());
+    if(!requestMap.containsKey(XMLMenuModel.SHARED_MODEL_INDICATOR_KEY))
+      return modelMap.get( (this.getId() ) );
+    else
+      return modelMap.get((Integer) requestMap.get(XMLMenuModel.SHARED_MODEL_INDICATOR_KEY));
   }
 
   /**
@@ -630,6 +650,31 @@ public class MenuContentHandlerImpl extends DefaultHandler
     _currentTreeModelMapKey = uri;
   }
 
+  
+  public void setRootHandler(boolean isRoot)
+  {
+    _isRootHandler = isRoot;
+  }
+  
+  /**
+   * sets the id of this content handler
+   * 
+   * No synchronization necessary,let
+   * the first thread set the id,
+   * the rest of the threads will immediately
+   * see the new value and will not try to 
+   * set again.
+   */
+  public void setId(int id)
+  {
+    if(_id == -1)
+      _id = id;
+  }
+  
+  public int getId()
+  {
+    return _id;
+  }
   //=======================================================================
   // Package Private Methods
   //=======================================================================
@@ -996,7 +1041,7 @@ public class MenuContentHandlerImpl extends DefaultHandler
   //========================================================================
 
   private List<List<MenuNode>> _menuNodes;
-  private List<MenuNode>       _menuList;
+  private volatile List<MenuNode>       _menuList;
   private String _currentTreeModelMapKey;
   private int    _nodeDepth;
   private int    _skipDepth = -1;
@@ -1006,10 +1051,6 @@ public class MenuContentHandlerImpl extends DefaultHandler
   private String _resBundleName;
 
   private Map<String, String>    _attrMap;
-  private Map<String, TreeModel> _treeModelMap;
-  private Map<Object, Map<String, List<Object>>> _viewIdFocusPathMapMap;
-  private Map<Object, Map<String, Object>>       _idNodeMapMap;
-  private Map<Object, Map<Object, List<Object>>> _nodeFocusPathMapMap;
   private Stack<Object>             _saveDataStack;
   private Map<String, List<Object>> _viewIdFocusPathMap;
   private Map<Object, List<Object>> _nodeFocusPathMap;
@@ -1021,6 +1062,10 @@ public class MenuContentHandlerImpl extends DefaultHandler
 
   // Root Menu model's Session map key
   private String _rootModelKey  = null;
+  
+  private volatile boolean _isRootHandler;
+  
+  private volatile int _id  = -1;
 
   // Nodes
   private final static String _GROUP_NODE        = "groupNode";
@@ -1063,5 +1108,12 @@ public class MenuContentHandlerImpl extends DefaultHandler
   
   private final static TrinidadLogger _LOG =
                         TrinidadLogger.createTrinidadLogger(MenuContentHandlerImpl.class);
+  
+  private static final String _RECURSE_COUNTER =
+      "org.apache.myfaces.trinidadinternal.menu.MenuContentHandlerImpl._RECURSE_COUNTER";
+  /**
+   * 
+   */
+  private static final long serialVersionUID = -5330432089846748485L;
 
 } // endclass MenuContentHandlerImpl
