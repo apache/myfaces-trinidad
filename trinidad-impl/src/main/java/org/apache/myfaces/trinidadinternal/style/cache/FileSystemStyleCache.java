@@ -1493,8 +1493,10 @@ public class FileSystemStyleCache implements StyleProvider
       // what we write out to the css. e.g., af|inputText:error::content becomes
       // af|inputText.p_AFError af|inputText::content. This way we don't have to 
       // do this when we write the css inline. We have the information now.
-      return CSSGenerationUtils.getMappedSelector(
+      String mappedSelector =  CSSGenerationUtils.getMappedSelector(
         _afSelectorMap, _namespacePrefixArray, selector.toString());
+      return CSSGenerationUtils.getValidFullNameSelector(
+        mappedSelector, _namespacePrefixArray);
     }
 
     // TODO Do I need ConcurrentHashMap??

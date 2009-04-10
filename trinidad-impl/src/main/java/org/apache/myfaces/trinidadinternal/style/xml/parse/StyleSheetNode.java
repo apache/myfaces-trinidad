@@ -583,6 +583,10 @@ public class StyleSheetNode
   private final Set<Locale>     _locales;    // The locale variants
   private final int             _direction;  // The reading direction
   // The browsers mapped to their versions (multiple versions for browser supported)
+  // The Integer value is the APPLICATION value in TrinidadAgent, like if 
+  // Integer is 3, it is APPLICATION_GECKO.
+  // TODO It would be clearer to make the Integer an Enum, and to make the
+  // Application constants an enum.
   private final Map<Integer, Set<Version>>    _agentVersions;
   private final Set<Integer>    _platforms;  // The platform variants
   private final int             _mode;       // The mode
