@@ -91,6 +91,8 @@ abstract public class RenderingContext
   abstract public String getStyleClass(String styleClass);
   /**
    *  Return the Styles object that is attached to this RenderingContext. 
+   *  Styles is a useful object if you need to know the css properties for a given
+   *  selector.
    * @return Styles
    */
   abstract public Styles getStyles();

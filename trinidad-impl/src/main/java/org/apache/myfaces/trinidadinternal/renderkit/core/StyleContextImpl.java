@@ -54,7 +54,7 @@ class StyleContextImpl implements StyleContext
     assert(_arc.getAccessibilityProfile() != null);
   }
 
-
+  @Override
   public StyleProvider getStyleProvider()
   {
     if (_styleProvider == null)
@@ -67,6 +67,7 @@ class StyleContextImpl implements StyleContext
 
   /* added this in case we switch the skin after the styleProvider was cached above. */
   /* we want to recompute, not get it from the cache. */
+  @Override
   public StyleProvider getStyleProvider(boolean recompute)
   {
     if (recompute)
@@ -80,6 +81,10 @@ class StyleContextImpl implements StyleContext
     return getStyleProvider();
   }
   
+  /**
+   * 
+   */
+   @Override
   public Styles getStyles()
   {
     if (_styles == null)
@@ -90,12 +95,13 @@ class StyleContextImpl implements StyleContext
   /**
    * Returns the end user's locale.
    */
+  @Override
   public LocaleContext getLocaleContext()
   {
     return _arc.getLocaleContext();
   }
 
-
+  @Override
   public String getGeneratedFilesPath()
   {
     return _generatedFilesPath;
@@ -104,11 +110,12 @@ class StyleContextImpl implements StyleContext
   /**
    * Returns the end user's Agent.
    */
+   @Override
   public TrinidadAgent getAgent()
   {
     return ((CoreRenderingContext) _arc).getTrinidadAgent();
   }
-
+  @Override
   public boolean checkStylesModified()
   {
     FacesContext context = FacesContext.getCurrentInstance();
@@ -116,13 +123,15 @@ class StyleContextImpl implements StyleContext
       context.getExternalContext().getInitParameter(Configuration.CHECK_TIMESTAMP_PARAM);
     return "true".equals(checkTimestamp);
   }
-
+  
+  @Override
   public boolean disableStandardsMode()
   {
     FacesContext fContext = FacesContext.getCurrentInstance();
     return HtmlRenderer.isStandardsModeDisabled(fContext);
   }
-
+  
+  @Override
   public AccessibilityProfile getAccessibilityProfile()
   {
     return _arc.getAccessibilityProfile();

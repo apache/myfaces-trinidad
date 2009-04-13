@@ -696,7 +696,7 @@ class SkinStyleSheetParserUtils
         if (includeStyle.endsWith(":alias"))
         {
           // strip off :alias first and the . at the beginning
-
+          
           int endIndex = includeStyle.indexOf(":alias");
           int startIndex = 0;
           if (includeStyle.charAt(0) == '.')

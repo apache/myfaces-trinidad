@@ -171,6 +171,7 @@ public class FileSystemStyleCache implements StyleProvider
   /**
    * Implementation of StyleProvider.getStyles().
    */
+  @Override
   public Styles getStyles(StyleContext context)
   {
 
@@ -1401,7 +1402,7 @@ public class FileSystemStyleCache implements StyleProvider
   private class StylesImpl extends Styles
   {
     /**
-     * This constructor takes an array of StyleNode where each StyleNode has
+     * This constructor takes an array of StyleNode Objects where each StyleNode has
      * already been resolved based on the StyleContext. Therefore there is no
      * more merging that needs to be done, and the 'included' properties on
      * StyleNode are all null. This way we do not have to resolve the 
@@ -1429,22 +1430,20 @@ public class FileSystemStyleCache implements StyleProvider
         {
           Style style = _convertStyleNodeToStyle(_resolvedStyles[i]);
           _resolvedSelectorStyleMap.put(Selector.createSelector(selector), style);
-
-          // TODO create a map for native selectors. Given a selector, return
-          // the native selector?
-          // I might need a map of native selectors to styles, but for now I
-          // think I only need to given a selector, return the native selector.
-          // store the _namespacePrefixArray and the _afSelectorMap.
-
- 
         }
-        /*
+        /* 
         else
         {
           // For now, do not add the named styles to the map. If we do add the named styles
           // to the map then we should in SkinStyleSheetParserUtils put the full name in
-          // the StyleNode, not strip out the '.' or the ':alias'.
-          
+          // the StyleNode, not strip out the '.' or the ':alias'. However, in the XSS 
+          // the named styles do not have the '.' or the ':alias' which is why we string them out.
+          // if we put them back, then things won't merge correctly. How do I workaround this?
+          // Do I change all the named styles in the XSS file?
+          // I think the best thing to do is to change the XSS file, since that is proprietary, 
+          // and no one should be relying on it. If we instead kept stripping out the . and the alias
+          // and required the person to ask for the alias without this, 
+          // that is much more confusing to the user.
           String name = _resolvedStyles[i].getName();
           if (name != null)
           {
@@ -1464,8 +1463,10 @@ public class FileSystemStyleCache implements StyleProvider
      * (contains all the css property names/values) as the value. This Map can then be used
      * to get all the selector keys, or to get the Style Object for a Selector, or to 
      * get all the selectors that match some criteria, like they contain a certain simple selector.
+     * This map does not contain 'alias' (aka named) selectors. It only contains selectors 
+     * that would be in the generated css file.
      * 
-     * @return unmodifiableMamp of the resolved Selector -> Style map.
+     * @return unmodifiableMap of the resolved Selector -> Style map.
      */
     @Override
     public Map<Selector, Style> getSelectorStyleMap()
@@ -1473,16 +1474,15 @@ public class FileSystemStyleCache implements StyleProvider
       return Collections.unmodifiableMap(_resolvedSelectorStyleMap);
     }  
     
-    // Given a Selector, return the uncompressed valid css2-formatted selectors.
-    // TODO is it necessary to return shortened styles if there is a shortened 
-    // map??
-    // Right now we plan to use this to write out selectors in the html
-    // page for emailable page, and that is uncompressed, but I suppose 
-    // it could be compressed somehow.
-    // TODO This will need to move to the public API when we need it.
-    // TODO should we build up a Map as we go along?
-    // Right now we plan to get the style selectors in their css-3 skin format
-    // and we'll need to convert it to something that is writeable to the page.
+    /**
+     * Returns the Selector in String form, converted to a format that
+     * is suitable to be written to the browse. This is the css-2 format which doesn't have 
+     * namespaces and our psuedo-elements.
+     * @param selector Selector
+     * @return String the Selector in a String form that is suitable to be
+     * written to the client.
+     */
+    @Override
     public String getNativeSelectorString(Selector selector)
     {
       // convert the selector to a valid css2 selector like the ones we write
@@ -1499,9 +1499,21 @@ public class FileSystemStyleCache implements StyleProvider
         mappedSelector, _namespacePrefixArray);
     }
 
-    // TODO Do I need ConcurrentHashMap??
+    
+    /**
+     * Given a StyleNode object, which is an internal API that denotes a Style object 
+     * with additional information like includedSelectors, create a simple public
+     * Style object which will be used in the SelectorStyleMap. The StyleNode object
+     * should already be resolved (included selectors have been merged in) 
+     * so that all the css properties are there.
+     * @param styleNode
+     * @return A Style object created from the information in the styleNode.
+     */
     public Style _convertStyleNodeToStyle(StyleNode styleNode)
     {
+      // TODO Do I need ConcurrentHashMap? Do I need more than that? Note the icon
+      // and property map only use ConcurrentHashMap, but the cache maps use Hashtable (maybe 
+      // because the code is old?)
       Map<String, String> styleProperties = new ConcurrentHashMap<String, String>();
       // Add in the properties for the style
       Iterable<PropertyNode> propertyNodeList = styleNode.getProperties();
@@ -1513,7 +1525,6 @@ public class FileSystemStyleCache implements StyleProvider
         // See the BaseStyle(Map<String, String> propertiesMap) constructor.
         if (name != null && value != null)
           styleProperties.put(name, value);
-
       }
       
       return new CSSStyle(styleProperties);
