@@ -91,8 +91,13 @@ public class StyleSheetRenderer extends XhtmlRenderer
 
     StyleContext sContext = ((CoreRenderingContext) arc).getStyleContext();
     StyleProvider provider = sContext.getStyleProvider();
-    //System.out.println("TEST THE GET SELECTOR STYLE MAP");
-    //_testGetSelectorStyleMap(context, arc);
+    // TODO This will move to Rich Client
+    if (!_supportsExternalStylesheet(arc))
+    {
+      System.out.println("TEST THE GET SELECTOR STYLE MAP");
+
+      _testGetSelectorStyleMap(context, arc);
+    }
     if (provider != null)
     {
       List<String> uris = provider.getStyleSheetURIs(sContext);
@@ -230,7 +235,7 @@ public class StyleSheetRenderer extends XhtmlRenderer
           Set<Selector> selectorSet = styles.getSelectorsForSimpleSelector(simpleSelectorsToInline[i]);
           for (Selector eachSelector : selectorSet)
           {
-            String validSelector = styles.getNativeSelector(eachSelector);
+            String validSelector = styles.getNativeSelectorString(eachSelector);
             System.out.print(validSelector + "{");
             writer.write(validSelector);
             writer.write("{");

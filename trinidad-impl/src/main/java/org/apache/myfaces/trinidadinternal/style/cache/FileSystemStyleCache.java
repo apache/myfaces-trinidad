@@ -1483,7 +1483,7 @@ public class FileSystemStyleCache implements StyleProvider
     // TODO should we build up a Map as we go along?
     // Right now we plan to get the style selectors in their css-3 skin format
     // and we'll need to convert it to something that is writeable to the page.
-    public String getNativeSelector(Selector selector)
+    public String getNativeSelectorString(Selector selector)
     {
       // convert the selector to a valid css2 selector like the ones we write
       // to the generated css file.

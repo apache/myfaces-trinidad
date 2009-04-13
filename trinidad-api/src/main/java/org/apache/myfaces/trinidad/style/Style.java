@@ -24,7 +24,8 @@ import java.util.Map;
 /**
  * A Style object defines a set of visual (or aural) style properties.
  * The Style interface exposes one method for retrieving properties:
- * getProperties().  getProperties() returns a Map&lt;String, String> of the propery name as the
+ * getProperties().  
+ * getProperties() returns a Map&lt;String, String> of the propery name as the
  * key and the property value as the value.
  *
  */
