@@ -40,8 +40,8 @@ abstract public class BaseStyle extends CoreStyle implements Serializable
    */
   public BaseStyle()
   {
+    // TODO should I leave this null and set to an empty map later?
     _propertiesMap = Collections.emptyMap();
-    // TODO is this needed? Otherwise, when we return the property map, we can set it there.
   }
 
   /**
@@ -49,7 +49,9 @@ abstract public class BaseStyle extends CoreStyle implements Serializable
    *
    * @param propertiesMap The properties of this style.  The
    *   name and values must be Strings.
-   *   TODO Should I make sure the property name is all lower case?
+   *   TODO Should I make sure the property name is all lower case
+   *   like it was in the original code? I'll have to get each 
+   *   property and convert. putting individually (setProperty) does this.
    */
   public BaseStyle(Map<String, String> propertiesMap)
   {
@@ -65,52 +67,6 @@ abstract public class BaseStyle extends CoreStyle implements Serializable
     else
       _propertiesMap = Collections.emptyMap();
   }
-
-  /**
-   * Creates a BaseStyle from an arbitrary Style object.
-   */
-   /***
-  public BaseStyle(Style style)
-  {
-    System.out.println("BaseStyle with constructor style is called");
-
-    if ( style != null)
-    {
-
-      // First, loop through to get the property count
-      int propertyCount = 0;
-      Iterator<Object> e = style.getPropertyNames();
-      while (e.hasNext())
-      {
-        e.next();
-        propertyCount++;
-      }
-
-      if (propertyCount == 0)
-        return;
-
-      // Initialize the properties array
-      Object properties[] = new Object[propertyCount * 2];
-
-      // Now, loop through to initialize the properties
-      int i = 0;
-      Iterator<Object> names = style.getPropertyNames();
-      while (names.hasNext())
-      {
-        String name = (String)names.next();
-        String value = style.getProperty(name);
-
-        properties[i*2] = name.toLowerCase();
-        properties[i*2+1] = value;
-
-        i++;
-      }
-
-      _properties = properties;
-    }
-
-  }
-    **/
 
   /**
    * Returns an UnmodifiableMap
@@ -191,13 +147,6 @@ abstract public class BaseStyle extends CoreStyle implements Serializable
         _propertiesMap = new ArrayMap<String, String>();
       _propertiesMap.put(name, value);
       
-      
-      // jmw comment this out because we don't want to use ArrayMap's static methods anymore
-      //_properties = ArrayMap.remove(_properties, name);
-
-     // if (value != null)
-      //  _properties = ArrayMap.put(_properties, name, value);
-
       // We need to reset to parsed properties if our properties change
       // Really, we could just null out the corresponding parsed property
       // value, but what the heck.

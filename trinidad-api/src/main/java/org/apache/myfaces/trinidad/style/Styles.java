@@ -23,7 +23,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.regex.Pattern;
 
 /**
  * Styles is a class that contains information about CSS Selectors and their
@@ -57,6 +56,7 @@ public abstract class Styles
    */
   public abstract String getNativeSelectorString(Selector selector);
   
+
   /**
    * Given a simple selector (as opposed to a complex selector), 
    * this method will return a Set of the Selectors that
@@ -67,8 +67,8 @@ public abstract class Styles
    * "af|inputText" or "af|treeTable" and not selectors like 
    * "af|inputText::content".
    * @param simpleSelector
-   * @return a Set&lt;Selector> of all the complete selectors that contain the 
-   * simple selector.
+   * @return an unmodfiable Set&lt;Selector> of all the complete selectors  
+   * that contain the simple selector.
    */
   public Set<Selector> getSelectorsForSimpleSelector(String simpleSelector)
   {
@@ -80,28 +80,54 @@ public abstract class Styles
     {
       Selector completeSelector = entry.getKey();
       String completeSelectorString = completeSelector.toString();
-      if (completeSelectorString.indexOf(simpleSelector) > -1)
+      int index = completeSelectorString.indexOf(simpleSelector);
+      boolean beforeSelectorOk = false;
+      boolean afterSelectorOk = false;
+      if (index > -1)
       {
-        // split based on . and space and :
-        String[] selectorsSplit = _SPACE_PATTERN.split(completeSelectorString);
-        
-        for(String selector : selectorsSplit)
+        // found the simpleSelector within the complex selector
+        // double check that it is the simpleSelector by looking at the characters before
+        // and after. e.g., af|foobar does not contain the simple selector af|foo, whereas
+        // af|foo.bar or af|foo bar or af|foo:bar does.
+        if (index == 0)
         {
-          if (selector.indexOf(simpleSelector) > -1)
+          beforeSelectorOk = true;
+        }
+        else
+        {
+          char c = completeSelectorString.charAt(index-1);
+          if (Character.isWhitespace(c) || c == '.')
           {
-            if (set == null)
-              set = new HashSet<Selector>(); 
-            set.add(completeSelector);
-            break;
+            beforeSelectorOk = true;
           }
         }
+        if (beforeSelectorOk)
+        {
+          // now check after the string.
+          int endIndex = index + simpleSelector.length();
+          if (endIndex < completeSelectorString.length())
+          {
+            char c = completeSelectorString.charAt(endIndex);
+            if (Character.isWhitespace(c) || c == '.' || c == ':')
+              afterSelectorOk = true;  
+          }
+          else
+            afterSelectorOk = true;
+        }
+        if (beforeSelectorOk && afterSelectorOk)
+        {
+          if (set == null)
+            set = new HashSet<Selector>(); 
+          set.add(completeSelector); 
+        }
       }
+        
     }
     if (set == null)
-      set = Collections.emptySet();
-    return set;
+      return Collections.emptySet();
+    else
+      return Collections.unmodifiableSet(set);
     
   }
   
-  private static final Pattern _SPACE_PATTERN = Pattern.compile("[.\\n\\t\\s]");
 }

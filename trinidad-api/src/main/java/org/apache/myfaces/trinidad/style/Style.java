@@ -33,7 +33,8 @@ public abstract class Style
 {
 
   /**
-   * Returns a Map of the properties (name/value) defined by this style.
+   * Returns an unmodifiable Map of the properties (name/value) 
+   * defined by this style.
    */
   abstract public Map<String, String> getProperties();
 

@@ -1416,20 +1416,23 @@ public class FileSystemStyleCache implements StyleProvider
         Map<String, String> afSelectorMap
       ) 
     {
-      _resolvedStyles = resolvedStyles; 
+      // store these local variables to be used in getNativeSelectorString
       _namespacePrefixArray = namespacePrefixArray;
       _afSelectorMap = afSelectorMap;
+      // create a Selector->Style map right here (aggressively versus lazily)
+      ConcurrentMap<Selector, Style> resolvedSelectorStyleMap = null;
 
-      // create a map right here (aggressively versus lazily)
 
       // Loop through each StyleNode and use it to add to the StyleMap.
-      for (int i=0; i < _resolvedStyles.length; i++)
+      for (int i=0; i < resolvedStyles.length; i++)
       {
-        String selector = _resolvedStyles[i].getSelector();
+        String selector = resolvedStyles[i].getSelector();
         if (selector != null)
         {
-          Style style = _convertStyleNodeToStyle(_resolvedStyles[i]);
-          _resolvedSelectorStyleMap.put(Selector.createSelector(selector), style);
+          Style style = _convertStyleNodeToStyle(resolvedStyles[i]);
+          if (resolvedSelectorStyleMap == null)
+            resolvedSelectorStyleMap = new ConcurrentHashMap<Selector, Style>();
+          resolvedSelectorStyleMap.put(Selector.createSelector(selector), style);
         }
         /* 
         else
@@ -1447,15 +1450,19 @@ public class FileSystemStyleCache implements StyleProvider
           String name = _resolvedStyles[i].getName();
           if (name != null)
           {
-            //System.out.println("Add name to _resolvedStyles " + name);
-
             // create a Style Object from the StyleNode object
-            Style style = _convertStyleNode(_resolvedStyles[i]);
-            _resolvedSelectorStyleMap.put(name, style);
+            Style style = _convertStyleNode(resolvedStyles[i]);
+            resolvedSelectorStyleMap.put(name, style);
           }
         }
         */
       }
+      if (resolvedSelectorStyleMap != null)
+        _unmodifiableResolvedSelectorStyleMap = 
+          Collections.unmodifiableMap(resolvedSelectorStyleMap);
+      else
+        _unmodifiableResolvedSelectorStyleMap = Collections.emptyMap();
+        
     }
     
     /**
@@ -1471,7 +1478,7 @@ public class FileSystemStyleCache implements StyleProvider
     @Override
     public Map<Selector, Style> getSelectorStyleMap()
     {
-      return Collections.unmodifiableMap(_resolvedSelectorStyleMap);
+      return _unmodifiableResolvedSelectorStyleMap;
     }  
     
     /**
@@ -1531,8 +1538,8 @@ public class FileSystemStyleCache implements StyleProvider
 
     }
     
-    private ConcurrentMap<Selector, Style> _resolvedSelectorStyleMap = 
-      new ConcurrentHashMap<Selector, Style>();
+    //private ConcurrentMap<Selector, Style> _resolvedSelectorStyleMap;
+    private Map<Selector, Style> _unmodifiableResolvedSelectorStyleMap;
     
     private StyleNode[] _resolvedStyles;
     private Map<String, String> _afSelectorMap;

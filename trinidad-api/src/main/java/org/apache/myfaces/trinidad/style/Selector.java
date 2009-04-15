@@ -33,16 +33,20 @@ package org.apache.myfaces.trinidad.style;
  * and the maps that convert the Selectors to the native selector string.
  * @see Styles#getNativeSelectorString(org.apache.myfaces.trinidad.style.Selector) ;
  */
-public class Selector
+final public class Selector
 {
 
   /**
    * Given a String that represents the selector, return a Selector object
    * @param selectorString
    * @return a Selector object
+   * @throws IllegalArgumentException if selectorString is null or the empty String.
    */
   public static Selector createSelector(String selectorString)
   {
+    if (selectorString == null || selectorString.equals(""))
+      throw new IllegalArgumentException("selectorString must be non null and non empty.");
+      
     return new Selector(selectorString);
   }
 
@@ -71,9 +75,7 @@ public class Selector
     // obj at this point must be a Selector
     Selector test = (Selector)obj;
 
-    return
-      (_selectorString == test._selectorString || 
-       (_selectorString != null && _selectorString.equals(test._selectorString)));
+    return (_selectorString.equals(test._selectorString));
   }
 
   
