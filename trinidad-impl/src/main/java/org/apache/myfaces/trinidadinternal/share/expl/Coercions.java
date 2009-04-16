@@ -23,6 +23,8 @@ import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -132,6 +134,10 @@ public final class Coercions
       else if ((type == String[].class))
       {
         return XMLUtils.parseNameTokens(text);
+      }
+      else if (type == List.class)
+      {
+        return Arrays.asList(XMLUtils.parseNameTokens(text));
       }
       // For Dates, try to parse it as an ISO 8601 Date.
       // If that fails, simply let the string pass through;  for
