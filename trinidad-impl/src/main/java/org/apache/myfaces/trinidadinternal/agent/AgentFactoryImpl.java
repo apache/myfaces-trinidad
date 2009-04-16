@@ -39,7 +39,7 @@ public class AgentFactoryImpl implements AgentFactory
     // this method primarily exists for use during testing
 
     AgentImpl agent = new AgentImpl();
-    _populateAgentImpl(headerMap,agent);
+    _populateAgentImpl(null, headerMap,agent);
     return agent;
   }
 
@@ -61,17 +61,30 @@ public class AgentFactoryImpl implements AgentFactory
 
     //TODO: Add declarative and extensible means for populating AgentImpl object
     // the RequestHeaderMap helps populate the agent
-    _populateAgentImpl(headerMap, agent);
+    _populateAgentImpl(facesContext, headerMap, agent);
 
     return agent;
   }
 
   // The headerMap is the RequestHeaderMap from the externalContext. It is
   // consulted to correctly populate the agent
-  private void _populateAgentImpl(Map<String, String> headerMap, AgentImpl agent)
+  private void _populateAgentImpl(
+    FacesContext facesContext,
+    Map<String, String> headerMap, 
+    AgentImpl agent)
   {
-
+  
     String userAgent = headerMap.get("User-Agent");
+    String isEmail = null;
+    if (facesContext != null)
+      isEmail = facesContext.getExternalContext().getRequestParameterMap().
+                        get(_EMAIL_PARAM);
+ 
+    if ("true".equals(isEmail))
+    {
+      _populateEmailAgentImpl(agent);
+      return;
+    }
 
     if ((userAgent != null) && userAgent.startsWith("PTG"))
     {
@@ -854,6 +867,23 @@ public class AgentFactoryImpl implements AgentFactory
       }
     }
   }
+  
+  /**
+   * Returns an AgentEntry for the email agents like Outlook 2007 and
+   * Thunderbird
+   */
+  private void _populateEmailAgentImpl(AgentImpl agentObj)
+  {
+   
+    agentObj.setType(Agent.TYPE_DESKTOP);
+
+    agentObj.setAgent(Agent.AGENT_EMAIL);
+    agentObj.setAgentVersion("0.0");
+    agentObj.setPlatform(_UNKNOWN);
+    agentObj.setPlatformVersion(_UNKNOWN);
+    agentObj.setMakeModel(_UNKNOWN);
+
+  }  
 
 
   /**
@@ -912,7 +942,8 @@ public class AgentFactoryImpl implements AgentFactory
 
     return null;
   }
-
+  static private final String _EMAIL_PARAM =
+    "org.apache.myfaces.trinidad.agent.email";
   static final private String _IASW_DEVICE_HINT_PARAM = "X-Oracle-Device.Class";
   static final private String _UNKNOWN = "unknown";
   static final private TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(AgentFactoryImpl.class);

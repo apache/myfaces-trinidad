@@ -67,6 +67,8 @@ public class NameUtils
       browser = TrinidadAgent.APPLICATION_NOKIA_S60;
     else if (_BROWSER_GENERICPDA.equals(browserName))
       browser = TrinidadAgent.APPLICATION_GENERICPDA;
+    else if (_BROWSER_EMAIL.equals(browserName))
+      browser = TrinidadAgent.APPLICATION_EMAIL;    
     else
     {
       // Either a new or an invalid browser
@@ -755,6 +757,7 @@ public class NameUtils
 
   private static final String _BROWSER_GENERICPDA = "genericpda";
 
+  private static final String _BROWSER_EMAIL = "email";
   // Platform constants
   private static final String _PLATFORM_WINDOWS = "windows";
 

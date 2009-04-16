@@ -18,26 +18,10 @@
     under the License.
 	   
 -->
-<trinidad-config xmlns="http://myfaces.apache.org/trinidad/config">
-  <debug-output>true</debug-output>
-  <!-- Uncomment to switch back to ALERT style client-side validation,
-    or set to DISABLED to disable it altogether
-  <client-validation>ALERT</client-validation>
-  -->
-
-  <accessibility-mode>#{prefs.proxy.accessibilityMode}</accessibility-mode>
-  <accessibility-profile>#{prefs.proxy.accessibilityProfile}</accessibility-profile> 
-
-  <!-- you can use EL to get the skin. This allows the skin to change between
-       requests. -->
-<!--
-  <skin-family>#{prefs.proxy.skinFamily}</skin-family>  
-  -->
-  <skin-family>purple</skin-family>
-
-
-  <!--
-  <output-mode>portlet</output-mode>
-  -->
-   
-</trinidad-config>
+<capabilityData xmlns="http://myfaces.apache.org/trinidad/agent/capabilities">
+  <capability name="-adfinternal-scriptingSpeed" value="none"/>
+  <capability name="-adfinternal-editing" value="false"/>
+  <capability name="-adfinternal-intrinsicEvents" value="false"/>
+  <capability name="-adfinternal-styleAttributes" value="internal"/>
+  <capability name="-adfinternal-partialRendering" value="false"/>
+</capabilityData>

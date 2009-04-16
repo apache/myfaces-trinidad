@@ -51,6 +51,11 @@ public class AgentNameUtil
       return TrinidadAgent.APPLICATION_GECKO;
     }
 
+    if (TrinidadAgent.AGENT_EMAIL.equals(agentName))
+    {
+      return TrinidadAgent.APPLICATION_EMAIL;
+    }    
+    
     if (TrinidadAgent.AGENT_ELAINE.equals(agentName))
     {
       return TrinidadAgent.APPLICATION_WEB_CLIPPING;
@@ -216,6 +221,8 @@ public class AgentNameUtil
         return TrinidadAgent.AGENT_GENERICPDA;
       case TrinidadAgent.APPLICATION_KONQUEROR:
         return TrinidadAgent.AGENT_KONQUEROR;
+      case TrinidadAgent.APPLICATION_EMAIL:
+        return TrinidadAgent.AGENT_EMAIL;
       default:
         return TrinidadAgent.AGENT_UNKNOWN;
     }

@@ -88,6 +88,9 @@
                   <tr:selectItem label="suede" value="suede"/>
                 </tr:selectOneChoice>
                 <tr:commandButton text="Go"/>
+                <tr:goLink id="goLinkId" text="EmailablePageMode" 
+                  destination="panelPageSkinDemo.jspx?org.apache.myfaces.trinidad.agent.email=true" />
+                <tr:selectBooleanCheckbox text="true" label="Label (red in purple skin + email mode):" value="true"/>
               </tr:panelGroupLayout>
               <tr:panelGroupLayout layout="horizontal" styleClass="welcomePanel">
                 <tr:outputFormatted styleUsage="instruction"

@@ -336,6 +336,10 @@ public interface TrinidadAgent extends Agent
   static public final int APPLICATION_KONQUEROR = 15;
 
   /**
+   * Application constant for email.
+   */
+  static public final int APPLICATION_EMAIL = 16;
+  /**
    * OS constant for an unknown operating system.
    */
   static public final int OS_UNKNOWN = 0;

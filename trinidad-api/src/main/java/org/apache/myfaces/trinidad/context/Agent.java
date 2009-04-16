@@ -140,6 +140,12 @@ public interface Agent
   public static final String AGENT_GECKO = "gecko";
 
   /**
+   * Constant for email agent. Used for all email agents like Outlook 2007
+   * and Thunderbird
+   */
+  public static final String AGENT_EMAIL = "email";
+  
+  /**
    * Constant for Apple Webkit agent. Used for all Webkit based agent like Safari
    */
   public static final String AGENT_WEBKIT = "webkit";

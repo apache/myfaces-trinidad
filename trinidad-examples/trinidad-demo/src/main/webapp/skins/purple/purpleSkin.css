@@ -906,3 +906,8 @@ af|tree {
   -tr-show-lines:false;
 }
 }
+
+@agent email
+{
+  af|selectBooleanCheckbox::label {color: red}
+}
