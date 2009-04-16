@@ -36,6 +36,7 @@ public class TrinidadConverterHandler
     MetaRuleset m = super.createMetaRuleset(type);
     m.addRule(StringArrayPropertyTagRule.Instance);
     m.addRule(ValueExpressionTagRule.Instance);
+    m.addRule(LocalePropertyTagRule.Instance);
     return m;
   }
 }
