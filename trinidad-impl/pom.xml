@@ -200,6 +200,8 @@
             <trh>http://myfaces.apache.org/trinidad/html</trh>
           </taglibs>
           <faceletHandlerClass>org.apache.myfaces.trinidadinternal.facelets.TrinidadComponentHandler</faceletHandlerClass>
+          <faceletConverterHandlerClass>org.apache.myfaces.trinidadinternal.facelets.TrinidadConverterHandler</faceletConverterHandlerClass>
+          <faceletValidatorHandlerClass>org.apache.myfaces.trinidadinternal.facelets.TrinidadValidatorHandler</faceletValidatorHandlerClass>
           <typePrefix>org.apache</typePrefix>
           <renderKitPrefix>org.apache</renderKitPrefix>
           <packageContains>org.apache</packageContains>
