@@ -981,11 +981,12 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
         if (nfMap == null)
         {
           nfMap = new HashMap<Locale, NumberFormat>();
-          nfMap.put(locale, (NumberFormat)format.clone());
+          _numberFormatHolder.put(key, nfMap);
+          
         }
         // add this based on the type ('number','currency','percent') or
         // pattern1, pattern2.. patternN to the main holder
-        _numberFormatHolder.put(key, nfMap);
+        nfMap.put(locale, (NumberFormat)format.clone());
       }
     }
   }
