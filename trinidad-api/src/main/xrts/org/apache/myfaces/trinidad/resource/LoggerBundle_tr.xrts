@@ -124,8 +124,8 @@
 <resource key="CAPABILITY_MASK_NOT_UNDERSTOOD" dnt="false">{0} yetenek maskesi anlaşılmadı</resource>
 <!-- INVALID_INDEX -->
 <resource key="INVALID_INDEX" dnt="false">Geçersiz dizin</resource>
-<!-- ATTEMP_ADD_DUPLICATE_ID -->
-<resource key="ATTEMP_ADD_DUPLICATE_ID" dnt="false">Mükerrer no ({0}) eklenmeye çalışıldı</resource>
+<!-- ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID -->
+<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">Bir alt öğe aynı no ile bir alt öğe varken eklenmeye çalışıldı. Eski alt öğe kaldırılacak ve yeni alt öğe eklenecek. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">Hiçbir düğüm belirlenmedi</resource>
 <!-- COMPONENT_REQUIRED -->
@@ -156,6 +156,20 @@
 <resource key="CANNOT_CONSTRUCT_ADDFACETCHANGE_WITH_NULL_FACETNAME_FACETCOMPONENT" dnt="false">facetName veya facetComponent öğelerinden biri boş (null) olduğunda bir AddFacetChange yapılandırılamaz.</resource>
 <!-- FACET_NAME_MUST_SPECIFIED -->
 <resource key="FACET_NAME_MUST_SPECIFIED" dnt="false">Yön adı belirtilmelidir</resource>
+<!-- MOVABLE_CHILD_REQUIRED -->
+<resource key="MOVABLE_CHILD_REQUIRED" dnt="false">Taşınacak alt bileşen gerekli.</resource>
+<!-- DESTINATION_CONTAINER_REQUIRED -->
+<resource key="DESTINATION_CONTAINER_REQUIRED" dnt="false">Hedef kapsayıcı bileşeni gerekli.</resource>
+<!-- MOVE_PARTICIPANTS_WITHOUT_ID -->
+<resource key="MOVE_PARTICIPANTS_WITHOUT_ID" dnt="false">MoveChildComponentChange içindeki bir veya daha çok katılımcı bileşenin no&apos;&apos;su yok.</resource>
+<!-- COMMON_PARENT_NOT_FOUND -->
+<resource key="COMMON_PARENT_NOT_FOUND" dnt="false">Taşınabilir alt öğe ve hedef kapsayıcı arasında bir üst öğe bulunamadı: {0}.</resource>
+<!-- MOVABLE_CHILD_NOT_FOUND -->
+<resource key="MOVABLE_CHILD_NOT_FOUND" dnt="false">Taşınacak alt öğe bulunamadı: {0}.</resource>
+<!-- DESTINATION_CONTAINER_NOT_FOUND -->
+<resource key="DESTINATION_CONTAINER_NOT_FOUND" dnt="false">Hedef kapsayıcı bulunamadı: {0}.</resource>
+<!-- INSERT_BEFORE_NOT_FOUND -->
+<resource key="INSERT_BEFORE_NOT_FOUND" dnt="false">Bileşen veya düğüm öncesine eklenecek öğe bulunamadı: {0}.</resource>
 <!-- INDEX_SIZE -->
 <resource key="INDEX_SIZE" dnt="false">dizin:{0} boyut:{1}</resource>
 <!-- BAD_PHASEID -->
@@ -272,4 +286,22 @@
 <resource key="RESOURCE_PATH_DOTS" dnt="false">Kaynak dizin yolu ({0}) &quot;..&quot; içeriyor. Tarayıcılar &quot;..&quot; bölümünü çözüyor, bu nedenle bu şüpheli bir dizin yoludur.</resource>
 <!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
 <resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">{1} öğesinde desteklenen sözdizimine sahip {0} kapsam No&apos;&apos;lu bileşen bulunamadı. Onaylanmayan sözdizimine sahip bileşen bulundu. Lütfen desteklenen sözdizimini kullanın.</resource>
+<!-- UNSERIALIZABLE_VALUE -->
+<resource key="UNSERIALIZABLE_VALUE" dnt="false">Sıralanamaz değer:{0}</resource>
+<!-- UNSERIALIZABLE_PROPERTY_VALUE -->
+<resource key="UNSERIALIZABLE_PROPERTY_VALUE" dnt="false">Kapsayıcı:{2} içinde anahtar:{1} için sıralanamaz değer:{0}</resource>
+<!-- UNSERIALIZABLE_PROPERTY_VALUE_NO_CONTAINER -->
+<resource key="UNSERIALIZABLE_PROPERTY_VALUE_NO_CONTAINER" dnt="false">Anahtar:{1} için sıralanamaz değer:{0}</resource>
+<!-- FAILED_SERIALIZATION_PROPERTY_VALUE -->
+<resource key="FAILED_SERIALIZATION_PROPERTY_VALUE" dnt="false">Kapsayıcı:{2} içinde nitelik anahtarı:{1} için değer:{0} sıralanamadı</resource>
+<!-- FAILED_SERIALIZATION_PROPERTY_KEY -->
+<resource key="FAILED_SERIALIZATION_PROPERTY_KEY" dnt="false">Kapsayıcı:{1} içindeki anahtar:{0} sıralanamadı</resource>
+<!-- UNSERIALIZABLE_PROPERTY_KEY -->
+<resource key="UNSERIALIZABLE_PROPERTY_KEY" dnt="false">Kapsayıcı:{1} içinde sıralanamaz anahtar:{0}</resource>
+<!-- COMPONENT_SAVED_STATE_FAILED -->
+<resource key="COMPONENT_SAVED_STATE_FAILED" dnt="false">{0} bileşeni için durum kaydedilemedi</resource>
+<!-- COMPONENT_CHILDREN_SAVED_STATE_FAILED -->
+<resource key="COMPONENT_CHILDREN_SAVED_STATE_FAILED" dnt="false">{0} bileşeninin alt öğesi için durum kaydedilemedi</resource>
+<!-- COMPONENT_TREE_SERIALIZATION_FAILED -->
+<resource key="COMPONENT_TREE_SERIALIZATION_FAILED" dnt="false">Bileşen ağacı durumu sıralanamadı</resource>
 </resources>

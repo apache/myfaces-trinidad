@@ -124,8 +124,8 @@
 <resource key="CAPABILITY_MASK_NOT_UNDERSTOOD" dnt="false">성능 마스크 {0}이(가) 인식되지 않습니다.</resource>
 <!-- INVALID_INDEX -->
 <resource key="INVALID_INDEX" dnt="false">인덱스가 부적합합니다.</resource>
-<!-- ATTEMP_ADD_DUPLICATE_ID -->
-<resource key="ATTEMP_ADD_DUPLICATE_ID" dnt="false">중복되는 ID {0}을(를) 추가하려고 시도합니다.</resource>
+<!-- ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID -->
+<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">ID가 동일한 하위 항목이 존재하는 경우 하위 항목을 추가합니다. 기존 하위 항목이 제거되고 새 하위 항목이 추가됩니다. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">지정된 노드가 없습니다.</resource>
 <!-- COMPONENT_REQUIRED -->
@@ -156,6 +156,20 @@
 <resource key="CANNOT_CONSTRUCT_ADDFACETCHANGE_WITH_NULL_FACETNAME_FACETCOMPONENT" dnt="false">널 facetName 또는 facetComponent를 사용하여 AddFacetChange를 생성할 수 없습니다.</resource>
 <!-- FACET_NAME_MUST_SPECIFIED -->
 <resource key="FACET_NAME_MUST_SPECIFIED" dnt="false">면 이름을 지정해야 합니다.</resource>
+<!-- MOVABLE_CHILD_REQUIRED -->
+<resource key="MOVABLE_CHILD_REQUIRED" dnt="false">이동할 하위 구성 요소가 필요합니다.</resource>
+<!-- DESTINATION_CONTAINER_REQUIRED -->
+<resource key="DESTINATION_CONTAINER_REQUIRED" dnt="false">대상 컨테이너 구성 요소가 필요합니다.</resource>
+<!-- MOVE_PARTICIPANTS_WITHOUT_ID -->
+<resource key="MOVE_PARTICIPANTS_WITHOUT_ID" dnt="false">MoveChildComponentChange에 포함된 구성 요소 중 하나 이상에 ID가 없습니다.</resource>
+<!-- COMMON_PARENT_NOT_FOUND -->
+<resource key="COMMON_PARENT_NOT_FOUND" dnt="false">이동 가능한 하위 항목과 대상 컨테이너 간에 공통되는 상위 항목을 찾을 수 없음: {0}.</resource>
+<!-- MOVABLE_CHILD_NOT_FOUND -->
+<resource key="MOVABLE_CHILD_NOT_FOUND" dnt="false">이동할 하위 항목을 찾을 수 없음: {0}.</resource>
+<!-- DESTINATION_CONTAINER_NOT_FOUND -->
+<resource key="DESTINATION_CONTAINER_NOT_FOUND" dnt="false">대상 컨테이너를 찾을 수 없음: {0}.</resource>
+<!-- INSERT_BEFORE_NOT_FOUND -->
+<resource key="INSERT_BEFORE_NOT_FOUND" dnt="false">구성 요소 또는 노드 앞의 삽입을 찾을 수 없음: {0}.</resource>
 <!-- INDEX_SIZE -->
 <resource key="INDEX_SIZE" dnt="false">인덱스: {0} 크기: {1}</resource>
 <!-- BAD_PHASEID -->
@@ -272,4 +286,22 @@
 <resource key="RESOURCE_PATH_DOTS" dnt="false">리소스 경로 {0}에 &quot;..&quot;이 포함되어 있습니다. 브라우저는 &quot;..&quot;을 외부로 분석하므로 이는 의심스러운 경로입니다.</resource>
 <!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
 <resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">{1}에서 지원되는 구문을 사용하는 scopedId가 {0}인 구성 요소를 찾을 수 없습니다. 사용되지 않는 구문을 사용하는 구성 요소가 발견되었습니다. 지원되는 구문을 사용하십시오.</resource>
+<!-- UNSERIALIZABLE_VALUE -->
+<resource key="UNSERIALIZABLE_VALUE" dnt="false">{0} 값을 직렬화할 수 없습니다.</resource>
+<!-- UNSERIALIZABLE_PROPERTY_VALUE -->
+<resource key="UNSERIALIZABLE_PROPERTY_VALUE" dnt="false">{2} 컨테이너에 있는 {1} 키에 대해 {0} 값을 직렬화할 수 없습니다.</resource>
+<!-- UNSERIALIZABLE_PROPERTY_VALUE_NO_CONTAINER -->
+<resource key="UNSERIALIZABLE_PROPERTY_VALUE_NO_CONTAINER" dnt="false">{1} 키에 대해 {0} 값을 직렬화할 수 없습니다.</resource>
+<!-- FAILED_SERIALIZATION_PROPERTY_VALUE -->
+<resource key="FAILED_SERIALIZATION_PROPERTY_VALUE" dnt="false">{2} 컨테이너에 있는 속성 키 {1}에 대해 {0} 값 직렬화를 실패했습니다.</resource>
+<!-- FAILED_SERIALIZATION_PROPERTY_KEY -->
+<resource key="FAILED_SERIALIZATION_PROPERTY_KEY" dnt="false">{1} 컨테이너에 있는 {0} 키 직렬화를 실패했습니다.</resource>
+<!-- UNSERIALIZABLE_PROPERTY_KEY -->
+<resource key="UNSERIALIZABLE_PROPERTY_KEY" dnt="false">{1} 컨테이너에 있는 {0} 키를 직렬화할 수 없습니다.</resource>
+<!-- COMPONENT_SAVED_STATE_FAILED -->
+<resource key="COMPONENT_SAVED_STATE_FAILED" dnt="false">{0} 구성 요소에 대한 상태 저장을 실패했습니다.</resource>
+<!-- COMPONENT_CHILDREN_SAVED_STATE_FAILED -->
+<resource key="COMPONENT_CHILDREN_SAVED_STATE_FAILED" dnt="false">{0} 구성 요소의 하위 항목 상태 저장을 실패했습니다.</resource>
+<!-- COMPONENT_TREE_SERIALIZATION_FAILED -->
+<resource key="COMPONENT_TREE_SERIALIZATION_FAILED" dnt="false">구성 요소 트리 상태 직렬화를 실패했습니다.</resource>
 </resources>

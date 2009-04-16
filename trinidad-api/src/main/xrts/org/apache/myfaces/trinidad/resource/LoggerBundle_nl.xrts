@@ -124,8 +124,8 @@
 <resource key="CAPABILITY_MASK_NOT_UNDERSTOOD" dnt="false">Functiemasker {0} is niet begrepen.</resource>
 <!-- INVALID_INDEX -->
 <resource key="INVALID_INDEX" dnt="false">Ongeldige index</resource>
-<!-- ATTEMP_ADD_DUPLICATE_ID -->
-<resource key="ATTEMP_ADD_DUPLICATE_ID" dnt="false">Er is een poging gedaan dubbele ID {0} toe te voegen.</resource>
+<!-- ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID -->
+<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">Er wordt een onderliggend item toegevoegd terwijl er al een onderliggend item met dezelfde ID bestaat. Het oude onderliggende item wordt verwijderd en het nieuwe wordt toegevoegd. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">Er is geen node opgegeven.</resource>
 <!-- COMPONENT_REQUIRED -->
@@ -156,6 +156,20 @@
 <resource key="CANNOT_CONSTRUCT_ADDFACETCHANGE_WITH_NULL_FACETNAME_FACETCOMPONENT" dnt="false">Kan AddFacetChange niet samenstellen als facetName of facetComponent NULL is.</resource>
 <!-- FACET_NAME_MUST_SPECIFIED -->
 <resource key="FACET_NAME_MUST_SPECIFIED" dnt="false">De facetnaam is verplicht.</resource>
+<!-- MOVABLE_CHILD_REQUIRED -->
+<resource key="MOVABLE_CHILD_REQUIRED" dnt="false">Te verplaatsen onderliggende component is verplicht.</resource>
+<!-- DESTINATION_CONTAINER_REQUIRED -->
+<resource key="DESTINATION_CONTAINER_REQUIRED" dnt="false">De bestemmingscontainercomponent is verplicht.</resource>
+<!-- MOVE_PARTICIPANTS_WITHOUT_ID -->
+<resource key="MOVE_PARTICIPANTS_WITHOUT_ID" dnt="false">Een of meer deelnemende componenten in MoveChildComponentChange heeft geen ID.</resource>
+<!-- COMMON_PARENT_NOT_FOUND -->
+<resource key="COMMON_PARENT_NOT_FOUND" dnt="false">Kan geen gemeenschappelijk bovenliggend item vinden van het te verplaatsen onderliggende item en de bestemmingscontainer: {0}.</resource>
+<!-- MOVABLE_CHILD_NOT_FOUND -->
+<resource key="MOVABLE_CHILD_NOT_FOUND" dnt="false">Te verplaatsen onderliggend item is niet gevonden: {0}.</resource>
+<!-- DESTINATION_CONTAINER_NOT_FOUND -->
+<resource key="DESTINATION_CONTAINER_NOT_FOUND" dnt="false">Bestemmingscontainer is niet gevonden: {0}.</resource>
+<!-- INSERT_BEFORE_NOT_FOUND -->
+<resource key="INSERT_BEFORE_NOT_FOUND" dnt="false">Component of node waarvoor moet worden ingevoegd is niet gevonden: {0}.</resource>
 <!-- INDEX_SIZE -->
 <resource key="INDEX_SIZE" dnt="false">Index: {0}, grootte: {1}</resource>
 <!-- BAD_PHASEID -->
@@ -272,4 +286,22 @@
 <resource key="RESOURCE_PATH_DOTS" dnt="false">Het resourcepad {0} bevat &quot;..&quot;. Omdat &quot;..&quot; door browsers wordt verwijderd, is dit een verdacht pad.</resource>
 <!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
 <resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">Kan de component met scopedId {0} van {1} niet vinden met de ondersteunde syntaxis. De component is gevonden met de afgekeurde syntaxis. Gebruik de ondersteunde syntaxis.</resource>
+<!-- UNSERIALIZABLE_VALUE -->
+<resource key="UNSERIALIZABLE_VALUE" dnt="false">Niet-serialiseerbare waarde: {0}</resource>
+<!-- UNSERIALIZABLE_PROPERTY_VALUE -->
+<resource key="UNSERIALIZABLE_PROPERTY_VALUE" dnt="false">Niet-serialiseerbare waarde {0} voor sleutel {1} in container {2}</resource>
+<!-- UNSERIALIZABLE_PROPERTY_VALUE_NO_CONTAINER -->
+<resource key="UNSERIALIZABLE_PROPERTY_VALUE_NO_CONTAINER" dnt="false">Niet-serialiseerbare waarde {0} voor sleutel {1}</resource>
+<!-- FAILED_SERIALIZATION_PROPERTY_VALUE -->
+<resource key="FAILED_SERIALIZATION_PROPERTY_VALUE" dnt="false">Serialiseren van waarde {0} voor eigenschapssleutel {1} in container {2} is mislukt.</resource>
+<!-- FAILED_SERIALIZATION_PROPERTY_KEY -->
+<resource key="FAILED_SERIALIZATION_PROPERTY_KEY" dnt="false">Serialiseren van sleutel {0} in container {1} is mislukt.</resource>
+<!-- UNSERIALIZABLE_PROPERTY_KEY -->
+<resource key="UNSERIALIZABLE_PROPERTY_KEY" dnt="false">Niet-serialiseerbare sleutel {0} op container {1}</resource>
+<!-- COMPONENT_SAVED_STATE_FAILED -->
+<resource key="COMPONENT_SAVED_STATE_FAILED" dnt="false">Opslaan van status voor component {0} is mislukt.</resource>
+<!-- COMPONENT_CHILDREN_SAVED_STATE_FAILED -->
+<resource key="COMPONENT_CHILDREN_SAVED_STATE_FAILED" dnt="false">Opslaan van status voor onderliggende componenten van component {0} mislukt.</resource>
+<!-- COMPONENT_TREE_SERIALIZATION_FAILED -->
+<resource key="COMPONENT_TREE_SERIALIZATION_FAILED" dnt="false">Serialiseren van status van componentstructuur is mislukt.</resource>
 </resources>

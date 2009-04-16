@@ -95,7 +95,7 @@
 <!-- RESOURCESERVLET_UNABLE_FIND_RESOURCELOADER -->
 <resource key="RESOURCESERVLET_UNABLE_FIND_RESOURCELOADER" dnt="false">ไม่พบ ResourceLoader สำหรับ ResourceServlet ที่พาธของเซิร์ฟเล็ต:{0} สาเหตุ: ไม่พบทรัพยากร:{1}</resource>
 <!-- RESOURCESERVLET_IN_DEBUG_MODE -->
-<resource key="RESOURCESERVLET_IN_DEBUG_MODE" dnt="false">Trinidad ResourceServlet ทำงานในโหมดดีบัก โปรดอย่าใช้ในการทำงานจริง โปรดดูที่พารามิเตอร์ {0} ใน /WEB-INF/web.xml</resource>
+<resource key="RESOURCESERVLET_IN_DEBUG_MODE" dnt="false">Trinidad ResourceServlet ทำงานในโหมดดีบัก ห้ามใช้ในการทำงานจริง โปรดดูที่พารามิเตอร์ {0} ใน /WEB-INF/web.xml</resource>
 <!-- CANNOT_FIND_CONTEXT_CLASS_LOADER -->
 <resource key="CANNOT_FIND_CONTEXT_CLASS_LOADER" dnt="false">ไม่พบคลาสโหลดเดอร์ของคอนเท็กซ์</resource>
 <!-- CANNOT_CONVERT_INTO_INT_ARRAY -->
@@ -124,8 +124,8 @@
 <resource key="CAPABILITY_MASK_NOT_UNDERSTOOD" dnt="false">ไม่ทราบเครื่องหมายความเข้ากันได้ {0}</resource>
 <!-- INVALID_INDEX -->
 <resource key="INVALID_INDEX" dnt="false">ดัชนีไม่ถูกต้อง</resource>
-<!-- ATTEMP_ADD_DUPLICATE_ID -->
-<resource key="ATTEMP_ADD_DUPLICATE_ID" dnt="false">มีการพยายามเพิ่ม ID {0} ซ้ำ</resource>
+<!-- ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID -->
+<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">มีการเพิ่มรายการระดับล่างขณะที่มีรายการระดับล่างที่ใช้ ID เดียวกันแล้ว ระบบจะลบรายการระดับล่างเดิมออก และเพิ่มรายการระดับล่างใหม่ {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">ไม่ได้ระบุโหนด</resource>
 <!-- COMPONENT_REQUIRED -->
@@ -156,6 +156,20 @@
 <resource key="CANNOT_CONSTRUCT_ADDFACETCHANGE_WITH_NULL_FACETNAME_FACETCOMPONENT" dnt="false">ไม่สามารถสร้าง AddFacetChange ด้วย facetName หรือ facetComponent ที่เป็นนัล</resource>
 <!-- FACET_NAME_MUST_SPECIFIED -->
 <resource key="FACET_NAME_MUST_SPECIFIED" dnt="false">ต้องระบุชื่อ Facet</resource>
+<!-- MOVABLE_CHILD_REQUIRED -->
+<resource key="MOVABLE_CHILD_REQUIRED" dnt="false">ต้องมีองค์ประกอบระดับล่างที่จะย้าย</resource>
+<!-- DESTINATION_CONTAINER_REQUIRED -->
+<resource key="DESTINATION_CONTAINER_REQUIRED" dnt="false">ต้องมีองค์ประกอบคอนเทนเนอร์ปลายทาง</resource>
+<!-- MOVE_PARTICIPANTS_WITHOUT_ID -->
+<resource key="MOVE_PARTICIPANTS_WITHOUT_ID" dnt="false">องค์ประกอบบางรายการใน MoveChildComponentChange ไม่มี ID</resource>
+<!-- COMMON_PARENT_NOT_FOUND -->
+<resource key="COMMON_PARENT_NOT_FOUND" dnt="false">ไม่พบรายการระดับบนร่วมกันระหว่างรายการระดับล่างที่ย้ายได้และคอนเทนเนอร์ปลายทาง: {0}</resource>
+<!-- MOVABLE_CHILD_NOT_FOUND -->
+<resource key="MOVABLE_CHILD_NOT_FOUND" dnt="false">ไม่พบรายการระดับล่างที่จะย้าย: {0}</resource>
+<!-- DESTINATION_CONTAINER_NOT_FOUND -->
+<resource key="DESTINATION_CONTAINER_NOT_FOUND" dnt="false">ไม่พบคอนเทนเนอร์ปลายทาง: {0}</resource>
+<!-- INSERT_BEFORE_NOT_FOUND -->
+<resource key="INSERT_BEFORE_NOT_FOUND" dnt="false">ไม่พบการแทรกก่อนหน้าองค์ประกอบหรือโหนด: {0}</resource>
 <!-- INDEX_SIZE -->
 <resource key="INDEX_SIZE" dnt="false">ดัชนี: {0} ขนาด: {1}</resource>
 <!-- BAD_PHASEID -->
@@ -272,4 +286,22 @@
 <resource key="RESOURCE_PATH_DOTS" dnt="false">พาธของทรัพยากร {0} มี &quot;..&quot; เบราเซอร์แปลค่า &quot;..&quot; ซึ่งทำให้เป็นพาธที่ไม่ปลอดภัย</resource>
 <!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
 <resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">ไม่พบองค์ประกอบที่มี scopedId {0} จาก {1} ที่มีรูปแบบคำสั่งที่รองรับ พบองค์ประกอบที่มีรูปแบบคำสั่งที่เลิกใช้แล้ว โปรดใช้รูปแบบคำสั่งที่รองรับ</resource>
+<!-- UNSERIALIZABLE_VALUE -->
+<resource key="UNSERIALIZABLE_VALUE" dnt="false">ค่าที่ไม่สามารถซีเรียลไลซ์: {0}</resource>
+<!-- UNSERIALIZABLE_PROPERTY_VALUE -->
+<resource key="UNSERIALIZABLE_PROPERTY_VALUE" dnt="false">ค่าที่ไม่สามารถซีเรียลไลซ์: {0} สำหรับคีย์: {1} ในคอนเทนเนอร์: {2}</resource>
+<!-- UNSERIALIZABLE_PROPERTY_VALUE_NO_CONTAINER -->
+<resource key="UNSERIALIZABLE_PROPERTY_VALUE_NO_CONTAINER" dnt="false">ค่าที่ไม่สามารถซีเรียลไลซ์: {0} สำหรับคีย์: {1}</resource>
+<!-- FAILED_SERIALIZATION_PROPERTY_VALUE -->
+<resource key="FAILED_SERIALIZATION_PROPERTY_VALUE" dnt="false">ไม่สามารถซีเรียลไลซ์ค่า: {0} สำหรับคีย์คุณสมบัติ: {1} ในคอนเทนเนอร์: {2}</resource>
+<!-- FAILED_SERIALIZATION_PROPERTY_KEY -->
+<resource key="FAILED_SERIALIZATION_PROPERTY_KEY" dnt="false">ไม่สามารถซีเรียลไลซ์คีย์: {0} ในคอนเทนเนอร์: {1}</resource>
+<!-- UNSERIALIZABLE_PROPERTY_KEY -->
+<resource key="UNSERIALIZABLE_PROPERTY_KEY" dnt="false">คีย์ที่ไม่สามารถซีเรียลไลซ์: {0} ในคอนเทนเนอร์: {1}</resource>
+<!-- COMPONENT_SAVED_STATE_FAILED -->
+<resource key="COMPONENT_SAVED_STATE_FAILED" dnt="false">ไม่สามารถบันทึกสภาวะสำหรับองค์ประกอบ: {0}</resource>
+<!-- COMPONENT_CHILDREN_SAVED_STATE_FAILED -->
+<resource key="COMPONENT_CHILDREN_SAVED_STATE_FAILED" dnt="false">ไม่สามารถบันทึกสภาวะสำหรับรายการระดับล่างขององค์ประกอบ: {0}</resource>
+<!-- COMPONENT_TREE_SERIALIZATION_FAILED -->
+<resource key="COMPONENT_TREE_SERIALIZATION_FAILED" dnt="false">ไม่สามารถซีเรียลไลซ์สภาวะของโครงสร้างองค์ประกอบ</resource>
 </resources>

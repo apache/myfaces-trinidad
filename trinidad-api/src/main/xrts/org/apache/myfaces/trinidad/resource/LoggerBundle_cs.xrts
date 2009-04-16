@@ -124,8 +124,8 @@
 <resource key="CAPABILITY_MASK_NOT_UNDERSTOOD" dnt="false">Maska dostupnosti {0} není srozumitelná</resource>
 <!-- INVALID_INDEX -->
 <resource key="INVALID_INDEX" dnt="false">Neplatný index</resource>
-<!-- ATTEMP_ADD_DUPLICATE_ID -->
-<resource key="ATTEMP_ADD_DUPLICATE_ID" dnt="false">Pokus o přidání duplicitního ID {0}</resource>
+<!-- ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID -->
+<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">Pokus o přidání podřízené položky, kdy již existuje podřízená položka se stejným ID. Stará podřízená položka bude odstraněna a nová přidána. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">Není zadán žádný uzel</resource>
 <!-- COMPONENT_REQUIRED -->
@@ -156,6 +156,20 @@
 <resource key="CANNOT_CONSTRUCT_ADDFACETCHANGE_WITH_NULL_FACETNAME_FACETCOMPONENT" dnt="false">Nelze sestavit atribut AddFacetChange s atributy facetName nebo facetComponent, které mají hodnotu null.</resource>
 <!-- FACET_NAME_MUST_SPECIFIED -->
 <resource key="FACET_NAME_MUST_SPECIFIED" dnt="false">Název fazety musí být zadán</resource>
+<!-- MOVABLE_CHILD_REQUIRED -->
+<resource key="MOVABLE_CHILD_REQUIRED" dnt="false">Je nutné zadat podřízenou položku, která má být přesunuta.</resource>
+<!-- DESTINATION_CONTAINER_REQUIRED -->
+<resource key="DESTINATION_CONTAINER_REQUIRED" dnt="false">Je nutné zadat komponentu cílového kontejneru.</resource>
+<!-- MOVE_PARTICIPANTS_WITHOUT_ID -->
+<resource key="MOVE_PARTICIPANTS_WITHOUT_ID" dnt="false">Jedna nebo více komponent, které se podílejí na operaci MoveChildComponentChange, nemá svůj ID.</resource>
+<!-- COMMON_PARENT_NOT_FOUND -->
+<resource key="COMMON_PARENT_NOT_FOUND" dnt="false">Nelze najít společnou nadřízenou položku mezi přesunutelnou podřízenou položkou a cílovým kontejnerem: {0}.</resource>
+<!-- MOVABLE_CHILD_NOT_FOUND -->
+<resource key="MOVABLE_CHILD_NOT_FOUND" dnt="false">Nelze najít podřízenou položku, která má být přesunuta: {0}.</resource>
+<!-- DESTINATION_CONTAINER_NOT_FOUND -->
+<resource key="DESTINATION_CONTAINER_NOT_FOUND" dnt="false">Nelze najít cílový kontejner: {0}.</resource>
+<!-- INSERT_BEFORE_NOT_FOUND -->
+<resource key="INSERT_BEFORE_NOT_FOUND" dnt="false">Nelze najít komponentu nebo uzel, před kterou má být provedeno vložení: {0}.</resource>
 <!-- INDEX_SIZE -->
 <resource key="INDEX_SIZE" dnt="false">index:{0} velikost:{1}</resource>
 <!-- BAD_PHASEID -->
@@ -272,4 +286,22 @@
 <resource key="RESOURCE_PATH_DOTS" dnt="false">Cesta ke zdroji {0} obsahuje &quot;..&quot;. Prohlížeče vyhodnocují &quot;..&quot; jako vnější, takže se jedná o podezřelou cestu.</resource>
 <!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
 <resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">Nebylo možné najít komponentu se scopedId {0} v {1} s podporovanou syntaxí. Byla nalezena komponenta s neschvalovanou syntaxí. Použijte podporovanou syntaxi.</resource>
+<!-- UNSERIALIZABLE_VALUE -->
+<resource key="UNSERIALIZABLE_VALUE" dnt="false">Neserializovatelná hodnota:{0}</resource>
+<!-- UNSERIALIZABLE_PROPERTY_VALUE -->
+<resource key="UNSERIALIZABLE_PROPERTY_VALUE" dnt="false">Neserializovatelná hodnota:{0} pro klíč:{1} v kontejneru:{2}</resource>
+<!-- UNSERIALIZABLE_PROPERTY_VALUE_NO_CONTAINER -->
+<resource key="UNSERIALIZABLE_PROPERTY_VALUE_NO_CONTAINER" dnt="false">Neserializovatelná hodnota:{0} pro klíč:{1}</resource>
+<!-- FAILED_SERIALIZATION_PROPERTY_VALUE -->
+<resource key="FAILED_SERIALIZATION_PROPERTY_VALUE" dnt="false">Nepodařilo se serializovat hodnotu:{0} pro klíč vlastnosti:{1} v kontejneru:{2}</resource>
+<!-- FAILED_SERIALIZATION_PROPERTY_KEY -->
+<resource key="FAILED_SERIALIZATION_PROPERTY_KEY" dnt="false">Nepodařilo se serializovat klíč:{0} v kontejneru:{1}</resource>
+<!-- UNSERIALIZABLE_PROPERTY_KEY -->
+<resource key="UNSERIALIZABLE_PROPERTY_KEY" dnt="false">Neserializovatelný klíč:{0} na kontejneru:{1}</resource>
+<!-- COMPONENT_SAVED_STATE_FAILED -->
+<resource key="COMPONENT_SAVED_STATE_FAILED" dnt="false">Nepodařilo se uložit stav pro komponentu:{0}</resource>
+<!-- COMPONENT_CHILDREN_SAVED_STATE_FAILED -->
+<resource key="COMPONENT_CHILDREN_SAVED_STATE_FAILED" dnt="false">Nepodařilo se uložit stav pro podřízené položky komponenty:{0}</resource>
+<!-- COMPONENT_TREE_SERIALIZATION_FAILED -->
+<resource key="COMPONENT_TREE_SERIALIZATION_FAILED" dnt="false">Nepodařilo se serializovat stav stromu komponenty</resource>
 </resources>

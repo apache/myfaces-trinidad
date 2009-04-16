@@ -124,8 +124,8 @@
 <resource key="CAPABILITY_MASK_NOT_UNDERSTOOD" dnt="false">Masca de funcţionalitate {0} nu a fost înţeleasă</resource>
 <!-- INVALID_INDEX -->
 <resource key="INVALID_INDEX" dnt="false">Index nevalid</resource>
-<!-- ATTEMP_ADD_DUPLICATE_ID -->
-<resource key="ATTEMP_ADD_DUPLICATE_ID" dnt="false">Încercare de adăugare a unui ID duplicat {0}</resource>
+<!-- ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID -->
+<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">Se adaugă un fiu când există deja un fiu cu acelaşi ID. Fiul vechi va fi eliminat şi va fi adăugat noul fiu. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">Nu a fost specificat nici un nod</resource>
 <!-- COMPONENT_REQUIRED -->
@@ -156,6 +156,20 @@
 <resource key="CANNOT_CONSTRUCT_ADDFACETCHANGE_WITH_NULL_FACETNAME_FACETCOMPONENT" dnt="false">Nu se poate construi un element AddFacetChange cu facetName sau facetComponent nul.</resource>
 <!-- FACET_NAME_MUST_SPECIFIED -->
 <resource key="FACET_NAME_MUST_SPECIFIED" dnt="false">Trebuie specificat numele faţetei</resource>
+<!-- MOVABLE_CHILD_REQUIRED -->
+<resource key="MOVABLE_CHILD_REQUIRED" dnt="false">Mutarea componentei fiu este obligatorie.</resource>
+<!-- DESTINATION_CONTAINER_REQUIRED -->
+<resource key="DESTINATION_CONTAINER_REQUIRED" dnt="false">Componenta container destinaţie este obligatorie.</resource>
+<!-- MOVE_PARTICIPANTS_WITHOUT_ID -->
+<resource key="MOVE_PARTICIPANTS_WITHOUT_ID" dnt="false">Cel puţin una dintre componentele participante din MoveChildComponentChange nu are ID.</resource>
+<!-- COMMON_PARENT_NOT_FOUND -->
+<resource key="COMMON_PARENT_NOT_FOUND" dnt="false">Nu s-a putut găsi un părinte comun pentru fiul mutabil şi containerul destinaţie: {0}.</resource>
+<!-- MOVABLE_CHILD_NOT_FOUND -->
+<resource key="MOVABLE_CHILD_NOT_FOUND" dnt="false">Nu s-a putut găsi fiul de mutat: {0}.</resource>
+<!-- DESTINATION_CONTAINER_NOT_FOUND -->
+<resource key="DESTINATION_CONTAINER_NOT_FOUND" dnt="false">Nu s-a putut găsi containerul destinaţie: {0}.</resource>
+<!-- INSERT_BEFORE_NOT_FOUND -->
+<resource key="INSERT_BEFORE_NOT_FOUND" dnt="false">Nu s-a putut găsi inserarea înainte de componentă sau nod: {0}.</resource>
 <!-- INDEX_SIZE -->
 <resource key="INDEX_SIZE" dnt="false">index: {0} dimensiune: {1}</resource>
 <!-- BAD_PHASEID -->
@@ -272,4 +286,22 @@
 <resource key="RESOURCE_PATH_DOTS" dnt="false">Calea resursei {0} conţine &quot;..&quot;. Browserele au ca rezultat &quot;..&quot;, în consecinţă, aceasta este o cale nesecurizată.</resource>
 <!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
 <resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">Nu s-a putut găsi componenta cu scopedId {0} din {1} cu sintaxa acceptată. Componenta a fost găsită cu sintaxa perimată. Utilizaţi sintaxa acceptată.</resource>
+<!-- UNSERIALIZABLE_VALUE -->
+<resource key="UNSERIALIZABLE_VALUE" dnt="false">Valoare neserializabilă: {0}</resource>
+<!-- UNSERIALIZABLE_PROPERTY_VALUE -->
+<resource key="UNSERIALIZABLE_PROPERTY_VALUE" dnt="false">Valoare neserializabilă: {0} pentru cheia: {1} în containerul: {2}</resource>
+<!-- UNSERIALIZABLE_PROPERTY_VALUE_NO_CONTAINER -->
+<resource key="UNSERIALIZABLE_PROPERTY_VALUE_NO_CONTAINER" dnt="false">Valoare neserializabilă: {0} pentru cheia: {1}</resource>
+<!-- FAILED_SERIALIZATION_PROPERTY_VALUE -->
+<resource key="FAILED_SERIALIZATION_PROPERTY_VALUE" dnt="false">Eşec la serializarea valorii: {0} pentru cheia de proprietare: {1} din containerul: {2}</resource>
+<!-- FAILED_SERIALIZATION_PROPERTY_KEY -->
+<resource key="FAILED_SERIALIZATION_PROPERTY_KEY" dnt="false">Eşec la serializarea cheii: {0} din containerul: {1}</resource>
+<!-- UNSERIALIZABLE_PROPERTY_KEY -->
+<resource key="UNSERIALIZABLE_PROPERTY_KEY" dnt="false">Cheie neserializabilă: {0} în containerul: {1}</resource>
+<!-- COMPONENT_SAVED_STATE_FAILED -->
+<resource key="COMPONENT_SAVED_STATE_FAILED" dnt="false">Eşec la salvarea stării componentei: {0}</resource>
+<!-- COMPONENT_CHILDREN_SAVED_STATE_FAILED -->
+<resource key="COMPONENT_CHILDREN_SAVED_STATE_FAILED" dnt="false">Eşec la salvarea stării fiilor componentei: {0}</resource>
+<!-- COMPONENT_TREE_SERIALIZATION_FAILED -->
+<resource key="COMPONENT_TREE_SERIALIZATION_FAILED" dnt="false">Eşec la serializarea stării arborelui de componente</resource>
 </resources>

@@ -124,8 +124,8 @@
 <resource key="CAPABILITY_MASK_NOT_UNDERSTOOD" dnt="false">A(z) {0} funkciómaszk nem értelmezhető</resource>
 <!-- INVALID_INDEX -->
 <resource key="INVALID_INDEX" dnt="false">Érvénytelen index</resource>
-<!-- ATTEMP_ADD_DUPLICATE_ID -->
-<resource key="ATTEMP_ADD_DUPLICATE_ID" dnt="false">Kísérlet ismétlődő {0} azonosító felvételére</resource>
+<!-- ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID -->
+<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">Már van olyan gyermekelem, amelynek azonosítója megegyezik a felvenni kívánt gyermekelemével. A rendszer a korábbi gyermekelemet eltávolítja, és felveszi az új gyermekelemet. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">Nincs csomópont megadva</resource>
 <!-- COMPONENT_REQUIRED -->
@@ -156,6 +156,20 @@
 <resource key="CANNOT_CONSTRUCT_ADDFACETCHANGE_WITH_NULL_FACETNAME_FACETCOMPONENT" dnt="false">Nem építhető fel AddFacetChange, ha a facetName vagy a facetComponent null értékű.</resource>
 <!-- FACET_NAME_MUST_SPECIFIED -->
 <resource key="FACET_NAME_MUST_SPECIFIED" dnt="false">Az oldal nevét meg kell adni</resource>
+<!-- MOVABLE_CHILD_REQUIRED -->
+<resource key="MOVABLE_CHILD_REQUIRED" dnt="false">Kötelező megadni az áthelyezni kívánt gyermekösszetevőt.</resource>
+<!-- DESTINATION_CONTAINER_REQUIRED -->
+<resource key="DESTINATION_CONTAINER_REQUIRED" dnt="false">Kötelező megadni a céltároló-összetevőt.</resource>
+<!-- MOVE_PARTICIPANTS_WITHOUT_ID -->
+<resource key="MOVE_PARTICIPANTS_WITHOUT_ID" dnt="false">A MoveChildComponentChange műveletben részt vevő összetevők közül legalább egynek hiányzik az azonosítója.</resource>
+<!-- COMMON_PARENT_NOT_FOUND -->
+<resource key="COMMON_PARENT_NOT_FOUND" dnt="false">Az áthelyezendő gyermekelemnek és a céltárolónak nincs közös szülőeleme: {0}.</resource>
+<!-- MOVABLE_CHILD_NOT_FOUND -->
+<resource key="MOVABLE_CHILD_NOT_FOUND" dnt="false">Nem található az áthelyezendő gyermekelem: {0}.</resource>
+<!-- DESTINATION_CONTAINER_NOT_FOUND -->
+<resource key="DESTINATION_CONTAINER_NOT_FOUND" dnt="false">Nem található a céltároló: {0}.</resource>
+<!-- INSERT_BEFORE_NOT_FOUND -->
+<resource key="INSERT_BEFORE_NOT_FOUND" dnt="false">Nem található a beszúrás helye előtti összetevő vagy csomópont: {0}.</resource>
 <!-- INDEX_SIZE -->
 <resource key="INDEX_SIZE" dnt="false">index: {0}, méret: {1}</resource>
 <!-- BAD_PHASEID -->
@@ -272,4 +286,22 @@
 <resource key="RESOURCE_PATH_DOTS" dnt="false">A(z) {0} erőforrás-elérési útvonalban &quot;..&quot; szerepel. A böngészők ezt külső helyre mutató útvonalként értelmezik, ezért gyanúsnak tekintik.</resource>
 <!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
 <resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">A támogatott szintaxissal nem található {0} scopedId értékkel rendelkező összetevő a következő helyen: {1}. Az összetevő csak az elavult szintaxissal található meg. Javítsa ki a támogatott szintaxisra.</resource>
+<!-- UNSERIALIZABLE_VALUE -->
+<resource key="UNSERIALIZABLE_VALUE" dnt="false">Az érték nem alakítható soros adattá: {0}</resource>
+<!-- UNSERIALIZABLE_PROPERTY_VALUE -->
+<resource key="UNSERIALIZABLE_PROPERTY_VALUE" dnt="false">A(z) {1} kulcshoz és {2} tárolóhoz megadott {0} érték nem alakítható soros adattá.</resource>
+<!-- UNSERIALIZABLE_PROPERTY_VALUE_NO_CONTAINER -->
+<resource key="UNSERIALIZABLE_PROPERTY_VALUE_NO_CONTAINER" dnt="false">A(z) {1} kulcshoz megadott {0} érték nem alakítható soros adattá.</resource>
+<!-- FAILED_SERIALIZATION_PROPERTY_VALUE -->
+<resource key="FAILED_SERIALIZATION_PROPERTY_VALUE" dnt="false">Sikertelen a(z) {1} kulcshoz és {2} tárolóhoz tartozó {0} érték soros adattá alakítása.</resource>
+<!-- FAILED_SERIALIZATION_PROPERTY_KEY -->
+<resource key="FAILED_SERIALIZATION_PROPERTY_KEY" dnt="false">Sikertelen a(z) {1} kulcshoz tartozó {0} érték soros adattá alakítása.</resource>
+<!-- UNSERIALIZABLE_PROPERTY_KEY -->
+<resource key="UNSERIALIZABLE_PROPERTY_KEY" dnt="false">A(z) {1} tárolóra vonatkozó {0} kulcs nem alakítható soros adattá.</resource>
+<!-- COMPONENT_SAVED_STATE_FAILED -->
+<resource key="COMPONENT_SAVED_STATE_FAILED" dnt="false">Nem menthető a(z) {0} összetevő állapota.</resource>
+<!-- COMPONENT_CHILDREN_SAVED_STATE_FAILED -->
+<resource key="COMPONENT_CHILDREN_SAVED_STATE_FAILED" dnt="false">Nem menthető a(z) {0} összetevő gyermekelemeinek állapota.</resource>
+<!-- COMPONENT_TREE_SERIALIZATION_FAILED -->
+<resource key="COMPONENT_TREE_SERIALIZATION_FAILED" dnt="false">Az összetevőfa állapota nem alakítható soros adattá.</resource>
 </resources>

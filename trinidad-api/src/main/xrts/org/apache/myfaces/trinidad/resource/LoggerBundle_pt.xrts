@@ -73,7 +73,7 @@
 <!-- NULL_VIEWID -->
 <resource key="NULL_VIEWID" dnt="false">A propriedade viewId no ViewIdPropertyMenuModel é nula. A propriedade viewId é necessária para encontrar a rowKey de foco.</resource>
 <!-- INVALID_EL_EXPRESSION -->
-<resource key="INVALID_EL_EXPRESSION" dnt="false">A Expressão EL {0} é inválida ou devolveu um valor incorrecto</resource>
+<resource key="INVALID_EL_EXPRESSION" dnt="false">A Expressão de EL {0} é inválida ou devolveu um valor incorrecto</resource>
 <!-- OPEN_URI_EXCEPTION -->
 <resource key="OPEN_URI_EXCEPTION" dnt="false">Excepção na abertura do URI {0}</resource>
 <!-- ERR_CREATE_MENU_MODEL -->
@@ -124,8 +124,8 @@
 <resource key="CAPABILITY_MASK_NOT_UNDERSTOOD" dnt="false">Máscara de capacidade {0} não compreendida</resource>
 <!-- INVALID_INDEX -->
 <resource key="INVALID_INDEX" dnt="false">Índice inválido</resource>
-<!-- ATTEMP_ADD_DUPLICATE_ID -->
-<resource key="ATTEMP_ADD_DUPLICATE_ID" dnt="false">Tentativa de adição de uma ID em duplicado {0}</resource>
+<!-- ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID -->
+<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">A acrescentar um filho quando já existe um filho com a mesma ID. O filho antigo será retirado e o novo filho será acrescentado. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">Não foi especificado nenhum nó</resource>
 <!-- COMPONENT_REQUIRED -->
@@ -156,6 +156,20 @@
 <resource key="CANNOT_CONSTRUCT_ADDFACETCHANGE_WITH_NULL_FACETNAME_FACETCOMPONENT" dnt="false">Não é possível criar AddFacetChange com um facetName ou facetComponent nulo.</resource>
 <!-- FACET_NAME_MUST_SPECIFIED -->
 <resource key="FACET_NAME_MUST_SPECIFIED" dnt="false">É necessário especificar o nome da faceta</resource>
+<!-- MOVABLE_CHILD_REQUIRED -->
+<resource key="MOVABLE_CHILD_REQUIRED" dnt="false">É necessário o componente filho para deslocação.</resource>
+<!-- DESTINATION_CONTAINER_REQUIRED -->
+<resource key="DESTINATION_CONTAINER_REQUIRED" dnt="false">É necessário o componente do contentor de destino.</resource>
+<!-- MOVE_PARTICIPANTS_WITHOUT_ID -->
+<resource key="MOVE_PARTICIPANTS_WITHOUT_ID" dnt="false">Um ou vários dos componentes participantes em MoveChildComponentChange não têm ID.</resource>
+<!-- COMMON_PARENT_NOT_FOUND -->
+<resource key="COMMON_PARENT_NOT_FOUND" dnt="false">Não foi possível encontrar um pai comum entre o filho deslocável e o contentor de destino: {0}.</resource>
+<!-- MOVABLE_CHILD_NOT_FOUND -->
+<resource key="MOVABLE_CHILD_NOT_FOUND" dnt="false">Não foi possível encontrar o filho para deslocação: {0}.</resource>
+<!-- DESTINATION_CONTAINER_NOT_FOUND -->
+<resource key="DESTINATION_CONTAINER_NOT_FOUND" dnt="false">Não foi possível encontrar o contentor de destino: {0}.</resource>
+<!-- INSERT_BEFORE_NOT_FOUND -->
+<resource key="INSERT_BEFORE_NOT_FOUND" dnt="false">Não foi possível encontrar a inserção antes do componente ou nó: {0}.</resource>
 <!-- INDEX_SIZE -->
 <resource key="INDEX_SIZE" dnt="false">índice:{0} dimensão:{1}</resource>
 <!-- BAD_PHASEID -->
@@ -272,4 +286,22 @@
 <resource key="RESOURCE_PATH_DOTS" dnt="false">O percurso do recurso {0} contém &quot;..&quot;. Os navegadores excluem os &quot;..&quot; e, por isso, este percurso é suspeito.</resource>
 <!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
 <resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">Não foi possível encontrar o componente com a scopedId {0} a partir de {1} com a sintaxe suportada. O componente foi encontrado com a sintaxe recusada. Utilize a sintaxe suportada.</resource>
+<!-- UNSERIALIZABLE_VALUE -->
+<resource key="UNSERIALIZABLE_VALUE" dnt="false">Valor não sequenciável:{0}</resource>
+<!-- UNSERIALIZABLE_PROPERTY_VALUE -->
+<resource key="UNSERIALIZABLE_PROPERTY_VALUE" dnt="false">Valor não sequenciável:{0} para a chave:{1} no contentor:{2}</resource>
+<!-- UNSERIALIZABLE_PROPERTY_VALUE_NO_CONTAINER -->
+<resource key="UNSERIALIZABLE_PROPERTY_VALUE_NO_CONTAINER" dnt="false">Valor não sequenciável:{0} para a chave:{1}</resource>
+<!-- FAILED_SERIALIZATION_PROPERTY_VALUE -->
+<resource key="FAILED_SERIALIZATION_PROPERTY_VALUE" dnt="false">Falha na sequenciação do valor:{0} para a chave da propriedade:{1} no contentor:{2}</resource>
+<!-- FAILED_SERIALIZATION_PROPERTY_KEY -->
+<resource key="FAILED_SERIALIZATION_PROPERTY_KEY" dnt="false">Falha na sequenciação da chave:{0} no contentor:{1}</resource>
+<!-- UNSERIALIZABLE_PROPERTY_KEY -->
+<resource key="UNSERIALIZABLE_PROPERTY_KEY" dnt="false">Chave não sequenciável:{0} no contentor:{1}</resource>
+<!-- COMPONENT_SAVED_STATE_FAILED -->
+<resource key="COMPONENT_SAVED_STATE_FAILED" dnt="false">Falha na gravação do estado do componente:{0}</resource>
+<!-- COMPONENT_CHILDREN_SAVED_STATE_FAILED -->
+<resource key="COMPONENT_CHILDREN_SAVED_STATE_FAILED" dnt="false">Falha na gravação do estado dos filhos do componente:{0}</resource>
+<!-- COMPONENT_TREE_SERIALIZATION_FAILED -->
+<resource key="COMPONENT_TREE_SERIALIZATION_FAILED" dnt="false">Falha na sequenciação do estado da árvore de componentes</resource>
 </resources>

@@ -59,9 +59,9 @@
 <!-- NO_REQUESTCONTEXT_TIMEZONE_DEFAULT -->
 <resource key="NO_REQUESTCONTEXT_TIMEZONE_DEFAULT" dnt="false">RequestContext kann nicht gefunden werden, TimeZone wird auf den Standardwert eingestellt.</resource>
 <!-- FAIL_HOLD_DECIMALFORMAT -->
-<resource key="FAIL_HOLD_DECIMALFORMAT" dnt="false">DecimalFormat für den Typ {0} konnte nicht abgerufen werden. Für Dezimaltrennzeichen, Zahlengruppen-Trennzeichen, Währungscode werden die Standardwerte auf der Basis der Locale {1} verwendet</resource>
+<resource key="FAIL_HOLD_DECIMALFORMAT" dnt="false">DecimalFormat für den Typ {0} konnte nicht abgerufen werden. Für Dezimaltrennzeichen, Zahlengruppen-Trennzeichen, Währungscode werden die Standardwerte auf der Basis des Gebietsschemas {1} verwendet</resource>
 <!-- NULL_REQUESTCONTEXT -->
-<resource key="NULL_REQUESTCONTEXT" dnt="false">RequestContext ist Null: Für Dezimaltrennzeichen, Zahlengruppen-Trennzeichen, Währungscode werden die Standardwerte auf der Basis der Locale verwendet</resource>
+<resource key="NULL_REQUESTCONTEXT" dnt="false">RequestContext ist Null: Für Dezimaltrennzeichen, Zahlengruppen-Trennzeichen, Währungscode werden die Standardwerte auf der Basis des Gebietsschemas verwendet</resource>
 <!-- NULL_REQUEST_CONTEXT_UNABLE_GET_CURRENCY_CODE -->
 <resource key="NULL_REQUEST_CONTEXT_UNABLE_GET_CURRENCY_CODE" dnt="false">RequestContext ist Null, Währungscode kann nicht abgerufen werden</resource>
 <!-- NUMBER_NOT_DECIMALFORMAT_IGNORE_CURRENCY -->
@@ -124,8 +124,8 @@
 <resource key="CAPABILITY_MASK_NOT_UNDERSTOOD" dnt="false">Capability-Maske {0} konnte nicht interpretiert werden</resource>
 <!-- INVALID_INDEX -->
 <resource key="INVALID_INDEX" dnt="false">Ungültiger Index</resource>
-<!-- ATTEMP_ADD_DUPLICATE_ID -->
-<resource key="ATTEMP_ADD_DUPLICATE_ID" dnt="false">Versuch, eine doppelte ID {0} hinzuzufügen</resource>
+<!-- ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID -->
+<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">Es wird ein untergeordnetes Objekt hinzugefügt, während bereits ein untergeordnetes Objekt mit derselben ID vorhanden ist. Das alte untergeordnete Objekt wird entfernt und das neue untergeordnete Objekt hinzugefügt. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">Kein Knoten angegeben</resource>
 <!-- COMPONENT_REQUIRED -->
@@ -156,6 +156,20 @@
 <resource key="CANNOT_CONSTRUCT_ADDFACETCHANGE_WITH_NULL_FACETNAME_FACETCOMPONENT" dnt="false">AddFacetChange kann nicht erstellt werden, wenn facetName oder facetComponent Null ist.</resource>
 <!-- FACET_NAME_MUST_SPECIFIED -->
 <resource key="FACET_NAME_MUST_SPECIFIED" dnt="false">Facet-Name muss angegeben werden</resource>
+<!-- MOVABLE_CHILD_REQUIRED -->
+<resource key="MOVABLE_CHILD_REQUIRED" dnt="false">Zu verschiebende untergeordnete Komponente ist erforderlich.</resource>
+<!-- DESTINATION_CONTAINER_REQUIRED -->
+<resource key="DESTINATION_CONTAINER_REQUIRED" dnt="false">Ziel-Container-Komponente ist erforderlich.</resource>
+<!-- MOVE_PARTICIPANTS_WITHOUT_ID -->
+<resource key="MOVE_PARTICIPANTS_WITHOUT_ID" dnt="false">Eine oder mehrere der teilnehmenden Komponenten in MoveChildComponentChange haben keine ID.</resource>
+<!-- COMMON_PARENT_NOT_FOUND -->
+<resource key="COMMON_PARENT_NOT_FOUND" dnt="false">Gemeinsame übergeordnete Komponente zwischen der verschiebbaren Komponente und dem Ziel-Container konnte nicht gefunden werden: {0}.</resource>
+<!-- MOVABLE_CHILD_NOT_FOUND -->
+<resource key="MOVABLE_CHILD_NOT_FOUND" dnt="false">Zu verschiebende untergeordnete Komponente konnte nicht gefunden werden: {0}.</resource>
+<!-- DESTINATION_CONTAINER_NOT_FOUND -->
+<resource key="DESTINATION_CONTAINER_NOT_FOUND" dnt="false">Ziel-Container konnte nicht gefunden werden: {0}.</resource>
+<!-- INSERT_BEFORE_NOT_FOUND -->
+<resource key="INSERT_BEFORE_NOT_FOUND" dnt="false">Insert vor Komponente oder Knoten konnte nicht gefunden werden: {0}.</resource>
 <!-- INDEX_SIZE -->
 <resource key="INDEX_SIZE" dnt="false">Index: {0} Größe: {1}</resource>
 <!-- BAD_PHASEID -->
@@ -253,7 +267,7 @@
 <!-- NULL_FACESCONTEXT -->
 <resource key="NULL_FACESCONTEXT" dnt="false">FacesContext ist Null</resource>
 <!-- CUSTOM_MESSAGE_SHOULD_BE_VALUEBINDING_OR_STRING_TYPE -->
-<resource key="CUSTOM_MESSAGE_SHOULD_BE_VALUEBINDING_OR_STRING_TYPE" dnt="false">benutzerdefinierte Meldung muss den Typ ValueBinding oder String aufweisen</resource>
+<resource key="CUSTOM_MESSAGE_SHOULD_BE_VALUEBINDING_OR_STRING_TYPE" dnt="false">benutzerdefinierte Meldung muss den Typ ValueBinding oder Zeichenfolge aufweisen</resource>
 <!-- PROVIDER_NOT_RETURN_IMPLEMENTING_OBJECT -->
 <resource key="PROVIDER_NOT_RETURN_IMPLEMENTING_OBJECT" dnt="false">Provider {0} gab kein Objekt zurück, das {1} implementiert</resource>
 <!-- OBTAIN_NULL_RENDERKIT_WHILE_GETTING_SERVICE -->
@@ -272,4 +286,22 @@
 <resource key="RESOURCE_PATH_DOTS" dnt="false">Der Ressourcenpfad {0} enthält &quot;..&quot;. Browser filtern &quot;..&quot; aus. Deshalb ist dies ein verdächtiger Pfad.</resource>
 <!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
 <resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">Die Komponente mit der scopedId {0} von {1} konnte nicht in der unterstützen Syntax gefunden werden. Die Komponente wurde in der verworfenen Syntax gefunden. Verwenden Sie die unterstützte Syntax.</resource>
+<!-- UNSERIALIZABLE_VALUE -->
+<resource key="UNSERIALIZABLE_VALUE" dnt="false">Nicht serialisierbarer Wert:{0}</resource>
+<!-- UNSERIALIZABLE_PROPERTY_VALUE -->
+<resource key="UNSERIALIZABLE_PROPERTY_VALUE" dnt="false">Nicht serialisierbarer Wert: {0} für Schlüssel: {1} in Container: {2}</resource>
+<!-- UNSERIALIZABLE_PROPERTY_VALUE_NO_CONTAINER -->
+<resource key="UNSERIALIZABLE_PROPERTY_VALUE_NO_CONTAINER" dnt="false">Nicht serialisierbarer Wert: {0} für Schlüssel: {1}</resource>
+<!-- FAILED_SERIALIZATION_PROPERTY_VALUE -->
+<resource key="FAILED_SERIALIZATION_PROPERTY_VALUE" dnt="false">Wert: {0} für Eigenschaftsschlüssel: {1} in Container: {2} konnte nicht serialisiert werden</resource>
+<!-- FAILED_SERIALIZATION_PROPERTY_KEY -->
+<resource key="FAILED_SERIALIZATION_PROPERTY_KEY" dnt="false">Schlüssel: {0} in Container: {1} konnte nicht serialisiert werden</resource>
+<!-- UNSERIALIZABLE_PROPERTY_KEY -->
+<resource key="UNSERIALIZABLE_PROPERTY_KEY" dnt="false">Nicht serialisierbarer Schlüssel: {0} in Container: {1}</resource>
+<!-- COMPONENT_SAVED_STATE_FAILED -->
+<resource key="COMPONENT_SAVED_STATE_FAILED" dnt="false">Status für Komponente konnte nicht gespeichert werden: {0}</resource>
+<!-- COMPONENT_CHILDREN_SAVED_STATE_FAILED -->
+<resource key="COMPONENT_CHILDREN_SAVED_STATE_FAILED" dnt="false">Status für untergeordnete Komponenten von Komponente: {0} konnte nicht gespeichert werden</resource>
+<!-- COMPONENT_TREE_SERIALIZATION_FAILED -->
+<resource key="COMPONENT_TREE_SERIALIZATION_FAILED" dnt="false">Komponentenbaumstatus konnte nicht serialisiert werden</resource>
 </resources>

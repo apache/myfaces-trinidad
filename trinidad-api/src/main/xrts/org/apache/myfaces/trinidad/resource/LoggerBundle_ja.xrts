@@ -124,8 +124,8 @@
 <resource key="CAPABILITY_MASK_NOT_UNDERSTOOD" dnt="false">機能マスク{0}が解釈されません</resource>
 <!-- INVALID_INDEX -->
 <resource key="INVALID_INDEX" dnt="false">無効な索引</resource>
-<!-- ATTEMP_ADD_DUPLICATE_ID -->
-<resource key="ATTEMP_ADD_DUPLICATE_ID" dnt="false">重複ID {0}の追加を試行</resource>
+<!-- ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID -->
+<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">同じIDを持つ子がすでに存在するときに、子を追加しようとしています。古い子が削除され、新しい子が追加されます。{0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">ノードが指定されていません</resource>
 <!-- COMPONENT_REQUIRED -->
@@ -156,6 +156,20 @@
 <resource key="CANNOT_CONSTRUCT_ADDFACETCHANGE_WITH_NULL_FACETNAME_FACETCOMPONENT" dnt="false">facetNameまたはfacetComponentのいずれかがnullのAddFacetChangeは作成できません。</resource>
 <!-- FACET_NAME_MUST_SPECIFIED -->
 <resource key="FACET_NAME_MUST_SPECIFIED" dnt="false">ファセット名を指定する必要があります</resource>
+<!-- MOVABLE_CHILD_REQUIRED -->
+<resource key="MOVABLE_CHILD_REQUIRED" dnt="false">移動する子コンポーネントが必要です。</resource>
+<!-- DESTINATION_CONTAINER_REQUIRED -->
+<resource key="DESTINATION_CONTAINER_REQUIRED" dnt="false">宛先コンテナ・コンポーネントが必要です。</resource>
+<!-- MOVE_PARTICIPANTS_WITHOUT_ID -->
+<resource key="MOVE_PARTICIPANTS_WITHOUT_ID" dnt="false">MoveChildComponentChangeに存在する1つ以上のコンポーネントにIDがありません。</resource>
+<!-- COMMON_PARENT_NOT_FOUND -->
+<resource key="COMMON_PARENT_NOT_FOUND" dnt="false">移動可能な子と宛先コンテナの間に共通の親が見つかりませんでした: {0}。</resource>
+<!-- MOVABLE_CHILD_NOT_FOUND -->
+<resource key="MOVABLE_CHILD_NOT_FOUND" dnt="false">移動する子が見つかりませんでした: {0}。</resource>
+<!-- DESTINATION_CONTAINER_NOT_FOUND -->
+<resource key="DESTINATION_CONTAINER_NOT_FOUND" dnt="false">宛先コンテナが見つかりませんでした: {0}。</resource>
+<!-- INSERT_BEFORE_NOT_FOUND -->
+<resource key="INSERT_BEFORE_NOT_FOUND" dnt="false">コンポーネントまたはノードの前の挿入が見つかりませんでした: {0}。</resource>
 <!-- INDEX_SIZE -->
 <resource key="INDEX_SIZE" dnt="false">索引:{0} サイズ:{1}</resource>
 <!-- BAD_PHASEID -->
@@ -257,7 +271,7 @@
 <!-- PROVIDER_NOT_RETURN_IMPLEMENTING_OBJECT -->
 <resource key="PROVIDER_NOT_RETURN_IMPLEMENTING_OBJECT" dnt="false">プロバイダ{0}は、{1}を実装するオブジェクトを戻しませんでした</resource>
 <!-- OBTAIN_NULL_RENDERKIT_WHILE_GETTING_SERVICE -->
-<resource key="OBTAIN_NULL_RENDERKIT_WHILE_GETTING_SERVICE" dnt="false">FacesContext.getRenderKit()が{0}サービスの取得時にnullを戻しました。コンフィギュレーションを確認してください。</resource>
+<resource key="OBTAIN_NULL_RENDERKIT_WHILE_GETTING_SERVICE" dnt="false">FacesContext.getRenderKit()が{0}サービスの取得時にnullを戻しました。構成を確認してください。</resource>
 <!-- ENCODING_NOT_SUPPORTED_BY_JVM -->
 <resource key="ENCODING_NOT_SUPPORTED_BY_JVM" dnt="false">エンコーディング: {0}はJVMでサポートされていません</resource>
 <!-- VALUE_IS_NOT_DATE_TYPE -->
@@ -270,4 +284,24 @@
 <resource key="RESOURCE_PATH_OUTSIDE_ROOT" dnt="false">リソース・パス{0}に&quot;..&quot;が含まれており、ルート・ディレクトリ外に解決されます。これは安全ではありません。したがってこのパスは無視されます。</resource>
 <!-- RESOURCE_PATH_CONTAINS_DOTS -->
 <resource key="RESOURCE_PATH_DOTS" dnt="false">リソース・パス{0}に&quot;..&quot;が含まれます。ブラウザは&quot;..&quot;外に解決するため、これは疑わしいパスです。</resource>
+<!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
+<resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">サポートされている構文で、{1}からscopedId {0}のコンポーネントは見つかりませんでした。非推奨構文でコンポーネントが見つかりました。サポートされている構文を使用してください。</resource>
+<!-- UNSERIALIZABLE_VALUE -->
+<resource key="UNSERIALIZABLE_VALUE" dnt="false">シリアライズできない値: {0}</resource>
+<!-- UNSERIALIZABLE_PROPERTY_VALUE -->
+<resource key="UNSERIALIZABLE_PROPERTY_VALUE" dnt="false">コンテナ: {2}内のキー: {1}のシリアライズできない値: {0}</resource>
+<!-- UNSERIALIZABLE_PROPERTY_VALUE_NO_CONTAINER -->
+<resource key="UNSERIALIZABLE_PROPERTY_VALUE_NO_CONTAINER" dnt="false">キー: {1}のシリアライズできない値: {0}</resource>
+<!-- FAILED_SERIALIZATION_PROPERTY_VALUE -->
+<resource key="FAILED_SERIALIZATION_PROPERTY_VALUE" dnt="false">コンテナ: {2}内のプロパティ・キー: {1}の値: {0}をシリアライズできませんでした</resource>
+<!-- FAILED_SERIALIZATION_PROPERTY_KEY -->
+<resource key="FAILED_SERIALIZATION_PROPERTY_KEY" dnt="false">コンテナ: {1}内のキー: {0}をシリアライズできませんでした</resource>
+<!-- UNSERIALIZABLE_PROPERTY_KEY -->
+<resource key="UNSERIALIZABLE_PROPERTY_KEY" dnt="false">コンテナ: {1}でシリアライズできないキー: {0}</resource>
+<!-- COMPONENT_SAVED_STATE_FAILED -->
+<resource key="COMPONENT_SAVED_STATE_FAILED" dnt="false">コンポーネントの状態の保存に失敗しました: {0}</resource>
+<!-- COMPONENT_CHILDREN_SAVED_STATE_FAILED -->
+<resource key="COMPONENT_CHILDREN_SAVED_STATE_FAILED" dnt="false">コンポーネントの子の状態の保存に失敗しました: {0}</resource>
+<!-- COMPONENT_TREE_SERIALIZATION_FAILED -->
+<resource key="COMPONENT_TREE_SERIALIZATION_FAILED" dnt="false">コンポーネント・ツリーの状態のシリアライズに失敗しました</resource>
 </resources>

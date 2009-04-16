@@ -59,9 +59,9 @@
 <!-- NO_REQUESTCONTEXT_TIMEZONE_DEFAULT -->
 <resource key="NO_REQUESTCONTEXT_TIMEZONE_DEFAULT" dnt="false">לא נמצא RequestContext; ייעשה שימוש בברירת המחדל לאזור זמן.</resource>
 <!-- FAIL_HOLD_DECIMALFORMAT -->
-<resource key="FAIL_HOLD_DECIMALFORMAT" dnt="false">לא הושג DecimalFormat לסוג: {0} מפריד עשרוני, מפריד קיבוץ מספרים, ייעשה שימוש בברירת המחדל לקוד מטבע המתאימה למקום {1}</resource>
+<resource key="FAIL_HOLD_DECIMALFORMAT" dnt="false">לא הושג DecimalFormat לסוג: {0} מפריד עשרוני, מפריד הקבצת מספרים, ייעשה שימוש בברירת המחדל לקוד מטבע המתאימה למקום {1}</resource>
 <!-- NULL_REQUESTCONTEXT -->
-<resource key="NULL_REQUESTCONTEXT" dnt="false">RequestContext הוא null: מפריד עשרוני, מפריד קיבוץ מספרים, ייעשה שימוש בברירת המחדל לקוד מטבע המתאימה למקום</resource>
+<resource key="NULL_REQUESTCONTEXT" dnt="false">RequestContext הוא null: מפריד עשרוני, מפריד הקבצת מספרים, ייעשה שימוש בברירת המחדל לקוד מטבע המתאימה למקום</resource>
 <!-- NULL_REQUEST_CONTEXT_UNABLE_GET_CURRENCY_CODE -->
 <resource key="NULL_REQUEST_CONTEXT_UNABLE_GET_CURRENCY_CODE" dnt="false">RequestContext הוא null, אי אפשר להשיג קוד מטבע</resource>
 <!-- NUMBER_NOT_DECIMALFORMAT_IGNORE_CURRENCY -->
@@ -124,8 +124,8 @@
 <resource key="CAPABILITY_MASK_NOT_UNDERSTOOD" dnt="false">מסיכת יכולת {0} לא מובנת</resource>
 <!-- INVALID_INDEX -->
 <resource key="INVALID_INDEX" dnt="false">אינדקס בלתי תקף</resource>
-<!-- ATTEMP_ADD_DUPLICATE_ID -->
-<resource key="ATTEMP_ADD_DUPLICATE_ID" dnt="false">ניסיון להוסיף זיהוי כפול {0}</resource>
+<!-- ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID -->
+<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">מוסיף בן כאשר בן עם אותו זיהוי כבר קיים. הבן הישן יוסר והבן החדש יתווסף. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">לא צוין צומת</resource>
 <!-- COMPONENT_REQUIRED -->
@@ -156,6 +156,20 @@
 <resource key="CANNOT_CONSTRUCT_ADDFACETCHANGE_WITH_NULL_FACETNAME_FACETCOMPONENT" dnt="false">אי אפשר לבנות AddFacetChange אם אחד מבין facetName ו-facetComponent הוא null.</resource>
 <!-- FACET_NAME_MUST_SPECIFIED -->
 <resource key="FACET_NAME_MUST_SPECIFIED" dnt="false">יש לציין שם היבט</resource>
+<!-- MOVABLE_CHILD_REQUIRED -->
+<resource key="MOVABLE_CHILD_REQUIRED" dnt="false">נדרש רכיב בן להעברה.</resource>
+<!-- DESTINATION_CONTAINER_REQUIRED -->
+<resource key="DESTINATION_CONTAINER_REQUIRED" dnt="false">נדרש רכיב של האובייקט המכיל היעד.</resource>
+<!-- MOVE_PARTICIPANTS_WITHOUT_ID -->
+<resource key="MOVE_PARTICIPANTS_WITHOUT_ID" dnt="false">לאחד או יותר מהרכיבים המשתתפים ב-MoveChildComponentChange אין זיהוי.</resource>
+<!-- COMMON_PARENT_NOT_FOUND -->
+<resource key="COMMON_PARENT_NOT_FOUND" dnt="false">אין אב משותף לבן הניתן להעברה ולאובייקט המכיל היעד: {0}.</resource>
+<!-- MOVABLE_CHILD_NOT_FOUND -->
+<resource key="MOVABLE_CHILD_NOT_FOUND" dnt="false">הבן המיועד להעברה לא נמצא: {0}.</resource>
+<!-- DESTINATION_CONTAINER_NOT_FOUND -->
+<resource key="DESTINATION_CONTAINER_NOT_FOUND" dnt="false">האובייקט המכיל היעד לא נמצא: {0}.</resource>
+<!-- INSERT_BEFORE_NOT_FOUND -->
+<resource key="INSERT_BEFORE_NOT_FOUND" dnt="false">הרכיב או הצומת שלפניו יש לבצע הוספה לא נמצא: {0}.</resource>
 <!-- INDEX_SIZE -->
 <resource key="INDEX_SIZE" dnt="false">אינדקס:{0} גודל:{1}</resource>
 <!-- BAD_PHASEID -->
@@ -272,4 +286,22 @@
 <resource key="RESOURCE_PATH_DOTS" dnt="false">נתיב המשאב {0} מכיל &quot;..&quot;. דפדפנים מפענחים את  &quot;..&quot; כנתיב חשוד.</resource>
 <!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
 <resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">לא נמצא רכיב עם scopedId {0} מ-{1} בתחביר הנתמך. נמצא שתחביר הרכיב הוא תחביר שנדחה. השתמש בתחביר הנתמך.</resource>
+<!-- UNSERIALIZABLE_VALUE -->
+<resource key="UNSERIALIZABLE_VALUE" dnt="false">ערך unserializable: {0}</resource>
+<!-- UNSERIALIZABLE_PROPERTY_VALUE -->
+<resource key="UNSERIALIZABLE_PROPERTY_VALUE" dnt="false">ערך unserializable: {0} של המפתח: {1} באובייקט המכיל: {2}</resource>
+<!-- UNSERIALIZABLE_PROPERTY_VALUE_NO_CONTAINER -->
+<resource key="UNSERIALIZABLE_PROPERTY_VALUE_NO_CONTAINER" dnt="false">ערך unserializable:{0} של המפתח: {1}</resource>
+<!-- FAILED_SERIALIZATION_PROPERTY_VALUE -->
+<resource key="FAILED_SERIALIZATION_PROPERTY_VALUE" dnt="false">נכשל ביצוע Serialization לערך: {0} של מפתח המאפיין: {1} באובייקט המכיל: {2}</resource>
+<!-- FAILED_SERIALIZATION_PROPERTY_KEY -->
+<resource key="FAILED_SERIALIZATION_PROPERTY_KEY" dnt="false">נכשל ביצוע serialization למפתח: {0} באובייקט המכיל: {1}</resource>
+<!-- UNSERIALIZABLE_PROPERTY_KEY -->
+<resource key="UNSERIALIZABLE_PROPERTY_KEY" dnt="false">מפתח unserializable: {0} באובייקט המכיל: {1}</resource>
+<!-- COMPONENT_SAVED_STATE_FAILED -->
+<resource key="COMPONENT_SAVED_STATE_FAILED" dnt="false">שמירת המצב של הרכיב: {0} נכשלה</resource>
+<!-- COMPONENT_CHILDREN_SAVED_STATE_FAILED -->
+<resource key="COMPONENT_CHILDREN_SAVED_STATE_FAILED" dnt="false">שמירת המצב של בנים של הרכיב: {0} נכשלה</resource>
+<!-- COMPONENT_TREE_SERIALIZATION_FAILED -->
+<resource key="COMPONENT_TREE_SERIALIZATION_FAILED" dnt="false">נכשל ביצוע serialization למצב עץ הרכיבים</resource>
 </resources>

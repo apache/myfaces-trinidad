@@ -113,7 +113,7 @@
 <!-- TYPE_ALREADY_LOCKED -->
 <resource key="TYPE_ALREADY_LOCKED" dnt="false">已經鎖定類型</resource>
 <!-- CANNOT_FIND_PROPERTY -->
-<resource key="CANNOT_FIND_PROPERTY" dnt="false">找不到特性 &quot;{0}&quot;.</resource>
+<resource key="CANNOT_FIND_PROPERTY" dnt="false">無法連結特性 &quot;{0}&quot;.</resource>
 <!-- >KEY_CANNOT_BE_USED_FOR_LISTS -->
 <resource key=">KEY_CANNOT_BE_USED_FOR_LISTS" dnt="false">索引鍵 {0} 不可以用於清單</resource>
 <!-- KEY_IS_LIST_KEY -->
@@ -124,8 +124,8 @@
 <resource key="CAPABILITY_MASK_NOT_UNDERSTOOD" dnt="false">無法理解功能遮罩 {0}</resource>
 <!-- INVALID_INDEX -->
 <resource key="INVALID_INDEX" dnt="false">無效的索引</resource>
-<!-- ATTEMP_ADD_DUPLICATE_ID -->
-<resource key="ATTEMP_ADD_DUPLICATE_ID" dnt="false">嘗試新增重複的 ID {0}</resource>
+<!-- ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID -->
+<resource key="ATTEMPT_ADD_CHILD_WITH_DUPLICATE_ID" dnt="false">在已經有相同 ID 的子項存在時新增子項. 將會移除舊的子項然後新增新的子項. {0}</resource>
 <!-- NO_NODE_SPECIFIED -->
 <resource key="NO_NODE_SPECIFIED" dnt="false">未指定節點</resource>
 <!-- COMPONENT_REQUIRED -->
@@ -156,6 +156,20 @@
 <resource key="CANNOT_CONSTRUCT_ADDFACETCHANGE_WITH_NULL_FACETNAME_FACETCOMPONENT" dnt="false">若 facetName 或 facetComponent 之中的其中一項為空值, 便無法建構 AddFacetChange.</resource>
 <!-- FACET_NAME_MUST_SPECIFIED -->
 <resource key="FACET_NAME_MUST_SPECIFIED" dnt="false">必須指定 Facet 名稱</resource>
+<!-- MOVABLE_CHILD_REQUIRED -->
+<resource key="MOVABLE_CHILD_REQUIRED" dnt="false">必須有要移動的子項元件.</resource>
+<!-- DESTINATION_CONTAINER_REQUIRED -->
+<resource key="DESTINATION_CONTAINER_REQUIRED" dnt="false">必須有目的地容器元件.</resource>
+<!-- MOVE_PARTICIPANTS_WITHOUT_ID -->
+<resource key="MOVE_PARTICIPANTS_WITHOUT_ID" dnt="false">MoveChildComponentChange 中的一或多個元件沒有 ID.</resource>
+<!-- COMMON_PARENT_NOT_FOUND -->
+<resource key="COMMON_PARENT_NOT_FOUND" dnt="false">可移動的子項和目的地容器之間找不到共用父項: {0}.</resource>
+<!-- MOVABLE_CHILD_NOT_FOUND -->
+<resource key="MOVABLE_CHILD_NOT_FOUND" dnt="false">找不到要移動的子項: {0}.</resource>
+<!-- DESTINATION_CONTAINER_NOT_FOUND -->
+<resource key="DESTINATION_CONTAINER_NOT_FOUND" dnt="false">找不到目的地容器: {0}.</resource>
+<!-- INSERT_BEFORE_NOT_FOUND -->
+<resource key="INSERT_BEFORE_NOT_FOUND" dnt="false">插入元件之前, 或找不到節點: {0}.</resource>
 <!-- INDEX_SIZE -->
 <resource key="INDEX_SIZE" dnt="false">索引:{0} 大小:{1}</resource>
 <!-- BAD_PHASEID -->
@@ -271,5 +285,23 @@
 <!-- RESOURCE_PATH_CONTAINS_DOTS -->
 <resource key="RESOURCE_PATH_DOTS" dnt="false">資源路徑 {0} 包含 &quot;..&quot;. 瀏覽器無法解析 &quot;..&quot;, 因此視為可疑路徑.</resource>
 <!-- DEPRECATED_RELATIVE_ID_SYNTAX -->
-<resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">在 {1} 找不到使用支援語法之 scopedId {0} 的元件. 找到的的元件使用已不再使用的語法. 請使用支援的語法.</resource>
+<resource key="DEPRECATED_RELATIVE_ID_SYNTAX" dnt="false">在 {1} 找不到使用支援語法之 scopedId {0} 的元件. 找到的元件使用已不再使用的語法. 請使用支援的語法.</resource>
+<!-- UNSERIALIZABLE_VALUE -->
+<resource key="UNSERIALIZABLE_VALUE" dnt="false">不可序列化的值:{0}</resource>
+<!-- UNSERIALIZABLE_PROPERTY_VALUE -->
+<resource key="UNSERIALIZABLE_PROPERTY_VALUE" dnt="false">容器 {2} 中, 索引鍵 {1} 之不可序列化的值: {0}</resource>
+<!-- UNSERIALIZABLE_PROPERTY_VALUE_NO_CONTAINER -->
+<resource key="UNSERIALIZABLE_PROPERTY_VALUE_NO_CONTAINER" dnt="false">索引鍵 {1} 之不可序列化的值: {0}</resource>
+<!-- FAILED_SERIALIZATION_PROPERTY_VALUE -->
+<resource key="FAILED_SERIALIZATION_PROPERTY_VALUE" dnt="false">無法序列化容器 {2} 中特性索引鍵 {1} 的值 {0}</resource>
+<!-- FAILED_SERIALIZATION_PROPERTY_KEY -->
+<resource key="FAILED_SERIALIZATION_PROPERTY_KEY" dnt="false">無法序列化容器 {1} 中的索引鍵 {0}</resource>
+<!-- UNSERIALIZABLE_PROPERTY_KEY -->
+<resource key="UNSERIALIZABLE_PROPERTY_KEY" dnt="false">容器 {1} 上不可序列化的索引鍵: {0}</resource>
+<!-- COMPONENT_SAVED_STATE_FAILED -->
+<resource key="COMPONENT_SAVED_STATE_FAILED" dnt="false">無法儲存元件 {0} 的狀態</resource>
+<!-- COMPONENT_CHILDREN_SAVED_STATE_FAILED -->
+<resource key="COMPONENT_CHILDREN_SAVED_STATE_FAILED" dnt="false">無法儲存元件 {0} 之子項的狀態</resource>
+<!-- COMPONENT_TREE_SERIALIZATION_FAILED -->
+<resource key="COMPONENT_TREE_SERIALIZATION_FAILED" dnt="false">無法序列化元件樹狀結構狀態</resource>
 </resources>
