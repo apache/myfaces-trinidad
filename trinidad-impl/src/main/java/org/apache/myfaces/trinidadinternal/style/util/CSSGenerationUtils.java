@@ -195,7 +195,7 @@ public class CSSGenerationUtils
         // one will be needed.
         // TODO: figure out why we write both the uncompressed & compressed styles for styles
         // without a '|' character, shouldn't the uncompressed be enough on its own? This results
-        // in some ugly code here
+        // in some ugly code here.
         int stylesToBeWritten = 0;
         String[] selectors = new String[matchingStyles.length];
         String[] mappedSelectors = new String[matchingStyles.length];
@@ -256,38 +256,11 @@ public class CSSGenerationUtils
           }
 
 
-          // shorten all the css-2 style class selectors (those that start with
-          // '.' and don't have a namespace prefix in it)
-          // and return the shortened string.
-          // e.g., selector of '.OraBulletedList A' is shortened to '.xj A'
-          // e.g., selector of af|inputText::content is not shortened since
-          // it has no css-2 style class selector piece that starts with '.'.
-          // e.g., selector of af|foo.Bar will shorten the '.Bar' piece
-          // af|foo.xz
-          // e.g., .Foo:hover -> .x0:hover
+
           if (compressStyles)
           {
-            String shortSelector = _getShortSelector(mappedSelectors[j],
-                                                     shortStyleClassMap);
-
-            if (shortSelector == null)
-              shortSelector = mappedSelectors[j];
-
-            // run it through a shortener one more time to shorten any
-            // of the af component selectors.
-            // e.g., 'af|menuPath' is shortened to '.x11'
-
-            if (_hasNamespacePrefix(shortSelector, namespacePrefixArray))
-            {
-              String[] shortSelectorArray  = _splitStringByWhitespace(shortSelector);
-
-              shortSelector =
-                _getMappedNSSelector(shortStyleClassMap,
-                                     namespacePrefixArray,
-                                     shortSelector,
-                                     shortSelectorArray,
-                                     true);
-            }
+            String shortSelector = 
+              getShortSelector(shortStyleClassMap, namespacePrefixArray, mappedSelectors[j]);
 
             // if the transformed full name is different than the shortSelector
             // then write out the shortSelector, too.
@@ -364,6 +337,51 @@ public class CSSGenerationUtils
       }
     }
     out.println("/* The number of CSS selectors in this file is " + numberSelectorsWritten + " */");
+  }
+
+  /**
+   * Shorten (compress) the selector.
+   * @param shortStyleClassMap
+   * @param namespacePrefixArray
+   * @param selector
+   * @return the shortened selector, or selector if nothing could be shortened.
+   */
+  public static String getShortSelector(
+    Map<String, String> shortStyleClassMap,
+    String[]            namespacePrefixArray,
+    String              selector)
+  {
+    // shorten all the css-2 style class selectors (those that start with
+    // '.' and don't have a namespace prefix in it)
+    // and return the shortened string.
+    // e.g., selector of '.OraBulletedList A' is shortened to '.xj A'
+    // e.g., selector of af|inputText::content is not shortened since
+    // it has no css-2 style class selector piece that starts with '.'.
+    // e.g., selector of af|foo.Bar will shorten the '.Bar' piece
+    // af|foo.xz
+    // e.g., .Foo:hover -> .x0:hover
+    String shortSelector = _getShortNonNamespacedSelector(selector,
+                                             shortStyleClassMap);
+
+    if (shortSelector == null)
+      shortSelector = selector;
+
+    // run it through a shortener one more time to shorten any
+    // of the af component selectors.
+    // e.g., 'af|menuPath' is shortened to '.x11'
+
+    if (_hasNamespacePrefix(shortSelector, namespacePrefixArray))
+    {
+      String[] shortSelectorArray  = _splitStringByWhitespace(shortSelector);
+
+      shortSelector =
+        _getMappedNSSelector(shortStyleClassMap,
+                             namespacePrefixArray,
+                             shortSelector,
+                             shortSelectorArray,
+                             true);
+    }
+    return shortSelector;
   }
 
   /**
@@ -649,7 +667,7 @@ public class CSSGenerationUtils
   // there is a short version. does not shorten styles that start with the
   // namespace
   // returns null if it can't shorten the selector
-  private static String _getShortSelector(
+  private static String _getShortNonNamespacedSelector(
     String              selector,
     Map<String, String> shortStyleClassMap)
   {

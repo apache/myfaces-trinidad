@@ -525,8 +525,8 @@ public class FileSystemStyleCache implements StyleProvider
     // etc -- the info that is in the StyleContext.
     // These styles contain all the StyleNodes, that is, where selector or
     // name (aka alias) are non-null.
-    StyleNode[] styles = _getStyleContextResolvedStyles(context, document);
-    if (styles == null)
+    StyleNode[] styleNodes = _getStyleContextResolvedStyles(context, document);
+    if (styleNodes == null)
       return null;
 
 
@@ -538,7 +538,7 @@ public class FileSystemStyleCache implements StyleProvider
     // written to the generated css file.
     List<String> uris = _createStyleSheetFiles(context,
                                        document,
-                                       styles,
+                                       styleNodes,
                                        shortStyleClassMap,
                                        namespacePrefixes,
                                        checkModified);
@@ -557,7 +557,9 @@ public class FileSystemStyleCache implements StyleProvider
     // Create a new entry and cache it in the "normal" cache. The "normal" cache is one
     // where the key is the Key object which is built based on information from the StyleContext,
     // like browser, agent, locale, direction.
-    Entry entry = new Entry(uris, new StylesImpl(styles, namespacePrefixes, _STYLE_KEY_MAP), icons, skinProperties);
+    Styles styles = new StylesImpl(styleNodes, namespacePrefixes, _STYLE_KEY_MAP, 
+                                   shortStyleClassMap,  _isCompressStyles(context));
+    Entry entry = new Entry(uris, styles, icons, skinProperties);
     cache.put(key, entry);
 
     // Also, cache the new entry in the entry cache
@@ -1208,7 +1210,7 @@ public class FileSystemStyleCache implements StyleProvider
        agent.getAgentApplication(),
        agent.getAgentVersion(),
        agent.getAgentOS(),
-       true,
+       !context.isDisableStyleCompression(),
        accProfile,
        context.isPortletMode());
     }
@@ -1409,16 +1411,26 @@ public class FileSystemStyleCache implements StyleProvider
      * styles based on the StyleContext when someone calls getStyles,
      * etc.
      * @param resolvedStyles
+     * @param namespacePrefixArray an array of namespace prefixes that are used in the custom css 
+     * skinning selectors, like "af" in af|inputText.
+     * @param afSelectoMap a map from one selector to another (like af|panelHeader::link maps to 
+     * af|panelHeader A
+     * @param shortStyleClassMap a map from the  non-compressed styleclass 
+     * to a compressed styleclass.
      */
     public StylesImpl(
         StyleNode[]         resolvedStyles,
         String[]            namespacePrefixArray,
-        Map<String, String> afSelectorMap
+        Map<String, String> afSelectorMap,
+        Map<String, String> shortStyleClassMap,
+        boolean             compress
       ) 
     {
       // store these local variables to be used in getNativeSelectorString
       _namespacePrefixArray = namespacePrefixArray;
       _afSelectorMap = afSelectorMap;
+      _shortStyleClassMap = shortStyleClassMap;
+      _compress = compress;
       // create a Selector->Style map right here (aggressively versus lazily)
       ConcurrentMap<Selector, Style> resolvedSelectorStyleMap = null;
 
@@ -1502,6 +1514,13 @@ public class FileSystemStyleCache implements StyleProvider
       // do this when we write the css inline. We have the information now.
       String mappedSelector =  CSSGenerationUtils.getMappedSelector(
         _afSelectorMap, _namespacePrefixArray, selector.toString());
+      // run through the compressed map if it is compressed.
+      if (_compress)
+        mappedSelector  = 
+          CSSGenerationUtils.getShortSelector(_shortStyleClassMap, 
+                                              _namespacePrefixArray, 
+                                              mappedSelector);
+      
       return CSSGenerationUtils.getValidFullNameSelector(
         mappedSelector, _namespacePrefixArray);
     }
@@ -1538,12 +1557,11 @@ public class FileSystemStyleCache implements StyleProvider
 
     }
     
-    //private ConcurrentMap<Selector, Style> _resolvedSelectorStyleMap;
-    private Map<Selector, Style> _unmodifiableResolvedSelectorStyleMap;
-    
-    private StyleNode[] _resolvedStyles;
-    private Map<String, String> _afSelectorMap;
-    private String[] _namespacePrefixArray;
+    private Map<Selector, Style> _unmodifiableResolvedSelectorStyleMap;    
+    private Map<String, String>  _afSelectorMap;
+    private String[]             _namespacePrefixArray;
+    private Map<String, String>  _shortStyleClassMap;
+    boolean                      _compress;
   }
   
   private class StyleWriterFactoryImpl
