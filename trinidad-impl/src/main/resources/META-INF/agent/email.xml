@@ -22,6 +22,8 @@
   <capability name="-adfinternal-scriptingSpeed" value="none"/>
   <capability name="-adfinternal-editing" value="false"/>
   <capability name="-adfinternal-intrinsicEvents" value="false"/>
+  <!-- comment out until we write the styles in the page for email mode
   <capability name="-adfinternal-styleAttributes" value="internal"/>
+   -->
   <capability name="-adfinternal-partialRendering" value="false"/>
 </capabilityData>
