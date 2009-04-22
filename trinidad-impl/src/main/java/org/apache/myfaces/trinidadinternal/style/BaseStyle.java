@@ -40,7 +40,6 @@ abstract public class BaseStyle extends CoreStyle implements Serializable
    */
   public BaseStyle()
   {
-    // TODO should I leave this null and set to an empty map later?
     _propertiesMap = Collections.emptyMap();
   }
 
@@ -49,18 +48,14 @@ abstract public class BaseStyle extends CoreStyle implements Serializable
    *
    * @param propertiesMap The properties of this style.  The
    *   name and values must be Strings.
-   *   TODO Should I make sure the property name is all lower case
-   *   like it was in the original code? I'll have to get each 
-   *   property and convert. putting individually (setProperty) does this.
    */
   public BaseStyle(Map<String, String> propertiesMap)
   {
-    if ((propertiesMap != null) && (propertiesMap.size() > 0))
+    if ((propertiesMap != null) && (!propertiesMap.isEmpty()))
     {
       // Initialize the propertiesMap with an ArrayMap implementation.
       // ArrayMap is fast reads.
-      int length = propertiesMap.size() * 2;
-      _propertiesMap = new ArrayMap<String, String>(length);
+      _propertiesMap = new ArrayMap<String, String>(propertiesMap.size());
       
       _propertiesMap.putAll(propertiesMap);
     }
@@ -138,12 +133,10 @@ abstract public class BaseStyle extends CoreStyle implements Serializable
    */
   public void setProperty(String name, String value)
   {
-    // We store all names/values as lowercase string
-    name = name.toLowerCase();
 
     synchronized (this)
     {
-      if (_propertiesMap == null || _propertiesMap.isEmpty())
+      if (_propertiesMap.isEmpty())
         _propertiesMap = new ArrayMap<String, String>();
       _propertiesMap.put(name, value);
       

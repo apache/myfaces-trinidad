@@ -1401,7 +1401,7 @@ public class FileSystemStyleCache implements StyleProvider
    * StyleNodes to a Map. Only the style selectors and not the aliased (aka named) styles 
    * are added to this map.
    */
-  private class StylesImpl extends Styles
+  private static final class StylesImpl extends Styles
   {
     /**
      * This constructor takes an array of StyleNode Objects where each StyleNode has
@@ -1557,18 +1557,18 @@ public class FileSystemStyleCache implements StyleProvider
 
     }
     
-    private Map<Selector, Style> _unmodifiableResolvedSelectorStyleMap;    
-    private Map<String, String>  _afSelectorMap;
-    private String[]             _namespacePrefixArray;
-    private Map<String, String>  _shortStyleClassMap;
-    boolean                      _compress;
+    private final Map<Selector, Style> _unmodifiableResolvedSelectorStyleMap;    
+    private final Map<String, String>  _afSelectorMap;
+    private final String[]             _namespacePrefixArray;
+    private final Map<String, String>  _shortStyleClassMap;
+    private final boolean              _compress;
   }
   
   private class StyleWriterFactoryImpl
     implements StyleWriterFactory
   {
-    private String _outputDirectory;
-    private String _baseFilename;
+    private final String _outputDirectory;
+    private final String _baseFilename;
     private PrintWriter _out;
     private List<File> _files = new LinkedList<File>();
 
@@ -1611,7 +1611,7 @@ public class FileSystemStyleCache implements StyleProvider
   }
 
   private File   _sourceFile; // The source XSS file
-  private String _targetPath; // The location of the cache
+  private final String _targetPath; // The location of the cache
   private String _baseName;   // The base file name for generated CSS files
 
   /**
@@ -1653,12 +1653,6 @@ public class FileSystemStyleCache implements StyleProvider
   /** Stub StyleSheetDocument instance */
   private static final StyleSheetDocument _EMPTY_DOCUMENT =
     new StyleSheetDocument(null, null, StyleSheetDocument.UNKNOWN_TIMESTAMP);
-
-  /**
-   * Style used to represent misses in the StyleMap.
-   * Package private to allow access from nested StyleMapImpl class
-   */
-  static final Style _MISS = new CSSStyle();
 
   /** Prefix to use for short style classes */
   private static final String _SHORT_CLASS_PREFIX = "x";
