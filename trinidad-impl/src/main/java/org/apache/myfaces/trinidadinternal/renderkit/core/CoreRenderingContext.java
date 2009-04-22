@@ -808,8 +808,6 @@ public class CoreRenderingContext extends RenderingContext
                             TrinidadAgent.SCRIPTING_SPEED_CAP_NONE);
     _EMAIL_CAPABILITIES.put(TrinidadAgent.CAP_EDITING,
                             Boolean.FALSE);
-    _EMAIL_CAPABILITIES.put(TrinidadAgent.CAP_STYLE_ATTRIBUTES,
-                            TrinidadAgent.STYLES_INTERNAL);
     _EMAIL_CAPABILITIES.put(TrinidadAgent.CAP_PARTIAL_RENDERING,
                             Boolean.FALSE);
 
