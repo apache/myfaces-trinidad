@@ -72,7 +72,7 @@
 <resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL_BELOW" dnt="false">Expandir Todos os Itens a Seguir</resource>
 <resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL_BELOW" dnt="false">Contrair Todos os Itens a Seguir</resource>
 <resource key="afr_compositeTreeTable.MENUITEM_EXPAND_ALL" dnt="false">Expandir Tudo</resource>
-<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL" dnt="false">Contrair Tudo</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL" dnt="false">Recolher Tudo</resource>
 <resource key="afr_compositeTreeTable.MENUITEM_GO_UP" dnt="false">Subir</resource>
 <resource key="afr_compositeTreeTable.MENUITEM_SHOW_AS_TOP" dnt="false">Mostrar como Principal</resource>
 <resource key="afr_compositeTreeTable.MENUITEM_GO_TO_TOP" dnt="false">Ir para o início</resource>
@@ -249,11 +249,11 @@
 <!--Text for reordering items to top of list-->
 <resource key="af_selectOrderShuttle.REORDER_UP_ALL" dnt="false">Parte superior</resource>
 <!--Text for reordering items up one position in the list-->
-<resource key="af_selectOrderShuttle.REORDER_UP" dnt="false">Ativo</resource>
+<resource key="af_selectOrderShuttle.REORDER_UP" dnt="false">Para Cima</resource>
 <!--Text for reordering items to bottom of list-->
 <resource key="af_selectOrderShuttle.REORDER_DOWN_ALL" dnt="false">Inferior</resource>
 <!--Text for reordering items down one position in the list-->
-<resource key="af_selectOrderShuttle.REORDER_DOWN" dnt="false">Inativo</resource>
+<resource key="af_selectOrderShuttle.REORDER_DOWN" dnt="false">Para Baixo</resource>
 <!-- selectOrderShuttle and selectManyShuttle keys-->
 <!--Text above description area-->
 <resource key="af_selectManyShuttle.DESCRIPTION_LABEL" dnt="false">Descrição</resource>
@@ -333,7 +333,7 @@
 <!--Link text for expanding all rows-->
 <resource key="af_treeTable.EXPAND_ALL" dnt="false">Expandir Tudo</resource>
 <!--Link text for collapsing all rows-->
-<resource key="af_treeTable.COLLAPSE_ALL" dnt="false">Contrair Tudo</resource>
+<resource key="af_treeTable.COLLAPSE_ALL" dnt="false">Recolher Tudo</resource>
 <!--Link text for showing all details-->
 <resource key="af_table.SHOW_ALL_DETAILS" dnt="false">Mostrar Todos os Detalhes</resource>
 <!--Link text for hiding all details-->
@@ -440,7 +440,7 @@
 <!-- Text of the ALT tag for the content frame of popup windows -->
 <resource key="FRAME_CONTENT" dnt="false">Conteúdo</resource>
 <!-- A message displayed when we think there's a popup blocker installed -->
-<resource key="WINDOW_CREATION_ERROR" dnt="false">Foi detectado um bloqueador de janela popup no seu browser. Esses bloqueadores interferem na operação desta aplicação. Desative seu bloqueador de popup ou permita popups a partir deste site.</resource>
+<resource key="WINDOW_CREATION_ERROR" dnt="false">Foi detectado um bloqueador de janela pop-up no seu browser. Esses bloqueadores interferem na operação desta aplicação. Desative seu bloqueador de pop-ups ou permita popups a partir deste site.</resource>
 <!-- Text to display in noframes element. This message is set on noframes element,
        when page redirection happens for LOV selection. -->
 <resource key="NO_FRAMES_MESSAGE" dnt="false">Seu browser não suporta quadros. O suporte a quadros é exigido para essa funcionalidade</resource>
@@ -452,13 +452,16 @@
 <!--resource for af:chart -->
 <resource key="af_chart.IE_SVG_PLUGIN_ERROR_HTML" dnt="false">
 <![CDATA[<H4>Unable to load SVG plugin. Please install the plugin from <a href='#' onclick="window.open('http://www.adobe.com/svg/viewer/install/main.html')">Adobe</a><H4>]]>
-</resource>
+
+  </resource>
 <resource key="af_chart.SVG_ENABLED_BROWSER_ERROR_HTML" dnt="false">
 <![CDATA[<H4>This component needs an SVG enabled browser like Internet Explorer, Firefox 1.5+ or Opera 9.0+<H4>]]>
-</resource>
+
+  </resource>
 <resource key="af_chart.SVG_LOADING_STATUS_HTML" dnt="false">
 <![CDATA[<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>]]>
-</resource>
+
+  </resource>
 <!-- OLD KEYS FOR NOT YET IMPLEMENTED IN ADF FACES -->
 <!--  ******************************************** -->
 <!-- the components that used these keys in 2.2 are not in 3.0 yet -->
@@ -511,7 +514,7 @@
 <!--{0}: The label for the search (the title attribute of the template) -->
 <resource key="SEARCH_AND_SELECT_FORMAT" dnt="false">Pesquisar e Selecionar: {0}</resource>
 <!--Text for sub header in LOV Window-->
-<resource key="SEARCH_TEXT" dnt="false">Pesquisa</resource>
+<resource key="SEARCH_TEXT" dnt="false">Pesquisar</resource>
 <!--Text for simple search half of the search area toggle button -->
 <resource key="SIMPLE_SEARCH_TEXT" dnt="false">Pesquisa Simples</resource>
 <!--Text for advanced search half of the search area toggle button -->

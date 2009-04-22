@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <!DOCTYPE resources SYSTEM "rts.dtd">
 <resources xmlns="http://myfaces.apache.org/trinidad/rts" package="org.apache.myfaces.trinidadinternal.resource">
@@ -56,6 +56,8 @@
 <resource key="IGNORING_SERVLET_INIT_PARAM" dnt="false">Ignorerer servlet-init-parameteren: {0} kan ikke analysere: {1}</resource>
 <!-- CANNOT_LOAD_VIEWHANDLER -->
 <resource key="CANNOT_LOAD_VIEWHANDLER" dnt="false">Kunne ikke indlæse ViewHandler {0}</resource>
+<!-- DUPLICATE_VIEWHANDLER_REGISTRATION -->
+<resource key="DUPLICATE_VIEWHANDLER_REGISTRATION" dnt="false">Trinidad&apos;s ViewHandler er registreret mere end én gang. Sørg for, at kun én Trinidad-implementerings-JAR er indlæst for at undgå initialiseringsproblemer</resource>
 <!-- TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION -->
 <resource key="TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION" dnt="false">Apache Trinidad kører med tidsstempeltjek aktiveret. Dette må ikke bruges i et produktionsmiljø. Se egenskaben {0} i WEB-INF/web.xml</resource>
 <!-- CANNOT_LOAD_URL -->
@@ -81,7 +83,7 @@
 <!-- RETURNFROMDIALOG_KEY_NOT_AVAILABLE -->
 <resource key="RETURNFROMDIALOG_KEY_NOT_AVAILABLE" dnt="false">Ingen &apos;DialogUsedRK&apos;-nøgle er tilgængelig for returnFromDialog med henblik på udførelse af den korrekte handling!</resource>
 <!-- CANNOT_QUEUE_RETURN_EVENT -->
-<resource key="CANNOT_QUEUE_RETURN_EVENT" dnt="false">Kunne ikke sætte returhændelse i kø: Ingen startkilde</resource>
+<resource key="CANNOT_QUEUE_RETURN_EVENT" dnt="false">Kunne ikke sætte returbegivenhed i kø: Ingen startkilde</resource>
 <!-- RENDERKIT_NOT_SUPPORT_DIALOGRENDERKITSERVICE -->
 <resource key="RENDERKIT_NOT_SUPPORT_DIALOGRENDERKITSERVICE" dnt="false">RenderKit {0} understøtter ikke DialogRenderKitService og kan ikke bruges til at starte dialogbokse. Bruger et enkelt vindue i stedet.</resource>
 <!-- HTTPSESSION_USED_FOR_CHANGE_PERSISTENCE -->
@@ -165,10 +167,10 @@
 <resource key="RENDERER_NOT_FOUND" dnt="false">Gengiveren &apos;&apos;{0}&apos;&apos; blev ikke fundet for komponentgruppen &apos;&apos;{1}&apos;&apos;</resource>
 <!-- NO_SKIN_FACTORY -->
 <resource key="NO_SKIN_FACTORY" dnt="false">Der er ingen SkinFactory</resource>
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false">Det tema {0}, der er angivet i requestMap, bruges ikke, fordi styleSheetDocument-ID&apos;&apos;et i requestMap ikke matcher det lokale temas styleSheetDocument-ID. Det kan betyde, at jar-filerne ikke er identiske. En af dem kan f.eks. have trinidad-skins.xml&apos;&apos;s tematilføjelser i en jar-fil i classpath&apos;&apos;en, som den anden ikke har.</resource>
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false">Det tema {0}, der er angivet i requestMap, bruges ikke, fordi dets styleSheetDocument-ID ikke var i requestMap, og det er nødvendigt med henblik på sammenligning med det lokale temas styleSheetDocument-ID for at sikre, at temaerne er ens.</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false"> Temaet {0}, der er angivet i requestMap, bruges, selv om forbrugerens temas styleSheetDocument-ID i requestMap ikke matcher det lokale temas styleSheetDocument-ID. Det vil påvirke ydelsen, da forbrugerens og producentens typografiark ikke kan deles. Producentens typografiklasser bliver ikke komprimerede for at undgå konflikter. En grund til, at ID&apos;&apos;erne ikke matcher kan være, fordi jar-filerne ikke er identiske for producenten og forbrugeren. En af dem kan f.eks. have trinidad-skins.xml&apos;&apos;s tematilføjelser i en jar-fil i klassestien, som den anden ikke har.</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false">Teamet {0}, der er angivet i requestMap, bruges, selv om forbrugerens temas styleSheetDocument-ID ikke var i requestMap. Det påvirker ydelsen, da typografiark ikke kan deles mellem producenten og forbrugeren.</resource>
 <!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST -->
 <resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST" dnt="false">Det tema {0}, der er angivet i requestMap, bruges ikke, fordi det ikke findes.</resource>
 <!-- CANNOT_GET_SKIN_FROM_SKINFACTORY -->
@@ -424,6 +426,7 @@
 <!-- REQUIRED_TRINIDADFILTER_NOT_INSTALLED -->
 <resource key="REQUIRED_TRINIDADFILTER_NOT_INSTALLED" dnt="false">TrinidadFilter er ikke installeret. Apache Trinidad kræver dette filter med henblik på korrekt udførelse.</resource>
 <resource key="INVALID_ENUM_IN_CONFIG" dnt="false">Værdien &apos;&apos;{0}&apos;&apos; er ikke en lovlig værdi for &lt;&apos;&apos;{1}&apos;&apos;&gt;</resource>
+<resource key="INVALID_ACC_PROFILE" dnt="false">Værdien &apos;&apos;{0}&apos;&apos; er ikke en gyldig egenskab for tilgængelighedsprofil</resource>
 <!-- MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS -->
 <resource key="MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS" dnt="false">mergeCapabilities() må kun bruges sammen med agenter, der er oprettet af denne klasse.</resource>
 <!-- INVALID_NAMESPACE -->
@@ -706,4 +709,14 @@
 <resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">Kunne ikke finde den partielle trigger {0} fra {1} med den understøttede partialTriggers-syntaks. Den partielle trigger blev fundet med den uønskede syntaks. Brug den understøttede syntaks.</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">DateTimeRangeValidator kræver, at komponenten er en EditableValueHolder til klientvalidering for at kunne fungere. Klientvalidering deaktiveres for komponenten {0}.</resource>
+<!-- INVALID_LOCALE_LANG_LENGTH  -->
+<resource key="INVALID_LOCALE_LANG_LENGTH" dnt="false">Ugyldigt sprog for identifikator for landestandard {0} - sprogkoden skal være på 2 tegn. Javadoc for landestandard indeholder det korrekte format. Den aktuelle sides landestandard bruges.</resource>
+<!-- INVALID_LOCALE_LANG_CASE  -->
+<resource key="INVALID_LOCALE_LANG_CASE" dnt="false">Ugyldigt sprog for identifikator for landestandard {0} - sprogkoden skal være med små bogstaver. Javadoc for landestandard indeholder det korrekte format. Den aktuelle sides landestandard bruges.</resource>
+<!-- INVALID_LOCALE_COUNTRY_LENGTH  -->
+<resource key="INVALID_LOCALE_COUNTRY_LENGTH" dnt="false">Ugyldigt land for identifikator for landestandard {0} - landekoden skal være på 2 tegn. Javadoc for landestandard indeholder det korrekte format. Vil bruge en tom streng til land</resource>
+<!-- INVALID_LOCALE_COUNTRY_CASE  -->
+<resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Ugyldigt land for identifikator for landestandard {0} - landekoden skal være med store bogstaver. Javadoc for landestandard indeholder det korrekte format. Vil bruge en tom streng til land</resource>
+<!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
+<resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Ugyldig variant for identifikator for landestandard {0} - må ikke indeholde skråstreger, hvis XSS-angreb skal undgås. Vil bruge en tom streng til variant.</resource>
 </resources>

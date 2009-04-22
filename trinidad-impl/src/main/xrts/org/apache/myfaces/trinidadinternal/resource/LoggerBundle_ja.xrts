@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <!DOCTYPE resources SYSTEM "rts.dtd">
 <resources xmlns="http://myfaces.apache.org/trinidad/rts" package="org.apache.myfaces.trinidadinternal.resource">
@@ -56,6 +56,8 @@
 <resource key="IGNORING_SERVLET_INIT_PARAM" dnt="false">サーブレット初期化パラメータ:{0}を無視します。解析できません:{1}</resource>
 <!-- CANNOT_LOAD_VIEWHANDLER -->
 <resource key="CANNOT_LOAD_VIEWHANDLER" dnt="false">ViewHandler {0}をロードできませんでした</resource>
+<!-- DUPLICATE_VIEWHANDLER_REGISTRATION -->
+<resource key="DUPLICATE_VIEWHANDLER_REGISTRATION" dnt="false">TrinidadのViewHandlerが複数回登録されています。初期化に関する問題を回避するために、1つのTrinidad実装JARのみをロードしてください</resource>
 <!-- TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION -->
 <resource key="TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION" dnt="false">Apache Trinidadがタイムスタンプ・チェックを有効にした状態で実行中です。これは本番環境では使用しないでください。WEB-INF/web.xmlの{0}プロパティを参照してください</resource>
 <!-- CANNOT_LOAD_URL -->
@@ -165,10 +167,10 @@
 <resource key="RENDERER_NOT_FOUND" dnt="false">コンポーネント・ファミリ&apos;&apos;{1}&apos;&apos;用のレンダラ&apos;&apos;{0}&apos;&apos;が見つかりません</resource>
 <!-- NO_SKIN_FACTORY -->
 <resource key="NO_SKIN_FACTORY" dnt="false">SkinFactoryがありません</resource>
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false">requestMap上に指定されたスキン{0}は使用されません。requestMap上のstyleSheetDocument IDがローカル・スキンのstyleSheetDocumentのIDと一致しないためです。これはjarが同一でないことを意味している可能性があります。たとえば、一方にあるtrinidad-skins.xmlの追加スキンが、もう一方にはないクラス・パス上のjarファイルにある場合があります。</resource>
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false">requestMap上に指定されたスキン{0}は使用されません。そのstyleSheetDocument IDがrequestMapになく、スキンが同一であることを確認するためにはローカル・スキンのstyleSheetDocumentのIDと比較する必要があるためです。</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false"> コンシューマのrequestMap上のスキンのstyleSheetDocumentIdがローカル・スキンのstyleSheetDocument IDと一致しない場合であっても、requestMap上で指定されたスキン{0}が使用されます。コンシューマとプロデューサのスタイルシートは共有できないため、このことはパフォーマンスに影響を及ぼします。競合を回避するため、プロデューサのスタイルクラスは圧縮されません。IDが一致しない理由として、プロデューサとコンシューマでjarが同一でないことが考えられます。たとえば、一方にあるtrinidad-skins.xmlの追加スキンが、もう一方にはないクラス・パス上のjarファイルにある場合があります。</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false"> コンシューマのスキンのstyleSheetDocumentIdがrequestMapにない場合でも、requestMap上で指定されたスキン{0}が使用されます。プロデューサとコンシューマ間ではスタイルシートを共有できないため、このことはパフォーマンスに影響を及ぼします。</resource>
 <!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST -->
 <resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST" dnt="false">requestMap上に指定されたスキン{0}は、存在しないため使用されません。</resource>
 <!-- CANNOT_GET_SKIN_FROM_SKINFACTORY -->
@@ -424,6 +426,7 @@
 <!-- REQUIRED_TRINIDADFILTER_NOT_INSTALLED -->
 <resource key="REQUIRED_TRINIDADFILTER_NOT_INSTALLED" dnt="false">TrinidadFilterはインストールされていません。Apache Trinidadでは正常実行のためにこのフィルタが必要です。</resource>
 <resource key="INVALID_ENUM_IN_CONFIG" dnt="false">値&apos;&apos;{0}&apos;&apos;は&lt;&apos;&apos;{1}&apos;&apos;&gt;の有効な値ではありません</resource>
+<resource key="INVALID_ACC_PROFILE" dnt="false">値&apos;&apos;{0}&apos;&apos;は有効なaccessibility-profileプロパティではありません</resource>
 <!-- MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS -->
 <resource key="MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS" dnt="false">mergeCapabilities()はこのクラスにより作成されたエージェントでのみ使用できます。</resource>
 <!-- INVALID_NAMESPACE -->
@@ -702,8 +705,18 @@
 <resource key="CANNOT_FIND_TIMEZONE" dnt="false">ID {0}のタイムゾーンがリクエストされましたが、TimeZone.getTimeZone(String id) APIで使用できません。IDがTimeZone.getAvailableIDs()によって返されたIDと大/小文字の区別も含めて一致することを確認してください</resource>
 <!-- INVALID_TIMEZONE_IN_CONFIG -->
 <resource key="INVALID_TIMEZONE_IN_CONFIG" dnt="false">trinidad-config.xmlに、time-zone ({0})の無効な値が含まれます。かわりにデフォルトのタイムゾーンが使用されます。</resource>
-<!-- DEPRECATED_PARTIAL_TRIGGER_SYNTAX -->
-<resource key="DEPRECATED_PARTIAL_TRIGGER_SYNTAX" dnt="false">コンポーネントに関連した検索で、{1}から部分トリガー{0}が見つかりませんでした。コンポーネントの親に関連して部分トリガーが見つかりましたが、これは推奨されません。部分トリガーを親ではなくコンポーネントに関連するものに変更してください。</resource>
+<!-- DEPRECATED_TRIGGER_SYNTAX -->
+<resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">サポートされているpartialTriggers構文で、{1}から部分トリガー{0}が見つかりませんでした。非推奨構文で部分トリガーが見つかりました。サポートされている構文を使用してください。</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">DateTimeRangeValidatorでは、クライアント検証を機能させるには、コンポーネントがEditableValueHolderである必要があります。クライアント検証はコンポーネント{0}に対して無効化されます。</resource>
+<!-- INVALID_LOCALE_LANG_LENGTH  -->
+<resource key="INVALID_LOCALE_LANG_LENGTH" dnt="false">ロケール識別子{0}の言語が無効です - 言語コードは2文字である必要があります。正しい形式についてはロケールjavadocを参照してください。現在のページ・ロケールが使用されます。</resource>
+<!-- INVALID_LOCALE_LANG_CASE  -->
+<resource key="INVALID_LOCALE_LANG_CASE" dnt="false">ロケール識別子{0}の言語が無効です - 言語コードは小文字である必要があります。正しい形式についてはロケールjavadocを参照してください。現在のページ・ロケールが使用されます。</resource>
+<!-- INVALID_LOCALE_COUNTRY_LENGTH  -->
+<resource key="INVALID_LOCALE_COUNTRY_LENGTH" dnt="false">ロケール識別子{0}の国が無効です - 国コードは2文字である必要があります。正しい形式についてはロケールjavadocを参照してください。国には空の文字列が使用されます</resource>
+<!-- INVALID_LOCALE_COUNTRY_CASE  -->
+<resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">ロケール識別子{0}の国が無効です - 国コードは大文字である必要があります。正しい形式についてはロケールjavadocを参照してください。国には空の文字列が使用されます</resource>
+<!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
+<resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">ロケール識別子{0}のバリアントが無効です - XSS攻撃を回避するために、スラッシュを含めることはできません。バリアントには空の文字列が使用されます。</resource>
 </resources>

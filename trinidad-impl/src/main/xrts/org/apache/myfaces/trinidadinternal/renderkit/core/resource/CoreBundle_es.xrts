@@ -247,11 +247,11 @@
 <!--Alt tag for reordering items down one-->
 <resource key="af_selectOrderShuttle.REORDER_DOWN_TIP" dnt="false">Mover los elementos seleccionados un nivel abajo en la lista</resource>
 <!--Text for reordering items to top of list-->
-<resource key="af_selectOrderShuttle.REORDER_UP_ALL" dnt="false">Primeros</resource>
+<resource key="af_selectOrderShuttle.REORDER_UP_ALL" dnt="false">Principio</resource>
 <!--Text for reordering items up one position in the list-->
 <resource key="af_selectOrderShuttle.REORDER_UP" dnt="false">Arriba</resource>
 <!--Text for reordering items to bottom of list-->
-<resource key="af_selectOrderShuttle.REORDER_DOWN_ALL" dnt="false">Últimos</resource>
+<resource key="af_selectOrderShuttle.REORDER_DOWN_ALL" dnt="false">Final</resource>
 <!--Text for reordering items down one position in the list-->
 <resource key="af_selectOrderShuttle.REORDER_DOWN" dnt="false">Abajo</resource>
 <!-- selectOrderShuttle and selectManyShuttle keys-->
@@ -452,13 +452,16 @@
 <!--resource for af:chart -->
 <resource key="af_chart.IE_SVG_PLUGIN_ERROR_HTML" dnt="false">
 <![CDATA[<H4>Unable to load SVG plugin. Please install the plugin from <a href='#' onclick="window.open('http://www.adobe.com/svg/viewer/install/main.html')">Adobe</a><H4>]]>
-</resource>
+
+  </resource>
 <resource key="af_chart.SVG_ENABLED_BROWSER_ERROR_HTML" dnt="false">
 <![CDATA[<H4>This component needs an SVG enabled browser like Internet Explorer, Firefox 1.5+ or Opera 9.0+<H4>]]>
-</resource>
+
+  </resource>
 <resource key="af_chart.SVG_LOADING_STATUS_HTML" dnt="false">
 <![CDATA[<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>]]>
-</resource>
+
+  </resource>
 <!-- OLD KEYS FOR NOT YET IMPLEMENTED IN ADF FACES -->
 <!--  ******************************************** -->
 <!-- the components that used these keys in 2.2 are not in 3.0 yet -->

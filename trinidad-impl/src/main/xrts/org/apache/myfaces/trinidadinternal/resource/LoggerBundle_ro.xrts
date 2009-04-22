@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <!DOCTYPE resources SYSTEM "rts.dtd">
 <resources xmlns="http://myfaces.apache.org/trinidad/rts" package="org.apache.myfaces.trinidadinternal.resource">
@@ -56,6 +56,8 @@
 <resource key="IGNORING_SERVLET_INIT_PARAM" dnt="false">Se ignoră parametrului init pentru server: {0}; nu se poate interpreta: {1}</resource>
 <!-- CANNOT_LOAD_VIEWHANDLER -->
 <resource key="CANNOT_LOAD_VIEWHANDLER" dnt="false">Nu se poate încărca rutina ViewHandler {0}</resource>
+<!-- DUPLICATE_VIEWHANDLER_REGISTRATION -->
+<resource key="DUPLICATE_VIEWHANDLER_REGISTRATION" dnt="false">Specificatorul Trinidad ViewHandler este înregistrat de mai multe ori. Pentru a evita problemele la iniţializare, asiguraţi-vă că este încărcat un singur fişier jar de implementare Trinidad</resource>
 <!-- TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION -->
 <resource key="TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION" dnt="false">Apache Trinidad rulează cu verificarea marcajului temporal activată. Această caracteristică nu ar trebui rulată într-un mediu de producţie. Examinaţi proprietatea {0} din WEB-INF/web.xml</resource>
 <!-- CANNOT_LOAD_URL -->
@@ -165,10 +167,10 @@
 <resource key="RENDERER_NOT_FOUND" dnt="false">Instrumentul de randare &apos;&apos;{0}&apos;&apos; nu a fost găsit pentru familia de componente &apos;&apos;{1}&apos;&apos;</resource>
 <!-- NO_SKIN_FACTORY -->
 <resource key="NO_SKIN_FACTORY" dnt="false">Nu există nici un generator SkinFactory</resource>
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false">Culorile {0} specificate în requestMap nu vor fi utilizate, deoarece ID-ul pentru styleSheetDocument din requestMap nu corespunde cu ID-ul styleSheetDocument pentru culorile locale. Poate însemna că fişierele jar nu sunt identice. De exemplu, poate exista un element skin-additions pentru trinidad-skins.xml într-un fişier jar din calea pentru clase inexistent în cealaltă parte.</resource>
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false">Culorile {0} specificate în requestMap nu vor fi utilizate deoarece ID-ul său pentru styleSheetDocument nu există în requestMap şi este necesar pentru compararea cu ID-ul styleSheetDocument al culorilor locale, pentru garantarea că aceste culori sunt identice.</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false">Culoarea {0} specificată în requestMap va fi utilizată chiar dacă ID-ul styleSheetDocumentId pentru culoarea consumatorului din requestMap nu corespunde cu ID-ul styleSheetDocument pentru culoarea locală. Acest lucru va influenţa performanţa, deoarece foile de stiluri ale consumatorului şi ale producătorului nu pot fi partajate. Clasele de stiluri ale producătorului nu vor fi comprimate pentru a evita conflicte. Un motiv pentru care ID-urile nu corespund poate fi acela că fişierele jar nu sunt identice pentru producător şi consumator. De exemplu, puteţi avea xml-uri suplimentare trinidad-skins.xml, pe care celălalt nu le are, într-un fişier jar din classpath.</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false">Culoarea {0} specificată în requestMap va fi utilizată chiar dacă ID-ul styleSheetDocumentId al culorii pentru consumator nu a fost în requestMap. Acest lucru va influenţa performanţa, deoarece foile de stiluri nu pot fi partajate între producător şi consumator.</resource>
 <!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST -->
 <resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST" dnt="false">Culorile {0} specificate în requestMap nu vor fi utilizate, deoarece nu există.</resource>
 <!-- CANNOT_GET_SKIN_FROM_SKINFACTORY -->
@@ -424,6 +426,7 @@
 <!-- REQUIRED_TRINIDADFILTER_NOT_INSTALLED -->
 <resource key="REQUIRED_TRINIDADFILTER_NOT_INSTALLED" dnt="false">Filtrul TrinidadFilter nu a fost instalat. Apache Trinidad necesită acest filtru pentru executarea corespunzătoare.</resource>
 <resource key="INVALID_ENUM_IN_CONFIG" dnt="false">Valoarea &apos;&apos;{0}&apos;&apos; nu este legală pentru &lt;&apos;&apos;{1}&apos;&apos;&gt;</resource>
+<resource key="INVALID_ACC_PROFILE" dnt="false">Valoarea &apos;&apos;{0}&apos;&apos; nu este o proprietate validă pentru profil pentru accesibilitate</resource>
 <!-- MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS -->
 <resource key="MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS" dnt="false">mergeCapabilities() se poate utiliza numai cu agenţii creaţi de această clasă.</resource>
 <!-- INVALID_NAMESPACE -->
@@ -706,4 +709,14 @@
 <resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">Nu s-a putut găsi trigger-ul parţial {0} din {1} cu sintaxa partialTriggers acceptată. Trigger-ul parţial a fost găsit cu sintaxa perimată. Utilizaţi sintaxa acceptată.</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">DateTimeRangeValidator necesită o componentă de tip EditableValueHolder pentru ca validarea clientului să fie efectuată. Validarea clientului va fi dezactivată pentru componenta {0}.</resource>
+<!-- INVALID_LOCALE_LANG_LENGTH  -->
+<resource key="INVALID_LOCALE_LANG_LENGTH" dnt="false">Limbă nevalidă pentru identificatorul variabilei locale {0} - codul de limbă trebuie să fie format din 2 caractere; pentru formatul corect, consultaţi documentaţia Java pentru variabile locale. Se va utiliza variabila locală curentă a paginii.</resource>
+<!-- INVALID_LOCALE_LANG_CASE  -->
+<resource key="INVALID_LOCALE_LANG_CASE" dnt="false">Limbă nevalidă pentru identificatorul variabilei locale {0} - codul de limbă trebuie să fie scris cu minuscule; pentru formatul corect, consultaţi documentaţia Java pentru variabile locale. Se va utiliza variabila locală curentă a paginii.</resource>
+<!-- INVALID_LOCALE_COUNTRY_LENGTH  -->
+<resource key="INVALID_LOCALE_COUNTRY_LENGTH" dnt="false">Ţară nevalidă pentru identificatorul variabilei locale {0} - codul de ţară trebuie să fie format din 2 caractere; pentru formatul corect, consultaţi documentaţia Java pentru variabile locale. Se va utiliza un şir gol pentru ţară</resource>
+<!-- INVALID_LOCALE_COUNTRY_CASE  -->
+<resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Ţară nevalidă pentru identificatorul variabilei locale {0} - codul de ţară trebuie să fie scris cu majuscule; pentru formatul corect, consultaţi documentaţia Java pentru variabile locale. Se va utiliza un şir gol pentru ţară</resource>
+<!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
+<resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Variantă nevalidă pentru identificatorul variabilei locale {0} - nu poate să conţină caractere slash pentru a evita atacul XSS. Se va utiliza un şir gol pentru variantă.</resource>
 </resources>

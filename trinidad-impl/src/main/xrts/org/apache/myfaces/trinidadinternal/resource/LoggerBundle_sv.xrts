@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <!DOCTYPE resources SYSTEM "rts.dtd">
 <resources xmlns="http://myfaces.apache.org/trinidad/rts" package="org.apache.myfaces.trinidadinternal.resource">
@@ -35,27 +35,29 @@
 <!-- REFERENCE_ID_NOT_FOUND -->
 <resource key="REFERENCE_ID_NOT_FOUND" dnt="false">Referens till id:t: {0} hittades inte</resource>
 <!-- FAIL_PARSE_CAPABILITIES_DOCUMENT -->
-<resource key="FAIL_PARSE_CAPABILITIES_DOCUMENT" dnt="false">kunde inte analysera kapacitetsdokument</resource>
+<resource key="FAIL_PARSE_CAPABILITIES_DOCUMENT" dnt="false">kunde inte tolka kapacitetsdokument</resource>
 <!-- UNABLE_PARSE_AGENT_STRING -->
-<resource key="UNABLE_PARSE_AGENT_STRING" dnt="false">Kan inte analysera agentsträng</resource>
+<resource key="UNABLE_PARSE_AGENT_STRING" dnt="false">Kan inte tolka agentsträng</resource>
 <!-- ELEMENT_MISSING_ATTRIBUTES -->
 <resource key="ELEMENT_MISSING_ATTRIBUTES" dnt="false">Elementet {0} har saknade, eller tomma, attribut</resource>
 <!-- FAIL_PARSE_CAPABILITIES_DATA_DOCUMENT -->
-<resource key="FAIL_PARSE_CAPABILITIES_DATA_DOCUMENT" dnt="false">kunde inte analysera kapacitetsdatadokument</resource>
+<resource key="FAIL_PARSE_CAPABILITIES_DATA_DOCUMENT" dnt="false">kunde inte tolka kapacitetsdatadokument</resource>
 <!-- UNABLE_PARSE_MODEL_STRING -->
-<resource key="UNABLE_PARSE_MODEL_STRING" dnt="false">Kan inte analysera modellsträng</resource>
+<resource key="UNABLE_PARSE_MODEL_STRING" dnt="false">Kan inte tolka modellsträng</resource>
 <!-- INVALID_CAPABILITY_DATA_URL -->
 <resource key="INVALID_CAPABILITY_DATA_URL" dnt="false">URL {0} till kapacitetsdata är ogiltig</resource>
 <!-- CANNOT_FIND_SAVED_VIEW_STATE -->
-<resource key="CANNOT_FIND_SAVED_VIEW_STATE" dnt="false">Kunde inte hitta sparad vystatus för token {0}</resource>
+<resource key="CANNOT_FIND_SAVED_VIEW_STATE" dnt="false">Hittade inte sparad vystatus för igenkänningstecken {0}</resource>
 <!-- NO_STRUCTURE_ROOT_AVAILABLE -->
 <resource key="NO_STRUCTURE_ROOT_AVAILABLE" dnt="false">Varken struktur eller rot tillgänglig</resource>
 <!-- NO_STRUCTURE_AVAILABLE -->
 <resource key="NO_STRUCTURE_AVAILABLE" dnt="false">Ingen struktur tillgänglig</resource>
 <!-- IGNORING_SERVLET_INIT_PARAM -->
-<resource key="IGNORING_SERVLET_INIT_PARAM" dnt="false">Ignorerar parametern för servlet init:{0} kan inte analysera:{1}</resource>
+<resource key="IGNORING_SERVLET_INIT_PARAM" dnt="false">Ignorerar parametern för servlet init:{0} kan inte tolka:{1}</resource>
 <!-- CANNOT_LOAD_VIEWHANDLER -->
 <resource key="CANNOT_LOAD_VIEWHANDLER" dnt="false">Kunde inte ladda ViewHandler {0}.</resource>
+<!-- DUPLICATE_VIEWHANDLER_REGISTRATION -->
+<resource key="DUPLICATE_VIEWHANDLER_REGISTRATION" dnt="false">Trinidads ViewHandler har registrerats flera gånger. Om du vill undvika initieringsproblem ser du till att endast en Trinidad-implementation-jar laddas</resource>
 <!-- TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION -->
 <resource key="TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION" dnt="false">Apache Trinidad körs med aktiverad tidsstämpelkontroll. Den ska inte användas i produktionsmiljö. Se egenskapen {0} i WEB-INF/web.xml</resource>
 <!-- CANNOT_LOAD_URL -->
@@ -103,7 +105,7 @@
 <!-- CANNOT_GET_UNIQUE_NAME -->
 <resource key="CANNOT_GET_UNIQUE_NAME" dnt="false">Kunde inte hämta unikt namn.</resource>
 <!-- ELAPSED_TIME_ENCODING_GIF -->
-<resource key="ELAPSED_TIME_ENCODING_GIF" dnt="false">Det tog:{0} sekunder att koda gif</resource>
+<resource key="ELAPSED_TIME_ENCODING_GIF" dnt="false">Tidsåtgång: {0} sekunder att koda gif</resource>
 <!-- LAF_NOT_FOUND -->
 <resource key="LAF_NOT_FOUND" dnt="false">laf &quot;{0}&quot; kan inte hittas.</resource>
 <!-- ILLEGAL_CHARACTER_IN_ATTRIBUTE -->
@@ -165,10 +167,10 @@
 <resource key="RENDERER_NOT_FOUND" dnt="false">Renderaren &apos;&apos;{0}&apos;&apos; hittas inte för komponentfamiljen &apos;&apos;{1}&apos;&apos;</resource>
 <!-- NO_SKIN_FACTORY -->
 <resource key="NO_SKIN_FACTORY" dnt="false">Det finns ingen SkinFactory</resource>
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false">Det skal {0} som angetts i requestMap används inte eftersom styleSheetDocument-id:t i requestMap inte matchar det lokala skalets styleSheetDocument-id. Det kan innebära att jar-filerna inte är identiska. En kan t.ex. ha skaltillägget trinidad-skins.xml i en jarfil på klassökvägen som den andra inte har.</resource>
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false">Det skal {0} som angetts i requestMap används inte eftersom dess styleSheetDocument-id inte fanns i requestMap och det behövs för att jämföra med det lokala skalets styleSheetDocument-id för att säkerställa att det är samma skal.</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false">Skalet {0} som har angetts i requestMap kommer att användas även om skalet styleSheetDocumentId för konsumenten i requestMap inte överensstämmer med id:t för styleSheetDocument för det lokala skalet. Det här kommer att påverka prestanda eftersom formatmallarna för konsumenten och producenten inte kan delas. För att undvika konflikter kommer producentformatklasserna inte att komprimeras. En orsak till att id:na inte överensstämmer är att jar-filerna i producenten och konsumenten inte är identiska. Skaltillägget för trinidad-skins.xml kan till exempel finnas i en jar-file i klassökvägen för den producenten men inte för konsumenten.</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false">Skalet {0} som har angetts i requestMap kommer att användas även om skalet styleSheetDocumentId för konsumenten i requestMap inte överensstämmer med id:t för styleSheetDocument för det lokala skalet. Det här kommer att påverka prestanda eftersom formatmallarna för konsumenten och producenten inte kan delas.</resource>
 <!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST -->
 <resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST" dnt="false">Det skal {0} som angetts i requestMap används inte eftersom det inte finns.</resource>
 <!-- CANNOT_GET_SKIN_FROM_SKINFACTORY -->
@@ -184,7 +186,7 @@
 <!-- TRANSLATION_SOURCE_NOT_EL -->
 <resource key="TRANSLATION_SOURCE_NOT_EL" dnt="false">Översättningskällan måste vara ett EL-uttryck. Kontrollera filen trinidad-skins.xml.</resource>
 <!-- FILE_HANDLER_NOT_SET_IN_SERVLETCONTEXT -->
-<resource key="FILE_HANDLER_NOT_SET_IN_SERVLETCONTEXT" dnt="false">Filhandtaget java.io.File (&quot;javax.servlet.context.tempdir&quot;) har inte angetts i ServletContext</resource>
+<resource key="FILE_HANDLER_NOT_SET_IN_SERVLETCONTEXT" dnt="false">Filreferensen java.io.File (&quot;javax.servlet.context.tempdir&quot;) har inte angetts i ServletContext</resource>
 <!-- RENDERINGCONTEXT_NOT_AVAILABLE -->
 <resource key="RENDERINGCONTEXT_NOT_AVAILABLE" dnt="false">Det finns ingen tillgänglig RenderingContext</resource>
 <!-- CANNOT_LOCATE_HTMLRENDERKIT -->
@@ -220,9 +222,9 @@
 <!-- COMPONENT_COLUMN_OUTSIDE_TABLE -->
 <resource key="COMPONENT_COLUMN_OUTSIDE_TABLE" dnt="false">{0}: Kolumn har använts utanför tabell</resource>
 <!-- NULL_NODE_NAME_CANNOT_ADD_CONVERTER_AND_VALIDATOR -->
-<resource key="NULL_NODE_NAME_CANNOT_ADD_CONVERTER_AND_VALIDATOR" dnt="false">Kan inte lägga till konvertering och validatorer på klientsidan eftersom nodnamnet är null</resource>
+<resource key="NULL_NODE_NAME_CANNOT_ADD_CONVERTER_AND_VALIDATOR" dnt="false">Kan inte lägga till konvertering och validerare på klientsidan eftersom nodnamnet är null</resource>
 <!-- NULL_VALIDATORS_ITERATOR -->
-<resource key="NULL_VALIDATORS_ITERATOR" dnt="false">Nullvalidatorsiterator för {0}</resource>
+<resource key="NULL_VALIDATORS_ITERATOR" dnt="false">Nullvalideringsiterator för {0}</resource>
 <!-- DUPLICATE_CONVERTER_ONE_PER_COMPONENT -->
 <resource key="DUPLICATE_CONVERTER_ONE_PER_COMPONENT" dnt="false">Det finns redan en konverterare på &quot;{0}&quot;. Det ska bara finnas en konverterare per komponent.</resource>
 <!-- FRAME_MISSING_ATTRIBUTE -->
@@ -256,7 +258,7 @@
 <!-- RUNNING_DEBUG_JAVASCRIPT -->
 <resource key="RUNNING_DEBUG_JAVASCRIPT" dnt="false">Apache Trinidad körs med javascript för felsökning. Använd inte i produktionsmiljö. Se parametern &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; i /WEB-INF/web.xml</resource>
 <!-- ILLEGAL_VALUE -->
-<resource key="ILLEGAL_VALUE" dnt="false">Ogiltigt värde:{0} för {1}</resource>
+<resource key="ILLEGAL_VALUE" dnt="false">Otillåtet värde:{0} för {1}</resource>
 <!-- UNKNOWN_VALUE_FOR_ALIGN -->
 <resource key="UNKNOWN_VALUE_FOR_ALIGN" dnt="false">Okänt värde för justering:{0}</resource>
 <!-- TABLESELECT_COMPONENT_MAY_ONLY_INSIDE_TABLE_AND_TREETABLE -->
@@ -284,15 +286,15 @@
 <!-- ONLY_ONE_CHILD_ELEMENT_ALLOWED -->
 <resource key="ONLY_ONE_CHILD_ELEMENT_ALLOWED" dnt="false">Endast ett underordnat element är tillåtet här.</resource>
 <!-- CANNOT_PARSE_ATTRIBUTE_VALUE -->
-<resource key="CANNOT_PARSE_ATTRIBUTE_VALUE" dnt="false">Kunde inte analysera värdet i attributet: {0}</resource>
+<resource key="CANNOT_PARSE_ATTRIBUTE_VALUE" dnt="false">Kunde inte tolka värdet i attributet: {0}</resource>
 <!-- CANNOT_PARSE_ATTRIBUTE_VALUE_NAMESPACE -->
-<resource key="CANNOT_PARSE_ATTRIBUTE_VALUE_NAMESPACE" dnt="false">Kunde inte analysera värdet i attributet: {0}, namnutrymme={1}</resource>
+<resource key="CANNOT_PARSE_ATTRIBUTE_VALUE_NAMESPACE" dnt="false">Kunde inte tolka värdet i attributet: {0}, namnutrymme={1}</resource>
 <!-- UNKNOWN_ATTRIBUTE -->
 <resource key="UNKNOWN_ATTRIBUTE" dnt="false">Okänt attribut: {0}</resource>
 <!-- UNKNOWN_ATTRIBUTE_NAMESPACE -->
 <resource key="UNKNOWN_ATTRIBUTE_NAMESPACE" dnt="false">Okänt attribut: {0}, namnutrymme={1}</resource>
 <!-- ERR_PARSING_SKIN_CSS_FILE -->
-<resource key="ERR_PARSING_SKIN_CSS_FILE" dnt="false">Fel vid tolkning av skalets css-fil. Egenskapsnamnet får inte vara null eller en tom sträng, analysen ignoreras. Namnet är &apos;&apos;{0}&apos;&apos; och värdet är &apos;&apos;{1}&apos;&apos;</resource>
+<resource key="ERR_PARSING_SKIN_CSS_FILE" dnt="false">Fel vid tolkning av skalets css-fil. Egenskapsnamnet får inte vara null eller en tom sträng, parser ignoreras. Namnet är &apos;&apos;{0}&apos;&apos; och värdet är &apos;&apos;{1}&apos;&apos;</resource>
 <!-- IGNORING_PROPERTIES_WITHOUT_SELECTOR -->
 <resource key="IGNORING_PROPERTIES_WITHOUT_SELECTOR" dnt="false">Ignorerar egenskaper {0} eftersom det inte finns någon motsvarande väljare.</resource>
 <!-- ERR_READING_SKIN_CSS_FILE -->
@@ -310,13 +312,13 @@
 <!-- UNABLE_LOCATE_BASE_SKIN -->
 <resource key="UNABLE_LOCATE_BASE_SKIN" dnt="false">Kan inte hitta basskalet &quot;{0}&quot; för användning vid definition av skal med id:t &quot;{1}&quot;, familjen &quot;{2}&quot;, renderkit-id &quot;{3}&quot;. Använder standardbasskalet &quot;{4}&quot;.</resource>
 <!-- ERR_PARSING -->
-<resource key="ERR_PARSING" dnt="false">Fel vid analys av:{0}</resource>
+<resource key="ERR_PARSING" dnt="false">Fel vid tolkning av:{0}</resource>
 <!-- ERR_LOADING_FILE -->
 <resource key="ERR_LOADING_FILE" dnt="false">fel vid laddning av filen:{0}</resource>
 <!-- CANNOT_LOAD_STYLESHEET -->
 <resource key="CANNOT_LOAD_STYLESHEET" dnt="false">Kunde inte ladda formatmallen: {0}</resource>
 <!-- IOEXCEPTION_IN_PHASE -->
-<resource key="IOEXCEPTION_IN_PHASE" dnt="false">IOException vid analys av {0}</resource>
+<resource key="IOEXCEPTION_IN_PHASE" dnt="false">IOException vid tolkning av {0}</resource>
 <!-- NO_STYLES_FOUND_CONTEXT -->
 <resource key="NO_STYLES_FOUND_CONTEXT" dnt="false">Inga format har hittats i kontexten - {0}</resource>
 <!-- IOEXCEPTION_CREATING_FILE -->
@@ -328,7 +330,7 @@
 <!-- CSS_FILE_HIT_IE_LIMIT_OF_CSS_SELECTOR -->
 <resource key="CSS_FILE_HIT_IE_LIMIT_OF_CSS_SELECTOR" dnt="false">Css-filen har nått IE:s gräns på 4095 CSS-väljare. Den har {0} väljare. Efterföljande väljare ignoreras.</resource>
 <!-- UNSUPPORTED_CONSECUTIVE_SUB_ELEMENT_SYNTAX -->
-<resource key="UNSUPPORTED_CONSECUTIVE_SUB_ELEMENT_SYNTAX" dnt="false">Syntax för delelement i rad (::) används i väljaren {0}. Detta stöds inte.</resource>
+<resource key="UNSUPPORTED_CONSECUTIVE_SUB_ELEMENT_SYNTAX" dnt="false">Syntax för delelement i följd (::) används i väljaren {0}. Detta stöds inte.</resource>
 <!-- URL_VALUE_EXPECTED_FOR_PROPERTY_IN_STYLE_SHEET -->
 <resource key="URL_VALUE_EXPECTED_FOR_PROPERTY_IN_STYLE_SHEET" dnt="false">Ett url-värde som begränsas av url() förväntas för egenskapen &apos;&apos;{0}&apos;&apos; i formatmallen &apos;&apos;{1}&apos;&apos;. Hittat: &apos;&apos;{2}&apos;&apos;.</resource>
 <!-- INVALID_IMAGE_URI_IN_STYLE_SHEET -->
@@ -338,7 +340,7 @@
 <!-- ELEMENT_MUST_HAVE_NAME_ATTRIBUTE -->
 <resource key="ELEMENT_MUST_HAVE_NAME_ATTRIBUTE" dnt="false">&lt;style&gt;-element måste ha ett namn eller ett väljarattribut</resource>
 <!-- CANNOT_PARSE_IMPORT -->
-<resource key="CANNOT_PARSE_IMPORT" dnt="false">Kunde inte analysera importen: {0}</resource>
+<resource key="CANNOT_PARSE_IMPORT" dnt="false">Kunde inte tolka importen: {0}</resource>
 <!-- MISSING_REQUIRED_HREF -->
 <resource key="MISSING_REQUIRED_HREF" dnt="false">Importen saknar obligatoriskt href-attribute</resource>
 <!-- REQUIRE_COMPONENTTYPE_ATTRIBUTE -->
@@ -356,17 +358,17 @@
 <!-- FACETNAME_REQUIRED -->
 <resource key="FACETNAME_REQUIRED" dnt="false">facetName måste anges i facetRef</resource>
 <!-- VALIDATOR_NOT_INSIDE_UICOMPONENT -->
-<resource key="VALIDATOR_NOT_INSIDE_UICOMPONENT" dnt="false">validatortagg är inte inuti en UIComponent.</resource>
+<resource key="VALIDATOR_NOT_INSIDE_UICOMPONENT" dnt="false">validerartagg är inte inuti en UIComponent.</resource>
 <!-- CANNOT_CREATE_VALIDATOR -->
-<resource key="CANNOT_CREATE_VALIDATOR" dnt="false">kunde inte skapa validator för validatorId:{0} och bindning:{1}</resource>
+<resource key="CANNOT_CREATE_VALIDATOR" dnt="false">kunde inte skapa validerare för validatorId:{0} och bindning:{1}</resource>
 <!-- MISSING_VALIDATORID -->
 <resource key="MISSING_VALIDATORID" dnt="false">attributet &apos;validatorId&apos; saknas</resource>
 <!-- CANNOT_PARSE_VALUE_INTO_DATE_WITH_YYYY_MM_DD_PATTERN -->
-<resource key="CANNOT_PARSE_VALUE_INTO_DATE_WITH_YYYY_MM_DD_PATTERN" dnt="false">Kunde inte analysera värdet {0} till ett datum med mönstret &quot;åååå-MM-dd&quot;; ignorerar.</resource>
+<resource key="CANNOT_PARSE_VALUE_INTO_DATE_WITH_YYYY_MM_DD_PATTERN" dnt="false">Kunde inte tolka värdet {0} till ett datum med mönstret &quot;åååå-MM-dd&quot;; ignorerar.</resource>
 <!-- NO_RENDERERFACTORY_REGISTERED_COMPONENT -->
 <resource key="NO_RENDERERFACTORY_REGISTERED_COMPONENT" dnt="false">Ingen RendererFactory har registrerats för komponenten i namnutrymmet {0}</resource>
 <!-- NO_RENDERER_REGISTERED -->
-<resource key="NO_RENDERER_REGISTERED" dnt="false">Ingen Renderer har registrerats för {0}</resource>
+<resource key="NO_RENDERER_REGISTERED" dnt="false">Ingen renderare har registrerats för {0}</resource>
 <!-- CANNOT_GET_IMAGE_CACHE -->
 <resource key="CANNOT_GET_IMAGE_CACHE" dnt="false">Kunde inte hämta bildcache.</resource>
 <!-- CANNOT_CONVERT_INTO_DATAOBJECTLIST -->
@@ -396,7 +398,7 @@
 <!-- CANNOT_FLIP_ICON -->
 <resource key="CANNOT_FLIP_ICON" dnt="false">Kunde inte hämta vänd ikon för: {0}</resource>
 <!-- NULL_NODE_NAME_NO_VALIDATOR_ADDED -->
-<resource key="NULL_NODE_NAME_NO_VALIDATOR_ADDED" dnt="false">Nodnamnet är null och ingen obligatorisk validator har därför lagts till på klientsidan för noden med det lokala namnet {0}</resource>
+<resource key="NULL_NODE_NAME_NO_VALIDATOR_ADDED" dnt="false">Nodnamnet är null och ingen obligatorisk validerare har därför lagts till på klientsidan för noden med det lokala namnet {0}</resource>
 <!-- CANNOT_FIND_CLASS -->
 <resource key="CANNOT_FIND_CLASS" dnt="false">Kunde inte hitta klassen {0}</resource>
 <!-- CANNOT_LOAD_CLASS -->
@@ -416,7 +418,7 @@
 <!-- REQURIED_ELEMENT_FAMILY_NOT_FOUND -->
 <resource key="REQURIED_ELEMENT_FAMILY_NOT_FOUND" dnt="false">Det obligatoriska elementet &apos;family&apos; kan inte hittas.</resource>
 <!-- MALFORMED_PROPERTY_ENTRY -->
-<resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">Felaktig egenskapspost: {0}={1}</resource>
+<resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">Felaktigt utformad egenskapspost: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
 <resource key="CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING" dnt="false">Kunde inte ladda renderartyp i lokal namnmappning.</resource>
 <!-- CLIENT_SIDE_ENCODING_NOT_SUPPORTED -->
@@ -424,8 +426,9 @@
 <!-- REQUIRED_TRINIDADFILTER_NOT_INSTALLED -->
 <resource key="REQUIRED_TRINIDADFILTER_NOT_INSTALLED" dnt="false">TrinidadFilter har inte installerats. För Apache Trinidad krävs det här filtret för rätt körning.</resource>
 <resource key="INVALID_ENUM_IN_CONFIG" dnt="false">Värdet &apos;&apos;{0}&apos;&apos; är inte ett giltigt värde för &lt;&apos;&apos;{1}&apos;&apos;&gt;</resource>
+<resource key="INVALID_ACC_PROFILE" dnt="false">Värdet &apos;&apos;{0}&apos;&apos; är inte en giltig egenskap för tillgänglighetsprofil.</resource>
 <!-- MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS -->
-<resource key="MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS" dnt="false">mergeCapabilities() kan bara användas med Agents som skapats av den här klassen.</resource>
+<resource key="MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS" dnt="false">mergeCapabilities() kan bara användas med agenter som skapats av den här klassen.</resource>
 <!-- INVALID_NAMESPACE -->
 <resource key="INVALID_NAMESPACE" dnt="false">Ogiltigt namnutrymme: {0}</resource>
 <!-- INVALID_ROOT_ELEMENT -->
@@ -473,9 +476,9 @@
 <!-- PROBLEM_LOADING -->
 <resource key="PROBLEM_LOADING" dnt="false">Problem vid laddning...</resource>
 <!-- GRABBING_PIXELS -->
-<resource key="GRABBING_PIXELS" dnt="false">Vid registrering av bildpunkter:</resource>
+<resource key="GRABBING_PIXELS" dnt="false">Vid registrering av pixlar:</resource>
 <!-- ERROR_FETCHING_IMAGE -->
-<resource key="ERROR_FETCHING_IMAGE" dnt="false">Fel när bilden hämtades. registrerade {0} bildpunktsvärden för {1} x {2}-bilden.</resource>
+<resource key="ERROR_FETCHING_IMAGE" dnt="false">Fel när bilden hämtades. registrerade {0} pixelvärden för {1} x {2}-bilden.</resource>
 <!-- EXCEEDED_GIF_COLOR_LIMIT -->
 <resource key="EXCEEDED_GIF_COLOR_LIMIT" dnt="false">Överskriden gräns för gif-färg.</resource>
 <!-- NO_SPACE_LEFT_FOR_TRANSPARENCY -->
@@ -513,7 +516,7 @@
 <!-- NOT_A_CHARACTER -->
 <resource key="NOT_A_CHARACTER" dnt="false">{0} är inte ett tecken</resource>
 <!-- CANNOT_BE_PARSED -->
-<resource key="CANNOT_BE_PARSED" dnt="false">{0} kan inte analyseras till en {1}</resource>
+<resource key="CANNOT_BE_PARSED" dnt="false">{0} kan inte tolkas till en {1}</resource>
 <!-- NULL_TYPE -->
 <resource key="NULL_TYPE" dnt="false">typen är null</resource>
 <!-- CANNOT_COERCE_VALUE_OF_TYPE -->
@@ -543,7 +546,7 @@
 <!-- ITEM_ALREADY_BEEN_READ_PAST -->
 <resource key="ITEM_ALREADY_BEEN_READ_PAST" dnt="false">Du har redan läst förbi objektet.</resource>
 <!-- INPUT_STREAM_ALREADY_REQUESTED -->
-<resource key="INPUT_STREAM_ALREADY_REQUESTED" dnt="false">Indataflöde har redan begärts.</resource>
+<resource key="INPUT_STREAM_ALREADY_REQUESTED" dnt="false">Indataström har redan begärts.</resource>
 <!-- UPLOADED_FILE_EXCEEDED_MAXIMUM_ALLOWED_LENGTH -->
 <resource key="UPLOADED_FILE_EXCEEDED_MAXIMUM_ALLOWED_LENGTH" dnt="false">Uppladdad fil med längden {0} byte överskred maximalt tillåten längd ({1} byte)</resource>
 <!-- ITEM_ALREDY_BEEN_READ_PAST -->
@@ -553,7 +556,7 @@
 <!-- UNDECLARED_PREFIX -->
 <resource key="UNDECLARED_PREFIX" dnt="false">Ej deklarerat prefix: {0}</resource>
 <!-- NULL_PARSER -->
-<resource key="NULL_PARSER" dnt="false">analysen är null</resource>
+<resource key="NULL_PARSER" dnt="false">parser är null</resource>
 <!-- NULL_ROOTCLASS_ROOTPARSER -->
 <resource key="NULL_ROOTCLASS_ROOTPARSER" dnt="false">Både rootClass och rootParser är null</resource>
 <!-- CIRCULAR_INCLUDE_DETECTED -->
@@ -706,4 +709,14 @@
 <resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">Kunde inte hitta den partiella utlösaren {0} från {1} med partialTriggers-syntax som stöds. Den partiella utlösaren hittades med inaktuell syntax. Använd den syntax som stöds.</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">För DateTimeRangeValidator krävs att komponenten är en EditableValueHolder om klientvalideringen ska fungera. Klientvalidering avaktiveras för komponenten {0}.</resource>
+<!-- INVALID_LOCALE_LANG_LENGTH  -->
+<resource key="INVALID_LOCALE_LANG_LENGTH" dnt="false">Ogiltigt språk för språkidentifierare {0} - språkkod måste anges med 2 tecken, se språk-javadoc för korrekt format. Använder aktuellt sidspråk.</resource>
+<!-- INVALID_LOCALE_LANG_CASE  -->
+<resource key="INVALID_LOCALE_LANG_CASE" dnt="false">Ogiltigt språk för språkidentifierare {0} - språkkod måste anges med gemener, se språk-javadoc för korrekt format. Använder aktuellt sidspråk.</resource>
+<!-- INVALID_LOCALE_COUNTRY_LENGTH  -->
+<resource key="INVALID_LOCALE_COUNTRY_LENGTH" dnt="false">Ogiltigt land för språkidentifierare {0} - landskod måste anges med 2 tecken, se språk-javadoc för korrekt format. Använder tom sträng för land</resource>
+<!-- INVALID_LOCALE_COUNTRY_CASE  -->
+<resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Ogiltigt land för språkidentifierare {0} - landskod måste anges med versaler, se språk-javadoc för korrekt format. Använder tom sträng för land</resource>
+<!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
+<resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Ogiltig variant för språkidentifierare {0} - får inte innehålla snedstreck för att undvika XSS-attack. Använder tom sträng för variant.</resource>
 </resources>

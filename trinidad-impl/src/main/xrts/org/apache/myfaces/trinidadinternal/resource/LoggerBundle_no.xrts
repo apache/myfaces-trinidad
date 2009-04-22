@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <!DOCTYPE resources SYSTEM "rts.dtd">
 <resources xmlns="http://myfaces.apache.org/trinidad/rts" package="org.apache.myfaces.trinidadinternal.resource">
@@ -56,6 +56,8 @@
 <resource key="IGNORING_SERVLET_INIT_PARAM" dnt="false">Ignorerer init-parameter for servlet: {0} kan ikke analysere: {1}</resource>
 <!-- CANNOT_LOAD_VIEWHANDLER -->
 <resource key="CANNOT_LOAD_VIEWHANDLER" dnt="false">Kan ikke laste ViewHandler {0}</resource>
+<!-- DUPLICATE_VIEWHANDLER_REGISTRATION -->
+<resource key="DUPLICATE_VIEWHANDLER_REGISTRATION" dnt="false">Trinidads ViewHandler er registrert mer enn én gang. Hvis du vil unngå initialiseringsproblemer, må du kontrollere at det bare lastes én JAR-implementeringsfil for Trinidad</resource>
 <!-- TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION -->
 <resource key="TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION" dnt="false">Apache Trinidad kjører med tidsstempelkontroll aktivert. Dette skal ikke brukes i et produksjonsmiljø. Se egenskapen {0} i WEB-INF/web.xml</resource>
 <!-- CANNOT_LOAD_URL -->
@@ -165,10 +167,10 @@
 <resource key="RENDERER_NOT_FOUND" dnt="false">Finner ikke gjengiveren {0} for komponentfamilien {1}</resource>
 <!-- NO_SKIN_FACTORY -->
 <resource key="NO_SKIN_FACTORY" dnt="false">Det finnes ingen SkinFactory</resource>
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false">Skallet {0} som er angitt på requestMap, vil ikke bli brukt fordi styleSheetDocument-ID-en på requestMap ikke samsvarer med styleSheetDocument-ID-en til det lokale skallet. Det kan bety at JAR-filene ikke er identiske. Det kan for eksempel hende at én av dem har trinidad-skins.xml-ens skin-additions i en JAR-fil i klassebanen som den andre ikke har.</resource>
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false">Skallet {0} som er angitt på requestMap, vil ikke bli brukt fordi styleSheetDocument-ID-en ikke var i requestMap, og er nødvendig for å sammenligne med styleSheetDocument-ID-en til det lokale skallet for å sikre at skallene er identiske.</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false"> Skallet {0} som er angitt på requestMap, vil bli brukt selv om styleSheetDocumentId for forbrukerens skall på requestMap ikke samsvarer med styleSheetDocument-ID-en til det lokale skallet. Dette vil påvirke ytelsen fordi stilarkene ikke kan deles mellom forbruker og produsent. Produsentstilklassene blir ikke komprimert for å unngå konflikter. En mulig årsak til at ID-ene ikke samsvarer, kan være at JAR-filene ikke er identiske for produsenten og forbrukeren. Det kan for eksempel hende at én av dem har trinidad-skins.xml-ens skin-additions i en JAR-fil i klassebanen som den andre ikke har.</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false"> Skallet {0} som er angitt på requestMap, vil bli brukt selv om styleSheetDocumentId for forbrukerens skall ikke finnes i requestMap. Dette vil påvirke ytelsen fordi stilarkene ikke kan deles mellom forbrukeren og produsenten. </resource>
 <!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST -->
 <resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST" dnt="false">Skallet {0} som er angitt på requestMap, vil ikke bli brukt fordi det ikke finnes.</resource>
 <!-- CANNOT_GET_SKIN_FROM_SKINFACTORY -->
@@ -424,6 +426,7 @@
 <!-- REQUIRED_TRINIDADFILTER_NOT_INSTALLED -->
 <resource key="REQUIRED_TRINIDADFILTER_NOT_INSTALLED" dnt="false">TrinidadFilter er ikke installert. I Apache Trinidad er dette filteret nødvendig for riktig utførelse.</resource>
 <resource key="INVALID_ENUM_IN_CONFIG" dnt="false">Verdien {0} er ikke en gyldig verdi for &lt;{1}&gt;</resource>
+<resource key="INVALID_ACC_PROFILE" dnt="false">Verdien {0} er ikke en gyldig egenskap av typen accessibility-profile</resource>
 <!-- MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS -->
 <resource key="MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS" dnt="false">mergeCapabilities() kan bare brukes med agenter som er opprettet av denne klassen.</resource>
 <!-- INVALID_NAMESPACE -->
@@ -545,7 +548,7 @@
 <!-- INPUT_STREAM_ALREADY_REQUESTED -->
 <resource key="INPUT_STREAM_ALREADY_REQUESTED" dnt="false">Inndatastrømmen er allerede blitt forespurt.</resource>
 <!-- UPLOADED_FILE_EXCEEDED_MAXIMUM_ALLOWED_LENGTH -->
-<resource key="UPLOADED_FILE_EXCEEDED_MAXIMUM_ALLOWED_LENGTH" dnt="false">En opplastet fil med en lengde på {0} byte har overskredet den maksimale tillatte lengden ({1} byte)</resource>
+<resource key="UPLOADED_FILE_EXCEEDED_MAXIMUM_ALLOWED_LENGTH" dnt="false">En lastet fil med en lengde på {0} byte har overskredet den maksimale tillatte lengden ({1} byte)</resource>
 <!-- ITEM_ALREDY_BEEN_READ_PAST -->
 <resource key="ITEM_ALREDY_BEEN_READ_PAST" dnt="false">Elementet har allerede blitt lest forbi.</resource>
 <!-- END_OF_FILE -->
@@ -706,4 +709,14 @@
 <resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">Finner ikke den delvise triggeren {0} fra {1} med den støttede partialTriggers-syntaksen. Den delvise triggeren ble funnet med en syntaks som ikke støttes. Bruk den støttede syntaksen.</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">DateTimeRangeValidator krever at komponenten er en EditableValueHolder for at klientvalidering skal fungere. Klientvalidering deaktiveres for komponenten {0}.</resource>
+<!-- INVALID_LOCALE_LANG_LENGTH  -->
+<resource key="INVALID_LOCALE_LANG_LENGTH" dnt="false">Ugyldig språk for identifikatoren {0} for regional innstilling. Språkkoden må bestå av to tegn. Du finner riktig format i javadoc for regional innstilling. Bruker den regionale innstillingen for den gjeldende siden.</resource>
+<!-- INVALID_LOCALE_LANG_CASE  -->
+<resource key="INVALID_LOCALE_LANG_CASE" dnt="false">Ugyldig språk for identifikatoren {0} for regional innstilling. Språkkoden må bestå av små bokstaver. Du finner riktig format i javadoc for regional innstilling. Bruker den regionale innstillingen for den gjeldende siden.</resource>
+<!-- INVALID_LOCALE_COUNTRY_LENGTH  -->
+<resource key="INVALID_LOCALE_COUNTRY_LENGTH" dnt="false">Ugyldig land for identifikatoren {0} for regional innstilling. Landskoden må bestå av to tegn. Du finner riktig format i javadoc for regional innstilling. Bruker en tom streng for landet</resource>
+<!-- INVALID_LOCALE_COUNTRY_CASE  -->
+<resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Ugyldig land for identifikatoren {0} for regional innstilling. Landskoden må bestå av store bokstaver. Du finner riktig format i javadoc for regional innstilling. Bruker en tom streng for landet</resource>
+<!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
+<resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Ugyldig variant for identifikatoren {0} for regional innstilling. Kan ikke inneholde skråstreker for å unngå XSS-angrep. Bruker en tom streng for varianten.</resource>
 </resources>

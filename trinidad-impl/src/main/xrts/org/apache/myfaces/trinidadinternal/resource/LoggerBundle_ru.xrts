@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <!DOCTYPE resources SYSTEM "rts.dtd">
 <resources xmlns="http://myfaces.apache.org/trinidad/rts" package="org.apache.myfaces.trinidadinternal.resource">
@@ -56,6 +56,8 @@
 <resource key="IGNORING_SERVLET_INIT_PARAM" dnt="false">Игнорируется параметр инициализации сервлета:{0} невозможно выполнить синтаксический анализ:{1}</resource>
 <!-- CANNOT_LOAD_VIEWHANDLER -->
 <resource key="CANNOT_LOAD_VIEWHANDLER" dnt="false">Невозможно загрузить ViewHandler {0}</resource>
+<!-- DUPLICATE_VIEWHANDLER_REGISTRATION -->
+<resource key="DUPLICATE_VIEWHANDLER_REGISTRATION" dnt="false">ViewHandler для Trinidad зарегистрирован несколько раз. Для устранения ошибок инициализации убедитесь в том, что загружен только один фай jar реализации Trinidad</resource>
 <!-- TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION -->
 <resource key="TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION" dnt="false">Apache Trinidad выполняется с включенной проверкой отметок времени. Эта функция не должна использоваться в коммерческой версии. См. свойство {0} в WEB-INF/web.xml</resource>
 <!-- CANNOT_LOAD_URL -->
@@ -165,10 +167,10 @@
 <resource key="RENDERER_NOT_FOUND" dnt="false">Не найден обработчик &apos;&apos;{0}&apos;&apos; для семейства компонентов &apos;&apos;{1}&apos;&apos;</resource>
 <!-- NO_SKIN_FACTORY -->
 <resource key="NO_SKIN_FACTORY" dnt="false">Отсутствует SkinFactory</resource>
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false">Оформление {0}, заданное для данного requestMap, не будет использоваться, т.к. идентификатор styleSheetDocument для денного requestMap не соответствует идентификатору styleSheetDocument локального оформления. Это может означать, что файлы jar отличаются друг от друга. Например, один из них может содержать в файле jar на пути к классам добавления оформлений trinidad-skins.xml, которые отсутствуют у другого файла jar.</resource>
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false">Оформление {0}, заданное для данного requestMap, не будет использоваться, т.к. его идентификатор styleSheetDocument отсутствовал в данном requestMap и его требуется сравнить с идентификатором styleSheetDocument локального оформления с целью проверки идентичности оформлений.</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false"> Оформление {0}, заданное для данного requestMap, будет использоваться несмотря на то, что styleSheetDocument оформления потребителя для данного requestMap не соответствует идентификатору styleSheetDocument локального оформления. Это снизит производительность, т.к. таблицы стилей потребителя и производителя не могут использоваться совместно. Классы стилей производителя не будут сжиматься во избежание конфликтов. Причиной несоответствия идентификаторов могут являться файлы jar, которые для производителя и потребителя отличаются. Например, один из них может содержать в файле jar на пути к классам добавления оформлений trinidad-skins.xml, которые отсутствуют у другого файла jar.</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false"> Оформление {0}, заданное для данного requestMap, будет использоваться даже несмотря на то, что styleSheetDocumentId оформления потребителя отсутствовал в данном requestMap. Это снизит производительность, т.к. таблицы стилей не могут использоваться совместно потребителем и производителем.</resource>
 <!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST -->
 <resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST" dnt="false">Оформление {0}, заданное для данного requestMap, не будет использоваться, т.к. оно не существует.</resource>
 <!-- CANNOT_GET_SKIN_FROM_SKINFACTORY -->
@@ -424,6 +426,7 @@
 <!-- REQUIRED_TRINIDADFILTER_NOT_INSTALLED -->
 <resource key="REQUIRED_TRINIDADFILTER_NOT_INSTALLED" dnt="false">TrinidadFilter не установлен. Для правильной работы Apache Trinidad требуется этот фильтр.</resource>
 <resource key="INVALID_ENUM_IN_CONFIG" dnt="false">Значение &apos;&apos;{0}&apos;&apos; является недопустимым значением для &lt;&apos;&apos;{1}&apos;&apos;&gt;</resource>
+<resource key="INVALID_ACC_PROFILE" dnt="false">Значение &apos;&apos;{0}&apos;&apos; не является допустимым свойством профиля доступности</resource>
 <!-- MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS -->
 <resource key="MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS" dnt="false">mergeCapabilities() может использоваться только с агентами, созданными этим классом.</resource>
 <!-- INVALID_NAMESPACE -->
@@ -706,4 +709,14 @@
 <resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">Невозможно найти частичный триггер {0} из {1} с поддерживаемым синтаксисом partialTriggers. Был обнаружен частичный триггер с устаревшим синтаксисом. Используйте поддерживаемый синтаксис.</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">Для работоспособности проверки клиента требуется, чтобы для DateTimeRangeValidator данный компонент являлся EditableValueHolder. Для компонента {0} проверка клиента будет отключена.</resource>
+<!-- INVALID_LOCALE_LANG_LENGTH  -->
+<resource key="INVALID_LOCALE_LANG_LENGTH" dnt="false">Недопустимый язык для идентификатора национальных настроек {0} - код языка должен содержать 2 символа, верный формат см. в javadoc национальных настроек. Будут использоваться национальные настройки текущей страницы.</resource>
+<!-- INVALID_LOCALE_LANG_CASE  -->
+<resource key="INVALID_LOCALE_LANG_CASE" dnt="false">Недопустимый язык для идентификатора национальных настроек {0} - код языка должен быть задан в нижнем регистре, верный формат см. в javadoc национальных настроек. Будут использоваться национальные настройки текущей страницы.</resource>
+<!-- INVALID_LOCALE_COUNTRY_LENGTH  -->
+<resource key="INVALID_LOCALE_COUNTRY_LENGTH" dnt="false">Недопустимая страна для идентификатора национальных настроек {0} - код страны должен содержать 2 символа, верный формат см. в javadoc национальных настроек. Для страны будет использована пустая строка</resource>
+<!-- INVALID_LOCALE_COUNTRY_CASE  -->
+<resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Недопустимая страна для идентификатора национальных настроек {0} - код страны должен быть задан в верхнем регистре, верный формат см. в javadoc национальных настроек. Для страны будет использована пустая строка</resource>
+<!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
+<resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Недопустимая разновидность для идентификатора национальных настроек {0} - во избежание атак XSS он не может содержать символов косой черты. Для разновидности будет использована пустая строка.</resource>
 </resources>

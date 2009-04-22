@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <!DOCTYPE resources SYSTEM "rts.dtd">
 <resources xmlns="http://myfaces.apache.org/trinidad/rts" package="org.apache.myfaces.trinidadinternal.resource">
@@ -56,6 +56,8 @@
 <resource key="IGNORING_SERVLET_INIT_PARAM" dnt="false">忽略 servlet 初始化参数: {0} 无法对 {1} 进行语法分析</resource>
 <!-- CANNOT_LOAD_VIEWHANDLER -->
 <resource key="CANNOT_LOAD_VIEWHANDLER" dnt="false">无法加载 ViewHandler {0}</resource>
+<!-- DUPLICATE_VIEWHANDLER_REGISTRATION -->
+<resource key="DUPLICATE_VIEWHANDLER_REGISTRATION" dnt="false">Trinidad 的 ViewHandler 已多次注册。要避免初始化问题, 请确保只加载了一个 Trinidad 实施 jar</resource>
 <!-- TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION -->
 <resource key="TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION" dnt="false">Apache Trinidad 正在启用了时间戳检查的情况下运行。这不应当在生产环境中使用。请查看 WEB-INF/web.xml 中的 {0} 属性</resource>
 <!-- CANNOT_LOAD_URL -->
@@ -165,10 +167,10 @@
 <resource key="RENDERER_NOT_FOUND" dnt="false">未找到组件系列 &apos;&apos;{1}&apos;&apos; 的呈现器 &apos;&apos;{0}&apos;&apos;</resource>
 <!-- NO_SKIN_FACTORY -->
 <resource key="NO_SKIN_FACTORY" dnt="false">没有 SkinFactory</resource>
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false">由于 requestMap 上的 styleSheetDocument ID 不匹配本地外观的 styleSheetDocument 的 ID, 因此将不使用在此 requestMap 上指定的外观 {0}。这意味着 jar 可能不相同。例如, 一个 jar 在类路径上的 jar 文件中可能具有其他 jar 没有的 trinidad-skins.xml 的附加外观。</resource>
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false">由于 requestMap 上指定的外观 {0} 的 styleSheetDocument ID 不在此 requestMap 中, 并且需要将该 ID 与本地外观的 styleSheetDocument 的 ID 进行比较以确定外观是否相同, 因此将不使用该外观。</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false"> 即使 requestMap 上的使用者外观的 styleSheetDocumentId 与本地外观的 styleSheetDocument 的 ID 不匹配, 也将使用在此 requestMap 上指定的外观 {0}。这将影响性能, 因为无法共享使用者和生成器样式表。将不会压缩生成器样式类以避免冲突。ID 不匹配的原因可能是生成器与使用者的 Jar 不相同。例如, 一个 Jar 的 trinidad-skins.xml 的外观添加项可能在类路径上的 Jar 文件中, 而另一个 Jar 则不是。</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false"> 即使 requestMap 中不存在使用者外观的 styleSheetDocumentId, 也将使用在此 requestMap 上指定的外观 {0}。这将影响性能, 因为无法在生成器和使用者之间共享样式表。</resource>
 <!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST -->
 <resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST" dnt="false">由于此 requestMap 上指定的外观 {0} 不存在, 将不使用该外观。</resource>
 <!-- CANNOT_GET_SKIN_FROM_SKINFACTORY -->
@@ -210,7 +212,7 @@
 <!-- FRAMES_MUST_INSIDE_FRAMEBORDERLAYOUTS -->
 <resource key="FRAMES_MUST_INSIDE_FRAMEBORDERLAYOUTS" dnt="false">框架必须出现在 FrameBorderLayouts 内部</resource>
 <!-- NO_PPR_CAPABLE_ID_FOUND_FOR_COMPONENT -->
-<resource key="NO_PPR_CAPABLE_ID_FOUND_FOR_COMPONENT" dnt="false">未找到 {0} 元素的支持 PPR 的 &quot;id&quot;。此组件尚未写出 &quot;id&quot; 属性。</resource>
+<resource key="NO_PPR_CAPABLE_ID_FOUND_FOR_COMPONENT" dnt="false">找不到 {0} 元素具有 PPR 能力的 &quot;id&quot;。此组件尚未写出 &quot;id&quot; 属性。</resource>
 <!-- INVALID_STRING_ATTRIBUTE -->
 <resource key="INVALID_STRING_ATTRIBUTE" dnt="false">chooseDate 的字符串属性无效: {0}</resource>
 <!-- UNABLE_ENCODE_URL -->
@@ -424,6 +426,7 @@
 <!-- REQUIRED_TRINIDADFILTER_NOT_INSTALLED -->
 <resource key="REQUIRED_TRINIDADFILTER_NOT_INSTALLED" dnt="false">TrinidadFilter 尚未安装。Apache Trinidad 需要此过滤器才能正确执行。</resource>
 <resource key="INVALID_ENUM_IN_CONFIG" dnt="false">值 &apos;&apos;{0}&apos;&apos; 不是 &lt;&apos;&apos;{1}&apos;&apos;&gt; 的合法值</resource>
+<resource key="INVALID_ACC_PROFILE" dnt="false">值 &apos;&apos;{0}&apos;&apos; 不是有效的可访问性概要文件属性</resource>
 <!-- MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS -->
 <resource key="MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS" dnt="false">mergeCapabilities() 只能用于由此类创建的代理。</resource>
 <!-- INVALID_NAMESPACE -->
@@ -513,7 +516,7 @@
 <!-- NOT_A_CHARACTER -->
 <resource key="NOT_A_CHARACTER" dnt="false">{0} 不是字符</resource>
 <!-- CANNOT_BE_PARSED -->
-<resource key="CANNOT_BE_PARSED" dnt="false">无法将 {0} 语法分析为 {1}</resource>
+<resource key="CANNOT_BE_PARSED" dnt="false">无法将 {0} 分析为 {1}</resource>
 <!-- NULL_TYPE -->
 <resource key="NULL_TYPE" dnt="false">类型为空值</resource>
 <!-- CANNOT_COERCE_VALUE_OF_TYPE -->
@@ -593,7 +596,7 @@
 <!-- COMPOENENTDEF_CANNOT_RUN_AS_STANDALONE -->
 <resource key="COMPOENENTDEF_CANNOT_RUN_AS_STANDALONE" dnt="false">componentDef 不能以独立方式运行。它必须包括在 JSF 组件树中。</resource>
 <!-- COMPONENTDEF_MUST_BE_INCLUDED_AS_CHILD_OF -->
-<resource key="COMPONENTDEF_MUST_BE_INCLUDED_AS_CHILD_OF" dnt="false">componentDef 必须作为 &lt;tr:componentRef&gt; 的子级包括。</resource>
+<resource key="COMPONENTDEF_MUST_BE_INCLUDED_AS_CHILD_OF" dnt="false">componentDef 必须作为 &lt;tr:componentRef&gt; 的子级包括在内。</resource>
 <!-- COMPONENTDEF_NOT_SUPPORT_EL -->
 <resource key="COMPONENTDEF_NOT_SUPPORT_EL" dnt="false">tr:componentDef 不支持 &apos;var&apos; 上的 EL</resource>
 <!-- MUST_BE_SIMPLE_JSF_EL_EXPRESSION -->
@@ -706,4 +709,14 @@
 <resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">在 {1} 中找不到具有支持的 partialTriggers 语法的部分触发器 {0}。找到了具有过时语法的部分触发器。请使用支持的语法。</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">DateTimeRangeValidator 要求组件是 EditableValueHolder 才能执行客户机验证。组件 {0} 将禁用客户机验证。</resource>
+<!-- INVALID_LOCALE_LANG_LENGTH  -->
+<resource key="INVALID_LOCALE_LANG_LENGTH" dnt="false">区域设置标识符 {0} 的语言无效 - 语言代码必须是 2 个字符, 请查看区域设置 Javadoc 以了解正确格式。将使用当前页区域设置。</resource>
+<!-- INVALID_LOCALE_LANG_CASE  -->
+<resource key="INVALID_LOCALE_LANG_CASE" dnt="false">区域设置标识符 {0} 的语言无效 - 语言代码必须小写, 请查看区域设置 Javadoc 以了解正确格式。将使用当前页区域设置。</resource>
+<!-- INVALID_LOCALE_COUNTRY_LENGTH  -->
+<resource key="INVALID_LOCALE_COUNTRY_LENGTH" dnt="false">区域设置标识符 {0} 的国家/地区无效 - 国家/地区代码必须是 2 个字符, 请查看区域设置 Javadoc 以了解正确格式。国家/地区将使用空字符串</resource>
+<!-- INVALID_LOCALE_COUNTRY_CASE  -->
+<resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">区域设置标识符 {0} 的国家/地区无效 - 国家/地区代码必须大写, 请查看区域设置 Javadoc 以了解正确格式。国家/地区将使用空字符串</resource>
+<!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
+<resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">区域设置标识符 {0} 的变体无效 - 不能包含斜杠, 以避免 XSS 攻击。变体将使用空字符串。</resource>
 </resources>

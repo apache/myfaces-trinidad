@@ -105,9 +105,9 @@
 <resource key="af_table.SELECT_RANGE_NEXT" dnt="false">Následující {0}</resource>
 <!--navigation bar with no more records going forward.-->
 <!--the following text will be drawn in a disabled font-->
-<resource key="af_selectRangeChoiceBar.DISABLED_NEXT" dnt="false">Následující</resource>
-<resource key="af_table.SELECT_RANGE_DISABLED_NEXT" dnt="false">Následující</resource>
-<resource key="af_treeTable.DISABLED_NEXT" dnt="false">Následující</resource>
+<resource key="af_selectRangeChoiceBar.DISABLED_NEXT" dnt="false">Další</resource>
+<resource key="af_table.SELECT_RANGE_DISABLED_NEXT" dnt="false">Další</resource>
+<resource key="af_treeTable.DISABLED_NEXT" dnt="false">Další</resource>
 <!--navigation bar with no more records going backward.-->
 <!--the following text will be drawn in a disabled font-->
 <resource key="af_selectRangeChoiceBar.DISABLED_PREVIOUS" dnt="false">Předchozí</resource>
@@ -452,13 +452,16 @@
 <!--resource for af:chart -->
 <resource key="af_chart.IE_SVG_PLUGIN_ERROR_HTML" dnt="false">
 <![CDATA[<H4>Unable to load SVG plugin. Please install the plugin from <a href='#' onclick="window.open('http://www.adobe.com/svg/viewer/install/main.html')">Adobe</a><H4>]]>
-</resource>
+
+  </resource>
 <resource key="af_chart.SVG_ENABLED_BROWSER_ERROR_HTML" dnt="false">
 <![CDATA[<H4>This component needs an SVG enabled browser like Internet Explorer, Firefox 1.5+ or Opera 9.0+<H4>]]>
-</resource>
+
+  </resource>
 <resource key="af_chart.SVG_LOADING_STATUS_HTML" dnt="false">
 <![CDATA[<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>]]>
-</resource>
+
+  </resource>
 <!-- OLD KEYS FOR NOT YET IMPLEMENTED IN ADF FACES -->
 <!--  ******************************************** -->
 <!-- the components that used these keys in 2.2 are not in 3.0 yet -->
@@ -475,7 +478,7 @@
 <!--table total row button text for updating display-->
 <resource key="TABLE_TOTAL_ROW_BUTTON_TEXT" dnt="false">Přepočítat</resource>
 <!--table add row button text for adding more than one row-->
-<resource key="TABLE_TOTAL_ROW_TEXT" dnt="false">Celkový součet </resource>
+<resource key="TABLE_TOTAL_ROW_TEXT" dnt="false">Celkem</resource>
 <!--LOVChoice-->
 <!--Text for the lovChoice More... option  -->
 <resource key="LOV_CHOICE_MORE_OPTION" dnt="false">Více...</resource>

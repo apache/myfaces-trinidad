@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <!DOCTYPE resources SYSTEM "rts.dtd">
 <resources xmlns="http://myfaces.apache.org/trinidad/rts" package="org.apache.myfaces.trinidadinternal.resource">
@@ -56,6 +56,8 @@
 <resource key="IGNORING_SERVLET_INIT_PARAM" dnt="false">Ignorování počátečního parametru servletu:{0} nelze analyzovat:{1}</resource>
 <!-- CANNOT_LOAD_VIEWHANDLER -->
 <resource key="CANNOT_LOAD_VIEWHANDLER" dnt="false">Nelze načíst ViewHandler {0}</resource>
+<!-- DUPLICATE_VIEWHANDLER_REGISTRATION -->
+<resource key="DUPLICATE_VIEWHANDLER_REGISTRATION" dnt="false">Trinidad ViewHandler je registrován více než jednou. Chcete-li se vyhnout inicializačním problémům, musí být načten pouze jeden implementační soubor jar Trinidad</resource>
 <!-- TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION -->
 <resource key="TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION" dnt="false">Modul Apache Trinidad je spuštěn s povolenou kontrolou časových razítek. Ta by neměla být použita ve výrobním prostředí. Viz vlastnost {0} v souboru WEB-INF/web.xml</resource>
 <!-- CANNOT_LOAD_URL -->
@@ -165,10 +167,10 @@
 <resource key="RENDERER_NOT_FOUND" dnt="false">Modul pro vykreslení &apos;&apos;{0}&apos;&apos; nebyl nalezen pro skupinu součástí &apos;&apos;{1}&apos;&apos;</resource>
 <!-- NO_SKIN_FACTORY -->
 <resource key="NO_SKIN_FACTORY" dnt="false">Neexistuje SkinFactory</resource>
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false">Vzhled {0} zadaný v requestMap nebude použit, protože ID styleSheetDocument v atributu requestMap neodpovídá ID styleSheetDocument místního vzhledu. Může to znamenat, že soubory JAR nejsou totožné. Jeden může například obsahovat dodatky vzhledu souboru soubor trinidad-skins.xml v souboru JAR v cestě ke třídě, kterou nemá druhý.</resource>
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false">Vzhled {0} zadaný v requestMap nebude použit, protože jeho ID styleSheetDocument nebylo v atributu requestMap a je potřebné k porovnání s ID místního styleSheetDocument, aby se zajistilo, že jsou vzhledy stejné.</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false"> Vzhled {0} zadaný v requestMap bude použit, i když ID seznamu stylů vzhledu spotřebitele v atributu requestMap neodpovídá ID seznamu stylů místního vzhledu. Bude to mít dopad na výkon, protože seznamy stylů spotřebitele a poskytovatele nelze sdílet. Třídy stylu poskytovatele nebudou komprimovány, aby se zabránilo konfliktům. Důvodem neshody ID může být to, že soubory JAR nejsou totožné u poskytovate a spotřebitel. Jeden může například obsahovat dodatky vzhledu souboru soubor trinidad-skins.xml v souboru JAR v cestě ke třídě, kterou nemá druhý.</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false"> Vzhled {0} zadaný v requestMap bude použit, i když ID seznamu stylů vzhledu spotřebitele nebyl v atributu requestMap.  Bude to mít dopad na výkon, protože seznamy stylů nemohou být sdíleny poskytovatelem a spotřebitelem.</resource>
 <!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST -->
 <resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST" dnt="false">Vzhled {0} zadaný v requestMap nebude použit, protože neexistuje.</resource>
 <!-- CANNOT_GET_SKIN_FROM_SKINFACTORY -->
@@ -424,6 +426,7 @@
 <!-- REQUIRED_TRINIDADFILTER_NOT_INSTALLED -->
 <resource key="REQUIRED_TRINIDADFILTER_NOT_INSTALLED" dnt="false">Nebyl instalován filtr TrinidadFilter. Řádné spuštění modulu Apache Trinidad vyžaduje tento filtr.</resource>
 <resource key="INVALID_ENUM_IN_CONFIG" dnt="false">Hodnota &apos;&apos;{0}&apos;&apos; není platná hodnota pro &lt;&apos;&apos;{1}&apos;&apos;&gt;</resource>
+<resource key="INVALID_ACC_PROFILE" dnt="false">Hodnota {0} není platná vlastnost accessibility-profile</resource>
 <!-- MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS -->
 <resource key="MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS" dnt="false">Atribut mergeCapabilities() může být použit pouze u agentů vytvořených touto třídou.</resource>
 <!-- INVALID_NAMESPACE -->
@@ -706,4 +709,14 @@
 <resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">Nelze najít částečné vyvolání {0} z {1} s podporovanou syntaxí partialTriggers. Bylo zjištěno částečné spuštění s neschvalovanou syntaxí. Použijte podporovanou syntaxi.</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">Aby fungovalo ověření klienta, DateTimeRangeValidator vyžaduje, aby komponenta byla EditableValueHolder. Ověření klienta bude pro komponentu {0} zablokováno.</resource>
+<!-- INVALID_LOCALE_LANG_LENGTH  -->
+<resource key="INVALID_LOCALE_LANG_LENGTH" dnt="false">Neplatný jazyk pro ID místního nastavení {0} - kód jazyka musí mít dva znaky, viz javadoc místního nastavení pro správný formát. Bude použito lokální nastavení aktuální stránky.</resource>
+<!-- INVALID_LOCALE_LANG_CASE  -->
+<resource key="INVALID_LOCALE_LANG_CASE" dnt="false">Neplatný jazyk pro ID místního nastavení {0} - kód jazyka musí být psán malými písmeny, viz javadoc místního nastavení pro správný formát. Bude použito lokální nastavení aktuální stránky.</resource>
+<!-- INVALID_LOCALE_COUNTRY_LENGTH  -->
+<resource key="INVALID_LOCALE_COUNTRY_LENGTH" dnt="false">Neplatná země pro ID místního nastavení {0} - kód země musí mít dva znaky, viz javadoc místního nastavení pro správný formát. Pro zemi bude použit prázdný řetězec</resource>
+<!-- INVALID_LOCALE_COUNTRY_CASE  -->
+<resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Neplatná země pro ID místního nastavení {0} - kód země musí být psán velkými písmeny, viz javadoc místního nastavení pro správný formát. Pro zemi bude použit prázdný řetězec</resource>
+<!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
+<resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Neplatná varianta ID místního nastavení {0} - kvůli ochraně proti XSS nesmí obsahovat lomítka. Pro variantu bude použit prázdný řetězec.</resource>
 </resources>

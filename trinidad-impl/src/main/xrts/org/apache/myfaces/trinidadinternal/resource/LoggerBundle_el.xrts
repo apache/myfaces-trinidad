@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <!DOCTYPE resources SYSTEM "rts.dtd">
 <resources xmlns="http://myfaces.apache.org/trinidad/rts" package="org.apache.myfaces.trinidadinternal.resource">
@@ -56,6 +56,8 @@
 <resource key="IGNORING_SERVLET_INIT_PARAM" dnt="false">Παράβλεψη της παραμέτρου απόδοσης αρχικών τιμών σε servlet:{0} δεν είναι δυνατή η ανάλυση:{1}</resource>
 <!-- CANNOT_LOAD_VIEWHANDLER -->
 <resource key="CANNOT_LOAD_VIEWHANDLER" dnt="false">Δεν ήταν δυνατή η φόρτωση του ViewHandler &quot;{0}&quot;</resource>
+<!-- DUPLICATE_VIEWHANDLER_REGISTRATION -->
+<resource key="DUPLICATE_VIEWHANDLER_REGISTRATION" dnt="false">Το ViewHandler του Trinidad έχει καταχωριστεί περισσότερες από μία φορές. Για να αποφύγετε προβλήματα αρχικοποίησης, βεβαιωθείτε ότι έχει φορτωθεί μόνο ένα jar υλοποίησης Trinidad.</resource>
 <!-- TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION -->
 <resource key="TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION" dnt="false">Το Apache Trinidad εκτελείται σε ενεργοποιημένο τον έλεγχο χρονικής ένδειξης. Αυτό δεν επιτρέπεται σε περιβάλλον παραγωγής. Δείτε την παράμετρο {0} στο /WEB-INF/web.xml.</resource>
 <!-- CANNOT_LOAD_URL -->
@@ -165,10 +167,10 @@
 <resource key="RENDERER_NOT_FOUND" dnt="false">Η διαδικασία απόδοσης {0} δεν βρέθηκε για την οικογένεια συστατικών στοιχείων &quot;{1}&quot;</resource>
 <!-- NO_SKIN_FACTORY -->
 <resource key="NO_SKIN_FACTORY" dnt="false">Δεν υπάρχει SkinFactory</resource>
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false">Ο τρόπος εμφάνισης {0} που προσδιορίστηκε στο requestMap δεν θα χρησιμοποιηθεί επειδή το αναγνωριστικό styleSheetDocument στο requestMap δεν συμφωνεί με το αναγνωριστικό styleSheetDocument του τοπικού τρόπου εμφάνισης. Αυτό ίσως σημαίνει ότι τα αρχεία jar δεν είναι ίδια. Για παράδειγμα, το ένα μπορεί να έχει skin-additions του trinidad-skins.xml στη διαδρομή κλάσης ενώ το άλλο όχι.</resource>
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false">Ο τρόπος εμφάνισης {0} που προσδιορίστηκε στο requestMap δεν θα χρησιμοποιηθεί επειδή το αναγνωριστικό styleSheetDocument δεν υπήρχε στο requestMap ενώ χρειάζεται για τη σύγκριση με το αναγνωριστικό styleSheetDocument του τοπικού τρόπου εμφάνισης ώστε να διαπιστωθεί ότι οι δύο τρόποι εμφάνισης είναι ίδιοι.</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false"> Ο τρόπος εμφάνισης {0} που καθορίζεται στο requestMap θα χρησιμοποιηθεί, παρόλο που το styleSheetDocumentId του τρόπου εμφάνισης καταναλωτή στο requestMap δεν συμφωνεί με το αναγνωριστικό του styleSheetDocument του τοπικού τρόπου εμφάνισης. Αυτό θα επηρεάσει την απόδοση, καθώς δεν είναι δυνατή η κοινή χρήση των φύλλων στυλ καταναλωτή και παροχέα. Οι κλάσεις στυλ του παροχέα δεν θα συμπιεστούν, ώστε να αποφευχθούν διενέξεις. Μια αιτία για την ασυμφωνία των αναγνωριστικών ίσως είναι ότι τα αρχεία jar του παροχέα και του καταναλωτή δεν είναι ίδια. Για παράδειγμα, σε ένα αρχείο jar στη διαδρομή κλάσης ενδέχεται να υπάρχουν προσθήκες τρόπου εμφάνισης trinidad-skins.xml, οι οποίες στην άλλη πλευρά να μην υπάρχουν.</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false"> Ο τρόπος εμφάνισης {0} που καθορίστηκε στο requestMap θα χρησιμοποιηθεί, παρόλο που το styleSheetDocumentId του τρόπου εμφάνισης του καταναλωτή δεν ήταν στο requestMap. Αυτό θα επηρεάσει την απόδοση, καθώς τα φύλλα στυλ δεν μπορούν να χρησιμοποιούνται από κοινού από τον παροχέα και τον καταναλωτή.</resource>
 <!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST -->
 <resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST" dnt="false">Ο τρόπος εμφάνισης {0} που προσδιορίστηκε στο requestMap δεν θα χρησιμοποιηθεί επειδή δεν υπάρχει.</resource>
 <!-- CANNOT_GET_SKIN_FROM_SKINFACTORY -->
@@ -424,6 +426,7 @@
 <!-- REQUIRED_TRINIDADFILTER_NOT_INSTALLED -->
 <resource key="REQUIRED_TRINIDADFILTER_NOT_INSTALLED" dnt="false">Το TrinidadFilter δεν έχει εγκατασταθεί. Το Apache Trinidad χρειάζεται αυτό το φίλτρο για να λειτουργεί σωστά.</resource>
 <resource key="INVALID_ENUM_IN_CONFIG" dnt="false">Η τιμή &quot;{0}&quot; δεν είναι αποδεκτή τιμή για &lt;&quot;{1}&quot;&gt;</resource>
+<resource key="INVALID_ACC_PROFILE" dnt="false">Η τιμή &apos;&apos;{0}&apos;&apos; δεν είναι αποδεκτή ιδιότητα προφίλ προσβασιμότητας</resource>
 <!-- MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS -->
 <resource key="MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS" dnt="false">Η μέθοδος mergeCapabilities() μπορεί να χρησιμοποιηθεί μόνο με agent που έχουν δημιουργηθεί με αυτή την κλάση.</resource>
 <!-- INVALID_NAMESPACE -->
@@ -706,4 +709,14 @@
 <resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">Δεν είναι δυνατή η εύρεση του τμηματικού trigger {0} από το {1} με την υποστηριζόμενη σύνταξη partialTriggers. Το τμηματικό trigger εντοπίστηκε με καταργημένη σύνταξη. Χρησιμοποιήστε την υποστηριζόμενη σύνταξη.</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">Η κλάση DateTimeRangeValidator απαιτεί συστατικό στοιχείο EditableValueHolder ώστε να είναι δυνατή η επικύρωση του client. Η επικύρωση του client θα απενεργοποιηθεί για το συστατικό στοιχείο &quot;{0}&quot;.</resource>
+<!-- INVALID_LOCALE_LANG_LENGTH  -->
+<resource key="INVALID_LOCALE_LANG_LENGTH" dnt="false">Μη έγκυρη γλώσσα για το αναγνωριστικό τοπικών ρυθμίσεων {0} - ο κωδικός γλώσσας πρέπει να αποτελείται από 2 χαρακτήρες. Για τη σωστή μορφή, ανατρέξτε στο javadoc. Θα χρησιμοποιηθούν οι τρέχουσες τοπικές ρυθμίσεις της σελίδας.</resource>
+<!-- INVALID_LOCALE_LANG_CASE  -->
+<resource key="INVALID_LOCALE_LANG_CASE" dnt="false">Μη έγκυρη γλώσσα για το αναγνωριστικό τοπικών ρυθμίσεων {0} - ο κωδικός γλώσσας πρέπει να είναι με πεζά. Για τη σωστή μορφή, ανατρέξτε στο javadoc. Θα χρησιμοποιηθούν οι τρέχουσες τοπικές ρυθμίσεις της σελίδας.</resource>
+<!-- INVALID_LOCALE_COUNTRY_LENGTH  -->
+<resource key="INVALID_LOCALE_COUNTRY_LENGTH" dnt="false">Μη έγκυρη χώρα για το αναγνωριστικό τοπικών ρυθμίσεων {0} - ο κωδικός χώρας πρέπει να αποτελείται από 2 χαρακτήρες. Για τη σωστή μορφή, ανατρέξτε στο javadoc. Θα χρησιμοποιηθεί κενή συμβολοσειρά για τη χώρα</resource>
+<!-- INVALID_LOCALE_COUNTRY_CASE  -->
+<resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Μη έγκυρη χώρα για το αναγνωριστικό τοπικών ρυθμίσεων {0} - ο κωδικός χώρας πρέπει να είναι με πεζά. Για τη σωστή μορφή, ανατρέξτε στο javadoc. Θα χρησιμοποιηθεί κενή συμβολοσειρά για τη χώρα</resource>
+<!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
+<resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Μη έγκυρη μεταβλητή για το αναγνωριστικό τοπικών ρυθμίσεων {0} - δεν είναι δυνατόν να περιέχονται κάθετοι για να αποφευχθεί επίθεση XSS. Θα χρησιμοποιηθεί κενή συμβολοσειρά για τη μεταβλητή.</resource>
 </resources>

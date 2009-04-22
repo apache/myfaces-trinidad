@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <!DOCTYPE resources SYSTEM "rts.dtd">
 <resources xmlns="http://myfaces.apache.org/trinidad/rts" package="org.apache.myfaces.trinidadinternal.resource">
@@ -56,6 +56,8 @@
 <resource key="IGNORING_SERVLET_INIT_PARAM" dnt="false">ระบบไม่ประมวลผลพารามิเตอร์ init ของเซิร์ฟเล็ต: {0} ไม่สามารถพาร์ซ: {1}</resource>
 <!-- CANNOT_LOAD_VIEWHANDLER -->
 <resource key="CANNOT_LOAD_VIEWHANDLER" dnt="false">ไม่สามารถโหลด ViewHandler {0}</resource>
+<!-- DUPLICATE_VIEWHANDLER_REGISTRATION -->
+<resource key="DUPLICATE_VIEWHANDLER_REGISTRATION" dnt="false">มีการรีจิสเตอร์ ViewHandler ของ Trinidad มากกว่าหนึ่งครั้ง เพื่อป้องกันปัญหาการเริ่มต้น ตรวจสอบว่ามีการโหลดไฟล์ jar สำหรับการใช้งานของ Trinidad เพียงครั้งเดียว</resource>
 <!-- TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION -->
 <resource key="TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION" dnt="false">Apache Trinidad กำลังรันโดยมีการตรวจสอบเวลาระบบ ซึ่งไม่ควรใช้ในสภาวะแวดล้อมการใช้งานจริง โปรดดูคุณสมบัติ {0} ใน WEB-INF/web.xml</resource>
 <!-- CANNOT_LOAD_URL -->
@@ -63,7 +65,7 @@
 <!-- CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR -->
 <resource key="CANNOT_INSTANTIATE_UPLOADEDFILEPROCESSOR" dnt="false">ไม่สามารถเริ่มต้นอินสแตนซ์ UploadedFileProcessor</resource>
 <!-- RUNNING_IN_DEBUG_MODE -->
-<resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Trinidad กำลังรันในโหมดการดีบัก โปรดอย่าใช้ในสภาวะแวดล้อมการใช้งานจริง โปรดดูที่: {0}</resource>
+<resource key="RUNNING_IN_DEBUG_MODE" dnt="false">Trinidad กำลังรันในโหมดการดีบัก ห้ามใช้ในสภาวะแวดล้อมการใช้งานจริง โปรดดูที่: {0}</resource>
 <!-- ELEMENT_NOT_UNDERSTOOD -->
 <resource key="ELEMENT_NOT_UNDERSTOOD" dnt="false">ระบบไม่รู้จักอีลิเมนต์ {0}</resource>
 <!-- NOT_SUPPORT_EL_EXPRESSION -->
@@ -165,10 +167,10 @@
 <resource key="RENDERER_NOT_FOUND" dnt="false">ไม่พบตัวแสดงผล &apos;&apos;{0}&apos;&apos; สำหรับกลุ่มขององค์ประกอบ &apos;&apos;{1}&apos;&apos;</resource>
 <!-- NO_SKIN_FACTORY -->
 <resource key="NO_SKIN_FACTORY" dnt="false">ไม่มี SkinFactory</resource>
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false">ระบบจะไม่ใช้สกิน {0} ที่ระบุใน requestMap เนื่องจาก ID ของ styleSheetDocument ใน requestMap ไม่ตรงกับ ID ของ styleSheetDocument ของสกินในระบบ ทั้งนี้อาจหมายความว่าไฟล์ jar ไม่ตรงกัน ตัวอย่างเช่น รายการหนึ่งอาจมีการเพิ่มสกิน trinidad-skins.xml ในไฟล์ jar ที่คลาสพาธซึ่งอีกรายการหนึ่งไม่มี</resource>
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false">ระบบจะไม่ใช้สกิน {0} ที่ระบุใน requestMap เนื่องจาก ID ของ styleSheetDocument ไม่ได้อยู่ใน requestMap และจำเป็นต้องเปรียบเทียบกับ ID ของ styleSheetDocument ของสกินในระบบ เพื่อให้แน่ใจว่าสกินตรงกัน</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false"> ระบบจะใช้สกิน {0} ที่ระบุไว้ใน requestMap แม้ว่า styleSheetDocumentId สำหรับสกินของผู้ใช้ใน requestMap จะไม่ตรงกับ ID ของ styleSheetDocument สำหรับสกินในระบบ การทำงานนี้จะมีผลกับประสิทธิภาพเนื่องจากระบบไม่สามารถใช้สไตล์ชีทของผู้ใช้และผู้สร้างร่วมกันได้ สไตล์คลาสของผู้สร้างจะไม่มีการบีบอัดเพื่อหลีกเลี่ยงข้อขัดแย้ง สาเหตุที่ ID ไม่ตรงกันอาจเป็นเพราะไฟล์ jar สำหรับผู้สร้างและผู้ใช้ไม่ตรงกัน ตัวอย่างเช่น ไฟล์หนึ่งอาจมีส่วนเพิ่มของสกิน trinidad-skins.xml ในไฟล์ jar บนคลาสพาธที่ไม่มีอยู่ในอีกฝ่ายหนึ่ง</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false"> ระบบจะใช้สกิน {0} ที่ระบุไว้ใน requestMap แม้ว่า styleSheetDocumentId สำหรับสกินของผู้ใช้ไม่ได้อยู่ใน requestMap การทำงานนี้จะมีผลกับประสิทธิภาพเนื่องจากระบบไม่สามารถใช้สไตล์ชีทของผู้ใช้และผู้สร้างร่วมกันได้</resource>
 <!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST -->
 <resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST" dnt="false">ระบบจะไม่ใช้สกินที่ระบุ {0} ใน requestMap เนื่องจากไม่มีสกินนี้อยู่</resource>
 <!-- CANNOT_GET_SKIN_FROM_SKINFACTORY -->
@@ -254,7 +256,7 @@
 <!-- UNABLE_GET_RESOURCE -->
 <resource key="UNABLE_GET_RESOURCE" dnt="false">ไม่สามารถเรียกทรัพยากร {0}</resource>
 <!-- RUNNING_DEBUG_JAVASCRIPT -->
-<resource key="RUNNING_DEBUG_JAVASCRIPT" dnt="false">Apache Trinidad กำลังรันด้วยจาวาสคริปต์ โปรดอย่าใช้ในสภาวะแวดล้อมการใช้งานจริง โปรดดูพารามิเตอร์ &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; ใน /WEB-INF/web.xml</resource>
+<resource key="RUNNING_DEBUG_JAVASCRIPT" dnt="false">Apache Trinidad กำลังรันด้วยจาวาสคริปต์ ห้ามใช้ในสภาวะแวดล้อมการใช้งานจริง โปรดดูพารามิเตอร์ &quot;org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT&quot; ใน /WEB-INF/web.xml</resource>
 <!-- ILLEGAL_VALUE -->
 <resource key="ILLEGAL_VALUE" dnt="false">ค่าไม่ถูกต้อง: {0} สำหรับ {1}</resource>
 <!-- UNKNOWN_VALUE_FOR_ALIGN -->
@@ -424,6 +426,7 @@
 <!-- REQUIRED_TRINIDADFILTER_NOT_INSTALLED -->
 <resource key="REQUIRED_TRINIDADFILTER_NOT_INSTALLED" dnt="false">ไม่ได้ติดตั้ง TrinidadFilter ซึ่ง Apache Trinidad กำหนดให้มีการรันฟิลเตอร์นี้อย่างถูกต้อง</resource>
 <resource key="INVALID_ENUM_IN_CONFIG" dnt="false">ค่า &apos;&apos;{0}&apos;&apos; ไม่ใช่ค่าที่ถูกต้องสำหรับ &lt;&apos;&apos;{1}&apos;&apos;&gt;</resource>
+<resource key="INVALID_ACC_PROFILE" dnt="false">ค่า &apos;&apos;{0}&apos;&apos; ไม่ใช่คุณสมบัติ accessibility-profile ที่ถูกต้อง</resource>
 <!-- MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS -->
 <resource key="MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS" dnt="false">ใช้ mergeCapabilities() ได้เฉพาะกับเอเจนต์ที่สร้างจากคลาสนี้</resource>
 <!-- INVALID_NAMESPACE -->
@@ -706,4 +709,14 @@
 <resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">ไม่พบทริกเกอร์บางส่วน {0} จาก {1} ที่มีรูปแบบคำสั่ง partialTriggers ที่รองรับ พบทริกเกอร์บางส่วนที่มีรูปแบบคำสั่งที่เลิกใช้แล้ว โปรดใช้รูปแบบคำสั่งที่รองรับ</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">DateTimeRangeValidator กำหนดให้องค์ประกอบเป็น EditableValueHolder เพื่อให้การตรวจสอบความถูกต้องของไคลเอนต์ทำงานได้ การตรวจสอบไคลเอนต์จะถูกเลิกใช้สำหรับองค์ประกอบ {0}</resource>
+<!-- INVALID_LOCALE_LANG_LENGTH  -->
+<resource key="INVALID_LOCALE_LANG_LENGTH" dnt="false">ภาษาไม่ถูกต้องสำหรับตัวระบุโลแคล {0} - รหัสภาษาต้องมี 2 อักขระ โปรดดูเอกสารจาวาของโลแคลสำหรับรูปแบบที่ถูกต้อง ระบบจะใช้โลแคลของเพจปัจจุบัน</resource>
+<!-- INVALID_LOCALE_LANG_CASE  -->
+<resource key="INVALID_LOCALE_LANG_CASE" dnt="false">ภาษาไม่ถูกต้องสำหรับตัวระบุโลแคล {0} - รหัสภาษาต้องเป็นตัวพิมพ์เล็ก โปรดดูเอกสารจาวาของโลแคลสำหรับรูปแบบที่ถูกต้อง ระบบจะใช้โลแคลของเพจปัจจุบัน</resource>
+<!-- INVALID_LOCALE_COUNTRY_LENGTH  -->
+<resource key="INVALID_LOCALE_COUNTRY_LENGTH" dnt="false">ประเทศไม่ถูกต้องสำหรับตัวระบุโลแคล {0} - รหัสประเทศต้องมี 2 อักขระ โปรดดูเอกสารจาวาของโลแคลสำหรับรูปแบบที่ถูกต้อง ระบบจะใช้สตริงว่างเปล่าสำหรับประเทศ</resource>
+<!-- INVALID_LOCALE_COUNTRY_CASE  -->
+<resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">ประเทศไม่ถูกต้องสำหรับตัวระบุโลแคล {0} - รหัสประเทศต้องเป็นตัวพิมพ์ใหญ่ โปรดดูเอกสารจาวาของโลแคลสำหรับรูปแบบที่ถูกต้อง ระบบจะใช้สตริงว่างเปล่าสำหรับประเทศ</resource>
+<!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
+<resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">ค่าแปรปรวนไม่ถูกต้องสำหรับตัวระบุโลแคล {0} - ต้องไม่มีเครื่องหมายทับเพื่อหลีกเลี่ยงการโจมตี XSS ระบบจะใช้สตริงว่างเปล่าสำหรับค่าแปรปรวน</resource>
 </resources>

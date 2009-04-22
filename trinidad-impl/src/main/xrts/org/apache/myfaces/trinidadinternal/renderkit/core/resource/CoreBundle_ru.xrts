@@ -452,13 +452,16 @@
 <!--resource for af:chart -->
 <resource key="af_chart.IE_SVG_PLUGIN_ERROR_HTML" dnt="false">
 <![CDATA[<H4>Unable to load SVG plugin. Please install the plugin from <a href='#' onclick="window.open('http://www.adobe.com/svg/viewer/install/main.html')">Adobe</a><H4>]]>
-</resource>
+
+  </resource>
 <resource key="af_chart.SVG_ENABLED_BROWSER_ERROR_HTML" dnt="false">
 <![CDATA[<H4>This component needs an SVG enabled browser like Internet Explorer, Firefox 1.5+ or Opera 9.0+<H4>]]>
-</resource>
+
+  </resource>
 <resource key="af_chart.SVG_LOADING_STATUS_HTML" dnt="false">
 <![CDATA[<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>]]>
-</resource>
+
+  </resource>
 <!-- OLD KEYS FOR NOT YET IMPLEMENTED IN ADF FACES -->
 <!--  ******************************************** -->
 <!-- the components that used these keys in 2.2 are not in 3.0 yet -->

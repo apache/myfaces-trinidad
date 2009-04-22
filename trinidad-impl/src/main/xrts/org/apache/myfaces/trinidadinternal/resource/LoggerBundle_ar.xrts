@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <!DOCTYPE resources SYSTEM "rts.dtd">
 <resources xmlns="http://myfaces.apache.org/trinidad/rts" package="org.apache.myfaces.trinidadinternal.resource">
@@ -56,6 +56,8 @@
 <resource key="IGNORING_SERVLET_INIT_PARAM" dnt="false">إهمال معلمة init الخاصة ببريمج الخادم:{0} يتعذر التحليل اللغوي:{1}</resource>
 <!-- CANNOT_LOAD_VIEWHANDLER -->
 <resource key="CANNOT_LOAD_VIEWHANDLER" dnt="false">تعذر تحميل ViewHandler {0}</resource>
+<!-- DUPLICATE_VIEWHANDLER_REGISTRATION -->
+<resource key="DUPLICATE_VIEWHANDLER_REGISTRATION" dnt="false">تم تسجيل ViewHandler الخاص بـ Trinidad أكثر من مرة. لتجنب حدوث مشكلات التهيئة، تأكد من تحميل ملف jar الخاص بتنفيذ Trinidad</resource>
 <!-- TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION -->
 <resource key="TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION" dnt="false">يتم تشغيل Apache Trinidad مع تمكين التحقق من التوقيت. ويجب عدم استخدام ذلك في بيئة إنتاج. راجع خاصية {0} في WEB-INF/web.xml</resource>
 <!-- CANNOT_LOAD_URL -->
@@ -165,10 +167,10 @@
 <resource key="RENDERER_NOT_FOUND" dnt="false">لم يتم العثور على المقدم &apos;&apos;{0}&apos;&apos; لمجموعة المكونات &apos;&apos;{1}&apos;&apos;</resource>
 <!-- NO_SKIN_FACTORY -->
 <resource key="NO_SKIN_FACTORY" dnt="false">لا يوجد SkinFactory</resource>
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false">لن يتم استخدام المظهر {0} المحدد في requestMap لأن معرف styleSheetDocument الموجود في requestMap غير مطابق لمعرف styleSheetDocument الخاص بالمظهر المحلي. قد يعني هذا أن ملفات jar غير متطابقة. على سبيل المثال، قد يشتمل أحدها على إضافات المظهر trinidad-skins.xml في ملف jar موجود في مسار طبقة لا يشتمل عليه الآخر.</resource>
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false">لن يتم استخدام {0} المحدد في requestMap لأن معرف styleSheetDocument الخاص به لم يكن في requestMap وهو لازم للمقارنة مع معرف styleSheetDocument الخاص بالمظهر المحلي للتأكد أن المظاهر متماثلة.</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false"> سيتم استخدام المظهر skin {0} المحدد في requestMap بالرغم من أن styleSheetDocumentId الخاص بمظهر العميل والموجود في requestMap غير مطابق لمعرف styleSheetDocument الخاص بالمظهر المحلي. وسوف يؤثر ذلك على الأداء حيث لا يمكن مشاركة صحائف أنماط stylesheet العميل والمنتج. كذلك لن يتم ضغط طبقات نمط styleclass المنتج لتجنب حدوث تعارضات. وقد يكون السبب في عدم تطابق المعرفات هو أن ملفات jar غير متطابقة بالنسبة للمنتج والعميل. على سبيل المثال، قد يكون لدى أحدهما إضافات مظهر لـ trinidad-skins.xml في ملف jar بمسار طبقة وهي ليست لدى الآخر.</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false"> سيتم استخدام المظهر {0} المحدد في requestMap رغم أن styleSheetDocumentId الخاص بمظهر العميل لم يكن موجودًا في requestMap. وسوف يؤثر ذلك على الأداء حيث لا يمكن مشاركة صحائف الأنماط stylesheet بين العميل والمنتج.</resource>
 <!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST -->
 <resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST" dnt="false">لن يتم استخدام المظهر {0} المحدد في requestMap نظرًا لأنه غير موجود.</resource>
 <!-- CANNOT_GET_SKIN_FROM_SKINFACTORY -->
@@ -424,6 +426,7 @@
 <!-- REQUIRED_TRINIDADFILTER_NOT_INSTALLED -->
 <resource key="REQUIRED_TRINIDADFILTER_NOT_INSTALLED" dnt="false">لم يتم تثبيت TrinidadFilter. يتطلب Apache Trinidad هذا المرشح التنفيذ السليم.</resource>
 <resource key="INVALID_ENUM_IN_CONFIG" dnt="false">القيمة &apos;&apos;{0}&apos;&apos; ليست قيمة صالحة لـ &lt;&apos;&apos;{1}&apos;&apos;&gt;</resource>
+<resource key="INVALID_ACC_PROFILE" dnt="false">القيمة &apos;&apos;{0}&apos;&apos; ليست خاصية مرجع إمكانية الوصول accessibility-profile</resource>
 <!-- MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS -->
 <resource key="MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS" dnt="false">لا يمكن استخدام mergeCapabilities() إلا مع الوكلاء الذين تم تكوينهم بواسطة هذه الطبقة.</resource>
 <!-- INVALID_NAMESPACE -->
@@ -706,4 +709,14 @@
 <resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">تعذر العثور على المشغل الجزئي {0} من {1} بصياغة partialTriggers المدعومة. وقد تم العثور على المشغل الجزئي بالصياغة التي تم إسقاطها. الرجاء استخدام الصياغة المدعومة.</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">يتطلب DateTimeRangeValidator أن يكون المكون EditableValueHolder حتى يتم التدقيق للعميل. وسيتم تعطيل تدقيق العميل بالنسبة للمكون {0}.</resource>
+<!-- INVALID_LOCALE_LANG_LENGTH  -->
+<resource key="INVALID_LOCALE_LANG_LENGTH" dnt="false">لغة معرف المنطقة اللغوية {0} غير صالحة - يجب أن يتألف رمز اللغة من حرفين، راجع javadoc للمنطقة اللغوية لمعرفة الصيغة الصحيحة. سيتم استخدام المنطقة اللغوية للصفحة الحالية.</resource>
+<!-- INVALID_LOCALE_LANG_CASE  -->
+<resource key="INVALID_LOCALE_LANG_CASE" dnt="false">لغة معرف المنطقة اللغوية {0} غير صالحة - يجب أن تكون أحرف رمز اللغة أحرفًا صغيرة، راجع javadoc للمنطقة اللغوية لمعرفة الصيغة الصحيحة. سيتم استخدام المنطقة اللغوية للصفحة الحالية.</resource>
+<!-- INVALID_LOCALE_COUNTRY_LENGTH  -->
+<resource key="INVALID_LOCALE_COUNTRY_LENGTH" dnt="false">بلد معرف المنطقة اللغوية {0} غير صالحة - يجب أن يتألف رمز البلد من حرفين، راجع javadoc للمنطقة اللغوية لمعرفة الصيغة الصحيحة. سيتم استخدام سلسلة فارغة للبلد.</resource>
+<!-- INVALID_LOCALE_COUNTRY_CASE  -->
+<resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">بلد معرف المنطقة اللغوية {0} غير صالحة - يجب أن تكون أحرف رمز البلد أحرفًا كبيرة، راجع javadoc للمنطقة اللغوية لمعرفة الصيغة الصحيحة. سيتم استخدام سلسلة فارغة للبلد</resource>
+<!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
+<resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">متغير معرف المنطقة اللغوية {0} غير صالح - لا يمكن أن يشتمل المعرف على شُرط مائلة وذلك لتجنب هجوم XSS. سيتم استخدام سلسلة فارغة للمتغير.</resource>
 </resources>

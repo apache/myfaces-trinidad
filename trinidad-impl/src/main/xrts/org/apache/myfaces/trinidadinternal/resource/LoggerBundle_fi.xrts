@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <!DOCTYPE resources SYSTEM "rts.dtd">
 <resources xmlns="http://myfaces.apache.org/trinidad/rts" package="org.apache.myfaces.trinidadinternal.resource">
@@ -56,6 +56,8 @@
 <resource key="IGNORING_SERVLET_INIT_PARAM" dnt="false">Ohitetaan servlet-sovelluksen init-parametri {0}. Ei voi jäsentää: {1}</resource>
 <!-- CANNOT_LOAD_VIEWHANDLER -->
 <resource key="CANNOT_LOAD_VIEWHANDLER" dnt="false">ViewHandler-kohdetta {0} ei voi ladata</resource>
+<!-- DUPLICATE_VIEWHANDLER_REGISTRATION -->
+<resource key="DUPLICATE_VIEWHANDLER_REGISTRATION" dnt="false">Trinidadin ViewHandler on rekisteröity useammin kuin kerran. Varmista, että vain yksi Trinidad-toteutuksen jar-tiedosto on ladattu, jotta alustus sujuu ongelmitta</resource>
 <!-- TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION -->
 <resource key="TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION" dnt="false">Aikaleiman tarkistus on käytössä, kun Apache Trinidad on käynnissä. Sitä ei pitäisi käyttää tuotantoympäristössä. Katso ominaisuus {0} WEB-INF/web.xml-tiedostossa</resource>
 <!-- CANNOT_LOAD_URL -->
@@ -165,10 +167,10 @@
 <resource key="RENDERER_NOT_FOUND" dnt="false">Muodostusohjelmaa {0} ei löydy komponenttiperheelle {1}</resource>
 <!-- NO_SKIN_FACTORY -->
 <resource key="NO_SKIN_FACTORY" dnt="false">SkinFactory-kohdetta ei ole</resource>
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false">requestMap-kohteessa määritettyä olemusta {0} ei käytetä, koska requestMap-kohteen styleSheetDocument-tunnus ei vastaa paikallisen olemuksen styleSheetDocument-tunnusta. jar-tiedostot eivät ehkä ole identtisiä. Toinen voi esimerkiksi sisältää trinidad-skins.xml-tiedoston lisäolemukset luokkapolun jar-tiedostossa, vaikka toinen ei sisällä niitä.</resource>
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false">requestMap-kohteessa määritettyä olemusta {0} ei käytetä, koska requestMap-kohteessa ei ollut sen styleSheetDocument-tunnusta. Tunnusta tarvitaan, koska vertaamalla sitä paikallisen olemuksen styleSheetDocument-tunnukseen voidaan selvittää, ovatko olemukset samoja.</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false"> requestMap-kohteessa määritettyä olemusta {0} käytetään, vaikka requestMap-kohteen kuluttajan olemuksen styleSheetDocument-tunnus ei vastaa paikallisen olemuksen styleSheetDocument-tunnusta. Tämä vaikuttaa suorituskykyyn, sillä kuluttaja ja tuottaja eivät voi jakaa tyylisivuja. Tuottajan tyyliluokkia ei pakata, jotta ristiriitoja ei syntyisi. Tunnusten erilaisuus voi johtua siitä, että tuottajan ja kuluttajan jar-tiedostot eivät ole identtisiä. Toinen voi esimerkiksi sisältää trinidad-skins.xml-tiedoston lisäolemukset luokkapolun jar-tiedostossa, vaikka toinen ei sisällä niitä.</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false"> requestMap-kohteessa määritettyä olemusta {0} käytetään, vaikka requestMap-kohde ei sisältänyt kuluttajan olemuksen styleSheetDocumentId-tunnusta. Tämä vaikuttaa suorituskykyyn, sillä kuluttaja ja tuottaja eivät voi jakaa tyylisivuja.</resource>
 <!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST -->
 <resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST" dnt="false">requestMap-kohteessa määritettyä olemusta {0} ei käytetä, koska sitä ei ole.</resource>
 <!-- CANNOT_GET_SKIN_FROM_SKINFACTORY -->
@@ -424,6 +426,7 @@
 <!-- REQUIRED_TRINIDADFILTER_NOT_INSTALLED -->
 <resource key="REQUIRED_TRINIDADFILTER_NOT_INSTALLED" dnt="false">TrinidadFilter-suodatinta ei ole alustettu. Apache Trinidad tarvitsee tämän suodattimen, jotta se toimisi oikein.</resource>
 <resource key="INVALID_ENUM_IN_CONFIG" dnt="false">Arvo {0} ei ole sallittu kohteen &lt;&apos;&apos;{1}&apos;&apos;&gt; arvo</resource>
+<resource key="INVALID_ACC_PROFILE" dnt="false">Arvo {0} ei ole sallittu helppokäyttötilaprofiilin ominaisuus</resource>
 <!-- MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS -->
 <resource key="MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS" dnt="false">mergeCapabilities()-menetelmää voi käyttää vain tämän luokan luomien agenttien kanssa.</resource>
 <!-- INVALID_NAMESPACE -->
@@ -706,4 +709,14 @@
 <resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">Osittaista herätintä {0} ei löydy kohteesta {1} tuetulla partialTriggers-syntaksilla. Osittainen herätin löydettiin vanhentuneella syntaksilla. Käytä tuettua syntaksia.</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">DateTimeRangeValidator edellyttää, että komponentti on EditableValueHolder, jotta työaseman tarkistus toimisi. Komponentin {0} työaseman tarkistus poistetaan käytöstä.</resource>
+<!-- INVALID_LOCALE_LANG_LENGTH  -->
+<resource key="INVALID_LOCALE_LANG_LENGTH" dnt="false">Virheellinen aluetunnuksen {0} kieli - kielitunnuksessa on oltava 2 merkkiä, tarkista oikea muoto Locale javadoc -tiedostosta. Käytetään nykyistä sivun aluetta.</resource>
+<!-- INVALID_LOCALE_LANG_CASE  -->
+<resource key="INVALID_LOCALE_LANG_CASE" dnt="false">Virheellinen aluetunnuksen {0} kieli - kielitunnus on kirjoitettava pienillä kirjaimilla, tarkista oikea muoto Locale javadoc -tiedostosta. Käytetään nykyistä sivun aluetta.</resource>
+<!-- INVALID_LOCALE_COUNTRY_LENGTH  -->
+<resource key="INVALID_LOCALE_COUNTRY_LENGTH" dnt="false">Virheellinen aluetunnuksen {0} maa - maatunnuksessa on oltava 2 merkkiä, tarkista oikea muoto Locale javadoc -tiedostosta. Maatunnuksena käytetään tyhjää merkkijonoa.</resource>
+<!-- INVALID_LOCALE_COUNTRY_CASE  -->
+<resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Virheellinen aluetunnuksen {0} maa - maatunnus on kirjoitettava isoilla kirjaimilla, tarkista oikea muoto Locale javadoc -tiedostosta. Maatunnuksena käytetään tyhjää merkkijonoa.</resource>
+<!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
+<resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Virheellinen aluetunnuksen {0} muuttuja - se ei voi sisältää vinoviivaa, jotta XSS-hyökkäykset voidaan välttää. Muuttujana käytetään tyhjää merkkijonoa.</resource>
 </resources>

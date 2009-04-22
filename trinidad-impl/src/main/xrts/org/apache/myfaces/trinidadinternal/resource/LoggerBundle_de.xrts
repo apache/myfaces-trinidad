@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <!DOCTYPE resources SYSTEM "rts.dtd">
 <resources xmlns="http://myfaces.apache.org/trinidad/rts" package="org.apache.myfaces.trinidadinternal.resource">
@@ -56,6 +56,8 @@
 <resource key="IGNORING_SERVLET_INIT_PARAM" dnt="false">Servlet-Initialisierungsparameter {0} wird ignoriert, {1} kann nicht geparst werden</resource>
 <!-- CANNOT_LOAD_VIEWHANDLER -->
 <resource key="CANNOT_LOAD_VIEWHANDLER" dnt="false">ViewHandler {0} konnte nicht geladen werden</resource>
+<!-- DUPLICATE_VIEWHANDLER_REGISTRATION -->
+<resource key="DUPLICATE_VIEWHANDLER_REGISTRATION" dnt="false">Der ViewHandler von Trinidad wurde mehr als einmal registriert. Stellen Sie zur Vermeidung von Initialisierungsproblemen sicher, dass nur eine Trinidad-Implementierungs-JAR geladen wird</resource>
 <!-- TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION -->
 <resource key="TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION" dnt="false">Apache Trinidad wird mit aktivierter Zeitstempelprüfung ausgeführt. Dies sollte in einer Production-Umgebung nicht verwendet werden. Siehe Eigenschaft {0} in WEB-INF/web.xml</resource>
 <!-- CANNOT_LOAD_URL -->
@@ -165,10 +167,10 @@
 <resource key="RENDERER_NOT_FOUND" dnt="false">Renderer &apos;&apos;{0}&apos;&apos; für Komponentenfamilie &apos;&apos;{1}&apos;&apos; nicht gefunden</resource>
 <!-- NO_SKIN_FACTORY -->
 <resource key="NO_SKIN_FACTORY" dnt="false">Es ist keine SkinFactory vorhanden</resource>
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false">Die in der requestMap angegebene Skin {0} wird nicht verwendet, weil die styleSheetDocument-ID in der requestMap nicht mit der styleSheetDocument-ID der lokalen Skin übereinstimmt. Dies könnte bedeuten, dass die JAR-Archive nicht identisch sind. Beispielsweise könnte ein Archiv skin-additions von trinidad-skins.xml in einer JAR-Datei im Classpath aufweisen, die bei dem anderen nicht vorhanden sind.</resource>
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false">Die in der requestMap angegebene Skin {0} wird nicht verwendet, weil ihre styleSheetDocument-ID nicht in der requestMap vorhanden war und für den Vergleich mit der styleSheetDocument-ID der lokalen Skin benötigt wird, um sicherzustellen, dass die Skins identisch sind.</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false"> Die Skin {0}, die in requestMap angegeben wird, wird verwendet, obwohl die styleSheetDocumentId der Consumer Skin in requestMap nicht mit der styleSheetDocument-ID der lokalen Skin übereinstimmt. Dies wirkt sich auf die Performance aus, weil die Consumer und Producer Stylesheets nicht gemeinsam verwendet werden können. Die Producer Style-Klassen werden nicht komprimiert, um Konflikte zu vermeiden. Die IDs stimmen möglicherweise nicht überein, weil die Jars auf Producer und Consumer nicht identisch sind. Beispiel: Eine Jar-Datei enthält möglicherweise trinidad-skins.xml Skin-Additions in einer Jar-Datei im Classpath, die die andere nicht enthält.</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false"> Die Skin {0}, die in requestMap angegeben wird, wird verwendet, obwohl die styleSheetDocumentId der Consumer Skin nicht in requestMap enthalten war. Dies wirkt sich auf die Performance aus, weil Stylesheets nicht von Producer und Consumer gemeinsam verwendet werden können.</resource>
 <!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST -->
 <resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST" dnt="false">Die in der requestMap angegebene Skin {0} wird nicht verwendet, weil sie nicht vorhanden ist.</resource>
 <!-- CANNOT_GET_SKIN_FROM_SKINFACTORY -->
@@ -424,6 +426,7 @@
 <!-- REQUIRED_TRINIDADFILTER_NOT_INSTALLED -->
 <resource key="REQUIRED_TRINIDADFILTER_NOT_INSTALLED" dnt="false">Der TrinidadFilter wurde nicht installiert. Apache Trinidad benötigt diesen Filter zur ordnungsgemäßen Ausführung.</resource>
 <resource key="INVALID_ENUM_IN_CONFIG" dnt="false">Der Wert &apos;&apos;{0}&apos;&apos; ist kein zulässiger Wert für &lt;&apos;&apos;{1}&apos;&apos;&gt;</resource>
+<resource key="INVALID_ACC_PROFILE" dnt="false">Der Wert &quot;{0}&quot; ist keine gültige Eigenschaft des Eingabehilfen-Profils.</resource>
 <!-- MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS -->
 <resource key="MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS" dnt="false">mergeCapabilities() kann nur in Verbindung mit von dieser Klasse erstellten Agents verwendet werden.</resource>
 <!-- INVALID_NAMESPACE -->
@@ -459,7 +462,7 @@
 <!-- NULL_REQUEST_ON_THIS_CONTEXT -->
 <resource key="NULL_REQUEST_ON_THIS_CONTEXT" dnt="false">Request ist für diesen Kontext Null.</resource>
 <!-- NULL_RESPONSE_ON_THIS_CONTEXT -->
-<resource key="NULL_RESPONSE_ON_THIS_CONTEXT" dnt="false">Response ist für diesen Kontext Null.</resource>
+<resource key="NULL_RESPONSE_ON_THIS_CONTEXT" dnt="false">Antwort ist für diesen Kontext Null.</resource>
 <!-- UNSUPPORTED_CONVERSION -->
 <resource key="UNSUPPORTED_CONVERSION" dnt="false">Nicht unterstützte Konvertierung von {0} in {1}</resource>
 <!-- NULL_NAME -->
@@ -561,7 +564,7 @@
 <!-- NULL_SKIN_ID -->
 <resource key="NULL_SKIN_ID" dnt="false">Null-ID</resource>
 <!-- NULL_LOCALE_CONTEXT -->
-<resource key="NULL_LOCALE_CONTEXT" dnt="false">Kein Locale-Kontext</resource>
+<resource key="NULL_LOCALE_CONTEXT" dnt="false">Kein Gebietsschemakontext</resource>
 <!-- NULL_ICONNAME -->
 <resource key="NULL_ICONNAME" dnt="false">Kein iconName</resource>
 <!-- NULL_STYLESHEETNAME -->
@@ -706,4 +709,14 @@
 <resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">Der partielle Trigger {0} von {1} konnte nicht in der unterstützen partialtrigger-Syntax gefunden werden. Die Komponente wurde in der verworfenen Syntax gefunden. Verwenden Sie die unterstützte Syntax.</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">DateTimeRangeValidator erfordert, dass die Komponente ein EditableValueHolder ist, damit die Client-Validierung durchgeführt werden kann. Die Client-Validierung wird für die Komponente {0} deaktiviert.</resource>
+<!-- INVALID_LOCALE_LANG_LENGTH  -->
+<resource key="INVALID_LOCALE_LANG_LENGTH" dnt="false">Ungültige Sprache für Gebietsschemabezeichner {0} - Sprachcode muss 2 Zeichen umfassen. In der Javadoc für das Gebietsschema wird das richtige Format angegeben. Das aktuelle Seitengebietsschema wird verwendet.</resource>
+<!-- INVALID_LOCALE_LANG_CASE  -->
+<resource key="INVALID_LOCALE_LANG_CASE" dnt="false">Ungültige Sprache für Gebietsschemabezeichner {0} - Sprachcode muss aus Kleinbuchstaben bestehen. In der Javadoc für das Gebietsschema wird das richtige Format angegeben. Das aktuelle Seitengebietsschema wird verwendet.</resource>
+<!-- INVALID_LOCALE_COUNTRY_LENGTH  -->
+<resource key="INVALID_LOCALE_COUNTRY_LENGTH" dnt="false">Ungültiges Land für Gebietsschemabezeichner {0} - Landescode muss 2 Zeichen umfassen. In der Javadoc für das Gebietsschema wird das richtige Format angegeben. Leere Zeichenfolge wird für Land verwendet.</resource>
+<!-- INVALID_LOCALE_COUNTRY_CASE  -->
+<resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Ungültiges Land für Gebietsschemabezeichner {0} - Landescode muss in Großbuchstaben angegeben werden. In der Javadoc für das Gebietsschema wird das richtige Format angegeben. Leere Zeichenfolge wird für Land verwendet.</resource>
+<!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
+<resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Ungültige Variante für den Gebietsschemabezeichner {0} - Sie darf keine  Schrägstriche enthalten, um XSS-Angriffe zu vermeiden. Leere Zeichenfolge wird für Variante verwendet.</resource>
 </resources>

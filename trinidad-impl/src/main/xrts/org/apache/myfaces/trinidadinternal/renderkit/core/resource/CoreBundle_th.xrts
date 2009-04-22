@@ -429,7 +429,7 @@
 <!-- of span in conjuction with link element while rendering. -->
 <!-- Eg: <a href="www.oracle.com"><span class="x4h">Selected</span>Oracle</a> -->
 <!-- Thus the screen reader reads it as 'Selected Oracle Link' -->
-<resource key="STATUS_SELECTED" dnt="false">รายการที่เลือก</resource>
+<resource key="STATUS_SELECTED" dnt="false">เลือกไว้</resource>
 <!-- This is the title of the link at start of each nav block that a screen-reader
        user would use to skip all the navigation links in current block only -->
 <!-- {0} - One of the strings from resource group *_BLOCK_TITLE below
@@ -452,13 +452,16 @@
 <!--resource for af:chart -->
 <resource key="af_chart.IE_SVG_PLUGIN_ERROR_HTML" dnt="false">
 <![CDATA[<H4>Unable to load SVG plugin. Please install the plugin from <a href='#' onclick="window.open('http://www.adobe.com/svg/viewer/install/main.html')">Adobe</a><H4>]]>
-</resource>
+
+  </resource>
 <resource key="af_chart.SVG_ENABLED_BROWSER_ERROR_HTML" dnt="false">
 <![CDATA[<H4>This component needs an SVG enabled browser like Internet Explorer, Firefox 1.5+ or Opera 9.0+<H4>]]>
-</resource>
+
+  </resource>
 <resource key="af_chart.SVG_LOADING_STATUS_HTML" dnt="false">
 <![CDATA[<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>]]>
-</resource>
+
+  </resource>
 <!-- OLD KEYS FOR NOT YET IMPLEMENTED IN ADF FACES -->
 <!--  ******************************************** -->
 <!-- the components that used these keys in 2.2 are not in 3.0 yet -->
@@ -475,7 +478,7 @@
 <!--table total row button text for updating display-->
 <resource key="TABLE_TOTAL_ROW_BUTTON_TEXT" dnt="false">คำนวณซ้ำ</resource>
 <!--table add row button text for adding more than one row-->
-<resource key="TABLE_TOTAL_ROW_TEXT" dnt="false">ผลรวม</resource>
+<resource key="TABLE_TOTAL_ROW_TEXT" dnt="false">รวม</resource>
 <!--LOVChoice-->
 <!--Text for the lovChoice More... option  -->
 <resource key="LOV_CHOICE_MORE_OPTION" dnt="false">เพิ่มเติม...</resource>

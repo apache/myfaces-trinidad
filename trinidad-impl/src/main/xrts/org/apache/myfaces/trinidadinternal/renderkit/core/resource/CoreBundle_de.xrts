@@ -97,12 +97,12 @@
 <resource key="af_processChoiceBar.CONTINUE" dnt="false">&amp;Weiter</resource>
 <!--navigation bar with a known number of previous records going back-->
 <!--{0} -> how many records to go back (integer)-->
-<resource key="af_selectRangeChoiceBar.PREVIOUS" dnt="false">Vorheriger {0}</resource>
-<resource key="af_table.SELECT_RANGE_PREVIOUS" dnt="false">Vorheriger {0}</resource>
+<resource key="af_selectRangeChoiceBar.PREVIOUS" dnt="false">Vorherige {0}</resource>
+<resource key="af_table.SELECT_RANGE_PREVIOUS" dnt="false">Vorherige {0}</resource>
 <!--navigation bar with a known number of next records going forward-->
 <!--{0} -> how many records to go forward (integer)-->
-<resource key="af_selectRangeChoiceBar.NEXT" dnt="false">Nächster {0}</resource>
-<resource key="af_table.SELECT_RANGE_NEXT" dnt="false">Nächster {0}</resource>
+<resource key="af_selectRangeChoiceBar.NEXT" dnt="false">Nächste {0}</resource>
+<resource key="af_table.SELECT_RANGE_NEXT" dnt="false">Nächste {0}</resource>
 <!--navigation bar with no more records going forward.-->
 <!--the following text will be drawn in a disabled font-->
 <resource key="af_selectRangeChoiceBar.DISABLED_NEXT" dnt="false">Weiter</resource>
@@ -429,7 +429,7 @@
 <!-- of span in conjuction with link element while rendering. -->
 <!-- Eg: <a href="www.oracle.com"><span class="x4h">Selected</span>Oracle</a> -->
 <!-- Thus the screen reader reads it as 'Selected Oracle Link' -->
-<resource key="STATUS_SELECTED" dnt="false">Ausgewählt</resource>
+<resource key="STATUS_SELECTED" dnt="false">Gewählt</resource>
 <!-- This is the title of the link at start of each nav block that a screen-reader
        user would use to skip all the navigation links in current block only -->
 <!-- {0} - One of the strings from resource group *_BLOCK_TITLE below
@@ -452,13 +452,16 @@
 <!--resource for af:chart -->
 <resource key="af_chart.IE_SVG_PLUGIN_ERROR_HTML" dnt="false">
 <![CDATA[<H4>Unable to load SVG plugin. Please install the plugin from <a href='#' onclick="window.open('http://www.adobe.com/svg/viewer/install/main.html')">Adobe</a><H4>]]>
-</resource>
+
+  </resource>
 <resource key="af_chart.SVG_ENABLED_BROWSER_ERROR_HTML" dnt="false">
 <![CDATA[<H4>This component needs an SVG enabled browser like Internet Explorer, Firefox 1.5+ or Opera 9.0+<H4>]]>
-</resource>
+
+  </resource>
 <resource key="af_chart.SVG_LOADING_STATUS_HTML" dnt="false">
 <![CDATA[<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>]]>
-</resource>
+
+  </resource>
 <!-- OLD KEYS FOR NOT YET IMPLEMENTED IN ADF FACES -->
 <!--  ******************************************** -->
 <!-- the components that used these keys in 2.2 are not in 3.0 yet -->

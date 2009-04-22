@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <!DOCTYPE resources SYSTEM "rts.dtd">
 <resources xmlns="http://myfaces.apache.org/trinidad/rts" package="org.apache.myfaces.trinidadinternal.resource">
@@ -56,6 +56,8 @@
 <resource key="IGNORING_SERVLET_INIT_PARAM" dnt="false">Ignorowanie parametru inicjalizacyjnego &quot;{0}&quot; serwera; nie można wykonać analizy składniowej: {1}</resource>
 <!-- CANNOT_LOAD_VIEWHANDLER -->
 <resource key="CANNOT_LOAD_VIEWHANDLER" dnt="false">Nie można było załadować procedury obsługi widoku (ViewHandler) {0}</resource>
+<!-- DUPLICATE_VIEWHANDLER_REGISTRATION -->
+<resource key="DUPLICATE_VIEWHANDLER_REGISTRATION" dnt="false">Procedura ViewHandler z Trinidad jest zarejestrowana więcej niż jeden raz. Aby uniknąć problemów z implementacją, proszę się upewnić, że jest ładowane tylko jedno implementacyjne archiwum jar Trinidad.</resource>
 <!-- TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION -->
 <resource key="TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION" dnt="false">Apache Trinidad działa z włączonym sprawdzaniem znacznika czasu. Nie należy tego używać w środowisku produkcyjnym. Zob. właściwość {0} w pliku WEB-INF/web.xml</resource>
 <!-- CANNOT_LOAD_URL -->
@@ -165,10 +167,10 @@
 <resource key="RENDERER_NOT_FOUND" dnt="false">Nie znaleziono wypełniacza &quot;{0}&quot; dla rodziny składników &quot;{1}&quot;</resource>
 <!-- NO_SKIN_FACTORY -->
 <resource key="NO_SKIN_FACTORY" dnt="false">Nie ma żadnej fabryki nakładek (SkinFactory)</resource>
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false">Określona w odwzorowaniu żądania nakładka &quot;{0}&quot; nie zostanie użyta, ponieważ podany w nim identyfikator dokumentu arkusza stylów nie jest zgodny z identyfikatorem dokumentu arkusza stylów nakładki lokalnej. Może to znaczyć, że archiwa jar nie są identyczne. Na przykład jedno z nich może zawierać dodatki z pliku trinidad-skins.xml, z pliku jar dostępnego na ścieżce classpath, zaś drugie może tych dodatków nie zawierać.</resource>
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false">Określona w odwzorowaniu żądania nakładka &quot;{0}&quot; nie zostanie użyta, ponieważ w odwzorowaniu żądania nie ma identyfikatora jej dokumentu arkusza stylów, a identyfikator ten musi zostać porównany z identyfikatorem dokumentu arkusza stylów nakładki lokalnej w celu uzyskania pewności, że nakładki są identyczne.</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false"> Określona w odwzorowaniu żądania nakładka &quot;{0}&quot; zostanie użyta, mimo że identyfikator dokumentu arkusza stylów (styleSheetDocumentId) nakładki konsumenta nie jest zgodny z identyfikatorem dokumentu arkusza stylów nakładki lokalnej. Będzie to mieć negatywny wpływ na wydajność, ponieważ arkusze stylów konsumenta i producenta nie mogą być współużytkowane. Aby uniknąć konfliktów, klasy stylów producenta nie zostaną skompresowane. Niezgodność identyfikatorów może wynikać z tego, że archiwa jar producenta i konsumenta nie są identyczne. Na przykład jedno z nich może zawierać dodatki z pliku trinidad-skins.xml, z pliku jar dostępnego na ścieżce classpath, zaś drugie może tych dodatków nie zawierać.</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false"> Określona w odwzorowaniu żądania nakładka &quot;{0}&quot; zostanie użyta, mimo że identyfikator dokumentu arkusza stylów (styleSheetDocumentId) nie występuje w żądaniu. Będzie to mieć negatywny wpływ na wydajność, ponieważ arkusze stylów konsumenta i producenta nie mogą być współużytkowane.</resource>
 <!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST -->
 <resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST" dnt="false">Określona w odwzorowaniu żądania nakładka &quot;{0}&quot; nie zostanie użyta, ponieważ nie istnieje.</resource>
 <!-- CANNOT_GET_SKIN_FROM_SKINFACTORY -->
@@ -424,6 +426,7 @@
 <!-- REQUIRED_TRINIDADFILTER_NOT_INSTALLED -->
 <resource key="REQUIRED_TRINIDADFILTER_NOT_INSTALLED" dnt="false">TrinidadFilter nie został zainstalowany. Apache Trinidad wymaga tego filtra do poprawnego działania.</resource>
 <resource key="INVALID_ENUM_IN_CONFIG" dnt="false">Wartość &quot;{0}&quot; nie jest dozwoloną wartością dla &lt;&apos;&apos;{1}&apos;&apos;&gt;</resource>
+<resource key="INVALID_ACC_PROFILE" dnt="false">Wartość &quot;{0}&quot; nie jest poprawną właściwością profilu dostępności</resource>
 <!-- MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS -->
 <resource key="MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS" dnt="false">mergeCapabilities() może być użyte tylko z agentami utworzonymi przez tę klasę.</resource>
 <!-- INVALID_NAMESPACE -->
@@ -706,4 +709,14 @@
 <resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">Nie znaleziono wyzwalacza częściowego {0} z {1}, mającego obsługiwaną składnię wyzwalaczy częściowych (partialTrigger). Znaleziono wyzwalacz częściowy z już nieobsługiwaną składnią. Proszę użyć obsługiwanej składni.</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">DateTimeRangeValidator - aby zapewnić poprawną weryfikację klienta - wymaga, żeby składnikiem był EditableValueHolder. Weryfikacja klienta zostanie wyłączona dla składnika &quot;{0}&quot;.</resource>
+<!-- INVALID_LOCALE_LANG_LENGTH  -->
+<resource key="INVALID_LOCALE_LANG_LENGTH" dnt="false">Niepoprawny język dla identyfikatora {0} ustawień narodowych - kod języka musi się składać z 2 znaków (poprawny format można znaleźć w dokumencie &quot;Locale javadoc&quot;). Zostaną użyte ustawienia narodowe bieżącej strony.</resource>
+<!-- INVALID_LOCALE_LANG_CASE  -->
+<resource key="INVALID_LOCALE_LANG_CASE" dnt="false">Niepoprawny język dla identyfikatora {0} ustawień narodowych - kod języka musi być podany małymi literami (poprawny format można znaleźć w dokumencie &quot;Locale javadoc&quot;). Zostaną użyte ustawienia narodowe bieżącej strony.</resource>
+<!-- INVALID_LOCALE_COUNTRY_LENGTH  -->
+<resource key="INVALID_LOCALE_COUNTRY_LENGTH" dnt="false">Niepoprawny kraj dla identyfikatora {0} ustawień narodowych - kod kraju musi się składać z 2 znaków (poprawny format można znaleźć w dokumencie &quot;Locale javadoc&quot;). Dla kraju zostanie użyta pusta wartość napisowa.</resource>
+<!-- INVALID_LOCALE_COUNTRY_CASE  -->
+<resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Niepoprawny kraj dla identyfikatora {0} ustawień narodowych - kod kraju musi być podany wielkimi literami (poprawny format można znaleźć w dokumencie &quot;Locale javadoc&quot;). Dla kraju zostanie użyta pusta wartość napisowa.</resource>
+<!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
+<resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Niepoprawna odmiana (variant) dla identyfikatora {0} ustawień narodowych - nie może zawierać ukośników (w celu uniknięcia ataków XSS). Zostanie użyta pusta wartość napisowa.</resource>
 </resources>

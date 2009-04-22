@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <!DOCTYPE resources SYSTEM "rts.dtd">
 <resources xmlns="http://myfaces.apache.org/trinidad/rts" package="org.apache.myfaces.trinidadinternal.resource">
@@ -56,6 +56,8 @@
 <resource key="IGNORING_SERVLET_INIT_PARAM" dnt="false">Servletinitialisatieparameter {0} wordt genegeerd. {1} kan niet worden ontleed.</resource>
 <!-- CANNOT_LOAD_VIEWHANDLER -->
 <resource key="CANNOT_LOAD_VIEWHANDLER" dnt="false">Kan ViewHandler {0} niet laden.</resource>
+<!-- DUPLICATE_VIEWHANDLER_REGISTRATION -->
+<resource key="DUPLICATE_VIEWHANDLER_REGISTRATION" dnt="false">Trinidads ViewHandler is meer dan één keer geregistreerd. Om initialisatieproblemen te voorkomen, moet u ervoor zorgen dat slechts één implementatie-jar van Trinidad wordt geladen.</resource>
 <!-- TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION -->
 <resource key="TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION" dnt="false">Apache Trinidad wordt uitgevoerd terwijl de controle van tijdstempels is geactiveerd. Gebruik deze optie niet in een productieomgeving. Raadpleeg de eigenschap {0} in WEB-INF/web.xml.</resource>
 <!-- CANNOT_LOAD_URL -->
@@ -165,10 +167,10 @@
 <resource key="RENDERER_NOT_FOUND" dnt="false">Renderer &apos;&apos;{0}&apos;&apos; is niet gevonden voor componentfamilie &apos;&apos;{1}&apos;&apos;.</resource>
 <!-- NO_SKIN_FACTORY -->
 <resource key="NO_SKIN_FACTORY" dnt="false">Er is geen SkinFactory.</resource>
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false">De weergave ({0}) die is opgegeven in requestMap, wordt niet gebruikt omdat de styleSheetDocument-ID van requestMap niet overeenkomt met de styleSheetDocument-ID van de weergave in de lokale instelling. Dit kan betekenen dat de jar-bestanden niet identiek zijn. Zo kunnen aan het ene jar-bestand in het klassenpad weergaven van trinidad-skins.xml zijn toegevoegd, terwijl dit in het andere bestand niet het geval is.</resource>
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false">De weergave ({0}) die in requestMap is opgegeven, wordt niet gebruikt omdat de bijbehorende styleSheetDocument-ID niet in requestMap aanwezig is. Deze ID is nodig voor de vergelijking met de styleSheetDocument-ID van de weergave in de lokale instelling, zodat kan worden gecontroleerd of de weergaven identiek zijn.</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false"> De weergave {0} die is opgegeven in de requestMap, wordt gebruikt hoewel de styleSheetDocumentId van de weergave van de gebruiker in de requestMap niet overeenkomt met de ID van de styleSheetDocument van de lokale weergave. Dit heeft gevolgen voor de prestaties omdat het opmaakprofielen voor de gebruiker en de producer niet kunnen worden gedeeld. Om conflicten te vermijden, worden de opmaakprofielklassen van de producer niet gecomprimeerd. De ID&apos;&apos;s komen mogelijk niet overeen omdat de jar-bestanden niet overeenkomen voor producer en gebruiker. Zo kunnen aan het ene jar-bestand in het klassenpad weergaven van trinidad-skins.xml skin-additions zijn toegevoegd, terwijl dit in het andere bestand niet het geval is.</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false"> De weergave {0} die is opgegeven in de requestMap, wordt gebruikt hoewel de styleSheetDocumentId van de weergave van de gebruiker niet voorkomt in de requestMap. Dit heeft gevolgen voor de prestaties aangezien de opmaakprofielen niet kunnen worden gedeeld door producer en gebruiker.</resource>
 <!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST -->
 <resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST" dnt="false">De weergave ({0}) die in requestMap is opgegeven, wordt niet gebruikt omdat deze niet bestaat.</resource>
 <!-- CANNOT_GET_SKIN_FROM_SKINFACTORY -->
@@ -424,6 +426,7 @@
 <!-- REQUIRED_TRINIDADFILTER_NOT_INSTALLED -->
 <resource key="REQUIRED_TRINIDADFILTER_NOT_INSTALLED" dnt="false">TrinidadFilter is niet geïnstalleerd. Dit filter is verplicht zodat Apache Trinidad correct kan worden uitgevoerd.</resource>
 <resource key="INVALID_ENUM_IN_CONFIG" dnt="false">De waarde &apos;&apos;{0}&apos;&apos; is geen geldige waarde voor &lt;&apos;&apos;{1}&apos;&apos;&gt;.</resource>
+<resource key="INVALID_ACC_PROFILE" dnt="false">De waarde {0} is geen geldige toegankelijkheidsprofieleigenschap.</resource>
 <!-- MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS -->
 <resource key="MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS" dnt="false">mergeCapabilities() kan alleen worden gebruikt in combinatie met agents die met behulp van deze klasse zijn aangemaakt.</resource>
 <!-- INVALID_NAMESPACE -->
@@ -706,4 +709,14 @@
 <resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">Kan gedeeltelijke trigger {0} van {1} niet vinden met de ondersteunde partialTriggers-syntaxis. De gedeeltelijke trigger is gevonden met de afgekeurde syntaxis. Gebruik de ondersteunde syntaxis.</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">Voor de DateTimeRangeValidator moet de component een EditableValueHolder zijn om clientvalidatie te laten werken. Clientvalidatie wordt uitgeschakeld voor component {0}.</resource>
+<!-- INVALID_LOCALE_LANG_LENGTH  -->
+<resource key="INVALID_LOCALE_LANG_LENGTH" dnt="false">Ongeldige taal voor locale-ID {0}. De taalcode moet uit 2 tekens bestaan. Zie javadoc over locale voor de juiste notatie. De huidige paginalocale wordt gebruikt.</resource>
+<!-- INVALID_LOCALE_LANG_CASE  -->
+<resource key="INVALID_LOCALE_LANG_CASE" dnt="false">Ongeldige taal voor locale-ID {0}. De taalcode moet in kleine letters zijn. Zie javadoc over locale voor de juiste notatie. De huidige paginalocale wordt gebruikt.</resource>
+<!-- INVALID_LOCALE_COUNTRY_LENGTH  -->
+<resource key="INVALID_LOCALE_COUNTRY_LENGTH" dnt="false">Ongeldig land voor locale-ID {0}. De landcode moet uit 2 tekens bestaan. Zie javadoc over locale voor de juiste notatie. Er wordt een lege string gebruikt voor het land.</resource>
+<!-- INVALID_LOCALE_COUNTRY_CASE  -->
+<resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Ongeldig land voor locale-ID {0}. De landcode moet in hoofdletters zijn. Zie javadoc over locale voor de juiste notatie. Er wordt een lege string gebruikt voor het land.</resource>
+<!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
+<resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Ongeldige variant voor locale-ID {0}. De variant mag geen slashes bevatten. Dit om XSS-aanvallen te voorkomen. Er wordt een lege string gebruikt voor de variant.</resource>
 </resources>

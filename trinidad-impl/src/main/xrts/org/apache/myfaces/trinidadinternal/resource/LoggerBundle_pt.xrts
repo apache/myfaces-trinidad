@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <!DOCTYPE resources SYSTEM "rts.dtd">
 <resources xmlns="http://myfaces.apache.org/trinidad/rts" package="org.apache.myfaces.trinidadinternal.resource">
@@ -56,6 +56,8 @@
 <resource key="IGNORING_SERVLET_INIT_PARAM" dnt="false">A ignorar o parâmetro de inicialização do servlet:{0}; incapaz de analisar :{1}</resource>
 <!-- CANNOT_LOAD_VIEWHANDLER -->
 <resource key="CANNOT_LOAD_VIEWHANDLER" dnt="false">Não foi possível carregar a ViewHandler {0}</resource>
+<!-- DUPLICATE_VIEWHANDLER_REGISTRATION -->
+<resource key="DUPLICATE_VIEWHANDLER_REGISTRATION" dnt="false">A ViewHandler do Trinidad está registada mais de uma vez. Para evitar problemas de inicialização, certifique-se de que só é carregado um jar de implementação do Trinidad</resource>
 <!-- TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION -->
 <resource key="TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION" dnt="false">O Apache Trinidad está em execução com a verificação da indicação de data/hora activada. Não deverá utilizá-la num ambiente de produção. Consulte a propriedade {0} em WEB-INF/web.xml</resource>
 <!-- CANNOT_LOAD_URL -->
@@ -67,7 +69,7 @@
 <!-- ELEMENT_NOT_UNDERSTOOD -->
 <resource key="ELEMENT_NOT_UNDERSTOOD" dnt="false">O elemento {0} não foi compreendido</resource>
 <!-- NOT_SUPPORT_EL_EXPRESSION -->
-<resource key="NOT_SUPPORT_EL_EXPRESSION" dnt="false">O elemento {0} não suporta expressões EL.</resource>
+<resource key="NOT_SUPPORT_EL_EXPRESSION" dnt="false">O elemento {0} não suporta expressões de EL.</resource>
 <!-- ELEMENT_ONLY_ACCEPT_INTEGER -->
 <resource key="ELEMENT_ONLY_ACCEPT_INTEGER" dnt="false">O elemento {0} só aceita valores inteiros</resource>
 <!-- CANNOT_FIND_CONTEXT_CLASS_LOADER -->
@@ -142,7 +144,7 @@
 <!-- CREATE_MODEL_EXCEPTION -->
 <resource key="CREATE_MODEL_EXCEPTION" dnt="false">Excepção na criação do modelo {0}</resource>
 <!-- INVALID_EL_EXPRESSION -->
-<resource key="INVALID_EL_EXPRESSION" dnt="false">A Expressão EL {0} é inválida ou devolveu um valor incorrecto.</resource>
+<resource key="INVALID_EL_EXPRESSION" dnt="false">A Expressão de EL {0} é inválida ou devolveu um valor incorrecto.</resource>
 <!-- RESOURCE_BUNDLE_NOT_FOUND -->
 <resource key="RESOURCE_BUNDLE_NOT_FOUND" dnt="false">Não foi possível encontrar a agregação de recursos {0}.</resource>
 <!-- ERR_CLOSING_FILE -->
@@ -165,10 +167,10 @@
 <resource key="RENDERER_NOT_FOUND" dnt="false">O apresentador &apos;&apos;{0}&apos;&apos; não foi encontrado para a família de componentes &apos;&apos;{1}&apos;&apos;</resource>
 <!-- NO_SKIN_FACTORY -->
 <resource key="NO_SKIN_FACTORY" dnt="false">Não existe nenhuma SkinFactory</resource>
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false">O esquema de cores {0} especificado na requestMap não será utilizado, porque a ID do styleSheetDocument na requestMap não corresponde à ID do styleSheetDocument do esquema de cores local. Poderá significar que os jars não são idênticos. Por exemplo, é possível que um tenha skin-additions do trinidad-skins.xml num ficheiro jar no percurso da classe que o outro não tem.</resource>
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false">O esquema de cores {0} especificado na requestMap não será utilizado, porque a respectiva ID do styleSheetDocument não existe na requestMap e é necessária para efectuar a comparação com a ID do styleSheetDocument do esquema de cores local, para assegurar que os esquemas de cores são iguais.</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false"> O esquema de cores {0} especificado na requestMap será utilizado, mesmo que a styleSheetDocumentId do esquema de cores do consumidor na requestMap não corresponda à ID do styleSheetDocument do esquema de cores local. Isto terá impacto no desempenho, porque não é possível partilhar as folhas de estilos do consumidor e do produtor. As classes de estilo do produtor não serão comprimidas para evitar conflitos. O motivo pelo qual as IDs não correspondem poderá dever-se ao facto de os jars não serem idênticos no produtor e no consumidor. Por exemplo, é possível que um tenha skin-additions do trinidad-skins.xml num ficheiro jar no percurso da classe que o outro não tem.</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false"> O esquema de cores {0} especificado na requestMap será utilizado, mesmo que a styleSheetDocumentId do esquema de cores do consumidor não esteja na requestMap. Isto terá impacto no desempenho, porque não é possível partilhar as folhas de estilos entre o produtor e o consumidor.</resource>
 <!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST -->
 <resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST" dnt="false">O esquema de cores {0} especificado na requestMap não será utilizado, porque não existe.</resource>
 <!-- CANNOT_GET_SKIN_FROM_SKINFACTORY -->
@@ -182,7 +184,7 @@
 <!-- BOTH_BUNDLENAME_TRANSLATIONSOURCE_SET -->
 <resource key="BOTH_BUNDLENAME_TRANSLATIONSOURCE_SET" dnt="false">Não é possível definir bundle-name e translation-source. bundle-name terá precedência.</resource>
 <!-- TRANSLATION_SOURCE_NOT_EL -->
-<resource key="TRANSLATION_SOURCE_NOT_EL" dnt="false">É necessário que a translation-source seja uma expressão EL. Consulte o ficheiro trinidad-skins.xml.</resource>
+<resource key="TRANSLATION_SOURCE_NOT_EL" dnt="false">É necessário que a translation-source seja uma expressão de EL. Consulte o ficheiro trinidad-skins.xml.</resource>
 <!-- FILE_HANDLER_NOT_SET_IN_SERVLETCONTEXT -->
 <resource key="FILE_HANDLER_NOT_SET_IN_SERVLETCONTEXT" dnt="false">O parâmetro identificador java.io.File (&quot;javax.servlet.context.tempdir&quot;) não está definido no ServletContext</resource>
 <!-- RENDERINGCONTEXT_NOT_AVAILABLE -->
@@ -424,6 +426,7 @@
 <!-- REQUIRED_TRINIDADFILTER_NOT_INSTALLED -->
 <resource key="REQUIRED_TRINIDADFILTER_NOT_INSTALLED" dnt="false">O TrinidadFilter não foi instalado. O Apache Trinidad necessita deste filtro para uma execução correcta.</resource>
 <resource key="INVALID_ENUM_IN_CONFIG" dnt="false">O valor &apos;&apos;{0}&apos;&apos; não é um valor legal para &lt;&apos;&apos;{1}&apos;&apos;&gt;</resource>
+<resource key="INVALID_ACC_PROFILE" dnt="false">O valor &apos;&apos;{0}&apos;&apos; não é uma propriedade accessibility-profile válida</resource>
 <!-- MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS -->
 <resource key="MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS" dnt="false">Só é possível utilizar mergeCapabilities() com Agentes criados por esta classe.</resource>
 <!-- INVALID_NAMESPACE -->
@@ -597,7 +600,7 @@
 <!-- COMPONENTDEF_NOT_SUPPORT_EL -->
 <resource key="COMPONENTDEF_NOT_SUPPORT_EL" dnt="false">tr:componentDef não suporta EL em &apos;var&apos;</resource>
 <!-- MUST_BE_SIMPLE_JSF_EL_EXPRESSION -->
-<resource key="MUST_BE_SIMPLE_JSF_EL_EXPRESSION" dnt="false">é necessário que os itens sejam uma expressão EL simples do JSF</resource>
+<resource key="MUST_BE_SIMPLE_JSF_EL_EXPRESSION" dnt="false">é necessário que os itens sejam uma expressão de EL simples do JSF</resource>
 <!-- VAR_CANNOT_BE_EXPRESSION -->
 <resource key="VAR_CANNOT_BE_EXPRESSION" dnt="false">Não é possível que &quot;var&quot; seja uma expressão</resource>
 <!-- VARSTATUS_CANNOT_BE_EXPRESSION -->
@@ -619,7 +622,7 @@
 <!-- SETACTIONLISTENER_MUST_INSIDE_UICOMPONENT_TAG -->
 <resource key="SETACTIONLISTENER_MUST_INSIDE_UICOMPONENT_TAG" dnt="false">É necessário que setActionListener esteja dentro de um identificador UIComponent.</resource>
 <!-- SETACTIONLISTENERS_TO_MUST_BE_EL_EXPRESSION -->
-<resource key="SETACTIONLISTENERS_TO_MUST_BE_EL_EXPRESSION" dnt="false">É necessário que o atributo &apos;to&apos; de setActionListener seja uma expressão EL.</resource>
+<resource key="SETACTIONLISTENERS_TO_MUST_BE_EL_EXPRESSION" dnt="false">É necessário que o atributo &apos;to&apos; de setActionListener seja uma expressão de EL.</resource>
 <!-- COLOR_CODE_DOES_NOT_START_WITH_POUNDSIGN -->
 <resource key="COLOR_CODE_DOES_NOT_START_WITH_POUNDSIGN" dnt="false">O código da cor {0} em &apos;&apos;{1}&apos;&apos; não começa por &apos;&apos;#&apos;&apos;</resource>
 <!-- METHOD_CHANGED_TO_GETRENDERER -->
@@ -693,7 +696,7 @@
 <!-- FILEDOWNLOADACTIONLISTENER_MUST_INSIDE_UICOMPONENT_TAG -->
 <resource key="FILEDOWNLOADACTIONLISTENER_MUST_INSIDE_UICOMPONENT_TAG" dnt="false">É necessário que fileDownloadActionListener esteja dentro de um identificador UIComponent para um componente de &quot;comando&quot;.</resource>
 <!-- FILEDOWNLOADACTIONLISTENERS_METHOD_MUST_BE_EL_EXPRESSION -->
-<resource key="FILEDOWNLOADACTIONLISTENERS_METHOD_MUST_BE_EL_EXPRESSION" dnt="false">É necessário que o atributo &apos;method&apos; de fileDownloadActionListener seja uma expressão EL.</resource>
+<resource key="FILEDOWNLOADACTIONLISTENERS_METHOD_MUST_BE_EL_EXPRESSION" dnt="false">É necessário que o atributo &apos;method&apos; de fileDownloadActionListener seja uma expressão de EL.</resource>
 <!-- STATUS_INDICATOR_MISSING_ICONS -->
 <resource key="STATUS_INDICATOR_MISSING_ICONS" dnt="false">O componente statusIndicator necessita de um ícone &apos;ready&apos; e um ícone &apos;busy&apos;; falta um deles.</resource>
 <!-- COMPONENT_REQUIRES_FORM -->
@@ -706,4 +709,14 @@
 <resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">Não foi possível encontrar o trigger parcial {0} a partir de {1} com a sintaxe partialTriggers suportada. O trigger parcial foi encontrado com a sintaxe recusada. Utilize a sintaxe suportada.</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">O DateTimeRangeValidator necessita que o componente seja um EditableValueHolder para que a validação do cliente funcione. A validação do cliente será desactivada para o componente {0}.</resource>
+<!-- INVALID_LOCALE_LANG_LENGTH  -->
+<resource key="INVALID_LOCALE_LANG_LENGTH" dnt="false">Língua inválida para o identificador de Definições Locais {0} - é necessário que o código da língua tenha 2 caracteres; consulte o javadoc das Definições Locais para obter o formato correcto. Serão utilizadas as definições locais da página actual.</resource>
+<!-- INVALID_LOCALE_LANG_CASE  -->
+<resource key="INVALID_LOCALE_LANG_CASE" dnt="false">Língua inválida para o identificador de Definições Locais {0} - é necessário que o código da língua esteja em minúsculas; consulte o javadoc das Definições Locais para obter o formato correcto. Serão utilizadas as definições locais da página actual.</resource>
+<!-- INVALID_LOCALE_COUNTRY_LENGTH  -->
+<resource key="INVALID_LOCALE_COUNTRY_LENGTH" dnt="false">País inválido para o identificador de Definições Locais {0} - é necessário que o código do país tenha 2 caracteres; consulte o javadoc das Definições Locais para obter o formato correcto. Será utilizada uma cadeia de caracteres vazia para o país</resource>
+<!-- INVALID_LOCALE_COUNTRY_CASE  -->
+<resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">País inválido para o identificador de Definições Locais {0} - é necessário que o código do país esteja em maiúsculas; consulte o javadoc das Definições Locais para obter o formato correcto. Será utilizada uma cadeia de caracteres vazia para o país</resource>
+<!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
+<resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Variante inválida para o identificador de Definições Locais {0} - não é possível que contenha barras oblíquas para evitar um ataque de XSS. Será utilizada uma cadeia de caracteres vazia para a variante.</resource>
 </resources>

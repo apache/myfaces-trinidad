@@ -299,7 +299,7 @@
 <resource key="af_panelPage.QUICK_LINKS_RETURN_TOP" dnt="false">Tillbaka till början</resource>
 <!--Format for the quick links alt tag-->
 <!--{0} - the full name of the header-->
-<resource key="af_panelPage.QUICK_LINKS_TIP_FORMAT" dnt="false">Välj för att hoppa till &quot;{0}&quot; på sidan</resource>
+<resource key="af_panelPage.QUICK_LINKS_TIP_FORMAT" dnt="false">Välj för att gå till &quot;{0}&quot; på sidan</resource>
 <!--Train-->
 <!--In all of the following three: {0} - the name of the step-->
 <!--alternate text for a visited-step image in a Train-->
@@ -440,7 +440,7 @@
 <!-- Text of the ALT tag for the content frame of popup windows -->
 <resource key="FRAME_CONTENT" dnt="false">Innehåll</resource>
 <!-- A message displayed when we think there's a popup blocker installed -->
-<resource key="WINDOW_CREATION_ERROR" dnt="false">En funktion för blockering av popuppfönster har upptäckts i webbläsaren. Popuppblockerare stör funktionen för den här applikationen. Avaktivera din popuppblockering eller tillåt popuppfönster från den här platsen.</resource>
+<resource key="WINDOW_CREATION_ERROR" dnt="false">En funktion för blockering av popupfönster har upptäckts i webbläsaren. Popupblockerare stör funktionen för den här applikationen. Avaktivera din popupblockering eller tillåt popupfönster från den här platsen.</resource>
 <!-- Text to display in noframes element. This message is set on noframes element,
        when page redirection happens for LOV selection. -->
 <resource key="NO_FRAMES_MESSAGE" dnt="false">Webbläsaren har inte stöd för ramar. Den här funktionen kräver stöd för ramar</resource>
@@ -452,13 +452,16 @@
 <!--resource for af:chart -->
 <resource key="af_chart.IE_SVG_PLUGIN_ERROR_HTML" dnt="false">
 <![CDATA[<H4>Unable to load SVG plugin. Please install the plugin from <a href='#' onclick="window.open('http://www.adobe.com/svg/viewer/install/main.html')">Adobe</a><H4>]]>
-</resource>
+
+  </resource>
 <resource key="af_chart.SVG_ENABLED_BROWSER_ERROR_HTML" dnt="false">
 <![CDATA[<H4>This component needs an SVG enabled browser like Internet Explorer, Firefox 1.5+ or Opera 9.0+<H4>]]>
-</resource>
+
+  </resource>
 <resource key="af_chart.SVG_LOADING_STATUS_HTML" dnt="false">
 <![CDATA[<H4><H4>Please Wait. Attempting to load SVG document...</H4><H4>]]>
-</resource>
+
+  </resource>
 <!-- OLD KEYS FOR NOT YET IMPLEMENTED IN ADF FACES -->
 <!--  ******************************************** -->
 <!-- the components that used these keys in 2.2 are not in 3.0 yet -->

@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <!DOCTYPE resources SYSTEM "rts.dtd">
 <resources xmlns="http://myfaces.apache.org/trinidad/rts" package="org.apache.myfaces.trinidadinternal.resource">
@@ -56,6 +56,8 @@
 <resource key="IGNORING_SERVLET_INIT_PARAM" dnt="false">Szervlet inicializációs paraméterének figyelmen kívül hagyása: {0}, nem elemezhető a következő: {1}</resource>
 <!-- CANNOT_LOAD_VIEWHANDLER -->
 <resource key="CANNOT_LOAD_VIEWHANDLER" dnt="false">Nem tölthető be a következő ViewHandler: {0}</resource>
+<!-- DUPLICATE_VIEWHANDLER_REGISTRATION -->
+<resource key="DUPLICATE_VIEWHANDLER_REGISTRATION" dnt="false">Trinidad ViewHandler eleme többször van regisztrálva. Az inicializálódási problémák elkerüléséhez, ellenőrizze, hogy csak egy Trinidad implementációs jar-fájl van betöltve.</resource>
 <!-- TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION -->
 <resource key="TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION" dnt="false">Az Apache Trinidad az időbélyeg ellenőrzésének engedélyezésével fut. Ezt nem szabad éles környezetben használni. Lásd a(z) {0} tulajdonságot a WEB-INF/web.xml fájlban</resource>
 <!-- CANNOT_LOAD_URL -->
@@ -165,10 +167,10 @@
 <resource key="RENDERER_NOT_FOUND" dnt="false">Nem található a(z) &apos;&apos;{0}&apos;&apos; megjelenítő a(z) &apos;&apos;{1}&apos;&apos; összetevőcsaládhoz</resource>
 <!-- NO_SKIN_FACTORY -->
 <resource key="NO_SKIN_FACTORY" dnt="false">Nincs SkinFactory</resource>
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false">A requestMap esetében megadott {0} grafikus felület nem használható, mivel a requestMap styleSheetDocument azonosítója nem egyezik meg a helyi grafikus felület styleSheetDocument azonosítójával. Ez azt jelentheti, hogy a jar fájlok nem azonosak. Például az egyik tartalmazhatja a trinidad-skins.xml olyan grafikus felületi bővítményeit egy jar fájl osztályelérési útvonalán, amelyekkel a másik nem rendelkezik.</resource>
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false">A requestMap esetében megadott {0} grafikus felület nem használható, mivel styleSheetDocument azonosítóját a requestMap nem tartalmazza, és ezt össze kell hasonlítani a helyi grafikus felület styleSheetDocument azonosítójával annak eldöntéséhez, hogy a grafikus felületek azonosak.</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false"> A requestMap esetében megadott {0} grafikus felület lesz használatban, bár a fogyasztó grafikus felületéhez tartozó styleSheetDocumentId a requestMap adataiban nem egyezik meg a helyi grafikus felület styleSheetDocument-azonosítójával. Ez hatással lehet a teljesítményre, mivel a fogyasztó és a szolgáltató stíluslapja nem osztható meg. A szolgáltató stílusosztályai az ütközések elkerülése érdekében nem tömöríthetők. Ennek az az oka, hogy a jar-fájlok nem azonosak a szolgáltatónál és a fogyasztónál. Például az egyik az osztályelérési útvonalon lévő jar-fájlban a trinidad-skins.xml olyan grafikus felületi bővítményeit tartalmazhatja, amelyekkel a másik nem rendelkezik.</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false"> A requestMap esetén megadott {0} grafikus felület lesz használatban, bár a fogyasztó grafikus felületéhez tartozó styleSheetDocumentId nem szerepel a requestMap adataiban. Ez hatással van a teljesítményre, mivel a stíluslapok nem oszthatók meg a szolgáltató és a fogyasztó között.</resource>
 <!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST -->
 <resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST" dnt="false">A requestMap esetében megadott {0} grafikus felület nem használható, mivel nem létezik.</resource>
 <!-- CANNOT_GET_SKIN_FROM_SKINFACTORY -->
@@ -424,6 +426,7 @@
 <!-- REQUIRED_TRINIDADFILTER_NOT_INSTALLED -->
 <resource key="REQUIRED_TRINIDADFILTER_NOT_INSTALLED" dnt="false">A TrinidadFilter nem lett telepítve. Az Apache Trinidad megfelelő működéséhez erre szükség van.</resource>
 <resource key="INVALID_ENUM_IN_CONFIG" dnt="false">A(z) &apos;&apos;{0}&apos;&apos; érték nem szabályos &lt;&apos;&apos;{1}&apos;&apos;&gt; számára</resource>
+<resource key="INVALID_ACC_PROFILE" dnt="false">A(z) &apos;&apos;{0}&apos;&apos; érték nem érvényes hozzáférési profiltulajdonság</resource>
 <!-- MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS -->
 <resource key="MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS" dnt="false">mergeCapabilities() csak az ezzel az osztállyal létrehozott ügynökökkel használható.</resource>
 <!-- INVALID_NAMESPACE -->
@@ -706,4 +709,14 @@
 <resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">A támogatott partialTriggers szintaxissal nem található részleges {0} trigger a következő helyen: {1}. A részletes trigger csak az elavult szintaxissal található meg. Javítsa ki a támogatott szintaxisra.</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">Ahhoz, hogy az ügyfél-érvényesítés működjék, a DateTimeRangeValidator EditableValueHolder típusú összetevőt igényel. A rendszer letiltja az ügyfél-érvényesítést a(z) {0} összetevő esetén.</resource>
+<!-- INVALID_LOCALE_LANG_LENGTH  -->
+<resource key="INVALID_LOCALE_LANG_LENGTH" dnt="false">Érvénytelen nyelv a(z) {0} nyelvi-területi azonosító számára. A nyelvkódnak 2 karakterből kell állnia. A helyes formátumot a nyelvi-területi beállításra vonatkozó javadoc tartalmazza. A rendszer az aktuális oldal beállítását használja.</resource>
+<!-- INVALID_LOCALE_LANG_CASE  -->
+<resource key="INVALID_LOCALE_LANG_CASE" dnt="false">Érvénytelen nyelv a(z) {0} nyelvi-területi azonosító számára. A nyelvkódnak kisbetűsnek kell lennie. A helyes formátumot a nyelvi-területi beállításra vonatkozó javadoc tartalmazza. A rendszer az aktuális oldal beállítását használja.</resource>
+<!-- INVALID_LOCALE_COUNTRY_LENGTH  -->
+<resource key="INVALID_LOCALE_COUNTRY_LENGTH" dnt="false">Érvénytelen ország a(z) {0} nyelvi-területi azonosító számára. Az országkódnak 2 karakterből kell állnia. A helyes formátumot a nyelvi-területi beállításra vonatkozó javadoc tartalmazza. A rendszer üres karakterláncot használ országként.</resource>
+<!-- INVALID_LOCALE_COUNTRY_CASE  -->
+<resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">Érvénytelen ország a(z) {0} nyelvi-területi azonosító számára. Az országkódnak nagybetűsnek kell lennie. A helyes formátumot a nyelvi-területi beállításra vonatkozó javadoc tartalmazza. A rendszer üres karakterláncot használ országként.</resource>
+<!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
+<resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">Érvénytelen változó a(z) {0} nyelvi-területi azonosító számára. A változó nem tartalmazhat törtvonalat az XSS-támadás elkerülésére. A rendszer üres karakterláncot használ változóként.</resource>
 </resources>

@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+
 -->
 <!DOCTYPE resources SYSTEM "rts.dtd">
 <resources xmlns="http://myfaces.apache.org/trinidad/rts" package="org.apache.myfaces.trinidadinternal.resource">
@@ -56,6 +56,8 @@
 <resource key="IGNORING_SERVLET_INIT_PARAM" dnt="false">忽略 servlet 初始化參數:{0} 無法剖析:{1}</resource>
 <!-- CANNOT_LOAD_VIEWHANDLER -->
 <resource key="CANNOT_LOAD_VIEWHANDLER" dnt="false">無法載入 ViewHandler {0}</resource>
+<!-- DUPLICATE_VIEWHANDLER_REGISTRATION -->
+<resource key="DUPLICATE_VIEWHANDLER_REGISTRATION" dnt="false">Trinidad 的 ViewHandler 已註冊一次以上. 為了避免初始化的問題, 請確定只載入一個 Trinidad 實行 Jar.</resource>
 <!-- TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION -->
 <resource key="TIMESTAMP_CHECKING_ENABLED_SHOULDNOT_IN_PRODUCTION" dnt="false">Apache Trinidad 正在已啟用時戳檢查的情況下執行. 這不應該用於實際執行環境. 請參閱 WEB-INF/web.xml 中的 {0} 特性.</resource>
 <!-- CANNOT_LOAD_URL -->
@@ -165,10 +167,10 @@
 <resource key="RENDERER_NOT_FOUND" dnt="false">找不到元件系列 &apos;&apos;{1}&apos;&apos; 的轉換程式 &apos;&apos;{0}&apos;&apos;</resource>
 <!-- NO_SKIN_FACTORY -->
 <resource key="NO_SKIN_FACTORY" dnt="false">沒有 SkinFactory</resource>
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false">因為 requestMap 上的 styleSheetDocument id 不符合本機面板的 &apos;&apos;styleSheetDocument&apos;&apos; id, 所以將不會使用在 requestMap 指定的面板 {0}. 這可能表示兩者的 jar 不相同. 例如, 其中一個面板可能在類別路徑的 jar 檔案中含有 trinidad-skins.xml 的 skin-additions, 而另一個卻沒有.</resource>
-<!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
-<resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false">因為 requestMap 上指定的面板 {0} 之 styleSheetDocument id 不在 requestMap 中, 而必須有它才能比較本機面板的 styleSheetDocument id 以確定面板相同, 所以將不會使用此面板.</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false"> 即使 requestMap 上用戶面板的 styleSheetDocumentId 與本機面板的 styleSheetDocument ID 不符, 仍將使用 requestMap 上指定的面板 {0}. 因為用戶和產生器樣式表不可以共用, 所以這將會影響效能. 系統將不會壓縮產生器樣式類別, 以避免發生衝突. ID 不符的原因可能是產生器和用戶的 jar 不相同. 例如, 其中一個在類別路徑的 jar 檔案中可能包含 trinidad-skins.xml 的 skin-additions, 而另一個卻沒有.</resource>
+<!-- STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
+<resource key="STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false"> 即使 requestMap 中沒有用戶的面板 styleSheetDocumentId, 仍將使用 requestMap 上指定的面板 {0}. 因為產生器與用戶之間不可以共用樣式表, 所以這將會影響效能.</resource>
 <!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST -->
 <resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST" dnt="false">因為 requestMap 上指定的面板 {0} 不存在, 所以將不會使用它.</resource>
 <!-- CANNOT_GET_SKIN_FROM_SKINFACTORY -->
@@ -424,6 +426,7 @@
 <!-- REQUIRED_TRINIDADFILTER_NOT_INSTALLED -->
 <resource key="REQUIRED_TRINIDADFILTER_NOT_INSTALLED" dnt="false">未安裝 TrinidadFilter. Apache Trinidad 需要此篩選, 才能正確執行.</resource>
 <resource key="INVALID_ENUM_IN_CONFIG" dnt="false">值 &apos;&apos;{0}&apos;&apos; 不是 &lt;&apos;&apos;{1}&apos;&apos;&gt; 的有效值</resource>
+<resource key="INVALID_ACC_PROFILE" dnt="false">值 &apos;&apos;{0}&apos;&apos; 不是有效的存取設定檔特性</resource>
 <!-- MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS -->
 <resource key="MERGECAPABILITIES_ONLY_USED_WITH_AGENTS_CREATED_BY_THIS_CLASS" dnt="false">mergeCapabilities() 只能用於此類別建立的代理程式.</resource>
 <!-- INVALID_NAMESPACE -->
@@ -706,4 +709,14 @@
 <resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">在 {1} 找不到使用支援之 partialTriggers 語法的部分觸發程式 {0}. 找到的部分觸發程式使用已不再使用的語法. 請使用支援的語法.</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">DateTimeRangeValidator 要求元件必須是 EditableValueHolder, 才能進行從屬端驗證. 將停用元件 {0} 的從屬端驗證.</resource>
+<!-- INVALID_LOCALE_LANG_LENGTH  -->
+<resource key="INVALID_LOCALE_LANG_LENGTH" dnt="false">「地區設定」ID {0} 的語言無效 - 語言代碼必須是 2 個字元, 請參閱「地區設定」Java 文件以瞭解正確的格式. 將會使用目前頁面的地區設定.</resource>
+<!-- INVALID_LOCALE_LANG_CASE  -->
+<resource key="INVALID_LOCALE_LANG_CASE" dnt="false">「地區設定」ID {0} 的語言無效 - 語言代碼必須使用小寫, 請參閱「地區設定」Java 文件以瞭解正確的格式. 將會使用目前頁面的地區設定.</resource>
+<!-- INVALID_LOCALE_COUNTRY_LENGTH  -->
+<resource key="INVALID_LOCALE_COUNTRY_LENGTH" dnt="false">「地區設定」ID {0} 的國別無效 - 國別代碼必須是 2 個字元, 請參閱「地區設定」Java 文件以瞭解正確的格式. 將會使用空白的國別字串.</resource>
+<!-- INVALID_LOCALE_COUNTRY_CASE  -->
+<resource key="INVALID_LOCALE_COUNTRY_CASE" dnt="false">「地區設定」ID {0} 的國別無效 - 國別代碼必須使用大寫, 請參閱「地區設定」Java 文件以瞭解正確的格式. 將會使用空白的國別字串.</resource>
+<!-- INVALID_LOCALE_VARIANT_HAS_SLASH  -->
+<resource key="INVALID_LOCALE_VARIANT_HAS_SLASH" dnt="false">「地區設定」ID {0} 的變異無效 - 不得包含斜線以避免 XSS 攻擊. 將會使用空白的變異字串.</resource>
 </resources>
