@@ -50,6 +50,8 @@ public class CachingResourceLoader extends ResourceLoader
     _cache = new ConcurrentHashMap<String, URL>();
   }
 
+  
+
   /**
    * Returns the cached resource url if previously requested.  Otherwise,
    * fully reads the resource contents stores in the cache.
@@ -82,6 +84,12 @@ public class CachingResourceLoader extends ResourceLoader
   }
 
   private final ConcurrentMap<String, URL> _cache;
+
+  @Override
+  public boolean isCachable()
+  {
+    return false;
+  }
 
   /**
    * URLStreamHandler to cache URL contents and URLConnection headers.

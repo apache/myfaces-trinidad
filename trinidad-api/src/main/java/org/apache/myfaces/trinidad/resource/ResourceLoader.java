@@ -73,6 +73,15 @@ public class ResourceLoader
     
     return url;
   }
+  
+  /**
+   * Returns whether a resource is cachable.
+   * @return
+   */
+  public boolean isCachable()
+  {
+    return _parent == null || _parent.isCachable(); 
+  }
 
   /**
    * Finds the resource with the given name. Resource loader implementations

@@ -342,8 +342,10 @@ public class ResourceServlet extends HttpServlet
         }
 
         // Enable resource caching, but only if we aren't debugging
-        if (!_debug)
+        if (!_debug && loader.isCachable())
+        {
           loader = new CachingResourceLoader(loader);
+        }
       }
       catch (IllegalAccessException e)
       {
