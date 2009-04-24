@@ -96,6 +96,10 @@ import org.xml.sax.SAXException;
 // TODO: Synchronization does not seem to be needed since there's
 //       synchronized blocks in the code, using HashMap hence
 //       looks like a better choice than Hashtable.
+// -= Blake Sullivan =-
+// rebuttal - _createEntry() which assigns values to _cache and _entryCache is called 
+// without a lock and these Maps are read without a lock. 
+// _cache and _entryCache should probably be ConcurrentHashMaps.
 public class FileSystemStyleCache implements StyleProvider
 {
   /**
@@ -162,7 +166,7 @@ public class FileSystemStyleCache implements StyleProvider
 
     if (entry == null)
     {
-      return null;
+      return Collections.emptyList();
     }
 
     return entry.uris;
@@ -977,31 +981,28 @@ public class FileSystemStyleCache implements StyleProvider
   }
 
   /**
-   * Initiializes the NameResolver
+   * Initiializes the NameResolver. Does not need to be synchronized only because it is
+   * synchronized in the calling code.
    */
   private void _initResolver()
   {
-    // Synchronize just in case two different threads hit this
-    // at the same time
-    synchronized (this)
+
+    if (_resolver == null)
     {
-      if (_resolver == null)
-      {
-        NameResolver resolver = new DefaultNameResolver(_sourceFile, null);
+      NameResolver resolver = new DefaultNameResolver(_sourceFile, null);
 
-        // We explicitly wrap the NameResolver in a CachingNameResolver
-        // since that conveniently handles checking for modifications to
-        // dependent (imported) files.
-        // The default storage for cached files is a bit large,
-        // so we use a smaller hash table.  Also, always enable
-        // modification checking.
-        // FIXME: Should probably be a ConcurrentHashMap
-        resolver = new CachingNameResolver(resolver,
-                                           new Hashtable<Object, InputStreamProvider>(17),
-                                           true);
+      // We explicitly wrap the NameResolver in a CachingNameResolver
+      // since that conveniently handles checking for modifications to
+      // dependent (imported) files.
+      // The default storage for cached files is a bit large,
+      // so we use a smaller hash table.  Also, always enable
+      // modification checking.
+      // FIXME: Should probably be a ConcurrentHashMap
+      resolver = new CachingNameResolver(resolver,
+                                         new Hashtable<Object, InputStreamProvider>(17),
+                                         true);
 
-        _resolver = resolver;
-      }
+      _resolver = resolver;
     }
   }
 
@@ -1619,7 +1620,7 @@ public class FileSystemStyleCache implements StyleProvider
    * resolve/load all files.  We also use the InputStreamProvider
    * to check for modifications to any dependent files.
    */
-  private NameResolver        _resolver;
+  private volatile NameResolver _resolver;
 
   /** The parsed StyleSheetDocument */
   private StyleSheetDocument _document;
@@ -1648,7 +1649,7 @@ public class FileSystemStyleCache implements StyleProvider
   private static final String _CSS_EXTENSION = ".css";
 
   /** Java name for UTF8 encoding */
-  private static String _UTF8_ENCODING = "UTF8";
+  private static final String _UTF8_ENCODING = "UTF8";
 
   /** Stub StyleSheetDocument instance */
   private static final StyleSheetDocument _EMPTY_DOCUMENT =
