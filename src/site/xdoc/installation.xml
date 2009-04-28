@@ -154,7 +154,8 @@ items to your <code>WEB-INF/web.xml</code>.
 <source><![CDATA[
   <context-param>
     <param-name>org.apache.myfaces.trinidad.ALTERNATE_VIEW_HANDLER</param-name>
-    <param-value>com.sun.facelets.FaceletViewHandler</param-value>
+    <!-- TrinidadFaceletViewHander must be the alternate view handler if SessionChangeManager is used -->
+    <param-value>org.apache.myfaces.trinidadinternal.facelets.TrinidadFaceletViewHandler</param-value>
   </context-param>
 
   <context-param>
@@ -167,10 +168,14 @@ items to your <code>WEB-INF/web.xml</code>.
 Make sure to also remove the
 default <code>com.sun.facelets.FaceletViewHandler</code> from your
 <code>faces-config.xml</code>.  Trinidad comes with its own ViewHandler
-which needs to be invoked in the correct order with the Facelets
-ViewHandler.  If you specified the alternative view handler parameter
+which needs to be invoked in the correct order with the Facelet specific
+ViewHandler noted above. If you specified the alternative view handler parameter
 as described above, it will be called by the Apache Trinidad ViewHandler
-at the right time.
+at the right time. Note that if Session based change persistence is not
+used, <code>com.sun.facelets.FaceletViewHandler</code> or any of its custom 
+extensions can be set as the alternate view handler. For information about 
+enabling Change Persistence feature, please see the 'Configuring Apache Trinidad' 
+developer guide chapter.
 </p>
 
 

@@ -365,6 +365,22 @@ open simultaneously.  Developers building HTML applications that
 rely heavily on frames will likely need to increase this value.
 </p>
 </subsection>
+<subsection name="org.apache.myfaces.trinidad.CHANGE_PERSISTENCE">
+<p>
+This configuration option allows to enable the change persistence 
+feature. This feature is used to achieve customizations using 
+ChangeManager APIs (in package org.apache.myfaces.trinidad.change).
+ The valid values are:
+<ul>
+<li>'session'. This is a convenience token value to use 
+org.apache.myfaces.trinidad.change.SessionChangeManager
+</li>
+<li>Package qualified class name of any custom implementation of 
+org.apache.myfaces.trinidad.change.ChangeManager.
+</li>
+</ul>
+</p>
+</subsection>
 <subsection name="org.apache.myfaces.trinidad.USE_APPLICATION_VIEW_CACHE">
 <p>
 This configuration option enables an optimized strategy for caching some
