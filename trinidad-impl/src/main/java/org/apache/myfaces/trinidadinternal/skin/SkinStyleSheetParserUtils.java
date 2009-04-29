@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -24,7 +24,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+
 import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -34,7 +36,6 @@ import java.util.regex.Pattern;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.util.URLUtils;
-
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinProperties;
 import org.apache.myfaces.trinidadinternal.share.expl.Coercions;
 import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
@@ -56,6 +57,7 @@ import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetNode;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
+
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/skin/SkinStyleSheetParserUtils.java#0 $) $Date: 10-nov-2005.18:59:00 $
@@ -100,7 +102,7 @@ class SkinStyleSheetParserUtils
       // this will be used to get the document's timestamp later on
       XMLUtils.setResolver(context, resolver.getResolver(sourceName));
       XMLUtils.setInputStreamProvider(context, provider);
-      
+
       // PARSE!
       // create a SkinStyleSheetNode
       // (contains a namespaceMap and a List of SkinSelectorPropertiesNodes
@@ -109,7 +111,7 @@ class SkinStyleSheetParserUtils
       BufferedReader in = new BufferedReader(new InputStreamReader(stream));
       List <SkinStyleSheetNode> skinSSNodeList = _parseCSSStyleSheet(in);
       in.close();
-  
+
       // process the SkinStyleSheetNodes to create a StyleSheetEntry object
       StyleSheetEntry styleSheetEntry =
         _createStyleSheetEntry(context, sourceName, skinSSNodeList);
@@ -122,7 +124,7 @@ class SkinStyleSheetParserUtils
 
       //    return value;
       provider.setCachedResult(styleSheetEntry);
-      
+
       return styleSheetEntry;
     }
     finally
@@ -130,7 +132,7 @@ class SkinStyleSheetParserUtils
       stream.close();
     }
   }
-  
+
   /**
    * Trim the leading/ending quotes, if any.
    */
@@ -171,29 +173,29 @@ class SkinStyleSheetParserUtils
     )
   {
 
-    
+
     // Get each SkinStyleSheetNode, and for each SkinStyleSheetNode get a
     // styleNodeList. Also, build one iconNodeList and one skinPropertyNodeList.
-    
+
     // initialize
     List<StyleSheetNode> ssNodeList = new ArrayList<StyleSheetNode>();
     String baseSourceURI = CSSUtils.getBaseSkinStyleSheetURI(sourceName);
-    
+
     // loop through the selectors and its properties
     for (SkinStyleSheetNode skinSSNode : skinSSNodeList)
     {
-  
+
       // selector and its properties
       List <SkinSelectorPropertiesNode> selectorNodeList =
         skinSSNode.getSelectorNodeList();
       //Map namespaceMap = styleSheetNode.getNamespaceMap();
-     
+
       // initialize
       List <StyleNode> styleNodeList = new ArrayList<StyleNode>();
       List<IconNode> iconNodeList = new ArrayList<IconNode>();
       // trSkinPropertyNodeList, e.g., af|foo {-tr-show-last-item: true}
       List<SkinPropertyNode> trSkinPropertyNodeList = new ArrayList<SkinPropertyNode>();
-  
+
       // process each selector and all its name+values
       for (SkinSelectorPropertiesNode cssSelector : selectorNodeList)
       {
@@ -202,17 +204,17 @@ class SkinStyleSheetParserUtils
         // PropertyNode is the name+value, like font-size: 8px
         List<PropertyNode> propertyList = cssSelector.getPropertyNodes();
         int direction     = skinSSNode.getDirection();
-  
+
         ResolvedSkinProperties resolvedProperties =
           _resolveProperties(selectorName,
                              propertyList);
-  
-        
+
+
         trSkinPropertyNodeList.addAll(resolvedProperties.getSkinPropertyNodeList());
-  
+
         List<PropertyNode> noTrPropertyList =
           resolvedProperties.getNoTrPropertyList();
-  
+
         if (_isIcon(selectorName))
         {
           // knock off the '.' if it is the first character.
@@ -223,7 +225,7 @@ class SkinStyleSheetParserUtils
           // add :rtl if the direction is rtl
           if (direction == LocaleUtils.DIRECTION_RIGHTTOLEFT)
             selectorName = selectorName.concat(StyleUtils.RTL_CSS_SUFFIX);
-  
+
           // create an IconNode object and add it ot the iconNodeList
           boolean addStyleNode = _addIconNode(sourceName,
                                               baseSourceURI,
@@ -249,10 +251,10 @@ class SkinStyleSheetParserUtils
                         resolvedProperties.getInhibitedProperties(),
                         resolvedProperties.isTrTextAntialias(),
                         styleNodeList);
-  
+
         }
       }
-      
+
       if ((styleNodeList.size() > 0) || (iconNodeList.size() > 0)
           || (trSkinPropertyNodeList.size() > 0))
       {
@@ -272,10 +274,10 @@ class SkinStyleSheetParserUtils
                              skinSSNode.getAcessibilityProperties());
         ssNodeList.add(ssNode);
       }
- 
+
     } // end for each SkinStyleSheetNode
-    
-    
+
+
     // StyleSheetDocument contains StyleSheetNode[] styleSheets
     StyleSheetDocument ssDocument =
       _createStyleSheetDocument(context, ssNodeList);
@@ -304,7 +306,7 @@ class SkinStyleSheetParserUtils
     Set<String> inhibitedPropertySet = new TreeSet<String>();
     List<SkinPropertyNode> skinPropertyNodeList =
       new ArrayList<SkinPropertyNode>();
-    
+
     boolean trTextAntialias = false;
 
     // loop through each property in the propertyList
@@ -323,7 +325,7 @@ class SkinStyleSheetParserUtils
     {
       String propertyName = propertyNode.getName();
       String propertyValue = propertyNode.getValue();
-      
+
       if(propertyName != null && propertyValue != null)
       {
         boolean oraProperty = propertyName.startsWith(_ORA_PROPERTY_PREFIX);
@@ -357,7 +359,7 @@ class SkinStyleSheetParserUtils
             // create the SkinPropertyNode
             SkinPropertyNode node =
               _createSkinPropertyNode(selectorName, propertyName, propertyValue);
-  
+
             skinPropertyNodeList.add(node);
           }
         }
@@ -437,15 +439,41 @@ class SkinStyleSheetParserUtils
       {
         // save original width value
         // strip off px from the string and return an Integer
-        widthValue = propertyValue;
-        width = _convertPxDimensionStringToInteger(widthValue);
+        if (_INTEGER_PATTERN.matcher(propertyValue).matches())
+        {
+          widthValue = propertyValue;
+          width = _convertPxDimensionStringToInteger(widthValue);
+        }
+        else
+        {
+          widthValue = null;
+          // use inlineStyle for non-integer width values;
+          if (inlineStyle == null)
+          {
+            inlineStyle = new CSSStyle();
+          }
+          inlineStyle.setProperty(propertyName, propertyValue);
+        }
       }
       else if (propertyName.equals("height"))
       {
         // save original height value
         // strip off px from the string and return an Integer
-        heightValue = propertyValue;
-        height = _convertPxDimensionStringToInteger(heightValue);
+        if (_INTEGER_PATTERN.matcher(propertyValue).matches())
+        {
+          heightValue = propertyValue;
+          height = _convertPxDimensionStringToInteger(heightValue);
+        }
+        else
+        {
+          // use inlineStyle for non-integer height values;
+          heightValue = null;
+          if (inlineStyle == null)
+          {
+            inlineStyle = new CSSStyle();
+          }
+          inlineStyle.setProperty(propertyName, propertyValue);
+        }
       }
       else if (propertyName.equals("content"))
       {
@@ -504,9 +532,9 @@ class SkinStyleSheetParserUtils
         boolean startsWithTwoSlashes = uri.startsWith("//");
         if (!startsWithTwoSlashes && uri.startsWith("/"))
         {
-        
+
           uri = uri.substring(1);
-          
+
           icon =
             new ContextImageIcon(uri, uri, width, height, null, inlineStyle);
         }
@@ -543,7 +571,7 @@ class SkinStyleSheetParserUtils
 
     if (icon != null)
       iconNodeList.add(new IconNode(selectorName, icon));
-      
+
     return createStyleNode;
 
   }
@@ -622,7 +650,7 @@ class SkinStyleSheetParserUtils
     styleNodeList.add(styleNode);
 
   }
-  
+
   private static SkinPropertyNode _createSkinPropertyNode(
     String selector,
     String name,
@@ -634,7 +662,7 @@ class SkinStyleSheetParserUtils
     keyBuilder.append(selector);
     keyBuilder.append(name);
     String key = keyBuilder.toString();
-    
+
     // look up in map to get conversion
     Class<?> type = SkinProperties.PROPERTY_CLASS_TYPE_MAP.get(key);
     Object propValueObj = null;
@@ -673,7 +701,7 @@ class SkinStyleSheetParserUtils
       // if it ends with :alias, it is a namedstyle.
 
       List<String> selectors = new ArrayList<String>();
-      
+
       String[] test = _SELECTOR_PATTERN.split(value);
       for (int i=0; i < test.length; i++)
       {
@@ -723,7 +751,7 @@ class SkinStyleSheetParserUtils
                                     null,
                                     timestamp);
   }
-  
+
   // Returns the document timestamp for the style sheet that
   // is currently being parsed, taking into account timestamps
   // of any imported style sheets. (copied from StyleSheetDocumentParser)
@@ -813,7 +841,7 @@ class SkinStyleSheetParserUtils
     return trimQuotes(uri);
   }
 
-  
+
   // returns true if the selectorName indicates that it is an icon.
   private static boolean _isIcon(String selectorName)
   {
@@ -880,7 +908,7 @@ class SkinStyleSheetParserUtils
     {
       return _skinPropertyNodeList;
     }
-    
+
     public Set<String> getInhibitedProperties()
     {
       return _inhibitedPropertySet;
@@ -890,7 +918,7 @@ class SkinStyleSheetParserUtils
     {
       return _trTextAntialias;
     }
-    
+
     private Set<String>            _inhibitedPropertySet;
     private List<PropertyNode>     _noTrPropertyList;
     private List<String>           _trRuleRefList;
@@ -907,7 +935,8 @@ class SkinStyleSheetParserUtils
   private static final String _PROPERTY_RULE_REF = "rule-ref";
   private static final String _PROPERTY_INHIBIT = "inhibit";
   private static final String _PROPERTY_TEXT_ANTIALIAS = "text-antialias";
-  
+  private static final Pattern _INTEGER_PATTERN = Pattern.compile("\\d+");
+
   private static final Pattern _SPACE_PATTERN = Pattern.compile("\\s");
   private static final Pattern _SELECTOR_PATTERN = Pattern.compile("selector\\(");
 
