@@ -935,7 +935,7 @@ class SkinStyleSheetParserUtils
   private static final String _PROPERTY_RULE_REF = "rule-ref";
   private static final String _PROPERTY_INHIBIT = "inhibit";
   private static final String _PROPERTY_TEXT_ANTIALIAS = "text-antialias";
-  private static final Pattern _INTEGER_PATTERN = Pattern.compile("\\d+");
+  private static final Pattern _INTEGER_PATTERN = Pattern.compile("\\d+(px)?");
 
   private static final Pattern _SPACE_PATTERN = Pattern.compile("\\s");
   private static final Pattern _SELECTOR_PATTERN = Pattern.compile("selector\\(");
