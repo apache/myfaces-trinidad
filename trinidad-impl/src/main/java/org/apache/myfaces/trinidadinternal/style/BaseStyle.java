@@ -23,7 +23,7 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.Map;
 
-import org.apache.myfaces.trinidad.util.ArrayMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Base class for Style implementations
@@ -53,9 +53,9 @@ abstract public class BaseStyle extends CoreStyle implements Serializable
   {
     if ((propertiesMap != null) && (!propertiesMap.isEmpty()))
     {
-      // Initialize the propertiesMap with an ArrayMap implementation.
-      // ArrayMap is fast reads.
-      _propertiesMap = new ArrayMap<String, String>(propertiesMap.size());
+      // Initialize the propertiesMap with a ConcurrentHashMap.
+      // This uses more memory than ArrayMap, but is faster and safer.
+      _propertiesMap = new ConcurrentHashMap<String, String>(propertiesMap.size());
       
       _propertiesMap.putAll(propertiesMap);
     }
@@ -137,7 +137,7 @@ abstract public class BaseStyle extends CoreStyle implements Serializable
     synchronized (this)
     {
       if (_propertiesMap.isEmpty())
-        _propertiesMap = new ArrayMap<String, String>();
+      _propertiesMap = new ConcurrentHashMap<String, String>();
       _propertiesMap.put(name, value);
       
       // We need to reset to parsed properties if our properties change
@@ -161,7 +161,7 @@ abstract public class BaseStyle extends CoreStyle implements Serializable
   abstract protected Object parseProperty(Object key)
     throws PropertyParseException;
 
-  private Map<String, String> _propertiesMap;
+  volatile private Map<String, String> _propertiesMap;
   transient private Object[] _parsedProperties;
 
   // Count of parsed properties defined by Style
