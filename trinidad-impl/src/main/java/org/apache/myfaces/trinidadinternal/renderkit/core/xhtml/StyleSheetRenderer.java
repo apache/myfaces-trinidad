@@ -91,13 +91,7 @@ public class StyleSheetRenderer extends XhtmlRenderer
 
     StyleContext sContext = ((CoreRenderingContext) arc).getStyleContext();
     StyleProvider provider = sContext.getStyleProvider();
-    // TODO This will move to Rich Client
-    if (!_supportsExternalStylesheet(arc))
-    {
-      System.out.println("TEST THE GET SELECTOR STYLE MAP");
 
-      _testGetSelectorStyleMap(context, arc);
-    }
     if (provider != null)
     {
       List<String> uris = provider.getStyleSheetURIs(sContext);
@@ -174,84 +168,6 @@ public class StyleSheetRenderer extends XhtmlRenderer
       }
     }
   }
-
-
-
-  // TODO DELETE THIS TEST
-  private void _testGetSelectorStyleMap(FacesContext context, RenderingContext arc)
-    throws IOException
-  {
-      StyleContext sContext = ((CoreRenderingContext) arc).getStyleContext();
-      StyleProvider provider = sContext.getStyleProvider();
-      if (provider != null)
-      {
-
-
-        ResponseWriter writer = context.getResponseWriter();
-        // Check if we want to write out the css into the page or not. In portlet mode the
-        // producer tries to share the consumer's stylesheet if it matches exactly.
-        // jmw
-        Styles styles = arc.getStyles();
-        String[] selectors = {".AFInstructionText", // selector
-                              "af|inputText::content", // selector
-                              "af|treeTable::expansion", // selector
-                              "af|treeTable::locator", // selector
-                              "af|inputText:disabled.AFFieldTextMarker::content",  // selector
-                              "af|foo af|bar", // selector
-                              ".AFDefaultFont:alias", // nothing, since currently it's in the wrong format to be a named sele ctor
-                              ".AFDefaultFont",// nothing, since currently it's in the wrong format to be a named sele ctor
-                              "AFDefaultFont"};// name
-
-        System.out.println("getSelectorStyleMap NEW. Gets all the selectors, then find the one you want");
-        Map<Selector, Style> selectorStyleMap = styles.getSelectorStyleMap();
-
-        for (int i=0; i< selectors.length; i++)
-        {
-          String selector = selectors[i];
-          Style style = selectorStyleMap.get(selector);
-          if (style != null)
-            System.out.println(selector+" inlineString is " + style.toInlineString());
-          else
-            System.out.println("no styles for " + selector);
-        }
-
-
-        String[] simpleSelectorsToInline = {"af|document",
-                                            "af|panelHeader",
-                                            "af|showDetailHeader",
-                                            "af|inputText",
-                                            "af|selectOneChoice",
-                                            "af|panelLabelAndMessage",
-                                            "af|image",
-                                            "af|table",
-                                            "af|column",
-                                            "af|goLink"};
-
-        // now try to get the getSelectorsForSimpleSelector to see if we can get the selectors with a certain key like af|inputText
-        writer.startElement("style", null);
-        for (int i=0; i< simpleSelectorsToInline.length; i++)
-        {
-          System.out.println("xGet styles for " + simpleSelectorsToInline[i]);
-          Set<Selector> selectorSet = styles.getSelectorsForSimpleSelector(simpleSelectorsToInline[i]);
-          for (Selector eachSelector : selectorSet)
-          {
-            String validSelector = styles.getNativeSelectorString(eachSelector);
-            System.out.print(validSelector + "{");
-            writer.write(validSelector);
-            writer.write("{");
-            String cssInlineProperties = selectorStyleMap.get(eachSelector).toInlineString();
-            System.out.print(cssInlineProperties);
-            System.out.println("}");
-            writer.write(cssInlineProperties);
-            writer.write("}");
-          }
-        }
-        writer.endElement("style");
-
-
-      }
-    }
-
 
   // In the portlet environment, the consumer might like the producers to share its stylesheet
   // for performance reasons. To indicate this the producer sends a

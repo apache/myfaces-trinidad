@@ -1538,9 +1538,6 @@ public class FileSystemStyleCache implements StyleProvider
      */
     public Style _convertStyleNodeToStyle(StyleNode styleNode)
     {
-      // TODO Do I need ConcurrentHashMap? Do I need more than that? Note the icon
-      // and property map only use ConcurrentHashMap, but the cache maps use Hashtable (maybe 
-      // because the code is old?)
       Map<String, String> styleProperties = new ConcurrentHashMap<String, String>();
       // Add in the properties for the style
       Iterable<PropertyNode> propertyNodeList = styleNode.getProperties();
