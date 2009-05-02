@@ -976,8 +976,12 @@ public class BaseLafRenderer extends ElementRenderer
           UIXRenderingContext context
           )
   {
-    return (getAgentCapability(context, TrinidadAgent.CAP_STYLE_ATTRIBUTES) ==
-            TrinidadAgent.STYLES_EXTERNAL );
+    // STYLES_INTERNAL means that internal styles are supported, like the
+    // <style> element. This means that class attributes may be supported.
+    return ((getAgentCapability(context, TrinidadAgent.CAP_STYLE_ATTRIBUTES) ==
+            TrinidadAgent.STYLES_EXTERNAL) || 
+           (getAgentCapability(context, TrinidadAgent.CAP_STYLE_ATTRIBUTES) ==
+                TrinidadAgent.STYLES_INTERNAL));
   }
 
 

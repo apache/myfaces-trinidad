@@ -33,7 +33,7 @@ import org.apache.myfaces.trinidadinternal.image.ImageProviderRequest;
 import org.apache.myfaces.trinidadinternal.image.ImageProviderResponse;
 import org.apache.myfaces.trinidadinternal.image.cache.CompositeButtonKey;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
-import org.apache.myfaces.trinidadinternal.style.Style;
+import org.apache.myfaces.trinidadinternal.style.CoreStyle;
 import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
 import org.apache.myfaces.trinidadinternal.style.util.FontProxy;
 import org.apache.myfaces.trinidadinternal.style.util.MutableFontProxy;
@@ -433,9 +433,9 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
       getBooleanAttributeValue(context, node, _END_ROUNDED_ATTR, true);
     Object name = getImageName(context, node);
     String styleName = getServerStyleName(context, node, disabled);
-    Style style = getStyle(context, node, styleName);
+    CoreStyle style = getStyle(context, node, styleName);
 
-    Style inlineStyle;
+    CoreStyle inlineStyle;
     Object inlineStyleObj = getInlineStyle(context, node);
     if (inlineStyleObj == null)
       inlineStyle = null;

@@ -19,113 +19,56 @@
 package org.apache.myfaces.trinidadinternal.style;
 
 import java.io.Serializable;
+
+import java.util.Collections;
 import java.util.Map;
-import java.util.Iterator;
 
-
-import org.apache.myfaces.trinidad.util.ArrayMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Base class for Style implementations
+ * TODO Remove the ParsedProperty code from Trinidad. It is only used for
+ * the un-used image generation code.
+ * TODO Then remove CoreStyle and implement the public Style object instead.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/BaseStyle.java#0 $) $Date: 10-nov-2005.18:57:54 $
  */
-abstract public class BaseStyle implements Style, Serializable
+abstract public class BaseStyle extends CoreStyle implements Serializable 
 {
   /**
-   * Creates an empty BaseStyle.
+   * Creates an empty BaseStyle. For better performance, 
+   * use the Base(Map&lt;String, String>) constructor.
    */
   public BaseStyle()
   {
+    _propertiesMap = Collections.emptyMap();
   }
 
   /**
    * Creates a BaseStyle with the specified properties
    *
-   * @param properties The properties of this style.  The
-   *   values must be Strings.
+   * @param propertiesMap The properties of this style.  The
+   *   name and values must be Strings.
    */
-  public BaseStyle(Map<String, String> properties)
+  public BaseStyle(Map<String, String> propertiesMap)
   {
-    if ((properties != null) && (properties.size() > 0))
+    if ((propertiesMap != null) && (!propertiesMap.isEmpty()))
     {
-      // Initialize the properties array
-      int length = properties.size() * 2;
-      _properties = new String[length];
-
-      int i = 0;
-      for(Map.Entry<String, String> entry : properties.entrySet())
-      {
-        String key   = entry.getKey();
-        String value = entry.getValue();
-
-        // -= Simon Lessard =-
-        // FIXME: If key is ever null, NullPointerException will occurs
-        _properties[i*2]   = key.toLowerCase();
-        _properties[i*2+1] = value;
-        i++;
-      }
+      // Initialize the propertiesMap with a ConcurrentHashMap.
+      // This uses more memory than ArrayMap, but is faster and safer.
+      _propertiesMap = new ConcurrentHashMap<String, String>(propertiesMap.size());
+      
+      _propertiesMap.putAll(propertiesMap);
     }
+    else
+      _propertiesMap = Collections.emptyMap();
   }
 
   /**
-   * Creates a BaseStyle from an arbitrary Style object.
+   * Returns an UnmodifiableMap
    */
-  public BaseStyle(Style style)
+  public Map<String, String> getProperties()
   {
-    if ( style != null)
-    {
-
-      // First, loop through to get the property count
-      int propertyCount = 0;
-      Iterator<Object> e = style.getPropertyNames();
-      while (e.hasNext())
-      {
-        e.next();
-        propertyCount++;
-      }
-
-      if (propertyCount == 0)
-        return;
-
-      // Initialize the properties array
-      Object properties[] = new Object[propertyCount * 2];
-
-      // Now, loop through to initialize the properties
-      int i = 0;
-      Iterator<Object> names = style.getPropertyNames();
-      while (names.hasNext())
-      {
-        String name = (String)names.next();
-        String value = style.getProperty(name);
-
-        properties[i*2] = name.toLowerCase();
-        properties[i*2+1] = value;
-
-        i++;
-      }
-
-      _properties = properties;
-    }
-  }
-
-  /**
-   * Returns the names of the properties defined by this style.
-   * <p>
-   * The property names can be any valid property name.
-   */
-  public Iterator<Object> getPropertyNames()
-  {
-    return ArrayMap.getKeys(_properties);
-  }
-
-  /**
-   * Returns the value of the property with the specified name.
-   *
-   * @param name The property name for the property to return
-   */
-  public String getProperty(String name)
-  {
-    return (String)ArrayMap.get(_properties, name.toLowerCase());
+    return Collections.unmodifiableMap(_propertiesMap);
   }
 
 
@@ -190,16 +133,13 @@ abstract public class BaseStyle implements Style, Serializable
    */
   public void setProperty(String name, String value)
   {
-    // We store all names/values as lowercase string
-    name = name.toLowerCase();
 
     synchronized (this)
     {
-      _properties = ArrayMap.remove(_properties, name);
-
-      if (value != null)
-        _properties = ArrayMap.put(_properties, name, value);
-
+      if (_propertiesMap.isEmpty())
+      _propertiesMap = new ConcurrentHashMap<String, String>();
+      _propertiesMap.put(name, value);
+      
       // We need to reset to parsed properties if our properties change
       // Really, we could just null out the corresponding parsed property
       // value, but what the heck.
@@ -221,7 +161,7 @@ abstract public class BaseStyle implements Style, Serializable
   abstract protected Object parseProperty(Object key)
     throws PropertyParseException;
 
-  private Object[] _properties;
+  volatile private Map<String, String> _propertiesMap;
   transient private Object[] _parsedProperties;
 
   // Count of parsed properties defined by Style

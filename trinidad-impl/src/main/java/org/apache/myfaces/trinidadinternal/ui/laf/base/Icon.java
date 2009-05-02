@@ -20,7 +20,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base;
 
 import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
 
-import org.apache.myfaces.trinidadinternal.style.Style;
+import org.apache.myfaces.trinidadinternal.style.CoreStyle;
 import org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeel;
 
 /**
@@ -90,7 +90,7 @@ public class Icon
     boolean            isSymmetric,
     boolean            isTransparent,
     String             styleClass,
-    Style              inlineStyle
+    CoreStyle              inlineStyle
   )
   {
     this(gifName, isCoreColor, isSymmetric, isTransparent);
@@ -183,7 +183,7 @@ public class Icon
   /**
    * Returns the inline style
    */
-  public Style getInlineStyle()
+  public CoreStyle getInlineStyle()
   {
     return _inlineStyle;
   }
@@ -202,5 +202,5 @@ public class Icon
   private boolean _isTransparent;
 
   private String _styleClass;
-  private Style  _inlineStyle;
+  private CoreStyle  _inlineStyle;
 }

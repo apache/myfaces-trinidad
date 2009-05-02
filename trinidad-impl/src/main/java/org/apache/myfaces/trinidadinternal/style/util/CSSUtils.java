@@ -32,9 +32,10 @@ import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.ArrayMap;
+import org.apache.myfaces.trinidad.style.Style;
 import org.apache.myfaces.trinidadinternal.style.CSSStyle;
+import org.apache.myfaces.trinidadinternal.style.CoreStyle;
 import org.apache.myfaces.trinidadinternal.style.PropertyParseException;
-import org.apache.myfaces.trinidadinternal.style.Style;
 import org.apache.myfaces.trinidadinternal.util.LRUCache;
 
 /**
@@ -454,10 +455,10 @@ public class CSSUtils
     value = value.toLowerCase();
 
     if (_NORMAL_STYLE.equals(value))
-      return Style.PLAIN_FONT_STYLE;
+      return CoreStyle.PLAIN_FONT_STYLE;
 
     if (_ITALIC_STYLE.equals(value) || _OBLIQUE_STYLE.equals(value))
-      return Style.ITALIC_FONT_STYLE;
+      return CoreStyle.ITALIC_FONT_STYLE;
 
     throw new PropertyParseException(_INVALID_FONT_STYLE + value);
   }
@@ -484,10 +485,10 @@ public class CSSUtils
     value = value.toLowerCase();
 
     if (_NORMAL_WEIGHT.equals(value) || _LIGHTER_WEIGHT.equals(value))
-      return Style.PLAIN_FONT_WEIGHT;
+      return CoreStyle.PLAIN_FONT_WEIGHT;
 
     if (_BOLD_WEIGHT.equals(value) || _BOLDER_WEIGHT.equals(value))
-      return Style.BOLD_FONT_WEIGHT;
+      return CoreStyle.BOLD_FONT_WEIGHT;
 
     // Check for sizes 100 - 900
     try
@@ -496,9 +497,9 @@ public class CSSUtils
       if ((weight >= 100) && (weight <= 900) && ((weight % 100) == 0))
       {
         if (weight >= 600)
-          return Style.BOLD_FONT_WEIGHT;
+          return CoreStyle.BOLD_FONT_WEIGHT;
 
-        return Style.PLAIN_FONT_WEIGHT;
+        return CoreStyle.PLAIN_FONT_WEIGHT;
       }
     }
     catch (NumberFormatException e)

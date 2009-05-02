@@ -23,13 +23,14 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 
 import org.apache.myfaces.trinidad.skin.Icon;
+import org.apache.myfaces.trinidad.style.Styles;
 
 
 /**
  * The StyleProvider API is used to access context-dependent style
  * information.  Style information is exposed in two ways - as
  * CSS style sheet URIs (via getStyleSheetURI()), or as Style objects
- * (via getStyleMap()).  Both methods take a StyleContext object,
+ * (via getStyles()).  Both methods take a StyleContext object,
  * which describes the target end user environment.
  *
  * In addition to providing access to style-related information, the
@@ -37,8 +38,8 @@ import org.apache.myfaces.trinidad.skin.Icon;
  * style sheets via the getIcons() API.
  *
  * @see StyleContext
- * @see StyleMap
- * @see Style
+ * @see Styles
+ * @see org.apache.myfaces.trinidad.Style
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/StyleProvider.java#0 $) $Date: 10-nov-2005.18:57:58 $
  */
@@ -70,15 +71,14 @@ public interface StyleProvider
   public List<String> getStyleSheetURIs(StyleContext context);
 
   /**
-   * Returns a StyleMap object, which can be used to
-   * retreive Style objects for the specified context.
-   *
-   * @param context The context which describes the target end user
-   *   environment
-   * @return A StyleMap object which exposes the Styles for the
-   *  specified context.
-   */
-  public StyleMap getStyleMap(StyleContext context);
+   * Return the Styles object that is attached to this StyleProvider. You can use the Styles
+   * object to retrieve a map of the skin selectors and their css properties, already resolved
+   * for this specific request. A skin has selectors for all agents, locales, etc., and there
+   * might be blocks for ie-only or gecko-only or rtl, etc., and the resolved styles are styles
+   * for the specific request (agent, locale, aliases are merged, etc).
+   * @return
+   */  
+  public Styles getStyles(StyleContext context);
 
   /**
    * Returns a map of icon names to Icon instances.

@@ -28,9 +28,9 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.skin.Icon;
 
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.style.Style;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 
-import org.apache.myfaces.trinidadinternal.style.Style;
 import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
 
 /**

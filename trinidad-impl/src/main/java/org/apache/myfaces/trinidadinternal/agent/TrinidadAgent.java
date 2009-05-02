@@ -205,10 +205,18 @@ public interface TrinidadAgent extends Agent
   //
   // Values for CAP_STYLE_ATTRIBUTES
   //
+  // no styling is supported
   static public Object STYLES_NONE               =
           CapabilityValue.getCapabilityValue (CAP_STYLE_ATTRIBUTES, "none");
+  // only the 'style' attribute is supported. The 'class' attribute is not 
+  // supported.
+  static public Object STYLES_STYLE_ONLY              =
+          CapabilityValue.getCapabilityValue (CAP_STYLE_ATTRIBUTES, "style_only");
+  // internal styles only; this includes the style attribute, or the class attribute
+  // as long as the style selectors are in the page with the <style> tag.
   static public Object STYLES_INTERNAL           =
           CapabilityValue.getCapabilityValue (CAP_STYLE_ATTRIBUTES, "internal");
+  // external css files are supported.
   static public Object STYLES_EXTERNAL           =
           CapabilityValue.getCapabilityValue (CAP_STYLE_ATTRIBUTES, "external");
 

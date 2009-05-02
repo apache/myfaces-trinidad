@@ -33,6 +33,9 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
+import org.apache.myfaces.trinidad.style.Selector;
+import org.apache.myfaces.trinidad.style.Style;
+import org.apache.myfaces.trinidad.style.Styles;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.AutoSubmitUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormRenderer;
@@ -44,8 +47,7 @@ import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadinternal.share.data.ServletRequestParameters;
 import org.apache.myfaces.trinidadinternal.share.url.FormEncoder;
 import org.apache.myfaces.trinidadinternal.style.ParsedPropertyKey;
-import org.apache.myfaces.trinidadinternal.style.Style;
-import org.apache.myfaces.trinidadinternal.style.StyleMap;
+import org.apache.myfaces.trinidadinternal.style.CoreStyle;
 import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
 import org.apache.myfaces.trinidadinternal.ui.MutableUINode;
@@ -210,18 +212,19 @@ public class XhtmlLafUtils extends BaseLafUtils
   /**
    * Resolves the class name to the appropriate Style object
    */
-  public static Style getClassStyle(
+  public static CoreStyle getClassStyle(
     UIXRenderingContext context,
     Object           className
     )
   {
     if (className != null)
     {
-      StyleMap map = context.getStyleContext().getStyleMap();
-      if (map != null)
+      Styles styles = context.getStyleContext().getStyles();
+      if (styles != null)
       {
-        return map.getStyleByClass(context.getStyleContext(),
-                                   className.toString());
+        Map<Selector, Style> map = styles.getSelectorStyleMap();
+        if (map != null)
+          return (CoreStyle)map.get(Selector.createSelector(className.toString()));
       }
     }
 
@@ -243,7 +246,7 @@ public class XhtmlLafUtils extends BaseLafUtils
                                        className);
       if (classStyle != null)
       {
-        return classStyle.getProperty(propertyName);
+        return classStyle.getProperties().get(propertyName);
       }
 
       return null;
@@ -375,8 +378,8 @@ public class XhtmlLafUtils extends BaseLafUtils
    */
   public static void startRenderingStyleElements(
     UIXRenderingContext context,
-    Style            inlineStyle,
-    Style            classStyle
+    CoreStyle            inlineStyle,
+    CoreStyle            classStyle
     ) throws IOException
   {
     Stack[] styleInfo = _getStyleInfo(context);
@@ -391,19 +394,17 @@ public class XhtmlLafUtils extends BaseLafUtils
     {
       // handle BACKGROUND_KEY
       Object fontStyle = _getParsedStyleProperty(inlineStyle,
-                                                 classStyle,
-                                                 Style.FONT_STYLE_KEY);
+                                                 classStyle, CoreStyle.FONT_STYLE_KEY);
 
-      Boolean isItalic = (Style.ITALIC_FONT_STYLE == fontStyle)
+      Boolean isItalic = (CoreStyle.ITALIC_FONT_STYLE == fontStyle)
                            ? Boolean.TRUE
                            : null;
 
 
       Object fontWeight = _getParsedStyleProperty(inlineStyle,
-                                                  classStyle,
-                                                  Style.FONT_WEIGHT_KEY);
+                                                  classStyle, CoreStyle.FONT_WEIGHT_KEY);
 
-      Boolean isBold = (Style.BOLD_FONT_WEIGHT == fontWeight)
+      Boolean isBold = (CoreStyle.BOLD_FONT_WEIGHT == fontWeight)
                          ? Boolean.TRUE
                          : null;
 
@@ -462,8 +463,7 @@ public class XhtmlLafUtils extends BaseLafUtils
             // element
             Integer pixelSize = (Integer)_getParsedStyleProperty(
                                                inlineStyle,
-                                               classStyle,
-                                               Style.FONT_SIZE_KEY);
+                                               classStyle, CoreStyle.FONT_SIZE_KEY);
 
             if (pixelSize != null)
             {
@@ -549,8 +549,8 @@ public class XhtmlLafUtils extends BaseLafUtils
    * Style2, if Style1 doesn't return a value.
    */
   private static Object _getParsedStyleProperty(
-    Style             style1,
-    Style             style2,
+    CoreStyle             style1,
+    CoreStyle             style2,
     ParsedPropertyKey stylePropertyKey
     )
   {
@@ -580,15 +580,18 @@ public class XhtmlLafUtils extends BaseLafUtils
    * Style2, if Style1 doesn't return a value.
    */
   public static String getStyleProperty(
-    Style  style1,
-    Style  style2,
+    CoreStyle  style1,
+    CoreStyle  style2,
     String stylePropertyName
     )
   {
-    String value = (style1 != null)
-                     ? style1.getProperty(stylePropertyName)
-                     : null;
+    String value = null;
+    if (style1 != null)
+    {
+      value = style1.getProperties().get(stylePropertyName);
+    }
 
+    
     if (value != null)
     {
       return value;
@@ -597,7 +600,8 @@ public class XhtmlLafUtils extends BaseLafUtils
     {
       if (style2 != null)
       {
-        return style2.getProperty(stylePropertyName);
+        
+        return style2.getProperties().get(stylePropertyName);
       }
       else
       {

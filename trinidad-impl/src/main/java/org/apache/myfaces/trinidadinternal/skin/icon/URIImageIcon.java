@@ -21,7 +21,7 @@ package org.apache.myfaces.trinidadinternal.skin.icon;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidadinternal.style.Style;
+import org.apache.myfaces.trinidad.style.Style;
 
 /**
  * ImageIcon implementation which takes a full URI.

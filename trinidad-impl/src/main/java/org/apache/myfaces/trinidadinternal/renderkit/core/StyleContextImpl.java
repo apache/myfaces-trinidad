@@ -30,13 +30,13 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
+import org.apache.myfaces.trinidad.style.Styles;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.HtmlRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.StyleSheetRenderer;
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadinternal.skin.SkinStyleProvider;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
-import org.apache.myfaces.trinidadinternal.style.StyleMap;
 import org.apache.myfaces.trinidadinternal.style.StyleProvider;
 
 
@@ -53,7 +53,6 @@ class StyleContextImpl implements StyleContext
     // non-null accessibility profile.  Check that here.
     assert(_arc.getAccessibilityProfile() != null);
   }
-
 
   public StyleProvider getStyleProvider()
   {
@@ -76,17 +75,19 @@ class StyleContextImpl implements StyleContext
       // recalculate in case the skin switched in the portlet case
       isDisableStyleCompression();
     }
-    
+
     return getStyleProvider();
   }
 
-  public StyleMap getStyleMap()
+  /**
+   *
+   */
+  public Styles getStyles()
   {
-    if (_styleMap == null)
-      _styleMap = getStyleProvider().getStyleMap(this);
-    return _styleMap;
+    if (_styles == null)
+      _styles = getStyleProvider().getStyles(this);
+    return _styles;
   }
-
 
   /**
    * Returns the end user's locale.
@@ -95,7 +96,6 @@ class StyleContextImpl implements StyleContext
   {
     return _arc.getLocaleContext();
   }
-
 
   public String getGeneratedFilesPath()
   {
@@ -109,7 +109,6 @@ class StyleContextImpl implements StyleContext
   {
     return ((CoreRenderingContext) _arc).getTrinidadAgent();
   }
-
   public boolean checkStylesModified()
   {
     FacesContext context = FacesContext.getCurrentInstance();
@@ -151,10 +150,10 @@ class StyleContextImpl implements StyleContext
   {
     return CoreRenderKit.OUTPUT_MODE_PORTLET.equals(_arc.getOutputMode());
   }
-  
+
   /**
    *
-   * @return true if we should disable style compression. e.g., 
+   * @return true if we should disable style compression. e.g.,
    * if StyleSheetRenderer.DISABLE_CONTENT_COMPRESSION is true or the skin is a portlet skin
    * or we are in portlet mode and not doing skin sharing.
    */
@@ -167,13 +166,13 @@ class StyleContextImpl implements StyleContext
         context.getExternalContext().
         getInitParameter(StyleSheetRenderer.DISABLE_CONTENT_COMPRESSION);
       boolean disableContentCompressionBoolean = "true".equals(disableContentCompression);
-      
+
       // the user wants to explicitly disable the content compression and show the full styleclass
       // names
       if (disableContentCompressionBoolean)
         _isDisableStyleCompression = Boolean.TRUE;
-      
-      // we still need to check if we don't want to compress even if the disable content 
+
+      // we still need to check if we don't want to compress even if the disable content
       // compression flag is true
       if (CoreRenderKit.OUTPUT_MODE_PORTLET.equals(_arc.getOutputMode()))
       {
@@ -199,9 +198,9 @@ class StyleContextImpl implements StyleContext
         }
       }
     }
-    // if _isDisableStyleCompression is still null, 
+    // if _isDisableStyleCompression is still null,
     // default it to false since disabling styling compression defaults to false
-    
+
     if (_isDisableStyleCompression == null)
       _isDisableStyleCompression = Boolean.FALSE;
 
@@ -238,7 +237,7 @@ class StyleContextImpl implements StyleContext
       return null;
     }
 
-    public StyleMap getStyleMap(StyleContext context)
+    public Styles getStyles(StyleContext context)
     {
       return null;
     }
@@ -260,9 +259,9 @@ class StyleContextImpl implements StyleContext
   private RenderingContext _arc;
   private String  _generatedFilesPath;
   private StyleProvider _styleProvider;
-  private StyleMap _styleMap;
+  private Styles _styles;
   private Boolean  _isDisableStyleCompression;
-  
+
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(StyleContextImpl.class);
 }

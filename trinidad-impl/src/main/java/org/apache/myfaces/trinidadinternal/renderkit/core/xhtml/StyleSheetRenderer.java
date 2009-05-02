@@ -23,6 +23,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import java.util.Set;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -31,6 +33,10 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.core.CoreStyleSheet;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.style.Selector;
+import org.apache.myfaces.trinidad.style.Style;
+import org.apache.myfaces.trinidad.style.Styles;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.StyleProvider;
@@ -85,13 +91,15 @@ public class StyleSheetRenderer extends XhtmlRenderer
 
     StyleContext sContext = ((CoreRenderingContext) arc).getStyleContext();
     StyleProvider provider = sContext.getStyleProvider();
+
     if (provider != null)
     {
       List<String> uris = provider.getStyleSheetURIs(sContext);
 
-      // Check if we want to write out the css into the page or not. In portlet mode the 
+      // Check if we want to write out the css into the page or not. In portlet mode the
       // producer tries to share the consumer's stylesheet if it matches exactly.
       boolean suppressStylesheet = _isSuppressStylesheet(context, arc);
+
       if (!suppressStylesheet)
       {
         if (uris != null && !uris.isEmpty())
@@ -161,17 +169,23 @@ public class StyleSheetRenderer extends XhtmlRenderer
     }
   }
 
-
   // In the portlet environment, the consumer might like the producers to share its stylesheet
-  // for performance reasons. To indicate this the producer sends a 
+  // for performance reasons. To indicate this the producer sends a
   // suppress stylesheet parameter on the request map.
+  // Also, if the Agent Capability cannot handle external css files, this will
+  // return true.
   // returns true if the stylesheet should be suppressed and not written out in the page.
   private boolean _isSuppressStylesheet(FacesContext context, RenderingContext arc)
   {
+    // first see if the agent's capability does not support external css files.
+    if (!_supportsExternalStylesheet(arc))
+      return true;
 
+    // next check if in portlet mode, and if the suppress stylesheet parameter
+    // is set, and it's valid to suppress the stylesheet.
     String outputMode = arc.getOutputMode();
     if (XhtmlConstants.OUTPUT_MODE_PORTLET.equals(outputMode))
-    {  
+    {
       Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
       boolean suppressStylesheet = "true".equals(requestMap.get(_SUPPRESS_STYLESHEET_ID_PARAM));
       if (suppressStylesheet)
@@ -183,6 +197,18 @@ public class StyleSheetRenderer extends XhtmlRenderer
       }
     }
     return false;
+  }
+
+  // Get the Capability from the agent and return true if the
+  // TrinidadAgent.CAP_STYLE_ATTRIBUTES == STYLES_EXTERNAL.
+  // Defaults to true in case no capability is set.
+  static private boolean _supportsExternalStylesheet(RenderingContext arc)
+  {
+    Object styleCapability = arc.getAgent().getCapabilities().get(
+            TrinidadAgent.CAP_STYLE_ATTRIBUTES);
+
+    return (styleCapability == null ||
+            TrinidadAgent.STYLES_EXTERNAL == styleCapability);
   }
 
   static private final String _SUPPRESS_STYLESHEET_ID_PARAM =

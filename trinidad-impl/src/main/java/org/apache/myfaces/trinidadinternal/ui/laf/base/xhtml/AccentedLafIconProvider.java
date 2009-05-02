@@ -32,10 +32,6 @@ import org.apache.myfaces.trinidadinternal.image.ImageProvider;
 import org.apache.myfaces.trinidadinternal.image.ImageProviderRequest;
 import org.apache.myfaces.trinidadinternal.image.ImageProviderResponse;
 
-import org.apache.myfaces.trinidadinternal.style.PropertyParseException;
-import org.apache.myfaces.trinidadinternal.style.Style;
-import org.apache.myfaces.trinidadinternal.style.StyleMap;
-
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 
@@ -259,18 +255,19 @@ public abstract class AccentedLafIconProvider extends ColorizedLafIconProvider
     if (color != null)
       return color;
 
+    /***
     // If the color hasn't been stored on the RenderingContext, get it
     // from the style map.
-    StyleMap map = context.getStyleContext().getStyleMap();
+    StyleMap map =context.getStyleContext().getStyleMap();
 
     if (map != null)
     {
-      Style style = map.getStyleByClass(context.getStyleContext(), styleClass);
+      CoreStyle style = (CoreStyle)map.getStyleByClass(context.getStyleContext(), styleClass);
       if (style != null)
       {
         try
         {
-          color = (Color)style.getParsedProperty(Style.BACKGROUND_KEY);
+          color = (Color)style.getParsedProperty(CoreStyle.BACKGROUND_KEY);
         }
         catch (PropertyParseException e)
         {
@@ -279,6 +276,7 @@ public abstract class AccentedLafIconProvider extends ColorizedLafIconProvider
         }
       }
     }
+*/
 
     if (color == null)
       color = defaultColor;

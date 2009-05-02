@@ -26,6 +26,9 @@
 in other component's style selectors or other component's icons. It is 
 meant to be a fast way to change styles. The alternative is to style each 
 component. **/
+
+af|foo af|bar {color: purple; background-color: green; border-color: pink}
+
 .AFInstructionText
 {
   font-size: medium;

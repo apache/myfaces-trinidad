@@ -42,6 +42,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.SkinFactory;
+import org.apache.myfaces.trinidad.style.Styles;
 import org.apache.myfaces.trinidadinternal.agent.AgentUtil;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgentImpl;
@@ -256,6 +257,20 @@ public class CoreRenderingContext extends RenderingContext
     }
     return _skin;
   }
+  
+  /**
+   * Return the Styles object that is attached to this RenderingContext. You can use the Styles
+   * object to retrieve a map of the skin selectors and their css properties, already resolved
+   * for this specific request. A skin has selectors for all agents, locales, etc., and there
+   * might be blocks for ie-only or gecko-only or rtl, etc., and the resolved styles are styles
+   * for the specific request (agent, locale, aliases are merged, etc).
+   * @return
+   */
+  @Override
+  public Styles getStyles()
+  {
+    return getStyleContext().getStyles();
+  }  
 
   /**
    * Get an interface that can be used for style lookups and generation.
@@ -808,6 +823,11 @@ public class CoreRenderingContext extends RenderingContext
                             TrinidadAgent.SCRIPTING_SPEED_CAP_NONE);
     _EMAIL_CAPABILITIES.put(TrinidadAgent.CAP_EDITING,
                             Boolean.FALSE);
+    // email clients cannot handle external css files, but they can
+    // handle the 'class' attribute, as long as the css definitions are
+    // in the html documents
+    _EMAIL_CAPABILITIES.put(TrinidadAgent.CAP_STYLE_ATTRIBUTES,
+                            TrinidadAgent.STYLES_INTERNAL);
     _EMAIL_CAPABILITIES.put(TrinidadAgent.CAP_PARTIAL_RENDERING,
                             Boolean.FALSE);
 

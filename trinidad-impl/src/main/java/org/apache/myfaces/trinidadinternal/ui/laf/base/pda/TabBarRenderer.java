@@ -25,7 +25,8 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.component.UIXHierarchy;
 import org.apache.myfaces.trinidad.component.UIXNavigationLevel;
 
-import org.apache.myfaces.trinidadinternal.style.Style;
+import org.apache.myfaces.trinidad.style.Style;
+import org.apache.myfaces.trinidadinternal.style.CoreStyle;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.BaseDesktopConstants;
@@ -76,7 +77,7 @@ public class TabBarRenderer extends XhtmlLafRenderer
 
         // write the cell's background color property
         writer.writeAttribute("bgcolor",
-                              classStyle.getProperty("background-color"), null);
+                              classStyle.getProperties().get("background-color"), null);
       }
     }
     else

@@ -49,6 +49,9 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
+import org.apache.myfaces.trinidad.style.Selector;
+import org.apache.myfaces.trinidad.style.Style;
+import org.apache.myfaces.trinidad.style.Styles;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
@@ -59,9 +62,7 @@ import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
 import org.apache.myfaces.trinidadinternal.share.xml.JaxpXMLProvider;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLProvider;
 import org.apache.myfaces.trinidadinternal.style.CSSStyle;
-import org.apache.myfaces.trinidadinternal.style.Style;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
-import org.apache.myfaces.trinidadinternal.style.StyleMap;
 import org.apache.myfaces.trinidadinternal.style.StyleProvider;
 import org.apache.myfaces.trinidadinternal.style.util.CSSGenerationUtils;
 import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
@@ -83,7 +84,7 @@ import org.xml.sax.SAXException;
  * caches generated CSS style sheets on the file system.
  *
  * Note that StyleProviders are responsible for providing access
- * both to style information (eg. getStyleSheetURI(), getStyleMap()) as
+ * both to style information (eg. getStyleSheetURI(), getStyles()) as
  * well as to icons registered via style sheets (see getIcons()).
  *
  * @see org.apache.myfaces.trinidadinternal.style.StyleProvider
@@ -95,6 +96,10 @@ import org.xml.sax.SAXException;
 // TODO: Synchronization does not seem to be needed since there's
 //       synchronized blocks in the code, using HashMap hence
 //       looks like a better choice than Hashtable.
+// -= Blake Sullivan =-
+// rebuttal - _createEntry() which assigns values to _cache and _entryCache is called
+// without a lock and these Maps are read without a lock.
+// _cache and _entryCache should probably be ConcurrentHashMaps.
 public class FileSystemStyleCache implements StyleProvider
 {
   /**
@@ -143,7 +148,7 @@ public class FileSystemStyleCache implements StyleProvider
     // If the target directory does not exist, create it now.
     // Note: If we can't create the target directory, we just
     // plug along anyway instead of throwing an IllegalArgumentException.
-    // That way, we can still use the StyleMap for this style sheet
+    // That way, we can still use the Styles for this style sheet
     // even if the style sheet isn't generated.
     File targetDirectory = new File(target);
     if (!targetDirectory.exists())
@@ -161,16 +166,16 @@ public class FileSystemStyleCache implements StyleProvider
 
     if (entry == null)
     {
-      return null;
+      return Collections.emptyList();
     }
 
     return entry.uris;
   }
 
   /**
-   * Implementation of StyleProvider.getStyleMap().
+   * Implementation of StyleProvider.getStyles().
    */
-  public StyleMap getStyleMap(StyleContext context)
+  public Styles getStyles(StyleContext context)
   {
 
     Entry entry = _getEntry(context);
@@ -178,7 +183,7 @@ public class FileSystemStyleCache implements StyleProvider
     if (entry == null)
       return null;
 
-    return entry.map;
+    return entry.styles;
   }
 
   /**
@@ -521,15 +526,22 @@ public class FileSystemStyleCache implements StyleProvider
     // Next, get the fully resolved styles for this context. This will be
     // those StyleNodes that match the locale, direction, browser, portlet mode
     // etc -- the info that is in the StyleContext.
-    StyleNode[] styles = _getStyleContextResolvedStyles(context, document);
-    if (styles == null)
+    // These styles contain all the StyleNodes, that is, where selector or
+    // name (aka alias) are non-null.
+    StyleNode[] styleNodes = _getStyleContextResolvedStyles(context, document);
+    if (styleNodes == null)
       return null;
+
 
     // Generate the style sheet file, if it isn't already generated,
     // and return the uri.
+    // Only the StyleNodes with non-null selectors get written to the
+    // generated css file.
+    // Named styles (StyleNode where name != null) do not get
+    // written to the generated css file.
     List<String> uris = _createStyleSheetFiles(context,
                                        document,
-                                       styles,
+                                       styleNodes,
                                        shortStyleClassMap,
                                        namespacePrefixes,
                                        checkModified);
@@ -548,7 +560,9 @@ public class FileSystemStyleCache implements StyleProvider
     // Create a new entry and cache it in the "normal" cache. The "normal" cache is one
     // where the key is the Key object which is built based on information from the StyleContext,
     // like browser, agent, locale, direction.
-    Entry entry = new Entry(uris, new StyleMapImpl(), icons, skinProperties);
+    Styles styles = new StylesImpl(styleNodes, namespacePrefixes, _STYLE_KEY_MAP,
+                                   shortStyleClassMap,  _isCompressStyles(context));
+    Entry entry = new Entry(uris, styles, icons, skinProperties);
     cache.put(key, entry);
 
     // Also, cache the new entry in the entry cache
@@ -966,31 +980,28 @@ public class FileSystemStyleCache implements StyleProvider
   }
 
   /**
-   * Initiializes the NameResolver
+   * Initiializes the NameResolver. Does not need to be synchronized only because it is
+   * synchronized in the calling code.
    */
   private void _initResolver()
   {
-    // Synchronize just in case two different threads hit this
-    // at the same time
-    synchronized (this)
+
+    if (_resolver == null)
     {
-      if (_resolver == null)
-      {
-        NameResolver resolver = new DefaultNameResolver(_sourceFile, null);
+      NameResolver resolver = new DefaultNameResolver(_sourceFile, null);
 
-        // We explicitly wrap the NameResolver in a CachingNameResolver
-        // since that conveniently handles checking for modifications to
-        // dependent (imported) files.
-        // The default storage for cached files is a bit large,
-        // so we use a smaller hash table.  Also, always enable
-        // modification checking.
-        // FIXME: Should probably be a ConcurrentHashMap
-        resolver = new CachingNameResolver(resolver,
-                                           new Hashtable<Object, InputStreamProvider>(17),
-                                           true);
+      // We explicitly wrap the NameResolver in a CachingNameResolver
+      // since that conveniently handles checking for modifications to
+      // dependent (imported) files.
+      // The default storage for cached files is a bit large,
+      // so we use a smaller hash table.  Also, always enable
+      // modification checking.
+      // FIXME: Should probably be a ConcurrentHashMap
+      resolver = new CachingNameResolver(resolver,
+                                         new Hashtable<Object, InputStreamProvider>(17),
+                                         true);
 
-        _resolver = resolver;
-      }
+      _resolver = resolver;
     }
   }
 
@@ -1199,7 +1210,7 @@ public class FileSystemStyleCache implements StyleProvider
        agent.getAgentApplication(),
        agent.getAgentVersion(),
        agent.getAgentOS(),
-       true,
+       !context.isDisableStyleCompression(),
        accProfile,
        context.isPortletMode());
     }
@@ -1296,18 +1307,18 @@ public class FileSystemStyleCache implements StyleProvider
   private static class Entry
   {
     public final List<String> uris;
-    public final StyleMap map;
+    public final Styles styles;
     public final ConcurrentMap<String, Icon> icons;
     public final ConcurrentMap<Object, Object> skinProperties;
 
     public Entry(
       List<String> uris,
-      StyleMap map,
+      Styles styles,
       ConcurrentMap<String, Icon> icons,
       ConcurrentMap<Object, Object> skinProperties)
     {
       this.uris = uris;
-      this.map = map;
+      this.styles = styles;
       this.icons = icons;
       this.skinProperties = skinProperties;
     }
@@ -1382,122 +1393,177 @@ public class FileSystemStyleCache implements StyleProvider
     private boolean _short;   // Do we use short style classes?
   }
 
+
+
+
   /**
-   * A StyleMap implemenation which creates Style objects as needed
+   * A Styles implementation that adds the resolved (merged together based on the StyleContext)
+   * StyleNodes to a Map. Only the style selectors and not the aliased (aka named) styles
+   * are added to this map.
    */
-  private class StyleMapImpl implements StyleMap
+  private static final class StylesImpl extends Styles
   {
-    // Implementation of StyleMap.getStyleBySelector()
-    public Style getStyleBySelector(
-      StyleContext context,
-      String       selector
+    /**
+     * This constructor takes an array of StyleNode Objects where each StyleNode has
+     * already been resolved based on the StyleContext. Therefore there is no
+     * more merging that needs to be done, and the 'included' properties on
+     * StyleNode are all null. This way we do not have to resolve the
+     * styles based on the StyleContext when someone calls getStyles,
+     * etc.
+     * @param resolvedStyles
+     * @param namespacePrefixArray an array of namespace prefixes that are used in the custom css
+     * skinning selectors, like "af" in af|inputText.
+     * @param afSelectoMap a map from one selector to another (like af|panelHeader::link maps to
+     * af|panelHeader A
+     * @param shortStyleClassMap a map from the  non-compressed styleclass
+     * to a compressed styleclass.
+     */
+    public StylesImpl(
+        StyleNode[]         resolvedStyles,
+        String[]            namespacePrefixArray,
+        Map<String, String> afSelectorMap,
+        Map<String, String> shortStyleClassMap,
+        boolean             compress
       )
     {
-      if (_selectorMap == null)
-        _selectorMap = _createMap();
+      // store these local variables to be used in getNativeSelectorString
+      _namespacePrefixArray = namespacePrefixArray;
+      _afSelectorMap = afSelectorMap;
+      _shortStyleClassMap = shortStyleClassMap;
+      _compress = compress;
+      // create a Selector->Style map right here (aggressively versus lazily)
+      ConcurrentMap<Selector, Style> resolvedSelectorStyleMap = null;
 
-      return _getStyle(context, _selectorMap, selector, "", false);
-    }
 
-    // Implementation of StyleMap.getStyleByClass()
-    public Style getStyleByClass(
-      StyleContext context,
-      String       styleClass
-      )
-    {
-      if (_classMap == null)
-        _classMap = _createMap();
-      String prefix = (styleClass.indexOf('|') > -1) ? "" : ".";
-      return _getStyle(context, _classMap, styleClass, prefix , false);
-    }
-
-    // Implementation of StyleMap.getStyleByClass()
-    public Style getStyleByName(
-      StyleContext context,
-      String       name
-      )
-    {
-      if (_nameMap == null)
-        _nameMap = _createMap();
-
-      return _getStyle(context, _nameMap, name, "", true);
-    }
-
-    // Do all of the real work
-    private Style _getStyle(
-      StyleContext       context,
-      Map<String, Style> map,
-      String             id,
-      String             prefix,
-      boolean            isName
-      )
-    {
-      CSSStyle style = (CSSStyle)map.get(id);
-
-      if (style == _MISS)
-        return null;
-      if (style != null)
-        return style;
-
-      // Next, try getting the Style from the StyleSheetDocument
-      StyleSheetDocument document = __getStyleSheetDocument();
-      if (document == null)
-        return null;
-
-      StyleNode styleNode = null;
-
-      if (isName)
+      // Loop through each StyleNode and use it to add to the StyleMap.
+      for (int i=0; i < resolvedStyles.length; i++)
       {
-        styleNode = document.getStyleByName(context, id);
+        String selector = resolvedStyles[i].getSelector();
+        if (selector != null)
+        {
+          Style style = _convertStyleNodeToStyle(resolvedStyles[i]);
+          if (resolvedSelectorStyleMap == null)
+            resolvedSelectorStyleMap = new ConcurrentHashMap<Selector, Style>();
+          resolvedSelectorStyleMap.put(Selector.createSelector(selector), style);
+        }
+        /*
+        else
+        {
+          // For now, do not add the named styles to the map. If we do add the named styles
+          // to the map then we should in SkinStyleSheetParserUtils put the full name in
+          // the StyleNode, not strip out the '.' or the ':alias'. However, in the XSS
+          // the named styles do not have the '.' or the ':alias' which is why we string them out.
+          // if we put them back, then things won't merge correctly. How do I workaround this?
+          // Do I change all the named styles in the XSS file?
+          // I think the best thing to do is to change the XSS file, since that is proprietary,
+          // and no one should be relying on it. If we instead kept stripping out the . and the alias
+          // and required the person to ask for the alias without this,
+          // that is much more confusing to the user.
+          String name = _resolvedStyles[i].getName();
+          if (name != null)
+          {
+            // create a Style Object from the StyleNode object
+            Style style = _convertStyleNode(resolvedStyles[i]);
+            resolvedSelectorStyleMap.put(name, style);
+          }
+        }
+        */
       }
+      if (resolvedSelectorStyleMap != null)
+        _unmodifiableResolvedSelectorStyleMap =
+          Collections.unmodifiableMap(resolvedSelectorStyleMap);
       else
-      {
-        styleNode = document.getStyleBySelector(context, prefix + id);
-      }
+        _unmodifiableResolvedSelectorStyleMap = Collections.emptyMap();
 
-      if (styleNode == null)
-      {
-        map.put(id, _MISS);
-        return null;
-      }
+    }
 
-      // Convert the styleNode into a Style
-      style = new CSSStyle();
+    /**
+     * Returns a Map containing the selector String as the key and the Style Object
+     * (contains all the css property names/values) as the value. This Map can then be used
+     * to get all the selector keys, or to get the Style Object for a Selector, or to
+     * get all the selectors that match some criteria, like they contain a certain simple selector.
+     * This map does not contain 'alias' (aka named) selectors. It only contains selectors
+     * that would be in the generated css file.
+     *
+     * @return unmodifiableMap of the resolved Selector -> Style map.
+     */
+    public Map<Selector, Style> getSelectorStyleMap()
+    {
+      return _unmodifiableResolvedSelectorStyleMap;
+    }
 
+    /**
+     * Returns the Selector in String form, converted to a format that
+     * is suitable to be written to the browse. This is the css-2 format which doesn't have
+     * namespaces and our psuedo-elements.
+     * @param selector Selector
+     * @return String the Selector in a String form that is suitable to be
+     * written to the client.
+     */
+    public String getNativeSelectorString(Selector selector)
+    {
+      // convert the selector to a valid css2 selector like the ones we write
+      // to the generated css file.
+      if (selector == null)
+        throw new IllegalArgumentException("selector cannot be null");
+      // run the selector through a conversion map so the selector is closer to
+      // what we write out to the css. e.g., af|inputText:error::content becomes
+      // af|inputText.p_AFError af|inputText::content. This way we don't have to
+      // do this when we write the css inline. We have the information now.
+      String mappedSelector =  CSSGenerationUtils.getMappedSelector(
+        _afSelectorMap, _namespacePrefixArray, selector.toString());
+      // run through the compressed map if it is compressed.
+      if (_compress)
+        mappedSelector  =
+          CSSGenerationUtils.getShortSelector(_shortStyleClassMap,
+                                              _namespacePrefixArray,
+                                              mappedSelector);
+
+      return CSSGenerationUtils.getValidFullNameSelector(
+        mappedSelector, _namespacePrefixArray);
+    }
+
+
+    /**
+     * Given a StyleNode object, which is an internal API that denotes a Style object
+     * with additional information like includedSelectors, create a simple public
+     * Style object which will be used in the SelectorStyleMap. The StyleNode object
+     * should already be resolved (included selectors have been merged in)
+     * so that all the css properties are there.
+     * @param styleNode
+     * @return A Style object created from the information in the styleNode.
+     */
+    public Style _convertStyleNodeToStyle(StyleNode styleNode)
+    {
+      Map<String, String> styleProperties = new ConcurrentHashMap<String, String>();
       // Add in the properties for the style
       Iterable<PropertyNode> propertyNodeList = styleNode.getProperties();
       for (PropertyNode property : propertyNodeList)
       {
         String name = property.getName();
         String value = property.getValue();
-
-        style.setProperty(name, value);
+        // We get a NPE in CSSStyle(styleProperties) -> putAll if we add a value that is null.
+        // See the BaseStyle(Map<String, String> propertiesMap) constructor.
+        if (name != null && value != null)
+          styleProperties.put(name, value);
       }
 
-      map.put(id, style);
-      return style;
+      return new CSSStyle(styleProperties);
+
     }
 
-    // Creates a map of the specified size
-    private Hashtable<String, Style> _createMap()
-    {
-      return new Hashtable<String, Style>(19);
-    }
-
-
-    // Our local Style maps
-    // -= Simon Lessard =-
-    // TODO: Check if synchronization is truly needed
-    private Hashtable<String, Style> _selectorMap;
-    private Hashtable<String, Style> _classMap;
-    private Hashtable<String, Style> _nameMap;
+    private final Map<Selector, Style> _unmodifiableResolvedSelectorStyleMap;
+    private final Map<String, String>  _afSelectorMap;
+    private final String[]             _namespacePrefixArray;
+    private final Map<String, String>  _shortStyleClassMap;
+    private final boolean              _compress;
   }
 
   private class StyleWriterFactoryImpl
     implements StyleWriterFactory
   {
-    private String _outputDirectory;
-    private String _baseFilename;
+    private final String _outputDirectory;
+    private final String _baseFilename;
     private PrintWriter _out;
     private List<File> _files = new LinkedList<File>();
 
@@ -1540,7 +1606,7 @@ public class FileSystemStyleCache implements StyleProvider
   }
 
   private File   _sourceFile; // The source XSS file
-  private String _targetPath; // The location of the cache
+  private final String _targetPath; // The location of the cache
   private String _baseName;   // The base file name for generated CSS files
 
   /**
@@ -1548,7 +1614,7 @@ public class FileSystemStyleCache implements StyleProvider
    * resolve/load all files.  We also use the InputStreamProvider
    * to check for modifications to any dependent files.
    */
-  private NameResolver        _resolver;
+  private volatile NameResolver _resolver;
 
   /** The parsed StyleSheetDocument */
   private StyleSheetDocument _document;
@@ -1577,17 +1643,11 @@ public class FileSystemStyleCache implements StyleProvider
   private static final String _CSS_EXTENSION = ".css";
 
   /** Java name for UTF8 encoding */
-  private static String _UTF8_ENCODING = "UTF8";
+  private static final String _UTF8_ENCODING = "UTF8";
 
   /** Stub StyleSheetDocument instance */
   private static final StyleSheetDocument _EMPTY_DOCUMENT =
     new StyleSheetDocument(null, null, StyleSheetDocument.UNKNOWN_TIMESTAMP);
-
-  /**
-   * Style used to represent misses in the StyleMap.
-   * Package private to allow access from nested StyleMapImpl class
-   */
-  static final Style _MISS = new CSSStyle();
 
   /** Prefix to use for short style classes */
   private static final String _SHORT_CLASS_PREFIX = "x";

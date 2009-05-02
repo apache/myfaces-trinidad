@@ -33,7 +33,7 @@ import org.apache.myfaces.trinidadinternal.share.text.ColorFormat;
 import org.apache.myfaces.trinidadinternal.share.text.RGBColorFormat;
 import org.apache.myfaces.trinidadinternal.share.xml.NamespaceURI;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
-import org.apache.myfaces.trinidadinternal.style.Style;
+import org.apache.myfaces.trinidadinternal.style.CoreStyle;
 import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
@@ -166,7 +166,7 @@ public final class Coercions
       {
         return NamespaceURI.create(context, text, "");
       }
-      else if (type == Style.class)
+      else if (type == CoreStyle.class)
       {
         return CSSUtils.parseStyle(text);
       }
