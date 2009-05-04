@@ -93,9 +93,13 @@ abstract public class RenderingContext
    *  Return the Styles object that is attached to this RenderingContext. 
    *  Styles is a useful object if you need to know the css properties for a given
    *  selector.
-   * @return Styles
+   * @return Styles or null if there are no Styles. 
+   * for backward compatibility this is not an abstract method.
    */
-  abstract public Styles getStyles();
+  public Styles getStyles() 
+  {
+    return null;
+  }
   abstract public void   setSkinResourceKeyMap(Map<String, String> mapping);
   abstract public Map<String, String> getSkinResourceKeyMap();
   abstract public boolean isRightToLeft();
