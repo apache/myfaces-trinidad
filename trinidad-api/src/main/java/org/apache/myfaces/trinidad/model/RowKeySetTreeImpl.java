@@ -34,6 +34,7 @@ import java.util.Stack;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
+
 /**
  * Implements a collection of rowKeys from a TreeModel.
  * The methods on this class are optimized such that it is possible
@@ -59,7 +60,7 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
   {
     _root = new Node<Object>(addAll);
   }
-    
+
   /**
    * Tests to see if the given rowKey is included in this Set.
    * @return true If the rowKey is included in this Set.
@@ -69,7 +70,7 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
   {
     return _isContained(rowKey);
   }
-  
+
   /**
    * @deprecated do not use. this will be removed post Tier 1.
    */
@@ -647,6 +648,10 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
       if (rowkey != null)
       {
         TreeModel model = getCollectionModel();
+        if (model == null)
+        {
+          return notFound(current, rowkey);
+        }
         List<Object> parentkeys = model.getAllAncestorContainerRowKeys(rowkey);
         List<Object> allkeys = new ArrayList<Object>(parentkeys.size() + 1);
         allkeys.addAll(parentkeys);
@@ -800,7 +805,7 @@ public class RowKeySetTreeImpl extends RowKeySet implements Serializable
           _currIterator = _iteratorStack.pop();
       return nextKey;
     }
-  
+
     private Object _nextEntry()
     {
       Object nextKey = null;
