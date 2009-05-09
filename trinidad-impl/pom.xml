@@ -114,6 +114,13 @@
       <artifactId>commons-lang</artifactId>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <groupId>org.apache.myfaces.core</groupId>
+      <artifactId>myfaces-impl</artifactId>
+      <scope>test</scope> <!-- getting web-facesconfig dtd from myfaces impl for unit tests -->
+    </dependency>
+
   </dependencies>
 
   <build>
