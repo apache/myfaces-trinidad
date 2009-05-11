@@ -23,6 +23,8 @@ import java.io.PrintWriter;
 
 import java.lang.reflect.InvocationTargetException;
 
+import java.lang.reflect.Proxy;
+
 import javax.faces.FacesException;
 import javax.faces.context.ExternalContext;
 
@@ -33,18 +35,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import javax.servlet.jsp.JspException;
 
+import org.apache.myfaces.trinidad.config.Configurator;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
+import org.apache.myfaces.trinidad.util.ExternalContextUtils;
+import org.apache.myfaces.trinidad.util.RequestType;
 import org.apache.myfaces.trinidadinternal.application.StateManagerImpl;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.XmlResponseWriter;
 
-/**
- * Though a configurator in spirit, at this point it purely exposes
- * Servlet functionality, and is only used to wrap the servlet response.
- * 
- * TODO: support portlets, and make this a true configurator.
- */
-public class XmlHttpConfigurator
-  /*extends Configurator*/
+public class XmlHttpConfigurator extends Configurator
 {
   public XmlHttpConfigurator()
   {
@@ -54,18 +54,34 @@ public class XmlHttpConfigurator
   {
     return new XmlHttpServletRequest(request);
   }
-
-  public static void beginRequest(ExternalContext externalContext)
+  
+  @Override
+  public ExternalContext getExternalContext(ExternalContext externalContext)
   {
-    StateManagerImpl.reuseRequestTokenForResponse(externalContext);
-    Object response = externalContext.getResponse();
-    if (response instanceof ServletResponse)
-    {
-      externalContext.setResponse(
-         new XmlHttpServletResponse((ServletResponse) response));
+    if(CoreRenderKit.isPartialRequest(externalContext))
+    {    
+      StateManagerImpl.reuseRequestTokenForResponse(externalContext);
+      
+      RequestType type = ExternalContextUtils.getRequestType(externalContext);
+      
+      switch(type)
+      {
+        case SERVLET:
+          if(ExternalContextUtils.isHttpServletRequest(externalContext))
+          {
+            externalContext.setResponse(new XmlHttpServletResponse(externalContext));
+          }
+          break;
+        case RESOURCE:
+          externalContext = new XmlHttpPortletExternalContext(externalContext);
+          externalContext.setResponse(new XmlHttpResourceResponse(externalContext));
+      }
     }
+    
+    return externalContext;
   }
-
+  
+  
   /**
    * Sends a <redirect> element to the server
    */
@@ -158,7 +174,6 @@ public class XmlHttpConfigurator
     "an entry beginning with: ";
 
   static private int _ERROR_COUNT = 0;
-
 
   static private final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(XmlHttpConfigurator.class);

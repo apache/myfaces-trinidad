@@ -21,10 +21,10 @@ package org.apache.myfaces.trinidad.util;
 import java.io.IOException;
 import java.io.InputStream;
 
+import java.lang.reflect.Method;
+
 import javax.faces.context.ExternalContext;
-import javax.portlet.ActionRequest;
-import javax.portlet.PortletContext;
-import javax.portlet.PortletRequest;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
@@ -32,61 +32,165 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
- * This provides some functionality for determining some things about the
+ * This provides some functionality for determining some things about the 
  * native request object that is not provided by the base utils.
  *
- * @version $Revision$ $Date$
+ * @version 2.0
  */
 public final class ExternalContextUtils
 {
-
+  
   /**
-   * Returns the session ID for the client, or null if there is none.
-   *
-   * @param externalContext
-   * @return
+   * Returns <code>true</code> if a particular class relating to the supplied
+   * request type is available on the current classpath or <code>false</code> 
+   * if it is not.  This class assumes that all containers have a servlet type
+   * request available, but the portlet request types are all dependant on the 
+   * portlet container being used.
+   * 
+   * @param type the RequestType to test
+   * @return a boolean value of <code>true</code> if the container contains the
+   *         request type in the classpath
+   * @since 2.0
    */
-  public static String getRequestedSessionId(final ExternalContext externalContext)
+  public static final boolean isRequestTypeAvailable(RequestType type)
   {
-    if (isPortlet(externalContext))
+    switch (type)
     {
-      return ((PortletRequest) externalContext.getRequest()).getRequestedSessionId();
-    }
-    else
-    {
-      return ((HttpServletRequest) externalContext.getRequest()).getRequestedSessionId();
+      case SERVLET:
+        return true;
+        
+      case ACTION:
+      case RENDER:
+        return _PORTLET_CONTEXT_CLASS != null;
+      
+      case RESOURCE:
+      case EVENT:
+        return _PORTLET_RENDER_REQUEST_CLASS != null;
+        
+      default:
+        return false;
     }
   }
 
   /**
-   * Checks if the requested session ID is still valid
-   *
-   * @param externalContext
-   * @return
+   * Returns <code>true</code> if a particular request type is supported by the
+   * container.  For a request type to be supported, the required objects must
+   * be on the classpath AND and, in the case of Portlet RequestTypes, an 
+   * appropriate bridge must be avaialble which supports those objects.  This
+   * means that if the supplied RequestType is RESOURCE, the 
+   * javax.portlet.ResourceRequest object must be available on the classpath AND
+   * a bridge which supports the Portlet 2.0 specification would also need to be
+   * available.
+   * 
+   * @param type the RequestType to test
+   * @return a boolean value of <code>true</code> if the container supports the
+   *         current request type
+   * @since 2.0
    */
-  public static boolean isRequestedSessionIdValid(final ExternalContext externalContext)
+  public static final boolean isRequestTypeSupported(RequestType type)
   {
-    if (isPortlet(externalContext))
+    switch (type)
     {
-      return ((PortletRequest) externalContext.getRequest()).isRequestedSessionIdValid();
+      case SERVLET:
+        return true;
+        
+      case ACTION:
+      case RENDER:
+        return _PORTLET_10_SUPPORTED;
+      
+      case RESOURCE:
+      case EVENT:
+        return _PORTLET_20_SUPPORTED;
+        
+      default:
+        return false;
     }
-    else
+  }
+  
+  /**
+   * Returns the requestType of this ExternalContext.
+   * 
+   * @param ec the current external context
+   * @return the appropriate RequestType for this external context
+   * @see RequestType
+   * @since 2.0
+   */
+  public static final RequestType getRequestType(ExternalContext ec)
+  {
+    // Stuff is laid out strangely in this class in order to optimize
+    // performance. We want to do as few instanceof's as possible so
+    // things are laid out according to the expected frequency of the
+    // various requests occurring.
+    if(_PORTLET_10_SUPPORTED)
     {
-      return ((HttpServletRequest) externalContext.getRequest()).isRequestedSessionIdValid();
+      if (_PORTLET_CONTEXT_CLASS.isInstance(ec.getContext()))
+      {
+        //We are inside of a portlet container
+        Object request = ec.getRequest();
+
+        if(_PORTLET_RENDER_REQUEST_CLASS.isInstance(request))
+        {
+          return RequestType.RENDER;
+        }
+
+        if(_PORTLET_RESOURCE_REQUEST_CLASS != null)
+        {
+          if(_PORTLET_ACTION_REQUEST_CLASS.isInstance(request))
+          {
+            return RequestType.ACTION;
+          }
+
+          // We are in a JSR-286 container
+          if(_PORTLET_RESOURCE_REQUEST_CLASS.isInstance(request))
+          {
+            return RequestType.RESOURCE;
+          }
+
+          return RequestType.EVENT;
+        }
+
+        return RequestType.ACTION;
+      }
     }
+
+    return RequestType.SERVLET;
+  }
+
+
+  /**
+   * Returns the session ID for the client, or <code>null</code> if there is none.
+   *
+   * @param ec the current external context
+   * @return a string containing the requestedSessionId
+   */
+  public static String getRequestedSessionId(ExternalContext ec)
+  {
+    return (String) _runMethod(ec.getRequest(), "getRequestedSessionId");
   }
 
   /**
-   * Returns the contextPath of the ServletContext or null for portlets
+   * Checks if the requested session ID is still valid.
    *
-   * @param externalContext
-   * @return
+   * @param ec the current external context
+   * @return a boolean containing <code>true</code> if the request session is
+   *         valid or <code>false</code> if it is not
    */
-  public static String getServletContextPath(final ExternalContext externalContext)
+  public static boolean isRequestedSessionIdValid(ExternalContext ec)
   {
-    if(!isPortlet(externalContext))
+    return (Boolean) _runMethod(ec.getRequest(), "isRequestedSessionIdValid");
+  }
+
+  /**
+   * Returns the contextPath of the ServletContext or <code>null</code> for portlets
+   *
+   * @param ec the current external context
+   * @return a String containing the servletContextPath
+   */
+  public static String getServletContextPath(ExternalContext ec)
+  {
+    if(!isPortlet(ec))
     {
-      return ((ServletContext) externalContext.getContext()).getContextPath();
+      return ((ServletContext) ec.getContext()).getContextPath();
     }
     else
     {
@@ -95,16 +199,22 @@ public final class ExternalContextUtils
   }
 
   /**
-   * Returns the contextPath of the ServletRequest or null for portlet requests
+   * Returns the contextPath of the ServletRequest or <code>null</code> for portlet requests
    *
-   * @param externalContext
-   * @return
+   * @param ec the current external context
+   * @return a String containing the request context path
+   * @see ExternalContext#getRequestContextPath()
+   * 
+   * @deprecated use ExternalContext.getRequestContextPath() as of JSF 1.2.  This method
+   *             does not appropriately handle portlet environments, but the functionality
+   *             is maintained to prevent needing to change the contract.
    */
-  public static String getRequestContextPath(final ExternalContext externalContext)
-  {
-    if(!isPortlet(externalContext))
+  @Deprecated
+  public static String getRequestContextPath(ExternalContext ec)
+  { 
+    if(!isPortlet(ec))
     {
-      return ((HttpServletRequest) externalContext.getRequest()).getContextPath();
+      return ec.getRequestContextPath();
     }
     else
     {
@@ -113,16 +223,17 @@ public final class ExternalContextUtils
   }
 
   /**
-   * Returns the requestURI of the HttpServletRequest or null for portlet requests
+   * Returns the requestURI of the HttpServletRequest or <code>null</code> for 
+   * portlet requests
    *
-   * @param externalContext
-   * @return
+   * @param ec the current external context
+   * @return A string containing the current request uri
    */
-  public static String getRequestURI(final ExternalContext externalContext)
-  {
-    if (!isPortlet(externalContext))
+  public static String getRequestURI(ExternalContext ec)
+  { 
+    if (!isPortlet(ec))
     {
-      return ((HttpServletRequest) externalContext.getRequest()).getRequestURI();
+      return ((HttpServletRequest) ec.getRequest()).getRequestURI();
     }
     else
     {
@@ -131,52 +242,38 @@ public final class ExternalContextUtils
   }
 
   /**
-   * Returns the character encoding or null if there isn't any
+   * Returns the character encoding or <code>null</code> if there isn't any
    *
-   * @param externalContext
-   * @return
+   * @param ec the current external context
+   * @return a string containing the request's character encoding
+   * @see ExternalContext#getRequestCharacterEncoding()
+   * 
+   * @deprecated replaced by an API in JSF.  Use ExternalContext.getRequestCharacterEncoding()
    */
-  public static String getCharacterEncoding(final ExternalContext externalContext)
+  @Deprecated
+  public static String getCharacterEncoding(ExternalContext ec)
   {
-    if (isAction(externalContext))
-    {
-      try
-      {
-        if (isPortlet(externalContext))
-        {
-          // Allows us to not have the portal api's in the classpath
-          return _getPortletCharacterEncoding(externalContext.getRequest());
-        }
-        else
-        {
-          return ((ServletRequest) externalContext.getRequest()).getCharacterEncoding();
-        }
-      }
-      catch (final ClassCastException e)
-      {
-        _LOG.severe(e);
-      }
-    }
-
-    return null;
+    return ec.getRequestCharacterEncoding();
   }
   
   /**
-   * Returns the name of the underlying context
-   * @param externalContext the ExternalContex
-   * @return the name or null
+   * Returns the name of the underlying context or <code>null</code> if something
+   * went wrong in trying to retrieve the context.
+   * 
+   * @param ec the current external context
+   * @return a String containing the context name
    */
-  public static String getContextName(final ExternalContext externalContext)
+  public static String getContextName(ExternalContext ec)
   {
     try
     {
-      if (isPortlet(externalContext))
+      if (isPortlet(ec))
       {
-        return ((PortletContext) externalContext.getContext()).getPortletContextName();
+        return (String) _runMethod(ec.getContext(), "getPortletContextName");
       }
       else
       {
-        return ((ServletContext) externalContext.getContext()).getServletContextName();
+        return ((ServletContext) ec.getContext()).getServletContextName();
       }
     }
     catch (final ClassCastException e)
@@ -189,137 +286,136 @@ public final class ExternalContextUtils
   /**
    * Returns the content length or -1 if the unknown.
    *
-   * @param externalContext
-   *          the ExternalContext
-   * @return the length or -1
+   * @param ec the current external context
+   * @return the length or -1 if the length is unknown
    */
-  public static int getContentLength(final ExternalContext externalContext)
+  public static int getContentLength(ExternalContext ec)
   {
-    if (isAction(externalContext))
+    if(isRequestFromClient(ec))
     {
-      try
-      {
-        if (isPortlet(externalContext))
-        {
-          // Allows us to not have the portal api's in the classpath
-          _getPortletContentLength(externalContext.getRequest());
-        }
-        else
-        {
-          return ((ServletRequest) externalContext.getRequest()).getContentLength();
-        }
-      }
-      catch (final ClassCastException e)
-      {
-        _LOG.severe(e);
-      }
+      return (Integer) _runMethod(ec.getRequest(), "getContentLength");
     }
+
     return -1;
   }
 
   /**
-   * Returns the content type from the current externalContext or <code>null</code> if unknown.
+   * Returns the content type from the current externalContext or
+   * <code>null</code> if unknown.
    *
-   * @param externalContext
-   *          the ExternalContext
-   * @return the content type or <code>null</code>
+   * @param ec the current external context
+   * @return a String contining the the content type or <code>null</code>
+   * @see ExternalContext#getRequestContentType()
+   *
+   * @deprecated use ExternalContext.getRequestContentType()
    */
-  public static String getContentType(final ExternalContext externalContext)
+  @Deprecated
+  public static String getContentType(ExternalContext ec)
   {
-    if (isAction(externalContext))
-    {
-      try
-      {
-        if (isPortlet(externalContext))
-        {
-          // Allows us to not have the portal api's in the classpath
-          return _getPortletContentType(externalContext.getRequest());
-        }
-        else
-        {
-          return ((ServletRequest) externalContext.getRequest()).getContentType();
-        }
-      }
-      catch (final ClassCastException e)
-      {
-        // probably won't happen, but it could if we don't have a portlet OR a servlet container.
-        _LOG.severe(e);
-      }
-    }
-    return null;
+    return ec.getRequestContentType();
   }
 
   /**
    * Returns the request input stream if one is available
    *
-   * @param externalContext
-   * @return
-   * @throws IOException
+   * @param ec the current external context
+   * @return the request's input stream
+   * @throws IOException if there was a problem getting the input stream
    */
-  public static InputStream getRequestInputStream(final ExternalContext externalContext)
+  public static InputStream getRequestInputStream(ExternalContext ec)
       throws IOException
-  {
-    if (isAction(externalContext))
+  { 
+    RequestType type = getRequestType(ec);
+    if(type.isRequestFromClient())
     {
-      try
+      Object req = ec.getRequest();
+      if(type.isPortlet())
       {
-        if (isPortlet(externalContext))
-        {
-          // Allows us to not have the portal api's in the classpath
-          return _getPortletInputStream(externalContext.getRequest());
-        }
-        else
-        {
-          return ((ServletRequest) externalContext.getRequest()).getInputStream();
-        }
+        return (InputStream)_runMethod(req, "getPortletInputStream");
       }
-      catch (final ClassCastException e)
+      else
       {
-        _LOG.severe(e);
+        return ((ServletRequest) ec.getRequest()).getInputStream();
       }
     }
+    
     return null;
   }
 
   /**
-   * Returns <code>true</code> if this externalContext represents an "action". An action request
-   * is any ServletRequest or a portlet ActionRequest. It is assumed that the ExternalContext
+   * Returns <code>true</code> if this externalContext represents an "action". 
+   * An action request is any ServletRequest or a portlet ActionRequest or 
+   * ResourceRequest.
    *
-   * @return a boolean of <code>true</code> if this is a Portlet ActionRequest or an non-portlet
+   * @param ec the current external context
+   * @return a boolean of <code>true</code> if this request is an action-type
    *         request.
+   * @see #isRequestFromClient(ExternalContext)
+   *         
+   * @deprecated replaced with {@link #isRequestFromClient(ExternalContext)}
    */
-  public static boolean isAction(final ExternalContext externalContext)
+  public static boolean isAction(ExternalContext ec)
   {
-    final Object request = externalContext.getRequest();
-
-    if (_PORTLET_ACTION_REQUEST_CLASS == null)
-    {
-      _LOG
-          .fine("Portlet API's are not on the classpath so isAction will only check for servlet request.");
-      return request instanceof ServletRequest;
-    }
-
-    return (!isPortlet(externalContext) && request instanceof ServletRequest) || _PORTLET_ACTION_REQUEST_CLASS.isInstance(request);
+    return isRequestFromClient(ec);
   }
 
   /**
-   * Returns whether or not this external context is from a Portlet or a Servlet.
-   *
-   * @param externalContext
-   *          the ExternalContext to check
-   *
-   * @return <code>true</code> if this is a portlet RenderRequest or ActionRequest and
-   *         <code>false<code> if it is not.
+   * Returns the value of {@link RequestType#isPortlet()} for the current
+   * RequestType. This is a convenience function designed to perform a quick
+   * check of the current request. If more capabilities need to be tested for
+   * the given request, then it is more efficient to pull this information from
+   * the RequestType itself.
+   * 
+   * @param ec the current external context
+   * @return a boolean value of <code>true</code> if the current RequestType
+   *         is a portlet request.
+   * 
+   * @see RequestType#isPortlet()
+   * @see #getRequestType(ExternalContext)
    */
-  public static boolean isPortlet(final ExternalContext externalContext)
+  public static final boolean isPortlet(ExternalContext ec)
   {
-    if (_PORTLET_CONTEXT_CLASS == null)
-    {
-      _LOG.fine("Portlet API's are not on the classpath therefore isPortlet is false.");
-      return false;
-    }
+    return getRequestType(ec).isPortlet();
+  }
 
-    return _PORTLET_CONTEXT_CLASS.isInstance(externalContext.getContext());
+  /**
+   * Returns the value of {@link RequestType#isResponseWritable()} for the
+   * current RequestType. This is a convenience function designed to perform a
+   * quick check of the current request. If more capabilities need to be tested
+   * for the given request, then it is more efficient to pull this information
+   * from the RequestType itself.
+   * 
+   * @param ec the current external context
+   * @return a boolean value of <code>true</code> if the current RequestType
+   *         is a "render" type response.
+   * 
+   * @see RequestType#isResponseWritable()
+   * @see #getRequestType(ExternalContext)
+   * @since 2.0
+   */
+  public static final boolean isResponseWritable(ExternalContext ec)
+  {
+    return getRequestType(ec).isResponseWritable();
+  }
+
+  /**
+   * Returns the value of {@link RequestType#isRequestFromClient()} for the
+   * current RequestType. This is a convenience function designed to perform a
+   * quick check of the current request. If more capabilities need to be tested
+   * for the given request, then it is more efficient to pull this information
+   * from the RequestType itself.
+   * 
+   * @param ec the current external context
+   * @return a boolean value of <code>true</code> if the current RequestType
+   *         represents a request from the client.
+   * 
+   * @see RequestType#isResponseWritable()
+   * @see #getRequestType(ExternalContext)
+   * @since 2.0
+   */
+  public static final boolean isRequestFromClient(ExternalContext ec)
+  {
+    return getRequestType(ec).isRequestFromClient();
   }
   
   /**
@@ -330,43 +426,37 @@ public final class ExternalContextUtils
    * a portlet request and, if not, then tests to see if the request is an instanceof
    * HttpServletRequest.
    * 
-   * @param request
-   * @return
+   * @param ec the current external context
+   * @return a boolean value of <code>true</code> if the current request is an
+   *         HttpServletRequest
+   * @since 1.1
    */
-  public static boolean isHttpServletRequest(final ExternalContext externalContext)
+  public static boolean isHttpServletRequest(ExternalContext ec)
   {
-    return (!isPortlet(externalContext) && (externalContext.getRequest() instanceof HttpServletRequest));
+    return (!isPortlet(ec) && (ec.getRequest() instanceof HttpServletRequest));
   }
-
-  private static final String _getPortletCharacterEncoding(final Object request)
+  
+  /**
+   * Runs a method on an object and returns the result
+   * 
+   * @param obj the object to run the method on
+   * @param methodName the name of the method
+   * @return the results of the method run
+   */
+  private static Object _runMethod(Object obj, String methodName)
   {
-    if (!(request instanceof ActionRequest))
+    try
+    {
+      Method sessionIdMethod = sessionIdMethod = obj.getClass().getMethod(methodName);
+      return sessionIdMethod.invoke(obj);
+    }
+    catch (Exception e)
+    {
       return null;
+    }
 
-    return ((ActionRequest) request).getCharacterEncoding();
   }
-
-  private static final int _getPortletContentLength(final Object request)
-  {
-    if (!(request instanceof ActionRequest))
-      return -1;
-
-    return ((ActionRequest) request).getContentLength();
-  }
-
-  private static final String _getPortletContentType(final Object request)
-  {
-    if (!(request instanceof ActionRequest))
-      return null;
-
-    return ((ActionRequest) request).getContentType();
-  }
-
-  private static final InputStream _getPortletInputStream(final Object request) throws IOException
-  {
-    return ((ActionRequest) request).getPortletInputStream();
-  }
-
+  
   // prevent this from being instantiated
   private ExternalContextUtils()
   {}
@@ -376,17 +466,37 @@ public final class ExternalContextUtils
 
   // =-= Scott O'Bryan =-=
   // Performance enhancement. These will be needed anyway, let's not get them every time.
-  private static final Class<?>       _PORTLET_ACTION_REQUEST_CLASS;
-  private static final Class<?>       _PORTLET_CONTEXT_CLASS;
+  private static final Class<?> _PORTLET_ACTION_REQUEST_CLASS;
+  private static final Class<?> _PORTLET_RENDER_REQUEST_CLASS;
+  private static final Class<?> _PORTLET_RESOURCE_REQUEST_CLASS;
+  private static final Class<?> _PORTLET_CONTEXT_CLASS;
+  private static final boolean _PORTLET_10_SUPPORTED;
+  private static final boolean _PORTLET_20_SUPPORTED;
 
   static
   {
     Class<?> context;
     Class<?> actionRequest;
+    Class<?> renderRequest;
+    Class<?> resourceRequest;
+    boolean portlet20Supported = false;
+    boolean portlet10Supported = false;
+
     try
     {
       context = ClassLoaderUtils.loadClass("javax.portlet.PortletContext");
       actionRequest = ClassLoaderUtils.loadClass("javax.portlet.ActionRequest");
+      renderRequest = ClassLoaderUtils.loadClass("javax.portlet.RenderRequest");
+
+      try
+      {
+        resourceRequest = ClassLoaderUtils.loadClass("javax.portlet.ResourceRequest"); 
+      }
+      catch (ClassNotFoundException e)
+      {
+        _LOG.fine("Portlet 2.0 API is not available on classpath.  Portlet 2.0 functionality is disabled");
+        resourceRequest = null;
+      }
     }
     catch (final ClassNotFoundException e)
     {
@@ -394,9 +504,48 @@ public final class ExternalContextUtils
           .fine("Portlet API is not available on the classpath.  Portlet configurations are disabled.");
       context = null;
       actionRequest = null;
+      renderRequest = null;
+      resourceRequest = null;
+    }
+    
+    //Find bridge to tell if portal is supported
+    if(context != null) 
+    {
+      try
+      {
+        Class<?> bridge = ClassLoaderUtils.loadClass("javax.portlet.faces.Bridge");
+        
+        if(bridge != null)
+        {
+          portlet10Supported = true;
+
+          //Standard bridge defines a spec name which can be used to 
+          //determine Portlet 2.0 Support.
+          String specName = bridge.getPackage().getSpecificationTitle();
+          _LOG.fine("Found Bridge: " + specName);
+          if(specName != null && specName.startsWith("Portlet 2"))
+          {
+            portlet20Supported = true;
+          }
+          
+          if(_LOG.isInfo())
+          {
+            String ver = (portlet20Supported)?"2.0":"1.0";
+            _LOG.info("Portlet Environment Detected: " + ver);            
+          }
+        }
+      }
+      catch (ClassNotFoundException e)
+      {
+        _LOG.fine("Portlet API is present but bridge is not.  Portlet configurations are disabled.");
+      }
     }
 
     _PORTLET_CONTEXT_CLASS = context;
     _PORTLET_ACTION_REQUEST_CLASS = actionRequest;
+    _PORTLET_RENDER_REQUEST_CLASS = renderRequest;
+    _PORTLET_RESOURCE_REQUEST_CLASS = resourceRequest;
+    _PORTLET_10_SUPPORTED = portlet10Supported;
+    _PORTLET_20_SUPPORTED = portlet20Supported;
   }
 }

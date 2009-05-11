@@ -19,42 +19,27 @@
 package org.apache.myfaces.trinidadinternal.config.upload;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Collections;
+
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.faces.context.ExternalContext;
 
+import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
+import javax.portlet.filter.ActionRequestWrapper;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-import org.apache.myfaces.trinidadinternal.share.util.CaboHttpUtils;
-
-/**
- * Request wrapper class that hooks in parameters identified in
- * the servlet request.
- *
- */
-// TODO Stop going String -> bytes -> String;  change MultipartFormHandler
-//    to simply extract byte arrays, and do all the type conversion here.
-@SuppressWarnings("deprecation")
-public class UploadRequestWrapper extends HttpServletRequestWrapper
+public class UploadActionRequestWrapper
+  extends ActionRequestWrapper
 {
-  public UploadRequestWrapper(ExternalContext ec, Map<String, String[]> params)
+  public UploadActionRequestWrapper(
+      ExternalContext ec,
+      Map<String, String[]> params)
   {
-    this((HttpServletRequest) ec.getRequest(), params);
-    
-  }
-  
-  public UploadRequestWrapper(HttpServletRequest req, Map<String, String[]> params)
-  {
-    super(req);
-    _manager = new UploadRequestManager(req, params);
-    
+    super((ActionRequest)ec.getRequest());
+    _response = (ActionResponse)ec.getResponse();
+    _manager = new UploadRequestManager(ec, params);
   }
 
   /**
@@ -80,21 +65,13 @@ public class UploadRequestWrapper extends HttpServletRequestWrapper
   public void setCharacterEncoding(String encoding)
     throws UnsupportedEncodingException
   {
-    if (getCharacterEncoding().equals(encoding))
+    if(getCharacterEncoding().equals(encoding))
     {
-      return;
-    }
-    
-    // It is illegal to set the character encoding after parameters
-    // have been retrieved.  This is an annoying restriction,
-    // but we shouldn't break it
-    if (_manager.isParameterRetrieved())
-    {
-      _LOG.warning("UNABLE_SET_REQUEST_CHARACTER", encoding);
       return;
     }
     
     _manager.setCharacterEncoding(encoding);
+    _response.setRenderParameters(_manager.getParameterMap());
 
     // Let the UploadedFiles know, so it can fix up filenames
     UploadedFiles.setCharacterEncoding(this, encoding);
@@ -125,6 +102,5 @@ public class UploadRequestWrapper extends HttpServletRequestWrapper
   }
 
   private UploadRequestManager _manager;
-  private static final TrinidadLogger _LOG =
-     TrinidadLogger.createTrinidadLogger(UploadRequestWrapper.class);
+  private ActionResponse _response;
 }

@@ -40,7 +40,7 @@
     <!-- Standards -->
     <jdk.version>1.5</jdk.version>    
     <servlet.version>2.5</servlet.version>
-    <portlet.version>1.0</portlet.version>
+    <portlet.version>2.0</portlet.version>
     <jsp.version>2.1</jsp.version>
     <jstl.version>1.2</jstl.version>
     <jsf-spec.version>1.2</jsf-spec.version>
@@ -49,6 +49,7 @@
     <jsf-facelets.version>1.1.14</jsf-facelets.version>
     <portlet-bridge.version>1.0.0-beta</portlet-bridge.version>
     <commons-lang.version>2.4</commons-lang.version>
+    <pluto-embedded.version>1.0.1</pluto-embedded.version>
     
     <!-- Testing -->
     <shale.version>1.0.4</shale.version>
@@ -58,7 +59,8 @@
     <!-- Plugins -->
     <trinidad-plugins.version>1.2.10-SNAPSHOT</trinidad-plugins.version>
     <wagon-plugin.version>1.0.6</wagon-plugin.version>
-    <jetty-plugin.version>6.1.7</jetty-plugin.version>
+    <jetty-plugin.version>6.1.16</jetty-plugin.version>
+    <pluto-plugin.version>1.1.6</pluto-plugin.version>
     
     <!-- Other -->
     <jdev.release>11.1.1.0.0</jdev.release>
@@ -313,7 +315,13 @@
         <artifactId>junit</artifactId>
         <version>${junit.version}</version>
         <scope>test</scope>
-      </dependency>      
+      </dependency>
+      
+      <dependency>
+        <groupId>com.bekk.boss</groupId>
+        <artifactId>maven-jetty-pluto-embedded</artifactId>
+        <version>${pluto-embedded.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -449,6 +457,20 @@
           <artifactId>maven-jetty-plugin</artifactId>
           <version>${jetty-plugin.version}</version>
         </plugin>
+
+        <plugin>
+          <groupId>org.apache.pluto</groupId>
+          <artifactId>maven-pluto-plugin</artifactId>
+          <version>${pluto-plugin.version}</version>
+          <executions>  
+            <execution>  
+              <phase>generate-resources</phase>  
+              <goals>  
+                <goal>assemble</goal>  
+              </goals>  
+            </execution>  
+          </executions>  
+        </plugin>  
 
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -712,7 +734,7 @@
       <dependencyManagement>
         <dependencies>
           <dependency>
-            <groupId>jstl</groupId>
+            <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
             <version>${jstl.version}</version>
             <scope>compile</scope>

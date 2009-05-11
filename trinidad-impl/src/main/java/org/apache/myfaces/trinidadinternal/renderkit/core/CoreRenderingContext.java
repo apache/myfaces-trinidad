@@ -43,6 +43,8 @@ import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.SkinFactory;
 import org.apache.myfaces.trinidad.style.Styles;
+import org.apache.myfaces.trinidad.util.ExternalContextUtils;
+import org.apache.myfaces.trinidad.util.RequestType;
 import org.apache.myfaces.trinidadinternal.agent.AgentUtil;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgentImpl;
@@ -656,7 +658,15 @@ public class CoreRenderingContext extends RenderingContext
     }
     else if (CoreRenderKit.OUTPUT_MODE_PORTLET.equals(outputMode))
     {
-      return AgentUtil.mergeCapabilities(agent, _PORTLET_CAPABILITIES);
+      if(ExternalContextUtils.isRequestTypeSupported(RequestType.RESOURCE))
+      {
+        //Set things up for the Portlet 2.0 container.
+        return AgentUtil.mergeCapabilities(agent, _ENHANCED_PORTLET_CAPABILITIES);
+      }
+      else
+      { 
+        return AgentUtil.mergeCapabilities(agent, _PORTLET_CAPABILITIES);
+      }
     }
     else
     {
@@ -802,6 +812,9 @@ public class CoreRenderingContext extends RenderingContext
 
   static private final Map<Object, Object> _PORTLET_CAPABILITIES =
     new HashMap<Object, Object>();
+  
+  static private final Map<Object, Object> _ENHANCED_PORTLET_CAPABILITIES =
+    new HashMap<Object, Object>();
 
   static
   {
@@ -835,6 +848,9 @@ public class CoreRenderingContext extends RenderingContext
                             Boolean.FALSE);
     _PORTLET_CAPABILITIES.put(TrinidadAgent.CAP_MULTIPLE_WINDOWS,
                             Boolean.FALSE);
+    
+    _ENHANCED_PORTLET_CAPABILITIES.put(TrinidadAgent.CAP_MULTIPLE_WINDOWS,
+                              Boolean.FALSE);
   }
 
   static private final TrinidadLogger _LOG =

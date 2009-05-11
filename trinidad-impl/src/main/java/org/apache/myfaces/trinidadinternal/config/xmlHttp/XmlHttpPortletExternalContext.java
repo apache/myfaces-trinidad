@@ -16,36 +16,43 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.apache.myfaces.trinidadinternal.config.dispatch;
+package org.apache.myfaces.trinidadinternal.config.xmlHttp;
+
+import java.io.IOException;
+
+import java.io.PrintWriter;
+import java.io.Writer;
 
 import javax.faces.context.ExternalContext;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
-import javax.portlet.filter.RenderResponseWrapper;
+
+import javax.portlet.ResourceResponse;
+
+import org.apache.myfaces.trinidad.context.ExternalContextDecorator;
 
 /**
- * This class is for Portlet 2.0 compatibility and it uses the real RenderResponseWrapper
+ * This ExternalContext allows redirects to be sent on a resource request.  Normally this is not
+ * allowed, but we do this by sending a redirect xml message.
  */
-@SuppressWarnings("deprecation")
-class DispatchRenderResponse extends RenderResponseWrapper
+public class XmlHttpPortletExternalContext
+  extends ExternalContextDecorator
 {
-  public DispatchRenderResponse(ExternalContext ec)
+  private ExternalContext _ec;
+  
+  public XmlHttpPortletExternalContext(ExternalContext ec)
   {
-    super((RenderResponse)ec.getResponse());
-     _request = (RenderRequest)ec.getRequest();
+    _ec = ec;
   }
   
   @Override
-  public void setContentType(String contentTypeAndCharset)
+  public void redirect(String url)
+    throws IOException
   {
-    ContentTypeAndCharacterSet ct = new ContentTypeAndCharacterSet(contentTypeAndCharset);
-    
-    if(ct.getContentType() != null)
-    {
-      _request.setAttribute(DispatchResponseConfiguratorImpl.__CONTENT_TYPE_KEY, ct.getContentType());
-    }
-    super.setContentType(ct.toString());
+    PrintWriter writer = ((ResourceResponse)_ec.getResponse()).getWriter();
+    XmlHttpConfigurator.sendXmlRedirect(writer, url);
   }
-
-  private final RenderRequest _request;
+  
+  protected ExternalContext getExternalContext()
+  {
+    return _ec;
+  }
 }

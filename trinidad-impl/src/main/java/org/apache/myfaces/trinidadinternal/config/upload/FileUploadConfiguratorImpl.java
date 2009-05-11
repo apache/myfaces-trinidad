@@ -21,6 +21,9 @@ package org.apache.myfaces.trinidadinternal.config.upload;
 
 import java.io.IOException;
 import java.io.InputStream;
+
+import java.lang.reflect.Proxy;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,8 +37,10 @@ import org.apache.myfaces.trinidad.config.Configurator;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.UploadedFile;
+import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidad.util.ExternalContextUtils;
 import org.apache.myfaces.trinidad.util.RequestStateMap;
+import org.apache.myfaces.trinidad.util.RequestType;
 import org.apache.myfaces.trinidadinternal.share.util.MultipartFormHandler;
 import org.apache.myfaces.trinidadinternal.share.util.MultipartFormItem;
 
@@ -226,22 +231,32 @@ public class FileUploadConfiguratorImpl extends Configurator
   {
     if(!isApplied(externalContext))
     {
-      if(!ExternalContextUtils.isPortlet(externalContext))
-      {  
-        externalContext.setRequest(new UploadRequestWrapper(
-            (HttpServletRequest)externalContext.getRequest(),
-            addedParams));        
-      }
-      else if(ExternalContextUtils.isAction(externalContext))
+      RequestType type = ExternalContextUtils.getRequestType(externalContext);
+      
+      switch(type)
       {
-        /*
-         * We only need to do this if we have an action request.  Why?
-         * Because durring the ActionRequest, the wrapper will set the
-         * RenderParameters.  This is a cool thing because subsequent
-         * render requests will retain these parameters for us.
-         */
-        externalContext.setRequest(new ActionUploadRequestWrapper(externalContext,
-           addedParams));
+        case SERVLET:
+          externalContext.setRequest(new UploadRequestWrapper(externalContext, addedParams));
+          break;
+        case RESOURCE:
+          externalContext.setRequest(new UploadResourceRequest(externalContext, addedParams));
+          break;
+        case ACTION:
+          //Portlet 2.0 should use the framework provided wrapper.  Portlet 1.0 needs to implement
+          //the interface.  Because we need to compile against Portlet 2.0, we implement the Portlet
+          //1.0 scenario using a Proxy.
+          Object req;
+          
+          if(_ENHANCED_PORTLET_SUPPORTED)
+          {
+            req = _getActionRequestWrapper(externalContext, addedParams);
+          }
+          else
+          {
+            req = _getActionRequestProxy(externalContext, addedParams);
+          }
+          
+          externalContext.setRequest(req);
       }
       apply(externalContext);        
     }
@@ -249,6 +264,32 @@ public class FileUploadConfiguratorImpl extends Configurator
     //If we don't have any wrapped params or we have a render portal request,
     //return the origional external context
     return externalContext;
+  }
+  
+  static private Object _getActionRequestProxy(ExternalContext ec, Map<String, String[]> params)
+  {
+    try
+    {
+      Class<?> actionRequestClass = ClassLoaderUtils.loadClass("javax.portlet.ActionRequest");
+      return Proxy.newProxyInstance(ClassLoaderUtils.getContextClassLoader(), new Class<?>[]{actionRequestClass}, new UploadActionInvocationHandler(ec, params));
+    }
+    catch (ClassNotFoundException e)
+    {
+      throw new RuntimeException(e);
+    }
+  }
+  
+  static private Object _getActionRequestWrapper(ExternalContext ec, Map<String, String[]> params)
+  {
+    try
+    {
+      Class<?> wrapperClass = ClassLoaderUtils.loadClass("org.apache.myfaces.trinidadinternal.config.upload.UploadActionRequestWrapper");
+      return wrapperClass.getConstructor(ExternalContext.class, Map.class).newInstance(ec, params);
+    }
+    catch (Exception e)
+    {
+      throw new RuntimeException(e);
+    }
   }
   
   //This will ensure the property is removed on the next request
@@ -302,6 +343,7 @@ public class FileUploadConfiguratorImpl extends Configurator
   static private final String _APPLIED = FileUploadConfiguratorImpl.class.getName()+".APPLIED";
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(FileUploadConfiguratorImpl.class);
   static private final String _PARAMS = FileUploadConfiguratorImpl.class.getName()+".PARAMS";
+  static private final boolean _ENHANCED_PORTLET_SUPPORTED = ExternalContextUtils.isRequestTypeSupported(RequestType.RESOURCE);
   
   private long _maxAllowedBytes = 1L << 27;
 }

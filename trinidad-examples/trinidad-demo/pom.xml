@@ -12,6 +12,8 @@
 
   <artifactId>trinidad-demo</artifactId>
   <packaging>war</packaging>
+  
+  
 
   <dependencies>
     
@@ -43,6 +45,11 @@
       <artifactId>jsp-api</artifactId>
     </dependency>
     
+    <dependency>
+      <groupId>javax.portlet</groupId>
+      <artifactId>portlet-api</artifactId>
+    </dependency>
+    
     <!-- For SourceCodeServlet -->
     <dependency>
       <groupId>commons-lang</groupId>
@@ -65,20 +72,204 @@
   </build>
 
   <profiles>
-     <profile>
-       <id>jettyConfig</id>
-       <build>
-         <plugins>
-           <plugin>
-             <groupId>org.mortbay.jetty</groupId>
-             <artifactId>maven-jetty-plugin</artifactId>
-             <version>6.1.11</version>
-             <configuration>
-               <scanIntervalSeconds>10</scanIntervalSeconds>
-             </configuration>
-           </plugin>
+    <profile>
+      <id>jettyConfig</id>
+      <dependencyManagement>
+        <dependencies>
+          <dependency>
+            <groupId>javax.faces</groupId>
+            <artifactId>jsf-api</artifactId>
+            <version>${jsf-ri.version}</version>
+            <scope>compile</scope>
+          </dependency>
+
+          <dependency>
+            <groupId>javax.faces</groupId>
+            <artifactId>jsf-impl</artifactId>
+            <version>${jsf-ri.version}</version>
+            <scope>runtime</scope>
+          </dependency>
+
+          <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-api</artifactId>
+            <version>${jsf-myfaces.version}</version>
+            <scope>compile</scope>
+          </dependency>
+
+          <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-impl</artifactId>
+            <version>${jsf-myfaces.version}</version>
+            <scope>runtime</scope>
+          </dependency>
+        </dependencies>
+      </dependencyManagement>
+
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.mortbay.jetty</groupId>
+            <artifactId>maven-jetty-plugin</artifactId>
+            <configuration>
+              <scanIntervalSeconds>10</scanIntervalSeconds>
+            </configuration>
+          </plugin>
+       </plugins>
+     </build>
+   </profile>
+    
+   <!-- sets up the webapp for deployment to pluto  "mvn clean install -Ppluto" -->    
+   <profile>
+     <id>pluto</id>
+     <dependencies>
+        <dependency>
+	       <groupId>org.apache.myfaces.portlet-bridge</groupId>
+		    <artifactId>portlet-bridge-api</artifactId>
+		    <version>${portlet-bridge.version}</version>
+		  </dependency>
+		  
+		  <dependency>
+		    <groupId>org.apache.myfaces.portlet-bridge</groupId>
+		    <artifactId>portlet-bridge-impl</artifactId>
+		    <version>${portlet-bridge.version}</version>
+		  </dependency>		  
+
+        <dependency>
+          <groupId>org.apache.pluto</groupId>
+          <artifactId>pluto-util</artifactId>
+          <version>${pluto-plugin.version}</version>
+          <scope>provided</scope>
+        </dependency>
+		</dependencies>
+      
+      <build>
+        <plugins>
+          <!-- configure maven-war-plugin to use updated web.xml -->
+          <plugin>
+            <artifactId>maven-war-plugin</artifactId>
+            <configuration>
+              <webXml>${project.build.directory}/pluto-resources/web.xml</webXml>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.pluto</groupId>
+            <artifactId>maven-pluto-plugin</artifactId>
+          </plugin>  
         </plugins>
       </build>
+    </profile>
+    
+    <!-- To run jetty, issue "mvn clean -PjettyConfig jetty:run" -->
+    <profile>
+      <id>pluto-embedded</id>
+      <dependencyManagement>
+        <dependencies>
+          <dependency>
+            <groupId>javax.faces</groupId>
+            <artifactId>jsf-api</artifactId>
+            <version>${jsf-ri.version}</version>
+            <scope>compile</scope>
+          </dependency>
+
+          <dependency>
+            <groupId>javax.faces</groupId>
+            <artifactId>jsf-impl</artifactId>
+            <version>${jsf-ri.version}</version>
+            <scope>runtime</scope>
+          </dependency>
+
+          <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-api</artifactId>
+            <version>${jsf-myfaces.version}</version>
+            <scope>compile</scope>
+          </dependency>
+
+          <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-impl</artifactId>
+            <scope>runtime</scope>
+            <version>${jsf-myfaces.version}</version>
+          </dependency>
+
+          <dependency>
+            <groupId>javax.portlet</groupId>
+            <artifactId>portlet-api</artifactId>
+            <version>${portlet.version}</version>
+            <scope>compile</scope>
+          </dependency>
+
+        </dependencies>
+      </dependencyManagement>
+      <dependencies>
+        <dependency>
+          <groupId>com.bekk.boss</groupId>
+          <artifactId>maven-jetty-pluto-embedded</artifactId>
+        </dependency>
+        <dependency>
+	       <groupId>org.apache.myfaces.portlet-bridge</groupId>
+		    <artifactId>portlet-bridge-api</artifactId>
+		    <scope>compile</scope>
+		  </dependency>
+		  <dependency>
+		    <groupId>org.apache.myfaces.portlet-bridge</groupId>
+		    <artifactId>portlet-bridge-impl</artifactId>
+		    <scope>runtime</scope>
+		  </dependency>
+      </dependencies>
+		
+		<build>      
+        <plugins>
+          <plugin>
+            <groupId>org.mortbay.jetty</groupId>
+            <artifactId>maven-jetty-plugin</artifactId>
+            <configuration>
+              <webXml>${project.build.directory}/pluto-resources/web.xml</webXml>
+              <webDefaultXml>src/main/webapp/WEB-INF/jetty-pluto-web-default.xml</webDefaultXml>
+              <systemProperties>
+                <systemProperty>
+                  <name>org.apache.pluto.embedded.portletIds</name>
+                  <value>trinidad_demo</value>
+                </systemProperty>
+              </systemProperties>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.pluto</groupId>
+            <artifactId>maven-pluto-plugin</artifactId>
+          </plugin>  
+        </plugins>
+      </build>  
+    </profile>
+    
+    <!-- Runs the portal testcases in Pluto 2.0 -->
+    <profile>
+      <id>portlet20</id>
+      <activation>
+        <property>
+          <name>portlet</name>
+          <value>2.0</value>
+        </property>
+      </activation>
+      <repositories>
+        <repository>
+          <id>BOSS inhouse private</id>
+          <url>http://boss.bekk.no/proximity/repository/private</url>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+          <releases>
+            <enabled>false</enabled>
+          </releases>
+        </repository>
+      </repositories>
+      <properties>
+        <portlet-bridge.version>2.0.0-SNAPSHOT</portlet-bridge.version>
+        <pluto-embedded.version>2.0-SNAPSHOT</pluto-embedded.version>
+        <portlet.version>2.0</portlet.version>
+        <pluto-plugin.version>2.0.0-SNAPSHOT</pluto-plugin.version>
+      </properties>
     </profile>
   </profiles>
 </project>

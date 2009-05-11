@@ -46,6 +46,11 @@
     </repository>
   </repositories>
 
+  <properties>
+    <portlet.version>1.0</portlet.version>
+  </properties>
+
+
   <!-- Project dependencies -->
   <dependencies>
     <!-- Apache Trinidad -->
@@ -77,6 +82,11 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
+    </dependency>
+    
+    <dependency>
+      <groupId>javax.portlet</groupId>
+      <artifactId>portlet-api</artifactId>
     </dependency>
   </dependencies>
   
@@ -110,34 +120,29 @@
           <dependency>
             <groupId>javax.faces</groupId>
             <artifactId>jsf-api</artifactId>
-            <version>${jsf-ri.version}</version>
             <scope>compile</scope>
           </dependency>
 
           <dependency>
             <groupId>javax.faces</groupId>
             <artifactId>jsf-impl</artifactId>
-            <version>${jsf-ri.version}</version>
             <scope>runtime</scope>
           </dependency>
 
           <dependency>
             <groupId>org.apache.myfaces.core</groupId>
             <artifactId>myfaces-api</artifactId>
-            <version>${jsf-myfaces.version}</version>
             <scope>compile</scope>
           </dependency>
 
           <dependency>
             <groupId>org.apache.myfaces.core</groupId>
             <artifactId>myfaces-impl</artifactId>
-            <version>${jsf-myfaces.version}</version>
             <scope>runtime</scope>
           </dependency>
          </dependencies>
        </dependencyManagement>
      </profile>
-
     
     <!--
       This profile activates MyFaces as the release to use for these demos.  By default

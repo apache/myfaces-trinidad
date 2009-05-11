@@ -83,18 +83,6 @@ public class TrinidadPhaseListener implements PhaseListener
       ExternalContext ec = context.getExternalContext();
       // Assume it's not a postback request
       ec.getRequestMap().put(_POSTBACK_KEY, Boolean.FALSE);
-
-      // And initialize XmlHttp.  We wait until beforePhase()
-      // of RESTORE_VIEW, instead of doing this in the filter,
-      // so that we don't get a request parameter before ViewHandler.initView()
-      // has been called:  doing that leads to big problems.  Note
-      // that with the 1.2_03 RI, this will still be too early,
-      // as it called initView() after beforePhase()
-      if (CoreRenderKit.isPartialRequest(ec))
-      {
-        XmlHttpConfigurator.beginRequest(ec);
-      }
-      
     }
     // If we've reached "apply request values", this is definitely a
     // postback (the ViewHandler should have reached the same conclusion too,

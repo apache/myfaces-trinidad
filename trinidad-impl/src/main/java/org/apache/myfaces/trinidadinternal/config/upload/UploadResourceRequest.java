@@ -19,42 +19,26 @@
 package org.apache.myfaces.trinidadinternal.config.upload;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Collections;
+
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.faces.context.ExternalContext;
 
 import javax.portlet.ActionResponse;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
+import javax.portlet.ResourceRequest;
+import javax.portlet.filter.ResourceRequestWrapper;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-import org.apache.myfaces.trinidadinternal.share.util.CaboHttpUtils;
 
-/**
- * Request wrapper class that hooks in parameters identified in
- * the servlet request.
- *
- */
-// TODO Stop going String -> bytes -> String;  change MultipartFormHandler
-//    to simply extract byte arrays, and do all the type conversion here.
-@SuppressWarnings("deprecation")
-public class UploadRequestWrapper extends HttpServletRequestWrapper
+public class UploadResourceRequest
+  extends ResourceRequestWrapper
 {
-  public UploadRequestWrapper(ExternalContext ec, Map<String, String[]> params)
+  public UploadResourceRequest(ExternalContext ec, Map<String, String[]> params)
   {
-    this((HttpServletRequest) ec.getRequest(), params);
-    
-  }
-  
-  public UploadRequestWrapper(HttpServletRequest req, Map<String, String[]> params)
-  {
-    super(req);
-    _manager = new UploadRequestManager(req, params);
-    
+    super((ResourceRequest) ec.getRequest());
+    _response = (ActionResponse) ec.getResponse();
+    _manager = new UploadRequestManager(ec, params);
   }
 
   /**
@@ -95,6 +79,7 @@ public class UploadRequestWrapper extends HttpServletRequestWrapper
     }
     
     _manager.setCharacterEncoding(encoding);
+    _response.setRenderParameters(_manager.getParameterMap());
 
     // Let the UploadedFiles know, so it can fix up filenames
     UploadedFiles.setCharacterEncoding(this, encoding);
@@ -125,6 +110,7 @@ public class UploadRequestWrapper extends HttpServletRequestWrapper
   }
 
   private UploadRequestManager _manager;
+  private ActionResponse _response;
   private static final TrinidadLogger _LOG =
-     TrinidadLogger.createTrinidadLogger(UploadRequestWrapper.class);
-}
+     TrinidadLogger.createTrinidadLogger(UploadRequestManager.class);
+  }

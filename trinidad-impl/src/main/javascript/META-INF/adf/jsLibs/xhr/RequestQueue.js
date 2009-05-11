@@ -134,11 +134,18 @@ TrRequestQueue.prototype.sendFormPost = function(
   headerParams
   )
 {
+  //this retrieves the action url for PPR.  Generally this will be the action property on
+  //actionForm, however in the case of a Portal 2.0 environment, this could be a special
+  //expando property encoded as a ResourceUrl.  As such, if the expando is available, use it
+  //for PPR
+  var pprURL = actionForm.getAttribute("_trinPPRAction");
+  var action = pprURL?pprURL:actionForm.action;
+  
   if (this._isMultipartForm(actionForm))
   {
     // TODO: log a warning if we're dropping any headers?  Or
     // come up with a hack to send "headers" via a multipart request?
-    this.sendMultipartRequest(context, method, actionForm.action, actionForm, params);
+    this.sendMultipartRequest(context, method, action, actionForm, params);
   }
   else
   {
@@ -148,7 +155,7 @@ TrRequestQueue.prototype.sendFormPost = function(
     if(_agent.isIE)
       this._autoCompleteForm(actionForm);
 
-    this.sendRequest(context, method, actionForm.action, content, headerParams);
+    this.sendRequest(context, method, action, content, headerParams);
   }
 }
 

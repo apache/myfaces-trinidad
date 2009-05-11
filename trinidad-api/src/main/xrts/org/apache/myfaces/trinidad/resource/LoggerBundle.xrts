@@ -447,4 +447,7 @@
 <!-- COMPONENT_TREE_SERIALIZATION_FAILED -->
 <resource key="COMPONENT_TREE_SERIALIZATION_FAILED">Failed to serialize component tree state</resource>
 
+<!-- UNABLE_TO_SET_RENDER_PARAMETERS -->
+<resource key="UNABLE_TO_SET_RENDER_PARAMETERS">Unable ro set portlet render parameters due to failed reflection</resource>
+
 </resources>

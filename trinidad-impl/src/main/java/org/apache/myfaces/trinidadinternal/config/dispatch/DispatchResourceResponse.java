@@ -19,20 +19,21 @@
 package org.apache.myfaces.trinidadinternal.config.dispatch;
 
 import javax.faces.context.ExternalContext;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
-import javax.portlet.filter.RenderResponseWrapper;
+
+import javax.portlet.ResourceRequest;
+import javax.portlet.ResourceResponse;
+import javax.portlet.filter.ResourceResponseWrapper;
 
 /**
  * This class is for Portlet 2.0 compatibility and it uses the real RenderResponseWrapper
  */
 @SuppressWarnings("deprecation")
-class DispatchRenderResponse extends RenderResponseWrapper
+class DispatchResourceResponse extends ResourceResponseWrapper
 {
-  public DispatchRenderResponse(ExternalContext ec)
+  public DispatchResourceResponse(ExternalContext ec)
   {
-    super((RenderResponse)ec.getResponse());
-     _request = (RenderRequest)ec.getRequest();
+    super((ResourceResponse)ec.getResponse());
+     _request = (ResourceRequest)ec.getRequest();
   }
   
   @Override
@@ -47,5 +48,5 @@ class DispatchRenderResponse extends RenderResponseWrapper
     super.setContentType(ct.toString());
   }
 
-  private final RenderRequest _request;
+  private final ResourceRequest _request;
 }

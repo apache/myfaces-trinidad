@@ -38,7 +38,7 @@ import javax.servlet.ServletRequest;
      
      //For now, always check this on a render so it can be removed from the session.
      //This can be optimized to only save the state when request attributes are NOT preserved
-     if(!ExternalContextUtils.isAction(ec))
+     if(!ExternalContextUtils.isRequestFromClient(ec))
      {
        String uuid = ec.getRequestParameterMap().get(_STATE_MAP);
        if(uuid!= null)
@@ -68,7 +68,8 @@ import javax.servlet.ServletRequest;
    
    public void saveState(ExternalContext ec)
    {
-     if(ExternalContextUtils.isPortlet(ec) && ExternalContextUtils.isAction(ec))
+     RequestType type = ExternalContextUtils.getRequestType(ec);
+     if(type.isPortlet() && !type.isResponseWritable())
      {
        try
        {

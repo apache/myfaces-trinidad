@@ -29,6 +29,7 @@ import java.util.Set;
 import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
@@ -47,6 +48,8 @@ import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidad.context.FormData;
 import org.apache.myfaces.trinidad.context.PartialPageContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.util.ExternalContextUtils;
+import org.apache.myfaces.trinidad.util.RequestType;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreResponseStateManager;
 import org.apache.myfaces.trinidadinternal.renderkit.uix.SubformRenderer;
 
@@ -168,6 +171,7 @@ public class FormRenderer extends XhtmlRenderer
     FacesBean           bean) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
+    ExternalContext ec = context.getExternalContext();
 
     String formName = arc.getFormData().getName();
     
@@ -241,6 +245,15 @@ public class FormRenderer extends XhtmlRenderer
     String action =
       context.getApplication().getViewHandler().getActionURL(context, viewId);
     renderEncodedActionURI(context, "action", action);
+    
+    RequestType type = ExternalContextUtils.getRequestType(ec);
+    
+    //Always add expando to portlet form
+    if(type.isPortlet())
+    {
+      renderEncodedResourceURI(context, "_trinPPRAction", action);
+    }
+    
     if (supportsTarget(arc))
     {
       rw.writeAttribute("target", getTargetFrame(bean), "targetFrame");

@@ -18,14 +18,13 @@
  */
 package org.apache.myfaces.trinidadinternal.config.dispatch;
 
-import java.util.Map;
-
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.config.Configurator;
 import org.apache.myfaces.trinidad.util.ExternalContextUtils;
 import org.apache.myfaces.trinidad.util.RequestStateMap;
+import org.apache.myfaces.trinidad.util.RequestType;
 
 /**
  * TODO: Document this
@@ -41,18 +40,27 @@ public class DispatchResponseConfiguratorImpl extends Configurator
   {
     if(!isApplied(externalContext))
     {
-      if(ExternalContextUtils.isPortlet(externalContext))
+      RequestType type = ExternalContextUtils.getRequestType(externalContext);
+      
+      switch(type)
       {
-        if(!ExternalContextUtils.isAction(externalContext))
-        {
-          externalContext.setResponse(new DispatchRenderResponse(externalContext));
-        }
+        case RESOURCE:
+          externalContext.setResponse(new DispatchResourceResponse(externalContext));
+          break;
+        case SERVLET:
+          externalContext.setResponse(new DispatchServletResponse(externalContext));
+          break;
+        case RENDER:
+          //Are we in a portlet 2.0 container?  If we are not there is no need to provide a
+          //wrapper.  This confgigurator is intended to work around an issue with WLS where
+          //the content type is reset durring a forward.  In Portlet 1.0, the bridge performs
+          //an inlcude rather then a forward.
+          if(_PORTLET2)
+          {
+            //spec is Portlet 2.0 or above.  Use the real wrappers
+            externalContext.setResponse(new DispatchRenderResponse(externalContext));
+          }
       }
-      else
-      {
-        externalContext.setResponse(new DispatchServletResponse(externalContext));
-      }
-
       apply(externalContext);
     }
 
@@ -66,7 +74,7 @@ public class DispatchResponseConfiguratorImpl extends Configurator
   {
     return (String) RequestStateMap.getInstance(context.getExternalContext()).get(__CONTENT_TYPE_KEY);
   }
-
+  
   /**
    * Returns <code>true</code> if the request wrapper has been applied.
    *
@@ -89,6 +97,7 @@ public class DispatchResponseConfiguratorImpl extends Configurator
 
   static private final String _APPLIED =
     DispatchResponseConfiguratorImpl.class.getName()+".APPLIED";
+  static private final boolean _PORTLET2 = ExternalContextUtils.isRequestTypeSupported(RequestType.RESOURCE);
   static final String __CONTENT_TYPE_KEY =
     DispatchResponseConfiguratorImpl.class.getName() + ".CONTENT_TYPE";
 }

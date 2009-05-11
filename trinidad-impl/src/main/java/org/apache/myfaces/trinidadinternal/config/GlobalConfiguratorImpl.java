@@ -51,6 +51,7 @@ import org.apache.myfaces.trinidadinternal.skin.SkinFactoryImpl;
 import org.apache.myfaces.trinidadinternal.skin.SkinUtils;
 import org.apache.myfaces.trinidad.util.ExternalContextUtils;
 import org.apache.myfaces.trinidad.util.RequestStateMap;
+import org.apache.myfaces.trinidad.util.RequestType;
 
 /**
  * This is the implementation of the Trinidad's Global configurator. It provides the entry point for
@@ -63,7 +64,8 @@ import org.apache.myfaces.trinidad.util.RequestStateMap;
  * @see org.apache.myfaces.trinidad.config.Configurator
  * @version $Revision$ $Date$
  */
-public final class GlobalConfiguratorImpl extends Configurator
+public final class GlobalConfiguratorImpl
+  extends Configurator
 {
   /**
    * Returns a GlobalConfigurator instance for the current context's class loader. The
@@ -122,9 +124,9 @@ public final class GlobalConfiguratorImpl extends Configurator
    * @param ec
    * @return
    */
-  static public boolean isRequestStarted(final ExternalContext ec)
+  static public boolean isRequestStarted(ExternalContext ec)
   {
-    return (RequestType.getType(ec) != null);
+    return (RequestStateMap.getInstance(ec).get(_REQUEST_TYPE) != null);
   }
 
   /**
@@ -146,8 +148,7 @@ public final class GlobalConfiguratorImpl extends Configurator
       final boolean disabled = inRequest.booleanValue();
       if (disabled != isConfiguratorServiceDisabled(ec))
       {
-        _LOG
-            .warning("Configurator services were disabled after beginRequest was executed.  Cannot disable configurator services");
+        _LOG.warning("Configurator services were disabled after beginRequest was executed.  Cannot disable configurator services");
       }
 
       return disabled;
@@ -159,7 +160,8 @@ public final class GlobalConfiguratorImpl extends Configurator
    * required, we may wish to make this public. We really don't want people using this though.
    */
   private GlobalConfiguratorImpl()
-  {}
+  {
+  }
 
   /**
    * Executes the beginRequest methods of all of the configurator services. This method will also
@@ -172,41 +174,43 @@ public final class GlobalConfiguratorImpl extends Configurator
    * render request so that the requestContext may be properly initialized even though the
    * underlying services will be called only once per physical request.
    *
-   * @param externalContext
-   *          the externalContext to use to begin the request.
+   * @param ec the externalContext to use to begin the request.
    *
-   * @see org.apache.myfaces.trinidad.config.Configurator#beginRequest(javax.faces.context.ExternalContext)
+   * @see Configurator#beginRequest(javax.faces.context.ExternalContext)
    */
   @SuppressWarnings("unchecked") // TODO: remove this for Faces 1.2
   @Override
-  public void beginRequest(final ExternalContext externalContext)
+  public void beginRequest(ExternalContext ec)
   {
     // asserts for debug which disappear in production
-    assert externalContext != null;
+    assert ec != null;
+    RequestStateMap state = RequestStateMap.getInstance(ec);
+    RequestType requestType = (RequestType) state.get(_REQUEST_TYPE);
 
     // Do per-virtual request stuff
-    if (RequestType.getType(externalContext) == null)
+    if (requestType == null)
     {
       // RequestType may change in a portal environment. Make sure it's set up to enforce the
       // contracts
-      RequestType.setType(externalContext);
+      requestType = ExternalContextUtils.getRequestType(ec);
+      RequestStateMap.getInstance(ec).put(_REQUEST_TYPE, requestType);
 
       // By contract, Configurators beginRequest is only called once per physical request.
       // The globalConfigurator may be called multiple times, however, so we need to enforce
       // the contract.
-      if (!_isDisabled(externalContext))
+      if (!_isDisabled(ec))
       {
         // If this hasn't been initialized then please initialize
         if (!_initialized)
         {
-          init(externalContext);
+          init(ec);
         }
 
-        _attachRequestContext(externalContext);
+        _attachRequestContext(ec);
 
-        if (RequestStateMap.getInstance(externalContext).get(_IN_REQUEST) == null)
+        if (state.get(_IN_REQUEST) == null)
         {
-          _startConfiguratorServiceRequest(externalContext);
+          _startConfiguratorServiceRequest(ec);
         }
       }
       else
@@ -214,7 +218,7 @@ public final class GlobalConfiguratorImpl extends Configurator
         _LOG.fine("GlobalConfigurator: Configurators have been disabled for this request.");
       }
     }
-    else if (!RequestType.isCorrectType(externalContext))
+    else if (!requestType.equals(ExternalContextUtils.getRequestType(ec)))
     {
       // This will happen if the actionRequest was not ended before dispatching to the render
       // request
@@ -244,7 +248,7 @@ public final class GlobalConfiguratorImpl extends Configurator
     {
       try
       {
-        for (final Configurator config : _services)
+        for (final Configurator config: _services)
         {
           try
           {
@@ -274,31 +278,31 @@ public final class GlobalConfiguratorImpl extends Configurator
    * @see org.apache.myfaces.trinidad.config.Configurator#endRequest(javax.faces.context.ExternalContext)
    */
   @Override
-  public void endRequest(final ExternalContext externalContext)
+  public void endRequest(ExternalContext ec)
   {
+    RequestStateMap state = RequestStateMap.getInstance(ec);
+
     // do per virtual-request stuff
-    if (RequestType.getType(externalContext) != null)
+    if (state.get(_REQUEST_TYPE) != null)
     {
-      if (!_isDisabled(externalContext))
+      if (!_isDisabled(ec))
       {
         try
         {
-          final RequestType type = RequestType.getType(externalContext);
-  
-          // Do not end services at the end of a portal action request
-          if (type != RequestType.PORTAL_ACTION)
+          //Only end services at the end of a writable response.  This will
+          //generally be RENDER, RESOURCE, and SERVLET.
+          if (ExternalContextUtils.isResponseWritable(ec))
           {
-            _endConfiguratorServiceRequest(externalContext);
+            _endConfiguratorServiceRequest(ec);
           }
         }
         finally
         {
-          RequestStateMap.getInstance(externalContext).saveState(externalContext);
-          _releaseRequestContext(externalContext);
-          _releaseManagedThreadLocals();
+          state.saveState(ec);
+          _releaseRequestContext(ec);
         }
       }
-      RequestType.clearType(externalContext);
+      state.remove(_REQUEST_TYPE);
     }
   }
 
@@ -309,22 +313,30 @@ public final class GlobalConfiguratorImpl extends Configurator
    * to be explicitly called, {{@link #endRequest(ExternalContext)} does need to be called when the
    * request has completed or the contract to the configurators will be broken.
    *
-   * @param externalContext
+   * @param ec
    *          the ExternalContext object that should be wrapped.
    *
    * @return a decorated ExternalContext object
    */
   @Override
-  public ExternalContext getExternalContext(ExternalContext externalContext)
+  public ExternalContext getExternalContext(ExternalContext ec)
   {
-    if (RequestType.getType(externalContext) == null)
+    RequestStateMap state = RequestStateMap.getInstance(ec);
+    RequestType type = (RequestType) state.get(_REQUEST_TYPE);
+
+    if (type == null)
     {
-      beginRequest(externalContext);
+      beginRequest(ec);
+      type = (RequestType) state.get(_REQUEST_TYPE);
+    }
+    else if (!ExternalContextUtils.getRequestType(ec).equals(type))
+    {
+      throw new IllegalStateException("The expected request type is not the same as the current request type.");
     }
 
-    if (!_isDisabled(externalContext))
+    if (!_isDisabled(ec))
     {
-      if(!ExternalContextUtils.isPortlet(externalContext) && _isSetRequestBugPresent(externalContext))
+      if (!type.isPortlet() && _isSetRequestBugPresent(ec))
       {
         //This handles bug 493 against the JSF-RI 1.2_03 and earlier.  If the bug
         //is present in the current system, add a wrapper to fix it
@@ -332,17 +344,17 @@ public final class GlobalConfiguratorImpl extends Configurator
         //TODO sobryan this is somewhat inefficient so should be removed when we
         //are no longer dependant on JSF1.2_03 or earlier.  Still, we only wrap
         //when we have to so it should be no biggy under normal circumstances.
-        externalContext = new ClearRequestExternalContext(externalContext);
+        ec = new ClearRequestExternalContext(ec);
       }
 
       // Wrap ExternalContexts
-      for (final Configurator config : _services)
+      for (Configurator config: _services)
       {
-        externalContext = config.getExternalContext(externalContext);
+        ec = config.getExternalContext(ec);
       }
     }
 
-    return externalContext;
+    return ec;
   }
 
   /**
@@ -352,52 +364,52 @@ public final class GlobalConfiguratorImpl extends Configurator
    * happened then a call to this method will not do anything. To re-initialize this class, call
    * {@link #destroy()} first and then call this method.
    *
-   * @param externalContext
+   * @param ec
    *          the externalContext needed to initialize this class
    *
    * @see org.apache.myfaces.trinidad.config.Configurator#init(javax.faces.context.ExternalContext)
    */
   @Override
-  public void init(final ExternalContext externalContext)
+  public void init(ExternalContext ec)
   {
-    assert externalContext != null;
+    assert ec != null;
 
     if (!_initialized)
     {
       try
       {
         _services = ClassLoaderUtils.getServices(Configurator.class.getName());
-  
+
         // Create a new RequestContextFactory is needed
         if (RequestContextFactory.getFactory() == null)
         {
           RequestContextFactory.setFactory(new RequestContextFactoryImpl());
         }
-  
+
         // Create a new SkinFactory if needed.
         if (SkinFactory.getFactory() == null)
         {
           SkinFactory.setFactory(new SkinFactoryImpl());
         }
-  
+
         // register the base skins
         SkinUtils.registerBaseSkins();
-  
-        for (final Configurator config : _services)
+
+        for (final Configurator config: _services)
         {
-          config.init(externalContext);
+          config.init(ec);
         }
-  
+
         // after the 'services' filters are initialized, then register
         // the skin extensions found in trinidad-skins.xml. This
         // gives a chance to the 'services' filters to create more base
         // skins that the skins in trinidad-skins.xml can extend.
-        SkinUtils.registerSkinExtensions(externalContext);
+        SkinUtils.registerSkinExtensions(ec);
         _initialized = true;
       }
       finally
       {
-        
+
         //Do cleanup of anything which may have use the thread local manager durring
         //init.
         _releaseManagedThreadLocals();
@@ -418,16 +430,16 @@ public final class GlobalConfiguratorImpl extends Configurator
   {
     if (resetter == null)
       throw new NullPointerException();
-    
+
     _threadResetter.set(resetter);
   }
-    
+
   /**
-   * @param externalContext
+   * @param ec
    * @return
    */
   @SuppressWarnings("unchecked")
-  private void _attachRequestContext(final ExternalContext externalContext)
+  private void _attachRequestContext(ExternalContext ec)
   {
     // If someone didn't release the RequestContext on an earlier request,
     // then it'd still be around, and trying to create a new one
@@ -440,70 +452,67 @@ public final class GlobalConfiguratorImpl extends Configurator
       {
         _LOG.warning("REQUESTCONTEXT_NOT_PROPERLY_RELEASED");
       }
-      context.release();
-      _releaseManagedThreadLocals();
+      _releaseRequestContext(ec);
     }
-    
+
     // See if we've got a cached RequestContext instance; if so,
     // reattach it
-    final Object cachedRequestContext = RequestStateMap.getInstance(externalContext).get(
-        _REQUEST_CONTEXT);
+    Object cachedRequestContext = RequestStateMap.getInstance(ec).get(_REQUEST_CONTEXT);
 
     // Catch both the null scenario and the
     // RequestContext-from-a-different-classloader scenario
     if (cachedRequestContext instanceof RequestContext)
     {
       context = (RequestContext) cachedRequestContext;
-      context.attach();
     }
     else
     {
-      final RequestContextFactory factory = RequestContextFactory.getFactory();
+      RequestContextFactory factory = RequestContextFactory.getFactory();
       assert factory != null;
-      context = factory.createContext(externalContext);
-      RequestStateMap.getInstance(externalContext).put(_REQUEST_CONTEXT, context);
+      context = factory.createContext(ec);
+      RequestStateMap.getInstance(ec).put(_REQUEST_CONTEXT, context);
     }
-    
     assert RequestContext.getCurrentInstance() == context;
   }
 
-  private void _releaseRequestContext(final ExternalContext ec)
+  private void _releaseRequestContext(ExternalContext ec)
   {
-    //If it's not a portal action, we should remove the cached request because
-    //well want to create a new one next request
-    if(RequestType.getType(ec) != RequestType.PORTAL_ACTION)
-    {
-      RequestStateMap.getInstance(ec).remove(_REQUEST_CONTEXT);
-    }
-
-    final RequestContext context = RequestContext.getCurrentInstance();
+    RequestContext context = RequestContext.getCurrentInstance();
     if (context != null)
     {
       context.release();
+      _releaseManagedThreadLocals();
       assert RequestContext.getCurrentInstance() == null;
     }
   }
 
-  private void _releaseManagedThreadLocals() 
+  private void _releaseManagedThreadLocals()
   {
     ThreadLocalResetter resetter = _threadResetter.get();
-    
+
     if (resetter != null)
     {
       resetter.__removeThreadLocals();
     }
   }
-  
+
   private void _endConfiguratorServiceRequest(final ExternalContext ec)
   {
     // Physical request has now ended
     // Clear the in-request flag
     RequestStateMap.getInstance(ec).remove(_IN_REQUEST);
-    if(_services != null)
+    if (_services != null)
     {
-      for (final Configurator config : _services)
+      for (Configurator config: _services)
       {
-        config.endRequest(ec);
+        try
+        {
+          config.endRequest(ec);
+        }
+        catch (Throwable t)
+        {
+          _LOG.severe(t);
+        }
       }
     }
   }
@@ -518,9 +527,16 @@ public final class GlobalConfiguratorImpl extends Configurator
     RequestStateMap.getInstance(ec).put(_IN_REQUEST, disabled);
 
     // If this hasn't been initialized then please initialize
-    for (final Configurator config : _services)
+    for (Configurator config: _services)
     {
-      config.beginRequest(ec);
+      try
+      {
+        config.beginRequest(ec);
+      }
+      catch (Throwable t)
+      {
+        _LOG.severe(t);
+      }
     }
   }
 
@@ -528,16 +544,16 @@ public final class GlobalConfiguratorImpl extends Configurator
   {
     // This first check is here in order to skip synchronization until
     // absolutely necessary.
-    if(!_sSetRequestBugTested)
+    if (!_sSetRequestBugTested)
     {
-      synchronized(GlobalConfiguratorImpl.class)
+      synchronized (GlobalConfiguratorImpl.class)
       {
         //This second check is here in case a couple of things enter before the
         //boolean is set.  This is only an exception case and will make it so
         //the initialization code runs only once.
-        if(!_sSetRequestBugTested)
+        if (!_sSetRequestBugTested)
         {
-          ServletRequest orig = (ServletRequest)ec.getRequest();
+          ServletRequest orig = (ServletRequest) ec.getRequest();
           // Call getInitParameterMap() up front
           ec.getInitParameterMap();
 
@@ -556,15 +572,17 @@ public final class GlobalConfiguratorImpl extends Configurator
 
   // This handles an issue with the ExternalContext object prior to
   // JSF1.2_04.
-  static private class ClearRequestExternalContext extends ExternalContextDecorator
+
+  static private class ClearRequestExternalContext
+    extends ExternalContextDecorator
   {
     private ExternalContext _ec;
-    private Map<String, Object>         _requestCookieMap;
-    private Map<String, String>         _requestHeaderMap;
-    private Map<String, String[]>       _requestHeaderValuesMap;
-    private Map<String, Object>         _requestMap;
-    private Map<String, String>         _requestParameterMap;
-    private Map<String, String[]>       _requestParameterValuesMap;
+    private Map<String, Object> _requestCookieMap;
+    private Map<String, String> _requestHeaderMap;
+    private Map<String, String[]> _requestHeaderValuesMap;
+    private Map<String, Object> _requestMap;
+    private Map<String, String> _requestParameterMap;
+    private Map<String, String[]> _requestParameterValuesMap;
 
     public ClearRequestExternalContext(ExternalContext ec)
     {
@@ -630,7 +648,7 @@ public final class GlobalConfiguratorImpl extends Configurator
       _checkRequest();
       if (_requestMap == null)
       {
-        _requestMap = new ServletRequestMap((ServletRequest)getRequest());
+        _requestMap = new ServletRequestMap((ServletRequest) getRequest());
       }
       return _requestMap;
     }
@@ -641,7 +659,7 @@ public final class GlobalConfiguratorImpl extends Configurator
       _checkRequest();
       if (_requestParameterMap == null)
       {
-        _requestParameterMap = new ServletRequestParameterMap((ServletRequest)getRequest());
+        _requestParameterMap = new ServletRequestParameterMap((ServletRequest) getRequest());
       }
       return _requestParameterMap;
     }
@@ -652,14 +670,15 @@ public final class GlobalConfiguratorImpl extends Configurator
       _checkRequest();
       if (_requestParameterValuesMap == null)
       {
-        _requestParameterValuesMap = new ServletRequestParameterValuesMap((ServletRequest)getRequest());
+        _requestParameterValuesMap =
+            new ServletRequestParameterValuesMap((ServletRequest) getRequest());
       }
       return _requestParameterValuesMap;
     }
 
     private void _checkRequest()
     {
-      if(super.getRequest() == null)
+      if (super.getRequest() == null)
       {
         throw new UnsupportedOperationException("Request is null on this context.");
       }
@@ -668,12 +687,12 @@ public final class GlobalConfiguratorImpl extends Configurator
     private HttpServletRequest _getHttpServletRequest()
     {
       _checkRequest();
-      if ( !(getRequest() instanceof HttpServletRequest))
+      if (!(getRequest() instanceof HttpServletRequest))
       {
-         throw new IllegalArgumentException("Only HttpServletRequest supported");
+        throw new IllegalArgumentException("Only HttpServletRequest supported");
       }
 
-      return (HttpServletRequest)getRequest();
+      return (HttpServletRequest) getRequest();
     }
   }
 
@@ -681,69 +700,19 @@ public final class GlobalConfiguratorImpl extends Configurator
   private static volatile boolean _sSetRequestBugTested = false;
   private static boolean _sHasSetRequestBug = false;
 
-  private boolean             _initialized;
-  private List<Configurator>  _services;
+  private boolean _initialized;
+  private List<Configurator> _services;
   static private final Map<ClassLoader, GlobalConfiguratorImpl> _CONFIGURATORS =
-     new HashMap<ClassLoader, GlobalConfiguratorImpl>();
-  static private final String _IN_REQUEST    =
-     GlobalConfiguratorImpl.class.getName()
-     + ".IN_REQUEST";
+    new HashMap<ClassLoader, GlobalConfiguratorImpl>();
+  static private final String _IN_REQUEST =
+    GlobalConfiguratorImpl.class.getName() + ".IN_REQUEST";
   static private final String _REQUEST_CONTEXT =
-     GlobalConfiguratorImpl.class.getName()
-     + ".REQUEST_CONTEXT";
+    GlobalConfiguratorImpl.class.getName() + ".REQUEST_CONTEXT";
+  static private final String _REQUEST_TYPE =
+    GlobalConfiguratorImpl.class.getName() + ".REQUEST_TYPE";
 
-
-  private enum RequestType
-  {
-    PORTAL_ACTION,
-    PORTAL_RENDER,
-    SERVLET;
-
-    public static void clearType(final ExternalContext ec)
-    {
-      RequestStateMap.getInstance(ec).remove(_REQUEST_TYPE);
-    }
-
-    public static RequestType getType(final ExternalContext ec)
-    {
-      return (RequestType) RequestStateMap.getInstance(ec).get(_REQUEST_TYPE);
-    }
-
-    public static boolean isCorrectType(final ExternalContext ec)
-    {
-      return _findType(ec) == getType(ec);
-    }
-
-    @SuppressWarnings("unchecked")
-    public static void setType(final ExternalContext ec)
-    {
-      RequestStateMap.getInstance(ec).put(_REQUEST_TYPE, _findType(ec));
-    }
-
-    private static final RequestType _findType(final ExternalContext ec)
-    {
-      if (ExternalContextUtils.isPortlet(ec))
-      {
-        if (ExternalContextUtils.isAction(ec))
-        {
-          return PORTAL_ACTION;
-        }
-        else
-        {
-          return PORTAL_RENDER;
-        }
-      }
-      else
-      {
-        return SERVLET;
-      }
-    }
-
-    static private final String _REQUEST_TYPE = GlobalConfiguratorImpl.class.getName()
-                                                  + ".REQUEST_TYPE";
-  }
-
-  static private class TestRequest extends ServletRequestWrapper
+  static private class TestRequest
+    extends ServletRequestWrapper
   {
     public TestRequest(ServletRequest request)
     {
@@ -753,7 +722,7 @@ public final class GlobalConfiguratorImpl extends Configurator
     @Override
     public String getParameter(String string)
     {
-      if(_TEST_PARAM.equals(string))
+      if (_TEST_PARAM.equals(string))
       {
         return "passed";
       }
@@ -766,14 +735,13 @@ public final class GlobalConfiguratorImpl extends Configurator
       return RequestStateMap.getInstance(ec).get(_TEST_PARAM) != null;
     }
 
-    static private String _TEST_PARAM = TestRequest.class.getName()+
-      ".TEST_PARAM";
+    static private String _TEST_PARAM = TestRequest.class.getName() + ".TEST_PARAM";
   }
 
   // hacky reference to the ThreadLocalResetter used to clean up request-scoped
   // ThreadLocals
-  private AtomicReference<ThreadLocalResetter> _threadResetter = 
-                                                        new AtomicReference<ThreadLocalResetter>();
+  private AtomicReference<ThreadLocalResetter> _threadResetter =
+    new AtomicReference<ThreadLocalResetter>();
 
   static private final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(GlobalConfiguratorImpl.class);

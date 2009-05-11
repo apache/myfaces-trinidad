@@ -27,12 +27,15 @@ import java.util.Set;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequestDispatcher;
 
-/**
- * TODO: Document this
- *
- * @version $Revision$ $Date$
- */
+import org.apache.myfaces.trinidad.util.ExternalContextUtils;
+import org.apache.myfaces.trinidad.util.RequestType;
 
+ /**
+  * Wrapper for the native PortletContext object.  Unlike the other Portlet Wrapper classes in
+  * this package, this class may be used for both Portlet 1.0 and 2.0 containers.
+  *
+  * @version $Revision$ $Date$
+  */
 public class PortletContextWrapper implements PortletContext
 {
   public PortletContextWrapper(PortletContext context)
@@ -56,7 +59,7 @@ public class PortletContextWrapper implements PortletContext
    * @return
    * @see javax.portlet.PortletContext#getAttributeNames()
    */
-  public Enumeration<?> getAttributeNames()
+  public Enumeration<String> getAttributeNames()
   {
     return _context.getAttributeNames();
   }
@@ -75,7 +78,7 @@ public class PortletContextWrapper implements PortletContext
    * @return
    * @see javax.portlet.PortletContext#getInitParameterNames()
    */
-  public Enumeration<?> getInitParameterNames()
+  public Enumeration<String> getInitParameterNames()
   {
     return _context.getInitParameterNames();
   }
@@ -115,7 +118,7 @@ public class PortletContextWrapper implements PortletContext
    */
   public PortletRequestDispatcher getNamedDispatcher(String arg0)
   {
-    return new PortletRequestDispatcherWrapper(_context.getNamedDispatcher(arg0));
+    return _context.getNamedDispatcher(arg0);
   }
 
   /**
@@ -144,7 +147,7 @@ public class PortletContextWrapper implements PortletContext
    */
   public PortletRequestDispatcher getRequestDispatcher(String arg0)
   {
-    return new PortletRequestDispatcherWrapper(_context.getRequestDispatcher(arg0));
+    return _context.getRequestDispatcher(arg0);
   }
 
   /**
@@ -227,4 +230,20 @@ public class PortletContextWrapper implements PortletContext
   {
     _context.setAttribute(arg0, arg1);
   }
+
+  /**
+   * Portlet 2.0 only functionality.  These wrappers are not intended for Portlet 2.0.  Marked
+   * final in order to prevent overloading.
+   */
+  public Enumeration<String> getContainerRuntimeOptions()
+  {
+    if(!_PORTLET_2_CONTAINER)
+    {
+      throw new UnsupportedOperationException("This method is only supported in Portlet 2.0 containers");
+    }
+    
+    return _context.getContainerRuntimeOptions();
+  } 
+  
+  private static final boolean _PORTLET_2_CONTAINER = ExternalContextUtils.isRequestTypeSupported(RequestType.RESOURCE);
 }

@@ -27,53 +27,42 @@ import java.util.Map;
 
 import javax.faces.context.ExternalContext;
 
-import javax.portlet.ActionRequest;
-import javax.portlet.ActionResponse;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.share.util.CaboHttpUtils;
-import org.apache.myfaces.trinidadinternal.webapp.wrappers.ActionRequestWrapper;
 
-public class ActionUploadRequestWrapper
-  extends ActionRequestWrapper
+public class UploadRequestManager
 {
-  public ActionUploadRequestWrapper(
-      ExternalContext ec,
-      Map<String, String[]> params)
+  public UploadRequestManager(ExternalContext ec, Map<String, String[]> params)
   {
-    super((ActionRequest)ec.getRequest());
-    _response = (ActionResponse)ec.getResponse();
+    _params = params;
+    setRequest(ec);
+  }
 
-    @SuppressWarnings("unchecked")
-    Map<String, String[]> origionalMap = super.getParameterMap();
-
-    _extractedParams = new HashMap<String, String[]>(origionalMap);
-    _extractedParams.putAll(params);
-
-    _encoding = super.getCharacterEncoding();
+  public UploadRequestManager(HttpServletRequest req, Map<String, String[]> params)
+  {
+    _params = params;
+    setRequest(req);
   }
 
   /**
    * Hide the content type so that no one tries to re-download the
    * uploaded files.
    */
-  @Override
   public String getContentType()
   {
     return _WWW_FORM_URLENCODED_TYPE;
   }
 
-  @Override
   public String getCharacterEncoding()
   {
     return _encoding;
   }
-
-
+  
   /**
    * Trap calls to setCharacterEncoding() to decode parameters correctly
    */
-  @Override
   public void setCharacterEncoding(String encoding)
     throws UnsupportedEncodingException
   {
@@ -84,11 +73,13 @@ public class ActionUploadRequestWrapper
     // Don't call super.setCharacterEncoding() - it's too late
     // and we'll get a warning
     _encoding = encoding;
+    
     if (_LOG.isFine())
+    {
       _LOG.fine("Switching encoding of wrapper to " + encoding);
+    }
 
-    _extractedAndDecodedParams =
-      new HashMap<String, String[]>(_extractedParams.size());
+    Map<String, String[]>decodedParams = new HashMap<String, String[]>(_extractedParams.size());
 
     byte[] buffer = new byte[256];
 
@@ -110,14 +101,10 @@ public class ActionUploadRequestWrapper
       }
 
       _extractedAndDecodedParams.put(key, newValue);
-      _response.setRenderParameters(_extractedAndDecodedParams);
     }
-
-    // Let the UploadedFiles know, so it can fix up filenames
-    UploadedFiles.setCharacterEncoding(this, encoding);
+    _extractedAndDecodedParams = Collections.unmodifiableMap(decodedParams);
   }
-
-  @Override
+  
   public String getParameter(String param)
   {
     String[] value = _getParameterValues(param);
@@ -127,52 +114,82 @@ public class ActionUploadRequestWrapper
     return value[0];
   }
 
-  @Override
   public Map<String, String[]> getParameterMap()
   {
-    Map<String, String[]> map = _getMap();
-    return Collections.unmodifiableMap(map);
-  }
+    // Mark that parameters have been retrieved so we 
+    // can log a proper warning
+    _parametersRetrieved = true;
 
-  @Override
-  public Enumeration<String> getParameterNames()
-  {
-    return Collections.enumeration(_getMap().keySet());
-  }
-
-  @Override
-  public String[] getParameterValues(String param)
-  {
-    String[] value = _getParameterValues(param);
-    if (value == null)
-      return null;
-
-    return (String[]) value.clone();
-  }
-
-  private String[] _getParameterValues(String param)
-  {
-    return _getMap().get(param);
-  }
-
-  /**
-   * Get the correct map of parameters whether or not setCharacterEncoding()
-   * was called.
-   */
-  private Map<String, String[]> _getMap()
-  {
+    if(_extractedParams == null)
+    {
+      Map<String, String[]> m = new HashMap<String, String[]>(_requestParams);
+      m.putAll(_params);
+      _extractedParams = Collections.unmodifiableMap(m);
+    }    
+    
     if (_extractedAndDecodedParams != null)
       return _extractedAndDecodedParams;
 
     return _extractedParams;
   }
 
+  public Enumeration<String> getParameterNames()
+  {
+    return Collections.enumeration(getParameterMap().keySet());
+  }
+
+  public String[] getParameterValues(String param)
+  {
+    String[] value = _getParameterValues(param);
+    
+    if (value == null)
+      return null;
+
+    return value.clone();
+  }
+  
+  public boolean isParameterRetrieved()
+  {
+    return _parametersRetrieved;
+  }
+  
+  public void setRequest(ExternalContext ec)
+  {
+    _clearMap();
+    _requestParams = ec.getRequestParameterValuesMap();
+    _encoding = ec.getRequestCharacterEncoding();    
+  }
+  
+  @SuppressWarnings("unchecked")
+  public void setRequest(HttpServletRequest req)
+  {
+    _clearMap();
+    _requestParams = req.getParameterMap();
+    _encoding = req.getCharacterEncoding();
+  }
+
+  private String[] _getParameterValues(String param)
+  {
+    return getParameterMap().get(param);
+  }
+  
+  private void _clearMap()
+  {
+    _parametersRetrieved = false;
+    _extractedAndDecodedParams = null;
+    _extractedParams = null;
+  }
+  
+  private boolean _parametersRetrieved = false;
   private Map<String, String[]> _extractedAndDecodedParams;
   private Map<String, String[]> _extractedParams;
-  private ActionResponse _response;
-  private String         _encoding;
+  private Map<String, String[]> _params;
+  private Map<String, String[]> _requestParams;
+  private String _encoding;
+  
   private static final String _WWW_FORM_URLENCODED_TYPE =
     "application/x-www-form-urlencoded";
+
   private static final TrinidadLogger _LOG =
-     TrinidadLogger.createTrinidadLogger(ActionUploadRequestWrapper.class);
+     TrinidadLogger.createTrinidadLogger(UploadRequestManager.class);
 }
