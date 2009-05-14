@@ -354,6 +354,7 @@ public final class ExternalContextUtils
    *         
    * @deprecated replaced with {@link #isRequestFromClient(ExternalContext)}
    */
+  @Deprecated
   public static boolean isAction(ExternalContext ec)
   {
     return isRequestFromClient(ec);
@@ -373,7 +374,7 @@ public final class ExternalContextUtils
    * @see RequestType#isPortlet()
    * @see #getRequestType(ExternalContext)
    */
-  public static final boolean isPortlet(ExternalContext ec)
+  public static boolean isPortlet(ExternalContext ec)
   {
     return getRequestType(ec).isPortlet();
   }
