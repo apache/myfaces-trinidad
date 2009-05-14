@@ -126,20 +126,16 @@
         <dependency>
 	       <groupId>org.apache.myfaces.portlet-bridge</groupId>
 		    <artifactId>portlet-bridge-api</artifactId>
-		    <version>${portlet-bridge.version}</version>
 		  </dependency>
 		  
 		  <dependency>
 		    <groupId>org.apache.myfaces.portlet-bridge</groupId>
 		    <artifactId>portlet-bridge-impl</artifactId>
-		    <version>${portlet-bridge.version}</version>
 		  </dependency>		  
 
         <dependency>
-          <groupId>org.apache.pluto</groupId>
+          <groupId>${pluto.package}</groupId>
           <artifactId>pluto-util</artifactId>
-          <version>${pluto-plugin.version}</version>
-          <scope>provided</scope>
         </dependency>
 		</dependencies>
       
@@ -153,7 +149,7 @@
             </configuration>
           </plugin>
           <plugin>
-            <groupId>org.apache.pluto</groupId>
+            <groupId>${pluto.package}</groupId>
             <artifactId>maven-pluto-plugin</artifactId>
           </plugin>  
         </plugins>
@@ -236,7 +232,7 @@
             </configuration>
           </plugin>
           <plugin>
-            <groupId>org.apache.pluto</groupId>
+            <groupId>${pluto.package}</groupId>
             <artifactId>maven-pluto-plugin</artifactId>
           </plugin>  
         </plugins>
@@ -268,7 +264,8 @@
         <portlet-bridge.version>2.0.0-SNAPSHOT</portlet-bridge.version>
         <pluto-embedded.version>2.0-SNAPSHOT</pluto-embedded.version>
         <portlet.version>2.0</portlet.version>
-        <pluto-plugin.version>2.0.0-SNAPSHOT</pluto-plugin.version>
+        <pluto.version>2.0.0-SNAPSHOT</pluto.version>
+        <pluto.package>org.apache.portals.pluto</pluto.package>
       </properties>
     </profile>
   </profiles>

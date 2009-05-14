@@ -60,7 +60,8 @@
     <trinidad-plugins.version>1.2.10-SNAPSHOT</trinidad-plugins.version>
     <wagon-plugin.version>1.0.6</wagon-plugin.version>
     <jetty-plugin.version>6.1.16</jetty-plugin.version>
-    <pluto-plugin.version>1.1.6</pluto-plugin.version>
+    <pluto.version>1.1.6</pluto.version>
+    <pluto.package>org.apache.pluto</pluto.package>
     
     <!-- Other -->
     <jdev.release>11.1.1.0.0</jdev.release>
@@ -322,6 +323,12 @@
         <artifactId>maven-jetty-pluto-embedded</artifactId>
         <version>${pluto-embedded.version}</version>
       </dependency>
+      <dependency>
+        <groupId>${pluto.package}</groupId>
+        <artifactId>pluto-util</artifactId>
+        <version>${pluto.version}</version>
+        <scope>provided</scope>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -459,9 +466,9 @@
         </plugin>
 
         <plugin>
-          <groupId>org.apache.pluto</groupId>
+          <groupId>${pluto.package}</groupId>
           <artifactId>maven-pluto-plugin</artifactId>
-          <version>${pluto-plugin.version}</version>
+          <version>${pluto.version}</version>
           <executions>  
             <execution>  
               <phase>generate-resources</phase>  

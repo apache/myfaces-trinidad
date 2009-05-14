@@ -22,6 +22,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.io.StringWriter;
 
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ import org.apache.myfaces.trinidad.util.Service;
  * Managed bean for chat component demos.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-demo/src/main/java/oracle/adfdemo/view/faces/ChartBean.java#1 $) $Date: 16-aug-2005.15:12:27 $
  */
-public class ChartBean implements java.io.Serializable
+public class ChartBean implements Serializable
 {
   public ChartModel getValue()
   {
@@ -139,7 +140,7 @@ public class ChartBean implements java.io.Serializable
   }
 
 
-  private class MyChartModel extends ChartModel
+  private class MyChartModel extends ChartModel implements Serializable
   {
     @Override
     public List<String> getSeriesLabels()
