@@ -791,7 +791,7 @@ public class SkinTranslationMapDemo
         </li>
         <li>
         <strong>@agent</strong> {/skin definitions go here/} - > 
-        Possible values are: netscape, ie, mozilla, gecko, webkit (maps to safari), ice. 
+        Possible values are: netscape, ie, mozilla, gecko, webkit (maps to safari), ice, email. 
         This is to define styles only for a particular agent.
         Agent type can be followed by a space separated list of version numbers.
         Several agents can be specified separated by commas.
