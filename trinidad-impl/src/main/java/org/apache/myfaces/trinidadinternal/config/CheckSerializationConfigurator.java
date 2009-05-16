@@ -18,9 +18,6 @@
  */
 package org.apache.myfaces.trinidadinternal.config;
 
-import java.io.Serializable;
-
-import java.util.Collections;
 import java.util.Map;
 
 import javax.faces.context.ExternalContext;
