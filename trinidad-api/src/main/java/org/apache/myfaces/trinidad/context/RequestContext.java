@@ -20,7 +20,10 @@ package org.apache.myfaces.trinidad.context;
 
 import java.awt.Color;
 
+import java.io.IOException;
+
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -32,6 +35,7 @@ import java.util.concurrent.ConcurrentMap;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import javax.faces.event.PhaseId;
@@ -40,7 +44,9 @@ import org.apache.myfaces.trinidad.change.ChangeManager;
 import org.apache.myfaces.trinidad.component.visit.VisitContext;
 import org.apache.myfaces.trinidad.component.visit.VisitHint;
 import org.apache.myfaces.trinidad.config.RegionManager;
+import org.apache.myfaces.trinidad.event.WindowLifecycleListener;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
 
 /**
@@ -549,6 +555,79 @@ abstract public class RequestContext
                                    IllegalAccessException;
 
   /**
+   * <p>
+   * Returns the WindowManager for this request.  A non-null WindowManager
+   * will always be returned.
+   * </p><p>
+   * The default implementation uses the first WindowManagerFactory specified
+   * implementation class in a file named
+   * <code>org.apache.myfaces.trinidad.context.WindowManagerFactory</code>
+   * in the <code>META-INF/services</code> directory and uses the WindowManagerFactory
+   * to create the WindowManager for this Session.  If no WindowManagerFactory is
+   * found, a default WindowManager that never returns any Windows is used.
+   * </p>
+   * @return the WindowManager used for this Session.
+   */
+  public WindowManager getWindowManager()
+  {
+    // implement getWindowManager() in RequestContext for backwards compatibility
+
+    // check if we have cached it for the request
+    WindowManager windowManager = _windowManager;
+    
+    // get instance using the WindowManagerFactory
+    if (windowManager == null)
+    {
+      // check if we have cached it per session
+      ExternalContext extContext = FacesContext.getCurrentInstance().getExternalContext();
+          
+      // create a new instance using the WindowManagerFactory
+      ConcurrentMap<String, Object> concurrentAppMap =
+                                         getCurrentInstance().getApplicationScopedConcurrentMap();
+          
+      WindowManagerFactory windowManagerFactory = (WindowManagerFactory)concurrentAppMap.get(
+                                                            _WINDOW_MANAGER_FACTORY_CLASS_NAME);
+    
+      if (windowManagerFactory == null)
+      {
+        // we haven't registered a WindowManagerFactory yet, so use the services api to see
+        // if a factory has been registered
+        List<WindowManagerFactory> windowManagerFactories =
+                                ClassLoaderUtils.getServices(_WINDOW_MANAGER_FACTORY_CLASS_NAME);
+        
+        if (windowManagerFactories.isEmpty())
+        {
+          // no factory registered so use the factory that returns dummy stub WindowManagers
+          windowManagerFactory = _STUB_WINDOW_MANAGER_FACTORY;
+        }
+        else
+        {
+          // only one WindowManager is allowed, use it
+          windowManagerFactory = windowManagerFactories.get(0);
+        }
+
+        // save the WindowManagerFactory to the application if it hasn't already been saved
+        // if it has been saved, use the previously registered WindowManagerFactory
+        WindowManagerFactory oldWindowManagerFactory = (WindowManagerFactory)
+                            concurrentAppMap.putIfAbsent(_WINDOW_MANAGER_FACTORY_CLASS_NAME,
+                                                         windowManagerFactory);
+        
+        if (oldWindowManagerFactory != null)
+          windowManagerFactory = oldWindowManagerFactory;
+      } // create WindowManagerFactory
+      
+      // get the WindowManager from the factory.  The factory will create a new instance
+      // for this session if necessary
+      windowManager = windowManagerFactory.getWindowManager(extContext);
+      
+      // remember for the next call on this thread
+      _windowManager = windowManager;
+    }
+
+    return windowManager;
+  }
+  
+  /**
    * Releases the RequestContext object.  This method must only
    * be called by the code that created the RequestContext.
    * @exception IllegalStateException if no RequestContext is attached
@@ -617,6 +696,66 @@ abstract public class RequestContext
     return Thread.currentThread().getContextClassLoader();
   }
 
+  /**
+   * Default WindowManagerFactory implementation that returns the StubWindowManager
+   */
+  private static final class StubWindowManagerFactory extends WindowManagerFactory
+  {
+    public WindowManager getWindowManager(ExternalContext extContext)
+    {
+      return _STUB_WINDOW_MANAGER;
+    }
+    
+    private static final WindowManager _STUB_WINDOW_MANAGER = new StubWindowManager();
+  }
+  
+  /**
+   * Default WindowManager implementation that returns no Windows
+   */
+  private static final class StubWindowManager extends WindowManager
+  {
+    @Override
+    public Window getCurrentWindow(ExternalContext extContext)
+    {
+      return null;
+    }
+    
+    @Override
+    public Map<String, Window> getWindows(ExternalContext extContext)
+    {
+      return Collections.emptyMap();
+    }
+        
+    @Override
+    public void addWindowLifecycleListener(
+      ExternalContext extContext,
+      WindowLifecycleListener windowListener)
+    { 
+      // do nothing
+    }
+    
+    @Override
+    public void removeWindowLifecycleListener(
+      ExternalContext extContext,
+      WindowLifecycleListener windowListener)
+    {
+      // do nothing
+    }
+
+    @Override
+    public void writeState(FacesContext context) throws IOException
+    {
+      // do nothing
+    }
+  }
+
+  /* singleton for WindowManagerFactory that returns WindowManagers that don't do anything */
+  private static final WindowManagerFactory _STUB_WINDOW_MANAGER_FACTORY = 
+                                                                    new StubWindowManagerFactory();
+  
+  private static final String _WINDOW_MANAGER_FACTORY_CLASS_NAME = 
+                                                              WindowManagerFactory.class.getName();
+  
   @SuppressWarnings({"CollectionWithoutInitialCapacity"})
   private static final ConcurrentMap<ClassLoader, ConcurrentMap<String, Object>> _APPLICATION_MAPS =
        new ConcurrentHashMap<ClassLoader, ConcurrentMap<String, Object>>();
@@ -624,4 +763,7 @@ abstract public class RequestContext
     new ThreadLocal<RequestContext>();
   static private final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(RequestContext.class);
+
+  // window manager for this request
+  private WindowManager _windowManager;
 }

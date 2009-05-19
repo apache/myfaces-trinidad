@@ -54,7 +54,7 @@ public class MFacesContext extends MockFacesContext12
   {
     super(application);
     setCurrentInstance(this);
-    _external = new External(testMode);
+    _external = new External(testMode, application);
   }
 
   @Override
@@ -201,11 +201,13 @@ public class MFacesContext extends MockFacesContext12
 
   private static final class External extends MockExternalContext
   {
-    public External(boolean testMode)
+    public External(boolean testMode, Object contextObject)
     {
       super(null, null, null);
       
       _testMode = testMode;
+      _contextObject = contextObject;
+      
       File file = null;
       try
       {
@@ -223,16 +225,27 @@ public class MFacesContext extends MockFacesContext12
     }
 
     @Override
-    public Object getContext() { return null; }
+    public Object getContext() { return _contextObject; }
     
     @Override
-    public Object getRequest() { return null; }
+    public Object getRequest() { return _requestObject; }
     
     @Override
-    public Object getResponse() { return null; }
+    public Object getResponse() { return _responseObject; }
     
     @Override
-    public Object getSession(boolean create) { return null; }
+    public Object getSession(boolean create)
+    {
+      // implement lazy behavior for session creation
+      if (create)
+      {
+        // force SessionMap to be created
+        getSessionMap();
+      }
+      
+      // use the session Map as the session object 
+      return _sessionMap;
+    }
     
     @Override
     public String getRequestContextPath() { return "/test-context-path"; }
@@ -320,6 +333,17 @@ public class MFacesContext extends MockFacesContext12
       // we shouldn't use any servlet APIs.  So, intercept the
       // session map.   Ideally, renderers shouldn't write into
       // the session map, but see above...
+      if (_sessionMap == null)
+      {
+        synchronized (_contextObject)
+        {
+          if (_sessionMap == null)
+          {
+            _sessionMap = Collections.synchronizedMap(new HashMap<String, Object>(2));
+          }
+        }
+      }
+      
       return _sessionMap;
     }
 
@@ -331,9 +355,16 @@ public class MFacesContext extends MockFacesContext12
       return _requestMap;
     }
 
+    private final Object _contextObject;
+    private final Object _requestObject = new String("request object");
+    private final Object _responseObject = new String("response object");
+    
     private final Map<String, Object> _requestMap = new HashMap<String, Object>(2);
-    private final Map<String, Object> _sessionMap = new HashMap<String, Object>(2);
-    private final Map<String, Object> _applicationMap = new HashMap<String, Object>(2);
+    private final Map<String, Object> _applicationMap = 
+                                        Collections.synchronizedMap(new HashMap<String, Object>(2));
+    
+    private volatile Map<String, Object> _sessionMap = null;
+    
     private final boolean _testMode;
   }
   private static final String _GLOBAL_MESSAGE = "org.apache.myfaces.trinidadinternal.renderkit.MFacesContext.GLOBAL_MESSAGE";

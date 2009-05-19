@@ -871,7 +871,6 @@ public class RequestContextImpl extends RequestContext
   {
     private MockPartialPageContext(FacesContext facesContext)
     {
-      _facesContext = facesContext;
     }
 
     @Override
@@ -942,8 +941,7 @@ public class RequestContextImpl extends RequestContext
       throw new NotImplementedException();
     }
 
-    private FacesContext _facesContext;
-    private HashSet<String> _componentIds = new HashSet<String>();
+    private final HashSet<String> _componentIds = new HashSet<String>();
   }
 
   private RequestContextBean _bean;

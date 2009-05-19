@@ -386,6 +386,9 @@ public class FormRenderer extends XhtmlRenderer
     // Include JSF state.
     context.getApplication().getViewHandler().writeState(context);
 
+    // Include the Window state, if any
+    RequestContext.getCurrentInstance().getWindowManager().writeState(context);
+
     // Render any needed values
     //VAC this condition is needed for bug 4526850- It ensures that only
     //state token and form name parameters are overwritten when there is

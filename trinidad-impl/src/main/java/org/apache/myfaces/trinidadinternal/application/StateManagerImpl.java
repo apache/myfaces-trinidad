@@ -52,6 +52,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.ObjectOutputStream;
 
 import org.apache.myfaces.trinidad.bean.util.StateUtils;
+import org.apache.myfaces.trinidad.context.Window;
 import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
 import org.apache.myfaces.trinidadinternal.context.TrinidadPhaseListener;
 
@@ -312,9 +313,12 @@ public class StateManagerImpl extends StateManagerWrapper
 
         Map<String, Object> sessionMap = extContext.getSessionMap();
 
-        // Store bits of the session as subkeys off of the session
-        Map<String, PageState> stateMap = new SubKeyMap<PageState>(sessionMap,
-                                                                   _VIEW_CACHE_KEY + ".");
+        RequestContext trinContext = RequestContext.getCurrentInstance();
+        
+        // get view cache key with "." separator suffix to separate the SubKeyMap keys
+        String subkey = _getViewCacheKey(extContext, trinContext, _SUBKEY_SEPARATOR);
+        
+        Map<String, PageState> stateMap = new SubKeyMap<PageState>(sessionMap, subkey);
 
         // Sadly, we can't save just a SerializedView, because we should
         // save a serialized object, and SerializedView is a *non*-static
@@ -332,12 +336,14 @@ public class StateManagerImpl extends StateManagerWrapper
         // laying around if the user navigates off of a page using a GET
         synchronized(extContext.getSession(true))
         {
-          PageState activePageState = (PageState)sessionMap.get(_ACTIVE_PAGE_STATE_SESSION_KEY);
+          // get the per-window key for the active page state
+          String activePageStateKey = _getActivePageStateKey(extContext, trinContext);
+          PageState activePageState = (PageState)sessionMap.get(activePageStateKey);
 
           if (activePageState != null)
             activePageState.clearViewRootState();
 
-          sessionMap.put(_ACTIVE_PAGE_STATE_SESSION_KEY, pageState);
+          sessionMap.put(activePageStateKey, pageState);
         }
         
         String requestToken = _getRequestTokenForResponse(context);
@@ -497,10 +503,12 @@ public class StateManagerImpl extends StateManagerWrapper
   public UIViewRoot restoreView(FacesContext context, String viewId,
                                 String renderKitId)
   {
+    final ExternalContext extContext = context.getExternalContext();
+    
     // If we're being asked to execute a "return" event from, say, a dialog, always 
     // restore the "launch view", which was set over in the TrinidadFilter.
     UIViewRoot launchView = (UIViewRoot)
-      context.getExternalContext().getRequestMap().remove(RequestContextImpl.LAUNCH_VIEW);
+                            extContext.getRequestMap().remove(RequestContextImpl.LAUNCH_VIEW);
     if (launchView != null)
     {
       TrinidadPhaseListener.markPostback(context);
@@ -561,9 +569,14 @@ public class StateManagerImpl extends StateManagerWrapper
       }
       else
       {
+        // get view cache key with "." separator suffix to separate the SubKeyMap keys
+        String subkey = _getViewCacheKey(extContext,
+                                         RequestContext.getCurrentInstance(),
+                                         _SUBKEY_SEPARATOR);
+        
         Map<String, PageState> stateMap = new SubKeyMap<PageState>(
-                         context.getExternalContext().getSessionMap(),
-                         _VIEW_CACHE_KEY + ".");
+                         extContext.getSessionMap(),
+                         subkey);
         viewState = stateMap.get(token);
 
         if (viewState != null)
@@ -702,10 +715,111 @@ public class StateManagerImpl extends StateManagerWrapper
 
   private TokenCache _getViewCache(FacesContext context)
   {
+    ExternalContext extContext = context.getExternalContext();
+    
     return TokenCache.getTokenCacheFromSession(context,
-                                               _VIEW_CACHE_KEY,
+                                               _getViewCacheKey(extContext,
+                                                                RequestContext.getCurrentInstance(),
+                                                                null),
                                                true,
-                                               _getCacheSize(context));
+                                               _getCacheSize(extContext));
+  }
+
+  
+
+  /**
+   * Returns a key suitable for finding the per-window active page state key
+   * @param extContext
+   * @param trinContext
+   * @return
+   */
+  static private String _getActivePageStateKey(
+    ExternalContext extContext,
+    RequestContext trinContext)
+  {
+    return _getPerWindowCacheKey(extContext, trinContext, _ACTIVE_PAGE_STATE_SESSION_KEY, null);
+  }
+  
+  /**
+   * Returns a key suitable for finding the per-window cache key
+   * @param extContext
+   * @param trinContext
+   * @param suffix
+   * @return
+   */
+  static private String _getViewCacheKey(
+    ExternalContext extContext,
+    RequestContext trinContext,
+    Character suffix)
+  {
+    return _getPerWindowCacheKey(extContext, trinContext, _VIEW_CACHE_KEY, suffix);
+  }
+  
+  /**
+   * Returns a key of the form <prefix>.<windowid><suffix> if a window and a suffix are available
+   *                           <prefix>.<window> if just a window is available
+   *                           <prefix> if neither a window or a suffix is available
+   * @param eContext
+   * @param trinContext
+   * @param prefix
+   * @param suffix
+   * @return
+   */
+  static private String _getPerWindowCacheKey(
+    ExternalContext eContext,
+    RequestContext trinContext,
+    String    prefix,
+    Character suffix)
+  {
+    Window currWindow = trinContext.getWindowManager().getCurrentWindow(eContext);
+    
+    // if we have a current window or a suffix, we need a StringBuilder to calculate the cache key
+    if ((currWindow != null) || (suffix != null))
+    {
+      // get the window id and the extra size neeeded to store it and its separator
+      String windowId;
+      int windowPartSize;
+    
+      if (currWindow != null)
+      {
+        windowId = currWindow.getId();
+        
+        // add 1 for separator
+        windowPartSize = windowId.length() + 1;
+      }
+      else
+      {
+        windowId = null;
+        windowPartSize = 0;
+      }
+      
+      int builderSize =  prefix.length() + windowPartSize;
+      
+      // add extra space for the suffix Character
+      if (suffix != null)
+        builderSize += 1;
+      
+      // add the constant part to the StringBuilder
+      StringBuilder keyBuilder = new StringBuilder(builderSize);
+      keyBuilder.append(prefix);
+      
+      // add the windowId and its separator
+      if (currWindow != null)
+      {
+        keyBuilder.append('.');
+        keyBuilder.append(windowId);
+      }
+      
+      // add the suffix if any
+      if (suffix != null)
+        keyBuilder.append(suffix);
+      
+      return keyBuilder.toString();
+    }
+    else
+    {
+      return prefix;
+    }
   }
 
   /**
@@ -725,11 +839,10 @@ public class StateManagerImpl extends StateManagerWrapper
     return true;
   }
 
-  private int _getCacheSize(FacesContext context)
+  private int _getCacheSize(ExternalContext extContext)
   {
-    ExternalContext external = context.getExternalContext();
     Object maxTokens =
-      external.getInitParameterMap().get(CLIENT_STATE_MAX_TOKENS_PARAM_NAME);
+      extContext.getInitParameterMap().get(CLIENT_STATE_MAX_TOKENS_PARAM_NAME);
     if (maxTokens != null)
     {
       try
@@ -767,7 +880,7 @@ public class StateManagerImpl extends StateManagerWrapper
       return cache;
     }
   }
-
+  
   @SuppressWarnings("unchecked")
   static private Map<String, PageState> _getPerSessionApplicationViewCache(FacesContext context)
   {
@@ -1110,9 +1223,13 @@ public class StateManagerImpl extends StateManagerWrapper
   private       Boolean      _useApplicationViewCache;
   private       Boolean      _structureGeneratedByTemplate;
 
+  private static final Character _SUBKEY_SEPARATOR = new Character('.');
+  
   private static final int _DEFAULT_CACHE_SIZE = 15;
 
   private static final Object _APPLICATION_VIEW_CACHE_LOCK = new Object();
+  
+  // base key used to identify the view cache.  The window name, if any, is appended to this
   private static final String _VIEW_CACHE_KEY =
     "org.apache.myfaces.trinidadinternal.application.VIEW_CACHE";
 
