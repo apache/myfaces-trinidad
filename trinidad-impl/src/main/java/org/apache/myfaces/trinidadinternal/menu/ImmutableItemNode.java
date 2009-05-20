@@ -60,6 +60,7 @@ public class ImmutableItemNode extends ItemNode
     _accessKey = node.getAccessKeyProperty();
     _id = node.getIdProperty();
     _modelId = node.getModelIdProperty();
+    _uniqueId = node.getUniqueIdProperty();
     _labelAndAccessKey = node.getLabelAndAccessKeyProperty();
     _defaultFocusPathStr = node.getDefaultFocusPathProperty();
 
@@ -450,6 +451,11 @@ public class ImmutableItemNode extends ItemNode
     return _modelId;
   }
 
+  public final String getUniqueId()
+  {
+    return _uniqueId;
+  }
+  
   public final String getLabelAndAccessKey()
   {
     String labelAndAcessKeyEval;
@@ -583,7 +589,7 @@ public class ImmutableItemNode extends ItemNode
   }
 
   private final String _icon;
-  private List<MenuNode> _children;
+  private List<MenuNode> _children = null;
   private final String _focusViewId;
   private final String _renderedStr;
   private final String _disabledStr;
@@ -597,6 +603,7 @@ public class ImmutableItemNode extends ItemNode
   private final String _modelId;
   private final String _labelAndAccessKey;
   private final String _defaultFocusPathStr;
+  private final String _uniqueId;
 
   // Root Menu model's Request Map Key
   private final String _rootModelKey;

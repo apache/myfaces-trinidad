@@ -57,6 +57,7 @@ public class ImmutableGroupNode extends GroupNode
     _accessKey = node.getAccessKeyProperty();
     _id = node.getIdProperty();
     _modelId = node.getModelIdProperty();
+    _uniqueId = node.getUniqueIdProperty();
     _labelAndAccessKey = node.getLabelAndAccessKeyProperty();
     _defaultFocusPathStr = node.getDefaultFocusPathProperty();
 
@@ -235,6 +236,11 @@ public class ImmutableGroupNode extends GroupNode
   public final List<MenuNode> getChildren()
   {
     return _children;
+  }
+
+  public void setChildren(List<MenuNode> children)
+  {
+    _children = children;
   }
 
   public final String getFocusViewId()
@@ -433,6 +439,11 @@ public class ImmutableGroupNode extends GroupNode
     return _modelId;
   }
 
+  public final String getUniqueId()
+  {
+    return _uniqueId;
+  }
+  
   //TODO make this work
 //  public final String getLabelAndAccessKey()
 //  {
@@ -516,7 +527,7 @@ public class ImmutableGroupNode extends GroupNode
   }
 
   private final String _icon;
-  private List<MenuNode> _children;
+  private List<MenuNode> _children = null;
   private final String _focusViewId;
   private final String _renderedStr;
   private final String _disabledStr;
@@ -530,6 +541,7 @@ public class ImmutableGroupNode extends GroupNode
   private final String _modelId;
   private final String _labelAndAccessKey;
   private final String _defaultFocusPathStr;
+  private final String _uniqueId;
 
   // Root Menu model's Request Map Key
   private final String _rootModelKey;

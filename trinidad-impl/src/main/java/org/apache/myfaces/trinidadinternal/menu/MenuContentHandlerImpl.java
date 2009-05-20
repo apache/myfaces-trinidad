@@ -1050,7 +1050,7 @@ public class MenuContentHandlerImpl extends DefaultHandler
   private String _resBundleKey;
   private String _resBundleName;
 
-  private Map<String, String>    _attrMap;
+  private Map<String, String>       _attrMap;
   private Stack<Object>             _saveDataStack;
   private Map<String, List<Object>> _viewIdFocusPathMap;
   private Map<Object, List<Object>> _nodeFocusPathMap;

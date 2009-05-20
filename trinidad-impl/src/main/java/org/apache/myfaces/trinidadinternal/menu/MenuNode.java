@@ -575,11 +575,11 @@ public class MenuNode
 
   public int getRootId()
   {
-	  return _rootId;
+    return _rootId;
   }
   public void setRootId(int id)
   {
-	  _rootId = id;
+    _rootId = id;
   }
 
   
@@ -651,6 +651,11 @@ public class MenuNode
   public final String getModelIdProperty()
   {
     return _modelId;
+  }
+
+  public final String getUniqueIdProperty()
+  {
+    return getIdProperty() + getModelIdProperty();
   }
 
   
