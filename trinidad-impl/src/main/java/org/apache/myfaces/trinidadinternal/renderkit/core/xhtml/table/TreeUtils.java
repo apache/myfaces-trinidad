@@ -109,6 +109,37 @@ public final class TreeUtils
   }
 
   /**
+   * Returns tree focus node client id if any node is focused. Otherwise it
+   * returns <tt>null</tt>.
+   * 
+   * @param context faces context
+   * @param tree tree component
+   * @return focus node client id
+   */
+  public static String getFocusNodeClientId(FacesContext context, UIXHierarchy tree) 
+  {
+    String focusNodeClientId = null;
+    Object oldRowKey = tree.getRowKey();
+    
+    try 
+    {
+      Object focusRowKey = tree.getFocusRowKey();
+      
+      if (focusRowKey != null) 
+      {
+        tree.setRowKey(focusRowKey);
+        focusNodeClientId = tree.getClientId(context);
+      }
+    }
+    finally
+    {
+      tree.setRowKey(oldRowKey);
+    }
+    
+    return focusNodeClientId;
+  }
+
+  /**
    * Utility method to expand the focusRowKey during initial
    * rendering.
    * @param tree
