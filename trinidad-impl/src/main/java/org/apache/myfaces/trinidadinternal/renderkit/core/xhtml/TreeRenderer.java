@@ -205,10 +205,11 @@ public class TreeRenderer extends XhtmlRenderer
 
       String selectedParam =
         id + NamingContainer.SEPARATOR_CHAR + SELECTED_PARAM;
+      String focusNodeId = TreeUtils.getFocusNodeClientId(context, tree);
 
       rw.writeText("var " + varName + " = " +
-                       _createNewJSSelectionState(formName, id,
-                                                  selectedParam), null);
+                       _createNewJSSelectionState(formName, id, selectedParam,
+                                                  focusNodeId), null);
       rw.endElement("script");
 
       fd.addNeededValue(selectedParam);
@@ -602,19 +603,34 @@ public class TreeRenderer extends XhtmlRenderer
   }
 
 
-  private static String _createNewJSSelectionState(String formName,
-                                                   String treeClientId,
-                                                   String selectParam)
+  private static String _createFocusNodeGetter(String focusNodeId) 
   {
-    return "new _adfTreeSelector('" + selectParam + "'," +
-      TreeUtils.createNewJSCollectionComponentState(formName,
-                                                    treeClientId) + ");";
+    return (focusNodeId != null) ? "document.getElementById('" + focusNodeId + "')" : null;
   }
 
   private static String _callJSSelect(UIXHierarchy tree, String jsVarName)
   {
     String currencyStr = tree.getClientRowKey();
     return jsVarName + ".select(this,'" + currencyStr + "');";
+  }
+
+  private String _createNewJSSelectionState(String formName,
+                                                   String treeClientId,
+                                                   String selectParam,
+                                                   String focusNodeId)
+  {
+    String treeState = TreeUtils.createNewJSCollectionComponentState(formName, treeClientId);
+    String focusNode = _createFocusNodeGetter(focusNodeId);
+    String jsSelectionState = null;
+    if (focusNode == null)
+    {
+      jsSelectionState = "new _adfTreeSelector('" + selectParam + "'," + treeState + ");";
+    }
+    else
+    {
+      jsSelectionState = "new _adfTreeSelector('" + selectParam + "'," + treeState + "," + focusNode + ");";
+    }
+    return jsSelectionState;
   }
 
   private void _renderTreeJS(FacesContext context,
@@ -626,9 +642,10 @@ public class TreeRenderer extends XhtmlRenderer
     {
       rc.getProperties().put(_JS_RENDERED_KEY, Boolean.TRUE);
       ResponseWriter writer = context.getResponseWriter();
-      writer.writeText("function _adfTreeSelector(selectParam,tState) {" +
+      writer.writeText("function _adfTreeSelector(selectParam,tState,focusNode) {" +
                        "this._selectParam = selectParam;" +
-                       "this._pTag = null;" + "this.treeState = tState;" +
+                       "this.treeState = tState;" +
+                       "this._pTag = focusNode;" + 
                        "}" +
                        "_adfTreeSelector.prototype.select = function(tag,path) {" +
                        "if (this._pTag != null) {" +
@@ -916,8 +933,7 @@ public class TreeRenderer extends XhtmlRenderer
 
 
     writer.startElement(XhtmlConstants.SPAN_ELEMENT, null);
-    //    out.writeAttribute(ID_ATTRIBUTE,
-    //                       treename + IntegerUtils.getString(renderedIndex));
+    writer.writeAttribute(XhtmlConstants.ID_ATTRIBUTE, getClientId(context, tree), null);
     renderStyleClass(context, rc, treeStyle);
     
     if (supportsScripting(rc))
