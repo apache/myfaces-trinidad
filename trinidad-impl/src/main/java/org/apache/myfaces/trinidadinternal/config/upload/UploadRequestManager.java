@@ -102,7 +102,7 @@ public class UploadRequestManager
           _LOG.finest("Parameter " + key + ":" + newValue[i]);
       }
 
-      _extractedAndDecodedParams.put(key, newValue);
+      decodedParams.put(key, newValue);
     }
     _extractedAndDecodedParams = Collections.unmodifiableMap(decodedParams);
   }
