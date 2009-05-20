@@ -78,12 +78,14 @@ public class UploadRequestManager
     {
       _LOG.fine("Switching encoding of wrapper to " + encoding);
     }
+    
+    Map<String, String[]> extractedParams = _getExtractedParams();
 
-    Map<String, String[]>decodedParams = new HashMap<String, String[]>(_extractedParams.size());
+    Map<String, String[]>decodedParams = new HashMap<String, String[]>(extractedParams.size());
 
     byte[] buffer = new byte[256];
 
-    for(Map.Entry<String, String[]> entry : _extractedParams.entrySet())
+    for(Map.Entry<String, String[]> entry : extractedParams.entrySet())
     {
       String key = entry.getKey();
       key = CaboHttpUtils.decodeRequestParameter(key, encoding, buffer);
@@ -120,17 +122,10 @@ public class UploadRequestManager
     // can log a proper warning
     _parametersRetrieved = true;
 
-    if(_extractedParams == null)
-    {
-      Map<String, String[]> m = new HashMap<String, String[]>(_requestParams);
-      m.putAll(_params);
-      _extractedParams = Collections.unmodifiableMap(m);
-    }    
-    
     if (_extractedAndDecodedParams != null)
       return _extractedAndDecodedParams;
 
-    return _extractedParams;
+    return _getExtractedParams();
   }
 
   public Enumeration<String> getParameterNames()
@@ -166,6 +161,18 @@ public class UploadRequestManager
     _clearMap();
     _requestParams = req.getParameterMap();
     _encoding = req.getCharacterEncoding();
+  }
+  
+  private Map<String, String[]> _getExtractedParams()
+  {
+    if(_extractedParams == null)
+    {
+      Map<String, String[]> m = new HashMap<String, String[]>(_requestParams);
+      m.putAll(_params);
+      _extractedParams = Collections.unmodifiableMap(m);
+    }
+    
+    return _extractedParams;
   }
 
   private String[] _getParameterValues(String param)
