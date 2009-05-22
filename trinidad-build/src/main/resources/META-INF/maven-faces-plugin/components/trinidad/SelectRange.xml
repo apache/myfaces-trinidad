@@ -22,8 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[UIXSelectRange is a base abstraction for 
           components that select a
@@ -38,9 +37,10 @@
       <description><![CDATA[use to customize the label of each range selection.]]></description>
       <facet-name>rangeLabel</facet-name>
       <facet-extension>
-        <mfp:facet-metadata>
-          <mfp:preferred-children>f:selectItem tr:selectItem</mfp:preferred-children>
-        </mfp:facet-metadata>
+        <mfp:facet-metadata/>
+        <fmd:facet-metadata>
+          <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreSelectItem</fmd:preferred-child-components>
+        </fmd:facet-metadata>
       </facet-extension>
     </facet>
     <property>
@@ -52,10 +52,11 @@
       <property-name>var</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:literal-only>true</mfp:literal-only>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:value-expression>PROHIBITED</fmd:value-expression>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -83,9 +84,10 @@
           <mfp:parameter-type>org.apache.myfaces.trinidad.event.RangeChangeEvent</mfp:parameter-type>
           <mfp:return-type>void</mfp:return-type>
         </mfp:method-binding-signature>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -102,9 +104,10 @@ The specific model class is
       <property-name>value</property-name>
       <property-class>java.lang.Object</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -118,9 +121,10 @@ To display all rows at once, set this attribute to 0.]]>
       <property-class>int</property-class>
       <default-value>25</default-value>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>

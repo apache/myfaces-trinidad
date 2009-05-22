@@ -22,7 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description>
       <![CDATA[The statusIndicator component shows whether the page
@@ -82,10 +82,11 @@
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>
       <mfp:component-metadata>
-        <mfp:accepts-child-components>false</mfp:accepts-child-components>
-        <mfp:group>${md:getTranslatedString("PALETTE_OUTPUT")}</mfp:group>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </mfp:component-metadata>
+      <fmd:component-metadata>
+        <fmd:allowed-child-components>NONE</fmd:allowed-child-components>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

@@ -21,7 +21,8 @@
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xi="http://www.w3.org/2001/XInclude">
+              xmlns:xi="http://www.w3.org/2001/XInclude"
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[The panelFormLayout lays out input form controls, such that their labels and fields line up vertically.  The children of this component are input controls, they are inputText, inputHidden, inputFile, inputColor, inputListOfValues, inputDate, selectBooleanCheckBox, selectBooleanRadio, selectOneChoice, selectOneListBox, selectOneRadio, selectManyListBox and panelLabelAndMessage.  These components must have their "simple" attribute set to false (the default).  For cases where other controls are required inside panelFormLayout, wrap them in a panelLabelAndMessage.
 
@@ -45,10 +46,11 @@ This facet may not always line up perfectly, especially if the labels or fields 
       </description>
       <facet-name>footer</facet-name>
       <facet-extension>
-        <mfp:facet-metadata>
-          <mfp:preferred>true</mfp:preferred>
-          <mfp:preferred-children>tr:panelButtonBar</mfp:preferred-children>
-        </mfp:facet-metadata>
+        <mfp:facet-metadata/>
+        <fmd:facet-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:preferred-child-components>org.apache.myfaces.trinidad.CorePanelButtonBar</fmd:preferred-child-components>
+        </fmd:facet-metadata>
       </facet-extension>
     </facet>
 
@@ -60,10 +62,11 @@ This facet may not always line up perfectly, especially if the labels or fields 
       <property-name>fieldWidth</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
         <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -71,10 +74,11 @@ This facet may not always line up perfectly, especially if the labels or fields 
       <property-name>labelWidth</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
         <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -82,11 +86,12 @@ This facet may not always line up perfectly, especially if the labels or fields 
       <property-name>maxColumns</property-name>
       <property-class>int</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
-        <mfp:property-editor>UNSIGNED_INTEGER</mfp:property-editor>
+        <mfp:property-metadata/>
         <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:property-editor>UNSIGNED_INTEGER</fmd:property-editor>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -95,11 +100,12 @@ This facet may not always line up perfectly, especially if the labels or fields 
       <property-name>rows</property-name>
       <property-class>int</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
-        <mfp:property-editor>UNSIGNED_INTEGER</mfp:property-editor>
+        <mfp:property-metadata/>
         <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:property-editor>UNSIGNED_INTEGER</fmd:property-editor>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -108,8 +114,10 @@ This facet may not always line up perfectly, especially if the labels or fields 
       <property-name>labelAlignment</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:required>false</mfp:required>
-        <mfp:property-values>start top</mfp:property-values>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+          <fmd:property-values>start top</fmd:property-values>
+        </fmd:property-metadata>
       </property-extension>
     </property>
 
@@ -196,15 +204,11 @@ This facet may not always line up perfectly, especially if the labels or fields 
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Gabrielle Crawford</mfp:author>
-      <mfp:component-metadata>
-        <mfp:group>${md:getTranslatedString("PALETTE_LAYOUT")}</mfp:group>
-        <mfp:preferred-children>tr:inputText tr:inputFile tr:selectBooleanCheckbox
-          tr:selectBooleanRadio tr:inputColor tr:inputDate
-          tr:inputListOfValues tr:selectManyListbox tr:selectOneChoice
-          tr:selectOneRadio tr:panelLabelAndMessage tr:selectManyCheckbox
-        </mfp:preferred-children>
-      </mfp:component-metadata>
+      <mfp:component-metadata/>
       <mfp:uix2-local-name>messageComponentLayout</mfp:uix2-local-name>
+      <fmd:component-metadata>
+        <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreInputText org.apache.myfaces.trinidad.CoreInputFile org.apache.myfaces.trinidad.CoreSelectBooleanCheckbox org.apache.myfaces.trinidad.CoreSelectBooleanRadio org.apache.myfaces.trinidad.CoreInputColor org.apache.myfaces.trinidad.CoreInputDate org.apache.myfaces.trinidad.CoreInputListOfValues org.apache.myfaces.trinidad.CoreSelectManyListbox org.apache.myfaces.trinidad.CoreSelectOneChoice org.apache.myfaces.trinidad.CoreSelectOneRadio org.apache.myfaces.trinidad.CorePanelLabelAndMessage org.apache.myfaces.trinidad.CoreSelectManyCheckbox</fmd:preferred-child-components>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

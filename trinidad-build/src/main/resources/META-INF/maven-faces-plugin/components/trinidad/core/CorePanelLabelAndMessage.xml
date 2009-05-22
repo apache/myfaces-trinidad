@@ -21,7 +21,8 @@
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xi="http://www.w3.org/2001/XInclude">
+              xmlns:xi="http://www.w3.org/2001/XInclude"
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[This component lays out a label and children.  
       Typically, the only child of this component will be an input element of some sort, 
@@ -44,9 +45,10 @@
       <description>This facet should contain field level help.</description>
       <facet-name>help</facet-name>
       <facet-extension>
-        <mfp:facet-metadata>
-          <mfp:preferred-children>tr:outputText</mfp:preferred-children>
-        </mfp:facet-metadata>
+        <mfp:facet-metadata/>
+        <fmd:facet-metadata>
+          <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreOutputText</fmd:preferred-child-components>
+        </fmd:facet-metadata>
       </facet-extension>
     </facet>
     <facet>
@@ -63,22 +65,25 @@
       <property-class>boolean</property-class>
       <default-value>false</default-value>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("MESSAGE_GROUP")}</mfp:group>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:category-id>APPEARANCE</fmd:category-id>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
       <description><![CDATA[the label of the bean.]]></description>
       <property-name>label</property-name>
       <property-class>java.lang.String</property-class>
+      <suggested-value>Label {0}</suggested-value>
       <property-extension>
         <mfp:property-metadata>
-          <mfp:initial-value>Label {0}</mfp:initial-value>
-          <mfp:preferred>true</mfp:preferred>
           <mfp:translatable>true</mfp:translatable>
           <mfp:short-description>${md:getTranslatedString("SD_ATTRGROUP_INLINEMESSAGINGPROMPT_ATTR_PROMPT")}</mfp:short-description>
         </mfp:property-metadata>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -119,8 +124,10 @@
           <mfp:translatable>true</mfp:translatable>
           <mfp:short-description>${md:getTranslatedString("SD_ATTRGROUP_ACCESSKEY_ATTR_VALUEANDACCESSKEY")}</mfp:short-description>
         </mfp:property-metadata>
-        <mfp:required>false</mfp:required>
         <mfp:virtual>true</mfp:virtual>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -129,11 +136,13 @@
       <property-class>java.lang.String</property-class>
       <property-extension>
         <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("MESSAGE_GROUP")}</mfp:group>
           <mfp:short-description>${md:getTranslatedString("SD_ATTRGROUP_INLINEMESSAGINGTEXT_ATTR_FOR")}</mfp:short-description>
           <mfp:scoped-id-holder>true</mfp:scoped-id-holder>
         </mfp:property-metadata>
-        <mfp:required>false</mfp:required>
+        <fmd:property-metadata>
+          <fmd:category-id>APPEARANCE</fmd:category-id>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
 
@@ -178,11 +187,11 @@
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>
-      <mfp:component-metadata>
-        <mfp:favorite-property>label</mfp:favorite-property>
-        <mfp:group>${md:getTranslatedString("PALETTE_LAYOUT")}</mfp:group>
-      </mfp:component-metadata>
+      <mfp:component-metadata/>
       <mfp:uix2-local-name>messageLayout</mfp:uix2-local-name>
+      <fmd:component-metadata>
+        <fmd:default-property>label</fmd:default-property>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

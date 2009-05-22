@@ -21,8 +21,8 @@
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml"
-              xmlns:xi="http://www.w3.org/2001/XInclude">
+              xmlns:xi="http://www.w3.org/2001/XInclude"
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[The outputDocument component supports styled text with line breaks.]]></description>
     <icon>
@@ -35,10 +35,11 @@
       </description>
       <facet-name>title</facet-name>
       <facet-extension>
-        <mfp:facet-metadata>
-          <mfp:preferred>true</mfp:preferred>
-          <mfp:preferred-children>tr:outputText</mfp:preferred-children>
-        </mfp:facet-metadata>
+        <mfp:facet-metadata/>
+        <fmd:facet-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreOutputText</fmd:preferred-child-components>
+        </fmd:facet-metadata>
       </facet-extension>
     </facet>
     <facet>
@@ -46,10 +47,11 @@
       </description>
       <facet-name>separator</facet-name>
       <facet-extension>
-        <mfp:facet-metadata>
-          <mfp:preferred>true</mfp:preferred>
-          <mfp:preferred-children>tr:image tr:separator</mfp:preferred-children>
-        </mfp:facet-metadata>
+        <mfp:facet-metadata/>
+        <fmd:facet-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreImage org.apache.myfaces.trinidad.CoreSeparator</fmd:preferred-child-components>
+        </fmd:facet-metadata>
       </facet-extension>
     </facet>
 
@@ -60,9 +62,10 @@
       <property-name>titleClass</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("CORE_GROUP")}</mfp:group>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:category-id>GENERAL</fmd:category-id>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -72,9 +75,10 @@
       <property-name>separatorClass</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("CORE_GROUP")}</mfp:group>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:category-id>GENERAL</fmd:category-id>
+        </fmd:property-metadata>
       </property-extension>
     </property>
 
@@ -99,12 +103,12 @@ conversion to and from Java objects.]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Simon Lessard</mfp:author>
-      <mfp:component-metadata>
-        <mfp:accepts-child-components>false</mfp:accepts-child-components>
-        <mfp:favorite-property>value</mfp:favorite-property>
-        <mfp:group>${md:getTranslatedString("PALETTE_OUTPUT")}</mfp:group>
-      </mfp:component-metadata>
+      <mfp:component-metadata/>
       <mfp:uix2-local-name>outputDocument</mfp:uix2-local-name>
+      <fmd:component-metadata>
+        <fmd:allowed-child-components>NONE</fmd:allowed-child-components>
+        <fmd:default-property>value</fmd:default-property>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

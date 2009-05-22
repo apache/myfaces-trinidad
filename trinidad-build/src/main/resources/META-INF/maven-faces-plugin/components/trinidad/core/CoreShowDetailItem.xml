@@ -22,7 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description>
       <![CDATA[The showDetailItem represents a single item with specific
@@ -54,7 +54,9 @@ its expected behavior.]]>
       <property-class>boolean</property-class>
       <default-value>false</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -63,13 +65,15 @@ its expected behavior.]]>
       </description>
       <property-name>text</property-name>
       <property-class>java.lang.String</property-class>
+      <suggested-value>{localName} {0}</suggested-value>
       <property-extension>
         <mfp:property-metadata>
-          <mfp:initial-value>{localName} {0}</mfp:initial-value>
-          <mfp:preferred>true</mfp:preferred>
           <mfp:translatable>true</mfp:translatable>
         </mfp:property-metadata>
-        <mfp:required>false</mfp:required>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -85,11 +89,13 @@ conventional ampersand ('&amp;') notation.
       <property-name>textAndAccessKey</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:required>false</mfp:required>
         <mfp:virtual>true</mfp:virtual>
         <mfp:property-metadata>
           <mfp:translatable>true</mfp:translatable>
         </mfp:property-metadata>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -109,10 +115,11 @@ in screen reader mode.
       <property-name>accessKey</property-name>
       <property-class>char</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
-        <mfp:required>false</mfp:required>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -131,8 +138,10 @@ container.]]>
       <property-class>int</property-class>
       <default-value>0</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
         <mfp:unsupported-render-kit>org.apache.myfaces.trinidad.core</mfp:unsupported-render-kit>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <component-extension>
@@ -168,11 +177,11 @@ container.]]>
       </mfp:example>
       <mfp:author>Prakash Udupa</mfp:author>
       <mfp:author>Scott O'Bryan</mfp:author>
-      <mfp:component-metadata>
-        <mfp:favorite-property>text</mfp:favorite-property>
-        <mfp:group>${md:getTranslatedString("PALETTE_LAYOUT")}</mfp:group>
-      </mfp:component-metadata>
+      <mfp:component-metadata/>
       <mfp:uix2-local-name>showItem</mfp:uix2-local-name>
+      <fmd:component-metadata>
+        <fmd:default-property>text</fmd:default-property>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

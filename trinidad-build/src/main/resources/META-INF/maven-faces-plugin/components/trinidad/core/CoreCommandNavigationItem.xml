@@ -21,7 +21,8 @@
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xi="http://www.w3.org/2001/XInclude">
+              xmlns:xi="http://www.w3.org/2001/XInclude"
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[The commandNavigationItem control creates a navigation item representation of a UIXCommand.]]></description>
     <icon>
@@ -62,7 +63,9 @@
       <property-name>accessKey</property-name>
       <property-class>char</property-class>
       <property-extension>
-        <mfp:required>false</mfp:required>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -70,9 +73,10 @@
       <property-name>destination</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:property-editor>URI</mfp:property-editor>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:property-editor>URI</fmd:property-editor>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -81,7 +85,9 @@
       <property-class>boolean</property-class>
       <default-value>false</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -89,9 +95,10 @@
       <property-name>icon</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:property-editor>IMAGE_URI</mfp:property-editor>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:property-editor>IMAGE_URI</fmd:property-editor>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -103,10 +110,11 @@
       <property-class>boolean</property-class>
       <default-value>false</default-value>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
         <mfp:state-holder>no</mfp:state-holder>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -115,7 +123,9 @@
       <property-class>boolean</property-class>
       <default-value>false</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -127,7 +137,9 @@
       <property-class>boolean</property-class>
       <default-value>false</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -139,13 +151,15 @@
       <description><![CDATA[the text of the item.]]></description>
       <property-name>text</property-name>
       <property-class>java.lang.String</property-class>
+      <suggested-value>{localName} {0}</suggested-value>
       <property-extension>
         <mfp:property-metadata>
-          <mfp:initial-value>{localName} {0}</mfp:initial-value>
-          <mfp:preferred>true</mfp:preferred>
           <mfp:translatable>true</mfp:translatable>
         </mfp:property-metadata>
-        <mfp:required>false</mfp:required>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -161,11 +175,13 @@
       <property-name>textAndAccessKey</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:required>false</mfp:required>
         <mfp:virtual>true</mfp:virtual>
         <mfp:property-metadata>
           <mfp:translatable>true</mfp:translatable>
         </mfp:property-metadata>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
 
@@ -193,11 +209,11 @@
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Gabrielle Crawford</mfp:author>
-      <mfp:component-metadata>
-        <mfp:favorite-property>text</mfp:favorite-property>
-        <mfp:group>${md:getTranslatedString("PALETTE_NAVIGATION")}</mfp:group>
-      </mfp:component-metadata>
+      <mfp:component-metadata/>
       <mfp:uix2-local-name>commandNavigationItem</mfp:uix2-local-name>
+      <fmd:component-metadata>
+        <fmd:default-property>text</fmd:default-property>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

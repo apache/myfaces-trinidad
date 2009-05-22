@@ -21,7 +21,7 @@
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <component-type>javax.faces.Component</component-type>
     <component-class>javax.faces.component.UIComponent</component-class>
@@ -37,7 +37,9 @@ must follow a subset of the syntax allowed in HTML:
       <property-name>id</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:literal-only>true</mfp:literal-only>
+        <fmd:property-metadata>
+          <fmd:value-expression>PROHIBITED</fmd:value-expression>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -49,9 +51,10 @@ must follow a subset of the syntax allowed in HTML:
       <property-class>boolean</property-class>
       <default-value>true</default-value>
       <property-extension>
-        <mfp:property-metadata>
-	  <mfp:group>${md:getTranslatedString("CORE_GROUP")}</mfp:group>
-	</mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:category-id>GENERAL</fmd:category-id>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -65,12 +68,13 @@ from a backing bean, or to move creation of the component to a backing bean.</de
       <property-name>transient</property-name>
       <property-class>boolean</property-class>
       <property-extension>
-        <mfp:literal-only>true</mfp:literal-only>
         <mfp:transient>true</mfp:transient>
         <mfp:tag-attribute-excluded>true</mfp:tag-attribute-excluded>
-        <mfp:property-metadata>
-    	  <mfp:group>${md:getTranslatedString("CORE_GROUP")}</mfp:group>
-	</mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:category-id>GENERAL</fmd:category-id>
+          <fmd:value-expression>PROHIBITED</fmd:value-expression>
+        </fmd:property-metadata>
       </property-extension>
     </property>
   </component>

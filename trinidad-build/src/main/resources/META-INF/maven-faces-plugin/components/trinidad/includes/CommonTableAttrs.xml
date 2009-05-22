@@ -22,8 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
 
     <property>
@@ -31,9 +30,10 @@
       <property-name>selectedRowKeys</property-name>
       <property-class>org.apache.myfaces.trinidad.model.RowKeySet</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>

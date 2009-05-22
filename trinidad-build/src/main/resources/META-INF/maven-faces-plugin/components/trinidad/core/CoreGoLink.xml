@@ -22,7 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[The goLink tag is an HTML link.]]></description>
     <icon>
@@ -38,12 +38,14 @@
       </description>
       <property-name>text</property-name>
       <property-class>java.lang.String</property-class>
+      <suggested-value>{localName} {0}</suggested-value>
       <property-extension>
         <mfp:property-metadata>
-          <mfp:initial-value>{localName} {0}</mfp:initial-value>
-          <mfp:preferred>true</mfp:preferred>
           <mfp:translatable>true</mfp:translatable>
         </mfp:property-metadata>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -142,14 +144,14 @@
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Andy Schwartz</mfp:author>
-      <mfp:component-metadata>
-        <mfp:favorite-property>text</mfp:favorite-property>
-        <mfp:group>${md:getTranslatedString("PALETTE_NAVIGATION")}</mfp:group>
-      </mfp:component-metadata>
+      <mfp:component-metadata/>
       <mfp:java-constructor>
         <mfp:property-name>destination</mfp:property-name>
       </mfp:java-constructor>
       <mfp:uix2-local-name>link</mfp:uix2-local-name>
+      <fmd:component-metadata>
+        <fmd:default-property>text</fmd:default-property>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

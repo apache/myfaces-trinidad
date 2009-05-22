@@ -22,7 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[spacers occupy a fixed amount of
           space in a layout.]]></description>
@@ -35,26 +35,28 @@
       <description><![CDATA[the width of the spacer item.]]></description>
       <property-name>width</property-name>
       <property-class>java.lang.String</property-class>
+      <suggested-value>10</suggested-value>
       <property-extension>
         <mfp:alternate-class>int</mfp:alternate-class>
-        <mfp:property-metadata>
-          <mfp:initial-value>10</mfp:initial-value>
-          <mfp:preferred>true</mfp:preferred>
-          <mfp:property-editor>UNSIGNED_INTEGER</mfp:property-editor>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:property-editor>UNSIGNED_INTEGER</fmd:property-editor>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
       <description><![CDATA[the height of the spacer item.]]></description>
       <property-name>height</property-name>
       <property-class>java.lang.String</property-class>
+      <suggested-value>10</suggested-value>
       <property-extension>
         <mfp:alternate-class>int</mfp:alternate-class>
-        <mfp:property-metadata>
-          <mfp:initial-value>10</mfp:initial-value>
-          <mfp:preferred>true</mfp:preferred>
-          <mfp:property-editor>UNSIGNED_INTEGER</mfp:property-editor>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:property-editor>UNSIGNED_INTEGER</fmd:property-editor>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -66,8 +68,10 @@
       <property-extension>
         <mfp:property-metadata>
           <mfp:translatable>true</mfp:translatable>
-          <mfp:group>${md:getTranslatedString("CORE_GROUP")}</mfp:group>
         </mfp:property-metadata>
+        <fmd:property-metadata>
+          <fmd:category-id>GENERAL</fmd:category-id>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -115,14 +119,14 @@
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>
-      <mfp:component-metadata>
-        <mfp:accepts-child-components>false</mfp:accepts-child-components>
-        <mfp:group>${md:getTranslatedString("PALETTE_OUTPUT")}</mfp:group>
-      </mfp:component-metadata>
+      <mfp:component-metadata/>
       <mfp:java-constructor>
         <mfp:property-name>height</mfp:property-name>
       </mfp:java-constructor>
       <mfp:uix2-local-name>spacer</mfp:uix2-local-name>
+      <fmd:component-metadata>
+        <fmd:allowed-child-components>NONE</fmd:allowed-child-components>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

@@ -22,8 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[UIXCommand is a base abstraction for
           components that implement ActionSource and DialogSource.]]>
@@ -44,11 +43,12 @@
         <mfp:method-binding-signature>
           <mfp:return-type>java.lang.String</mfp:return-type>
         </mfp:method-binding-signature>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
         <mfp:state-holder>yes</mfp:state-holder>
         <mfp:jsp-property-name>action</mfp:jsp-property-name>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -60,10 +60,11 @@
           <mfp:parameter-type>javax.faces.event.ActionEvent</mfp:parameter-type>
           <mfp:return-type>void</mfp:return-type>
         </mfp:method-binding-signature>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
         <mfp:state-holder>yes</mfp:state-holder>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -78,9 +79,10 @@
           <mfp:parameter-type>org.apache.myfaces.trinidad.event.ReturnEvent</mfp:parameter-type>
           <mfp:return-type>void</mfp:return-type>
         </mfp:method-binding-signature>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -92,9 +94,10 @@
           <mfp:parameter-type>org.apache.myfaces.trinidad.event.LaunchEvent</mfp:parameter-type>
           <mfp:return-type>void</mfp:return-type>
         </mfp:method-binding-signature>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -123,9 +126,7 @@
       <mfp:renderer-type>org.apache.myfaces.trinidad.Button</mfp:renderer-type>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.UIXCommandTag</mfp:tag-class>
       <mfp:author>Gabrielle Crawford</mfp:author>
-      <mfp:component-metadata>
-        <mfp:group>${md:getTranslatedString("PALETTE_INPUT")}</mfp:group>
-      </mfp:component-metadata>
+      <mfp:component-metadata/>
       <mfp:tag-class-modifier>abstract</mfp:tag-class-modifier>
       <mfp:event>
         <mfp:description>Event delivered when the "action" of the component has been

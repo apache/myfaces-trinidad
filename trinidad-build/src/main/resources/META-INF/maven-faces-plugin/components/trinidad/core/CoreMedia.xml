@@ -22,7 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[The media component displays media content, such as audio, video,
           or image in a player embedded in the user agent.]]>
@@ -116,9 +116,10 @@
       <property-name>source</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -155,9 +156,10 @@
       <property-name>standbyText</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -204,7 +206,9 @@
       <property-name>player</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:property-values>windows quicktime link real</mfp:property-values>
+        <fmd:property-metadata>
+          <fmd:property-values>windows quicktime link real</fmd:property-values>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -288,7 +292,9 @@
       <property-class>java.lang.String</property-class>
       <default-value>typical</default-value>
       <property-extension>
-        <mfp:property-values>noneVisible none typical all minimal</mfp:property-values>
+        <fmd:property-metadata>
+          <fmd:property-values>noneVisible none typical all minimal</fmd:property-values>
+        </fmd:property-metadata>
       </property-extension>
     </property>
 
@@ -371,15 +377,16 @@
       </mfp:example>
       <mfp:author>Blake Sullivan</mfp:author>
       <mfp:component-metadata>
-        <mfp:accepts-child-components>false</mfp:accepts-child-components>
-        <mfp:favorite-property>source</mfp:favorite-property>
-        <mfp:group>${md:getTranslatedString("PALETTE_OUTPUT")}</mfp:group>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </mfp:component-metadata>
       <mfp:java-constructor>
         <mfp:property-name>shortDesc</mfp:property-name>
       </mfp:java-constructor>
       <mfp:uix2-local-name>media</mfp:uix2-local-name>
+      <fmd:component-metadata>
+        <fmd:allowed-child-components>NONE</fmd:allowed-child-components>
+        <fmd:default-property>source</fmd:default-property>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

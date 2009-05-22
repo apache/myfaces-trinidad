@@ -22,8 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[The Apache Trinidad Chart is used to diplay data in a chart format.]]>
     </description>
@@ -40,9 +39,10 @@
       <property-name>value</property-name>
       <property-class>java.lang.Object</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -56,9 +56,10 @@
           <mfp:parameter-type>org.apache.myfaces.trinidad.event.ChartDrillDownEvent</mfp:parameter-type>
           <mfp:return-type>void</mfp:return-type>
         </mfp:method-binding-signature>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <component-extension>
@@ -71,12 +72,12 @@
         </html:p>]]>
       </mfp:long-description>
       <mfp:author>Venkata Guddanti</mfp:author>
-      <mfp:component-metadata>
-        <mfp:favorite-property>id</mfp:favorite-property>
-        <mfp:group>${md:getTranslatedString("PALETTE_DATA")}</mfp:group>
-      </mfp:component-metadata>
+      <mfp:component-metadata/>
       <mfp:tag-class-modifier>abstract</mfp:tag-class-modifier>
       <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
+      <fmd:component-metadata>
+        <fmd:default-property>id</fmd:default-property>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

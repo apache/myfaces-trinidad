@@ -22,7 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[The progressIndicator component can be used to give users
           an understanding that there is a back end task in progress.]]>
@@ -77,7 +77,6 @@
       </mfp:example>
       <mfp:author>Prakash Udupa</mfp:author>
       <mfp:component-metadata>
-        <mfp:group>${md:getTranslatedString("PALETTE_OUTPUT")}</mfp:group>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </mfp:component-metadata>
       <mfp:uix2-local-name>processing</mfp:uix2-local-name>

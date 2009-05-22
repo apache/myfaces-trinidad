@@ -22,8 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[The UIXValue component contains all the shared attributes
    supported by all Apache Trinidad components that support the JSF
@@ -42,9 +41,10 @@ in read-only mode.]]></description>
       <property-name>value</property-name>
       <property-class>java.lang.Object</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -52,10 +52,11 @@ in read-only mode.]]></description>
       <property-name>converter</property-name>
       <property-class>javax.faces.convert.Converter</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("CORE_GROUP")}</mfp:group>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
         <mfp:state-holder>yes</mfp:state-holder>
+        <fmd:property-metadata>
+          <fmd:category-id>GENERAL</fmd:category-id>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <component-extension>

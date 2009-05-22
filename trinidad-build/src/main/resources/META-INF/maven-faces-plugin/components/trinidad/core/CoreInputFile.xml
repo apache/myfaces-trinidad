@@ -22,7 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[The inputFile component is a component that can
           be used to upload a file.  It supports displaying a label,
@@ -43,9 +43,10 @@
       <property-name>onchange</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:category-id>EVENTS</fmd:category-id>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -53,9 +54,10 @@
       <property-name>onselect</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:category-id>EVENTS</fmd:category-id>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -64,7 +66,9 @@
       <property-name>columns</property-name>
       <property-class>int</property-class>
       <property-extension>
-        <mfp:required>false</mfp:required>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -88,9 +92,10 @@
       <property-class>boolean</property-class>
       <default-value>false</default-value>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("MESSAGE_GROUP")}</mfp:group>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:category-id>APPEARANCE</fmd:category-id>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -102,7 +107,7 @@
         <mfp:property-metadata>
           <mfp:short-description>${md:getTranslatedString("SD_ATTRGROUP_ACCESSKEY_ATTR_ACCESSKEY")}</mfp:short-description>
         </mfp:property-metadata>
-        </property-extension>
+      </property-extension>
     </property>
     <property>
       <description><![CDATA[whether the component is disabled.]]></description>
@@ -114,13 +119,15 @@
       <description><![CDATA[the label of the bean.]]></description>
       <property-name>label</property-name>
       <property-class>java.lang.String</property-class>
+      <suggested-value>Label {0}</suggested-value>
       <property-extension>
         <mfp:property-metadata>
           <mfp:translatable>true</mfp:translatable>
-          <mfp:initial-value>Label {0}</mfp:initial-value>
-          <mfp:preferred>true</mfp:preferred>
           <mfp:short-description>${md:getTranslatedString("SD_ATTRGROUP_INLINEMESSAGINGPROMPT_ATTR_PROMPT")}</mfp:short-description>
         </mfp:property-metadata>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -175,9 +182,6 @@ tip), and may use simpler layout primitives]]>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>
       <mfp:component-metadata>
-        <mfp:accepts-child-components>false</mfp:accepts-child-components>
-        <mfp:favorite-property>label</mfp:favorite-property>
-        <mfp:group>${md:getTranslatedString("PALETTE_INPUT")}</mfp:group>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </mfp:component-metadata>
       <mfp:javadoc-tags><![CDATA[@see org.apache.myfaces.trinidad.model.UploadedFile
@@ -186,6 +190,10 @@ tip), and may use simpler layout primitives]]>
 @see org.apache.myfaces.trinidad.webapp.TrinidadFilter]]>
       </mfp:javadoc-tags>
       <mfp:uix2-local-name>inputFile</mfp:uix2-local-name>
+      <fmd:component-metadata>
+        <fmd:allowed-child-components>NONE</fmd:allowed-child-components>
+        <fmd:default-property>label</fmd:default-property>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

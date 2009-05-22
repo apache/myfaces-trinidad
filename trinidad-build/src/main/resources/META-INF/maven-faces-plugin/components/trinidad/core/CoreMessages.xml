@@ -22,7 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[The messages bean is used at the top of an application page to give
         the user important messaging information.]]>
@@ -40,9 +40,11 @@
       <property-class>java.lang.String</property-class>
       <property-extension>
         <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
           <mfp:translatable>true</mfp:translatable>
         </mfp:property-metadata>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -65,9 +67,10 @@ messages will be rendered.]]>
       <property-class>boolean</property-class>
       <default-value>false</default-value>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <component-extension>
@@ -90,14 +93,14 @@ automatically show any messages added to the FacesContext.]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Brian Albers</mfp:author>
-      <mfp:component-metadata>
-        <mfp:group>${md:getTranslatedString("PALETTE_OUTPUT")}</mfp:group>
-        <mfp:preferred-children>tr:goLink</mfp:preferred-children>
-      </mfp:component-metadata>
+      <mfp:component-metadata/>
       <mfp:java-constructor>
         <mfp:property-name>message</mfp:property-name>
       </mfp:java-constructor>
       <mfp:uix2-local-name>messageBox</mfp:uix2-local-name>
+      <fmd:component-metadata>
+        <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreGoLink</fmd:preferred-child-components>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

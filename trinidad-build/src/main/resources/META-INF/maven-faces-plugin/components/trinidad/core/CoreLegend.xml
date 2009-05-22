@@ -22,7 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[The legend adds a legend describing the meaning of an icon.]]></description>
     <icon>
@@ -36,12 +36,13 @@ be described.  Only one value is currently supported: "required".]]>
       </description>
       <property-name>name</property-name>
       <property-class>java.lang.String</property-class>
+      <suggested-value>required</suggested-value>
       <property-extension>
-        <mfp:property-values>required</mfp:property-values>
-        <mfp:property-metadata>
-          <mfp:initial-value>required</mfp:initial-value>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:property-values>required</fmd:property-values>
+        </fmd:property-metadata>
       </property-extension>
     </property>
 
@@ -73,11 +74,12 @@ be described.  Only one value is currently supported: "required".]]>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>
       <mfp:component-metadata>
-        <mfp:favorite-property>name</mfp:favorite-property>
-        <mfp:group>${md:getTranslatedString("PALETTE_OUTPUT")}</mfp:group>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </mfp:component-metadata>
       <mfp:uix2-local-name>iconKey</mfp:uix2-local-name>
+      <fmd:component-metadata>
+        <fmd:default-property>name</fmd:default-property>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

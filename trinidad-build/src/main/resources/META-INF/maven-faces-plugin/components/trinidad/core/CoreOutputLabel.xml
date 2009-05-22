@@ -21,8 +21,8 @@
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml"
-              xmlns:xi="http://www.w3.org/2001/XInclude">
+              xmlns:xi="http://www.w3.org/2001/XInclude"
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[Component that displays a label for a form component.]]></description>
     <icon>
@@ -60,9 +60,10 @@
       <property-class>boolean</property-class>
       <default-value>false</default-value>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("MESSAGE_GROUP")}</mfp:group>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:category-id>APPEARANCE</fmd:category-id>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -94,10 +95,12 @@ refers to]]></description>
       <property-class>java.lang.String</property-class>
       <property-extension>
         <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("MESSAGE_GROUP")}</mfp:group>
           <mfp:short-description>${md:getTranslatedString("SD_ATTRGROUP_INLINEMESSAGINGTEXT_ATTR_FOR")}</mfp:short-description>
           <mfp:scoped-id-holder>true</mfp:scoped-id-holder>
         </mfp:property-metadata>
+        <fmd:property-metadata>
+          <fmd:category-id>APPEARANCE</fmd:category-id>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <component-extension>
@@ -123,12 +126,12 @@ refers to]]></description>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>
-      <mfp:component-metadata>
-        <mfp:accepts-child-components>false</mfp:accepts-child-components>
-        <mfp:favorite-property>value</mfp:favorite-property>
-        <mfp:group>${md:getTranslatedString("PALETTE_OUTPUT")}</mfp:group>
-      </mfp:component-metadata>
+      <mfp:component-metadata/>
       <mfp:uix2-local-name>messagePrompt</mfp:uix2-local-name>
+      <fmd:component-metadata>
+        <fmd:allowed-child-components>NONE</fmd:allowed-child-components>
+        <fmd:default-property>value</fmd:default-property>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

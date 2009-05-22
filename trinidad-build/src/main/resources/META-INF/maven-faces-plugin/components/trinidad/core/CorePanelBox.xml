@@ -22,8 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description>
       <![CDATA[The panelBox is used to place ancillary information on a page,
@@ -43,11 +42,13 @@ offset by a certain color.]]>
       <property-name>text</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:required>false</mfp:required>
         <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
           <mfp:translatable>true</mfp:translatable>
         </mfp:property-metadata>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -59,11 +60,12 @@ offset by a certain color.]]>
       <property-class>java.lang.String</property-class>
       <default-value>light</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
-        <mfp:property-metadata>
-          <mfp:property-values>light medium dark transparent</mfp:property-values>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:property-values>light medium dark transparent</fmd:property-values>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -74,11 +76,12 @@ the content container.]]>
       <property-name>icon</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:required>false</mfp:required>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-          <mfp:property-editor>IMAGE_URI</mfp:property-editor>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:property-editor>IMAGE_URI</fmd:property-editor>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -88,10 +91,11 @@ the content container.]]>
       <property-name>contentStyle</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:required>false</mfp:required>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <component-extension>
@@ -159,9 +163,7 @@ the content container.]]>
       </mfp:example>
       <mfp:author>Marissa Treinen</mfp:author>
       <mfp:author>Scott O'Bryan</mfp:author>
-      <mfp:component-metadata>
-        <mfp:group>${md:getTranslatedString("PALETTE_LAYOUT")}</mfp:group>
-      </mfp:component-metadata>
+      <mfp:component-metadata/>
       <mfp:java-constructor>
         <mfp:property-name>icon</mfp:property-name>
       </mfp:java-constructor>

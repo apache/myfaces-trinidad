@@ -22,7 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[The commandButton control creates a button representation of a UIXCommand.]]></description>
     <icon>
@@ -34,12 +34,14 @@
       <description><![CDATA[the textual label of the button.]]></description>
       <property-name>text</property-name>
       <property-class>java.lang.String</property-class>
+      <suggested-value>{localName} {0}</suggested-value>
       <property-extension>
         <mfp:property-metadata>
-          <mfp:initial-value>{localName} {0}</mfp:initial-value>
-          <mfp:preferred>true</mfp:preferred>
           <mfp:translatable>true</mfp:translatable>
         </mfp:property-metadata>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -104,10 +106,11 @@
       <property-class>boolean</property-class>
       <default-value>false</default-value>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
         <mfp:state-holder>no</mfp:state-holder>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -127,9 +130,11 @@
       <property-class>java.lang.String</property-class>
       <property-extension>
         <mfp:property-metadata>
-          <mfp:property-editor>IMAGE_URI</mfp:property-editor>
           <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>
         </mfp:property-metadata>
+        <fmd:property-metadata>
+          <fmd:property-editor>IMAGE_URI</fmd:property-editor>
+        </fmd:property-metadata>
       </property-extension>
     </property>
 
@@ -171,12 +176,12 @@
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>
-      <mfp:component-metadata>
-        <mfp:accepts-child-components>false</mfp:accepts-child-components>
-        <mfp:favorite-property>text</mfp:favorite-property>
-        <mfp:group>${md:getTranslatedString("PALETTE_NAVIGATION")}</mfp:group>
-      </mfp:component-metadata>
+      <mfp:component-metadata/>
       <mfp:uix2-local-name>button</mfp:uix2-local-name>
+      <fmd:component-metadata>
+        <fmd:allowed-child-components>NONE</fmd:allowed-child-components>
+        <fmd:default-property>text</fmd:default-property>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

@@ -22,7 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[PanelPageHeader lays out the top portion of a page.]]></description>
     <icon>
@@ -34,38 +34,42 @@
       <description><![CDATA[This location typically contains a menuTabs.]]></description>
       <facet-name>navigation1</facet-name>
       <facet-extension>
-        <mfp:facet-metadata>
-          <mfp:preferred-children>tr:menuTabs</mfp:preferred-children>
-        </mfp:facet-metadata>
+        <mfp:facet-metadata/>
+        <fmd:facet-metadata>
+          <fmd:preferred-child-components/>
+        </fmd:facet-metadata>
       </facet-extension>
     </facet>
     <facet>
       <description><![CDATA[This location typically contains a menuBar.]]></description>
       <facet-name>navigation2</facet-name>
       <facet-extension>
-        <mfp:facet-metadata>
-          <mfp:preferred-children>tr:menuBar</mfp:preferred-children>
-        </mfp:facet-metadata>
+        <mfp:facet-metadata/>
+        <fmd:facet-metadata>
+          <fmd:preferred-child-components/>
+        </fmd:facet-metadata>
       </facet-extension>
     </facet>
     <facet>
       <description><![CDATA[This section typically contains a menuButtons.]]></description>
       <facet-name>navigationGlobal</facet-name>
       <facet-extension>
-        <mfp:facet-metadata>
-          <mfp:preferred-children>tr:menuButtons</mfp:preferred-children>
-        </mfp:facet-metadata>
+        <mfp:facet-metadata/>
+        <fmd:facet-metadata>
+          <fmd:preferred-child-components/>
+        </fmd:facet-metadata>
       </facet-extension>
     </facet>
     <facet>
       <description><![CDATA[This location typically contains a menuChoice.]]></description>
       <facet-name>menuSwitch</facet-name>
       <facet-extension>
-        <mfp:facet-metadata>
-          <mfp:preferred>false</mfp:preferred>
-          <mfp:preferred-children>tr:menuChoice</mfp:preferred-children>
-        </mfp:facet-metadata>
+        <mfp:facet-metadata/>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
+        <fmd:facet-metadata>
+          <fmd:preferred>false</fmd:preferred>
+          <fmd:preferred-child-components/>
+        </fmd:facet-metadata>
       </facet-extension>
     </facet>
     <facet>
@@ -75,9 +79,10 @@
       </description>
       <facet-name>branding</facet-name>
       <facet-extension>
-        <mfp:facet-metadata>
-          <mfp:preferred-children>tr:image</mfp:preferred-children>
-        </mfp:facet-metadata>
+        <mfp:facet-metadata/>
+        <fmd:facet-metadata>
+          <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreImage</fmd:preferred-child-components>
+        </fmd:facet-metadata>
       </facet-extension>
     </facet>
     <facet>
@@ -86,9 +91,10 @@
       </description>
       <facet-name>brandingApp</facet-name>
       <facet-extension>
-        <mfp:facet-metadata>
-          <mfp:preferred-children>tr:image</mfp:preferred-children>
-        </mfp:facet-metadata>
+        <mfp:facet-metadata/>
+        <fmd:facet-metadata>
+          <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreImage</fmd:preferred-child-components>
+        </fmd:facet-metadata>
       </facet-extension>
     </facet>
     <facet>
@@ -108,10 +114,11 @@
       <description><![CDATA[The search region of the page.]]></description>
       <facet-name>search</facet-name>
       <facet-extension>
-        <mfp:facet-metadata>
-          <mfp:preferred-children>tr:inputText</mfp:preferred-children>
-        </mfp:facet-metadata>
+        <mfp:facet-metadata/>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
+        <fmd:facet-metadata>
+          <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreInputText</fmd:preferred-child-components>
+        </fmd:facet-metadata>
       </facet-extension>
     </facet>
     <property>
@@ -123,7 +130,9 @@
       <property-class>java.lang.String</property-class>
       <default-value>compact</default-value>
       <property-extension>
-        <mfp:property-values>compact expanded</mfp:property-values>
+        <fmd:property-metadata>
+          <fmd:property-values>compact expanded</fmd:property-values>
+        </fmd:property-metadata>
       </property-extension>
     </property>
 
@@ -169,11 +178,11 @@
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Blake Sullivan</mfp:author>
-      <mfp:component-metadata>
-        <mfp:accepts-child-components>false</mfp:accepts-child-components>
-        <mfp:group>${md:getTranslatedString("PALETTE_LAYOUT")}</mfp:group>
-      </mfp:component-metadata>
+      <mfp:component-metadata/>
       <mfp:uix2-local-name>pageHeaderLayout</mfp:uix2-local-name>
+      <fmd:component-metadata>
+        <fmd:allowed-child-components>NONE</fmd:allowed-child-components>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

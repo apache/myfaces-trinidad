@@ -22,7 +22,7 @@
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:trh="http://myfaces.apache.org/trinidad/html"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[<html>
           The html tag generates the &lt;html&gt; element for an HTML page.</html>]]></description>
@@ -59,10 +59,11 @@ based on the current locale.
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>
-      <mfp:component-metadata>
-        <mfp:preferred-children>trh:head trh:body</mfp:preferred-children>
-      </mfp:component-metadata>
+      <mfp:component-metadata/>
       <mfp:uix2-local-name>html</mfp:uix2-local-name>
+      <fmd:component-metadata>
+        <fmd:preferred-child-components>org.apache.myfaces.trinidad.HtmlHead org.apache.myfaces.trinidad.HtmlBody</fmd:preferred-child-components>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

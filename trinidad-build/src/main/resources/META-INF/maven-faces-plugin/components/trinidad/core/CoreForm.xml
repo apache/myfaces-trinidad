@@ -22,7 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[<html>
           The form tag creates an HTML &lt;form&gt; element.</html>]]></description>
@@ -53,8 +53,10 @@
       <property-class>java.lang.String</property-class>
       <default-value>on</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
-        <mfp:property-values>on off</mfp:property-values>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+          <fmd:property-values>on off</fmd:property-values>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -73,9 +75,10 @@
       <property-name>onsubmit</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:category-id>EVENTS</fmd:category-id>
+        </fmd:property-metadata>
       </property-extension>
     </property>
 
@@ -98,11 +101,11 @@
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>
-      <mfp:component-metadata>
-        <mfp:group>${md:getTranslatedString("PALETTE_OTHER")}</mfp:group>
-        <mfp:preferred-children>tr:panelPage tr:page</mfp:preferred-children>
-      </mfp:component-metadata>
+      <mfp:component-metadata/>
       <mfp:uix2-local-name>form</mfp:uix2-local-name>
+      <fmd:component-metadata>
+        <fmd:preferred-child-components>org.apache.myfaces.trinidad.CorePanelPage org.apache.myfaces.trinidad.CorePage</fmd:preferred-child-components>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

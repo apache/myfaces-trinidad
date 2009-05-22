@@ -21,7 +21,7 @@
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:trh="http://myfaces.apache.org/trinidad/html"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[Tag for the HTML body element.]]></description>
     <icon>
@@ -47,10 +47,11 @@
       <property-class>boolean</property-class>
       <default-value>false</default-value>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:expert>true</mfp:expert>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
+        <fmd:property-metadata>
+          <fmd:expert>true</fmd:expert>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -60,9 +61,10 @@
       <property-name>shortDesc</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("CORE_GROUP")}</mfp:group>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:category-id>GENERAL</fmd:category-id>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -84,9 +86,10 @@
       <property-name>onclick</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:category-id>EVENTS</fmd:category-id>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -94,9 +97,10 @@
       <property-name>ondblclick</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:category-id>EVENTS</fmd:category-id>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -104,9 +108,10 @@
       <property-name>onmousedown</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:category-id>EVENTS</fmd:category-id>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -114,9 +119,10 @@
       <property-name>onmouseup</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:category-id>EVENTS</fmd:category-id>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -124,9 +130,10 @@
       <property-name>onmouseover</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:category-id>EVENTS</fmd:category-id>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -134,9 +141,10 @@
       <property-name>onmousemove</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:category-id>EVENTS</fmd:category-id>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -144,9 +152,10 @@
       <property-name>onmouseout</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:category-id>EVENTS</fmd:category-id>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -154,9 +163,10 @@
       <property-name>onkeypress</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:category-id>EVENTS</fmd:category-id>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -164,9 +174,10 @@
       <property-name>onkeydown</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:category-id>EVENTS</fmd:category-id>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -174,9 +185,10 @@
       <property-name>onkeyup</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:category-id>EVENTS</fmd:category-id>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -184,9 +196,10 @@
       <property-name>styleClass</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("CORE_GROUP")}</mfp:group>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:category-id>GENERAL</fmd:category-id>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -194,9 +207,10 @@
       <property-name>inlineStyle</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("CORE_GROUP")}</mfp:group>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:category-id>GENERAL</fmd:category-id>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -204,9 +218,10 @@
       <property-name>onload</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:category-id>EVENTS</fmd:category-id>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -214,9 +229,10 @@
       <property-name>onunload</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:category-id>EVENTS</fmd:category-id>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -228,10 +244,12 @@
       <property-class>java.lang.String</property-class>
       <property-extension>
         <mfp:property-metadata>
-          <mfp:expert>true</mfp:expert>
           <mfp:scoped-id-holder>true</mfp:scoped-id-holder>
         </mfp:property-metadata>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
+        <fmd:property-metadata>
+          <fmd:expert>true</fmd:expert>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <component-extension>
@@ -259,10 +277,11 @@ and assigning initial page focus.
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Blake Sullivan</mfp:author>
-      <mfp:component-metadata>
-        <mfp:preferred-children>tr:panelPage tr:form</mfp:preferred-children>
-      </mfp:component-metadata>
+      <mfp:component-metadata/>
       <mfp:uix2-local-name>body</mfp:uix2-local-name>
+      <fmd:component-metadata>
+        <fmd:preferred-child-components>org.apache.myfaces.trinidad.CorePanelPage org.apache.myfaces.trinidad.CoreForm</fmd:preferred-child-components>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

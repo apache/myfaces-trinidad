@@ -22,7 +22,7 @@
               xmlns:trh="http://myfaces.apache.org/trinidad/html"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[The styleSheet tag generates the style
           sheet link reference to a generated Apache Trinidad style sheet.
@@ -46,10 +46,12 @@
       </mfp:long-description>
       <mfp:author>Brian Albers</mfp:author>
       <mfp:component-metadata>
-        <mfp:hidden>true</mfp:hidden>
         <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>
       </mfp:component-metadata>
       <mfp:uix2-local-name>styleSheet</mfp:uix2-local-name>
+      <fmd:component-metadata>
+        <fmd:hidden>true</fmd:hidden>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

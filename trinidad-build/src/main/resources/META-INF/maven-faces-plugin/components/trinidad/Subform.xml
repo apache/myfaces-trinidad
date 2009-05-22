@@ -22,8 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <icon>
       <!-- small-icon>/org/apache/myfaces/trinidadinternal/metadata/icons/baseSubform.png</small-icon -->
@@ -36,9 +35,11 @@
       <property-class>boolean</property-class>
       <default-value>false</default-value>
       <property-extension>
-        <mfp:literal-only>true</mfp:literal-only>
         <mfp:tag-attribute-excluded>true</mfp:tag-attribute-excluded>
         <mfp:transient>yes</mfp:transient>
+        <fmd:property-metadata>
+          <fmd:value-expression>PROHIBITED</fmd:value-expression>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -50,7 +51,9 @@ considered true if no other subform has been submitted.]]>
       <property-class>boolean</property-class>
       <default-value>false</default-value>
       <property-extension>
-        <mfp:literal-only>true</mfp:literal-only>
+        <fmd:property-metadata>
+          <fmd:value-expression>PROHIBITED</fmd:value-expression>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <component-extension>

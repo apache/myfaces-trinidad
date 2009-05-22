@@ -22,7 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <component-type>org.apache.myfaces.trinidad.ComponentBase</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXComponentBase</component-class>
@@ -35,13 +35,14 @@
       <property-name>attributeChangeListener</property-name>
       <property-class>javax.el.MethodExpression</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:expert>true</mfp:expert>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
         <mfp:method-binding-signature>
           <mfp:parameter-type>org.apache.myfaces.trinidad.event.AttributeChangeEvent</mfp:parameter-type>
           <mfp:return-type>void</mfp:return-type>
         </mfp:method-binding-signature>
+        <fmd:property-metadata>
+          <fmd:expert>true</fmd:expert>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <component-extension>

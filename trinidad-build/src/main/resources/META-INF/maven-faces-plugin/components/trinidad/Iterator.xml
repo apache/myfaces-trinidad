@@ -22,8 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[UIXIterator is a component that performs iteration
 over its child components.  It is like a UIXTable without any chrome.
@@ -50,10 +49,11 @@ heirarchy. ]]></description>
       <property-name>varStatus</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:literal-only>true</mfp:literal-only>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:value-expression>PROHIBITED</fmd:value-expression>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -70,9 +70,10 @@ The specific model class is
       <property-name>value</property-name>
       <property-class>java.lang.Object</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -87,9 +88,10 @@ The default is 25.]]>
       <property-class>int</property-class>
       <default-value>25</default-value>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>

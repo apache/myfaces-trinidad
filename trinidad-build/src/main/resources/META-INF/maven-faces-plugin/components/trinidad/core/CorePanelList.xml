@@ -22,7 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[The panelList control outputs each visible child
           in a list with a bullet next to it.]]>
@@ -52,11 +52,12 @@
       <property-class>int</property-class>
       <default-value>2147483647</default-value>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-          <mfp:property-editor>UNSIGNED_INTEGER</mfp:property-editor>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
         <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:property-editor>UNSIGNED_INTEGER</fmd:property-editor>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -68,11 +69,12 @@
       <property-class>int</property-class>
       <default-value>3</default-value>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-          <mfp:property-editor>UNSIGNED_INTEGER</mfp:property-editor>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
         <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:property-editor>UNSIGNED_INTEGER</fmd:property-editor>
+        </fmd:property-metadata>
       </property-extension>
     </property>
 
@@ -124,12 +126,12 @@
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Gabrielle Crawford</mfp:author>
-      <mfp:component-metadata>
-        <mfp:favorite-property>rows</mfp:favorite-property>
-        <mfp:group>${md:getTranslatedString("PALETTE_LAYOUT")}</mfp:group>
-        <mfp:preferred-children>tr:commandLink</mfp:preferred-children>
-      </mfp:component-metadata>
+      <mfp:component-metadata/>
       <mfp:uix2-local-name>bulletedList</mfp:uix2-local-name>
+      <fmd:component-metadata>
+        <fmd:default-property>rows</fmd:default-property>
+        <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreCommandLink</fmd:preferred-child-components>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

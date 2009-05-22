@@ -21,7 +21,7 @@
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <converter>
     <converter-id>javax.faces.Long</converter-id>
     <converter-class>org.apache.myfaces.trinidadinternal.convert.LongConverter</converter-class>

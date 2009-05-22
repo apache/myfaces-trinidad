@@ -22,7 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[The panelButtonBar lays out a set of buttons.]]></description>
     <icon>
@@ -40,7 +40,9 @@ right, or center.]]></description>
       <property-name>halign</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:property-values>right start left end center</mfp:property-values>
+        <fmd:property-metadata>
+          <fmd:property-values>right start left end center</fmd:property-values>
+        </fmd:property-metadata>
       </property-extension>
     </property>
 
@@ -65,11 +67,12 @@ right, or center.]]></description>
       </mfp:example>
       <mfp:author>Blake Sullivan</mfp:author>
       <mfp:component-metadata>
-        <mfp:group>${md:getTranslatedString("PALETTE_LAYOUT")}</mfp:group>
-        <mfp:preferred-children>tr:button tr:commandButton tr:resetButton tr:processChoiceBar tr:selectOneChoice</mfp:preferred-children>
         <mfp:unsupported-agents>pda</mfp:unsupported-agents>
       </mfp:component-metadata>
       <mfp:uix2-local-name>pageButtonBar</mfp:uix2-local-name>
+      <fmd:component-metadata>
+        <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreCommandButton org.apache.myfaces.trinidad.CoreResetButton org.apache.myfaces.trinidad.CoreProcessChoiceBar org.apache.myfaces.trinidad.CoreSelectOneChoice</fmd:preferred-child-components>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

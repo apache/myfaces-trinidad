@@ -22,7 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[The icon component renders a skin specific icon.]]></description>
     <icon>
@@ -40,11 +40,12 @@
       </description>
       <property-name>name</property-name>
       <property-class>java.lang.String</property-class>
+      <suggested-value>required</suggested-value>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:initial-value>required</mfp:initial-value>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
 
@@ -71,15 +72,15 @@
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Andy Schwartz</mfp:author>
-      <mfp:component-metadata>
-        <mfp:accepts-child-components>false</mfp:accepts-child-components>
-        <mfp:favorite-property>name</mfp:favorite-property>
-        <mfp:group>${md:getTranslatedString("PALETTE_OUTPUT")}</mfp:group>
-      </mfp:component-metadata>
+      <mfp:component-metadata/>
       <mfp:java-constructor>
         <mfp:property-name>name</mfp:property-name>
       </mfp:java-constructor>
       <mfp:uix2-local-name>icon</mfp:uix2-local-name>
+      <fmd:component-metadata>
+        <fmd:allowed-child-components>NONE</fmd:allowed-child-components>
+        <fmd:default-property>name</fmd:default-property>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

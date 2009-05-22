@@ -19,7 +19,8 @@
      
 --><faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
-              xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin">
+              xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
+                 xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <validator>
     <description><![CDATA[Validate that the date entered is within a given range.]]></description>
     <display-name>validateLongRange</display-name>
@@ -31,9 +32,10 @@
       <property-name>maximum</property-name>
       <property-class>long</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -42,9 +44,10 @@
       <property-name>minimum</property-name>
       <property-class>long</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>

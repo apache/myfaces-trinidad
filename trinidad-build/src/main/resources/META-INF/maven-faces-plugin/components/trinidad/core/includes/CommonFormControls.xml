@@ -20,15 +20,16 @@
 --><faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin">
+                 xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <facet>
       <description>This facet should contain field level help.</description>
       <facet-name>help</facet-name>
       <facet-extension>
-        <mfp:facet-metadata>
-          <mfp:preferred-children>tr:outputText</mfp:preferred-children>
-        </mfp:facet-metadata>
+        <mfp:facet-metadata/>
+        <fmd:facet-metadata>
+          <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreOutputText</fmd:preferred-child-components>
+        </fmd:facet-metadata>
       </facet-extension>
     </facet>
     <property>
@@ -36,7 +37,9 @@
       <property-name>contentStyle</property-name> 
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:required>false</mfp:required>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
   </component>

@@ -22,8 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[UIXSelectOrder is a base abstraction for 
           components that allow selection of multiple of a
@@ -41,14 +40,14 @@
       <mfp:renderer-type>org.apache.myfaces.trinidad.Shuttle</mfp:renderer-type>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.UIXSelectOrderTag</mfp:tag-class>
       <mfp:author>Adam Winer</mfp:author>
-      <mfp:component-metadata>
-        <mfp:group>${md:getTranslatedString("PALETTE_INPUT")}</mfp:group>
-        <mfp:preferred-children>tr:selectItem</mfp:preferred-children>
-      </mfp:component-metadata>
+      <mfp:component-metadata/>
       <mfp:java-constructor>
         <mfp:property-name>localName</mfp:property-name>
       </mfp:java-constructor>
       <mfp:tag-class-modifier>abstract</mfp:tag-class-modifier>
+      <fmd:component-metadata>
+        <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreSelectItem</fmd:preferred-child-components>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

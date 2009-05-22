@@ -325,7 +325,7 @@ class FacesConfigParser extends BaseNodeParser
       if ("property-name".equals(localName) ||
           "property-class".equals(localName) ||
           "default-value".equals(localName) ||
-          "attribute-values".equals(localName))
+          "property-values".equals(localName))
         return new StringParser();
       else if ("property-extension".equals(localName) ||
                "property-metadata".equals(localName))
@@ -380,7 +380,7 @@ class FacesConfigParser extends BaseNodeParser
             c = String.class;
           _property.defaultValue = Coercions.coerce(null, s, c);
         }
-        else if ("attribute-values".equals(localName))
+        else if ("property-values".equals(localName))
         {
           _property.enumValues = new ArrayList<Object>();
           String[] values = XMLUtils.parseNameTokens(s);

@@ -21,7 +21,8 @@
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xi="http://www.w3.org/2001/XInclude">
+              xmlns:xi="http://www.w3.org/2001/XInclude"
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[PanelPage lays out an entire page.]]></description>
     <icon>
@@ -34,10 +35,11 @@
       <description><![CDATA[Area to put a commandLink to more information about the application.]]></description>
       <facet-name>appAbout</facet-name>
       <facet-extension>
-        <mfp:facet-metadata>
-          <mfp:preferred>true</mfp:preferred>
-          <mfp:preferred-children>tr:commandLink</mfp:preferred-children>
-        </mfp:facet-metadata>
+        <mfp:facet-metadata/>
+        <fmd:facet-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreCommandLink</fmd:preferred-child-components>
+        </fmd:facet-metadata>
       </facet-extension>
     </facet>
     <facet>
@@ -46,11 +48,12 @@
       </description>
       <facet-name>appCopyright</facet-name>
       <facet-extension>
-        <mfp:facet-metadata>
-          <mfp:preferred>true</mfp:preferred>
-          <mfp:preferred-children>tr:outputText</mfp:preferred-children>
-        </mfp:facet-metadata>
+        <mfp:facet-metadata/>
         <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>
+        <fmd:facet-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreOutputText</fmd:preferred-child-components>
+        </fmd:facet-metadata>
       </facet-extension>
     </facet>
     <facet>
@@ -60,10 +63,11 @@
       </description>
       <facet-name>appPrivacy</facet-name>
       <facet-extension>
-        <mfp:facet-metadata>
-          <mfp:preferred>true</mfp:preferred>
-          <mfp:preferred-children>tr:commandLink</mfp:preferred-children>
-        </mfp:facet-metadata>
+        <mfp:facet-metadata/>
+        <fmd:facet-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreCommandLink</fmd:preferred-child-components>
+        </fmd:facet-metadata>
       </facet-extension>
     </facet>
     <facet>
@@ -73,10 +77,11 @@
       </description>
       <facet-name>branding</facet-name>
       <facet-extension>
-        <mfp:facet-metadata>
-          <mfp:preferred>true</mfp:preferred>
-          <mfp:preferred-children>tr:panelGroupLayout tr:image tr:outputText</mfp:preferred-children>
-        </mfp:facet-metadata>
+        <mfp:facet-metadata/>
+        <fmd:facet-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:preferred-child-components>org.apache.myfaces.trinidad.CorePanelGroupLayout org.apache.myfaces.trinidad.CoreImage org.apache.myfaces.trinidad.CoreOutputText</fmd:preferred-child-components>
+        </fmd:facet-metadata>
       </facet-extension>
     </facet>
     <facet>
@@ -85,10 +90,11 @@
       </description>
       <facet-name>infoFootnote</facet-name>
       <facet-extension>
-        <mfp:facet-metadata>
-          <mfp:preferred-children>tr:panelGroupLayout tr:outputFormatted</mfp:preferred-children>
-        </mfp:facet-metadata>
+        <mfp:facet-metadata/>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
+        <fmd:facet-metadata>
+          <fmd:preferred-child-components>org.apache.myfaces.trinidad.CorePanelGroupLayout org.apache.myfaces.trinidad.CoreOutputFormatted</fmd:preferred-child-components>
+        </fmd:facet-metadata>
       </facet-extension>
     </facet>
     <facet>
@@ -96,10 +102,11 @@
       </description>
       <facet-name>infoReturn</facet-name>
       <facet-extension>
-        <mfp:facet-metadata>
-          <mfp:preferred-children>tr:commandLink</mfp:preferred-children>
-        </mfp:facet-metadata>
+        <mfp:facet-metadata/>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
+        <fmd:facet-metadata>
+          <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreCommandLink</fmd:preferred-child-components>
+        </fmd:facet-metadata>
       </facet-extension>
     </facet>
     <facet>
@@ -109,9 +116,10 @@
       </description>
       <facet-name>infoStatus</facet-name>
       <facet-extension>
-        <mfp:facet-metadata>
-          <mfp:preferred-children>tr:panelGroupLayout tr:outputFormatted</mfp:preferred-children>
-        </mfp:facet-metadata>
+        <mfp:facet-metadata/>
+        <fmd:facet-metadata>
+          <fmd:preferred-child-components>org.apache.myfaces.trinidad.CorePanelGroupLayout org.apache.myfaces.trinidad.CoreOutputFormatted</fmd:preferred-child-components>
+        </fmd:facet-metadata>
       </facet-extension>
     </facet>
     <facet>
@@ -120,10 +128,11 @@
       </description>
       <facet-name>infoUser</facet-name>
       <facet-extension>
-        <mfp:facet-metadata>
-          <mfp:preferred-children>tr:panelGroupLayout tr:outputFormatted</mfp:preferred-children>
-        </mfp:facet-metadata>
+        <mfp:facet-metadata/>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
+        <fmd:facet-metadata>
+          <fmd:preferred-child-components>org.apache.myfaces.trinidad.CorePanelGroupLayout org.apache.myfaces.trinidad.CoreOutputFormatted</fmd:preferred-child-components>
+        </fmd:facet-metadata>
       </facet-extension>
     </facet>
     <facet>
@@ -135,58 +144,64 @@
       </description>
       <facet-name>location</facet-name>
       <facet-extension>
-        <mfp:facet-metadata>
-          <mfp:preferred-children>tr:train tr:breadCrumbs</mfp:preferred-children>
-        </mfp:facet-metadata>
+        <mfp:facet-metadata/>
+        <fmd:facet-metadata>
+          <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreTrain org.apache.myfaces.trinidad.CoreBreadCrumbs</fmd:preferred-child-components>
+        </fmd:facet-metadata>
       </facet-extension>
     </facet>
     <facet>
       <description><![CDATA[This location typically contains tabs for the primary layer.]]></description>
       <facet-name>navigation1</facet-name>
       <facet-extension>
-        <mfp:facet-metadata>
-          <mfp:preferred>true</mfp:preferred>
-          <mfp:preferred-children>tr:navigationPane</mfp:preferred-children>
-        </mfp:facet-metadata>
+        <mfp:facet-metadata/>
+        <fmd:facet-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreNavigationPane</fmd:preferred-child-components>
+        </fmd:facet-metadata>
       </facet-extension>
     </facet>
     <facet>
       <description><![CDATA[This location typically contains tabs for the secondary layer.]]></description>
       <facet-name>navigation2</facet-name>
       <facet-extension>
-        <mfp:facet-metadata>
-          <mfp:preferred-children>tr:navigationPane</mfp:preferred-children>
-        </mfp:facet-metadata>
+        <mfp:facet-metadata/>
+        <fmd:facet-metadata>
+          <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreNavigationPane</fmd:preferred-child-components>
+        </fmd:facet-metadata>
       </facet-extension>
     </facet>
     <facet>
       <description><![CDATA[An optional vertically oriented region of contexual components for the main content.  Often this contains a list or tree of links for deeper navigation structure than the global, primary, and secondary regions can provide.]]></description>
       <facet-name>navigation3</facet-name>
       <facet-extension>
-        <mfp:facet-metadata>
-          <mfp:preferred-children>tr:navigationPane tr:navigationTree</mfp:preferred-children>
-        </mfp:facet-metadata>
+        <mfp:facet-metadata/>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
+        <fmd:facet-metadata>
+          <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreNavigationPane org.apache.myfaces.trinidad.CoreNavigationTree</fmd:preferred-child-components>
+        </fmd:facet-metadata>
       </facet-extension>
     </facet>
     <facet>
       <description><![CDATA[This section typically contains global application links or otherwise top level navigation structure links, e.g. "Home", "Preferences", "Help", and "Sign Out".]]></description>
       <facet-name>navigationGlobal</facet-name>
       <facet-extension>
-        <mfp:facet-metadata>
-          <mfp:preferred>true</mfp:preferred>
-          <mfp:preferred-children>tr:navigationPane</mfp:preferred-children>
-        </mfp:facet-metadata>
+        <mfp:facet-metadata/>
+        <fmd:facet-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreNavigationPane</fmd:preferred-child-components>
+        </fmd:facet-metadata>
       </facet-extension>
     </facet>
     <facet>
       <description><![CDATA[The search region of the page.  Typically used for application or system-wide searches.]]></description>
       <facet-name>search</facet-name>
       <facet-extension>
-        <mfp:facet-metadata>
-          <mfp:preferred-children>tr:inputText</mfp:preferred-children>
-        </mfp:facet-metadata>
+        <mfp:facet-metadata/>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
+        <fmd:facet-metadata>
+          <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreInputText</fmd:preferred-child-components>
+        </fmd:facet-metadata>
       </facet-extension>
     </facet>
 
@@ -200,7 +215,9 @@
       <property-class>int</property-class>
       <default-value>200</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -210,7 +227,9 @@
       <property-class>int</property-class>
       <default-value>200</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -220,7 +239,9 @@
       <property-class>int</property-class>
       <default-value>200</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
 
@@ -293,9 +314,7 @@
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Blake Sullivan</mfp:author>
-      <mfp:component-metadata>
-        <mfp:group>${md:getTranslatedString("PALETTE_LAYOUT")}</mfp:group>
-      </mfp:component-metadata>
+      <mfp:component-metadata/>
       <mfp:uix2-local-name>pageLayout</mfp:uix2-local-name>
     </component-extension>
   </component>

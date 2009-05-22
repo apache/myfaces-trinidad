@@ -22,7 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[The inputListOfValues is a text field that also supports
 launching a dialog to assist users in entering a value.]]>
@@ -51,9 +51,10 @@ launching a dialog to assist users in entering a value.]]>
       <property-name>icon</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:property-editor>IMAGE_URI</mfp:property-editor>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:property-editor>IMAGE_URI</fmd:property-editor>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -76,21 +77,25 @@ launching a dialog to assist users in entering a value.]]>
       <property-class>java.lang.String</property-class>
       <default-value>on</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
-        <mfp:property-values>on off</mfp:property-values>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+          <fmd:property-values>on off</fmd:property-values>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
       <description><![CDATA[the label of the bean.]]></description>
       <property-name>label</property-name>
       <property-class>java.lang.String</property-class>
+      <suggested-value>Label {0}</suggested-value>
       <property-extension>
         <mfp:property-metadata>
-          <mfp:initial-value>Label {0}</mfp:initial-value>
-          <mfp:preferred>true</mfp:preferred>
           <mfp:translatable>true</mfp:translatable>
           <mfp:short-description>${md:getTranslatedString("SD_ATTRGROUP_INLINEMESSAGINGPROMPT_ATTR_PROMPT")}</mfp:short-description>
         </mfp:property-metadata>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -110,9 +115,10 @@ tip), and may use simpler layout primitives]]>
       <property-name>onchange</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:category-id>EVENTS</fmd:category-id>
+        </fmd:property-metadata>
       </property-extension>
     </property>
 
@@ -128,9 +134,10 @@ tip), and may use simpler layout primitives]]>
       <property-class>boolean</property-class>
       <default-value>false</default-value>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("MESSAGE_GROUP")}</mfp:group>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:category-id>APPEARANCE</fmd:category-id>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -181,9 +188,10 @@ tip), and may use simpler layout primitives]]>
       <property-name>onselect</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:category-id>EVENTS</fmd:category-id>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -195,9 +203,10 @@ tip), and may use simpler layout primitives]]>
       <property-name>columns</property-name>
       <property-class>int</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -258,12 +267,13 @@ the &quot;dialog&quot; will be shown in the same window.)
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>
       <mfp:component-metadata>
-        <mfp:accepts-child-components>false</mfp:accepts-child-components>
-        <mfp:favorite-property>label</mfp:favorite-property>
-        <mfp:group>${md:getTranslatedString("PALETTE_INPUT")}</mfp:group>
         <mfp:unsupported-agents>pda</mfp:unsupported-agents>
       </mfp:component-metadata>
       <mfp:uix2-local-name>inputListOfValues</mfp:uix2-local-name>
+      <fmd:component-metadata>
+        <fmd:allowed-child-components>NONE</fmd:allowed-child-components>
+        <fmd:default-property>label</fmd:default-property>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

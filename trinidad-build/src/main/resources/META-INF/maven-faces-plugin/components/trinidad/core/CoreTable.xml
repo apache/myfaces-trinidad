@@ -22,7 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[The Trinidad Table is used to display tabular data. It also supports selection (both single and multiple), sorting, record navigation and detail-disclosure.]]>
     </description>
@@ -246,12 +246,12 @@ detail-disclosure.
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Brian Albers</mfp:author>
-      <mfp:component-metadata>
-        <mfp:favorite-property>id</mfp:favorite-property>
-        <mfp:group>${md:getTranslatedString("PALETTE_DATA")}</mfp:group>
-        <mfp:preferred-children>tr:column tr:columnGroup</mfp:preferred-children>
-      </mfp:component-metadata>
+      <mfp:component-metadata/>
       <mfp:uix2-local-name>table</mfp:uix2-local-name>
+      <fmd:component-metadata>
+        <fmd:default-property>id</fmd:default-property>
+        <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreColumn</fmd:preferred-child-components>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

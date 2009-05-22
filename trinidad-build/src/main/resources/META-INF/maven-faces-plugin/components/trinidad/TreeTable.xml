@@ -22,8 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[The Apache Trinidad TreeTable is used to display data that is structured in a hierarchical format.]]>
     </description>
@@ -42,10 +41,11 @@
       <property-class>boolean</property-class>
       <default-value>true</default-value>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
-        <mfp:required>false</mfp:required>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -64,9 +64,10 @@
       <property-name>rowsByDepth</property-name>
       <property-class>int[]</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -80,9 +81,10 @@
           <mfp:parameter-type>org.apache.myfaces.trinidad.event.RangeChangeEvent</mfp:parameter-type>
           <mfp:return-type>void</mfp:return-type>
         </mfp:method-binding-signature>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <component-extension>
@@ -112,13 +114,13 @@
         </html:p>]]>
       </mfp:long-description>
       <mfp:author>Arjuna Wijeyekoon</mfp:author>
-      <mfp:component-metadata>
-        <mfp:favorite-property>id</mfp:favorite-property>
-        <mfp:group>${md:getTranslatedString("PALETTE_DATA")}</mfp:group>
-        <mfp:preferred-children>tr:column</mfp:preferred-children>
-      </mfp:component-metadata>
+      <mfp:component-metadata/>
       <mfp:tag-class-modifier>abstract</mfp:tag-class-modifier>
       <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
+      <fmd:component-metadata>
+        <fmd:default-property>id</fmd:default-property>
+        <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreColumn</fmd:preferred-child-components>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

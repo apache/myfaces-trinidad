@@ -21,8 +21,8 @@
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
-              xmlns:xi="http://www.w3.org/2001/XInclude">
+              xmlns:xi="http://www.w3.org/2001/XInclude"
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <facet>
       <description><![CDATA[the component used to render the table footer.]]></description>
@@ -46,9 +46,10 @@
       </description>
       <facet-name>actions</facet-name>
       <facet-extension>
-        <mfp:facet-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:facet-metadata>
+        <mfp:facet-metadata/>
+        <fmd:facet-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:facet-metadata>
       </facet-extension>
     </facet>
     <property>
@@ -57,7 +58,9 @@
       <property-class>boolean</property-class>
       <default-value>true</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -66,7 +69,9 @@
       <property-class>boolean</property-class>
       <default-value>true</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -74,10 +79,12 @@
       <property-name>emptyText</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:required>false</mfp:required>
         <mfp:property-metadata>
           <mfp:translatable>true</mfp:translatable>
         </mfp:property-metadata>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -87,7 +94,9 @@
       <property-class>int</property-class>
       <default-value>0</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -97,7 +106,9 @@
       <property-class>int</property-class>
       <default-value>0</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -106,8 +117,10 @@
       <property-class>java.lang.String</property-class>
       <default-value>none</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
-        <mfp:property-values>none single multiple</mfp:property-values>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+          <fmd:property-values>none single multiple</fmd:property-values>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -132,9 +145,11 @@
       <property-class>java.lang.String</property-class>
       <property-extension>
         <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
           <mfp:translatable>true</mfp:translatable>
         </mfp:property-metadata>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
 

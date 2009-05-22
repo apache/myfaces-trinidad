@@ -18,7 +18,8 @@
     under the License.
 	   
 --><faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin">
+              xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
+                 xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <property>
       <description>
@@ -26,12 +27,14 @@
       </description>
       <property-name>text</property-name>
       <property-class>java.lang.String</property-class>
+      <suggested-value>{localName} {0}</suggested-value>
       <property-extension>
         <mfp:property-metadata>
-          <mfp:initial-value>{localName} {0}</mfp:initial-value>
-          <mfp:preferred>true</mfp:preferred>
           <mfp:translatable>true</mfp:translatable>
         </mfp:property-metadata>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -41,9 +44,10 @@
       <property-name>icon</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:property-editor>IMAGE_URI</mfp:property-editor>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:property-editor>IMAGE_URI</fmd:property-editor>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -54,7 +58,9 @@
       <property-class>java.lang.String</property-class>
       <default-value>none</default-value>
       <property-extension>
-        <mfp:property-values>info confirmation warning none error</mfp:property-values>
+        <fmd:property-metadata>
+          <fmd:property-values>info confirmation warning none error</fmd:property-values>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>

@@ -20,7 +20,7 @@
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:tr="http://myfaces.apache.org/trinidad"
   xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[The Trinidad Chart is used to diplay data in a chart format.]]>
     </description>
@@ -36,10 +36,10 @@
       <property-class>java.lang.String</property-class>
       <default-value>verticalBar</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
-        <mfp:property-values>
-          verticalBar horizontalBar stackedVerticalBar stackedHorizontalBar pie area stackedArea line barLine XYLine scatterPlot radar radarArea funnel circularGauge semiCircularGauge
-      </mfp:property-values>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+          <fmd:property-values>verticalBar horizontalBar stackedVerticalBar stackedHorizontalBar pie area stackedArea line barLine XYLine scatterPlot radar radarArea funnel circularGauge semiCircularGauge</fmd:property-values>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -55,7 +55,9 @@
       <property-name>templateSource</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:required>false</mfp:required>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -65,7 +67,9 @@
       <property-class>boolean</property-class>
       <default-value>true</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -75,10 +79,10 @@
       <property-class>java.lang.String</property-class>
       <default-value>bottom</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
-        <mfp:property-values>
-          none bottom end top start
-        </mfp:property-values>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+          <fmd:property-values>none bottom end top start</fmd:property-values>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -88,7 +92,9 @@
       <property-class>int</property-class>
       <default-value>1000</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -99,7 +105,9 @@
       <property-class>int</property-class>
       <default-value>3</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -110,7 +118,9 @@
       <property-class>int</property-class>
       <default-value>-1</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -123,7 +133,9 @@
       <property-class>int</property-class>
       <default-value>-1</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -133,7 +145,9 @@
       <property-class>int</property-class>
       <default-value>0</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -143,7 +157,9 @@
       <property-class>boolean</property-class>
       <default-value>true</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -152,7 +168,9 @@
       <property-class>boolean</property-class>
       <default-value>true</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <component-extension>
@@ -174,10 +192,11 @@
       </mfp:example>
       <mfp:author>Venkata Guddanti</mfp:author>
       <mfp:component-metadata>
-        <mfp:favorite-property>id</mfp:favorite-property>
-        <mfp:group>${md:getTranslatedString("PALETTE_DATA")}</mfp:group>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </mfp:component-metadata>
+      <fmd:component-metadata>
+        <fmd:default-property>id</fmd:default-property>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

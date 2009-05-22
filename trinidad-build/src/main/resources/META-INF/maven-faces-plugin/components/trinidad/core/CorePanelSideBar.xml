@@ -22,7 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[The panelSideBar control renders a side navigation bar.]]></description>
     <icon>
@@ -59,12 +59,13 @@
       </mfp:long-description>
       <mfp:author>Blake Sullivan</mfp:author>
       <mfp:component-metadata>
-        <mfp:favorite-property>id</mfp:favorite-property>
-        <mfp:group>${md:getTranslatedString("PALETTE_LAYOUT")}</mfp:group>
-        <mfp:preferred-children>tr:menuList</mfp:preferred-children>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </mfp:component-metadata>
       <mfp:uix2-local-name>sideBar</mfp:uix2-local-name>
+      <fmd:component-metadata>
+        <fmd:default-property>id</fmd:default-property>
+        <fmd:preferred-child-components/>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

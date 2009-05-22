@@ -21,7 +21,8 @@
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xi="http://www.w3.org/2001/XInclude">
+              xmlns:xi="http://www.w3.org/2001/XInclude"
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[The navigationPane component creates a series of navigation items representing one level in a navigation hierarchy.]]>
     </description>
@@ -52,8 +53,10 @@
       <property-name>hint</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:required>false</mfp:required>
-        <mfp:property-values>tabs bar buttons choice list</mfp:property-values>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+          <fmd:property-values>tabs bar buttons choice list</fmd:property-values>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -108,11 +111,11 @@
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer, Blake Sullivan, Gabrielle Crawford, Gary Kind</mfp:author>
-      <mfp:component-metadata>
-        <mfp:group>${md:getTranslatedString("PALETTE_NAVIGATION")}</mfp:group>
-        <mfp:preferred-children>tr:commandNavigationItem</mfp:preferred-children>
-      </mfp:component-metadata>
+      <mfp:component-metadata/>
       <mfp:uix2-local-name>globalHeader globalButtonBar applicationSwitcher menuList tabBar</mfp:uix2-local-name>
+      <fmd:component-metadata>
+        <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreCommandNavigationItem</fmd:preferred-child-components>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

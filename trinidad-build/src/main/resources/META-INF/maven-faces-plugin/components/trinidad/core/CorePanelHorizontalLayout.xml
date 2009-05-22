@@ -22,7 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[The panelHorizontalLayout control is a layout element that
 arranges its children horizontally. The vertical and horizontal alignment
@@ -47,7 +47,9 @@ can be specified.]]>
       <property-name>valign</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:property-values>middle top baseline bottom</mfp:property-values>
+        <fmd:property-metadata>
+          <fmd:property-values>middle top baseline bottom</fmd:property-values>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -56,7 +58,9 @@ right, or center.]]></description>
       <property-name>halign</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:property-values>right start left end center</mfp:property-values>
+        <fmd:property-metadata>
+          <fmd:property-values>right start left end center</fmd:property-values>
+        </fmd:property-metadata>
       </property-extension>
     </property>
 
@@ -89,9 +93,7 @@ by an optional separator child.]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Jeanne Waldman</mfp:author>
-      <mfp:component-metadata>
-        <mfp:group>${md:getTranslatedString("PALETTE_LAYOUT")}</mfp:group>
-      </mfp:component-metadata>
+      <mfp:component-metadata/>
       <mfp:java-constructor>
         <mfp:facet-name>separator</mfp:facet-name>
       </mfp:java-constructor>

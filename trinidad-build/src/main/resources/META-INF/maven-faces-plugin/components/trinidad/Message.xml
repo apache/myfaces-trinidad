@@ -22,8 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[UIXMessage is the base component class for components
 that display a single message on behalf of a component.]]>
@@ -39,10 +38,12 @@ that display a single message on behalf of a component.]]>
       <property-class>java.lang.String</property-class>
       <property-extension>
         <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("MESSAGE_GROUP")}</mfp:group>
           <mfp:short-description>${md:getTranslatedString("SD_ATTRGROUP_INLINEMESSAGINGTEXT_ATTR_FOR")}</mfp:short-description>
           <mfp:scoped-id-holder>true</mfp:scoped-id-holder>
         </mfp:property-metadata>
+        <fmd:property-metadata>
+          <fmd:category-id>APPEARANCE</fmd:category-id>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <component-extension>

@@ -20,7 +20,8 @@
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
-              xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin">
+              xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <property>
       <description><![CDATA[Indicates whether processes launched by this command should be
@@ -31,7 +32,9 @@
       <property-class>boolean</property-class>
       <default-value>false</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -39,8 +42,10 @@
       <property-name>windowHeight</property-name>
       <property-class>int</property-class>
       <property-extension>
-        <mfp:required>false</mfp:required>
-        <mfp:property-editor>UNSIGNED_INTEGER</mfp:property-editor>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+          <fmd:property-editor>UNSIGNED_INTEGER</fmd:property-editor>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -48,8 +53,10 @@
       <property-name>windowWidth</property-name>
       <property-class>int</property-class>
       <property-extension>
-        <mfp:required>false</mfp:required>
-        <mfp:property-editor>UNSIGNED_INTEGER</mfp:property-editor>
+        <fmd:property-metadata>
+          <fmd:required>false</fmd:required>
+          <fmd:property-editor>UNSIGNED_INTEGER</fmd:property-editor>
+        </fmd:property-metadata>
       </property-extension>
     </property>
   </component>

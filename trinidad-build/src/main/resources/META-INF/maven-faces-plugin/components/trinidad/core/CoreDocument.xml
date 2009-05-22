@@ -22,7 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[<html>
           The document tag creates each of the standard root elements of an HTML page:  &lt;html&gt;, &lt;body&gt;, and &lt;head&gt;.</html>]]>
@@ -42,11 +42,12 @@
       </description>
       <property-name>title</property-name>
       <property-class>java.lang.String</property-class>
+      <suggested-value>Title {0}</suggested-value>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:initial-value>Title {0}</mfp:initial-value>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
 
@@ -59,9 +60,10 @@
       <property-name>onload</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:category-id>EVENTS</fmd:category-id>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -69,9 +71,10 @@
       <property-name>onunload</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:category-id>EVENTS</fmd:category-id>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -83,10 +86,12 @@
       <property-class>java.lang.String</property-class>
       <property-extension>
         <mfp:property-metadata>
-          <mfp:expert>true</mfp:expert>
           <mfp:scoped-id-holder>true</mfp:scoped-id-holder>
         </mfp:property-metadata>
         <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>
+        <fmd:property-metadata>
+          <fmd:expert>true</fmd:expert>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <component-extension>
@@ -108,12 +113,12 @@
          </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>
-      <mfp:component-metadata>
-        <mfp:favorite-property>title</mfp:favorite-property>
-        <mfp:group>${md:getTranslatedString("PALETTE_OTHER")}</mfp:group>
-        <mfp:preferred-children>tr:form</mfp:preferred-children>
-      </mfp:component-metadata>
+      <mfp:component-metadata/>
       <mfp:uix2-local-name>document</mfp:uix2-local-name>
+      <fmd:component-metadata>
+        <fmd:default-property>title</fmd:default-property>
+        <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreForm</fmd:preferred-child-components>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

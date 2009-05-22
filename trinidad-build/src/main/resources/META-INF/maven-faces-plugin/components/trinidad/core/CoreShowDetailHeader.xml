@@ -22,8 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description>
       <![CDATA[The showDetailHeader provides a means of toggling the contents under a header
@@ -79,14 +78,14 @@ between being disclosed(shown) or undisclosed(hidden).]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Gabrielle Crawford</mfp:author>
-      <mfp:component-metadata>
-        <mfp:favorite-property>text</mfp:favorite-property>
-        <mfp:group>${md:getTranslatedString("PALETTE_LAYOUT")}</mfp:group>
-      </mfp:component-metadata>
+      <mfp:component-metadata/>
       <mfp:java-constructor>
         <mfp:property-name>disclosed</mfp:property-name>
       </mfp:java-constructor>
       <mfp:uix2-local-name>hideShowHeader</mfp:uix2-local-name>
+      <fmd:component-metadata>
+        <fmd:default-property>text</fmd:default-property>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

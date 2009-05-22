@@ -22,8 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[UIXSingleStep is a base abstraction for components
           that implement ActionSource and 
@@ -42,9 +41,10 @@
       <default-value>1</default-value>
       <property-extension>
         <mfp:alternate-class>long</mfp:alternate-class>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -61,9 +61,10 @@
       <default-value>-1</default-value>
       <property-extension>
         <mfp:alternate-class>long</mfp:alternate-class>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -78,10 +79,11 @@
           <mfp:parameter-type>javax.faces.event.ActionEvent</mfp:parameter-type>
           <mfp:return-type>void</mfp:return-type>
         </mfp:method-binding-signature>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
         <mfp:state-holder>yes</mfp:state-holder>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -96,10 +98,11 @@
           <mfp:parameter-type>javax.faces.event.ActionEvent</mfp:parameter-type>
           <mfp:return-type>void</mfp:return-type>
         </mfp:method-binding-signature>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
         <mfp:state-holder>yes</mfp:state-holder>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -113,10 +116,11 @@
         <mfp:method-binding-signature>
           <mfp:return-type>java.lang.String</mfp:return-type>
         </mfp:method-binding-signature>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
         <mfp:state-holder>yes</mfp:state-holder>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -130,10 +134,11 @@
         <mfp:method-binding-signature>
           <mfp:return-type>java.lang.String</mfp:return-type>
         </mfp:method-binding-signature>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
         <mfp:state-holder>yes</mfp:state-holder>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <component-extension>
@@ -174,10 +179,7 @@
           </section>]]>
       </mfp:long-description>
       <mfp:author>Jeanne Waldman</mfp:author>
-      <mfp:component-metadata>
-        <mfp:favorite-property>selectedStep</mfp:favorite-property>
-        <mfp:group>${md:getTranslatedString("PALETTE_NAVIGATION")}</mfp:group>
-      </mfp:component-metadata>
+      <mfp:component-metadata/>
       <mfp:tag-class-modifier>abstract</mfp:tag-class-modifier>
       <mfp:event>
         <mfp:description>Event delivered when the "action" of the component has been
@@ -188,6 +190,9 @@ in page navigation.
         <mfp:event-delivery-phase>Invoke Application</mfp:event-delivery-phase>
         <mfp:event-delivery-phase>Apply Request Values</mfp:event-delivery-phase>
       </mfp:event>
+      <fmd:component-metadata>
+        <fmd:default-property>selectedStep</fmd:default-property>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

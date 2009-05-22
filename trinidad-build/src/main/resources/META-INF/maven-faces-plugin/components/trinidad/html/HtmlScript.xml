@@ -21,7 +21,7 @@
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
 	      xmlns:trh="http://myfaces.apache.org/trinidad/html"
 	      xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-	      xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[The script component supports	importing libraries, and inline	scripts.]]></description>
     <icon>
@@ -34,9 +34,10 @@
       <property-name>text</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-	<mfp:property-metadata>
-	  <mfp:preferred>true</mfp:preferred>
-	</mfp:property-metadata>
+	<mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -44,9 +45,10 @@
       <property-name>source</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-	<mfp:property-metadata>
-	  <mfp:preferred>true</mfp:preferred>
-	</mfp:property-metadata>
+	<mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -102,10 +104,11 @@
 	</mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>
-      <mfp:component-metadata>
-	<mfp:favorite-property>source</mfp:favorite-property>
-	<mfp:hidden>true</mfp:hidden>
-      </mfp:component-metadata>
+      <mfp:component-metadata/>
+      <fmd:component-metadata>
+        <fmd:default-property>source</fmd:default-property>
+        <fmd:hidden>true</fmd:hidden>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

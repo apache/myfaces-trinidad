@@ -22,7 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[ProcessChoiceBar is a UIXProcess component that renders a previous
           button, a choice bar, and a next button.]]>
@@ -82,9 +82,7 @@
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Jeanne Waldman</mfp:author>
-      <mfp:component-metadata>
-        <mfp:group>${md:getTranslatedString("PALETTE_NAVIGATION")}</mfp:group>
-      </mfp:component-metadata>
+      <mfp:component-metadata/>
       <mfp:uix2-local-name>processChoiceBar</mfp:uix2-local-name>
     </component-extension>
   </component>

@@ -21,7 +21,8 @@
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xi="http://www.w3.org/2001/XInclude">
+              xmlns:xi="http://www.w3.org/2001/XInclude"
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[The panelBorderLayout component is a layout element which lays out all of its
           children consecutively in its middle, and supports the following
@@ -38,9 +39,10 @@
       </description>
       <facet-name>top</facet-name>
       <facet-extension>
-        <mfp:facet-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:facet-metadata>
+        <mfp:facet-metadata/>
+        <fmd:facet-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:facet-metadata>
       </facet-extension>
     </facet>
     <facet>
@@ -48,9 +50,10 @@
       </description>
       <facet-name>bottom</facet-name>
       <facet-extension>
-        <mfp:facet-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:facet-metadata>
+        <mfp:facet-metadata/>
+        <fmd:facet-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:facet-metadata>
       </facet-extension>
     </facet>
     <facet>
@@ -78,10 +81,11 @@
       </description>
       <facet-name>start</facet-name>
       <facet-extension>
-        <mfp:facet-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:facet-metadata>
+        <mfp:facet-metadata/>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
+        <fmd:facet-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:facet-metadata>
       </facet-extension>
     </facet>
     <facet>
@@ -91,10 +95,11 @@
       </description>
       <facet-name>end</facet-name>
       <facet-extension>
-        <mfp:facet-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:facet-metadata>
+        <mfp:facet-metadata/>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
+        <fmd:facet-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:facet-metadata>
       </facet-extension>
     </facet>
 
@@ -103,9 +108,10 @@
       </description>
       <facet-name>innerTop</facet-name>
       <facet-extension>
-        <mfp:facet-metadata>
-          <mfp:preferred>false</mfp:preferred>
-        </mfp:facet-metadata>
+        <mfp:facet-metadata/>
+        <fmd:facet-metadata>
+          <fmd:preferred>false</fmd:preferred>
+        </fmd:facet-metadata>
       </facet-extension>
     </facet>
     <facet>
@@ -113,9 +119,10 @@
       </description>
       <facet-name>innerBottom</facet-name>
       <facet-extension>
-        <mfp:facet-metadata>
-          <mfp:preferred>false</mfp:preferred>
-        </mfp:facet-metadata>
+        <mfp:facet-metadata/>
+        <fmd:facet-metadata>
+          <fmd:preferred>false</fmd:preferred>
+        </fmd:facet-metadata>
       </facet-extension>
     </facet>
     <facet>
@@ -141,10 +148,11 @@
       </description>
       <facet-name>innerStart</facet-name>
       <facet-extension>
-        <mfp:facet-metadata>
-          <mfp:preferred>false</mfp:preferred>
-        </mfp:facet-metadata>
+        <mfp:facet-metadata/>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
+        <fmd:facet-metadata>
+          <fmd:preferred>false</fmd:preferred>
+        </fmd:facet-metadata>
       </facet-extension>
     </facet>
     <facet>
@@ -152,10 +160,11 @@
       </description>
       <facet-name>innerEnd</facet-name>
       <facet-extension>
-        <mfp:facet-metadata>
-          <mfp:preferred>false</mfp:preferred>
-        </mfp:facet-metadata>
+        <mfp:facet-metadata/>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
+        <fmd:facet-metadata>
+          <fmd:preferred>false</fmd:preferred>
+        </fmd:facet-metadata>
       </facet-extension>
     </facet>
 
@@ -172,11 +181,12 @@
       <property-class>java.lang.String</property-class>
       <default-value>expand</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
-        <mfp:property-metadata>
-          <mfp:property-values>expand positioned</mfp:property-values>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:property-values>expand positioned</fmd:property-values>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -188,10 +198,11 @@
       <property-class>java.lang.String</property-class>
       <default-value>25%</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -203,10 +214,11 @@
       <property-class>java.lang.String</property-class>
       <default-value>25%</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -218,10 +230,11 @@
       <property-class>java.lang.String</property-class>
       <default-value>25%</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -233,10 +246,11 @@
       <property-class>java.lang.String</property-class>
       <default-value>25%</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -249,10 +263,11 @@
       <property-class>java.lang.String</property-class>
       <default-value>25%</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -265,10 +280,11 @@
       <property-class>java.lang.String</property-class>
       <default-value>25%</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -280,10 +296,11 @@
       <property-class>java.lang.String</property-class>
       <default-value>25%</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -295,10 +312,11 @@
       <property-class>java.lang.String</property-class>
       <default-value>25%</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -311,10 +329,11 @@
       <property-class>java.lang.String</property-class>
       <default-value>25%</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -327,10 +346,11 @@
       <property-class>java.lang.String</property-class>
       <default-value>25%</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -342,10 +362,11 @@
       <property-class>java.lang.String</property-class>
       <default-value>25%</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -357,10 +378,11 @@
       <property-class>java.lang.String</property-class>
       <default-value>25%</default-value>
       <property-extension>
-        <mfp:required>false</mfp:required>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
 
@@ -405,9 +427,7 @@
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>
-      <mfp:component-metadata>
-        <mfp:group>${md:getTranslatedString("PALETTE_LAYOUT")}</mfp:group>
-      </mfp:component-metadata>
+      <mfp:component-metadata/>
       <mfp:uix2-local-name>borderLayout</mfp:uix2-local-name>
     </component-extension>
   </component>

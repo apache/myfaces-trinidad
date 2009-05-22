@@ -22,7 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description>
       <![CDATA[The showDetail provides a means of toggling a group of components between being
@@ -53,10 +53,11 @@ will be used instead of the disclosedText and undisclosedText attributes.]]>
       <facet-name>prompt</facet-name>
       <facet-extension>
         <mfp:required>false</mfp:required>
-        <mfp:facet-metadata>
-          <mfp:preferred-children>tr:goLink</mfp:preferred-children>
-        </mfp:facet-metadata>
+        <mfp:facet-metadata/>
         <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>
+        <fmd:facet-metadata>
+          <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreGoLink</fmd:preferred-child-components>
+        </fmd:facet-metadata>
       </facet-extension>
     </facet>
     <property>
@@ -68,12 +69,14 @@ both the disclosed state AND the undisclosed state.]]>
       <property-name>disclosedText</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:required>false</mfp:required>
         <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
           <mfp:translatable>true</mfp:translatable>
         </mfp:property-metadata>
         <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -85,12 +88,14 @@ both the disclosed state AND the undisclosed state.]]>
       <property-name>undisclosedText</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
-        <mfp:required>false</mfp:required>
         <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
           <mfp:translatable>true</mfp:translatable>
         </mfp:property-metadata>
         <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:required>false</fmd:required>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <component-extension>
@@ -173,9 +178,7 @@ disclosed or undisclosed.  A showDetail should be used to:
           ]]>
         </mfp:source-code>
       </mfp:example>
-      <mfp:component-metadata>
-        <mfp:group>${md:getTranslatedString("PALETTE_LAYOUT")}</mfp:group>
-      </mfp:component-metadata>
+      <mfp:component-metadata/>
       <mfp:uix2-local-name>hideShow</mfp:uix2-local-name>
     </component-extension>
   </component>

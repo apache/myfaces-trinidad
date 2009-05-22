@@ -22,7 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[The panelRadio control creates, contains and shows a series of items defined by showDetailItem nodes.]]>
     </description>
@@ -35,11 +35,12 @@
       <description><![CDATA[the user-visible text of the item]]></description>
       <property-name>label</property-name>
       <property-class>java.lang.String</property-class>
+      <suggested-value>{localName} {0}</suggested-value>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:initial-value>{localName} {0}</mfp:initial-value>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
 
@@ -54,10 +55,11 @@
       <property-class>java.lang.String</property-class>
       <default-value>start</default-value>
       <property-extension>
-        <mfp:property-values>top start</mfp:property-values>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:property-values>top start</fmd:property-values>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -69,10 +71,11 @@
       <property-class>java.lang.String</property-class>
       <default-value>center</default-value>
       <property-extension>
-        <mfp:property-values>top start end bottom center</mfp:property-values>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+          <fmd:property-values>top start end bottom center</fmd:property-values>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <component-extension>
@@ -105,13 +108,13 @@
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Ravi Baranwal</mfp:author>
-      <mfp:component-metadata>
-        <mfp:favorite-property>id</mfp:favorite-property>
-        <mfp:group>${md:getTranslatedString("PALETTE_LAYOUT")}</mfp:group>
-        <mfp:preferred-children>tr:showDetailItem</mfp:preferred-children>
-      </mfp:component-metadata>
+      <mfp:component-metadata/>
       <mfp:uix2-local-name>panelRadio</mfp:uix2-local-name>
       <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>
+      <fmd:component-metadata>
+        <fmd:default-property>id</fmd:default-property>
+        <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreShowDetailItem</fmd:preferred-child-components>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

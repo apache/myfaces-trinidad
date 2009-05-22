@@ -22,8 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[Base class for input components whose value is true or false.]]></description>
     <icon>
@@ -41,9 +40,10 @@
       <default-value>false</default-value>
       <property-extension>
         <mfp:alias-of>value</mfp:alias-of>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <component-extension>
@@ -52,11 +52,11 @@
       <mfp:renderer-type>org.apache.myfaces.trinidad.SelectBoolean</mfp:renderer-type>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.UIXSelectBooleanTag</mfp:tag-class>
       <mfp:author>Brian Albers</mfp:author>
-      <mfp:component-metadata>
-        <mfp:favorite-property>label</mfp:favorite-property>
-        <mfp:group>${md:getTranslatedString("PALETTE_INPUT")}</mfp:group>
-      </mfp:component-metadata>
+      <mfp:component-metadata/>
       <mfp:tag-class-modifier>abstract</mfp:tag-class-modifier>
+      <fmd:component-metadata>
+        <fmd:default-property>label</fmd:default-property>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

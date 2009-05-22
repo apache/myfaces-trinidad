@@ -22,7 +22,7 @@
               xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+              xmlns:fmd="http://java.sun.com/xml/ns/javaee/faces/design-time-metadata">
   <component>
     <description><![CDATA[The chooseDate component is used in conjunction with a
           selectInputDate to allow the user to quickly select a date value without
@@ -45,9 +45,10 @@ to allow the largest range of values to be accepted.]]>
       <property-name>minValue</property-name>
       <property-class>java.util.Date</property-class>
       <property-extension>
-        <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
-        </mfp:property-metadata>
+        <mfp:property-metadata/>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
     <property>
@@ -64,9 +65,11 @@ to allow the largest range of values to be accepted.]]>
       <property-class>java.util.Date</property-class>
       <property-extension>
         <mfp:property-metadata>
-          <mfp:preferred>true</mfp:preferred>
           <mfp:use-max-time>true</mfp:use-max-time>
         </mfp:property-metadata>
+        <fmd:property-metadata>
+          <fmd:preferred>true</fmd:preferred>
+        </fmd:property-metadata>
       </property-extension>
     </property>
 
@@ -116,11 +119,12 @@ to allow the largest range of values to be accepted.]]>
       </mfp:example>
       <mfp:author>Blake Sullivan</mfp:author>
       <mfp:component-metadata>
-        <mfp:accepts-child-components>false</mfp:accepts-child-components>
-        <mfp:group>${md:getTranslatedString("PALETTE_INPUT")}</mfp:group>
         <mfp:unsupported-agents>pda phone</mfp:unsupported-agents>
       </mfp:component-metadata>
       <mfp:uix2-local-name>inlineDatePicker</mfp:uix2-local-name>
+      <fmd:component-metadata>
+        <fmd:allowed-child-components>NONE</fmd:allowed-child-components>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>
