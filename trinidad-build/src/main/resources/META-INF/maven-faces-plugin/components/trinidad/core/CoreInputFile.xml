@@ -160,7 +160,7 @@ tip), and may use simpler layout primitives]]>
           The component supports custom converters to transform the <html:code>org.apache.myfaces.trinidad.model.UploadedFile</html:code>.
           To archive this, the the <html:code>getAsObject()</html:code> method is invoked, where the the <html:code>String</html:code> value
           is a key, which must be used to query the actual uploaded file from the request Map:
-          </p>
+          </P>
           <pre>
   public Object getAsObject(FacesContext context, UIComponent component, String fileKey)
   {
