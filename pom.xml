@@ -163,7 +163,7 @@
     <site>
       <id>apache-site</id>
       <name>Apache Website</name>
-      <url>scpexe://minotaur.apache.org/www/myfaces.apache.org/trinidad</url>
+      <url>scpexe://minotaur.apache.org/www/myfaces.apache.org/trinidad/trinidad-1_0</url>
     </site>
     <snapshotRepository>
       <uniqueVersion>false</uniqueVersion>
