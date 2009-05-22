@@ -388,7 +388,7 @@ view state at an application level, which significantly improves
 scalability.  However, it makes it harder to develop (updates to
 pages will not be noticed until the server is restarted), and in
 some rare cases cannot be used for some pages.  See below for
-more information about this option.
+more information about this option. The default is false.
 </p>
 </subsection>
 <subsection name="org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT">
@@ -466,6 +466,14 @@ memory, so memory-limited servers may in some cases benefit from using
 "all" client-side state saving.</p>
 
 <subsection name="The Application View Cache">
+<p>
+  <font color="#FF0000">
+    <strong>
+This feature is NOT supported.
+    </strong>
+See <a href="https://issues.apache.org/jira/browse/TRINIDAD-1487" style="color:red">TRINIDAD-1487</a> for more.
+  </font>
+</p>
 <p>
 Apache Trinidad supports a special Application View Cache feature
 that can increase scalability significantly.  However, it
