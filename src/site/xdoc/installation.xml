@@ -159,7 +159,10 @@ items to your <code>WEB-INF/web.xml</code>.
   </context-param>
 
   <context-param>
-    <param-name>facelets.VIEW_MAPPINGS</param-name>
+    <!--Unfortunately, Facelets provides no hook for plugging the PageResolver into the logic 
+      handling "facelets.VIEW_MAPPINGS". You should leave "facelets.VIEW_MAPPINGS" 
+      unset and use "org.apache.myfaces.trinidad.FACELETS_VIEW_MAPPINGS" instead.-->
+    <param-name>org.apache.myfaces.trinidad.FACELETS_VIEW_MAPPINGS</param-name>
     <param-value>*.xhtml</param-value>
   </context-param>
 ]]></source>
