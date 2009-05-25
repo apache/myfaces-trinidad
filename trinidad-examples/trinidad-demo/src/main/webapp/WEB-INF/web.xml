@@ -128,7 +128,7 @@
   </context-param>
 
   <context-param>
-    <param-name>facelets.VIEW_MAPPINGS</param-name>
+    <param-name>org.apache.myfaces.trinidad.FACELETS_VIEW_MAPPINGS</param-name>
     <param-value>*.xhtml</param-value>
   </context-param>     
 
