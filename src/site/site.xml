@@ -44,6 +44,7 @@
 
     <menu name="">
       <item name="Download" href="download.html"/>
+      <item name="Installation" href="installation.html" />
       <item name="Current Release Notes" href="download.html"/>
       <item name="Supported Browsers" href="browsers.html" />
       <item name="Overview" href="spec-diff.html" />
