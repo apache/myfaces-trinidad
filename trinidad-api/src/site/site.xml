@@ -20,15 +20,12 @@
 -->
 <project name="Apache MyFaces Trinidad">
   <bannerLeft>
-    <name>Apache MyFaces Trinidad</name>
+    <name>Apache MyFaces Trinidad API</name>
 
     <src>images/trinidad_logo.png</src>
 
     <href>http://myfaces.apache.org/trinidad</href>
 
-  </bannerLeft>
-  <bannerLeft>
-    <name>Apache MyFaces Trinidad API</name>
   </bannerLeft>
   <body>
     <links>
