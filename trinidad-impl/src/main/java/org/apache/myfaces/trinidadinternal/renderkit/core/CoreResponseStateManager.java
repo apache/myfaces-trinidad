@@ -83,10 +83,10 @@ public class CoreResponseStateManager extends ResponseStateManager
     rw.endElement("input");
   }
 
-  @Override
   /**
    * A request is a postback if it contains the state parameter.
    */
+  @Override
   public boolean isPostback(FacesContext context)
   {
     Map requestParams = context.getExternalContext().getRequestParameterMap();
