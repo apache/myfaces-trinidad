@@ -800,7 +800,6 @@ public abstract class UIXCollection extends UIXComponentBase
     assert(!(stampState instanceof Object[]));
 
     int facetCount = _getFacetCount(stamp);
-    int childCount = stamp.getChildCount();
 
     Object[] state = null;
 
@@ -1527,7 +1526,6 @@ public abstract class UIXCollection extends UIXComponentBase
   // all the variables that use this are transient so this object need not
   // be Serializable:
   private static final Object _NULL = new Object();
-  private static final Object[] _EMPTY_ARRAY = new Object[0];
   private static final String _INVOKE_KEY =
     UIXCollection.class.getName() + ".INVOKE";
 
