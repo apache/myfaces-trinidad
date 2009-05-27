@@ -301,6 +301,38 @@ storing files in their final destination, instead of requiring
 Apache Trinidad to handle temporary storage during the request.
 </p>
         </subsection>
+        <subsection name="uploaded-file-max-memory">
+<p>
+
+The <code>&lt;uploaded-file-max-memory&gt;</code> element is used to
+set the maximum amount of memory used during the file upload process
+before the data will start writing out to disk.  This setting directly
+overrides the web.xml setting org.apache.myfaces.trinidad.UPLOAD_MAX_MEMORY. 
+This value can be hardcoded or can be explicitly configured with an EL 
+expression that returns a Long object.
+</p>
+        </subsection>
+        <subsection name="uploaded-file-max-disk-space">
+<p>
+
+The <code>&lt;uploaded-file-max-disk-space&gt;</code> element is used to
+set the maximum amount of disk space allowed for an uploaded file before 
+an EOFException is thrown.  This setting directly overrides the web.xml 
+setting org.apache.myfaces.trinidad.UPLOAD_MAX_DISK_SPACE. This value can 
+be hardcoded or can be explicitly configured with an EL expression that 
+returns a Long object.
+</p>
+        </subsection>
+        <subsection name="uploaded-file-temp-dir">
+<p>
+
+The <code>&lt;uploaded-file-max-disk-space&gt;</code> element is used to
+change the default location uploaded files are stored.  This setting directly 
+overrides the web.xml setting org.apache.myfaces.trinidad.UPLOAD_TEMP_DIR. 
+This value can be hardcoded or can be explicitly configured with an EL 
+expression that returns a String object.
+</p>
+        </subsection>
         <subsection name="formatting-locale">
 <p>
 The <code>&lt;formatting-locale&gt;</code> element is used by converters without

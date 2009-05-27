@@ -167,6 +167,24 @@ public class RequestContextImpl extends RequestContext
       _bean.getProperty(RequestContextBean.UPLOADED_FILE_PROCESSOR_KEY);
   }
 
+  @Override
+  public Long getUploadedFileMaxMemory()
+  {
+    return (Long) _bean.getProperty(RequestContextBean.UPLOADED_FILE_MAX_MEMORY_KEY);
+  }
+
+  @Override
+  public Long getUploadedFileMaxDiskSpace()
+  {
+    return (Long) _bean.getProperty(RequestContextBean.UPLOADED_FILE_MAX_DISK_SPACE_KEY);
+  }
+
+  @Override
+  public String getUploadedFileTempDir()
+  {
+    return (String) _bean.getProperty(RequestContextBean.UPLOADED_FILE_TEMP_DIR_KEY);
+  }
+
 
   @Override
   public boolean isPostback()

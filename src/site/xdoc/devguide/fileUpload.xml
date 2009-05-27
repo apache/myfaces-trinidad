@@ -258,16 +258,33 @@ using three servlet context initialization parameters:
 </source>
       </p>
       <p>
-Developers can also customize file upload more comprehensively
-by replacing the entire
+Developers can also customize file upload more comprehensively in <code>trinidad-config.xml</code>
+with the following elements:
+<source>&lt;uploaded-file-processor&gt;</source>
+The
 <code>org.apache.myfaces.trinidad.webapp.UploadedFileProcessor</code>
-with the <code>&lt;uploaded-file-processor&gt;</code> element
-in <code>trinidad-config.xml</code>.  Please see the
+can be replaced by specifying a new class with the <code>&lt;uploaded-file-processor&gt;</code> element.  
+<source>&lt;uploaded-file-max-memory&gt;</source>
+The servlet context param <code>org.apache.myfaces.trinidad.UPLOAD_MAX_MEMORY</code>
+can be overridden by <code>&lt;uploaded-file-max-memory&gt;</code> if this param
+needs to be bound to an EL expression.
+<source>&lt;uploaded-file-max-disk-space&gt;</source>
+The servlet context param <code>org.apache.myfaces.trinidad.UPLOAD_MAX_DISK_SPACE</code>
+can be overridden by <code>&lt;uploaded-file-max-disk-space&gt;</code> if this param
+needs to be bound to an EL expression.
+<source>&lt;uploaded-file-temp-dir&gt;</source>
+The servlet context param <code>org.apache.myfaces.trinidad.UPLOAD_TEMP_DIR</code>
+can be overridden by <code>&lt;uploaded-file-temp-dir&gt;</code> if this param
+needs to be bound to an EL expression.
+      </p>
+      <p>
+Please see the
 <a href="configuration.html">Configuration</a> chapter for
-more information on that element.  Replacing the
+more information on these <code>trinidad-config.xml</code> elements.  <b>NOTE:</b> Replacing the
 <code>UploadedFileProcessor</code> makes the init-params listed
 above irrelevant;  they are only processed by the default
-<code>UploadedFileProcessor</code>.
+<code>UploadedFileProcessor</code>, <b>unless</b> they are specifically taken
+into consideration by the class that replaces the deault file processor class.
       </p>
     </section>
   </body>

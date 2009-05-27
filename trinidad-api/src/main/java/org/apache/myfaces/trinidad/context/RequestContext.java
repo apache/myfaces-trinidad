@@ -514,6 +514,12 @@ abstract public class RequestContext
 
   public abstract UploadedFileProcessor getUploadedFileProcessor();
 
+  public abstract Long getUploadedFileMaxMemory();
+
+  public abstract Long getUploadedFileMaxDiskSpace();
+
+  public abstract String getUploadedFileTempDir();
+
   /**
    * Returns a Map that takes color palette names as keys, and returns
    * the color palette as a result.

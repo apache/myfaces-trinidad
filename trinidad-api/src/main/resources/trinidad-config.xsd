@@ -173,6 +173,38 @@ API.  The class must have a no-arg constructor.
           </annotation>
         </element>
 
+        <element name="uploaded-file-max-memory" minOccurs="0" maxOccurs="1"
+                 type="config:longExpressionType">
+          <annotation>
+            <documentation>The &lt;uploaded-file-max-memory&gt; element
+should be a string expression for the maximum amount, in bytes, of the incoming
+file that will be stored in memory. Once these limits have been exceeded, disk 
+space will be used.
+            </documentation>
+          </annotation>
+        </element>
+
+        <element name="uploaded-file-max-disk-space" minOccurs="0" maxOccurs="1"
+                 type="config:longExpressionType">
+          <annotation>
+            <documentation>The &lt;uploaded-file-max-disk-space&gt; element
+should be a string expression for the maximum amount of disk space, in bytes,
+allowed for a single file.  If this is exceeded, an EOFException will be thrown.
+            </documentation>
+          </annotation>
+        </element>
+
+        <element name="uploaded-file-temp-dir" minOccurs="0" maxOccurs="1"
+                 type="config:stringExpressionType">
+          <annotation>
+            <documentation>The &lt;uploaded-file-temp-dir&gt; element
+should be a string expression for the path to the temporary directory 
+to use.  If not specified, files will be stored in the temporary 
+directory used by java.io.File.createTempFile()
+            </documentation>
+          </annotation>
+        </element>
+
         <element name="formatting-locale" minOccurs="0" maxOccurs="1"
                  type="config:stringExpressionType">
           <annotation>
@@ -208,6 +240,7 @@ override the locale that converters use for date time, number and currency.
     </restriction>
   </simpleType>
 
+  <!-- The Global type definition for positive integers ( and zero )-->
   <simpleType name="outputModeType">
     <restriction base="string">
       <enumeration value="default"/>
@@ -245,6 +278,10 @@ override the locale that converters use for date time, number and currency.
 
   <simpleType name="stringExpressionType">
     <union memberTypes="string config:expressionType" />
+  </simpleType>
+
+  <simpleType name="longExpressionType">
+    <union memberTypes="long config:expressionType" />
   </simpleType>
 
   <simpleType name="booleanExpressionType">

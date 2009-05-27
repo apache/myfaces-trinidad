@@ -30,9 +30,9 @@ import javax.portlet.PortletRequest;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
 
-import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.UploadedFile;
+import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
 import org.apache.myfaces.trinidadinternal.context.external.PortletApplicationMap;
 import org.apache.myfaces.trinidadinternal.context.external.PortletInitParameterMap;
@@ -40,6 +40,7 @@ import org.apache.myfaces.trinidadinternal.context.external.PortletRequestMap;
 import org.apache.myfaces.trinidadinternal.context.external.ServletApplicationMap;
 import org.apache.myfaces.trinidadinternal.context.external.ServletInitParameterMap;
 import org.apache.myfaces.trinidadinternal.context.external.ServletRequestMap;
+
 
 public class UploadedFileProcessorImpl implements UploadedFileProcessor
 {
@@ -93,7 +94,7 @@ public class UploadedFileProcessorImpl implements UploadedFileProcessor
         }
         catch (NumberFormatException nfe)
         {
-          _maxMemory = _DEFAULT_MAX_DISK_SPACE;
+          _maxDiskSpace = _DEFAULT_MAX_DISK_SPACE;
         }
       }
       else
@@ -122,6 +123,30 @@ public class UploadedFileProcessorImpl implements UploadedFileProcessor
   {
     RequestInfo info = _getRequestInfo(request);
     int contentLength = getContentLength(request);
+    Map<String, Object> requestMap;
+    
+    if (_isPortletRequestClass(request))
+      requestMap = _getPortletRequestMap(request);
+    else
+      requestMap = _getServletRequestMap(request);
+
+    Long maxMemory = (Long)requestMap.get(MAX_MEMORY_PARAM_NAME);
+    Long maxDiskSpace = (Long)requestMap.get(MAX_DISK_SPACE_PARAM_NAME);
+    String tempDir = (String)requestMap.get(TEMP_DIR_PARAM_NAME);
+    
+    if (maxMemory != null)
+    {
+      _maxMemory = maxMemory;
+    }
+      
+    if (maxDiskSpace != null)
+    {
+      _maxDiskSpace = maxDiskSpace;
+    }
+ 
+    if (tempDir != null)
+      _tempDir = tempDir;
+    
     if(contentLength>_maxDiskSpace)
     {
       return new ErrorFile();
@@ -159,7 +184,7 @@ public class UploadedFileProcessorImpl implements UploadedFileProcessor
   private int getContentLength(Object request)
   {
     int length = -1;
-    if (_PORTLET_REQUEST_CLASS != null && _PORTLET_REQUEST_CLASS.isInstance(request))
+    if (_isPortletRequestClass(request))
     {
       length = _getPortletRequestLength(request);
     }
@@ -174,7 +199,7 @@ public class UploadedFileProcessorImpl implements UploadedFileProcessor
   private RequestInfo _getRequestInfo(Object request)
   {
     Map<String, Object> attributes;
-    if (_PORTLET_REQUEST_CLASS != null && _PORTLET_REQUEST_CLASS.isInstance(request))
+    if (_isPortletRequestClass(request))
     {
       attributes = _getPortletRequestMap(request);
     }
@@ -193,6 +218,11 @@ public class UploadedFileProcessorImpl implements UploadedFileProcessor
     }
 
     return info;
+  }
+  
+  private boolean _isPortletRequestClass(Object request)
+  {
+    return (_PORTLET_REQUEST_CLASS != null && _PORTLET_REQUEST_CLASS.isInstance(request));
   }
 
   private static final ContextInfo _getServletContextInfo(final Object context)

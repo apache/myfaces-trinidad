@@ -41,6 +41,7 @@ import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidad.util.ExternalContextUtils;
 import org.apache.myfaces.trinidad.util.RequestStateMap;
 import org.apache.myfaces.trinidad.util.RequestType;
+import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
 import org.apache.myfaces.trinidadinternal.share.util.MultipartFormHandler;
 import org.apache.myfaces.trinidadinternal.share.util.MultipartFormItem;
 
@@ -210,7 +211,11 @@ public class FileUploadConfiguratorImpl extends Configurator
       final MultipartFormItem item) throws IOException
   {
     final UploadedFile temp = new TempUploadedFile(item);
-
+    Map<String, Object> sessionMap = externalContext.getSessionMap();
+    Map<String, Object> requestMap = externalContext.getRequestMap();
+    _copyFromSessionToRequestMap(sessionMap, requestMap, UploadedFileProcessor.MAX_MEMORY_PARAM_NAME);
+    _copyFromSessionToRequestMap(sessionMap, requestMap, UploadedFileProcessor.MAX_DISK_SPACE_PARAM_NAME);
+    _copyFromSessionToRequestMap(sessionMap, requestMap, UploadedFileProcessor.TEMP_DIR_PARAM_NAME);    
     final UploadedFile file =
       context.getUploadedFileProcessor().processFile(externalContext.getRequest(), temp);
 
@@ -225,6 +230,11 @@ public class FileUploadConfiguratorImpl extends Configurator
             file.getLength() + " bytes) for ID " + item.getName());
       }
     }
+  }
+
+  private void _copyFromSessionToRequestMap(Map<String, Object> sessionMap, Map<String, Object> requestMap, String param)
+  {
+   requestMap.put(param,  sessionMap.get(param));
   }
 
   static private ExternalContext _getExternalContextWrapper(ExternalContext externalContext, Map<String, String[]> addedParams)

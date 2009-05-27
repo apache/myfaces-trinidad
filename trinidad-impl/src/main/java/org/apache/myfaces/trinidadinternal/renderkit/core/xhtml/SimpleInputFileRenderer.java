@@ -19,8 +19,13 @@
 
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
+import java.io.IOException;
+
+import java.util.Map;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
@@ -31,9 +36,12 @@ import org.apache.myfaces.trinidad.component.core.input.CoreInputFile;
 import org.apache.myfaces.trinidad.component.core.input.CoreInputText;
 
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.model.UploadedFile;
 import org.apache.myfaces.trinidad.util.MessageFactory;
+import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
 import org.apache.myfaces.trinidadinternal.config.upload.UploadedFiles;
+import org.apache.myfaces.trinidadinternal.context.RequestContextBean;
 
 /**
  */
@@ -130,6 +138,30 @@ public class SimpleInputFileRenderer extends SimpleInputTextRenderer
   //
   // ENCODE BEHAVIOR
   // 
+
+  @Override
+  protected void encodeAllAsElement(
+    FacesContext        context,
+    RenderingContext arc,
+    UIComponent         component,
+    FacesBean           bean) throws IOException
+  {
+     // call super...
+    super.encodeAllAsElement(context, arc, component, bean);
+
+    // now evaluate the EL
+    // We need to evaluate it here and store it on the sessionMap because
+    // during UploadedFileProcessor.processFile() there is no FacesContext
+    RequestContext rc = RequestContext.getCurrentInstance();
+    Object maxMemory = rc.getUploadedFileMaxMemory();
+    Object maxDiskSpace = rc.getUploadedFileMaxDiskSpace();
+    Object tempDir = rc.getUploadedFileTempDir();
+    ExternalContext external = context.getExternalContext();
+    Map<String, Object> sessionMap = external.getSessionMap();
+    sessionMap.put(UploadedFileProcessor.MAX_MEMORY_PARAM_NAME, maxMemory);
+    sessionMap.put(UploadedFileProcessor.MAX_DISK_SPACE_PARAM_NAME, maxDiskSpace);
+    sessionMap.put(UploadedFileProcessor.TEMP_DIR_PARAM_NAME, tempDir);
+  }
 
   /**
    * <inputFile> cannot show a value.

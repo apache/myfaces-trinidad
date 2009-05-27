@@ -278,6 +278,39 @@ public class MockRequestContext extends RequestContext
     _timeZone = timeZone;
   }
 
+  public void setUploadedFileMaxMemory(Long maxMemory)
+  {
+    _maxMemory = maxMemory;
+  }
+
+  @Override
+  public Long getUploadedFileMaxMemory()
+  {
+    return _maxMemory;
+  }
+
+  public void setUploadedFileMaxDiskSpace(Long maxDiskSpace)
+  {
+    _maxDiskSpace = maxDiskSpace;
+  }
+
+  @Override
+  public Long getUploadedFileMaxDiskSpace()
+  {
+    return _maxDiskSpace;
+  }
+
+  public void setUploadedFileTempDir(String tempDir)
+  {
+    _tempDir= tempDir;
+  }
+
+  @Override
+  public String getUploadedFileTempDir()
+  {
+    return _tempDir;
+  }
+
   @Override
   public void addPartialTarget(UIComponent newTarget)
   {
@@ -387,4 +420,7 @@ public class MockRequestContext extends RequestContext
   private boolean _rtl = false;
   private boolean _animationEnabled = true;
   private Locale _formattingLocale;
+  private Long _maxMemory;
+  private Long _maxDiskSpace;
+  private String _tempDir;
 }
