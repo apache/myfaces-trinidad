@@ -51,7 +51,9 @@
                   <li><a href="#Skinning_properties">Skinning properties</a>
                   </li>  
                   <li><a href="#Icon_skinning_keys">Icon skinning keys</a>
-                  </li>                  
+                  </li>
+                  <li><a href="#urls">Specifying urls</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -626,6 +628,42 @@ so the medium panelBox's body will be pink, not yellow */
               }            
             </source>
         </subsection>
+        <a name="urls"></a>
+        <subsection name="Specifying urls">
+            <P>
+              Trinidad's skinning engine supports four URL types: absolute, relative, context relative and server relative.
+              <ul>
+                <li><b>Absolute URLs</b> specify the complete URL to the resource, including the protocol (e.g. http://).</li>
+                <li><b>Relative URLS</b> are used if the specified url does not start with a slash ("/") 
+                and if there's no protocol present. A relative URL is based on the skin's CSS file location. 
+                For instance, if the skin CSS file is located in MyWebApp/skins/mySkin/ and the specified url is 
+                skinImages/myImage.gif, then the final URL will be 
+                /MyWebApp/skins/mySkin/skinImages/myImage.gif.</li>
+                <li><b>Context relative URLS</b> are resolved relative to the context root of the 
+                web application. To use them, you simply have to make it start with a single slash ("/"). 
+                For instance, if the context root is /MyWebApp and the specified URL is 
+                /images/myImage.jpeg, the resulting URL will be /MyWebApp/images/myImage.jpeg.</li>
+                <li><b>Server relative URLS</b> are resolved relative to the web server as opposed 
+                to the context root. This allows you to easily refer to resources located on another 
+                application on the same server. To use this type of URL, the specified URL must 
+                start with two slashes ("//").</li>
+              </ul>
+            </P>
+            <P><b>Equivalence</b> Most of the times, you can write equivalent URLs in any of the 
+            four forms. For example, if your web application is located at http:www.mycompany.com/MyWebApp/ 
+            and your CSS is located in /skins/mySkin/ folder, the following 4 entries are equivalent:
+                <ul>
+                    <li><b>Absolute</b> url(http://www.mycompany.com/MyWebApp/skins/mySkin/skin_images/ObjectIconError.gif);</li>
+                    <li><b>Relative</b> url(skin_images/ObjectIconError.gif);</li>
+                    <li><b>Context relative</b> url(/skins/mySkin/skin_images/ObjectIconError.gif);</li>
+                    <li><b>Server relative</b> url(//MyWebApp/skins/mySkin/skin_images/ObjectIconError.gif);</li>
+                </ul>
+            </P>
+            <P>Why are there so many choices for the url? The four ways to specify an URL exist to 
+            offer maximum flexibility to our users.
+            </P>
+        </subsection>
+
       </section>
 
       <a name="Skinning_Text"></a>
