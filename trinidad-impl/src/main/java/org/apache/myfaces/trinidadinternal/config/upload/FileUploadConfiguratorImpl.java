@@ -213,9 +213,12 @@ public class FileUploadConfiguratorImpl extends Configurator
     final UploadedFile temp = new TempUploadedFile(item);
     Map<String, Object> sessionMap = externalContext.getSessionMap();
     Map<String, Object> requestMap = externalContext.getRequestMap();
-    _copyFromSessionToRequestMap(sessionMap, requestMap, UploadedFileProcessor.MAX_MEMORY_PARAM_NAME);
-    _copyFromSessionToRequestMap(sessionMap, requestMap, UploadedFileProcessor.MAX_DISK_SPACE_PARAM_NAME);
-    _copyFromSessionToRequestMap(sessionMap, requestMap, UploadedFileProcessor.TEMP_DIR_PARAM_NAME);    
+    
+    _copyParamsFromSessionToRequestMap(sessionMap, requestMap,
+      UploadedFileProcessor.MAX_MEMORY_PARAM_NAME,
+      UploadedFileProcessor.MAX_DISK_SPACE_PARAM_NAME,
+      UploadedFileProcessor.TEMP_DIR_PARAM_NAME);
+    
     final UploadedFile file =
       context.getUploadedFileProcessor().processFile(externalContext.getRequest(), temp);
 
@@ -232,9 +235,15 @@ public class FileUploadConfiguratorImpl extends Configurator
     }
   }
 
-  private void _copyFromSessionToRequestMap(Map<String, Object> sessionMap, Map<String, Object> requestMap, String param)
+  /**
+   * copies some params (varargs) from the session map to the request map 
+   */
+  private void _copyParamsFromSessionToRequestMap(Map<String, Object> sessionMap, Map<String, Object> requestMap, String... params)
   {
-   requestMap.put(param,  sessionMap.get(param));
+    for(String param : params)
+    {
+      requestMap.put(param,  sessionMap.get(param));
+    }
   }
 
   static private ExternalContext _getExternalContextWrapper(ExternalContext externalContext, Map<String, String[]> addedParams)
