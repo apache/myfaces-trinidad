@@ -18,6 +18,7 @@
  */
 package org.apache.myfaces.trinidad.change;
 
+import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
@@ -45,6 +46,18 @@ public class NullChangeManager extends ChangeManager
    */
   @Override
   public void applyComponentChangesForCurrentView(FacesContext facesContext)
+  {
+    //no-op
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void applyComponentChangesForSubtree(
+    FacesContext facesContext,
+    NamingContainer root
+    )
   {
     //no-op
   }

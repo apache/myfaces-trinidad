@@ -31,6 +31,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
@@ -57,31 +58,32 @@ public class SessionChangeManager extends BaseChangeManager
   @Override
   public void applyComponentChangesForCurrentView(FacesContext facesContext)
   {
-    UIViewRoot viewRoot = facesContext.getViewRoot();
+    _applyComponentChanges(facesContext, null);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+   @Override
+  public void applyComponentChangesForSubtree(
+    FacesContext facesContext,
+    NamingContainer root
+    )
+  {
+    String rootId = null;
     
-    // retrieve the ComponentChanges for this current viewid
-    ChangesForView changesForView = _getChangesForView(facesContext, viewRoot.getViewId(), false);
-    
-    // loop through the viewId's changes, applying the changes
-    for (QualifiedComponentChange qualifiedChange : changesForView.getComponentChangesForView())
+    if (root != null)
     {
-      UIComponent targetComponent = 
-        viewRoot.findComponent(qualifiedChange.getTargetComponentScopedId());
+      if (!(root instanceof UIComponent))
+      {
+        throw new IllegalArgumentException(_LOG.getMessage(
+          "INVALID_TYPE", root));
+      }
       
-      // Possible that the target component no more exists in the view
-      if (targetComponent != null)
-      {
-        ComponentChange componentChange = qualifiedChange.getComponentChange();
-        componentChange.changeComponent(targetComponent);
-      }
-      else
-      {
-        _LOG.info(this.getClass().getName(),
-                  "applyComponentChangesForCurrentView",
-                  "TARGET_COMPONENT_MISSING_CHANGE_FAILED",
-                  qualifiedChange.getTargetComponentScopedId());
-      }
+      rootId = ComponentUtils.getScopedIdForComponent((UIComponent)root, null);
     }
+
+    _applyComponentChanges(facesContext, rootId);
   }
 
   /**
@@ -193,6 +195,77 @@ public class SessionChangeManager extends BaseChangeManager
   protected Document getDocument(FacesContext context)
   {
     return null;
+  }
+  
+  /**
+   * Implementation shared by applyComponentChangesForCurrentView() and
+   * applyComponentChangesForSubtree().
+   * @param facesContext The FacesContext instance for this request.
+   * @param rootId The scoped id of theNamingContainer that contains the 
+   * component subtree to which ComponentChanges should be applied.  If null, 
+   * all changes are applied.
+   */
+  private void _applyComponentChanges(
+    FacesContext facesContext,
+    String       rootId
+    )
+  {
+    UIViewRoot viewRoot = facesContext.getViewRoot();
+    
+    // retrieve the ComponentChanges for this current viewid
+    ChangesForView changesForView = _getChangesForView(facesContext, viewRoot.getViewId(), false);
+    
+    // loop through the viewId's changes, applying the changes
+    for (QualifiedComponentChange qualifiedChange : changesForView.getComponentChangesForView())
+    {
+      if (!_acceptChange(qualifiedChange, rootId))
+        continue;
+
+      UIComponent targetComponent = 
+        viewRoot.findComponent(qualifiedChange.getTargetComponentScopedId());
+      
+      // Possible that the target component no more exists in the view
+      if (targetComponent != null)
+      {
+        ComponentChange componentChange = qualifiedChange.getComponentChange();
+        componentChange.changeComponent(targetComponent);
+      }
+      else
+      {
+        _LOG.info(this.getClass().getName(),
+                  "applyComponentChangesForCurrentView",
+                  "TARGET_COMPONENT_MISSING_CHANGE_FAILED",
+                  qualifiedChange.getTargetComponentScopedId());
+      }
+    }    
+  }
+
+  /**
+   * Tests whether the specified change should be applied based on the
+   * specified root id.  If root id is null, all changes are accepted/applied.
+   * If the root id is non-null, only changes which target ids underneath
+   * the root id are accepted/applied.
+   * 
+   * @param qualifiedChange the change to test
+   * @param rootId the scoped id of the NamingContainer for which we
+   *   are applying changes
+   * @return true if rootId is null, or if the qualifiedChange targets a
+   *   component underneath the NamingContainer identified by the rootId.
+   */
+  private boolean _acceptChange(
+    QualifiedComponentChange qualifiedChange,
+    String rootId
+    )
+  {
+    boolean accept = true;
+
+    if (rootId != null)
+    {
+      String id = qualifiedChange.getTargetComponentScopedId();
+      accept = (id.startsWith(rootId) && (id.length() != rootId.length()));    
+    }
+    
+    return accept;
   }
 
   /**

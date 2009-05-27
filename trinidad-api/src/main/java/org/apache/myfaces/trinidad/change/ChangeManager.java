@@ -22,6 +22,7 @@ import java.util.HashMap;
 
 import javax.el.ValueExpression;
 
+import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
@@ -167,6 +168,26 @@ public abstract class ChangeManager
    * @param facesContext The FacesContext instance for the current request.
    */
   public void applyComponentChangesForCurrentView(FacesContext facesContext)
+  {
+    throw new UnsupportedOperationException("Subclassers must implement");
+  }
+
+  /**
+   * Applies the ComponentChanges added so far for components underneath
+   * the specified NamingContainer.
+   * Developers should not need to call this method. Internal implementation
+   * will call it as the component tree is built and is ready to take changes.
+   * @param facesContext The FacesContext instance for the current request.
+   * @param root The NamingContainer that contains the component subtree
+   * to which ComponentChanges should be applied.  If null, all changes are
+   * applied.
+   * @throws IllegalArgumentException if the root NamingContainer is not a
+   *   UIComponent instance.
+   */
+  public void applyComponentChangesForSubtree(
+    FacesContext facesContext,
+    NamingContainer root
+    )
   {
     throw new UnsupportedOperationException("Subclassers must implement");
   }
