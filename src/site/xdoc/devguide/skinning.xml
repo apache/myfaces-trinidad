@@ -833,7 +833,23 @@ public class SkinTranslationMapDemo
         This is to define styles only for a particular agent.
         Agent type can be followed by a space separated list of version numbers.
         Several agents can be specified separated by commas.
-        </li>
+        <P>
+        You can specify agent versions as well. For example:
+        <source>
+        @agent ie and (version: 6) and (version: 7), gecko and (version: 1.9)
+        </source>
+	These are the same:
+	<source>
+	@agent ie and (version: 6.*)
+	@agent ie and (version: 6)
+	</source>
+	So to match only 6.0.x use:
+	<source>
+	@agent ie and (version: 6.0)
+	</source>
+	There is currently no syntax to specify a range of versions.
+        </P>
+        </li>        
         <li>
         <strong>@accessibility-profile</strong> {/skin definitions go here/} - > 
         Possible values are: high-contrast, large-fonts. 
