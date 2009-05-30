@@ -941,7 +941,10 @@ public class StateManagerImpl extends StateManagerWrapper
         _useApplicationViewCache =
           "true".equalsIgnoreCase(s) ? Boolean.TRUE : Boolean.FALSE;
       }
-
+      if (Boolean.TRUE.equals(_useApplicationViewCache))
+      {
+         _LOG.severe("USE_APPLICATION_VIEW_CACHE_UNSUPPORTED");        
+      }
       return _useApplicationViewCache.booleanValue();
     }
 
