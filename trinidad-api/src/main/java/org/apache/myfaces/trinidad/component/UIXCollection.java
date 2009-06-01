@@ -1051,18 +1051,26 @@ public abstract class UIXCollection extends UIXComponentBase
         else
         {
           String currencyString = postId.substring(0, sepIndex);
-          Object oldRowKey = getRowKey();
-          try
+          Object rowKey = getClientRowKeyManager().getRowKey(context, this, currencyString);
+          
+          // A non-null rowKey here means we are on a row and we should set currency,  otherwise 
+          // the client id is for a non-stamped child component in the table/column header/footer.
+          if (rowKey != null)
           {
-            setCurrencyString(currencyString);
-            
-            return invokeOnChildrenComponents(context, clientId, callback);
+            Object oldRowKey = getRowKey();
+            try
+            {
+              setRowKey(rowKey);              
+              return invokeOnChildrenComponents(context, clientId, callback);
+            }
+            finally
+            {
+              // And restore the currency
+              setRowKey(oldRowKey);
+            }
           }
-          finally
-          {
-            // And restore the currency
-            setRowKey(oldRowKey);
-          }
+          else
+            return invokeOnChildrenComponents(context, clientId, callback);            
         }
       }
       finally
