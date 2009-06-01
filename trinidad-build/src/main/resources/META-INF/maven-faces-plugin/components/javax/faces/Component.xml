@@ -45,7 +45,10 @@ must follow a subset of the syntax allowed in HTML:
     <property>
       <description>whether the component is rendered. When set to false, no output will be
 		delivered for this component (the component will not in any way be rendered,
-		and cannot be made visible on the client). 
+		and cannot be made visible on the client). If you want to change a component's '
+		rendered attribute from false to true
+                using PPR, set the partialTrigger attribute of its parent component so the
+                parent refreshes and in turn will render this component. 
       </description>
       <property-name>rendered</property-name>
       <property-class>boolean</property-class>
