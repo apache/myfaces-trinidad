@@ -234,6 +234,10 @@ public class MVariableResolver extends VariableResolver
       // FIXME: Should be able to use Calendar for non deprecated calls.
       return new Date(130, 0, 5);
     }
+    else if ("currTime".equals(name))
+    {
+      return new Date(109,0,1);
+    }
     else if("simpleDocument".equals(name))
     {
       return "First paragraph followed by \\r\r" + 
