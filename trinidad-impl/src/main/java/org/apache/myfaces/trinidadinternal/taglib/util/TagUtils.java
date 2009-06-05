@@ -29,6 +29,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.TimeZone;
 
 import javax.faces.application.Application;
@@ -150,6 +151,36 @@ public final class TagUtils
     String      value) throws ParseException
   {
     return _getTokensArray(value);
+  }
+
+  /**
+   * These are normally NMTOKEN type in attributes
+   * String --> Set<String>
+   * @param value
+   * @return
+   */
+  public static Set<String> getStringSet(
+    Object  value) throws ParseException
+  {
+    if (value == null)
+      return null;
+
+    return _getTokensSet(value.toString());
+  }
+
+  /**
+   * These are normally NMTOKEN type in attributes
+   * String --> List<String>
+   * @param value
+   * @return
+   */
+  public static List<String> getStringList(
+    Object  value) throws ParseException
+  {
+    if (value == null)
+      return null;
+
+    return _getTokensList(value.toString());
   }
 
   /**
@@ -296,6 +327,40 @@ public final class TagUtils
 
     return XMLUtils.parseNameTokens(tokenComposite);
   }
+
+  /**
+   * Takes a string that is a composite of tokens, extracts tokens delimited
+   *  by any whitespace character sequence combination and returns a set
+   *  of String of such tokens.
+   * @throws ParseException In case of invalid character in the specified
+   *           composite. The only invalid character is a comma (',').
+   */
+  private static Set<String> _getTokensSet(String tokenComposite)
+    throws ParseException
+  {
+    if (tokenComposite == null || "".equals(tokenComposite))
+      return null;
+
+    return XMLUtils.parseNameTokensAsSet(tokenComposite);
+  }
+
+
+  /**
+   * Takes a string that is a composite of tokens, extracts tokens delimited
+   *  by any whitespace character sequence combination and returns a list
+   *  of String of such tokens.
+   * @throws ParseException In case of invalid character in the specified
+   *           composite. The only invalid character is a comma (',').
+   */
+  private static List<String> _getTokensList(String tokenComposite)
+    throws ParseException
+  {
+    if (tokenComposite == null || "".equals(tokenComposite))
+      return null;
+
+    return XMLUtils.parseNameTokensAsList(tokenComposite);
+  }
+
 
   /**
    * Parse a string into a java.util.Date object.  The
