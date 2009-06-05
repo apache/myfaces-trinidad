@@ -27,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidadinternal.share.text.ColorFormat;
@@ -137,7 +138,11 @@ public final class Coercions
       }
       else if (type == List.class)
       {
-        return Arrays.asList(XMLUtils.parseNameTokens(text));
+        return XMLUtils.parseNameTokensAsList(text);
+      }
+      else if (type == Set.class)
+      {
+        return XMLUtils.parseNameTokensAsSet(text);
       }
       // For Dates, try to parse it as an ISO 8601 Date.
       // If that fails, simply let the string pass through;  for

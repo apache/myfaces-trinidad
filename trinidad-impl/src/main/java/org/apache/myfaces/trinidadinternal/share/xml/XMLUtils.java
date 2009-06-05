@@ -23,6 +23,9 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -340,6 +343,41 @@ public class XMLUtils
    */
   static public String[] parseNameTokens(String stringValue)
   {
+    List<String> list = parseNameTokensAsList(stringValue);
+
+    if (list == null)
+      return null;
+    else
+      return list.toArray(new String[list.size()]);
+
+  }
+
+  /**
+   * Parses a whitespace separated series of name tokens.
+   * @param stringValue the full string
+   * @return a set of each constituent value, or null
+   *  if there are no tokens (that is, the string is empty or
+   *  all whitespace)
+   */
+  static public Set<String> parseNameTokensAsSet(String stringValue)
+  {
+    List<String> list = parseNameTokensAsList(stringValue);
+
+    if (list == null)
+      return null;
+    else
+      return new HashSet(list);
+  }
+
+  /**
+   * Parses a whitespace separated series of name tokens.
+   * @param stringValue the full string
+   * @return a list of each constituent value, or null
+   *  if there are no tokens (that is, the string is empty or
+   *  all whitespace)
+   */
+  static public List<String> parseNameTokensAsList(String stringValue)
+  {
     if (stringValue == null)
       return null;
 
@@ -384,7 +422,7 @@ public class XMLUtils
     if (list.isEmpty())
       return null;
 
-    return list.toArray(new String[list.size()]);
+    return list;
   }
 
   /**

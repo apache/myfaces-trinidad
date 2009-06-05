@@ -25,7 +25,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.TimeZone;
 
 import javax.el.MethodExpression;
@@ -182,6 +184,31 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     }
   }
 
+  /**
+   * Set a property of type java.util.Set<java.lang.String>.  If the value
+   * is an EL expression, it will be stored as a ValueExpression.
+   * Otherwise, it will parsed as a whitespace-separated series
+   * of strings.
+   * Null values are ignored.
+   */
+  protected void setStringSetProperty(
+    FacesBean       bean,
+    PropertyKey     key,
+    ValueExpression expression)
+  {
+    if (expression == null)
+      return;
+
+    if (expression.isLiteralText())
+    {
+      bean.setProperty(key, 
+                       _parseNameTokensAsSet(expression.getValue(null)));
+    }
+    else
+    {
+      bean.setValueExpression(key, expression);
+    }
+  }
 
   /**
    * Set a property of type java.lang.Number.  If the value
@@ -438,6 +465,15 @@ abstract public class UIXComponentELTag extends UIComponentELTag
     return list;
   }
 
+  static private final Set<String> _parseNameTokensAsSet (Object o)
+  {
+    List<String> list = _parseNameTokensAsList(o);
+
+    if (list == null)
+      return null;
+    else
+      return new HashSet(list);
+  }
 
   private static final TrinidadLogger _LOG = 
     TrinidadLogger.createTrinidadLogger(UIXComponentELTag.class);
