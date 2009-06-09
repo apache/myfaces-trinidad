@@ -1113,7 +1113,7 @@ function _returnRangeHints(
 {
   
   //we have both, max and min, so we only use the range Hint
-  if(max && min)
+  if(max != null && min != null)
   {
     var hints = new Array();
     if(messages && messages[rangeHint])
@@ -1172,10 +1172,10 @@ function _returnHints(
 )
 {
   var hints;
-  if(max)
+  if (max != null)
   {
     hints = new Array();
-    if(messages && messages[maxHint])
+    if (messages && messages[maxHint])
     {
       hints.push(
         TrMessageFactory.createCustomMessage(
@@ -1193,13 +1193,13 @@ function _returnHints(
     }
     
   }
-  if(min)
+  if (min != null)
   {
-    if(!hints)
+    if (!hints)
     {
       hints = new Array();
     }
-    if(messages && messages[minHint])
+    if (messages && messages[minHint])
     {
       hints.push(
         TrMessageFactory.createCustomMessage(
