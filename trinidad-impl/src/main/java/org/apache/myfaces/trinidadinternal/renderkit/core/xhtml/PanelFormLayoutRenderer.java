@@ -295,10 +295,10 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
       1, // colSpan
       renderedLayoutActions);
 
-    UIXComponent.processFlattenedChildren(context,
-                                          _formColumnEncoder,
-                                          formChildren,
-                                          columnEncodingState);
+    UIXComponent.encodeFlattenedChildren(context,
+                                         _formColumnEncoder,
+                                         formChildren,
+                                         columnEncodingState);
 
     rw.endElement("tr"); // the outer row
 
@@ -324,10 +324,8 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
         actualColumns, // this is actually colSpan
         footerLayoutActions);
 
-      UIXComponent.processFlattenedChildren(context,
-                                            _formColumnEncoder,
-                                            footerFacetComponent,
-                                            footerEncodingState);
+      UIXComponent.encodeFlattenedChild(context, _formColumnEncoder, footerFacetComponent, footerEncodingState);
+
       rw.endElement("tr"); // the outer row
     }
 

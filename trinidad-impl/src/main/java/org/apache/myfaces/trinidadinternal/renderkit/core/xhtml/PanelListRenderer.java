@@ -165,7 +165,7 @@ public class PanelListRenderer extends XhtmlRenderer
         columnWidth,
         listStyle,
         usesPossiblyMultipleColumnDom);
-    UIXComponent.processFlattenedChildren(
+    UIXComponent.encodeFlattenedChildren(
       context,
       _encoderCallback,
       children,

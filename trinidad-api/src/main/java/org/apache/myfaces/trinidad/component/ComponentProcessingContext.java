@@ -18,8 +18,8 @@
  */
 package org.apache.myfaces.trinidad.component;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
+import java.util.Collections;
+import java.util.Set;
 
 /**
  * ProcessingContext passed to FlattenedComponents and ComponentProcessors representing the
@@ -35,6 +35,24 @@ public final class ComponentProcessingContext
 {
   ComponentProcessingContext()
   {      
+  }
+
+  /**
+   * Hints to the the FlattenedComponents regarding what the flattened iteration is being used for,
+   * The FlattenedComponent may use this information to change its flattening behavior.
+   * For example, a FlattenedComponent may generate output during a <code>PROCESS_FOR_ENCODING</code>
+   * iteration, but not during a normal iteration.
+   */
+  public enum ProcessingHint
+  {
+    /**
+     * Indicates that the iteration is occurring in order to encode iterated components.  This
+     * hint may only be used during the RenderResponse phase and only once per an iterated
+     * component.  Due to these guarantees, the FlattenedComponent is allowed to generate
+     * content during the iteration, an exception to the normal rule that iterations must
+     * be idempotent in case the same component is iterated multiple times.
+     */
+    PROCESS_FOR_ENCODING
   }
   
   /**
@@ -60,7 +78,17 @@ public final class ComponentProcessingContext
   {
     return _groupDepth;
   }
-  
+
+  /**
+   * <p>Returns hints that influence the behavior of the component processing</p>
+   *
+   * @return a non-empty, unmodifiable collection of ProcessingHints
+   */
+  public Set<ProcessingHint> getHints()
+  {
+    return _hints;
+  }
+
   /**
    * Increment the grouping and startGroup states.
    * <p>
@@ -103,6 +131,15 @@ public final class ComponentProcessingContext
     _startDepth = 0;
   }
   
+  /**
+   * Handshake from the UIXComponent
+   */
+  void __setIsRendering()
+  {
+    _hints = Collections.singleton(ProcessingHint.PROCESS_FOR_ENCODING);
+  }
+
   private int _startDepth;
   private int _groupDepth;
+  private Set<ProcessingHint> _hints = Collections.emptySet();
 }

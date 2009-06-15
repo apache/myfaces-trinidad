@@ -28,7 +28,6 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.MimeTypes;
 import org.apache.myfaces.trinidadinternal.share.url.EncoderUtils;
 import org.apache.myfaces.trinidadinternal.share.util.CaboHttpUtils;
 
@@ -193,6 +192,10 @@ public class HtmlResponseWriter extends ResponseWriter
     // it has an attribute, and is thus needed
     _outputPendingElements();
 
+    // if we aren't in in the element's start tag, we shouldn't be writing attributes
+    if (!_closeStart)
+      throw new IllegalStateException();
+
     Writer out = _out;
 
     Class<?> valueClass = value.getClass();
@@ -251,6 +254,10 @@ public class HtmlResponseWriter extends ResponseWriter
     // if we have a pending element, flush it because
     // it has an attribute, and is thus needed
     _outputPendingElements();
+
+    // if we aren't in in the element's start tag, we shouldn't be writing attributes
+    if (!_closeStart)
+      throw new IllegalStateException();
 
     Writer out = _out;
 
@@ -441,7 +448,7 @@ public class HtmlResponseWriter extends ResponseWriter
 
 
   /**
-   * Flushes out any pending element, celaring the pending
+   * Flushes out any pending element, clearing the pending
    * entry.
    */
   private void _outputPendingElements() throws IOException
