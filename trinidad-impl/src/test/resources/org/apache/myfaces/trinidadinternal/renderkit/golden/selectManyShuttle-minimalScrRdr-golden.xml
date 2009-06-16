@@ -4801,9 +4801,8 @@
             
             <span
                  class="AFRequiredIconStyle"
-                 title="Required"
                 >
-              *
+              * Required
             </span>
             <img
                  alt=""

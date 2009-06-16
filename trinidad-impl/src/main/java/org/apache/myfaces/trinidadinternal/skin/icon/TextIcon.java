@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,17 +19,18 @@
 package org.apache.myfaces.trinidadinternal.skin.icon;
 
 import java.io.IOException;
+
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.style.Style;
-
-
 import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
+
 
 /**
  * An Icon implementation which renders a text string as the icon.
@@ -121,9 +122,13 @@ public class TextIcon extends Icon
     if (id != null)
       writer.writeAttribute("id", id, null);
 
-    // If we have a title that isn't "", render it on the span
-    if ((title != null) && !"".equals(title))
+    // If we have a title that isn't "", render it on the span unless in screen reader mode
+    boolean screenReader = arc.getAccessibilityMode() == RequestContext.Accessibility.SCREEN_READER;
+    boolean hasTitle = (title != null) && !"".equals(title);
+    if (hasTitle && !screenReader)
+    {
       writer.writeAttribute("title", title, null);
+    }
 
     // Handle style attributes (or elements)
 
@@ -133,9 +138,9 @@ public class TextIcon extends Icon
     {
       // FIXME: since we go through the rendering context,
       // there should be no need to go to StyleUtils
-      String convertedStyleClass = 
+      String convertedStyleClass =
         StyleUtils.convertToValidSelector(arc.getStyleClass(_styleClass));
-   
+
       styleClasses.append(convertedStyleClass);
     }
 
@@ -149,7 +154,7 @@ public class TextIcon extends Icon
 
     if (styleClasses.length() > 0)
       writer.writeAttribute("class", styleClasses.toString(), null);
-  
+
     StringBuilder inline = new StringBuilder(100);
     if (_inlineStyle != null)
     {
@@ -160,16 +165,22 @@ public class TextIcon extends Icon
     {
       inline.append(attrInlineStyle.toString());
     }
- 
+
     if (inline.length() > 0)
-      writer.writeAttribute("style", inline.toString(), null);    
+      writer.writeAttribute("style", inline.toString(), null);
 
     String text = getText(arc);
 
     // don't know how to map this back to the source, so using null...
     writer.writeText(text, null);
 
-
+    if (hasTitle && screenReader)
+    {
+      // Render the title in-line for screen reader mode as JAWS will not read the title
+      // attribute of a SPAN element
+      writer.writeText(" ", null);
+      writer.writeText(title, null);
+    }
 
     if (useSpan)
       writer.endElement("span");

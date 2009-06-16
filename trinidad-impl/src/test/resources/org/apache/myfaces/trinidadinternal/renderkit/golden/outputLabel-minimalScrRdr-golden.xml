@@ -45,9 +45,8 @@
         
         <span
              class="AFRequiredIconStyle"
-             title="Required"
             >
-          *
+          * Required
         </span>&#xa0;
         <label
              for="input"

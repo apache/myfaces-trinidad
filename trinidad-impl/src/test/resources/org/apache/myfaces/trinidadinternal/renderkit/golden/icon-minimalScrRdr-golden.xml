@@ -61,9 +61,8 @@
       <span
            class="AFRequiredIconStyle"
            id="mainId"
-           title="test-shortDesc"
           >
-        *
+        * test-shortDesc
       </span>
 <!--AttributeTest[styleClass,null]-->
 
