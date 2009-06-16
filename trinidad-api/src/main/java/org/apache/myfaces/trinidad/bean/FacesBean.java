@@ -19,8 +19,11 @@
 package org.apache.myfaces.trinidad.bean;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -222,7 +225,21 @@ public interface FacesBean
     public Type(Type superType)
     {
       _superType = superType;
-      _init();
+      // todo initial size of map, and type of map
+      // todo initial size of list, and type of list
+      // todo build combined data structure
+      _keyMap = new HashMap<String, PropertyKey>();
+      _keyList = new ArrayList<PropertyKey>();
+      _unmodifiableKeys = Collections.unmodifiableList(_keyList);
+
+      if (_superType != null)
+      {
+        _keyMap.putAll(_superType._keyMap);
+        _keyList.addAll(_superType._keyList);
+        _index = _superType._index;
+        _superType.lock();
+      }
+
     }
 
     /**
@@ -375,7 +392,18 @@ public interface FacesBean
      */
     public Iterator<PropertyKey> keys()
     {
-      return _keyList.iterator();
+      return propertyKeys().iterator();
+    }
+    
+    /**
+     * Returns an unmodifiable <code>Collection</code> of registered property keys,
+     * excluding aliases.
+     * 
+     * @return unmodifiable <code>Collection</code> with registered 
+     */
+    public Collection<PropertyKey> propertyKeys()
+    {
+      return _unmodifiableKeys;
     }
 
     protected PropertyKey createPropertyKey(
@@ -441,7 +469,7 @@ public interface FacesBean
     }
      
     
-    static private void _expandListToIndex(ArrayList<?> list, int count)
+    static private void _expandListToIndex(ArrayList<PropertyKey> list, int count)
     {
       list.ensureCapacity(count + 1);
       int addCount = (count + 1) - list.size();
@@ -449,24 +477,6 @@ public interface FacesBean
         list.add(null);
     }
 
-    /**
-     * @todo initial size of map, and type of map
-     * @todo initial size of list, and type of list
-     * @todo build combined data structure
-     */
-    private void _init()
-    {
-      _keyMap = new HashMap<String, PropertyKey>();
-      _keyList = new ArrayList<PropertyKey>();
-
-      if (_superType != null)
-      {
-        _keyMap.putAll(_superType._keyMap);
-        _keyList.addAll(_superType._keyList);
-        _index = _superType._index;
-        _superType.lock();
-      }
-    }
 
     private void _checkLocked()
     {
@@ -484,11 +494,13 @@ public interface FacesBean
       }
     }
 
-    private Map<String, PropertyKey> _keyMap;
-    private ArrayList<PropertyKey>   _keyList;
+    private final Map<String, PropertyKey> _keyMap;
+    private final List<PropertyKey> _unmodifiableKeys;
+    // keyList is used for optimized operations, like findKey(index)
+    private final ArrayList<PropertyKey>   _keyList;
     private boolean   _isLocked;
     private int       _index;
-    private Type      _superType;
+    private final Type _superType;
     static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(Type.class); 
   }
 }
