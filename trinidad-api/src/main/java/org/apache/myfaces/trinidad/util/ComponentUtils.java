@@ -477,16 +477,22 @@ public final class ComponentUtils
 
   /**
    * Returns the naming container of the component. This method makes sure that
-   * we don't go beyond the root component. 
+   * we don't go beyond the a supplied base component. 
    * @param component the UIComponent 
    * @param baseComponent The component to limit the search up to.
    * @return the naming container of the component which has to be in the 
-   * hierarchy of the root parent
+   * subtree rooted by the baseComponent. Returns null if no such ancestor 
+   * naming container component exists.
    */
   private static UIComponent _getParentNamingContainer(
     UIComponent component,
     UIComponent baseComponent)
   {
+    // Optimize when both arguments are the same - could happen due to recursion
+    //  in _buildScopedId()
+    if (component.equals(baseComponent))
+      return null;
+    
     UIComponent checkedParent = component.getParent();
     
     while(checkedParent != null)
