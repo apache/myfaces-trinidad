@@ -156,7 +156,9 @@ public class PdaNavigationPaneRenderer extends NavigationPaneRenderer
                            toString(itemData.get("icon")), 
                            itemData, isDisabled, isRtl);
         rw.endElement("span"); // centerContent
-
+        
+        boolean narrowScreen = supportsNarrowScreen(arc);
+        
         if (!getBooleanFromProperty(itemData.get("isLast"))) 
         {
           rw.startElement("span", null); // rightContent
@@ -170,10 +172,24 @@ public class PdaNavigationPaneRenderer extends NavigationPaneRenderer
             renderStyleClass(context, arc, 
                                 SkinSelectors.AF_NAVIGATION_LEVEL_BUTTONS_SEPARATOR_STYLE_CLASS);
           }
-          rw.write("|");
+          
+          // Narrow-screen PDAs don't need"|", since navigation items 
+          // are rendered vertically for narrow-screen PDAs.
+          if (!narrowScreen)
+          {
+            rw.write("|");
+          }
+          
           rw.endElement("span"); // rightContent
         }  
         rw.endElement("span"); // rightContent
+        
+        // render vertically for narrow-screen PDAs
+        if (narrowScreen)
+        { 
+          rw.startElement("br", null);
+          rw.endElement("br");
+        }
       }
       // Render as List
       else 

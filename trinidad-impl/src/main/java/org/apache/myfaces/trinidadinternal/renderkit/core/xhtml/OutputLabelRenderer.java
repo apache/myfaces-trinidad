@@ -480,7 +480,8 @@ public class OutputLabelRenderer extends ValueRenderer
       Agent agent = arc.getAgent();
 
       if ((agent != null) &&
-             Agent.AGENT_BLACKBERRY.equals(agent.getAgentName()) &&
+            (Agent.AGENT_BLACKBERRY.equals(agent.getAgentName()) ||
+             Agent.AGENT_GENERICPDA.equals(agent.getAgentName())) &&
           (null == messageType || "none".equals(messageType)))
       {
         return false;

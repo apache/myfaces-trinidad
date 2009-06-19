@@ -1094,6 +1094,16 @@ public class BaseLafRenderer extends ElementRenderer
        RequestContext.Accessibility.SCREEN_READER;
   }
 
+  /** 
+   * Returns true if a user agent is a narrow-screen PDA
+   * @param context a <code>UIXRenderingContext</code>
+   * @return a <code>boolean</code>
+   */
+  public static boolean supportsNarrowScreen(UIXRenderingContext context)
+  {
+    return getBooleanAgentCapability(context,
+                                         TrinidadAgent.CAP_NARROW_SCREEN);
+  }
 
   private static final String _BASE_IMAGE_URI_PROPERTY = "baseImageURI";
 

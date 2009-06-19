@@ -119,7 +119,10 @@ public class PanelLabelAndMessageRenderer extends LabelAndMessageRenderer
     rw.startElement("td", null);
     encodeAllChildren(context, component);
     rw.endElement("td");
-    if (end != null)
+    
+    // For narrow-screen PDAs, End facet is rendered vertically
+    // below the Help facet. So skip the End facet rendering here.
+    if (end != null && !supportsNarrowScreen(arc))
     {
       rw.startElement("td", null);
       // =-= mcc TODO apply className for "af|panelLabelAndMessage::end-facet"
@@ -184,6 +187,59 @@ public class PanelLabelAndMessageRenderer extends LabelAndMessageRenderer
     return null;
   }
   
+  /* This method is responsible for rendering the End facet for narrow-screen 
+   * PDAs. In the case of narrow-screen PDAs, End facet is rendered after the 
+   * Help  facet as shown below
+   * +------+
+   * |Label | 
+   * +------+
+   * |Field |
+   * +----------+
+   * |Help facet| 
+   * +----------+
+   * |End facet | 
+   * ------------
+   * @param context a <code>FacesContext</code>
+   * @param arc a <code>RenderingContext</code>
+   * @param component a <code>UIComponent</code> the component to render
+   * @param insideTableData a <code>boolean</code> indicates whether End
+   *        Facet to be rendered is in inside a table data(<TD>)
+   * @throws IOException if there are problems in rendering contents
+   */
+  @Override 
+  protected void renderEndFacetForNarrowPDA(
+    FacesContext     context,
+    RenderingContext arc,
+    UIComponent      component,
+    boolean          insideTableData)
+    throws IOException
+  {
+    if (!supportsNarrowScreen(arc))
+      return;       
+         
+    UIComponent end = getFacet(component, CorePanelLabelAndMessage.END_FACET);
+    
+    if (end != null)
+    {
+      ResponseWriter rw = context.getResponseWriter();
+      
+      if (insideTableData)
+      {
+        rw.startElement("div", null);
+        encodeChild(context, end);
+        rw.endElement("div");
+      }
+      else
+      {
+        rw.startElement("tr", null);
+        rw.startElement("td", null);
+        encodeChild(context, end);
+        rw.endElement("td");
+        rw.endElement("tr");
+      }
+    }
+  }
+
   private PropertyKey _forKey;
   private PropertyKey _labelInlineStyleKey;
 }

@@ -225,6 +225,18 @@ public class XhtmlRenderer extends CoreRenderer
     return !Boolean.FALSE.equals(cap);
   }
 
+  /**
+   * Returns true if an agent is a narrow-screen PDA
+   * @param context a <code>RenderingContext</code>
+   * @return a <code>boolean</code>
+   */
+    
+  public static boolean supportsNarrowScreen(RenderingContext arc)
+  {
+    Object cap = arc.getAgent().getCapabilities().get( 
+                                 TrinidadAgent.CAP_NARROW_SCREEN);
+    return Boolean.TRUE.equals(cap);
+  }
 
 
   //
@@ -959,7 +971,37 @@ public class XhtmlRenderer extends CoreRenderer
   }
 
 
-
+  /**
+   * This method renders an input element of type "submit". The input element's
+   * name attribute is encoded with parameter name and value pairs. Thus, it 
+   * would enable Non-JavaScript browsers to include the element's name in 
+   * their payLoad, if the element submits the page.    
+   *
+   * @param context a <code>FacesContext</code>
+   * @param arc a <code>RenderingContext</code>
+   * @param valueAttri a <code>String</code> it is the value attribute
+   *  of the submit button
+   * @param nameAttri  a <code>String</code> it is the name attribute
+   *  of the submit button
+   * 
+   */
+  public static void renderSubmitButtonNonJSBrowser(
+    FacesContext     context,
+    RenderingContext arc,
+    String           valueAttri,
+    String           nameAttri
+    ) throws IOException
+  {
+    ResponseWriter writer = context.getResponseWriter();
+    writer.startElement("input", null);
+    writer.writeAttribute("type", "submit", null);
+    writer.writeAttribute("value", valueAttri, null);
+    writer.writeAttribute("name", nameAttri, null);
+    renderStyleClass(context, arc, 
+                       SkinSelectors.AF_COMMAND_BUTTON_STYLE_CLASS);
+    writer.endElement("input");
+  }
+ 
   //
   // ATTRIBUTE HOOKS
   //

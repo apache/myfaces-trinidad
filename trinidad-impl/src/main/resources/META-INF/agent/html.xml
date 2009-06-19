@@ -27,7 +27,7 @@
   <capability name="-adfinternal-advancedForms" value="true"/>
   <capability name="-adfinternal-target" value="true"/>  
   <capability name="-adfinternal-intrinsicEvents" value="true"/>
-  <capability name="-adfinternal-scriptingSpeed" value="slow"/>
+  <capability name="scriptingSpeed" value="slow"/>
   <capability name="-adfinternal-styleAttributes" value="external"/>
   <capability name="-adfinternal-nameIdentification" value="true"/>
   <capability name="-adfinternal-advancedButtons" value="true"/>

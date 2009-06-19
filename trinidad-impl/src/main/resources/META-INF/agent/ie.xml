@@ -19,7 +19,7 @@
 	   
 -->
 <capabilityData xmlns="http://myfaces.apache.org/trinidad/agent/capabilities">
-  <capability name="-adfinternal-scriptingSpeed" value="fast"/>
+  <capability name="scriptingSpeed" value="fast"/>
   <capability name="-adfinternal-pngImage" value="true"/>  
   <capability name="-adfinternal-transparentPngImage" value="true"/>   
   <capability name="-adfinternal-altRendersTooltipOnImage" value="true"/>

@@ -23,8 +23,8 @@
   <capability name="-adfinternal-disabledFormElements" value="true"/>
   <capability name="-adfinternal-cssSelectors" value="multiple"/>
   <capability name="-adfinternal-styleAttributes" value="external"/>
-  <capability name="-adfinternal-scriptingSpeed" value="slow"/>
-  <capability name="-adfinternal-partialRendering" value="true"/>
+  <capability name="scriptingSpeed" value="slow"/>
+  <capability name="partialRendering" value="true"/>
   <capability name="-adfinternal-xmldom" value="true"/>  
   <capability name="-adfinternal-onclick-input" value="true"/>  
   <capability name="-adfinternal-onclickOnImgInput" value="false"/>    

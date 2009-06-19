@@ -330,6 +330,21 @@ public class FormRenderer extends XhtmlRenderer
             formData.addNeededValue(XhtmlConstants.EVENT_PARAM);
             formData.addNeededValue(XhtmlConstants.PARTIAL_TARGETS_PARAM);
             formData.addNeededValue(XhtmlConstants.PARTIAL_PARAM);
+
+            // In the case of Windows-mobile(WM) browsers, store the value of
+            // the request-header field, UA-pixels, into a hidden-parameter's 
+            // value attribute. WM browsers' PPRs don't contain UA-pixels in 
+            // their request-headers. So during a WM browser's PPR, we need to  
+            // manually (using JavaScript) set the field, UA-pixels, into  
+            // the request-header with the hidden parameter's value.
+                                
+            Map<String, String> headerMap = 
+                        context.getExternalContext().getRequestHeaderMap();
+                        
+            _renderHiddenField(writer,
+                               XhtmlConstants.WINDOWS_MOBILE_UAPIXELS,
+                               headerMap.get("UA-pixels"));
+           
           }
           else
           {

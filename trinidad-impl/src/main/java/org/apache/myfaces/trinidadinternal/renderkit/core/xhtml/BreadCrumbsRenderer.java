@@ -107,7 +107,19 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
     ) throws IOException
   {
 
-    boolean isVertical = _isVertical(bean);
+    boolean isVertical;
+     
+    // To reduce the breadcrumb's width, render vertically for narrow-screen
+    // PDAs.
+    if (supportsNarrowScreen(arc))
+    { 
+      isVertical = true;
+    }
+    else
+    {
+      isVertical = _isVertical(bean);
+    }
+    
     boolean shouldRenderLastChild = shouldRenderLastChild(arc);    
     boolean isLastChild   = false;
     boolean isFirstChild  = true;
@@ -418,6 +430,13 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
       RenderingContext arc
   )
   {
+    // In the case of narrow-screen PDAs, the number of indent spaces is 
+    // reduced to decrease the overall breadcrumb's width.
+    if (supportsNarrowScreen(arc))
+    { 
+      return NARROW_SCREEN_INDENT_SPACES;
+    }
+    
     Object propValue = arc.getSkin().getProperty(
                                       SkinProperties.AF_BREAD_CRUMBS_INDENT_SPACES);
 
@@ -439,6 +458,9 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
   // # of hard spaces to use in indenting vertical breadcrumbs
   private static final int _INDENT_SPACES = 10;  
   
+  // # of hard spaces to use in indenting vertical breadcrumbs 
+  // in the case of narrow-screen PDAs
+  private static final int NARROW_SCREEN_INDENT_SPACES = 3; 
   
   private static final Map<String, String> _RESOURCE_KEY_MAP;
   static

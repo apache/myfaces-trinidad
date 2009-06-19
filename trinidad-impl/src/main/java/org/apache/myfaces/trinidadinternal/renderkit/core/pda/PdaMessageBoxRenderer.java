@@ -52,12 +52,14 @@ public class PdaMessageBoxRenderer extends MessageBoxRenderer
   {
     Agent agent = arc.getAgent();
 
-    // BlackBerry browser does not support inline style of display:none
-    // and thus it is necessary to slip rendering entire element if
-    // there is no message to display and rendering to BlackBerry.
+    // BlackBerry and many pda browsers don't support inline style of 
+    // display:none. Thus, it is necessary to slip rendering entire 
+    // element if there is no message to display. 
     // This method checks for the condition and returns true.
 
-    if (agent != null && Agent.AGENT_BLACKBERRY.equals(agent.getAgentName()))
+    if (agent != null &&
+                 (Agent.AGENT_BLACKBERRY.equals(agent.getAgentName()) ||
+                  Agent.AGENT_GENERICPDA.equals(agent.getAgentName()) ))
     {
       boolean hasMessages =
                     FacesContext.getCurrentInstance().getMessages().hasNext();

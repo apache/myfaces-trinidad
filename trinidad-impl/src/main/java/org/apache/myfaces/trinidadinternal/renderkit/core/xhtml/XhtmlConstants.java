@@ -317,4 +317,13 @@ public final class XhtmlConstants
   public static final String NON_JS_DETAIL_UNDISCLOSED_ICON = "+";
   public static final String NON_JS_ASC_ICON = "v";
   public static final String NON_JS_DESC_ICON = "^";
+  
+  // Maximum width of a narrow-screen PDA device in pixels
+  public static final int NARROW_SCREEN_PDA_MAX_WIDTH = 240; 
+  
+  // The name of the hidden parameter that stores the value of the 
+  // request-header, UA-pixels. This hidden paramter is rendered only 
+  // for windows mobile.
+  public static final String WINDOWS_MOBILE_UAPIXELS = "uapixels";
+     
 }

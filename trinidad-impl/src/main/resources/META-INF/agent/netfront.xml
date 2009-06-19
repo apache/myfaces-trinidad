@@ -25,9 +25,10 @@
   <capability name="-adfinternal-intrinsicEvents" value="true"/>
   <capability name="-adfinternal-disabledFormElements" value="false"/>
   <capability name="-adfinternal-readonlyFormElements" value="false"/>
-  <capability name="-adfinternal-scriptingSpeed" value="slow"/>
+  <capability name="scriptingSpeed" value="slow"/>
   <capability name="-adfinternal-styleAttributes" value="external"/> 
    <capability name="-adfinternal-cssSelectors" value="multiple"/>  
   <capability name="-adfinternal-valign" value="true"/>   
 </capabilityData>
+
 

@@ -155,6 +155,15 @@ public class TrinidadAgentImpl implements TrinidadAgent, Cloneable
   {
     return _capMap.getCapability(key);
   }
+  
+  /*
+   * @return <code>String</code> object that represents an agent's
+   * skin-family
+   */
+  public String getSkinFamilyType()
+  {
+    return _skinFamilyType;
+  }
 
 
   @Override
@@ -234,7 +243,7 @@ public class TrinidadAgentImpl implements TrinidadAgent, Cloneable
       _major = 1;
     else
       _major = _getMajorVersion(getAgentVersion());
-
+    _setskinFamilyType();
     _capMap = _getCapabilityMap(context);
     Map<Object, Object> requestCaps = _delegate.getCapabilities();
     if (requestCaps != null)
@@ -375,6 +384,69 @@ public class TrinidadAgentImpl implements TrinidadAgent, Cloneable
     return (int) version;
   }
 
+  /*
+   * This method determines a mobile agent's skin-family, which is based upon      
+   * the agent's CSS-support. Agents with the same name can have different 
+   * skin families if the agents' versions or platforms are different.
+   */
+  void _setskinFamilyType()
+  {
+    if (_os == TrinidadAgent.OS_PPC)
+    {
+      _skinFamilyType = TrinidadAgent.SKIN_WINDOWS_MOBILE;
+    }
+    else if (_application == TrinidadAgent.APPLICATION_NOKIA_S60)
+    {
+      _skinFamilyType = TrinidadAgent.SKIN_WEBKIT_NOKIA;
+    }
+    else if (_application == TrinidadAgent.APPLICATION_SAFARI)
+    {
+      if (_os == TrinidadAgent.OS_IPHONE)
+      {
+        _skinFamilyType = TrinidadAgent.SKIN_WEBKIT_IPHONE;
+      }
+      else if (_os == TrinidadAgent.OS_LINUX)
+      {
+        _skinFamilyType = TrinidadAgent.SKIN_WEBKIT_LINUX;
+      }
+      else if (_os == TrinidadAgent.OS_MACOS)
+      {
+        _skinFamilyType = TrinidadAgent.SKIN_WEBKIT_MAC;
+      }
+      else if (_os == TrinidadAgent.OS_WINDOWS)
+      {
+        _skinFamilyType = TrinidadAgent.SKIN_WEBKIT_WINDOWS;
+      }
+      else
+      {
+        _skinFamilyType = TrinidadAgent.SKIN_WEBKIT_DEFAULT;  
+      }
+    }
+    else if (_application == TrinidadAgent.APPLICATION_GENERICPDA)
+    {
+      _skinFamilyType = TrinidadAgent.SKIN_GENERIC_PDA;
+    }
+    else if (_application == TrinidadAgent.APPLICATION_BLACKBERRY)
+    {
+      // BlackBerry browsers' versions are in the format x.y.z.[...]
+      // (x,y and z are numerals). For determining the skin-family, truncate
+      // the version after the first decimal-point's immediate digit.
+      // Example, versions 4.6.0.80  and 4.1.2 will be  truncated to 4.6  
+      // and 4.1 respectively.
+      String version = getAgentVersion();
+      version = version.substring(0, version.indexOf(".")+2);
+            
+      if (Float.parseFloat(version) > 4.5)
+      {
+        _skinFamilyType = TrinidadAgent.SKIN_BLACKBERRY;
+      }
+      else
+      {
+        _skinFamilyType = TrinidadAgent.SKIN_BLACKBERRY_MINIMAL;
+      }
+    }
+  }
+  
   void __mergeCapabilities(Map<Object, Object> capabilities)
   {
     _capMap = _capMap.merge(capabilities);
@@ -401,6 +473,7 @@ public class TrinidadAgentImpl implements TrinidadAgent, Cloneable
   private int _application;
   private int _os;
   private int _major;
+  private String _skinFamilyType;
 
 
 }

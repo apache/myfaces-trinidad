@@ -220,7 +220,20 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
     // we really need:
     int actualColumns = maxColumns;
     int actualRows = rows;
-    Object labelAlignment = _getLabelAlignment(bean);
+    Object labelAlignment; 
+    
+    // In the case of narrow-screen PDAs, the label and field are rendered 
+    // vertically to reduce the overall page's width. Thus, labelAlignment
+    // is always "top" for narrow-screen PDAs.
+    if (supportsNarrowScreen(rc))
+    {
+      labelAlignment = "top";
+    }
+    else
+    {
+      labelAlignment = _getLabelAlignment(bean);
+    }
+    
     boolean forceSingleColumn = (nestLevel != 0);
     boolean startAlignedLabels = !forceSingleColumn;
     if ("start".equals(labelAlignment))

@@ -19,5 +19,5 @@
 	   
 -->
 <capabilityData xmlns="http://myfaces.apache.org/trinidad/agent/capabilities">
-  <capability name="-adfinternal-partialRendering" value="true"/>
+  <capability name="partialRendering" value="true"/>
 </capabilityData>

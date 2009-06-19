@@ -95,9 +95,19 @@ public class CorePanelRadioRenderer extends ShowOneListRendererBase
 
     out.endElement("span");
     out.endElement("td");
-
-    // Render filler / separator between label and select control
-    renderSpacerTD(out, component, getLabelControlSeparatorSize());
+    
+    // render label and radio control vertically for narrow-screen PDAs
+    if (XhtmlRenderer.supportsNarrowScreen
+                    (RenderingContext.getCurrentInstance()))
+    { 
+      out.endElement("tr");
+      out.startElement("tr", null);
+    }
+    else
+    {
+      // Render filler / separator between label and select control
+      renderSpacerTD(out, component, getLabelControlSeparatorSize());
+    }
 
     _renderRadioItemsInTD(context,
                           component,

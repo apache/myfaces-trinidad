@@ -21,7 +21,7 @@
 <capabilityData xmlns="http://myfaces.apache.org/trinidad/agent/capabilities">
   <capability name="dom" value="level2"/>
   <capability name="-adfinternal-cssSelectors" value="multiple"/>
-  <capability name="-adfinternal-partialRendering" value="true"/>  
+  <capability name="partialRendering" value="true"/>  
   <capability name="-adfinternal-imageStretch" value="true"/>
   <capability name="-adfinternal-pngImage" value="true"/>  
   <capability name="-adfinternal-transparentPngImage" value="true"/>     

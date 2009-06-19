@@ -491,8 +491,12 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
 
         writer.startElement("tr", null);
       }
-
-      if (showBackButton)
+      
+      boolean narrowScreen = supportsNarrowScreen(arc);
+      
+      // skip rendering back button for narrow-screen PDAs to reduce the
+      // overall width of selectRangeChoiceBar.
+      if (showBackButton && !narrowScreen)
       {
         Icon prevIcon = getIcon(arc, false, (prevOnClick != null));
 
@@ -567,8 +571,10 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
                     validate);
 
       writer.endElement("td");
-
-      if (showNextButton)
+      
+      // skip rendering back button for narrow-screen PDAs to reduce the
+      // overall width of selectRangeChoiceBar.
+      if (showNextButton && !narrowScreen)
       {
         _renderSpacerCell(context, arc);
 
@@ -728,14 +734,13 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
                               + XhtmlUtils.getEncodedParameter
                                           (XhtmlConstants.EVENT_PARAM)
                               + XhtmlConstants.GOTO_EVENT;
+                              
+          renderSubmitButtonNonJSBrowser(context,
+                                         arc,
+                                         XhtmlConstants.
+                                               NO_JS_PARAMETER_KEY_BUTTON,
+                                         nameAttri);
 
-          writer.startElement("span", null);
-          writer.startElement("input", null);
-          writer.writeAttribute("value",XhtmlConstants.NO_JS_PARAMETER_KEY_BUTTON , null);
-          writer.writeAttribute("type","submit", null);
-          writer.writeAttribute("name", nameAttri, null);
-          writer.endElement("input");
-          writer.endElement("span");
         }
         else
         {

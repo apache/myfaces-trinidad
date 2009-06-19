@@ -302,8 +302,13 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     FacesBean           bean) throws IOException
   {
     String renderingHint = _getHint(bean);
-    if (NavigationPaneRenderer._HINT_TABS.equals(renderingHint))
-    {
+    
+    // Since navigation items are rendered vertically for narrow-screen PDAs, 
+    // Tab style class, which sets the navigationPane's height, is no longer 
+    // applicable for narrow-screen PDAs
+    if (!supportsNarrowScreen(arc) && 
+                NavigationPaneRenderer._HINT_TABS.equals(renderingHint))
+    { 
       renderStyleAttributes(context, arc, bean,
                             SkinSelectors.AF_NAVIGATION_LEVEL_TABS_STYLE_CLASS);
     }

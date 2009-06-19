@@ -23,5 +23,5 @@
   <capability name="accessKeys" value="true"/>
   <capability name="-adfinternal-cssSelectors" value="multiple"/> 
   <capability name="-adfinternal-imageStretch" value="true"/> 
-  <capability name="-adfinternal-partialRendering" value="true"/>
+  <capability name="partialRendering" value="true"/>
 </capabilityData>

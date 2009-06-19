@@ -135,19 +135,33 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
     throws IOException
   {
     writeAdditionalJS(context, component); // To spit out additional JS if any
-    String alignment = _getAlignment(component);
-    if (alignment == null)
+    String position;
+    String alignment;
+    
+    // In the case of narrow-screen PDAs, to reduce component's width, 
+    // position is always top and alignment is always left. 
+    if(XhtmlRenderer.supportsNarrowScreen
+                    (RenderingContext.getCurrentInstance()))
     {
-      alignment = _ALIGNMENT_DEFAULT_VALUE;
+      position = _POSITION_TOP;
+      alignment = _ALIGNMENT_LEFT;
     }
-    // No need to check for invalid value of alignment attr value as
-    // it's handled below.
-
-    // If the position is either null or an invalid value, default it.
-    String position = _getPosition(component);
-    if (! positionMap.containsKey(position))
+    else
     {
-      position = _POSITION_DEFAULT_VALUE;
+      alignment = _getAlignment(component);
+      if (alignment == null)
+      {
+        alignment = _ALIGNMENT_DEFAULT_VALUE;
+      }
+      // No need to check for invalid value of alignment attr value as
+      // it's handled below.
+
+      // If the position is either null or an invalid value, default it.
+      position = _getPosition(component);
+      if (! positionMap.containsKey(position))
+      {
+        position = _POSITION_DEFAULT_VALUE;
+      }
     }
 
     _LOG.finest("ShowOneListRendererBase.encodeChildren: alignment: {0}, position: {1} ",

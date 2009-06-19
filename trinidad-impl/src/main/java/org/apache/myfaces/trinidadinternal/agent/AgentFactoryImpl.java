@@ -26,6 +26,7 @@ import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 
 /**
  * Trinidad implementation of AgentFactory.
@@ -398,6 +399,8 @@ public class AgentFactoryImpl implements AgentFactory
     agentObj.setAgent(Agent.AGENT_IE);
     agentObj.setAgentVersion(version);
     agentObj.setPlatform(Agent.PLATFORM_PPC);
+    
+    boolean narrowScreenDevice = false;
 
     if(uaPixels != null && uaPixels.length() > 0)
     {
@@ -427,11 +430,31 @@ public class AgentFactoryImpl implements AgentFactory
       {
         agentObj.__addRequestCapability(TrinidadAgent.CAP_WIDTH,width);
         agentObj.__addRequestCapability(TrinidadAgent.CAP_HEIGHT,height);
+        
+        if (width.intValue() < XhtmlConstants.NARROW_SCREEN_PDA_MAX_WIDTH)
+        {
+          narrowScreenDevice = true;
+        }
       }
       else
       {
         _LOG.fine("When creating the Agent, the UA-pixels value \"{0}\" could not be parsed.", uaPixels);
       }
+    }
+    else
+    {
+      narrowScreenDevice = true;
+    }
+         
+    if (narrowScreenDevice)
+    {
+      agentObj.__addRequestCapability(TrinidadAgent.CAP_NARROW_SCREEN, 
+                                                                 Boolean.TRUE);
+    }
+    else
+    {
+      agentObj.__addRequestCapability(TrinidadAgent.CAP_NARROW_SCREEN, 
+                                                                 Boolean.FALSE);
     }
   }
 
@@ -477,7 +500,11 @@ public class AgentFactoryImpl implements AgentFactory
       agentObj.setAgentVersion(version);
       agentObj.setPlatform(Agent.PLATFORM_BLACKBERRY);
       agentObj.setMakeModel(makeModel);
-    }
+      // Most of BlackBerry devices' widths are more than 240px, so 
+      // don't consider BlackBerry as a narrow-screen PDA.
+      agentObj.__addRequestCapability(TrinidadAgent.CAP_NARROW_SCREEN, 
+                                                            Boolean.FALSE);
+  }
 
   /**
    * returns the data for the Palm Web Pro browser request
@@ -680,6 +707,12 @@ public class AgentFactoryImpl implements AgentFactory
       agentObj.setType(Agent.TYPE_PDA);
       agentObj.setAgent(Agent.AGENT_GENERICPDA);
       agentObj.setPlatform(Agent.PLATFORM_GENERICPDA);
+    }
+    // For performance reasons, consider Opera Mobile as a generic PDA-browser
+    // so just return. It will be handle by _populateGenricPDAImpl().
+    else if (agent.indexOf("MOT-") != -1 || agent.indexOf("Nokia") != -1)
+    {
+      return; 
     }
     else
     {

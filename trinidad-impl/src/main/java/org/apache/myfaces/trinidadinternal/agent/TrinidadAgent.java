@@ -44,7 +44,7 @@ public interface TrinidadAgent extends Agent
           CapabilityKey.getCapabilityKey("accessKeys", true);
 
   static public final CapabilityKey CAP_PARTIAL_RENDERING =
-          CapabilityKey.getCapabilityKey("-adfinternal-partialRendering", true);
+          CapabilityKey.getCapabilityKey("partialRendering", true);
 
   static public final CapabilityKey CAP_DISABLED_FORM_ELEMENTS =
           CapabilityKey.getCapabilityKey("-adfinternal-disabledFormElements", true);
@@ -122,7 +122,7 @@ public interface TrinidadAgent extends Agent
           CapabilityKey.getCapabilityKey("-adfinternal-altRendersTooltipOnImage", true);
 
   static public final CapabilityKey CAP_SCRIPTING_SPEED =
-          CapabilityKey.getCapabilityKey("-adfinternal-scriptingSpeed", true);
+          CapabilityKey.getCapabilityKey("scriptingSpeed", true);
 
 
   /**
@@ -169,6 +169,12 @@ public interface TrinidadAgent extends Agent
 
   static public final CapabilityKey CAP_IS_JDEV_JAVASCRIPT_VE = CapabilityKey
     .getCapabilityKey("-adfinternal-isJDevJavascriptVE", true);
+  
+  // If this capability flag is true, it means that the request is from an agent
+  // that is running in a narrow-screen PDA. Trinidad optimizes its rendering 
+  // for narrow-screen PDAs to reduce the overall width of the page rendered.
+  static public final CapabilityKey CAP_NARROW_SCREEN = CapabilityKey
+    .getCapabilityKey("narrowScreen", true);
 
   //
   // Values for CAP_DOM
@@ -451,7 +457,57 @@ public interface TrinidadAgent extends Agent
    * Name Constant for Palm Web clipping (Elaine) agent
    */
   public static final String AGENT_ELAINE = "elaine";
-
+  
+  /*
+   * Skin family for BlackBerry browsers whose version > 4.5 
+   */ 
+  public static final String SKIN_BLACKBERRY = "blackberry";
+  
+  /*
+   * Skin family for BlackBerry browsers whose version <=4.5 
+   */
+  public static final String SKIN_BLACKBERRY_MINIMAL = "blackberryminimal";
+  
+  /*
+   * Skin family for all the default mobile browsers
+   */
+  public static final String SKIN_GENERIC_PDA = "genericpda";
+  
+  /* 
+   * Skin family for all Safari browsers running in iPhones/iPod
+   */
+  public static final String SKIN_WEBKIT_IPHONE = "iPhonewebkit";
+  
+  /* 
+   * Skin family for all Safari browsers running in linux platform
+   */
+  public static final String SKIN_WEBKIT_LINUX = "linuxwebkit";
+  
+  /* 
+   * Skin family for all Safari browsers running in Mac platform
+   */
+  public static final String SKIN_WEBKIT_MAC = "macwebkit";
+  
+  /* 
+   * Skin family for all Safari browsers running in Nokia S60
+   */
+  public static final String SKIN_WEBKIT_NOKIA = "nokiawebkit";
+  
+  /* 
+   * Skin family for all Safari browsers running in windows platforms
+   */
+  public static final String SKIN_WEBKIT_WINDOWS = "windowswebkit";
+  
+  /* 
+   * Skin family for all Safari browsers running in unknown platforms
+   */
+  public static final String SKIN_WEBKIT_DEFAULT = "defaultwebkit";
+   
+  /*
+   * Skin family for Windows Mobile browsers 
+   */
+  public static final String SKIN_WINDOWS_MOBILE = "windowsmobile";
+  
   /**
    * Returns the type of agent to which we're rendering.  Currently,
    * only web browsers are understood.
@@ -493,4 +549,12 @@ public interface TrinidadAgent extends Agent
   public Object getCapability(CapabilityKey key);
 
   public Object clone();
+  
+  /*
+   * @return <code>String</code> object that represents an agent's
+   * skin-family, which is based upon the agent's CSS-support.     
+   * Agents with the same name can have different skin families
+   * if agents' versions or platforms are different.
+   */
+  public String getSkinFamilyType();
 }

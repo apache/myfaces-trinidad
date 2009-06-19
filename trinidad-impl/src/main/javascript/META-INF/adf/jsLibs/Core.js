@@ -1847,7 +1847,23 @@ function submitForm(
     // WM5.
     if (isPartial && _supportsPPR())
     {
-      TrPage.getInstance().sendPartialFormPost(form, parameters);
+      // In the case of Windows-mobile(WM) browsers, during rendering, 
+      // Trinidad stores the value of the request-header field, UA-pixels,
+      // into a hidden-parameter's value attribute. WM browsers' PPRs don't 
+      // contain UA-pixels in their request-headers. So during a WM browser's 
+      // PPR, we need to manually set the field, UA-pixels, into the 
+      // request-header with the hidden parameter's value.
+                  
+      if (_agent.isPIE || _agent.isWindowsMobile6)
+      {
+        var header = new Array(1);
+        header['UA-pixels'] = form.elements['uapixels'].value;
+        TrPage.getInstance().sendPartialFormPost(form, parameters, header);
+      }
+      else
+      {      
+        TrPage.getInstance().sendPartialFormPost(form, parameters);
+      }  
     }
     else
     {

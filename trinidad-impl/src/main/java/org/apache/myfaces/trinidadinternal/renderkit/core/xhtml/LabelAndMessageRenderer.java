@@ -140,6 +140,10 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     FacesContext context,
     boolean      needsPanelFormLayout)
   {
+    // For narrow-screen PDAs, always render the Label above fields.
+    if (supportsNarrowScreen(RenderingContext.getCurrentInstance()))
+      return false;
+          
     if (needsPanelFormLayout)
     {
       Map requestMap = context.getExternalContext().getRequestMap();
@@ -233,6 +237,10 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
         rw.endElement("div");
         _renderMessageCellContents(context, rc, component, bean);
       }
+      
+      // In the case of narrow-screen PDAs, to reduce the component's width,
+      // End facet is always rendered below. 
+      renderEndFacetForNarrowPDA(context, rc, component, true);
     }
     else
     {
@@ -356,7 +364,11 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
           rw.endElement("tr");
         }
       }
-
+      
+      // In the case of narrow-screen PDAs, to reduce the component's width,
+      // End facet is always rendered below.
+      renderEndFacetForNarrowPDA(context, rc, component, false);
+      
       if (needsTableTag)
       {
         rw.endElement("table");
@@ -394,6 +406,14 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
       });
 
     String labelInlineStyle = getLabelInlineStyleKey(bean);
+   
+    // In the case of narrow-screen PDAs, the Label is rendered above fields. 
+    // So Label should be left aligned to be in align with fields below. 
+    if (supportsNarrowScreen(rc))
+    {
+      labelInlineStyle = labelInlineStyle + ";text-align: left;";
+    }
+    
     rw.writeAttribute("style", labelInlineStyle, null);
 
     String valign = getDefaultLabelValign(bean);
@@ -865,6 +885,36 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     return styleClass;
   } 
   
+  /* This method is responsible for rendering the End facet for narrow-screen 
+   * PDAs. In the case of narrow-screen PDAs, End facet is rendered after the 
+   * Help facet as shown below
+   * +------+
+   * |Label | 
+   * +------+
+   * |Field |
+   * +----------+
+   * |Help facet| 
+   * +----------+
+   * |End facet | 
+   * ------------
+   * @param context a <code>FacesContext</code>
+   * @param arc a <code>RenderingContext</code>
+   * @param component a <code>UIComponent</code> the component to render
+   * @param insideTableData a <code>boolean</code> indicates whether End
+   *        Facet to be rendered is in inside a table data(<TD>)
+   * @throws IOException if there are problems in rendering contents
+   */
+  
+  protected void renderEndFacetForNarrowPDA(
+    FacesContext     context,
+    RenderingContext rc,
+    UIComponent      component,
+    boolean          insideTableData)
+    throws IOException
+  {
+    // Nothing by default. Applicable only for the 
+    // components that support End facet.
+  }
 
   // If we have mapped this style (like in panelForm), 
   // then return the style, otherwise return null

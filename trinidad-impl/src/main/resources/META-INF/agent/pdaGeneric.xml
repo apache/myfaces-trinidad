@@ -26,4 +26,5 @@
   <capability name="-adfinternal-advancedButtons" value="false"/>
   <capability name="-adfinternal-cssSelectors" value="multiple"/>
   <capability name="-adfinternal-styleAttributes" value="external"/>
+  <capability name="narrowScreen" value="true"/>
 </capabilityData>

@@ -28,6 +28,7 @@ import org.apache.myfaces.trinidad.component.UIXCommand;
 import org.apache.myfaces.trinidad.component.UIXProcess;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelButtonBar;
 
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 import org.apache.myfaces.trinidadinternal.share.url.FormEncoder;
@@ -213,6 +214,8 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
 
     boolean showBackButton = backButtonIndex != ProcessUtils.NO_INDEX;
     boolean showNextButton = nextButtonIndex != ProcessUtils.NO_INDEX;
+    
+    boolean narrowScreenPDA = supportsNarrowScreen(context);
 
     // bail if no buttons shown
     if (!showBackButton && !showNextButton)
@@ -245,6 +248,12 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
     }
 
     UINode backButton = null;
+    Object nonJSBackButtonText = null;
+    
+    // In the case of narrow-screen PDAs, the next and previous buttons
+    // are not rendered to reduce the component's width.
+    showBackButton = showBackButton && !narrowScreenPDA;
+    showNextButton = showNextButton && !narrowScreenPDA; 
 
     // set up the back button
     if (showBackButton)
@@ -286,6 +295,10 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
                                     !immediate,
                                     null,
                                     null));
+      }
+      else
+      {
+        nonJSBackButtonText = buttonTextBV;
       }
     }
 
@@ -368,6 +381,7 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
                                               Integer.toString(1)});
                                                           
         context.setLocalProperty(_NON_JS_NEXT_BUTTON_NAME_ATTR, nameAttri);
+        context.setLocalProperty(_NON_JS_NEXT_BUTTON_TEXT, buttonTextBV);
       }
     }
 
@@ -413,11 +427,11 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
                                             Long.toString(selectedIndex - 1),
                                             SIZE_PARAM,
                                             Integer.toString(0)});
-                                                   
-        _renderSubmitButtonNonJSBrowser(
-                             context, 
-                             XhtmlConstants.NO_JS_PARAMETER_BACK_BUTTON, 
-                             nameAttri );
+
+        String buttonText = ((AccessKeyBoundValue)nonJSBackButtonText)
+                                              .getValue(context).toString();
+
+        _renderSubmitButtonNonJSBrowser(context, buttonText, nameAttri);
       }
       writer.endElement("td");
 
@@ -519,13 +533,18 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
         _renderSpacerCell(context);
        
         writer.startElement("td", null);
+        
+        Object nextButtonText = context.getLocalProperty(
+                                        0, _NON_JS_NEXT_BUTTON_TEXT, null);
+                                          
+        String buttonText = ((AccessKeyBoundValue)nextButtonText)
+                                              .getValue(context).toString();
        
-        _renderSubmitButtonNonJSBrowser(
-                            context, 
-                            XhtmlConstants.NO_JS_PARAMETER_NEXT_BUTTON, 
-                            nextButtonNameAttr );
+        _renderSubmitButtonNonJSBrowser(context, buttonText, 
+                                                 nextButtonNameAttr );
                                        
         context.setLocalProperty(_NON_JS_NEXT_BUTTON_NAME_ATTR, null);
+        context.setLocalProperty(_NON_JS_NEXT_BUTTON_TEXT, null);
         
       }
     }
@@ -808,6 +827,8 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
     renderAttribute(context, "type", "submit");
     renderAttribute(context, "value", valueAttri);
     renderAttribute(context, "name", nameAttri);
+    renderStyleClassAttribute(context, 
+          SkinSelectors.AF_COMMAND_BUTTON_STYLE_CLASS);
     writer.endElement("input");
   }
 
@@ -826,5 +847,6 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
   static private final Object _NEXT_BUTTON_KEY = new Object();
   static private final Object _NEW_PATH_KEY = new Object();
   static private final Object _NON_JS_NEXT_BUTTON_NAME_ATTR = new Object();
+  static private final Object _NON_JS_NEXT_BUTTON_TEXT = new Object();  
 
 }
