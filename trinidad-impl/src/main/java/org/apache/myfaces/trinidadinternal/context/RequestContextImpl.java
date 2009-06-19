@@ -76,8 +76,6 @@ import org.apache.myfaces.trinidadinternal.ui.expl.ColorPaletteUtils;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 import org.apache.myfaces.trinidadinternal.webapp.TrinidadFilterImpl;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 
 /**
  */
@@ -915,7 +913,7 @@ public class RequestContextImpl extends RequestContext
     public void addRenderedPartialTarget(String id)
     {
       // not valid outside of rendering
-      throw new NotImplementedException();
+      throw new UnsupportedOperationException();
     }
 
     public boolean isPartialTarget(String clientId)
@@ -956,7 +954,7 @@ public class RequestContextImpl extends RequestContext
     public VisitContext getVisitContext()
     {
       // not valid outside of rendering
-      throw new NotImplementedException();
+      throw new UnsupportedOperationException();
     }
 
     private final HashSet<String> _componentIds = new HashSet<String>();
