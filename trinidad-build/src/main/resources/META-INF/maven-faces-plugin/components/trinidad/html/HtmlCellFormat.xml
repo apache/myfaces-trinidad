@@ -319,6 +319,9 @@
       <mfp:java-constructor>
         <mfp:property-name>vAlign</mfp:property-name>
       </mfp:java-constructor>
+      <fmd:component-metadata>
+        <fmd:required-ancestor-contracts>org-apache-myfaces-trinidad-htmlcellformat-holder</fmd:required-ancestor-contracts>
+      </fmd:component-metadata>
     </component-extension>
   </component>
 </faces-config>

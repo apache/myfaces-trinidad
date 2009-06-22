@@ -258,6 +258,8 @@ should be allowed to wrap]]></description>
       <fmd:component-metadata>
         <fmd:default-property>headerText</fmd:default-property>
         <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreOutputText</fmd:preferred-child-components>
+        <fmd:required-ancestor-contracts>org-apache-myfaces-trinidad-corecolumn-holder</fmd:required-ancestor-contracts>
+        <fmd:satisfied-contracts>org-apache-myfaces-trinidad-corecolumn-holder</fmd:satisfied-contracts>
       </fmd:component-metadata>
     </component-extension>
   </component>

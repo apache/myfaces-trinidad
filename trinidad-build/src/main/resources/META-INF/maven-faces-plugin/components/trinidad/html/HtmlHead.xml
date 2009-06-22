@@ -83,6 +83,7 @@
       <mfp:uix2-local-name>head</mfp:uix2-local-name>
       <fmd:component-metadata>
         <fmd:default-property>title</fmd:default-property>
+        <fmd:required-ancestor-contracts>org-apache-myfaces-trinidad-htmlhead-holder</fmd:required-ancestor-contracts>
       </fmd:component-metadata>
     </component-extension>
   </component>

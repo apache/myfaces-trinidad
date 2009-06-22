@@ -251,6 +251,7 @@ detail-disclosure.
       <fmd:component-metadata>
         <fmd:default-property>id</fmd:default-property>
         <fmd:preferred-child-components>org.apache.myfaces.trinidad.CoreColumn</fmd:preferred-child-components>
+        <fmd:satisfied-contracts>org-apache-myfaces-trinidad-corecolumn-holder</fmd:satisfied-contracts>
       </fmd:component-metadata>
     </component-extension>
   </component>

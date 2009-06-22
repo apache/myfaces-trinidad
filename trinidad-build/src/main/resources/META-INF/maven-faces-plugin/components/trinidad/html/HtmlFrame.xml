@@ -214,6 +214,7 @@
       <fmd:component-metadata>
         <fmd:allowed-child-components>NONE</fmd:allowed-child-components>
         <fmd:default-property>source</fmd:default-property>
+        <fmd:required-ancestor-contracts>org-apache-myfaces-trinidad-htmlframe-holder</fmd:required-ancestor-contracts>
       </fmd:component-metadata>
     </component-extension>
   </component>

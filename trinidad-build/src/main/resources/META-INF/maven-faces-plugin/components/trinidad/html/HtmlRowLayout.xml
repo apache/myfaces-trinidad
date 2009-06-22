@@ -268,6 +268,8 @@
       </mfp:java-constructor>
       <fmd:component-metadata>
         <fmd:preferred-child-components>org.apache.myfaces.trinidad.HtmlCellFormat</fmd:preferred-child-components>
+        <fmd:required-ancestor-contracts>org-apache-myfaces-trinidad-htmlrowlayout-holder</fmd:required-ancestor-contracts>
+        <fmd:satisfied-contracts>org-apache-myfaces-trinidad-htmlcellformat-holder</fmd:satisfied-contracts>
       </fmd:component-metadata>
     </component-extension>
   </component>

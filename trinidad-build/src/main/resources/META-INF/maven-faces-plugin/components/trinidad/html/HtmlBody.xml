@@ -281,6 +281,7 @@ and assigning initial page focus.
       <mfp:uix2-local-name>body</mfp:uix2-local-name>
       <fmd:component-metadata>
         <fmd:preferred-child-components>org.apache.myfaces.trinidad.CorePanelPage org.apache.myfaces.trinidad.CoreForm</fmd:preferred-child-components>
+        <fmd:required-ancestor-contracts>org-apache-myfaces-trinidad-htmlbody-holder</fmd:required-ancestor-contracts>
       </fmd:component-metadata>
     </component-extension>
   </component>

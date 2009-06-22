@@ -279,6 +279,7 @@
       </mfp:java-constructor>
       <fmd:component-metadata>
         <fmd:preferred-child-components>org.apache.myfaces.trinidad.HtmlRowLayout</fmd:preferred-child-components>
+        <fmd:satisfied-contracts>org-apache-myfaces-trinidad-htmlrowlayout-holder</fmd:satisfied-contracts>
       </fmd:component-metadata>
     </component-extension>
   </component>

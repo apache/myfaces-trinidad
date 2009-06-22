@@ -62,7 +62,8 @@ based on the current locale.
       <mfp:component-metadata/>
       <mfp:uix2-local-name>html</mfp:uix2-local-name>
       <fmd:component-metadata>
-        <fmd:preferred-child-components>org.apache.myfaces.trinidad.HtmlHead org.apache.myfaces.trinidad.HtmlBody</fmd:preferred-child-components>
+        <fmd:preferred-child-components>org.apache.myfaces.trinidad.HtmlHead org.apache.myfaces.trinidad.HtmlBody org.apache.myfaces.trinidad.HtmlFrameBorderLayout</fmd:preferred-child-components>
+        <fmd:satisfied-contracts>org-apache-myfaces-trinidad-htmlhead-holder org-apache-myfaces-trinidad-htmlbody-holder org-apache-myfaces-trinidad-htmlframeborderlayout-holder</fmd:satisfied-contracts>
       </fmd:component-metadata>
     </component-extension>
   </component>
