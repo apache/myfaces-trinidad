@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -23,17 +23,20 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.io.Serializable;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+
 
 /**
  * This class saves the state of stamp components.
@@ -78,7 +81,7 @@ final class StampState implements Externalizable
     }
 
     DualKey dk = new DualKey(currencyObj, key);
-    // Make sure that if we're applying a null value, that we 
+    // Make sure that if we're applying a null value, that we
     // don't hold on to the key and retain the entry - just nuke
     // the entry
     if (value == null)
@@ -113,14 +116,14 @@ final class StampState implements Externalizable
   public static void restoreStampState(FacesContext context, UIComponent stamp,
                                        Object stampState)
   {
+    String stampId = stamp.getId();
+    // Force the ID to be reset to reset the client identifier (needed
+    // for UIComponentBase implementation which caches clientId too
+    // aggressively)
+    stamp.setId(stampId);
+
     if (stampState != null)
     {
-      String stampId = stamp.getId();
-      // Force the ID to be reset to reset the client identifier (needed
-      // for UIComponentBase implementation which caches clientId too
-      // aggressively)
-      stamp.setId(stampId);
-
       RowState state = (RowState) stampState;
       state.restoreRowState(stamp);
     }
@@ -153,32 +156,32 @@ final class StampState implements Externalizable
       // Until we have one non-null entry, don't allocate the array.
       // Unlike facets, we *do* care about stashing Transient.TRUE,
       // because we have to keep track of them relative to any
-      // later components, BUT if it's all null and transient, we 
-      // can discard the array.  This does mean that putting 
+      // later components, BUT if it's all null and transient, we
+      // can discard the array.  This does mean that putting
       // transient components into a stamp is a bit inefficient
-      
+
       // So: allocate the array if we encounter our first
       // non-null childState (even if it's transient)
       if (childStateArray == null)
       {
         if (childState == null)
           continue;
-        
+
         childStateArray = new Object[childCount];
       }
-      
+
       // But remember the moment we've encountered a non-null
       // *and* non-transient component, because that means we'll
       // really need to keep this array
       if ((childState != UIXCollection.Transient.TRUE) && (childState != null))
         childStateIsEmpty = false;
-      
+
       // Store a value into the array
       assert(childStateArray != null);
       childStateArray[i] = childState;
     }
 
-    // Even if we bothered to allocate an array, if all we 
+    // Even if we bothered to allocate an array, if all we
     // had were transient + null, don't bother with the array at all
     if (childStateIsEmpty)
       return null;
@@ -388,7 +391,7 @@ final class StampState implements Externalizable
     static private final SDState _NULL = new SDState(null);
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -8605916495935317932L;
 
