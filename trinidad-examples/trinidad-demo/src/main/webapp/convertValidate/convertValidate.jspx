@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+     
 -->
 <jsp:root version="1.2" xmlns:tr="http://myfaces.apache.org/trinidad"
           xmlns:f="http://java.sun.com/jsf/core"
@@ -43,8 +43,15 @@
                 </f:facet>
                 <f:convertNumber type="number" integerOnly="true"/>
               </tr:inputText>
+              <tr:inputText valueChangeListener="#{converterValidator.valueChanged}" value="#{converterValidator.bigDecimalValue}" label="number converter2">
+                <f:facet name="help">
+                  <tr:outputText value="value is bigDecimal"/>
+                </f:facet>
+                <f:convertNumber groupingUsed="false"
+                                  pattern="#,##0.00"/>
+              </tr:inputText>
               <tr:inputText value="#{converterValidator.currencyValue}"
-                            label="number converter2" readOnly="true">
+                            label="number converter3" readOnly="true">
                 <f:facet name="help">
                   <tr:outputText value="type='currency' locale='en_US' currencyCode='EUR' - This results in EUR prefix before value"/>
                 </f:facet>
@@ -52,21 +59,21 @@
                                  currencyCode="EUR"/>
               </tr:inputText>
               <tr:inputText value="#{converterValidator.percentValue}"
-                            label="number converter3">
+                            label="number converter4">
                 <f:facet name="help">
                   <tr:outputText value="type='percent' locale='en_US' - This results in fraction displayed as integer value with % symbol"/>
                 </f:facet>
                 <f:convertNumber type="percent" locale="en_US"/>
               </tr:inputText>
               <tr:inputText value="#{converterValidator.groupValue}"
-                            label="number converter4">
+                            label="number converter5">
                 <f:facet name="help">
                   <tr:outputText value="type='number' locale='en_US'"/>
                 </f:facet>
                 <f:convertNumber type="number" locale="en_US"/>
               </tr:inputText>
               <tr:inputText value="#{converterValidator.currencyValue}"
-                            label="number converter5" readOnly="true">
+                            label="number converter6" readOnly="true">
                 <f:facet name="help">
                   <tr:outputText value="type='currency' locale='en_US' currencySymbol='#' - This results in # as prefix for value"/>
                 </f:facet>

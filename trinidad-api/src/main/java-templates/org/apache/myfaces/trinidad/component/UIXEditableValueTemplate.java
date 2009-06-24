@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -411,7 +411,7 @@ abstract public class UIXEditableValueTemplate
     return newValue;
   }
 
-  /**
+ /**
    * <p>Return <code>true</code> if the new value is different from the
    * previous value.</p>
    *
@@ -420,10 +420,37 @@ abstract public class UIXEditableValueTemplate
    */
   protected boolean compareValues(Object previous, Object value)
   {
+    // handle cases where previous value was empty
     if (isEmpty(previous)) // bug 4268807
       return !isEmpty(value);
 
-    return !previous.equals(value);
+    boolean isNotEqual = !previous.equals(value);
+
+    // Handle objects whose comparable() implementation is inconsistent with equals().
+    // if not equal we will also check compareTo if the data implements Comparable.
+    // An example of why we need this is for a case where the data is bigdecimal,
+    // because bigdecimal remembers formatting information like scale. So 2.0 is not equal to 2.00
+    // in bigdecimal, but when you use compareTo 2.0 and 2.00 are equal.
+    // See Issue TRINIDAD-1489 for test case
+    if (isNotEqual && previous instanceof Comparable && value instanceof Comparable)
+    {
+      try
+      {
+        int compareTo = ((Comparable)previous).compareTo(value);
+        isNotEqual = (compareTo != 0);
+      }
+      catch (ClassCastException cce)
+      {
+        if (_LOG.isWarning())
+        {
+          // There's a type mismatch between previous and value, in theory this shouldn't happen
+          _LOG.warning("COMPARETO_TYPE_MISMATCH", new Object[]{previous, value});
+          _LOG.warning(cce);
+        }
+      }
+    }
+
+    return isNotEqual;
   }
 
   /**
