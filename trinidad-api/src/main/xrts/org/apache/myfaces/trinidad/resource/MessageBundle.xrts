@@ -325,7 +325,7 @@
   <!-- {0} the label that identifies the component             -->
   <!-- {1} value entered by the user                           -->
   <!-- {2} an example of the format the converter is expecting -->
-  <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_BOTH">The date and time is in not the correct format.</resource>
+  <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_BOTH">The date and time is not in the correct format.</resource>
   <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_BOTH_detail">Enter a date and time in the same format as this example: {2}</resource>
 
 
