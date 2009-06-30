@@ -432,22 +432,10 @@ abstract public class UIXEditableValueTemplate
     // because bigdecimal remembers formatting information like scale. So 2.0 is not equal to 2.00
     // in bigdecimal, but when you use compareTo 2.0 and 2.00 are equal.
     // See Issue TRINIDAD-1489 for test case
-    if (isNotEqual && previous instanceof Comparable && value instanceof Comparable)
+    if (isNotEqual && value instanceof Comparable && previous.getClass().equals(value.getClass()))
     {
-      try
-      {
-        int compareTo = ((Comparable)previous).compareTo(value);
-        isNotEqual = (compareTo != 0);
-      }
-      catch (ClassCastException cce)
-      {
-        if (_LOG.isWarning())
-        {
-          // There's a type mismatch between previous and value, in theory this shouldn't happen
-          _LOG.warning("COMPARETO_TYPE_MISMATCH", new Object[]{previous, value});
-          _LOG.warning(cce);
-        }
-      }
+      int compareTo = ((Comparable)previous).compareTo(value);
+      isNotEqual = (compareTo != 0);
     }
 
     return isNotEqual;
