@@ -1155,7 +1155,15 @@ TrDateTimeConverter.prototype.getAsObject  = function(
 
   parseString = TrUIUtils.trim(parseString);
   if (parseString.length == 0)
-    return null
+    return null;
+  
+  // the following correct parseString "24.12.2009 16:36 Uhr"
+  // causes an error, as the pattern wants an extra empty sting
+  // at the end...
+  if(this._endsWith(parseString, "Uhr"))
+  {
+    parseString += " ";
+  }
 
   var pattern = this._pattern;
   
@@ -1206,6 +1214,17 @@ TrDateTimeConverter.prototype.getAsObject  = function(
   }
 }
 
+TrDateTimeConverter.prototype._endsWith = function(
+  value,
+  suffix
+  )
+{
+  // TODO: add to a String utils class ?
+  var startPos = value.length - suffix.length;
+  if (startPos < 0)
+    return false;
+  return (value.lastIndexOf(suffix, startPos) == startPos);
+} 
 
 TrDateTimeConverter.prototype._initPatterns  = function(
   pattern, locale)
