@@ -705,6 +705,9 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
     }
   }
 
+  /**
+   * Does some more lenient parsing than the stric JSF standard wants.
+   */
   private Date _doLenientParse(
     FacesContext context,
     UIComponent component,
@@ -712,6 +715,16 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
     String pattern
     )
   {
+    // When a pattern (e.g. dd.MM.yyyy HH:mm' Uhr ') requires a whitespace
+    // at the end, we should honor that. As the JSF spec (see http://bit.ly/kTelf)
+    // wants the converter to trim leading/trailing whitespace, we have to append
+    // one, if the pattern requires it at the end...
+    // TODO at the beginning as well ?
+    if(pattern.endsWith(" '"))
+    {
+      value += " ";
+    }
+
     // do lenient parsing for the pattern supplied.
     // accept derived patterns during
     // parsing, allowing:

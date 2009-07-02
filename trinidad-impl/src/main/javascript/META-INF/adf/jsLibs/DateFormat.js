@@ -1156,14 +1156,6 @@ TrDateTimeConverter.prototype.getAsObject  = function(
   parseString = TrUIUtils.trim(parseString);
   if (parseString.length == 0)
     return null;
-  
-  // the following correct parseString "24.12.2009 16:36 Uhr"
-  // causes an error, as the pattern wants an extra empty sting
-  // at the end...
-  if(this._endsWith(parseString, "Uhr"))
-  {
-    parseString += " ";
-  }
 
   var pattern = this._pattern;
   
@@ -1224,7 +1216,7 @@ TrDateTimeConverter.prototype._endsWith = function(
   if (startPos < 0)
     return false;
   return (value.lastIndexOf(suffix, startPos) == startPos);
-} 
+}
 
 TrDateTimeConverter.prototype._initPatterns  = function(
   pattern, locale)
@@ -1336,6 +1328,14 @@ TrDateTimeConverter.prototype._simpleDateParseImpl = function(
   localeSymbols,
   msg)
 {
+  // When a pattern (e.g. dd.MM.yyyy HH:mm' Uhr ') requires a whitespace
+  // at the end, we should honor that. As the JSF spec (see http://bit.ly/kTelf)
+  // wants the converter to trim leading/trailing whitespace, we have to append
+  // one, if the pattern requires it at the end...
+  if(this._endsWith(parsePattern, " '"))
+  {
+    parseString += " ";
+  }
 
   var parseContext = new Object();
   parseContext.currIndex = 0;

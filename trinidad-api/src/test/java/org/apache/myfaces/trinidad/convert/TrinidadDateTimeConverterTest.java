@@ -133,6 +133,24 @@ public class TrinidadDateTimeConverterTest extends DateTimeConverterTestCase
     checkNullContext();
   }
 
+  public void testGermanDate()
+  {
+    DateTimeConverter dtConv   = new DateTimeConverter();
+    Mock mock = buildMockUIComponent();
+    UIComponent component = (UIComponent) mock.proxy();
+    String inputValue          = "30.06.09 12:11 Uhr ";
+
+    dtConv.setType("both");
+    dtConv.setTimeStyle("full");
+    dtConv.setLocale(Locale.GERMAN);
+    dtConv.setTimeZone(TimeZone.getTimeZone ("America/New_York"));
+    dtConv.setPattern("dd.MM.yy HH:mm' Uhr '");
+
+    Date dt = (Date) dtConv.getAsObject(facesContext, component, inputValue);
+    assertNotNull(dt);
+    mock.verify();
+  }
+
   public void testShortishForDatePatern()
   {
     GregorianCalendar gcal = new GregorianCalendar();
