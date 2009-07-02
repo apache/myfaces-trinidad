@@ -105,7 +105,7 @@
 <!-- NO_PARENT_COMPONENTREF_FOUND -->
 <resource key="NO_PARENT_COMPONENTREF_FOUND" dnt="false">ingen overordnet &lt;tr:componentRef&gt; blev fundet!</resource>
 <!-- EVENT_DELIVERED_ALREADY_IN_DISCLOSURE_STATE -->
-<resource key="EVENT_DELIVERED_ALREADY_IN_DISCLOSURE_STATE" dnt="false">Hændelsen {0} blev leveret til en showDetail, der allerede var i den pågældende visningstilstand</resource>
+<resource key="EVENT_DELIVERED_ALREADY_IN_DISCLOSURE_STATE" dnt="false">Begivenheden {0} blev leveret til en showDetail, der allerede var i den pågældende visningstilstand</resource>
 <!-- NAME_ALREADY_REGISTERED -->
 <resource key="NAME_ALREADY_REGISTERED" dnt="false">Navnet &quot;{0}&quot; var allerede registreret.</resource>
 <!-- INDEX_ALREADY_REGISTERED -->

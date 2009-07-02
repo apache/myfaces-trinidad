@@ -37,7 +37,7 @@
 <resource key="af_menuChoice.LABEL" dnt="false">สลับแอปพลิเคชัน</resource>
 <!-- the tip that is on the Go button next to the Switch Applications choice -->
 <resource key="af_menuChoice.GO_TIP" dnt="false">ไปที่แอปพลิเคชันที่เลือก</resource>
-<resource key="af_menuChoice.GO" dnt="false">ไปที่</resource>
+<resource key="af_menuChoice.GO" dnt="false">เริ่มต้น</resource>
 <!--resources for the column headers-->
 <resource key="af_tableSelectMany.SELECT_COLUMN_HEADER" dnt="false">เลือก</resource>
 <resource key="af_tableSelectOne.SELECT_COLUMN_HEADER" dnt="false">เลือก</resource>
@@ -218,7 +218,7 @@
 <!-- The user will also need to press the 'Go' button. -->
 <!-- This should be translated as 'Go' in the sense of 'proceed' -->
 <!-- as in 'Go to the next step' not as 'move'                   -->
-<resource key="af_chooseDate.GO_BUTTON_LABEL" dnt="false">ไปที่</resource>
+<resource key="af_chooseDate.GO_BUTTON_LABEL" dnt="false">เริ่มต้น</resource>
 <!--defaults strings for showDetail, showDetailHeader, and showDetail in table -->
 <resource key="af_showDetail.DISCLOSED" dnt="false">ซ่อน</resource>
 <resource key="af_showDetail.UNDISCLOSED" dnt="false">แสดง</resource>
@@ -413,7 +413,7 @@
 <!-- This should be translated as 'Go' in the sense of 'proceed' -->
 <!-- as in 'Go to the next step' not as 'move'                   -->
 <!-- See FirePartialAction.renderTrigger -->
-<resource key="PPR_TRIGGER_LABEL" dnt="false">ไปที่</resource>
+<resource key="PPR_TRIGGER_LABEL" dnt="false">เริ่มต้น</resource>
 <!-- Icons are used in the prompts for message components -->
 <!-- e.g., af:inputText, af:selectOneChoice -->
 <!--Alternate text for the "error" icon-->

@@ -44,7 +44,7 @@
 <!-- The header on the Detail column of af:table -->
 <resource key="af_table.DETAIL_COLUMN_HEADER" dnt="false">פרטים</resource>
 <!-- Resource for Composite Table -->
-<resource key="afr_compositeTable.MENU_VIEW" dnt="false">View</resource>
+<resource key="afr_compositeTable.MENU_VIEW" dnt="false">הצג</resource>
 <resource key="afr_compositeTable.MENU_COLUMNS" dnt="false">עמודות</resource>
 <resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWALL" dnt="false">הצג הכל</resource>
 <resource key="afr_compositeTable.MENUITEM_COLUMNS_SHOWMORECOLUMNS" dnt="false">הצג עוד עמודות.</resource>

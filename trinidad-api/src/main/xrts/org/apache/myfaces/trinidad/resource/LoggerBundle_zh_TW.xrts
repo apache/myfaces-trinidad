@@ -151,7 +151,7 @@
 <!-- CANNOT_CONSTRUCT_REORDERCHANGE_WITH_NULL_ID -->
 <resource key="CANNOT_CONSTRUCT_REORDERCHANGE_WITH_NULL_ID" dnt="false">若子項 id 為空值, 便無法建構 ReorderChange.</resource>
 <!-- IDENTIFIER_TYPE_CANNOT_BE_NULL -->
-<resource key="IDENTIFIER_TYPE_CANNOT_BE_NULL" dnt="false">ID 類型不能為空值或空字串.</resource>
+<resource key="IDENTIFIER_TYPE_CANNOT_BE_NULL" dnt="false">ID 類型不可為空值或空字串.</resource>
 <!-- CANNOT_CONSTRUCT_ADDFACETCHANGE_WITH_NULL_FACETNAME_FACETCOMPONENT -->
 <resource key="CANNOT_CONSTRUCT_ADDFACETCHANGE_WITH_NULL_FACETNAME_FACETCOMPONENT" dnt="false">若 facetName 或 facetComponent 之中的其中一項為空值, 便無法建構 AddFacetChange.</resource>
 <!-- FACET_NAME_MUST_SPECIFIED -->

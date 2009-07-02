@@ -175,7 +175,7 @@
 <resource key="af_tree.FOLDER_TIP" dnt="false">Map</resource>
 <resource key="af_navigationTree.FOLDER_TIP" dnt="false">Map</resource>
 <!-- Contents of summary attribute on calendar table -->
-<resource key="af_chooseDate.SUMMARY" dnt="false">Kalender</resource>
+<resource key="af_chooseDate.SUMMARY" dnt="false">Agenda</resource>
 <!--Tooltip on the Calendar's previous month button-->
 <resource key="af_chooseDate.PREVIOUS_MONTH_TIP" dnt="false">Vorige maand</resource>
 <!--Tooltip on the Calendar's next month button-->

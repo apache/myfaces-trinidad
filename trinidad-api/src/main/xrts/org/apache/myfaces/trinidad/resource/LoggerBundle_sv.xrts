@@ -39,7 +39,7 @@
 <!-- FACETS_STATE_MISSING_WILLNOT_RESTORE -->
 <resource key="FACETS_STATE_MISSING_WILLNOT_RESTORE" dnt="false">Status för vissa komponenter av {0} saknas och återställs inte.</resource>
 <!-- DISCARDING_SAVED_STATE -->
-<resource key="DISCARDING_SAVED_STATE" dnt="false">Sparad komponentstatus innehåller status för komponenten &quot;{0}&quot; som inte finns i återställt träd; tar bort denna status.</resource>
+<resource key="DISCARDING_SAVED_STATE" dnt="false">Sparad komponentstatus innehåller status för komponenten &quot;{0}&quot; som inte finns i återställt träd; ignorerar denna status.</resource>
 <!-- SAVED_STATE_INCLUDE_TRANSIENT_COMPONENT_STATE -->
 <resource key="SAVED_STATE_INCLUDE_TRANSIENT_COMPONENT_STATE" dnt="false">Sparad status innehåller status för en tillfällig komponent: {0}</resource>
 <!-- CANNOT_FIND_ROWKEY -->
@@ -59,9 +59,9 @@
 <!-- NO_REQUESTCONTEXT_TIMEZONE_DEFAULT -->
 <resource key="NO_REQUESTCONTEXT_TIMEZONE_DEFAULT" dnt="false">Kan inte hitta RequestContext; TimeZone blir standard.</resource>
 <!-- FAIL_HOLD_DECIMALFORMAT -->
-<resource key="FAIL_HOLD_DECIMALFORMAT" dnt="false">Kunde inte få tag på DecimalFormat för typen: {0} decimalavgränsare, talgruppsavgränsare, valutakod får standard baserat på språket {1}</resource>
+<resource key="FAIL_HOLD_DECIMALFORMAT" dnt="false">Kunde inte hämta decimalformat av typen: {0} decimaltecken, talgruppsavgränsare och valutakod får standard baserat på språket {1}</resource>
 <!-- NULL_REQUESTCONTEXT -->
-<resource key="NULL_REQUESTCONTEXT" dnt="false">RequestContext är: decimalavgränsare, talgruppsavgränsare, valutakod får standard baserat på språk</resource>
+<resource key="NULL_REQUESTCONTEXT" dnt="false">RequestContext är: decimaltecken, talgruppsavgränsare, valutakod får standard baserat på språk</resource>
 <!-- NULL_REQUEST_CONTEXT_UNABLE_GET_CURRENCY_CODE -->
 <resource key="NULL_REQUEST_CONTEXT_UNABLE_GET_CURRENCY_CODE" dnt="false">RequestContext är null, kan inte hämta valutakod</resource>
 <!-- NUMBER_NOT_DECIMALFORMAT_IGNORE_CURRENCY -->
@@ -83,7 +83,7 @@
 <!-- UNABLE_RETRIEVE_IMAGE_DATA -->
 <resource key="UNABLE_RETRIEVE_IMAGE_DATA" dnt="false">Kan inte hämta bilddata för ikon av typen {0}. Försök använda ContextImageIcon.</resource>
 <!-- ERR_PARSING_URL -->
-<resource key="ERR_PARSING_URL" dnt="false">Fel vid analys av:{0}</resource>
+<resource key="ERR_PARSING_URL" dnt="false">Fel vid tolkning av:{0}</resource>
 <!-- ERR_LOADING_RESROUCE -->
 <resource key="ERR_LOADING_RESROUCE" dnt="false">fel vid laddning av resursen:{0}</resource>
 <!-- RESOURCE_NAME_NOT_PORTABLE -->
@@ -101,7 +101,7 @@
 <!-- CANNOT_CONVERT_INTO_INT_ARRAY -->
 <resource key="CANNOT_CONVERT_INTO_INT_ARRAY" dnt="false">Kunde inte konvertera:{0} till int[]</resource>
 <!-- CANNOT_PARSE_VALUE_INTO_DATE -->
-<resource key="CANNOT_PARSE_VALUE_INTO_DATE" dnt="false">Kunde inte analysera värdet {0} till ett datum med mönstret &quot;åååå-MM-dd&quot;; ignorerar.</resource>
+<resource key="CANNOT_PARSE_VALUE_INTO_DATE" dnt="false">Kunde inte tolka värdet {0} till ett datum med mönstret &quot;åååå-MM-dd&quot;; ignorerar.</resource>
 <!-- NO_PARENT_COMPONENTREF_FOUND -->
 <resource key="NO_PARENT_COMPONENTREF_FOUND" dnt="false">ingen överordnad &lt;tr:componentRef&gt; har hittats.</resource>
 <!-- EVENT_DELIVERED_ALREADY_IN_DISCLOSURE_STATE -->
@@ -245,7 +245,7 @@
 <!-- NO_RENDERINGCONTEXT -->
 <resource key="NO_RENDERINGCONTEXT" dnt="false">Ingen RenderingContext</resource>
 <!-- RESOURCE_PATH_REGULAR_EXPRESSION_HAS_NO_LEADING_SLASH -->
-<resource key="RESOURCE_PATH_REGULAR_EXPRESSION_HAS_NO_LEADING_SLASH" dnt="false">Det regelbundna uttrycket för källsökväg &quot;{0}&quot; saknar inledande snedstreck</resource>
+<resource key="RESOURCE_PATH_REGULAR_EXPRESSION_HAS_NO_LEADING_SLASH" dnt="false">Det reguljära uttrycket för källsökväg &quot;{0}&quot; saknar inledande snedstreck</resource>
 <!-- FACTORY_ALREADY_AVAILABlE_FOR_THIS_CLASS_LOADER -->
 <resource key="FACTORY_ALREADY_AVAILABlE_FOR_THIS_CLASS_LOADER" dnt="false">Fabriken är redan tillgänglig för den här klassladdaren.</resource>
 <!-- BYTE_ARRAY_CANNOT_BE_NULL -->
@@ -277,7 +277,7 @@
 <!-- VALUE_IS_NOT_DATE_TYPE -->
 <resource key="VALUE_IS_NOT_DATE_TYPE" dnt="false">värdet har inte typen java.util.Date</resource>
 <!-- NULL_REGEXP_PATTERN -->
-<resource key="NULL_REGEXP_PATTERN" dnt="false">Mönster för regelbundet uttryck är null</resource>
+<resource key="NULL_REGEXP_PATTERN" dnt="false">Mönster för reguljärt uttryck är null</resource>
 <!-- VIEW_TAG_NOT_PRESENT -->
 <resource key="VIEW_TAG_NOT_PRESENT" dnt="false">&lt;f:view&gt; fanns inte på den här sidan; taggen {0} påträffad utan att en &lt;f:view&gt; bearbetas.</resource>
 <!-- RESOURCE_PATH_OUTSIDE_ROOT -->

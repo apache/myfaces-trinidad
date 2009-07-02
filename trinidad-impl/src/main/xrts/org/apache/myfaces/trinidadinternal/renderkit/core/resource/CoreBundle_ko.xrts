@@ -194,7 +194,7 @@
 <resource key="af_chooseDate.DIALOG_EARLIER" dnt="false">{0} 이전</resource>
 <!-- Choice text for picking later years than choice can show -->
 <!--{0} - The maximum year displayed in the choice -->
-<resource key="af_chooseDate.DIALOG_LATER" dnt="false">{0} 다음</resource>
+<resource key="af_chooseDate.DIALOG_LATER" dnt="false">{0} 이후</resource>
 <!--Label for cancel button on Choose Date dialog -->
 <!--the ampersand is used to make the 'l' an accelerator key as described at -->
 <!--http://scout.us.oracle.com/appsui/ss_guidelines/specs/keyboard.html#accelerator -->

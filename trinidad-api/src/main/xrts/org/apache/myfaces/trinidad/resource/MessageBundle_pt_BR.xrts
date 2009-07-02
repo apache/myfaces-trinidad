@@ -162,7 +162,7 @@
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
 <!-- {2} represents the maximum allowed length     -->
-<resource key="org.apache.myfaces.trinidad.validator.LengthValidator.MAXIMUM" dnt="false">Há muitos caracteres. </resource>
+<resource key="org.apache.myfaces.trinidad.validator.LengthValidator.MAXIMUM" dnt="false">Há muitos caracteres.</resource>
 <resource key="org.apache.myfaces.trinidad.validator.LengthValidator.MAXIMUM_detail" dnt="false">Informe {2} ou menos caracteres, não mais.</resource>
 <!-- String too short error                -->
 <!-- {0} the label that identifies the component   -->
