@@ -493,6 +493,10 @@ abstract public class UIXComponent extends UIComponent
   public static void addPartialTarget(FacesContext facesContext,
     PartialPageContext partialContext, UIComponent component)
   {
+    if(component == null)
+    {
+      throw new NullPointerException("UIComponent is null");
+    }
     if (component instanceof UIXComponent)
     {
       ((UIXComponent)component).setPartialTarget(facesContext, partialContext);
