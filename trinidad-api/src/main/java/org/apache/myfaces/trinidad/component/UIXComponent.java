@@ -497,6 +497,7 @@ abstract public class UIXComponent extends UIComponent
     {
       throw new NullPointerException("UIComponent is null");
     }
+
     if (component instanceof UIXComponent)
     {
       ((UIXComponent)component).setPartialTarget(facesContext, partialContext);
