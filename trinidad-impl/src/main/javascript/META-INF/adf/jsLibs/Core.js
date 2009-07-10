@@ -2009,7 +2009,14 @@ function _autoCompleteForm(form)
 
   if (theExternal && (typeof theExternal.AutoCompleteSaveForm != "undefined"))
   {
-    theExternal.AutoCompleteSaveForm(form);
+    try
+    {
+      theExternal.AutoCompleteSaveForm(form);
+    }
+    catch (e)
+    {
+      // ignore
+    }
   }
 }
 

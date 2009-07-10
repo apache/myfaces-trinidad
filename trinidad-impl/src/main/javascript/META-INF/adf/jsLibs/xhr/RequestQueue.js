@@ -169,7 +169,14 @@ TrRequestQueue.prototype._autoCompleteForm = function(form)
 
   if (theExternal && (typeof theExternal.AutoCompleteSaveForm != "undefined"))
   {
-    theExternal.AutoCompleteSaveForm(form);
+    try
+    {
+      theExternal.AutoCompleteSaveForm(form);
+    }
+    catch (e)
+    {
+      // ignore
+    }
   }
 }
 
