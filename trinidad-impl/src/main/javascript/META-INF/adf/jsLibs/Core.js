@@ -1805,7 +1805,7 @@ function submitForm(
   //
   var onSubmit = window["_" + _getJavascriptId(_getFormName(form)) + "_Submit"];
 
-  if (onSubmit != (void 0))
+  if (typeof onSubmit != "undefined" && doSubmit)
   {
     // create function so that "return" is handled correctly,
     var func = new Function("doValidate", onSubmit);
