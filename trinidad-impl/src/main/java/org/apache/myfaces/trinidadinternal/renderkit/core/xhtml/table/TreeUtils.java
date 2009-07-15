@@ -293,10 +293,13 @@ public final class TreeUtils
             // this must be a root level range change:
             startParam = parameters.get(XhtmlConstants.VALUE_PARAM);
             newStart = Integer.parseInt(startParam) - 1; // value is based at one.
-            tree.setRowKey(tree.getFocusRowKey());
+            Object focusRowKey = tree.getFocusRowKey();
+            tree.setRowKey(focusRowKey);
             tree.setRowIndex(newStart);
-            // queue a focusChange event as well as range change event:
-            new FocusEvent(tree).queue();
+            // queue a focusChange event as well as range change event.
+            // TODO - The FocusRowKey has not changed only the start row index has changed.
+            // Is queueing a FocusEvent really necessary?
+            new FocusEvent(tree, focusRowKey,  focusRowKey).queue();
           }
           else // large record set navigation
           {
@@ -322,8 +325,13 @@ public final class TreeUtils
         @Override
         protected void process(UIXHierarchy tree)
         {
+          // if the current focusRowKey is null,  and the FocusRowKey attribute
+          // of the component is EL-bound,  this will call the EL getter, otherwise
+          // we get the "local" FocusRowKey set on the component
+          Object oldKey = tree.getFocusRowKey();
           _restorePathFromParam(parameters, tree);
-          new FocusEvent(tree).queue();
+          Object newKey = tree.getRowKey();
+          new FocusEvent(tree, oldKey, newKey).queue();
         }
       };
       preserve.run((UIXHierarchy) tree);

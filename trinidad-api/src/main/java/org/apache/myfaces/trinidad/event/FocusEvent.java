@@ -25,21 +25,46 @@ import javax.faces.event.FacesListener;
 
 
 /**
- * Event delivered when focusing on a node in a tree. 
- * Currently this event doesn't deliver
- * much useful information as it doesn't
- * tell which node is getting focus.
- * This will provide more useful information in a later release.
+ * Event delivered when focusing on a node in a tree. The event includes information
+ * about the old and the new focus row keys.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/event/FocusEvent.java#0 $) $Date: 10-nov-2005.19:09:01 $
  */
 public class FocusEvent extends FacesEvent
 {
-  public FocusEvent(UIComponent source)
+  /**
+   * Creates a new FocusEvent
+   * @param source source component
+   * @param oldKey old focus row key
+   * @param newKey new focus row key
+   */
+  public FocusEvent(UIComponent source, Object oldKey, Object  newKey)
   {
     super(source);
+    _oldKey  = oldKey;
+    _newKey  = newKey;    
+  }
+
+  /**
+   * The constructor with no key info is currently need for backwards compatibility.
+   * Will be remove at a later time.  
+   * @param source
+   */
+  public FocusEvent(UIComponent source)
+  {
+    this(source, null, null);
   }
   
+  public Object getOldKey()
+  {
+    return _oldKey;
+  }
+
+  public Object getNewKey()
+  {
+    return _newKey;
+  }
+
   @Override
   public void processListener(FacesListener listener)
   {
@@ -77,10 +102,16 @@ public class FocusEvent extends FacesEvent
     sb.append(getClass().getName());
     sb.append("[component=");
     sb.append(getComponent());
+    sb.append(",oldKey=");
+    sb.append(getOldKey());
+    sb.append(",newKey=");
+    sb.append(getNewKey());
     sb.append(']');
     return sb.toString();
   }
 
+  private final Object _oldKey;
+  private final Object _newKey;
   private static final long serialVersionUID = 1L;
 }
 
