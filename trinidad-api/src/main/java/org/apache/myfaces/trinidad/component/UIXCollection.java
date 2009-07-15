@@ -885,7 +885,14 @@ public abstract class UIXCollection extends UIXComponentBase
   {
     // Just a transient component - return
     if ((stampState == Transient.TRUE) || (stampState == null))
+    {
+      // ensure the client IDs are reset on the component, otherwise they will not get the
+      // proper stamped IDs. This mirrors the behavior in UIData and follows the JSF specification
+      // on when client IDs are allowed to be cached and when they must be reset
+      String id = stamp.getId();
+      stamp.setId(id);
       return;
+    }
 
     // If this isn't an Object array, then it's a component with state
     // of its own, but no child/facet state - so restore and be done
@@ -1030,7 +1037,7 @@ public abstract class UIXCollection extends UIXComponentBase
         (clientId.charAt(thisClientIdLength) == NamingContainer.SEPARATOR_CHAR))
     {
       setupVisitingContext(context);
-      
+
       try
       {
         if (!_getAndMarkFirstInvokeForRequest(context, thisClientId))
@@ -1038,10 +1045,10 @@ public abstract class UIXCollection extends UIXComponentBase
           // Call _init() since _flushCachedModel() assumes that
           // selectedRowKeys and disclosedRowKeys are initialized to be non-null
           _init();
-  
+
           _flushCachedModel();
         }
-  
+
         String postId = clientId.substring(thisClientIdLength + 1);
         int sepIndex = postId.indexOf(NamingContainer.SEPARATOR_CHAR);
         // If there's no separator character afterwards, then this
@@ -1052,15 +1059,15 @@ public abstract class UIXCollection extends UIXComponentBase
         {
           String currencyString = postId.substring(0, sepIndex);
           Object rowKey = getClientRowKeyManager().getRowKey(context, this, currencyString);
-          
-          // A non-null rowKey here means we are on a row and we should set currency,  otherwise 
+
+          // A non-null rowKey here means we are on a row and we should set currency,  otherwise
           // the client id is for a non-stamped child component in the table/column header/footer.
           if (rowKey != null)
           {
             Object oldRowKey = getRowKey();
             try
             {
-              setRowKey(rowKey);              
+              setRowKey(rowKey);
               return invokeOnChildrenComponents(context, clientId, callback);
             }
             finally
@@ -1070,7 +1077,7 @@ public abstract class UIXCollection extends UIXComponentBase
             }
           }
           else
-            return invokeOnChildrenComponents(context, clientId, callback);            
+            return invokeOnChildrenComponents(context, clientId, callback);
         }
       }
       finally
