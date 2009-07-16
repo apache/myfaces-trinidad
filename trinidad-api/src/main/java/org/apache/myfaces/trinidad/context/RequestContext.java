@@ -29,7 +29,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
-
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -37,7 +36,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-
 import javax.faces.event.PhaseId;
 
 import org.apache.myfaces.trinidad.change.ChangeManager;
@@ -48,6 +46,7 @@ import org.apache.myfaces.trinidad.event.WindowLifecycleListener;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
+
 
 /**
  * Context class for all per-request and per-webapp information
@@ -123,6 +122,24 @@ abstract public class RequestContext
     return getPageFlowScope();
   }
 
+  /**
+   * Method to obtain a Map stored on the view.
+   * <p>This calls {@link #getViewMap(boolean)} with a true value for create.</p>
+   * <p>This is a pre-cursor implementation to the JSF 2.0 UIViewRoot.getViewMap() function.
+   * The implementation is taken from the initial UIViewRoot implementation in JSF but without
+   * the event notification support.</p>
+   */
+  public abstract Map<String, Object> getViewMap();
+
+  /**
+   * Method to obtain a Map stored on the view.
+   * <p>This is a pre-cursor implementation to the JSF 2.0 UIViewRoot.getViewMap() function.
+   * The implementation is taken from the initial UIViewRoot implementation in JSF but without
+   * the event notification support.</p>
+   *
+   * @param create if the map should be created if it already does not exist.
+   */
+  public abstract Map<String, Object> getViewMap(boolean create);
 
   //
   // Dialog APIs
@@ -232,7 +249,7 @@ abstract public class RequestContext
    * Returns the name of the preferred skin family.
    */
   public abstract String getSkinFamily();
-  
+
   /**
    * Determines whether the current View Root is an internal view
    * @param context Faces context
@@ -246,14 +263,14 @@ abstract public class RequestContext
      * Output supports accessibility features
      */
     DEFAULT("default"),
-    
+
     /**
      * Accessibility-specific constructs are stripped out to optimize output size
      */
     INACCESSIBLE("inaccessible"),
-    
+
     /**
-     * Accessibility-specific constructs are added to improve behavior under a screen reader 
+     * Accessibility-specific constructs are added to improve behavior under a screen reader
      * (but may affect other users negatively)
      */
     SCREEN_READER("screenReader");
@@ -494,7 +511,7 @@ abstract public class RequestContext
   //
 
   /**
-   * <p>Creates a VisitContext instance for use with 
+   * <p>Creates a VisitContext instance for use with
    * {@link org.apache.myfaces.trinidad.component.UIXComponent#visitTree UIComponent.visitTree()}.</p>
    *
    * @param context the FacesContext for the current request
@@ -503,7 +520,7 @@ abstract public class RequestContext
    * @param hints the VisitHints to apply to the visit
    * @param phaseId.  PhaseId if any for this visit.  If PhaseId is specified,
    * hints must contain VisitHint.EXECUTE_LIFECYCLE
-   * @return a VisitContext instance that is initialized with the 
+   * @return a VisitContext instance that is initialized with the
    *   specified ids and hints.
    */
   public abstract VisitContext createVisitContext(
@@ -580,27 +597,27 @@ abstract public class RequestContext
 
     // check if we have cached it for the request
     WindowManager windowManager = _windowManager;
-    
+
     // get instance using the WindowManagerFactory
     if (windowManager == null)
     {
       // check if we have cached it per session
       ExternalContext extContext = FacesContext.getCurrentInstance().getExternalContext();
-          
+
       // create a new instance using the WindowManagerFactory
       ConcurrentMap<String, Object> concurrentAppMap =
                                          getCurrentInstance().getApplicationScopedConcurrentMap();
-          
+
       WindowManagerFactory windowManagerFactory = (WindowManagerFactory)concurrentAppMap.get(
                                                             _WINDOW_MANAGER_FACTORY_CLASS_NAME);
-    
+
       if (windowManagerFactory == null)
       {
         // we haven't registered a WindowManagerFactory yet, so use the services api to see
         // if a factory has been registered
         List<WindowManagerFactory> windowManagerFactories =
                                 ClassLoaderUtils.getServices(_WINDOW_MANAGER_FACTORY_CLASS_NAME);
-        
+
         if (windowManagerFactories.isEmpty())
         {
           // no factory registered so use the factory that returns dummy stub WindowManagers
@@ -617,22 +634,22 @@ abstract public class RequestContext
         WindowManagerFactory oldWindowManagerFactory = (WindowManagerFactory)
                             concurrentAppMap.putIfAbsent(_WINDOW_MANAGER_FACTORY_CLASS_NAME,
                                                          windowManagerFactory);
-        
+
         if (oldWindowManagerFactory != null)
           windowManagerFactory = oldWindowManagerFactory;
       } // create WindowManagerFactory
-      
+
       // get the WindowManager from the factory.  The factory will create a new instance
       // for this session if necessary
       windowManager = windowManagerFactory.getWindowManager(extContext);
-      
+
       // remember for the next call on this thread
       _windowManager = windowManager;
     }
 
     return windowManager;
   }
-  
+
   /**
    * Releases the RequestContext object.  This method must only
    * be called by the code that created the RequestContext.
@@ -711,10 +728,10 @@ abstract public class RequestContext
     {
       return _STUB_WINDOW_MANAGER;
     }
-    
+
     private static final WindowManager _STUB_WINDOW_MANAGER = new StubWindowManager();
   }
-  
+
   /**
    * Default WindowManager implementation that returns no Windows
    */
@@ -725,21 +742,21 @@ abstract public class RequestContext
     {
       return null;
     }
-    
+
     @Override
     public Map<String, Window> getWindows(ExternalContext extContext)
     {
       return Collections.emptyMap();
     }
-        
+
     @Override
     public void addWindowLifecycleListener(
       ExternalContext extContext,
       WindowLifecycleListener windowListener)
-    { 
+    {
       // do nothing
     }
-    
+
     @Override
     public void removeWindowLifecycleListener(
       ExternalContext extContext,
@@ -756,12 +773,12 @@ abstract public class RequestContext
   }
 
   /* singleton for WindowManagerFactory that returns WindowManagers that don't do anything */
-  private static final WindowManagerFactory _STUB_WINDOW_MANAGER_FACTORY = 
+  private static final WindowManagerFactory _STUB_WINDOW_MANAGER_FACTORY =
                                                                     new StubWindowManagerFactory();
-  
-  private static final String _WINDOW_MANAGER_FACTORY_CLASS_NAME = 
+
+  private static final String _WINDOW_MANAGER_FACTORY_CLASS_NAME =
                                                               WindowManagerFactory.class.getName();
-  
+
   @SuppressWarnings({"CollectionWithoutInitialCapacity"})
   private static final ConcurrentMap<ClassLoader, ConcurrentMap<String, Object>> _APPLICATION_MAPS =
        new ConcurrentHashMap<ClassLoader, ConcurrentMap<String, Object>>();

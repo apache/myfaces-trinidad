@@ -721,15 +721,51 @@ public class RequestContextImpl extends RequestContext
     return StateManagerImpl.restoreComponentTree(__getFacesContext(),
                                                  state);
   }
-  
+
   @Override
   public boolean isInternalViewRequest(FacesContext context)
   {
     UIViewRoot root = context.getViewRoot();
     if (root == null)
       return false;
-    
+
     return ViewHandlerImpl.isInternalViewId(context, root.getViewId());
+  }
+
+  @Override
+  public Map<String, Object> getViewMap()
+  {
+    return getViewMap(true);
+  }
+
+  @Override
+  @SuppressWarnings("unchecked")
+    public Map<String, Object> getViewMap(boolean create)
+  {
+    // Note: replace this method body with a call to UIViewRoot.getViewMap(boolean) when
+    // Trinidad is upgraded to use JSF 2.0
+
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    UIViewRoot viewRoot = facesContext.getViewRoot();
+    Map<String, Object> viewMap = null;
+
+    if (viewRoot != null)
+    {
+      Map<String, Object> attrs = viewRoot.getAttributes();
+
+      viewMap = (Map<String, Object>)attrs.get(_VIEW_MAP_KEY);
+      if (viewMap == null && create)
+      {
+        // Note, it is not valid to refer to the request context from outside of the request's
+        // thread. As such, synchronization and thread safety is not an issue here.
+        // This coincides with the JSF 2.0 code not using syncronization and using the non-thread
+        // safe HashMap.
+        viewMap = new HashMap<String, Object>();
+        attrs.put(_VIEW_MAP_KEY, viewMap);
+      }
+    }
+
+    return viewMap;
   }
 
   void __setPageResolver(PageResolver pageResolver)
@@ -980,6 +1016,8 @@ public class RequestContextImpl extends RequestContext
     "org.apache.myfaces.trinidadinternal.ChangeManager";
   static private final String _CHANGE_PERSISTENCE_INIT_PARAM =
     "org.apache.myfaces.trinidad.CHANGE_PERSISTENCE";
+  static private final String _VIEW_MAP_KEY =
+    RequestContextImpl.class.getName() + ".VIEW_MAP";
 
   // A mapping from string names (as used in the config file)
   // to accessibility objects

@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -31,7 +31,6 @@ import java.util.TimeZone;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
-
 import javax.faces.event.PhaseId;
 
 import org.apache.myfaces.trinidad.change.ChangeManager;
@@ -94,10 +93,10 @@ public class MockRequestContext extends RequestContext
 
   @Override
   public void launchDialog(
-      UIViewRoot dialogRoot, 
-      Map<String, Object> dialogParameters, 
-      UIComponent source, 
-      boolean useWindow, 
+      UIViewRoot dialogRoot,
+      Map<String, Object> dialogParameters,
+      UIComponent source,
+      boolean useWindow,
       Map<String, Object> windowProperties)
   {
     throw new UnsupportedOperationException("Should not be called during rendering");
@@ -108,7 +107,7 @@ public class MockRequestContext extends RequestContext
   {
     return false;
   }
-  
+
   @Override
   public boolean isPartialRequest(FacesContext context)
   {
@@ -316,14 +315,14 @@ public class MockRequestContext extends RequestContext
   {
     // throw new UnsupportedOperationException("Not implemented yet");
   }
-  
+
   /**
    * @see org.apache.myfaces.trinidad.context.RequestContext#addPartialTargets(javax.faces.component.UIComponent, java.lang.String[])
    */
   @Override
   public void addPartialTargets(UIComponent from, String... targets)
   {
-    
+
   }
 
   @Override
@@ -396,16 +395,54 @@ public class MockRequestContext extends RequestContext
   {
     throw new UnsupportedOperationException("Not implemented yet");
   }
-  
+
   @Override
   public boolean isInternalViewRequest(FacesContext context)
   {
     return false;
   }
 
+  @Override
+  public Map<String, Object> getViewMap()
+  {
+    return getViewMap(true);
+  }
+
+  @Override
+  @SuppressWarnings("unchecked")
+  public Map<String, Object> getViewMap(boolean create)
+  {
+    // Note: replace this method body with a call to UIViewRoot.getViewMap(boolean) when
+    // Trinidad is upgraded to use JSF 2.0
+
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    UIViewRoot viewRoot = facesContext.getViewRoot();
+    Map<String, Object> viewMap = null;
+
+    if (viewRoot != null)
+    {
+      Map<String, Object> attrs = viewRoot.getAttributes();
+
+      viewMap = (Map<String, Object>)attrs.get(_VIEW_MAP_KEY);
+      if (viewMap == null && create)
+      {
+        // Note, it is not valid to refer to the request context from outside of the request's
+        // thread. As such, synchronization and thread safety is not an issue here.
+        // This coincides with the JSF 2.0 code not using syncronization and using the non-thread
+        // safe HashMap.
+        viewMap = new HashMap<String, Object>();
+        attrs.put(_VIEW_MAP_KEY, viewMap);
+      }
+    }
+
+    return viewMap;
+  }
 
   static private final TimeZone _FIXED_TIME_ZONE =
     TimeZone.getTimeZone("America/Los_Angeles");
+
+  static private final String _VIEW_MAP_KEY =
+    MockRequestContext.class.getName() + ".VIEW_MAP";
 
   private char _numberGroupingSeparator = ',';
   private char _decimalSeparator = '.';
