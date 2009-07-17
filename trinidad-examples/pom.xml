@@ -117,7 +117,7 @@
       <id>jettyConfig</id>
       <dependencyManagement>
         <dependencies>
-          <dependency>
+          <!--dependency>
             <groupId>javax.faces</groupId>
             <artifactId>jsf-api</artifactId>
             <scope>compile</scope>
@@ -127,7 +127,7 @@
             <groupId>javax.faces</groupId>
             <artifactId>jsf-impl</artifactId>
             <scope>runtime</scope>
-          </dependency>
+          </dependency-->
 
           <dependency>
             <groupId>org.apache.myfaces.core</groupId>

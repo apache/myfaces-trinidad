@@ -204,7 +204,7 @@
     <url-pattern>/afr/*</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
-    <welcome-file>index.jspx</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
 
   <!-- Survey Demo (Custom) Tag Library -->
