@@ -51,7 +51,7 @@ public final class PartialLifecycleUtils
     return null;
   }
 
-  public static void setPartialTargets(FacesContext facesContext, String[] partialTargets)
+  public static void setPartialTargets(FacesContext facesContext, String... partialTargets)
   {
     LOG.info("Found Partial Targets {0}", Arrays.asList(partialTargets));
     facesContext.getExternalContext().getRequestMap().put(PartialLifecycleUtils.class.getName(), partialTargets);

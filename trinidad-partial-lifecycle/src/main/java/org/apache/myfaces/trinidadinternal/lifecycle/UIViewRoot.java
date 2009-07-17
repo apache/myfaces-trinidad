@@ -18,10 +18,18 @@ package org.apache.myfaces.trinidadinternal.lifecycle;
  */
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.context.FormData;
+import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreResponseStateManager;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 
 import javax.el.MethodExpression;
 import javax.faces.FactoryFinder;
 import javax.faces.component.UIComponent;
+import javax.faces.component.ContextCallback;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
@@ -35,10 +43,18 @@ import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
+import java.util.Set;
+import java.io.IOException;
 
 public class UIViewRoot extends javax.faces.component.UIViewRoot
 {
   private static final TrinidadLogger LOG = TrinidadLogger.createTrinidadLogger(UIViewRoot.class);
+
+  private static final ContextCallback RENDER_RESPONSE_CALLBACK = new RenderResponseCallback();
+  private static final ContextCallback PROCESS_VALIDATION_CALLBACK = new ProcessValidationsCallback();
+  private static final ContextCallback UPDATE_MODEL_VALUES_CALLBACK = new UpdateModelValuesCallback();
+
   public static final int ANY_PHASE_ORDINAL = PhaseId.ANY_PHASE.getOrdinal();
 
   private List<FacesEvent> _events;
@@ -208,11 +224,37 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot
     if (!notifyListeners(context, PhaseId.APPLY_REQUEST_VALUES, getBeforePhaseListener(), true))
     {
       super.processDecodes(context);
-
+      storePartialTargets(context);
       broadcastForPhase(PhaseId.APPLY_REQUEST_VALUES);
     }
     clearEvents(context);
     notifyListeners(context, PhaseId.APPLY_REQUEST_VALUES, getAfterPhaseListener(), false);
+  }
+
+  private void storePartialTargets(FacesContext context) {
+      // after a normal decode check for partialTargets
+      final RequestContext requestContext = RequestContext.getCurrentInstance();
+      if (!(context.getResponseComplete() || context.getRenderResponse())
+          && requestContext.isPartialRequest(context))
+      {
+        String sourceId = context.getExternalContext().getRequestParameterMap().get("source");
+        UIComponent source = findComponent(sourceId);
+        if (source != null)
+        {
+          List<String> list = new ArrayList<String>();
+          Set<UIComponent> components = requestContext.getPartialTargets(source);
+          for (UIComponent component : components)
+          {
+            list.add(component.getClientId(context));
+          }
+          if (list.size() > 0)
+          {
+            PartialLifecycleUtils.setPartialTargets(context, list.toArray(new String[list.size()]));
+          } else {
+            PartialLifecycleUtils.setPartialTargets(context, sourceId);
+          }
+        }
+      }
   }
 
   void clearEvents(FacesContext context)
@@ -227,8 +269,18 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot
   {
     if (!notifyListeners(context, PhaseId.PROCESS_VALIDATIONS, getBeforePhaseListener(), true))
     {
-      super.processValidators(context);
-
+      String[] partialTargets = PartialLifecycleUtils.getPartialTargets(context);
+      if (partialTargets != null)
+      {
+        for (String clientId : partialTargets)
+        {
+          invokeOnComponent(context, clientId, PROCESS_VALIDATION_CALLBACK);
+        }
+      }
+      else
+      {
+        super.processValidators(context);
+      }
       broadcastForPhase(PhaseId.PROCESS_VALIDATIONS);
     }
     clearEvents(context);
@@ -239,7 +291,15 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot
   {
     if (!notifyListeners(context, PhaseId.UPDATE_MODEL_VALUES, getBeforePhaseListener(), true))
     {
-      super.processUpdates(context);
+      String[] partialTargets = PartialLifecycleUtils.getPartialTargets(context);
+      if (partialTargets != null) {
+        for (String clientId : partialTargets)
+        {
+          invokeOnComponent(context, clientId, UPDATE_MODEL_VALUES_CALLBACK);
+        }
+      } else {
+        super.processUpdates(context);
+      }
       broadcastForPhase(PhaseId.UPDATE_MODEL_VALUES);
     }
     clearEvents(context);
@@ -290,6 +350,64 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot
     {
       // following the spec we have to swallow the exception
       LOG.severe("Exception while processing phase listener: " + e.getMessage(), e);
+    }
+  }
+
+
+  @Override
+  public void encodeAll(FacesContext facesContext) throws IOException {
+    String[] partialTargets = PartialLifecycleUtils.getPartialTargets(facesContext);
+    if (partialTargets != null)
+    {
+
+      // TODO Messages
+      if (facesContext.getMessages().hasNext())
+      {
+        // add messages to partialTargets
+      }
+
+      RenderingContext renderingContext = RenderingContext.getCurrentInstance();
+      // ensure mark PPR active
+      if (PartialPageUtils.isPartialRenderingPass(renderingContext))
+      {
+        PartialPageUtils.markPPRActive(facesContext);
+      }
+
+      Map<String, String> parameterMap = facesContext.getExternalContext().getRequestParameterMap();
+      String formName = parameterMap.get(CoreResponseStateManager.FORM_FIELD_NAME);
+      UIComponent form = facesContext.getViewRoot().findComponent(formName);
+
+      // TODO form inside partial Target
+      if (form != null)
+      {
+
+        form.encodeBegin(facesContext);
+        FormData formData = renderingContext.getFormData();
+        formData.addNeededValue(XhtmlConstants.PARTIAL_PARAM);
+        formData.addNeededValue(XhtmlConstants.STATE_PARAM);
+        formData.addNeededValue(XhtmlConstants.VALUE_PARAM);
+
+        // FIXME
+        if (renderingContext instanceof CoreRenderingContext)
+        {
+          Map<String, String> shortStyles = renderingContext.getSkin().getStyleClassMap(renderingContext);
+          ((CoreRenderingContext) renderingContext).setStyleMap(shortStyles);
+        }
+      }
+
+      for (String clientId : partialTargets)
+      {
+        LOG.info("Rendering partialTarget " + clientId);
+        facesContext.getViewRoot().invokeOnComponent(facesContext, clientId, RENDER_RESPONSE_CALLBACK);
+      }
+
+      // find a better way
+      if (form != null)
+      {
+        form.encodeEnd(facesContext);
+      }
+    } else {
+      super.encodeAll(facesContext);
     }
   }
 
