@@ -24,7 +24,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 
-public class DecodeCallback implements ContextCallback
+class DecodeCallback implements ContextCallback
 {
   private static final TrinidadLogger LOG = TrinidadLogger.createTrinidadLogger(DecodeCallback.class);
 

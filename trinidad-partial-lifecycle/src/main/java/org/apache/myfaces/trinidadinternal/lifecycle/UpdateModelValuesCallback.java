@@ -21,7 +21,7 @@ import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-public class UpdateModelValuesCallback implements ContextCallback
+class UpdateModelValuesCallback implements ContextCallback
 {
 
   public void invokeContextCallback(FacesContext facesContext, UIComponent component)

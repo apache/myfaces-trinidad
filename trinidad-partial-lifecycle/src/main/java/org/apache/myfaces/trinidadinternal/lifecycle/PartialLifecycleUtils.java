@@ -39,15 +39,6 @@ public final class PartialLifecycleUtils
     {
       return (String[]) facesContext.getExternalContext().getRequestMap().get(PartialLifecycleUtils.class.getName());
     }
-    // TODO Is partialTarget a valid choice for the parameter name?
-    Map<String, String> parameterMap = facesContext.getExternalContext().getRequestParameterMap();
-    String partialTargetsStr = parameterMap.get(XhtmlConstants.PARTIAL_TARGETS_PARAM);
-    if (partialTargetsStr != null && partialTargetsStr.length() > 0)
-    {
-      String[] partialTargets = XMLUtils.parseNameTokens(partialTargetsStr);
-      setPartialTargets(facesContext, partialTargets);
-      return partialTargets;
-    }
     return null;
   }
 

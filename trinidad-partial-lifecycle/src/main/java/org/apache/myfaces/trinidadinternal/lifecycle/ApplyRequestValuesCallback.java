@@ -22,7 +22,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 
-public class ApplyRequestValuesCallback implements ContextCallback
+class ApplyRequestValuesCallback implements ContextCallback
 {
 
   public void invokeContextCallback(FacesContext facesContext, UIComponent component)
