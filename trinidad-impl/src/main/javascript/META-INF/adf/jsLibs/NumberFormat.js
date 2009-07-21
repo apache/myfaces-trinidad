@@ -269,10 +269,13 @@ TrNumberFormat.prototype.stringToCurrency = function(numberString)
   if(negP != -1)
   {
     numberString = numberString.substr(this._nPre.length, numberString.length);
-    var negS = numberString.indexOf(this._nSuf);
+    var nSufNoSpace = this._nSuf;
+    if (nSufNoSpace.charAt(0) == ' ' || nSufNoSpace.charAt(0) == '\xa0')
+      nSufNoSpace = nSufNoSpace.substring(1);
+    var negS = numberString.indexOf(nSufNoSpace);
     if(negS != -1)
     {
-      numberString = numberString.substr(0, numberString.length-this._nSuf.length);
+      numberString = numberString.substr(0, numberString.length - nSufNoSpace.length);
       return (parseFloat(numberString)*-1);
     }
     else
@@ -286,10 +289,13 @@ TrNumberFormat.prototype.stringToCurrency = function(numberString)
     if(posP != -1)
     {
       numberString = numberString.substr(this._pPre.length, numberString.length);
-      var posS = numberString.indexOf(this._pSuf);
+      var pSufNoSpace = this._pSuf;
+      if (pSufNoSpace.charAt(0) == ' ' || pSufNoSpace.charAt(0) == '\xa0')
+        pSufNoSpace = pSufNoSpace.substring(1);
+      var posS = numberString.indexOf(pSufNoSpace);
       if(posS != -1)
       {
-        numberString = numberString.substr(0, numberString.length-this._pSuf.length);
+        numberString = numberString.substr(0, numberString.length - pSufNoSpace.length);
         numberString = parseFloat(numberString);
       }
       else
@@ -575,10 +581,11 @@ TrNumberFormat.prototype._addGroupingSeparators = function(ints)
   var balance;
   var toFormat;
   var formatted = "";
+  var groupingSeparator = this._localeSymbols.getGroupingSeparator();
 
   if(toMuch>0)
   {
-    balance = ints.substring(0, toMuch);
+    balance = ints.substring(0, toMuch) + groupingSeparator;
     toFormat = ints.substring(toMuch, counter);
   }
   else
@@ -587,7 +594,6 @@ TrNumberFormat.prototype._addGroupingSeparators = function(ints)
     toFormat = ints;
   }
 
-  var groupingSeparator = this._localeSymbols.getGroupingSeparator();
   for(i=0; i < toFormat.length; i++)
   {
     if(i%3==0 && i!=0)

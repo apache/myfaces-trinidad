@@ -880,6 +880,12 @@ TrDateRestrictionValidator.prototype.validate  = function(
   return value;
 }
 
+/**
+ * @param parsefloat 
+ *   null  ==> we expect the input to be an integral type, throw exception otherwise
+ *   false ==> integerOnly="true", parse input as an integer
+ *   true  ==> parse input as a float
+ */
 function _decimalParse(
   numberString,
   message,
@@ -949,14 +955,22 @@ function _decimalParse(
   {
     var result = null;
     var floater = false;
-    if(parsefloat != null)
+    if (parsefloat != null)
     {
-      result = parseFloat(numberString);
+      // Why parseInt(parseFloat(numberString))? Because the server NumberConverter behaves the same 
+      // way as parseFloat. Note the following:
+      // parseInt interprets octal and hex:
+      //   alert(parseInt("0xA")); // returns 10
+      //   alert(parseInt("008")); // returns 0, as it stops parsing octal at the first invalid character, 8
+      // parseFloat interprets neither octal nor hex:
+      //   alert(parseFloat("0xA")); // returns 0, as it stops parsing decimal at the first invalid character, x
+      //   alert(parseFloat("008")); // returns 8
+      result = parsefloat ? parseFloat(numberString) : parseInt(parseFloat(numberString));
     }
     else
     {
       result = parseInt(numberString);
-      if(result<parseFloat(numberString))
+      if (Math.abs(result) < Math.abs(parseFloat(numberString)))
       {
         //a non-floating converter was the caller;
         floater = true;
@@ -971,7 +985,7 @@ function _decimalParse(
       if (sepIndex != -1)
       {
         integerDigits = sepIndex;
-        fractionDigits = parseInt(numberString.length - parseInt(sepIndex -1));
+        fractionDigits = parseInt(numberString.length - parseInt(sepIndex + 1));
       }
       
       var messageKey;

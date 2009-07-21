@@ -239,6 +239,13 @@ TrNumberConverter.prototype.getAsObject = function(
       // TODO matzew - see TRINIDAD-682
       // Remove the thousands separator - which Javascript doesn't want to see
       var groupingSeparator = localeSymbols.getGroupingSeparator();
+      
+      if (groupingSeparator == "\xa0")
+      {
+        var normalSpace = new RegExp("\\ " , "g");
+        numberString = numberString.replace(normalSpace, "\xa0");
+      }
+      
       var grouping = new RegExp("\\" + groupingSeparator, "g");
       numberString = numberString.replace(grouping, "");
 

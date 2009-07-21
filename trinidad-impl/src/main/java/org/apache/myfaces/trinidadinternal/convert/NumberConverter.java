@@ -194,37 +194,23 @@ public class NumberConverter extends org.apache.myfaces.trinidad.convert.NumberC
       Map<?, ?>    messages)
     {
       StringBuilder outBuffer = new StringBuilder(250);
-      
-      if(this.isIntegerOnly() && this.getPattern() == null && "number".equals(this.getType()))
-      {
-        outBuffer.append("new TrIntegerConverter(");
-        outBuffer.append("null,null,0,");
-        outBuffer.append(IntegerUtils.getString(Integer.MAX_VALUE));
-        outBuffer.append(',');
-        outBuffer.append(IntegerUtils.getString(Integer.MIN_VALUE));
-        outBuffer.append(")");
-      }
-      else
-      {
+      outBuffer.append("new TrNumberConverter(");
 
-        Object[] params = _getClientConstructorParams(context, messages);
-        
-        outBuffer.append("new TrNumberConverter(");
-
-        for (int i = 0; i < params.length; i++)
+      Object[] params = _getClientConstructorParams(context, messages);
+      for (int i = 0; i < params.length; i++)
+      {
+        try
         {
-          try
-          {
-            JsonUtils.writeObject(outBuffer, params[i], false); 
-          } catch (Exception e)
-          {
-            outBuffer.append("null");
-          }
-          if(i<params.length-1)
-            outBuffer.append(',');
+          JsonUtils.writeObject(outBuffer, params[i], false); 
+        } 
+        catch (Exception e)
+        {
+          outBuffer.append("null");
         }
-        outBuffer.append(')');
+        if (i < params.length-1)
+          outBuffer.append(',');
       }
+      outBuffer.append(')');
       return outBuffer.toString();
     }
   
