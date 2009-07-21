@@ -21,6 +21,7 @@ package org.apache.myfaces.trinidadinternal.renderkit;
 import java.awt.Color;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -390,6 +391,41 @@ public class MRequestContext extends RequestContext
     return false;
   }
 
+  @Override
+  public Map<String, Object> getViewMap()
+  {
+    return getViewMap(true);
+  }
+
+  @Override
+  @SuppressWarnings("unchecked")
+  public Map<String, Object> getViewMap(boolean create)
+  {
+    // Note: replace this method body with a call to UIViewRoot.getViewMap(boolean) when
+    // Trinidad is upgraded to use JSF 2.0
+
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    UIViewRoot viewRoot = facesContext.getViewRoot();
+    Map<String, Object> viewMap = null;
+
+    if (viewRoot != null)
+    {
+      Map<String, Object> attrs = viewRoot.getAttributes();
+
+      viewMap = (Map<String, Object>)attrs.get(_VIEW_MAP_KEY);
+      if (viewMap == null && create)
+      {
+        // Note, it is not valid to refer to the request context from outside of the request's
+        // thread. As such, synchronization and thread safety is not an issue here.
+        // This coincides with the JSF 2.0 code not using syncronization and using the non-thread
+        // safe HashMap.
+        viewMap = new HashMap<String, Object>();
+        attrs.put(_VIEW_MAP_KEY, viewMap);
+      }
+    }
+
+    return viewMap;
+  }
 
   private String _skin;
   private Long _maxMemory;
@@ -404,5 +440,7 @@ public class MRequestContext extends RequestContext
 
   static private TimeZone _FIXED_TIME_ZONE =
     TimeZone.getTimeZone("America/Los_Angeles");
-  
+    
+  static private final String _VIEW_MAP_KEY =
+    MRequestContext.class.getName() + ".VIEW_MAP";
 }
