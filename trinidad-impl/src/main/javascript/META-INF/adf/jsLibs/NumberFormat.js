@@ -250,12 +250,13 @@ TrNumberFormat.prototype.parse = function(string)
  */
 TrNumberFormat.prototype.stringToNumber = function(numberString)
 {
-  numberString = parseFloat(numberString);
-  if(isNaN(numberString))
+  // parseFloat("123abc45") returns 123, but 123abc45 is considered an invalid number on the server, 
+  // so check for a valid number first. Exclude non-numbers and disallow exponential notation.
+  if (isNaN(numberString) || numberString.indexOf('e') != -1 || numberString.indexOf('E') != -1)
   {
     throw new TrParseException("not able to parse number");
   }
-  return numberString;
+  return parseFloat(numberString);
 }
 
 /**
@@ -276,7 +277,7 @@ TrNumberFormat.prototype.stringToCurrency = function(numberString)
     if(negS != -1)
     {
       numberString = numberString.substr(0, numberString.length - nSufNoSpace.length);
-      return (parseFloat(numberString)*-1);
+      return (stringToNumber(numberString) * -1);
     }
     else
     {
@@ -296,7 +297,7 @@ TrNumberFormat.prototype.stringToCurrency = function(numberString)
       if(posS != -1)
       {
         numberString = numberString.substr(0, numberString.length - pSufNoSpace.length);
-        numberString = parseFloat(numberString);
+        numberString = stringToNumber(numberString);
       }
       else
       {
@@ -317,13 +318,13 @@ TrNumberFormat.prototype.stringToCurrency = function(numberString)
 TrNumberFormat.prototype.stringToPercentage = function(percentString)
 {
   var isPercentage = (percentString.indexOf('%') != -1);
-  var numberString = percentString.replace(/\%/g, '');
-  numberString = parseFloat(numberString);
-  if(!isPercentage || isNaN(numberString))
+  if (!isPercentage)
   {
     throw new TrParseException("not able to parse number");
   }
-  return numberString;
+  
+  var numberString = percentString.replace(/\%/g, '');
+  return stringToNumber(numberString);
 }
 
 /**
