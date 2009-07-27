@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -43,7 +43,7 @@ import javax.faces.render.RenderKit;
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadbuild.test.MockFacesContext12;
 import org.apache.shale.test.mock.MockExternalContext;
-import org.apache.shale.test.mock.MockFacesContext;
+import org.apache.shale.test.mock.MockServletContext;
 
 /**
  * Mock faces context for use with unit tests
@@ -85,7 +85,7 @@ public class MFacesContext extends MockFacesContext12
     List<FacesMessage> messages = _messages.get(id);
     if (messages == null)
       messages = Collections.EMPTY_LIST;
-    
+
     return messages.iterator();
   }
 
@@ -101,7 +101,7 @@ public class MFacesContext extends MockFacesContext12
       messages = new ArrayList<FacesMessage>();
       _messages.put(id, messages);
     }
-    
+
     messages.add(message);
   }
 
@@ -196,18 +196,29 @@ public class MFacesContext extends MockFacesContext12
   private ExternalContext _external;
   private ResponseWriter  _responseWriter;
   private UIViewRoot      _viewRoot;
-  private Map<String, List<FacesMessage>> _messages = 
+  private Map<String, List<FacesMessage>> _messages =
     new HashMap<String, List<FacesMessage>>();
 
-  private static final class External extends MockExternalContext
+  private static final class MServletContext
+    extends MockServletContext
+  {
+    @Override
+    public String getContextPath()
+    {
+      return "/test-context-path";
+    }
+  }
+
+  private static final class External
+    extends MockExternalContext
   {
     public External(boolean testMode, Object contextObject)
     {
-      super(null, null, null);
-      
+      super(new MServletContext(), null, null);
+
       _testMode = testMode;
       _contextObject = contextObject;
-      
+
       File file = null;
       try
       {
@@ -225,14 +236,11 @@ public class MFacesContext extends MockFacesContext12
     }
 
     @Override
-    public Object getContext() { return _contextObject; }
-    
-    @Override
     public Object getRequest() { return _requestObject; }
-    
+
     @Override
     public Object getResponse() { return _responseObject; }
-    
+
     @Override
     public Object getSession(boolean create)
     {
@@ -242,17 +250,17 @@ public class MFacesContext extends MockFacesContext12
         // force SessionMap to be created
         getSessionMap();
       }
-      
-      // use the session Map as the session object 
+
+      // use the session Map as the session object
       return _sessionMap;
     }
-    
+
     @Override
     public String getRequestContextPath() { return "/test-context-path"; }
-    
+
     @Override
     public String getRequestServletPath() { return "/test-faces"; }
-    
+
     @Override
     public String getInitParameter(String name)
     {
@@ -277,7 +285,7 @@ public class MFacesContext extends MockFacesContext12
         throw new NullPointerException("encodeResourceURL called with null URL");
       return "encoded-resource-url:" + url;
     }
-    
+
     @Override
     public String encodeActionURL(String url)
     {
@@ -343,7 +351,7 @@ public class MFacesContext extends MockFacesContext12
           }
         }
       }
-      
+
       return _sessionMap;
     }
 
@@ -358,13 +366,13 @@ public class MFacesContext extends MockFacesContext12
     private final Object _contextObject;
     private final Object _requestObject = new String("request object");
     private final Object _responseObject = new String("response object");
-    
+
     private final Map<String, Object> _requestMap = new HashMap<String, Object>(2);
-    private final Map<String, Object> _applicationMap = 
+    private final Map<String, Object> _applicationMap =
                                         Collections.synchronizedMap(new HashMap<String, Object>(2));
-    
+
     private volatile Map<String, Object> _sessionMap = null;
-    
+
     private final boolean _testMode;
   }
   private static final String _GLOBAL_MESSAGE = "org.apache.myfaces.trinidadinternal.renderkit.MFacesContext.GLOBAL_MESSAGE";

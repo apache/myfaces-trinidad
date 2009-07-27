@@ -52,7 +52,7 @@
     <pluto-embedded.version>1.0.1</pluto-embedded.version>
     
     <!-- Testing -->
-    <shale.version>1.0.4</shale.version>
+    <shale.version>1.0.5</shale.version>
     <jmock.version>1.2.0</jmock.version>
     <junit.version>4.4</junit.version>
     
