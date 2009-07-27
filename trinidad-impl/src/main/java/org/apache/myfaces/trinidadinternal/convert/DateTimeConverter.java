@@ -373,7 +373,7 @@ public class DateTimeConverter extends
       {
         FacesContext context = FacesContext.getCurrentInstance();
         // this the pattern obtained by applying the styles
-        Object format = getDateFormat(context, null, false);
+        Object format = getDateFormat(context, null, false, null);
         if (format instanceof SimpleDateFormat)
         {
           applyPattern = ((SimpleDateFormat) format).toPattern();
@@ -435,25 +435,29 @@ public class DateTimeConverter extends
    * these names are not available in client side JavaScript.
    */
   @Override
-  protected TimeZone getFormattingTimeZone(TimeZone tZone)
+  protected TimeZone getFormattingTimeZone(TimeZone tZone, Date targetDate)
   {
     TimeZone zone = (TimeZone) tZone.clone();
 
     // set the id as "GMT Sign Hours : Minutes"
     StringBuilder zoneId = new StringBuilder(9);
-    int rawOffset = zone.getRawOffset();
+    int offset; 
+    if (targetDate != null)
+      offset = zone.getOffset (targetDate.getTime());
+    else
+      offset = zone.getRawOffset();
 
-    if (rawOffset < 0)
+    if (offset < 0)
     {
       zoneId.append(_GMT_MINUS);
       // abs value
-      rawOffset = -rawOffset;
+      offset = -offset;
     } else
     {
       zoneId.append(_GMT_PLUS);
     }
 
-    int hours = rawOffset / _MILLIS_PER_HOUR;
+    int hours = offset / _MILLIS_PER_HOUR;
     if (hours < 10)
     {
       zoneId.append('0');
@@ -462,7 +466,7 @@ public class DateTimeConverter extends
 
     zoneId.append(':');
 
-    int minutes = (rawOffset % _MILLIS_PER_HOUR) / _MILLIS_PER_MINUTE;
+    int minutes = (offset % _MILLIS_PER_HOUR) / _MILLIS_PER_MINUTE;
     if (minutes < 10)
     {
       zoneId.append('0');
@@ -483,7 +487,7 @@ public class DateTimeConverter extends
     {
       try
       {
-        DateFormat format = getDateFormat(context, null, false);
+        DateFormat format = getDateFormat(context, null, false, null);
         if ((format != null) && (format instanceof SimpleDateFormat))
         {
           datePattern = ((SimpleDateFormat) format).toPattern();

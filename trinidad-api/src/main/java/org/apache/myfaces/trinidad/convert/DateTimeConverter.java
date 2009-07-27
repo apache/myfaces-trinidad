@@ -332,7 +332,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
       throw new ClassCastException(_LOG.getMessage(
         "VALUE_IS_NOT_DATE_TYPE_IT_IS", new Object[]{value,value.getClass()}));
 
-    DateFormat format = _getDateFormat(context, getPattern(), false);
+    DateFormat format = _getDateFormat(context, getPattern(), false, (Date)value);
     return format.format(value);
   }
 
@@ -543,7 +543,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
       if (pattern == null)
       {
         // get the pattern based on the style and type that has been set.
-        DateFormat format = getDateFormat(context, null, true);
+        DateFormat format = getDateFormat(context, null, true, null);
         if (format instanceof SimpleDateFormat)
         {
           pattern = ((SimpleDateFormat)format).toPattern();
@@ -687,7 +687,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
     String pattern
     )
   {
-    DateFormat fmt = getDateFormat(context, pattern, true);
+    DateFormat fmt = getDateFormat(context, pattern, true, null);
     try
     {
       return fmt.parse(value);
@@ -1124,13 +1124,14 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
   protected final DateFormat getDateFormat(
     FacesContext context,
     String pattern,
-    boolean forParsing
+    boolean forParsing,
+    Date    targetDate
     ) throws ConverterException
   {
     ConverterException exception = null;
     try
     {
-      DateFormat format = _getDateFormat(context, pattern, forParsing);
+      DateFormat format = _getDateFormat(context, pattern, forParsing, targetDate);
       return format;
     }
     catch (ConverterException ce)
@@ -1152,6 +1153,16 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    */
   protected TimeZone getFormattingTimeZone(TimeZone tZone)
   {
+    return getFormattingTimeZone (tZone, null);
+  }
+
+  /**
+   * Returns the timeZone for formatting and parsing the date. 
+   * TRINIDAD-1512: In some cases,timezone varies depending on the targetDate, 
+   * e.g. daylight savings.
+   */
+  protected TimeZone getFormattingTimeZone(TimeZone tZone, Date targetDate)
+  {
     return tZone;
   }
 
@@ -1171,7 +1182,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
 
       try
       {
-        DateFormat format  = getDateFormat(context, null,false);
+        DateFormat format  = getDateFormat(context, null,false, null);
         if ((format != null) && (format instanceof SimpleDateFormat))
         {
           datePattern = ((SimpleDateFormat)format).toPattern();
@@ -1434,7 +1445,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
   
   private String _getExample(FacesContext context, String pattern)
   {
-    DateFormat format = _getDateFormat(context, pattern, false);
+    DateFormat format = _getDateFormat(context, pattern, false, _EXAMPLE_DATE);
     return format.format(_EXAMPLE_DATE);
   }
 
@@ -1675,7 +1686,8 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
   private DateFormat _getDateFormat(
     FacesContext context,
     String pattern,
-    boolean forParsing
+    boolean forParsing,
+    Date    targetDate
     )
   {
     Locale locale = _extractConverterLocale(context);
@@ -1769,7 +1781,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
       // include timezone in date format
       if (tZone != null)
       {
-        TimeZone formatTZone = getFormattingTimeZone(tZone);
+        TimeZone formatTZone = getFormattingTimeZone(tZone, targetDate);
         format.setTimeZone(formatTZone);
       }
 
