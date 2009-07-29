@@ -277,7 +277,7 @@ TrNumberFormat.prototype.stringToCurrency = function(numberString)
     if(negS != -1)
     {
       numberString = numberString.substr(0, numberString.length - nSufNoSpace.length);
-      return (stringToNumber(numberString) * -1);
+      return (this.stringToNumber(numberString) * -1);
     }
     else
     {
@@ -297,7 +297,7 @@ TrNumberFormat.prototype.stringToCurrency = function(numberString)
       if(posS != -1)
       {
         numberString = numberString.substr(0, numberString.length - pSufNoSpace.length);
-        numberString = stringToNumber(numberString);
+        numberString = this.stringToNumber(numberString);
       }
       else
       {
@@ -324,7 +324,7 @@ TrNumberFormat.prototype.stringToPercentage = function(percentString)
   }
   
   var numberString = percentString.replace(/\%/g, '');
-  return stringToNumber(numberString);
+  return this.stringToNumber(numberString);
 }
 
 /**
@@ -586,7 +586,7 @@ TrNumberFormat.prototype._addGroupingSeparators = function(ints)
 
   if(toMuch>0)
   {
-    balance = ints.substring(0, toMuch) + groupingSeparator;
+    balance = (counter < 4) ? ints.substring(0, toMuch) : ints.substring(0, toMuch) + groupingSeparator;
     toFormat = ints.substring(toMuch, counter);
   }
   else
