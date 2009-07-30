@@ -138,7 +138,16 @@ TrRequestQueue.prototype.sendFormPost = function(
   //actionForm, however in the case of a Portal 2.0 environment, this could be a special
   //expando property encoded as a ResourceUrl.  As such, if the expando is available, use it
   //for PPR
-  var pprURL = actionForm.getAttribute("_trinPPRAction");
+  var pprURL;
+  // In mobile browsers like windows mobile ie, getAttribute funtion throws an exception if 
+  // actionForm doesn't contain the attribute "_trinPPRAction".
+  try
+  {
+    pprURL = actionForm.getAttribute("_trinPPRAction");
+  }
+  catch (e)
+  {
+  }
   var action = pprURL?pprURL:actionForm.action;
   
   if (this._isMultipartForm(actionForm))
