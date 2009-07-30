@@ -542,6 +542,24 @@
           <name>prepareRelease</name>
         </property>
       </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <configuration>
+              <excludePackageNames>org.apache.myfaces.trinidadinternal.*</excludePackageNames>
+            </configuration>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
            
       <modules>
         <module>trinidad-assembly</module>
