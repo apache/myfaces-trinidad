@@ -104,6 +104,13 @@
       <artifactId>commons-lang</artifactId>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <groupId>org.apache.myfaces.core</groupId>
+      <artifactId>myfaces-impl</artifactId>
+      <scope>test</scope> <!-- getting web-facesconfg dtd for offline build -->
+    </dependency>
+
   </dependencies>
 
   <build>
