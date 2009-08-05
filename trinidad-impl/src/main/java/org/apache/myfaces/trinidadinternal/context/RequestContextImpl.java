@@ -787,8 +787,7 @@ public class RequestContextImpl extends RequestContext
     return lifetimeObj.intValue();
   }
 
-
-  private void _addTargets(Object key)
+  private void _addTargets(UIComponent key)
   {
     Map<UIComponent, Set<UIComponent>> pl = _getPartialListeners();
     Set<UIComponent> listeners = pl.get(key);
@@ -804,6 +803,11 @@ public class RequestContextImpl extends RequestContext
         // listening on it also.
         partialUpdateNotify(listener);
       }
+      
+      // TRINIDAD-1545
+      // Re-add listeners to the map to accommodate partial targets for different stamps of 
+      // the same component
+      pl.put(key, listeners);
     }
   }
 
