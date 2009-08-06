@@ -18,16 +18,18 @@
  */
 package org.apache.myfaces.trinidad.context;
 
+import java.io.Serializable;
+
 /**
  * Specifies a set of accessibility-related properties that are applied
  * to the current request.
- * 
- * AccessibilityProfile instances are obtained by the getInstance() 
+ *
+ * AccessibilityProfile instances are obtained by the getInstance()
  * factory method.
- * 
+ *
  * AccessibilityProfile instances are immutable.
  */
-public class AccessibilityProfile
+public class AccessibilityProfile 
 {
   /**
    * Color contrast values
@@ -82,7 +84,7 @@ public class AccessibilityProfile
   {    
     // Note: we could cache and share AccessibilityProfile instances
     // here if that seems useful.
-    return new AccessibilityProfile(colorContrast, fontSize);
+    return new SerializableAccessibilityProfile(colorContrast, fontSize);
   }
 
   /**
@@ -132,15 +134,31 @@ public class AccessibilityProfile
     FontSize      fontSize
     )
   {
-
     _colorContrast = (colorContrast == null) ? ColorContrast.STANDARD : colorContrast;
     _fontSize = (fontSize == null) ? FontSize.MEDIUM : fontSize;
   }
 
   private final ColorContrast _colorContrast;
   private final FontSize      _fontSize;
-  
+
   // Default instance
   private static final AccessibilityProfile _sDefaultInstance =
     AccessibilityProfile.getInstance(ColorContrast.STANDARD, FontSize.MEDIUM);
+  
+  
+  /**
+   * We maintain a private internal serializable class for our singleton instance.
+   */
+  private static final class SerializableAccessibilityProfile extends AccessibilityProfile implements Serializable
+  {
+    public SerializableAccessibilityProfile(
+      ColorContrast colorContrast,
+      FontSize      fontSize
+      )
+    {
+      super(colorContrast, fontSize);
+    }
+    
+    private static final long serialVersionUID = 1L;
+  }
 }
