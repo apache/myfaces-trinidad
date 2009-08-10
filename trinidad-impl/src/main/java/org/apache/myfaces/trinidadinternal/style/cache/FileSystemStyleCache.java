@@ -1221,14 +1221,15 @@ public class FileSystemStyleCache implements StyleProvider
       if(_noHash)
       {
         //don't worry about synchronizing this
-        _hashCode =    (_locale.hashCode()         ^
-                       (_direction)                ^
+        _hashCode  =   (_direction)                ^
                        (_browser  << 2)            ^
-                       (_version.hashCode())       ^
                        (_platform << 8)            ^
                        (_short ? 1 : 0)            ^
-                       (_accProfile.hashCode())    ^
-                       (_portlet ? 1:0));
+                       (_portlet ? 1:0);
+
+        if (_locale != null)     _hashCode ^= _locale.hashCode();
+        if (_accProfile != null) _hashCode ^= _accProfile.hashCode();
+        if (_version != null)    _hashCode ^= (_version.hashCode());
 
         _noHash = false;
       }
@@ -1246,14 +1247,18 @@ public class FileSystemStyleCache implements StyleProvider
       {
         Key key = (Key)o;
         // Check the easy stuff first
-        return ((_short == key._short)           &&
-                (_portlet == key._portlet)       &&
-                (_direction == key._direction)   &&
-                (_browser == key._browser)       &&
-                (_platform == key._platform)     &&
-                _version.equals(key._version)    &&
-                _locale.equals(key._locale)      &&
-                _accProfile.equals(key._accProfile));
+        if  (!((_short == key._short)             &&
+               (_portlet == key._portlet)         &&
+               (_direction == key._direction)     &&
+               (_browser == key._browser)         &&
+               (_platform == key._platform)))
+          {
+              return false;
+          }
+
+          if (_version != null && !(_version.equals(key._version)))          return false;
+          if (_locale != null && !(_locale.equals(key._locale)))             return false;
+          if (_accProfile != null && !(_accProfile.equals(key._accProfile))) return false;
       }
 
       return false;
