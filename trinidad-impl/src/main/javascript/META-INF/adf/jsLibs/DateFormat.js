@@ -449,19 +449,30 @@ function _getLocaleTimeZoneDifference()
  * Parse a substring using a clump of format elements.
  */
 function _subparse(
-  inString,
+  inString,      // the pattern string, such as "yyMMdd"
   localeSymbols,
-  formatType,
-  startIndex,
-  charCount,
-  parseContext,
+  formatType,    // the current format char, such as 'y'
+  startIndex,    // index into inString
+  charCount,     // the number of chars of type formatType
+  parseContext,  // information pertaining to the user input string
   parsedTime
   )
 {
   // Start index of the string being parsed (as opposed
   // to startIndex, which is the index on the format mask)
   var inStartIndex = parseContext.currIndex;
-
+    
+  var nextFormatType = (startIndex + charCount < inString.length) ? 
+    inString.charAt(startIndex + charCount) : null;
+    
+  // Consider the pattern "yyMMdd". Say that formatType is 'y' and nextFormatType is 'M'. Normally 
+  // we would allow for leniency such that the user could input 2 or 4 digits for the year, but 
+  // since this pattern contains no date separators and both the year and month can consist of 
+  // digits, there's no easy way of telling whether the first 4 digits apply to just the year, or 
+  // to both the year and month. Therefore, if nextFormatType is one of the reserved format types, 
+  // then we go into strict parsing mode for formatType, where charCount represents the maximum 
+  // number of user input characters that will be parsed when matching the current formatType.
+  var isStrict = ("DFMSWdhkHKmswy".indexOf(nextFormatType) != -1);
 
   if ((formatType >= 'A') && (formatType <= 'Z') ||
       (formatType >= 'a') && (formatType <= 'z'))
@@ -470,7 +481,7 @@ function _subparse(
     {
       case 'D': // day in year
         // skip this number
-        if (_accumulateNumber(parseContext, 3) == null)
+        if (_accumulateNumber(parseContext, !isStrict ? 3 : charCount) == null)
         {
           return false;
         }
@@ -494,7 +505,7 @@ function _subparse(
       
       case 'F': // day of week in month
         // skip this number
-        if (_accumulateNumber(parseContext, 2) == null)
+        if (_accumulateNumber(parseContext, !isStrict ? 2 : charCount) == null)
         {
           return false;
         }
@@ -526,7 +537,7 @@ function _subparse(
         if (charCount <= 2)
         {
           // match month number
-          monthIndex = _accumulateNumber(parseContext, 2);
+          monthIndex = _accumulateNumber(parseContext, !isStrict ? 2 : charCount);
           
           // subtract 1 from the monthIndex to make it 0-based
           monthOffset = -1;
@@ -553,7 +564,7 @@ function _subparse(
 
       case 'S': // millisecond (0 - 999)
       {
-        var milliseconds = _accumulateNumber(parseContext, 3);
+        var milliseconds = _accumulateNumber(parseContext, !isStrict ? 3 : charCount);
 
         if (milliseconds != null)
         {
@@ -568,7 +579,7 @@ function _subparse(
       
       case 'W': // week in month
         // skip this number
-        if (_accumulateNumber(parseContext, 2) == null)
+        if (_accumulateNumber(parseContext, !isStrict ? 2 : charCount) == null)
         {
           return false;
         }
@@ -595,7 +606,7 @@ function _subparse(
       
       case 'd': // day in month
       {
-        var dayOfMonth = _accumulateNumber(parseContext, 2);
+        var dayOfMonth = _accumulateNumber(parseContext, !isStrict ? 2 : charCount);
                 
         if (dayOfMonth != null)
         {
@@ -613,7 +624,7 @@ function _subparse(
       case 'H': // hour in day (0-23)
       case 'K': // hour in am/pm (0-11)
       {
-        var hour = _accumulateNumber(parseContext, 2);
+        var hour = _accumulateNumber(parseContext, !isStrict ? 2 : charCount);
         
         if (hour != null)
         {
@@ -634,7 +645,7 @@ function _subparse(
 
       case 'm': // minute in hour 0 - 59)
       {
-        var minutes = _accumulateNumber(parseContext, 2);
+        var minutes = _accumulateNumber(parseContext, !isStrict ? 2 : charCount);
         
         if (minutes != null)
         {
@@ -649,7 +660,7 @@ function _subparse(
       
       case 's': // seconds in minute 0 - 59)
       {
-        var seconds = _accumulateNumber(parseContext, 2);
+        var seconds = _accumulateNumber(parseContext, !isStrict ? 2 : charCount);
 
         if (seconds != null)
         {
@@ -664,7 +675,7 @@ function _subparse(
 
       case 'w': // week in year
         // skip this number
-        if (_accumulateNumber(parseContext, 2) == null)
+        if (_accumulateNumber(parseContext, !isStrict ? 2 : charCount) == null)
         {
           return false;
         }
@@ -672,7 +683,7 @@ function _subparse(
 
       case 'y': // year
       {
-        var year = _accumulateNumber(parseContext, 4);
+        var year = _accumulateNumber(parseContext, !isStrict ? 4 : charCount);
         var enteredChars = parseContext.currIndex - inStartIndex;
         // if we have a 2-digit year, add in the default year
         if (year != null)
@@ -1336,7 +1347,7 @@ TrDateTimeConverter.prototype._simpleDateParseImpl = function(
   {
     parseString += " ";
   }
-
+	
   var parseContext = new Object();
   parseContext.currIndex = 0;
   parseContext.parseString = parseString;
