@@ -138,14 +138,20 @@ public class AccessibilityProfile
     _fontSize = (fontSize == null) ? FontSize.MEDIUM : fontSize;
   }
 
+  //Serialization for SerializableAccessibilityProfile internal subclass requires no-arg constructor
+  //access of at least package security level.
+  private AccessibilityProfile()
+  {
+    this(ColorContrast.STANDARD, FontSize.MEDIUM);
+  }
+
   private final ColorContrast _colorContrast;
   private final FontSize      _fontSize;
 
   // Default instance
   private static final AccessibilityProfile _sDefaultInstance =
     AccessibilityProfile.getInstance(ColorContrast.STANDARD, FontSize.MEDIUM);
-  
-  
+
   /**
    * We maintain a private internal serializable class for our singleton instance.
    */
