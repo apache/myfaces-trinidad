@@ -41,6 +41,7 @@ import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidad.util.ContainerUtils;
+import org.apache.myfaces.trinidad.util.TransientHolder;
 
 
 /**
@@ -601,12 +602,14 @@ public class XMLMenuModel extends BaseMenuModel
    // a synchronized block.
    synchronized (lock)
    {
-      Map contentHandlerMap = (Map) scopeMap.get(_CACHED_MODELS_KEY);
+     TransientHolder<Map<Object, List<MenuContentHandler> >> holder =  
+       (TransientHolder<Map<Object, List<MenuContentHandler> >>) scopeMap.get(_CACHED_MODELS_KEY);
+      Map<Object, List<MenuContentHandler>> contentHandlerMap = (holder != null) ? holder.getValue() : null;
       if (contentHandlerMap == null)
       {
         contentHandlerMap =
-            new ConcurrentHashMap<String, List<MenuContentHandler>>();
-        scopeMap.put(_CACHED_MODELS_KEY, contentHandlerMap);
+            new ConcurrentHashMap<Object, List<MenuContentHandler>>();
+        scopeMap.put(_CACHED_MODELS_KEY, TransientHolder.newTransientHolder( contentHandlerMap) );
         scopeMap.put(_CACHED_MODELS_ID_CNTR_KEY,new AtomicInteger(-1));
       }
       return contentHandlerMap;
