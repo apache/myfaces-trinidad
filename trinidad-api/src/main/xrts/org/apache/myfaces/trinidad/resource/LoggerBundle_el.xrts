@@ -304,4 +304,8 @@
 <resource key="COMPONENT_CHILDREN_SAVED_STATE_FAILED" dnt="false">Αποτυχία αποθήκευσης κατάστασης για το θυγατρικό στοιχείο του συστατικού:{0}</resource>
 <!-- COMPONENT_TREE_SERIALIZATION_FAILED -->
 <resource key="COMPONENT_TREE_SERIALIZATION_FAILED" dnt="false">Αποτυχία σειριοποίησης της κατάστασης δέντρου του συστατικού</resource>
+<!-- UNABLE_TO_SET_RENDER_PARAMETERS -->
+<resource key="UNABLE_TO_SET_RENDER_PARAMETERS" dnt="false">Δεν ήταν δυνατή η ρύθμιση παραμέτρων απόδοσης συστατικού στοιχείου πύλης λόγω αποτυχίας ανάκλασης</resource>
+<!-- COMPARETO_TYPE_MISMATCH -->
+<resource key="COMPARETO_TYPE_MISMATCH" dnt="false">Ο τύπος για \&quot;{0}\&quot; παρεμποδίζει τη σύγκρισή του με το \&quot;{1}&quot;\.</resource>
 </resources>

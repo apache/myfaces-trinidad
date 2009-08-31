@@ -48,6 +48,8 @@
 <resource key="INVALID_CAPABILITY_DATA_URL" dnt="false"> url {0} של נתוני יכולות בלתי תקף</resource>
 <!-- CANNOT_FIND_SAVED_VIEW_STATE -->
 <resource key="CANNOT_FIND_SAVED_VIEW_STATE" dnt="false">לא נמצא מצב view שמור לאסימון {0}</resource>
+<!-- USE_APPLICATION_VIEW_CACHE_UNSUPPORTED -->
+<resource key="USE_APPLICATION_VIEW_CACHE_UNSUPPORTED" dnt="false">USE_APPLICATION_VIEW_CACHE אינו נתמך ואין להשתמש בו כיוון שברוב המקרים הוא לא פועל.</resource>
 <!-- NO_STRUCTURE_ROOT_AVAILABLE -->
 <resource key="NO_STRUCTURE_ROOT_AVAILABLE" dnt="false">אין מבנה זמין ואין שורש זמין</resource>
 <!-- NO_STRUCTURE_AVAILABLE -->
@@ -162,9 +164,9 @@
 <!-- EXCEPTION_AT -->
 <resource key="EXCEPTION_AT" dnt="false">חריג ב- {0}</resource>
 <!-- RENDERER_INSTANTIATION_FAILED -->
-<resource key="RENDERER_INSTANTIATION_FAILED" dnt="false">יצירת מופע של Renderer {0} הכשלה</resource>
+<resource key="RENDERER_INSTANTIATION_FAILED" dnt="false">יצירת מופע של מחולל תצוגה {0} נכשלה</resource>
 <!-- RENDERER_NOT_FOUND -->
-<resource key="RENDERER_NOT_FOUND" dnt="false">Renderer &apos;&apos;{0}&apos;&apos; לא נמצא למשפחת רכיבים &apos;&apos;{1}&apos;&apos;</resource>
+<resource key="RENDERER_NOT_FOUND" dnt="false">מחולל תצוגה &apos;&apos;{0}&apos;&apos; לא נמצא למשפחת רכיבים &apos;&apos;{1}&apos;&apos;</resource>
 <!-- NO_SKIN_FACTORY -->
 <resource key="NO_SKIN_FACTORY" dnt="false">אין SkinFactory</resource>
 <!-- STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
@@ -192,7 +194,7 @@
 <!-- CANNOT_LOCATE_HTMLRENDERKIT -->
 <resource key="CANNOT_LOCATE_HTMLRENDERKIT" dnt="false">לא אותר HTMLRenderKit בסיסי</resource>
 <!-- CANNOT_FIND_HTML_RENDERER -->
-<resource key="CANNOT_FIND_HTML_RENDERER" dnt="false">לא נמצא HTML renderer בסיסי ל-{0}, סוג={1}</resource>
+<resource key="CANNOT_FIND_HTML_RENDERER" dnt="false">לא נמצא מחולל תצוגת HTML בסיסי ל-{0}, סוג={1}</resource>
 <!-- CANNOT_GET_STYLESHEET_CACHE -->
 <resource key="CANNOT_GET_STYLESHEET_CACHE" dnt="false">אי אפשר להשיג מטמון גיליון סגנונות</resource>
 <!-- MODEL_NOT_SPECIFIED_FOR_CHART_COMPONENT -->
@@ -368,7 +370,7 @@
 <!-- NO_RENDERERFACTORY_REGISTERED_COMPONENT -->
 <resource key="NO_RENDERERFACTORY_REGISTERED_COMPONENT" dnt="false">אין RendererFactory רשום לרכיבים ב-namespace {0}</resource>
 <!-- NO_RENDERER_REGISTERED -->
-<resource key="NO_RENDERER_REGISTERED" dnt="false">אין Renderer רשום ל- {0}</resource>
+<resource key="NO_RENDERER_REGISTERED" dnt="false">אין מחולל תצוגה רשום ל- {0}</resource>
 <!-- CANNOT_GET_IMAGE_CACHE -->
 <resource key="CANNOT_GET_IMAGE_CACHE" dnt="false">אי אפשר להביא את מטמון התמונות</resource>
 <!-- CANNOT_CONVERT_INTO_DATAOBJECTLIST -->
@@ -388,7 +390,7 @@
 <!-- CANNOT_FIND_ICON_WITH_GIVEN_KEY -->
 <resource key="CANNOT_FIND_ICON_WITH_GIVEN_KEY" dnt="false">אין סמל עם המפתח הנתון</resource>
 <!-- CANNOT_FIND_RENDERER -->
-<resource key="CANNOT_FIND_RENDERER" dnt="false">לא נמצא renderer לכינוי {0}</resource>
+<resource key="CANNOT_FIND_RENDERER" dnt="false">לא נמצא מחולל תצוגה לכינוי {0}</resource>
 <!-- UNABLE_FLIP_ICON -->
 <resource key="UNABLE_FLIP_ICON" dnt="false">אי אפשר להפוך סמל &apos;&apos;{0}&apos;&apos; כי הוא לא תחת הקשר הבקשה הנוכחי, שהוא &apos;&apos;{1}&apos;&apos;</resource>
 <!-- CANNOT_LOCATE_PARENT_FORM -->
@@ -420,7 +422,7 @@
 <!-- MALFORMED_PROPERTY_ENTRY -->
 <resource key="MALFORMED_PROPERTY_ENTRY" dnt="false">ערך מאפיין שגוי: {0}={1}</resource>
 <!-- CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING -->
-<resource key="CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING" dnt="false">אי אפשר לטעון את סוג ה-renderer למיפוי שם מקומי.</resource>
+<resource key="CANNOT_LOAD_RENDERER_TYPE_TO_LOCAL_NAME_MAPPING" dnt="false">אי אפשר לטעון את סוג מחולל התצוגה למיפוי שם מקומי.</resource>
 <!-- CLIENT_SIDE_ENCODING_NOT_SUPPORTED -->
 <resource key="CLIENT_SIDE_ENCODING_NOT_SUPPORTED" dnt="false">קידוד {0} לא נתמך בצד הלקוח. הדבר יגרום לדילוג על אימות צד הלקוח.</resource>
 <!-- REQUIRED_TRINIDADFILTER_NOT_INSTALLED -->
@@ -488,7 +490,7 @@
 <!-- REGION_METADATA_CANNOT_NEST -->
 <resource key="REGION_METADATA_CANNOT_NEST" dnt="false">עדיין אי אפשר לקונן:{0} אלמנטים</resource>
 <!-- DUPLICATE_RENDERER_TYPE -->
-<resource key="DUPLICATE_RENDERER_TYPE" dnt="false">סוג renderer כפול &quot;{0}&quot; למשפחה &quot;{1}&quot;</resource>
+<resource key="DUPLICATE_RENDERER_TYPE" dnt="false">סוג מחולל תצוגה כפול &quot;{0}&quot; למשפחה &quot;{1}&quot;</resource>
 <!-- NO_RETURNID_AVAILABLE_FOR_RETURNING_FROM_DIALOG -->
 <resource key="NO_RETURNID_AVAILABLE_FOR_RETURNING_FROM_DIALOG" dnt="false">אין זיהוי חזרה (returnId) לחזרה מהדו-שיח. פירוש הדבר בדרך כלל שראשית כל אינך בדו-שיח, או שה-pageFlowScope אינו זמין.</resource>
 <!-- TRAINRENDERER_ONLY_RENDERS_INSTANCE -->
@@ -632,7 +634,7 @@
 <!-- REUSING_ROLE_INDEX -->
 <resource key="REUSING_ROLE_INDEX" dnt="false">שימוש חוזר באינדקס תפקיד</resource>
 <!-- ATTEMP_TO_REGISTER_NULL_RENDERER -->
-<resource key="ATTEMP_TO_REGISTER_NULL_RENDERER" dnt="false">ניסיון לרשום null renderer ל-{0}</resource>
+<resource key="ATTEMP_TO_REGISTER_NULL_RENDERER" dnt="false">ניסיון לרשום מחולל תצוגה ריק null renderer ל-{0}</resource>
 <!-- ONLY_CONTEXTBASEDCONFIGURATION_SUPPORTED -->
 <resource key="ONLY_CONTEXTBASEDCONFIGURATION_SUPPORTED" dnt="false">רק ContextBasedConfiguration נתמך</resource>
 <!-- FACET_MAY_NOT_BE_SET_AFTER_RENDERERMANAGER_HAS_BEEN_ASSIGNED -->
