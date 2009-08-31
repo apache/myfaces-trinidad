@@ -48,6 +48,8 @@
 <resource key="INVALID_CAPABILITY_DATA_URL" dnt="false">Η διεύθυνση τοποθεσίας &quot;{0}&quot; για τα δεδομένα δυνατοτήτων δεν είναι αποδεκτή</resource>
 <!-- CANNOT_FIND_SAVED_VIEW_STATE -->
 <resource key="CANNOT_FIND_SAVED_VIEW_STATE" dnt="false">Δεν ήταν δυνατή η εύρεση αποθηκευμένης κατάστασης προβολής για το σύμβολο &apos;&apos;{0}&apos;&apos;</resource>
+<!-- USE_APPLICATION_VIEW_CACHE_UNSUPPORTED -->
+<resource key="USE_APPLICATION_VIEW_CACHE_UNSUPPORTED" dnt="false">Το στοιχείο USE_APPLICATION_VIEW_CACHE δεν υποστηρίζεται και δεν θα πρέπει να χρησιμοποιείται καθώς αυτή τη στιγμή δεν λειτουργεί στις περισσότερες περιπτώσεις.</resource>
 <!-- NO_STRUCTURE_ROOT_AVAILABLE -->
 <resource key="NO_STRUCTURE_ROOT_AVAILABLE" dnt="false">Δεν υπάρχει διαθέσιμη δομή και κεντρικός κατάλογος</resource>
 <!-- NO_STRUCTURE_AVAILABLE -->

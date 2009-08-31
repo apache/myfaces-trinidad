@@ -47,7 +47,7 @@
 <!-- NO_INITIAL_STAMP_STATE -->
 <resource key="NO_INITIAL_STAMP_STATE" dnt="false">לא היה מצב חותמת התחלתי ל-currencyKey:{0} ו-currencyKeyForInitialStampState:{1} ו-stampId:{2}</resource>
 <!-- CANNOT_FIND_RENDERER -->
-<resource key="CANNOT_FIND_RENDERER" dnt="false">לא נמצא renderer ל- {0} rendererType = {1}</resource>
+<resource key="CANNOT_FIND_RENDERER" dnt="false">לא נמצא מחולל תצוגה ל- {0} rendererType = {1}</resource>
 <!-- CANNOT_LOAD_TYPE_PROPERTIES -->
 <resource key="CANNOT_LOAD_TYPE_PROPERTIES" dnt="false">אי אפשר לטעון את מאפייני הסוג</resource>
 <!-- CANNOT_GET_RESOURCE_KEY -->
@@ -304,4 +304,8 @@
 <resource key="COMPONENT_CHILDREN_SAVED_STATE_FAILED" dnt="false">שמירת המצב של בנים של הרכיב: {0} נכשלה</resource>
 <!-- COMPONENT_TREE_SERIALIZATION_FAILED -->
 <resource key="COMPONENT_TREE_SERIALIZATION_FAILED" dnt="false">נכשל ביצוע serialization למצב עץ הרכיבים</resource>
+<!-- UNABLE_TO_SET_RENDER_PARAMETERS -->
+<resource key="UNABLE_TO_SET_RENDER_PARAMETERS" dnt="false">אי אפשר להגדיר פרמטרים לתצוגת פורטלט בגלל השתקפות שנכשלה</resource>
+<!-- COMPARETO_TYPE_MISMATCH -->
+<resource key="COMPARETO_TYPE_MISMATCH" dnt="false">הסוג של &quot;{0}&quot; מונע את השוואתו ל-&quot;{1}&quot;.</resource>
 </resources>
