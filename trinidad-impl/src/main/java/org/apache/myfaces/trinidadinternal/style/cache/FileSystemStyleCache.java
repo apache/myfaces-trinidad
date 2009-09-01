@@ -627,7 +627,8 @@ public class FileSystemStyleCache implements StyleProvider
   }
 
   /**
-   * Returns the StyleSheetDocument, parsing the source file if necessary
+   * Returns the StyleSheetDocument, parsing the source file if necessary.
+   * This does not use the StyleContext
    */
   private StyleSheetDocument _getStyleSheetDocument(StyleContext context)
   {
@@ -638,6 +639,10 @@ public class FileSystemStyleCache implements StyleProvider
       return document;
 
     // Otherwise, we create the StyleSheetDocument now
+    // Note, it does not use the StyleContext. This is the StyleSheetDocument
+    // for the entire skin document, so it includes all the specific rules
+    // like @agent ie and @agent gecko, etc. It's later that we output
+    // the css based on the StyleContext.
     document = createStyleSheetDocument(context);
 
     // If we weren't able to create the StyleSheetDocument,
@@ -1063,8 +1068,14 @@ public class FileSystemStyleCache implements StyleProvider
     Map<String, String> map = new HashMap<String, String>();
 
     assert (document != null);
-
-    Iterator<StyleSheetNode> styleSheets = document.getStyleSheets(context);
+    // get all the styleSheets to create the shortened style class map
+    // if we only got the ones based on the StyleContext, then we'd have
+    // to create a shortened map for each StyleContext we receive and cache it.
+    // it's more straightforward, faster, and requires less memory to get
+    // all the styleSheets and create the shortened style class map. There might
+    // be some styles in the map that have no properties in another StyleContext,
+    // but that's ok. It doesn't hurt.
+    Iterator<StyleSheetNode> styleSheets = document.getStyleSheets();
     assert (styleSheets != null);
 
     Set<String> emptySelectors = new HashSet<String>();
