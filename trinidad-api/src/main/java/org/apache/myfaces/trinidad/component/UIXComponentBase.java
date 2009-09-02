@@ -1246,10 +1246,17 @@ abstract public class UIXComponentBase extends UIXComponent
       }
       catch (EvaluationException ee)
       {
-        Throwable t = ee.getCause();
-        // Unwrap AbortProcessingExceptions
-        if (t instanceof AbortProcessingException)
-          throw ((AbortProcessingException) t);
+        // Checking for AbortProcessingExceptions, and unwrapping
+        // it if the underlying exception is AbortProcessingExceptions.
+        Throwable currentThrowable = ee.getCause();
+        while (currentThrowable != null)
+        {
+          if (currentThrowable instanceof AbortProcessingException)
+          {
+            throw ((AbortProcessingException)currentThrowable);
+          }
+          currentThrowable = currentThrowable.getCause();
+        }
         throw ee;
       }
     }
