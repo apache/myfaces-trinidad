@@ -111,6 +111,9 @@ public class NameUtils
     case TrinidadAgent.APPLICATION_GENERICPDA:
       name = _BROWSER_GENERICPDA;
       break;
+    case TrinidadAgent.APPLICATION_EMAIL:
+      name = _BROWSER_EMAIL;
+      break;
     case TrinidadAgent.APPLICATION_UNKNOWN:
       // This case is only here to avoid the default assertion
       break;
