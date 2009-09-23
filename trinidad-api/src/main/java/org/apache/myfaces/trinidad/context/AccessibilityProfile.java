@@ -127,6 +127,31 @@ public class AccessibilityProfile
     return (_fontSize == FontSize.LARGE);
   }
   
+  @Override
+  public final int hashCode()
+  {
+    return _hashCode;
+  }
+  
+  @Override
+  public boolean equals(Object o)
+  {
+    if (this == o)
+      return true;
+    else if (o instanceof AccessibilityProfile)
+    {
+      AccessibilityProfile otherProfile = (AccessibilityProfile)o;
+      
+      return (_hashCode == otherProfile._hashCode) &&
+              _colorContrast.equals(otherProfile._colorContrast) &&
+              _fontSize.equals(otherProfile._fontSize);
+    }
+    else
+    {
+      return false;
+    }
+  }
+  
   // No need to support subclassing yet, so keep the constructor private.
   // Clients should use the getInstance() factory method.
   private AccessibilityProfile(
@@ -136,6 +161,7 @@ public class AccessibilityProfile
   {
     _colorContrast = (colorContrast == null) ? ColorContrast.STANDARD : colorContrast;
     _fontSize = (fontSize == null) ? FontSize.MEDIUM : fontSize;
+    _hashCode = _colorContrast.hashCode() * 37 + _fontSize.hashCode();
   }
 
   //Serialization for SerializableAccessibilityProfile internal subclass requires no-arg constructor
@@ -147,6 +173,10 @@ public class AccessibilityProfile
 
   private final ColorContrast _colorContrast;
   private final FontSize      _fontSize;
+  
+  // hashCode could be transient, but then we would have to recalculate it when deserializing
+  // and it couldn't be final
+  private final int           _hashCode;
 
   // Default instance
   private static final AccessibilityProfile _sDefaultInstance =

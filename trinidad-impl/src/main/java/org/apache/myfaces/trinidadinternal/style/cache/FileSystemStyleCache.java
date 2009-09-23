@@ -1257,19 +1257,19 @@ public class FileSystemStyleCache implements StyleProvider
       if ((o.hashCode() == hashCode()) &&  (o instanceof Key))
       {
         Key key = (Key)o;
+        
         // Check the easy stuff first
-        if  (!((_short == key._short)             &&
-               (_portlet == key._portlet)         &&
-               (_direction == key._direction)     &&
-               (_browser == key._browser)         &&
-               (_platform == key._platform)))
-          {
-              return false;
-          }
-
-          if (_version != null && !(_version.equals(key._version)))          return false;
-          if (_locale != null && !(_locale.equals(key._locale)))             return false;
-          if (_accProfile != null && !(_accProfile.equals(key._accProfile))) return false;
+        if  ((_short == key._short)             &&
+             (_portlet == key._portlet)         &&
+             (_direction == key._direction)     &&
+             (_browser == key._browser)         &&
+             (_platform == key._platform))
+        {
+          // now check the optional objects
+          if ((_version == null) || _version.equals(key._version))
+            if ((_locale == null) || _locale.equals(key._locale))
+              return ((_accProfile == null) || _accProfile.equals(key._accProfile));
+        }
       }
 
       return false;
