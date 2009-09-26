@@ -65,6 +65,7 @@ public class PdaCommandLinkRenderer extends CommandLinkRenderer
     if (supportsScripting(arc))
     {
       encodeBegin(context, arc, component, bean);
+      encodeAllChildren(context, component);
       encodeEnd(context, arc, component, bean);
       return;
     }
@@ -122,9 +123,13 @@ public class PdaCommandLinkRenderer extends CommandLinkRenderer
 
     rw.writeAttribute("id", clientId , "id");
     rw.writeAttribute("value", text, "text");
-    //This style makes an input element appear as a link
-    rw.writeAttribute("style",
-       "border:none;background:inherit;text-decoration:underline;", null);
+    renderStyleClass(context, arc, 
+                  SkinSelectors.AF_COMMAND_BUTTON_STYLE_CLASS);
+    String style = getInlineStyle(bean);
+        
+    // Append an inlineStyle that makes an input element appear as a link
+    _writeInlineStyles(rw, style,
+            "border:none;background:inherit;text-decoration:underline;");
     rw.endElement(element);
     arc.setCurrentClientId(null);
   }
@@ -154,4 +159,50 @@ public class PdaCommandLinkRenderer extends CommandLinkRenderer
     } 
   }
 
+  
+  /**
+   * This method renders the stylesClass attribute
+   * @param FacesContext - FacesContext for this request
+   * @param arc - RenderingContext for this request
+   * @param bean - FacesBean of the component to render
+   * @param defaultStyleClass - default styleClass of the component  
+   */
+  @Override
+  protected void renderStyleAttributes(
+    FacesContext        context,
+    RenderingContext    arc,
+    FacesBean           bean,
+    String              defaultStyleClass) throws IOException
+  { 
+    // Skip for HTML basic browsers since it is already handled
+    if (supportsScripting(arc))
+    {
+      super.renderStyleAttributes(context, arc, bean, defaultStyleClass);
+    }
+  } 
+  
+  /**
+   * This method renders the inlineStyle attribute
+   * @param rw - the response writer
+   * @param userInlineStyle - the value of inlineStyle attribute
+   * @param appendedInlineStyle - inlineStyle that is applied by default
+   */
+  private void _writeInlineStyles(
+    ResponseWriter rw,
+    String userInlineStyle,
+    String appendedInlineStyle ) throws IOException
+  {
+    if (userInlineStyle == null)
+    {
+      rw.writeAttribute("style", appendedInlineStyle, "inlineStyle");
+    }
+    else
+    {
+      StringBuilder linkInlineStyle = new StringBuilder();
+      linkInlineStyle.append(appendedInlineStyle);
+      linkInlineStyle.append(userInlineStyle.trim());
+      rw.writeAttribute("style", linkInlineStyle.toString(), "inlineStyle");
+    }
+  }
+  
 }

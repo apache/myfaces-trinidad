@@ -152,6 +152,8 @@ public class PdaNavigationPaneRenderer extends NavigationPaneRenderer
           renderStyleClass(context, arc, 
                            SkinSelectors.AF_NAVIGATION_LEVEL_BUTTONS_CONTENT_STYLE_CLASS);
         }
+        
+        writeInlineStyles(rw, toString(itemData.get("inlineStyle")), null);
         appendIconAndText(context, arc, rw, 
                            toString(itemData.get("icon")), 
                            itemData, isDisabled, isRtl);
