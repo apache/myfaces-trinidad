@@ -42,6 +42,7 @@ import org.apache.myfaces.trinidad.component.UIXComponent;
 import org.apache.myfaces.trinidad.component.UIXEditableValue;
 import org.apache.myfaces.trinidad.component.UIXPanel;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelFormLayout;
+import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 
 public class PanelFormLayoutRenderer extends XhtmlRenderer
@@ -676,16 +677,37 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
       labelRatio = Double.valueOf(labelWidth.substring(0, labelPercentCharIndex));
       int fieldPercentCharIndex = fieldWidth.indexOf("%");
       fieldRatio = Double.valueOf(fieldWidth.substring(0, fieldPercentCharIndex));
+      
+      // BlackBerry(BB) browsers cannot handle width if it is expressed in 
+      // percentage and the percentage value contains a decimal points like 
+      // 40.0%. So lets truncate the percentage value from the decimal point  
+      // for BB browsers. Example, instead of 40.0%, lets render 40%.
+      RenderingContext arc = RenderingContext.getCurrentInstance();
+      Agent agent = arc.getAgent();
+      
+      boolean isBlackBerry = 
+                 Agent.AGENT_BLACKBERRY.equals(agent.getAgentName());
 
       // Now normalize the percentages (including the footer label width):
       double ratioTotal = (labelRatio + fieldRatio) / 100;
       double effectiveLabelWidthDouble = labelRatio / ratioTotal;
-      effectiveLabelWidth = Math.floor(effectiveLabelWidthDouble) + "%";
-      effectiveFieldWidth = Math.floor(fieldRatio / ratioTotal) + "%";
       double footerLabel = effectiveLabelWidthDouble / actualColumns;
       double footerField = 100 - footerLabel;
-      effectiveFooterLabelWidth = _roundTo2DecimalPlaces(footerLabel) + "%";
-      effectiveFooterFieldWidth = _roundTo2DecimalPlaces(footerField) + "%";
+      
+      if (isBlackBerry)
+      {
+        effectiveLabelWidth = (int) effectiveLabelWidthDouble + "%";
+        effectiveFieldWidth = (int) (fieldRatio / ratioTotal) + "%"; 
+        effectiveFooterLabelWidth = (int) _roundTo2DecimalPlaces(footerLabel) + "%";
+        effectiveFooterFieldWidth = (int) _roundTo2DecimalPlaces(footerField) + "%";
+      }
+      else
+      {
+        effectiveLabelWidth = Math.floor(effectiveLabelWidthDouble) + "%";
+        effectiveFieldWidth = Math.floor(fieldRatio / ratioTotal) + "%"; 
+        effectiveFooterLabelWidth = _roundTo2DecimalPlaces(footerLabel) + "%";
+        effectiveFooterFieldWidth = _roundTo2DecimalPlaces(footerField) + "%";
+      }
     }
     else if ( labelWidthType.equals(WidthType.PIXEL) && fieldWidthType.equals(WidthType.PIXEL) )
     {
