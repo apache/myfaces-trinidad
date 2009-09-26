@@ -145,6 +145,22 @@ public class OutputLabelRenderer extends ValueRenderer
                             Character.valueOf(accessKey),
                             "accessKey");
           
+          // BlackBerry browsers underline the entire text instead of just  
+          // the accessKey character in cases where the accessKey character   
+          // happens to be the first character in the text. Rendering an   
+          // empty span element before rendering the text fixes this problem.
+          
+          Agent agent = arc.getAgent();
+               
+          if ((accessKeyIndex == 0) && 
+               Agent.AGENT_BLACKBERRY.equals(agent.getAgentName()))
+          {
+            rw.startElement("span", null);
+            // Since an empty span element is not rendered, lets 
+            // include some attribute to the span element 
+            rw.writeAttribute("style", "display:inline", null);
+            rw.endElement("span");
+          }
         }                   
       }
       

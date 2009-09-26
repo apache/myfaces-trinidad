@@ -389,6 +389,12 @@
     <style selector="af|column::sortable-header-text">
       <property name="border-width">1px</property>
     </style>    
+    
+    <!-- This style-class will be used by HTML basic browsers -->
+    <style selector="af|showDetailItem::selected">
+      <includeStyle name="AFDefaultBoldFont"/>
+      <includeStyle name="AFDarkForeground"/>
+    </style>
 
     <style selector=".OraButtonText">
         <includeStyle name="AFSmallFont"/>
@@ -541,15 +547,18 @@
       <includeStyle name="AFDefaultFont"/>
       <property name="font-size">xx-small</property>    
     </style>    
-  </styleSheet>    
-  
-  <styleSheet platforms="genericpda">
-  
-    <style selector="af|showDetailItem::selected">
-      <includeStyle name="AFDefaultBoldFont"/>
-      <includeStyle name="AFDarkForeground"/>
+
+    <!-- Since button elements, which have their own background, will no 
+         longer be used for BlackBerry, we need to set the background for
+         input elements which can act as buttons -->
+    <style selector="input[type='submit']">
+      <includeStyle name="AFLightAccentBackground"/>
     </style>
     
-  </styleSheet>  
+    <style selector="input[type='button']">
+      <includeStyle name="AFLightAccentBackground"/>
+    </style> 
+    
+  </styleSheet>    
   
 </styleSheetDocument>
