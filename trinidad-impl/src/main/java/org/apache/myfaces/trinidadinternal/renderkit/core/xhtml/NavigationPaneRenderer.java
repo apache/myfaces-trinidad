@@ -704,7 +704,8 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       rw.writeAttribute("name", XhtmlUtils.getEncodedParameter
                                   (XhtmlConstants.SOURCE_PARAM)
                                    + clientId, null);
-    
+      renderStyleClass(context, arc, 
+                  SkinSelectors.AF_COMMAND_BUTTON_STYLE_CLASS);
       String linkConverter = 
              "border:none;background:inherit;text-decoration:underline;";
     
@@ -777,9 +778,10 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       rw.writeAttribute("accessKey", accessKey, null);
     }
     
+    // In the case of HTML basic browsers, we render an input element. Hence, 
+    // we cannot render any children, so skip calling _renderCommandChildren
     if (nonJavaScriptSubmit)
     { 
-      _renderCommandChildren(context, commandChild);
       rw.endElement("input"); 
     }
     else
