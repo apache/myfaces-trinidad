@@ -1064,10 +1064,12 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
       writer.writeAttribute("type", "submit", null);
       writer.writeAttribute("name", nameAttri, null);
       writer.writeAttribute("value", text, "text");
+      renderStyleClass(context, arc, 
+                  SkinSelectors.AF_COMMAND_BUTTON_STYLE_CLASS);
+                  
       // This style makes a button to appear as a link
       writer.writeAttribute("style",
         "border:none;background:inherit;text-decoration:underline;",null);
-      renderStyleClass(context, arc, SkinSelectors.NAV_BAR_ALINK_STYLE_CLASS);
       writer.endElement("input");
     }
 
