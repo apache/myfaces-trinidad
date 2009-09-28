@@ -256,7 +256,7 @@ public final class TableUtils
       @Override
       protected void process(FacesContext context, UIComponent child)
       {
-        if (child instanceof UIXColumn)
+        if (child instanceof UIXColumn && child.isRendered())
         {
           // process any facets of the child column:
           __processFacets(context, table, child, phaseId, null);
