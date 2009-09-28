@@ -684,6 +684,16 @@ public class CoreRenderer extends Renderer
   {
     return (Agent.PLATFORM_GENERICPDA.equals(rc.getAgent().getPlatformName()));
   }
+  
+  /**
+   * This method returns true if a user-agent's platform is NokiaS60 
+   * @param arc - RenderingContext of a request
+   * @return boolean
+   */
+  static public boolean isNokiaS60(RenderingContext rc)
+  {
+    return (Agent.PLATFORM_NOKIA_S60.equals(rc.getAgent().getPlatformName()));
+  }
 
   static public boolean isInaccessibleMode(RenderingContext rc)
   {

@@ -32,6 +32,8 @@ import org.apache.myfaces.trinidad.context.FormData;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.skin.Icon;
 
+import org.apache.myfaces.trinidadinternal.skin.icon.TextIcon;
+
 /**
  * This needs to be massively cleaned up...
  * @todo TEST NON-PPR!  I removed the non-PPR case from the
@@ -256,6 +258,26 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
     boolean             disclosed
     )
   {
+    // Requests from Nokia's WebKit-browsers are handled by desktop renderer.
+    // But unlike desktop browsers, Nokia's WebKit-browsers don't support icons
+    // that are encoded in unicode. Hence, we need to use text icons for these 
+    // browsers.  
+    // TODO move the new TextIcon code into the Skin object and remove from the renderer
+    if (isNokiaS60(arc))
+    {
+      return disclosed 
+             ? (Icon) new TextIcon(
+                          "[-]", 
+                          null, 
+                          SkinSelectors.HIDE_SHOW_DISCLOSED_SYMBOL_STYLE_CLASS,
+                          null) 
+             : (Icon) new TextIcon(
+                          "[+]", 
+                          null, 
+                          SkinSelectors.HIDE_SHOW_DISCLOSED_SYMBOL_STYLE_CLASS,
+                          null);
+    }
+ 
     String iconName = (disclosed
                        ? SkinSelectors.AF_SHOW_DETAIL_DISCLOSED_ICON_NAME
                        : SkinSelectors.AF_SHOW_DETAIL_UNDISCLOSED_ICON_NAME);
