@@ -182,6 +182,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
       RowKeySet set = getDisclosedRowKeys();
       set.addAll(eEvent.getAddedSet());
       set.removeAll(eEvent.getRemovedSet());
+      addAttributeChange("disclosedRowKeys", set);
       broadcastToMethodExpression(event, getRowDisclosureListener());
     }
     else if (event instanceof SortEvent)
