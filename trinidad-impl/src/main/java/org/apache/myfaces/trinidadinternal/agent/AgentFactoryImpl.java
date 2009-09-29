@@ -104,11 +104,7 @@ public class AgentFactoryImpl implements AgentFactory
       return;
     }
 
-    if (userAgent == null)
-    {
-      _populateUnknownAgentImpl(null, agent);
-      return;
-    }
+   
 
     //the useragent string for telnet and PDA design time will start with
     //OracleJDevMobile because in each of these cases we know we have an
@@ -263,13 +259,7 @@ public class AgentFactoryImpl implements AgentFactory
   {
     // Log warning message that we are setting the agent entry to unknown attributes
     _LOG.warning("UNKNOWN_AGENT_ATTRIBUTES_CREATE_WITH_UNKNOWN", userAgent);
-    agent.setAgentEntryToNULL();
-    agent.setAgent(Agent.AGENT_UNKNOWN);
-    agent.setType(_UNKNOWN);
-    agent.setAgentVersion(_UNKNOWN);
-    agent.setPlatform(_UNKNOWN);
-    agent.setPlatformVersion(_UNKNOWN);
-    agent.setMakeModel(_UNKNOWN);
+    agent.setAgentEntryToNULL();   
   }
 
   //populates the agent entry for DT access for either Telnet or PDA
@@ -912,9 +902,9 @@ public class AgentFactoryImpl implements AgentFactory
 
     agentObj.setAgent(Agent.AGENT_EMAIL);
     agentObj.setAgentVersion("0.0");
-    agentObj.setPlatform(_UNKNOWN);
-    agentObj.setPlatformVersion(_UNKNOWN);
-    agentObj.setMakeModel(_UNKNOWN);
+    agentObj.setPlatform(Agent.AGENT_UNKNOWN);
+    agentObj.setPlatformVersion(Agent.PLATFORM_VERSION_UNKNOWN);
+    agentObj.setMakeModel(Agent.MAKE_MODEL_UNKNOWN);
 
   }  
 
@@ -977,8 +967,7 @@ public class AgentFactoryImpl implements AgentFactory
   }
   static private final String _EMAIL_PARAM =
     "org.apache.myfaces.trinidad.agent.email";
-  static final private String _IASW_DEVICE_HINT_PARAM = "X-Oracle-Device.Class";
-  static final private String _UNKNOWN = "unknown";
+  static final private String _IASW_DEVICE_HINT_PARAM = "X-Oracle-Device.Class";  
   static final private TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(AgentFactoryImpl.class);
 
 }
