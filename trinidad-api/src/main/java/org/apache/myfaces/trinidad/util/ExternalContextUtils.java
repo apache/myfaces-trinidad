@@ -155,7 +155,33 @@ public final class ExternalContextUtils
 
     return RequestType.SERVLET;
   }
+  
+  /**
+   * Returns the current active session id or <code>null</code> if there is
+   * none.  If a session is not already created, this method will create one
+   * for you.
+   * 
+   * @param ec the current external context
+   * @return a string containing the requestedSessionId
+   */
+  public static String getSessionId(ExternalContext ec)
+  {
+    return getSessionId(ec, true);
+  }
 
+  /**
+   * Returns the current active session id or <code>null</code> if there is
+   * none.
+   * 
+   * @param ec the current external context
+   * @param create create a new session if one is not created
+   * @return a string containing the requestedSessionId
+   */
+  public static String getSessionId(ExternalContext ec, boolean create)
+  {
+    Object session = ec.getSession(create);   
+    return (null!=session)?(String)_runMethod(session, "getId"):null;
+  }
 
   /**
    * Returns the session ID for the client, or <code>null</code> if there is none.
@@ -179,7 +205,7 @@ public final class ExternalContextUtils
   {
     return (Boolean) _runMethod(ec.getRequest(), "isRequestedSessionIdValid");
   }
-
+  
   /**
    * Returns the contextPath of the ServletContext or <code>null</code> for portlets
    *
@@ -448,7 +474,7 @@ public final class ExternalContextUtils
   {
     try
     {
-      Method sessionIdMethod = sessionIdMethod = obj.getClass().getMethod(methodName);
+      Method sessionIdMethod = obj.getClass().getMethod(methodName);
       return sessionIdMethod.invoke(obj);
     }
     catch (Exception e)
