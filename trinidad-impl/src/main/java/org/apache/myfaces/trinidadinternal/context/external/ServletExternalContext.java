@@ -393,11 +393,10 @@ public class ServletExternalContext extends ExternalContext
   @Override
   public Object getSession(final boolean create)
   {
-    _checkRequest();
+    //If we don't have a request object, just return null
     if (_httpServletRequest == null)
     {
-      throw new IllegalArgumentException(_LOG.getMessage(
-        "ONLY_HTTPSERVLETREQUEST_SUPPORTED"));
+      return null;
     }
     return _httpServletRequest.getSession(create);
   }
