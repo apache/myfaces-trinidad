@@ -104,8 +104,6 @@ public class AgentFactoryImpl implements AgentFactory
       return;
     }
 
-   
-
     //the useragent string for telnet and PDA design time will start with
     //OracleJDevMobile because in each of these cases we know we have an
     //exact match in the device repository for the agent name.  This is
@@ -259,7 +257,7 @@ public class AgentFactoryImpl implements AgentFactory
   {
     // Log warning message that we are setting the agent entry to unknown attributes
     _LOG.warning("UNKNOWN_AGENT_ATTRIBUTES_CREATE_WITH_UNKNOWN", userAgent);
-    agent.setAgentEntryToNULL();   
+    agent.setAgentEntryToNULL();
   }
 
   //populates the agent entry for DT access for either Telnet or PDA
@@ -855,7 +853,7 @@ public class AgentFactoryImpl implements AgentFactory
       }
 
       // try to determine the OS, if unknown
-      if (agentObj.getPlatformName() == null)
+      if (agentObj.getPlatformName() == null || agentObj.getPlatformName().equals(Agent.PLATFORM_UNKNOWN))
       {
         // Hack: treat the JDeveloper agent as Windows,
         // so that we assume IE 6.0 Windows capabilities
@@ -967,7 +965,7 @@ public class AgentFactoryImpl implements AgentFactory
   }
   static private final String _EMAIL_PARAM =
     "org.apache.myfaces.trinidad.agent.email";
-  static final private String _IASW_DEVICE_HINT_PARAM = "X-Oracle-Device.Class";  
+  static final private String _IASW_DEVICE_HINT_PARAM = "X-Oracle-Device.Class";
   static final private TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(AgentFactoryImpl.class);
 
 }
