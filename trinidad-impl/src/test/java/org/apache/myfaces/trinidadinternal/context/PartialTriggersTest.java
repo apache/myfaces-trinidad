@@ -26,7 +26,6 @@ import javax.faces.component.UIForm;
 import javax.faces.component.UIViewRoot;
 
 import junit.framework.Test;
-import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.apache.myfaces.trinidad.component.UIXCommand;
@@ -34,8 +33,9 @@ import org.apache.myfaces.trinidad.component.UIXInput;
 import org.apache.myfaces.trinidad.component.UIXPanel;
 import org.apache.myfaces.trinidad.component.UIXTable;
 import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidadbuild.test.FacesTestCase;
 
-public class PartialTriggersTest extends TestCase
+public class PartialTriggersTest extends FacesTestCase
 {
   public static final Test suite()
   {

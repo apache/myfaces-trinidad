@@ -18,12 +18,11 @@
  */
 package org.apache.myfaces.trinidadinternal.facelets;
 
-import com.sun.facelets.FaceletContext;
-import com.sun.facelets.FaceletViewHandler;
-import com.sun.facelets.tag.jsf.ComponentHandler;
-import com.sun.facelets.tag.jsf.ComponentConfig;
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.ComponentHandler;
+import javax.faces.view.facelets.ComponentConfig;
 
-import com.sun.facelets.tag.MetaRuleset;
+import javax.faces.view.facelets.MetaRuleset;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
@@ -48,12 +47,12 @@ public class TrinidadComponentHandler extends ComponentHandler
       FacesContext context = FacesContext.getCurrentInstance();
       if (context != null)
       {
-        ExternalContext external = context.getExternalContext();
+        /*ExternalContext external = context.getExternalContext();
         String restoreMode = external.getInitParameter(
                FaceletViewHandler.PARAM_BUILD_BEFORE_RESTORE);
         if ("true".equals(restoreMode))
           _markInitialState = Boolean.TRUE;
-        else 
+        else*/ 
           _markInitialState = Boolean.FALSE;
       }
     }
@@ -74,7 +73,7 @@ public class TrinidadComponentHandler extends ComponentHandler
   }
 
   @Override
-  protected void onComponentPopulated(FaceletContext context,
+  public void onComponentPopulated(FaceletContext context,
                                      UIComponent component,
                                      UIComponent parent)
   {

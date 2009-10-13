@@ -77,7 +77,7 @@ public class ViewHandlerImpl extends ViewHandlerWrapper
     _loadInternalViews();
   }
 
-  protected ViewHandler getWrapped()
+  public ViewHandler getWrapped()
   {
     return _delegate;
   }

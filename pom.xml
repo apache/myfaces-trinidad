@@ -44,9 +44,9 @@
     <jsp.version>2.1</jsp.version>
     <jstl.version>1.2</jstl.version>
     <jsf-spec.version>1.2</jsf-spec.version>
-    <jsf-ri.version>1.2_09</jsf-ri.version>
-    <jsf-myfaces.version>1.2.4</jsf-myfaces.version>
-    <jsf-facelets.version>1.1.14</jsf-facelets.version>
+    <jsf-ri.version>2.0.0-b22</jsf-ri.version>
+    <!--jsf-myfaces.version>1.2.4</jsf-myfaces.version>
+    <jsf-facelets.version>1.1.14</jsf-facelets.version-->
     <portlet-bridge.version>1.0.0-beta</portlet-bridge.version>
     <commons-lang.version>2.4</commons-lang.version>
     <pluto-embedded.version>1.0.1</pluto-embedded.version>
@@ -208,20 +208,20 @@
       </dependency>
       
       <dependency>
-        <groupId>javax.faces</groupId>
+        <groupId>com.sun.faces</groupId>
         <artifactId>jsf-api</artifactId>
         <version>${jsf-ri.version}</version>
         <scope>provided</scope>
       </dependency>
 
       <dependency>
-        <groupId>javax.faces</groupId>
+        <groupId>com.sun.faces</groupId>
         <artifactId>jsf-impl</artifactId>
         <version>${jsf-ri.version}</version>
         <scope>provided</scope>
       </dependency>
 
-      <dependency>
+      <!--dependency>
         <groupId>org.apache.myfaces.core</groupId>
         <artifactId>myfaces-api</artifactId>
         <version>${jsf-myfaces.version}</version>
@@ -233,7 +233,7 @@
         <artifactId>myfaces-impl</artifactId>
         <version>${jsf-myfaces.version}</version>
         <scope>provided</scope>
-      </dependency>
+      </dependency-->
 
       <dependency>
         <groupId>org.apache.myfaces.portlet-bridge</groupId>
@@ -250,12 +250,12 @@
         <scope>provided</scope>
       </dependency>
       
-      <dependency>
+      <!--dependency>
         <groupId>com.sun.facelets</groupId>
         <artifactId>jsf-facelets</artifactId>
         <version>${jsf-facelets.version}</version>
         <scope>provided</scope>
-      </dependency>
+      </dependency-->
 
       <dependency>
         <groupId>commons-lang</groupId>
@@ -721,7 +721,7 @@
             <scope>runtime</scope>
           </dependency>
 
-          <dependency>
+          <!--dependency>
             <groupId>org.apache.myfaces.core</groupId>
             <artifactId>myfaces-api</artifactId>
             <version>${jsf-myfaces.version}</version>
@@ -733,7 +733,7 @@
             <artifactId>myfaces-impl</artifactId>
             <version>${jsf-myfaces.version}</version>
             <scope>runtime</scope>
-          </dependency>
+          </dependency-->
         </dependencies>
       </dependencyManagement>
     </profile>

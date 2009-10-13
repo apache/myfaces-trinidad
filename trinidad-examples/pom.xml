@@ -129,7 +129,7 @@
             <scope>runtime</scope>
           </dependency-->
 
-          <dependency>
+          <!--dependency>
             <groupId>org.apache.myfaces.core</groupId>
             <artifactId>myfaces-api</artifactId>
             <scope>compile</scope>
@@ -139,7 +139,8 @@
             <groupId>org.apache.myfaces.core</groupId>
             <artifactId>myfaces-impl</artifactId>
             <scope>runtime</scope>
-          </dependency>
+          </dependency-->
+          
          </dependencies>
        </dependencyManagement>
      </profile>
@@ -150,13 +151,16 @@
       flag.  To invoke this profile, simply do not include a -Djsf= property on your maven
       command line.  Execute this profile like this:
       
+      mstarets - The default has been temporarily changed to JSF RI
+      TODO: Restore old profile activation rules after we can build with myfaces
+      
       mvn -PjettyConfig jetty:run
     -->    
     <profile>
       <id>myfaces</id>
       <activation>
         <property>
-          <name>!jsf</name>
+          <name>myfaces</name>
         </property>
       </activation>
       <dependencies>
@@ -169,6 +173,7 @@
           <artifactId>myfaces-impl</artifactId>
         </dependency>
       </dependencies>
+      
     </profile>
 
     <!--
@@ -183,17 +188,16 @@
       <id>jsfri</id>
       <activation>
         <property>
-          <name>jsf</name>
-          <value>ri</value>
+          <name>!myfaces</name>
         </property>
       </activation>
       <dependencies>
         <dependency>
-          <groupId>javax.faces</groupId>
+          <groupId>com.sun.faces</groupId>
           <artifactId>jsf-api</artifactId>
         </dependency>
         <dependency>
-          <groupId>javax.faces</groupId>
+          <groupId>com.sun.faces</groupId>
           <artifactId>jsf-impl</artifactId>
         </dependency>
       </dependencies>      

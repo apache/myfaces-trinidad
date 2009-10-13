@@ -46,7 +46,6 @@ import org.apache.myfaces.trinidadinternal.util.LRUCache;
 import org.apache.myfaces.trinidadinternal.util.SubKeyMap;
 import org.apache.myfaces.trinidadinternal.util.TokenCache;
 
-import com.sun.facelets.FaceletViewHandler;
 
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectOutputStream;
@@ -132,7 +131,7 @@ public class StateManagerImpl extends StateManagerWrapper
   }
   
   @Override
-  protected StateManager getWrapped()
+  public StateManager getWrapped()
   {
     return _delegate;
   }
@@ -970,12 +969,13 @@ public class StateManagerImpl extends StateManagerWrapper
   {
     if (_structureGeneratedByTemplate == null)
     {
+      // TODO: Partial State Saving
       ExternalContext external = context.getExternalContext();
-      String restoreMode = external.getInitParameter(
+      /*String restoreMode = external.getInitParameter(
         FaceletViewHandler.PARAM_BUILD_BEFORE_RESTORE);
       if ("true".equals(restoreMode))
         _structureGeneratedByTemplate = Boolean.TRUE;
-      else
+      else*/
         _structureGeneratedByTemplate = Boolean.FALSE;
     }
 

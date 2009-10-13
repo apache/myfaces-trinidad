@@ -18,12 +18,12 @@
  */
 package org.apache.myfaces.trinidadinternal.facelets;
 
-import com.sun.facelets.tag.MetaRuleset;
-import com.sun.facelets.tag.jsf.ValidateHandler;
-import com.sun.facelets.tag.jsf.ValidatorConfig;
+import javax.faces.view.facelets.MetaRuleset;
+import javax.faces.view.facelets.ValidatorHandler;
+import javax.faces.view.facelets.ValidatorConfig;
 
 public class TrinidadValidatorHandler
-  extends ValidateHandler
+  extends ValidatorHandler
 {
   public TrinidadValidatorHandler(ValidatorConfig config)
   {
