@@ -69,6 +69,28 @@ public final class CollectionUtils
   }
 
   /**
+   * Returns an array containing all of the elements of the
+   * Iterator
+   * @param iterator Iterator to copy the contexts of
+   * @return an array containing a copy of the iterator contents
+   */
+  public static <T> T[] toArray(Iterator<? extends T> iterator, Class<T> type)
+  {
+    if (iterator.hasNext())
+    {
+      Collection arrayList = arrayList(iterator);
+      T[] outArray = (T[])Array.newInstance(type, arrayList.size());
+    
+      return (T[])arrayList.toArray(outArray);
+    }
+    else
+    {
+      // optimize empty iterator case
+      return (T[])Array.newInstance(type, 0);
+    }
+  }
+
+  /**
    * Returns an empty, unmodifiable, Serializable Queue.
    * @return an empty, unmodifiable, Serializable Queue.
    */
