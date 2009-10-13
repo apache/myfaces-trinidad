@@ -32,14 +32,12 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -52,6 +50,7 @@ import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.style.Selector;
 import org.apache.myfaces.trinidad.style.Style;
 import org.apache.myfaces.trinidad.style.Styles;
+import org.apache.myfaces.trinidad.util.CollectionUtils;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
@@ -92,14 +91,6 @@ import org.xml.sax.SAXException;
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/cache/FileSystemStyleCache.java#0 $) $Date: 10-nov-2005.18:58:54 $
  */
-// -= Simon Lessard =-
-// TODO: Synchronization does not seem to be needed since there's
-//       synchronized blocks in the code, using HashMap hence
-//       looks like a better choice than Hashtable.
-// -= Blake Sullivan =-
-// rebuttal - _createEntry() which assigns values to _cache and _entryCache is called
-// without a lock and these Maps are read without a lock.
-// _cache and _entryCache should probably be ConcurrentHashMaps.
 public class FileSystemStyleCache implements StyleProvider
 {
   /**
@@ -143,6 +134,27 @@ public class FileSystemStyleCache implements StyleProvider
       if (dotIndex != -1)
         baseName = baseName.substring(0, dotIndex);
       _baseName = baseName;
+
+      NameResolver resolver = new DefaultNameResolver(sourceFile, null);
+
+      // We explicitly wrap the NameResolver in a CachingNameResolver
+      // since that conveniently handles checking for modifications to
+      // dependent (imported) files.
+      // The default storage for cached files is a bit large,
+      // so we use a smaller hash table.  Also, always enable
+      // modification checking.
+      resolver = new CachingNameResolver(resolver,
+                                         new ConcurrentHashMap<Object, InputStreamProvider>(17),
+                                         true);
+
+      _resolver = resolver;
+    }
+    else
+    {
+      // make sure final fields are initialized
+      _sourceFile = null;
+      _baseName = null;
+      _resolver = null;
     }
 
     // If the target directory does not exist, create it now.
@@ -168,8 +180,10 @@ public class FileSystemStyleCache implements StyleProvider
     {
       return Collections.emptyList();
     }
-
-    return entry.uris;
+    else
+    {
+      return entry.uris;
+    }
   }
 
   /**
@@ -182,8 +196,8 @@ public class FileSystemStyleCache implements StyleProvider
 
     if (entry == null)
       return null;
-
-    return entry.styles;
+    else
+      return entry.styles;
   }
 
   /**
@@ -196,8 +210,8 @@ public class FileSystemStyleCache implements StyleProvider
 
     if (entry == null)
       return null;
-
-    return entry.skinProperties;
+    else
+      return entry.skinProperties;
   }
 
   /**
@@ -210,8 +224,8 @@ public class FileSystemStyleCache implements StyleProvider
 
     if (entry == null)
       return null;
-
-    return entry.icons;
+    else
+      return entry.icons;
   }
 
   /**
@@ -364,8 +378,8 @@ public class FileSystemStyleCache implements StyleProvider
   // And Entry contains the style sheet URI.
   private Entry _getEntry(StyleContext context)
   {
-    Hashtable<Key, Entry> cache = null;
-    Hashtable<Object, Entry> entryCache = null;
+    ConcurrentMap<Key, Entry> cache = null;
+    ConcurrentMap<Object, Entry> entryCache = null;
     StyleSheetDocument document = null;
     Map<String, String> shortStyleClassMap = null;
     String[] namespacePrefixes = null;
@@ -375,13 +389,6 @@ public class FileSystemStyleCache implements StyleProvider
     // Synchronize while set up the _cache, _entryCache, _document, etc...
     synchronized (this)
     {
-      // Before we do anything, set up the NameResolver and
-      // InputStreamProvider.   _getEntry() is the single entry point
-      // through which all calls into the FileSystemStyleCache flow.
-      // So, by initializing the NameResolver/InputStreamProvider
-      // here, we know they will always be available to other code.
-      _initResolver();
-
       // If checking for modified files, then check to see if the XSS or CSS
       // document has been modified.  If so, we dump our in-memory style cache.
       if (checkModified && hasSourceDocumentChanged(context))
@@ -400,17 +407,10 @@ public class FileSystemStyleCache implements StyleProvider
       // modified.)  We need to use a consistent set of caches
       // throughout the entire request, to avoid adding bogus entries
       // to a new re-allocated cache.
-      // Note: It would probably make sense to use Map for the
-      // cache type in our vars and method prototypes.  We explicitly
-      // use Hashtable, because our implementation relies on the
-      // synchronization provided by Hashtable.  If we change the
-      // cache data structure, we might need to re-code to add
-      // synchronization.  Thus the somewhat ugly explicit references
-      // to Hashtable everywhere.
       if (_cache == null)
-        _cache = new Hashtable<Key, Entry>();
+        _cache = new ConcurrentHashMap<Key, Entry>();
       if (_entryCache == null)
-        _entryCache = new Hashtable<Object, Entry>(19);
+        _entryCache = new ConcurrentHashMap<Object, Entry>(19);
 
       cache = _cache;
       entryCache = _entryCache;
@@ -453,9 +453,9 @@ public class FileSystemStyleCache implements StyleProvider
   }
 
   private Entry _getEntry(
-    Map<?, Entry> cache,
-    Object        key,
-    boolean       checkModified
+    ConcurrentMap<?, Entry> cache,
+    Object                  key,
+    boolean                 checkModified
     )
   {
     Entry entry = cache.get(key);
@@ -489,14 +489,9 @@ public class FileSystemStyleCache implements StyleProvider
       if (!valid)
       {
         _deleteAll(existing);
-
-        synchronized (cache)
-        {
-          if (cache.get(key) == entry)
-          {
-            cache.remove(key);
-          }
-        }
+        
+        // atomically remove the key from the cache if it currently points to the entry
+        cache.remove(key, entry);
 
         return null;
       }
@@ -513,15 +508,14 @@ public class FileSystemStyleCache implements StyleProvider
    * and the entry cache (the one that is based on the StyleSheetNodes)
    */
   private Entry _createEntry(
-    StyleContext             context,
-    StyleSheetDocument       document,
-    Hashtable<Key, Entry>    cache,
-    Key                      key,
-    Hashtable<Object, Entry> entryCache,
-    Map<String, String>      shortStyleClassMap,
-    String[]                 namespacePrefixes,
-    boolean                  checkModified
-    )
+    StyleContext                 context,
+    StyleSheetDocument           document,
+    ConcurrentMap<Key, Entry>    cache,
+    Key                          key,
+    ConcurrentMap<Object, Entry> entryCache,
+    Map<String, String>          shortStyleClassMap,
+    String[]                     namespacePrefixes,
+    boolean                      checkModified)
   {
     // Next, get the fully resolved styles for this context. This will be
     // those StyleNodes that match the locale, direction, browser, portlet mode
@@ -578,12 +572,12 @@ public class FileSystemStyleCache implements StyleProvider
    * same StyleSheetNodes.
    */
   private Entry _getCompatibleEntry(
-    StyleContext       context,
-    StyleSheetDocument document,
-    Map<Key, Entry>    cache,
-    Key                key,
-    Map<Object, Entry> entryCache,
-    boolean            checkModified
+    StyleContext                 context,
+    StyleSheetDocument           document,
+    ConcurrentMap<Key, Entry>    cache,
+    Key                          key,
+    ConcurrentMap<Object, Entry> entryCache,
+    boolean                      checkModified
     )
   {
     DerivationKey derivationKey = _getDerivationKey(context, document);
@@ -608,18 +602,16 @@ public class FileSystemStyleCache implements StyleProvider
     // Entries with the same style sheet derivation are compatible.
     // Get the style sheet derivation list.
     Iterator<StyleSheetNode> e = document.getStyleSheets(context);
-    // -= Simon Lessard =-
-    // TODO: Check if synchronization is truly required
-    Vector<StyleSheetNode> v = _copyIterator(e);
+
     StyleSheetNode[] styleSheets;
-    if (v == null)
+    
+    if (e.hasNext())
     {
-      styleSheets = new StyleSheetNode[0];
+      styleSheets = CollectionUtils.toArray(e, StyleSheetNode.class);
     }
     else
     {
-      styleSheets= new StyleSheetNode[v.size()];
-      v.copyInto(styleSheets);
+      styleSheets = _EMPTY_STYLE_SHEET_NODE_ARRAY;
     }
 
     // Create a key out of the style sheet derivation list
@@ -982,47 +974,6 @@ public class FileSystemStyleCache implements StyleProvider
     }
 
     return null;
-  }
-
-  /**
-   * Initiializes the NameResolver. Does not need to be synchronized only because it is
-   * synchronized in the calling code.
-   */
-  private void _initResolver()
-  {
-
-    if (_resolver == null)
-    {
-      NameResolver resolver = new DefaultNameResolver(_sourceFile, null);
-
-      // We explicitly wrap the NameResolver in a CachingNameResolver
-      // since that conveniently handles checking for modifications to
-      // dependent (imported) files.
-      // The default storage for cached files is a bit large,
-      // so we use a smaller hash table.  Also, always enable
-      // modification checking.
-      // FIXME: Should probably be a ConcurrentHashMap
-      resolver = new CachingNameResolver(resolver,
-                                         new Hashtable<Object, InputStreamProvider>(17),
-                                         true);
-
-      _resolver = resolver;
-    }
-  }
-
-  /**
-   * Copies an enumeration into a Vector
-   */
-  private <T> Vector<T> _copyIterator(Iterator<T> e)
-  {
-    if (e == null)
-      return null;
-
-    Vector<T> v = new Vector<T>();
-    while (e.hasNext())
-      v.addElement(e.next());
-
-    return v;
   }
 
   /**
@@ -1621,28 +1572,28 @@ public class FileSystemStyleCache implements StyleProvider
     }
   }
 
-  private File   _sourceFile; // The source XSS file
+  private final File   _sourceFile; // The source XSS file
   private final String _targetPath; // The location of the cache
-  private String _baseName;   // The base file name for generated CSS files
+  private final String _baseName;   // The base file name for generated CSS files
 
   /**
    * The NameResolver and InputStreamProvider we use to
    * resolve/load all files.  We also use the InputStreamProvider
    * to check for modifications to any dependent files.
    */
-  private volatile NameResolver _resolver;
+  private final NameResolver _resolver;
 
   /** The parsed StyleSheetDocument */
   private StyleSheetDocument _document;
 
   /** The cache of style sheet URIs */
-  private Hashtable<Key, Entry> _cache;
+  private ConcurrentMap<Key, Entry> _cache;
 
   /**
    * We cache Entry objects, hashed by DerivationKey (ie.
    * hashed based on the StyleSheetNode derivation list).
    */
-  private Hashtable<Object, Entry> _entryCache;
+  private ConcurrentMap<Object, Entry> _entryCache;
 
   /** Map which maps from full style class names to our compressed names. */
   private Map<String, String> _shortStyleClassMap;
@@ -1791,6 +1742,6 @@ public class FileSystemStyleCache implements StyleProvider
 
   }
 
+  private static final StyleSheetNode[] _EMPTY_STYLE_SHEET_NODE_ARRAY = new StyleSheetNode[0];
   private static final String[] _EMPTY_STRING_ARRAY = new String[0];
-
 }
