@@ -675,6 +675,11 @@ public class CoreRenderer extends Renderer
     return (Agent.AGENT_WEBKIT.equals(rc.getAgent().getAgentName()));
   }
 
+  static public boolean isOpera(RenderingContext rc)
+  {
+    return (Agent.AGENT_OPERA.equals(rc.getAgent().getAgentName()));
+  }
+
   static public boolean isIPhone(RenderingContext rc)
   {
     return (Agent.PLATFORM_IPHONE.equals(rc.getAgent().getPlatformName()));

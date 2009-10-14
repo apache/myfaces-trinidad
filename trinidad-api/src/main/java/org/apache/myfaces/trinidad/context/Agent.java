@@ -150,6 +150,11 @@ public interface Agent
   public static final String AGENT_GECKO = "gecko";
 
   /**
+   * Constant for Opera agent.
+   */
+  public static final String AGENT_OPERA = "opera";
+
+  /**
    * Constant for email agent. Used for all email agents like Outlook 2007
    * and Thunderbird
    */

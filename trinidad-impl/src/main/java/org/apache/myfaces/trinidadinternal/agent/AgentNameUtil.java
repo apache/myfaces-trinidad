@@ -82,6 +82,11 @@ public class AgentNameUtil
       return TrinidadAgent.APPLICATION_SAFARI;
     }
 
+    if (TrinidadAgent.AGENT_OPERA.equals(agentName))
+    {
+      return TrinidadAgent.APPLICATION_OPERA;
+    }
+
     if(TrinidadAgent.AGENT_BLACKBERRY.equals(agentName))
     {
       return TrinidadAgent.APPLICATION_BLACKBERRY;
@@ -213,6 +218,8 @@ public class AgentNameUtil
         return TrinidadAgent.AGENT_NETFRONT;
       case TrinidadAgent.APPLICATION_SAFARI:
         return TrinidadAgent.AGENT_WEBKIT;
+      case TrinidadAgent.APPLICATION_OPERA:
+        return TrinidadAgent.AGENT_OPERA;
       case TrinidadAgent.APPLICATION_BLACKBERRY:
         return TrinidadAgent.AGENT_BLACKBERRY;
       case TrinidadAgent.APPLICATION_NOKIA_S60:
