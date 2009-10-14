@@ -61,6 +61,8 @@ public class NameUtils
       browser = TrinidadAgent.APPLICATION_ICE;
     else if (_BROWSER_WEBKIT.equals(browserName))
       browser = TrinidadAgent.APPLICATION_SAFARI;
+    else if (_BROWSER_OPERA.equals(browserName))
+      browser = TrinidadAgent.APPLICATION_OPERA;
     else if (_BROWSER_BLACKBERRY.equals(browserName))
       browser = TrinidadAgent.APPLICATION_BLACKBERRY;
     else if (_BROWSER_NOKIA_S60.equals(browserName))
@@ -101,6 +103,9 @@ public class NameUtils
       break;
     case TrinidadAgent.APPLICATION_SAFARI:
       name = _BROWSER_WEBKIT;
+      break;
+    case TrinidadAgent.APPLICATION_OPERA:
+      name = _BROWSER_OPERA;
       break;
     case TrinidadAgent.APPLICATION_BLACKBERRY:
       name = _BROWSER_BLACKBERRY;
@@ -761,6 +766,9 @@ public class NameUtils
   private static final String _BROWSER_GENERICPDA = "genericpda";
 
   private static final String _BROWSER_EMAIL = "email";
+  
+  private static final String _BROWSER_OPERA = "opera";
+  
   // Platform constants
   private static final String _PLATFORM_WINDOWS = "windows";
 

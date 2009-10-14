@@ -717,7 +717,7 @@ public class AgentFactoryImpl implements AgentFactory
     else
     {
       agentObj.setType(Agent.TYPE_DESKTOP);
-      agentObj.setAgent(Agent.AGENT_GECKO);
+      agentObj.setAgent(Agent.AGENT_OPERA);
 
       int operaIndex = agent.indexOf("Opera/");
       int firstSpace = agent.indexOf(" ");

@@ -353,6 +353,12 @@ public interface TrinidadAgent extends Agent
    * Application constant for email.
    */
   static public final int APPLICATION_EMAIL = 16;
+  
+  /**
+   * Application constant for opera.
+   */
+  static public final int APPLICATION_OPERA = 17;
+  
   /**
    * OS constant for an unknown operating system.
    */
