@@ -62,6 +62,11 @@ public interface Agent
   public static final Object TYPE_PHONE = "phone";
 
   /**
+   * Constant for unknown platform
+   */
+  public static final String PLATFORM_UNKNOWN = "unknown";
+  
+  /**
    * Constant for windows platform
    */
   public static final String  PLATFORM_WINDOWS = "windows";
@@ -120,6 +125,11 @@ public interface Agent
   public static final String PLATFORM_GENERICPDA = "genericpda";
 
   /**
+   * Constant for unknown platform version
+   */
+  public static final String PLATFORM_VERSION_UNKNOWN = "unknown";
+
+  /**
    * Constant for when the agent is not supported or not recognized
    */
   public static final String AGENT_UNKNOWN = "unknown";
@@ -173,6 +183,16 @@ public interface Agent
    * Constant for basic HTML (without JavaScript) Browser agent.
    */
   public static final String AGENT_GENERICPDA = "genericpda";
+
+  /**
+   * Constant for unknown Agent version
+   */
+  public static final String AGENT_VERSION_UNKNOWN = "unknown";
+
+  /**
+   * Constant for unknown make model version
+   */
+  public static final String MAKE_MODEL_UNKNOWN = "unknown";
 
   /**
    *
