@@ -153,6 +153,25 @@ public class BaseDesktopSkin extends XhtmlSkin
 
     SkinSelectors.AF_SHOW_DETAIL_UNDISCLOSED_ICON_NAME,
       new ReferenceIcon(SkinSelectors.DETAIL_UNDISCLOSED_ICON_ALIAS_NAME),
+   
+    // The Webkit browser that runs in Nokia platform doesn't support Unicode 
+    // characters that display icons, so we need to render text-icons for
+    // Nokia.
+    // Ideally, we should be able to use different disclosed/undisclosed icons 
+    // based on different platforms using the same disclosed/undisclosed 
+    // skinning-key, but we don't have such mechanism in Trinidad right now.  
+    // Hence, I have created new skinning-keys for Nokia.
+    SkinSelectors.AF_SHOW_DETAIL_DISCLOSED_ICON_NAME_FOR_NOKIA_S60,
+      new TextIcon("[-]", 
+                   null, 
+                   SkinSelectors.HIDE_SHOW_DISCLOSED_SYMBOL_STYLE_CLASS,
+                   null), 
+                   
+    SkinSelectors.AF_SHOW_DETAIL_UNDISCLOSED_ICON_NAME_FOR_NOKIA_S60,
+       new TextIcon("[+]", 
+                    null, 
+                    SkinSelectors.HIDE_SHOW_DISCLOSED_SYMBOL_STYLE_CLASS,
+                    null),  
 
     // tr:table icons
     SkinSelectors.AF_TABLE_SD_DISCLOSED_ICON_NAME,
