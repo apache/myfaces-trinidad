@@ -38,7 +38,7 @@
 
   <properties>
     <!-- Standards -->
-    <jdk.version>1.5</jdk.version>    
+    <jdk.version>1.6</jdk.version>    
     <servlet.version>2.5</servlet.version>
     <portlet.version>2.0</portlet.version>
     <jsp.version>2.1</jsp.version>
