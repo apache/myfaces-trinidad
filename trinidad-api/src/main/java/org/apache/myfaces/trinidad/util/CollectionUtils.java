@@ -58,7 +58,7 @@ public final class CollectionUtils
    * @param iterator Iterator to copy the contexts of
    * @return an ArrayList containing a copy of the iterator contents
    */
-  public static <T> ArrayList<T> arrayList(Iterator<T> iterator)
+  public static <T> ArrayList<T> arrayList(Iterator<? extends T> iterator)
   {
     ArrayList<T> arrayList = new ArrayList<T>();
     
@@ -78,10 +78,10 @@ public final class CollectionUtils
   {
     if (iterator.hasNext())
     {
-      Collection arrayList = arrayList(iterator);
+      Collection<T> arrayList = arrayList(iterator);
       T[] outArray = (T[])Array.newInstance(type, arrayList.size());
     
-      return (T[])arrayList.toArray(outArray);
+      return arrayList.toArray(outArray);
     }
     else
     {
