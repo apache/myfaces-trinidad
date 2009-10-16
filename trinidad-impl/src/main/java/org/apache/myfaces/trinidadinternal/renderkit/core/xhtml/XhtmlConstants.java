@@ -27,13 +27,6 @@ public final class XhtmlConstants
 {
   private XhtmlConstants(){}
   
-  public static final String DEBUG_PARTIAL_RESPONSES_PARAM =
-    "org.apache.myfaces.trinidadinternal.DEBUG_PARTIAL_RESPONSES";
-  
-  //
-  // Copied from UIConstants
-  //
-
   /**
    * A portlet facet;  when supported, this facet should
    * result in a version of page content optimized for use in portlets.
