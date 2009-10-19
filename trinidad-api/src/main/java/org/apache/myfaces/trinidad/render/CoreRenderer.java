@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.faces.application.ResourceHandler;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
@@ -185,6 +186,25 @@ public class CoreRenderer extends Renderer
       return null;
 
     String uri = o.toString();
+    
+    // *** EL Coercion problem ***
+    // If icon or image attribute was declared with #{resource[]} and that expression
+    // evaluates to null (it means ResourceHandler.createResource returns null because requested resource does not exist)
+    // EL implementation turns null into ""
+    // see http://www.irian.at/blog/blogid/unifiedElCoercion/#unifiedElCoercion
+    if (uri.length() == 0)
+    {
+      return null;
+    }
+    
+    
+    // With JSF 2.0 url for resources can be done with EL like #{resource['resourcename']}
+    // and such EL after evalution contains context path for the current web application already,
+    // -> we dont want call viewHandler.getResourceURL()
+    if (uri.contains(ResourceHandler.RESOURCE_IDENTIFIER))
+    {
+      return uri;
+    }
 
     // Treat two slashes as server-relative
     if (uri.startsWith("//"))
@@ -193,6 +213,9 @@ public class CoreRenderer extends Renderer
     }
     else
     {
+      // If the specified path starts with a "/", 
+      // following method will prefix it with the context path for the current web application,
+      // and return the result
       return fc.getApplication().getViewHandler().getResourceURL(fc, uri);
     }
   }
