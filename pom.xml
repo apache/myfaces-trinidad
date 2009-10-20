@@ -41,6 +41,7 @@
     <jdk.version>1.6</jdk.version>    
     <servlet.version>2.5</servlet.version>
     <portlet.version>2.0</portlet.version>
+    <validation.version>1.0.0.GA</validation.version>
     <jsp.version>2.1</jsp.version>
     <jstl.version>1.2</jstl.version>
     <jsf-spec.version>1.2</jsf-spec.version>
@@ -153,6 +154,13 @@
       <name>Apache Snapshot Repository</name>
       <url>http://people.apache.org/repo/m2-snapshot-repository</url>
     </repository>
+    <!-- needed for Bean Validation API -->
+    <repository>
+      <id>jboss releases</id>
+      <name>JBoss Releases</name>
+      <url>http://repository.jboss.org/maven2/</url>
+      <layout>default</layout>
+    </repository>
   </repositories>
 
   <pluginRepositories>
@@ -221,6 +229,14 @@
         <scope>provided</scope>
       </dependency>
 
+      <dependency>
+        <groupId>javax.validation</groupId>
+        <artifactId>validation-api</artifactId>
+        <version>${validation.version}</version>
+        <scope>compile</scope>
+      </dependency>
+
+<!-- for now we just use the RI, b/c nothing around for MyFaces 2.0 -->
       <!--dependency>
         <groupId>org.apache.myfaces.core</groupId>
         <artifactId>myfaces-api</artifactId>
