@@ -61,6 +61,11 @@ public interface Agent
    */
   public static final Object TYPE_PHONE = "phone";
 
+  /** 
+   * Constant for unknown platform
+   */
+  public static final String PLATFORM_UNKNOWN = "unknown";
+
   /**
    * Constant for windows platform
    */
@@ -119,6 +124,11 @@ public interface Agent
    */
   public static final String PLATFORM_GENERICPDA = "genericpda";
 
+  /** 
+   * Constant for unknown platform version
+   */
+  public static final String PLATFORM_VERSION_UNKNOWN = "unknown";
+  
   /**
    * Constant for when the agent is not supported or not recognized
    */
@@ -169,6 +179,17 @@ public interface Agent
    */
   public static final String AGENT_GENERICPDA = "genericpda";
 
+  /** 
+   * Constant for unknown agent version
+   */
+  public static final String AGENT_VERSION_UNKNOWN = "unknown";
+
+  /** 
+   * Constant for unknown make model version
+   */
+  public static final String MAKE_MODEL_UNKNOWN = "unknown";
+
+  
   /**
    *
    * @return return the Type of Agent. Returns <code>TYPE_UNKNOWN</code> if not available.

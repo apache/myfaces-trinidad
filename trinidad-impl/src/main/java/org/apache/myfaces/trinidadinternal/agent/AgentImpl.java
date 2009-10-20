@@ -146,11 +146,11 @@ public class AgentImpl extends DefaultAgent
   private static class AgentEntry
   {
     Object _type = TYPE_UNKNOWN;
-    String _agent;
-    String _agentVersion;
-    String _platform;
-    String _platformVersion;
-    String _makeModel;
+    String _agent = AGENT_UNKNOWN;
+    String _agentVersion = AGENT_VERSION_UNKNOWN;
+    String _platform = PLATFORM_UNKNOWN;
+    String _platformVersion = PLATFORM_VERSION_UNKNOWN;
+    String _makeModel = MAKE_MODEL_UNKNOWN;
   }
 
   void __addRequestCapability(CapabilityKey key,Object value)
