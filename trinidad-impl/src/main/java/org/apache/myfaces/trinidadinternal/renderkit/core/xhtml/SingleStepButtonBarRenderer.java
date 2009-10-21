@@ -33,6 +33,7 @@ import org.apache.myfaces.trinidad.component.core.nav.CoreSingleStepButtonBar;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
+import org.apache.myfaces.trinidad.render.XhtmlConstants;
 
 import org.apache.myfaces.trinidadinternal.util.nls.StringUtils;
 
@@ -66,7 +67,7 @@ public class SingleStepButtonBarRenderer extends XhtmlRenderer
     Map<String, String> parameters =  
       context.getExternalContext().getRequestParameterMap();
     
-    String source = parameters.get(XhtmlConstants.SOURCE_PARAM);
+    String source = parameters.get(TrinidadRenderingConstants.SOURCE_PARAM);
     String id = getClientId(context, component);
     if ((source != null) && source.startsWith(id))
     {

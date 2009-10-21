@@ -26,10 +26,10 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
-
 import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRendererUtils;
+import org.apache.myfaces.trinidad.render.XhtmlConstants;
 import org.apache.myfaces.trinidad.skin.Icon;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRendererUtils;
 
 /**
  */
@@ -324,7 +324,7 @@ public abstract class SimpleSelectBooleanRenderer extends FormInputRenderer
     boolean isRadio = isRadio();
     return AutoSubmitUtils.getSubmitScript(arc, source, 
                                            immediate, isRadio,
-                                           XhtmlConstants.AUTOSUBMIT_EVENT, null, true);
+                                           TrinidadRenderingConstants.AUTOSUBMIT_EVENT, null, true);
   }                     
 
   protected boolean isRadio()
@@ -335,7 +335,7 @@ public abstract class SimpleSelectBooleanRenderer extends FormInputRenderer
 
   protected String getCompositeId(String clientId)
   {
-    return clientId + XhtmlConstants.COMPOSITE_ID_EXTENSION + "c";   
+    return clientId + TrinidadRenderingConstants.COMPOSITE_ID_EXTENSION + "c";   
   }
     
   protected String getText(FacesBean bean)

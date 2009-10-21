@@ -299,7 +299,7 @@ public class SimpleInputListOfValuesRenderer extends SimpleInputTextRenderer
     // this is added for bug 4482982; when the selectInputDate or
     // selectInputText icon is selected in PocketIE, the script requires
     // the source hidden element to exist
-    fd.addNeededValue(XhtmlConstants.SOURCE_PARAM);      
+    fd.addNeededValue(TrinidadRenderingConstants.SOURCE_PARAM);      
 
     // Use a PPR autosubmit to launch the dialog only if we know
     // that we can use a separate window;  otherwise, just

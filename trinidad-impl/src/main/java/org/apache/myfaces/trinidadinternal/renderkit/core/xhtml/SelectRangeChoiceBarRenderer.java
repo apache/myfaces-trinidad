@@ -42,6 +42,7 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.RangeChangeEvent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.render.XhtmlConstants;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
 import org.apache.myfaces.trinidadinternal.util.Range;
@@ -76,17 +77,17 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
     Map<String, String> parameters =
       context.getExternalContext().getRequestParameterMap();
 
-    Object event = parameters.get(XhtmlConstants.EVENT_PARAM);
+    Object event = parameters.get(TrinidadRenderingConstants.EVENT_PARAM);
 
     // get the goto event parameter values and queue a RangeChangeEvent.
-    if (XhtmlConstants.GOTO_EVENT.equals(event))
+    if (TrinidadRenderingConstants.GOTO_EVENT.equals(event))
     {
-      Object source = parameters.get(XhtmlConstants.SOURCE_PARAM);
+      Object source = parameters.get(TrinidadRenderingConstants.SOURCE_PARAM);
       String id = component.getClientId(context);
       if (id.equals(source))
       {
         UIXSelectRange choiceBar = (UIXSelectRange)component;
-        Object valueParam = parameters.get(XhtmlConstants.VALUE_PARAM);
+        Object valueParam = parameters.get(TrinidadRenderingConstants.VALUE_PARAM);
         RangeChangeEvent rce = _createRangeChangeEvent(choiceBar, valueParam);
         rce.queue();
 
@@ -133,7 +134,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
       // We get "all" if the user selected the "Show All" option.
       // If so, set showAll to true and set newStart and newEnd to
       // be the entire range.
-      if (newStartString.equals(XhtmlConstants.VALUE_SHOW_ALL))
+      if (newStartString.equals(TrinidadRenderingConstants.VALUE_SHOW_ALL))
       {
         bean.setProperty(_showAllKey, Boolean.TRUE);
         newStart = 0;
@@ -301,7 +302,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
       // maximum attribute. Not sure we want to implement this feature.
       long maxValue = getRowCount(component);
       if (maxValue <= 0)
-        maxValue = XhtmlConstants.MAX_VALUE_UNKNOWN;
+        maxValue = TrinidadRenderingConstants.MAX_VALUE_UNKNOWN;
 
       // get name
       String id = getClientId(context, component);
@@ -328,7 +329,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
         // determine how many records user can go forward
         long lNextRecords = blockSize;
 
-        if (maxValue != XhtmlConstants.MAX_VALUE_UNKNOWN)
+        if (maxValue != TrinidadRenderingConstants.MAX_VALUE_UNKNOWN)
         {
           // if we know the total records, align the current value to the
           // start of its block. This makes the choice-rendering style
@@ -369,7 +370,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
       boolean hasBackRecords = (prevRecords > 0);
       boolean hasNextRecords = (nextRecords > 0);
 
-      if (hasNextRecords && (maxValue == XhtmlConstants.MAX_VALUE_UNKNOWN))
+      if (hasNextRecords && (maxValue == TrinidadRenderingConstants.MAX_VALUE_UNKNOWN))
       {
         // make sure the next range exists in the data model.
         hasNextRecords = isRowAvailable(component, (int)nextValue-1);
@@ -631,10 +632,10 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
   public static void addHiddenFields(RenderingContext arc)
   {
     FormData fData = arc.getFormData();
-    fData.addNeededValue(XhtmlConstants.EVENT_PARAM);
-    fData.addNeededValue(XhtmlConstants.SOURCE_PARAM);
-    fData.addNeededValue(XhtmlConstants.PARTIAL_PARAM);
-    fData.addNeededValue(XhtmlConstants.VALUE_PARAM);
+    fData.addNeededValue(TrinidadRenderingConstants.EVENT_PARAM);
+    fData.addNeededValue(TrinidadRenderingConstants.SOURCE_PARAM);
+    fData.addNeededValue(TrinidadRenderingConstants.PARTIAL_PARAM);
+    fData.addNeededValue(TrinidadRenderingConstants.VALUE_PARAM);
   }
 
   private void _renderChoice(
@@ -658,7 +659,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
     // table, then we don't render a choice
     if ((blockSize <= 0) || (!firstRowAvailable) ||
           ((maxValue < minValue) &&
-           (maxValue != XhtmlConstants.MAX_VALUE_UNKNOWN)))
+           (maxValue != TrinidadRenderingConstants.MAX_VALUE_UNKNOWN)))
     {
       writer.writeText(XhtmlConstants.NBSP_STRING, null);
     }
@@ -726,18 +727,18 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
         if (!javaScriptSupport)
         {
           String nameAttri =  XhtmlUtils.getEncodedParameter
-                                          (XhtmlConstants.MULTIPLE_VALUE_PARAM)
+                                          (TrinidadRenderingConstants.MULTIPLE_VALUE_PARAM)
                               + XhtmlUtils.getEncodedParameter(choiceId)
                               + XhtmlUtils.getEncodedParameter
-                                          (XhtmlConstants.SOURCE_PARAM)
+                                          (TrinidadRenderingConstants.SOURCE_PARAM)
                               + XhtmlUtils.getEncodedParameter(source)
                               + XhtmlUtils.getEncodedParameter
-                                          (XhtmlConstants.EVENT_PARAM)
-                              + XhtmlConstants.GOTO_EVENT;
+                                          (TrinidadRenderingConstants.EVENT_PARAM)
+                              + TrinidadRenderingConstants.GOTO_EVENT;
                               
           renderSubmitButtonNonJSBrowser(context,
                                          arc,
-                                         XhtmlConstants.
+                                         TrinidadRenderingConstants.
                                                NO_JS_PARAMETER_KEY_BUTTON,
                                          nameAttri);
 
@@ -800,7 +801,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
   {
     int selectedIndex = -1;
 
-    boolean maxUnknown = (maxValue == XhtmlConstants.MAX_VALUE_UNKNOWN);
+    boolean maxUnknown = (maxValue == TrinidadRenderingConstants.MAX_VALUE_UNKNOWN);
 
     // Zero-indexed block index.
     long blockIndex = (value - minValue + blockSize - 1L) / blockSize;
@@ -954,7 +955,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
                                      arc.getTranslatedString(_SHOW_ALL_KEY),
                                      parameters);
 
-    return new SelectItem(XhtmlConstants.VALUE_SHOW_ALL,
+    return new SelectItem(TrinidadRenderingConstants.VALUE_SHOW_ALL,
                           showAllText);
   }
 
@@ -1050,14 +1051,14 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
     else
     {
       String nameAttri = XhtmlUtils.getEncodedParameter
-                                       (XhtmlConstants.SOURCE_PARAM)
+                                       (TrinidadRenderingConstants.SOURCE_PARAM)
                          + XhtmlUtils.getEncodedParameter(source)
                          + XhtmlUtils.getEncodedParameter
-                                       (XhtmlConstants.EVENT_PARAM)
+                                       (TrinidadRenderingConstants.EVENT_PARAM)
                          + XhtmlUtils.getEncodedParameter
-                                       (XhtmlConstants.GOTO_EVENT)
+                                       (TrinidadRenderingConstants.GOTO_EVENT)
                          + XhtmlUtils.getEncodedParameter
-                                       (XhtmlConstants.VALUE_PARAM)
+                                       (TrinidadRenderingConstants.VALUE_PARAM)
                          + IntegerUtils.getString(value);
 
       writer.startElement("input", null);
@@ -1211,7 +1212,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
   {
 
     // how many records do we really see now?
-    long currVisible = (total == XhtmlConstants.MAX_VALUE_UNKNOWN)
+    long currVisible = (total == TrinidadRenderingConstants.MAX_VALUE_UNKNOWN)
                            ? visibleItemCount
                            : total - start + 1;
 
@@ -1280,7 +1281,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
       String   pattern = null;
       String[] parameters = null;
 
-      if ((total == XhtmlConstants.MAX_VALUE_UNKNOWN))
+      if ((total == TrinidadRenderingConstants.MAX_VALUE_UNKNOWN))
       {
         pattern = arc.getTranslatedString(_MULTI_RANGE_NO_TOTAL_FORMAT_STRING);
         parameters = new String[]
@@ -1414,7 +1415,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
     // for the Next button.
 
     Object initialFocusID =
-      arc.getProperties().get(XhtmlConstants.INITIAL_FOCUS_CONTEXT_PROPERTY);
+      arc.getProperties().get(TrinidadRenderingConstants.INITIAL_FOCUS_CONTEXT_PROPERTY);
 
     String id = null;
     if ((initialFocusID != null) && initialFocusID.equals(baseId))
@@ -1430,7 +1431,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
       // renderer can write it out to a script variable.
       // A side-effect is that the initialFocusID in subsequent calls will
       // never equal the navBar's id.
-      arc.getProperties().put(XhtmlConstants.INITIAL_FOCUS_CONTEXT_PROPERTY, id);
+      arc.getProperties().put(TrinidadRenderingConstants.INITIAL_FOCUS_CONTEXT_PROPERTY, id);
     }
 
 

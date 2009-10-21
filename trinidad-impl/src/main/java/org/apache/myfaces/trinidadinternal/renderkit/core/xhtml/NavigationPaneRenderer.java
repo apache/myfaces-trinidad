@@ -702,7 +702,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       // page.
        
       rw.writeAttribute("name", XhtmlUtils.getEncodedParameter
-                                  (XhtmlConstants.SOURCE_PARAM)
+                                  (TrinidadRenderingConstants.SOURCE_PARAM)
                                    + clientId, null);
       renderStyleClass(context, arc, 
                   SkinSelectors.AF_COMMAND_BUTTON_STYLE_CLASS);
@@ -1296,7 +1296,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     {
     
       String nameAttri = XhtmlUtils.getEncodedParameter
-                                     (XhtmlConstants.MULTIPLE_VALUE_PARAM)
+                                     (TrinidadRenderingConstants.MULTIPLE_VALUE_PARAM)
                                      + choiceSelectId;
     
       rw.writeAttribute("name", nameAttri, null);

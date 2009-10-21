@@ -35,8 +35,9 @@ import org.apache.myfaces.trinidad.component.UIXHierarchy;
 import org.apache.myfaces.trinidad.component.core.nav.CoreBreadCrumbs;
 import org.apache.myfaces.trinidad.component.core.nav.CoreCommandLink;
 import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
+import org.apache.myfaces.trinidad.render.XhtmlConstants;
 import org.apache.myfaces.trinidad.skin.Icon;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 
 public class BreadCrumbsRenderer extends XhtmlRenderer
 {
@@ -414,7 +415,7 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
   private boolean _isVertical(FacesBean bean)
   {
     String orientation = getOrientation(bean);
-    return XhtmlConstants.ORIENTATION_VERTICAL.equals(orientation);
+    return TrinidadRenderingConstants.ORIENTATION_VERTICAL.equals(orientation);
   }
 
   protected boolean shouldRenderSeparatorOnNewLineWhenVertical(

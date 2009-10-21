@@ -30,17 +30,18 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.UIXCollection;
 import org.apache.myfaces.trinidad.component.core.data.CoreColumn;
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-import org.apache.myfaces.trinidad.model.SortCriterion;
-import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidad.context.FormData;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.model.SortCriterion;
+import org.apache.myfaces.trinidad.render.XhtmlConstants;
+import org.apache.myfaces.trinidad.skin.Icon;
+import org.apache.myfaces.trinidad.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.CellUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.ColumnData;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.RenderStage;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TableRenderingContext;
-import org.apache.myfaces.trinidad.skin.Icon;
-import org.apache.myfaces.trinidad.util.IntegerUtils;
 
 /**
  * @todo Kill the now-strange "compute mode", since we can
@@ -381,7 +382,7 @@ public class ColumnGroupRenderer extends XhtmlRenderer
         FormData formData = arc.getFormData();
         if(formData != null)
         {
-          formData.addNeededValue(XhtmlConstants.STATE_PARAM);
+          formData.addNeededValue(TrinidadRenderingConstants.STATE_PARAM);
         }      
       }
     }
@@ -608,43 +609,43 @@ public class ColumnGroupRenderer extends XhtmlRenderer
         if (state != "")
         {
           nameAttri =  XhtmlUtils.getEncodedParameter
-                                   (XhtmlConstants.SOURCE_PARAM)
+                                   (TrinidadRenderingConstants.SOURCE_PARAM)
                        + XhtmlUtils.getEncodedParameter(source)
                        + XhtmlUtils.getEncodedParameter
-                                   (XhtmlConstants.VALUE_PARAM)
+                                   (TrinidadRenderingConstants.VALUE_PARAM)
                        + XhtmlUtils.getEncodedParameter(value)
                        + XhtmlUtils.getEncodedParameter
-                                   (XhtmlConstants.EVENT_PARAM)
+                                   (TrinidadRenderingConstants.EVENT_PARAM)
                        + XhtmlUtils.getEncodedParameter
-                                   (XhtmlConstants.SORT_EVENT)
+                                   (TrinidadRenderingConstants.SORT_EVENT)
                        + XhtmlUtils.getEncodedParameter
-                                   (XhtmlConstants.STATE_PARAM)
+                                   (TrinidadRenderingConstants.STATE_PARAM)
                        + state;
         }
         else
         {
           nameAttri =  XhtmlUtils.getEncodedParameter
-                                    (XhtmlConstants.SOURCE_PARAM)
+                                    (TrinidadRenderingConstants.SOURCE_PARAM)
                        + XhtmlUtils.getEncodedParameter(source)
                        + XhtmlUtils.getEncodedParameter
-                                    (XhtmlConstants.EVENT_PARAM)
+                                    (TrinidadRenderingConstants.EVENT_PARAM)
                        + XhtmlUtils.getEncodedParameter
-                                    (XhtmlConstants.SORT_EVENT)
+                                    (TrinidadRenderingConstants.SORT_EVENT)
                        + XhtmlUtils.getEncodedParameter
-                                    (XhtmlConstants.VALUE_PARAM)
+                                    (TrinidadRenderingConstants.VALUE_PARAM)
                        + value;
         }
 
         writer.writeAttribute("name", nameAttri, null);
-        if (state.equals(XhtmlConstants.SORTABLE_ASCENDING))
+        if (state.equals(TrinidadRenderingConstants.SORTABLE_ASCENDING))
         {
           writer.writeAttribute("value",
-                                    XhtmlConstants.NON_JS_DESC_ICON, null); 
+              TrinidadRenderingConstants.NON_JS_DESC_ICON, null); 
         }
         else
         {
           writer.writeAttribute("value", 
-                                    XhtmlConstants.NON_JS_ASC_ICON, null); 
+              TrinidadRenderingConstants.NON_JS_ASC_ICON, null); 
         }
 
         writer.writeAttribute("class", 
@@ -981,15 +982,15 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     String state;
     if (sortability == SORT_ASCENDING)
     {
-      state = XhtmlConstants.SORTABLE_ASCENDING;
+      state = TrinidadRenderingConstants.SORTABLE_ASCENDING;
     }
     else if (sortability == SORT_DESCENDING)
     {
-      state = XhtmlConstants.SORTABLE_DESCENDING;
+      state = TrinidadRenderingConstants.SORTABLE_DESCENDING;
     }
     else if ("descending".equals(getDefaultSortOrder(bean)))
     {
-      state = XhtmlConstants.SORTABLE_ASCENDING;
+      state = TrinidadRenderingConstants.SORTABLE_ASCENDING;
     }
     else
     {

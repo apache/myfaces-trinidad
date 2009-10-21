@@ -124,7 +124,7 @@ public class CommandLinkRenderer extends GoLinkRenderer
     super.encodeEnd(context, arc, comp, bean);
     FormData fd = arc.getFormData();
     if (fd != null)
-      fd.addNeededValue(XhtmlConstants.SOURCE_PARAM);
+      fd.addNeededValue(TrinidadRenderingConstants.SOURCE_PARAM);
   }
 
   @Override

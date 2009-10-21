@@ -19,7 +19,6 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
-
 import java.util.List;
 
 import javax.faces.component.UIComponent;
@@ -30,6 +29,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelHeader;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.render.XhtmlConstants;
 import org.apache.myfaces.trinidad.skin.Icon;
 
 
@@ -102,7 +102,7 @@ public class PanelHeaderRenderer extends XhtmlRenderer
     
     renderIcon(context, arc, component, bean, messageType);
 
-    boolean isError = XhtmlConstants.MESSAGE_TYPE_ERROR.equals(messageType);
+    boolean isError = TrinidadRenderingConstants.MESSAGE_TYPE_ERROR.equals(messageType);
 
     if (isError)
     {
@@ -160,7 +160,7 @@ public class PanelHeaderRenderer extends XhtmlRenderer
     String              messageType) throws IOException
   {   
     if ((messageType != null) &&
-        !XhtmlConstants.MESSAGE_TYPE_NONE.equals(messageType))
+        !TrinidadRenderingConstants.MESSAGE_TYPE_NONE.equals(messageType))
     {
       // If we've got a message type, get the Icon
       String iconName = getMessageIconName(messageType);
@@ -216,15 +216,15 @@ public class PanelHeaderRenderer extends XhtmlRenderer
 
     String key = null;
 
-    if (XhtmlConstants.MESSAGE_TYPE_ERROR.equals(messageType))
+    if (TrinidadRenderingConstants.MESSAGE_TYPE_ERROR.equals(messageType))
       key = _ERROR_KEY;
-    else if (XhtmlConstants.MESSAGE_TYPE_WARNING.equals(messageType))
+    else if (TrinidadRenderingConstants.MESSAGE_TYPE_WARNING.equals(messageType))
       key = _WARNING_KEY;
-    else if (XhtmlConstants.MESSAGE_TYPE_INFO.equals(messageType))
+    else if (TrinidadRenderingConstants.MESSAGE_TYPE_INFO.equals(messageType))
       key = _INFORMATION_KEY;
-    else if (XhtmlConstants.MESSAGE_TYPE_CONFIRMATION.equals(messageType))
+    else if (TrinidadRenderingConstants.MESSAGE_TYPE_CONFIRMATION.equals(messageType))
       key = _CONFIRMATION_KEY;
-    else if (XhtmlConstants.MESSAGE_TYPE_PROCESSING.equals(messageType))
+    else if (TrinidadRenderingConstants.MESSAGE_TYPE_PROCESSING.equals(messageType))
       key = _PROCESSING_KEY;
     else
       return null;
@@ -335,19 +335,19 @@ public class PanelHeaderRenderer extends XhtmlRenderer
   {
     String iconName = null;
 
-    if (XhtmlConstants.MESSAGE_TYPE_ERROR.equals(messageType))
+    if (TrinidadRenderingConstants.MESSAGE_TYPE_ERROR.equals(messageType))
       iconName = SkinSelectors.AF_PANEL_HEADER_ERROR_ICON_NAME;
-    else if (XhtmlConstants.MESSAGE_TYPE_WARNING.equals(messageType))
+    else if (TrinidadRenderingConstants.MESSAGE_TYPE_WARNING.equals(messageType))
       iconName = SkinSelectors.AF_PANEL_HEADER_WARNING_ICON_NAME;
-    else if (XhtmlConstants.MESSAGE_TYPE_INFO.equals(messageType))
+    else if (TrinidadRenderingConstants.MESSAGE_TYPE_INFO.equals(messageType))
       iconName = SkinSelectors.AF_PANEL_HEADER_INFO_ICON_NAME;
-    else if (XhtmlConstants.MESSAGE_TYPE_CONFIRMATION.equals(messageType))
+    else if (TrinidadRenderingConstants.MESSAGE_TYPE_CONFIRMATION.equals(messageType))
       iconName = SkinSelectors.AF_PANEL_HEADER_CONFIRMATION_ICON_NAME;
-    else if (XhtmlConstants.MESSAGE_TYPE_PROCESSING.equals(messageType))
+    else if (TrinidadRenderingConstants.MESSAGE_TYPE_PROCESSING.equals(messageType))
       iconName = SkinSelectors.AF_PANEL_HEADER_PROCESSING_ICON_NAME;
 
     assert ((iconName != null) ||
-            XhtmlConstants.MESSAGE_TYPE_NONE.equals(messageType));
+        TrinidadRenderingConstants.MESSAGE_TYPE_NONE.equals(messageType));
 
     return iconName;
   }

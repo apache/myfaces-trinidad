@@ -26,7 +26,7 @@ import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
 
 /**
  * Trinidad implementation of AgentFactory.
@@ -419,7 +419,7 @@ public class AgentFactoryImpl implements AgentFactory
         agentObj.__addRequestCapability(TrinidadAgent.CAP_WIDTH,width);
         agentObj.__addRequestCapability(TrinidadAgent.CAP_HEIGHT,height);
         
-        if (width.intValue() < XhtmlConstants.NARROW_SCREEN_PDA_MAX_WIDTH)
+        if (width.intValue() < TrinidadRenderingConstants.NARROW_SCREEN_PDA_MAX_WIDTH)
         {
           narrowScreenDevice = true;
         }

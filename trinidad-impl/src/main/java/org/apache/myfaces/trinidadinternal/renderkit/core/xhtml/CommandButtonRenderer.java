@@ -19,7 +19,6 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
-
 import java.util.Collections;
 import java.util.List;
 
@@ -31,7 +30,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.nav.CoreCommandButton;
 import org.apache.myfaces.trinidad.context.RenderingContext;
-
+import org.apache.myfaces.trinidad.render.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 
 public class CommandButtonRenderer extends CommandLinkRenderer
@@ -173,10 +172,10 @@ public class CommandButtonRenderer extends CommandLinkRenderer
         if(!supportsScripting(arc))
         {
           String encodingKey = 
-                        (icon != null)? XhtmlConstants.NO_JS_INPUT_IMAGE_KEY
-                                      : XhtmlConstants.NO_JS_PARAMETER_KEY;
+                        (icon != null)? TrinidadRenderingConstants.NO_JS_INPUT_IMAGE_KEY
+                                      : TrinidadRenderingConstants.NO_JS_PARAMETER_KEY;
                                       
-          rw.writeAttribute("name", XhtmlConstants.SOURCE_PARAM + encodingKey
+          rw.writeAttribute("name", TrinidadRenderingConstants.SOURCE_PARAM + encodingKey
                                     + clientId, null);
         }
                 

@@ -67,16 +67,16 @@ public class PanelAccordionRenderer extends XhtmlRenderer
     Map<String, String> parameters = 
       context.getExternalContext().getRequestParameterMap();
     
-    Object event = parameters.get(XhtmlConstants.EVENT_PARAM);
-    if (XhtmlConstants.HIDE_EVENT.equals(event) ||
-        XhtmlConstants.SHOW_EVENT.equals(event))
+    Object event = parameters.get(TrinidadRenderingConstants.EVENT_PARAM);
+    if (TrinidadRenderingConstants.HIDE_EVENT.equals(event) ||
+        TrinidadRenderingConstants.SHOW_EVENT.equals(event))
     {
-      Object source = parameters.get(XhtmlConstants.SOURCE_PARAM);
+      Object source = parameters.get(TrinidadRenderingConstants.SOURCE_PARAM);
       String id = component.getClientId(context);
       
       if (id.equals(source))
       {
-        boolean isDisclosed = XhtmlConstants.SHOW_EVENT.equals(event);
+        boolean isDisclosed = TrinidadRenderingConstants.SHOW_EVENT.equals(event);
         String itemId = parameters.get("targetItem");
         if (itemId != null)
         {
@@ -173,7 +173,7 @@ public class PanelAccordionRenderer extends XhtmlRenderer
         PartialPageUtils.supportsPartialRendering(arc);
       if (!pprEnabled)
       {
-        fData.addNeededValue(XhtmlConstants.TARGETITEM_PARAM);
+        fData.addNeededValue(TrinidadRenderingConstants.TARGETITEM_PARAM);
       }
     }
 
@@ -353,13 +353,13 @@ public class PanelAccordionRenderer extends XhtmlRenderer
         else
         {
           String nameAttri = XhtmlUtils.getEncodedParameter
-                                          (XhtmlConstants.SOURCE_PARAM)
+                                          (TrinidadRenderingConstants.SOURCE_PARAM)
                              + XhtmlUtils.getEncodedParameter(compId)
                              + XhtmlUtils.getEncodedParameter
-                                         (XhtmlConstants.EVENT_PARAM)
+                                         (TrinidadRenderingConstants.EVENT_PARAM)
                              + XhtmlUtils.getEncodedParameter(event)
                              + XhtmlUtils.getEncodedParameter
-                                         (XhtmlConstants.TARGETITEM_PARAM)
+                                         (TrinidadRenderingConstants.TARGETITEM_PARAM)
                              + detailItemId;
                              
           out.writeAttribute("name", nameAttri, null);
@@ -388,8 +388,8 @@ public class PanelAccordionRenderer extends XhtmlRenderer
       {
         // Since we cannot render any image element as a child of input element, 
         // just render the icon symbol along with the text.
-        String icon = disclosed ? XhtmlConstants.NON_JS_DETAIL_DISCLOSED_ICON :
-                                  XhtmlConstants.NON_JS_DETAIL_UNDISCLOSED_ICON;
+        String icon = disclosed ? TrinidadRenderingConstants.NON_JS_DETAIL_DISCLOSED_ICON :
+                                  TrinidadRenderingConstants.NON_JS_DETAIL_UNDISCLOSED_ICON;
         if (titleText != null)
         {
           icon = icon + titleText;

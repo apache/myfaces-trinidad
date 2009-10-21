@@ -31,7 +31,7 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
 
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 
@@ -76,7 +76,7 @@ public class TrainRenderer
         
         selectedIndex++; 
         
-        if (length == XhtmlConstants.MAX_VALUE_UNKNOWN)
+        if (length == TrinidadRenderingConstants.MAX_VALUE_UNKNOWN)
         {
           pattern = arc.getTranslatedString(
             _SINGLE_RANGE_FORMAT_NO_TOTAL_STRING);

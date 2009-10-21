@@ -27,7 +27,7 @@ import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.SkinFactory;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
 
 
 /**
@@ -120,7 +120,7 @@ public class SkinFactoryImpl extends SkinFactory
 
     // default render-kit-id, if needed.
     if (renderKitId == null)
-      renderKitId = XhtmlConstants.APACHE_TRINIDAD_DESKTOP;
+      renderKitId = TrinidadRenderingConstants.APACHE_TRINIDAD_DESKTOP;
 
     // loop through each skin in the SkinFactory
     // and see if the family and the renderKitId match
@@ -151,9 +151,9 @@ public class SkinFactoryImpl extends SkinFactory
       // family/renderKitId match, so return the simple skin
       // that matches the renderkitid.
 
-      if (renderKitId.equals(XhtmlConstants.APACHE_TRINIDAD_PORTLET))
+      if (renderKitId.equals(TrinidadRenderingConstants.APACHE_TRINIDAD_PORTLET))
         matchingSkin = getSkin(context, _SIMPLE_PORTLET);
-      else if (renderKitId.equals(XhtmlConstants.APACHE_TRINIDAD_PDA))
+      else if (renderKitId.equals(TrinidadRenderingConstants.APACHE_TRINIDAD_PDA))
         matchingSkin = getSkin(context, _SIMPLE_PDA);
       else
         matchingSkin = getSkin(context, _SIMPLE_DESKTOP);

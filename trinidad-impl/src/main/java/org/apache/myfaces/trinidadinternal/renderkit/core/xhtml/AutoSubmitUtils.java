@@ -318,9 +318,9 @@ public class AutoSubmitUtils
       writer.writeText("function _adfspu(f,v,e,s,o){", null);
       writer.writeText("_pprUpdateMode=true;", null);
       writer.writeText("if(!o)o=new Object();if(e)o.", null);
-      writer.writeText(XhtmlConstants.EVENT_PARAM, null);
+      writer.writeText(TrinidadRenderingConstants.EVENT_PARAM, null);
       writer.writeText("=e;if(s)o.", null);
-      writer.writeText(XhtmlConstants.SOURCE_PARAM, null);
+      writer.writeText(TrinidadRenderingConstants.SOURCE_PARAM, null);
       writer.writeText("=s;_submitPartialChange(f,v,o);}", null);
     }
 

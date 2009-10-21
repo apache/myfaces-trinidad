@@ -119,11 +119,11 @@ public class SimpleInputDateRenderer
         date = new Date();
 
       Map<String, Object> parameters = new HashMap<String, Object>();
-      parameters.put(XhtmlConstants.VALUE_PARAM, _getDateAsString(date));
-      parameters.put(XhtmlConstants.MIN_VALUE_PARAM,
+      parameters.put(TrinidadRenderingConstants.VALUE_PARAM, _getDateAsString(date));
+      parameters.put(TrinidadRenderingConstants.MIN_VALUE_PARAM,
                      dtrv == null
                      ? null :  _getDateAsString(dtrv.getMinimum()));
-      parameters.put(XhtmlConstants.MAX_VALUE_PARAM,
+      parameters.put(TrinidadRenderingConstants.MAX_VALUE_PARAM,
                      dtrv == null
                      ? null :  _getDateAsString(dtrv.getMaximum()));
       parameters.put(GenericEntry.getEntryKeyParam(),

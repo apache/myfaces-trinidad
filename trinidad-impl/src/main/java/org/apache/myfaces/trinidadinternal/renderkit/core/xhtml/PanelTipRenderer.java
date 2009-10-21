@@ -23,9 +23,11 @@ import java.io.IOException;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+
 import org.apache.myfaces.trinidad.bean.FacesBean;
-import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelTip;
+import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.render.XhtmlConstants;
 
 /**
  * Renders the page or section level tip UI element.

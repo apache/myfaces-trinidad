@@ -208,8 +208,8 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
     if (!supportsScripting(arc))
     {
       ResponseWriter rw = context.getResponseWriter();
-      String icon = disclosed ? XhtmlConstants.NON_JS_DETAIL_DISCLOSED_ICON :
-                                XhtmlConstants.NON_JS_DETAIL_UNDISCLOSED_ICON;  
+      String icon = disclosed ? TrinidadRenderingConstants.NON_JS_DETAIL_DISCLOSED_ICON :
+                                TrinidadRenderingConstants.NON_JS_DETAIL_UNDISCLOSED_ICON;  
       rw.writeAttribute("title", altText, null);
       rw.writeAttribute("value", icon, null);
       String linkConverter = "border: none; background: inherit;";
@@ -361,10 +361,10 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
         js =
           "function _submitHideShow(a,v,b,c,l,d) {" +
             "var o = {"+
-                  XhtmlConstants.EVENT_PARAM + ":b," +
-                  XhtmlConstants.SOURCE_PARAM + ":c};" +
+                  TrinidadRenderingConstants.EVENT_PARAM + ":b," +
+                  TrinidadRenderingConstants.SOURCE_PARAM + ":c};" +
             "if (d!=(void 0)) o." +
-                  XhtmlConstants.VALUE_PARAM + "=d;" +
+                  TrinidadRenderingConstants.VALUE_PARAM + "=d;" +
             "_setRequestedFocusNode(document,l,false,window);" +
             "_submitPartialChange(a,v,o);" +
             "return false;}";
@@ -374,10 +374,10 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
         js =
           "function _submitHideShow(a,v,b,c,l,d) {" +
             "var o={"+
-                  XhtmlConstants.EVENT_PARAM + ":b," +
-                  XhtmlConstants.SOURCE_PARAM + ":c};" +
+                  TrinidadRenderingConstants.EVENT_PARAM + ":b," +
+                  TrinidadRenderingConstants.SOURCE_PARAM + ":c};" +
             "if (d!=(void 0)) o." +
-                  XhtmlConstants.VALUE_PARAM + "=d;" +
+                  TrinidadRenderingConstants.VALUE_PARAM + "=d;" +
             "submitForm(a,v,o);" +
             "return false;}";
       }
@@ -391,15 +391,15 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
       rw.endElement("script");
 
       // Add these needed values at most once per page
-      fData.addNeededValue(XhtmlConstants.EVENT_PARAM);
-      fData.addNeededValue(XhtmlConstants.SOURCE_PARAM);
+      fData.addNeededValue(TrinidadRenderingConstants.EVENT_PARAM);
+      fData.addNeededValue(TrinidadRenderingConstants.SOURCE_PARAM);
       if (partial)
-        fData.addNeededValue(XhtmlConstants.PARTIAL_PARAM);
+        fData.addNeededValue(TrinidadRenderingConstants.PARTIAL_PARAM);
     }
 
     // And add this needed value if it ever comes up
     if (valueValue != null)
-      fData.addNeededValue(XhtmlConstants.VALUE_PARAM);
+      fData.addNeededValue(TrinidadRenderingConstants.VALUE_PARAM);
 
   }
 
@@ -447,8 +447,8 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
     String sourceValue = getClientId(context, component);
     String formName = fData.getName();
     String eventValue = (disclosed
-                         ? XhtmlConstants.HIDE_EVENT
-                         : XhtmlConstants.SHOW_EVENT);
+                         ? TrinidadRenderingConstants.HIDE_EVENT
+                         : TrinidadRenderingConstants.SHOW_EVENT);
     String valueValue = getValueParameter(component);
     String linkId = getLinkId(sourceValue, disclosed);
 
@@ -517,20 +517,20 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
        
     String sourceValue = getClientId(context, component);
     String eventValue = (disclosed
-                         ? XhtmlConstants.HIDE_EVENT
-                         : XhtmlConstants.SHOW_EVENT);
+                         ? TrinidadRenderingConstants.HIDE_EVENT
+                         : TrinidadRenderingConstants.SHOW_EVENT);
                          
     String valueValue = getValueParameter(component);
     String linkId = getLinkId(sourceValue, disclosed);
   
     String nameAttri = XhtmlUtils.getEncodedParameter
-                                  (XhtmlConstants.SOURCE_PARAM)
+                                  (TrinidadRenderingConstants.SOURCE_PARAM)
                        + XhtmlUtils.getEncodedParameter(sourceValue)
                        + XhtmlUtils.getEncodedParameter
-                                  (XhtmlConstants.EVENT_PARAM)
+                                  (TrinidadRenderingConstants.EVENT_PARAM)
                        + XhtmlUtils.getEncodedParameter(eventValue)
                        + XhtmlUtils.getEncodedParameter
-                                  (XhtmlConstants.VALUE_PARAM)
+                                  (TrinidadRenderingConstants.VALUE_PARAM)
                        + valueValue;  
     return nameAttri;
   }

@@ -25,9 +25,8 @@ import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelButtonBar;
-
+import org.apache.myfaces.trinidad.render.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PanelGroupLayoutRenderer;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 
 /**
  * On PDA, just render the buttons consecutively with non-breaking spaces.

@@ -527,7 +527,7 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
   {
     String source = LabelAndMessageRenderer.__getCachedClientId(arc);
     boolean immediate = isImmediate(bean);
-    return AutoSubmitUtils.getSubmitScript(arc, source, XhtmlConstants.AUTOSUBMIT_EVENT, immediate);
+    return AutoSubmitUtils.getSubmitScript(arc, source, TrinidadRenderingConstants.AUTOSUBMIT_EVENT, immediate);
   }
 
 

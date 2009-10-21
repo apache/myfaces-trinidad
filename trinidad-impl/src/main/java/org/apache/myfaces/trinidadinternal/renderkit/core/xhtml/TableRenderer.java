@@ -19,7 +19,6 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -34,7 +33,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.FacesEvent;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.CollectionComponent;
@@ -46,17 +44,19 @@ import org.apache.myfaces.trinidad.component.core.data.CoreColumn;
 import org.apache.myfaces.trinidad.component.core.data.CoreTable;
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.FormData;
-import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.context.PartialPageContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidad.event.RowDisclosureEvent;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.RangeChangeEvent;
+import org.apache.myfaces.trinidad.event.RowDisclosureEvent;
 import org.apache.myfaces.trinidad.event.SortEvent;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.RowKeySet;
 import org.apache.myfaces.trinidad.model.SortCriterion;
 import org.apache.myfaces.trinidad.render.ClientRowKeyManager;
 import org.apache.myfaces.trinidad.render.CoreRenderer;
-
+import org.apache.myfaces.trinidad.render.XhtmlConstants;
+import org.apache.myfaces.trinidad.util.IntegerUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.CellUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.ColumnData;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.DetailColumnRenderer;
@@ -67,7 +67,6 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TableRende
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TableSelectManyRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TableSelectOneRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeUtils;
-import org.apache.myfaces.trinidad.util.IntegerUtils;
 
 abstract public class TableRenderer extends XhtmlRenderer
 {
@@ -104,23 +103,23 @@ abstract public class TableRenderer extends XhtmlRenderer
     Map<String, String> parameters =  
       context.getExternalContext().getRequestParameterMap();
     
-    String source = parameters.get(XhtmlConstants.SOURCE_PARAM);
+    String source = parameters.get(TrinidadRenderingConstants.SOURCE_PARAM);
     String id = component.getClientId(context);
     if (!id.equals(source))
       return;
 
     UIXTable table = (UIXTable) component;
-    Object eventParam = parameters.get(XhtmlConstants.EVENT_PARAM);
-    if (XhtmlConstants.GOTO_EVENT.equals(eventParam))
+    Object eventParam = parameters.get(TrinidadRenderingConstants.EVENT_PARAM);
+    if (TrinidadRenderingConstants.GOTO_EVENT.equals(eventParam))
     {
       _decodeGoto(table, parameters);
     }
-    else if (XhtmlConstants.HIDE_EVENT.equals(eventParam) ||
-             XhtmlConstants.SHOW_EVENT.equals(eventParam))
+    else if (TrinidadRenderingConstants.HIDE_EVENT.equals(eventParam) ||
+        TrinidadRenderingConstants.SHOW_EVENT.equals(eventParam))
     {
       _decodeHideShow(table, parameters, eventParam);
     }
-    else if (XhtmlConstants.SORT_EVENT.equals(eventParam))
+    else if (TrinidadRenderingConstants.SORT_EVENT.equals(eventParam))
     {
       _decodeSort(table, parameters);
     }
@@ -223,9 +222,9 @@ abstract public class TableRenderer extends XhtmlRenderer
     UIXTable table,
     Map<String, String> parameters)
   {
-    String property = parameters.get(XhtmlConstants.VALUE_PARAM);
-    Object state = parameters.get(XhtmlConstants.STATE_PARAM);
-    boolean sortOrder = !XhtmlConstants.SORTABLE_ASCENDING.equals(state);
+    String property = parameters.get(TrinidadRenderingConstants.VALUE_PARAM);
+    Object state = parameters.get(TrinidadRenderingConstants.STATE_PARAM);
+    boolean sortOrder = !TrinidadRenderingConstants.SORTABLE_ASCENDING.equals(state);
     SortCriterion criterion = new SortCriterion(property, sortOrder);
 
     SortEvent event =
@@ -237,11 +236,11 @@ abstract public class TableRenderer extends XhtmlRenderer
     UIXTable table,
     Map<String, String> parameters)
   {
-    String value = parameters.get(XhtmlConstants.VALUE_PARAM);
+    String value = parameters.get(TrinidadRenderingConstants.VALUE_PARAM);
     if (value != null)
     {
       final FacesEvent event;
-      if (XhtmlConstants.VALUE_SHOW_ALL.equals(value))
+      if (TrinidadRenderingConstants.VALUE_SHOW_ALL.equals(value))
       {
         int newEnd = table.getRowCount();
         if (newEnd >= 0)
@@ -276,8 +275,8 @@ abstract public class TableRenderer extends XhtmlRenderer
     Map<String, String> parameters,
     Object eventParam)
   {
-    boolean doExpand = XhtmlConstants.SHOW_EVENT.equals(eventParam);
-    Object value = parameters.get(XhtmlConstants.VALUE_PARAM);
+    boolean doExpand = TrinidadRenderingConstants.SHOW_EVENT.equals(eventParam);
+    Object value = parameters.get(TrinidadRenderingConstants.VALUE_PARAM);
     if (value != null)
     {
       RowKeySet old = table.getDisclosedRowKeys();
@@ -388,8 +387,8 @@ abstract public class TableRenderer extends XhtmlRenderer
       {
         // Add sorting parameters.
         // =-=AdamWiner FIXME: only really needed with sorting.
-        formData.addNeededValue(XhtmlConstants.STATE_PARAM);
-        formData.addNeededValue(XhtmlConstants.VALUE_PARAM);
+        formData.addNeededValue(TrinidadRenderingConstants.STATE_PARAM);
+        formData.addNeededValue(TrinidadRenderingConstants.VALUE_PARAM);
 
         //HKuhn - no need for scripts in printable mode
         if (supportsScripting(arc))
@@ -686,7 +685,7 @@ abstract public class TableRenderer extends XhtmlRenderer
   {
     // indicate that this is a repeating region, so that beans like the
     // choiceBean can stay synchronized
-    arc.getProperties().put(XhtmlConstants.REPEAT_PROPERTY,
+    arc.getProperties().put(TrinidadRenderingConstants.REPEAT_PROPERTY,
                          Boolean.TRUE);
 
     RenderStage rs = tContext.getRenderStage();
@@ -722,7 +721,7 @@ abstract public class TableRenderer extends XhtmlRenderer
     renderControlBar(context, arc, tContext, component);
 
     // no longer a repeating region
-    arc.getProperties().remove(XhtmlConstants.REPEAT_PROPERTY);
+    arc.getProperties().remove(TrinidadRenderingConstants.REPEAT_PROPERTY);
 
     if (isUpper)
       setRenderingProperty(arc, _UPPER_NAV_BAR_ID_PROPERTY, null);

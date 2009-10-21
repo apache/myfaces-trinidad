@@ -19,7 +19,6 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -37,6 +36,7 @@ import org.apache.myfaces.trinidad.component.UIXSwitcher;
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.render.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.Scriptlet;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.XhtmlScriptletFactory;
@@ -93,13 +93,13 @@ public class XhtmlUtils
   public static String getCompositeId(String baseid, String suffix)
   {
     int length = baseid.length() +
-                 XhtmlConstants.COMPOSITE_ID_EXTENSION.length();
+                 TrinidadRenderingConstants.COMPOSITE_ID_EXTENSION.length();
     if (suffix != null)
       length += suffix.length();
     StringBuilder compID
       = new StringBuilder(length);
     compID.append(baseid);
-    compID.append(XhtmlConstants.COMPOSITE_ID_EXTENSION);
+    compID.append(TrinidadRenderingConstants.COMPOSITE_ID_EXTENSION);
     if (suffix != null)
       compID.append(suffix);
     return compID.toString();
@@ -533,7 +533,7 @@ public class XhtmlUtils
    */
   public static String getEncodedParameter(String param)
   {
-    return param + XhtmlConstants.NO_JS_PARAMETER_KEY;
+    return param + TrinidadRenderingConstants.NO_JS_PARAMETER_KEY;
   }
    
   /*
@@ -559,7 +559,7 @@ public class XhtmlUtils
     }
     // If there are N parameter names and values, there would be N-1 
     // encoding key so add its length also
-    bufferLen  += (noOfParam -1) * XhtmlConstants.NO_JS_PARAMETER_KEY.length();
+    bufferLen  += (noOfParam -1) * TrinidadRenderingConstants.NO_JS_PARAMETER_KEY.length();
    
     StringBuilder nameAttri = new StringBuilder(bufferLen);
     

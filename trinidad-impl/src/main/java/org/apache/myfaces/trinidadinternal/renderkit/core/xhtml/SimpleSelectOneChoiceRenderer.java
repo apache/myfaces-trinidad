@@ -255,7 +255,7 @@ public class SimpleSelectOneChoiceRenderer extends SimpleSelectOneRenderer
   {
     // check to make sure that repeating property is set, and that this choice
     // has a name (see bug 3194812):
-    return (arc.getProperties().get(XhtmlConstants.REPEAT_PROPERTY) != null);
+    return (arc.getProperties().get(TrinidadRenderingConstants.REPEAT_PROPERTY) != null);
   }
 
 

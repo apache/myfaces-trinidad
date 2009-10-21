@@ -106,11 +106,11 @@ public class StyleSheetRenderer extends XhtmlRenderer
         {
           ExternalContext externalContext = context.getExternalContext();
           String contextUri = externalContext.getRequestContextPath();
-          String baseURL = contextUri + XhtmlConstants.STYLES_CACHE_DIRECTORY;
+          String baseURL = contextUri + TrinidadRenderingConstants.STYLES_CACHE_DIRECTORY;
 
           String outputMode = arc.getOutputMode();
           // =-=AEW Don't like hardcoding facet names...
-          if (XhtmlConstants.OUTPUT_MODE_PORTLET.equals(outputMode) &&
+          if (TrinidadRenderingConstants.OUTPUT_MODE_PORTLET.equals(outputMode) &&
               supportsScripting(arc))
           {
             writer.startElement("script", null);
@@ -184,7 +184,7 @@ public class StyleSheetRenderer extends XhtmlRenderer
     // next check if in portlet mode, and if the suppress stylesheet parameter
     // is set, and it's valid to suppress the stylesheet.
     String outputMode = arc.getOutputMode();
-    if (XhtmlConstants.OUTPUT_MODE_PORTLET.equals(outputMode))
+    if (TrinidadRenderingConstants.OUTPUT_MODE_PORTLET.equals(outputMode))
     {
       Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
       boolean suppressStylesheet = "true".equals(requestMap.get(_SUPPRESS_STYLESHEET_ID_PARAM));

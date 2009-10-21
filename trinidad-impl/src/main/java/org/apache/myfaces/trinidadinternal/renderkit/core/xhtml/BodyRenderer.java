@@ -318,7 +318,7 @@ public class BodyRenderer extends PanelPartialRootRenderer
       // NavigationBar creates a special id for the Next button, and sticks
       // this id back on the AdfRenderingContext for the body to know about in
       // postrender.
-      arc.getProperties().put(XhtmlConstants.INITIAL_FOCUS_CONTEXT_PROPERTY,
+      arc.getProperties().put(TrinidadRenderingConstants.INITIAL_FOCUS_CONTEXT_PROPERTY,
                               initialFocusID);
     }
   }
@@ -343,7 +343,7 @@ public class BodyRenderer extends PanelPartialRootRenderer
     // The initial focus id was initially set in prerender, and may have
     // been overwritten by the component's renderer if need be.
     String initialFocusID = (String) arc.getProperties().get(
-                                    XhtmlConstants.INITIAL_FOCUS_CONTEXT_PROPERTY);
+                                    TrinidadRenderingConstants.INITIAL_FOCUS_CONTEXT_PROPERTY);
 
     if (initialFocusID != null)
     {

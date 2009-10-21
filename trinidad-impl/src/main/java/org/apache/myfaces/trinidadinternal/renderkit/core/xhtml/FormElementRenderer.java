@@ -85,7 +85,7 @@ abstract public class FormElementRenderer extends EditableValueRenderer
       if (clientId.equals(source))
       {
         String event = parameterMap.get("event");
-        if (XhtmlConstants.AUTOSUBMIT_EVENT.equals(event) &&
+        if (TrinidadRenderingConstants.AUTOSUBMIT_EVENT.equals(event) &&
             isAutoSubmit(getFacesBean(component)))
         {
           (new AutoSubmitEvent(component)).queue();

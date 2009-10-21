@@ -34,7 +34,7 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.CommandLinkRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 
 /**
@@ -118,7 +118,7 @@ public class PdaCommandLinkRenderer extends CommandLinkRenderer
       accessKey = CHAR_UNDEFINED;
     }
     rw.writeAttribute("name", XhtmlUtils.getEncodedParameter
-                                   ( XhtmlConstants.SOURCE_PARAM )
+                                   ( TrinidadRenderingConstants.SOURCE_PARAM )
                                    +  clientId, null);
 
     rw.writeAttribute("id", clientId , "id");

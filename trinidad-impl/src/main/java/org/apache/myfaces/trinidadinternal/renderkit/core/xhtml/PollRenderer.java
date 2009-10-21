@@ -53,10 +53,10 @@ public class PollRenderer extends XhtmlRenderer
     Map<String, String> parameters = 
       context.getExternalContext().getRequestParameterMap();
     
-    Object event = parameters.get(XhtmlConstants.EVENT_PARAM);
-    if (XhtmlConstants.POLL_EVENT.equals(event))
+    Object event = parameters.get(TrinidadRenderingConstants.EVENT_PARAM);
+    if (TrinidadRenderingConstants.POLL_EVENT.equals(event))
     {
-      Object source = parameters.get(XhtmlConstants.SOURCE_PARAM);
+      Object source = parameters.get(TrinidadRenderingConstants.SOURCE_PARAM);
       String id = component.getClientId(context);
       
       if (id.equals(source))
@@ -343,9 +343,9 @@ public class PollRenderer extends XhtmlRenderer
     // 0 means do not validate
     buffer.append("',0,");
     buffer.append("{" +
-                  XhtmlConstants.EVENT_PARAM + ":\'" +
-                  XhtmlConstants.POLL_EVENT + "\'," +
-                  XhtmlConstants.SOURCE_PARAM + ":\'");
+                  TrinidadRenderingConstants.EVENT_PARAM + ":\'" +
+                  TrinidadRenderingConstants.POLL_EVENT + "\'," +
+                  TrinidadRenderingConstants.SOURCE_PARAM + ":\'");
     buffer.append(elementID);
     buffer.append("\'}");
     return buffer.toString();

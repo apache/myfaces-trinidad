@@ -508,7 +508,7 @@ public class SimpleInputColorRenderer
 
     if (color != null && color.getAlpha() == 0)
     {
-      Icon icon = arc.getIcon(XhtmlConstants.COLOR_PALETTE_TRANSPARENT_ICON_NAME);
+      Icon icon = arc.getIcon(TrinidadRenderingConstants.COLOR_PALETTE_TRANSPARENT_ICON_NAME);
       if (icon != null)
       {
         // FIXME: this should happen with just rendering the Icon, *not*

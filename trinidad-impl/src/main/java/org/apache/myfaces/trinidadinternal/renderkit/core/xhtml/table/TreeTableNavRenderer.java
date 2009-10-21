@@ -28,12 +28,13 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.UIXTreeTable;
 import org.apache.myfaces.trinidad.component.core.data.CoreTreeTable;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.render.XhtmlConstants;
+import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 import org.apache.myfaces.trinidadinternal.share.util.FastMessageFormat;
-import org.apache.myfaces.trinidad.skin.Icon;
 
 public class TreeTableNavRenderer extends XhtmlRenderer
 {
@@ -296,7 +297,7 @@ public class TreeTableNavRenderer extends XhtmlRenderer
 
   private static final String _PREVIOUS_ALT_KEY = "af_treeTable.PREVIOUS_TIP";
   private static final String _NEXT_ALT_KEY     = "af_treeTable.NEXT_TIP";
-  private static final int _INCOMPLETE = XhtmlConstants.INCOMPLETE_DATA_SET;
+  private static final int _INCOMPLETE = TrinidadRenderingConstants.INCOMPLETE_DATA_SET;
   private static final String _PREVIOUS_KEY =
     "af_treeTable.DISABLED_PREVIOUS";
   private static final String _NEXT_KEY =

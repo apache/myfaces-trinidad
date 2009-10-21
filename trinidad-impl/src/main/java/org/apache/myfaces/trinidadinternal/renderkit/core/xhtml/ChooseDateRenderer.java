@@ -23,7 +23,6 @@ import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-
 import java.util.TimeZone;
 
 import javax.faces.component.UIComponent;
@@ -33,14 +32,14 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.input.CoreChooseDate;
+import org.apache.myfaces.trinidad.context.LocaleContext;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.render.XhtmlConstants;
 import org.apache.myfaces.trinidad.skin.Icon;
-import org.apache.myfaces.trinidad.util.IntegerUtils;
 import org.apache.myfaces.trinidad.util.FastMessageFormat;
-
+import org.apache.myfaces.trinidad.util.IntegerUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.pages.GenericEntry;
-import org.apache.myfaces.trinidad.context.LocaleContext;
 import org.apache.myfaces.trinidadinternal.share.url.EncoderUtils;
 
 /**
@@ -51,12 +50,12 @@ import org.apache.myfaces.trinidadinternal.share.url.EncoderUtils;
 public class ChooseDateRenderer extends XhtmlRenderer
 {
   // calendar, mobile dateField params
-  public static final String MIN_VALUE_PARAM      = XhtmlConstants.MIN_VALUE_PARAM;
-  public static final String MAX_VALUE_PARAM      = XhtmlConstants.MAX_VALUE_PARAM;
-  public static final String LOC_PARAM            = XhtmlConstants.LOC_PARAM;
-  public static final String SCROLLED_VALUE_PARAM = XhtmlConstants.SCROLLED_VALUE_PARAM;
-  public static final String MONTH_PARAM          = XhtmlConstants.MONTH_PARAM;
-  public static final String YEAR_PARAM           = XhtmlConstants.YEAR_PARAM;
+  public static final String MIN_VALUE_PARAM      = TrinidadRenderingConstants.MIN_VALUE_PARAM;
+  public static final String MAX_VALUE_PARAM      = TrinidadRenderingConstants.MAX_VALUE_PARAM;
+  public static final String LOC_PARAM            = TrinidadRenderingConstants.LOC_PARAM;
+  public static final String SCROLLED_VALUE_PARAM = TrinidadRenderingConstants.SCROLLED_VALUE_PARAM;
+  public static final String MONTH_PARAM          = TrinidadRenderingConstants.MONTH_PARAM;
+  public static final String YEAR_PARAM           = TrinidadRenderingConstants.YEAR_PARAM;
 
   public ChooseDateRenderer()
   {
@@ -355,13 +354,13 @@ public class ChooseDateRenderer extends XhtmlRenderer
     int currLastDOW = firstDOWInMonth + dowCount;
 
     String[] keysAndValues = new String[]{
-      XhtmlConstants.VALUE_PARAM,
+        TrinidadRenderingConstants.VALUE_PARAM,
       null, // placeholder
-      XhtmlConstants.EVENT_PARAM,
-      XhtmlConstants.DATE_EVENT,
-      XhtmlConstants.TYPE_PARAM,
-      XhtmlConstants.TYPE_POST,
-      XhtmlConstants.SOURCE_PARAM,
+      TrinidadRenderingConstants.EVENT_PARAM,
+      TrinidadRenderingConstants.DATE_EVENT,
+      TrinidadRenderingConstants.TYPE_PARAM,
+      TrinidadRenderingConstants.TYPE_POST,
+      TrinidadRenderingConstants.SOURCE_PARAM,
       id};
 
 
@@ -766,13 +765,13 @@ public class ChooseDateRenderer extends XhtmlRenderer
     )
   {
     return new String[] {
-      XhtmlConstants.SOURCE_PARAM,
+      TrinidadRenderingConstants.SOURCE_PARAM,
       id,
       MIN_VALUE_PARAM,
       String.valueOf(minTime),
       MAX_VALUE_PARAM,
       String.valueOf(maxTime),
-      XhtmlConstants.VALUE_PARAM,
+      TrinidadRenderingConstants.VALUE_PARAM,
       String.valueOf(selectedTime),
       LOC_PARAM,
       arc.getLocaleContext().getFormattingIANALocaleString()
@@ -1533,7 +1532,6 @@ public class ChooseDateRenderer extends XhtmlRenderer
     public final String TITLE_STYLE;
     public final String HEADER_STYLE;
     public final String DISABLED_STYLE;
-    public final String ENABLED_STYLE;
     public final String SELECTED_STYLE;
     public final String CONTENT_STYLE;
 
@@ -1551,7 +1549,6 @@ public class ChooseDateRenderer extends XhtmlRenderer
       TITLE_STYLE = titleStyle;
       HEADER_STYLE = headerStyle;
       DISABLED_STYLE = disabledStyle;
-      ENABLED_STYLE = enabledStyle;
       SELECTED_STYLE = selectedStyle;
       CONTENT_STYLE = contentStyle;
     }

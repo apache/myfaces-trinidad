@@ -19,10 +19,8 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -43,6 +41,7 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.RowKeySet;
+import org.apache.myfaces.trinidad.render.XhtmlConstants;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeUtils;
 
@@ -84,7 +83,7 @@ public class TreeRenderer extends XhtmlRenderer
   {
     Map<String, String> parameters =
       context.getExternalContext().getRequestParameterMap();
-    String source = parameters.get(XhtmlConstants.SOURCE_PARAM);
+    String source = parameters.get(TrinidadRenderingConstants.SOURCE_PARAM);
 
     if (!component.getClientId(context).equals(source))
       return;
@@ -315,7 +314,6 @@ public class TreeRenderer extends XhtmlRenderer
       boolean isLeftToRight
   )
   {
-    Object showLines = rc.getSkin().getProperty(SkinProperties.AF_TREE_SHOW_LINES);
     if (!isShowLines(rc))
       return null;
     Icon nodeBackgroundIcon = rc.getIcon(isLastSibling

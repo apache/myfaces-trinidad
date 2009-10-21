@@ -32,7 +32,7 @@ import org.apache.myfaces.trinidad.render.CoreRenderer;
 import org.apache.myfaces.trinidad.render.RenderUtils;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
@@ -296,15 +296,15 @@ public class CorePanelRadioRenderer extends ShowOneListRendererBase
       out.writeAttribute("nowrap", Boolean.TRUE, null);
     
       String nameAttri = XhtmlUtils.getEncodedParameter
-                                       (XhtmlConstants.MULTIPLE_VALUE_PARAM)
+                                       (TrinidadRenderingConstants.MULTIPLE_VALUE_PARAM)
                          + XhtmlUtils.getEncodedParameter(compId)
                          + XhtmlUtils.getEncodedParameter
-                                       (XhtmlConstants.EVENT_PARAM)
-                         + XhtmlConstants.SHOW_EVENT;
+                                       (TrinidadRenderingConstants.EVENT_PARAM)
+                         + TrinidadRenderingConstants.SHOW_EVENT;
     
       out.startElement("span", null);
       out.startElement("input", null);
-      out.writeAttribute("value",XhtmlConstants.NO_JS_PARAMETER_KEY_BUTTON , null);
+      out.writeAttribute("value",TrinidadRenderingConstants.NO_JS_PARAMETER_KEY_BUTTON , null);
       out.writeAttribute("type","submit", null);
       out.writeAttribute("name", nameAttri, null);
       out.endElement("input");

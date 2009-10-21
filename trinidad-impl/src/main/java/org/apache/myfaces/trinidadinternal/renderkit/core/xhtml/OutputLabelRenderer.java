@@ -21,7 +21,6 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 import java.io.IOException;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -29,13 +28,13 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.output.CoreOutputLabel;
-
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.FormData;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.context.RequestContext;
-import org.apache.myfaces.trinidadinternal.util.MessageUtils;
+import org.apache.myfaces.trinidad.render.XhtmlConstants;
 import org.apache.myfaces.trinidad.skin.Icon;
+import org.apache.myfaces.trinidadinternal.util.MessageUtils;
 
 /**
  * Renderer for org.apache.myfaces.trinidad.Label, family org.apache.myfaces.trinidad.Output.
@@ -215,7 +214,7 @@ public class OutputLabelRenderer extends ValueRenderer
       
         if(null == messageType || "none".equals(messageType))
         {
-          messageType = XhtmlConstants.MESSAGE_TYPE_ERROR;
+          messageType = TrinidadRenderingConstants.MESSAGE_TYPE_ERROR;
           rw.writeAttribute(XhtmlConstants.STYLE_ATTRIBUTE, 
 		          "display:none;", null);
         }
@@ -275,19 +274,19 @@ public class OutputLabelRenderer extends ValueRenderer
     String iconName = null;
     String altTextKey = null;
 
-    if (XhtmlConstants.MESSAGE_TYPE_ERROR.equals(type))
+    if (TrinidadRenderingConstants.MESSAGE_TYPE_ERROR.equals(type))
     {
       iconName = (destination == null) ? SkinSelectors.ERROR_ICON_ALIAS_NAME :
                                          SkinSelectors.ERROR_ANCHOR_ICON_ALIAS_NAME;
       altTextKey = "ERROR_TIP";
     }
-    else if (XhtmlConstants.MESSAGE_TYPE_INFO.equals(type))
+    else if (TrinidadRenderingConstants.MESSAGE_TYPE_INFO.equals(type))
     {
       iconName = (destination == null) ? SkinSelectors.INFO_ICON_ALIAS_NAME :
                                          SkinSelectors.INFO_ANCHOR_ICON_ALIAS_NAME;
       altTextKey = "INFO_TIP";
     }
-    else if (XhtmlConstants.MESSAGE_TYPE_WARNING.equals(type))
+    else if (TrinidadRenderingConstants.MESSAGE_TYPE_WARNING.equals(type))
     {
       iconName = (destination == null) ? SkinSelectors.WARNING_ICON_ALIAS_NAME :
                                          SkinSelectors.WARNING_ANCHOR_ICON_ALIAS_NAME;

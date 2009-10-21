@@ -20,7 +20,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.pda;
 
 import java.io.IOException;
 
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
 import org.apache.myfaces.trinidadinternal.ui.action.ClientAction;
 import org.apache.myfaces.trinidadinternal.ui.action.ClientActionUtils;
 import org.apache.myfaces.trinidadinternal.ui.action.FireAction;
@@ -99,8 +99,8 @@ public class LinkRenderer extends org.apache.myfaces.trinidadinternal.ui.laf.bas
       if(action != null)
       {
         String source = ((FireAction) action).getSource();
-        nameAttr = XhtmlConstants.SOURCE_PARAM + 
-                         XhtmlConstants.NO_JS_PARAMETER_KEY + source;
+        nameAttr = TrinidadRenderingConstants.SOURCE_PARAM + 
+                         TrinidadRenderingConstants.NO_JS_PARAMETER_KEY + source;
       }
       else
       {

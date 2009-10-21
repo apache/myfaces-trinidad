@@ -42,12 +42,13 @@ import org.apache.myfaces.trinidad.context.FormData;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
+import org.apache.myfaces.trinidad.render.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.ProcessUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinProperties;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 
@@ -75,21 +76,21 @@ public class TrainRenderer
     Map<String, String> requestMap = 
       context.getExternalContext().getRequestParameterMap();
 
-    Object event = requestMap.get(XhtmlConstants.EVENT_PARAM);
+    Object event = requestMap.get(TrinidadRenderingConstants.EVENT_PARAM);
 
-    if ((event != null) && event.equals(XhtmlConstants.GOTO_EVENT))
+    if ((event != null) && event.equals(TrinidadRenderingConstants.GOTO_EVENT))
     {
-      Object source = requestMap.get(XhtmlConstants.SOURCE_PARAM);
+      Object source = requestMap.get(TrinidadRenderingConstants.SOURCE_PARAM);
 
       if (source != null && source.equals(component.getClientId(context)))
       {
 
-        Object valueObject = requestMap.get(XhtmlConstants.VALUE_PARAM);
+        Object valueObject = requestMap.get(TrinidadRenderingConstants.VALUE_PARAM);
 
         // we piggyback on the size parameter.
         // 0 means we are moving to a previous step, 1 means we are
         // moving to the next step.
-        Object sizeObject = requestMap.get(XhtmlConstants.SIZE_PARAM);
+        Object sizeObject = requestMap.get(TrinidadRenderingConstants.SIZE_PARAM);
 
         if (valueObject != null)
         {
@@ -301,10 +302,10 @@ public class TrainRenderer
       FormData formData = arc.getFormData();
       if (formData != null)
       {
-        formData.addNeededValue(XhtmlConstants.EVENT_PARAM);
-        formData.addNeededValue(XhtmlConstants.SOURCE_PARAM);
-        formData.addNeededValue(XhtmlConstants.VALUE_PARAM);
-        formData.addNeededValue(XhtmlConstants.SIZE_PARAM);
+        formData.addNeededValue(TrinidadRenderingConstants.EVENT_PARAM);
+        formData.addNeededValue(TrinidadRenderingConstants.SOURCE_PARAM);
+        formData.addNeededValue(TrinidadRenderingConstants.VALUE_PARAM);
+        formData.addNeededValue(TrinidadRenderingConstants.SIZE_PARAM);
       }
 
       // Render script submission code.

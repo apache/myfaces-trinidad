@@ -19,7 +19,6 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
-
 import java.text.BreakIterator;
 
 import javax.faces.component.UIComponent;
@@ -28,10 +27,9 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
-
 import org.apache.myfaces.trinidad.component.core.input.CoreInputText;
-
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.render.XhtmlConstants;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
 
 /**
@@ -76,7 +74,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
     FacesBean bean = getFacesBean(component);
     if (getSecret(bean))
     {
-      if (XhtmlConstants.SECRET_FIELD_DEFAULT_VALUE.equals(submitted))
+      if (TrinidadRenderingConstants.SECRET_FIELD_DEFAULT_VALUE.equals(submitted))
       {
         // if there was a previously submitted value then return it.
         // otherwise, this will return null which means the value is unchanged.
@@ -135,7 +133,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
         // bug 2748426
         if ((value != null) && !("".equals(value)))
         {
-          value = XhtmlConstants.SECRET_FIELD_DEFAULT_VALUE; // bug 3448201
+          value = TrinidadRenderingConstants.SECRET_FIELD_DEFAULT_VALUE; // bug 3448201
         }
       }
       else
@@ -591,7 +589,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
       RenderingContext arc = RenderingContext.getCurrentInstance();
       String source = LabelAndMessageRenderer.__getCachedClientId(arc);
       boolean immediate = isImmediate(bean);
-      String auto = AutoSubmitUtils.getSubmitScript(arc, source, XhtmlConstants.AUTOSUBMIT_EVENT, immediate);
+      String auto = AutoSubmitUtils.getSubmitScript(arc, source, TrinidadRenderingConstants.AUTOSUBMIT_EVENT, immediate);
       if (onchange == null)
         onchange = auto;
       else if (auto != null)

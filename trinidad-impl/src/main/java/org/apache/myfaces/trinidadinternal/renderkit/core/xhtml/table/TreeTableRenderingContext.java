@@ -28,7 +28,7 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.RowKeySet;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinProperties;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
 
 /**
  * Context for caching TreeTable data.
@@ -59,7 +59,7 @@ public final class TreeTableRenderingContext extends TableRenderingContext
 
     _hGridBase = (UIXTreeTable) hGrid;
 
-    _pathStamp = _hGridBase.getFacet(XhtmlConstants.PATH_STAMP_CHILD);
+    _pathStamp = _hGridBase.getFacet(TrinidadRenderingConstants.PATH_STAMP_CHILD);
     UIComponent nodeStamp = _hGridBase.getNodeStamp();
     if (nodeStamp instanceof UIXColumn)
     {

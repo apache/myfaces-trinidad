@@ -26,7 +26,7 @@ import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidad.component.core.input.CoreChooseDate;
 
 import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
 
 /**
  * Private utility methods shared by CalendarDialogJSP/InlineCalendarJSP.
@@ -41,7 +41,7 @@ class CalendarUtils
   public static CoreChooseDate createChooseDate(FacesContext context)
   {
     final String id = CalendarDialogJSP.__getParam(context,
-                                                   XhtmlConstants.SOURCE_PARAM);
+                                                   TrinidadRenderingConstants.SOURCE_PARAM);
     
     CoreChooseDate ccd = new CoreChooseDate()
     {
@@ -53,21 +53,21 @@ class CalendarUtils
     };
 
     String minTimeString = CalendarDialogJSP.__getParam(context,
-                                             XhtmlConstants.MIN_VALUE_PARAM);
+                                             TrinidadRenderingConstants.MIN_VALUE_PARAM);
     if (minTimeString != null)
     {
       ccd.setMinValue(parseTime(minTimeString));
     }
 
     String maxTimeString = CalendarDialogJSP.__getParam(context,
-                                             XhtmlConstants.MAX_VALUE_PARAM);
+                                             TrinidadRenderingConstants.MAX_VALUE_PARAM);
     if (maxTimeString != null)
     {
       ccd.setMaxValue(parseTime(maxTimeString));
     }
 
     String selectedTimeString = CalendarDialogJSP.__getParam(context,
-                                             XhtmlConstants.VALUE_PARAM);
+                                             TrinidadRenderingConstants.VALUE_PARAM);
     if (selectedTimeString != null)
     {
       ccd.getAttributes().put("value",

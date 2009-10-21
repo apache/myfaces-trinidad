@@ -20,7 +20,7 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.skin;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinProperties;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
 import org.apache.myfaces.trinidadinternal.skin.icon.ContextImageIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.NullIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
@@ -58,7 +58,7 @@ public class BaseDesktopSkin extends XhtmlSkin
   @Override
   public String getId()
   {
-    return XhtmlConstants.BASE_DESKTOP_ID;
+    return TrinidadRenderingConstants.BASE_DESKTOP_ID;
   }
 
   /**
@@ -78,7 +78,7 @@ public class BaseDesktopSkin extends XhtmlSkin
   @Override
   public String getRenderKitId()
   {
-    return XhtmlConstants.APACHE_TRINIDAD_DESKTOP;
+    return TrinidadRenderingConstants.APACHE_TRINIDAD_DESKTOP;
   }
 
   /**

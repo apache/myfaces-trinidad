@@ -38,7 +38,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.RowKeySet;
 import org.apache.myfaces.trinidad.render.CoreRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SimpleSelectBooleanCheckboxRenderer;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 
 
@@ -188,7 +188,7 @@ public class TableSelectOneRenderer extends XhtmlRenderer
   {
     return (table.getClientId(context) +
             NamingContainer.SEPARATOR_CHAR +
-            XhtmlConstants.SELECTED_KEY);
+            TrinidadRenderingConstants.SELECTED_KEY);
   }
 
   public static class Radio extends SimpleSelectBooleanCheckboxRenderer
@@ -230,7 +230,7 @@ public class TableSelectOneRenderer extends XhtmlRenderer
         TableRenderingContext.getCurrentInstance();
       String param = (tContext.getTableId() +
                       NamingContainer.SEPARATOR_CHAR +
-                      XhtmlConstants.SELECTED_KEY);
+                      TrinidadRenderingConstants.SELECTED_KEY);
       ResponseWriter writer = context.getResponseWriter();
       writer.writeAttribute("name", param, null);
       // =-=AEW Inefficient.  We only need the "id" when there's

@@ -551,7 +551,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     UIComponent  component)
   {
     return (super.getClientId(context, component) +
-            XhtmlConstants.COMPOSITE_ID_EXTENSION);
+            TrinidadRenderingConstants.COMPOSITE_ID_EXTENSION);
   }
 
   protected boolean isLeafRenderer()

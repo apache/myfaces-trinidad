@@ -30,6 +30,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean.Type;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelBorderLayout;
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.render.XhtmlConstants;
 import org.apache.myfaces.trinidad.util.ComponentUtils;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.Scriptlet;

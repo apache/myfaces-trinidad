@@ -130,7 +130,7 @@ public class FormRenderer extends XhtmlRenderer
     {
       // =-=AEW This should get removed in favor of solely using FormData;
       // but keep it around for now
-      rc.getProperties().put(XhtmlConstants.FORM_NAME_PROPERTY, formName);
+      rc.getProperties().put(TrinidadRenderingConstants.FORM_NAME_PROPERTY, formName);
     }
 
     // Check to see if this is a partial page render.  If so, we need
@@ -286,11 +286,11 @@ public class FormRenderer extends XhtmlRenderer
      */
     if( !supportsScripting(arc))
     {
-      noJavaScriptSupport = XhtmlConstants.NON_JS_BROWSER_TRUE;
+      noJavaScriptSupport = TrinidadRenderingConstants.NON_JS_BROWSER_TRUE;
     }
     writer.startElement("input", null);
     writer.writeAttribute("type", "hidden", null);
-    writer.writeAttribute("name", XhtmlConstants.NON_JS_BROWSER,null );
+    writer.writeAttribute("name", TrinidadRenderingConstants.NON_JS_BROWSER,null );
     writer.writeAttribute("value", noJavaScriptSupport, null);
     writer.endElement("input");
 
@@ -326,10 +326,10 @@ public class FormRenderer extends XhtmlRenderer
           // them, not globally by the form control
           if (isPIE)
           {
-            formData.addNeededValue(XhtmlConstants.SOURCE_PARAM);
-            formData.addNeededValue(XhtmlConstants.EVENT_PARAM);
-            formData.addNeededValue(XhtmlConstants.PARTIAL_TARGETS_PARAM);
-            formData.addNeededValue(XhtmlConstants.PARTIAL_PARAM);
+            formData.addNeededValue(TrinidadRenderingConstants.SOURCE_PARAM);
+            formData.addNeededValue(TrinidadRenderingConstants.EVENT_PARAM);
+            formData.addNeededValue(TrinidadRenderingConstants.PARTIAL_TARGETS_PARAM);
+            formData.addNeededValue(TrinidadRenderingConstants.PARTIAL_PARAM);
 
             // In the case of Windows-mobile(WM) browsers, store the value of
             // the request-header field, UA-pixels, into a hidden-parameter's 
@@ -342,14 +342,14 @@ public class FormRenderer extends XhtmlRenderer
                         context.getExternalContext().getRequestHeaderMap();
                         
             _renderHiddenField(writer,
-                               XhtmlConstants.WINDOWS_MOBILE_UAPIXELS,
+                               TrinidadRenderingConstants.WINDOWS_MOBILE_UAPIXELS,
                                headerMap.get("UA-pixels"));
            
           }
           else
           {
-            formData.addNeededValue(XhtmlConstants.SOURCE_PARAM);
-            formData.addNeededValue(XhtmlConstants.EVENT_PARAM);
+            formData.addNeededValue(TrinidadRenderingConstants.SOURCE_PARAM);
+            formData.addNeededValue(TrinidadRenderingConstants.EVENT_PARAM);
           }
         }
       }
@@ -443,7 +443,7 @@ public class FormRenderer extends XhtmlRenderer
     UIComponent     component)
   {
     // Clear out the form name property
-    rc.getProperties().remove(XhtmlConstants.FORM_NAME_PROPERTY);
+    rc.getProperties().remove(TrinidadRenderingConstants.FORM_NAME_PROPERTY);
 
     // clear out form data:;
     rc.clearFormData();

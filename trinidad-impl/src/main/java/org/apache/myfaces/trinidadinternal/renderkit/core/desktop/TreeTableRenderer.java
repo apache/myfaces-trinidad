@@ -43,10 +43,11 @@ import org.apache.myfaces.trinidad.model.RowKeySet;
 import org.apache.myfaces.trinidad.render.CoreRenderer;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
+import org.apache.myfaces.trinidad.render.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.ResourceKeyUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.CellUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.ColumnData;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.FocusColumnRenderer;
@@ -96,7 +97,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
     Map<String, String> parameters =
       context.getExternalContext().getRequestParameterMap();
 
-    Object source = parameters.get(XhtmlConstants.SOURCE_PARAM);
+    Object source = parameters.get(TrinidadRenderingConstants.SOURCE_PARAM);
     if (component.getClientId(context).equals(source))
     {
       UIXTreeTable treeTable = (UIXTreeTable) component;
@@ -151,8 +152,8 @@ public class TreeTableRenderer extends DesktopTableRenderer
     FormData fData = arc.getFormData();
     if (fData != null)
     {
-      fData.addNeededValue(XhtmlConstants.PARTIAL_TARGETS_PARAM);
-      fData.addNeededValue(XhtmlConstants.PARTIAL_PARAM);
+      fData.addNeededValue(TrinidadRenderingConstants.PARTIAL_TARGETS_PARAM);
+      fData.addNeededValue(TrinidadRenderingConstants.PARTIAL_PARAM);
     }
 
     // we cannot render without a nodeStamp:

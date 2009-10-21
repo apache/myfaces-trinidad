@@ -31,6 +31,7 @@ import org.apache.myfaces.trinidad.component.core.output.CoreStatusIndicator;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
+import org.apache.myfaces.trinidad.render.XhtmlConstants;
 
 public class StatusIndicatorRenderer extends XhtmlRenderer
 {

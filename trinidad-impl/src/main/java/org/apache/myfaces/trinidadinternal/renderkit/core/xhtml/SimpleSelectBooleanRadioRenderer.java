@@ -162,7 +162,7 @@ public class SimpleSelectBooleanRadioRenderer extends SimpleSelectBooleanRendere
   @Override
   protected String getCompositeId(String clientId)
   {
-    return clientId + XhtmlConstants.COMPOSITE_ID_EXTENSION + "r";   
+    return clientId + TrinidadRenderingConstants.COMPOSITE_ID_EXTENSION + "r";   
   }
   
   @Override

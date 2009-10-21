@@ -31,10 +31,9 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.output.CoreMessages;
-
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.context.RequestContext;
-import org.apache.myfaces.trinidad.skin.Icon;
+import org.apache.myfaces.trinidad.render.XhtmlConstants;
 import org.apache.myfaces.trinidad.util.LabeledFacesMessage;
 import org.apache.myfaces.trinidadinternal.util.MessageUtils;
 
@@ -362,15 +361,15 @@ public class MessageBoxRenderer extends XhtmlRenderer
 
       // Map FacesMessage severity to levels expected by panelHeaderRenderer
       if (maxSeverity == null)
-        messageType = XhtmlConstants.MESSAGE_TYPE_ERROR;
+        messageType = TrinidadRenderingConstants.MESSAGE_TYPE_ERROR;
       else if (FacesMessage.SEVERITY_FATAL.equals(maxSeverity))
-        messageType = XhtmlConstants.MESSAGE_TYPE_ERROR;
+        messageType = TrinidadRenderingConstants.MESSAGE_TYPE_ERROR;
       else if (FacesMessage.SEVERITY_ERROR.equals(maxSeverity))
-        messageType = XhtmlConstants.MESSAGE_TYPE_ERROR;
+        messageType = TrinidadRenderingConstants.MESSAGE_TYPE_ERROR;
       else if (FacesMessage.SEVERITY_WARN.equals(maxSeverity))
-        messageType = XhtmlConstants.MESSAGE_TYPE_WARNING;
+        messageType = TrinidadRenderingConstants.MESSAGE_TYPE_WARNING;
       else if (FacesMessage.SEVERITY_INFO.equals(maxSeverity))
-        messageType = XhtmlConstants.MESSAGE_TYPE_INFO;
+        messageType = TrinidadRenderingConstants.MESSAGE_TYPE_INFO;
 
       return messageType;
     }
@@ -395,17 +394,17 @@ public class MessageBoxRenderer extends XhtmlRenderer
 
       // Use the af|messages skin selectors instead of those
       // used by panelHeader
-      if (XhtmlConstants.MESSAGE_TYPE_ERROR.equals(messageType))
+      if (TrinidadRenderingConstants.MESSAGE_TYPE_ERROR.equals(messageType))
         iconName = SkinSelectors.AF_MESSAGES_ERROR_ICON_NAME;
-      else if (XhtmlConstants.MESSAGE_TYPE_WARNING.equals(messageType))
+      else if (TrinidadRenderingConstants.MESSAGE_TYPE_WARNING.equals(messageType))
         iconName = SkinSelectors.AF_MESSAGES_WARNING_ICON_NAME;
-      else if (XhtmlConstants.MESSAGE_TYPE_INFO.equals(messageType))
+      else if (TrinidadRenderingConstants.MESSAGE_TYPE_INFO.equals(messageType))
         iconName = SkinSelectors.AF_MESSAGES_INFO_ICON_NAME;
-      else if (XhtmlConstants.MESSAGE_TYPE_CONFIRMATION.equals(messageType))
+      else if (TrinidadRenderingConstants.MESSAGE_TYPE_CONFIRMATION.equals(messageType))
         iconName = SkinSelectors.AF_MESSAGES_CONFIRMATION_ICON_NAME;
 
       assert ((iconName != null) ||
-              XhtmlConstants.MESSAGE_TYPE_NONE.equals(messageType));
+          TrinidadRenderingConstants.MESSAGE_TYPE_NONE.equals(messageType));
 
       return iconName;
     }

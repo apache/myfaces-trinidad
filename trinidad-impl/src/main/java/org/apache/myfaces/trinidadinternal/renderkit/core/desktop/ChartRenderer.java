@@ -19,10 +19,8 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.desktop;
 
 import java.awt.Color;
-
 import java.io.IOException;
 import java.io.StringWriter;
-
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -40,10 +38,11 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.event.ChartDrillDownEvent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.ChartModel;
+import org.apache.myfaces.trinidad.render.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TrinidadRenderingConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.LibraryScriptlet;
@@ -95,18 +94,18 @@ public class ChartRenderer extends XhtmlRenderer
     Map<String, String> parameters =
       context.getExternalContext().getRequestParameterMap();
 
-    String source = parameters.get(XhtmlConstants.SOURCE_PARAM);
+    String source = parameters.get(TrinidadRenderingConstants.SOURCE_PARAM);
     String id = component.getClientId(context);
     if (!id.equals(source))
       return;
-    Object eventParam = parameters.get(XhtmlConstants.EVENT_PARAM);
-    if (XhtmlConstants.CHART_DRILL_DOWN_EVENT.equals(eventParam))
+    Object eventParam = parameters.get(TrinidadRenderingConstants.EVENT_PARAM);
+    if (TrinidadRenderingConstants.CHART_DRILL_DOWN_EVENT.equals(eventParam))
     {
       int[] seriesIndices = null;
       int[] yValueIndices = null;
       double[] yValues = null;
       double[] xValues = null;
-      String value = parameters.get(XhtmlConstants.VALUE_PARAM);
+      String value = parameters.get(TrinidadRenderingConstants.VALUE_PARAM);
       String[] tokens = value.split(_DELIMITER);
       for (String token : tokens)
       {
