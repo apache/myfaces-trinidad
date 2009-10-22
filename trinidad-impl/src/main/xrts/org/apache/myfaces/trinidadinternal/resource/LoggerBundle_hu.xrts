@@ -48,6 +48,8 @@
 <resource key="INVALID_CAPABILITY_DATA_URL" dnt="false">A funkcióadatok {0} URL-címe érvénytelen</resource>
 <!-- CANNOT_FIND_SAVED_VIEW_STATE -->
 <resource key="CANNOT_FIND_SAVED_VIEW_STATE" dnt="false">Nem található mentett nézetállapot a(z) {0} tokenhez</resource>
+<!-- USE_APPLICATION_VIEW_CACHE_UNSUPPORTED -->
+<resource key="USE_APPLICATION_VIEW_CACHE_UNSUPPORTED" dnt="false">A USE_APPLICATION_VIEW_CACHE nem támogatott, és használata nem javasolt, mert általában nem működik.</resource>
 <!-- NO_STRUCTURE_ROOT_AVAILABLE -->
 <resource key="NO_STRUCTURE_ROOT_AVAILABLE" dnt="false">Nem érhető el struktúra és gyökér</resource>
 <!-- NO_STRUCTURE_AVAILABLE -->

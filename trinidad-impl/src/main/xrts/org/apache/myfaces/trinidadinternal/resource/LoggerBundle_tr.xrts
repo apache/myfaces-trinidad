@@ -48,6 +48,8 @@
 <resource key="INVALID_CAPABILITY_DATA_URL" dnt="false">Yetenek verisi {0} URL&apos;&apos;si geçersiz</resource>
 <!-- CANNOT_FIND_SAVED_VIEW_STATE -->
 <resource key="CANNOT_FIND_SAVED_VIEW_STATE" dnt="false">{0} belirteci için kaydedilen görünüm durumu bulunamadı</resource>
+<!-- USE_APPLICATION_VIEW_CACHE_UNSUPPORTED -->
+<resource key="USE_APPLICATION_VIEW_CACHE_UNSUPPORTED" dnt="false">USE_APPLICATION_VIEW_CACHE desteklenmiyor ve şu anda pek çok durumda çalışmadığından kullanılmamalı.</resource>
 <!-- NO_STRUCTURE_ROOT_AVAILABLE -->
 <resource key="NO_STRUCTURE_ROOT_AVAILABLE" dnt="false">Kullanılabilir yapı ve kök yok</resource>
 <!-- NO_STRUCTURE_AVAILABLE -->

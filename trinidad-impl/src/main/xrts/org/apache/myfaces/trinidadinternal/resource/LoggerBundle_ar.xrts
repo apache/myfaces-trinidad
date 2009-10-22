@@ -48,6 +48,8 @@
 <resource key="INVALID_CAPABILITY_DATA_URL" dnt="false">عنوان url الخاص ببيانات الإمكانية {0} غير صحيح</resource>
 <!-- CANNOT_FIND_SAVED_VIEW_STATE -->
 <resource key="CANNOT_FIND_SAVED_VIEW_STATE" dnt="false">تعذر العثور على حالة العرض المحفوظة للمقطع {0}</resource>
+<!-- USE_APPLICATION_VIEW_CACHE_UNSUPPORTED -->
+<resource key="USE_APPLICATION_VIEW_CACHE_UNSUPPORTED" dnt="false">USE_APPLICATION_VIEW_CACHE غير مدعوم ولا ينبغي استخدامه بما إنه لا يعمل في الوقت الحالي في أغلب الأحوال.</resource>
 <!-- NO_STRUCTURE_ROOT_AVAILABLE -->
 <resource key="NO_STRUCTURE_ROOT_AVAILABLE" dnt="false">لا يوجد هيكل ولا يوجد جذر</resource>
 <!-- NO_STRUCTURE_AVAILABLE -->

@@ -48,6 +48,8 @@
 <resource key="INVALID_CAPABILITY_DATA_URL" dnt="false">La dirección URL de datos de capacidad {0} no es válida</resource>
 <!-- CANNOT_FIND_SAVED_VIEW_STATE -->
 <resource key="CANNOT_FIND_SAVED_VIEW_STATE" dnt="false">No se ha encontrado el estado de vista guardada para el elemento {0}</resource>
+<!-- USE_APPLICATION_VIEW_CACHE_UNSUPPORTED -->
+<resource key="USE_APPLICATION_VIEW_CACHE_UNSUPPORTED" dnt="false">USE_APPLICATION_VIEW_CACHE no está soportado y no debe utilizarse, ya que no funciona en la mayoría de los casos.</resource>
 <!-- NO_STRUCTURE_ROOT_AVAILABLE -->
 <resource key="NO_STRUCTURE_ROOT_AVAILABLE" dnt="false">No ninguna estructura ni raíz disponibles</resource>
 <!-- NO_STRUCTURE_AVAILABLE -->
@@ -93,13 +95,13 @@
 <!-- CANNOT_FIND_PARTIAL_TRIGGER -->
 <resource key="CANNOT_FIND_PARTIAL_TRIGGER" dnt="false">No se ha encontrado el disparador parcial {0} de {1}</resource>
 <!-- NEEDED_COMPONENT_NULL_NO_SCRIPT_WRITTEN -->
-<resource key="NEEDED_COMPONENT_NULL_NO_SCRIPT_WRITTEN" dnt="false">El componente es nulo, pero es necesario para el identificador de cliente, por lo que no se ha escrito ningún archivo de comandos</resource>
+<resource key="NEEDED_COMPONENT_NULL_NO_SCRIPT_WRITTEN" dnt="false">El componente es nulo, pero es necesario para el identificador de cliente, por lo que no se ha escrito ningún script</resource>
 <!-- NULL_CLIENT_ID_NO_SCRIPT_RENDERED -->
-<resource key="NULL_CLIENT_ID_NO_SCRIPT_RENDERED" dnt="false">El identificador de cliente es nulo, no se ha presentado ningún archivo de comandos</resource>
+<resource key="NULL_CLIENT_ID_NO_SCRIPT_RENDERED" dnt="false">El identificador de cliente es nulo, no se ha presentado ningún script</resource>
 <!-- CANNOT_CREATE_CONVERTER_LIKELY_BECAUSE_NO_CONVERTER_REGISTERED -->
 <resource key="CANNOT_CREATE_CONVERTER_LIKELY_BECAUSE_NO_CONVERTER_REGISTERED" dnt="false">Se ha intentado crear el conversor para el tipo {0}, pero no se ha podido, probablemente porque no hay ningún conversor registrado.</resource>
 <!-- NULL_CLINET_ID_NO_SCRIPT_RENDERED -->
-<resource key="NULL_CLINET_ID_NO_SCRIPT_RENDERED" dnt="false">El identificador de cliente es nulo, no se ha presentado ningún archivo de comandos</resource>
+<resource key="NULL_CLINET_ID_NO_SCRIPT_RENDERED" dnt="false">El identificador de cliente es nulo, no se ha presentado ningún script</resource>
 <!-- FAIL_INSTANTIATE_PROPERTY -->
 <resource key="FAIL_INSTANTIATE_PROPERTY" dnt="false">Fallo en la instanciación de la propiedad {0}.</resource>
 <!-- CANNOT_GET_UNIQUE_NAME -->
@@ -168,9 +170,9 @@
 <!-- NO_SKIN_FACTORY -->
 <resource key="NO_SKIN_FACTORY" dnt="false">No hay SkinFactory</resource>
 <!-- STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN -->
-<resource key="STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false">Se utilizará la máscara {0} especificada en requestMap aunque la máscara de consumidor styleSheetDocumentId en requestMap no coincida con el identificador de styleSheetDocument de la máscara local. Esto repercutirá en el rendimiento, ya que las hojas de estilo de consumidor y productor no se pueden compartir. Las clases de estilo del productor no se comprimen para evitar conflictos. Uno de los motivos por los que los identificadores no coinciden es que los archivos jar no son idénticos en el productor y el consumidor. Por ejemplo, uno podría tener adiciones de máscaras trinidad-skins.xml en un archivo jar en la classpath que el otro no tiene.</resource>
+<resource key="STYLESHEETDOCUMENT_ID_NOT_MATCH_LOCAL_SKIN" dnt="false"> Se utilizará la máscara {0} especificada en requestMap aunque la máscara de consumidor styleSheetDocumentId en requestMap no coincida con el identificador de styleSheetDocument de la máscara local. Esto repercutirá en el rendimiento, ya que las hojas de estilo de consumidor y productor no se pueden compartir. Las clases de estilo del productor no se comprimen para evitar conflictos. Uno de los motivos por los que los identificadores no coinciden es que los archivos jar no son idénticos en el productor y el consumidor. Por ejemplo, uno podría tener adiciones de máscaras trinidad-skins.xml en un archivo jar en la classpath que el otro no tiene.</resource>
 <!-- STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP -->
-<resource key="STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false">Se utilizará la máscara {0} especificada en requestMap aunque la máscara de consumidor styleSheetDocumentId no estaba en requestMap. Esto repercutirá en el rendimiento, ya que las hojas de estilo no se pueden compartir entre el productor y el consumidor.</resource>
+<resource key="STYLESHEETDOCUMENT_ID_NOT_IN_REQUESTMAP" dnt="false"> Se utilizará la máscara {0} especificada en requestMap aunque la máscara de consumidor styleSheetDocumentId no estaba en requestMap. Esto repercutirá en el rendimiento, ya que las hojas de estilo no se pueden compartir entre el productor y el consumidor.</resource>
 <!-- REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST -->
 <resource key="REQUESTMAP_SKIN_NOT_USED_BECAUSE_NOT_EXIST" dnt="false">No se utilizará la máscara {0} especificada en requestMap porque no existe.</resource>
 <!-- CANNOT_GET_SKIN_FROM_SKINFACTORY -->

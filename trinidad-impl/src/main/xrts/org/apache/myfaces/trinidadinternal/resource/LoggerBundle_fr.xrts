@@ -47,7 +47,9 @@
 <!-- INVALID_CAPABILITY_DATA_URL -->
 <resource key="INVALID_CAPABILITY_DATA_URL" dnt="false">L&apos;&apos;URL des données sur les capacités {0} n&apos;&apos;est pas valide</resource>
 <!-- CANNOT_FIND_SAVED_VIEW_STATE -->
-<resource key="CANNOT_FIND_SAVED_VIEW_STATE" dnt="false">Impossible de trouver l&apos;&apos;état de vue enregistré pour le token {0}</resource>
+<resource key="CANNOT_FIND_SAVED_VIEW_STATE" dnt="false">Impossible de trouver l&apos;&apos;état de vue enregistré pour le jeton {0}</resource>
+<!-- USE_APPLICATION_VIEW_CACHE_UNSUPPORTED -->
+<resource key="USE_APPLICATION_VIEW_CACHE_UNSUPPORTED" dnt="false">USE_APPLICATION_VIEW_CACHE n&apos;est pas pris en charge et ne doit pas être utilisé car il ne fonctionne pas dans la plupart des cas.</resource>
 <!-- NO_STRUCTURE_ROOT_AVAILABLE -->
 <resource key="NO_STRUCTURE_ROOT_AVAILABLE" dnt="false">Aucune structure ni racine disponible</resource>
 <!-- NO_STRUCTURE_AVAILABLE -->

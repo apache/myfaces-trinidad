@@ -48,6 +48,8 @@
 <resource key="INVALID_CAPABILITY_DATA_URL" dnt="false">O URL dos dados de capacidade {0} é inválido</resource>
 <!-- CANNOT_FIND_SAVED_VIEW_STATE -->
 <resource key="CANNOT_FIND_SAVED_VIEW_STATE" dnt="false">Não foi possível encontrar o estado da vista gravado do símbolo {0}</resource>
+<!-- USE_APPLICATION_VIEW_CACHE_UNSUPPORTED -->
+<resource key="USE_APPLICATION_VIEW_CACHE_UNSUPPORTED" dnt="false">USE_APPLICATION_VIEW_CACHE não é suportado e não deve ser utilizado, porque actualmente não funciona na maioria dos casos.</resource>
 <!-- NO_STRUCTURE_ROOT_AVAILABLE -->
 <resource key="NO_STRUCTURE_ROOT_AVAILABLE" dnt="false">Não existe nenhuma estrutura nem nenhuma raiz disponível</resource>
 <!-- NO_STRUCTURE_AVAILABLE -->

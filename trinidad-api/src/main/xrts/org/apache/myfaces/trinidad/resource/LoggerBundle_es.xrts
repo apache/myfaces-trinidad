@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+     
 -->
 <!DOCTYPE resources SYSTEM "rts.dtd">
 <resources xmlns="http://myfaces.apache.org/trinidad/rts" package="org.apache.myfaces.trinidad.resource">
@@ -251,7 +251,7 @@
 <!-- BYTE_ARRAY_CANNOT_BE_NULL -->
 <resource key="BYTE_ARRAY_CANNOT_BE_NULL" dnt="false">byte[] no puede ser nulo</resource>
 <!-- ACTUAL_LENGTH_OFFSET -->
-<resource key="ACTUAL_LENGTH_OFFSET" dnt="false">Longitud real: {0} offset: {1} longitud: {2}</resource>
+<resource key="ACTUAL_LENGTH_OFFSET" dnt="false">Longitud real: {0} desplazamiento: {1} longitud: {2}</resource>
 <!-- FASTMESSAGEFORMAT_ONLY_SUPPORT_NUMERIC_ARGUMENTS -->
 <resource key="FASTMESSAGEFORMAT_ONLY_SUPPORT_NUMERIC_ARGUMENTS" dnt="false">FastMessageFormat sólo soporta argumentos numéricos</resource>
 <!-- END_OF_PATTERN_NOT_FOUND -->
@@ -304,4 +304,8 @@
 <resource key="COMPONENT_CHILDREN_SAVED_STATE_FAILED" dnt="false">Fallo al guardar el estado para los secundarios del componente: {0}</resource>
 <!-- COMPONENT_TREE_SERIALIZATION_FAILED -->
 <resource key="COMPONENT_TREE_SERIALIZATION_FAILED" dnt="false">Fallo al serializar el estado del árbol de componentes</resource>
+<!-- UNABLE_TO_SET_RENDER_PARAMETERS -->
+<resource key="UNABLE_TO_SET_RENDER_PARAMETERS" dnt="false">No se pueden definir los parámetros de presentación del portlet debido a un fallo de reflejo</resource>
+<!-- COMPARETO_TYPE_MISMATCH -->
+<resource key="COMPARETO_TYPE_MISMATCH" dnt="false">El tipo de &quot;{0}&quot; impide que se pueda comparar con &quot;{1}&quot;.</resource>
 </resources>

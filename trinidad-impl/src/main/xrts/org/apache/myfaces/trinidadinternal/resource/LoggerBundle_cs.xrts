@@ -48,6 +48,8 @@
 <resource key="INVALID_CAPABILITY_DATA_URL" dnt="false">Adresa URL dat schopností {0} je neplatná</resource>
 <!-- CANNOT_FIND_SAVED_VIEW_STATE -->
 <resource key="CANNOT_FIND_SAVED_VIEW_STATE" dnt="false">Nelze najít stav uloženého pohledu pro token {0}</resource>
+<!-- USE_APPLICATION_VIEW_CACHE_UNSUPPORTED -->
+<resource key="USE_APPLICATION_VIEW_CACHE_UNSUPPORTED" dnt="false">Parametr USE_APPLICATION_VIEW_CACHE není podporován a neměl by být použit, protože ve většině případů momentálně nepracuje.</resource>
 <!-- NO_STRUCTURE_ROOT_AVAILABLE -->
 <resource key="NO_STRUCTURE_ROOT_AVAILABLE" dnt="false">Není k dispozici žádná struktura a žádný kořen</resource>
 <!-- NO_STRUCTURE_AVAILABLE -->

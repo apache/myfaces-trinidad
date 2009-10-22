@@ -48,6 +48,8 @@
 <resource key="INVALID_CAPABILITY_DATA_URL" dnt="false">Capability-Daten-URL {0} ist ungültig</resource>
 <!-- CANNOT_FIND_SAVED_VIEW_STATE -->
 <resource key="CANNOT_FIND_SAVED_VIEW_STATE" dnt="false">Gespeicherter View-Status für Token {0} konnte nicht gefunden werden</resource>
+<!-- USE_APPLICATION_VIEW_CACHE_UNSUPPORTED -->
+<resource key="USE_APPLICATION_VIEW_CACHE_UNSUPPORTED" dnt="false">USE_APPLICATION_VIEW_CACHE wird nicht unterstützt und darf nicht verwendet werden, weil es derzeit in den meisten Fällen nicht ausgeführt werden kann.</resource>
 <!-- NO_STRUCTURE_ROOT_AVAILABLE -->
 <resource key="NO_STRUCTURE_ROOT_AVAILABLE" dnt="false">Keine Struktur und keine Root verfügbar</resource>
 <!-- NO_STRUCTURE_AVAILABLE -->
@@ -77,9 +79,9 @@
 <!-- CONFIGURATOR_SERVICES_INITIALIZED -->
 <resource key="CONFIGURATOR_SERVICES_INITIALIZED" dnt="false">Configurator Services bereits initialisiert.</resource>
 <!-- REQUESTCONTEXT_NOT_PROPERLY_RELEASED -->
-<resource key="REQUESTCONTEXT_NOT_PROPERLY_RELEASED" dnt="false">RequestContext wurde für den vorhergehenden Request nicht ordnungsgemäß freigegeben.</resource>
+<resource key="REQUESTCONTEXT_NOT_PROPERLY_RELEASED" dnt="false">RequestContext wurde für die vorhergehende Anforderung nicht ordnungsgemäß freigegeben.</resource>
 <!-- UNABLE_SET_REQUEST_CHARACTER -->
-<resource key="UNABLE_SET_REQUEST_CHARACTER" dnt="false">Request-Zeichencodierung kann nicht auf {0} eingestellt werden, da die Request-Parameter bereits gelesen wurden.</resource>
+<resource key="UNABLE_SET_REQUEST_CHARACTER" dnt="false">Die Zeichencodierung der Anforderung kann nicht auf {0} eingestellt werden, da die Anforderungsparameter bereits gelesen wurden.</resource>
 <!-- RETURNFROMDIALOG_KEY_NOT_AVAILABLE -->
 <resource key="RETURNFROMDIALOG_KEY_NOT_AVAILABLE" dnt="false">Kein \&apos;&apos;DialogUsedRK\&apos;&apos;-Schlüssel für returnFromDialog für ordnungsgemäße Verarbeitung verfügbar.</resource>
 <!-- CANNOT_QUEUE_RETURN_EVENT -->
@@ -266,7 +268,7 @@
 <!-- NODESTAMP_FACET_ON_TREETABLE_MISSING_OR_NOT_UIXCOLUMN_TYPE -->
 <resource key="NODESTAMP_FACET_ON_TREETABLE_MISSING_OR_NOT_UIXCOLUMN_TYPE" dnt="false">nodeStamp Facet für treeTable {0} fehlt oder ist nicht vom Typ UIXColumn</resource>
 <!-- UNEXPECTED_TREE_STATE -->
-<resource key="UNEXPECTED_TREE_STATE" dnt="false">Unerwarteter Baumstatus: Fokus-rowKey ist für einen \&quot;Alles einblenden/ausblenden\&quot;-Request leer.</resource>
+<resource key="UNEXPECTED_TREE_STATE" dnt="false">Unerwarteter Baumstatus: Fokus-rowKey ist für eine \&quot;Alles einblenden/ausblenden\&quot;-Anforderung leer.</resource>
 <!-- PAGE_NOT_CONTAIN_FORM_ELEMENT -->
 <resource key="PAGE_NOT_CONTAIN_FORM_ELEMENT" dnt="false">Die Seite enthält keine Form und kann daher nicht richtig verwendet werden</resource>
 <!-- ONLY_SHOWDETAILITEM_ALLOWED_AS_PANELTABBED_CHILD -->
@@ -390,7 +392,7 @@
 <!-- CANNOT_FIND_RENDERER -->
 <resource key="CANNOT_FIND_RENDERER" dnt="false">Renderer für Alias {0} konnte nicht gefunden werden</resource>
 <!-- UNABLE_FLIP_ICON -->
-<resource key="UNABLE_FLIP_ICON" dnt="false">Symbol &apos;&apos;{0}&apos;&apos; kann nicht gekippt werden, weil es sich nicht unter dem aktuellen Request-Kontext &apos;&apos;{1}&apos;&apos; befindet</resource>
+<resource key="UNABLE_FLIP_ICON" dnt="false">Symbol &apos;&apos;{0}&apos;&apos; kann nicht gekippt werden, weil es sich nicht unter dem aktuellen Anforderungskontext &apos;&apos;{1}&apos;&apos; befindet</resource>
 <!-- CANNOT_LOCATE_PARENT_FORM -->
 <resource key="CANNOT_LOCATE_PARENT_FORM" dnt="false">Übergeordnete Form für formValue {0} konnte nicht gefunden werden</resource>
 <!-- NULL_COMPONENT_FOR_NODE -->
@@ -448,7 +450,7 @@
 <!-- INVALID_SAVED_STATE_OBJECT -->
 <resource key="INVALID_SAVED_STATE_OBJECT" dnt="false">Ungültiges gespeichertes Statusobjekt</resource>
 <!-- PER_REQUEST_DISK_SPACE_LIMITS_EXCEEDED -->
-<resource key="PER_REQUEST_DISK_SPACE_LIMITS_EXCEEDED" dnt="false">Grenzwerte für Plattenspeicherplatz pro Request überschritten.</resource>
+<resource key="PER_REQUEST_DISK_SPACE_LIMITS_EXCEEDED" dnt="false">Grenzwerte für Plattenspeicherplatz pro Anforderung überschritten.</resource>
 <!-- POPVIEW_NO_VIEW_PUSHED -->
 <resource key="POPVIEW_NO_VIEW_PUSHED" dnt="false">popView(): Es wurde keine View weitergereicht.</resource>
 <!-- POPVIEW_NO_VIEW_PUSHED -->
@@ -460,7 +462,7 @@
 <!-- CANNOT_BE_NULL -->
 <resource key="CANNOT_BE_NULL" dnt="false">{0} darf nicht Null sein.</resource>
 <!-- NULL_REQUEST_ON_THIS_CONTEXT -->
-<resource key="NULL_REQUEST_ON_THIS_CONTEXT" dnt="false">Request ist für diesen Kontext Null.</resource>
+<resource key="NULL_REQUEST_ON_THIS_CONTEXT" dnt="false">Anforderung ist für diesen Kontext Null.</resource>
 <!-- NULL_RESPONSE_ON_THIS_CONTEXT -->
 <resource key="NULL_RESPONSE_ON_THIS_CONTEXT" dnt="false">Antwort ist für diesen Kontext Null.</resource>
 <!-- UNSUPPORTED_CONVERSION -->
