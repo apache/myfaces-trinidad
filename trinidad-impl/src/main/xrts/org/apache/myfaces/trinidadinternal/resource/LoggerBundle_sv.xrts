@@ -48,6 +48,8 @@
 <resource key="INVALID_CAPABILITY_DATA_URL" dnt="false">URL {0} till kapacitetsdata är ogiltig</resource>
 <!-- CANNOT_FIND_SAVED_VIEW_STATE -->
 <resource key="CANNOT_FIND_SAVED_VIEW_STATE" dnt="false">Hittade inte sparad vystatus för igenkänningstecken {0}</resource>
+<!-- USE_APPLICATION_VIEW_CACHE_UNSUPPORTED -->
+<resource key="USE_APPLICATION_VIEW_CACHE_UNSUPPORTED" dnt="false">USE_APPLICATION_VIEW_CACHE stöds inte och får inte användas eftersom det i de flesta fall inte fungerar.</resource>
 <!-- NO_STRUCTURE_ROOT_AVAILABLE -->
 <resource key="NO_STRUCTURE_ROOT_AVAILABLE" dnt="false">Varken struktur eller rot tillgänglig</resource>
 <!-- NO_STRUCTURE_AVAILABLE -->
@@ -91,7 +93,7 @@
 <!-- CHANGE_MANAGER_CREATION_FAILED -->
 <resource key="CHANGE_MANAGER_CREATION_FAILED" dnt="false">Kan inte skapa ChangeManager: {0}</resource>
 <!-- CANNOT_FIND_PARTIAL_TRIGGER -->
-<resource key="CANNOT_FIND_PARTIAL_TRIGGER" dnt="false">Kunde hitta partiell utlösare {0} från {1}</resource>
+<resource key="CANNOT_FIND_PARTIAL_TRIGGER" dnt="false">Hittade inte partiell trigger {0} från {1}</resource>
 <!-- NEEDED_COMPONENT_NULL_NO_SCRIPT_WRITTEN -->
 <resource key="NEEDED_COMPONENT_NULL_NO_SCRIPT_WRITTEN" dnt="false">Komponenten är null men behövs för klient-id:t, inget skript har skrivits</resource>
 <!-- NULL_CLIENT_ID_NO_SCRIPT_RENDERED -->
@@ -706,7 +708,7 @@
 <!-- INVALID_TIMEZONE_IN_CONFIG -->
 <resource key="INVALID_TIMEZONE_IN_CONFIG" dnt="false">Filen trinidad-config.xml innehåller ett ogiltigt värde för tidszonen ({0}). Standardtidszon används i stället.</resource>
 <!-- DEPRECATED_TRIGGER_SYNTAX -->
-<resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">Kunde inte hitta den partiella utlösaren {0} från {1} med partialTriggers-syntax som stöds. Den partiella utlösaren hittades med inaktuell syntax. Använd den syntax som stöds.</resource>
+<resource key="DEPRECATED_TRIGGER_SYNTAX" dnt="false">Hittade inte den partiella triggern {0} från {1} med partialTriggers-syntax som stöds. Den partiella triggern hittades med inaktuell syntax. Använd den syntax som stöds.</resource>
 <!-- DATETIMERANGEVALIDATOR_REQUIRES_VALUEHOLDER -->
 <resource key="DATETIMERANGEVALIDATOR_REQUIRES_EDITABLEVALUEHOLDER" dnt="false">För DateTimeRangeValidator krävs att komponenten är en EditableValueHolder om klientvalideringen ska fungera. Klientvalidering avaktiveras för komponenten {0}.</resource>
 <!-- INVALID_LOCALE_LANG_LENGTH  -->

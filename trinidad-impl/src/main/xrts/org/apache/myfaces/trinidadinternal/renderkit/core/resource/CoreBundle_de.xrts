@@ -440,7 +440,7 @@
 <!-- Text of the ALT tag for the content frame of popup windows -->
 <resource key="FRAME_CONTENT" dnt="false">Inhalt</resource>
 <!-- A message displayed when we think there's a popup blocker installed -->
-<resource key="WINDOW_CREATION_ERROR" dnt="false">In Ihrem Browser wurde ein Blocker für Popup-Fenster ermittelt. Popup Blocker stören die Ausführung dieser Anwendung. Deaktivieren Sie den Popup Blocker oder lassen Sie Popups von dieser Site zu.</resource>
+<resource key="WINDOW_CREATION_ERROR" dnt="false">In Ihrem Browser wurde ein Blocker für Popup-Fenster ermittelt. Popup Blocker stören die Ausführung dieser Anwendung. Deaktivieren Sie den Popup Blocker, oder lassen Sie Popups von dieser Site zu.</resource>
 <!-- Text to display in noframes element. This message is set on noframes element,
        when page redirection happens for LOV selection. -->
 <resource key="NO_FRAMES_MESSAGE" dnt="false">Ihr Browser unterstützt keine Frames. Um diese Funktion ausführen zu können, müssen Frames unterstützt werden</resource>
