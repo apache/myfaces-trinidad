@@ -45,7 +45,8 @@
     <jsp.version>2.1</jsp.version>
     <jstl.version>1.2</jstl.version>
     <jsf-spec.version>1.2</jsf-spec.version>
-    <jsf-ri.version>2.0.0-b22</jsf-ri.version>
+    <jsf-ri.version>2.0.1</jsf-ri.version>
+    <!--jsf-ri.version>2.0.0-b22</jsf-ri.version-->
     <!--jsf-myfaces.version>1.2.4</jsf-myfaces.version>
     <jsf-facelets.version>1.1.14</jsf-facelets.version-->
     <portlet-bridge.version>1.0.0-beta</portlet-bridge.version>
