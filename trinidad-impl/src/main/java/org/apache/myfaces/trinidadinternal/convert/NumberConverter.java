@@ -147,7 +147,7 @@ public class NumberConverter extends org.apache.myfaces.trinidad.convert.NumberC
     else
       params = new Object[4];
 
-    // We call this since the pattern may contain the generic currency sign '¤', which we don't 
+    // We call this since the pattern may contain the generic currency sign, which we don't 
     // want to display to the user.
     params[0] = getLocalizedPattern(context, getPattern(), null);
 
