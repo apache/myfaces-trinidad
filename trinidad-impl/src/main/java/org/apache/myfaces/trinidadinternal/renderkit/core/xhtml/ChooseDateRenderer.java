@@ -33,6 +33,7 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.input.CoreChooseDate;
+import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
@@ -493,6 +494,13 @@ public class ChooseDateRenderer extends XhtmlRenderer
     writer.endElement("tr");
 
     writer.endElement("table");
+
+
+    // IE-6 only "fix" for TRINIDAD-1071
+    if (Agent.AGENT_IE.equals(arc.getAgent().getAgentName()) && arc.getAgent().getAgentVersion().startsWith("6"))
+    {
+      _renderShowComboBoxScriptForIE6(context, arc, bean);
+    }
   }
 
 
@@ -655,6 +663,44 @@ public class ChooseDateRenderer extends XhtmlRenderer
     // attribute which indicates the mode.
     return (getDestination(bean) == null);
   }
+
+
+  /**
+   * some hack for unsupported IE6
+   */
+  private void _renderShowComboBoxScriptForIE6(
+    FacesContext context,
+    RenderingContext arc,
+    FacesBean bean
+    ) throws IOException
+  {
+    final String baseId = "";
+    final ResponseWriter writer = context.getResponseWriter();
+    final String monthId = baseId + ChooseDateRenderer.MONTH_PARAM;
+    final String yearId = baseId + ChooseDateRenderer.YEAR_PARAM;
+
+    writer.startElement("script", null);
+    writer.writeAttribute("type", "text/javascript", null);
+    writer.writeText("window.onload=showCombo; \n", null);
+    writer.writeText("function showCombo() { \n", null);
+      // Normal Trinidad onLoad;
+    writer.writeText("_checkLoad(); \n", null);
+    writer.writeText("document.getElementById('" + monthId +
+      "').style.cssText = 'display: inline !important; visibility: visible !important;'; \n",
+                       null);
+    writer.writeText("if (document.getElementById('" + yearId +
+      "') != null) {", null); // MY FIX
+    writer.writeText("document.getElementById('" + yearId +
+      "').style.cssText = 'display: inline !important; visibility: visible !important;'; \n",
+      null);
+    writer.writeText("}", null); // MY FIX
+    // ToDo: Resize iframe to remove scrollbars:
+    writer.writeText("return true; \n", null);
+    writer.writeText("} \n", null);
+
+    writer.endElement("script");
+
+ }
 
   /**
    * Render the next and previous buttons of the calendar dialog.
