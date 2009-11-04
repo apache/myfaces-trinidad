@@ -42,6 +42,8 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
+import javax.faces.view.ViewDeclarationLanguage;
+
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
@@ -80,6 +82,19 @@ public class ViewHandlerImpl extends ViewHandlerWrapper
   public ViewHandler getWrapped()
   {
     return _delegate;
+  }
+  
+  public ViewDeclarationLanguage getViewDeclarationLanguage(FacesContext context,
+                                                            String viewId)
+  {
+    // InternalViews will not use ViewDeclarationLanguage processors,
+    // since they do essentially the same job themselves.
+    InternalView internal = _getInternalView(context, viewId);
+    if (internal != null)
+    {
+      return null;
+    }
+    return _delegate.getViewDeclarationLanguage(context, viewId);
   }
 
   @Override
