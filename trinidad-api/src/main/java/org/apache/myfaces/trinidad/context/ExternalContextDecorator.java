@@ -18,17 +18,6 @@
  */
 package org.apache.myfaces.trinidad.context;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.security.Principal;
-import java.util.Iterator;
-import java.util.Locale;
-import java.util.Set;
-import java.util.Map;
-
 import javax.faces.context.ExternalContext;
 import javax.faces.context.ExternalContextWrapper;
 
