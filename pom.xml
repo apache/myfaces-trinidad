@@ -44,7 +44,7 @@
     <validation.version>1.0.0.GA</validation.version>
     <jsp.version>2.1</jsp.version>
     <jstl.version>1.2</jstl.version>
-    <jsf-spec.version>1.2</jsf-spec.version>
+    <jsf-spec.version>2.0</jsf-spec.version>
     <jsf-ri.version>2.0.1</jsf-ri.version>
     <!--jsf-ri.version>2.0.0-b22</jsf-ri.version-->
     <!--jsf-myfaces.version>1.2.4</jsf-myfaces.version>
@@ -59,7 +59,7 @@
     <junit.version>4.4</junit.version>
     
     <!-- Plugins -->
-    <trinidad-plugins.version>1.2.10</trinidad-plugins.version>
+    <trinidad-plugins.version>2.0.0-SNAPSHOT</trinidad-plugins.version>
     <wagon-plugin.version>1.0.6</wagon-plugin.version>
     <jetty-plugin.version>6.1.16</jetty-plugin.version>
     <pluto.version>1.1.6</pluto.version>
