@@ -465,7 +465,7 @@ public class CoreRenderingContext extends RenderingContext
       return _requestMapSkin;
     _checkedRequestMapSkin = true;
 
-    if (CoreRenderKit.OUTPUT_MODE_PORTLET.equals(getOutputMode()))
+    if (CoreRenderKit.OUTPUT_MODE_PORTLET.equals(getOutputMode()) || Beans.isDesignTime())
     {
       FacesContext context = getFacesContext();
 
@@ -855,4 +855,5 @@ public class CoreRenderingContext extends RenderingContext
 
   static private final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(CoreRenderingContext.class);
+
 }
