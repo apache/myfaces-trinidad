@@ -25,6 +25,7 @@ import java.util.List;
 import javax.faces.component.UIComponent;
 
 import org.apache.myfaces.trinidad.model.CollectionModel;
+import org.apache.myfaces.trinidad.model.LocalRowKeyIndex;
 import org.apache.myfaces.trinidad.model.ModelUtils;
 import org.apache.myfaces.trinidad.model.TreeModel;
 
@@ -34,7 +35,7 @@ import org.apache.myfaces.trinidad.model.TreeModel;
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/component/UIXHierarchy.java#0 $) $Date: 10-nov-2005.19:09:52 $
  */
-abstract public class UIXHierarchy extends UIXCollection implements CollectionComponent
+abstract public class UIXHierarchy extends UIXCollection implements CollectionComponent, LocalRowKeyIndex
 {
   /**
    * Create a Page component with the given render-type
