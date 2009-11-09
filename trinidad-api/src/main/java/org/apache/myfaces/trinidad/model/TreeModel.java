@@ -293,4 +293,80 @@ public abstract class TreeModel extends CollectionModel
     }
     return depth;
   }
+  
+  /**
+   * Indicates whether data for a child model (children of the current node) is 
+   * locally available. Locally available means no data fetch is required 
+   * as a result of a call to  {@link #enterContainer}. The default 
+   * implementation returns true if the current node is a container.  
+   * Override to optimize for the case where child data is not locally available
+   * @return true if child data is locally available
+   */
+  public boolean isChildCollectionLocallyAvailable()
+  {
+    return isContainer();
+  }
+
+  /**
+   * Indicates whether child data for the node with the given index is
+   * locally available.   This method first checks to see if the parent node
+   * at the given index is locally available by calling {@link #isRowLocallyAvailable(int}.
+   * If the parent node is locally available, this method moves the model to the
+   * parent node and calls {@link #isChildCollectionLocallyAvailable()}
+   * The current row does not change after this call
+   * @param index
+   * @return true if child data is available, false otherwise
+   */
+  public boolean isChildCollectionLocallyAvailable(int index)
+  {
+    if (isRowLocallyAvailable(index))
+    {
+      int oldIndex = getRowIndex();
+      try
+      {
+        setRowIndex(index);
+        return isChildCollectionLocallyAvailable();
+      }
+      finally
+      {
+        setRowIndex(oldIndex);
+      }
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+  /**
+   * Indicates whether child data for the node with the given row key is
+   * locally available.   This method first checks to see if the parent node
+   * with the given row key is locally available by calling {@link #isRowLocallyAvailable(Object)}.
+   * If the parent node is locally available, this method moves the model to the
+   * parent node and calls {@link #isChildCollectionLocallyAvailable()}
+   * The current row does not change after this call
+   * @param rowKey
+   * @return true if child data is available, false otherwise
+   */
+  public boolean isChildCollectionLocallyAvailable(Object rowKey)
+  {
+    if (isRowLocallyAvailable(rowKey))
+    {
+      Object oldKey = getRowKey();
+      try
+      {
+        setRowKey(rowKey);
+        return isChildCollectionLocallyAvailable();
+      }
+      finally
+      {
+        setRowKey(oldKey);
+      }
+    }
+    else
+    {
+      return false;
+    }
+  }
+
 }
