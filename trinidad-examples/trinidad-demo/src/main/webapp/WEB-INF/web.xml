@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+     
 -->
 <web-app xmlns="http://java.sun.com/xml/ns/javaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -30,14 +30,6 @@
     <param-value>client</param-value>
     <!--param-value>server</param-value-->
   </context-param>
-  
-  <!-- Temporarily disable partial state saving default until we make it work with Trinidad -->
-  <context-param>
-    <param-name>javax.faces.PARTIAL_STATE_SAVING</param-name>
-    <param-value>false</param-value>
-  </context-param>
-  
-
 
   <context-param>
     <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
@@ -129,22 +121,23 @@
     <param-value>userInputHere:</param-value>
   </context-param--> 
 
-  <!-- Uncomment the below for use with Facelets
+  <!-- Temporarily disable partial state saving default until we make it work with Trinidad -->
   <context-param>
-    <param-name>org.apache.myfaces.trinidad.ALTERNATE_VIEW_HANDLER</param-name>
-    <param-value>org.apache.myfaces.trinidadinternal.facelets.TrinidadFaceletViewHandler</param-value>
+    <param-name>javax.faces.PARTIAL_STATE_SAVING</param-name>
+    <param-value>false</param-value>
   </context-param>
 
+  <!-- Uncomment the below for use with Facelets -->
+
   <context-param>
-    <param-name>org.apache.myfaces.trinidad.FACELETS_VIEW_MAPPINGS</param-name>
+    <param-name>javax.faces.FACELETS_VIEW_MAPPINGS</param-name>
     <param-value>*.xhtml</param-value>
   </context-param>     
 
   <context-param>
-    <param-name>facelets.SKIP_COMMENTS</param-name>
+    <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
     <param-value>true</param-value>
   </context-param>
-  -->
 
   <filter>
     <filter-name>trinidad</filter-name>
