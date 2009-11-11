@@ -971,11 +971,11 @@ public class StateManagerImpl extends StateManagerWrapper
     {
       // TODO: Partial State Saving
       ExternalContext external = context.getExternalContext();
-      /*String restoreMode = external.getInitParameter(
-        FaceletViewHandler.PARAM_BUILD_BEFORE_RESTORE);
-      if ("true".equals(restoreMode))
+      String restoreMode = external.getInitParameter(StateManager.PARTIAL_STATE_SAVING_PARAM_NAME);
+      
+      if (Boolean.valueOf(restoreMode))
         _structureGeneratedByTemplate = Boolean.TRUE;
-      else*/
+      else
         _structureGeneratedByTemplate = Boolean.FALSE;
     }
 

@@ -18,6 +18,7 @@
  */
 package org.apache.myfaces.trinidadinternal.facelets;
 
+import javax.faces.application.StateManager;
 import javax.faces.view.facelets.FaceletContext;
 import javax.faces.view.facelets.ComponentHandler;
 import javax.faces.view.facelets.ComponentConfig;
@@ -47,12 +48,13 @@ public class TrinidadComponentHandler extends ComponentHandler
       FacesContext context = FacesContext.getCurrentInstance();
       if (context != null)
       {
-        /*ExternalContext external = context.getExternalContext();
+        ExternalContext external = context.getExternalContext();
         String restoreMode = external.getInitParameter(
-               FaceletViewHandler.PARAM_BUILD_BEFORE_RESTORE);
-        if ("true".equals(restoreMode))
+                                                     StateManager.PARTIAL_STATE_SAVING_PARAM_NAME);
+        
+        if (Boolean.valueOf(restoreMode))
           _markInitialState = Boolean.TRUE;
-        else*/ 
+        else
           _markInitialState = Boolean.FALSE;
       }
     }
