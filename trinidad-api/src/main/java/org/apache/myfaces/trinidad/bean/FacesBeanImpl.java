@@ -330,6 +330,23 @@ abstract public class FacesBeanImpl implements FacesBean
       _expressions.markInitialState();
   }
 
+
+  public void clearInitialState()
+  {
+    _initialStateMarked = false;
+
+    if (_properties != null)
+      _properties.clearInitialState();
+
+    if (_expressions != null)
+      _expressions.clearInitialState();
+  }
+
+  public boolean initialStateMarked()
+  {
+    return _initialStateMarked;
+  }
+
   public void restoreState(FacesContext context, Object state)
   {
     if (_LOG.isFiner())
@@ -509,4 +526,5 @@ abstract public class FacesBeanImpl implements FacesBean
   private transient boolean  _initialStateMarked;
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(FacesBeanImpl.class);
+
 }

@@ -198,7 +198,20 @@ public interface FacesBean
    */
   public Set<PropertyKey> bindingKeySet();
 
+  /**
+   * use a delta tracking state going forward
+   */
   public void markInitialState();
+
+  /** 
+   * @return true if delta state changes are being tracked, otherwise false
+   */
+  public boolean initialStateMarked();
+
+  /** 
+   * Reset to a non-delta tracking state.
+   */
+  public void clearInitialState();     
 
   /**
    * Saves the state of a FacesBean.

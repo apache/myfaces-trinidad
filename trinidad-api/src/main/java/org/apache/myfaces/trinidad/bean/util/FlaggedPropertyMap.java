@@ -176,6 +176,25 @@ public class FlaggedPropertyMap extends AbstractMap<PropertyKey,Object>
       map.markInitialState();
   }
 
+
+  public void clearInitialState()
+  {
+    PropertyMap map = getPropertyMap(false);
+    if (map != null)
+      map.clearInitialState();
+  }
+
+  public boolean initialStateMarked()
+  {
+    PropertyMap map = getPropertyMap(false);
+    
+    if (map != null)
+      return map.initialStateMarked();
+    
+    // TODO gcrawford - do something better?
+    return false;
+  }
+
   public Object saveState(FacesContext context)
   {
     PropertyMap map = getPropertyMap(false);

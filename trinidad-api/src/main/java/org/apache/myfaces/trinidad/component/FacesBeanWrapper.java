@@ -136,10 +136,6 @@ public class FacesBeanWrapper
     return _wrapped.bindingKeySet();
   }
 
-  public void markInitialState()
-  {
-    _wrapped.markInitialState();
-  }
 
   public Object saveState(FacesContext context)
   {
@@ -149,5 +145,20 @@ public class FacesBeanWrapper
   public void restoreState(FacesContext context, Object state)
   {
     _wrapped.restoreState(context, state);
+  }
+
+  public void clearInitialState()
+  {
+    _wrapped.clearInitialState();
+  }
+
+  public void markInitialState()
+  {
+    _wrapped.markInitialState();
+  }
+  
+  public boolean initialStateMarked()
+  {
+    return _wrapped.initialStateMarked();
   }
 }

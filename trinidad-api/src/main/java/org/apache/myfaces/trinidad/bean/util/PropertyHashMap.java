@@ -145,6 +145,16 @@ public class PropertyHashMap extends HashMap<PropertyKey,Object>
     _initialStateMarked = true;
   }
 
+  public void clearInitialState()
+  {
+    _initialStateMarked = false;
+    _deltas = null;
+  }
+
+  public boolean initialStateMarked()
+  {
+    return _initialStateMarked;
+  }
 
   private boolean _createDeltas()
   {
@@ -177,4 +187,5 @@ public class PropertyHashMap extends HashMap<PropertyKey,Object>
   private boolean      _useStateHolder;
 
   private static final long serialVersionUID = 1L;
+
 }

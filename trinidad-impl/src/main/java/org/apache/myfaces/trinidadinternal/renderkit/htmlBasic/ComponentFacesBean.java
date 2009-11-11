@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -31,11 +31,11 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 
 /**
- * Implementation of FacesBean that purely passes through 
+ * Implementation of FacesBean that purely passes through
  * back to a UIComponent.  This exists so that we can
  * reuse existing rendering code to render on a non-FacesBean-based
  * component.  It's also completely immutable.
- * 
+ *
  */
 public class ComponentFacesBean implements FacesBean
 {
@@ -130,7 +130,7 @@ public class ComponentFacesBean implements FacesBean
   {
     throw new UnsupportedOperationException();
   }
-  
+
 
   final public Set<PropertyKey> keySet()
   {
@@ -143,6 +143,16 @@ public class ComponentFacesBean implements FacesBean
   }
 
   public void markInitialState()
+  {
+    throw new UnsupportedOperationException();
+  }
+
+  public boolean initialStateMarked()
+  {
+    throw new UnsupportedOperationException();
+  }
+
+  public void clearInitialState()
   {
     throw new UnsupportedOperationException();
   }

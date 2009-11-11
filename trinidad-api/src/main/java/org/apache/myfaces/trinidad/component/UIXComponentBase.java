@@ -636,7 +636,7 @@ abstract public class UIXComponentBase extends UIXComponent
       if (_children == null)
         return _facets.values().iterator();
     }
-    
+
     return new CompositeIterator<UIComponent>(_children.iterator(), _facets.values().iterator());
   }
 
@@ -837,9 +837,9 @@ abstract public class UIXComponentBase extends UIXComponent
 
     if (_LOG.isFiner())
       _LOG.finer("processSaveState() on " + this);
-    
+
     Object state = null;
-    
+
     try
     {
       if (((_children == null) || _children.isEmpty()) &&
@@ -853,17 +853,17 @@ abstract public class UIXComponentBase extends UIXComponent
         treeState.saveState(context, this);
         if (treeState.isEmpty())
           state = null;
-  
+
         state = treeState;
       }
     }
     catch (RuntimeException e)
     {
       _LOG.warning(_LOG.getMessage("COMPONENT_CHILDREN_SAVED_STATE_FAILED", this));
-      
+
       throw e;
     }
-    
+
     // if component state serialization checking is on, attempt to Serialize the
     // component state immediately in order to determine which component's state
     // failed state saving.  Note that since our parent will attempt this same
@@ -874,7 +874,7 @@ abstract public class UIXComponentBase extends UIXComponent
     {
       try
       {
-        new ObjectOutputStream(new ByteArrayOutputStream()).writeObject(state);  
+        new ObjectOutputStream(new ByteArrayOutputStream()).writeObject(state);
       }
       catch (IOException e)
       {
@@ -918,6 +918,18 @@ abstract public class UIXComponentBase extends UIXComponent
     // FIXME: Set to true, but never read
     //_initialStateMarked = true;
     getFacesBean().markInitialState();
+  }
+
+  @Override
+  public void clearInitialState()
+  {
+    getFacesBean().clearInitialState();
+  }
+
+  @Override
+  public boolean initialStateMarked()
+  {
+    return getFacesBean().initialStateMarked();
   }
 
   public Object saveState(FacesContext context)
@@ -1311,14 +1323,14 @@ abstract public class UIXComponentBase extends UIXComponent
     throws FacesException
   {
     Iterator<UIComponent> children = getFacetsAndChildren();
-    
+
     boolean found = false;
-    
+
     while (children.hasNext() && !found)
     {
       found = children.next().invokeOnComponent(context, clientId, callback);
     }
-    
+
     return found;
   }
 
@@ -1338,7 +1350,7 @@ abstract public class UIXComponentBase extends UIXComponent
     throws FacesException
   {
     assert this instanceof NamingContainer : "Only use invokeOnNamingContainerComponent on NamingContainers";
-    
+
     String thisClientId = getClientId(context);
 
     if (clientId.equals(thisClientId))
@@ -1358,10 +1370,10 @@ abstract public class UIXComponentBase extends UIXComponent
       }
 
       boolean invokedComponent = false;
-      
+
       // set up the context for visiting the children
       setupVisitingContext(context);
-            
+
       try
       {
         // iterate through children. We inline this code instead of calling super in order
@@ -1373,11 +1385,11 @@ abstract public class UIXComponentBase extends UIXComponent
         // teardown the context now that we have visited the children
         tearDownVisitingContext(context);
       }
-      
+
       return invokedComponent;
     }
   }
-  
+
 
   /**
    * Override to calls the hooks for setting up and tearing down the
@@ -1391,7 +1403,7 @@ abstract public class UIXComponentBase extends UIXComponent
     String clientId,
     ContextCallback callback)
     throws FacesException
-  {    
+  {
     String thisClientId = getClientId(context);
 
     if (clientId.equals(thisClientId))
@@ -1402,10 +1414,10 @@ abstract public class UIXComponentBase extends UIXComponent
     else
     {
       boolean invokedComponent = false;
-      
+
       // set up the context for visiting the children
       setupVisitingContext(context);
-            
+
       try
       {
         // iterate through children. We inline this code instead of calling super in order
@@ -1417,7 +1429,7 @@ abstract public class UIXComponentBase extends UIXComponent
         // teardown the context now that we have visited the children
         tearDownVisitingContext(context);
       }
-      
+
       return invokedComponent;
     }
   }
