@@ -54,19 +54,12 @@ import org.apache.myfaces.trinidad.util.CollectionUtils;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
-import org.apache.myfaces.trinidadinternal.share.io.CachingNameResolver;
-import org.apache.myfaces.trinidadinternal.share.io.DefaultNameResolver;
-import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
-import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
-import org.apache.myfaces.trinidadinternal.share.xml.JaxpXMLProvider;
-import org.apache.myfaces.trinidadinternal.share.xml.XMLProvider;
 import org.apache.myfaces.trinidadinternal.style.CSSStyle;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.StyleProvider;
 import org.apache.myfaces.trinidadinternal.style.util.CSSGenerationUtils;
 import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
 import org.apache.myfaces.trinidadinternal.style.util.StyleWriterFactory;
-import org.apache.myfaces.trinidadinternal.style.xml.StyleSheetDocumentUtils;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.IconNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.PropertyNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.SkinPropertyNode;
@@ -74,8 +67,6 @@ import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetNode;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
-
-import org.xml.sax.SAXException;
 
 
 /**
@@ -105,58 +96,14 @@ public class FileSystemStyleCache implements StyleProvider
   /**
    * Creates a FileSystemStyleCache.
    *
-   * @param source The path of the source XSS document.  The
-   *   specified file must be a valid XSS document.  If the specified
-   *   file does not exists, an IllegalArgumentException is thrown.
    * @param target The path of the target directory.  Generated
    *   CSS files are stored in this directory.  If the directory
    *   does not exist and can not be created, an IllegalArgumentException
    *   is thrown.
+   *  @see org.apache.myfaces.trinidadinternal.skin.SkinStyleProvider - the subclass
    */
-  protected FileSystemStyleCache(String source, String target)
+  protected FileSystemStyleCache(String target)
   {
-    // The source arg may actually be null if we are using a
-    // SkinStyleProvider with no custom style sheet.
-    if (source != null)
-    {
-      File sourceFile = new File(source);
-
-      if (!sourceFile.exists())
-        throw new IllegalArgumentException(
-        "\nRequired XSS file " +
-        source +
-        " does not exist.");
-      _sourceFile = sourceFile;
-
-      // Get the base file name: name minus the extension
-      String baseName = sourceFile.getName();
-      int dotIndex = baseName.indexOf('.');
-      if (dotIndex != -1)
-        baseName = baseName.substring(0, dotIndex);
-      _baseName = baseName;
-
-      NameResolver resolver = new DefaultNameResolver(sourceFile, null);
-
-      // We explicitly wrap the NameResolver in a CachingNameResolver
-      // since that conveniently handles checking for modifications to
-      // dependent (imported) files.
-      // The default storage for cached files is a bit large,
-      // so we use a smaller hash table.  Also, always enable
-      // modification checking.
-      resolver = new CachingNameResolver(resolver,
-                                         new ConcurrentHashMap<Object, InputStreamProvider>(17),
-                                         true);
-
-      _resolver = resolver;
-    }
-    else
-    {
-      // make sure final fields are initialized
-      _sourceFile = null;
-      _baseName = null;
-      _resolver = null;
-    }
-
     // If the target directory does not exist, create it now.
     // Note: If we can't create the target directory, we just
     // plug along anyway instead of throwing an IllegalArgumentException.
@@ -263,40 +210,13 @@ public class FileSystemStyleCache implements StyleProvider
    *                (not needed here, but is needed in  subclass)
    * @return The StyleSheetDocument which defines the styles
    *         for this StyleProvider.
+   * @see org.apache.myfaces.trinidadinternal.skin.SkinStyleProvider#createStyleSheetDocument(context)
    */
   protected StyleSheetDocument createStyleSheetDocument(
     StyleContext context
     )
   {
-    // If we don't have a sourceFile, we don't have a StyleSheetDocument
-    if (_sourceFile == null)
-      return null;
-
-    StyleSheetDocument document = null;
-
-    // Get the XML Provider
-    XMLProvider provider = new JaxpXMLProvider();
-
-    try
-    {
-      document = StyleSheetDocumentUtils.createStyleSheetDocument(
-                                                        provider,
-                                                        _resolver,
-                                                        _sourceFile.getPath());
-    }
-    catch (SAXException e)
-    {
-      // The error is logged by the TreeBuilder
-      ;
-    }
-    catch (IOException e)
-    {
-      if (_LOG.isWarning())
-        _LOG.warning("IOEXCEPTION_IN_PHASE", _sourceFile);
-        _LOG.warning(e);
-    }
-
-    return document;
+    return null;
   }
 
   /**
@@ -310,12 +230,6 @@ public class FileSystemStyleCache implements StyleProvider
     // If we haven't parsed yet, don't bother checking the time stamp
     if (_document == null)
       return true;
-
-    InputStreamProvider provider = _getInputStreamProvider();
-    if (provider != null)
-      return provider.hasSourceChanged();
-
-    // Couldn't get an InputStreamProvider, what to do?
     return false;
   }
 
@@ -332,16 +246,9 @@ public class FileSystemStyleCache implements StyleProvider
   {
     StringBuilder buffer = new StringBuilder();
 
-    String baseName = _baseName;
-    if (baseName != null)
-      buffer.append(baseName);
-
     String contextName = NameUtils.getContextName(context, document);
     if ((contextName != null) && contextName.length() > 0)
     {
-      if (baseName != null)
-        buffer.append(_NAME_SEPARATOR);
-
       buffer.append(contextName);
     }
 
@@ -349,14 +256,14 @@ public class FileSystemStyleCache implements StyleProvider
     boolean compressedStyles = _isCompressStyles(context);
     if (compressedStyles)
     {
-      if (baseName != null || contextName != null)
+      if (contextName != null)
         buffer.append(_NAME_SEPARATOR);
       buffer.append(_COMPRESSED);
     }
 
     if (context.isPortletMode())
     {
-      if (baseName != null || contextName != null || compressedStyles)
+      if (contextName != null || compressedStyles)
         buffer.append(_NAME_SEPARATOR);
 
       buffer.append(_PORTLET);
@@ -649,7 +556,7 @@ public class FileSystemStyleCache implements StyleProvider
     // Re-initialize our Array of namespace prefixes that are in the selectors
     // Re-initialize our Map of short style class names
     _namespacePrefixes = _getNamespacePrefixes(context, _document);
-    _shortStyleClassMap = _getShortStyleClassMap(context, _document, _namespacePrefixes);
+    _shortStyleClassMap = _getShortStyleClassMap(_document, _namespacePrefixes);
 
     return document;
   }
@@ -952,31 +859,6 @@ public class FileSystemStyleCache implements StyleProvider
   }
 
   /**
-   * Gets the InputStreamProvider for the source file
-   */
-  private InputStreamProvider _getInputStreamProvider()
-  {
-    // Source file may be null
-    File sourceFile = _sourceFile;
-    if (sourceFile == null)
-      return null;
-
-    assert (_resolver != null);
-
-    try
-    {
-      return _resolver.getProvider(sourceFile.getPath());
-    }
-    catch (IOException e)
-    {
-      if (_LOG.isWarning())
-        _LOG.warning(e);
-    }
-
-    return null;
-  }
-
-  /**
    * Create an array of all the namespace prefixes in the xss/css file. E.g., "af|" or "tr|"
    */
   private static String[] _getNamespacePrefixes(
@@ -1011,7 +893,6 @@ public class FileSystemStyleCache implements StyleProvider
    * Do not shorten styleclasses that start with SkinSelectors.STATE_PREFIX
    */
   private static Map<String, String> _getShortStyleClassMap(
-    StyleContext       context,
     StyleSheetDocument document,
     String[]           namespacePrefixes)
   {
@@ -1380,7 +1261,7 @@ public class FileSystemStyleCache implements StyleProvider
      * @param resolvedStyles
      * @param namespacePrefixArray an array of namespace prefixes that are used in the custom css
      * skinning selectors, like "af" in af|inputText.
-     * @param afSelectoMap a map from one selector to another (like af|panelHeader::link maps to
+     * @param afSelectorMap a map from one selector to another (like af|panelHeader::link maps to
      * af|panelHeader A
      * @param shortStyleClassMap a map from the  non-compressed styleclass
      * to a compressed styleclass.
@@ -1572,16 +1453,7 @@ public class FileSystemStyleCache implements StyleProvider
     }
   }
 
-  private final File   _sourceFile; // The source XSS file
   private final String _targetPath; // The location of the cache
-  private final String _baseName;   // The base file name for generated CSS files
-
-  /**
-   * The NameResolver and InputStreamProvider we use to
-   * resolve/load all files.  We also use the InputStreamProvider
-   * to check for modifications to any dependent files.
-   */
-  private final NameResolver _resolver;
 
   /** The parsed StyleSheetDocument */
   private StyleSheetDocument _document;
