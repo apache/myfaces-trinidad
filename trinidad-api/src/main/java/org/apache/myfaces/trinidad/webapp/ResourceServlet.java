@@ -326,10 +326,13 @@ public class ResourceServlet extends HttpServlet
         else
         {
           // default to serving resources from the servlet context
-          _LOG.warning("Unable to find ResourceLoader for ResourceServlet" +
-                       " at servlet path:{0}" +
-                       "\nCause: Could not find resource:{1}",
-                       new Object[] {servletPath, key});
+          if(_LOG.isWarning())
+          {
+            _LOG.warning("Unable to find ResourceLoader for ResourceServlet" +
+                         " at servlet path:{0}" +
+                         "\nCause: Could not find resource:{1}",
+                         new Object[] {servletPath, key});
+          }
           loader = new ServletContextResourceLoader(getServletContext())
                    {
                      @Override
@@ -453,10 +456,13 @@ public class ResourceServlet extends HttpServlet
       url = connection.getURL();
       resourcePath = url.getPath();
 
-      _LOG.warning("ResourceServlet._setHeaders(): " +  
-                   "Content type for {0} is NULL!\n" +
-                   "Cause: Unknown file extension",
-                   resourcePath);
+      if(_LOG.isWarning())
+      {
+        _LOG.warning("ResourceServlet._setHeaders(): " +  
+                     "Content type for {0} is NULL!\n" +
+                     "Cause: Unknown file extension",
+                     resourcePath);
+      }
     } 
     
     long lastModified;
