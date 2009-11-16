@@ -377,6 +377,27 @@ public class CoreRenderer extends Renderer
     if (getRendersChildren())
       throw new IllegalStateException();
   }
+  
+  /**
+   * Hook for rendering the component resources for the <code>target</code>.
+   * @param context Current <code>FacesContext</code> object for this request.
+   * @param target The target for the resources (e.g. head/body/form)
+   * 
+   * @throws IOException
+   */
+  protected final void encodeComponentResources(
+    FacesContext context,
+    String       target) throws IOException
+  {
+    if(target != null)
+    {
+      UIViewRoot viewRoot = context.getViewRoot();
+      for(UIComponent componentResource : viewRoot.getComponentResources(context, target))
+      {
+        componentResource.encodeAll(context);
+      }
+    }
+  }
 
   /**
    * Hook for rendering the end of a component;  only

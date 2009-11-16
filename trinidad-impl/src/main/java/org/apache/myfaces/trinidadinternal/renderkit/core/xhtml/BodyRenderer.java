@@ -88,6 +88,10 @@ public class BodyRenderer extends PanelPartialRootRenderer
   {
     _encodeServiceScripts(context);
 
+    // trigger the rendering of targeted resource
+    // for the BODY, on UIViewRoot - if there are 
+    // any...
+    encodeComponentResources(context, "body");
     context.getResponseWriter().endElement("body");
 
     _renderInitialFocusScript(context, arc);

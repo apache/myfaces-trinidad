@@ -88,6 +88,12 @@ public class HeadRenderer extends XhtmlRenderer
     FacesBean           bean) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
+    
+    // trigger the rendering of targeted resource
+    // for the HEAD, on UIViewRoot - if there are 
+    // any...
+    encodeComponentResources(context, "head");
+
     rw.endElement("head");
   }
 

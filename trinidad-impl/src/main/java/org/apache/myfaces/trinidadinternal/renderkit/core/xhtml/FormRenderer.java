@@ -363,6 +363,10 @@ public class FormRenderer extends XhtmlRenderer
     if (pprContext == null)
       _renderSubmitFormCheck(context, arc);
 
+    // trigger the rendering of targeted resource
+    // for the FORM, on UIViewRoot - if there are 
+    // any...
+    encodeComponentResources(context, "form");
 
     // Close up the form
     writer.endElement("form");
