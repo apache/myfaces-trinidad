@@ -312,8 +312,8 @@ public class PdaTableRenderer extends TableRenderer
               rw.writeAttribute("colspan",
                                 IntegerUtils.getString(tContext.getActualColumnCount()),
                                 null);
-              
-              // out.writeAttribute(CLASS_ATTRIBUTE, TABLE_DETAIL_STYLE);
+                                
+              renderStyleClass(fc, arc, SkinSelectors.AF_TABLE_DETAIL_STYLE);
               
               encodeChild(fc, detail);
               
