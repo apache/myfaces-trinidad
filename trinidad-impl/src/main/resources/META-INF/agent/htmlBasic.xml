@@ -47,6 +47,6 @@
   <capability name="-adfinternal-altRendersTooltipOnImage" value="false"/>
   <capability name="-adfinternal-cssSelectors" value="none"/>
   <capability name="-adfinternal-fieldset" value="false"/>  
-  <capability name="-adfinternal-supportsDisabledOptions" value="false"/>
+  <capability name="-adfinternal-supportsDisabledOptions" value="true"/>
   <capability name="-adfinternal-onclickOnImgInput" value="true"/>    
 </capabilityData>
