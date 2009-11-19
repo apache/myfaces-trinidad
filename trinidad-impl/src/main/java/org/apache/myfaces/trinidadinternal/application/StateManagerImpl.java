@@ -50,6 +50,9 @@ import org.apache.myfaces.trinidadinternal.util.TokenCache;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectOutputStream;
 
+import javax.faces.view.StateManagementStrategy;
+import javax.faces.view.ViewDeclarationLanguage;
+
 import org.apache.myfaces.trinidad.bean.util.StateUtils;
 import org.apache.myfaces.trinidad.context.Window;
 import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
@@ -144,8 +147,33 @@ public class StateManagerImpl extends StateManagerWrapper
     
     if(isSavingStateInClient(context))
     {
-      SerializedView view = _saveSerializedView(context);
-      return new Object[]{view.getStructure(), view.getState()};
+      // if the root is transient don't state save
+      UIViewRoot viewRoot = context.getViewRoot();
+      
+      if (viewRoot.isTransient()) 
+      {
+          return null;
+      }
+      
+      String viewId = context.getViewRoot().getViewId();
+      ViewDeclarationLanguage vdl =  context.getApplication().getViewHandler().
+                                                      getViewDeclarationLanguage(context, viewId);
+      StateManagementStrategy sms = null;
+      
+      if (vdl != null) 
+      {
+        sms = vdl.getStateManagementStrategy(context, viewId);
+      }
+      
+      if (sms != null) 
+      {
+        return sms.saveView(context);
+      }
+      else
+      {
+        SerializedView view = _saveSerializedView(context);
+        return new Object[]{view.getStructure(), view.getState()};
+      }
     }
     
     return super.saveView(context);
@@ -516,162 +544,178 @@ public class StateManagerImpl extends StateManagerWrapper
     
     if (!isSavingStateInClient(context))
       return _delegate.restoreView(context, viewId, renderKitId);
-
-    final Object structure;
-    final Object state;
-    boolean recalculateLocale = false;
-
-    ResponseStateManager rsm = _getResponseStateManager(context, renderKitId);
-    if (_saveAsToken(context))
+    
+        
+    ViewDeclarationLanguage vdl = context.getApplication().getViewHandler().
+                                                       getViewDeclarationLanguage(context, viewId);    
+    StateManagementStrategy sms = null;
+    
+    if (vdl != null) 
     {
-      Object token = rsm.getTreeStructureToRestore(context, viewId);
-      if (token == null)
+      sms = vdl.getStateManagementStrategy(context, viewId);
+    }
+
+    if (sms!= null) 
+    {
+      return sms.restoreView(context, viewId, renderKitId);
+    } 
+    else
+    {
+      final Object structure;
+      final Object state;
+      boolean recalculateLocale = false;
+  
+      ResponseStateManager rsm = _getResponseStateManager(context, renderKitId);
+      if (_saveAsToken(context))
       {
-        _LOG.finest("No token in the request for view \"{0}\";  probably a first view.", viewId);
-        return null;
-      }
-
-      assert(token instanceof String);
-      _LOG.finer("Restoring saved view state for token {0}", token);
-
-      PageState viewState;
-
-      // Load from the application cache
-      if (_APPLICATION_CACHE_TOKEN.equals(token))
-      {
-        Map<String, PageState> cache = _getApplicationViewCache(context);
-        Map<String, PageState> perSessionCache =
-          _getPerSessionApplicationViewCache(context);
-
-        // Synchronize on the application-level cache.
-        // =-=AEW This may produce excessive contention
-        synchronized (cache)
+        Object token = rsm.getTreeStructureToRestore(context, viewId);
+        if (token == null)
         {
-          // Look first in the per-session cache
-          viewState = perSessionCache.get(viewId);
-          if (viewState == null)
-          {
-            // Nope, it's not there.  Look in the application cache
-            viewState = cache.get(viewId);
-            // And if we find it there, then push it back into
-            // the per-session cache (it may have expired)
-            if (viewState != null)
-              perSessionCache.put(viewId, viewState);
-          }
-          
-          // If the view was found in the application cache then we
-          // know it would be unsafe to use its locale for this session.
-          // Same conclusion, however, even if found in the per-session 
-          // cache, since the latter is just a mirror of the former.
-          recalculateLocale = true;
+          _LOG.finest("No token in the request for view \"{0}\";  probably a first view.", viewId);
+          return null;
         }
+  
+        assert(token instanceof String);
+        _LOG.finer("Restoring saved view state for token {0}", token);
+  
+        PageState viewState;
+  
+        // Load from the application cache
+        if (_APPLICATION_CACHE_TOKEN.equals(token))
+        {
+          Map<String, PageState> cache = _getApplicationViewCache(context);
+          Map<String, PageState> perSessionCache =
+            _getPerSessionApplicationViewCache(context);
+  
+          // Synchronize on the application-level cache.
+          // =-=AEW This may produce excessive contention
+          synchronized (cache)
+          {
+            // Look first in the per-session cache
+            viewState = perSessionCache.get(viewId);
+            if (viewState == null)
+            {
+              // Nope, it's not there.  Look in the application cache
+              viewState = cache.get(viewId);
+              // And if we find it there, then push it back into
+              // the per-session cache (it may have expired)
+              if (viewState != null)
+                perSessionCache.put(viewId, viewState);
+            }
+            
+            // If the view was found in the application cache then we
+            // know it would be unsafe to use its locale for this session.
+            // Same conclusion, however, even if found in the per-session 
+            // cache, since the latter is just a mirror of the former.
+            recalculateLocale = true;
+          }
+        }
+        else
+        {
+          // get view cache key with "." separator suffix to separate the SubKeyMap keys
+          String subkey = _getViewCacheKey(extContext,
+                                           RequestContext.getCurrentInstance(),
+                                           _SUBKEY_SEPARATOR);
+          
+          Map<String, PageState> stateMap = new SubKeyMap<PageState>(
+                           extContext.getSessionMap(),
+                           subkey);
+          viewState = stateMap.get(token);
+  
+          if (viewState != null)
+            _updateRequestTokenForResponse(context, (String) token);
+  
+          // Make sure that if the view state is present, the cache still
+          // has the token, and vice versa
+  
+          // NOTE: it's very important that we call through to the
+          // token cache here, not just inside the assert.  If we don't,
+          // then we don't actually access the token, so it doesn't
+          // get bumped up to the front in the LRU Cache!
+          boolean isAvailable =
+            _getViewCache(context).isAvailable((String) token);
+          assert ((viewState != null) == isAvailable);
+        }
+  
+        if (viewState == null)
+        {
+          _LOG.severe("CANNOT_FIND_SAVED_VIEW_STATE", token);
+          return null;
+        }
+  
+        _LOG.fine("Successfully found view state for token {0}", token);
+  
+        UIViewRoot root = viewState.popRoot(context); // bug 4712492
+        if (root != null)
+        {
+          _LOG.finer("UIViewRoot for token {0} already exists. Bypassing restoreState", token);
+          return root;
+        }
+  
+        structure = viewState.getStructure();
+        state = viewState.getState();
       }
       else
       {
-        // get view cache key with "." separator suffix to separate the SubKeyMap keys
-        String subkey = _getViewCacheKey(extContext,
-                                         RequestContext.getCurrentInstance(),
-                                         _SUBKEY_SEPARATOR);
-        
-        Map<String, PageState> stateMap = new SubKeyMap<PageState>(
-                         extContext.getSessionMap(),
-                         subkey);
-        viewState = stateMap.get(token);
-
-        if (viewState != null)
-          _updateRequestTokenForResponse(context, (String) token);
-
-        // Make sure that if the view state is present, the cache still
-        // has the token, and vice versa
-
-        // NOTE: it's very important that we call through to the
-        // token cache here, not just inside the assert.  If we don't,
-        // then we don't actually access the token, so it doesn't
-        // get bumped up to the front in the LRU Cache!
-        boolean isAvailable =
-          _getViewCache(context).isAvailable((String) token);
-        assert ((viewState != null) == isAvailable);
+        structure = rsm.getTreeStructureToRestore(context, viewId);
+        state = rsm.getComponentStateToRestore(context);
       }
-
-      if (viewState == null)
+  
+      if (structure == null)
       {
-        _LOG.severe("CANNOT_FIND_SAVED_VIEW_STATE", token);
-        return null;
-      }
-
-      _LOG.fine("Successfully found view state for token {0}", token);
-
-      UIViewRoot root = viewState.popRoot(context); // bug 4712492
-      if (root != null)
-      {
-        _LOG.finer("UIViewRoot for token {0} already exists. Bypassing restoreState", token);
-        return root;
-      }
-
-      structure = viewState.getStructure();
-      state = viewState.getState();
-    }
-    else
-    {
-      structure = rsm.getTreeStructureToRestore(context, viewId);
-      state = rsm.getComponentStateToRestore(context);
-    }
-
-    if (structure == null)
-    {
-
-      UIViewRoot root = context.getViewRoot();
-      if (root == null && _needStructure(context))
-      {
-        _LOG.severe("NO_STRUCTURE_ROOT_AVAILABLE");
-        return null;
-      }
-
-      if (state != null)
-        root.processRestoreState(context, state);
-
-      return root;
-    }
-    else
-    {
-      if (!(structure instanceof Structure))
-      {
-        _LOG.severe("NO_STRUCTURE_AVAILABLE");
-        return null;
-      }
-
-      // OK, we've structure and state; let's see what we can do!
-      try
-      {
-        UIViewRoot root = (UIViewRoot)
-        ((Structure) structure).createComponent();
-
+  
+        UIViewRoot root = context.getViewRoot();
+        if (root == null && _needStructure(context))
+        {
+          _LOG.severe("NO_STRUCTURE_ROOT_AVAILABLE");
+          return null;
+        }
+  
         if (state != null)
           root.processRestoreState(context, state);
-        
-        if (recalculateLocale)
-        {
-          // Ensure that locale gets re-calculated when next fetched.
-          root.setLocale((Locale) null);
-        }
-
-        _LOG.finer("Restored state for view \"{0}\"", viewId);
+  
         return root;
       }
-      catch (ClassNotFoundException cnfe)
+      else
       {
-        _LOG.severe(cnfe);
-      }
-      catch (InstantiationException ie)
-      {
-        _LOG.severe(ie);
-      }
-      catch (IllegalAccessException iae)
-      {
-        _LOG.severe(iae);
+        if (!(structure instanceof Structure))
+        {
+          _LOG.severe("NO_STRUCTURE_AVAILABLE");
+          return null;
+        }
+  
+        // OK, we've structure and state; let's see what we can do!
+        try
+        {
+          UIViewRoot root = (UIViewRoot)
+          ((Structure) structure).createComponent();
+  
+          if (state != null)
+            root.processRestoreState(context, state);
+          
+          if (recalculateLocale)
+          {
+            // Ensure that locale gets re-calculated when next fetched.
+            root.setLocale((Locale) null);
+          }
+  
+          _LOG.finer("Restored state for view \"{0}\"", viewId);
+          return root;
+        }
+        catch (ClassNotFoundException cnfe)
+        {
+          _LOG.severe(cnfe);
+        }
+        catch (InstantiationException ie)
+        {
+          _LOG.severe(ie);
+        }
+        catch (IllegalAccessException iae)
+        {
+          _LOG.severe(iae);
+        }
       }
     }
-
     return null;
   }
 
