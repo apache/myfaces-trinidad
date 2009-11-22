@@ -73,6 +73,14 @@ public class PanelTabbedRenderer extends org.apache.myfaces.trinidadinternal.ui.
     UINode           node
     ) throws IOException
   {
+    
+    String partialTargets =  
+          (String) context.getProperty(MARLIN_NAMESPACE,
+                     PdaHtmlLafConstants.LINK_CONTAINER_PARTIAL_TARGETS_PROPERTY);
+    
+    if (partialTargets != null)
+      setPartialTargets(context, null);
+    
     ResponseWriter writer = context.getResponseWriter();
     writer.startElement( DIV_ELEMENT, null );
     renderStyleClassAttribute(context,
@@ -83,6 +91,9 @@ public class PanelTabbedRenderer extends org.apache.myfaces.trinidadinternal.ui.
       super.renderContent(
              context, node.getIndexedChild(context, selectedChildIndex));
     writer.endElement( DIV_ELEMENT );
+    
+    if (partialTargets != null)
+      setPartialTargets(context, partialTargets);
   }
 
   @Override
