@@ -729,13 +729,16 @@ abstract public class UIXComponentBase extends UIXComponent
     if (context == null)
       throw new NullPointerException();
 
+    // Call UIComponent.pushComponentToEL(javax.faces.context.FacesContext, javax.faces.component.UIComponent)
+    pushComponentToEL(context, this);
+
     if (!isRendered())
       return;
 
+    context.getApplication().publishEvent(context,  PreRenderComponentEvent.class, UIComponent.class, this);
+
     _cacheRenderer(context);
     Renderer renderer = getRenderer(context);
-
-    context.getApplication().publishEvent(context,  PreRenderComponentEvent.class, UIComponent.class, this);
 
     // if there is a Renderer for this component
     if (renderer != null)
@@ -767,14 +770,21 @@ abstract public class UIXComponentBase extends UIXComponent
     if (context == null)
       throw new NullPointerException();
 
-    if (isRendered())
+    try
     {
-      Renderer renderer = getRenderer(context);
-      // if there is a Renderer for this component
-      if (renderer != null)
+      if (isRendered())
       {
-        renderer.encodeEnd(context, this);
+        Renderer renderer = getRenderer(context);
+        // if there is a Renderer for this component
+        if (renderer != null)
+        {
+          renderer.encodeEnd(context, this);
+        }
       }
+    }
+    finally
+    {
+      popComponentFromEL(context);
     }
   }
 
@@ -820,12 +830,23 @@ abstract public class UIXComponentBase extends UIXComponent
     if (!isRendered())
       return;
 
-    // Process all facets and children of this component
-    decodeChildren(context);
+    pushComponentToEL(context, this);
 
-    // Process this component itself
-    decode(context);
+    try
+    {
+      // Process all facets and children of this component
+      decodeChildren(context);
 
+      // Process this component itself
+      decode(context);
+    }
+    finally
+    {
+      // Call UIComponent.popComponentFromEL(javax.faces.context.FacesContext) from inside of a finally
+      // block, just before returning.
+
+      popComponentFromEL(context);
+    }
   }
 
   @Override
@@ -837,8 +858,17 @@ abstract public class UIXComponentBase extends UIXComponent
     if (!isRendered())
       return;
 
-    // Process all facets and children of this component
-    validateChildren(context);
+    pushComponentToEL(context, this);
+
+    try
+    {
+      // Process all facets and children of this component
+      validateChildren(context);
+    }
+    finally
+    {
+      popComponentFromEL(context);
+    }
   }
 
   @Override
@@ -850,8 +880,17 @@ abstract public class UIXComponentBase extends UIXComponent
     if (!isRendered())
       return;
 
-    // Process all facets and children of this component
-    updateChildren(context);
+    pushComponentToEL(context, this);
+
+    try
+    {
+      // Process all facets and children of this component
+      updateChildren(context);
+    }
+    finally
+    {
+      popComponentFromEL(context);
+    }
   }
 
   @Override
@@ -862,6 +901,8 @@ abstract public class UIXComponentBase extends UIXComponent
 
     if (_LOG.isFiner())
       _LOG.finer("processSaveState() on " + this);
+
+    pushComponentToEL(context, this);
 
     Object state = null;
 
@@ -887,6 +928,11 @@ abstract public class UIXComponentBase extends UIXComponent
       _LOG.warning(_LOG.getMessage("COMPONENT_CHILDREN_SAVED_STATE_FAILED", this));
 
       throw e;
+    }
+
+    finally
+    {
+      popComponentFromEL(context);
     }
 
     // if component state serialization checking is on, attempt to Serialize the
@@ -923,16 +969,25 @@ abstract public class UIXComponentBase extends UIXComponent
     if (_LOG.isFiner())
       _LOG.finer("processRestoreState() on " + this);
 
-    // If we saved a "TreeState", use it to restore everything
-    if (state instanceof TreeState)
+    pushComponentToEL(context, this);
+
+    try
     {
-      ((TreeState) state).restoreState(context, this);
+      // If we saved a "TreeState", use it to restore everything
+      if (state instanceof TreeState)
+      {
+        ((TreeState) state).restoreState(context, this);
+      }
+      // Otherwise, we had no children or facets, and just use
+      // the "state" object
+      else
+      {
+        restoreState(context, state);
+      }
     }
-    // Otherwise, we had no children or facets, and just use
-    // the "state" object
-    else
+    finally
     {
-      restoreState(context, state);
+      popComponentFromEL(context);
     }
   }
 
