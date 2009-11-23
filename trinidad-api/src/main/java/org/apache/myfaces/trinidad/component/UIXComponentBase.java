@@ -48,6 +48,7 @@ import javax.faces.event.FacesEvent;
 import javax.faces.event.FacesListener;
 import javax.faces.event.PostAddToViewEvent;
 import javax.faces.event.PreRemoveFromViewEvent;
+import javax.faces.event.PreRenderComponentEvent;
 import javax.faces.render.RenderKit;
 import javax.faces.render.Renderer;
 
@@ -733,6 +734,9 @@ abstract public class UIXComponentBase extends UIXComponent
 
     _cacheRenderer(context);
     Renderer renderer = getRenderer(context);
+
+    context.getApplication().publishEvent(context,  PreRenderComponentEvent.class, UIComponent.class, this);
+
     // if there is a Renderer for this component
     if (renderer != null)
     {

@@ -25,6 +25,7 @@ import javax.el.ValueExpression;
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.EditableValueHolder;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
@@ -32,6 +33,8 @@ import javax.faces.el.EvaluationException;
 import javax.faces.el.MethodBinding;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
+import javax.faces.event.PostValidateEvent;
+import javax.faces.event.PreValidateEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.render.Renderer;
 import javax.faces.validator.Validator;
@@ -459,6 +462,8 @@ abstract public class UIXEditableValueTemplate
    */
   private void _executeValidate(FacesContext context)
   {
+    Application application = context.getApplication();
+    application.publishEvent(context, PreValidateEvent.class, UIComponent.class, this);
     try
     {
       validate(context);
@@ -467,6 +472,10 @@ abstract public class UIXEditableValueTemplate
     {
       context.renderResponse();
       throw e;
+    }
+    finally
+    {
+      application.publishEvent(context, PostValidateEvent.class, UIComponent.class, this);
     }
 
     if (!isValid())
