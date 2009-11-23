@@ -46,6 +46,8 @@ import javax.faces.el.ValueBinding;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.FacesListener;
+import javax.faces.event.PostAddToViewEvent;
+import javax.faces.event.PreRemoveFromViewEvent;
 import javax.faces.render.RenderKit;
 import javax.faces.render.Renderer;
 
@@ -402,16 +404,35 @@ abstract public class UIXComponentBase extends UIXComponent
   /**
    * <p>Set the parent <code>UIComponent</code> of this
    * <code>UIComponent</code>.</p>
-   *
+   * 
    * @param parent The new parent, or <code>null</code> for the root node
    *  of a component tree
    */
   @Override
   public void setParent(UIComponent parent)
   {
+    // do we add this component ?
+    if (parent != null && parent.isInView())
+    {
+      // trigger the ADD_EVENT and call setInView(true)
+      // recursive for all kids/facets...
+      // Application.publishEvent(java.lang.Class, java.lang.Object)  must be called, passing 
+      // PostAddToViewEvent.class as the first argument and the newly added component as the second 
+      // argument.
+      _publishPostAddToViewEvent(getFacesContext(), this);
+    }
+    else
+    {
+      if (_parent != null && _parent.isInView())
+      {
+        // trigger the "remove event" lifecycle
+        // and call setInView(false) for all children/facets
+        // doing this => recursive
+        _publishPreRemoveFromViewEvent(getFacesContext(), this);
+      }
+    }
     _parent = parent;
   }
-
 
   @Override
   public boolean isRendered()
@@ -1117,6 +1138,81 @@ abstract public class UIXComponentBase extends UIXComponent
     if (renderer != null)
     {
       renderer.decode(context, this);
+    }
+  }
+
+  /**
+   * Publish PostAddToViewEvent to the component and all facets and children.
+   * 
+   * @param context the current FacesContext
+   * @param component the current UIComponent
+   */
+  private void _publishPostAddToViewEvent(
+    FacesContext context,
+    UIComponent component)
+  {
+    component.setInView(true);
+    context.getApplication().publishEvent(context, PostAddToViewEvent.class, UIComponent.class, component);
+
+    if (component.getChildCount() > 0)
+    {
+      List<UIComponent> children = component.getChildren();
+      UIComponent child = null;
+      UIComponent currentChild = null;
+      int i = 0;
+      while (i < children.size())
+      {
+        child = children.get(i);
+
+        // Iterate over the same index if the component was removed
+        // This prevents skip components when processing
+        do 
+        {
+          _publishPostAddToViewEvent(context, child);
+          currentChild = child;
+        }
+        while ((i < children.size()) &&
+               ((child = children.get(i)) != currentChild) );
+        i++;
+      }
+    }
+
+    if (component.getFacetCount() > 0)
+    {
+      for (UIComponent child : component.getFacets().values())
+      {
+        _publishPostAddToViewEvent(context, child);
+      }
+    }
+  } 
+
+  /**
+   * Publish PreRemoveFromViewEvent to the component and all facets and children.
+   * 
+   * @param context the current FacesContext
+   * @param component the current UIComponent
+   */
+  private void _publishPreRemoveFromViewEvent(
+    FacesContext context,
+    UIComponent component)
+  {
+    component.setInView(false);
+    context.getApplication().publishEvent(context, PreRemoveFromViewEvent.class, UIComponent.class, component);
+
+    if (component.getChildCount() > 0)
+    {
+      for (UIComponent child : component.getChildren())
+      {
+        _publishPreRemoveFromViewEvent(context, child);
+      }
+    }
+
+    if (component.getFacetCount() > 0)
+    {
+      for (UIComponent child : component.getFacets().values())
+      {
+        _publishPreRemoveFromViewEvent(context, child);
+      }
     }
   }
 
