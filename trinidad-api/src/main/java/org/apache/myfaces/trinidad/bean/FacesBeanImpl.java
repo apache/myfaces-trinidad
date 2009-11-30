@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -31,10 +31,9 @@ import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
-
-
 import org.apache.myfaces.trinidad.bean.util.FlaggedPropertyMap;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+
 
 /**
  * Base implementation of FacesBean.
@@ -72,8 +71,6 @@ abstract public class FacesBeanImpl implements FacesBean
     return null;
   }
 
-
-  
   /**
    * {@inheritDoc}
    */
@@ -86,7 +83,6 @@ abstract public class FacesBeanImpl implements FacesBean
     // Look for a binding if and only if the key supports bindings
     return key.getSupportsBinding() ? getValueExpression(key) : null;
   }
-
 
   // TODO Need *good* way of hooking property-sets;  it's
   // currently not called from state restoring, so really, it shouldn't
@@ -113,7 +109,7 @@ abstract public class FacesBeanImpl implements FacesBean
     if (map == null)
       return null;
 
-    return (ValueExpression) map.get(key);    
+    return (ValueExpression) map.get(key);
   }
 
   final public void setValueExpression(PropertyKey key,
@@ -139,7 +135,7 @@ abstract public class FacesBeanImpl implements FacesBean
     }
 
   }
-  
+
   @SuppressWarnings("deprecation")
   final public ValueBinding getValueBinding(PropertyKey key)
   {
@@ -160,7 +156,7 @@ abstract public class FacesBeanImpl implements FacesBean
   final public void setValueBinding(PropertyKey key, ValueBinding binding)
   {
     ValueExpression ve;
-    
+
     if (binding == null)
     {
       ve = null;
@@ -172,7 +168,6 @@ abstract public class FacesBeanImpl implements FacesBean
 
     setValueExpression(key, ve);
   }
-
 
   @SuppressWarnings("unchecked")
   final public void addEntry(PropertyKey listKey, Object value)
@@ -318,7 +313,6 @@ abstract public class FacesBeanImpl implements FacesBean
     return _expressions.keySet();
   }
 
-
   public void markInitialState()
   {
     _initialStateMarked = true;
@@ -329,7 +323,6 @@ abstract public class FacesBeanImpl implements FacesBean
     if (_expressions != null)
       _expressions.markInitialState();
   }
-
 
   public void clearInitialState()
   {
@@ -482,7 +475,6 @@ abstract public class FacesBeanImpl implements FacesBean
     return (fromKey.isList() == toKey.isList());
   }
 
-
   private PropertyMap _getPropertyMap()
   {
     if (_properties == null)
@@ -504,7 +496,6 @@ abstract public class FacesBeanImpl implements FacesBean
     return _expressions;
   }
 
-
   static private void _checkListKey(PropertyKey listKey)
     throws IllegalArgumentException
   {
@@ -525,6 +516,6 @@ abstract public class FacesBeanImpl implements FacesBean
   private PropertyMap  _expressions;
   private transient boolean  _initialStateMarked;
 
-  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(FacesBeanImpl.class);
-
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
+                                               FacesBeanImpl.class);
 }

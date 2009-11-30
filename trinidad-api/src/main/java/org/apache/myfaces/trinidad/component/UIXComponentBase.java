@@ -19,11 +19,16 @@
 package org.apache.myfaces.trinidad.component;
 
 import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectOutputStream;
 
 import java.net.URL;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -38,7 +43,11 @@ import javax.el.ValueExpression;
 import javax.faces.FacesException;
 import javax.faces.component.ContextCallback;
 import javax.faces.component.NamingContainer;
+import javax.faces.component.PartialStateHolder;
+import javax.faces.component.StateHolder;
 import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.ClientBehavior;
+import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.el.EvaluationException;
 import javax.faces.el.MethodBinding;
@@ -62,6 +71,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.render.ExtendedRenderer;
 import org.apache.myfaces.trinidad.render.LifecycleRenderer;
 import org.apache.myfaces.trinidad.util.ThreadLocalUtils;
+
 
 /**
  * Base implementation of components for all of Trinidad.  UIXComponentBase
@@ -398,7 +408,6 @@ abstract public class UIXComponentBase extends UIXComponent
     return _parent;
   }
 
-
   /**
    * <p>Set the parent <code>UIComponent</code> of this
    * <code>UIComponent</code>.</p>
@@ -412,13 +421,11 @@ abstract public class UIXComponentBase extends UIXComponent
     _parent = parent;
   }
 
-
   @Override
   public boolean isRendered()
   {
     return getBooleanProperty(RENDERED_KEY, true);
   }
-
 
   @Override
   public void setRendered(boolean rendered)
@@ -468,7 +475,6 @@ abstract public class UIXComponentBase extends UIXComponent
     setProperty(RENDERER_TYPE_KEY, rendererType);
   }
 
-
   @Override
   public boolean getRendersChildren()
   {
@@ -479,12 +485,7 @@ abstract public class UIXComponentBase extends UIXComponent
     return renderer.getRendersChildren();
   }
 
-
-
-
   // ------------------------------------------------ Tree Management Methods
-
-
 
   @Override
   public UIComponent findComponent(String id)
@@ -556,8 +557,6 @@ abstract public class UIXComponentBase extends UIXComponent
     }
   }
 
-
-
   /**
    * <p>Create (if necessary) and return a List of the children associated
    * with this component.</p>
@@ -579,7 +578,6 @@ abstract public class UIXComponentBase extends UIXComponent
     return getChildren().size();
   }
 
-
   /**
    * <p>Create (if necessary) and return a Map of the facets associated
    * with this component.</p>
@@ -594,7 +592,6 @@ abstract public class UIXComponentBase extends UIXComponent
     return _facets;
   }
 
-
   @Override
   public UIComponent getFacet(String facetName)
   {
@@ -604,7 +601,6 @@ abstract public class UIXComponentBase extends UIXComponent
       return null;
     return getFacets().get(facetName);
   }
-
 
   /**
    * Returns an Iterator over the names of all facets.
@@ -678,9 +674,7 @@ abstract public class UIXComponentBase extends UIXComponent
     }
   }
 
-
   // ------------------------------------------- Lifecycle Processing Methods
-
 
   @Override
   public void decode(FacesContext context)
@@ -918,12 +912,20 @@ abstract public class UIXComponentBase extends UIXComponent
     // FIXME: Set to true, but never read
     //_initialStateMarked = true;
     getFacesBean().markInitialState();
+    if (_behaviors != null)
+    {
+      _behaviors.markInitialState();
+    }
   }
 
   @Override
   public void clearInitialState()
   {
     getFacesBean().clearInitialState();
+    if (_behaviors != null)
+    {
+      _behaviors.clearInitialState();
+    }
   }
 
   @Override
@@ -932,16 +934,30 @@ abstract public class UIXComponentBase extends UIXComponent
     return getFacesBean().initialStateMarked();
   }
 
-  public Object saveState(FacesContext context)
+  public Object saveState(FacesContext facesContext)
   {
-    return getFacesBean().saveState(context);
+    return new Object[]
+      {
+        getFacesBean().saveState(facesContext),
+        _behaviors == null ? null : _behaviors.saveState(facesContext)
+      };
   }
 
-  public void restoreState(FacesContext context, Object stateObj)
+  public void restoreState(
+    FacesContext facesContext,
+    Object       stateObj)
   {
-    getFacesBean().restoreState(context, stateObj);
+    Object[] state = (Object[])stateObj;
+    getFacesBean().restoreState(facesContext, state[0]);
+    if (state[1] != null)
+    {
+      if (_behaviors == null)
+      {
+        _behaviors = new BehaviorMap();
+      }
+      _behaviors.restoreState(facesContext, state[1]);
+    }
   }
-
 
   @Override
   public String toString()
@@ -965,7 +981,6 @@ abstract public class UIXComponentBase extends UIXComponent
     // we could cache this as an instance variable.
     return FacesContext.getCurrentInstance();
   }
-
 
   /**
    * Delegates to LifecycleRenderer, if present,
@@ -1001,7 +1016,6 @@ abstract public class UIXComponentBase extends UIXComponent
     }
   }
 
-
   /**
    * Delegates to LifecycleRenderer, if present,
    * otherwise calls validateChildrenImpl.
@@ -1036,7 +1050,6 @@ abstract public class UIXComponentBase extends UIXComponent
       kid.processValidators(context);
     }
   }
-
 
   /**
    * Delegates to LifecycleRenderer, if present,
@@ -1223,7 +1236,6 @@ abstract public class UIXComponentBase extends UIXComponent
     return n.intValue();
   }
 
-
   /**
    * Return the number of facets.  This is more efficient than
    * calling getFacets().size();
@@ -1236,7 +1248,6 @@ abstract public class UIXComponentBase extends UIXComponent
 
     return _facets.size();
   }
-
 
   /**
    * Broadcast an event to a MethodBinding.
@@ -1390,7 +1401,6 @@ abstract public class UIXComponentBase extends UIXComponent
     }
   }
 
-
   /**
    * Override to calls the hooks for setting up and tearing down the
    * context before the children are visited.
@@ -1434,7 +1444,115 @@ abstract public class UIXComponentBase extends UIXComponent
     }
   }
 
+  // ------------------------- Client behavior holder methods -------------------------
 
+  /**
+   * Utility method to assist sub-classes in the implementation of the
+   * {@link javax.faces.component.behavior.ClientBehaviorHolder} interface.
+   * <p>This method must only
+   * be called by classes that implement the interface, doing otherwise will result in an exception.
+   * </p>
+   * @param eventName The event name
+   * @param behavior The behavior to add
+   * @see javax.faces.component.behavior.ClientBehaviorHolder#addClientBehavior(String, ClientBehavior)
+   */
+  protected void addClientBehavior(
+    String         eventName,
+    ClientBehavior behavior)
+  {
+    // This will throw a class cast exception when illegally called by a class that does not
+    // implement ClientBehaviorHolder
+    Collection<String> events = ((ClientBehaviorHolder)this).getEventNames();
+
+    // This will throw a null pointer exception if the component author did not correctly implement
+    // the ClientBehaviorHolder contract which requires a non-empty collection to be returned from
+    // getEventNames
+    if (!events.contains(eventName))
+    {
+      return;
+    }
+
+    if (_behaviors != null)
+    {
+      if (_behaviors.initialStateMarked())
+      {
+        // Resest the state of the behaviors so that their full state is saved when the
+        // behaviors of this component have been changed
+        _behaviors.clearInitialState();
+      }
+    }
+    else
+    {
+      _behaviors = new BehaviorMap();
+      _behaviorsReadOnly = null;
+    }
+
+    List<ClientBehavior> list = _behaviors.get(eventName);
+    if (list == null)
+    {
+      // Use a small number here as it will not be likely to have many behaviors for a component
+      // per event (probably 1)
+      list = new ArrayList<ClientBehavior>(5);
+      _behaviors.put(eventName, list);
+    }
+    list.add(behavior);
+  }
+
+  // Note, we do not need to provide a default implementation for the event names, as client
+  // behavior holder components must provide a non-empty list of event names. UIComponentBase
+  // decided to return a non-valid null in their code, but that is only confusing to the user, it
+  // is better to not implement the method and force the users to write the method upon interface
+  // implementation.
+  //protected Collection<String> getEventNames() {}
+
+  /**
+   * Utility method to assist sub-classes in the implementation of the
+   * {@link javax.faces.component.behavior.ClientBehaviorHolder} interface.
+   * <p>This method must only
+   * be called by classes that implement the interface, doing otherwise will result in an exception.
+   * </p>
+   * @see javax.faces.component.behavior.ClientBehaviorHolder#getClientBehaviors()
+   * @return Read-only map of the client behaviors for this component
+   */
+  protected Map<String, List<ClientBehavior>> getClientBehaviors()
+  {
+    if (_behaviors == null)
+    {
+      // never return null, per the spec.
+      return Collections.emptyMap();
+    }
+
+    if (_behaviorsReadOnly == null)
+    {
+      _behaviorsReadOnly = Collections.unmodifiableMap(_behaviors);
+    }
+    return _behaviorsReadOnly;
+  }
+
+  /**
+   * Utility method to assist sub-classes in the implementation of the
+   * {@link javax.faces.component.behavior.ClientBehaviorHolder} interface.
+   * <p>This method must only
+   * be called by classes that implement the interface, doing otherwise will result in an exception.
+   * </p>
+   * @return null
+   * @see javax.faces.component.behavior.ClientBehaviorHolder#getDefaultEventName()
+   */
+  protected String getDefaultEventName()
+  {
+    _ensureClientBehaviorHolder();
+    return null;
+  }
+
+  private void _ensureClientBehaviorHolder()
+  {
+    if (!(this instanceof ClientBehaviorHolder))
+    {
+      throw new IllegalStateException("Component must implement ClientBehaviorHolder in order " +
+        "to make use of this method.");
+    }
+  }
+  // ------------------------- End of the client behavior holder methods -------------------------
 
   /**
    * <p>
@@ -1513,7 +1631,6 @@ abstract public class UIXComponentBase extends UIXComponent
       component.encodeEnd(context);
     }
   }
-
 
   static private UIComponent _findInsideOf(
     UIComponent from,
@@ -1599,6 +1716,9 @@ abstract public class UIXComponentBase extends UIXComponent
   private Map<String, Object>      _attributes;
   private Map<String, UIComponent> _facets;
   private UIComponent              _parent;
+  private BehaviorMap              _behaviors;
+
+  private transient Map<String, List<ClientBehavior>> _behaviorsReadOnly;
 
   // Cached instance of the Renderer for this component.
   // The instance will be re-retrieved in encodeBegin()
@@ -1616,7 +1736,6 @@ abstract public class UIXComponentBase extends UIXComponent
 
   private static final Iterator<UIComponent> _EMPTY_UICOMPONENT_ITERATOR =
     new EmptyIterator<UIComponent>();
-
 
   static private final ThreadLocal<StringBuilder> _STRING_BUILDER =
                                                           ThreadLocalUtils.newRequestThreadLocal();
@@ -1686,6 +1805,165 @@ abstract public class UIXComponentBase extends UIXComponent
       throw new UnsupportedOperationException();
     }
 
+  }
+
+  private static class BehaviorMap
+    extends HashMap<String, List<ClientBehavior>>
+    implements PartialStateHolder
+  {
+    BehaviorMap()
+    {
+      // We do not expect many event types to be present on the component and we will assume 5
+      // to avoid the overhead of actually checking the number by calling the component method
+      this(5);
+    }
+
+    BehaviorMap(int initialCapacity)
+    {
+      super(initialCapacity, 1.0f);
+    }
+
+    public void markInitialState()
+    {
+      for (Map.Entry<String, List<ClientBehavior>> e : this.entrySet())
+      {
+        for (ClientBehavior behavior : e.getValue())
+        {
+          if (behavior instanceof PartialStateHolder)
+          {
+            ((PartialStateHolder)behavior).markInitialState();
+          }
+        }
+      }
+      _initialStateMarked = true;
+    }
+
+    public void clearInitialState()
+    {
+      _initialStateMarked = false;
+      for (Map.Entry<String, List<ClientBehavior>> e : this.entrySet())
+      {
+        for (ClientBehavior behavior : e.getValue())
+        {
+          if (behavior instanceof PartialStateHolder)
+          {
+            ((PartialStateHolder)behavior).clearInitialState();
+          }
+        }
+      }
+    }
+
+    public boolean initialStateMarked()
+    {
+      return _initialStateMarked;
+    }
+
+    public Object saveState(
+      FacesContext facesContext)
+    {
+      Map<String, Object[]> state = new HashMap<String, Object[]>(this.size());
+      for (Map.Entry<String, List<ClientBehavior>> e : this.entrySet())
+      {
+        List<ClientBehavior> l = e.getValue();
+        Object[] entryState = new Object[l.size()];
+        boolean stateWasSaved = false;
+        for (int i = 0, size = entryState.length; i < size; ++i)
+        {
+          ClientBehavior behavior = l.get(i);
+          if (_initialStateMarked)
+          {
+            // JSF 2 state saving, only save the behavior's state if it is a state holder,
+            // otherwise the re-application of the template will handle the re-creation of the
+            // client behavior in the correct state
+            if (behavior instanceof StateHolder)
+            {
+              entryState[i] = ((StateHolder)behavior).saveState(facesContext);
+            }
+          }
+          else
+          {
+            // Use JSF <= 1.2 state saving method as the initial state was not marked
+            entryState[i] = StateUtils.saveStateHolder(facesContext, behavior);
+          }
+
+          stateWasSaved &= (entryState[i] != null);
+        }
+
+        if (stateWasSaved)
+        {
+          state.put(e.getKey(), entryState);
+        }
+      }
+      return state.isEmpty() ? null : state;
+    }
+
+    public void restoreState(
+      FacesContext facesContext,
+      Object       state)
+    {
+      @SuppressWarnings("unchecked")
+      Map<String, Object[]> savedState = (Map<String, Object[]>) state;
+
+      if (_initialStateMarked)
+      {
+        // In JSF 2 state saving, we only need to super impose the state onto the existing
+        // client behavior list of the current map as the behaviors will already be restored in
+        // the same order that they were in the previous request (if not there is an application
+        // bug).
+        for (Map.Entry<String, Object[]> e : savedState.entrySet())
+        {
+          // Assume that the behaviors were correctly re-attached to the component and we only
+          // need to restore the state onto the objects. The order must be maintained.
+          List<ClientBehavior> behaviors = get(e.getKey());
+          Object[] entryState = e.getValue();
+          for (int i = 0, size = entryState.length; i < size; ++i)
+          {
+            if (entryState[i] != null)
+            {
+              ClientBehavior behavior = behaviors.get(i);
+              if (behavior instanceof StateHolder)
+              {
+                ((StateHolder)behavior).restoreState(facesContext, entryState[i]);
+              }
+            }
+          }
+        }
+      }
+      else
+      {
+        // For JSF <= 1.2 style state saving, we should ensure that we are empty and then
+        // re-hydrate the behaviors directly from the state
+        this.clear();
+
+        for (Map.Entry<String, Object[]> e : savedState.entrySet())
+        {
+          Object[] entryState = e.getValue();
+          // Assume the list is not going to grow in this request, so only allocate the size
+          // of the list from the previous request
+          List<ClientBehavior> list = new ArrayList<ClientBehavior>(entryState.length);
+          for (int i = 0, size = entryState.length; i < size; ++i)
+          {
+            list.add((ClientBehavior)StateUtils.restoreStateHolder(facesContext, entryState[i]));
+          }
+
+          this.put(e.getKey(), list);
+        }
+      }
+    }
+
+    public boolean isTransient()
+    {
+      return _transient;
+    }
+
+    public void setTransient(
+      boolean newTransientValue)
+    {
+      _transient = newTransientValue;
+    }
+
+    private boolean _transient;
+    private boolean _initialStateMarked;
   }
 
   static private final LifecycleRenderer _UNDEFINED_LIFECYCLE_RENDERER =
