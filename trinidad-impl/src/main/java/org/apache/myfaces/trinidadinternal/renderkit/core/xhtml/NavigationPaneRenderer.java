@@ -882,7 +882,8 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       
       // In Safari and webkit browsers display:inline doesn't work as expected, and 
       // display:inline-block need to be used to make the table inline.
-      if (arc.getAgent().getAgentName() == Agent.AGENT_WEBKIT)
+      // NokiaS60 has a webkit based browser
+      if (arc.getAgent().getAgentName() == Agent.AGENT_WEBKIT || isNokiaS60(arc))
       {
         appendedStyle = "display: inline-block;";
       }
@@ -1079,7 +1080,8 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       
     // In Safari and webkit browsers display:inline doesn't work as expected, and 
     // display:inline-block need to be used to make the table inline.
-    if (arc.getAgent().getAgentName() == Agent.AGENT_WEBKIT)
+    // NokiaS60 has a webkit based browser
+    if (arc.getAgent().getAgentName() == Agent.AGENT_WEBKIT || isNokiaS60(arc))
     {
       appendedStyle = "display: inline-block;";
     }
@@ -1355,7 +1357,8 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       
     // In Safari and webkit browsers display:inline doesn't work as expected, and 
     // display:inline-block need to be used to make the table inline.
-    if (arc.getAgent().getAgentName() == Agent.AGENT_WEBKIT)
+    // NokiaS60 has a webkit based browser
+    if (arc.getAgent().getAgentName() == Agent.AGENT_WEBKIT || isNokiaS60(arc))
     {
       appendedStyle = "display: inline-block;";
     }
