@@ -19,6 +19,11 @@
 package org.apache.myfaces.trinidadinternal.context;
 
 import java.io.IOException;
+
+import java.net.MalformedURLException;
+
+import java.net.URL;
+
 import java.util.Iterator;
 import java.util.Map;
 
@@ -265,6 +270,18 @@ public class FacesContextFactoryImpl
       }
 
       super.dispatch(path);
+    }
+    
+    @Override
+    public URL getResource(String path)
+                             throws MalformedURLException
+    {
+      RequestContext afc = RequestContext.getCurrentInstance();
+      if (afc != null)
+      {
+        path = afc.getPageResolver().getPhysicalURI(path);
+      }
+      return super.getResource(path);
     }
 
 

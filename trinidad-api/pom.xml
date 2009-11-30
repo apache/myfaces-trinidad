@@ -56,14 +56,26 @@
     </dependency>
 
     <dependency>
+      <groupId>javax.validation</groupId>
+      <artifactId>validation-api</artifactId>
+    </dependency>
+
+
+    <dependency>
       <groupId>org.apache.myfaces.portlet-bridge</groupId>
       <artifactId>portlet-bridge-api</artifactId>
     </dependency>
 
-    <dependency>
+    <!--dependency>
       <groupId>org.apache.myfaces.core</groupId>
       <artifactId>myfaces-api</artifactId>
-      <scope>provided</scope> <!-- force provided scope here -->
+      <scope>provided</scope> 
+    </dependency-->
+    
+    <dependency>
+      <groupId>com.sun.faces</groupId>
+      <artifactId>jsf-api</artifactId>
+      <scope>provided</scope> 
     </dependency>
 
     <!-- "test" scope dependencies -->

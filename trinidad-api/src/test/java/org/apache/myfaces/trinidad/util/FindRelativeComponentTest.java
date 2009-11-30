@@ -18,7 +18,6 @@
  */
 package org.apache.myfaces.trinidad.util;
 
-import junit.framework.TestCase;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
@@ -31,8 +30,9 @@ import org.apache.myfaces.trinidad.component.UIXCommand;
 import org.apache.myfaces.trinidad.component.UIXInput;
 import org.apache.myfaces.trinidad.component.UIXPanel;
 import org.apache.myfaces.trinidad.component.UIXTable;
+import org.apache.myfaces.trinidadbuild.test.FacesTestCase;
 
-public class FindRelativeComponentTest extends TestCase
+public class FindRelativeComponentTest extends FacesTestCase
 {
   public static final Test suite()
   {
