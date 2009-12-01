@@ -18,6 +18,8 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core;
 
+import java.beans.Beans;
+
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
@@ -111,6 +113,20 @@ class StyleContextImpl implements StyleContext
   }
   public boolean checkStylesModified()
   {
+    if (Beans.isDesignTime())
+    {
+      // In Design Time mode, if we have a skin-id on the request scope,
+      // then this means we want to check if the skin css files are modified.
+      // This is an alternative to the initParam (CHECK_TIMESTAMP_PARAM) which
+      // is set in web.xml. Design Time cannot set the web.xml file.
+      FacesContext context = FacesContext.getCurrentInstance();
+      Object requestSkinId = 
+        ((CoreRenderingContext) _arc).getRequestMapSkinId(context);
+      if (requestSkinId != null)
+        return true;
+
+    }
+    
     FacesContext context = FacesContext.getCurrentInstance();
     String checkTimestamp =
       context.getExternalContext().getInitParameter(Configuration.CHECK_TIMESTAMP_PARAM);
@@ -261,6 +277,8 @@ class StyleContextImpl implements StyleContext
   private StyleProvider _styleProvider;
   private Styles _styles;
   private Boolean  _isDisableStyleCompression;
+  static private final String _SKIN_ID_PARAM =
+    "org.apache.myfaces.trinidad.skin.id";
 
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(StyleContextImpl.class);
