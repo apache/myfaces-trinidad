@@ -439,6 +439,16 @@ public class ResourceServlet extends HttpServlet
         contentType = "image/vnd.microsoft.icon";
       else
         contentType = getServletContext().getMimeType(resourcePath);
+
+      // The resource has an file extension we have not 
+      // included in the case statement above
+      if (contentType == null)
+      {
+        _LOG.warning("ResourceServlet._setHeaders(): " +  
+                     "Content type for {0} is NULL!\n" +
+                     "Cause: Unknown file extension",
+                     resourcePath);
+      }
     }
     
     if (contentType != null)
@@ -449,21 +459,6 @@ public class ResourceServlet extends HttpServlet
       if (contentLength >= 0)
         response.setContentLength(contentLength);
     }
-    else
-    {
-      // The resource has an file extension we have not 
-      // included in the case statement above
-      url = connection.getURL();
-      resourcePath = url.getPath();
-
-      if(_LOG.isWarning())
-      {
-        _LOG.warning("ResourceServlet._setHeaders(): " +  
-                     "Content type for {0} is NULL!\n" +
-                     "Cause: Unknown file extension",
-                     resourcePath);
-      }
-    } 
     
     long lastModified;
     try
