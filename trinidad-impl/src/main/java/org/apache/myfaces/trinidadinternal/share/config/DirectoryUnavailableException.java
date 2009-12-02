@@ -43,4 +43,5 @@ public class DirectoryUnavailableException extends RuntimeException
   }
 
   private final Object _directoryKey;
+  private static final long serialVersionUID = 1L;
 }

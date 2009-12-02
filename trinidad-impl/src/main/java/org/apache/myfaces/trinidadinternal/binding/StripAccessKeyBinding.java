@@ -102,4 +102,5 @@ public class StripAccessKeyBinding extends ValueExpression implements Serializab
   }
 
   private ValueExpression _base;
+  private static final long serialVersionUID = 1L;
 }

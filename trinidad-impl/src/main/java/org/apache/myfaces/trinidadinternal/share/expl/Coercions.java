@@ -584,6 +584,8 @@ public final class Coercions
     }
 
     private String _toString;
+
+    private static final long serialVersionUID = 1L;
   }
 
   private static final ColorFormat _COLOR_FMT = new RGBColorFormat("#RRGGBB");

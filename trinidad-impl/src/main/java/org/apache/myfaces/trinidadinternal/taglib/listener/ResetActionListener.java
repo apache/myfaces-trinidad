@@ -116,4 +116,6 @@ public class ResetActionListener
     evh.setLocalValueSet(false);
     evh.setValid(true);
   }
+
+  private static final long serialVersionUID = 1L;
 }

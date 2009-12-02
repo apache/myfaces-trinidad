@@ -40,4 +40,6 @@ public class ExplException extends Exception
   {
     super(rootCause);
   }
+
+  private static final long serialVersionUID = 1L;
 }

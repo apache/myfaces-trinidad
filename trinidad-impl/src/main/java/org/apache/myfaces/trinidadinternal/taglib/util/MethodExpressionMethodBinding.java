@@ -60,4 +60,6 @@ public class MethodExpressionMethodBinding extends MethodBinding
   }
 
   private MethodExpression _expression;
+
+  private static final long serialVersionUID = 1L;
 }

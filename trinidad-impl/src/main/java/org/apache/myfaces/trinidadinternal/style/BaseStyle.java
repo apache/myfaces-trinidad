@@ -171,4 +171,6 @@ abstract public class BaseStyle extends CoreStyle implements Serializable
   // was either invalid or null.  We use this placeholder to avoid re-parsing
   // invalid or null values.
   private static final Object _NULL_VALUE = new Object();
+
+  private static final long serialVersionUID = 1L;
 }

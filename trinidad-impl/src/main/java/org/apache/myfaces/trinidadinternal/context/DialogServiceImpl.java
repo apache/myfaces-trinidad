@@ -505,6 +505,8 @@ public class DialogServiceImpl extends DialogService
         useWindow,
         getWindowProperties());
     }
+
+    private static final long serialVersionUID = -8586594511769079566L;
   }
 
   static private final String _PUSHED_VIEWS_KEY =
