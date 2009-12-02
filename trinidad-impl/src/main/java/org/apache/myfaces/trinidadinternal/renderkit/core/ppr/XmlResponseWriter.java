@@ -25,6 +25,8 @@ import java.io.Writer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
 
+import org.apache.myfaces.trinidadinternal.io.XMLEscapes;
+
 public class XmlResponseWriter extends ResponseWriter
 {
   public XmlResponseWriter(
@@ -76,11 +78,12 @@ public class XmlResponseWriter extends ResponseWriter
       return;
 
     Writer out = _out;
+    
     // write the attribute value
     out.write(' ');
     out.write(name);
     out.write("=\"");
-    writeAttributeText(value, attrName);
+    XMLEscapes.writeAttribute(out, value.toString());
     out.write("\"");
   }
 
@@ -99,14 +102,14 @@ public class XmlResponseWriter extends ResponseWriter
   }
 
   public void writeText(
-    char[] buffer,
+    char[] text,
     int    offset,
     int    length) throws IOException
   {
-    if (buffer != null)
+    if (text != null)
     {
       closeStartIfNecessary();
-      _writeBodyText(buffer, offset, length);
+      XMLEscapes.writeText(_out, text, offset, length);
     }
   }
 
@@ -117,8 +120,7 @@ public class XmlResponseWriter extends ResponseWriter
     if (text != null)
     {
       closeStartIfNecessary();
-      //_openCDATAIfNecessary();
-      writeBodyText(text, attrName);
+      XMLEscapes.writeText(_out, text.toString());
     }
   }
 
@@ -141,7 +143,6 @@ public class XmlResponseWriter extends ResponseWriter
     }
     else
     {
-      //_closeCDATAIfNecessary();
       out.write("</");
       out.write(name);
       out.write(">");
@@ -202,22 +203,6 @@ public class XmlResponseWriter extends ResponseWriter
     _out.flush();
   }
 
-  protected void writeAttributeText(
-    Object text,
-    String attrName) throws IOException
-  {
-    char[] buffer = text.toString().toCharArray();
-    _writeAttributeText(buffer, 0, buffer.length);
-  }
-
-  protected void writeBodyText(
-    Object text,
-    String attrName) throws IOException
-  {
-    char[] buffer = text.toString().toCharArray();
-    _writeBodyText(buffer, 0, buffer.length);
-  }
-
   protected void closeStartIfNecessary() throws IOException
   {
     if (_closeStart)
@@ -227,116 +212,8 @@ public class XmlResponseWriter extends ResponseWriter
       _closeStart = false;
     }
   }
-
-  /*
-  private void _openCDATAIfNecessary() throws IOException
-  {
-    if (!_closeCDATA)
-    {
-      Writer out = _out;
-      out.write("<![CDATA[");
-      _closeCDATA = true;
-    }
-  }
-
-  private void _closeCDATAIfNecessary() throws IOException
-  {
-    if (_closeCDATA)
-    {
-      Writer out = _out;
-      out.write("]]>");
-      _closeCDATA = false;
-    }
-  }
-  */
-
-  private void _writeAttributeText(
-    char[]  text,
-    int     start,
-    int     length) throws IOException
-  {
-    Writer out = _out;
-    int end = start + length;
-    for (int i = start; i < end; i++)
-    {
-      char ch = text[i];
-
-      if (ch <= 0x7f)
-      {
-        switch (ch)
-        {
-          case '>':
-            out.write("&gt;");
-            break;
-          case '<':
-            out.write("&lt;");
-            break;
-          case '"':
-            out.write("&quot;");
-            break;
-          case '&':
-            out.write("&amp;");
-            break;
-          default:
-            out.write(ch);
-            break;
-        }
-      }
-      else
-      {
-        _writeHexRef(ch);
-      }
-    }
-  }
-
-  private void _writeBodyText(
-    char[]  text,
-    int     start,
-    int     length) throws IOException
-  {
-    Writer out = _out;
-    int end = start + length;
-    for (int i = start; i < end; i++)
-    {
-      char ch = text[i];
-
-      if (ch <= 0x7f)
-      {
-        switch (ch)
-        {
-          case '>':
-            out.write("&gt;");
-            break;
-          case '<':
-            out.write("&lt;");
-            break;
-          case '&':
-            out.write("&amp;");
-            break;
-          default:
-            out.write(ch);
-            break;
-        }
-      }
-      else
-      {
-        _writeHexRef(ch);
-      }
-    }
-  }
-
-  private void _writeHexRef(
-    char ch) throws IOException
-  {
-    Writer out = _out;
-    out.write("&#x");
-    // =-=AEW Could easily be more efficient.
-    out.write(Integer.toHexString(ch));
-    out.write(';');
-  }
   
   private final Writer      _out;
   private final String      _encoding;
   private       boolean     _closeStart;
-  //  private       boolean     _closeCDATA;
 }

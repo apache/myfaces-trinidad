@@ -108,7 +108,7 @@
                  for="mainIdmonth"
                 >
               Choose month
-            </label>&#xa0;
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -864,7 +864,7 @@
                  for="dateidmonth"
                 >
               Choose month
-            </label>&#xa0;
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="dateidyear"
@@ -1621,7 +1621,7 @@
                  for="mainIdmonth"
                 >
               Choose month
-            </label>&#xa0;
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -2378,7 +2378,7 @@
                  for="mainIdmonth"
                 >
               Choose month
-            </label>&#xa0;
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -3135,7 +3135,7 @@
                  for="mainIdmonth"
                 >
               Choose month
-            </label>&#xa0;
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -3892,7 +3892,7 @@
                  for="mainIdmonth"
                 >
               Choose month
-            </label>&#xa0;
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -4649,7 +4649,7 @@
                  for="mainIdmonth"
                 >
               Choose month
-            </label>&#xa0;
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -5406,7 +5406,7 @@
                  for="mainIdmonth"
                 >
               Choose month
-            </label>&#xa0;
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -6163,7 +6163,7 @@
                  for="mainIdmonth"
                 >
               Choose month
-            </label>&#xa0;
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -6920,7 +6920,7 @@
                  for="mainIdmonth"
                 >
               Choose month
-            </label>&#xa0;
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -7677,7 +7677,7 @@
                  for="mainIdmonth"
                 >
               Choose month
-            </label>&#xa0;
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -8434,7 +8434,7 @@
                  for="mainIdmonth"
                 >
               Choose month
-            </label>&#xa0;
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -9191,7 +9191,7 @@
                  for="mainIdmonth"
                 >
               Choose month
-            </label>&#xa0;
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -9948,7 +9948,7 @@
                  for="mainIdmonth"
                 >
               Choose month
-            </label>&#xa0;
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -10705,7 +10705,7 @@
                  for="mainIdmonth"
                 >
               Choose month
-            </label>&#xa0;
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"

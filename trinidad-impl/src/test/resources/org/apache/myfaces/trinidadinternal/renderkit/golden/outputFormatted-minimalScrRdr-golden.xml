@@ -205,28 +205,28 @@
       <span
            id="mainId"
           >
-        Text with &#xae;
+        Text with &#174;
       </span>
 <!--AttributeTest[value,Text with &copy;]-->
 
       <span
            id="mainId"
           >
-        Text with &#xa9;
+        Text with &#169;
       </span>
 <!--AttributeTest[value,Text with &nbsp;]-->
 
       <span
            id="mainId"
           >
-        Text with &#xa0;
+        Text with &#160;
       </span>
 <!--AttributeTest[value,Text with &quot;]-->
 
       <span
            id="mainId"
           >
-        Text with &quot;
+        Text with "
       </span>
 <!--AttributeTest[value,Text with ignored entity &ignored;]-->
 
