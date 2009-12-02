@@ -105,5 +105,3 @@ public class AttributeChangeEvent extends FacesEvent
   private final Object _newValue;
   private static final long serialVersionUID = 1L;
 }
-
-

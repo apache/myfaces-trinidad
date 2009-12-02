@@ -53,4 +53,5 @@ abstract public class AddComponentChange extends ComponentChange
   private final ChangeComponentProxy _proxy;
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     AddComponentChange.class);
+  private static final long serialVersionUID = 1L;
 }
