@@ -252,6 +252,8 @@ class TreeState implements Externalizable
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(TreeState.class);
 
+  private static final long serialVersionUID = 1L;
+
   private Object[] _facets;
   private Object[] _children;
   private Object _state;

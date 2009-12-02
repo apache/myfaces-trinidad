@@ -37,4 +37,6 @@ abstract public class ComponentChange implements Serializable
    * @param uiComponent the UIComponent to apply the change to
    */
   public abstract void changeComponent(UIComponent uiComponent);
+
+  private static final long serialVersionUID = 1L;
 }

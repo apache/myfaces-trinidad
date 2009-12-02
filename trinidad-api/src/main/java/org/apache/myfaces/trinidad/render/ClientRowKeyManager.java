@@ -52,4 +52,6 @@ public abstract class ClientRowKeyManager implements Serializable
    * @return null, if the string key has expired, or never existed.
    */
   public abstract Object getRowKey(FacesContext context, UIComponent component, String clientRowKey);
+
+  private static final long serialVersionUID = 1L;
 }
