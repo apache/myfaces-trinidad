@@ -339,6 +339,8 @@ abstract public class FormElementRenderer extends EditableValueRenderer
     {
       return false;
     }
+
+    private static final long serialVersionUID = 1L;
   }
 
   private PropertyKey _autoSubmitKey;

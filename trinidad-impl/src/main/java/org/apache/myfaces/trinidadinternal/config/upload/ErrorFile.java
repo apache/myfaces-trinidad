@@ -55,4 +55,6 @@ public class ErrorFile implements UploadedFile, Serializable
   {
     return null;
   }
+
+  private static final long serialVersionUID = 1L;
 }
