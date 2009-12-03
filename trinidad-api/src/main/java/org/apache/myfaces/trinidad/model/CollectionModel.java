@@ -101,8 +101,7 @@ public abstract class CollectionModel extends DataModel
    * is made current again.
    * @see CollectionModel#isRowAvailable()
    * @param rowKey the row key for the row to check.
-   * @return true if data for the row exists otherwise return false if the
-   * row data does not exist or the rowKey is null
+   * @return true if data for the row exists otherwise return false
    */
   public boolean isRowAvailable(Object rowKey)
   {
@@ -126,10 +125,7 @@ public abstract class CollectionModel extends DataModel
    * is made current again.
    * @see CollectionModel#getRowData()
    * @param rowIndex the index of the row to get data from.
-   * @return the data for the given row.  The {@link #getRowData()} call
-   * may throw <code>IllegalArgumentException</code> if the rowIndex is
-   * less than zero or grater than row count or row data at the given index
-   * is not available
+   * @return the data for the given row. 
    */
   public Object getRowData(int rowIndex)
   {
@@ -153,9 +149,7 @@ public abstract class CollectionModel extends DataModel
    * is made current again.
    * @see CollectionModel#getRowData()
    * @param rowKey the row key of the row to get data from.
-   * @return the data for the given row. The {@link #getRowData()} implementation
-   * may throw <code>IllegalArgumentException</code> if the rowKey is
-   * null or data for the given rowKey is unavailable
+   * @return the data for the given row. 
    */
   public Object getRowData(Object rowKey)
   {
@@ -214,7 +208,6 @@ public abstract class CollectionModel extends DataModel
    * to check for availability of n rows from the end,  call 
    * isRangeAvailable(getRowCount()-1, -n)
    * @return true if rows are available otherwise return <code>false</code>
-   * if startIndex < 0 or > rowCount or rows in range are not available
    */
   public boolean areRowsAvailable(int startIndex, int rowsToCheck)
   {
@@ -237,14 +230,13 @@ public abstract class CollectionModel extends DataModel
 
   /**
    * Check if a range of rows is available from a starting row key 
-   * This method make the row with the given row key current and calls
+   * This method makes the row with the given row key current and calls
    * {@link #areRowsAvailable(rowsToCheck)}.
    * The current row does not change after this call
    * @see CollectionModel#areRowsAvailable(int).
    * @param startRowKey the starting row key for the range
    * @param rowsToCheck number of rows to check
-   * @return true if rows are available otherwise return
-   * false if rowKey is null or rows in range are not available
+   * @return true if rows are available otherwise return false
    */
   public boolean areRowsAvailable(Object startRowKey, int rowsToCheck)
   {
@@ -263,11 +255,11 @@ public abstract class CollectionModel extends DataModel
   /**
    * Check if a range of rows is available starting from the
    * current row. This implementation checks the start and end rows in the range
-   * for availability. The current row does not change after this call
+   * for availability. If the number of requested rows is greater than the total 
+   * row count, this implementation checks for available rows up to the row count.
+   * The current row does not change after this call
    * @param rowsToCheck number of rows to check
-   * @return true if start and end rows in range are available otherwise return
-   * false if start and end rows are not available or rowsToCheck <= 0 or the current
-   * rowIndex < 0
+   * @return true rows are available otherwise return false
    */
   public boolean areRowsAvailable(int rowsToCheck)
   {
@@ -306,65 +298,69 @@ public abstract class CollectionModel extends DataModel
 
   //
   // Below is the default implemenation for the LocalRowKeyIndex interface.  
-  // This implemenation delegates to the corresponding non-local APIs
   //
   
   /**
    * Check if a range of rows is locally available starting from a row index.  
-   * This implementation delegates to the corresponding non-local API
    * @see  CollectionModel#areRowsAvailable(int, int)
-   * @param startIndex
-   * @param rowsToCheck
-   * @return
+   * @param startIndex starting row index to check
+   * @param rowsToCheck number of rows to check
+   * @return default implementation returns <code>false</code>
+
    */
   public boolean areRowsLocallyAvailable(int startIndex, int rowsToCheck)
   {
-    return areRowsAvailable(startIndex, rowsToCheck);
+    return false;
   }
 
   /**
    * Check if a range of rows is locally available starting from a row key.  
-   * This implementation delegates to the corresponsding non-local API
    * @see CollectionModel#areRowsAvailable(Object, int)
-   * @param startRowKey
-   * @param rowsToCheck
-   * @return
+   * @param startRowKey starting row key to check
+   * @param rowsToCheck number of rows to check
+   * @return default implementation returns <code>false</code>
    */
   public boolean areRowsLocallyAvailable(Object startRowKey, int rowsToCheck)
   {
-    return areRowsAvailable(startRowKey, rowsToCheck);
+    return false;
   }
 
 
   /**
-   * Given a row index, check if the row is locally available. This 
-   * implementation delegates to the non-local API
-   * @see CollectionModel#isRowAvailable(int)
-   * @param rowIndex
-   * @return  true if row is available; false otherwise.
+   * Check if a range of rows is locally available starting from current position.
+   * This implementation returns <code>false</code>
+   * @param rowsToCheck number of rows to check
+   * @return default implementation returns <code>false</code>
+   */
+  public boolean areRowsLocallyAvailable(int rowsToCheck)
+  {
+    return false;
+  }
+  
+  /**
+   * Given a row index, check if the row is locally available.
+   * @param rowIndex row index to check
+   * @return default implementation returns <code>false</code>
    */
   public boolean isRowLocallyAvailable(int rowIndex)
   {
-    return isRowAvailable(rowIndex);
+    return false;
   }
 
   /**
-   * Given a row key, check if the row is locally available. This
-   * implementation delegates to the non-local API
-   * @see CollectionModel#isRowAvailable(Object)
-   * @param rowKey
-   * @return  true if row is available; false otherwise.
+   * Given a row key, check if the row is locally available.
+   * @param rowKey row key to check
+   * @return default implementation returns <code>false</code>
    */
   public boolean isRowLocallyAvailable(Object rowKey)
   {
-    return isRowAvailable(rowKey);
+    return false;
   }
 
   /**
-   * Convenient API to return a row count estimate.  This implementation
-   * always returns exact row count
+   * Convenient API to return a row count estimate.  
    * @see CollectionModel#getRowCount
-   * @return estimated row count
+   * @return This implementation returns exact row count
    */
   public int getEstimatedRowCount()
   {
@@ -373,8 +369,9 @@ public abstract class CollectionModel extends DataModel
 
   /**
    * Helper API to determine if the row count returned from {@link #getEstimatedRowCount} 
-   * is EXACT, or an ESTIMATE.  This implemetation always returns exact row count
+   * is EXACT, or an ESTIMATE.  
    * @see CollectionModel#getRowCount
+   * @return This implementation returns exact row count
    */
   public LocalRowKeyIndex.Confidence getEstimatedRowCountConfidence()
   {
@@ -383,8 +380,7 @@ public abstract class CollectionModel extends DataModel
 
   /**
    * Clears the row with the given index from local cache.
-   * This is a do nothing implementaion which delegates to the
-   * correcsponding range based api
+   * This is a do nothing implementaion§
    * @see #clearCachedRows(int, int)
    * @param index row index for the row to remove from cache
    */

@@ -108,6 +108,11 @@ public abstract class CollectionModelDecorator
     return getCollectionModel().areRowsLocallyAvailable(startRowKey, rowCount);
   }
     
+  public boolean areRowsLocallyAvailable(int rowCount)
+  {
+    return getCollectionModel().areRowsLocallyAvailable(rowCount);
+  }
+
   public boolean isRowLocallyAvailable(int rowIndex)
   {
     return getCollectionModel().isRowLocallyAvailable(rowIndex);
