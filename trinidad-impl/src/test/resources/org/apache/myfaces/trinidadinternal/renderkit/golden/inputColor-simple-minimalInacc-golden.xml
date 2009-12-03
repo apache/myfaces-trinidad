@@ -574,7 +574,7 @@
              class="af_inputColor_content"
              id="mainId"
              name="mainId"
-             onblur="return _chain('_fixCFF(this);_cfsw(this);','test-onblur',this,event)"
+             onblur="return _chainMultiple(['_fixCFF(this);_cfsw(this);','test-onblur'],this,event);"
              size="11"
              type="text"
             >

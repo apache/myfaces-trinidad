@@ -1135,7 +1135,7 @@
                  class="af_inputDate_content"
                  id="mainId"
                  name="mainId"
-                 onblur="return _chain('_dfb(this)','test-onblur',this,event)"
+                 onblur="return _chainMultiple(['_dfb(this)','test-onblur'],this,event);"
                  size="10"
                  type="text"
                 >

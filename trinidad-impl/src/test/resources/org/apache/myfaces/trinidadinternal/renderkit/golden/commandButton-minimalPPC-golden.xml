@@ -191,7 +191,7 @@
 
       <input
            class="af_commandButton"
-           onclick="return _chain('test-onclick','submitForm(\'formId\',1,{source:\'mainId\'});return false;',this,null,true)"
+           onclick="return _chainMultiple(['test-onclick','submitForm(\'formId\',1,{source:\'mainId\'});return false;'],this,null,true);"
            type="submit"
            value="ButtonText"
            id="uri-attr:mainId"

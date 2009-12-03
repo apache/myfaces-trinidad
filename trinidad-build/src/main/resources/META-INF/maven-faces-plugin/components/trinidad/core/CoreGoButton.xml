@@ -152,6 +152,10 @@ is not needed.]]>
       </mfp:example>
       <mfp:author>Andy Schwartz</mfp:author>
       <mfp:component-metadata/>
+      <fmd:client-behavior-holder>true</fmd:client-behavior-holder>
+      <fmd:default-event-name>click</fmd:default-event-name>
+      <fmd:event-names>blur click dblclick focus keydown keypress keyup mousedown mousemove
+        mouseout mouseover mouseup</fmd:event-names>
       <mfp:java-constructor>
         <mfp:property-name>destination</mfp:property-name>
       </mfp:java-constructor>

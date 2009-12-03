@@ -262,7 +262,7 @@
               
             </img>
             <a
-                 onclick="return _chain('test-onclick','submitForm(\'formId\',0,{source:\'mainId\',part:\'b\'});return false;',this,null,true)"
+                 onclick="return _chainMultiple(['test-onclick','submitForm(\'formId\',0,{source:\'mainId\',part:\'b\'});return false;'],this,null,true);"
                  href="uri-attr:#"
                 >
               
@@ -3041,7 +3041,7 @@
               
             </img>
             <a
-                 onclick="return _chain('test-onclick','submitForm(\'formId\',0,{source:\'mainId\',part:\'b\'});return false;',this,null,true)"
+                 onclick="return _chainMultiple(['test-onclick','submitForm(\'formId\',0,{source:\'mainId\',part:\'b\'});return false;'],this,null,true);"
                  href="uri-attr:#"
                 >
               
@@ -3524,7 +3524,7 @@
           
         </img>
         <a
-             onclick="return _chain('test-onclick','submitForm(\'formId\',0,{source:\'mainId\',part:\'b\'});return false;',this,null,true)"
+             onclick="return _chainMultiple(['test-onclick','submitForm(\'formId\',0,{source:\'mainId\',part:\'b\'});return false;'],this,null,true);"
              href="uri-attr:#"
             >
           

@@ -1847,13 +1847,13 @@ function submitForm(
     // WM5.
     if (isPartial && _supportsPPR())
     {
-      // In the case of Windows-mobile(WM) browsers, during rendering, 
+      // In the case of Windows-mobile(WM) browsers, during rendering,
       // Trinidad stores the value of the request-header field, UA-pixels,
-      // into a hidden-parameter's value attribute. WM browsers' PPRs don't 
-      // contain UA-pixels in their request-headers. So during a WM browser's 
-      // PPR, we need to manually set the field, UA-pixels, into the 
+      // into a hidden-parameter's value attribute. WM browsers' PPRs don't
+      // contain UA-pixels in their request-headers. So during a WM browser's
+      // PPR, we need to manually set the field, UA-pixels, into the
       // request-header with the hidden parameter's value.
-                  
+
       if (_agent.isPIE || _agent.isWindowsMobile6)
       {
         var header = new Array(1);
@@ -1861,9 +1861,9 @@ function submitForm(
         TrPage.getInstance().sendPartialFormPost(form, parameters, header);
       }
       else
-      {      
+      {
         TrPage.getInstance().sendPartialFormPost(form, parameters);
-      }  
+      }
     }
     else
     {
@@ -3148,14 +3148,35 @@ function _chain(
   shortCircuit // shortcircuit if handler 1 false
   )
 {
-  var result1 = _callChained(evh1, target, event);
-  if ( shortCircuit && (result1 == false))
-    return false;
-  var result2 = _callChained(evh2, target, event);
+  return _chainMultiple([evh1, evh2], target, event);
+}
 
-  // since undefined results should be evaluated as true,
-  // return false only if either result1 or result2 return false
-  return !((result1 == false) || (result2 == false));
+/**
+ * Chain two or more functions together returning whether the default
+ * event handling should occur
+ */
+function _chainMultiple(
+  eventHandlers, // Array of event handler JavaScript strings
+  target,        // target of event
+  event,         // the fired event (or null)
+  shortCircuit   // shortcircuit if handler 1 false
+  )
+{
+  var overallResult = true;
+  for (var i = 0, size = eventHandlers.length; i < size; ++i)
+  {
+    var result = _callChained(eventHandlers[i], target, event);
+    if (result === false)
+    {
+      if (shortCircuit)
+      {
+        return false;
+      }
+      overallResult = false;
+    }
+  }
+
+  return overallResult;
 }
 
 function _callChained(
@@ -3206,10 +3227,7 @@ function _callChained(
   {
     return true;
   }
-
 }
-
-
 
 // Enforce the maximum length of a form element
 // Returns true if event processing should continue, false otherwise.

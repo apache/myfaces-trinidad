@@ -18,14 +18,21 @@
  */
 package org.apache.myfaces.trinidad.render;
 
+
 import java.io.IOException;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.faces.application.ResourceHandler;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
+import javax.faces.component.behavior.ClientBehavior;
+import javax.faces.component.behavior.ClientBehaviorContext;
+import javax.faces.component.behavior.ClientBehaviorHint;
+import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
 
@@ -162,7 +169,6 @@ public class CoreRenderer extends Renderer
       tearDownEncodingContext(context, rc, (UIXComponent)component);
   }
 
-
   //
   // COERCION HELPERS
   //
@@ -186,7 +192,7 @@ public class CoreRenderer extends Renderer
       return null;
 
     String uri = o.toString();
-    
+
     // *** EL Coercion problem ***
     // If icon or image attribute was declared with #{resource[]} and that expression
     // evaluates to null (it means ResourceHandler.createResource returns null because requested resource does not exist)
@@ -196,8 +202,8 @@ public class CoreRenderer extends Renderer
     {
       return null;
     }
-    
-    
+
+
     // With JSF 2.0 url for resources can be done with EL like #{resource['resourcename']}
     // and such EL after evalution contains context path for the current web application already,
     // -> we dont want call viewHandler.getResourceURL()
@@ -213,7 +219,7 @@ public class CoreRenderer extends Renderer
     }
     else
     {
-      // If the specified path starts with a "/", 
+      // If the specified path starts with a "/",
       // following method will prefix it with the context path for the current web application,
       // and return the result
       return fc.getApplication().getViewHandler().getResourceURL(fc, uri);
@@ -241,7 +247,6 @@ public class CoreRenderer extends Renderer
     }
   }
 
-
   /**
    * Coerces an object into a resource URI, calling the view-handler.
    * @deprecated use toResourceUri
@@ -250,7 +255,6 @@ public class CoreRenderer extends Renderer
   {
     return toResourceUri(FacesContext.getCurrentInstance(),o);
   }
-
 
   /**
    * Returns the integer value of an object;  this does
@@ -261,8 +265,6 @@ public class CoreRenderer extends Renderer
   {
     return ((Number) o).intValue();
   }
-
-
 
   /**
    * Returns the integer value of an object;  this does
@@ -315,7 +317,6 @@ public class CoreRenderer extends Renderer
 
     return c;
   }
-
 
   @Override
   public final void encodeBegin(FacesContext context,
@@ -377,12 +378,12 @@ public class CoreRenderer extends Renderer
     if (getRendersChildren())
       throw new IllegalStateException();
   }
-  
+
   /**
    * Hook for rendering the component resources for the <code>target</code>.
    * @param context Current <code>FacesContext</code> object for this request.
    * @param target The target for the resources (e.g. head/body/form)
-   * 
+   *
    * @throws IOException
    */
   protected final void encodeComponentResources(
@@ -412,7 +413,6 @@ public class CoreRenderer extends Renderer
     if (getRendersChildren())
       throw new IllegalStateException();
   }
-
 
   /**
    * Hook for rendering all of a component;  only
@@ -458,7 +458,6 @@ public class CoreRenderer extends Renderer
 
     child.encodeEnd(context);
   }
-
 
   @SuppressWarnings("unchecked")
   protected void encodeAllChildren(
@@ -659,7 +658,6 @@ public class CoreRenderer extends Renderer
     return total;
   }
 
-
  /**
    * @param afterChildIndex The children coming after this index, will
    * be considered.
@@ -683,7 +681,6 @@ public class CoreRenderer extends Renderer
 
     return NO_CHILD_INDEX;
   }
-
 
   //
   // AGENT CAPABILITY CONVENIENCE METHODS
@@ -779,6 +776,158 @@ public class CoreRenderer extends Renderer
   // Rendering convenience methods.
   //
 
+  /**
+   * Renders a non-submission client event handler (onfocus for example) including any associated
+   * client behaviors for the event.
+   *
+   * @param facesContext The faces context
+   * @param component The component
+   * @param disabled true if the component is disabled, stops the processing of client behaviors
+   * @param eventName The event, without the "on*" prefix, to render
+   * @param eventHandlerScript Script to be executed after the behaviors. May be null
+   * @param eventAttributeName the event attribute name. Null if it should not be rendered. Example
+   * value: onclick
+   * @param userHandlerScript user event handler to be executed before the event handler script and
+   * any client behavior scripts. May be null.
+   * @param params Any parameters that should be sent by behaviors that submit
+   * @throws IOException If a rendering exception occurs
+   */
+  protected void renderClientEventHandler(
+    FacesContext                                facesContext,
+    UIComponent                                 component,
+    boolean                                     disabled,
+    String                                      eventName,
+    String                                      eventAttributeName,
+    Collection<ClientBehaviorContext.Parameter> params,
+    String                                      userHandlerScript,
+    String                                      eventHandlerScript
+    ) throws IOException
+  {
+    List<ClientBehavior> behaviors = null;
+    ClientBehaviorContext behaviorContext = null;
+
+    if (!disabled && component instanceof ClientBehaviorHolder)
+    {
+      behaviors = ((ClientBehaviorHolder)component).getClientBehaviors().get(eventName);
+      if (behaviors != null && !behaviors.isEmpty())
+      {
+        behaviorContext = ClientBehaviorContext.createClientBehaviorContext(
+          facesContext, component, eventName, component.getClientId(facesContext), params);
+      }
+    }
+    if (params == null)
+    {
+      params = Collections.emptyList();
+    }
+
+    boolean hasHandler = eventHandlerScript != null && eventHandlerScript.length() > 0;
+    boolean hasUserHandler = userHandlerScript != null && userHandlerScript.length() > 0;
+    String script = null;
+
+    if (hasHandler && behaviorContext == null && !hasUserHandler)
+    {
+      script = eventHandlerScript;
+    }
+    else if (hasUserHandler && behaviorContext == null && !hasHandler)
+    {
+      script = userHandlerScript;
+    }
+    else if (!hasUserHandler && !hasHandler && behaviorContext != null && behaviors.size() == 1)
+    {
+      ClientBehavior behavior = behaviors.get(0);
+      script = behavior.getScript(behaviorContext);
+      if ("click".equals(eventName) && _isSubmittingBehavior(behavior))
+      {
+        // prevent the default click action if submitting
+        script += ";return false;";
+      }
+    }
+    else
+    {
+      // There are multiple scripts, we will need to chain the methods.
+      int length = behaviors.size();
+      if (hasHandler) { ++length; }
+      if (hasUserHandler) { ++length; }
+      String[] scripts = new String[length];
+      int index = 0;
+      boolean submitting = false;
+      if (hasUserHandler)
+      {
+        scripts[0] = userHandlerScript;
+        index = 1;
+      }
+      for (int size = behaviors.size() + index; index < size; ++index)
+      {
+        ClientBehavior behavior = behaviors.get(index);
+        scripts[index] = behavior.getScript(behaviorContext);
+        submitting |= _isSubmittingBehavior(behavior);
+      }
+      if (hasHandler)
+      {
+        scripts[index] = eventHandlerScript;
+      }
+
+      script = RenderUtils.getChainedJS(true, scripts);
+      if (submitting && "click".equals(eventName))
+      {
+        // prevent the default click action if submitting
+        script += ";return false;";
+      }
+    }
+
+    if (script != null)
+    {
+      facesContext.getResponseWriter().writeAttribute(eventAttributeName, script, null);
+    }
+  }
+
+  protected void encodeParameters(
+    Collection<ClientBehaviorContext.Parameter> params,
+    StringBuilder                               builder
+    ) throws IOException
+  {
+    boolean first = true;
+    for (ClientBehaviorContext.Parameter param : params)
+    {
+      if (first)
+      {
+        first = false;
+      }
+      else
+      {
+        builder.append(',');
+      }
+      _encodeJsParameter(builder, param.getName(), param.getValue());
+    }
+  }
+
+  private boolean _isSubmittingBehavior(
+    ClientBehavior behavior)
+  {
+    return behavior.getHints().contains(ClientBehaviorHint.SUBMITTING);
+  }
+
+  private void _encodeJsParameter(
+    StringBuilder out,
+    String        name,
+    Object        value)
+  {
+    out.append('\'');
+    RenderUtils.escapeJS(out, name, true);
+    out.append("\':");
+
+    if (value == null)
+    {
+      out.append("null");
+    }
+    else
+    {
+      out.append('\'');
+      RenderUtils.escapeJS(out, value.toString(), true);
+      out.append('\'');
+    }
+  }
+
   protected void renderEncodedActionURI(
    FacesContext context,
    String       name,
@@ -802,8 +951,6 @@ public class CoreRenderer extends Renderer
       context.getResponseWriter().writeURIAttribute(name, value, null);
     }
   }
-
-
 
   /**
    * Render a generic CSS styleClass (not one derived from an attribute).
@@ -875,7 +1022,6 @@ public class CoreRenderer extends Renderer
 
     context.getResponseWriter().writeAttribute("class", value, null);
   }
-
 
   // Heuristic guess of the maximum length of a typical compressed style
   private static final int _COMPRESSED_LENGTH = 4;

@@ -225,7 +225,7 @@
           <a
                class="OraLink af_showDetail_disclosure-icon-link"
                id="mainId__xc_"
-               onclick="return _chain('test-onclick','return _submitHideShow(\'formId\',1,\'show\',\'mainId\',\'mainId__xc_\')',this,null,true)"
+               onclick="return _chainMultiple(['test-onclick','return _submitHideShow(\'formId\',1,\'show\',\'mainId\',\'mainId__xc_\')'],this,null,true);"
                href="uri-attr:#"
               >
             
