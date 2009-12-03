@@ -108,7 +108,7 @@
                  for="mainIdmonth"
                 >
               Choose month
-            </label>&#xa0;
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -876,7 +876,7 @@ if (document.getElementById('year') != null) {document.getElementById('year').st
                  for="dateidmonth"
                 >
               Choose month
-            </label>&#xa0;
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="dateidyear"
@@ -1645,7 +1645,7 @@ if (document.getElementById('year') != null) {document.getElementById('year').st
                  for="mainIdmonth"
                 >
               Choose month
-            </label>&#xa0;
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -2414,7 +2414,7 @@ if (document.getElementById('year') != null) {document.getElementById('year').st
                  for="mainIdmonth"
                 >
               Choose month
-            </label>&#xa0;
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -3183,7 +3183,7 @@ if (document.getElementById('year') != null) {document.getElementById('year').st
                  for="mainIdmonth"
                 >
               Choose month
-            </label>&#xa0;
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -3952,7 +3952,7 @@ if (document.getElementById('year') != null) {document.getElementById('year').st
                  for="mainIdmonth"
                 >
               Choose month
-            </label>&#xa0;
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -4721,7 +4721,7 @@ if (document.getElementById('year') != null) {document.getElementById('year').st
                  for="mainIdmonth"
                 >
               Choose month
-            </label>&#xa0;
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -5490,7 +5490,7 @@ if (document.getElementById('year') != null) {document.getElementById('year').st
                  for="mainIdmonth"
                 >
               Choose month
-            </label>&#xa0;
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -6259,7 +6259,7 @@ if (document.getElementById('year') != null) {document.getElementById('year').st
                  for="mainIdmonth"
                 >
               Choose month
-            </label>&#xa0;
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -7028,7 +7028,7 @@ if (document.getElementById('year') != null) {document.getElementById('year').st
                  for="mainIdmonth"
                 >
               Choose month
-            </label>&#xa0;
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -7797,7 +7797,7 @@ if (document.getElementById('year') != null) {document.getElementById('year').st
                  for="mainIdmonth"
                 >
               Choose month
-            </label>&#xa0;
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -8566,7 +8566,7 @@ if (document.getElementById('year') != null) {document.getElementById('year').st
                  for="mainIdmonth"
                 >
               Choose month
-            </label>&#xa0;
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -9335,7 +9335,7 @@ if (document.getElementById('year') != null) {document.getElementById('year').st
                  for="mainIdmonth"
                 >
               Choose month
-            </label>&#xa0;
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -10104,7 +10104,7 @@ if (document.getElementById('year') != null) {document.getElementById('year').st
                  for="mainIdmonth"
                 >
               Choose month
-            </label>&#xa0;
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -10873,7 +10873,7 @@ if (document.getElementById('year') != null) {document.getElementById('year').st
                  for="mainIdmonth"
                 >
               Choose month
-            </label>&#xa0;
+            </label>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"

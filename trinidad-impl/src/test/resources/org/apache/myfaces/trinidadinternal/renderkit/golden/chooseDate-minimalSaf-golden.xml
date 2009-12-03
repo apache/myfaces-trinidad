@@ -102,7 +102,7 @@
                   >
                 December
               </option>
-            </select>&#xa0;
+            </select>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -846,7 +846,7 @@
                   >
                 December
               </option>
-            </select>&#xa0;
+            </select>&#160;
             <select
                  class="AFFieldText"
                  id="dateidyear"
@@ -1591,7 +1591,7 @@
                   >
                 December
               </option>
-            </select>&#xa0;
+            </select>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -2336,7 +2336,7 @@
                   >
                 December
               </option>
-            </select>&#xa0;
+            </select>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -3081,7 +3081,7 @@
                   >
                 December
               </option>
-            </select>&#xa0;
+            </select>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -3826,7 +3826,7 @@
                   >
                 December
               </option>
-            </select>&#xa0;
+            </select>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -4571,7 +4571,7 @@
                   >
                 December
               </option>
-            </select>&#xa0;
+            </select>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -5316,7 +5316,7 @@
                   >
                 December
               </option>
-            </select>&#xa0;
+            </select>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -6061,7 +6061,7 @@
                   >
                 December
               </option>
-            </select>&#xa0;
+            </select>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -6806,7 +6806,7 @@
                   >
                 December
               </option>
-            </select>&#xa0;
+            </select>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -7551,7 +7551,7 @@
                   >
                 December
               </option>
-            </select>&#xa0;
+            </select>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -8296,7 +8296,7 @@
                   >
                 December
               </option>
-            </select>&#xa0;
+            </select>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -9041,7 +9041,7 @@
                   >
                 December
               </option>
-            </select>&#xa0;
+            </select>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -9786,7 +9786,7 @@
                   >
                 December
               </option>
-            </select>&#xa0;
+            </select>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"
@@ -10531,7 +10531,7 @@
                   >
                 December
               </option>
-            </select>&#xa0;
+            </select>&#160;
             <select
                  class="AFFieldText"
                  id="mainIdyear"

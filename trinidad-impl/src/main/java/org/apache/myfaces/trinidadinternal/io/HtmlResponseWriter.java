@@ -418,13 +418,15 @@ public class HtmlResponseWriter extends ResponseWriter
       return;
     }
 
+    String stringValue = value.toString();
+
     if (isAttribute)
     {
-      HTMLEscapes.writeAttribute(_out, _buffer, value.toString());
+      HTMLEscapes.writeAttribute(_out, _buffer, stringValue);
     }
     else
     {
-      HTMLEscapes.writeText(_out, _buffer, value.toString());
+      HTMLEscapes.writeText(_out, _buffer, stringValue);
     }
   }
 
