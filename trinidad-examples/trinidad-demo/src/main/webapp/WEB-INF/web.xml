@@ -81,17 +81,6 @@
     <param-value>true</param-value>
   </context-param>
   
-  <!-- Trinidad also supports an optimized strategy for caching some
-   view state at an application level, which significantly improves
-   scalability.  However, it makes it harder to develop (updates to
-   pages will not be noticed until the server is restarted), and in
-   some rare cases cannot be used for some pages (see Trinidad
-   documentation for more information) -->
-  <context-param>
-    <param-name>org.apache.myfaces.trinidad.USE_APPLICATION_VIEW_CACHE</param-name>
-    <param-value>false</param-value>
-  </context-param>
-  
 
   <!-- Temporarily disable partial state saving default until we make it work with Trinidad -->
   <context-param>

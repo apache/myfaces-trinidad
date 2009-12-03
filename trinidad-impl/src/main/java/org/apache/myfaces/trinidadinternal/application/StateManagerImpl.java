@@ -18,10 +18,12 @@
  */
 package org.apache.myfaces.trinidadinternal.application;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -37,26 +39,20 @@ import javax.faces.context.FacesContext;
 import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
 import javax.faces.render.ResponseStateManager;
-
-import org.apache.myfaces.trinidad.component.UIXComponentBase;
-import org.apache.myfaces.trinidad.context.RequestContext;
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-import org.apache.myfaces.trinidad.util.ExternalContextUtils;
-import org.apache.myfaces.trinidadinternal.util.LRUCache;
-import org.apache.myfaces.trinidadinternal.util.SubKeyMap;
-import org.apache.myfaces.trinidadinternal.util.TokenCache;
-
-
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectOutputStream;
-
 import javax.faces.view.StateManagementStrategy;
 import javax.faces.view.ViewDeclarationLanguage;
 
 import org.apache.myfaces.trinidad.bean.util.StateUtils;
+import org.apache.myfaces.trinidad.component.UIXComponentBase;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.context.Window;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.util.ExternalContextUtils;
 import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
 import org.apache.myfaces.trinidadinternal.context.TrinidadPhaseListener;
+import org.apache.myfaces.trinidadinternal.util.SubKeyMap;
+import org.apache.myfaces.trinidadinternal.util.TokenCache;
+
 
 /**
  * StateManager that handles a hybrid client/server strategy:  a
@@ -91,9 +87,6 @@ import org.apache.myfaces.trinidadinternal.context.TrinidadPhaseListener;
  */
 public class StateManagerImpl extends StateManagerWrapper
 {
-  static public final String USE_APPLICATION_VIEW_CACHE_INIT_PARAM =
-    "org.apache.myfaces.trinidad.USE_APPLICATION_VIEW_CACHE";
-
   static public final String CACHE_VIEW_ROOT_INIT_PARAM =
     "org.apache.myfaces.trinidad.CACHE_VIEW_ROOT";
 
@@ -290,41 +283,11 @@ public class StateManagerImpl extends StateManagerWrapper
       return view;
 
     UIViewRoot root = context.getViewRoot();
-    boolean dontSave = false;
-
-    // See if we're going to use the application view cache for
-    // this request
-    Map<String, PageState> applicationViewCache = null;
-    Map<String, PageState> perSessionApplicationViewCache = null;
-    if (_useApplicationViewCache(context))
-    {
-      // OK, we are: so find the application cache and
-      // the per-session mirror
-      applicationViewCache = _getApplicationViewCache(context);
-      perSessionApplicationViewCache =
-        _getPerSessionApplicationViewCache(context);
-
-      synchronized (applicationViewCache)
-      {
-        // If we've already got a copy of the state stored, then
-        // we just need to make sure it's mirrored on the session
-        PageState applicationState = applicationViewCache.get(root.getViewId());
-        if (applicationState != null)
-        {
-          // Note that we've got no work to do...
-          dontSave = true;
-          perSessionApplicationViewCache.put(root.getViewId(),
-                                             applicationState);
-        }
-      }
-    }
 
     _removeTransientComponents(root);
 
-    Object structure = (dontSave || !_needStructure(context))
-                         ? null
-                         : new Structure(root);
-    Object state = dontSave ? null : root.processSaveState(context);
+    Object structure = !_needStructure(context) ? null : new Structure(root);
+    Object state = root.processSaveState(context);
 
     if (_saveAsToken(context))
     {
@@ -332,94 +295,71 @@ public class StateManagerImpl extends StateManagerWrapper
       ExternalContext extContext = context.getExternalContext();
 
 
-      if (applicationViewCache == null)
+      TokenCache cache = _getViewCache(context);
+      assert(cache != null);
+
+      Map<String, Object> sessionMap = extContext.getSessionMap();
+
+      RequestContext trinContext = RequestContext.getCurrentInstance();
+      
+      // get view cache key with "." separator suffix to separate the SubKeyMap keys
+      String subkey = _getViewCacheKey(extContext, trinContext, _SUBKEY_SEPARATOR);
+      
+      Map<String, PageState> stateMap = new SubKeyMap<PageState>(sessionMap, subkey);
+
+      // Sadly, we can't save just a SerializedView, because we should
+      // save a serialized object, and SerializedView is a *non*-static
+      // inner class of StateManager
+      PageState pageState = new PageState(
+          context,
+          structure,
+          state,
+          // Save the view root into the page state as a transient
+          // if this feature has not been disabled
+          _useViewRootCache(context) ? root : null);
+
+      // clear out all of the previous PageStates' UIViewRoots and add this page
+      // state as an active page state.  This is necessary to avoid UIViewRoots
+      // laying around if the user navigates off of a page using a GET
+      synchronized(extContext.getSession(true))
       {
-        assert(!dontSave);
-        TokenCache cache = _getViewCache(context);
-        assert(cache != null);
+        // get the per-window key for the active page state
+        String activePageStateKey = _getActivePageStateKey(extContext, trinContext);
+        PageState activePageState = (PageState)sessionMap.get(activePageStateKey);
 
-        Map<String, Object> sessionMap = extContext.getSessionMap();
+        if (activePageState != null)
+          activePageState.clearViewRootState();
 
-        RequestContext trinContext = RequestContext.getCurrentInstance();
-        
-        // get view cache key with "." separator suffix to separate the SubKeyMap keys
-        String subkey = _getViewCacheKey(extContext, trinContext, _SUBKEY_SEPARATOR);
-        
-        Map<String, PageState> stateMap = new SubKeyMap<PageState>(sessionMap, subkey);
-
-        // Sadly, we can't save just a SerializedView, because we should
-        // save a serialized object, and SerializedView is a *non*-static
-        // inner class of StateManager
-        PageState pageState = new PageState(
-            context,
-            structure,
-            state,
-            // Save the view root into the page state as a transient
-            // if this feature has not been disabled
-            _useViewRootCache(context) ? root : null);
-
-        // clear out all of the previous PageStates' UIViewRoots and add this page
-        // state as an active page state.  This is necessary to avoid UIViewRoots
-        // laying around if the user navigates off of a page using a GET
-        synchronized(extContext.getSession(true))
-        {
-          // get the per-window key for the active page state
-          String activePageStateKey = _getActivePageStateKey(extContext, trinContext);
-          PageState activePageState = (PageState)sessionMap.get(activePageStateKey);
-
-          if (activePageState != null)
-            activePageState.clearViewRootState();
-
-          sessionMap.put(activePageStateKey, pageState);
-        }
-        
-        String requestToken = _getRequestTokenForResponse(context);
-        // If we have a cached token that we want to reuse,
-        // and that token hasn't disappeared from the cache already
-        // (unlikely, but not impossible), use the stateMap directly
-        // without asking the cache for a new token
-        if ((requestToken != null) && cache.isAvailable(requestToken))
-        {
-          // NOTE: under *really* high pressure, the cache might
-          // have been emptied between the isAvailable() call and
-          // this put().  This seems sufficiently implausible to
-          // be worth punting on
-          stateMap.put(requestToken, pageState);
-          token = requestToken;
-          // NOTE 2: we have not pinned this reused state to any old state
-          // This is OK for current uses of pinning and state reuse,
-          // as pinning stays constant within a window, and we're not
-          // erasing pinning at all.
-        }
-        else
-        {
-          // See if we should pin this new state to any old state
-          String pinnedToken = (String)extContext.getRequestMap().get(_PINNED_STATE_TOKEN_KEY);
-          token = cache.addNewEntry(pageState,
-                                    stateMap,
-                                    pinnedToken);
-        }
+        sessionMap.put(activePageStateKey, pageState);
       }
-      // If we got the "applicationViewCache", we're using it.
+      
+      String requestToken = _getRequestTokenForResponse(context);
+      // If we have a cached token that we want to reuse,
+      // and that token hasn't disappeared from the cache already
+      // (unlikely, but not impossible), use the stateMap directly
+      // without asking the cache for a new token
+      if ((requestToken != null) && cache.isAvailable(requestToken))
+      {
+        // NOTE: under *really* high pressure, the cache might
+        // have been emptied between the isAvailable() call and
+        // this put().  This seems sufficiently implausible to
+        // be worth punting on
+        stateMap.put(requestToken, pageState);
+        token = requestToken;
+        // NOTE 2: we have not pinned this reused state to any old state
+        // This is OK for current uses of pinning and state reuse,
+        // as pinning stays constant within a window, and we're not
+        // erasing pinning at all.
+      }
       else
       {
-        // use null viewRoot since this state is shared across users:
-        PageState applicationState = new PageState(context, structure, state, null);
-        
-        // If we need to, stash the state off in our cache
-        if (!dontSave)
-        {
-          synchronized (applicationViewCache)
-          {
-            applicationViewCache.put(root.getViewId(),
-                                     applicationState);
-            perSessionApplicationViewCache.put(root.getViewId(),
-                                               applicationState);
-          }
-        }
-
-        token = _APPLICATION_CACHE_TOKEN;
+        // See if we should pin this new state to any old state
+        String pinnedToken = (String)extContext.getRequestMap().get(_PINNED_STATE_TOKEN_KEY);
+        token = cache.addNewEntry(pageState,
+                                  stateMap,
+                                  pinnedToken);
       }
+      
 
       assert(token != null);
 
@@ -432,7 +372,6 @@ public class StateManagerImpl extends StateManagerWrapper
     }
     else
     {
-      assert(!dontSave);
       view = new SerializedView(structure, state);
     }
 
@@ -563,7 +502,6 @@ public class StateManagerImpl extends StateManagerWrapper
     {
       final Object structure;
       final Object state;
-      boolean recalculateLocale = false;
   
       ResponseStateManager rsm = _getResponseStateManager(context, renderKitId);
       if (_saveAsToken(context))
@@ -578,64 +516,30 @@ public class StateManagerImpl extends StateManagerWrapper
         assert(token instanceof String);
         _LOG.finer("Restoring saved view state for token {0}", token);
   
-        PageState viewState;
-  
-        // Load from the application cache
-        if (_APPLICATION_CACHE_TOKEN.equals(token))
-        {
-          Map<String, PageState> cache = _getApplicationViewCache(context);
-          Map<String, PageState> perSessionCache =
-            _getPerSessionApplicationViewCache(context);
-  
-          // Synchronize on the application-level cache.
-          // =-=AEW This may produce excessive contention
-          synchronized (cache)
-          {
-            // Look first in the per-session cache
-            viewState = perSessionCache.get(viewId);
-            if (viewState == null)
-            {
-              // Nope, it's not there.  Look in the application cache
-              viewState = cache.get(viewId);
-              // And if we find it there, then push it back into
-              // the per-session cache (it may have expired)
-              if (viewState != null)
-                perSessionCache.put(viewId, viewState);
-            }
-            
-            // If the view was found in the application cache then we
-            // know it would be unsafe to use its locale for this session.
-            // Same conclusion, however, even if found in the per-session 
-            // cache, since the latter is just a mirror of the former.
-            recalculateLocale = true;
-          }
-        }
-        else
-        {
-          // get view cache key with "." separator suffix to separate the SubKeyMap keys
-          String subkey = _getViewCacheKey(extContext,
-                                           RequestContext.getCurrentInstance(),
-                                           _SUBKEY_SEPARATOR);
-          
-          Map<String, PageState> stateMap = new SubKeyMap<PageState>(
-                           extContext.getSessionMap(),
-                           subkey);
-          viewState = stateMap.get(token);
-  
-          if (viewState != null)
-            _updateRequestTokenForResponse(context, (String) token);
-  
-          // Make sure that if the view state is present, the cache still
-          // has the token, and vice versa
-  
-          // NOTE: it's very important that we call through to the
-          // token cache here, not just inside the assert.  If we don't,
-          // then we don't actually access the token, so it doesn't
-          // get bumped up to the front in the LRU Cache!
-          boolean isAvailable =
-            _getViewCache(context).isAvailable((String) token);
-          assert ((viewState != null) == isAvailable);
-        }
+
+        // get view cache key with "." separator suffix to separate the SubKeyMap keys
+        String subkey = _getViewCacheKey(extContext,
+                                         RequestContext.getCurrentInstance(),
+                                         _SUBKEY_SEPARATOR);
+        
+        Map<String, PageState> stateMap = new SubKeyMap<PageState>(
+                         extContext.getSessionMap(),
+                         subkey);
+        PageState viewState = stateMap.get(token);
+
+        if (viewState != null)
+          _updateRequestTokenForResponse(context, (String) token);
+
+        // Make sure that if the view state is present, the cache still
+        // has the token, and vice versa
+
+        // NOTE: it's very important that we call through to the
+        // token cache here, not just inside the assert.  If we don't,
+        // then we don't actually access the token, so it doesn't
+        // get bumped up to the front in the LRU Cache!
+        boolean isAvailable =
+          _getViewCache(context).isAvailable((String) token);
+        assert ((viewState != null) == isAvailable);
   
         if (viewState == null)
         {
@@ -691,13 +595,7 @@ public class StateManagerImpl extends StateManagerWrapper
           ((Structure) structure).createComponent();
   
           if (state != null)
-            root.processRestoreState(context, state);
-          
-          if (recalculateLocale)
-          {
-            // Ensure that locale gets re-calculated when next fetched.
-            root.setLocale((Locale) null);
-          }
+            root.processRestoreState(context, state);          
   
           _LOG.finer("Restored state for view \"{0}\"", viewId);
           return root;
@@ -902,97 +800,7 @@ public class StateManagerImpl extends StateManagerWrapper
 
     return _DEFAULT_CACHE_SIZE;
   }
-
-  //
-  // @todo Map is a bad structure
-  // @todo a static size is bad
-  //
-  @SuppressWarnings("unchecked")
-  static private Map<String, PageState> _getApplicationViewCache(FacesContext context)
-  {
-    synchronized (_APPLICATION_VIEW_CACHE_LOCK)
-    {
-      Map<String, Object> appMap = context.getExternalContext().getApplicationMap();
-      Map<String, PageState> cache = (Map<String, PageState>)appMap.get(_APPLICATION_VIEW_CACHE_KEY);
-      if (cache == null)
-      {
-        cache = new HashMap<String, PageState>(128);
-        appMap.put(_APPLICATION_VIEW_CACHE_KEY, cache);
-      }
-
-      return cache;
-    }
-  }
   
-  @SuppressWarnings("unchecked")
-  static private Map<String, PageState> _getPerSessionApplicationViewCache(FacesContext context)
-  {
-    ExternalContext external = context.getExternalContext();
-    Object session = external.getSession(true);
-    assert(session != null);
-
-    Map<String, PageState> cache;
-    // Synchronize on the session object to ensure that
-    // we don't ever create two different caches
-    synchronized (session)
-    {
-      Map<String, Object> sessionMap = external.getSessionMap();
-      cache = (Map<String, PageState>) sessionMap.get(_APPLICATION_VIEW_CACHE_KEY);
-      if (cache == null)
-      {
-        cache = _createPerSessionApplicationViewCache();
-        sessionMap.put(_APPLICATION_VIEW_CACHE_KEY, cache);
-      }
-    }
-
-    return cache;
-  }
-
-  //
-  // For the per-session mirror of the application view cache,
-  // use an LRU LinkedHashMap to store the latest 16 pages.
-  //
-  static private Map<String, PageState> _createPerSessionApplicationViewCache()
-  {
-    return new LRUCache<String, PageState>(_MAX_PER_SESSION_APPLICATION_SIZE);
-  }
-
-  static private final int _MAX_PER_SESSION_APPLICATION_SIZE = 16;
-
-  //
-  // Use the application view cache if and only if:
-  // (1) We're saving state tokens on the client
-  // (2) This is *not* a postback request
-  // (3) The feature has been explicitly enabled
-  //
-  private boolean _useApplicationViewCache(FacesContext context)
-  {
-    if (_useApplicationViewCache == Boolean.FALSE)
-      return false;
-
-    if (_saveAsToken(context) &&
-        // Note: do not use TrinidadPhaseListener, as that
-        // will return "true" even after navigation has occured,
-        // but the Application View Cache is still fine.
-        //!TrinidadPhaseListener.isPostback(context)
-        !RequestContext.getCurrentInstance().isPostback())
-    {
-      if (_useApplicationViewCache == null)
-      {
-        String s = context.getExternalContext().getInitParameter(
-                                USE_APPLICATION_VIEW_CACHE_INIT_PARAM);
-        _useApplicationViewCache =
-          "true".equalsIgnoreCase(s) ? Boolean.TRUE : Boolean.FALSE;
-      }
-      if (Boolean.TRUE.equals(_useApplicationViewCache))
-      {
-         _LOG.severe("USE_APPLICATION_VIEW_CACHE_UNSUPPORTED");        
-      }
-      return _useApplicationViewCache.booleanValue();
-    }
-
-    return false;
-  }
 
   private boolean _useViewRootCache(FacesContext context)
   {
@@ -1267,21 +1075,15 @@ public class StateManagerImpl extends StateManagerWrapper
 
   private final StateManager _delegate;
   private       Boolean      _useViewRootCache;
-  private       Boolean      _useApplicationViewCache;
   private       Boolean      _structureGeneratedByTemplate;
 
   private static final Character _SUBKEY_SEPARATOR = new Character('.');
   
   private static final int _DEFAULT_CACHE_SIZE = 15;
-
-  private static final Object _APPLICATION_VIEW_CACHE_LOCK = new Object();
   
   // base key used to identify the view cache.  The window name, if any, is appended to this
   private static final String _VIEW_CACHE_KEY =
     "org.apache.myfaces.trinidadinternal.application.VIEW_CACHE";
-
-  private static final String _APPLICATION_VIEW_CACHE_KEY =
-    "org.apache.myfaces.trinidadinternal.application.APPLICATION_VIEW_CACHE";
 
   private static final String _CACHED_SERIALIZED_VIEW =
     "org.apache.myfaces.trinidadinternal.application.CachedSerializedView";
@@ -1298,8 +1100,6 @@ public class StateManagerImpl extends StateManagerWrapper
   // key for saving the PageState for the last accessed view in this Session
   private static final String _ACTIVE_PAGE_STATE_SESSION_KEY =
               "org.apache.myfaces.trinidadinternal.application.StateManagerImp.ACTIVE_PAGE_STATE";
-
-  private static final String _APPLICATION_CACHE_TOKEN = "_a_";
 
   private static final long serialVersionUID = 1L;
 
