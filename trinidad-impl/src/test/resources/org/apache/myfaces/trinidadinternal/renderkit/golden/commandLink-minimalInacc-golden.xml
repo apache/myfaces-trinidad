@@ -176,7 +176,7 @@
 
       <a
            class="OraLink"
-           onclick="return _chainMultiple(['test-onclick','submitForm(\'formId\',1,{source:\'mainId\'});return false;'],this,event,true);"
+           onclick="return _chain('test-onclick','submitForm(\'formId\',1,{source:\'mainId\'});return false;',this,event,true)"
            href="uri-attr:encoded-action-url:#"
            id="uri-attr:mainId"
            name="uri-attr:mainId"

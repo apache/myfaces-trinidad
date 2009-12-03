@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -48,42 +48,42 @@ public class HtmlCommandButtonRenderer extends Renderer
                           UIComponent component)
     throws IOException
   {
-    if (!component.isRendered()) 
+    if (!component.isRendered())
     {
       return;
     }
-    
+
     Map<String, Object> attrs = component.getAttributes();
     UICommand command = (UICommand) component;
     // Which button type (SUBMIT, RESET, or BUTTON) should we generate?
     String type = CoreRenderer.toString(attrs.get("type"));
-    if (type == null) 
+    if (type == null)
     {
       type = "submit";
     }
 
     ResponseWriter writer = context.getResponseWriter();
-   
+
     String label = CoreRenderer.toString(command.getValue());
-   
+
     String imageSrc = CoreRenderer.toResourceUri(context, attrs.get("image"));
     writer.startElement("input", component);
     String id = component.getClientId(context);
     writer.writeAttribute("id", id, "id");
     writer.writeAttribute("name", id, null);
     boolean isImage = (imageSrc != null);
-    if (isImage) 
+    if (isImage)
     {
       imageSrc = context.getExternalContext().encodeResourceURL(imageSrc);
       writer.writeAttribute("type", "image", "type");
       writer.writeURIAttribute("src", imageSrc, "image");
-    } 
-    else 
+    }
+    else
     {
       writer.writeAttribute("type", type.toLowerCase(), "type");
       writer.writeAttribute("value", label, "value");
     }
-    
+
     RenderingContext arc = RenderingContext.getCurrentInstance();
     String script;
     // If it's an image, we can't really go through the full-page submit
@@ -136,8 +136,8 @@ public class HtmlCommandButtonRenderer extends Renderer
   }
 
   private void _writeBooleanPassThruAttr(
-      ResponseWriter out, 
-      Map<String, Object> attrs, 
+      ResponseWriter out,
+      Map<String, Object> attrs,
       String key)
     throws IOException
   {
@@ -149,8 +149,8 @@ public class HtmlCommandButtonRenderer extends Renderer
   }
 
   private void _writePassThruAttrs(
-      ResponseWriter out, 
-      Map<String, Object> attrs, 
+      ResponseWriter out,
+      Map<String, Object> attrs,
       String[] keys)
     throws IOException
   {

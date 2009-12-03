@@ -21,6 +21,7 @@ package org.apache.myfaces.trinidad.render;
 
 import java.io.IOException;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -28,11 +29,9 @@ import java.util.List;
 
 import javax.faces.application.ResourceHandler;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIParameter;
 import javax.faces.component.UIViewRoot;
-import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorContext;
-import javax.faces.component.behavior.ClientBehaviorHint;
-import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
 
@@ -777,155 +776,38 @@ public class CoreRenderer extends Renderer
   //
 
   /**
-   * Renders a non-submission client event handler (onfocus for example) including any associated
-   * client behaviors for the event.
-   *
-   * @param facesContext The faces context
+   * Get a collection of all the parameters that are children of the current component as
+   * client behavior parameters.
    * @param component The component
-   * @param disabled true if the component is disabled, stops the processing of client behaviors
-   * @param eventName The event, without the "on*" prefix, to render
-   * @param eventHandlerScript Script to be executed after the behaviors. May be null
-   * @param eventAttributeName the event attribute name. Null if it should not be rendered. Example
-   * value: onclick
-   * @param userHandlerScript user event handler to be executed before the event handler script and
-   * any client behavior scripts. May be null.
-   * @param params Any parameters that should be sent by behaviors that submit
-   * @throws IOException If a rendering exception occurs
+   * @return Collection of parameters (will be non-null)
    */
-  protected void renderClientEventHandler(
-    FacesContext                                facesContext,
-    UIComponent                                 component,
-    boolean                                     disabled,
-    String                                      eventName,
-    String                                      eventAttributeName,
-    Collection<ClientBehaviorContext.Parameter> params,
-    String                                      userHandlerScript,
-    String                                      eventHandlerScript
-    ) throws IOException
+  public static Collection<ClientBehaviorContext.Parameter> getBehaviorParameters(
+    UIComponent component)
   {
-    List<ClientBehavior> behaviors = null;
-    ClientBehaviorContext behaviorContext = null;
+    int childCount = component.getChildCount();
+    if (childCount > 0)
+    {
+      List<ClientBehaviorContext.Parameter> list = null;
+      for (UIComponent child : component.getChildren())
+      {
+        if (!(child instanceof UIParameter)) { continue; }
 
-    if (!disabled && component instanceof ClientBehaviorHolder)
-    {
-      behaviors = ((ClientBehaviorHolder)component).getClientBehaviors().get(eventName);
-      if (behaviors != null && !behaviors.isEmpty())
-      {
-        behaviorContext = ClientBehaviorContext.createClientBehaviorContext(
-          facesContext, component, eventName, component.getClientId(facesContext), params);
-      }
-    }
-    if (params == null)
-    {
-      params = Collections.emptyList();
-    }
-
-    boolean hasHandler = eventHandlerScript != null && eventHandlerScript.length() > 0;
-    boolean hasUserHandler = userHandlerScript != null && userHandlerScript.length() > 0;
-    String script = null;
-
-    if (hasHandler && behaviorContext == null && !hasUserHandler)
-    {
-      script = eventHandlerScript;
-    }
-    else if (hasUserHandler && behaviorContext == null && !hasHandler)
-    {
-      script = userHandlerScript;
-    }
-    else if (!hasUserHandler && !hasHandler && behaviorContext != null && behaviors.size() == 1)
-    {
-      ClientBehavior behavior = behaviors.get(0);
-      script = behavior.getScript(behaviorContext);
-      if ("click".equals(eventName) && _isSubmittingBehavior(behavior))
-      {
-        // prevent the default click action if submitting
-        script += ";return false;";
-      }
-    }
-    else
-    {
-      // There are multiple scripts, we will need to chain the methods.
-      int length = behaviors.size();
-      if (hasHandler) { ++length; }
-      if (hasUserHandler) { ++length; }
-      String[] scripts = new String[length];
-      int index = 0;
-      boolean submitting = false;
-      if (hasUserHandler)
-      {
-        scripts[0] = userHandlerScript;
-        index = 1;
-      }
-      for (int size = behaviors.size() + index; index < size; ++index)
-      {
-        ClientBehavior behavior = behaviors.get(index);
-        scripts[index] = behavior.getScript(behaviorContext);
-        submitting |= _isSubmittingBehavior(behavior);
-      }
-      if (hasHandler)
-      {
-        scripts[index] = eventHandlerScript;
+        if (list == null)
+        {
+          // leave plenty of room to hold the parameters
+          list = new ArrayList<ClientBehaviorContext.Parameter>(childCount);
+        }
+        UIParameter param = (UIParameter) child;
+        list.add(new ClientBehaviorContext.Parameter(param.getName(), param.getValue()));
       }
 
-      script = RenderUtils.getChainedJS(true, scripts);
-      if (submitting && "click".equals(eventName))
+      if (list != null)
       {
-        // prevent the default click action if submitting
-        script += ";return false;";
+        return list;
       }
     }
 
-    if (script != null)
-    {
-      facesContext.getResponseWriter().writeAttribute(eventAttributeName, script, null);
-    }
-  }
-
-  protected void encodeParameters(
-    Collection<ClientBehaviorContext.Parameter> params,
-    StringBuilder                               builder
-    ) throws IOException
-  {
-    boolean first = true;
-    for (ClientBehaviorContext.Parameter param : params)
-    {
-      if (first)
-      {
-        first = false;
-      }
-      else
-      {
-        builder.append(',');
-      }
-      _encodeJsParameter(builder, param.getName(), param.getValue());
-    }
-  }
-
-  private boolean _isSubmittingBehavior(
-    ClientBehavior behavior)
-  {
-    return behavior.getHints().contains(ClientBehaviorHint.SUBMITTING);
-  }
-
-  private void _encodeJsParameter(
-    StringBuilder out,
-    String        name,
-    Object        value)
-  {
-    out.append('\'');
-    RenderUtils.escapeJS(out, name, true);
-    out.append("\':");
-
-    if (value == null)
-    {
-      out.append("null");
-    }
-    else
-    {
-      out.append('\'');
-      RenderUtils.escapeJS(out, value.toString(), true);
-      out.append('\'');
-    }
+    return Collections.<ClientBehaviorContext.Parameter>emptyList();
   }
 
   protected void renderEncodedActionURI(

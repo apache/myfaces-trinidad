@@ -1266,7 +1266,7 @@
 
       <span
            id="mainId"
-           onclick="return _chainMultiple(['test-onclick','_onCPSel(\'mainId\',\'_cfbs(event)\'); return false'],this,event,true);"
+           onclick="return _chain('test-onclick','_onCPSel(\'mainId\',\'_cfbs(event)\'); return false',this,event,true)"
           >
         
         <table

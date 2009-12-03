@@ -13,7 +13,7 @@
 
       <input
            class="af_resetButton"
-           onclick="return _chainMultiple(['test-onclick','resetForm(\'formId\');return false;'],this,null,true);"
+           onclick="return _chain('test-onclick','resetForm(\'formId\');return false;',this,null,true)"
            type="reset"
            value="ButtonText"
            id="uri-attr:mainId"

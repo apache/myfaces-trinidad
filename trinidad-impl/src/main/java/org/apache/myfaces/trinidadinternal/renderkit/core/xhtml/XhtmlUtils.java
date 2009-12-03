@@ -20,13 +20,19 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.ClientBehavior;
+import javax.faces.component.behavior.ClientBehaviorContext;
+import javax.faces.component.behavior.ClientBehaviorHint;
+import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
@@ -37,7 +43,6 @@ import org.apache.myfaces.trinidad.component.UIXSwitcher;
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-import org.apache.myfaces.trinidad.render.RenderUtils;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.Scriptlet;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.XhtmlScriptletFactory;
@@ -68,7 +73,6 @@ public class XhtmlUtils
       return component;
     }
   }
-
 
   /**
    * Returns true if the agent has enough support for Trinidad
@@ -106,7 +110,6 @@ public class XhtmlUtils
     return compID.toString();
   }
 
-
   /**
    * Registers a scriptlet.
    */
@@ -136,7 +139,6 @@ public class XhtmlUtils
       }
     }
   }
-
 
   /**
    * Write out a script element importing a library.
@@ -203,16 +205,146 @@ public class XhtmlUtils
 
   /**
    * Return the chained JavaScript
-   * @deprecated use method in RenderUtils instead
    */
-  @Deprecated
   public static String getChainedJS(
     String evh1,
     String evh2,
     boolean shortCircuit
     )
   {
-    return RenderUtils.getChainedJS(shortCircuit, evh1, evh2);
+    //
+    // don't chain if one of the Strings is null or empty
+    //
+    if (evh1 == null)
+      return evh2;
+
+    if (evh2 == null)
+      return evh1;
+
+    int evh1Length = evh1.length();
+
+    if (evh1Length == 0)
+      return evh2;
+
+    int evh2Length = evh2.length();
+
+    if (evh2Length == 0)
+      return evh1;
+
+    //
+    // Chain the results together
+    //
+
+    // allocate enough room for the constants plus double the length
+    // of the possible-escaped strings
+    //
+    StringBuilder outBuilder = new StringBuilder(15 +
+                                              evh1Length * 2 +
+                                              3 +
+                                              evh2Length * 2 +
+                                              18);
+
+    outBuilder.append("return _chain('");
+    _escapeSingleQuotes(outBuilder, evh1);
+    outBuilder.append("','");
+    _escapeSingleQuotes(outBuilder, evh2);
+
+    RenderingContext arc = RenderingContext.getCurrentInstance();
+    boolean isDesktop = (arc.getAgent().getType().equals(Agent.TYPE_DESKTOP));
+
+    if (isDesktop)
+    {
+      if ( shortCircuit )
+        outBuilder.append("',this,event,true)");
+      else
+        outBuilder.append("',this,event)");
+    }
+    else
+    {
+      // Some mobile browsers do not support DOM Event object.
+      // If event is passed, the script crushes before the function gains
+      // control.
+      if ( shortCircuit )
+        outBuilder.append("',this,null,true)");
+      else
+        outBuilder.append("',this,null)");
+    }
+
+    return outBuilder.toString();
+  }
+
+  /**
+   * Return the chained JavaScript
+   */
+  public static String getChainedJS(
+    boolean   shortCircuit,
+    String... scripts
+    )
+  {
+    if (scripts.length == 2)
+    {
+      // Use the more efficient code for two scripts
+      return getChainedJS(scripts[0], scripts[1], shortCircuit);
+    }
+
+    if (scripts.length == 0)
+    {
+      return null;
+    }
+
+    if (scripts.length == 1)
+    {
+      return scripts[1];
+    }
+
+    StringBuilder builder = new StringBuilder(100);
+    builder.append("return _chainMultiple([");
+    int firstNonNullScript = -1;
+    int numScripts = 0;
+
+    for (int i = 0, size = scripts.length; i < size; ++i)
+    {
+      String script = scripts[i];
+      if (script == null) { continue; }
+      script = script.trim();
+      if (script.length() == 0) { continue; }
+      ++numScripts;
+
+      if (firstNonNullScript == -1)
+      {
+        builder.append('\'');
+        firstNonNullScript = i;
+      }
+      else
+      {
+        builder.append(",'");
+      }
+      escapeJS(builder, script, true);
+      builder.append('\'');
+    }
+    if (numScripts == 0) { return null; }
+    if (numScripts == 1) { return scripts[firstNonNullScript]; }
+
+    RenderingContext rc = RenderingContext.getCurrentInstance();
+    if (rc.getAgent().getType().equals(Agent.TYPE_DESKTOP))
+    {
+      if (shortCircuit)
+        builder.append("],this,event,true);");
+      else
+        builder.append("],this,event);");
+    }
+    else
+    {
+      // Some mobile browsers do not support DOM Event object.
+      // If event is passed, the script crushes before the function gains
+      // control.
+      if (shortCircuit)
+        builder.append("],this,null,true);");
+      else
+        builder.append("],this,null);");
+    }
+
+    return builder.toString();
   }
 
   /**
@@ -220,14 +352,12 @@ public class XhtmlUtils
    * quotes with just a String for input.  If a String in and a String out is
    * all that is required, this version is more efficient if the String
    * does not need to be escaped.
-   * @deprecated use method in RenderUtils instead
    */
-  @Deprecated
   public static String escapeJS(
     String inString
     )
   {
-    return RenderUtils.escapeJS(inString);
+    return escapeJS(inString, false /* inQuotes */);
   }
 
   /**
@@ -235,51 +365,59 @@ public class XhtmlUtils
    * quotes with just a String for input.  If a String in and a String out is
    * all that is required, this version is more efficient if the String
    * does not need to be escaped.
-   * @deprecated use method in RenderUtils instead
    */
-  @Deprecated
   public static String escapeJS(
     String  inString,
     boolean inQuotes
     )
   {
-    return RenderUtils.escapeJS(inString, inQuotes);
+    int charCount = inString.length();
+
+    StringBuilder outBuilder = new StringBuilder(charCount * 2);
+
+    escapeJS(outBuilder, inString, inQuotes);
+
+    // since we only add characters, if the character count is different, we
+    // will have a different output string, otherwise, reuse the input string,
+    // as it is unchanged
+    if (charCount != outBuilder.length())
+    {
+      return outBuilder.toString();
+    }
+    else
+    {
+      return inString;
+    }
   }
 
   /**
    * Handle escaping '/', and single quotes, plus escaping text inside of
    * quotes.
-   * @deprecated use method in RenderUtils instead
    */
-  @Deprecated
   public static void escapeJS(
     StringBuilder outBuilder,
     String       inString
     )
   {
-    RenderUtils.escapeJS(outBuilder, inString);
+    escapeJS(outBuilder, inString, false /* inQuotes */);
   }
 
   /**
    * Handle escaping '/', and single quotes, plus escaping text inside of
    * quotes.
-   * @deprecated use method in RenderUtils instead
    */
-  @Deprecated
   public static void escapeJS(
     StringBuilder outBuilder,
     String       inString,
     boolean      inQuotes)
   {
-    RenderUtils.escapeJS(outBuilder, inString, inQuotes);
+    escapeJS(outBuilder, inString, inQuotes, 1 /* escapeCount */);
   }
 
   /**
    * Handle escaping '/', and single quotes, plus escaping text inside of
    * quotes.
-   * @deprecated use method in RenderUtils instead
    */
-  @Deprecated
   public static void escapeJS(
     StringBuilder outBuilder,
     String       inString,
@@ -287,9 +425,162 @@ public class XhtmlUtils
     int          escapeCount
     )
   {
-    RenderUtils.escapeJS(outBuilder, inString, inQuotes, escapeCount);
+    int leadSlashCount = (int)Math.pow(2, escapeCount) - 2;
+    int charCount = inString.length();
+
+    char    prevChar  = '\u0000';
+
+    //
+    // loop through the string escaping the single quotes at the \'s as
+    // necessary
+    //
+    for (int i = 0; i < charCount; i++)
+    {
+      char currChar = inString.charAt(i);
+
+      if (currChar == '\'')
+      {
+        if (!(inQuotes && (prevChar == '\\')))
+        {
+          // only toggle whetehr we are in quotes if the quote isn't escaped
+          inQuotes = !inQuotes;
+        }
+
+        // handle double-escaping case
+        // eg. "\'" + escapeJS(builder,"a'b",true,2) + "\'" -> "\'a\\\'b\'"
+        for (int j=0; j < leadSlashCount; j++)
+        {
+          outBuilder.append('\\');
+        }
+
+        // always escape quotes
+        outBuilder.append('\\');
+
+        // output the current character
+        outBuilder.append(currChar);
+      }
+      else
+      {
+        if (inQuotes)
+        {
+          if (currChar > 255)
+          {
+            outBuilder.append("\\u");
+            _appendHexString(outBuilder, currChar, 4);
+          }
+          else
+          {
+            if ((currChar > 31) &&
+                (currChar < 128))
+            {
+              if (currChar == '\\')
+              {
+                // escape all \'s in strings
+                outBuilder.append('\\');
+              }
+
+              // output the current character
+              outBuilder.append(currChar);
+            }
+            else
+            {
+              outBuilder.append("\\x");
+              _appendHexString(outBuilder, currChar, 2);
+            }
+          }
+        }
+        else
+        {
+          // Double up backslashes (see bug 1676002)
+          if (currChar == '\\')
+            outBuilder.append('\\');
+
+          // output the current character
+          outBuilder.append(currChar);
+        }
+      }
+
+      // keep track of the previous character to determine whether
+      // single quotes are escaped
+      prevChar = currChar;
+    }
   }
 
+  private static void _appendHexString(
+    StringBuilder builder,
+    int          number,
+    int          minDigits
+    )
+  {
+    String hexString = Integer.toHexString(number);
+
+    int hexLength = hexString.length();
+
+    int zeroPadding = minDigits - hexLength;
+
+    if (zeroPadding > 0)
+    {
+      builder.append('0');
+
+      while (zeroPadding > 1)
+      {
+        builder.append('0');
+        zeroPadding--;
+      }
+    }
+    else
+    {
+      if (zeroPadding < 0)
+      {
+        throw new IllegalArgumentException();
+      }
+    }
+
+    builder.append(hexString);
+  }
+
+  private static void _escapeSingleQuotes(
+    StringBuilder outBuilder,
+    String       inString
+    )
+  {
+    int     charCount = inString.length();
+    char    prevChar  = '\u0000';
+    boolean inQuotes  = false;
+
+    //
+    // loop through the string escaping the single quotes at the \'s as
+    // necessary
+    //
+    for (int i = 0; i < charCount; i++)
+    {
+      char currChar = inString.charAt(i);
+
+      if (currChar == '\'')
+      {
+        if (!(inQuotes && (prevChar == '\\')))
+        {
+          // only toggle whetehr we are in quotes if the quote isn't escaped
+          inQuotes = !inQuotes;
+        }
+
+        // always escape quotes
+        outBuilder.append('\\');
+      }
+      else if ((currChar == '\\') && inQuotes)
+      {
+        // escape all \'s in strings
+        outBuilder.append('\\');
+      }
+
+      // output the current character
+      outBuilder.append(currChar);
+
+      // keep track of the previous character to determine whether
+      // single quotes are escaped
+      prevChar = currChar;
+    }
+  }
   public static String getJSIdentifier(String clientId)
   {
     if (clientId == null)
@@ -354,6 +645,117 @@ public class XhtmlUtils
   }
 
 
+  /**
+   * Renders a non-submission client event handler (onfocus for example) including any associated
+   * client behaviors for the event.
+   *
+   * @param facesContext The faces context
+   * @param component The component
+   * @param disabled true if the component is disabled, stops the processing of client behaviors
+   * @param eventName The event, without the "on*" prefix, to render
+   * @param eventHandlerScript Script to be executed after the behaviors. May be null
+   * @param eventAttributeName the event attribute name. Null if it should not be rendered. Example
+   * value: onclick
+   * @param userHandlerScript user event handler to be executed before the event handler script and
+   * any client behavior scripts. May be null.
+   * @param params Any parameters that should be sent by behaviors that submit
+   * @throws IOException If a rendering exception occurs
+   */
+  public static void renderClientEventHandler(
+    FacesContext                                facesContext,
+    UIComponent                                 component,
+    boolean                                     disabled,
+    String                                      eventName,
+    String                                      eventAttributeName,
+    Collection<ClientBehaviorContext.Parameter> params,
+    String                                      userHandlerScript,
+    String                                      eventHandlerScript
+    ) throws IOException
+  {
+    List<ClientBehavior> behaviors = null;
+    ClientBehaviorContext behaviorContext = null;
+
+    if (!disabled && component instanceof ClientBehaviorHolder)
+    {
+      behaviors = ((ClientBehaviorHolder)component).getClientBehaviors().get(eventName);
+      if (behaviors != null && !behaviors.isEmpty())
+      {
+        behaviorContext = ClientBehaviorContext.createClientBehaviorContext(
+          facesContext, component, eventName, component.getClientId(facesContext), params);
+      }
+    }
+    if (params == null)
+    {
+      params = Collections.emptyList();
+    }
+
+    boolean hasHandler = eventHandlerScript != null && eventHandlerScript.length() > 0;
+    boolean hasUserHandler = userHandlerScript != null && userHandlerScript.length() > 0;
+    String script = null;
+
+    if (hasHandler && behaviorContext == null && !hasUserHandler)
+    {
+      script = eventHandlerScript;
+    }
+    else if (hasUserHandler && behaviorContext == null && !hasHandler)
+    {
+      script = userHandlerScript;
+    }
+    else if (!hasUserHandler && !hasHandler && behaviorContext != null && behaviors.size() == 1)
+    {
+      ClientBehavior behavior = behaviors.get(0);
+      script = behavior.getScript(behaviorContext);
+      if ("click".equals(eventName) && _isSubmittingBehavior(behavior))
+      {
+        // prevent the default click action if submitting
+        script += ";return false;";
+      }
+    }
+    else
+    {
+      // There are multiple scripts, we will need to chain the methods.
+      int length = behaviors.size();
+      if (hasHandler) { ++length; }
+      if (hasUserHandler) { ++length; }
+      String[] scripts = new String[length];
+      int index = 0;
+      boolean submitting = false;
+      if (hasUserHandler)
+      {
+        scripts[0] = userHandlerScript;
+        index = 1;
+      }
+      for (int size = behaviors.size() + index; index < size; ++index)
+      {
+        ClientBehavior behavior = behaviors.get(index);
+        scripts[index] = behavior.getScript(behaviorContext);
+        submitting |= _isSubmittingBehavior(behavior);
+      }
+      if (hasHandler)
+      {
+        scripts[index] = eventHandlerScript;
+      }
+
+      script = getChainedJS(true, scripts);
+      if (submitting && "click".equals(eventName))
+      {
+        // prevent the default click action if submitting
+        script += ";return false;";
+      }
+    }
+
+    if (script != null)
+    {
+      facesContext.getResponseWriter().writeAttribute(eventAttributeName, script, null);
+    }
+  }
+
+  private static boolean _isSubmittingBehavior(
+    ClientBehavior behavior)
+  {
+    return behavior.getHints().contains(ClientBehaviorHint.SUBMITTING);
+  }
+
   /** HashMap mapping names to their scriptlets */
   private static Map<Object, Scriptlet> _sScriptletTable =
     Collections.synchronizedMap(new HashMap<Object, Scriptlet>(37));
@@ -378,5 +780,4 @@ public class XhtmlUtils
   }
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(XhtmlUtils.class);
-
 }

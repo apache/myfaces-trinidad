@@ -222,7 +222,7 @@
               
             </img>
             <a
-                 onclick="return _chainMultiple(['test-onclick','TrPage._autoSubmit(\'formId\',\'mainId\',event,0,{part:\'b\'});return false;'],this,event,true);"
+                 onclick="return _chain('test-onclick','TrPage._autoSubmit(\'formId\',\'mainId\',event,0,{part:\'b\'});return false;',this,event,true)"
                  href="uri-attr:#"
                 >
               
@@ -2499,7 +2499,7 @@
               
             </img>
             <a
-                 onclick="return _chainMultiple(['test-onclick','TrPage._autoSubmit(\'formId\',\'mainId\',event,0,{part:\'b\'});return false;'],this,event,true);"
+                 onclick="return _chain('test-onclick','TrPage._autoSubmit(\'formId\',\'mainId\',event,0,{part:\'b\'});return false;',this,event,true)"
                  href="uri-attr:#"
                 >
               
@@ -2892,7 +2892,7 @@
           
         </img>
         <a
-             onclick="return _chainMultiple(['test-onclick','TrPage._autoSubmit(\'formId\',\'mainId\',event,0,{part:\'b\'});return false;'],this,event,true);"
+             onclick="return _chain('test-onclick','TrPage._autoSubmit(\'formId\',\'mainId\',event,0,{part:\'b\'});return false;',this,event,true)"
              href="uri-attr:#"
             >
           

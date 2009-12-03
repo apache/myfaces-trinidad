@@ -127,7 +127,7 @@
 
       <input
            class="af_goButton"
-           onclick="return _chainMultiple(['test-onclick','document.location=\'encoded-action-url:http://www.oracle.com\''],this,null,true);"
+           onclick="return _chain('test-onclick','document.location=\'encoded-action-url:http://www.oracle.com\'',this,null,true)"
            type="button"
            value="ButtonText"
            id="uri-attr:mainId"

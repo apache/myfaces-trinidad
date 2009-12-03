@@ -183,7 +183,7 @@
 
   <body
        id="mainId"
-       onload="return _chainMultiple(['_checkLoadNoPPR()','test-onload'],this,null);"
+       onload="return _chain('_checkLoadNoPPR()','test-onload',this,null)"
       >
     
     <a
