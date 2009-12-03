@@ -1260,6 +1260,16 @@ public abstract class UIXCollection extends UIXComponentBase
   }
 
   /**
+   * Check if a range of rows is locally available starting from current position
+   * @param rowCount number of rows in the range
+   * @return true if range of rows is locally available
+   */
+  public boolean areRowsLocallyAvailable(int rowCount)
+  {
+    return getCollectionModel().areRowsLocallyAvailable(rowCount);
+  }
+
+  /**
    * Check if a range of rows is locally available starting from a row index
    * @param startIndex staring index for the range  
    * @param rowCount number of rows in the range

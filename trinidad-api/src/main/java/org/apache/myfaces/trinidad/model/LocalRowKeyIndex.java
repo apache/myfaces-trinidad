@@ -13,14 +13,14 @@ public interface LocalRowKeyIndex
   /**
    * Given a row index, check if a row is locally available
    * @param rowIndex index of row to check 
-   * @return true if row is locally available
+   * @return <code>true</code> if row is locally available <code>flase</code> otherwise
    */
   public boolean isRowLocallyAvailable(int rowIndex);
 
   /**
    * Given a row key, check if a row is locally available
    * @param rowKey row key for the row to check 
-   * @return true if row is locally available
+   * @return <code>true</code> if row is locally available <code>flase</code> otherwise
    */
   public boolean isRowLocallyAvailable(Object rowKey);
 
@@ -28,7 +28,7 @@ public interface LocalRowKeyIndex
    * Check if a range of rows is locally available starting from a row index
    * @param startIndex staring index for the range  
    * @param rowCount number of rows in the range
-   * @return true if range of rows is locally available
+   * @return <code>true</code> if range of rows is locally available <code>flase</code> otherwise
    */
   public boolean areRowsLocallyAvailable(int startIndex, int rowCount);
 
@@ -36,17 +36,25 @@ public interface LocalRowKeyIndex
    * Check if a range of rows is locally available starting from a row key
    * @param startRowKey staring row key for the range  
    * @param rowCount number of rows in the range
-   * @return true if range of rows is locally available
+   * @return <code>true</code> if range of rows is locally available <code>flase</code> otherwise
    */
   public boolean areRowsLocallyAvailable(Object startRowKey, int rowCount);
   
   /**
+   * Check if a range of rows is locally available starting from the current row
+   * @param rowCount number of rows in the range
+   * @return <code>true</code> if range of rows is locally available <code>flase</code> otherwise
+   */
+  public boolean areRowsLocallyAvailable(int rowCount);
+  
+  /**
    * Convenient API to return a row count estimate.  This method can be optimized 
    * to avoid a data fetch which may be required to return an exact row count.
-   * This method can return -1 or an upper bound for the row count if determining
+   * <p>
+   * This method can return -1 or a row count estimate if determining
    * exact row count requires a data fetch.  When dealing with estimated row counts,
    * the model user needs to gracefully handle the case where isRowAvailable
-   * returns false for a row index or a row key.
+   * returns <code>false</code> for a row index or a row key.
    * @return estimated row count
    */
   public int getEstimatedRowCount();
