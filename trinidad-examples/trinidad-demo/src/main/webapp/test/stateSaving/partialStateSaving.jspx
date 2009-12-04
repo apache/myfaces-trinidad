@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- Copyright (c) 2007, 2009, Oracle and/or its affiliates. All rights reserved. -->
+<!--
+PageMetaData:
+name: Basic Partial State Saving Test
+categories: stateSaving
+tags: showDetail
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html" xmlns:tr="http://myfaces.apache.org/trinidad"
+          version="1.2">
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <tr:document id="doc" title="Basic Partial State Saving Test">
+      <tr:form>
+        <tr:panelGroupLayout layout="scroll" id="pgl1">
+          <tr:spacer height="20" id="s2"/>
+          <h:panelGrid columns="4" border="1" cellspacing="0" cellpadding="5" id="pg2">
+            <tr:outputFormatted value="&lt;b>Test Number&lt;/b>" id="of5"/>
+            <tr:outputFormatted value="&lt;b>Test Description&lt;/b>" id="of6"/>
+            <tr:outputFormatted value="&lt;b>Test Steps&lt;/b>" id="of2s"/>
+            <tr:outputFormatted value="&lt;b>Correct Behavior&lt;/b>" id="of3"/>
+            <tr:outputText value="1" id="ot9"/>
+            <tr:outputText value="show that state saving is working" id="ot10"/>
+            <tr:panelList id="pl3">
+              <tr:goLink destination="setupStateSaving.jspx" text="set up for state saving test"
+                         id="gl1"/>
+              <tr:outputText value="open the showDetail" id="ot11"/>
+              <tr:outputText value="hit the submit button." id="ot12"/>
+            </tr:panelList>
+            <tr:panelList id="pl2">
+              <tr:outputText value="when the page rerenders the showDetail should be open, not closed."
+                             id="ot7"/>
+            </tr:panelList>
+          </h:panelGrid>
+          <tr:spacer height="10" id="s1"/>
+          <tr:showDetail id="sd1">
+            <tr:commandButton text="submit" id="cb1" partialSubmit="false"/>
+          </tr:showDetail>
+        </tr:panelGroupLayout>
+      </tr:form>
+    </tr:document>
+  </f:view>
+</jsp:root>

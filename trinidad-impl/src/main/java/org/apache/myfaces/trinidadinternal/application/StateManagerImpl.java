@@ -138,38 +138,33 @@ public class StateManagerImpl extends StateManagerWrapper
   {
     assert(context != null);
     
-    if(isSavingStateInClient(context))
+    // if the root is transient don't state save
+    UIViewRoot viewRoot = context.getViewRoot();
+    
+    if (viewRoot.isTransient()) 
     {
-      // if the root is transient don't state save
-      UIViewRoot viewRoot = context.getViewRoot();
-      
-      if (viewRoot.isTransient()) 
-      {
-          return null;
-      }
-      
-      String viewId = context.getViewRoot().getViewId();
-      ViewDeclarationLanguage vdl =  context.getApplication().getViewHandler().
-                                                      getViewDeclarationLanguage(context, viewId);
-      StateManagementStrategy sms = null;
-      
-      if (vdl != null) 
-      {
-        sms = vdl.getStateManagementStrategy(context, viewId);
-      }
-      
-      if (sms != null) 
-      {
-        return sms.saveView(context);
-      }
-      else
-      {
-        SerializedView view = _saveSerializedView(context);
-        return new Object[]{view.getStructure(), view.getState()};
-      }
+        return null;
     }
     
-    return super.saveView(context);
+    String viewId = context.getViewRoot().getViewId();
+    ViewDeclarationLanguage vdl =  context.getApplication().getViewHandler().
+                                                    getViewDeclarationLanguage(context, viewId);
+    StateManagementStrategy sms = null;
+    
+    if (vdl != null) 
+    {
+      sms = vdl.getStateManagementStrategy(context, viewId);
+    }
+    
+    if (sms != null) 
+    {
+      return sms.saveView(context);
+    }
+    else
+    {
+      SerializedView view = _saveSerializedView(context);
+      return new Object[]{view.getStructure(), view.getState()};
+    }
   }
 
   @Override @SuppressWarnings("deprecation")
@@ -177,12 +172,7 @@ public class StateManagerImpl extends StateManagerWrapper
   {
     assert(context != null);
     
-    if(isSavingStateInClient(context))
-    {
-      return _saveSerializedView(context);
-    }
-    
-    return _delegate.saveSerializedView(context);
+    return _saveSerializedView(context);
   }
 
   /**
@@ -278,6 +268,7 @@ public class StateManagerImpl extends StateManagerWrapper
   @SuppressWarnings({"unchecked", "deprecation"})
   private SerializedView _saveSerializedView(FacesContext context)
   {
+    // see if a serialized view has been saved on the request
     SerializedView view = _getCachedSerializedView(context);
     if (view != null)
       return view;
@@ -302,7 +293,7 @@ public class StateManagerImpl extends StateManagerWrapper
 
       RequestContext trinContext = RequestContext.getCurrentInstance();
       
-      // get view cache key with "." separator suffix to separate the SubKeyMap keys
+      // get per window view cache key with "." separator suffix to separate the SubKeyMap keys
       String subkey = _getViewCacheKey(extContext, trinContext, _SUBKEY_SEPARATOR);
       
       Map<String, PageState> stateMap = new SubKeyMap<PageState>(sessionMap, subkey);
@@ -480,11 +471,7 @@ public class StateManagerImpl extends StateManagerWrapper
       TrinidadPhaseListener.markPostback(context);
       return launchView;
     }
-    
-    if (!isSavingStateInClient(context))
-      return _delegate.restoreView(context, viewId, renderKitId);
-    
-        
+          
     ViewDeclarationLanguage vdl = context.getApplication().getViewHandler().
                                                        getViewDeclarationLanguage(context, viewId);    
     StateManagementStrategy sms = null;
@@ -771,6 +758,15 @@ public class StateManagerImpl extends StateManagerWrapper
   private boolean _saveAsToken(FacesContext context)
   {
     ExternalContext external = context.getExternalContext();
+    Object stateSavingMethod =
+      external.getInitParameterMap().get(StateManager.STATE_SAVING_METHOD_PARAM_NAME);    
+    
+    if ((stateSavingMethod == null) ||
+        StateManager.STATE_SAVING_METHOD_SERVER.equalsIgnoreCase((String) stateSavingMethod))
+    {
+      return true;
+    }
+    
     Object clientMethod =
       external.getInitParameterMap().get(CLIENT_STATE_METHOD_PARAM_NAME);
     if ((clientMethod != null) &&
@@ -819,19 +815,9 @@ public class StateManagerImpl extends StateManagerWrapper
 
   private boolean _needStructure(FacesContext context)
   {
-    if (_structureGeneratedByTemplate == null)
-    {
-      // TODO: Partial State Saving
-      ExternalContext external = context.getExternalContext();
-      String restoreMode = external.getInitParameter(StateManager.PARTIAL_STATE_SAVING_PARAM_NAME);
-      
-      if (Boolean.valueOf(restoreMode))
-        _structureGeneratedByTemplate = Boolean.TRUE;
-      else
-        _structureGeneratedByTemplate = Boolean.FALSE;
-    }
-
-    return !_structureGeneratedByTemplate.booleanValue();
+    // TODO - partial state saving is handled by facelets in JSF 2.0, 
+    //        remove this method and anything that depends on it?
+    return true;
   }
 
   static private ResponseStateManager _getResponseStateManager(
@@ -1073,9 +1059,10 @@ public class StateManagerImpl extends StateManagerWrapper
     }    
   }
 
+  // TODO - we used to delegate to the RI when the stateManagement method was server,
+  // but we no longer do that, do we really need _delegate any more?
   private final StateManager _delegate;
   private       Boolean      _useViewRootCache;
-  private       Boolean      _structureGeneratedByTemplate;
 
   private static final Character _SUBKEY_SEPARATOR = new Character('.');
   
