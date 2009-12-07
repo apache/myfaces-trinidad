@@ -328,13 +328,22 @@ public abstract class CollectionModel extends DataModel
 
   /**
    * Check if a range of rows is locally available starting from current position.
-   * This implementation returns <code>false</code>
+   * This implementation checks for a valid current index and delegates to 
+   * <code>areRowsLocallyAvailable(startIndex, rowsToCheck)</code>
    * @param rowsToCheck number of rows to check
    * @return default implementation returns <code>false</code>
+   * @see <code>areRowsLocallyAvailable(startIndex, rowsToCheck)</code>
    */
   public boolean areRowsLocallyAvailable(int rowsToCheck)
   {
-    return false;
+    boolean available = false;    
+    int startIndex = getRowIndex();
+    
+    if (startIndex >= 0)
+    {
+      available = areRowsLocallyAvailable(startIndex, rowsToCheck);
+    }
+    return available;
   }
   
   /**
