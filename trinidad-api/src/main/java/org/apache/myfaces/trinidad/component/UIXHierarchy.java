@@ -27,6 +27,8 @@ import javax.faces.component.UIComponent;
 import org.apache.myfaces.trinidad.model.CollectionModel;
 import org.apache.myfaces.trinidad.model.LocalRowKeyIndex;
 import org.apache.myfaces.trinidad.model.ModelUtils;
+import org.apache.myfaces.trinidad.model.RowKeySet;
+import org.apache.myfaces.trinidad.model.TreeLocalRowKeyIndex;
 import org.apache.myfaces.trinidad.model.TreeModel;
 
 
@@ -35,7 +37,8 @@ import org.apache.myfaces.trinidad.model.TreeModel;
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/component/UIXHierarchy.java#0 $) $Date: 10-nov-2005.19:09:52 $
  */
-abstract public class UIXHierarchy extends UIXCollection implements CollectionComponent, LocalRowKeyIndex
+abstract public class UIXHierarchy extends UIXCollection implements CollectionComponent, LocalRowKeyIndex, 
+             TreeLocalRowKeyIndex
 {
   /**
    * Create a Page component with the given render-type
@@ -175,6 +178,93 @@ abstract public class UIXHierarchy extends UIXCollection implements CollectionCo
   {
     return getTreeModel().getAllAncestorContainerRowKeys(childRowKey);
   }
+
+  //
+  //  TreeLocalRowKeyIndex implementation
+  //
+
+  /**
+   * Indicates whether data for a child model (children of the current node) is 
+   * locally available. 
+   * @see TreeModel#isChildCollectionLocallyAvailable()
+   * @return true if child data is locally available
+   */
+  public boolean isChildCollectionLocallyAvailable()
+  {
+    return getTreeModel().isChildCollectionLocallyAvailable();
+  }
+
+  /**
+   * Indicates whether child data for the node with the given index is
+   * locally available.   
+   * @see TreeModel#isChildCollectionLocallyAvailable(int)
+   * @param index row index to check
+   * @return true if child data is available, false otherwise
+   */
+  public boolean isChildCollectionLocallyAvailable(int index)
+  {
+    return getTreeModel().isChildCollectionLocallyAvailable(index);
+  }
+
+  /**
+   * Indicates whether child data for the node with the given row key is
+   * locally available.   
+   * @see TreeModel#isChildCollectionLocallyAvailable(Object)
+   * @param rowKey row key to check
+   * @return true if child data is available, false otherwise
+   */
+  public boolean isChildCollectionLocallyAvailable(Object rowKey)
+  {
+    return getTreeModel().isChildCollectionLocallyAvailable(rowKey);
+  }
+
+  /**
+   * Check if a range of rows is locally available starting from a row index.  The range
+   * can include child nodes in any expanded nodes within the range.
+   * @param startIndex staring index for the range  
+   * @param rowCount number of rows in the range
+   * @param disclosedRowKeys set of expanded nodes which may fall within the range to check for
+   * availability
+   * @return <code>true</code> if range of rows is locally available <code>flase</code> otherwise
+   * @see TreeModel#areRowsLocallyAvailable(int, int, RowKeySet)
+   */
+  public boolean areRowsLocallyAvailable(int startIndex, int rowCount,
+                                         RowKeySet disclosedRowKeys)
+  {
+    return getTreeModel().areRowsLocallyAvailable(startIndex, rowCount, disclosedRowKeys);
+  }
+
+  /**
+   * Check if a range of rows is locally available starting from a row key.   The range
+   * can include child nodes in any expanded nodes within the range.
+   * @param startRowKey staring row key for the range  
+   * @param rowCount number of rows in the range
+   * @param disclosedRowKeys set of expanded nodes which may fall within the range to check for
+   * availability
+   * @return <code>true</code> if range of rows is locally available <code>flase</code> otherwise
+   * @see TreeModel#areRowsLocallyAvailable(Object, int, RowKeySet)
+   */
+  public boolean areRowsLocallyAvailable(Object startRowKey, int rowCount,
+                                         RowKeySet disclosedRowKeys)
+  {
+    return getTreeModel().areRowsLocallyAvailable(startRowKey, rowCount, disclosedRowKeys);
+  }
+
+  /**
+   * Check if a range of rows is locally available starting from current position.   The range
+   * can include child nodes  in any expanded nodes within the range.
+   * @param rowCount number of rows in the range
+   * @param disclosedRowKeys set of expanded nodes which may fall within the range to check for
+   * availability
+   * @return <code>true</code> if range of rows is locally available <code>flase</code> otherwise
+   * @see TreeModel#areRowsLocallyAvailable(int , RowKeySet)
+   */
+  public boolean areRowsLocallyAvailable(int rowCount,
+                                         RowKeySet disclosedRowKeys)
+  {
+    return getTreeModel().areRowsLocallyAvailable(rowCount, disclosedRowKeys);
+  }
+
 
   /**
    * Gets the TreeModel that this tree is displaying.
