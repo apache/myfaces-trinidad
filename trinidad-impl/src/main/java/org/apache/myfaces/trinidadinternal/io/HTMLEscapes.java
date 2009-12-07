@@ -89,7 +89,7 @@ public class HTMLEscapes
 
     final int end = start + length;
 
-    for (int i = 0; i < end; i++)
+    for (int i = start; i < end; i++)
     {
       final char ch = text[i];
 
@@ -170,7 +170,7 @@ public class HTMLEscapes
           if (ch == _UNICODE_LINE_BREAK)
             buffIndex = _addToBuffer(out, buff, buffIndex, "<br>");
           else if (ch == _UNICODE_HYPHENATION_POINT)
-            buffIndex = _addToBuffer(out, buff, buffIndex, "wbr>");
+            buffIndex = _addToBuffer(out, buff, buffIndex, "<wbr>");
           else
             buffIndex = _writeDecRef(out, buff, buffIndex, ch);
         }
