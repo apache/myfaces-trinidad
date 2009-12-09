@@ -46,6 +46,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.Base64InputStream;
 import org.apache.myfaces.trinidad.util.Base64OutputStream;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
+import org.apache.myfaces.trinidadinternal.application.StateManagerImpl;
 
 /**
  * ResponseStateManager implementation for the Core RenderKit.
@@ -53,6 +54,23 @@ import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
  */
 public class CoreResponseStateManager extends ResponseStateManager
 {
+
+  @Override
+  public Object getState(FacesContext context, String viewId) 
+  {
+    // TODO see doc in StateManagerImpl.restoreView 
+    // (search for StateManagerImpl.RESPONSE_STATE_MANAGER_STATE_KEY) to see doc
+    // about what's going on here
+    Object state = context.getExternalContext().getRequestMap().get(
+                                              StateManagerImpl.RESPONSE_STATE_MANAGER_STATE_KEY);
+    
+    if (state != null)
+      return state;
+    else 
+      return super.getState(context, viewId);
+  }
+  
+  
   /**
    * Name of the form field that encodes the UI state.
    */
