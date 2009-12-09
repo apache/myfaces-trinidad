@@ -423,6 +423,13 @@ some rare cases cannot be used for some pages.  See below for
 more information about this option. The default is false.
 </p>
 </subsection>
+<subsection name="org.apache.myfaces.trinidad.resource.DEBUG">
+<p>
+Setting this value to true helps on debugging the Trinidad resources,
+as it enables resource chaning and sets caching headers when the value
+is set to TRUE. However, in a production environment it should be false.
+</p>
+</subsection>
 <subsection name="org.apache.myfaces.trinidad.DEBUG_JAVASCRIPT">
 <p>
 Apache Trinidad by default obfuscates the Javascript it delivers
