@@ -48,6 +48,8 @@
 <resource key="INVALID_CAPABILITY_DATA_URL" dnt="false">URL-ul pentru datele de funcţionalitate {0} este nevalid</resource>
 <!-- CANNOT_FIND_SAVED_VIEW_STATE -->
 <resource key="CANNOT_FIND_SAVED_VIEW_STATE" dnt="false">Nu se poate găsi starea de vizualizare salvată pentru token-ul {0}</resource>
+<!-- USE_APPLICATION_VIEW_CACHE_UNSUPPORTED -->
+<resource key="USE_APPLICATION_VIEW_CACHE_UNSUPPORTED" dnt="false">USE_APPLICATION_VIEW_CACHE nu este acceptat şi nu trebuie utilizat, deoarece momentan nu funcţionează în majoritatea cazurilor.</resource>
 <!-- NO_STRUCTURE_ROOT_AVAILABLE -->
 <resource key="NO_STRUCTURE_ROOT_AVAILABLE" dnt="false">Nu este disponibilă nici o structură şi nici o rădăcină</resource>
 <!-- NO_STRUCTURE_AVAILABLE -->

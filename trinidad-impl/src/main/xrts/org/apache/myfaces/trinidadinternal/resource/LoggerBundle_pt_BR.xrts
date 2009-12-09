@@ -48,6 +48,8 @@
 <resource key="INVALID_CAPABILITY_DATA_URL" dnt="false">URL {0} de dados de capacidade inválido</resource>
 <!-- CANNOT_FIND_SAVED_VIEW_STATE -->
 <resource key="CANNOT_FIND_SAVED_VIEW_STATE" dnt="false">Não foi possível encontrar o estado da view salvo para o token {0}</resource>
+<!-- USE_APPLICATION_VIEW_CACHE_UNSUPPORTED -->
+<resource key="USE_APPLICATION_VIEW_CACHE_UNSUPPORTED" dnt="false">USE_APPLICATION_VIEW_CACHE não é suportado e não deve ser usado porque no momento não está funcionando na maioria dos casos.</resource>
 <!-- NO_STRUCTURE_ROOT_AVAILABLE -->
 <resource key="NO_STRUCTURE_ROOT_AVAILABLE" dnt="false">Nenhuma estrutura disponível e nenhuma raiz disponível</resource>
 <!-- NO_STRUCTURE_AVAILABLE -->
@@ -434,7 +436,7 @@
 <!-- INVALID_ROOT_ELEMENT -->
 <resource key="INVALID_ROOT_ELEMENT" dnt="false">Elemento-raiz inválido: {0} {1}</resource>
 <!-- UNEXPECTED -->
-<resource key="UNEXPECTED_BACKSLASH" dnt="false"> &apos;\&apos; inesperado.</resource>
+<resource key="UNEXPECTED_BACKSLASH" dnt="false">&apos;\&apos; inesperado.</resource>
 <!-- UNEXPECTED_CHARACTER -->
 <resource key="EXPECTED_PERIOD_OR_BACKSLASH" dnt="false">Caractere inesperado. Esperando &apos;.&apos; ou &apos;\&apos;</resource>
 <!-- UNEXPECTED_CHARACTER_EXPECTING -->

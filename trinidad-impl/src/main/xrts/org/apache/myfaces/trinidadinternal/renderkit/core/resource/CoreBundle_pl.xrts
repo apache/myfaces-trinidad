@@ -75,7 +75,7 @@
 <resource key="afr_compositeTreeTable.MENUITEM_COLLAPSE_ALL" dnt="false">Zwiń wszystkie</resource>
 <resource key="afr_compositeTreeTable.MENUITEM_GO_UP" dnt="false">Przejdź w górę</resource>
 <resource key="afr_compositeTreeTable.MENUITEM_SHOW_AS_TOP" dnt="false">Pokaż jako głównego poziomu</resource>
-<resource key="afr_compositeTreeTable.MENUITEM_GO_TO_TOP" dnt="false">Idź do głównego poziomu</resource>
+<resource key="afr_compositeTreeTable.MENUITEM_GO_TO_TOP" dnt="false">Przejdź do głównego poziomu</resource>
 <!-- The header on the Focus column of af:treeTable -->
 <resource key="af_treeTable.FOCUS_COLUMN_HEADER" dnt="false">Fokus</resource>
 <!-- resources for af:column -->

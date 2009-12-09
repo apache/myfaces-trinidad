@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+     
 -->
 <!DOCTYPE resources SYSTEM "rts.dtd">
 <resources xmlns="http://myfaces.apache.org/trinidad/rts" package="org.apache.myfaces.trinidad.resource">
@@ -304,4 +304,8 @@
 <resource key="COMPONENT_CHILDREN_SAVED_STATE_FAILED" dnt="false">Nepodarilo sa uložiť stav pre podradené objekty komponentu: {0}</resource>
 <!-- COMPONENT_TREE_SERIALIZATION_FAILED -->
 <resource key="COMPONENT_TREE_SERIALIZATION_FAILED" dnt="false">Nepodarilo sa serializovať stav stromovej štruktúry komponentov</resource>
+<!-- UNABLE_TO_SET_RENDER_PARAMETERS -->
+<resource key="UNABLE_TO_SET_RENDER_PARAMETERS" dnt="false">Nemožno nastaviť parametre vykreslenia portletu v dôsledku neúspešnej reflexie</resource>
+<!-- COMPARETO_TYPE_MISMATCH -->
+<resource key="COMPARETO_TYPE_MISMATCH" dnt="false">Typ pre \&quot;{0}\&quot; zabraňuje porovnaniu s \&quot;{1}\&quot;.</resource>
 </resources>

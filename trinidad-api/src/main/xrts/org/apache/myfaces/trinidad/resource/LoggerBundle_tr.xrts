@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+     
 -->
 <!DOCTYPE resources SYSTEM "rts.dtd">
 <resources xmlns="http://myfaces.apache.org/trinidad/rts" package="org.apache.myfaces.trinidad.resource">
@@ -304,4 +304,8 @@
 <resource key="COMPONENT_CHILDREN_SAVED_STATE_FAILED" dnt="false">{0} bileşeninin alt öğesi için durum kaydedilemedi</resource>
 <!-- COMPONENT_TREE_SERIALIZATION_FAILED -->
 <resource key="COMPONENT_TREE_SERIALIZATION_FAILED" dnt="false">Bileşen ağacı durumu sıralanamadı</resource>
+<!-- UNABLE_TO_SET_RENDER_PARAMETERS -->
+<resource key="UNABLE_TO_SET_RENDER_PARAMETERS" dnt="false">Yansıtma başarısız olduğundan portlet dönüştürme parametreleri ayarlanamıyor</resource>
+<!-- COMPARETO_TYPE_MISMATCH -->
+<resource key="COMPARETO_TYPE_MISMATCH" dnt="false">&quot;{0}&quot; öğesinin türü bunun &quot;{1}&quot; ile karşılaştırılmasını engelliyor.</resource>
 </resources>

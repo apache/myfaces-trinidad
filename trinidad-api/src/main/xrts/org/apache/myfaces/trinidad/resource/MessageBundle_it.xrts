@@ -245,7 +245,7 @@
 <!-- {0} the label that identifies the component             -->
 <!-- {1} value entered by the user                           -->
 <!-- {2} an example of the format the converter is expecting -->
-<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_BOTH" dnt="false">Data e ora non sono nel formato corretto</resource>
+<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_BOTH" dnt="false">Il formato di data e ora non è corretto.</resource>
 <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_BOTH_detail" dnt="false">Immettere data e ora nel formato di questo esempio: {2}</resource>
 <!-- {0} the label that identifies the component    -->
 <!-- {1} value entered by the user                  -->

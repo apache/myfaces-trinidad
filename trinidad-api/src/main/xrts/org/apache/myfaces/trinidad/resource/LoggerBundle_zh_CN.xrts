@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+     
 -->
 <!DOCTYPE resources SYSTEM "rts.dtd">
 <resources xmlns="http://myfaces.apache.org/trinidad/rts" package="org.apache.myfaces.trinidad.resource">
@@ -304,4 +304,8 @@
 <resource key="COMPONENT_CHILDREN_SAVED_STATE_FAILED" dnt="false">无法保存组件的子级的状态: {0}</resource>
 <!-- COMPONENT_TREE_SERIALIZATION_FAILED -->
 <resource key="COMPONENT_TREE_SERIALIZATION_FAILED" dnt="false">无法串行化组件树状态</resource>
+<!-- UNABLE_TO_SET_RENDER_PARAMETERS -->
+<resource key="UNABLE_TO_SET_RENDER_PARAMETERS" dnt="false">由于反射失败, 无法设置 portlet 呈现参数</resource>
+<!-- COMPARETO_TYPE_MISMATCH -->
+<resource key="COMPARETO_TYPE_MISMATCH" dnt="false">&quot;{0}&quot; 的类型使其无法与 &quot;{1}&quot; 进行比较。</resource>
 </resources>

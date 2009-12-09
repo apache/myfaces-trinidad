@@ -48,6 +48,8 @@
 <resource key="INVALID_CAPABILITY_DATA_URL" dnt="false">URL dei dati di capacità {0} non valido</resource>
 <!-- CANNOT_FIND_SAVED_VIEW_STATE -->
 <resource key="CANNOT_FIND_SAVED_VIEW_STATE" dnt="false">Impossibile trovare lo stato di visualizzazione salvato per il token {0}</resource>
+<!-- USE_APPLICATION_VIEW_CACHE_UNSUPPORTED -->
+<resource key="USE_APPLICATION_VIEW_CACHE_UNSUPPORTED" dnt="false">USE_APPLICATION_VIEW_CACHE non è supportato e non deve essere usato in quanto non funziona nella maggior parte dei casi.</resource>
 <!-- NO_STRUCTURE_ROOT_AVAILABLE -->
 <resource key="NO_STRUCTURE_ROOT_AVAILABLE" dnt="false">Nessuna struttura e radice disponibile</resource>
 <!-- NO_STRUCTURE_AVAILABLE -->

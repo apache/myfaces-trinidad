@@ -48,6 +48,8 @@
 <resource key="INVALID_CAPABILITY_DATA_URL" dnt="false">功能資料 url {0} 無效</resource>
 <!-- CANNOT_FIND_SAVED_VIEW_STATE -->
 <resource key="CANNOT_FIND_SAVED_VIEW_STATE" dnt="false">找不到記號 {0} 的已儲存檢視狀態</resource>
+<!-- USE_APPLICATION_VIEW_CACHE_UNSUPPORTED -->
+<resource key="USE_APPLICATION_VIEW_CACHE_UNSUPPORTED" dnt="false">不支援 USE_APPLICATION_VIEW_CACHE, 而且不應使用它, 因為它目前無法在大部分案例中運作.</resource>
 <!-- NO_STRUCTURE_ROOT_AVAILABLE -->
 <resource key="NO_STRUCTURE_ROOT_AVAILABLE" dnt="false">沒有可用的結構與根目錄</resource>
 <!-- NO_STRUCTURE_AVAILABLE -->
@@ -596,7 +598,7 @@
 <!-- COMPOENENTDEF_CANNOT_RUN_AS_STANDALONE -->
 <resource key="COMPOENENTDEF_CANNOT_RUN_AS_STANDALONE" dnt="false">componentDef 不可以獨立執行. 它必須包含在 JSF 元件樹狀結構中.</resource>
 <!-- COMPONENTDEF_MUST_BE_INCLUDED_AS_CHILD_OF -->
-<resource key="COMPONENTDEF_MUST_BE_INCLUDED_AS_CHILD_OF" dnt="false">componentDef 必須做為 &lt;tr:componentRef&gt; 的子項.</resource>
+<resource key="COMPONENTDEF_MUST_BE_INCLUDED_AS_CHILD_OF" dnt="false">componentDef 必須作為 &lt;tr:componentRef&gt; 的子項.</resource>
 <!-- COMPONENTDEF_NOT_SUPPORT_EL -->
 <resource key="COMPONENTDEF_NOT_SUPPORT_EL" dnt="false">tr:componentDef 不支援 &apos;var&apos; 上的 EL</resource>
 <!-- MUST_BE_SIMPLE_JSF_EL_EXPRESSION -->

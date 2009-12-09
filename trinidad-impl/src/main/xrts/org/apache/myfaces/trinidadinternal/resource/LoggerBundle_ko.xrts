@@ -48,6 +48,8 @@
 <resource key="INVALID_CAPABILITY_DATA_URL" dnt="false">성능 데이터 URL {0}이(가) 부적합합니다.</resource>
 <!-- CANNOT_FIND_SAVED_VIEW_STATE -->
 <resource key="CANNOT_FIND_SAVED_VIEW_STATE" dnt="false">{0} 토큰에 대해 저장된 뷰 상태를 찾을 수 없습니다.</resource>
+<!-- USE_APPLICATION_VIEW_CACHE_UNSUPPORTED -->
+<resource key="USE_APPLICATION_VIEW_CACHE_UNSUPPORTED" dnt="false">USE_APPLICATION_VIEW_CACHE는 지원되지 않으며 현재 대부분의 경우에 작동하지 않으므로 사용하면 안됩니다.</resource>
 <!-- NO_STRUCTURE_ROOT_AVAILABLE -->
 <resource key="NO_STRUCTURE_ROOT_AVAILABLE" dnt="false">사용 가능한 구조 및 사용 가능한 루트가 없습니다.</resource>
 <!-- NO_STRUCTURE_AVAILABLE -->

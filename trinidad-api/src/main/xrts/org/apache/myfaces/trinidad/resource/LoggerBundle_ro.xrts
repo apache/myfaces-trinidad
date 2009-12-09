@@ -16,7 +16,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-	   
+     
 -->
 <!DOCTYPE resources SYSTEM "rts.dtd">
 <resources xmlns="http://myfaces.apache.org/trinidad/rts" package="org.apache.myfaces.trinidad.resource">
@@ -304,4 +304,8 @@
 <resource key="COMPONENT_CHILDREN_SAVED_STATE_FAILED" dnt="false">Eşec la salvarea stării fiilor componentei: {0}</resource>
 <!-- COMPONENT_TREE_SERIALIZATION_FAILED -->
 <resource key="COMPONENT_TREE_SERIALIZATION_FAILED" dnt="false">Eşec la serializarea stării arborelui de componente</resource>
+<!-- UNABLE_TO_SET_RENDER_PARAMETERS -->
+<resource key="UNABLE_TO_SET_RENDER_PARAMETERS" dnt="false">Nu s-au putut seta parametrii de randare a portletului din cauza reflectării eşuate</resource>
+<!-- COMPARETO_TYPE_MISMATCH -->
+<resource key="COMPARETO_TYPE_MISMATCH" dnt="false">Tipul pentru &quot;{0}&quot; îl împiedică să fie comparat cu &quot;{1}&quot;.</resource>
 </resources>
