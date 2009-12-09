@@ -94,6 +94,12 @@
       <plugin>
         <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-jdev-plugin</artifactId>
+        <configuration>
+          <projectHasTests>true</projectHasTests>
+          <testSourceRoots>
+            <file>${project.basedir}/src/test</file>
+          </testSourceRoots>
+        </configuration>
       </plugin>
 
       <plugin>
