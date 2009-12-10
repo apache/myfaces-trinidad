@@ -67,16 +67,35 @@ public class XhtmlResponseWriter extends ResponseWriter
     return XHTML_CONTENT_TYPE;
   }
 
+
   @Override
   public void startDocument() throws IOException
   {
   }
 
-
   @Override
   public void endDocument() throws IOException
   {
     _out.flush();
+  }
+  
+  /**
+   * Writes out CDATA start.
+   * @throws IOException on any read/write error
+   */
+  public void startCDATA() throws IOException 
+  {
+    _closeStartIfNecessary();
+    _out.write("<![CDATA[");
+  }
+
+  /**
+   * Writes out an end CDATA element.
+   * @throws IOException on any read/write error
+   */
+  public void endCDATA() throws IOException 
+  {
+    _out.write("]]>");
   }
 
   @Override
@@ -464,4 +483,5 @@ public class XhtmlResponseWriter extends ResponseWriter
   private static final Class<?> _INTEGER_CLASS = Integer.class;
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(XhtmlResponseWriter.class);
+
 }

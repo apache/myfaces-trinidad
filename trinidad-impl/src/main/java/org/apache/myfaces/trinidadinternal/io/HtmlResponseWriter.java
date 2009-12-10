@@ -69,6 +69,26 @@ public class HtmlResponseWriter extends ResponseWriter
   {
   }
 
+  /**
+   * Writes out CDATA start.
+   * @throws IOException on any read/write error
+   */
+  public void startCDATA() throws IOException 
+  {
+    _closeStartIfNecessary();
+    _out.write("<![CDATA[");
+
+  }
+
+  /**
+   * Writes out an end CDATA element.
+   * @throws IOException on any read/write error
+   */
+  public void endCDATA() throws IOException 
+  {
+    _out.write("]]>");
+  }
+
 
   @Override
   public void endDocument() throws IOException
